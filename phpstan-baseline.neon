@@ -1171,46 +1171,6 @@ parameters:
 			path: src/PhpSpreadsheet/Chart/DataSeries.php
 
 		-
-			message: "#^Parameter \\#1 \\$color of method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\GridLines\\:\\:setGlowColor\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/GridLines.php
-
-		-
-			message: "#^Parameter \\#2 \\$alpha of method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\GridLines\\:\\:setGlowColor\\(\\) expects int, int\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/GridLines.php
-
-		-
-			message: "#^Parameter \\#3 \\$colorType of method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\GridLines\\:\\:setGlowColor\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/GridLines.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\GridLines\\:\\:\\$glowProperties has no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/GridLines.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\GridLines\\:\\:\\$lineProperties has no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/GridLines.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\GridLines\\:\\:\\$objectState has no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/GridLines.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\GridLines\\:\\:\\$shadowProperties has no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/GridLines.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\GridLines\\:\\:\\$softEdges has no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/GridLines.php
-
-		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Legend\\:\\:\\$layout \\(PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Layout\\) does not accept PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Layout\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Chart/Legend.php
@@ -4386,27 +4346,12 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
 
 		-
-			message: "#^Else branch is unreachable because previous condition is always true\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
-
-		-
 			message: "#^Parameter \\#1 \\$plotSeriesValues of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Chart\\:\\:writeBubbles\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\DataSeriesValues\\|null, PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\DataSeriesValues\\|false given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
 
 		-
 			message: "#^Parameter \\#1 \\$rawTextData of method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\XMLWriter\\:\\:writeRawData\\(\\) expects array\\<string\\>\\|string\\|null, int given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
-
-		-
-			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, array\\|int\\|string given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
-
-		-
-			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, array\\|int\\|string\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
 
@@ -4423,11 +4368,6 @@ parameters:
 		-
 			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, int given\\.$#"
 			count: 42
-			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
-
-		-
-			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, string\\|null given\\.$#"
-			count: 2
 			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
 
 		-
@@ -4448,11 +4388,6 @@ parameters:
 		-
 			message: "#^Parameter \\#9 \\$minorGridlines of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Chart\\:\\:writeValueAxis\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\GridLines, PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\GridLines\\|null given\\.$#"
 			count: 2
-			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
-
-		-
-			message: "#^Part \\$xAxis\\-\\>getShadowProperty\\(\\['color', 'type'\\]\\) \\(array\\|int\\|string\\|null\\) of encapsed string cannot be cast to string\\.$#"
-			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
 
 		-

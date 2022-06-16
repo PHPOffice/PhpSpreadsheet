@@ -100,6 +100,14 @@ class Chart
                                                 $XaxisLabel = $this->chartTitle($chartDetail->title->children($this->cNamespace));
                                             }
                                             $this->readEffects($chartDetail, $xAxis);
+                                            if (isset($chartDetail->spPr)) {
+                                                $sppr = $chartDetail->spPr->children($this->aNamespace);
+                                                if (isset($sppr->solidFill)) {
+                                                    $axisColorArray = $this->readColor($sppr->solidFill);
+                                                    $xAxis->setFillParameters($axisColorArray['value'], $axisColorArray['alpha'], $axisColorArray['type']);
+                                                }
+                                            }
+                                            $this->setAxisProperties($chartDetail, $xAxis);
 
                                             break;
                                         case 'dateAx':
@@ -144,18 +152,28 @@ class Chart
                                                 }
                                             }
                                             $this->readEffects($chartDetail, $whichAxis);
+                                            if ($whichAxis !== null && isset($chartDetail->spPr)) {
+                                                $sppr = $chartDetail->spPr->children($this->aNamespace);
+                                                if (isset($sppr->solidFill)) {
+                                                    $axisColorArray = $this->readColor($sppr->solidFill);
+                                                    $whichAxis->setFillParameters($axisColorArray['value'], $axisColorArray['alpha'], $axisColorArray['type']);
+                                                }
+                                            }
                                             if (isset($chartDetail->majorGridlines)) {
                                                 $majorGridlines = new GridLines();
                                                 if (isset($chartDetail->majorGridlines->spPr)) {
                                                     $this->readEffects($chartDetail->majorGridlines, $majorGridlines);
+                                                    $this->readLineStyle($chartDetail->majorGridlines, $majorGridlines);
                                                 }
                                             }
                                             if (isset($chartDetail->minorGridlines)) {
                                                 $minorGridlines = new GridLines();
                                                 if (isset($chartDetail->minorGridlines->spPr)) {
                                                     $this->readEffects($chartDetail->minorGridlines, $minorGridlines);
+                                                    $this->readLineStyle($chartDetail->minorGridlines, $minorGridlines);
                                                 }
                                             }
+                                            $this->setAxisProperties($chartDetail, $whichAxis);
 
                                             break;
                                         case 'barChart':
@@ -1070,5 +1088,115 @@ class Chart
         }
 
         return $result;
+    }
+
+    /**
+     * @param null|GridLines $chartObject may be extended to include other types
+     */
+    private function readLineStyle(SimpleXMLElement $chartDetail, $chartObject): void
+    {
+        if (!isset($chartObject, $chartDetail->spPr)) {
+            return;
+        }
+        $sppr = $chartDetail->spPr->children($this->aNamespace);
+
+        if (!isset($sppr->ln)) {
+            return;
+        }
+        $lineWidth = null;
+        /** @var string */
+        $lineWidthTemp = self::getAttribute($sppr->ln, 'w', 'string');
+        if (is_numeric($lineWidthTemp)) {
+            $lineWidth = Properties::xmlToPoints($lineWidthTemp);
+        }
+        /** @var string */
+        $compoundType = self::getAttribute($sppr->ln, 'cmpd', 'string');
+        /** @var string */
+        $dashType = self::getAttribute($sppr->ln->prstDash, 'val', 'string');
+        /** @var string */
+        $capType = self::getAttribute($sppr->ln, 'cap', 'string');
+        if (isset($sppr->ln->miter)) {
+            $joinType = Properties::LINE_STYLE_JOIN_MITER;
+        } elseif (isset($sppr->ln->bevel)) {
+            $joinType = Properties::LINE_STYLE_JOIN_BEVEL;
+        } else {
+            $joinType = '';
+        }
+        $headArrowType = '';
+        $headArrowSize = '';
+        $endArrowType = '';
+        $endArrowSize = '';
+        /** @var string */
+        $headArrowType = self::getAttribute($sppr->ln->headEnd, 'type', 'string');
+        /** @var string */
+        $headArrowWidth = self::getAttribute($sppr->ln->headEnd, 'w', 'string');
+        /** @var string */
+        $headArrowLength = self::getAttribute($sppr->ln->headEnd, 'len', 'string');
+        /** @var string */
+        $endArrowType = self::getAttribute($sppr->ln->tailEnd, 'type', 'string');
+        /** @var string */
+        $endArrowWidth = self::getAttribute($sppr->ln->tailEnd, 'w', 'string');
+        /** @var string */
+        $endArrowLength = self::getAttribute($sppr->ln->tailEnd, 'len', 'string');
+        $chartObject->setLineStyleProperties(
+            $lineWidth,
+            $compoundType,
+            $dashType,
+            $capType,
+            $joinType,
+            $headArrowType,
+            $headArrowSize,
+            $endArrowType,
+            $endArrowSize,
+            $headArrowWidth,
+            $headArrowLength,
+            $endArrowWidth,
+            $endArrowLength
+        );
+        $colorArray = $this->readColor($sppr->ln->solidFill);
+        $chartObject->setColorPropertiesArray($colorArray);
+    }
+
+    private function setAxisProperties(SimpleXMLElement $chartDetail, ?Axis $whichAxis): void
+    {
+        if (!isset($whichAxis)) {
+            return;
+        }
+        if (isset($chartDetail->crossBetween)) {
+            $whichAxis->setCrossBetween((string) self::getAttribute($chartDetail->crossBetween, 'val', 'string'));
+        }
+        if (isset($chartDetail->majorTickMark)) {
+            $whichAxis->setAxisOption('major_tick_mark', (string) self::getAttribute($chartDetail->majorTickMark, 'val', 'string'));
+        }
+        if (isset($chartDetail->minorTickMark)) {
+            $whichAxis->setAxisOption('minor_tick_mark', (string) self::getAttribute($chartDetail->minorTickMark, 'val', 'string'));
+        }
+        if (isset($chartDetail->tickLblPos)) {
+            $whichAxis->setAxisOption('axis_labels', (string) self::getAttribute($chartDetail->tickLblPos, 'val', 'string'));
+        }
+        if (isset($chartDetail->crosses)) {
+            $whichAxis->setAxisOption('horizontal_crosses', (string) self::getAttribute($chartDetail->crosses, 'val', 'string'));
+        }
+        if (isset($chartDetail->crossesAt)) {
+            $whichAxis->setAxisOption('horizontal_crosses_value', (string) self::getAttribute($chartDetail->crossesAt, 'val', 'string'));
+        }
+        if (isset($chartDetail->scaling->orientation)) {
+            $whichAxis->setAxisOption('orientation', (string) self::getAttribute($chartDetail->scaling->orientation, 'val', 'string'));
+        }
+        if (isset($chartDetail->scaling->max)) {
+            $whichAxis->setAxisOption('maximum', (string) self::getAttribute($chartDetail->scaling->max, 'val', 'string'));
+        }
+        if (isset($chartDetail->scaling->min)) {
+            $whichAxis->setAxisOption('minimum', (string) self::getAttribute($chartDetail->scaling->min, 'val', 'string'));
+        }
+        if (isset($chartDetail->scaling->min)) {
+            $whichAxis->setAxisOption('minimum', (string) self::getAttribute($chartDetail->scaling->min, 'val', 'string'));
+        }
+        if (isset($chartDetail->majorUnit)) {
+            $whichAxis->setAxisOption('major_unit', (string) self::getAttribute($chartDetail->majorUnit, 'val', 'string'));
+        }
+        if (isset($chartDetail->minorUnit)) {
+            $whichAxis->setAxisOption('minor_unit', (string) self::getAttribute($chartDetail->minorUnit, 'val', 'string'));
+        }
     }
 }
