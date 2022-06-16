@@ -414,7 +414,7 @@ class Xlsx extends BaseReader
         [$workbookBasename, $xmlNamespaceBase] = $this->getWorkbookBaseName();
         $drawingNS = self::REL_TO_DRAWING[$xmlNamespaceBase] ?? Namespaces::DRAWINGML;
         $chartNS = self::REL_TO_CHART[$xmlNamespaceBase] ?? Namespaces::CHART;
-        $wbRels = $this->loadZip("xl/_rels/${workbookBasename}.rels", Namespaces::RELATIONSHIPS);
+        $wbRels = $this->loadZip("xl/_rels/{$workbookBasename}.rels", Namespaces::RELATIONSHIPS);
         $theme = null;
         $this->styleReader = new Styles();
         foreach ($wbRels->Relationship as $relx) {
@@ -1849,11 +1849,6 @@ class Xlsx extends BaseReader
 
     private static function dirAdd($base, $add): string
     {
-        $add = "$add";
-        if (substr($add, 0, 4) === '/xl/') {
-            $add = substr($add, 4);
-        }
-
         return (string) preg_replace('~[^/]+/\.\./~', '', dirname($base) . "/$add");
     }
 
