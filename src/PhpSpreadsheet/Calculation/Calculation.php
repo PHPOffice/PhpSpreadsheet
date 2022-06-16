@@ -3088,7 +3088,7 @@ class Calculation
         }
 
         //    Test whether we have any language data for this language (any locale)
-        if (in_array($language, self::$validLocaleLanguages)) {
+        if (in_array($language, self::$validLocaleLanguages, true)) {
             //    initialise language/locale settings
             self::$localeFunctions = [];
             self::$localeArgumentSeparator = ',';

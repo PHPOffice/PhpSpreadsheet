@@ -90,7 +90,7 @@ class VLookup extends LookupBase
         foreach ($lookupArray as $rowKey => $rowData) {
             $bothNumeric = is_numeric($lookupValue) && is_numeric($rowData[$column]);
             $bothNotNumeric = !is_numeric($lookupValue) && !is_numeric($rowData[$column]);
-            $cellDataLower = StringHelper::strToLower($rowData[$column]);
+            $cellDataLower = StringHelper::strToLower((string) $rowData[$column]);
 
             // break if we have passed possible keys
             if (

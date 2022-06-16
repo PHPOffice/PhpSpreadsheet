@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Added
 
+- Added `removeComment()` method for Worksheet [PR #2875](https://github.com/PHPOffice/PhpSpreadsheet/pull/2875/files)
 - Add point size option for scatter charts [Issue #2298](https://github.com/PHPOffice/PhpSpreadsheet/issues/2298) [PR #2801](https://github.com/PHPOffice/PhpSpreadsheet/pull/2801)
 - Basic support for Xlsx reading/writing Chart Sheets [PR #2830](https://github.com/PHPOffice/PhpSpreadsheet/pull/2830)
 
@@ -18,12 +19,19 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Added Worksheet visibility in Ods Writer [PR #2850](https://github.com/PHPOffice/PhpSpreadsheet/pull/2850)
 - Allow Csv Reader to treat string as contents of file [Issue #1285](https://github.com/PHPOffice/PhpSpreadsheet/issues/1285) [PR #2792](https://github.com/PHPOffice/PhpSpreadsheet/pull/2792)
 - Allow Csv Reader to store null string rather than leave cell empty [Issue #2840](https://github.com/PHPOffice/PhpSpreadsheet/issues/2840) [PR #2842](https://github.com/PHPOffice/PhpSpreadsheet/pull/2842)
+- Provide new Worksheet methods to identify if a row or column is "empty", making allowance for different definitions of "empty":
+  - Treat rows/columns containing no cell records as empty (default)
+  - Treat cells containing a null value as empty
+  - Treat cells containing an empty string as empty
 
 ### Changed
 
+- Better enforcement of value modification to match specified datatype when using setValueExplicit() 
+- Relax validation of merge cells to allow merge for a single cell reference [Issue #2776](https://github.com/PHPOffice/PhpSpreadsheet/issues/2776)
 - Memory and speed improvements, particularly for the Cell Collection, and the Writers.
 
   See [the Discussion section on github](https://github.com/PHPOffice/PhpSpreadsheet/discussions/2821) for details of performance across versions
+- Improved performance for removing rows/columns from a worksheet
 
 ### Deprecated
 
@@ -41,7 +49,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Time interval formatting [Issue #2768](https://github.com/PHPOffice/PhpSpreadsheet/issues/2768) [PR #2772](https://github.com/PHPOffice/PhpSpreadsheet/pull/2772)
 - Copy from Xls(x) to Html/Pdf loses drawings [PR #2788](https://github.com/PHPOffice/PhpSpreadsheet/pull/2788)
 - Html Reader converting cell containing 0 to null string [Issue #2810](https://github.com/PHPOffice/PhpSpreadsheet/issues/2810) [PR #2813](https://github.com/PHPOffice/PhpSpreadsheet/pull/2813)
-- Many fixes for Charts, especially, but not limited to, Scatter, Bubble, and Surface charts. [Issue #2762](https://github.com/PHPOffice/PhpSpreadsheet/issues/2762) [Issue #2299](https://github.com/PHPOffice/PhpSpreadsheet/issues/2299) [Issue #2700](https://github.com/PHPOffice/PhpSpreadsheet/issues/2700) [Issue #2817](https://github.com/PHPOffice/PhpSpreadsheet/issues/2817) [Issue #2763](https://github.com/PHPOffice/PhpSpreadsheet/issues/2763) [PR #2828](https://github.com/PHPOffice/PhpSpreadsheet/pull/2828) [PR #2841](https://github.com/PHPOffice/PhpSpreadsheet/pull/2841) [PR #2846](https://github.com/PHPOffice/PhpSpreadsheet/pull/2846) [PR #2852](https://github.com/PHPOffice/PhpSpreadsheet/pull/2852)
+- Many fixes for Charts, especially, but not limited to, Scatter, Bubble, and Surface charts. [Issue #2762](https://github.com/PHPOffice/PhpSpreadsheet/issues/2762) [Issue #2299](https://github.com/PHPOffice/PhpSpreadsheet/issues/2299) [Issue #2700](https://github.com/PHPOffice/PhpSpreadsheet/issues/2700) [Issue #2817](https://github.com/PHPOffice/PhpSpreadsheet/issues/2817) [Issue #2763](https://github.com/PHPOffice/PhpSpreadsheet/issues/2763) [Issue #2219](https://github.com/PHPOffice/PhpSpreadsheet/issues/2219) [PR #2828](https://github.com/PHPOffice/PhpSpreadsheet/pull/2828) [PR #2841](https://github.com/PHPOffice/PhpSpreadsheet/pull/2841) [PR #2846](https://github.com/PHPOffice/PhpSpreadsheet/pull/2846) [PR #2852](https://github.com/PHPOffice/PhpSpreadsheet/pull/2852) [PR #2856](https://github.com/PHPOffice/PhpSpreadsheet/pull/2856) [PR #2865](https://github.com/PHPOffice/PhpSpreadsheet/pull/2865) [PR #2872](https://github.com/PHPOffice/PhpSpreadsheet/pull/2872) [PR #2879](https://github.com/PHPOffice/PhpSpreadsheet/pull/2879)
 
 ## 1.23.0 - 2022-04-24
 
