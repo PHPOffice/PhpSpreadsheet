@@ -29,7 +29,7 @@ class PopulateWorksheetBenchmark
     protected $spreadsheet;
 
     /**
-     * @var integer[]
+     * @var int[]
      */
     protected $sampleDataInteger;
 

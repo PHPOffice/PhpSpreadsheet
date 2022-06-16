@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fa9fa4814df8320d600551ca8ec11883",
+    "content-hash": "c99a93758c6c3e2acef67406f7ee2f2a",
     "packages": [
         {
             "name": "ezyang/htmlpurifier",
@@ -2303,10 +2303,6 @@
                 "MIT"
             ],
             "description": "PHPStan - PHP Static Analysis Tool",
-            "support": {
-                "issues": "https://github.com/phpstan/phpstan/issues",
-                "source": "https://github.com/phpstan/phpstan/tree/1.7.7"
-            },
             "funding": [
                 {
                     "url": "https://github.com/ondrejmirtes",
