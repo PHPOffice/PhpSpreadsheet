@@ -12,6 +12,10 @@ use PhpOffice\PhpSpreadsheet\Collection\Cells;
  */
 abstract class CellIterator implements Iterator
 {
+    public const TREAT_NULL_VALUE_AS_EMPTY_CELL = 1;
+
+    public const TREAT_EMPTY_STRING_AS_EMPTY_CELL = 2;
+
     /**
      * Worksheet to iterate.
      *
