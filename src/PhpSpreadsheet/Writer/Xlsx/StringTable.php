@@ -256,14 +256,19 @@ class StringTable extends WriterPart
                 $objWriter->endElement(); // solidFill
 
                 // Underscore Color
-                if ($element->getFont()->getUSchemeClr()) {
-                    $objWriter->startElement($prefix . 'uFill');
-                    $objWriter->startElement($prefix . 'solidFill');
-                    $objWriter->startElement($prefix . 'schemeClr');
-                    $objWriter->writeAttribute('val', $element->getFont()->getUSchemeClr());
-                    $objWriter->endElement(); // schemeClr
-                    $objWriter->endElement(); // solidFill
-                    $objWriter->endElement(); // uFill
+                $underlineColor = $element->getFont()->getUnderlineColor();
+                if ($underlineColor !== null) {
+                    $type = $underlineColor->getType();
+                    $value = $underlineColor->getValue();
+                    if (!empty($type) && !empty($value)) {
+                        $objWriter->startElement($prefix . 'uFill');
+                        $objWriter->startElement($prefix . 'solidFill');
+                        $objWriter->startElement($prefix . $type);
+                        $objWriter->writeAttribute('val', $value);
+                        $objWriter->endElement(); // schemeClr
+                        $objWriter->endElement(); // solidFill
+                        $objWriter->endElement(); // uFill
+                    }
                 }
 
                 // fontName

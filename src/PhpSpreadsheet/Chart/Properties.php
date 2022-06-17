@@ -10,15 +10,12 @@ namespace PhpOffice\PhpSpreadsheet\Chart;
  */
 abstract class Properties
 {
-    const
-        EXCEL_COLOR_TYPE_STANDARD = 'prstClr';
-    const EXCEL_COLOR_TYPE_SCHEME = 'schemeClr';
-    const EXCEL_COLOR_TYPE_ARGB = 'srgbClr';
-    const EXCEL_COLOR_TYPES = [
-        self::EXCEL_COLOR_TYPE_ARGB,
-        self::EXCEL_COLOR_TYPE_SCHEME,
-        self::EXCEL_COLOR_TYPE_STANDARD,
-    ];
+    /** @deprecated 1.24 use constant from ChartColor instead */
+    const EXCEL_COLOR_TYPE_STANDARD = ChartColor::EXCEL_COLOR_TYPE_STANDARD;
+    /** @deprecated 1.24 use constant from ChartColor instead */
+    const EXCEL_COLOR_TYPE_SCHEME = ChartColor::EXCEL_COLOR_TYPE_SCHEME;
+    /** @deprecated 1.24 use constant from ChartColor instead */
+    const EXCEL_COLOR_TYPE_ARGB = ChartColor::EXCEL_COLOR_TYPE_ARGB;
 
     const
         AXIS_LABELS_LOW = 'low';
@@ -123,15 +120,11 @@ abstract class Properties
     /** @var bool */
     protected $objectState = false; // used only for minor gridlines
 
-    /** @var array */
-    protected $glowProperties = [
-        'size' => null,
-        'color' => [
-            'type' => self::EXCEL_COLOR_TYPE_STANDARD,
-            'value' => 'black',
-            'alpha' => 40,
-        ],
-    ];
+    /** @var ?float */
+    protected $glowSize;
+
+    /** @var ChartColor */
+    protected $glowColor;
 
     /** @var array */
     protected $softEdges = [
@@ -140,6 +133,19 @@ abstract class Properties
 
     /** @var array */
     protected $shadowProperties = self::PRESETS_OPTIONS[0];
+
+    /** @var ChartColor */
+    protected $shadowColor;
+
+    public function __construct()
+    {
+        $this->lineColor = new ChartColor();
+        $this->glowColor = new ChartColor();
+        $this->shadowColor = new ChartColor();
+        $this->shadowColor->setType(ChartColor::EXCEL_COLOR_TYPE_STANDARD);
+        $this->shadowColor->setValue('black');
+        $this->shadowColor->setAlpha(40);
+    }
 
     /**
      * Get Object State.
@@ -193,19 +199,6 @@ abstract class Properties
         return ((float) $value) / self::PERCENTAGE_MULTIPLIER;
     }
 
-    public static function alphaToXml(int $alpha): string
-    {
-        return (string) (100 - $alpha) . '000';
-    }
-
-    /**
-     * @param float|int|string $alpha
-     */
-    public static function alphaFromXml($alpha): int
-    {
-        return 100 - ((int) $alpha / 1000);
-    }
-
     /**
      * @param null|float|int|string $alpha
      */
@@ -223,11 +216,11 @@ abstract class Properties
         0 => [
             'presets' => self::SHADOW_PRESETS_NOSHADOW,
             'effect' => null,
-            'color' => [
-                'type' => self::EXCEL_COLOR_TYPE_STANDARD,
-                'value' => 'black',
-                'alpha' => 40,
-            ],
+            //'color' => [
+            //    'type' => ChartColor::EXCEL_COLOR_TYPE_STANDARD,
+            //    'value' => 'black',
+            //    'alpha' => 40,
+            //],
             'size' => [
                 'sx' => null,
                 'sy' => null,
@@ -457,8 +450,14 @@ abstract class Properties
     {
         $this
             ->activateObject()
-            ->setGlowSize($size)
-            ->setGlowColor($colorValue, $colorAlpha, $colorType);
+            ->setGlowSize($size);
+        $this->glowColor->setColorPropertiesArray(
+            [
+                'value' => $colorValue,
+                'type' => $colorType,
+                'alpha' => $colorAlpha,
+            ]
+        );
     }
 
     /**
@@ -466,11 +465,24 @@ abstract class Properties
      *
      * @param array|string $property
      *
-     * @return null|string
+     * @return null|array|float|int|string
      */
     public function getGlowProperty($property)
     {
-        return $this->getArrayElementsValue($this->glowProperties, $property);
+        $retVal = null;
+        if ($property === 'size') {
+            $retVal = $this->glowSize;
+        } elseif ($property === 'color') {
+            $retVal = [
+                'value' => $this->glowColor->getColorProperty('value'),
+                'type' => $this->glowColor->getColorProperty('type'),
+                'alpha' => $this->glowColor->getColorProperty('alpha'),
+            ];
+        } elseif (is_array($property) && count($property) >= 2 && $property[0] === 'color') {
+            $retVal = $this->glowColor->getColorProperty($property[1]);
+        }
+
+        return $retVal;
     }
 
     /**
@@ -478,57 +490,38 @@ abstract class Properties
      *
      * @param string $propertyName
      *
-     * @return string
+     * @return null|int|string
      */
     public function getGlowColor($propertyName)
     {
-        return $this->glowProperties['color'][$propertyName];
+        return $this->glowColor->getColorProperty($propertyName);
+    }
+
+    public function getGlowColorObject(): ChartColor
+    {
+        return $this->glowColor;
     }
 
     /**
      * Get Glow Size.
      *
-     * @return string
+     * @return ?float
      */
     public function getGlowSize()
     {
-        return $this->glowProperties['size'];
+        return $this->glowSize;
     }
 
     /**
      * Set Glow Size.
      *
-     * @param float $size
+     * @param ?float $size
      *
      * @return $this
      */
     protected function setGlowSize($size)
     {
-        $this->glowProperties['size'] = $size;
-
-        return $this;
-    }
-
-    /**
-     * Set Glow Color.
-     *
-     * @param ?string $color
-     * @param ?int $alpha
-     * @param ?string $colorType
-     *
-     * @return $this
-     */
-    protected function setGlowColor($color, $alpha, $colorType)
-    {
-        if ($color !== null) {
-            $this->glowProperties['color']['value'] = (string) $color;
-        }
-        if ($alpha !== null) {
-            $this->glowProperties['color']['alpha'] = (int) $alpha;
-        }
-        if ($colorType !== null) {
-            $this->glowProperties['color']['type'] = (string) $colorType;
-        }
+        $this->glowSize = $size;
 
         return $this;
     }
@@ -562,7 +555,11 @@ abstract class Properties
     public function setShadowProperty(string $propertyName, $value): self
     {
         $this->activateObject();
-        $this->shadowProperties[$propertyName] = $value;
+        if ($propertyName === 'color' && is_array($value)) {
+            $this->shadowColor->setColorPropertiesArray($value);
+        } else {
+            $this->shadowProperties[$propertyName] = $value;
+        }
 
         return $this;
     }
@@ -580,13 +577,22 @@ abstract class Properties
      */
     public function setShadowProperties($presets, $colorValue = null, $colorType = null, $colorAlpha = null, $blur = null, $angle = null, $distance = null): void
     {
-        $this->activateObject()
-            ->setShadowPresetsProperties((int) $presets)
-            ->setShadowColor(
-                $colorValue ?? $this->shadowProperties['color']['value'],
-                $colorAlpha === null ? (int) $this->shadowProperties['color']['alpha'] : (int) $colorAlpha,
-                $colorType ?? $this->shadowProperties['color']['type']
-            )
+        $this->activateObject()->setShadowPresetsProperties((int) $presets);
+        if ($presets === 0) {
+            $this->shadowColor->setType(ChartColor::EXCEL_COLOR_TYPE_STANDARD);
+            $this->shadowColor->setValue('black');
+            $this->shadowColor->setAlpha(40);
+        }
+        if ($colorValue !== null) {
+            $this->shadowColor->setValue($colorValue);
+        }
+        if ($colorType !== null) {
+            $this->shadowColor->setType($colorType);
+        }
+        if (is_numeric($colorAlpha)) {
+            $this->shadowColor->setAlpha((int) $colorAlpha);
+        }
+        $this
             ->setShadowBlur($blur)
             ->setShadowAngle($angle)
             ->setShadowDistance($distance);
@@ -709,47 +715,61 @@ abstract class Properties
         return $this;
     }
 
+    public function getShadowColorObject(): ChartColor
+    {
+        return $this->shadowColor;
+    }
+
     /**
      * Get Shadow Property.
      *
      * @param string|string[] $elements
      *
-     * @return string
+     * @return array|string
      */
     public function getShadowProperty($elements)
     {
+        if ($elements === 'color') {
+            return [
+                'value' => $this->shadowColor->getValue(),
+                'type' => $this->shadowColor->getType(),
+                'alpha' => $this->shadowColor->getAlpha(),
+            ];
+        }
+
         return $this->getArrayElementsValue($this->shadowProperties, $elements);
     }
 
+    /** @var ChartColor */
+    protected $lineColor;
+
     /** @var array */
-    protected $lineProperties = [
-        'color' => [
-            'type' => '', //self::EXCEL_COLOR_TYPE_STANDARD,
-            'value' => '', //null,
-            'alpha' => null,
-        ],
-        'style' => [
-            'width' => null, //'9525',
-            'compound' => '', //self::LINE_STYLE_COMPOUND_SIMPLE,
-            'dash' => '', //self::LINE_STYLE_DASH_SOLID,
-            'cap' => '', //self::LINE_STYLE_CAP_FLAT,
-            'join' => '', //self::LINE_STYLE_JOIN_BEVEL,
-            'arrow' => [
-                'head' => [
-                    'type' => '', //self::LINE_STYLE_ARROW_TYPE_NOARROW,
-                    'size' => '', //self::LINE_STYLE_ARROW_SIZE_5,
-                    'w' => '',
-                    'len' => '',
-                ],
-                'end' => [
-                    'type' => '', //self::LINE_STYLE_ARROW_TYPE_NOARROW,
-                    'size' => '', //self::LINE_STYLE_ARROW_SIZE_8,
-                    'w' => '',
-                    'len' => '',
-                ],
+    protected $lineStyleProperties = [
+        'width' => null, //'9525',
+        'compound' => '', //self::LINE_STYLE_COMPOUND_SIMPLE,
+        'dash' => '', //self::LINE_STYLE_DASH_SOLID,
+        'cap' => '', //self::LINE_STYLE_CAP_FLAT,
+        'join' => '', //self::LINE_STYLE_JOIN_BEVEL,
+        'arrow' => [
+            'head' => [
+                'type' => '', //self::LINE_STYLE_ARROW_TYPE_NOARROW,
+                'size' => '', //self::LINE_STYLE_ARROW_SIZE_5,
+                'w' => '',
+                'len' => '',
+            ],
+            'end' => [
+                'type' => '', //self::LINE_STYLE_ARROW_TYPE_NOARROW,
+                'size' => '', //self::LINE_STYLE_ARROW_SIZE_8,
+                'w' => '',
+                'len' => '',
             ],
         ],
     ];
+
+    public function getLineColor(): ChartColor
+    {
+        return $this->lineColor;
+    }
 
     /**
      * Set Line Color Properties.
@@ -758,20 +778,16 @@ abstract class Properties
      * @param ?int $alpha
      * @param string $colorType
      */
-    public function setLineColorProperties($value, $alpha = null, $colorType = self::EXCEL_COLOR_TYPE_STANDARD): void
+    public function setLineColorProperties($value, $alpha = null, $colorType = ChartColor::EXCEL_COLOR_TYPE_STANDARD): void
     {
-        $this->activateObject()
-            ->lineProperties['color'] = $this->setColorProperties(
+        $this->activateObject();
+        $this->lineColor->setColorPropertiesArray(
+            $this->setColorProperties(
                 $value,
                 $alpha,
                 $colorType
-            );
-    }
-
-    public function setColorPropertiesArray(array $color): void
-    {
-        $this->activateObject()
-            ->lineProperties['color'] = $color;
+            )
+        );
     }
 
     /**
@@ -783,7 +799,7 @@ abstract class Properties
      */
     public function getLineColorProperty($propertyName)
     {
-        return $this->lineProperties['color'][$propertyName];
+        return $this->lineColor->getColorProperty($propertyName);
     }
 
     /**
@@ -807,47 +823,47 @@ abstract class Properties
     {
         $this->activateObject();
         if (is_numeric($lineWidth)) {
-            $this->lineProperties['style']['width'] = $lineWidth;
+            $this->lineStyleProperties['width'] = $lineWidth;
         }
         if ($compoundType !== '') {
-            $this->lineProperties['style']['compound'] = $compoundType;
+            $this->lineStyleProperties['compound'] = $compoundType;
         }
         if ($dashType !== '') {
-            $this->lineProperties['style']['dash'] = $dashType;
+            $this->lineStyleProperties['dash'] = $dashType;
         }
         if ($capType !== '') {
-            $this->lineProperties['style']['cap'] = $capType;
+            $this->lineStyleProperties['cap'] = $capType;
         }
         if ($joinType !== '') {
-            $this->lineProperties['style']['join'] = $joinType;
+            $this->lineStyleProperties['join'] = $joinType;
         }
         if ($headArrowType !== '') {
-            $this->lineProperties['style']['arrow']['head']['type'] = $headArrowType;
+            $this->lineStyleProperties['arrow']['head']['type'] = $headArrowType;
         }
         if (array_key_exists($headArrowSize, self::ARROW_SIZES)) {
-            $this->lineProperties['style']['arrow']['head']['size'] = $headArrowSize;
-            $this->lineProperties['style']['arrow']['head']['w'] = self::ARROW_SIZES[$headArrowSize]['w'];
-            $this->lineProperties['style']['arrow']['head']['len'] = self::ARROW_SIZES[$headArrowSize]['len'];
+            $this->lineStyleProperties['arrow']['head']['size'] = $headArrowSize;
+            $this->lineStyleProperties['arrow']['head']['w'] = self::ARROW_SIZES[$headArrowSize]['w'];
+            $this->lineStyleProperties['arrow']['head']['len'] = self::ARROW_SIZES[$headArrowSize]['len'];
         }
         if ($endArrowType !== '') {
-            $this->lineProperties['style']['arrow']['end']['type'] = $endArrowType;
+            $this->lineStyleProperties['arrow']['end']['type'] = $endArrowType;
         }
         if (array_key_exists($endArrowSize, self::ARROW_SIZES)) {
-            $this->lineProperties['style']['arrow']['end']['size'] = $endArrowSize;
-            $this->lineProperties['style']['arrow']['end']['w'] = self::ARROW_SIZES[$endArrowSize]['w'];
-            $this->lineProperties['style']['arrow']['end']['len'] = self::ARROW_SIZES[$endArrowSize]['len'];
+            $this->lineStyleProperties['arrow']['end']['size'] = $endArrowSize;
+            $this->lineStyleProperties['arrow']['end']['w'] = self::ARROW_SIZES[$endArrowSize]['w'];
+            $this->lineStyleProperties['arrow']['end']['len'] = self::ARROW_SIZES[$endArrowSize]['len'];
         }
         if ($headArrowWidth !== '') {
-            $this->lineProperties['style']['arrow']['head']['w'] = $headArrowWidth;
+            $this->lineStyleProperties['arrow']['head']['w'] = $headArrowWidth;
         }
         if ($headArrowLength !== '') {
-            $this->lineProperties['style']['arrow']['head']['len'] = $headArrowLength;
+            $this->lineStyleProperties['arrow']['head']['len'] = $headArrowLength;
         }
         if ($endArrowWidth !== '') {
-            $this->lineProperties['style']['arrow']['end']['w'] = $endArrowWidth;
+            $this->lineStyleProperties['arrow']['end']['w'] = $endArrowWidth;
         }
         if ($endArrowLength !== '') {
-            $this->lineProperties['style']['arrow']['end']['len'] = $endArrowLength;
+            $this->lineStyleProperties['arrow']['end']['len'] = $endArrowLength;
         }
     }
 
@@ -860,7 +876,7 @@ abstract class Properties
      */
     public function getLineStyleProperty($elements)
     {
-        return $this->getArrayElementsValue($this->lineProperties['style'], $elements);
+        return $this->getArrayElementsValue($this->lineStyleProperties, $elements);
     }
 
     protected const ARROW_SIZES = [
@@ -890,7 +906,7 @@ abstract class Properties
      */
     public function getLineStyleArrowParameters($arrowSelector, $propertySelector)
     {
-        return $this->getLineStyleArrowSize($this->lineProperties['style']['arrow'][$arrowSelector]['size'], $propertySelector);
+        return $this->getLineStyleArrowSize($this->lineStyleProperties['arrow'][$arrowSelector]['size'], $propertySelector);
     }
 
     /**
