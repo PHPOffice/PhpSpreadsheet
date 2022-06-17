@@ -4203,7 +4203,7 @@ class Calculation
                         $expectingOperator = false;
                     }
                     $stack->push('Brace', '(');
-                } elseif (preg_match('/^' . self::CALCULATION_REGEXP_CELLREF . '$/i', $val, $matches)) {
+                } elseif (preg_match('/^' . self::CALCULATION_REGEXP_CELLREF . '$/miu', $val, $matches)) {
                     //    Watch for this case-change when modifying to allow cell references in different worksheets...
                     //    Should only be applied to the actual cell column, not the worksheet name
                     //    If the last entry on the stack was a : operator, then we have a cell range reference
@@ -4326,6 +4326,8 @@ class Calculation
                         $val = $rowRangeReference[1];
                         $length = strlen($rowRangeReference[1]);
                         $stackItemType = 'Row Reference';
+                        // unescape any apostrophes or double quotes in worksheet name
+                        $val = str_replace(["''", '""'], ["'", '"'], $val);
                         $column = 'A';
                         if (($testPrevOp !== null && $testPrevOp['value'] === ':') && $pCellParent !== null) {
                             $column = $pCellParent->getHighestDataColumn($val);
@@ -4338,6 +4340,8 @@ class Calculation
                         $val = $columnRangeReference[1];
                         $length = strlen($val);
                         $stackItemType = 'Column Reference';
+                        // unescape any apostrophes or double quotes in worksheet name
+                        $val = str_replace(["''", '""'], ["'", '"'], $val);
                         $row = '1';
                         if (($testPrevOp !== null && $testPrevOp['value'] === ':') && $pCellParent !== null) {
                             $row = $pCellParent->getHighestDataRow($val);
