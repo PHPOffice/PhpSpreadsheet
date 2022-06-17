@@ -180,6 +180,11 @@ class Axis extends Properties
         return (string) $this->fillColor->getColorProperty($property);
     }
 
+    public function getFillColorObject(): ChartColor
+    {
+        return $this->fillColor;
+    }
+
     /**
      * Get Line Color Property.
      *

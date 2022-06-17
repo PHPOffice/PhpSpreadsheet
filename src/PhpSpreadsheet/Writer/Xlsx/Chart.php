@@ -518,10 +518,7 @@ class Chart extends WriterPart
         }
 
         $objWriter->startElement('c:spPr');
-        $type = $yAxis->getFillProperty('type');
-        $value = $yAxis->getFillProperty('value');
-        $alpha = $yAxis->getFillProperty('alpha');
-        $this->writeColor($objWriter, $type, $value, $alpha);
+        $this->writeColor($objWriter, $yAxis->getFillColorObject());
 
         $objWriter->startElement('a:effectLst');
         $this->writeGlow($objWriter, $yAxis);
@@ -716,10 +713,7 @@ class Chart extends WriterPart
 
         $objWriter->startElement('c:spPr');
 
-        $type = $xAxis->getFillProperty('type');
-        $value = $xAxis->getFillProperty('value');
-        $alpha = $xAxis->getFillProperty('alpha');
-        $this->writeColor($objWriter, $type, $value, $alpha);
+        $this->writeColor($objWriter, $xAxis->getFillColorObject());
 
         $this->writeGridlinesLn($objWriter, $xAxis);
 
@@ -1477,11 +1471,7 @@ class Chart extends WriterPart
             $objWriter->writeAttribute('rotWithShape', (string) (int) $rotWithShape);
         }
 
-        $colorObject = $xAxis->getShadowColorObject();
-        $colorType = $colorObject->getType();
-        $colorValue = $colorObject->getValue();
-        $alpha = $colorObject->getAlpha();
-        $this->writeColor($objWriter, $colorType, $colorValue, $alpha, false);
+        $this->writeColor($objWriter, $xAxis->getShadowColorObject(), false);
 
         $objWriter->endElement();
     }
@@ -1499,10 +1489,7 @@ class Chart extends WriterPart
         }
         $objWriter->startElement('a:glow');
         $objWriter->writeAttribute('rad', Properties::pointsToXml((float) $size));
-        $type = $yAxis->getGlowColorObject()->getType();
-        $color = $yAxis->getGlowColorObject()->getValue();
-        $alpha = $yAxis->getGlowColorObject()->getAlpha();
-        $this->writeColor($objWriter, $type, $color, $alpha, false);
+        $this->writeColor($objWriter, $yAxis->getGlowColorObject(), false);
         $objWriter->endElement(); // glow
     }
 
@@ -1536,10 +1523,7 @@ class Chart extends WriterPart
         }
         $this->writeNotEmpty($objWriter, 'cap', $gridlines->getLineStyleProperty('cap'));
         $this->writeNotEmpty($objWriter, 'cmpd', $gridlines->getLineStyleProperty('compound'));
-        $type = $gridlines->getLineColorProperty('type');
-        $value = $gridlines->getLineColorProperty('value');
-        $alpha = $gridlines->getLineColorProperty('alpha');
-        $this->writeColor($objWriter, (string) $type, (string) $value, $alpha);
+        $this->writeColor($objWriter, $gridlines->getLineColor());
 
         $dash = $gridlines->getLineStyleProperty('dash');
         if (!empty($dash)) {
@@ -1582,17 +1566,17 @@ class Chart extends WriterPart
         }
     }
 
-    /**
-     * @param null|int|string $alpha
-     */
-    private function writeColor(XMLWriter $objWriter, ?string $type, ?string $value, $alpha, bool $solidFill = true): void
+    private function writeColor(XMLWriter $objWriter, ChartColor $chartColor, bool $solidFill = true): void
     {
+        $type = $chartColor->getType();
+        $value = $chartColor->getValue();
         if (!empty($type) && !empty($value)) {
             if ($solidFill) {
                 $objWriter->startElement('a:solidFill');
             }
             $objWriter->startElement("a:$type");
             $objWriter->writeAttribute('val', $value);
+            $alpha = $chartColor->getAlpha();
             if (is_numeric($alpha)) {
                 $objWriter->startElement('a:alpha');
                 $objWriter->writeAttribute('val', ChartColor::alphaToXml((int) $alpha));
