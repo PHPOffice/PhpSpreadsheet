@@ -1,10 +1,9 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheetTests\Writer\Xlsx;
+namespace PhpOffice\PhpSpreadsheetTests\Chart;
 
 use PhpOffice\PhpSpreadsheet\Chart\Properties;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx as XlsxReader;
-use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx as XlsxWriter;
 use PHPUnit\Framework\TestCase;
 
@@ -12,17 +11,6 @@ class Charts32XmlTest extends TestCase
 {
     // These tests can only be performed by examining xml.
     private const DIRECTORY = 'samples' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR;
-
-    /** @var string */
-    private $outputFileName = '';
-
-    protected function tearDown(): void
-    {
-        if ($this->outputFileName !== '') {
-            unlink($this->outputFileName);
-            $this->outputFileName = '';
-        }
-    }
 
     /**
      * @dataProvider providerScatterCharts
@@ -33,25 +21,21 @@ class Charts32XmlTest extends TestCase
         $reader = new XlsxReader();
         $reader->setIncludeCharts(true);
         $spreadsheet = $reader->load($file);
+        $sheet = $spreadsheet->getActiveSheet();
+        $charts = $sheet->getChartCollection();
+        self::assertCount(1, $charts);
+        $chart = $charts[0];
+        self::assertNotNull($chart);
 
         $writer = new XlsxWriter($spreadsheet);
         $writer->setIncludeCharts(true);
-        $this->outputFileName = File::temporaryFilename();
-        $writer->save($this->outputFileName);
+        $writerChart = new XlsxWriter\Chart($writer);
+        $data = $writerChart->writeChart($chart);
         $spreadsheet->disconnectWorksheets();
 
-        $file = 'zip://';
-        $file .= $this->outputFileName;
-        $file .= '#xl/charts/chart2.xml';
-        $data = file_get_contents($file);
-        // confirm that file contains expected tags
-        if ($data === false) {
-            self::fail('Unable to read file');
-        } else {
-            self::assertSame(1, substr_count($data, '<c:scatterStyle val='));
-            self::assertSame($expectedCount ? 1 : 0, substr_count($data, '<c:scatterStyle val="smoothMarker"/>'));
-            self::assertSame($expectedCount, substr_count($data, '<c:smooth val="1"/>'));
-        }
+        self::assertSame(1, substr_count($data, '<c:scatterStyle val='));
+        self::assertSame($expectedCount ? 1 : 0, substr_count($data, '<c:scatterStyle val="smoothMarker"/>'));
+        self::assertSame($expectedCount, substr_count($data, '<c:smooth val="1"/>'));
     }
 
     public function providerScatterCharts(): array
@@ -69,23 +53,20 @@ class Charts32XmlTest extends TestCase
         $reader = new XlsxReader();
         $reader->setIncludeCharts(true);
         $spreadsheet = $reader->load($file);
+        $sheet = $spreadsheet->getActiveSheet();
+        $charts = $sheet->getChartCollection();
+        self::assertCount(1, $charts);
+        $chart = $charts[0];
+        self::assertNotNull($chart);
 
         $writer = new XlsxWriter($spreadsheet);
         $writer->setIncludeCharts(true);
-        $this->outputFileName = File::temporaryFilename();
-        $writer->save($this->outputFileName);
+        $writerChart = new XlsxWriter\Chart($writer);
+        $data = $writerChart->writeChart($chart);
         $spreadsheet->disconnectWorksheets();
 
-        $file = 'zip://';
-        $file .= $this->outputFileName;
-        $file .= '#xl/charts/chart1.xml';
-        $data = file_get_contents($file);
         // confirm that file contains expected tags
-        if ($data === false) {
-            self::fail('Unable to read file');
-        } else {
-            self::assertSame(0, substr_count($data, '<c:cat>'));
-        }
+        self::assertSame(0, substr_count($data, '<c:cat>'));
     }
 
     /**
@@ -116,18 +97,11 @@ class Charts32XmlTest extends TestCase
 
         $writer = new XlsxWriter($spreadsheet);
         $writer->setIncludeCharts(true);
-        $this->outputFileName = File::temporaryFilename();
-        $writer->save($this->outputFileName);
+        $writerChart = new XlsxWriter\Chart($writer);
+        $data = $writerChart->writeChart($chart);
         $spreadsheet->disconnectWorksheets();
 
-        $file = 'zip://';
-        $file .= $this->outputFileName;
-        $file .= '#xl/charts/chart2.xml';
-        $data = file_get_contents($file);
-        // confirm that file contains expected tags
-        if ($data === false) {
-            self::fail('Unable to read file');
-        } elseif ($numeric === true) {
+        if ($numeric === true) {
             self::assertSame(0, substr_count($data, '<c:catAx>'));
             self::assertSame(2, substr_count($data, '<c:valAx>'));
         } else {
@@ -143,5 +117,32 @@ class Charts32XmlTest extends TestCase
             [false],
             [null],
         ];
+    }
+
+    public function testAreaPrstClr(): void
+    {
+        $file = self::DIRECTORY . '32readwriteAreaChart4.xlsx';
+        $reader = new XlsxReader();
+        $reader->setIncludeCharts(true);
+        $spreadsheet = $reader->load($file);
+        $sheet = $spreadsheet->getActiveSheet();
+        $charts = $sheet->getChartCollection();
+        self::assertCount(1, $charts);
+        $chart = $charts[0];
+        self::assertNotNull($chart);
+
+        $writer = new XlsxWriter($spreadsheet);
+        $writer->setIncludeCharts(true);
+        $writerChart = new XlsxWriter\Chart($writer);
+        $data = $writerChart->writeChart($chart);
+        $spreadsheet->disconnectWorksheets();
+
+        self::assertSame(
+            1,
+            substr_count(
+                $data,
+                '</c:tx><c:spPr><a:solidFill><a:prstClr val="red"/>'
+            )
+        );
     }
 }

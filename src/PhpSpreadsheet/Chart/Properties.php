@@ -14,6 +14,11 @@ abstract class Properties
         EXCEL_COLOR_TYPE_STANDARD = 'prstClr';
     const EXCEL_COLOR_TYPE_SCHEME = 'schemeClr';
     const EXCEL_COLOR_TYPE_ARGB = 'srgbClr';
+    const EXCEL_COLOR_TYPES = [
+        self::EXCEL_COLOR_TYPE_ARGB,
+        self::EXCEL_COLOR_TYPE_SCHEME,
+        self::EXCEL_COLOR_TYPE_STANDARD,
+    ];
 
     const
         AXIS_LABELS_LOW = 'low';
@@ -110,249 +115,320 @@ abstract class Properties
     const SHADOW_PRESETS_PERSPECTIVE_UPPER_LEFT = 21;
     const SHADOW_PRESETS_PERSPECTIVE_LOWER_RIGHT = 22;
     const SHADOW_PRESETS_PERSPECTIVE_LOWER_LEFT = 23;
+
     const POINTS_WIDTH_MULTIPLIER = 12700;
+    const ANGLE_MULTIPLIER = 60000; // direction and size-kx size-ky
+    const PERCENTAGE_MULTIPLIER = 100000; // size sx and sy
+
+    /** @var bool */
+    protected $objectState = false; // used only for minor gridlines
+
+    /** @var array */
+    protected $glowProperties = [
+        'size' => null,
+        'color' => [
+            'type' => self::EXCEL_COLOR_TYPE_STANDARD,
+            'value' => 'black',
+            'alpha' => 40,
+        ],
+    ];
+
+    /** @var array */
+    protected $softEdges = [
+        'size' => null,
+    ];
+
+    /** @var array */
+    protected $shadowProperties = self::PRESETS_OPTIONS[0];
 
     /**
-     * @param float $width
+     * Get Object State.
      *
-     * @return float
+     * @return bool
      */
-    protected function getExcelPointsWidth($width)
+    public function getObjectState()
     {
-        return $width * self::POINTS_WIDTH_MULTIPLIER;
+        return $this->objectState;
     }
 
     /**
-     * @param float $angle
+     * Change Object State to True.
      *
-     * @return float
+     * @return $this
      */
-    protected function getExcelPointsAngle($angle)
+    protected function activateObject()
     {
-        return $angle * 60000;
+        $this->objectState = true;
+
+        return $this;
     }
 
-    protected function getTrueAlpha($alpha)
+    public static function pointsToXml(float $width): string
+    {
+        return (string) (int) ($width * self::POINTS_WIDTH_MULTIPLIER);
+    }
+
+    public static function xmlToPoints(string $width): float
+    {
+        return ((float) $width) / self::POINTS_WIDTH_MULTIPLIER;
+    }
+
+    public static function angleToXml(float $angle): string
+    {
+        return (string) (int) ($angle * self::ANGLE_MULTIPLIER);
+    }
+
+    public static function xmlToAngle(string $angle): float
+    {
+        return ((float) $angle) / self::ANGLE_MULTIPLIER;
+    }
+
+    public static function tenthOfPercentToXml(float $value): string
+    {
+        return (string) (int) ($value * self::PERCENTAGE_MULTIPLIER);
+    }
+
+    public static function xmlToTenthOfPercent(string $value): float
+    {
+        return ((float) $value) / self::PERCENTAGE_MULTIPLIER;
+    }
+
+    public static function alphaToXml(int $alpha): string
     {
         return (string) (100 - $alpha) . '000';
     }
 
-    protected function setColorProperties($color, $alpha, $colorType)
+    /**
+     * @param float|int|string $alpha
+     */
+    public static function alphaFromXml($alpha): int
+    {
+        return 100 - ((int) $alpha / 1000);
+    }
+
+    /**
+     * @param null|float|int|string $alpha
+     */
+    protected function setColorProperties(?string $color, $alpha, ?string $colorType): array
     {
         return [
-            'type' => (string) $colorType,
-            'value' => (string) $color,
-            'alpha' => (string) $this->getTrueAlpha($alpha),
+            'type' => $colorType,
+            'value' => $color,
+            'alpha' => ($alpha === null) ? null : (int) $alpha,
         ];
     }
 
-    protected function getLineStyleArrowSize($arraySelector, $arrayKaySelector)
-    {
-        $sizes = [
-            1 => ['w' => 'sm', 'len' => 'sm'],
-            2 => ['w' => 'sm', 'len' => 'med'],
-            3 => ['w' => 'sm', 'len' => 'lg'],
-            4 => ['w' => 'med', 'len' => 'sm'],
-            5 => ['w' => 'med', 'len' => 'med'],
-            6 => ['w' => 'med', 'len' => 'lg'],
-            7 => ['w' => 'lg', 'len' => 'sm'],
-            8 => ['w' => 'lg', 'len' => 'med'],
-            9 => ['w' => 'lg', 'len' => 'lg'],
-        ];
-
-        return $sizes[$arraySelector][$arrayKaySelector];
-    }
+    protected const PRESETS_OPTIONS = [
+        //NONE
+        0 => [
+            'presets' => self::SHADOW_PRESETS_NOSHADOW,
+            'effect' => null,
+            'color' => [
+                'type' => self::EXCEL_COLOR_TYPE_STANDARD,
+                'value' => 'black',
+                'alpha' => 40,
+            ],
+            'size' => [
+                'sx' => null,
+                'sy' => null,
+                'kx' => null,
+                'ky' => null,
+            ],
+            'blur' => null,
+            'direction' => null,
+            'distance' => null,
+            'algn' => null,
+            'rotWithShape' => null,
+        ],
+        //OUTER
+        1 => [
+            'effect' => 'outerShdw',
+            'blur' => 50800 / self::POINTS_WIDTH_MULTIPLIER,
+            'distance' => 38100 / self::POINTS_WIDTH_MULTIPLIER,
+            'direction' => 2700000 / self::ANGLE_MULTIPLIER,
+            'algn' => 'tl',
+            'rotWithShape' => '0',
+        ],
+        2 => [
+            'effect' => 'outerShdw',
+            'blur' => 50800 / self::POINTS_WIDTH_MULTIPLIER,
+            'distance' => 38100 / self::POINTS_WIDTH_MULTIPLIER,
+            'direction' => 5400000 / self::ANGLE_MULTIPLIER,
+            'algn' => 't',
+            'rotWithShape' => '0',
+        ],
+        3 => [
+            'effect' => 'outerShdw',
+            'blur' => 50800 / self::POINTS_WIDTH_MULTIPLIER,
+            'distance' => 38100 / self::POINTS_WIDTH_MULTIPLIER,
+            'direction' => 8100000 / self::ANGLE_MULTIPLIER,
+            'algn' => 'tr',
+            'rotWithShape' => '0',
+        ],
+        4 => [
+            'effect' => 'outerShdw',
+            'blur' => 50800 / self::POINTS_WIDTH_MULTIPLIER,
+            'distance' => 38100 / self::POINTS_WIDTH_MULTIPLIER,
+            'algn' => 'l',
+            'rotWithShape' => '0',
+        ],
+        5 => [
+            'effect' => 'outerShdw',
+            'size' => [
+                'sx' => 102000 / self::PERCENTAGE_MULTIPLIER,
+                'sy' => 102000 / self::PERCENTAGE_MULTIPLIER,
+            ],
+            'blur' => 63500 / self::POINTS_WIDTH_MULTIPLIER,
+            'distance' => 38100 / self::POINTS_WIDTH_MULTIPLIER,
+            'algn' => 'ctr',
+            'rotWithShape' => '0',
+        ],
+        6 => [
+            'effect' => 'outerShdw',
+            'blur' => 50800 / self::POINTS_WIDTH_MULTIPLIER,
+            'distance' => 38100 / self::POINTS_WIDTH_MULTIPLIER,
+            'direction' => 10800000 / self::ANGLE_MULTIPLIER,
+            'algn' => 'r',
+            'rotWithShape' => '0',
+        ],
+        7 => [
+            'effect' => 'outerShdw',
+            'blur' => 50800 / self::POINTS_WIDTH_MULTIPLIER,
+            'distance' => 38100 / self::POINTS_WIDTH_MULTIPLIER,
+            'direction' => 18900000 / self::ANGLE_MULTIPLIER,
+            'algn' => 'bl',
+            'rotWithShape' => '0',
+        ],
+        8 => [
+            'effect' => 'outerShdw',
+            'blur' => 50800 / self::POINTS_WIDTH_MULTIPLIER,
+            'distance' => 38100 / self::POINTS_WIDTH_MULTIPLIER,
+            'direction' => 16200000 / self::ANGLE_MULTIPLIER,
+            'rotWithShape' => '0',
+        ],
+        9 => [
+            'effect' => 'outerShdw',
+            'blur' => 50800 / self::POINTS_WIDTH_MULTIPLIER,
+            'distance' => 38100 / self::POINTS_WIDTH_MULTIPLIER,
+            'direction' => 13500000 / self::ANGLE_MULTIPLIER,
+            'algn' => 'br',
+            'rotWithShape' => '0',
+        ],
+        //INNER
+        10 => [
+            'effect' => 'innerShdw',
+            'blur' => 63500 / self::POINTS_WIDTH_MULTIPLIER,
+            'distance' => 50800 / self::POINTS_WIDTH_MULTIPLIER,
+            'direction' => 2700000 / self::ANGLE_MULTIPLIER,
+        ],
+        11 => [
+            'effect' => 'innerShdw',
+            'blur' => 63500 / self::POINTS_WIDTH_MULTIPLIER,
+            'distance' => 50800 / self::POINTS_WIDTH_MULTIPLIER,
+            'direction' => 5400000 / self::ANGLE_MULTIPLIER,
+        ],
+        12 => [
+            'effect' => 'innerShdw',
+            'blur' => 63500 / self::POINTS_WIDTH_MULTIPLIER,
+            'distance' => 50800 / self::POINTS_WIDTH_MULTIPLIER,
+            'direction' => 8100000 / self::ANGLE_MULTIPLIER,
+        ],
+        13 => [
+            'effect' => 'innerShdw',
+            'blur' => 63500 / self::POINTS_WIDTH_MULTIPLIER,
+            'distance' => 50800 / self::POINTS_WIDTH_MULTIPLIER,
+        ],
+        14 => [
+            'effect' => 'innerShdw',
+            'blur' => 114300 / self::POINTS_WIDTH_MULTIPLIER,
+        ],
+        15 => [
+            'effect' => 'innerShdw',
+            'blur' => 63500 / self::POINTS_WIDTH_MULTIPLIER,
+            'distance' => 50800 / self::POINTS_WIDTH_MULTIPLIER,
+            'direction' => 10800000 / self::ANGLE_MULTIPLIER,
+        ],
+        16 => [
+            'effect' => 'innerShdw',
+            'blur' => 63500 / self::POINTS_WIDTH_MULTIPLIER,
+            'distance' => 50800 / self::POINTS_WIDTH_MULTIPLIER,
+            'direction' => 18900000 / self::ANGLE_MULTIPLIER,
+        ],
+        17 => [
+            'effect' => 'innerShdw',
+            'blur' => 63500 / self::POINTS_WIDTH_MULTIPLIER,
+            'distance' => 50800 / self::POINTS_WIDTH_MULTIPLIER,
+            'direction' => 16200000 / self::ANGLE_MULTIPLIER,
+        ],
+        18 => [
+            'effect' => 'innerShdw',
+            'blur' => 63500 / self::POINTS_WIDTH_MULTIPLIER,
+            'distance' => 50800 / self::POINTS_WIDTH_MULTIPLIER,
+            'direction' => 13500000 / self::ANGLE_MULTIPLIER,
+        ],
+        //perspective
+        19 => [
+            'effect' => 'outerShdw',
+            'blur' => 152400 / self::POINTS_WIDTH_MULTIPLIER,
+            'distance' => 317500 / self::POINTS_WIDTH_MULTIPLIER,
+            'size' => [
+                'sx' => 90000 / self::PERCENTAGE_MULTIPLIER,
+                'sy' => -19000 / self::PERCENTAGE_MULTIPLIER,
+            ],
+            'direction' => 5400000 / self::ANGLE_MULTIPLIER,
+            'rotWithShape' => '0',
+        ],
+        20 => [
+            'effect' => 'outerShdw',
+            'blur' => 76200 / self::POINTS_WIDTH_MULTIPLIER,
+            'direction' => 18900000 / self::ANGLE_MULTIPLIER,
+            'size' => [
+                'sy' => 23000 / self::PERCENTAGE_MULTIPLIER,
+                'kx' => -1200000 / self::ANGLE_MULTIPLIER,
+            ],
+            'algn' => 'bl',
+            'rotWithShape' => '0',
+        ],
+        21 => [
+            'effect' => 'outerShdw',
+            'blur' => 76200 / self::POINTS_WIDTH_MULTIPLIER,
+            'direction' => 13500000 / self::ANGLE_MULTIPLIER,
+            'size' => [
+                'sy' => 23000 / self::PERCENTAGE_MULTIPLIER,
+                'kx' => 1200000 / self::ANGLE_MULTIPLIER,
+            ],
+            'algn' => 'br',
+            'rotWithShape' => '0',
+        ],
+        22 => [
+            'effect' => 'outerShdw',
+            'blur' => 76200 / self::POINTS_WIDTH_MULTIPLIER,
+            'distance' => 12700 / self::POINTS_WIDTH_MULTIPLIER,
+            'direction' => 2700000 / self::ANGLE_MULTIPLIER,
+            'size' => [
+                'sy' => -23000 / self::PERCENTAGE_MULTIPLIER,
+                'kx' => -800400 / self::ANGLE_MULTIPLIER,
+            ],
+            'algn' => 'bl',
+            'rotWithShape' => '0',
+        ],
+        23 => [
+            'effect' => 'outerShdw',
+            'blur' => 76200 / self::POINTS_WIDTH_MULTIPLIER,
+            'distance' => 12700 / self::POINTS_WIDTH_MULTIPLIER,
+            'direction' => 8100000 / self::ANGLE_MULTIPLIER,
+            'size' => [
+                'sy' => -23000 / self::PERCENTAGE_MULTIPLIER,
+                'kx' => 800400 / self::ANGLE_MULTIPLIER,
+            ],
+            'algn' => 'br',
+            'rotWithShape' => '0',
+        ],
+    ];
 
     protected function getShadowPresetsMap($presetsOption)
     {
-        $presets_options = [
-            //OUTER
-            1 => [
-                'effect' => 'outerShdw',
-                'blur' => '50800',
-                'distance' => '38100',
-                'direction' => '2700000',
-                'algn' => 'tl',
-                'rotWithShape' => '0',
-            ],
-            2 => [
-                'effect' => 'outerShdw',
-                'blur' => '50800',
-                'distance' => '38100',
-                'direction' => '5400000',
-                'algn' => 't',
-                'rotWithShape' => '0',
-            ],
-            3 => [
-                'effect' => 'outerShdw',
-                'blur' => '50800',
-                'distance' => '38100',
-                'direction' => '8100000',
-                'algn' => 'tr',
-                'rotWithShape' => '0',
-            ],
-            4 => [
-                'effect' => 'outerShdw',
-                'blur' => '50800',
-                'distance' => '38100',
-                'algn' => 'l',
-                'rotWithShape' => '0',
-            ],
-            5 => [
-                'effect' => 'outerShdw',
-                'size' => [
-                    'sx' => '102000',
-                    'sy' => '102000',
-                ],
-                'blur' => '63500',
-                'distance' => '38100',
-                'algn' => 'ctr',
-                'rotWithShape' => '0',
-            ],
-            6 => [
-                'effect' => 'outerShdw',
-                'blur' => '50800',
-                'distance' => '38100',
-                'direction' => '10800000',
-                'algn' => 'r',
-                'rotWithShape' => '0',
-            ],
-            7 => [
-                'effect' => 'outerShdw',
-                'blur' => '50800',
-                'distance' => '38100',
-                'direction' => '18900000',
-                'algn' => 'bl',
-                'rotWithShape' => '0',
-            ],
-            8 => [
-                'effect' => 'outerShdw',
-                'blur' => '50800',
-                'distance' => '38100',
-                'direction' => '16200000',
-                'rotWithShape' => '0',
-            ],
-            9 => [
-                'effect' => 'outerShdw',
-                'blur' => '50800',
-                'distance' => '38100',
-                'direction' => '13500000',
-                'algn' => 'br',
-                'rotWithShape' => '0',
-            ],
-            //INNER
-            10 => [
-                'effect' => 'innerShdw',
-                'blur' => '63500',
-                'distance' => '50800',
-                'direction' => '2700000',
-            ],
-            11 => [
-                'effect' => 'innerShdw',
-                'blur' => '63500',
-                'distance' => '50800',
-                'direction' => '5400000',
-            ],
-            12 => [
-                'effect' => 'innerShdw',
-                'blur' => '63500',
-                'distance' => '50800',
-                'direction' => '8100000',
-            ],
-            13 => [
-                'effect' => 'innerShdw',
-                'blur' => '63500',
-                'distance' => '50800',
-            ],
-            14 => [
-                'effect' => 'innerShdw',
-                'blur' => '114300',
-            ],
-            15 => [
-                'effect' => 'innerShdw',
-                'blur' => '63500',
-                'distance' => '50800',
-                'direction' => '10800000',
-            ],
-            16 => [
-                'effect' => 'innerShdw',
-                'blur' => '63500',
-                'distance' => '50800',
-                'direction' => '18900000',
-            ],
-            17 => [
-                'effect' => 'innerShdw',
-                'blur' => '63500',
-                'distance' => '50800',
-                'direction' => '16200000',
-            ],
-            18 => [
-                'effect' => 'innerShdw',
-                'blur' => '63500',
-                'distance' => '50800',
-                'direction' => '13500000',
-            ],
-            //perspective
-            19 => [
-                'effect' => 'outerShdw',
-                'blur' => '152400',
-                'distance' => '317500',
-                'size' => [
-                    'sx' => '90000',
-                    'sy' => '-19000',
-                ],
-                'direction' => '5400000',
-                'rotWithShape' => '0',
-            ],
-            20 => [
-                'effect' => 'outerShdw',
-                'blur' => '76200',
-                'direction' => '18900000',
-                'size' => [
-                    'sy' => '23000',
-                    'kx' => '-1200000',
-                ],
-                'algn' => 'bl',
-                'rotWithShape' => '0',
-            ],
-            21 => [
-                'effect' => 'outerShdw',
-                'blur' => '76200',
-                'direction' => '13500000',
-                'size' => [
-                    'sy' => '23000',
-                    'kx' => '1200000',
-                ],
-                'algn' => 'br',
-                'rotWithShape' => '0',
-            ],
-            22 => [
-                'effect' => 'outerShdw',
-                'blur' => '76200',
-                'distance' => '12700',
-                'direction' => '2700000',
-                'size' => [
-                    'sy' => '-23000',
-                    'kx' => '-800400',
-                ],
-                'algn' => 'bl',
-                'rotWithShape' => '0',
-            ],
-            23 => [
-                'effect' => 'outerShdw',
-                'blur' => '76200',
-                'distance' => '12700',
-                'direction' => '8100000',
-                'size' => [
-                    'sy' => '-23000',
-                    'kx' => '800400',
-                ],
-                'algn' => 'br',
-                'rotWithShape' => '0',
-            ],
-        ];
-
-        return $presets_options[$presetsOption];
+        return self::PRESETS_OPTIONS[$presetsOption] ?? self::PRESETS_OPTIONS[0];
     }
 
     protected function getArrayElementsValue($properties, $elements)
@@ -367,5 +443,477 @@ abstract class Properties
         }
 
         return $reference;
+    }
+
+    /**
+     * Set Glow Properties.
+     *
+     * @param float $size
+     * @param ?string $colorValue
+     * @param ?int $colorAlpha
+     * @param ?string $colorType
+     */
+    public function setGlowProperties($size, $colorValue = null, $colorAlpha = null, $colorType = null): void
+    {
+        $this
+            ->activateObject()
+            ->setGlowSize($size)
+            ->setGlowColor($colorValue, $colorAlpha, $colorType);
+    }
+
+    /**
+     * Get Glow Property.
+     *
+     * @param array|string $property
+     *
+     * @return null|string
+     */
+    public function getGlowProperty($property)
+    {
+        return $this->getArrayElementsValue($this->glowProperties, $property);
+    }
+
+    /**
+     * Get Glow Color Property.
+     *
+     * @param string $propertyName
+     *
+     * @return string
+     */
+    public function getGlowColor($propertyName)
+    {
+        return $this->glowProperties['color'][$propertyName];
+    }
+
+    /**
+     * Get Glow Size.
+     *
+     * @return string
+     */
+    public function getGlowSize()
+    {
+        return $this->glowProperties['size'];
+    }
+
+    /**
+     * Set Glow Size.
+     *
+     * @param float $size
+     *
+     * @return $this
+     */
+    protected function setGlowSize($size)
+    {
+        $this->glowProperties['size'] = $size;
+
+        return $this;
+    }
+
+    /**
+     * Set Glow Color.
+     *
+     * @param ?string $color
+     * @param ?int $alpha
+     * @param ?string $colorType
+     *
+     * @return $this
+     */
+    protected function setGlowColor($color, $alpha, $colorType)
+    {
+        if ($color !== null) {
+            $this->glowProperties['color']['value'] = (string) $color;
+        }
+        if ($alpha !== null) {
+            $this->glowProperties['color']['alpha'] = (int) $alpha;
+        }
+        if ($colorType !== null) {
+            $this->glowProperties['color']['type'] = (string) $colorType;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Set Soft Edges Size.
+     *
+     * @param float $size
+     */
+    public function setSoftEdges($size): void
+    {
+        if ($size !== null) {
+            $this->activateObject();
+            $this->softEdges['size'] = $size;
+        }
+    }
+
+    /**
+     * Get Soft Edges Size.
+     *
+     * @return string
+     */
+    public function getSoftEdgesSize()
+    {
+        return $this->softEdges['size'];
+    }
+
+    /**
+     * @param mixed $value
+     */
+    public function setShadowProperty(string $propertyName, $value): self
+    {
+        $this->activateObject();
+        $this->shadowProperties[$propertyName] = $value;
+
+        return $this;
+    }
+
+    /**
+     * Set Shadow Properties.
+     *
+     * @param int $presets
+     * @param string $colorValue
+     * @param string $colorType
+     * @param null|float|int|string $colorAlpha
+     * @param null|float $blur
+     * @param null|int $angle
+     * @param null|float $distance
+     */
+    public function setShadowProperties($presets, $colorValue = null, $colorType = null, $colorAlpha = null, $blur = null, $angle = null, $distance = null): void
+    {
+        $this->activateObject()
+            ->setShadowPresetsProperties((int) $presets)
+            ->setShadowColor(
+                $colorValue ?? $this->shadowProperties['color']['value'],
+                $colorAlpha === null ? (int) $this->shadowProperties['color']['alpha'] : (int) $colorAlpha,
+                $colorType ?? $this->shadowProperties['color']['type']
+            )
+            ->setShadowBlur($blur)
+            ->setShadowAngle($angle)
+            ->setShadowDistance($distance);
+    }
+
+    /**
+     * Set Shadow Presets Properties.
+     *
+     * @param int $presets
+     *
+     * @return $this
+     */
+    protected function setShadowPresetsProperties($presets)
+    {
+        $this->shadowProperties['presets'] = $presets;
+        $this->setShadowPropertiesMapValues($this->getShadowPresetsMap($presets));
+
+        return $this;
+    }
+
+    protected const SHADOW_ARRAY_KEYS = ['size', 'color'];
+
+    /**
+     * Set Shadow Properties Values.
+     *
+     * @param mixed $reference
+     *
+     * @return $this
+     */
+    protected function setShadowPropertiesMapValues(array $propertiesMap, &$reference = null)
+    {
+        $base_reference = $reference;
+        foreach ($propertiesMap as $property_key => $property_val) {
+            if (is_array($property_val)) {
+                if (in_array($property_key, self::SHADOW_ARRAY_KEYS, true)) {
+                    $reference = &$this->shadowProperties[$property_key];
+                    $this->setShadowPropertiesMapValues($property_val, $reference);
+                }
+            } else {
+                if ($base_reference === null) {
+                    $this->shadowProperties[$property_key] = $property_val;
+                } else {
+                    $reference[$property_key] = $property_val;
+                }
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Set Shadow Color.
+     *
+     * @param string $color
+     * @param int $alpha
+     * @param string $colorType
+     *
+     * @return $this
+     */
+    protected function setShadowColor($color, $alpha, $colorType)
+    {
+        if ($color !== null) {
+            $this->shadowProperties['color']['value'] = (string) $color;
+        }
+        if ($alpha !== null) {
+            $this->shadowProperties['color']['alpha'] = (int) $alpha;
+        }
+        if ($colorType !== null) {
+            $this->shadowProperties['color']['type'] = (string) $colorType;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Set Shadow Blur.
+     *
+     * @param ?float $blur
+     *
+     * @return $this
+     */
+    protected function setShadowBlur($blur)
+    {
+        if ($blur !== null) {
+            $this->shadowProperties['blur'] = $blur;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Set Shadow Angle.
+     *
+     * @param null|float|int|string $angle
+     *
+     * @return $this
+     */
+    protected function setShadowAngle($angle)
+    {
+        if (is_numeric($angle)) {
+            $this->shadowProperties['direction'] = $angle;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Set Shadow Distance.
+     *
+     * @param ?float $distance
+     *
+     * @return $this
+     */
+    protected function setShadowDistance($distance)
+    {
+        if ($distance !== null) {
+            $this->shadowProperties['distance'] = $distance;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get Shadow Property.
+     *
+     * @param string|string[] $elements
+     *
+     * @return string
+     */
+    public function getShadowProperty($elements)
+    {
+        return $this->getArrayElementsValue($this->shadowProperties, $elements);
+    }
+
+    /** @var array */
+    protected $lineProperties = [
+        'color' => [
+            'type' => '', //self::EXCEL_COLOR_TYPE_STANDARD,
+            'value' => '', //null,
+            'alpha' => null,
+        ],
+        'style' => [
+            'width' => null, //'9525',
+            'compound' => '', //self::LINE_STYLE_COMPOUND_SIMPLE,
+            'dash' => '', //self::LINE_STYLE_DASH_SOLID,
+            'cap' => '', //self::LINE_STYLE_CAP_FLAT,
+            'join' => '', //self::LINE_STYLE_JOIN_BEVEL,
+            'arrow' => [
+                'head' => [
+                    'type' => '', //self::LINE_STYLE_ARROW_TYPE_NOARROW,
+                    'size' => '', //self::LINE_STYLE_ARROW_SIZE_5,
+                    'w' => '',
+                    'len' => '',
+                ],
+                'end' => [
+                    'type' => '', //self::LINE_STYLE_ARROW_TYPE_NOARROW,
+                    'size' => '', //self::LINE_STYLE_ARROW_SIZE_8,
+                    'w' => '',
+                    'len' => '',
+                ],
+            ],
+        ],
+    ];
+
+    /**
+     * Set Line Color Properties.
+     *
+     * @param string $value
+     * @param ?int $alpha
+     * @param string $colorType
+     */
+    public function setLineColorProperties($value, $alpha = null, $colorType = self::EXCEL_COLOR_TYPE_STANDARD): void
+    {
+        $this->activateObject()
+            ->lineProperties['color'] = $this->setColorProperties(
+                $value,
+                $alpha,
+                $colorType
+            );
+    }
+
+    public function setColorPropertiesArray(array $color): void
+    {
+        $this->activateObject()
+            ->lineProperties['color'] = $color;
+    }
+
+    /**
+     * Get Line Color Property.
+     *
+     * @param string $propertyName
+     *
+     * @return null|int|string
+     */
+    public function getLineColorProperty($propertyName)
+    {
+        return $this->lineProperties['color'][$propertyName];
+    }
+
+    /**
+     * Set Line Style Properties.
+     *
+     * @param null|float|int|string $lineWidth
+     * @param string $compoundType
+     * @param string $dashType
+     * @param string $capType
+     * @param string $joinType
+     * @param string $headArrowType
+     * @param string $headArrowSize
+     * @param string $endArrowType
+     * @param string $endArrowSize
+     * @param string $headArrowWidth
+     * @param string $headArrowLength
+     * @param string $endArrowWidth
+     * @param string $endArrowLength
+     */
+    public function setLineStyleProperties($lineWidth = null, $compoundType = '', $dashType = '', $capType = '', $joinType = '', $headArrowType = '', $headArrowSize = '', $endArrowType = '', $endArrowSize = '', $headArrowWidth = '', $headArrowLength = '', $endArrowWidth = '', $endArrowLength = ''): void
+    {
+        $this->activateObject();
+        if (is_numeric($lineWidth)) {
+            $this->lineProperties['style']['width'] = $lineWidth;
+        }
+        if ($compoundType !== '') {
+            $this->lineProperties['style']['compound'] = $compoundType;
+        }
+        if ($dashType !== '') {
+            $this->lineProperties['style']['dash'] = $dashType;
+        }
+        if ($capType !== '') {
+            $this->lineProperties['style']['cap'] = $capType;
+        }
+        if ($joinType !== '') {
+            $this->lineProperties['style']['join'] = $joinType;
+        }
+        if ($headArrowType !== '') {
+            $this->lineProperties['style']['arrow']['head']['type'] = $headArrowType;
+        }
+        if (array_key_exists($headArrowSize, self::ARROW_SIZES)) {
+            $this->lineProperties['style']['arrow']['head']['size'] = $headArrowSize;
+            $this->lineProperties['style']['arrow']['head']['w'] = self::ARROW_SIZES[$headArrowSize]['w'];
+            $this->lineProperties['style']['arrow']['head']['len'] = self::ARROW_SIZES[$headArrowSize]['len'];
+        }
+        if ($endArrowType !== '') {
+            $this->lineProperties['style']['arrow']['end']['type'] = $endArrowType;
+        }
+        if (array_key_exists($endArrowSize, self::ARROW_SIZES)) {
+            $this->lineProperties['style']['arrow']['end']['size'] = $endArrowSize;
+            $this->lineProperties['style']['arrow']['end']['w'] = self::ARROW_SIZES[$endArrowSize]['w'];
+            $this->lineProperties['style']['arrow']['end']['len'] = self::ARROW_SIZES[$endArrowSize]['len'];
+        }
+        if ($headArrowWidth !== '') {
+            $this->lineProperties['style']['arrow']['head']['w'] = $headArrowWidth;
+        }
+        if ($headArrowLength !== '') {
+            $this->lineProperties['style']['arrow']['head']['len'] = $headArrowLength;
+        }
+        if ($endArrowWidth !== '') {
+            $this->lineProperties['style']['arrow']['end']['w'] = $endArrowWidth;
+        }
+        if ($endArrowLength !== '') {
+            $this->lineProperties['style']['arrow']['end']['len'] = $endArrowLength;
+        }
+    }
+
+    /**
+     * Get Line Style Property.
+     *
+     * @param array|string $elements
+     *
+     * @return string
+     */
+    public function getLineStyleProperty($elements)
+    {
+        return $this->getArrayElementsValue($this->lineProperties['style'], $elements);
+    }
+
+    protected const ARROW_SIZES = [
+        1 => ['w' => 'sm', 'len' => 'sm'],
+        2 => ['w' => 'sm', 'len' => 'med'],
+        3 => ['w' => 'sm', 'len' => 'lg'],
+        4 => ['w' => 'med', 'len' => 'sm'],
+        5 => ['w' => 'med', 'len' => 'med'],
+        6 => ['w' => 'med', 'len' => 'lg'],
+        7 => ['w' => 'lg', 'len' => 'sm'],
+        8 => ['w' => 'lg', 'len' => 'med'],
+        9 => ['w' => 'lg', 'len' => 'lg'],
+    ];
+
+    protected function getLineStyleArrowSize($arraySelector, $arrayKaySelector)
+    {
+        return self::ARROW_SIZES[$arraySelector][$arrayKaySelector] ?? '';
+    }
+
+    /**
+     * Get Line Style Arrow Parameters.
+     *
+     * @param string $arrowSelector
+     * @param string $propertySelector
+     *
+     * @return string
+     */
+    public function getLineStyleArrowParameters($arrowSelector, $propertySelector)
+    {
+        return $this->getLineStyleArrowSize($this->lineProperties['style']['arrow'][$arrowSelector]['size'], $propertySelector);
+    }
+
+    /**
+     * Get Line Style Arrow Width.
+     *
+     * @param string $arrow
+     *
+     * @return string
+     */
+    public function getLineStyleArrowWidth($arrow)
+    {
+        return $this->getLineStyleProperty(['arrow', $arrow, 'w']);
+    }
+
+    /**
+     * Get Line Style Arrow Excel Length.
+     *
+     * @param string $arrow
+     *
+     * @return string
+     */
+    public function getLineStyleArrowLength($arrow)
+    {
+        return $this->getLineStyleProperty(['arrow', $arrow, 'len']);
     }
 }

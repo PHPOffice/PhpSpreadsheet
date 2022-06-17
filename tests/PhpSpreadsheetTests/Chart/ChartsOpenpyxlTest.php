@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheetTests\Writer\Xlsx;
+namespace PhpOffice\PhpSpreadsheetTests\Chart;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx as XlsxReader;
 use PHPUnit\Framework\TestCase;
