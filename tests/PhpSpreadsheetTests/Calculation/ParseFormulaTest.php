@@ -170,9 +170,33 @@ class ParseFormulaTest extends TestCase
                     ['type' => 'Operand Count for Function MIN()', 'value' => 1, 'reference' => null],
                     ['type' => 'Function', 'value' => 'MIN(', 'reference' => null],
                     ['type' => 'Cell Reference', 'value' => "'sheet1'!A1", 'reference' => "'sheet1'!A1"],
-                    ['type' => 'Binary Operator', 'value' => '+','reference' => null],
+                    ['type' => 'Binary Operator', 'value' => '+', 'reference' => null],
                 ],
                 "=MIN('sheet1'!A:A) + 'sheet1'!A1",
+            ],
+            'Combined Cell Reference and Column Range with quote' => [
+                [
+                    ['type' => 'Column Reference', 'value' => "'Mark''s sheet1'!A1", 'reference' => "'Mark''s sheet1'!A1"],
+                    ['type' => 'Column Reference', 'value' => "'Mark''s sheet1'!A1048576", 'reference' => "'Mark''s sheet1'!A1048576"],
+                    ['type' => 'Binary Operator', 'value' => ':', 'reference' => null],
+                    ['type' => 'Operand Count for Function MIN()', 'value' => 1, 'reference' => null],
+                    ['type' => 'Function', 'value' => 'MIN(', 'reference' => null],
+                    ['type' => 'Cell Reference', 'value' => "'Mark's sheet1'!A1", 'reference' => "'Mark's sheet1'!A1"],
+                    ['type' => 'Binary Operator', 'value' => '+', 'reference' => null],
+                ],
+                "=MIN('Mark''s sheet1'!A:A) + 'Mark''s sheet1'!A1",
+            ],
+            'Combined Cell Reference and Column Range with unescaped quote' => [
+                [
+                    ['type' => 'Column Reference', 'value' => "'Mark's sheet1'!A1", 'reference' => "'Mark's sheet1'!A1"],
+                    ['type' => 'Column Reference', 'value' => "'Mark's sheet1'!A1048576", 'reference' => "'Mark's sheet1'!A1048576"],
+                    ['type' => 'Binary Operator', 'value' => ':', 'reference' => null],
+                    ['type' => 'Operand Count for Function MIN()', 'value' => 1, 'reference' => null],
+                    ['type' => 'Function', 'value' => 'MIN(', 'reference' => null],
+                    ['type' => 'Cell Reference', 'value' => "'Mark's sheet1'!A1", 'reference' => "'Mark's sheet1'!A1"],
+                    ['type' => 'Binary Operator', 'value' => '+', 'reference' => null],
+                ],
+                "=MIN('Mark's sheet1'!A:A) + 'Mark's sheet1'!A1",
             ],
             'Combined Column Range and Cell Reference' => [
                 [
@@ -182,9 +206,33 @@ class ParseFormulaTest extends TestCase
                     ['type' => 'Binary Operator', 'value' => ':', 'reference' => null],
                     ['type' => 'Operand Count for Function MIN()', 'value' => 1, 'reference' => null],
                     ['type' => 'Function', 'value' => 'MIN(', 'reference' => null],
-                    ['type' => 'Binary Operator', 'value' => '+','reference' => null],
+                    ['type' => 'Binary Operator', 'value' => '+', 'reference' => null],
                 ],
                 "='sheet1'!A1 + MIN('sheet1'!A:A)",
+            ],
+            'Combined Column Range and Cell Reference with quote' => [
+                [
+                    ['type' => 'Cell Reference', 'value' => "'Mark's sheet1'!A1", 'reference' => "'Mark's sheet1'!A1"],
+                    ['type' => 'Column Reference', 'value' => "'Mark''s sheet1'!A1", 'reference' => "'Mark''s sheet1'!A1"],
+                    ['type' => 'Column Reference', 'value' => "'Mark''s sheet1'!A1048576", 'reference' => "'Mark''s sheet1'!A1048576"],
+                    ['type' => 'Binary Operator', 'value' => ':', 'reference' => null],
+                    ['type' => 'Operand Count for Function MIN()', 'value' => 1, 'reference' => null],
+                    ['type' => 'Function', 'value' => 'MIN(', 'reference' => null],
+                    ['type' => 'Binary Operator', 'value' => '+', 'reference' => null],
+                ],
+                "='Mark''s sheet1'!A1 + MIN('Mark''s sheet1'!A:A)",
+            ],
+            'Combined Column Range and Cell Reference with unescaped quote' => [
+                [
+                    ['type' => 'Cell Reference', 'value' => "'Mark's sheet1'!A1", 'reference' => "'Mark's sheet1'!A1"],
+                    ['type' => 'Column Reference', 'value' => "'Mark's sheet1'!A1", 'reference' => "'Mark's sheet1'!A1"],
+                    ['type' => 'Column Reference', 'value' => "'Mark's sheet1'!A1048576", 'reference' => "'Mark's sheet1'!A1048576"],
+                    ['type' => 'Binary Operator', 'value' => ':', 'reference' => null],
+                    ['type' => 'Operand Count for Function MIN()', 'value' => 1, 'reference' => null],
+                    ['type' => 'Function', 'value' => 'MIN(', 'reference' => null],
+                    ['type' => 'Binary Operator', 'value' => '+', 'reference' => null],
+                ],
+                "='Mark's sheet1'!A1 + MIN('Mark's sheet1'!A:A)",
             ],
             'Range with Defined Names' => [
                 [
