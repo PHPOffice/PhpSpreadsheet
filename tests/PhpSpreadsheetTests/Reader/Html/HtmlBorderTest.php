@@ -18,6 +18,8 @@ class HtmlBorderTest extends TestCase
                         <td style="border-left: 1px solid green;">Border left</td>
                         <td style="border-right: 1px solid #333333;">Border right</td>
                         <td style="border: none"></td>
+                        <td style="border: dashed;"></td>
+                        <td style="border: dotted #333333;"></td>
                     </tr>
                 </table>';
         $filename = HtmlHelper::createHtml($html);
@@ -61,6 +63,17 @@ class HtmlBorderTest extends TestCase
         foreach ([$borders->getTop(), $borders->getBottom(), $borders->getLeft(), $borders->getRight()] as $border) {
             self::assertEquals(Border::BORDER_NONE, $border->getBorderStyle());
         }
+
+        $style = $firstSheet->getCell('G1')->getStyle();
+        $borders = $style->getBorders();
+        $border = $borders->getRight();
+        self::assertEquals(Border::BORDER_DASHED, $border->getBorderStyle());
+
+        $style = $firstSheet->getCell('H1')->getStyle();
+        $borders = $style->getBorders();
+        $border = $borders->getRight();
+        self::assertEquals(Border::BORDER_DOTTED, $border->getBorderStyle());
+        self::assertEquals('333333', $border->getColor()->getRGB());
     }
 
     /**
