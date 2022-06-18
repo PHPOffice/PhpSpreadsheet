@@ -2280,13 +2280,15 @@ class Xls extends BaseReader
                 // bit: 31; mask: 0x80000000; 1 = diagonal line from bottom left to top right
                 $diagonalUp = (0x80000000 & self::getInt4d($recordData, 10)) >> 31 ? true : false;
 
-                if ($diagonalUp == false && $diagonalDown == false) {
-                    $objStyle->getBorders()->setDiagonalDirection(Borders::DIAGONAL_NONE);
-                } elseif ($diagonalUp == true && $diagonalDown == false) {
+                if ($diagonalUp === false) {
+                    if ($diagonalDown == false) {
+                        $objStyle->getBorders()->setDiagonalDirection(Borders::DIAGONAL_NONE);
+                    } else {
+                        $objStyle->getBorders()->setDiagonalDirection(Borders::DIAGONAL_DOWN);
+                    }
+                } elseif ($diagonalDown == false) {
                     $objStyle->getBorders()->setDiagonalDirection(Borders::DIAGONAL_UP);
-                } elseif ($diagonalUp == false && $diagonalDown == true) {
-                    $objStyle->getBorders()->setDiagonalDirection(Borders::DIAGONAL_DOWN);
-                } elseif ($diagonalUp == true && $diagonalDown == true) {
+                } else {
                     $objStyle->getBorders()->setDiagonalDirection(Borders::DIAGONAL_BOTH);
                 }
 

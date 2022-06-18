@@ -13,6 +13,10 @@ jobs:
           - '8.0'
           - '8.1'
 
+        include:
+          - php-version: '8.2'
+            experimental: true
+
     name: PHP ${{ matrix.php-version }}
 
     steps:
@@ -39,7 +43,7 @@ jobs:
 
       - name: Delete composer lock file
         id: composer-lock
-        if: ${{ matrix.php-version == '8.1' }}
+        if: ${{ matrix.php-version == '8.1' || matrix.php-version == '8.2' }}
         run: |
           rm composer.lock
           echo "::set-output name=flags::--ignore-platform-reqs"

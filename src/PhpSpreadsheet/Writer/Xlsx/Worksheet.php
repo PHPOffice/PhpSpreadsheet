@@ -318,10 +318,7 @@ class Worksheet extends WriterPart
         }
 
         // Set Zero Height row
-        if (
-            (string) $worksheet->getDefaultRowDimension()->getZeroHeight() === '1' ||
-            strtolower((string) $worksheet->getDefaultRowDimension()->getZeroHeight()) == 'true'
-        ) {
+        if ($worksheet->getDefaultRowDimension()->getZeroHeight()) {
             $objWriter->writeAttribute('zeroHeight', '1');
         }
 
@@ -1162,7 +1159,7 @@ class Worksheet extends WriterPart
             $rowDimension = $worksheet->getRowDimension($currentRow);
 
             // Write current row?
-            $writeCurrentRow = isset($cellsByRow[$currentRow]) || $rowDimension->getRowHeight() >= 0 || $rowDimension->getVisible() == false || $rowDimension->getCollapsed() == true || $rowDimension->getOutlineLevel() > 0 || $rowDimension->getXfIndex() !== null;
+            $writeCurrentRow = isset($cellsByRow[$currentRow]) || $rowDimension->getRowHeight() >= 0 || $rowDimension->getVisible() === false || $rowDimension->getCollapsed() === true || $rowDimension->getOutlineLevel() > 0 || $rowDimension->getXfIndex() !== null;
 
             if ($writeCurrentRow) {
                 // Start a new row

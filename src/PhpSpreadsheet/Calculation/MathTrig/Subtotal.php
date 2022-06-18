@@ -54,7 +54,6 @@ class Subtotal
         );
     }
 
-    /** @var callable[] */
     private const CALL_FUNCTIONS = [
         1 => [Statistical\Averages::class, 'average'], // 1 and 101
         [Statistical\Counts::class, 'COUNT'], // 2 and 102
