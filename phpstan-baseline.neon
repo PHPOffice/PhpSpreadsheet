@@ -671,16 +671,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/MathTrig/IntClass.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\:\\:MAXIFS\\(\\) should return float but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\:\\:MINIFS\\(\\) should return float but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Averages\\:\\:filterArguments\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Averages.php
