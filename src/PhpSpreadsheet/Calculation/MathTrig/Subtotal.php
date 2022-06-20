@@ -35,7 +35,9 @@ class Subtotal
         return array_filter(
             $args,
             function ($index) use ($cellReference) {
-                [, $row, $column] = explode('.', $index);
+                $explodeArray = explode('.', $index);
+                $row = $explodeArray[1] ?? '';
+                $column = $explodeArray[2] ?? '';
                 $retVal = true;
                 if ($cellReference->getWorksheet()->cellExists($column . $row)) {
                     //take this cell out if it contains the SUBTOTAL or AGGREGATE functions in a formula

@@ -26,6 +26,14 @@ class ExcelError
     ];
 
     /**
+     * @param mixed $value
+     */
+    public static function throwError($value): string
+    {
+        return in_array($value, self::$errorCodes, true) ? $value : self::$errorCodes['value'];
+    }
+
+    /**
      * ERROR_TYPE.
      *
      * @param mixed $value Value to check
