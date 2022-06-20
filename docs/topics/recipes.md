@@ -233,7 +233,7 @@ the cell.
 Here is how to achieve this in PhpSpreadsheet:
 
 ```php
-$spreadsheet->getActiveSheet()->getCell('A1')->setValue("hello\nworld");
+$spreadsheet->getActiveSheet()->getCell('A1')->setValue("hello\nworld");//pay attention to the double quotes
 $spreadsheet->getActiveSheet()->getStyle('A1')->getAlignment()->setWrapText(true);
 ```
 
