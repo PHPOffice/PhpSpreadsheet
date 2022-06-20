@@ -10,6 +10,12 @@ namespace PhpOffice\PhpSpreadsheet\Chart;
  */
 class Axis extends Properties
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->fillColor = new ChartColor();
+    }
+
     /**
      * Axis Number.
      *
@@ -42,13 +48,9 @@ class Axis extends Properties
     /**
      * Fill Properties.
      *
-     * @var mixed[]
+     * @var ChartColor
      */
-    private $fillProperties = [
-        'type' => self::EXCEL_COLOR_TYPE_ARGB,
-        'value' => null,
-        'alpha' => 0,
-    ];
+    private $fillColor;
 
     private const NUMERIC_FORMAT = [
         Properties::FORMAT_CODE_NUMBER,
@@ -163,7 +165,7 @@ class Axis extends Properties
      */
     public function setFillParameters($color, $alpha = null, $AlphaType = self::EXCEL_COLOR_TYPE_ARGB): void
     {
-        $this->fillProperties = $this->setColorProperties($color, $alpha, $AlphaType);
+        $this->fillColor->setColorProperties($color, $alpha, $AlphaType);
     }
 
     /**
@@ -175,11 +177,21 @@ class Axis extends Properties
      */
     public function getFillProperty($property)
     {
-        return (string) $this->fillProperties[$property];
+        return (string) $this->fillColor->getColorProperty($property);
+    }
+
+    public function getFillColorObject(): ChartColor
+    {
+        return $this->fillColor;
     }
 
     /**
      * Get Line Color Property.
+     *
+     * @Deprecated 1.24.0
+     *
+     * @See Properties::getLineColorProperty()
+     *      Use the getLineColor property in the Properties class instead
      *
      * @param string $propertyName
      *
@@ -187,7 +199,7 @@ class Axis extends Properties
      */
     public function getLineProperty($propertyName)
     {
-        return $this->lineProperties['color'][$propertyName];
+        return $this->getLineColorProperty($propertyName);
     }
 
     /** @var string */
