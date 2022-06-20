@@ -18,7 +18,11 @@ class Subtotal
         return array_filter(
             $args,
             function ($index) use ($cellReference) {
-                [, $row, ] = explode('.', $index);
+                $explodeArray = explode('.', $index);
+                $row = $explodeArray[1] ?? '';
+                if (!is_numeric($row)) {
+                    return true;
+                }
 
                 return $cellReference->getWorksheet()->getRowDimension($row)->getVisible();
             },

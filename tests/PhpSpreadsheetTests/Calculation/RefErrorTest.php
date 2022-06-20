@@ -24,6 +24,8 @@ class RefErrorTest extends TestCase
         $sheet1->getCell('A2')->setValue(2);
         $sheet1->getCell('A3')->setValue(4);
         $sheet1->getCell('A4')->setValue(6);
+        $sheet1->getCell('A5')->setValue(7);
+        $sheet1->getRowDimension(5)->setVisible(false);
         $sheet1->getCell('B1')->setValue('=1/0');
         $sheet1->getCell('C1')->setValue('=Sheet99!A1');
         $sheet1->getCell('C2')->setValue('=Sheet2!A1');
@@ -39,6 +41,9 @@ class RefErrorTest extends TestCase
             'Subtotal9 Ok' => [12, '=SUBTOTAL(A1,A2:A4)'],
             'Subtotal9 REF' => ['#REF!', '=SUBTOTAL(A1,A2:A4,C1)'],
             'Subtotal9 with literal and cells' => [111, '=SUBTOTAL(A1,A2:A4,99)'],
+            'Subtotal9 with literal no rows hidden' => [111, '=SUBTOTAL(109,A2:A4,99)'],
+            'Subtotal9 with literal ignoring hidden row' => [111, '=SUBTOTAL(109,A2:A5,99)'],
+            'Subtotal9 with literal using hidden row' => [118, '=SUBTOTAL(9,A2:A5,99)'],
             'Subtotal9 with Null same sheet' => [12, '=SUBTOTAL(A1,A2:A4,A99)'],
             'Subtotal9 with Null Different sheet' => [12, '=SUBTOTAL(A1,A2:A4,C3)'],
             'Subtotal9 with NonNull Different sheet' => [17, '=SUBTOTAL(A1,A2:A4,C2)'],
