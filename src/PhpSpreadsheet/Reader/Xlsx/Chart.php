@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Chart\Axis;
+use PhpOffice\PhpSpreadsheet\Chart\ChartColor;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeries;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues;
 use PhpOffice\PhpSpreadsheet\Chart\GridLines;
@@ -756,7 +757,7 @@ class Chart
             $complexScript = null;
             $fontSrgbClr = '';
             $fontSchemeClr = '';
-            $uSchemeClr = null;
+            $underlineColor = null;
             if (isset($titleDetailElement->rPr)) {
                 // not used now, not sure it ever was, grandfathering
                 if (isset($titleDetailElement->rPr->rFont['val'])) {
@@ -797,9 +798,8 @@ class Chart
 
                 /** @var ?string */
                 $underscore = self::getAttribute($titleDetailElement->rPr, 'u', 'string');
-                if (isset($titleDetailElement->rPr->uFill->solidFill->schemeClr)) {
-                    /** @var ?string */
-                    $uSchemeClr = self::getAttribute($titleDetailElement->rPr->uFill->solidFill->schemeClr, 'val', 'string');
+                if (isset($titleDetailElement->rPr->uFill->solidFill)) {
+                    $underlineColor = $this->readColor($titleDetailElement->rPr->uFill->solidFill);
                 }
 
                 /** @var ?string */
@@ -883,8 +883,8 @@ class Chart
                     $objText->getFont()->setUnderline(Font::UNDERLINE_NONE);
                 }
                 $fontFound = true;
-                if ($uSchemeClr) {
-                    $objText->getFont()->setUSchemeClr($uSchemeClr);
+                if ($underlineColor) {
+                    $objText->getFont()->setUnderlineColor($underlineColor);
                 }
             }
 
@@ -1066,7 +1066,7 @@ class Chart
             'value' => null,
             'alpha' => null,
         ];
-        foreach (Properties::EXCEL_COLOR_TYPES as $type) {
+        foreach (ChartColor::EXCEL_COLOR_TYPES as $type) {
             if (isset($colorXml->$type)) {
                 $result['type'] = $type;
                 $result['value'] = self::getAttribute($colorXml->$type, 'val', 'string');
@@ -1078,9 +1078,11 @@ class Chart
                     $prstClr = $result['value'];
                 }
                 if (isset($colorXml->$type->alpha)) {
-                    $alpha = (int) self::getAttribute($colorXml->$type->alpha, 'val', 'string');
-                    $alpha = 100 - (int) ($alpha / 1000);
-                    $result['alpha'] = $alpha;
+                    /** @var string */
+                    $alpha = self::getAttribute($colorXml->$type->alpha, 'val', 'string');
+                    if (is_numeric($alpha)) {
+                        $result['alpha'] = ChartColor::alphaFromXml($alpha);
+                    }
                 }
 
                 break;
@@ -1154,7 +1156,7 @@ class Chart
             $endArrowLength
         );
         $colorArray = $this->readColor($sppr->ln->solidFill);
-        $chartObject->setColorPropertiesArray($colorArray);
+        $chartObject->getLineColor()->setColorPropertiesArray($colorArray);
     }
 
     private function setAxisProperties(SimpleXMLElement $chartDetail, ?Axis $whichAxis): void

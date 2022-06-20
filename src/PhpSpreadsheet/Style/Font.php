@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Style;
 
+use PhpOffice\PhpSpreadsheet\Chart\ChartColor;
+
 class Font extends Supervisor
 {
     // Underline types
@@ -19,7 +21,7 @@ class Font extends Supervisor
     protected $name = 'Calibri';
 
     /**
-     * The following 7 are used only for chart titles, I think.
+     * The following 6 are used only for chart titles, I think.
      *
      *@var string
      */
@@ -37,11 +39,8 @@ class Font extends Supervisor
     /** @var string */
     private $strikeType = '';
 
-    /** @var string */
-    private $uSchemeClr = '';
-
-    /** @var string */
-    private $uSrgbClr = '';
+    /** @var ?ChartColor */
+    private $underlineColor;
     // end of chart title items
 
     /**
@@ -582,47 +581,24 @@ class Font extends Supervisor
         return $this;
     }
 
-    public function getUSchemeClr(): string
+    public function getUnderlineColor(): ?ChartColor
     {
         if ($this->isSupervisor) {
-            return $this->getSharedComponent()->getUSchemeClr();
+            return $this->getSharedComponent()->getUnderlineColor();
         }
 
-        return $this->uSchemeClr;
+        return $this->underlineColor;
     }
 
-    public function setUSchemeClr(string $uSchemeClr): self
+    public function setUnderlineColor(array $colorArray): self
     {
         if (!$this->isSupervisor) {
-            $this->uSchemeClr = $uSchemeClr;
+            $this->underlineColor = new ChartColor();
+            $this->underlineColor->setColorPropertiesArray($colorArray);
         } else {
             // should never be true
             // @codeCoverageIgnoreStart
-            $styleArray = $this->getStyleArray(['uSchemeClr' => $uSchemeClr]);
-            $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
-            // @codeCoverageIgnoreEnd
-        }
-
-        return $this;
-    }
-
-    public function getUSrgbClr(): string
-    {
-        if ($this->isSupervisor) {
-            return $this->getSharedComponent()->getUSrgbClr();
-        }
-
-        return $this->uSrgbClr;
-    }
-
-    public function setUSrgbClr(string $uSrgbClr): self
-    {
-        if (!$this->isSupervisor) {
-            $this->uSrgbClr = $uSrgbClr;
-        } else {
-            // should never be true
-            // @codeCoverageIgnoreStart
-            $styleArray = $this->getStyleArray(['uSrgbClr' => $uSrgbClr]);
+            $styleArray = $this->getStyleArray(['underlineColor' => $colorArray]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
             // @codeCoverageIgnoreEnd
         }
@@ -747,6 +723,14 @@ class Font extends Supervisor
         if ($this->isSupervisor) {
             return $this->getSharedComponent()->getHashCode();
         }
+        if ($this->underlineColor === null) {
+            $underlineColor = '';
+        } else {
+            $underlineColor =
+                $this->underlineColor->getValue()
+                . $this->underlineColor->getType()
+                . (string) $this->underlineColor->getAlpha();
+        }
 
         return md5(
             $this->name .
@@ -765,8 +749,7 @@ class Font extends Supervisor
                     $this->eastAsian,
                     $this->complexScript,
                     $this->strikeType,
-                    $this->uSchemeClr,
-                    $this->uSrgbClr,
+                    $underlineColor,
                     (string) $this->baseLine,
                 ]
             ) .
@@ -791,8 +774,7 @@ class Font extends Supervisor
         $this->exportArray2($exportedArray, 'subscript', $this->getSubscript());
         $this->exportArray2($exportedArray, 'superscript', $this->getSuperscript());
         $this->exportArray2($exportedArray, 'underline', $this->getUnderline());
-        $this->exportArray2($exportedArray, 'uSchemeClr', $this->getUSchemeClr());
-        $this->exportArray2($exportedArray, 'uSrgbClr', $this->getUSrgbClr());
+        $this->exportArray2($exportedArray, 'underlineColor', $this->getUnderlineColor());
 
         return $exportedArray;
     }

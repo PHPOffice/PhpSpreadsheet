@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Chart\Axis;
+use PhpOffice\PhpSpreadsheet\Chart\ChartColor;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeries;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues;
 use PhpOffice\PhpSpreadsheet\Chart\GridLines;
@@ -517,19 +518,8 @@ class Chart extends WriterPart
         }
 
         $objWriter->startElement('c:spPr');
-        if (!empty($yAxis->getFillProperty('value'))) {
-            $objWriter->startElement('a:solidFill');
-            $objWriter->startElement('a:' . $yAxis->getFillProperty('type'));
-            $objWriter->writeAttribute('val', $yAxis->getFillProperty('value'));
-            $alpha = $yAxis->getFillProperty('alpha');
-            if (is_numeric($alpha)) {
-                $objWriter->startElement('a:alpha');
-                $objWriter->writeAttribute('val', Properties::alphaToXml((int) $alpha));
-                $objWriter->endElement();
-            }
-            $objWriter->endElement();
-            $objWriter->endElement();
-        }
+        $this->writeColor($objWriter, $yAxis->getFillColorObject());
+
         $objWriter->startElement('a:effectLst');
         $this->writeGlow($objWriter, $yAxis);
         $this->writeShadow($objWriter, $yAxis);
@@ -723,19 +713,7 @@ class Chart extends WriterPart
 
         $objWriter->startElement('c:spPr');
 
-        if (!empty($xAxis->getFillProperty('value'))) {
-            $objWriter->startElement('a:solidFill');
-            $objWriter->startElement('a:' . $xAxis->getFillProperty('type'));
-            $objWriter->writeAttribute('val', $xAxis->getFillProperty('value'));
-            $alpha = $xAxis->getFillProperty('alpha');
-            if (is_numeric($alpha)) {
-                $objWriter->startElement('a:alpha');
-                $objWriter->writeAttribute('val', Properties::alphaToXml((int) $alpha));
-                $objWriter->endElement();
-            }
-            $objWriter->endElement();
-            $objWriter->endElement();
-        }
+        $this->writeColor($objWriter, $xAxis->getFillColorObject());
 
         $this->writeGridlinesLn($objWriter, $xAxis);
 
@@ -1472,8 +1450,9 @@ class Chart extends WriterPart
         if (is_numeric($xAxis->getShadowProperty('direction'))) {
             $objWriter->writeAttribute('dir', Properties::angleToXml((float) $xAxis->getShadowProperty('direction')));
         }
-        if ($xAxis->getShadowProperty('algn') !== null) {
-            $objWriter->writeAttribute('algn', $xAxis->getShadowProperty('algn'));
+        $algn = $xAxis->getShadowProperty('algn');
+        if (is_string($algn) && $algn !== '') {
+            $objWriter->writeAttribute('algn', $algn);
         }
         foreach (['sx', 'sy'] as $sizeType) {
             $sizeValue = $xAxis->getShadowProperty(['size', $sizeType]);
@@ -1487,19 +1466,12 @@ class Chart extends WriterPart
                 $objWriter->writeAttribute($sizeType, Properties::angleToXml((float) $sizeValue));
             }
         }
-        if ($xAxis->getShadowProperty('rotWithShape') !== null) {
-            $objWriter->writeAttribute('rotWithShape', $xAxis->getShadowProperty('rotWithShape'));
+        $rotWithShape = $xAxis->getShadowProperty('rotWithShape');
+        if (is_numeric($rotWithShape)) {
+            $objWriter->writeAttribute('rotWithShape', (string) (int) $rotWithShape);
         }
 
-        $objWriter->startElement("a:{$xAxis->getShadowProperty(['color', 'type'])}");
-        $objWriter->writeAttribute('val', $xAxis->getShadowProperty(['color', 'value']));
-        $alpha = $xAxis->getShadowProperty(['color', 'alpha']);
-        if (is_numeric($alpha)) {
-            $objWriter->startElement('a:alpha');
-            $objWriter->writeAttribute('val', Properties::alphaToXml((int) $alpha));
-            $objWriter->endElement();
-        }
-        $objWriter->endElement();
+        $this->writeColor($objWriter, $xAxis->getShadowColorObject(), false);
 
         $objWriter->endElement();
     }
@@ -1517,15 +1489,7 @@ class Chart extends WriterPart
         }
         $objWriter->startElement('a:glow');
         $objWriter->writeAttribute('rad', Properties::pointsToXml((float) $size));
-        $objWriter->startElement("a:{$yAxis->getGlowProperty(['color', 'type'])}");
-        $objWriter->writeAttribute('val', (string) $yAxis->getGlowProperty(['color', 'value']));
-        $alpha = $yAxis->getGlowProperty(['color', 'alpha']);
-        if (is_numeric($alpha)) {
-            $objWriter->startElement('a:alpha');
-            $objWriter->writeAttribute('val', Properties::alphaToXml((int) $alpha));
-            $objWriter->endElement(); // alpha
-        }
-        $objWriter->endElement(); // color
+        $this->writeColor($objWriter, $yAxis->getGlowColorObject(), false);
         $objWriter->endElement(); // glow
     }
 
@@ -1559,19 +1523,7 @@ class Chart extends WriterPart
         }
         $this->writeNotEmpty($objWriter, 'cap', $gridlines->getLineStyleProperty('cap'));
         $this->writeNotEmpty($objWriter, 'cmpd', $gridlines->getLineStyleProperty('compound'));
-        if (!empty($gridlines->getLineColorProperty('value'))) {
-            $objWriter->startElement('a:solidFill');
-            $objWriter->startElement("a:{$gridlines->getLineColorProperty('type')}");
-            $objWriter->writeAttribute('val', (string) $gridlines->getLineColorProperty('value'));
-            $alpha = $gridlines->getLineColorProperty('alpha');
-            if (is_numeric($alpha)) {
-                $objWriter->startElement('a:alpha');
-                $objWriter->writeAttribute('val', Properties::alphaToXml((int) $alpha));
-                $objWriter->endElement(); // alpha
-            }
-            $objWriter->endElement(); //end srgbClr
-            $objWriter->endElement(); //end solidFill
-        }
+        $this->writeColor($objWriter, $gridlines->getLineColor());
 
         $dash = $gridlines->getLineStyleProperty('dash');
         if (!empty($dash)) {
@@ -1611,6 +1563,29 @@ class Chart extends WriterPart
     {
         if ($value !== null && $value !== '') {
             $objWriter->writeAttribute($name, $value);
+        }
+    }
+
+    private function writeColor(XMLWriter $objWriter, ChartColor $chartColor, bool $solidFill = true): void
+    {
+        $type = $chartColor->getType();
+        $value = $chartColor->getValue();
+        if (!empty($type) && !empty($value)) {
+            if ($solidFill) {
+                $objWriter->startElement('a:solidFill');
+            }
+            $objWriter->startElement("a:$type");
+            $objWriter->writeAttribute('val', $value);
+            $alpha = $chartColor->getAlpha();
+            if (is_numeric($alpha)) {
+                $objWriter->startElement('a:alpha');
+                $objWriter->writeAttribute('val', ChartColor::alphaToXml((int) $alpha));
+                $objWriter->endElement();
+            }
+            $objWriter->endElement(); //a:srgbClr/schemeClr/prstClr
+            if ($solidFill) {
+                $objWriter->endElement(); //a:solidFill
+            }
         }
     }
 }
