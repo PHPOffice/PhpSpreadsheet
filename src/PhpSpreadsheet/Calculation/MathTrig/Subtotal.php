@@ -89,7 +89,22 @@ class Subtotal
     public static function evaluate($functionType, ...$args)
     {
         $cellReference = array_pop($args);
-        $aArgs = Functions::flattenArrayIndexed($args);
+        $bArgs = Functions::flattenArrayIndexed($args);
+        $aArgs = [];
+        // int keys must come before string keys for PHP 8.0+
+        // Otherwise, PHP thinks positional args follow keyword
+        //    in the subsequent call to call_user_func_array.
+        // Fortunately, order of args is unimportant to Subtotal.
+        foreach ($bArgs as $key => $value) {
+            if (is_int($key)) {
+                $aArgs[$key] = $value;
+            }
+        }
+        foreach ($bArgs as $key => $value) {
+            if (!is_int($key)) {
+                $aArgs[$key] = $value;
+            }
+        }
 
         try {
             $subtotal = (int) Helpers::validateNumericNullBool($functionType);

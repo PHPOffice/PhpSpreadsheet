@@ -38,12 +38,14 @@ class RefErrorTest extends TestCase
         return [
             'Subtotal9 Ok' => [12, '=SUBTOTAL(A1,A2:A4)'],
             'Subtotal9 REF' => ['#REF!', '=SUBTOTAL(A1,A2:A4,C1)'],
+            'Subtotal9 with literal and cells' => [111, '=SUBTOTAL(A1,A2:A4,99)'],
             'Subtotal9 with Null same sheet' => [12, '=SUBTOTAL(A1,A2:A4,A99)'],
             'Subtotal9 with Null Different sheet' => [12, '=SUBTOTAL(A1,A2:A4,C3)'],
             'Subtotal9 with NonNull Different sheet' => [17, '=SUBTOTAL(A1,A2:A4,C2)'],
             'Product DIV0' => ['#DIV/0!', '=PRODUCT(2, 3, B1)'],
             'Sqrt REF' => ['#REF!', '=SQRT(C1)'],
             'Sum NUM' => ['#NUM!', '=SUM(SQRT(-1), A2:A4)'],
+            'Sum with literal and cells' => [111, '=SUM(A2:A4, 99)'],
             'Sum REF' => ['#REF!', '=SUM(A2:A4, C1)'],
             'Tan DIV0' => ['#DIV/0!', '=TAN(B1)'],
         ];
