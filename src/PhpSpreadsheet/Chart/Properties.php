@@ -644,30 +644,6 @@ abstract class Properties
     }
 
     /**
-     * Set Shadow Color.
-     *
-     * @param string $color
-     * @param int $alpha
-     * @param string $colorType
-     *
-     * @return $this
-     */
-    protected function setShadowColor($color, $alpha, $colorType)
-    {
-        if ($color !== null) {
-            $this->shadowProperties['color']['value'] = (string) $color;
-        }
-        if ($alpha !== null) {
-            $this->shadowProperties['color']['alpha'] = (int) $alpha;
-        }
-        if ($colorType !== null) {
-            $this->shadowProperties['color']['type'] = (string) $colorType;
-        }
-
-        return $this;
-    }
-
-    /**
      * Set Shadow Blur.
      *
      * @param ?float $blur
@@ -765,6 +741,12 @@ abstract class Properties
             ],
         ],
     ];
+
+    public function copyLineStyles(self $otherProperties): void
+    {
+        $this->lineStyleProperties = $otherProperties->lineStyleProperties;
+        $this->lineColor = $otherProperties->lineColor;
+    }
 
     public function getLineColor(): ChartColor
     {

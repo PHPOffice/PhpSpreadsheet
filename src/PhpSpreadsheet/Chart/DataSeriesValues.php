@@ -7,7 +7,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class DataSeriesValues
+class DataSeriesValues extends Properties
 {
     const DATASERIES_TYPE_STRING = 'String';
     const DATASERIES_TYPE_NUMBER = 'Number';
@@ -45,6 +45,12 @@ class DataSeriesValues
      */
     private $pointMarker;
 
+    /** @var ChartColor */
+    private $markerColor1;
+
+    /** @var ChartColor */
+    private $markerColor2;
+
     /**
      * Series Point Size.
      *
@@ -79,13 +85,6 @@ class DataSeriesValues
     /** @var string */
     private $prstClr = '';
 
-    /**
-     * Line Width.
-     *
-     * @var int
-     */
-    private $lineWidth = 12700;
-
     /** @var bool */
     private $scatterLines = true;
 
@@ -106,6 +105,9 @@ class DataSeriesValues
      */
     public function __construct($dataType = self::DATASERIES_TYPE_NUMBER, $dataSource = null, $formatCode = null, $pointCount = 0, $dataValues = [], $marker = null, $fillColor = null, $pointSize = '3')
     {
+        parent::__construct();
+        $this->markerColor1 = new ChartColor();
+        $this->markerColor2 = new ChartColor();
         $this->setDataType($dataType);
         $this->dataSource = $dataSource;
         $this->formatCode = $formatCode;
@@ -196,6 +198,16 @@ class DataSeriesValues
         $this->pointMarker = $marker;
 
         return $this;
+    }
+
+    public function getMarkerColor1(): ChartColor
+    {
+        return $this->markerColor1;
+    }
+
+    public function getMarkerColor2(): ChartColor
+    {
+        return $this->markerColor2;
     }
 
     /**
@@ -306,24 +318,23 @@ class DataSeriesValues
     /**
      * Get line width for series.
      *
-     * @return int
+     * @return null|float|int
      */
     public function getLineWidth()
     {
-        return $this->lineWidth;
+        return $this->lineStyleProperties['width'];
     }
 
     /**
      * Set line width for the series.
      *
-     * @param int $width
+     * @param null|float|int $width
      *
      * @return $this
      */
     public function setLineWidth($width)
     {
-        $minWidth = 12700;
-        $this->lineWidth = max($minWidth, $width);
+        $this->lineStyleProperties['width'] = $width;
 
         return $this;
     }
@@ -486,6 +497,37 @@ class DataSeriesValues
     public function setPrstClr(string $prstClr): self
     {
         $this->prstClr = $prstClr;
+
+        return $this;
+    }
+
+    /**
+     * Smooth Line.
+     *
+     * @var bool
+     */
+    private $smoothLine;
+
+    /**
+     * Get Smooth Line.
+     *
+     * @return bool
+     */
+    public function getSmoothLine()
+    {
+        return $this->smoothLine;
+    }
+
+    /**
+     * Set Smooth Line.
+     *
+     * @param bool $smoothLine
+     *
+     * @return $this
+     */
+    public function setSmoothLine($smoothLine)
+    {
+        $this->smoothLine = $smoothLine;
 
         return $this;
     }

@@ -371,7 +371,7 @@ class Font extends Supervisor
      *
      * @return $this
      */
-    public function setSize($sizeInPoints)
+    public function setSize($sizeInPoints, bool $nullOk = false)
     {
         if (is_string($sizeInPoints) || is_int($sizeInPoints)) {
             $sizeInPoints = (float) $sizeInPoints; // $pValue = 0 if given string is not numeric
@@ -380,7 +380,9 @@ class Font extends Supervisor
         // Size must be a positive floating point number
         // ECMA-376-1:2016, part 1, chapter 18.4.11 sz (Font Size), p. 1536
         if (!is_float($sizeInPoints) || !($sizeInPoints > 0)) {
-            $sizeInPoints = 10.0;
+            if (!$nullOk || $sizeInPoints !== null) {
+                $sizeInPoints = 10.0;
+            }
         }
 
         if ($this->isSupervisor) {

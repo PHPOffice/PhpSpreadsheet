@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Chart;
 
+use PhpOffice\PhpSpreadsheet\Chart\Properties;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx as XlsxReader;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\RichText\Run;
@@ -75,19 +76,22 @@ class Charts32ScatterTest extends AbstractFunctional
         self::assertCount(3, $plotValues);
         $values = $plotValues[0];
         self::assertFalse($values->getScatterLines());
-        self::assertSame(28575, $values->getLineWidth());
+        self::assertSame(28575 / Properties::POINTS_WIDTH_MULTIPLIER, $values->getLineWidth());
         self::assertSame(3, $values->getPointSize());
         self::assertSame('', $values->getFillColor());
         $values = $plotValues[1];
         self::assertFalse($values->getScatterLines());
-        self::assertSame(28575, $values->getLineWidth());
+        self::assertSame(28575 / Properties::POINTS_WIDTH_MULTIPLIER, $values->getLineWidth());
         self::assertSame(3, $values->getPointSize());
         self::assertSame('', $values->getFillColor());
         $values = $plotValues[2];
         self::assertFalse($values->getScatterLines());
-        self::assertSame(28575, $values->getLineWidth());
+        self::assertSame(28575 / Properties::POINTS_WIDTH_MULTIPLIER, $values->getLineWidth());
         self::assertSame(7, $values->getPointSize());
-        self::assertSame('FFFF00', $values->getFillColor());
+        // Had been testing for Fill Color, but we actually
+        //  meant to test for marker color, which is now distinct.
+        self::assertSame('FFFF00', $values->getMarkerColor1()->getValue());
+        self::assertSame('srgbClr', $values->getMarkerColor1()->getType());
 
         $reloadedSpreadsheet->disconnectWorksheets();
     }
@@ -173,19 +177,22 @@ class Charts32ScatterTest extends AbstractFunctional
         self::assertCount(3, $plotValues);
         $values = $plotValues[0];
         self::assertFalse($values->getScatterLines());
-        self::assertSame(28575, $values->getLineWidth());
+        self::assertSame(28575 / Properties::POINTS_WIDTH_MULTIPLIER, $values->getLineWidth());
         self::assertSame(3, $values->getPointSize());
         self::assertSame('', $values->getFillColor());
         $values = $plotValues[1];
         self::assertFalse($values->getScatterLines());
-        self::assertSame(28575, $values->getLineWidth());
+        self::assertSame(28575 / Properties::POINTS_WIDTH_MULTIPLIER, $values->getLineWidth());
         self::assertSame(3, $values->getPointSize());
         self::assertSame('', $values->getFillColor());
         $values = $plotValues[2];
         self::assertFalse($values->getScatterLines());
-        self::assertSame(28575, $values->getLineWidth());
+        self::assertSame(28575 / Properties::POINTS_WIDTH_MULTIPLIER, $values->getLineWidth());
         self::assertSame(7, $values->getPointSize());
-        self::assertSame('FFFF00', $values->getFillColor());
+        // Had been testing for Fill Color, but we actually
+        //  meant to test for marker color, which is now distinct.
+        self::assertSame('FFFF00', $values->getMarkerColor1()->getValue());
+        self::assertSame('srgbClr', $values->getMarkerColor1()->getType());
 
         $reloadedSpreadsheet->disconnectWorksheets();
     }
@@ -242,17 +249,19 @@ class Charts32ScatterTest extends AbstractFunctional
         self::assertCount(3, $plotValues);
         $values = $plotValues[0];
         self::assertTrue($values->getScatterLines());
-        self::assertSame(12700, $values->getLineWidth());
+        // the default value of 1 point is no longer written out
+        //   when not explicitly specified.
+        self::assertNull($values->getLineWidth());
         self::assertSame(3, $values->getPointSize());
         self::assertSame('', $values->getFillColor());
         $values = $plotValues[1];
         self::assertTrue($values->getScatterLines());
-        self::assertSame(12700, $values->getLineWidth());
+        self::assertNull($values->getLineWidth());
         self::assertSame(3, $values->getPointSize());
         self::assertSame('', $values->getFillColor());
         $values = $plotValues[2];
         self::assertTrue($values->getScatterLines());
-        self::assertSame(12700, $values->getLineWidth());
+        self::assertNull($values->getLineWidth());
         self::assertSame(3, $values->getPointSize());
         self::assertSame('', $values->getFillColor());
 
@@ -314,19 +323,97 @@ class Charts32ScatterTest extends AbstractFunctional
         self::assertCount(3, $plotValues);
         $values = $plotValues[0];
         self::assertFalse($values->getScatterLines());
-        self::assertSame(28575, $values->getLineWidth());
+        self::assertSame(28575 / Properties::POINTS_WIDTH_MULTIPLIER, $values->getLineWidth());
         self::assertSame(3, $values->getPointSize());
         self::assertSame('', $values->getFillColor());
         $values = $plotValues[1];
         self::assertFalse($values->getScatterLines());
-        self::assertSame(28575, $values->getLineWidth());
+        self::assertSame(28575 / Properties::POINTS_WIDTH_MULTIPLIER, $values->getLineWidth());
         self::assertSame(3, $values->getPointSize());
         self::assertSame('', $values->getFillColor());
         $values = $plotValues[2];
         self::assertFalse($values->getScatterLines());
-        self::assertSame(28575, $values->getLineWidth());
+        self::assertSame(28575 / Properties::POINTS_WIDTH_MULTIPLIER, $values->getLineWidth());
         self::assertSame(7, $values->getPointSize());
-        self::assertSame('FFFF00', $values->getFillColor());
+        // Had been testing for Fill Color, but we actually
+        //  meant to test for marker color, which is now distinct.
+        self::assertSame('FFFF00', $values->getMarkerColor1()->getValue());
+        self::assertSame('srgbClr', $values->getMarkerColor1()->getType());
+
+        $reloadedSpreadsheet->disconnectWorksheets();
+    }
+
+    public function testScatter8(): void
+    {
+        $file = self::DIRECTORY . '32readwriteScatterChart8.xlsx';
+        $reader = new XlsxReader();
+        $reader->setIncludeCharts(true);
+        $spreadsheet = $reader->load($file);
+        $sheet = $spreadsheet->getActiveSheet();
+        self::assertSame(1, $sheet->getChartCount());
+        /** @var callable */
+        $callableReader = [$this, 'readCharts'];
+        /** @var callable */
+        $callableWriter = [$this, 'writeCharts'];
+        $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, 'Xlsx', $callableReader, $callableWriter);
+        $spreadsheet->disconnectWorksheets();
+
+        $sheet = $reloadedSpreadsheet->getActiveSheet();
+        self::assertSame('Worksheet', $sheet->getTitle());
+        $charts = $sheet->getChartCollection();
+        self::assertCount(1, $charts);
+        $chart = $charts[0];
+        self::assertNotNull($chart);
+
+        $plotArea = $chart->getPlotArea();
+        $plotSeries = $plotArea->getPlotGroup();
+        self::assertCount(1, $plotSeries);
+        $dataSeries = $plotSeries[0];
+        $plotValues = $dataSeries->getPlotValues();
+        self::assertCount(3, $plotValues);
+        $values = $plotValues[0];
+        self::assertSame(31750 / Properties::POINTS_WIDTH_MULTIPLIER, $values->getLineWidth());
+
+        self::assertSame('sq', $values->getLineStyleProperty('cap'));
+        self::assertSame('tri', $values->getLineStyleProperty('compound'));
+        self::assertSame('sysDash', $values->getLineStyleProperty('dash'));
+        self::assertSame('miter', $values->getLineStyleProperty('join'));
+        self::assertSame('arrow', $values->getLineStyleProperty(['arrow', 'head', 'type']));
+        self::assertSame('med', $values->getLineStyleProperty(['arrow', 'head', 'w']));
+        self::assertSame('sm', $values->getLineStyleProperty(['arrow', 'head', 'len']));
+        self::assertSame('triangle', $values->getLineStyleProperty(['arrow', 'end', 'type']));
+        self::assertSame('med', $values->getLineStyleProperty(['arrow', 'end', 'w']));
+        self::assertSame('lg', $values->getLineStyleProperty(['arrow', 'end', 'len']));
+        self::assertSame('accent1', $values->getLineColorProperty('value'));
+        self::assertSame('schemeClr', $values->getLineColorProperty('type'));
+        self::assertSame(40, $values->getLineColorProperty('alpha'));
+        self::assertSame('', $values->getFillColor());
+
+        self::assertSame(7, $values->getPointSize());
+        self::assertSame('diamond', $values->getPointMarker());
+        self::assertSame('0070C0', $values->getMarkerColor1()->getValue());
+        self::assertSame('srgbClr', $values->getMarkerColor1()->getType());
+        self::assertSame('002060', $values->getMarkerColor2()->getValue());
+        self::assertSame('srgbClr', $values->getMarkerColor2()->getType());
+
+        $values = $plotValues[1];
+        self::assertSame(7, $values->getPointSize());
+        self::assertSame('square', $values->getPointMarker());
+        self::assertSame('accent6', $values->getMarkerColor1()->getValue());
+        self::assertSame('schemeClr', $values->getMarkerColor1()->getType());
+        self::assertSame(3, $values->getMarkerColor1()->getAlpha());
+        self::assertSame('0FF000', $values->getMarkerColor2()->getValue());
+        self::assertSame('srgbClr', $values->getMarkerColor2()->getType());
+        self::assertNull($values->getMarkerColor2()->getAlpha());
+
+        $values = $plotValues[2];
+        self::assertSame(7, $values->getPointSize());
+        self::assertSame('triangle', $values->getPointMarker());
+        self::assertSame('FFFF00', $values->getMarkerColor1()->getValue());
+        self::assertSame('srgbClr', $values->getMarkerColor1()->getType());
+        self::assertNull($values->getMarkerColor1()->getAlpha());
+        self::assertSame('accent4', $values->getMarkerColor2()->getValue());
+        self::assertSame('schemeClr', $values->getMarkerColor2()->getType());
 
         $reloadedSpreadsheet->disconnectWorksheets();
     }

@@ -90,6 +90,7 @@ class Chart
                             case 'plotArea':
                                 $plotAreaLayout = $XaxisLabel = $YaxisLabel = null;
                                 $plotSeries = $plotAttributes = [];
+                                $catAxRead = false;
                                 foreach ($chartDetails as $chartDetailKey => $chartDetail) {
                                     switch ($chartDetailKey) {
                                         case 'layout':
@@ -97,9 +98,11 @@ class Chart
 
                                             break;
                                         case 'catAx':
+                                            $catAxRead = true;
                                             if (isset($chartDetail->title)) {
                                                 $XaxisLabel = $this->chartTitle($chartDetail->title->children($this->cNamespace));
                                             }
+                                            $xAxis->setAxisType('catAx');
                                             $this->readEffects($chartDetail, $xAxis);
                                             if (isset($chartDetail->spPr)) {
                                                 $sppr = $chartDetail->spPr->children($this->aNamespace);
@@ -122,16 +125,22 @@ class Chart
                                             $axPos = null;
                                             if (isset($chartDetail->axPos)) {
                                                 $axPos = self::getAttribute($chartDetail->axPos, 'val', 'string');
-
+                                            }
+                                            if ($catAxRead) {
+                                                $whichAxis = $yAxis;
+                                                $yAxis->setAxisType($chartDetailKey);
+                                            } elseif (!empty($axPos)) {
                                                 switch ($axPos) {
                                                     case 't':
                                                     case 'b':
                                                         $whichAxis = $xAxis;
+                                                        $xAxis->setAxisType($chartDetailKey);
 
                                                         break;
                                                     case 'r':
                                                     case 'l':
                                                         $whichAxis = $yAxis;
+                                                        $yAxis->setAxisType($chartDetailKey);
 
                                                         break;
                                                 }
@@ -374,13 +383,15 @@ class Chart
                     $marker = null;
                     $seriesIndex = '';
                     $srgbClr = null;
-                    $lineWidth = null;
                     $pointSize = null;
                     $noFill = false;
                     $schemeClr = '';
                     $prstClr = '';
                     $bubble3D = false;
                     $dPtColors = [];
+                    $markerColor1 = null;
+                    $markerColor2 = null;
+                    $lineStyle = null;
                     foreach ($seriesDetails as $seriesKey => $seriesDetail) {
                         switch ($seriesKey) {
                             case 'idx':
@@ -399,9 +410,13 @@ class Chart
                             case 'spPr':
                                 $children = $seriesDetail->children($this->aNamespace);
                                 $ln = $children->ln;
-                                $lineWidth = self::getAttribute($ln, 'w', 'string');
-                                if (is_countable($ln->noFill) && count($ln->noFill) === 1) {
-                                    $noFill = true;
+                                if (isset($children->ln)) {
+                                    $ln = $children->ln;
+                                    if (is_countable($ln->noFill) && count($ln->noFill) === 1) {
+                                        $noFill = true;
+                                    }
+                                    $lineStyle = new GridLines();
+                                    $this->readLineStyle($seriesDetails, $lineStyle);
                                 }
                                 if (isset($children->solidFill)) {
                                     $this->readColor($children->solidFill, $srgbClr, $schemeClr, $prstClr);
@@ -429,10 +444,13 @@ class Chart
                                 $marker = self::getAttribute($seriesDetail->symbol, 'val', 'string');
                                 $pointSize = self::getAttribute($seriesDetail->size, 'val', 'string');
                                 $pointSize = is_numeric($pointSize) ? ((int) $pointSize) : null;
-                                if (count($seriesDetail->spPr) === 1) {
-                                    $ln = $seriesDetail->spPr->children($this->aNamespace);
-                                    if (isset($ln->solidFill)) {
-                                        $this->readColor($ln->solidFill, $srgbClr, $schemeClr, $prstClr);
+                                if (isset($seriesDetail->spPr)) {
+                                    $children = $seriesDetail->spPr->children($this->aNamespace);
+                                    if (isset($children->solidFill)) {
+                                        $markerColor1 = $this->readColor($children->solidFill);
+                                    }
+                                    if (isset($children->ln->solidFill)) {
+                                        $markerColor2 = $this->readColor($children->ln->solidFill);
                                     }
                                 }
 
@@ -478,15 +496,15 @@ class Chart
                             $seriesValues[$seriesIndex]->setScatterLines(false);
                         }
                     }
-                    if (is_numeric($lineWidth)) {
+                    if ($lineStyle !== null) {
                         if (isset($seriesLabel[$seriesIndex])) {
-                            $seriesLabel[$seriesIndex]->setLineWidth((int) $lineWidth);
+                            $seriesLabel[$seriesIndex]->copyLineStyles($lineStyle);
                         }
                         if (isset($seriesCategory[$seriesIndex])) {
-                            $seriesCategory[$seriesIndex]->setLineWidth((int) $lineWidth);
+                            $seriesCategory[$seriesIndex]->copyLineStyles($lineStyle);
                         }
                         if (isset($seriesValues[$seriesIndex])) {
-                            $seriesValues[$seriesIndex]->setLineWidth((int) $lineWidth);
+                            $seriesValues[$seriesIndex]->copyLineStyles($lineStyle);
                         }
                     }
                     if ($schemeClr) {
@@ -530,6 +548,39 @@ class Chart
                         }
                         if (isset($seriesValues[$seriesIndex])) {
                             $seriesValues[$seriesIndex]->setFillColor($dptColors);
+                        }
+                    }
+                    if ($markerColor1 !== null) {
+                        if (isset($seriesLabel[$seriesIndex])) {
+                            $seriesLabel[$seriesIndex]->getMarkerColor1()->setColorPropertiesArray($markerColor1);
+                        }
+                        if (isset($seriesCategory[$seriesIndex])) {
+                            $seriesCategory[$seriesIndex]->getMarkerColor1()->setColorPropertiesArray($markerColor1);
+                        }
+                        if (isset($seriesValues[$seriesIndex])) {
+                            $seriesValues[$seriesIndex]->getMarkerColor1()->setColorPropertiesArray($markerColor1);
+                        }
+                    }
+                    if ($markerColor2 !== null) {
+                        if (isset($seriesLabel[$seriesIndex])) {
+                            $seriesLabel[$seriesIndex]->getMarkerColor2()->setColorPropertiesArray($markerColor2);
+                        }
+                        if (isset($seriesCategory[$seriesIndex])) {
+                            $seriesCategory[$seriesIndex]->getMarkerColor2()->setColorPropertiesArray($markerColor2);
+                        }
+                        if (isset($seriesValues[$seriesIndex])) {
+                            $seriesValues[$seriesIndex]->getMarkerColor2()->setColorPropertiesArray($markerColor2);
+                        }
+                    }
+                    if ($smoothLine) {
+                        if (isset($seriesLabel[$seriesIndex])) {
+                            $seriesLabel[$seriesIndex]->setSmoothLine(true);
+                        }
+                        if (isset($seriesCategory[$seriesIndex])) {
+                            $seriesCategory[$seriesIndex]->setSmoothLine(true);
+                        }
+                        if (isset($seriesValues[$seriesIndex])) {
+                            $seriesValues[$seriesIndex]->setSmoothLine(true);
                         }
                     }
             }
@@ -834,6 +885,8 @@ class Chart
             if (is_int($fontSize)) {
                 $objText->getFont()->setSize(floor($fontSize / 100));
                 $fontFound = true;
+            } else {
+                $objText->getFont()->setSize(null, true);
             }
 
             $fontSrgbClr = $fontSrgbClr ?? $defaultSrgbColor;
@@ -1092,10 +1145,7 @@ class Chart
         return $result;
     }
 
-    /**
-     * @param null|GridLines $chartObject may be extended to include other types
-     */
-    private function readLineStyle(SimpleXMLElement $chartDetail, $chartObject): void
+    private function readLineStyle(SimpleXMLElement $chartDetail, ?Properties $chartObject): void
     {
         if (!isset($chartObject, $chartDetail->spPr)) {
             return;
@@ -1163,6 +1213,13 @@ class Chart
     {
         if (!isset($whichAxis)) {
             return;
+        }
+        if (isset($chartDetail->numFmt)) {
+            $whichAxis->setAxisNumberProperties(
+                (string) self::getAttribute($chartDetail->numFmt, 'formatCode', 'string'),
+                null,
+                (int) self::getAttribute($chartDetail->numFmt, 'sourceLinked', 'int')
+            );
         }
         if (isset($chartDetail->crossBetween)) {
             $whichAxis->setCrossBetween((string) self::getAttribute($chartDetail->crossBetween, 'val', 'string'));
