@@ -90,8 +90,8 @@ class Charts32ScatterTest extends AbstractFunctional
         self::assertSame(7, $values->getPointSize());
         // Had been testing for Fill Color, but we actually
         //  meant to test for marker color, which is now distinct.
-        self::assertSame('FFFF00', $values->getMarkerColor1()->getValue());
-        self::assertSame('srgbClr', $values->getMarkerColor1()->getType());
+        self::assertSame('FFFF00', $values->getMarkerFillColor()->getValue());
+        self::assertSame('srgbClr', $values->getMarkerFillColor()->getType());
 
         $reloadedSpreadsheet->disconnectWorksheets();
     }
@@ -191,8 +191,8 @@ class Charts32ScatterTest extends AbstractFunctional
         self::assertSame(7, $values->getPointSize());
         // Had been testing for Fill Color, but we actually
         //  meant to test for marker color, which is now distinct.
-        self::assertSame('FFFF00', $values->getMarkerColor1()->getValue());
-        self::assertSame('srgbClr', $values->getMarkerColor1()->getType());
+        self::assertSame('FFFF00', $values->getMarkerFillColor()->getValue());
+        self::assertSame('srgbClr', $values->getMarkerFillColor()->getType());
 
         $reloadedSpreadsheet->disconnectWorksheets();
     }
@@ -337,8 +337,8 @@ class Charts32ScatterTest extends AbstractFunctional
         self::assertSame(7, $values->getPointSize());
         // Had been testing for Fill Color, but we actually
         //  meant to test for marker color, which is now distinct.
-        self::assertSame('FFFF00', $values->getMarkerColor1()->getValue());
-        self::assertSame('srgbClr', $values->getMarkerColor1()->getType());
+        self::assertSame('FFFF00', $values->getMarkerFillColor()->getValue());
+        self::assertSame('srgbClr', $values->getMarkerFillColor()->getType());
 
         $reloadedSpreadsheet->disconnectWorksheets();
     }
@@ -391,29 +391,29 @@ class Charts32ScatterTest extends AbstractFunctional
 
         self::assertSame(7, $values->getPointSize());
         self::assertSame('diamond', $values->getPointMarker());
-        self::assertSame('0070C0', $values->getMarkerColor1()->getValue());
-        self::assertSame('srgbClr', $values->getMarkerColor1()->getType());
-        self::assertSame('002060', $values->getMarkerColor2()->getValue());
-        self::assertSame('srgbClr', $values->getMarkerColor2()->getType());
+        self::assertSame('0070C0', $values->getMarkerFillColor()->getValue());
+        self::assertSame('srgbClr', $values->getMarkerFillColor()->getType());
+        self::assertSame('002060', $values->getMarkerBorderColor()->getValue());
+        self::assertSame('srgbClr', $values->getMarkerBorderColor()->getType());
 
         $values = $plotValues[1];
         self::assertSame(7, $values->getPointSize());
         self::assertSame('square', $values->getPointMarker());
-        self::assertSame('accent6', $values->getMarkerColor1()->getValue());
-        self::assertSame('schemeClr', $values->getMarkerColor1()->getType());
-        self::assertSame(3, $values->getMarkerColor1()->getAlpha());
-        self::assertSame('0FF000', $values->getMarkerColor2()->getValue());
-        self::assertSame('srgbClr', $values->getMarkerColor2()->getType());
-        self::assertNull($values->getMarkerColor2()->getAlpha());
+        self::assertSame('accent6', $values->getMarkerFillColor()->getValue());
+        self::assertSame('schemeClr', $values->getMarkerFillColor()->getType());
+        self::assertSame(3, $values->getMarkerFillColor()->getAlpha());
+        self::assertSame('0FF000', $values->getMarkerBorderColor()->getValue());
+        self::assertSame('srgbClr', $values->getMarkerBorderColor()->getType());
+        self::assertNull($values->getMarkerBorderColor()->getAlpha());
 
         $values = $plotValues[2];
         self::assertSame(7, $values->getPointSize());
         self::assertSame('triangle', $values->getPointMarker());
-        self::assertSame('FFFF00', $values->getMarkerColor1()->getValue());
-        self::assertSame('srgbClr', $values->getMarkerColor1()->getType());
-        self::assertNull($values->getMarkerColor1()->getAlpha());
-        self::assertSame('accent4', $values->getMarkerColor2()->getValue());
-        self::assertSame('schemeClr', $values->getMarkerColor2()->getType());
+        self::assertSame('FFFF00', $values->getMarkerFillColor()->getValue());
+        self::assertSame('srgbClr', $values->getMarkerFillColor()->getType());
+        self::assertNull($values->getMarkerFillColor()->getAlpha());
+        self::assertSame('accent4', $values->getMarkerBorderColor()->getValue());
+        self::assertSame('schemeClr', $values->getMarkerBorderColor()->getType());
 
         $reloadedSpreadsheet->disconnectWorksheets();
     }

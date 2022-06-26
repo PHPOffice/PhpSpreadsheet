@@ -389,8 +389,8 @@ class Chart
                     $prstClr = '';
                     $bubble3D = false;
                     $dPtColors = [];
-                    $markerColor1 = null;
-                    $markerColor2 = null;
+                    $markerFillColor = null;
+                    $markerBorderColor = null;
                     $lineStyle = null;
                     foreach ($seriesDetails as $seriesKey => $seriesDetail) {
                         switch ($seriesKey) {
@@ -447,10 +447,10 @@ class Chart
                                 if (isset($seriesDetail->spPr)) {
                                     $children = $seriesDetail->spPr->children($this->aNamespace);
                                     if (isset($children->solidFill)) {
-                                        $markerColor1 = $this->readColor($children->solidFill);
+                                        $markerFillColor = $this->readColor($children->solidFill);
                                     }
                                     if (isset($children->ln->solidFill)) {
-                                        $markerColor2 = $this->readColor($children->ln->solidFill);
+                                        $markerBorderColor = $this->readColor($children->ln->solidFill);
                                     }
                                 }
 
@@ -550,26 +550,26 @@ class Chart
                             $seriesValues[$seriesIndex]->setFillColor($dptColors);
                         }
                     }
-                    if ($markerColor1 !== null) {
+                    if ($markerFillColor !== null) {
                         if (isset($seriesLabel[$seriesIndex])) {
-                            $seriesLabel[$seriesIndex]->getMarkerColor1()->setColorPropertiesArray($markerColor1);
+                            $seriesLabel[$seriesIndex]->getMarkerFillColor()->setColorPropertiesArray($markerFillColor);
                         }
                         if (isset($seriesCategory[$seriesIndex])) {
-                            $seriesCategory[$seriesIndex]->getMarkerColor1()->setColorPropertiesArray($markerColor1);
+                            $seriesCategory[$seriesIndex]->getMarkerFillColor()->setColorPropertiesArray($markerFillColor);
                         }
                         if (isset($seriesValues[$seriesIndex])) {
-                            $seriesValues[$seriesIndex]->getMarkerColor1()->setColorPropertiesArray($markerColor1);
+                            $seriesValues[$seriesIndex]->getMarkerFillColor()->setColorPropertiesArray($markerFillColor);
                         }
                     }
-                    if ($markerColor2 !== null) {
+                    if ($markerBorderColor !== null) {
                         if (isset($seriesLabel[$seriesIndex])) {
-                            $seriesLabel[$seriesIndex]->getMarkerColor2()->setColorPropertiesArray($markerColor2);
+                            $seriesLabel[$seriesIndex]->getMarkerBorderColor()->setColorPropertiesArray($markerBorderColor);
                         }
                         if (isset($seriesCategory[$seriesIndex])) {
-                            $seriesCategory[$seriesIndex]->getMarkerColor2()->setColorPropertiesArray($markerColor2);
+                            $seriesCategory[$seriesIndex]->getMarkerBorderColor()->setColorPropertiesArray($markerBorderColor);
                         }
                         if (isset($seriesValues[$seriesIndex])) {
-                            $seriesValues[$seriesIndex]->getMarkerColor2()->setColorPropertiesArray($markerColor2);
+                            $seriesValues[$seriesIndex]->getMarkerBorderColor()->setColorPropertiesArray($markerBorderColor);
                         }
                     }
                     if ($smoothLine) {

@@ -46,10 +46,10 @@ class DataSeriesValues extends Properties
     private $pointMarker;
 
     /** @var ChartColor */
-    private $markerColor1;
+    private $markerFillColor;
 
     /** @var ChartColor */
-    private $markerColor2;
+    private $markerBorderColor;
 
     /**
      * Series Point Size.
@@ -106,8 +106,8 @@ class DataSeriesValues extends Properties
     public function __construct($dataType = self::DATASERIES_TYPE_NUMBER, $dataSource = null, $formatCode = null, $pointCount = 0, $dataValues = [], $marker = null, $fillColor = null, $pointSize = '3')
     {
         parent::__construct();
-        $this->markerColor1 = new ChartColor();
-        $this->markerColor2 = new ChartColor();
+        $this->markerFillColor = new ChartColor();
+        $this->markerBorderColor = new ChartColor();
         $this->setDataType($dataType);
         $this->dataSource = $dataSource;
         $this->formatCode = $formatCode;
@@ -200,14 +200,14 @@ class DataSeriesValues extends Properties
         return $this;
     }
 
-    public function getMarkerColor1(): ChartColor
+    public function getMarkerFillColor(): ChartColor
     {
-        return $this->markerColor1;
+        return $this->markerFillColor;
     }
 
-    public function getMarkerColor2(): ChartColor
+    public function getMarkerBorderColor(): ChartColor
     {
-        return $this->markerColor2;
+        return $this->markerBorderColor;
     }
 
     /**

@@ -64,6 +64,61 @@ $dataSeriesValues = [
     new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_NUMBER, 'Worksheet!$C$2:$C$5', Properties::FORMAT_CODE_NUMBER, 4),
     new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_NUMBER, 'Worksheet!$D$2:$D$5', Properties::FORMAT_CODE_NUMBER, 4),
 ];
+
+// series 1
+// marker details
+$dataSeriesValues[0]
+    ->setPointMarker('diamond')
+    ->setPointSize(5)
+    ->getMarkerFillColor()
+    ->setColorProperties('0070C0', null, 'srgbClr'); // diamond fill color
+$dataSeriesValues[0]
+    ->getMarkerBorderColor()
+    ->setColorProperties('002060', null, 'srgbClr'); // diamond border color
+
+// line details - smooth line, connected
+$dataSeriesValues[0]
+    ->setScatterLines(true)
+    ->setSmoothLine(true)
+    ->setLineColorProperties('accent1', 40, 'schemeClr'); // value, alpha, type
+$dataSeriesValues[0]->setLineStyleProperties(
+    2.5, // width in pixels
+    Properties::LINE_STYLE_COMPOUND_TRIPLE, // compound
+    Properties::LINE_STYLE_DASH_SQUARE_DOT, // dash
+    Properties::LINE_STYLE_CAP_SQUARE, // cap
+    Properties::LINE_STYLE_JOIN_MITER, // join
+    Properties::LINE_STYLE_ARROW_TYPE_OPEN, // head type
+    Properties::LINE_STYLE_ARROW_SIZE_4, // head size preset index
+    Properties::LINE_STYLE_ARROW_TYPE_ARROW, // end type
+    Properties::LINE_STYLE_ARROW_SIZE_6 // end size preset index
+);
+
+// series 2 - straight line - no special effects, connected, straight line
+$dataSeriesValues[1] // square fill
+    ->setPointMarker('square')
+    ->setPointSize(6)
+    ->getMarkerBorderColor()
+    ->setColorProperties('accent6', 3, 'schemeClr');
+$dataSeriesValues[1] // square border
+    ->getMarkerFillColor()
+    ->setColorProperties('0FFF00', null, 'srgbClr');
+$dataSeriesValues[1]
+    ->setScatterLines(true)
+    ->setSmoothLine(false)
+    ->setLineColorProperties('FF0000', 80, 'srgbClr');
+$dataSeriesValues[1]->setLineWidth(2.0);
+
+// series 3 - markers, no line
+$dataSeriesValues[2] // triangle fill
+    //->setPointMarker('triangle') // let Excel choose shape
+    ->setPointSize(7)
+    ->getMarkerFillColor()
+    ->setColorProperties('FFFF00', null, 'srgbClr');
+$dataSeriesValues[2] // triangle border
+    ->getMarkerBorderColor()
+    ->setColorProperties('accent4', null, 'schemeClr');
+$dataSeriesValues[2]->setScatterLines(false); // points not connected
+
   // Added so that Xaxis shows dates instead of Excel-equivalent-year1900-numbers
 $xAxis = new Axis();
 //$xAxis->setAxisNumberProperties(Properties::FORMAT_CODE_DATE );
@@ -79,8 +134,7 @@ $series = new DataSeries(
     $dataSeriesValues, // plotValues
     null, // plotDirection
     false, // smooth line
-    //DataSeries::STYLE_LINEMARKER  // plotStyle
-    DataSeries::STYLE_MARKER  // plotStyle
+    DataSeries::STYLE_SMOOTHMARKER  // plotStyle
 );
 
 // Set the series in the plot area

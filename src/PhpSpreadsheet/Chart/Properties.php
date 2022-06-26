@@ -59,6 +59,8 @@ abstract class Properties
     const LINE_STYLE_COMPOUND_TRIPLE = 'tri';
     const LINE_STYLE_DASH_SOLID = 'solid';
     const LINE_STYLE_DASH_ROUND_DOT = 'sysDot';
+    const LINE_STYLE_DASH_SQUARE_DOT = 'sysDash';
+    /** @deprecated 1.24 use LINE_STYLE_DASH_SQUARE_DOT instead */
     const LINE_STYLE_DASH_SQUERE_DOT = 'sysDash';
     const LINE_STYPE_DASH_DASH = 'dash';
     const LINE_STYLE_DASH_DASH_DOT = 'dashDot';

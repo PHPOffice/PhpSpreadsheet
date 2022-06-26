@@ -97,6 +97,11 @@ class ChartColor
         return $this;
     }
 
+    public function isUsable(): bool
+    {
+        return $this->type !== '' && $this->value !== '';
+    }
+
     /**
      * Get Color Property.
      *

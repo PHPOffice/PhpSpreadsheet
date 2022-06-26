@@ -953,14 +953,12 @@ class Chart extends WriterPart
             //    Values
             $plotSeriesValues = $plotGroup->getPlotValuesByIndex($plotSeriesIdx);
 
-            if (($groupType == DataSeries::TYPE_PIECHART) || ($groupType == DataSeries::TYPE_PIECHART_3D) || ($groupType == DataSeries::TYPE_DONUTCHART)) {
+            if (in_array($groupType, self::CUSTOM_COLOR_TYPES, true)) {
                 $fillColorValues = $plotSeriesValues->getFillColor();
                 if ($fillColorValues !== null && is_array($fillColorValues)) {
                     foreach ($plotSeriesValues->getDataValues() as $dataKey => $dataValue) {
                         $this->writePlotSeriesValuesElement($objWriter, $dataKey, $fillColorValues[$dataKey] ?? '');
                     }
-                } else {
-                    $this->writePlotSeriesValuesElement($objWriter);
                 }
             }
 
@@ -1020,24 +1018,27 @@ class Chart extends WriterPart
 
             if ($plotSeriesValues) {
                 $plotSeriesMarker = $plotSeriesValues->getPointMarker();
-                if ($plotSeriesMarker) {
+                $markerFillColor = $plotSeriesValues->getMarkerFillColor();
+                $fillUsed = $markerFillColor->IsUsable();
+                $markerBorderColor = $plotSeriesValues->getMarkerBorderColor();
+                $borderUsed = $markerBorderColor->isUsable();
+                if ($plotSeriesMarker || $fillUsed || $borderUsed) {
                     $objWriter->startElement('c:marker');
                     $objWriter->startElement('c:symbol');
-                    $objWriter->writeAttribute('val', $plotSeriesMarker);
+                    if ($plotSeriesMarker) {
+                        $objWriter->writeAttribute('val', $plotSeriesMarker);
+                    }
                     $objWriter->endElement();
 
                     if ($plotSeriesMarker !== 'none') {
                         $objWriter->startElement('c:size');
                         $objWriter->writeAttribute('val', (string) $plotSeriesValues->getPointSize());
                         $objWriter->endElement(); // c:size
-                        $fillColor = $plotSeriesValues->getFillColor();
-                        $markerColor1 = $plotSeriesValues->getMarkerColor1();
-                        $markerColor2 = $plotSeriesValues->getMarkerColor2();
                         $objWriter->startElement('c:spPr');
-                        $this->writeColor($objWriter, $markerColor1);
-                        if (!empty($markerColor2->getType()) && !empty($markerColor2->getValue())) {
+                        $this->writeColor($objWriter, $markerFillColor);
+                        if ($borderUsed) {
                             $objWriter->startElement('a:ln');
-                            $this->writeColor($objWriter, $markerColor2);
+                            $this->writeColor($objWriter, $markerBorderColor);
                             $objWriter->endElement(); // a:ln
                         }
                         $objWriter->endElement(); // spPr
@@ -1255,6 +1256,14 @@ class Chart extends WriterPart
             $objWriter->endElement(); // *Ref
         }
     }
+
+    private const CUSTOM_COLOR_TYPES = [
+        DataSeries::TYPE_BARCHART,
+        DataSeries::TYPE_BARCHART_3D,
+        DataSeries::TYPE_PIECHART,
+        DataSeries::TYPE_PIECHART_3D,
+        DataSeries::TYPE_DONUTCHART,
+    ];
 
     /**
      * Write Bubble Chart Details.
