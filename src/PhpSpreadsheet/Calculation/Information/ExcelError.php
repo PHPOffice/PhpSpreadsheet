@@ -11,7 +11,7 @@ class ExcelError
     /**
      * List of error codes.
      *
-     * @var array
+     * @var array<string, string>
      */
     public static $errorCodes = [
         'null' => '#NULL!',
@@ -68,7 +68,7 @@ class ExcelError
      *
      * @return string #NULL!
      */
-    public static function null()
+    public static function null(): string
     {
         return self::$errorCodes['null'];
     }
@@ -80,7 +80,7 @@ class ExcelError
      *
      * @return string #NUM!
      */
-    public static function NAN()
+    public static function NAN(): string
     {
         return self::$errorCodes['num'];
     }
@@ -92,7 +92,7 @@ class ExcelError
      *
      * @return string #REF!
      */
-    public static function REF()
+    public static function REF(): string
     {
         return self::$errorCodes['reference'];
     }
@@ -108,7 +108,7 @@ class ExcelError
      *
      * @return string #N/A!
      */
-    public static function NA()
+    public static function NA(): string
     {
         return self::$errorCodes['na'];
     }
@@ -120,7 +120,7 @@ class ExcelError
      *
      * @return string #VALUE!
      */
-    public static function VALUE()
+    public static function VALUE(): string
     {
         return self::$errorCodes['value'];
     }
@@ -132,7 +132,7 @@ class ExcelError
      *
      * @return string #NAME?
      */
-    public static function NAME()
+    public static function NAME(): string
     {
         return self::$errorCodes['name'];
     }
@@ -142,7 +142,7 @@ class ExcelError
      *
      * @return string #DIV/0!
      */
-    public static function DIV0()
+    public static function DIV0(): string
     {
         return self::$errorCodes['divisionbyzero'];
     }
@@ -150,9 +150,9 @@ class ExcelError
     /**
      * CALC.
      *
-     * @return string #Not Yet Implemented
+     * @return string #CALC!
      */
-    public static function CALC()
+    public static function CALC(): string
     {
         return '#CALC!';
     }

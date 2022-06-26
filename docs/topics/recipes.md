@@ -1348,7 +1348,7 @@ Removing a merge can be done using the unmergeCells method:
 $spreadsheet->getActiveSheet()->unmergeCells('A18:E22');
 ```
 
-## Inserting rows/columns
+## Inserting or Removing rows/columns
 
 You can insert/remove rows/columns at a specific position. The following
 code inserts 2 new rows, right before row 7:
@@ -1356,6 +1356,23 @@ code inserts 2 new rows, right before row 7:
 ```php
 $spreadsheet->getActiveSheet()->insertNewRowBefore(7, 2);
 ```
+while
+```php
+$spreadsheet->getActiveSheet()->removeRow(7, 2);
+```
+will remove 2 rows starting at row number 7 (ie. rows 7 and 8).
+
+Equivalent methods exist for inserting/removing columns:
+
+```php
+$spreadsheet->getActiveSheet()->removeColumn('C', 2);
+```
+
+All subsequent rows (or columns) will be moved to allow the insertion (or removal) with all formulae referencing thise cells adjusted accordingly.
+
+Note that this is a fairly intensive process, particularly with large worksheets, and especially if you are inserting/removing rows/columns from near beginning of the worksheet.
+
+If you need to insert/remove several consecutive rows/columns, always use the second argument rather than making multiple calls to insert/remove a single row/column if possible.
 
 ## Add a drawing to a worksheet
 

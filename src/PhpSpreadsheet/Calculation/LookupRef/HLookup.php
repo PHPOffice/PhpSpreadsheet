@@ -73,7 +73,7 @@ class HLookup extends LookupBase
             // break if we have passed possible keys
             $bothNumeric = is_numeric($lookupValue) && is_numeric($rowData);
             $bothNotNumeric = !is_numeric($lookupValue) && !is_numeric($rowData);
-            $cellDataLower = StringHelper::strToLower($rowData);
+            $cellDataLower = StringHelper::strToLower((string) $rowData);
 
             if (
                 $notExactMatch &&
