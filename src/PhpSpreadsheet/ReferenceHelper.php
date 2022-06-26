@@ -525,6 +525,12 @@ class ReferenceHelper
             if ($objDrawing->getCoordinates() != $newReference) {
                 $objDrawing->setCoordinates($newReference);
             }
+            if ($objDrawing->getCoordinates2() !== '') {
+                $newReference = $this->updateCellReference($objDrawing->getCoordinates2());
+                if ($objDrawing->getCoordinates2() != $newReference) {
+                    $objDrawing->setCoordinates2($newReference);
+                }
+            }
         }
 
         // Update workbook: define names
