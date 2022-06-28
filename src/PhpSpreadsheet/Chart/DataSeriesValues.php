@@ -75,15 +75,9 @@ class DataSeriesValues extends Properties
     /**
      * Fill color (can be array with colors if dataseries have custom colors).
      *
-     * @var null|string|string[]
+     * @var null|ChartColor|ChartColor[]
      */
     private $fillColor;
-
-    /** @var string */
-    private $schemeClr = '';
-
-    /** @var string */
-    private $prstClr = '';
 
     /** @var bool */
     private $scatterLines = true;
@@ -100,7 +94,7 @@ class DataSeriesValues extends Properties
      * @param int $pointCount
      * @param mixed $dataValues
      * @param null|mixed $marker
-     * @param null|string|string[] $fillColor
+     * @param null|ChartColor|ChartColor[]|string|string[] $fillColor
      * @param string $pointSize
      */
     public function __construct($dataType = self::DATASERIES_TYPE_NUMBER, $dataSource = null, $formatCode = null, $pointCount = 0, $dataValues = [], $marker = null, $fillColor = null, $pointSize = '3')
@@ -114,7 +108,9 @@ class DataSeriesValues extends Properties
         $this->pointCount = $pointCount;
         $this->dataValues = $dataValues;
         $this->pointMarker = $marker;
-        $this->fillColor = $fillColor;
+        if ($fillColor !== null) {
+            $this->setFillColor($fillColor);
+        }
         if (is_numeric($pointSize)) {
             $this->pointSize = (int) $pointSize;
         }
@@ -265,36 +261,95 @@ class DataSeriesValues extends Properties
     }
 
     /**
+     * Get fill color object.
+     *
+     * @return null|ChartColor|ChartColor[]
+     */
+    public function getFillColorObject()
+    {
+        return $this->fillColor;
+    }
+
+    private function stringToChartColor(string $fillString): ChartColor
+    {
+        $value = $type = '';
+        if (substr($fillString, 0, 1) === '*') {
+            $type = 'schemeClr';
+            $value = substr($fillString, 1);
+        } elseif (substr($fillString, 0, 1) === '/') {
+            $type = 'prstClr';
+            $value = substr($fillString, 1);
+        } elseif ($fillString !== '') {
+            $type = 'srgbClr';
+            $value = $fillString;
+            $this->validateColor($value);
+        }
+
+        return new ChartColor($value, null, $type);
+    }
+
+    private function chartColorToString(ChartColor $chartColor): string
+    {
+        $type = (string) $chartColor->getColorProperty('type');
+        $value = (string) $chartColor->getColorProperty('value');
+        if ($type === '' || $value === '') {
+            return '';
+        }
+        if ($type === 'schemeClr') {
+            return "*$value";
+        }
+        if ($type === 'prstClr') {
+            return "/$value";
+        }
+
+        return $value;
+    }
+
+    /**
      * Get fill color.
      *
-     * @return null|string|string[] HEX color or array with HEX colors
+     * @return string|string[] HEX color or array with HEX colors
      */
     public function getFillColor()
     {
-        return $this->fillColor;
+        if ($this->fillColor === null) {
+            return '';
+        }
+        if (is_array($this->fillColor)) {
+            $array = [];
+            foreach ($this->fillColor as $chartColor) {
+                $array[] = self::chartColorToString($chartColor);
+            }
+
+            return $array;
+        }
+
+        return self::chartColorToString($this->fillColor);
     }
 
     /**
      * Set fill color for series.
      *
-     * @param string|string[] $color HEX color or array with HEX colors
+     * @param ChartColor|ChartColor[]|string|string[] $color HEX color or array with HEX colors
      *
      * @return   DataSeriesValues
      */
     public function setFillColor($color)
     {
         if (is_array($color)) {
-            foreach ($color as $colorValue) {
-                if (substr($colorValue, 0, 1) !== '*' && substr($colorValue, 0, 1) !== '/') {
-                    $this->validateColor($colorValue);
+            $this->fillColor = [];
+            foreach ($color as $fillString) {
+                if ($fillString instanceof ChartColor) {
+                    $this->fillColor[] = $fillString;
+                } else {
+                    $this->fillColor[] = self::stringToChartColor($fillString);
                 }
             }
-        } else {
-            if (substr($color, 0, 1) !== '*' && substr($color, 0, 1) !== '/') {
-                $this->validateColor("$color");
-            }
+        } elseif ($color instanceof ChartColor) {
+            $this->fillColor = $color;
+        } elseif (is_string($color)) {
+            $this->fillColor = self::stringToChartColor($color);
         }
-        $this->fillColor = $color;
 
         return $this;
     }
@@ -473,30 +528,6 @@ class DataSeriesValues extends Properties
     public function setBubble3D(bool $bubble3D): self
     {
         $this->bubble3D = $bubble3D;
-
-        return $this;
-    }
-
-    public function getSchemeClr(): string
-    {
-        return $this->schemeClr;
-    }
-
-    public function setSchemeClr(string $schemeClr): self
-    {
-        $this->schemeClr = $schemeClr;
-
-        return $this;
-    }
-
-    public function getPrstClr(): string
-    {
-        return $this->prstClr;
-    }
-
-    public function setPrstClr(string $prstClr): self
-    {
-        $this->prstClr = $prstClr;
 
         return $this;
     }

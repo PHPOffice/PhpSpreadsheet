@@ -843,40 +843,27 @@ class Chart extends WriterPart
 
     /**
      * Method writing plot series values.
-     *
-     * @param int $val value for idx (default: 3)
-     * @param string $fillColor hex color (default: FF9900)
      */
-    private function writePlotSeriesValuesElement(XMLWriter $objWriter, $val = 3, $fillColor = 'FF9900'): void
+    private function writePlotSeriesValuesElement(XMLWriter $objWriter, int $val, ?ChartColor $fillColor): void
     {
-        if ($fillColor === '') {
+        if ($fillColor === null || !$fillColor->isUsable()) {
             return;
         }
         $objWriter->startElement('c:dPt');
+
         $objWriter->startElement('c:idx');
         $objWriter->writeAttribute('val', $val);
-        $objWriter->endElement();
+        $objWriter->endElement(); // c:idx
 
         $objWriter->startElement('c:bubble3D');
         $objWriter->writeAttribute('val', 0);
-        $objWriter->endElement();
+        $objWriter->endElement(); // c:bubble3D
 
         $objWriter->startElement('c:spPr');
-        $objWriter->startElement('a:solidFill');
-        if (substr($fillColor, 0, 1) === '*') {
-            $objWriter->startElement('a:schemeClr');
-            $objWriter->writeAttribute('val', substr($fillColor, 1));
-        } elseif (substr($fillColor, 0, 1) === '/') {
-            $objWriter->startElement('a:prstClr');
-            $objWriter->writeAttribute('val', substr($fillColor, 1));
-        } else {
-            $objWriter->startElement('a:srgbClr');
-            $objWriter->writeAttribute('val', $fillColor);
-        }
-        $objWriter->endElement();
-        $objWriter->endElement();
-        $objWriter->endElement();
-        $objWriter->endElement();
+        $this->writeColor($objWriter, $fillColor);
+        $objWriter->endElement(); // c:spPr
+
+        $objWriter->endElement(); // c:dPt
     }
 
     /**
@@ -937,27 +924,28 @@ class Chart extends WriterPart
             $objWriter->endElement();
 
             $plotLabel = $plotGroup->getPlotLabelByIndex($plotSeriesIdx);
+            $labelFill = null;
+            if ($plotLabel && $groupType === DataSeries::TYPE_LINECHART) {
+                $labelFill = $plotLabel->getFillColorObject();
+                $labelFill = ($labelFill instanceof ChartColor) ? $labelFill : null;
+            }
             if ($plotLabel && $groupType !== DataSeries::TYPE_LINECHART) {
-                $fillColor = $plotLabel->getFillColor();
-                if ($fillColor !== null && !is_array($fillColor)) {
+                $fillColor = $plotLabel->getFillColorObject();
+                if ($fillColor !== null && !is_array($fillColor) && $fillColor->isUsable()) {
                     $objWriter->startElement('c:spPr');
-                    $objWriter->startElement('a:solidFill');
-                    $objWriter->startElement('a:srgbClr');
-                    $objWriter->writeAttribute('val', $fillColor);
-                    $objWriter->endElement();
-                    $objWriter->endElement();
-                    $objWriter->endElement();
+                    $this->writeColor($objWriter, $fillColor);
+                    $objWriter->endElement(); // c:spPr
                 }
             }
 
             //    Values
             $plotSeriesValues = $plotGroup->getPlotValuesByIndex($plotSeriesIdx);
 
-            if (in_array($groupType, self::CUSTOM_COLOR_TYPES, true)) {
-                $fillColorValues = $plotSeriesValues->getFillColor();
+            if ($plotSeriesValues !== false && in_array($groupType, self::CUSTOM_COLOR_TYPES, true)) {
+                $fillColorValues = $plotSeriesValues->getFillColorObject();
                 if ($fillColorValues !== null && is_array($fillColorValues)) {
                     foreach ($plotSeriesValues->getDataValues() as $dataKey => $dataValue) {
-                        $this->writePlotSeriesValuesElement($objWriter, $dataKey, $fillColorValues[$dataKey] ?? '');
+                        $this->writePlotSeriesValuesElement($objWriter, $dataKey, $fillColorValues[$dataKey] ?? null);
                     }
                 }
             }
@@ -977,34 +965,14 @@ class Chart extends WriterPart
                 $plotSeriesValues !== false
             ) {
                 $objWriter->startElement('c:spPr');
-                $schemeClr = $typeClr = '';
-                if ($plotLabel) {
-                    $schemeClr = $plotLabel->getSchemeClr();
-                    if ($schemeClr) {
-                        $typeClr = 'schemeClr';
-                    } else {
-                        $schemeClr = $plotLabel->getPrstClr();
-                        if ($schemeClr) {
-                            $typeClr = 'prstClr';
-                        } else {
-                            $schemeClr = $plotLabel->getFillColor();
-                            if ($schemeClr) {
-                                $typeClr = 'srgbClr';
-                            }
-                        }
-                    }
-                }
+                $fillObject = $labelFill ?? $plotSeriesValues->getFillColorObject();
                 $callLineStyles = true;
-                if ($schemeClr && is_string($schemeClr)) {
+                if ($fillObject instanceof ChartColor && $fillObject->isUsable()) {
                     if ($groupType === DataSeries::TYPE_LINECHART) {
                         $objWriter->startElement('a:ln');
                         $callLineStyles = false;
                     }
-                    $objWriter->startElement('a:solidFill');
-                    $objWriter->startElement("a:$typeClr");
-                    $objWriter->writeAttribute('val', $schemeClr);
-                    $objWriter->endElement(); // srgb/scheme/prst
-                    $objWriter->endElement(); // solidFill
+                    $this->writeColor($objWriter, $fillObject);
                     if (!$callLineStyles) {
                         $objWriter->endElement(); // a:ln
                     }

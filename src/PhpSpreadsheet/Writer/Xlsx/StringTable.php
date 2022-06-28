@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use PhpOffice\PhpSpreadsheet\Chart\ChartColor;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\RichText\Run;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
@@ -198,7 +199,7 @@ class StringTable extends WriterPart
      * @param RichText|string $richText text string or Rich text
      * @param string $prefix Optional Namespace prefix
      */
-    public function writeRichTextForCharts(XMLWriter $objWriter, $richText = null, $prefix = null): void
+    public function writeRichTextForCharts(XMLWriter $objWriter, $richText = null, $prefix = ''): void
     {
         if (!$richText instanceof RichText) {
             $textRun = $richText;
@@ -207,7 +208,7 @@ class StringTable extends WriterPart
             $run->setFont(null);
         }
 
-        if ($prefix !== null) {
+        if ($prefix !== '') {
             $prefix .= ':';
         }
 
@@ -249,27 +250,10 @@ class StringTable extends WriterPart
                 }
 
                 // Color
-                $objWriter->startElement($prefix . 'solidFill');
-                $objWriter->startElement($prefix . 'srgbClr');
-                $objWriter->writeAttribute('val', $element->getFont()->getColor()->getRGB());
-                $objWriter->endElement(); // srgbClr
-                $objWriter->endElement(); // solidFill
+                $this->writeChartTextColor($objWriter, $element->getFont()->getChartColor(), $prefix);
 
                 // Underscore Color
-                $underlineColor = $element->getFont()->getUnderlineColor();
-                if ($underlineColor !== null) {
-                    $type = $underlineColor->getType();
-                    $value = $underlineColor->getValue();
-                    if (!empty($type) && !empty($value)) {
-                        $objWriter->startElement($prefix . 'uFill');
-                        $objWriter->startElement($prefix . 'solidFill');
-                        $objWriter->startElement($prefix . $type);
-                        $objWriter->writeAttribute('val', $value);
-                        $objWriter->endElement(); // schemeClr
-                        $objWriter->endElement(); // solidFill
-                        $objWriter->endElement(); // uFill
-                    }
-                }
+                $this->writeChartTextColor($objWriter, $element->getFont()->getUnderlineColor(), $prefix, 'uFill');
 
                 // fontName
                 if ($element->getFont()->getLatin()) {
@@ -297,6 +281,33 @@ class StringTable extends WriterPart
             $objWriter->endElement();
 
             $objWriter->endElement();
+        }
+    }
+
+    private function writeChartTextColor(XMLWriter $objWriter, ?ChartColor $underlineColor, string $prefix, ?string $openTag = ''): void
+    {
+        if ($underlineColor !== null) {
+            $type = $underlineColor->getType();
+            $value = $underlineColor->getValue();
+            if (!empty($type) && !empty($value)) {
+                if ($openTag !== '') {
+                    $objWriter->startElement($prefix . $openTag);
+                }
+                $objWriter->startElement($prefix . 'solidFill');
+                $objWriter->startElement($prefix . $type);
+                $objWriter->writeAttribute('val', $value);
+                $alpha = $underlineColor->getAlpha();
+                if (is_numeric($alpha)) {
+                    $objWriter->startElement('a:alpha');
+                    $objWriter->writeAttribute('val', ChartColor::alphaToXml((int) $alpha));
+                    $objWriter->endElement();
+                }
+                $objWriter->endElement(); // srgbClr/schemeClr/prstClr
+                $objWriter->endElement(); // solidFill
+                if ($openTag !== '') {
+                    $objWriter->endElement(); // uFill
+                }
+            }
         }
     }
 

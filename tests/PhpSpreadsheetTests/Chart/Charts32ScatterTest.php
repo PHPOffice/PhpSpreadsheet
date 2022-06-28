@@ -66,7 +66,10 @@ class Charts32ScatterTest extends AbstractFunctional
         self::assertFalse($font->getSubscript());
         self::assertFalse($font->getStrikethrough());
         self::assertSame('none', $font->getUnderline());
-        self::assertSame('000000', $font->getColor()->getRGB());
+        $chartColor = $font->getChartColor();
+        self::assertNotNull($chartColor);
+        self::assertSame('000000', $chartColor->getValue());
+        self::assertSame('srgbClr', $chartColor->getType());
 
         $plotArea = $chart->getPlotArea();
         $plotSeries = $plotArea->getPlotGroup();
@@ -139,7 +142,10 @@ class Charts32ScatterTest extends AbstractFunctional
         self::assertFalse($font->getSubscript());
         self::assertFalse($font->getStrikethrough());
         self::assertSame('none', $font->getUnderline());
-        self::assertSame('000000', $font->getColor()->getRGB());
+        $chartColor = $font->getChartColor();
+        self::assertNotNull($chartColor);
+        self::assertSame('000000', $chartColor->getValue());
+        self::assertSame('srgbClr', $chartColor->getType());
 
         $run = $elements[1];
         self::assertInstanceOf(Run::class, $run);
@@ -153,7 +159,10 @@ class Charts32ScatterTest extends AbstractFunctional
         self::assertFalse($font->getSubscript());
         self::assertFalse($font->getStrikethrough());
         self::assertSame('single', $font->getUnderline());
-        self::assertSame('00B0F0', $font->getColor()->getRGB());
+        $chartColor = $font->getChartColor();
+        self::assertNotNull($chartColor);
+        self::assertSame('00B0F0', $chartColor->getValue());
+        self::assertSame('srgbClr', $chartColor->getType());
 
         $run = $elements[2];
         self::assertInstanceOf(Run::class, $run);
@@ -167,7 +176,10 @@ class Charts32ScatterTest extends AbstractFunctional
         self::assertFalse($font->getSubscript());
         self::assertFalse($font->getStrikethrough());
         self::assertSame('none', $font->getUnderline());
-        self::assertSame('000000', $font->getColor()->getRGB());
+        $chartColor = $font->getChartColor();
+        self::assertNotNull($chartColor);
+        self::assertSame('000000', $chartColor->getValue());
+        self::assertSame('srgbClr', $chartColor->getType());
 
         $plotArea = $chart->getPlotArea();
         $plotSeries = $plotArea->getPlotGroup();
@@ -239,7 +251,10 @@ class Charts32ScatterTest extends AbstractFunctional
         self::assertFalse($font->getSubscript());
         self::assertFalse($font->getStrikethrough());
         self::assertSame('none', $font->getUnderline());
-        self::assertSame('000000', $font->getColor()->getRGB());
+        $chartColor = $font->getChartColor();
+        self::assertNotNull($chartColor);
+        self::assertSame('000000', $chartColor->getValue());
+        self::assertSame('srgbClr', $chartColor->getType());
 
         $plotArea = $chart->getPlotArea();
         $plotSeries = $plotArea->getPlotGroup();
@@ -312,7 +327,10 @@ class Charts32ScatterTest extends AbstractFunctional
             self::assertFalse($font->getSubscript());
             self::assertFalse($font->getStrikethrough());
             self::assertSame('none', $font->getUnderline());
-            self::assertSame('000000', $font->getColor()->getRGB());
+            $chartColor = $font->getChartColor();
+            self::assertNotNull($chartColor);
+            self::assertSame('000000', $chartColor->getValue());
+            self::assertSame('srgbClr', $chartColor->getType());
         }
 
         $plotArea = $chart->getPlotArea();

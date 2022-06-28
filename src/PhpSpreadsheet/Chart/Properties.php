@@ -70,7 +70,7 @@ abstract class Properties
     const LINE_STYLE_CAP_SQUARE = 'sq';
     const LINE_STYLE_CAP_ROUND = 'rnd';
     const LINE_STYLE_CAP_FLAT = 'flat';
-    const LINE_STYLE_JOIN_ROUND = 'bevel';
+    const LINE_STYLE_JOIN_ROUND = 'round';
     const LINE_STYLE_JOIN_MITER = 'miter';
     const LINE_STYLE_JOIN_BEVEL = 'bevel';
     const LINE_STYLE_ARROW_TYPE_NOARROW = null;
