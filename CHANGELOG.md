@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
   - Treat rows/columns containing no cell records as empty (default)
   - Treat cells containing a null value as empty
   - Treat cells containing an empty string as empty
+- Apply cell limit (32,767 chars) in xlsx writer [Issue #2884](https://github.com/PHPOffice/PhpSpreadsheet/issues/2884)
 
 ### Changed
 
