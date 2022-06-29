@@ -118,7 +118,7 @@ class Operations
             if (is_numeric($arg)) {
                 $returnValue *= $arg;
             } else {
-                return ExcelError::VALUE();
+                return ExcelError::throwError($arg);
             }
         }
 
