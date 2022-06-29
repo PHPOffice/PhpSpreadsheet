@@ -97,7 +97,7 @@ class StringTable extends WriterPart
                 if ($textToWrite !== trim($textToWrite)) {
                     $objWriter->writeAttribute('xml:space', 'preserve');
                 }
-                $objWriter->writeRawData($textToWrite);
+                $objWriter->writeRawData(StringHelper::applyCharsLimit($textToWrite));
                 $objWriter->endElement();
             } elseif ($textElement instanceof RichText) {
                 $this->writeRichText($objWriter, $textElement);
@@ -185,7 +185,7 @@ class StringTable extends WriterPart
             // t
             $objWriter->startElement($prefix . 't');
             $objWriter->writeAttribute('xml:space', 'preserve');
-            $objWriter->writeRawData(StringHelper::controlCharacterPHP2OOXML($element->getText()));
+            $objWriter->writeRawData(StringHelper::applyCharsLimit(StringHelper::controlCharacterPHP2OOXML($element->getText())));
             $objWriter->endElement();
 
             $objWriter->endElement();

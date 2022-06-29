@@ -12,6 +12,11 @@ class StringHelper
     const STRING_REGEXP_FRACTION = '(-?)(\d+)\s+(\d+\/\d+)';
 
     /**
+     * Maximum limit of chars in single cell in excel.
+     */
+    private const CELL_CHARS_LIMIT = 32767;
+
+    /**
      * Control characters array.
      *
      * @var string[]
@@ -687,5 +692,18 @@ class StringHelper
         $v = (float) $textValue;
 
         return (is_numeric(substr($textValue, 0, strlen($v)))) ? $v : $textValue;
+    }
+
+    /**
+     * If text exceed chars limit in cell, it is truncated.
+     */
+    public static function applyCharsLimit(string $text): string
+    {
+        if (strlen($text) > self::CELL_CHARS_LIMIT) {
+            $text = substr($text, 0, self::CELL_CHARS_LIMIT);
+            trigger_error('Text exceeded max chars limit in single cell and was truncated: ' . self::CELL_CHARS_LIMIT, E_USER_WARNING);
+        }
+
+        return $text;
     }
 }
