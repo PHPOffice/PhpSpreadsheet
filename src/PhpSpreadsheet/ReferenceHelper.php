@@ -316,6 +316,7 @@ class ReferenceHelper
                     $objColumnDimension->setColumnIndex($newReference);
                 }
             }
+
             $worksheet->refreshColumnDimensions();
         }
     }
@@ -339,6 +340,7 @@ class ReferenceHelper
                     $objRowDimension->setRowIndex($newRoweference);
                 }
             }
+
             $worksheet->refreshRowDimensions();
 
             $copyDimension = $worksheet->getRowDimension($beforeRow - 1);
