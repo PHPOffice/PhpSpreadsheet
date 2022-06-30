@@ -119,6 +119,7 @@ class AxisGlowTest extends AbstractFunctional
         $xAxis->setSoftEdges($softEdgesX);
         self::assertEquals($yGlowSize, $yAxis->getGlowProperty('size'));
         self::assertEquals($expectedGlowColor, $yAxis->getGlowProperty('color'));
+        self::assertSame($expectedGlowColor['value'], $yAxis->getGlowProperty(['color', 'value']));
         self::assertEquals($softEdgesY, $yAxis->getSoftEdgesSize());
         self::assertEquals($softEdgesX, $xAxis->getSoftEdgesSize());
 

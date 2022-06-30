@@ -2,6 +2,7 @@
 
 use PhpOffice\PhpSpreadsheet\Chart\Axis;
 use PhpOffice\PhpSpreadsheet\Chart\Chart;
+use PhpOffice\PhpSpreadsheet\Chart\ChartColor;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeries;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues;
 use PhpOffice\PhpSpreadsheet\Chart\Legend as ChartLegend;
@@ -64,10 +65,75 @@ $dataSeriesValues = [
     new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_NUMBER, 'Worksheet!$C$2:$C$5', Properties::FORMAT_CODE_NUMBER, 4),
     new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_NUMBER, 'Worksheet!$D$2:$D$5', Properties::FORMAT_CODE_NUMBER, 4),
 ];
+
+// series 1
+// marker details
+$dataSeriesValues[0]
+    ->setPointMarker('diamond')
+    ->setPointSize(5)
+    ->getMarkerFillColor()
+    ->setColorProperties('0070C0', null, ChartColor::EXCEL_COLOR_TYPE_RGB);
+$dataSeriesValues[0]
+    ->getMarkerBorderColor()
+    ->setColorProperties('002060', null, ChartColor::EXCEL_COLOR_TYPE_RGB);
+
+// line details - smooth line, connected
+$dataSeriesValues[0]
+    ->setScatterLines(true)
+    ->setSmoothLine(true)
+    ->setLineColorProperties('accent1', 40, ChartColor::EXCEL_COLOR_TYPE_SCHEME); // value, alpha, type
+$dataSeriesValues[0]->setLineStyleProperties(
+    2.5, // width in points
+    Properties::LINE_STYLE_COMPOUND_TRIPLE, // compound
+    Properties::LINE_STYLE_DASH_SQUARE_DOT, // dash
+    Properties::LINE_STYLE_CAP_SQUARE, // cap
+    Properties::LINE_STYLE_JOIN_MITER, // join
+    Properties::LINE_STYLE_ARROW_TYPE_OPEN, // head type
+    Properties::LINE_STYLE_ARROW_SIZE_4, // head size preset index
+    Properties::LINE_STYLE_ARROW_TYPE_ARROW, // end type
+    Properties::LINE_STYLE_ARROW_SIZE_6 // end size preset index
+);
+
+// series 2 - straight line - no special effects, connected, straight line
+$dataSeriesValues[1] // square fill
+    ->setPointMarker('square')
+    ->setPointSize(6)
+    ->getMarkerBorderColor()
+    ->setColorProperties('accent6', 3, ChartColor::EXCEL_COLOR_TYPE_SCHEME);
+$dataSeriesValues[1] // square border
+    ->getMarkerFillColor()
+    ->setColorProperties('0FFF00', null, ChartColor::EXCEL_COLOR_TYPE_RGB);
+$dataSeriesValues[1]
+    ->setScatterLines(true)
+    ->setSmoothLine(false)
+    ->setLineColorProperties('FF0000', 80, ChartColor::EXCEL_COLOR_TYPE_RGB);
+$dataSeriesValues[1]->setLineWidth(2.0);
+
+// series 3 - markers, no line
+$dataSeriesValues[2] // triangle fill
+    //->setPointMarker('triangle') // let Excel choose shape
+    ->setPointSize(7)
+    ->getMarkerFillColor()
+    ->setColorProperties('FFFF00', null, ChartColor::EXCEL_COLOR_TYPE_RGB);
+$dataSeriesValues[2] // triangle border
+    ->getMarkerBorderColor()
+    ->setColorProperties('accent4', null, ChartColor::EXCEL_COLOR_TYPE_SCHEME);
+$dataSeriesValues[2]->setScatterLines(false); // points not connected
+
   // Added so that Xaxis shows dates instead of Excel-equivalent-year1900-numbers
 $xAxis = new Axis();
 //$xAxis->setAxisNumberProperties(Properties::FORMAT_CODE_DATE );
 $xAxis->setAxisNumberProperties(Properties::FORMAT_CODE_DATE_ISO8601, true);
+
+$yAxis = new Axis();
+$yAxis->setLineStyleProperties(
+    2.5,     // width in points
+    Properties::LINE_STYLE_COMPOUND_SIMPLE,
+    Properties::LINE_STYLE_DASH_DASH_DOT,
+    Properties::LINE_STYLE_CAP_FLAT,
+    Properties::LINE_STYLE_JOIN_BEVEL
+);
+$yAxis->setLineColorProperties('ffc000', null, ChartColor::EXCEL_COLOR_TYPE_RGB);
 
 // Build the dataseries
 $series = new DataSeries(
@@ -79,8 +145,7 @@ $series = new DataSeries(
     $dataSeriesValues, // plotValues
     null, // plotDirection
     false, // smooth line
-    //DataSeries::STYLE_LINEMARKER  // plotStyle
-    DataSeries::STYLE_MARKER  // plotStyle
+    DataSeries::STYLE_SMOOTHMARKER  // plotStyle
 );
 
 // Set the series in the plot area
@@ -103,6 +168,7 @@ $chart = new Chart(
     $yAxisLabel,  // yAxisLabel
     // added xAxis for correct date display
     $xAxis, // xAxis
+    $yAxis, // yAxis
 );
 
 // Set the position where the chart should appear in the worksheet
