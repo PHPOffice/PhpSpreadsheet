@@ -9,8 +9,8 @@ use PhpOffice\PhpSpreadsheet\IComparable;
 class BaseDrawing implements IComparable
 {
     const EDIT_AS_ABSOLUTE = 'absolute';
-    const EDIT_AS_ONECELL = 'onecell';
-    const EDIT_AS_TWOCELL = 'twocell';
+    const EDIT_AS_ONECELL = 'oneCell';
+    const EDIT_AS_TWOCELL = 'twoCell';
     private const VALID_EDIT_AS = [
         self::EDIT_AS_ABSOLUTE,
         self::EDIT_AS_ONECELL,
@@ -530,6 +530,6 @@ class BaseDrawing implements IComparable
 
     public function validEditAs(): bool
     {
-        return in_array($this->editAs, self::VALID_EDIT_AS);
+        return in_array($this->editAs, self::VALID_EDIT_AS, true);
     }
 }

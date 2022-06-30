@@ -554,10 +554,10 @@ class DrawingsTest extends AbstractFunctional
     {
         return [
             'absolute' => ['absolute'],
-            'onecell' => ['onecell'],
-            'twocell' => ['twocell'],
-            'unset (will be treated as twocell)' => [''],
-            'unknown (will be treated as twocell)' => ['unknown', ''],
+            'onecell' => ['oneCell'],
+            'twocell' => ['twoCell'],
+            'unset (will be treated as twoCell)' => [''],
+            'unknown (will be treated as twoCell)' => ['unknown', ''],
         ];
     }
 
