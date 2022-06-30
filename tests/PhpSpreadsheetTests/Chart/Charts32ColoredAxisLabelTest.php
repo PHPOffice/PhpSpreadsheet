@@ -58,7 +58,10 @@ class Charts32ColoredAxisLabelTest extends AbstractFunctional
         self::assertInstanceOf(Run::class, $run);
         $font = $run->getFont();
         self::assertInstanceOf(Font::class, $font);
-        self::assertSame('00B050', $font->getColor()->getRGB());
+        $chartColor = $font->getChartColor();
+        self::assertNotNull($chartColor);
+        self::assertSame('00B050', $chartColor->getValue());
+        self::assertSame('srgbClr', $chartColor->getType());
 
         $yAxisLabel = $chart->getYAxisLabel();
         $captionArray = $yAxisLabel->getCaption();
@@ -73,7 +76,10 @@ class Charts32ColoredAxisLabelTest extends AbstractFunctional
         self::assertInstanceOf(Run::class, $run);
         $font = $run->getFont();
         self::assertInstanceOf(Font::class, $font);
-        self::assertSame('FF0000', $font->getColor()->getRGB());
+        $chartColor = $font->getChartColor();
+        self::assertNotNull($chartColor);
+        self::assertSame('FF0000', $chartColor->getValue());
+        self::assertSame('srgbClr', $chartColor->getType());
 
         $reloadedSpreadsheet->disconnectWorksheets();
     }

@@ -59,6 +59,8 @@ abstract class Properties
     const LINE_STYLE_COMPOUND_TRIPLE = 'tri';
     const LINE_STYLE_DASH_SOLID = 'solid';
     const LINE_STYLE_DASH_ROUND_DOT = 'sysDot';
+    const LINE_STYLE_DASH_SQUARE_DOT = 'sysDash';
+    /** @deprecated 1.24 use LINE_STYLE_DASH_SQUARE_DOT instead */
     const LINE_STYLE_DASH_SQUERE_DOT = 'sysDash';
     const LINE_STYPE_DASH_DASH = 'dash';
     const LINE_STYLE_DASH_DASH_DOT = 'dashDot';
@@ -68,7 +70,7 @@ abstract class Properties
     const LINE_STYLE_CAP_SQUARE = 'sq';
     const LINE_STYLE_CAP_ROUND = 'rnd';
     const LINE_STYLE_CAP_FLAT = 'flat';
-    const LINE_STYLE_JOIN_ROUND = 'bevel';
+    const LINE_STYLE_JOIN_ROUND = 'round';
     const LINE_STYLE_JOIN_MITER = 'miter';
     const LINE_STYLE_JOIN_BEVEL = 'bevel';
     const LINE_STYLE_ARROW_TYPE_NOARROW = null;
@@ -644,30 +646,6 @@ abstract class Properties
     }
 
     /**
-     * Set Shadow Color.
-     *
-     * @param string $color
-     * @param int $alpha
-     * @param string $colorType
-     *
-     * @return $this
-     */
-    protected function setShadowColor($color, $alpha, $colorType)
-    {
-        if ($color !== null) {
-            $this->shadowProperties['color']['value'] = (string) $color;
-        }
-        if ($alpha !== null) {
-            $this->shadowProperties['color']['alpha'] = (int) $alpha;
-        }
-        if ($colorType !== null) {
-            $this->shadowProperties['color']['type'] = (string) $colorType;
-        }
-
-        return $this;
-    }
-
-    /**
      * Set Shadow Blur.
      *
      * @param ?float $blur
@@ -765,6 +743,12 @@ abstract class Properties
             ],
         ],
     ];
+
+    public function copyLineStyles(self $otherProperties): void
+    {
+        $this->lineStyleProperties = $otherProperties->lineStyleProperties;
+        $this->lineColor = $otherProperties->lineColor;
+    }
 
     public function getLineColor(): ChartColor
     {
