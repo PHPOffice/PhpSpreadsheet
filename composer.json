@@ -79,7 +79,7 @@
     },
     "require-dev": {
         "dealerdirect/phpcodesniffer-composer-installer": "dev-master",
-        "dompdf/dompdf": "^1.0",
+        "dompdf/dompdf": "^1.0 || ^2.0",
         "friendsofphp/php-cs-fixer": "^3.2",
         "jpgraph/jpgraph": "^4.0",
         "mpdf/mpdf": "8.1.1",
