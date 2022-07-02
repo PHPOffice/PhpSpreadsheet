@@ -389,6 +389,7 @@ class Chart
                     $markerFillColor = null;
                     $markerBorderColor = null;
                     $lineStyle = null;
+                    $labelLayout = null;
                     foreach ($seriesDetails as $seriesKey => $seriesDetail) {
                         switch ($seriesKey) {
                             case 'idx':
@@ -414,6 +415,12 @@ class Chart
                                     }
                                     $lineStyle = new GridLines();
                                     $this->readLineStyle($seriesDetails, $lineStyle);
+                                }
+                                if (isset($children->effectLst)) {
+                                    if ($lineStyle === null) {
+                                        $lineStyle = new GridLines();
+                                    }
+                                    $this->readEffects($seriesDetails, $lineStyle);
                                 }
                                 if (isset($children->solidFill)) {
                                     $fillColor = new ChartColor($this->readColor($children->solidFill));
@@ -474,6 +481,21 @@ class Chart
                                 $bubble3D = self::getAttribute($seriesDetail, 'val', 'boolean');
 
                                 break;
+                            case 'dLbls':
+                                $labelLayout = new Layout($this->readChartAttributes($seriesDetails));
+
+                                break;
+                        }
+                    }
+                    if ($labelLayout) {
+                        if (isset($seriesLabel[$seriesIndex])) {
+                            $seriesLabel[$seriesIndex]->setLabelLayout($labelLayout);
+                        }
+                        if (isset($seriesCategory[$seriesIndex])) {
+                            $seriesCategory[$seriesIndex]->setLabelLayout($labelLayout);
+                        }
+                        if (isset($seriesValues[$seriesIndex])) {
+                            $seriesValues[$seriesIndex]->setLabelLayout($labelLayout);
                         }
                     }
                     if ($noFill) {
@@ -947,6 +969,21 @@ class Chart
             if (isset($chartDetail->dLbls->showLeaderLines)) {
                 $plotAttributes['showLeaderLines'] = self::getAttribute($chartDetail->dLbls->showLeaderLines, 'val', 'string');
             }
+            if (isset($chartDetail->dLbls->spPr)) {
+                $sppr = $chartDetail->dLbls->spPr->children($this->aNamespace);
+                if (isset($sppr->solidFill)) {
+                    $plotAttributes['labelFillColor'] = new ChartColor($this->readColor($sppr->solidFill));
+                }
+                if (isset($sppr->ln->solidFill)) {
+                    $plotAttributes['labelBorderColor'] = new ChartColor($this->readColor($sppr->ln->solidFill));
+                }
+            }
+            if (isset($chartDetail->dLbls->txPr)) {
+                $txpr = $chartDetail->dLbls->txPr->children($this->aNamespace);
+                if (isset($txpr->p->pPr->defRPr->solidFill)) {
+                    $plotAttributes['labelFontColor'] = new ChartColor($this->readColor($txpr->p->pPr->defRPr->solidFill));
+                }
+            }
         }
 
         return $plotAttributes;
@@ -991,10 +1028,7 @@ class Chart
         }
     }
 
-    /**
-     * @param null|Axis|GridLines $chartObject may be extended to include other types
-     */
-    private function readEffects(SimpleXMLElement $chartDetail, $chartObject): void
+    private function readEffects(SimpleXMLElement $chartDetail, ?Properties $chartObject): void
     {
         if (!isset($chartObject, $chartDetail->spPr)) {
             return;

@@ -421,11 +421,19 @@ abstract class Properties
         ],
     ];
 
-    protected function getShadowPresetsMap($presetsOption)
+    protected function getShadowPresetsMap(int $presetsOption): array
     {
         return self::PRESETS_OPTIONS[$presetsOption] ?? self::PRESETS_OPTIONS[0];
     }
 
+    /**
+     * Get value of array element.
+     *
+     * @param mixed $properties
+     * @param mixed $elements
+     *
+     * @return mixed
+     */
     protected function getArrayElementsValue($properties, $elements)
     {
         $reference = &$properties;
@@ -718,6 +726,11 @@ abstract class Properties
         return $this->getArrayElementsValue($this->shadowProperties, $elements);
     }
 
+    public function getShadowArray(): array
+    {
+        return $this->shadowProperties;
+    }
+
     /** @var ChartColor */
     protected $lineColor;
 
@@ -748,6 +761,10 @@ abstract class Properties
     {
         $this->lineStyleProperties = $otherProperties->lineStyleProperties;
         $this->lineColor = $otherProperties->lineColor;
+        $this->glowSize = $otherProperties->glowSize;
+        $this->glowColor = $otherProperties->glowColor;
+        $this->softEdges = $otherProperties->softEdges;
+        $this->shadowProperties = $otherProperties->shadowProperties;
     }
 
     public function getLineColor(): ChartColor
@@ -875,6 +892,14 @@ abstract class Properties
         9 => ['w' => 'lg', 'len' => 'lg'],
     ];
 
+    /**
+     * Get Line Style Arrow Size.
+     *
+     * @param int $arraySelector
+     * @param string $arrayKaySelector
+     *
+     * @return string
+     */
     protected function getLineStyleArrowSize($arraySelector, $arrayKaySelector)
     {
         return self::ARROW_SIZES[$arraySelector][$arrayKaySelector] ?? '';
