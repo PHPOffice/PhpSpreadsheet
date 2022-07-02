@@ -57,8 +57,10 @@ class Dimension
 
     public function __construct(string $dimension)
     {
+        // @phpstan-ignore-next-line
         [$size, $unit] = sscanf($dimension, '%[1234567890.]%s');
         $unit = strtolower(trim($unit ?? ''));
+        $size = (float) $size;
 
         // If a UoM is specified, then convert the size to pixels for internal storage
         if (isset(self::ABSOLUTE_UNITS[$unit])) {
