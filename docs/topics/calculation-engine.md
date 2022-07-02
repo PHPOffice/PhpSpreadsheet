@@ -10,6 +10,8 @@ formula calculation capabilities. A cell can be of a value type
 which can be evaluated). For example, the formula `=SUM(A1:A10)`
 evaluates to the sum of values in A1, A2, ..., A10.
 
+Calling `getValue()` on a cell that contains a formula will return the formula itself.
+
 To calculate a formula, you can call the cell containing the formula’s
 method `getCalculatedValue()`, for example:
 
@@ -21,6 +23,30 @@ If you write the following line of code in the invoice demo included
 with PhpSpreadsheet, it evaluates to the value "64":
 
 ![09-command-line-calculation.png](./images/09-command-line-calculation.png)
+
+Calling `getCalculatedValue()` on a cell that doesn't contain a formula will simply return the value of that cell; but if the cell does contain a formula, then PhpSpreadsheet will evaluate that formula to calculate the result.
+
+There are a few useful mehods to help identify whether a cell contains a formula or a simple value; and if a formula, to provide further information about it:
+
+```php
+$spreadsheet->getActiveSheet()->getCell('E11')->isFormula();
+```
+will return a boolean true/false, telling you whether that cell contains a formula or not, so you can determine if a call to `getCalculatedVaue()` will need to perform an evaluation. 
+
+A formula can be either a simple formula, or an array formula; and another method will identify which it is:
+```php
+$spreadsheet->getActiveSheet()->getCell('E11')->isArrayFormula();
+```
+Finally, an array formula might result in a single cell result, or a result that can spill over into a range of cells; so for array formulae the following method also exists:
+```php
+$spreadsheet->getActiveSheet()->getCell('E11')->arrayFormulaRange();
+```
+which returns a string containing a cell reference (e.g. `E11`) or a cell range reference (e.g. `E11:G13`).
+
+
+For more details on working with array formulae, see the [the recipes documentationn](./recipes.md/#array-formulae). 
+
+### Adjustments to formulae when Inserting/Deleting Columns/Rows
 
 Another nice feature of PhpSpreadsheet's formula parser, is that it can
 automatically adjust a formula when inserting/removing rows/columns.
@@ -79,6 +105,11 @@ formula calculation is subject to PHP's language characteristics.
 Not all functions are supported, for a comprehensive list, read the
 [function list by name](../references/function-list-by-name.md).
 
+#### Array arguments for Function Calls in Formulae
+
+While most of the Excel function implementations now support array arguments, there are a few that should accept arrays as arguments but don't do so.
+In these cases, the result may be a single value rather than an array; or it may be a `#VALUE!` error.
+
 #### Operator precedence
 
 In Excel `+` wins over `&`, just like `*` wins over `+` in ordinary
@@ -100,7 +131,7 @@ content.
 
 - [Reference for this behaviour in PHP](https://php.net/manual/en/language.types.string.php#language.types.string.conversion)
 
-#### Formulas don’t seem to be calculated in Excel2003 using compatibility pack?
+#### Formulae don’t seem to be calculated in Excel2003 using compatibility pack?
 
 This is normal behaviour of the compatibility pack, Xlsx displays this
 correctly. Use `\PhpOffice\PhpSpreadsheet\Writer\Xls` if you really need
@@ -149,8 +180,7 @@ number of seconds from the PHP/Unix base date. The PHP/Unix base date
 (0) is 00:00 UST on 1st January 1970. This value can be positive or
 negative: so a value of -3600 would be 23:00 hrs on 31st December 1969;
 while a value of +3600 would be 01:00 hrs on 1st January 1970. This
-gives PHP a date range of between 14th December 1901 and 19th January
-2038.
+gives 32-bit PHP a date range of between 14th December 1901 and 19th January 2038.
 
 #### PHP `DateTime` Objects
 

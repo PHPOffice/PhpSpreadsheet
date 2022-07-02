@@ -31,6 +31,11 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
 		-
+			message: "#^Cannot use array destructuring on array\\<string\\>\\|string\\.$#"
+			count: 6
+			path: src/PhpSpreadsheet/Calculation/Calculation.php
+
+		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Calculation\\:\\:dataTestReference\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
@@ -41,37 +46,7 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Calculation\\:\\:getTokensAsString\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Calculation\\:\\:getTokensAsString\\(\\) has parameter \\$tokens with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Calculation\\:\\:localeFunc\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Calculation\\:\\:localeFunc\\(\\) has parameter \\$function with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Calculation\\:\\:validateBinaryOperand\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Calculation\\:\\:validateBinaryOperand\\(\\) has parameter \\$operand with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Calculation\\:\\:validateBinaryOperand\\(\\) has parameter \\$stack with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
@@ -171,6 +146,11 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
 		-
+			message: "#^Result of && is always false\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/Calculation.php
+
+		-
 			message: "#^Static property PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Calculation\\:\\:\\$instance \\(PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Calculation\\) in isset\\(\\) is not nullable\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
@@ -183,6 +163,11 @@ parameters:
 		-
 			message: "#^Strict comparison using \\=\\=\\= between non\\-empty\\-array and null will always evaluate to false\\.$#"
 			count: 2
+			path: src/PhpSpreadsheet/Calculation/Calculation.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between string and null will always evaluate to false\\.$#"
+			count: 1
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
 		-
@@ -491,6 +476,21 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Functions.php
 
 		-
+			message: "#^Cannot use array destructuring on array\\<string\\>\\|string\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/Information/Value.php
+
+		-
+			message: "#^Cannot call method getCell\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
+			count: 2
+			path: src/PhpSpreadsheet/Calculation/Internal/ExcelArrayPseudoFunctions.php
+
+		-
+			message: "#^Cannot use array destructuring on array\\<string\\>\\|string\\.$#"
+			count: 2
+			path: src/PhpSpreadsheet/Calculation/Internal/ExcelArrayPseudoFunctions.php
+
+		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Internal\\\\MakeMatrix\\:\\:make\\(\\) has parameter \\$args with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Internal/MakeMatrix.php
@@ -591,6 +591,11 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/LookupRef/ExcelMatch.php
 
 		-
+			message: "#^Cannot use array destructuring on array\\<string\\>\\|string\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/LookupRef/Helpers.php
+
+		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\Lookup\\:\\:verifyResultVector\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/LookupRef/Lookup.php
@@ -609,6 +614,11 @@ parameters:
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\Matrix\\:\\:extractRowValue\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/LookupRef/Matrix.php
+
+		-
+			message: "#^Cannot use array destructuring on array\\<string\\>\\|string\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/LookupRef/Offset.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\Offset\\:\\:adjustEndCellColumnForWidth\\(\\) has no return type specified\\.$#"
@@ -649,6 +659,11 @@ parameters:
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\Offset\\:\\:extractWorksheet\\(\\) has parameter \\$cellAddress with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/LookupRef/Offset.php
+
+		-
+			message: "#^Cannot use array destructuring on array\\<string\\>\\|string\\.$#"
+			count: 2
+			path: src/PhpSpreadsheet/Calculation/LookupRef/RowColumnInformation.php
 
 		-
 			message: "#^Binary operation \"/\" between array\\|float\\|int\\|string and array\\|float\\|int\\|string results in an error\\.$#"
@@ -966,17 +981,7 @@ parameters:
 			path: src/PhpSpreadsheet/Cell/Cell.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\:\\:getFormulaAttributes\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Cell/Cell.php
-
-		-
 			message: "#^Parameter \\#2 \\$format of static method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\NumberFormat\\:\\:toFormattedString\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Cell/Cell.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\:\\:\\$formulaAttributes has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Cell/Cell.php
 
@@ -993,6 +998,11 @@ parameters:
 		-
 			message: "#^Call to an undefined method object\\:\\:getHashCode\\(\\)\\.$#"
 			count: 1
+			path: src/PhpSpreadsheet/Cell/Coordinate.php
+
+		-
+			message: "#^Cannot use array destructuring on array\\<string\\>\\|string\\.$#"
+			count: 2
 			path: src/PhpSpreadsheet/Cell/Coordinate.php
 
 		-
@@ -1064,6 +1074,11 @@ parameters:
 			message: "#^Strict comparison using \\=\\=\\= between PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\DataSeriesValues and null will always evaluate to false\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Chart/DataSeries.php
+
+		-
+			message: "#^Cannot use array destructuring on array\\<string\\>\\|string\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Chart/DataSeriesValues.php
 
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Legend\\:\\:\\$layout \\(PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Layout\\) does not accept PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Layout\\|null\\.$#"
@@ -1326,6 +1341,11 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/BaseReader.php
 
 		-
+			message: "#^Cannot use array destructuring on array\\<string\\>\\|string\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Reader/Gnumeric.php
+
+		-
 			message: "#^Comparison operation \"\\<\" between int and SimpleXMLElement\\|null results in an error\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Reader/Gnumeric.php
@@ -1401,14 +1421,9 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Ods.php
 
 		-
-			message: "#^Parameter \\#1 \\$settings of method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Ods\\:\\:lookForActiveSheet\\(\\) expects DOMElement, DOMElement\\|null given\\.$#"
+			message: "#^Cannot use array destructuring on array\\<string\\>\\|string\\.$#"
 			count: 1
-			path: src/PhpSpreadsheet/Reader/Ods.php
-
-		-
-			message: "#^Parameter \\#1 \\$settings of method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Ods\\:\\:lookForSelectedCells\\(\\) expects DOMElement, DOMElement\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Ods.php
+			path: src/PhpSpreadsheet/Reader/Ods/DefinedNames.php
 
 		-
 			message: "#^Cannot call method getElementsByTagNameNS\\(\\) on DOMElement\\|null\\.$#"
@@ -1596,6 +1611,11 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xls.php
 
 		-
+			message: "#^Parameter \\#1 \\$var of function count expects array\\|Countable, array\\<string\\>\\|string given\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Reader/Xls.php
+
+		-
 			message: "#^Parameter \\#2 \\$row of method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\IReadFilter\\:\\:readCell\\(\\) expects int, string given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xls.php
@@ -1752,6 +1772,11 @@ parameters:
 
 		-
 			message: "#^Cannot call method setUnderline\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
+			count: 2
+			path: src/PhpSpreadsheet/Reader/Xlsx.php
+
+		-
+			message: "#^Cannot use array destructuring on array\\<string\\>\\|string\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Reader/Xlsx.php
 
@@ -1922,11 +1947,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$sizeInInch of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Font\\:\\:inchSizeToPixels\\(\\) expects int, string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
-		-
-			message: "#^Parameter \\#1 \\$worksheetName of method PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\:\\:getSheetByName\\(\\) expects string, array\\|string given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xlsx.php
 
@@ -3156,6 +3176,11 @@ parameters:
 			path: src/PhpSpreadsheet/Style/NumberFormat/PercentageFormatter.php
 
 		-
+			message: "#^Cannot use array destructuring on array\\<string\\>\\|string\\.$#"
+			count: 2
+			path: src/PhpSpreadsheet/Worksheet/AutoFilter.php
+
+		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\CellIterator\\:\\:adjustForExistingOnlyRange\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/CellIterator.php
@@ -3201,6 +3226,16 @@ parameters:
 			path: src/PhpSpreadsheet/Worksheet/SheetView.php
 
 		-
+			message: "#^Cannot use array destructuring on array\\<string\\>\\|string\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Worksheet/Table.php
+
+		-
+			message: "#^Cannot use array destructuring on array\\<string\\>\\|string\\.$#"
+			count: 2
+			path: src/PhpSpreadsheet/Worksheet/Validations.php
+
+		-
 			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
@@ -3238,6 +3273,11 @@ parameters:
 		-
 			message: "#^Left side of && is always true\\.$#"
 			count: 2
+			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
+
+		-
+			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\:\\:extractSheetTitle\\(\\) should return array\\<string\\>\\|string but returns array\\<int, null\\>\\|null\\.$#"
+			count: 1
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
 
 		-
@@ -3756,6 +3796,11 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xls/Font.php
 
 		-
+			message: "#^Cannot use array destructuring on array\\<string\\>\\|string\\.$#"
+			count: 2
+			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
+
+		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Parser\\:\\:advance\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
@@ -4011,6 +4056,11 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xlsx/Comments.php
 
 		-
+			message: "#^Cannot use array destructuring on array\\<string\\>\\|string\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Writer/Xlsx/DefinedNames.php
+
+		-
 			message: "#^Expression on left side of \\?\\? is not nullable\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/DefinedNames.php
@@ -4194,6 +4244,11 @@ parameters:
 			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, int given\\.$#"
 			count: 7
 			path: src/PhpSpreadsheet/Writer/Xlsx/Workbook.php
+
+		-
+			message: "#^Cannot use array destructuring on array\\<string\\>\\|string\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
 
 		-
 			message: "#^Expression on left side of \\?\\? is not nullable\\.$#"

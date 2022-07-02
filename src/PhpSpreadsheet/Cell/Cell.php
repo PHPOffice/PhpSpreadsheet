@@ -3,9 +3,11 @@
 namespace PhpOffice\PhpSpreadsheet\Cell;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Collection\Cells;
 use PhpOffice\PhpSpreadsheet\Exception;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Shared\Date as SharedDate;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\CellStyleAssessor;
@@ -64,7 +66,14 @@ class Cell
     private $xfIndex = 0;
 
     /**
+     * @var ?string
+     */
+    private $arrayFormulaRange;
+
+    /**
      * Attributes of the formula.
+     *
+     * @var null|array
      */
     private $formulaAttributes;
 
@@ -185,20 +194,81 @@ class Cell
      *    Sets the value for a cell, automatically determining the datatype using the value binder
      *
      * @param mixed $value Value
-     *
-     * @return $this
      */
-    public function setValue($value)
+    public function setValue($value, bool $isArrayFormula = false, ?string $arrayFormulaRange = null): self
     {
-        if (!self::getValueBinder()->bindValue($this, $value)) {
+        if (!self::getValueBinder()->bindValue($this, $value, $isArrayFormula, $arrayFormulaRange)) {
             throw new Exception('Value could not be bound to cell.');
         }
 
         return $this;
     }
 
+    protected function formulaAttributes(bool $isArrayFormula, ?string $arrayFormulaRange): array
+    {
+        if ($isArrayFormula === true) {
+            return [
+                't' => 'array',
+                'ref' => $arrayFormulaRange === null ? $this->getCoordinate() : $arrayFormulaRange,
+            ];
+        }
+
+        return [];
+    }
+
+    private function arrayFormulaRangeCheck(?string $arrayFormulaRange = null): bool
+    {
+        if ($arrayFormulaRange !== null) {
+            if ($this->isInRange($arrayFormulaRange) && $this->isTopLeftRangeCell($arrayFormulaRange) === false) {
+                if (IOFactory::isLoading() === false) {
+                    throw new Exception(sprintf(
+                        'Cell %s is within the spillage range of a formula, and cannot be changed',
+                        $this->getCoordinate()
+                    ));
+                }
+            }
+
+            return $this->isTopLeftRangeCell($arrayFormulaRange);
+        }
+
+        return false;
+    }
+
+    private function clearSpillageRange(string $arrayFormulaRange): void
+    {
+        $thisCell = $this->getCoordinate();
+        $worksheet = $this->getWorksheet();
+
+        foreach (Coordinate::extractAllCellReferencesInRange($arrayFormulaRange) as $cellAddress) {
+            if ($worksheet->cellExists($cellAddress)) {
+                $cell = $worksheet->getCell($cellAddress);
+                $cell->value = null;
+                $cell->dataType = DataType::TYPE_NULL;
+                $cell->arrayFormulaRange = null;
+                $cell->updateInCollection();
+            }
+        }
+
+        $worksheet->getCell($thisCell);
+    }
+
+    private function setSpillageRange(string $arrayFormulaRange): void
+    {
+        $thisCell = $this->getCoordinate();
+        $worksheet = $this->getWorksheet();
+
+        foreach (Coordinate::extractAllCellReferencesInRange($arrayFormulaRange) as $cellAddress) {
+            $cell = $worksheet->getCell($cellAddress);
+            $cell->arrayFormulaRange = $arrayFormulaRange;
+            $cell->updateInCollection();
+        }
+
+        $worksheet->getCell($thisCell);
+    }
+
     /**
-     * Set the value for a cell, with the explicit data type passed to the method (bypassing any use of the value binder).
+     * Set the value for a cell,
+     *     with the explicit data type passed to the method (bypassing any use of the value binders).
      *
      * @param mixed $value Value
      * @param string $dataType Explicit data type, see DataType::TYPE_*
@@ -210,8 +280,16 @@ class Cell
      *
      * @return Cell
      */
-    public function setValueExplicit($value, $dataType)
+    public function setValueExplicit($value, $dataType, bool $isArrayFormula = false, ?string $arrayFormulaRange = null)
     {
+        if ($this->arrayFormulaRangeCheck($this->arrayFormulaRange)) {
+            $this->clearSpillageRange((string) $this->arrayFormulaRange);
+        }
+
+        if ($this->arrayFormulaRangeCheck($arrayFormulaRange)) {
+            $this->setSpillageRange((string) $arrayFormulaRange);
+        }
+
         // set the value according to data type
         switch ($dataType) {
             case DataType::TYPE_NULL:
@@ -236,7 +314,17 @@ class Cell
 
                 break;
             case DataType::TYPE_FORMULA:
-                $this->value = (string) $value;
+                if (is_string($value) !== true || strpos($value, '=') !== 0) {
+                    $dataType = DataType::TYPE_STRING;
+                    if (in_array($value, Calculation::$excelConstants, true)) {
+                        $value = array_search($value, Calculation::$excelConstants, true);
+                    }
+                    $value = (string) $value;
+                    $this->formulaAttributes = [];
+                } else {
+                    $this->formulaAttributes = $this->formulaAttributes($isArrayFormula, $arrayFormulaRange);
+                }
+                $this->value = $value;
 
                 break;
             case DataType::TYPE_BOOL:
@@ -264,6 +352,46 @@ class Cell
         return $this->updateInCollection();
     }
 
+    private function processArrayResult(
+        Worksheet $worksheet,
+        string $coordinate,
+        array $result,
+        string $value,
+        ?array $formulaAttributes
+    ): array {
+        // We'll need to do a check here for the Singular Operator (@) at some point
+        //       and not populate the spillage cells if it's there
+        if ($this->isArrayFormula()) {
+            // Here is where we should set all cellRange values from the result (but within the range limit)
+            // Ensure that our array result dimensions match the specified array formula range dimensions,
+            //    expanding or shrinking it as necessary.
+            $result = Functions::resizeMatrix(
+                $result,
+                ...Coordinate::rangeDimension($this->formulaAttributes['ref'] ?? $coordinate)
+            );
+            // But if we do write it, we get problems with #SPILL! Errors if the spreadsheet is saved
+            // TODO How are we going to identify and handle a #SPILL! or a #CALC! error?
+            IOFactory::setLoading(true);
+            $worksheet->fromArray(
+                $result,
+                null,
+                $coordinate,
+                true
+            );
+            IOFactory::setLoading(false);
+            // Using fromArray() would reset the value for this cell with the calculation result
+            //      as well as updating the spillage cells,
+            //  so we need to restore this cell to its formula value, attributes, and datatype
+            $worksheet->getCell($coordinate);
+            $this->value = $value;
+            $this->dataType = DataType::TYPE_FORMULA;
+            $this->formulaAttributes = $formulaAttributes;
+            $this->updateInCollection();
+        }
+
+        return $result;
+    }
+
     /**
      * Get calculated cell value.
      *
@@ -271,23 +399,36 @@ class Cell
      *
      * @return mixed
      */
-    public function getCalculatedValue($resetLog = true)
+    public function getCalculatedValue(bool $asArray = false, bool $resetLog = true)
     {
         if ($this->dataType === DataType::TYPE_FORMULA) {
             try {
+                $coordinate = $this->getCoordinate();
+                $worksheet = $this->getWorksheet();
+                $value = $this->value;
+                $formulaAttributes = $this->formulaAttributes;
                 $index = $this->getWorksheet()->getParent()->getActiveSheetIndex();
                 $selected = $this->getWorksheet()->getSelectedCells();
+
                 $result = Calculation::getInstance(
                     $this->getWorksheet()->getParent()
-                )->calculateCellValue($this, $resetLog);
-                $this->getWorksheet()->setSelectedCells($selected);
-                $this->getWorksheet()->getParent()->setActiveSheetIndex($index);
-                //    We don't yet handle array returns
+                )->calculateCellValue($this, $asArray, $resetLog);
+
+                $worksheet->getCell($coordinate);
+
                 if (is_array($result)) {
-                    while (is_array($result)) {
-                        $result = array_shift($result);
+                    $result = $this->processArrayResult($worksheet, $coordinate, $result, $value, $formulaAttributes);
+
+                    // Now we just extract the top-left value from the array to get the result for this specific cell
+                    if ($asArray === false) {
+                        while (is_array($result)) {
+                            $result = array_shift($result);
+                        }
                     }
                 }
+
+                $this->getWorksheet()->setSelectedCells($selected);
+                $this->getWorksheet()->getParent()->setActiveSheetIndex($index);
             } catch (Exception $ex) {
                 if (($ex->getMessage() === 'Unable to access External Workbook') && ($this->calculatedValue !== null)) {
                     return $this->calculatedValue; // Fallback for calculations referencing external files.
@@ -316,10 +457,8 @@ class Cell
      * Set old calculated value (cached).
      *
      * @param mixed $originalValue Value
-     *
-     * @return Cell
      */
-    public function setCalculatedValue($originalValue)
+    public function setCalculatedValue($originalValue): self
     {
         if ($originalValue !== null) {
             $this->calculatedValue = (is_numeric($originalValue)) ? (float) $originalValue : $originalValue;
@@ -345,10 +484,8 @@ class Cell
 
     /**
      * Get cell data type.
-     *
-     * @return string
      */
-    public function getDataType()
+    public function getDataType(): string
     {
         return $this->dataType;
     }
@@ -376,6 +513,31 @@ class Cell
     public function isFormula(): bool
     {
         return $this->dataType === DataType::TYPE_FORMULA && $this->getStyle()->getQuotePrefix() === false;
+    }
+
+    /**
+     * Identify if the cell contains an array formula.
+     */
+    public function isArrayFormula(): bool
+    {
+        if ($this->dataType === DataType::TYPE_FORMULA) {
+            $formulaAttributes = $this->getFormulaAttributes();
+
+            return isset($formulaAttributes['t']) && $formulaAttributes['t'] === 'array';
+        }
+
+        return false;
+    }
+
+    public function arrayFormulaRange(): ?string
+    {
+        if ($this->isFormula() && $this->isArrayFormula()) {
+            $formulaAttributes = $this->getFormulaAttributes();
+
+            return $formulaAttributes['ref'] ?? null;
+        }
+
+        return $this->arrayFormulaRange;
     }
 
     /**
@@ -420,10 +582,8 @@ class Cell
 
     /**
      * Does this cell contain valid value?
-     *
-     * @return bool
      */
-    public function hasValidValue()
+    public function hasValidValue(): bool
     {
         $validator = new DataValidator();
 
@@ -432,10 +592,8 @@ class Cell
 
     /**
      * Does this cell contain a Hyperlink?
-     *
-     * @return bool
      */
-    public function hasHyperlink()
+    public function hasHyperlink(): bool
     {
         if (!isset($this->parent)) {
             throw new Exception('Cannot check for hyperlink when cell is not bound to a worksheet');
@@ -446,10 +604,8 @@ class Cell
 
     /**
      * Get Hyperlink.
-     *
-     * @return Hyperlink
      */
-    public function getHyperlink()
+    public function getHyperlink(): Hyperlink
     {
         if (!isset($this->parent)) {
             throw new Exception('Cannot get hyperlink for cell that is not bound to a worksheet');
@@ -460,10 +616,8 @@ class Cell
 
     /**
      * Set Hyperlink.
-     *
-     * @return Cell
      */
-    public function setHyperlink(?Hyperlink $hyperlink = null)
+    public function setHyperlink(?Hyperlink $hyperlink = null): self
     {
         if (!isset($this->parent)) {
             throw new Exception('Cannot set hyperlink for cell that is not bound to a worksheet');
@@ -476,27 +630,22 @@ class Cell
 
     /**
      * Get cell collection.
-     *
-     * @return Cells
      */
-    public function getParent()
+    public function getParent(): Cells
     {
         return $this->parent;
     }
 
     /**
      * Get parent worksheet.
-     *
-     * @return Worksheet
      */
-    public function getWorksheet()
+    public function getWorksheet(): Worksheet
     {
         try {
             $worksheet = $this->parent->getParent();
         } catch (Throwable $e) {
             $worksheet = null;
         }
-
         if ($worksheet === null) {
             throw new Exception('Worksheet no longer exists');
         }
@@ -506,30 +655,39 @@ class Cell
 
     /**
      * Is this cell in a merge range.
-     *
-     * @return bool
      */
-    public function isInMergeRange()
+    public function isInMergeRange(): bool
     {
         return (bool) $this->getMergeRange();
     }
 
     /**
-     * Is this cell the master (top left cell) in a merge range (that holds the actual data value).
-     *
-     * @return bool
+     * Is this cell in an array formula spillage range.
      */
-    public function isMergeRangeValueCell()
+    public function isInSpillageRange(): bool
     {
-        if ($mergeRange = $this->getMergeRange()) {
-            $mergeRange = Coordinate::splitRange($mergeRange);
-            [$startCell] = $mergeRange[0];
-            if ($this->getCoordinate() === $startCell) {
-                return true;
-            }
+        return $this->arrayFormulaRange !== null;
+    }
+
+    private function isTopLeftRangeCell(string $cellRange): bool
+    {
+        $mergeRange = Coordinate::splitRange($cellRange);
+        [$startCell] = $mergeRange[0];
+
+        return $this->getCoordinate() === $startCell;
+    }
+
+    /**
+     * Is this cell the master (top left cell) in a merge range (that holds the actual data value).
+     */
+    public function isMergeRangeValueCell(): bool
+    {
+        $mergeRange = $this->getMergeRange();
+        if ($mergeRange === false) {
+            return false;
         }
 
-        return false;
+        return $this->isTopLeftRangeCell($mergeRange);
     }
 
     /**
@@ -691,11 +849,11 @@ class Cell
     /**
      * Set the formula attributes.
      *
-     * @param mixed $attributes
+     * @param mixed[] $attributes
      *
      * @return $this
      */
-    public function setFormulaAttributes($attributes)
+    public function setFormulaAttributes(array $attributes)
     {
         $this->formulaAttributes = $attributes;
 
@@ -705,7 +863,7 @@ class Cell
     /**
      * Get the formula attributes.
      */
-    public function getFormulaAttributes()
+    public function getFormulaAttributes(): ?array
     {
         return $this->formulaAttributes;
     }

@@ -20,6 +20,7 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Comments;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\ContentTypes;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\DocProps;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Drawing;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Metadata;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Rels;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\RelsRibbon;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\RelsVBA;
@@ -159,6 +160,11 @@ class Xlsx extends BaseWriter
     private $writerPartStringTable;
 
     /**
+     * @var Metadata
+     */
+    private $writerPartMetadata;
+
+    /**
      * @var Style
      */
     private $writerPartStyle;
@@ -199,6 +205,7 @@ class Xlsx extends BaseWriter
         $this->writerPartRels = new Rels($this);
         $this->writerPartRelsRibbon = new RelsRibbon($this);
         $this->writerPartRelsVBA = new RelsVBA($this);
+        $this->writerPartMetadata = new Metadata($this);
         $this->writerPartStringTable = new StringTable($this);
         $this->writerPartStyle = new Style($this);
         $this->writerPartTheme = new Theme($this);
@@ -261,6 +268,11 @@ class Xlsx extends BaseWriter
     public function getWriterPartRelsVBA(): RelsVBA
     {
         return $this->writerPartRelsVBA;
+    }
+
+    public function getWriterPartMetadata(): Metadata
+    {
+        return $this->writerPartMetadata;
     }
 
     public function getWriterPartStringTable(): StringTable
@@ -375,6 +387,9 @@ class Xlsx extends BaseWriter
 
         // Add theme to ZIP file
         $zipContent['xl/theme/theme1.xml'] = $this->getWriterPartTheme()->writeTheme($this->spreadSheet);
+
+        // Add metadata to ZIP file
+        $zipContent['xl/metadata.xml'] = $this->getWriterPartMetadata()->writeMetadata();
 
         // Add string table to ZIP file
         $zipContent['xl/sharedStrings.xml'] = $this->getWriterPartStringTable()->writeStringTable($this->stringTable);

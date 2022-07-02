@@ -77,7 +77,7 @@ class StringValueBinder implements IValueBinder
      * @param Cell $cell Cell to bind value to
      * @param mixed $value Value to bind in cell
      */
-    public function bindValue(Cell $cell, $value)
+    public function bindValue(Cell $cell, $value, bool $isArrayFormula = false, ?string $arrayFormulaRange = null): bool
     {
         if (is_object($value)) {
             return $this->bindObjectValue($cell, $value);
@@ -95,7 +95,7 @@ class StringValueBinder implements IValueBinder
         } elseif ((is_int($value) || is_float($value)) && $this->convertNumeric === false) {
             $cell->setValueExplicit($value, DataType::TYPE_NUMERIC);
         } elseif (is_string($value) && strlen($value) > 1 && $value[0] === '=' && $this->convertFormula === false) {
-            $cell->setValueExplicit($value, DataType::TYPE_FORMULA);
+            $cell->setValueExplicit($value, DataType::TYPE_FORMULA, $isArrayFormula, $arrayFormulaRange);
         } else {
             if (is_string($value) && strlen($value) > 1 && $value[0] === '=') {
                 $cell->getStyle()->setQuotePrefix(true);

@@ -53,6 +53,21 @@ abstract class IOFactory
     ];
 
     /**
+     * @var bool
+     */
+    protected static $loading = false;
+
+    public static function setLoading(bool $loading): void
+    {
+        self::$loading = $loading;
+    }
+
+    public static function isLoading(): bool
+    {
+        return self::$loading;
+    }
+
+    /**
      * Create Writer\IWriter.
      */
     public static function createWriter(Spreadsheet $spreadsheet, string $writerType): IWriter

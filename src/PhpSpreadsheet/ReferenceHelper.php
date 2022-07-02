@@ -440,6 +440,16 @@ class ReferenceHelper
                     // Formula should be adjusted
                     $worksheet->getCell($newCoordinate)
                         ->setValue($this->updateFormulaReferences($cell->getValue(), $beforeCellAddress, $numberOfColumns, $numberOfRows, $worksheet->getTitle()));
+                    if ($cell->arrayFormulaRange() !== null) {
+                        $newArrayFormulaRange = $this->updateFormulaReferences(
+                            $cell->arrayFormulaRange(),
+                            $beforeCellAddress,
+                            $numberOfColumns,
+                            $numberOfRows,
+                            $worksheet->getTitle()
+                        );
+                        $worksheet->getCell($newCoordinate)->setFormulaAttributes(['t' => 'array', 'ref' => $newArrayFormulaRange]);
+                    }
                 } else {
                     // Formula should not be adjusted
                     $worksheet->getCell($newCoordinate)->setValueExplicit($cell->getValue(), $cell->getDataType());

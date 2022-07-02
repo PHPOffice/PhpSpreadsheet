@@ -19,6 +19,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use ReflectionClassConstant;
 use ReflectionMethod;
 use ReflectionParameter;
+use Throwable;
 
 class Calculation
 {
@@ -1063,6 +1064,7 @@ class Calculation
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
             'functionCall' => [LookupRef\Filter::class, 'filter'],
             'argumentCount' => '2-3',
+            'spillageFunction' => true,
         ],
         'FILTERXML' => [
             'category' => Category::CATEGORY_WEB,
@@ -2108,6 +2110,7 @@ class Calculation
             'category' => Category::CATEGORY_MATH_AND_TRIG,
             'functionCall' => [MathTrig\Random::class, 'randArray'],
             'argumentCount' => '0-5',
+            'spillageFunction' => true,
         ],
         'RANDBETWEEN' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
@@ -2250,6 +2253,7 @@ class Calculation
             'category' => Category::CATEGORY_MATH_AND_TRIG,
             'functionCall' => [MathTrig\MatrixFunctions::class, 'sequence'],
             'argumentCount' => '1-4',
+            'spillageFunction' => true,
         ],
         'SERIESSUM' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
@@ -2310,11 +2314,13 @@ class Calculation
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
             'functionCall' => [LookupRef\Sort::class, 'sort'],
             'argumentCount' => '1-4',
+            'spillageFunction' => true,
         ],
         'SORTBY' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
             'functionCall' => [LookupRef\Sort::class, 'sortBy'],
             'argumentCount' => '2+',
+            'spillageFunction' => true,
         ],
         'SQRT' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
@@ -2641,6 +2647,7 @@ class Calculation
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
             'functionCall' => [LookupRef\Unique::class, 'unique'],
             'argumentCount' => '1+',
+            'spillageFunction' => true,
         ],
         'UPPER' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
@@ -2812,6 +2819,21 @@ class Calculation
             'functionCall' => [Statistical\Distributions\StandardNormal::class, 'zTest'],
             'argumentCount' => '2-3',
         ],
+        // Internal MS Excel Functions
+        'ANCHORARRAY' => [
+            'category' => Category::CATEGORY_MICROSOFT_INTERNAL_PSEUDOFUNCTION,
+            'functionCall' => [Internal\ExcelArrayPseudoFunctions::class, 'anchorArray'],
+            'argumentCount' => '1',
+            'passCellReference' => true,
+            'passByReference' => [true],
+        ],
+        'SINGLE' => [
+            'category' => Category::CATEGORY_MICROSOFT_INTERNAL_PSEUDOFUNCTION,
+            'functionCall' => [Internal\ExcelArrayPseudoFunctions::class, 'single'],
+            'argumentCount' => '1',
+            'passCellReference' => true,
+            'passByReference' => [true],
+        ],
     ];
 
     //    Internal functions used for special control purposes
@@ -2927,7 +2949,7 @@ class Calculation
      *
      * @return bool Success or failure
      */
-    public static function setArrayReturnType($returnType)
+    public static function setArrayReturnType(string $returnType): bool
     {
         if (
             ($returnType == self::RETURN_ARRAY_AS_VALUE) ||
@@ -2947,17 +2969,15 @@ class Calculation
      *
      * @return string $returnType Array return type
      */
-    public static function getArrayReturnType()
+    public static function getArrayReturnType(): string
     {
         return self::$returnArrayAsType;
     }
 
     /**
      * Is calculation caching enabled?
-     *
-     * @return bool
      */
-    public function getCalculationCacheEnabled()
+    public function getCalculationCacheEnabled(): bool
     {
         return $this->calculationCacheEnabled;
     }
@@ -2999,10 +3019,8 @@ class Calculation
 
     /**
      * Clear calculation cache for a specified worksheet.
-     *
-     * @param string $worksheetName
      */
-    public function clearCalculationCacheForWorksheet($worksheetName): void
+    public function clearCalculationCacheForWorksheet(string $worksheetName): void
     {
         if (isset($this->calculationCache[$worksheetName])) {
             unset($this->calculationCache[$worksheetName]);
@@ -3011,13 +3029,10 @@ class Calculation
 
     /**
      * Rename calculation cache for a specified worksheet.
-     *
-     * @param string $fromWorksheetName
-     * @param string $toWorksheetName
      */
-    public function renameCalculationCacheForWorksheet($fromWorksheetName, $toWorksheetName): void
+    public function renameCalculationCacheForWorksheet(?string $fromWorksheetName, string $toWorksheetName): void
     {
-        if (isset($this->calculationCache[$fromWorksheetName])) {
+        if ($fromWorksheetName !== null && isset($this->calculationCache[$fromWorksheetName])) {
             $this->calculationCache[$toWorksheetName] = &$this->calculationCache[$fromWorksheetName];
             unset($this->calculationCache[$fromWorksheetName]);
         }
@@ -3026,7 +3041,7 @@ class Calculation
     /**
      * Enable/disable calculation cache.
      *
-     * @param mixed $enabled
+     * @param bool $enabled
      */
     public function setBranchPruningEnabled($enabled): void
     {
@@ -3046,10 +3061,8 @@ class Calculation
 
     /**
      * Get the currently defined locale code.
-     *
-     * @return string
      */
-    public function getLocale()
+    public function getLocale(): string
     {
         return self::$localeLanguage;
     }
@@ -3073,10 +3086,8 @@ class Calculation
      * Set the locale code.
      *
      * @param string $locale The locale to use for formula translation, eg: 'en_us'
-     *
-     * @return bool
      */
-    public function setLocale(string $locale)
+    public function setLocale(string $locale): bool
     {
         //    Identify our locale and language
         $language = $locale = strtolower($locale);
@@ -3309,7 +3320,7 @@ class Calculation
         return self::translateFormula(self::$functionReplaceFromLocale, self::$functionReplaceToExcel, $formula, self::$localeArgumentSeparator, ',');
     }
 
-    public static function localeFunc($function)
+    public static function localeFunc(string $function): string
     {
         if (self::$localeLanguage !== 'en_us') {
             $functionName = trim($function, '(');
@@ -3380,10 +3391,10 @@ class Calculation
      *
      * @return mixed
      */
-    public function calculate(?Cell $cell = null)
+    public function calculate(?Cell $cell = null, bool $asArray = false, bool $resetLog = true)
     {
         try {
-            return $this->calculateCellValue($cell);
+            return $this->calculateCellValue($cell, $asArray, $resetLog);
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
         }
@@ -3397,7 +3408,7 @@ class Calculation
      *
      * @return mixed
      */
-    public function calculateCellValue(?Cell $cell = null, $resetLog = true)
+    public function calculateCellValue(?Cell $cell = null, bool $asArray = false, bool $resetLog = true)
     {
         if ($cell === null) {
             return null;
@@ -3652,7 +3663,7 @@ class Calculation
      *                                            1 = shrink to fit
      *                                            2 = extend to fit
      *
-     * @return array
+     * @return array<int, int>
      */
     private static function checkMatrixOperands(&$operand1, &$operand2, $resize = 1)
     {
@@ -3671,7 +3682,9 @@ class Calculation
         [$matrix1Rows, $matrix1Columns] = self::getMatrixDimensions($operand1);
         [$matrix2Rows, $matrix2Columns] = self::getMatrixDimensions($operand2);
         if (($matrix1Rows == $matrix2Columns) && ($matrix2Rows == $matrix1Columns)) {
-            $resize = 1;
+            // Vectors increase size to match to build a square matrix;
+            // Non-vectors reduce size to a square that reflects min(rows1, rows2) and min(cols1, cols2)
+            $resize = ($matrix1Rows === 1 || $matrix2Rows === 1) ? 2 : 1;
         }
 
         if ($resize == 2) {
@@ -3690,7 +3703,7 @@ class Calculation
      *
      * @param array $matrix matrix operand
      *
-     * @return int[] An array comprising the number of rows, and number of columns
+     * @return array<int, int> An array comprising the number of rows, and number of columns
      */
     public static function getMatrixDimensions(array &$matrix)
     {
@@ -3803,7 +3816,7 @@ class Calculation
     /**
      * Format details of an operand for display in the log (based on operand type).
      *
-     * @param mixed $value First matrix operand
+     * @param mixed $value Operand value
      *
      * @return mixed
      */
@@ -3843,7 +3856,7 @@ class Calculation
     /**
      * Format type and details of an operand for display in the log (based on operand type).
      *
-     * @param mixed $value First matrix operand
+     * @param mixed $value Operand value
      *
      * @return null|string
      */
@@ -4996,12 +5009,13 @@ class Calculation
             return $this->raiseFormulaError('internal error');
         }
         $output = $stack->pop();
+
         $output = $output['value'];
 
         return $output;
     }
 
-    private function validateBinaryOperand(&$operand, &$stack)
+    private function validateBinaryOperand(&$operand, Stack &$stack): bool
     {
         if (is_array($operand)) {
             if ((count($operand, COUNT_RECURSIVE) - count($operand)) == 1) {
@@ -5138,11 +5152,16 @@ class Calculation
 
             try {
                 //    Convert operand 1 from a PHP array to a matrix
+//                $matrix = new \Matrix\Matrix($operand1);
+//                var_dump($operand1, $matrixFunction, $operand2);
                 $matrix = new Shared\JAMA\Matrix($operand1);
                 //    Perform the required operation against the operand 1 matrix, passing in operand 2
                 $matrixResult = $matrix->$matrixFunction($operand2);
                 $result = $matrixResult->getArray();
-            } catch (\Exception $ex) {
+//                $result = $matrixResult->toArray();
+//                var_dump('=>', $result);
+            } catch (Throwable $ex) {
+//                var_dump($ex->getMessage());
                 $this->debugLog->writeDebugLog('JAMA Matrix Exception: %s', $ex->getMessage());
                 $result = '#VALUE!';
             }
@@ -5252,7 +5271,7 @@ class Calculation
                 //    Single cell in range
                 sscanf($aReferences[0], '%[A-Z]%d', $currentCol, $currentRow);
                 if ($worksheet->cellExists($aReferences[0])) {
-                    $returnValue[$currentRow][$currentCol] = $worksheet->getCell($aReferences[0])->getCalculatedValue($resetLog);
+                    $returnValue[$currentRow][$currentCol] = $worksheet->getCell($aReferences[0])->getCalculatedValue(false, $resetLog);
                 } else {
                     $returnValue[$currentRow][$currentCol] = null;
                 }
@@ -5262,7 +5281,7 @@ class Calculation
                     // Extract range
                     sscanf($reference, '%[A-Z]%d', $currentCol, $currentRow);
                     if ($worksheet->cellExists($reference)) {
-                        $returnValue[$currentRow][$currentCol] = $worksheet->getCell($reference)->getCalculatedValue($resetLog);
+                        $returnValue[$currentRow][$currentCol] = $worksheet->getCell($reference)->getCalculatedValue(false, $resetLog);
                     } else {
                         $returnValue[$currentRow][$currentCol] = null;
                     }
@@ -5315,7 +5334,7 @@ class Calculation
                 //    Single cell (or single column or row) in range
                 [$currentCol, $currentRow] = Coordinate::coordinateFromString($aReferences[0]);
                 if ($worksheet->cellExists($aReferences[0])) {
-                    $returnValue[$currentRow][$currentCol] = $worksheet->getCell($aReferences[0])->getCalculatedValue($resetLog);
+                    $returnValue[$currentRow][$currentCol] = $worksheet->getCell($aReferences[0])->getCalculatedValue(true, $resetLog);
                 } else {
                     $returnValue[$currentRow][$currentCol] = null;
                 }
@@ -5325,7 +5344,7 @@ class Calculation
                     // Extract range
                     [$currentCol, $currentRow] = Coordinate::coordinateFromString($reference);
                     if ($worksheet->cellExists($reference)) {
-                        $returnValue[$currentRow][$currentCol] = $worksheet->getCell($reference)->getCalculatedValue($resetLog);
+                        $returnValue[$currentRow][$currentCol] = $worksheet->getCell($reference)->getCalculatedValue(true, $resetLog);
                     } else {
                         $returnValue[$currentRow][$currentCol] = null;
                     }
@@ -5352,11 +5371,16 @@ class Calculation
     }
 
     /**
-     * Get a list of all implemented functions as an array of function objects.
+     * Get a list of all functions as an array of function objects.
      */
     public function getFunctions(): array
     {
-        return self::$phpSpreadsheetFunctions;
+        return array_filter(
+            self::$phpSpreadsheetFunctions,
+            function ($function) {
+                return $function['category'] !== Category::CATEGORY_MICROSOFT_INTERNAL_PSEUDOFUNCTION;
+            }
+        );
     }
 
     /**
@@ -5367,7 +5391,7 @@ class Calculation
     public function getImplementedFunctionNames()
     {
         $returnValue = [];
-        foreach (self::$phpSpreadsheetFunctions as $functionName => $function) {
+        foreach ($this->getFunctions() as $functionName => $function) {
             if ($this->isImplemented($functionName)) {
                 $returnValue[] = $functionName;
             }
@@ -5455,7 +5479,7 @@ class Calculation
         return $args;
     }
 
-    private function getTokensAsString($tokens)
+    private function getTokensAsString(array $tokens): string
     {
         $tokensStr = array_map(function ($token) {
             $value = $token['value'] ?? 'no value';

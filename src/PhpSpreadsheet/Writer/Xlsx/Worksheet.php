@@ -1277,9 +1277,21 @@ class Worksheet extends WriterPart
         $objWriter->writeElement('v', $cellIsFormula ? $formulaerr : $cellValue);
     }
 
+    private const CM_SPILLAGE_ARRAY_FUNCTIONS = '/\b(' .
+        'anchorarray|' .
+        'filter|' .
+        'randarray|' .
+        'sequence|' .
+        'sort|' .
+        'sortby|' .
+        'unique' .
+        ')\(/ui';
+
     private function writeCellFormula(XMLWriter $objWriter, string $cellValue, Cell $cell): void
     {
-        $calculatedValue = $this->getParentWriter()->getPreCalculateFormulas() ? $cell->getCalculatedValue() : $cellValue;
+        $calculatedValue = $this->getParentWriter()->getPreCalculateFormulas()
+            ? $cell->getCalculatedValue() : $cellValue;
+
         if (is_string($calculatedValue)) {
             if (ErrorValue::isError($calculatedValue)) {
                 $this->writeCellError($objWriter, 'e', $cellValue, $calculatedValue);
@@ -1295,23 +1307,28 @@ class Worksheet extends WriterPart
 
         $attributes = $cell->getFormulaAttributes();
         if (($attributes['t'] ?? null) === 'array') {
+            if (preg_match(self::CM_SPILLAGE_ARRAY_FUNCTIONS, $cellValue) === 1) {
+                $objWriter->writeAttribute('cm', '1');
+            }
+
             $objWriter->startElement('f');
             $objWriter->writeAttribute('t', 'array');
-            $objWriter->writeAttribute('ref', $cell->getCoordinate());
-            $objWriter->writeAttribute('aca', '1');
-            $objWriter->writeAttribute('ca', '1');
-            $objWriter->text(substr($cellValue, 1));
+            $objWriter->writeAttribute('ref', $attributes['ref'] ?? $cell->getCoordinate());
+            $objWriter->writeAttribute('aca', '1'); // Always calculate array, true
+            $objWriter->writeAttribute('ca', '1'); // Calculate cell, true
+            $objWriter->text(Xlfn::addXlfnStripEquals($cellValue));
             $objWriter->endElement();
         } else {
             $objWriter->writeElement('f', Xlfn::addXlfnStripEquals($cellValue));
-            self::writeElementIf(
-                $objWriter,
-                $this->getParentWriter()->getOffice2003Compatibility() === false,
-                'v',
-                ($this->getParentWriter()->getPreCalculateFormulas() && !is_array($calculatedValue) && substr($calculatedValue ?? '', 0, 1) !== '#')
-                    ? StringHelper::formatNumber($calculatedValue) : '0'
-            );
         }
+
+        self::writeElementIf(
+            $objWriter,
+            $this->getParentWriter()->getOffice2003Compatibility() === false,
+            'v',
+            ($this->getParentWriter()->getPreCalculateFormulas() && !is_array($calculatedValue) && substr($calculatedValue ?? '', 0, 1) !== '#')
+                ? StringHelper::formatNumber($calculatedValue) : '0'
+        );
     }
 
     /**
