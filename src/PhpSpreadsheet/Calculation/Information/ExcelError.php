@@ -14,15 +14,20 @@ class ExcelError
      * @var array<string, string>
      */
     public static $errorCodes = [
-        'null' => '#NULL!',
-        'divisionbyzero' => '#DIV/0!',
-        'value' => '#VALUE!',
-        'reference' => '#REF!',
-        'name' => '#NAME?',
-        'num' => '#NUM!',
-        'na' => '#N/A',
-        'gettingdata' => '#GETTING_DATA',
-        'spill' => '#SPILL!',
+        'null' => '#NULL!', // 1
+        'divisionbyzero' => '#DIV/0!', // 2
+        'value' => '#VALUE!', // 3
+        'reference' => '#REF!', // 4
+        'name' => '#NAME?', // 5
+        'num' => '#NUM!', // 6
+        'na' => '#N/A', // 7
+        'gettingdata' => '#GETTING_DATA', // 8
+        'spill' => '#SPILL!', // 9
+        'connect' => '#CONNECT!', //10
+        'blocked' => '#BLOCKED!', //11
+        'unknown' => '#UNKNOWN!', //12
+        'field' => '#FIELD!', //13
+        'calculation' => '#CALC!', //14
     ];
 
     /**
@@ -52,10 +57,6 @@ class ExcelError
                 return $i;
             }
             ++$i;
-        }
-
-        if ($value === self::CALC()) {
-            return 14;
         }
 
         return self::NA();
@@ -154,6 +155,6 @@ class ExcelError
      */
     public static function CALC(): string
     {
-        return '#CALC!';
+        return self::$errorCodes['calculation'];
     }
 }
