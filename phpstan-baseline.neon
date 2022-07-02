@@ -1251,11 +1251,6 @@ parameters:
 			path: src/PhpSpreadsheet/DefinedName.php
 
 		-
-			message: "#^Cannot use array destructuring on array\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Helper/Dimension.php
-
-		-
 			message: "#^Cannot call method setBold\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Helper/Html.php
