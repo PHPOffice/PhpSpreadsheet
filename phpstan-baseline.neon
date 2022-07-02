@@ -2786,36 +2786,6 @@ parameters:
 			path: src/PhpSpreadsheet/Shared/OLERead.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\StringHelper\\:\\:formatNumber\\(\\) should return string but returns array\\|string\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/StringHelper.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\StringHelper\\:\\:sanitizeUTF8\\(\\) should return string but returns string\\|false\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/StringHelper.php
-
-		-
-			message: "#^Parameter \\#1 \\$string of function strlen expects string, float given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/StringHelper.php
-
-		-
-			message: "#^Parameter \\#3 \\$subject of function str_replace expects array\\|string, float given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/StringHelper.php
-
-		-
-			message: "#^Static property PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\StringHelper\\:\\:\\$decimalSeparator \\(string\\) in isset\\(\\) is not nullable\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/StringHelper.php
-
-		-
-			message: "#^Static property PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\StringHelper\\:\\:\\$thousandsSeparator \\(string\\) in isset\\(\\) is not nullable\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/StringHelper.php
-
-		-
 			message: "#^Static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\TimeZone\\:\\:validateTimeZone\\(\\) is unused\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/TimeZone.php
