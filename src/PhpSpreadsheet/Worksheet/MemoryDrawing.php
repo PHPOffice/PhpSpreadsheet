@@ -86,8 +86,8 @@ class MemoryDrawing extends BaseDrawing
             return;
         }
 
-        $width = imagesx($this->imageResource);
-        $height = imagesy($this->imageResource);
+        $width = (int) imagesx($this->imageResource);
+        $height = (int) imagesy($this->imageResource);
 
         if (imageistruecolor($this->imageResource)) {
             $clone = imagecreatetruecolor($width, $height);
@@ -150,8 +150,8 @@ class MemoryDrawing extends BaseDrawing
 
         if ($this->imageResource !== null) {
             // Get width/height
-            $this->width = imagesx($this->imageResource);
-            $this->height = imagesy($this->imageResource);
+            $this->width = (int) imagesx($this->imageResource);
+            $this->height = (int) imagesy($this->imageResource);
         }
 
         return $this;
