@@ -4834,7 +4834,7 @@ class Calculation
                                     $cell->attach($pCellParent);
                                 } else {
                                     $cellRef = ($cellSheet !== null) ? "'{$matches[2]}'!{$cellRef}" : $cellRef;
-                                    $cellValue = null;
+                                    $cellValue = ($cellSheet !== null) ? null : Information\ExcelError::REF();
                                 }
                             } else {
                                 return $this->raiseFormulaError('Unable to access Cell Reference');

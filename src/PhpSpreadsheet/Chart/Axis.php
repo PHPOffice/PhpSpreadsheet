@@ -10,6 +10,12 @@ namespace PhpOffice\PhpSpreadsheet\Chart;
  */
 class Axis extends Properties
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->fillColor = new ChartColor();
+    }
+
     /**
      * Axis Number.
      *
@@ -20,6 +26,9 @@ class Axis extends Properties
         'source_linked' => 1,
         'numeric' => null,
     ];
+
+    /** @var string */
+    private $axisType = '';
 
     /**
      * Axis Options.
@@ -42,13 +51,9 @@ class Axis extends Properties
     /**
      * Fill Properties.
      *
-     * @var mixed[]
+     * @var ChartColor
      */
-    private $fillProperties = [
-        'type' => self::EXCEL_COLOR_TYPE_ARGB,
-        'value' => null,
-        'alpha' => 0,
-    ];
+    private $fillColor;
 
     private const NUMERIC_FORMAT = [
         Properties::FORMAT_CODE_NUMBER,
@@ -60,11 +65,11 @@ class Axis extends Properties
      *
      * @param mixed $format_code
      */
-    public function setAxisNumberProperties($format_code, ?bool $numeric = null): void
+    public function setAxisNumberProperties($format_code, ?bool $numeric = null, int $sourceLinked = 0): void
     {
         $format = (string) $format_code;
         $this->axisNumber['format'] = $format;
-        $this->axisNumber['source_linked'] = 0;
+        $this->axisNumber['source_linked'] = $sourceLinked;
         if (is_bool($numeric)) {
             $this->axisNumber['numeric'] = $numeric;
         } elseif (in_array($format, self::NUMERIC_FORMAT, true)) {
@@ -154,6 +159,22 @@ class Axis extends Properties
         $this->axisOptions['orientation'] = (string) $orientation;
     }
 
+    public function getAxisType(): string
+    {
+        return $this->axisType;
+    }
+
+    public function setAxisType(string $type): self
+    {
+        if ($type === 'catAx' || $type === 'valAx') {
+            $this->axisType = $type;
+        } else {
+            $this->axisType = '';
+        }
+
+        return $this;
+    }
+
     /**
      * Set Fill Property.
      *
@@ -163,7 +184,7 @@ class Axis extends Properties
      */
     public function setFillParameters($color, $alpha = null, $AlphaType = self::EXCEL_COLOR_TYPE_ARGB): void
     {
-        $this->fillProperties = $this->setColorProperties($color, $alpha, $AlphaType);
+        $this->fillColor->setColorProperties($color, $alpha, $AlphaType);
     }
 
     /**
@@ -175,11 +196,21 @@ class Axis extends Properties
      */
     public function getFillProperty($property)
     {
-        return (string) $this->fillProperties[$property];
+        return (string) $this->fillColor->getColorProperty($property);
+    }
+
+    public function getFillColorObject(): ChartColor
+    {
+        return $this->fillColor;
     }
 
     /**
      * Get Line Color Property.
+     *
+     * @Deprecated 1.24.0
+     *
+     * @See Properties::getLineColorProperty()
+     *      Use the getLineColor property in the Properties class instead
      *
      * @param string $propertyName
      *
@@ -187,7 +218,7 @@ class Axis extends Properties
      */
     public function getLineProperty($propertyName)
     {
-        return $this->lineProperties['color'][$propertyName];
+        return $this->getLineColorProperty($propertyName);
     }
 
     /** @var string */

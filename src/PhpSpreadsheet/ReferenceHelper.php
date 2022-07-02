@@ -316,6 +316,7 @@ class ReferenceHelper
                     $objColumnDimension->setColumnIndex($newReference);
                 }
             }
+
             $worksheet->refreshColumnDimensions();
         }
     }
@@ -339,6 +340,7 @@ class ReferenceHelper
                     $objRowDimension->setRowIndex($newRoweference);
                 }
             }
+
             $worksheet->refreshRowDimensions();
 
             $copyDimension = $worksheet->getRowDimension($beforeRow - 1);
@@ -524,6 +526,12 @@ class ReferenceHelper
             $newReference = $this->updateCellReference($objDrawing->getCoordinates());
             if ($objDrawing->getCoordinates() != $newReference) {
                 $objDrawing->setCoordinates($newReference);
+            }
+            if ($objDrawing->getCoordinates2() !== '') {
+                $newReference = $this->updateCellReference($objDrawing->getCoordinates2());
+                if ($objDrawing->getCoordinates2() != $newReference) {
+                    $objDrawing->setCoordinates2($newReference);
+                }
             }
         }
 

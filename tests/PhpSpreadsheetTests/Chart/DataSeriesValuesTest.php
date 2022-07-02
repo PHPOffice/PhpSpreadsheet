@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Chart;
 
 use PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues;
+use PhpOffice\PhpSpreadsheet\Chart\Properties;
 use PhpOffice\PhpSpreadsheet\Exception;
 use PHPUnit\Framework\TestCase;
 
@@ -51,13 +52,14 @@ class DataSeriesValuesTest extends TestCase
     public function testGetLineWidth(): void
     {
         $testInstance = new DataSeriesValues();
-        self::assertEquals(12700, $testInstance->getLineWidth(), 'should have default');
+        // default has changed to null from 1 point (12700)
+        self::assertNull($testInstance->getLineWidth(), 'should have default');
 
-        $testInstance->setLineWidth(40000);
-        self::assertEquals(40000, $testInstance->getLineWidth());
+        $testInstance->setLineWidth(40000 / Properties::POINTS_WIDTH_MULTIPLIER);
+        self::assertEquals(40000 / Properties::POINTS_WIDTH_MULTIPLIER, $testInstance->getLineWidth());
 
         $testInstance->setLineWidth(1);
-        self::assertEquals(12700, $testInstance->getLineWidth(), 'should enforce minimum width');
+        self::assertEquals(12700 / Properties::POINTS_WIDTH_MULTIPLIER, $testInstance->getLineWidth(), 'should enforce minimum width');
     }
 
     public function testFillColorCorrectInput(): void
