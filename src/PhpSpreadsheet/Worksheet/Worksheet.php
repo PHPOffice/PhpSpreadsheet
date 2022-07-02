@@ -658,10 +658,8 @@ class Worksheet implements IComparable
      */
     public function refreshColumnDimensions()
     {
-        $currentColumnDimensions = $this->getColumnDimensions();
         $newColumnDimensions = [];
-
-        foreach ($currentColumnDimensions as $objColumnDimension) {
+        foreach ($this->getColumnDimensions() as $objColumnDimension) {
             $newColumnDimensions[$objColumnDimension->getColumnIndex()] = $objColumnDimension;
         }
 
@@ -677,10 +675,8 @@ class Worksheet implements IComparable
      */
     public function refreshRowDimensions()
     {
-        $currentRowDimensions = $this->getRowDimensions();
         $newRowDimensions = [];
-
-        foreach ($currentRowDimensions as $objRowDimension) {
+        foreach ($this->getRowDimensions() as $objRowDimension) {
             $newRowDimensions[$objRowDimension->getRowIndex()] = $objRowDimension;
         }
 

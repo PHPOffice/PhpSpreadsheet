@@ -1251,11 +1251,6 @@ parameters:
 			path: src/PhpSpreadsheet/DefinedName.php
 
 		-
-			message: "#^Cannot use array destructuring on array\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Helper/Dimension.php
-
-		-
 			message: "#^Cannot call method setBold\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Helper/Html.php
@@ -4026,16 +4021,6 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xlsx.php
 
 		-
-			message: "#^Cannot call method getDataValues\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\DataSeriesValues\\|false\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
-
-		-
-			message: "#^Cannot call method getFillColor\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\DataSeriesValues\\|false\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
-
-		-
 			message: "#^Parameter \\#1 \\$plotSeriesValues of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Chart\\:\\:writeBubbles\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\DataSeriesValues\\|null, PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\DataSeriesValues\\|false given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
@@ -4057,7 +4042,7 @@ parameters:
 
 		-
 			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, int given\\.$#"
-			count: 42
+			count: 41
 			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
 
 		-

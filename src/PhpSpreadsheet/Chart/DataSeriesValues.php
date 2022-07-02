@@ -7,7 +7,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class DataSeriesValues
+class DataSeriesValues extends Properties
 {
     const DATASERIES_TYPE_STRING = 'String';
     const DATASERIES_TYPE_NUMBER = 'Number';
@@ -45,6 +45,12 @@ class DataSeriesValues
      */
     private $pointMarker;
 
+    /** @var ChartColor */
+    private $markerFillColor;
+
+    /** @var ChartColor */
+    private $markerBorderColor;
+
     /**
      * Series Point Size.
      *
@@ -69,22 +75,9 @@ class DataSeriesValues
     /**
      * Fill color (can be array with colors if dataseries have custom colors).
      *
-     * @var null|string|string[]
+     * @var null|ChartColor|ChartColor[]
      */
     private $fillColor;
-
-    /** @var string */
-    private $schemeClr = '';
-
-    /** @var string */
-    private $prstClr = '';
-
-    /**
-     * Line Width.
-     *
-     * @var int
-     */
-    private $lineWidth = 12700;
 
     /** @var bool */
     private $scatterLines = true;
@@ -101,18 +94,23 @@ class DataSeriesValues
      * @param int $pointCount
      * @param mixed $dataValues
      * @param null|mixed $marker
-     * @param null|string|string[] $fillColor
+     * @param null|ChartColor|ChartColor[]|string|string[] $fillColor
      * @param string $pointSize
      */
     public function __construct($dataType = self::DATASERIES_TYPE_NUMBER, $dataSource = null, $formatCode = null, $pointCount = 0, $dataValues = [], $marker = null, $fillColor = null, $pointSize = '3')
     {
+        parent::__construct();
+        $this->markerFillColor = new ChartColor();
+        $this->markerBorderColor = new ChartColor();
         $this->setDataType($dataType);
         $this->dataSource = $dataSource;
         $this->formatCode = $formatCode;
         $this->pointCount = $pointCount;
         $this->dataValues = $dataValues;
         $this->pointMarker = $marker;
-        $this->fillColor = $fillColor;
+        if ($fillColor !== null) {
+            $this->setFillColor($fillColor);
+        }
         if (is_numeric($pointSize)) {
             $this->pointSize = (int) $pointSize;
         }
@@ -198,6 +196,16 @@ class DataSeriesValues
         return $this;
     }
 
+    public function getMarkerFillColor(): ChartColor
+    {
+        return $this->markerFillColor;
+    }
+
+    public function getMarkerBorderColor(): ChartColor
+    {
+        return $this->markerBorderColor;
+    }
+
     /**
      * Get Point Size.
      */
@@ -253,36 +261,95 @@ class DataSeriesValues
     }
 
     /**
+     * Get fill color object.
+     *
+     * @return null|ChartColor|ChartColor[]
+     */
+    public function getFillColorObject()
+    {
+        return $this->fillColor;
+    }
+
+    private function stringToChartColor(string $fillString): ChartColor
+    {
+        $value = $type = '';
+        if (substr($fillString, 0, 1) === '*') {
+            $type = 'schemeClr';
+            $value = substr($fillString, 1);
+        } elseif (substr($fillString, 0, 1) === '/') {
+            $type = 'prstClr';
+            $value = substr($fillString, 1);
+        } elseif ($fillString !== '') {
+            $type = 'srgbClr';
+            $value = $fillString;
+            $this->validateColor($value);
+        }
+
+        return new ChartColor($value, null, $type);
+    }
+
+    private function chartColorToString(ChartColor $chartColor): string
+    {
+        $type = (string) $chartColor->getColorProperty('type');
+        $value = (string) $chartColor->getColorProperty('value');
+        if ($type === '' || $value === '') {
+            return '';
+        }
+        if ($type === 'schemeClr') {
+            return "*$value";
+        }
+        if ($type === 'prstClr') {
+            return "/$value";
+        }
+
+        return $value;
+    }
+
+    /**
      * Get fill color.
      *
-     * @return null|string|string[] HEX color or array with HEX colors
+     * @return string|string[] HEX color or array with HEX colors
      */
     public function getFillColor()
     {
-        return $this->fillColor;
+        if ($this->fillColor === null) {
+            return '';
+        }
+        if (is_array($this->fillColor)) {
+            $array = [];
+            foreach ($this->fillColor as $chartColor) {
+                $array[] = self::chartColorToString($chartColor);
+            }
+
+            return $array;
+        }
+
+        return self::chartColorToString($this->fillColor);
     }
 
     /**
      * Set fill color for series.
      *
-     * @param string|string[] $color HEX color or array with HEX colors
+     * @param ChartColor|ChartColor[]|string|string[] $color HEX color or array with HEX colors
      *
      * @return   DataSeriesValues
      */
     public function setFillColor($color)
     {
         if (is_array($color)) {
-            foreach ($color as $colorValue) {
-                if (substr($colorValue, 0, 1) !== '*' && substr($colorValue, 0, 1) !== '/') {
-                    $this->validateColor($colorValue);
+            $this->fillColor = [];
+            foreach ($color as $fillString) {
+                if ($fillString instanceof ChartColor) {
+                    $this->fillColor[] = $fillString;
+                } else {
+                    $this->fillColor[] = self::stringToChartColor($fillString);
                 }
             }
-        } else {
-            if (substr($color, 0, 1) !== '*' && substr($color, 0, 1) !== '/') {
-                $this->validateColor("$color");
-            }
+        } elseif ($color instanceof ChartColor) {
+            $this->fillColor = $color;
+        } elseif (is_string($color)) {
+            $this->fillColor = self::stringToChartColor($color);
         }
-        $this->fillColor = $color;
 
         return $this;
     }
@@ -306,24 +373,23 @@ class DataSeriesValues
     /**
      * Get line width for series.
      *
-     * @return int
+     * @return null|float|int
      */
     public function getLineWidth()
     {
-        return $this->lineWidth;
+        return $this->lineStyleProperties['width'];
     }
 
     /**
      * Set line width for the series.
      *
-     * @param int $width
+     * @param null|float|int $width
      *
      * @return $this
      */
     public function setLineWidth($width)
     {
-        $minWidth = 12700;
-        $this->lineWidth = max($minWidth, $width);
+        $this->lineStyleProperties['width'] = $width;
 
         return $this;
     }
@@ -466,26 +532,33 @@ class DataSeriesValues
         return $this;
     }
 
-    public function getSchemeClr(): string
+    /**
+     * Smooth Line.
+     *
+     * @var bool
+     */
+    private $smoothLine;
+
+    /**
+     * Get Smooth Line.
+     *
+     * @return bool
+     */
+    public function getSmoothLine()
     {
-        return $this->schemeClr;
+        return $this->smoothLine;
     }
 
-    public function setSchemeClr(string $schemeClr): self
+    /**
+     * Set Smooth Line.
+     *
+     * @param bool $smoothLine
+     *
+     * @return $this
+     */
+    public function setSmoothLine($smoothLine)
     {
-        $this->schemeClr = $schemeClr;
-
-        return $this;
-    }
-
-    public function getPrstClr(): string
-    {
-        return $this->prstClr;
-    }
-
-    public function setPrstClr(string $prstClr): self
-    {
-        $this->prstClr = $prstClr;
+        $this->smoothLine = $smoothLine;
 
         return $this;
     }

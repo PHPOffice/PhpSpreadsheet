@@ -419,7 +419,9 @@ class Chart extends WriterPart
     {
         // N.B. writeCategoryAxis may be invoked with the last parameter($yAxis) using $xAxis for ScatterChart, etc
         // In that case, xAxis is NOT a category.
-        if ($yAxis->getAxisIsNumericFormat()) {
+        if ($yAxis->getAxisType() !== '') {
+            $objWriter->startElement('c:' . $yAxis->getAxisType());
+        } elseif ($yAxis->getAxisIsNumericFormat()) {
             $objWriter->startElement('c:valAx');
         } else {
             $objWriter->startElement('c:catAx');
@@ -469,10 +471,6 @@ class Chart extends WriterPart
             $objWriter->endElement();
 
             $objWriter->startElement('a:p');
-            $objWriter->startElement('a:pPr');
-            $objWriter->startElement('a:defRPr');
-            $objWriter->endElement();
-            $objWriter->endElement();
 
             $caption = $xAxisLabel->getCaption();
             if (is_array($caption)) {
@@ -622,7 +620,7 @@ class Chart extends WriterPart
         $objWriter->startElement('c:majorGridlines');
         $objWriter->startElement('c:spPr');
 
-        $this->writeGridlinesLn($objWriter, $majorGridlines);
+        $this->writeLineStyles($objWriter, $majorGridlines);
 
         $objWriter->startElement('a:effectLst');
         $this->writeGlow($objWriter, $majorGridlines);
@@ -637,7 +635,7 @@ class Chart extends WriterPart
             $objWriter->startElement('c:minorGridlines');
             $objWriter->startElement('c:spPr');
 
-            $this->writeGridlinesLn($objWriter, $minorGridlines);
+            $this->writeLineStyles($objWriter, $minorGridlines);
 
             $objWriter->startElement('a:effectLst');
             $this->writeGlow($objWriter, $minorGridlines);
@@ -661,10 +659,6 @@ class Chart extends WriterPart
             $objWriter->endElement();
 
             $objWriter->startElement('a:p');
-            $objWriter->startElement('a:pPr');
-            $objWriter->startElement('a:defRPr');
-            $objWriter->endElement();
-            $objWriter->endElement();
 
             $caption = $yAxisLabel->getCaption();
             if (is_array($caption)) {
@@ -715,7 +709,7 @@ class Chart extends WriterPart
 
         $this->writeColor($objWriter, $xAxis->getFillColorObject());
 
-        $this->writeGridlinesLn($objWriter, $xAxis);
+        $this->writeLineStyles($objWriter, $xAxis);
 
         $objWriter->startElement('a:effectLst');
         $this->writeGlow($objWriter, $xAxis);
@@ -849,40 +843,27 @@ class Chart extends WriterPart
 
     /**
      * Method writing plot series values.
-     *
-     * @param int $val value for idx (default: 3)
-     * @param string $fillColor hex color (default: FF9900)
      */
-    private function writePlotSeriesValuesElement(XMLWriter $objWriter, $val = 3, $fillColor = 'FF9900'): void
+    private function writePlotSeriesValuesElement(XMLWriter $objWriter, int $val, ?ChartColor $fillColor): void
     {
-        if ($fillColor === '') {
+        if ($fillColor === null || !$fillColor->isUsable()) {
             return;
         }
         $objWriter->startElement('c:dPt');
+
         $objWriter->startElement('c:idx');
         $objWriter->writeAttribute('val', $val);
-        $objWriter->endElement();
+        $objWriter->endElement(); // c:idx
 
         $objWriter->startElement('c:bubble3D');
         $objWriter->writeAttribute('val', 0);
-        $objWriter->endElement();
+        $objWriter->endElement(); // c:bubble3D
 
         $objWriter->startElement('c:spPr');
-        $objWriter->startElement('a:solidFill');
-        if (substr($fillColor, 0, 1) === '*') {
-            $objWriter->startElement('a:schemeClr');
-            $objWriter->writeAttribute('val', substr($fillColor, 1));
-        } elseif (substr($fillColor, 0, 1) === '/') {
-            $objWriter->startElement('a:prstClr');
-            $objWriter->writeAttribute('val', substr($fillColor, 1));
-        } else {
-            $objWriter->startElement('a:srgbClr');
-            $objWriter->writeAttribute('val', $fillColor);
-        }
-        $objWriter->endElement();
-        $objWriter->endElement();
-        $objWriter->endElement();
-        $objWriter->endElement();
+        $this->writeColor($objWriter, $fillColor);
+        $objWriter->endElement(); // c:spPr
+
+        $objWriter->endElement(); // c:dPt
     }
 
     /**
@@ -934,20 +915,6 @@ class Chart extends WriterPart
         foreach ($plotSeriesOrder as $plotSeriesIdx => $plotSeriesRef) {
             $objWriter->startElement('c:ser');
 
-            $plotLabel = $plotGroup->getPlotLabelByIndex($plotSeriesIdx);
-            if ($plotLabel && $groupType !== DataSeries::TYPE_LINECHART) {
-                $fillColor = $plotLabel->getFillColor();
-                if ($fillColor !== null && !is_array($fillColor)) {
-                    $objWriter->startElement('c:spPr');
-                    $objWriter->startElement('a:solidFill');
-                    $objWriter->startElement('a:srgbClr');
-                    $objWriter->writeAttribute('val', $fillColor);
-                    $objWriter->endElement();
-                    $objWriter->endElement();
-                    $objWriter->endElement();
-                }
-            }
-
             $objWriter->startElement('c:idx');
             $objWriter->writeAttribute('val', $this->seriesIndex + $plotSeriesIdx);
             $objWriter->endElement();
@@ -956,22 +923,35 @@ class Chart extends WriterPart
             $objWriter->writeAttribute('val', $this->seriesIndex + $plotSeriesRef);
             $objWriter->endElement();
 
-            //    Values
-            $plotSeriesValues = $plotGroup->getPlotValuesByIndex($plotSeriesRef);
+            $plotLabel = $plotGroup->getPlotLabelByIndex($plotSeriesIdx);
+            $labelFill = null;
+            if ($plotLabel && $groupType === DataSeries::TYPE_LINECHART) {
+                $labelFill = $plotLabel->getFillColorObject();
+                $labelFill = ($labelFill instanceof ChartColor) ? $labelFill : null;
+            }
+            if ($plotLabel && $groupType !== DataSeries::TYPE_LINECHART) {
+                $fillColor = $plotLabel->getFillColorObject();
+                if ($fillColor !== null && !is_array($fillColor) && $fillColor->isUsable()) {
+                    $objWriter->startElement('c:spPr');
+                    $this->writeColor($objWriter, $fillColor);
+                    $objWriter->endElement(); // c:spPr
+                }
+            }
 
-            if (($groupType == DataSeries::TYPE_PIECHART) || ($groupType == DataSeries::TYPE_PIECHART_3D) || ($groupType == DataSeries::TYPE_DONUTCHART)) {
-                $fillColorValues = $plotSeriesValues->getFillColor();
+            //    Values
+            $plotSeriesValues = $plotGroup->getPlotValuesByIndex($plotSeriesIdx);
+
+            if ($plotSeriesValues !== false && in_array($groupType, self::CUSTOM_COLOR_TYPES, true)) {
+                $fillColorValues = $plotSeriesValues->getFillColorObject();
                 if ($fillColorValues !== null && is_array($fillColorValues)) {
                     foreach ($plotSeriesValues->getDataValues() as $dataKey => $dataValue) {
-                        $this->writePlotSeriesValuesElement($objWriter, $dataKey, $fillColorValues[$dataKey] ?? '');
+                        $this->writePlotSeriesValuesElement($objWriter, $dataKey, $fillColorValues[$dataKey] ?? null);
                     }
-                } else {
-                    $this->writePlotSeriesValuesElement($objWriter);
                 }
             }
 
             //    Labels
-            $plotSeriesLabel = $plotGroup->getPlotLabelByIndex($plotSeriesRef);
+            $plotSeriesLabel = $plotGroup->getPlotLabelByIndex($plotSeriesIdx);
             if ($plotSeriesLabel && ($plotSeriesLabel->getPointCount() > 0)) {
                 $objWriter->startElement('c:tx');
                 $objWriter->startElement('c:strRef');
@@ -982,77 +962,54 @@ class Chart extends WriterPart
 
             //    Formatting for the points
             if (
-                $groupType == DataSeries::TYPE_LINECHART
-                || $groupType == DataSeries::TYPE_STOCKCHART
-                || ($groupType === DataSeries::TYPE_SCATTERCHART && $plotSeriesValues !== false && !$plotSeriesValues->getScatterLines())
-                || ($plotSeriesValues !== false && ($plotSeriesValues->getSchemeClr() || $plotSeriesValues->getPrstClr()))
+                $plotSeriesValues !== false
             ) {
-                $plotLineWidth = 12700;
-                if ($plotSeriesValues) {
-                    $plotLineWidth = $plotSeriesValues->getLineWidth();
-                }
-
                 $objWriter->startElement('c:spPr');
-                $schemeClr = $typeClr = '';
-                if ($plotLabel) {
-                    $schemeClr = $plotLabel->getSchemeClr();
-                    if ($schemeClr) {
-                        $typeClr = 'schemeClr';
-                    } else {
-                        $schemeClr = $plotLabel->getPrstClr();
-                        if ($schemeClr) {
-                            $typeClr = 'prstClr';
-                        }
+                $fillObject = $labelFill ?? $plotSeriesValues->getFillColorObject();
+                $callLineStyles = true;
+                if ($fillObject instanceof ChartColor && $fillObject->isUsable()) {
+                    if ($groupType === DataSeries::TYPE_LINECHART) {
+                        $objWriter->startElement('a:ln');
+                        $callLineStyles = false;
+                    }
+                    $this->writeColor($objWriter, $fillObject);
+                    if (!$callLineStyles) {
+                        $objWriter->endElement(); // a:ln
                     }
                 }
-                if ($schemeClr) {
-                    $objWriter->startElement('a:solidFill');
-                    $objWriter->startElement("a:$typeClr");
-                    $objWriter->writeAttribute('val', $schemeClr);
-                    $objWriter->endElement();
-                    $objWriter->endElement();
+                $nofill = $groupType == DataSeries::TYPE_STOCKCHART || ($groupType === DataSeries::TYPE_SCATTERCHART && !$plotSeriesValues->getScatterLines());
+                if ($callLineStyles) {
+                    $this->writeLineStyles($objWriter, $plotSeriesValues, $nofill);
                 }
-                $objWriter->startElement('a:ln');
-                $objWriter->writeAttribute('w', $plotLineWidth);
-                if ($groupType == DataSeries::TYPE_STOCKCHART || $groupType === DataSeries::TYPE_SCATTERCHART) {
-                    $objWriter->startElement('a:noFill');
-                    $objWriter->endElement();
-                } elseif ($plotLabel) {
-                    $fillColor = $plotLabel->getFillColor();
-                    if (is_string($fillColor)) {
-                        $objWriter->startElement('a:solidFill');
-                        $objWriter->startElement('a:srgbClr');
-                        $objWriter->writeAttribute('val', $fillColor);
-                        $objWriter->endElement();
-                        $objWriter->endElement();
-                    }
-                }
-                $objWriter->endElement();
-                $objWriter->endElement();
+                $objWriter->endElement(); // c:spPr
             }
 
             if ($plotSeriesValues) {
                 $plotSeriesMarker = $plotSeriesValues->getPointMarker();
-                if ($plotSeriesMarker) {
+                $markerFillColor = $plotSeriesValues->getMarkerFillColor();
+                $fillUsed = $markerFillColor->IsUsable();
+                $markerBorderColor = $plotSeriesValues->getMarkerBorderColor();
+                $borderUsed = $markerBorderColor->isUsable();
+                if ($plotSeriesMarker || $fillUsed || $borderUsed) {
                     $objWriter->startElement('c:marker');
                     $objWriter->startElement('c:symbol');
-                    $objWriter->writeAttribute('val', $plotSeriesMarker);
+                    if ($plotSeriesMarker) {
+                        $objWriter->writeAttribute('val', $plotSeriesMarker);
+                    }
                     $objWriter->endElement();
 
                     if ($plotSeriesMarker !== 'none') {
                         $objWriter->startElement('c:size');
                         $objWriter->writeAttribute('val', (string) $plotSeriesValues->getPointSize());
-                        $objWriter->endElement();
-                        $fillColor = $plotSeriesValues->getFillColor();
-                        if (is_string($fillColor) && $fillColor !== '') {
-                            $objWriter->startElement('c:spPr');
-                            $objWriter->startElement('a:solidFill');
-                            $objWriter->startElement('a:srgbClr');
-                            $objWriter->writeAttribute('val', $fillColor);
-                            $objWriter->endElement(); // srgbClr
-                            $objWriter->endElement(); // solidFill
-                            $objWriter->endElement(); // spPr
+                        $objWriter->endElement(); // c:size
+                        $objWriter->startElement('c:spPr');
+                        $this->writeColor($objWriter, $markerFillColor);
+                        if ($borderUsed) {
+                            $objWriter->startElement('a:ln');
+                            $this->writeColor($objWriter, $markerBorderColor);
+                            $objWriter->endElement(); // a:ln
                         }
+                        $objWriter->endElement(); // spPr
                     }
 
                     $objWriter->endElement();
@@ -1066,7 +1023,7 @@ class Chart extends WriterPart
             }
 
             //    Category Labels
-            $plotSeriesCategory = $plotGroup->getPlotCategoryByIndex($plotSeriesRef);
+            $plotSeriesCategory = $plotGroup->getPlotCategoryByIndex($plotSeriesIdx);
             if ($plotSeriesCategory && ($plotSeriesCategory->getPointCount() > 0)) {
                 $catIsMultiLevelSeries = $catIsMultiLevelSeries || $plotSeriesCategory->isMultiLevelSeries();
 
@@ -1112,7 +1069,7 @@ class Chart extends WriterPart
                 $objWriter->endElement();
                 if ($groupType === DataSeries::TYPE_SCATTERCHART && $plotGroup->getPlotStyle() === 'smoothMarker') {
                     $objWriter->startElement('c:smooth');
-                    $objWriter->writeAttribute('val', '1');
+                    $objWriter->writeAttribute('val', $plotSeriesValues->getSmoothLine() ? '1' : '0');
                     $objWriter->endElement();
                 }
             }
@@ -1268,6 +1225,14 @@ class Chart extends WriterPart
         }
     }
 
+    private const CUSTOM_COLOR_TYPES = [
+        DataSeries::TYPE_BARCHART,
+        DataSeries::TYPE_BARCHART_3D,
+        DataSeries::TYPE_PIECHART,
+        DataSeries::TYPE_PIECHART_3D,
+        DataSeries::TYPE_DONUTCHART,
+    ];
+
     /**
      * Write Bubble Chart Details.
      */
@@ -1384,8 +1349,8 @@ class Chart extends WriterPart
         $objWriter->writeAttribute('xmlns:mc', 'http://schemas.openxmlformats.org/markup-compatibility/2006');
 
         $objWriter->startElement('mc:Choice');
-        $objWriter->writeAttribute('xmlns:c14', 'http://schemas.microsoft.com/office/drawing/2007/8/2/chart');
         $objWriter->writeAttribute('Requires', 'c14');
+        $objWriter->writeAttribute('xmlns:c14', 'http://schemas.microsoft.com/office/drawing/2007/8/2/chart');
 
         $objWriter->startElement('c14:style');
         $objWriter->writeAttribute('val', '102');
@@ -1509,12 +1474,7 @@ class Chart extends WriterPart
         $objWriter->endElement(); //end softEdge
     }
 
-    /**
-     * Write Line Style for Gridlines.
-     *
-     * @param Axis|GridLines $gridlines
-     */
-    private function writeGridlinesLn(XMLWriter $objWriter, $gridlines): void
+    private function writeLineStyles(XMLWriter $objWriter, Properties $gridlines, bool $noFill = false): void
     {
         $objWriter->startElement('a:ln');
         $widthTemp = $gridlines->getLineStyleProperty('width');
@@ -1523,7 +1483,12 @@ class Chart extends WriterPart
         }
         $this->writeNotEmpty($objWriter, 'cap', $gridlines->getLineStyleProperty('cap'));
         $this->writeNotEmpty($objWriter, 'cmpd', $gridlines->getLineStyleProperty('compound'));
-        $this->writeColor($objWriter, $gridlines->getLineColor());
+        if ($noFill) {
+            $objWriter->startElement('a:noFill');
+            $objWriter->endElement();
+        } else {
+            $this->writeColor($objWriter, $gridlines->getLineColor());
+        }
 
         $dash = $gridlines->getLineStyleProperty('dash');
         if (!empty($dash)) {
@@ -1544,16 +1509,16 @@ class Chart extends WriterPart
         if ($gridlines->getLineStyleProperty(['arrow', 'head', 'type'])) {
             $objWriter->startElement('a:headEnd');
             $objWriter->writeAttribute('type', $gridlines->getLineStyleProperty(['arrow', 'head', 'type']));
-            $this->writeNotEmpty($objWriter, 'w', $gridlines->getLineStyleArrowParameters('head', 'w'));
-            $this->writeNotEmpty($objWriter, 'len', $gridlines->getLineStyleArrowParameters('head', 'len'));
+            $this->writeNotEmpty($objWriter, 'w', $gridlines->getLineStyleArrowWidth('head'));
+            $this->writeNotEmpty($objWriter, 'len', $gridlines->getLineStyleArrowLength('head'));
             $objWriter->endElement();
         }
 
         if ($gridlines->getLineStyleProperty(['arrow', 'end', 'type'])) {
             $objWriter->startElement('a:tailEnd');
             $objWriter->writeAttribute('type', $gridlines->getLineStyleProperty(['arrow', 'end', 'type']));
-            $this->writeNotEmpty($objWriter, 'w', $gridlines->getLineStyleArrowParameters('end', 'w'));
-            $this->writeNotEmpty($objWriter, 'len', $gridlines->getLineStyleArrowParameters('end', 'len'));
+            $this->writeNotEmpty($objWriter, 'w', $gridlines->getLineStyleArrowWidth('end'));
+            $this->writeNotEmpty($objWriter, 'len', $gridlines->getLineStyleArrowLength('end'));
             $objWriter->endElement();
         }
         $objWriter->endElement(); //end ln
