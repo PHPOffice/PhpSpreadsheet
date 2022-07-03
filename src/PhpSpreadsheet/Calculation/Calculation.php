@@ -4713,7 +4713,7 @@ class Calculation
                                 $matrixResult = $matrix->concat($operand2);
                                 $result = $matrixResult->getArray();
                                 if (isset($result[0][0])) {
-                                    $result[0][0] = mb_substr($result[0][0], 0, DataType::MAX_STRING_LENGTH, 'UTF-8');
+                                    $result[0][0] = Shared\StringHelper::substring($result[0][0], 0, DataType::MAX_STRING_LENGTH);
                                 }
                             } catch (\Exception $ex) {
                                 $this->debugLog->writeDebugLog('JAMA Matrix Exception: %s', $ex->getMessage());

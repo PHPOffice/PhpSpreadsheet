@@ -100,17 +100,17 @@ return [
         'CC',
     ],
     'okay long string instance' => [
-        str_repeat('A', 32766) . 'B',
+        'AAAAB' . str_repeat('A', 32762),
         str_repeat('A', 32767),
         'A',
         'B',
-        32767,
+        5,
     ],
     'overflow long string instance' => [
         '#VALUE!',
         str_repeat('A', 32767),
         'A',
         'BB',
-        32767,
+        5,
     ],
 ];

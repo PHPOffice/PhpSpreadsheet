@@ -7,6 +7,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ErrorValue;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 
 class Concatenate
 {
@@ -32,7 +33,7 @@ class Concatenate
                 break;
             }
             $returnValue .= Helpers::extractString($arg);
-            if (mb_strlen($returnValue, 'UTF-8') > DataType::MAX_STRING_LENGTH) {
+            if (StringHelper::countCharacters($returnValue) > DataType::MAX_STRING_LENGTH) {
                 $returnValue = ExcelError::CALC();
 
                 break;
@@ -85,7 +86,7 @@ class Concatenate
         }
 
         $returnValue = ($returnValue !== '') ? $returnValue : implode($delimiter, $aArgs);
-        if (mb_strlen($returnValue, 'UTF-8') > DataType::MAX_STRING_LENGTH) {
+        if (StringHelper::countCharacters($returnValue) > DataType::MAX_STRING_LENGTH) {
             $returnValue = ExcelError::CALC();
         }
 
@@ -120,7 +121,7 @@ class Concatenate
             $returnValue = $stringValue;
         } else {
             $returnValue = str_repeat($stringValue, (int) $repeatCount);
-            if (mb_strlen($returnValue, 'UTF-8') > DataType::MAX_STRING_LENGTH) {
+            if (StringHelper::countCharacters($returnValue) > DataType::MAX_STRING_LENGTH) {
                 $returnValue = ExcelError::VALUE(); // note VALUE not CALC
             }
         }

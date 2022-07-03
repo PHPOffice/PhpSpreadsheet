@@ -7,6 +7,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcExp;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 
 class Replace
 {
@@ -39,14 +40,14 @@ class Replace
             $chars = Helpers::extractInt($chars, 0, 0, true);
             $oldText = Helpers::extractString($oldText, true);
             $newText = Helpers::extractString($newText, true);
-            $left = mb_substr($oldText, 0, $start - 1, 'UTF-8');
+            $left = StringHelper::substring($oldText, 0, $start - 1);
 
-            $right = mb_substr($oldText, $start + $chars - 1, null, 'UTF-8');
+            $right = StringHelper::substring($oldText, $start + $chars - 1, null);
         } catch (CalcExp $e) {
             return $e->getMessage();
         }
         $returnValue = $left . $newText . $right;
-        if (mb_strlen($returnValue, 'UTF-8') > DataType::MAX_STRING_LENGTH) {
+        if (StringHelper::countCharacters($returnValue) > DataType::MAX_STRING_LENGTH) {
             $returnValue = ExcelError::VALUE();
         }
 
@@ -94,7 +95,7 @@ class Replace
         } catch (CalcExp $e) {
             return $e->getMessage();
         }
-        if (mb_strlen($returnValue, 'UTF-8') > DataType::MAX_STRING_LENGTH) {
+        if (StringHelper::countCharacters($returnValue) > DataType::MAX_STRING_LENGTH) {
             $returnValue = ExcelError::VALUE();
         }
 
@@ -116,7 +117,7 @@ class Replace
         }
 
         if ($pos !== false) {
-            return Functions::scalar(self::REPLACE($text, ++$pos, mb_strlen($fromText, 'UTF-8'), $toText));
+            return Functions::scalar(self::REPLACE($text, ++$pos, StringHelper::countCharacters($fromText), $toText));
         }
 
         return $text;
