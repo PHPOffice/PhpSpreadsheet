@@ -129,6 +129,11 @@ class GridlinesShadowGlowTest extends AbstractFunctional
         foreach ($expectedShadow as $key => $value) {
             self::assertEquals($value, $minorGridlines->getShadowProperty($key), $key);
         }
+        $testShadow2 = $minorGridlines->getShadowArray();
+        self::assertNull($testShadow2['presets']);
+        self::assertEquals(['sx' => null, 'sy' => null, 'kx' => null, 'ky' => null], $testShadow2['size']);
+        unset($testShadow2['presets'], $testShadow2['size']);
+        self::assertEquals($expectedShadow, $testShadow2);
 
         // Create the chart
         $chart = new Chart(

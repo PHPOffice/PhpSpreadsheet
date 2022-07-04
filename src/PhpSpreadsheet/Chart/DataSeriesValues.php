@@ -85,6 +85,9 @@ class DataSeriesValues extends Properties
     /** @var bool */
     private $bubble3D = false;
 
+    /** @var ?Layout */
+    private $labelLayout;
+
     /**
      * Create a new DataSeriesValues object.
      *
@@ -559,6 +562,18 @@ class DataSeriesValues extends Properties
     public function setSmoothLine($smoothLine)
     {
         $this->smoothLine = $smoothLine;
+
+        return $this;
+    }
+
+    public function getLabelLayout(): ?Layout
+    {
+        return $this->labelLayout;
+    }
+
+    public function setLabelLayout(?Layout $labelLayout): self
+    {
+        $this->labelLayout = $labelLayout;
 
         return $this;
     }

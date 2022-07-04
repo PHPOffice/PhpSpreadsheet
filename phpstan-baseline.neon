@@ -1186,46 +1186,6 @@ parameters:
 			path: src/PhpSpreadsheet/Chart/PlotArea.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Properties\\:\\:getArrayElementsValue\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Properties.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Properties\\:\\:getArrayElementsValue\\(\\) has parameter \\$elements with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Properties.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Properties\\:\\:getArrayElementsValue\\(\\) has parameter \\$properties with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Properties.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Properties\\:\\:getLineStyleArrowSize\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Properties.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Properties\\:\\:getLineStyleArrowSize\\(\\) has parameter \\$arrayKaySelector with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Properties.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Properties\\:\\:getLineStyleArrowSize\\(\\) has parameter \\$arraySelector with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Properties.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Properties\\:\\:getShadowPresetsMap\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Properties.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Properties\\:\\:getShadowPresetsMap\\(\\) has parameter \\$presetsOption with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Properties.php
-
-		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Title\\:\\:\\$layout \\(PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Layout\\) does not accept PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Layout\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Chart/Title.php
@@ -4019,61 +3979,6 @@ parameters:
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\:\\:\\$pathNames has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx.php
-
-		-
-			message: "#^Parameter \\#1 \\$plotSeriesValues of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Chart\\:\\:writeBubbles\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\DataSeriesValues\\|null, PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\DataSeriesValues\\|false given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
-
-		-
-			message: "#^Parameter \\#1 \\$rawTextData of method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\XMLWriter\\:\\:writeRawData\\(\\) expects array\\<string\\>\\|string\\|null, int given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
-
-		-
-			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, float given\\.$#"
-			count: 6
-			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
-
-		-
-			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, float\\|int given\\.$#"
-			count: 4
-			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
-
-		-
-			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, int given\\.$#"
-			count: 41
-			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
-
-		-
-			message: "#^Parameter \\#6 \\$yAxis of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Chart\\:\\:writeCategoryAxis\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Axis, PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Axis\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
-
-		-
-			message: "#^Parameter \\#7 \\$xAxis of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Chart\\:\\:writeValueAxis\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Axis, PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Axis\\|null given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
-
-		-
-			message: "#^Parameter \\#8 \\$majorGridlines of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Chart\\:\\:writeValueAxis\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\GridLines, PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\GridLines\\|null given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
-
-		-
-			message: "#^Parameter \\#9 \\$minorGridlines of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Chart\\:\\:writeValueAxis\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\GridLines, PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\GridLines\\|null given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Chart\\:\\:\\$calculateCellValues has no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
-
-		-
-			message: "#^Strict comparison using \\=\\=\\= between PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\PlotArea and null will always evaluate to false\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
 
 		-
 			message: "#^Parameter \\#1 \\$string of function substr expects string, int given\\.$#"
