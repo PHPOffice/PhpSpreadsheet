@@ -164,7 +164,7 @@ abstract class Properties
      *
      * @return $this
      */
-    protected function activateObject()
+    public function activateObject()
     {
         $this->objectState = true;
 

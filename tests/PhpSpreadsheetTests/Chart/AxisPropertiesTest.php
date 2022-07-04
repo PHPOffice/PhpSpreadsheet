@@ -144,6 +144,7 @@ class AxisPropertiesTest extends AbstractFunctional
             null // minorGridlines
         );
         $xAxis2 = $chart->getChartAxisX();
+        self::assertNotNull($xAxis2);
         self::assertSame('FF0000', $xAxis2->getFillProperty('value'));
         self::assertSame('', $xAxis2->getFillProperty('alpha'));
         self::assertSame('srgbClr', $xAxis2->getFillProperty('type'));
@@ -160,6 +161,7 @@ class AxisPropertiesTest extends AbstractFunctional
         self::assertSame('5', $xAxis2->getAxisOptionsProperty('minor_unit'));
 
         $yAxis2 = $chart->getChartAxisY();
+        self::assertNotNull($yAxis2);
         self::assertSame('accent1', $yAxis2->getFillProperty('value'));
         self::assertSame('30', $yAxis2->getFillProperty('alpha'));
         self::assertSame('schemeClr', $yAxis2->getFillProperty('type'));
@@ -184,6 +186,7 @@ class AxisPropertiesTest extends AbstractFunctional
         $chart2 = $charts2[0];
         self::assertNotNull($chart2);
         $xAxis3 = $chart2->getChartAxisX();
+        self::assertNotNull($xAxis3);
         self::assertSame('FF0000', $xAxis3->getFillProperty('value'));
         self::assertSame('', $xAxis3->getFillProperty('alpha'));
         self::assertSame('srgbClr', $xAxis3->getFillProperty('type'));
@@ -200,6 +203,7 @@ class AxisPropertiesTest extends AbstractFunctional
         self::assertSame('5', $xAxis3->getAxisOptionsProperty('minor_unit'));
 
         $yAxis3 = $chart2->getChartAxisY();
+        self::assertNotNull($yAxis3);
         self::assertSame('accent1', $yAxis3->getFillProperty('value'));
         self::assertSame('30', $yAxis3->getFillProperty('alpha'));
         self::assertSame('schemeClr', $yAxis3->getFillProperty('type'));

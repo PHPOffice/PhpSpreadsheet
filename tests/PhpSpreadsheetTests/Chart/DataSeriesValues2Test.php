@@ -120,8 +120,10 @@ class DataSeriesValues2Test extends AbstractFunctional
         // Add the chart to the worksheet
         $worksheet->addChart($chart);
 
-        self::assertSame(1, $chart->getPlotArea()->getPlotGroupCount());
-        $plotValues = $chart->getPlotArea()->getPlotGroup()[0]->getPlotValues();
+        $plotArea = $chart->getPlotArea();
+        self::assertNotNull($plotArea);
+        self::assertSame(1, $plotArea->getPlotGroupCount());
+        $plotValues = $plotArea->getPlotGroup()[0]->getPlotValues();
         self::assertCount(3, $plotValues);
         self::assertSame([], $plotValues[1]->getDataValues());
         self::assertNull($plotValues[1]->getDataValue());
@@ -138,20 +140,27 @@ class DataSeriesValues2Test extends AbstractFunctional
         self::assertCount(1, $charts2);
         $chart2 = $charts2[0];
         self::assertNotNull($chart2);
-        $plotValues2 = $chart2->getPlotArea()->getPlotGroup()[0]->getPlotValues();
+        $plotArea2 = $chart2->getPlotArea();
+        self::assertNotNull($plotArea2);
+        $plotGroup2 = $plotArea2->getPlotGroup()[0];
+        self::assertNotNull($plotGroup2);
+        $plotValues2 = $plotGroup2->getPlotValues();
         self::assertCount(3, $plotValues2);
         self::assertSame([15.0, 73.0, 61.0, 32.0], $plotValues2[1]->getDataValues());
         self::assertSame([15.0, 73.0, 61.0, 32.0], $plotValues2[1]->getDataValue());
-        $labels2 = $chart->getPlotArea()->getPlotGroup()[0]->getPlotLabels();
+        $labels2 = $plotGroup2->getPlotLabels();
         self::assertCount(3, $labels2);
-        self::assertSame(2010, $labels2[0]->getDataValue());
-        $dataSeries = $chart->getPlotArea()->getPlotGroup()[0];
+        self::assertEquals(2010, $labels2[0]->getDataValue());
+        $dataSeries = $plotArea2->getPlotGroup()[0];
         self::assertFalse($dataSeries->getPlotValuesByIndex(99));
         self::assertNotFalse($dataSeries->getPlotValuesByIndex(0));
-        self::assertSame([12, 56, 52, 30], $dataSeries->getPlotValuesByIndex(0)->getDataValues());
+        self::assertEquals([12, 56, 52, 30], $dataSeries->getPlotValuesByIndex(0)->getDataValues());
         self::assertSame(DataSeries::TYPE_AREACHART, $dataSeries->getPlotType());
         self::assertSame(DataSeries::GROUPING_PERCENT_STACKED, $dataSeries->getPlotGrouping());
-        self::assertTrue($dataSeries->getSmoothLine());
+        // SmoothLine written out for DataSeries only for LineChart.
+        // Original test was wrong - used $chart rather than $chart2
+        //   to retrieve data which was read in.
+        //self::assertTrue($dataSeries->getSmoothLine());
 
         $reloadedSpreadsheet->disconnectWorksheets();
     }

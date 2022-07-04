@@ -46,6 +46,7 @@ class Charts32ScatterTest extends AbstractFunctional
         $chart = $charts[0];
         self::assertNotNull($chart);
         $title = $chart->getTitle();
+        self::assertNotNull($title);
         $captionArray = $title->getCaption();
         self::assertIsArray($captionArray);
         self::assertCount(1, $captionArray);
@@ -72,6 +73,7 @@ class Charts32ScatterTest extends AbstractFunctional
         self::assertSame('srgbClr', $chartColor->getType());
 
         $plotArea = $chart->getPlotArea();
+        self::assertNotNull($plotArea);
         $plotSeries = $plotArea->getPlotGroup();
         self::assertCount(1, $plotSeries);
         $dataSeries = $plotSeries[0];
@@ -121,6 +123,7 @@ class Charts32ScatterTest extends AbstractFunctional
         $chart = $charts[0];
         self::assertNotNull($chart);
         $title = $chart->getTitle();
+        self::assertNotNull($title);
         $captionArray = $title->getCaption();
         self::assertIsArray($captionArray);
         self::assertCount(1, $captionArray);
@@ -182,6 +185,7 @@ class Charts32ScatterTest extends AbstractFunctional
         self::assertSame('srgbClr', $chartColor->getType());
 
         $plotArea = $chart->getPlotArea();
+        self::assertNotNull($plotArea);
         $plotSeries = $plotArea->getPlotGroup();
         self::assertCount(1, $plotSeries);
         $dataSeries = $plotSeries[0];
@@ -231,6 +235,7 @@ class Charts32ScatterTest extends AbstractFunctional
         $chart = $charts[0];
         self::assertNotNull($chart);
         $title = $chart->getTitle();
+        self::assertNotNull($title);
         $captionArray = $title->getCaption();
         self::assertIsArray($captionArray);
         self::assertCount(1, $captionArray);
@@ -257,6 +262,7 @@ class Charts32ScatterTest extends AbstractFunctional
         self::assertSame('srgbClr', $chartColor->getType());
 
         $plotArea = $chart->getPlotArea();
+        self::assertNotNull($plotArea);
         $plotSeries = $plotArea->getPlotGroup();
         self::assertCount(1, $plotSeries);
         $dataSeries = $plotSeries[0];
@@ -305,6 +311,7 @@ class Charts32ScatterTest extends AbstractFunctional
         $chart = $charts[0];
         self::assertNotNull($chart);
         $title = $chart->getTitle();
+        self::assertNotNull($title);
         $captionArray = $title->getCaption();
         self::assertIsArray($captionArray);
         self::assertCount(1, $captionArray);
@@ -334,6 +341,7 @@ class Charts32ScatterTest extends AbstractFunctional
         }
 
         $plotArea = $chart->getPlotArea();
+        self::assertNotNull($plotArea);
         $plotSeries = $plotArea->getPlotGroup();
         self::assertCount(1, $plotSeries);
         $dataSeries = $plotSeries[0];
@@ -384,6 +392,7 @@ class Charts32ScatterTest extends AbstractFunctional
         self::assertNotNull($chart);
 
         $plotArea = $chart->getPlotArea();
+        self::assertNotNull($plotArea);
         $plotSeries = $plotArea->getPlotGroup();
         self::assertCount(1, $plotSeries);
         $dataSeries = $plotSeries[0];

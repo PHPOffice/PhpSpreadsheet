@@ -46,6 +46,7 @@ class Charts32ColoredAxisLabelTest extends AbstractFunctional
         self::assertNotNull($chart);
 
         $xAxisLabel = $chart->getXAxisLabel();
+        self::assertNotNull($xAxisLabel);
         $captionArray = $xAxisLabel->getCaption();
         self::assertIsArray($captionArray);
         self::assertCount(1, $captionArray);
@@ -64,6 +65,7 @@ class Charts32ColoredAxisLabelTest extends AbstractFunctional
         self::assertSame('srgbClr', $chartColor->getType());
 
         $yAxisLabel = $chart->getYAxisLabel();
+        self::assertNotNull($yAxisLabel);
         $captionArray = $yAxisLabel->getCaption();
         self::assertIsArray($captionArray);
         self::assertCount(1, $captionArray);

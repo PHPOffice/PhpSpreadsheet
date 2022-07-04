@@ -27,6 +27,7 @@ class ChartsOpenpyxlTest extends TestCase
         self::assertTrue($chart->getOneCellAnchor());
 
         $plotArea = $chart->getPlotArea();
+        self::assertNotNull($plotArea);
         $plotSeries = $plotArea->getPlotGroup();
         self::assertCount(1, $plotSeries);
         $dataSeries = $plotSeries[0];

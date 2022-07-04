@@ -2,21 +2,19 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Chart;
 
+use PhpOffice\PhpSpreadsheet\Chart\Axis;
 use PhpOffice\PhpSpreadsheet\Chart\Chart;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeries;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues;
 use PhpOffice\PhpSpreadsheet\Chart\Legend as ChartLegend;
 use PhpOffice\PhpSpreadsheet\Chart\PlotArea;
-use PhpOffice\PhpSpreadsheet\Chart\Properties;
 use PhpOffice\PhpSpreadsheet\Chart\Title;
-use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx as XlsxWriter;
 use PHPUnit\Framework\TestCase;
 
-class MultiplierTest extends TestCase
+class ChartMethodTest extends TestCase
 {
-    public function testMultiplier(): void
+    public function testMethodVsConstructor(): void
     {
         $spreadsheet = new Spreadsheet();
         $worksheet = $spreadsheet->getActiveSheet();
@@ -67,7 +65,7 @@ class MultiplierTest extends TestCase
 
         // Build the dataseries
         $series = new DataSeries(
-            DataSeries::TYPE_AREACHART, // plotType
+            DataSeries::TYPE_LINECHART, // plotType
             DataSeries::GROUPING_PERCENT_STACKED, // plotGrouping
             range(0, count($dataSeriesValues) - 1), // plotOrder
             $dataSeriesLabels, // plotLabel
@@ -77,82 +75,68 @@ class MultiplierTest extends TestCase
 
         // Set the series in the plot area
         $plotArea = new PlotArea(null, [$series]);
-        // Set the chart legend
+        $title = new Title('Method vs Constructor test');
         $legend = new ChartLegend(ChartLegend::POSITION_TOPRIGHT, null, false);
-
-        $title = new Title('Test %age-Stacked Area Chart');
-        $yAxisLabel = new Title('Value ($k)');
-
-        // Create the chart
-        $chart = new Chart(
+        $xAxis = new Axis();
+        $yAxis = new Axis();
+        $xAxisLabel = new Title('X-Axis label');
+        $yAxisLabel = new Title('Y-Axis label');
+        $chart1 = new Chart(
             'chart1', // name
             $title, // title
             $legend, // legend
             $plotArea, // plotArea
             true, // plotVisibleOnly
             DataSeries::EMPTY_AS_GAP, // displayBlanksAs
-            null, // xAxisLabel
-            $yAxisLabel  // yAxisLabel
+            $xAxisLabel, // xAxisLabel
+            $yAxisLabel, // yAxisLabel
+            $xAxis, // xAxis
+            $yAxis // yAxis
         );
-        $xAxis = $chart->getChartAxisX();
-        self::assertNotNull($xAxis);
-        $expectedX = [
-            'effect' => 'outerShdw',
-            'algn' => 'bl',
-            'blur' => 6,
-            'direction' => 315,
-            'distance' => 3,
-            'rotWithShape' => 0,
-            'size' => [
-                'sx' => null,
-                'sy' => 254,
-                'kx' => -94,
-                'ky' => null,
-            ],
-            'color' => [
-                'type' => Properties::EXCEL_COLOR_TYPE_ARGB,
-                'value' => 'FF0000',
-                'alpha' => 20,
-            ],
-        ];
-        $expectedXmlX = [
-            '<a:outerShdw ',
-            ' algn="bl"',
-            ' blurRad="76200"',
-            ' dir="18900000"',
-            ' dist="38100"',
-            ' rotWithShape="0"',
-            ' sy="25400000"',
-            ' kx="-5640000"',
-            '<a:srgbClr val="FF0000">',
-            '<a:alpha val="80000"/>',
-        ];
-        $expectedXmlNoX = [
-            ' sx=',
-            ' ky=',
-        ];
-        foreach ($expectedX as $key => $value) {
-            $xAxis->setShadowProperty($key, $value);
-        }
-        // Set the position where the chart should appear in the worksheet
-        $chart->setTopLeftPosition('A7');
-        $chart->setBottomRightPosition('H20');
-
-        // Add the chart to the worksheet
-        $worksheet->addChart($chart);
-
-        $writer = new XlsxWriter($spreadsheet);
-        $writer->setIncludeCharts(true);
-        $writerChart = new XlsxWriter\Chart($writer);
-        $data = $writerChart->writeChart($chart);
-
-        // confirm that file contains expected tags
-        foreach ($expectedXmlX as $expected) {
-            self::assertSame(1, substr_count($data, $expected), $expected);
-        }
-        foreach ($expectedXmlNoX as $expected) {
-            self::assertSame(0, substr_count($data, $expected), $expected);
-        }
+        $chart2 = new Chart('chart1');
+        $chart2
+            ->setLegend($legend)
+            ->setPlotArea($plotArea)
+            ->setPlotVisibleOnly(true)
+            ->setDisplayBlanksAs(DataSeries::EMPTY_AS_GAP)
+            ->setChartAxisX($xAxis)
+            ->setChartAxisY($yAxis)
+            ->setXAxisLabel($xAxisLabel)
+            ->setYAxisLabel($yAxisLabel)
+            ->setTitle($title);
+        self::assertEquals($chart1, $chart2);
         $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testPositions(): void
+    {
+        $chart = new Chart('chart1');
+        $chart->setTopLeftPosition('B3', 2, 4);
+        self::assertSame('B3', $chart->getTopLeftCell());
+        self::assertEquals(['X' => 2, 'Y' => 4], $chart->getTopLeftOffset());
+        self::assertEquals(2, $chart->getTopLeftXOffset());
+        self::assertEquals(4, $chart->getTopLeftYOffset());
+        $chart->setTopLeftCell('B5');
+        self::assertSame('B5', $chart->getTopLeftCell());
+        self::assertEquals(2, $chart->getTopLeftXOffset());
+        self::assertEquals(4, $chart->getTopLeftYOffset());
+        $chart->setTopLeftOffset(6, 8);
+        self::assertSame('B5', $chart->getTopLeftCell());
+        self::assertEquals(6, $chart->getTopLeftXOffset());
+        self::assertEquals(8, $chart->getTopLeftYOffset());
+
+        $chart->setbottomRightPosition('H9', 3, 5);
+        self::assertSame('H9', $chart->getBottomRightCell());
+        self::assertEquals(['X' => 3, 'Y' => 5], $chart->getBottomRightOffset());
+        self::assertEquals(3, $chart->getBottomRightXOffset());
+        self::assertEquals(5, $chart->getBottomRightYOffset());
+        $chart->setbottomRightCell('H11');
+        self::assertSame('H11', $chart->getBottomRightCell());
+        self::assertEquals(3, $chart->getBottomRightXOffset());
+        self::assertEquals(5, $chart->getBottomRightYOffset());
+        $chart->setbottomRightOffset(7, 9);
+        self::assertSame('H11', $chart->getBottomRightCell());
+        self::assertEquals(7, $chart->getBottomRightXOffset());
+        self::assertEquals(9, $chart->getBottomRightYOffset());
     }
 }

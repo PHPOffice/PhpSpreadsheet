@@ -84,7 +84,9 @@ class Charts32XmlTest extends TestCase
         $chart = $charts[0];
         self::assertNotNull($chart);
         $xAxis = $chart->getChartAxisX();
+        self::assertNotNull($xAxis);
         $yAxis = $chart->getChartAxisY();
+        self::assertNotNull($yAxis);
         self::assertSame(Properties::FORMAT_CODE_GENERAL, $xAxis->getAxisNumberFormat());
         if (is_bool($numeric)) {
             $xAxis->setAxisNumberProperties(Properties::FORMAT_CODE_GENERAL, true);
@@ -135,7 +137,9 @@ class Charts32XmlTest extends TestCase
         $chart = $charts[0];
         self::assertNotNull($chart);
         $xAxis = $chart->getChartAxisX();
+        self::assertNotNull($xAxis);
         $yAxis = $chart->getChartAxisY();
+        self::assertNotNull($yAxis);
         self::assertSame(Properties::FORMAT_CODE_GENERAL, $xAxis->getAxisNumberFormat());
         self::assertSame('valAx', $yAxis->getAxisType());
         self::assertSame('valAx', $xAxis->getAxisType());
