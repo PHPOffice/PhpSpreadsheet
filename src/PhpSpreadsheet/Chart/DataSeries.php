@@ -257,8 +257,6 @@ class DataSeries
         $keys = array_keys($this->plotLabel);
         if (in_array($index, $keys)) {
             return $this->plotLabel[$index];
-        } elseif (isset($keys[$index])) {
-            return $this->plotLabel[$keys[$index]];
         }
 
         return false;
@@ -339,8 +337,6 @@ class DataSeries
         $keys = array_keys($this->plotValues);
         if (in_array($index, $keys)) {
             return $this->plotValues[$index];
-        } elseif (isset($keys[$index])) {
-            return $this->plotValues[$keys[$index]];
         }
 
         return false;

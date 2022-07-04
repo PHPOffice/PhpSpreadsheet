@@ -6,6 +6,8 @@ class ChartColor
 {
     const EXCEL_COLOR_TYPE_STANDARD = 'prstClr';
     const EXCEL_COLOR_TYPE_SCHEME = 'schemeClr';
+    const EXCEL_COLOR_TYPE_RGB = 'srgbClr';
+    /** @deprecated 1.24 use EXCEL_COLOR_TYPE_RGB instead */
     const EXCEL_COLOR_TYPE_ARGB = 'srgbClr';
     const EXCEL_COLOR_TYPES = [
         self::EXCEL_COLOR_TYPE_ARGB,
@@ -21,6 +23,18 @@ class ChartColor
 
     /** @var ?int */
     private $alpha;
+
+    /**
+     * @param string|string[] $value
+     */
+    public function __construct($value = '', ?int $alpha = null, ?string $type = null)
+    {
+        if (is_array($value)) {
+            $this->setColorPropertiesArray($value);
+        } else {
+            $this->setColorProperties($value, $alpha, $type);
+        }
+    }
 
     public function getValue(): string
     {
@@ -61,10 +75,21 @@ class ChartColor
     /**
      * @param null|float|int|string $alpha
      */
-    public function setColorProperties(?string $color, $alpha, ?string $type): self
+    public function setColorProperties(?string $color, $alpha = null, ?string $type = null): self
     {
+        if (empty($type) && !empty($color)) {
+            if (substr($color, 0, 1) === '*') {
+                $type = 'schemeClr';
+                $color = substr($color, 1);
+            } elseif (substr($color, 0, 1) === '/') {
+                $type = 'prstClr';
+                $color = substr($color, 1);
+            } elseif (preg_match('/^[0-9A-Fa-f]{6}$/', $color) === 1) {
+                $type = 'srgbClr';
+            }
+        }
         if ($color !== null) {
-            $this->setValue($color);
+            $this->setValue("$color");
         }
         if ($type !== null) {
             $this->setType($type);
@@ -80,21 +105,16 @@ class ChartColor
 
     public function setColorPropertiesArray(array $color): self
     {
-        if (array_key_exists('value', $color) && is_string($color['value'])) {
-            $this->setValue($color['value']);
-        }
-        if (array_key_exists('type', $color) && is_string($color['type'])) {
-            $this->setType($color['type']);
-        }
-        if (array_key_exists('alpha', $color)) {
-            if ($color['alpha'] === null) {
-                $this->setAlpha(null);
-            } elseif (is_numeric($color['alpha'])) {
-                $this->setAlpha((int) $color['alpha']);
-            }
-        }
+        return $this->setColorProperties(
+            $color['value'] ?? '',
+            $color['alpha'] ?? null,
+            $color['type'] ?? null
+        );
+    }
 
-        return $this;
+    public function isUsable(): bool
+    {
+        return $this->type !== '' && $this->value !== '';
     }
 
     /**

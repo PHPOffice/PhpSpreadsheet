@@ -27,6 +27,9 @@ class Axis extends Properties
         'numeric' => null,
     ];
 
+    /** @var string */
+    private $axisType = '';
+
     /**
      * Axis Options.
      *
@@ -62,11 +65,11 @@ class Axis extends Properties
      *
      * @param mixed $format_code
      */
-    public function setAxisNumberProperties($format_code, ?bool $numeric = null): void
+    public function setAxisNumberProperties($format_code, ?bool $numeric = null, int $sourceLinked = 0): void
     {
         $format = (string) $format_code;
         $this->axisNumber['format'] = $format;
-        $this->axisNumber['source_linked'] = 0;
+        $this->axisNumber['source_linked'] = $sourceLinked;
         if (is_bool($numeric)) {
             $this->axisNumber['numeric'] = $numeric;
         } elseif (in_array($format, self::NUMERIC_FORMAT, true)) {
@@ -154,6 +157,22 @@ class Axis extends Properties
     public function setAxisOrientation($orientation): void
     {
         $this->axisOptions['orientation'] = (string) $orientation;
+    }
+
+    public function getAxisType(): string
+    {
+        return $this->axisType;
+    }
+
+    public function setAxisType(string $type): self
+    {
+        if ($type === 'catAx' || $type === 'valAx') {
+            $this->axisType = $type;
+        } else {
+            $this->axisType = '';
+        }
+
+        return $this;
     }
 
     /**

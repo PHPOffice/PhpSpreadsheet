@@ -4,7 +4,10 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\TextData;
 
 use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ErrorValue;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 
 class Concatenate
 {
@@ -23,7 +26,18 @@ class Concatenate
         $aArgs = Functions::flattenArray($args);
 
         foreach ($aArgs as $arg) {
+            $value = Helpers::extractString($arg);
+            if (ErrorValue::isError($value)) {
+                $returnValue = $value;
+
+                break;
+            }
             $returnValue .= Helpers::extractString($arg);
+            if (StringHelper::countCharacters($returnValue) > DataType::MAX_STRING_LENGTH) {
+                $returnValue = ExcelError::CALC();
+
+                break;
+            }
         }
 
         return $returnValue;
@@ -56,7 +70,14 @@ class Concatenate
 
         // Loop through arguments
         $aArgs = Functions::flattenArray($args);
+        $returnValue = '';
         foreach ($aArgs as $key => &$arg) {
+            $value = Helpers::extractString($arg);
+            if (ErrorValue::isError($value)) {
+                $returnValue = $value;
+
+                break;
+            }
             if ($ignoreEmpty === true && is_string($arg) && trim($arg) === '') {
                 unset($aArgs[$key]);
             } elseif (is_bool($arg)) {
@@ -64,7 +85,12 @@ class Concatenate
             }
         }
 
-        return implode($delimiter, $aArgs);
+        $returnValue = ($returnValue !== '') ? $returnValue : implode($delimiter, $aArgs);
+        if (StringHelper::countCharacters($returnValue) > DataType::MAX_STRING_LENGTH) {
+            $returnValue = ExcelError::CALC();
+        }
+
+        return $returnValue;
     }
 
     /**
@@ -90,9 +116,16 @@ class Concatenate
         $stringValue = Helpers::extractString($stringValue);
 
         if (!is_numeric($repeatCount) || $repeatCount < 0) {
-            return ExcelError::VALUE();
+            $returnValue = ExcelError::VALUE();
+        } elseif (ErrorValue::isError($stringValue)) {
+            $returnValue = $stringValue;
+        } else {
+            $returnValue = str_repeat($stringValue, (int) $repeatCount);
+            if (StringHelper::countCharacters($returnValue) > DataType::MAX_STRING_LENGTH) {
+                $returnValue = ExcelError::VALUE(); // note VALUE not CALC
+            }
         }
 
-        return str_repeat($stringValue, (int) $repeatCount);
+        return $returnValue;
     }
 }

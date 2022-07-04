@@ -5,17 +5,15 @@ namespace PhpOffice\PhpSpreadsheetTests\Chart;
 use PhpOffice\PhpSpreadsheet\Chart\Chart;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeries;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues;
-use PhpOffice\PhpSpreadsheet\Chart\GridLines;
 use PhpOffice\PhpSpreadsheet\Chart\Legend as ChartLegend;
 use PhpOffice\PhpSpreadsheet\Chart\PlotArea;
-use PhpOffice\PhpSpreadsheet\Chart\Properties;
 use PhpOffice\PhpSpreadsheet\Chart\Title;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx as XlsxReader;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx as XlsxWriter;
 use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
-class GridlinesShadowGlowTest extends AbstractFunctional
+class DataSeriesValues2Test extends AbstractFunctional
 {
     public function readCharts(XlsxReader $reader): void
     {
@@ -27,7 +25,7 @@ class GridlinesShadowGlowTest extends AbstractFunctional
         $writer->setIncludeCharts(true);
     }
 
-    public function testGlowY(): void
+    public function testDataSeriesValues(): void
     {
         $spreadsheet = new Spreadsheet();
         $worksheet = $spreadsheet->getActiveSheet();
@@ -78,13 +76,22 @@ class GridlinesShadowGlowTest extends AbstractFunctional
 
         // Build the dataseries
         $series = new DataSeries(
-            DataSeries::TYPE_LINECHART, // plotType
-            DataSeries::GROUPING_PERCENT_STACKED, // plotGrouping
+            null, // plotType
+            null, // plotGrouping
             range(0, count($dataSeriesValues) - 1), // plotOrder
             $dataSeriesLabels, // plotLabel
             $xAxisTickValues, // plotCategory
             $dataSeriesValues          // plotValues
         );
+        self::assertEmpty($series->getPlotType());
+        self::assertEmpty($series->getPlotGrouping());
+        self::assertFalse($series->getSmoothLine());
+        $series->setPlotType(DataSeries::TYPE_AREACHART);
+        $series->setPlotGrouping(DataSeries::GROUPING_PERCENT_STACKED);
+        $series->setSmoothLine(true);
+        self::assertSame(DataSeries::TYPE_AREACHART, $series->getPlotType());
+        self::assertSame(DataSeries::GROUPING_PERCENT_STACKED, $series->getPlotGrouping());
+        self::assertTrue($series->getSmoothLine());
 
         // Set the series in the plot area
         $plotArea = new PlotArea(null, [$series]);
@@ -93,47 +100,6 @@ class GridlinesShadowGlowTest extends AbstractFunctional
 
         $title = new Title('Test %age-Stacked Area Chart');
         $yAxisLabel = new Title('Value ($k)');
-        $majorGridlines = new GridLines();
-        $majorGlowSize = 10.0;
-        $majorGridlines->setGlowProperties($majorGlowSize, 'FFFF00', 30, Properties::EXCEL_COLOR_TYPE_ARGB);
-        $softEdgeSize = 2.5;
-        $majorGridlines->setSoftEdges($softEdgeSize);
-        $expectedGlowColor = [
-            'type' => 'srgbClr',
-            'value' => 'FFFF00',
-            'alpha' => 30,
-        ];
-        self::assertEquals($majorGlowSize, $majorGridlines->getGlowProperty('size'));
-        self::assertEquals($majorGlowSize, $majorGridlines->getGlowSize());
-        self::assertEquals($expectedGlowColor['value'], $majorGridlines->getGlowColor('value'));
-        self::assertEquals($expectedGlowColor, $majorGridlines->getGlowProperty('color'));
-        self::assertEquals($softEdgeSize, $majorGridlines->getSoftEdgesSize());
-
-        $minorGridlines = new GridLines();
-        $expectedShadow = [
-            'effect' => 'outerShdw',
-            'algn' => 'tl',
-            'blur' => 4,
-            'direction' => 45,
-            'distance' => 3,
-            'rotWithShape' => 0,
-            'color' => [
-                'type' => Properties::EXCEL_COLOR_TYPE_STANDARD,
-                'value' => 'black',
-                'alpha' => 40,
-            ],
-        ];
-        foreach ($expectedShadow as $key => $value) {
-            $minorGridlines->setShadowProperty($key, $value);
-        }
-        foreach ($expectedShadow as $key => $value) {
-            self::assertEquals($value, $minorGridlines->getShadowProperty($key), $key);
-        }
-        $testShadow2 = $minorGridlines->getShadowArray();
-        self::assertNull($testShadow2['presets']);
-        self::assertEquals(['sx' => null, 'sy' => null, 'kx' => null, 'ky' => null], $testShadow2['size']);
-        unset($testShadow2['presets'], $testShadow2['size']);
-        self::assertEquals($expectedShadow, $testShadow2);
 
         // Create the chart
         $chart = new Chart(
@@ -144,20 +110,8 @@ class GridlinesShadowGlowTest extends AbstractFunctional
             true, // plotVisibleOnly
             DataSeries::EMPTY_AS_GAP, // displayBlanksAs
             null, // xAxisLabel
-            $yAxisLabel,  // yAxisLabel
-            null, // xAxis
-            null, // yAxis
-            $majorGridlines,
-            $minorGridlines
+            $yAxisLabel  // yAxisLabel
         );
-        $majorGridlines2 = $chart->getMajorGridlines();
-        self::assertEquals($majorGlowSize, $majorGridlines2->getGlowProperty('size'));
-        self::assertEquals($expectedGlowColor, $majorGridlines2->getGlowProperty('color'));
-        self::assertEquals($softEdgeSize, $majorGridlines2->getSoftEdgesSize());
-        $minorGridlines2 = $chart->getMinorGridlines();
-        foreach ($expectedShadow as $key => $value) {
-            self::assertEquals($value, $minorGridlines2->getShadowProperty($key), $key);
-        }
 
         // Set the position where the chart should appear in the worksheet
         $chart->setTopLeftPosition('A7');
@@ -165,6 +119,12 @@ class GridlinesShadowGlowTest extends AbstractFunctional
 
         // Add the chart to the worksheet
         $worksheet->addChart($chart);
+
+        self::assertSame(1, $chart->getPlotArea()->getPlotGroupCount());
+        $plotValues = $chart->getPlotArea()->getPlotGroup()[0]->getPlotValues();
+        self::assertCount(3, $plotValues);
+        self::assertSame([], $plotValues[1]->getDataValues());
+        self::assertNull($plotValues[1]->getDataValue());
 
         /** @var callable */
         $callableReader = [$this, 'readCharts'];
@@ -178,15 +138,35 @@ class GridlinesShadowGlowTest extends AbstractFunctional
         self::assertCount(1, $charts2);
         $chart2 = $charts2[0];
         self::assertNotNull($chart2);
-        $majorGridlines3 = $chart2->getMajorGridlines();
-        self::assertEquals($majorGlowSize, $majorGridlines3->getGlowProperty('size'));
-        self::assertEquals($expectedGlowColor, $majorGridlines3->getGlowProperty('color'));
-        self::assertEquals($softEdgeSize, $majorGridlines3->getSoftEdgesSize());
-        $minorGridlines3 = $chart->getMinorGridlines();
-        foreach ($expectedShadow as $key => $value) {
-            self::assertEquals($value, $minorGridlines3->getShadowProperty($key), $key);
-        }
+        $plotValues2 = $chart2->getPlotArea()->getPlotGroup()[0]->getPlotValues();
+        self::assertCount(3, $plotValues2);
+        self::assertSame([15.0, 73.0, 61.0, 32.0], $plotValues2[1]->getDataValues());
+        self::assertSame([15.0, 73.0, 61.0, 32.0], $plotValues2[1]->getDataValue());
+        $labels2 = $chart->getPlotArea()->getPlotGroup()[0]->getPlotLabels();
+        self::assertCount(3, $labels2);
+        self::assertSame(2010, $labels2[0]->getDataValue());
+        $dataSeries = $chart->getPlotArea()->getPlotGroup()[0];
+        self::assertFalse($dataSeries->getPlotValuesByIndex(99));
+        self::assertNotFalse($dataSeries->getPlotValuesByIndex(0));
+        self::assertSame([12, 56, 52, 30], $dataSeries->getPlotValuesByIndex(0)->getDataValues());
+        self::assertSame(DataSeries::TYPE_AREACHART, $dataSeries->getPlotType());
+        self::assertSame(DataSeries::GROUPING_PERCENT_STACKED, $dataSeries->getPlotGrouping());
+        self::assertTrue($dataSeries->getSmoothLine());
 
         $reloadedSpreadsheet->disconnectWorksheets();
+    }
+
+    public function testSomeProperties(): void
+    {
+        $dataSeriesValues = new DataSeriesValues();
+        self::assertNull($dataSeriesValues->getDataSource());
+        self::assertEmpty($dataSeriesValues->getPointMarker());
+        self::assertSame(3, $dataSeriesValues->getPointSize());
+        $dataSeriesValues->setDataSource('Worksheet!$B$1')
+            ->setPointMarker('square')
+            ->setPointSize(6);
+        self::assertSame('Worksheet!$B$1', $dataSeriesValues->getDataSource());
+        self::assertSame('square', $dataSeriesValues->getPointMarker());
+        self::assertSame(6, $dataSeriesValues->getPointSize());
     }
 }

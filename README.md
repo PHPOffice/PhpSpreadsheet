@@ -49,6 +49,38 @@ to ensure that the correct dependencies are retrieved to match your deployment e
 
 See [CLI vs Application run-time](https://php.watch/articles/composer-platform-check) for more details.
 
+### Additional Installation Options
+
+If you want to write to PDF, or to include Charts when you write to HTML or PDF, then you will need to install additional libraries:
+
+#### PDF
+
+For PDF Generation, you can install any of the following, and then configure PhpSpreadsheet to indicate which library you are going to use:
+ - mpdf/mpdf
+ - dompdf/dompdf
+ - tecnickcom/tcpdf
+
+and configure PhpSpreadsheet using:
+
+```php
+// Dompdf, Mpdf or Tcpdf (as appropriate)
+$className = \PhpOffice\PhpSpreadsheet\Writer\Pdf\Dompdf::class;
+IOFactory::registerWriter('Pdf', $className);
+```
+or the appropriate PDF Writer wrapper for the library that you have chosen to install.
+
+#### Chart Export
+
+For Chart export, we support, which you will also need to install yourself
+ - jpgraph/jpgraph
+
+and then configure PhpSpreadsheet using:
+```php
+Settings::setChartRenderer(\PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph::class);
+```
+
+You can `composer/require` the github version of jpgraph, but this was abandoned at version 4.0; or manually download the latest version that supports PHP 8 and above from [jpgraph.net](https://jpgraph.net/)
+
 ## Documentation
 
 Read more about it, including install instructions, in the [official documentation](https://phpspreadsheet.readthedocs.io). Or check out the [API documentation](https://phpoffice.github.io/PhpSpreadsheet).
