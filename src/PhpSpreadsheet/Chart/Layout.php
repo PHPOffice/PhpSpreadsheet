@@ -454,7 +454,7 @@ class Layout
         return $this->labelFillColor;
     }
 
-    public function setLabelFillerColor(?ChartColor $chartColor): self
+    public function setLabelFillColor(?ChartColor $chartColor): self
     {
         $this->labelFillColor = $chartColor;
 

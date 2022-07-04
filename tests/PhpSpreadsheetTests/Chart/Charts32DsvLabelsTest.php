@@ -50,6 +50,7 @@ class Charts32DsvLabelsTest extends AbstractFunctional
         $dataSeriesValues = $dataSeriesValuesArray[0];
         $layout = $dataSeriesValues->getLabelLayout();
         self::assertNotNull($layout);
+        self::assertTrue($layout->getShowVal());
         $fillColor = $layout->getLabelFillColor();
         self::assertNotNull($fillColor);
         self::assertSame('schemeClr', $fillColor->getType());

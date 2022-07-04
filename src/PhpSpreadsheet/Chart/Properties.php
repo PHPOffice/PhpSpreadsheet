@@ -728,7 +728,12 @@ abstract class Properties
 
     public function getShadowArray(): array
     {
-        return $this->shadowProperties;
+        $array = $this->shadowProperties;
+        if ($this->getShadowColorObject()->isUsable()) {
+            $array['color'] = $this->getShadowProperty('color');
+        }
+
+        return $array;
     }
 
     /** @var ChartColor */
