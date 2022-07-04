@@ -3,13 +3,14 @@
 namespace PhpOffice\PhpSpreadsheet\Shared;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use UConverter;
 
 class StringHelper
 {
     /**    Constants                */
     /**    Regular Expressions        */
     //    Fraction
-    const STRING_REGEXP_FRACTION = '(-?)(\d+)\s+(\d+\/\d+)';
+    const STRING_REGEXP_FRACTION = '~^\s*(-?)((\d*)\s+)?(\d+\/\d+)\s*$~';
 
     /**
      * Control characters array.
@@ -28,14 +29,14 @@ class StringHelper
     /**
      * Decimal separator.
      *
-     * @var string
+     * @var ?string
      */
     private static $decimalSeparator;
 
     /**
      * Thousands separator.
      *
-     * @var string
+     * @var ?string
      */
     private static $thousandsSeparator;
 
@@ -328,19 +329,31 @@ class StringHelper
     }
 
     /**
-     * Try to sanitize UTF8, stripping invalid byte sequences. Not perfect. Does not surrogate characters.
+     * Try to sanitize UTF8, replacing invalid sequences with Unicode substitution characters.
      */
     public static function sanitizeUTF8(string $textValue): string
     {
+        $textValue = str_replace(["\xef\xbf\xbe", "\xef\xbf\xbf"], "\xef\xbf\xbd", $textValue);
+        if (class_exists(UConverter::class)) {
+            $returnValue = UConverter::transcode($textValue, 'UTF-8', 'UTF-8');
+            if ($returnValue !== false) {
+                return $returnValue;
+            }
+        }
+        // @codeCoverageIgnoreStart
+        // I don't think any of the code below should ever be executed.
         if (self::getIsIconvEnabled()) {
-            $textValue = @iconv('UTF-8', 'UTF-8', $textValue);
-
-            return $textValue;
+            $returnValue = @iconv('UTF-8', 'UTF-8', $textValue);
+            if ($returnValue !== false) {
+                return $returnValue;
+            }
         }
 
-        $textValue = mb_convert_encoding($textValue, 'UTF-8', 'UTF-8');
+        // Phpstan does not think this can return false.
+        $returnValue = mb_convert_encoding($textValue, 'UTF-8', 'UTF-8');
 
-        return $textValue;
+        return $returnValue;
+        // @codeCoverageIgnoreEnd
     }
 
     /**
@@ -348,19 +361,19 @@ class StringHelper
      */
     public static function isUTF8(string $textValue): bool
     {
-        return $textValue === '' || preg_match('/^./su', $textValue) === 1;
+        return $textValue === self::sanitizeUTF8($textValue);
     }
 
     /**
      * Formats a numeric value as a string for output in various output writers forcing
      * point as decimal separator in case locale is other than English.
      *
-     * @param mixed $numericValue
+     * @param float|int|string $numericValue
      */
     public static function formatNumber($numericValue): string
     {
         if (is_float($numericValue)) {
-            return str_replace(',', '.', $numericValue);
+            return str_replace(',', '.', (string) $numericValue);
         }
 
         return (string) $numericValue;
@@ -537,9 +550,10 @@ class StringHelper
      */
     public static function convertToNumberIfFraction(string &$operand): bool
     {
-        if (preg_match('/^' . self::STRING_REGEXP_FRACTION . '$/i', $operand, $match)) {
+        if (preg_match(self::STRING_REGEXP_FRACTION, $operand, $match)) {
             $sign = ($match[1] == '-') ? '-' : '+';
-            $fractionFormula = '=' . $sign . $match[2] . $sign . $match[3];
+            $wholePart = ($match[3] === '') ? '' : ($sign . $match[3]);
+            $fractionFormula = '=' . $wholePart . $sign . $match[4];
             $operand = Calculation::getInstance()->_calculateFormulaValue($fractionFormula);
 
             return true;
@@ -686,6 +700,6 @@ class StringHelper
         }
         $v = (float) $textValue;
 
-        return (is_numeric(substr($textValue, 0, strlen($v)))) ? $v : $textValue;
+        return (is_numeric(substr($textValue, 0, strlen((string) $v)))) ? $v : $textValue;
     }
 }
