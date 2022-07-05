@@ -218,10 +218,10 @@ class XlsxTest extends TestCase
         $reader = new Xlsx();
         $reader->setReadFilter(new OddColumnReadFilter());
         $data = $reader->load($filename)->getActiveSheet()->toArray();
-        $ref = [1.0, null, 3.0, null, 5.0, null, 7.0, null, 9.0, null];
+        $ref = [1, null, 3, null, 5, null, 7, null, 9];
 
         for ($i = 0; $i < 10; ++$i) {
-            self::assertEquals($ref, \array_slice($data[$i], 0, 10, true));
+            self::assertEquals($ref, \array_slice($data[$i], 0, 9, true));
         }
     }
 

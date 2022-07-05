@@ -3001,15 +3001,14 @@ class Worksheet implements IComparable
         $this->garbageCollect();
 
         //    Identify the range that we need to extract from the worksheet
-        $maxCol = $this->getHighestColumn();
-        $maxRow = $this->getHighestRow();
+        $maxCell = $this->getHighestDataRowAndColumn();
 
         if ($currentCellAddress !== null) {
             $this->getCell($currentCellAddress);
         }
 
         // Return
-        return $this->rangeToArray('A1:' . $maxCol . $maxRow, $nullValue, $calculateFormulas, $formatData, $returnCellRef);
+        return $this->rangeToArray('A1:' . $maxCell, $nullValue, $calculateFormulas, $formatData, $returnCellRef);
     }
 
     /**
