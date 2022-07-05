@@ -1067,7 +1067,7 @@ class Worksheet implements IComparable
      *
      * @return string Highest column name
      */
-    public function getHighestColumn($row = null)
+    public function getHighestColumn($row = null): string
     {
         if ($row === null) {
             return Coordinate::stringFromColumnIndex($this->cachedHighestColumn);
@@ -1084,7 +1084,7 @@ class Worksheet implements IComparable
      *
      * @return string Highest column name that contains data
      */
-    public function getHighestDataColumn($row = null)
+    public function getHighestDataColumn($row = null): string
     {
         return $this->cellCollection->getHighestColumn($row);
     }
@@ -1097,7 +1097,7 @@ class Worksheet implements IComparable
      *
      * @return int Highest row number
      */
-    public function getHighestRow($column = null)
+    public function getHighestRow(?string $column = null): int
     {
         if ($column === null) {
             return $this->cachedHighestRow;
@@ -1114,19 +1114,31 @@ class Worksheet implements IComparable
      *
      * @return int Highest row number that contains data
      */
-    public function getHighestDataRow($column = null)
+    public function getHighestDataRow(?string $column = null): int
     {
         return $this->cellCollection->getHighestRow($column);
     }
 
     /**
+     * Get highest worksheet column and highest row.
+     *
+     * @return string Highest column name and highest row number
+     */
+    public function getHighestRowAndColumn(): string
+    {
+        return $this->getHighestColumn() . $this->getHighestRow();
+    }
+
+    /**
      * Get highest worksheet column and highest row that have cell records.
      *
-     * @return array Highest column name and highest row number
+     * @return string Highest column name and highest row number
      */
-    public function getHighestRowAndColumn()
+    public function getHighestDataRowAndColumn(): string
     {
-        return $this->cellCollection->getHighestRowAndColumn();
+        $highestRowAndColumn = $this->cellCollection->getHighestRowAndColumn();
+
+        return $highestRowAndColumn['column'] . $highestRowAndColumn['row'];
     }
 
     /**
