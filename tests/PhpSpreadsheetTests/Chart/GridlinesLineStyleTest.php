@@ -156,7 +156,6 @@ class GridlinesLineStyleTest extends AbstractFunctional
             $yAxis // yAxis
         );
         $yAxis2 = $chart->getChartAxisY();
-        self::assertNotNull($yAxis2);
         $majorGridlines2 = $yAxis2->getMajorGridlines();
         self::assertNotNull($majorGridlines2);
         self::assertEquals($width, $majorGridlines2->getLineStyleProperty('width'));
@@ -202,7 +201,6 @@ class GridlinesLineStyleTest extends AbstractFunctional
         self::assertSame('H20', $chart2->getBottomRightCell());
         self::assertSame($sheet, $chart2->getWorksheet());
         $yAxis3 = $chart2->getChartAxisY();
-        self::assertNotNull($yAxis3);
         $majorGridlines3 = $yAxis3->getMajorGridlines();
         self::assertNotNull($majorGridlines3);
         self::assertEquals($width, $majorGridlines3->getLineStyleProperty('width'));

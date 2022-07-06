@@ -153,7 +153,6 @@ class GridlinesShadowGlowTest extends AbstractFunctional
             $yAxis // yAxis
         );
         $yAxis2 = $chart->getChartAxisY();
-        self::assertNotNull($yAxis2);
         $majorGridlines2 = $yAxis2->getMajorGridlines();
         self::assertNotNull($majorGridlines2);
         self::assertEquals($majorGlowSize, $majorGridlines2->getGlowProperty('size'));
@@ -185,7 +184,6 @@ class GridlinesShadowGlowTest extends AbstractFunctional
         $chart2 = $charts2[0];
         self::assertNotNull($chart2);
         $yAxis3 = $chart2->getChartAxisY();
-        self::assertNotNull($yAxis3);
         $majorGridlines3 = $yAxis3->getMajorGridlines();
         self::assertNotNull($majorGridlines3);
         self::assertEquals($majorGlowSize, $majorGridlines3->getGlowProperty('size'));

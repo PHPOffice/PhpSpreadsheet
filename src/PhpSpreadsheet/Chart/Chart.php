@@ -73,14 +73,14 @@ class Chart
     /**
      * Chart Asix Y as.
      *
-     * @var ?Axis
+     * @var Axis
      */
     private $yAxis;
 
     /**
      * Chart Asix X as.
      *
-     * @var ?Axis
+     * @var Axis
      */
     private $xAxis;
 
@@ -159,19 +159,13 @@ class Chart
         $this->plotArea = $plotArea;
         $this->plotVisibleOnly = $plotVisibleOnly;
         $this->displayBlanksAs = $displayBlanksAs;
-        $this->xAxis = $xAxis;
-        $this->yAxis = $yAxis;
+        $this->xAxis = $xAxis ?? new Axis();
+        $this->yAxis = $yAxis ?? new Axis();
         if ($majorGridlines !== null) {
-            if ($yAxis === null) {
-                $yAxis = $this->yAxis = new Axis();
-            }
-            $yAxis->setMajorGridlines($majorGridlines);
+            $this->yAxis->setMajorGridlines($majorGridlines);
         }
         if ($minorGridlines !== null) {
-            if ($yAxis === null) {
-                $yAxis = $this->yAxis = new Axis();
-            }
-            $yAxis->setMinorGridlines($minorGridlines);
+            $this->yAxis->setMinorGridlines($minorGridlines);
         }
     }
 
@@ -336,42 +330,32 @@ class Chart
         return $this;
     }
 
-    public function getChartAxisY(): ?Axis
+    public function getChartAxisY(): Axis
     {
-        if ($this->yAxis !== null) {
-            return $this->yAxis;
-        }
-        $this->yAxis = new Axis();
-
         return $this->yAxis;
     }
 
     /**
      * Set yAxis.
      */
-    public function setChartAxisY(Axis $axis): self
+    public function setChartAxisY(?Axis $axis): self
     {
-        $this->yAxis = $axis;
+        $this->yAxis = $axis ?? new Axis();
 
         return $this;
     }
 
-    public function getChartAxisX(): ?Axis
+    public function getChartAxisX(): Axis
     {
-        if ($this->xAxis !== null) {
-            return $this->xAxis;
-        }
-        $this->xAxis = new Axis();
-
         return $this->xAxis;
     }
 
     /**
      * Set xAxis.
      */
-    public function setChartAxisX(Axis $axis): self
+    public function setChartAxisX(?Axis $axis): self
     {
-        $this->xAxis = $axis;
+        $this->xAxis = $axis ?? new Axis();
 
         return $this;
     }
@@ -385,10 +369,6 @@ class Chart
      */
     public function getMajorGridlines(): ?GridLines
     {
-        if ($this->yAxis === null) {
-            return null;
-        }
-
         return $this->yAxis->getMajorGridLines();
     }
 
@@ -401,10 +381,6 @@ class Chart
      */
     public function getMinorGridlines(): ?GridLines
     {
-        if ($this->yAxis === null) {
-            return null;
-        }
-
         return $this->yAxis->getMinorGridLines();
     }
 

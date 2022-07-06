@@ -105,7 +105,6 @@ class AxisShadowTest extends AbstractFunctional
             $yAxisLabel  // yAxisLabel
         );
         $yAxis = $chart->getChartAxisY();
-        self::assertNotNull($yAxis);
         $expectedY = [
             'effect' => 'outerShdw',
             'algn' => 'tl',
@@ -126,7 +125,6 @@ class AxisShadowTest extends AbstractFunctional
             self::assertEquals($value, $yAxis->getShadowProperty($key), $key);
         }
         $xAxis = $chart->getChartAxisX();
-        self::assertNotNull($xAxis);
         $expectedX = [
             'effect' => 'outerShdw',
             'algn' => 'bl',
@@ -173,12 +171,10 @@ class AxisShadowTest extends AbstractFunctional
         $chart2 = $charts2[0];
         self::assertNotNull($chart2);
         $yAxis2 = $chart2->getChartAxisY();
-        self::assertNotNull($yAxis2);
         foreach ($expectedY as $key => $value) {
             self::assertEquals($value, $yAxis2->getShadowProperty($key), $key);
         }
         $xAxis2 = $chart2->getChartAxisX();
-        self::assertNotNull($xAxis2);
         foreach ($expectedX as $key => $value) {
             self::assertEquals($value, $xAxis2->getShadowProperty($key), $key);
         }

@@ -782,9 +782,9 @@ abstract class Properties
      *
      * @param string $value
      * @param ?int $alpha
-     * @param string $colorType
+     * @param ?string $colorType
      */
-    public function setLineColorProperties($value, $alpha = null, $colorType = ChartColor::EXCEL_COLOR_TYPE_STANDARD): void
+    public function setLineColorProperties($value, $alpha = null, $colorType = null): void
     {
         $this->activateObject();
         $this->lineColor->setColorPropertiesArray(
@@ -871,6 +871,17 @@ abstract class Properties
         if ($endArrowLength !== '') {
             $this->lineStyleProperties['arrow']['end']['len'] = $endArrowLength;
         }
+    }
+
+    /**
+     * @param mixed $value
+     */
+    public function setLineStyleProperty(string $propertyName, $value): self
+    {
+        $this->activateObject();
+        $this->lineStyleProperties[$propertyName] = $value;
+
+        return $this;
     }
 
     /**

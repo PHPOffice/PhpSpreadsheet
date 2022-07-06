@@ -105,9 +105,7 @@ class AxisGlowTest extends AbstractFunctional
             $yAxisLabel  // yAxisLabel
         );
         $yAxis = $chart->getChartAxisY();
-        self::assertNotNull($yAxis);
         $xAxis = $chart->getChartAxisX();
-        self::assertNotNull($xAxis);
         $yGlowSize = 10.0;
         $yAxis->setGlowProperties($yGlowSize, 'FFFF00', 30, Properties::EXCEL_COLOR_TYPE_ARGB);
         $expectedGlowColor = [
@@ -145,12 +143,10 @@ class AxisGlowTest extends AbstractFunctional
         $chart2 = $charts2[0];
         self::assertNotNull($chart2);
         $yAxis2 = $chart2->getChartAxisY();
-        self::assertNotNull($yAxis2);
         self::assertEquals($yGlowSize, $yAxis2->getGlowProperty('size'));
         self::assertEquals($expectedGlowColor, $yAxis2->getGlowProperty('color'));
         self::assertEquals($softEdgesY, $yAxis2->getSoftEdgesSize());
         $xAxis2 = $chart2->getChartAxisX();
-        self::assertNotNull($xAxis2);
         self::assertNull($xAxis2->getGlowProperty('size'));
         $reloadedSpreadsheet->disconnectWorksheets();
     }
@@ -234,7 +230,6 @@ class AxisGlowTest extends AbstractFunctional
             $yAxisLabel  // yAxisLabel
         );
         $yAxis = $chart->getChartAxisX(); // deliberate
-        self::assertNotNull($yAxis);
         $yGlowSize = 20.0;
         $yAxis->setGlowProperties($yGlowSize, 'accent1', 20, Properties::EXCEL_COLOR_TYPE_SCHEME);
         $expectedGlowColor = [
@@ -265,11 +260,9 @@ class AxisGlowTest extends AbstractFunctional
         $chart2 = $charts2[0];
         self::assertNotNull($chart2);
         $yAxis2 = $chart2->getChartAxisX(); // deliberate
-        self::assertNotNull($yAxis2);
         self::assertEquals($yGlowSize, $yAxis2->getGlowProperty('size'));
         self::assertEquals($expectedGlowColor, $yAxis2->getGlowProperty('color'));
         $xAxis2 = $chart2->getChartAxisY(); // deliberate
-        self::assertNotNull($xAxis2);
         self::assertNull($xAxis2->getGlowProperty('size'));
         $reloadedSpreadsheet->disconnectWorksheets();
     }

@@ -95,7 +95,6 @@ class MultiplierTest extends TestCase
             $yAxisLabel  // yAxisLabel
         );
         $xAxis = $chart->getChartAxisX();
-        self::assertNotNull($xAxis);
         $expectedX = [
             'effect' => 'outerShdw',
             'algn' => 'bl',
