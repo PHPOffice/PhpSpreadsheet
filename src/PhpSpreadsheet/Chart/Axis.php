@@ -260,14 +260,14 @@ class Axis extends Properties
         return $this->minorGridlines;
     }
 
-    public function setMajorGridlines(GridLines $gridlines): self
+    public function setMajorGridlines(?GridLines $gridlines): self
     {
         $this->majorGridlines = $gridlines;
 
         return $this;
     }
 
-    public function setMinorGridlines(GridLines $gridlines): self
+    public function setMinorGridlines(?GridLines $gridlines): self
     {
         $this->minorGridlines = $gridlines;
 
