@@ -164,7 +164,7 @@ abstract class Properties
      *
      * @return $this
      */
-    protected function activateObject()
+    public function activateObject()
     {
         $this->objectState = true;
 
@@ -782,9 +782,9 @@ abstract class Properties
      *
      * @param string $value
      * @param ?int $alpha
-     * @param string $colorType
+     * @param ?string $colorType
      */
-    public function setLineColorProperties($value, $alpha = null, $colorType = ChartColor::EXCEL_COLOR_TYPE_STANDARD): void
+    public function setLineColorProperties($value, $alpha = null, $colorType = null): void
     {
         $this->activateObject();
         $this->lineColor->setColorPropertiesArray(
@@ -871,6 +871,42 @@ abstract class Properties
         if ($endArrowLength !== '') {
             $this->lineStyleProperties['arrow']['end']['len'] = $endArrowLength;
         }
+    }
+
+    public function getLineStyleArray(): array
+    {
+        return $this->lineStyleProperties;
+    }
+
+    public function setLineStyleArray(array $lineStyleProperties = []): self
+    {
+        $this->activateObject();
+        $this->lineStyleProperties['width'] = $lineStyleProperties['width'] ?? null;
+        $this->lineStyleProperties['compound'] = $lineStyleProperties['compound'] ?? '';
+        $this->lineStyleProperties['dash'] = $lineStyleProperties['dash'] ?? '';
+        $this->lineStyleProperties['cap'] = $lineStyleProperties['cap'] ?? '';
+        $this->lineStyleProperties['join'] = $lineStyleProperties['join'] ?? '';
+        $this->lineStyleProperties['arrow']['head']['type'] = $lineStyleProperties['arrow']['head']['type'] ?? '';
+        $this->lineStyleProperties['arrow']['head']['size'] = $lineStyleProperties['arrow']['head']['size'] ?? '';
+        $this->lineStyleProperties['arrow']['head']['w'] = $lineStyleProperties['arrow']['head']['w'] ?? '';
+        $this->lineStyleProperties['arrow']['head']['len'] = $lineStyleProperties['arrow']['head']['len'] ?? '';
+        $this->lineStyleProperties['arrow']['end']['type'] = $lineStyleProperties['arrow']['end']['type'] ?? '';
+        $this->lineStyleProperties['arrow']['end']['size'] = $lineStyleProperties['arrow']['end']['size'] ?? '';
+        $this->lineStyleProperties['arrow']['end']['w'] = $lineStyleProperties['arrow']['end']['w'] ?? '';
+        $this->lineStyleProperties['arrow']['end']['len'] = $lineStyleProperties['arrow']['end']['len'] ?? '';
+
+        return $this;
+    }
+
+    /**
+     * @param mixed $value
+     */
+    public function setLineStyleProperty(string $propertyName, $value): self
+    {
+        $this->activateObject();
+        $this->lineStyleProperties[$propertyName] = $value;
+
+        return $this;
     }
 
     /**

@@ -1111,86 +1111,6 @@ parameters:
 			path: src/PhpSpreadsheet/Cell/Coordinate.php
 
 		-
-			message: "#^Call to an undefined method object\\:\\:render\\(\\)\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Chart.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Chart\\:\\:\\$legend \\(PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Legend\\) does not accept PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Legend\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Chart.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Chart\\:\\:\\$majorGridlines \\(PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\GridLines\\) does not accept PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\GridLines\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Chart.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Chart\\:\\:\\$minorGridlines \\(PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\GridLines\\) does not accept PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\GridLines\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Chart.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Chart\\:\\:\\$plotArea \\(PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\PlotArea\\) does not accept PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\PlotArea\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Chart.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Chart\\:\\:\\$title \\(PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Title\\) does not accept PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Title\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Chart.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Chart\\:\\:\\$worksheet \\(PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\) does not accept PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Chart.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Chart\\:\\:\\$xAxis \\(PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Axis\\) does not accept PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Axis\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Chart.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Chart\\:\\:\\$xAxisLabel \\(PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Title\\) does not accept PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Title\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Chart.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Chart\\:\\:\\$yAxis \\(PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Axis\\) does not accept PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Axis\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Chart.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Chart\\:\\:\\$yAxisLabel \\(PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Title\\) does not accept PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Title\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Chart.php
-
-		-
-			message: "#^Strict comparison using \\=\\=\\= between PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\DataSeriesValues and null will always evaluate to false\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Chart/DataSeries.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Legend\\:\\:\\$layout \\(PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Layout\\) does not accept PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Layout\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Legend.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Legend\\:\\:\\$positionXLref has no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Legend.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\PlotArea\\:\\:\\$layout \\(PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Layout\\) does not accept PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Layout\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/PlotArea.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Title\\:\\:\\$layout \\(PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Layout\\) does not accept PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Layout\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/Title.php
-
-		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Collection\\\\Memory\\:\\:\\$cache has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Collection/Memory.php
@@ -3627,11 +3547,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#3 \\$use_include_path of function fopen expects bool, int given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Html.php
-
-		-
-			message: "#^Ternary operator condition is always true\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Html.php
 
