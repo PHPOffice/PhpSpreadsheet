@@ -26,7 +26,8 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Changed
 
-- Better enforcement of value modification to match specified datatype when using setValueExplicit() 
+- Modify `rangeBoundaries()`, `rangeDimension()` and `getRangeBoundaries()` Coordinate methods to work with row/column ranges as well as with cell ranges and cells [PR #2926](https://github.com/PHPOffice/PhpSpreadsheet/pull/2926)
+- Better enforcement of value modification to match specified datatype when using `setValueExplicit()`
 - Relax validation of merge cells to allow merge for a single cell reference [Issue #2776](https://github.com/PHPOffice/PhpSpreadsheet/issues/2776)
 - Memory and speed improvements, particularly for the Cell Collection, and the Writers.
 
