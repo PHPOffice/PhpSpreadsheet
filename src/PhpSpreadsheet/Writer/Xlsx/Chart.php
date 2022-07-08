@@ -6,7 +6,6 @@ use PhpOffice\PhpSpreadsheet\Chart\Axis;
 use PhpOffice\PhpSpreadsheet\Chart\ChartColor;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeries;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues;
-use PhpOffice\PhpSpreadsheet\Chart\GridLines;
 use PhpOffice\PhpSpreadsheet\Chart\Layout;
 use PhpOffice\PhpSpreadsheet\Chart\Legend;
 use PhpOffice\PhpSpreadsheet\Chart\PlotArea;
@@ -99,7 +98,7 @@ class Chart extends WriterPart
         }
         $objWriter->endElement(); // view3D
 
-        $this->writePlotArea($objWriter, $chart->getPlotArea(), $chart->getXAxisLabel(), $chart->getYAxisLabel(), $chart->getChartAxisX(), $chart->getChartAxisY(), $chart->getMajorGridlines(), $chart->getMinorGridlines());
+        $this->writePlotArea($objWriter, $chart->getPlotArea(), $chart->getXAxisLabel(), $chart->getYAxisLabel(), $chart->getChartAxisX(), $chart->getChartAxisY());
 
         $this->writeLegend($objWriter, $chart->getLegend());
 
@@ -218,11 +217,13 @@ class Chart extends WriterPart
     /**
      * Write Chart Plot Area.
      */
-    private function writePlotArea(XMLWriter $objWriter, ?PlotArea $plotArea, ?Title $xAxisLabel = null, ?Title $yAxisLabel = null, ?Axis $xAxis = null, ?Axis $yAxis = null, ?GridLines $majorGridlines = null, ?GridLines $minorGridlines = null): void
+    private function writePlotArea(XMLWriter $objWriter, ?PlotArea $plotArea, ?Title $xAxisLabel = null, ?Title $yAxisLabel = null, ?Axis $xAxis = null, ?Axis $yAxis = null): void
     {
         if ($plotArea === null) {
             return;
         }
+        $majorGridlines = ($yAxis === null) ? null : $yAxis->getMajorGridlines();
+        $minorGridlines = ($yAxis === null) ? null : $yAxis->getMinorGridlines();
 
         $id1 = $id2 = $id3 = '0';
         $this->seriesIndex = 0;
@@ -345,12 +346,12 @@ class Chart extends WriterPart
 
         if (($chartType !== DataSeries::TYPE_PIECHART) && ($chartType !== DataSeries::TYPE_PIECHART_3D) && ($chartType !== DataSeries::TYPE_DONUTCHART)) {
             if ($chartType === DataSeries::TYPE_BUBBLECHART) {
-                $this->writeValueAxis($objWriter, $xAxisLabel, $chartType, $id2, $id1, $catIsMultiLevelSeries, $xAxis ?? new Axis(), $majorGridlines, $minorGridlines);
+                $this->writeValueAxis($objWriter, $xAxisLabel, $chartType, $id2, $id1, $catIsMultiLevelSeries, $xAxis ?? new Axis());
             } else {
                 $this->writeCategoryAxis($objWriter, $xAxisLabel, $id1, $id2, $catIsMultiLevelSeries, $xAxis ?? new Axis());
             }
 
-            $this->writeValueAxis($objWriter, $yAxisLabel, $chartType, $id1, $id2, $valIsMultiLevelSeries, $yAxis ?? new Axis(), $majorGridlines, $minorGridlines);
+            $this->writeValueAxis($objWriter, $yAxisLabel, $chartType, $id1, $id2, $valIsMultiLevelSeries, $yAxis ?? new Axis());
             if ($chartType === DataSeries::TYPE_SURFACECHART_3D || $chartType === DataSeries::TYPE_SURFACECHART) {
                 $this->writeSerAxis($objWriter, $id2, $id3);
             }
@@ -448,6 +449,8 @@ class Chart extends WriterPart
         } else {
             $objWriter->startElement('c:catAx');
         }
+        $majorGridlines = $yAxis->getMajorGridlines();
+        $minorGridlines = $yAxis->getMinorGridlines();
 
         if ($id1 !== '0') {
             $objWriter->startElement('c:axId');
@@ -480,6 +483,24 @@ class Chart extends WriterPart
         $objWriter->startElement('c:axPos');
         $objWriter->writeAttribute('val', 'b');
         $objWriter->endElement();
+
+        if ($majorGridlines !== null) {
+            $objWriter->startElement('c:majorGridlines');
+            $objWriter->startElement('c:spPr');
+            $this->writeLineStyles($objWriter, $majorGridlines);
+            $this->writeEffects($objWriter, $majorGridlines);
+            $objWriter->endElement(); //end spPr
+            $objWriter->endElement(); //end majorGridLines
+        }
+
+        if ($minorGridlines !== null && $minorGridlines->getObjectState()) {
+            $objWriter->startElement('c:minorGridlines');
+            $objWriter->startElement('c:spPr');
+            $this->writeLineStyles($objWriter, $minorGridlines);
+            $this->writeEffects($objWriter, $minorGridlines);
+            $objWriter->endElement(); //end spPr
+            $objWriter->endElement(); //end minorGridLines
+        }
 
         if ($xAxisLabel !== null) {
             $objWriter->startElement('c:title');
@@ -594,9 +615,11 @@ class Chart extends WriterPart
      * @param string $id2
      * @param bool $isMultiLevelSeries
      */
-    private function writeValueAxis(XMLWriter $objWriter, ?Title $yAxisLabel, $groupType, $id1, $id2, $isMultiLevelSeries, Axis $xAxis, ?GridLines $majorGridlines, ?GridLines $minorGridlines): void
+    private function writeValueAxis(XMLWriter $objWriter, ?Title $yAxisLabel, $groupType, $id1, $id2, $isMultiLevelSeries, Axis $xAxis): void
     {
         $objWriter->startElement('c:valAx');
+        $majorGridlines = $xAxis->getMajorGridlines();
+        $minorGridlines = $xAxis->getMinorGridlines();
 
         if ($id2 !== '0') {
             $objWriter->startElement('c:axId');

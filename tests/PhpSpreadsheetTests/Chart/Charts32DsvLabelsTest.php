@@ -42,6 +42,7 @@ class Charts32DsvLabelsTest extends AbstractFunctional
         self::assertNotNull($chart);
 
         $plotArea = $chart->getPlotArea();
+        self::assertNotNull($plotArea);
         $dataSeriesArray = $plotArea->getPlotGroup();
         self::assertCount(1, $dataSeriesArray);
         $dataSeries = $dataSeriesArray[0];

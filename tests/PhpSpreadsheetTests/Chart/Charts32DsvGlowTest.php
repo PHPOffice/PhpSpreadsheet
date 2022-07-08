@@ -42,6 +42,7 @@ class Charts32DsvGlowTest extends AbstractFunctional
         self::assertNotNull($chart);
 
         $plotArea = $chart->getPlotArea();
+        self::assertNotNull($plotArea);
         $dataSeriesArray = $plotArea->getPlotGroup();
         self::assertCount(1, $dataSeriesArray);
         $dataSeries = $dataSeriesArray[0];
@@ -52,6 +53,24 @@ class Charts32DsvGlowTest extends AbstractFunctional
         self::assertSame('schemeClr', $dataSeriesValues->getGlowProperty(['color', 'type']));
         self::assertSame('accent2', $dataSeriesValues->getGlowProperty(['color', 'value']));
         self::assertSame(60, $dataSeriesValues->getGlowProperty(['color', 'alpha']));
+
+        $yAxis = $chart->getChartAxisY();
+        $majorGridlines = $yAxis->getMajorGridlines();
+        self::assertNotNull($majorGridlines);
+        self::assertSame('triangle', $majorGridlines->getLineStyleProperty(['arrow', 'head', 'type']));
+        self::assertSame('triangle', $majorGridlines->getLineStyleProperty(['arrow', 'end', 'type']));
+        $minorGridlines = $yAxis->getMinorGridlines();
+        self::assertNotNull($minorGridlines);
+        self::assertSame('sysDot', $minorGridlines->getLineStyleProperty('dash'));
+        self::assertSame('FFC000', $minorGridlines->getLineColor()->getValue());
+
+        $xAxis = $chart->getChartAxisX();
+        $majorGridlines = $xAxis->getMajorGridlines();
+        $minorGridlines = $xAxis->getMinorGridlines();
+        self::assertNotNull($majorGridlines);
+        self::assertSame('7030A0', $majorGridlines->getLineColor()->getValue());
+        self::assertNotNull($minorGridlines);
+        self::assertFalse($minorGridlines->getLineColor()->isUsable());
 
         $reloadedSpreadsheet->disconnectWorksheets();
     }

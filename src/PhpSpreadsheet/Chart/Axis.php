@@ -17,6 +17,20 @@ class Axis extends Properties
     }
 
     /**
+     * Chart Major Gridlines as.
+     *
+     * @var ?GridLines
+     */
+    private $majorGridlines;
+
+    /**
+     * Chart Minor Gridlines as.
+     *
+     * @var ?GridLines
+     */
+    private $minorGridlines;
+
+    /**
      * Axis Number.
      *
      * @var mixed[]
@@ -234,5 +248,29 @@ class Axis extends Properties
     public function getCrossBetween(): string
     {
         return $this->crossBetween;
+    }
+
+    public function getMajorGridlines(): ?GridLines
+    {
+        return $this->majorGridlines;
+    }
+
+    public function getMinorGridlines(): ?GridLines
+    {
+        return $this->minorGridlines;
+    }
+
+    public function setMajorGridlines(?GridLines $gridlines): self
+    {
+        $this->majorGridlines = $gridlines;
+
+        return $this;
+    }
+
+    public function setMinorGridlines(?GridLines $gridlines): self
+    {
+        $this->minorGridlines = $gridlines;
+
+        return $this;
     }
 }

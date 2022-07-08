@@ -9,7 +9,7 @@ class PlotArea
     /**
      * PlotArea Layout.
      *
-     * @var Layout
+     * @var ?Layout
      */
     private $layout;
 
@@ -31,12 +31,7 @@ class PlotArea
         $this->plotSeries = $plotSeries;
     }
 
-    /**
-     * Get Layout.
-     *
-     * @return Layout
-     */
-    public function getLayout()
+    public function getLayout(): ?Layout
     {
         return $this->layout;
     }
