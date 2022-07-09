@@ -110,6 +110,13 @@
 
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Cell-DataType.html#constant_MAX_STRING_LENGTH">MAX_STRING_LENGTH</a>
+    <span>
+        &nbsp;= 32767                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Cell-DataType.html#constant_TYPE_BOOL">TYPE_BOOL</a>
     <span>
         &nbsp;= &#039;b&#039;                    </span>
@@ -175,7 +182,7 @@
                 <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Cell-DataType.html#property_errorCodes">$errorCodes</a>
     <span>
-                &nbsp;: array&lt;string|int, mixed&gt;            </span>
+                &nbsp;: array&lt;string, int&gt;            </span>
 </dt>
 <dd>List of error codes.</dd>
 
@@ -189,14 +196,14 @@
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Cell-DataType.html#method_checkString">checkString()</a>
     <span>
-                        &nbsp;: null|<a href="classes/PhpOffice-PhpSpreadsheet-RichText-RichText.html"><abbr title="\PhpOffice\PhpSpreadsheet\RichText\RichText">RichText</abbr></a>|string    </span>
+                        &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-RichText-RichText.html"><abbr title="\PhpOffice\PhpSpreadsheet\RichText\RichText">RichText</abbr></a>|string    </span>
 </dt>
 <dd>Check a string that it satisfies Excel requirements.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Cell-DataType.html#method_getErrorCodes">getErrorCodes()</a>
     <span>
-                        &nbsp;: array&lt;string|int, mixed&gt;    </span>
+                        &nbsp;: array&lt;string, int&gt;    </span>
 </dt>
 <dd>Get list of error codes.</dd>
 
@@ -210,6 +217,31 @@
             Constants
             <a href="classes/PhpOffice-PhpSpreadsheet-Cell-DataType.html#constants" class="headerlink"><i class="fas fa-link"></i></a>
         </h3>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_MAX_STRING_LENGTH">
+        MAX_STRING_LENGTH
+        <a href="classes/PhpOffice-PhpSpreadsheet-Cell-DataType.html#constant_MAX_STRING_LENGTH" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/DataType.php"><a href="files/src-phpspreadsheet-cell-datatype.html"><abbr title="src/PhpSpreadsheet/Cell/DataType.php">DataType.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">37</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">MAX_STRING_LENGTH</span>
+    = <span class="phpdocumentor-signature__default-value">32767</span>
+</code>
+
+
+    
+    
+
+</article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_TYPE_BOOL">
         TYPE_BOOL
@@ -466,9 +498,9 @@
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
+    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array&lt;string, int&gt;</span>
     <span class="phpdocumentor-signature__name">$errorCodes</span>
-     = <span class="phpdocumentor-signature__default-value">[&#039;#NULL!&#039; =&gt; 0, &#039;#DIV/0!&#039; =&gt; 1, &#039;#VALUE!&#039; =&gt; 2, &#039;#REF!&#039; =&gt; 3, &#039;#NAME?&#039; =&gt; 4, &#039;#NUM!&#039; =&gt; 5, &#039;#N/A&#039; =&gt; 6]</span></code>
+     = <span class="phpdocumentor-signature__default-value">[&#039;#NULL!&#039; =&gt; 0, &#039;#DIV/0!&#039; =&gt; 1, &#039;#VALUE!&#039; =&gt; 2, &#039;#REF!&#039; =&gt; 3, &#039;#NAME?&#039; =&gt; 4, &#039;#NUM!&#039; =&gt; 5, &#039;#N/A&#039; =&gt; 6, &#039;#CALC!&#039; =&gt; 7]</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -495,7 +527,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/DataType.php"><a href="files/src-phpspreadsheet-cell-datatype.html"><abbr title="src/PhpSpreadsheet/Cell/DataType.php">DataType.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">76</span>
+    <span class="phpdocumentor-element-found-in__line">79</span>
 </aside>
 
         <p class="phpdocumentor-summary">Check a value that it is a valid error code.</p>
@@ -542,14 +574,14 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/DataType.php"><a href="files/src-phpspreadsheet-cell-datatype.html"><abbr title="src/PhpSpreadsheet/Cell/DataType.php">DataType.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">53</span>
+    <span class="phpdocumentor-element-found-in__line">56</span>
 </aside>
 
         <p class="phpdocumentor-summary">Check a string that it satisfies Excel requirements.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">checkString</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">null|<a href="classes/PhpOffice-PhpSpreadsheet-RichText-RichText.html"><abbr title="\PhpOffice\PhpSpreadsheet\RichText\RichText">RichText</abbr></a>|string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$textValue</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">null|<a href="classes/PhpOffice-PhpSpreadsheet-RichText-RichText.html"><abbr title="\PhpOffice\PhpSpreadsheet\RichText\RichText">RichText</abbr></a>|string</span></code>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">checkString</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">null|<a href="classes/PhpOffice-PhpSpreadsheet-RichText-RichText.html"><abbr title="\PhpOffice\PhpSpreadsheet\RichText\RichText">RichText</abbr></a>|string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$textValue</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-RichText-RichText.html"><abbr title="\PhpOffice\PhpSpreadsheet\RichText\RichText">RichText</abbr></a>|string</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -569,7 +601,7 @@
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">null|<a href="classes/PhpOffice-PhpSpreadsheet-RichText-RichText.html"><abbr title="\PhpOffice\PhpSpreadsheet\RichText\RichText">RichText</abbr></a>|string</span>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-RichText-RichText.html"><abbr title="\PhpOffice\PhpSpreadsheet\RichText\RichText">RichText</abbr></a>|string</span>
             &mdash;
             <section class="phpdocumentor-description"><p>Sanitized value</p>
 </section>
@@ -589,14 +621,14 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/DataType.php"><a href="files/src-phpspreadsheet-cell-datatype.html"><abbr title="src/PhpSpreadsheet/Cell/DataType.php">DataType.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">41</span>
+    <span class="phpdocumentor-element-found-in__line">44</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get list of error codes.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">getErrorCodes</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">getErrorCodes</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string, int&gt;</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -604,7 +636,7 @@
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+    <span class="phpdocumentor-signature__response_type">array&lt;string, int&gt;</span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 

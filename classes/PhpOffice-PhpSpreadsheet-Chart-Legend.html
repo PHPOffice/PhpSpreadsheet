@@ -145,6 +145,13 @@
 <dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Legend.html#constant_POSITION_XLREF">POSITION_XLREF</a>
+    <span>
+        &nbsp;= [self::XL_LEGEND_POSITION_BOTTOM =&gt; self::POSITION_BOTTOM, self::XL_LEGEND_POSITION_CORNER =&gt; self::POSITION_TOPRIGHT, self::XL_LEGEND_POSITION_CUSTOM =&gt; &#039;??&#039;, self::XL_LEGEND_POSITION_LEFT =&gt; self::POSITION_LEFT, self::XL_LEGEND_POSITION_RIGHT =&gt; self::POSITION_RIGHT, self::XL_LEGEND_POSITION_TOP =&gt; self::POSITION_TOP]                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Legend.html#constant_XL_LEGEND_POSITION_BOTTOM">XL_LEGEND_POSITION_BOTTOM</a>
     <span>
         &nbsp;= -4107                    </span>
@@ -189,7 +196,7 @@
                 <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Legend.html#property_layout">$layout</a>
     <span>
-                &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Layout.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Layout">Layout</abbr></a>            </span>
+                &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Layout.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Layout">Layout</abbr></a>|null            </span>
 </dt>
 <dd>Legend Layout.</dd>
 
@@ -207,13 +214,6 @@
 </dt>
 <dd>Legend position.</dd>
 
-            <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Legend.html#property_positionXLref">$positionXLref</a>
-    <span>
-                &nbsp;: mixed            </span>
-</dt>
-<dd></dd>
-
                 <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Legend.html#method___construct">__construct()</a>
     <span>
@@ -224,7 +224,7 @@
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Legend.html#method_getLayout">getLayout()</a>
     <span>
-                        &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Layout.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Layout">Layout</abbr></a>    </span>
+                        &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Layout.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Layout">Layout</abbr></a>|null    </span>
 </dt>
 <dd>Get Layout.</dd>
 
@@ -245,7 +245,7 @@
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Legend.html#method_getPositionXL">getPositionXL()</a>
     <span>
-                        &nbsp;: int    </span>
+                        &nbsp;: false|int    </span>
 </dt>
 <dd>Get legend position as an Excel internal numeric value.</dd>
 
@@ -398,6 +398,31 @@
     <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">POSITION_TOPRIGHT</span>
     = <span class="phpdocumentor-signature__default-value">&#039;tr&#039;</span>
+</code>
+
+
+    
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_POSITION_XLREF">
+        POSITION_XLREF
+        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Legend.html#constant_POSITION_XLREF" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Legend.php"><a href="files/src-phpspreadsheet-chart-legend.html"><abbr title="src/PhpSpreadsheet/Chart/Legend.php">Legend.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">21</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">POSITION_XLREF</span>
+    = <span class="phpdocumentor-signature__default-value">[self::XL_LEGEND_POSITION_BOTTOM =&gt; self::POSITION_BOTTOM, self::XL_LEGEND_POSITION_CORNER =&gt; self::POSITION_TOPRIGHT, self::XL_LEGEND_POSITION_CUSTOM =&gt; &#039;??&#039;, self::XL_LEGEND_POSITION_LEFT =&gt; self::POSITION_LEFT, self::XL_LEGEND_POSITION_RIGHT =&gt; self::POSITION_RIGHT, self::XL_LEGEND_POSITION_TOP =&gt; self::POSITION_TOP]</span>
 </code>
 
 
@@ -588,7 +613,7 @@
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Layout.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Layout">Layout</abbr></a></span>
+        <span class="phpdocumentor-signature__type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Layout.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Layout">Layout</abbr></a>|null</span>
     <span class="phpdocumentor-signature__name">$layout</span>
     </code>
 
@@ -658,36 +683,6 @@
 
         <section class="phpdocumentor-description"></section>
 
-    
-
-</article>
-                    <article
-        class="
-            phpdocumentor-element
-            -property
-            -private
-            -static                                            "
->
-    <h4 class="phpdocumentor-element__name" id="property_positionXLref">
-        $positionXLref
-        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Legend.html#property_positionXLref" class="headerlink"><i class="fas fa-link"></i></a>
-        <span class="phpdocumentor-element__modifiers">
-                                </span>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Legend.php"><a href="files/src-phpspreadsheet-chart-legend.html"><abbr title="src/PhpSpreadsheet/Chart/Legend.php">Legend.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">21</span>
-</aside>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">mixed</span>
-    <span class="phpdocumentor-signature__name">$positionXLref</span>
-     = <span class="phpdocumentor-signature__default-value">[self::XL_LEGEND_POSITION_BOTTOM =&gt; self::POSITION_BOTTOM, self::XL_LEGEND_POSITION_CORNER =&gt; self::POSITION_TOPRIGHT, self::XL_LEGEND_POSITION_CUSTOM =&gt; &#039;??&#039;, self::XL_LEGEND_POSITION_LEFT =&gt; self::POSITION_LEFT, self::XL_LEGEND_POSITION_RIGHT =&gt; self::POSITION_RIGHT, self::XL_LEGEND_POSITION_TOP =&gt; self::POSITION_TOP]</span></code>
-
-    
     
 
 </article>
@@ -778,7 +773,7 @@
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">getLayout</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Layout.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Layout">Layout</abbr></a></span></code>
+                <span class="phpdocumentor-signature__name">getLayout</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Layout.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Layout">Layout</abbr></a>|null</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -786,7 +781,7 @@
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Layout.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Layout">Layout</abbr></a></span>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Layout.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Layout">Layout</abbr></a>|null</span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
@@ -880,7 +875,7 @@
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">getPositionXL</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
+                <span class="phpdocumentor-signature__name">getPositionXL</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">false|int</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -888,7 +883,7 @@
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">int</span>
+    <span class="phpdocumentor-signature__response_type">false|int</span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
