@@ -554,7 +554,7 @@ class StringHelper
             $sign = ($match[1] == '-') ? '-' : '+';
             $wholePart = ($match[3] === '') ? '' : ($sign . $match[3]);
             $fractionFormula = '=' . $wholePart . $sign . $match[4];
-            $operand = Calculation::getInstance()->_calculateFormulaValue($fractionFormula);
+            $operand = Calculation::getInstance()->calculateFormulaValue($fractionFormula);
 
             return true;
         }
