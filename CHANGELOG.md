@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ## 1.24.0 - 2022-07-09
 
+Note that this will be the last 1.x branch release before the 2.x release. We will maintain both branches in parallel for a time; but users are requested to update to version 2.0 once that is fully available.
+
 ### Added
 
 - Added `removeComment()` method for Worksheet [PR #2875](https://github.com/PHPOffice/PhpSpreadsheet/pull/2875/files)
