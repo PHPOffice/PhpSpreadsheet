@@ -5,6 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org).
 
+## Unreleased - TBD
+
+### Added
+
+- Nothing
+
+### Changed
+
+- Nothing
+
+### Deprecated
+
+- Nothing
+
+### Removed
+
+- Nothing
+
+### Fixed
+
+- Nothing
+
 ## 1.24.0 - 2022-07-09
 
 Note that this will be the last 1.x branch release before the 2.x release. We will maintain both branches in parallel for a time; but users are requested to update to version 2.0 once that is fully available.
