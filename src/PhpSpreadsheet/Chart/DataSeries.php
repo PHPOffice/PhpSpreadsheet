@@ -134,12 +134,12 @@ class DataSeries
         $this->plotOrder = $plotOrder;
         $keys = array_keys($plotValues);
         $this->plotValues = $plotValues;
-        if ((count($plotLabel) == 0) || ($plotLabel[$keys[0]] === null)) {
+        if (!isset($plotLabel[$keys[0]])) {
             $plotLabel[$keys[0]] = new DataSeriesValues();
         }
         $this->plotLabel = $plotLabel;
 
-        if ((count($plotCategory) == 0) || ($plotCategory[$keys[0]] === null)) {
+        if (!isset($plotCategory[$keys[0]])) {
             $plotCategory[$keys[0]] = new DataSeriesValues();
         }
         $this->plotCategory = $plotCategory;

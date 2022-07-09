@@ -31,8 +31,23 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
 		-
-			message: "#^Cannot use array destructuring on array\\<string\\>\\|string\\.$#"
-			count: 6
+			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Calculation\\:\\:_translateFormulaToEnglish\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/Calculation.php
+
+		-
+			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Calculation\\:\\:_translateFormulaToEnglish\\(\\) has parameter \\$formula with no type specified\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/Calculation.php
+
+		-
+			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Calculation\\:\\:_translateFormulaToLocale\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/Calculation.php
+
+		-
+			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Calculation\\:\\:_translateFormulaToLocale\\(\\) has parameter \\$formula with no type specified\\.$#"
+			count: 1
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
 		-
@@ -1074,11 +1089,6 @@ parameters:
 			message: "#^Strict comparison using \\=\\=\\= between PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\DataSeriesValues and null will always evaluate to false\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Chart/DataSeries.php
-
-		-
-			message: "#^Cannot use array destructuring on array\\<string\\>\\|string\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/DataSeriesValues.php
 
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Legend\\:\\:\\$layout \\(PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Layout\\) does not accept PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Layout\\|null\\.$#"
@@ -2701,36 +2711,6 @@ parameters:
 			path: src/PhpSpreadsheet/Shared/OLERead.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\StringHelper\\:\\:formatNumber\\(\\) should return string but returns array\\|string\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/StringHelper.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\StringHelper\\:\\:sanitizeUTF8\\(\\) should return string but returns string\\|false\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/StringHelper.php
-
-		-
-			message: "#^Parameter \\#1 \\$string of function strlen expects string, float given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/StringHelper.php
-
-		-
-			message: "#^Parameter \\#3 \\$subject of function str_replace expects array\\|string, float given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/StringHelper.php
-
-		-
-			message: "#^Static property PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\StringHelper\\:\\:\\$decimalSeparator \\(string\\) in isset\\(\\) is not nullable\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/StringHelper.php
-
-		-
-			message: "#^Static property PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\StringHelper\\:\\:\\$thousandsSeparator \\(string\\) in isset\\(\\) is not nullable\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/StringHelper.php
-
-		-
 			message: "#^Static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\TimeZone\\:\\:validateTimeZone\\(\\) is unused\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/TimeZone.php
@@ -3636,11 +3616,6 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Html.php
 
 		-
-			message: "#^Ternary operator condition is always true\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Html.php
-
-		-
 			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Ods.php
@@ -3989,61 +3964,6 @@ parameters:
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\:\\:\\$pathNames has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx.php
-
-		-
-			message: "#^Parameter \\#1 \\$plotSeriesValues of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Chart\\:\\:writeBubbles\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\DataSeriesValues\\|null, PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\DataSeriesValues\\|false given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
-
-		-
-			message: "#^Parameter \\#1 \\$rawTextData of method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\XMLWriter\\:\\:writeRawData\\(\\) expects array\\<string\\>\\|string\\|null, int given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
-
-		-
-			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, float given\\.$#"
-			count: 6
-			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
-
-		-
-			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, float\\|int given\\.$#"
-			count: 4
-			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
-
-		-
-			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, int given\\.$#"
-			count: 41
-			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
-
-		-
-			message: "#^Parameter \\#6 \\$yAxis of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Chart\\:\\:writeCategoryAxis\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Axis, PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Axis\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
-
-		-
-			message: "#^Parameter \\#7 \\$xAxis of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Chart\\:\\:writeValueAxis\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Axis, PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Axis\\|null given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
-
-		-
-			message: "#^Parameter \\#8 \\$majorGridlines of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Chart\\:\\:writeValueAxis\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\GridLines, PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\GridLines\\|null given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
-
-		-
-			message: "#^Parameter \\#9 \\$minorGridlines of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Chart\\:\\:writeValueAxis\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\GridLines, PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\GridLines\\|null given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Chart\\:\\:\\$calculateCellValues has no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
-
-		-
-			message: "#^Strict comparison using \\=\\=\\= between PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\PlotArea and null will always evaluate to false\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
 
 		-
 			message: "#^Parameter \\#1 \\$string of function substr expects string, int given\\.$#"

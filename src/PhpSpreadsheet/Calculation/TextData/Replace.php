@@ -6,6 +6,8 @@ use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcExp;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 
 class Replace
 {
@@ -36,16 +38,20 @@ class Replace
         try {
             $start = Helpers::extractInt($start, 1, 0, true);
             $chars = Helpers::extractInt($chars, 0, 0, true);
-            $oldText = Helpers::extractString($oldText);
-            $newText = Helpers::extractString($newText);
-            $left = mb_substr($oldText, 0, $start - 1, 'UTF-8');
+            $oldText = Helpers::extractString($oldText, true);
+            $newText = Helpers::extractString($newText, true);
+            $left = StringHelper::substring($oldText, 0, $start - 1);
 
-            $right = mb_substr($oldText, $start + $chars - 1, null, 'UTF-8');
+            $right = StringHelper::substring($oldText, $start + $chars - 1, null);
         } catch (CalcExp $e) {
             return $e->getMessage();
         }
+        $returnValue = $left . $newText . $right;
+        if (StringHelper::countCharacters($returnValue) > DataType::MAX_STRING_LENGTH) {
+            $returnValue = ExcelError::VALUE();
+        }
 
-        return $left . $newText . $right;
+        return $returnValue;
     }
 
     /**
@@ -71,24 +77,29 @@ class Replace
         }
 
         try {
-            $text = Helpers::extractString($text);
-            $fromText = Helpers::extractString($fromText);
-            $toText = Helpers::extractString($toText);
+            $text = Helpers::extractString($text, true);
+            $fromText = Helpers::extractString($fromText, true);
+            $toText = Helpers::extractString($toText, true);
             if ($instance === null) {
-                return str_replace($fromText, $toText, $text);
-            }
-            if (is_bool($instance)) {
-                if ($instance === false || Functions::getCompatibilityMode() !== Functions::COMPATIBILITY_OPENOFFICE) {
-                    return ExcelError::Value();
+                $returnValue = str_replace($fromText, $toText, $text);
+            } else {
+                if (is_bool($instance)) {
+                    if ($instance === false || Functions::getCompatibilityMode() !== Functions::COMPATIBILITY_OPENOFFICE) {
+                        return ExcelError::Value();
+                    }
+                    $instance = 1;
                 }
-                $instance = 1;
+                $instance = Helpers::extractInt($instance, 1, 0, true);
+                $returnValue = self::executeSubstitution($text, $fromText, $toText, $instance);
             }
-            $instance = Helpers::extractInt($instance, 1, 0, true);
         } catch (CalcExp $e) {
             return $e->getMessage();
         }
+        if (StringHelper::countCharacters($returnValue) > DataType::MAX_STRING_LENGTH) {
+            $returnValue = ExcelError::VALUE();
+        }
 
-        return self::executeSubstitution($text, $fromText, $toText, $instance);
+        return $returnValue;
     }
 
     /**
@@ -106,7 +117,7 @@ class Replace
         }
 
         if ($pos !== false) {
-            return Functions::scalar(self::REPLACE($text, ++$pos, mb_strlen($fromText, 'UTF-8'), $toText));
+            return Functions::scalar(self::REPLACE($text, ++$pos, StringHelper::countCharacters($fromText), $toText));
         }
 
         return $text;

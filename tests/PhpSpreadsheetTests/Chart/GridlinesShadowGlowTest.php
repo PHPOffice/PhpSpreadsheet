@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Chart;
 
+use PhpOffice\PhpSpreadsheet\Chart\Axis;
 use PhpOffice\PhpSpreadsheet\Chart\Chart;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeries;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues;
@@ -93,7 +94,9 @@ class GridlinesShadowGlowTest extends AbstractFunctional
 
         $title = new Title('Test %age-Stacked Area Chart');
         $yAxisLabel = new Title('Value ($k)');
+        $yAxis = new Axis();
         $majorGridlines = new GridLines();
+        $yAxis->setMajorGridlines($majorGridlines);
         $majorGlowSize = 10.0;
         $majorGridlines->setGlowProperties($majorGlowSize, 'FFFF00', 30, Properties::EXCEL_COLOR_TYPE_ARGB);
         $softEdgeSize = 2.5;
@@ -110,6 +113,7 @@ class GridlinesShadowGlowTest extends AbstractFunctional
         self::assertEquals($softEdgeSize, $majorGridlines->getSoftEdgesSize());
 
         $minorGridlines = new GridLines();
+        $yAxis->setMinorGridlines($minorGridlines);
         $expectedShadow = [
             'effect' => 'outerShdw',
             'algn' => 'tl',
@@ -129,6 +133,11 @@ class GridlinesShadowGlowTest extends AbstractFunctional
         foreach ($expectedShadow as $key => $value) {
             self::assertEquals($value, $minorGridlines->getShadowProperty($key), $key);
         }
+        $testShadow2 = $minorGridlines->getShadowArray();
+        self::assertNull($testShadow2['presets']);
+        self::assertEquals(['sx' => null, 'sy' => null, 'kx' => null, 'ky' => null], $testShadow2['size']);
+        unset($testShadow2['presets'], $testShadow2['size']);
+        self::assertEquals($expectedShadow, $testShadow2);
 
         // Create the chart
         $chart = new Chart(
@@ -141,15 +150,16 @@ class GridlinesShadowGlowTest extends AbstractFunctional
             null, // xAxisLabel
             $yAxisLabel,  // yAxisLabel
             null, // xAxis
-            null, // yAxis
-            $majorGridlines,
-            $minorGridlines
+            $yAxis // yAxis
         );
-        $majorGridlines2 = $chart->getMajorGridlines();
+        $yAxis2 = $chart->getChartAxisY();
+        $majorGridlines2 = $yAxis2->getMajorGridlines();
+        self::assertNotNull($majorGridlines2);
         self::assertEquals($majorGlowSize, $majorGridlines2->getGlowProperty('size'));
         self::assertEquals($expectedGlowColor, $majorGridlines2->getGlowProperty('color'));
         self::assertEquals($softEdgeSize, $majorGridlines2->getSoftEdgesSize());
-        $minorGridlines2 = $chart->getMinorGridlines();
+        $minorGridlines2 = $yAxis2->getMinorGridlines();
+        self::assertNotNull($minorGridlines2);
         foreach ($expectedShadow as $key => $value) {
             self::assertEquals($value, $minorGridlines2->getShadowProperty($key), $key);
         }
@@ -173,11 +183,14 @@ class GridlinesShadowGlowTest extends AbstractFunctional
         self::assertCount(1, $charts2);
         $chart2 = $charts2[0];
         self::assertNotNull($chart2);
-        $majorGridlines3 = $chart2->getMajorGridlines();
+        $yAxis3 = $chart2->getChartAxisY();
+        $majorGridlines3 = $yAxis3->getMajorGridlines();
+        self::assertNotNull($majorGridlines3);
         self::assertEquals($majorGlowSize, $majorGridlines3->getGlowProperty('size'));
         self::assertEquals($expectedGlowColor, $majorGridlines3->getGlowProperty('color'));
         self::assertEquals($softEdgeSize, $majorGridlines3->getSoftEdgesSize());
-        $minorGridlines3 = $chart->getMinorGridlines();
+        $minorGridlines3 = $yAxis3->getMinorGridlines();
+        self::assertNotNull($minorGridlines3);
         foreach ($expectedShadow as $key => $value) {
             self::assertEquals($value, $minorGridlines3->getShadowProperty($key), $key);
         }

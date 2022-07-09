@@ -85,4 +85,32 @@ return [
     'bool false instance' => ['#VALUE!', 'abcdefg', 'def', '123', false],
     'bool true instance' => ['#VALUE!', 'abcdefg', 'def', '123', true],
     'bool text' => ['FA-SE', false, 'L', '-'],
+    'propagate REF' => ['#REF!', '=sheet99!A1', 'A', 'x'],
+    'propagate DIV0' => ['#DIV/0!', 'hello', '=1/0', 1, 'x'],
+    'string which just sneaks in' => [
+        str_repeat('A', 32766) . 'C',
+        str_repeat('A', 32766) . 'B',
+        'B',
+        'C',
+    ],
+    'string which overflows' => [
+        '#VALUE!',
+        str_repeat('A', 32766) . 'B',
+        'B',
+        'CC',
+    ],
+    'okay long string instance' => [
+        'AAAAB' . str_repeat('A', 32762),
+        str_repeat('A', 32767),
+        'A',
+        'B',
+        5,
+    ],
+    'overflow long string instance' => [
+        '#VALUE!',
+        str_repeat('A', 32767),
+        'A',
+        'BB',
+        5,
+    ],
 ];

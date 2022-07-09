@@ -66,6 +66,25 @@ class CsvEncodingTest extends TestCase
         self::assertEquals('sixième', $sheet->getCell('C2')->getValue());
     }
 
+    public function testSurrogate(): void
+    {
+        // Surrogates should occur only in UTF-16, and should
+        //   be properly converted to UTF8 when read.
+        // FFFE/FFFF are illegal, and should be converted to
+        //   substitution character when read.
+        // Excel does not handle any of the cells in row 3 well.
+        // LibreOffice handles A3 fine, and discards B3/C3,
+        //   which is a reasonable action.
+        $filename = 'tests/data/Reader/CSV/premiere.utf16le.csv';
+        $reader = new Csv();
+        $reader->setInputEncoding(Csv::guessEncoding($filename));
+        $spreadsheet = $reader->load($filename);
+        $sheet = $spreadsheet->getActiveSheet();
+        self::assertEquals('𐐀', $sheet->getCell('A3')->getValue());
+        self::assertEquals('�', $sheet->getCell('B3')->getValue());
+        self::assertEquals('�', $sheet->getCell('C3')->getValue());
+    }
+
     /**
      * @dataProvider providerGuessEncoding
      */

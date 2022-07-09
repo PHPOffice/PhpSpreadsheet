@@ -119,4 +119,33 @@ class StringHelperTest extends TestCase
 
         self::assertEquals($expectedResult, $result);
     }
+
+    /**
+     * @dataProvider providerFractions
+     */
+    public function testFraction(string $expected, string $value): void
+    {
+        $originalValue = $value;
+        $result = StringHelper::convertToNumberIfFraction($value);
+        if ($result === false) {
+            self::assertSame($expected, $originalValue);
+            self::assertSame($expected, $value);
+        } else {
+            self::assertSame($expected, (string) $value);
+            self::assertNotEquals($value, $originalValue);
+        }
+    }
+
+    public function providerFractions(): array
+    {
+        return [
+            'non-fraction' => ['1', '1'],
+            'common fraction' => ['1.5', '1 1/2'],
+            'fraction between -1 and 0' => ['-0.5', '-1/2'],
+            'fraction between -1 and 0 with space' => ['-0.5', ' - 1/2'],
+            'fraction between 0 and 1' => ['0.75', '3/4 '],
+            'fraction between 0 and 1 with space' => ['0.75', ' 3/4'],
+            'improper fraction' => ['1.75', '7/4'],
+        ];
+    }
 }

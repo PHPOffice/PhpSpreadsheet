@@ -72,7 +72,6 @@ class Chart
         $rotX = $rotY = $rAngAx = $perspective = null;
         $xAxis = new Axis();
         $yAxis = new Axis();
-        $majorGridlines = $minorGridlines = null;
         foreach ($chartElementsC as $chartElementKey => $chartElement) {
             switch ($chartElementKey) {
                 case 'chart':
@@ -109,6 +108,23 @@ class Chart
                                                     $axisColorArray = $this->readColor($sppr->solidFill);
                                                     $xAxis->setFillParameters($axisColorArray['value'], $axisColorArray['alpha'], $axisColorArray['type']);
                                                 }
+                                            }
+                                            if (isset($chartDetail->majorGridlines)) {
+                                                $majorGridlines = new GridLines();
+                                                if (isset($chartDetail->majorGridlines->spPr)) {
+                                                    $this->readEffects($chartDetail->majorGridlines, $majorGridlines);
+                                                    $this->readLineStyle($chartDetail->majorGridlines, $majorGridlines);
+                                                }
+                                                $xAxis->setMajorGridlines($majorGridlines);
+                                            }
+                                            if (isset($chartDetail->minorGridlines)) {
+                                                $minorGridlines = new GridLines();
+                                                $minorGridlines->activateObject();
+                                                if (isset($chartDetail->minorGridlines->spPr)) {
+                                                    $this->readEffects($chartDetail->minorGridlines, $minorGridlines);
+                                                    $this->readLineStyle($chartDetail->minorGridlines, $minorGridlines);
+                                                }
+                                                $xAxis->setMinorGridlines($minorGridlines);
                                             }
                                             $this->setAxisProperties($chartDetail, $xAxis);
 
@@ -168,19 +184,22 @@ class Chart
                                                     $whichAxis->setFillParameters($axisColorArray['value'], $axisColorArray['alpha'], $axisColorArray['type']);
                                                 }
                                             }
-                                            if (isset($chartDetail->majorGridlines)) {
+                                            if ($whichAxis !== null && isset($chartDetail->majorGridlines)) {
                                                 $majorGridlines = new GridLines();
                                                 if (isset($chartDetail->majorGridlines->spPr)) {
                                                     $this->readEffects($chartDetail->majorGridlines, $majorGridlines);
                                                     $this->readLineStyle($chartDetail->majorGridlines, $majorGridlines);
                                                 }
+                                                $whichAxis->setMajorGridlines($majorGridlines);
                                             }
-                                            if (isset($chartDetail->minorGridlines)) {
+                                            if ($whichAxis !== null && isset($chartDetail->minorGridlines)) {
                                                 $minorGridlines = new GridLines();
+                                                $minorGridlines->activateObject();
                                                 if (isset($chartDetail->minorGridlines->spPr)) {
                                                     $this->readEffects($chartDetail->minorGridlines, $minorGridlines);
                                                     $this->readLineStyle($chartDetail->minorGridlines, $minorGridlines);
                                                 }
+                                                $whichAxis->setMinorGridlines($minorGridlines);
                                             }
                                             $this->setAxisProperties($chartDetail, $whichAxis);
 
@@ -304,7 +323,7 @@ class Chart
                     }
             }
         }
-        $chart = new \PhpOffice\PhpSpreadsheet\Chart\Chart($chartName, $title, $legend, $plotArea, $plotVisOnly, (string) $dispBlanksAs, $XaxisLabel, $YaxisLabel, $xAxis, $yAxis, $majorGridlines, $minorGridlines);
+        $chart = new \PhpOffice\PhpSpreadsheet\Chart\Chart($chartName, $title, $legend, $plotArea, $plotVisOnly, (string) $dispBlanksAs, $XaxisLabel, $YaxisLabel, $xAxis, $yAxis);
         if (is_int($rotX)) {
             $chart->setRotX($rotX);
         }
@@ -389,6 +408,7 @@ class Chart
                     $markerFillColor = null;
                     $markerBorderColor = null;
                     $lineStyle = null;
+                    $labelLayout = null;
                     foreach ($seriesDetails as $seriesKey => $seriesDetail) {
                         switch ($seriesKey) {
                             case 'idx':
@@ -414,6 +434,12 @@ class Chart
                                     }
                                     $lineStyle = new GridLines();
                                     $this->readLineStyle($seriesDetails, $lineStyle);
+                                }
+                                if (isset($children->effectLst)) {
+                                    if ($lineStyle === null) {
+                                        $lineStyle = new GridLines();
+                                    }
+                                    $this->readEffects($seriesDetails, $lineStyle);
                                 }
                                 if (isset($children->solidFill)) {
                                     $fillColor = new ChartColor($this->readColor($children->solidFill));
@@ -474,6 +500,21 @@ class Chart
                                 $bubble3D = self::getAttribute($seriesDetail, 'val', 'boolean');
 
                                 break;
+                            case 'dLbls':
+                                $labelLayout = new Layout($this->readChartAttributes($seriesDetails));
+
+                                break;
+                        }
+                    }
+                    if ($labelLayout) {
+                        if (isset($seriesLabel[$seriesIndex])) {
+                            $seriesLabel[$seriesIndex]->setLabelLayout($labelLayout);
+                        }
+                        if (isset($seriesCategory[$seriesIndex])) {
+                            $seriesCategory[$seriesIndex]->setLabelLayout($labelLayout);
+                        }
+                        if (isset($seriesValues[$seriesIndex])) {
+                            $seriesValues[$seriesIndex]->setLabelLayout($labelLayout);
                         }
                     }
                     if ($noFill) {
@@ -947,6 +988,21 @@ class Chart
             if (isset($chartDetail->dLbls->showLeaderLines)) {
                 $plotAttributes['showLeaderLines'] = self::getAttribute($chartDetail->dLbls->showLeaderLines, 'val', 'string');
             }
+            if (isset($chartDetail->dLbls->spPr)) {
+                $sppr = $chartDetail->dLbls->spPr->children($this->aNamespace);
+                if (isset($sppr->solidFill)) {
+                    $plotAttributes['labelFillColor'] = new ChartColor($this->readColor($sppr->solidFill));
+                }
+                if (isset($sppr->ln->solidFill)) {
+                    $plotAttributes['labelBorderColor'] = new ChartColor($this->readColor($sppr->ln->solidFill));
+                }
+            }
+            if (isset($chartDetail->dLbls->txPr)) {
+                $txpr = $chartDetail->dLbls->txPr->children($this->aNamespace);
+                if (isset($txpr->p->pPr->defRPr->solidFill)) {
+                    $plotAttributes['labelFontColor'] = new ChartColor($this->readColor($txpr->p->pPr->defRPr->solidFill));
+                }
+            }
         }
 
         return $plotAttributes;
@@ -991,10 +1047,7 @@ class Chart
         }
     }
 
-    /**
-     * @param null|Axis|GridLines $chartObject may be extended to include other types
-     */
-    private function readEffects(SimpleXMLElement $chartDetail, $chartObject): void
+    private function readEffects(SimpleXMLElement $chartDetail, ?Properties $chartObject): void
     {
         if (!isset($chartObject, $chartDetail->spPr)) {
             return;
