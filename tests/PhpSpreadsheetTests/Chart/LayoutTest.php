@@ -42,6 +42,9 @@ class LayoutTest extends TestCase
             'w' => 3.0,
             'h' => 4.0,
             'showVal' => true,
+            'dLblPos' => 't',
+            'numFmtCode' => '0.00%',
+            'numFmtLinked' => true,
             'labelFillColor' => $fillColor,
             'labelBorderColor' => $borderColor,
             'labelFontColor' => $fontColor,
@@ -56,6 +59,9 @@ class LayoutTest extends TestCase
             ->setWidth(3.0)
             ->setHeight(4.0)
             ->setShowVal(true)
+            ->setDLblPos('t')
+            ->setNumFmtCode('0.00%')
+            ->setNumFmtLinked(true)
             ->setLabelFillColor($fillColor)
             ->setLabelBorderColor($borderColor)
             ->setLabelFontColor($fontColor);
