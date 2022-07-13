@@ -67,7 +67,7 @@ class Date
     protected static $defaultTimeZone;
 
     /**
-     * Set the Excel Default Calendar (Windows 1900 or Mac 1904).
+     * Set the Excel Date Calendar (Windows 1900 or Mac 1904) used for calculations and formatting.
      *
      * @param int $baseYear Excel base date (1900 or 1904)
      *
@@ -85,7 +85,8 @@ class Date
     }
 
     /**
-     * Return the Excel Default Calendar (Windows 1900 or Mac 1904).
+     * Return the Excel Date Calendar (Windows 1900 or Mac 1904)
+     *     to be used for current calculations and formatting.
      *
      * @return int Excel base date (1900 or 1904)
      */
