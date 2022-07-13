@@ -181,6 +181,8 @@ class Cell
      */
     public function getFormattedValue()
     {
+        SharedDate::setExcelCalendar($this->getWorksheet()->getParent()->getExcelCalendar());
+
         return (string) NumberFormat::toFormattedString(
             $this->getCalculatedValue(),
             $this->getStyle()
@@ -342,8 +344,6 @@ class Cell
                 break;
             default:
                 throw new Exception('Invalid datatype: ' . $dataType);
-
-                break;
         }
 
         // set the datatype
@@ -403,6 +403,8 @@ class Cell
     {
         if ($this->dataType === DataType::TYPE_FORMULA) {
             try {
+//                SharedDate::setExcelCalendar($this->getWorksheet()->getParent()->getExcelCalendar());
+//
                 $coordinate = $this->getCoordinate();
                 $worksheet = $this->getWorksheet();
                 $value = $this->value;
