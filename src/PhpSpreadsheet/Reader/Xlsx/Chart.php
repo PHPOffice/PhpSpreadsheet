@@ -228,7 +228,7 @@ class Chart
                                         case 'doughnutChart':
                                         case 'pieChart':
                                         case 'pie3DChart':
-                                            $explosion = isset($chartDetail->ser->explosion);
+                                            $explosion = self::getAttribute($chartDetail->ser->explosion, 'val', 'string');
                                             $plotSer = $this->chartDataSeries($chartDetail, $chartDetailKey);
                                             $plotSer->setPlotStyle("$explosion");
                                             $plotSeries[] = $plotSer;

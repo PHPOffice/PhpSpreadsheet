@@ -875,10 +875,6 @@ class Chart extends WriterPart
         $objWriter->writeAttribute('val', "$val");
         $objWriter->endElement(); // c:idx
 
-        $objWriter->startElement('c:bubble3D');
-        $objWriter->writeAttribute('val', '0');
-        $objWriter->endElement(); // c:bubble3D
-
         $objWriter->startElement('c:spPr');
         $this->writeColor($objWriter, $fillColor);
         $objWriter->endElement(); // c:spPr
@@ -1052,13 +1048,11 @@ class Chart extends WriterPart
                 $catIsMultiLevelSeries = $catIsMultiLevelSeries || $plotSeriesCategory->isMultiLevelSeries();
 
                 if (($groupType == DataSeries::TYPE_PIECHART) || ($groupType == DataSeries::TYPE_PIECHART_3D) || ($groupType == DataSeries::TYPE_DONUTCHART)) {
-                    if ($plotGroup->getPlotStyle() !== null) {
-                        $plotStyle = $plotGroup->getPlotStyle();
-                        if ($plotStyle) {
-                            $objWriter->startElement('c:explosion');
-                            $objWriter->writeAttribute('val', '25');
-                            $objWriter->endElement();
-                        }
+                    $plotStyle = $plotGroup->getPlotStyle();
+                    if (is_numeric($plotStyle)) {
+                        $objWriter->startElement('c:explosion');
+                        $objWriter->writeAttribute('val', $plotStyle);
+                        $objWriter->endElement();
                     }
                 }
 
