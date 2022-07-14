@@ -68,7 +68,7 @@ class Chart extends WriterPart
         $this->writeTitle($objWriter, $chart->getTitle());
 
         $objWriter->startElement('c:autoTitleDeleted');
-        $objWriter->writeAttribute('val', '0');
+        $objWriter->writeAttribute('val', (string) (int) $chart->getAutoTitleDeleted());
         $objWriter->endElement();
 
         $objWriter->startElement('c:view3D');
@@ -420,6 +420,17 @@ class Chart extends WriterPart
             $objWriter->endElement(); // c:txPr
         }
 
+        if ($chartLayout->getNumFmtCode() !== '') {
+            $objWriter->startElement('c:numFmt');
+            $objWriter->writeAttribute('formatCode', $chartLayout->getnumFmtCode());
+            $objWriter->writeAttribute('sourceLinked', (string) (int) $chartLayout->getnumFmtLinked());
+            $objWriter->endElement(); // c:numFmt
+        }
+        if ($chartLayout->getDLblPos() !== '') {
+            $objWriter->startElement('c:dLblPos');
+            $objWriter->writeAttribute('val', $chartLayout->getDLblPos());
+            $objWriter->endElement(); // c:dLblPos
+        }
         $this->writeDataLabelsBool($objWriter, 'showLegendKey', $chartLayout->getShowLegendKey());
         $this->writeDataLabelsBool($objWriter, 'showVal', $chartLayout->getShowVal());
         $this->writeDataLabelsBool($objWriter, 'showCatName', $chartLayout->getShowCatName());
