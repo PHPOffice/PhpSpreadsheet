@@ -201,7 +201,7 @@ class Html extends BaseReader
     /**
      * Loads Spreadsheet from file.
      */
-    protected function loadSpreadsheetFromFile(string $filename): Spreadsheet
+    public function loadSpreadsheetFromFile(string $filename): Spreadsheet
     {
         // Create new Spreadsheet
         $spreadsheet = new Spreadsheet();
@@ -651,6 +651,22 @@ class Html extends BaseReader
         // Reload the HTML file into the DOM object
         try {
             $convert = $this->securityScanner->scanFile($filename);
+            /*if (substr($convert, 0, 6) !== '<?xml ') {
+                $convert = '<?xml encoding = "UTF-8">' . $convert;
+            }*/
+            // Surrogate characters should not be valid in html.
+            // Ampersand must be replaced before < and >.
+            $convert = str_replace(
+                ['&', '<', '>'],
+                ['&#xd800;', '&#xd801;', '&#xd802;'],
+                $convert
+            );
+            $convert = htmlentities($convert, ENT_NOQUOTES, 'UTF-8');
+            $convert = str_replace(
+                ['&amp;#xd800;', '&amp;#xd801;', '&amp;#xd802;'],
+                ['&', '<', '>'],
+                $convert
+            );
             $loaded = $dom->loadHTML($convert);
         } catch (Throwable $e) {
             $loaded = false;
@@ -674,6 +690,22 @@ class Html extends BaseReader
         //    Reload the HTML file into the DOM object
         try {
             $convert = $this->securityScanner->scan($content);
+            /*if (substr($convert, 0, 6) !== '<?xml ') {
+                $convert = '<?xml encoding = "UTF-8">' . $convert;
+            }*/
+            // Surrogate characters should not be valid in html.
+            // Ampersand must be replaced before < and >.
+            $convert = str_replace(
+                ['&', '<', '>'],
+                ['&#xd800;', '&#xd801;', '&#xd802;'],
+                $convert
+            );
+            $convert = htmlentities($convert, ENT_NOQUOTES, 'UTF-8');
+            $convert = str_replace(
+                ['&amp;#xd800;', '&amp;#xd801;', '&amp;#xd802;'],
+                ['&', '<', '>'],
+                $convert
+            );
             $loaded = $dom->loadHTML($convert);
         } catch (Throwable $e) {
             $loaded = false;
