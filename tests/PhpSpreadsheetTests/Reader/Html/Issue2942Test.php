@@ -22,6 +22,7 @@ class Issue2942Test extends TestCase
         $reader = new Html();
         $spreadsheet = $reader->loadSpreadsheetFromFile($file);
         $sheet = $spreadsheet->getActiveSheet();
+        self::assertSame('Test Utf-8 characters voilà', $sheet->getTitle());
         self::assertSame('éàâèî', $sheet->getCell('A1')->getValue());
         self::assertSame('αβγδε', $sheet->getCell('B1')->getValue());
         self::assertSame('𐐁𐐂𐐃 だけち', $sheet->getCell('A2')->getValue());
