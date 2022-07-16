@@ -25,7 +25,7 @@ class Issue2942Test extends TestCase
         self::assertSame('Test Utf-8 characters voilà', $sheet->getTitle());
         self::assertSame('éàâèî', $sheet->getCell('A1')->getValue());
         self::assertSame('αβγδε', $sheet->getCell('B1')->getValue());
-        self::assertSame('𐐁𐐂𐐃 だけち', $sheet->getCell('A2')->getValue());
+        self::assertSame('𐐁𐐂𐐃 & だけち', $sheet->getCell('A2')->getValue());
         self::assertSame('אבגדה', $sheet->getCell('B2')->getValue());
         self::assertSame('𪔀𪔁𪔂', $sheet->getCell('C2')->getValue());
         self::assertSame('᠐᠑᠒', $sheet->getCell('A3')->getValue());
