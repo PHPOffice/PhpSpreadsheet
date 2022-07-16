@@ -651,23 +651,13 @@ class Html extends BaseReader
         // Reload the HTML file into the DOM object
         try {
             $convert = $this->securityScanner->scanFile($filename);
-            /*if (substr($convert, 0, 6) !== '<?xml ') {
-                $convert = '<?xml encoding = "UTF-8">' . $convert;
-            }*/
-            // Surrogate characters should not be valid in html.
-            // Ampersand must be replaced before < and >.
-            $convert = str_replace(
-                ['&', '<', '>'],
-                ['&#xd800;', '&#xd801;', '&#xd802;'],
-                $convert
-            );
-            $convert = htmlentities($convert, ENT_NOQUOTES, 'UTF-8');
-            $convert = str_replace(
-                ['&amp;#xd800;', '&amp;#xd801;', '&amp;#xd802;'],
-                ['&', '<', '>'],
-                $convert
-            );
-            $loaded = $dom->loadHTML($convert);
+            $lowend = "\u{80}";
+            $highend = "\u{10ffff}";
+            $regexp = "/[$lowend-$highend]/u";
+            /** @var callable */
+            $callback = [self::class, 'replaceNonAscii'];
+            $convert = preg_replace_callback($regexp, $callback, $convert);
+            $loaded = ($convert === null) ? false : $dom->loadHTML($convert);
         } catch (Throwable $e) {
             $loaded = false;
         }
@@ -676,6 +666,11 @@ class Html extends BaseReader
         }
 
         return $this->loadDocument($dom, $spreadsheet);
+    }
+
+    private static function replaceNonAscii(array $matches): string
+    {
+        return '&#' . mb_ord($matches[0], 'UTF-8') . ';';
     }
 
     /**

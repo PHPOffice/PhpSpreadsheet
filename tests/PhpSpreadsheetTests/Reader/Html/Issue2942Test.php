@@ -24,5 +24,12 @@ class Issue2942Test extends TestCase
         $sheet = $spreadsheet->getActiveSheet();
         self::assertSame('éàâèî', $sheet->getCell('A1')->getValue());
         self::assertSame('αβγδε', $sheet->getCell('B1')->getValue());
+        self::assertSame('𐐁𐐂𐐃 だけち', $sheet->getCell('A2')->getValue());
+        self::assertSame('אבגדה', $sheet->getCell('B2')->getValue());
+        self::assertSame('𪔀𪔁𪔂', $sheet->getCell('C2')->getValue());
+        self::assertSame('᠐᠑᠒', $sheet->getCell('A3')->getValue());
+        self::assertSame('അആ', $sheet->getCell('B3')->getValue());
+        self::assertSame('กขฃ', $sheet->getCell('C3')->getValue());
+        self::assertSame('✀✐✠', $sheet->getCell('D3')->getValue());
     }
 }
