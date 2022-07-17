@@ -68,7 +68,7 @@ class Chart extends WriterPart
         $this->writeTitle($objWriter, $chart->getTitle());
 
         $objWriter->startElement('c:autoTitleDeleted');
-        $objWriter->writeAttribute('val', '0');
+        $objWriter->writeAttribute('val', (string) (int) $chart->getAutoTitleDeleted());
         $objWriter->endElement();
 
         $objWriter->startElement('c:view3D');
@@ -424,6 +424,17 @@ class Chart extends WriterPart
             $objWriter->endElement(); // c:txPr
         }
 
+        if ($chartLayout->getNumFmtCode() !== '') {
+            $objWriter->startElement('c:numFmt');
+            $objWriter->writeAttribute('formatCode', $chartLayout->getnumFmtCode());
+            $objWriter->writeAttribute('sourceLinked', (string) (int) $chartLayout->getnumFmtLinked());
+            $objWriter->endElement(); // c:numFmt
+        }
+        if ($chartLayout->getDLblPos() !== '') {
+            $objWriter->startElement('c:dLblPos');
+            $objWriter->writeAttribute('val', $chartLayout->getDLblPos());
+            $objWriter->endElement(); // c:dLblPos
+        }
         $this->writeDataLabelsBool($objWriter, 'showLegendKey', $chartLayout->getShowLegendKey());
         $this->writeDataLabelsBool($objWriter, 'showVal', $chartLayout->getShowVal());
         $this->writeDataLabelsBool($objWriter, 'showCatName', $chartLayout->getShowCatName());
@@ -879,10 +890,6 @@ class Chart extends WriterPart
         $objWriter->writeAttribute('val', "$val");
         $objWriter->endElement(); // c:idx
 
-        $objWriter->startElement('c:bubble3D');
-        $objWriter->writeAttribute('val', '0');
-        $objWriter->endElement(); // c:bubble3D
-
         $objWriter->startElement('c:spPr');
         $this->writeColor($objWriter, $fillColor);
         $objWriter->endElement(); // c:spPr
@@ -1056,13 +1063,11 @@ class Chart extends WriterPart
                 $catIsMultiLevelSeries = $catIsMultiLevelSeries || $plotSeriesCategory->isMultiLevelSeries();
 
                 if (($groupType == DataSeries::TYPE_PIECHART) || ($groupType == DataSeries::TYPE_PIECHART_3D) || ($groupType == DataSeries::TYPE_DONUTCHART)) {
-                    if ($plotGroup->getPlotStyle() !== null) {
-                        $plotStyle = $plotGroup->getPlotStyle();
-                        if ($plotStyle) {
-                            $objWriter->startElement('c:explosion');
-                            $objWriter->writeAttribute('val', '25');
-                            $objWriter->endElement();
-                        }
+                    $plotStyle = $plotGroup->getPlotStyle();
+                    if (is_numeric($plotStyle)) {
+                        $objWriter->startElement('c:explosion');
+                        $objWriter->writeAttribute('val', $plotStyle);
+                        $objWriter->endElement();
                     }
                 }
 
