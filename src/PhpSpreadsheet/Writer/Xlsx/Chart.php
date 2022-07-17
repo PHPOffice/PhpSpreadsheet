@@ -72,30 +72,22 @@ class Chart extends WriterPart
         $objWriter->endElement();
 
         $objWriter->startElement('c:view3D');
-        $rotX = $chart->getRotX();
-        if (is_int($rotX)) {
-            $objWriter->startElement('c:rotX');
-            $objWriter->writeAttribute('val', "$rotX");
-            $objWriter->endElement();
+        $surface2D = false;
+        $plotArea = $chart->getPlotArea();
+        if ($plotArea !== null) {
+            $seriesArray = $plotArea->getPlotGroup();
+            foreach ($seriesArray as $series) {
+                if ($series->getPlotType() === DataSeries::TYPE_SURFACECHART) {
+                    $surface2D = true;
+
+                    break;
+                }
+            }
         }
-        $rotY = $chart->getRotY();
-        if (is_int($rotY)) {
-            $objWriter->startElement('c:rotY');
-            $objWriter->writeAttribute('val', "$rotY");
-            $objWriter->endElement();
-        }
-        $rAngAx = $chart->getRAngAx();
-        if (is_int($rAngAx)) {
-            $objWriter->startElement('c:rAngAx');
-            $objWriter->writeAttribute('val', "$rAngAx");
-            $objWriter->endElement();
-        }
-        $perspective = $chart->getPerspective();
-        if (is_int($perspective)) {
-            $objWriter->startElement('c:perspective');
-            $objWriter->writeAttribute('val', "$perspective");
-            $objWriter->endElement();
-        }
+        $this->writeView3D($objWriter, $chart->getRotX(), 'c:rotX', $surface2D, 90);
+        $this->writeView3D($objWriter, $chart->getRotY(), 'c:rotY', $surface2D);
+        $this->writeView3D($objWriter, $chart->getRAngAx(), 'c:rAngAx', $surface2D);
+        $this->writeView3D($objWriter, $chart->getPerspective(), 'c:perspective', $surface2D);
         $objWriter->endElement(); // view3D
 
         $this->writePlotArea($objWriter, $chart->getPlotArea(), $chart->getXAxisLabel(), $chart->getYAxisLabel(), $chart->getChartAxisX(), $chart->getChartAxisY());
@@ -122,6 +114,18 @@ class Chart extends WriterPart
 
         // Return
         return $objWriter->getData();
+    }
+
+    private function writeView3D(XMLWriter $objWriter, ?int $value, string $tag, bool $surface2D, int $default = 0): void
+    {
+        if ($value === null && $surface2D) {
+            $value = $default;
+        }
+        if ($value !== null) {
+            $objWriter->startElement($tag);
+            $objWriter->writeAttribute('val', "$value");
+            $objWriter->endElement();
+        }
     }
 
     /**
@@ -913,8 +917,8 @@ class Chart extends WriterPart
             $objWriter->endElement();
         }
 
-        if ($plotGroup->getPlotGrouping() !== null) {
-            $plotGroupingType = $plotGroup->getPlotGrouping();
+        $plotGroupingType = $plotGroup->getPlotGrouping();
+        if ($plotGroupingType !== null && $groupType !== DataSeries::TYPE_SURFACECHART && $groupType !== DataSeries::TYPE_SURFACECHART_3D) {
             $objWriter->startElement('c:grouping');
             $objWriter->writeAttribute('val', $plotGroupingType);
             $objWriter->endElement();
