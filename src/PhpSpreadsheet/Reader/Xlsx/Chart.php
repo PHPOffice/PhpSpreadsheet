@@ -1279,5 +1279,15 @@ class Chart
         if (isset($chartDetail->minorUnit)) {
             $whichAxis->setAxisOption('minor_unit', (string) self::getAttribute($chartDetail->minorUnit, 'val', 'string'));
         }
+        if (isset($chartDetail->txPr)) {
+            $children = $chartDetail->txPr->children($this->aNamespace);
+            if (isset($children->bodyPr)) {
+                /** @var string */
+                $textRotation = self::getAttribute($children->bodyPr, 'rot', 'string');
+                if (is_numeric($textRotation)) {
+                    $whichAxis->setAxisOption('textRotation', (string) Properties::xmlToAngle($textRotation));
+                }
+            }
+        }
     }
 }

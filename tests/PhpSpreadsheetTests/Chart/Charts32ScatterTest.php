@@ -391,6 +391,9 @@ class Charts32ScatterTest extends AbstractFunctional
         $chart = $charts[0];
         self::assertNotNull($chart);
 
+        $xAxis = $chart->getChartAxisX();
+        self::assertEquals(45, $xAxis->getAxisOptionsProperty('textRotation'));
+
         $plotArea = $chart->getPlotArea();
         self::assertNotNull($plotArea);
         $plotSeries = $plotArea->getPlotGroup();

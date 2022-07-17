@@ -573,6 +573,23 @@ class Chart extends WriterPart
             $objWriter->endElement();
         }
 
+        $textRotation = $yAxis->getAxisOptionsProperty('textRotation');
+        if (is_numeric($textRotation)) {
+            $objWriter->startElement('c:txPr');
+            $objWriter->startElement('a:bodyPr');
+            $objWriter->writeAttribute('rot', Properties::angleToXml((float) $textRotation));
+            $objWriter->endElement(); // a:bodyPr
+            $objWriter->startElement('a:lstStyle');
+            $objWriter->endElement(); // a:lstStyle
+            $objWriter->startElement('a:p');
+            $objWriter->startElement('a:pPr');
+            $objWriter->startElement('a:defRPr');
+            $objWriter->endElement(); // a:defRPr
+            $objWriter->endElement(); // a:pPr
+            $objWriter->endElement(); // a:p
+            $objWriter->endElement(); // c:txPr
+        }
+
         $objWriter->startElement('c:spPr');
         $this->writeColor($objWriter, $yAxis->getFillColorObject());
         $this->writeEffects($objWriter, $yAxis);
@@ -746,6 +763,23 @@ class Chart extends WriterPart
             $objWriter->startElement('c:tickLblPos');
             $objWriter->writeAttribute('val', $xAxis->getAxisOptionsProperty('axis_labels'));
             $objWriter->endElement();
+        }
+
+        $textRotation = $xAxis->getAxisOptionsProperty('textRotation');
+        if (is_numeric($textRotation)) {
+            $objWriter->startElement('c:txPr');
+            $objWriter->startElement('a:bodyPr');
+            $objWriter->writeAttribute('rot', Properties::angleToXml((float) $textRotation));
+            $objWriter->endElement(); // a:bodyPr
+            $objWriter->startElement('a:lstStyle');
+            $objWriter->endElement(); // a:lstStyle
+            $objWriter->startElement('a:p');
+            $objWriter->startElement('a:pPr');
+            $objWriter->startElement('a:defRPr');
+            $objWriter->endElement(); // a:defRPr
+            $objWriter->endElement(); // a:pPr
+            $objWriter->endElement(); // a:p
+            $objWriter->endElement(); // c:txPr
         }
 
         $objWriter->startElement('c:spPr');
