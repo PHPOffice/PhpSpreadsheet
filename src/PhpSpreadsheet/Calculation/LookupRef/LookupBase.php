@@ -19,8 +19,16 @@ abstract class LookupBase
 
     protected static function validateIndexLookup(array $lookup_array, $index_number): int
     {
-        // index_number must be a number greater than or equal to 1
-        if (!is_numeric($index_number) || $index_number < 1) {
+        // index_number must be a number greater than or equal to 1.
+        // Excel results are inconsistent when index is non-numeric.
+        // VLOOKUP(whatever, whatever, SQRT(-1)) yields NUM error, but
+        // VLOOKUP(whatever, whatever, cellref) yields REF error
+        //   when cellref is '=SQRT(-1)'. So just try our best here.
+        // Similar results if string (literal yields VALUE, cellRef REF).
+        if (!is_numeric($index_number)) {
+            throw new Exception(ExcelError::throwError($index_number));
+        }
+        if ($index_number < 1) {
             throw new Exception(ExcelError::VALUE());
         }
 

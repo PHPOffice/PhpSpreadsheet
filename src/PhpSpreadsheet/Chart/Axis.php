@@ -146,7 +146,6 @@ class Axis extends Properties
         $this->setAxisOption('orientation', $axisOrientation);
         $this->setAxisOption('major_tick_mark', $majorTmt);
         $this->setAxisOption('minor_tick_mark', $minorTmt);
-        $this->setAxisOption('minor_tick_mark', $minorTmt);
         $this->setAxisOption('minimum', $minimum);
         $this->setAxisOption('maximum', $maximum);
         $this->setAxisOption('major_unit', $majorUnit);
