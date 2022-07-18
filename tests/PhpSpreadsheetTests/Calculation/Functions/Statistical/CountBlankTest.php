@@ -20,7 +20,7 @@ class CountBlankTest extends TestCase
      */
     public function testCOUNTBLANK($expectedResult, ...$args): void
     {
-        $result = Counts::COUNTBLANK(...$args);
+        $result = Counts::blank(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

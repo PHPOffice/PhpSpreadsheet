@@ -20,7 +20,7 @@ class OrTest extends TestCase
      */
     public function testOR($expectedResult, ...$args): void
     {
-        $result = Operations::logicalOr(...$args);
+        $result = Operations::or(...$args);
         self::assertEquals($expectedResult, $result);
     }
 

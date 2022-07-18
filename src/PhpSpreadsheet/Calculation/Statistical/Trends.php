@@ -63,7 +63,7 @@ class Trends
      *
      * @return float|string
      */
-    public static function CORREL($yValues, $xValues = null)
+    public static function correl($yValues, $xValues = null)
     {
         if (($xValues === null) || (!is_array($yValues)) || (!is_array($xValues))) {
             return ExcelError::VALUE();
@@ -91,7 +91,7 @@ class Trends
      *
      * @return float|string
      */
-    public static function COVAR($yValues, $xValues)
+    public static function covariance($yValues, $xValues)
     {
         try {
             self::checkTrendArrays($yValues, $xValues);
@@ -120,7 +120,7 @@ class Trends
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function FORECAST($xValue, $yValues, $xValues)
+    public static function forecast($xValue, $yValues, $xValues)
     {
         if (is_array($xValue)) {
             return self::evaluateArrayArgumentsSubset([self::class, __FUNCTION__], 1, $xValue, $yValues, $xValues);
@@ -151,7 +151,7 @@ class Trends
      *
      * @return float[]
      */
-    public static function GROWTH($yValues, $xValues = [], $newValues = [], $const = true)
+    public static function growth($yValues, $xValues = [], $newValues = [], $const = true)
     {
         $yValues = Functions::flattenArray($yValues);
         $xValues = Functions::flattenArray($xValues);
@@ -181,7 +181,7 @@ class Trends
      *
      * @return float|string
      */
-    public static function INTERCEPT($yValues, $xValues)
+    public static function intercept($yValues, $xValues)
     {
         try {
             self::checkTrendArrays($yValues, $xValues);
@@ -358,7 +358,7 @@ class Trends
      *
      * @return float|string The result, or a string containing an error
      */
-    public static function SLOPE($yValues, $xValues)
+    public static function slope($yValues, $xValues)
     {
         try {
             self::checkTrendArrays($yValues, $xValues);
@@ -408,7 +408,7 @@ class Trends
      *
      * @return float[]
      */
-    public static function TREND($yValues, $xValues = [], $newValues = [], $const = true)
+    public static function trend($yValues, $xValues = [], $newValues = [], $const = true)
     {
         $yValues = Functions::flattenArray($yValues);
         $xValues = Functions::flattenArray($xValues);

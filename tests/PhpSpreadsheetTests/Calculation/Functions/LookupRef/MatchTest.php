@@ -21,7 +21,7 @@ class MatchTest extends TestCase
      */
     public function testMATCH($expectedResult, ...$args): void
     {
-        $result = ExcelMatch::MATCH(...$args);
+        $result = ExcelMatch::match(...$args);
         self::assertEquals($expectedResult, $result);
     }
 

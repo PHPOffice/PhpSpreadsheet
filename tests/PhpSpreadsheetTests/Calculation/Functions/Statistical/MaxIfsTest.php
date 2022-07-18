@@ -20,7 +20,7 @@ class MaxIfsTest extends TestCase
      */
     public function testMAXIFS($expectedResult, ...$args): void
     {
-        $result = Conditional::MAXIFS(...$args);
+        $result = Conditional::maxIfSeries(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

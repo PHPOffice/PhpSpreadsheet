@@ -2581,11 +2581,6 @@ parameters:
 			path: src/PhpSpreadsheet/Shared/OLERead.php
 
 		-
-			message: "#^Call to an undefined method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Calculation\\:\\:_calculateFormulaValue\\(\\)\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/StringHelper.php
-
-		-
 			message: "#^Static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\TimeZone\\:\\:validateTimeZone\\(\\) is unused\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/TimeZone.php

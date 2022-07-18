@@ -77,7 +77,7 @@ class Counts extends AggregateBase
      *
      * @return int
      */
-    public static function COUNTBLANK(...$args)
+    public static function blank(...$args)
     {
         $returnValue = 0;
 

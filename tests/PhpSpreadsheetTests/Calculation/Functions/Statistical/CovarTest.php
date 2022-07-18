@@ -20,7 +20,7 @@ class CovarTest extends TestCase
      */
     public function testCOVAR($expectedResult, ...$args): void
     {
-        $result = Trends::COVAR(...$args);
+        $result = Trends::covariance(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

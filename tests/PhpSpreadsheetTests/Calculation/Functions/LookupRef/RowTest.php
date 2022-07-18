@@ -14,7 +14,7 @@ class RowTest extends AllSetupTeardown
      */
     public function testROW($expectedResult, $cellReference = null): void
     {
-        $result = RowColumnInformation::ROW($cellReference);
+        $result = RowColumnInformation::row($cellReference);
         self::assertSame($expectedResult, $result);
     }
 

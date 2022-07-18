@@ -20,7 +20,7 @@ class AndTest extends TestCase
      */
     public function testAND($expectedResult, ...$args): void
     {
-        $result = Operations::logicalAnd(...$args);
+        $result = Operations::and(...$args);
         self::assertEquals($expectedResult, $result);
     }
 
