@@ -113,12 +113,49 @@
 </h3>
 
 <dl class="phpdocumentor-table-of-contents">
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Information-ExcelError.html#constant_ERROR_CODES">ERROR_CODES</a>
+    <span>
+        &nbsp;= [
+    &#039;null&#039; =&gt; &#039;#NULL!&#039;,
+    // 1
+    &#039;divisionbyzero&#039; =&gt; &#039;#DIV/0!&#039;,
+    // 2
+    &#039;value&#039; =&gt; &#039;#VALUE!&#039;,
+    // 3
+    &#039;reference&#039; =&gt; &#039;#REF!&#039;,
+    // 4
+    &#039;name&#039; =&gt; &#039;#NAME?&#039;,
+    // 5
+    &#039;num&#039; =&gt; &#039;#NUM!&#039;,
+    // 6
+    &#039;na&#039; =&gt; &#039;#N/A&#039;,
+    // 7
+    &#039;gettingdata&#039; =&gt; &#039;#GETTING_DATA&#039;,
+    // 8
+    &#039;spill&#039; =&gt; &#039;#SPILL!&#039;,
+    // 9
+    &#039;connect&#039; =&gt; &#039;#CONNECT!&#039;,
+    //10
+    &#039;blocked&#039; =&gt; &#039;#BLOCKED!&#039;,
+    //11
+    &#039;unknown&#039; =&gt; &#039;#UNKNOWN!&#039;,
+    //12
+    &#039;field&#039; =&gt; &#039;#FIELD!&#039;,
+    //13
+    &#039;calculation&#039; =&gt; &#039;#CALC!&#039;,
+]                    </span>
+</dt>
+<dd>List of error codes.</dd>
+
                 <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Information-ExcelError.html#property_errorCodes">$errorCodes</a>
     <span>
                 &nbsp;: array&lt;string, string&gt;            </span>
 </dt>
-<dd>List of error codes.</dd>
+<dd>List of error codes. Replaced by constant;
+previously it was public and updateable, allowing
+user to make inappropriate alterations.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-ArrayEnabled.html#property_arrayArgumentHelper">$arrayArgumentHelper</a>
@@ -255,26 +292,17 @@
 
 
         
-
-        
-    <section class="phpdocumentor-properties">
-        <h3 class="phpdocumentor-elements__header" id="properties">
-            Properties
-            <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Information-ExcelError.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
+    <section class="phpdocumentor-constants">
+        <h3 class="phpdocumentor-elements__header" id="constants">
+            Constants
+            <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Information-ExcelError.html#constants" class="headerlink"><i class="fas fa-link"></i></a>
         </h3>
-                    <article
-        class="
-            phpdocumentor-element
-            -property
-            -public
-            -static                                            "
->
-    <h4 class="phpdocumentor-element__name" id="property_errorCodes">
-        $errorCodes
-        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Information-ExcelError.html#property_errorCodes" class="headerlink"><i class="fas fa-link"></i></a>
-        <span class="phpdocumentor-element__modifiers">
-                                </span>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_ERROR_CODES">
+        ERROR_CODES
+        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Information-ExcelError.html#constant_ERROR_CODES" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
+
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Information/ExcelError.php"><a href="files/src-phpspreadsheet-calculation-information-excelerror.html"><abbr title="src/PhpSpreadsheet/Calculation/Information/ExcelError.php">ExcelError.php</abbr></a></abbr>
     :
@@ -283,11 +311,11 @@
 
         <p class="phpdocumentor-summary">List of error codes.</p>
 
-    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
-    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array&lt;string, string&gt;</span>
-    <span class="phpdocumentor-signature__name">$errorCodes</span>
-     = <span class="phpdocumentor-signature__default-value">[
+    <span class="phpdocumentor-signature__type">array&lt;string, string&gt;</span>
+    <span class="phpdocumentor-signature__name">ERROR_CODES</span>
+    = <span class="phpdocumentor-signature__default-value">[
     &#039;null&#039; =&gt; &#039;#NULL!&#039;,
     // 1
     &#039;divisionbyzero&#039; =&gt; &#039;#DIV/0!&#039;,
@@ -315,11 +343,71 @@
     &#039;field&#039; =&gt; &#039;#FIELD!&#039;,
     //13
     &#039;calculation&#039; =&gt; &#039;#CALC!&#039;,
-]</span></code>
+]</span>
+</code>
+
 
         <section class="phpdocumentor-description"></section>
 
     
+
+</article>
+            </section>
+
+        
+    <section class="phpdocumentor-properties">
+        <h3 class="phpdocumentor-elements__header" id="properties">
+            Properties
+            <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Information-ExcelError.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
+        </h3>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -public
+            -static            -deprecated                                "
+>
+    <h4 class="phpdocumentor-element__name" id="property_errorCodes">
+        $errorCodes
+        <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-Information-ExcelError.html#property_errorCodes" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Information/ExcelError.php"><a href="files/src-phpspreadsheet-calculation-information-excelerror.html"><abbr title="src/PhpSpreadsheet/Calculation/Information/ExcelError.php">ExcelError.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">42</span>
+</aside>
+
+        <p class="phpdocumentor-summary">List of error codes. Replaced by constant;
+previously it was public and updateable, allowing
+user to make inappropriate alterations.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature phpdocumentor-signature--deprecated">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array&lt;string, string&gt;</span>
+    <span class="phpdocumentor-signature__name">$errorCodes</span>
+     = <span class="phpdocumentor-signature__default-value">self::ERROR_CODES</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">deprecated</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.25.0</span>
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>Use ERROR_CODES constant instead.</p>
+</section>
+
+                                    </dd>
+                        </dl>
 
 </article>
                     <article
@@ -373,7 +461,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Information/ExcelError.php"><a href="files/src-phpspreadsheet-calculation-information-excelerror.html"><abbr title="src/PhpSpreadsheet/Calculation/Information/ExcelError.php">ExcelError.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">156</span>
+    <span class="phpdocumentor-element-found-in__line">167</span>
 </aside>
 
         <p class="phpdocumentor-summary">CALC.</p>
@@ -408,7 +496,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Information/ExcelError.php"><a href="files/src-phpspreadsheet-calculation-information-excelerror.html"><abbr title="src/PhpSpreadsheet/Calculation/Information/ExcelError.php">ExcelError.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">146</span>
+    <span class="phpdocumentor-element-found-in__line">157</span>
 </aside>
 
         <p class="phpdocumentor-summary">DIV0.</p>
@@ -443,7 +531,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Information/ExcelError.php"><a href="files/src-phpspreadsheet-calculation-information-excelerror.html"><abbr title="src/PhpSpreadsheet/Calculation/Information/ExcelError.php">ExcelError.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">112</span>
+    <span class="phpdocumentor-element-found-in__line">123</span>
 </aside>
 
         <p class="phpdocumentor-summary">NA.</p>
@@ -482,7 +570,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Information/ExcelError.php"><a href="files/src-phpspreadsheet-calculation-information-excelerror.html"><abbr title="src/PhpSpreadsheet/Calculation/Information/ExcelError.php">ExcelError.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">136</span>
+    <span class="phpdocumentor-element-found-in__line">147</span>
 </aside>
 
         <p class="phpdocumentor-summary">NAME.</p>
@@ -518,7 +606,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Information/ExcelError.php"><a href="files/src-phpspreadsheet-calculation-information-excelerror.html"><abbr title="src/PhpSpreadsheet/Calculation/Information/ExcelError.php">ExcelError.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">84</span>
+    <span class="phpdocumentor-element-found-in__line">95</span>
 </aside>
 
         <p class="phpdocumentor-summary">NaN.</p>
@@ -554,7 +642,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Information/ExcelError.php"><a href="files/src-phpspreadsheet-calculation-information-excelerror.html"><abbr title="src/PhpSpreadsheet/Calculation/Information/ExcelError.php">ExcelError.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">72</span>
+    <span class="phpdocumentor-element-found-in__line">83</span>
 </aside>
 
         <p class="phpdocumentor-summary">NULL.</p>
@@ -590,7 +678,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Information/ExcelError.php"><a href="files/src-phpspreadsheet-calculation-information-excelerror.html"><abbr title="src/PhpSpreadsheet/Calculation/Information/ExcelError.php">ExcelError.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">96</span>
+    <span class="phpdocumentor-element-found-in__line">107</span>
 </aside>
 
         <p class="phpdocumentor-summary">REF.</p>
@@ -626,7 +714,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Information/ExcelError.php"><a href="files/src-phpspreadsheet-calculation-information-excelerror.html"><abbr title="src/PhpSpreadsheet/Calculation/Information/ExcelError.php">ExcelError.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">36</span>
+    <span class="phpdocumentor-element-found-in__line">47</span>
 </aside>
 
     
@@ -670,7 +758,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Information/ExcelError.php"><a href="files/src-phpspreadsheet-calculation-information-excelerror.html"><abbr title="src/PhpSpreadsheet/Calculation/Information/ExcelError.php">ExcelError.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">48</span>
+    <span class="phpdocumentor-element-found-in__line">59</span>
 </aside>
 
         <p class="phpdocumentor-summary">ERROR_TYPE.</p>
@@ -716,7 +804,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/Information/ExcelError.php"><a href="files/src-phpspreadsheet-calculation-information-excelerror.html"><abbr title="src/PhpSpreadsheet/Calculation/Information/ExcelError.php">ExcelError.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">124</span>
+    <span class="phpdocumentor-element-found-in__line">135</span>
 </aside>
 
         <p class="phpdocumentor-summary">VALUE.</p>
