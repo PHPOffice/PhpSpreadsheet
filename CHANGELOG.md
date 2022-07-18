@@ -5,11 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org).
 
-## Unreleased - TBD
+## 1.24.1 - 2022-07-18
 
 ### Added
 
-- Nothing
+- Add Chart Axis Option textRotation [Issue #2705](https://github.com/PHPOffice/PhpSpreadsheet/issues/2705) [PR #2940](https://github.com/PHPOffice/PhpSpreadsheet/pull/2940)
 
 ### Changed
 
@@ -25,7 +25,12 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
-- Nothing
+- Fix Encoding issue with Html reader (PHP 8.2 deprecation for mb_convert_encoding) [Issue #2942](https://github.com/PHPOffice/PhpSpreadsheet/issues/2942) [PR #2943](https://github.com/PHPOffice/PhpSpreadsheet/pull/2943)
+- Additional Chart fixes
+  - Pie chart with part separated unwantedly [Issue #2506](https://github.com/PHPOffice/PhpSpreadsheet/issues/2506) [PR #2928](https://github.com/PHPOffice/PhpSpreadsheet/pull/2928)
+  - Chart styling is lost on simple load / save process [Issue #1797](https://github.com/PHPOffice/PhpSpreadsheet/issues/1797) [Issue #2077](https://github.com/PHPOffice/PhpSpreadsheet/issues/2077) [PR #2930](https://github.com/PHPOffice/PhpSpreadsheet/pull/2930)
+  - Can't create contour chart (surface 2d) [Issue #2931](https://github.com/PHPOffice/PhpSpreadsheet/issues/2931) [PR #2933](https://github.com/PHPOffice/PhpSpreadsheet/pull/2933)
+- VLOOKUP Breaks When Array Contains Null Cells [Issue #2934](https://github.com/PHPOffice/PhpSpreadsheet/issues/2934) [PR #2939](https://github.com/PHPOffice/PhpSpreadsheet/pull/2939)
 
 ## 1.24.0 - 2022-07-09
 
