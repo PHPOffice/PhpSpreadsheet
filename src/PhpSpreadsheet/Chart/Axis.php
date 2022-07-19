@@ -61,6 +61,7 @@ class Axis extends Properties
         'horizontal_crosses' => self::HORIZONTAL_CROSSES_AUTOZERO,
         'horizontal_crosses_value' => null,
         'textRotation' => null,
+        'hidden' => null,
     ];
 
     /**
@@ -138,7 +139,8 @@ class Axis extends Properties
         ?string $maximum = null,
         ?string $majorUnit = null,
         ?string $minorUnit = null,
-        ?string $textRotation = null
+        ?string $textRotation = null,
+        ?string $hidden = null
     ): void {
         $this->axisOptions['axis_labels'] = $axisLabels;
         $this->setAxisOption('horizontal_crosses_value', $horizontalCrossesValue);
@@ -151,6 +153,7 @@ class Axis extends Properties
         $this->setAxisOption('major_unit', $majorUnit);
         $this->setAxisOption('minor_unit', $minorUnit);
         $this->setAxisOption('textRotation', $textRotation);
+        $this->setAxisOption('hidden', $hidden);
     }
 
     /**

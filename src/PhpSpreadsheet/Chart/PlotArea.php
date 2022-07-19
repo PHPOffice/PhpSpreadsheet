@@ -7,6 +7,30 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 class PlotArea
 {
     /**
+     * No fill in plot area (show Excel gridlines through chart).
+     *
+     * @var bool
+     */
+    private $noFill = false;
+
+    /**
+     * PlotArea Gradient Stop list.
+     * Each entry is a 2-element array.
+     *     First is position in %.
+     *     Second is ChartColor.
+     *
+     * @var array[]
+     */
+    private $gradientFillStops = [];
+
+    /**
+     * PlotArea Gradient Angle.
+     *
+     * @var ?float
+     */
+    private $gradientFillAngle;
+
+    /**
      * PlotArea Layout.
      *
      * @var ?Layout
@@ -100,5 +124,43 @@ class PlotArea
         foreach ($this->plotSeries as $plotSeries) {
             $plotSeries->refresh($worksheet);
         }
+    }
+
+    public function setNoFill(bool $noFill): self
+    {
+        $this->noFill = $noFill;
+
+        return $this;
+    }
+
+    public function getNoFill(): bool
+    {
+        return $this->noFill;
+    }
+
+    public function setGradientFillProperties(array $gradientFillStops, ?float $gradientFillAngle): self
+    {
+        $this->gradientFillStops = $gradientFillStops;
+        $this->gradientFillAngle = $gradientFillAngle;
+
+        return $this;
+    }
+
+    /**
+     * Get gradientFillAngle.
+     */
+    public function getGradientFillAngle(): ?float
+    {
+        return $this->gradientFillAngle;
+    }
+
+    /**
+     * Get gradientFillStops.
+     *
+     * @return array
+     */
+    public function getGradientFillStops()
+    {
+        return $this->gradientFillStops;
     }
 }
