@@ -280,7 +280,9 @@ class Xlsx extends BaseReader
                         $xml->close();
 
                         $tmpInfo['lastColumnIndex'] = $tmpInfo['totalColumns'] - 1;
-                        $tmpInfo['lastColumnLetter'] = Coordinate::stringFromColumnIndex($tmpInfo['lastColumnIndex'] + 1);
+                        $tmpInfo['lastColumnLetter'] = ($tmpInfo['lastColumnIndex'] < 0)
+                            ? null
+                            : Coordinate::stringFromColumnIndex($tmpInfo['lastColumnIndex'] + 1);
 
                         $worksheetInfo[] = $tmpInfo;
                     }

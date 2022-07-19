@@ -37,7 +37,7 @@ class CoordinateTest extends TestCase
             Coordinate::columnIndexFromString($cellAddress);
         } catch (\Exception $e) {
             self::assertInstanceOf(Exception::class, $e);
-            self::assertEquals($e->getMessage(), 'Column string index can not be longer than 3 characters');
+            self::assertEquals($e->getMessage(), 'Column string address can not be longer than 3 characters');
 
             return;
         }
@@ -52,7 +52,22 @@ class CoordinateTest extends TestCase
             Coordinate::columnIndexFromString($cellAddress);
         } catch (\Exception $e) {
             self::assertInstanceOf(Exception::class, $e);
-            self::assertEquals($e->getMessage(), 'Column string index can not be empty');
+            self::assertEquals($e->getMessage(), 'Column string address can not be empty');
+
+            return;
+        }
+        self::fail('An expected exception has not been raised.');
+    }
+
+    public function testColumnIndexFromInvalidString(): void
+    {
+        $cellAddress = '1';
+
+        try {
+            Coordinate::columnIndexFromString($cellAddress);
+        } catch (\Exception $e) {
+            self::assertInstanceOf(Exception::class, $e);
+            self::assertEquals($e->getMessage(), 'Column string address must be alpha characters only');
 
             return;
         }
@@ -77,6 +92,21 @@ class CoordinateTest extends TestCase
     public function providerColumnIndex(): array
     {
         return require 'tests/data/ColumnIndex.php';
+    }
+
+    public function testStringFromInvalidColumnIndex(): void
+    {
+        $columnIndex = -1;
+
+        try {
+            $string = Coordinate::stringFromColumnIndex($columnIndex);
+        } catch (\Exception $e) {
+            self::assertInstanceOf(Exception::class, $e);
+            self::assertEquals($e->getMessage(), 'Column index must be a positive integer');
+
+            return;
+        }
+        self::fail('An expected exception has not been raised.');
     }
 
     /**

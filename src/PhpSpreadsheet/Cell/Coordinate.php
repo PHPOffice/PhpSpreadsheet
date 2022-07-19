@@ -260,13 +260,13 @@ abstract class Coordinate
     }
 
     /**
-     * Column index from string.
+     * Return a column index number from a string column address.
      *
-     * @param string $columnAddress eg 'A'
+     * @param string $columnAddress eg 'A', 'AZ', 'BA' or 'IV'
      *
-     * @return int Column index (A = 1)
+     * @return int The column index, offset from 1. (A = 1, Az = 52, BA = 53, IV = 256).
      */
-    public static function columnIndexFromString($columnAddress)
+    public static function columnIndexFromString(string $columnAddress): int
     {
         //    Using a lookup cache adds a slight memory overhead, but boosts speed
         //    caching using a static within the method is faster than a class static,
@@ -291,6 +291,10 @@ abstract class Coordinate
         //    We also use the language construct isset() rather than the more costly strlen() function to match the
         //       length of $columnAddress for improved performance
         if (isset($columnAddress[0])) {
+            if (ctype_alpha($columnAddress) === false) {
+                throw new Exception('Column string address must be alpha characters only');
+            }
+
             if (!isset($columnAddress[1])) {
                 $indexCache[$columnAddress] = $columnLookup[$columnAddress];
 
@@ -310,21 +314,27 @@ abstract class Coordinate
         }
 
         throw new Exception(
-            'Column string index can not be ' . ((isset($columnAddress[0])) ? 'longer than 3 characters' : 'empty')
+            'Column string address can not be ' . ((isset($columnAddress[0])) ? 'longer than 3 characters' : 'empty')
         );
     }
 
     /**
-     * String from column index.
+     * Return a string column address from a column index number.
      *
-     * @param int $columnIndex Column index (A = 1)
+     * @param int $columnIndex the column index, This should always be a positive integer
      *
-     * @return string
+     * @return  string The string column address for the specified index. eg (A = 1, Az = 52, BA = 53, IV = 256).
      */
-    public static function stringFromColumnIndex($columnIndex)
+    public static function stringFromColumnIndex(int $columnIndex): string
     {
         static $indexCache = [];
         static $lookupCache = ' ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+        if ($columnIndex <= 0) {
+            var_dump($columnIndex);
+
+            throw new Exception('Column index must be a positive integer');
+        }
 
         if (!isset($indexCache[$columnIndex])) {
             $indexValue = $columnIndex;

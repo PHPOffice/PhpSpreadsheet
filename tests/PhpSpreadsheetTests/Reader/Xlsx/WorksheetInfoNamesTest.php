@@ -99,6 +99,7 @@ class WorksheetInfoNamesTest extends TestCase
 
         self::assertSame('Chart1', $chartSheetInfo['worksheetName']);
         self::assertSame(-1, $chartSheetInfo['lastColumnIndex']);
+        self::assertNull($chartSheetInfo['lastColumnLetter']);
         self::assertSame(0, $chartSheetInfo['totalRows']);
         self::assertSame(0, $chartSheetInfo['totalColumns']);
     }
