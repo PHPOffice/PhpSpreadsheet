@@ -68,34 +68,26 @@ class Chart extends WriterPart
         $this->writeTitle($objWriter, $chart->getTitle());
 
         $objWriter->startElement('c:autoTitleDeleted');
-        $objWriter->writeAttribute('val', '0');
+        $objWriter->writeAttribute('val', (string) (int) $chart->getAutoTitleDeleted());
         $objWriter->endElement();
 
         $objWriter->startElement('c:view3D');
-        $rotX = $chart->getRotX();
-        if (is_int($rotX)) {
-            $objWriter->startElement('c:rotX');
-            $objWriter->writeAttribute('val', "$rotX");
-            $objWriter->endElement();
+        $surface2D = false;
+        $plotArea = $chart->getPlotArea();
+        if ($plotArea !== null) {
+            $seriesArray = $plotArea->getPlotGroup();
+            foreach ($seriesArray as $series) {
+                if ($series->getPlotType() === DataSeries::TYPE_SURFACECHART) {
+                    $surface2D = true;
+
+                    break;
+                }
+            }
         }
-        $rotY = $chart->getRotY();
-        if (is_int($rotY)) {
-            $objWriter->startElement('c:rotY');
-            $objWriter->writeAttribute('val', "$rotY");
-            $objWriter->endElement();
-        }
-        $rAngAx = $chart->getRAngAx();
-        if (is_int($rAngAx)) {
-            $objWriter->startElement('c:rAngAx');
-            $objWriter->writeAttribute('val', "$rAngAx");
-            $objWriter->endElement();
-        }
-        $perspective = $chart->getPerspective();
-        if (is_int($perspective)) {
-            $objWriter->startElement('c:perspective');
-            $objWriter->writeAttribute('val', "$perspective");
-            $objWriter->endElement();
-        }
+        $this->writeView3D($objWriter, $chart->getRotX(), 'c:rotX', $surface2D, 90);
+        $this->writeView3D($objWriter, $chart->getRotY(), 'c:rotY', $surface2D);
+        $this->writeView3D($objWriter, $chart->getRAngAx(), 'c:rAngAx', $surface2D);
+        $this->writeView3D($objWriter, $chart->getPerspective(), 'c:perspective', $surface2D);
         $objWriter->endElement(); // view3D
 
         $this->writePlotArea($objWriter, $chart->getPlotArea(), $chart->getXAxisLabel(), $chart->getYAxisLabel(), $chart->getChartAxisX(), $chart->getChartAxisY());
@@ -122,6 +114,18 @@ class Chart extends WriterPart
 
         // Return
         return $objWriter->getData();
+    }
+
+    private function writeView3D(XMLWriter $objWriter, ?int $value, string $tag, bool $surface2D, int $default = 0): void
+    {
+        if ($value === null && $surface2D) {
+            $value = $default;
+        }
+        if ($value !== null) {
+            $objWriter->startElement($tag);
+            $objWriter->writeAttribute('val', "$value");
+            $objWriter->endElement();
+        }
     }
 
     /**
@@ -420,6 +424,17 @@ class Chart extends WriterPart
             $objWriter->endElement(); // c:txPr
         }
 
+        if ($chartLayout->getNumFmtCode() !== '') {
+            $objWriter->startElement('c:numFmt');
+            $objWriter->writeAttribute('formatCode', $chartLayout->getnumFmtCode());
+            $objWriter->writeAttribute('sourceLinked', (string) (int) $chartLayout->getnumFmtLinked());
+            $objWriter->endElement(); // c:numFmt
+        }
+        if ($chartLayout->getDLblPos() !== '') {
+            $objWriter->startElement('c:dLblPos');
+            $objWriter->writeAttribute('val', $chartLayout->getDLblPos());
+            $objWriter->endElement(); // c:dLblPos
+        }
         $this->writeDataLabelsBool($objWriter, 'showLegendKey', $chartLayout->getShowLegendKey());
         $this->writeDataLabelsBool($objWriter, 'showVal', $chartLayout->getShowVal());
         $this->writeDataLabelsBool($objWriter, 'showCatName', $chartLayout->getShowCatName());
@@ -556,6 +571,23 @@ class Chart extends WriterPart
             $objWriter->startElement('c:tickLblPos');
             $objWriter->writeAttribute('val', $yAxis->getAxisOptionsProperty('axis_labels'));
             $objWriter->endElement();
+        }
+
+        $textRotation = $yAxis->getAxisOptionsProperty('textRotation');
+        if (is_numeric($textRotation)) {
+            $objWriter->startElement('c:txPr');
+            $objWriter->startElement('a:bodyPr');
+            $objWriter->writeAttribute('rot', Properties::angleToXml((float) $textRotation));
+            $objWriter->endElement(); // a:bodyPr
+            $objWriter->startElement('a:lstStyle');
+            $objWriter->endElement(); // a:lstStyle
+            $objWriter->startElement('a:p');
+            $objWriter->startElement('a:pPr');
+            $objWriter->startElement('a:defRPr');
+            $objWriter->endElement(); // a:defRPr
+            $objWriter->endElement(); // a:pPr
+            $objWriter->endElement(); // a:p
+            $objWriter->endElement(); // c:txPr
         }
 
         $objWriter->startElement('c:spPr');
@@ -733,6 +765,23 @@ class Chart extends WriterPart
             $objWriter->endElement();
         }
 
+        $textRotation = $xAxis->getAxisOptionsProperty('textRotation');
+        if (is_numeric($textRotation)) {
+            $objWriter->startElement('c:txPr');
+            $objWriter->startElement('a:bodyPr');
+            $objWriter->writeAttribute('rot', Properties::angleToXml((float) $textRotation));
+            $objWriter->endElement(); // a:bodyPr
+            $objWriter->startElement('a:lstStyle');
+            $objWriter->endElement(); // a:lstStyle
+            $objWriter->startElement('a:p');
+            $objWriter->startElement('a:pPr');
+            $objWriter->startElement('a:defRPr');
+            $objWriter->endElement(); // a:defRPr
+            $objWriter->endElement(); // a:pPr
+            $objWriter->endElement(); // a:p
+            $objWriter->endElement(); // c:txPr
+        }
+
         $objWriter->startElement('c:spPr');
         $this->writeColor($objWriter, $xAxis->getFillColorObject());
         $this->writeLineStyles($objWriter, $xAxis);
@@ -875,10 +924,6 @@ class Chart extends WriterPart
         $objWriter->writeAttribute('val', "$val");
         $objWriter->endElement(); // c:idx
 
-        $objWriter->startElement('c:bubble3D');
-        $objWriter->writeAttribute('val', '0');
-        $objWriter->endElement(); // c:bubble3D
-
         $objWriter->startElement('c:spPr');
         $this->writeColor($objWriter, $fillColor);
         $objWriter->endElement(); // c:spPr
@@ -906,8 +951,8 @@ class Chart extends WriterPart
             $objWriter->endElement();
         }
 
-        if ($plotGroup->getPlotGrouping() !== null) {
-            $plotGroupingType = $plotGroup->getPlotGrouping();
+        $plotGroupingType = $plotGroup->getPlotGrouping();
+        if ($plotGroupingType !== null && $groupType !== DataSeries::TYPE_SURFACECHART && $groupType !== DataSeries::TYPE_SURFACECHART_3D) {
             $objWriter->startElement('c:grouping');
             $objWriter->writeAttribute('val', $plotGroupingType);
             $objWriter->endElement();
@@ -1052,13 +1097,11 @@ class Chart extends WriterPart
                 $catIsMultiLevelSeries = $catIsMultiLevelSeries || $plotSeriesCategory->isMultiLevelSeries();
 
                 if (($groupType == DataSeries::TYPE_PIECHART) || ($groupType == DataSeries::TYPE_PIECHART_3D) || ($groupType == DataSeries::TYPE_DONUTCHART)) {
-                    if ($plotGroup->getPlotStyle() !== null) {
-                        $plotStyle = $plotGroup->getPlotStyle();
-                        if ($plotStyle) {
-                            $objWriter->startElement('c:explosion');
-                            $objWriter->writeAttribute('val', '25');
-                            $objWriter->endElement();
-                        }
+                    $plotStyle = $plotGroup->getPlotStyle();
+                    if (is_numeric($plotStyle)) {
+                        $objWriter->startElement('c:explosion');
+                        $objWriter->writeAttribute('val', $plotStyle);
+                        $objWriter->endElement();
                     }
                 }
 

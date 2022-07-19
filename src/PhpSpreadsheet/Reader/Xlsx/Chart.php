@@ -72,12 +72,18 @@ class Chart
         $rotX = $rotY = $rAngAx = $perspective = null;
         $xAxis = new Axis();
         $yAxis = new Axis();
+        $autoTitleDeleted = null;
         foreach ($chartElementsC as $chartElementKey => $chartElement) {
             switch ($chartElementKey) {
                 case 'chart':
                     foreach ($chartElement as $chartDetailsKey => $chartDetails) {
                         $chartDetailsC = $chartDetails->children($this->cNamespace);
                         switch ($chartDetailsKey) {
+                            case 'autoTitleDeleted':
+                                /** @var bool */
+                                $autoTitleDeleted = self::getAttribute($chartElementsC->chart->autoTitleDeleted, 'val', 'boolean');
+
+                                break;
                             case 'view3D':
                                 $rotX = self::getAttribute($chartDetails->rotX, 'val', 'integer');
                                 $rotY = self::getAttribute($chartDetails->rotY, 'val', 'integer');
@@ -228,7 +234,7 @@ class Chart
                                         case 'doughnutChart':
                                         case 'pieChart':
                                         case 'pie3DChart':
-                                            $explosion = isset($chartDetail->ser->explosion);
+                                            $explosion = self::getAttribute($chartDetail->ser->explosion, 'val', 'string');
                                             $plotSer = $this->chartDataSeries($chartDetail, $chartDetailKey);
                                             $plotSer->setPlotStyle("$explosion");
                                             $plotSeries[] = $plotSer;
@@ -324,6 +330,9 @@ class Chart
             }
         }
         $chart = new \PhpOffice\PhpSpreadsheet\Chart\Chart($chartName, $title, $legend, $plotArea, $plotVisOnly, (string) $dispBlanksAs, $XaxisLabel, $YaxisLabel, $xAxis, $yAxis);
+        if (is_bool($autoTitleDeleted)) {
+            $chart->setAutoTitleDeleted($autoTitleDeleted);
+        }
         if (is_int($rotX)) {
             $chart->setRotX($rotX);
         }
@@ -967,6 +976,13 @@ class Chart
     {
         $plotAttributes = [];
         if (isset($chartDetail->dLbls)) {
+            if (isset($chartDetail->dLbls->dLblPos)) {
+                $plotAttributes['dLblPos'] = self::getAttribute($chartDetail->dLbls->dLblPos, 'val', 'string');
+            }
+            if (isset($chartDetail->dLbls->numFmt)) {
+                $plotAttributes['numFmtCode'] = self::getAttribute($chartDetail->dLbls->numFmt, 'formatCode', 'string');
+                $plotAttributes['numFmtLinked'] = self::getAttribute($chartDetail->dLbls->numFmt, 'sourceLinked', 'boolean');
+            }
             if (isset($chartDetail->dLbls->showLegendKey)) {
                 $plotAttributes['showLegendKey'] = self::getAttribute($chartDetail->dLbls->showLegendKey, 'val', 'string');
             }
@@ -1262,6 +1278,16 @@ class Chart
         }
         if (isset($chartDetail->minorUnit)) {
             $whichAxis->setAxisOption('minor_unit', (string) self::getAttribute($chartDetail->minorUnit, 'val', 'string'));
+        }
+        if (isset($chartDetail->txPr)) {
+            $children = $chartDetail->txPr->children($this->aNamespace);
+            if (isset($children->bodyPr)) {
+                /** @var string */
+                $textRotation = self::getAttribute($children->bodyPr, 'rot', 'string');
+                if (is_numeric($textRotation)) {
+                    $whichAxis->setAxisOption('textRotation', (string) Properties::xmlToAngle($textRotation));
+                }
+            }
         }
     }
 }
