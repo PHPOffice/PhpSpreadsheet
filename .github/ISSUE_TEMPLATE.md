@@ -34,7 +34,7 @@ If this is an issue with reading a specific spreadsheet file, then it may be app
 - [ ] Writer
 - [ ] Styles
 - [ ] Data Validations
-- [ ] Formula Calulations
+- [ ] Formula Calculations
 - [ ] Charts
 - [ ] AutoFilter
 - [ ] Form Elements
