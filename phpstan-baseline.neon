@@ -2271,51 +2271,6 @@ parameters:
 			path: src/PhpSpreadsheet/Shared/Escher/DggContainer/BstoreContainer/BSE.php
 
 		-
-			message: "#^Cannot access offset 0 on array\\|false\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/Font.php
-
-		-
-			message: "#^Cannot access offset 2 on array\\|false\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/Font.php
-
-		-
-			message: "#^Cannot access offset 4 on array\\|false\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/Font.php
-
-		-
-			message: "#^Cannot access offset 6 on array\\|false\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/Font.php
-
-		-
-			message: "#^Parameter \\#1 \\$size of function imagettfbbox expects float, float\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/Font.php
-
-		-
-			message: "#^Parameter \\#2 \\$defaultFont of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Drawing\\:\\:pixelsToCellDimension\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font, PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/Font.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Font\\:\\:\\$autoSizeMethods has no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/Font.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/Font.php
-
-		-
-			message: "#^Variable \\$cellText on left side of \\?\\? always exists and is not nullable\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/Font.php
-
-		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\JAMA\\\\EigenvalueDecomposition\\:\\:\\$cdivi has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/JAMA/EigenvalueDecomposition.php
