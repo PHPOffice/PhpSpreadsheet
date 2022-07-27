@@ -7,6 +7,7 @@ use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Style\Style;
 use PhpOffice\PhpSpreadsheet\Worksheet\Iterator;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use Throwable;
 
 class Spreadsheet
 {
@@ -1133,7 +1134,10 @@ class Spreadsheet
         // @phpstan-ignore-next-line
         foreach ($this as $key => $val) {
             if (is_object($val) || (is_array($val))) {
-                $this->{$key} = unserialize(serialize($val));
+                try {
+                    $this->{$key} = unserialize(serialize($val));
+                } catch (Throwable $e) {
+                }
             }
         }
     }
