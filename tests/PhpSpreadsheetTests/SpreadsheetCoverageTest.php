@@ -152,7 +152,10 @@ class SpreadsheetCoverageTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function testCopy(): void
+    /**
+     * @dataProvider providerCloneOrCopy
+     */
+    public function testCloneOrCopy(bool $clone): void
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
@@ -166,7 +169,7 @@ class SpreadsheetCoverageTest extends TestCase
         $sheet->getCell('A3')->setValue('this is a3');
         $sheet->getCell('B1')->setValue('this is b1');
         $sheet->getCell('B2')->setValue('this is b2');
-        $copied = $spreadsheet->copy();
+        $copied = $clone ? (clone $spreadsheet) : $spreadsheet->copy();
         $copysheet = $copied->getActiveSheet();
         $copysheet->getStyle('A2')->getFont()->setName('font12');
         $copysheet->getCell('A2')->setValue('this was a2');
@@ -197,13 +200,11 @@ class SpreadsheetCoverageTest extends TestCase
         $copied->disconnectWorksheets();
     }
 
-    public function testClone(): void
+    public function providerCloneOrCopy(): array
     {
-        $this->expectException(SSException::class);
-        $this->expectExceptionMessage('Do not use clone on spreadsheet. Use spreadsheet->copy() instead.');
-        $spreadsheet = new Spreadsheet();
-        $clone = clone $spreadsheet;
-        $spreadsheet->disconnectWorksheets();
-        $clone->disconnectWorksheets();
+        return [
+            'clone' => [true],
+            'copy' => [false],
+        ];
     }
 }
