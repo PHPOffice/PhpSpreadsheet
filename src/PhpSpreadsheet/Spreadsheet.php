@@ -3,11 +3,13 @@
 namespace PhpOffice\PhpSpreadsheet;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx as XlsxReader;
+use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Style\Style;
 use PhpOffice\PhpSpreadsheet\Worksheet\Iterator;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
-use Throwable;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx as XlsxWriter;
 
 class Spreadsheet
 {
@@ -1115,31 +1117,30 @@ class Spreadsheet
     }
 
     /**
-     * Copy workbook.
-     * This had been documented as != clone, but I don't know why.
-     * For now, it is the same as clone.
+     * Copy workbook (!= clone!).
      *
      * @return Spreadsheet
      */
     public function copy()
     {
-        return clone $this;
+        $filename = File::temporaryFilename();
+        $writer = new XlsxWriter($this);
+        $writer->setIncludeCharts(true);
+        $writer->save($filename);
+
+        $reader = new XlsxReader();
+        $reader->setIncludeCharts(true);
+        $reloadedSpreadsheet = $reader->load($filename);
+        unlink($filename);
+
+        return $reloadedSpreadsheet;
     }
 
-    /**
-     * Implement PHP __clone to create a deep clone, not just a shallow copy.
-     */
     public function __clone()
     {
-        // @phpstan-ignore-next-line
-        foreach ($this as $key => $val) {
-            if (is_object($val) || (is_array($val))) {
-                try {
-                    $this->{$key} = unserialize(serialize($val));
-                } catch (Throwable $e) {
-                }
-            }
-        }
+        throw new Exception(
+            'Do not use clone on spreadsheet. Use spreadsheet->copy() instead.'
+        );
     }
 
     /**
