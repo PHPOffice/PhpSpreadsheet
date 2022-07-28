@@ -743,7 +743,7 @@ class Matrix
                         $value = trim($value, '"');
                         $validValues &= StringHelper::convertToNumberIfFraction($value);
                     }
-                    if (is_array($value)) {
+                    if (!is_numeric($value) && is_array($value)) {
                         $value = Functions::flattenArray($value)[0];
                     }
                     if ($validValues) {

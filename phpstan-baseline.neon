@@ -2377,7 +2377,7 @@ parameters:
 
 		-
 			message: "#^Result of && is always false\\.$#"
-			count: 10
+			count: 11
 			path: src/PhpSpreadsheet/Shared/JAMA/Matrix.php
 
 		-
