@@ -2861,11 +2861,6 @@ parameters:
 			path: src/PhpSpreadsheet/Spreadsheet.php
 
 		-
-			message: "#^Comparison operation \"\\<\\=\" between int\\<min, \\-1\\> and 1000 is always true\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Spreadsheet.php
-
-		-
 			message: "#^Parameter \\#1 \\$worksheet of method PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\:\\:getIndex\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet, PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Spreadsheet.php
@@ -2876,17 +2871,7 @@ parameters:
 			path: src/PhpSpreadsheet/Spreadsheet.php
 
 		-
-			message: "#^Result of \\|\\| is always true\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Spreadsheet.php
-
-		-
 			message: "#^Strict comparison using \\=\\=\\= between PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet and null will always evaluate to false\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Spreadsheet.php
-
-		-
-			message: "#^Strict comparison using \\=\\=\\= between string and null will always evaluate to false\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Spreadsheet.php
 

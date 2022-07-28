@@ -47,7 +47,7 @@ class ErrorValue
             return false;
         }
 
-        return in_array($value, ExcelError::$errorCodes, true);
+        return in_array($value, ExcelError::ERROR_CODES, true);
     }
 
     /**

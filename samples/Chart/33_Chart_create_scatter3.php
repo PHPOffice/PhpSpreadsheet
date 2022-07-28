@@ -125,6 +125,7 @@ $xAxis = new Axis();
 //$xAxis->setAxisNumberProperties(Properties::FORMAT_CODE_DATE );
 $xAxis->setAxisNumberProperties(Properties::FORMAT_CODE_DATE_ISO8601, true);
 $xAxis->setAxisOption('textRotation', '45');
+$xAxis->setAxisOption('hidden', '1');
 
 $yAxis = new Axis();
 $yAxis->setLineStyleProperties(
@@ -135,6 +136,7 @@ $yAxis->setLineStyleProperties(
     Properties::LINE_STYLE_JOIN_BEVEL
 );
 $yAxis->setLineColorProperties('ffc000', null, ChartColor::EXCEL_COLOR_TYPE_RGB);
+$yAxis->setAxisOption('hidden', '1');
 
 // Build the dataseries
 $series = new DataSeries(
@@ -151,11 +153,12 @@ $series = new DataSeries(
 
 // Set the series in the plot area
 $plotArea = new PlotArea(null, [$series]);
+$plotArea->setNoFill(true);
 // Set the chart legend
 $legend = new ChartLegend(ChartLegend::POSITION_TOPRIGHT, null, false);
 
 $title = new Title('Test Scatter Trend Chart');
-$yAxisLabel = new Title('Value ($k)');
+//$yAxisLabel = new Title('Value ($k)');
 
 // Create the chart
 $chart = new Chart(
@@ -166,11 +169,12 @@ $chart = new Chart(
     true, // plotVisibleOnly
     DataSeries::EMPTY_AS_GAP, // displayBlanksAs
     null, // xAxisLabel
-    $yAxisLabel,  // yAxisLabel
+    null, //$yAxisLabel,  // yAxisLabel
     // added xAxis for correct date display
     $xAxis, // xAxis
     $yAxis, // yAxis
 );
+$chart->setNoFill(true);
 
 // Set the position where the chart should appear in the worksheet
 $chart->setTopLeftPosition('A7');

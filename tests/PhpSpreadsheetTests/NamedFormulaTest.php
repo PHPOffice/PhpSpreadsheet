@@ -133,4 +133,10 @@ class NamedFormulaTest extends TestCase
             $formula->getValue()
         );
     }
+
+    public function testRemoveNonExistentNamedFormula(): void
+    {
+        self::assertCount(0, $this->spreadsheet->getNamedFormulae());
+        $this->spreadsheet->removeNamedFormula('Any');
+    }
 }
