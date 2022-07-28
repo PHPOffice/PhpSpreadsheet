@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Chart;
 
+use PhpOffice\PhpSpreadsheet\Chart\ChartColor;
 use PhpOffice\PhpSpreadsheet\Chart\Properties;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx as XlsxReader;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
@@ -444,6 +445,90 @@ class Charts32ScatterTest extends AbstractFunctional
         self::assertNull($values->getMarkerFillColor()->getAlpha());
         self::assertSame('accent4', $values->getMarkerBorderColor()->getValue());
         self::assertSame('schemeClr', $values->getMarkerBorderColor()->getType());
+
+        $reloadedSpreadsheet->disconnectWorksheets();
+    }
+
+    public function testScatter9(): void
+    {
+        // gradient testing
+        $file = self::DIRECTORY . '32readwriteScatterChart9.xlsx';
+        $reader = new XlsxReader();
+        $reader->setIncludeCharts(true);
+        $spreadsheet = $reader->load($file);
+        $sheet = $spreadsheet->getActiveSheet();
+        self::assertSame(1, $sheet->getChartCount());
+        /** @var callable */
+        $callableReader = [$this, 'readCharts'];
+        /** @var callable */
+        $callableWriter = [$this, 'writeCharts'];
+        $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, 'Xlsx', $callableReader, $callableWriter);
+        $spreadsheet->disconnectWorksheets();
+
+        $sheet = $reloadedSpreadsheet->getActiveSheet();
+        self::assertSame('Worksheet', $sheet->getTitle());
+        $charts = $sheet->getChartCollection();
+        self::assertCount(1, $charts);
+        $chart = $charts[0];
+        self::assertNotNull($chart);
+        self::assertFalse($chart->getNoFill());
+        $plotArea = $chart->getPlotArea();
+        self::assertNotNull($plotArea);
+        self::assertFalse($plotArea->getNoFill());
+        self::assertEquals(315.0, $plotArea->getGradientFillAngle());
+        $stops = $plotArea->getGradientFillStops();
+        self::assertCount(3, $stops);
+        self::assertEquals(0.43808, $stops[0][0]);
+        self::assertEquals(0, $stops[1][0]);
+        self::assertEquals(0.91, $stops[2][0]);
+        $color = $stops[0][1];
+        self::assertInstanceOf(ChartColor::class, $color);
+        self::assertSame('srgbClr', $color->getType());
+        self::assertSame('CDDBEC', $color->getValue());
+        self::assertNull($color->getAlpha());
+        self::assertSame(20, $color->getBrightness());
+        $color = $stops[1][1];
+        self::assertInstanceOf(ChartColor::class, $color);
+        self::assertSame('srgbClr', $color->getType());
+        self::assertSame('FFC000', $color->getValue());
+        self::assertNull($color->getAlpha());
+        self::assertNull($color->getBrightness());
+        $color = $stops[2][1];
+        self::assertInstanceOf(ChartColor::class, $color);
+        self::assertSame('srgbClr', $color->getType());
+        self::assertSame('00B050', $color->getValue());
+        self::assertNull($color->getAlpha());
+        self::assertSame(4, $color->getBrightness());
+
+        $reloadedSpreadsheet->disconnectWorksheets();
+    }
+
+    public function testScatter10(): void
+    {
+        // nofill for Chart and PlotArea, hidden Axis
+        $file = self::DIRECTORY . '32readwriteScatterChart10.xlsx';
+        $reader = new XlsxReader();
+        $reader->setIncludeCharts(true);
+        $spreadsheet = $reader->load($file);
+        $sheet = $spreadsheet->getActiveSheet();
+        self::assertSame(1, $sheet->getChartCount());
+        /** @var callable */
+        $callableReader = [$this, 'readCharts'];
+        /** @var callable */
+        $callableWriter = [$this, 'writeCharts'];
+        $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, 'Xlsx', $callableReader, $callableWriter);
+        $spreadsheet->disconnectWorksheets();
+
+        $sheet = $reloadedSpreadsheet->getActiveSheet();
+        self::assertSame('Worksheet', $sheet->getTitle());
+        $charts = $sheet->getChartCollection();
+        self::assertCount(1, $charts);
+        $chart = $charts[0];
+        self::assertNotNull($chart);
+        self::assertTrue($chart->getNoFill());
+        $plotArea = $chart->getPlotArea();
+        self::assertNotNull($plotArea);
+        self::assertTrue($plotArea->getNoFill());
 
         $reloadedSpreadsheet->disconnectWorksheets();
     }
