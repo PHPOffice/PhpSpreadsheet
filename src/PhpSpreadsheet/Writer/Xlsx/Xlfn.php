@@ -144,6 +144,8 @@ class Xlfn
         . '|call'
         . '|let'
         . '|register[.]id'
+        . '|textafter'
+        . '|textbefore'
         . '|valuetotext'
         . ')(?=\\s*[(])/i';
 

@@ -85,6 +85,18 @@ class DefinedNameTest extends TestCase
         self::assertCount(1, $this->spreadsheet->getDefinedNames());
     }
 
+    public function testRemoveGlobalDefinedName(): void
+    {
+        $this->spreadsheet->addDefinedName(
+            DefinedName::createInstance('Any', $this->spreadsheet->getActiveSheet(), '=A1')
+        );
+        self::assertCount(1, $this->spreadsheet->getDefinedNames());
+
+        $this->spreadsheet->removeDefinedName('Any');
+        self::assertCount(0, $this->spreadsheet->getDefinedNames());
+        $this->spreadsheet->removeDefinedName('Other');
+    }
+
     public function testRemoveGlobalDefinedNameWhenDuplicateNames(): void
     {
         $this->spreadsheet->addDefinedName(

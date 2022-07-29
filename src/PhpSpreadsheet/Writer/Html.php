@@ -127,6 +127,13 @@ class Html extends BaseWriter
     protected $isPdf = false;
 
     /**
+     * Is the current writer creating mPDF?
+     *
+     * @var bool
+     */
+    protected $isMPdf = false;
+
+    /**
      * Generate the Navigation block.
      *
      * @var bool
@@ -1001,6 +1008,14 @@ class Html extends BaseWriter
             $css['text-align'] = $textAlign;
             if (in_array($textAlign, ['left', 'right'])) {
                 $css['padding-' . $textAlign] = (string) ((int) $alignment->getIndent() * 9) . 'px';
+            }
+        }
+        $rotation = $alignment->getTextRotation();
+        if ($rotation !== 0 && $rotation !== Alignment::TEXTROTATION_STACK_PHPSPREADSHEET) {
+            if ($this->isMPdf) {
+                $css['text-rotate'] = "$rotation";
+            } else {
+                $css['transform'] = "rotate({$rotation}deg)";
             }
         }
 

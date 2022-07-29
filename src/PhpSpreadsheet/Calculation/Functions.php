@@ -573,24 +573,20 @@ class Functions
             return (array) $array;
         }
 
-        $arrayValues = [];
-        foreach ($array as $value) {
+        $flattened = [];
+        $stack = array_values($array);
+
+        while ($stack) {
+            $value = array_shift($stack);
+
             if (is_array($value)) {
-                foreach ($value as $val) {
-                    if (is_array($val)) {
-                        foreach ($val as $v) {
-                            $arrayValues[] = $v;
-                        }
-                    } else {
-                        $arrayValues[] = $val;
-                    }
-                }
+                array_unshift($stack, ...array_values($value));
             } else {
-                $arrayValues[] = $value;
+                $flattened[] = $value;
             }
         }
 
-        return $arrayValues;
+        return $flattened;
     }
 
     /**
