@@ -106,11 +106,17 @@ class Chart extends WriterPart
         $objWriter->writeAttribute('val', '0');
         $objWriter->endElement();
 
-        $objWriter->endElement();
+        $objWriter->endElement(); // c:chart
+        if ($chart->getNoFill()) {
+            $objWriter->startElement('c:spPr');
+            $objWriter->startElement('a:noFill');
+            $objWriter->endElement(); // a:noFill
+            $objWriter->endElement(); // c:spPr
+        }
 
         $this->writePrintSettings($objWriter);
 
-        $objWriter->endElement();
+        $objWriter->endElement(); // c:chartSpace
 
         // Return
         return $objWriter->getData();
@@ -360,8 +366,35 @@ class Chart extends WriterPart
                 $this->writeSerAxis($objWriter, $id2, $id3);
             }
         }
+        $stops = $plotArea->getGradientFillStops();
+        if ($plotArea->getNoFill() || !empty($stops)) {
+            $objWriter->startElement('c:spPr');
+            if ($plotArea->getNoFill()) {
+                $objWriter->startElement('a:noFill');
+                $objWriter->endElement(); // a:noFill
+            }
+            if (!empty($stops)) {
+                $objWriter->startElement('a:gradFill');
+                $objWriter->startElement('a:gsLst');
+                foreach ($stops as $stop) {
+                    $objWriter->startElement('a:gs');
+                    $objWriter->writeAttribute('pos', (string) (Properties::PERCENTAGE_MULTIPLIER * (float) $stop[0]));
+                    $this->writeColor($objWriter, $stop[1], false);
+                    $objWriter->endElement(); // a:gs
+                }
+                $objWriter->endElement(); // a:gsLst
+                $angle = $plotArea->getGradientFillAngle();
+                if ($angle !== null) {
+                    $objWriter->startElement('a:lin');
+                    $objWriter->writeAttribute('ang', Properties::angleToXml($angle));
+                    $objWriter->endElement(); // a:lin
+                }
+                $objWriter->endElement(); // a:gradFill
+            }
+            $objWriter->endElement(); // c:spPr
+        }
 
-        $objWriter->endElement();
+        $objWriter->endElement(); // c:plotArea
     }
 
     private function writeDataLabelsBool(XMLWriter $objWriter, string $name, ?bool $value): void
@@ -492,7 +525,7 @@ class Chart extends WriterPart
         $objWriter->endElement(); // c:scaling
 
         $objWriter->startElement('c:delete');
-        $objWriter->writeAttribute('val', '0');
+        $objWriter->writeAttribute('val', $yAxis->getAxisOptionsProperty('hidden') ?? '0');
         $objWriter->endElement();
 
         $objWriter->startElement('c:axPos');
@@ -682,7 +715,7 @@ class Chart extends WriterPart
         $objWriter->endElement(); // c:scaling
 
         $objWriter->startElement('c:delete');
-        $objWriter->writeAttribute('val', '0');
+        $objWriter->writeAttribute('val', $xAxis->getAxisOptionsProperty('hidden') ?? '0');
         $objWriter->endElement();
 
         $objWriter->startElement('c:axPos');
@@ -1612,7 +1645,18 @@ class Chart extends WriterPart
             if (is_numeric($alpha)) {
                 $objWriter->startElement('a:alpha');
                 $objWriter->writeAttribute('val', ChartColor::alphaToXml((int) $alpha));
-                $objWriter->endElement();
+                $objWriter->endElement(); // a:alpha
+            }
+            $brightness = $chartColor->getBrightness();
+            if (is_numeric($brightness)) {
+                $brightness = (int) $brightness;
+                $lumOff = 100 - $brightness;
+                $objWriter->startElement('a:lumMod');
+                $objWriter->writeAttribute('val', ChartColor::alphaToXml($brightness));
+                $objWriter->endElement(); // a:lumMod
+                $objWriter->startElement('a:lumOff');
+                $objWriter->writeAttribute('val', ChartColor::alphaToXml($lumOff));
+                $objWriter->endElement(); // a:lumOff
             }
             $objWriter->endElement(); //a:srgbClr/schemeClr/prstClr
             if ($solidFill) {

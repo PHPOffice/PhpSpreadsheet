@@ -133,4 +133,10 @@ class NamedRangeTest extends TestCase
             $range->getValue()
         );
     }
+
+    public function testRemoveNonExistentNamedRange(): void
+    {
+        self::assertCount(0, $this->spreadsheet->getNamedRanges());
+        $this->spreadsheet->removeNamedRange('Any');
+    }
 }
