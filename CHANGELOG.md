@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Added
 
-- Implementation of the `TEXTBEFORE()` and `TEXTAFTER()` Excel Functions
+- Implementation of the new `TEXTBEFORE()`, `TEXTAFTER()` and `TEXTSPLIT()` Excel Functions
 
 ### Changed
 
