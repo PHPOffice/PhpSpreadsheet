@@ -516,11 +516,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/FormulaParser.php
 
 		-
-			message: "#^Strict comparison using \\=\\=\\= between string and null will always evaluate to false\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/FormulaParser.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Functions\\:\\:ifCondition\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Functions.php
