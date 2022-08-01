@@ -147,6 +147,9 @@ class Chart
     /** @var bool */
     private $noFill = false;
 
+    /** @var bool */
+    private $roundedCorners = false;
+
     /**
      * Create a new Chart.
      * majorGridlines and minorGridlines are deprecated, moved to Axis.
@@ -759,6 +762,18 @@ class Chart
     public function setNoFill(bool $noFill): self
     {
         $this->noFill = $noFill;
+
+        return $this;
+    }
+
+    public function getRoundedCorners(): bool
+    {
+        return $this->roundedCorners;
+    }
+
+    public function setRoundedCorners(bool $roundedCorners): self
+    {
+        $this->roundedCorners = $roundedCorners;
 
         return $this;
     }
