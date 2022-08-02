@@ -71,15 +71,17 @@ or the appropriate PDF Writer wrapper for the library that you have chosen to in
 
 #### Chart Export
 
-For Chart export, we support, which you will also need to install yourself
- - jpgraph/jpgraph
+For Chart export, we support following packages, which you will also need to install yourself using `composer require`
+ - [jpgraph/jpgraph](https://packagist.org/packages/jpgraph/jpgraph) (this package was abandoned at version 4.0. 
+   You can manually download the latest version that supports PHP 8 and above from [jpgraph.net](https://jpgraph.net/))
+ - [mitoteam/jpgraph](https://packagist.org/packages/mitoteam/jpgraph) (fork with php 8.1 support)
 
 and then configure PhpSpreadsheet using:
 ```php
-Settings::setChartRenderer(\PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph::class);
+Settings::setChartRenderer(\PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph::class); // to use jpgraph/jpgraph
+//or
+Settings::setChartRenderer(\PhpOffice\PhpSpreadsheet\Chart\Renderer\MtJpGraphRenderer::class); // to use mitoteam/jpgraph
 ```
-
-You can `composer/require` the github version of jpgraph, but this was abandoned at version 4.0; or manually download the latest version that supports PHP 8 and above from [jpgraph.net](https://jpgraph.net/)
 
 ## Documentation
 
