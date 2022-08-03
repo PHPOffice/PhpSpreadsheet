@@ -141,6 +141,12 @@ class Chart
     /** @var bool */
     private $oneCellAnchor = false;
 
+    /** @var bool */
+    private $autoTitleDeleted = false;
+
+    /** @var bool */
+    private $noFill = false;
+
     /**
      * Create a new Chart.
      * majorGridlines and minorGridlines are deprecated, moved to Axis.
@@ -729,6 +735,30 @@ class Chart
     public function setOneCellAnchor(bool $oneCellAnchor): self
     {
         $this->oneCellAnchor = $oneCellAnchor;
+
+        return $this;
+    }
+
+    public function getAutoTitleDeleted(): bool
+    {
+        return $this->autoTitleDeleted;
+    }
+
+    public function setAutoTitleDeleted(bool $autoTitleDeleted): self
+    {
+        $this->autoTitleDeleted = $autoTitleDeleted;
+
+        return $this;
+    }
+
+    public function getNoFill(): bool
+    {
+        return $this->noFill;
+    }
+
+    public function setNoFill(bool $noFill): self
+    {
+        $this->noFill = $noFill;
 
         return $this;
     }

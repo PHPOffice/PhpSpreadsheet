@@ -536,7 +536,7 @@ class DataSeriesValues extends Properties
     }
 
     /**
-     * Smooth Line.
+     * Smooth Line. Must be specified for both DataSeries and DataSeriesValues.
      *
      * @var bool
      */

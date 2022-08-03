@@ -98,7 +98,7 @@ return [
             ['10y1', 7.0],
             ['10y2', 10.0],
         ],
-        'NaN',
+        -5,
     ],
     [
         '#REF!',
@@ -111,9 +111,9 @@ return [
         '#REF!',
         '10y2',
         [
-            2.0,
-            7.0,
-            10.0,
+            [2.0],
+            [7.0],
+            [10.0],
         ],
         2.0,
     ],
@@ -162,5 +162,35 @@ return [
         ],
         3,
         null,
+    ],
+    'issue2934' => [
+        'Red',
+        102,
+        [
+            [null, null],
+            [102, 'Red'],
+        ],
+        2,
+        false,
+    ],
+    'string supplied as index' => [
+        '#VALUE!',
+        102,
+        [
+            [null, null],
+            [102, 'Red'],
+        ],
+        'xyz',
+        false,
+    ],
+    'num error propagated' => [
+        '#NUM!',
+        102,
+        [
+            [null, null],
+            [102, 'Red'],
+        ],
+        '=SQRT(-1)',
+        false,
     ],
 ];

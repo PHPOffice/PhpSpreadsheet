@@ -32,13 +32,11 @@ $spreadsheet->getActiveSheet()->setShowGridLines(false);
 $helper->log('Set orientation to landscape');
 $spreadsheet->getActiveSheet()->getPageSetup()->setOrientation(PageSetup::ORIENTATION_LANDSCAPE);
 
-if (\PHP_VERSION_ID < 80000) {
-    $helper->log('Write to Dompdf');
-    $writer = new Dompdf($spreadsheet);
-    $filename = $helper->getFileName('21b_Pdf_dompdf.xlsx', 'pdf');
-    $writer->setEditHtmlCallback('replaceBody');
-    $writer->save($filename);
-}
+$helper->log('Write to Dompdf');
+$writer = new Dompdf($spreadsheet);
+$filename = $helper->getFileName('21b_Pdf_dompdf.xlsx', 'pdf');
+$writer->setEditHtmlCallback('replaceBody');
+$writer->save($filename);
 
 $helper->log('Write to Mpdf');
 $writer = new Mpdf($spreadsheet);
@@ -46,10 +44,8 @@ $filename = $helper->getFileName('21b_Pdf_mpdf.xlsx', 'pdf');
 $writer->setEditHtmlCallback('replaceBody');
 $writer->save($filename);
 
-if (\PHP_VERSION_ID < 80000) {
-    $helper->log('Write to Tcpdf');
-    $writer = new Tcpdf($spreadsheet);
-    $filename = $helper->getFileName('21b_Pdf_tcpdf.xlsx', 'pdf');
-    $writer->setEditHtmlCallback('replaceBody');
-    $writer->save($filename);
-}
+$helper->log('Write to Tcpdf');
+$writer = new Tcpdf($spreadsheet);
+$filename = $helper->getFileName('21b_Pdf_tcpdf.xlsx', 'pdf');
+$writer->setEditHtmlCallback('replaceBody');
+$writer->save($filename);
