@@ -27,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Fixed
 
 - Fully flatten an array [Issue #2955](https://github.com/PHPOffice/PhpSpreadsheet/issues/2955) [PR #2956](https://github.com/PHPOffice/PhpSpreadsheet/pull/2956)
+- cellExists() and getCell() methods should support UTF-8 named cells [Issue #2987](https://github.com/PHPOffice/PhpSpreadsheet/issues/2987) [PR #2988](https://github.com/PHPOffice/PhpSpreadsheet/pull/2988)
 
 ## 1.24.1 - 2022-07-18
 
