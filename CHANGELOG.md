@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Added
 
 - Implementation of the new `TEXTBEFORE()`, `TEXTAFTER()` and `TEXTSPLIT()` Excel Functions
+- Implementation of the `ARRAYTOTEXT()` Excel Function
 
 ### Changed
 
