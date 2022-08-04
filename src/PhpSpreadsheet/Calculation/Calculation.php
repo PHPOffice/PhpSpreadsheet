@@ -304,8 +304,8 @@ class Calculation
         ],
         'ARRAYTOTEXT' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '?',
+            'functionCall' => [TextData\Text::class, 'fromArray'],
+            'argumentCount' => '1,2',
         ],
         'ASC' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
