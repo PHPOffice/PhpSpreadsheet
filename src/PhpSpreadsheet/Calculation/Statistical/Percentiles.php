@@ -45,7 +45,7 @@ class Percentiles
         $mValueCount = count($mArgs);
         if ($mValueCount > 0) {
             sort($mArgs);
-            $count = Counts::COUNT($mArgs);
+            $count = Counts::count($mArgs);
             $index = $entry * ($count - 1);
             $iBase = floor($index);
             if ($index == $iBase) {

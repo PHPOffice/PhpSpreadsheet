@@ -16,13 +16,13 @@ class ComplexTest extends TestCase
     public function testCOMPLEX($expectedResult, ...$args): void
     {
         if (count($args) === 0) {
-            $result = Complex::COMPLEX();
+            $result = Complex::complex();
         } elseif (count($args) === 1) {
-            $result = Complex::COMPLEX($args[0]);
+            $result = Complex::complex($args[0]);
         } elseif (count($args) === 2) {
-            $result = Complex::COMPLEX($args[0], $args[1]);
+            $result = Complex::complex($args[0], $args[1]);
         } else {
-            $result = Complex::COMPLEX($args[0], $args[1], $args[2]);
+            $result = Complex::complex($args[0], $args[1], $args[2]);
         }
         self::assertEquals($expectedResult, $result);
     }

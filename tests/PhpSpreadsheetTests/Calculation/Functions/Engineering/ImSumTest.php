@@ -29,7 +29,7 @@ class ImSumTest extends TestCase
      */
     public function testIMSUM($expectedResult, ...$args): void
     {
-        $result = ComplexOperations::IMSUM(...$args);
+        $result = ComplexOperations::sum(...$args);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()

@@ -31,7 +31,7 @@ class CountTest extends TestCase
      */
     public function testBasicCOUNT($expectedResult, ...$args): void
     {
-        $result = Counts::COUNT(...$args);
+        $result = Counts::count(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
@@ -47,7 +47,7 @@ class CountTest extends TestCase
      */
     public function testExcelCOUNT($expectedResult, ...$args): void
     {
-        $result = Counts::COUNT(...$args);
+        $result = Counts::count(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
@@ -65,7 +65,7 @@ class CountTest extends TestCase
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
 
-        $result = Counts::COUNT(...$args);
+        $result = Counts::count(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
@@ -83,7 +83,7 @@ class CountTest extends TestCase
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_GNUMERIC);
 
-        $result = Counts::COUNT(...$args);
+        $result = Counts::count(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

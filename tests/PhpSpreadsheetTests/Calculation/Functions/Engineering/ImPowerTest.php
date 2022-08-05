@@ -30,7 +30,7 @@ class ImPowerTest extends TestCase
      */
     public function testIMPOWER($expectedResult, ...$args): void
     {
-        $result = ComplexFunctions::IMPOWER(...$args);
+        $result = ComplexFunctions::power(...$args);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()

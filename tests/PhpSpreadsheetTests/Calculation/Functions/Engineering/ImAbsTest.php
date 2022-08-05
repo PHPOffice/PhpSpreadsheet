@@ -24,7 +24,7 @@ class ImAbsTest extends TestCase
      */
     public function testIMABS($expectedResult, $value): void
     {
-        $result = ComplexFunctions::IMABS($value);
+        $result = ComplexFunctions::absolute($value);
         self::assertEqualsWithDelta($expectedResult, $result, self::COMPLEX_PRECISION);
     }
 

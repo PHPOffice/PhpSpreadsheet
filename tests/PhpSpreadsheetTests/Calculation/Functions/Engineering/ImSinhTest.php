@@ -31,7 +31,7 @@ class ImSinhTest extends TestCase
      */
     public function testIMSINH($expectedResult, $value): void
     {
-        $result = ComplexFunctions::IMSINH($value);
+        $result = ComplexFunctions::sinh($value);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()

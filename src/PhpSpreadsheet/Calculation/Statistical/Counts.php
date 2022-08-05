@@ -18,7 +18,7 @@ class Counts extends AggregateBase
      *
      * @return int
      */
-    public static function COUNT(...$args)
+    public static function count(...$args)
     {
         $returnValue = 0;
 
@@ -49,7 +49,7 @@ class Counts extends AggregateBase
      *
      * @return int
      */
-    public static function COUNTA(...$args)
+    public static function countA(...$args)
     {
         $returnValue = 0;
 

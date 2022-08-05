@@ -42,7 +42,7 @@ class Coupons
      *
      * @return float|string
      */
-    public static function COUPDAYBS(
+    public static function daysBeforeSettlement(
         $settlement,
         $maturity,
         $frequency,
@@ -105,7 +105,7 @@ class Coupons
      *
      * @return float|string
      */
-    public static function COUPDAYS(
+    public static function days(
         $settlement,
         $maturity,
         $frequency,
@@ -176,7 +176,7 @@ class Coupons
      *
      * @return float|string
      */
-    public static function COUPDAYSNC(
+    public static function daysToNextCoupon(
         $settlement,
         $maturity,
         $frequency,
@@ -242,7 +242,7 @@ class Coupons
      * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
      *                     depending on the value of the ReturnDateType flag
      */
-    public static function COUPNCD(
+    public static function nextCouponDate(
         $settlement,
         $maturity,
         $frequency,
@@ -296,7 +296,7 @@ class Coupons
      *
      * @return int|string
      */
-    public static function COUPNUM(
+    public static function numberPayable(
         $settlement,
         $maturity,
         $frequency,
@@ -356,7 +356,7 @@ class Coupons
      * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
      *                     depending on the value of the ReturnDateType flag
      */
-    public static function COUPPCD(
+    public static function previousCouponDate(
         $settlement,
         $maturity,
         $frequency,

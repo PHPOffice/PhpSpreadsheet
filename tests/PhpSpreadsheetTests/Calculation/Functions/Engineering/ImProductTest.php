@@ -29,7 +29,7 @@ class ImProductTest extends TestCase
      */
     public function testIMPRODUCT($expectedResult, ...$args): void
     {
-        $result = ComplexOperations::IMPRODUCT(...$args);
+        $result = ComplexOperations::product(...$args);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()

@@ -31,7 +31,7 @@ class ImConjugateTest extends TestCase
      */
     public function testIMCONJUGATE($expectedResult, $value): void
     {
-        $result = ComplexFunctions::IMCONJUGATE($value);
+        $result = ComplexFunctions::conjugate($value);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()

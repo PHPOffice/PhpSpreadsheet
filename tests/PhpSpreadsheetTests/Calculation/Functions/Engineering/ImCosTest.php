@@ -31,7 +31,7 @@ class ImCosTest extends TestCase
      */
     public function testIMCOS($expectedResult, $value): void
     {
-        $result = ComplexFunctions::IMCOS($value);
+        $result = ComplexFunctions::cos($value);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()

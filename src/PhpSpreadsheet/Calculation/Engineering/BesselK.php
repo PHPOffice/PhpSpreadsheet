@@ -33,7 +33,7 @@ class BesselK
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function BESSELK($x, $ord)
+    public static function besselK($x, $ord)
     {
         if (is_array($x) || is_array($ord)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $x, $ord);
@@ -75,7 +75,7 @@ class BesselK
      */
     private static function callBesselI(float $x, int $ord): float
     {
-        $rslt = BesselI::BESSELI($x, $ord);
+        $rslt = BesselI::besselI($x, $ord);
         if (!is_float($rslt)) {
             throw new Exception('Unexpected array or string');
         }

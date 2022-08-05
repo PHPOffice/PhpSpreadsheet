@@ -376,22 +376,22 @@ class Calculation
         ],
         'BESSELI' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\BesselI::class, 'BESSELI'],
+            'functionCall' => [Engineering\BesselI::class, 'besselI'],
             'argumentCount' => '2',
         ],
         'BESSELJ' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\BesselJ::class, 'BESSELJ'],
+            'functionCall' => [Engineering\BesselJ::class, 'besselJ'],
             'argumentCount' => '2',
         ],
         'BESSELK' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\BesselK::class, 'BESSELK'],
+            'functionCall' => [Engineering\BesselK::class, 'besselK'],
             'argumentCount' => '2',
         ],
         'BESSELY' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\BesselY::class, 'BESSELY'],
+            'functionCall' => [Engineering\BesselY::class, 'besselY'],
             'argumentCount' => '2',
         ],
         'BETADIST' => [
@@ -588,7 +588,7 @@ class Calculation
         ],
         'COMPLEX' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\Complex::class, 'COMPLEX'],
+            'functionCall' => [Engineering\Complex::class, 'complex'],
             'argumentCount' => '2,3',
         ],
         'CONCAT' => [
@@ -648,12 +648,12 @@ class Calculation
         ],
         'COUNT' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical\Counts::class, 'COUNT'],
+            'functionCall' => [Statistical\Counts::class, 'count'],
             'argumentCount' => '1+',
         ],
         'COUNTA' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical\Counts::class, 'COUNTA'],
+            'functionCall' => [Statistical\Counts::class, 'countA'],
             'argumentCount' => '1+',
         ],
         'COUNTBLANK' => [
@@ -673,32 +673,32 @@ class Calculation
         ],
         'COUPDAYBS' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial\Coupons::class, 'COUPDAYBS'],
+            'functionCall' => [Financial\Coupons::class, 'daysBeforeSettlement'],
             'argumentCount' => '3,4',
         ],
         'COUPDAYS' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial\Coupons::class, 'COUPDAYS'],
+            'functionCall' => [Financial\Coupons::class, 'days'],
             'argumentCount' => '3,4',
         ],
         'COUPDAYSNC' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial\Coupons::class, 'COUPDAYSNC'],
+            'functionCall' => [Financial\Coupons::class, 'daysToNextCoupon'],
             'argumentCount' => '3,4',
         ],
         'COUPNCD' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial\Coupons::class, 'COUPNCD'],
+            'functionCall' => [Financial\Coupons::class, 'nextCouponDate'],
             'argumentCount' => '3,4',
         ],
         'COUPNUM' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial\Coupons::class, 'COUPNUM'],
+            'functionCall' => [Financial\Coupons::class, 'numberPayable'],
             'argumentCount' => '3,4',
         ],
         'COUPPCD' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial\Coupons::class, 'COUPPCD'],
+            'functionCall' => [Financial\Coupons::class, 'previousCouponDate'],
             'argumentCount' => '3,4',
         ],
         'COVAR' => [
@@ -1327,127 +1327,127 @@ class Calculation
         ],
         'IMABS' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\ComplexFunctions::class, 'IMABS'],
+            'functionCall' => [Engineering\ComplexFunctions::class, 'absolute'],
             'argumentCount' => '1',
         ],
         'IMAGINARY' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\Complex::class, 'IMAGINARY'],
+            'functionCall' => [Engineering\Complex::class, 'imaginary'],
             'argumentCount' => '1',
         ],
         'IMARGUMENT' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\ComplexFunctions::class, 'IMARGUMENT'],
+            'functionCall' => [Engineering\ComplexFunctions::class, 'argument'],
             'argumentCount' => '1',
         ],
         'IMCONJUGATE' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\ComplexFunctions::class, 'IMCONJUGATE'],
+            'functionCall' => [Engineering\ComplexFunctions::class, 'conjugate'],
             'argumentCount' => '1',
         ],
         'IMCOS' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\ComplexFunctions::class, 'IMCOS'],
+            'functionCall' => [Engineering\ComplexFunctions::class, 'cos'],
             'argumentCount' => '1',
         ],
         'IMCOSH' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\ComplexFunctions::class, 'IMCOSH'],
+            'functionCall' => [Engineering\ComplexFunctions::class, 'cosh'],
             'argumentCount' => '1',
         ],
         'IMCOT' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\ComplexFunctions::class, 'IMCOT'],
+            'functionCall' => [Engineering\ComplexFunctions::class, 'cot'],
             'argumentCount' => '1',
         ],
         'IMCSC' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\ComplexFunctions::class, 'IMCSC'],
+            'functionCall' => [Engineering\ComplexFunctions::class, 'csc'],
             'argumentCount' => '1',
         ],
         'IMCSCH' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\ComplexFunctions::class, 'IMCSCH'],
+            'functionCall' => [Engineering\ComplexFunctions::class, 'csch'],
             'argumentCount' => '1',
         ],
         'IMDIV' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\ComplexOperations::class, 'IMDIV'],
+            'functionCall' => [Engineering\ComplexOperations::class, 'div'],
             'argumentCount' => '2',
         ],
         'IMEXP' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\ComplexFunctions::class, 'IMEXP'],
+            'functionCall' => [Engineering\ComplexFunctions::class, 'exp'],
             'argumentCount' => '1',
         ],
         'IMLN' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\ComplexFunctions::class, 'IMLN'],
+            'functionCall' => [Engineering\ComplexFunctions::class, 'ln'],
             'argumentCount' => '1',
         ],
         'IMLOG10' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\ComplexFunctions::class, 'IMLOG10'],
+            'functionCall' => [Engineering\ComplexFunctions::class, 'log10'],
             'argumentCount' => '1',
         ],
         'IMLOG2' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\ComplexFunctions::class, 'IMLOG2'],
+            'functionCall' => [Engineering\ComplexFunctions::class, 'log2'],
             'argumentCount' => '1',
         ],
         'IMPOWER' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\ComplexFunctions::class, 'IMPOWER'],
+            'functionCall' => [Engineering\ComplexFunctions::class, 'power'],
             'argumentCount' => '2',
         ],
         'IMPRODUCT' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\ComplexOperations::class, 'IMPRODUCT'],
+            'functionCall' => [Engineering\ComplexOperations::class, 'product'],
             'argumentCount' => '1+',
         ],
         'IMREAL' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\Complex::class, 'IMREAL'],
+            'functionCall' => [Engineering\Complex::class, 'real'],
             'argumentCount' => '1',
         ],
         'IMSEC' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\ComplexFunctions::class, 'IMSEC'],
+            'functionCall' => [Engineering\ComplexFunctions::class, 'sec'],
             'argumentCount' => '1',
         ],
         'IMSECH' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\ComplexFunctions::class, 'IMSECH'],
+            'functionCall' => [Engineering\ComplexFunctions::class, 'sech'],
             'argumentCount' => '1',
         ],
         'IMSIN' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\ComplexFunctions::class, 'IMSIN'],
+            'functionCall' => [Engineering\ComplexFunctions::class, 'sin'],
             'argumentCount' => '1',
         ],
         'IMSINH' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\ComplexFunctions::class, 'IMSINH'],
+            'functionCall' => [Engineering\ComplexFunctions::class, 'sinh'],
             'argumentCount' => '1',
         ],
         'IMSQRT' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\ComplexFunctions::class, 'IMSQRT'],
+            'functionCall' => [Engineering\ComplexFunctions::class, 'sqrt'],
             'argumentCount' => '1',
         ],
         'IMSUB' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\ComplexOperations::class, 'IMSUB'],
+            'functionCall' => [Engineering\ComplexOperations::class, 'sub'],
             'argumentCount' => '2',
         ],
         'IMSUM' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\ComplexOperations::class, 'IMSUM'],
+            'functionCall' => [Engineering\ComplexOperations::class, 'sum'],
             'argumentCount' => '1+',
         ],
         'IMTAN' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\ComplexFunctions::class, 'IMTAN'],
+            'functionCall' => [Engineering\ComplexFunctions::class, 'tan'],
             'argumentCount' => '1',
         ],
         'INDEX' => [
