@@ -1164,12 +1164,12 @@ class Matrix
      */
     private function validateExtractedValue($value, bool $validValues): array
     {
+        if (!is_numeric($value) && is_array($value)) {
+            $value = Functions::flattenArray($value)[0];
+        }
         if ((is_string($value)) && (strlen($value) > 0) && (!is_numeric($value))) {
             $value = trim($value, '"');
             $validValues &= StringHelper::convertToNumberIfFraction($value);
-        }
-        if (!is_numeric($value) && is_array($value)) {
-            $value = Functions::flattenArray($value)[0];
         }
 
         return [$value, $validValues];
