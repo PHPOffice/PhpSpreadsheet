@@ -2286,11 +2286,6 @@ parameters:
 			path: src/PhpSpreadsheet/Shared/JAMA/LUDecomposition.php
 
 		-
-			message: "#^Call to function is_string\\(\\) with float\\|int will always evaluate to false\\.$#"
-			count: 5
-			path: src/PhpSpreadsheet/Shared/JAMA/Matrix.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\JAMA\\\\Matrix\\:\\:__construct\\(\\) has parameter \\$args with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/JAMA/Matrix.php
@@ -2368,11 +2363,6 @@ parameters:
 		-
 			message: "#^Parameter \\#3 \\$c of method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\JAMA\\\\Matrix\\:\\:set\\(\\) expects float\\|int\\|null, string given\\.$#"
 			count: 2
-			path: src/PhpSpreadsheet/Shared/JAMA/Matrix.php
-
-		-
-			message: "#^Result of && is always false\\.$#"
-			count: 11
 			path: src/PhpSpreadsheet/Shared/JAMA/Matrix.php
 
 		-
