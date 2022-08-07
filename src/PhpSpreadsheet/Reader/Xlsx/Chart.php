@@ -396,12 +396,20 @@ class Chart
         foreach ($titleDetails as $titleDetailKey => $chartDetail) {
             switch ($titleDetailKey) {
                 case 'tx':
-                    $titleDetails = $chartDetail->rich->children($this->aNamespace);
-                    foreach ($titleDetails as $titleKey => $titleDetail) {
-                        switch ($titleKey) {
-                            case 'p':
-                                $titleDetailPart = $titleDetail->children($this->aNamespace);
-                                $caption[] = $this->parseRichText($titleDetailPart);
+                    if (isset($chartDetail->rich)) {
+                        $titleDetails = $chartDetail->rich->children($this->aNamespace);
+                        foreach ($titleDetails as $titleKey => $titleDetail) {
+                            switch ($titleKey) {
+                                case 'p':
+                                    $titleDetailPart = $titleDetail->children($this->aNamespace);
+                                    $caption[] = $this->parseRichText($titleDetailPart);
+                            }
+                        }
+                    } elseif (isset($chartDetail->strRef->strCache)) {
+                        foreach ($chartDetail->strRef->strCache->pt as $pt) {
+                            if (isset($pt->v)) {
+                                $caption[] = (string) $pt->v;
+                            }
                         }
                     }
 

@@ -146,6 +146,7 @@ class Xlfn
         . '|register[.]id'
         . '|textafter'
         . '|textbefore'
+        . '|textsplit'
         . '|valuetotext'
         . ')(?=\\s*[(])/i';
 

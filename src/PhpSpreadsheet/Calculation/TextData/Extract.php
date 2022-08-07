@@ -104,7 +104,8 @@ class Extract
      *
      * @param mixed $text the text that you're searching
      *                    Or can be an array of values
-     * @param ?string $delimiter the text that marks the point before which you want to extract
+     * @param null|array|string $delimiter the text that marks the point before which you want to extract
+     *                                 Multiple delimiters can be passed as an array of string values
      * @param mixed $instance The instance of the delimiter after which you want to extract the text.
      *                            By default, this is the first instance (1).
      *                            A negative value means start searching from the end of the text string.
@@ -132,7 +133,6 @@ class Extract
         }
 
         $text = Helpers::extractString($text ?? '');
-        $delimiter = Helpers::extractString(Functions::flattenSingleValue($delimiter ?? ''));
         $instance = (int) $instance;
         $matchMode = (int) $matchMode;
         $matchEnd = (int) $matchEnd;
@@ -141,13 +141,14 @@ class Extract
         if (is_array($split) === false) {
             return $split;
         }
-        if ($delimiter === '') {
+        if (Helpers::extractString(Functions::flattenSingleValue($delimiter ?? '')) === '') {
             return ($instance > 0) ? '' : $text;
         }
 
         // Adjustment for a match as the first element of the split
         $flags = self::matchFlags($matchMode);
-        $adjust = preg_match('/^' . preg_quote($delimiter) . "\$/{$flags}", $split[0]);
+        $delimiter = self::buildDelimiter($delimiter);
+        $adjust = preg_match('/^' . $delimiter . "\$/{$flags}", $split[0]);
         $oddReverseAdjustment = count($split) % 2;
 
         $split = ($instance < 0)
@@ -161,7 +162,8 @@ class Extract
      * TEXTAFTER.
      *
      * @param mixed $text the text that you're searching
-     * @param ?string $delimiter the text that marks the point before which you want to extract
+     * @param null|array|string $delimiter the text that marks the point before which you want to extract
+     *                                 Multiple delimiters can be passed as an array of string values
      * @param mixed $instance The instance of the delimiter after which you want to extract the text.
      *                          By default, this is the first instance (1).
      *                          A negative value means start searching from the end of the text string.
@@ -189,7 +191,6 @@ class Extract
         }
 
         $text = Helpers::extractString($text ?? '');
-        $delimiter = Helpers::extractString(Functions::flattenSingleValue($delimiter ?? ''));
         $instance = (int) $instance;
         $matchMode = (int) $matchMode;
         $matchEnd = (int) $matchEnd;
@@ -198,13 +199,14 @@ class Extract
         if (is_array($split) === false) {
             return $split;
         }
-        if ($delimiter === '') {
+        if (Helpers::extractString(Functions::flattenSingleValue($delimiter ?? '')) === '') {
             return ($instance < 0) ? '' : $text;
         }
 
         // Adjustment for a match as the first element of the split
         $flags = self::matchFlags($matchMode);
-        $adjust = preg_match('/^' . preg_quote($delimiter) . "\$/{$flags}", $split[0]);
+        $delimiter = self::buildDelimiter($delimiter);
+        $adjust = preg_match('/^' . $delimiter . "\$/{$flags}", $split[0]);
         $oddReverseAdjustment = count($split) % 2;
 
         $split = ($instance < 0)
@@ -215,21 +217,23 @@ class Extract
     }
 
     /**
+     * @param null|array|string $delimiter
      * @param int $matchMode
      * @param int $matchEnd
      * @param mixed $ifNotFound
      *
      * @return string|string[]
      */
-    private static function validateTextBeforeAfter(string $text, string $delimiter, int $instance, $matchMode, $matchEnd, $ifNotFound)
+    private static function validateTextBeforeAfter(string $text, $delimiter, int $instance, $matchMode, $matchEnd, $ifNotFound)
     {
         $flags = self::matchFlags($matchMode);
+        $delimiter = self::buildDelimiter($delimiter);
 
-        if (preg_match('/' . preg_quote($delimiter) . "/{$flags}", $text) === 0 && $matchEnd === 0) {
+        if (preg_match('/' . $delimiter . "/{$flags}", $text) === 0 && $matchEnd === 0) {
             return $ifNotFound;
         }
 
-        $split = preg_split('/(' . preg_quote($delimiter) . ")/{$flags}", $text, 0, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
+        $split = preg_split('/' . $delimiter . "/{$flags}", $text, 0, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
         if ($split === false) {
             return ExcelError::NA();
         }
@@ -245,6 +249,28 @@ class Extract
         }
 
         return $split;
+    }
+
+    /**
+     * @param null|array|string $delimiter the text that marks the point before which you want to extract
+     *                                 Multiple delimiters can be passed as an array of string values
+     */
+    private static function buildDelimiter($delimiter): string
+    {
+        if (is_array($delimiter)) {
+            $delimiter = Functions::flattenArray($delimiter);
+            $quotedDelimiters = array_map(
+                function ($delimiter) {
+                    return preg_quote($delimiter ?? '');
+                },
+                $delimiter
+            );
+            $delimiters = implode('|', $quotedDelimiters);
+
+            return '(' . $delimiters . ')';
+        }
+
+        return '(' . preg_quote($delimiter ?? '') . ')';
     }
 
     private static function matchFlags(int $matchMode): string
