@@ -13,6 +13,7 @@ use PhpOffice\PhpSpreadsheet\Chart\Legend;
 use PhpOffice\PhpSpreadsheet\Chart\PlotArea;
 use PhpOffice\PhpSpreadsheet\Chart\Properties;
 use PhpOffice\PhpSpreadsheet\Chart\Title;
+use PhpOffice\PhpSpreadsheet\Chart\TrendLine;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Style\Font;
 use SimpleXMLElement;
@@ -76,6 +77,7 @@ class Chart
         $chartNoFill = false;
         $gradientArray = [];
         $gradientLin = null;
+        $roundedCorners = false;
         foreach ($chartElementsC as $chartElementKey => $chartElement) {
             switch ($chartElementKey) {
                 case 'spPr':
@@ -83,6 +85,11 @@ class Chart
                     if (isset($possibleNoFill->noFill)) {
                         $chartNoFill = true;
                     }
+
+                    break;
+                case 'roundedCorners':
+                    /** @var bool */
+                    $roundedCorners = self::getAttribute($chartElementsC->roundedCorners, 'val', 'boolean');
 
                     break;
                 case 'chart':
@@ -370,6 +377,7 @@ class Chart
         if ($chartNoFill) {
             $chart->setNoFill(true);
         }
+        $chart->setRoundedCorners($roundedCorners);
         if (is_bool($autoTitleDeleted)) {
             $chart->setAutoTitleDeleted($autoTitleDeleted);
         }
@@ -466,6 +474,7 @@ class Chart
                     $markerBorderColor = null;
                     $lineStyle = null;
                     $labelLayout = null;
+                    $trendLines = [];
                     foreach ($seriesDetails as $seriesKey => $seriesDetail) {
                         switch ($seriesKey) {
                             case 'idx':
@@ -512,6 +521,23 @@ class Chart
                                         $dptColors[$dptIdx] = new ChartColor($arrayColors);
                                     }
                                 }
+
+                                break;
+                            case 'trendline':
+                                $trendLine = new TrendLine();
+                                $this->readLineStyle($seriesDetail, $trendLine);
+                                /** @var ?string */
+                                $trendLineType = self::getAttribute($seriesDetail->trendlineType, 'val', 'string');
+                                /** @var ?bool */
+                                $dispRSqr = self::getAttribute($seriesDetail->dispRSqr, 'val', 'boolean');
+                                /** @var ?bool */
+                                $dispEq = self::getAttribute($seriesDetail->dispEq, 'val', 'boolean');
+                                /** @var ?int */
+                                $order = self::getAttribute($seriesDetail->order, 'val', 'integer');
+                                /** @var ?int */
+                                $period = self::getAttribute($seriesDetail->period, 'val', 'integer');
+                                $trendLine->setTrendLineProperties($trendLineType, $order, $period, $dispRSqr, $dispEq);
+                                $trendLines[] = $trendLine;
 
                                 break;
                             case 'marker':
@@ -649,6 +675,17 @@ class Chart
                         }
                         if (isset($seriesValues[$seriesIndex])) {
                             $seriesValues[$seriesIndex]->setSmoothLine(true);
+                        }
+                    }
+                    if (!empty($trendLines)) {
+                        if (isset($seriesLabel[$seriesIndex])) {
+                            $seriesLabel[$seriesIndex]->setTrendLines($trendLines);
+                        }
+                        if (isset($seriesCategory[$seriesIndex])) {
+                            $seriesCategory[$seriesIndex]->setTrendLines($trendLines);
+                        }
+                        if (isset($seriesValues[$seriesIndex])) {
+                            $seriesValues[$seriesIndex]->setTrendLines($trendLines);
                         }
                     }
             }
