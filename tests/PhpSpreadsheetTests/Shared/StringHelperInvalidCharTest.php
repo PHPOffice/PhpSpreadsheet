@@ -13,14 +13,13 @@ class StringHelperInvalidCharTest extends TestCase
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
-        $substitution = class_exists('UConverter', false) ? '�' : '?';
-        $substitution2 = '�';
+        $substitution = '�';
         $array = [
             ['Normal string', 'Hello', 'Hello'],
             ['integer', 2, 2],
             ['float', 2.1, 2.1],
             ['boolean true', true, true],
-            ['illegal FFFE/FFFF', "H\xef\xbf\xbe\xef\xbf\xbfello", "H{$substitution2}{$substitution2}ello"],
+            ['illegal FFFE/FFFF', "H\xef\xbf\xbe\xef\xbf\xbfello", "H{$substitution}{$substitution}ello"],
             ['illegal character', "H\xef\x00\x00ello", "H{$substitution}\x00\x00ello"],
             ['overlong character', "H\xc0\xa0ello", "H{$substitution}{$substitution}ello"],
             ['Osmanya as single character', "H\xf0\x90\x90\x80ello", 'H𐐀ello'],
