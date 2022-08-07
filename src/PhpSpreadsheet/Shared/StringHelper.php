@@ -3,7 +3,6 @@
 namespace PhpOffice\PhpSpreadsheet\Shared;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use UConverter;
 
 class StringHelper
 {
@@ -334,21 +333,6 @@ class StringHelper
     public static function sanitizeUTF8(string $textValue): string
     {
         $textValue = str_replace(["\xef\xbf\xbe", "\xef\xbf\xbf"], "\xef\xbf\xbd", $textValue);
-        if (class_exists(UConverter::class, false)) {
-            $returnValue = UConverter::transcode($textValue, 'UTF-8', 'UTF-8');
-            if ($returnValue !== false) {
-                return $returnValue;
-            }
-        }
-        // @codeCoverageIgnoreStart
-        // I don't think any of the code below should ever be executed.
-        if (self::getIsIconvEnabled()) {
-            $returnValue = @iconv('UTF-8', 'UTF-8', $textValue);
-            if ($returnValue !== false) {
-                return $returnValue;
-            }
-        }
-
         $subst = mb_substitute_character(); // default is question mark
         mb_substitute_character(65533); // Unicode substitution character
         // Phpstan does not think this can return false.
@@ -356,7 +340,6 @@ class StringHelper
         mb_substitute_character($subst);
 
         return $returnValue;
-        // @codeCoverageIgnoreEnd
     }
 
     /**

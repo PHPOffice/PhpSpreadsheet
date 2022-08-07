@@ -2,7 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Shared;
 
-use Exception as Except;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\TestCase;
@@ -41,39 +40,5 @@ class StringHelperInvalidCharTest extends TestCase
                 $sheet->getCell("A$row")->getValue()
             );
         }
-    }
-
-    public function fakespl(string $name): void
-    {
-        if (strlen($name) > 0) {
-            throw new Except("$name not found");
-        }
-    }
-
-    public function testClassNotFound(): void
-    {
-        // see issue 2982.
-        // This test will work all the time, but it is valuable
-        //     only if php-intl not available
-        //     and a user-supplied autoloader can issue exception.
-        /** @var callable */
-        $fakespl = [$this, 'fakespl'];
-        spl_autoload_register($fakespl);
-
-        try {
-            self::assertFalse(class_exists('abc123xyz'));
-            self::fail('Expected exception here');
-        } catch (Except $e) {
-            // Nothing to do here
-        }
-
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
-        $sheet->setCellValue('A1', 'Hello World !');
-
-        $spreadsheet->disconnectWorksheets();
-
-        spl_autoload_unregister($fakespl);
-        self::assertFalse(class_exists('abc123wxyz'));
     }
 }
