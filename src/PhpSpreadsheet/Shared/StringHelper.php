@@ -334,7 +334,7 @@ class StringHelper
     public static function sanitizeUTF8(string $textValue): string
     {
         $textValue = str_replace(["\xef\xbf\xbe", "\xef\xbf\xbf"], "\xef\xbf\xbd", $textValue);
-        if (class_exists(UConverter::class)) {
+        if (class_exists(UConverter::class, false)) {
             $returnValue = UConverter::transcode($textValue, 'UTF-8', 'UTF-8');
             if ($returnValue !== false) {
                 return $returnValue;

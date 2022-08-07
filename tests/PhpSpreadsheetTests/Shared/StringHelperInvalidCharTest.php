@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Shared;
 
+use Exception as Except;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\TestCase;
@@ -12,13 +13,14 @@ class StringHelperInvalidCharTest extends TestCase
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
-        $substitution = '�';
+        $substitution = class_exists('UConverter', false) ? '�' : '?';
+        $substitution2 = '�';
         $array = [
             ['Normal string', 'Hello', 'Hello'],
             ['integer', 2, 2],
             ['float', 2.1, 2.1],
             ['boolean true', true, true],
-            ['illegal FFFE/FFFF', "H\xef\xbf\xbe\xef\xbf\xbfello", "H{$substitution}{$substitution}ello"],
+            ['illegal FFFE/FFFF', "H\xef\xbf\xbe\xef\xbf\xbfello", "H{$substitution2}{$substitution2}ello"],
             ['illegal character', "H\xef\x00\x00ello", "H{$substitution}\x00\x00ello"],
             ['overlong character', "H\xc0\xa0ello", "H{$substitution}{$substitution}ello"],
             ['Osmanya as single character', "H\xf0\x90\x90\x80ello", 'H𐐀ello'],
@@ -40,5 +42,39 @@ class StringHelperInvalidCharTest extends TestCase
                 $sheet->getCell("A$row")->getValue()
             );
         }
+    }
+
+    public function fakespl(string $name): void
+    {
+        if (strlen($name) > 0) {
+            throw new Except("$name not found");
+        }
+    }
+
+    public function testClassNotFound(): void
+    {
+        // see issue 2982.
+        // This test will work all the time, but it is valuable
+        //     only if php-intl not available
+        //     and a user-supplied autoloader can issue exception.
+        /** @var callable */
+        $fakespl = [$this, 'fakespl'];
+        spl_autoload_register($fakespl);
+
+        try {
+            self::assertFalse(class_exists('abc123xyz'));
+            self::fail('Expected exception here');
+        } catch (Except $e) {
+            // Nothing to do here
+        }
+
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setCellValue('A1', 'Hello World !');
+
+        $spreadsheet->disconnectWorksheets();
+
+        spl_autoload_unregister($fakespl);
+        self::assertFalse(class_exists('abc123wxyz'));
     }
 }
