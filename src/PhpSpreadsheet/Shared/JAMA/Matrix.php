@@ -533,14 +533,8 @@ class Matrix
                 for ($j = 0; $j < $this->n; ++$j) {
                     $validValues = true;
                     $value = $M->get($i, $j);
-                    if ((is_string($this->A[$i][$j])) && (strlen($this->A[$i][$j]) > 0) && (!is_numeric($this->A[$i][$j]))) {
-                        $this->A[$i][$j] = trim($this->A[$i][$j], '"');
-                        $validValues &= StringHelper::convertToNumberIfFraction($this->A[$i][$j]);
-                    }
-                    if ((is_string($value)) && (strlen($value) > 0) && (!is_numeric($value))) {
-                        $value = trim($value, '"');
-                        $validValues &= StringHelper::convertToNumberIfFraction($value);
-                    }
+                    [$this->A[$i][$j], $validValues] = $this->validateExtractedValue($this->A[$i][$j], $validValues);
+                    [$value, $validValues] = $this->validateExtractedValue($value, $validValues);
                     if ($validValues) {
                         $this->A[$i][$j] += $value;
                     } else {
@@ -633,14 +627,8 @@ class Matrix
                 for ($j = 0; $j < $this->n; ++$j) {
                     $validValues = true;
                     $value = $M->get($i, $j);
-                    if ((is_string($this->A[$i][$j])) && (strlen($this->A[$i][$j]) > 0) && (!is_numeric($this->A[$i][$j]))) {
-                        $this->A[$i][$j] = trim($this->A[$i][$j], '"');
-                        $validValues &= StringHelper::convertToNumberIfFraction($this->A[$i][$j]);
-                    }
-                    if ((is_string($value)) && (strlen($value) > 0) && (!is_numeric($value))) {
-                        $value = trim($value, '"');
-                        $validValues &= StringHelper::convertToNumberIfFraction($value);
-                    }
+                    [$this->A[$i][$j], $validValues] = $this->validateExtractedValue($this->A[$i][$j], $validValues);
+                    [$value, $validValues] = $this->validateExtractedValue($value, $validValues);
                     if ($validValues) {
                         $this->A[$i][$j] -= $value;
                     } else {
@@ -735,17 +723,8 @@ class Matrix
                 for ($j = 0; $j < $this->n; ++$j) {
                     $validValues = true;
                     $value = $M->get($i, $j);
-                    if ((is_string($this->A[$i][$j])) && (strlen($this->A[$i][$j]) > 0) && (!is_numeric($this->A[$i][$j]))) {
-                        $this->A[$i][$j] = trim($this->A[$i][$j], '"');
-                        $validValues &= StringHelper::convertToNumberIfFraction($this->A[$i][$j]);
-                    }
-                    if ((is_string($value)) && (strlen($value) > 0) && (!is_numeric($value))) {
-                        $value = trim($value, '"');
-                        $validValues &= StringHelper::convertToNumberIfFraction($value);
-                    }
-                    if (!is_numeric($value) && is_array($value)) {
-                        $value = Functions::flattenArray($value)[0];
-                    }
+                    [$this->A[$i][$j], $validValues] = $this->validateExtractedValue($this->A[$i][$j], $validValues);
+                    [$value, $validValues] = $this->validateExtractedValue($value, $validValues);
                     if ($validValues) {
                         $this->A[$i][$j] *= $value;
                     } else {
@@ -796,14 +775,8 @@ class Matrix
                 for ($j = 0; $j < $this->n; ++$j) {
                     $validValues = true;
                     $value = $M->get($i, $j);
-                    if ((is_string($this->A[$i][$j])) && (strlen($this->A[$i][$j]) > 0) && (!is_numeric($this->A[$i][$j]))) {
-                        $this->A[$i][$j] = trim($this->A[$i][$j], '"');
-                        $validValues &= StringHelper::convertToNumberIfFraction($this->A[$i][$j]);
-                    }
-                    if ((is_string($value)) && (strlen($value) > 0) && (!is_numeric($value))) {
-                        $value = trim($value, '"');
-                        $validValues &= StringHelper::convertToNumberIfFraction($value);
-                    }
+                    [$this->A[$i][$j], $validValues] = $this->validateExtractedValue($this->A[$i][$j], $validValues);
+                    [$value, $validValues] = $this->validateExtractedValue($value, $validValues);
                     if ($validValues) {
                         if ($value == 0) {
                             //    Trap for Divide by Zero error
@@ -1083,14 +1056,8 @@ class Matrix
                 for ($j = 0; $j < $this->n; ++$j) {
                     $validValues = true;
                     $value = $M->get($i, $j);
-                    if ((is_string($this->A[$i][$j])) && (strlen($this->A[$i][$j]) > 0) && (!is_numeric($this->A[$i][$j]))) {
-                        $this->A[$i][$j] = trim($this->A[$i][$j], '"');
-                        $validValues &= StringHelper::convertToNumberIfFraction($this->A[$i][$j]);
-                    }
-                    if ((is_string($value)) && (strlen($value) > 0) && (!is_numeric($value))) {
-                        $value = trim($value, '"');
-                        $validValues &= StringHelper::convertToNumberIfFraction($value);
-                    }
+                    [$this->A[$i][$j], $validValues] = $this->validateExtractedValue($this->A[$i][$j], $validValues);
+                    [$value, $validValues] = $this->validateExtractedValue($value, $validValues);
                     if ($validValues) {
                         $this->A[$i][$j] = $this->A[$i][$j] ** $value;
                     } else {
@@ -1190,5 +1157,21 @@ class Matrix
         $L = new LUDecomposition($this);
 
         return $L->det();
+    }
+
+    /**
+     * @param mixed $value
+     */
+    private function validateExtractedValue($value, bool $validValues): array
+    {
+        if ((is_string($value)) && (strlen($value) > 0) && (!is_numeric($value))) {
+            $value = trim($value, '"');
+            $validValues &= StringHelper::convertToNumberIfFraction($value);
+        }
+        if (!is_numeric($value) && is_array($value)) {
+            $value = Functions::flattenArray($value)[0];
+        }
+
+        return [$value, $validValues];
     }
 }

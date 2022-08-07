@@ -47,7 +47,12 @@ class SumTest extends AllSetupTeardown
         return require 'tests/data/Calculation/MathTrig/SUMLITERALS.php';
     }
 
-    public function testSumWithIndexMatch(): void
+    /**
+     * @dataProvider providerSUMWITHINDEXMATCH
+     *
+     * @param mixed $expectedResult
+     */
+    public function testSumWithIndexMatch($expectedResult, string $formula): void
     {
         $spreadsheet = new Spreadsheet();
         $sheet1 = $spreadsheet->getActiveSheet();
@@ -55,7 +60,7 @@ class SumTest extends AllSetupTeardown
         $sheet1->fromArray(
             [
                 ['Number', 'Formula'],
-                [83, '=SUM(4 * INDEX(Lookup!B2, MATCH(A2, Lookup!A2, 0)))'],
+                [83, $formula],
             ]
         );
         $sheet2 = $spreadsheet->createSheet();
@@ -66,7 +71,12 @@ class SumTest extends AllSetupTeardown
                 [83, 16],
             ]
         );
-        self::assertSame(64, $sheet1->getCell('B2')->getCalculatedValue());
+        self::assertSame($expectedResult, $sheet1->getCell('B2')->getCalculatedValue());
         $spreadsheet->disconnectWorksheets();
+    }
+
+    public function providerSUMWITHINDEXMATCH(): array
+    {
+        return require 'tests/data/Calculation/MathTrig/SUMWITHINDEXMATCH.php';
     }
 }
