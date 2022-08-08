@@ -26,9 +26,6 @@ class SampleTest extends TestCase
     public function providerSample(): array
     {
         $skipped = [
-            'Chart/32_Chart_read_write_PDF.php', // Unfortunately JpGraph is not up to date for latest PHP and raise many warnings
-            'Chart/32_Chart_read_write_HTML.php', // idem
-            'Chart/35_Chart_render.php', // idem
         ];
 
         // Unfortunately some tests are too long to run with code-coverage

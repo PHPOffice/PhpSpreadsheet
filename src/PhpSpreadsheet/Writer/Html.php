@@ -551,15 +551,10 @@ class Html extends BaseWriter
      * Extend Row if chart is placed after nominal end of row.
      * This code should be exercised by sample:
      * Chart/32_Chart_read_write_PDF.php.
-     * However, that test is suppressed due to out-of-date
-     * Jpgraph code issuing warnings. So, don't measure
-     * code coverage for this function till that is fixed.
      *
      * @param int $row Row to check for charts
      *
      * @return array
-     *
-     * @codeCoverageIgnore
      */
     private function extendRowsForCharts(Worksheet $worksheet, int $row)
     {
@@ -725,11 +720,6 @@ class Html extends BaseWriter
      * Generate chart tag in cell.
      * This code should be exercised by sample:
      * Chart/32_Chart_read_write_PDF.php.
-     * However, that test is suppressed due to out-of-date
-     * Jpgraph code issuing warnings. So, don't measure
-     * code coverage for this function till that is fixed.
-     *
-     * @codeCoverageIgnore
      */
     private function writeChartInCell(Worksheet $worksheet, string $coordinates): string
     {
