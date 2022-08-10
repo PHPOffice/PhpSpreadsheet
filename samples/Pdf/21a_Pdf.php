@@ -12,6 +12,8 @@ $spreadsheet->getActiveSheet()->setShowGridLines(false);
 $helper->log('Set orientation to landscape');
 $spreadsheet->getActiveSheet()->getPageSetup()->setOrientation(PageSetup::ORIENTATION_LANDSCAPE);
 $spreadsheet->setActiveSheetIndex(0)->setPrintGridlines(true);
+// Issue 2299 - mpdf can't handle hide rows without kludge
+$spreadsheet->getActiveSheet()->getRowDimension(2)->setVisible(false);
 
 function changeGridlines(string $html): string
 {
