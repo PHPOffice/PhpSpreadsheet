@@ -539,6 +539,10 @@ abstract class JpGraphRendererBase implements IRenderer
         $dataValues = [];
         //    Loop through each data series in turn and build the plot arrays
         foreach ($plotOrder as $i => $v) {
+            $dataValuesX = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotValuesByIndex($v);
+            if ($dataValuesX === false) {
+                continue;
+            }
             $dataValuesX = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotValuesByIndex($v)->getDataValues();
             foreach ($dataValuesX as $j => $dataValueX) {
                 $dataValues[$plotOrder[$i]][$j] = $dataValueX;
@@ -553,7 +557,7 @@ abstract class JpGraphRendererBase implements IRenderer
         $jMax = count($dataValues[0]);
         for ($j = 0; $j < $jMax; ++$j) {
             for ($i = 0; $i < $seriesCount; ++$i) {
-                $dataValuesPlot[] = $dataValues[$i][$j];
+                $dataValuesPlot[] = $dataValues[$i][$j] ?? null;
             }
         }
 

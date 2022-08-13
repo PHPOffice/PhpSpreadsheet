@@ -11,7 +11,7 @@ Settings::setChartRenderer(\PhpOffice\PhpSpreadsheet\Chart\Renderer\MtJpGraphRen
 
 $inputFileType = 'Xlsx';
 $inputFileNames = __DIR__ . '/../templates/32readwrite*[0-9].xlsx';
-//$inputFileNames = __DIR__ . '/../templates/32readwritePieChart3.xlsx';
+//$inputFileNames = __DIR__ . '/../templates/32readwriteStockChart5.xlsx';
 
 if ((isset($argc)) && ($argc > 1)) {
     $inputFileNames = [];
@@ -31,8 +31,6 @@ if (count($inputFileNames) === 1) {
         '32readwritePieChart3D1.xlsx',
         '32readwritePieChartExploded1.xlsx',
         '32readwritePieChartExploded3D1.xlsx',
-        '32readwriteStockChart1.xlsx',
-        '32readwriteStockChart5.xlsx',
     ];
 }
 foreach ($inputFileNames as $inputFileName) {
