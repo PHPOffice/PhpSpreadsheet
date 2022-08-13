@@ -212,4 +212,40 @@ return [
             1,
         ],
     ],
+    'Multi-delimiter Case-Insensitive Offset 1' => [
+        " riding hood's red riding hood",
+        [
+            "Little Red riding hood's red riding hood",
+            ['HOOD', 'RED'],
+            1,
+            1,
+        ],
+    ],
+    'Multi-delimiter Case-Insensitive Offset 2' => [
+        "'s red riding hood",
+        [
+            "Little Red riding hood's red riding hood",
+            ['HOOD', 'RED'],
+            2,
+            1,
+        ],
+    ],
+    'Multi-delimiter Case-Insensitive Offset 3' => [
+        ' riding hood',
+        [
+            "Little Red riding hood's red riding hood",
+            ['HOOD', 'RED'],
+            3,
+            1,
+        ],
+    ],
+    'Multi-delimiter Case-Insensitive Offset -2' => [
+        ' riding hood',
+        [
+            "Little Red riding hood's red riding hood",
+            ['HOOD', 'RED'],
+            -2,
+            1,
+        ],
+    ],
 ];
