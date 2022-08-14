@@ -81,7 +81,7 @@
         "dealerdirect/phpcodesniffer-composer-installer": "dev-master",
         "dompdf/dompdf": "^1.0 || ^2.0",
         "friendsofphp/php-cs-fixer": "^3.2",
-        "jpgraph/jpgraph": "^4.0",
+        "mitoteam/jpgraph": "^10.1",
         "mpdf/mpdf": "8.1.1",
         "phpcompatibility/php-compatibility": "^9.3",
         "phpstan/phpstan": "^1.1",
@@ -91,10 +91,11 @@
         "tecnickcom/tcpdf": "^6.4"
     },
     "suggest": {
+        "ext-intl": "PHP Internationalization Functions",
         "mpdf/mpdf": "Option for rendering PDF with PDF Writer",
-        "dompdf/dompdf": "Option for rendering PDF with PDF Writer (doesn't yet support PHP8)",
-        "tecnickcom/tcpdf": "Option for rendering PDF with PDF Writer (doesn't yet support PHP8)",
-        "jpgraph/jpgraph": "Option for rendering charts, or including charts with PDF or HTML Writers"
+        "dompdf/dompdf": "Option for rendering PDF with PDF Writer",
+        "tecnickcom/tcpdf": "Option for rendering PDF with PDF Writer (doesn't yet fully support PHP8)",
+        "mitoteam/jpgraph": "Option for rendering charts, or including charts with PDF or HTML Writers"
     },
     "autoload": {
         "psr-4": {

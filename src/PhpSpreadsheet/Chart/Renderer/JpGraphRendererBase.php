@@ -277,7 +277,8 @@ abstract class JpGraphRendererBase implements IRenderer
     {
         $grouping = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotGrouping();
 
-        $labelCount = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotValuesByIndex(0)->getPointCount();
+        $index = array_keys($this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotOrder())[0];
+        $labelCount = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotValuesByIndex($index)->getPointCount();
         if ($labelCount > 0) {
             $datasetLabels = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotCategoryByIndex(0)->getDataValues();
             $datasetLabels = $this->formatDataSetLabels($groupID, $datasetLabels, $labelCount);
@@ -294,8 +295,9 @@ abstract class JpGraphRendererBase implements IRenderer
 
         //    Loop through each data series in turn
         for ($i = 0; $i < $seriesCount; ++$i) {
-            $dataValues = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotValuesByIndex($i)->getDataValues();
-            $marker = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotValuesByIndex($i)->getPointMarker();
+            $index = array_keys($this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotOrder())[$i];
+            $dataValues = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotValuesByIndex($index)->getDataValues();
+            $marker = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotValuesByIndex($index)->getPointMarker();
 
             if ($grouping == 'percentStacked') {
                 $dataValues = $this->percentageAdjustValues($dataValues, $sumValues);
@@ -324,7 +326,7 @@ abstract class JpGraphRendererBase implements IRenderer
                 //    Set the appropriate plot marker
                 $this->formatPointMarker($seriesPlot, $marker);
             }
-            $dataLabel = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotLabelByIndex($i)->getDataValue();
+            $dataLabel = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotLabelByIndex($index)->getDataValue();
             $seriesPlot->SetLegend($dataLabel);
 
             $seriesPlots[] = $seriesPlot;
@@ -347,7 +349,8 @@ abstract class JpGraphRendererBase implements IRenderer
         }
         $grouping = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotGrouping();
 
-        $labelCount = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotValuesByIndex(0)->getPointCount();
+        $index = array_keys($this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotOrder())[0];
+        $labelCount = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotValuesByIndex($index)->getPointCount();
         if ($labelCount > 0) {
             $datasetLabels = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotCategoryByIndex(0)->getDataValues();
             $datasetLabels = $this->formatDataSetLabels($groupID, $datasetLabels, $labelCount, $rotation);
@@ -371,7 +374,8 @@ abstract class JpGraphRendererBase implements IRenderer
 
         //    Loop through each data series in turn
         for ($j = 0; $j < $seriesCount; ++$j) {
-            $dataValues = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotValuesByIndex($j)->getDataValues();
+            $index = array_keys($this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotOrder())[$j];
+            $dataValues = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotValuesByIndex($index)->getDataValues();
             if ($grouping == 'percentStacked') {
                 $dataValues = $this->percentageAdjustValues($dataValues, $sumValues);
             }
@@ -535,6 +539,10 @@ abstract class JpGraphRendererBase implements IRenderer
         $dataValues = [];
         //    Loop through each data series in turn and build the plot arrays
         foreach ($plotOrder as $i => $v) {
+            $dataValuesX = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotValuesByIndex($v);
+            if ($dataValuesX === false) {
+                continue;
+            }
             $dataValuesX = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotValuesByIndex($v)->getDataValues();
             foreach ($dataValuesX as $j => $dataValueX) {
                 $dataValues[$plotOrder[$i]][$j] = $dataValueX;
@@ -549,7 +557,7 @@ abstract class JpGraphRendererBase implements IRenderer
         $jMax = count($dataValues[0]);
         for ($j = 0; $j < $jMax; ++$j) {
             for ($i = 0; $i < $seriesCount; ++$i) {
-                $dataValuesPlot[] = $dataValues[$i][$j];
+                $dataValuesPlot[] = $dataValues[$i][$j] ?? null;
             }
         }
 
