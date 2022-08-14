@@ -32,14 +32,16 @@ use PhpOffice\PhpSpreadsheet\Style\Style;
 class Worksheet implements IComparable
 {
     // Break types
-    const BREAK_NONE = 0;
-    const BREAK_ROW = 1;
-    const BREAK_COLUMN = 2;
+    public const BREAK_NONE = 0;
+    public const BREAK_ROW = 1;
+    public const BREAK_COLUMN = 2;
 
     // Sheet state
-    const SHEETSTATE_VISIBLE = 'visible';
-    const SHEETSTATE_HIDDEN = 'hidden';
-    const SHEETSTATE_VERYHIDDEN = 'veryHidden';
+    public const SHEETSTATE_VISIBLE = 'visible';
+    public const SHEETSTATE_HIDDEN = 'hidden';
+    public const SHEETSTATE_VERYHIDDEN = 'veryHidden';
+
+    protected const SHEET_NAME_REQUIRES_NO_QUOTES = '/^[_\p{L}][_\p{L}\p{N}]*$/mui';
 
     /**
      * Maximum 31 characters allowed for sheet title.
@@ -3051,7 +3053,11 @@ class Worksheet implements IComparable
      * Extract worksheet title from range.
      *
      * Example: extractSheetTitle("testSheet!A1") ==> 'A1'
+     * Example: extractSheetTitle("testSheet!A1:C3") ==> 'A1:C3'
      * Example: extractSheetTitle("'testSheet 1'!A1", true) ==> ['testSheet 1', 'A1'];
+     * Example: extractSheetTitle("'testSheet 1'!A1:C3", true) ==> ['testSheet 1', 'A1:C3'];
+     * Example: extractSheetTitle("A1", true) ==> ['', 'A1'];
+     * Example: extractSheetTitle("A1:C3", true) ==> ['', 'A1:C3']
      *
      * @param string $range Range to extract title from
      * @param bool $returnRange Return range? (see example)
@@ -3449,5 +3455,10 @@ class Worksheet implements IComparable
     public function hasCodeName()
     {
         return $this->codeName !== null;
+    }
+
+    public static function nameRequiresQuotes(string $sheetName): bool
+    {
+        return preg_match(self::SHEET_NAME_REQUIRES_NO_QUOTES, $sheetName) !== 1;
     }
 }
