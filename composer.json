@@ -88,13 +88,13 @@
         "phpstan/phpstan-phpunit": "^1.0",
         "phpunit/phpunit": "^8.5 || ^9.0",
         "squizlabs/php_codesniffer": "^3.7",
-        "tecnickcom/tcpdf": "^6.4"
+        "tecnickcom/tcpdf": "6.5"
     },
     "suggest": {
         "ext-intl": "PHP Internationalization Functions",
         "mpdf/mpdf": "Option for rendering PDF with PDF Writer",
         "dompdf/dompdf": "Option for rendering PDF with PDF Writer",
-        "tecnickcom/tcpdf": "Option for rendering PDF with PDF Writer (doesn't yet fully support PHP8)",
+        "tecnickcom/tcpdf": "Option for rendering PDF with PDF Writer",
         "mitoteam/jpgraph": "Option for rendering charts, or including charts with PDF or HTML Writers"
     },
     "autoload": {
