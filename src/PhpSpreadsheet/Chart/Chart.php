@@ -661,14 +661,10 @@ class Chart
 
     /**
      * Render the chart to given file (or stream).
-     * Unable to cover code until a usable current version of JpGraph
-     * is made available through Composer.
      *
      * @param string $outputDestination Name of the file render to
      *
      * @return bool true on success
-     *
-     * @codeCoverageIgnore
      */
     public function render($outputDestination = null)
     {

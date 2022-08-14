@@ -5,16 +5,13 @@ use PhpOffice\PhpSpreadsheet\Settings;
 
 require __DIR__ . '/../Header.php';
 
-if (PHP_VERSION_ID >= 80000) {
-    $helper->log('Jpgraph no longer runs against PHP8');
-    exit;
-}
-
 // Change these values to select the Rendering library that you wish to use
-Settings::setChartRenderer(\PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph::class);
+//Settings::setChartRenderer(\PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph::class);
+Settings::setChartRenderer(\PhpOffice\PhpSpreadsheet\Chart\Renderer\MtJpGraphRenderer::class);
 
 $inputFileType = 'Xlsx';
 $inputFileNames = __DIR__ . '/../templates/32readwrite*[0-9].xlsx';
+//$inputFileNames = __DIR__ . '/../templates/32readwriteStockChart5.xlsx';
 
 if ((isset($argc)) && ($argc > 1)) {
     $inputFileNames = [];
@@ -24,11 +21,28 @@ if ((isset($argc)) && ($argc > 1)) {
 } else {
     $inputFileNames = glob($inputFileNames);
 }
+if (count($inputFileNames) === 1) {
+    $unresolvedErrors = [];
+} else {
+    $unresolvedErrors = [
+        '32readwriteBubbleChart2.xlsx',
+        '32readwritePieChart3.xlsx',
+        '32readwritePieChart4.xlsx',
+        '32readwritePieChart3D1.xlsx',
+        '32readwritePieChartExploded1.xlsx',
+        '32readwritePieChartExploded3D1.xlsx',
+    ];
+}
 foreach ($inputFileNames as $inputFileName) {
     $inputFileNameShort = basename($inputFileName);
 
     if (!file_exists($inputFileName)) {
         $helper->log('File ' . $inputFileNameShort . ' does not exist');
+
+        continue;
+    }
+    if (in_array($inputFileNameShort, $unresolvedErrors, true)) {
+        $helper->log('File ' . $inputFileNameShort . ' does not yet work with this script');
 
         continue;
     }
