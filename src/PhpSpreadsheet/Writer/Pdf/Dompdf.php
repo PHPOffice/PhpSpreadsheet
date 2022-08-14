@@ -8,6 +8,13 @@ use PhpOffice\PhpSpreadsheet\Writer\Pdf;
 class Dompdf extends Pdf
 {
     /**
+     * embed images, or link to images.
+     *
+     * @var bool
+     */
+    protected $embedImages = true;
+
+    /**
      * Gets the implementation of external PDF library that should be used.
      *
      * @return \Dompdf\Dompdf implementation

@@ -9,8 +9,6 @@ namespace PhpOffice\PhpSpreadsheet\Chart\Renderer;
  * https://packagist.org/packages/mitoteam/jpgraph
  *
  * This package is up to date for August 2022 and has PHP 8.1 support.
- *
- * @codeCoverageIgnore
  */
 class MtJpGraphRenderer extends JpGraphRendererBase
 {
