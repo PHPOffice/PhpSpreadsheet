@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fc6928651785d4bb82d727d22f50227d",
+    "content-hash": "05bd955232ea7ceab5b849e990f593bd",
     "packages": [
         {
             "name": "ezyang/htmlpurifier",
@@ -5084,16 +5084,16 @@
         },
         {
             "name": "tecnickcom/tcpdf",
-            "version": "6.4.4",
+            "version": "6.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tecnickcom/TCPDF.git",
-                "reference": "42cd0f9786af7e5db4fcedaa66f717b0d0032320"
+                "reference": "cc54c1503685e618b23922f53635f46e87653662"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tecnickcom/TCPDF/zipball/42cd0f9786af7e5db4fcedaa66f717b0d0032320",
-                "reference": "42cd0f9786af7e5db4fcedaa66f717b0d0032320",
+                "url": "https://api.github.com/repos/tecnickcom/TCPDF/zipball/cc54c1503685e618b23922f53635f46e87653662",
+                "reference": "cc54c1503685e618b23922f53635f46e87653662",
                 "shasum": ""
             },
             "require": {
@@ -5142,13 +5142,17 @@
                 "pdf417",
                 "qrcode"
             ],
+            "support": {
+                "issues": "https://github.com/tecnickcom/TCPDF/issues",
+                "source": "https://github.com/tecnickcom/TCPDF/tree/6.5.0"
+            },
             "funding": [
                 {
                     "url": "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&currency_code=GBP&business=paypal@tecnick.com&item_name=donation%20for%20tcpdf%20project",
                     "type": "custom"
                 }
             ],
-            "time": "2021-12-31T08:39:24+00:00"
+            "time": "2022-08-12T07:50:54+00:00"
         },
         {
             "name": "theseer/tokenizer",
