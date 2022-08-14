@@ -54,7 +54,7 @@ class Html extends BaseWriter
      *
      * @var bool
      */
-    private $embedImages = false;
+    protected $embedImages = false;
 
     /**
      * Use inline CSS?
@@ -551,15 +551,10 @@ class Html extends BaseWriter
      * Extend Row if chart is placed after nominal end of row.
      * This code should be exercised by sample:
      * Chart/32_Chart_read_write_PDF.php.
-     * However, that test is suppressed due to out-of-date
-     * Jpgraph code issuing warnings. So, don't measure
-     * code coverage for this function till that is fixed.
      *
      * @param int $row Row to check for charts
      *
      * @return array
-     *
-     * @codeCoverageIgnore
      */
     private function extendRowsForCharts(Worksheet $worksheet, int $row)
     {
@@ -635,11 +630,12 @@ class Html extends BaseWriter
      *
      * @return string
      */
-    public static function winFileToUrl($filename)
+    public static function winFileToUrl($filename, bool $mpdf = false)
     {
         // Windows filename
         if (substr($filename, 1, 2) === ':\\') {
-            $filename = 'file:///' . str_replace('\\', '/', $filename);
+            $protocol = $mpdf ? '' : 'file:///';
+            $filename = $protocol . str_replace('\\', '/', $filename);
         }
 
         return $filename;
@@ -681,9 +677,9 @@ class Html extends BaseWriter
                 $filename = htmlspecialchars($filename, Settings::htmlEntityFlags());
 
                 $html .= PHP_EOL;
-                $imageData = self::winFileToUrl($filename);
+                $imageData = self::winFileToUrl($filename, $this->isMPdf);
 
-                if (($this->embedImages && !$this->isPdf) || substr($imageData, 0, 6) === 'zip://') {
+                if ($this->embedImages || substr($imageData, 0, 6) === 'zip://') {
                     $picture = @file_get_contents($filename);
                     if ($picture !== false) {
                         $imageDetails = getimagesize($filename);
@@ -725,11 +721,6 @@ class Html extends BaseWriter
      * Generate chart tag in cell.
      * This code should be exercised by sample:
      * Chart/32_Chart_read_write_PDF.php.
-     * However, that test is suppressed due to out-of-date
-     * Jpgraph code issuing warnings. So, don't measure
-     * code coverage for this function till that is fixed.
-     *
-     * @codeCoverageIgnore
      */
     private function writeChartInCell(Worksheet $worksheet, string $coordinates): string
     {
@@ -1170,9 +1161,9 @@ class Html extends BaseWriter
         $html = '';
         $id = $showid ? "id='sheet$sheetIndex'" : '';
         if ($showid) {
-            $html .= "<div style='page: page$sheetIndex'>\n";
+            $html .= "<div style='page: page$sheetIndex'>" . PHP_EOL;
         } else {
-            $html .= "<div style='page: page$sheetIndex' class='scrpgbrk'>\n";
+            $html .= "<div style='page: page$sheetIndex' class='scrpgbrk'>" . PHP_EOL;
         }
 
         $this->generateTableTag($worksheet, $id, $html, $sheetIndex);
@@ -1467,6 +1458,10 @@ class Html extends BaseWriter
         // Sheet index
         $sheetIndex = $worksheet->getParent()->getIndex($worksheet);
         $html = $this->generateRowStart($worksheet, $sheetIndex, $row);
+        $generateDiv = $this->isMPdf && $worksheet->getRowDimension($row + 1)->getVisible() === false;
+        if ($generateDiv) {
+            $html .= '<div style="visibility:hidden; display:none;">' . PHP_EOL;
+        }
 
         // Write cells
         $colNum = 0;
@@ -1514,6 +1509,9 @@ class Html extends BaseWriter
         }
 
         // Write row end
+        if ($generateDiv) {
+            $html .= '</div>' . PHP_EOL;
+        }
         $html .= '          </tr>' . PHP_EOL;
 
         // Return
@@ -1844,26 +1842,26 @@ class Html extends BaseWriter
             } elseif ($orientation === \PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_PORTRAIT) {
                 $htmlPage .= 'size: portrait; ';
             }
-            $htmlPage .= "}\n";
+            $htmlPage .= '}' . PHP_EOL;
             ++$sheetId;
         }
-        $htmlPage .= <<<EOF
-.navigation {page-break-after: always;}
-.scrpgbrk, div + div {page-break-before: always;}
-@media screen {
-  .gridlines td {border: 1px solid black;}
-  .gridlines th {border: 1px solid black;}
-  body>div {margin-top: 5px;}
-  body>div:first-child {margin-top: 0;}
-  .scrpgbrk {margin-top: 1px;}
-}
-@media print {
-  .gridlinesp td {border: 1px solid black;}
-  .gridlinesp th {border: 1px solid black;}
-  .navigation {display: none;}
-}
-
-EOF;
+        $htmlPage .= implode(PHP_EOL, [
+            '.navigation {page-break-after: always;}',
+            '.scrpgbrk, div + div {page-break-before: always;}',
+            '@media screen {',
+            '  .gridlines td {border: 1px solid black;}',
+            '  .gridlines th {border: 1px solid black;}',
+            '  body>div {margin-top: 5px;}',
+            '  body>div:first-child {margin-top: 0;}',
+            '  .scrpgbrk {margin-top: 1px;}',
+            '}',
+            '@media print {',
+            '  .gridlinesp td {border: 1px solid black;}',
+            '  .gridlinesp th {border: 1px solid black;}',
+            '  .navigation {display: none;}',
+            '}',
+            '',
+        ]);
         $htmlPage .= $generateSurroundingHTML ? ('</style>' . PHP_EOL) : '';
 
         return $htmlPage;
