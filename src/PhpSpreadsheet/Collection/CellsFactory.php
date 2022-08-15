@@ -12,9 +12,8 @@ abstract class CellsFactory
      *
      * @param Worksheet $worksheet Enable cell caching for this worksheet
      *
-     * @return Cells
      * */
-    public static function getInstance(Worksheet $worksheet)
+    public static function getInstance(Worksheet $worksheet): Cells
     {
         return new Cells($worksheet, Settings::getCache());
     }
