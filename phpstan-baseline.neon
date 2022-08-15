@@ -1061,11 +1061,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/TextData/Text.php
 
 		-
-			message: "#^Elseif branch is unreachable because previous condition is always true\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Cell/Cell.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\:\\:getFormulaAttributes\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Cell/Cell.php
