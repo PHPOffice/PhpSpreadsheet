@@ -51,6 +51,28 @@ class DateReaderTest extends TestCase
         self::assertSame('2023-01-01', $worksheet->getCell('B2')->getFormattedValue());
     }
 
+    public function testNewDateInLoadedExcel1900Spreadsheet(): void
+    {
+        $filename = 'tests/data/Reader/XLSX/1900_Calendar.xlsx';
+        $reader = new Xlsx();
+        $spreadsheet = $reader->load($filename);
+
+        $worksheet = $spreadsheet->getActiveSheet();
+        $worksheet->getCell('A4')->setValue('=DATE(2023,1,1)');
+        self::assertEquals(44927, $worksheet->getCell('A4')->getCalculatedValue());
+    }
+
+    public function testNewDateInLoadedExcel1904Spreadsheet(): void
+    {
+        $filename = 'tests/data/Reader/XLSX/1904_Calendar.xlsx';
+        $reader = new Xlsx();
+        $spreadsheet = $reader->load($filename);
+
+        $worksheet = $spreadsheet->getActiveSheet();
+        $worksheet->getCell('A4')->setValue('=DATE(2023,1,1)');
+        self::assertEquals(43465, $worksheet->getCell('A4')->getCalculatedValue());
+    }
+
     public function testSwitchCalendars(): void
     {
         $filename1900 = 'tests/data/Reader/XLSX/1900_Calendar.xlsx';

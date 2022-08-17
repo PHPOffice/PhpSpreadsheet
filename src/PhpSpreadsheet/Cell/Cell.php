@@ -15,7 +15,6 @@ use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Style\Style;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Throwable;
-use function _PHPStan_59fb0a3b2\RingCentral\Psr7\str;
 
 class Cell
 {
@@ -192,7 +191,6 @@ class Cell
         SharedDate::setExcelCalendar($currentCalendar);
 
         return $formattedValue;
-
     }
 
     /**
@@ -407,9 +405,10 @@ class Cell
     public function getCalculatedValue(bool $asArray = false, bool $resetLog = true)
     {
         if ($this->dataType === DataType::TYPE_FORMULA) {
+            $currentCalendar = SharedDate::getExcelCalendar();
+            SharedDate::setExcelCalendar($this->getWorksheet()->getParent()->getExcelCalendar());
+
             try {
-//                $currentCalendar = SharedDate::getExcelCalendar();
-//                SharedDate::setExcelCalendar($this->getWorksheet()->getParent()->getExcelCalendar());
                 $coordinate = $this->getCoordinate();
                 $worksheet = $this->getWorksheet();
                 $value = $this->value;
@@ -437,7 +436,7 @@ class Cell
                 $this->getWorksheet()->setSelectedCells($selected);
                 $this->getWorksheet()->getParent()->setActiveSheetIndex($index);
             } catch (Exception $ex) {
-//                SharedDate::setExcelCalendar($currentCalendar);
+                SharedDate::setExcelCalendar($currentCalendar);
                 if (($ex->getMessage() === 'Unable to access External Workbook') && ($this->calculatedValue !== null)) {
                     return $this->calculatedValue; // Fallback for calculations referencing external files.
                 } elseif (preg_match('/[Uu]ndefined (name|offset: 2|array key 2)/', $ex->getMessage()) === 1) {
@@ -449,7 +448,7 @@ class Cell
                 );
             }
 
-//            SharedDate::setExcelCalendar($currentCalendar);
+            SharedDate::setExcelCalendar($currentCalendar);
             if ($result === '#Not Yet Implemented') {
                 return $this->calculatedValue; // Fallback if calculation engine does not support the formula.
             }

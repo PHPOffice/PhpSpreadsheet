@@ -55,9 +55,13 @@ class AllSetupTeardown extends TestCase
         }
     }
 
-    protected static function setMac1904(): void
+    protected static function setMac1904(?Worksheet $worksheet = null): void
     {
-        Date::setExcelCalendar(Date::CALENDAR_MAC_1904);
+        if ($worksheet === null) {
+            Date::setExcelCalendar(Date::CALENDAR_MAC_1904);
+        } else {
+            $worksheet->getParent()->setExcelCalendar(Date::CALENDAR_MAC_1904);
+        }
     }
 
     protected static function setUnixReturn(): void
