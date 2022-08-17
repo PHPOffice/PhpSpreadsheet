@@ -35,8 +35,8 @@ class IsoWeekNumTest extends AllSetupTeardown
     public function testISOWEEKNUM1904($expectedResult, $dateValue): void
     {
         $this->mightHaveException($expectedResult);
-        self::setMac1904();
         $sheet = $this->getSheet();
+        self::setMac1904($sheet);
         $sheet->getCell('A1')->setValue("=ISOWEEKNUM($dateValue)");
         $sheet->getCell('B1')->setValue('1954-11-23');
         self::assertSame($expectedResult, $sheet->getCell('A1')->getCalculatedValue());

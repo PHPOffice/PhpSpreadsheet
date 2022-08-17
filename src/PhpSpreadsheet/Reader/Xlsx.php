@@ -681,11 +681,11 @@ class Xlsx extends BaseReader
 
                     // Set base date
                     if ($xmlWorkbookNS->workbookPr) {
-                        Date::setExcelCalendar(Date::CALENDAR_WINDOWS_1900);
+                        $excel->setExcelCalendar(Date::CALENDAR_WINDOWS_1900);
                         $attrs1904 = self::getAttributes($xmlWorkbookNS->workbookPr);
                         if (isset($attrs1904['date1904'])) {
                             if (self::boolean((string) $attrs1904['date1904'])) {
-                                Date::setExcelCalendar(Date::CALENDAR_MAC_1904);
+                                $excel->setExcelCalendar(Date::CALENDAR_MAC_1904);
                             }
                         }
                     }

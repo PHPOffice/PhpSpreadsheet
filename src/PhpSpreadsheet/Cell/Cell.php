@@ -176,16 +176,21 @@ class Cell
 
     /**
      * Get cell value with formatting.
-     *
-     * @return string
      */
-    public function getFormattedValue()
+    public function getFormattedValue(): string
     {
-        return (string) NumberFormat::toFormattedString(
+        $currentCalendar = SharedDate::getExcelCalendar();
+        SharedDate::setExcelCalendar($this->getWorksheet()->getParent()->getExcelCalendar());
+
+        $formattedValue = (string) NumberFormat::toFormattedString(
             $this->getCalculatedValue(),
             $this->getStyle()
                 ->getNumberFormat()->getFormatCode()
         );
+
+        SharedDate::setExcelCalendar($currentCalendar);
+
+        return $formattedValue;
     }
 
     /**
@@ -342,8 +347,6 @@ class Cell
                 break;
             default:
                 throw new Exception('Invalid datatype: ' . $dataType);
-
-                break;
         }
 
         // set the datatype
@@ -402,6 +405,9 @@ class Cell
     public function getCalculatedValue(bool $asArray = false, bool $resetLog = true)
     {
         if ($this->dataType === DataType::TYPE_FORMULA) {
+            $currentCalendar = SharedDate::getExcelCalendar();
+            SharedDate::setExcelCalendar($this->getWorksheet()->getParent()->getExcelCalendar());
+
             try {
                 $coordinate = $this->getCoordinate();
                 $worksheet = $this->getWorksheet();
@@ -430,6 +436,7 @@ class Cell
                 $this->getWorksheet()->setSelectedCells($selected);
                 $this->getWorksheet()->getParent()->setActiveSheetIndex($index);
             } catch (Exception $ex) {
+                SharedDate::setExcelCalendar($currentCalendar);
                 if (($ex->getMessage() === 'Unable to access External Workbook') && ($this->calculatedValue !== null)) {
                     return $this->calculatedValue; // Fallback for calculations referencing external files.
                 } elseif (preg_match('/[Uu]ndefined (name|offset: 2|array key 2)/', $ex->getMessage()) === 1) {
@@ -441,6 +448,7 @@ class Cell
                 );
             }
 
+            SharedDate::setExcelCalendar($currentCalendar);
             if ($result === '#Not Yet Implemented') {
                 return $this->calculatedValue; // Fallback if calculation engine does not support the formula.
             }
