@@ -52,14 +52,14 @@ class Cell
     private $dataType;
 
     /**
-     * Collection of cells.
+     * The collection of cells that this cell belongs to (i.e. The Cell Collection for the parent Worksheet).
      *
      * @var Cells
      */
     private $parent;
 
     /**
-     * Index to cellXf.
+     * Index to the cellXf reference for the styling of this cell.
      *
      * @var int
      */
@@ -104,9 +104,8 @@ class Cell
      * Create a new Cell.
      *
      * @param mixed $value
-     * @param string $dataType
      */
-    public function __construct($value, $dataType, Worksheet $worksheet)
+    public function __construct($value, ?string $dataType, Worksheet $worksheet)
     {
         // Initialise cell value
         $this->value = $value;
@@ -120,7 +119,7 @@ class Cell
                 $dataType = DataType::TYPE_STRING;
             }
             $this->dataType = $dataType;
-        } elseif (!self::getValueBinder()->bindValue($this, $value)) {
+        } elseif (self::getValueBinder()->bindValue($this, $value) === false) {
             throw new Exception('Value could not be bound to cell.');
         }
     }
@@ -280,7 +279,7 @@ class Cell
      *        Note that PhpSpreadsheet does not validate that the value and datatype are consistent, in using this
      *             method, then it is your responsibility as an end-user developer to validate that the value and
      *             the datatype match.
-     *       If you do mismatch value and datatpe, then the value you enter may be changed to match the datatype
+     *       If you do mismatch value and datatype, then the value you enter may be changed to match the datatype
      *          that you specify.
      *
      * @return Cell
@@ -505,7 +504,7 @@ class Cell
      *
      * @return Cell
      */
-    public function setDataType($dataType)
+    public function setDataType($dataType): self
     {
         if ($dataType == DataType::TYPE_STRING2) {
             $dataType = DataType::TYPE_STRING;
@@ -562,10 +561,8 @@ class Cell
 
     /**
      * Get Data validation rules.
-     *
-     * @return DataValidation
      */
-    public function getDataValidation()
+    public function getDataValidation(): DataValidation
     {
         if (!isset($this->parent)) {
             throw new Exception('Cannot get data validation for cell that is not bound to a worksheet');
@@ -745,7 +742,7 @@ class Cell
      *
      * @return Cell
      */
-    public function rebindParent(Worksheet $parent)
+    public function rebindParent(Worksheet $parent): self
     {
         $this->parent = $parent->getCellCollection();
 
@@ -756,10 +753,8 @@ class Cell
      *    Is cell in a specific range?
      *
      * @param string $range Cell range (e.g. A1:A1)
-     *
-     * @return bool
      */
-    public function isInRange($range)
+    public function isInRange(string $range): bool
     {
         [$rangeStart, $rangeEnd] = Coordinate::rangeBoundaries($range);
 
@@ -780,7 +775,7 @@ class Cell
      *
      * @return int Result of comparison (always -1 or 1, never zero!)
      */
-    public static function compareCells(self $a, self $b)
+    public static function compareCells(self $a, self $b): int
     {
         if ($a->getRow() < $b->getRow()) {
             return -1;
@@ -795,10 +790,8 @@ class Cell
 
     /**
      * Get value binder to use.
-     *
-     * @return IValueBinder
      */
-    public static function getValueBinder()
+    public static function getValueBinder(): IValueBinder
     {
         if (self::$valueBinder === null) {
             self::$valueBinder = new DefaultValueBinder();
@@ -821,21 +814,19 @@ class Cell
     public function __clone()
     {
         $vars = get_object_vars($this);
-        foreach ($vars as $key => $value) {
-            if ((is_object($value)) && ($key != 'parent')) {
-                $this->$key = clone $value;
+        foreach ($vars as $propertyName => $propertyValue) {
+            if ((is_object($propertyValue)) && ($propertyName !== 'parent')) {
+                $this->$propertyName = clone $propertyValue;
             } else {
-                $this->$key = $value;
+                $this->$propertyName = $propertyValue;
             }
         }
     }
 
     /**
      * Get index to cellXf.
-     *
-     * @return int
      */
-    public function getXfIndex()
+    public function getXfIndex(): int
     {
         return $this->xfIndex;
     }
@@ -843,11 +834,9 @@ class Cell
     /**
      * Set index to cellXf.
      *
-     * @param int $indexValue
-     *
      * @return Cell
      */
-    public function setXfIndex($indexValue)
+    public function setXfIndex(int $indexValue): self
     {
         $this->xfIndex = $indexValue;
 
@@ -861,7 +850,7 @@ class Cell
      *
      * @return $this
      */
-    public function setFormulaAttributes(array $attributes)
+    public function setFormulaAttributes(array $attributes): self
     {
         $this->formulaAttributes = $attributes;
 

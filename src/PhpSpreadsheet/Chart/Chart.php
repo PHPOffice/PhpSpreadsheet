@@ -147,6 +147,9 @@ class Chart
     /** @var bool */
     private $noFill = false;
 
+    /** @var bool */
+    private $roundedCorners = false;
+
     /**
      * Create a new Chart.
      * majorGridlines and minorGridlines are deprecated, moved to Axis.
@@ -183,6 +186,13 @@ class Chart
     public function getName()
     {
         return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
     }
 
     /**
@@ -651,14 +661,10 @@ class Chart
 
     /**
      * Render the chart to given file (or stream).
-     * Unable to cover code until a usable current version of JpGraph
-     * is made available through Composer.
      *
      * @param string $outputDestination Name of the file render to
      *
      * @return bool true on success
-     *
-     * @codeCoverageIgnore
      */
     public function render($outputDestination = null)
     {
@@ -759,6 +765,18 @@ class Chart
     public function setNoFill(bool $noFill): self
     {
         $this->noFill = $noFill;
+
+        return $this;
+    }
+
+    public function getRoundedCorners(): bool
+    {
+        return $this->roundedCorners;
+    }
+
+    public function setRoundedCorners(bool $roundedCorners): self
+    {
+        $this->roundedCorners = $roundedCorners;
 
         return $this;
     }

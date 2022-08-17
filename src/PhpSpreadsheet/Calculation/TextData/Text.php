@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Calculation\TextData;
 
 use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class Text
@@ -206,5 +207,48 @@ class Text
     private static function matchFlags(bool $matchMode): string
     {
         return ($matchMode === true) ? 'miu' : 'mu';
+    }
+
+    public static function fromArray(array $array, int $format = 0): string
+    {
+        $result = [];
+        foreach ($array as $row) {
+            $cells = [];
+            foreach ($row as $cellValue) {
+                $value = ($format === 1) ? self::formatValueMode1($cellValue) : self::formatValueMode0($cellValue);
+                $cells[] = $value;
+            }
+            $result[] = implode(($format === 1) ? ',' : ', ', $cells);
+        }
+
+        $result = implode(($format === 1) ? ';' : ', ', $result);
+
+        return ($format === 1) ? '{' . $result . '}' : $result;
+    }
+
+    /**
+     * @param mixed $cellValue
+     */
+    private static function formatValueMode0($cellValue): string
+    {
+        if (is_bool($cellValue)) {
+            return ($cellValue) ? Calculation::$localeBoolean['TRUE'] : Calculation::$localeBoolean['FALSE'];
+        }
+
+        return (string) $cellValue;
+    }
+
+    /**
+     * @param mixed $cellValue
+     */
+    private static function formatValueMode1($cellValue): string
+    {
+        if (is_string($cellValue) && Functions::isError($cellValue) === false) {
+            return Calculation::FORMULA_STRING_QUOTE . $cellValue . Calculation::FORMULA_STRING_QUOTE;
+        } elseif (is_bool($cellValue)) {
+            return ($cellValue) ? Calculation::$localeBoolean['TRUE'] : Calculation::$localeBoolean['FALSE'];
+        }
+
+        return (string) $cellValue;
     }
 }

@@ -11,6 +11,7 @@ use PhpOffice\PhpSpreadsheet\Chart\Legend;
 use PhpOffice\PhpSpreadsheet\Chart\PlotArea;
 use PhpOffice\PhpSpreadsheet\Chart\Properties;
 use PhpOffice\PhpSpreadsheet\Chart\Title;
+use PhpOffice\PhpSpreadsheet\Chart\TrendLine;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 
@@ -58,7 +59,7 @@ class Chart extends WriterPart
         $objWriter->writeAttribute('val', 'en-GB');
         $objWriter->endElement();
         $objWriter->startElement('c:roundedCorners');
-        $objWriter->writeAttribute('val', '0');
+        $objWriter->writeAttribute('val', $chart->getRoundedCorners() ? '1' : '0');
         $objWriter->endElement();
 
         $this->writeAlternateContent($objWriter);
@@ -1122,6 +1123,65 @@ class Chart extends WriterPart
                 $objWriter->startElement('c:invertIfNegative');
                 $objWriter->writeAttribute('val', '0');
                 $objWriter->endElement();
+            }
+            // Trendlines
+            if ($plotSeriesValues !== false) {
+                foreach ($plotSeriesValues->getTrendLines() as $trendLine) {
+                    $trendLineType = $trendLine->getTrendLineType();
+                    $order = $trendLine->getOrder();
+                    $period = $trendLine->getPeriod();
+                    $dispRSqr = $trendLine->getDispRSqr();
+                    $dispEq = $trendLine->getDispEq();
+                    $trendLineColor = $trendLine->getLineColor(); // ChartColor
+                    $trendLineWidth = $trendLine->getLineStyleProperty('width');
+
+                    $objWriter->startElement('c:trendline'); // N.B. lowercase 'ell'
+                    $objWriter->startElement('c:spPr');
+
+                    if (!$trendLineColor->isUsable()) {
+                        // use dataSeriesValues line color as a backup if $trendLineColor is null
+                        $dsvLineColor = $plotSeriesValues->getLineColor();
+                        if ($dsvLineColor->isUsable()) {
+                            $trendLine
+                                ->getLineColor()
+                                ->setColorProperties($dsvLineColor->getValue(), $dsvLineColor->getAlpha(), $dsvLineColor->getType());
+                        }
+                    } // otherwise, hope Excel does the right thing
+
+                    $this->writeLineStyles($objWriter, $trendLine, false); // suppress noFill
+
+                    $objWriter->endElement(); // spPr
+
+                    $objWriter->startElement('c:trendlineType'); // N.B lowercase 'ell'
+                    $objWriter->writeAttribute('val', $trendLineType);
+                    $objWriter->endElement(); // trendlineType
+                    if ($trendLineType == TrendLine::TRENDLINE_POLYNOMIAL) {
+                        $objWriter->startElement('c:order');
+                        $objWriter->writeAttribute('val', $order);
+                        $objWriter->endElement(); // order
+                    }
+                    if ($trendLineType == TrendLine::TRENDLINE_MOVING_AVG) {
+                        $objWriter->startElement('c:period');
+                        $objWriter->writeAttribute('val', $period);
+                        $objWriter->endElement(); // period
+                    }
+                    $objWriter->startElement('c:dispRSqr');
+                    $objWriter->writeAttribute('val', $dispRSqr ? '1' : '0');
+                    $objWriter->endElement();
+                    $objWriter->startElement('c:dispEq');
+                    $objWriter->writeAttribute('val', $dispEq ? '1' : '0');
+                    $objWriter->endElement();
+                    if ($groupType === DataSeries::TYPE_SCATTERCHART || $groupType === DataSeries::TYPE_LINECHART) {
+                        $objWriter->startElement('c:trendlineLbl');
+                        $objWriter->startElement('c:numFmt');
+                        $objWriter->writeAttribute('formatCode', 'General');
+                        $objWriter->writeAttribute('sourceLinked', '0');
+                        $objWriter->endElement();  // numFmt
+                        $objWriter->endElement();  // trendlineLbl
+                    }
+
+                    $objWriter->endElement(); // trendline
+                }
             }
 
             //    Category Labels

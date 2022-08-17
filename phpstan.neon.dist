@@ -11,6 +11,7 @@ parameters:
         - tests/
     excludePaths:
         - src/PhpSpreadsheet/Chart/Renderer/JpGraph.php
+        - src/PhpSpreadsheet/Chart/Renderer/JpGraphRendererBase.php
     parallel:
         processTimeout: 300.0
     checkMissingIterableValueType: false

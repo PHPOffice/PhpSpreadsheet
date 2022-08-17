@@ -18,14 +18,8 @@ class StreamTest extends TestCase
             ['Html'],
             ['Mpdf'],
             ['Dompdf'],
+            ['Tcpdf'],
         ];
-
-        if (\PHP_VERSION_ID < 80000) {
-            $providerFormats = array_merge(
-                $providerFormats,
-                [['Tcpdf']]
-            );
-        }
 
         return $providerFormats;
     }
