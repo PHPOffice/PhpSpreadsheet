@@ -11,7 +11,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class Spreadsheet
 {
-    // Allowable values for workbook window visilbity
+    // Allowable values for workbook window visibility
     const VISIBILITY_VISIBLE = 'visible';
     const VISIBILITY_HIDDEN = 'hidden';
     const VISIBILITY_VERY_HIDDEN = 'veryHidden';
@@ -1157,28 +1157,24 @@ class Spreadsheet
      */
     public function copy()
     {
-        $copied = clone $this;
+        $filename = File::temporaryFilename();
+        $writer = new XlsxWriter($this);
+        $writer->setIncludeCharts(true);
+        $writer->save($filename);
 
-        $worksheetCount = count($this->workSheetCollection);
-        for ($i = 0; $i < $worksheetCount; ++$i) {
-            $this->workSheetCollection[$i] = $this->workSheetCollection[$i]->copy();
-            $this->workSheetCollection[$i]->rebindParent($this);
-        }
+        $reader = new XlsxReader();
+        $reader->setIncludeCharts(true);
+        $reloadedSpreadsheet = $reader->load($filename);
+        unlink($filename);
 
-        return $copied;
+        return $reloadedSpreadsheet;
     }
 
-    /**
-     * Implement PHP __clone to create a deep clone, not just a shallow copy.
-     */
     public function __clone()
     {
-        // @phpstan-ignore-next-line
-        foreach ($this as $key => $val) {
-            if (is_object($val) || (is_array($val))) {
-                $this->{$key} = unserialize(serialize($val));
-            }
-        }
+        throw new Exception(
+            'Do not use clone on spreadsheet. Use spreadsheet->copy() instead.'
+        );
     }
 
     /**
@@ -1599,7 +1595,7 @@ class Spreadsheet
      *       Workbook window is hidden and cannot be shown in the
      *       user interface.
      *
-     * @param string $visibility visibility status of the workbook
+     * @param null|string $visibility visibility status of the workbook
      */
     public function setVisibility($visibility): void
     {
@@ -1633,7 +1629,7 @@ class Spreadsheet
      */
     public function setTabRatio($tabRatio): void
     {
-        if ($tabRatio >= 0 || $tabRatio <= 1000) {
+        if ($tabRatio >= 0 && $tabRatio <= 1000) {
             $this->tabRatio = (int) $tabRatio;
         } else {
             throw new Exception('Tab ratio must be between 0 and 1000.');

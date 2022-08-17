@@ -12,12 +12,10 @@ $spreadsheet = $reader->load(__DIR__ . '/../templates/26template.xlsx');
 // at this point, we could do some manipulations with the template, but we skip this step
 $helper->write($spreadsheet, __FILE__, ['Xlsx', 'Xls', 'Html']);
 
-if (\PHP_VERSION_ID < 80000) {
-    // Export to PDF (.pdf)
-    $helper->log('Write to PDF format');
-    IOFactory::registerWriter('Pdf', \PhpOffice\PhpSpreadsheet\Writer\Pdf\Dompdf::class);
-    $helper->write($spreadsheet, __FILE__, ['Pdf']);
-}
+// Export to PDF (.pdf)
+$helper->log('Write to PDF format');
+IOFactory::registerWriter('Pdf', \PhpOffice\PhpSpreadsheet\Writer\Pdf\Dompdf::class);
+$helper->write($spreadsheet, __FILE__, ['Pdf']);
 
 // Remove first two rows with field headers before exporting to CSV
 $helper->log('Removing first two heading rows for CSV export');

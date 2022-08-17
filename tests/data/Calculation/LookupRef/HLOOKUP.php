@@ -186,4 +186,14 @@ return [
         3,
         true,
     ],
+    'issue2934' => [
+        'Red',
+        102,
+        [
+            [null, 102],
+            [null, 'Red'],
+        ],
+        2,
+        false,
+    ],
 ];

@@ -10,15 +10,24 @@ use PHPUnit\Framework\TestCase;
 class CellMatcherTest extends TestCase
 {
     /**
-     * @var Spreadsheet
+     * @var ?Spreadsheet
      */
     protected $spreadsheet;
 
-    protected function setUp(): void
+    protected function loadSpreadsheet(): Spreadsheet
     {
         $filename = 'tests/data/Style/ConditionalFormatting/CellMatcher.xlsx';
         $reader = IOFactory::createReader('Xlsx');
-        $this->spreadsheet = $reader->load($filename);
+
+        return $reader->load($filename);
+    }
+
+    protected function tearDown(): void
+    {
+        if ($this->spreadsheet !== null) {
+            $this->spreadsheet->disconnectWorksheets();
+            $this->spreadsheet = null;
+        }
     }
 
     /**
@@ -26,16 +35,13 @@ class CellMatcherTest extends TestCase
      */
     public function testBasicCellIsComparison(string $sheetname, string $cellAddress, array $expectedMatches): void
     {
+        $this->spreadsheet = $this->loadSpreadsheet();
         $worksheet = $this->spreadsheet->getSheetByName($sheetname);
-        if ($worksheet === null) {
-            self::markTestSkipped("{$sheetname} not found in test workbook");
-        }
+        self::assertNotNull($worksheet, "$sheetname not found in test workbook");
         $cell = $worksheet->getCell($cellAddress);
 
         $cfRange = $worksheet->getConditionalRange($cell->getCoordinate());
-        if ($cfRange === null) {
-            self::markTestSkipped("{$cellAddress} is not in a Conditional Format range");
-        }
+        self::assertNotNull($cfRange, "{$cellAddress} is not in a Conditional Format range");
         $cfStyles = $worksheet->getConditionalStyles($cell->getCoordinate());
 
         $matcher = new CellMatcher($cell, $cfRange);
@@ -82,16 +88,13 @@ class CellMatcherTest extends TestCase
      */
     public function testRangeCellIsComparison(string $sheetname, string $cellAddress, bool $expectedMatch): void
     {
+        $this->spreadsheet = $this->loadSpreadsheet();
         $worksheet = $this->spreadsheet->getSheetByName($sheetname);
-        if ($worksheet === null) {
-            self::markTestSkipped("{$sheetname} not found in test workbook");
-        }
+        self::assertNotNull($worksheet, "$sheetname not found in test workbook");
         $cell = $worksheet->getCell($cellAddress);
 
         $cfRange = $worksheet->getConditionalRange($cell->getCoordinate());
-        if ($cfRange === null) {
-            self::markTestSkipped("{$cellAddress} is not in a Conditional Format range");
-        }
+        self::assertNotNull($cfRange, "$cellAddress is not in a Conditional Format range");
         $cfStyle = $worksheet->getConditionalStyles($cell->getCoordinate());
 
         $matcher = new CellMatcher($cell, $cfRange);
@@ -128,16 +131,13 @@ class CellMatcherTest extends TestCase
      */
     public function testCellIsMultipleExpression(string $sheetname, string $cellAddress, array $expectedMatches): void
     {
+        $this->spreadsheet = $this->loadSpreadsheet();
         $worksheet = $this->spreadsheet->getSheetByName($sheetname);
-        if ($worksheet === null) {
-            self::markTestSkipped("{$sheetname} not found in test workbook");
-        }
+        self::assertNotNull($worksheet, "$sheetname not found in test workbook");
         $cell = $worksheet->getCell($cellAddress);
 
         $cfRange = $worksheet->getConditionalRange($cell->getCoordinate());
-        if ($cfRange === null) {
-            self::markTestSkipped("{$cellAddress} is not in a Conditional Format range");
-        }
+        self::assertNotNull($cfRange, "$cellAddress is not in a Conditional Format range");
         $cfStyles = $worksheet->getConditionalStyles($cell->getCoordinate());
 
         $matcher = new CellMatcher($cell, $cfRange);
@@ -167,16 +167,13 @@ class CellMatcherTest extends TestCase
      */
     public function testCellIsExpression(string $sheetname, string $cellAddress, bool $expectedMatch): void
     {
+        $this->spreadsheet = $this->loadSpreadsheet();
         $worksheet = $this->spreadsheet->getSheetByName($sheetname);
-        if ($worksheet === null) {
-            self::markTestSkipped("{$sheetname} not found in test workbook");
-        }
+        self::assertNotNull($worksheet, "$sheetname not found in test workbook");
         $cell = $worksheet->getCell($cellAddress);
 
         $cfRange = $worksheet->getConditionalRange($cell->getCoordinate());
-        if ($cfRange === null) {
-            self::markTestSkipped("{$cellAddress} is not in a Conditional Format range");
-        }
+        self::assertNotNull($cfRange, "$cellAddress is not in a Conditional Format range");
         $cfStyle = $worksheet->getConditionalStyles($cell->getCoordinate());
 
         $matcher = new CellMatcher($cell, $cfRange);
@@ -216,16 +213,13 @@ class CellMatcherTest extends TestCase
      */
     public function testTextExpressions(string $sheetname, string $cellAddress, bool $expectedMatch): void
     {
+        $this->spreadsheet = $this->loadSpreadsheet();
         $worksheet = $this->spreadsheet->getSheetByName($sheetname);
-        if ($worksheet === null) {
-            self::markTestSkipped("{$sheetname} not found in test workbook");
-        }
+        self::assertNotNull($worksheet, "$sheetname not found in test workbook");
         $cell = $worksheet->getCell($cellAddress);
 
         $cfRange = $worksheet->getConditionalRange($cell->getCoordinate());
-        if ($cfRange === null) {
-            self::markTestSkipped("{$cellAddress} is not in a Conditional Format range");
-        }
+        self::assertNotNull($cfRange, "$cellAddress is not in a Conditional Format range");
         $cfStyle = $worksheet->getConditionalStyles($cell->getCoordinate());
 
         $matcher = new CellMatcher($cell, $cfRange);
@@ -329,16 +323,13 @@ class CellMatcherTest extends TestCase
      */
     public function testBlankExpressions(string $sheetname, string $cellAddress, array $expectedMatches): void
     {
+        $this->spreadsheet = $this->loadSpreadsheet();
         $worksheet = $this->spreadsheet->getSheetByName($sheetname);
-        if ($worksheet === null) {
-            self::markTestSkipped("{$sheetname} not found in test workbook");
-        }
+        self::assertNotNull($worksheet, "$sheetname not found in test workbook");
         $cell = $worksheet->getCell($cellAddress);
 
         $cfRange = $worksheet->getConditionalRange($cell->getCoordinate());
-        if ($cfRange === null) {
-            self::markTestSkipped("{$cellAddress} is not in a Conditional Format range");
-        }
+        self::assertNotNull($cfRange, "$cellAddress is not in a Conditional Format range");
         $cfStyles = $worksheet->getConditionalStyles($cell->getCoordinate());
 
         $matcher = new CellMatcher($cell, $cfRange);
@@ -365,16 +356,13 @@ class CellMatcherTest extends TestCase
      */
     public function testErrorExpressions(string $sheetname, string $cellAddress, array $expectedMatches): void
     {
+        $this->spreadsheet = $this->loadSpreadsheet();
         $worksheet = $this->spreadsheet->getSheetByName($sheetname);
-        if ($worksheet === null) {
-            self::markTestSkipped("{$sheetname} not found in test workbook");
-        }
+        self::assertNotNull($worksheet, "$sheetname not found in test workbook");
         $cell = $worksheet->getCell($cellAddress);
 
         $cfRange = $worksheet->getConditionalRange($cell->getCoordinate());
-        if ($cfRange === null) {
-            self::markTestSkipped("{$cellAddress} is not in a Conditional Format range");
-        }
+        self::assertNotNull($cfRange, "$cellAddress is not in a Conditional Format range");
         $cfStyles = $worksheet->getConditionalStyles($cell->getCoordinate());
 
         $matcher = new CellMatcher($cell, $cfRange);
@@ -400,16 +388,13 @@ class CellMatcherTest extends TestCase
      */
     public function testDateOccurringExpressions(string $sheetname, string $cellAddress, bool $expectedMatch): void
     {
+        $this->spreadsheet = $this->loadSpreadsheet();
         $worksheet = $this->spreadsheet->getSheetByName($sheetname);
-        if ($worksheet === null) {
-            self::markTestSkipped("{$sheetname} not found in test workbook");
-        }
+        self::assertNotNull($worksheet, "$sheetname not found in test workbook");
         $cell = $worksheet->getCell($cellAddress);
 
         $cfRange = $worksheet->getConditionalRange($cell->getCoordinate());
-        if ($cfRange === null) {
-            self::markTestSkipped("{$cellAddress} is not in a Conditional Format range");
-        }
+        self::assertNotNull($cfRange, "$cellAddress is not in a Conditional Format range");
         $cfStyle = $worksheet->getConditionalStyles($cell->getCoordinate());
 
         $matcher = new CellMatcher($cell, $cfRange);
@@ -447,16 +432,13 @@ class CellMatcherTest extends TestCase
      */
     public function testDuplicatesExpressions(string $sheetname, string $cellAddress, array $expectedMatches): void
     {
+        $this->spreadsheet = $this->loadSpreadsheet();
         $worksheet = $this->spreadsheet->getSheetByName($sheetname);
-        if ($worksheet === null) {
-            self::markTestSkipped("{$sheetname} not found in test workbook");
-        }
+        self::assertNotNull($worksheet, "$sheetname not found in test workbook");
         $cell = $worksheet->getCell($cellAddress);
 
         $cfRange = $worksheet->getConditionalRange($cell->getCoordinate());
-        if ($cfRange === null) {
-            self::markTestSkipped("{$cellAddress} is not in a Conditional Format range");
-        }
+        self::AssertNotNull($cfRange, "$cellAddress is not in a Conditional Format range");
         $cfStyles = $worksheet->getConditionalStyles($cell->getCoordinate());
 
         $matcher = new CellMatcher($cell, $cfRange);
@@ -486,16 +468,13 @@ class CellMatcherTest extends TestCase
      */
     public function testCrossWorksheetExpressions(string $sheetname, string $cellAddress, bool $expectedMatch): void
     {
+        $this->spreadsheet = $this->loadSpreadsheet();
         $worksheet = $this->spreadsheet->getSheetByName($sheetname);
-        if ($worksheet === null) {
-            self::markTestSkipped("{$sheetname} not found in test workbook");
-        }
+        self::assertNotNull($worksheet, "$sheetname not found in test workbook");
         $cell = $worksheet->getCell($cellAddress);
 
         $cfRange = $worksheet->getConditionalRange($cell->getCoordinate());
-        if ($cfRange === null) {
-            self::markTestSkipped("{$cellAddress} is not in a Conditional Format range");
-        }
+        self::assertNotNull($cfRange, "$cellAddress is not in a Conditional Format range");
         $cfStyle = $worksheet->getConditionalStyles($cell->getCoordinate());
 
         $matcher = new CellMatcher($cell, $cfRange);

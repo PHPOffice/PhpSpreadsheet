@@ -124,6 +124,7 @@ $dataSeriesValues[2]->setScatterLines(false); // points not connected
 $xAxis = new Axis();
 //$xAxis->setAxisNumberProperties(Properties::FORMAT_CODE_DATE );
 $xAxis->setAxisNumberProperties(Properties::FORMAT_CODE_DATE_ISO8601, true);
+$xAxis->setAxisOption('textRotation', '45');
 
 $yAxis = new Axis();
 $yAxis->setLineStyleProperties(

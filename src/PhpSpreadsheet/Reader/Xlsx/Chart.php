@@ -72,12 +72,28 @@ class Chart
         $rotX = $rotY = $rAngAx = $perspective = null;
         $xAxis = new Axis();
         $yAxis = new Axis();
+        $autoTitleDeleted = null;
+        $chartNoFill = false;
+        $gradientArray = [];
+        $gradientLin = null;
         foreach ($chartElementsC as $chartElementKey => $chartElement) {
             switch ($chartElementKey) {
+                case 'spPr':
+                    $possibleNoFill = $chartElementsC->spPr->children($this->aNamespace);
+                    if (isset($possibleNoFill->noFill)) {
+                        $chartNoFill = true;
+                    }
+
+                    break;
                 case 'chart':
                     foreach ($chartElement as $chartDetailsKey => $chartDetails) {
                         $chartDetailsC = $chartDetails->children($this->cNamespace);
                         switch ($chartDetailsKey) {
+                            case 'autoTitleDeleted':
+                                /** @var bool */
+                                $autoTitleDeleted = self::getAttribute($chartElementsC->chart->autoTitleDeleted, 'val', 'boolean');
+
+                                break;
                             case 'view3D':
                                 $rotX = self::getAttribute($chartDetails->rotX, 'val', 'integer');
                                 $rotY = self::getAttribute($chartDetails->rotY, 'val', 'integer');
@@ -89,8 +105,29 @@ class Chart
                                 $plotAreaLayout = $XaxisLabel = $YaxisLabel = null;
                                 $plotSeries = $plotAttributes = [];
                                 $catAxRead = false;
+                                $plotNoFill = false;
                                 foreach ($chartDetails as $chartDetailKey => $chartDetail) {
                                     switch ($chartDetailKey) {
+                                        case 'spPr':
+                                            $possibleNoFill = $chartDetails->spPr->children($this->aNamespace);
+                                            if (isset($possibleNoFill->noFill)) {
+                                                $plotNoFill = true;
+                                            }
+                                            if (isset($possibleNoFill->gradFill->gsLst)) {
+                                                foreach ($possibleNoFill->gradFill->gsLst->gs as $gradient) {
+                                                    /** @var float */
+                                                    $pos = self::getAttribute($gradient, 'pos', 'float');
+                                                    $gradientArray[] = [
+                                                        $pos / Properties::PERCENTAGE_MULTIPLIER,
+                                                        new ChartColor($this->readColor($gradient)),
+                                                    ];
+                                                }
+                                            }
+                                            if (isset($possibleNoFill->gradFill->lin)) {
+                                                $gradientLin = Properties::XmlToAngle((string) self::getAttribute($possibleNoFill->gradFill->lin, 'ang', 'string'));
+                                            }
+
+                                            break;
                                         case 'layout':
                                             $plotAreaLayout = $this->chartLayoutDetails($chartDetail);
 
@@ -228,7 +265,7 @@ class Chart
                                         case 'doughnutChart':
                                         case 'pieChart':
                                         case 'pie3DChart':
-                                            $explosion = isset($chartDetail->ser->explosion);
+                                            $explosion = self::getAttribute($chartDetail->ser->explosion, 'val', 'string');
                                             $plotSer = $this->chartDataSeries($chartDetail, $chartDetailKey);
                                             $plotSer->setPlotStyle("$explosion");
                                             $plotSeries[] = $plotSer;
@@ -282,6 +319,12 @@ class Chart
                                 }
                                 $plotArea = new PlotArea($plotAreaLayout, $plotSeries);
                                 $this->setChartAttributes($plotAreaLayout, $plotAttributes);
+                                if ($plotNoFill) {
+                                    $plotArea->setNoFill(true);
+                                }
+                                if (!empty($gradientArray)) {
+                                    $plotArea->setGradientFillProperties($gradientArray, $gradientLin);
+                                }
 
                                 break;
                             case 'plotVisOnly':
@@ -324,6 +367,12 @@ class Chart
             }
         }
         $chart = new \PhpOffice\PhpSpreadsheet\Chart\Chart($chartName, $title, $legend, $plotArea, $plotVisOnly, (string) $dispBlanksAs, $XaxisLabel, $YaxisLabel, $xAxis, $yAxis);
+        if ($chartNoFill) {
+            $chart->setNoFill(true);
+        }
+        if (is_bool($autoTitleDeleted)) {
+            $chart->setAutoTitleDeleted($autoTitleDeleted);
+        }
         if (is_int($rotX)) {
             $chart->setRotX($rotX);
         }
@@ -967,6 +1016,13 @@ class Chart
     {
         $plotAttributes = [];
         if (isset($chartDetail->dLbls)) {
+            if (isset($chartDetail->dLbls->dLblPos)) {
+                $plotAttributes['dLblPos'] = self::getAttribute($chartDetail->dLbls->dLblPos, 'val', 'string');
+            }
+            if (isset($chartDetail->dLbls->numFmt)) {
+                $plotAttributes['numFmtCode'] = self::getAttribute($chartDetail->dLbls->numFmt, 'formatCode', 'string');
+                $plotAttributes['numFmtLinked'] = self::getAttribute($chartDetail->dLbls->numFmt, 'sourceLinked', 'boolean');
+            }
             if (isset($chartDetail->dLbls->showLegendKey)) {
                 $plotAttributes['showLegendKey'] = self::getAttribute($chartDetail->dLbls->showLegendKey, 'val', 'string');
             }
@@ -1131,6 +1187,7 @@ class Chart
             'type' => null,
             'value' => null,
             'alpha' => null,
+            'brightness' => null,
         ];
         foreach (ChartColor::EXCEL_COLOR_TYPES as $type) {
             if (isset($colorXml->$type)) {
@@ -1141,6 +1198,13 @@ class Chart
                     $alpha = self::getAttribute($colorXml->$type->alpha, 'val', 'string');
                     if (is_numeric($alpha)) {
                         $result['alpha'] = ChartColor::alphaFromXml($alpha);
+                    }
+                }
+                if (isset($colorXml->$type->lumMod)) {
+                    /** @var string */
+                    $brightness = self::getAttribute($colorXml->$type->lumMod, 'val', 'string');
+                    if (is_numeric($brightness)) {
+                        $result['brightness'] = ChartColor::alphaFromXml($brightness);
                     }
                 }
 
@@ -1220,6 +1284,9 @@ class Chart
         if (!isset($whichAxis)) {
             return;
         }
+        if (isset($chartDetail->delete)) {
+            $whichAxis->setAxisOption('hidden', (string) self::getAttribute($chartDetail->delete, 'val', 'string'));
+        }
         if (isset($chartDetail->numFmt)) {
             $whichAxis->setAxisNumberProperties(
                 (string) self::getAttribute($chartDetail->numFmt, 'formatCode', 'string'),
@@ -1262,6 +1329,16 @@ class Chart
         }
         if (isset($chartDetail->minorUnit)) {
             $whichAxis->setAxisOption('minor_unit', (string) self::getAttribute($chartDetail->minorUnit, 'val', 'string'));
+        }
+        if (isset($chartDetail->txPr)) {
+            $children = $chartDetail->txPr->children($this->aNamespace);
+            if (isset($children->bodyPr)) {
+                /** @var string */
+                $textRotation = self::getAttribute($children->bodyPr, 'rot', 'string');
+                if (is_numeric($textRotation)) {
+                    $whichAxis->setAxisOption('textRotation', (string) Properties::xmlToAngle($textRotation));
+                }
+            }
         }
     }
 }
