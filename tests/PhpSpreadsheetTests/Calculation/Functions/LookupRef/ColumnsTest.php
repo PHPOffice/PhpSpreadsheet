@@ -21,7 +21,7 @@ class ColumnsTest extends TestCase
      */
     public function testCOLUMNS($expectedResult, ...$args): void
     {
-        $result = RowColumnInformation::COLUMNS(...$args);
+        $result = RowColumnInformation::columns(...$args);
         self::assertEquals($expectedResult, $result);
     }
 

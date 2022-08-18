@@ -20,7 +20,7 @@ class CoupNcdTest extends TestCase
      */
     public function testCOUPNCD($expectedResult, ...$args): void
     {
-        $result = Coupons::COUPNCD(...$args);
+        $result = Coupons::nextCouponDate(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 

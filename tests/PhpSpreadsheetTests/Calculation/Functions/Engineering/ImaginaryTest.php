@@ -24,7 +24,7 @@ class ImaginaryTest extends TestCase
      */
     public function testIMAGINARY($expectedResult, $value): void
     {
-        $result = Complex::IMAGINARY($value);
+        $result = Complex::imaginary($value);
         self::assertEqualsWithDelta($expectedResult, $result, self::COMPLEX_PRECISION);
     }
 

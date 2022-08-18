@@ -20,7 +20,7 @@ class SlopeTest extends TestCase
      */
     public function testSLOPE($expectedResult, array $xargs, array $yargs): void
     {
-        $result = Trends::SLOPE($xargs, $yargs);
+        $result = Trends::slope($xargs, $yargs);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

@@ -46,7 +46,7 @@ class Conditional
      *
      * @return mixed The value of returnIfTrue or returnIfFalse determined by condition
      */
-    public static function statementIf($condition = true, $returnIfTrue = 0, $returnIfFalse = false)
+    public static function if($condition = true, $returnIfTrue = 0, $returnIfFalse = false)
     {
         $condition = ($condition === null) ? true : Functions::flattenSingleValue($condition);
 
@@ -86,7 +86,7 @@ class Conditional
      *
      * @return mixed The value of matched expression
      */
-    public static function statementSwitch(...$arguments)
+    public static function switch(...$arguments)
     {
         $result = ExcelError::VALUE();
 
@@ -132,7 +132,7 @@ class Conditional
      *         If an array of values is passed as the $testValue argument, then the returned result will also be
      *            an array with the same dimensions
      */
-    public static function IFERROR($testValue = '', $errorpart = '')
+    public static function ifError($testValue = '', $errorpart = '')
     {
         if (is_array($testValue)) {
             return self::evaluateArrayArgumentsSubset([self::class, __FUNCTION__], 1, $testValue, $errorpart);
@@ -140,7 +140,7 @@ class Conditional
 
         $errorpart = $errorpart ?? '';
 
-        return self::statementIf(ErrorValue::isError($testValue), $errorpart, $testValue);
+        return self::if(ErrorValue::isError($testValue), $errorpart, $testValue);
     }
 
     /**
@@ -158,7 +158,7 @@ class Conditional
      *         If an array of values is passed as the $testValue argument, then the returned result will also be
      *            an array with the same dimensions
      */
-    public static function IFNA($testValue = '', $napart = '')
+    public static function ifNa($testValue = '', $napart = '')
     {
         if (is_array($testValue)) {
             return self::evaluateArrayArgumentsSubset([self::class, __FUNCTION__], 1, $testValue, $napart);
@@ -166,7 +166,7 @@ class Conditional
 
         $napart = $napart ?? '';
 
-        return self::statementIf(ErrorValue::isNa($testValue), $napart, $testValue);
+        return self::if(ErrorValue::isNa($testValue), $napart, $testValue);
     }
 
     /**
@@ -185,7 +185,7 @@ class Conditional
      *
      * @return mixed|string The value of returnIfTrue_n, if testValue_n was true. #N/A if none of testValues was true
      */
-    public static function IFS(...$arguments)
+    public static function ifSeries(...$arguments)
     {
         $argumentCount = count($arguments);
 
@@ -197,7 +197,7 @@ class Conditional
         for ($i = 0; $i < $argumentCount; $i += 2) {
             $testValue = ($arguments[$i] === null) ? '' : Functions::flattenSingleValue($arguments[$i]);
             $returnIfTrue = ($arguments[$i + 1] === null) ? '' : $arguments[$i + 1];
-            $result = self::statementIf($testValue, $returnIfTrue, $falseValueException);
+            $result = self::if($testValue, $returnIfTrue, $falseValueException);
 
             if ($result !== $falseValueException) {
                 return $result;

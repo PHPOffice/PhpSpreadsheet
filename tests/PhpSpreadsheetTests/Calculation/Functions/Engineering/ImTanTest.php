@@ -31,7 +31,7 @@ class ImTanTest extends TestCase
      */
     public function testIMTAN($expectedResult, $value): void
     {
-        $result = ComplexFunctions::IMTAN($value);
+        $result = ComplexFunctions::tan($value);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()

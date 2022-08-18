@@ -20,7 +20,7 @@ class CoupNumTest extends TestCase
      */
     public function testCOUPNUM($expectedResult, ...$args): void
     {
-        $result = Coupons::COUPNUM(...$args);
+        $result = Coupons::numberPayable(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 

@@ -30,7 +30,7 @@ class ImDivTest extends TestCase
      */
     public function testIMDIV($expectedResult, ...$args): void
     {
-        $result = ComplexOperations::IMDIV(...$args);
+        $result = ComplexOperations::div(...$args);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()

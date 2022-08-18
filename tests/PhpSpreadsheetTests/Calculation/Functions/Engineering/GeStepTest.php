@@ -23,7 +23,7 @@ class GeStepTest extends TestCase
      */
     public function testGESTEP($expectedResult, $a, $b): void
     {
-        $result = Compare::GESTEP($a, $b);
+        $result = Compare::geStep($a, $b);
         self::assertEquals($expectedResult, $result);
     }
 

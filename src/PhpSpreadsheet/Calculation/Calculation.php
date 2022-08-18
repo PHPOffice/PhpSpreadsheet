@@ -290,7 +290,7 @@ class Calculation
         ],
         'AND' => [
             'category' => Category::CATEGORY_LOGICAL,
-            'functionCall' => [Logical\Operations::class, 'logicalAnd'],
+            'functionCall' => [Logical\Operations::class, 'and'],
             'argumentCount' => '1+',
         ],
         'ARABIC' => [
@@ -355,12 +355,12 @@ class Calculation
         ],
         'AVERAGEIF' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical\Conditional::class, 'AVERAGEIF'],
+            'functionCall' => [Statistical\Conditional::class, 'averageIf'],
             'argumentCount' => '2,3',
         ],
         'AVERAGEIFS' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical\Conditional::class, 'AVERAGEIFS'],
+            'functionCall' => [Statistical\Conditional::class, 'averageIfSeries'],
             'argumentCount' => '3+',
         ],
         'BAHTTEXT' => [
@@ -375,22 +375,22 @@ class Calculation
         ],
         'BESSELI' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\BesselI::class, 'BESSELI'],
+            'functionCall' => [Engineering\BesselI::class, 'besselI'],
             'argumentCount' => '2',
         ],
         'BESSELJ' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\BesselJ::class, 'BESSELJ'],
+            'functionCall' => [Engineering\BesselJ::class, 'besselJ'],
             'argumentCount' => '2',
         ],
         'BESSELK' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\BesselK::class, 'BESSELK'],
+            'functionCall' => [Engineering\BesselK::class, 'besselK'],
             'argumentCount' => '2',
         ],
         'BESSELY' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\BesselY::class, 'BESSELY'],
+            'functionCall' => [Engineering\BesselY::class, 'besselY'],
             'argumentCount' => '2',
         ],
         'BETADIST' => [
@@ -450,27 +450,27 @@ class Calculation
         ],
         'BITAND' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\BitWise::class, 'BITAND'],
+            'functionCall' => [Engineering\BitWise::class, 'and'],
             'argumentCount' => '2',
         ],
         'BITOR' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\BitWise::class, 'BITOR'],
+            'functionCall' => [Engineering\BitWise::class, 'or'],
             'argumentCount' => '2',
         ],
         'BITXOR' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\BitWise::class, 'BITXOR'],
+            'functionCall' => [Engineering\BitWise::class, 'xor'],
             'argumentCount' => '2',
         ],
         'BITLSHIFT' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\BitWise::class, 'BITLSHIFT'],
+            'functionCall' => [Engineering\BitWise::class, 'leftShift'],
             'argumentCount' => '2',
         ],
         'BITRSHIFT' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\BitWise::class, 'BITRSHIFT'],
+            'functionCall' => [Engineering\BitWise::class, 'rightShift'],
             'argumentCount' => '2',
         ],
         'CEILING' => [
@@ -540,7 +540,7 @@ class Calculation
         ],
         'CHOOSE' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
-            'functionCall' => [LookupRef\Selection::class, 'CHOOSE'],
+            'functionCall' => [LookupRef\Selection::class, 'choose'],
             'argumentCount' => '2+',
         ],
         'CHOOSECOLS' => [
@@ -565,14 +565,14 @@ class Calculation
         ],
         'COLUMN' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
-            'functionCall' => [LookupRef\RowColumnInformation::class, 'COLUMN'],
+            'functionCall' => [LookupRef\RowColumnInformation::class, 'column'],
             'argumentCount' => '-1',
             'passCellReference' => true,
             'passByReference' => [true],
         ],
         'COLUMNS' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
-            'functionCall' => [LookupRef\RowColumnInformation::class, 'COLUMNS'],
+            'functionCall' => [LookupRef\RowColumnInformation::class, 'columns'],
             'argumentCount' => '1',
         ],
         'COMBIN' => [
@@ -587,17 +587,17 @@ class Calculation
         ],
         'COMPLEX' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\Complex::class, 'COMPLEX'],
+            'functionCall' => [Engineering\Complex::class, 'complex'],
             'argumentCount' => '2,3',
         ],
         'CONCAT' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [TextData\Concatenate::class, 'CONCATENATE'],
+            'functionCall' => [TextData\Concatenate::class, 'concatenate'],
             'argumentCount' => '1+',
         ],
         'CONCATENATE' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [TextData\Concatenate::class, 'CONCATENATE'],
+            'functionCall' => [TextData\Concatenate::class, 'concatenate'],
             'argumentCount' => '1+',
         ],
         'CONFIDENCE' => [
@@ -622,7 +622,7 @@ class Calculation
         ],
         'CORREL' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical\Trends::class, 'CORREL'],
+            'functionCall' => [Statistical\Trends::class, 'correl'],
             'argumentCount' => '2',
         ],
         'COS' => [
@@ -647,67 +647,67 @@ class Calculation
         ],
         'COUNT' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical\Counts::class, 'COUNT'],
+            'functionCall' => [Statistical\Counts::class, 'count'],
             'argumentCount' => '1+',
         ],
         'COUNTA' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical\Counts::class, 'COUNTA'],
+            'functionCall' => [Statistical\Counts::class, 'countA'],
             'argumentCount' => '1+',
         ],
         'COUNTBLANK' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical\Counts::class, 'COUNTBLANK'],
+            'functionCall' => [Statistical\Counts::class, 'blank'],
             'argumentCount' => '1',
         ],
         'COUNTIF' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical\Conditional::class, 'COUNTIF'],
+            'functionCall' => [Statistical\Conditional::class, 'countIf'],
             'argumentCount' => '2',
         ],
         'COUNTIFS' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical\Conditional::class, 'COUNTIFS'],
+            'functionCall' => [Statistical\Conditional::class, 'countIfSeries'],
             'argumentCount' => '2+',
         ],
         'COUPDAYBS' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial\Coupons::class, 'COUPDAYBS'],
+            'functionCall' => [Financial\Coupons::class, 'daysBeforeSettlement'],
             'argumentCount' => '3,4',
         ],
         'COUPDAYS' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial\Coupons::class, 'COUPDAYS'],
+            'functionCall' => [Financial\Coupons::class, 'days'],
             'argumentCount' => '3,4',
         ],
         'COUPDAYSNC' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial\Coupons::class, 'COUPDAYSNC'],
+            'functionCall' => [Financial\Coupons::class, 'daysToNextCoupon'],
             'argumentCount' => '3,4',
         ],
         'COUPNCD' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial\Coupons::class, 'COUPNCD'],
+            'functionCall' => [Financial\Coupons::class, 'nextCouponDate'],
             'argumentCount' => '3,4',
         ],
         'COUPNUM' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial\Coupons::class, 'COUPNUM'],
+            'functionCall' => [Financial\Coupons::class, 'numberPayable'],
             'argumentCount' => '3,4',
         ],
         'COUPPCD' => [
             'category' => Category::CATEGORY_FINANCIAL,
-            'functionCall' => [Financial\Coupons::class, 'COUPPCD'],
+            'functionCall' => [Financial\Coupons::class, 'previousCouponDate'],
             'argumentCount' => '3,4',
         ],
         'COVAR' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical\Trends::class, 'COVAR'],
+            'functionCall' => [Statistical\Trends::class, 'covariance'],
             'argumentCount' => '2',
         ],
         'COVARIANCE.P' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical\Trends::class, 'COVAR'],
+            'functionCall' => [Statistical\Trends::class, 'covariance'],
             'argumentCount' => '2',
         ],
         'COVARIANCE.S' => [
@@ -867,7 +867,7 @@ class Calculation
         ],
         'DELTA' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\Compare::class, 'DELTA'],
+            'functionCall' => [Engineering\Compare::class, 'delta'],
             'argumentCount' => '1,2',
         ],
         'DEVSQ' => [
@@ -897,7 +897,7 @@ class Calculation
         ],
         'DOLLAR' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [TextData\Format::class, 'DOLLAR'],
+            'functionCall' => [TextData\Format::class, 'dollar'],
             'argumentCount' => '1,2',
         ],
         'DOLLARDE' => [
@@ -1108,7 +1108,7 @@ class Calculation
         ],
         'FIXED' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [TextData\Format::class, 'FIXEDFORMAT'],
+            'functionCall' => [TextData\Format::class, 'fixedFormat'],
             'argumentCount' => '1-3',
         ],
         'FLOOR' => [
@@ -1128,7 +1128,7 @@ class Calculation
         ],
         'FORECAST' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical\Trends::class, 'FORECAST'],
+            'functionCall' => [Statistical\Trends::class, 'forecast'],
             'argumentCount' => '3',
         ],
         'FORECAST.ETS' => [
@@ -1153,7 +1153,7 @@ class Calculation
         ],
         'FORECAST.LINEAR' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical\Trends::class, 'FORECAST'],
+            'functionCall' => [Statistical\Trends::class, 'forecast'],
             'argumentCount' => '3',
         ],
         'FORMULATEXT' => [
@@ -1240,7 +1240,7 @@ class Calculation
         ],
         'GESTEP' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\Compare::class, 'GESTEP'],
+            'functionCall' => [Engineering\Compare::class, 'geStep'],
             'argumentCount' => '1,2',
         ],
         'GETPIVOTDATA' => [
@@ -1250,7 +1250,7 @@ class Calculation
         ],
         'GROWTH' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical\Trends::class, 'GROWTH'],
+            'functionCall' => [Statistical\Trends::class, 'growth'],
             'argumentCount' => '1-4',
         ],
         'HARMEAN' => [
@@ -1306,147 +1306,147 @@ class Calculation
         ],
         'IF' => [
             'category' => Category::CATEGORY_LOGICAL,
-            'functionCall' => [Logical\Conditional::class, 'statementIf'],
+            'functionCall' => [Logical\Conditional::class, 'if'],
             'argumentCount' => '1-3',
         ],
         'IFERROR' => [
             'category' => Category::CATEGORY_LOGICAL,
-            'functionCall' => [Logical\Conditional::class, 'IFERROR'],
+            'functionCall' => [Logical\Conditional::class, 'ifError'],
             'argumentCount' => '2',
         ],
         'IFNA' => [
             'category' => Category::CATEGORY_LOGICAL,
-            'functionCall' => [Logical\Conditional::class, 'IFNA'],
+            'functionCall' => [Logical\Conditional::class, 'ifNa'],
             'argumentCount' => '2',
         ],
         'IFS' => [
             'category' => Category::CATEGORY_LOGICAL,
-            'functionCall' => [Logical\Conditional::class, 'IFS'],
+            'functionCall' => [Logical\Conditional::class, 'ifSeries'],
             'argumentCount' => '2+',
         ],
         'IMABS' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\ComplexFunctions::class, 'IMABS'],
+            'functionCall' => [Engineering\ComplexFunctions::class, 'absolute'],
             'argumentCount' => '1',
         ],
         'IMAGINARY' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\Complex::class, 'IMAGINARY'],
+            'functionCall' => [Engineering\Complex::class, 'imaginary'],
             'argumentCount' => '1',
         ],
         'IMARGUMENT' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\ComplexFunctions::class, 'IMARGUMENT'],
+            'functionCall' => [Engineering\ComplexFunctions::class, 'argument'],
             'argumentCount' => '1',
         ],
         'IMCONJUGATE' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\ComplexFunctions::class, 'IMCONJUGATE'],
+            'functionCall' => [Engineering\ComplexFunctions::class, 'conjugate'],
             'argumentCount' => '1',
         ],
         'IMCOS' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\ComplexFunctions::class, 'IMCOS'],
+            'functionCall' => [Engineering\ComplexFunctions::class, 'cos'],
             'argumentCount' => '1',
         ],
         'IMCOSH' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\ComplexFunctions::class, 'IMCOSH'],
+            'functionCall' => [Engineering\ComplexFunctions::class, 'cosh'],
             'argumentCount' => '1',
         ],
         'IMCOT' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\ComplexFunctions::class, 'IMCOT'],
+            'functionCall' => [Engineering\ComplexFunctions::class, 'cot'],
             'argumentCount' => '1',
         ],
         'IMCSC' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\ComplexFunctions::class, 'IMCSC'],
+            'functionCall' => [Engineering\ComplexFunctions::class, 'csc'],
             'argumentCount' => '1',
         ],
         'IMCSCH' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\ComplexFunctions::class, 'IMCSCH'],
+            'functionCall' => [Engineering\ComplexFunctions::class, 'csch'],
             'argumentCount' => '1',
         ],
         'IMDIV' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\ComplexOperations::class, 'IMDIV'],
+            'functionCall' => [Engineering\ComplexOperations::class, 'div'],
             'argumentCount' => '2',
         ],
         'IMEXP' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\ComplexFunctions::class, 'IMEXP'],
+            'functionCall' => [Engineering\ComplexFunctions::class, 'exp'],
             'argumentCount' => '1',
         ],
         'IMLN' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\ComplexFunctions::class, 'IMLN'],
+            'functionCall' => [Engineering\ComplexFunctions::class, 'ln'],
             'argumentCount' => '1',
         ],
         'IMLOG10' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\ComplexFunctions::class, 'IMLOG10'],
+            'functionCall' => [Engineering\ComplexFunctions::class, 'log10'],
             'argumentCount' => '1',
         ],
         'IMLOG2' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\ComplexFunctions::class, 'IMLOG2'],
+            'functionCall' => [Engineering\ComplexFunctions::class, 'log2'],
             'argumentCount' => '1',
         ],
         'IMPOWER' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\ComplexFunctions::class, 'IMPOWER'],
+            'functionCall' => [Engineering\ComplexFunctions::class, 'power'],
             'argumentCount' => '2',
         ],
         'IMPRODUCT' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\ComplexOperations::class, 'IMPRODUCT'],
+            'functionCall' => [Engineering\ComplexOperations::class, 'product'],
             'argumentCount' => '1+',
         ],
         'IMREAL' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\Complex::class, 'IMREAL'],
+            'functionCall' => [Engineering\Complex::class, 'real'],
             'argumentCount' => '1',
         ],
         'IMSEC' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\ComplexFunctions::class, 'IMSEC'],
+            'functionCall' => [Engineering\ComplexFunctions::class, 'sec'],
             'argumentCount' => '1',
         ],
         'IMSECH' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\ComplexFunctions::class, 'IMSECH'],
+            'functionCall' => [Engineering\ComplexFunctions::class, 'sech'],
             'argumentCount' => '1',
         ],
         'IMSIN' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\ComplexFunctions::class, 'IMSIN'],
+            'functionCall' => [Engineering\ComplexFunctions::class, 'sin'],
             'argumentCount' => '1',
         ],
         'IMSINH' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\ComplexFunctions::class, 'IMSINH'],
+            'functionCall' => [Engineering\ComplexFunctions::class, 'sinh'],
             'argumentCount' => '1',
         ],
         'IMSQRT' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\ComplexFunctions::class, 'IMSQRT'],
+            'functionCall' => [Engineering\ComplexFunctions::class, 'sqrt'],
             'argumentCount' => '1',
         ],
         'IMSUB' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\ComplexOperations::class, 'IMSUB'],
+            'functionCall' => [Engineering\ComplexOperations::class, 'sub'],
             'argumentCount' => '2',
         ],
         'IMSUM' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\ComplexOperations::class, 'IMSUM'],
+            'functionCall' => [Engineering\ComplexOperations::class, 'sum'],
             'argumentCount' => '1+',
         ],
         'IMTAN' => [
             'category' => Category::CATEGORY_ENGINEERING,
-            'functionCall' => [Engineering\ComplexFunctions::class, 'IMTAN'],
+            'functionCall' => [Engineering\ComplexFunctions::class, 'tan'],
             'argumentCount' => '1',
         ],
         'INDEX' => [
@@ -1456,7 +1456,7 @@ class Calculation
         ],
         'INDIRECT' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
-            'functionCall' => [LookupRef\Indirect::class, 'INDIRECT'],
+            'functionCall' => [LookupRef\Indirect::class, 'indirect'],
             'argumentCount' => '1,2',
             'passCellReference' => true,
         ],
@@ -1472,7 +1472,7 @@ class Calculation
         ],
         'INTERCEPT' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical\Trends::class, 'INTERCEPT'],
+            'functionCall' => [Statistical\Trends::class, 'intercept'],
             'argumentCount' => '2',
         ],
         'INTRATE' => [
@@ -1671,7 +1671,7 @@ class Calculation
         ],
         'MATCH' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
-            'functionCall' => [LookupRef\ExcelMatch::class, 'MATCH'],
+            'functionCall' => [LookupRef\ExcelMatch::class, 'match'],
             'argumentCount' => '2,3',
         ],
         'MAX' => [
@@ -1686,7 +1686,7 @@ class Calculation
         ],
         'MAXIFS' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical\Conditional::class, 'MAXIFS'],
+            'functionCall' => [Statistical\Conditional::class, 'maxIfSeries'],
             'argumentCount' => '3+',
         ],
         'MDETERM' => [
@@ -1731,7 +1731,7 @@ class Calculation
         ],
         'MINIFS' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical\Conditional::class, 'MINIFS'],
+            'functionCall' => [Statistical\Conditional::class, 'minIfSeries'],
             'argumentCount' => '3+',
         ],
         'MINUTE' => [
@@ -1871,7 +1871,7 @@ class Calculation
         ],
         'NOT' => [
             'category' => Category::CATEGORY_LOGICAL,
-            'functionCall' => [Logical\Operations::class, 'NOT'],
+            'functionCall' => [Logical\Operations::class, 'not'],
             'argumentCount' => '1',
         ],
         'NOW' => [
@@ -1896,7 +1896,7 @@ class Calculation
         ],
         'NUMBERVALUE' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [TextData\Format::class, 'NUMBERVALUE'],
+            'functionCall' => [TextData\Format::class, 'numberValue'],
             'argumentCount' => '1+',
         ],
         'OCT2BIN' => [
@@ -1948,7 +1948,7 @@ class Calculation
         ],
         'OR' => [
             'category' => Category::CATEGORY_LOGICAL,
-            'functionCall' => [Logical\Operations::class, 'logicalOr'],
+            'functionCall' => [Logical\Operations::class, 'or'],
             'argumentCount' => '1+',
         ],
         'PDURATION' => [
@@ -1958,7 +1958,7 @@ class Calculation
         ],
         'PEARSON' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical\Trends::class, 'CORREL'],
+            'functionCall' => [Statistical\Trends::class, 'correl'],
             'argumentCount' => '2',
         ],
         'PERCENTILE' => [
@@ -2154,7 +2154,7 @@ class Calculation
         ],
         'REPT' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [TextData\Concatenate::class, 'builtinREPT'],
+            'functionCall' => [TextData\Concatenate::class, 'repeat'],
             'argumentCount' => '2',
         ],
         'RIGHT' => [
@@ -2199,14 +2199,14 @@ class Calculation
         ],
         'ROW' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
-            'functionCall' => [LookupRef\RowColumnInformation::class, 'ROW'],
+            'functionCall' => [LookupRef\RowColumnInformation::class, 'row'],
             'argumentCount' => '-1',
             'passCellReference' => true,
             'passByReference' => [true],
         ],
         'ROWS' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
-            'functionCall' => [LookupRef\RowColumnInformation::class, 'ROWS'],
+            'functionCall' => [LookupRef\RowColumnInformation::class, 'rows'],
             'argumentCount' => '1',
         ],
         'RRI' => [
@@ -2302,7 +2302,7 @@ class Calculation
         ],
         'SLOPE' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical\Trends::class, 'SLOPE'],
+            'functionCall' => [Statistical\Trends::class, 'slope'],
             'argumentCount' => '2',
         ],
         'SMALL' => [
@@ -2390,12 +2390,12 @@ class Calculation
         ],
         'SUMIF' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [Statistical\Conditional::class, 'SUMIF'],
+            'functionCall' => [Statistical\Conditional::class, 'sumIf'],
             'argumentCount' => '2,3',
         ],
         'SUMIFS' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => [Statistical\Conditional::class, 'SUMIFS'],
+            'functionCall' => [Statistical\Conditional::class, 'sumIfSeries'],
             'argumentCount' => '3+',
         ],
         'SUMPRODUCT' => [
@@ -2425,7 +2425,7 @@ class Calculation
         ],
         'SWITCH' => [
             'category' => Category::CATEGORY_LOGICAL,
-            'functionCall' => [Logical\Conditional::class, 'statementSwitch'],
+            'functionCall' => [Logical\Conditional::class, 'switch'],
             'argumentCount' => '3+',
         ],
         'SYD' => [
@@ -2490,7 +2490,7 @@ class Calculation
         ],
         'TEXT' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [TextData\Format::class, 'TEXTFORMAT'],
+            'functionCall' => [TextData\Format::class, 'textFormat'],
             'argumentCount' => '2',
         ],
         'TEXTAFTER' => [
@@ -2505,7 +2505,7 @@ class Calculation
         ],
         'TEXTJOIN' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [TextData\Concatenate::class, 'TEXTJOIN'],
+            'functionCall' => [TextData\Concatenate::class, 'join'],
             'argumentCount' => '3+',
         ],
         'TEXTSPLIT' => [
@@ -2595,7 +2595,7 @@ class Calculation
         ],
         'TREND' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical\Trends::class, 'TREND'],
+            'functionCall' => [Statistical\Trends::class, 'trend'],
             'argumentCount' => '1-4',
         ],
         'TRIM' => [
@@ -2661,7 +2661,7 @@ class Calculation
         ],
         'VALUE' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [TextData\Format::class, 'VALUE'],
+            'functionCall' => [TextData\Format::class, 'value'],
             'argumentCount' => '1',
         ],
         'VALUETOTEXT' => [
@@ -2781,7 +2781,7 @@ class Calculation
         ],
         'XOR' => [
             'category' => Category::CATEGORY_LOGICAL,
-            'functionCall' => [Logical\Operations::class, 'logicalXor'],
+            'functionCall' => [Logical\Operations::class, 'xor'],
             'argumentCount' => '1+',
         ],
         'YEAR' => [

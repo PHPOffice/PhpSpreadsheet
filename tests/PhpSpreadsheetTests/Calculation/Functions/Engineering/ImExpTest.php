@@ -31,7 +31,7 @@ class ImExpTest extends TestCase
      */
     public function testIMEXP($expectedResult, $value): void
     {
-        $result = ComplexFunctions::IMEXP($value);
+        $result = ComplexFunctions::exp($value);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()

@@ -31,7 +31,7 @@ class ImCoshTest extends TestCase
      */
     public function testIMCOSH($expectedResult, $value): void
     {
-        $result = ComplexFunctions::IMCOSH($value);
+        $result = ComplexFunctions::cosh($value);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()

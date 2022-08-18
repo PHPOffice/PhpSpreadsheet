@@ -20,7 +20,7 @@ class CoupDayBsTest extends TestCase
      */
     public function testCOUPDAYBS($expectedResult, ...$args): void
     {
-        $result = Coupons::COUPDAYBS(...$args);
+        $result = Coupons::daysBeforeSettlement(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 

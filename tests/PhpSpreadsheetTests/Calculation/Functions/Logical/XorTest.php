@@ -20,7 +20,7 @@ class XorTest extends TestCase
      */
     public function testXOR($expectedResult, ...$args): void
     {
-        $result = Operations::logicalXor(...$args);
+        $result = Operations::xor(...$args);
         self::assertEquals($expectedResult, $result);
     }
 

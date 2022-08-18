@@ -20,7 +20,7 @@ class SwitchTest extends TestCase
      */
     public function testSWITCH($expectedResult, ...$args): void
     {
-        $result = Conditional::statementSwitch(...$args);
+        $result = Conditional::switch(...$args);
         self::assertEquals($expectedResult, $result);
     }
 

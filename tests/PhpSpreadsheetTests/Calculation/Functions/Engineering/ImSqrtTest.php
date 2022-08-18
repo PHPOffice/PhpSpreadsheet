@@ -31,7 +31,7 @@ class ImSqrtTest extends TestCase
      */
     public function testIMSQRT($expectedResult, $value): void
     {
-        $result = ComplexFunctions::IMSQRT($value);
+        $result = ComplexFunctions::sqrt($value);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()

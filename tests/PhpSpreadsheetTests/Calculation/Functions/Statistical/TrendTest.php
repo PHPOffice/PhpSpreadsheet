@@ -21,11 +21,11 @@ class TrendTest extends TestCase
     public function testTREND($expectedResult, array $yValues, array $xValues, ?array $newValues = null, ?bool $const = null): void
     {
         if ($newValues === null) {
-            $result = Trends::TREND($yValues, $xValues);
+            $result = Trends::trend($yValues, $xValues);
         } elseif ($const === null) {
-            $result = Trends::TREND($yValues, $xValues, $newValues);
+            $result = Trends::trend($yValues, $xValues, $newValues);
         } else {
-            $result = Trends::TREND($yValues, $xValues, $newValues, $const);
+            $result = Trends::trend($yValues, $xValues, $newValues, $const);
         }
 
         self::assertEqualsWithDelta($expectedResult, $result[0], 1E-12);

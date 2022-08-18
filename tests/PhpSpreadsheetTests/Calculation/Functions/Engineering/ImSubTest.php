@@ -30,7 +30,7 @@ class ImSubTest extends TestCase
      */
     public function testIMSUB($expectedResult, ...$args): void
     {
-        $result = ComplexOperations::IMSUB(...$args);
+        $result = ComplexOperations::sub(...$args);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()

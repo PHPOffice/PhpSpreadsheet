@@ -31,7 +31,7 @@ class ImSechTest extends TestCase
      */
     public function testIMSECH($expectedResult, $value): void
     {
-        $result = ComplexFunctions::IMSECH($value);
+        $result = ComplexFunctions::sech($value);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()

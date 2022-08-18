@@ -23,7 +23,7 @@ class IfErrorTest extends TestCase
      */
     public function testIFERROR($expectedResult, $value, $return): void
     {
-        $result = Conditional::IFERROR($value, $return);
+        $result = Conditional::ifError($value, $return);
         self::assertEquals($expectedResult, $result);
     }
 
