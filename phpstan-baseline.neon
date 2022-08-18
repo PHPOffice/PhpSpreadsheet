@@ -971,11 +971,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/TextData/Text.php
 
 		-
-			message: "#^Elseif branch is unreachable because previous condition is always true\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Cell/Cell.php
-
-		-
 			message: "#^Parameter \\#2 \\$format of static method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\NumberFormat\\:\\:toFormattedString\\(\\) expects string, string\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Cell/Cell.php
@@ -992,7 +987,7 @@ parameters:
 
 		-
 			message: "#^Cannot use array destructuring on array\\<string\\>\\|string\\.$#"
-			count: 2
+			count: 3
 			path: src/PhpSpreadsheet/Cell/Coordinate.php
 
 		-
