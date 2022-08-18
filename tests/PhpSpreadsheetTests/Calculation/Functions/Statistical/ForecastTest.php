@@ -21,7 +21,7 @@ class ForecastTest extends TestCase
      */
     public function testFORECAST($expectedResult, ...$args): void
     {
-        $result = Trends::FORECAST(...$args);
+        $result = Trends::forecast(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

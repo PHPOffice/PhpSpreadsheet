@@ -31,7 +31,7 @@ class Operations
      *
      * @return bool|string the logical AND of the arguments
      */
-    public static function logicalAnd(...$args)
+    public static function and(...$args)
     {
         $args = Functions::flattenArray($args);
 
@@ -72,7 +72,7 @@ class Operations
      *
      * @return bool|string the logical OR of the arguments
      */
-    public static function logicalOr(...$args)
+    public static function or(...$args)
     {
         $args = Functions::flattenArray($args);
 
@@ -114,7 +114,7 @@ class Operations
      *
      * @return bool|string the logical XOR of the arguments
      */
-    public static function logicalXor(...$args)
+    public static function xor(...$args)
     {
         $args = Functions::flattenArray($args);
 
@@ -156,7 +156,7 @@ class Operations
      *         If an array of values is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function NOT($logical = false)
+    public static function not($logical = false)
     {
         if (is_array($logical)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $logical);

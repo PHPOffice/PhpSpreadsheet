@@ -23,7 +23,7 @@ class BesselYTest extends TestCase
      */
     public function testBESSELY($expectedResult, ...$args): void
     {
-        $result = BesselY::BESSELY(...$args);
+        $result = BesselY::besselY(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, self::BESSEL_PRECISION);
     }
 

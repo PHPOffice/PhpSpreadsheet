@@ -15,13 +15,13 @@ class IfTest extends TestCase
     public function testIF($expectedResult, ...$args): void
     {
         if (count($args) === 0) {
-            $result = Conditional::statementIf();
+            $result = Conditional::if();
         } elseif (count($args) === 1) {
-            $result = Conditional::statementIf($args[0]);
+            $result = Conditional::if($args[0]);
         } elseif (count($args) === 2) {
-            $result = Conditional::statementIf($args[0], $args[1]);
+            $result = Conditional::if($args[0], $args[1]);
         } else {
-            $result = Conditional::statementIf($args[0], $args[1], $args[2]);
+            $result = Conditional::if($args[0], $args[1], $args[2]);
         }
         self::assertEquals($expectedResult, $result);
     }

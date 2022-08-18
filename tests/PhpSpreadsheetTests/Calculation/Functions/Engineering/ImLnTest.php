@@ -31,7 +31,7 @@ class ImLnTest extends TestCase
      */
     public function testIMLN($expectedResult, $value): void
     {
-        $result = ComplexFunctions::IMLN($value);
+        $result = ComplexFunctions::ln($value);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()

@@ -23,7 +23,7 @@ class DeltaTest extends TestCase
      */
     public function testDELTA($expectedResult, $a, $b): void
     {
-        $result = Compare::DELTA($a, $b);
+        $result = Compare::delta($a, $b);
         self::assertEquals($expectedResult, $result);
     }
 

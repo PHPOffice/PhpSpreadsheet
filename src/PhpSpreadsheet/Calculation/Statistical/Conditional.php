@@ -29,7 +29,7 @@ class Conditional
      *
      * @return null|float|string
      */
-    public static function AVERAGEIF($range, $condition, $averageRange = [])
+    public static function averageIf($range, $condition, $averageRange = [])
     {
         $database = self::databaseFromRangeAndValue($range, $averageRange);
         $condition = [[self::CONDITION_COLUMN_NAME, self::VALUE_COLUMN_NAME], [$condition, null]];
@@ -49,12 +49,12 @@ class Conditional
      *
      * @return null|float|string
      */
-    public static function AVERAGEIFS(...$args)
+    public static function averageIfSeries(...$args)
     {
         if (empty($args)) {
             return 0.0;
         } elseif (count($args) === 3) {
-            return self::AVERAGEIF($args[1], $args[2], $args[0]);
+            return self::averageIf($args[1], $args[2], $args[0]);
         }
 
         $conditions = self::buildConditionSetForValueRange(...$args);
@@ -76,7 +76,7 @@ class Conditional
      *
      * @return int
      */
-    public static function COUNTIF($range, $condition)
+    public static function countIf($range, $condition)
     {
         // Filter out any empty values that shouldn't be included in a COUNT
         $range = array_filter(
@@ -104,12 +104,12 @@ class Conditional
      *
      * @return int
      */
-    public static function COUNTIFS(...$args)
+    public static function countIfSeries(...$args)
     {
         if (empty($args)) {
             return 0;
         } elseif (count($args) === 2) {
-            return self::COUNTIF(...$args);
+            return self::countIf(...$args);
         }
 
         $database = self::buildDatabase(...$args);
@@ -130,7 +130,7 @@ class Conditional
      *
      * @return null|float|string
      */
-    public static function MAXIFS(...$args)
+    public static function maxIfSeries(...$args)
     {
         if (empty($args)) {
             return 0.0;
@@ -154,7 +154,7 @@ class Conditional
      *
      * @return null|float|string
      */
-    public static function MINIFS(...$args)
+    public static function minIfSeries(...$args)
     {
         if (empty($args)) {
             return 0.0;
@@ -180,7 +180,7 @@ class Conditional
      *
      * @return float|string
      */
-    public static function SUMIF($range, $condition, $sumRange = [])
+    public static function sumIf($range, $condition, $sumRange = [])
     {
         $database = self::databaseFromRangeAndValue($range, $sumRange);
         $condition = [[self::CONDITION_COLUMN_NAME, self::VALUE_COLUMN_NAME], [$condition, null]];
@@ -200,12 +200,12 @@ class Conditional
      *
      * @return null|float|string
      */
-    public static function SUMIFS(...$args)
+    public static function sumIfSeries(...$args)
     {
         if (empty($args)) {
             return 0.0;
         } elseif (count($args) === 3) {
-            return self::SUMIF($args[1], $args[2], $args[0]);
+            return self::sumIf($args[1], $args[2], $args[0]);
         }
 
         $conditions = self::buildConditionSetForValueRange(...$args);

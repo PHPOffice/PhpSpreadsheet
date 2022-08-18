@@ -21,11 +21,11 @@ class GrowthTest extends TestCase
     public function testGROWTH($expectedResult, array $yValues, array $xValues, ?array $newValues = null, ?bool $const = null): void
     {
         if ($newValues === null) {
-            $result = Trends::GROWTH($yValues, $xValues);
+            $result = Trends::growth($yValues, $xValues);
         } elseif ($const === null) {
-            $result = Trends::GROWTH($yValues, $xValues, $newValues);
+            $result = Trends::growth($yValues, $xValues, $newValues);
         } else {
-            $result = Trends::GROWTH($yValues, $xValues, $newValues, $const);
+            $result = Trends::growth($yValues, $xValues, $newValues, $const);
         }
 
         self::assertEqualsWithDelta($expectedResult, $result[0], 1E-12);

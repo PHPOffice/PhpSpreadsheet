@@ -29,7 +29,7 @@ class Size
             $entry = (int) floor($entry);
 
             $mArgs = self::filter($aArgs);
-            $count = Counts::COUNT($mArgs);
+            $count = Counts::count($mArgs);
             --$entry;
             if ($count === 0 || $entry < 0 || $entry >= $count) {
                 return ExcelError::NAN();
@@ -65,7 +65,7 @@ class Size
             $entry = (int) floor($entry);
 
             $mArgs = self::filter($aArgs);
-            $count = Counts::COUNT($mArgs);
+            $count = Counts::count($mArgs);
             --$entry;
             if ($count === 0 || $entry < 0 || $entry >= $count) {
                 return ExcelError::NAN();

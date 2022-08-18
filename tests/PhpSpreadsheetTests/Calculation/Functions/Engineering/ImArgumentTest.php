@@ -24,7 +24,7 @@ class ImArgumentTest extends TestCase
      */
     public function testIMARGUMENT($expectedResult, $value): void
     {
-        $result = ComplexFunctions::IMARGUMENT($value);
+        $result = ComplexFunctions::argument($value);
         self::assertEqualsWithDelta($expectedResult, $result, self::COMPLEX_PRECISION);
     }
 

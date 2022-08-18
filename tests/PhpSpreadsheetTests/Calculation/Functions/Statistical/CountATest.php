@@ -20,7 +20,7 @@ class CountATest extends TestCase
      */
     public function testCOUNTA($expectedResult, ...$args): void
     {
-        $result = Counts::COUNTA(...$args);
+        $result = Counts::countA(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

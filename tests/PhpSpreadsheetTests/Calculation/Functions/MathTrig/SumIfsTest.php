@@ -13,7 +13,7 @@ class SumIfsTest extends AllSetupTeardown
      */
     public function testSUMIFS($expectedResult, ...$args): void
     {
-        $result = Statistical\Conditional::SUMIFS(...$args);
+        $result = Statistical\Conditional::sumIfSeries(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

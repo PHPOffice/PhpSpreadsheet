@@ -34,7 +34,7 @@ class Format
      *         If an array of values is passed for either of the arguments, then the returned result
      *            will also be an array with matching dimensions
      */
-    public static function DOLLAR($value = 0, $decimals = 2)
+    public static function dollar($value = 0, $decimals = 2)
     {
         if (is_array($value) || is_array($decimals)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $value, $decimals);
@@ -76,7 +76,7 @@ class Format
      *         If an array of values is passed for either of the arguments, then the returned result
      *            will also be an array with matching dimensions
      */
-    public static function FIXEDFORMAT($value, $decimals = 2, $noCommas = false)
+    public static function fixedFormat($value, $decimals = 2, $noCommas = false)
     {
         if (is_array($value) || is_array($decimals) || is_array($noCommas)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $value, $decimals, $noCommas);
@@ -117,7 +117,7 @@ class Format
      *         If an array of values is passed for either of the arguments, then the returned result
      *            will also be an array with matching dimensions
      */
-    public static function TEXTFORMAT($value, $format)
+    public static function textFormat($value, $format)
     {
         if (is_array($value) || is_array($format)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $value, $format);
@@ -162,7 +162,7 @@ class Format
      *         If an array of values is passed for the argument, then the returned result
      *            will also be an array with matching dimensions
      */
-    public static function VALUE($value = '')
+    public static function value($value = '')
     {
         if (is_array($value)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $value);
@@ -236,7 +236,7 @@ class Format
      *
      * @return array|float|string
      */
-    public static function NUMBERVALUE($value = '', $decimalSeparator = null, $groupSeparator = null)
+    public static function numberValue($value = '', $decimalSeparator = null, $groupSeparator = null)
     {
         if (is_array($value) || is_array($decimalSeparator) || is_array($groupSeparator)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $value, $decimalSeparator, $groupSeparator);

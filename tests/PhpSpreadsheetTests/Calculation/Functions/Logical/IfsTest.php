@@ -21,7 +21,7 @@ class IfsTest extends TestCase
      */
     public function testIFS($expectedResult, ...$args): void
     {
-        $result = Conditional::IFS(...$args);
+        $result = Conditional::ifSeries(...$args);
         self::assertEquals($expectedResult, $result);
     }
 

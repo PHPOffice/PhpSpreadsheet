@@ -20,7 +20,7 @@ class CoupDaysNcTest extends TestCase
      */
     public function testCOUPDAYSNC($expectedResult, ...$args): void
     {
-        $result = Coupons::COUPDAYSNC(...$args);
+        $result = Coupons::daysToNextCoupon(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 

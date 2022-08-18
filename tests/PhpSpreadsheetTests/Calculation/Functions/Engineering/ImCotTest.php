@@ -31,7 +31,7 @@ class ImCotTest extends TestCase
      */
     public function testIMCOT($expectedResult, $value): void
     {
-        $result = ComplexFunctions::IMCOT($value);
+        $result = ComplexFunctions::cot($value);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()

@@ -31,7 +31,7 @@ class Dollar
      */
     public static function format($number, $precision = 2)
     {
-        return Format::DOLLAR($number, $precision);
+        return Format::dollar($number, $precision);
     }
 
     /**

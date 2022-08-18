@@ -31,7 +31,7 @@ class ImCscTest extends TestCase
      */
     public function testIMCSC($expectedResult, $value): void
     {
-        $result = ComplexFunctions::IMCSC($value);
+        $result = ComplexFunctions::csc($value);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()

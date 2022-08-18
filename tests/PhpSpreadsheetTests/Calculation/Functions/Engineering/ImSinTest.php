@@ -31,7 +31,7 @@ class ImSinTest extends TestCase
      */
     public function testIMSIN($expectedResult, $value): void
     {
-        $result = ComplexFunctions::IMSIN($value);
+        $result = ComplexFunctions::sin($value);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()

@@ -20,7 +20,7 @@ class InterceptTest extends TestCase
      */
     public function testINTERCEPT($expectedResult, array $xargs, array $yargs): void
     {
-        $result = Trends::INTERCEPT($xargs, $yargs);
+        $result = Trends::intercept($xargs, $yargs);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

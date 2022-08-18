@@ -31,7 +31,7 @@ class ImLog10Test extends TestCase
      */
     public function testIMLOG10($expectedResult, $value): void
     {
-        $result = ComplexFunctions::IMLOG10($value);
+        $result = ComplexFunctions::log10($value);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()

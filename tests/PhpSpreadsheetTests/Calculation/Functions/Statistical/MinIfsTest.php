@@ -20,7 +20,7 @@ class MinIfsTest extends TestCase
      */
     public function testMINIFS($expectedResult, ...$args): void
     {
-        $result = Conditional::MINIFS(...$args);
+        $result = Conditional::minIfSeries(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

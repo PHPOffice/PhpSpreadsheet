@@ -24,7 +24,7 @@ class ImRealTest extends TestCase
      */
     public function testIMREAL($expectedResult, $value): void
     {
-        $result = Complex::IMREAL($value);
+        $result = Complex::real($value);
         self::assertEqualsWithDelta($expectedResult, $result, self::COMPLEX_PRECISION);
     }
 

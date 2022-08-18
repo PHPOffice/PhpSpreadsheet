@@ -40,7 +40,7 @@ class BitWise
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function BITAND($number1, $number2)
+    public static function and($number1, $number2)
     {
         if (is_array($number1) || is_array($number2)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $number1, $number2);
@@ -75,7 +75,7 @@ class BitWise
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function BITOR($number1, $number2)
+    public static function or($number1, $number2)
     {
         if (is_array($number1) || is_array($number2)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $number1, $number2);
@@ -111,7 +111,7 @@ class BitWise
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function BITXOR($number1, $number2)
+    public static function xor($number1, $number2)
     {
         if (is_array($number1) || is_array($number2)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $number1, $number2);
@@ -147,7 +147,7 @@ class BitWise
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function BITLSHIFT($number, $shiftAmount)
+    public static function leftShift($number, $shiftAmount)
     {
         if (is_array($number) || is_array($shiftAmount)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $number, $shiftAmount);
@@ -185,7 +185,7 @@ class BitWise
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function BITRSHIFT($number, $shiftAmount)
+    public static function rightShift($number, $shiftAmount)
     {
         if (is_array($number) || is_array($shiftAmount)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $number, $shiftAmount);

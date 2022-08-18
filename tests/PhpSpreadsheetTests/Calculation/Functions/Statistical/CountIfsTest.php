@@ -20,7 +20,7 @@ class CountIfsTest extends TestCase
      */
     public function testCOUNTIFS($expectedResult, ...$args): void
     {
-        $result = Conditional::COUNTIFS(...$args);
+        $result = Conditional::countIfSeries(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

@@ -23,7 +23,7 @@ class IfNaTest extends TestCase
      */
     public function testIFNA($expectedResult, $value, $return): void
     {
-        $result = Conditional::IFNA($value, $return);
+        $result = Conditional::ifNa($value, $return);
         self::assertEquals($expectedResult, $result);
     }
 
