@@ -706,11 +706,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Statistical/Averages.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Conditional\\:\\:SUMIF\\(\\) should return float\\|string but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Conditional.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Conditional\\:\\:buildConditionSet\\(\\) has parameter \\$args with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Conditional.php
@@ -737,6 +732,11 @@ parameters:
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Conditional\\:\\:buildDatabaseWithValueRange\\(\\) has parameter \\$args with no type specified\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/Statistical/Conditional.php
+
+		-
+			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Conditional\\:\\:sumIf\\(\\) should return float\\|string but returns float\\|string\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Conditional.php
 
@@ -926,22 +926,22 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Statistical/Permutations.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Trends\\:\\:GROWTH\\(\\) should return array\\<float\\> but returns array\\<int, array\\<int, array\\<int, mixed\\>\\>\\>\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Trends.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Trends\\:\\:TREND\\(\\) should return array\\<float\\> but returns array\\<int, array\\<int, array\\<int, mixed\\>\\>\\>\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Trends.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Trends\\:\\:checkTrendArrays\\(\\) has parameter \\$array1 with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Trends.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Trends\\:\\:checkTrendArrays\\(\\) has parameter \\$array2 with no type specified\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/Statistical/Trends.php
+
+		-
+			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Trends\\:\\:growth\\(\\) should return array\\<float\\> but returns array\\<int, array\\<int, array\\<int, mixed\\>\\>\\>\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/Statistical/Trends.php
+
+		-
+			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Trends\\:\\:trend\\(\\) should return array\\<float\\> but returns array\\<int, array\\<int, array\\<int, mixed\\>\\>\\>\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Trends.php
 
