@@ -99,11 +99,11 @@ class VisibilityTest extends Functional\AbstractFunctional
         self::assertEquals(1, $rowsrch);
         $rowsrch = preg_match('/^\\s*table[.]sheet0 tr[.]row1 [{] height:25pt [}]\\s*$/m', $html);
         self::assertEquals(1, $rowsrch);
-        $rowsrch = preg_match('/^\\s*td[.]style1 [{].*text-decoration:line-through;.*[}]\\s*$/m', $html);
+        $rowsrch = preg_match('/^\\s*td[.]style1, th[.]style1 [{].*text-decoration:line-through;.*[}]\\s*$/m', $html);
         self::assertEquals(1, $rowsrch);
-        $rowsrch = preg_match('/^\\s*td[.]style2 [{].*text-decoration:underline line-through;.*[}]\\s*$/m', $html);
+        $rowsrch = preg_match('/^\\s*td[.]style2, th[.]style2 [{].*text-decoration:underline line-through;.*[}]\\s*$/m', $html);
         self::assertEquals(1, $rowsrch);
-        $rowsrch = preg_match('/^\\s*td[.]style3 [{].*text-decoration:underline;.*[}]\\s*$/m', $html);
+        $rowsrch = preg_match('/^\\s*td[.]style3, th[.]style3 [{].*text-decoration:underline;.*[}]\\s*$/m', $html);
         self::assertEquals(1, $rowsrch);
 
         $this->writeAndReload($spreadsheet, 'Html');
