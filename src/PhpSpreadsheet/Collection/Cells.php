@@ -268,7 +268,9 @@ class Cells
      */
     private function getUniqueID()
     {
-        return Settings::getCache() instanceof Memory
+        $cacheType = Settings::getCache();
+
+        return ($cacheType instanceof Memory\SimpleCache1 || $cacheType instanceof Memory\SimpleCache3)
             ? random_bytes(7) . ':'
             : uniqid('phpspreadsheet.', true) . '.';
     }
