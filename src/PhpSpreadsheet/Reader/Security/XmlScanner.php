@@ -52,7 +52,7 @@ class XmlScanner
 
     public static function threadSafeLibxmlDisableEntityLoaderAvailability()
     {
-        if (PHP_MAJOR_VERSION == 7) {
+        if (PHP_MAJOR_VERSION === 7) {
             switch (PHP_MINOR_VERSION) {
                 case 2:
                     return PHP_RELEASE_VERSION >= 1;
