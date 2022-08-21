@@ -32,14 +32,16 @@ use PhpOffice\PhpSpreadsheet\Style\Style;
 class Worksheet implements IComparable
 {
     // Break types
-    const BREAK_NONE = 0;
-    const BREAK_ROW = 1;
-    const BREAK_COLUMN = 2;
+    public const BREAK_NONE = 0;
+    public const BREAK_ROW = 1;
+    public const BREAK_COLUMN = 2;
 
     // Sheet state
-    const SHEETSTATE_VISIBLE = 'visible';
-    const SHEETSTATE_HIDDEN = 'hidden';
-    const SHEETSTATE_VERYHIDDEN = 'veryHidden';
+    public const SHEETSTATE_VISIBLE = 'visible';
+    public const SHEETSTATE_HIDDEN = 'hidden';
+    public const SHEETSTATE_VERYHIDDEN = 'veryHidden';
+
+    protected const SHEET_NAME_REQUIRES_NO_QUOTES = '/^[_\p{L}][_\p{L}\p{N}]*$/mui';
 
     /**
      * Maximum 31 characters allowed for sheet title.
@@ -1336,7 +1338,7 @@ class Worksheet implements IComparable
      *
      * @return Cell Cell that was created
      */
-    public function createNewCell($coordinate)
+    public function createNewCell($coordinate): Cell
     {
         [$column, $row, $columnString] = Coordinate::indexesFromString($coordinate);
         $cell = new Cell(null, DataType::TYPE_NULL, $this);
@@ -2459,10 +2461,8 @@ class Worksheet implements IComparable
 
     /**
      * Show gridlines?
-     *
-     * @return bool
      */
-    public function getShowGridlines()
+    public function getShowGridlines(): bool
     {
         return $this->showGridlines;
     }
@@ -2474,7 +2474,7 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function setShowGridlines($showGridLines)
+    public function setShowGridlines(bool $showGridLines): self
     {
         $this->showGridlines = $showGridLines;
 
@@ -2483,10 +2483,8 @@ class Worksheet implements IComparable
 
     /**
      * Print gridlines?
-     *
-     * @return bool
      */
-    public function getPrintGridlines()
+    public function getPrintGridlines(): bool
     {
         return $this->printGridlines;
     }
@@ -2498,7 +2496,7 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function setPrintGridlines($printGridLines)
+    public function setPrintGridlines(bool $printGridLines): self
     {
         $this->printGridlines = $printGridLines;
 
@@ -2507,10 +2505,8 @@ class Worksheet implements IComparable
 
     /**
      * Show row and column headers?
-     *
-     * @return bool
      */
-    public function getShowRowColHeaders()
+    public function getShowRowColHeaders(): bool
     {
         return $this->showRowColHeaders;
     }
@@ -2522,7 +2518,7 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function setShowRowColHeaders($showRowColHeaders)
+    public function setShowRowColHeaders(bool $showRowColHeaders): self
     {
         $this->showRowColHeaders = $showRowColHeaders;
 
@@ -2531,10 +2527,8 @@ class Worksheet implements IComparable
 
     /**
      * Show summary below? (Row/Column outlining).
-     *
-     * @return bool
      */
-    public function getShowSummaryBelow()
+    public function getShowSummaryBelow(): bool
     {
         return $this->showSummaryBelow;
     }
@@ -2546,7 +2540,7 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function setShowSummaryBelow($showSummaryBelow)
+    public function setShowSummaryBelow(bool $showSummaryBelow): self
     {
         $this->showSummaryBelow = $showSummaryBelow;
 
@@ -2555,10 +2549,8 @@ class Worksheet implements IComparable
 
     /**
      * Show summary right? (Row/Column outlining).
-     *
-     * @return bool
      */
-    public function getShowSummaryRight()
+    public function getShowSummaryRight(): bool
     {
         return $this->showSummaryRight;
     }
@@ -2570,7 +2562,7 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function setShowSummaryRight($showSummaryRight)
+    public function setShowSummaryRight(bool $showSummaryRight): self
     {
         $this->showSummaryRight = $showSummaryRight;
 
@@ -2594,7 +2586,7 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function setComments(array $comments)
+    public function setComments(array $comments): self
     {
         $this->comments = $comments;
 
@@ -2609,7 +2601,7 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function removeComment($cellCoordinate)
+    public function removeComment($cellCoordinate): self
     {
         $cellAddress = Functions::trimSheetFromCellReference(Validations::validateCellAddress($cellCoordinate));
 
@@ -2633,10 +2625,8 @@ class Worksheet implements IComparable
      *
      * @param array<int>|CellAddress|string $cellCoordinate Coordinate of the cell as a string, eg: 'C5';
      *               or as an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress object.
-     *
-     * @return Comment
      */
-    public function getComment($cellCoordinate)
+    public function getComment($cellCoordinate): Comment
     {
         $cellAddress = Functions::trimSheetFromCellReference(Validations::validateCellAddress($cellCoordinate));
 
@@ -2669,10 +2659,8 @@ class Worksheet implements IComparable
      *
      * @param int $columnIndex Numeric column coordinate of the cell
      * @param int $row Numeric row coordinate of the cell
-     *
-     * @return Comment
      */
-    public function getCommentByColumnAndRow($columnIndex, $row)
+    public function getCommentByColumnAndRow($columnIndex, $row): Comment
     {
         return $this->getComment(Coordinate::stringFromColumnIndex($columnIndex) . $row);
     }
@@ -3051,7 +3039,11 @@ class Worksheet implements IComparable
      * Extract worksheet title from range.
      *
      * Example: extractSheetTitle("testSheet!A1") ==> 'A1'
+     * Example: extractSheetTitle("testSheet!A1:C3") ==> 'A1:C3'
      * Example: extractSheetTitle("'testSheet 1'!A1", true) ==> ['testSheet 1', 'A1'];
+     * Example: extractSheetTitle("'testSheet 1'!A1:C3", true) ==> ['testSheet 1', 'A1:C3'];
+     * Example: extractSheetTitle("A1", true) ==> ['', 'A1'];
+     * Example: extractSheetTitle("A1:C3", true) ==> ['', 'A1:C3']
      *
      * @param string $range Range to extract title from
      * @param bool $returnRange Return range? (see example)
@@ -3449,5 +3441,10 @@ class Worksheet implements IComparable
     public function hasCodeName()
     {
         return $this->codeName !== null;
+    }
+
+    public static function nameRequiresQuotes(string $sheetName): bool
+    {
+        return preg_match(self::SHEET_NAME_REQUIRES_NO_QUOTES, $sheetName) !== 1;
     }
 }
