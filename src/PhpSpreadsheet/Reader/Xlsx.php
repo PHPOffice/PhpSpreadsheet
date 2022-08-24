@@ -479,7 +479,7 @@ class Xlsx extends BaseReader
                     $propertyReader->readCustomProperties($this->getFromZipArchive($zip, $relTarget));
 
                     break;
-                //Ribbon
+                    // Ribbon
                 case Namespaces::EXTENSIBILITY:
                     $customUI = $relTarget;
                     if ($customUI) {
@@ -530,7 +530,7 @@ class Xlsx extends BaseReader
                                 }
 
                                 break;
-                            // a vbaProject ? (: some macros)
+                                // a vbaProject ? (: some macros)
                             case Namespaces::VBA:
                                 $macros = $ele['Target'];
 
@@ -1695,8 +1695,8 @@ class Xlsx extends BaseReader
 
                         break;
 
-                    // unparsed
                     case 'application/vnd.ms-excel.controlproperties+xml':
+                        // unparsed
                         $unparsedLoadedData['override_content_types'][(string) $contentType['PartName']] = (string) $contentType['ContentType'];
 
                         break;
@@ -1722,7 +1722,6 @@ class Xlsx extends BaseReader
             $value->createText(StringHelper::controlCharacterOOXML2PHP((string) $is->t));
         } else {
             if (is_object($is->r)) {
-
                 /** @var SimpleXMLElement $run */
                 foreach ($is->r as $run) {
                     if (!isset($run->rPr)) {
