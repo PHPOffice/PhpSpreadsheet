@@ -4756,9 +4756,8 @@ class Calculation
 
                         break;
                 }
-
-                // if the token is a unary operator, pop one value off the stack, do the operation, and push it back on
             } elseif (($token === '~') || ($token === '%')) {
+                // if the token is a unary operator, pop one value off the stack, do the operation, and push it back on
                 if (($arg = $stack->pop()) === null) {
                     return $this->raiseFormulaError('Internal error - Operand value missing from stack');
                 }
@@ -4865,9 +4864,8 @@ class Calculation
                 if (isset($storeKey)) {
                     $branchStore[$storeKey] = $cellValue;
                 }
-
-                // if the token is a function, pop arguments off the stack, hand them to the function, and push the result back on
             } elseif (preg_match('/^' . self::CALCULATION_REGEXP_FUNCTION . '$/miu', $token ?? '', $matches)) {
+                // if the token is a function, pop arguments off the stack, hand them to the function, and push the result back on
                 if ($pCellParent) {
                     $cell->attach($pCellParent);
                 }
@@ -4977,8 +4975,8 @@ class Calculation
                     if (isset($storeKey)) {
                         $branchStore[$storeKey] = $token;
                     }
-                    // if the token is a named range or formula, evaluate it and push the result onto the stack
                 } elseif (preg_match('/^' . self::CALCULATION_REGEXP_DEFINEDNAME . '$/miu', $token, $matches)) {
+                    // if the token is a named range or formula, evaluate it and push the result onto the stack
                     $definedName = $matches[6];
                     if ($cell === null || $pCellWorksheet === null) {
                         return $this->raiseFormulaError("undefined name '$token'");

@@ -6999,7 +6999,7 @@ class Xls extends BaseReader
                 }
 
                 break;
-            // Unknown cases    // don't know how to deal with
+                // Unknown cases    // don't know how to deal with
             default:
                 throw new Exception('Unrecognized token ' . sprintf('%02X', $id) . ' in formula');
 
