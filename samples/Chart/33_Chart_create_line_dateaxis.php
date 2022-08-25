@@ -10,6 +10,39 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
 
+function dateRange(int $nrows, Spreadsheet $wrkbk): array
+{
+    $dataSheet = $wrkbk->getSheetByName('Data');
+
+    // start the xaxis at the beginning of the quarter of the first date
+    $startDateStr = $dataSheet->getCell('B2')->getValue(); // yyyy-mm-dd date string
+    $startDate = DateTime::createFromFormat('Y-m-d', $startDateStr); // php date obj
+
+    // get date of first day of the quarter of the start date
+    $startMonth = $startDate->format('n'); // suppress leading zero
+    $startYr = $startDate->format('Y');
+    $qtr = intdiv($startMonth, 3) + (($startMonth % 3 > 0) ? 1 : 0);
+    $qtrStartMonth = sprintf('%02d', 1 + (($qtr - 1) * 3));
+    $qtrStartStr = "$startYr-$qtrStartMonth-01";
+    $ExcelQtrStartDateVal = SharedDate::convertIsoDate($qtrStartStr);
+
+    // end the xaxis at the end of the quarter of the last date
+    $lastDateStr = $dataSheet->getCellByColumnAndRow(2, $nrows + 1)->getValue();
+    $lastDate = DateTime::createFromFormat('Y-m-d', $lastDateStr);
+    $lastMonth = $lastDate->format('n');
+    $lastYr = $lastDate->format('Y');
+    $qtr = intdiv($lastMonth, 3) + (($lastMonth % 3 > 0) ? 1 : 0);
+    $qtrEndMonth = 3 + (($qtr - 1) * 3);
+    $lastDOM = cal_days_in_month(CAL_GREGORIAN, $qtrEndMonth, $lastYr);
+    $qtrEndMonth = sprintf('%02d', $qtrEndMonth);
+    $qtrEndStr = "$lastYr-$qtrEndMonth-$lastDOM";
+    $ExcelQtrEndDateVal = SharedDate::convertIsoDate($qtrEndStr);
+
+    $minMaxDates = ['min' => $ExcelQtrStartDateVal, 'max' => $ExcelQtrEndDateVal];
+
+    return $minMaxDates;
+}
+
 $spreadsheet = new Spreadsheet();
 $dataSheet = $spreadsheet->getActiveSheet();
 $dataSheet->setTitle('Data');
@@ -340,36 +373,3 @@ $callStartTime = microtime(true);
 $writer->save($filename);
 $helper->logWrite($writer, $filename, $callStartTime);
 $spreadsheet->disconnectWorksheets();
-
-function dateRange(int $nrows, Spreadsheet $wrkbk): array
-{
-    $dataSheet = $wrkbk->getSheetByName('Data');
-
-    // start the xaxis at the beginning of the quarter of the first date
-    $startDateStr = $dataSheet->getCell('B2')->getValue(); // yyyy-mm-dd date string
-    $startDate = DateTime::createFromFormat('Y-m-d', $startDateStr); // php date obj
-
-    // get date of first day of the quarter of the start date
-    $startMonth = $startDate->format('n'); // suppress leading zero
-    $startYr = $startDate->format('Y');
-    $qtr = intdiv($startMonth, 3) + (($startMonth % 3 > 0) ? 1 : 0);
-    $qtrStartMonth = sprintf('%02d', 1 + (($qtr - 1) * 3));
-    $qtrStartStr = "$startYr-$qtrStartMonth-01";
-    $ExcelQtrStartDateVal = SharedDate::convertIsoDate($qtrStartStr);
-
-    // end the xaxis at the end of the quarter of the last date
-    $lastDateStr = $dataSheet->getCellByColumnAndRow(2, $nrows + 1)->getValue();
-    $lastDate = DateTime::createFromFormat('Y-m-d', $lastDateStr);
-    $lastMonth = $lastDate->format('n');
-    $lastYr = $lastDate->format('Y');
-    $qtr = intdiv($lastMonth, 3) + (($lastMonth % 3 > 0) ? 1 : 0);
-    $qtrEndMonth = 3 + (($qtr - 1) * 3);
-    $lastDOM = cal_days_in_month(CAL_GREGORIAN, $qtrEndMonth, $lastYr);
-    $qtrEndMonth = sprintf('%02d', $qtrEndMonth);
-    $qtrEndStr = "$lastYr-$qtrEndMonth-$lastDOM";
-    $ExcelQtrEndDateVal = SharedDate::convertIsoDate($qtrEndStr);
-
-    $minMaxDates = ['min' => $ExcelQtrStartDateVal, 'max' => $ExcelQtrEndDateVal];
-
-    return $minMaxDates;
-}
