@@ -1,16 +1,11 @@
 <?php
 
-use PhpOffice\PhpSpreadsheet\Chart\Axis;
-use PhpOffice\PhpSpreadsheet\Chart\Chart;
-use PhpOffice\PhpSpreadsheet\Chart\ChartColor;
-use PhpOffice\PhpSpreadsheet\Chart\DataSeries;
-use PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues;
+namespace PhpOffice\PhpSpreadsheet\Chart;
+
+use DateTime;
 use PhpOffice\PhpSpreadsheet\Chart\Legend as ChartLegend;
-use PhpOffice\PhpSpreadsheet\Chart\PlotArea;
-use PhpOffice\PhpSpreadsheet\Chart\Properties;
-use PhpOffice\PhpSpreadsheet\Chart\Title;
-use PhpOffice\PhpSpreadsheet\Chart\TrendLine;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Shared\Date as SharedDate;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
@@ -19,22 +14,24 @@ $spreadsheet = new Spreadsheet();
 $dataSheet = $spreadsheet->getActiveSheet();
 $dataSheet->setTitle('Data');
 // changed data to simulate a trend chart - Xaxis are dates; Yaxis are 3 meausurements from each date
+// Dates changed not to fall on exact quarter start
 $dataSheet->fromArray(
     [
-        ['', 'metric1', 'metric2', 'metric3'],
-        ['=DATEVALUE("2021-01-01")', 12.1, 15.1, 21.1],
-        ['=DATEVALUE("2021-04-01")', 56.2, 73.2, 86.2],
-        ['=DATEVALUE("2021-07-01")', 52.2, 61.2, 69.2],
-        ['=DATEVALUE("2021-10-01")', 30.2, 22.2, 0.2],
-        ['=DATEVALUE("2022-01-01")', 40.1, 38.1, 65.1],
-        ['=DATEVALUE("2022-04-01")', 45.2, 44.2, 96.2],
-        ['=DATEVALUE("2022-07-01")', 52.2, 51.2, 55.2],
-        ['=DATEVALUE("2022-10-01")', 41.2, 72.2, 56.2],
+        ['', 'date', 'metric1', 'metric2', 'metric3'],
+        ['=DATEVALUE(B2)', '2021-01-10', 12.1, 15.1, 21.1],
+        ['=DATEVALUE(B3)', '2021-04-21', 56.2, 73.2, 86.2],
+        ['=DATEVALUE(B4)', '2021-07-31', 52.2, 61.2, 69.2],
+        ['=DATEVALUE(B5)', '2021-10-11', 30.2, 22.2, 0.2],
+        ['=DATEVALUE(B6)', '2022-01-21', 40.1, 38.1, 65.1],
+        ['=DATEVALUE(B7)', '2022-04-11', 45.2, 44.2, 96.2],
+        ['=DATEVALUE(B8)', '2022-07-01', 52.2, 51.2, 55.2],
+        ['=DATEVALUE(B9)', '2022-10-31', 41.2, 72.2, 56.2],
     ]
 );
 
 $dataSheet->getStyle('A2:A9')->getNumberFormat()->setFormatCode(Properties::FORMAT_CODE_DATE_ISO8601);
 $dataSheet->getColumnDimension('A')->setAutoSize(true);
+$dataSheet->getColumnDimension('B')->setAutoSize(true);
 $dataSheet->setSelectedCells('A1');
 
 // Set the Labels for each data series we want to plot
@@ -43,9 +40,9 @@ $dataSheet->setSelectedCells('A1');
 //     Format Code
 //     Number of datapoints in series
 $dataSeriesLabels = [
-    new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, 'Data!$B$1', null, 1),
     new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, 'Data!$C$1', null, 1),
     new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, 'Data!$D$1', null, 1),
+    new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, 'Data!$E$1', null, 1),
 ];
 // Set the X-Axis Labels
 // NUMBER, not STRING
@@ -69,9 +66,36 @@ $xAxisTickValues = [
 //   Color(s) added
 // added FORMAT_CODE_NUMBER
 $dataSeriesValues = [
-    new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_NUMBER, 'Data!$B$2:$B$9', Properties::FORMAT_CODE_NUMBER, 8, null, 'diamond', null, 5),
-    new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_NUMBER, 'Data!$C$2:$C$9', Properties::FORMAT_CODE_NUMBER, 8, null, 'square', '*accent1', 6),
-    new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_NUMBER, 'Data!$D$2:$D$9', Properties::FORMAT_CODE_NUMBER, 8, null, null, null, 7), // let Excel choose marker shape
+    new DataSeriesValues(
+        DataSeriesValues::DATASERIES_TYPE_NUMBER,
+        'Data!$C$2:$C$9',
+        Properties::FORMAT_CODE_NUMBER,
+        8,
+        null,
+        'diamond',
+        null,
+        5
+    ),
+    new DataSeriesValues(
+        DataSeriesValues::DATASERIES_TYPE_NUMBER,
+        'Data!$D$2:$D$9',
+        Properties::FORMAT_CODE_NUMBER,
+        8,
+        null,
+        'square',
+        '*accent1',
+        6
+    ),
+    new DataSeriesValues(
+        DataSeriesValues::DATASERIES_TYPE_NUMBER,
+        'Data!$E$2:$E$9',
+        Properties::FORMAT_CODE_NUMBER,
+        8,
+        null,
+        null,
+        null,
+        7
+    ), // let Excel choose marker shape
 ];
 // series 1 - metric1
 // marker details
@@ -123,7 +147,7 @@ $dataSeriesValues[2] // triangle border
 $dataSeriesValues[2]->setScatterLines(false); // points not connected
 // Added so that Xaxis shows dates instead of Excel-equivalent-year1900-numbers
 $xAxis = new Axis();
-$xAxis->setAxisNumberProperties(Properties::FORMAT_CODE_DATE_ISO8601, true);
+$xAxis->setAxisNumberProperties(Properties::FORMAT_CODE_DATE_ISO8601);
 
 // Build the dataseries
 $series = new DataSeries(
@@ -145,6 +169,8 @@ $legend = new ChartLegend(ChartLegend::POSITION_TOPRIGHT, null, false);
 
 $title = new Title('Test Scatter Chart');
 $yAxisLabel = new Title('Value ($k)');
+$yAxis = new Axis();
+$yAxis->setMajorGridlines(new GridLines());
 
 // Create the chart
 $chart = new Chart(
@@ -158,7 +184,7 @@ $chart = new Chart(
     $yAxisLabel,  // yAxisLabel
     // added xAxis for correct date display
     $xAxis, // xAxis
-    //  $yAxis, // yAxis
+    $yAxis, // yAxis
 );
 
 // Set the position of the chart in the chart sheet
@@ -168,79 +194,119 @@ $chart->setBottomRightPosition('P12');
 // create a 'Chart' worksheet, add $chart to it
 $spreadsheet->createSheet();
 $chartSheet = $spreadsheet->getSheet(1);
-$chartSheet->setTitle('Scatter Chart');
+$chartSheet->setTitle('Scatter+Line Chart');
 
-$chartSheet = $spreadsheet->getSheetByName('Scatter Chart');
+$chartSheet = $spreadsheet->getSheetByName('Scatter+Line Chart');
 // Add the chart to the worksheet
 $chartSheet->addChart($chart);
 
-// ------------ Demonstrate Trendlines for metric3 values in a new chart ------------
+// ------- Demonstrate Date Xaxis in Line Chart, not possible using Scatter Chart ------------
 
+// Set the Labels (Column header) for each data series we want to plot
 $dataSeriesLabels = [
-    new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, 'Data!$D$1', null, 1),
+    new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, 'Data!$E$1', null, 1),
 ];
+
+// Set the X-Axis Labels - dates, N.B. 01/10/2021 === Jan 10, NOT Oct 1 !!
+// x-axis values are the Excel numeric representation of the date - so set
+// formatCode=General for the xAxis VALUES, but we want the labels to be
+// DISPLAYED as 'yyyy-mm-dd'  That is, read a number, display a date.
 $xAxisTickValues = [
     new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_NUMBER, 'Data!$A$2:$A$9', Properties::FORMAT_CODE_DATE_ISO8601, 8),
 ];
 
+// X axis (date) settings
+$xAxisLabel = new Title('Date');
+$xAxis = new Axis();
+$xAxis->setAxisNumberProperties(Properties::FORMAT_CODE_DATE_ISO8601); // yyyy-mm-dd
+
+// Set the Data values for each data series we want to plot
 $dataSeriesValues = [
-    new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_NUMBER, 'Data!$D$2:$D$9', Properties::FORMAT_CODE_NUMBER, 4, null, 'triangle', null, 7),
+    new DataSeriesValues(
+        DataSeriesValues::DATASERIES_TYPE_NUMBER,
+        'Data!$E$2:$E$9',
+        Properties::FORMAT_CODE_NUMBER,
+        8,
+        null,
+        'triangle',
+        null,
+        7
+    ),
 ];
 
-// add 3 trendlines:
-// 1- linear, double-ended arrow, w=0.5, same color as marker fill; nodispRSqr, nodispEq
-// 2- polynomial (order=3) no-arrow trendline, w=1.25, same color as marker fill; dispRSqr, dispEq
-// 3- moving Avg (period=2) single-arrow trendline, w=1.5, same color as marker fill; no dispRSqr, no dispEq
-$trendLines = [
-    new TrendLine(TrendLine::TRENDLINE_LINEAR, null, null, false, false),
-    new TrendLine(TrendLine::TRENDLINE_POLYNOMIAL, 3, null, true, true),
-    new TrendLine(TrendLine::TRENDLINE_MOVING_AVG, null, 2, true),
-];
-$dataSeriesValues[0]->setTrendLines($trendLines);
-
-// Suppress connecting lines; instead, add different Trendline algorithms to
-// determine how well the data fits the algorithm (Rsquared="goodness of fit")
-// Display RSqr plus the eqn just because we can.
-
-$dataSeriesValues[0]->setScatterLines(false); // points not connected
-$dataSeriesValues[0]->getMarkerFillColor()
+// series - metric3, markers, no line
+$dataSeriesValues[0]
+    ->setScatterlines(false); // disable connecting lines
+$dataSeriesValues[0]
+    ->getMarkerFillColor()
     ->setColorProperties('FFFF00', null, ChartColor::EXCEL_COLOR_TYPE_ARGB);
-$dataSeriesValues[0]->getMarkerBorderColor()
+$dataSeriesValues[0]
+    ->getMarkerBorderColor()
     ->setColorProperties('accent4', null, ChartColor::EXCEL_COLOR_TYPE_SCHEME);
 
-// add properties to the trendLines - give each a different color
-$dataSeriesValues[0]->getTrendLines()[0]->getLineColor()->setColorProperties('accent4', null, ChartColor::EXCEL_COLOR_TYPE_SCHEME);
-$dataSeriesValues[0]->getTrendLines()[0]->setLineStyleProperties(0.5, null, null, null, null, Properties::LINE_STYLE_ARROW_TYPE_STEALTH, 5, Properties::LINE_STYLE_ARROW_TYPE_OPEN, 8);
-
-$dataSeriesValues[0]->getTrendLines()[1]->getLineColor()->setColorProperties('accent3', null, ChartColor::EXCEL_COLOR_TYPE_SCHEME);
-$dataSeriesValues[0]->getTrendLines()[1]->setLineStyleProperties(1.25);
-
-$dataSeriesValues[0]->getTrendLines()[2]->getLineColor()->setColorProperties('accent2', null, ChartColor::EXCEL_COLOR_TYPE_SCHEME);
-$dataSeriesValues[0]->getTrendLines()[2]->setLineStyleProperties(1.5, null, null, null, null, null, null, Properties::LINE_STYLE_ARROW_TYPE_OPEN, 8);
-
-$xAxis = new Axis();
-$xAxis->setAxisNumberProperties(Properties::FORMAT_CODE_DATE_ISO8601); // m/d/yyyy
-
 // Build the dataseries
+// must now use LineChart instead of ScatterChart, since ScatterChart does not
+// support "dateAx" axis type.
 $series = new DataSeries(
-    DataSeries::TYPE_SCATTERCHART, // plotType
-    null, // plotGrouping (Scatter charts don't have grouping)
+    DataSeries::TYPE_LINECHART, // plotType
+    'standard', // plotGrouping
     range(0, count($dataSeriesValues) - 1), // plotOrder
     $dataSeriesLabels, // plotLabel
     $xAxisTickValues, // plotCategory
     $dataSeriesValues, // plotValues
     null, // plotDirection
-    null, // smooth line
-    DataSeries::STYLE_SMOOTHMARKER // plotStyle
+    false, // smooth line
+    DataSeries::STYLE_LINEMARKER  // plotStyle
+    // DataSeries::STYLE_SMOOTHMARKER // plotStyle
 );
 
 // Set the series in the plot area
 $plotArea = new PlotArea(null, [$series]);
 // Set the chart legend
-$legend = new ChartLegend(ChartLegend::POSITION_TOPRIGHT, null, false);
+$legend = new ChartLegend(ChartLegend::POSITION_RIGHT, null, false);
 
-$title = new Title('Test Scatter Chart - trendlines for metric3 values');
+$title = new Title('Test Line-Chart with Date Axis - metric3 values');
+
+// X axis (date) settings
+$xAxisLabel = new Title('Game Date');
+$xAxis = new Axis();
+// date axis values are Excel numbers, not yyyy-mm-dd Date strings
+$xAxis->setAxisNumberProperties(Properties::FORMAT_CODE_DATE_ISO8601);
+
+$xAxis->setAxisType('dateAx'); // dateAx available ONLY for LINECHART, not SCATTERCHART
+
+// measure the time span in Quarters, of data.
+$dateMinMax = dateRange(8, $spreadsheet); // array 'min'=>earliest date of first Q, 'max'=>latest date of final Q
+// change xAxis tick marks to match Qtr boundaries
+
+$nQtrs = sprintf('%3.2f', (($dateMinMax['max'] - $dateMinMax['min']) / 30.5) / 4);
+$tickMarkInterval = ($nQtrs > 20) ? 6 : 3; // tick marks every ? months
+
+$xAxis->setAxisOptionsProperties(
+    Properties::AXIS_LABELS_NEXT_TO, // axis_label pos
+    null, // horizontalCrossesValue
+    null, // horizontalCrosses
+    null, // axisOrientation
+    'in', // major_tick_mark
+    null, // minor_tick_mark
+    $dateMinMax['min'], // minimum calculate this from the earliest data: 'Data!$A$2'
+    $dateMinMax['max'], // maximum calculate this from the last data:     'Data!$A$'.($nrows+1)
+    $tickMarkInterval,  // majorUnit determines tickmarks & Gridlines ?
+    null, // minorUnit
+    null, // textRotation
+    null, // hidden
+    'days', // baseTimeUnit
+    'months', // majorTimeUnit,
+    'months',   // minorTimeUnit
+);
+
 $yAxisLabel = new Title('Value ($k)');
+$yAxis = new Axis();
+$yAxis->setMajorGridlines(new GridLines());
+$xAxis->setMajorGridlines(new GridLines());
+$minorGridLines = new GridLines();
+$minorGridLines->activateObject();
+$xAxis->setMinorGridlines($minorGridLines);
 
 // Create the chart
 $chart = new Chart(
@@ -254,12 +320,13 @@ $chart = new Chart(
     $yAxisLabel,  // yAxisLabel
     // added xAxis for correct date display
     $xAxis, // xAxis
-    //  $yAxis, // yAxis
+    $yAxis, // yAxis
 );
 
 // Set the position of the chart in the chart sheet below the first chart
 $chart->setTopLeftPosition('A13');
 $chart->setBottomRightPosition('P25');
+$chart->setRoundedCorners('true'); // Rounded corners in Chart Outline
 
 // Add the chart to the worksheet $chartSheet
 $chartSheet->addChart($chart);
@@ -272,3 +339,37 @@ $writer->setIncludeCharts(true);
 $callStartTime = microtime(true);
 $writer->save($filename);
 $helper->logWrite($writer, $filename, $callStartTime);
+$spreadsheet->disconnectWorksheets();
+
+function dateRange(int $nrows, Spreadsheet $wrkbk): array
+{
+    $dataSheet = $wrkbk->getSheetByName('Data');
+
+    // start the xaxis at the beginning of the quarter of the first date
+    $startDateStr = $dataSheet->getCell('B2')->getValue(); // yyyy-mm-dd date string
+    $startDate = DateTime::createFromFormat('Y-m-d', $startDateStr); // php date obj
+
+    // get date of first day of the quarter of the start date
+    $startMonth = $startDate->format('n'); // suppress leading zero
+    $startYr = $startDate->format('Y');
+    $qtr = intdiv($startMonth, 3) + (($startMonth % 3 > 0) ? 1 : 0);
+    $qtrStartMonth = sprintf('%02d', 1 + (($qtr - 1) * 3));
+    $qtrStartStr = "$startYr-$qtrStartMonth-01";
+    $ExcelQtrStartDateVal = SharedDate::convertIsoDate($qtrStartStr);
+
+    // end the xaxis at the end of the quarter of the last date
+    $lastDateStr = $dataSheet->getCellByColumnAndRow(2, $nrows + 1)->getValue();
+    $lastDate = DateTime::createFromFormat('Y-m-d', $lastDateStr);
+    $lastMonth = $lastDate->format('n');
+    $lastYr = $lastDate->format('Y');
+    $qtr = intdiv($lastMonth, 3) + (($lastMonth % 3 > 0) ? 1 : 0);
+    $qtrEndMonth = 3 + (($qtr - 1) * 3);
+    $lastDOM = cal_days_in_month(CAL_GREGORIAN, $qtrEndMonth, $lastYr);
+    $qtrEndMonth = sprintf('%02d', $qtrEndMonth);
+    $qtrEndStr = "$lastYr-$qtrEndMonth-$lastDOM";
+    $ExcelQtrEndDateVal = SharedDate::convertIsoDate($qtrEndStr);
+
+    $minMaxDates = ['min' => $ExcelQtrStartDateVal, 'max' => $ExcelQtrEndDateVal];
+
+    return $minMaxDates;
+}
