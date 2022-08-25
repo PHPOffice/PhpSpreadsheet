@@ -99,6 +99,8 @@ class Offset
 
     private static function extractWorksheet($cellAddress, Cell $cell): array
     {
+        $cellAddress = self::assessCellAddress($cellAddress, $cell);
+
         $sheetName = '';
         if (strpos($cellAddress, '!') !== false) {
             [$sheetName, $cellAddress] = Worksheet::extractSheetTitle($cellAddress, true);
@@ -110,6 +112,15 @@ class Offset
             : $cell->getWorksheet();
 
         return [$cellAddress, $worksheet];
+    }
+
+    private static function assessCellAddress(string $cellAddress, Cell $cell): string
+    {
+        if (preg_match('/^' . Calculation::CALCULATION_REGEXP_DEFINEDNAME . '$/mui', $cellAddress) !== false) {
+            $cellAddress = Functions::expandDefinedName($cellAddress, $cell);
+        }
+
+        return $cellAddress;
     }
 
     private static function adjustEndCellColumnForWidth(string $endCellColumn, $width, int $startCellColumn, $columns)
