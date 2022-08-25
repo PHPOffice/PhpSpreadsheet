@@ -73,6 +73,9 @@ foreach ($inputFileNames as $inputFileName) {
                 $helper->log('    ' . $chartName . ' - ' . $caption);
 
                 $jpegFile = $helper->getFilename('35-' . $inputFileNameShort, 'png');
+                if ($i !== 0) {
+                    $jpegFile = substr($jpegFile, 0, -3) . "$i.png";
+                }
                 if (file_exists($jpegFile)) {
                     unlink($jpegFile);
                 }
