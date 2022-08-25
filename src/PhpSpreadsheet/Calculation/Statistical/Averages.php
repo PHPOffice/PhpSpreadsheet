@@ -203,7 +203,7 @@ class Averages extends AggregateBase
             $args,
             function ($value) {
                 // Is it a numeric value?
-                return  (is_numeric($value)) && (!is_string($value));
+                return  is_numeric($value) && (!is_string($value));
             }
         );
     }
