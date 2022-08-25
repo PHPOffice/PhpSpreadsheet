@@ -1101,11 +1101,6 @@ parameters:
 			path: src/PhpSpreadsheet/Cell/Coordinate.php
 
 		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Collection\\\\Memory\\:\\:\\$cache has no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Collection/Memory.php
-
-		-
 			message: "#^Parameter \\#1 \\$namedRange of method PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\:\\:addNamedRange\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\NamedRange, \\$this\\(PhpOffice\\\\PhpSpreadsheet\\\\DefinedName\\) given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/DefinedName.php

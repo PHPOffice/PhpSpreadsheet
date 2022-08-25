@@ -50,6 +50,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Added
 
+- Support for SimpleCache Interface versions 1.0, 2.0 and 3.0
 - Add Chart Axis Option textRotation [Issue #2705](https://github.com/PHPOffice/PhpSpreadsheet/issues/2705) [PR #2940](https://github.com/PHPOffice/PhpSpreadsheet/pull/2940)
 
 ### Changed

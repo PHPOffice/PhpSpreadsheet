@@ -729,21 +729,21 @@ abstract class JpGraphRendererBase implements IRenderer
             switch ($chartType) {
                 case 'area3DChart':
                     $dimensions = '3d';
-                // no break
+                    // no break
                 case 'areaChart':
                     $this->renderPlotLine($i, true, true, $dimensions);
 
                     break;
                 case 'bar3DChart':
                     $dimensions = '3d';
-                // no break
+                    // no break
                 case 'barChart':
                     $this->renderPlotBar($i, $dimensions);
 
                     break;
                 case 'line3DChart':
                     $dimensions = '3d';
-                // no break
+                    // no break
                 case 'lineChart':
                     $this->renderPlotLine($i, false, true, $dimensions);
 
@@ -799,35 +799,35 @@ abstract class JpGraphRendererBase implements IRenderer
         switch ($chartType) {
             case 'area3DChart':
                 $dimensions = '3d';
-            // no break
+                // no break
             case 'areaChart':
                 $this->renderAreaChart($groupCount, $dimensions);
 
                 break;
             case 'bar3DChart':
                 $dimensions = '3d';
-            // no break
+                // no break
             case 'barChart':
                 $this->renderBarChart($groupCount, $dimensions);
 
                 break;
             case 'line3DChart':
                 $dimensions = '3d';
-            // no break
+                // no break
             case 'lineChart':
                 $this->renderLineChart($groupCount, $dimensions);
 
                 break;
             case 'pie3DChart':
                 $dimensions = '3d';
-            // no break
+                // no break
             case 'pieChart':
                 $this->renderPieChart($groupCount, $dimensions, false, false);
 
                 break;
             case 'doughnut3DChart':
                 $dimensions = '3d';
-            // no break
+                // no break
             case 'doughnutChart':
                 $this->renderPieChart($groupCount, $dimensions, true, true);
 
@@ -846,7 +846,7 @@ abstract class JpGraphRendererBase implements IRenderer
                 break;
             case 'surface3DChart':
                 $dimensions = '3d';
-            // no break
+                // no break
             case 'surfaceChart':
                 $this->renderContourChart($groupCount, $dimensions);
 
