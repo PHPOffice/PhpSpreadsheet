@@ -139,12 +139,13 @@ class Chart
                                             $plotAreaLayout = $this->chartLayoutDetails($chartDetail);
 
                                             break;
-                                        case 'catAx':
+                                        case Axis::AXIS_TYPE_CATEGORY:
+                                        case Axis::AXIS_TYPE_DATE:
                                             $catAxRead = true;
                                             if (isset($chartDetail->title)) {
                                                 $XaxisLabel = $this->chartTitle($chartDetail->title->children($this->cNamespace));
                                             }
-                                            $xAxis->setAxisType('catAx');
+                                            $xAxis->setAxisType($chartDetailKey);
                                             $this->readEffects($chartDetail, $xAxis);
                                             if (isset($chartDetail->spPr)) {
                                                 $sppr = $chartDetail->spPr->children($this->aNamespace);
@@ -173,13 +174,7 @@ class Chart
                                             $this->setAxisProperties($chartDetail, $xAxis);
 
                                             break;
-                                        case 'dateAx':
-                                            if (isset($chartDetail->title)) {
-                                                $XaxisLabel = $this->chartTitle($chartDetail->title->children($this->cNamespace));
-                                            }
-
-                                            break;
-                                        case 'valAx':
+                                        case Axis::AXIS_TYPE_VALUE:
                                             $whichAxis = null;
                                             $axPos = null;
                                             if (isset($chartDetail->axPos)) {
@@ -1374,6 +1369,15 @@ class Chart
         }
         if (isset($chartDetail->minorUnit)) {
             $whichAxis->setAxisOption('minor_unit', (string) self::getAttribute($chartDetail->minorUnit, 'val', 'string'));
+        }
+        if (isset($chartDetail->baseTimeUnit)) {
+            $whichAxis->setAxisOption('baseTimeUnit', (string) self::getAttribute($chartDetail->baseTimeUnit, 'val', 'string'));
+        }
+        if (isset($chartDetail->majorTimeUnit)) {
+            $whichAxis->setAxisOption('majorTimeUnit', (string) self::getAttribute($chartDetail->majorTimeUnit, 'val', 'string'));
+        }
+        if (isset($chartDetail->minorTimeUnit)) {
+            $whichAxis->setAxisOption('minorTimeUnit', (string) self::getAttribute($chartDetail->minorTimeUnit, 'val', 'string'));
         }
         if (isset($chartDetail->txPr)) {
             $children = $chartDetail->txPr->children($this->aNamespace);

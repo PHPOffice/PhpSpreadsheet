@@ -940,8 +940,8 @@ class Html extends BaseWriter
 
         // Calculate cell style hashes
         foreach ($this->spreadsheet->getCellXfCollection() as $index => $style) {
-            $css['td.style' . $index] = $this->createCSSStyle($style);
-            $css['th.style' . $index] = $this->createCSSStyle($style);
+            $css['td.style' . $index . ', th.style' . $index] = $this->createCSSStyle($style);
+            //$css['th.style' . $index] = $this->createCSSStyle($style);
         }
 
         // Fetch sheets
@@ -1094,9 +1094,10 @@ class Html extends BaseWriter
         $css = [];
 
         // Create CSS
-        $value = $fill->getFillType() == Fill::FILL_NONE ?
-            'white' : '#' . $fill->getStartColor()->getRGB();
-        $css['background-color'] = $value;
+        if ($fill->getFillType() !== Fill::FILL_NONE) {
+            $value = '#' . $fill->getStartColor()->getRGB();
+            $css['background-color'] = $value;
+        }
 
         return $css;
     }

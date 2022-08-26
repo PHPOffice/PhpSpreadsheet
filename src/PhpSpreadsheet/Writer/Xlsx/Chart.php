@@ -490,13 +490,14 @@ class Chart extends WriterPart
     private function writeCategoryAxis(XMLWriter $objWriter, ?Title $xAxisLabel, $id1, $id2, $isMultiLevelSeries, Axis $yAxis): void
     {
         // N.B. writeCategoryAxis may be invoked with the last parameter($yAxis) using $xAxis for ScatterChart, etc
-        // In that case, xAxis is NOT a category.
-        if ($yAxis->getAxisType() !== '') {
-            $objWriter->startElement('c:' . $yAxis->getAxisType());
+        // In that case, xAxis may contain values like the yAxis, or it may be a date axis (LINECHART).
+        $axisType = $yAxis->getAxisType();
+        if ($axisType !== '') {
+            $objWriter->startElement("c:$axisType");
         } elseif ($yAxis->getAxisIsNumericFormat()) {
-            $objWriter->startElement('c:valAx');
+            $objWriter->startElement('c:' . Axis::AXIS_TYPE_VALUE);
         } else {
-            $objWriter->startElement('c:catAx');
+            $objWriter->startElement('c:' . Axis::AXIS_TYPE_CATEGORY);
         }
         $majorGridlines = $yAxis->getMajorGridlines();
         $minorGridlines = $yAxis->getMinorGridlines();
@@ -654,7 +655,8 @@ class Chart extends WriterPart
         }
 
         $objWriter->startElement('c:auto');
-        $objWriter->writeAttribute('val', '1');
+        // LineChart with dateAx wants '0'
+        $objWriter->writeAttribute('val', ($axisType === Axis::AXIS_TYPE_DATE) ? '0' : '1');
         $objWriter->endElement();
 
         $objWriter->startElement('c:lblAlgn');
@@ -664,6 +666,30 @@ class Chart extends WriterPart
         $objWriter->startElement('c:lblOffset');
         $objWriter->writeAttribute('val', '100');
         $objWriter->endElement();
+
+        if ($axisType === Axis::AXIS_TYPE_DATE) {
+            $property = 'baseTimeUnit';
+            $propertyVal = $yAxis->getAxisOptionsProperty($property);
+            if (!empty($propertyVal)) {
+                $objWriter->startElement("c:$property");
+                $objWriter->writeAttribute('val', $propertyVal);
+                $objWriter->endElement();
+            }
+            $property = 'majorTimeUnit';
+            $propertyVal = $yAxis->getAxisOptionsProperty($property);
+            if (!empty($propertyVal)) {
+                $objWriter->startElement("c:$property");
+                $objWriter->writeAttribute('val', $propertyVal);
+                $objWriter->endElement();
+            }
+            $property = 'minorTimeUnit';
+            $propertyVal = $yAxis->getAxisOptionsProperty($property);
+            if (!empty($propertyVal)) {
+                $objWriter->startElement("c:$property");
+                $objWriter->writeAttribute('val', $propertyVal);
+                $objWriter->endElement();
+            }
+        }
 
         if ($isMultiLevelSeries) {
             $objWriter->startElement('c:noMultiLvlLbl');
@@ -683,7 +709,7 @@ class Chart extends WriterPart
      */
     private function writeValueAxis(XMLWriter $objWriter, ?Title $yAxisLabel, $groupType, $id1, $id2, $isMultiLevelSeries, Axis $xAxis): void
     {
-        $objWriter->startElement('c:valAx');
+        $objWriter->startElement('c:' . Axis::AXIS_TYPE_VALUE);
         $majorGridlines = $xAxis->getMajorGridlines();
         $minorGridlines = $xAxis->getMinorGridlines();
 
@@ -1079,7 +1105,7 @@ class Chart extends WriterPart
                         $objWriter->endElement(); // a:ln
                     }
                 }
-                $nofill = $groupType == DataSeries::TYPE_STOCKCHART || ($groupType === DataSeries::TYPE_SCATTERCHART && !$plotSeriesValues->getScatterLines());
+                $nofill = $groupType === DataSeries::TYPE_STOCKCHART || (($groupType === DataSeries::TYPE_SCATTERCHART || $groupType === DataSeries::TYPE_LINECHART) && !$plotSeriesValues->getScatterLines());
                 if ($callLineStyles) {
                     $this->writeLineStyles($objWriter, $plotSeriesValues, $nofill);
                     $this->writeEffects($objWriter, $plotSeriesValues);

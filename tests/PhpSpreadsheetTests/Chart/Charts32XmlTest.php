@@ -177,4 +177,45 @@ class Charts32XmlTest extends TestCase
             )
         );
     }
+
+    public function testDateAx(): void
+    {
+        $file = self::DIRECTORY . '32readwriteLineDateAxisChart1.xlsx';
+        $reader = new XlsxReader();
+        $reader->setIncludeCharts(true);
+        $spreadsheet = $reader->load($file);
+        $sheet = $spreadsheet->getActiveSheet();
+        $charts = $sheet->getChartCollection();
+        self::assertCount(2, $charts);
+        $chart = $charts[1];
+        self::assertNotNull($chart);
+
+        $writer = new XlsxWriter($spreadsheet);
+        $writer->setIncludeCharts(true);
+        $writerChart = new XlsxWriter\Chart($writer);
+        $data = $writerChart->writeChart($chart);
+        $spreadsheet->disconnectWorksheets();
+
+        self::assertSame(
+            1,
+            substr_count(
+                $data,
+                '<c:baseTimeUnit val="days"/><c:majorTimeUnit val="months"/><c:minorTimeUnit val="months"/>'
+            )
+        );
+        self::assertSame(
+            1,
+            substr_count(
+                $data,
+                '<c:dateAx>'
+            )
+        );
+        self::assertSame(
+            1,
+            substr_count(
+                $data,
+                '<c:valAx>'
+            )
+        );
+    }
 }
