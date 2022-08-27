@@ -2659,8 +2659,8 @@ class Calculation
         ],
         'VALUETOTEXT' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '?',
+            'functionCall' => [TextData\Format::class, 'valueToText'],
+            'argumentCount' => '1,2',
         ],
         'VAR' => [
             'category' => Category::CATEGORY_STATISTICAL,
