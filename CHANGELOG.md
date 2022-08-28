@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Added
 
 - Implementation of the new `TEXTBEFORE()`, `TEXTAFTER()` and `TEXTSPLIT()` Excel Functions
-- Implementation of the `ARRAYTOTEXT()` Excel Function
+- Implementation of the `ARRAYTOTEXT()` and `VALUETOTEXT()` Excel Functions
 - Support for [mitoteam/jpgraph](https://packagist.org/packages/mitoteam/jpgraph) implementation of
   JpGraph library to render charts added.
 - Charts: Add Gradients, Transparency, Hidden Axes, Rounded Corners, Trendlines.
@@ -34,6 +34,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
+- Named ranges not usable as anchors in OFFSET function [Issue #3013](https://github.com/PHPOffice/PhpSpreadsheet/issues/3013)
 - Fully flatten an array [Issue #2955](https://github.com/PHPOffice/PhpSpreadsheet/issues/2955) [PR #2956](https://github.com/PHPOffice/PhpSpreadsheet/pull/2956)
 - cellExists() and getCell() methods should support UTF-8 named cells [Issue #2987](https://github.com/PHPOffice/PhpSpreadsheet/issues/2987) [PR #2988](https://github.com/PHPOffice/PhpSpreadsheet/pull/2988)
 - Spreadsheet copy fixed, clone disabled. [PR #2951](https://github.com/PHPOffice/PhpSpreadsheet/pull/2951)
@@ -49,6 +50,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Added
 
+- Support for SimpleCache Interface versions 1.0, 2.0 and 3.0
 - Add Chart Axis Option textRotation [Issue #2705](https://github.com/PHPOffice/PhpSpreadsheet/issues/2705) [PR #2940](https://github.com/PHPOffice/PhpSpreadsheet/pull/2940)
 
 ### Changed

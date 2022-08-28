@@ -1161,7 +1161,7 @@ A column's width can be set using the following code:
 $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(12);
 ```
 
-If you want to set a column width using a different unit of measure,
+If you want to set a column width using a different UoM (Unit of Measure),
 then you can do so by telling PhpSpreadsheet what UoM the width value
 that you are setting is measured in.
 Valid units are `pt` (points), `px` (pixels), `pc` (pica), `in` (inches),
@@ -1258,7 +1258,7 @@ Excel measures row height in points, where 1 pt is 1/72 of an inch (or
 about 0.35mm). The default value is 12.75 pts; and the permitted range
 of values is between 0 and 409 pts, where 0 pts is a hidden row.
 
-If you want to set a row height using a different unit of measure,
+If you want to set a row height using a different UoM (Unit of Measure),
 then you can do so by telling PhpSpreadsheet what UoM the height value
 that you are setting is measured in.
 Valid units are `pt` (points), `px` (pixels), `pc` (pica), `in` (inches),
@@ -1670,7 +1670,7 @@ $spreadsheet->getActiveSheet()->getDefaultColumnDimension()->setWidth(12);
 Excel measures column width in its own proprietary units, based on the number
 of characters that will be displayed in the default font.
 
-If you want to set the default column width using a different unit of measure,
+If you want to set the default column width using a different UoM (Unit of Measure),
 then you can do so by telling PhpSpreadsheet what UoM the width value
 that you are setting is measured in.
 Valid units are `pt` (points), `px` (pixels), `pc` (pica), `in` (inches),
@@ -1693,7 +1693,7 @@ Excel measures row height in points, where 1 pt is 1/72 of an inch (or
 about 0.35mm). The default value is 12.75 pts; and the permitted range
 of values is between 0 and 409 pts, where 0 pts is a hidden row.
 
-If you want to set a row height using a different unit of measure,
+If you want to set a row height using a different UoM (Unit of Measure),
 then you can do so by telling PhpSpreadsheet what UoM the height value
 that you are setting is measured in.
 Valid units are `pt` (points), `px` (pixels), `pc` (pica), `in` (inches),

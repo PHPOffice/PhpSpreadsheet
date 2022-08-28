@@ -531,7 +531,7 @@ class Parser
             {
                 return($this->convertFunction($token, $this->_func_args));
             }*/
-            // if it's an argument, ignore the token (the argument remains)
+        // if it's an argument, ignore the token (the argument remains)
         } elseif ($token == 'arg') {
             return '';
         }
