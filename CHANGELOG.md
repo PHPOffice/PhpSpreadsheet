@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Added
 
 - Implementation of the new `TEXTBEFORE()`, `TEXTAFTER()` and `TEXTSPLIT()` Excel Functions
-- Implementation of the `ARRAYTOTEXT()` Excel Function
+- Implementation of the `ARRAYTOTEXT()` and `VALUETOTEXT()` Excel Functions
 - Support for [mitoteam/jpgraph](https://packagist.org/packages/mitoteam/jpgraph) implementation of
   JpGraph library to render charts added.
 - Charts: Add Gradients, Transparency, Hidden Axes, Rounded Corners, Trendlines.
