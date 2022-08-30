@@ -120,7 +120,7 @@ $dataSeriesValues[2] // triangle border
     ->setColorProperties('accent4', null, ChartColor::EXCEL_COLOR_TYPE_SCHEME);
 $dataSeriesValues[2]->setScatterLines(false); // points not connected
 
-  // Added so that Xaxis shows dates instead of Excel-equivalent-year1900-numbers
+// Added so that Xaxis shows dates instead of Excel-equivalent-year1900-numbers
 $xAxis = new Axis();
 //$xAxis->setAxisNumberProperties(Properties::FORMAT_CODE_DATE );
 $xAxis->setAxisNumberProperties(Properties::FORMAT_CODE_DATE_ISO8601, true);

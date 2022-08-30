@@ -2836,7 +2836,7 @@ class Worksheet extends BIFFwriter
                     $operatorType = 0x01;
 
                     break;
-                // not OPERATOR_NOTBETWEEN 0x02
+                    // not OPERATOR_NOTBETWEEN 0x02
             }
         }
 

@@ -34,13 +34,44 @@ class TrendLine extends Properties
     /** @var bool */
     private $dispEq = false;
 
+    /** @var string */
+    private $name = '';
+
+    /** @var float */
+    private $backward = 0.0;
+
+    /** @var float */
+    private $forward = 0.0;
+
+    /** @var float */
+    private $intercept = 0.0;
+
     /**
      * Create a new TrendLine object.
      */
-    public function __construct(string $trendLineType = '', ?int $order = null, ?int $period = null, bool $dispRSqr = false, bool $dispEq = false)
-    {
+    public function __construct(
+        string $trendLineType = '',
+        ?int $order = null,
+        ?int $period = null,
+        bool $dispRSqr = false,
+        bool $dispEq = false,
+        ?float $backward = null,
+        ?float $forward = null,
+        ?float $intercept = null,
+        ?string $name = null
+    ) {
         parent::__construct();
-        $this->setTrendLineProperties($trendLineType, $order, $period, $dispRSqr, $dispEq);
+        $this->setTrendLineProperties(
+            $trendLineType,
+            $order,
+            $period,
+            $dispRSqr,
+            $dispEq,
+            $backward,
+            $forward,
+            $intercept,
+            $name
+        );
     }
 
     public function getTrendLineType(): string
@@ -103,8 +134,65 @@ class TrendLine extends Properties
         return $this;
     }
 
-    public function setTrendLineProperties(?string $trendLineType = null, ?int $order = 0, ?int $period = 0, ?bool $dispRSqr = false, ?bool $dispEq = false): self
+    public function getName(): string
     {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getBackward(): float
+    {
+        return $this->backward;
+    }
+
+    public function setBackward(float $backward): self
+    {
+        $this->backward = $backward;
+
+        return $this;
+    }
+
+    public function getForward(): float
+    {
+        return $this->forward;
+    }
+
+    public function setForward(float $forward): self
+    {
+        $this->forward = $forward;
+
+        return $this;
+    }
+
+    public function getIntercept(): float
+    {
+        return $this->intercept;
+    }
+
+    public function setIntercept(float $intercept): self
+    {
+        $this->intercept = $intercept;
+
+        return $this;
+    }
+
+    public function setTrendLineProperties(
+        ?string $trendLineType = null,
+        ?int $order = 0,
+        ?int $period = 0,
+        ?bool $dispRSqr = false,
+        ?bool $dispEq = false,
+        ?float $backward = null,
+        ?float $forward = null,
+        ?float $intercept = null,
+        ?string $name = null
+    ): self {
         if (!empty($trendLineType)) {
             $this->setTrendLineType($trendLineType);
         }
@@ -119,6 +207,18 @@ class TrendLine extends Properties
         }
         if ($dispEq !== null) {
             $this->setDispEq($dispEq);
+        }
+        if ($backward !== null) {
+            $this->setBackward($backward);
+        }
+        if ($forward !== null) {
+            $this->setForward($forward);
+        }
+        if ($intercept !== null) {
+            $this->setIntercept($intercept);
+        }
+        if ($name !== null) {
+            $this->setName($name);
         }
 
         return $this;

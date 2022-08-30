@@ -687,7 +687,7 @@ class Functions
             $worksheet2 = $defined->getWorkSheet();
             if (!$defined->isFormula() && $worksheet2 !== null) {
                 $coordinate = "'" . $worksheet2->getTitle() . "'!" .
-                    (string) preg_replace('/^=/', '', $defined->getValue());
+                    (string) preg_replace('/^=/', '', str_replace('$', '', $defined->getValue()));
             }
         }
 

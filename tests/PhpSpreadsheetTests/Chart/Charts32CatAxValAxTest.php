@@ -23,6 +23,8 @@ class Charts32CatAxValAxTest extends TestCase
     /** @var string */
     private $outputFileName = '';
 
+    private const FORMAT_CODE_DATE_ISO8601_SLASH = 'yyyy/mm/dd'; // not automatically treated as numeric
+
     protected function tearDown(): void
     {
         if ($this->outputFileName !== '') {
@@ -48,7 +50,7 @@ class Charts32CatAxValAxTest extends TestCase
                 ['=DATEVALUE("2021-01-10")', 30.2, 32.2, 0.2],
             ]
         );
-        $worksheet->getStyle('A2:A5')->getNumberFormat()->setFormatCode(Properties::FORMAT_CODE_DATE_ISO8601);
+        $worksheet->getStyle('A2:A5')->getNumberFormat()->setFormatCode(self::FORMAT_CODE_DATE_ISO8601_SLASH);
         $worksheet->getColumnDimension('A')->setAutoSize(true);
         $worksheet->setSelectedCells('A1');
 
@@ -91,9 +93,9 @@ class Charts32CatAxValAxTest extends TestCase
         $xAxis = new Axis();
         //$xAxis->setAxisNumberProperties(Properties::FORMAT_CODE_DATE );
         if (is_bool($numeric)) {
-            $xAxis->setAxisNumberProperties(Properties::FORMAT_CODE_DATE_ISO8601, $numeric);
+            $xAxis->setAxisNumberProperties(self::FORMAT_CODE_DATE_ISO8601_SLASH, $numeric);
         } else {
-            $xAxis->setAxisNumberProperties(Properties::FORMAT_CODE_DATE_ISO8601);
+            $xAxis->setAxisNumberProperties(self::FORMAT_CODE_DATE_ISO8601_SLASH);
         }
 
         // Build the dataseries
