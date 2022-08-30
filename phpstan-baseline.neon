@@ -3811,29 +3811,9 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xlsx.php
 
 		-
-			message: "#^Parameter \\#1 \\$string of function substr expects string, int given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Comments.php
-
-		-
-			message: "#^Parameter \\#2 \\$content of method XMLWriter\\:\\:writeElement\\(\\) expects string\\|null, int given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Writer/Xlsx/Comments.php
-
-		-
 			message: "#^Expression on left side of \\?\\? is not nullable\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/DefinedNames.php
-
-		-
-			message: "#^Parameter \\#2 \\$content of method XMLWriter\\:\\:writeElement\\(\\) expects string\\|null, int given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/DocProps.php
-
-		-
-			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, int given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Writer/Xlsx/DocProps.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Rels\\:\\:writeUnparsedRelationship\\(\\) has parameter \\$relationship with no type specified\\.$#"
@@ -3999,74 +3979,3 @@ parameters:
 			message: "#^Result of \\|\\| is always true\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/Style.php
-
-		-
-			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, int given\\.$#"
-			count: 7
-			path: src/PhpSpreadsheet/Writer/Xlsx/Workbook.php
-
-		-
-			message: "#^Expression on left side of \\?\\? is not nullable\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 6
-			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Worksheet\\:\\:writeAttributeIf\\(\\) has parameter \\$condition with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Worksheet\\:\\:writeDataBarElements\\(\\) has parameter \\$dataBar with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Worksheet\\:\\:writeElementIf\\(\\) has parameter \\$condition with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
-
-		-
-			message: "#^Parameter \\#2 \\$content of method XMLWriter\\:\\:writeElement\\(\\) expects string\\|null, int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
-
-		-
-			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, int given\\.$#"
-			count: 15
-			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
-
-		-
-			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, int\\<0, max\\> given\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
-
-		-
-			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, int\\<1, max\\> given\\.$#"
-			count: 9
-			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
-
-		-
-			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, int\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
-
-		-
-			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
-
-		-
-			message: "#^Parameter \\#3 \\$stringTable of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Worksheet\\:\\:writeSheetData\\(\\) expects array\\<string\\>, array\\<string\\>\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
-
-		-
-			message: "#^Parameter \\#4 \\$val of static method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Worksheet\\:\\:writeAttributeIf\\(\\) expects string, int given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
-
