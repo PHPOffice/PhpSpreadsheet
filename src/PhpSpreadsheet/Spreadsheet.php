@@ -307,23 +307,23 @@ class Spreadsheet
      */
     public function getRibbonXMLData($what = 'all') //we need some constants here...
     {
-        $returnData = null;
-        $what = strtolower($what);
-        switch ($what) {
-            case 'all':
-                $returnData = $this->ribbonXMLData;
-
-                break;
-            case 'target':
-            case 'data':
-                if (is_array($this->ribbonXMLData)) {
-                    $returnData = $this->ribbonXMLData[$what];
-                }
-
-                break;
-        }
-
-        return $returnData;
+        $roadmap = [
+            "all"     => $this->ribbonXMLData,
+            "target"  => $this->RibbonXMLDataInput($what) ,
+            "data"    => $this->RibbonXMLDataInput($what)
+        ];
+        return $roadmap[strtolower($what)] ?? null;
+    }
+    /**
+     * check input ribbon XML Data.
+     *
+     * @param string $what
+     *
+     * @return null|array|string
+     */
+    public function ribbonXMLDataInput($what = 'all')
+    {
+        return is_array($this->ribbonXMLData) && isset($this->ribbonXMLData[$what]) ? $this->ribbonXMLData[$what] : null ;
     }
 
     /**
