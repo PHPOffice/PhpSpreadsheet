@@ -31,6 +31,7 @@ use PhpOffice\PhpSpreadsheet\Shared\Font;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Color;
+use PhpOffice\PhpSpreadsheet\Style\Font as StyleFont;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Style\Style;
 use PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooterDrawing;
@@ -293,7 +294,7 @@ class Xlsx extends BaseReader
         return $worksheetInfo;
     }
 
-    private static function castToBoolean($c)
+    private static function castToBoolean(SimpleXMLElement $c): bool
     {
         $value = isset($c->v) ? (string) $c->v : null;
         if ($value == '0') {
@@ -305,17 +306,21 @@ class Xlsx extends BaseReader
         return (bool) $c->v;
     }
 
-    private static function castToError($c)
+    private static function castToError(SimpleXMLElement $c): ?string
     {
         return isset($c->v) ? (string) $c->v : null;
     }
 
-    private static function castToString($c)
+    private static function castToString(SimpleXMLElement $c): ?string
     {
         return isset($c->v) ? (string) $c->v : null;
     }
 
-    private function castToFormula($c, $r, &$cellDataType, &$value, &$calculatedValue, &$sharedFormulas, $castBaseType): void
+    /**
+     * @param mixed $value
+     * @param mixed $calculatedValue
+     */
+    private function castToFormula(SimpleXMLElement $c, string $r, string &$cellDataType, &$value, &$calculatedValue, array &$sharedFormulas, string $castBaseType): void
     {
         $attr = $c->f->attributes();
         $cellDataType = 'f';
@@ -389,7 +394,7 @@ class Xlsx extends BaseReader
             $contents = $archive->getFromName(substr($fileName, 1), 0, ZipArchive::FL_NOCASE);
         }
 
-        return $contents;
+        return ($contents === false) ? '' : $contents;
     }
 
     /**
@@ -1143,7 +1148,7 @@ class Xlsx extends BaseReader
                                 }
 
                                 // Header/footer images
-                                if ($xmlSheet && $xmlSheet->legacyDrawingHF && !$this->readDataOnly) {
+                                if ($xmlSheet && $xmlSheet->legacyDrawingHF) {
                                     if ($zip->locateName(dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels')) {
                                         $relsWorksheet = $this->loadZipNoNamespace(dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels', Namespaces::RELATIONSHIPS);
                                         $vmlRelationship = '';
@@ -1550,7 +1555,7 @@ class Xlsx extends BaseReader
 
                                                 break;
                                             case '_xlnm.Print_Area':
-                                                $rangeSets = preg_split("/('?(?:.*?)'?(?:![A-Z0-9]+:[A-Z0-9]+)),?/", $extractedRange, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
+                                                $rangeSets = preg_split("/('?(?:.*?)'?(?:![A-Z0-9]+:[A-Z0-9]+)),?/", $extractedRange, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE) ?: [];
                                                 $newRangeSets = [];
                                                 foreach ($rangeSets as $rangeSet) {
                                                     [, $rangeSet] = Worksheet::extractSheetTitle($rangeSet, true);
@@ -1605,7 +1610,7 @@ class Xlsx extends BaseReader
                                                 if (strpos((string) $definedName, '!') !== false) {
                                                     $range[0] = str_replace("''", "'", $range[0]);
                                                     $range[0] = str_replace("'", '', $range[0]);
-                                                    if ($worksheet = $excel->getSheetByName($range[0])) {
+                                                    if ($worksheet = $excel->getSheetByName($range[0])) { // @phpstan-ignore-line
                                                         $excel->addDefinedName(DefinedName::createInstance((string) $definedName['name'], $worksheet, $extractedRange, true, $scope));
                                                     } else {
                                                         $excel->addDefinedName(DefinedName::createInstance((string) $definedName['name'], $scope, $extractedRange, true, $scope));
@@ -1626,7 +1631,7 @@ class Xlsx extends BaseReader
                                         // Need to split on a comma or a space if not in quotes, and extract the first part.
                                         $definedNameValueParts = preg_split("/[ ,](?=([^']*'[^']*')*[^']*$)/miuU", $definedRange);
                                         // Extract sheet name
-                                        [$extractedSheetName] = Worksheet::extractSheetTitle((string) $definedNameValueParts[0], true);
+                                        [$extractedSheetName] = Worksheet::extractSheetTitle((string) $definedNameValueParts[0], true); // @phpstan-ignore-line
                                         $extractedSheetName = trim($extractedSheetName, "'");
 
                                         // Locate sheet
@@ -1673,7 +1678,7 @@ class Xlsx extends BaseReader
                             if (isset($charts[$chartEntryRef])) {
                                 $chartPositionRef = $charts[$chartEntryRef]['sheet'] . '!' . $charts[$chartEntryRef]['id'];
                                 if (isset($chartDetails[$chartPositionRef])) {
-                                    $excel->getSheetByName($charts[$chartEntryRef]['sheet'])->addChart($objChart);
+                                    $excel->getSheetByName($charts[$chartEntryRef]['sheet'])->addChart($objChart); // @phpstan-ignore-line
                                     $objChart->setWorksheet($excel->getSheetByName($charts[$chartEntryRef]['sheet']));
                                     // For oneCellAnchor or absoluteAnchor positioned charts,
                                     //     toCoordinate is not in the data. Does it need to be calculated?
@@ -1721,28 +1726,29 @@ class Xlsx extends BaseReader
         if (isset($is->t)) {
             $value->createText(StringHelper::controlCharacterOOXML2PHP((string) $is->t));
         } else {
-            if (is_object($is->r)) {
+            if (isset($is->r) && is_object($is->r)) {
                 /** @var SimpleXMLElement $run */
                 foreach ($is->r as $run) {
                     if (!isset($run->rPr)) {
                         $value->createText(StringHelper::controlCharacterOOXML2PHP((string) $run->t));
                     } else {
                         $objText = $value->createTextRun(StringHelper::controlCharacterOOXML2PHP((string) $run->t));
+                        $objFont = $objText->getFont() ?? new StyleFont();
 
                         if (isset($run->rPr->rFont)) {
                             $attr = $run->rPr->rFont->attributes();
                             if (isset($attr['val'])) {
-                                $objText->getFont()->setName((string) $attr['val']);
+                                $objFont->setName((string) $attr['val']);
                             }
                         }
                         if (isset($run->rPr->sz)) {
                             $attr = $run->rPr->sz->attributes();
                             if (isset($attr['val'])) {
-                                $objText->getFont()->setSize((float) $attr['val']);
+                                $objFont->setSize((float) $attr['val']);
                             }
                         }
                         if (isset($run->rPr->color)) {
-                            $objText->getFont()->setColor(new Color($this->styleReader->readColor($run->rPr->color)));
+                            $objFont->setColor(new Color($this->styleReader->readColor($run->rPr->color)));
                         }
                         if (isset($run->rPr->b)) {
                             $attr = $run->rPr->b->attributes();
@@ -1750,7 +1756,7 @@ class Xlsx extends BaseReader
                                 (isset($attr['val']) && self::boolean((string) $attr['val'])) ||
                                 (!isset($attr['val']))
                             ) {
-                                $objText->getFont()->setBold(true);
+                                $objFont->setBold(true);
                             }
                         }
                         if (isset($run->rPr->i)) {
@@ -1759,7 +1765,7 @@ class Xlsx extends BaseReader
                                 (isset($attr['val']) && self::boolean((string) $attr['val'])) ||
                                 (!isset($attr['val']))
                             ) {
-                                $objText->getFont()->setItalic(true);
+                                $objFont->setItalic(true);
                             }
                         }
                         if (isset($run->rPr->vertAlign)) {
@@ -1767,19 +1773,19 @@ class Xlsx extends BaseReader
                             if (isset($attr['val'])) {
                                 $vertAlign = strtolower((string) $attr['val']);
                                 if ($vertAlign == 'superscript') {
-                                    $objText->getFont()->setSuperscript(true);
+                                    $objFont->setSuperscript(true);
                                 }
                                 if ($vertAlign == 'subscript') {
-                                    $objText->getFont()->setSubscript(true);
+                                    $objFont->setSubscript(true);
                                 }
                             }
                         }
                         if (isset($run->rPr->u)) {
                             $attr = $run->rPr->u->attributes();
                             if (!isset($attr['val'])) {
-                                $objText->getFont()->setUnderline(\PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_SINGLE);
+                                $objFont->setUnderline(\PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_SINGLE);
                             } else {
-                                $objText->getFont()->setUnderline((string) $attr['val']);
+                                $objFont->setUnderline((string) $attr['val']);
                             }
                         }
                         if (isset($run->rPr->strike)) {
@@ -1788,7 +1794,7 @@ class Xlsx extends BaseReader
                                 (isset($attr['val']) && self::boolean((string) $attr['val'])) ||
                                 (!isset($attr['val']))
                             ) {
-                                $objText->getFont()->setStrikethrough(true);
+                                $objFont->setStrikethrough(true);
                             }
                         }
                     }
@@ -1841,17 +1847,30 @@ class Xlsx extends BaseReader
         }
     }
 
+    /**
+     * @param null|array|bool|SimpleXMLElement $array
+     * @param int|string $key
+     *
+     * @return mixed
+     */
     private static function getArrayItem($array, $key = 0)
     {
-        return $array[$key] ?? null;
+        return ($array === null || is_bool($array)) ? null : ($array[$key] ?? null);
     }
 
+    /**
+     * @param null|SimpleXMLElement|string $base
+     * @param null|SimpleXMLElement|string $add
+     */
     private static function dirAdd($base, $add): string
     {
+        $base = (string) $base;
+        $add = (string) $add;
+
         return (string) preg_replace('~[^/]+/\.\./~', '', dirname($base) . "/$add");
     }
 
-    private static function toCSSArray($style): array
+    private static function toCSSArray(string $style): array
     {
         $style = self::stripWhiteSpaceFromStyleString($style);
 
@@ -1865,15 +1884,15 @@ class Xlsx extends BaseReader
             }
             if (strpos($item[1], 'pt') !== false) {
                 $item[1] = str_replace('pt', '', $item[1]);
-                $item[1] = Font::fontSizeToPixels($item[1]);
+                $item[1] = (string) Font::fontSizeToPixels((int) $item[1]);
             }
             if (strpos($item[1], 'in') !== false) {
                 $item[1] = str_replace('in', '', $item[1]);
-                $item[1] = Font::inchSizeToPixels($item[1]);
+                $item[1] = (string) Font::inchSizeToPixels((int) $item[1]);
             }
             if (strpos($item[1], 'cm') !== false) {
                 $item[1] = str_replace('cm', '', $item[1]);
-                $item[1] = Font::centimeterSizeToPixels($item[1]);
+                $item[1] = (string) Font::centimeterSizeToPixels((int) $item[1]);
             }
 
             $style[$item[0]] = $item[1];
@@ -1882,11 +1901,14 @@ class Xlsx extends BaseReader
         return $style;
     }
 
-    public static function stripWhiteSpaceFromStyleString($string): string
+    public static function stripWhiteSpaceFromStyleString(string $string): string
     {
         return trim(str_replace(["\r", "\n", ' '], '', $string), ';');
     }
 
+    /**
+     * @param mixed $value
+     */
     private static function boolean($value): bool
     {
         if (is_object($value)) {
@@ -1955,7 +1977,7 @@ class Xlsx extends BaseReader
         return $returnValue;
     }
 
-    private function readFormControlProperties(Spreadsheet $excel, $dir, $fileWorksheet, $docSheet, array &$unparsedLoadedData): void
+    private function readFormControlProperties(Spreadsheet $excel, string $dir, string $fileWorksheet, Worksheet $docSheet, array &$unparsedLoadedData): void
     {
         $zip = $this->zip;
         if (!$zip->locateName(dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels')) {
@@ -1982,7 +2004,7 @@ class Xlsx extends BaseReader
         unset($unparsedCtrlProps);
     }
 
-    private function readPrinterSettings(Spreadsheet $excel, $dir, $fileWorksheet, $docSheet, array &$unparsedLoadedData): void
+    private function readPrinterSettings(Spreadsheet $excel, string $dir, string $fileWorksheet, Worksheet $docSheet, array &$unparsedLoadedData): void
     {
         $zip = $this->zip;
         if (!$zip->locateName(dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels')) {
@@ -2070,7 +2092,7 @@ class Xlsx extends BaseReader
         if ($xmlSheet && $xmlSheet->autoFilter) {
             // In older files, autofilter structure is defined in the worksheet file
             (new AutoFilter($docSheet, $xmlSheet))->load();
-        } elseif ($xmlSheet && $xmlSheet->tableParts && $xmlSheet->tableParts['count'] > 0) {
+        } elseif ($xmlSheet && $xmlSheet->tableParts && (int) $xmlSheet->tableParts['count'] > 0) {
             // But for Office365, MS decided to make it all just a bit more complicated
             $this->readAutoFilterTablesInTablesFile($xmlSheet, $dir, $fileWorksheet, $zip, $docSheet);
         }
