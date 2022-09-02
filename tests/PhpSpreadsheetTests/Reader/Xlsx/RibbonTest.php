@@ -24,14 +24,14 @@ class RibbonTest extends AbstractFunctional
         self::assertSame('customUI/customUI.xml', $target);
         $data = $spreadsheet->getRibbonXMLData('data');
         self::assertIsString($data);
-        self::assertSame(1522, strlen($data));
+        self::assertSame(1522, strlen(/** @scrutinizer ignore-type */ $data));
         $vbaCode = (string) $spreadsheet->getMacrosCode();
         self::assertSame(13312, strlen($vbaCode));
         self::assertNull($spreadsheet->getRibbonBinObjects());
-        self::assertNull($spreadsheet->getRibbonBinObjects('names'));
-        self::assertNull($spreadsheet->getRibbonBinObjects('data'));
+        foreach (['names', 'data', 'xxxxx'] as $type) {
+            self::assertNull($spreadsheet->getRibbonBinObjects($type), "Expecting null when type is $type");
+        }
         self::assertEmpty($spreadsheet->getRibbonBinObjects('types'));
-        self::assertNull($spreadsheet->getRibbonBinObjects('xxxxx'));
 
         $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, 'Xlsx');
         $spreadsheet->disconnectWorksheets();
@@ -58,7 +58,7 @@ class RibbonTest extends AbstractFunctional
         self::assertSame('customUI/customUI.xml', $target);
         $data = $spreadsheet->getRibbonXMLData('data');
         self::assertIsString($data);
-        self::assertSame(1522, strlen($data));
+        self::assertSame(1522, strlen(/** @scrutinizer ignore-type */ $data));
         $vbaCode = (string) $spreadsheet->getMacrosCode();
         self::assertSame(13312, strlen($vbaCode));
         $spreadsheet->discardMacros();

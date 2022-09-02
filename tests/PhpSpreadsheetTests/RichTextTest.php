@@ -28,7 +28,9 @@ class RichTextTest extends TestCase
     public function testTextElements(): void
     {
         $element1 = new TextElement('A');
-        self::assertNull($element1->getFont());
+        if ($element1->getFont() !== null) {
+            self::fail('Expected font to be null');
+        }
         $element2 = new TextElement('B');
         $element3 = new TextElement('C');
         $richText = new RichText();

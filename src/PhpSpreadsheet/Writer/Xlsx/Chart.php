@@ -233,8 +233,6 @@ class Chart extends WriterPart
         if ($plotArea === null) {
             return;
         }
-        $majorGridlines = ($yAxis === null) ? null : $yAxis->getMajorGridlines();
-        $minorGridlines = ($yAxis === null) ? null : $yAxis->getMinorGridlines();
 
         $id1 = $id2 = $id3 = '0';
         $this->seriesIndex = 0;
@@ -1159,7 +1157,6 @@ class Chart extends WriterPart
                     $dispRSqr = $trendLine->getDispRSqr();
                     $dispEq = $trendLine->getDispEq();
                     $trendLineColor = $trendLine->getLineColor(); // ChartColor
-                    $trendLineWidth = $trendLine->getLineStyleProperty('width');
 
                     $objWriter->startElement('c:trendline'); // N.B. lowercase 'ell'
                     $objWriter->startElement('c:spPr');
