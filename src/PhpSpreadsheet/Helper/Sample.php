@@ -187,8 +187,8 @@ class Sample
     {
         $this->log(sprintf('%s Functions:', $category));
         $description === null
-            ? $this->log(sprintf('%s()', rtrim($functionName, '()')))
-            : $this->log(sprintf('%s() - %s.', rtrim($functionName, '()'), rtrim($description, '.')));
+            ? $this->log(sprintf('Function: %s()', rtrim($functionName, '()')))
+            : $this->log(sprintf('Function: %s() - %s.', rtrim($functionName, '()'), rtrim($description, '.')));
     }
 
     public function displayGrid(array $matrix): void
