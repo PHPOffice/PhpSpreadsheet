@@ -23,7 +23,7 @@ class Issue2506Test extends AbstractFunctional
     public function testDataSeriesValues(): void
     {
         $reader = new XlsxReader();
-        self::readCharts($reader);
+        $this->readCharts($reader);
         $spreadsheet = $reader->load(self::DIRECTORY . 'issue.2506.xlsx');
         $worksheet = $spreadsheet->getActiveSheet();
         $charts = $worksheet->getChartCollection();

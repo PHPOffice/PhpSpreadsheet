@@ -9,81 +9,93 @@ use PHPUnit\Framework\TestCase;
 
 class SpreadsheetCoverageTest extends TestCase
 {
+    /** @var ?Spreadsheet */
+    private $spreadsheet;
+
+    /** @var ?Spreadsheet */
+    private $spreadsheet2;
+
+    protected function tearDown(): void
+    {
+        if ($this->spreadsheet !== null) {
+            $this->spreadsheet->disconnectWorksheets();
+            $this->spreadsheet = null;
+        }
+        if ($this->spreadsheet2 !== null) {
+            $this->spreadsheet2->disconnectWorksheets();
+            $this->spreadsheet2 = null;
+        }
+    }
+
     public function testDocumentProperties(): void
     {
-        $spreadsheet = new Spreadsheet();
-        $properties = $spreadsheet->getProperties();
+        $this->spreadsheet = new Spreadsheet();
+        $properties = $this->spreadsheet->getProperties();
         $properties->setCreator('Anyone');
         $properties->setTitle('Description');
-        $spreadsheet2 = new Spreadsheet();
-        self::assertNotEquals($properties, $spreadsheet2->getProperties());
+        $this->spreadsheet2 = new Spreadsheet();
+        self::assertNotEquals($properties, $this->spreadsheet2->getProperties());
         $properties2 = clone $properties;
-        $spreadsheet2->setProperties($properties2);
-        self::assertEquals($properties, $spreadsheet2->getProperties());
-        $spreadsheet->disconnectWorksheets();
-        $spreadsheet2->disconnectWorksheets();
+        $this->spreadsheet2->setProperties($properties2);
+        self::assertEquals($properties, $this->spreadsheet2->getProperties());
     }
 
     public function testDocumentSecurity(): void
     {
-        $spreadsheet = new Spreadsheet();
-        $security = $spreadsheet->getSecurity();
+        $this->spreadsheet = new Spreadsheet();
+        $security = $this->spreadsheet->getSecurity();
         $security->setLockRevision(true);
         $revisionsPassword = 'revpasswd';
         $security->setRevisionsPassword($revisionsPassword);
-        $spreadsheet2 = new Spreadsheet();
-        self::assertNotEquals($security, $spreadsheet2->getSecurity());
+        $this->spreadsheet2 = new Spreadsheet();
+        self::assertNotEquals($security, $this->spreadsheet2->getSecurity());
         $security2 = clone $security;
-        $spreadsheet2->setSecurity($security2);
-        self::assertEquals($security, $spreadsheet2->getSecurity());
-        $spreadsheet->disconnectWorksheets();
-        $spreadsheet2->disconnectWorksheets();
+        $this->spreadsheet2->setSecurity($security2);
+        self::assertEquals($security, $this->spreadsheet2->getSecurity());
     }
 
     public function testCellXfCollection(): void
     {
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
+        $this->spreadsheet = new Spreadsheet();
+        $sheet = $this->spreadsheet->getActiveSheet();
         $sheet->getStyle('A1')->getFont()->setName('font1');
         $sheet->getStyle('A2')->getFont()->setName('font2');
         $sheet->getStyle('A3')->getFont()->setName('font3');
         $sheet->getStyle('B1')->getFont()->setName('font1');
         $sheet->getStyle('B2')->getFont()->setName('font2');
-        $collection = $spreadsheet->getCellXfCollection();
+        $collection = $this->spreadsheet->getCellXfCollection();
         self::assertCount(4, $collection);
         $font1Style = $collection[1];
-        self::assertTrue($spreadsheet->cellXfExists($font1Style));
-        self::assertSame('font1', $spreadsheet->getCellXfCollection()[1]->getFont()->getName());
+        self::assertTrue($this->spreadsheet->cellXfExists($font1Style));
+        self::assertSame('font1', $this->spreadsheet->getCellXfCollection()[1]->getFont()->getName());
         self::assertSame('font1', $sheet->getStyle('A1')->getFont()->getName());
         self::assertSame('font2', $sheet->getStyle('A2')->getFont()->getName());
         self::assertSame('font3', $sheet->getStyle('A3')->getFont()->getName());
         self::assertSame('font1', $sheet->getStyle('B1')->getFont()->getName());
         self::assertSame('font2', $sheet->getStyle('B2')->getFont()->getName());
 
-        $spreadsheet->removeCellXfByIndex(1);
-        self::assertFalse($spreadsheet->cellXfExists($font1Style));
-        self::assertSame('font2', $spreadsheet->getCellXfCollection()[1]->getFont()->getName());
+        $this->spreadsheet->removeCellXfByIndex(1);
+        self::assertFalse($this->spreadsheet->cellXfExists($font1Style));
+        self::assertSame('font2', $this->spreadsheet->getCellXfCollection()[1]->getFont()->getName());
         self::assertSame('Calibri', $sheet->getStyle('A1')->getFont()->getName());
         self::assertSame('font2', $sheet->getStyle('A2')->getFont()->getName());
         self::assertSame('font3', $sheet->getStyle('A3')->getFont()->getName());
         self::assertSame('Calibri', $sheet->getStyle('B1')->getFont()->getName());
         self::assertSame('font2', $sheet->getStyle('B2')->getFont()->getName());
-        $spreadsheet->disconnectWorksheets();
     }
 
     public function testInvalidRemoveCellXfByIndex(): void
     {
         $this->expectException(SSException::class);
         $this->expectExceptionMessage('CellXf index is out of bounds.');
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
+        $this->spreadsheet = new Spreadsheet();
+        $sheet = $this->spreadsheet->getActiveSheet();
         $sheet->getStyle('A1')->getFont()->setName('font1');
         $sheet->getStyle('A2')->getFont()->setName('font2');
         $sheet->getStyle('A3')->getFont()->setName('font3');
         $sheet->getStyle('B1')->getFont()->setName('font1');
         $sheet->getStyle('B2')->getFont()->setName('font2');
-        $spreadsheet->removeCellXfByIndex(5);
-        $spreadsheet->disconnectWorksheets();
+        $this->spreadsheet->removeCellXfByIndex(5);
     }
 
     public function testInvalidRemoveDefaultStyle(): void
@@ -91,71 +103,63 @@ class SpreadsheetCoverageTest extends TestCase
         $this->expectException(SSException::class);
         $this->expectExceptionMessage('No default style found for this workbook');
         // Removing default style probably should be disallowed.
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
-        $spreadsheet->removeCellXfByIndex(0);
-        $style = $spreadsheet->getDefaultStyle();
-        $spreadsheet->disconnectWorksheets();
+        $this->spreadsheet = new Spreadsheet();
+        $this->spreadsheet->removeCellXfByIndex(0);
+        $this->spreadsheet->getDefaultStyle();
     }
 
     public function testCellStyleXF(): void
     {
-        $spreadsheet = new Spreadsheet();
-        $collection = $spreadsheet->getCellStyleXfCollection();
+        $this->spreadsheet = new Spreadsheet();
+        $collection = $this->spreadsheet->getCellStyleXfCollection();
         self::assertCount(1, $collection);
         $styleXf = $collection[0];
-        self::assertSame($styleXf, $spreadsheet->getCellStyleXfByIndex(0));
+        self::assertSame($styleXf, $this->spreadsheet->getCellStyleXfByIndex(0));
         $hash = $styleXf->getHashCode();
-        self::assertSame($styleXf, $spreadsheet->getCellStyleXfByHashCode($hash));
-        self::assertFalse($spreadsheet->getCellStyleXfByHashCode($hash . 'x'));
-        $spreadsheet->disconnectWorksheets();
+        self::assertSame($styleXf, $this->spreadsheet->getCellStyleXfByHashCode($hash));
+        self::assertFalse($this->spreadsheet->getCellStyleXfByHashCode($hash . 'x'));
     }
 
     public function testInvalidRemoveCellStyleXfByIndex(): void
     {
         $this->expectException(SSException::class);
         $this->expectExceptionMessage('CellStyleXf index is out of bounds.');
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
-        $spreadsheet->removeCellStyleXfByIndex(5);
-        $spreadsheet->disconnectWorksheets();
+        $this->spreadsheet = new Spreadsheet();
+        $this->spreadsheet->removeCellStyleXfByIndex(5);
     }
 
     public function testInvalidFirstSheetIndex(): void
     {
         $this->expectException(SSException::class);
         $this->expectExceptionMessage('First sheet index must be a positive integer.');
-        $spreadsheet = new Spreadsheet();
-        $spreadsheet->setFirstSheetIndex(-1);
-        $spreadsheet->disconnectWorksheets();
+        $this->spreadsheet = new Spreadsheet();
+        $this->spreadsheet->setFirstSheetIndex(-1);
     }
 
     public function testInvalidVisibility(): void
     {
         $this->expectException(SSException::class);
         $this->expectExceptionMessage('Invalid visibility value.');
-        $spreadsheet = new Spreadsheet();
-        $spreadsheet->setVisibility(Spreadsheet::VISIBILITY_HIDDEN);
-        self::assertSame(Spreadsheet::VISIBILITY_HIDDEN, $spreadsheet->getVisibility());
-        $spreadsheet->setVisibility(null);
-        self::assertSame(Spreadsheet::VISIBILITY_VISIBLE, $spreadsheet->getVisibility());
-        $spreadsheet->setVisibility('badvalue');
-        $spreadsheet->disconnectWorksheets();
+        $this->spreadsheet = new Spreadsheet();
+        $this->spreadsheet->setVisibility(Spreadsheet::VISIBILITY_HIDDEN);
+        self::assertSame(Spreadsheet::VISIBILITY_HIDDEN, $this->spreadsheet->getVisibility());
+        $this->spreadsheet->setVisibility(null);
+        self::assertSame(Spreadsheet::VISIBILITY_VISIBLE, $this->spreadsheet->getVisibility());
+        $this->spreadsheet->setVisibility('badvalue');
     }
 
     public function testInvalidTabRatio(): void
     {
         $this->expectException(SSException::class);
         $this->expectExceptionMessage('Tab ratio must be between 0 and 1000.');
-        $spreadsheet = new Spreadsheet();
-        $spreadsheet->setTabRatio(2000);
-        $spreadsheet->disconnectWorksheets();
+        $this->spreadsheet = new Spreadsheet();
+        $this->spreadsheet->setTabRatio(2000);
     }
 
     public function testCopy(): void
     {
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
+        $this->spreadsheet = new Spreadsheet();
+        $sheet = $this->spreadsheet->getActiveSheet();
         $sheet->getStyle('A1')->getFont()->setName('font1');
         $sheet->getStyle('A2')->getFont()->setName('font2');
         $sheet->getStyle('A3')->getFont()->setName('font3');
@@ -166,8 +170,8 @@ class SpreadsheetCoverageTest extends TestCase
         $sheet->getCell('A3')->setValue('this is a3');
         $sheet->getCell('B1')->setValue('this is b1');
         $sheet->getCell('B2')->setValue('this is b2');
-        $copied = $spreadsheet->copy();
-        $copysheet = $copied->getActiveSheet();
+        $this->spreadsheet2 = $this->spreadsheet->copy();
+        $copysheet = $this->spreadsheet2->getActiveSheet();
         $copysheet->getStyle('A2')->getFont()->setName('font12');
         $copysheet->getCell('A2')->setValue('this was a2');
 
@@ -192,18 +196,13 @@ class SpreadsheetCoverageTest extends TestCase
         self::assertSame('this is a3', $copysheet->getCell('A3')->getValue());
         self::assertSame('this is b1', $copysheet->getCell('B1')->getValue());
         self::assertSame('this is b2', $copysheet->getCell('B2')->getValue());
-
-        $spreadsheet->disconnectWorksheets();
-        $copied->disconnectWorksheets();
     }
 
     public function testClone(): void
     {
         $this->expectException(SSException::class);
         $this->expectExceptionMessage('Do not use clone on spreadsheet. Use spreadsheet->copy() instead.');
-        $spreadsheet = new Spreadsheet();
-        $clone = clone $spreadsheet;
-        $spreadsheet->disconnectWorksheets();
-        $clone->disconnectWorksheets();
+        $this->spreadsheet = new Spreadsheet();
+        $this->spreadsheet2 = clone $this->spreadsheet;
     }
 }

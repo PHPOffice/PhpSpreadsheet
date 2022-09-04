@@ -311,7 +311,7 @@ class Chart
                                             break;
                                         case 'stockChart':
                                             $plotSeries[] = $this->chartDataSeries($chartDetail, $chartDetailKey);
-                                            $plotAttributes = $this->readChartAttributes($plotAreaLayout);
+                                            $plotAttributes = $this->readChartAttributes($chartDetail);
 
                                             break;
                                     }
@@ -1068,7 +1068,7 @@ class Chart
     }
 
     /**
-     * @param null|Layout|SimpleXMLElement $chartDetail
+     * @param ?SimpleXMLElement $chartDetail
      */
     private function readChartAttributes($chartDetail): array
     {
