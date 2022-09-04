@@ -73,6 +73,10 @@ class TrendLineTest extends AbstractFunctional
         self::assertSame('accent4', $lineColor->getValue());
         self::assertSame('stealth', $trendLine->getLineStyleProperty(['arrow', 'head', 'type']));
         self::assertEquals(0.5, $trendLine->getLineStyleProperty('width'));
+        self::assertSame('', $trendLine->getName());
+        self::assertSame(0.0, $trendLine->getBackward());
+        self::assertSame(0.0, $trendLine->getForward());
+        self::assertSame(0.0, $trendLine->getIntercept());
 
         $trendLine = $trendLines[1];
         self::assertSame('poly', $trendLine->getTrendLineType());
@@ -82,6 +86,10 @@ class TrendLineTest extends AbstractFunctional
         self::assertSame('accent3', $lineColor->getValue());
         self::assertNull($trendLine->getLineStyleProperty(['arrow', 'head', 'type']));
         self::assertEquals(1.25, $trendLine->getLineStyleProperty('width'));
+        self::assertSame('metric3 polynomial', $trendLine->getName());
+        self::assertSame(20.0, $trendLine->getBackward());
+        self::assertSame(28.0, $trendLine->getForward());
+        self::assertSame(14400.5, $trendLine->getIntercept());
 
         $trendLine = $trendLines[2];
         self::assertSame('movingAvg', $trendLine->getTrendLineType());
@@ -91,6 +99,10 @@ class TrendLineTest extends AbstractFunctional
         self::assertSame('accent2', $lineColor->getValue());
         self::assertNull($trendLine->getLineStyleProperty(['arrow', 'head', 'type']));
         self::assertEquals(1.5, $trendLine->getLineStyleProperty('width'));
+        self::assertSame('', $trendLine->getName());
+        self::assertSame(0.0, $trendLine->getBackward());
+        self::assertSame(0.0, $trendLine->getForward());
+        self::assertSame(0.0, $trendLine->getIntercept());
 
         $reloadedSpreadsheet->disconnectWorksheets();
     }

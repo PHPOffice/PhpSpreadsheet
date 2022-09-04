@@ -193,7 +193,7 @@ $dataSeriesValues = [
 // 3- moving Avg (period=2) single-arrow trendline, w=1.5, same color as marker fill; no dispRSqr, no dispEq
 $trendLines = [
     new TrendLine(TrendLine::TRENDLINE_LINEAR, null, null, false, false),
-    new TrendLine(TrendLine::TRENDLINE_POLYNOMIAL, 3, null, true, true),
+    new TrendLine(TrendLine::TRENDLINE_POLYNOMIAL, 3, null, true, true, 20.0, 28.0, 44104.5, 'metric3 polynomial fit'),
     new TrendLine(TrendLine::TRENDLINE_MOVING_AVG, null, 2, true),
 ];
 $dataSeriesValues[0]->setTrendLines($trendLines);

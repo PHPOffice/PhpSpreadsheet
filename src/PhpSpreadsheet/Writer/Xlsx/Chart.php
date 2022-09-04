@@ -1156,9 +1156,18 @@ class Chart extends WriterPart
                     $period = $trendLine->getPeriod();
                     $dispRSqr = $trendLine->getDispRSqr();
                     $dispEq = $trendLine->getDispEq();
+                    $forward = $trendLine->getForward();
+                    $backward = $trendLine->getBackward();
+                    $intercept = $trendLine->getIntercept();
+                    $name = $trendLine->getName();
                     $trendLineColor = $trendLine->getLineColor(); // ChartColor
 
                     $objWriter->startElement('c:trendline'); // N.B. lowercase 'ell'
+                    if ($name !== '') {
+                        $objWriter->startElement('c:name');
+                        $objWriter->writeRawData($name);
+                        $objWriter->endElement(); // c:name
+                    }
                     $objWriter->startElement('c:spPr');
 
                     if (!$trendLineColor->isUsable()) {
@@ -1178,6 +1187,21 @@ class Chart extends WriterPart
                     $objWriter->startElement('c:trendlineType'); // N.B lowercase 'ell'
                     $objWriter->writeAttribute('val', $trendLineType);
                     $objWriter->endElement(); // trendlineType
+                    if ($backward !== 0.0) {
+                        $objWriter->startElement('c:backward');
+                        $objWriter->writeAttribute('val', "$backward");
+                        $objWriter->endElement(); // c:backward
+                    }
+                    if ($forward !== 0.0) {
+                        $objWriter->startElement('c:forward');
+                        $objWriter->writeAttribute('val', "$forward");
+                        $objWriter->endElement(); // c:forward
+                    }
+                    if ($intercept !== 0.0) {
+                        $objWriter->startElement('c:intercept');
+                        $objWriter->writeAttribute('val', "$intercept");
+                        $objWriter->endElement(); // c:intercept
+                    }
                     if ($trendLineType == TrendLine::TRENDLINE_POLYNOMIAL) {
                         $objWriter->startElement('c:order');
                         $objWriter->writeAttribute('val', $order);

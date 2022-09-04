@@ -531,7 +531,25 @@ class Chart
                                 $order = self::getAttribute($seriesDetail->order, 'val', 'integer');
                                 /** @var ?int */
                                 $period = self::getAttribute($seriesDetail->period, 'val', 'integer');
-                                $trendLine->setTrendLineProperties($trendLineType, $order, $period, $dispRSqr, $dispEq);
+                                /** @var ?float */
+                                $forward = self::getAttribute($seriesDetail->forward, 'val', 'float');
+                                /** @var ?float */
+                                $backward = self::getAttribute($seriesDetail->backward, 'val', 'float');
+                                /** @var ?float */
+                                $intercept = self::getAttribute($seriesDetail->intercept, 'val', 'float');
+                                /** @var ?string */
+                                $name = (string) $seriesDetail->name;
+                                $trendLine->setTrendLineProperties(
+                                    $trendLineType,
+                                    $order,
+                                    $period,
+                                    $dispRSqr,
+                                    $dispEq,
+                                    $backward,
+                                    $forward,
+                                    $intercept,
+                                    $name
+                                );
                                 $trendLines[] = $trendLine;
 
                                 break;
