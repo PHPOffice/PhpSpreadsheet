@@ -11,12 +11,14 @@ class AutoFilter2Test extends TestCase
 {
     private const TESTBOOK = 'tests/data/Reader/XLSX/autofilter2.xlsx';
 
-    public function getVisibleSheet(Worksheet $sheet, int $maxRow): array
+    public function getVisibleSheet(?Worksheet $sheet, int $maxRow): array
     {
         $actualVisible = [];
-        for ($row = 2; $row <= $maxRow; ++$row) {
-            if ($sheet->getRowDimension($row)->getVisible()) {
-                $actualVisible[] = $row;
+        if ($sheet !== null) {
+            for ($row = 2; $row <= $maxRow; ++$row) {
+                if ($sheet->getRowDimension($row)->getVisible()) {
+                    $actualVisible[] = $row;
+                }
             }
         }
 
@@ -35,13 +37,14 @@ class AutoFilter2Test extends TestCase
         self::assertCount(1, $columns);
         $column = $columns['A'] ?? null;
         self::assertNotNull($column);
+        /** @scrutinizer ignore-call */
         $ruleset = $column->getRules();
         self::assertCount(1, $ruleset);
         $rule = $ruleset[0];
         self::assertSame(Rule::AUTOFILTER_RULETYPE_DATEGROUP, $rule->getRuleType());
         $value = $rule->getValue();
         self::assertIsArray($value);
-        self::assertCount(6, $value);
+        self::assertCount(6, /** @scrutinizer ignore-type */ $value);
         self::assertSame('2002', $value['year']);
         self::assertSame('', $value['month']);
         self::assertSame('', $value['day']);

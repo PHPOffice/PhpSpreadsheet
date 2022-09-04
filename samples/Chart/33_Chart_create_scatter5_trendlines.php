@@ -1,6 +1,6 @@
 <?php
 
-use PhpOffice\PhpSpreadsheet\Chart\Axis;
+use PhpOffice\PhpSpreadsheet\Chart\Axis as ChartAxis;
 use PhpOffice\PhpSpreadsheet\Chart\Chart;
 use PhpOffice\PhpSpreadsheet\Chart\ChartColor;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeries;
@@ -77,10 +77,10 @@ $dataSeriesValues = [
 // marker details
 $dataSeriesValues[0]
     ->getMarkerFillColor()
-    ->setColorProperties('0070C0', null, ChartColor::EXCEL_COLOR_TYPE_ARGB);
+    ->setColorProperties('0070C0', null, ChartColor::EXCEL_COLOR_TYPE_RGB);
 $dataSeriesValues[0]
     ->getMarkerBorderColor()
-    ->setColorProperties('002060', null, ChartColor::EXCEL_COLOR_TYPE_ARGB);
+    ->setColorProperties('002060', null, ChartColor::EXCEL_COLOR_TYPE_RGB);
 
 // line details - dashed, smooth line (Bezier) with arrows, 40% transparent
 $dataSeriesValues[0]
@@ -105,24 +105,24 @@ $dataSeriesValues[1] // square marker border color
     ->setColorProperties('accent6', 3, ChartColor::EXCEL_COLOR_TYPE_SCHEME);
 $dataSeriesValues[1] // square marker fill color
     ->getMarkerFillColor()
-    ->setColorProperties('0FFF00', null, ChartColor::EXCEL_COLOR_TYPE_ARGB);
+    ->setColorProperties('0FFF00', null, ChartColor::EXCEL_COLOR_TYPE_RGB);
 $dataSeriesValues[1]
     ->setScatterLines(true)
     ->setSmoothLine(false)
-    ->setLineColorProperties('FF0000', 80, ChartColor::EXCEL_COLOR_TYPE_ARGB);
+    ->setLineColorProperties('FF0000', 80, ChartColor::EXCEL_COLOR_TYPE_RGB);
 $dataSeriesValues[1]->setLineWidth(2.0);
 
 // series 3 - metric3, markers, no line
 $dataSeriesValues[2] // triangle? fill
     //->setPointMarker('triangle') // let Excel choose shape, which is predicted to be a triangle
     ->getMarkerFillColor()
-    ->setColorProperties('FFFF00', null, ChartColor::EXCEL_COLOR_TYPE_ARGB);
+    ->setColorProperties('FFFF00', null, ChartColor::EXCEL_COLOR_TYPE_RGB);
 $dataSeriesValues[2] // triangle border
     ->getMarkerBorderColor()
     ->setColorProperties('accent4', null, ChartColor::EXCEL_COLOR_TYPE_SCHEME);
 $dataSeriesValues[2]->setScatterLines(false); // points not connected
 // Added so that Xaxis shows dates instead of Excel-equivalent-year1900-numbers
-$xAxis = new Axis();
+$xAxis = new ChartAxis();
 $xAxis->setAxisNumberProperties(Properties::FORMAT_CODE_DATE_ISO8601, true);
 
 // Build the dataseries
@@ -204,7 +204,7 @@ $dataSeriesValues[0]->setTrendLines($trendLines);
 
 $dataSeriesValues[0]->setScatterLines(false); // points not connected
 $dataSeriesValues[0]->getMarkerFillColor()
-    ->setColorProperties('FFFF00', null, ChartColor::EXCEL_COLOR_TYPE_ARGB);
+    ->setColorProperties('FFFF00', null, ChartColor::EXCEL_COLOR_TYPE_RGB);
 $dataSeriesValues[0]->getMarkerBorderColor()
     ->setColorProperties('accent4', null, ChartColor::EXCEL_COLOR_TYPE_SCHEME);
 
@@ -218,7 +218,7 @@ $dataSeriesValues[0]->getTrendLines()[1]->setLineStyleProperties(1.25);
 $dataSeriesValues[0]->getTrendLines()[2]->getLineColor()->setColorProperties('accent2', null, ChartColor::EXCEL_COLOR_TYPE_SCHEME);
 $dataSeriesValues[0]->getTrendLines()[2]->setLineStyleProperties(1.5, null, null, null, null, null, null, Properties::LINE_STYLE_ARROW_TYPE_OPEN, 8);
 
-$xAxis = new Axis();
+$xAxis = new ChartAxis();
 $xAxis->setAxisNumberProperties(Properties::FORMAT_CODE_DATE_ISO8601); // m/d/yyyy
 
 // Build the dataseries

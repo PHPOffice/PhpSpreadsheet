@@ -349,7 +349,7 @@ class Font
 
         // Special case if there are one or more newline characters ("\n")
         $cellText = $cellText ?? '';
-        if (strpos($cellText, "\n") !== false) {
+        if (strpos(/** @scrutinizer ignore-type */ $cellText, "\n") !== false) {
             $lineTexts = explode("\n", $cellText);
             $lineWidths = [];
             foreach ($lineTexts as $lineText) {

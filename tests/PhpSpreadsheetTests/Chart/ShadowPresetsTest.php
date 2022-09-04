@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Chart;
 
 use PhpOffice\PhpSpreadsheet\Chart\Axis;
+use PhpOffice\PhpSpreadsheet\Chart\ChartColor;
 use PhpOffice\PhpSpreadsheet\Chart\GridLines;
 use PhpOffice\PhpSpreadsheet\Chart\Properties;
 use PHPUnit\Framework\TestCase;
@@ -131,7 +132,7 @@ class ShadowPresetsTest extends TestCase
             'presets' => Properties::SHADOW_PRESETS_NOSHADOW,
             'effect' => null,
             'color' => [
-                'type' => Properties::EXCEL_COLOR_TYPE_STANDARD,
+                'type' => ChartColor::EXCEL_COLOR_TYPE_STANDARD,
                 'value' => 'black',
                 'alpha' => 40,
             ],
@@ -160,7 +161,7 @@ class ShadowPresetsTest extends TestCase
             'presets' => Properties::SHADOW_PRESETS_NOSHADOW,
             'effect' => null,
             'color' => [
-                'type' => Properties::EXCEL_COLOR_TYPE_STANDARD,
+                'type' => ChartColor::EXCEL_COLOR_TYPE_STANDARD,
                 'value' => 'black',
                 'alpha' => 40,
             ],
@@ -189,7 +190,7 @@ class ShadowPresetsTest extends TestCase
             'presets' => Properties::SHADOW_PRESETS_NOSHADOW,
             'effect' => null,
             'color' => [
-                'type' => Properties::EXCEL_COLOR_TYPE_STANDARD,
+                'type' => ChartColor::EXCEL_COLOR_TYPE_STANDARD,
                 'value' => 'black',
                 'alpha' => 40,
             ],
