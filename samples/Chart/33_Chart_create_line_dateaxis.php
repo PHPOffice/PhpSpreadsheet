@@ -101,10 +101,10 @@ $dataSeriesValues = [
 // marker details
 $dataSeriesValues[0]
     ->getMarkerFillColor()
-    ->setColorProperties('0070C0', null, ChartColor::EXCEL_COLOR_TYPE_ARGB);
+    ->setColorProperties('0070C0', null, ChartColor::EXCEL_COLOR_TYPE_RGB);
 $dataSeriesValues[0]
     ->getMarkerBorderColor()
-    ->setColorProperties('002060', null, ChartColor::EXCEL_COLOR_TYPE_ARGB);
+    ->setColorProperties('002060', null, ChartColor::EXCEL_COLOR_TYPE_RGB);
 
 // line details - dashed, smooth line (Bezier) with arrows, 40% transparent
 $dataSeriesValues[0]
@@ -129,18 +129,18 @@ $dataSeriesValues[1] // square marker border color
     ->setColorProperties('accent6', 3, ChartColor::EXCEL_COLOR_TYPE_SCHEME);
 $dataSeriesValues[1] // square marker fill color
     ->getMarkerFillColor()
-    ->setColorProperties('0FFF00', null, ChartColor::EXCEL_COLOR_TYPE_ARGB);
+    ->setColorProperties('0FFF00', null, ChartColor::EXCEL_COLOR_TYPE_RGB);
 $dataSeriesValues[1]
     ->setScatterLines(true)
     ->setSmoothLine(false)
-    ->setLineColorProperties('FF0000', 80, ChartColor::EXCEL_COLOR_TYPE_ARGB);
+    ->setLineColorProperties('FF0000', 80, ChartColor::EXCEL_COLOR_TYPE_RGB);
 $dataSeriesValues[1]->setLineWidth(2.0);
 
 // series 3 - metric3, markers, no line
 $dataSeriesValues[2] // triangle? fill
     //->setPointMarker('triangle') // let Excel choose shape, which is predicted to be a triangle
     ->getMarkerFillColor()
-    ->setColorProperties('FFFF00', null, ChartColor::EXCEL_COLOR_TYPE_ARGB);
+    ->setColorProperties('FFFF00', null, ChartColor::EXCEL_COLOR_TYPE_RGB);
 $dataSeriesValues[2] // triangle border
     ->getMarkerBorderColor()
     ->setColorProperties('accent4', null, ChartColor::EXCEL_COLOR_TYPE_SCHEME);
@@ -239,7 +239,7 @@ $dataSeriesValues[0]
     ->setScatterlines(false); // disable connecting lines
 $dataSeriesValues[0]
     ->getMarkerFillColor()
-    ->setColorProperties('FFFF00', null, ChartColor::EXCEL_COLOR_TYPE_ARGB);
+    ->setColorProperties('FFFF00', null, ChartColor::EXCEL_COLOR_TYPE_RGB);
 $dataSeriesValues[0]
     ->getMarkerBorderColor()
     ->setColorProperties('accent4', null, ChartColor::EXCEL_COLOR_TYPE_SCHEME);
@@ -326,7 +326,7 @@ $chart = new Chart(
 // Set the position of the chart in the chart sheet below the first chart
 $chart->setTopLeftPosition('A13');
 $chart->setBottomRightPosition('P25');
-$chart->setRoundedCorners('true'); // Rounded corners in Chart Outline
+$chart->setRoundedCorners(true); // Rounded corners in Chart Outline
 
 // Add the chart to the worksheet $chartSheet
 $chartSheet->addChart($chart);
@@ -350,8 +350,8 @@ function dateRange(int $nrows, Spreadsheet $wrkbk): array
     $startDate = DateTime::createFromFormat('Y-m-d', $startDateStr); // php date obj
 
     // get date of first day of the quarter of the start date
-    $startMonth = $startDate->format('n'); // suppress leading zero
-    $startYr = $startDate->format('Y');
+    $startMonth = (int) $startDate->format('n'); // suppress leading zero
+    $startYr = (int) $startDate->format('Y');
     $qtr = intdiv($startMonth, 3) + (($startMonth % 3 > 0) ? 1 : 0);
     $qtrStartMonth = sprintf('%02d', 1 + (($qtr - 1) * 3));
     $qtrStartStr = "$startYr-$qtrStartMonth-01";
@@ -360,8 +360,8 @@ function dateRange(int $nrows, Spreadsheet $wrkbk): array
     // end the xaxis at the end of the quarter of the last date
     $lastDateStr = $dataSheet->getCellByColumnAndRow(2, $nrows + 1)->getValue();
     $lastDate = DateTime::createFromFormat('Y-m-d', $lastDateStr);
-    $lastMonth = $lastDate->format('n');
-    $lastYr = $lastDate->format('Y');
+    $lastMonth = (int) $lastDate->format('n');
+    $lastYr = (int) $lastDate->format('Y');
     $qtr = intdiv($lastMonth, 3) + (($lastMonth % 3 > 0) ? 1 : 0);
     $qtrEndMonth = 3 + (($qtr - 1) * 3);
     $lastDOM = cal_days_in_month(CAL_GREGORIAN, $qtrEndMonth, $lastYr);

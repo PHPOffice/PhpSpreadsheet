@@ -24,6 +24,7 @@ use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Style\Style;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
+use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class Html extends BaseWriter
@@ -1289,7 +1290,7 @@ class Html extends BaseWriter
         }
     }
 
-    private function generateRowCellDataValue(Worksheet $worksheet, Cell $cell, ?string &$cellData): void
+    private function generateRowCellDataValue(Worksheet $worksheet, Cell $cell, string &$cellData): void
     {
         if ($cell->getValue() instanceof RichText) {
             $this->generateRowCellDataValueRich($cell, $cellData);
@@ -1305,7 +1306,7 @@ class Html extends BaseWriter
             }
 
             if ($cellData === $origData) {
-                $cellData = htmlspecialchars($cellData ?? '', Settings::htmlEntityFlags());
+                $cellData = htmlspecialchars($cellData, Settings::htmlEntityFlags());
             }
             if ($worksheet->getParent()->getCellXfByIndex($cell->getXfIndex())->getFont()->getSuperscript()) {
                 $cellData = '<sup>' . $cellData . '</sup>';
@@ -1489,8 +1490,8 @@ class Html extends BaseWriter
                 && $this->isSpannedCell[$worksheet->getParent()->getIndex($worksheet)][$row + 1][$colNum]);
 
             // Colspan and Rowspan
-            $colspan = 1;
-            $rowspan = 1;
+            $colSpan = 1;
+            $rowSpan = 1;
             if (isset($this->isBaseCell[$worksheet->getParent()->getIndex($worksheet)][$row + 1][$colNum])) {
                 $spans = $this->isBaseCell[$worksheet->getParent()->getIndex($worksheet)][$row + 1][$colNum];
                 $rowSpan = $spans['rowspan'];
@@ -1803,7 +1804,8 @@ class Html extends BaseWriter
 
     public function getOrientation(): ?string
     {
-        return null;
+        // Expect Pdf classes to override this method.
+        return $this->isPdf ? PageSetup::ORIENTATION_PORTRAIT : null;
     }
 
     /**
@@ -1842,9 +1844,9 @@ class Html extends BaseWriter
             $bottom = StringHelper::FormatNumber($worksheet->getPageMargins()->getBottom()) . 'in; ';
             $htmlPage .= 'margin-bottom: ' . $bottom;
             $orientation = $this->getOrientation() ?? $worksheet->getPageSetup()->getOrientation();
-            if ($orientation === \PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE) {
+            if ($orientation === PageSetup::ORIENTATION_LANDSCAPE) {
                 $htmlPage .= 'size: landscape; ';
-            } elseif ($orientation === \PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_PORTRAIT) {
+            } elseif ($orientation === PageSetup::ORIENTATION_PORTRAIT) {
                 $htmlPage .= 'size: portrait; ';
             }
             $htmlPage .= '}' . PHP_EOL;
