@@ -1297,13 +1297,12 @@ class Html extends BaseWriter
         } else {
             $origData = $this->preCalculateFormulas ? $cell->getCalculatedValue() : $cell->getValue();
             $formatCode = $worksheet->getParent()->getCellXfByIndex($cell->getXfIndex())->getNumberFormat()->getFormatCode();
-            if ($formatCode !== null) {
-                $cellData = NumberFormat::toFormattedString(
-                    $origData,
-                    $formatCode,
-                    [$this, 'formatColor']
-                );
-            }
+
+            $cellData = NumberFormat::toFormattedString(
+                $origData ?? '',
+                $formatCode ?? NumberFormat::FORMAT_GENERAL,
+                [$this, 'formatColor']
+            );
 
             if ($cellData === $origData) {
                 $cellData = htmlspecialchars($cellData, Settings::htmlEntityFlags());
