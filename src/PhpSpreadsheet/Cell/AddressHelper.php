@@ -7,6 +7,14 @@ use PhpOffice\PhpSpreadsheet\Exception;
 class AddressHelper
 {
     public const R1C1_COORDINATE_REGEX = '/(R((?:\[-?\d*\])|(?:\d*))?)(C((?:\[-?\d*\])|(?:\d*))?)/i';
+    // I can't find complete documentation for this. Using:
+    // https://answers.microsoft.com/en-us/officeinsider/forum/all/indirect-function-is-broken-at-least-for-excel-in/1fcbcf20-a103-4172-abf1-2c0dfe848e60
+    private const R1C1_INTERNATIONALIZATION_REGEXES = [
+        '/^(R(\[?[-+]?\d*\]?))(C(\[?[-+]?\d*\]?))$/i', // English
+        '/^(L(\[?[-+]?\d*\]?))(C(\[?[-+]?\d*\]?))$/i', // French
+        '/^(Z(\[?[-+]?\d*\]?))(S(\[?[-+]?\d*\]?))$/i', // German
+        '/^(F(\[?[-+]?\d*\]?))(C(\[?[-+]?\d*\]?))$/i', // Spanish
+    ];
 
     /**
      * Converts an R1C1 format cell address to an A1 format cell address.
@@ -16,7 +24,13 @@ class AddressHelper
         int $currentRowNumber = 1,
         int $currentColumnNumber = 1
     ): string {
-        $validityCheck = preg_match('/^(R(\[?-?\d*\]?))(C(\[?-?\d*\]?))$/i', $address, $cellReference);
+        $validityCheck = 0;
+        foreach (self::R1C1_INTERNATIONALIZATION_REGEXES as $regex) {
+            $validityCheck = preg_match($regex, $address, $cellReference);
+            if ($validityCheck === 1) {
+                break;
+            }
+        }
 
         if ($validityCheck === 0) {
             throw new Exception('Invalid R1C1-format Cell Reference');
