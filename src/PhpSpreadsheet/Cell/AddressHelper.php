@@ -2,19 +2,34 @@
 
 namespace PhpOffice\PhpSpreadsheet\Cell;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Exception;
 
 class AddressHelper
 {
     public const R1C1_COORDINATE_REGEX = '/(R((?:\[-?\d*\])|(?:\d*))?)(C((?:\[-?\d*\])|(?:\d*))?)/i';
-    // I can't find complete documentation for this. Using:
-    // https://answers.microsoft.com/en-us/officeinsider/forum/all/indirect-function-is-broken-at-least-for-excel-in/1fcbcf20-a103-4172-abf1-2c0dfe848e60
-    private const R1C1_INTERNATIONALIZATION_REGEXES = [
-        '/^(R(\[?[-+]?\d*\]?))(C(\[?[-+]?\d*\]?))$/i', // English
-        '/^(L(\[?[-+]?\d*\]?))(C(\[?[-+]?\d*\]?))$/i', // French
-        '/^(Z(\[?[-+]?\d*\]?))(S(\[?[-+]?\d*\]?))$/i', // German
-        '/^(F(\[?[-+]?\d*\]?))(C(\[?[-+]?\d*\]?))$/i', // Spanish
-    ];
+
+    /** @return string[] */
+    private static function getRowAndColumnChars()
+    {
+        $rowChar = Calculation::localeFunc('ROW');
+        $rowChar = empty($rowChar) ? 'R' : mb_substr($rowChar, 0, 1);
+        $colChar = Calculation::localeFunc('COLUMN');
+        if (mb_substr($colChar, 0, 4) === 'NR.K') { // Polish
+            $colChar = 'K';
+        }
+        $colChar = empty($colChar) ? 'C' : mb_substr($colChar, 0, 1);
+        if ($rowChar === $colChar || mb_ord($rowChar) > 127 || mb_ord($colChar) > 127) {
+            if (mb_substr($rowChar, 0, 1) === 'Ř' && $colChar !== 'R' && mb_ord($colChar) <= 127) { // Czech
+                $rowChar = 'R';
+            } else {
+                $rowChar = 'R';
+                $colChar = 'C';
+            }
+        }
+
+        return [$rowChar, $colChar];
+    }
 
     /**
      * Converts an R1C1 format cell address to an A1 format cell address.
@@ -22,17 +37,14 @@ class AddressHelper
     public static function convertToA1(
         string $address,
         int $currentRowNumber = 1,
-        int $currentColumnNumber = 1
+        int $currentColumnNumber = 1,
+        bool $useLocale = true
     ): string {
-        $validityCheck = 0;
-        foreach (self::R1C1_INTERNATIONALIZATION_REGEXES as $regex) {
-            $validityCheck = preg_match($regex, $address, $cellReference);
-            if ($validityCheck === 1) {
-                break;
-            }
-        }
+        [$rowChar, $colChar] = $useLocale ? self::getRowAndColumnChars() : ['R', 'C'];
+        $regex = '/^(' . $rowChar . '(\[?[-+]?\d*\]?))(' . $colChar . '(\[?[-+]?\d*\]?))$/i';
+        $validityCheck = preg_match($regex, $address, $cellReference);
 
-        if ($validityCheck === 0) {
+        if (empty($validityCheck)) {
             throw new Exception('Invalid R1C1-format Cell Reference');
         }
 
@@ -106,7 +118,7 @@ class AddressHelper
                 //    Loop through each R1C1 style reference in turn, converting it to its A1 style equivalent,
                 //        then modify the formula to use that new reference
                 foreach ($cellReferences as $cellReference) {
-                    $A1CellReference = self::convertToA1($cellReference[0][0], $currentRowNumber, $currentColumnNumber);
+                    $A1CellReference = self::convertToA1($cellReference[0][0], $currentRowNumber, $currentColumnNumber, false);
                     $value = substr_replace($value, $A1CellReference, $cellReference[0][1], strlen($cellReference[0][0]));
                 }
             }

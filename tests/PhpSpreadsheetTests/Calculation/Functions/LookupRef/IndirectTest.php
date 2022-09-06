@@ -133,30 +133,6 @@ class IndirectTest extends AllSetupTeardown
         self::assertSame('This is it', $result);
     }
 
-    /**
-     * @dataProvider providerInternational
-     */
-    public function testR1C1International(string $expectedResult, string $r1C1): void
-    {
-        $sheet = $this->getSheet();
-        $sheet->getCell('B1')->setValue('test');
-        $sheet->getCell('A2')->setValue("=INDIRECT(\"$r1C1\", false)");
-        self::assertSame($expectedResult, $sheet->getCell('A2')->getCalculatedValue());
-    }
-
-    public function providerInternational(): array
-    {
-        return [
-            'English' => ['test', 'R1C2'],
-            'French' => ['test', 'L1C2'],
-            'German' => ['test', 'Z1S2'],
-            'Spanish' => ['test', 'F1C2'],
-            'Made-up' => ['#REF!', 'X1Y2'],
-            'English relative' => ['test', 'R[-1]C[+1]'],
-            'French relative' => ['test', 'L[-1]C[+1]'],
-        ];
-    }
-
     public function testR1C1Relative(): void
     {
         $sheet = $this->getSheet();
@@ -177,5 +153,7 @@ class IndirectTest extends AllSetupTeardown
         self::assertSame('testx', $sheet->getCell('B2')->getCalculatedValue());
         $sheet->getCell('E8')->setValue('=INDIRECT("R[-4]C[-3]", false)');
         self::assertSame('testx', $sheet->getCell('E8')->getCalculatedValue());
+        $sheet->getCell('E9')->setValue('=INDIRECT("R[-9]C[-3]", false)');
+        self::assertSame('#REF!', $sheet->getCell('E9')->getCalculatedValue());
     }
 }
