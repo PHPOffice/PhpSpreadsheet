@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Settings;
 
 class IndirectInternationalTest extends AllSetupTeardown
@@ -18,6 +19,7 @@ class IndirectInternationalTest extends AllSetupTeardown
     protected function tearDown(): void
     {
         Settings::setLocale($this->locale);
+        // CompatibilityMode is restored in parent
         parent::tearDown();
     }
 
@@ -94,6 +96,37 @@ class IndirectInternationalTest extends AllSetupTeardown
             'French B4' => ['fr', 'B4', 'L[-1]C[+1]'],
             'German C5' => ['de', 'C5', 'Z[-2]S[]'],
             'Spanish E1' => ['es', 'E1', 'F[+2]C[-2]'],
+        ];
+    }
+
+    /**
+     * @dataProvider providerCompatibility
+     */
+    public function testCompatibilityInternational(string $compatibilityMode): void
+    {
+        Functions::setCompatibilityMode($compatibilityMode);
+        if ($compatibilityMode === Functions::COMPATIBILITY_EXCEL) {
+            $expected1 = '#REF!';
+            $expected2 = 'text';
+        } else {
+            $expected2 = '#REF!';
+            $expected1 = 'text';
+        }
+        Settings::setLocale('fr');
+        $sheet = $this->getSheet();
+        $sheet->getCell('C3')->setValue('text');
+        $sheet->getCell('A1')->setValue('=INDIRECT("R3C3", false)');
+        $sheet->getCell('A2')->setValue('=INDIRECT("L3C3", false)');
+        self::assertSame($expected1, $sheet->getCell('A1')->getCalculatedValue());
+        self::assertSame($expected2, $sheet->getCell('A2')->getCalculatedValue());
+    }
+
+    public function providerCompatibility(): array
+    {
+        return [
+            [Functions::COMPATIBILITY_EXCEL],
+            [Functions::COMPATIBILITY_OPENOFFICE],
+            [Functions::COMPATIBILITY_GNUMERIC],
         ];
     }
 }

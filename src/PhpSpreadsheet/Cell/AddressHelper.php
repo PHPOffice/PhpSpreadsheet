@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Cell;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Exception;
 
 class AddressHelper
@@ -12,6 +13,9 @@ class AddressHelper
     /** @return string[] */
     private static function getRowAndColumnChars()
     {
+        if (Functions::getCompatibilityMode() !== Functions::COMPATIBILITY_EXCEL) {
+            return ['R', 'C'];
+        }
         $rowChar = Calculation::localeFunc('ROW');
         $rowChar = empty($rowChar) ? 'R' : mb_substr($rowChar, 0, 1);
         $colChar = Calculation::localeFunc('COLUMN');
