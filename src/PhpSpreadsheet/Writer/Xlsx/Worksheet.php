@@ -503,7 +503,7 @@ class Worksheet extends WriterPart
     private static function writeTimePeriodCondElements(XMLWriter $objWriter, Conditional $conditional, string $cellCoordinate): void
     {
         $txt = $conditional->getText();
-        if ($txt !== null) {
+        if (!empty($txt)) {
             $objWriter->writeAttribute('timePeriod', $txt);
             if (empty($conditional->getConditions())) {
                 if ($conditional->getOperatorType() == Conditional::TIMEPERIOD_TODAY) {
@@ -536,7 +536,7 @@ class Worksheet extends WriterPart
     private static function writeTextCondElements(XMLWriter $objWriter, Conditional $conditional, string $cellCoordinate): void
     {
         $txt = $conditional->getText();
-        if ($txt !== null) {
+        if (!empty($txt)) {
             $objWriter->writeAttribute('text', $txt);
             if (empty($conditional->getConditions())) {
                 if ($conditional->getOperatorType() == Conditional::OPERATOR_CONTAINSTEXT) {
@@ -1034,7 +1034,7 @@ class Worksheet extends WriterPart
         } else {
             $objWriter->writeAttribute('fitToWidth', '0');
         }
-        if ($worksheet->getPageSetup()->getFirstPageNumber() !== null) {
+        if (!empty($worksheet->getPageSetup()->getFirstPageNumber())) {
             $objWriter->writeAttribute('firstPageNumber', (string) $worksheet->getPageSetup()->getFirstPageNumber());
             $objWriter->writeAttribute('useFirstPageNumber', '1');
         }
@@ -1228,7 +1228,7 @@ class Worksheet extends WriterPart
                 StringHelper::controlCharacterPHP2OOXML(htmlspecialchars($cellValue, Settings::htmlEntityFlags()))
             );
             $objWriter->endElement();
-        } elseif ($cellValue instanceof RichText) {
+        } else {
             $objWriter->startElement('is');
             $this->getParentWriter()->getWriterPartstringtable()->writeRichText($objWriter, $cellValue);
             $objWriter->endElement();

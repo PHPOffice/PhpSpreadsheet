@@ -774,9 +774,11 @@ class Chart
         return $this->roundedCorners;
     }
 
-    public function setRoundedCorners(bool $roundedCorners): self
+    public function setRoundedCorners(?bool $roundedCorners): self
     {
-        $this->roundedCorners = $roundedCorners;
+        if ($roundedCorners !== null) {
+            $this->roundedCorners = $roundedCorners;
+        }
 
         return $this;
     }

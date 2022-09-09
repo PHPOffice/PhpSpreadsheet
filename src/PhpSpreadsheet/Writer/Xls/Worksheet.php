@@ -465,7 +465,7 @@ class Worksheet extends BIFFwriter
                             switch ($calctype) {
                                 case 'integer':
                                 case 'double':
-                                    $this->writeNumber($row, $column, $calculatedValue, $xfIndex);
+                                    $this->writeNumber($row, $column, (float) $calculatedValue, $xfIndex);
 
                                     break;
                                 case 'string':
@@ -473,7 +473,7 @@ class Worksheet extends BIFFwriter
 
                                     break;
                                 case 'boolean':
-                                    $this->writeBoolErr($row, $column, $calculatedValue, 0, $xfIndex);
+                                    $this->writeBoolErr($row, $column, (int) $calculatedValue, 0, $xfIndex);
 
                                     break;
                                 default:
