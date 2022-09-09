@@ -4,7 +4,11 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../../Header.php';
 
-$helper->log('Returns the serial number of a particular date.');
+$category = 'Date/Time';
+$functionName = 'DATE';
+$description = 'Returns the Excel serial number of a particular date';
+
+$helper->titles($category, $functionName, $description);
 
 // Create new PhpSpreadsheet object
 $spreadsheet = new Spreadsheet();
@@ -27,15 +31,15 @@ for ($row = 1; $row <= $testDateCount; ++$row) {
 }
 $worksheet->getStyle('E1:E' . $testDateCount)
     ->getNumberFormat()
-    ->setFormatCode('yyyy-mmm-dd');
+    ->setFormatCode('yyyy-mm-dd');
 
 // Test the formulae
 for ($row = 1; $row <= $testDateCount; ++$row) {
-    $helper->log('Year: ' . $worksheet->getCell('A' . $row)->getFormattedValue());
-    $helper->log('Month: ' . $worksheet->getCell('B' . $row)->getFormattedValue());
-    $helper->log('Day: ' . $worksheet->getCell('C' . $row)->getFormattedValue());
+    $helper->log("(A{$row}) Year: " . $worksheet->getCell('A' . $row)->getFormattedValue());
+    $helper->log("(B{$row}) Month: " . $worksheet->getCell('B' . $row)->getFormattedValue());
+    $helper->log("(C{$row}) Day: " . $worksheet->getCell('C' . $row)->getFormattedValue());
     $helper->log('Formula: ' . $worksheet->getCell('D' . $row)->getValue());
-    $helper->log('Excel DateStamp: ' . $worksheet->getCell('D' . $row)->getFormattedValue());
+    $helper->log('Excel DateStamp: ' . $worksheet->getCell('D' . $row)->getCalculatedValue());
     $helper->log('Formatted DateStamp: ' . $worksheet->getCell('E' . $row)->getFormattedValue());
     $helper->log('');
 }

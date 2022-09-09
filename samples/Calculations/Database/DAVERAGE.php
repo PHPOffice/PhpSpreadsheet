@@ -4,7 +4,11 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../../Header.php';
 
-$helper->log('Returns the average of selected database entries.');
+$category = 'Database';
+$functionName = 'DAVERAGE';
+$description = 'Returns the average of selected database entries that match criteria';
+
+$helper->titles($category, $functionName, $description);
 
 // Create new PhpSpreadsheet object
 $spreadsheet = new Spreadsheet();
@@ -36,21 +40,19 @@ $worksheet->setCellValue('B13', '=DAVERAGE(A4:E10,3,A1:A3)');
 $helper->log('Database');
 
 $databaseData = $worksheet->rangeToArray('A4:E10', null, true, true, true);
-var_dump($databaseData);
+$helper->displayGrid($databaseData);
 
 // Test the formulae
 $helper->log('Criteria');
 
 $criteriaData = $worksheet->rangeToArray('A1:B2', null, true, true, true);
-var_dump($criteriaData);
+$helper->displayGrid($criteriaData);
 
-$helper->log($worksheet->getCell('A12')->getValue());
-$helper->log('DAVERAGE() Result is ' . $worksheet->getCell('B12')->getCalculatedValue());
+$helper->logCalculationResult($worksheet, $functionName, 'B12', 'A12');
 
 $helper->log('Criteria');
 
 $criteriaData = $worksheet->rangeToArray('A1:A3', null, true, true, true);
-var_dump($criteriaData);
+$helper->displayGrid($criteriaData);
 
-$helper->log($worksheet->getCell('A13')->getValue());
-$helper->log('DAVERAGE() Result is ' . $worksheet->getCell('B13')->getCalculatedValue());
+$helper->logCalculationResult($worksheet, $functionName, 'B13', 'A13');
