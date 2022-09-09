@@ -10,7 +10,7 @@ coding_style:
                 concatenation: true
 
 build:
-    image: default-bionic # retesting 2022-09-04 without merge
+    image: default-bionic # retesting 2022-09-09 without merge
     nodes:
         analysis:
             tests:
