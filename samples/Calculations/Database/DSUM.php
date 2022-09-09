@@ -5,8 +5,8 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 require __DIR__ . '/../../Header.php';
 
 $category = 'Database';
-$functionName = 'DMAX';
-$description = 'Returns the maximum value from selected database entries';
+$functionName = 'DSUM';
+$description = 'Returns the sum of selected database entries';
 
 $helper->titles($category, $functionName, $description);
 
@@ -31,11 +31,11 @@ $criteria = [['Tree', 'Height', 'Age', 'Yield', 'Profit', 'Height'],
 $worksheet->fromArray($criteria, null, 'A1');
 $worksheet->fromArray($database, null, 'A4');
 
-$worksheet->setCellValue('A12', 'The tallest tree in the orchard');
-$worksheet->setCellValue('B12', '=DMAX(A4:E10,"Height",A4:E10)');
+$worksheet->setCellValue('A12', 'The total profit from apple trees');
+$worksheet->setCellValue('B12', '=DSUM(A4:E10,"Profit",A1:A2)');
 
-$worksheet->setCellValue('A13', 'The Oldest apple tree in the orchard');
-$worksheet->setCellValue('B13', '=DMAX(A4:E10,3,A1:A2)');
+$worksheet->setCellValue('A13', 'Total profit from apple trees with a height between 10 and 16 feet, and all pear trees');
+$worksheet->setCellValue('B13', '=DSUM(A4:E10,"Profit",A1:F3)');
 
 $helper->log('Database');
 
@@ -45,13 +45,14 @@ $helper->displayGrid($databaseData);
 // Test the formulae
 $helper->log('Criteria');
 
-$helper->log('ALL');
+$criteriaData = $worksheet->rangeToArray('A1:A2', null, true, true, true);
+$helper->displayGrid($criteriaData);
 
 $helper->logCalculationResult($worksheet, $functionName, 'B12', 'A12');
 
 $helper->log('Criteria');
 
-$criteriaData = $worksheet->rangeToArray('A1:A2', null, true, true, true);
+$criteriaData = $worksheet->rangeToArray('A1:F3', null, true, true, true);
 $helper->displayGrid($criteriaData);
 
 $helper->logCalculationResult($worksheet, $functionName, 'B13', 'A13');

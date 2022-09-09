@@ -9,10 +9,21 @@ use PHPUnit\Framework\TestCase;
 
 class AlignmentTest extends TestCase
 {
+    /** @var ?Spreadsheet */
+    private $spreadsheet;
+
+    protected function tearDown(): void
+    {
+        if ($this->spreadsheet !== null) {
+            $this->spreadsheet->disconnectWorksheets();
+            $this->spreadsheet = null;
+        }
+    }
+
     public function testAlignment(): void
     {
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
+        $this->spreadsheet = new Spreadsheet();
+        $sheet = $this->spreadsheet->getActiveSheet();
         $cell1 = $sheet->getCell('A1');
         $cell1->setValue('Cell1');
         $cell1->getStyle()->getAlignment()->setTextRotation(45);
@@ -31,8 +42,8 @@ class AlignmentTest extends TestCase
     public function testRotationTooHigh(): void
     {
         $this->expectException(PhpSpreadsheetException::class);
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
+        $this->spreadsheet = new Spreadsheet();
+        $sheet = $this->spreadsheet->getActiveSheet();
         $cell1 = $sheet->getCell('A1');
         $cell1->setValue('Cell1');
         $cell1->getStyle()->getAlignment()->setTextRotation(91);
@@ -42,8 +53,8 @@ class AlignmentTest extends TestCase
     public function testRotationTooLow(): void
     {
         $this->expectException(PhpSpreadsheetException::class);
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
+        $this->spreadsheet = new Spreadsheet();
+        $sheet = $this->spreadsheet->getActiveSheet();
         $cell1 = $sheet->getCell('A1');
         $cell1->setValue('Cell1');
         $cell1->getStyle()->getAlignment()->setTextRotation(-91);
@@ -52,8 +63,8 @@ class AlignmentTest extends TestCase
 
     public function testHorizontal(): void
     {
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
+        $this->spreadsheet = new Spreadsheet();
+        $sheet = $this->spreadsheet->getActiveSheet();
         $cell1 = $sheet->getCell('A1');
         $cell1->setValue('X');
         $cell1->getStyle()->getAlignment()->setHorizontal(Alignment::HORIZONTAL_LEFT)->setIndent(1);
@@ -74,8 +85,8 @@ class AlignmentTest extends TestCase
 
     public function testReadOrder(): void
     {
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
+        $this->spreadsheet = new Spreadsheet();
+        $sheet = $this->spreadsheet->getActiveSheet();
         $cell1 = $sheet->getCell('A1');
         $cell1->setValue('ABC');
         $cell1->getStyle()->getAlignment()->setReadOrder(0);

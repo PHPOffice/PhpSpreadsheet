@@ -231,13 +231,6 @@ class Html extends BaseWriter
         $this->editHtmlCallback = $callback;
     }
 
-    const VALIGN_ARR = [
-        Alignment::VERTICAL_BOTTOM => 'bottom',
-        Alignment::VERTICAL_TOP => 'top',
-        Alignment::VERTICAL_CENTER => 'middle',
-        Alignment::VERTICAL_JUSTIFY => 'middle',
-    ];
-
     /**
      * Map VAlign.
      *
@@ -247,16 +240,8 @@ class Html extends BaseWriter
      */
     private function mapVAlign($vAlign)
     {
-        return array_key_exists($vAlign, self::VALIGN_ARR) ? self::VALIGN_ARR[$vAlign] : 'baseline';
+        return Alignment::VERTICAL_ALIGNMENT_FOR_HTML[$vAlign] ?? '';
     }
-
-    const HALIGN_ARR = [
-        Alignment::HORIZONTAL_LEFT => 'left',
-        Alignment::HORIZONTAL_RIGHT => 'right',
-        Alignment::HORIZONTAL_CENTER => 'center',
-        Alignment::HORIZONTAL_CENTER_CONTINUOUS => 'center',
-        Alignment::HORIZONTAL_JUSTIFY => 'justify',
-    ];
 
     /**
      * Map HAlign.
@@ -267,7 +252,7 @@ class Html extends BaseWriter
      */
     private function mapHAlign($hAlign)
     {
-        return array_key_exists($hAlign, self::HALIGN_ARR) ? self::HALIGN_ARR[$hAlign] : '';
+        return Alignment::HORIZONTAL_ALIGNMENT_FOR_HTML[$hAlign] ?? '';
     }
 
     const BORDER_ARR = [
@@ -989,7 +974,10 @@ class Html extends BaseWriter
         $css = [];
 
         // Create CSS
-        $css['vertical-align'] = $this->mapVAlign($alignment->getVertical() ?? '');
+        $verticalAlign = $this->mapVAlign($alignment->getVertical() ?? '');
+        if ($verticalAlign) {
+            $css['vertical-align'] = $verticalAlign;
+        }
         $textAlign = $this->mapHAlign($alignment->getHorizontal() ?? '');
         if ($textAlign) {
             $css['text-align'] = $textAlign;
