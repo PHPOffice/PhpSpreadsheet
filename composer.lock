@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dd19bb54ddc39f5b24f564818cb46c7e",
+    "content-hash": "8512207f173cb137bc2085b7fdf698bc",
     "packages": [
         {
             "name": "ezyang/htmlpurifier",
@@ -1342,20 +1342,23 @@
         },
         {
             "name": "mitoteam/jpgraph",
-            "version": "10.1.3",
+            "version": "10.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mitoteam/jpgraph.git",
-                "reference": "425a2a0f0c97a28fe0aca60a4384ce85880e438a"
+                "reference": "6d87fc342afaf8a9a898a3122b5f0f34fc82c4cf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mitoteam/jpgraph/zipball/425a2a0f0c97a28fe0aca60a4384ce85880e438a",
-                "reference": "425a2a0f0c97a28fe0aca60a4384ce85880e438a",
+                "url": "https://api.github.com/repos/mitoteam/jpgraph/zipball/6d87fc342afaf8a9a898a3122b5f0f34fc82c4cf",
+                "reference": "6d87fc342afaf8a9a898a3122b5f0f34fc82c4cf",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.5"
+                "php": ">=5.5 <=8.2"
+            },
+            "replace": {
+                "jpgraph/jpgraph": "4.0.2"
             },
             "type": "library",
             "autoload": {
@@ -1372,16 +1375,16 @@
                     "name": "JpGraph team"
                 }
             ],
-            "description": "Composer compatible version of JpGraph library with PHP 8.1 support",
+            "description": "Composer compatible version of JpGraph library with PHP 8.2 support",
             "homepage": "https://github.com/mitoteam/jpgraph",
             "keywords": [
                 "jpgraph"
             ],
             "support": {
                 "issues": "https://github.com/mitoteam/jpgraph/issues",
-                "source": "https://github.com/mitoteam/jpgraph/tree/10.1.3"
+                "source": "https://github.com/mitoteam/jpgraph/tree/10.2.2"
             },
-            "time": "2022-07-05T16:46:34+00:00"
+            "time": "2022-09-09T08:16:10+00:00"
         },
         {
             "name": "mpdf/mpdf",
@@ -5265,5 +5268,5 @@
         "ext-zlib": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.2.0"
 }

@@ -81,7 +81,7 @@
         "dealerdirect/phpcodesniffer-composer-installer": "dev-master",
         "dompdf/dompdf": "^1.0 || ^2.0",
         "friendsofphp/php-cs-fixer": "^3.2",
-        "mitoteam/jpgraph": "^10.1",
+        "mitoteam/jpgraph": "10.2.2",
         "mpdf/mpdf": "8.1.1",
         "phpcompatibility/php-compatibility": "^9.3",
         "phpstan/phpstan": "^1.1",
