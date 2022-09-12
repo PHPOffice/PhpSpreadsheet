@@ -1359,7 +1359,7 @@ class Worksheet implements IComparable
 
         if ($rowDimension !== null && $rowDimension->getXfIndex() > 0) {
             // then there is a row dimension with explicit style, assign it to the cell
-            $cell->setXfIndex($rowDimension->getXfIndex());
+            $cell->setXfIndex(/** @scrutinizer ignore-type */ $rowDimension->getXfIndex());
         } elseif ($columnDimension !== null && $columnDimension->getXfIndex() > 0) {
             // then there is a column dimension, assign it to the cell
             $cell->setXfIndex($columnDimension->getXfIndex());

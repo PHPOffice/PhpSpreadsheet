@@ -24,6 +24,7 @@ use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Style\Style;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
+use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class Html extends BaseWriter
@@ -230,13 +231,6 @@ class Html extends BaseWriter
         $this->editHtmlCallback = $callback;
     }
 
-    const VALIGN_ARR = [
-        Alignment::VERTICAL_BOTTOM => 'bottom',
-        Alignment::VERTICAL_TOP => 'top',
-        Alignment::VERTICAL_CENTER => 'middle',
-        Alignment::VERTICAL_JUSTIFY => 'middle',
-    ];
-
     /**
      * Map VAlign.
      *
@@ -246,16 +240,8 @@ class Html extends BaseWriter
      */
     private function mapVAlign($vAlign)
     {
-        return array_key_exists($vAlign, self::VALIGN_ARR) ? self::VALIGN_ARR[$vAlign] : 'baseline';
+        return Alignment::VERTICAL_ALIGNMENT_FOR_HTML[$vAlign] ?? '';
     }
-
-    const HALIGN_ARR = [
-        Alignment::HORIZONTAL_LEFT => 'left',
-        Alignment::HORIZONTAL_RIGHT => 'right',
-        Alignment::HORIZONTAL_CENTER => 'center',
-        Alignment::HORIZONTAL_CENTER_CONTINUOUS => 'center',
-        Alignment::HORIZONTAL_JUSTIFY => 'justify',
-    ];
 
     /**
      * Map HAlign.
@@ -266,7 +252,7 @@ class Html extends BaseWriter
      */
     private function mapHAlign($hAlign)
     {
-        return array_key_exists($hAlign, self::HALIGN_ARR) ? self::HALIGN_ARR[$hAlign] : '';
+        return Alignment::HORIZONTAL_ALIGNMENT_FOR_HTML[$hAlign] ?? '';
     }
 
     const BORDER_ARR = [
@@ -988,7 +974,10 @@ class Html extends BaseWriter
         $css = [];
 
         // Create CSS
-        $css['vertical-align'] = $this->mapVAlign($alignment->getVertical() ?? '');
+        $verticalAlign = $this->mapVAlign($alignment->getVertical() ?? '');
+        if ($verticalAlign) {
+            $css['vertical-align'] = $verticalAlign;
+        }
         $textAlign = $this->mapHAlign($alignment->getHorizontal() ?? '');
         if ($textAlign) {
             $css['text-align'] = $textAlign;
@@ -1289,23 +1278,22 @@ class Html extends BaseWriter
         }
     }
 
-    private function generateRowCellDataValue(Worksheet $worksheet, Cell $cell, ?string &$cellData): void
+    private function generateRowCellDataValue(Worksheet $worksheet, Cell $cell, string &$cellData): void
     {
         if ($cell->getValue() instanceof RichText) {
             $this->generateRowCellDataValueRich($cell, $cellData);
         } else {
             $origData = $this->preCalculateFormulas ? $cell->getCalculatedValue() : $cell->getValue();
             $formatCode = $worksheet->getParent()->getCellXfByIndex($cell->getXfIndex())->getNumberFormat()->getFormatCode();
-            if ($formatCode !== null) {
-                $cellData = NumberFormat::toFormattedString(
-                    $origData,
-                    $formatCode,
-                    [$this, 'formatColor']
-                );
-            }
+
+            $cellData = NumberFormat::toFormattedString(
+                $origData ?? '',
+                $formatCode ?? NumberFormat::FORMAT_GENERAL,
+                [$this, 'formatColor']
+            );
 
             if ($cellData === $origData) {
-                $cellData = htmlspecialchars($cellData ?? '', Settings::htmlEntityFlags());
+                $cellData = htmlspecialchars($cellData, Settings::htmlEntityFlags());
             }
             if ($worksheet->getParent()->getCellXfByIndex($cell->getXfIndex())->getFont()->getSuperscript()) {
                 $cellData = '<sup>' . $cellData . '</sup>';
@@ -1489,8 +1477,8 @@ class Html extends BaseWriter
                 && $this->isSpannedCell[$worksheet->getParent()->getIndex($worksheet)][$row + 1][$colNum]);
 
             // Colspan and Rowspan
-            $colspan = 1;
-            $rowspan = 1;
+            $colSpan = 1;
+            $rowSpan = 1;
             if (isset($this->isBaseCell[$worksheet->getParent()->getIndex($worksheet)][$row + 1][$colNum])) {
                 $spans = $this->isBaseCell[$worksheet->getParent()->getIndex($worksheet)][$row + 1][$colNum];
                 $rowSpan = $spans['rowspan'];
@@ -1803,7 +1791,8 @@ class Html extends BaseWriter
 
     public function getOrientation(): ?string
     {
-        return null;
+        // Expect Pdf classes to override this method.
+        return $this->isPdf ? PageSetup::ORIENTATION_PORTRAIT : null;
     }
 
     /**
@@ -1842,9 +1831,9 @@ class Html extends BaseWriter
             $bottom = StringHelper::FormatNumber($worksheet->getPageMargins()->getBottom()) . 'in; ';
             $htmlPage .= 'margin-bottom: ' . $bottom;
             $orientation = $this->getOrientation() ?? $worksheet->getPageSetup()->getOrientation();
-            if ($orientation === \PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE) {
+            if ($orientation === PageSetup::ORIENTATION_LANDSCAPE) {
                 $htmlPage .= 'size: landscape; ';
-            } elseif ($orientation === \PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_PORTRAIT) {
+            } elseif ($orientation === PageSetup::ORIENTATION_PORTRAIT) {
                 $htmlPage .= 'size: portrait; ';
             }
             $htmlPage .= '}' . PHP_EOL;

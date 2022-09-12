@@ -15,6 +15,27 @@ class Alignment extends Supervisor
     const HORIZONTAL_JUSTIFY = 'justify';
     const HORIZONTAL_FILL = 'fill';
     const HORIZONTAL_DISTRIBUTED = 'distributed'; // Excel2007 only
+    private const HORIZONTAL_CENTER_CONTINUOUS_LC = 'centercontinuous';
+    // Mapping for horizontal alignment
+    const HORIZONTAL_ALIGNMENT_FOR_XLSX = [
+        self::HORIZONTAL_LEFT => self::HORIZONTAL_LEFT,
+        self::HORIZONTAL_RIGHT => self::HORIZONTAL_RIGHT,
+        self::HORIZONTAL_CENTER => self::HORIZONTAL_CENTER,
+        self::HORIZONTAL_CENTER_CONTINUOUS => self::HORIZONTAL_CENTER_CONTINUOUS,
+        self::HORIZONTAL_JUSTIFY => self::HORIZONTAL_JUSTIFY,
+        self::HORIZONTAL_FILL => self::HORIZONTAL_FILL,
+        self::HORIZONTAL_DISTRIBUTED => self::HORIZONTAL_DISTRIBUTED,
+    ];
+    // Mapping for horizontal alignment CSS
+    const HORIZONTAL_ALIGNMENT_FOR_HTML = [
+        self::HORIZONTAL_LEFT => self::HORIZONTAL_LEFT,
+        self::HORIZONTAL_RIGHT => self::HORIZONTAL_RIGHT,
+        self::HORIZONTAL_CENTER => self::HORIZONTAL_CENTER,
+        self::HORIZONTAL_CENTER_CONTINUOUS => self::HORIZONTAL_CENTER,
+        self::HORIZONTAL_JUSTIFY => self::HORIZONTAL_JUSTIFY,
+        //self::HORIZONTAL_FILL => self::HORIZONTAL_FILL, // no reasonable equivalent for fill
+        self::HORIZONTAL_DISTRIBUTED => self::HORIZONTAL_JUSTIFY,
+    ];
 
     // Vertical alignment styles
     const VERTICAL_BOTTOM = 'bottom';
@@ -22,6 +43,45 @@ class Alignment extends Supervisor
     const VERTICAL_CENTER = 'center';
     const VERTICAL_JUSTIFY = 'justify';
     const VERTICAL_DISTRIBUTED = 'distributed'; // Excel2007 only
+    // Vertical alignment CSS
+    private const VERTICAL_BASELINE = 'baseline';
+    private const VERTICAL_MIDDLE = 'middle';
+    private const VERTICAL_SUB = 'sub';
+    private const VERTICAL_SUPER = 'super';
+    private const VERTICAL_TEXT_BOTTOM = 'text-bottom';
+    private const VERTICAL_TEXT_TOP = 'text-top';
+
+    // Mapping for vertical alignment
+    const VERTICAL_ALIGNMENT_FOR_XLSX = [
+        self::VERTICAL_BOTTOM => self::VERTICAL_BOTTOM,
+        self::VERTICAL_TOP => self::VERTICAL_TOP,
+        self::VERTICAL_CENTER => self::VERTICAL_CENTER,
+        self::VERTICAL_JUSTIFY => self::VERTICAL_JUSTIFY,
+        self::VERTICAL_DISTRIBUTED => self::VERTICAL_DISTRIBUTED,
+        // css settings that arent't in sync with Excel
+        self::VERTICAL_BASELINE => self::VERTICAL_BOTTOM,
+        self::VERTICAL_MIDDLE => self::VERTICAL_CENTER,
+        self::VERTICAL_SUB => self::VERTICAL_BOTTOM,
+        self::VERTICAL_SUPER => self::VERTICAL_TOP,
+        self::VERTICAL_TEXT_BOTTOM => self::VERTICAL_BOTTOM,
+        self::VERTICAL_TEXT_TOP => self::VERTICAL_TOP,
+    ];
+
+    // Mapping for vertical alignment for Html
+    const VERTICAL_ALIGNMENT_FOR_HTML = [
+        self::VERTICAL_BOTTOM => self::VERTICAL_BOTTOM,
+        self::VERTICAL_TOP => self::VERTICAL_TOP,
+        self::VERTICAL_CENTER => self::VERTICAL_MIDDLE,
+        self::VERTICAL_JUSTIFY => self::VERTICAL_MIDDLE,
+        self::VERTICAL_DISTRIBUTED => self::VERTICAL_MIDDLE,
+        // css settings that arent't in sync with Excel
+        self::VERTICAL_BASELINE => self::VERTICAL_BASELINE,
+        self::VERTICAL_MIDDLE => self::VERTICAL_MIDDLE,
+        self::VERTICAL_SUB => self::VERTICAL_SUB,
+        self::VERTICAL_SUPER => self::VERTICAL_SUPER,
+        self::VERTICAL_TEXT_BOTTOM => self::VERTICAL_TEXT_BOTTOM,
+        self::VERTICAL_TEXT_TOP => self::VERTICAL_TEXT_TOP,
+    ];
 
     // Read order
     const READORDER_CONTEXT = 0;
@@ -202,8 +262,9 @@ class Alignment extends Supervisor
      */
     public function setHorizontal(string $horizontalAlignment)
     {
-        if ($horizontalAlignment == '') {
-            $horizontalAlignment = self::HORIZONTAL_GENERAL;
+        $horizontalAlignment = strtolower($horizontalAlignment);
+        if ($horizontalAlignment === self::HORIZONTAL_CENTER_CONTINUOUS_LC) {
+            $horizontalAlignment = self::HORIZONTAL_CENTER_CONTINUOUS;
         }
 
         if ($this->isSupervisor) {
@@ -239,9 +300,7 @@ class Alignment extends Supervisor
      */
     public function setVertical($verticalAlignment)
     {
-        if ($verticalAlignment == '') {
-            $verticalAlignment = self::VERTICAL_BOTTOM;
-        }
+        $verticalAlignment = strtolower($verticalAlignment);
 
         if ($this->isSupervisor) {
             $styleArray = $this->getStyleArray(['vertical' => $verticalAlignment]);
