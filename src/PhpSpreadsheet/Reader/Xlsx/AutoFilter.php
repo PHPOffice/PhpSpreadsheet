@@ -85,9 +85,9 @@ class AutoFilter
         }
     }
 
-    private function readCustomAutoFilter(SimpleXMLElement $filterColumn, Column $column): void
+    private function readCustomAutoFilter(?SimpleXMLElement $filterColumn, Column $column): void
     {
-        if ($filterColumn->customFilters) {
+        if (isset($filterColumn, $filterColumn->customFilters)) {
             $column->setFilterType(Column::AUTOFILTER_FILTERTYPE_CUSTOMFILTER);
             $customFilters = $filterColumn->customFilters;
             //    Custom filters can an AND or an OR join;
@@ -104,9 +104,9 @@ class AutoFilter
         }
     }
 
-    private function readDynamicAutoFilter(SimpleXMLElement $filterColumn, Column $column): void
+    private function readDynamicAutoFilter(?SimpleXMLElement $filterColumn, Column $column): void
     {
-        if ($filterColumn->dynamicFilter) {
+        if (isset($filterColumn, $filterColumn->dynamicFilter)) {
             $column->setFilterType(Column::AUTOFILTER_FILTERTYPE_DYNAMICFILTER);
             //    We should only ever have one dynamic filter
             foreach ($filterColumn->dynamicFilter as $filterRule) {
@@ -126,9 +126,9 @@ class AutoFilter
         }
     }
 
-    private function readTopTenAutoFilter(SimpleXMLElement $filterColumn, Column $column): void
+    private function readTopTenAutoFilter(?SimpleXMLElement $filterColumn, Column $column): void
     {
-        if ($filterColumn->top10) {
+        if (isset($filterColumn, $filterColumn->top10)) {
             $column->setFilterType(Column::AUTOFILTER_FILTERTYPE_TOPTENFILTER);
             //    We should only ever have one top10 filter
             foreach ($filterColumn->top10 as $filterRule) {

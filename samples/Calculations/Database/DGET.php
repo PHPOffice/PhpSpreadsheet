@@ -4,7 +4,11 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../../Header.php';
 
-$helper->log('Extracts a single value from a column of a list or database that matches conditions that you specify.');
+$category = 'Database';
+$functionName = 'DGET';
+$description = 'Extracts a single value from a column of a list or database that matches criteria that you specify';
+
+$helper->titles($category, $functionName, $description);
 
 // Create new PhpSpreadsheet object
 $spreadsheet = new Spreadsheet();
@@ -21,7 +25,7 @@ $database = [['Tree', 'Height', 'Age', 'Yield', 'Profit'],
 ];
 $criteria = [['Tree', 'Height', 'Age', 'Yield', 'Profit', 'Height'],
     ['="=Apple"', '>10', null, null, null, '<16'],
-    ['="=Pear"', null, null, null, null, null],
+    ['="=Pear"', '>12', null, null, null, null],
 ];
 
 $worksheet->fromArray($criteria, null, 'A1');
@@ -30,23 +34,25 @@ $worksheet->fromArray($database, null, 'A4');
 $worksheet->setCellValue('A12', 'The height of the Apple tree between 10\' and 16\' tall');
 $worksheet->setCellValue('B12', '=DGET(A4:E10,"Height",A1:F2)');
 
+$worksheet->setCellValue('A13', 'The height of the Apple tree (will return an Excel error, because there is more than one apple tree)');
+$worksheet->setCellValue('B13', '=DGET(A4:E10,"Height",A1:A2)');
+
 $helper->log('Database');
 
 $databaseData = $worksheet->rangeToArray('A4:E10', null, true, true, true);
-var_dump($databaseData);
+$helper->displayGrid($databaseData);
 
 // Test the formulae
 $helper->log('Criteria');
 
-$helper->log('ALL');
+$criteriaData = $worksheet->rangeToArray('A1:F2', null, true, true, true);
+$helper->displayGrid($criteriaData);
 
-$helper->log($worksheet->getCell('A12')->getValue());
-$helper->log('DMAX() Result is ' . $worksheet->getCell('B12')->getCalculatedValue());
+$helper->logCalculationResult($worksheet, $functionName, 'B12', 'A12');
 
 $helper->log('Criteria');
 
 $criteriaData = $worksheet->rangeToArray('A1:A2', null, true, true, true);
-var_dump($criteriaData);
+$helper->displayGrid($criteriaData);
 
-$helper->log($worksheet->getCell('A13')->getValue());
-$helper->log('DMAX() Result is ' . $worksheet->getCell('B13')->getCalculatedValue());
+$helper->logCalculationResult($worksheet, $functionName, 'B13', 'A13');

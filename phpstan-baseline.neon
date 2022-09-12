@@ -2591,21 +2591,6 @@ parameters:
 			path: src/PhpSpreadsheet/Worksheet/PageSetup.php
 
 		-
-			message: "#^Parameter \\#1 \\$value of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\PageSetup\\:\\:setFirstPageNumber\\(\\) expects int, null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/PageSetup.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\PageSetup\\:\\:\\$pageOrder has no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/PageSetup.php
-
-		-
-			message: "#^Strict comparison using \\=\\=\\= between int\\<min, \\-1\\> and null will always evaluate to false\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/PageSetup.php
-
-		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\SheetView\\:\\:\\$sheetViewTypes has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/SheetView.php
