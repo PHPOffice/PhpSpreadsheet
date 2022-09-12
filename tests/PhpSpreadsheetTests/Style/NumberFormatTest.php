@@ -47,7 +47,7 @@ class NumberFormatTest extends TestCase
     public function testFormatValueWithMask($expectedResult, ...$args): void
     {
         $result = NumberFormat::toFormattedString(...$args);
-        self::assertEquals($expectedResult, $result);
+        self::assertSame($expectedResult, $result);
     }
 
     public function providerNumberFormat(): array
