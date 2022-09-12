@@ -1461,9 +1461,6 @@ class Html extends BaseWriter
         foreach ($values as $cellAddress) {
             [$cell, $cssClass, $coordinate] = $this->generateRowCellCss($worksheet, $cellAddress, $row, $colNum);
 
-            $colSpan = 1;
-            $rowSpan = 1;
-
             // Cell Data
             $cellData = $this->generateRowCellData($worksheet, $cell, $cssClass, $cellType);
 

@@ -14,6 +14,7 @@ use PhpOffice\PhpSpreadsheet\Chart\PlotArea;
 use PhpOffice\PhpSpreadsheet\Chart\Properties as ChartProperties;
 use PhpOffice\PhpSpreadsheet\Chart\Title;
 use PhpOffice\PhpSpreadsheet\Chart\TrendLine;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Style\Font;
 use SimpleXMLElement;
@@ -113,8 +114,8 @@ class Chart
                                 $plotSeries = $plotAttributes = [];
                                 $catAxRead = false;
                                 $plotNoFill = false;
-                                /** @var SimpleXMLElement $chartDetail */
                                 foreach ($chartDetails as $chartDetailKey => $chartDetail) {
+                                    $chartDetail = Xlsx::testSimpleXml($chartDetail);
                                     switch ($chartDetailKey) {
                                         case 'spPr':
                                             $possibleNoFill = $chartDetails->spPr->children($this->aNamespace);
@@ -122,8 +123,8 @@ class Chart
                                                 $plotNoFill = true;
                                             }
                                             if (isset($possibleNoFill->gradFill->gsLst)) {
-                                                /** @var SimpleXMLElement $gradient */
                                                 foreach ($possibleNoFill->gradFill->gsLst->gs as $gradient) {
+                                                    $gradient = Xlsx::testSimpleXml($gradient);
                                                     /** @var float */
                                                     $pos = self::getAttribute($gradient, 'pos', 'float');
                                                     $gradientArray[] = [
@@ -348,6 +349,7 @@ class Chart
                                 $legendLayout = null;
                                 $legendOverlay = false;
                                 foreach ($chartDetails as $chartDetailKey => $chartDetail) {
+                                    $chartDetail = Xlsx::testSimpleXml($chartDetail);
                                     switch ($chartDetailKey) {
                                         case 'legendPos':
                                             $legendPos = self::getAttribute($chartDetail, 'val', 'string');
@@ -472,8 +474,8 @@ class Chart
                     $lineStyle = null;
                     $labelLayout = null;
                     $trendLines = [];
-                    /** @var SimpleXMLElement $seriesDetail */
                     foreach ($seriesDetails as $seriesKey => $seriesDetail) {
+                        $seriesDetail = Xlsx::testSimpleXml($seriesDetail);
                         switch ($seriesKey) {
                             case 'idx':
                                 $seriesIndex = self::getAttribute($seriesDetail, 'val', 'integer');
