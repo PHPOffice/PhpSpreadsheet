@@ -95,7 +95,7 @@ class Chart
                     break;
                 case 'chart':
                     foreach ($chartElement as $chartDetailsKey => $chartDetails) {
-                        $chartDetailsC = $chartDetails->children($this->cNamespace);
+                        $chartDetails = Xlsx::testSimpleXml($chartDetails);
                         switch ($chartDetailsKey) {
                             case 'autoTitleDeleted':
                                 /** @var bool */
@@ -401,11 +401,13 @@ class Chart
         $caption = [];
         $titleLayout = null;
         foreach ($titleDetails as $titleDetailKey => $chartDetail) {
+            $chartDetail = Xlsx::testSimpleXml($chartDetail);
             switch ($titleDetailKey) {
                 case 'tx':
                     if (isset($chartDetail->rich)) {
                         $titleDetails = $chartDetail->rich->children($this->aNamespace);
                         foreach ($titleDetails as $titleKey => $titleDetail) {
+                            $titleDetail = Xlsx::testSimpleXml($titleDetail);
                             switch ($titleKey) {
                                 case 'p':
                                     $titleDetailPart = $titleDetail->children($this->aNamespace);
@@ -442,6 +444,7 @@ class Chart
         }
         $layout = [];
         foreach ($details as $detailKey => $detail) {
+            $detail = Xlsx::testSimpleXml($detail);
             $layout[$detailKey] = self::getAttribute($detail, 'val', 'string');
         }
 
@@ -788,6 +791,7 @@ class Chart
         $pointCount = 0;
 
         foreach ($seriesValueSet as $seriesValueIdx => $seriesValue) {
+            $seriesValue = Xlsx::testSimpleXml($seriesValue);
             switch ($seriesValueIdx) {
                 case 'ptCount':
                     $pointCount = self::getAttribute($seriesValue, 'val', 'integer');
@@ -860,7 +864,6 @@ class Chart
     private function parseRichText(SimpleXMLElement $titleDetailPart): RichText
     {
         $value = new RichText();
-        $objText = null;
         $defaultFontSize = null;
         $defaultBold = null;
         $defaultItalic = null;
