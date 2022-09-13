@@ -26,10 +26,10 @@ if (count($inputFileNames) === 1) {
 } else {
     $unresolvedErrors = [
         '32readwriteBubbleChart2.xlsx',
-        '32readwritePieChart3.xlsx',
-        '32readwritePieChart4.xlsx',
+        //'32readwritePieChart3.xlsx',
+        //'32readwritePieChart4.xlsx',
         '32readwritePieChart3D1.xlsx',
-        '32readwritePieChartExploded1.xlsx',
+        //'32readwritePieChartExploded1.xlsx',
         '32readwritePieChartExploded3D1.xlsx',
     ];
 }
@@ -92,6 +92,7 @@ foreach ($inputFileNames as $inputFileName) {
 
     $spreadsheet->disconnectWorksheets();
     unset($spreadsheet);
+    gc_collect_cycles();
 }
 
 $helper->log('Done rendering charts as images');
