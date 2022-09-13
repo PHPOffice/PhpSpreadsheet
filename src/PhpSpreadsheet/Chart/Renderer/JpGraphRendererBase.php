@@ -104,7 +104,7 @@ abstract class JpGraphRendererBase implements IRenderer
 
     private function formatDataSetLabels($groupID, $datasetLabels, $rotation = '')
     {
-        $datasetLabelFormatCode = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotCategoryByIndex(0)->getFormatCode();
+        $datasetLabelFormatCode = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotCategoryByIndex(0)->getFormatCode() ?? '';
         //    Retrieve any label formatting code
         $datasetLabelFormatCode = stripslashes($datasetLabelFormatCode);
 
