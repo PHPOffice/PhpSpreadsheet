@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Style\ConditionalFormatting;
 
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Exception as ssException;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\CellMatcher;
@@ -48,8 +49,7 @@ class CellMatcherTest extends TestCase
     public function testBasicCellIsComparison(string $sheetname, string $cellAddress, array $expectedMatches): void
     {
         $this->spreadsheet = $this->loadSpreadsheet();
-        $worksheet = $this->spreadsheet->getSheetByName($sheetname);
-        self::assertNotNull($worksheet, "$sheetname not found in test workbook");
+        $worksheet = $this->spreadsheet->getSheetByNameOrThrow($sheetname);
         $cell = $worksheet->getCell($cellAddress);
 
         $cfRange = $this->confirmString($worksheet, $cell, $cellAddress);
@@ -98,12 +98,19 @@ class CellMatcherTest extends TestCase
     {
         $this->spreadsheet = $this->loadSpreadsheet();
         $sheetname = 'cellIs Comparison';
-        $worksheet = $this->spreadsheet->getSheetByName($sheetname);
-        self::assertNotNull($worksheet, "$sheetname not found in test workbook");
+        $worksheet = $this->spreadsheet->getSheetByNameOrThrow($sheetname);
         $cell = $worksheet->getCell('J20');
 
         $cfRange = $worksheet->getConditionalRange($cell->getCoordinate());
         self::assertNull($cfRange);
+    }
+
+    public function testUnknownSheet(): void
+    {
+        $this->expectException(ssException::class);
+        $this->spreadsheet = $this->loadSpreadsheet();
+        $sheetname = 'cellIs Comparisonxxx';
+        $this->spreadsheet->getSheetByNameOrThrow($sheetname);
     }
 
     /**
@@ -112,8 +119,7 @@ class CellMatcherTest extends TestCase
     public function testRangeCellIsComparison(string $sheetname, string $cellAddress, bool $expectedMatch): void
     {
         $this->spreadsheet = $this->loadSpreadsheet();
-        $worksheet = $this->spreadsheet->getSheetByName($sheetname);
-        self::assertNotNull($worksheet, "$sheetname not found in test workbook");
+        $worksheet = $this->spreadsheet->getSheetByNameOrThrow($sheetname);
         $cell = $worksheet->getCell($cellAddress);
 
         $cfRange = $this->confirmString($worksheet, $cell, $cellAddress);
@@ -154,8 +160,7 @@ class CellMatcherTest extends TestCase
     public function testCellIsMultipleExpression(string $sheetname, string $cellAddress, array $expectedMatches): void
     {
         $this->spreadsheet = $this->loadSpreadsheet();
-        $worksheet = $this->spreadsheet->getSheetByName($sheetname);
-        self::assertNotNull($worksheet, "$sheetname not found in test workbook");
+        $worksheet = $this->spreadsheet->getSheetByNameOrThrow($sheetname);
         $cell = $worksheet->getCell($cellAddress);
 
         $cfRange = $this->confirmString($worksheet, $cell, $cellAddress);
@@ -189,8 +194,7 @@ class CellMatcherTest extends TestCase
     public function testCellIsExpression(string $sheetname, string $cellAddress, bool $expectedMatch): void
     {
         $this->spreadsheet = $this->loadSpreadsheet();
-        $worksheet = $this->spreadsheet->getSheetByName($sheetname);
-        self::assertNotNull($worksheet, "$sheetname not found in test workbook");
+        $worksheet = $this->spreadsheet->getSheetByNameOrThrow($sheetname);
         $cell = $worksheet->getCell($cellAddress);
 
         $cfRange = $this->confirmString($worksheet, $cell, $cellAddress);
@@ -234,8 +238,7 @@ class CellMatcherTest extends TestCase
     public function testTextExpressions(string $sheetname, string $cellAddress, bool $expectedMatch): void
     {
         $this->spreadsheet = $this->loadSpreadsheet();
-        $worksheet = $this->spreadsheet->getSheetByName($sheetname);
-        self::assertNotNull($worksheet, "$sheetname not found in test workbook");
+        $worksheet = $this->spreadsheet->getSheetByNameOrThrow($sheetname);
         $cell = $worksheet->getCell($cellAddress);
 
         $cfRange = $this->confirmString($worksheet, $cell, $cellAddress);
@@ -343,8 +346,7 @@ class CellMatcherTest extends TestCase
     public function testBlankExpressions(string $sheetname, string $cellAddress, array $expectedMatches): void
     {
         $this->spreadsheet = $this->loadSpreadsheet();
-        $worksheet = $this->spreadsheet->getSheetByName($sheetname);
-        self::assertNotNull($worksheet, "$sheetname not found in test workbook");
+        $worksheet = $this->spreadsheet->getSheetByNameOrThrow($sheetname);
         $cell = $worksheet->getCell($cellAddress);
 
         $cfRange = $this->confirmString($worksheet, $cell, $cellAddress);
@@ -375,8 +377,7 @@ class CellMatcherTest extends TestCase
     public function testErrorExpressions(string $sheetname, string $cellAddress, array $expectedMatches): void
     {
         $this->spreadsheet = $this->loadSpreadsheet();
-        $worksheet = $this->spreadsheet->getSheetByName($sheetname);
-        self::assertNotNull($worksheet, "$sheetname not found in test workbook");
+        $worksheet = $this->spreadsheet->getSheetByNameOrThrow($sheetname);
         $cell = $worksheet->getCell($cellAddress);
 
         $cfRange = $this->confirmString($worksheet, $cell, $cellAddress);
@@ -406,8 +407,7 @@ class CellMatcherTest extends TestCase
     public function testDateOccurringExpressions(string $sheetname, string $cellAddress, bool $expectedMatch): void
     {
         $this->spreadsheet = $this->loadSpreadsheet();
-        $worksheet = $this->spreadsheet->getSheetByName($sheetname);
-        self::assertNotNull($worksheet, "$sheetname not found in test workbook");
+        $worksheet = $this->spreadsheet->getSheetByNameOrThrow($sheetname);
         $cell = $worksheet->getCell($cellAddress);
 
         $cfRange = $this->confirmString($worksheet, $cell, $cellAddress);
@@ -449,8 +449,7 @@ class CellMatcherTest extends TestCase
     public function testDuplicatesExpressions(string $sheetname, string $cellAddress, array $expectedMatches): void
     {
         $this->spreadsheet = $this->loadSpreadsheet();
-        $worksheet = $this->spreadsheet->getSheetByName($sheetname);
-        self::assertNotNull($worksheet, "$sheetname not found in test workbook");
+        $worksheet = $this->spreadsheet->getSheetByNameOrThrow($sheetname);
         $cell = $worksheet->getCell($cellAddress);
 
         $cfRange = $this->confirmString($worksheet, $cell, $cellAddress);
@@ -484,8 +483,7 @@ class CellMatcherTest extends TestCase
     public function testCrossWorksheetExpressions(string $sheetname, string $cellAddress, bool $expectedMatch): void
     {
         $this->spreadsheet = $this->loadSpreadsheet();
-        $worksheet = $this->spreadsheet->getSheetByName($sheetname);
-        self::assertNotNull($worksheet, "$sheetname not found in test workbook");
+        $worksheet = $this->spreadsheet->getSheetByNameOrThrow($sheetname);
         $cell = $worksheet->getCell($cellAddress);
 
         $cfRange = $this->confirmString($worksheet, $cell, $cellAddress);
