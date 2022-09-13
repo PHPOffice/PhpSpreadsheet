@@ -3,17 +3,11 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
 use PHPUnit\Framework\TestCase;
 
 class IndexTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerINDEX
      *
@@ -21,7 +15,7 @@ class IndexTest extends TestCase
      */
     public function testINDEX($expectedResult, ...$args): void
     {
-        $result = LookupRef::INDEX(...$args);
+        $result = LookupRef::INDEX(/** @scrutinizer ignore-type */ ...$args);
         self::assertEquals($expectedResult, $result);
     }
 

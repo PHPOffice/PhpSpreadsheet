@@ -11,5 +11,5 @@ $helper->log('Loading file ' . /** @scrutinizer ignore-type */ pathinfo($inputFi
 try {
     $spreadsheet = IOFactory::load($inputFileName);
 } catch (ReaderException $e) {
-    $helper->log('Error loading file "' . pathinfo($inputFileName, PATHINFO_BASENAME) . '": ' . $e->getMessage());
+    $helper->log('Error loading file "' . /** @scrutinizer ignore-type */ pathinfo($inputFileName, PATHINFO_BASENAME) . '": ' . $e->getMessage());
 }
