@@ -664,11 +664,7 @@ abstract class JpGraphRendererBase implements IRenderer
 
                 $seriesPlot->SetColor(self::$colourSet[self::$plotColour++]);
                 if (count($datasetLabels) > 0) {
-                    if ($seriesPlot instanceof PiePlot3D) {
-                        $seriesPlot->SetLabels(array_fill(0, count($datasetLabels), ''), 1);
-                    } else {
-                        $seriesPlot->SetLabels(array_fill(0, count($datasetLabels), ''));
-                    }
+                    $seriesPlot->SetLabels(array_fill(0, count($datasetLabels), ''));
                 }
                 if ($dimensions != '3d') {
                     $seriesPlot->SetGuideLines(false);
