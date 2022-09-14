@@ -100,13 +100,9 @@ class NamespaceOpenpyxl35Test extends \PHPUnit\Framework\TestCase
             ],
         ];
         foreach ($expectedArray as $sheetName => $array1) {
-            $sheet = $spreadsheet->getSheetByName($sheetName);
-            if ($sheet === null) {
-                self::fail("Unable to find sheet $sheetName");
-            } else {
-                foreach ($array1 as $key => $value) {
-                    self::assertSame($value, self::getCellValue($sheet, $key), "error in sheet $sheetName cell $key");
-                }
+            $sheet = $spreadsheet->getSheetByNameOrThrow($sheetName);
+            foreach ($array1 as $key => $value) {
+                self::assertSame($value, self::getCellValue($sheet, $key), "error in sheet $sheetName cell $key");
             }
         }
         $spreadsheet->disconnectWorksheets();
