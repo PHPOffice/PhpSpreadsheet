@@ -146,13 +146,13 @@ return [
         '#,###',
     ],
     [
-        12,
+        '12',
         12000,
         '#,',
     ],
     // Scaling test
     [
-        12.199999999999999,
+        '12.2',
         12200000,
         '0.0,,',
     ],
@@ -1486,4 +1486,9 @@ return [
         '-1111.119',
         NumberFormat::FORMAT_ACCOUNTING_EUR,
     ],
+    'issue 1929' => ['(79.3%)', -0.793, '#,##0.0%;(#,##0.0%)'],
+    'percent without leading 0' => ['6.2%', 0.062, '##.0%'],
+    'percent with leading 0' => ['06.2%', 0.062, '00.0%'],
+    'percent lead0 no decimal' => ['06%', 0.062, '00%'],
+    'percent nolead0 no decimal' => ['6%', 0.062, '##%'],
 ];
