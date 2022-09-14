@@ -7,6 +7,8 @@ use PHPUnit\Framework\TestCase;
 
 class LinearBestFitTest extends TestCase
 {
+    const LBF_PRECISION = 1.0E-8;
+
     /**
      * @dataProvider providerLinearBestFit
      *
@@ -27,13 +29,13 @@ class LinearBestFitTest extends TestCase
     ): void {
         $bestFit = new LinearBestFit($yValues, $xValues);
         $slope = $bestFit->getSlope(1);
-        self::assertEquals($expectedSlope[0], $slope);
+        self::assertEqualsWithDelta($expectedSlope[0], $slope, self::LBF_PRECISION);
         $slope = $bestFit->getSlope();
-        self::assertEquals($expectedSlope[1], $slope);
+        self::assertEqualsWithDelta($expectedSlope[1], $slope, self::LBF_PRECISION);
         $intersect = $bestFit->getIntersect(1);
-        self::assertEquals($expectedIntersect[0], $intersect);
+        self::assertEqualsWithDelta($expectedIntersect[0], $intersect, self::LBF_PRECISION);
         $intersect = $bestFit->getIntersect();
-        self::assertEquals($expectedIntersect[1], $intersect);
+        self::assertEqualsWithDelta($expectedIntersect[1], $intersect, self::LBF_PRECISION);
 
         $equation = $bestFit->getEquation(2);
         self::assertEquals($expectedEquation, $equation);
