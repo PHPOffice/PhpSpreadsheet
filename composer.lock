@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8512207f173cb137bc2085b7fdf698bc",
+    "content-hash": "b5bdb9f96d18ce59557436521053fdd9",
     "packages": [
         {
             "name": "ezyang/htmlpurifier",
@@ -1342,16 +1342,16 @@
         },
         {
             "name": "mitoteam/jpgraph",
-            "version": "10.2.2",
+            "version": "10.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mitoteam/jpgraph.git",
-                "reference": "6d87fc342afaf8a9a898a3122b5f0f34fc82c4cf"
+                "reference": "21121535537e05c32e7964327b80746462a6057d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mitoteam/jpgraph/zipball/6d87fc342afaf8a9a898a3122b5f0f34fc82c4cf",
-                "reference": "6d87fc342afaf8a9a898a3122b5f0f34fc82c4cf",
+                "url": "https://api.github.com/repos/mitoteam/jpgraph/zipball/21121535537e05c32e7964327b80746462a6057d",
+                "reference": "21121535537e05c32e7964327b80746462a6057d",
                 "shasum": ""
             },
             "require": {
@@ -1375,16 +1375,16 @@
                     "name": "JpGraph team"
                 }
             ],
-            "description": "Composer compatible version of JpGraph library with PHP 8.2 support",
+            "description": "JpGraph library composer package with PHP 8.2 support",
             "homepage": "https://github.com/mitoteam/jpgraph",
             "keywords": [
                 "jpgraph"
             ],
             "support": {
                 "issues": "https://github.com/mitoteam/jpgraph/issues",
-                "source": "https://github.com/mitoteam/jpgraph/tree/10.2.2"
+                "source": "https://github.com/mitoteam/jpgraph/tree/10.2.3"
             },
-            "time": "2022-09-09T08:16:10+00:00"
+            "time": "2022-09-14T04:02:09+00:00"
         },
         {
             "name": "mpdf/mpdf",
