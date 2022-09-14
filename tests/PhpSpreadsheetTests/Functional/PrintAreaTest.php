@@ -58,8 +58,7 @@ class PrintAreaTest extends AbstractFunctional
 
     private static function getPrintArea(Spreadsheet $spreadsheet, string $name): string
     {
-        $sheet = $spreadsheet->getSheetByName($name);
-        self::assertNotNull($sheet, "Unable to get sheet $name");
+        $sheet = $spreadsheet->getSheetByNameOrThrow($name);
 
         return $sheet->getPageSetup()->getPrintArea();
     }

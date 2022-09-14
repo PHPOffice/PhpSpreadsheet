@@ -83,4 +83,5 @@ return [
             -21000,
         ],
     ],
+    'no arguments' => ['exception'],
 ];
