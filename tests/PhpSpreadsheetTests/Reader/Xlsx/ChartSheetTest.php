@@ -3,7 +3,6 @@
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
-use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PHPUnit\Framework\TestCase;
 
 class ChartSheetTest extends TestCase
@@ -16,8 +15,7 @@ class ChartSheetTest extends TestCase
         $spreadsheet = $reader->load($filename);
 
         self::assertCount(2, $spreadsheet->getAllSheets());
-        $chartSheet = $spreadsheet->getSheetByName('Chart1');
-        self::assertInstanceOf(Worksheet::class, $chartSheet);
+        $chartSheet = $spreadsheet->getSheetByNameOrThrow('Chart1');
         self::assertSame(1, $chartSheet->getChartCount());
     }
 
@@ -29,7 +27,6 @@ class ChartSheetTest extends TestCase
         $spreadsheet = $reader->load($filename);
 
         self::assertCount(1, $spreadsheet->getAllSheets());
-        $chartSheet = $spreadsheet->getSheetByName('Chart1');
-        self::assertNull($chartSheet);
+        self::assertNull($spreadsheet->getSheetByName('Chart1'));
     }
 }

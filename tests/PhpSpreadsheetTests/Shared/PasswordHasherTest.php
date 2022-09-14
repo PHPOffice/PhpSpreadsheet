@@ -10,16 +10,27 @@ class PasswordHasherTest extends TestCase
 {
     /**
      * @dataProvider providerHashPassword
-     *
-     * @param mixed $expectedResult
      */
-    public function testHashPassword($expectedResult, ...$args): void
-    {
+    public function testHashPassword(
+        string $expectedResult,
+        string $password,
+        ?string $algorithm = null,
+        ?string $salt = null,
+        ?int $spinCount = null
+    ): void {
         if ($expectedResult === 'exception') {
             $this->expectException(SpException::class);
         }
-        $result = PasswordHasher::hashPassword(...$args);
-        self::assertEquals($expectedResult, $result);
+        if ($algorithm === null) {
+            $result = PasswordHasher::hashPassword($password);
+        } elseif ($salt === null) {
+            $result = PasswordHasher::hashPassword($password, $algorithm);
+        } elseif ($spinCount === null) {
+            $result = PasswordHasher::hashPassword($password, $algorithm, $salt);
+        } else {
+            $result = PasswordHasher::hashPassword($password, $algorithm, $salt, $spinCount);
+        }
+        self::assertSame($expectedResult, $result);
     }
 
     public function providerHashPassword(): array

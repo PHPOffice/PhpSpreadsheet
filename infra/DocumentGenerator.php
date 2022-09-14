@@ -41,7 +41,7 @@ class DocumentGenerator
     private static function tableRow(array $lengths, ?array $values = null): string
     {
         $result = '';
-        foreach (array_map(null, $lengths, $values ?? []) as $i => [$length, $value]) {
+        foreach (array_map(/** @scrutinizer ignore-type */ null, $lengths, $values ?? []) as $i => [$length, $value]) {
             $pad = $value === null ? '-' : ' ';
             if ($i > 0) {
                 $result .= '|' . $pad;

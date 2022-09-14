@@ -8,6 +8,8 @@ use PHPUnit\Framework\TestCase;
 
 class FontTest extends TestCase
 {
+    const FONT_PRECISION = 1.0E-12;
+
     public function testGetAutoSizeMethod(): void
     {
         $expectedResult = Font::AUTOSIZE_METHOD_APPROX;
@@ -63,7 +65,7 @@ class FontTest extends TestCase
     public function testInchSizeToPixels($expectedResult, $size): void
     {
         $result = Font::inchSizeToPixels($size);
-        self::assertEquals($expectedResult, $result);
+        self::assertEqualsWithDelta($expectedResult, $result, self::FONT_PRECISION);
     }
 
     public function providerInchSizeToPixels(): array
@@ -80,7 +82,7 @@ class FontTest extends TestCase
     public function testCentimeterSizeToPixels($expectedResult, $size): void
     {
         $result = Font::centimeterSizeToPixels($size);
-        self::assertEquals($expectedResult, $result);
+        self::assertEqualsWithDelta($expectedResult, $result, self::FONT_PRECISION);
     }
 
     public function providerCentimeterSizeToPixels(): array
