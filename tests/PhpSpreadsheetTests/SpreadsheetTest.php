@@ -220,7 +220,6 @@ class SpreadsheetTest extends TestCase
 
     public function testAddExternalColumnDimensionStyles(): void
     {
-        $spreadsheet = $this->getSpreadsheet();
         $spreadsheet1 = new Spreadsheet();
         $sheet1 = $spreadsheet1->createSheet()->setTitle('sheetWithColumnDimension');
         $sheet1->getCell('A1')->setValue(1);
@@ -250,7 +249,6 @@ class SpreadsheetTest extends TestCase
 
     public function testAddExternalRowDimensionStyles(): void
     {
-        $spreadsheet = $this->getSpreadsheet();
         $spreadsheet1 = new Spreadsheet();
         $sheet1 = $spreadsheet1->createSheet()->setTitle('sheetWithColumnDimension');
         $sheet1->getCell('A1')->setValue(1);
