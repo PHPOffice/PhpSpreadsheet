@@ -29,7 +29,7 @@ class IndirectInternationalTest extends AllSetupTeardown
     public function testR1C1International(string $locale): void
     {
         Settings::setLocale($locale);
-        $sameAsEnglish = ['en', 'xx', 'ru', 'tr'];
+        $sameAsEnglish = ['en', 'xx', 'ru', 'tr', 'cs', 'pl'];
         $sheet = $this->getSheet();
         $sheet->getCell('C1')->setValue('text');
         $sheet->getCell('A2')->setValue('en');
@@ -45,11 +45,11 @@ class IndirectInternationalTest extends AllSetupTeardown
         $sheet->getCell('A7')->setValue('ru');
         $sheet->getCell('B7')->setValue('=INDIRECT("R1C3", false)');
         $sheet->getCell('A8')->setValue('cs');
-        $sheet->getCell('B8')->setValue('=INDIRECT("R1S3", false)');
+        $sheet->getCell('B8')->setValue('=INDIRECT("R1C3", false)');
         $sheet->getCell('A9')->setValue('tr');
         $sheet->getCell('B9')->setValue('=INDIRECT("R1C3", false)');
         $sheet->getCell('A10')->setValue('pl');
-        $sheet->getCell('B10')->setValue('=INDIRECT("W1K3", false)');
+        $sheet->getCell('B10')->setValue('=INDIRECT("R1C3", false)');
         $maxRow = $sheet->getHighestRow();
         for ($row = 2; $row <= $maxRow; ++$row) {
             $rowLocale = $sheet->getCell("A$row")->getValue();

@@ -13,22 +13,13 @@ class AddressHelper
     /** @return string[] */
     public static function getRowAndColumnChars()
     {
-        if (Functions::getCompatibilityMode() !== Functions::COMPATIBILITY_EXCEL) {
-            return ['R', 'C'];
-        }
-        $rowChar = Calculation::localeFunc('ROW');
-        $rowChar = empty($rowChar) ? 'R' : mb_substr($rowChar, 0, 1);
-        $colChar = Calculation::localeFunc('COLUMN');
-        if (mb_substr($colChar, 0, 4) === 'NR.K') { // Polish
-            $colChar = 'K';
-        }
-        $colChar = empty($colChar) ? 'C' : mb_substr($colChar, 0, 1);
-        if ($rowChar === $colChar || mb_ord($rowChar) > 127 || mb_ord($colChar) > 127) {
-            if (mb_substr($rowChar, 0, 1) === 'Ř' && $colChar !== 'R' && mb_ord($colChar) <= 127) { // Czech
-                $rowChar = 'R';
-            } else {
-                $rowChar = 'R';
-                $colChar = 'C';
+        $rowChar = 'R';
+        $colChar = 'C';
+        if (Functions::getCompatibilityMode() === Functions::COMPATIBILITY_EXCEL) {
+            $rowColChars = Calculation::localeFunc('*RC');
+            if (mb_strlen($rowColChars) === 2) {
+                $rowChar = mb_substr($rowColChars, 0, 1);
+                $colChar = mb_substr($rowColChars, 1, 1);
             }
         }
 

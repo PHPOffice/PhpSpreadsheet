@@ -48,8 +48,8 @@ class AddressInternationalTest extends AllSetupTeardown
             'Made-up' => ['xx', 'R', 'C'],
             'Spanish' => ['es', 'F', 'C'],
             'Bulgarian' => ['bg', 'R', 'C'],
-            'Czech' => ['cs', 'R', 'S'],
-            'Polish' => ['pl', 'W', 'K'],
+            'Czech' => ['cs', 'R', 'C'], // maybe should be R/S
+            'Polish' => ['pl', 'R', 'C'], // maybe should be W/K
             'Turkish' => ['tr', 'R', 'C'],
         ];
     }
