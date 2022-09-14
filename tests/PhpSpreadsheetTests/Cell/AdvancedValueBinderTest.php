@@ -11,6 +11,8 @@ use PHPUnit\Framework\TestCase;
 
 class AdvancedValueBinderTest extends TestCase
 {
+    const AVB_PRECISION = 1.0E-8;
+
     /**
      * @var string
      */
@@ -161,7 +163,7 @@ class AdvancedValueBinderTest extends TestCase
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
         $sheet->getCell('A1')->setValue($value);
-        self::assertEquals($valueBinded, $sheet->getCell('A1')->getValue());
+        self::assertEqualsWithDelta($valueBinded, $sheet->getCell('A1')->getValue(), self::AVB_PRECISION);
         $spreadsheet->disconnectWorksheets();
     }
 
