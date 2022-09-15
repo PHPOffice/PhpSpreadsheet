@@ -41,6 +41,10 @@ class Worksheet implements IComparable
     public const SHEETSTATE_HIDDEN = 'hidden';
     public const SHEETSTATE_VERYHIDDEN = 'veryHidden';
 
+    public const MERGE_CELL_CONTENT_EMPTY = 'empty';
+    public const MERGE_CELL_CONTENT_HIDE = 'hide';
+    public const MERGE_CELL_CONTENT_MERGE = 'merge';
+
     protected const SHEET_NAME_REQUIRES_NO_QUOTES = '/^[_\p{L}][_\p{L}\p{N}]*$/mui';
 
     /**
@@ -1758,10 +1762,15 @@ class Worksheet implements IComparable
      * @param AddressRange|array<int>|string $range A simple string containing a Cell range like 'A1:E10'
      *              or passing in an array of [$fromColumnIndex, $fromRow, $toColumnIndex, $toRow] (e.g. [3, 5, 6, 8]),
      *              or an AddressRange.
+     * @param string $behaviour How the merged cells should behave.
+     *               Possible values are:
+     *                   MERGE_CELL_CONTENT_EMPTY - Empty the content of the hidden cells
+     *                   MERGE_CELL_CONTENT_HIDE - Keep the content of the hidden cells
+     *                   MERGE_CELL_CONTENT_MERGE - Move the content of the hidden cells into the first cell
      *
      * @return $this
      */
-    public function mergeCells($range)
+    public function mergeCells($range, $behaviour = self::MERGE_CELL_CONTENT_EMPTY)
     {
         $range = Functions::trimSheetFromCellReference(Validations::validateCellRange($range));
 
@@ -1793,18 +1802,22 @@ class Worksheet implements IComparable
             $this->getCell($upperLeft)->setValueExplicit(null, DataType::TYPE_NULL);
         }
 
-        // Blank out the rest of the cells in the range (if they exist)
-        if ($numberRows > $numberColumns) {
-            $this->clearMergeCellsByColumn($firstColumn, $lastColumn, $firstRow, $lastRow, $upperLeft);
-        } else {
-            $this->clearMergeCellsByRow($firstColumn, $lastColumnIndex, $firstRow, $lastRow, $upperLeft);
+        if ($behaviour !== self::MERGE_CELL_CONTENT_HIDE) {
+            // Blank out the rest of the cells in the range (if they exist)
+            if ($numberRows > $numberColumns) {
+                $this->clearMergeCellsByColumn($firstColumn, $lastColumn, $firstRow, $lastRow, $upperLeft, $behaviour);
+            } else {
+                $this->clearMergeCellsByRow($firstColumn, $lastColumnIndex, $firstRow, $lastRow, $upperLeft, $behaviour);
+            }
         }
 
         return $this;
     }
 
-    private function clearMergeCellsByColumn(string $firstColumn, string $lastColumn, int $firstRow, int $lastRow, string $upperLeft): void
+    private function clearMergeCellsByColumn(string $firstColumn, string $lastColumn, int $firstRow, int $lastRow, string $upperLeft, string $behaviour): void
     {
+        $leftCellValue = [$this->getCell($upperLeft)->getFormattedValue()];
+
         foreach ($this->getColumnIterator($firstColumn, $lastColumn) as $column) {
             $iterator = $column->getCellIterator($firstRow);
             $iterator->setIterateOnlyExistingCells(true);
@@ -1814,17 +1827,21 @@ class Worksheet implements IComparable
                     if ($row > $lastRow) {
                         break;
                     }
-                    $thisCell = $cell->getColumn() . $row;
-                    if ($upperLeft !== $thisCell) {
-                        $cell->setValueExplicit(null, DataType::TYPE_NULL);
-                    }
+                    $leftCellValue = $this->mergeCellBehaviour($cell, $upperLeft, $behaviour, $leftCellValue);
                 }
             }
         }
+
+        $leftCellValue = implode(' ', $leftCellValue);
+        if ($behaviour === self::MERGE_CELL_CONTENT_MERGE) {
+            $this->getCell($upperLeft)->setValueExplicit($leftCellValue, DataType::TYPE_STRING);
+        }
     }
 
-    private function clearMergeCellsByRow(string $firstColumn, int $lastColumnIndex, int $firstRow, int $lastRow, string $upperLeft): void
+    private function clearMergeCellsByRow(string $firstColumn, int $lastColumnIndex, int $firstRow, int $lastRow, string $upperLeft, string $behaviour): void
     {
+        $leftCellValue = [$this->getCell($upperLeft)->getFormattedValue()];
+
         foreach ($this->getRowIterator($firstRow, $lastRow) as $row) {
             $iterator = $row->getCellIterator($firstColumn);
             $iterator->setIterateOnlyExistingCells(true);
@@ -1835,13 +1852,31 @@ class Worksheet implements IComparable
                     if ($columnIndex > $lastColumnIndex) {
                         break;
                     }
-                    $thisCell = $column . $cell->getRow();
-                    if ($upperLeft !== $thisCell) {
-                        $cell->setValueExplicit(null, DataType::TYPE_NULL);
-                    }
+                    $leftCellValue = $this->mergeCellBehaviour($cell, $upperLeft, $behaviour, $leftCellValue);
                 }
             }
         }
+
+        $leftCellValue = implode(' ', $leftCellValue);
+        if ($behaviour === self::MERGE_CELL_CONTENT_MERGE) {
+            $this->getCell($upperLeft)->setValueExplicit($leftCellValue, DataType::TYPE_STRING);
+        }
+    }
+
+    public function mergeCellBehaviour(Cell $cell, string $upperLeft, string $behaviour, array $leftCellValue): array
+    {
+        if ($cell->getCoordinate() !== $upperLeft) {
+            Calculation::getInstance($cell->getWorksheet()->getParent())->flushInstance();
+            if ($behaviour === self::MERGE_CELL_CONTENT_MERGE) {
+                $cellValue = $cell->getFormattedValue();
+                if ($cellValue !== '') {
+                    $leftCellValue[] = $cellValue;
+                }
+            }
+            $cell->setValueExplicit(null, DataType::TYPE_NULL);
+        }
+
+        return $leftCellValue;
     }
 
     /**
@@ -1856,17 +1891,22 @@ class Worksheet implements IComparable
      * @param int $row1 Numeric row coordinate of the first cell
      * @param int $columnIndex2 Numeric column coordinate of the last cell
      * @param int $row2 Numeric row coordinate of the last cell
+     * @param string $behaviour How the merged cells should behave.
+     *               Possible values are:
+     *                   MERGE_CELL_CONTENT_EMPTY - Empty the content of the hidden cells
+     *                   MERGE_CELL_CONTENT_HIDE - Keep the content of the hidden cells
+     *                   MERGE_CELL_CONTENT_MERGE - Move the content of the hidden cells into the first cell
      *
      * @return $this
      */
-    public function mergeCellsByColumnAndRow($columnIndex1, $row1, $columnIndex2, $row2)
+    public function mergeCellsByColumnAndRow($columnIndex1, $row1, $columnIndex2, $row2, $behaviour = self::MERGE_CELL_CONTENT_EMPTY)
     {
         $cellRange = new CellRange(
             CellAddress::fromColumnAndRow($columnIndex1, $row1),
             CellAddress::fromColumnAndRow($columnIndex2, $row2)
         );
 
-        return $this->mergeCells($cellRange);
+        return $this->mergeCells($cellRange, $behaviour);
     }
 
     /**
