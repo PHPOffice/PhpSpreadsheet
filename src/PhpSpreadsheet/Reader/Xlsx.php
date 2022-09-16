@@ -914,7 +914,7 @@ class Xlsx extends BaseReader
                                 foreach ($xmlSheet->mergeCells->mergeCell as $mergeCell) {
                                     $mergeRef = (string) $mergeCell['ref'];
                                     if (strpos($mergeRef, ':') !== false) {
-                                        $docSheet->mergeCells((string) $mergeCell['ref']);
+                                        $docSheet->mergeCells((string) $mergeCell['ref'], Worksheet::MERGE_CELL_CONTENT_HIDE);
                                     }
                                 }
                             }

@@ -17,7 +17,11 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Changed
 
-- Nothing
+- Allow variant behaviour when merging cells [Issue #3065](https://github.com/PHPOffice/PhpSpreadsheet/issues/3065)
+  - Merge methods now allow an additional `$behaviour` argument. Permitted values are:
+    - Worksheet::MERGE_CELL_CONTENT_EMPTY - Empty the content of the hidden cells (the default behaviour)
+    - Worksheet::MERGE_CELL_CONTENT_HIDE - Keep the content of the hidden cells
+    - Worksheet::MERGE_CELL_CONTENT_MERGE - Move the content of the hidden cells into the first cell
 
 ### Deprecated
 
