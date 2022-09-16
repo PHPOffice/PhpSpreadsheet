@@ -57,7 +57,7 @@ class Compare
      *
      * @param array|float $number the value to test against step
      *                      Or can be an array of values
-     * @param array|float $step The threshold value. If you omit a value for step, GESTEP uses zero.
+     * @param null|array|float $step The threshold value. If you omit a value for step, GESTEP uses zero.
      *                      Or can be an array of values
      *
      * @return array|int|string (string in the event of an error)
@@ -72,7 +72,7 @@ class Compare
 
         try {
             $number = EngineeringValidations::validateFloat($number);
-            $step = EngineeringValidations::validateFloat($step);
+            $step = EngineeringValidations::validateFloat($step ?? 0.0);
         } catch (Exception $e) {
             return $e->getMessage();
         }

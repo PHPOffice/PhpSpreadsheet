@@ -93,6 +93,7 @@ class AutoFilter2Test extends TestCase
         self::assertCount(1, $columns);
         $column = $columns['A'] ?? null;
         self::assertNotNull($column);
+        /** @scrutinizer ignore-call */
         $ruleset = $column->getRules();
         self::assertCount(1, $ruleset);
         $rule = $ruleset[0];
