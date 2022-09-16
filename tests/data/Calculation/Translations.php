@@ -80,4 +80,14 @@ return [
         'nb',
         '=MAX(ABS({2,-3;-4,5}), ABS{-2,3;4,-5})',
     ],
+    'not fooled by *RC' => [
+        '=3*RC(B1)',
+        'fr',
+        '=3*RC(B1)',
+    ],
+    'handle * for ROW' => [
+        '=3*LIGNE(B1)',
+        'fr',
+        '=3*ROW(B1)',
+    ],
 ];

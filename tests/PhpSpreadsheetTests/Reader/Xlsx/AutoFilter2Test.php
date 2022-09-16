@@ -28,8 +28,7 @@ class AutoFilter2Test extends TestCase
     public function testReadDateRange(): void
     {
         $spreadsheet = IOFactory::load(self::TESTBOOK);
-        $sheet = $spreadsheet->getSheetByName('daterange');
-        self::assertNotNull($sheet);
+        $sheet = $spreadsheet->getSheetByNameOrThrow('daterange');
         $filter = $sheet->getAutoFilter();
         $maxRow = 30;
         self::assertSame("A1:A$maxRow", $filter->getRange());
@@ -61,8 +60,7 @@ class AutoFilter2Test extends TestCase
     public function testReadTopTen(): void
     {
         $spreadsheet = IOFactory::load(self::TESTBOOK);
-        $sheet = $spreadsheet->getSheetByName('top10');
-        self::assertNotNull($sheet);
+        $sheet = $spreadsheet->getSheetByNameOrThrow('top10');
         $filter = $sheet->getAutoFilter();
         $maxRow = 65;
         self::assertSame("A1:A$maxRow", $filter->getRange());
@@ -87,8 +85,7 @@ class AutoFilter2Test extends TestCase
     public function testReadDynamic(): void
     {
         $spreadsheet = IOFactory::load(self::TESTBOOK);
-        $sheet = $spreadsheet->getSheetByName('dynamic');
-        self::assertNotNull($sheet);
+        $sheet = $spreadsheet->getSheetByNameOrThrow('dynamic');
         $filter = $sheet->getAutoFilter();
         $maxRow = 30;
         self::assertSame("A1:A$maxRow", $filter->getRange());

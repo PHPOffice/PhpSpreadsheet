@@ -15,20 +15,16 @@ class NumberFormatGeneralTest extends AbstractFunctional
 
         $reader = new Xls();
         $spreadsheet = $reader->load($filename);
-        $sheet = $spreadsheet->getSheetByName('Blad1');
-        if ($sheet === null) {
-            self::fail('Expected to find sheet Blad1');
-        } else {
-            $array = $sheet->toArray();
-            self::assertSame('€ 2.95', $array[1][3]);
-            self::assertSame(2.95, $sheet->getCell('D2')->getValue());
-            self::assertSame(2.95, $sheet->getCell('D2')->getCalculatedValue());
-            self::assertSame('€ 2.95', $sheet->getCell('D2')->getFormattedValue());
-            self::assertSame(21, $array[1][4]);
-            self::assertSame(21, $sheet->getCell('E2')->getValue());
-            self::assertSame(21, $sheet->getCell('E2')->getCalculatedValue());
-            self::assertSame('21', $sheet->getCell('E2')->getFormattedValue());
-        }
+        $sheet = $spreadsheet->getSheetByNameOrThrow('Blad1');
+        $array = $sheet->toArray();
+        self::assertSame('€ 2.95', $array[1][3]);
+        self::assertSame(2.95, $sheet->getCell('D2')->getValue());
+        self::assertSame(2.95, $sheet->getCell('D2')->getCalculatedValue());
+        self::assertSame('€ 2.95', $sheet->getCell('D2')->getFormattedValue());
+        self::assertSame(21, $array[1][4]);
+        self::assertSame(21, $sheet->getCell('E2')->getValue());
+        self::assertSame(21, $sheet->getCell('E2')->getCalculatedValue());
+        self::assertSame('21', $sheet->getCell('E2')->getFormattedValue());
         $spreadsheet->disconnectWorksheets();
     }
 }
