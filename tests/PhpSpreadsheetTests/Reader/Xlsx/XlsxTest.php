@@ -15,6 +15,8 @@ use PHPUnit\Framework\TestCase;
 
 class XlsxTest extends TestCase
 {
+    const XLSX_PRECISION = 1.0E-8;
+
     public function testLoadXlsxRowColumnAttributes(): void
     {
         $filename = 'tests/data/Reader/XLSX/rowColumnAttributeTest.xlsx';
@@ -133,10 +135,10 @@ class XlsxTest extends TestCase
 
         $pageMargins = $worksheet->getPageMargins();
         // Convert from inches to cm for testing
-        self::assertEquals(2.5, $pageMargins->getTop() * 2.54);
-        self::assertEquals(3.3, $pageMargins->getLeft() * 2.54);
-        self::assertEquals(3.3, $pageMargins->getRight() * 2.54);
-        self::assertEquals(1.3, $pageMargins->getHeader() * 2.54);
+        self::assertEqualsWithDelta(2.5, $pageMargins->getTop() * 2.54, self::XLSX_PRECISION);
+        self::assertEqualsWithDelta(3.3, $pageMargins->getLeft() * 2.54, self::XLSX_PRECISION);
+        self::assertEqualsWithDelta(3.3, $pageMargins->getRight() * 2.54, self::XLSX_PRECISION);
+        self::assertEqualsWithDelta(1.3, $pageMargins->getHeader() * 2.54, self::XLSX_PRECISION);
 
         self::assertEquals(PageSetup::PAPERSIZE_A4, $worksheet->getPageSetup()->getPaperSize());
         self::assertEquals(['A10', 'A20', 'A30', 'A40', 'A50'], array_keys($worksheet->getBreaks()));

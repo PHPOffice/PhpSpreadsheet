@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Borders;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
@@ -403,8 +404,14 @@ class Style extends WriterPart
 
         // alignment
         $objWriter->startElement('alignment');
-        $objWriter->writeAttribute('horizontal', (string) $style->getAlignment()->getHorizontal());
-        $objWriter->writeAttribute('vertical', (string) $style->getAlignment()->getVertical());
+        $vertical = Alignment::VERTICAL_ALIGNMENT_FOR_XLSX[$style->getAlignment()->getVertical()] ?? '';
+        $horizontal = Alignment::HORIZONTAL_ALIGNMENT_FOR_XLSX[$style->getAlignment()->getHorizontal()] ?? '';
+        if ($horizontal !== '') {
+            $objWriter->writeAttribute('horizontal', $horizontal);
+        }
+        if ($vertical !== '') {
+            $objWriter->writeAttribute('vertical', $vertical);
+        }
 
         $textRotation = 0;
         if ($style->getAlignment()->getTextRotation() >= 0) {
@@ -459,11 +466,13 @@ class Style extends WriterPart
 
         // alignment
         $objWriter->startElement('alignment');
-        if ($style->getAlignment()->getHorizontal() !== null) {
-            $objWriter->writeAttribute('horizontal', $style->getAlignment()->getHorizontal());
+        $horizontal = Alignment::HORIZONTAL_ALIGNMENT_FOR_XLSX[$style->getAlignment()->getHorizontal()] ?? '';
+        if ($horizontal) {
+            $objWriter->writeAttribute('horizontal', $horizontal);
         }
-        if ($style->getAlignment()->getVertical() !== null) {
-            $objWriter->writeAttribute('vertical', $style->getAlignment()->getVertical());
+        $vertical = Alignment::VERTICAL_ALIGNMENT_FOR_XLSX[$style->getAlignment()->getVertical()] ?? '';
+        if ($vertical) {
+            $objWriter->writeAttribute('vertical', $vertical);
         }
 
         if ($style->getAlignment()->getTextRotation() !== null) {

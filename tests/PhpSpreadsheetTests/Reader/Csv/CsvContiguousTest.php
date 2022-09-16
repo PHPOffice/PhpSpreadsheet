@@ -56,13 +56,11 @@ class CsvContiguousTest extends TestCase
 
     private static function getCellValue(Spreadsheet $spreadsheet, string $sheetName, string $cellAddress): string
     {
-        $sheet = $spreadsheet->getSheetByName($sheetName);
+        $sheet = $spreadsheet->getSheetByNameOrThrow($sheetName);
         $result = '';
-        if ($sheet !== null) {
-            $value = $sheet->getCell($cellAddress)->getValue();
-            if (is_scalar($value) || (is_object($value) && method_exists($value, '__toString'))) {
-                $result = (string) $value;
-            }
+        $value = $sheet->getCell($cellAddress)->getValue();
+        if (is_scalar($value) || (is_object($value) && method_exists($value, '__toString'))) {
+            $result = (string) $value;
         }
 
         return $result;

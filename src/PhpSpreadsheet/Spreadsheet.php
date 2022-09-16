@@ -725,6 +725,19 @@ class Spreadsheet
     }
 
     /**
+     * Get sheet by name, throwing exception if not found.
+     */
+    public function getSheetByNameOrThrow(string $worksheetName): Worksheet
+    {
+        $worksheet = $this->getSheetByName($worksheetName);
+        if ($worksheet === null) {
+            throw new Exception("Sheet $worksheetName does not exist.");
+        }
+
+        return $worksheet;
+    }
+
+    /**
      * Get index for sheet.
      *
      * @return int index

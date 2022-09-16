@@ -306,22 +306,25 @@ class Xlsx extends BaseReader
         return (bool) $c->v;
     }
 
-    private static function castToError(SimpleXMLElement $c): ?string
+    private static function castToError(?SimpleXMLElement $c): ?string
     {
-        return isset($c->v) ? (string) $c->v : null;
+        return isset($c, $c->v) ? (string) $c->v : null;
     }
 
-    private static function castToString(SimpleXMLElement $c): ?string
+    private static function castToString(?SimpleXMLElement $c): ?string
     {
-        return isset($c->v) ? (string) $c->v : null;
+        return isset($c, $c->v) ? (string) $c->v : null;
     }
 
     /**
      * @param mixed $value
      * @param mixed $calculatedValue
      */
-    private function castToFormula(SimpleXMLElement $c, string $r, string &$cellDataType, &$value, &$calculatedValue, array &$sharedFormulas, string $castBaseType): void
+    private function castToFormula(?SimpleXMLElement $c, string $r, string &$cellDataType, &$value, &$calculatedValue, array &$sharedFormulas, string $castBaseType): void
     {
+        if ($c === null) {
+            return;
+        }
         $attr = $c->f->attributes();
         $cellDataType = 'f';
         $value = "={$c->f}";
@@ -911,7 +914,7 @@ class Xlsx extends BaseReader
                                 foreach ($xmlSheet->mergeCells->mergeCell as $mergeCell) {
                                     $mergeRef = (string) $mergeCell['ref'];
                                     if (strpos($mergeRef, ':') !== false) {
-                                        $docSheet->mergeCells((string) $mergeCell['ref']);
+                                        $docSheet->mergeCells((string) $mergeCell['ref'], Worksheet::MERGE_CELL_CONTENT_HIDE);
                                     }
                                 }
                             }

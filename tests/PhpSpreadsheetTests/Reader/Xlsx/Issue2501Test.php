@@ -42,28 +42,20 @@ class Issue2501Test extends TestCase
         $filename = self::$testbook;
         $reader = IOFactory::createReader('Xlsx');
         $spreadsheet = $reader->load($filename);
-        $sheet = $spreadsheet->getSheetByName('Columns');
+        $sheet = $spreadsheet->getSheetByNameOrThrow('Columns');
         $expected = [
             'A1:A1048576',
             'B1:D1048576',
             'E2:E4',
         ];
-        if ($sheet === null) {
-            self::fail('Unable to find sheet Columns');
-        } else {
-            self::assertSame($expected, array_values($sheet->getMergeCells()));
-        }
-        $sheet = $spreadsheet->getSheetByName('Rows');
+        self::assertSame($expected, array_values($sheet->getMergeCells()));
+        $sheet = $spreadsheet->getSheetByNameOrThrow('Rows');
         $expected = [
             'A1:XFD1',
             'A2:XFD4',
             'B5:D5',
         ];
-        if ($sheet === null) {
-            self::fail('Unable to find sheet Rows');
-        } else {
-            self::assertSame($expected, array_values($sheet->getMergeCells()));
-        }
+        self::assertSame($expected, array_values($sheet->getMergeCells()));
 
         $spreadsheet->disconnectWorksheets();
     }

@@ -27,12 +27,6 @@ class SampleTest extends TestCase
     {
         $skipped = [
         ];
-        if (PHP_VERSION_ID >= 80200) {
-            // Hopefully temporary. Continue to try
-            //  32_chart_read_write_PDF/HTML
-            // so as not to lose track of the problem.
-            $skipped[] = 'Chart/35_Chart_render.php';
-        }
 
         // Unfortunately some tests are too long to run with code-coverage
         // analysis on GitHub Actions, so we need to exclude them
