@@ -243,6 +243,7 @@ ROWS = RADER
 RTD = RTD
 TRANSPOSE = TRANSPONERA
 VLOOKUP = LETARAD
+*RC = RK
 
 ##
 ## Matematiska och trigonometriska funktioner (Math & Trig Functions)

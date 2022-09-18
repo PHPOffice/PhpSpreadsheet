@@ -7,6 +7,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class Indirect
@@ -63,6 +64,8 @@ class Indirect
      */
     public static function INDIRECT($cellAddress, $a1fmt, Cell $cell)
     {
+        [$baseCol, $baseRow] = Coordinate::indexesFromString($cell->getCoordinate());
+
         try {
             $a1 = self::a1Format($a1fmt);
             $cellAddress = self::validateAddress($cellAddress);
@@ -78,7 +81,11 @@ class Indirect
             $cellAddress = self::handleRowColumnRanges($worksheet, ...explode(':', $cellAddress));
         }
 
-        [$cellAddress1, $cellAddress2, $cellAddress] = Helpers::extractCellAddresses($cellAddress, $a1, $cell->getWorkSheet(), $sheetName);
+        try {
+            [$cellAddress1, $cellAddress2, $cellAddress] = Helpers::extractCellAddresses($cellAddress, $a1, $cell->getWorkSheet(), $sheetName, $baseRow, $baseCol);
+        } catch (Exception $e) {
+            return ExcelError::REF();
+        }
 
         if (
             (!preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/miu', $cellAddress1, $matches)) ||

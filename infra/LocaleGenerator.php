@@ -146,7 +146,7 @@ class LocaleGenerator
             $translationValue = $translationCell->getValue();
             if ($this->isFunctionCategoryEntry($translationCell)) {
                 $this->writeFileSectionHeader($functionFile, "{$translationValue} ({$functionName})");
-            } elseif (!array_key_exists($functionName, $this->phpSpreadsheetFunctions)) {
+            } elseif (!array_key_exists($functionName, $this->phpSpreadsheetFunctions) && substr($functionName, 0, 1) !== '*') {
                 $this->log("Function {$functionName} is not defined in PhpSpreadsheet");
             } elseif (!empty($translationValue)) {
                 $functionTranslation = "{$functionName} = {$translationValue}" . self::EOL;
