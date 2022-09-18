@@ -7,6 +7,8 @@ return [
     ['5', '101'],
     ['2', '10'],
     ['0', '0'],
+    ['5', 101],
+    ['100', 1100100],
     ['#NUM!', '21'], // Invalid binary number
     ['#VALUE!', 'true'], // Boolean okay for ODS, not for Excel/Gnumeric
     ['#VALUE!', 'false'], // Boolean okay for ODS, not for Excel/Gnumeric

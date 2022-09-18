@@ -4585,7 +4585,7 @@ class Xls extends BaseReader
                     (strpos($cellRangeAddress, ':') !== false) &&
                     ($this->includeCellRangeFiltered($cellRangeAddress))
                 ) {
-                    $this->phpSheet->mergeCells($cellRangeAddress);
+                    $this->phpSheet->mergeCells($cellRangeAddress, Worksheet::MERGE_CELL_CONTENT_HIDE);
                 }
             }
         }
