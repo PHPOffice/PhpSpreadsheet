@@ -311,6 +311,7 @@ class ReferenceHelperTest extends TestCase
 
         self::assertFalse($sheet->getCell($cellAddress)->hasDataValidation());
         self::assertTrue($sheet->getCell('E7')->hasDataValidation());
+        self::assertSame('E7', $sheet->getDataValidation('E7')->getSqref());
     }
 
     public function testDeleteRowsWithDataValidation(): void
@@ -326,6 +327,7 @@ class ReferenceHelperTest extends TestCase
 
         self::assertFalse($sheet->getCell($cellAddress)->hasDataValidation());
         self::assertTrue($sheet->getCell('E3')->hasDataValidation());
+        self::assertSame('E3', $sheet->getDataValidation('E3')->getSqref());
     }
 
     public function testDeleteColumnsWithDataValidation(): void
@@ -341,6 +343,7 @@ class ReferenceHelperTest extends TestCase
 
         self::assertFalse($sheet->getCell($cellAddress)->hasDataValidation());
         self::assertTrue($sheet->getCell('C5')->hasDataValidation());
+        self::assertSame('C5', $sheet->getDataValidation('C5')->getSqref());
     }
 
     public function testInsertColumnsWithDataValidation(): void
@@ -356,6 +359,7 @@ class ReferenceHelperTest extends TestCase
 
         self::assertFalse($sheet->getCell($cellAddress)->hasDataValidation());
         self::assertTrue($sheet->getCell('G5')->hasDataValidation());
+        self::assertSame('G5', $sheet->getDataValidation('G5')->getSqref());
     }
 
     private function setDataValidation(Worksheet $sheet, string $cellAddress): void
