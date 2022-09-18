@@ -76,14 +76,14 @@ For Chart export, we support following packages, which you will also need to ins
    You can manually download the latest version that supports PHP 8 and above from [jpgraph.net](https://jpgraph.net/))
  - [mitoteam/jpgraph](https://packagist.org/packages/mitoteam/jpgraph) (fork with php 8.1 support)
 
-One or the other of these libraries is necessary if you want to generate HTML or PDF files that include charts.
-
 and then configure PhpSpreadsheet using:
 ```php
 Settings::setChartRenderer(\PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph::class); // to use jpgraph/jpgraph
 //or
 Settings::setChartRenderer(\PhpOffice\PhpSpreadsheet\Chart\Renderer\MtJpGraphRenderer::class); // to use mitoteam/jpgraph
 ```
+
+One or the other of these libraries is necessary if you want to generate HTML or PDF files that include charts.
 
 ## Documentation
 
