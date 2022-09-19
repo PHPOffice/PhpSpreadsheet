@@ -1,7 +1,9 @@
 <?php
 
 return [
-    [6890, '18, 11, 11'], // year without centure
+    [6890, '18, 11, 11'], // year less than 1900, adds 1900 (1918-11-11)
+    [44809, '122, 9, 5'], // year less than 1900, adds 1900 (2022-09-05)
+    [693845, '1899, 9, 5'], // year less than 1900, adds 1900 (3799-09-05)
     [1, '1900, 1, 1'], // Excel 1900 Calendar BaseDate
     [59, '1900, 2, 28'], // Day before Excel mythical 1900 leap day
     [60, '1900, 2, 29'], // Excel mythical 1900 leap day
@@ -15,6 +17,7 @@ return [
     [25569, '1970, 1, 1'], // Unix Timestamp Base Date
     [30292, '1982, 12, 7'],
     [39611, '2008, 6, 12'],
+    [50000, '2036, 11, 21'],
     [50424, '2038, 1, 19'], // 32-bit signed Unix Timestamp Latest Date
     [50425, '2038, 1, 20'], // Day after 32-bit signed Unix Timestamp Latest Date
     [39448, '2008, 1, 1'],

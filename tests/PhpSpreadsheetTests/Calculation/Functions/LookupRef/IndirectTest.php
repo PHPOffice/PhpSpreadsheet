@@ -132,4 +132,48 @@ class IndirectTest extends AllSetupTeardown
         $result = \PhpOffice\PhpSpreadsheet\Calculation\Functions::flattenSingleValue($result);
         self::assertSame('This is it', $result);
     }
+
+    /**
+     * @param null|int|string $expectedResult
+     *
+     * @dataProvider providerRelative
+     */
+    public function testR1C1Relative($expectedResult, string $address): void
+    {
+        $sheet = $this->getSheet();
+        $sheet->fromArray([
+            ['a1', 'b1', 'c1'],
+            ['a2', 'b2', 'c2'],
+            ['a3', 'b3', 'c3'],
+            ['a4', 'b4', 'c4'],
+        ]);
+        $sheet->getCell('B2')->setValue('=INDIRECT("' . $address . '", false)');
+        self::assertSame($expectedResult, $sheet->getCell('B2')->getCalculatedValue());
+    }
+
+    public function providerRelative(): array
+    {
+        return [
+            'same row with bracket next column' => ['c2', 'R[]C[+1]'],
+            'same row without bracket next column' => ['c2', 'RC[+1]'],
+            'same row without bracket next column no plus sign' => ['c2', 'RC[1]'],
+            'same row previous column' => ['a2', 'RC[-1]'],
+            'previous row previous column' => ['a1', 'R[-1]C[-1]'],
+            'previous row same column with bracket' => ['b1', 'R[-1]C[]'],
+            'previous row same column without bracket' => ['b1', 'R[-1]C'],
+            'previous row next column' => ['c1', 'R[-1]C[+1]'],
+            'next row no plus sign previous column' => ['a3', 'R[1]C[-1]'],
+            'next row previous column' => ['a3', 'R[+1]C[-1]'],
+            'next row same column' => ['b3', 'R[+1]C'],
+            'next row next column' => ['c3', 'R[+1]C[+1]'],
+            'two rows down same column' => ['b4', 'R[+2]C'],
+            'invalid row' => ['#REF!', 'R[-2]C'],
+            'invalid column' => ['#REF!', 'RC[-2]'],
+            'circular reference' => [0, 'RC'], // matches Excel's treatment
+            'absolute row absolute column' => ['c2', 'R2C3'],
+            'absolute row relative column' => ['a2', 'R2C[-1]'],
+            'relative row absolute column lowercase' => ['a2', 'rc1'],
+            'uninitialized cell' => [null, 'RC[+2]'], // Excel result is 0
+        ];
+    }
 }
