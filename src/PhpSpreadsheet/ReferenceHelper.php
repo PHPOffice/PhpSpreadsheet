@@ -253,10 +253,11 @@ class ReferenceHelper
             ? uksort($aDataValidationCollection, [self::class, 'cellReverseSort'])
             : uksort($aDataValidationCollection, [self::class, 'cellSort']);
 
-        foreach ($aDataValidationCollection as $cellAddress => $value) {
+        foreach ($aDataValidationCollection as $cellAddress => $dataValidation) {
             $newReference = $this->updateCellReference($cellAddress);
             if ($cellAddress !== $newReference) {
-                $worksheet->setDataValidation($newReference, $value);
+                $dataValidation->setSqref($newReference);
+                $worksheet->setDataValidation($newReference, $dataValidation);
                 $worksheet->setDataValidation($cellAddress, null);
             }
         }
