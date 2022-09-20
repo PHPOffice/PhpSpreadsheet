@@ -2912,7 +2912,7 @@ parameters:
 
 		-
 			message: "#^Cannot access offset 1 on array\\|false\\.$#"
-			count: 2
+			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
 
 		-
