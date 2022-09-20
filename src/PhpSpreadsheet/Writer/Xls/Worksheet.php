@@ -2405,10 +2405,12 @@ class Worksheet extends BIFFwriter
             for ($i = 0; $i < $width; ++$i) {
                 /** @phpstan-ignore-next-line */
                 $color = imagecolorsforindex($image, imagecolorat($image, $i, $j));
-                foreach (['red', 'green', 'blue'] as $key) {
-                    $color[$key] = $color[$key] + (int) round((255 - $color[$key]) * $color['alpha'] / 127);
+                if ($color !== false) {
+                    foreach (['red', 'green', 'blue'] as $key) {
+                        $color[$key] = $color[$key] + (int) round((255 - $color[$key]) * $color['alpha'] / 127);
+                    }
+                    $data .= chr($color['blue']) . chr($color['green']) . chr($color['red']);
                 }
-                $data .= chr($color['blue']) . chr($color['green']) . chr($color['red']);
             }
             if (3 * $width % 4) {
                 $data .= str_repeat("\x00", 4 - 3 * $width % 4);

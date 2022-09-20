@@ -387,8 +387,6 @@ class Color extends Supervisor
      * @param int $colorIndex Index entry point into the colour array
      * @param bool $background Flag to indicate whether default background or foreground colour
      *                                            should be returned if the indexed colour doesn't exist
-     *
-     * @return Color
      */
     public static function indexedColor($colorIndex, $background = false, ?array $palette = null): self
     {

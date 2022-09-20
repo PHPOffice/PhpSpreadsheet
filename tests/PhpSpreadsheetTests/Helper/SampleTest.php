@@ -9,7 +9,9 @@ class SampleTest extends TestCase
 {
     /**
      * @runInSeparateProcess
+     *
      * @preserveGlobalState disabled
+     *
      * @dataProvider providerSample
      */
     public function testSample(string $sample): void
