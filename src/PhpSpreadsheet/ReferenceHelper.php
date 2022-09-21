@@ -538,11 +538,7 @@ class ReferenceHelper
 
         // Update workbook: define names
         if (count($worksheet->getParent()->getDefinedNames()) > 0) {
-            foreach ($worksheet->getParent()->getDefinedNames() as $definedName) {
-                if ($definedName->getWorksheet() !== null && $definedName->getWorksheet()->getHashCode() === $worksheet->getHashCode()) {
-                    $definedName->setValue($this->updateCellReference($definedName->getValue()));
-                }
-            }
+            $this->updateDefinedNames($worksheet, $beforeCellAddress, $numberOfColumns, $numberOfRows);
         }
 
         // Garbage collect
@@ -1162,5 +1158,30 @@ class ReferenceHelper
     final public function __clone()
     {
         throw new Exception('Cloning a Singleton is not allowed!');
+    }
+
+    public function updateDefinedNames(Worksheet $worksheet, string $beforeCellAddress, int $numberOfColumns, int $numberOfRows): void
+    {
+        foreach ($worksheet->getParent()->getDefinedNames() as $definedName) {
+            if ($definedName->isFormula() === false) {
+                $cellAddress = $definedName->getValue();
+                $asFormula = ($cellAddress[0] === '=');
+                if ($definedName->getWorksheet() !== null && $definedName->getWorksheet()->getHashCode() === $worksheet->getHashCode()) {
+                    if ($asFormula === true) {
+                        $formula = $definedName->getValue();
+                        $formula = $this->updateFormulaReferences($formula, $beforeCellAddress, $numberOfColumns, $numberOfRows, $worksheet->getTitle());
+                        $definedName->setValue($formula);
+                    } else {
+                        $definedName->setValue($asFormula . $this->updateCellReference(ltrim($cellAddress, '=')));
+                    }
+                }
+            } else {
+                $formula = $definedName->getValue();
+                if ($definedName->getWorksheet() !== null && $definedName->getWorksheet()->getHashCode() === $worksheet->getHashCode()) {
+                    $formula = $this->updateFormulaReferences($formula, $beforeCellAddress, $numberOfColumns, $numberOfRows, $worksheet->getTitle());
+                    $definedName->setValue($formula);
+                }
+            }
+        }
     }
 }
