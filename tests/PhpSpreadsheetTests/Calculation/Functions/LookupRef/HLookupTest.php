@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use PhpOffice\PhpSpreadsheet\NamedRange;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\TestCase;
 
@@ -89,6 +90,44 @@ class HLookupTest extends TestCase
             false
         );
         self::assertSame($expectedResult, $result);
+    }
+
+    /**
+     * @dataProvider providerHLookupNamedRange
+     */
+    public function testHLookupNamedRange(string $expectedResult, string $cellAddress): void
+    {
+        $lookupData = [
+            ['Rating', 1, 2, 3, 4],
+            ['Level', 'Poor', 'Average', 'Good', 'Excellent'],
+        ];
+        $formData = [
+            ['Category', 'Rating', 'Level'],
+            ['Service', 2, '=HLOOKUP(C5,Lookup_Table,2,FALSE)'],
+            ['Quality', 3, '=HLOOKUP(C6,Lookup_Table,2,FALSE)'],
+            ['Value', 4, '=HLOOKUP(C7,Lookup_Table,2,FALSE)'],
+            ['Cleanliness', 3, '=HLOOKUP(C8,Lookup_Table,2,FALSE)'],
+        ];
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $worksheet->fromArray($lookupData, null, 'F4');
+        $worksheet->fromArray($formData, null, 'B4');
+
+        $spreadsheet->addNamedRange(new NamedRange('Lookup_Table', $worksheet, '=$G$4:$J$5'));
+
+        $result = $worksheet->getCell($cellAddress)->getCalculatedValue();
+        self::assertEquals($expectedResult, $result);
+    }
+
+    public function providerHLookupNamedRange(): array
+    {
+        return [
+            ['Average', 'D5'],
+            ['Good', 'D6'],
+            ['Excellent', 'D7'],
+            ['Good', 'D8'],
+        ];
     }
 
     /**

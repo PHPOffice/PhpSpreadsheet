@@ -1,6 +1,6 @@
 <?php
 
-use PhpOffice\PhpSpreadsheet\Chart\Axis;
+use PhpOffice\PhpSpreadsheet\Chart\Axis as ChartAxis;
 use PhpOffice\PhpSpreadsheet\Chart\Chart;
 use PhpOffice\PhpSpreadsheet\Chart\ChartColor;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeries;
@@ -120,13 +120,13 @@ $dataSeriesValues[2] // triangle border
     ->setColorProperties('accent4', null, ChartColor::EXCEL_COLOR_TYPE_SCHEME);
 $dataSeriesValues[2]->setScatterLines(false); // points not connected
 
-  // Added so that Xaxis shows dates instead of Excel-equivalent-year1900-numbers
-$xAxis = new Axis();
+// Added so that Xaxis shows dates instead of Excel-equivalent-year1900-numbers
+$xAxis = new ChartAxis();
 //$xAxis->setAxisNumberProperties(Properties::FORMAT_CODE_DATE );
 $xAxis->setAxisNumberProperties(Properties::FORMAT_CODE_DATE_ISO8601, true);
 $xAxis->setAxisOption('textRotation', '45');
 
-$yAxis = new Axis();
+$yAxis = new ChartAxis();
 $yAxis->setLineStyleProperties(
     2.5,     // width in points
     Properties::LINE_STYLE_COMPOUND_SIMPLE,

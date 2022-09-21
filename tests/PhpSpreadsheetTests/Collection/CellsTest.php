@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Collection;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Collection\Cells;
 use PhpOffice\PhpSpreadsheet\Collection\Memory;
+use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PHPUnit\Framework\TestCase;
@@ -107,7 +108,10 @@ class CellsTest extends TestCase
         $this->expectException(\PhpOffice\PhpSpreadsheet\Exception::class);
 
         $collection = $this->getMockBuilder(Cells::class)
-            ->setConstructorArgs([new Worksheet(), new Memory()])
+            ->setConstructorArgs([
+                new Worksheet(),
+                Settings::useSimpleCacheVersion3() ? new Memory\SimpleCache3() : new Memory\SimpleCache1(),
+            ])
             ->onlyMethods(['has'])
             ->getMock();
 
@@ -121,7 +125,9 @@ class CellsTest extends TestCase
     {
         $this->expectException(\PhpOffice\PhpSpreadsheet\Exception::class);
 
-        $cache = $this->createMock(Memory::class);
+        $cache = $this->createMock(
+            Settings::useSimpleCacheVersion3() ? Memory\SimpleCache3::class : Memory\SimpleCache1::class
+        );
         $cell = $this->createMock(Cell::class);
         $cache->method('set')
             ->willReturn(false);

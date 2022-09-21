@@ -22,6 +22,13 @@ with PhpSpreadsheet, it evaluates to the value "64":
 
 ![09-command-line-calculation.png](./images/09-command-line-calculation.png)
 
+When writing a formula to a cell, formulae should always be set as they would appear in an English version of Microsoft Office Excel, and PhpSpreadsheet handles all formulae internally in this format. This means that the following rules hold:
+
+ - Decimal separator is `.` (period)
+ - Function argument separator is `,` (comma)
+ - Matrix row separator is `;` (semicolon)
+ - English function names must be used
+
 Another nice feature of PhpSpreadsheet's formula parser, is that it can
 automatically adjust a formula when inserting/removing rows/columns.
 Here's an example:
@@ -42,6 +49,11 @@ Did you notice? The formula in the former cell E11 (now E13, as I
 inserted 2 new rows), changed to "SUM(E4:E11)". Also, the inserted cells
 duplicate style information of the previous cell, just like Excel's
 behaviour. Note that you can both insert rows and columns.
+
+If you want to "anchor" a specific cell for a formula, then you prefix the column and/or the row with a `$` symbol, exactly as you would in MS Excel itself.
+So if a formula contains "SUM(E$4:E9)", and you insert 2 new rows after row 1, the formula will be adjusted to read "SUM(E$4:E11)", with the `$` fixing row 4 as the start of the range.
+
+
 
 ## Calculation Cache
 

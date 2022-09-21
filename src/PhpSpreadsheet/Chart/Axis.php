@@ -10,6 +10,14 @@ namespace PhpOffice\PhpSpreadsheet\Chart;
  */
 class Axis extends Properties
 {
+    const AXIS_TYPE_CATEGORY = 'catAx';
+    const AXIS_TYPE_DATE = 'dateAx';
+    const AXIS_TYPE_VALUE = 'valAx';
+
+    const TIME_UNIT_DAYS = 'days';
+    const TIME_UNIT_MONTHS = 'months';
+    const TIME_UNIT_YEARS = 'years';
+
     public function __construct()
     {
         parent::__construct();
@@ -61,6 +69,10 @@ class Axis extends Properties
         'horizontal_crosses' => self::HORIZONTAL_CROSSES_AUTOZERO,
         'horizontal_crosses_value' => null,
         'textRotation' => null,
+        'hidden' => null,
+        'majorTimeUnit' => self::TIME_UNIT_YEARS,
+        'minorTimeUnit' => self::TIME_UNIT_MONTHS,
+        'baseTimeUnit' => self::TIME_UNIT_DAYS,
     ];
 
     /**
@@ -73,6 +85,7 @@ class Axis extends Properties
     private const NUMERIC_FORMAT = [
         Properties::FORMAT_CODE_NUMBER,
         Properties::FORMAT_CODE_DATE,
+        Properties::FORMAT_CODE_DATE_ISO8601,
     ];
 
     /**
@@ -114,12 +127,12 @@ class Axis extends Properties
 
     public function getAxisIsNumericFormat(): bool
     {
-        return (bool) $this->axisNumber['numeric'];
+        return $this->axisType === self::AXIS_TYPE_DATE || (bool) $this->axisNumber['numeric'];
     }
 
     public function setAxisOption(string $key, ?string $value): void
     {
-        if (!empty($value)) {
+        if ($value !== null && $value !== '') {
             $this->axisOptions[$key] = $value;
         }
     }
@@ -138,7 +151,11 @@ class Axis extends Properties
         ?string $maximum = null,
         ?string $majorUnit = null,
         ?string $minorUnit = null,
-        ?string $textRotation = null
+        ?string $textRotation = null,
+        ?string $hidden = null,
+        ?string $baseTimeUnit = null,
+        ?string $majorTimeUnit = null,
+        ?string $minorTimeUnit = null
     ): void {
         $this->axisOptions['axis_labels'] = $axisLabels;
         $this->setAxisOption('horizontal_crosses_value', $horizontalCrossesValue);
@@ -151,6 +168,10 @@ class Axis extends Properties
         $this->setAxisOption('major_unit', $majorUnit);
         $this->setAxisOption('minor_unit', $minorUnit);
         $this->setAxisOption('textRotation', $textRotation);
+        $this->setAxisOption('hidden', $hidden);
+        $this->setAxisOption('baseTimeUnit', $baseTimeUnit);
+        $this->setAxisOption('majorTimeUnit', $majorTimeUnit);
+        $this->setAxisOption('minorTimeUnit', $minorTimeUnit);
     }
 
     /**
@@ -182,7 +203,7 @@ class Axis extends Properties
 
     public function setAxisType(string $type): self
     {
-        if ($type === 'catAx' || $type === 'valAx') {
+        if ($type === self::AXIS_TYPE_CATEGORY || $type === self::AXIS_TYPE_VALUE || $type === self::AXIS_TYPE_DATE) {
             $this->axisType = $type;
         } else {
             $this->axisType = '';
@@ -198,7 +219,7 @@ class Axis extends Properties
      * @param ?int $alpha
      * @param ?string $AlphaType
      */
-    public function setFillParameters($color, $alpha = null, $AlphaType = self::EXCEL_COLOR_TYPE_ARGB): void
+    public function setFillParameters($color, $alpha = null, $AlphaType = ChartColor::EXCEL_COLOR_TYPE_RGB): void
     {
         $this->fillColor->setColorProperties($color, $alpha, $AlphaType);
     }

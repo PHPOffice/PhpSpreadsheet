@@ -3,11 +3,11 @@
 namespace PhpOffice\PhpSpreadsheetTests\Chart;
 
 use PhpOffice\PhpSpreadsheet\Chart\Chart;
+use PhpOffice\PhpSpreadsheet\Chart\ChartColor;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeries;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues;
 use PhpOffice\PhpSpreadsheet\Chart\Legend as ChartLegend;
 use PhpOffice\PhpSpreadsheet\Chart\PlotArea;
-use PhpOffice\PhpSpreadsheet\Chart\Properties;
 use PhpOffice\PhpSpreadsheet\Chart\Title;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -109,7 +109,7 @@ class MultiplierTest extends TestCase
                 'ky' => null,
             ],
             'color' => [
-                'type' => Properties::EXCEL_COLOR_TYPE_ARGB,
+                'type' => ChartColor::EXCEL_COLOR_TYPE_RGB,
                 'value' => 'FF0000',
                 'alpha' => 20,
             ],

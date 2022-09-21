@@ -3,11 +3,11 @@
 namespace PhpOffice\PhpSpreadsheetTests\Chart;
 
 use PhpOffice\PhpSpreadsheet\Chart\Chart;
+use PhpOffice\PhpSpreadsheet\Chart\ChartColor;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeries;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues;
 use PhpOffice\PhpSpreadsheet\Chart\Legend as ChartLegend;
 use PhpOffice\PhpSpreadsheet\Chart\PlotArea;
-use PhpOffice\PhpSpreadsheet\Chart\Properties;
 use PhpOffice\PhpSpreadsheet\Chart\Title;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx as XlsxReader;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -107,7 +107,7 @@ class AxisGlowTest extends AbstractFunctional
         $yAxis = $chart->getChartAxisY();
         $xAxis = $chart->getChartAxisX();
         $yGlowSize = 10.0;
-        $yAxis->setGlowProperties($yGlowSize, 'FFFF00', 30, Properties::EXCEL_COLOR_TYPE_ARGB);
+        $yAxis->setGlowProperties($yGlowSize, 'FFFF00', 30, ChartColor::EXCEL_COLOR_TYPE_RGB);
         $expectedGlowColor = [
             'type' => 'srgbClr',
             'value' => 'FFFF00',
@@ -231,7 +231,7 @@ class AxisGlowTest extends AbstractFunctional
         );
         $yAxis = $chart->getChartAxisX(); // deliberate
         $yGlowSize = 20.0;
-        $yAxis->setGlowProperties($yGlowSize, 'accent1', 20, Properties::EXCEL_COLOR_TYPE_SCHEME);
+        $yAxis->setGlowProperties($yGlowSize, 'accent1', 20, ChartColor::EXCEL_COLOR_TYPE_SCHEME);
         $expectedGlowColor = [
             'type' => 'schemeClr',
             'value' => 'accent1',
