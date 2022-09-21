@@ -4864,7 +4864,6 @@ class Calculation
                 if (isset($storeKey)) {
                     $branchStore[$storeKey] = $cellValue;
                 }
-
             } elseif (preg_match('/^' . self::CALCULATION_REGEXP_FUNCTION . '$/miu', $token ?? '', $matches)) {
                 // if the token is a function, pop arguments off the stack, hand them to the function, and push the result back on
                 if ($pCellParent) {
