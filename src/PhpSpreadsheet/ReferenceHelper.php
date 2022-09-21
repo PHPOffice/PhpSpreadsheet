@@ -539,8 +539,17 @@ class ReferenceHelper
         // Update workbook: define names
         if (count($worksheet->getParent()->getDefinedNames()) > 0) {
             foreach ($worksheet->getParent()->getDefinedNames() as $definedName) {
-                if ($definedName->getWorksheet() !== null && $definedName->getWorksheet()->getHashCode() === $worksheet->getHashCode()) {
-                    $definedName->setValue($this->updateCellReference($definedName->getValue()));
+                if ($definedName->isFormula() === false) {
+                    $asFormula = ($definedName->getValue()[0] === '=') ? '=' : '';
+                    if ($definedName->getWorksheet() !== null && $definedName->getWorksheet()->getHashCode() === $worksheet->getHashCode()) {
+                        $definedName->setValue($asFormula . $this->updateCellReference(ltrim($definedName->getValue(), '=')));
+                    }
+                } else {
+                    $formula = $definedName->getValue();
+                    if ($definedName->getWorksheet() !== null && $definedName->getWorksheet()->getHashCode() === $worksheet->getHashCode()) {
+                        $formula = $this->updateFormulaReferences($formula, $beforeCellAddress, $numberOfColumns, $numberOfRows, $worksheet->getTitle());
+                        $definedName->setValue($formula);
+                    }
                 }
             }
         }
