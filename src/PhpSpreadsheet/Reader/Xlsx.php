@@ -1371,7 +1371,6 @@ class Xlsx extends BaseReader
                                                     $blip = $twoCellAnchor->pic->blipFill->children(Namespaces::DRAWINGML)->blip;
                                                     $xfrm = $twoCellAnchor->pic->spPr->children(Namespaces::DRAWINGML)->xfrm;
                                                     $outerShdw = $twoCellAnchor->pic->spPr->children(Namespaces::DRAWINGML)->effectLst->outerShdw;
-                                                    $hlinkClick = $twoCellAnchor->pic->nvPicPr->cNvPr->children(Namespaces::DRAWINGML)->hlinkClick;
                                                     $objDrawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
                                                     /** @scrutinizer ignore-call */
                                                     $editAs = $twoCellAnchor->attributes();
