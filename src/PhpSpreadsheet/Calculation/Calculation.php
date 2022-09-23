@@ -4793,7 +4793,7 @@ class Calculation
 
                 if (isset($matches[8])) {
                     if ($cell === null) {
-                        //                        We can't access the range, so return a REF error
+                        // We can't access the range, so return a REF error
                         $cellValue = Information\ExcelError::REF();
                     } else {
                         $cellRef = $matches[6] . $matches[7] . ':' . $matches[9] . $matches[10];
