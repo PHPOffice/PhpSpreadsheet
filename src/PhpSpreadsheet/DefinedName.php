@@ -150,7 +150,7 @@ abstract class DefinedName
 
             // New title
             $newTitle = $this->name;
-            ReferenceHelper::getInstance()->updateNamedFormulas($this->worksheet->getParent(), $oldTitle, $newTitle);
+            ReferenceHelper::getInstance()->updateNamedFormulae($this->worksheet->getParent(), $oldTitle, $newTitle);
         }
 
         return $this;

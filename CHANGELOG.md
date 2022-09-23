@@ -38,6 +38,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
+- Fix update to defined names when inserting/deleting rows/columns [Issue #3076](https://github.com/PHPOffice/PhpSpreadsheet/issues/3076) [PR #3077](https://github.com/PHPOffice/PhpSpreadsheet/pull/3077) 
 - Fix DataValidation sqRef when inserting/deleting rows/columns [Issue #3056](https://github.com/PHPOffice/PhpSpreadsheet/issues/3056) [PR #3074](https://github.com/PHPOffice/PhpSpreadsheet/pull/3074)
 - Named ranges not usable as anchors in OFFSET function [Issue #3013](https://github.com/PHPOffice/PhpSpreadsheet/issues/3013)
 - Fully flatten an array [Issue #2955](https://github.com/PHPOffice/PhpSpreadsheet/issues/2955) [PR #2956](https://github.com/PHPOffice/PhpSpreadsheet/pull/2956)
