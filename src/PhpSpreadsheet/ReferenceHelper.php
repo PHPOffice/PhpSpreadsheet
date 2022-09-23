@@ -906,11 +906,10 @@ class ReferenceHelper
         $asFormula = ($cellAddress[0] === '=');
         if ($definedName->getWorksheet() !== null && $definedName->getWorksheet()->getHashCode() === $worksheet->getHashCode()) {
             if ($asFormula === true) {
-                $formula = $definedName->getValue();
-                $formula = $this->updateFormulaReferences($formula, $beforeCellAddress, $numberOfColumns, $numberOfRows, $worksheet->getTitle());
+                $formula = $this->updateFormulaReferences($cellAddress, $beforeCellAddress, $numberOfColumns, $numberOfRows, $worksheet->getTitle());
                 $definedName->setValue($formula);
             } else {
-                $definedName->setValue($asFormula . $this->updateCellReference(ltrim($cellAddress, '=')));
+                $definedName->setValue($this->updateCellReference(ltrim($cellAddress, '=')));
             }
         }
     }
