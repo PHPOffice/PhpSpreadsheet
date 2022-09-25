@@ -81,7 +81,7 @@
 
     <article class="phpdocumentor-element -class">
         <h2 class="phpdocumentor-content__title">
-    Axis
+    TrendLine
 
         <span class="phpdocumentor-element__extends">
         extends <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Properties.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Properties">Properties</abbr></a>
@@ -92,16 +92,16 @@
     </h2>
 
         <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/TrendLine.php"><a href="files/src-phpspreadsheet-chart-trendline.html"><abbr title="src/PhpSpreadsheet/Chart/TrendLine.php">TrendLine.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">11</span>
+    <span class="phpdocumentor-element-found-in__line">5</span>
 </aside>
 
             <p class="phpdocumentor-summary">Created by PhpStorm.</p>
 
-    <section class="phpdocumentor-description"><p>User: Wiktor Trzonkowski
-Date: 6/17/14
-Time: 12:11 PM.</p>
+    <section class="phpdocumentor-description"><p>User: nhw2h8s
+Date: 7/2/14
+Time: 5:45 PM.</p>
 </section>
 
 
@@ -149,27 +149,6 @@ Time: 12:11 PM.</p>
     <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Properties.html#constant_AXIS_LABELS_NONE">AXIS_LABELS_NONE</a>
     <span>
         &nbsp;= &#039;none&#039;                    </span>
-</dt>
-<dd></dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#constant_AXIS_TYPE_CATEGORY">AXIS_TYPE_CATEGORY</a>
-    <span>
-        &nbsp;= &#039;catAx&#039;                    </span>
-</dt>
-<dd></dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#constant_AXIS_TYPE_DATE">AXIS_TYPE_DATE</a>
-    <span>
-        &nbsp;= &#039;dateAx&#039;                    </span>
-</dt>
-<dd></dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#constant_AXIS_TYPE_VALUE">AXIS_TYPE_VALUE</a>
-    <span>
-        &nbsp;= &#039;valAx&#039;                    </span>
 </dt>
 <dd></dd>
 
@@ -762,23 +741,51 @@ Time: 12:11 PM.</p>
 <dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#constant_TIME_UNIT_DAYS">TIME_UNIT_DAYS</a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#constant_TRENDLINE_EXPONENTIAL">TRENDLINE_EXPONENTIAL</a>
     <span>
-        &nbsp;= &#039;days&#039;                    </span>
+        &nbsp;= &#039;exp&#039;                    </span>
 </dt>
 <dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#constant_TIME_UNIT_MONTHS">TIME_UNIT_MONTHS</a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#constant_TRENDLINE_LINEAR">TRENDLINE_LINEAR</a>
     <span>
-        &nbsp;= &#039;months&#039;                    </span>
+        &nbsp;= &#039;linear&#039;                    </span>
 </dt>
 <dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#constant_TIME_UNIT_YEARS">TIME_UNIT_YEARS</a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#constant_TRENDLINE_LOGARITHMIC">TRENDLINE_LOGARITHMIC</a>
     <span>
-        &nbsp;= &#039;years&#039;                    </span>
+        &nbsp;= &#039;log&#039;                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#constant_TRENDLINE_MOVING_AVG">TRENDLINE_MOVING_AVG</a>
+    <span>
+        &nbsp;= &#039;movingAvg&#039;                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#constant_TRENDLINE_POLYNOMIAL">TRENDLINE_POLYNOMIAL</a>
+    <span>
+        &nbsp;= &#039;poly&#039;                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#constant_TRENDLINE_POWER">TRENDLINE_POWER</a>
+    <span>
+        &nbsp;= &#039;power&#039;                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#constant_TRENDLINE_TYPES">TRENDLINE_TYPES</a>
+    <span>
+        &nbsp;= [self::TRENDLINE_EXPONENTIAL, self::TRENDLINE_LINEAR, self::TRENDLINE_LOGARITHMIC, self::TRENDLINE_POLYNOMIAL, self::TRENDLINE_POWER, self::TRENDLINE_MOVING_AVG]                    </span>
 </dt>
 <dd></dd>
 
@@ -846,13 +853,6 @@ Time: 12:11 PM.</p>
 </dt>
 <dd></dd>
 
-            <dt class="phpdocumentor-table-of-contents__entry -constant -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#constant_NUMERIC_FORMAT">NUMERIC_FORMAT</a>
-    <span>
-        &nbsp;= [PhpOfficePhpSpreadsheetChartProperties::FORMAT_CODE_NUMBER, PhpOfficePhpSpreadsheetChartProperties::FORMAT_CODE_DATE, PhpOfficePhpSpreadsheetChartProperties::FORMAT_CODE_DATE_ISO8601]                    </span>
-</dt>
-<dd></dd>
-
                 <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Properties.html#property_glowColor">$glowColor</a>
     <span>
@@ -910,60 +910,74 @@ Time: 12:11 PM.</p>
 <dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#property_axisNumber">$axisNumber</a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#property_backward">$backward</a>
     <span>
-                &nbsp;: array&lt;string|int, mixed&gt;            </span>
+                &nbsp;: float            </span>
 </dt>
-<dd>Axis Number.</dd>
+<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#property_axisOptions">$axisOptions</a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#property_dispEq">$dispEq</a>
     <span>
-                &nbsp;: array&lt;string|int, mixed&gt;            </span>
+                &nbsp;: bool            </span>
 </dt>
-<dd>Axis Options.</dd>
+<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#property_axisType">$axisType</a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#property_dispRSqr">$dispRSqr</a>
+    <span>
+                &nbsp;: bool            </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#property_forward">$forward</a>
+    <span>
+                &nbsp;: float            </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#property_intercept">$intercept</a>
+    <span>
+                &nbsp;: float            </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#property_name">$name</a>
     <span>
                 &nbsp;: string            </span>
 </dt>
 <dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#property_crossBetween">$crossBetween</a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#property_order">$order</a>
     <span>
-                &nbsp;: string            </span>
+                &nbsp;: int            </span>
 </dt>
 <dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#property_fillColor">$fillColor</a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#property_period">$period</a>
     <span>
-                &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Chart-ChartColor.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\ChartColor">ChartColor</abbr></a>            </span>
+                &nbsp;: int            </span>
 </dt>
-<dd>Fill Properties.</dd>
+<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#property_majorGridlines">$majorGridlines</a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#property_trendLineType">$trendLineType</a>
     <span>
-                &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Chart-GridLines.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\GridLines">GridLines</abbr></a>|null            </span>
+                &nbsp;: string            </span>
 </dt>
-<dd>Chart Major Gridlines as.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#property_minorGridlines">$minorGridlines</a>
-    <span>
-                &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Chart-GridLines.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\GridLines">GridLines</abbr></a>|null            </span>
-</dt>
-<dd>Chart Minor Gridlines as.</dd>
+<dd></dd>
 
                 <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#method___construct">__construct()</a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#method___construct">__construct()</a>
     <span>
                         &nbsp;: mixed    </span>
 </dt>
-<dd></dd>
+<dd>Create a new TrendLine object.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Properties.html#method_activateObject">activateObject()</a>
@@ -987,60 +1001,32 @@ Time: 12:11 PM.</p>
 <dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#method_getAxisIsNumericFormat">getAxisIsNumericFormat()</a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#method_getBackward">getBackward()</a>
+    <span>
+                        &nbsp;: float    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#method_getDispEq">getDispEq()</a>
     <span>
                         &nbsp;: bool    </span>
 </dt>
 <dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#method_getAxisNumberFormat">getAxisNumberFormat()</a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#method_getDispRSqr">getDispRSqr()</a>
     <span>
-                        &nbsp;: string    </span>
-</dt>
-<dd>Get Axis Number Format Data Type.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#method_getAxisNumberSourceLinked">getAxisNumberSourceLinked()</a>
-    <span>
-                        &nbsp;: string    </span>
-</dt>
-<dd>Get Axis Number Source Linked.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#method_getAxisOptionsProperty">getAxisOptionsProperty()</a>
-    <span>
-                        &nbsp;: string|null    </span>
-</dt>
-<dd>Get Axis Options Property.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#method_getAxisType">getAxisType()</a>
-    <span>
-                        &nbsp;: string    </span>
+                        &nbsp;: bool    </span>
 </dt>
 <dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#method_getCrossBetween">getCrossBetween()</a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#method_getForward">getForward()</a>
     <span>
-                        &nbsp;: string    </span>
+                        &nbsp;: float    </span>
 </dt>
 <dd></dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#method_getFillColorObject">getFillColorObject()</a>
-    <span>
-                        &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Chart-ChartColor.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\ChartColor">ChartColor</abbr></a>    </span>
-</dt>
-<dd></dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#method_getFillProperty">getFillProperty()</a>
-    <span>
-                        &nbsp;: string    </span>
-</dt>
-<dd>Get Fill Property.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Properties.html#method_getGlowColor">getGlowColor()</a>
@@ -1071,6 +1057,13 @@ Time: 12:11 PM.</p>
 <dd>Get Glow Size.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#method_getIntercept">getIntercept()</a>
+    <span>
+                        &nbsp;: float    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Properties.html#method_getLineColor">getLineColor()</a>
     <span>
                         &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Chart-ChartColor.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\ChartColor">ChartColor</abbr></a>    </span>
@@ -1079,13 +1072,6 @@ Time: 12:11 PM.</p>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Properties.html#method_getLineColorProperty">getLineColorProperty()</a>
-    <span>
-                        &nbsp;: null|int|string    </span>
-</dt>
-<dd>Get Line Color Property.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#method_getLineProperty">getLineProperty()</a>
     <span>
                         &nbsp;: null|int|string    </span>
 </dt>
@@ -1127,16 +1113,9 @@ Time: 12:11 PM.</p>
 <dd>Get Line Style Property.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#method_getMajorGridlines">getMajorGridlines()</a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#method_getName">getName()</a>
     <span>
-                        &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Chart-GridLines.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\GridLines">GridLines</abbr></a>|null    </span>
-</dt>
-<dd></dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#method_getMinorGridlines">getMinorGridlines()</a>
-    <span>
-                        &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Chart-GridLines.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\GridLines">GridLines</abbr></a>|null    </span>
+                        &nbsp;: string    </span>
 </dt>
 <dd></dd>
 
@@ -1146,6 +1125,20 @@ Time: 12:11 PM.</p>
                         &nbsp;: bool    </span>
 </dt>
 <dd>Get Object State.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#method_getOrder">getOrder()</a>
+    <span>
+                        &nbsp;: int    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#method_getPeriod">getPeriod()</a>
+    <span>
+                        &nbsp;: int    </span>
+</dt>
+<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Properties.html#method_getShadowArray">getShadowArray()</a>
@@ -1176,6 +1169,13 @@ Time: 12:11 PM.</p>
 <dd>Get Soft Edges Size.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#method_getTrendLineType">getTrendLineType()</a>
+    <span>
+                        &nbsp;: string    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Properties.html#method_pointsToXml">pointsToXml()</a>
     <span>
                         &nbsp;: string    </span>
@@ -1183,53 +1183,32 @@ Time: 12:11 PM.</p>
 <dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#method_setAxisNumberProperties">setAxisNumberProperties()</a>
-    <span>
-                        &nbsp;: void    </span>
-</dt>
-<dd>Get Series Data Type.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#method_setAxisOption">setAxisOption()</a>
-    <span>
-                        &nbsp;: void    </span>
-</dt>
-<dd></dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#method_setAxisOptionsProperties">setAxisOptionsProperties()</a>
-    <span>
-                        &nbsp;: void    </span>
-</dt>
-<dd>Set Axis Options Properties.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#method_setAxisOrientation">setAxisOrientation()</a>
-    <span>
-                        &nbsp;: void    </span>
-</dt>
-<dd>Set Axis Orientation Property.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#method_setAxisType">setAxisType()</a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#method_setBackward">setBackward()</a>
     <span>
                         &nbsp;: self    </span>
 </dt>
 <dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#method_setCrossBetween">setCrossBetween()</a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#method_setDispEq">setDispEq()</a>
     <span>
                         &nbsp;: self    </span>
 </dt>
 <dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#method_setFillParameters">setFillParameters()</a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#method_setDispRSqr">setDispRSqr()</a>
     <span>
-                        &nbsp;: void    </span>
+                        &nbsp;: self    </span>
 </dt>
-<dd>Set Fill Property.</dd>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#method_setForward">setForward()</a>
+    <span>
+                        &nbsp;: self    </span>
+</dt>
+<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Properties.html#method_setGlowProperties">setGlowProperties()</a>
@@ -1237,6 +1216,13 @@ Time: 12:11 PM.</p>
                         &nbsp;: void    </span>
 </dt>
 <dd>Set Glow Properties.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#method_setIntercept">setIntercept()</a>
+    <span>
+                        &nbsp;: self    </span>
+</dt>
+<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Properties.html#method_setLineColorProperties">setLineColorProperties()</a>
@@ -1267,14 +1253,21 @@ Time: 12:11 PM.</p>
 <dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#method_setMajorGridlines">setMajorGridlines()</a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#method_setName">setName()</a>
     <span>
                         &nbsp;: self    </span>
 </dt>
 <dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#method_setMinorGridlines">setMinorGridlines()</a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#method_setOrder">setOrder()</a>
+    <span>
+                        &nbsp;: self    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#method_setPeriod">setPeriod()</a>
     <span>
                         &nbsp;: self    </span>
 </dt>
@@ -1300,6 +1293,20 @@ Time: 12:11 PM.</p>
                         &nbsp;: void    </span>
 </dt>
 <dd>Set Soft Edges Size.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#method_setTrendLineProperties">setTrendLineProperties()</a>
+    <span>
+                        &nbsp;: self    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#method_setTrendLineType">setTrendLineType()</a>
+    <span>
+                        &nbsp;: self    </span>
+</dt>
+<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Properties.html#method_tenthOfPercentToXml">tenthOfPercentToXml()</a>
@@ -1407,7 +1414,7 @@ Time: 12:11 PM.</p>
     <section class="phpdocumentor-constants">
         <h3 class="phpdocumentor-elements__header" id="constants">
             Constants
-            <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#constants" class="headerlink"><i class="fas fa-link"></i></a>
+            <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#constants" class="headerlink"><i class="fas fa-link"></i></a>
         </h3>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_ANGLE_MULTIPLIER">
@@ -1527,81 +1534,6 @@ Time: 12:11 PM.</p>
     <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">AXIS_LABELS_NONE</span>
     = <span class="phpdocumentor-signature__default-value">&#039;none&#039;</span>
-</code>
-
-
-    
-    
-
-</article>
-                    <article class="phpdocumentor-element -constant -public ">
-    <h4 class="phpdocumentor-element__name" id="constant_AXIS_TYPE_CATEGORY">
-        AXIS_TYPE_CATEGORY
-        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#constant_AXIS_TYPE_CATEGORY" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">13</span>
-</aside>
-
-    
-    <code class="phpdocumentor-signature phpdocumentor-code ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-    <span class="phpdocumentor-signature__type">mixed</span>
-    <span class="phpdocumentor-signature__name">AXIS_TYPE_CATEGORY</span>
-    = <span class="phpdocumentor-signature__default-value">&#039;catAx&#039;</span>
-</code>
-
-
-    
-    
-
-</article>
-                    <article class="phpdocumentor-element -constant -public ">
-    <h4 class="phpdocumentor-element__name" id="constant_AXIS_TYPE_DATE">
-        AXIS_TYPE_DATE
-        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#constant_AXIS_TYPE_DATE" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">14</span>
-</aside>
-
-    
-    <code class="phpdocumentor-signature phpdocumentor-code ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-    <span class="phpdocumentor-signature__type">mixed</span>
-    <span class="phpdocumentor-signature__name">AXIS_TYPE_DATE</span>
-    = <span class="phpdocumentor-signature__default-value">&#039;dateAx&#039;</span>
-</code>
-
-
-    
-    
-
-</article>
-                    <article class="phpdocumentor-element -constant -public ">
-    <h4 class="phpdocumentor-element__name" id="constant_AXIS_TYPE_VALUE">
-        AXIS_TYPE_VALUE
-        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#constant_AXIS_TYPE_VALUE" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">15</span>
-</aside>
-
-    
-    <code class="phpdocumentor-signature phpdocumentor-code ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-    <span class="phpdocumentor-signature__type">mixed</span>
-    <span class="phpdocumentor-signature__name">AXIS_TYPE_VALUE</span>
-    = <span class="phpdocumentor-signature__default-value">&#039;valAx&#039;</span>
 </code>
 
 
@@ -3778,23 +3710,23 @@ Time: 12:11 PM.</p>
 
 </article>
                     <article class="phpdocumentor-element -constant -public ">
-    <h4 class="phpdocumentor-element__name" id="constant_TIME_UNIT_DAYS">
-        TIME_UNIT_DAYS
-        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#constant_TIME_UNIT_DAYS" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="constant_TRENDLINE_EXPONENTIAL">
+        TRENDLINE_EXPONENTIAL
+        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#constant_TRENDLINE_EXPONENTIAL" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
 
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/TrendLine.php"><a href="files/src-phpspreadsheet-chart-trendline.html"><abbr title="src/PhpSpreadsheet/Chart/TrendLine.php">TrendLine.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">17</span>
+    <span class="phpdocumentor-element-found-in__line">7</span>
 </aside>
 
     
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
     <span class="phpdocumentor-signature__type">mixed</span>
-    <span class="phpdocumentor-signature__name">TIME_UNIT_DAYS</span>
-    = <span class="phpdocumentor-signature__default-value">&#039;days&#039;</span>
+    <span class="phpdocumentor-signature__name">TRENDLINE_EXPONENTIAL</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;exp&#039;</span>
 </code>
 
 
@@ -3803,23 +3735,23 @@ Time: 12:11 PM.</p>
 
 </article>
                     <article class="phpdocumentor-element -constant -public ">
-    <h4 class="phpdocumentor-element__name" id="constant_TIME_UNIT_MONTHS">
-        TIME_UNIT_MONTHS
-        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#constant_TIME_UNIT_MONTHS" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="constant_TRENDLINE_LINEAR">
+        TRENDLINE_LINEAR
+        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#constant_TRENDLINE_LINEAR" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
 
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/TrendLine.php"><a href="files/src-phpspreadsheet-chart-trendline.html"><abbr title="src/PhpSpreadsheet/Chart/TrendLine.php">TrendLine.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">18</span>
+    <span class="phpdocumentor-element-found-in__line">8</span>
 </aside>
 
     
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
     <span class="phpdocumentor-signature__type">mixed</span>
-    <span class="phpdocumentor-signature__name">TIME_UNIT_MONTHS</span>
-    = <span class="phpdocumentor-signature__default-value">&#039;months&#039;</span>
+    <span class="phpdocumentor-signature__name">TRENDLINE_LINEAR</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;linear&#039;</span>
 </code>
 
 
@@ -3828,23 +3760,123 @@ Time: 12:11 PM.</p>
 
 </article>
                     <article class="phpdocumentor-element -constant -public ">
-    <h4 class="phpdocumentor-element__name" id="constant_TIME_UNIT_YEARS">
-        TIME_UNIT_YEARS
-        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#constant_TIME_UNIT_YEARS" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="constant_TRENDLINE_LOGARITHMIC">
+        TRENDLINE_LOGARITHMIC
+        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#constant_TRENDLINE_LOGARITHMIC" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
 
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/TrendLine.php"><a href="files/src-phpspreadsheet-chart-trendline.html"><abbr title="src/PhpSpreadsheet/Chart/TrendLine.php">TrendLine.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">19</span>
+    <span class="phpdocumentor-element-found-in__line">9</span>
 </aside>
 
     
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
     <span class="phpdocumentor-signature__type">mixed</span>
-    <span class="phpdocumentor-signature__name">TIME_UNIT_YEARS</span>
-    = <span class="phpdocumentor-signature__default-value">&#039;years&#039;</span>
+    <span class="phpdocumentor-signature__name">TRENDLINE_LOGARITHMIC</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;log&#039;</span>
+</code>
+
+
+    
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_TRENDLINE_MOVING_AVG">
+        TRENDLINE_MOVING_AVG
+        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#constant_TRENDLINE_MOVING_AVG" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/TrendLine.php"><a href="files/src-phpspreadsheet-chart-trendline.html"><abbr title="src/PhpSpreadsheet/Chart/TrendLine.php">TrendLine.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">12</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">TRENDLINE_MOVING_AVG</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;movingAvg&#039;</span>
+</code>
+
+
+    
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_TRENDLINE_POLYNOMIAL">
+        TRENDLINE_POLYNOMIAL
+        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#constant_TRENDLINE_POLYNOMIAL" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/TrendLine.php"><a href="files/src-phpspreadsheet-chart-trendline.html"><abbr title="src/PhpSpreadsheet/Chart/TrendLine.php">TrendLine.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">10</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">TRENDLINE_POLYNOMIAL</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;poly&#039;</span>
+</code>
+
+
+    
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_TRENDLINE_POWER">
+        TRENDLINE_POWER
+        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#constant_TRENDLINE_POWER" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/TrendLine.php"><a href="files/src-phpspreadsheet-chart-trendline.html"><abbr title="src/PhpSpreadsheet/Chart/TrendLine.php">TrendLine.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">11</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">TRENDLINE_POWER</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;power&#039;</span>
+</code>
+
+
+    
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_TRENDLINE_TYPES">
+        TRENDLINE_TYPES
+        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#constant_TRENDLINE_TYPES" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/TrendLine.php"><a href="files/src-phpspreadsheet-chart-trendline.html"><abbr title="src/PhpSpreadsheet/Chart/TrendLine.php">TrendLine.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">13</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">TRENDLINE_TYPES</span>
+    = <span class="phpdocumentor-signature__default-value">[self::TRENDLINE_EXPONENTIAL, self::TRENDLINE_LINEAR, self::TRENDLINE_LOGARITHMIC, self::TRENDLINE_POLYNOMIAL, self::TRENDLINE_POWER, self::TRENDLINE_MOVING_AVG]</span>
 </code>
 
 
@@ -3970,38 +4002,13 @@ Time: 12:11 PM.</p>
     
 
 </article>
-                    <article class="phpdocumentor-element -constant -private ">
-    <h4 class="phpdocumentor-element__name" id="constant_NUMERIC_FORMAT">
-        NUMERIC_FORMAT
-        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#constant_NUMERIC_FORMAT" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">85</span>
-</aside>
-
-    
-    <code class="phpdocumentor-signature phpdocumentor-code ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-    <span class="phpdocumentor-signature__type">mixed</span>
-    <span class="phpdocumentor-signature__name">NUMERIC_FORMAT</span>
-    = <span class="phpdocumentor-signature__default-value">[PhpOfficePhpSpreadsheetChartProperties::FORMAT_CODE_NUMBER, PhpOfficePhpSpreadsheetChartProperties::FORMAT_CODE_DATE, PhpOfficePhpSpreadsheetChartProperties::FORMAT_CODE_DATE_ISO8601]</span>
-</code>
-
-
-    
-    
-
-</article>
             </section>
 
         
     <section class="phpdocumentor-properties">
         <h3 class="phpdocumentor-elements__header" id="properties">
             Properties
-            <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
+            <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
         </h3>
                     <article
         class="
@@ -4284,25 +4291,24 @@ Time: 12:11 PM.</p>
             -private
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="property_axisNumber">
-        $axisNumber
-        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#property_axisNumber" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="property_backward">
+        $backward
+        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#property_backward" class="headerlink"><i class="fas fa-link"></i></a>
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/TrendLine.php"><a href="files/src-phpspreadsheet-chart-trendline.html"><abbr title="src/PhpSpreadsheet/Chart/TrendLine.php">TrendLine.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">46</span>
+    <span class="phpdocumentor-element-found-in__line">41</span>
 </aside>
 
-        <p class="phpdocumentor-summary">Axis Number.</p>
-
+    
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
-    <span class="phpdocumentor-signature__name">$axisNumber</span>
-     = <span class="phpdocumentor-signature__default-value">[&#039;format&#039; =&gt; self::FORMAT_CODE_GENERAL, &#039;source_linked&#039; =&gt; 1, &#039;numeric&#039; =&gt; null]</span></code>
+        <span class="phpdocumentor-signature__type">float</span>
+    <span class="phpdocumentor-signature__name">$backward</span>
+     = <span class="phpdocumentor-signature__default-value">0.0</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -4316,25 +4322,24 @@ Time: 12:11 PM.</p>
             -private
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="property_axisOptions">
-        $axisOptions
-        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#property_axisOptions" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="property_dispEq">
+        $dispEq
+        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#property_dispEq" class="headerlink"><i class="fas fa-link"></i></a>
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/TrendLine.php"><a href="files/src-phpspreadsheet-chart-trendline.html"><abbr title="src/PhpSpreadsheet/Chart/TrendLine.php">TrendLine.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">60</span>
+    <span class="phpdocumentor-element-found-in__line">35</span>
 </aside>
 
-        <p class="phpdocumentor-summary">Axis Options.</p>
-
+    
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
-    <span class="phpdocumentor-signature__name">$axisOptions</span>
-     = <span class="phpdocumentor-signature__default-value">[&#039;minimum&#039; =&gt; null, &#039;maximum&#039; =&gt; null, &#039;major_unit&#039; =&gt; null, &#039;minor_unit&#039; =&gt; null, &#039;orientation&#039; =&gt; self::ORIENTATION_NORMAL, &#039;minor_tick_mark&#039; =&gt; self::TICK_MARK_NONE, &#039;major_tick_mark&#039; =&gt; self::TICK_MARK_NONE, &#039;axis_labels&#039; =&gt; self::AXIS_LABELS_NEXT_TO, &#039;horizontal_crosses&#039; =&gt; self::HORIZONTAL_CROSSES_AUTOZERO, &#039;horizontal_crosses_value&#039; =&gt; null, &#039;textRotation&#039; =&gt; null, &#039;hidden&#039; =&gt; null, &#039;majorTimeUnit&#039; =&gt; self::TIME_UNIT_YEARS, &#039;minorTimeUnit&#039; =&gt; self::TIME_UNIT_MONTHS, &#039;baseTimeUnit&#039; =&gt; self::TIME_UNIT_DAYS]</span></code>
+        <span class="phpdocumentor-signature__type">bool</span>
+    <span class="phpdocumentor-signature__name">$dispEq</span>
+     = <span class="phpdocumentor-signature__default-value">false</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -4348,119 +4353,24 @@ Time: 12:11 PM.</p>
             -private
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="property_axisType">
-        $axisType
-        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#property_axisType" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="property_dispRSqr">
+        $dispRSqr
+        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#property_dispRSqr" class="headerlink"><i class="fas fa-link"></i></a>
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">53</span>
-</aside>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type">string</span>
-    <span class="phpdocumentor-signature__name">$axisType</span>
-     = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span></code>
-
-        <section class="phpdocumentor-description"></section>
-
-    
-
-</article>
-                    <article
-        class="
-            phpdocumentor-element
-            -property
-            -private
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="property_crossBetween">
-        $crossBetween
-        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#property_crossBetween" class="headerlink"><i class="fas fa-link"></i></a>
-        <span class="phpdocumentor-element__modifiers">
-                                </span>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">262</span>
-</aside>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type">string</span>
-    <span class="phpdocumentor-signature__name">$crossBetween</span>
-     = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span></code>
-
-        <section class="phpdocumentor-description"></section>
-
-    
-
-</article>
-                    <article
-        class="
-            phpdocumentor-element
-            -property
-            -private
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="property_fillColor">
-        $fillColor
-        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#property_fillColor" class="headerlink"><i class="fas fa-link"></i></a>
-        <span class="phpdocumentor-element__modifiers">
-                                </span>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">83</span>
-</aside>
-
-        <p class="phpdocumentor-summary">Fill Properties.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-ChartColor.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\ChartColor">ChartColor</abbr></a></span>
-    <span class="phpdocumentor-signature__name">$fillColor</span>
-    </code>
-
-        <section class="phpdocumentor-description"></section>
-
-    
-
-</article>
-                    <article
-        class="
-            phpdocumentor-element
-            -property
-            -private
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="property_majorGridlines">
-        $majorGridlines
-        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#property_majorGridlines" class="headerlink"><i class="fas fa-link"></i></a>
-        <span class="phpdocumentor-element__modifiers">
-                                </span>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/TrendLine.php"><a href="files/src-phpspreadsheet-chart-trendline.html"><abbr title="src/PhpSpreadsheet/Chart/TrendLine.php">TrendLine.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">32</span>
 </aside>
 
-        <p class="phpdocumentor-summary">Chart Major Gridlines as.</p>
-
+    
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-GridLines.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\GridLines">GridLines</abbr></a>|null</span>
-    <span class="phpdocumentor-signature__name">$majorGridlines</span>
-    </code>
+        <span class="phpdocumentor-signature__type">bool</span>
+    <span class="phpdocumentor-signature__name">$dispRSqr</span>
+     = <span class="phpdocumentor-signature__default-value">false</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -4474,25 +4384,179 @@ Time: 12:11 PM.</p>
             -private
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="property_minorGridlines">
-        $minorGridlines
-        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#property_minorGridlines" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="property_forward">
+        $forward
+        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#property_forward" class="headerlink"><i class="fas fa-link"></i></a>
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/TrendLine.php"><a href="files/src-phpspreadsheet-chart-trendline.html"><abbr title="src/PhpSpreadsheet/Chart/TrendLine.php">TrendLine.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">39</span>
+    <span class="phpdocumentor-element-found-in__line">44</span>
 </aside>
 
-        <p class="phpdocumentor-summary">Chart Minor Gridlines as.</p>
-
+    
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-GridLines.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\GridLines">GridLines</abbr></a>|null</span>
-    <span class="phpdocumentor-signature__name">$minorGridlines</span>
-    </code>
+        <span class="phpdocumentor-signature__type">float</span>
+    <span class="phpdocumentor-signature__name">$forward</span>
+     = <span class="phpdocumentor-signature__default-value">0.0</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_intercept">
+        $intercept
+        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#property_intercept" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/TrendLine.php"><a href="files/src-phpspreadsheet-chart-trendline.html"><abbr title="src/PhpSpreadsheet/Chart/TrendLine.php">TrendLine.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">47</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">float</span>
+    <span class="phpdocumentor-signature__name">$intercept</span>
+     = <span class="phpdocumentor-signature__default-value">0.0</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_name">
+        $name
+        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#property_name" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/TrendLine.php"><a href="files/src-phpspreadsheet-chart-trendline.html"><abbr title="src/PhpSpreadsheet/Chart/TrendLine.php">TrendLine.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">38</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">$name</span>
+     = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_order">
+        $order
+        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#property_order" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/TrendLine.php"><a href="files/src-phpspreadsheet-chart-trendline.html"><abbr title="src/PhpSpreadsheet/Chart/TrendLine.php">TrendLine.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">26</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">int</span>
+    <span class="phpdocumentor-signature__name">$order</span>
+     = <span class="phpdocumentor-signature__default-value">2</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_period">
+        $period
+        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#property_period" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/TrendLine.php"><a href="files/src-phpspreadsheet-chart-trendline.html"><abbr title="src/PhpSpreadsheet/Chart/TrendLine.php">TrendLine.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">29</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">int</span>
+    <span class="phpdocumentor-signature__name">$period</span>
+     = <span class="phpdocumentor-signature__default-value">3</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_trendLineType">
+        $trendLineType
+        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#property_trendLineType" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/TrendLine.php"><a href="files/src-phpspreadsheet-chart-trendline.html"><abbr title="src/PhpSpreadsheet/Chart/TrendLine.php">TrendLine.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">23</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">$trendLineType</span>
+     = <span class="phpdocumentor-signature__default-value">&#039;linear&#039;</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -4504,7 +4568,7 @@ Time: 12:11 PM.</p>
             <section class="phpdocumentor-methods">
         <h3 class="phpdocumentor-elements__header" id="methods">
             Methods
-            <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
+            <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
         </h3>
                     <article
         class="phpdocumentor-element
@@ -4514,21 +4578,89 @@ Time: 12:11 PM.</p>
 >
     <h4 class="phpdocumentor-element__name" id="method___construct">
         __construct()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#method___construct" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#method___construct" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/TrendLine.php"><a href="files/src-phpspreadsheet-chart-trendline.html"><abbr title="src/PhpSpreadsheet/Chart/TrendLine.php">TrendLine.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">21</span>
+    <span class="phpdocumentor-element-found-in__line">52</span>
 </aside>
 
-    
+        <p class="phpdocumentor-summary">Create a new TrendLine object.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$trendLineType</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$order</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$period</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$dispRSqr</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">false</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$dispEq</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">false</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">float|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$backward</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">float|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$forward</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">float|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$intercept</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
-    
-    
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$trendLineType</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$order</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int|null</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$period</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int|null</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$dispRSqr</span>
+                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">false</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$dispEq</span>
+                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">false</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$backward</span>
+                : <span class="phpdocumentor-signature__argument__return-type">float|null</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$forward</span>
+                : <span class="phpdocumentor-signature__argument__return-type">float|null</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$intercept</span>
+                : <span class="phpdocumentor-signature__argument__return-type">float|null</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$name</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
@@ -4662,20 +4794,52 @@ Time: 12:11 PM.</p>
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_getAxisIsNumericFormat">
-        getAxisIsNumericFormat()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#method_getAxisIsNumericFormat" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_getBackward">
+        getBackward()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#method_getBackward" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/TrendLine.php"><a href="files/src-phpspreadsheet-chart-trendline.html"><abbr title="src/PhpSpreadsheet/Chart/TrendLine.php">TrendLine.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">128</span>
+    <span class="phpdocumentor-element-found-in__line">149</span>
 </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">getAxisIsNumericFormat</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+                <span class="phpdocumentor-signature__name">getBackward</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">float</span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">float</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getDispEq">
+        getDispEq()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#method_getDispEq" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/TrendLine.php"><a href="files/src-phpspreadsheet-chart-trendline.html"><abbr title="src/PhpSpreadsheet/Chart/TrendLine.php">TrendLine.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">125</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">getDispEq</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
     
     
@@ -4694,29 +4858,27 @@ Time: 12:11 PM.</p>
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_getAxisNumberFormat">
-        getAxisNumberFormat()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#method_getAxisNumberFormat" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_getDispRSqr">
+        getDispRSqr()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#method_getDispRSqr" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/TrendLine.php"><a href="files/src-phpspreadsheet-chart-trendline.html"><abbr title="src/PhpSpreadsheet/Chart/TrendLine.php">TrendLine.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">113</span>
 </aside>
 
-        <p class="phpdocumentor-summary">Get Axis Number Format Data Type.</p>
-
+    
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">getAxisNumberFormat</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+                <span class="phpdocumentor-signature__name">getDispRSqr</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
     
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">string</span>
+    <span class="phpdocumentor-signature__response_type">bool</span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
@@ -4728,215 +4890,27 @@ Time: 12:11 PM.</p>
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_getAxisNumberSourceLinked">
-        getAxisNumberSourceLinked()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#method_getAxisNumberSourceLinked" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_getForward">
+        getForward()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#method_getForward" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/TrendLine.php"><a href="files/src-phpspreadsheet-chart-trendline.html"><abbr title="src/PhpSpreadsheet/Chart/TrendLine.php">TrendLine.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">123</span>
-</aside>
-
-        <p class="phpdocumentor-summary">Get Axis Number Source Linked.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">getAxisNumberSourceLinked</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
-
-        <section class="phpdocumentor-description"></section>
-
-    
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">string</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
-
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_getAxisOptionsProperty">
-        getAxisOptionsProperty()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#method_getAxisOptionsProperty" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">184</span>
-</aside>
-
-        <p class="phpdocumentor-summary">Get Axis Options Property.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">getAxisOptionsProperty</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$property</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string|null</span></code>
-
-        <section class="phpdocumentor-description"></section>
-
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$property</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
-            </dd>
-            </dl>
-
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">string|null</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
-
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_getAxisType">
-        getAxisType()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#method_getAxisType" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">199</span>
+    <span class="phpdocumentor-element-found-in__line">161</span>
 </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">getAxisType</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+                <span class="phpdocumentor-signature__name">getForward</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">float</span></code>
 
     
     
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">string</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
-
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_getCrossBetween">
-        getCrossBetween()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#method_getCrossBetween" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">271</span>
-</aside>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">getCrossBetween</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
-
-    
-    
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">string</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
-
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_getFillColorObject">
-        getFillColorObject()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#method_getFillColorObject" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">239</span>
-</aside>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">getFillColorObject</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-ChartColor.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\ChartColor">ChartColor</abbr></a></span></code>
-
-    
-    
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-ChartColor.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\ChartColor">ChartColor</abbr></a></span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
-
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_getFillProperty">
-        getFillProperty()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#method_getFillProperty" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">234</span>
-</aside>
-
-        <p class="phpdocumentor-summary">Get Fill Property.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">getFillProperty</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$property</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
-
-        <section class="phpdocumentor-description"></section>
-
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$property</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
-            </dd>
-            </dl>
-
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">string</span>
+    <span class="phpdocumentor-signature__response_type">float</span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
@@ -5104,6 +5078,38 @@ Time: 12:11 PM.</p>
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_getIntercept">
+        getIntercept()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#method_getIntercept" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/TrendLine.php"><a href="files/src-phpspreadsheet-chart-trendline.html"><abbr title="src/PhpSpreadsheet/Chart/TrendLine.php">TrendLine.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">173</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">getIntercept</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">float</span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">float</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_getLineColor">
         getLineColor()
         <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Properties.html#method_getLineColor" class="headerlink"><i class="fas fa-link"></i></a>
@@ -5167,76 +5173,6 @@ Time: 12:11 PM.</p>
             </dl>
 
     
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">null|int|string</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
-
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_getLineProperty">
-        getLineProperty()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#method_getLineProperty" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">256</span>
-</aside>
-
-        <p class="phpdocumentor-summary">Get Line Color Property.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">getLineProperty</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$propertyName</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">null|int|string</span></code>
-
-        <section class="phpdocumentor-description"></section>
-
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$propertyName</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
-            </dd>
-            </dl>
-
-    
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">Deprecated</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>1.24.0</p>
-</section>
-
-                                    </dd>
-                                                <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">See</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>Properties::getLineColorProperty()
-Use the getLineColor property in the Properties class instead</p>
-</section>
-
-                                    </dd>
-                        </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">null|int|string</span>
@@ -5471,59 +5407,27 @@ Use the getLineColor property in the Properties class instead</p>
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_getMajorGridlines">
-        getMajorGridlines()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#method_getMajorGridlines" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_getName">
+        getName()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#method_getName" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/TrendLine.php"><a href="files/src-phpspreadsheet-chart-trendline.html"><abbr title="src/PhpSpreadsheet/Chart/TrendLine.php">TrendLine.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">276</span>
+    <span class="phpdocumentor-element-found-in__line">137</span>
 </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">getMajorGridlines</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-GridLines.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\GridLines">GridLines</abbr></a>|null</span></code>
+                <span class="phpdocumentor-signature__name">getName</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
     
     
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-GridLines.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\GridLines">GridLines</abbr></a>|null</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
-
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_getMinorGridlines">
-        getMinorGridlines()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#method_getMinorGridlines" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">281</span>
-</aside>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">getMinorGridlines</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-GridLines.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\GridLines">GridLines</abbr></a>|null</span></code>
-
-    
-    
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-GridLines.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\GridLines">GridLines</abbr></a>|null</span>
+    <span class="phpdocumentor-signature__response_type">string</span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
@@ -5558,6 +5462,70 @@ Use the getLineColor property in the Properties class instead</p>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getOrder">
+        getOrder()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#method_getOrder" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/TrendLine.php"><a href="files/src-phpspreadsheet-chart-trendline.html"><abbr title="src/PhpSpreadsheet/Chart/TrendLine.php">TrendLine.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">89</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">getOrder</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">int</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getPeriod">
+        getPeriod()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#method_getPeriod" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/TrendLine.php"><a href="files/src-phpspreadsheet-chart-trendline.html"><abbr title="src/PhpSpreadsheet/Chart/TrendLine.php">TrendLine.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">101</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">getPeriod</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">int</span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
@@ -5710,6 +5678,38 @@ Use the getLineColor property in the Properties class instead</p>
         class="phpdocumentor-element
             -method
             -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getTrendLineType">
+        getTrendLineType()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#method_getTrendLineType" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/TrendLine.php"><a href="files/src-phpspreadsheet-chart-trendline.html"><abbr title="src/PhpSpreadsheet/Chart/TrendLine.php">TrendLine.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">77</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">getTrendLineType</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
                                     -static                    "
 >
     <h4 class="phpdocumentor-element__name" id="method_pointsToXml">
@@ -5754,322 +5754,27 @@ Use the getLineColor property in the Properties class instead</p>
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_setAxisNumberProperties">
-        setAxisNumberProperties()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#method_setAxisNumberProperties" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_setBackward">
+        setBackward()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#method_setBackward" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/TrendLine.php"><a href="files/src-phpspreadsheet-chart-trendline.html"><abbr title="src/PhpSpreadsheet/Chart/TrendLine.php">TrendLine.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">96</span>
-</aside>
-
-        <p class="phpdocumentor-summary">Get Series Data Type.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">setAxisNumberProperties</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$format_code</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$numeric</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$sourceLinked</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
-
-        <section class="phpdocumentor-description"></section>
-
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$format_code</span>
-                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$numeric</span>
-                : <span class="phpdocumentor-signature__argument__return-type">bool|null</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$sourceLinked</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-            </dl>
-
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">void</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
-
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_setAxisOption">
-        setAxisOption()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#method_setAxisOption" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">133</span>
+    <span class="phpdocumentor-element-found-in__line">154</span>
 </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">setAxisOption</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$key</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                <span class="phpdocumentor-signature__name">setBackward</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">float&nbsp;</span><span class="phpdocumentor-signature__argument__name">$backward</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$key</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$value</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-            </dl>
-
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">void</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
-
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_setAxisOptionsProperties">
-        setAxisOptionsProperties()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#method_setAxisOptionsProperties" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">143</span>
-</aside>
-
-        <p class="phpdocumentor-summary">Set Axis Options Properties.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">setAxisOptionsProperties</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$axisLabels</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$horizontalCrossesValue</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$horizontalCrosses</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$axisOrientation</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$majorTmt</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$minorTmt</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$minimum</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$maximum</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$majorUnit</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$minorUnit</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$textRotation</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$hidden</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$baseTimeUnit</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$majorTimeUnit</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$minorTimeUnit</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
-
-        <section class="phpdocumentor-description"></section>
-
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$axisLabels</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$horizontalCrossesValue</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$horizontalCrosses</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$axisOrientation</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$majorTmt</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$minorTmt</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$minimum</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$maximum</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$majorUnit</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$minorUnit</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$textRotation</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$hidden</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$baseTimeUnit</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$majorTimeUnit</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$minorTimeUnit</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-            </dl>
-
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">void</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
-
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_setAxisOrientation">
-        setAxisOrientation()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#method_setAxisOrientation" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">194</span>
-</aside>
-
-        <p class="phpdocumentor-summary">Set Axis Orientation Property.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">setAxisOrientation</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$orientation</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
-
-        <section class="phpdocumentor-description"></section>
-
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$orientation</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
-            </dd>
-            </dl>
-
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">void</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
-
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_setAxisType">
-        setAxisType()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#method_setAxisType" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">204</span>
-</aside>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">setAxisType</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$type</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
-
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$type</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                <span class="phpdocumentor-signature__argument__name">$backward</span>
+                : <span class="phpdocumentor-signature__argument__return-type">float</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                 
@@ -6091,27 +5796,27 @@ Use the getLineColor property in the Properties class instead</p>
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_setCrossBetween">
-        setCrossBetween()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#method_setCrossBetween" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_setDispEq">
+        setDispEq()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#method_setDispEq" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/TrendLine.php"><a href="files/src-phpspreadsheet-chart-trendline.html"><abbr title="src/PhpSpreadsheet/Chart/TrendLine.php">TrendLine.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">264</span>
+    <span class="phpdocumentor-element-found-in__line">130</span>
 </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">setCrossBetween</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$crossBetween</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
+                <span class="phpdocumentor-signature__name">setDispEq</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$dispEq</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$crossBetween</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                <span class="phpdocumentor-signature__argument__name">$dispEq</span>
+                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                 
@@ -6133,56 +5838,79 @@ Use the getLineColor property in the Properties class instead</p>
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_setFillParameters">
-        setFillParameters()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#method_setFillParameters" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_setDispRSqr">
+        setDispRSqr()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#method_setDispRSqr" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/TrendLine.php"><a href="files/src-phpspreadsheet-chart-trendline.html"><abbr title="src/PhpSpreadsheet/Chart/TrendLine.php">TrendLine.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">222</span>
+    <span class="phpdocumentor-element-found-in__line">118</span>
 </aside>
 
-        <p class="phpdocumentor-summary">Set Fill Property.</p>
-
+    
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">setFillParameters</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$color</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$alpha</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$AlphaType</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">ChartColor::EXCEL_COLOR_TYPE_RGB</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                <span class="phpdocumentor-signature__name">setDispRSqr</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$dispRSqr</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$color</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
+                <span class="phpdocumentor-signature__argument__name">$dispRSqr</span>
+                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$alpha</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int|null</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$AlphaType</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">ChartColor::EXCEL_COLOR_TYPE_RGB</span>            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
+                
             </dd>
             </dl>
 
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">void</span>
+    <span class="phpdocumentor-signature__response_type">self</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setForward">
+        setForward()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#method_setForward" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/TrendLine.php"><a href="files/src-phpspreadsheet-chart-trendline.html"><abbr title="src/PhpSpreadsheet/Chart/TrendLine.php">TrendLine.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">166</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">setForward</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">float&nbsp;</span><span class="phpdocumentor-signature__argument__name">$forward</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$forward</span>
+                : <span class="phpdocumentor-signature__argument__return-type">float</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">self</span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
@@ -6252,6 +5980,48 @@ Use the getLineColor property in the Properties class instead</p>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">void</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setIntercept">
+        setIntercept()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#method_setIntercept" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/TrendLine.php"><a href="files/src-phpspreadsheet-chart-trendline.html"><abbr title="src/PhpSpreadsheet/Chart/TrendLine.php">TrendLine.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">178</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">setIntercept</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">float&nbsp;</span><span class="phpdocumentor-signature__argument__name">$intercept</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$intercept</span>
+                : <span class="phpdocumentor-signature__argument__return-type">float</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">self</span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
@@ -6558,27 +6328,27 @@ Use the getLineColor property in the Properties class instead</p>
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_setMajorGridlines">
-        setMajorGridlines()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#method_setMajorGridlines" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_setName">
+        setName()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#method_setName" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/TrendLine.php"><a href="files/src-phpspreadsheet-chart-trendline.html"><abbr title="src/PhpSpreadsheet/Chart/TrendLine.php">TrendLine.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">286</span>
+    <span class="phpdocumentor-element-found-in__line">142</span>
 </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">setMajorGridlines</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-GridLines.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\GridLines">GridLines</abbr></a>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$gridlines</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
+                <span class="phpdocumentor-signature__name">setName</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$gridlines</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-GridLines.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\GridLines">GridLines</abbr></a>|null</span>
+                <span class="phpdocumentor-signature__argument__name">$name</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                 
@@ -6600,27 +6370,69 @@ Use the getLineColor property in the Properties class instead</p>
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_setMinorGridlines">
-        setMinorGridlines()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#method_setMinorGridlines" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_setOrder">
+        setOrder()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#method_setOrder" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/TrendLine.php"><a href="files/src-phpspreadsheet-chart-trendline.html"><abbr title="src/PhpSpreadsheet/Chart/TrendLine.php">TrendLine.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">293</span>
+    <span class="phpdocumentor-element-found-in__line">94</span>
 </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">setMinorGridlines</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-GridLines.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\GridLines">GridLines</abbr></a>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$gridlines</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
+                <span class="phpdocumentor-signature__name">setOrder</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$order</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$gridlines</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-GridLines.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\GridLines">GridLines</abbr></a>|null</span>
+                <span class="phpdocumentor-signature__argument__name">$order</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">self</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setPeriod">
+        setPeriod()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#method_setPeriod" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/TrendLine.php"><a href="files/src-phpspreadsheet-chart-trendline.html"><abbr title="src/PhpSpreadsheet/Chart/TrendLine.php">TrendLine.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">106</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">setPeriod</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$period</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$period</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                 
@@ -6820,6 +6632,146 @@ Use the getLineColor property in the Properties class instead</p>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">void</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setTrendLineProperties">
+        setTrendLineProperties()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#method_setTrendLineProperties" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/TrendLine.php"><a href="files/src-phpspreadsheet-chart-trendline.html"><abbr title="src/PhpSpreadsheet/Chart/TrendLine.php">TrendLine.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">185</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">setTrendLineProperties</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$trendLineType</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$order</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$period</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$dispRSqr</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">false</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$dispEq</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">false</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">float|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$backward</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">float|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$forward</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">float|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$intercept</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$trendLineType</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$order</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int|null</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$period</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int|null</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$dispRSqr</span>
+                : <span class="phpdocumentor-signature__argument__return-type">bool|null</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">false</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$dispEq</span>
+                : <span class="phpdocumentor-signature__argument__return-type">bool|null</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">false</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$backward</span>
+                : <span class="phpdocumentor-signature__argument__return-type">float|null</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$forward</span>
+                : <span class="phpdocumentor-signature__argument__return-type">float|null</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$intercept</span>
+                : <span class="phpdocumentor-signature__argument__return-type">float|null</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$name</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">self</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setTrendLineType">
+        setTrendLineType()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#method_setTrendLineType" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/TrendLine.php"><a href="files/src-phpspreadsheet-chart-trendline.html"><abbr title="src/PhpSpreadsheet/Chart/TrendLine.php">TrendLine.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">82</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">setTrendLineType</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$trendLineType</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$trendLineType</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">self</span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
@@ -7492,7 +7444,7 @@ Use the getLineColor property in the Properties class instead</p>
 </section>
             </div>
         </div>
-        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
+        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
 
     </main>
 

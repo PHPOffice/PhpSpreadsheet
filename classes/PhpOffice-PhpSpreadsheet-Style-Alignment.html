@@ -113,6 +113,28 @@
 
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Alignment.html#constant_HORIZONTAL_ALIGNMENT_FOR_HTML">HORIZONTAL_ALIGNMENT_FOR_HTML</a>
+    <span>
+        &nbsp;= [
+    self::HORIZONTAL_LEFT =&gt; self::HORIZONTAL_LEFT,
+    self::HORIZONTAL_RIGHT =&gt; self::HORIZONTAL_RIGHT,
+    self::HORIZONTAL_CENTER =&gt; self::HORIZONTAL_CENTER,
+    self::HORIZONTAL_CENTER_CONTINUOUS =&gt; self::HORIZONTAL_CENTER,
+    self::HORIZONTAL_JUSTIFY =&gt; self::HORIZONTAL_JUSTIFY,
+    //self::HORIZONTAL_FILL =&gt; self::HORIZONTAL_FILL, // no reasonable equivalent for fill
+    self::HORIZONTAL_DISTRIBUTED =&gt; self::HORIZONTAL_JUSTIFY,
+]                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Alignment.html#constant_HORIZONTAL_ALIGNMENT_FOR_XLSX">HORIZONTAL_ALIGNMENT_FOR_XLSX</a>
+    <span>
+        &nbsp;= [self::HORIZONTAL_LEFT =&gt; self::HORIZONTAL_LEFT, self::HORIZONTAL_RIGHT =&gt; self::HORIZONTAL_RIGHT, self::HORIZONTAL_CENTER =&gt; self::HORIZONTAL_CENTER, self::HORIZONTAL_CENTER_CONTINUOUS =&gt; self::HORIZONTAL_CENTER_CONTINUOUS, self::HORIZONTAL_JUSTIFY =&gt; self::HORIZONTAL_JUSTIFY, self::HORIZONTAL_FILL =&gt; self::HORIZONTAL_FILL, self::HORIZONTAL_DISTRIBUTED =&gt; self::HORIZONTAL_DISTRIBUTED]                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Style-Alignment.html#constant_HORIZONTAL_CENTER">HORIZONTAL_CENTER</a>
     <span>
         &nbsp;= &#039;center&#039;                    </span>
@@ -204,6 +226,46 @@
 <dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Alignment.html#constant_VERTICAL_ALIGNMENT_FOR_HTML">VERTICAL_ALIGNMENT_FOR_HTML</a>
+    <span>
+        &nbsp;= [
+    self::VERTICAL_BOTTOM =&gt; self::VERTICAL_BOTTOM,
+    self::VERTICAL_TOP =&gt; self::VERTICAL_TOP,
+    self::VERTICAL_CENTER =&gt; self::VERTICAL_MIDDLE,
+    self::VERTICAL_JUSTIFY =&gt; self::VERTICAL_MIDDLE,
+    self::VERTICAL_DISTRIBUTED =&gt; self::VERTICAL_MIDDLE,
+    // css settings that arent&#039;t in sync with Excel
+    self::VERTICAL_BASELINE =&gt; self::VERTICAL_BASELINE,
+    self::VERTICAL_MIDDLE =&gt; self::VERTICAL_MIDDLE,
+    self::VERTICAL_SUB =&gt; self::VERTICAL_SUB,
+    self::VERTICAL_SUPER =&gt; self::VERTICAL_SUPER,
+    self::VERTICAL_TEXT_BOTTOM =&gt; self::VERTICAL_TEXT_BOTTOM,
+    self::VERTICAL_TEXT_TOP =&gt; self::VERTICAL_TEXT_TOP,
+]                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Alignment.html#constant_VERTICAL_ALIGNMENT_FOR_XLSX">VERTICAL_ALIGNMENT_FOR_XLSX</a>
+    <span>
+        &nbsp;= [
+    self::VERTICAL_BOTTOM =&gt; self::VERTICAL_BOTTOM,
+    self::VERTICAL_TOP =&gt; self::VERTICAL_TOP,
+    self::VERTICAL_CENTER =&gt; self::VERTICAL_CENTER,
+    self::VERTICAL_JUSTIFY =&gt; self::VERTICAL_JUSTIFY,
+    self::VERTICAL_DISTRIBUTED =&gt; self::VERTICAL_DISTRIBUTED,
+    // css settings that arent&#039;t in sync with Excel
+    self::VERTICAL_BASELINE =&gt; self::VERTICAL_BOTTOM,
+    self::VERTICAL_MIDDLE =&gt; self::VERTICAL_CENTER,
+    self::VERTICAL_SUB =&gt; self::VERTICAL_BOTTOM,
+    self::VERTICAL_SUPER =&gt; self::VERTICAL_TOP,
+    self::VERTICAL_TEXT_BOTTOM =&gt; self::VERTICAL_BOTTOM,
+    self::VERTICAL_TEXT_TOP =&gt; self::VERTICAL_TOP,
+]                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Style-Alignment.html#constant_VERTICAL_BOTTOM">VERTICAL_BOTTOM</a>
     <span>
         &nbsp;= &#039;bottom&#039;                    </span>
@@ -235,6 +297,55 @@
     <a href="classes/PhpOffice-PhpSpreadsheet-Style-Alignment.html#constant_VERTICAL_TOP">VERTICAL_TOP</a>
     <span>
         &nbsp;= &#039;top&#039;                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Alignment.html#constant_HORIZONTAL_CENTER_CONTINUOUS_LC">HORIZONTAL_CENTER_CONTINUOUS_LC</a>
+    <span>
+        &nbsp;= &#039;centercontinuous&#039;                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Alignment.html#constant_VERTICAL_BASELINE">VERTICAL_BASELINE</a>
+    <span>
+        &nbsp;= &#039;baseline&#039;                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Alignment.html#constant_VERTICAL_MIDDLE">VERTICAL_MIDDLE</a>
+    <span>
+        &nbsp;= &#039;middle&#039;                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Alignment.html#constant_VERTICAL_SUB">VERTICAL_SUB</a>
+    <span>
+        &nbsp;= &#039;sub&#039;                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Alignment.html#constant_VERTICAL_SUPER">VERTICAL_SUPER</a>
+    <span>
+        &nbsp;= &#039;super&#039;                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Alignment.html#constant_VERTICAL_TEXT_BOTTOM">VERTICAL_TEXT_BOTTOM</a>
+    <span>
+        &nbsp;= &#039;text-bottom&#039;                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Alignment.html#constant_VERTICAL_TEXT_TOP">VERTICAL_TEXT_TOP</a>
+    <span>
+        &nbsp;= &#039;text-top&#039;                    </span>
 </dt>
 <dd></dd>
 
@@ -516,6 +627,64 @@ extends this class.</dd>
             <a href="classes/PhpOffice-PhpSpreadsheet-Style-Alignment.html#constants" class="headerlink"><i class="fas fa-link"></i></a>
         </h3>
                     <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_HORIZONTAL_ALIGNMENT_FOR_HTML">
+        HORIZONTAL_ALIGNMENT_FOR_HTML
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Alignment.html#constant_HORIZONTAL_ALIGNMENT_FOR_HTML" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Alignment.php"><a href="files/src-phpspreadsheet-style-alignment.html"><abbr title="src/PhpSpreadsheet/Style/Alignment.php">Alignment.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">30</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">HORIZONTAL_ALIGNMENT_FOR_HTML</span>
+    = <span class="phpdocumentor-signature__default-value">[
+    self::HORIZONTAL_LEFT =&gt; self::HORIZONTAL_LEFT,
+    self::HORIZONTAL_RIGHT =&gt; self::HORIZONTAL_RIGHT,
+    self::HORIZONTAL_CENTER =&gt; self::HORIZONTAL_CENTER,
+    self::HORIZONTAL_CENTER_CONTINUOUS =&gt; self::HORIZONTAL_CENTER,
+    self::HORIZONTAL_JUSTIFY =&gt; self::HORIZONTAL_JUSTIFY,
+    //self::HORIZONTAL_FILL =&gt; self::HORIZONTAL_FILL, // no reasonable equivalent for fill
+    self::HORIZONTAL_DISTRIBUTED =&gt; self::HORIZONTAL_JUSTIFY,
+]</span>
+</code>
+
+
+    
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_HORIZONTAL_ALIGNMENT_FOR_XLSX">
+        HORIZONTAL_ALIGNMENT_FOR_XLSX
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Alignment.html#constant_HORIZONTAL_ALIGNMENT_FOR_XLSX" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Alignment.php"><a href="files/src-phpspreadsheet-style-alignment.html"><abbr title="src/PhpSpreadsheet/Style/Alignment.php">Alignment.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">20</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">HORIZONTAL_ALIGNMENT_FOR_XLSX</span>
+    = <span class="phpdocumentor-signature__default-value">[self::HORIZONTAL_LEFT =&gt; self::HORIZONTAL_LEFT, self::HORIZONTAL_RIGHT =&gt; self::HORIZONTAL_RIGHT, self::HORIZONTAL_CENTER =&gt; self::HORIZONTAL_CENTER, self::HORIZONTAL_CENTER_CONTINUOUS =&gt; self::HORIZONTAL_CENTER_CONTINUOUS, self::HORIZONTAL_JUSTIFY =&gt; self::HORIZONTAL_JUSTIFY, self::HORIZONTAL_FILL =&gt; self::HORIZONTAL_FILL, self::HORIZONTAL_DISTRIBUTED =&gt; self::HORIZONTAL_DISTRIBUTED]</span>
+</code>
+
+
+    
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_HORIZONTAL_CENTER">
         HORIZONTAL_CENTER
         <a href="classes/PhpOffice-PhpSpreadsheet-Style-Alignment.html#constant_HORIZONTAL_CENTER" class="headerlink"><i class="fas fa-link"></i></a>
@@ -724,7 +893,7 @@ extends this class.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Alignment.php"><a href="files/src-phpspreadsheet-style-alignment.html"><abbr title="src/PhpSpreadsheet/Style/Alignment.php">Alignment.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">27</span>
+    <span class="phpdocumentor-element-found-in__line">87</span>
 </aside>
 
     
@@ -749,7 +918,7 @@ extends this class.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Alignment.php"><a href="files/src-phpspreadsheet-style-alignment.html"><abbr title="src/PhpSpreadsheet/Style/Alignment.php">Alignment.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">28</span>
+    <span class="phpdocumentor-element-found-in__line">88</span>
 </aside>
 
     
@@ -774,7 +943,7 @@ extends this class.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Alignment.php"><a href="files/src-phpspreadsheet-style-alignment.html"><abbr title="src/PhpSpreadsheet/Style/Alignment.php">Alignment.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">29</span>
+    <span class="phpdocumentor-element-found-in__line">89</span>
 </aside>
 
     
@@ -799,7 +968,7 @@ extends this class.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Alignment.php"><a href="files/src-phpspreadsheet-style-alignment.html"><abbr title="src/PhpSpreadsheet/Style/Alignment.php">Alignment.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">32</span>
+    <span class="phpdocumentor-element-found-in__line">92</span>
 </aside>
 
     
@@ -824,7 +993,7 @@ extends this class.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Alignment.php"><a href="files/src-phpspreadsheet-style-alignment.html"><abbr title="src/PhpSpreadsheet/Style/Alignment.php">Alignment.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">33</span>
+    <span class="phpdocumentor-element-found-in__line">93</span>
 </aside>
 
     
@@ -841,6 +1010,82 @@ extends this class.</dd>
 
 </article>
                     <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_VERTICAL_ALIGNMENT_FOR_HTML">
+        VERTICAL_ALIGNMENT_FOR_HTML
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Alignment.html#constant_VERTICAL_ALIGNMENT_FOR_HTML" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Alignment.php"><a href="files/src-phpspreadsheet-style-alignment.html"><abbr title="src/PhpSpreadsheet/Style/Alignment.php">Alignment.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">71</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">VERTICAL_ALIGNMENT_FOR_HTML</span>
+    = <span class="phpdocumentor-signature__default-value">[
+    self::VERTICAL_BOTTOM =&gt; self::VERTICAL_BOTTOM,
+    self::VERTICAL_TOP =&gt; self::VERTICAL_TOP,
+    self::VERTICAL_CENTER =&gt; self::VERTICAL_MIDDLE,
+    self::VERTICAL_JUSTIFY =&gt; self::VERTICAL_MIDDLE,
+    self::VERTICAL_DISTRIBUTED =&gt; self::VERTICAL_MIDDLE,
+    // css settings that arent&#039;t in sync with Excel
+    self::VERTICAL_BASELINE =&gt; self::VERTICAL_BASELINE,
+    self::VERTICAL_MIDDLE =&gt; self::VERTICAL_MIDDLE,
+    self::VERTICAL_SUB =&gt; self::VERTICAL_SUB,
+    self::VERTICAL_SUPER =&gt; self::VERTICAL_SUPER,
+    self::VERTICAL_TEXT_BOTTOM =&gt; self::VERTICAL_TEXT_BOTTOM,
+    self::VERTICAL_TEXT_TOP =&gt; self::VERTICAL_TEXT_TOP,
+]</span>
+</code>
+
+
+    
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_VERTICAL_ALIGNMENT_FOR_XLSX">
+        VERTICAL_ALIGNMENT_FOR_XLSX
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Alignment.html#constant_VERTICAL_ALIGNMENT_FOR_XLSX" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Alignment.php"><a href="files/src-phpspreadsheet-style-alignment.html"><abbr title="src/PhpSpreadsheet/Style/Alignment.php">Alignment.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">55</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">VERTICAL_ALIGNMENT_FOR_XLSX</span>
+    = <span class="phpdocumentor-signature__default-value">[
+    self::VERTICAL_BOTTOM =&gt; self::VERTICAL_BOTTOM,
+    self::VERTICAL_TOP =&gt; self::VERTICAL_TOP,
+    self::VERTICAL_CENTER =&gt; self::VERTICAL_CENTER,
+    self::VERTICAL_JUSTIFY =&gt; self::VERTICAL_JUSTIFY,
+    self::VERTICAL_DISTRIBUTED =&gt; self::VERTICAL_DISTRIBUTED,
+    // css settings that arent&#039;t in sync with Excel
+    self::VERTICAL_BASELINE =&gt; self::VERTICAL_BOTTOM,
+    self::VERTICAL_MIDDLE =&gt; self::VERTICAL_CENTER,
+    self::VERTICAL_SUB =&gt; self::VERTICAL_BOTTOM,
+    self::VERTICAL_SUPER =&gt; self::VERTICAL_TOP,
+    self::VERTICAL_TEXT_BOTTOM =&gt; self::VERTICAL_BOTTOM,
+    self::VERTICAL_TEXT_TOP =&gt; self::VERTICAL_TOP,
+]</span>
+</code>
+
+
+    
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_VERTICAL_BOTTOM">
         VERTICAL_BOTTOM
         <a href="classes/PhpOffice-PhpSpreadsheet-Style-Alignment.html#constant_VERTICAL_BOTTOM" class="headerlink"><i class="fas fa-link"></i></a>
@@ -849,7 +1094,7 @@ extends this class.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Alignment.php"><a href="files/src-phpspreadsheet-style-alignment.html"><abbr title="src/PhpSpreadsheet/Style/Alignment.php">Alignment.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">20</span>
+    <span class="phpdocumentor-element-found-in__line">41</span>
 </aside>
 
     
@@ -874,7 +1119,7 @@ extends this class.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Alignment.php"><a href="files/src-phpspreadsheet-style-alignment.html"><abbr title="src/PhpSpreadsheet/Style/Alignment.php">Alignment.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">22</span>
+    <span class="phpdocumentor-element-found-in__line">43</span>
 </aside>
 
     
@@ -899,7 +1144,7 @@ extends this class.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Alignment.php"><a href="files/src-phpspreadsheet-style-alignment.html"><abbr title="src/PhpSpreadsheet/Style/Alignment.php">Alignment.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">24</span>
+    <span class="phpdocumentor-element-found-in__line">45</span>
 </aside>
 
     
@@ -924,7 +1169,7 @@ extends this class.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Alignment.php"><a href="files/src-phpspreadsheet-style-alignment.html"><abbr title="src/PhpSpreadsheet/Style/Alignment.php">Alignment.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">23</span>
+    <span class="phpdocumentor-element-found-in__line">44</span>
 </aside>
 
     
@@ -949,7 +1194,7 @@ extends this class.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Alignment.php"><a href="files/src-phpspreadsheet-style-alignment.html"><abbr title="src/PhpSpreadsheet/Style/Alignment.php">Alignment.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">21</span>
+    <span class="phpdocumentor-element-found-in__line">42</span>
 </aside>
 
     
@@ -958,6 +1203,181 @@ extends this class.</dd>
     <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">VERTICAL_TOP</span>
     = <span class="phpdocumentor-signature__default-value">&#039;top&#039;</span>
+</code>
+
+
+    
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -private ">
+    <h4 class="phpdocumentor-element__name" id="constant_HORIZONTAL_CENTER_CONTINUOUS_LC">
+        HORIZONTAL_CENTER_CONTINUOUS_LC
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Alignment.html#constant_HORIZONTAL_CENTER_CONTINUOUS_LC" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Alignment.php"><a href="files/src-phpspreadsheet-style-alignment.html"><abbr title="src/PhpSpreadsheet/Style/Alignment.php">Alignment.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">18</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">HORIZONTAL_CENTER_CONTINUOUS_LC</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;centercontinuous&#039;</span>
+</code>
+
+
+    
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -private ">
+    <h4 class="phpdocumentor-element__name" id="constant_VERTICAL_BASELINE">
+        VERTICAL_BASELINE
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Alignment.html#constant_VERTICAL_BASELINE" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Alignment.php"><a href="files/src-phpspreadsheet-style-alignment.html"><abbr title="src/PhpSpreadsheet/Style/Alignment.php">Alignment.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">47</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">VERTICAL_BASELINE</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;baseline&#039;</span>
+</code>
+
+
+    
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -private ">
+    <h4 class="phpdocumentor-element__name" id="constant_VERTICAL_MIDDLE">
+        VERTICAL_MIDDLE
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Alignment.html#constant_VERTICAL_MIDDLE" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Alignment.php"><a href="files/src-phpspreadsheet-style-alignment.html"><abbr title="src/PhpSpreadsheet/Style/Alignment.php">Alignment.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">48</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">VERTICAL_MIDDLE</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;middle&#039;</span>
+</code>
+
+
+    
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -private ">
+    <h4 class="phpdocumentor-element__name" id="constant_VERTICAL_SUB">
+        VERTICAL_SUB
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Alignment.html#constant_VERTICAL_SUB" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Alignment.php"><a href="files/src-phpspreadsheet-style-alignment.html"><abbr title="src/PhpSpreadsheet/Style/Alignment.php">Alignment.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">49</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">VERTICAL_SUB</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;sub&#039;</span>
+</code>
+
+
+    
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -private ">
+    <h4 class="phpdocumentor-element__name" id="constant_VERTICAL_SUPER">
+        VERTICAL_SUPER
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Alignment.html#constant_VERTICAL_SUPER" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Alignment.php"><a href="files/src-phpspreadsheet-style-alignment.html"><abbr title="src/PhpSpreadsheet/Style/Alignment.php">Alignment.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">50</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">VERTICAL_SUPER</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;super&#039;</span>
+</code>
+
+
+    
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -private ">
+    <h4 class="phpdocumentor-element__name" id="constant_VERTICAL_TEXT_BOTTOM">
+        VERTICAL_TEXT_BOTTOM
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Alignment.html#constant_VERTICAL_TEXT_BOTTOM" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Alignment.php"><a href="files/src-phpspreadsheet-style-alignment.html"><abbr title="src/PhpSpreadsheet/Style/Alignment.php">Alignment.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">51</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">VERTICAL_TEXT_BOTTOM</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;text-bottom&#039;</span>
+</code>
+
+
+    
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -private ">
+    <h4 class="phpdocumentor-element__name" id="constant_VERTICAL_TEXT_TOP">
+        VERTICAL_TEXT_TOP
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Alignment.html#constant_VERTICAL_TEXT_TOP" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Alignment.php"><a href="files/src-phpspreadsheet-style-alignment.html"><abbr title="src/PhpSpreadsheet/Style/Alignment.php">Alignment.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">52</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">VERTICAL_TEXT_TOP</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;text-top&#039;</span>
 </code>
 
 
@@ -989,7 +1409,7 @@ extends this class.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Alignment.php"><a href="files/src-phpspreadsheet-style-alignment.html"><abbr title="src/PhpSpreadsheet/Style/Alignment.php">Alignment.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">40</span>
+    <span class="phpdocumentor-element-found-in__line">100</span>
 </aside>
 
         <p class="phpdocumentor-summary">Horizontal alignment.</p>
@@ -1021,7 +1441,7 @@ extends this class.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Alignment.php"><a href="files/src-phpspreadsheet-style-alignment.html"><abbr title="src/PhpSpreadsheet/Style/Alignment.php">Alignment.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">75</span>
+    <span class="phpdocumentor-element-found-in__line">135</span>
 </aside>
 
         <p class="phpdocumentor-summary">Indent - only possible with horizontal alignment left and right.</p>
@@ -1149,7 +1569,7 @@ extends this class.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Alignment.php"><a href="files/src-phpspreadsheet-style-alignment.html"><abbr title="src/PhpSpreadsheet/Style/Alignment.php">Alignment.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">82</span>
+    <span class="phpdocumentor-element-found-in__line">142</span>
 </aside>
 
         <p class="phpdocumentor-summary">Read order.</p>
@@ -1181,7 +1601,7 @@ extends this class.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Alignment.php"><a href="files/src-phpspreadsheet-style-alignment.html"><abbr title="src/PhpSpreadsheet/Style/Alignment.php">Alignment.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">68</span>
+    <span class="phpdocumentor-element-found-in__line">128</span>
 </aside>
 
         <p class="phpdocumentor-summary">Shrink to fit.</p>
@@ -1213,7 +1633,7 @@ extends this class.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Alignment.php"><a href="files/src-phpspreadsheet-style-alignment.html"><abbr title="src/PhpSpreadsheet/Style/Alignment.php">Alignment.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">54</span>
+    <span class="phpdocumentor-element-found-in__line">114</span>
 </aside>
 
         <p class="phpdocumentor-summary">Text rotation.</p>
@@ -1245,7 +1665,7 @@ extends this class.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Alignment.php"><a href="files/src-phpspreadsheet-style-alignment.html"><abbr title="src/PhpSpreadsheet/Style/Alignment.php">Alignment.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">47</span>
+    <span class="phpdocumentor-element-found-in__line">107</span>
 </aside>
 
         <p class="phpdocumentor-summary">Vertical alignment.</p>
@@ -1277,7 +1697,7 @@ extends this class.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Alignment.php"><a href="files/src-phpspreadsheet-style-alignment.html"><abbr title="src/PhpSpreadsheet/Style/Alignment.php">Alignment.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">61</span>
+    <span class="phpdocumentor-element-found-in__line">121</span>
 </aside>
 
         <p class="phpdocumentor-summary">Wrap text.</p>
@@ -1347,7 +1767,7 @@ extends this class.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Alignment.php"><a href="files/src-phpspreadsheet-style-alignment.html"><abbr title="src/PhpSpreadsheet/Style/Alignment.php">Alignment.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">94</span>
+    <span class="phpdocumentor-element-found-in__line">154</span>
 </aside>
 
         <p class="phpdocumentor-summary">Create a new Alignment.</p>
@@ -1406,7 +1826,7 @@ its ramifications are</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Alignment.php"><a href="files/src-phpspreadsheet-style-alignment.html"><abbr title="src/PhpSpreadsheet/Style/Alignment.php">Alignment.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">150</span>
+    <span class="phpdocumentor-element-found-in__line">210</span>
 </aside>
 
         <p class="phpdocumentor-summary">Apply styles from array.</p>
@@ -1622,7 +2042,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Alignment.php"><a href="files/src-phpspreadsheet-style-alignment.html"><abbr title="src/PhpSpreadsheet/Style/Alignment.php">Alignment.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">455</span>
+    <span class="phpdocumentor-element-found-in__line">514</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get hash code.</p>
@@ -1657,7 +2077,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Alignment.php"><a href="files/src-phpspreadsheet-style-alignment.html"><abbr title="src/PhpSpreadsheet/Style/Alignment.php">Alignment.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">187</span>
+    <span class="phpdocumentor-element-found-in__line">247</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get Horizontal.</p>
@@ -1691,7 +2111,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Alignment.php"><a href="files/src-phpspreadsheet-style-alignment.html"><abbr title="src/PhpSpreadsheet/Style/Alignment.php">Alignment.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">376</span>
+    <span class="phpdocumentor-element-found-in__line">435</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get indent.</p>
@@ -1759,7 +2179,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Alignment.php"><a href="files/src-phpspreadsheet-style-alignment.html"><abbr title="src/PhpSpreadsheet/Style/Alignment.php">Alignment.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">419</span>
+    <span class="phpdocumentor-element-found-in__line">478</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get read order.</p>
@@ -1829,7 +2249,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Alignment.php"><a href="files/src-phpspreadsheet-style-alignment.html"><abbr title="src/PhpSpreadsheet/Style/Alignment.php">Alignment.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">112</span>
+    <span class="phpdocumentor-element-found-in__line">172</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get the shared style component for the currently active cell in currently active sheet.</p>
@@ -1864,7 +2284,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Alignment.php"><a href="files/src-phpspreadsheet-style-alignment.html"><abbr title="src/PhpSpreadsheet/Style/Alignment.php">Alignment.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">340</span>
+    <span class="phpdocumentor-element-found-in__line">399</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get Shrink to fit.</p>
@@ -1898,7 +2318,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Alignment.php"><a href="files/src-phpspreadsheet-style-alignment.html"><abbr title="src/PhpSpreadsheet/Style/Alignment.php">Alignment.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">127</span>
+    <span class="phpdocumentor-element-found-in__line">187</span>
 </aside>
 
         <p class="phpdocumentor-summary">Build style array from subcomponents.</p>
@@ -1943,7 +2363,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Alignment.php"><a href="files/src-phpspreadsheet-style-alignment.html"><abbr title="src/PhpSpreadsheet/Style/Alignment.php">Alignment.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">261</span>
+    <span class="phpdocumentor-element-found-in__line">320</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get TextRotation.</p>
@@ -1977,7 +2397,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Alignment.php"><a href="files/src-phpspreadsheet-style-alignment.html"><abbr title="src/PhpSpreadsheet/Style/Alignment.php">Alignment.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">224</span>
+    <span class="phpdocumentor-element-found-in__line">285</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get Vertical.</p>
@@ -2011,7 +2431,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Alignment.php"><a href="files/src-phpspreadsheet-style-alignment.html"><abbr title="src/PhpSpreadsheet/Style/Alignment.php">Alignment.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">304</span>
+    <span class="phpdocumentor-element-found-in__line">363</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get Wrap Text.</p>
@@ -2045,7 +2465,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Alignment.php"><a href="files/src-phpspreadsheet-style-alignment.html"><abbr title="src/PhpSpreadsheet/Style/Alignment.php">Alignment.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">203</span>
+    <span class="phpdocumentor-element-found-in__line">263</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set Horizontal.</p>
@@ -2091,7 +2511,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Alignment.php"><a href="files/src-phpspreadsheet-style-alignment.html"><abbr title="src/PhpSpreadsheet/Style/Alignment.php">Alignment.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">392</span>
+    <span class="phpdocumentor-element-found-in__line">451</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set indent.</p>
@@ -2136,7 +2556,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Alignment.php"><a href="files/src-phpspreadsheet-style-alignment.html"><abbr title="src/PhpSpreadsheet/Style/Alignment.php">Alignment.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">435</span>
+    <span class="phpdocumentor-element-found-in__line">494</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set read order.</p>
@@ -2181,7 +2601,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Alignment.php"><a href="files/src-phpspreadsheet-style-alignment.html"><abbr title="src/PhpSpreadsheet/Style/Alignment.php">Alignment.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">356</span>
+    <span class="phpdocumentor-element-found-in__line">415</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set Shrink to fit.</p>
@@ -2226,7 +2646,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Alignment.php"><a href="files/src-phpspreadsheet-style-alignment.html"><abbr title="src/PhpSpreadsheet/Style/Alignment.php">Alignment.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">277</span>
+    <span class="phpdocumentor-element-found-in__line">336</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set TextRotation.</p>
@@ -2271,7 +2691,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Alignment.php"><a href="files/src-phpspreadsheet-style-alignment.html"><abbr title="src/PhpSpreadsheet/Style/Alignment.php">Alignment.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">240</span>
+    <span class="phpdocumentor-element-found-in__line">301</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set Vertical.</p>
@@ -2317,7 +2737,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Alignment.php"><a href="files/src-phpspreadsheet-style-alignment.html"><abbr title="src/PhpSpreadsheet/Style/Alignment.php">Alignment.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">320</span>
+    <span class="phpdocumentor-element-found-in__line">379</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set Wrap Text.</p>
@@ -2362,7 +2782,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Alignment.php"><a href="files/src-phpspreadsheet-style-alignment.html"><abbr title="src/PhpSpreadsheet/Style/Alignment.php">Alignment.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">473</span>
+    <span class="phpdocumentor-element-found-in__line">532</span>
 </aside>
 
         <p class="phpdocumentor-summary">Abstract method to be implemented in anything which

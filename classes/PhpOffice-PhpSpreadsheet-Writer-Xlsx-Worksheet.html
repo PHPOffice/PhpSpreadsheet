@@ -564,7 +564,7 @@ only implementation conditionalFormattings.</dd>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">writeWorksheet</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$worksheet</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, string&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stringTable</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$includeCharts</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">false</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+                <span class="phpdocumentor-signature__name">writeWorksheet</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$worksheet</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, string&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stringTable</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">[]</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$includeCharts</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">false</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -580,7 +580,7 @@ only implementation conditionalFormattings.</dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$stringTable</span>
                 : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, string&gt;</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
+                 = <span class="phpdocumentor-signature__argument__default-value">[]</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"></section>
 
@@ -619,7 +619,7 @@ only implementation conditionalFormattings.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php"><a href="files/src-phpspreadsheet-writer-xlsx-worksheet.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1428</span>
+    <span class="phpdocumentor-element-found-in__line">1427</span>
 </aside>
 
     
@@ -674,7 +674,7 @@ only implementation conditionalFormattings.</dd>
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">writeAttributeIf</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-XMLWriter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\XMLWriter">XMLWriter</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$objWriter</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$condition</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$attr</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$val</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">writeAttributeIf</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-XMLWriter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\XMLWriter">XMLWriter</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$objWriter</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$condition</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$attr</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$val</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
@@ -688,7 +688,7 @@ only implementation conditionalFormattings.</dd>
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$condition</span>
-                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                : <span class="phpdocumentor-signature__argument__return-type">bool|null</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                 
@@ -787,7 +787,7 @@ only implementation conditionalFormattings.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php"><a href="files/src-phpspreadsheet-writer-xlsx-worksheet.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">903</span>
+    <span class="phpdocumentor-element-found-in__line">902</span>
 </aside>
 
         <p class="phpdocumentor-summary">Write AutoFilter.</p>
@@ -838,7 +838,7 @@ only implementation conditionalFormattings.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php"><a href="files/src-phpspreadsheet-writer-xlsx-worksheet.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1076</span>
+    <span class="phpdocumentor-element-found-in__line">1075</span>
 </aside>
 
         <p class="phpdocumentor-summary">Write Breaks.</p>
@@ -889,7 +889,7 @@ only implementation conditionalFormattings.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php"><a href="files/src-phpspreadsheet-writer-xlsx-worksheet.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1326</span>
+    <span class="phpdocumentor-element-found-in__line">1325</span>
 </aside>
 
         <p class="phpdocumentor-summary">Write Cell.</p>
@@ -958,7 +958,7 @@ only implementation conditionalFormattings.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php"><a href="files/src-phpspreadsheet-writer-xlsx-worksheet.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1269</span>
+    <span class="phpdocumentor-element-found-in__line">1268</span>
 </aside>
 
     
@@ -1014,7 +1014,7 @@ only implementation conditionalFormattings.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php"><a href="files/src-phpspreadsheet-writer-xlsx-worksheet.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1275</span>
+    <span class="phpdocumentor-element-found-in__line">1274</span>
 </aside>
 
     
@@ -1077,7 +1077,7 @@ only implementation conditionalFormattings.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php"><a href="files/src-phpspreadsheet-writer-xlsx-worksheet.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1283</span>
+    <span class="phpdocumentor-element-found-in__line">1282</span>
 </aside>
 
     
@@ -1133,7 +1133,7 @@ only implementation conditionalFormattings.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php"><a href="files/src-phpspreadsheet-writer-xlsx-worksheet.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1222</span>
+    <span class="phpdocumentor-element-found-in__line">1221</span>
 </aside>
 
     
@@ -1191,7 +1191,7 @@ only implementation conditionalFormattings.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php"><a href="files/src-phpspreadsheet-writer-xlsx-worksheet.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1256</span>
+    <span class="phpdocumentor-element-found-in__line">1255</span>
 </aside>
 
     
@@ -1242,7 +1242,7 @@ only implementation conditionalFormattings.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php"><a href="files/src-phpspreadsheet-writer-xlsx-worksheet.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1243</span>
+    <span class="phpdocumentor-element-found-in__line">1242</span>
 </aside>
 
     
@@ -1359,7 +1359,7 @@ only implementation conditionalFormattings.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php"><a href="files/src-phpspreadsheet-writer-xlsx-worksheet.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">648</span>
+    <span class="phpdocumentor-element-found-in__line">647</span>
 </aside>
 
         <p class="phpdocumentor-summary">Write ConditionalFormatting.</p>
@@ -1416,7 +1416,7 @@ only implementation conditionalFormattings.</dd>
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">writeDataBarElements</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-XMLWriter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\XMLWriter">XMLWriter</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$objWriter</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$dataBar</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">writeDataBarElements</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-XMLWriter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\XMLWriter">XMLWriter</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$objWriter</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBar.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalDataBar">ConditionalDataBar</abbr></a>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$dataBar</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
@@ -1430,7 +1430,7 @@ only implementation conditionalFormattings.</dd>
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$dataBar</span>
-                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Style-ConditionalFormatting-ConditionalDataBar.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalDataBar">ConditionalDataBar</abbr></a>|null</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                 
@@ -1459,7 +1459,7 @@ only implementation conditionalFormattings.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php"><a href="files/src-phpspreadsheet-writer-xlsx-worksheet.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">718</span>
+    <span class="phpdocumentor-element-found-in__line">717</span>
 </aside>
 
         <p class="phpdocumentor-summary">Write DataValidations.</p>
@@ -1561,7 +1561,7 @@ only implementation conditionalFormattings.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php"><a href="files/src-phpspreadsheet-writer-xlsx-worksheet.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1378</span>
+    <span class="phpdocumentor-element-found-in__line">1377</span>
 </aside>
 
         <p class="phpdocumentor-summary">Write Drawings.</p>
@@ -1627,7 +1627,7 @@ only implementation conditionalFormattings.</dd>
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">writeElementIf</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-XMLWriter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\XMLWriter">XMLWriter</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$objWriter</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$condition</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$attr</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$val</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">writeElementIf</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-XMLWriter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\XMLWriter">XMLWriter</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$objWriter</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$condition</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$attr</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$val</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
@@ -1641,7 +1641,7 @@ only implementation conditionalFormattings.</dd>
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$condition</span>
-                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                 
@@ -1733,7 +1733,7 @@ only implementation conditionalFormattings.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php"><a href="files/src-phpspreadsheet-writer-xlsx-worksheet.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1445</span>
+    <span class="phpdocumentor-element-found-in__line">1444</span>
 </aside>
 
         <p class="phpdocumentor-summary">write &lt;ExtLst&gt;
@@ -1800,7 +1800,7 @@ only implementation conditionalFormattings.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php"><a href="files/src-phpspreadsheet-writer-xlsx-worksheet.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1055</span>
+    <span class="phpdocumentor-element-found-in__line">1054</span>
 </aside>
 
         <p class="phpdocumentor-summary">Write Header / Footer.</p>
@@ -1851,7 +1851,7 @@ only implementation conditionalFormattings.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php"><a href="files/src-phpspreadsheet-writer-xlsx-worksheet.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">781</span>
+    <span class="phpdocumentor-element-found-in__line">780</span>
 </aside>
 
         <p class="phpdocumentor-summary">Write Hyperlinks.</p>
@@ -1902,7 +1902,7 @@ only implementation conditionalFormattings.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php"><a href="files/src-phpspreadsheet-writer-xlsx-worksheet.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1405</span>
+    <span class="phpdocumentor-element-found-in__line">1404</span>
 </aside>
 
         <p class="phpdocumentor-summary">Write LegacyDrawing.</p>
@@ -1953,7 +1953,7 @@ only implementation conditionalFormattings.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php"><a href="files/src-phpspreadsheet-writer-xlsx-worksheet.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1418</span>
+    <span class="phpdocumentor-element-found-in__line">1417</span>
 </aside>
 
         <p class="phpdocumentor-summary">Write LegacyDrawingHF.</p>
@@ -2004,7 +2004,7 @@ only implementation conditionalFormattings.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php"><a href="files/src-phpspreadsheet-writer-xlsx-worksheet.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">844</span>
+    <span class="phpdocumentor-element-found-in__line">843</span>
 </aside>
 
         <p class="phpdocumentor-summary">Write MergeCells.</p>
@@ -2111,7 +2111,7 @@ only implementation conditionalFormattings.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php"><a href="files/src-phpspreadsheet-writer-xlsx-worksheet.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">887</span>
+    <span class="phpdocumentor-element-found-in__line">886</span>
 </aside>
 
         <p class="phpdocumentor-summary">Write PageMargins.</p>
@@ -2162,7 +2162,7 @@ only implementation conditionalFormattings.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php"><a href="files/src-phpspreadsheet-writer-xlsx-worksheet.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1018</span>
+    <span class="phpdocumentor-element-found-in__line">1017</span>
 </aside>
 
         <p class="phpdocumentor-summary">Write PageSetup.</p>
@@ -2213,7 +2213,7 @@ only implementation conditionalFormattings.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php"><a href="files/src-phpspreadsheet-writer-xlsx-worksheet.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">865</span>
+    <span class="phpdocumentor-element-found-in__line">864</span>
 </aside>
 
         <p class="phpdocumentor-summary">Write PrintOptions.</p>
@@ -2264,7 +2264,7 @@ only implementation conditionalFormattings.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php"><a href="files/src-phpspreadsheet-writer-xlsx-worksheet.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">819</span>
+    <span class="phpdocumentor-element-found-in__line">818</span>
 </aside>
 
         <p class="phpdocumentor-summary">Write ProtectedRanges.</p>
@@ -2315,7 +2315,7 @@ only implementation conditionalFormattings.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php"><a href="files/src-phpspreadsheet-writer-xlsx-worksheet.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1131</span>
+    <span class="phpdocumentor-element-found-in__line">1130</span>
 </aside>
 
         <p class="phpdocumentor-summary">Write SheetData.</p>
@@ -2579,7 +2579,7 @@ only implementation conditionalFormattings.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php"><a href="files/src-phpspreadsheet-writer-xlsx-worksheet.html"><abbr title="src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">999</span>
+    <span class="phpdocumentor-element-found-in__line">998</span>
 </aside>
 
         <p class="phpdocumentor-summary">Write Table.</p>

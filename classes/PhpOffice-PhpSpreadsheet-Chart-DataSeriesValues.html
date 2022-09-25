@@ -977,7 +977,14 @@ Time: 5:45 PM.</p>
     <span>
                 &nbsp;: bool            </span>
 </dt>
-<dd>Smooth Line.</dd>
+<dd>Smooth Line. Must be specified for both DataSeries and DataSeriesValues.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-DataSeriesValues.html#property_trendLines">$trendLines</a>
+    <span>
+                &nbsp;: array&lt;string|int, <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\TrendLine">TrendLine</abbr></a>&gt;            </span>
+</dt>
+<dd></dd>
 
                 <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Chart-DataSeriesValues.html#method___construct">__construct()</a>
@@ -1239,6 +1246,13 @@ Time: 5:45 PM.</p>
 <dd>Get Soft Edges Size.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-DataSeriesValues.html#method_getTrendLines">getTrendLines()</a>
+    <span>
+                        &nbsp;: array&lt;string|int, mixed&gt;    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Chart-DataSeriesValues.html#method_isMultiLevelSeries">isMultiLevelSeries()</a>
     <span>
                         &nbsp;: null|bool    </span>
@@ -1405,6 +1419,13 @@ Time: 5:45 PM.</p>
                         &nbsp;: void    </span>
 </dt>
 <dd>Set Soft Edges Size.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-DataSeriesValues.html#method_setTrendLines">setTrendLines()</a>
+    <span>
+                        &nbsp;: self    </span>
+</dt>
+<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Properties.html#method_tenthOfPercentToXml">tenthOfPercentToXml()</a>
@@ -4730,16 +4751,47 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeriesValues.php"><a href="files/src-phpspreadsheet-chart-dataseriesvalues.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeriesValues.php">DataSeriesValues.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">543</span>
+    <span class="phpdocumentor-element-found-in__line">546</span>
 </aside>
 
-        <p class="phpdocumentor-summary">Smooth Line.</p>
+        <p class="phpdocumentor-summary">Smooth Line. Must be specified for both DataSeries and DataSeriesValues.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
         <span class="phpdocumentor-signature__type">bool</span>
     <span class="phpdocumentor-signature__name">$smoothLine</span>
     </code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_trendLines">
+        $trendLines
+        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-DataSeriesValues.html#property_trendLines" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeriesValues.php"><a href="files/src-phpspreadsheet-chart-dataseriesvalues.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeriesValues.php">DataSeriesValues.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">92</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">array&lt;string|int, <a href="classes/PhpOffice-PhpSpreadsheet-Chart-TrendLine.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\TrendLine">TrendLine</abbr></a>&gt;</span>
+    <span class="phpdocumentor-signature__name">$trendLines</span>
+     = <span class="phpdocumentor-signature__default-value">[]</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -4766,7 +4818,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeriesValues.php"><a href="files/src-phpspreadsheet-chart-dataseriesvalues.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeriesValues.php">DataSeriesValues.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">103</span>
+    <span class="phpdocumentor-element-found-in__line">106</span>
 </aside>
 
         <p class="phpdocumentor-summary">Create a new DataSeriesValues object.</p>
@@ -4985,7 +5037,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeriesValues.php"><a href="files/src-phpspreadsheet-chart-dataseriesvalues.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeriesValues.php">DataSeriesValues.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">526</span>
+    <span class="phpdocumentor-element-found-in__line">529</span>
 </aside>
 
     
@@ -5017,7 +5069,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeriesValues.php"><a href="files/src-phpspreadsheet-chart-dataseriesvalues.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeriesValues.php">DataSeriesValues.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">159</span>
+    <span class="phpdocumentor-element-found-in__line">162</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get Series Data Source (formula).</p>
@@ -5051,7 +5103,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeriesValues.php"><a href="files/src-phpspreadsheet-chart-dataseriesvalues.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeriesValues.php">DataSeriesValues.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">127</span>
+    <span class="phpdocumentor-element-found-in__line">130</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get Series Data Type.</p>
@@ -5085,7 +5137,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeriesValues.php"><a href="files/src-phpspreadsheet-chart-dataseriesvalues.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeriesValues.php">DataSeriesValues.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">444</span>
+    <span class="phpdocumentor-element-found-in__line">447</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get the first Series Data value.</p>
@@ -5119,7 +5171,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeriesValues.php"><a href="files/src-phpspreadsheet-chart-dataseriesvalues.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeriesValues.php">DataSeriesValues.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">434</span>
+    <span class="phpdocumentor-element-found-in__line">437</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get Series Data Values.</p>
@@ -5153,7 +5205,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeriesValues.php"><a href="files/src-phpspreadsheet-chart-dataseriesvalues.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeriesValues.php">DataSeriesValues.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">316</span>
+    <span class="phpdocumentor-element-found-in__line">319</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get fill color.</p>
@@ -5188,7 +5240,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeriesValues.php"><a href="files/src-phpspreadsheet-chart-dataseriesvalues.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeriesValues.php">DataSeriesValues.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">271</span>
+    <span class="phpdocumentor-element-found-in__line">274</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get fill color object.</p>
@@ -5222,7 +5274,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeriesValues.php"><a href="files/src-phpspreadsheet-chart-dataseriesvalues.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeriesValues.php">DataSeriesValues.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">237</span>
+    <span class="phpdocumentor-element-found-in__line">240</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get Series Format Code.</p>
@@ -5412,7 +5464,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeriesValues.php"><a href="files/src-phpspreadsheet-chart-dataseriesvalues.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeriesValues.php">DataSeriesValues.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">569</span>
+    <span class="phpdocumentor-element-found-in__line">572</span>
 </aside>
 
     
@@ -5741,7 +5793,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeriesValues.php"><a href="files/src-phpspreadsheet-chart-dataseriesvalues.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeriesValues.php">DataSeriesValues.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">381</span>
+    <span class="phpdocumentor-element-found-in__line">384</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get line width for series.</p>
@@ -5775,7 +5827,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeriesValues.php"><a href="files/src-phpspreadsheet-chart-dataseriesvalues.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeriesValues.php">DataSeriesValues.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">207</span>
+    <span class="phpdocumentor-element-found-in__line">210</span>
 </aside>
 
     
@@ -5807,7 +5859,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeriesValues.php"><a href="files/src-phpspreadsheet-chart-dataseriesvalues.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeriesValues.php">DataSeriesValues.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">202</span>
+    <span class="phpdocumentor-element-found-in__line">205</span>
 </aside>
 
     
@@ -5873,7 +5925,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeriesValues.php"><a href="files/src-phpspreadsheet-chart-dataseriesvalues.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeriesValues.php">DataSeriesValues.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">261</span>
+    <span class="phpdocumentor-element-found-in__line">264</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get Series Point Count.</p>
@@ -5907,7 +5959,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeriesValues.php"><a href="files/src-phpspreadsheet-chart-dataseriesvalues.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeriesValues.php">DataSeriesValues.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">183</span>
+    <span class="phpdocumentor-element-found-in__line">186</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get Point Marker.</p>
@@ -5941,7 +5993,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeriesValues.php"><a href="files/src-phpspreadsheet-chart-dataseriesvalues.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeriesValues.php">DataSeriesValues.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">215</span>
+    <span class="phpdocumentor-element-found-in__line">218</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get Point Size.</p>
@@ -5975,7 +6027,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeriesValues.php"><a href="files/src-phpspreadsheet-chart-dataseriesvalues.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeriesValues.php">DataSeriesValues.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">514</span>
+    <span class="phpdocumentor-element-found-in__line">517</span>
 </aside>
 
     
@@ -6116,7 +6168,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeriesValues.php"><a href="files/src-phpspreadsheet-chart-dataseriesvalues.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeriesValues.php">DataSeriesValues.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">550</span>
+    <span class="phpdocumentor-element-found-in__line">553</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get Smooth Line.</p>
@@ -6177,6 +6229,38 @@ Time: 5:45 PM.</p>
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_getTrendLines">
+        getTrendLines()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-DataSeriesValues.html#method_getTrendLines" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeriesValues.php"><a href="files/src-phpspreadsheet-chart-dataseriesvalues.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeriesValues.php">DataSeriesValues.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">591</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">getTrendLines</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_isMultiLevelSeries">
         isMultiLevelSeries()
         <a href="classes/PhpOffice-PhpSpreadsheet-Chart-DataSeriesValues.html#method_isMultiLevelSeries" class="headerlink"><i class="fas fa-link"></i></a>
@@ -6184,7 +6268,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeriesValues.php"><a href="files/src-phpspreadsheet-chart-dataseriesvalues.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeriesValues.php">DataSeriesValues.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">405</span>
+    <span class="phpdocumentor-element-found-in__line">408</span>
 </aside>
 
         <p class="phpdocumentor-summary">Identify if the Data Series is a multi-level or a simple series.</p>
@@ -6218,7 +6302,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeriesValues.php"><a href="files/src-phpspreadsheet-chart-dataseriesvalues.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeriesValues.php">DataSeriesValues.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">419</span>
+    <span class="phpdocumentor-element-found-in__line">422</span>
 </aside>
 
         <p class="phpdocumentor-summary">Return the level count of a multi-level Data Series.</p>
@@ -6294,7 +6378,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeriesValues.php"><a href="files/src-phpspreadsheet-chart-dataseriesvalues.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeriesValues.php">DataSeriesValues.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">471</span>
+    <span class="phpdocumentor-element-found-in__line">474</span>
 </aside>
 
     
@@ -6343,7 +6427,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeriesValues.php"><a href="files/src-phpspreadsheet-chart-dataseriesvalues.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeriesValues.php">DataSeriesValues.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">531</span>
+    <span class="phpdocumentor-element-found-in__line">534</span>
 </aside>
 
     
@@ -6385,7 +6469,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeriesValues.php"><a href="files/src-phpspreadsheet-chart-dataseriesvalues.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeriesValues.php">DataSeriesValues.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">171</span>
+    <span class="phpdocumentor-element-found-in__line">174</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set Series Data Source (formula).</p>
@@ -6430,7 +6514,7 @@ Time: 5:45 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeriesValues.php"><a href="files/src-phpspreadsheet-chart-dataseriesvalues.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeriesValues.php">DataSeriesValues.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">144</span>
+    <span class="phpdocumentor-element-found-in__line">147</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set Series Data Type.</p>
@@ -6481,7 +6565,7 @@ Normally used for chart data values</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeriesValues.php"><a href="files/src-phpspreadsheet-chart-dataseriesvalues.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeriesValues.php">DataSeriesValues.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">463</span>
+    <span class="phpdocumentor-element-found-in__line">466</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set Series Data Values.</p>
@@ -6526,7 +6610,7 @@ Normally used for chart data values</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeriesValues.php"><a href="files/src-phpspreadsheet-chart-dataseriesvalues.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeriesValues.php">DataSeriesValues.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">340</span>
+    <span class="phpdocumentor-element-found-in__line">343</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set fill color for series.</p>
@@ -6572,7 +6656,7 @@ Normally used for chart data values</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeriesValues.php"><a href="files/src-phpspreadsheet-chart-dataseriesvalues.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeriesValues.php">DataSeriesValues.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">249</span>
+    <span class="phpdocumentor-element-found-in__line">252</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set Series Format Code.</p>
@@ -6686,7 +6770,7 @@ Normally used for chart data values</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeriesValues.php"><a href="files/src-phpspreadsheet-chart-dataseriesvalues.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeriesValues.php">DataSeriesValues.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">574</span>
+    <span class="phpdocumentor-element-found-in__line">577</span>
 </aside>
 
     
@@ -7023,7 +7107,7 @@ Normally used for chart data values</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeriesValues.php"><a href="files/src-phpspreadsheet-chart-dataseriesvalues.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeriesValues.php">DataSeriesValues.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">393</span>
+    <span class="phpdocumentor-element-found-in__line">396</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set line width for the series.</p>
@@ -7068,7 +7152,7 @@ Normally used for chart data values</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeriesValues.php"><a href="files/src-phpspreadsheet-chart-dataseriesvalues.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeriesValues.php">DataSeriesValues.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">195</span>
+    <span class="phpdocumentor-element-found-in__line">198</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set Point Marker.</p>
@@ -7113,7 +7197,7 @@ Normally used for chart data values</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeriesValues.php"><a href="files/src-phpspreadsheet-chart-dataseriesvalues.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeriesValues.php">DataSeriesValues.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">225</span>
+    <span class="phpdocumentor-element-found-in__line">228</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set Point Size.</p>
@@ -7157,7 +7241,7 @@ Normally used for chart data values</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeriesValues.php"><a href="files/src-phpspreadsheet-chart-dataseriesvalues.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeriesValues.php">DataSeriesValues.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">519</span>
+    <span class="phpdocumentor-element-found-in__line">522</span>
 </aside>
 
     
@@ -7343,7 +7427,7 @@ Normally used for chart data values</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeriesValues.php"><a href="files/src-phpspreadsheet-chart-dataseriesvalues.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeriesValues.php">DataSeriesValues.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">562</span>
+    <span class="phpdocumentor-element-found-in__line">565</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set Smooth Line.</p>
@@ -7415,6 +7499,48 @@ Normally used for chart data values</p>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">void</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setTrendLines">
+        setTrendLines()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-DataSeriesValues.html#method_setTrendLines" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeriesValues.php"><a href="files/src-phpspreadsheet-chart-dataseriesvalues.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeriesValues.php">DataSeriesValues.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">584</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">setTrendLines</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$trendLines</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$trendLines</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">self</span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
@@ -8084,7 +8210,7 @@ Normally used for chart data values</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeriesValues.php"><a href="files/src-phpspreadsheet-chart-dataseriesvalues.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeriesValues.php">DataSeriesValues.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">294</span>
+    <span class="phpdocumentor-element-found-in__line">297</span>
 </aside>
 
     
@@ -8126,7 +8252,7 @@ Normally used for chart data values</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeriesValues.php"><a href="files/src-phpspreadsheet-chart-dataseriesvalues.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeriesValues.php">DataSeriesValues.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">276</span>
+    <span class="phpdocumentor-element-found-in__line">279</span>
 </aside>
 
     
@@ -8168,7 +8294,7 @@ Normally used for chart data values</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/DataSeriesValues.php"><a href="files/src-phpspreadsheet-chart-dataseriesvalues.html"><abbr title="src/PhpSpreadsheet/Chart/DataSeriesValues.php">DataSeriesValues.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">367</span>
+    <span class="phpdocumentor-element-found-in__line">370</span>
 </aside>
 
         <p class="phpdocumentor-summary">Method for validating hex color.</p>

@@ -82,50 +82,42 @@
 
     <article class="phpdocumentor-element -class">
         <h2 class="phpdocumentor-content__title">
-    JpGraph
+    JpGraphRendererBase
 
-        <span class="phpdocumentor-element__extends">
-        extends <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Renderer-JpGraphRendererBase.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraphRendererBase">JpGraphRendererBase</abbr></a>
-    </span>
     
     
+            <span class="phpdocumentor-element__implements">
+            implements
+                            <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Renderer-IRenderer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Renderer\IRenderer">IRenderer</abbr></a>                    </span>
     
     </h2>
 
         <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Renderer/JpGraph.php"><a href="files/src-phpspreadsheet-chart-renderer-jpgraph.html"><abbr title="src/PhpSpreadsheet/Chart/Renderer/JpGraph.php">JpGraph.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Renderer/JpGraphRendererBase.php"><a href="files/src-phpspreadsheet-chart-renderer-jpgraphrendererbase.html"><abbr title="src/PhpSpreadsheet/Chart/Renderer/JpGraphRendererBase.php">JpGraphRendererBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">16</span>
+    <span class="phpdocumentor-element-found-in__line">27</span>
 </aside>
 
-            <p class="phpdocumentor-summary">Jpgraph is not oficially maintained in Composer, so the version there
-could be out of date. For that reason, all unit test requiring Jpgraph
-are skipped. So, do not measure code coverage for this class till that
-is fixed.</p>
+            <p class="phpdocumentor-summary">Base class for different Jpgraph implementations as charts renderer.</p>
 
-    <section class="phpdocumentor-description"><p>This implementation uses abandoned package
-https://packagist.org/packages/jpgraph/jpgraph</p>
-</section>
-
-
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">codeCoverageIgnore</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"></section>
-
-                                    </dd>
-                        </dl>
+    <section class="phpdocumentor-description"></section>
 
 
 
 
+
+
+<h3 id="interfaces_class_traits">
+    Interfaces, Classes and Traits
+    <a href="#interfaces_class_traits" class="headerlink"><i class="fas fa-link"></i></a>
+</h3>
+
+<dl class="phpdocumentor-table-of-contents">
+            <dt class="phpdocumentor-table-of-contents__entry -interface"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Renderer-IRenderer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Renderer\IRenderer">IRenderer</abbr></a></dt>
+        <dd></dd>
+    
+    
+    </dl>
 
 
 <h3 id="toc">
@@ -205,7 +197,7 @@ https://packagist.org/packages/jpgraph/jpgraph</p>
 <dd>Render the chart to given file (or stream).</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -protected">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Renderer-JpGraph.html#method_init">init()</a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Renderer-JpGraphRendererBase.html#method_init">init()</a>
     <span>
                         &nbsp;: void    </span>
 </dt>
@@ -403,7 +395,7 @@ https://packagist.org/packages/jpgraph/jpgraph</p>
     <section class="phpdocumentor-properties">
         <h3 class="phpdocumentor-elements__header" id="properties">
             Properties
-            <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Renderer-JpGraph.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
+            <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Renderer-JpGraphRendererBase.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
         </h3>
                     <article
         class="
@@ -650,7 +642,7 @@ https://packagist.org/packages/jpgraph/jpgraph</p>
             <section class="phpdocumentor-methods">
         <h3 class="phpdocumentor-elements__header" id="methods">
             Methods
-            <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Renderer-JpGraph.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
+            <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Renderer-JpGraphRendererBase.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
         </h3>
                     <article
         class="phpdocumentor-element
@@ -745,23 +737,23 @@ https://packagist.org/packages/jpgraph/jpgraph</p>
         class="phpdocumentor-element
             -method
             -protected
-                                    -static                    "
+                        -abstract            -static                    "
 >
     <h4 class="phpdocumentor-element__name" id="method_init">
         init()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Renderer-JpGraph.html#method_init" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Renderer-JpGraphRendererBase.html#method_init" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Renderer/JpGraph.php"><a href="files/src-phpspreadsheet-chart-renderer-jpgraph.html"><abbr title="src/PhpSpreadsheet/Chart/Renderer/JpGraph.php">JpGraph.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Renderer/JpGraphRendererBase.php"><a href="files/src-phpspreadsheet-chart-renderer-jpgraphrendererbase.html"><abbr title="src/PhpSpreadsheet/Chart/Renderer/JpGraphRendererBase.php">JpGraphRendererBase.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">18</span>
+    <span class="phpdocumentor-element-found-in__line">76</span>
 </aside>
 
         <p class="phpdocumentor-summary">This method should be overriden in descendants to do real JpGraph library initialization.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">init</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+    <span class="phpdocumentor-signature__abstract">abstract</span>        <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">init</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -1941,7 +1933,7 @@ https://packagist.org/packages/jpgraph/jpgraph</p>
 </section>
             </div>
         </div>
-        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Renderer-JpGraph.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
+        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Renderer-JpGraphRendererBase.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
 
     </main>
 
