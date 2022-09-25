@@ -69,7 +69,7 @@
         "ext-xmlwriter": "*",
         "ext-zip": "*",
         "ext-zlib": "*",
-        "ezyang/htmlpurifier": "4.15",
+        "ezyang/htmlpurifier": "^4.15",
         "maennchen/zipstream-php": "^2.1",
         "markbaker/complex": "^3.0",
         "markbaker/matrix": "^3.0",
