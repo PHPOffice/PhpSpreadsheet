@@ -877,7 +877,7 @@ class ReferenceHelper
         foreach ($spreadsheet->getWorksheetIterator() as $sheet) {
             foreach ($sheet->getCoordinates(false) as $coordinate) {
                 $cell = $sheet->getCell($coordinate);
-                if (($cell !== null) && ($cell->getDataType() === DataType::TYPE_FORMULA)) {
+                if ($cell->getDataType() === DataType::TYPE_FORMULA) {
                     $formula = $cell->getValue();
                     if (strpos($formula, $oldName) !== false) {
                         $formula = str_replace("'" . $oldName . "'!", "'" . $newName . "'!", $formula);
