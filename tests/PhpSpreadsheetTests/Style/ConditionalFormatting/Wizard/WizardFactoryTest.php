@@ -24,9 +24,9 @@ class WizardFactoryTest extends TestCase
     /**
      * @dataProvider basicWizardFactoryProvider
      *
-     * @param class-string<object> $expectedWizard
+     * @psalm-param class-string<object> $expectedWizard
      */
-    public function testBasicWizardFactory(string $ruleType, $expectedWizard): void
+    public function testBasicWizardFactory(string $ruleType, string $expectedWizard): void
     {
         $wizard = $this->wizardFactory->newRule($ruleType);
         self::assertInstanceOf($expectedWizard, $wizard);
@@ -54,10 +54,7 @@ class WizardFactoryTest extends TestCase
         $filename = 'tests/data/Style/ConditionalFormatting/CellMatcher.xlsx';
         $reader = IOFactory::createReader('Xlsx');
         $spreadsheet = $reader->load($filename);
-        $worksheet = $spreadsheet->getSheetByName($sheetName);
-        if ($worksheet === null) {
-            self::markTestSkipped("{$sheetName} not found in test workbook");
-        }
+        $worksheet = $spreadsheet->getSheetByNameOrThrow($sheetName);
         $cell = $worksheet->getCell($cellAddress);
 
         $cfRange = $worksheet->getConditionalRange($cell->getCoordinate());

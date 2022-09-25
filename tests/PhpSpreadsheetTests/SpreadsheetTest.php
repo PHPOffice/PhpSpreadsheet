@@ -2,28 +2,38 @@
 
 namespace PhpOffice\PhpSpreadsheetTests;
 
+use PhpOffice\PhpSpreadsheet\Exception as ssException;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PHPUnit\Framework\TestCase;
 
 class SpreadsheetTest extends TestCase
 {
-    /** @var Spreadsheet */
-    private $object;
+    /** @var ?Spreadsheet */
+    private $spreadsheet;
 
-    protected function setUp(): void
+    protected function tearDown(): void
     {
-        parent::setUp();
-        $this->object = new Spreadsheet();
-        $sheet = $this->object->getActiveSheet();
+        if ($this->spreadsheet !== null) {
+            $this->spreadsheet->disconnectWorksheets();
+            $this->spreadsheet = null;
+        }
+    }
+
+    private function getSpreadsheet(): Spreadsheet
+    {
+        $this->spreadsheet = $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
 
         $sheet->setTitle('someSheet1');
         $sheet = new Worksheet();
         $sheet->setTitle('someSheet2');
-        $this->object->addSheet($sheet);
+        $spreadsheet->addSheet($sheet);
         $sheet = new Worksheet();
         $sheet->setTitle('someSheet 3');
-        $this->object->addSheet($sheet);
+        $spreadsheet->addSheet($sheet);
+
+        return $spreadsheet;
     }
 
     public function dataProviderForSheetNames(): array
@@ -35,6 +45,7 @@ class SpreadsheetTest extends TestCase
             [1, "'someSheet2'"],
             [2, 'someSheet 3'],
             [2, "'someSheet 3'"],
+            [null, 'someSheet 33'],
         ];
 
         return $array;
@@ -43,135 +54,153 @@ class SpreadsheetTest extends TestCase
     /**
      * @dataProvider dataProviderForSheetNames
      */
-    public function testGetSheetByName(int $index, string $sheetName): void
+    public function testGetSheetByName(?int $index, string $sheetName): void
     {
-        self::assertSame($this->object->getSheet($index), $this->object->getSheetByName($sheetName));
+        $spreadsheet = $this->getSpreadsheet();
+        if ($index === null) {
+            self::assertNull($spreadsheet->getSheetByName($sheetName));
+        } else {
+            self::assertSame($spreadsheet->getSheet($index), $spreadsheet->getSheetByName($sheetName));
+        }
     }
 
     public function testAddSheetDuplicateTitle(): void
     {
-        $this->expectException(\PhpOffice\PhpSpreadsheet\Exception::class);
+        $spreadsheet = $this->getSpreadsheet();
+        $this->expectException(ssException::class);
         $sheet = new Worksheet();
         $sheet->setTitle('someSheet2');
-        $this->object->addSheet($sheet);
+        $spreadsheet->addSheet($sheet);
     }
 
     public function testAddSheetNoAdjustActive(): void
     {
-        $this->object->setActiveSheetIndex(2);
-        self::assertEquals(2, $this->object->getActiveSheetIndex());
+        $spreadsheet = $this->getSpreadsheet();
+        $spreadsheet->setActiveSheetIndex(2);
+        self::assertEquals(2, $spreadsheet->getActiveSheetIndex());
         $sheet = new Worksheet();
         $sheet->setTitle('someSheet4');
-        $this->object->addSheet($sheet);
-        self::assertEquals(2, $this->object->getActiveSheetIndex());
+        $spreadsheet->addSheet($sheet);
+        self::assertEquals(2, $spreadsheet->getActiveSheetIndex());
     }
 
     public function testAddSheetAdjustActive(): void
     {
-        $this->object->setActiveSheetIndex(2);
-        self::assertEquals(2, $this->object->getActiveSheetIndex());
+        $spreadsheet = $this->getSpreadsheet();
+        $spreadsheet->setActiveSheetIndex(2);
+        self::assertEquals(2, $spreadsheet->getActiveSheetIndex());
         $sheet = new Worksheet();
         $sheet->setTitle('someSheet0');
-        $this->object->addSheet($sheet, 0);
-        self::assertEquals(3, $this->object->getActiveSheetIndex());
+        $spreadsheet->addSheet($sheet, 0);
+        self::assertEquals(3, $spreadsheet->getActiveSheetIndex());
     }
 
     public function testRemoveSheetIndexTooHigh(): void
     {
-        $this->expectException(\PhpOffice\PhpSpreadsheet\Exception::class);
-        $this->object->removeSheetByIndex(4);
+        $spreadsheet = $this->getSpreadsheet();
+        $this->expectException(ssException::class);
+        $spreadsheet->removeSheetByIndex(4);
     }
 
     public function testRemoveSheetNoAdjustActive(): void
     {
-        $this->object->setActiveSheetIndex(1);
-        self::assertEquals(1, $this->object->getActiveSheetIndex());
-        $this->object->removeSheetByIndex(2);
-        self::assertEquals(1, $this->object->getActiveSheetIndex());
+        $spreadsheet = $this->getSpreadsheet();
+        $spreadsheet->setActiveSheetIndex(1);
+        self::assertEquals(1, $spreadsheet->getActiveSheetIndex());
+        $spreadsheet->removeSheetByIndex(2);
+        self::assertEquals(1, $spreadsheet->getActiveSheetIndex());
     }
 
     public function testRemoveSheetAdjustActive(): void
     {
-        $this->object->setActiveSheetIndex(2);
-        self::assertEquals(2, $this->object->getActiveSheetIndex());
-        $this->object->removeSheetByIndex(1);
-        self::assertEquals(1, $this->object->getActiveSheetIndex());
+        $spreadsheet = $this->getSpreadsheet();
+        $spreadsheet->setActiveSheetIndex(2);
+        self::assertEquals(2, $spreadsheet->getActiveSheetIndex());
+        $spreadsheet->removeSheetByIndex(1);
+        self::assertEquals(1, $spreadsheet->getActiveSheetIndex());
     }
 
     public function testGetSheetIndexTooHigh(): void
     {
-        $this->expectException(\PhpOffice\PhpSpreadsheet\Exception::class);
-        $this->object->getSheet(4);
+        $spreadsheet = $this->getSpreadsheet();
+        $this->expectException(ssException::class);
+        $spreadsheet->getSheet(4);
     }
 
     public function testGetIndexNonExistent(): void
     {
-        $this->expectException(\PhpOffice\PhpSpreadsheet\Exception::class);
+        $spreadsheet = $this->getSpreadsheet();
+        $this->expectException(ssException::class);
         $sheet = new Worksheet();
         $sheet->setTitle('someSheet4');
-        $this->object->getIndex($sheet);
+        $spreadsheet->getIndex($sheet);
     }
 
     public function testSetIndexByName(): void
     {
-        $this->object->setIndexByName('someSheet1', 1);
-        self::assertEquals('someSheet2', $this->object->getSheet(0)->getTitle());
-        self::assertEquals('someSheet1', $this->object->getSheet(1)->getTitle());
-        self::assertEquals('someSheet 3', $this->object->getSheet(2)->getTitle());
+        $spreadsheet = $this->getSpreadsheet();
+        $spreadsheet->setIndexByName('someSheet1', 1);
+        self::assertEquals('someSheet2', $spreadsheet->getSheet(0)->getTitle());
+        self::assertEquals('someSheet1', $spreadsheet->getSheet(1)->getTitle());
+        self::assertEquals('someSheet 3', $spreadsheet->getSheet(2)->getTitle());
     }
 
     public function testRemoveAllSheets(): void
     {
-        $this->object->setActiveSheetIndex(2);
-        self::assertEquals(2, $this->object->getActiveSheetIndex());
-        $this->object->removeSheetByIndex(0);
-        self::assertEquals(1, $this->object->getActiveSheetIndex());
-        $this->object->removeSheetByIndex(0);
-        self::assertEquals(0, $this->object->getActiveSheetIndex());
-        $this->object->removeSheetByIndex(0);
-        self::assertEquals(-1, $this->object->getActiveSheetIndex());
+        $spreadsheet = $this->getSpreadsheet();
+        $spreadsheet->setActiveSheetIndex(2);
+        self::assertEquals(2, $spreadsheet->getActiveSheetIndex());
+        $spreadsheet->removeSheetByIndex(0);
+        self::assertEquals(1, $spreadsheet->getActiveSheetIndex());
+        $spreadsheet->removeSheetByIndex(0);
+        self::assertEquals(0, $spreadsheet->getActiveSheetIndex());
+        $spreadsheet->removeSheetByIndex(0);
+        self::assertEquals(-1, $spreadsheet->getActiveSheetIndex());
         $sheet = new Worksheet();
         $sheet->setTitle('someSheet4');
-        $this->object->addSheet($sheet);
-        self::assertEquals(0, $this->object->getActiveSheetIndex());
+        $spreadsheet->addSheet($sheet);
+        self::assertEquals(0, $spreadsheet->getActiveSheetIndex());
     }
 
     public function testBug1735(): void
     {
-        $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
-        $spreadsheet->createSheet()->setTitle('addedsheet');
-        $spreadsheet->setActiveSheetIndex(1);
-        $spreadsheet->removeSheetByIndex(0);
-        $sheet = $spreadsheet->getActiveSheet();
+        $spreadsheet1 = new Spreadsheet();
+        $spreadsheet1->createSheet()->setTitle('addedsheet');
+        $spreadsheet1->setActiveSheetIndex(1);
+        $spreadsheet1->removeSheetByIndex(0);
+        $sheet = $spreadsheet1->getActiveSheet();
         self::assertEquals('addedsheet', $sheet->getTitle());
     }
 
     public function testSetActiveSheetIndexTooHigh(): void
     {
-        $this->expectException(\PhpOffice\PhpSpreadsheet\Exception::class);
-        $this->object->setActiveSheetIndex(4);
+        $spreadsheet = $this->getSpreadsheet();
+        $this->expectException(ssException::class);
+        $spreadsheet->setActiveSheetIndex(4);
     }
 
     public function testSetActiveSheetNoSuchName(): void
     {
-        $this->expectException(\PhpOffice\PhpSpreadsheet\Exception::class);
-        $this->object->setActiveSheetIndexByName('unknown');
+        $spreadsheet = $this->getSpreadsheet();
+        $this->expectException(ssException::class);
+        $spreadsheet->setActiveSheetIndexByName('unknown');
     }
 
     public function testAddExternal(): void
     {
-        $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
-        $sheet = $spreadsheet->createSheet()->setTitle('someSheet19');
+        $spreadsheet = $this->getSpreadsheet();
+        $spreadsheet1 = new Spreadsheet();
+        $sheet = $spreadsheet1->createSheet()->setTitle('someSheet19');
         $sheet->getCell('A1')->setValue(1);
         $sheet->getCell('A1')->getStyle()->getFont()->setBold(true);
         $sheet->getCell('B1')->getStyle()->getFont()->setSuperscript(true);
         $sheet->getCell('C1')->getStyle()->getFont()->setSubscript(true);
-        self::assertCount(4, $spreadsheet->getCellXfCollection());
+        self::assertCount(4, $spreadsheet1->getCellXfCollection());
         self::assertEquals(1, $sheet->getCell('A1')->getXfIndex());
-        $this->object->getActiveSheet()->getCell('A1')->getStyle()->getFont()->setBold(true);
-        self::assertCount(2, $this->object->getCellXfCollection());
-        $sheet3 = $this->object->addExternalSheet($sheet);
-        self::assertCount(6, $this->object->getCellXfCollection());
+        $spreadsheet->getActiveSheet()->getCell('A1')->getStyle()->getFont()->setBold(true);
+        self::assertCount(2, $spreadsheet->getCellXfCollection());
+        $sheet3 = $spreadsheet->addExternalSheet($sheet);
+        self::assertCount(6, $spreadsheet->getCellXfCollection());
         self::assertEquals('someSheet19', $sheet3->getTitle());
         self::assertEquals(1, $sheet3->getCell('A1')->getValue());
         self::assertTrue($sheet3->getCell('A1')->getStyle()->getFont()->getBold());
@@ -181,17 +210,17 @@ class SpreadsheetTest extends TestCase
 
     public function testAddExternalDuplicateName(): void
     {
-        $this->expectException(\PhpOffice\PhpSpreadsheet\Exception::class);
-        $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+        $this->expectException(ssException::class);
+        $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->createSheet()->setTitle('someSheet1');
         $sheet->getCell('A1')->setValue(1);
         $sheet->getCell('A1')->getStyle()->getFont()->setBold(true);
-        $this->object->addExternalSheet($sheet);
+        $spreadsheet->addExternalSheet($sheet);
     }
 
     public function testAddExternalColumnDimensionStyles(): void
     {
-        $spreadsheet1 = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+        $spreadsheet1 = new Spreadsheet();
         $sheet1 = $spreadsheet1->createSheet()->setTitle('sheetWithColumnDimension');
         $sheet1->getCell('A1')->setValue(1);
         $sheet1->getCell('A1')->getStyle()->getFont()->setItalic(true);
@@ -200,7 +229,7 @@ class SpreadsheetTest extends TestCase
         self::assertEquals(1, $index);
         self::assertCount(2, $spreadsheet1->getCellXfCollection());
 
-        $spreadsheet2 = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+        $spreadsheet2 = new Spreadsheet();
         $sheet2 = $spreadsheet2->createSheet()->setTitle('sheetWithTwoStyles');
         $sheet2->getCell('A1')->setValue(1);
         $sheet2->getCell('A1')->getStyle()->getFont()->setBold(true);
@@ -220,7 +249,7 @@ class SpreadsheetTest extends TestCase
 
     public function testAddExternalRowDimensionStyles(): void
     {
-        $spreadsheet1 = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+        $spreadsheet1 = new Spreadsheet();
         $sheet1 = $spreadsheet1->createSheet()->setTitle('sheetWithColumnDimension');
         $sheet1->getCell('A1')->setValue(1);
         $sheet1->getCell('A1')->getStyle()->getFont()->setItalic(true);
@@ -229,7 +258,7 @@ class SpreadsheetTest extends TestCase
         self::assertEquals(1, $index);
         self::assertCount(2, $spreadsheet1->getCellXfCollection());
 
-        $spreadsheet2 = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+        $spreadsheet2 = new Spreadsheet();
         $sheet2 = $spreadsheet2->createSheet()->setTitle('sheetWithTwoStyles');
         $sheet2->getCell('A1')->setValue(1);
         $sheet2->getCell('A1')->getStyle()->getFont()->setBold(true);

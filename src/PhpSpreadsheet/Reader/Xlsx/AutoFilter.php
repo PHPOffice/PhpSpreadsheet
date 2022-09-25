@@ -9,8 +9,10 @@ use SimpleXMLElement;
 
 class AutoFilter
 {
+    /** @var Worksheet */
     private $worksheet;
 
+    /** @var SimpleXMLElement */
     private $worksheetXml;
 
     public function __construct(Worksheet $workSheet, SimpleXMLElement $worksheetXml)
@@ -28,7 +30,7 @@ class AutoFilter
         }
     }
 
-    private function readAutoFilter($autoFilterRange, $xmlSheet): void
+    private function readAutoFilter(string $autoFilterRange, SimpleXMLElement $xmlSheet): void
     {
         $autoFilter = $this->worksheet->getAutoFilter();
         $autoFilter->setRange($autoFilterRange);
@@ -39,15 +41,15 @@ class AutoFilter
             if ($filterColumn->filters) {
                 $column->setFilterType(Column::AUTOFILTER_FILTERTYPE_FILTER);
                 $filters = $filterColumn->filters;
-                if ((isset($filters['blank'])) && ($filters['blank'] == 1)) {
+                if ((isset($filters['blank'])) && ((int) $filters['blank'] == 1)) {
                     //    Operator is undefined, but always treated as EQUAL
-                    $column->createRule()->setRule(null, '')->setRuleType(Rule::AUTOFILTER_RULETYPE_FILTER);
+                    $column->createRule()->setRule('', '')->setRuleType(Rule::AUTOFILTER_RULETYPE_FILTER);
                 }
                 //    Standard filters are always an OR join, so no join rule needs to be set
                 //    Entries can be either filter elements
                 foreach ($filters->filter as $filterRule) {
                     //    Operator is undefined, but always treated as EQUAL
-                    $column->createRule()->setRule(null, (string) $filterRule['val'])->setRuleType(Rule::AUTOFILTER_RULETYPE_FILTER);
+                    $column->createRule()->setRule('', (string) $filterRule['val'])->setRuleType(Rule::AUTOFILTER_RULETYPE_FILTER);
                 }
 
                 //    Or Date Group elements
@@ -69,7 +71,7 @@ class AutoFilter
         foreach ($filters->dateGroupItem as $dateGroupItem) {
             //    Operator is undefined, but always treated as EQUAL
             $column->createRule()->setRule(
-                null,
+                '',
                 [
                     'year' => (string) $dateGroupItem['year'],
                     'month' => (string) $dateGroupItem['month'],
@@ -83,9 +85,9 @@ class AutoFilter
         }
     }
 
-    private function readCustomAutoFilter(SimpleXMLElement $filterColumn, Column $column): void
+    private function readCustomAutoFilter(?SimpleXMLElement $filterColumn, Column $column): void
     {
-        if ($filterColumn->customFilters) {
+        if (isset($filterColumn, $filterColumn->customFilters)) {
             $column->setFilterType(Column::AUTOFILTER_FILTERTYPE_CUSTOMFILTER);
             $customFilters = $filterColumn->customFilters;
             //    Custom filters can an AND or an OR join;
@@ -102,15 +104,15 @@ class AutoFilter
         }
     }
 
-    private function readDynamicAutoFilter(SimpleXMLElement $filterColumn, Column $column): void
+    private function readDynamicAutoFilter(?SimpleXMLElement $filterColumn, Column $column): void
     {
-        if ($filterColumn->dynamicFilter) {
+        if (isset($filterColumn, $filterColumn->dynamicFilter)) {
             $column->setFilterType(Column::AUTOFILTER_FILTERTYPE_DYNAMICFILTER);
             //    We should only ever have one dynamic filter
             foreach ($filterColumn->dynamicFilter as $filterRule) {
                 //    Operator is undefined, but always treated as EQUAL
                 $column->createRule()->setRule(
-                    null,
+                    '',
                     (string) $filterRule['val'],
                     (string) $filterRule['type']
                 )->setRuleType(Rule::AUTOFILTER_RULETYPE_DYNAMICFILTER);
@@ -124,9 +126,9 @@ class AutoFilter
         }
     }
 
-    private function readTopTenAutoFilter(SimpleXMLElement $filterColumn, Column $column): void
+    private function readTopTenAutoFilter(?SimpleXMLElement $filterColumn, Column $column): void
     {
-        if ($filterColumn->top10) {
+        if (isset($filterColumn, $filterColumn->top10)) {
             $column->setFilterType(Column::AUTOFILTER_FILTERTYPE_TOPTENFILTER);
             //    We should only ever have one top10 filter
             foreach ($filterColumn->top10 as $filterRule) {

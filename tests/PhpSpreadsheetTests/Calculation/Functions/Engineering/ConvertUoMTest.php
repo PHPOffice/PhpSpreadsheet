@@ -5,14 +5,12 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Engineering\ConvertUOM;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Engineering;
 use PHPUnit\Framework\TestCase;
 
 class ConvertUoMTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
+    const UOM_PRECISION = 1E-12;
 
     public function testGetConversionGroups(): void
     {
@@ -52,7 +50,7 @@ class ConvertUoMTest extends TestCase
     public function testCONVERTUOM($expectedResult, ...$args): void
     {
         $result = ConvertUOM::CONVERT(...$args);
-        self::assertEquals($expectedResult, $result);
+        self::assertEqualsWithDelta($expectedResult, $result, self::UOM_PRECISION);
     }
 
     public function providerCONVERTUOM(): array
@@ -69,7 +67,7 @@ class ConvertUoMTest extends TestCase
 
         $formula = "=CONVERT({$value}, {$fromUoM}, {$toUoM})";
         $result = $calculation->calculateFormulaValue($formula);
-        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
+        self::assertEqualsWithDelta($expectedResult, $result, self::UOM_PRECISION);
     }
 
     public function providerConvertUoMArray(): array

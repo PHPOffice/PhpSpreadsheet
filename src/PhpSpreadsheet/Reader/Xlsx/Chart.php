@@ -11,9 +11,10 @@ use PhpOffice\PhpSpreadsheet\Chart\GridLines;
 use PhpOffice\PhpSpreadsheet\Chart\Layout;
 use PhpOffice\PhpSpreadsheet\Chart\Legend;
 use PhpOffice\PhpSpreadsheet\Chart\PlotArea;
-use PhpOffice\PhpSpreadsheet\Chart\Properties;
+use PhpOffice\PhpSpreadsheet\Chart\Properties as ChartProperties;
 use PhpOffice\PhpSpreadsheet\Chart\Title;
 use PhpOffice\PhpSpreadsheet\Chart\TrendLine;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Style\Font;
 use SimpleXMLElement;
@@ -94,7 +95,7 @@ class Chart
                     break;
                 case 'chart':
                     foreach ($chartElement as $chartDetailsKey => $chartDetails) {
-                        $chartDetailsC = $chartDetails->children($this->cNamespace);
+                        $chartDetails = Xlsx::testSimpleXml($chartDetails);
                         switch ($chartDetailsKey) {
                             case 'autoTitleDeleted':
                                 /** @var bool */
@@ -114,6 +115,7 @@ class Chart
                                 $catAxRead = false;
                                 $plotNoFill = false;
                                 foreach ($chartDetails as $chartDetailKey => $chartDetail) {
+                                    $chartDetail = Xlsx::testSimpleXml($chartDetail);
                                     switch ($chartDetailKey) {
                                         case 'spPr':
                                             $possibleNoFill = $chartDetails->spPr->children($this->aNamespace);
@@ -122,16 +124,17 @@ class Chart
                                             }
                                             if (isset($possibleNoFill->gradFill->gsLst)) {
                                                 foreach ($possibleNoFill->gradFill->gsLst->gs as $gradient) {
+                                                    $gradient = Xlsx::testSimpleXml($gradient);
                                                     /** @var float */
                                                     $pos = self::getAttribute($gradient, 'pos', 'float');
                                                     $gradientArray[] = [
-                                                        $pos / Properties::PERCENTAGE_MULTIPLIER,
+                                                        $pos / ChartProperties::PERCENTAGE_MULTIPLIER,
                                                         new ChartColor($this->readColor($gradient)),
                                                     ];
                                                 }
                                             }
                                             if (isset($possibleNoFill->gradFill->lin)) {
-                                                $gradientLin = Properties::XmlToAngle((string) self::getAttribute($possibleNoFill->gradFill->lin, 'ang', 'string'));
+                                                $gradientLin = ChartProperties::XmlToAngle((string) self::getAttribute($possibleNoFill->gradFill->lin, 'ang', 'string'));
                                             }
 
                                             break;
@@ -139,12 +142,13 @@ class Chart
                                             $plotAreaLayout = $this->chartLayoutDetails($chartDetail);
 
                                             break;
-                                        case 'catAx':
+                                        case Axis::AXIS_TYPE_CATEGORY:
+                                        case Axis::AXIS_TYPE_DATE:
                                             $catAxRead = true;
                                             if (isset($chartDetail->title)) {
                                                 $XaxisLabel = $this->chartTitle($chartDetail->title->children($this->cNamespace));
                                             }
-                                            $xAxis->setAxisType('catAx');
+                                            $xAxis->setAxisType($chartDetailKey);
                                             $this->readEffects($chartDetail, $xAxis);
                                             if (isset($chartDetail->spPr)) {
                                                 $sppr = $chartDetail->spPr->children($this->aNamespace);
@@ -173,13 +177,7 @@ class Chart
                                             $this->setAxisProperties($chartDetail, $xAxis);
 
                                             break;
-                                        case 'dateAx':
-                                            if (isset($chartDetail->title)) {
-                                                $XaxisLabel = $this->chartTitle($chartDetail->title->children($this->cNamespace));
-                                            }
-
-                                            break;
-                                        case 'valAx':
+                                        case Axis::AXIS_TYPE_VALUE:
                                             $whichAxis = null;
                                             $axPos = null;
                                             if (isset($chartDetail->axPos)) {
@@ -316,7 +314,7 @@ class Chart
                                             break;
                                         case 'stockChart':
                                             $plotSeries[] = $this->chartDataSeries($chartDetail, $chartDetailKey);
-                                            $plotAttributes = $this->readChartAttributes($plotAreaLayout);
+                                            $plotAttributes = $this->readChartAttributes($chartDetail);
 
                                             break;
                                     }
@@ -351,6 +349,7 @@ class Chart
                                 $legendLayout = null;
                                 $legendOverlay = false;
                                 foreach ($chartDetails as $chartDetailKey => $chartDetail) {
+                                    $chartDetail = Xlsx::testSimpleXml($chartDetail);
                                     switch ($chartDetailKey) {
                                         case 'legendPos':
                                             $legendPos = self::getAttribute($chartDetail, 'val', 'string');
@@ -402,11 +401,13 @@ class Chart
         $caption = [];
         $titleLayout = null;
         foreach ($titleDetails as $titleDetailKey => $chartDetail) {
+            $chartDetail = Xlsx::testSimpleXml($chartDetail);
             switch ($titleDetailKey) {
                 case 'tx':
                     if (isset($chartDetail->rich)) {
                         $titleDetails = $chartDetail->rich->children($this->aNamespace);
                         foreach ($titleDetails as $titleKey => $titleDetail) {
+                            $titleDetail = Xlsx::testSimpleXml($titleDetail);
                             switch ($titleKey) {
                                 case 'p':
                                     $titleDetailPart = $titleDetail->children($this->aNamespace);
@@ -443,6 +444,7 @@ class Chart
         }
         $layout = [];
         foreach ($details as $detailKey => $detail) {
+            $detail = Xlsx::testSimpleXml($detail);
             $layout[$detailKey] = self::getAttribute($detail, 'val', 'string');
         }
 
@@ -469,13 +471,14 @@ class Chart
                     $pointSize = null;
                     $noFill = false;
                     $bubble3D = false;
-                    $dPtColors = [];
+                    $dptColors = [];
                     $markerFillColor = null;
                     $markerBorderColor = null;
                     $lineStyle = null;
                     $labelLayout = null;
                     $trendLines = [];
                     foreach ($seriesDetails as $seriesKey => $seriesDetail) {
+                        $seriesDetail = Xlsx::testSimpleXml($seriesDetail);
                         switch ($seriesKey) {
                             case 'idx':
                                 $seriesIndex = self::getAttribute($seriesDetail, 'val', 'integer');
@@ -492,7 +495,6 @@ class Chart
                                 break;
                             case 'spPr':
                                 $children = $seriesDetail->children($this->aNamespace);
-                                $ln = $children->ln;
                                 if (isset($children->ln)) {
                                     $ln = $children->ln;
                                     if (is_countable($ln->noFill) && count($ln->noFill) === 1) {
@@ -536,7 +538,25 @@ class Chart
                                 $order = self::getAttribute($seriesDetail->order, 'val', 'integer');
                                 /** @var ?int */
                                 $period = self::getAttribute($seriesDetail->period, 'val', 'integer');
-                                $trendLine->setTrendLineProperties($trendLineType, $order, $period, $dispRSqr, $dispEq);
+                                /** @var ?float */
+                                $forward = self::getAttribute($seriesDetail->forward, 'val', 'float');
+                                /** @var ?float */
+                                $backward = self::getAttribute($seriesDetail->backward, 'val', 'float');
+                                /** @var ?float */
+                                $intercept = self::getAttribute($seriesDetail->intercept, 'val', 'float');
+                                /** @var ?string */
+                                $name = (string) $seriesDetail->name;
+                                $trendLine->setTrendLineProperties(
+                                    $trendLineType,
+                                    $order,
+                                    $period,
+                                    $dispRSqr,
+                                    $dispEq,
+                                    $backward,
+                                    $forward,
+                                    $intercept,
+                                    $name
+                                );
                                 $trendLines[] = $trendLine;
 
                                 break;
@@ -771,6 +791,7 @@ class Chart
         $pointCount = 0;
 
         foreach ($seriesValueSet as $seriesValueIdx => $seriesValue) {
+            $seriesValue = Xlsx::testSimpleXml($seriesValue);
             switch ($seriesValueIdx) {
                 case 'ptCount':
                     $pointCount = self::getAttribute($seriesValue, 'val', 'integer');
@@ -843,7 +864,6 @@ class Chart
     private function parseRichText(SimpleXMLElement $titleDetailPart): RichText
     {
         $value = new RichText();
-        $objText = null;
         $defaultFontSize = null;
         $defaultBold = null;
         $defaultItalic = null;
@@ -1055,7 +1075,7 @@ class Chart
     }
 
     /**
-     * @param null|Layout|SimpleXMLElement $chartDetail
+     * @param ?SimpleXMLElement $chartDetail
      */
     private function readChartAttributes($chartDetail): array
     {
@@ -1148,7 +1168,7 @@ class Chart
         }
     }
 
-    private function readEffects(SimpleXMLElement $chartDetail, ?Properties $chartObject): void
+    private function readEffects(SimpleXMLElement $chartDetail, ?ChartProperties $chartObject): void
     {
         if (!isset($chartObject, $chartDetail->spPr)) {
             return;
@@ -1156,7 +1176,7 @@ class Chart
         $sppr = $chartDetail->spPr->children($this->aNamespace);
 
         if (isset($sppr->effectLst->glow)) {
-            $axisGlowSize = (float) self::getAttribute($sppr->effectLst->glow, 'rad', 'integer') / Properties::POINTS_WIDTH_MULTIPLIER;
+            $axisGlowSize = (float) self::getAttribute($sppr->effectLst->glow, 'rad', 'integer') / ChartProperties::POINTS_WIDTH_MULTIPLIER;
             if ($axisGlowSize != 0.0) {
                 $colorArray = $this->readColor($sppr->effectLst->glow);
                 $chartObject->setGlowProperties($axisGlowSize, $colorArray['value'], $colorArray['alpha'], $colorArray['type']);
@@ -1167,7 +1187,7 @@ class Chart
             /** @var string */
             $softEdgeSize = self::getAttribute($sppr->effectLst->softEdge, 'rad', 'string');
             if (is_numeric($softEdgeSize)) {
-                $chartObject->setSoftEdges((float) Properties::xmlToPoints($softEdgeSize));
+                $chartObject->setSoftEdges((float) ChartProperties::xmlToPoints($softEdgeSize));
             }
         }
 
@@ -1182,20 +1202,20 @@ class Chart
         if ($type !== '') {
             /** @var string */
             $blur = self::getAttribute($sppr->effectLst->$type, 'blurRad', 'string');
-            $blur = is_numeric($blur) ? Properties::xmlToPoints($blur) : null;
+            $blur = is_numeric($blur) ? ChartProperties::xmlToPoints($blur) : null;
             /** @var string */
             $dist = self::getAttribute($sppr->effectLst->$type, 'dist', 'string');
-            $dist = is_numeric($dist) ? Properties::xmlToPoints($dist) : null;
+            $dist = is_numeric($dist) ? ChartProperties::xmlToPoints($dist) : null;
             /** @var string */
             $direction = self::getAttribute($sppr->effectLst->$type, 'dir', 'string');
-            $direction = is_numeric($direction) ? Properties::xmlToAngle($direction) : null;
+            $direction = is_numeric($direction) ? ChartProperties::xmlToAngle($direction) : null;
             $algn = self::getAttribute($sppr->effectLst->$type, 'algn', 'string');
             $rot = self::getAttribute($sppr->effectLst->$type, 'rotWithShape', 'string');
             $size = [];
             foreach (['sx', 'sy'] as $sizeType) {
                 $sizeValue = self::getAttribute($sppr->effectLst->$type, $sizeType, 'string');
                 if (is_numeric($sizeValue)) {
-                    $size[$sizeType] = Properties::xmlToTenthOfPercent((string) $sizeValue);
+                    $size[$sizeType] = ChartProperties::xmlToTenthOfPercent((string) $sizeValue);
                 } else {
                     $size[$sizeType] = null;
                 }
@@ -1203,7 +1223,7 @@ class Chart
             foreach (['kx', 'ky'] as $sizeType) {
                 $sizeValue = self::getAttribute($sppr->effectLst->$type, $sizeType, 'string');
                 if (is_numeric($sizeValue)) {
-                    $size[$sizeType] = Properties::xmlToAngle((string) $sizeValue);
+                    $size[$sizeType] = ChartProperties::xmlToAngle((string) $sizeValue);
                 } else {
                     $size[$sizeType] = null;
                 }
@@ -1260,7 +1280,7 @@ class Chart
         return $result;
     }
 
-    private function readLineStyle(SimpleXMLElement $chartDetail, ?Properties $chartObject): void
+    private function readLineStyle(SimpleXMLElement $chartDetail, ?ChartProperties $chartObject): void
     {
         if (!isset($chartObject, $chartDetail->spPr)) {
             return;
@@ -1274,7 +1294,7 @@ class Chart
         /** @var string */
         $lineWidthTemp = self::getAttribute($sppr->ln, 'w', 'string');
         if (is_numeric($lineWidthTemp)) {
-            $lineWidth = Properties::xmlToPoints($lineWidthTemp);
+            $lineWidth = ChartProperties::xmlToPoints($lineWidthTemp);
         }
         /** @var string */
         $compoundType = self::getAttribute($sppr->ln, 'cmpd', 'string');
@@ -1283,15 +1303,13 @@ class Chart
         /** @var string */
         $capType = self::getAttribute($sppr->ln, 'cap', 'string');
         if (isset($sppr->ln->miter)) {
-            $joinType = Properties::LINE_STYLE_JOIN_MITER;
+            $joinType = ChartProperties::LINE_STYLE_JOIN_MITER;
         } elseif (isset($sppr->ln->bevel)) {
-            $joinType = Properties::LINE_STYLE_JOIN_BEVEL;
+            $joinType = ChartProperties::LINE_STYLE_JOIN_BEVEL;
         } else {
             $joinType = '';
         }
-        $headArrowType = '';
         $headArrowSize = '';
-        $endArrowType = '';
         $endArrowSize = '';
         /** @var string */
         $headArrowType = self::getAttribute($sppr->ln->headEnd, 'type', 'string');
@@ -1375,13 +1393,22 @@ class Chart
         if (isset($chartDetail->minorUnit)) {
             $whichAxis->setAxisOption('minor_unit', (string) self::getAttribute($chartDetail->minorUnit, 'val', 'string'));
         }
+        if (isset($chartDetail->baseTimeUnit)) {
+            $whichAxis->setAxisOption('baseTimeUnit', (string) self::getAttribute($chartDetail->baseTimeUnit, 'val', 'string'));
+        }
+        if (isset($chartDetail->majorTimeUnit)) {
+            $whichAxis->setAxisOption('majorTimeUnit', (string) self::getAttribute($chartDetail->majorTimeUnit, 'val', 'string'));
+        }
+        if (isset($chartDetail->minorTimeUnit)) {
+            $whichAxis->setAxisOption('minorTimeUnit', (string) self::getAttribute($chartDetail->minorTimeUnit, 'val', 'string'));
+        }
         if (isset($chartDetail->txPr)) {
             $children = $chartDetail->txPr->children($this->aNamespace);
             if (isset($children->bodyPr)) {
                 /** @var string */
                 $textRotation = self::getAttribute($children->bodyPr, 'rot', 'string');
                 if (is_numeric($textRotation)) {
-                    $whichAxis->setAxisOption('textRotation', (string) Properties::xmlToAngle($textRotation));
+                    $whichAxis->setAxisOption('textRotation', (string) ChartProperties::xmlToAngle($textRotation));
                 }
             }
         }

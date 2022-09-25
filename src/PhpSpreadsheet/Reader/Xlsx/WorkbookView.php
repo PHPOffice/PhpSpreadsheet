@@ -29,7 +29,7 @@ class WorkbookView
         $this->spreadsheet->setActiveSheetIndex(0);
 
         $workbookView = $xmlWorkbook->children($mainNS)->bookViews->workbookView;
-        if (($readDataOnly !== true || !empty($this->loadSheetsOnly)) && !empty($workbookView)) {
+        if ($readDataOnly !== true && !empty($workbookView)) {
             $workbookViewAttributes = self::testSimpleXml(self::getAttributes($workbookView));
             // active sheet index
             $activeTab = (int) $workbookViewAttributes->activeTab; // refers to old sheet index

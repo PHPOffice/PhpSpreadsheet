@@ -12,7 +12,7 @@ class FormulaParserTest extends TestCase
     {
         $this->expectException(CalcException::class);
         $this->expectExceptionMessage('Invalid parameter passed: formula');
-        $result = new FormulaParser(null);
+        new FormulaParser(null);
     }
 
     public function testInvalidTokenId(): void

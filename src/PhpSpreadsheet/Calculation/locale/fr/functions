@@ -240,6 +240,7 @@ ROWS = LIGNES
 RTD = RTD
 TRANSPOSE = TRANSPOSE
 VLOOKUP = RECHERCHEV
+*RC = LC
 
 ##
 ## Fonctions mathématiques et trigonométriques (Math & Trig Functions)

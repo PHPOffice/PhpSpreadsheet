@@ -11,6 +11,7 @@ class FormulaTextTest extends AllSetupTeardown
 {
     /**
      * @param mixed $value
+     *
      * @dataProvider providerFormulaText
      */
     public function testFormulaText(string $expectedResult, $value): void

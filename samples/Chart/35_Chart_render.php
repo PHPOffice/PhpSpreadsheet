@@ -25,12 +25,10 @@ if (count($inputFileNames) === 1) {
     $unresolvedErrors = [];
 } else {
     $unresolvedErrors = [
+        // The following spreadsheet was created by 3rd party software,
+        // and doesn't include the data that usually accompanies a chart.
+        // That is good enough for Excel, but not for JpGraph.
         '32readwriteBubbleChart2.xlsx',
-        '32readwritePieChart3.xlsx',
-        '32readwritePieChart4.xlsx',
-        '32readwritePieChart3D1.xlsx',
-        '32readwritePieChartExploded1.xlsx',
-        '32readwritePieChartExploded3D1.xlsx',
     ];
 }
 foreach ($inputFileNames as $inputFileName) {
@@ -42,7 +40,9 @@ foreach ($inputFileNames as $inputFileName) {
         continue;
     }
     if (in_array($inputFileNameShort, $unresolvedErrors, true)) {
-        $helper->log('File ' . $inputFileNameShort . ' does not yet work with this script');
+        $helper->log('*****');
+        $helper->log('***** File ' . $inputFileNameShort . ' does not yet work with this script');
+        $helper->log('*****');
 
         continue;
     }
@@ -73,6 +73,9 @@ foreach ($inputFileNames as $inputFileName) {
                 $helper->log('    ' . $chartName . ' - ' . $caption);
 
                 $jpegFile = $helper->getFilename('35-' . $inputFileNameShort, 'png');
+                if ($i !== 0) {
+                    $jpegFile = substr($jpegFile, 0, -3) . "$i.png";
+                }
                 if (file_exists($jpegFile)) {
                     unlink($jpegFile);
                 }
@@ -89,6 +92,7 @@ foreach ($inputFileNames as $inputFileName) {
 
     $spreadsheet->disconnectWorksheets();
     unset($spreadsheet);
+    gc_collect_cycles();
 }
 
 $helper->log('Done rendering charts as images');

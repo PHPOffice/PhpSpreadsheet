@@ -5,15 +5,11 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\RowColumnInformation;
+use PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
 use PHPUnit\Framework\TestCase;
 
 class RowsTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerROWS
      *
@@ -21,7 +17,7 @@ class RowsTest extends TestCase
      */
     public function testROWS($expectedResult, ...$args): void
     {
-        $result = RowColumnInformation::rows(...$args);
+        $result = LookupRef::ROWS(/** @scrutinizer ignore-type */ ...$args);
         self::assertEquals($expectedResult, $result);
     }
 

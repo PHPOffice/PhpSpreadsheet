@@ -19,18 +19,23 @@ class TranslationTest extends TestCase
      */
     private $returnDate;
 
+    /** @var string */
+    private $locale;
+
     protected function setUp(): void
     {
         $this->compatibilityMode = Functions::getCompatibilityMode();
         $this->returnDate = Functions::getReturnDateType();
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
+        $this->locale = Settings::getLocale();
     }
 
     protected function tearDown(): void
     {
         Functions::setCompatibilityMode($this->compatibilityMode);
         Functions::setReturnDateType($this->returnDate);
+        Settings::setLocale($this->locale);
     }
 
     /**

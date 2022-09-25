@@ -4585,7 +4585,7 @@ class Xls extends BaseReader
                     (strpos($cellRangeAddress, ':') !== false) &&
                     ($this->includeCellRangeFiltered($cellRangeAddress))
                 ) {
-                    $this->phpSheet->mergeCells($cellRangeAddress);
+                    $this->phpSheet->mergeCells($cellRangeAddress, Worksheet::MERGE_CELL_CONTENT_HIDE);
                 }
             }
         }
@@ -6999,7 +6999,7 @@ class Xls extends BaseReader
                 }
 
                 break;
-            // Unknown cases    // don't know how to deal with
+                // Unknown cases    // don't know how to deal with
             default:
                 throw new Exception('Unrecognized token ' . sprintf('%02X', $id) . ' in formula');
 

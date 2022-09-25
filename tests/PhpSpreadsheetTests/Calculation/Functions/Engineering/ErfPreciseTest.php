@@ -5,16 +5,12 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Engineering\Erf;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Engineering;
 use PHPUnit\Framework\TestCase;
 
 class ErfPreciseTest extends TestCase
 {
     const ERF_PRECISION = 1E-12;
-
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
 
     /**
      * @dataProvider providerERFPRECISE
@@ -25,7 +21,6 @@ class ErfPreciseTest extends TestCase
     public function testERFPRECISE($expectedResult, $limit): void
     {
         $result = Erf::ERFPRECISE($limit);
-        self::assertEquals($expectedResult, $result);
         self::assertEqualsWithDelta($expectedResult, $result, self::ERF_PRECISION);
     }
 
@@ -43,7 +38,7 @@ class ErfPreciseTest extends TestCase
 
         $formula = "=ERF.PRECISE({$limit})";
         $result = $calculation->calculateFormulaValue($formula);
-        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
+        self::assertEqualsWithDelta($expectedResult, $result, self::ERF_PRECISION);
     }
 
     public function providerErfPreciseArray(): array

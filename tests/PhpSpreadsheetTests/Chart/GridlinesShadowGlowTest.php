@@ -4,12 +4,12 @@ namespace PhpOffice\PhpSpreadsheetTests\Chart;
 
 use PhpOffice\PhpSpreadsheet\Chart\Axis;
 use PhpOffice\PhpSpreadsheet\Chart\Chart;
+use PhpOffice\PhpSpreadsheet\Chart\ChartColor;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeries;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues;
 use PhpOffice\PhpSpreadsheet\Chart\GridLines;
 use PhpOffice\PhpSpreadsheet\Chart\Legend as ChartLegend;
 use PhpOffice\PhpSpreadsheet\Chart\PlotArea;
-use PhpOffice\PhpSpreadsheet\Chart\Properties;
 use PhpOffice\PhpSpreadsheet\Chart\Title;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx as XlsxReader;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -98,7 +98,7 @@ class GridlinesShadowGlowTest extends AbstractFunctional
         $majorGridlines = new GridLines();
         $yAxis->setMajorGridlines($majorGridlines);
         $majorGlowSize = 10.0;
-        $majorGridlines->setGlowProperties($majorGlowSize, 'FFFF00', 30, Properties::EXCEL_COLOR_TYPE_ARGB);
+        $majorGridlines->setGlowProperties($majorGlowSize, 'FFFF00', 30, ChartColor::EXCEL_COLOR_TYPE_RGB);
         $softEdgeSize = 2.5;
         $majorGridlines->setSoftEdges($softEdgeSize);
         $expectedGlowColor = [
@@ -122,7 +122,7 @@ class GridlinesShadowGlowTest extends AbstractFunctional
             'distance' => 3,
             'rotWithShape' => 0,
             'color' => [
-                'type' => Properties::EXCEL_COLOR_TYPE_STANDARD,
+                'type' => ChartColor::EXCEL_COLOR_TYPE_STANDARD,
                 'value' => 'black',
                 'alpha' => 40,
             ],

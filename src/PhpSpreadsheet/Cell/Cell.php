@@ -501,8 +501,6 @@ class Cell
      * Set cell data type.
      *
      * @param string $dataType see DataType::TYPE_*
-     *
-     * @return Cell
      */
     public function setDataType($dataType): self
     {
@@ -739,8 +737,6 @@ class Cell
 
     /**
      * Re-bind parent.
-     *
-     * @return Cell
      */
     public function rebindParent(Worksheet $parent): self
     {
@@ -833,8 +829,6 @@ class Cell
 
     /**
      * Set index to cellXf.
-     *
-     * @return Cell
      */
     public function setXfIndex(int $indexValue): self
     {
