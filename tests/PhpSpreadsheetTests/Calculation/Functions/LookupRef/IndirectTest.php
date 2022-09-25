@@ -123,16 +123,6 @@ class IndirectTest extends AllSetupTeardown
         }
     }
 
-    public function testDeprecatedCall(): void
-    {
-        $sheet = $this->getSheet();
-        $sheet->getCell('A1')->setValue('A2');
-        $sheet->getCell('A2')->setValue('This is it');
-        $result = \PhpOffice\PhpSpreadsheet\Calculation\LookupRef::INDIRECT('A2', $sheet->getCell('A1'));
-        $result = \PhpOffice\PhpSpreadsheet\Calculation\Functions::flattenSingleValue($result);
-        self::assertSame('This is it', $result);
-    }
-
     /**
      * @param null|int|string $expectedResult
      *

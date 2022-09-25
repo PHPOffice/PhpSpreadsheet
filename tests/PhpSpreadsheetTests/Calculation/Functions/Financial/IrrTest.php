@@ -2,11 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Financial\CashFlow\Variable\Periodic;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PHPUnit\Framework\TestCase;
-
-class IrrTest extends TestCase
 class IrrTest extends AllSetupTeardown
 {
     /**

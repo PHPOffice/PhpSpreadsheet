@@ -320,11 +320,12 @@ class Xlsx extends BaseReader
      * @param mixed $value
      * @param mixed $calculatedValue
      */
-    private function castToFormula(?SimpleXMLElement $c, string $r, string &$cellDataType, &$value, &$calculatedValue, array &$sharedFormulas, string $castBaseType): void
+    private function castToFormula(Worksheet $docSheet, ?SimpleXMLElement $c, string $r, string &$cellDataType, &$value, &$calculatedValue, array &$sharedFormulas, string $castBaseType): void
     {
         if ($c === null) {
             return;
         }
+
         $formulaAttributes = $c->f->attributes();
         $cellDataType = 'f';
         $value = "={$c->f}";
@@ -1615,7 +1616,7 @@ class Xlsx extends BaseReader
                                                 if (strpos((string) $definedName, '!') !== false) {
                                                     $range[0] = str_replace("''", "'", $range[0]);
                                                     $range[0] = str_replace("'", '', $range[0]);
-                                                    if ($worksheet = $excel->getSheetByName($range[0])) { // @phpstan-ignore-line
+                                                    if ($worksheet = $excel->getSheetByName($range[0])) {
                                                         $excel->addDefinedName(DefinedName::createInstance((string) $definedName['name'], $worksheet, $extractedRange, true, $scope));
                                                     } else {
                                                         $excel->addDefinedName(DefinedName::createInstance((string) $definedName['name'], $scope, $extractedRange, true, $scope));
