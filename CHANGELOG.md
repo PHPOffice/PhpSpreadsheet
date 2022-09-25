@@ -25,7 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
-- Nothing
+- Composer dependency clash with ezyang/htmlpurifier
 
 
 ## 1.25.0 - 2022-09-25
