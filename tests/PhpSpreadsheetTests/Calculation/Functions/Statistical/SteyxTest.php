@@ -20,7 +20,7 @@ class SteyxTest extends TestCase
      */
     public function testSTEYX($expectedResult, array $xargs, array $yargs): void
     {
-        $result = Trends::STEYX($xargs, $yargs);
+        $result = Trends::standardError($xargs, $yargs);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

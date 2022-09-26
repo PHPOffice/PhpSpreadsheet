@@ -34,7 +34,7 @@ class DocumentGeneratorTest extends TestCase
                 [
                     'ABS' => ['category' => Cat::CATEGORY_MATH_AND_TRIG, 'functionCall' => 'abs'],
                     'AND' => ['category' => Cat::CATEGORY_LOGICAL, 'functionCall' => [Logical\Operations::class, 'and']],
-                    'IFS' => ['category' => Cat::CATEGORY_LOGICAL, 'functionCall' => [Functions::class, 'DUMMY']],
+                    'IFS' => ['category' => Cat::CATEGORY_LOGICAL, 'functionCall' => [Functions::class, 'dummy']],
                 ],
                 <<<'EXPECTED'
 # Function list by name
@@ -65,7 +65,7 @@ EXPECTED
                 [
                     'ABS' => ['category' => Cat::CATEGORY_MATH_AND_TRIG, 'functionCall' => 'abs'],
                     'AND' => ['category' => Cat::CATEGORY_LOGICAL, 'functionCall' => [Logical\Operations::class, 'and']],
-                    'IFS' => ['category' => Cat::CATEGORY_LOGICAL, 'functionCall' => [Functions::class, 'DUMMY']],
+                    'IFS' => ['category' => Cat::CATEGORY_LOGICAL, 'functionCall' => [Functions::class, 'dummy']],
                 ],
                 <<<'EXPECTED'
 # Function list by category

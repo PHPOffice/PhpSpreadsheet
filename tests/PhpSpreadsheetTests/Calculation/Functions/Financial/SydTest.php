@@ -20,7 +20,7 @@ class SydTest extends TestCase
      */
     public function testSYD($expectedResult, array $args): void
     {
-        $result = Depreciation::SYD(...$args);
+        $result = Depreciation::sumOfYears(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 

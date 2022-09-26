@@ -20,7 +20,7 @@ class AmorDegRcTest extends TestCase
      */
     public function testAMORDEGRC($expectedResult, ...$args): void
     {
-        $result = Amortization::AMORDEGRC(...$args);
+        $result = Amortization::withCoefficient(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 

@@ -21,7 +21,7 @@ class VarTest extends TestCase
      */
     public function testVAR($expectedResult, $values): void
     {
-        $result = Variances::VAR($values);
+        $result = Variances::variance($values);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
@@ -40,7 +40,7 @@ class VarTest extends TestCase
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
 
-        $result = Variances::VAR($values);
+        $result = Variances::variance($values);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

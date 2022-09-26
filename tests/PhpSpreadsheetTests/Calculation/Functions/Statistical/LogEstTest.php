@@ -17,7 +17,7 @@ class LogEstTest extends TestCase
      */
     public function testLOGEST(array $expectedResult, $yValues, $xValues, $const, $stats): void
     {
-        $result = Trends::LOGEST($yValues, $xValues, $const, $stats);
+        $result = Trends::logEstimate($yValues, $xValues, $const, $stats);
         self::assertIsArray($result);
 
         $elements = count($expectedResult);

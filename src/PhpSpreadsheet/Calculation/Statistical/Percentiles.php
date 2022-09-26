@@ -24,7 +24,7 @@ class Percentiles
      *
      * @return float|string The result, or a string containing an error
      */
-    public static function PERCENTILE(...$args)
+    public static function percentile(...$args)
     {
         $aArgs = Functions::flattenArray($args);
 
@@ -74,7 +74,7 @@ class Percentiles
      *
      * @return float|string (string if result is an error)
      */
-    public static function PERCENTRANK($valueSet, $value, $significance = 3)
+    public static function percentRank($valueSet, $value, $significance = 3)
     {
         $valueSet = Functions::flattenArray($valueSet);
         $value = Functions::flattenSingleValue($value);
@@ -125,7 +125,7 @@ class Percentiles
      *
      * @return float|string The result, or a string containing an error
      */
-    public static function QUARTILE(...$args)
+    public static function quartile(...$args)
     {
         $aArgs = Functions::flattenArray($args);
         $entry = array_pop($aArgs);
@@ -142,7 +142,7 @@ class Percentiles
             return ExcelError::NAN();
         }
 
-        return self::PERCENTILE($aArgs, $entry);
+        return self::percentile($aArgs, $entry);
     }
 
     /**
@@ -156,7 +156,7 @@ class Percentiles
      *
      * @return float|string The result, or a string containing an error (0 = Descending, 1 = Ascending)
      */
-    public static function RANK($value, $valueSet, $order = self::RANK_SORT_DESCENDING)
+    public static function rank($value, $valueSet, $order = self::RANK_SORT_DESCENDING)
     {
         $value = Functions::flattenSingleValue($value);
         $valueSet = Functions::flattenArray($valueSet);

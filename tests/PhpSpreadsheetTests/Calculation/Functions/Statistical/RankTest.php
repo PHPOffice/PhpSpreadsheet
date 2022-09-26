@@ -23,7 +23,7 @@ class RankTest extends TestCase
      */
     public function testRANK($expectedResult, $value, $valueSet, $order = 0): void
     {
-        $result = Percentiles::RANK($value, $valueSet, $order);
+        $result = Percentiles::rank($value, $valueSet, $order);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

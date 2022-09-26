@@ -20,7 +20,7 @@ class QuartileTest extends TestCase
      */
     public function testQUARTILE($expectedResult, ...$args): void
     {
-        $result = Percentiles::QUARTILE(...$args);
+        $result = Percentiles::quartile(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

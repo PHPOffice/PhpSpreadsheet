@@ -20,7 +20,7 @@ class DbTest extends TestCase
      */
     public function testDB($expectedResult, ...$args): void
     {
-        $result = Depreciation::DB(...$args);
+        $result = Depreciation::decliningBalance(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 

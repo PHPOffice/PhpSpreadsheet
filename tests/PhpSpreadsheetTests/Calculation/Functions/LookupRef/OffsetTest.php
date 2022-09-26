@@ -15,7 +15,7 @@ class OffsetTest extends AllSetupTeardown
      */
     public function testOFFSET($expectedResult, $cellReference = null): void
     {
-        $result = LookupRef\Offset::OFFSET($cellReference);
+        $result = LookupRef\Offset::offset($cellReference);
         self::assertSame($expectedResult, $result);
     }
 

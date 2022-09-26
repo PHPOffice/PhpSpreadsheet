@@ -533,7 +533,7 @@ class ConvertUOM
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function CONVERT($value, $fromUOM, $toUOM)
+    public static function convert($value, $fromUOM, $toUOM)
     {
         if (is_array($value) || is_array($fromUOM) || is_array($toUOM)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $value, $fromUOM, $toUOM);

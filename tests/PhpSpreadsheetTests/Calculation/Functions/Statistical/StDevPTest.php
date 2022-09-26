@@ -21,7 +21,7 @@ class StDevPTest extends TestCase
      */
     public function testSTDEVP($expectedResult, $values): void
     {
-        $result = StandardDeviations::STDEVP($values);
+        $result = StandardDeviations::stdevP($values);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
@@ -40,7 +40,7 @@ class StDevPTest extends TestCase
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
 
-        $result = StandardDeviations::STDEVP($values);
+        $result = StandardDeviations::stdevP($values);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

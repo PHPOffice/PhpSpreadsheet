@@ -20,7 +20,7 @@ class DdbTest extends TestCase
      */
     public function testDDB($expectedResult, ...$args): void
     {
-        $result = Depreciation::DDB(...$args);
+        $result = Depreciation::doubleDecliningBalance(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 

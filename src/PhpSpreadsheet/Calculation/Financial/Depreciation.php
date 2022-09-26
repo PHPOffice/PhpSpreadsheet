@@ -33,7 +33,7 @@ class Depreciation
      *
      * @return float|string
      */
-    public static function DB($cost, $salvage, $life, $period, $month = 12)
+    public static function decliningBalance($cost, $salvage, $life, $period, $month = 12)
     {
         $cost = Functions::flattenSingleValue($cost);
         $salvage = Functions::flattenSingleValue($salvage);
@@ -99,7 +99,7 @@ class Depreciation
      *
      * @return float|string
      */
-    public static function DDB($cost, $salvage, $life, $period, $factor = 2.0)
+    public static function doubleDecliningBalance($cost, $salvage, $life, $period, $factor = 2.0)
     {
         $cost = Functions::flattenSingleValue($cost);
         $salvage = Functions::flattenSingleValue($salvage);
@@ -147,7 +147,7 @@ class Depreciation
      *
      * @return float|string Result, or a string containing an error
      */
-    public static function SLN($cost, $salvage, $life)
+    public static function straightLine($cost, $salvage, $life)
     {
         $cost = Functions::flattenSingleValue($cost);
         $salvage = Functions::flattenSingleValue($salvage);
@@ -180,7 +180,7 @@ class Depreciation
      *
      * @return float|string Result, or a string containing an error
      */
-    public static function SYD($cost, $salvage, $life, $period)
+    public static function sumOfYears($cost, $salvage, $life, $period)
     {
         $cost = Functions::flattenSingleValue($cost);
         $salvage = Functions::flattenSingleValue($salvage);

@@ -69,7 +69,7 @@ class FunctionsTest extends TestCase
 
     public function testDUMMY(): void
     {
-        $result = Functions::DUMMY();
+        $result = Functions::dummy();
         self::assertEquals('#Not Yet Implemented', $result);
     }
 

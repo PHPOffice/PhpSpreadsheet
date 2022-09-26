@@ -21,7 +21,7 @@ class ConfidenceTest extends TestCase
      */
     public function testCONFIDENCE($expectedResult, ...$args): void
     {
-        $result = Confidence::CONFIDENCE(...$args);
+        $result = Confidence::confidence(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

@@ -125,7 +125,7 @@ class Functions
      *
      * @return string #Not Yet Implemented
      */
-    public static function DUMMY()
+    public static function dummy()
     {
         return '#Not Yet Implemented';
     }

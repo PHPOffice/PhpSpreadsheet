@@ -20,7 +20,7 @@ class SlnTest extends TestCase
      */
     public function testSLN($expectedResult, array $args): void
     {
-        $result = Depreciation::SLN(...$args);
+        $result = Depreciation::straightLine(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 

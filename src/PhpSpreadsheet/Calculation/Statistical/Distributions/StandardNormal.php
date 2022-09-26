@@ -142,7 +142,7 @@ class StandardNormal
 
         if ($sigma === null) {
             /** @var float */
-            $sigma = StandardDeviations::STDEV($dataSet);
+            $sigma = StandardDeviations::stdev($dataSet);
         }
         $n = count($dataSet);
 

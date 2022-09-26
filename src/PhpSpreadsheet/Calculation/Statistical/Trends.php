@@ -63,7 +63,7 @@ class Trends
      *
      * @return float|string
      */
-    public static function correl($yValues, $xValues = null)
+    public static function correlation($yValues, $xValues = null)
     {
         if (($xValues === null) || (!is_array($yValues)) || (!is_array($xValues))) {
             return ExcelError::VALUE();
@@ -208,7 +208,7 @@ class Trends
      *
      * @return array|int|string The result, or a string containing an error
      */
-    public static function LINEST($yValues, $xValues = null, $const = true, $stats = false)
+    public static function lineEstimate($yValues, $xValues = null, $const = true, $stats = false)
     {
         $const = ($const === null) ? true : (bool) Functions::flattenSingleValue($const);
         $stats = ($stats === null) ? false : (bool) Functions::flattenSingleValue($stats);
@@ -269,7 +269,7 @@ class Trends
      *
      * @return array|int|string The result, or a string containing an error
      */
-    public static function LOGEST($yValues, $xValues = null, $const = true, $stats = false)
+    public static function logEstimate($yValues, $xValues = null, $const = true, $stats = false)
     {
         $const = ($const === null) ? true : (bool) Functions::flattenSingleValue($const);
         $stats = ($stats === null) ? false : (bool) Functions::flattenSingleValue($stats);
@@ -334,7 +334,7 @@ class Trends
      *
      * @return float|string The result, or a string containing an error
      */
-    public static function RSQ($yValues, $xValues)
+    public static function pearsonSquares($yValues, $xValues)
     {
         try {
             self::checkTrendArrays($yValues, $xValues);
@@ -382,7 +382,7 @@ class Trends
      *
      * @return float|string
      */
-    public static function STEYX($yValues, $xValues)
+    public static function standardError($yValues, $xValues)
     {
         try {
             self::checkTrendArrays($yValues, $xValues);

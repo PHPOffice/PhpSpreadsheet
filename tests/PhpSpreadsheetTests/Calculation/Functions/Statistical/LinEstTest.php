@@ -17,7 +17,7 @@ class LinEstTest extends TestCase
      */
     public function testLINEST(array $expectedResult, $yValues, $xValues, $const, $stats): void
     {
-        $result = Trends::LINEST($yValues, $xValues, $const, $stats);
+        $result = Trends::lineEstimate($yValues, $xValues, $const, $stats);
         self::assertIsArray($result);
 
         $elements = count($expectedResult);

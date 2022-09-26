@@ -20,7 +20,7 @@ class RsqTest extends TestCase
      */
     public function testRSQ($expectedResult, array $xargs, array $yargs): void
     {
-        $result = Trends::RSQ($xargs, $yargs);
+        $result = Trends::pearsonSquares($xargs, $yargs);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

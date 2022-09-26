@@ -23,7 +23,7 @@ class PercentRankTest extends TestCase
      */
     public function testPERCENTRANK($expectedResult, $valueSet, $value, $digits = 3): void
     {
-        $result = Percentiles::PERCENTRANK($valueSet, $value, $digits);
+        $result = Percentiles::percentRank($valueSet, $value, $digits);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

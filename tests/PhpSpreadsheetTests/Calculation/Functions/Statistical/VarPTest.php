@@ -21,7 +21,7 @@ class VarPTest extends TestCase
      */
     public function testVARP($expectedResult, $values): void
     {
-        $result = Variances::VARP($values);
+        $result = Variances::varianceP($values);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
@@ -40,7 +40,7 @@ class VarPTest extends TestCase
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
 
-        $result = Variances::VARP($values);
+        $result = Variances::varianceP($values);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

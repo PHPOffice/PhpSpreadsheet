@@ -20,7 +20,7 @@ class AmorLincTest extends TestCase
      */
     public function testAMORLINC($expectedResult, ...$args): void
     {
-        $result = Amortization::AMORLINC(...$args);
+        $result = Amortization::depreciation(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 

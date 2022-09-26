@@ -20,7 +20,7 @@ class PercentileTest extends TestCase
      */
     public function testPERCENTILE($expectedResult, ...$args): void
     {
-        $result = Percentiles::PERCENTILE(...$args);
+        $result = Percentiles::percentile(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

@@ -22,7 +22,7 @@ class CorrelTest extends TestCase
      */
     public function testCORREL($expectedResult, $xargs, $yargs): void
     {
-        $result = Trends::correl($xargs, $yargs);
+        $result = Trends::correlation($xargs, $yargs);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

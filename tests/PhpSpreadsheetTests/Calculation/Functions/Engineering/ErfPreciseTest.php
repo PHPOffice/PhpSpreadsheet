@@ -18,7 +18,7 @@ class ErfPreciseTest extends TestCase
      */
     public function testERFPRECISE($expectedResult, $limit): void
     {
-        $result = Erf::ERFPRECISE($limit);
+        $result = Erf::precise($limit);
         self::assertEqualsWithDelta($expectedResult, $result, self::ERF_PRECISION);
     }
 

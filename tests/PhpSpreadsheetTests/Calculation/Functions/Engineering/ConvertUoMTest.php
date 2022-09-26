@@ -47,7 +47,7 @@ class ConvertUoMTest extends TestCase
      */
     public function testCONVERTUOM($expectedResult, ...$args): void
     {
-        $result = ConvertUOM::CONVERT(...$args);
+        $result = ConvertUOM::convert(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, self::UOM_PRECISION);
     }
 

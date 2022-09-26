@@ -60,7 +60,7 @@ class DocumentGenerator
         if (is_string($functionCall)) {
             return $functionCall;
         }
-        if ($functionCall === [Functions::class, 'DUMMY']) {
+        if ($functionCall === [Functions::class, 'dummy']) {
             return '**Not yet Implemented**';
         }
         if (is_array($functionCall)) {

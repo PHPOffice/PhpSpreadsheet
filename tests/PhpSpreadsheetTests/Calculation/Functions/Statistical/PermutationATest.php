@@ -21,7 +21,7 @@ class PermutationATest extends TestCase
      */
     public function testPERMUT($expectedResult, ...$args): void
     {
-        $result = Permutations::PERMUTATIONA(...$args);
+        $result = Permutations::permutationA(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
