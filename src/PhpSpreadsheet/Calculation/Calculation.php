@@ -4801,7 +4801,7 @@ class Calculation
 
                 if (isset($matches[8])) {
                     if ($cell === null) {
-                        //                        We can't access the range, so return a REF error
+                        // We can't access the range, so return a REF error
                         $cellValue = Information\ExcelError::REF();
                     } else {
                         $cellRef = $matches[6] . $matches[7] . ':' . $matches[9] . $matches[10];
@@ -4874,7 +4874,8 @@ class Calculation
                 }
             } elseif (preg_match('/^' . self::CALCULATION_REGEXP_FUNCTION . '$/miu', $token ?? '', $matches)) {
                 // if the token is a function, pop arguments off the stack, hand them to the function, and push the result back on
-                if ($pCellParent && $cell !== null) {
+
+                if ($cell !== null && $pCellParent !== null) {
                     $cell->attach($pCellParent);
                 }
 

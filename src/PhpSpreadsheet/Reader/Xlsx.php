@@ -487,7 +487,7 @@ class Xlsx extends BaseReader
                     $propertyReader->readCustomProperties($this->getFromZipArchive($zip, $relTarget));
 
                     break;
-                    // Ribbon
+                    //Ribbon
                 case Namespaces::EXTENSIBILITY:
                     $customUI = $relTarget;
                     if ($customUI) {
@@ -1703,8 +1703,8 @@ class Xlsx extends BaseReader
 
                         break;
 
-                    case 'application/vnd.ms-excel.controlproperties+xml':
                         // unparsed
+                    case 'application/vnd.ms-excel.controlproperties+xml':
                         $unparsedLoadedData['override_content_types'][(string) $contentType['PartName']] = (string) $contentType['ContentType'];
 
                         break;
@@ -1729,7 +1729,7 @@ class Xlsx extends BaseReader
         if (isset($is->t)) {
             $value->createText(StringHelper::controlCharacterOOXML2PHP((string) $is->t));
         } else {
-            if (isset($is->r) && is_object($is->r)) {
+            if (is_object($is->r)) {
                 /** @var SimpleXMLElement $run */
                 foreach ($is->r as $run) {
                     if (!isset($run->rPr)) {

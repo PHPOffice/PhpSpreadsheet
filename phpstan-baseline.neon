@@ -1491,6 +1491,11 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xls/RC4.php
 
 		-
+			message: "#^Cannot access property \\$r on SimpleXMLElement\\|null\\.$#"
+			count: 2
+			path: src/PhpSpreadsheet/Reader/Xlsx.php
+
+		-
 			message: "#^Parameter \\#1 \\$haystack of function strpos expects string, string\\|false given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xml.php
