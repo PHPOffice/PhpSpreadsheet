@@ -6,11 +6,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
 		-
-			message: "#^Cannot call method attach\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
 			message: "#^Cannot call method cellExists\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
 			count: 4
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
@@ -1659,6 +1654,11 @@ parameters:
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xls\\\\RC4\\:\\:\\$s has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xls/RC4.php
+
+		-
+			message: "#^Cannot access property \\$r on SimpleXMLElement\\|null\\.$#"
+			count: 2
+			path: src/PhpSpreadsheet/Reader/Xlsx.php
 
 		-
 			message: "#^Parameter \\#1 \\$haystack of function strpos expects string, string\\|false given\\.$#"

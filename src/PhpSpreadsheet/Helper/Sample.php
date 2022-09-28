@@ -85,7 +85,7 @@ class Sample
         foreach ($regex as $file) {
             $file = str_replace(str_replace('\\', '/', $baseDir) . '/', '', str_replace('\\', '/', $file[0]));
             $info = pathinfo($file);
-            $category = str_replace('_', ' ', $info['dirname']);
+            $category = str_replace('_', ' ', $info['dirname'] ?? '');
             $name = str_replace('_', ' ', (string) preg_replace('/(|\.php)/', '', $info['filename']));
             if (!in_array($category, ['.', 'boostrap', 'templates'])) {
                 if (!isset($files[$category])) {
