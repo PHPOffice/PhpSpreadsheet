@@ -58,6 +58,10 @@ class Namespaces
 
     const VBA = 'http://schemas.microsoft.com/office/2006/relationships/vbaProject';
 
+    const DATA_VALIDATIONS1 = 'http://schemas.microsoft.com/office/spreadsheetml/2009/9/main';
+
+    const DATA_VALIDATIONS2 = 'http://schemas.microsoft.com/office/excel/2006/main';
+
     const DC_ELEMENTS = 'http://purl.org/dc/elements/1.1/';
 
     const DC_TERMS = 'http://purl.org/dc/terms';

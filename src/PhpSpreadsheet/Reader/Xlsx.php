@@ -469,6 +469,7 @@ class Xlsx extends BaseReader
         $rels = $this->loadZip(self::INITIAL_FILE, Namespaces::RELATIONSHIPS);
 
         $propertyReader = new PropertyReader($this->securityScanner, $excel->getProperties());
+        $chartDetails = [];
         foreach ($rels->Relationship as $relx) {
             $rel = self::getAttributes($relx);
             $relTarget = (string) $rel['Target'];
@@ -929,13 +930,16 @@ class Xlsx extends BaseReader
                                     $xmlSheet->addChild('dataValidations');
                                 }
 
-                                foreach ($xmlSheet->extLst->ext->children('x14', true)->dataValidations->dataValidation as $item) {
+                                foreach ($xmlSheet->extLst->ext->children(Namespaces::DATA_VALIDATIONS1)->dataValidations->dataValidation as $item) {
+                                    $item = self::testSimpleXml($item);
                                     $node = self::testSimpleXml($xmlSheet->dataValidations)->addChild('dataValidation');
                                     foreach ($item->attributes() ?? [] as $attr) {
                                         $node->addAttribute($attr->getName(), $attr);
                                     }
-                                    $node->addAttribute('sqref', $item->children('xm', true)->sqref);
-                                    $node->addChild('formula1', $item->formula1->children('xm', true)->f);
+                                    $node->addAttribute('sqref', $item->children(Namespaces::DATA_VALIDATIONS2)->sqref);
+                                    if (isset($item->formula1)) {
+                                        $node->addChild('formula1', $item->formula1->children(Namespaces::DATA_VALIDATIONS2)->f);
+                                    }
                                 }
                             }
 
@@ -1278,6 +1282,7 @@ class Xlsx extends BaseReader
 
                                         if ($xmlDrawingChildren->oneCellAnchor) {
                                             foreach ($xmlDrawingChildren->oneCellAnchor as $oneCellAnchor) {
+                                                $oneCellAnchor = self::testSimpleXml($oneCellAnchor);
                                                 if ($oneCellAnchor->pic->blipFill) {
                                                     /** @var SimpleXMLElement $blip */
                                                     $blip = $oneCellAnchor->pic->blipFill->children(Namespaces::DRAWINGML)->blip;
@@ -1285,8 +1290,6 @@ class Xlsx extends BaseReader
                                                     $xfrm = $oneCellAnchor->pic->spPr->children(Namespaces::DRAWINGML)->xfrm;
                                                     /** @var SimpleXMLElement $outerShdw */
                                                     $outerShdw = $oneCellAnchor->pic->spPr->children(Namespaces::DRAWINGML)->effectLst->outerShdw;
-                                                    /** @var SimpleXMLElement $hlinkClick */
-                                                    $hlinkClick = $oneCellAnchor->pic->nvPicPr->cNvPr->children(Namespaces::DRAWINGML)->hlinkClick;
 
                                                     $objDrawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
                                                     $objDrawing->setName((string) self::getArrayItem(self::getAttributes($oneCellAnchor->pic->nvPicPr->cNvPr), 'name'));
@@ -1363,11 +1366,11 @@ class Xlsx extends BaseReader
                                         }
                                         if ($xmlDrawingChildren->twoCellAnchor) {
                                             foreach ($xmlDrawingChildren->twoCellAnchor as $twoCellAnchor) {
+                                                $twoCellAnchor = self::testSimpleXml($twoCellAnchor);
                                                 if ($twoCellAnchor->pic->blipFill) {
                                                     $blip = $twoCellAnchor->pic->blipFill->children(Namespaces::DRAWINGML)->blip;
                                                     $xfrm = $twoCellAnchor->pic->spPr->children(Namespaces::DRAWINGML)->xfrm;
                                                     $outerShdw = $twoCellAnchor->pic->spPr->children(Namespaces::DRAWINGML)->effectLst->outerShdw;
-                                                    $hlinkClick = $twoCellAnchor->pic->nvPicPr->cNvPr->children(Namespaces::DRAWINGML)->hlinkClick;
                                                     $objDrawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
                                                     /** @scrutinizer ignore-call */
                                                     $editAs = $twoCellAnchor->attributes();
