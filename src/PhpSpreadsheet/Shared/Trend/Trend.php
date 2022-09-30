@@ -99,7 +99,7 @@ class Trend
                     $bestFit[$trendMethod] = new $className($yValues, $xValues, $const);
                     $bestFitValue[$trendMethod] = $bestFit[$trendMethod]->getGoodnessOfFit();
                 }
-                if ($trendType != self::TREND_BEST_FIT_NO_POLY) {
+                if ($trendType !== self::TREND_BEST_FIT_NO_POLY) {
                     foreach (self::$trendTypePolynomialOrders as $trendMethod) {
                         $order = (int) substr($trendMethod, -1);
                         $bestFit[$trendMethod] = new PolynomialBestFit($order, $yValues, $xValues);
