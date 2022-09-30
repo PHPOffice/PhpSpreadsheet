@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\Binomial;
 use PHPUnit\Framework\TestCase;
 
 class NegBinomDistTest extends TestCase
@@ -21,7 +21,7 @@ class NegBinomDistTest extends TestCase
      */
     public function testNEGBINOMDIST($expectedResult, ...$args): void
     {
-        $result = Statistical::NEGBINOMDIST(...$args);
+        $result = Binomial::negative(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
@@ -42,7 +42,7 @@ class NegBinomDistTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=NEGBINOMDIST({$failures}, {$successes}, {$probabilities})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

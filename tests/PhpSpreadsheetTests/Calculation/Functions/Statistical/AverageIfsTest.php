@@ -20,7 +20,7 @@ class AverageIfsTest extends TestCase
      */
     public function testAVERAGEIFS($expectedResult, ...$args): void
     {
-        $result = Statistical\Conditional::AVERAGEIFS(...$args);
+        $result = Statistical\Conditional::averageIfSeries(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

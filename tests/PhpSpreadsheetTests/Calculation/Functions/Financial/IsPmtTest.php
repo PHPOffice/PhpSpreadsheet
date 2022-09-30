@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Financial;
+use PhpOffice\PhpSpreadsheet\Calculation\Financial\CashFlow\Constant\Periodic\Interest;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PHPUnit\Framework\TestCase;
 
@@ -20,7 +20,7 @@ class IsPmtTest extends TestCase
      */
     public function testISPMT($expectedResult, ...$args): void
     {
-        $result = Financial::ISPMT(...$args);
+        $result = Interest::schedulePayment(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 

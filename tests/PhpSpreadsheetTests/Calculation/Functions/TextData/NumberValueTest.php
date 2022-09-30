@@ -52,7 +52,7 @@ class NumberValueTest extends AllSetupTeardown
         $calculation = Calculation::getInstance();
 
         $formula = "=NumberValue({$argument1}, {$argument2}, {$argument3})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEqualsWithDelta($expectedResult, $result, self::NV_PRECISION);
     }
 

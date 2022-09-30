@@ -103,7 +103,7 @@ class Hex2DecTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=HEX2DEC({$value})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEquals($expectedResult, $result);
     }
 

@@ -45,11 +45,11 @@ class CalculationTest extends TestCase
     public function testBinaryComparisonOperation($formula, $expectedResultExcel, $expectedResultOpenOffice): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-        $resultExcel = Calculation::getInstance()->_calculateFormulaValue($formula);
+        $resultExcel = Calculation::getInstance()->calculateFormulaValue($formula);
         self::assertEquals($expectedResultExcel, $resultExcel, 'should be Excel compatible');
 
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
-        $resultOpenOffice = Calculation::getInstance()->_calculateFormulaValue($formula);
+        $resultOpenOffice = Calculation::getInstance()->calculateFormulaValue($formula);
         self::assertEquals($expectedResultOpenOffice, $resultOpenOffice, 'should be OpenOffice compatible');
     }
 

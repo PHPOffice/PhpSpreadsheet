@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\Fisher;
 use PHPUnit\Framework\TestCase;
 
 class FisherInvTest extends TestCase
@@ -22,7 +22,7 @@ class FisherInvTest extends TestCase
      */
     public function testFISHERINV($expectedResult, $value): void
     {
-        $result = Statistical::FISHERINV($value);
+        $result = Fisher::inverse($value);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
@@ -39,7 +39,7 @@ class FisherInvTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=FISHERINV({$values})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

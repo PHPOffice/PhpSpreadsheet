@@ -39,7 +39,7 @@ class DVar extends DatabaseAbstract
             return null;
         }
 
-        return Variances::VAR(
+        return Variances::variance(
             self::getFilteredColumn($database, $field, $criteria)
         );
     }

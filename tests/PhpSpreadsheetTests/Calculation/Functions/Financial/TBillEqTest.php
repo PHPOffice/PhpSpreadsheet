@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Financial;
+use PhpOffice\PhpSpreadsheet\Calculation\Financial\TreasuryBill;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PHPUnit\Framework\TestCase;
 
@@ -20,7 +20,7 @@ class TBillEqTest extends TestCase
      */
     public function testTBILLEQ($expectedResult, ...$args): void
     {
-        $result = Financial::TBILLEQ(...$args);
+        $result = TreasuryBill::bondEquivalentYield(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 

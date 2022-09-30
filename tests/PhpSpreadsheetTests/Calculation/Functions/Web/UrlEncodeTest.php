@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Web;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Web\Service;
+use PhpOffice\PhpSpreadsheet\Calculation\Web\Service as WebService;
 use PHPUnit\Framework\TestCase;
 
 class UrlEncodeTest extends TestCase
@@ -15,7 +15,7 @@ class UrlEncodeTest extends TestCase
      */
     public function testURLENCODE($expectedResult, $text): void
     {
-        $result = Service::urlEncode($text);
+        $result = WebService::urlEncode($text);
         self::assertSame($expectedResult, $result);
     }
 

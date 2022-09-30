@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Engineering;
+use PhpOffice\PhpSpreadsheet\Calculation\Engineering\ErfC;
 use PHPUnit\Framework\TestCase;
 
 class ErfCTest extends TestCase
@@ -18,7 +18,7 @@ class ErfCTest extends TestCase
      */
     public function testERFC($expectedResult, $lower): void
     {
-        $result = Engineering::ERFC($lower);
+        $result = ErfC::complementary($lower);
         self::assertEqualsWithDelta($expectedResult, $result, self::ERF_PRECISION);
     }
 
@@ -35,7 +35,7 @@ class ErfCTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=ERFC({$lower})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEqualsWithDelta($expectedResult, $result, self::ERF_PRECISION);
     }
 

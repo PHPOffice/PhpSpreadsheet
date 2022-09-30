@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\F;
 use PHPUnit\Framework\TestCase;
 
 class FDistTest extends TestCase
@@ -15,7 +15,7 @@ class FDistTest extends TestCase
      */
     public function testFDIST($expectedResult, ...$args): void
     {
-        $result = Statistical::FDIST2(...$args);
+        $result = F::distribution(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
@@ -32,7 +32,7 @@ class FDistTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=F.DIST({$values}, {$u}, {$v}, false)";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

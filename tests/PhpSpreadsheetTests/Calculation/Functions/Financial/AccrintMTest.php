@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Financial;
+use PhpOffice\PhpSpreadsheet\Calculation\Financial\Securities\AccruedInterest;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PHPUnit\Framework\TestCase;
 
@@ -20,7 +20,7 @@ class AccrintMTest extends TestCase
      */
     public function testACCRINTM($expectedResult, ...$args): void
     {
-        $result = Financial::ACCRINTM(...$args);
+        $result = AccruedInterest::atMaturity(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

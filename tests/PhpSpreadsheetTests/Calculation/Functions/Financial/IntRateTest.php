@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Financial;
+use PhpOffice\PhpSpreadsheet\Calculation\Financial\Securities\Rates;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PHPUnit\Framework\TestCase;
 
@@ -20,7 +20,7 @@ class IntRateTest extends TestCase
      */
     public function testINTRATE($expectedResult, ...$args): void
     {
-        $result = Financial::INTRATE(...$args);
+        $result = Rates::interest(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 

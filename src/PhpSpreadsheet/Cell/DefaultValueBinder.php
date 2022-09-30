@@ -13,10 +13,8 @@ class DefaultValueBinder implements IValueBinder
      *
      * @param Cell $cell Cell to bind value to
      * @param mixed $value Value to bind in cell
-     *
-     * @return bool
      */
-    public function bindValue(Cell $cell, $value)
+    public function bindValue(Cell $cell, $value, bool $isArrayFormula = false, ?string $arrayFormulaRange = null): bool
     {
         // sanitize UTF-8 strings
         if (is_string($value)) {
@@ -32,7 +30,7 @@ class DefaultValueBinder implements IValueBinder
         }
 
         // Set value explicit
-        $cell->setValueExplicit($value, static::dataTypeForValue($value));
+        $cell->setValueExplicit($value, static::dataTypeForValue($value), $isArrayFormula, $arrayFormulaRange);
 
         // Done!
         return true;

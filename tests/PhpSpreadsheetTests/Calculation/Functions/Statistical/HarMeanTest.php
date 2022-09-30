@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Averages\Mean;
 use PHPUnit\Framework\TestCase;
 
 class HarMeanTest extends TestCase
@@ -20,7 +20,7 @@ class HarMeanTest extends TestCase
      */
     public function testHARMEAN($expectedResult, ...$args): void
     {
-        $result = Statistical::HARMEAN(...$args);
+        $result = Mean::harmonic(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

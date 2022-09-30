@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
+use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Selection;
 use PHPUnit\Framework\TestCase;
 
 class ChooseTest extends TestCase
@@ -21,7 +21,7 @@ class ChooseTest extends TestCase
      */
     public function testCHOOSE($expectedResult, ...$args): void
     {
-        $result = LookupRef::CHOOSE(...$args);
+        $result = Selection::choose(...$args);
         self::assertEquals($expectedResult, $result);
     }
 
@@ -39,7 +39,7 @@ class ChooseTest extends TestCase
 
         $selections = implode(',', $selections);
         $formula = "=CHOOSE({$values}, {$selections})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEquals($expectedResult, $result);
     }
 

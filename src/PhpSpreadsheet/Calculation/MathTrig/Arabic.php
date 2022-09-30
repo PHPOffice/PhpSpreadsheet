@@ -79,7 +79,7 @@ class Arabic
      *         If an array of numbers is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function evaluate($roman)
+    public static function toRoman($roman)
     {
         if (is_array($roman)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $roman);

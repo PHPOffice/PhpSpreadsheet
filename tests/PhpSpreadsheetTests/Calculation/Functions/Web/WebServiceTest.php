@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Web;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Web;
+use PhpOffice\PhpSpreadsheet\Calculation\Web\Service as WebService;
 use PhpOffice\PhpSpreadsheet\Settings;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Client\ClientInterface;
@@ -42,7 +42,7 @@ class WebServiceTest extends TestCase
             Settings::setHttpClient($client, $requestFactory);
         }
 
-        $result = Web::WEBSERVICE($url);
+        $result = WebService::WEBSERVICE($url);
         self::assertEquals($expectedResult, $result);
     }
 
@@ -65,13 +65,13 @@ class WebServiceTest extends TestCase
 
         Settings::setHttpClient($client, $requestFactory);
 
-        $result = Web::WEBSERVICE('https://example.com');
+        $result = WebService::WEBSERVICE('https://example.com');
         self::assertEquals('#VALUE!', $result);
     }
 
     public function testWEBSERVICEThrowsIfNotClientConfigured(): void
     {
         $this->expectExceptionMessage('HTTP client must be configured via Settings::setHttpClient() to be able to use WEBSERVICE function.');
-        Web::WEBSERVICE('https://example.com');
+        WebService::WEBSERVICE('https://example.com');
     }
 }

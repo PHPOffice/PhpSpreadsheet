@@ -40,7 +40,7 @@ class BitRShiftTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=BITRSHIFT({$number}, {$bits})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEquals($expectedResult, $result);
     }
 

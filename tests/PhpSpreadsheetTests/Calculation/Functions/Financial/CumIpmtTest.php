@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Financial;
+use PhpOffice\PhpSpreadsheet\Calculation\Financial\CashFlow\Constant\Periodic\Cumulative;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PHPUnit\Framework\TestCase;
 
@@ -20,7 +20,7 @@ class CumIpmtTest extends TestCase
      */
     public function testCUMIPMT($expectedResult, ...$args): void
     {
-        $result = Financial::CUMIPMT(...$args);
+        $result = Cumulative::interest(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 

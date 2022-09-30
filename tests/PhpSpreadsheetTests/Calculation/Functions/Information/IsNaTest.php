@@ -3,14 +3,14 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Information;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ErrorValue;
 use PHPUnit\Framework\TestCase;
 
 class IsNaTest extends TestCase
 {
     public function testIsNaNoArgument(): void
     {
-        $result = Functions::isNa();
+        $result = ErrorValue::isNa();
         self::assertFalse($result);
     }
 
@@ -21,7 +21,7 @@ class IsNaTest extends TestCase
      */
     public function testIsNa(bool $expectedResult, $value): void
     {
-        $result = Functions::isNa($value);
+        $result = ErrorValue::isNa($value);
         self::assertEquals($expectedResult, $result);
     }
 
@@ -38,7 +38,7 @@ class IsNaTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=ISNA({$values})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEquals($expectedResult, $result);
     }
 

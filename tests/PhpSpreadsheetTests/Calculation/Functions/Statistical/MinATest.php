@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Minimum;
 use PHPUnit\Framework\TestCase;
 
 class MinATest extends TestCase
@@ -14,7 +14,7 @@ class MinATest extends TestCase
      */
     public function testMINA($expectedResult, ...$args): void
     {
-        $result = Statistical::MINA(...$args);
+        $result = Minimum::minA(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

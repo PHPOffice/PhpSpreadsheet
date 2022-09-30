@@ -12,7 +12,7 @@ class AbsTest extends AllSetupTeardown
      * @param mixed $expectedResult
      * @param mixed $number
      */
-    public function testAbs($expectedResult, $number = 'omitted'): void
+    public function testAbsolute($expectedResult, $number = 'omitted'): void
     {
         $sheet = $this->getSheet();
         $this->mightHaveException($expectedResult);
@@ -39,7 +39,7 @@ class AbsTest extends AllSetupTeardown
         $calculation = Calculation::getInstance();
 
         $formula = "=ABS({$array})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

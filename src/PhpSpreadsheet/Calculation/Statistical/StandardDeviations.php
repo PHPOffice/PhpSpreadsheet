@@ -17,9 +17,9 @@ class StandardDeviations
      *
      * @return float|string The result, or a string containing an error
      */
-    public static function STDEV(...$args)
+    public static function stdev(...$args)
     {
-        $result = Variances::VAR(...$args);
+        $result = Variances::variance(...$args);
         if (!is_numeric($result)) {
             return $result;
         }
@@ -39,9 +39,9 @@ class StandardDeviations
      *
      * @return float|string
      */
-    public static function STDEVA(...$args)
+    public static function stdevA(...$args)
     {
-        $result = Variances::VARA(...$args);
+        $result = Variances::varianceA(...$args);
         if (!is_numeric($result)) {
             return $result;
         }
@@ -61,9 +61,9 @@ class StandardDeviations
      *
      * @return float|string
      */
-    public static function STDEVP(...$args)
+    public static function stdevP(...$args)
     {
-        $result = Variances::VARP(...$args);
+        $result = Variances::varianceP(...$args);
         if (!is_numeric($result)) {
             return $result;
         }
@@ -83,9 +83,9 @@ class StandardDeviations
      *
      * @return float|string
      */
-    public static function STDEVPA(...$args)
+    public static function stdevPA(...$args)
     {
-        $result = Variances::VARPA(...$args);
+        $result = Variances::variancePA(...$args);
         if (!is_numeric($result)) {
             return $result;
         }

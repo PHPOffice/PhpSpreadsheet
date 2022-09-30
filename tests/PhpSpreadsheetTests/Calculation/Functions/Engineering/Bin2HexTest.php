@@ -100,7 +100,7 @@ class Bin2HexTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=BIN2HEX({$value})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEquals($expectedResult, $result);
     }
 

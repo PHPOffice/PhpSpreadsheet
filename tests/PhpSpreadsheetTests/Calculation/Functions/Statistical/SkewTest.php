@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Deviations;
 use PHPUnit\Framework\TestCase;
 
 class SkewTest extends TestCase
@@ -20,7 +20,7 @@ class SkewTest extends TestCase
      */
     public function testSKEW($expectedResult, array $args): void
     {
-        $result = Statistical::SKEW($args);
+        $result = Deviations::skew($args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

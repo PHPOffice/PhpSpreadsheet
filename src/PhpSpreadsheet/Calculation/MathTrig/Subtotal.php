@@ -62,16 +62,16 @@ class Subtotal
 
     private const CALL_FUNCTIONS = [
         1 => [Statistical\Averages::class, 'average'], // 1 and 101
-        [Statistical\Counts::class, 'COUNT'], // 2 and 102
-        [Statistical\Counts::class, 'COUNTA'], // 3 and 103
+        [Statistical\Counts::class, 'count'], // 2 and 102
+        [Statistical\Counts::class, 'countA'], // 3 and 103
         [Statistical\Maximum::class, 'max'], // 4 and 104
         [Statistical\Minimum::class, 'min'], // 5 and 105
         [Operations::class, 'product'], // 6 and 106
-        [Statistical\StandardDeviations::class, 'STDEV'], // 7 and 107
-        [Statistical\StandardDeviations::class, 'STDEVP'], // 8 and 108
+        [Statistical\StandardDeviations::class, 'stdev'], // 7 and 107
+        [Statistical\StandardDeviations::class, 'stdevP'], // 8 and 108
         [Sum::class, 'sumIgnoringStrings'], // 9 and 109
-        [Statistical\Variances::class, 'VAR'], // 10 and 110
-        [Statistical\Variances::class, 'VARP'], // 111 and 111
+        [Statistical\Variances::class, 'variance'], // 10 and 110
+        [Statistical\Variances::class, 'varianceP'], // 111 and 111
     ];
 
     /**

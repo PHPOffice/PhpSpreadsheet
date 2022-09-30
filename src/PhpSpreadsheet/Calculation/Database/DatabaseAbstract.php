@@ -142,7 +142,7 @@ abstract class DatabaseAbstract
             }
 
             //    evaluate the criteria against the row data
-            $result = Calculation::getInstance()->_calculateFormulaValue('=' . $conditions);
+            $result = Calculation::getInstance()->calculateFormulaValue('=' . $conditions);
 
             //    If the row failed to meet the criteria, remove it from the database
             if ($result !== true) {

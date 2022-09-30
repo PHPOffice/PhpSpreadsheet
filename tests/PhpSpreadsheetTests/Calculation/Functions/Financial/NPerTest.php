@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Financial;
+use PhpOffice\PhpSpreadsheet\Calculation\Financial\CashFlow\Constant\Periodic;
 use PHPUnit\Framework\TestCase;
 
 class NPerTest extends TestCase
@@ -12,21 +12,9 @@ class NPerTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testNPER($expectedResult, array $args): void
+    public function testNPER($expectedResult, array $args = []): void
     {
-        if (count($args) === 0) {
-            $result = Financial::NPER();
-        } elseif (count($args) === 1) {
-            $result = Financial::NPER($args[0]);
-        } elseif (count($args) === 2) {
-            $result = Financial::NPER($args[0], $args[1]);
-        } elseif (count($args) === 3) {
-            $result = Financial::NPER($args[0], $args[1], $args[2]);
-        } elseif (count($args) === 4) {
-            $result = Financial::NPER($args[0], $args[1], $args[2], $args[3]);
-        } else {
-            $result = Financial::NPER($args[0], $args[1], $args[2], $args[3], $args[4]);
-        }
+        $result = Periodic::periods(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 

@@ -872,7 +872,7 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function setTitle($title, $updateFormulaCellReferences = true, $validate = true)
+    public function setTitle(string $title, bool $updateFormulaCellReferences = true, bool $validate = true)
     {
         // Is this a 'rename' or not?
         if ($this->getTitle() == $title) {
@@ -1073,7 +1073,7 @@ class Worksheet implements IComparable
      *
      * @return string Highest column name
      */
-    public function getHighestColumn($row = null)
+    public function getHighestColumn($row = null): string
     {
         if ($row === null) {
             return Coordinate::stringFromColumnIndex($this->cachedHighestColumn);
@@ -1090,7 +1090,7 @@ class Worksheet implements IComparable
      *
      * @return string Highest column name that contains data
      */
-    public function getHighestDataColumn($row = null)
+    public function getHighestDataColumn($row = null): string
     {
         return $this->cellCollection->getHighestColumn($row);
     }
@@ -1103,7 +1103,7 @@ class Worksheet implements IComparable
      *
      * @return int Highest row number
      */
-    public function getHighestRow($column = null)
+    public function getHighestRow(?string $column = null): int
     {
         if ($column === null) {
             return $this->cachedHighestRow;
@@ -1120,19 +1120,31 @@ class Worksheet implements IComparable
      *
      * @return int Highest row number that contains data
      */
-    public function getHighestDataRow($column = null)
+    public function getHighestDataRow(?string $column = null): int
     {
         return $this->cellCollection->getHighestRow($column);
     }
 
     /**
+     * Get highest worksheet column and highest row.
+     *
+     * @return string Highest column name and highest row number
+     */
+    public function getHighestRowAndColumn(): string
+    {
+        return $this->getHighestColumn() . $this->getHighestRow();
+    }
+
+    /**
      * Get highest worksheet column and highest row that have cell records.
      *
-     * @return array Highest column name and highest row number
+     * @return string Highest column name and highest row number
      */
-    public function getHighestRowAndColumn()
+    public function getHighestDataRowAndColumn(): string
     {
-        return $this->cellCollection->getHighestRowAndColumn();
+        $highestRowAndColumn = $this->cellCollection->getHighestRowAndColumn();
+
+        return $highestRowAndColumn['column'] . $highestRowAndColumn['row'];
     }
 
     /**
@@ -1144,10 +1156,10 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function setCellValue($coordinate, $value)
+    public function setCellValue($coordinate, $value, bool $isArrayFormula = false, ?string $arrayFormulaRange = null)
     {
         $cellAddress = Functions::trimSheetFromCellReference(Validations::validateCellAddress($coordinate));
-        $this->getCell($cellAddress)->setValue($value);
+        $this->getCell($cellAddress)->setValue($value, $isArrayFormula, $arrayFormulaRange);
 
         return $this;
     }
@@ -1165,9 +1177,15 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function setCellValueByColumnAndRow($columnIndex, $row, $value)
-    {
-        $this->getCell(Coordinate::stringFromColumnIndex($columnIndex) . $row)->setValue($value);
+    public function setCellValueByColumnAndRow(
+        $columnIndex,
+        $row,
+        $value,
+        bool $isArrayFormula = false,
+        ?string $arrayFormulaRange = null
+    ) {
+        $this->getCell(Coordinate::stringFromColumnIndex($columnIndex) . $row)
+            ->setValue($value, $isArrayFormula, $arrayFormulaRange);
 
         return $this;
     }
@@ -1187,10 +1205,15 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function setCellValueExplicit($coordinate, $value, $dataType)
-    {
+    public function setCellValueExplicit(
+        $coordinate,
+        $value,
+        $dataType,
+        bool $isArrayFormula = false,
+        ?string $arrayFormulaRange = null
+    ) {
         $cellAddress = Functions::trimSheetFromCellReference(Validations::validateCellAddress($coordinate));
-        $this->getCell($cellAddress)->setValueExplicit($value, $dataType);
+        $this->getCell($cellAddress)->setValueExplicit($value, $dataType, $isArrayFormula, $arrayFormulaRange);
 
         return $this;
     }
@@ -1214,9 +1237,15 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function setCellValueExplicitByColumnAndRow($columnIndex, $row, $value, $dataType)
-    {
-        $this->getCell(Coordinate::stringFromColumnIndex($columnIndex) . $row)->setValueExplicit($value, $dataType);
+    public function setCellValueExplicitByColumnAndRow(
+        $columnIndex,
+        $row,
+        $value,
+        $dataType,
+        bool $isArrayFormula = false,
+        ?string $arrayFormulaRange = null
+    ) {
+        $this->getCell(Coordinate::stringFromColumnIndex($columnIndex) . $row)->setValueExplicit($value, $dataType, $isArrayFormula, $arrayFormulaRange);
 
         return $this;
     }
@@ -2822,6 +2851,8 @@ class Worksheet implements IComparable
             $source = [$source];
         }
 
+        $currentCellAddress = $this->cellCollection->getCurrentCoordinate();
+
         // start coordinate
         [$startColumn, $startRow] = Coordinate::coordinateFromString($startCell);
 
@@ -2829,20 +2860,25 @@ class Worksheet implements IComparable
         foreach ($source as $rowData) {
             $currentColumn = $startColumn;
             foreach ($rowData as $cellValue) {
+                $cell = $this->getCell($currentColumn . $startRow);
                 if ($strictNullComparison) {
                     if ($cellValue !== $nullValue) {
                         // Set cell value
-                        $this->getCell($currentColumn . $startRow)->setValue($cellValue);
+                        $cell->setValue($cellValue, $cell->isArrayFormula(), $cell->arrayFormulaRange());
                     }
                 } else {
                     if ($cellValue != $nullValue) {
                         // Set cell value
-                        $this->getCell($currentColumn . $startRow)->setValue($cellValue);
+                        $cell->setValue($cellValue, $cell->isArrayFormula(), $cell->arrayFormulaRange());
                     }
                 }
                 ++$currentColumn;
             }
             ++$startRow;
+        }
+
+        if ($currentCellAddress !== null) {
+            $this->getCell($currentCellAddress);
         }
 
         return $this;
@@ -2862,6 +2898,8 @@ class Worksheet implements IComparable
      */
     public function rangeToArray($range, $nullValue = null, $calculateFormulas = true, $formatData = true, $returnCellRef = false)
     {
+        $currentCellAddress = $this->cellCollection->getCurrentCoordinate();
+
         // Returnvalue
         $returnValue = [];
         //    Identify the range that we need to extract from the worksheet
@@ -2912,6 +2950,10 @@ class Worksheet implements IComparable
                     $returnValue[$rRef][$cRef] = $nullValue;
                 }
             }
+        }
+
+        if ($currentCellAddress !== null) {
+            $this->getCell($currentCellAddress);
         }
 
         // Return
@@ -2986,15 +3028,20 @@ class Worksheet implements IComparable
      */
     public function toArray($nullValue = null, $calculateFormulas = true, $formatData = true, $returnCellRef = false)
     {
+        $currentCellAddress = $this->cellCollection->getCurrentCoordinate();
+
         // Garbage collect...
         $this->garbageCollect();
 
         //    Identify the range that we need to extract from the worksheet
-        $maxCol = $this->getHighestColumn();
-        $maxRow = $this->getHighestRow();
+        $maxCell = $this->getHighestDataRowAndColumn();
+
+        if ($currentCellAddress !== null) {
+            $this->getCell($currentCellAddress);
+        }
 
         // Return
-        return $this->rangeToArray('A1:' . $maxCol . $maxRow, $nullValue, $calculateFormulas, $formatData, $returnCellRef);
+        return $this->rangeToArray('A1:' . $maxCell, $nullValue, $calculateFormulas, $formatData, $returnCellRef);
     }
 
     /**
@@ -3088,7 +3135,7 @@ class Worksheet implements IComparable
      * @param string $range Range to extract title from
      * @param bool $returnRange Return range? (see example)
      *
-     * @return mixed
+     * @return string|string[]
      */
     public static function extractSheetTitle($range, $returnRange = false)
     {
@@ -3097,7 +3144,8 @@ class Worksheet implements IComparable
         }
 
         // Sheet title included?
-        if (($sep = strrpos($range, '!')) === false) {
+        $sep = strrpos($range, '!');
+        if ($sep === false) {
             return $returnRange ? ['', $range] : '';
         }
 

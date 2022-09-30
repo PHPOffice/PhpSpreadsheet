@@ -100,7 +100,7 @@ class Dec2BinTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=DEC2BIN({$value})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEquals($expectedResult, $result);
     }
 

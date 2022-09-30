@@ -15,10 +15,8 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
      *
      * @param Cell $cell Cell to bind value to
      * @param mixed $value Value to bind in cell
-     *
-     * @return bool
      */
-    public function bindValue(Cell $cell, $value = null)
+    public function bindValue(Cell $cell, $value, bool $isArrayFormula = false, ?string $arrayFormulaRange = null): bool
     {
         if ($value === null) {
             return parent::bindValue($cell, $value);
@@ -119,7 +117,7 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
         }
 
         // Not bound yet? Use parent...
-        return parent::bindValue($cell, $value);
+        return parent::bindValue($cell, $value, $isArrayFormula, $arrayFormulaRange);
     }
 
     protected function setImproperFraction(array $matches, Cell $cell): bool

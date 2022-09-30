@@ -38,7 +38,7 @@ class SechTest extends AllSetupTeardown
         $calculation = Calculation::getInstance();
 
         $formula = "=SECH({$array})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

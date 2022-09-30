@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Financial;
+use PhpOffice\PhpSpreadsheet\Calculation\Financial\Securities\AccruedInterest;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PHPUnit\Framework\TestCase;
 
@@ -20,7 +20,7 @@ class AccrintTest extends TestCase
      */
     public function testACCRINT($expectedResult, ...$args): void
     {
-        $result = Financial::ACCRINT(...$args);
+        $result = AccruedInterest::periodic(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

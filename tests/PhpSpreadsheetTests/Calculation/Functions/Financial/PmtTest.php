@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Financial;
+use PhpOffice\PhpSpreadsheet\Calculation\Financial\CashFlow\Constant\Periodic\Payments;
 use PHPUnit\Framework\TestCase;
 
 class PmtTest extends TestCase
@@ -18,11 +18,11 @@ class PmtTest extends TestCase
         $numberOfPeriods = array_shift($args);
         $presentValue = array_shift($args);
         if (count($args) === 0) {
-            $result = Financial::PMT($interestRate, $numberOfPeriods, $presentValue);
+            $result = Payments::annuity($interestRate, $numberOfPeriods, $presentValue);
         } elseif (count($args) === 1) {
-            $result = Financial::PMT($interestRate, $numberOfPeriods, $presentValue, $args[0]);
+            $result = Payments::annuity($interestRate, $numberOfPeriods, $presentValue, $args[0]);
         } else {
-            $result = Financial::PMT($interestRate, $numberOfPeriods, $presentValue, $args[0], $args[1]);
+            $result = Payments::annuity($interestRate, $numberOfPeriods, $presentValue, $args[0], $args[1]);
         }
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }

@@ -32,7 +32,7 @@ class ExcelMatch
      *
      * @return array|int|string The relative position of the found item
      */
-    public static function MATCH($lookupValue, $lookupArray, $matchType = self::MATCHTYPE_LARGEST_VALUE)
+    public static function match($lookupValue, $lookupArray, $matchType = self::MATCHTYPE_LARGEST_VALUE)
     {
         if (is_array($lookupValue)) {
             return self::evaluateArrayArgumentsIgnore([self::class, __FUNCTION__], 1, $lookupValue, $lookupArray, $matchType);

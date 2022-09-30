@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Financial;
+use PhpOffice\PhpSpreadsheet\Calculation\Financial\CashFlow\Single;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PHPUnit\Framework\TestCase;
 
@@ -20,7 +20,7 @@ class FvScheduleTest extends TestCase
      */
     public function testFVSCHEDULE($expectedResult, ...$args): void
     {
-        $result = Financial::FVSCHEDULE(...$args);
+        $result = Single::futureValue(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 

@@ -18,7 +18,7 @@ class Concatenate
      *
      * @param array $args
      */
-    public static function CONCATENATE(...$args): string
+    public static function concatenate(...$args): string
     {
         $returnValue = '';
 
@@ -56,7 +56,7 @@ class Concatenate
      *         If an array of values is passed for the $delimiter or $ignoreEmpty arguments, then the returned result
      *            will also be an array with matching dimensions
      */
-    public static function TEXTJOIN($delimiter, $ignoreEmpty, ...$args)
+    public static function join($delimiter, $ignoreEmpty, ...$args)
     {
         if (is_array($delimiter) || is_array($ignoreEmpty)) {
             return self::evaluateArrayArgumentsSubset(
@@ -107,7 +107,7 @@ class Concatenate
      *         If an array of values is passed for the $stringValue or $repeatCount arguments, then the returned result
      *            will also be an array with matching dimensions
      */
-    public static function builtinREPT($stringValue, $repeatCount)
+    public static function repeat($stringValue, $repeatCount)
     {
         if (is_array($stringValue) || is_array($repeatCount)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $stringValue, $repeatCount);

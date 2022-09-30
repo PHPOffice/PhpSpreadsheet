@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\ChiSquared;
 use PHPUnit\Framework\TestCase;
 
 class ChiTestTest extends TestCase
@@ -16,7 +16,7 @@ class ChiTestTest extends TestCase
      */
     public function testCHITEST($expectedResult, $actual, $expected): void
     {
-        $result = Statistical\Distributions\ChiSquared::test($actual, $expected);
+        $result = ChiSquared::test($actual, $expected);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

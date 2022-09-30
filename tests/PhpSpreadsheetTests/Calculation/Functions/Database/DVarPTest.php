@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Database;
+use PhpOffice\PhpSpreadsheet\Calculation\Database\DVarP;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PHPUnit\Framework\TestCase;
 
@@ -23,7 +23,7 @@ class DVarPTest extends TestCase
      */
     public function testDVarP($expectedResult, $database, $field, $criteria): void
     {
-        $result = Database::DVARP($database, $field, $criteria);
+        $result = DVarP::evaluate($database, $field, $criteria);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 

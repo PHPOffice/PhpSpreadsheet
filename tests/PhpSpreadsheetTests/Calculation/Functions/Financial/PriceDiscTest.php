@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Financial;
+use PhpOffice\PhpSpreadsheet\Calculation\Financial\Securities\Price;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PHPUnit\Framework\TestCase;
 
@@ -20,7 +20,7 @@ class PriceDiscTest extends TestCase
      */
     public function testPRICEDISC($expectedResult, array $args): void
     {
-        $result = Financial::PRICEDISC(...$args);
+        $result = Price::priceDiscounted(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 

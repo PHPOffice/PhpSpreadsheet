@@ -1235,7 +1235,7 @@ class Xls extends BaseReader
                             //        Bar!$A$1:$IV$2
                             $explodes = Worksheet::extractSheetTitle($range, true);
                             $sheetName = trim($explodes[0], "'");
-                            if (count($explodes) == 2) {
+                            if (count($explodes) === 2) {
                                 if (strpos($explodes[1], ':') === false) {
                                     $explodes[1] = $explodes[1] . ':' . $explodes[1];
                                 }
@@ -2026,9 +2026,9 @@ class Xls extends BaseReader
         $this->pos += 4 + $length;
 
         // offset: 0; size: 2; 0 = base 1900, 1 = base 1904
-        Date::setExcelCalendar(Date::CALENDAR_WINDOWS_1900);
+        $this->spreadsheet->setExcelCalendar(Date::CALENDAR_WINDOWS_1900);
         if (ord($recordData[0]) == 1) {
-            Date::setExcelCalendar(Date::CALENDAR_MAC_1904);
+            $this->spreadsheet->setExcelCalendar(Date::CALENDAR_MAC_1904);
         }
     }
 

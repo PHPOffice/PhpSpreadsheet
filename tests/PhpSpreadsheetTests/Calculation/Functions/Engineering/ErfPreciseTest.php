@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Engineering;
+use PhpOffice\PhpSpreadsheet\Calculation\Engineering\Erf;
 use PHPUnit\Framework\TestCase;
 
 class ErfPreciseTest extends TestCase
@@ -18,7 +18,7 @@ class ErfPreciseTest extends TestCase
      */
     public function testERFPRECISE($expectedResult, $limit): void
     {
-        $result = Engineering::ERFPRECISE($limit);
+        $result = Erf::precise($limit);
         self::assertEqualsWithDelta($expectedResult, $result, self::ERF_PRECISION);
     }
 
@@ -35,7 +35,7 @@ class ErfPreciseTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=ERF.PRECISE({$limit})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEqualsWithDelta($expectedResult, $result, self::ERF_PRECISION);
     }
 

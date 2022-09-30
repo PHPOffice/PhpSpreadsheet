@@ -35,7 +35,7 @@ class Erf
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function ERF($lower, $upper = null)
+    public static function erf($lower, $upper = null)
     {
         if (is_array($lower) || is_array($upper)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $lower, $upper);
@@ -68,13 +68,13 @@ class Erf
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function ERFPRECISE($limit)
+    public static function precise($limit)
     {
         if (is_array($limit)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $limit);
         }
 
-        return self::ERF($limit);
+        return self::erf($limit);
     }
 
     //
@@ -83,7 +83,7 @@ class Erf
     public static function erfValue($value)
     {
         if (abs($value) > 2.2) {
-            return 1 - ErfC::ERFC($value);
+            return 1 - ErfC::complementary($value);
         }
         $sum = $term = $value;
         $xsqr = ($value * $value);

@@ -39,7 +39,7 @@ class DVarP extends DatabaseAbstract
             return null;
         }
 
-        return Variances::VARP(
+        return Variances::varianceP(
             self::getFilteredColumn($database, $field, $criteria)
         );
     }

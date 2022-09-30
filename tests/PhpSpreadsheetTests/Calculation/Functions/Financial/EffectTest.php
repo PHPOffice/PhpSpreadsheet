@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Financial;
+use PhpOffice\PhpSpreadsheet\Calculation\Financial\InterestRate;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PHPUnit\Framework\TestCase;
 
@@ -22,7 +22,7 @@ class EffectTest extends TestCase
      */
     public function testEFFECT($expectedResult, $rate, $periods): void
     {
-        $result = Financial::EFFECT($rate, $periods);
+        $result = InterestRate::effective($rate, $periods);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 

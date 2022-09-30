@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Financial;
+use PhpOffice\PhpSpreadsheet\Calculation\Financial\CashFlow\Variable\Periodic;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PHPUnit\Framework\TestCase;
 
@@ -20,7 +20,7 @@ class MirrTest extends TestCase
      */
     public function testMIRR($expectedResult, ...$args): void
     {
-        $result = Financial::MIRR(...$args);
+        $result = Periodic::modifiedRate(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 

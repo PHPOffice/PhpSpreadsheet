@@ -125,7 +125,7 @@ class Functions
      *
      * @return string #Not Yet Implemented
      */
-    public static function DUMMY()
+    public static function dummy()
     {
         return '#Not Yet Implemented';
     }
@@ -199,365 +199,6 @@ class Functions
         }
 
         return $operand;
-    }
-
-    /**
-     * NULL.
-     *
-     * Returns the error value #NULL!
-     *
-     * @Deprecated 1.23.0
-     *
-     * @return string #NULL!
-     *
-     *@see Information\ExcelError::null()
-     * Use the null() method in the Information\Error class instead
-     */
-    public static function null()
-    {
-        return Information\ExcelError::null();
-    }
-
-    /**
-     * NaN.
-     *
-     * Returns the error value #NUM!
-     *
-     * @Deprecated 1.23.0
-     *
-     * @return string #NUM!
-     *
-     * @see Information\ExcelError::NAN()
-     * Use the NAN() method in the Information\Error class instead
-     */
-    public static function NAN()
-    {
-        return Information\ExcelError::NAN();
-    }
-
-    /**
-     * REF.
-     *
-     * Returns the error value #REF!
-     *
-     * @Deprecated 1.23.0
-     *
-     * @return string #REF!
-     *
-     * @see Information\ExcelError::REF()
-     * Use the REF() method in the Information\Error class instead
-     */
-    public static function REF()
-    {
-        return Information\ExcelError::REF();
-    }
-
-    /**
-     * NA.
-     *
-     * Excel Function:
-     *        =NA()
-     *
-     * Returns the error value #N/A
-     *        #N/A is the error value that means "no value is available."
-     *
-     * @Deprecated 1.23.0
-     *
-     * @return string #N/A!
-     *
-     * @see Information\ExcelError::NA()
-     * Use the NA() method in the Information\Error class instead
-     */
-    public static function NA()
-    {
-        return Information\ExcelError::NA();
-    }
-
-    /**
-     * VALUE.
-     *
-     * Returns the error value #VALUE!
-     *
-     * @Deprecated 1.23.0
-     *
-     * @return string #VALUE!
-     *
-     * @see Information\ExcelError::VALUE()
-     * Use the VALUE() method in the Information\Error class instead
-     */
-    public static function VALUE()
-    {
-        return Information\ExcelError::VALUE();
-    }
-
-    /**
-     * NAME.
-     *
-     * Returns the error value #NAME?
-     *
-     * @Deprecated 1.23.0
-     *
-     * @return string #NAME?
-     *
-     * @see Information\ExcelError::NAME()
-     * Use the NAME() method in the Information\Error class instead
-     */
-    public static function NAME()
-    {
-        return Information\ExcelError::NAME();
-    }
-
-    /**
-     * DIV0.
-     *
-     * @Deprecated 1.23.0
-     *
-     * @return string #Not Yet Implemented
-     *
-     *@see Information\ExcelError::DIV0()
-     * Use the DIV0() method in the Information\Error class instead
-     */
-    public static function DIV0()
-    {
-        return Information\ExcelError::DIV0();
-    }
-
-    /**
-     * ERROR_TYPE.
-     *
-     * @param mixed $value Value to check
-     *
-     * @Deprecated 1.23.0
-     *
-     * @return array|int|string
-     *
-     * @see Information\ExcelError::type()
-     * Use the type() method in the Information\Error class instead
-     */
-    public static function errorType($value = '')
-    {
-        return Information\ExcelError::type($value);
-    }
-
-    /**
-     * IS_BLANK.
-     *
-     * @param mixed $value Value to check
-     *
-     * @Deprecated 1.23.0
-     *
-     * @see Information\Value::isBlank()
-     * Use the isBlank() method in the Information\Value class instead
-     *
-     * @return array|bool
-     */
-    public static function isBlank($value = null)
-    {
-        return Information\Value::isBlank($value);
-    }
-
-    /**
-     * IS_ERR.
-     *
-     * @param mixed $value Value to check
-     *
-     * @Deprecated 1.23.0
-     *
-     * @see Information\Value::isErr()
-     * Use the isErr() method in the Information\Value class instead
-     *
-     * @return array|bool
-     */
-    public static function isErr($value = '')
-    {
-        return Information\ErrorValue::isErr($value);
-    }
-
-    /**
-     * IS_ERROR.
-     *
-     * @param mixed $value Value to check
-     *
-     * @Deprecated 1.23.0
-     *
-     * @see Information\Value::isError()
-     * Use the isError() method in the Information\Value class instead
-     *
-     * @return array|bool
-     */
-    public static function isError($value = '')
-    {
-        return Information\ErrorValue::isError($value);
-    }
-
-    /**
-     * IS_NA.
-     *
-     * @param mixed $value Value to check
-     *
-     * @Deprecated 1.23.0
-     *
-     * @see Information\Value::isNa()
-     * Use the isNa() method in the Information\Value class instead
-     *
-     * @return array|bool
-     */
-    public static function isNa($value = '')
-    {
-        return Information\ErrorValue::isNa($value);
-    }
-
-    /**
-     * IS_EVEN.
-     *
-     * @param mixed $value Value to check
-     *
-     * @Deprecated 1.23.0
-     *
-     * @see Information\Value::isEven()
-     * Use the isEven() method in the Information\Value class instead
-     *
-     * @return array|bool|string
-     */
-    public static function isEven($value = null)
-    {
-        return Information\Value::isEven($value);
-    }
-
-    /**
-     * IS_ODD.
-     *
-     * @param mixed $value Value to check
-     *
-     * @Deprecated 1.23.0
-     *
-     * @see Information\Value::isOdd()
-     * Use the isOdd() method in the Information\Value class instead
-     *
-     * @return array|bool|string
-     */
-    public static function isOdd($value = null)
-    {
-        return Information\Value::isOdd($value);
-    }
-
-    /**
-     * IS_NUMBER.
-     *
-     * @param mixed $value Value to check
-     *
-     * @Deprecated 1.23.0
-     *
-     * @see Information\Value::isNumber()
-     * Use the isNumber() method in the Information\Value class instead
-     *
-     * @return array|bool
-     */
-    public static function isNumber($value = null)
-    {
-        return Information\Value::isNumber($value);
-    }
-
-    /**
-     * IS_LOGICAL.
-     *
-     * @param mixed $value Value to check
-     *
-     * @Deprecated 1.23.0
-     *
-     * @see Information\Value::isLogical()
-     * Use the isLogical() method in the Information\Value class instead
-     *
-     * @return array|bool
-     */
-    public static function isLogical($value = null)
-    {
-        return Information\Value::isLogical($value);
-    }
-
-    /**
-     * IS_TEXT.
-     *
-     * @param mixed $value Value to check
-     *
-     * @Deprecated 1.23.0
-     *
-     * @see Information\Value::isText()
-     * Use the isText() method in the Information\Value class instead
-     *
-     * @return array|bool
-     */
-    public static function isText($value = null)
-    {
-        return Information\Value::isText($value);
-    }
-
-    /**
-     * IS_NONTEXT.
-     *
-     * @param mixed $value Value to check
-     *
-     * @Deprecated 1.23.0
-     *
-     * @see Information\Value::isNonText()
-     * Use the isNonText() method in the Information\Value class instead
-     *
-     * @return array|bool
-     */
-    public static function isNonText($value = null)
-    {
-        return Information\Value::isNonText($value);
-    }
-
-    /**
-     * N.
-     *
-     * Returns a value converted to a number
-     *
-     * @Deprecated 1.23.0
-     *
-     * @see Information\Value::asNumber()
-     * Use the asNumber() method in the Information\Value class instead
-     *
-     * @param null|mixed $value The value you want converted
-     *
-     * @return number|string N converts values listed in the following table
-     *        If value is or refers to N returns
-     *        A number            That number
-     *        A date                The serial number of that date
-     *        TRUE                1
-     *        FALSE                0
-     *        An error value        The error value
-     *        Anything else        0
-     */
-    public static function n($value = null)
-    {
-        return Information\Value::asNumber($value);
-    }
-
-    /**
-     * TYPE.
-     *
-     * Returns a number that identifies the type of a value
-     *
-     * @Deprecated 1.23.0
-     *
-     * @see Information\Value::type()
-     * Use the type() method in the Information\Value class instead
-     *
-     * @param null|mixed $value The value you want tested
-     *
-     * @return number N converts values listed in the following table
-     *        If value is or refers to N returns
-     *        A number            1
-     *        Text                2
-     *        Logical Value        4
-     *        An error value        16
-     *        Array or Matrix        64
-     */
-    public static function TYPE($value = null)
-    {
-        return Information\Value::type($value);
     }
 
     /**
@@ -654,6 +295,51 @@ class Functions
         }
 
         return $value;
+    }
+
+    protected static function resizeMatrixColumns(array $matrix, int $columns): array
+    {
+        $matrix = array_map(
+            function ($row) use ($columns) {
+                if (count($row) > $columns) {
+                    // remove extra columns
+                    $row = array_slice($row, 0, $columns);
+                } elseif (count($row) < $columns) {
+                    // add new empty columns
+                    $row = array_merge($row, array_fill(0, $columns - count($row), null));
+                }
+
+                return $row;
+            },
+            $matrix
+        );
+
+        return $matrix;
+    }
+
+    protected static function resizeMatrixRows(array $matrix, int $columns, int $rows): array
+    {
+        if (count($matrix) > $rows) {
+            // remove extra rows
+            return array_slice($matrix, 0, $rows);
+        }
+
+        if (count($matrix) < $rows) {
+            // add new empty rows
+            for ($row = count($matrix); $row < $rows; ++$row) {
+                $matrix[] = array_fill(0, $columns - 1, null);
+            }
+        }
+
+        return $matrix;
+    }
+
+    public static function resizeMatrix(array $matrix, int $columns, int $rows): array
+    {
+        $matrix = self::resizeMatrixRows($matrix, $columns, $rows);
+        $matrix = self::resizeMatrixColumns($matrix, $columns);
+
+        return $matrix;
     }
 
     /**

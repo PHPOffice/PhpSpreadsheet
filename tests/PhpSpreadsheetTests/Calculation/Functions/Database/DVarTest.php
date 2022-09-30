@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Database;
+use PhpOffice\PhpSpreadsheet\Calculation\Database\DVar;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PHPUnit\Framework\TestCase;
 
@@ -23,7 +23,7 @@ class DVarTest extends TestCase
      */
     public function testDVar($expectedResult, $database, $field, $criteria): void
     {
-        $result = Database::DVAR($database, $field, $criteria);
+        $result = DVar::evaluate($database, $field, $criteria);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 

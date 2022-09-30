@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Size;
 use PHPUnit\Framework\TestCase;
 
 class SmallTest extends TestCase
@@ -16,7 +16,7 @@ class SmallTest extends TestCase
      */
     public function testSMALL($expectedResult, $values, $position): void
     {
-        $result = Statistical::SMALL($values, $position);
+        $result = Size::small($values, $position);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

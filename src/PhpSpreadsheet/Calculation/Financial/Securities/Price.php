@@ -70,10 +70,10 @@ class Price
             return $e->getMessage();
         }
 
-        $dsc = Coupons::COUPDAYSNC($settlement, $maturity, $frequency, $basis);
-        $e = Coupons::COUPDAYS($settlement, $maturity, $frequency, $basis);
-        $n = Coupons::COUPNUM($settlement, $maturity, $frequency, $basis);
-        $a = Coupons::COUPDAYBS($settlement, $maturity, $frequency, $basis);
+        $dsc = Coupons::daysToNextCoupon($settlement, $maturity, $frequency, $basis);
+        $e = Coupons::days($settlement, $maturity, $frequency, $basis);
+        $n = Coupons::numberPayable($settlement, $maturity, $frequency, $basis);
+        $a = Coupons::daysBeforeSettlement($settlement, $maturity, $frequency, $basis);
 
         $baseYF = 1.0 + ($yield / $frequency);
         $rfp = 100 * ($rate / $frequency);

@@ -54,10 +54,10 @@ class CalculationFunctionListTest extends TestCase
     public function testIsImplemented(): void
     {
         $calculation = Calculation::getInstance();
-        self::assertFalse($calculation->isImplemented('non-existing-function'));
-        self::assertFalse($calculation->isImplemented('AREAS'));
-        self::assertTrue($calculation->isImplemented('coUNt'));
-        self::assertTrue($calculation->isImplemented('abs'));
+        self::assertFalse($calculation->isImplemented('non-existing-function'), 'Non-existent Function');
+        self::assertFalse($calculation->isImplemented('AREAS'), 'AREAS()');
+        self::assertTrue($calculation->isImplemented('coUNt'), 'COUNT()');
+        self::assertTrue($calculation->isImplemented('abs'), 'ABS()');
     }
 
     public function testUnknownFunction(): void

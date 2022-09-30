@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Deviations;
 use PHPUnit\Framework\TestCase;
 
 class KurtTest extends TestCase
@@ -14,7 +14,7 @@ class KurtTest extends TestCase
      */
     public function testKURT($expectedResult, ...$args): void
     {
-        $result = Statistical::KURT(...$args);
+        $result = Deviations::kurtosis(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

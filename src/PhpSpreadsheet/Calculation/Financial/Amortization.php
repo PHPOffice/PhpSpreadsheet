@@ -39,7 +39,7 @@ class Amortization
      *
      * @return float|string (string containing the error type if there is an error)
      */
-    public static function AMORDEGRC(
+    public static function withCoefficient(
         $cost,
         $purchased,
         $firstPeriod,
@@ -128,7 +128,7 @@ class Amortization
      *
      * @return float|string (string containing the error type if there is an error)
      */
-    public static function AMORLINC(
+    public static function depreciation(
         $cost,
         $purchased,
         $firstPeriod,

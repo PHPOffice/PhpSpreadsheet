@@ -16,6 +16,9 @@ class DocumentGenerator
     {
         $result = "# Function list by category\n";
         foreach (self::getCategories() as $categoryConstant => $category) {
+            if ($category === Category::CATEGORY_MICROSOFT_INTERNAL_PSEUDOFUNCTION) {
+                continue;
+            }
             $result .= "\n";
             $result .= "## {$categoryConstant}\n";
             $result .= "\n";
@@ -57,7 +60,7 @@ class DocumentGenerator
         if (is_string($functionCall)) {
             return $functionCall;
         }
-        if ($functionCall === [Functions::class, 'DUMMY']) {
+        if ($functionCall === [Functions::class, 'dummy']) {
             return '**Not yet Implemented**';
         }
         if (is_array($functionCall)) {
@@ -78,6 +81,9 @@ class DocumentGenerator
         $result = "# Function list by name\n";
         $lastAlphabet = null;
         foreach ($phpSpreadsheetFunctions as $excelFunction => $functionInfo) {
+            if ($functionInfo['category'] === Category::CATEGORY_MICROSOFT_INTERNAL_PSEUDOFUNCTION) {
+                continue;
+            }
             /** @var string $excelFunction */
             $lengths = [25, 31, 37];
             if ($lastAlphabet !== $excelFunction[0]) {

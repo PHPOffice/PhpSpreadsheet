@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\Gamma;
 use PHPUnit\Framework\TestCase;
 
 class GammaLnTest extends TestCase
@@ -22,7 +22,7 @@ class GammaLnTest extends TestCase
      */
     public function testGAMMALN($expectedResult, $value): void
     {
-        $result = Statistical::GAMMALN($value);
+        $result = Gamma::ln($value);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
@@ -39,7 +39,7 @@ class GammaLnTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=GAMMALN({$values})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

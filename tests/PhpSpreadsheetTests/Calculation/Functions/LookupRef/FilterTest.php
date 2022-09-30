@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Filter;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\TestCase;
 
 class FilterTest extends TestCase
@@ -49,6 +50,50 @@ class FilterTest extends TestCase
 
         $expectedResult = 'Invalid Data';
         $result = Filter::filter([[1], [2], [3]], $criteria, $expectedResult);
+        self::assertSame($expectedResult, $result);
+    }
+
+    public function testFilterWithAndLogic(): void
+    {
+        $expectedResult = [
+            ['East', 'Tom', 'Apple', 6830],
+            ['East', 'Fritz', 'Banana', 6274],
+        ];
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $worksheet->fromArray($this->sampleDataForRow(), null, 'C3', true);
+
+        // East AND >6,000
+        $formula = '=FILTER(C3:F18,(C3:C18="East")*(F3:F18>6000))';
+        $worksheet->setCellValue('H1', $formula, true, 'H1:K2');
+        $result = $worksheet->getCell('H1')->getCalculatedValue(true);
+
+        self::assertSame($expectedResult, $result);
+    }
+
+    public function testFilterWithOrLogic(): void
+    {
+        $expectedResult = [
+            ['East', 'Tom', 'Apple', 6830],
+            ['East', 'Fritz', 'Apple', 4394],
+            ['West', 'Sravan', 'Grape', 7195],
+            ['East', 'Tom', 'Banana', 4213],
+            ['North', 'Amy', 'Grape', 6420],
+            ['East', 'Fritz', 'Banana', 6274],
+            ['North', 'Xi', 'Grape', 7580],
+            ['South', 'Hector', 'Apple', 8144],
+        ];
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $worksheet->fromArray($this->sampleDataForRow(), null, 'C3', true);
+
+        // East OR >6,000
+        $formula = '=FILTER(C3:F18,(C3:C18="East")+(F3:F18>6000))';
+        $worksheet->setCellValue('H1', $formula, true, 'H1:K8');
+        $result = $worksheet->getCell('H1')->getCalculatedValue(true);
+
         self::assertSame($expectedResult, $result);
     }
 

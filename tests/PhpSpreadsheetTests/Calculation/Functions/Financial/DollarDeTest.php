@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Financial;
+use PhpOffice\PhpSpreadsheet\Calculation\Financial\Dollar;
 use PHPUnit\Framework\TestCase;
 
 class DollarDeTest extends TestCase
@@ -16,11 +16,11 @@ class DollarDeTest extends TestCase
     public function testDOLLARDE($expectedResult, ...$args): void
     {
         if (count($args) === 0) {
-            $result = Financial::DOLLARDE();
+            $result = Dollar::decimal();
         } elseif (count($args) === 1) {
-            $result = Financial::DOLLARDE($args[0]);
+            $result = Dollar::decimal($args[0]);
         } else {
-            $result = Financial::DOLLARDE($args[0], $args[1]);
+            $result = Dollar::decimal($args[0], $args[1]);
         }
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
@@ -38,7 +38,7 @@ class DollarDeTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=DollarDe({$argument1},{$argument2})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 

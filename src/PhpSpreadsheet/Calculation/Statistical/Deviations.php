@@ -68,7 +68,7 @@ class Deviations
         if (!is_numeric($mean)) {
             return ExcelError::DIV0();
         }
-        $stdDev = StandardDeviations::STDEV($aArgs);
+        $stdDev = StandardDeviations::stdev($aArgs);
 
         if ($stdDev > 0) {
             $count = $summer = 0;
@@ -113,7 +113,7 @@ class Deviations
         if (!is_numeric($mean)) {
             return ExcelError::DIV0();
         }
-        $stdDev = StandardDeviations::STDEV($aArgs);
+        $stdDev = StandardDeviations::stdev($aArgs);
         if ($stdDev === 0.0 || is_string($stdDev)) {
             return ExcelError::DIV0();
         }

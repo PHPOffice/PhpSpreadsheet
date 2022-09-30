@@ -39,7 +39,7 @@ class DStDevP extends DatabaseAbstract
             return null;
         }
 
-        return StandardDeviations::STDEVP(
+        return StandardDeviations::stdevP(
             self::getFilteredColumn($database, $field, $criteria)
         );
     }

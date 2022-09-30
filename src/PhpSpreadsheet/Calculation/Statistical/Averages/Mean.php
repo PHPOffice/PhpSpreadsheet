@@ -31,7 +31,7 @@ class Mean
 
         $aMean = MathTrig\Operations::product($aArgs);
         if (is_numeric($aMean) && ($aMean > 0)) {
-            $aCount = Counts::COUNT($aArgs);
+            $aCount = Counts::count($aArgs);
             if (Minimum::min($aArgs) > 0) {
                 return $aMean ** (1 / $aCount);
             }
@@ -116,7 +116,7 @@ class Mean
                 }
             }
 
-            $discard = floor(Counts::COUNT($mArgs) * $percent / 2);
+            $discard = floor(Counts::count($mArgs) * $percent / 2);
             sort($mArgs);
 
             for ($i = 0; $i < $discard; ++$i) {

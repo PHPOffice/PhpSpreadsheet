@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Maximum;
 use PHPUnit\Framework\TestCase;
 
 class MaxATest extends TestCase
@@ -14,7 +14,7 @@ class MaxATest extends TestCase
      */
     public function testMAXA($expectedResult, ...$args): void
     {
-        $result = Statistical::MAXA(...$args);
+        $result = Maximum::maxA(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

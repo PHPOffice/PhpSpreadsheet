@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx as XlsxReader;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Style\Style;
@@ -13,7 +14,7 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx as XlsxWriter;
 
 class Spreadsheet
 {
-    // Allowable values for workbook window visilbity
+    // Allowable values for workbook window visibility
     const VISIBILITY_VISIBLE = 'visible';
     const VISIBILITY_HIDDEN = 'hidden';
     const VISIBILITY_VERY_HIDDEN = 'veryHidden';
@@ -54,6 +55,14 @@ class Spreadsheet
      * @var Worksheet[]
      */
     private $workSheetCollection = [];
+
+    /**
+     * Base calendar year to use for calculations
+     * Value is either CALENDAR_WINDOWS_1900 (1900) or CALENDAR_MAC_1904 (1904).
+     *
+     * @var int
+     */
+    protected $excelCalendar = Date::CALENDAR_WINDOWS_1900;
 
     /**
      * Calculation Engine.
@@ -201,6 +210,34 @@ class Spreadsheet
      * @var int
      */
     private $tabRatio = 600;
+
+    /**
+     * Set the Excel Calendar (Windows 1900 or Mac 1904).
+     *
+     * @param int $baseYear Excel base date (1900 or 1904)
+     *
+     * @return bool Success or failure
+     */
+    public function setExcelCalendar(int $baseYear): bool
+    {
+        if (($baseYear == Date::CALENDAR_WINDOWS_1900) || ($baseYear == Date::CALENDAR_MAC_1904)) {
+            $this->excelCalendar = $baseYear;
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Return the Excel Calendar (Windows 1900 or Mac 1904).
+     *
+     * @return int Excel base date (1900 or 1904)
+     */
+    public function getExcelCalendar(): int
+    {
+        return $this->excelCalendar;
+    }
 
     /**
      * The workbook has macros ?

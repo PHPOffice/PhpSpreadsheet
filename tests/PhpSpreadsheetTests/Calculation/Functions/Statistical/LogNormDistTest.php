@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\LogNormal;
 use PHPUnit\Framework\TestCase;
 
 class LogNormDistTest extends TestCase
@@ -15,7 +15,7 @@ class LogNormDistTest extends TestCase
      */
     public function testLOGNORMDIST($expectedResult, ...$args): void
     {
-        $result = Statistical::LOGNORMDIST(...$args);
+        $result = LogNormal::cumulative(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
@@ -32,7 +32,7 @@ class LogNormDistTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=LOGNORMDIST({$values}, {$mean}, {$stdDev})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

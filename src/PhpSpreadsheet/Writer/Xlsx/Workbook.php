@@ -39,7 +39,7 @@ class Workbook extends WriterPart
         $this->writeFileVersion($objWriter);
 
         // workbookPr
-        $this->writeWorkbookPr($objWriter);
+        $this->writeWorkbookPr($objWriter, $spreadsheet);
 
         // workbookProtection
         $this->writeWorkbookProtection($objWriter, $spreadsheet);
@@ -80,11 +80,11 @@ class Workbook extends WriterPart
     /**
      * Write WorkbookPr.
      */
-    private function writeWorkbookPr(XMLWriter $objWriter): void
+    private function writeWorkbookPr(XMLWriter $objWriter, Spreadsheet $spreadsheet): void
     {
         $objWriter->startElement('workbookPr');
 
-        if (Date::getExcelCalendar() === Date::CALENDAR_MAC_1904) {
+        if ($spreadsheet->getExcelCalendar() === Date::CALENDAR_MAC_1904) {
             $objWriter->writeAttribute('date1904', '1');
         }
 

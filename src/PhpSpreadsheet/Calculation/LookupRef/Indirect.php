@@ -62,7 +62,7 @@ class Indirect
      *
      * @return array|string An array containing a cell or range of cells, or a string on error
      */
-    public static function INDIRECT($cellAddress, $a1fmt, Cell $cell)
+    public static function indirect($cellAddress, $a1fmt, Cell $cell)
     {
         [$baseCol, $baseRow] = Coordinate::indexesFromString($cell->getCoordinate());
 

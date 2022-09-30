@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Averages\Mean;
 use PHPUnit\Framework\TestCase;
 
 class TrimMeanTest extends TestCase
@@ -21,7 +21,7 @@ class TrimMeanTest extends TestCase
      */
     public function testTRIMMEAN($expectedResult, array $args, $percentage): void
     {
-        $result = Statistical::TRIMMEAN($args, $percentage);
+        $result = Mean::trim($args, $percentage);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

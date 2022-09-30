@@ -476,7 +476,7 @@ class DataSeriesValues extends Properties
         if ($this->dataSource !== null) {
             $calcEngine = Calculation::getInstance($worksheet->getParent());
             $newDataValues = Calculation::unwrapResult(
-                $calcEngine->_calculateFormulaValue(
+                $calcEngine->calculateFormulaValue(
                     '=' . $this->dataSource,
                     null,
                     $worksheet->getCell('A1')

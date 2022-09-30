@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
+use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\RowColumnInformation;
 use PHPUnit\Framework\TestCase;
 
 class ColumnsTest extends TestCase
@@ -15,7 +15,7 @@ class ColumnsTest extends TestCase
      */
     public function testCOLUMNS($expectedResult, ...$args): void
     {
-        $result = LookupRef::COLUMNS(/** @scrutinizer ignore-type */ ...$args);
+        $result = RowColumnInformation::columns(...$args);
         self::assertEquals($expectedResult, $result);
     }
 
@@ -32,7 +32,7 @@ class ColumnsTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=COLUMNS({$argument})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEquals($expectedResult, $result);
     }
 

@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Averages;
 use PHPUnit\Framework\TestCase;
 
 class MedianTest extends TestCase
@@ -20,7 +20,7 @@ class MedianTest extends TestCase
      */
     public function testMEDIAN($expectedResult, ...$args): void
     {
-        $result = Statistical::MEDIAN(...$args);
+        $result = Averages::median(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Financial;
+use PhpOffice\PhpSpreadsheet\Calculation\Financial\TreasuryBill;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PHPUnit\Framework\TestCase;
 
@@ -20,7 +20,7 @@ class TBillYieldTest extends TestCase
      */
     public function testTBILLYIELD($expectedResult, ...$args): void
     {
-        $result = Financial::TBILLYIELD(...$args);
+        $result = TreasuryBill::yield(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 

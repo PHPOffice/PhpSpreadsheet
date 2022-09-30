@@ -229,7 +229,7 @@ class Ods extends BaseReader
     /**
      * Loads PhpSpreadsheet from file.
      */
-    protected function loadSpreadsheetFromFile(string $filename): Spreadsheet
+    public function loadSpreadsheetFromFile(string $filename): Spreadsheet
     {
         // Create new Spreadsheet
         $spreadsheet = new Spreadsheet();
@@ -385,9 +385,12 @@ class Ods extends BaseReader
                                 $hasCalculatedValue = false;
                                 $cellDataFormula = '';
 
+                                $arrayAttributeRows = $arrayAttributeColumns = null;
                                 if ($cellData->hasAttributeNS($tableNs, 'formula')) {
                                     $cellDataFormula = $cellData->getAttributeNS($tableNs, 'formula');
                                     $hasCalculatedValue = true;
+                                    $arrayAttributeRows = $cellData->getAttributeNS($tableNs, 'number-matrix-rows-spanned');
+                                    $arrayAttributeColumns = $cellData->getAttributeNS($tableNs, 'number-matrix-columns-spanned');
                                 }
 
                                 // Annotations
@@ -548,7 +551,23 @@ class Ods extends BaseReader
 
                                                 // Set value
                                                 if ($hasCalculatedValue) {
-                                                    $cell->setValueExplicit($cellDataFormula, $type);
+                                                    $arrayFormulaRange = null;
+                                                    $isArrayFormula = (!empty($arrayAttributeRows) && !empty($arrayAttributeColumns));
+                                                    if ($isArrayFormula === true) {
+                                                        $arrayFormulaRange = $columnID . $rID;
+                                                        $arrayAttributeRows = (int) $arrayAttributeRows;
+                                                        $arrayAttributeColumns = (int) $arrayAttributeColumns;
+                                                        if ($arrayAttributeRows > 1 || $arrayAttributeColumns > 1) {
+                                                            $arrayFormulaRange .= ':' .
+                                                                Coordinate::stringFromColumnIndex(
+                                                                    Coordinate::columnIndexFromString($columnID)
+                                                                    + $arrayAttributeColumns - 1
+                                                                ) .
+                                                                (string) ($rID + $arrayAttributeRows - 1);
+                                                        }
+                                                    }
+
+                                                    $cell->setValueExplicit($cellDataFormula, $type, $isArrayFormula, $arrayFormulaRange);
                                                 } else {
                                                     $cell->setValueExplicit($dataValue, $type);
                                                 }
@@ -558,17 +577,10 @@ class Ods extends BaseReader
                                                 }
 
                                                 // Set other properties
-                                                if ($formatting !== null) {
-                                                    $spreadsheet->getActiveSheet()
-                                                        ->getStyle($columnID . $rID)
-                                                        ->getNumberFormat()
-                                                        ->setFormatCode($formatting);
-                                                } else {
-                                                    $spreadsheet->getActiveSheet()
-                                                        ->getStyle($columnID . $rID)
-                                                        ->getNumberFormat()
-                                                        ->setFormatCode(NumberFormat::FORMAT_GENERAL);
-                                                }
+                                                $spreadsheet->getActiveSheet()
+                                                    ->getStyle($columnID . $rID)
+                                                    ->getNumberFormat()
+                                                    ->setFormatCode($formatting ?? NumberFormat::FORMAT_GENERAL);
 
                                                 if ($hyperlink !== null) {
                                                     $cell->getHyperlink()
@@ -620,11 +632,13 @@ class Ods extends BaseReader
         $officeNs = $dom->lookupNamespaceUri('office');
         $settings = $dom->getElementsByTagNameNS($officeNs, 'settings')
             ->item(0);
-        $this->lookForActiveSheet($settings, $spreadsheet, $configNs);
-        $this->lookForSelectedCells($settings, $spreadsheet, $configNs);
+        if ($settings !== null) {
+            $this->activeSheet($settings, $spreadsheet, $configNs);
+            $this->selectedCells($settings, $spreadsheet, $configNs);
+        }
     }
 
-    private function lookForActiveSheet(DOMElement $settings, Spreadsheet $spreadsheet, string $configNs): void
+    private function activeSheet(DOMElement $settings, Spreadsheet $spreadsheet, string $configNs): void
     {
         /** @var DOMElement $t */
         foreach ($settings->getElementsByTagNameNS($configNs, 'config-item') as $t) {
@@ -640,7 +654,7 @@ class Ods extends BaseReader
         }
     }
 
-    private function lookForSelectedCells(DOMElement $settings, Spreadsheet $spreadsheet, string $configNs): void
+    private function selectedCells(DOMElement $settings, Spreadsheet $spreadsheet, string $configNs): void
     {
         /** @var DOMElement $t */
         foreach ($settings->getElementsByTagNameNS($configNs, 'config-item-map-named') as $t) {

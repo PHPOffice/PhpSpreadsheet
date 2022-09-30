@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\Beta;
 use PHPUnit\Framework\TestCase;
 
 class BetaDistTest extends TestCase
@@ -21,7 +21,7 @@ class BetaDistTest extends TestCase
      */
     public function testBETADIST($expectedResult, ...$args): void
     {
-        $result = Statistical::BETADIST(...$args);
+        $result = Beta::distribution(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
@@ -38,7 +38,7 @@ class BetaDistTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=BETADIST({$argument1}, {$argument2}, {$argument3})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Financial;
+use PhpOffice\PhpSpreadsheet\Calculation\Financial\Securities\Yields;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PHPUnit\Framework\TestCase;
 
@@ -20,7 +20,7 @@ class YieldDiscTest extends TestCase
      */
     public function testYIELDDISC($expectedResult, ...$args): void
     {
-        $result = Financial::YIELDDISC(...$args);
+        $result = Yields::yieldDiscounted(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 

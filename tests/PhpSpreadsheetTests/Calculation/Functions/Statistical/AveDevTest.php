@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Averages;
 use PHPUnit\Framework\TestCase;
 
 class AveDevTest extends TestCase
@@ -20,7 +20,7 @@ class AveDevTest extends TestCase
      */
     public function testAVEDEV($expectedResult, ...$args): void
     {
-        $result = Statistical::AVEDEV(...$args);
+        $result = Averages::averageDeviations(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

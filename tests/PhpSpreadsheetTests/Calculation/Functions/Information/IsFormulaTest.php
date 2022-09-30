@@ -106,7 +106,7 @@ class IsFormulaTest extends TestCase
         $calculation = Calculation::getInstance($spreadsheet);
 
         $formula = '=ISFORMULA(A1:A7)';
-        $result = $calculation->_calculateFormulaValue($formula, 'C1', $sheet->getCell('C1'));
+        $result = $calculation->calculateFormulaValue($formula, 'C1', $sheet->getCell('C1'));
         self::assertEquals([true, false, true, false, true, false, false], $result);
 
         $spreadsheet->disconnectWorksheets();

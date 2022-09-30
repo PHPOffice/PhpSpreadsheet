@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Database;
+use PhpOffice\PhpSpreadsheet\Calculation\Database\DCount;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PHPUnit\Framework\TestCase;
 
@@ -23,7 +23,7 @@ class DCountTest extends TestCase
      */
     public function testDCount($expectedResult, $database, $field, $criteria): void
     {
-        $result = Database::DCOUNT($database, $field, $criteria);
+        $result = DCount::evaluate($database, $field, $criteria);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 

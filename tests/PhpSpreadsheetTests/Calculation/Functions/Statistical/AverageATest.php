@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Averages;
 use PHPUnit\Framework\TestCase;
 
 class AverageATest extends TestCase
@@ -20,7 +20,7 @@ class AverageATest extends TestCase
      */
     public function testAVERAGEA($expectedResult, ...$args): void
     {
-        $result = Statistical::AVERAGEA(...$args);
+        $result = Averages::averageA(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

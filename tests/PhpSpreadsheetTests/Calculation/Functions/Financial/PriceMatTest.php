@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Financial;
+use PhpOffice\PhpSpreadsheet\Calculation\Financial\Securities\Price;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PHPUnit\Framework\TestCase;
 
@@ -20,7 +20,7 @@ class PriceMatTest extends TestCase
      */
     public function testPRICEMAT($expectedResult, ...$args): void
     {
-        $result = Financial::PRICEMAT(...$args);
+        $result = Price::priceAtMaturity(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 

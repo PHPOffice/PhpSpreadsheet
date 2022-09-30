@@ -41,7 +41,7 @@ class ExpTest extends AllSetupTeardown
         $calculation = Calculation::getInstance();
 
         $formula = "=EXP({$array})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 

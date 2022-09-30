@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Averages\Mean;
 use PHPUnit\Framework\TestCase;
 
 class GeoMeanTest extends TestCase
@@ -20,7 +20,7 @@ class GeoMeanTest extends TestCase
      */
     public function testGEOMEAN($expectedResult, ...$args): void
     {
-        $result = Statistical::GEOMEAN(...$args);
+        $result = Mean::geometric(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

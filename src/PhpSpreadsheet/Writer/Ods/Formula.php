@@ -23,12 +23,18 @@ class Formula
     {
         $formula = $this->convertCellReferences($formula, $worksheetName);
         $formula = $this->convertDefinedNames($formula);
+        $formula = $this->convertFunctionNames($formula);
 
         if (substr($formula, 0, 1) !== '=') {
             $formula = '=' . $formula;
         }
 
         return 'of:' . $formula;
+    }
+
+    private function convertFunctionNames(string $formula): string
+    {
+        return (string) preg_replace('/_xlfn\./ui', 'COM.MICROSOFT.', $formula);
     }
 
     private function convertDefinedNames(string $formula): string

@@ -42,7 +42,7 @@ class RowColumnInformation
      *
      * @return int|int[]
      */
-    public static function COLUMN($cellAddress = null, ?Cell $cell = null)
+    public static function column($cellAddress = null, ?Cell $cell = null)
     {
         if (self::cellAddressNullOrWhitespace($cellAddress)) {
             return self::cellColumn($cell);
@@ -93,7 +93,7 @@ class RowColumnInformation
      *
      * @return int|string The number of columns in cellAddress, or a string if arguments are invalid
      */
-    public static function COLUMNS($cellAddress = null)
+    public static function columns($cellAddress = null)
     {
         if (self::cellAddressNullOrWhitespace($cellAddress)) {
             return 1;
@@ -135,7 +135,7 @@ class RowColumnInformation
      *
      * @return int|mixed[]|string
      */
-    public static function ROW($cellAddress = null, ?Cell $cell = null)
+    public static function row($cellAddress = null, ?Cell $cell = null)
     {
         if (self::cellAddressNullOrWhitespace($cellAddress)) {
             return self::cellRow($cell);
@@ -187,7 +187,7 @@ class RowColumnInformation
      *
      * @return int|string The number of rows in cellAddress, or a string if arguments are invalid
      */
-    public static function ROWS($cellAddress = null)
+    public static function rows($cellAddress = null)
     {
         if (self::cellAddressNullOrWhitespace($cellAddress)) {
             return 1;

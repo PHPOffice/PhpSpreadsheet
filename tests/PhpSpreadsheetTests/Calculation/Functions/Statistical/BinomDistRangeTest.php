@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\Binomial;
 use PHPUnit\Framework\TestCase;
 
 class BinomDistRangeTest extends TestCase
@@ -21,7 +21,7 @@ class BinomDistRangeTest extends TestCase
      */
     public function testBINOMDISTRANGE($expectedResult, ...$args): void
     {
-        $result = Statistical\Distributions\Binomial::range(...$args);
+        $result = Binomial::range(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
@@ -42,7 +42,7 @@ class BinomDistRangeTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=BINOM.DIST.RANGE({$trials}, {$probabilities}, {$successes})";
-        $result = $calculation->_calculateFormulaValue($formula);
+        $result = $calculation->calculateFormulaValue($formula);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
