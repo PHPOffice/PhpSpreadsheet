@@ -95,7 +95,7 @@ class Sample
                 // @codeCoverageIgnoreEnd
             }
             $info = pathinfo($file);
-            $category = str_replace('_', ' ', $info['dirname']);
+            $category = str_replace('_', ' ', $info['dirname'] ?? '');
             $name = str_replace('_', ' ', (string) preg_replace('/(|\.php)/', '', $info['filename']));
             if (!in_array($category, ['.', 'boostrap', 'templates'])) {
                 if (!isset($files[$category])) {

@@ -6,11 +6,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
 		-
-			message: "#^Cannot call method attach\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
 			message: "#^Cannot call method cellExists\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
 			count: 4
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
