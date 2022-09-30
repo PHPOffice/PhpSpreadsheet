@@ -465,7 +465,7 @@ class Cells
      */
     private function getAllCacheKeys()
     {
-        foreach ($this->getCoordinates() as $coordinate) {
+        foreach ($this->index as $coordinate => $value) {
             yield $this->cachePrefix . $coordinate;
         }
     }
