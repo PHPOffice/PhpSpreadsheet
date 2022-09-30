@@ -26,7 +26,7 @@ class MyReadFilter implements IReadFilter
         $this->columns = $columns;
     }
 
-    public function readCell($columnAddress, $row, $worksheetName = '')
+    public function readCell(string $columnAddress, int $row, string $worksheetName = ''): bool
     {
         if ($row >= $this->startRow && $row <= $this->endRow) {
             if (in_array($columnAddress, $this->columns)) {

@@ -52,9 +52,9 @@ class CsvContiguousFilter implements IReadFilter
         return false;
     }
 
-    public function readCell($columnAddress, $row, $worksheetName = '')
+    public function readCell(string $columnAddress, int $row, string $worksheetName = ''): bool
     {
-        if ($this->filterType == 1) {
+        if ($this->filterType === 1) {
             return $this->filter1($row);
         }
 

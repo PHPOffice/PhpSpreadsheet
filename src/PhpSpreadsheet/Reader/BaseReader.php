@@ -41,7 +41,7 @@ abstract class BaseReader implements IReader
      * Restrict which sheets should be loaded?
      * This property holds an array of worksheet names to be loaded. If null, then all worksheets will be loaded.
      *
-     * @var null|string[]
+     * @var ?string[]
      */
     protected $loadSheetsOnly;
 
@@ -64,38 +64,38 @@ abstract class BaseReader implements IReader
         $this->readFilter = new DefaultReadFilter();
     }
 
-    public function getReadDataOnly()
+    public function getReadDataOnly(): bool
     {
         return $this->readDataOnly;
     }
 
-    public function setReadDataOnly($readCellValuesOnly)
+    public function setReadDataOnly(bool $readDataOnly): IReader
     {
-        $this->readDataOnly = (bool) $readCellValuesOnly;
+        $this->readDataOnly = (bool) $readDataOnly;
 
         return $this;
     }
 
-    public function getReadEmptyCells()
+    public function getReadEmptyCells(): bool
     {
         return $this->readEmptyCells;
     }
 
-    public function setReadEmptyCells($readEmptyCells)
+    public function setReadEmptyCells(bool $readEmptyCells): IReader
     {
-        $this->readEmptyCells = (bool) $readEmptyCells;
+        $this->readEmptyCells = $readEmptyCells;
 
         return $this;
     }
 
-    public function getIncludeCharts()
+    public function getIncludeCharts(): bool
     {
         return $this->includeCharts;
     }
 
-    public function setIncludeCharts($includeCharts)
+    public function setIncludeCharts(bool $includeCharts): IReader
     {
-        $this->includeCharts = (bool) $includeCharts;
+        $this->includeCharts = $includeCharts;
 
         return $this;
     }
@@ -105,7 +105,7 @@ abstract class BaseReader implements IReader
         return $this->loadSheetsOnly;
     }
 
-    public function setLoadSheetsOnly($sheetList)
+    public function setLoadSheetsOnly($sheetList): IReader
     {
         if ($sheetList === null) {
             return $this->setLoadAllSheets();
@@ -116,19 +116,19 @@ abstract class BaseReader implements IReader
         return $this;
     }
 
-    public function setLoadAllSheets()
+    public function setLoadAllSheets(): IReader
     {
         $this->loadSheetsOnly = null;
 
         return $this;
     }
 
-    public function getReadFilter()
+    public function getReadFilter(): IReadFilter
     {
         return $this->readFilter;
     }
 
-    public function setReadFilter(IReadFilter $readFilter)
+    public function setReadFilter(IReadFilter $readFilter): IReader
     {
         $this->readFilter = $readFilter;
 
