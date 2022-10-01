@@ -25,7 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
-- Nothing
+- Reduces extra memory usage on `__destruct()` calls
 
 
 ## 1.25.2 - 2022-09-25
