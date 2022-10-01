@@ -58,6 +58,7 @@ class Calculation
     const FORMULA_CLOSE_MATRIX_BRACE = '}';
     const FORMULA_STRING_QUOTE = '"';
 
+    /** @var string */
     private static $returnArrayAsType = self::RETURN_ARRAY_AS_VALUE;
 
     /**
@@ -136,9 +137,14 @@ class Calculation
      *        If true, then a user error will be triggered
      *        If false, then an exception will be thrown.
      *
-     * @var bool
+     * @var ?bool
+     *
+     * @deprecated 1.25.2 use setSuppressFormulaErrors() instead
      */
-    public $suppressFormulaErrors = false;
+    public $suppressFormulaErrors;
+
+    /** @var bool */
+    private $suppressFormulaErrorsNew = false;
 
     /**
      * Error message for any error that was raised/thrown by the calculation engine.
@@ -161,6 +167,7 @@ class Calculation
      */
     private $cyclicReferenceStack;
 
+    /** @var array */
     private $cellStack = [];
 
     /**
@@ -172,6 +179,7 @@ class Calculation
      */
     private $cyclicFormulaCounter = 1;
 
+    /** @var string */
     private $cyclicFormulaCell = '';
 
     /**
@@ -205,6 +213,7 @@ class Calculation
      */
     private static $localeArgumentSeparator = ',';
 
+    /** @var array */
     private static $localeFunctions = [];
 
     /**
@@ -230,7 +239,7 @@ class Calculation
         'NULL' => null,
     ];
 
-    // PhpSpreadsheet functions
+    /** @var array */
     private static $phpSpreadsheetFunctions = [
         'ABS' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
@@ -2814,7 +2823,11 @@ class Calculation
         ],
     ];
 
-    //    Internal functions used for special control purposes
+    /**
+     *    Internal functions used for special control purposes.
+     *
+     * @var array
+     */
     private static $controlFunctions = [
         'MKMATRIX' => [
             'argumentCount' => '*',
@@ -3243,10 +3256,17 @@ class Calculation
         return $formula;
     }
 
+    /** @var ?array */
     private static $functionReplaceFromExcel;
 
+    /** @var ?array */
     private static $functionReplaceToLocale;
 
+    /**
+     * @param string $formula
+     *
+     * @return string
+     */
     public function _translateFormulaToLocale($formula)
     {
         // Build list of function names and constants for translation
@@ -3279,10 +3299,17 @@ class Calculation
         );
     }
 
+    /** @var ?array */
     private static $functionReplaceFromLocale;
 
+    /** @var ?array */
     private static $functionReplaceToExcel;
 
+    /**
+     * @param string $formula
+     *
+     * @return string
+     */
     public function _translateFormulaToEnglish($formula)
     {
         if (self::$functionReplaceFromLocale === null) {
@@ -3298,7 +3325,6 @@ class Calculation
         if (self::$functionReplaceToExcel === null) {
             self::$functionReplaceToExcel = [];
             foreach (array_keys(self::$localeFunctions) as $excelFunctionName) {
-                // @phpstan-ignore-next-line
                 self::$functionReplaceToExcel[] = '$1' . trim($excelFunctionName) . '$2';
             }
             foreach (array_keys(self::$localeBoolean) as $excelBoolean) {
@@ -3309,6 +3335,11 @@ class Calculation
         return self::translateFormula(self::$functionReplaceFromLocale, self::$functionReplaceToExcel, $formula, self::$localeArgumentSeparator, ',');
     }
 
+    /**
+     * @param string $function
+     *
+     * @return string
+     */
     public static function localeFunc($function)
     {
         if (self::$localeLanguage !== 'en_us') {
@@ -3937,9 +3968,13 @@ class Calculation
         return $formula;
     }
 
-    //    Binary Operators
-    //    These operators always work on two values
-    //    Array key is the operator, the value indicates whether this is a left or right associative operator
+    /**
+     *    Binary Operators.
+     *    These operators always work on two values.
+     *    Array key is the operator, the value indicates whether this is a left or right associative operator.
+     *
+     * @var array
+     */
     private static $operatorAssociativity = [
         '^' => 0, //    Exponentiation
         '*' => 0, '/' => 0, //    Multiplication and Division
@@ -3949,13 +3984,21 @@ class Calculation
         '>' => 0, '<' => 0, '=' => 0, '>=' => 0, '<=' => 0, '<>' => 0, //    Comparison
     ];
 
-    //    Comparison (Boolean) Operators
-    //    These operators work on two values, but always return a boolean result
+    /**
+     *    Comparison (Boolean) Operators.
+     *    These operators work on two values, but always return a boolean result.
+     *
+     * @var array
+     */
     private static $comparisonOperators = ['>' => true, '<' => true, '=' => true, '>=' => true, '<=' => true, '<>' => true];
 
-    //    Operator Precedence
-    //    This list includes all valid operators, whether binary (including boolean) or unary (such as %)
-    //    Array key is the operator, the value is its precedence
+    /**
+     *    Operator Precedence.
+     *    This list includes all valid operators, whether binary (including boolean) or unary (such as %).
+     *    Array key is the operator, the value is its precedence.
+     *
+     * @var array
+     */
     private static $operatorPrecedence = [
         ':' => 9, //    Range
         '∩' => 8, //    Intersect
@@ -4441,6 +4484,11 @@ class Calculation
         return $output;
     }
 
+    /**
+     * @param array $operandData
+     *
+     * @return mixed
+     */
     private static function dataTestReference(&$operandData)
     {
         $operand = $operandData['value'];
@@ -5007,6 +5055,12 @@ class Calculation
         return $output;
     }
 
+    /**
+     * @param mixed $operand
+     * @param mixed $stack
+     *
+     * @return bool
+     */
     private function validateBinaryOperand(&$operand, &$stack)
     {
         if (is_array($operand)) {
@@ -5218,12 +5272,9 @@ class Calculation
     {
         $this->formulaError = $errorMessage;
         $this->cyclicReferenceStack->clear();
-        if (!$this->suppressFormulaErrors) {
+        $suppress = $this->suppressFormulaErrors ?? $this->suppressFormulaErrorsNew;
+        if (!$suppress) {
             throw new Exception($errorMessage);
-        }
-
-        if (strlen($errorMessage) > 0) {
-            trigger_error($errorMessage, E_USER_ERROR);
         }
 
         return false;
@@ -5360,7 +5411,7 @@ class Calculation
     /**
      * Get a list of all implemented functions as an array of function objects.
      */
-    public function getFunctions(): array
+    public static function getFunctions(): array
     {
         return self::$phpSpreadsheetFunctions;
     }
@@ -5461,6 +5512,11 @@ class Calculation
         return $args;
     }
 
+    /**
+     * @param array $tokens
+     *
+     * @return string
+     */
     private function getTokensAsString($tokens)
     {
         $tokensStr = array_map(function ($token) {
@@ -5526,5 +5582,15 @@ class Calculation
         $stack->push('Defined Name', $result, $namedRange->getName());
 
         return $result;
+    }
+
+    public function setSuppressFormulaErrors(bool $suppressFormulaErrors): void
+    {
+        $this->suppressFormulaErrorsNew = $suppressFormulaErrors;
+    }
+
+    public function getSuppressFormulaErrors(): bool
+    {
+        return $this->suppressFormulaErrorsNew;
     }
 }

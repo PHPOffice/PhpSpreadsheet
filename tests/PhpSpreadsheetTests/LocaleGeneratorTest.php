@@ -5,7 +5,6 @@ namespace PhpOffice\PhpSpreadsheetTests;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheetInfra\LocaleGenerator;
 use PHPUnit\Framework\TestCase;
-use ReflectionClass;
 
 class LocaleGeneratorTest extends TestCase
 {
@@ -13,10 +12,7 @@ class LocaleGeneratorTest extends TestCase
     {
         $directory = realpath(__DIR__ . '/../../src/PhpSpreadsheet/Calculation/locale/') ?: '';
         self::assertNotEquals('', $directory);
-        $phpSpreadsheetFunctionsProperty = (new ReflectionClass(Calculation::class))
-            ->getProperty('phpSpreadsheetFunctions');
-        $phpSpreadsheetFunctionsProperty->setAccessible(true);
-        $phpSpreadsheetFunctions = $phpSpreadsheetFunctionsProperty->getValue();
+        $phpSpreadsheetFunctions = Calculation::getFunctions();
 
         $localeGenerator = new LocaleGenerator(
             $directory . DIRECTORY_SEPARATOR,
