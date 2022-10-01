@@ -1450,7 +1450,7 @@ class Calculation
         'INDEX' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
             'functionCall' => [LookupRef\Matrix::class, 'index'],
-            'argumentCount' => '1-4',
+            'argumentCount' => '2-4',
         ],
         'INDIRECT' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
