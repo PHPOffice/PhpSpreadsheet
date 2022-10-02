@@ -6,7 +6,9 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 interface IReader
 {
-    public const LOAD_WITH_CHARTS = 1;
+    public const IGNORE_EMPTY_CELLS = 1;
+    public const READ_DATA_ONLY = 2;
+    public const LOAD_WITH_CHARTS = 4;
 
     /**
      * Can the current IReader read the file?

@@ -140,8 +140,14 @@ abstract class BaseReader implements IReader
         return $this->securityScanner;
     }
 
-    protected function processFlags(int $flags): void
+    public function setFlags(int $flags): void
     {
+        if (((bool) ($flags & self::IGNORE_EMPTY_CELLS)) === true) {
+            $this->setReadEmptyCells(false);
+        }
+        if (((bool) ($flags & self::READ_DATA_ONLY)) === true) {
+            $this->setReadDataOnly(true);
+        }
         if (((bool) ($flags & self::LOAD_WITH_CHARTS)) === true) {
             $this->setIncludeCharts(true);
         }
@@ -155,13 +161,17 @@ abstract class BaseReader implements IReader
     /**
      * Loads Spreadsheet from file.
      *
-     * @param int $flags the optional second parameter flags may be used to identify specific elements
+     * @param ?int $flags the optional second parameter flags may be used to identify specific elements
      *                       that should be loaded, but which won't be loaded by default, using these values:
+     *                            IReader::IGNORE_EMPTY_CELLS - Don't create empty cells (those containing a null or an empty string)
+     *                            IReader::READ_DATA_ONLY - Only read data from the file, not structure or styling
      *                            IReader::LOAD_WITH_CHARTS - Include any charts that are defined in the loaded file
      */
-    public function load(string $filename, int $flags = 0): Spreadsheet
+    public function load(string $filename, ?int $flags = null): Spreadsheet
     {
-        $this->processFlags($flags);
+        if ($flags !== null) {
+            $this->setFlags($flags);
+        }
 
         IOFactory::setLoading(true);
 
