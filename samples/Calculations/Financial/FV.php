@@ -32,5 +32,5 @@ $worksheet->getStyle('B8:C8')->getNumberFormat()->setFormatCode('$#,##0.00');
 $helper->log($worksheet->getCell('B8')->getValue());
 $helper->log('FV() Result is ' . $worksheet->getCell('B8')->getFormattedValue());
 
-$helper->log($worksheet->getCell('C6')->getValue());
+$helper->log($worksheet->getCell('C8')->getValue());
 $helper->log('FV() Result is ' . $worksheet->getCell('C8')->getFormattedValue());
