@@ -216,7 +216,7 @@ class DocProps extends WriterPart
 
                     break;
                 case Properties::PROPERTY_TYPE_FLOAT:
-                    $objWriter->writeElement('vt:r8', $propertyValue);
+                    $objWriter->writeElement('vt:r8', sprintf('%F', $propertyValue));
 
                     break;
                 case Properties::PROPERTY_TYPE_BOOLEAN:
