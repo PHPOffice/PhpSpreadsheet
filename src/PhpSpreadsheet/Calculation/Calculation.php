@@ -3255,10 +3255,10 @@ class Calculation
                 //    So instead we skip replacing in any quoted strings by only replacing in every other array element
                 //       after we've exploded the formula
                 $temp = explode(self::FORMULA_STRING_QUOTE, $formula);
-                $notWithinQuotes = self::setFalse();
+                $notWithinQuotes = false;
                 foreach ($temp as &$value) {
                     //    Only adjust in alternating array entries
-                    $notWithinQuotes = !$notWithinQuotes;
+                    $notWithinQuotes = self::logicalNot($notWithinQuotes);
                     if ($notWithinQuotes === true) {
                         $value = self::translateFormulaBlock($from, $to, $value, $inFunctionBracesLevel, $inMatrixBracesLevel, $fromSeparator, $toSeparator);
                     }
@@ -3956,10 +3956,10 @@ class Calculation
                 $temp = explode(self::FORMULA_STRING_QUOTE, $formula);
                 //    Open and Closed counts used for trapping mismatched braces in the formula
                 $openCount = $closeCount = 0;
-                $notWithinQuotes = self::setFalse();
+                $notWithinQuotes = false;
                 foreach ($temp as &$value) {
                     //    Only count/replace in alternating array entries
-                    $notWithinQuotes = !$notWithinQuotes;
+                    $notWithinQuotes = self::logicalNot($notWithinQuotes);
                     if ($notWithinQuotes === true) {
                         $openCount += substr_count($value, self::FORMULA_OPEN_MATRIX_BRACE);
                         $closeCount += substr_count($value, self::FORMULA_CLOSE_MATRIX_BRACE);
@@ -4147,6 +4147,7 @@ class Calculation
                         // Scrutinizer says functionCall is unused after this assignment.
                         // It might be right, but I'm too lazy to confirm.
                         $functionCall = self::$controlFunctions[$functionName]['functionCall'];
+                        self::doNothing($functionCall);
                     } elseif (isset(self::$phpSpreadsheetFunctions[$functionName])) {
                         $expectedArgumentCount = self::$phpSpreadsheetFunctions[$functionName]['argumentCount'];
                         $functionCall = self::$phpSpreadsheetFunctions[$functionName]['functionCall'];
@@ -5620,9 +5621,9 @@ class Calculation
         return $this->suppressFormulaErrorsNew;
     }
 
-    private static function setFalse(bool $arg = false): bool
+    private static function logicalNot(bool $arg): bool
     {
-        return $arg;
+        return $arg === false;
     }
 
     /** @param mixed $arg */
