@@ -22,6 +22,7 @@ class Properties
         foreach ($officeProperty as $officePropertyData) {
             // @var \SimpleXMLElement $officePropertyData
             if (isset($namespacesMeta['dc'])) {
+                /** @scrutinizer ignore-call */
                 $officePropertiesDC = $officePropertyData->children($namespacesMeta['dc']);
                 $this->setCoreProperties($docProps, $officePropertiesDC);
             }
