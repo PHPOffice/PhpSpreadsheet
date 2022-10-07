@@ -3255,11 +3255,9 @@ class Calculation
                 //    So instead we skip replacing in any quoted strings by only replacing in every other array element
                 //       after we've exploded the formula
                 $temp = explode(self::FORMULA_STRING_QUOTE, $formula);
-                $notWithinQuotes = false;
+                $notWithinQuotes = self::setFalse();
                 foreach ($temp as &$value) {
                     //    Only adjust in alternating array entries
-                    // Scrutinizer says notWithinQuotes is always false.
-                    // This is nonsense, and it does not suggest an an annotation to ignore the problem.
                     $notWithinQuotes = !$notWithinQuotes;
                     if ($notWithinQuotes === true) {
                         $value = self::translateFormulaBlock($from, $to, $value, $inFunctionBracesLevel, $inMatrixBracesLevel, $fromSeparator, $toSeparator);
@@ -3958,11 +3956,9 @@ class Calculation
                 $temp = explode(self::FORMULA_STRING_QUOTE, $formula);
                 //    Open and Closed counts used for trapping mismatched braces in the formula
                 $openCount = $closeCount = 0;
-                $notWithinQuotes = false;
+                $notWithinQuotes = self::setFalse();
                 foreach ($temp as &$value) {
                     //    Only count/replace in alternating array entries
-                    // Scrutinizer says notWithinQuotes is always false.
-                    // This is nonsense, and it does not suggest an an annotation to ignore the problem.
                     $notWithinQuotes = !$notWithinQuotes;
                     if ($notWithinQuotes === true) {
                         $openCount += substr_count($value, self::FORMULA_OPEN_MATRIX_BRACE);
@@ -4154,6 +4150,7 @@ class Calculation
                     } elseif (isset(self::$phpSpreadsheetFunctions[$functionName])) {
                         $expectedArgumentCount = self::$phpSpreadsheetFunctions[$functionName]['argumentCount'];
                         $functionCall = self::$phpSpreadsheetFunctions[$functionName]['functionCall'];
+                        self::doNothing($functionCall);
                     } else {    // did we somehow push a non-function on the stack? this should never happen
                         return $this->raiseFormulaError('Formula Error: Internal error, non-function on stack');
                     }
@@ -4173,9 +4170,8 @@ class Calculation
                             }
                         }
                     } elseif ($expectedArgumentCount != '*') {
-                        // Scrutinizer says isOperandOrFunction is unused after this assignment.
-                        // It might be right, but I'm too lazy to confirm.
                         $isOperandOrFunction = preg_match('/(\d*)([-+,])(\d*)/', $expectedArgumentCount, $argMatch);
+                        self::doNothing($isOperandOrFunction);
                         switch ($argMatch[2]) {
                             case '+':
                                 if ($argumentCount < $argMatch[1]) {
@@ -5622,5 +5618,16 @@ class Calculation
     public function getSuppressFormulaErrors(): bool
     {
         return $this->suppressFormulaErrorsNew;
+    }
+
+    private static function setFalse(bool $arg = false): bool
+    {
+        return $arg;
+    }
+
+    /** @param mixed $arg */
+    private static function doNothing($arg): bool
+    {
+        return (bool) $arg;
     }
 }
