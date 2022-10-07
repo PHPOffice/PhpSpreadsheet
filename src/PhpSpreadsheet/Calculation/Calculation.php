@@ -3474,10 +3474,18 @@ class Calculation
 
         try {
             $result = self::unwrapResult($this->_calculateFormulaValue($cell->getValue(), $cell->getCoordinate(), $cell));
+            if ($this->spreadsheet === null) {
+                throw new Exception('null spreadsheet in calculateCellValue');
+            }
             $cellAddress = array_pop($this->cellStack);
-            // We may get null exception on stmt below, and we will catch that.
-            // So don't need phpstan to tell us about problem.
-            $this->spreadsheet->getSheetByName($cellAddress['sheet'])->getCell($cellAddress['cell']); // @phpstan-ignore-line
+            if ($cellAddress === null) {
+                throw new Exception('null cellAddress in calculateCellValue');
+            }
+            $testSheet = $this->spreadsheet->getSheetByName($cellAddress['sheet']);
+            if ($testSheet === null) {
+                throw new Exception('worksheet not found in calculateCellValue');
+            }
+            $testSheet->getCell($cellAddress['cell']);
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
         }
