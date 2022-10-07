@@ -129,9 +129,7 @@ class TextValue extends WizardAbstract implements WizardInterface
         // Best-guess to try and identify if the text is a string literal, a cell reference or a formula?
         $wizard->operandValueType = Wizard::VALUE_TYPE_LITERAL;
         $condition = $conditional->getText();
-        if (is_string($condition) && array_key_exists($condition, Calculation::$excelConstants)) {
-            $condition = Calculation::$excelConstants[$condition];
-        } elseif (preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF_RELATIVE . '$/i', $condition)) {
+        if (preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF_RELATIVE . '$/i', $condition)) {
             $wizard->operandValueType = Wizard::VALUE_TYPE_CELL;
             $condition = self::reverseAdjustCellRef($condition, $cellRange);
         } elseif (
