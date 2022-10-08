@@ -10,7 +10,6 @@ use PhpOffice\PhpSpreadsheet\Calculation\Internal\WildcardMatch;
 use PhpOffice\PhpSpreadsheet\Cell\AddressRange;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Exception;
-use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule;
 
@@ -176,13 +175,13 @@ class AutoFilter
     public function testColumnInRange($column)
     {
         if (empty($this->range)) {
-            throw new PhpSpreadsheetException('No autofilter range is defined.');
+            throw new Exception('No autofilter range is defined.');
         }
 
         $columnIndex = Coordinate::columnIndexFromString($column);
         [$rangeStart, $rangeEnd] = Coordinate::rangeBoundaries($this->range);
         if (($rangeStart[0] > $columnIndex) || ($rangeEnd[0] < $columnIndex)) {
-            throw new PhpSpreadsheetException('Column is outside of current autofilter range.');
+            throw new Exception('Column is outside of current autofilter range.');
         }
 
         return $columnIndex - $rangeStart[0];
@@ -249,7 +248,7 @@ class AutoFilter
         } elseif (is_object($columnObjectOrString) && ($columnObjectOrString instanceof AutoFilter\Column)) {
             $column = $columnObjectOrString->getColumnIndex();
         } else {
-            throw new PhpSpreadsheetException('Column is not within the autofilter range.');
+            throw new Exception('Column is not within the autofilter range.');
         }
         $this->testColumnInRange($column);
 
@@ -1033,6 +1032,8 @@ class AutoFilter
             }
         }
 
+        $rangeEnd[1] = $this->autoExtendRange($rangeStart[1], $rangeEnd[1]);
+
         //    Execute the column tests for each row in the autoFilter range to determine show/hide,
         for ($row = $rangeStart[1] + 1; $row <= $rangeEnd[1]; ++$row) {
             $result = true;
@@ -1053,6 +1054,29 @@ class AutoFilter
         $this->evaluated = true;
 
         return $this;
+    }
+
+    /**
+     * Magic Range Auto-sizing.
+     * For a single row rangeSet, we follow MS Excel rules, and search for the first empty row to determine our range.
+     */
+    public function autoExtendRange(int $startRow, int $endRow): int
+    {
+        if ($startRow === $endRow && $this->workSheet !== null) {
+            try {
+                $rowIterator = $this->workSheet->getRowIterator($startRow + 1);
+            } catch (Exception $e) {
+                // If there are no rows below $startRow
+                return $startRow;
+            }
+            foreach ($rowIterator as $row) {
+                if ($row->isEmpty(CellIterator::TREAT_NULL_VALUE_AS_EMPTY_CELL | CellIterator::TREAT_EMPTY_STRING_AS_EMPTY_CELL) === true) {
+                    return $row->getRowIndex() - 1;
+                }
+            }
+        }
+
+        return $endRow;
     }
 
     /**
