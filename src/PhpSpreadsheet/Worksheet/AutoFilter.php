@@ -9,6 +9,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Internal\WildcardMatch;
 use PhpOffice\PhpSpreadsheet\Cell\AddressRange;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule;
@@ -104,7 +105,7 @@ class AutoFilter
      * Set AutoFilter Cell Range.
      *
      * @param AddressRange|array<int>|string $range
-     *            A simple string containing a Cell range like 'A1:E10' is permitted
+     *            A simple string containing a Cell range like 'A1:E10' or a Cell address like 'A1' is permitted
      *              or passing in an array of [$fromColumnIndex, $fromRow, $toColumnIndex, $toRow] (e.g. [3, 5, 6, 8]),
      *              or an AddressRange object.
      */
@@ -115,6 +116,7 @@ class AutoFilter
         if ($range !== '') {
             [, $range] = Worksheet::extractSheetTitle(Validations::validateCellRange($range), true);
         }
+
         if (empty($range)) {
             //    Discard all column rules
             $this->columns = [];
@@ -123,8 +125,8 @@ class AutoFilter
             return $this;
         }
 
-        if (strpos($range, ':') === false) {
-            throw new PhpSpreadsheetException('Autofilter must be set on a range of cells.');
+        if (ctype_digit($range) || ctype_alpha($range)) {
+            throw new Exception("{$range} is an invalid range for AutoFilter");
         }
 
         $this->range = $range;

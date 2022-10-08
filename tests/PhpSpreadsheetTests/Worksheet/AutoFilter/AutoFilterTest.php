@@ -65,6 +65,7 @@ class AutoFilterTest extends SetupTeardown
         $ranges = [
             'G1:J512' => "$title!G1:J512",
             'K1:N20' => 'K1:N20',
+            'B10' => 'B10',
         ];
 
         foreach ($ranges as $actualRange => $fullRange) {
@@ -94,11 +95,22 @@ class AutoFilterTest extends SetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function testSetRangeInvalidRange(): void
+    public function testSetRangeInvalidRowRange(): void
     {
         $this->expectException(PhpSpreadsheetException::class);
 
-        $expectedResult = 'A1';
+        $expectedResult = '999';
+
+        $sheet = $this->getSheet();
+        $autoFilter = $sheet->getAutoFilter();
+        $autoFilter->setRange($expectedResult);
+    }
+
+    public function testSetRangeInvalidColumnRange(): void
+    {
+        $this->expectException(PhpSpreadsheetException::class);
+
+        $expectedResult = 'ABC';
 
         $sheet = $this->getSheet();
         $autoFilter = $sheet->getAutoFilter();
