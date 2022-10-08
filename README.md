@@ -8,19 +8,19 @@
 [![License](https://img.shields.io/github/license/PHPOffice/PhpSpreadsheet)](https://packagist.org/packages/phpoffice/phpspreadsheet)
 [![Join the chat at https://gitter.im/PHPOffice/PhpSpreadsheet](https://img.shields.io/badge/GITTER-join%20chat-green.svg)](https://gitter.im/PHPOffice/PhpSpreadsheet)
 
-PhpSpreadsheet is a library written in pure PHP and offers a set of classes that
-allow you to read and write various spreadsheet file formats such as Excel and LibreOffice Calc.
+PhpSpreadsheet is a pure PHP library that offers a offers alot of classes that grants you the 
+permission to read and write various Spreadsheet file formats like xlv, xlsx, xls or csv that
+we use other tools like MicroSoft Excel, LibreOffice Calc, WPS and others.
 
-## PHP version support
+## PHP SUPPORTED VERSION
 
-LTS: Support for PHP versions will only be maintained for a period of six months beyond the
-[end of life of that PHP version](https://www.php.net/eol.php).
+LTS: We would support PHP versions for a period of SIX MONTHS beyond the [end of life of that PHP version](https://www.php.net/eol.php).
 
-Currently the required PHP minimum version is PHP __7.3__.
+Currently, the required PHP minimum version is PHP __7.3__.
 
-See the `composer.json` for other requirements.
+check out  `composer.json` for other requirements.
 
-## Installation
+## INSTALLATION
 
 Use [composer](https://getcomposer.org) to install PhpSpreadsheet into your project:
 
@@ -49,7 +49,7 @@ to ensure that the correct dependencies are retrieved to match your deployment e
 
 See [CLI vs Application run-time](https://php.watch/articles/composer-platform-check) for more details.
 
-### Additional Installation Options
+### ADDITIONAL INSTALLATION OPTIONS
 
 If you want to write to PDF, or to include Charts when you write to HTML or PDF, then you will need to install additional libraries:
 
@@ -69,7 +69,7 @@ IOFactory::registerWriter('Pdf', $className);
 ```
 or the appropriate PDF Writer wrapper for the library that you have chosen to install.
 
-#### Chart Export
+#### CHART EXPORT
 
 For Chart export, we support following packages, which you will also need to install yourself using `composer require`
  - [jpgraph/jpgraph](https://packagist.org/packages/jpgraph/jpgraph) (this package was abandoned at version 4.0. 
@@ -85,7 +85,7 @@ Settings::setChartRenderer(\PhpOffice\PhpSpreadsheet\Chart\Renderer\MtJpGraphRen
 
 One or the other of these libraries is necessary if you want to generate HTML or PDF files that include charts.
 
-## Documentation
+## DOCUMENTATION
 
 Read more about it, including install instructions, in the [official documentation](https://phpspreadsheet.readthedocs.io). Or check out the [API documentation](https://phpoffice.github.io/PhpSpreadsheet).
 
