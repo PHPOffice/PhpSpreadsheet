@@ -56,60 +56,68 @@ class AutoFilter extends WriterPart
             }
 
             foreach ($rules as $rule) {
-                if (
-                    ($column->getFilterType() === Column::AUTOFILTER_FILTERTYPE_FILTER) &&
-                    ($rule->getOperator() === Rule::AUTOFILTER_COLUMN_RULE_EQUAL) &&
-                    ($rule->getValue() === '')
-                ) {
-                    //    Filter rule for Blanks
-                    $objWriter->writeAttribute('blank', '1');
-                } elseif ($rule->getRuleType() === Rule::AUTOFILTER_RULETYPE_DYNAMICFILTER) {
-                    //    Dynamic Filter Rule
-                    $objWriter->writeAttribute('type', $rule->getGrouping());
-                    $val = $column->getAttribute('val');
-                    if ($val !== null) {
-                        $objWriter->writeAttribute('val', "$val");
-                    }
-                    $maxVal = $column->getAttribute('maxVal');
-                    if ($maxVal !== null) {
-                        $objWriter->writeAttribute('maxVal', "$maxVal");
-                    }
-                } elseif ($rule->getRuleType() === Rule::AUTOFILTER_RULETYPE_TOPTENFILTER) {
-                    //    Top 10 Filter Rule
-                    $ruleValue = $rule->getValue();
-                    if (!is_array($ruleValue)) {
-                        $objWriter->writeAttribute('val', "$ruleValue");
-                    }
-                    $objWriter->writeAttribute('percent', (($rule->getOperator() === Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_PERCENT) ? '1' : '0'));
-                    $objWriter->writeAttribute('top', (($rule->getGrouping() === Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_TOP) ? '1' : '0'));
-                } else {
-                    //    Filter, DateGroupItem or CustomFilter
-                    $objWriter->startElement($rule->getRuleType());
-
-                    if ($rule->getOperator() !== Rule::AUTOFILTER_COLUMN_RULE_EQUAL) {
-                        $objWriter->writeAttribute('operator', $rule->getOperator());
-                    }
-                    if ($rule->getRuleType() === Rule::AUTOFILTER_RULETYPE_DATEGROUP) {
-                        // Date Group filters
-                        $ruleValue = $rule->getValue();
-                        if (is_array($ruleValue)) {
-                            foreach ($ruleValue as $key => $value) {
-                                $objWriter->writeAttribute($key, "$value");
-                            }
-                        }
-                        $objWriter->writeAttribute('dateTimeGrouping', $rule->getGrouping());
-                    } else {
-                        $ruleValue = $rule->getValue();
-                        if (!is_array($ruleValue)) {
-                            $objWriter->writeAttribute('val', "$ruleValue");
-                        }
-                    }
-
-                    $objWriter->endElement();
-                }
+                self::writeAutoFilterColumnRule($column, $rule, $objWriter);
             }
 
             $objWriter->endElement();
+
+            $objWriter->endElement();
+        }
+    }
+
+    /**
+     * Write AutoFilter's filterColumn Rule.
+     */
+    private static function writeAutoFilterColumnRule(Column $column, Rule $rule, XMLWriter $objWriter): void
+    {
+        if (
+            ($column->getFilterType() === Column::AUTOFILTER_FILTERTYPE_FILTER) &&
+            ($rule->getOperator() === Rule::AUTOFILTER_COLUMN_RULE_EQUAL) &&
+            ($rule->getValue() === '')
+        ) {
+            //    Filter rule for Blanks
+            $objWriter->writeAttribute('blank', '1');
+        } elseif ($rule->getRuleType() === Rule::AUTOFILTER_RULETYPE_DYNAMICFILTER) {
+            //    Dynamic Filter Rule
+            $objWriter->writeAttribute('type', $rule->getGrouping());
+            $val = $column->getAttribute('val');
+            if ($val !== null) {
+                $objWriter->writeAttribute('val', "$val");
+            }
+            $maxVal = $column->getAttribute('maxVal');
+            if ($maxVal !== null) {
+                $objWriter->writeAttribute('maxVal', "$maxVal");
+            }
+        } elseif ($rule->getRuleType() === Rule::AUTOFILTER_RULETYPE_TOPTENFILTER) {
+            //    Top 10 Filter Rule
+            $ruleValue = $rule->getValue();
+            if (!is_array($ruleValue)) {
+                $objWriter->writeAttribute('val', "$ruleValue");
+            }
+            $objWriter->writeAttribute('percent', (($rule->getOperator() === Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_PERCENT) ? '1' : '0'));
+            $objWriter->writeAttribute('top', (($rule->getGrouping() === Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_TOP) ? '1' : '0'));
+        } else {
+            //    Filter, DateGroupItem or CustomFilter
+            $objWriter->startElement($rule->getRuleType());
+
+            if ($rule->getOperator() !== Rule::AUTOFILTER_COLUMN_RULE_EQUAL) {
+                $objWriter->writeAttribute('operator', $rule->getOperator());
+            }
+            if ($rule->getRuleType() === Rule::AUTOFILTER_RULETYPE_DATEGROUP) {
+                // Date Group filters
+                $ruleValue = $rule->getValue();
+                if (is_array($ruleValue)) {
+                    foreach ($ruleValue as $key => $value) {
+                        $objWriter->writeAttribute($key, "$value");
+                    }
+                }
+                $objWriter->writeAttribute('dateTimeGrouping', $rule->getGrouping());
+            } else {
+                $ruleValue = $rule->getValue();
+                if (!is_array($ruleValue)) {
+                    $objWriter->writeAttribute('val', "$ruleValue");
+                }
+            }
 
             $objWriter->endElement();
         }
