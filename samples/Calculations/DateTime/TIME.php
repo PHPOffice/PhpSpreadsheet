@@ -4,7 +4,11 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../../Header.php';
 
-$helper->log('Returns the serial number of a particular time.');
+$category = 'Date/Time';
+$functionName = 'TIME';
+$description = 'Returns the Excel serial number of a particular time';
+
+$helper->titles($category, $functionName, $description);
 
 // Create new PhpSpreadsheet object
 $spreadsheet = new Spreadsheet();
@@ -29,11 +33,11 @@ $worksheet->getStyle('E1:E' . $testDateCount)
 
 // Test the formulae
 for ($row = 1; $row <= $testDateCount; ++$row) {
-    $helper->log('Hour: ' . $worksheet->getCell('A' . $row)->getFormattedValue());
-    $helper->log('Minute: ' . $worksheet->getCell('B' . $row)->getFormattedValue());
-    $helper->log('Second: ' . $worksheet->getCell('C' . $row)->getFormattedValue());
+    $helper->log("(A{$row}) Hour: " . $worksheet->getCell('A' . $row)->getFormattedValue());
+    $helper->log("(B{$row}) Minute: " . $worksheet->getCell('B' . $row)->getFormattedValue());
+    $helper->log("(C{$row}) Second: " . $worksheet->getCell('C' . $row)->getFormattedValue());
     $helper->log('Formula: ' . $worksheet->getCell('D' . $row)->getValue());
-    $helper->log('Excel TimeStamp: ' . $worksheet->getCell('D' . $row)->getFormattedValue());
+    $helper->log('Excel TimeStamp: ' . $worksheet->getCell('D' . $row)->getCalculatedValue());
     $helper->log('Formatted TimeStamp: ' . $worksheet->getCell('E' . $row)->getFormattedValue());
     $helper->log('');
 }

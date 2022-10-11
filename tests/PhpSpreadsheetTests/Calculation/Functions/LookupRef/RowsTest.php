@@ -3,25 +3,20 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
 use PHPUnit\Framework\TestCase;
 
 class RowsTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerROWS
      *
      * @param mixed $expectedResult
+     * @param null|array|string $arg
      */
-    public function testROWS($expectedResult, ...$args): void
+    public function testROWS($expectedResult, $arg): void
     {
-        $result = LookupRef::ROWS(...$args);
+        $result = LookupRef::ROWS($arg);
         self::assertEquals($expectedResult, $result);
     }
 

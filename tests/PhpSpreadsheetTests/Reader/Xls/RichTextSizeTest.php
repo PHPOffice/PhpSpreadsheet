@@ -12,8 +12,7 @@ class RichTextSizeTest extends AbstractFunctional
         $filename = 'tests/data/Reader/XLS/RichTextFontSize.xls';
         $reader = new Xls();
         $spreadsheet = $reader->load($filename);
-        $sheet = $spreadsheet->getSheetByName('橱柜门板');
-        self::assertNotNull($sheet);
+        $sheet = $spreadsheet->getSheetByNameOrThrow('橱柜门板');
         $text = $sheet->getCell('L15')->getValue();
         $elements = $text->getRichTextElements();
         self::assertEquals(10, $elements[2]->getFont()->getSize());

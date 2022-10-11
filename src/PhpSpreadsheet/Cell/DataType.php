@@ -21,7 +21,7 @@ class DataType
     /**
      * List of error codes.
      *
-     * @var array
+     * @var array<string, int>
      */
     private static $errorCodes = [
         '#NULL!' => 0,
@@ -31,12 +31,15 @@ class DataType
         '#NAME?' => 4,
         '#NUM!' => 5,
         '#N/A' => 6,
+        '#CALC!' => 7,
     ];
+
+    public const MAX_STRING_LENGTH = 32767;
 
     /**
      * Get list of error codes.
      *
-     * @return array
+     * @return array<string, int>
      */
     public static function getErrorCodes()
     {
@@ -58,7 +61,7 @@ class DataType
         }
 
         // string must never be longer than 32,767 characters, truncate if necessary
-        $textValue = StringHelper::substring((string) $textValue, 0, 32767);
+        $textValue = StringHelper::substring((string) $textValue, 0, self::MAX_STRING_LENGTH);
 
         // we require that newline is represented as "\n" in core, not as "\r\n" or "\r"
         $textValue = str_replace(["\r\n", "\r"], "\n", $textValue);

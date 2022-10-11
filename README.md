@@ -29,7 +29,7 @@ composer require phpoffice/phpspreadsheet
 ```
 
 If you are building your installation on a development machine that is on a different PHP version to the server where it will be deployed, or if your PHP CLI version is not the same as your run-time such as `php-fpm` or Apache's `mod_php`, then you might want to add the following to your `composer.json` before installing:
-```json lines
+```json
 {
     "require": {
         "phpoffice/phpspreadsheet": "^1.23"
@@ -48,6 +48,42 @@ composer install
 to ensure that the correct dependencies are retrieved to match your deployment environment.
 
 See [CLI vs Application run-time](https://php.watch/articles/composer-platform-check) for more details.
+
+### Additional Installation Options
+
+If you want to write to PDF, or to include Charts when you write to HTML or PDF, then you will need to install additional libraries:
+
+#### PDF
+
+For PDF Generation, you can install any of the following, and then configure PhpSpreadsheet to indicate which library you are going to use:
+ - mpdf/mpdf
+ - dompdf/dompdf
+ - tecnickcom/tcpdf
+
+and configure PhpSpreadsheet using:
+
+```php
+// Dompdf, Mpdf or Tcpdf (as appropriate)
+$className = \PhpOffice\PhpSpreadsheet\Writer\Pdf\Dompdf::class;
+IOFactory::registerWriter('Pdf', $className);
+```
+or the appropriate PDF Writer wrapper for the library that you have chosen to install.
+
+#### Chart Export
+
+For Chart export, we support following packages, which you will also need to install yourself using `composer require`
+ - [jpgraph/jpgraph](https://packagist.org/packages/jpgraph/jpgraph) (this package was abandoned at version 4.0. 
+   You can manually download the latest version that supports PHP 8 and above from [jpgraph.net](https://jpgraph.net/))
+ - [mitoteam/jpgraph](https://packagist.org/packages/mitoteam/jpgraph) (fork with php 8.1 support)
+
+and then configure PhpSpreadsheet using:
+```php
+Settings::setChartRenderer(\PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph::class); // to use jpgraph/jpgraph
+//or
+Settings::setChartRenderer(\PhpOffice\PhpSpreadsheet\Chart\Renderer\MtJpGraphRenderer::class); // to use mitoteam/jpgraph
+```
+
+One or the other of these libraries is necessary if you want to generate HTML or PDF files that include charts.
 
 ## Documentation
 

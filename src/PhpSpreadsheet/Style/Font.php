@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Style;
 
+use PhpOffice\PhpSpreadsheet\Chart\ChartColor;
+
 class Font extends Supervisor
 {
     // Underline types
@@ -37,11 +39,11 @@ class Font extends Supervisor
     /** @var string */
     private $strikeType = '';
 
-    /** @var string */
-    private $uSchemeClr = '';
+    /** @var ?ChartColor */
+    private $underlineColor;
 
-    /** @var string */
-    private $uSrgbClr = '';
+    /** @var ?ChartColor */
+    private $chartColor;
     // end of chart title items
 
     /**
@@ -372,7 +374,7 @@ class Font extends Supervisor
      *
      * @return $this
      */
-    public function setSize($sizeInPoints)
+    public function setSize($sizeInPoints, bool $nullOk = false)
     {
         if (is_string($sizeInPoints) || is_int($sizeInPoints)) {
             $sizeInPoints = (float) $sizeInPoints; // $pValue = 0 if given string is not numeric
@@ -381,7 +383,9 @@ class Font extends Supervisor
         // Size must be a positive floating point number
         // ECMA-376-1:2016, part 1, chapter 18.4.11 sz (Font Size), p. 1536
         if (!is_float($sizeInPoints) || !($sizeInPoints > 0)) {
-            $sizeInPoints = 10.0;
+            if (!$nullOk || $sizeInPoints !== null) {
+                $sizeInPoints = 10.0;
+            }
         }
 
         if ($this->isSupervisor) {
@@ -582,23 +586,23 @@ class Font extends Supervisor
         return $this;
     }
 
-    public function getUSchemeClr(): string
+    public function getUnderlineColor(): ?ChartColor
     {
         if ($this->isSupervisor) {
-            return $this->getSharedComponent()->getUSchemeClr();
+            return $this->getSharedComponent()->getUnderlineColor();
         }
 
-        return $this->uSchemeClr;
+        return $this->underlineColor;
     }
 
-    public function setUSchemeClr(string $uSchemeClr): self
+    public function setUnderlineColor(array $colorArray): self
     {
         if (!$this->isSupervisor) {
-            $this->uSchemeClr = $uSchemeClr;
+            $this->underlineColor = new ChartColor($colorArray);
         } else {
             // should never be true
             // @codeCoverageIgnoreStart
-            $styleArray = $this->getStyleArray(['uSchemeClr' => $uSchemeClr]);
+            $styleArray = $this->getStyleArray(['underlineColor' => $colorArray]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
             // @codeCoverageIgnoreEnd
         }
@@ -606,23 +610,23 @@ class Font extends Supervisor
         return $this;
     }
 
-    public function getUSrgbClr(): string
+    public function getChartColor(): ?ChartColor
     {
         if ($this->isSupervisor) {
-            return $this->getSharedComponent()->getUSrgbClr();
+            return $this->getSharedComponent()->getChartColor();
         }
 
-        return $this->uSrgbClr;
+        return $this->chartColor;
     }
 
-    public function setUSrgbClr(string $uSrgbClr): self
+    public function setChartColor(array $colorArray): self
     {
         if (!$this->isSupervisor) {
-            $this->uSrgbClr = $uSrgbClr;
+            $this->chartColor = new ChartColor($colorArray);
         } else {
             // should never be true
             // @codeCoverageIgnoreStart
-            $styleArray = $this->getStyleArray(['uSrgbClr' => $uSrgbClr]);
+            $styleArray = $this->getStyleArray(['chartColor' => $colorArray]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
             // @codeCoverageIgnoreEnd
         }
@@ -737,6 +741,18 @@ class Font extends Supervisor
         return $this;
     }
 
+    private function hashChartColor(?ChartColor $underlineColor): string
+    {
+        if ($underlineColor === null) {
+            return '';
+        }
+
+        return
+            $underlineColor->getValue()
+            . $underlineColor->getType()
+            . (string) $underlineColor->getAlpha();
+    }
+
     /**
      * Get hash code.
      *
@@ -765,8 +781,8 @@ class Font extends Supervisor
                     $this->eastAsian,
                     $this->complexScript,
                     $this->strikeType,
-                    $this->uSchemeClr,
-                    $this->uSrgbClr,
+                    $this->hashChartColor($this->chartColor),
+                    $this->hashChartColor($this->underlineColor),
                     (string) $this->baseLine,
                 ]
             ) .
@@ -779,6 +795,7 @@ class Font extends Supervisor
         $exportedArray = [];
         $this->exportArray2($exportedArray, 'baseLine', $this->getBaseLine());
         $this->exportArray2($exportedArray, 'bold', $this->getBold());
+        $this->exportArray2($exportedArray, 'chartColor', $this->getChartColor());
         $this->exportArray2($exportedArray, 'color', $this->getColor());
         $this->exportArray2($exportedArray, 'complexScript', $this->getComplexScript());
         $this->exportArray2($exportedArray, 'eastAsian', $this->getEastAsian());
@@ -791,8 +808,7 @@ class Font extends Supervisor
         $this->exportArray2($exportedArray, 'subscript', $this->getSubscript());
         $this->exportArray2($exportedArray, 'superscript', $this->getSuperscript());
         $this->exportArray2($exportedArray, 'underline', $this->getUnderline());
-        $this->exportArray2($exportedArray, 'uSchemeClr', $this->getUSchemeClr());
-        $this->exportArray2($exportedArray, 'uSrgbClr', $this->getUSrgbClr());
+        $this->exportArray2($exportedArray, 'underlineColor', $this->getUnderlineColor());
 
         return $exportedArray;
     }

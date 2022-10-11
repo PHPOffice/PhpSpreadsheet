@@ -245,6 +245,7 @@ ROWS = FILAS
 RTD = RDTR
 TRANSPOSE = TRANSPONER
 VLOOKUP = BUSCARV
+*RC = FC
 
 ##
 ## Funciones matemáticas y trigonométricas (Math & Trig Functions)

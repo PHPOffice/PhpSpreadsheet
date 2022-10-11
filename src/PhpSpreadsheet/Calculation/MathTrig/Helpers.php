@@ -38,7 +38,7 @@ class Helpers
             return 0 + $number;
         }
 
-        throw new Exception(ExcelError::VALUE());
+        throw new Exception(ExcelError::throwError($number));
     }
 
     /**
@@ -59,7 +59,7 @@ class Helpers
             return 0 + $number;
         }
 
-        throw new Exception(ExcelError::VALUE());
+        throw new Exception(ExcelError::throwError($number));
     }
 
     /**

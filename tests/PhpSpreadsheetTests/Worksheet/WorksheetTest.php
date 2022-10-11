@@ -3,7 +3,9 @@
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
 use Exception;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\CellIterator;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PHPUnit\Framework\TestCase;
 
@@ -29,6 +31,7 @@ class WorksheetTest extends TestCase
     /**
      * @param string $title
      * @param string $expectMessage
+     *
      * @dataProvider setTitleInvalidProvider
      */
     public function testSetTitleInvalid($title, $expectMessage): void
@@ -87,6 +90,7 @@ class WorksheetTest extends TestCase
     /**
      * @param string $codeName
      * @param string $expectMessage
+     *
      * @dataProvider setCodeNameInvalidProvider
      */
     public function testSetCodeNameInvalid($codeName, $expectMessage): void
@@ -151,6 +155,7 @@ class WorksheetTest extends TestCase
      * @param string $expectTitle
      * @param string $expectCell
      * @param string $expectCell2
+     *
      * @dataProvider extractSheetTitleProvider
      */
     public function testExtractSheetTitle($range, $expectTitle, $expectCell, $expectCell2): void
@@ -404,5 +409,101 @@ class WorksheetTest extends TestCase
 
         self::assertSame($expectedData, $worksheet->toArray());
         self::assertSame($expectedHighestRow, $worksheet->getHighestRow());
+    }
+
+    private static function getPopulatedSheetForEmptyRowTest(Spreadsheet $spreadsheet): Worksheet
+    {
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setCellValueExplicit('A1', 'Hello World', DataType::TYPE_STRING);
+        $sheet->setCellValueExplicit('B3', null, DataType::TYPE_NULL);
+        $sheet->setCellValueExplicit('B4', '', DataType::TYPE_STRING);
+        $sheet->setCellValueExplicit('B5', null, DataType::TYPE_NULL);
+        $sheet->setCellValueExplicit('C5', '', DataType::TYPE_STRING);
+        $sheet->setCellValueExplicit('B6', null, DataType::TYPE_NULL);
+        $sheet->setCellValueExplicit('C6', 'PHP', DataType::TYPE_STRING);
+        $sheet->setCellValueExplicit('B7', '', DataType::TYPE_STRING);
+        $sheet->setCellValueExplicit('C7', 'PHP', DataType::TYPE_STRING);
+        $sheet->setCellValueExplicit('B8', null, DataType::TYPE_NULL);
+        $sheet->setCellValueExplicit('C8', '', DataType::TYPE_STRING);
+        $sheet->setCellValueExplicit('D8', 'PHP', DataType::TYPE_STRING);
+
+        return $sheet;
+    }
+
+    private static function getPopulatedSheetForEmptyColumnTest(Spreadsheet $spreadsheet): Worksheet
+    {
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setCellValueExplicit('A1', 'Hello World', DataType::TYPE_STRING);
+        $sheet->setCellValueExplicit('C2', null, DataType::TYPE_NULL);
+        $sheet->setCellValueExplicit('D2', '', DataType::TYPE_STRING);
+        $sheet->setCellValueExplicit('E2', null, DataType::TYPE_NULL);
+        $sheet->setCellValueExplicit('E3', '', DataType::TYPE_STRING);
+        $sheet->setCellValueExplicit('F2', null, DataType::TYPE_NULL);
+        $sheet->setCellValueExplicit('F3', 'PHP', DataType::TYPE_STRING);
+        $sheet->setCellValueExplicit('G2', '', DataType::TYPE_STRING);
+        $sheet->setCellValueExplicit('G3', 'PHP', DataType::TYPE_STRING);
+        $sheet->setCellValueExplicit('H2', null, DataType::TYPE_NULL);
+        $sheet->setCellValueExplicit('H3', '', DataType::TYPE_STRING);
+        $sheet->setCellValueExplicit('H4', 'PHP', DataType::TYPE_STRING);
+
+        return $sheet;
+    }
+
+    /**
+     * @dataProvider emptyRowProvider
+     */
+    public function testIsEmptyRow(int $rowId, bool $expectedEmpty): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = self::getPopulatedSheetForEmptyRowTest($spreadsheet);
+
+        $isEmpty = $sheet->isEmptyRow($rowId, CellIterator::TREAT_EMPTY_STRING_AS_EMPTY_CELL | CellIterator::TREAT_NULL_VALUE_AS_EMPTY_CELL);
+
+        self::assertSame($expectedEmpty, $isEmpty);
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function emptyRowProvider(): array
+    {
+        return [
+            [1, false],
+            [2, true],
+            [3, true],
+            [4, true],
+            [5, true],
+            [6, false],
+            [7, false],
+            [8, false],
+            [9, true],
+        ];
+    }
+
+    /**
+     * @dataProvider emptyColumnProvider
+     */
+    public function testIsEmptyColumn(string $columnId, bool $expectedEmpty): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = self::getPopulatedSheetForEmptyColumnTest($spreadsheet);
+
+        $isEmpty = $sheet->isEmptyColumn($columnId, CellIterator::TREAT_EMPTY_STRING_AS_EMPTY_CELL | CellIterator::TREAT_NULL_VALUE_AS_EMPTY_CELL);
+
+        self::assertSame($expectedEmpty, $isEmpty);
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function emptyColumnProvider(): array
+    {
+        return [
+            ['A', false],
+            ['B', true],
+            ['C', true],
+            ['D', true],
+            ['E', true],
+            ['F', false],
+            ['G', false],
+            ['H', false],
+            ['I', true],
+        ];
     }
 }

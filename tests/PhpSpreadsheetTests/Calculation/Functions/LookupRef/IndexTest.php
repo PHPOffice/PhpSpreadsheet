@@ -3,25 +3,28 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
+use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Matrix;
 use PHPUnit\Framework\TestCase;
 
 class IndexTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerINDEX
      *
      * @param mixed $expectedResult
+     * @param mixed $matrix
+     * @param mixed $rowNum
+     * @param mixed $colNum
      */
-    public function testINDEX($expectedResult, ...$args): void
+    public function testINDEX($expectedResult, $matrix, $rowNum = null, $colNum = null): void
     {
-        $result = LookupRef::INDEX(...$args);
+        if ($rowNum === null) {
+            $result = Matrix::index($matrix);
+        } elseif ($colNum === null) {
+            $result = Matrix::index($matrix, $rowNum);
+        } else {
+            $result = Matrix::index($matrix, $rowNum, $colNum);
+        }
         self::assertEquals($expectedResult, $result);
     }
 

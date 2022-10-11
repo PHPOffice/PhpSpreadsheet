@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Helper;
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Writer\IWriter;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
@@ -76,6 +77,11 @@ class Sample
     {
         // Populate samples
         $baseDir = realpath(__DIR__ . '/../../../samples');
+        if ($baseDir === false) {
+            // @codeCoverageIgnoreStart
+            throw new RuntimeException('realpath returned false');
+            // @codeCoverageIgnoreEnd
+        }
         $directory = new RecursiveDirectoryIterator($baseDir);
         $iterator = new RecursiveIteratorIterator($directory);
         $regex = new RegexIterator($iterator, '/^.+\.php$/', RecursiveRegexIterator::GET_MATCH);
@@ -83,8 +89,13 @@ class Sample
         $files = [];
         foreach ($regex as $file) {
             $file = str_replace(str_replace('\\', '/', $baseDir) . '/', '', str_replace('\\', '/', $file[0]));
+            if (is_array($file)) {
+                // @codeCoverageIgnoreStart
+                throw new RuntimeException('str_replace returned array');
+                // @codeCoverageIgnoreEnd
+            }
             $info = pathinfo($file);
-            $category = str_replace('_', ' ', $info['dirname']);
+            $category = str_replace('_', ' ', $info['dirname'] ?? '');
             $name = str_replace('_', ' ', (string) preg_replace('/(|\.php)/', '', $info['filename']));
             if (!in_array($category, ['.', 'boostrap', 'templates'])) {
                 if (!isset($files[$category])) {
@@ -171,15 +182,47 @@ class Sample
     public function getTemporaryFilename($extension = 'xlsx')
     {
         $temporaryFilename = tempnam($this->getTemporaryFolder(), 'phpspreadsheet-');
+        if ($temporaryFilename === false) {
+            // @codeCoverageIgnoreStart
+            throw new RuntimeException('tempnam returned false');
+            // @codeCoverageIgnoreEnd
+        }
         unlink($temporaryFilename);
 
         return $temporaryFilename . '.' . $extension;
     }
 
-    public function log($message): void
+    public function log(string $message): void
     {
         $eol = $this->isCli() ? PHP_EOL : '<br />';
         echo date('H:i:s ') . $message . $eol;
+    }
+
+    public function titles(string $category, string $functionName, ?string $description = null): void
+    {
+        $this->log(sprintf('%s Functions:', $category));
+        $description === null
+            ? $this->log(sprintf('Function: %s()', rtrim($functionName, '()')))
+            : $this->log(sprintf('Function: %s() - %s.', rtrim($functionName, '()'), rtrim($description, '.')));
+    }
+
+    public function displayGrid(array $matrix): void
+    {
+        $renderer = new TextGrid($matrix, $this->isCli());
+        echo $renderer->render();
+    }
+
+    public function logCalculationResult(
+        Worksheet $worksheet,
+        string $functionName,
+        string $formulaCell,
+        ?string $descriptionCell = null
+    ): void {
+        if ($descriptionCell !== null) {
+            $this->log($worksheet->getCell($descriptionCell)->getValue());
+        }
+        $this->log($worksheet->getCell($formulaCell)->getValue());
+        $this->log(sprintf('%s() Result is ', $functionName) . $worksheet->getCell($formulaCell)->getCalculatedValue());
     }
 
     /**

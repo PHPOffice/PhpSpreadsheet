@@ -253,10 +253,11 @@ class ReferenceHelper
             ? uksort($aDataValidationCollection, [self::class, 'cellReverseSort'])
             : uksort($aDataValidationCollection, [self::class, 'cellSort']);
 
-        foreach ($aDataValidationCollection as $cellAddress => $value) {
+        foreach ($aDataValidationCollection as $cellAddress => $dataValidation) {
             $newReference = $this->updateCellReference($cellAddress);
             if ($cellAddress !== $newReference) {
-                $worksheet->setDataValidation($newReference, $value);
+                $dataValidation->setSqref($newReference);
+                $worksheet->setDataValidation($newReference, $dataValidation);
                 $worksheet->setDataValidation($cellAddress, null);
             }
         }
@@ -316,6 +317,7 @@ class ReferenceHelper
                     $objColumnDimension->setColumnIndex($newReference);
                 }
             }
+
             $worksheet->refreshColumnDimensions();
         }
     }
@@ -339,6 +341,7 @@ class ReferenceHelper
                     $objRowDimension->setRowIndex($newRoweference);
                 }
             }
+
             $worksheet->refreshRowDimensions();
 
             $copyDimension = $worksheet->getRowDimension($beforeRow - 1);
@@ -367,7 +370,6 @@ class ReferenceHelper
         Worksheet $worksheet
     ): void {
         $remove = ($numberOfColumns < 0 || $numberOfRows < 0);
-        $allCoordinates = $worksheet->getCoordinates();
 
         if (
             $this->cellReferenceHelper === null ||
@@ -394,12 +396,13 @@ class ReferenceHelper
         }
 
         // Find missing coordinates. This is important when inserting column before the last column
+        $cellCollection = $worksheet->getCellCollection();
         $missingCoordinates = array_filter(
             array_map(function ($row) use ($highestColumn) {
                 return $highestColumn . $row;
             }, range(1, $highestRow)),
-            function ($coordinate) use ($allCoordinates) {
-                return !in_array($coordinate, $allCoordinates);
+            function ($coordinate) use ($cellCollection) {
+                return $cellCollection->has($coordinate) === false;
             }
         );
 
@@ -408,16 +411,15 @@ class ReferenceHelper
             foreach ($missingCoordinates as $coordinate) {
                 $worksheet->createNewCell($coordinate);
             }
-
-            // Refresh all coordinates
-            $allCoordinates = $worksheet->getCoordinates();
         }
 
-        // Loop through cells, bottom-up, and change cell coordinate
+        $allCoordinates = $worksheet->getCoordinates();
         if ($remove) {
             // It's faster to reverse and pop than to use unshift, especially with large cell collections
             $allCoordinates = array_reverse($allCoordinates);
         }
+
+        // Loop through cells, bottom-up, and change cell coordinate
         while ($coordinate = array_pop($allCoordinates)) {
             $cell = $worksheet->getCell($coordinate);
             $cellIndex = Coordinate::columnIndexFromString($cell->getColumn());
@@ -526,15 +528,17 @@ class ReferenceHelper
             if ($objDrawing->getCoordinates() != $newReference) {
                 $objDrawing->setCoordinates($newReference);
             }
+            if ($objDrawing->getCoordinates2() !== '') {
+                $newReference = $this->updateCellReference($objDrawing->getCoordinates2());
+                if ($objDrawing->getCoordinates2() != $newReference) {
+                    $objDrawing->setCoordinates2($newReference);
+                }
+            }
         }
 
         // Update workbook: define names
         if (count($worksheet->getParent()->getDefinedNames()) > 0) {
-            foreach ($worksheet->getParent()->getDefinedNames() as $definedName) {
-                if ($definedName->getWorksheet() !== null && $definedName->getWorksheet()->getHashCode() === $worksheet->getHashCode()) {
-                    $definedName->setValue($this->updateCellReference($definedName->getValue()));
-                }
-            }
+            $this->updateDefinedNames($worksheet, $beforeCellAddress, $numberOfColumns, $numberOfRows);
         }
 
         // Garbage collect
@@ -858,13 +862,13 @@ class ReferenceHelper
     }
 
     /**
-     * Update named formulas (i.e. containing worksheet references / named ranges).
+     * Update named formulae (i.e. containing worksheet references / named ranges).
      *
      * @param Spreadsheet $spreadsheet Object to update
      * @param string $oldName Old name (name to replace)
      * @param string $newName New name
      */
-    public function updateNamedFormulas(Spreadsheet $spreadsheet, $oldName = '', $newName = ''): void
+    public function updateNamedFormulae(Spreadsheet $spreadsheet, $oldName = '', $newName = ''): void
     {
         if ($oldName == '') {
             return;
@@ -873,7 +877,7 @@ class ReferenceHelper
         foreach ($spreadsheet->getWorksheetIterator() as $sheet) {
             foreach ($sheet->getCoordinates(false) as $coordinate) {
                 $cell = $sheet->getCell($coordinate);
-                if (($cell !== null) && ($cell->getDataType() === DataType::TYPE_FORMULA)) {
+                if ($cell->getDataType() === DataType::TYPE_FORMULA) {
                     $formula = $cell->getValue();
                     if (strpos($formula, $oldName) !== false) {
                         $formula = str_replace("'" . $oldName . "'!", "'" . $newName . "'!", $formula);
@@ -882,6 +886,40 @@ class ReferenceHelper
                     }
                 }
             }
+        }
+    }
+
+    private function updateDefinedNames(Worksheet $worksheet, string $beforeCellAddress, int $numberOfColumns, int $numberOfRows): void
+    {
+        foreach ($worksheet->getParent()->getDefinedNames() as $definedName) {
+            if ($definedName->isFormula() === false) {
+                $this->updateNamedRange($definedName, $worksheet, $beforeCellAddress, $numberOfColumns, $numberOfRows);
+            } else {
+                $this->updateNamedFormula($definedName, $worksheet, $beforeCellAddress, $numberOfColumns, $numberOfRows);
+            }
+        }
+    }
+
+    private function updateNamedRange(DefinedName $definedName, Worksheet $worksheet, string $beforeCellAddress, int $numberOfColumns, int $numberOfRows): void
+    {
+        $cellAddress = $definedName->getValue();
+        $asFormula = ($cellAddress[0] === '=');
+        if ($definedName->getWorksheet() !== null && $definedName->getWorksheet()->getHashCode() === $worksheet->getHashCode()) {
+            if ($asFormula === true) {
+                $formula = $this->updateFormulaReferences($cellAddress, $beforeCellAddress, $numberOfColumns, $numberOfRows, $worksheet->getTitle());
+                $definedName->setValue($formula);
+            } else {
+                $definedName->setValue($this->updateCellReference(ltrim($cellAddress, '=')));
+            }
+        }
+    }
+
+    private function updateNamedFormula(DefinedName $definedName, Worksheet $worksheet, string $beforeCellAddress, int $numberOfColumns, int $numberOfRows): void
+    {
+        if ($definedName->getWorksheet() !== null && $definedName->getWorksheet()->getHashCode() === $worksheet->getHashCode()) {
+            $formula = $definedName->getValue();
+            $formula = $this->updateFormulaReferences($formula, $beforeCellAddress, $numberOfColumns, $numberOfRows, $worksheet->getTitle());
+            $definedName->setValue($formula);
         }
     }
 
@@ -924,31 +962,40 @@ class ReferenceHelper
 
     private function clearColumnStrips(int $highestRow, int $beforeColumn, int $numberOfColumns, Worksheet $worksheet): void
     {
-        for ($i = 1; $i <= $highestRow - 1; ++$i) {
-            for ($j = $beforeColumn - 1 + $numberOfColumns; $j <= $beforeColumn - 2; ++$j) {
-                $coordinate = Coordinate::stringFromColumnIndex($j + 1) . $i;
-                $worksheet->removeConditionalStyles($coordinate);
-                if ($worksheet->cellExists($coordinate)) {
-                    $worksheet->getCell($coordinate)->setValueExplicit('', DataType::TYPE_NULL);
-                    $worksheet->getCell($coordinate)->setXfIndex(0);
-                }
+        $startColumnId = Coordinate::stringFromColumnIndex($beforeColumn + $numberOfColumns);
+        $endColumnId = Coordinate::stringFromColumnIndex($beforeColumn);
+
+        for ($row = 1; $row <= $highestRow - 1; ++$row) {
+            for ($column = $startColumnId; $column !== $endColumnId; ++$column) {
+                $coordinate = $column . $row;
+                $this->clearStripCell($worksheet, $coordinate);
             }
         }
     }
 
     private function clearRowStrips(string $highestColumn, int $beforeColumn, int $beforeRow, int $numberOfRows, Worksheet $worksheet): void
     {
-        $lastColumnIndex = Coordinate::columnIndexFromString($highestColumn) - 1;
+        $startColumnId = Coordinate::stringFromColumnIndex($beforeColumn);
+        ++$highestColumn;
 
-        for ($i = $beforeColumn - 1; $i <= $lastColumnIndex; ++$i) {
-            for ($j = $beforeRow + $numberOfRows; $j <= $beforeRow - 1; ++$j) {
-                $coordinate = Coordinate::stringFromColumnIndex($i + 1) . $j;
-                $worksheet->removeConditionalStyles($coordinate);
-                if ($worksheet->cellExists($coordinate)) {
-                    $worksheet->getCell($coordinate)->setValueExplicit('', DataType::TYPE_NULL);
-                    $worksheet->getCell($coordinate)->setXfIndex(0);
-                }
+        for ($column = $startColumnId; $column !== $highestColumn; ++$column) {
+            for ($row = $beforeRow + $numberOfRows; $row <= $beforeRow - 1; ++$row) {
+                $coordinate = $column . $row;
+                $this->clearStripCell($worksheet, $coordinate);
             }
+        }
+    }
+
+    private function clearStripCell(Worksheet $worksheet, string $coordinate): void
+    {
+        $worksheet->removeConditionalStyles($coordinate);
+        $worksheet->setHyperlink($coordinate);
+        $worksheet->setDataValidation($coordinate);
+        $worksheet->removeComment($coordinate);
+
+        if ($worksheet->cellExists($coordinate)) {
+            $worksheet->getCell($coordinate)->setValueExplicit(null, DataType::TYPE_NULL);
+            $worksheet->getCell($coordinate)->setXfIndex(0);
         }
     }
 

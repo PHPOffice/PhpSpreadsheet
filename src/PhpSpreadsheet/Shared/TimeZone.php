@@ -21,9 +21,9 @@ class TimeZone
      *
      * @return bool Success or failure
      */
-    private static function validateTimeZone($timezoneName)
+    private static function validateTimeZone(string $timezoneName): bool
     {
-        return in_array($timezoneName, DateTimeZone::listIdentifiers(DateTimeZone::ALL_WITH_BC));
+        return in_array($timezoneName, DateTimeZone::listIdentifiers(DateTimeZone::ALL_WITH_BC), true);
     }
 
     /**
@@ -33,9 +33,9 @@ class TimeZone
      *
      * @return bool Success or failure
      */
-    public static function setTimeZone($timezoneName)
+    public static function setTimeZone(string $timezoneName): bool
     {
-        if (self::validateTimezone($timezoneName)) {
+        if (self::validateTimeZone($timezoneName)) {
             self::$timezone = $timezoneName;
 
             return true;
@@ -49,7 +49,7 @@ class TimeZone
      *
      * @return string Timezone (e.g. 'Europe/London')
      */
-    public static function getTimeZone()
+    public static function getTimeZone(): string
     {
         return self::$timezone;
     }
@@ -63,11 +63,11 @@ class TimeZone
      *
      * @return int Number of seconds for timezone adjustment
      */
-    public static function getTimeZoneAdjustment($timezoneName, $timestamp)
+    public static function getTimeZoneAdjustment(?string $timezoneName, $timestamp): int
     {
         $timezoneName = $timezoneName ?? self::$timezone;
         $dtobj = Date::dateTimeFromTimestamp("$timestamp");
-        if (!self::validateTimezone($timezoneName)) {
+        if (!self::validateTimeZone($timezoneName)) {
             throw new PhpSpreadsheetException("Invalid timezone $timezoneName");
         }
         $dtobj->setTimeZone(new DateTimeZone($timezoneName));

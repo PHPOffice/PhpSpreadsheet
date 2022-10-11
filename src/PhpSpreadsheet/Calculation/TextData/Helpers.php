@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\TextData;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcExp;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ErrorValue;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 class Helpers
@@ -21,10 +22,13 @@ class Helpers
     /**
      * @param mixed $value String value from which to extract characters
      */
-    public static function extractString($value): string
+    public static function extractString($value, bool $throwIfError = false): string
     {
         if (is_bool($value)) {
             return self::convertBooleanValue($value);
+        }
+        if ($throwIfError && is_string($value) && ErrorValue::isError($value)) {
+            throw new CalcExp($value);
         }
 
         return (string) $value;

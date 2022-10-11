@@ -5,16 +5,13 @@ use PhpOffice\PhpSpreadsheet\Settings;
 
 require __DIR__ . '/../Header.php';
 
-if (PHP_VERSION_ID >= 80000) {
-    $helper->log('Jpgraph no longer runs against PHP8');
-    exit;
-}
-
 // Change these values to select the Rendering library that you wish to use
-Settings::setChartRenderer(\PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph::class);
+//Settings::setChartRenderer(\PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph::class);
+Settings::setChartRenderer(\PhpOffice\PhpSpreadsheet\Chart\Renderer\MtJpGraphRenderer::class);
 
 $inputFileType = 'Xlsx';
 $inputFileNames = __DIR__ . '/../templates/32readwrite*[0-9].xlsx';
+//$inputFileNames = __DIR__ . '/../templates/32readwriteStockChart5.xlsx';
 
 if ((isset($argc)) && ($argc > 1)) {
     $inputFileNames = [];
@@ -24,11 +21,28 @@ if ((isset($argc)) && ($argc > 1)) {
 } else {
     $inputFileNames = glob($inputFileNames);
 }
+if (count($inputFileNames) === 1) {
+    $unresolvedErrors = [];
+} else {
+    $unresolvedErrors = [
+        // The following spreadsheet was created by 3rd party software,
+        // and doesn't include the data that usually accompanies a chart.
+        // That is good enough for Excel, but not for JpGraph.
+        '32readwriteBubbleChart2.xlsx',
+    ];
+}
 foreach ($inputFileNames as $inputFileName) {
     $inputFileNameShort = basename($inputFileName);
 
     if (!file_exists($inputFileName)) {
         $helper->log('File ' . $inputFileNameShort . ' does not exist');
+
+        continue;
+    }
+    if (in_array($inputFileNameShort, $unresolvedErrors, true)) {
+        $helper->log('*****');
+        $helper->log('***** File ' . $inputFileNameShort . ' does not yet work with this script');
+        $helper->log('*****');
 
         continue;
     }
@@ -59,6 +73,9 @@ foreach ($inputFileNames as $inputFileName) {
                 $helper->log('    ' . $chartName . ' - ' . $caption);
 
                 $jpegFile = $helper->getFilename('35-' . $inputFileNameShort, 'png');
+                if ($i !== 0) {
+                    $jpegFile = substr($jpegFile, 0, -3) . "$i.png";
+                }
                 if (file_exists($jpegFile)) {
                     unlink($jpegFile);
                 }
@@ -75,6 +92,7 @@ foreach ($inputFileNames as $inputFileName) {
 
     $spreadsheet->disconnectWorksheets();
     unset($spreadsheet);
+    gc_collect_cycles();
 }
 
 $helper->log('Done rendering charts as images');

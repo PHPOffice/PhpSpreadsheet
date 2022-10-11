@@ -2,9 +2,12 @@
 
 namespace PhpOffice\PhpSpreadsheetTests;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Cell\Hyperlink;
 use PhpOffice\PhpSpreadsheet\Comment;
+use PhpOffice\PhpSpreadsheet\NamedFormula;
+use PhpOffice\PhpSpreadsheet\NamedRange;
 use PhpOffice\PhpSpreadsheet\ReferenceHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard;
@@ -311,6 +314,7 @@ class ReferenceHelperTest extends TestCase
 
         self::assertFalse($sheet->getCell($cellAddress)->hasDataValidation());
         self::assertTrue($sheet->getCell('E7')->hasDataValidation());
+        self::assertSame('E7', $sheet->getDataValidation('E7')->getSqref());
     }
 
     public function testDeleteRowsWithDataValidation(): void
@@ -326,6 +330,7 @@ class ReferenceHelperTest extends TestCase
 
         self::assertFalse($sheet->getCell($cellAddress)->hasDataValidation());
         self::assertTrue($sheet->getCell('E3')->hasDataValidation());
+        self::assertSame('E3', $sheet->getDataValidation('E3')->getSqref());
     }
 
     public function testDeleteColumnsWithDataValidation(): void
@@ -341,6 +346,7 @@ class ReferenceHelperTest extends TestCase
 
         self::assertFalse($sheet->getCell($cellAddress)->hasDataValidation());
         self::assertTrue($sheet->getCell('C5')->hasDataValidation());
+        self::assertSame('C5', $sheet->getDataValidation('C5')->getSqref());
     }
 
     public function testInsertColumnsWithDataValidation(): void
@@ -356,6 +362,7 @@ class ReferenceHelperTest extends TestCase
 
         self::assertFalse($sheet->getCell($cellAddress)->hasDataValidation());
         self::assertTrue($sheet->getCell('G5')->hasDataValidation());
+        self::assertSame('G5', $sheet->getDataValidation('G5')->getSqref());
     }
 
     private function setDataValidation(Worksheet $sheet, string $cellAddress): void
@@ -533,5 +540,111 @@ class ReferenceHelperTest extends TestCase
 
         $printArea = $sheet->getPageSetup()->getPrintArea();
         self::assertSame('A1:H10', $printArea);
+    }
+
+    public function testInsertRowsWithDefinedNames(): void
+    {
+        $spreadsheet = $this->buildDefinedNamesTestWorkbook();
+        /** @var Worksheet $dataSheet */
+        $dataSheet = $spreadsheet->getSheetByName('Data');
+        /** @var Worksheet $totalsSheet */
+        $totalsSheet = $spreadsheet->getSheetByName('Totals');
+
+        $dataSheet->insertNewRowBefore(4, 2);
+        Calculation::getInstance($spreadsheet)->flushInstance();
+
+        /** @var NamedRange $firstColumn */
+        $firstColumn = $spreadsheet->getNamedRange('FirstColumn');
+        /** @var NamedRange $secondColumn */
+        $secondColumn = $spreadsheet->getNamedRange('SecondColumn');
+
+        self::assertSame('=Data!$A$2:$A8', $firstColumn->getRange());
+        self::assertSame('=Data!B$2:B8', $secondColumn->getRange());
+        self::assertSame(30, $totalsSheet->getCell('A20')->getCalculatedValue());
+        self::assertSame(25, $totalsSheet->getCell('B20')->getCalculatedValue());
+        self::assertSame(750, $totalsSheet->getCell('D20')->getCalculatedValue());
+    }
+
+    public function testInsertColumnsWithDefinedNames(): void
+    {
+        $spreadsheet = $this->buildDefinedNamesTestWorkbook();
+        /** @var Worksheet $dataSheet */
+        $dataSheet = $spreadsheet->getSheetByName('Data');
+        /** @var Worksheet $totalsSheet */
+        $totalsSheet = $spreadsheet->getSheetByName('Totals');
+
+        $dataSheet->insertNewColumnBefore('B', 2);
+        Calculation::getInstance($spreadsheet)->flushInstance();
+
+        /** @var NamedRange $firstColumn */
+        $firstColumn = $spreadsheet->getNamedRange('FirstColumn');
+        /** @var NamedRange $secondColumn */
+        $secondColumn = $spreadsheet->getNamedRange('SecondColumn');
+
+        self::assertSame('=Data!$A$2:$A6', $firstColumn->getRange());
+        self::assertSame('=Data!D$2:D6', $secondColumn->getRange());
+        self::assertSame(30, $totalsSheet->getCell('A20')->getCalculatedValue());
+        self::assertSame(25, $totalsSheet->getCell('B20')->getCalculatedValue());
+        self::assertSame(750, $totalsSheet->getCell('D20')->getCalculatedValue());
+    }
+
+    public function testDeleteRowsWithDefinedNames(): void
+    {
+        $spreadsheet = $this->buildDefinedNamesTestWorkbook();
+        /** @var Worksheet $dataSheet */
+        $dataSheet = $spreadsheet->getSheetByName('Data');
+        /** @var Worksheet $totalsSheet */
+        $totalsSheet = $spreadsheet->getSheetByName('Totals');
+
+        $dataSheet->removeRow(3, 2);
+        Calculation::getInstance($spreadsheet)->flushInstance();
+
+        /** @var NamedRange $firstColumn */
+        $firstColumn = $spreadsheet->getNamedRange('FirstColumn');
+        /** @var NamedRange $secondColumn */
+        $secondColumn = $spreadsheet->getNamedRange('SecondColumn');
+
+        self::assertSame('=Data!$A$2:$A4', $firstColumn->getRange());
+        self::assertSame('=Data!B$2:B4', $secondColumn->getRange());
+        self::assertSame(20, $totalsSheet->getCell('A20')->getCalculatedValue());
+        self::assertSame(17, $totalsSheet->getCell('B20')->getCalculatedValue());
+        self::assertSame(340, $totalsSheet->getCell('D20')->getCalculatedValue());
+    }
+
+    private function buildDefinedNamesTestWorkbook(): Spreadsheet
+    {
+        $spreadsheet = new Spreadsheet();
+        $dataSheet = $spreadsheet->getActiveSheet();
+        $dataSheet->setTitle('Data');
+
+        $totalsSheet = $spreadsheet->addSheet(new Worksheet());
+        $totalsSheet->setTitle('Totals');
+
+        $spreadsheet->setActiveSheetIndexByName('Data');
+
+        $dataSheet->fromArray([['Column 1', 'Column 2'], [2, 1], [4, 3], [6, 5], [8, 7], [10, 9]], null, 'A1', true);
+
+        $spreadsheet->addNamedRange(
+            new NamedRange('FirstColumn', $spreadsheet->getActiveSheet(), '=Data!$A$2:$A6')
+        );
+        $spreadsheet->addNamedFormula(
+            new NamedFormula('FirstTotal', $spreadsheet->getActiveSheet(), '=SUM(FirstColumn)')
+        );
+        $totalsSheet->setCellValue('A20', '=FirstTotal');
+
+        $spreadsheet->addNamedRange(
+            new NamedRange('SecondColumn', $spreadsheet->getActiveSheet(), '=Data!B$2:B6')
+        );
+        $spreadsheet->addNamedFormula(
+            new NamedFormula('SecondTotal', $spreadsheet->getActiveSheet(), '=SUM(SecondColumn)')
+        );
+        $totalsSheet->setCellValue('B20', '=SecondTotal');
+
+        $spreadsheet->addNamedFormula(
+            new NamedFormula('ProductTotal', $spreadsheet->getActiveSheet(), '=FirstTotal*SecondTotal')
+        );
+        $totalsSheet->setCellValue('D20', '=ProductTotal');
+
+        return $spreadsheet;
     }
 }

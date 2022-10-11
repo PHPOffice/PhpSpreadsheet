@@ -62,6 +62,8 @@ interface IWriter
      * Save PhpSpreadsheet to file.
      *
      * @param resource|string $filename Name of the file to save
+     *
+     * @throws Exception
      */
     public function save($filename, int $flags = 0): void;
 

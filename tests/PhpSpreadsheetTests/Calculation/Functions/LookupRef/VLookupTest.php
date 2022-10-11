@@ -3,26 +3,42 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\TestCase;
 
 class VLookupTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerVLOOKUP
      *
      * @param mixed $expectedResult
+     * @param mixed $value
+     * @param mixed $table
+     * @param mixed $index
      */
-    public function testVLOOKUP($expectedResult, ...$args): void
+    public function testVLOOKUP($expectedResult, $value, $table, $index, ?bool $lookup = null): void
     {
-        $result = LookupRef::VLOOKUP(...$args);
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        if (is_array($table)) {
+            $sheet->fromArray($table);
+            $dimension = $sheet->calculateWorksheetDimension();
+        } else {
+            $sheet->getCell('A1')->setValue($table);
+            $dimension = 'A1';
+        }
+        if ($lookup === null) {
+            $lastarg = '';
+        } else {
+            $lastarg = $lookup ? ',TRUE' : ',FALSE';
+        }
+        $sheet->getCell('Z98')->setValue($value);
+        $sheet->getCell('Z97')->setValue($index);
+
+        $sheet->getCell('Z99')->setValue("=VLOOKUP(Z98,$dimension,Z97$lastarg)");
+        $result = $sheet->getCell('Z99')->getCalculatedValue();
         self::assertEquals($expectedResult, $result);
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function providerVLOOKUP(): array
