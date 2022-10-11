@@ -25,6 +25,10 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
+- Xlsx Reader Accept Palette of Fewer than 64 Colors [Issue #3093](https://github.com/PHPOffice/PhpSpreadsheet/issues/3093) [PR #3096](https://github.com/PHPOffice/PhpSpreadsheet/pull/3096)
+- Use Locale-Independent Float Conversion for Xlsx Writer Custom Property [Issue #3095](https://github.com/PHPOffice/PhpSpreadsheet/issues/3095) [PR #3099](https://github.com/PHPOffice/PhpSpreadsheet/pull/3099)
+- Allow setting AutoFilter range on a single cell or row [Issue #3102](https://github.com/PHPOffice/PhpSpreadsheet/issues/3102) [PR #3111](https://github.com/PHPOffice/PhpSpreadsheet/pull/3111)
+- Xlsx Reader External Data Validations Flag Missing [Issue #2677](https://github.com/PHPOffice/PhpSpreadsheet/issues/2677) [PR #3078](https://github.com/PHPOffice/PhpSpreadsheet/pull/3078)
 - Reduces extra memory usage on `__destruct()` calls
 
 
