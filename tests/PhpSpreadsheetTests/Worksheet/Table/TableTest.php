@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Worksheet\Table;
 use PhpOffice\PhpSpreadsheet\Cell\CellAddress;
 use PhpOffice\PhpSpreadsheet\Cell\CellRange;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
+use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter;
 use PhpOffice\PhpSpreadsheet\Worksheet\Table;
 use PhpOffice\PhpSpreadsheet\Worksheet\Table\Column;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
@@ -554,5 +555,26 @@ class TableTest extends SetupTeardown
         self::assertArrayHasKey('J', $columns);
         self::assertArrayHasKey('L', $columns);
         self::assertArrayHasKey('M', $columns);
+    }
+
+    public function testAutoFilterRule(): void
+    {
+        $table = new Table(self::INITIAL_RANGE);
+        $columnFilter = $table->getAutoFilter()->getColumn('H');
+        $columnFilter->setFilterType(AutoFilter\Column::AUTOFILTER_FILTERTYPE_FILTER);
+        $columnFilter->createRule()
+            ->setRule(
+                AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
+                3
+            );
+        $autoFilterRuleObject = new AutoFilter\Column\Rule($columnFilter);
+        self::assertEquals(AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_FILTER, $autoFilterRuleObject->getRuleType());
+        $ruleParent = $autoFilterRuleObject->getParent();
+        if ($ruleParent === null) {
+            self::fail('Unexpected null parent');
+        } else {
+            self::assertEquals('H', $ruleParent->getColumnIndex());
+            self::assertSame($columnFilter, $ruleParent);
+        }
     }
 }
