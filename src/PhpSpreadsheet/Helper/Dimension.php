@@ -55,10 +55,20 @@ class Dimension
      */
     protected $unit;
 
+    /**
+     * Phpstan bug has been fixed; this function allows us to
+     * pass Phpstan whether fixed or not.
+     *
+     * @param mixed $value
+     */
+    private static function stanBugFixed($value): array
+    {
+        return is_array($value) ? $value : [null, null];
+    }
+
     public function __construct(string $dimension)
     {
-        // @phpstan-ignore-next-line
-        [$size, $unit] = sscanf($dimension, '%[1234567890.]%s');
+        [$size, $unit] = self::stanBugFixed(sscanf($dimension, '%[1234567890.]%s'));
         $unit = strtolower(trim($unit ?? ''));
         $size = (float) $size;
 

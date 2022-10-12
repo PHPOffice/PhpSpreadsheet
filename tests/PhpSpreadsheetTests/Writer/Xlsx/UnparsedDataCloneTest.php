@@ -77,19 +77,15 @@ class UnparsedDataCloneTest extends TestCase
         $reader1 = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
         $spreadsheet1 = $reader1->load($resultFilename1);
         unlink($resultFilename1);
-        $sheet1c = $spreadsheet1->getSheetByName('Clone');
-        self::assertNotNull($sheet1c);
-        $sheet1o = $spreadsheet1->getSheetByName('Original');
-        self::assertNotNull($sheet1o);
+        $sheet1c = $spreadsheet1->getSheetByNameOrThrow('Clone');
+        $sheet1o = $spreadsheet1->getSheetByNameOrThrow('Original');
 
         $writer->save($resultFilename2);
         $reader2 = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
         $spreadsheet2 = $reader2->load($resultFilename2);
         unlink($resultFilename2);
-        $sheet2c = $spreadsheet2->getSheetByName('Clone');
-        self::assertNotNull($sheet2c);
-        $sheet2o = $spreadsheet2->getSheetByName('Original');
-        self::assertNotNull($sheet2o);
+        $sheet2c = $spreadsheet2->getSheetByNameOrThrow('Clone');
+        $sheet2o = $spreadsheet2->getSheetByNameOrThrow('Original');
 
         self::assertEquals($spreadsheet1->getSheetCount(), $spreadsheet2->getSheetCount());
         self::assertCount(1, $sheet1c->getDrawingCollection());

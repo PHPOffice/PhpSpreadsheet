@@ -1161,7 +1161,7 @@ A column's width can be set using the following code:
 $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(12);
 ```
 
-If you want to set a column width using a different unit of measure,
+If you want to set a column width using a different UoM (Unit of Measure),
 then you can do so by telling PhpSpreadsheet what UoM the width value
 that you are setting is measured in.
 Valid units are `pt` (points), `px` (pixels), `pc` (pica), `in` (inches),
@@ -1258,7 +1258,7 @@ Excel measures row height in points, where 1 pt is 1/72 of an inch (or
 about 0.35mm). The default value is 12.75 pts; and the permitted range
 of values is between 0 and 409 pts, where 0 pts is a hidden row.
 
-If you want to set a row height using a different unit of measure,
+If you want to set a row height using a different UoM (Unit of Measure),
 then you can do so by telling PhpSpreadsheet what UoM the height value
 that you are setting is measured in.
 Valid units are `pt` (points), `px` (pixels), `pc` (pica), `in` (inches),
@@ -1332,21 +1332,71 @@ rows (default), or above. The following code adds the summary above:
 $spreadsheet->getActiveSheet()->setShowSummaryBelow(false);
 ```
 
-## Merge/unmerge cells
+## Merge/Unmerge cells
 
-If you have a big piece of data you want to display in a worksheet, you
-can merge two or more cells together, to become one cell. This can be
-done using the following code:
+If you have a big piece of data you want to display in a worksheet, or a
+heading that needs to span multiple sub-heading columns, you can merge
+two or more cells together, to become one cell. This can be done using
+the following code:
 
 ```php
 $spreadsheet->getActiveSheet()->mergeCells('A18:E22');
 ```
 
-Removing a merge can be done using the unmergeCells method:
+Removing a merge can be done using the `unmergeCells()` method:
 
 ```php
 $spreadsheet->getActiveSheet()->unmergeCells('A18:E22');
 ```
+
+MS Excel itself doesn't yet offer the functionality to simply hide the merged cells, or to merge the content of cells into a single cell, but it is available in Open/Libre Office.
+
+### Merge with MERGE_CELL_CONTENT_EMPTY
+
+The default behaviour is to empty all cells except for the top-left corner cell in the merge range; and this is also the default behaviour for the `mergeCells()` method in PhpSpreadsheet.
+When this behaviour is applied, those cell values will be set to null; and if they are subsequently Unmerged, they will be empty cells.
+
+Passing an extra flag value to the `mergeCells()` method in PhpSpreadsheet can change this behaviour.
+
+![12-01-MergeCells-Options.png](./images/12-01-MergeCells-Options.png)
+
+Possible flag values are:
+- Worksheet::MERGE_CELL_CONTENT_EMPTY (the default)
+- Worksheet::MERGE_CELL_CONTENT_HIDE
+- Worksheet::MERGE_CELL_CONTENT_MERGE
+
+### Merge with MERGE_CELL_CONTENT_HIDE
+
+The first alternative, available only in OpenOffice, is to hide those cells, but to leave their content intact.
+When a file saved as `Xlsx` in those applications is opened in MS Excel, and those cells are unmerged, the original content will still be present.
+
+```php
+$spreadsheet->getActiveSheet()->mergeCells('A1:C3', Worksheet::MERGE_CELL_CONTENT_HIDE);
+```
+
+Will replicate that behaviour.
+
+### Merge with MERGE_CELL_CONTENT_MERGE
+
+The second alternative, available in both OpenOffice and LibreOffice is to merge the content of every cell in the merge range into the top-left cell, while setting those hidden cells to empty.
+
+```php
+$spreadsheet->getActiveSheet()->mergeCells('A1:C3', Worksheet::MERGE_CELL_CONTENT_MERGE);
+```
+
+Particularly when the merged cells contain formulae, the logic for this merge seems strange:
+walking through the merge range, each cell is calculated in turn, and appended to the "master" cell, then it is emptied, so any subsequent calculations that reference the cell see an empty cell, not the pre-merge value. 
+For example, suppose our spreadsheet contains
+
+![12-01-MergeCells-Options-2.png](./images/12-01-MergeCells-Options-2.png)
+
+where `B2` is the formula `=5-B1` and `C2` is the formula `=A2/B2`,
+and we want to merge cells `A2` to `C2` with all the cell values merged.
+The result is:
+
+![12-01-MergeCells-Options-3.png](./images/12-01-MergeCells-Options-3.png)
+
+The cell value `12` from cell `A2` is fixed; the value from `B2` is the result of the formula `=5-B1` (`4`, which is appended to our merged value), and cell `B2` is then emptied, so when we evaluate cell `C2` with the formula `=A2/B2` it gives us `12 / 0` which results in a `#DIV/0!` error (so the error `#DIV/0!` is appended to our merged value rather than the original calculation result of `3`).
 
 ## Inserting or Removing rows/columns
 
@@ -1670,7 +1720,7 @@ $spreadsheet->getActiveSheet()->getDefaultColumnDimension()->setWidth(12);
 Excel measures column width in its own proprietary units, based on the number
 of characters that will be displayed in the default font.
 
-If you want to set the default column width using a different unit of measure,
+If you want to set the default column width using a different UoM (Unit of Measure),
 then you can do so by telling PhpSpreadsheet what UoM the width value
 that you are setting is measured in.
 Valid units are `pt` (points), `px` (pixels), `pc` (pica), `in` (inches),
@@ -1693,7 +1743,7 @@ Excel measures row height in points, where 1 pt is 1/72 of an inch (or
 about 0.35mm). The default value is 12.75 pts; and the permitted range
 of values is between 0 and 409 pts, where 0 pts is a hidden row.
 
-If you want to set a row height using a different unit of measure,
+If you want to set a row height using a different UoM (Unit of Measure),
 then you can do so by telling PhpSpreadsheet what UoM the height value
 that you are setting is measured in.
 Valid units are `pt` (points), `px` (pixels), `pc` (pica), `in` (inches),

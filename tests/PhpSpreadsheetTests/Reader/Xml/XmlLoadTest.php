@@ -4,18 +4,51 @@ namespace PhpOffice\PhpSpreadsheetTests\Reader\Xml;
 
 use DateTimeZone;
 use PhpOffice\PhpSpreadsheet\Reader\Xml;
+use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\TestCase;
 
 class XmlLoadTest extends TestCase
 {
-    public function testLoad(): void
+    /** @var ?Spreadsheet */
+    private $spreadsheet;
+
+    /** @var string */
+    private $locale;
+
+    protected function setUp(): void
+    {
+        $this->locale = Settings::getLocale();
+    }
+
+    protected function tearDown(): void
+    {
+        if ($this->spreadsheet !== null) {
+            $this->spreadsheet->disconnectWorksheets();
+            $this->spreadsheet = null;
+        }
+        Settings::setLocale($this->locale);
+    }
+
+    public function testLoadEnglish(): void
+    {
+        $this->xtestLoad();
+    }
+
+    public function testLoadFrench(): void
+    {
+        Settings::setLocale('fr');
+        $this->xtestLoad();
+    }
+
+    public function xtestLoad(): void
     {
         $filename = __DIR__
             . '/../../../..'
             . '/samples/templates/excel2003.xml';
         $reader = new Xml();
-        $spreadsheet = $reader->load($filename);
+        $this->spreadsheet = $spreadsheet = $reader->load($filename);
         self::assertEquals(2, $spreadsheet->getSheetCount());
 
         $sheet = $spreadsheet->getSheet(1);
@@ -71,7 +104,7 @@ class XmlLoadTest extends TestCase
         $reader = new Xml();
         $filter = new XmlFilter();
         $reader->setReadFilter($filter);
-        $spreadsheet = $reader->load($filename);
+        $this->spreadsheet = $spreadsheet = $reader->load($filename);
         self::assertEquals(2, $spreadsheet->getSheetCount());
         $sheet = $spreadsheet->getSheet(1);
         self::assertEquals('Report Data', $sheet->getTitle());
@@ -87,7 +120,7 @@ class XmlLoadTest extends TestCase
             . '/samples/templates/excel2003.xml';
         $reader = new Xml();
         $reader->setLoadSheetsOnly(['Unknown Sheet', 'Report Data']);
-        $spreadsheet = $reader->load($filename);
+        $this->spreadsheet = $spreadsheet = $reader->load($filename);
         self::assertEquals(1, $spreadsheet->getSheetCount());
         $sheet = $spreadsheet->getSheet(0);
         self::assertEquals('Report Data', $sheet->getTitle());
@@ -102,7 +135,7 @@ class XmlLoadTest extends TestCase
             . '/../../../..'
             . '/samples/templates/excel2003.short.bad.xml';
         $reader = new Xml();
-        $spreadsheet = $reader->load($filename);
+        $this->spreadsheet = $spreadsheet = $reader->load($filename);
         self::assertEquals(1, $spreadsheet->getSheetCount());
         $sheet = $spreadsheet->getSheet(0);
         self::assertEquals('Sample Data', $sheet->getTitle());

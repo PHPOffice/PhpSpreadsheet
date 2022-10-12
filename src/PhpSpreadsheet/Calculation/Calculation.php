@@ -7,7 +7,6 @@ use PhpOffice\PhpSpreadsheet\Calculation\Engine\CyclicReferenceStack;
 use PhpOffice\PhpSpreadsheet\Calculation\Engine\Logger;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ErrorValue;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
-use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
 use PhpOffice\PhpSpreadsheet\Calculation\Token\Stack;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
@@ -59,6 +58,7 @@ class Calculation
     const FORMULA_CLOSE_MATRIX_BRACE = '}';
     const FORMULA_STRING_QUOTE = '"';
 
+    /** @var string */
     private static $returnArrayAsType = self::RETURN_ARRAY_AS_VALUE;
 
     /**
@@ -137,9 +137,14 @@ class Calculation
      *        If true, then a user error will be triggered
      *        If false, then an exception will be thrown.
      *
-     * @var bool
+     * @var ?bool
+     *
+     * @deprecated 1.25.2 use setSuppressFormulaErrors() instead
      */
-    public $suppressFormulaErrors = false;
+    public $suppressFormulaErrors;
+
+    /** @var bool */
+    private $suppressFormulaErrorsNew = false;
 
     /**
      * Error message for any error that was raised/thrown by the calculation engine.
@@ -162,6 +167,7 @@ class Calculation
      */
     private $cyclicReferenceStack;
 
+    /** @var array */
     private $cellStack = [];
 
     /**
@@ -173,6 +179,7 @@ class Calculation
      */
     private $cyclicFormulaCounter = 1;
 
+    /** @var string */
     private $cyclicFormulaCell = '';
 
     /**
@@ -206,6 +213,7 @@ class Calculation
      */
     private static $localeArgumentSeparator = ',';
 
+    /** @var array */
     private static $localeFunctions = [];
 
     /**
@@ -231,7 +239,7 @@ class Calculation
         'NULL' => null,
     ];
 
-    // PhpSpreadsheet functions
+    /** @var array */
     private static $phpSpreadsheetFunctions = [
         'ABS' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
@@ -305,8 +313,8 @@ class Calculation
         ],
         'ARRAYTOTEXT' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '?',
+            'functionCall' => [TextData\Text::class, 'fromArray'],
+            'argumentCount' => '1,2',
         ],
         'ASC' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
@@ -1451,7 +1459,7 @@ class Calculation
         'INDEX' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
             'functionCall' => [LookupRef\Matrix::class, 'index'],
-            'argumentCount' => '1-4',
+            'argumentCount' => '2-4',
         ],
         'INDIRECT' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
@@ -2490,13 +2498,13 @@ class Calculation
         ],
         'TEXTAFTER' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '2-4',
+            'functionCall' => [TextData\Extract::class, 'after'],
+            'argumentCount' => '2-6',
         ],
         'TEXTBEFORE' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '2-4',
+            'functionCall' => [TextData\Extract::class, 'before'],
+            'argumentCount' => '2-6',
         ],
         'TEXTJOIN' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
@@ -2505,8 +2513,8 @@ class Calculation
         ],
         'TEXTSPLIT' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '2-5',
+            'functionCall' => [TextData\Text::class, 'split'],
+            'argumentCount' => '2-6',
         ],
         'THAIDAYOFWEEK' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
@@ -2660,8 +2668,8 @@ class Calculation
         ],
         'VALUETOTEXT' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '?',
+            'functionCall' => [TextData\Format::class, 'valueToText'],
+            'argumentCount' => '1,2',
         ],
         'VAR' => [
             'category' => Category::CATEGORY_STATISTICAL,
@@ -2815,7 +2823,11 @@ class Calculation
         ],
     ];
 
-    //    Internal functions used for special control purposes
+    /**
+     *    Internal functions used for special control purposes.
+     *
+     * @var array
+     */
     private static $controlFunctions = [
         'MKMATRIX' => [
             'argumentCount' => '*',
@@ -3111,7 +3123,7 @@ class Calculation
                     [$localeFunction] = explode('##', $localeFunction); //    Strip out comments
                     if (strpos($localeFunction, '=') !== false) {
                         [$fName, $lfName] = array_map('trim', explode('=', $localeFunction));
-                        if ((isset(self::$phpSpreadsheetFunctions[$fName])) && ($lfName != '') && ($fName != $lfName)) {
+                        if ((substr($fName, 0, 1) === '*' || isset(self::$phpSpreadsheetFunctions[$fName])) && ($lfName != '') && ($fName != $lfName)) {
                             self::$localeFunctions[$fName] = $lfName;
                         }
                     }
@@ -3244,10 +3256,17 @@ class Calculation
         return $formula;
     }
 
+    /** @var ?array */
     private static $functionReplaceFromExcel;
 
+    /** @var ?array */
     private static $functionReplaceToLocale;
 
+    /**
+     * @param string $formula
+     *
+     * @return string
+     */
     public function _translateFormulaToLocale($formula)
     {
         // Build list of function names and constants for translation
@@ -3280,10 +3299,17 @@ class Calculation
         );
     }
 
+    /** @var ?array */
     private static $functionReplaceFromLocale;
 
+    /** @var ?array */
     private static $functionReplaceToExcel;
 
+    /**
+     * @param string $formula
+     *
+     * @return string
+     */
     public function _translateFormulaToEnglish($formula)
     {
         if (self::$functionReplaceFromLocale === null) {
@@ -3299,7 +3325,6 @@ class Calculation
         if (self::$functionReplaceToExcel === null) {
             self::$functionReplaceToExcel = [];
             foreach (array_keys(self::$localeFunctions) as $excelFunctionName) {
-                // @phpstan-ignore-next-line
                 self::$functionReplaceToExcel[] = '$1' . trim($excelFunctionName) . '$2';
             }
             foreach (array_keys(self::$localeBoolean) as $excelBoolean) {
@@ -3310,6 +3335,11 @@ class Calculation
         return self::translateFormula(self::$functionReplaceFromLocale, self::$functionReplaceToExcel, $formula, self::$localeArgumentSeparator, ',');
     }
 
+    /**
+     * @param string $function
+     *
+     * @return string
+     */
     public static function localeFunc($function)
     {
         if (self::$localeLanguage !== 'en_us') {
@@ -3938,9 +3968,13 @@ class Calculation
         return $formula;
     }
 
-    //    Binary Operators
-    //    These operators always work on two values
-    //    Array key is the operator, the value indicates whether this is a left or right associative operator
+    /**
+     *    Binary Operators.
+     *    These operators always work on two values.
+     *    Array key is the operator, the value indicates whether this is a left or right associative operator.
+     *
+     * @var array
+     */
     private static $operatorAssociativity = [
         '^' => 0, //    Exponentiation
         '*' => 0, '/' => 0, //    Multiplication and Division
@@ -3950,13 +3984,21 @@ class Calculation
         '>' => 0, '<' => 0, '=' => 0, '>=' => 0, '<=' => 0, '<>' => 0, //    Comparison
     ];
 
-    //    Comparison (Boolean) Operators
-    //    These operators work on two values, but always return a boolean result
+    /**
+     *    Comparison (Boolean) Operators.
+     *    These operators work on two values, but always return a boolean result.
+     *
+     * @var array
+     */
     private static $comparisonOperators = ['>' => true, '<' => true, '=' => true, '>=' => true, '<=' => true, '<>' => true];
 
-    //    Operator Precedence
-    //    This list includes all valid operators, whether binary (including boolean) or unary (such as %)
-    //    Array key is the operator, the value is its precedence
+    /**
+     *    Operator Precedence.
+     *    This list includes all valid operators, whether binary (including boolean) or unary (such as %).
+     *    Array key is the operator, the value is its precedence.
+     *
+     * @var array
+     */
     private static $operatorPrecedence = [
         ':' => 9, //    Range
         '∩' => 8, //    Intersect
@@ -4442,6 +4484,11 @@ class Calculation
         return $output;
     }
 
+    /**
+     * @param array $operandData
+     *
+     * @return mixed
+     */
     private static function dataTestReference(&$operandData)
     {
         $operand = $operandData['value'];
@@ -4757,9 +4804,8 @@ class Calculation
 
                         break;
                 }
-
-                // if the token is a unary operator, pop one value off the stack, do the operation, and push it back on
             } elseif (($token === '~') || ($token === '%')) {
+                // if the token is a unary operator, pop one value off the stack, do the operation, and push it back on
                 if (($arg = $stack->pop()) === null) {
                     return $this->raiseFormulaError('Internal error - Operand value missing from stack');
                 }
@@ -4795,7 +4841,7 @@ class Calculation
 
                 if (isset($matches[8])) {
                     if ($cell === null) {
-                        //                        We can't access the range, so return a REF error
+                        // We can't access the range, so return a REF error
                         $cellValue = Information\ExcelError::REF();
                     } else {
                         $cellRef = $matches[6] . $matches[7] . ':' . $matches[9] . $matches[10];
@@ -4866,10 +4912,9 @@ class Calculation
                 if (isset($storeKey)) {
                     $branchStore[$storeKey] = $cellValue;
                 }
-
-                // if the token is a function, pop arguments off the stack, hand them to the function, and push the result back on
             } elseif (preg_match('/^' . self::CALCULATION_REGEXP_FUNCTION . '$/miu', $token ?? '', $matches)) {
-                if ($pCellParent) {
+                // if the token is a function, pop arguments off the stack, hand them to the function, and push the result back on
+                if ($cell !== null && $pCellParent !== null) {
                     $cell->attach($pCellParent);
                 }
 
@@ -4978,8 +5023,8 @@ class Calculation
                     if (isset($storeKey)) {
                         $branchStore[$storeKey] = $token;
                     }
-                    // if the token is a named range or formula, evaluate it and push the result onto the stack
                 } elseif (preg_match('/^' . self::CALCULATION_REGEXP_DEFINEDNAME . '$/miu', $token, $matches)) {
+                    // if the token is a named range or formula, evaluate it and push the result onto the stack
                     $definedName = $matches[6];
                     if ($cell === null || $pCellWorksheet === null) {
                         return $this->raiseFormulaError("undefined name '$token'");
@@ -5010,6 +5055,12 @@ class Calculation
         return $output;
     }
 
+    /**
+     * @param mixed $operand
+     * @param mixed $stack
+     *
+     * @return bool
+     */
     private function validateBinaryOperand(&$operand, &$stack)
     {
         if (is_array($operand)) {
@@ -5221,12 +5272,9 @@ class Calculation
     {
         $this->formulaError = $errorMessage;
         $this->cyclicReferenceStack->clear();
-        if (!$this->suppressFormulaErrors) {
+        $suppress = $this->suppressFormulaErrors ?? $this->suppressFormulaErrorsNew;
+        if (!$suppress) {
             throw new Exception($errorMessage);
-        }
-
-        if (strlen($errorMessage) > 0) {
-            trigger_error($errorMessage, E_USER_ERROR);
         }
 
         return false;
@@ -5363,7 +5411,7 @@ class Calculation
     /**
      * Get a list of all implemented functions as an array of function objects.
      */
-    public function getFunctions(): array
+    public static function getFunctions(): array
     {
         return self::$phpSpreadsheetFunctions;
     }
@@ -5464,6 +5512,11 @@ class Calculation
         return $args;
     }
 
+    /**
+     * @param array $tokens
+     *
+     * @return string
+     */
     private function getTokensAsString($tokens)
     {
         $tokensStr = array_map(function ($token) {
@@ -5529,5 +5582,15 @@ class Calculation
         $stack->push('Defined Name', $result, $namedRange->getName());
 
         return $result;
+    }
+
+    public function setSuppressFormulaErrors(bool $suppressFormulaErrors): void
+    {
+        $this->suppressFormulaErrorsNew = $suppressFormulaErrors;
+    }
+
+    public function getSuppressFormulaErrors(): bool
+    {
+        return $this->suppressFormulaErrorsNew;
     }
 }

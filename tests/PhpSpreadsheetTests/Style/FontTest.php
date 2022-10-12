@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Style;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Font;
 use PHPUnit\Framework\TestCase;
 
 class FontTest extends TestCase
@@ -87,5 +88,21 @@ class FontTest extends TestCase
         $font->setName('');
         self::assertEquals('Calibri', $font->getName(), 'Null string changed to default');
         $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testUnderlineHash(): void
+    {
+        $font1 = new Font();
+        $font2 = new Font();
+        $font2aHash = $font2->getHashCode();
+        self::assertSame($font1->getHashCode(), $font2aHash);
+        $font2->setUnderlineColor(
+            [
+                'type' => 'srgbClr',
+                'value' => 'FF0000',
+            ]
+        );
+        $font2bHash = $font2->getHashCode();
+        self::assertNotEquals($font1->getHashCode(), $font2bHash);
     }
 }

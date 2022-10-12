@@ -315,7 +315,7 @@ class SingularValueDecomposition
                     }
 
                     break;
-                // Split at negligible s(k).
+                    // Split at negligible s(k).
                 case 2:
                     $f = $e[$k - 1];
                     $e[$k - 1] = 0.0;
@@ -336,7 +336,7 @@ class SingularValueDecomposition
                     }
 
                     break;
-                // Perform one qr step.
+                    // Perform one qr step.
                 case 3:
                     // Calculate the shift.
                     $scale = max(max(max(max(abs($this->s[$p - 1]), abs($this->s[$p - 2])), abs($e[$p - 2])), abs($this->s[$k])), abs($e[$k]));
@@ -396,7 +396,7 @@ class SingularValueDecomposition
                     $iter = $iter + 1;
 
                     break;
-                // Convergence.
+                    // Convergence.
                 case 4:
                     // Make the singular values positive.
                     if ($this->s[$k] <= 0.0) {

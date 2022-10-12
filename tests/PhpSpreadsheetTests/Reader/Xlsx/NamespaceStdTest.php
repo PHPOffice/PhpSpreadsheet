@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheetTests\Reader;
+namespace PhpOffice\PhpSpreadsheetTests\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\Style\Border;
@@ -62,13 +62,9 @@ class NamespaceStdTest extends \PHPUnit\Framework\TestCase
         self::assertSame('A2', $sheet->getFreezePane());
         self::assertSame('A2', $sheet->getTopLeftCell());
         self::assertSame('B3', $sheet->getSelectedCells());
-        $sheet = $spreadsheet->getSheetByName('SylkTest');
-        if ($sheet === null) {
-            self::fail('Unable to load expected sheet');
-        } else {
-            self::assertNull($sheet->getFreezePane());
-            self::assertNull($sheet->getTopLeftCell());
-        }
+        $sheet = $spreadsheet->getSheetByNameOrThrow('SylkTest');
+        self::assertNull($sheet->getFreezePane());
+        self::assertNull($sheet->getTopLeftCell());
     }
 
     public function testLoadXlsx(): void

@@ -87,12 +87,14 @@ class FileTest extends TestCase
 
     public function testNotReadable(): void
     {
-        if (PHP_OS_FAMILY === 'Windows') {
+        if (PHP_OS_FAMILY === 'Windows' || stristr(PHP_OS, 'CYGWIN') !== false) {
             self::markTestSkipped('chmod does not work reliably on Windows');
         }
         $this->tempfile = $temp = File::temporaryFileName();
         file_put_contents($temp, '');
-        chmod($temp, 0070);
+        if (chmod($temp, 0070) === false) {
+            self::markTestSkipped('chmod failed');
+        }
         self::assertFalse(File::testFileNoThrow($temp));
         $this->expectException(ReaderException::class);
         $this->expectExceptionMessage('for reading');

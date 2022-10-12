@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheetTests\Writer\Xlsx;
+namespace PhpOffice\PhpSpreadsheetTests\Chart;
 
 use PhpOffice\PhpSpreadsheet\Chart\Chart;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeries;
@@ -138,6 +138,7 @@ class PieFillTest extends AbstractFunctional
         $chart2 = $charts2[0];
         self::assertNotNull($chart2);
         $plotArea2 = $chart2->getPlotArea();
+        self::assertNotNull($plotArea2);
         $dataSeries2 = $plotArea2->getPlotGroup();
         self::assertCount(1, $dataSeries2);
         $plotValues = $dataSeries2[0]->getPlotValues();

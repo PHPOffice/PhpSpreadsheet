@@ -2,9 +2,10 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Xlsx;
 
-use PHPUnit\Framework\TestCase;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
-class LocaleFloatsTest extends TestCase
+class LocaleFloatsTest extends AbstractFunctional
 {
     /**
      * @var bool
@@ -15,6 +16,12 @@ class LocaleFloatsTest extends TestCase
      * @var false|string
      */
     private $currentLocale;
+
+    /** @var ?Spreadsheet */
+    private $spreadsheet;
+
+    /** @var ?Spreadsheet */
+    private $reloadedSpreadsheet;
 
     protected function setUp(): void
     {
@@ -34,6 +41,14 @@ class LocaleFloatsTest extends TestCase
         if ($this->localeAdjusted && is_string($this->currentLocale)) {
             setlocale(LC_ALL, $this->currentLocale);
         }
+        if ($this->spreadsheet !== null) {
+            $this->spreadsheet->disconnectWorksheets();
+            $this->spreadsheet = null;
+        }
+        if ($this->reloadedSpreadsheet !== null) {
+            $this->reloadedSpreadsheet->disconnectWorksheets();
+            $this->reloadedSpreadsheet = null;
+        }
     }
 
     public function testLocaleFloatsCorrectlyConvertedByWriter(): void
@@ -42,18 +57,17 @@ class LocaleFloatsTest extends TestCase
             self::markTestSkipped('Unable to set locale for testing.');
         }
 
-        $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+        $this->spreadsheet = $spreadsheet = new Spreadsheet();
+        $properties = $spreadsheet->getProperties();
+        $properties->setCustomProperty('Version', 1.2);
         $spreadsheet->getActiveSheet()->setCellValue('A1', 1.1);
 
-        $filename = 'decimalcomma.xlsx';
-        $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
-        $writer->save($filename);
+        $this->reloadedSpreadsheet = $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, 'Xlsx');
 
-        $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
-        $spreadsheet = $reader->load($filename);
-        unlink($filename);
-
-        $result = $spreadsheet->getActiveSheet()->getCell('A1')->getValue();
+        $result = $reloadedSpreadsheet->getActiveSheet()->getCell('A1')->getValue();
+        self::assertEqualsWithDelta(1.1, $result, 1.0E-8);
+        $prop = $reloadedSpreadsheet->getProperties()->getCustomPropertyValue('Version');
+        self::assertEqualsWithDelta(1.2, $prop, 1.0E-8);
 
         $actual = sprintf('%f', $result);
         self::assertStringContainsString('1,1', $actual);

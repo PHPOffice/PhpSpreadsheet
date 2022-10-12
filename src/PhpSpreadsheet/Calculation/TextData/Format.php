@@ -4,11 +4,13 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\TextData;
 
 use DateTimeInterface;
 use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcExp;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
+use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
@@ -206,6 +208,38 @@ class Format
         }
 
         return (float) $value;
+    }
+
+    /**
+     * TEXT.
+     *
+     * @param mixed $value The value to format
+     *                         Or can be an array of values
+     * @param mixed $format
+     *
+     * @return array|string
+     *         If an array of values is passed for either of the arguments, then the returned result
+     *            will also be an array with matching dimensions
+     */
+    public static function valueToText($value, $format = false)
+    {
+        if (is_array($value) || is_array($format)) {
+            return self::evaluateArrayArguments([self::class, __FUNCTION__], $value, $format);
+        }
+
+        $format = (bool) $format;
+
+        if (is_object($value) && $value instanceof RichText) {
+            $value = $value->getPlainText();
+        }
+        if (is_string($value)) {
+            $value = ($format === true) ? Calculation::wrapResult($value) : $value;
+            $value = str_replace("\n", '', $value);
+        } elseif (is_bool($value)) {
+            $value = Calculation::$localeBoolean[$value === true ? 'TRUE' : 'FALSE'];
+        }
+
+        return (string) $value;
     }
 
     /**

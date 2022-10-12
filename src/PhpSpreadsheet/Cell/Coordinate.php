@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Cell;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
@@ -183,12 +184,12 @@ abstract class Coordinate
     /**
      * Calculate range boundaries.
      *
-     * @param string $range Cell range (e.g. A1:A1)
+     * @param string $range Cell range, Single Cell, Row/Column Range (e.g. A1:A1, B2, B:C, 2:3)
      *
      * @return array Range coordinates [Start Cell, End Cell]
      *                    where Start Cell and End Cell are arrays (Column Number, Row Number)
      */
-    public static function rangeBoundaries($range)
+    public static function rangeBoundaries(string $range): array
     {
         // Ensure $pRange is a valid range
         if (empty($range)) {
@@ -203,6 +204,16 @@ abstract class Coordinate
             $rangeA = $rangeB = $range;
         } else {
             [$rangeA, $rangeB] = explode(':', $range);
+        }
+
+        if (is_numeric($rangeA) && is_numeric($rangeB)) {
+            $rangeA = 'A' . $rangeA;
+            $rangeB = AddressRange::MAX_COLUMN . $rangeB;
+        }
+
+        if (ctype_alpha($rangeA) && ctype_alpha($rangeB)) {
+            $rangeA = $rangeA . '1';
+            $rangeB = $rangeB . AddressRange::MAX_ROW;
         }
 
         // Calculate range outer borders
@@ -219,7 +230,7 @@ abstract class Coordinate
     /**
      * Calculate range dimension.
      *
-     * @param string $range Cell range (e.g. A1:A1)
+     * @param string $range Cell range, Single Cell, Row/Column Range (e.g. A1:A1, B2, B:C, 2:3)
      *
      * @return array Range dimension (width, height)
      */
@@ -234,29 +245,19 @@ abstract class Coordinate
     /**
      * Calculate range boundaries.
      *
-     * @param string $range Cell range (e.g. A1:A1)
+     * @param string $range Cell range, Single Cell, Row/Column Range (e.g. A1:A1, B2, B:C, 2:3)
      *
      * @return array Range coordinates [Start Cell, End Cell]
      *                    where Start Cell and End Cell are arrays [Column ID, Row Number]
      */
     public static function getRangeBoundaries($range)
     {
-        // Ensure $pRange is a valid range
-        if (empty($range)) {
-            $range = self::DEFAULT_RANGE;
-        }
+        [$rangeA, $rangeB] = self::rangeBoundaries($range);
 
-        // Uppercase coordinate
-        $range = strtoupper($range);
-
-        // Extract range
-        if (strpos($range, ':') === false) {
-            $rangeA = $rangeB = $range;
-        } else {
-            [$rangeA, $rangeB] = explode(':', $range);
-        }
-
-        return [self::coordinateFromString($rangeA), self::coordinateFromString($rangeB)];
+        return [
+            [self::stringFromColumnIndex($rangeA[0]), $rangeA[1]],
+            [self::stringFromColumnIndex($rangeB[0]), $rangeB[1]],
+        ];
     }
 
     /**
@@ -349,6 +350,19 @@ abstract class Coordinate
      */
     public static function extractAllCellReferencesInRange($cellRange): array
     {
+        if (substr_count($cellRange, '!') > 1) {
+            throw new Exception('3-D Range References are not supported');
+        }
+
+        [$worksheet, $cellRange] = Worksheet::extractSheetTitle($cellRange, true);
+        $quoted = '';
+        if ($worksheet > '') {
+            $quoted = Worksheet::nameRequiresQuotes($worksheet) ? "'" : '';
+            if (substr($worksheet, 0, 1) === "'" && substr($worksheet, -1, 1) === "'") {
+                $worksheet = substr($worksheet, 1, -1);
+            }
+            $worksheet = str_replace("'", "''", $worksheet);
+        }
         [$ranges, $operators] = self::getCellBlocksFromRangeString($cellRange);
 
         $cells = [];
@@ -364,7 +378,12 @@ abstract class Coordinate
 
         $cellList = array_merge(...$cells);
 
-        return self::sortCellReferenceArray($cellList);
+        return array_map(
+            function ($cellAddress) use ($worksheet, $quoted) {
+                return ($worksheet !== '') ? "{$quoted}{$worksheet}{$quoted}!{$cellAddress}" : $cellAddress;
+            },
+            self::sortCellReferenceArray($cellList)
+        );
     }
 
     private static function processRangeSetOperators(array $operators, array $cells): array

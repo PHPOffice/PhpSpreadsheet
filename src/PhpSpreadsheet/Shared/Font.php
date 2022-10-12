@@ -13,7 +13,7 @@ class Font
     const AUTOSIZE_METHOD_APPROX = 'approx';
     const AUTOSIZE_METHOD_EXACT = 'exact';
 
-    private static $autoSizeMethods = [
+    private const AUTOSIZE_METHODS = [
         self::AUTOSIZE_METHOD_APPROX,
         self::AUTOSIZE_METHOD_EXACT,
     ];
@@ -101,6 +101,105 @@ class Font
     const VERDANA_ITALIC = 'verdanai.ttf';
     const VERDANA_BOLD_ITALIC = 'verdanaz.ttf';
 
+    const FONT_FILE_NAMES = [
+        'Arial' => [
+            'x' => self::ARIAL,
+            'xb' => self::ARIAL_BOLD,
+            'xi' => self::ARIAL_ITALIC,
+            'xbi' => self::ARIAL_BOLD_ITALIC,
+        ],
+        'Calibri' => [
+            'x' => self::CALIBRI,
+            'xb' => self::CALIBRI_BOLD,
+            'xi' => self::CALIBRI_ITALIC,
+            'xbi' => self::CALIBRI_BOLD_ITALIC,
+        ],
+        'Comic Sans MS' => [
+            'x' => self::COMIC_SANS_MS,
+            'xb' => self::COMIC_SANS_MS_BOLD,
+            'xi' => self::COMIC_SANS_MS,
+            'xbi' => self::COMIC_SANS_MS_BOLD,
+        ],
+        'Courier New' => [
+            'x' => self::COURIER_NEW,
+            'xb' => self::COURIER_NEW_BOLD,
+            'xi' => self::COURIER_NEW_ITALIC,
+            'xbi' => self::COURIER_NEW_BOLD_ITALIC,
+        ],
+        'Georgia' => [
+            'x' => self::GEORGIA,
+            'xb' => self::GEORGIA_BOLD,
+            'xi' => self::GEORGIA_ITALIC,
+            'xbi' => self::GEORGIA_BOLD_ITALIC,
+        ],
+        'Impact' => [
+            'x' => self::IMPACT,
+            'xb' => self::IMPACT,
+            'xi' => self::IMPACT,
+            'xbi' => self::IMPACT,
+        ],
+        'Liberation Sans' => [
+            'x' => self::LIBERATION_SANS,
+            'xb' => self::LIBERATION_SANS_BOLD,
+            'xi' => self::LIBERATION_SANS_ITALIC,
+            'xbi' => self::LIBERATION_SANS_BOLD_ITALIC,
+        ],
+        'Lucida Console' => [
+            'x' => self::LUCIDA_CONSOLE,
+            'xb' => self::LUCIDA_CONSOLE,
+            'xi' => self::LUCIDA_CONSOLE,
+            'xbi' => self::LUCIDA_CONSOLE,
+        ],
+        'Lucida Sans Unicode' => [
+            'x' => self::LUCIDA_SANS_UNICODE,
+            'xb' => self::LUCIDA_SANS_UNICODE,
+            'xi' => self::LUCIDA_SANS_UNICODE,
+            'xbi' => self::LUCIDA_SANS_UNICODE,
+        ],
+        'Microsoft Sans Serif' => [
+            'x' => self::MICROSOFT_SANS_SERIF,
+            'xb' => self::MICROSOFT_SANS_SERIF,
+            'xi' => self::MICROSOFT_SANS_SERIF,
+            'xbi' => self::MICROSOFT_SANS_SERIF,
+        ],
+        'Palatino Linotype' => [
+            'x' => self::PALATINO_LINOTYPE,
+            'xb' => self::PALATINO_LINOTYPE_BOLD,
+            'xi' => self::PALATINO_LINOTYPE_ITALIC,
+            'xbi' => self::PALATINO_LINOTYPE_BOLD_ITALIC,
+        ],
+        'Symbol' => [
+            'x' => self::SYMBOL,
+            'xb' => self::SYMBOL,
+            'xi' => self::SYMBOL,
+            'xbi' => self::SYMBOL,
+        ],
+        'Tahoma' => [
+            'x' => self::TAHOMA,
+            'xb' => self::TAHOMA_BOLD,
+            'xi' => self::TAHOMA,
+            'xbi' => self::TAHOMA_BOLD,
+        ],
+        'Times New Roman' => [
+            'x' => self::TIMES_NEW_ROMAN,
+            'xb' => self::TIMES_NEW_ROMAN_BOLD,
+            'xi' => self::TIMES_NEW_ROMAN_ITALIC,
+            'xbi' => self::TIMES_NEW_ROMAN_BOLD_ITALIC,
+        ],
+        'Trebuchet MS' => [
+            'x' => self::TREBUCHET_MS,
+            'xb' => self::TREBUCHET_MS_BOLD,
+            'xi' => self::TREBUCHET_MS_ITALIC,
+            'xbi' => self::TREBUCHET_MS_BOLD_ITALIC,
+        ],
+        'Verdana' => [
+            'x' => self::VERDANA,
+            'xb' => self::VERDANA_BOLD,
+            'xi' => self::VERDANA_ITALIC,
+            'xbi' => self::VERDANA_BOLD_ITALIC,
+        ],
+    ];
+
     /**
      * AutoSize method.
      *
@@ -113,54 +212,65 @@ class Font
      *
      * @var string
      */
-    private static $trueTypeFontPath;
+    private static $trueTypeFontPath = '';
 
     /**
      * How wide is a default column for a given default font and size?
      * Empirical data found by inspecting real Excel files and reading off the pixel width
      * in Microsoft Office Excel 2007.
+     * Added height in points.
+     */
+    public const DEFAULT_COLUMN_WIDTHS = [
+        'Arial' => [
+            1 => ['px' => 24, 'width' => 12.00000000, 'height' => 5.25],
+            2 => ['px' => 24, 'width' => 12.00000000, 'height' => 5.25],
+            3 => ['px' => 32, 'width' => 10.66406250, 'height' => 6.0],
+
+            4 => ['px' => 32, 'width' => 10.66406250, 'height' => 6.75],
+            5 => ['px' => 40, 'width' => 10.00000000, 'height' => 8.25],
+            6 => ['px' => 48, 'width' => 9.59765625, 'height' => 8.25],
+            7 => ['px' => 48, 'width' => 9.59765625, 'height' => 9.0],
+            8 => ['px' => 56, 'width' => 9.33203125, 'height' => 11.25],
+            9 => ['px' => 64, 'width' => 9.14062500, 'height' => 12.0],
+            10 => ['px' => 64, 'width' => 9.14062500, 'height' => 12.75],
+        ],
+        'Calibri' => [
+            1 => ['px' => 24, 'width' => 12.00000000, 'height' => 5.25],
+            2 => ['px' => 24, 'width' => 12.00000000, 'height' => 5.25],
+            3 => ['px' => 32, 'width' => 10.66406250, 'height' => 6.00],
+            4 => ['px' => 32, 'width' => 10.66406250, 'height' => 6.75],
+            5 => ['px' => 40, 'width' => 10.00000000, 'height' => 8.25],
+            6 => ['px' => 48, 'width' => 9.59765625, 'height' => 8.25],
+            7 => ['px' => 48, 'width' => 9.59765625, 'height' => 9.0],
+            8 => ['px' => 56, 'width' => 9.33203125, 'height' => 11.25],
+            9 => ['px' => 56, 'width' => 9.33203125, 'height' => 12.0],
+            10 => ['px' => 64, 'width' => 9.14062500, 'height' => 12.75],
+            11 => ['px' => 64, 'width' => 9.14062500, 'height' => 15.0],
+        ],
+        'Verdana' => [
+            1 => ['px' => 24, 'width' => 12.00000000, 'height' => 5.25],
+            2 => ['px' => 24, 'width' => 12.00000000, 'height' => 5.25],
+            3 => ['px' => 32, 'width' => 10.66406250, 'height' => 6.0],
+            4 => ['px' => 32, 'width' => 10.66406250, 'height' => 6.75],
+            5 => ['px' => 40, 'width' => 10.00000000, 'height' => 8.25],
+            6 => ['px' => 48, 'width' => 9.59765625, 'height' => 8.25],
+            7 => ['px' => 48, 'width' => 9.59765625, 'height' => 9.0],
+            8 => ['px' => 64, 'width' => 9.14062500, 'height' => 10.5],
+            9 => ['px' => 72, 'width' => 9.00000000, 'height' => 11.25],
+            10 => ['px' => 72, 'width' => 9.00000000, 'height' => 12.75],
+        ],
+    ];
+
+    /**
+     * List of column widths. Replaced by constant;
+     * previously it was public and updateable, allowing
+     * user to make inappropriate alterations.
+     *
+     * @deprecated 1.25.0 Use DEFAULT_COLUMN_WIDTHS constant instead.
      *
      * @var array
      */
-    public static $defaultColumnWidths = [
-        'Arial' => [
-            1 => ['px' => 24, 'width' => 12.00000000],
-            2 => ['px' => 24, 'width' => 12.00000000],
-            3 => ['px' => 32, 'width' => 10.66406250],
-            4 => ['px' => 32, 'width' => 10.66406250],
-            5 => ['px' => 40, 'width' => 10.00000000],
-            6 => ['px' => 48, 'width' => 9.59765625],
-            7 => ['px' => 48, 'width' => 9.59765625],
-            8 => ['px' => 56, 'width' => 9.33203125],
-            9 => ['px' => 64, 'width' => 9.14062500],
-            10 => ['px' => 64, 'width' => 9.14062500],
-        ],
-        'Calibri' => [
-            1 => ['px' => 24, 'width' => 12.00000000],
-            2 => ['px' => 24, 'width' => 12.00000000],
-            3 => ['px' => 32, 'width' => 10.66406250],
-            4 => ['px' => 32, 'width' => 10.66406250],
-            5 => ['px' => 40, 'width' => 10.00000000],
-            6 => ['px' => 48, 'width' => 9.59765625],
-            7 => ['px' => 48, 'width' => 9.59765625],
-            8 => ['px' => 56, 'width' => 9.33203125],
-            9 => ['px' => 56, 'width' => 9.33203125],
-            10 => ['px' => 64, 'width' => 9.14062500],
-            11 => ['px' => 64, 'width' => 9.14062500],
-        ],
-        'Verdana' => [
-            1 => ['px' => 24, 'width' => 12.00000000],
-            2 => ['px' => 24, 'width' => 12.00000000],
-            3 => ['px' => 32, 'width' => 10.66406250],
-            4 => ['px' => 32, 'width' => 10.66406250],
-            5 => ['px' => 40, 'width' => 10.00000000],
-            6 => ['px' => 48, 'width' => 9.59765625],
-            7 => ['px' => 48, 'width' => 9.59765625],
-            8 => ['px' => 64, 'width' => 9.14062500],
-            9 => ['px' => 72, 'width' => 9.00000000],
-            10 => ['px' => 72, 'width' => 9.00000000],
-        ],
-    ];
+    public static $defaultColumnWidths = self::DEFAULT_COLUMN_WIDTHS;
 
     /**
      * Set autoSize method.
@@ -171,7 +281,7 @@ class Font
      */
     public static function setAutoSizeMethod($method)
     {
-        if (!in_array($method, self::$autoSizeMethods)) {
+        if (!in_array($method, self::AUTOSIZE_METHODS)) {
             return false;
         }
         self::$autoSizeMethod = $method;
@@ -219,7 +329,7 @@ class Font
      * Calculate an (approximate) OpenXML column width, based on font size and text contained.
      *
      * @param FontStyle $font Font object
-     * @param RichText|string $cellText Text to calculate width
+     * @param null|RichText|string $cellText Text to calculate width
      * @param int $rotation Rotation angle
      * @param null|FontStyle $defaultFont Font object
      * @param bool $filterAdjustment Add space for Autofilter or Table dropdown
@@ -238,7 +348,8 @@ class Font
         }
 
         // Special case if there are one or more newline characters ("\n")
-        if (strpos($cellText ?? '', "\n") !== false) {
+        $cellText = $cellText ?? '';
+        if (strpos(/** @scrutinizer ignore-type */ $cellText, "\n") !== false) {
             $lineTexts = explode("\n", $cellText);
             $lineWidths = [];
             foreach ($lineTexts as $lineText) {
@@ -281,7 +392,7 @@ class Font
         }
 
         // Convert from pixel width to column width
-        $columnWidth = Drawing::pixelsToCellDimension((int) $columnWidth, $defaultFont);
+        $columnWidth = Drawing::pixelsToCellDimension((int) $columnWidth, $defaultFont ?? new FontStyle());
 
         // Return
         return (int) round($columnWidth, 6);
@@ -299,7 +410,12 @@ class Font
         // font size should really be supplied in pixels in GD2,
         // but since GD2 seems to assume 72dpi, pixels and points are the same
         $fontFile = self::getTrueTypeFontFileFromFont($font);
-        $textBox = imagettfbbox($font->getSize(), $rotation, $fontFile, $text);
+        $textBox = imagettfbbox($font->getSize() ?? 10.0, $rotation, $fontFile, $text);
+        if ($textBox === false) {
+            // @codeCoverageIgnoreStart
+            throw new PhpSpreadsheetException('imagettfbbox failed');
+            // @codeCoverageIgnoreEnd
+        }
 
         // Get corners positions
         $lowerLeftCornerX = $textBox[0];
@@ -409,128 +525,47 @@ class Font
      *
      * @return string Path to TrueType font file
      */
-    public static function getTrueTypeFontFileFromFont(FontStyle $font)
+    public static function getTrueTypeFontFileFromFont(FontStyle $font, bool $checkPath = true)
     {
-        if (!file_exists(self::$trueTypeFontPath) || !is_dir(self::$trueTypeFontPath)) {
+        if ($checkPath && (!file_exists(self::$trueTypeFontPath) || !is_dir(self::$trueTypeFontPath))) {
             throw new PhpSpreadsheetException('Valid directory to TrueType Font files not specified');
         }
 
         $name = $font->getName();
+        if (!isset(self::FONT_FILE_NAMES[$name])) {
+            throw new PhpSpreadsheetException('Unknown font name "' . $name . '". Cannot map to TrueType font file');
+        }
         $bold = $font->getBold();
         $italic = $font->getItalic();
-
-        // Check if we can map font to true type font file
-        switch ($name) {
-            case 'Arial':
-                $fontFile = (
-                    $bold ? ($italic ? self::ARIAL_BOLD_ITALIC : self::ARIAL_BOLD)
-                          : ($italic ? self::ARIAL_ITALIC : self::ARIAL)
-                );
-
-                break;
-            case 'Calibri':
-                $fontFile = (
-                    $bold ? ($italic ? self::CALIBRI_BOLD_ITALIC : self::CALIBRI_BOLD)
-                          : ($italic ? self::CALIBRI_ITALIC : self::CALIBRI)
-                );
-
-                break;
-            case 'Courier New':
-                $fontFile = (
-                    $bold ? ($italic ? self::COURIER_NEW_BOLD_ITALIC : self::COURIER_NEW_BOLD)
-                          : ($italic ? self::COURIER_NEW_ITALIC : self::COURIER_NEW)
-                );
-
-                break;
-            case 'Comic Sans MS':
-                $fontFile = (
-                    $bold ? self::COMIC_SANS_MS_BOLD : self::COMIC_SANS_MS
-                );
-
-                break;
-            case 'Georgia':
-                $fontFile = (
-                    $bold ? ($italic ? self::GEORGIA_BOLD_ITALIC : self::GEORGIA_BOLD)
-                          : ($italic ? self::GEORGIA_ITALIC : self::GEORGIA)
-                );
-
-                break;
-            case 'Impact':
-                $fontFile = self::IMPACT;
-
-                break;
-            case 'Liberation Sans':
-                $fontFile = (
-                    $bold ? ($italic ? self::LIBERATION_SANS_BOLD_ITALIC : self::LIBERATION_SANS_BOLD)
-                          : ($italic ? self::LIBERATION_SANS_ITALIC : self::LIBERATION_SANS)
-                );
-
-                break;
-            case 'Lucida Console':
-                $fontFile = self::LUCIDA_CONSOLE;
-
-                break;
-            case 'Lucida Sans Unicode':
-                $fontFile = self::LUCIDA_SANS_UNICODE;
-
-                break;
-            case 'Microsoft Sans Serif':
-                $fontFile = self::MICROSOFT_SANS_SERIF;
-
-                break;
-            case 'Palatino Linotype':
-                $fontFile = (
-                    $bold ? ($italic ? self::PALATINO_LINOTYPE_BOLD_ITALIC : self::PALATINO_LINOTYPE_BOLD)
-                          : ($italic ? self::PALATINO_LINOTYPE_ITALIC : self::PALATINO_LINOTYPE)
-                );
-
-                break;
-            case 'Symbol':
-                $fontFile = self::SYMBOL;
-
-                break;
-            case 'Tahoma':
-                $fontFile = (
-                    $bold ? self::TAHOMA_BOLD : self::TAHOMA
-                );
-
-                break;
-            case 'Times New Roman':
-                $fontFile = (
-                    $bold ? ($italic ? self::TIMES_NEW_ROMAN_BOLD_ITALIC : self::TIMES_NEW_ROMAN_BOLD)
-                          : ($italic ? self::TIMES_NEW_ROMAN_ITALIC : self::TIMES_NEW_ROMAN)
-                );
-
-                break;
-            case 'Trebuchet MS':
-                $fontFile = (
-                    $bold ? ($italic ? self::TREBUCHET_MS_BOLD_ITALIC : self::TREBUCHET_MS_BOLD)
-                          : ($italic ? self::TREBUCHET_MS_ITALIC : self::TREBUCHET_MS)
-                );
-
-                break;
-            case 'Verdana':
-                $fontFile = (
-                    $bold ? ($italic ? self::VERDANA_BOLD_ITALIC : self::VERDANA_BOLD)
-                          : ($italic ? self::VERDANA_ITALIC : self::VERDANA)
-                );
-
-                break;
-            default:
-                throw new PhpSpreadsheetException('Unknown font name "' . $name . '". Cannot map to TrueType font file');
-
-                break;
+        $index = 'x';
+        if ($bold) {
+            $index .= 'b';
         }
+        if ($italic) {
+            $index .= 'i';
+        }
+        $fontFile = self::FONT_FILE_NAMES[$name][$index];
 
-        $fontFile = self::$trueTypeFontPath . $fontFile;
+        $separator = '';
+        if (mb_strlen(self::$trueTypeFontPath) > 1 && mb_substr(self::$trueTypeFontPath, -1) !== '/' && mb_substr(self::$trueTypeFontPath, -1) !== '\\') {
+            $separator = DIRECTORY_SEPARATOR;
+        }
+        $fontFile = self::$trueTypeFontPath . $separator . $fontFile;
 
         // Check if file actually exists
-        if (!file_exists($fontFile)) {
+        if ($checkPath && !file_exists($fontFile)) {
             throw new PhpSpreadsheetException('TrueType Font file not found');
         }
 
         return $fontFile;
     }
+
+    public const CHARSET_FROM_FONT_NAME = [
+        'EucrosiaUPC' => self::CHARSET_ANSI_THAI,
+        'Wingdings' => self::CHARSET_SYMBOL,
+        'Wingdings 2' => self::CHARSET_SYMBOL,
+        'Wingdings 3' => self::CHARSET_SYMBOL,
+    ];
 
     /**
      * Returns the associated charset for the font name.
@@ -541,19 +576,7 @@ class Font
      */
     public static function getCharsetFromFontName($fontName)
     {
-        switch ($fontName) {
-            // Add more cases. Check FONT records in real Excel files.
-            case 'EucrosiaUPC':
-                return self::CHARSET_ANSI_THAI;
-            case 'Wingdings':
-                return self::CHARSET_SYMBOL;
-            case 'Wingdings 2':
-                return self::CHARSET_SYMBOL;
-            case 'Wingdings 3':
-                return self::CHARSET_SYMBOL;
-            default:
-                return self::CHARSET_ANSI_LATIN;
-        }
+        return self::CHARSET_FROM_FONT_NAME[$fontName] ?? self::CHARSET_ANSI_LATIN;
     }
 
     /**
@@ -567,17 +590,17 @@ class Font
      */
     public static function getDefaultColumnWidthByFont(FontStyle $font, $returnAsPixels = false)
     {
-        if (isset(self::$defaultColumnWidths[$font->getName()][$font->getSize()])) {
+        if (isset(self::DEFAULT_COLUMN_WIDTHS[$font->getName()][$font->getSize()])) {
             // Exact width can be determined
             $columnWidth = $returnAsPixels ?
-                self::$defaultColumnWidths[$font->getName()][$font->getSize()]['px']
-                    : self::$defaultColumnWidths[$font->getName()][$font->getSize()]['width'];
+                self::DEFAULT_COLUMN_WIDTHS[$font->getName()][$font->getSize()]['px']
+                    : self::DEFAULT_COLUMN_WIDTHS[$font->getName()][$font->getSize()]['width'];
         } else {
             // We don't have data for this particular font and size, use approximation by
             // extrapolating from Calibri 11
             $columnWidth = $returnAsPixels ?
-                self::$defaultColumnWidths['Calibri'][11]['px']
-                    : self::$defaultColumnWidths['Calibri'][11]['width'];
+                self::DEFAULT_COLUMN_WIDTHS['Calibri'][11]['px']
+                    : self::DEFAULT_COLUMN_WIDTHS['Calibri'][11]['width'];
             $columnWidth = $columnWidth * $font->getSize() / 11;
 
             // Round pixels to closest integer
@@ -599,173 +622,14 @@ class Font
      */
     public static function getDefaultRowHeightByFont(FontStyle $font)
     {
-        switch ($font->getName()) {
-            case 'Arial':
-                switch ($font->getSize()) {
-                    case 10:
-                        // inspection of Arial 10 workbook says 12.75pt ~17px
-                        $rowHeight = 12.75;
-
-                        break;
-                    case 9:
-                        // inspection of Arial 9 workbook says 12.00pt ~16px
-                        $rowHeight = 12;
-
-                        break;
-                    case 8:
-                        // inspection of Arial 8 workbook says 11.25pt ~15px
-                        $rowHeight = 11.25;
-
-                        break;
-                    case 7:
-                        // inspection of Arial 7 workbook says 9.00pt ~12px
-                        $rowHeight = 9;
-
-                        break;
-                    case 6:
-                    case 5:
-                        // inspection of Arial 5,6 workbook says 8.25pt ~11px
-                        $rowHeight = 8.25;
-
-                        break;
-                    case 4:
-                        // inspection of Arial 4 workbook says 6.75pt ~9px
-                        $rowHeight = 6.75;
-
-                        break;
-                    case 3:
-                        // inspection of Arial 3 workbook says 6.00pt ~8px
-                        $rowHeight = 6;
-
-                        break;
-                    case 2:
-                    case 1:
-                        // inspection of Arial 1,2 workbook says 5.25pt ~7px
-                        $rowHeight = 5.25;
-
-                        break;
-                    default:
-                        // use Arial 10 workbook as an approximation, extrapolation
-                        $rowHeight = 12.75 * $font->getSize() / 10;
-
-                        break;
-                }
-
-                break;
-            case 'Calibri':
-                switch ($font->getSize()) {
-                    case 11:
-                        // inspection of Calibri 11 workbook says 15.00pt ~20px
-                        $rowHeight = 15;
-
-                        break;
-                    case 10:
-                        // inspection of Calibri 10 workbook says 12.75pt ~17px
-                        $rowHeight = 12.75;
-
-                        break;
-                    case 9:
-                        // inspection of Calibri 9 workbook says 12.00pt ~16px
-                        $rowHeight = 12;
-
-                        break;
-                    case 8:
-                        // inspection of Calibri 8 workbook says 11.25pt ~15px
-                        $rowHeight = 11.25;
-
-                        break;
-                    case 7:
-                        // inspection of Calibri 7 workbook says 9.00pt ~12px
-                        $rowHeight = 9;
-
-                        break;
-                    case 6:
-                    case 5:
-                        // inspection of Calibri 5,6 workbook says 8.25pt ~11px
-                        $rowHeight = 8.25;
-
-                        break;
-                    case 4:
-                        // inspection of Calibri 4 workbook says 6.75pt ~9px
-                        $rowHeight = 6.75;
-
-                        break;
-                    case 3:
-                        // inspection of Calibri 3 workbook says 6.00pt ~8px
-                        $rowHeight = 6.00;
-
-                        break;
-                    case 2:
-                    case 1:
-                        // inspection of Calibri 1,2 workbook says 5.25pt ~7px
-                        $rowHeight = 5.25;
-
-                        break;
-                    default:
-                        // use Calibri 11 workbook as an approximation, extrapolation
-                        $rowHeight = 15 * $font->getSize() / 11;
-
-                        break;
-                }
-
-                break;
-            case 'Verdana':
-                switch ($font->getSize()) {
-                    case 10:
-                        // inspection of Verdana 10 workbook says 12.75pt ~17px
-                        $rowHeight = 12.75;
-
-                        break;
-                    case 9:
-                        // inspection of Verdana 9 workbook says 11.25pt ~15px
-                        $rowHeight = 11.25;
-
-                        break;
-                    case 8:
-                        // inspection of Verdana 8 workbook says 10.50pt ~14px
-                        $rowHeight = 10.50;
-
-                        break;
-                    case 7:
-                        // inspection of Verdana 7 workbook says 9.00pt ~12px
-                        $rowHeight = 9.00;
-
-                        break;
-                    case 6:
-                    case 5:
-                        // inspection of Verdana 5,6 workbook says 8.25pt ~11px
-                        $rowHeight = 8.25;
-
-                        break;
-                    case 4:
-                        // inspection of Verdana 4 workbook says 6.75pt ~9px
-                        $rowHeight = 6.75;
-
-                        break;
-                    case 3:
-                        // inspection of Verdana 3 workbook says 6.00pt ~8px
-                        $rowHeight = 6;
-
-                        break;
-                    case 2:
-                    case 1:
-                        // inspection of Verdana 1,2 workbook says 5.25pt ~7px
-                        $rowHeight = 5.25;
-
-                        break;
-                    default:
-                        // use Verdana 10 workbook as an approximation, extrapolation
-                        $rowHeight = 12.75 * $font->getSize() / 10;
-
-                        break;
-                }
-
-                break;
-            default:
-                // just use Calibri as an approximation
-                $rowHeight = 15 * $font->getSize() / 11;
-
-                break;
+        $name = $font->getName();
+        $size = $font->getSize();
+        if (isset(self::DEFAULT_COLUMN_WIDTHS[$name][$size])) {
+            $rowHeight = self::DEFAULT_COLUMN_WIDTHS[$name][$size]['height'];
+        } elseif ($name === 'Arial' || $name === 'Verdana') {
+            $rowHeight = self::DEFAULT_COLUMN_WIDTHS[$name][10]['height'] * $size / 10.0;
+        } else {
+            $rowHeight = self::DEFAULT_COLUMN_WIDTHS['Calibri'][11]['height'] * $size / 11.0;
         }
 
         return $rowHeight;

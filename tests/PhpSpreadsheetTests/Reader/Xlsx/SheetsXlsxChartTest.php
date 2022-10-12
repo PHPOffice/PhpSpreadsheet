@@ -23,6 +23,7 @@ class SheetsXlsxChartTest extends TestCase
         $chart1 = $charts[0];
         self::assertNotNull($chart1);
         $pa1 = $chart1->getPlotArea();
+        self::assertNotNull($pa1);
         self::assertEquals(2, $pa1->getPlotSeriesCount());
 
         $pg1 = $pa1->getPlotGroup()[0];
@@ -35,6 +36,7 @@ class SheetsXlsxChartTest extends TestCase
         $chart2 = $charts[1];
         self::assertNotNull($chart2);
         $pa1 = $chart2->getPlotArea();
+        self::assertNotNull($pa1);
         self::assertEquals(2, $pa1->getPlotSeriesCount());
 
         $pg1 = $pa1->getPlotGroupByIndex(0);

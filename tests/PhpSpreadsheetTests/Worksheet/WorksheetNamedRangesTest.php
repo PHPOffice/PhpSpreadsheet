@@ -29,6 +29,15 @@ class WorksheetNamedRangesTest extends TestCase
         self::assertTrue($cellExists);
     }
 
+    public function testCellExistsUtf8(): void
+    {
+        $namedCell = 'Χαιρετισμός';
+
+        $worksheet = $this->spreadsheet->getActiveSheet();
+        $cellExists = $worksheet->cellExists($namedCell);
+        self::assertTrue($cellExists);
+    }
+
     public function testCellNotExists(): void
     {
         $namedCell = 'GOODBYE';
@@ -65,6 +74,15 @@ class WorksheetNamedRangesTest extends TestCase
         $worksheet = $this->spreadsheet->getActiveSheet();
         $cell = $worksheet->getCell($namedCell);
         self::assertSame('Hello', $cell->getValue());
+    }
+
+    public function testGetCellUtf8(): void
+    {
+        $namedCell = 'Χαιρετισμός';
+
+        $worksheet = $this->spreadsheet->getActiveSheet();
+        $cell = $worksheet->getCell($namedCell);
+        self::assertSame('नमस्ते', $cell->getValue());
     }
 
     public function testGetCellNotExists(): void
