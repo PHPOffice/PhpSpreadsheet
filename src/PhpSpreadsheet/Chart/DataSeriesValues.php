@@ -496,7 +496,7 @@ class DataSeriesValues extends Properties
                 if (($dimensions[0] == 1) || ($dimensions[1] == 1)) {
                     $this->dataValues = Functions::flattenArray($newDataValues);
                 } else {
-                    $newArray = array_values(array_shift($newDataValues));
+                    $newArray = array_values(array_shift(/** @scrutinizer ignore-type */ $newDataValues));
                     foreach ($newArray as $i => $newDataSet) {
                         $newArray[$i] = [$newDataSet];
                     }

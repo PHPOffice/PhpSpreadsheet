@@ -112,7 +112,7 @@ class Periodic
         $rr = 1.0 + $reinvestmentRate;
         $fr = 1.0 + $financeRate;
 
-        $npvPos = $npvNeg = 0.0;
+        $npvPos = $npvNeg = self::$zeroPointZero;
         foreach ($values as $i => $v) {
             if ($v >= 0) {
                 $npvPos += $v / $rr ** $i;
@@ -121,7 +121,7 @@ class Periodic
             }
         }
 
-        if (($npvNeg === 0.0) || ($npvPos === 0.0) || ($reinvestmentRate <= -1.0)) {
+        if (($npvNeg === self::$zeroPointZero) || ($npvPos === self::$zeroPointZero) || ($reinvestmentRate <= -1.0)) {
             return ExcelError::VALUE();
         }
 
@@ -130,6 +130,13 @@ class Periodic
 
         return is_finite($mirr) ? $mirr : ExcelError::VALUE();
     }
+
+    /**
+     * Sop to Scrutinizer.
+     *
+     * @var float
+     */
+    private static $zeroPointZero = 0.0;
 
     /**
      * NPV.
