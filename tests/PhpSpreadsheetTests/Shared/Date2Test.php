@@ -51,6 +51,7 @@ class Date2Test extends TestCase
         self::assertSame(0, $this->spreadsheet->getActiveSheetIndex());
         $sheet = $this->spreadsheet->getActiveSheet();
         $newSheet = $this->spreadsheet->createSheet();
+        $newSheet->getCell('B7')->setValue('Here');
         $sheet->getCell('A1')->setValue($value);
         if ($format !== null) {
             $sheet->getStyle('A1')->getNumberFormat()->setFormatCode($format);
@@ -99,6 +100,7 @@ class Date2Test extends TestCase
         self::assertSame(0, $this->spreadsheet->getActiveSheetIndex());
         $sheet = $this->spreadsheet->getActiveSheet();
         $newSheet = $this->spreadsheet->createSheet();
+        $newSheet->getCell('B7')->setValue('Here');
         $sheet->getCell('A1')->setValue($value);
         if ($format !== null) {
             $sheet->getStyle('A1')->getNumberFormat()->setFormatCode($format);
@@ -147,6 +149,7 @@ class Date2Test extends TestCase
         self::assertSame(0, $this->spreadsheet->getActiveSheetIndex());
         $sheet = $this->spreadsheet->getActiveSheet();
         $newSheet = $this->spreadsheet->createSheet();
+        $newSheet->getCell('B7')->setValue('Here');
         $sheet->getCell('A1')->setValue($value);
         if ($format !== null) {
             $sheet->getStyle('A1')->getNumberFormat()->setFormatCode($format);
@@ -172,6 +175,7 @@ class Date2Test extends TestCase
         self::assertSame(0, $this->spreadsheet->getActiveSheetIndex());
         $sheet = $this->spreadsheet->getActiveSheet();
         $newSheet = $this->spreadsheet->createSheet();
+        $newSheet->getCell('B7')->setValue('Here');
         $sheet->getCell('A1')->setValue($value);
         if ($format !== null) {
             $sheet->getStyle('A1')->getNumberFormat()->setFormatCode($format);
