@@ -111,9 +111,11 @@ class BesselI
         return ($x < 0.0) ? -$ans : $ans;
     }
 
+    private const ZERO_POINT_ZERO = 0.0;
+
     private static function besselI2(float $x, int $ord): float
     {
-        if ($x === 0.0) {
+        if ($x === self::ZERO_POINT_ZERO) {
             return 0.0;
         }
 
