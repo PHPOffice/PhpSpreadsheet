@@ -57,6 +57,9 @@ class Table extends WriterPart
                     $objWriter->writeAttribute('colId', (string) $offset);
                     $objWriter->writeAttribute('hiddenButton', '1');
                     $objWriter->endElement();
+                } else {
+                    $column = $table->getAutoFilter()->getColumnByOffset($offset);
+                    AutoFilter::writeAutoFilterColumn($objWriter, $column, $offset);
                 }
             }
             $objWriter->endElement();
