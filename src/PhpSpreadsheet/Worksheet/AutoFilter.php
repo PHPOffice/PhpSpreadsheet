@@ -9,7 +9,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Internal\WildcardMatch;
 use PhpOffice\PhpSpreadsheet\Cell\AddressRange;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
-use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
+use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule;
 
@@ -104,7 +104,7 @@ class AutoFilter
      * Set AutoFilter Cell Range.
      *
      * @param AddressRange|array<int>|string $range
-     *            A simple string containing a Cell range like 'A1:E10' is permitted
+     *            A simple string containing a Cell range like 'A1:E10' or a Cell address like 'A1' is permitted
      *              or passing in an array of [$fromColumnIndex, $fromRow, $toColumnIndex, $toRow] (e.g. [3, 5, 6, 8]),
      *              or an AddressRange object.
      */
@@ -115,6 +115,7 @@ class AutoFilter
         if ($range !== '') {
             [, $range] = Worksheet::extractSheetTitle(Validations::validateCellRange($range), true);
         }
+
         if (empty($range)) {
             //    Discard all column rules
             $this->columns = [];
@@ -123,8 +124,8 @@ class AutoFilter
             return $this;
         }
 
-        if (strpos($range, ':') === false) {
-            throw new PhpSpreadsheetException('Autofilter must be set on a range of cells.');
+        if (ctype_digit($range) || ctype_alpha($range)) {
+            throw new Exception("{$range} is an invalid range for AutoFilter");
         }
 
         $this->range = $range;
@@ -174,13 +175,13 @@ class AutoFilter
     public function testColumnInRange($column)
     {
         if (empty($this->range)) {
-            throw new PhpSpreadsheetException('No autofilter range is defined.');
+            throw new Exception('No autofilter range is defined.');
         }
 
         $columnIndex = Coordinate::columnIndexFromString($column);
         [$rangeStart, $rangeEnd] = Coordinate::rangeBoundaries($this->range);
         if (($rangeStart[0] > $columnIndex) || ($rangeEnd[0] < $columnIndex)) {
-            throw new PhpSpreadsheetException('Column is outside of current autofilter range.');
+            throw new Exception('Column is outside of current autofilter range.');
         }
 
         return $columnIndex - $rangeStart[0];
@@ -247,7 +248,7 @@ class AutoFilter
         } elseif (is_object($columnObjectOrString) && ($columnObjectOrString instanceof AutoFilter\Column)) {
             $column = $columnObjectOrString->getColumnIndex();
         } else {
-            throw new PhpSpreadsheetException('Column is not within the autofilter range.');
+            throw new Exception('Column is not within the autofilter range.');
         }
         $this->testColumnInRange($column);
 
@@ -1031,6 +1032,8 @@ class AutoFilter
             }
         }
 
+        $rangeEnd[1] = $this->autoExtendRange($rangeStart[1], $rangeEnd[1]);
+
         //    Execute the column tests for each row in the autoFilter range to determine show/hide,
         for ($row = $rangeStart[1] + 1; $row <= $rangeEnd[1]; ++$row) {
             $result = true;
@@ -1051,6 +1054,29 @@ class AutoFilter
         $this->evaluated = true;
 
         return $this;
+    }
+
+    /**
+     * Magic Range Auto-sizing.
+     * For a single row rangeSet, we follow MS Excel rules, and search for the first empty row to determine our range.
+     */
+    public function autoExtendRange(int $startRow, int $endRow): int
+    {
+        if ($startRow === $endRow && $this->workSheet !== null) {
+            try {
+                $rowIterator = $this->workSheet->getRowIterator($startRow + 1);
+            } catch (Exception $e) {
+                // If there are no rows below $startRow
+                return $startRow;
+            }
+            foreach ($rowIterator as $row) {
+                if ($row->isEmpty(CellIterator::TREAT_NULL_VALUE_AS_EMPTY_CELL | CellIterator::TREAT_EMPTY_STRING_AS_EMPTY_CELL) === true) {
+                    return $row->getRowIndex() - 1;
+                }
+            }
+        }
+
+        return $endRow;
     }
 
     /**

@@ -115,7 +115,9 @@ class DefinedNames
             [, $range[0]] = Worksheet::extractSheetTitle($range[0], true);
 
             $range[0] = Coordinate::absoluteCoordinate($range[0]);
-            $range[1] = Coordinate::absoluteCoordinate($range[1]);
+            if (count($range) > 1) {
+                $range[1] = Coordinate::absoluteCoordinate($range[1]);
+            }
             $range = implode(':', $range);
 
             $this->objWriter->writeRawData('\'' . str_replace("'", "''", $worksheet->getTitle()) . '\'!' . $range);

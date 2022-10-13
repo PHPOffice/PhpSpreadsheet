@@ -236,7 +236,7 @@ class Format
             $value = ($format === true) ? Calculation::wrapResult($value) : $value;
             $value = str_replace("\n", '', $value);
         } elseif (is_bool($value)) {
-            $value = Calculation::$localeBoolean[$value === true ? 'TRUE' : 'FALSE'];
+            $value = Calculation::getLocaleBoolean($value ? 'TRUE' : 'FALSE');
         }
 
         return (string) $value;

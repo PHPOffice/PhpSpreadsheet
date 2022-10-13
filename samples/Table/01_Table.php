@@ -1,6 +1,7 @@
 <?php
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter;
 use PhpOffice\PhpSpreadsheet\Worksheet\Table;
 use PhpOffice\PhpSpreadsheet\Worksheet\Table\TableStyle;
 
@@ -46,16 +47,37 @@ $dataArray = [
     ['2011', 'Q2', 'Belgium', 350],
     ['2011', 'Q3', 'Belgium', 450],
     ['2011', 'Q4', 'Belgium', 500],
+    ['2010', 'Q1', 'UK', 690],
+    ['2010', 'Q2', 'UK', 610],
+    ['2010', 'Q3', 'UK', 620],
+    ['2010', 'Q4', 'UK', 600],
+    ['2011', 'Q1', 'UK', 720],
+    ['2011', 'Q2', 'UK', 650],
+    ['2011', 'Q3', 'UK', 580],
+    ['2011', 'Q4', 'UK', 510],
+    ['2010', 'Q1', 'France', 510],
+    ['2010', 'Q2', 'France', 490],
+    ['2010', 'Q3', 'France', 460],
+    ['2010', 'Q4', 'France', 590],
+    ['2011', 'Q1', 'France', 620],
+    ['2011', 'Q2', 'France', 650],
+    ['2011', 'Q3', 'France', 415],
+    ['2011', 'Q4', 'France', 570],
 ];
 
 $spreadsheet->getActiveSheet()->fromArray($dataArray, null, 'A2');
 
 // Create Table
 $helper->log('Create Table');
-$table = new Table('A1:D17', 'Sales_Data');
+$table = new Table('A1:D33', 'Sales_Data');
 
 // Create Columns
 $table->getColumn('D')->setShowFilterButton(false);
+$table->getAutoFilter()->getColumn('A')
+    ->setFilterType(AutoFilter\Column::AUTOFILTER_FILTERTYPE_CUSTOMFILTER)
+    ->createRule()
+    ->setRule(AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_GREATERTHANOREQUAL, 2011)
+    ->setRuleType(AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_CUSTOMFILTER);
 
 // Create Table Style
 $helper->log('Create Table Style');
