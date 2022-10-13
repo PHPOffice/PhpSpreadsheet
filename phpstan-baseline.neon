@@ -1967,18 +1967,6 @@ parameters:
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Font.php
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Parser\\:\\:advance\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Parser\\:\\:\\$spreadsheet has no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 5
-			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
-		-
 			message: "#^Cannot access offset 'encoding' on array\\|false\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Workbook.php
