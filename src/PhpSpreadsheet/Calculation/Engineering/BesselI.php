@@ -111,6 +111,7 @@ class BesselI
         return ($x < 0.0) ? -$ans : $ans;
     }
 
+    /** @var float */
     private const ZERO_POINT_ZERO = 0.0;
 
     private static function besselI2(float $x, int $ord): float
