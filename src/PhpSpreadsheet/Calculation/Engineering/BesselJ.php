@@ -167,7 +167,7 @@ class BesselJ
             if ($jsum === true) {
                 $sum += $bj;
             }
-            $jsum = self::logicalNot($jsum);
+            $jsum = $jsum === false;
             if ($j === $ord) {
                 $ans = $bjp;
             }
@@ -176,11 +176,5 @@ class BesselJ
         $ans /= $sum;
 
         return ($x < 0.0 && ($ord % 2) === 1) ? -$ans : $ans;
-    }
-
-    // Sop to scrutinizer
-    private static function logicalNot(bool $arg): bool
-    {
-        return !$arg;
     }
 }
