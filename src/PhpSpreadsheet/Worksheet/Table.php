@@ -60,6 +60,13 @@ class Table
     private $style;
 
     /**
+     * Table AutoFilter.
+     *
+     * @var AutoFilter
+     */
+    private $autoFilter;
+
+    /**
      * Create a new Table.
      *
      * @param AddressRange|array<int>|string $range
@@ -70,9 +77,10 @@ class Table
      */
     public function __construct($range = '', string $name = '')
     {
+        $this->style = new TableStyle();
+        $this->autoFilter = new AutoFilter($range);
         $this->setRange($range);
         $this->setName($name);
-        $this->style = new TableStyle();
     }
 
     /**
@@ -193,6 +201,8 @@ class Table
         }
 
         $this->range = $range;
+        $this->autoFilter->setRange($range);
+
         //    Discard any column ruless that are no longer valid within this range
         [$rangeStart, $rangeEnd] = Coordinate::rangeBoundaries($this->range);
         foreach ($this->columns as $key => $value) {
@@ -248,6 +258,7 @@ class Table
         }
 
         $this->workSheet = $worksheet;
+        $this->autoFilter->setParent($worksheet);
 
         return $this;
     }
@@ -411,6 +422,24 @@ class Table
     public function setStyle(TableStyle $style): self
     {
         $this->style = $style;
+
+        return $this;
+    }
+
+    /**
+     * Get AutoFilter.
+     */
+    public function getAutoFilter(): AutoFilter
+    {
+        return $this->autoFilter;
+    }
+
+    /**
+     * Set AutoFilter.
+     */
+    public function setAutoFilter(AutoFilter $autoFilter): self
+    {
+        $this->autoFilter = $autoFilter;
 
         return $this;
     }
