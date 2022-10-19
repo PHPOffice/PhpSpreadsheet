@@ -16,7 +16,7 @@ class Settings
      * Class name of the chart renderer used for rendering charts
      * eg: PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph.
      *
-     * @var string
+     * @var ?string
      */
     private static $chartRenderer;
 

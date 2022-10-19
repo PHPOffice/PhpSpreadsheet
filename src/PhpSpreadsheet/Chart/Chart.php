@@ -463,8 +463,8 @@ class Chart
     /**
      * Set the offset position within the Top Left cell for the chart.
      *
-     * @param int $xOffset
-     * @param int $yOffset
+     * @param ?int $xOffset
+     * @param ?int $yOffset
      *
      * @return $this
      */
@@ -587,8 +587,8 @@ class Chart
     /**
      * Set the offset position within the Bottom Right cell for the chart.
      *
-     * @param int $xOffset
-     * @param int $yOffset
+     * @param ?int $xOffset
+     * @param ?int $yOffset
      *
      * @return $this
      */

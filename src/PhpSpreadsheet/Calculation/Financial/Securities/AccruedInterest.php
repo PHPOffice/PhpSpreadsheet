@@ -54,6 +54,7 @@ class AccruedInterest
         $basis = FinancialConstants::BASIS_DAYS_PER_YEAR_NASD,
         $calcMethod = self::ACCRINT_CALCMODE_ISSUE_TO_SETTLEMENT
     ) {
+        self::doNothing($calcMethod);
         $issue = Functions::flattenSingleValue($issue);
         $firstInterest = Functions::flattenSingleValue($firstInterest);
         $settlement = Functions::flattenSingleValue($settlement);
@@ -73,6 +74,7 @@ class AccruedInterest
             $rate = SecurityValidations::validateRate($rate);
             $parValue = SecurityValidations::validateParValue($parValue);
             $frequency = SecurityValidations::validateFrequency($frequency);
+            self::doNothing($frequency);
             $basis = SecurityValidations::validateBasis($basis);
         } catch (Exception $e) {
             return $e->getMessage();
@@ -147,5 +149,11 @@ class AccruedInterest
         }
 
         return $parValue * $rate * $daysBetweenIssueAndSettlement;
+    }
+
+    /** @param mixed $arg */
+    private static function doNothing($arg): bool
+    {
+        return (bool) $arg;
     }
 }

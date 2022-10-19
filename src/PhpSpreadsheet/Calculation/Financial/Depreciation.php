@@ -8,6 +8,9 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 class Depreciation
 {
+    /** @var float */
+    private static $zeroPointZero = 0.0;
+
     /**
      * DB.
      *
@@ -51,7 +54,7 @@ class Depreciation
             return $e->getMessage();
         }
 
-        if ($cost === 0.0) {
+        if ($cost === self::$zeroPointZero) {
             return 0.0;
         }
 
@@ -161,7 +164,7 @@ class Depreciation
             return $e->getMessage();
         }
 
-        if ($life === 0.0) {
+        if ($life === self::$zeroPointZero) {
             return ExcelError::DIV0();
         }
 

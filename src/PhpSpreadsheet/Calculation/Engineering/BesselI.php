@@ -111,9 +111,16 @@ class BesselI
         return ($x < 0.0) ? -$ans : $ans;
     }
 
+    /**
+     * Sop to Scrutinizer.
+     *
+     * @var float
+     */
+    private static $zeroPointZero = 0.0;
+
     private static function besselI2(float $x, int $ord): float
     {
-        if ($x === 0.0) {
+        if ($x === self::$zeroPointZero) {
             return 0.0;
         }
 
