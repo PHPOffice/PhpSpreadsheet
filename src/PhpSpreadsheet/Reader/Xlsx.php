@@ -121,9 +121,12 @@ class Xlsx extends BaseReader
         return is_array($value) ? $value : [];
     }
 
-    private function loadZip(string $filename, string $ns = ''): SimpleXMLElement
+    private function loadZip(string $filename, string $ns = '', bool $replaceUnclosedBr = false): SimpleXMLElement
     {
         $contents = $this->getFromZipArchive($this->zip, $filename);
+        if ($replaceUnclosedBr) {
+            $contents = str_replace('<br>', '<br/>', $contents);
+        }
         $rels = simplexml_load_string(
             $this->securityScanner->scan($contents),
             'SimpleXMLElement',
@@ -1030,7 +1033,7 @@ class Xlsx extends BaseReader
 
                                     try {
                                         // no namespace okay - processed with Xpath
-                                        $vmlCommentsFile = $this->loadZip($relPath, '');
+                                        $vmlCommentsFile = $this->loadZip($relPath, '', true);
                                         $vmlCommentsFile->registerXPathNamespace('v', Namespaces::URN_VML);
                                     } catch (Throwable $ex) {
                                         //Ignore unparsable vmlDrawings. Later they will be moved from $unparsedVmlDrawings to $unparsedLoadedData
