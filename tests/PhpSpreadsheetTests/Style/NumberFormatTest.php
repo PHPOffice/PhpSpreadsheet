@@ -84,4 +84,11 @@ class NumberFormatTest extends TestCase
         self::assertEquals($rslt, '$ 12,345.679');
         StringHelper::setCurrencyCode($cur);
     }
+
+    public function testSmallValueWithComplexFormat(): void
+    {
+        $result = NumberFormat::toFormattedString(1E-17, '0 000.0');
+
+        self::assertEquals('0 000.0', $result);
+    }
 }

@@ -74,6 +74,9 @@ class NumberFormatter
         $number = (string) abs($numberFloat);
 
         if ($splitOnPoint && strpos($mask, '.') !== false && strpos($number, '.') !== false) {
+            if (strpos($number, 'E') !== false) {
+                $number = sprintf('%.'.PHP_FLOAT_DIG.'F', $number);
+            }
             $numbers = explode('.', $number);
             $masks = explode('.', $mask);
             if (count($masks) > 2) {

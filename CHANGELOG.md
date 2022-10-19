@@ -30,7 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Allow setting AutoFilter range on a single cell or row [Issue #3102](https://github.com/PHPOffice/PhpSpreadsheet/issues/3102) [PR #3111](https://github.com/PHPOffice/PhpSpreadsheet/pull/3111)
 - Xlsx Reader External Data Validations Flag Missing [Issue #2677](https://github.com/PHPOffice/PhpSpreadsheet/issues/2677) [PR #3078](https://github.com/PHPOffice/PhpSpreadsheet/pull/3078)
 - Reduces extra memory usage on `__destruct()` calls
-
+- TypeError using small numbers along a complex number format [Issue #3128](https://github.com/PHPOffice/PhpSpreadsheet/issues/3128)
 
 ## 1.25.2 - 2022-09-25
 
