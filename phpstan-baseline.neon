@@ -685,26 +685,6 @@ parameters:
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/TextData/Text.php
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\:\\:getFormulaAttributes\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Cell/Cell.php
-		-
-			message: "#^Parameter \\#2 \\$format of static method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\NumberFormat\\:\\:toFormattedString\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Cell/Cell.php
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\:\\:\\$formulaAttributes has no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Cell/Cell.php
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\:\\:\\$parent \\(PhpOffice\\\\PhpSpreadsheet\\\\Collection\\\\Cells\\) in isset\\(\\) is not nullable\\.$#"
-			count: 6
-			path: src/PhpSpreadsheet/Cell/Cell.php
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Cell/Cell.php
-		-
 			message: "#^Call to an undefined method object\\:\\:getHashCode\\(\\)\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Cell/Coordinate.php
@@ -1078,22 +1058,6 @@ parameters:
 			message: "#^Strict comparison using \\=\\=\\= between int and null will always evaluate to false\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Settings.php
-		-
-			message: "#^Parameter \\#1 \\$excelFormatCode of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Date\\:\\:isDateTimeFormatCode\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/Date.php
-		-
-			message: "#^Parameter \\#1 \\$string of function substr expects string, int given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Shared/Date.php
-		-
-			message: "#^Parameter \\#1 \\$unixTimestamp of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Date\\:\\:timestampToExcel\\(\\) expects int, float\\|int\\|string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/Date.php
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Date\\:\\:\\$possibleDateFormatCharacters has no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/Date.php
 		-
 			message: "#^Cannot access offset 1 on array\\|false\\.$#"
 			count: 1

@@ -81,7 +81,7 @@ $spreadsheet->getActiveSheet()
 $spreadsheet->getActiveSheet()
     ->getStyle('C9')
     ->getNumberFormat()
-    ->setFormatCode(NumberFormat::FORMAT_DATE_YYYYMMDD2);
+    ->setFormatCode(NumberFormat::FORMAT_DATE_YYYYMMDD);
 
 $spreadsheet->getActiveSheet()
     ->setCellValue('A10', 'Date/Time')
