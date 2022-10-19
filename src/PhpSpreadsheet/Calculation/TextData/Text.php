@@ -232,7 +232,7 @@ class Text
     private static function formatValueMode0($cellValue): string
     {
         if (is_bool($cellValue)) {
-            return ($cellValue) ? Calculation::$localeBoolean['TRUE'] : Calculation::$localeBoolean['FALSE'];
+            return Calculation::getLocaleBoolean($cellValue ? 'TRUE' : 'FALSE');
         }
 
         return (string) $cellValue;
@@ -246,7 +246,7 @@ class Text
         if (is_string($cellValue) && Functions::isError($cellValue) === false) {
             return Calculation::FORMULA_STRING_QUOTE . $cellValue . Calculation::FORMULA_STRING_QUOTE;
         } elseif (is_bool($cellValue)) {
-            return ($cellValue) ? Calculation::$localeBoolean['TRUE'] : Calculation::$localeBoolean['FALSE'];
+            return Calculation::getLocaleBoolean($cellValue ? 'TRUE' : 'FALSE');
         }
 
         return (string) $cellValue;
