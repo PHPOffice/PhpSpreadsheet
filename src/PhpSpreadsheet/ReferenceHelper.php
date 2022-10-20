@@ -80,6 +80,9 @@ class ReferenceHelper
         return -strcasecmp(strlen($a) . $a, strlen($b) . $b);
     }
 
+    /** @var int */
+    private static $scrutinizer0 = 0;
+
     /**
      * Compare two cell addresses
      * Intended for use as a Callback function for sorting cell addresses by column and row.
@@ -92,7 +95,8 @@ class ReferenceHelper
     public static function cellSort($a, $b)
     {
         $ac = $bc = '';
-        $ar = $br = 0;
+        $ar = self::$scrutinizer0;
+        $br = 0;
         sscanf($a, '%[A-Z]%d', $ac, $ar);
         sscanf($b, '%[A-Z]%d', $bc, $br);
 
@@ -115,7 +119,8 @@ class ReferenceHelper
     public static function cellReverseSort($a, $b)
     {
         $ac = $bc = '';
-        $ar = $br = 0;
+        $ar = self::$scrutinizer0;
+        $br = 0;
         sscanf($a, '%[A-Z]%d', $ac, $ar);
         sscanf($b, '%[A-Z]%d', $bc, $br);
 
