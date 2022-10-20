@@ -77,7 +77,8 @@ class AddressHelper
         $key = false;
         foreach ($temp as &$value) {
             //    Only replace in alternate array entries (i.e. non-quoted blocks)
-            if ($key = !$key) {
+            $key = $key === false;
+            if ($key) {
                 $value = str_replace(['[.', ':.', ']'], ['', ':', ''], $value);
             }
         }
@@ -104,7 +105,8 @@ class AddressHelper
         $key = false;
         foreach ($temp as &$value) {
             //    Only replace in alternate array entries (i.e. non-quoted blocks)
-            if ($key = !$key) {
+            $key = $key === false;
+            if ($key) {
                 preg_match_all(self::R1C1_COORDINATE_REGEX, $value, $cellReferences, PREG_SET_ORDER + PREG_OFFSET_CAPTURE);
                 //    Reverse the matches array, otherwise all our offsets will become incorrect if we modify our way
                 //        through the formula from left to right. Reversing means that we work right to left.through
