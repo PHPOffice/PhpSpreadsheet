@@ -138,6 +138,7 @@ class ColumnAndRowAttributes extends BaseParserClass
         $columnAttributes = [];
 
         foreach ($worksheetCols->col as $columnx) {
+            /** @scrutinizer ignore-call */
             $column = $columnx->attributes();
             if ($column !== null) {
                 $startColumn = Coordinate::stringFromColumnIndex((int) $column['min']);
@@ -196,6 +197,7 @@ class ColumnAndRowAttributes extends BaseParserClass
         $rowAttributes = [];
 
         foreach ($worksheetRow as $rowx) {
+            /** @scrutinizer ignore-call */
             $row = $rowx->attributes();
             if ($row !== null) {
                 if (isset($row['ht']) && !$readDataOnly) {
