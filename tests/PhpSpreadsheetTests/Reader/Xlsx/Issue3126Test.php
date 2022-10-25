@@ -22,7 +22,7 @@ class Issue3126Test extends TestCase
         self::assertSame('fleche-verte-up-right', $gen1hfName);
         $pageSetupRel = $generation1->getUnparsedLoadedData()['sheets']['Worksheet']['pageSetupRelId'] ?? '';
         self::assertSame('rId1ps', $pageSetupRel);
-        $pageSetupPath = $generation1->getUnparsedLoadedData()['sheets']['Worksheet']['printerSettings']['ps']['filePath'] ?? '';
+        $pageSetupPath = $generation1->getUnparsedLoadedData()['sheets']['Worksheet']['printerSettings'][substr($pageSetupRel, 3)]['filePath'] ?? '';
         self::assertSame('xl/printerSettings/printerSettings1.bin', $pageSetupPath);
 
         $generation2Name = File::temporaryFilename();
@@ -39,7 +39,7 @@ class Issue3126Test extends TestCase
         self::assertSame('fleche-verte-up-right', $gen2hfName);
         $pageSetupRel = $generation2->getUnparsedLoadedData()['sheets']['Worksheet']['pageSetupRelId'] ?? '';
         self::assertSame('rId1ps', $pageSetupRel);
-        $pageSetupPath = $generation2->getUnparsedLoadedData()['sheets']['Worksheet']['printerSettings']['ps']['filePath'] ?? '';
+        $pageSetupPath = $generation2->getUnparsedLoadedData()['sheets']['Worksheet']['printerSettings'][substr($pageSetupRel, 3)]['filePath'] ?? '';
         self::assertSame('xl/printerSettings/printerSettings1.bin', $pageSetupPath);
 
         $generation3Name = File::temporaryFilename();
@@ -56,7 +56,7 @@ class Issue3126Test extends TestCase
         self::assertSame('fleche-verte-up-right', $gen3hfName);
         $pageSetupRel = $generation3->getUnparsedLoadedData()['sheets']['Worksheet']['pageSetupRelId'] ?? '';
         self::assertSame('rId1ps', $pageSetupRel);
-        $pageSetupPath = $generation3->getUnparsedLoadedData()['sheets']['Worksheet']['printerSettings']['ps']['filePath'] ?? '';
+        $pageSetupPath = $generation3->getUnparsedLoadedData()['sheets']['Worksheet']['printerSettings'][substr($pageSetupRel, 3)]['filePath'] ?? '';
         self::assertSame('xl/printerSettings/printerSettings1.bin', $pageSetupPath);
 
         unlink($generation2Name);
