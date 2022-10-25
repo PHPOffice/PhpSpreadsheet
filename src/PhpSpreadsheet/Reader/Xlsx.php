@@ -2040,7 +2040,7 @@ class Xlsx extends BaseReader
         foreach ($sheetPrinterSettings as $rId => $printerSettings) {
             $rId = substr($rId, 3); // rIdXXX
             if (substr($rId, -2) !== 'ps') {
-                $rId = substr($rId, 3) . 'ps'; // rIdXXX, add 'ps' suffix to avoid identical resource identifier collision with unparsed vmlDrawing
+                $rId = $rId . 'ps'; // rIdXXX, add 'ps' suffix to avoid identical resource identifier collision with unparsed vmlDrawing
             }
             $unparsedPrinterSettings[$rId] = [];
             $unparsedPrinterSettings[$rId]['filePath'] = self::dirAdd("$dir/$fileWorksheet", $printerSettings['Target']);
