@@ -1,6 +1,18 @@
 <?php
 
 return [
+    'unsorted numeric array still finds match with type 1?' => [
+        2, // Expected
+        2, // Input
+        [2, 0, 4, 3],
+        1,
+    ],
+    'unsorted array still finds match with type 1?' => [
+        6,
+        'Amplitude',
+        ['Aardvark', 'Apple', 'A~*e', 'A*e', 'A[solve', 'Amplitude', 'Adverse', 'Apartment'],
+        1,
+    ],
     // Third argument = 0
     [
         1, // Expected
@@ -31,12 +43,6 @@ return [
         1, // Expected
         2, // Input
         [2, 3, 4, 3],
-        1,
-    ],
-    [
-        2, // Expected
-        2, // Input
-        [2, 0, 4, 3],
         1,
     ],
     [
@@ -201,7 +207,7 @@ return [
         [true, false, 'a', 'z', 2, 888],
         -1,
     ],
-    [
+    'string compared to number type -1' => [
         '#N/A', // Expected
         6,
         ['6'],
@@ -310,6 +316,18 @@ return [
         ['Aardvark', 'Apple', 'Armadillo', 'Acre', 'Absolve', 'Amplitude', 'Adverse', 'Apartment'],
         0,
     ],
+    'wildcard match with tilde' => [
+        4,
+        'A~*e',
+        ['Aardvark', 'Apple', 'A~*e', 'A*e', 'Absolve', 'Amplitude', 'Adverse', 'Apartment'],
+        0,
+    ],
+    'string with preg_quote escaped character' => [
+        5,
+        'A[solve',
+        ['Aardvark', 'Apple', 'A~*e', 'A*e', 'A[solve', 'Amplitude', 'Adverse', 'Apartment'],
+        0,
+    ],
     [
         '#N/A',
         'A*e',
@@ -357,5 +375,77 @@ return [
         'abc/123*', // wildcard search contains a forward slash
         ['abc123fff', 'abc/123fff'],
         0,
+    ],
+    'float lookup int array type0' => [
+        1, // Expected
+        2.0, // Input
+        [2, 3, 4, 5],
+        0,
+    ],
+    'int lookup float array type0' => [
+        2, // Expected
+        3, // Input
+        [2, 3.0, 4, 5],
+        0,
+    ],
+    'int lookup float array type0 not equal' => [
+        '#N/A', // Expected
+        3, // Input
+        [2, 3.1, 4, 5],
+        0,
+    ],
+    'float lookup int array type0 not equal' => [
+        '#N/A', // Expected
+        3.1, // Input
+        [2, 3, 4, 5],
+        0,
+    ],
+    'float lookup int array type1 equal' => [
+        1, // Expected
+        2.0, // Input
+        [2, 3, 4, 5],
+        1,
+    ],
+    'int lookup float array type1 equal' => [
+        2, // Expected
+        3, // Input
+        [2, 3.0, 4, 5],
+        1,
+    ],
+    'float lookup int array type1 less' => [
+        1, // Expected
+        2.5, // Input
+        [2, 3, 4, 5],
+        1,
+    ],
+    'int lookup float array type1 less' => [
+        2, // Expected
+        3, // Input
+        [2, 2.9, 4, 5],
+        1,
+    ],
+    'float lookup int array type -1 equal' => [
+        4, // Expected
+        2.0, // Input
+        [5, 4, 3, 2],
+        -1,
+    ],
+    'int lookup float array type -1 equal' => [
+        3, // Expected
+        3, // Input
+        [5, 4, 3.0, 2],
+        -1,
+    ],
+    'float lookup int array type -1 greater' => [
+        2, // Expected
+        3.5, // Input
+        [5, 4, 3, 2],
+        -1,
+    ],
+    'int lookup float array type -1 greater' => [
+        2, // Expected
+        3, // Input
+        [5, 4, 2.9, 2],
+        -1,
     ],
 ];

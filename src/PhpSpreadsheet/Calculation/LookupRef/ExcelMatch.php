@@ -87,32 +87,61 @@ class ExcelMatch
         return ExcelError::NA();
     }
 
-    private static function matchFirstValue($lookupArray, $lookupValue)
+    /**
+     * @param mixed $lookupValue
+     *
+     * @return mixed
+     */
+    private static function matchFirstValue(array $lookupArray, $lookupValue)
     {
-        $wildcardLookup = ((bool) preg_match('/([\?\*])/', $lookupValue));
-        $wildcard = WildcardMatch::wildcard($lookupValue);
+        if (is_string($lookupValue)) {
+            $valueIsString = true;
+            $wildcard = WildcardMatch::wildcard($lookupValue);
+        } else {
+            $valueIsString = false;
+            $wildcard = '';
+        }
 
+        $valueIsNumeric = is_int($lookupValue) || is_float($lookupValue);
         foreach ($lookupArray as $i => $lookupArrayValue) {
-            $typeMatch = ((gettype($lookupValue) === gettype($lookupArrayValue)) ||
-                (is_numeric($lookupValue) && is_numeric($lookupArrayValue)));
-
             if (
-                $typeMatch && is_string($lookupValue) &&
-                $wildcardLookup && WildcardMatch::compare($lookupArrayValue, $wildcard)
+                $valueIsString
+                && is_string($lookupArrayValue)
             ) {
-                // wildcard match
-                return $i;
-            } elseif ($lookupArrayValue === $lookupValue) {
-                // exact match
-                return $i;
+                if (WildcardMatch::compare($lookupArrayValue, $wildcard)) {
+                    return $i; // wildcard match
+                }
+            } else {
+                if ($lookupArrayValue === $lookupValue) {
+                    return $i; // exact match
+                }
+                if (
+                    $valueIsNumeric
+                    && (is_float($lookupArrayValue) || is_int($lookupArrayValue))
+                    && $lookupArrayValue == $lookupValue
+                ) {
+                    return $i; // exact match
+                }
             }
         }
 
         return null;
     }
 
-    private static function matchLargestValue($lookupArray, $lookupValue, $keySet)
+    /**
+     * @param mixed $lookupValue
+     *
+     * @return mixed
+     */
+    private static function matchLargestValue(array $lookupArray, $lookupValue, array $keySet)
     {
+        if (is_string($lookupValue)) {
+            foreach ($lookupArray as $i => $lookupArrayValue) {
+                if ($lookupArrayValue === $lookupValue) {
+                    return $keySet[$i];
+                }
+            }
+        }
         foreach ($lookupArray as $i => $lookupArrayValue) {
             $typeMatch = ((gettype($lookupValue) === gettype($lookupArrayValue)) ||
                 (is_numeric($lookupValue) && is_numeric($lookupArrayValue)));
@@ -125,21 +154,32 @@ class ExcelMatch
         return null;
     }
 
-    private static function matchSmallestValue($lookupArray, $lookupValue)
+    /**
+     * @param mixed $lookupValue
+     *
+     * @return mixed
+     */
+    private static function matchSmallestValue(array $lookupArray, $lookupValue)
     {
         $valueKey = null;
 
+        $valueIsNumeric = is_int($lookupValue) || is_float($lookupValue);
         // The basic algorithm is:
         // Iterate and keep the highest match until the next element is smaller than the searched value.
         // Return immediately if perfect match is found
         foreach ($lookupArray as $i => $lookupArrayValue) {
             $typeMatch = gettype($lookupValue) === gettype($lookupArrayValue);
+            $bothNumeric = $valueIsNumeric && (is_int($lookupArrayValue) || is_float($lookupArrayValue));
 
             if ($lookupArrayValue === $lookupValue) {
                 // Another "special" case. If a perfect match is found,
                 // the algorithm gives up immediately
                 return $i;
-            } elseif ($typeMatch && $lookupArrayValue >= $lookupValue) {
+            }
+            if ($bothNumeric && $lookupValue == $lookupArrayValue) {
+                return $i; // exact match, as above
+            }
+            if (($typeMatch || $bothNumeric) && $lookupArrayValue >= $lookupValue) {
                 $valueKey = $i;
             } elseif ($typeMatch && $lookupArrayValue < $lookupValue) {
                 //Excel algorithm gives up immediately if the first element is smaller than the searched value
@@ -150,6 +190,9 @@ class ExcelMatch
         return $valueKey;
     }
 
+    /**
+     * @param mixed $lookupValue
+     */
     private static function validateLookupValue($lookupValue): void
     {
         // Lookup_value type has to be number, text, or logical values
@@ -158,6 +201,9 @@ class ExcelMatch
         }
     }
 
+    /**
+     * @param mixed $matchType
+     */
     private static function validateMatchType($matchType): void
     {
         // Match_type is 0, 1 or -1
@@ -169,7 +215,7 @@ class ExcelMatch
         }
     }
 
-    private static function validateLookupArray($lookupArray): void
+    private static function validateLookupArray(array $lookupArray): void
     {
         // Lookup_array should not be empty
         $lookupArraySize = count($lookupArray);
@@ -178,7 +224,10 @@ class ExcelMatch
         }
     }
 
-    private static function prepareLookupArray($lookupArray, $matchType)
+    /**
+     * @param mixed $matchType
+     */
+    private static function prepareLookupArray(array $lookupArray, $matchType): array
     {
         // Lookup_array should contain only number, text, or logical values, or empty (null) cells
         foreach ($lookupArray as $i => $value) {
