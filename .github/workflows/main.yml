@@ -12,10 +12,7 @@ jobs:
           - '7.4'
           - '8.0'
           - '8.1'
-
-        include:
-          - php-version: '8.2'
-            experimental: true
+          - '8.2'
 
     name: PHP ${{ matrix.php-version }}
 
