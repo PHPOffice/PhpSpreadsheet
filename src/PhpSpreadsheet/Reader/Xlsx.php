@@ -940,7 +940,7 @@ class Xlsx extends BaseReader
                                     }
                                     $node->addAttribute('sqref', $item->children(Namespaces::DATA_VALIDATIONS2)->sqref);
                                     if (isset($item->formula1)) {
-                                        $node->addChild('formula1', $item->formula1->children(Namespaces::DATA_VALIDATIONS2)->f);
+                                        $node->addChild('formula1', htmlspecialchars($item->formula1->children(Namespaces::DATA_VALIDATIONS2)->f));
                                     }
                                 }
                             }
