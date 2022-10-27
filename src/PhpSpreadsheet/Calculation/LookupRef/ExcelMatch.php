@@ -39,12 +39,11 @@ class ExcelMatch
         }
 
         $lookupArray = Functions::flattenArray($lookupArray);
-        $matchType = (int) ($matchType ?? self::MATCHTYPE_LARGEST_VALUE);
 
         try {
             // Input validation
             self::validateLookupValue($lookupValue);
-            self::validateMatchType($matchType);
+            $matchType = self::validateMatchType($matchType);
             self::validateLookupArray($lookupArray);
 
             $keySet = array_keys($lookupArray);
@@ -136,16 +135,29 @@ class ExcelMatch
     private static function matchLargestValue(array $lookupArray, $lookupValue, array $keySet)
     {
         if (is_string($lookupValue)) {
-            foreach ($lookupArray as $i => $lookupArrayValue) {
-                if ($lookupArrayValue === $lookupValue) {
-                    return $keySet[$i];
+            if (Functions::getCompatibilityMode() === Functions::COMPATIBILITY_OPENOFFICE) {
+                $wildcard = WildcardMatch::wildcard($lookupValue);
+                foreach (array_reverse($lookupArray) as $i => $lookupArrayValue) {
+                    if (is_string($lookupArrayValue) && WildcardMatch::compare($lookupArrayValue, $wildcard)) {
+                        return $i;
+                    }
+                }
+            } else {
+                foreach ($lookupArray as $i => $lookupArrayValue) {
+                    if ($lookupArrayValue === $lookupValue) {
+                        return $keySet[$i];
+                    }
                 }
             }
         }
+        $valueIsNumeric = is_int($lookupValue) || is_float($lookupValue);
         foreach ($lookupArray as $i => $lookupArrayValue) {
-            $typeMatch = ((gettype($lookupValue) === gettype($lookupArrayValue)) ||
-                (is_numeric($lookupValue) && is_numeric($lookupArrayValue)));
-
+            if ($valueIsNumeric && (is_int($lookupArrayValue) || is_float($lookupArrayValue))) {
+                if ($lookupArrayValue <= $lookupValue) {
+                    return array_search($i, $keySet);
+                }
+            }
+            $typeMatch = gettype($lookupValue) === gettype($lookupArrayValue);
             if ($typeMatch && ($lookupArrayValue <= $lookupValue)) {
                 return array_search($i, $keySet);
             }
@@ -162,6 +174,16 @@ class ExcelMatch
     private static function matchSmallestValue(array $lookupArray, $lookupValue)
     {
         $valueKey = null;
+        if (is_string($lookupValue)) {
+            if (Functions::getCompatibilityMode() === Functions::COMPATIBILITY_OPENOFFICE) {
+                $wildcard = WildcardMatch::wildcard($lookupValue);
+                foreach ($lookupArray as $i => $lookupArrayValue) {
+                    if (is_string($lookupArrayValue) && WildcardMatch::compare($lookupArrayValue, $wildcard)) {
+                        return $i;
+                    }
+                }
+            }
+        }
 
         $valueIsNumeric = is_int($lookupValue) || is_float($lookupValue);
         // The basic algorithm is:
@@ -204,15 +226,23 @@ class ExcelMatch
     /**
      * @param mixed $matchType
      */
-    private static function validateMatchType($matchType): void
+    private static function validateMatchType($matchType): int
     {
         // Match_type is 0, 1 or -1
-        if (
-            ($matchType !== self::MATCHTYPE_FIRST_VALUE) &&
-            ($matchType !== self::MATCHTYPE_LARGEST_VALUE) && ($matchType !== self::MATCHTYPE_SMALLEST_VALUE)
-        ) {
-            throw new Exception(ExcelError::NA());
+        // However Excel accepts other numeric values,
+        //  including numeric strings and floats.
+        //  It seems to just be interested in the sign.
+        if (!is_numeric($matchType)) {
+            throw new Exception(ExcelError::Value());
         }
+        if ($matchType > 0) {
+            return self::MATCHTYPE_LARGEST_VALUE;
+        }
+        if ($matchType < 0) {
+            return self::MATCHTYPE_SMALLEST_VALUE;
+        }
+
+        return self::MATCHTYPE_FIRST_VALUE;
     }
 
     private static function validateLookupArray(array $lookupArray): void

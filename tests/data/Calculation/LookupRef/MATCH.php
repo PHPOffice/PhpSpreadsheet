@@ -120,10 +120,10 @@ return [
         1,
     ],
     // 0s are causing errors, because things like 0 == 'x' is true. Thanks PHP!
-    [
+    '0 does not match x' => [
         3,
         'x',
-        [[0], [0], ['x'], ['x'], ['x']],
+        [0, 0, 'x', 'x', 'x'],
         0,
     ],
     [
@@ -207,11 +207,41 @@ return [
         [true, false, 'a', 'z', 2, 888],
         -1,
     ],
-    'string compared to number type -1' => [
+    'number compared to string type -1' => [
         '#N/A', // Expected
         6,
         ['6'],
         -1,
+    ],
+    'number compared to string type 0' => [
+        '#N/A', // Expected
+        6,
+        ['6'],
+        0,
+    ],
+    'number compared to string type 1' => [
+        '#N/A', // Expected
+        6,
+        ['6'],
+        1,
+    ],
+    'string compared to number type -1' => [
+        '#N/A', // Expected
+        '6',
+        [6],
+        -1,
+    ],
+    'string compared to number type 0' => [
+        '#N/A', // Expected
+        '6',
+        [6],
+        0,
+    ],
+    'string compared to number type 1' => [
+        '#N/A', // Expected
+        '6',
+        [6],
+        1,
     ],
     // expression match
     [
@@ -292,20 +322,38 @@ return [
         [1, 22, 'aaa'],
         1,
     ],
-    [
-        '#N/A', // Expected (Invalid match type)
+    'int match type other than 0/1/-1 is accepted' => [
+        3, // Expected (Invalid match type)
         'abc',
         [1, 22, 'aaa'],
         123,
     ],
-    [
+    'float match type is accepted' => [
+        3, // Expected (Invalid match type)
+        'abc',
+        [1, 22, 'aaa'],
+        123.5,
+    ],
+    'numeric string match type is accepted' => [
+        3, // Expected (Invalid match type)
+        'abc',
+        [1, 22, 'aaa'],
+        '89.7',
+    ],
+    'non-numeric string match type is not accepted' => [
+        '#VALUE!', // Expected (Invalid match type)
+        'abc',
+        [1, 22, 'aaa'],
+        '"x"',
+    ],
+    'empty lookup array' => [
         '#N/A', // Expected (Empty lookup array)
         'abc',
         [],
         1,
     ],
-    [
-        8,
+    'wildcard match 1 with type -1' => [
+        [8, 2], // LibreOffice matches wildcard but shouldn't
         'A*e',
         ['Aardvark', 'Apple', 'Armadillo', 'Acre', 'Absolve', 'Amplitude', 'Adverse', 'Apartment'],
         -1,
@@ -328,14 +376,10 @@ return [
         ['Aardvark', 'Apple', 'A~*e', 'A*e', 'A[solve', 'Amplitude', 'Adverse', 'Apartment'],
         0,
     ],
-    [
-        '#N/A',
-        'A*e',
-        ['Aardvark', 'Apple', 'Armadillo', 'Acre', 'Absolve', 'Amplitude', 'Adverse', 'Apartment'],
-        1,
-    ],
-    [
-        8,
+    // duplicate test deleted - see 'wildcard with type 1' below
+    // end of deletions
+    'wildcard match 2 with type -1' => [
+        [8, 5],
         'A?s*e',
         ['Aardvark', 'Apple', 'Armadillo', 'Acre', 'Absolve', 'Amplitude', 'Adverse', 'Apartment'],
         -1,
@@ -346,14 +390,14 @@ return [
         ['Aardvark', 'Apple', 'Armadillo', 'Acre', 'Absolve', 'Amplitude', 'Adverse', 'Apartment'],
         0,
     ],
-    [
-        '#N/A',
+    'wildcard with type 1' => [
+        ['#N/A', 2], // LibreOffice matches wildcard but shouldn't
         'A*e',
         ['Aardvark', 'Apple', 'Armadillo', 'Acre', 'Absolve', 'Amplitude', 'Adverse', 'Apartment'],
         1,
     ],
-    [
-        8,
+    'wildcard match 3 with type -1' => [
+        [8, 3], // LibreOffice matches wildcard but shouldn't
         '*verse',
         ['Obtuse', 'Amuse', 'Obverse', 'Inverse', 'Assurance', 'Amplitude', 'Adverse', 'Apartment'],
         -1,
@@ -446,6 +490,33 @@ return [
         2, // Expected
         3, // Input
         [5, 4, 2.9, 2],
+        -1,
+    ],
+    'default type is type1' => [
+        3, // Expected
+        4, // Input
+        [1, 2, 3, 5],
+    ],
+    'same as previous but explicit type1' => [
+        3, // Expected
+        4, // Input
+        [1, 2, 3, 5],
+    ],
+    'same as previous but type0 so different result' => [
+        '#N/A', // Expected
+        4, // Input
+        [1, 2, 3, 5],
+        0,
+    ],
+    'undefined behavior N/A in Excel 4 in PhpSpreadsheet' => [
+        'incomplete', // Expected
+        4, // Input
+        [8, 6, 3, 1],
+    ],
+    'same as previous but type -1 so match' => [
+        2, // Expected
+        4, // Input
+        [8, 6, 3, 1],
         -1,
     ],
 ];
