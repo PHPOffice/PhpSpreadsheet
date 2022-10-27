@@ -411,6 +411,8 @@ abstract class Coordinate
         //    Sort the result by column and row
         $sortKeys = [];
         foreach ($cellList as $coordinate) {
+            $column = '';
+            $row = 0;
             sscanf($coordinate, '%[A-Z]%d', $column, $row);
             $key = (--$row * 16384) + self::columnIndexFromString($column);
             $sortKeys[$key] = $coordinate;
