@@ -942,7 +942,7 @@ class Xlsx extends BaseReader
                                     if (isset($item->formula1)) {
                                         $childNode = $node->addChild('formula1');
                                         if ($childNode !== null) { // null should never happen
-                                            $childNode[0] = $item->formula1->children(Namespaces::DATA_VALIDATIONS2)->f;
+                                            $childNode[0] = (string) $item->formula1->children(Namespaces::DATA_VALIDATIONS2)->f; // @phpstan-ignore-line
                                         }
                                     }
                                 }

@@ -16,5 +16,8 @@ class Issue3145Test extends TestCase
 
         self::assertEquals('Headline A', $sheet->getCell('A1')->getValue());
         self::assertEquals('Configdential B', $sheet->getCell('A2')->getValue());
+        self::assertSame('OFFSET(INDIRECT(SUBSTITUTE($A2," ","")),0,0,COUNTA(INDIRECT(SUBSTITUTE($A2," ","")&"Col")),1)', $sheet->getCell('B2')->getDataValidation()->getFormula1());
+
+        $spreadsheet->disconnectWorksheets();
     }
 }
