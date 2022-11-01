@@ -119,7 +119,6 @@ class NumberFormatter
         //    decimal point and digits (allowed to be omitted),
         //    E (e permitted), optional sign, one or more digits
         if (preg_match('/^([+-])?([1-9])([.]([0-9]+))?[eE]([+-]?[0-9]+)$/', $s, $matches) === 1) {
-            $sign = '';
             $exponent = (int) $matches[5];
             $sign = ($matches[1] === '-') ? '-' : '';
             if ($exponent >= 0) {
