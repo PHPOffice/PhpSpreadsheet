@@ -17,7 +17,10 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Deprecated
 
-- Nothing
+- Direct update of Calculation::suppressFormulaErrors is replaced with setter.
+- Font public static variable defaultColumnWidths replaced with constant DEFAULT_COLUMN_WIDTHS.
+- ExcelError public static variable errorCodes replaced with constant ERROR_CODES.
+- NumberFormat constant FORMAT_DATE_YYYYMMDD2 replaced with existing identical FORMAT_DATE_YYYYMMDD.
 
 ### Removed
 
@@ -29,7 +32,10 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Use Locale-Independent Float Conversion for Xlsx Writer Custom Property [Issue #3095](https://github.com/PHPOffice/PhpSpreadsheet/issues/3095) [PR #3099](https://github.com/PHPOffice/PhpSpreadsheet/pull/3099)
 - Allow setting AutoFilter range on a single cell or row [Issue #3102](https://github.com/PHPOffice/PhpSpreadsheet/issues/3102) [PR #3111](https://github.com/PHPOffice/PhpSpreadsheet/pull/3111)
 - Xlsx Reader External Data Validations Flag Missing [Issue #2677](https://github.com/PHPOffice/PhpSpreadsheet/issues/2677) [PR #3078](https://github.com/PHPOffice/PhpSpreadsheet/pull/3078)
-- Reduces extra memory usage on `__destruct()` calls
+- Reduces extra memory usage on `__destruct()` calls [PR #3092](https://github.com/PHPOffice/PhpSpreadsheet/pull/3092)
+- Additional properties for Trendlines [Issue #3011](https://github.com/PHPOffice/PhpSpreadsheet/issues/3011) [PR #3028](https://github.com/PHPOffice/PhpSpreadsheet/pull/3028)
+- Calculation suppressFormulaErrors fix [Issue #1531](https://github.com/PHPOffice/PhpSpreadsheet/issues/1531) [PR #3092](https://github.com/PHPOffice/PhpSpreadsheet/pull/3092)
+- Permit Date/Time Entered on Spreadsheet to be Calculated as Float [Issue #1416](https://github.com/PHPOffice/PhpSpreadsheet/issues/1416) [PR #3121](https://github.com/PHPOffice/PhpSpreadsheet/pull/3121)
 
 
 ## 1.25.2 - 2022-09-25

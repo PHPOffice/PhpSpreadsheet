@@ -1507,22 +1507,6 @@ parameters:
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Trend/Trend.php
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\XMLWriter\\:\\:getData\\(\\) should return string but returns string\\|false\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/XMLWriter.php
-		-
-			message: "#^Parameter \\#1 \\$uri of method XMLWriter\\:\\:openUri\\(\\) expects string, string\\|false given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/XMLWriter.php
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\XMLWriter\\:\\:\\$debugEnabled has no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/XMLWriter.php
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\XMLWriter\\:\\:\\$tempFileName \\(string\\) does not accept string\\|false\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/XMLWriter.php
-		-
 			message: "#^Call to function is_array\\(\\) with string will always evaluate to false\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Spreadsheet.php

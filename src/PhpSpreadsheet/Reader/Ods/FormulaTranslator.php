@@ -44,7 +44,8 @@ class FormulaTranslator
             // @var string $value
             // Only replace in alternate array entries (i.e. non-quoted blocks)
             //      so that conversion isn't done in string values
-            if ($tKey = !$tKey) {
+            $tKey = $tKey === false;
+            if ($tKey) {
                 $value = (string) preg_replace(
                     [
                         '/\[\$?([^\.]+)\.([^\.]+):\.([^\.]+)\]/miu', // Cell range reference in another sheet
