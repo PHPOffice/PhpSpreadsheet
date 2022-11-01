@@ -137,15 +137,19 @@ class ColumnAndRowAttributes extends BaseParserClass
     {
         $columnAttributes = [];
 
-        foreach ($worksheetCols->col as $column) {
-            $startColumn = Coordinate::stringFromColumnIndex((int) $column['min']);
-            $endColumn = Coordinate::stringFromColumnIndex((int) $column['max']);
-            ++$endColumn;
-            for ($columnAddress = $startColumn; $columnAddress !== $endColumn; ++$columnAddress) {
-                $columnAttributes[$columnAddress] = $this->readColumnRangeAttributes($column, $readDataOnly);
+        foreach ($worksheetCols->col as $columnx) {
+            /** @scrutinizer ignore-call */
+            $column = $columnx->attributes();
+            if ($column !== null) {
+                $startColumn = Coordinate::stringFromColumnIndex((int) $column['min']);
+                $endColumn = Coordinate::stringFromColumnIndex((int) $column['max']);
+                ++$endColumn;
+                for ($columnAddress = $startColumn; $columnAddress !== $endColumn; ++$columnAddress) {
+                    $columnAttributes[$columnAddress] = $this->readColumnRangeAttributes($column, $readDataOnly);
 
-                if ((int) ($column['max']) == 16384) {
-                    break;
+                    if ((int) ($column['max']) == 16384) {
+                        break;
+                    }
                 }
             }
         }
@@ -153,23 +157,26 @@ class ColumnAndRowAttributes extends BaseParserClass
         return $columnAttributes;
     }
 
-    private function readColumnRangeAttributes(SimpleXMLElement $column, bool $readDataOnly): array
+    private function readColumnRangeAttributes(?SimpleXMLElement $column, bool $readDataOnly): array
     {
         $columnAttributes = [];
-
-        if ($column['style'] && !$readDataOnly) {
-            $columnAttributes['xfIndex'] = (int) $column['style'];
+        if ($column !== null) {
+            if (isset($column['style']) && !$readDataOnly) {
+                $columnAttributes['xfIndex'] = (int) $column['style'];
+            }
+            if (isset($column['hidden']) && self::boolean($column['hidden'])) {
+                $columnAttributes['visible'] = false;
+            }
+            if (isset($column['collapsed']) && self::boolean($column['collapsed'])) {
+                $columnAttributes['collapsed'] = true;
+            }
+            if (isset($column['outlineLevel']) && ((int) $column['outlineLevel']) > 0) {
+                $columnAttributes['outlineLevel'] = (int) $column['outlineLevel'];
+            }
+            if (isset($column['width'])) {
+                $columnAttributes['width'] = (float) $column['width'];
+            }
         }
-        if (self::boolean($column['hidden'])) {
-            $columnAttributes['visible'] = false;
-        }
-        if (self::boolean($column['collapsed'])) {
-            $columnAttributes['collapsed'] = true;
-        }
-        if (((int) $column['outlineLevel']) > 0) {
-            $columnAttributes['outlineLevel'] = (int) $column['outlineLevel'];
-        }
-        $columnAttributes['width'] = (float) $column['width'];
 
         return $columnAttributes;
     }
@@ -189,21 +196,25 @@ class ColumnAndRowAttributes extends BaseParserClass
     {
         $rowAttributes = [];
 
-        foreach ($worksheetRow as $row) {
-            if ($row['ht'] && !$readDataOnly) {
-                $rowAttributes[(int) $row['r']]['rowHeight'] = (float) $row['ht'];
-            }
-            if (self::boolean($row['hidden'])) {
-                $rowAttributes[(int) $row['r']]['visible'] = false;
-            }
-            if (self::boolean($row['collapsed'])) {
-                $rowAttributes[(int) $row['r']]['collapsed'] = true;
-            }
-            if ((int) $row['outlineLevel'] > 0) {
-                $rowAttributes[(int) $row['r']]['outlineLevel'] = (int) $row['outlineLevel'];
-            }
-            if ($row['s'] && !$readDataOnly) {
-                $rowAttributes[(int) $row['r']]['xfIndex'] = (int) $row['s'];
+        foreach ($worksheetRow as $rowx) {
+            /** @scrutinizer ignore-call */
+            $row = $rowx->attributes();
+            if ($row !== null) {
+                if (isset($row['ht']) && !$readDataOnly) {
+                    $rowAttributes[(int) $row['r']]['rowHeight'] = (float) $row['ht'];
+                }
+                if (isset($row['hidden']) && self::boolean($row['hidden'])) {
+                    $rowAttributes[(int) $row['r']]['visible'] = false;
+                }
+                if (isset($row['collapsed']) && self::boolean($row['collapsed'])) {
+                    $rowAttributes[(int) $row['r']]['collapsed'] = true;
+                }
+                if (isset($row['outlineLevel']) && (int) $row['outlineLevel'] > 0) {
+                    $rowAttributes[(int) $row['r']]['outlineLevel'] = (int) $row['outlineLevel'];
+                }
+                if (isset($row['s']) && !$readDataOnly) {
+                    $rowAttributes[(int) $row['r']]['xfIndex'] = (int) $row['s'];
+                }
             }
         }
 
