@@ -2,8 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Namespaces;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class Theme extends WriterPart
 {
@@ -106,7 +106,7 @@ class Theme extends WriterPart
      *
      * @return string XML Output
      */
-    public function writeTheme(Spreadsheet $spreadsheet)
+    public function writeTheme()
     {
         // Create XML writer
         $objWriter = null;
@@ -121,7 +121,7 @@ class Theme extends WriterPart
 
         // a:theme
         $objWriter->startElement('a:theme');
-        $objWriter->writeAttribute('xmlns:a', 'http://schemas.openxmlformats.org/drawingml/2006/main');
+        $objWriter->writeAttribute('xmlns:a', Namespaces::DRAWINGML);
         $objWriter->writeAttribute('name', 'Office Theme');
 
         // a:themeElements

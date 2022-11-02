@@ -80,6 +80,9 @@ class ReferenceHelper
         return -strcasecmp(strlen($a) . $a, strlen($b) . $b);
     }
 
+    /** @var int */
+    private static $scrutinizer0 = 0;
+
     /**
      * Compare two cell addresses
      * Intended for use as a Callback function for sorting cell addresses by column and row.
@@ -91,6 +94,9 @@ class ReferenceHelper
      */
     public static function cellSort($a, $b)
     {
+        $ac = $bc = '';
+        $ar = self::$scrutinizer0;
+        $br = 0;
         sscanf($a, '%[A-Z]%d', $ac, $ar);
         sscanf($b, '%[A-Z]%d', $bc, $br);
 
@@ -112,6 +118,9 @@ class ReferenceHelper
      */
     public static function cellReverseSort($a, $b)
     {
+        $ac = $bc = '';
+        $ar = self::$scrutinizer0;
+        $br = 0;
         sscanf($a, '%[A-Z]%d', $ac, $ar);
         sscanf($b, '%[A-Z]%d', $bc, $br);
 
@@ -576,7 +585,8 @@ class ReferenceHelper
         $i = false;
         foreach ($formulaBlocks as &$formulaBlock) {
             //    Ignore blocks that were enclosed in quotes (alternating entries in the $formulaBlocks array after the explode)
-            if ($i = !$i) {
+            $i = $i === false;
+            if ($i) {
                 $adjustCount = 0;
                 $newCellTokens = $cellTokens = [];
                 //    Search for row ranges (e.g. 'Sheet1'!3:5 or 3:5) with or without $ absolutes (e.g. $3:5)

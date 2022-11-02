@@ -539,7 +539,7 @@ abstract class Properties
     /**
      * Set Soft Edges Size.
      *
-     * @param float $size
+     * @param ?float $size
      */
     public function setSoftEdges($size): void
     {

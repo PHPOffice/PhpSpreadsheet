@@ -1,4 +1,5 @@
 *.min.js binary
+/.editorconfig export-ignore
 /.gitattributes export-ignore
 /.github export-ignore
 /.gitignore export-ignore

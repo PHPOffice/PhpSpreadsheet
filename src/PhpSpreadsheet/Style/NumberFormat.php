@@ -19,6 +19,7 @@ class NumberFormat extends Supervisor
     const FORMAT_PERCENTAGE_0 = '0.0%';
     const FORMAT_PERCENTAGE_00 = '0.00%';
 
+    /** @deprecated 1.26 use FORMAT_DATE_YYYYMMDD instead */
     const FORMAT_DATE_YYYYMMDD2 = 'yyyy-mm-dd';
     const FORMAT_DATE_YYYYMMDD = 'yyyy-mm-dd';
     const FORMAT_DATE_DDMMYYYY = 'dd/mm/yyyy';
@@ -41,6 +42,42 @@ class NumberFormat extends Supervisor
     const FORMAT_DATE_TIME7 = 'i:s.S';
     const FORMAT_DATE_TIME8 = 'h:mm:ss;@';
     const FORMAT_DATE_YYYYMMDDSLASH = 'yyyy/mm/dd;@';
+
+    const DATE_TIME_OR_DATETIME_ARRAY = [
+        self::FORMAT_DATE_YYYYMMDD,
+        self::FORMAT_DATE_DDMMYYYY,
+        self::FORMAT_DATE_DMYSLASH,
+        self::FORMAT_DATE_DMYMINUS,
+        self::FORMAT_DATE_DMMINUS,
+        self::FORMAT_DATE_MYMINUS,
+        self::FORMAT_DATE_XLSX14,
+        self::FORMAT_DATE_XLSX15,
+        self::FORMAT_DATE_XLSX16,
+        self::FORMAT_DATE_XLSX17,
+        self::FORMAT_DATE_XLSX22,
+        self::FORMAT_DATE_DATETIME,
+        self::FORMAT_DATE_TIME1,
+        self::FORMAT_DATE_TIME2,
+        self::FORMAT_DATE_TIME3,
+        self::FORMAT_DATE_TIME4,
+        self::FORMAT_DATE_TIME5,
+        self::FORMAT_DATE_TIME6,
+        self::FORMAT_DATE_TIME7,
+        self::FORMAT_DATE_TIME8,
+        self::FORMAT_DATE_YYYYMMDDSLASH,
+    ];
+    const TIME_OR_DATETIME_ARRAY = [
+        self::FORMAT_DATE_XLSX22,
+        self::FORMAT_DATE_DATETIME,
+        self::FORMAT_DATE_TIME1,
+        self::FORMAT_DATE_TIME2,
+        self::FORMAT_DATE_TIME3,
+        self::FORMAT_DATE_TIME4,
+        self::FORMAT_DATE_TIME5,
+        self::FORMAT_DATE_TIME6,
+        self::FORMAT_DATE_TIME7,
+        self::FORMAT_DATE_TIME8,
+    ];
 
     const FORMAT_CURRENCY_USD_SIMPLE = '"$"#,##0.00_-';
     const FORMAT_CURRENCY_USD = '$#,##0_-';

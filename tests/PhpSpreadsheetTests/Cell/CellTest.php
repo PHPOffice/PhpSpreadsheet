@@ -118,8 +118,13 @@ class CellTest extends TestCase
         self::assertSame('A1', $cell->getCoordinate());
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Coordinate no longer exists');
-        $cell->getParent()->delete('A1');
-        $cell->getCoordinate();
+        $parent = $cell->getParent();
+        if ($parent === null) {
+            self::fail('Unexpected null parent');
+        } else {
+            $parent->delete('A1');
+            $cell->getCoordinate();
+        }
     }
 
     public function testAppliedStyleWithRange(): void

@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Namespaces;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Worksheet\Table as WorksheetTable;
 
@@ -34,7 +35,7 @@ class Table extends WriterPart
 
         $objWriter->startElement('table');
         $objWriter->writeAttribute('xml:space', 'preserve');
-        $objWriter->writeAttribute('xmlns', 'http://schemas.openxmlformats.org/spreadsheetml/2006/main');
+        $objWriter->writeAttribute('xmlns', Namespaces::MAIN);
         $objWriter->writeAttribute('id', (string) $tableRef);
         $objWriter->writeAttribute('name', $name);
         $objWriter->writeAttribute('displayName', $table->getName() ?: $name);
@@ -57,6 +58,9 @@ class Table extends WriterPart
                     $objWriter->writeAttribute('colId', (string) $offset);
                     $objWriter->writeAttribute('hiddenButton', '1');
                     $objWriter->endElement();
+                } else {
+                    $column = $table->getAutoFilter()->getColumnByOffset($offset);
+                    AutoFilter::writeAutoFilterColumn($objWriter, $column, $offset);
                 }
             }
             $objWriter->endElement();
