@@ -294,12 +294,14 @@ class Rels extends WriterPart
         }
 
         foreach ($unparsedLoadedData['sheets'][$worksheet->getCodeName()][$relationship] as $rId => $value) {
-            $this->writeRelationship(
-                $objWriter,
-                $rId,
-                $type,
-                $value['relFilePath']
-            );
+            if (substr($rId, 0, 17) !== '_headerfooter_vml') {
+                $this->writeRelationship(
+                    $objWriter,
+                    $rId,
+                    $type,
+                    $value['relFilePath']
+                );
+            }
         }
     }
 

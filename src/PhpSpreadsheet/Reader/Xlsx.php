@@ -1162,14 +1162,21 @@ class Xlsx extends BaseReader
                                 }
 
                                 // Header/footer images
-                                if ($xmlSheet && $xmlSheet->legacyDrawingHF) {
+                                if ($xmlSheetNS && $xmlSheetNS->legacyDrawingHF) {
+                                    $vmlHfRid = '';
+                                    $vmlHfRidAttr = $xmlSheetNS->legacyDrawingHF->attributes(Namespaces::SCHEMA_OFFICE_DOCUMENT);
+                                    if ($vmlHfRidAttr !== null && isset($vmlHfRidAttr['id'])) {
+                                        $vmlHfRid = (string) $vmlHfRidAttr['id'][0];
+                                    }
                                     if ($zip->locateName(dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels')) {
                                         $relsWorksheet = $this->loadZipNoNamespace(dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels', Namespaces::RELATIONSHIPS);
                                         $vmlRelationship = '';
 
                                         foreach ($relsWorksheet->Relationship as $ele) {
-                                            if ($ele['Type'] == Namespaces::VML) {
+                                            if ((string) $ele['Type'] == Namespaces::VML && (string) $ele['Id'] === $vmlHfRid) {
                                                 $vmlRelationship = self::dirAdd("$dir/$fileWorksheet", $ele['Target']);
+
+                                                break;
                                             }
                                         }
 
@@ -1204,20 +1211,23 @@ class Xlsx extends BaseReader
                                                 $imageData = self::getAttributes($imageData, Namespaces::URN_MSOFFICE);
                                                 $style = self::toCSSArray((string) $shape['style']);
 
-                                                $hfImages[(string) $shape['id']] = new HeaderFooterDrawing();
-                                                if (isset($imageData['title'])) {
-                                                    $hfImages[(string) $shape['id']]->setName((string) $imageData['title']);
-                                                }
+                                                if (array_key_exists((string) $imageData['relid'], $drawings)) {
+                                                    $shapeId = (string) $shape['id'];
+                                                    $hfImages[$shapeId] = new HeaderFooterDrawing();
+                                                    if (isset($imageData['title'])) {
+                                                        $hfImages[$shapeId]->setName((string) $imageData['title']);
+                                                    }
 
-                                                $hfImages[(string) $shape['id']]->setPath('zip://' . File::realpath($filename) . '#' . $drawings[(string) $imageData['relid']], false);
-                                                $hfImages[(string) $shape['id']]->setResizeProportional(false);
-                                                $hfImages[(string) $shape['id']]->setWidth($style['width']);
-                                                $hfImages[(string) $shape['id']]->setHeight($style['height']);
-                                                if (isset($style['margin-left'])) {
-                                                    $hfImages[(string) $shape['id']]->setOffsetX($style['margin-left']);
+                                                    $hfImages[$shapeId]->setPath('zip://' . File::realpath($filename) . '#' . $drawings[(string) $imageData['relid']], false);
+                                                    $hfImages[$shapeId]->setResizeProportional(false);
+                                                    $hfImages[$shapeId]->setWidth($style['width']);
+                                                    $hfImages[$shapeId]->setHeight($style['height']);
+                                                    if (isset($style['margin-left'])) {
+                                                        $hfImages[$shapeId]->setOffsetX($style['margin-left']);
+                                                    }
+                                                    $hfImages[$shapeId]->setOffsetY($style['margin-top']);
+                                                    $hfImages[$shapeId]->setResizeProportional(true);
                                                 }
-                                                $hfImages[(string) $shape['id']]->setOffsetY($style['margin-top']);
-                                                $hfImages[(string) $shape['id']]->setResizeProportional(true);
                                             }
 
                                             $docSheet->getHeaderFooter()->setImages($hfImages);
@@ -2044,7 +2054,10 @@ class Xlsx extends BaseReader
 
         $unparsedPrinterSettings = &$unparsedLoadedData['sheets'][$docSheet->getCodeName()]['printerSettings'];
         foreach ($sheetPrinterSettings as $rId => $printerSettings) {
-            $rId = substr($rId, 3) . 'ps'; // rIdXXX, add 'ps' suffix to avoid identical resource identifier collision with unparsed vmlDrawing
+            $rId = substr($rId, 3); // rIdXXX
+            if (substr($rId, -2) !== 'ps') {
+                $rId = $rId . 'ps'; // rIdXXX, add 'ps' suffix to avoid identical resource identifier collision with unparsed vmlDrawing
+            }
             $unparsedPrinterSettings[$rId] = [];
             $unparsedPrinterSettings[$rId]['filePath'] = self::dirAdd("$dir/$fileWorksheet", $printerSettings['Target']);
             $unparsedPrinterSettings[$rId]['relFilePath'] = (string) $printerSettings['Target'];
