@@ -137,6 +137,7 @@ class ConditionalFormattingRuleExtension
         $cfvoIndex = 0;
         foreach ($dataBarXml->cfvo as $cfvo) {
             $f = (string) $cfvo->/** @scrutinizer ignore-call */ children($ns['xm'])->f;
+            /** @scrutinizer ignore-call */
             $attributes = $cfvo->attributes();
             if (!($attributes)) {
                 continue;
