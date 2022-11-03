@@ -61,6 +61,7 @@ class PageSettings
         if (isset($xmlX->WorksheetOptions->PageSetup)) {
             foreach ($xmlX->WorksheetOptions->PageSetup as $pageSetupData) {
                 foreach ($pageSetupData as $pageSetupKey => $pageSetupValue) {
+                    /** @scrutinizer ignore-call */
                     $pageSetupAttributes = $pageSetupValue->attributes($namespaces['x']);
                     if (!$pageSetupAttributes) {
                         continue;

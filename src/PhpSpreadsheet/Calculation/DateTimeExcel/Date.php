@@ -81,7 +81,7 @@ class Date
         }
 
         // Execute function
-        $excelDateValue = SharedDateHelper::formattedPHPToExcel($year, $month, $day);
+        $excelDateValue = SharedDateHelper::formattedPHPToExcel(/** @scrutinizer ignore-type */ $year, $month, $day);
 
         return Helpers::returnIn3FormatsFloat($excelDateValue);
     }
