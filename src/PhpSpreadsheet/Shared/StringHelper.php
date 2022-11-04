@@ -561,6 +561,22 @@ class StringHelper
     //    function convertToNumberIfFraction()
 
     /**
+     * Identify whether a string contains a percentage, and if so,
+     * convert it to a numeric.
+     *
+     * @param string $operand string value to test
+     */
+    public static function convertToNumberIfPercent(string &$operand): bool
+    {
+        if (strpos($operand, '%', -1) !== false) {
+            $operand = (str_replace('%', '', $operand) / 100.00);
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Get the decimal separator. If it has not yet been set explicitly, try to obtain number
      * formatting information from locale.
      */
