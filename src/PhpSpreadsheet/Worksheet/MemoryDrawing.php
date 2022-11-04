@@ -135,6 +135,21 @@ class MemoryDrawing extends BaseDrawing
     }
 
     /**
+     * @param resource $imageStream Stream data to be converted to a Memory Drawing
+     *
+     * @throws Exception
+     */
+    public static function fromStream($imageStream): self
+    {
+        $streamValue = stream_get_contents($imageStream);
+        if ($streamValue === false) {
+            throw new Exception('Unable to read data from stream');
+        }
+
+        return self::fromString($streamValue);
+    }
+
+    /**
      * @param string $imageString String data to be converted to a Memory Drawing
      *
      * @throws Exception
@@ -143,7 +158,7 @@ class MemoryDrawing extends BaseDrawing
     {
         $gdImage = @imagecreatefromstring($imageString);
         if ($gdImage === false) {
-            throw new Exception('String cannot be converted to an image');
+            throw new Exception('Value cannot be converted to an image');
         }
 
         $mimeType = self::identifyMimeType($imageString);

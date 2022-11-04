@@ -65,9 +65,32 @@ class MemoryDrawingTest extends TestCase
     public function testMemoryDrawingFromInvalidString(): void
     {
         $this->expectException(Exception::class);
-        $this->expectExceptionMessage('String cannot be converted to an image');
+        $this->expectExceptionMessage('Value cannot be converted to an image');
 
         $imageString = 'I am not an image';
         MemoryDrawing::fromString($imageString);
+    }
+
+    public function testMemoryDrawingFromStream(): void
+    {
+        $imageFile = __DIR__ . '/../../data/Worksheet/officelogo.jpg';
+
+        $imageStream = fopen($imageFile, 'rb');
+        if ($imageStream === false) {
+            self::markTestSkipped('Unable to read Image file for MemoryDrawing');
+        }
+        $drawing = MemoryDrawing::fromStream($imageStream);
+        fclose($imageStream);
+
+        if (version_compare(PHP_VERSION, '8.0.0', '>=') === true) {
+            self::assertIsObject($drawing->getImageResource());
+            /** @phpstan-ignore-next-line */
+            self::assertInstanceOf(GdImage::class, $drawing->getImageResource());
+        } else {
+            self::assertIsResource($drawing->getImageResource());
+        }
+
+        self::assertSame(MemoryDrawing::MIMETYPE_JPEG, $drawing->getMimeType());
+        self::assertSame(MemoryDrawing::RENDERING_JPEG, $drawing->getRenderingFunction());
     }
 }
