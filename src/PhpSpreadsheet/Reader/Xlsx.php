@@ -763,7 +763,7 @@ class Xlsx extends BaseReader
                                 $sheetViewOptions = new SheetViewOptions($docSheet, $xmlSheet);
                                 $sheetViewOptions->load($this->getReadDataOnly(), $this->styleReader);
 
-                                (new ColumnAndRowAttributes($docSheet, $xmlSheet))
+                                (new ColumnAndRowAttributes($docSheet, $xmlSheetNS))
                                     ->load($this->getReadFilter(), $this->getReadDataOnly());
                             }
 
@@ -913,11 +913,13 @@ class Xlsx extends BaseReader
                                 $this->readTables($xmlSheet, $docSheet, $dir, $fileWorksheet, $zip);
                             }
 
-                            if ($xmlSheet && $xmlSheet->mergeCells && $xmlSheet->mergeCells->mergeCell && !$this->readDataOnly) {
-                                foreach ($xmlSheet->mergeCells->mergeCell as $mergeCell) {
-                                    $mergeRef = (string) $mergeCell['ref'];
+                            if ($xmlSheetNS && $xmlSheetNS->mergeCells && $xmlSheetNS->mergeCells->mergeCell && !$this->readDataOnly) {
+                                foreach ($xmlSheetNS->mergeCells->mergeCell as $mergeCellx) {
+                                    /** @scrutinizer ignore-call */
+                                    $mergeCell = $mergeCellx->attributes();
+                                    $mergeRef = (string) ($mergeCell['ref'] ?? '');
                                     if (strpos($mergeRef, ':') !== false) {
-                                        $docSheet->mergeCells((string) $mergeCell['ref'], Worksheet::MERGE_CELL_CONTENT_HIDE);
+                                        $docSheet->mergeCells($mergeRef, Worksheet::MERGE_CELL_CONTENT_HIDE);
                                     }
                                 }
                             }
@@ -940,7 +942,10 @@ class Xlsx extends BaseReader
                                     }
                                     $node->addAttribute('sqref', $item->children(Namespaces::DATA_VALIDATIONS2)->sqref);
                                     if (isset($item->formula1)) {
-                                        $node->addChild('formula1', $item->formula1->children(Namespaces::DATA_VALIDATIONS2)->f);
+                                        $childNode = $node->addChild('formula1');
+                                        if ($childNode !== null) { // null should never happen
+                                            $childNode[0] = (string) $item->formula1->children(Namespaces::DATA_VALIDATIONS2)->f; // @phpstan-ignore-line
+                                        }
                                     }
                                 }
                             }
@@ -1157,14 +1162,21 @@ class Xlsx extends BaseReader
                                 }
 
                                 // Header/footer images
-                                if ($xmlSheet && $xmlSheet->legacyDrawingHF) {
+                                if ($xmlSheetNS && $xmlSheetNS->legacyDrawingHF) {
+                                    $vmlHfRid = '';
+                                    $vmlHfRidAttr = $xmlSheetNS->legacyDrawingHF->attributes(Namespaces::SCHEMA_OFFICE_DOCUMENT);
+                                    if ($vmlHfRidAttr !== null && isset($vmlHfRidAttr['id'])) {
+                                        $vmlHfRid = (string) $vmlHfRidAttr['id'][0];
+                                    }
                                     if ($zip->locateName(dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels')) {
                                         $relsWorksheet = $this->loadZipNoNamespace(dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels', Namespaces::RELATIONSHIPS);
                                         $vmlRelationship = '';
 
                                         foreach ($relsWorksheet->Relationship as $ele) {
-                                            if ($ele['Type'] == Namespaces::VML) {
+                                            if ((string) $ele['Type'] == Namespaces::VML && (string) $ele['Id'] === $vmlHfRid) {
                                                 $vmlRelationship = self::dirAdd("$dir/$fileWorksheet", $ele['Target']);
+
+                                                break;
                                             }
                                         }
 
@@ -1199,20 +1211,23 @@ class Xlsx extends BaseReader
                                                 $imageData = self::getAttributes($imageData, Namespaces::URN_MSOFFICE);
                                                 $style = self::toCSSArray((string) $shape['style']);
 
-                                                $hfImages[(string) $shape['id']] = new HeaderFooterDrawing();
-                                                if (isset($imageData['title'])) {
-                                                    $hfImages[(string) $shape['id']]->setName((string) $imageData['title']);
-                                                }
+                                                if (array_key_exists((string) $imageData['relid'], $drawings)) {
+                                                    $shapeId = (string) $shape['id'];
+                                                    $hfImages[$shapeId] = new HeaderFooterDrawing();
+                                                    if (isset($imageData['title'])) {
+                                                        $hfImages[$shapeId]->setName((string) $imageData['title']);
+                                                    }
 
-                                                $hfImages[(string) $shape['id']]->setPath('zip://' . File::realpath($filename) . '#' . $drawings[(string) $imageData['relid']], false);
-                                                $hfImages[(string) $shape['id']]->setResizeProportional(false);
-                                                $hfImages[(string) $shape['id']]->setWidth($style['width']);
-                                                $hfImages[(string) $shape['id']]->setHeight($style['height']);
-                                                if (isset($style['margin-left'])) {
-                                                    $hfImages[(string) $shape['id']]->setOffsetX($style['margin-left']);
+                                                    $hfImages[$shapeId]->setPath('zip://' . File::realpath($filename) . '#' . $drawings[(string) $imageData['relid']], false);
+                                                    $hfImages[$shapeId]->setResizeProportional(false);
+                                                    $hfImages[$shapeId]->setWidth($style['width']);
+                                                    $hfImages[$shapeId]->setHeight($style['height']);
+                                                    if (isset($style['margin-left'])) {
+                                                        $hfImages[$shapeId]->setOffsetX($style['margin-left']);
+                                                    }
+                                                    $hfImages[$shapeId]->setOffsetY($style['margin-top']);
+                                                    $hfImages[$shapeId]->setResizeProportional(true);
                                                 }
-                                                $hfImages[(string) $shape['id']]->setOffsetY($style['margin-top']);
-                                                $hfImages[(string) $shape['id']]->setResizeProportional(true);
                                             }
 
                                             $docSheet->getHeaderFooter()->setImages($hfImages);
@@ -1229,6 +1244,9 @@ class Xlsx extends BaseReader
                             if (substr($drawingFilename, 0, 7) === 'xl//xl/') {
                                 $drawingFilename = substr($drawingFilename, 4);
                             }
+                            if (substr($drawingFilename, 0, 8) === '/xl//xl/') {
+                                $drawingFilename = substr($drawingFilename, 5);
+                            }
                             if ($zip->locateName($drawingFilename)) {
                                 $relsWorksheet = $this->loadZipNoNamespace($drawingFilename, Namespaces::RELATIONSHIPS);
                                 $drawings = [];
@@ -1243,10 +1261,10 @@ class Xlsx extends BaseReader
                                     }
                                 }
 
-                                if ($xmlSheet->drawing && !$this->readDataOnly) {
+                                if ($xmlSheetNS->drawing && !$this->readDataOnly) {
                                     $unparsedDrawings = [];
                                     $fileDrawing = null;
-                                    foreach ($xmlSheet->drawing as $drawing) {
+                                    foreach ($xmlSheetNS->drawing as $drawing) {
                                         $drawingRelId = (string) self::getArrayItem(self::getAttributes($drawing, $xmlNamespaceBase), 'id');
                                         $fileDrawing = $drawings[$drawingRelId];
                                         $drawingFilename = dirname($fileDrawing) . '/_rels/' . basename($fileDrawing) . '.rels';
@@ -1261,7 +1279,13 @@ class Xlsx extends BaseReader
                                                     $hyperlinks[(string) $ele['Id']] = (string) $ele['Target'];
                                                 }
                                                 if ($eleType === "$xmlNamespaceBase/image") {
-                                                    $images[(string) $ele['Id']] = self::dirAdd($fileDrawing, $ele['Target']);
+                                                    $eleTarget = (string) $ele['Target'];
+                                                    if (substr($eleTarget, 0, 4) === '/xl/') {
+                                                        $eleTarget = substr($eleTarget, 1);
+                                                        $images[(string) $ele['Id']] = $eleTarget;
+                                                    } else {
+                                                        $images[(string) $ele['Id']] = self::dirAdd($fileDrawing, $eleTarget);
+                                                    }
                                                 } elseif ($eleType === "$xmlNamespaceBase/chart") {
                                                     if ($this->includeCharts) {
                                                         $eleTarget = (string) $ele['Target'];
@@ -2030,7 +2054,10 @@ class Xlsx extends BaseReader
 
         $unparsedPrinterSettings = &$unparsedLoadedData['sheets'][$docSheet->getCodeName()]['printerSettings'];
         foreach ($sheetPrinterSettings as $rId => $printerSettings) {
-            $rId = substr($rId, 3) . 'ps'; // rIdXXX, add 'ps' suffix to avoid identical resource identifier collision with unparsed vmlDrawing
+            $rId = substr($rId, 3); // rIdXXX
+            if (substr($rId, -2) !== 'ps') {
+                $rId = $rId . 'ps'; // rIdXXX, add 'ps' suffix to avoid identical resource identifier collision with unparsed vmlDrawing
+            }
             $unparsedPrinterSettings[$rId] = [];
             $unparsedPrinterSettings[$rId]['filePath'] = self::dirAdd("$dir/$fileWorksheet", $printerSettings['Target']);
             $unparsedPrinterSettings[$rId]['relFilePath'] = (string) $printerSettings['Target'];

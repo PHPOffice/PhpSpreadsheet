@@ -226,7 +226,7 @@ class Slk extends BaseReader
         $key = false;
         foreach ($temp as &$value) {
             //    Only count/replace in alternate array entries
-            $key = !$key;
+            $key = $key === false;
             if ($key) {
                 preg_match_all('/(R(\[?-?\d*\]?))(C(\[?-?\d*\]?))/', $value, $cellReferences, PREG_SET_ORDER + PREG_OFFSET_CAPTURE);
                 //    Reverse the matches array, otherwise all our offsets will become incorrect if we modify our way
