@@ -569,7 +569,7 @@ class StringHelper
     public static function convertToNumberIfPercent(string &$operand): bool
     {
         if (strpos($operand, '%', -1) !== false) {
-            $operand = (str_replace('%', '', $operand) / 100.00);
+            $operand = ((float)(str_replace('%', '', $operand)) / 100.00);
             return true;
         }
 
