@@ -148,4 +148,33 @@ class StringHelperTest extends TestCase
             'improper fraction' => ['1.75', '7/4'],
         ];
     }
+
+    /**
+     * @dataProvider providerPercentages
+     */
+    public function testPercentage(string $expected, string $value): void
+    {
+        $originalValue = $value;
+        $result = StringHelper::convertToNumberIfPercent($value);
+        if ($result === false) {
+            self::assertSame($expected, $originalValue);
+            self::assertSame($expected, $value);
+        } else {
+            self::assertSame($expected, (string) $value);
+            self::assertNotEquals($value, $originalValue);
+        }
+    }
+
+    public function providerPercentages(): array
+    {
+        return [
+            'non-percentage' => ['10', '10'],
+            'single digit percentage' => ['0.02', '2%'],
+            'two digit percentage' => ['0.13', '13%'],
+            'negative single digit percentage' => ['-0.07', '-7%'],
+            'negative two digit percentage' => ['-0.75', '-75%'],
+            'large percentage' => ['98.45', '9845%'],
+            'small percentage' => ['0.0005', '0.05%'],
+        ];
+    }
 }
