@@ -11,6 +11,8 @@ class StringHelper
     //    Fraction
     const STRING_REGEXP_FRACTION = '~^\s*(-?)((\d*)\s+)?(\d+\/\d+)\s*$~';
 
+    const STRING_REGEXP_PERCENT = '~^( *-? *\% *[0-9]+\.?[0-9*]* *| *\-? *[0-9]+\.?[0-9]* *\% *)$~';
+
     /**
      * Control characters array.
      *
@@ -568,8 +570,8 @@ class StringHelper
      */
     public static function convertToNumberIfPercent(string &$operand): bool
     {
-        if (strpos($operand, '%', -1) !== false) {
-            $operand = ((float)(str_replace('%', '', $operand)) / 100.00);
+        if (preg_match(self::STRING_REGEXP_PERCENT, $operand, $match)) {
+            $operand = ((float)(str_replace(['%', ' '], '', $match[0])) / 100.00);
             return true;
         }
 
