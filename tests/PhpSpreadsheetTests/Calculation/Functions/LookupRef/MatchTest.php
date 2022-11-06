@@ -3,25 +3,77 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
-use PHPUnit\Framework\TestCase;
 
-class MatchTest extends TestCase
+class MatchTest extends AllSetupTeardown
 {
-    protected function setUp(): void
+    /**
+     * @dataProvider providerMATCH
+     *
+     * @param mixed $expectedResult
+     * @param mixed $input
+     * @param mixed $type
+     */
+    public function testMATCH($expectedResult, $input, array $array, $type = null): void
     {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
+        if (is_array($expectedResult)) {
+            $expectedResult = $expectedResult[0];
+        }
+        if ($expectedResult === 'incomplete') {
+            self::markTestIncomplete('Undefined behavior with different results in Excel and PhpSpreadsheet');
+        }
+        $this->mightHaveException($expectedResult);
+        $sheet = $this->getSheet();
+        $maxRow = count($array);
+        $formulaArray = '';
+        for ($row = 1; $row <= $maxRow; ++$row) {
+            $this->setCell("A$row", $array[$row - 1]);
+            $formulaArray = "A1:A$row";
+        }
+        $this->setCell('B1', $input);
+        if ($type === null) {
+            $formula = "=MATCH(B1,$formulaArray)";
+        } else {
+            $formula = "=MATCH(B1, $formulaArray, $type)";
+        }
+        $sheet->getCell('D1')->setValue($formula);
+
+        $result = $sheet->getCell('D1')->getCalculatedValue();
+        self::assertEquals($expectedResult, $result);
     }
 
     /**
      * @dataProvider providerMATCH
      *
      * @param mixed $expectedResult
+     * @param mixed $input
+     * @param mixed $type
      */
-    public function testMATCH($expectedResult, ...$args): void
+    public function testMATCHLibre($expectedResult, $input, array $array, $type = null): void
     {
-        $result = LookupRef::MATCH(...$args);
+        $this->setOpenOffice();
+        if (is_array($expectedResult)) {
+            $expectedResult = $expectedResult[1];
+        }
+        if ($expectedResult === 'incomplete') {
+            self::markTestIncomplete('Undefined behavior with different results in Excel and PhpSpreadsheet');
+        }
+        $this->mightHaveException($expectedResult);
+        $sheet = $this->getSheet();
+        $maxRow = count($array);
+        $formulaArray = '';
+        for ($row = 1; $row <= $maxRow; ++$row) {
+            $this->setCell("A$row", $array[$row - 1]);
+            $formulaArray = "A1:A$row";
+        }
+        $this->setCell('B1', $input);
+        if ($type === null) {
+            $formula = "=MATCH(B1,$formulaArray)";
+        } else {
+            $formula = "=MATCH(B1, $formulaArray, $type)";
+        }
+        $sheet->getCell('D1')->setValue($formula);
+
+        $result = $sheet->getCell('D1')->getCalculatedValue();
         self::assertEquals($expectedResult, $result);
     }
 
