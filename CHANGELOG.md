@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Added
 
+- Allow the creation of In-Memory Drawings from a string of binary image data, or from a stream. [PR #3157](https://github.com/PHPOffice/PhpSpreadsheet/pull/3157)
 - Xlsx Reader support for Pivot Tables [PR #2829](https://github.com/PHPOffice/PhpSpreadsheet/pull/2829)
 
 ### Changed
