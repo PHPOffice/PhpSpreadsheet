@@ -371,6 +371,9 @@ class Style extends WriterPart
         $objWriter->endElement();
     }
 
+    /** @var mixed */
+    private static $scrutinizerFalse = false;
+
     /**
      * Write Cell Style Xf.
      */
@@ -384,7 +387,7 @@ class Style extends WriterPart
             $objWriter->writeAttribute('quotePrefix', '1');
         }
 
-        if ($style->getNumberFormat()->getBuiltInFormatCode() === false) {
+        if ($style->getNumberFormat()->getBuiltInFormatCode() === self::$scrutinizerFalse) {
             $objWriter->writeAttribute('numFmtId', (string) (int) ($this->getParentWriter()->getNumFmtHashTable()->getIndexForHashCode($style->getNumberFormat()->getHashCode()) + 164));
         } else {
             $objWriter->writeAttribute('numFmtId', (string) (int) $style->getNumberFormat()->getBuiltInFormatCode());

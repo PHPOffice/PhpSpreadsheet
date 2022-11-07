@@ -3258,7 +3258,7 @@ class Calculation
                 $notWithinQuotes = false;
                 foreach ($temp as &$value) {
                     //    Only adjust in alternating array entries
-                    $notWithinQuotes = self::logicalNot($notWithinQuotes);
+                    $notWithinQuotes = $notWithinQuotes === false;
                     if ($notWithinQuotes === true) {
                         $value = self::translateFormulaBlock($from, $to, $value, $inFunctionBracesLevel, $inMatrixBracesLevel, $fromSeparator, $toSeparator);
                     }
@@ -3959,7 +3959,7 @@ class Calculation
                 $notWithinQuotes = false;
                 foreach ($temp as &$value) {
                     //    Only count/replace in alternating array entries
-                    $notWithinQuotes = self::logicalNot($notWithinQuotes);
+                    $notWithinQuotes = $notWithinQuotes === false;
                     if ($notWithinQuotes === true) {
                         $openCount += substr_count($value, self::FORMULA_OPEN_MATRIX_BRACE);
                         $closeCount += substr_count($value, self::FORMULA_CLOSE_MATRIX_BRACE);
@@ -5619,11 +5619,6 @@ class Calculation
     public function getSuppressFormulaErrors(): bool
     {
         return $this->suppressFormulaErrorsNew;
-    }
-
-    private static function logicalNot(bool $arg): bool
-    {
-        return $arg === false;
     }
 
     /** @param mixed $arg */
