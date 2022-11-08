@@ -11,7 +11,7 @@ class StringHelper
     //    Fraction
     const STRING_REGEXP_FRACTION = '~^\s*(-?)((\d*)\s+)?(\d+\/\d+)\s*$~';
 
-    const STRING_REGEXP_PERCENT = '~^( *-? *\% *[0-9]+\.?[0-9*]* *| *\-? *[0-9]+\.?[0-9]* *\% *)$~';
+    const STRING_REGEXP_PERCENT = '~^(?:(?: *(?<PrefixedSign>[-+])? *\% *(?<PrefixedSign2>[-+])? *(?<PrefixedValue>[0-9]+\.?[0-9*]*)(E(?<PrefixExponentSign>[-+])?(?<PrefixExponent>[0-9]*))? *)|(?: *(?<PostfixedSign>[-+])? *(?<PostfixedValue>[0-9]+\.?[0-9]*)(E(?<PostfixExponentSign>[-+])?(?<PostfixExponent>[0-9]*))? *\% *))$~';
 
     /**
      * Control characters array.
@@ -570,8 +570,18 @@ class StringHelper
      */
     public static function convertToNumberIfPercent(string &$operand): bool
     {
-        if (preg_match(self::STRING_REGEXP_PERCENT, $operand, $match)) {
-            $operand = ((float)(str_replace(['%', ' '], '', $match[0])) / 100.00);
+        $match = [];
+        if (preg_match(self::STRING_REGEXP_PERCENT, $operand, $match, PREG_UNMATCHED_AS_NULL)) {
+
+            //Extract needed named capture groups
+            $sign = (($match['PrefixedSign'] ?? $match['PrefixedSign2'] ?? $match['PostfixedSign']) ?? '');
+            $value = ($match['PostfixedValue'] ?? $match['PrefixedValue']);
+            $exponent = (($match['PrefixExponent'] ?? $match['PostfixExponent']) ?? 0);
+            $exponentSign = (($match['PrefixExponentSign'] ?? $match['PostfixExponentSign']) ?? '');
+
+            //Calculate the percentage
+            $operand = (float) (($sign . $value) * pow(10, ($exponentSign . $exponent))) / 100;
+
             return true;
         }
 
