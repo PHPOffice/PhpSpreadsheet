@@ -4,7 +4,6 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Namespaces;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class Theme extends WriterPart
 {
@@ -107,7 +106,7 @@ class Theme extends WriterPart
      *
      * @return string XML Output
      */
-    public function writeTheme(Spreadsheet $spreadsheet)
+    public function writeTheme()
     {
         // Create XML writer
         $objWriter = null;

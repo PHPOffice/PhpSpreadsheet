@@ -190,9 +190,9 @@ class MD5
     private static function step(callable $func, int &$A, int $B, int $C, int $D, int $M, int $s, $t): void
     {
         $t = self::signedInt($t);
-        $A = ($A + call_user_func($func, $B, $C, $D) + $M + $t) & self::$allOneBits;
+        $A = (int) ($A + call_user_func($func, $B, $C, $D) + $M + $t) & self::$allOneBits;
         $A = self::rotate($A, $s);
-        $A = ($B + $A) & self::$allOneBits;
+        $A = (int) ($B + $A) & self::$allOneBits;
     }
 
     /** @param float|int $result may be float on 32-bit system */

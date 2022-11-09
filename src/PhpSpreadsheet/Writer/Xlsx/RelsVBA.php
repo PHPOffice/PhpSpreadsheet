@@ -4,7 +4,6 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Namespaces;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class RelsVBA extends WriterPart
 {
@@ -13,7 +12,7 @@ class RelsVBA extends WriterPart
      *
      * @return string XML Output
      */
-    public function writeVBARelationships(Spreadsheet $spreadsheet)
+    public function writeVBARelationships()
     {
         // Create XML writer
         $objWriter = null;
