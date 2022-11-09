@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests;
 
+use PhpOffice\PhpSpreadsheet\Exception as SpException;
 use PhpOffice\PhpSpreadsheet\Settings;
 use PHPUnit\Framework\TestCase;
 
@@ -50,5 +51,12 @@ class SettingsTest extends TestCase
             self::assertFalse(libxml_disable_entity_loader());
         }
         Settings::setLibXmlLoaderOptions($original);
+    }
+
+    public function testInvalidChartRenderer(): void
+    {
+        $this->expectException(SpException::class);
+        $this->expectExceptionMessage('Chart renderer must implement');
+        Settings::setChartRenderer(self::class);
     }
 }

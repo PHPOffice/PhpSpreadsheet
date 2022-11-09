@@ -11,7 +11,7 @@ class SheetView
     const SHEETVIEW_PAGE_LAYOUT = 'pageLayout';
     const SHEETVIEW_PAGE_BREAK_PREVIEW = 'pageBreakPreview';
 
-    private static $sheetViewTypes = [
+    private const SHEET_VIEW_TYPES = [
         self::SHEETVIEW_NORMAL,
         self::SHEETVIEW_PAGE_LAYOUT,
         self::SHEETVIEW_PAGE_BREAK_PREVIEW,
@@ -22,7 +22,7 @@ class SheetView
      *
      * Valid values range from 10 to 400.
      *
-     * @var int
+     * @var ?int
      */
     private $zoomScale = 100;
 
@@ -31,7 +31,7 @@ class SheetView
      *
      * Valid values range from 10 to 400.
      *
-     * @var int
+     * @var ?int
      */
     private $zoomScaleNormal = 100;
 
@@ -64,7 +64,7 @@ class SheetView
     /**
      * Get ZoomScale.
      *
-     * @return int
+     * @return ?int
      */
     public function getZoomScale()
     {
@@ -75,7 +75,7 @@ class SheetView
      * Set ZoomScale.
      * Valid values range from 10 to 400.
      *
-     * @param int $zoomScale
+     * @param ?int $zoomScale
      *
      * @return $this
      */
@@ -83,7 +83,7 @@ class SheetView
     {
         // Microsoft Office Excel 2007 only allows setting a scale between 10 and 400 via the user interface,
         // but it is apparently still able to handle any scale >= 1
-        if (($zoomScale >= 1) || $zoomScale === null) {
+        if ($zoomScale === null || $zoomScale >= 1) {
             $this->zoomScale = $zoomScale;
         } else {
             throw new PhpSpreadsheetException('Scale must be greater than or equal to 1.');
@@ -95,7 +95,7 @@ class SheetView
     /**
      * Get ZoomScaleNormal.
      *
-     * @return int
+     * @return ?int
      */
     public function getZoomScaleNormal()
     {
@@ -106,13 +106,13 @@ class SheetView
      * Set ZoomScale.
      * Valid values range from 10 to 400.
      *
-     * @param int $zoomScaleNormal
+     * @param ?int $zoomScaleNormal
      *
      * @return $this
      */
     public function setZoomScaleNormal($zoomScaleNormal)
     {
-        if (($zoomScaleNormal >= 1) || $zoomScaleNormal === null) {
+        if ($zoomScaleNormal === null || $zoomScaleNormal >= 1) {
             $this->zoomScaleNormal = $zoomScaleNormal;
         } else {
             throw new PhpSpreadsheetException('Scale must be greater than or equal to 1.');
@@ -157,7 +157,7 @@ class SheetView
      *        'pageLayout'        self::SHEETVIEW_PAGE_LAYOUT
      *        'pageBreakPreview'  self::SHEETVIEW_PAGE_BREAK_PREVIEW
      *
-     * @param string $sheetViewType
+     * @param ?string $sheetViewType
      *
      * @return $this
      */
@@ -167,7 +167,7 @@ class SheetView
         if ($sheetViewType === null) {
             $sheetViewType = self::SHEETVIEW_NORMAL;
         }
-        if (in_array($sheetViewType, self::$sheetViewTypes)) {
+        if (in_array($sheetViewType, self::SHEET_VIEW_TYPES)) {
             $this->sheetviewType = $sheetViewType;
         } else {
             throw new PhpSpreadsheetException('Invalid sheetview layout type.');

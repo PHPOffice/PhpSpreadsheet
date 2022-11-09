@@ -7,49 +7,49 @@ class Layout
     /**
      * layoutTarget.
      *
-     * @var string
+     * @var ?string
      */
     private $layoutTarget;
 
     /**
      * X Mode.
      *
-     * @var string
+     * @var ?string
      */
     private $xMode;
 
     /**
      * Y Mode.
      *
-     * @var string
+     * @var ?string
      */
     private $yMode;
 
     /**
      * X-Position.
      *
-     * @var float
+     * @var ?float
      */
     private $xPos;
 
     /**
      * Y-Position.
      *
-     * @var float
+     * @var ?float
      */
     private $yPos;
 
     /**
      * width.
      *
-     * @var float
+     * @var ?float
      */
     private $width;
 
     /**
      * height.
      *
-     * @var float
+     * @var ?float
      */
     private $height;
 
@@ -192,7 +192,7 @@ class Layout
     /**
      * Get Layout Target.
      *
-     * @return string
+     * @return ?string
      */
     public function getLayoutTarget()
     {
@@ -202,7 +202,7 @@ class Layout
     /**
      * Set Layout Target.
      *
-     * @param string $target
+     * @param ?string $target
      *
      * @return $this
      */
@@ -216,7 +216,7 @@ class Layout
     /**
      * Get X-Mode.
      *
-     * @return string
+     * @return ?string
      */
     public function getXMode()
     {
@@ -226,7 +226,7 @@ class Layout
     /**
      * Set X-Mode.
      *
-     * @param string $mode
+     * @param ?string $mode
      *
      * @return $this
      */
@@ -240,7 +240,7 @@ class Layout
     /**
      * Get Y-Mode.
      *
-     * @return string
+     * @return ?string
      */
     public function getYMode()
     {
@@ -250,7 +250,7 @@ class Layout
     /**
      * Set Y-Mode.
      *
-     * @param string $mode
+     * @param ?string $mode
      *
      * @return $this
      */
@@ -264,7 +264,7 @@ class Layout
     /**
      * Get X-Position.
      *
-     * @return number
+     * @return null|float|int
      */
     public function getXPosition()
     {
@@ -274,7 +274,7 @@ class Layout
     /**
      * Set X-Position.
      *
-     * @param float $position
+     * @param ?float $position
      *
      * @return $this
      */
@@ -288,7 +288,7 @@ class Layout
     /**
      * Get Y-Position.
      *
-     * @return number
+     * @return null|float
      */
     public function getYPosition()
     {
@@ -298,7 +298,7 @@ class Layout
     /**
      * Set Y-Position.
      *
-     * @param float $position
+     * @param ?float $position
      *
      * @return $this
      */
@@ -312,7 +312,7 @@ class Layout
     /**
      * Get Width.
      *
-     * @return number
+     * @return ?float
      */
     public function getWidth()
     {
@@ -322,7 +322,7 @@ class Layout
     /**
      * Set Width.
      *
-     * @param float $width
+     * @param ?float $width
      *
      * @return $this
      */
@@ -336,7 +336,7 @@ class Layout
     /**
      * Get Height.
      *
-     * @return number
+     * @return null|float
      */
     public function getHeight()
     {
@@ -346,7 +346,7 @@ class Layout
     /**
      * Set Height.
      *
-     * @param float $height
+     * @param ?float $height
      *
      * @return $this
      */
