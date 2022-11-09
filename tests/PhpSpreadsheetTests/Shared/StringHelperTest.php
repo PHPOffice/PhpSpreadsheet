@@ -267,6 +267,13 @@ class StringHelperTest extends TestCase
             'permutation_79'  => ['-2.5E-8', ' - % 2.50E-06 '],
             'permutation_80'  => [' - % 2.50E- 06 ', ' - % 2.50E- 06 '],
             'permutation_81'  => [' - % 2.50E - 06 ', ' - % 2.50E - 06 '],
+            'permutation_82'  => ['-2.5E-6', '-2.5e-4%'],
+            'permutation_83'  => ['200', '2e4%'],
+            'permutation_84'  => ['-2.5E-8', '-%2.50e-06'],
+            'permutation_85'  => [' - % 2.50 e -06 ', ' - % 2.50 e -06 '],
+            'permutation_86'  => ['-2.5E-8', ' - % 2.50e-06 '],
+            'permutation_87'  => [' - % 2.50e- 06 ', ' - % 2.50e- 06 '],
+            'permutation_88'  => [' - % 2.50e - 06 ', ' - % 2.50e - 06 '],
         ];
     }
 }
