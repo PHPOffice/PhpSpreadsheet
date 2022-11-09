@@ -580,7 +580,7 @@ class StringHelper
             $exponentSign = (($match['PrefixExponentSign'] ?? $match['PostfixExponentSign']) ?? '');
 
             //Calculate the percentage
-            $operand = (float) (($sign . $value) * pow(10, ($exponentSign . $exponent))) / 100;
+            $operand = (float) (($sign . $value) * ($exponent > 0 ? pow(10, ($exponentSign . $exponent)) : 1)) / 100;
 
             return true;
         }
