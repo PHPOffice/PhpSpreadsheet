@@ -339,7 +339,7 @@ abstract class BestFit
      * @param mixed $x
      * @param mixed $y
      */
-    private function scrutinizerLooseCompare($x, $y): bool
+    private static function scrutinizerLooseCompare($x, $y): bool
     {
         return $x == $y;
     }
