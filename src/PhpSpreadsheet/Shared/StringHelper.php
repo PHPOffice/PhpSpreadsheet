@@ -572,9 +572,8 @@ class StringHelper
     {
         $match = [];
         if (preg_match(self::STRING_REGEXP_PERCENT, $operand, $match, PREG_UNMATCHED_AS_NULL)) {
-
             //Calculate the percentage
-            $operand = (float)((($match['PrefixedSign'] ?? $match['PrefixedSign2'] ?? $match['PostfixedSign']) ?? '') . ($match['PostfixedValue'] ?? $match['PrefixedValue'])) / 100;
+            $operand = (float) ((($match['PrefixedSign'] ?? $match['PrefixedSign2'] ?? $match['PostfixedSign']) ?? '') . ($match['PostfixedValue'] ?? $match['PrefixedValue'])) / 100;
 
             return true;
         }
