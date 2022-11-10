@@ -180,6 +180,18 @@ class CalculationTest extends TestCase
         self::assertEquals('9', $cell3->getCalculatedValue());
     }
 
+    public function testCellWithStringFraction(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $workSheet = $spreadsheet->getActiveSheet();
+        $cell1 = $workSheet->getCell('A1');
+        $cell1->setValue('3/4');
+        $cell2 = $workSheet->getCell('B1');
+        $cell2->setValue('=100*A1');
+
+        self::assertSame(75.0, $cell2->getCalculatedValue());
+    }
+
     public function testCellWithStringPercentage(): void
     {
         $spreadsheet = new Spreadsheet();
@@ -189,7 +201,7 @@ class CalculationTest extends TestCase
         $cell2 = $workSheet->getCell('B1');
         $cell2->setValue('=100*A1');
 
-        self::assertEquals('2', $cell2->getCalculatedValue());
+        self::assertSame(2.0, $cell2->getCalculatedValue());
     }
 
     public function testBranchPruningFormulaParsingSimpleCase(): void
