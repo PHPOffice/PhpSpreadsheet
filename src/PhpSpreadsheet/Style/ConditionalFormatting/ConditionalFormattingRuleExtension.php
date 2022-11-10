@@ -48,7 +48,7 @@ class ConditionalFormattingRuleExtension
             }
         }
 
-        return implode('', $chars);
+        return implode('', /** @scrutinizer ignore-type */ $chars);
     }
 
     public static function parseExtLstXml($extLstXml)
@@ -136,7 +136,8 @@ class ConditionalFormattingRuleExtension
         }
         $cfvoIndex = 0;
         foreach ($dataBarXml->cfvo as $cfvo) {
-            $f = (string) $cfvo->children($ns['xm'])->f;
+            $f = (string) $cfvo->/** @scrutinizer ignore-call */ children($ns['xm'])->f;
+            /** @scrutinizer ignore-call */
             $attributes = $cfvo->attributes();
             if (!($attributes)) {
                 continue;

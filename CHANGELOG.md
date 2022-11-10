@@ -9,7 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Added
 
+- Allow the creation of In-Memory Drawings from a string of binary image data, or from a stream. [PR #3157](https://github.com/PHPOffice/PhpSpreadsheet/pull/3157)
 - Xlsx Reader support for Pivot Tables [PR #2829](https://github.com/PHPOffice/PhpSpreadsheet/pull/2829)
+- Permit Date/Time Entered on Spreadsheet to be calculated as Float [Issue #1416](https://github.com/PHPOffice/PhpSpreadsheet/issues/1416) [PR #3121](https://github.com/PHPOffice/PhpSpreadsheet/pull/3121)
 
 ### Changed
 
@@ -36,6 +38,12 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Additional properties for Trendlines [Issue #3011](https://github.com/PHPOffice/PhpSpreadsheet/issues/3011) [PR #3028](https://github.com/PHPOffice/PhpSpreadsheet/pull/3028)
 - Calculation suppressFormulaErrors fix [Issue #1531](https://github.com/PHPOffice/PhpSpreadsheet/issues/1531) [PR #3092](https://github.com/PHPOffice/PhpSpreadsheet/pull/3092)
 - Permit Date/Time Entered on Spreadsheet to be Calculated as Float [Issue #1416](https://github.com/PHPOffice/PhpSpreadsheet/issues/1416) [PR #3121](https://github.com/PHPOffice/PhpSpreadsheet/pull/3121)
+- Incorrect Handling of Data Validation Formula Containing Ampersand [Issue #3145](https://github.com/PHPOffice/PhpSpreadsheet/issues/3145) [PR #3146](https://github.com/PHPOffice/PhpSpreadsheet/pull/3146)
+- Xlsx Namespace Handling of Drawings, RowAndColumnAttributes, MergeCells [Issue #3138](https://github.com/PHPOffice/PhpSpreadsheet/issues/3138) [PR #3136](https://github.com/PHPOffice/PhpSpreadsheet/pull/3137)
+- Generation3 Copy With Image in Footer [Issue #3126](https://github.com/PHPOffice/PhpSpreadsheet/issues/3126) [PR #3140](https://github.com/PHPOffice/PhpSpreadsheet/pull/3140)
+- MATCH Function Problems with Int/Float Compare and Wildcards [Issue #3141](https://github.com/PHPOffice/PhpSpreadsheet/issues/3141) [PR #3142](https://github.com/PHPOffice/PhpSpreadsheet/pull/3142)
+- Fix ODS Read Filter on number-columns-repeated cell [Issue #3148](https://github.com/PHPOffice/PhpSpreadsheet/issues/3148) [PR #3149](https://github.com/PHPOffice/PhpSpreadsheet/pull/3149)
+- Problems Formatting Very Small and Very Large Numbers [Issue #3128](https://github.com/PHPOffice/PhpSpreadsheet/issues/3128) [PR #3152](https://github.com/PHPOffice/PhpSpreadsheet/pull/3152)
 
 
 ## 1.25.2 - 2022-09-25

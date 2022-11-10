@@ -313,70 +313,6 @@ parameters:
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/LookupRef/Address.php
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\ExcelMatch\\:\\:matchFirstValue\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/ExcelMatch.php
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\ExcelMatch\\:\\:matchFirstValue\\(\\) has parameter \\$lookupArray with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/ExcelMatch.php
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\ExcelMatch\\:\\:matchFirstValue\\(\\) has parameter \\$lookupValue with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/ExcelMatch.php
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\ExcelMatch\\:\\:matchLargestValue\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/ExcelMatch.php
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\ExcelMatch\\:\\:matchLargestValue\\(\\) has parameter \\$keySet with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/ExcelMatch.php
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\ExcelMatch\\:\\:matchLargestValue\\(\\) has parameter \\$lookupArray with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/ExcelMatch.php
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\ExcelMatch\\:\\:matchLargestValue\\(\\) has parameter \\$lookupValue with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/ExcelMatch.php
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\ExcelMatch\\:\\:matchSmallestValue\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/ExcelMatch.php
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\ExcelMatch\\:\\:matchSmallestValue\\(\\) has parameter \\$lookupArray with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/ExcelMatch.php
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\ExcelMatch\\:\\:matchSmallestValue\\(\\) has parameter \\$lookupValue with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/ExcelMatch.php
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\ExcelMatch\\:\\:prepareLookupArray\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/ExcelMatch.php
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\ExcelMatch\\:\\:prepareLookupArray\\(\\) has parameter \\$lookupArray with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/ExcelMatch.php
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\ExcelMatch\\:\\:prepareLookupArray\\(\\) has parameter \\$matchType with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/ExcelMatch.php
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\ExcelMatch\\:\\:validateLookupArray\\(\\) has parameter \\$lookupArray with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/ExcelMatch.php
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\ExcelMatch\\:\\:validateLookupValue\\(\\) has parameter \\$lookupValue with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/ExcelMatch.php
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\ExcelMatch\\:\\:validateMatchType\\(\\) has parameter \\$matchType with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/ExcelMatch.php
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\Lookup\\:\\:verifyResultVector\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/LookupRef/Lookup.php
@@ -1039,26 +975,6 @@ parameters:
 			count: 1
 			path: src/PhpSpreadsheet/RichText/Run.php
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Settings\\:\\:getHttpClient\\(\\) should return Psr\\\\Http\\\\Client\\\\ClientInterface but returns Psr\\\\Http\\\\Client\\\\ClientInterface\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Settings.php
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Settings\\:\\:getRequestFactory\\(\\) should return Psr\\\\Http\\\\Message\\\\RequestFactoryInterface but returns Psr\\\\Http\\\\Message\\\\RequestFactoryInterface\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Settings.php
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Settings.php
-		-
-			message: "#^Result of && is always false\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Settings.php
-		-
-			message: "#^Strict comparison using \\=\\=\\= between int and null will always evaluate to false\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Settings.php
-		-
 			message: "#^Cannot access offset 1 on array\\|false\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Drawing.php
@@ -1711,18 +1627,6 @@ parameters:
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/PageSetup.php
 		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\SheetView\\:\\:\\$sheetViewTypes has no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/SheetView.php
-		-
-			message: "#^Strict comparison using \\=\\=\\= between int\\<min, 0\\> and null will always evaluate to false\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Worksheet/SheetView.php
-		-
-			message: "#^Strict comparison using \\=\\=\\= between string and null will always evaluate to false\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/SheetView.php
-		-
 			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
@@ -1785,10 +1689,6 @@ parameters:
 		-
 			message: "#^Right side of && is always true\\.$#"
 			count: 1
-			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
-		-
-			message: "#^Strict comparison using \\=\\=\\= between string and null will always evaluate to false\\.$#"
-			count: 2
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
 		-
 			message: "#^Negated boolean expression is always false\\.$#"
@@ -1894,26 +1794,6 @@ parameters:
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Escher\\:\\:\\$object has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Escher.php
-		-
-			message: "#^If condition is always false\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Writer/Xls/Font.php
-		-
-			message: "#^Parameter \\#1 \\$bold of static method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Font\\:\\:mapBold\\(\\) expects bool, bool\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Font.php
-		-
-			message: "#^Parameter \\#1 \\$fontName of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Font\\:\\:getCharsetFromFontName\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Font.php
-		-
-			message: "#^Parameter \\#1 \\$textValue of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\StringHelper\\:\\:UTF8toBIFF8UnicodeShort\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Font.php
-		-
-			message: "#^Parameter \\#1 \\$underline of static method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Font\\:\\:mapUnderline\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Font.php
 		-
 			message: "#^Cannot access offset 'encoding' on array\\|false\\.$#"
 			count: 1
