@@ -376,7 +376,7 @@ class Spreadsheet
     {
         $extension = pathinfo($path, PATHINFO_EXTENSION);
 
-        return $extension;
+        return substr(/** @scrutinizer ignore-type */$extension, 0);
     }
 
     /**
