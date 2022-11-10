@@ -11,7 +11,7 @@ class StringHelper
     //    Fraction
     const STRING_REGEXP_FRACTION = '~^\s*(-?)((\d*)\s+)?(\d+\/\d+)\s*$~';
 
-    const STRING_REGEXP_PERCENT = '~^(?:(?: *(?<PrefixedSign>[-+])? *\% *(?<PrefixedSign2>[-+])? *(?<PrefixedValue>[0-9]+\.?[0-9*]*(E[-+]?[0-9]*)?) *)|(?: *(?<PostfixedSign>[-+])? *(?<PostfixedValue>[0-9]+\.?[0-9]*(E[-+]?[0-9]*)?) *\% *))$~i';
+    const STRING_REGEXP_PERCENT = '~^(?:(?: *(?<PrefixedSign>[-+])? *\% *(?<PrefixedSign2>[-+])? *(?<PrefixedValue>[0-9]+\.?[0-9*]*(?:E[-+]?[0-9]*)?) *)|(?: *(?<PostfixedSign>[-+])? *(?<PostfixedValue>[0-9]+\.?[0-9]*(?:E[-+]?[0-9]*)?) *\% *))$~i';
 
     /**
      * Control characters array.
@@ -560,8 +560,6 @@ class StringHelper
         return false;
     }
 
-    //    function convertToNumberIfFraction()
-
     /**
      * Identify whether a string contains a percentage, and if so,
      * convert it to a numeric.
@@ -573,7 +571,8 @@ class StringHelper
         $match = [];
         if (preg_match(self::STRING_REGEXP_PERCENT, $operand, $match, PREG_UNMATCHED_AS_NULL)) {
             //Calculate the percentage
-            $operand = (float) ((($match['PrefixedSign'] ?? $match['PrefixedSign2'] ?? $match['PostfixedSign']) ?? '') . ($match['PostfixedValue'] ?? $match['PrefixedValue'])) / 100;
+            $sign = ($match['PrefixedSign'] ?? $match['PrefixedSign2'] ?? $match['PostfixedSign']) ?? '';
+            $operand = (float) ($sign . ($match['PostfixedValue'] ?? $match['PrefixedValue'])) / 100;
 
             return true;
         }
