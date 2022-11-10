@@ -180,6 +180,18 @@ class CalculationTest extends TestCase
         self::assertEquals('9', $cell3->getCalculatedValue());
     }
 
+    public function testCellWithStringNumeric(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $workSheet = $spreadsheet->getActiveSheet();
+        $cell1 = $workSheet->getCell('A1');
+        $cell1->setValue('+2.5');
+        $cell2 = $workSheet->getCell('B1');
+        $cell2->setValue('=100*A1');
+
+        self::assertSame(250.0, $cell2->getCalculatedValue());
+    }
+
     public function testCellWithStringFraction(): void
     {
         $spreadsheet = new Spreadsheet();

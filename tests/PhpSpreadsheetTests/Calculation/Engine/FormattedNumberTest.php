@@ -8,6 +8,26 @@ use PHPUnit\Framework\TestCase;
 class FormattedNumberTest extends TestCase
 {
     /**
+     * @dataProvider providerNumbers
+     *
+     * @param mixed $expected
+     */
+    public function testNumber($expected, string $value): void
+    {
+        FormattedNumber::convertToNumberIfFormatted($value);
+        self::assertSame($expected, $value);
+    }
+
+    public function providerNumbers(): array
+    {
+        return [
+            [-12.5, '-12.5'],
+            [-125.0, '-1.25e2'],
+            [0.125, '12.5%'],
+        ];
+    }
+
+    /**
      * @dataProvider providerFractions
      */
     public function testFraction(string $expected, string $value): void
