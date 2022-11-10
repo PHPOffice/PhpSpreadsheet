@@ -746,15 +746,14 @@ class PageSetup
             if ($index == 0) {
                 $this->printArea = $this->printArea ? ($this->printArea . ',' . $value) : $value;
             } else {
-                /** @phpstan-ignore-next-line */
-                $printAreas = explode(',', $this->printArea);
+                $printAreas = explode(',', (string) $this->printArea);
                 if ($index < 0) {
-                    $index = abs($index) - 1;
+                    $index = (int) abs($index) - 1;
                 }
                 if ($index > count($printAreas)) {
                     throw new PhpSpreadsheetException('Invalid index for setting print range.');
                 }
-                $printAreas = array_merge(array_slice($printAreas, 0, /** @scrutinizer ignore-type */ $index), [$value], array_slice($printAreas, /** @scrutinizer ignore-type */ $index));
+                $printAreas = array_merge(array_slice($printAreas, 0, $index), [$value], array_slice($printAreas, $index));
                 $this->printArea = implode(',', $printAreas);
             }
         } else {

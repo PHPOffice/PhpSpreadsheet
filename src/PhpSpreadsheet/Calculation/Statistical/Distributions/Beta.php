@@ -274,8 +274,10 @@ class Beta
             Gamma::gammaValue($a + $b);
     }
 
+    /*
     private static function regularizedIncompleteBeta(float $value, float $a, float $b): float
     {
         return self::incompleteBeta($value, $a, $b) / self::betaValue($a, $b);
     }
+    */
 }
