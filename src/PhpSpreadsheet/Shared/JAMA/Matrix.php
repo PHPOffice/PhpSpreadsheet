@@ -2,10 +2,10 @@
 
 namespace PhpOffice\PhpSpreadsheet\Shared\JAMA;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Engine\FormattedNumber;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
-use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 
 /**
  * Matrix class.
@@ -1169,7 +1169,7 @@ class Matrix
         }
         if ((is_string($value)) && (strlen($value) > 0) && (!is_numeric($value))) {
             $value = trim($value, '"');
-            $validValues &= StringHelper::convertToNumberIfFraction($value);
+            $validValues &= FormattedNumber::convertToNumberIfFormatted($value);
         }
 
         return [$value, $validValues];
