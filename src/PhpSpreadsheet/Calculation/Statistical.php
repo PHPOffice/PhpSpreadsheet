@@ -32,8 +32,7 @@ class Statistical
      * Excel Function:
      *        AVEDEV(value1[,value2[, ...]])
      *
-     * @Deprecated 1.17.0
-     *
+     * @deprecated 1.17.0
      * @see Statistical\Averages::averageDeviations()
      *      Use the averageDeviations() method in the Statistical\Averages class instead
      *
@@ -54,8 +53,7 @@ class Statistical
      * Excel Function:
      *        AVERAGE(value1[,value2[, ...]])
      *
-     * @Deprecated 1.17.0
-     *
+     * @deprecated 1.17.0
      * @see Statistical\Averages::average()
      *      Use the average() method in the Statistical\Averages class instead
      *
@@ -76,8 +74,7 @@ class Statistical
      * Excel Function:
      *        AVERAGEA(value1[,value2[, ...]])
      *
-     * @Deprecated 1.17.0
-     *
+     * @deprecated 1.17.0
      * @see Statistical\Averages::averageA()
      *      Use the averageA() method in the Statistical\Averages class instead
      *
@@ -98,8 +95,7 @@ class Statistical
      * Excel Function:
      *        AVERAGEIF(value1[,value2[, ...]],condition)
      *
-     * @Deprecated 1.17.0
-     *
+     * @deprecated 1.17.0
      * @see Statistical\Conditional::AVERAGEIF()
      *      Use the AVERAGEIF() method in the Statistical\Conditional class instead
      *
@@ -119,8 +115,7 @@ class Statistical
      *
      * Returns the beta distribution.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Statistical\Distributions\Beta::distribution()
      *      Use the distribution() method in the Statistical\Distributions\Beta class instead
      *
@@ -142,8 +137,7 @@ class Statistical
      *
      * Returns the inverse of the Beta distribution.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Statistical\Distributions\Beta::inverse()
      *      Use the inverse() method in the Statistical\Distributions\Beta class instead
      *
@@ -169,8 +163,7 @@ class Statistical
      *        experiment. For example, BINOMDIST can calculate the probability that two of the next three
      *        babies born are male.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Statistical\Distributions\Binomial::distribution()
      *      Use the distribution() method in the Statistical\Distributions\Binomial class instead
      *
@@ -191,8 +184,7 @@ class Statistical
      *
      * Returns the one-tailed probability of the chi-squared distribution.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Statistical\Distributions\ChiSquared::distributionRightTail()
      *      Use the distributionRightTail() method in the Statistical\Distributions\ChiSquared class instead
      *
@@ -211,8 +203,7 @@ class Statistical
      *
      * Returns the one-tailed probability of the chi-squared distribution.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Statistical\Distributions\ChiSquared::inverseRightTail()
      *      Use the inverseRightTail() method in the Statistical\Distributions\ChiSquared class instead
      *
@@ -231,8 +222,7 @@ class Statistical
      *
      * Returns the confidence interval for a population mean
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Statistical\Confidence::CONFIDENCE()
      *      Use the CONFIDENCE() method in the Statistical\Confidence class instead
      *
@@ -252,8 +242,7 @@ class Statistical
      *
      * Returns covariance, the average of the products of deviations for each data point pair.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Statistical\Trends::CORREL()
      *      Use the CORREL() method in the Statistical\Trends class instead
      *
@@ -275,8 +264,7 @@ class Statistical
      * Excel Function:
      *        COUNT(value1[,value2[, ...]])
      *
-     * @Deprecated 1.17.0
-     *
+     * @deprecated 1.17.0
      * @see Statistical\Counts::COUNT()
      *      Use the COUNT() method in the Statistical\Counts class instead
      *
@@ -297,8 +285,7 @@ class Statistical
      * Excel Function:
      *        COUNTA(value1[,value2[, ...]])
      *
-     * @Deprecated 1.17.0
-     *
+     * @deprecated 1.17.0
      * @see Statistical\Counts::COUNTA()
      *      Use the COUNTA() method in the Statistical\Counts class instead
      *
@@ -319,8 +306,7 @@ class Statistical
      * Excel Function:
      *        COUNTBLANK(value1[,value2[, ...]])
      *
-     * @Deprecated 1.17.0
-     *
+     * @deprecated 1.17.0
      * @see Statistical\Counts::COUNTBLANK()
      *      Use the COUNTBLANK() method in the Statistical\Counts class instead
      *
@@ -341,8 +327,7 @@ class Statistical
      * Excel Function:
      *        COUNTIF(range,condition)
      *
-     * @Deprecated 1.17.0
-     *
+     * @deprecated 1.17.0
      * @see Statistical\Conditional::COUNTIF()
      *      Use the COUNTIF() method in the Statistical\Conditional class instead
      *
@@ -364,8 +349,7 @@ class Statistical
      * Excel Function:
      *        COUNTIFS(criteria_range1, criteria1, [criteria_range2, criteria2]…)
      *
-     * @Deprecated 1.17.0
-     *
+     * @deprecated 1.17.0
      * @see Statistical\Conditional::COUNTIFS()
      *      Use the COUNTIFS() method in the Statistical\Conditional class instead
      *
@@ -383,8 +367,7 @@ class Statistical
      *
      * Returns covariance, the average of the products of deviations for each data point pair.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Statistical\Trends::COVAR()
      *      Use the COVAR() method in the Statistical\Trends class instead
      *
@@ -406,8 +389,7 @@ class Statistical
      *
      * See https://support.microsoft.com/en-us/help/828117/ for details of the algorithm used
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Statistical\Distributions\Binomial::inverse()
      *      Use the inverse() method in the Statistical\Distributions\Binomial class instead
      *
@@ -430,8 +412,7 @@ class Statistical
      * Excel Function:
      *        DEVSQ(value1[,value2[, ...]])
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Statistical\Deviations::sumSquares()
      *      Use the sumSquares() method in the Statistical\Deviations class instead
      *
@@ -451,8 +432,7 @@ class Statistical
      *        such as how long an automated bank teller takes to deliver cash. For example, you can
      *        use EXPONDIST to determine the probability that the process takes at most 1 minute.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Statistical\Distributions\Exponential::distribution()
      *      Use the distribution() method in the Statistical\Distributions\Exponential class instead
      *
@@ -475,8 +455,7 @@ class Statistical
      *    For example, you can examine the test scores of men and women entering high school, and determine
      *        if the variability in the females is different from that found in the males.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Statistical\Distributions\F::distribution()
      *      Use the distribution() method in the Statistical\Distributions\Exponential class instead
      *
@@ -500,8 +479,7 @@ class Statistical
      *        is normally distributed rather than skewed. Use this function to perform hypothesis
      *        testing on the correlation coefficient.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Statistical\Distributions\Fisher::distribution()
      *      Use the distribution() method in the Statistical\Distributions\Fisher class instead
      *
@@ -521,8 +499,7 @@ class Statistical
      *        analyzing correlations between ranges or arrays of data. If y = FISHER(x), then
      *        FISHERINV(y) = x.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Statistical\Distributions\Fisher::inverse()
      *      Use the inverse() method in the Statistical\Distributions\Fisher class instead
      *
@@ -540,8 +517,7 @@ class Statistical
      *
      * Calculates, or predicts, a future value by using existing values. The predicted value is a y-value for a given x-value.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Statistical\Trends::FORECAST()
      *      Use the FORECAST() method in the Statistical\Trends class instead
      *
@@ -561,8 +537,7 @@ class Statistical
      *
      * Returns the gamma function value.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Statistical\Distributions\Gamma::gamma()
      *      Use the gamma() method in the Statistical\Distributions\Gamma class instead
      *
@@ -580,8 +555,7 @@ class Statistical
      *
      * Returns the gamma distribution.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Statistical\Distributions\Gamma::distribution()
      *      Use the distribution() method in the Statistical\Distributions\Gamma class instead
      *
@@ -602,8 +576,7 @@ class Statistical
      *
      * Returns the inverse of the Gamma distribution.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Statistical\Distributions\Gamma::inverse()
      *      Use the inverse() method in the Statistical\Distributions\Gamma class instead
      *
@@ -623,8 +596,7 @@ class Statistical
      *
      * Returns the natural logarithm of the gamma function.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Statistical\Distributions\Gamma::ln()
      *      Use the ln() method in the Statistical\Distributions\Gamma class instead
      *
@@ -643,8 +615,7 @@ class Statistical
      * Calculates the probability that a member of a standard normal population will fall between
      *     the mean and z standard deviations from the mean.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Statistical\Distributions\StandardNormal::gauss()
      *      Use the gauss() method in the Statistical\Distributions\StandardNormal class instead
      *
@@ -667,8 +638,7 @@ class Statistical
      * Excel Function:
      *        GEOMEAN(value1[,value2[, ...]])
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Statistical\Averages\Mean::geometric()
      *      Use the geometric() method in the Statistical\Averages\Mean class instead
      *
@@ -686,8 +656,7 @@ class Statistical
      *
      * Returns values along a predicted exponential Trend
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Statistical\Trends::GROWTH()
      *      Use the GROWTH() method in the Statistical\Trends class instead
      *
@@ -712,8 +681,7 @@ class Statistical
      * Excel Function:
      *        HARMEAN(value1[,value2[, ...]])
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Statistical\Averages\Mean::harmonic()
      *      Use the harmonic() method in the Statistical\Averages\Mean class instead
      *
@@ -732,8 +700,7 @@ class Statistical
      * Returns the hypergeometric distribution. HYPGEOMDIST returns the probability of a given number of
      * sample successes, given the sample size, population successes, and population size.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Statistical\Distributions\HyperGeometric::distribution()
      *      Use the distribution() method in the Statistical\Distributions\HyperGeometric class instead
      *
@@ -759,8 +726,7 @@ class Statistical
      *
      * Calculates the point at which a line will intersect the y-axis by using existing x-values and y-values.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Statistical\Trends::INTERCEPT()
      *      Use the INTERCEPT() method in the Statistical\Trends class instead
      *
@@ -782,8 +748,7 @@ class Statistical
      * kurtosis indicates a relatively peaked distribution. Negative kurtosis indicates a
      * relatively flat distribution.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Statistical\Deviations::kurtosis()
      *      Use the kurtosis() method in the Statistical\Deviations class instead
      *
@@ -805,8 +770,7 @@ class Statistical
      * Excel Function:
      *        LARGE(value1[,value2[, ...]],entry)
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Statistical\Size::large()
      *      Use the large() method in the Statistical\Size class instead
      *
@@ -825,8 +789,7 @@ class Statistical
      * Calculates the statistics for a line by using the "least squares" method to calculate a straight line that best fits your data,
      *        and then returns an array that describes the line.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Statistical\Trends::LINEST()
      *      Use the LINEST() method in the Statistical\Trends class instead
      *
@@ -848,8 +811,7 @@ class Statistical
      * Calculates an exponential curve that best fits the X and Y data series,
      *        and then returns an array that describes the line.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Statistical\Trends::LOGEST()
      *      Use the LOGEST() method in the Statistical\Trends class instead
      *
@@ -870,8 +832,7 @@ class Statistical
      *
      * Returns the inverse of the normal cumulative distribution
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Statistical\Distributions\LogNormal::inverse()
      *      Use the inverse() method in the Statistical\Distributions\LogNormal class instead
      *
@@ -896,8 +857,7 @@ class Statistical
      * Returns the cumulative lognormal distribution of x, where ln(x) is normally distributed
      * with parameters mean and standard_dev.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Statistical\Distributions\LogNormal::cumulative()
      *      Use the cumulative() method in the Statistical\Distributions\LogNormal class instead
      *
@@ -918,8 +878,7 @@ class Statistical
      * Returns the lognormal distribution of x, where ln(x) is normally distributed
      * with parameters mean and standard_dev.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Statistical\Distributions\LogNormal::distribution()
      *      Use the distribution() method in the Statistical\Distributions\LogNormal class instead
      *
@@ -944,14 +903,13 @@ class Statistical
      * Excel Function:
      *        max(value1[,value2[, ...]])
      *
-     * @Deprecated 1.17.0
+     * @deprecated 1.17.0
+     * @see Statistical\Maximum::max()
+     *      Use the MAX() method in the Statistical\Maximum class instead
      *
      * @param mixed ...$args Data values
      *
      * @return float
-     *
-     *@see Statistical\Maximum::max()
-     *      Use the MAX() method in the Statistical\Maximum class instead
      */
     public static function MAX(...$args)
     {
@@ -966,14 +924,13 @@ class Statistical
      * Excel Function:
      *        maxA(value1[,value2[, ...]])
      *
-     * @Deprecated 1.17.0
+     * @deprecated 1.17.0
+     * @see Statistical\Maximum::maxA()
+     *      Use the MAXA() method in the Statistical\Maximum class instead
      *
      * @param mixed ...$args Data values
      *
      * @return float
-     *
-     *@see Statistical\Maximum::maxA()
-     *      Use the MAXA() method in the Statistical\Maximum class instead
      */
     public static function MAXA(...$args)
     {
@@ -988,8 +945,7 @@ class Statistical
      * Excel Function:
      *        MAXIFS(max_range, criteria_range1, criteria1, [criteria_range2, criteria2], ...)
      *
-     * @Deprecated 1.17.0
-     *
+     * @deprecated 1.17.0
      * @see Statistical\Conditional::MAXIFS()
      *      Use the MAXIFS() method in the Statistical\Conditional class instead
      *
@@ -1010,8 +966,7 @@ class Statistical
      * Excel Function:
      *        MEDIAN(value1[,value2[, ...]])
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Statistical\Averages::median()
      *      Use the median() method in the Statistical\Averages class instead
      *
@@ -1033,14 +988,13 @@ class Statistical
      * Excel Function:
      *        MIN(value1[,value2[, ...]])
      *
-     * @Deprecated 1.17.0
+     * @deprecated 1.17.0
+     * @see Statistical\Minimum::min()
+     *      Use the min() method in the Statistical\Minimum class instead
      *
      * @param mixed ...$args Data values
      *
      * @return float
-     *
-     *@see Statistical\Minimum::min()
-     *      Use the min() method in the Statistical\Minimum class instead
      */
     public static function MIN(...$args)
     {
@@ -1055,14 +1009,13 @@ class Statistical
      * Excel Function:
      *        MINA(value1[,value2[, ...]])
      *
-     * @Deprecated 1.17.0
+     * @deprecated 1.17.0
+     * @see Statistical\Minimum::minA()
+     *      Use the minA() method in the Statistical\Minimum class instead
      *
      * @param mixed ...$args Data values
      *
      * @return float
-     *
-     *@see Statistical\Minimum::minA()
-     *      Use the minA() method in the Statistical\Minimum class instead
      */
     public static function MINA(...$args)
     {
@@ -1077,8 +1030,7 @@ class Statistical
      * Excel Function:
      *        MINIFS(min_range, criteria_range1, criteria1, [criteria_range2, criteria2], ...)
      *
-     * @Deprecated 1.17.0
-     *
+     * @deprecated 1.17.0
      * @see Statistical\Conditional::MINIFS()
      *      Use the MINIFS() method in the Statistical\Conditional class instead
      *
@@ -1099,8 +1051,7 @@ class Statistical
      * Excel Function:
      *        MODE(value1[,value2[, ...]])
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Statistical\Averages::mode()
      *      Use the mode() method in the Statistical\Averages class instead
      *
@@ -1122,8 +1073,7 @@ class Statistical
      *        distribution, except that the number of successes is fixed, and the number of trials is
      *        variable. Like the binomial, trials are assumed to be independent.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Statistical\Distributions\Binomial::negative()
      *      Use the negative() method in the Statistical\Distributions\Binomial class instead
      *
@@ -1145,8 +1095,7 @@ class Statistical
      * function has a very wide range of applications in statistics, including hypothesis
      * testing.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Statistical\Distributions\Normal::distribution()
      *      Use the distribution() method in the Statistical\Distributions\Normal class instead
      *
@@ -1167,8 +1116,7 @@ class Statistical
      *
      * Returns the inverse of the normal cumulative distribution for the specified mean and standard deviation.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Statistical\Distributions\Normal::inverse()
      *      Use the inverse() method in the Statistical\Distributions\Normal class instead
      *
@@ -1190,8 +1138,7 @@ class Statistical
      * a mean of 0 (zero) and a standard deviation of one. Use this function in place of a
      * table of standard normal curve areas.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Statistical\Distributions\StandardNormal::cumulative()
      *      Use the cumulative() method in the Statistical\Distributions\StandardNormal class instead
      *
@@ -1211,8 +1158,7 @@ class Statistical
      * a mean of 0 (zero) and a standard deviation of one. Use this function in place of a
      * table of standard normal curve areas.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Statistical\Distributions\StandardNormal::distribution()
      *      Use the distribution() method in the Statistical\Distributions\StandardNormal class instead
      *
@@ -1231,8 +1177,7 @@ class Statistical
      *
      * Returns the inverse of the standard normal cumulative distribution
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Statistical\Distributions\StandardNormal::inverse()
      *      Use the inverse() method in the Statistical\Distributions\StandardNormal class instead
      *
@@ -1253,8 +1198,7 @@ class Statistical
      * Excel Function:
      *        PERCENTILE(value1[,value2[, ...]],entry)
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Statistical\Percentiles::PERCENTILE()
      * Use the PERCENTILE() method in the Statistical\Percentiles class instead
      *
@@ -1275,8 +1219,7 @@ class Statistical
      *      rather than floored (as MS Excel), so value 3 for a value set of  1, 2, 3, 4 will return
      *      0.667 rather than 0.666
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Statistical\Percentiles::PERCENTRANK()
      * Use the PERCENTRANK() method in the Statistical\Percentiles class instead
      *
@@ -1300,8 +1243,7 @@ class Statistical
      *        combinations, for which the internal order is not significant. Use this function
      *        for lottery-style probability calculations.
      *
-     * @Deprecated 1.17.0
-     *
+     * @deprecated 1.17.0
      * @see Statistical\Permutations::PERMUT()
      * Use the PERMUT() method in the Statistical\Permutations class instead
      *
@@ -1322,8 +1264,7 @@ class Statistical
      * is predicting the number of events over a specific time, such as the number of
      * cars arriving at a toll plaza in 1 minute.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Statistical\Distributions\Poisson::distribution()
      * Use the distribution() method in the Statistical\Distributions\Poisson class instead
      *
@@ -1346,8 +1287,7 @@ class Statistical
      * Excel Function:
      *        QUARTILE(value1[,value2[, ...]],entry)
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Statistical\Percentiles::QUARTILE()
      * Use the QUARTILE() method in the Statistical\Percentiles class instead
      *
@@ -1365,8 +1305,7 @@ class Statistical
      *
      * Returns the rank of a number in a list of numbers.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Statistical\Percentiles::RANK()
      * Use the RANK() method in the Statistical\Percentiles class instead
      *
@@ -1386,8 +1325,7 @@ class Statistical
      *
      * Returns the square of the Pearson product moment correlation coefficient through data points in known_y's and known_x's.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Statistical\Trends::RSQ()
      *      Use the RSQ() method in the Statistical\Trends class instead
      *
@@ -1409,8 +1347,7 @@ class Statistical
      * asymmetric tail extending toward more positive values. Negative skewness indicates a
      * distribution with an asymmetric tail extending toward more negative values.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Statistical\Deviations::skew()
      *      Use the skew() method in the Statistical\Deviations class instead
      *
@@ -1428,8 +1365,7 @@ class Statistical
      *
      * Returns the slope of the linear regression line through data points in known_y's and known_x's.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Statistical\Trends::SLOPE()
      *      Use the SLOPE() method in the Statistical\Trends class instead
      *
@@ -1452,8 +1388,7 @@ class Statistical
      * Excel Function:
      *        SMALL(value1[,value2[, ...]],entry)
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Statistical\Size::small()
      *      Use the small() method in the Statistical\Size class instead
      *
@@ -1471,8 +1406,7 @@ class Statistical
      *
      * Returns a normalized value from a distribution characterized by mean and standard_dev.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Statistical\Standardize::execute()
      *      Use the execute() method in the Statistical\Standardize class instead
      *
@@ -1496,8 +1430,7 @@ class Statistical
      * Excel Function:
      *        STDEV(value1[,value2[, ...]])
      *
-     * @Deprecated 1.17.0
-     *
+     * @deprecated 1.17.0
      * @see Statistical\StandardDeviations::STDEV()
      *      Use the STDEV() method in the Statistical\StandardDeviations class instead
      *
@@ -1518,8 +1451,7 @@ class Statistical
      * Excel Function:
      *        STDEVA(value1[,value2[, ...]])
      *
-     * @Deprecated 1.17.0
-     *
+     * @deprecated 1.17.0
      * @see Statistical\StandardDeviations::STDEVA()
      *      Use the STDEVA() method in the Statistical\StandardDeviations class instead
      *
@@ -1540,8 +1472,7 @@ class Statistical
      * Excel Function:
      *        STDEVP(value1[,value2[, ...]])
      *
-     * @Deprecated 1.17.0
-     *
+     * @deprecated 1.17.0
      * @see Statistical\StandardDeviations::STDEVP()
      *      Use the STDEVP() method in the Statistical\StandardDeviations class instead
      *
@@ -1562,8 +1493,7 @@ class Statistical
      * Excel Function:
      *        STDEVPA(value1[,value2[, ...]])
      *
-     * @Deprecated 1.17.0
-     *
+     * @deprecated 1.17.0
      * @see Statistical\StandardDeviations::STDEVPA()
      *      Use the STDEVPA() method in the Statistical\StandardDeviations class instead
      *
@@ -1579,8 +1509,7 @@ class Statistical
     /**
      * STEYX.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Statistical\Trends::STEYX()
      *      Use the STEYX() method in the Statistical\Trends class instead
      *
@@ -1601,8 +1530,7 @@ class Statistical
      *
      * Returns the probability of Student's T distribution.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Statistical\Distributions\StudentT::distribution()
      *      Use the distribution() method in the Statistical\Distributions\StudentT class instead
      *
@@ -1622,8 +1550,7 @@ class Statistical
      *
      * Returns the one-tailed probability of the Student-T distribution.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Statistical\Distributions\StudentT::inverse()
      *      Use the inverse() method in the Statistical\Distributions\StudentT class instead
      *
@@ -1642,8 +1569,7 @@ class Statistical
      *
      * Returns values along a linear Trend
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Statistical\Trends::TREND()
      *      Use the TREND() method in the Statistical\Trends class instead
      *
@@ -1669,9 +1595,8 @@ class Statistical
      * Excel Function:
      *        TRIMEAN(value1[,value2[, ...]], $discard)
      *
-     * @Deprecated 1.18.0
-     *
-     *@see Statistical\Averages\Mean::trim()
+     * @deprecated 1.18.0
+     * @see Statistical\Averages\Mean::trim()
      *      Use the trim() method in the Statistical\Averages\Mean class instead
      *
      * @param mixed $args Data values
@@ -1691,9 +1616,8 @@ class Statistical
      * Excel Function:
      *        VAR(value1[,value2[, ...]])
      *
-     * @Deprecated 1.17.0
-     *
-     *@see Statistical\Variances::VAR()
+     * @deprecated 1.17.0
+     * @see Statistical\Variances::VAR()
      *      Use the VAR() method in the Statistical\Variances class instead
      *
      * @param mixed ...$args Data values
@@ -1713,8 +1637,7 @@ class Statistical
      * Excel Function:
      *        VARA(value1[,value2[, ...]])
      *
-     * @Deprecated 1.17.0
-     *
+     * @deprecated 1.17.0
      * @see Statistical\Variances::VARA()
      *      Use the VARA() method in the Statistical\Variances class instead
      *
@@ -1735,8 +1658,7 @@ class Statistical
      * Excel Function:
      *        VARP(value1[,value2[, ...]])
      *
-     * @Deprecated 1.17.0
-     *
+     * @deprecated 1.17.0
      * @see Statistical\Variances::VARP()
      *      Use the VARP() method in the Statistical\Variances class instead
      *
@@ -1757,8 +1679,7 @@ class Statistical
      * Excel Function:
      *        VARPA(value1[,value2[, ...]])
      *
-     * @Deprecated 1.17.0
-     *
+     * @deprecated 1.17.0
      * @see Statistical\Variances::VARPA()
      *      Use the VARPA() method in the Statistical\Variances class instead
      *
@@ -1777,8 +1698,7 @@ class Statistical
      * Returns the Weibull distribution. Use this distribution in reliability
      * analysis, such as calculating a device's mean time to failure.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Statistical\Distributions\Weibull::distribution()
      *      Use the distribution() method in the Statistical\Distributions\Weibull class instead
      *
@@ -1802,8 +1722,7 @@ class Statistical
      * For a given hypothesized population mean, x, Z.TEST returns the probability that the sample mean would be
      *     greater than the average of observations in the data set (array) — that is, the observed sample mean.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Statistical\Distributions\StandardNormal::zTest()
      *      Use the zTest() method in the Statistical\Distributions\StandardNormal class instead
      *

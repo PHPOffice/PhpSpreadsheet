@@ -12,8 +12,7 @@ class TextData
     /**
      * CHARACTER.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Use the character() method in the TextData\CharacterConvert class instead
      *
      * @param string $character Value
@@ -28,8 +27,7 @@ class TextData
     /**
      * TRIMNONPRINTABLE.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Use the nonPrintable() method in the TextData\Trim class instead
      *
      * @param mixed $stringValue Value to check
@@ -44,8 +42,7 @@ class TextData
     /**
      * TRIMSPACES.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Use the spaces() method in the TextData\Trim class instead
      *
      * @param mixed $stringValue Value to check
@@ -60,8 +57,7 @@ class TextData
     /**
      * ASCIICODE.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Use the code() method in the TextData\CharacterConvert class instead
      *
      * @param array|string $characters Value
@@ -76,8 +72,7 @@ class TextData
     /**
      * CONCATENATE.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Use the CONCATENATE() method in the TextData\Concatenate class instead
      *
      * @return string
@@ -93,8 +88,7 @@ class TextData
      * This function converts a number to text using currency format, with the decimals rounded to the specified place.
      * The format used is $#,##0.00_);($#,##0.00)..
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Use the DOLLAR() method in the TextData\Format class instead
      *
      * @param float $value The value to format
@@ -112,8 +106,7 @@ class TextData
     /**
      * FIND.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Use the sensitive() method in the TextData\Search class instead
      *
      * @param array|string $needle The string to look for
@@ -130,8 +123,7 @@ class TextData
     /**
      * SEARCH.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Use the insensitive() method in the TextData\Search class instead
      *
      * @param array|string $needle The string to look for
@@ -148,8 +140,7 @@ class TextData
     /**
      * FIXEDFORMAT.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Use the FIXEDFORMAT() method in the TextData\Format class instead
      *
      * @param mixed $value Value to check
@@ -166,8 +157,7 @@ class TextData
     /**
      * LEFT.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Use the left() method in the TextData\Extract class instead
      *
      * @param array|string $value Value
@@ -183,8 +173,7 @@ class TextData
     /**
      * MID.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Use the mid() method in the TextData\Extract class instead
      *
      * @param array|string $value Value
@@ -201,8 +190,7 @@ class TextData
     /**
      * RIGHT.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Use the right() method in the TextData\Extract class instead
      *
      * @param array|string $value Value
@@ -218,8 +206,7 @@ class TextData
     /**
      * STRINGLENGTH.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Use the length() method in the TextData\Text class instead
      *
      * @param string $value Value
@@ -236,8 +223,7 @@ class TextData
      *
      * Converts a string value to lower case.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Use the lower() method in the TextData\CaseConvert class instead
      *
      * @param array|string $mixedCaseString
@@ -254,8 +240,7 @@ class TextData
      *
      * Converts a string value to upper case.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Use the upper() method in the TextData\CaseConvert class instead
      *
      * @param string $mixedCaseString
@@ -272,8 +257,7 @@ class TextData
      *
      * Converts a string value to proper/title case.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Use the proper() method in the TextData\CaseConvert class instead
      *
      * @param array|string $mixedCaseString
@@ -288,8 +272,7 @@ class TextData
     /**
      * REPLACE.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Use the replace() method in the TextData\Replace class instead
      *
      * @param string $oldText String to modify
@@ -307,8 +290,7 @@ class TextData
     /**
      * SUBSTITUTE.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Use the substitute() method in the TextData\Replace class instead
      *
      * @param string $text Value
@@ -326,8 +308,7 @@ class TextData
     /**
      * RETURNSTRING.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Use the test() method in the TextData\Text class instead
      *
      * @param mixed $testValue Value to check
@@ -342,8 +323,7 @@ class TextData
     /**
      * TEXTFORMAT.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Use the TEXTFORMAT() method in the TextData\Format class instead
      *
      * @param mixed $value Value to check
@@ -359,8 +339,7 @@ class TextData
     /**
      * VALUE.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Use the VALUE() method in the TextData\Format class instead
      *
      * @param mixed $value Value to check
@@ -375,8 +354,7 @@ class TextData
     /**
      * NUMBERVALUE.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Use the NUMBERVALUE() method in the TextData\Format class instead
      *
      * @param mixed $value Value to check
@@ -395,8 +373,7 @@ class TextData
      * EXACT is case-sensitive but ignores formatting differences.
      * Use EXACT to test text being entered into a document.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Use the exact() method in the TextData\Text class instead
      *
      * @param mixed $value1
@@ -412,8 +389,7 @@ class TextData
     /**
      * TEXTJOIN.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Use the TEXTJOIN() method in the TextData\Concatenate class instead
      *
      * @param mixed $delimiter
@@ -432,8 +408,7 @@ class TextData
      *
      * Returns the result of builtin function repeat after validating args.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Use the builtinREPT() method in the TextData\Concatenate class instead
      *
      * @param array|string $str Should be numeric

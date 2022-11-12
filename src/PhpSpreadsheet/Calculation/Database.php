@@ -15,8 +15,7 @@ class Database
      * Excel Function:
      *        DAVERAGE(database,field,criteria)
      *
-     * @Deprecated 1.17.0
-     *
+     * @deprecated 1.17.0
      * @see Database\DAverage::evaluate()
      *      Use the evaluate() method in the Database\DAverage class instead
      *
@@ -51,8 +50,7 @@ class Database
      * Excel Function:
      *        DCOUNT(database,[field],criteria)
      *
-     * @Deprecated 1.17.0
-     *
+     * @deprecated 1.17.0
      * @see Database\DCount::evaluate()
      *      Use the evaluate() method in the Database\DCount class instead
      *
@@ -89,8 +87,7 @@ class Database
      * Excel Function:
      *        DCOUNTA(database,[field],criteria)
      *
-     * @Deprecated 1.17.0
-     *
+     * @deprecated 1.17.0
      * @see Database\DCountA::evaluate()
      *      Use the evaluate() method in the Database\DCountA class instead
      *
@@ -125,8 +122,7 @@ class Database
      * Excel Function:
      *        DGET(database,field,criteria)
      *
-     * @Deprecated 1.17.0
-     *
+     * @deprecated 1.17.0
      * @see Database\DGet::evaluate()
      *      Use the evaluate() method in the Database\DGet class instead
      *
@@ -161,8 +157,7 @@ class Database
      * Excel Function:
      *        DMAX(database,field,criteria)
      *
-     * @Deprecated 1.17.0
-     *
+     * @deprecated 1.17.0
      * @see Database\DMax::evaluate()
      *      Use the evaluate() method in the Database\DMax class instead
      *
@@ -197,8 +192,7 @@ class Database
      * Excel Function:
      *        DMIN(database,field,criteria)
      *
-     * @Deprecated 1.17.0
-     *
+     * @deprecated 1.17.0
      * @see Database\DMin::evaluate()
      *      Use the evaluate() method in the Database\DMin class instead
      *
@@ -232,8 +226,7 @@ class Database
      * Excel Function:
      *        DPRODUCT(database,field,criteria)
      *
-     * @Deprecated 1.17.0
-     *
+     * @deprecated 1.17.0
      * @see Database\DProduct::evaluate()
      *      Use the evaluate() method in the Database\DProduct class instead
      *
@@ -268,8 +261,7 @@ class Database
      * Excel Function:
      *        DSTDEV(database,field,criteria)
      *
-     * @Deprecated 1.17.0
-     *
+     * @deprecated 1.17.0
      * @see Database\DStDev::evaluate()
      *      Use the evaluate() method in the Database\DStDev class instead
      *
@@ -304,8 +296,7 @@ class Database
      * Excel Function:
      *        DSTDEVP(database,field,criteria)
      *
-     * @Deprecated 1.17.0
-     *
+     * @deprecated 1.17.0
      * @see Database\DStDevP::evaluate()
      *      Use the evaluate() method in the Database\DStDevP class instead
      *
@@ -339,8 +330,7 @@ class Database
      * Excel Function:
      *        DSUM(database,field,criteria)
      *
-     * @Deprecated 1.17.0
-     *
+     * @deprecated 1.17.0
      * @see Database\DSum::evaluate()
      *      Use the evaluate() method in the Database\DSum class instead
      *
@@ -375,8 +365,7 @@ class Database
      * Excel Function:
      *        DVAR(database,field,criteria)
      *
-     * @Deprecated 1.17.0
-     *
+     * @deprecated 1.17.0
      * @see Database\DVar::evaluate()
      *      Use the evaluate() method in the Database\DVar class instead
      *
@@ -411,8 +400,7 @@ class Database
      * Excel Function:
      *        DVARP(database,field,criteria)
      *
-     * @Deprecated 1.17.0
-     *
+     * @deprecated 1.17.0
      * @see Database\DVarP::evaluate()
      *      Use the evaluate() method in the Database\DVarP class instead
      *

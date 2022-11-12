@@ -50,8 +50,7 @@ class Engineering
      *    Excel Function:
      *        BESSELI(x,ord)
      *
-     * @Deprecated 1.17.0
-     *
+     * @deprecated 1.17.0
      * @see Use the BESSELI() method in the Engineering\BesselI class instead
      *
      * @param float $x The value at which to evaluate the function.
@@ -76,8 +75,7 @@ class Engineering
      *    Excel Function:
      *        BESSELJ(x,ord)
      *
-     * @Deprecated 1.17.0
-     *
+     * @deprecated 1.17.0
      * @see Use the BESSELJ() method in the Engineering\BesselJ class instead
      *
      * @param float $x The value at which to evaluate the function.
@@ -102,8 +100,7 @@ class Engineering
      *    Excel Function:
      *        BESSELK(x,ord)
      *
-     * @Deprecated 1.17.0
-     *
+     * @deprecated 1.17.0
      * @see Use the BESSELK() method in the Engineering\BesselK class instead
      *
      * @param float $x The value at which to evaluate the function.
@@ -127,8 +124,7 @@ class Engineering
      *    Excel Function:
      *        BESSELY(x,ord)
      *
-     * @Deprecated 1.17.0
-     *
+     * @deprecated 1.17.0
      * @see Use the BESSELY() method in the Engineering\BesselY class instead
      *
      * @param float $x The value at which to evaluate the function.
@@ -152,8 +148,7 @@ class Engineering
      * Excel Function:
      *        BIN2DEC(x)
      *
-     * @Deprecated 1.17.0
-     *
+     * @deprecated 1.17.0
      * @see Use the toDecimal() method in the Engineering\ConvertBinary class instead
      *
      * @param mixed $x The binary number (as a string) that you want to convert. The number
@@ -178,8 +173,7 @@ class Engineering
      * Excel Function:
      *        BIN2HEX(x[,places])
      *
-     * @Deprecated 1.17.0
-     *
+     * @deprecated 1.17.0
      * @see Use the toHex() method in the Engineering\ConvertBinary class instead
      *
      * @param mixed $x The binary number (as a string) that you want to convert. The number
@@ -210,8 +204,7 @@ class Engineering
      * Excel Function:
      *        BIN2OCT(x[,places])
      *
-     * @Deprecated 1.17.0
-     *
+     * @deprecated 1.17.0
      * @see Use the toOctal() method in the Engineering\ConvertBinary class instead
      *
      * @param mixed $x The binary number (as a string) that you want to convert. The number
@@ -242,8 +235,7 @@ class Engineering
      * Excel Function:
      *        DEC2BIN(x[,places])
      *
-     * @Deprecated 1.17.0
-     *
+     * @deprecated 1.17.0
      * @see Use the toBinary() method in the Engineering\ConvertDecimal class instead
      *
      * @param mixed $x The decimal integer you want to convert. If number is negative,
@@ -278,8 +270,7 @@ class Engineering
      * Excel Function:
      *        DEC2HEX(x[,places])
      *
-     * @Deprecated 1.17.0
-     *
+     * @deprecated 1.17.0
      * @see Use the toHex() method in the Engineering\ConvertDecimal class instead
      *
      * @param mixed $x The decimal integer you want to convert. If number is negative,
@@ -314,8 +305,7 @@ class Engineering
      * Excel Function:
      *        DEC2OCT(x[,places])
      *
-     * @Deprecated 1.17.0
-     *
+     * @deprecated 1.17.0
      * @see Use the toOctal() method in the Engineering\ConvertDecimal class instead
      *
      * @param mixed $x The decimal integer you want to convert. If number is negative,
@@ -350,8 +340,7 @@ class Engineering
      * Excel Function:
      *        HEX2BIN(x[,places])
      *
-     * @Deprecated 1.17.0
-     *
+     * @deprecated 1.17.0
      * @see Use the toBinary() method in the Engineering\ConvertHex class instead
      *
      * @param mixed $x the hexadecimal number (as a string) that you want to convert.
@@ -386,8 +375,7 @@ class Engineering
      * Excel Function:
      *        HEX2DEC(x)
      *
-     * @Deprecated 1.17.0
-     *
+     * @deprecated 1.17.0
      * @see Use the toDecimal() method in the Engineering\ConvertHex class instead
      *
      * @param mixed $x The hexadecimal number (as a string) that you want to convert. This number cannot
@@ -413,8 +401,7 @@ class Engineering
      * Excel Function:
      *        HEX2OCT(x[,places])
      *
-     * @Deprecated 1.17.0
-     *
+     * @deprecated 1.17.0
      * @see Use the toOctal() method in the Engineering\ConvertHex class instead
      *
      * @param mixed $x The hexadecimal number (as a string) that you want to convert. Number cannot
@@ -453,8 +440,7 @@ class Engineering
      * Excel Function:
      *        OCT2BIN(x[,places])
      *
-     * @Deprecated 1.17.0
-     *
+     * @deprecated 1.17.0
      * @see Use the toBinary() method in the Engineering\ConvertOctal class instead
      *
      * @param mixed $x The octal number you want to convert. Number may not
@@ -495,8 +481,7 @@ class Engineering
      * Excel Function:
      *        OCT2DEC(x)
      *
-     * @Deprecated 1.17.0
-     *
+     * @deprecated 1.17.0
      * @see Use the toDecimal() method in the Engineering\ConvertOctal class instead
      *
      * @param mixed $x The octal number you want to convert. Number may not contain
@@ -522,8 +507,7 @@ class Engineering
      * Excel Function:
      *        OCT2HEX(x[,places])
      *
-     * @Deprecated 1.17.0
-     *
+     * @deprecated 1.17.0
      * @see Use the toHex() method in the Engineering\ConvertOctal class instead
      *
      * @param mixed $x The octal number you want to convert. Number may not contain
@@ -559,8 +543,7 @@ class Engineering
      * Excel Function:
      *        COMPLEX(realNumber,imaginary[,suffix])
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Use the COMPLEX() method in the Engineering\Complex class instead
      *
      * @param array|float $realNumber the real coefficient of the complex number
@@ -583,8 +566,7 @@ class Engineering
      * Excel Function:
      *        IMAGINARY(complexNumber)
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Use the IMAGINARY() method in the Engineering\Complex class instead
      *
      * @param string $complexNumber the complex number for which you want the imaginary
@@ -605,8 +587,7 @@ class Engineering
      * Excel Function:
      *        IMREAL(complexNumber)
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Use the IMREAL() method in the Engineering\Complex class instead
      *
      * @param string $complexNumber the complex number for which you want the real coefficient
@@ -626,8 +607,7 @@ class Engineering
      * Excel Function:
      *        IMABS(complexNumber)
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Use the IMABS() method in the Engineering\ComplexFunctions class instead
      *
      * @param string $complexNumber the complex number for which you want the absolute value
@@ -648,8 +628,7 @@ class Engineering
      * Excel Function:
      *        IMARGUMENT(complexNumber)
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Use the IMARGUMENT() method in the Engineering\ComplexFunctions class instead
      *
      * @param array|string $complexNumber the complex number for which you want the argument theta
@@ -669,8 +648,7 @@ class Engineering
      * Excel Function:
      *        IMCONJUGATE(complexNumber)
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Use the IMARGUMENT() method in the Engineering\ComplexFunctions class instead
      *
      * @param array|string $complexNumber the complex number for which you want the conjugate
@@ -690,8 +668,7 @@ class Engineering
      * Excel Function:
      *        IMCOS(complexNumber)
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Use the IMCOS() method in the Engineering\ComplexFunctions class instead
      *
      * @param array|string $complexNumber the complex number for which you want the cosine
@@ -711,8 +688,7 @@ class Engineering
      * Excel Function:
      *        IMCOSH(complexNumber)
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Use the IMCOSH() method in the Engineering\ComplexFunctions class instead
      *
      * @param array|string $complexNumber the complex number for which you want the hyperbolic cosine
@@ -732,8 +708,7 @@ class Engineering
      * Excel Function:
      *        IMCOT(complexNumber)
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Use the IMCOT() method in the Engineering\ComplexFunctions class instead
      *
      * @param array|string $complexNumber the complex number for which you want the cotangent
@@ -753,8 +728,7 @@ class Engineering
      * Excel Function:
      *        IMCSC(complexNumber)
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Use the IMCSC() method in the Engineering\ComplexFunctions class instead
      *
      * @param array|string $complexNumber the complex number for which you want the cosecant
@@ -774,8 +748,7 @@ class Engineering
      * Excel Function:
      *        IMCSCH(complexNumber)
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Use the IMCSCH() method in the Engineering\ComplexFunctions class instead
      *
      * @param array|string $complexNumber the complex number for which you want the hyperbolic cosecant
@@ -795,8 +768,7 @@ class Engineering
      * Excel Function:
      *        IMSIN(complexNumber)
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Use the IMSIN() method in the Engineering\ComplexFunctions class instead
      *
      * @param string $complexNumber the complex number for which you want the sine
@@ -816,8 +788,7 @@ class Engineering
      * Excel Function:
      *        IMSINH(complexNumber)
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Use the IMSINH() method in the Engineering\ComplexFunctions class instead
      *
      * @param string $complexNumber the complex number for which you want the hyperbolic sine
@@ -837,8 +808,7 @@ class Engineering
      * Excel Function:
      *        IMSEC(complexNumber)
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Use the IMSEC() method in the Engineering\ComplexFunctions class instead
      *
      * @param string $complexNumber the complex number for which you want the secant
@@ -858,8 +828,7 @@ class Engineering
      * Excel Function:
      *        IMSECH(complexNumber)
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Use the IMSECH() method in the Engineering\ComplexFunctions class instead
      *
      * @param string $complexNumber the complex number for which you want the hyperbolic secant
@@ -879,8 +848,7 @@ class Engineering
      * Excel Function:
      *        IMTAN(complexNumber)
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Use the IMTAN() method in the Engineering\ComplexFunctions class instead
      *
      * @param string $complexNumber the complex number for which you want the tangent
@@ -900,8 +868,7 @@ class Engineering
      * Excel Function:
      *        IMSQRT(complexNumber)
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Use the IMSQRT() method in the Engineering\ComplexFunctions class instead
      *
      * @param string $complexNumber the complex number for which you want the square root
@@ -921,8 +888,7 @@ class Engineering
      * Excel Function:
      *        IMLN(complexNumber)
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Use the IMLN() method in the Engineering\ComplexFunctions class instead
      *
      * @param string $complexNumber the complex number for which you want the natural logarithm
@@ -942,8 +908,7 @@ class Engineering
      * Excel Function:
      *        IMLOG10(complexNumber)
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Use the IMLOG10() method in the Engineering\ComplexFunctions class instead
      *
      * @param string $complexNumber the complex number for which you want the common logarithm
@@ -963,8 +928,7 @@ class Engineering
      * Excel Function:
      *        IMLOG2(complexNumber)
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Use the IMLOG2() method in the Engineering\ComplexFunctions class instead
      *
      * @param string $complexNumber the complex number for which you want the base-2 logarithm
@@ -984,8 +948,7 @@ class Engineering
      * Excel Function:
      *        IMEXP(complexNumber)
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Use the IMEXP() method in the Engineering\ComplexFunctions class instead
      *
      * @param string $complexNumber the complex number for which you want the exponential
@@ -1005,8 +968,7 @@ class Engineering
      * Excel Function:
      *        IMPOWER(complexNumber,realNumber)
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Use the IMPOWER() method in the Engineering\ComplexFunctions class instead
      *
      * @param string $complexNumber the complex number you want to raise to a power
@@ -1027,8 +989,7 @@ class Engineering
      * Excel Function:
      *        IMDIV(complexDividend,complexDivisor)
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Use the IMDIV() method in the Engineering\ComplexOperations class instead
      *
      * @param string $complexDividend the complex numerator or dividend
@@ -1049,8 +1010,7 @@ class Engineering
      * Excel Function:
      *        IMSUB(complexNumber1,complexNumber2)
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Use the IMSUB() method in the Engineering\ComplexOperations class instead
      *
      * @param string $complexNumber1 the complex number from which to subtract complexNumber2
@@ -1071,8 +1031,7 @@ class Engineering
      * Excel Function:
      *        IMSUM(complexNumber[,complexNumber[,...]])
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Use the IMSUM() method in the Engineering\ComplexOperations class instead
      *
      * @param string ...$complexNumbers Series of complex numbers to add
@@ -1092,8 +1051,7 @@ class Engineering
      * Excel Function:
      *        IMPRODUCT(complexNumber[,complexNumber[,...]])
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see Use the IMPRODUCT() method in the Engineering\ComplexOperations class instead
      *
      * @param string ...$complexNumbers Series of complex numbers to multiply
@@ -1116,8 +1074,7 @@ class Engineering
      *    Excel Function:
      *        DELTA(a[,b])
      *
-     * @Deprecated 1.17.0
-     *
+     * @deprecated 1.17.0
      * @see Use the DELTA() method in the Engineering\Compare class instead
      *
      * @param float $a the first number
@@ -1140,8 +1097,7 @@ class Engineering
      *    Use this function to filter a set of values. For example, by summing several GESTEP
      *        functions you calculate the count of values that exceed a threshold.
      *
-     * @Deprecated 1.17.0
-     *
+     * @deprecated 1.17.0
      * @see Use the GESTEP() method in the Engineering\Compare class instead
      *
      * @param float $number the value to test against step
@@ -1162,8 +1118,7 @@ class Engineering
      * Excel Function:
      *        BITAND(number1, number2)
      *
-     * @Deprecated 1.17.0
-     *
+     * @deprecated 1.17.0
      * @see Use the BITAND() method in the Engineering\BitWise class instead
      *
      * @param int $number1
@@ -1184,8 +1139,7 @@ class Engineering
      * Excel Function:
      *        BITOR(number1, number2)
      *
-     * @Deprecated 1.17.0
-     *
+     * @deprecated 1.17.0
      * @see Use the BITOR() method in the Engineering\BitWise class instead
      *
      * @param int $number1
@@ -1206,8 +1160,7 @@ class Engineering
      * Excel Function:
      *        BITXOR(number1, number2)
      *
-     * @Deprecated 1.17.0
-     *
+     * @deprecated 1.17.0
      * @see Use the BITXOR() method in the Engineering\BitWise class instead
      *
      * @param int $number1
@@ -1228,8 +1181,7 @@ class Engineering
      * Excel Function:
      *        BITLSHIFT(number, shift_amount)
      *
-     * @Deprecated 1.17.0
-     *
+     * @deprecated 1.17.0
      * @see Use the BITLSHIFT() method in the Engineering\BitWise class instead
      *
      * @param int $number
@@ -1250,8 +1202,7 @@ class Engineering
      * Excel Function:
      *        BITRSHIFT(number, shift_amount)
      *
-     * @Deprecated 1.17.0
-     *
+     * @deprecated 1.17.0
      * @see Use the BITRSHIFT() method in the Engineering\BitWise class instead
      *
      * @param int $number
@@ -1277,8 +1228,7 @@ class Engineering
      *    Excel Function:
      *        ERF(lower[,upper])
      *
-     * @Deprecated 1.17.0
-     *
+     * @deprecated 1.17.0
      * @see Use the ERF() method in the Engineering\Erf class instead
      *
      * @param float $lower lower bound for integrating ERF
@@ -1300,8 +1250,7 @@ class Engineering
      *    Excel Function:
      *        ERF.PRECISE(limit)
      *
-     * @Deprecated 1.17.0
-     *
+     * @deprecated 1.17.0
      * @see Use the ERFPRECISE() method in the Engineering\Erf class instead
      *
      * @param float $limit bound for integrating ERF
@@ -1326,8 +1275,7 @@ class Engineering
      *    Excel Function:
      *        ERFC(x)
      *
-     * @Deprecated 1.17.0
-     *
+     * @deprecated 1.17.0
      * @see Use the ERFC() method in the Engineering\ErfC class instead
      *
      * @param float $x The lower bound for integrating ERFC
@@ -1343,8 +1291,7 @@ class Engineering
      *    getConversionGroups
      * Returns a list of the different conversion groups for UOM conversions.
      *
-     * @Deprecated 1.16.0
-     *
+     * @deprecated 1.16.0
      * @see Use the getConversionCategories() method in the Engineering\ConvertUOM class instead
      *
      * @return array
@@ -1358,8 +1305,7 @@ class Engineering
      *    getConversionGroupUnits
      * Returns an array of units of measure, for a specified conversion group, or for all groups.
      *
-     * @Deprecated 1.16.0
-     *
+     * @deprecated 1.16.0
      * @see Use the getConversionCategoryUnits() method in the ConvertUOM class instead
      *
      * @param null|mixed $category
@@ -1374,8 +1320,7 @@ class Engineering
     /**
      * getConversionGroupUnitDetails.
      *
-     * @Deprecated 1.16.0
-     *
+     * @deprecated 1.16.0
      * @see Use the getConversionCategoryUnitDetails() method in the ConvertUOM class instead
      *
      * @param null|mixed $category
@@ -1391,8 +1336,7 @@ class Engineering
      *    getConversionMultipliers
      * Returns an array of the Multiplier prefixes that can be used with Units of Measure in CONVERTUOM().
      *
-     * @Deprecated 1.16.0
-     *
+     * @deprecated 1.16.0
      * @see Use the getConversionMultipliers() method in the ConvertUOM class instead
      *
      * @return mixed[]
@@ -1408,8 +1352,7 @@ class Engineering
      * Returns an array of the additional Multiplier prefixes that can be used with Information Units of Measure
      *     in CONVERTUOM().
      *
-     * @Deprecated 1.16.0
-     *
+     * @deprecated 1.16.0
      * @see Use the getBinaryConversionMultipliers() method in the ConvertUOM class instead
      *
      * @return mixed[]
@@ -1429,8 +1372,7 @@ class Engineering
      *    Excel Function:
      *        CONVERT(value,fromUOM,toUOM)
      *
-     * @Deprecated 1.16.0
-     *
+     * @deprecated 1.16.0
      * @see Use the CONVERT() method in the ConvertUOM class instead
      *
      * @param float|int $value the value in fromUOM to convert

@@ -26,8 +26,7 @@ class LookupRef
      * Excel Function:
      *        =ADDRESS(row, column, [relativity], [referenceStyle], [sheetText])
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see LookupRef\Address::cell()
      *      Use the cell() method in the LookupRef\Address class instead
      *
@@ -63,8 +62,7 @@ class LookupRef
      * Excel Function:
      *        =COLUMN([cellAddress])
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see LookupRef\RowColumnInformation::COLUMN()
      *      Use the COLUMN() method in the LookupRef\RowColumnInformation class instead
      *
@@ -85,8 +83,7 @@ class LookupRef
      * Excel Function:
      *        =COLUMNS(cellAddress)
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see LookupRef\RowColumnInformation::COLUMNS()
      *      Use the COLUMNS() method in the LookupRef\RowColumnInformation class instead
      *
@@ -113,8 +110,7 @@ class LookupRef
      * Excel Function:
      *        =ROW([cellAddress])
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see LookupRef\RowColumnInformation::ROW()
      *      Use the ROW() method in the LookupRef\RowColumnInformation class instead
      *
@@ -135,8 +131,7 @@ class LookupRef
      * Excel Function:
      *        =ROWS(cellAddress)
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see LookupRef\RowColumnInformation::ROWS()
      *      Use the ROWS() method in the LookupRef\RowColumnInformation class instead
      *
@@ -156,16 +151,15 @@ class LookupRef
      * Excel Function:
      *        =HYPERLINK(linkURL,displayName)
      *
-     * @Deprecated 1.18.0
+     * @deprecated 1.18.0
+     * @see LookupRef\Hyperlink::set()
+     *      Use the set() method in the LookupRef\Hyperlink class instead
      *
      * @param mixed $linkURL Expect string. Value to check, is also the value returned when no error
      * @param mixed $displayName Expect string. Value to return when testValue is an error condition
      * @param Cell $cell The cell to set the hyperlink in
      *
      * @return string The value of $displayName (or $linkURL if $displayName was blank)
-     *
-     *@see LookupRef\Hyperlink::set()
-     *      Use the set() method in the LookupRef\Hyperlink class instead
      */
     public static function HYPERLINK($linkURL = '', $displayName = null, ?Cell $cell = null)
     {
@@ -181,15 +175,14 @@ class LookupRef
      * Excel Function:
      *        =INDIRECT(cellAddress)
      *
-     * @Deprecated 1.18.0
+     * @deprecated 1.18.0
+     * @see LookupRef\Indirect::INDIRECT()
+     *      Use the INDIRECT() method in the LookupRef\Indirect class instead
      *
      * @param array|string $cellAddress $cellAddress The cell address of the current cell (containing this formula)
      * @param Cell $cell The current cell (containing this formula)
      *
      * @return array|string An array containing a cell or range of cells, or a string on error
-     *
-     *@see LookupRef\Indirect::INDIRECT()
-     *      Use the INDIRECT() method in the LookupRef\Indirect class instead
      *
      * NOTE - INDIRECT() does not yet support the optional a1 parameter introduced in Excel 2010
      */
@@ -208,8 +201,7 @@ class LookupRef
      * Excel Function:
      *        =OFFSET(cellAddress, rows, cols, [height], [width])
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see LookupRef\Offset::OFFSET()
      *      Use the OFFSET() method in the LookupRef\Offset class instead
      *
@@ -247,8 +239,7 @@ class LookupRef
      * Excel Function:
      *        =CHOOSE(index_num, value1, [value2], ...)
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see LookupRef\Selection::choose()
      *      Use the choose() method in the LookupRef\Selection class instead
      *
@@ -267,8 +258,7 @@ class LookupRef
      * Excel Function:
      *        =MATCH(lookup_value, lookup_array, [match_type])
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see LookupRef\ExcelMatch::MATCH()
      *      Use the MATCH() method in the LookupRef\ExcelMatch class instead
      *
@@ -292,8 +282,7 @@ class LookupRef
      * Excel Function:
      *        =INDEX(range_array, row_num, [column_num])
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see LookupRef\Matrix::index()
      *      Use the index() method in the LookupRef\Matrix class instead
      *
@@ -313,8 +302,7 @@ class LookupRef
     /**
      * TRANSPOSE.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see LookupRef\Matrix::transpose()
      *      Use the transpose() method in the LookupRef\Matrix class instead
      *
@@ -335,8 +323,7 @@ class LookupRef
      * The VLOOKUP function searches for value in the left-most column of lookup_array and returns the value
      *     in the same row based on the index_number.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see LookupRef\VLookup::lookup()
      *      Use the lookup() method in the LookupRef\VLookup class instead
      *
@@ -358,8 +345,7 @@ class LookupRef
      * The HLOOKUP function searches for value in the top-most row of lookup_array and returns the value
      *     in the same column based on the index_number.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see LookupRef\HLookup::lookup()
      *      Use the lookup() method in the LookupRef\HLookup class instead
      *
@@ -380,8 +366,7 @@ class LookupRef
      * LOOKUP
      * The LOOKUP function searches for value either from a one-row or one-column range or from an array.
      *
-     * @Deprecated 1.18.0
-     *
+     * @deprecated 1.18.0
      * @see LookupRef\Lookup::lookup()
      *      Use the lookup() method in the LookupRef\Lookup class instead
      *
@@ -399,15 +384,14 @@ class LookupRef
     /**
      * FORMULATEXT.
      *
-     * @Deprecated 1.18.0
+     * @deprecated 1.18.0
+     * @see LookupRef\Formula::text()
+     *      Use the text() method in the LookupRef\Formula class instead
      *
      * @param mixed $cellReference The cell to check
      * @param Cell $cell The current cell (containing this formula)
      *
      * @return string
-     *
-     *@see LookupRef\Formula::text()
-     *      Use the text() method in the LookupRef\Formula class instead
      */
     public static function FORMULATEXT($cellReference = '', ?Cell $cell = null)
     {

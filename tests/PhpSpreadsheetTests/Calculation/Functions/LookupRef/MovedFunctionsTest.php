@@ -19,11 +19,11 @@ class MovedFunctionsTest extends TestCase
 {
     public function testMovedFunctions(): void
     {
-        self::assertSame(3, LookupRef::COLUMN('C5'));
-        self::assertSame(ExcelError::REF(), LookupRef::FORMULATEXT('A1'));
-        self::assertSame(ExcelError::REF(), LookupRef::HYPERLINK('https://phpspreadsheet.readthedocs.io/en/latest/', 'Read the Docs'));
-        self::assertSame('#VALUE!', LookupRef::OFFSET(null));
-        self::assertSame(5, LookupRef::ROW('C5'));
-        self::assertSame([[1, 2], [3, 4]], LookupRef::TRANSPOSE([[1, 3], [2, 4]]));
+        self::assertSame(3, /** @scrutinizer ignore-deprecated */ LookupRef::COLUMN('C5'));
+        self::assertSame(ExcelError::REF(), /** @scrutinizer ignore-deprecated */ LookupRef::FORMULATEXT('A1'));
+        self::assertSame(ExcelError::REF(), /** @scrutinizer ignore-deprecated */ LookupRef::HYPERLINK('https://phpspreadsheet.readthedocs.io/en/latest/', 'Read the Docs'));
+        self::assertSame('#VALUE!', /** @scrutinizer ignore-deprecated */ LookupRef::OFFSET(null));
+        self::assertSame(5, /** @scrutinizer ignore-deprecated */ LookupRef::ROW('C5'));
+        self::assertSame([[1, 2], [3, 4]], /** @scrutinizer ignore-deprecated */ LookupRef::TRANSPOSE([[1, 3], [2, 4]]));
     }
 }
