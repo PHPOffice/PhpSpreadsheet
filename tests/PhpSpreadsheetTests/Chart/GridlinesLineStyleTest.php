@@ -350,7 +350,7 @@ class GridlinesLineStyleTest extends AbstractFunctional
             $majorGridlines,
             $minorGridlines // minorGridlines
         );
-        $majorGridlines2 = $chart->getMajorGridlines();
+        $majorGridlines2 = /** @scrutinizer ignore-deprecated */ $chart->getMajorGridlines();
         self::assertNotNull($majorGridlines2);
         self::assertEquals($width, $majorGridlines2->getLineStyleProperty('width'));
         self::assertEquals($compound, $majorGridlines2->getLineStyleProperty('compound'));
@@ -366,7 +366,7 @@ class GridlinesLineStyleTest extends AbstractFunctional
         self::assertEquals('sm', $majorGridlines2->getLineStyleProperty(['arrow', 'end', 'w']));
         self::assertEquals('lg', $majorGridlines2->getLineStyleProperty(['arrow', 'end', 'len']));
 
-        $minorGridlines2 = $chart->getMinorGridlines();
+        $minorGridlines2 = /** @scrutinizer ignore-deprecated */ $chart->getMinorGridlines();
         self::assertNotNull($minorGridlines2);
         self::assertSame('00FF00', $minorGridlines2->getLineColorProperty('value'));
         self::assertSame(30, $minorGridlines2->getLineColorProperty('alpha'));
