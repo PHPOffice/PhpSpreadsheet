@@ -206,9 +206,7 @@ class Functions
      *
      * Returns the error value #NULL!
      *
-     * @deprecated 1.23.0
-     * @see Information\ExcelError::null()
-     * Use the null() method in the Information\Error class instead
+     * @deprecated 1.23.0 Use the null() method in the Information\Error class instead
      *
      * @return string #NULL!
      */
@@ -222,9 +220,7 @@ class Functions
      *
      * Returns the error value #NUM!
      *
-     * @deprecated 1.23.0
-     * @see Information\ExcelError::NAN()
-     * Use the NAN() method in the Information\Error class instead
+     * @deprecated 1.23.0 Use the NAN() method in the Information\Error class instead
      *
      * @return string #NUM!
      */
@@ -238,9 +234,7 @@ class Functions
      *
      * Returns the error value #REF!
      *
-     * @deprecated 1.23.0
-     * @see Information\ExcelError::REF()
-     * Use the REF() method in the Information\Error class instead
+     * @deprecated 1.23.0 Use the REF() method in the Information\ExcelError class instead
      *
      * @return string #REF!
      */
@@ -258,9 +252,7 @@ class Functions
      * Returns the error value #N/A
      *        #N/A is the error value that means "no value is available."
      *
-     * @deprecated 1.23.0
-     * @see Information\ExcelError::NA()
-     * Use the NA() method in the Information\Error class instead
+     * @deprecated 1.23.0 Use the NA() method in the Information\ExcelError class instead
      *
      * @return string #N/A!
      */
@@ -274,9 +266,7 @@ class Functions
      *
      * Returns the error value #VALUE!
      *
-     * @deprecated 1.23.0
-     * @see Information\ExcelError::VALUE()
-     * Use the VALUE() method in the Information\Error class instead
+     * @deprecated 1.23.0 Use the VALUE() method in the Information\ExcelError class instead
      *
      * @return string #VALUE!
      */
@@ -290,9 +280,7 @@ class Functions
      *
      * Returns the error value #NAME?
      *
-     * @deprecated 1.23.0
-     * @see Information\ExcelError::NAME()
-     * Use the NAME() method in the Information\Error class instead
+     * @deprecated 1.23.0 Use the NAME() method in the Information\ExcelError class instead
      *
      * @return string #NAME?
      */
@@ -304,9 +292,7 @@ class Functions
     /**
      * DIV0.
      *
-     * @deprecated 1.23.0
-     * @see Information\ExcelError::DIV0()
-     * Use the DIV0() method in the Information\Error class instead
+     * @deprecated 1.23.0 Use the DIV0() method in the Information\ExcelError class instead
      *
      * @return string #Not Yet Implemented
      */
@@ -320,9 +306,7 @@ class Functions
      *
      * @param mixed $value Value to check
      *
-     * @deprecated 1.23.0
-     * @see Information\ExcelError::type()
-     * Use the type() method in the Information\Error class instead
+     * @deprecated 1.23.0 Use the type() method in the Information\ExcelError class instead
      *
      * @return array|int|string
      */
@@ -336,9 +320,7 @@ class Functions
      *
      * @param mixed $value Value to check
      *
-     * @deprecated 1.23.0
-     * @see Information\Value::isBlank()
-     * Use the isBlank() method in the Information\Value class instead
+     * @deprecated 1.23.0 Use the isBlank() method in the Information\Value class instead
      *
      * @return array|bool
      */
@@ -352,9 +334,7 @@ class Functions
      *
      * @param mixed $value Value to check
      *
-     * @deprecated 1.23.0
-     * @see Information\Value::isErr()
-     * Use the isErr() method in the Information\Value class instead
+     * @deprecated 1.23.0 Use the isErr() method in the Information\ErrorValue class instead
      *
      * @return array|bool
      */
@@ -368,9 +348,7 @@ class Functions
      *
      * @param mixed $value Value to check
      *
-     * @deprecated 1.23.0
-     * @see Information\Value::isError()
-     * Use the isError() method in the Information\Value class instead
+     * @deprecated 1.23.0 Use the isError() method in the Information\ErrorValue class instead
      *
      * @return array|bool
      */
@@ -384,9 +362,7 @@ class Functions
      *
      * @param mixed $value Value to check
      *
-     * @deprecated 1.23.0
-     * @see Information\Value::isNa()
-     * Use the isNa() method in the Information\Value class instead
+     * @deprecated 1.23.0 Use the isNa() method in the Information\ErrorValue class instead
      *
      * @return array|bool
      */
@@ -400,9 +376,7 @@ class Functions
      *
      * @param mixed $value Value to check
      *
-     * @deprecated 1.23.0
-     * @see Information\Value::isEven()
-     * Use the isEven() method in the Information\Value class instead
+     * @deprecated 1.23.0 Use the isEven() method in the Information\Value class instead
      *
      * @return array|bool|string
      */
@@ -416,9 +390,7 @@ class Functions
      *
      * @param mixed $value Value to check
      *
-     * @deprecated 1.23.0
-     * @see Information\Value::isOdd()
-     * Use the isOdd() method in the Information\Value class instead
+     * @deprecated 1.23.0 Use the isOdd() method in the Information\Value class instead
      *
      * @return array|bool|string
      */
@@ -432,9 +404,7 @@ class Functions
      *
      * @param mixed $value Value to check
      *
-     * @deprecated 1.23.0
-     * @see Information\Value::isNumber()
-     * Use the isNumber() method in the Information\Value class instead
+     * @deprecated 1.23.0 Use the isNumber() method in the Information\Value class instead
      *
      * @return array|bool
      */
@@ -448,9 +418,7 @@ class Functions
      *
      * @param mixed $value Value to check
      *
-     * @deprecated 1.23.0
-     * @see Information\Value::isLogical()
-     * Use the isLogical() method in the Information\Value class instead
+     * @deprecated 1.23.0 Use the isLogical() method in the Information\Value class instead
      *
      * @return array|bool
      */
@@ -464,9 +432,7 @@ class Functions
      *
      * @param mixed $value Value to check
      *
-     * @deprecated 1.23.0
-     * @see Information\Value::isText()
-     * Use the isText() method in the Information\Value class instead
+     * @deprecated 1.23.0 Use the isText() method in the Information\Value class instead
      *
      * @return array|bool
      */
@@ -480,9 +446,7 @@ class Functions
      *
      * @param mixed $value Value to check
      *
-     * @deprecated 1.23.0
-     * @see Information\Value::isNonText()
-     * Use the isNonText() method in the Information\Value class instead
+     * @deprecated 1.23.0 Use the isNonText() method in the Information\Value class instead
      *
      * @return array|bool
      */
@@ -496,9 +460,7 @@ class Functions
      *
      * Returns a value converted to a number
      *
-     * @deprecated 1.23.0
-     * @see Information\Value::asNumber()
-     * Use the asNumber() method in the Information\Value class instead
+     * @deprecated 1.23.0 Use the asNumber() method in the Information\Value class instead
      *
      * @param null|mixed $value The value you want converted
      *
@@ -521,9 +483,7 @@ class Functions
      *
      * Returns a number that identifies the type of a value
      *
-     * @deprecated 1.23.0
-     * @see Information\Value::type()
-     * Use the type() method in the Information\Value class instead
+     * @deprecated 1.23.0 Use the type() method in the Information\Value class instead
      *
      * @param null|mixed $value The value you want tested
      *
@@ -639,9 +599,7 @@ class Functions
     /**
      * ISFORMULA.
      *
-     * @deprecated 1.23.0
-     * @see Information\Value::isFormula()
-     * Use the isFormula() method in the Information\Value class instead
+     * @deprecated 1.23.0 Use the isFormula() method in the Information\Value class instead
      *
      * @param mixed $cellReference The cell to check
      * @param ?Cell $cell The current cell (containing this formula)
