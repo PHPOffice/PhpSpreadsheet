@@ -678,7 +678,7 @@ class Ods extends BaseReader
     {
         if (is_numeric($setCol) && is_numeric($setRow)) {
             try {
-                $spreadsheet->getSheetByNameOrThrow($wsname)->setSelectedCells(Coordinate::stringFromColumnIndex((int) $setCol + 1) . (string) ($setRow + 1));
+                $spreadsheet->getSheetByNameOrThrow($wsname)->setSelectedCells([(int) $setCol + 1, (int) $setRow + 1]);
             } catch (Throwable $e) {
                 // do nothing
             }

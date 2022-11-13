@@ -76,7 +76,9 @@ class Validations
         }
 
         if (is_array($cellRange)) {
-            [$from, $to] = array_chunk($cellRange, 2);
+            $chunk = array_chunk($cellRange, 2);
+            $from = $chunk[0];
+            $to = $chunk[1] ?? $from;
             $cellRange = new CellRange(CellAddress::fromColumnRowArray($from), CellAddress::fromColumnRowArray($to));
         }
 
