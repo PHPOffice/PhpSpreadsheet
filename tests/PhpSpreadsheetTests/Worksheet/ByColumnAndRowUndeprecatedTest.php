@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Comment;
+use PhpOffice\PhpSpreadsheet\Exception as SpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
@@ -11,9 +12,27 @@ use PHPUnit\Framework\TestCase;
 
 class ByColumnAndRowUndeprecatedTest extends TestCase
 {
+    /** @var ?Spreadsheet */
+    private $spreadsheet;
+
+    protected function tearDown(): void
+    {
+        if ($this->spreadsheet !== null) {
+            $this->spreadsheet->disconnectWorksheets();
+            $this->spreadsheet = null;
+        }
+    }
+
+    private function getSpreadsheet(): Spreadsheet
+    {
+        $this->spreadsheet = new Spreadsheet();
+
+        return $this->spreadsheet;
+    }
+
     public function testSetCellValueByColumnAndRow(): void
     {
-        $spreadsheet = new Spreadsheet();
+        $spreadsheet = $this->getSpreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
 
         $sheet->setCellValue([2, 2], 2);
@@ -22,7 +41,7 @@ class ByColumnAndRowUndeprecatedTest extends TestCase
 
     public function testSetCellValueExplicitByColumnAndRow(): void
     {
-        $spreadsheet = new Spreadsheet();
+        $spreadsheet = $this->getSpreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
 
         $sheet->setCellValueExplicit([2, 2], '="PHP Rules"', DataType::TYPE_STRING);
@@ -32,7 +51,7 @@ class ByColumnAndRowUndeprecatedTest extends TestCase
 
     public function testCellExistsByColumnAndRow(): void
     {
-        $spreadsheet = new Spreadsheet();
+        $spreadsheet = $this->getSpreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
 
         $cellExists = $sheet->cellExists([2, 2]);
@@ -46,7 +65,7 @@ class ByColumnAndRowUndeprecatedTest extends TestCase
 
     public function testGetCellByColumnAndRow(): void
     {
-        $spreadsheet = new Spreadsheet();
+        $spreadsheet = $this->getSpreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
 
         $sheet->setCellValue('B2', 2);
@@ -57,7 +76,7 @@ class ByColumnAndRowUndeprecatedTest extends TestCase
 
     public function testGetStyleByColumnAndRow(): void
     {
-        $spreadsheet = new Spreadsheet();
+        $spreadsheet = $this->getSpreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
 
         $data = [['A', 'B'], ['C', 'D']];
@@ -73,7 +92,7 @@ class ByColumnAndRowUndeprecatedTest extends TestCase
 
     public function testSetBreakByColumnAndRow(): void
     {
-        $spreadsheet = new Spreadsheet();
+        $spreadsheet = $this->getSpreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
 
         $sheet->setCellValue('B2', 2);
@@ -86,7 +105,7 @@ class ByColumnAndRowUndeprecatedTest extends TestCase
 
     public function testMergeCellsByColumnAndRow(): void
     {
-        $spreadsheet = new Spreadsheet();
+        $spreadsheet = $this->getSpreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
 
         $data = [['A', 'B'], ['C', 'D']];
@@ -99,7 +118,7 @@ class ByColumnAndRowUndeprecatedTest extends TestCase
 
     public function testUnmergeCellsByColumnAndRow(): void
     {
-        $spreadsheet = new Spreadsheet();
+        $spreadsheet = $this->getSpreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
 
         $data = [['A', 'B'], ['C', 'D']];
@@ -116,7 +135,7 @@ class ByColumnAndRowUndeprecatedTest extends TestCase
 
     public function testProtectCellsByColumnAndRow(): void
     {
-        $spreadsheet = new Spreadsheet();
+        $spreadsheet = $this->getSpreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
 
         $data = [['A', 'B'], ['C', 'D']];
@@ -129,7 +148,7 @@ class ByColumnAndRowUndeprecatedTest extends TestCase
 
     public function testUnprotectCellsByColumnAndRow(): void
     {
-        $spreadsheet = new Spreadsheet();
+        $spreadsheet = $this->getSpreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
 
         $data = [['A', 'B'], ['C', 'D']];
@@ -146,7 +165,7 @@ class ByColumnAndRowUndeprecatedTest extends TestCase
 
     public function testSetAutoFilterByColumnAndRow(): void
     {
-        $spreadsheet = new Spreadsheet();
+        $spreadsheet = $this->getSpreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
 
         $data = [['A', 'B'], ['C', 'D']];
@@ -160,7 +179,7 @@ class ByColumnAndRowUndeprecatedTest extends TestCase
 
     public function testFreezePaneByColumnAndRow(): void
     {
-        $spreadsheet = new Spreadsheet();
+        $spreadsheet = $this->getSpreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
 
         $data = [['A', 'B'], ['C', 'D']];
@@ -173,7 +192,7 @@ class ByColumnAndRowUndeprecatedTest extends TestCase
 
     public function testGetCommentByColumnAndRow(): void
     {
-        $spreadsheet = new Spreadsheet();
+        $spreadsheet = $this->getSpreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
 
         $sheet->setCellValue('B2', 2);
@@ -184,5 +203,14 @@ class ByColumnAndRowUndeprecatedTest extends TestCase
         $comment = $sheet->getComment([2, 2]);
         self::assertInstanceOf(Comment::class, $comment);
         self::assertSame('My Test Comment', $comment->getText()->getPlainText());
+    }
+
+    public function testMergeCellsBadArray(): void
+    {
+        $this->expectException(SpreadsheetException::class);
+        $this->expectExceptionMessage('CellRange array length must be 2 or 4');
+        $spreadsheet = $this->getSpreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->mergeCells([2, 2, 3]);
     }
 }

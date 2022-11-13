@@ -19,6 +19,7 @@ class ByColumnAndRowTest extends TestCase
         /** @scrutinizer ignore-deprecated */
         $sheet->setCellValueByColumnAndRow(2, 2, 2);
         self::assertSame(2, $sheet->getCell('B2')->getValue());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testSetCellValueExplicitByColumnAndRow(): void
@@ -30,6 +31,7 @@ class ByColumnAndRowTest extends TestCase
         $sheet->setCellValueExplicitByColumnAndRow(2, 2, '="PHP Rules"', DataType::TYPE_STRING);
         self::assertSame('="PHP Rules"', $sheet->getCell('B2')->getValue());
         self::assertSame(DataType::TYPE_STRING, $sheet->getCell('B2')->getDataType());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testCellExistsByColumnAndRow(): void
@@ -44,6 +46,7 @@ class ByColumnAndRowTest extends TestCase
 
         $cellExists = /** @scrutinizer ignore-deprecated */ $sheet->cellExistsByColumnAndRow(2, 2);
         self::assertTrue($cellExists);
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testGetCellByColumnAndRow(): void
@@ -55,6 +58,7 @@ class ByColumnAndRowTest extends TestCase
         $cell = /** @scrutinizer ignore-deprecated */ $sheet->getCellByColumnAndRow(2, 2);
         self::assertSame('B2', $cell->getCoordinate());
         self::assertSame(2, $cell->getValue());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testGetStyleByColumnAndRow(): void
@@ -71,6 +75,7 @@ class ByColumnAndRowTest extends TestCase
 
         $cellStyle = /** @scrutinizer ignore-deprecated */ $sheet->getStyleByColumnAndRow(2, 2);
         self::assertTrue($cellStyle->getFont()->getBold());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testSetBreakByColumnAndRow(): void
@@ -85,6 +90,7 @@ class ByColumnAndRowTest extends TestCase
         $breaks = $sheet->getBreaks();
         self::assertArrayHasKey('B2', $breaks);
         self::assertSame(Worksheet::BREAK_COLUMN, $breaks['B2']);
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testMergeCellsByColumnAndRow(): void
@@ -99,6 +105,7 @@ class ByColumnAndRowTest extends TestCase
         $sheet->mergeCellsByColumnAndRow(2, 2, 3, 3);
         $mergeRanges = $sheet->getMergeCells();
         self::assertArrayHasKey('B2:C3', $mergeRanges);
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testUnergeCellsByColumnAndRow(): void
@@ -117,6 +124,7 @@ class ByColumnAndRowTest extends TestCase
         $sheet->unmergeCellsByColumnAndRow(2, 2, 3, 3);
         $mergeRanges = $sheet->getMergeCells();
         self::assertEmpty($mergeRanges);
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testProtectCellsByColumnAndRow(): void
@@ -131,6 +139,7 @@ class ByColumnAndRowTest extends TestCase
         $sheet->protectCellsByColumnAndRow(2, 2, 3, 3, 'secret', false);
         $protectedRanges = $sheet->getProtectedCells();
         self::assertArrayHasKey('B2:C3', $protectedRanges);
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testUnprotectCellsByColumnAndRow(): void
@@ -149,6 +158,7 @@ class ByColumnAndRowTest extends TestCase
         $sheet->unprotectCellsByColumnAndRow(2, 2, 3, 3);
         $protectedRanges = $sheet->getProtectedCells();
         self::assertEmpty($protectedRanges);
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testSetAutoFilterByColumnAndRow(): void
@@ -164,6 +174,7 @@ class ByColumnAndRowTest extends TestCase
         $autoFilter = $sheet->getAutoFilter();
         self::assertInstanceOf(AutoFilter::class, $autoFilter);
         self::assertSame('B2:C3', $autoFilter->getRange());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testFreezePaneByColumnAndRow(): void
@@ -178,6 +189,7 @@ class ByColumnAndRowTest extends TestCase
         $sheet->freezePaneByColumnAndRow(2, 2);
         $freezePane = $sheet->getFreezePane();
         self::assertSame('B2', $freezePane);
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testGetCommentByColumnAndRow(): void
@@ -194,5 +206,6 @@ class ByColumnAndRowTest extends TestCase
         $sheet->getCommentByColumnAndRow(2, 2);
         self::assertInstanceOf(Comment::class, $comment);
         self::assertSame('My Test Comment', $comment->getText()->getPlainText());
+        $spreadsheet->disconnectWorksheets();
     }
 }

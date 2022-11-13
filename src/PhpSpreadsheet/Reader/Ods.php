@@ -677,10 +677,9 @@ class Ods extends BaseReader
     private function setSelected(Spreadsheet $spreadsheet, string $wsname, string $setCol, string $setRow): void
     {
         if (is_numeric($setCol) && is_numeric($setRow)) {
-            try {
-                $spreadsheet->getSheetByNameOrThrow($wsname)->setSelectedCells([(int) $setCol + 1, (int) $setRow + 1]);
-            } catch (Throwable $e) {
-                // do nothing
+            $sheet = $spreadsheet->getSheetByName($wsname);
+            if ($sheet !== null) {
+                $sheet->setSelectedCells([(int) $setCol + 1, (int) $setRow + 1]);
             }
         }
     }
