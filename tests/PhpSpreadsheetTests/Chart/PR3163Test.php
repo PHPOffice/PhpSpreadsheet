@@ -24,12 +24,12 @@ class PR3163Test extends AbstractFunctional
     {
         $reader->setIncludeCharts(true);
     }
-
+    
     public function writeCharts(XlsxWriter $writer): void
     {
         $writer->setIncludeCharts(true);
     }
-
+    
     public function testYAxisLineStyle(): void
     {
         $spreadsheet = new Spreadsheet();
@@ -78,7 +78,7 @@ class PR3163Test extends AbstractFunctional
             new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_NUMBER, 'Worksheet!$C$2:$C$5', null, 4),
             new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_NUMBER, 'Worksheet!$D$2:$D$5', null, 4),
         ];
-
+        
         // Build the dataseries
         $series = new DataSeries(
             DataSeries::TYPE_BARCHART, // plotType
@@ -91,22 +91,22 @@ class PR3163Test extends AbstractFunctional
         // Set additional dataseries parameters
         //     Make it a horizontal bar rather than a vertical column graph
         $series->setPlotDirection(DataSeries::DIRECTION_BAR);
-
+        
         // Set the series in the plot area
         $plotArea = new PlotArea(null, [$series]);
         // Set the chart legend
         $legend = new ChartLegend(ChartLegend::POSITION_RIGHT, null, false);
-
+        
         $title = new Title('Test Bar Chart');
         $yAxisLabel = new Title('Value ($k)');
-
+        
         // Create x- and y-axis
         $xAxis = new Axis();
         $xAxis->setLineColorProperties('FF0000');
-
+        
         $yAxis = new Axis();
         $yAxis->setLineColorProperties('FF0000');
-
+        
         // Create the chart
         $chart1 = new Chart(
             'chart1', // name
@@ -120,11 +120,11 @@ class PR3163Test extends AbstractFunctional
             $xAxis,  // xAxis
             $yAxis   // yAxis
         );
-
+        
         // Set the position where the chart should appear in the worksheet
         $chart1->setTopLeftPosition('A7');
         $chart1->setBottomRightPosition('H20');
-
+        
         // Add the chart to the worksheet
         $worksheet->addChart($chart1);
         
@@ -144,7 +144,7 @@ class PR3163Test extends AbstractFunctional
         self::assertNotNull($yAxis2);
         $lineColorY2 = $yAxis2->getLineColorProperty('value');
         self::assertSame($lineColorY2, 'FF0000');
-
+        
         $reloadedSpreadsheet->disconnectWorksheets();
     }
 }
