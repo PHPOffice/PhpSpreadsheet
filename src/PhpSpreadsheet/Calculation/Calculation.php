@@ -44,6 +44,8 @@ class Calculation
     const CALCULATION_REGEXP_ROWRANGE_RELATIVE = '(\$?\d{1,7}):(\$?\d{1,7})';
     //    Defined Names: Named Range of cells, or Named Formulae
     const CALCULATION_REGEXP_DEFINEDNAME = '((([^\s,!&%^\/\*\+<>=-]*)|(\'(?:[^\']|\'[^!])+?\')|(\"(?:[^\"]|\"[^!])+?\"))!)?([_\p{L}][_\p{L}\p{N}\.]*)';
+    // Structured Reference (Fully Qualified and Unqualified)
+    const CALCULATION_REGEXP_STRUCTURED_REFERENCE = '([\p{L}_\\\\][\p{L}\p{N}\._]+)?(\[(?>[^\[\]]|(?R))+\])';
     //    Error
     const CALCULATION_REGEXP_ERROR = '\#[A-Z][A-Z0_\/]*[!\?]?';
 
@@ -56,6 +58,8 @@ class Calculation
     const FORMULA_CLOSE_FUNCTION_BRACE = ')';
     const FORMULA_OPEN_MATRIX_BRACE = '{';
     const FORMULA_CLOSE_MATRIX_BRACE = '}';
+    const FORMULA_OPEN_STRUCTURED_REFERENCE_BRACE = '[';
+    const FORMULA_CLOSE_STRUCTURED_REFERENCE_BRACE = ']';
     const FORMULA_STRING_QUOTE = '"';
 
     /** @var string */
