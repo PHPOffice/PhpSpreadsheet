@@ -5110,7 +5110,7 @@ class Calculation
                     $this->debugLog->writeDebugLog('Evaluation Result is %s', $this->showTypeDetails($operand));
 
                     return false;
-                } elseif (!Shared\StringHelper::convertToNumberIfFraction($operand) && !Shared\StringHelper::convertToNumberIfPercent($operand)) {
+                } elseif (Engine\FormattedNumber::convertToNumberIfFormatted($operand) === false) {
                     //    If not a numeric, a fraction or a percentage, then it's a text string, and so can't be used in mathematical binary operations
                     $stack->push('Error', '#VALUE!');
                     $this->debugLog->writeDebugLog('Evaluation Result is a %s', $this->showTypeDetails('#VALUE!'));
@@ -5120,7 +5120,7 @@ class Calculation
             }
         }
 
-        //    return a true if the value of the operand is one that we can use in normal binary operations
+        //    return a true if the value of the operand is one that we can use in normal binary mathematical operations
         return true;
     }
 
