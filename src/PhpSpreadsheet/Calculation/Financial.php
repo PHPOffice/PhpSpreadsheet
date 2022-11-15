@@ -12,6 +12,8 @@ use PhpOffice\PhpSpreadsheet\Calculation\Financial\TreasuryBill;
 
 /**
  * @deprecated 1.18.0
+ *
+ * @codeCoverageIgnore
  */
 class Financial
 {
@@ -28,8 +30,8 @@ class Financial
      *        ACCRINT(issue,firstinterest,settlement,rate,par,frequency[,basis][,calc_method])
      *
      * @deprecated 1.18.0
-     * @see Financial\Securities\AccruedInterest::periodic()
      *      Use the periodic() method in the Financial\Securities\AccruedInterest class instead
+     * @see Securities\AccruedInterest::periodic()
      *
      * @param mixed $issue the security's issue date
      * @param mixed $firstInterest the security's first interest date
@@ -87,8 +89,8 @@ class Financial
      *        ACCRINTM(issue,settlement,rate[,par[,basis]])
      *
      * @deprecated 1.18.0
-     * @see Financial\Securities\AccruedInterest::atMaturity()
      *      Use the atMaturity() method in the Financial\Securities\AccruedInterest class instead
+     * @see Financial\Securities\AccruedInterest::atMaturity()
      *
      * @param mixed $issue The security's issue date
      * @param mixed $settlement The security's settlement (or maturity) date
@@ -125,8 +127,8 @@ class Financial
      *        AMORDEGRC(cost,purchased,firstPeriod,salvage,period,rate[,basis])
      *
      * @deprecated 1.18.0
-     * @see Financial\Amortization::AMORDEGRC()
      *      Use the AMORDEGRC() method in the Financial\Amortization class instead
+     * @see Financial\Amortization::AMORDEGRC()
      *
      * @param float $cost The cost of the asset
      * @param mixed $purchased Date of the purchase of the asset
@@ -159,8 +161,8 @@ class Financial
      *        AMORLINC(cost,purchased,firstPeriod,salvage,period,rate[,basis])
      *
      * @deprecated 1.18.0
-     * @see Financial\Amortization::AMORLINC()
      *      Use the AMORLINC() method in the Financial\Amortization class instead
+     * @see Financial\Amortization::AMORLINC()
      *
      * @param float $cost The cost of the asset
      * @param mixed $purchased Date of the purchase of the asset
@@ -191,8 +193,8 @@ class Financial
      *        COUPDAYBS(settlement,maturity,frequency[,basis])
      *
      * @deprecated 1.18.0
-     * @see Financial\Coupons::COUPDAYBS()
      *      Use the COUPDAYBS() method in the Financial\Coupons class instead
+     * @see Financial\Coupons::COUPDAYBS()
      *
      * @param mixed $settlement The security's settlement date.
      *                                The security settlement date is the date after the issue
@@ -227,8 +229,8 @@ class Financial
      *        COUPDAYS(settlement,maturity,frequency[,basis])
      *
      * @deprecated 1.18.0
-     * @see Financial\Coupons::COUPDAYS()
      *      Use the COUPDAYS() method in the Financial\Coupons class instead
+     * @see Financial\Coupons::COUPDAYS()
      *
      * @param mixed $settlement The security's settlement date.
      *                                The security settlement date is the date after the issue
@@ -263,8 +265,8 @@ class Financial
      *        COUPDAYSNC(settlement,maturity,frequency[,basis])
      *
      * @deprecated 1.18.0
-     * @see Financial\Coupons::COUPDAYSNC()
      *      Use the COUPDAYSNC() method in the Financial\Coupons class instead
+     * @see Financial\Coupons::COUPDAYSNC()
      *
      * @param mixed $settlement The security's settlement date.
      *                                The security settlement date is the date after the issue
@@ -299,8 +301,8 @@ class Financial
      *        COUPNCD(settlement,maturity,frequency[,basis])
      *
      * @deprecated 1.18.0
-     * @see Financial\Coupons::COUPNCD()
      *      Use the COUPNCD() method in the Financial\Coupons class instead
+     * @see Financial\Coupons::COUPNCD()
      *
      * @param mixed $settlement The security's settlement date.
      *                                The security settlement date is the date after the issue
@@ -337,8 +339,8 @@ class Financial
      *        COUPNUM(settlement,maturity,frequency[,basis])
      *
      * @deprecated 1.18.0
-     * @see Financial\Coupons::COUPNUM()
      *      Use the COUPNUM() method in the Financial\Coupons class instead
+     * @see Financial\Coupons::COUPNUM()
      *
      * @param mixed $settlement The security's settlement date.
      *                                The security settlement date is the date after the issue
@@ -373,8 +375,8 @@ class Financial
      *        COUPPCD(settlement,maturity,frequency[,basis])
      *
      * @deprecated 1.18.0
-     * @see Financial\Coupons::COUPPCD()
      *      Use the COUPPCD() method in the Financial\Coupons class instead
+     * @see Financial\Coupons::COUPPCD()
      *
      * @param mixed $settlement The security's settlement date.
      *                                The security settlement date is the date after the issue
@@ -410,8 +412,8 @@ class Financial
      *        CUMIPMT(rate,nper,pv,start,end[,type])
      *
      * @deprecated 1.18.0
-     * @see Financial\CashFlow\Constant\Periodic\Cumulative::interest()
      *      Use the interest() method in the Financial\CashFlow\Constant\Periodic\Cumulative class instead
+     * @see Financial\CashFlow\Constant\Periodic\Cumulative::interest()
      *
      * @param float $rate The Interest rate
      * @param int $nper The total number of payment periods
@@ -439,8 +441,8 @@ class Financial
      *        CUMPRINC(rate,nper,pv,start,end[,type])
      *
      * @deprecated 1.18.0
-     * @see Financial\CashFlow\Constant\Periodic\Cumulative::principal()
      *      Use the principal() method in the Financial\CashFlow\Constant\Periodic\Cumulative class instead
+     * @see Financial\CashFlow\Constant\Periodic\Cumulative::principal()
      *
      * @param float $rate The Interest rate
      * @param int $nper The total number of payment periods
@@ -473,8 +475,8 @@ class Financial
      *        DB(cost,salvage,life,period[,month])
      *
      * @deprecated 1.18.0
-     * @see Financial\Depreciation::DB()
      *      Use the DB() method in the Financial\Depreciation class instead
+     * @see Financial\Depreciation::DB()
      *
      * @param float $cost Initial cost of the asset
      * @param float $salvage Value at the end of the depreciation.
@@ -503,8 +505,8 @@ class Financial
      *        DDB(cost,salvage,life,period[,factor])
      *
      * @deprecated 1.18.0
-     * @see Financial\Depreciation::DDB()
      *      Use the DDB() method in the Financial\Depreciation class instead
+     * @see Financial\Depreciation::DDB()
      *
      * @param float $cost Initial cost of the asset
      * @param float $salvage Value at the end of the depreciation.
@@ -533,8 +535,8 @@ class Financial
      *        DISC(settlement,maturity,price,redemption[,basis])
      *
      * @deprecated 1.18.0
-     * @see Financial\Securities\Rates::discount()
      *      Use the discount() method in the Financial\Securities\Rates class instead
+     * @see Financial\Securities\Rates::discount()
      *
      * @param mixed $settlement The security's settlement date.
      *                                The security settlement date is the date after the issue
@@ -568,8 +570,8 @@ class Financial
      *        DOLLARDE(fractional_dollar,fraction)
      *
      * @deprecated 1.18.0
-     * @see Financial\Dollar::decimal()
      *      Use the decimal() method in the Financial\Dollar class instead
+     * @see Financial\Dollar::decimal()
      *
      * @param array|float $fractional_dollar Fractional Dollar
      * @param array|int $fraction Fraction
@@ -592,8 +594,8 @@ class Financial
      *        DOLLARFR(decimal_dollar,fraction)
      *
      * @deprecated 1.18.0
-     * @see Financial\Dollar::fractional()
      *      Use the fractional() method in the Financial\Dollar class instead
+     * @see Financial\Dollar::fractional()
      *
      * @param array|float $decimal_dollar Decimal Dollar
      * @param array|int $fraction Fraction
@@ -615,8 +617,8 @@ class Financial
      *        EFFECT(nominal_rate,npery)
      *
      * @deprecated 1.18.0
-     * @see Financial\InterestRate::effective()
      *      Use the effective() method in the Financial\InterestRate class instead
+     * @see Financial\InterestRate::effective()
      *
      * @param float $nominalRate Nominal interest rate
      * @param int $periodsPerYear Number of compounding payments per year
@@ -637,8 +639,8 @@ class Financial
      *        FV(rate,nper,pmt[,pv[,type]])
      *
      * @deprecated 1.18.0
-     * @see Financial\CashFlow\Constant\Periodic::futureValue()
      *      Use the futureValue() method in the Financial\CashFlow\Constant\Periodic class instead
+     * @see Financial\CashFlow\Constant\Periodic::futureValue()
      *
      * @param float $rate The interest rate per period
      * @param int $nper Total number of payment periods in an annuity
@@ -668,8 +670,8 @@ class Financial
      *        FVSCHEDULE(principal,schedule)
      *
      * @deprecated 1.18.0
-     * @see Financial\CashFlow\Single::futureValue()
      *      Use the futureValue() method in the Financial\CashFlow\Single class instead
+     * @see Financial\CashFlow\Single::futureValue()
      *
      * @param float $principal the present value
      * @param float[] $schedule an array of interest rates to apply
@@ -690,8 +692,8 @@ class Financial
      *        INTRATE(settlement,maturity,investment,redemption[,basis])
      *
      * @deprecated 1.18.0
-     * @see Financial\Securities\Rates::interest()
      *      Use the interest() method in the Financial\Securities\Rates class instead
+     * @see Financial\Securities\Rates::interest()
      *
      * @param mixed $settlement The security's settlement date.
      *                              The security settlement date is the date after the issue date when the security
@@ -724,8 +726,8 @@ class Financial
      *        IPMT(rate,per,nper,pv[,fv][,type])
      *
      * @deprecated 1.18.0
-     * @see Financial\CashFlow\Constant\Periodic\Interest::payment()
      *      Use the payment() method in the Financial\CashFlow\Constant\Periodic class instead
+     * @see Financial\CashFlow\Constant\Periodic\Interest::payment()
      *
      * @param float $rate Interest rate per period
      * @param int $per Period for which we want to find the interest
@@ -754,8 +756,8 @@ class Financial
      *        IRR(values[,guess])
      *
      * @deprecated 1.18.0
-     * @see Financial\CashFlow\Variable\Periodic::rate()
      *      Use the rate() method in the Financial\CashFlow\Variable\Periodic class instead
+     * @see Financial\CashFlow\Variable\Periodic::rate()
      *
      * @param mixed $values An array or a reference to cells that contain numbers for which you want
      *                                    to calculate the internal rate of return.
@@ -779,8 +781,8 @@ class Financial
      *     =ISPMT(interest_rate, period, number_payments, pv)
      *
      * @deprecated 1.18.0
-     * @see Financial\CashFlow\Constant\Periodic\Interest::schedulePayment()
      *      Use the schedulePayment() method in the Financial\CashFlow\Constant\Periodic class instead
+     * @see Financial\CashFlow\Constant\Periodic\Interest::schedulePayment()
      *
      * interest_rate is the interest rate for the investment
      *
@@ -805,8 +807,8 @@ class Financial
      *        MIRR(values,finance_rate, reinvestment_rate)
      *
      * @deprecated 1.18.0
-     * @see Financial\CashFlow\Variable\Periodic::modifiedRate()
      *      Use the modifiedRate() method in the Financial\CashFlow\Variable\Periodic class instead
+     * @see Financial\CashFlow\Variable\Periodic::modifiedRate()
      *
      * @param mixed $values An array or a reference to cells that contain a series of payments and
      *                         income occurring at regular intervals.
@@ -830,8 +832,8 @@ class Financial
      *        NOMINAL(effect_rate, npery)
      *
      * @deprecated 1.18.0
-     * @see Financial\InterestRate::nominal()
      *      Use the nominal() method in the Financial\InterestRate class instead
+     * @see Financial\InterestRate::nominal()
      *
      * @param float $effectiveRate Effective interest rate
      * @param int $periodsPerYear Number of compounding payments per year
@@ -849,8 +851,8 @@ class Financial
      * Returns the number of periods for a cash flow with constant periodic payments (annuities), and interest rate.
      *
      * @deprecated 1.18.0
-     * @see Financial\CashFlow\Constant\Periodic::periods()
      *      Use the periods() method in the Financial\CashFlow\Constant\Periodic class instead
+     * @see Financial\CashFlow\Constant\Periodic::periods()
      *
      * @param float $rate Interest rate per period
      * @param int $pmt Periodic payment (annuity)
@@ -871,8 +873,8 @@ class Financial
      * Returns the Net Present Value of a cash flow series given a discount rate.
      *
      * @deprecated 1.18.0
-     * @see Financial\CashFlow\Variable\Periodic::presentValue()
      *      Use the presentValue() method in the Financial\CashFlow\Variable\Periodic class instead
+     * @see Financial\CashFlow\Variable\Periodic::presentValue()
      *
      * @return float
      */
@@ -887,8 +889,8 @@ class Financial
      * Calculates the number of periods required for an investment to reach a specified value.
      *
      * @deprecated 1.18.0
-     * @see Financial\CashFlow\Single::periods()
      *      Use the periods() method in the Financial\CashFlow\Single class instead
+     * @see Financial\CashFlow\Single::periods()
      *
      * @param float $rate Interest rate per period
      * @param float $pv Present Value
@@ -907,8 +909,8 @@ class Financial
      * Returns the constant payment (annuity) for a cash flow with a constant interest rate.
      *
      * @deprecated 1.18.0
-     * @see Financial\CashFlow\Constant\Periodic\Payments::annuity()
      *      Use the annuity() method in the Financial\CashFlow\Constant\Periodic\Payments class instead
+     * @see Financial\CashFlow\Constant\Periodic\Payments::annuity()
      *
      * @param float $rate Interest rate per period
      * @param int $nper Number of periods
@@ -930,8 +932,8 @@ class Financial
      *         and a constant interest rate.
      *
      * @deprecated 1.18.0
-     * @see Financial\CashFlow\Constant\Periodic\Payments::interestPayment()
      *      Use the interestPayment() method in the Financial\CashFlow\Constant\Periodic\Payments class instead
+     * @see Financial\CashFlow\Constant\Periodic\Payments::interestPayment()
      *
      * @param float $rate Interest rate per period
      * @param int $per Period for which we want to find the interest
@@ -953,8 +955,8 @@ class Financial
      * Returns the price per $100 face value of a security that pays periodic interest.
      *
      * @deprecated 1.18.0
-     * @see Financial\Securities\Price::price()
      *      Use the price() method in the Financial\Securities\Price class instead
+     * @see Financial\Securities\Price::price()
      *
      * @param mixed $settlement The security's settlement date.
      *                              The security settlement date is the date after the issue date when the security
@@ -988,8 +990,8 @@ class Financial
      * Returns the price per $100 face value of a discounted security.
      *
      * @deprecated 1.18.0
-     * @see Financial\Securities\Price::priceDiscounted()
      *      Use the priceDiscounted() method in the Financial\Securities\Price class instead
+     * @see Financial\Securities\Price::priceDiscounted()
      *
      * @param mixed $settlement The security's settlement date.
      *                              The security settlement date is the date after the issue date when the security
@@ -1018,8 +1020,8 @@ class Financial
      * Returns the price per $100 face value of a security that pays interest at maturity.
      *
      * @deprecated 1.18.0
-     * @see Financial\Securities\Price::priceAtMaturity()
      *      Use the priceAtMaturity() method in the Financial\Securities\Price class instead
+     * @see Financial\Securities\Price::priceAtMaturity()
      *
      * @param mixed $settlement The security's settlement date.
      *                              The security's settlement date is the date after the issue date when the security
@@ -1049,8 +1051,8 @@ class Financial
      * Returns the Present Value of a cash flow with constant payments and interest rate (annuities).
      *
      * @deprecated 1.18.0
-     * @see Financial\CashFlow\Constant\Periodic::presentValue()
      *      Use the presentValue() method in the Financial\CashFlow\Constant\Periodic class instead
+     * @see Financial\CashFlow\Constant\Periodic::presentValue()
      *
      * @param float $rate Interest rate per period
      * @param int $nper Number of periods
@@ -1077,8 +1079,8 @@ class Financial
      *        RATE(nper,pmt,pv[,fv[,type[,guess]]])
      *
      * @deprecated 1.18.0
-     * @see Financial\CashFlow\Constant\Periodic\Interest::rate()
      *      Use the rate() method in the Financial\CashFlow\Constant\Periodic class instead
+     * @see Financial\CashFlow\Constant\Periodic\Interest::rate()
      *
      * @param mixed $nper The total number of payment periods in an annuity
      * @param mixed $pmt The payment made each period and cannot change over the life
@@ -1109,8 +1111,8 @@ class Financial
      * Returns the amount received at maturity for a fully invested Security.
      *
      * @deprecated 1.18.0
-     * @see Financial\Securities\Price::received()
      *      Use the received() method in the Financial\Securities\Price class instead
+     * @see Financial\Securities\Price::received()
      *
      * @param mixed $settlement The security's settlement date.
      *                              The security settlement date is the date after the issue date when the security
@@ -1139,8 +1141,8 @@ class Financial
      * Calculates the interest rate required for an investment to grow to a specified future value .
      *
      * @deprecated 1.18.0
-     * @see Financial\CashFlow\Single::interestRate()
      *      Use the interestRate() method in the Financial\CashFlow\Single class instead
+     * @see Financial\CashFlow\Single::interestRate()
      *
      * @param float $nper The number of periods over which the investment is made
      * @param float $pv Present Value
@@ -1159,8 +1161,8 @@ class Financial
      * Returns the straight-line depreciation of an asset for one period
      *
      * @deprecated 1.18.0
-     * @see Financial\Depreciation::SLN()
      *      Use the SLN() method in the Financial\Depreciation class instead
+     * @see Financial\Depreciation::SLN()
      *
      * @param mixed $cost Initial cost of the asset
      * @param mixed $salvage Value at the end of the depreciation
@@ -1179,8 +1181,8 @@ class Financial
      * Returns the sum-of-years' digits depreciation of an asset for a specified period.
      *
      * @deprecated 1.18.0
-     * @see Financial\Depreciation::SYD()
      *      Use the SYD() method in the Financial\Depreciation class instead
+     * @see Financial\Depreciation::SYD()
      *
      * @param mixed $cost Initial cost of the asset
      * @param mixed $salvage Value at the end of the depreciation
@@ -1200,8 +1202,8 @@ class Financial
      * Returns the bond-equivalent yield for a Treasury bill.
      *
      * @deprecated 1.18.0
-     * @see Financial\TreasuryBill::bondEquivalentYield()
      *      Use the bondEquivalentYield() method in the Financial\TreasuryBill class instead
+     * @see Financial\TreasuryBill::bondEquivalentYield()
      *
      * @param mixed $settlement The Treasury bill's settlement date.
      *                          The Treasury bill's settlement date is the date after the issue date when the
@@ -1223,8 +1225,8 @@ class Financial
      * Returns the price per $100 face value for a Treasury bill.
      *
      * @deprecated 1.18.0
-     * @see Financial\TreasuryBill::price()
      *      Use the price() method in the Financial\TreasuryBill class instead
+     * @see Financial\TreasuryBill::price()
      *
      * @param mixed $settlement The Treasury bill's settlement date.
      *                                The Treasury bill's settlement date is the date after the issue date
@@ -1246,8 +1248,8 @@ class Financial
      * Returns the yield for a Treasury bill.
      *
      * @deprecated 1.18.0
-     * @see Financial\TreasuryBill::yield()
      *      Use the yield() method in the Financial\TreasuryBill class instead
+     * @see Financial\TreasuryBill::yield()
      *
      * @param mixed $settlement The Treasury bill's settlement date.
      *                                The Treasury bill's settlement date is the date after the issue date
@@ -1272,8 +1274,8 @@ class Financial
      *        =XIRR(values,dates,guess)
      *
      * @deprecated 1.18.0
-     * @see Financial\CashFlow\Variable\NonPeriodic::rate()
      *      Use the rate() method in the Financial\CashFlow\Variable\NonPeriodic class instead
+     * @see Financial\CashFlow\Variable\NonPeriodic::rate()
      *
      * @param float[] $values     A series of cash flow payments
      *                                The series of values must contain at least one positive value & one negative value
@@ -1299,8 +1301,8 @@ class Financial
      *        =XNPV(rate,values,dates)
      *
      * @deprecated 1.18.0
-     * @see Financial\CashFlow\Variable\NonPeriodic::presentValue()
      *      Use the presentValue() method in the Financial\CashFlow\Variable\NonPeriodic class instead
+     * @see Financial\CashFlow\Variable\NonPeriodic::presentValue()
      *
      * @param float $rate the discount rate to apply to the cash flows
      * @param float[] $values A series of cash flows that corresponds to a schedule of payments in dates.
@@ -1326,8 +1328,8 @@ class Financial
      * Returns the annual yield of a security that pays interest at maturity.
      *
      * @deprecated 1.18.0
-     * @see Financial\Securities\Yields::yieldDiscounted()
      *      Use the yieldDiscounted() method in the Financial\Securities\Yields class instead
+     * @see Financial\Securities\Yields::yieldDiscounted()
      *
      * @param mixed $settlement The security's settlement date.
      *                              The security's settlement date is the date after the issue date when the security
@@ -1356,8 +1358,8 @@ class Financial
      * Returns the annual yield of a security that pays interest at maturity.
      *
      * @deprecated 1.18.0
-     * @see Financial\Securities\Yields::yieldAtMaturity()
      *      Use the yieldAtMaturity() method in the Financial\Securities\Yields class instead
+     * @see Financial\Securities\Yields::yieldAtMaturity()
      *
      * @param mixed $settlement The security's settlement date.
      *                              The security's settlement date is the date after the issue date when the security

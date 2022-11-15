@@ -207,8 +207,11 @@ class Functions
      * Returns the error value #NULL!
      *
      * @deprecated 1.23.0 Use the null() method in the Information\Error class instead
+     * @see Information\ExcelError::null()
      *
      * @return string #NULL!
+     *
+     * @codeCoverageIgnore
      */
     public static function null()
     {
@@ -221,8 +224,11 @@ class Functions
      * Returns the error value #NUM!
      *
      * @deprecated 1.23.0 Use the NAN() method in the Information\Error class instead
+     * @see Information\ExcelError::NAN()
      *
      * @return string #NUM!
+     *
+     * @codeCoverageIgnore
      */
     public static function NAN()
     {
@@ -235,8 +241,11 @@ class Functions
      * Returns the error value #REF!
      *
      * @deprecated 1.23.0 Use the REF() method in the Information\ExcelError class instead
+     * @see Information\ExcelError::REF()
      *
      * @return string #REF!
+     *
+     * @codeCoverageIgnore
      */
     public static function REF()
     {
@@ -253,8 +262,11 @@ class Functions
      *        #N/A is the error value that means "no value is available."
      *
      * @deprecated 1.23.0 Use the NA() method in the Information\ExcelError class instead
+     * @see Information\ExcelError::NA()
      *
      * @return string #N/A!
+     *
+     * @codeCoverageIgnore
      */
     public static function NA()
     {
@@ -267,8 +279,11 @@ class Functions
      * Returns the error value #VALUE!
      *
      * @deprecated 1.23.0 Use the VALUE() method in the Information\ExcelError class instead
+     * @see Information\ExcelError::VALUE()
      *
      * @return string #VALUE!
+     *
+     * @codeCoverageIgnore
      */
     public static function VALUE()
     {
@@ -281,8 +296,11 @@ class Functions
      * Returns the error value #NAME?
      *
      * @deprecated 1.23.0 Use the NAME() method in the Information\ExcelError class instead
+     * @see Information\ExcelError::NAME()
      *
      * @return string #NAME?
+     *
+     * @codeCoverageIgnore
      */
     public static function NAME()
     {
@@ -293,8 +311,11 @@ class Functions
      * DIV0.
      *
      * @deprecated 1.23.0 Use the DIV0() method in the Information\ExcelError class instead
+     * @see Information\ExcelError::DIV0()
      *
      * @return string #Not Yet Implemented
+     *
+     * @codeCoverageIgnore
      */
     public static function DIV0()
     {
@@ -307,8 +328,11 @@ class Functions
      * @param mixed $value Value to check
      *
      * @deprecated 1.23.0 Use the type() method in the Information\ExcelError class instead
+     * @see Information\ExcelError::type()
      *
      * @return array|int|string
+     *
+     * @codeCoverageIgnore
      */
     public static function errorType($value = '')
     {
@@ -321,8 +345,11 @@ class Functions
      * @param mixed $value Value to check
      *
      * @deprecated 1.23.0 Use the isBlank() method in the Information\Value class instead
+     * @see Information\Value::isBlank()
      *
      * @return array|bool
+     *
+     * @codeCoverageIgnore
      */
     public static function isBlank($value = null)
     {
@@ -335,8 +362,11 @@ class Functions
      * @param mixed $value Value to check
      *
      * @deprecated 1.23.0 Use the isErr() method in the Information\ErrorValue class instead
+     * @see Information\ErrorValue::isErr()
      *
      * @return array|bool
+     *
+     * @codeCoverageIgnore
      */
     public static function isErr($value = '')
     {
@@ -349,8 +379,11 @@ class Functions
      * @param mixed $value Value to check
      *
      * @deprecated 1.23.0 Use the isError() method in the Information\ErrorValue class instead
+     * @see Information\ErrorValue::isError()
      *
      * @return array|bool
+     *
+     * @codeCoverageIgnore
      */
     public static function isError($value = '')
     {
@@ -363,8 +396,11 @@ class Functions
      * @param mixed $value Value to check
      *
      * @deprecated 1.23.0 Use the isNa() method in the Information\ErrorValue class instead
+     * @see Information\ErrorValue::isNa()
      *
      * @return array|bool
+     *
+     * @codeCoverageIgnore
      */
     public static function isNa($value = '')
     {
@@ -377,8 +413,11 @@ class Functions
      * @param mixed $value Value to check
      *
      * @deprecated 1.23.0 Use the isEven() method in the Information\Value class instead
+     * @see Information\Value::isEven()
      *
      * @return array|bool|string
+     *
+     * @codeCoverageIgnore
      */
     public static function isEven($value = null)
     {
@@ -391,8 +430,11 @@ class Functions
      * @param mixed $value Value to check
      *
      * @deprecated 1.23.0 Use the isOdd() method in the Information\Value class instead
+     * @see Information\Value::isOdd()
      *
      * @return array|bool|string
+     *
+     * @codeCoverageIgnore
      */
     public static function isOdd($value = null)
     {
@@ -405,8 +447,11 @@ class Functions
      * @param mixed $value Value to check
      *
      * @deprecated 1.23.0 Use the isNumber() method in the Information\Value class instead
+     * @see Information\Value::isNumber()
      *
      * @return array|bool
+     *
+     * @codeCoverageIgnore
      */
     public static function isNumber($value = null)
     {
@@ -419,8 +464,11 @@ class Functions
      * @param mixed $value Value to check
      *
      * @deprecated 1.23.0 Use the isLogical() method in the Information\Value class instead
+     * @see Information\Value::isLogical()
      *
      * @return array|bool
+     *
+     * @codeCoverageIgnore
      */
     public static function isLogical($value = null)
     {
@@ -433,8 +481,11 @@ class Functions
      * @param mixed $value Value to check
      *
      * @deprecated 1.23.0 Use the isText() method in the Information\Value class instead
+     * @see Information\Value::isText()
      *
      * @return array|bool
+     *
+     * @codeCoverageIgnore
      */
     public static function isText($value = null)
     {
@@ -447,8 +498,11 @@ class Functions
      * @param mixed $value Value to check
      *
      * @deprecated 1.23.0 Use the isNonText() method in the Information\Value class instead
+     * @see Information\Value::isNonText()
      *
      * @return array|bool
+     *
+     * @codeCoverageIgnore
      */
     public static function isNonText($value = null)
     {
@@ -461,6 +515,7 @@ class Functions
      * Returns a value converted to a number
      *
      * @deprecated 1.23.0 Use the asNumber() method in the Information\Value class instead
+     * @see Information\Value::asNumber()
      *
      * @param null|mixed $value The value you want converted
      *
@@ -472,6 +527,8 @@ class Functions
      *        FALSE                0
      *        An error value        The error value
      *        Anything else        0
+     *
+     * @codeCoverageIgnore
      */
     public static function n($value = null)
     {
@@ -484,6 +541,7 @@ class Functions
      * Returns a number that identifies the type of a value
      *
      * @deprecated 1.23.0 Use the type() method in the Information\Value class instead
+     * @see Information\Value::type()
      *
      * @param null|mixed $value The value you want tested
      *
@@ -494,6 +552,8 @@ class Functions
      *        Logical Value        4
      *        An error value        16
      *        Array or Matrix        64
+     *
+     * @codeCoverageIgnore
      */
     public static function TYPE($value = null)
     {
@@ -600,11 +660,14 @@ class Functions
      * ISFORMULA.
      *
      * @deprecated 1.23.0 Use the isFormula() method in the Information\Value class instead
+     * @see Information\Value::isFormula()
      *
      * @param mixed $cellReference The cell to check
      * @param ?Cell $cell The current cell (containing this formula)
      *
      * @return array|bool|string
+     *
+     * @codeCoverageIgnore
      */
     public static function isFormula($cellReference = '', ?Cell $cell = null)
     {

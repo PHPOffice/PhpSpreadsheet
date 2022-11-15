@@ -6,6 +6,8 @@ use PhpOffice\PhpSpreadsheet\Calculation\Logical\Boolean;
 
 /**
  * @deprecated 1.17.0
+ *
+ * @codeCoverageIgnore
  */
 class Logical
 {
@@ -18,8 +20,8 @@ class Logical
      *        =TRUE()
      *
      * @deprecated 1.17.0
-     * @see Logical\Boolean::TRUE()
      * Use the TRUE() method in the Logical\Boolean class instead
+     * @see Logical\Boolean::TRUE()
      *
      * @return bool True
      */
@@ -37,8 +39,8 @@ class Logical
      *        =FALSE()
      *
      * @deprecated 1.17.0
-     * @see Logical\Boolean::FALSE()
      * Use the FALSE() method in the Logical\Boolean class instead
+     * @see Logical\Boolean::FALSE()
      *
      * @return bool False
      */
@@ -64,8 +66,8 @@ class Logical
      *            holds the value TRUE or FALSE, in which case it is evaluated as the corresponding boolean value
      *
      * @deprecated 1.17.0
-     * @see Logical\Operations::logicalAnd()
      * Use the logicalAnd() method in the Logical\Operations class instead
+     * @see Logical\Operations::logicalAnd()
      *
      * @param mixed ...$args Data values
      *
@@ -93,8 +95,8 @@ class Logical
      *            holds the value TRUE or FALSE, in which case it is evaluated as the corresponding boolean value
      *
      * @deprecated 1.17.0
-     * @see Logical\Operations::logicalOr()
      * Use the logicalOr() method in the Logical\Operations class instead
+     * @see Logical\Operations::logicalOr()
      *
      * @param mixed $args Data values
      *
@@ -124,8 +126,8 @@ class Logical
      *            holds the value TRUE or FALSE, in which case it is evaluated as the corresponding boolean value
      *
      * @deprecated 1.17.0
-     * @see Logical\Operations::logicalXor()
      * Use the logicalXor() method in the Logical\Operations class instead
+     * @see Logical\Operations::logicalXor()
      *
      * @param mixed $args Data values
      *
@@ -152,8 +154,8 @@ class Logical
      *            holds the value TRUE or FALSE, in which case it is evaluated as the corresponding boolean value
      *
      * @deprecated 1.17.0
-     * @see Logical\Operations::NOT()
      * Use the NOT() method in the Logical\Operations class instead
+     * @see Logical\Operations::NOT()
      *
      * @param mixed $logical A value or expression that can be evaluated to TRUE or FALSE
      *
@@ -190,8 +192,8 @@ class Logical
      *            ReturnIfFalse can be another formula.
      *
      * @deprecated 1.17.0
-     * @see Logical\Conditional::statementIf()
      * Use the statementIf() method in the Logical\Conditional class instead
+     * @see Logical\Conditional::statementIf()
      *
      * @param mixed $condition Condition to evaluate
      * @param mixed $returnIfTrue Value to return when condition is true
@@ -225,8 +227,8 @@ class Logical
      *              (value1, value2, ... value_n).
      *
      * @deprecated 1.17.0
-     * @see Logical\Conditional::statementSwitch()
      * Use the statementSwitch() method in the Logical\Conditional class instead
+     * @see Logical\Conditional::statementSwitch()
      *
      * @param mixed $arguments Statement arguments
      *
@@ -244,8 +246,8 @@ class Logical
      *        =IFERROR(testValue,errorpart)
      *
      * @deprecated 1.17.0
-     * @see Logical\Conditional::IFERROR()
      * Use the IFERROR() method in the Logical\Conditional class instead
+     * @see Logical\Conditional::IFERROR()
      *
      * @param mixed $testValue Value to check, is also the value returned when no error
      * @param mixed $errorpart Value to return when testValue is an error condition
@@ -264,8 +266,8 @@ class Logical
      *        =IFNA(testValue,napart)
      *
      * @deprecated 1.17.0
-     * @see Logical\Conditional::IFNA()
      * Use the IFNA() method in the Logical\Conditional class instead
+     * @see Logical\Conditional::IFNA()
      *
      * @param mixed $testValue Value to check, is also the value returned when not an NA
      * @param mixed $napart Value to return when testValue is an NA condition
@@ -289,8 +291,8 @@ class Logical
      *             Value returned if corresponding testValue (nth) was true
      *
      * @deprecated 1.17.0
-     * @see Logical\Conditional::IFS()
      * Use the IFS() method in the Logical\Conditional class instead
+     * @see Logical\Conditional::IFS()
      *
      * @param mixed ...$arguments Statement arguments
      *

@@ -8,6 +8,8 @@ use PhpOffice\PhpSpreadsheet\Calculation\Engineering\ComplexOperations;
 
 /**
  * @deprecated 1.18.0
+ *
+ * @codeCoverageIgnore
  */
 class Engineering
 {
@@ -15,7 +17,8 @@ class Engineering
      * EULER.
      *
      * @deprecated 1.18.0
-     * @see Use Engineering\Constants\EULER instead
+     *      Use Engineering\Constants::EULER instead
+     * @see Engineering\Constants::EULER
      */
     public const EULER = 2.71828182845904523536;
 
@@ -51,7 +54,8 @@ class Engineering
      *        BESSELI(x,ord)
      *
      * @deprecated 1.17.0
-     * @see Use the BESSELI() method in the Engineering\BesselI class instead
+     *      Use the BESSELI() method in the Engineering\BesselI class instead
+     * @see Engineering\BesselI::BESSELI()
      *
      * @param float $x The value at which to evaluate the function.
      *                                If x is nonnumeric, BESSELI returns the #VALUE! error value.
@@ -76,7 +80,8 @@ class Engineering
      *        BESSELJ(x,ord)
      *
      * @deprecated 1.17.0
-     * @see Use the BESSELJ() method in the Engineering\BesselJ class instead
+     *      Use the BESSELJ() method in the Engineering\BesselJ class instead
+     * @see Engineering\BesselJ::BESSELJ()
      *
      * @param float $x The value at which to evaluate the function.
      *                                If x is nonnumeric, BESSELJ returns the #VALUE! error value.
@@ -101,7 +106,8 @@ class Engineering
      *        BESSELK(x,ord)
      *
      * @deprecated 1.17.0
-     * @see Use the BESSELK() method in the Engineering\BesselK class instead
+     *      Use the BESSELK() method in the Engineering\BesselK class instead
+     * @see Engineering\BesselK::BESSELK()
      *
      * @param float $x The value at which to evaluate the function.
      *                                If x is nonnumeric, BESSELK returns the #VALUE! error value.
@@ -125,7 +131,8 @@ class Engineering
      *        BESSELY(x,ord)
      *
      * @deprecated 1.17.0
-     * @see Use the BESSELY() method in the Engineering\BesselY class instead
+     *      Use the BESSELY() method in the Engineering\BesselY class instead
+     * @see Engineering\BesselY::BESSELY()
      *
      * @param float $x The value at which to evaluate the function.
      *                                If x is nonnumeric, BESSELY returns the #VALUE! error value.
@@ -149,7 +156,8 @@ class Engineering
      *        BIN2DEC(x)
      *
      * @deprecated 1.17.0
-     * @see Use the toDecimal() method in the Engineering\ConvertBinary class instead
+     *      Use the toDecimal() method in the Engineering\ConvertBinary class instead
+     * @see Engineering\ConvertBinary::toDecimal()
      *
      * @param mixed $x The binary number (as a string) that you want to convert. The number
      *                                cannot contain more than 10 characters (10 bits). The most significant
@@ -174,7 +182,8 @@ class Engineering
      *        BIN2HEX(x[,places])
      *
      * @deprecated 1.17.0
-     * @see Use the toHex() method in the Engineering\ConvertBinary class instead
+     *      Use the toHex() method in the Engineering\ConvertBinary class instead
+     * @see Engineering\ConvertBinary::toHex()
      *
      * @param mixed $x The binary number (as a string) that you want to convert. The number
      *                                cannot contain more than 10 characters (10 bits). The most significant
@@ -205,7 +214,8 @@ class Engineering
      *        BIN2OCT(x[,places])
      *
      * @deprecated 1.17.0
-     * @see Use the toOctal() method in the Engineering\ConvertBinary class instead
+     *      Use the toOctal() method in the Engineering\ConvertBinary class instead
+     * @see Engineering\ConvertBinary::toOctal()
      *
      * @param mixed $x The binary number (as a string) that you want to convert. The number
      *                                cannot contain more than 10 characters (10 bits). The most significant
@@ -236,7 +246,8 @@ class Engineering
      *        DEC2BIN(x[,places])
      *
      * @deprecated 1.17.0
-     * @see Use the toBinary() method in the Engineering\ConvertDecimal class instead
+     *      Use the toBinary() method in the Engineering\ConvertDecimal class instead
+     * @see Engineering\ConvertDecimal::toBinary()
      *
      * @param mixed $x The decimal integer you want to convert. If number is negative,
      *                                valid place values are ignored and DEC2BIN returns a 10-character
@@ -271,7 +282,8 @@ class Engineering
      *        DEC2HEX(x[,places])
      *
      * @deprecated 1.17.0
-     * @see Use the toHex() method in the Engineering\ConvertDecimal class instead
+     *      Use the toHex() method in the Engineering\ConvertDecimal class instead
+     * @see Engineering\ConvertDecimal::toHex()
      *
      * @param mixed $x The decimal integer you want to convert. If number is negative,
      *                                places is ignored and DEC2HEX returns a 10-character (40-bit)
@@ -306,7 +318,8 @@ class Engineering
      *        DEC2OCT(x[,places])
      *
      * @deprecated 1.17.0
-     * @see Use the toOctal() method in the Engineering\ConvertDecimal class instead
+     *      Use the toOctal() method in the Engineering\ConvertDecimal class instead
+     * @see Engineering\ConvertDecimal::toOctal()
      *
      * @param mixed $x The decimal integer you want to convert. If number is negative,
      *                                places is ignored and DEC2OCT returns a 10-character (30-bit)
@@ -341,7 +354,8 @@ class Engineering
      *        HEX2BIN(x[,places])
      *
      * @deprecated 1.17.0
-     * @see Use the toBinary() method in the Engineering\ConvertHex class instead
+     *      Use the toBinary() method in the Engineering\ConvertHex class instead
+     * @see Engineering\ConvertHex::toBinary()
      *
      * @param mixed $x the hexadecimal number (as a string) that you want to convert.
      *                  Number cannot contain more than 10 characters.
@@ -376,7 +390,8 @@ class Engineering
      *        HEX2DEC(x)
      *
      * @deprecated 1.17.0
-     * @see Use the toDecimal() method in the Engineering\ConvertHex class instead
+     *      Use the toDecimal() method in the Engineering\ConvertHex class instead
+     * @see Engineering\ConvertHex::toDecimal()
      *
      * @param mixed $x The hexadecimal number (as a string) that you want to convert. This number cannot
      *                                contain more than 10 characters (40 bits). The most significant
@@ -402,7 +417,8 @@ class Engineering
      *        HEX2OCT(x[,places])
      *
      * @deprecated 1.17.0
-     * @see Use the toOctal() method in the Engineering\ConvertHex class instead
+     *      Use the toOctal() method in the Engineering\ConvertHex class instead
+     * @see Engineering\ConvertHex::toOctal()
      *
      * @param mixed $x The hexadecimal number (as a string) that you want to convert. Number cannot
      *                                    contain more than 10 characters. The most significant bit of
@@ -441,7 +457,8 @@ class Engineering
      *        OCT2BIN(x[,places])
      *
      * @deprecated 1.17.0
-     * @see Use the toBinary() method in the Engineering\ConvertOctal class instead
+     *      Use the toBinary() method in the Engineering\ConvertOctal class instead
+     * @see Engineering\ConvertOctal::toBinary()
      *
      * @param mixed $x The octal number you want to convert. Number may not
      *                                    contain more than 10 characters. The most significant
@@ -482,7 +499,8 @@ class Engineering
      *        OCT2DEC(x)
      *
      * @deprecated 1.17.0
-     * @see Use the toDecimal() method in the Engineering\ConvertOctal class instead
+     *      Use the toDecimal() method in the Engineering\ConvertOctal class instead
+     * @see Engineering\ConvertOctal::toDecimal()
      *
      * @param mixed $x The octal number you want to convert. Number may not contain
      *                                more than 10 octal characters (30 bits). The most significant
@@ -508,7 +526,8 @@ class Engineering
      *        OCT2HEX(x[,places])
      *
      * @deprecated 1.17.0
-     * @see Use the toHex() method in the Engineering\ConvertOctal class instead
+     *      Use the toHex() method in the Engineering\ConvertOctal class instead
+     * @see Engineering\ConvertOctal::toHex()
      *
      * @param mixed $x The octal number you want to convert. Number may not contain
      *                                    more than 10 octal characters (30 bits). The most significant
@@ -544,7 +563,8 @@ class Engineering
      *        COMPLEX(realNumber,imaginary[,suffix])
      *
      * @deprecated 1.18.0
-     * @see Use the COMPLEX() method in the Engineering\Complex class instead
+     *      Use the COMPLEX() method in the Engineering\Complex class instead
+     * @see Engineering\Complex::COMPLEX()
      *
      * @param array|float $realNumber the real coefficient of the complex number
      * @param array|float $imaginary the imaginary coefficient of the complex number
@@ -567,7 +587,8 @@ class Engineering
      *        IMAGINARY(complexNumber)
      *
      * @deprecated 1.18.0
-     * @see Use the IMAGINARY() method in the Engineering\Complex class instead
+     *      Use the IMAGINARY() method in the Engineering\Complex class instead
+     * @see Engineering\Complex::IMAGINARY()
      *
      * @param string $complexNumber the complex number for which you want the imaginary
      *                                         coefficient
@@ -588,7 +609,8 @@ class Engineering
      *        IMREAL(complexNumber)
      *
      * @deprecated 1.18.0
-     * @see Use the IMREAL() method in the Engineering\Complex class instead
+     *      Use the IMREAL() method in the Engineering\Complex class instead
+     * @see Engineering\Complex::IMREAL()
      *
      * @param string $complexNumber the complex number for which you want the real coefficient
      *
@@ -608,7 +630,8 @@ class Engineering
      *        IMABS(complexNumber)
      *
      * @deprecated 1.18.0
-     * @see Use the IMABS() method in the Engineering\ComplexFunctions class instead
+     *      Use the IMABS() method in the Engineering\ComplexFunctions class instead
+     * @see ComplexFunctions::IMABS()
      *
      * @param string $complexNumber the complex number for which you want the absolute value
      *
@@ -630,6 +653,7 @@ class Engineering
      *
      * @deprecated 1.18.0
      * @see Use the IMARGUMENT() method in the Engineering\ComplexFunctions class instead
+     * @see ComplexFunctions::IMARGUMENT()
      *
      * @param array|string $complexNumber the complex number for which you want the argument theta
      *
@@ -649,7 +673,8 @@ class Engineering
      *        IMCONJUGATE(complexNumber)
      *
      * @deprecated 1.18.0
-     * @see Use the IMARGUMENT() method in the Engineering\ComplexFunctions class instead
+     *      Use the IMCONJUGATE() method in the Engineering\ComplexFunctions class instead
+     * @see ComplexFunctions::IMCONJUGATE()
      *
      * @param array|string $complexNumber the complex number for which you want the conjugate
      *
@@ -669,7 +694,8 @@ class Engineering
      *        IMCOS(complexNumber)
      *
      * @deprecated 1.18.0
-     * @see Use the IMCOS() method in the Engineering\ComplexFunctions class instead
+     *      Use the IMCOS() method in the Engineering\ComplexFunctions class instead
+     * @see ComplexFunctions::IMCOS()
      *
      * @param array|string $complexNumber the complex number for which you want the cosine
      *
@@ -689,7 +715,8 @@ class Engineering
      *        IMCOSH(complexNumber)
      *
      * @deprecated 1.18.0
-     * @see Use the IMCOSH() method in the Engineering\ComplexFunctions class instead
+     *      Use the IMCOSH() method in the Engineering\ComplexFunctions class instead
+     * @see ComplexFunctions::IMCOSH()
      *
      * @param array|string $complexNumber the complex number for which you want the hyperbolic cosine
      *
@@ -709,7 +736,8 @@ class Engineering
      *        IMCOT(complexNumber)
      *
      * @deprecated 1.18.0
-     * @see Use the IMCOT() method in the Engineering\ComplexFunctions class instead
+     *      Use the IMCOT() method in the Engineering\ComplexFunctions class instead
+     * @see ComplexFunctions::IMCOT()
      *
      * @param array|string $complexNumber the complex number for which you want the cotangent
      *
@@ -729,7 +757,8 @@ class Engineering
      *        IMCSC(complexNumber)
      *
      * @deprecated 1.18.0
-     * @see Use the IMCSC() method in the Engineering\ComplexFunctions class instead
+     *      Use the IMCSC() method in the Engineering\ComplexFunctions class instead
+     * @see ComplexFunctions::IMCSC()
      *
      * @param array|string $complexNumber the complex number for which you want the cosecant
      *
@@ -749,7 +778,8 @@ class Engineering
      *        IMCSCH(complexNumber)
      *
      * @deprecated 1.18.0
-     * @see Use the IMCSCH() method in the Engineering\ComplexFunctions class instead
+     *      Use the IMCSCH() method in the Engineering\ComplexFunctions class instead
+     * @see ComplexFunctions::IMCSCH()
      *
      * @param array|string $complexNumber the complex number for which you want the hyperbolic cosecant
      *
@@ -769,7 +799,8 @@ class Engineering
      *        IMSIN(complexNumber)
      *
      * @deprecated 1.18.0
-     * @see Use the IMSIN() method in the Engineering\ComplexFunctions class instead
+     *      Use the IMSIN() method in the Engineering\ComplexFunctions class instead
+     * @see ComplexFunctions::IMSIN()
      *
      * @param string $complexNumber the complex number for which you want the sine
      *
@@ -789,7 +820,8 @@ class Engineering
      *        IMSINH(complexNumber)
      *
      * @deprecated 1.18.0
-     * @see Use the IMSINH() method in the Engineering\ComplexFunctions class instead
+     *      Use the IMSINH() method in the Engineering\ComplexFunctions class instead
+     * @see ComplexFunctions::IMSINH()
      *
      * @param string $complexNumber the complex number for which you want the hyperbolic sine
      *
@@ -809,7 +841,8 @@ class Engineering
      *        IMSEC(complexNumber)
      *
      * @deprecated 1.18.0
-     * @see Use the IMSEC() method in the Engineering\ComplexFunctions class instead
+     *      Use the IMSEC() method in the Engineering\ComplexFunctions class instead
+     * @see ComplexFunctions::IMSEC()
      *
      * @param string $complexNumber the complex number for which you want the secant
      *
@@ -829,7 +862,8 @@ class Engineering
      *        IMSECH(complexNumber)
      *
      * @deprecated 1.18.0
-     * @see Use the IMSECH() method in the Engineering\ComplexFunctions class instead
+     *      Use the IMSECH() method in the Engineering\ComplexFunctions class instead
+     * @see ComplexFunctions::IMSECH($complexNumber)
      *
      * @param string $complexNumber the complex number for which you want the hyperbolic secant
      *
@@ -849,7 +883,8 @@ class Engineering
      *        IMTAN(complexNumber)
      *
      * @deprecated 1.18.0
-     * @see Use the IMTAN() method in the Engineering\ComplexFunctions class instead
+     *      Use the IMTAN() method in the Engineering\ComplexFunctions class instead
+     * @see ComplexFunctions::IMTAN()
      *
      * @param string $complexNumber the complex number for which you want the tangent
      *
@@ -869,7 +904,8 @@ class Engineering
      *        IMSQRT(complexNumber)
      *
      * @deprecated 1.18.0
-     * @see Use the IMSQRT() method in the Engineering\ComplexFunctions class instead
+     *      Use the IMSQRT() method in the Engineering\ComplexFunctions class instead
+     * @see ComplexFunctions::IMSQRT()
      *
      * @param string $complexNumber the complex number for which you want the square root
      *
@@ -889,7 +925,8 @@ class Engineering
      *        IMLN(complexNumber)
      *
      * @deprecated 1.18.0
-     * @see Use the IMLN() method in the Engineering\ComplexFunctions class instead
+     *      Use the IMLN() method in the Engineering\ComplexFunctions class instead
+     * @see ComplexFunctions::IMLN()
      *
      * @param string $complexNumber the complex number for which you want the natural logarithm
      *
@@ -909,7 +946,8 @@ class Engineering
      *        IMLOG10(complexNumber)
      *
      * @deprecated 1.18.0
-     * @see Use the IMLOG10() method in the Engineering\ComplexFunctions class instead
+     *      Use the IMLOG10() method in the Engineering\ComplexFunctions class instead
+     * @see ComplexFunctions::IMLOG10()
      *
      * @param string $complexNumber the complex number for which you want the common logarithm
      *
@@ -929,7 +967,8 @@ class Engineering
      *        IMLOG2(complexNumber)
      *
      * @deprecated 1.18.0
-     * @see Use the IMLOG2() method in the Engineering\ComplexFunctions class instead
+     *      Use the IMLOG2() method in the Engineering\ComplexFunctions class instead
+     * @see ComplexFunctions::IMLOG2()
      *
      * @param string $complexNumber the complex number for which you want the base-2 logarithm
      *
@@ -949,7 +988,8 @@ class Engineering
      *        IMEXP(complexNumber)
      *
      * @deprecated 1.18.0
-     * @see Use the IMEXP() method in the Engineering\ComplexFunctions class instead
+     *      Use the IMEXP() method in the Engineering\ComplexFunctions class instead
+     * @see ComplexFunctions::IMEXP()
      *
      * @param string $complexNumber the complex number for which you want the exponential
      *
@@ -969,7 +1009,8 @@ class Engineering
      *        IMPOWER(complexNumber,realNumber)
      *
      * @deprecated 1.18.0
-     * @see Use the IMPOWER() method in the Engineering\ComplexFunctions class instead
+     *      Use the IMPOWER() method in the Engineering\ComplexFunctions class instead
+     * @see ComplexFunctions::IMPOWER()
      *
      * @param string $complexNumber the complex number you want to raise to a power
      * @param float $realNumber the power to which you want to raise the complex number
@@ -990,7 +1031,8 @@ class Engineering
      *        IMDIV(complexDividend,complexDivisor)
      *
      * @deprecated 1.18.0
-     * @see Use the IMDIV() method in the Engineering\ComplexOperations class instead
+     *      Use the IMDIV() method in the Engineering\ComplexOperations class instead
+     * @see ComplexOperations::IMDIV()
      *
      * @param string $complexDividend the complex numerator or dividend
      * @param string $complexDivisor the complex denominator or divisor
@@ -1011,7 +1053,8 @@ class Engineering
      *        IMSUB(complexNumber1,complexNumber2)
      *
      * @deprecated 1.18.0
-     * @see Use the IMSUB() method in the Engineering\ComplexOperations class instead
+     *      Use the IMSUB() method in the Engineering\ComplexOperations class instead
+     * @see ComplexOperations::IMSUB()
      *
      * @param string $complexNumber1 the complex number from which to subtract complexNumber2
      * @param string $complexNumber2 the complex number to subtract from complexNumber1
@@ -1032,7 +1075,8 @@ class Engineering
      *        IMSUM(complexNumber[,complexNumber[,...]])
      *
      * @deprecated 1.18.0
-     * @see Use the IMSUM() method in the Engineering\ComplexOperations class instead
+     *      Use the IMSUM() method in the Engineering\ComplexOperations class instead
+     * @see ComplexOperations::IMSUM()
      *
      * @param string ...$complexNumbers Series of complex numbers to add
      *
@@ -1052,7 +1096,8 @@ class Engineering
      *        IMPRODUCT(complexNumber[,complexNumber[,...]])
      *
      * @deprecated 1.18.0
-     * @see Use the IMPRODUCT() method in the Engineering\ComplexOperations class instead
+     *      Use the IMPRODUCT() method in the Engineering\ComplexOperations class instead
+     * @see ComplexOperations::IMPRODUCT()
      *
      * @param string ...$complexNumbers Series of complex numbers to multiply
      *
@@ -1075,7 +1120,8 @@ class Engineering
      *        DELTA(a[,b])
      *
      * @deprecated 1.17.0
-     * @see Use the DELTA() method in the Engineering\Compare class instead
+     *      Use the DELTA() method in the Engineering\Compare class instead
+     * @see Engineering\Compare::DELTA($a, $b)
      *
      * @param float $a the first number
      * @param float $b The second number. If omitted, b is assumed to be zero.
@@ -1098,7 +1144,8 @@ class Engineering
      *        functions you calculate the count of values that exceed a threshold.
      *
      * @deprecated 1.17.0
-     * @see Use the GESTEP() method in the Engineering\Compare class instead
+     *      Use the GESTEP() method in the Engineering\Compare class instead
+     * @see Engineering\Compare::GESTEP()
      *
      * @param float $number the value to test against step
      * @param float $step The threshold value. If you omit a value for step, GESTEP uses zero.
@@ -1119,7 +1166,8 @@ class Engineering
      *        BITAND(number1, number2)
      *
      * @deprecated 1.17.0
-     * @see Use the BITAND() method in the Engineering\BitWise class instead
+     *      Use the BITAND() method in the Engineering\BitWise class instead
+     * @see Engineering\BitWise::BITAND()
      *
      * @param int $number1
      * @param int $number2
@@ -1140,7 +1188,8 @@ class Engineering
      *        BITOR(number1, number2)
      *
      * @deprecated 1.17.0
-     * @see Use the BITOR() method in the Engineering\BitWise class instead
+     *      Use the BITOR() method in the Engineering\BitWise class instead
+     * @see Engineering\BitWise::BITOR()
      *
      * @param int $number1
      * @param int $number2
@@ -1161,7 +1210,8 @@ class Engineering
      *        BITXOR(number1, number2)
      *
      * @deprecated 1.17.0
-     * @see Use the BITXOR() method in the Engineering\BitWise class instead
+     *      Use the BITXOR() method in the Engineering\BitWise class instead
+     * @see Engineering\BitWise::BITXOR()
      *
      * @param int $number1
      * @param int $number2
@@ -1182,7 +1232,8 @@ class Engineering
      *        BITLSHIFT(number, shift_amount)
      *
      * @deprecated 1.17.0
-     * @see Use the BITLSHIFT() method in the Engineering\BitWise class instead
+     *      Use the BITLSHIFT() method in the Engineering\BitWise class instead
+     * @see Engineering\BitWise::BITLSHIFT()
      *
      * @param int $number
      * @param int $shiftAmount
@@ -1203,7 +1254,8 @@ class Engineering
      *        BITRSHIFT(number, shift_amount)
      *
      * @deprecated 1.17.0
-     * @see Use the BITRSHIFT() method in the Engineering\BitWise class instead
+     *      Use the BITRSHIFT() method in the Engineering\BitWise class instead
+     * @see Engineering\BitWise::BITRSHIFT()
      *
      * @param int $number
      * @param int $shiftAmount
@@ -1229,7 +1281,8 @@ class Engineering
      *        ERF(lower[,upper])
      *
      * @deprecated 1.17.0
-     * @see Use the ERF() method in the Engineering\Erf class instead
+     *      Use the ERF() method in the Engineering\Erf class instead
+     * @see Engineering\Erf::ERF()
      *
      * @param float $lower lower bound for integrating ERF
      * @param float $upper upper bound for integrating ERF.
@@ -1251,7 +1304,8 @@ class Engineering
      *        ERF.PRECISE(limit)
      *
      * @deprecated 1.17.0
-     * @see Use the ERFPRECISE() method in the Engineering\Erf class instead
+     *      Use the ERFPRECISE() method in the Engineering\Erf class instead
+     * @see Engineering\Erf::ERFPRECISE()
      *
      * @param float $limit bound for integrating ERF
      *
@@ -1276,7 +1330,8 @@ class Engineering
      *        ERFC(x)
      *
      * @deprecated 1.17.0
-     * @see Use the ERFC() method in the Engineering\ErfC class instead
+     *      Use the ERFC() method in the Engineering\ErfC class instead
+     * @see Engineering\ErfC::ERFC()
      *
      * @param float $x The lower bound for integrating ERFC
      *
@@ -1292,7 +1347,8 @@ class Engineering
      * Returns a list of the different conversion groups for UOM conversions.
      *
      * @deprecated 1.16.0
-     * @see Use the getConversionCategories() method in the Engineering\ConvertUOM class instead
+     *      Use the getConversionCategories() method in the Engineering\ConvertUOM class instead
+     * @see Engineering\ConvertUOM::getConversionCategories()
      *
      * @return array
      */
@@ -1306,7 +1362,8 @@ class Engineering
      * Returns an array of units of measure, for a specified conversion group, or for all groups.
      *
      * @deprecated 1.16.0
-     * @see Use the getConversionCategoryUnits() method in the ConvertUOM class instead
+     *      Use the getConversionCategoryUnits() method in the ConvertUOM class instead
+     * @see Engineering\ConvertUOM::getConversionCategoryUnits()
      *
      * @param null|mixed $category
      *
@@ -1321,7 +1378,8 @@ class Engineering
      * getConversionGroupUnitDetails.
      *
      * @deprecated 1.16.0
-     * @see Use the getConversionCategoryUnitDetails() method in the ConvertUOM class instead
+     *      Use the getConversionCategoryUnitDetails() method in the ConvertUOM class instead
+     * @see Engineering\ConvertUOM::getConversionCategoryUnitDetails()
      *
      * @param null|mixed $category
      *
@@ -1337,7 +1395,8 @@ class Engineering
      * Returns an array of the Multiplier prefixes that can be used with Units of Measure in CONVERTUOM().
      *
      * @deprecated 1.16.0
-     * @see Use the getConversionMultipliers() method in the ConvertUOM class instead
+     *      Use the getConversionMultipliers() method in the ConvertUOM class instead
+     * @see Engineering\ConvertUOM::getConversionMultipliers()
      *
      * @return mixed[]
      */
@@ -1353,7 +1412,8 @@ class Engineering
      *     in CONVERTUOM().
      *
      * @deprecated 1.16.0
-     * @see Use the getBinaryConversionMultipliers() method in the ConvertUOM class instead
+     *      Use the getBinaryConversionMultipliers() method in the ConvertUOM class instead
+     * @see Engineering\ConvertUOM::getBinaryConversionMultipliers()
      *
      * @return mixed[]
      */
@@ -1373,7 +1433,8 @@ class Engineering
      *        CONVERT(value,fromUOM,toUOM)
      *
      * @deprecated 1.16.0
-     * @see Use the CONVERT() method in the ConvertUOM class instead
+     *      Use the CONVERT() method in the ConvertUOM class instead
+     * @see Engineering\ConvertUOM::CONVERT()
      *
      * @param float|int $value the value in fromUOM to convert
      * @param string $fromUOM the units for value
