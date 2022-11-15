@@ -260,22 +260,52 @@ class ParseFormulaTest extends TestCase
                 ],
                 '=DEFINED_NAME_1 DEFINED_NAME_2',
             ],
-            //            'Structured Reference Arithmetic' => [
-            //                [
-            //                    ['type' => 'Structured Reference', 'value' => '[@Quantity]', 'reference' => null],
-            //                    ['type' => 'Structured Reference', 'value' => '[@[Unit Price]]', 'reference' => null],
-            //                    ['type' => 'Binary Operator', 'value' => '*', 'reference' => null],
-            //                ],
-            //                '=[@Quantity]*[@[Unit Price]]',
-            //            ],
-            //            'Structured Reference Intersection' => [
-            //                [
-            //                    ['type' => 'Structured Reference', 'value' => 'DeptSales[[Sales Person]:[Sales Amount]]', 'reference' => null],
-            //                    ['type' => 'Structured Reference', 'value' => 'DeptSales[[Region]:[% Commission]]', 'reference' => null],
-            //                    ['type' => 'Binary Operator', 'value' => '∩', 'reference' => null],
-            //                ],
-            //                '=DeptSales[[Sales Person]:[Sales Amount]] DeptSales[[Region]:[% Commission]]',
-            //            ],
+            'Fully Qualified Structured Reference' => [
+                [
+                    ['type' => 'Structured Reference', 'value' => 'DeptSales[@Commission Amount]', 'reference' => null],
+                ],
+                '=DeptSales[@Commission Amount]',
+            ],
+            'Fully Qualified Nested Structured Reference' => [
+                [
+                    ['type' => 'Structured Reference', 'value' => 'DeptSales[[#Totals],[Sales Amount]]', 'reference' => null],
+                ],
+                '=DeptSales[[#Totals],[Sales Amount]]',
+            ],
+            'Complex Fully Qualified Nested Structured Reference' => [
+                [
+                    ['type' => 'Structured Reference', 'value' => 'Sales_Data[[#This Row],[Q1]:[Q4]]', 'reference' => null],
+                ],
+                '=Sales_Data[[#This Row],[Q1]:[Q4]]',
+            ],
+            'Unqualified Structured Reference' => [
+                [
+                    ['type' => 'Structured Reference', 'value' => '[@Quantity]', 'reference' => null],
+                ],
+                '=[@Quantity]',
+            ],
+            'Unqualified Nested Structured Reference' => [
+                [
+                    ['type' => 'Structured Reference', 'value' => '[@[Unit Price]]', 'reference' => null],
+                ],
+                '=[@[Unit Price]]',
+            ],
+            'Structured Reference Arithmetic' => [
+                [
+                    ['type' => 'Structured Reference', 'value' => '[@Quantity]', 'reference' => null],
+                    ['type' => 'Structured Reference', 'value' => '[@[Unit Price]]', 'reference' => null],
+                    ['type' => 'Binary Operator', 'value' => '*', 'reference' => null],
+                ],
+                '=[@Quantity]*[@[Unit Price]]',
+            ],
+            'Structured Reference Intersection' => [
+                [
+                    ['type' => 'Structured Reference', 'value' => 'DeptSales[[Sales Person]:[Sales Amount]]', 'reference' => null],
+                    ['type' => 'Structured Reference', 'value' => 'DeptSales[[Region]:[% Commission]]', 'reference' => null],
+                    ['type' => 'Binary Operator', 'value' => '∩', 'reference' => null],
+                ],
+                '=DeptSales[[Sales Person]:[Sales Amount]] DeptSales[[Region]:[% Commission]]',
+            ],
             //            'Cell Range Union' => [
             //                [
             //                    ['type' => 'Cell Reference', 'value' => 'A1', 'reference' => 'A1'],

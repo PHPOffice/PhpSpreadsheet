@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Engine\BranchPruner;
 use PhpOffice\PhpSpreadsheet\Calculation\Engine\CyclicReferenceStack;
 use PhpOffice\PhpSpreadsheet\Calculation\Engine\Logger;
+use PhpOffice\PhpSpreadsheet\Calculation\Engine\Operands;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ErrorValue;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Calculation\Token\Stack;
@@ -45,7 +46,7 @@ class Calculation
     //    Defined Names: Named Range of cells, or Named Formulae
     const CALCULATION_REGEXP_DEFINEDNAME = '((([^\s,!&%^\/\*\+<>=-]*)|(\'(?:[^\']|\'[^!])+?\')|(\"(?:[^\"]|\"[^!])+?\"))!)?([_\p{L}][_\p{L}\p{N}\.]*)';
     // Structured Reference (Fully Qualified and Unqualified)
-    const CALCULATION_REGEXP_STRUCTURED_REFERENCE = '([\p{L}_\\\\][\p{L}\p{N}\._]+)?(\[(?>[^\[\]]|(?R))+\])';
+    const CALCULATION_REGEXP_STRUCTURED_REFERENCE = '([\p{L}_\\\\][\p{L}\p{N}\._]+)?(\[(?:[^\d\]+-]))';
     //    Error
     const CALCULATION_REGEXP_ERROR = '\#[A-Z][A-Z0_\/]*[!\?]?';
 
@@ -58,8 +59,6 @@ class Calculation
     const FORMULA_CLOSE_FUNCTION_BRACE = ')';
     const FORMULA_OPEN_MATRIX_BRACE = '{';
     const FORMULA_CLOSE_MATRIX_BRACE = '}';
-    const FORMULA_OPEN_STRUCTURED_REFERENCE_BRACE = '[';
-    const FORMULA_CLOSE_STRUCTURED_REFERENCE_BRACE = ']';
     const FORMULA_STRING_QUOTE = '"';
 
     /** @var string */
@@ -4059,16 +4058,17 @@ class Calculation
         //        so we store the parent worksheet so that we can re-attach it when necessary
         $pCellParent = ($cell !== null) ? $cell->getWorksheet() : null;
 
-        $regexpMatchString = '/^(' . self::CALCULATION_REGEXP_STRING .
-                                '|' . self::CALCULATION_REGEXP_FUNCTION .
-                                '|' . self::CALCULATION_REGEXP_CELLREF .
-                                '|' . self::CALCULATION_REGEXP_COLUMN_RANGE .
-                                '|' . self::CALCULATION_REGEXP_ROW_RANGE .
-                                '|' . self::CALCULATION_REGEXP_NUMBER .
-                                '|' . self::CALCULATION_REGEXP_OPENBRACE .
-                                '|' . self::CALCULATION_REGEXP_DEFINEDNAME .
-                                '|' . self::CALCULATION_REGEXP_ERROR .
-                                ')/sui';
+        $regexpMatchString = '/^((?<string>' . self::CALCULATION_REGEXP_STRING .
+                                ')|(?<function>' . self::CALCULATION_REGEXP_FUNCTION .
+                                ')|(?<cellRef>' . self::CALCULATION_REGEXP_CELLREF .
+                                ')|(?<colRange>' . self::CALCULATION_REGEXP_COLUMN_RANGE .
+                                ')|(?<rowRange>' . self::CALCULATION_REGEXP_ROW_RANGE .
+                                ')|(?<number>' . self::CALCULATION_REGEXP_NUMBER .
+                                ')|(?<openBrace>' . self::CALCULATION_REGEXP_OPENBRACE .
+                                ')|(?<structuredReference>' . self::CALCULATION_REGEXP_STRUCTURED_REFERENCE .
+                                ')|(?<definedName>' . self::CALCULATION_REGEXP_DEFINEDNAME .
+                                ')|(?<error>' . self::CALCULATION_REGEXP_ERROR .
+                                '))/sui';
 
         //    Start with initialisation
         $index = 0;
@@ -4088,24 +4088,27 @@ class Calculation
 
             $opCharacter = $formula[$index]; //    Get the first character of the value at the current index position
 
+            // Check for two-character operators (e.g. >=, <=, <>)
             if ((isset(self::$comparisonOperators[$opCharacter])) && (strlen($formula) > $index) && (isset(self::$comparisonOperators[$formula[$index + 1]]))) {
                 $opCharacter .= $formula[++$index];
             }
-            //    Find out if we're currently at the beginning of a number, variable, cell reference, function, parenthesis or operand
+            //    Find out if we're currently at the beginning of a number, variable, cell/row/column reference,
+            //         function, defined name, structured reference, parenthesis, error or operand
             $isOperandOrFunction = (bool) preg_match($regexpMatchString, substr($formula, $index), $match);
 
             $expectingOperatorCopy = $expectingOperator;
-            if ($opCharacter == '-' && !$expectingOperator) {                //    Is it a negation instead of a minus?
+            if ($opCharacter === '-' && !$expectingOperator) {                //    Is it a negation instead of a minus?
                 //    Put a negation on the stack
                 $stack->push('Unary Operator', '~');
                 ++$index; //        and drop the negation symbol
-            } elseif ($opCharacter == '%' && $expectingOperator) {
+            } elseif ($opCharacter === '%' && $expectingOperator) {
                 //    Put a percentage on the stack
                 $stack->push('Unary Operator', '%');
                 ++$index;
-            } elseif ($opCharacter == '+' && !$expectingOperator) {            //    Positive (unary plus rather than binary operator plus) can be discarded?
+            } elseif ($opCharacter === '+' && !$expectingOperator) {            //    Positive (unary plus rather than binary operator plus) can be discarded?
                 ++$index; //    Drop the redundant plus symbol
-            } elseif ((($opCharacter == '~') || ($opCharacter == '∩') || ($opCharacter == '∪')) && (!$isOperandOrFunction)) {    //    We have to explicitly deny a tilde, union or intersect because they are legal
+            } elseif ((($opCharacter === '~') || ($opCharacter === '∩') || ($opCharacter === '∪')) && (!$isOperandOrFunction)) {
+                //    We have to explicitly deny a tilde, union or intersect because they are legal
                 return $this->raiseFormulaError("Formula Error: Illegal character '~'"); //        on the stack but not in the input expression
             } elseif ((isset(self::CALCULATION_OPERATORS[$opCharacter]) || $isOperandOrFunction) && $expectingOperator) {    //    Are we putting an operator on the stack?
                 while (
@@ -4122,7 +4125,7 @@ class Calculation
 
                 ++$index;
                 $expectingOperator = false;
-            } elseif ($opCharacter == ')' && $expectingOperator) { //    Are we expecting to close a parenthesis?
+            } elseif ($opCharacter === ')' && $expectingOperator) { //    Are we expecting to close a parenthesis?
                 $expectingOperand = false;
                 while (($o2 = $stack->pop()) && $o2['value'] !== '(') { //    Pop off the stack back to the last (
                     $output[] = $o2;
@@ -4206,7 +4209,7 @@ class Calculation
                     }
                 }
                 ++$index;
-            } elseif ($opCharacter == ',') { // Is this the separator for function arguments?
+            } elseif ($opCharacter === ',') { // Is this the separator for function arguments?
                 try {
                     $this->branchPruner->argumentSeparator();
                 } catch (Exception $e) {
@@ -4241,12 +4244,13 @@ class Calculation
                 $expectingOperator = false;
                 $expectingOperand = true;
                 ++$index;
-            } elseif ($opCharacter == '(' && !$expectingOperator) {
+            } elseif ($opCharacter === '(' && !$expectingOperator) {
                 // Branch pruning: we go deeper
                 $this->branchPruner->incrementDepth();
                 $stack->push('Brace', '(', null);
                 ++$index;
-            } elseif ($isOperandOrFunction && !$expectingOperatorCopy) {    // do we now have a function/variable/number?
+            } elseif ($isOperandOrFunction && !$expectingOperatorCopy) {
+                // do we now have a function/variable/number?
                 $expectingOperator = true;
                 $expectingOperand = false;
                 $val = $match[1];
@@ -4314,7 +4318,20 @@ class Calculation
                     $outputItem = $stack->getStackItem('Cell Reference', $val, $val);
 
                     $output[] = $outputItem;
-                } else { // it's a variable, constant, string, number or boolean
+                } elseif (preg_match('/^' . self::CALCULATION_REGEXP_STRUCTURED_REFERENCE . '$/miu', $val, $matches)) {
+                    try {
+                        $val = Operands\StructuredReference::fromParser($formula, $index, $matches)->value();
+                    } catch (Exception $e) {
+                        return $this->raiseFormulaError($e->getMessage());
+                    }
+
+                    $length = strlen($val);
+                    $outputItem = $stack->getStackItem(Operands\StructuredReference::NAME, $val, null);
+
+                    $output[] = $outputItem;
+                    $expectingOperator = true;
+                } else {
+                    // it's a variable, constant, string, number or boolean
                     $localeConstant = false;
                     $stackItemType = 'Value';
                     $stackItemReference = null;
@@ -4382,7 +4399,7 @@ class Calculation
                             }
                             $stackItemReference = $val;
                         }
-                    } elseif ($opCharacter == self::FORMULA_STRING_QUOTE) {
+                    } elseif ($opCharacter === self::FORMULA_STRING_QUOTE) {
                         //    UnEscape any quotes within the string
                         $val = self::wrapResult(str_replace('""', self::FORMULA_STRING_QUOTE, self::unwrapResult($val)));
                     } elseif (isset(self::$excelConstants[trim(strtoupper($val))])) {
@@ -4438,9 +4455,9 @@ class Calculation
                     $output[] = $details;
                 }
                 $index += $length;
-            } elseif ($opCharacter == '$') { // absolute row or column range
+            } elseif ($opCharacter === '$') { // absolute row or column range
                 ++$index;
-            } elseif ($opCharacter == ')') { // miscellaneous error checking
+            } elseif ($opCharacter === ')') { // miscellaneous error checking
                 if ($expectingOperand) {
                     $output[] = ['type' => 'Empty Argument', 'value' => self::$excelConstants['NULL'], 'reference' => 'NULL'];
                     $expectingOperand = false;
@@ -4464,17 +4481,17 @@ class Calculation
                 break;
             }
             //    Ignore white space
-            while (($formula[$index] == "\n") || ($formula[$index] == "\r")) {
+            while (($formula[$index] === "\n") || ($formula[$index] === "\r")) {
                 ++$index;
             }
 
-            if ($formula[$index] == ' ') {
+            if ($formula[$index] === ' ') {
                 while ($formula[$index] === ' ') {
                     ++$index;
                 }
 
                 //    If we're expecting an operator, but only have a space between the previous and next operands (and both are
-                //        Cell References) then we have an INTERSECTION operator
+                //        Cell References, Defined Names or Structured References) then we have an INTERSECTION operator
                 $countOutputMinus1 = count($output) - 1;
                 if (
                     ($expectingOperator) &&
@@ -4482,10 +4499,12 @@ class Calculation
                     is_array($output[$countOutputMinus1]) &&
                     array_key_exists('type', $output[$countOutputMinus1]) &&
                     (
-                        (preg_match('/^' . self::CALCULATION_REGEXP_CELLREF . '.*/Ui', substr($formula, $index), $match)) &&
-                        ($output[$countOutputMinus1]['type'] === 'Cell Reference') ||
+                        (preg_match('/^' . self::CALCULATION_REGEXP_CELLREF . '.*/miu', substr($formula, $index), $match)) &&
+                            ($output[$countOutputMinus1]['type'] === 'Cell Reference') ||
                         (preg_match('/^' . self::CALCULATION_REGEXP_DEFINEDNAME . '.*/miu', substr($formula, $index), $match)) &&
-                            ($output[$countOutputMinus1]['type'] === 'Defined Name' || $output[$countOutputMinus1]['type'] === 'Value')
+                            ($output[$countOutputMinus1]['type'] === 'Defined Name' || $output[$countOutputMinus1]['type'] === 'Value') ||
+                        (preg_match('/^' . self::CALCULATION_REGEXP_STRUCTURED_REFERENCE . '.*/miu', substr($formula, $index), $match)) &&
+                            ($output[$countOutputMinus1]['type'] === Operands\StructuredReference::NAME || $output[$countOutputMinus1]['type'] === 'Value')
                     )
                 ) {
                     while (
@@ -5038,6 +5057,10 @@ class Calculation
                         $branchStore[$storeKey] = $result;
                     }
                 }
+            } elseif (
+                preg_match('/^' . self::CALCULATION_REGEXP_STRUCTURED_REFERENCE . '$/miu', $token ?? '', $matches)
+            ) {
+                throw new Exception('Structured References are not currently supported');
             } else {
                 // if the token is a number, boolean, string or an Excel error, push it onto the stack
                 if (isset(self::$excelConstants[strtoupper($token ?? '')])) {
