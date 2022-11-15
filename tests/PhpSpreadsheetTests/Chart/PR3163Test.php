@@ -104,7 +104,7 @@ class PR3163Test extends AbstractFunctional
         $xAxis->setLineColorProperties('FF0000');
 
         $yAxis = new Axis();
-        $yAxis->setLineColorProperties('FF0000');
+        $yAxis->setLineColorProperties('00FF00');
 
         // Create the chart
         $chart1 = new Chart(
@@ -148,7 +148,7 @@ class PR3163Test extends AbstractFunctional
         $yAxis2 = $chart2->getChartAxisY();
         self::assertNotNull($yAxis2);
         $lineColorY2 = $yAxis2->getLineColorProperty('value');
-        self::assertSame($lineColorY2, 'FF0000');
+        self::assertSame($lineColorY2, '00FF00');
 
         $reloadedSpreadsheet->disconnectWorksheets();
     }
