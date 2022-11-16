@@ -15,8 +15,6 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 /**
  * @deprecated 1.18.0
- *
- * @codeCoverageIgnore
  */
 class LookupRef
 {
