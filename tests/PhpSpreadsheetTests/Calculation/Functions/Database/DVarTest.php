@@ -3,16 +3,10 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Database;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PHPUnit\Framework\TestCase;
 
 class DVarTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerDVar
      *
@@ -23,7 +17,7 @@ class DVarTest extends TestCase
      */
     public function testDVar($expectedResult, $database, $field, $criteria): void
     {
-        $result = Database::DVAR($database, $field, $criteria);
+        $result = Database\DVar::evaluate($database, $field, $criteria);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 

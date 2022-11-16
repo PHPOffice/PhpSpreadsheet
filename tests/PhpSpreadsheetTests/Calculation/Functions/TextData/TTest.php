@@ -16,7 +16,7 @@ class TTest extends TestCase
      */
     public function testT($expectedResult, $value): void
     {
-        $result = TextData::RETURNSTRING($value);
+        $result = TextData\Text::test($value);
         self::assertEquals($expectedResult, $result);
     }
 

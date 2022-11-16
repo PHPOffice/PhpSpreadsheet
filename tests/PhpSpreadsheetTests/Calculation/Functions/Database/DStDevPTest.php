@@ -3,16 +3,10 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Database;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PHPUnit\Framework\TestCase;
 
 class DStDevPTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerDStDevP
      *
@@ -23,7 +17,7 @@ class DStDevPTest extends TestCase
      */
     public function testDStDevP($expectedResult, $database, $field, $criteria): void
     {
-        $result = Database::DSTDEVP($database, $field, $criteria);
+        $result = Database\DStDevP::evaluate($database, $field, $criteria);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 

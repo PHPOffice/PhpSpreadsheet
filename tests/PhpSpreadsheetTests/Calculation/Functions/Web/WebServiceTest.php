@@ -42,7 +42,7 @@ class WebServiceTest extends TestCase
             Settings::setHttpClient($client, $requestFactory);
         }
 
-        $result = Web::WEBSERVICE($url);
+        $result = Web\Service::webService($url);
         self::assertEquals($expectedResult, $result);
     }
 
@@ -65,13 +65,13 @@ class WebServiceTest extends TestCase
 
         Settings::setHttpClient($client, $requestFactory);
 
-        $result = Web::WEBSERVICE('https://example.com');
+        $result = Web\Service::webService('https://example.com');
         self::assertEquals('#VALUE!', $result);
     }
 
     public function testWEBSERVICEThrowsIfNotClientConfigured(): void
     {
         $this->expectExceptionMessage('HTTP client must be configured via Settings::setHttpClient() to be able to use WEBSERVICE function.');
-        Web::WEBSERVICE('https://example.com');
+        Web\Service::webService('https://example.com');
     }
 }

@@ -3,16 +3,10 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Database;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PHPUnit\Framework\TestCase;
 
 class DCountTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerDCount
      *
@@ -23,7 +17,7 @@ class DCountTest extends TestCase
      */
     public function testDCount($expectedResult, $database, $field, $criteria): void
     {
-        $result = Database::DCOUNT($database, $field, $criteria);
+        $result = Database\DCount::evaluate($database, $field, $criteria);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
