@@ -4,7 +4,6 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Engineering;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheetTests\Custom\ComplexAssert;
 use PHPUnit\Framework\TestCase;
 
@@ -19,7 +18,6 @@ class ImSinTest extends TestCase
 
     protected function setUp(): void
     {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         $this->complexAssert = new ComplexAssert();
     }
 
@@ -31,7 +29,7 @@ class ImSinTest extends TestCase
      */
     public function testIMSIN($expectedResult, $value): void
     {
-        $result = Engineering::IMSIN($value);
+        $result = Engineering\ComplexFunctions::IMSIN($value);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()

@@ -4,17 +4,11 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Engineering;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PHPUnit\Framework\TestCase;
 
 class ImaginaryTest extends TestCase
 {
     const COMPLEX_PRECISION = 1E-8;
-
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
 
     /**
      * @dataProvider providerIMAGINARY
@@ -24,7 +18,7 @@ class ImaginaryTest extends TestCase
      */
     public function testIMAGINARY($expectedResult, $value): void
     {
-        $result = Engineering::IMAGINARY($value);
+        $result = Engineering\Complex::IMAGINARY($value);
         self::assertEqualsWithDelta($expectedResult, $result, self::COMPLEX_PRECISION);
     }
 

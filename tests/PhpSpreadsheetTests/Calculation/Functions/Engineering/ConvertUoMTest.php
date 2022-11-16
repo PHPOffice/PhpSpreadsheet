@@ -12,31 +12,31 @@ class ConvertUoMTest extends TestCase
 
     public function testGetConversionGroups(): void
     {
-        $result = Engineering::getConversionGroups();
+        $result = Engineering\ConvertUOM::getConversionCategories();
         self::assertIsArray($result);
     }
 
     public function testGetConversionGroupUnits(): void
     {
-        $result = Engineering::getConversionGroupUnits();
+        $result = Engineering\ConvertUOM::getConversionCategoryUnits();
         self::assertIsArray($result);
     }
 
     public function testGetConversionGroupUnitDetails(): void
     {
-        $result = Engineering::getConversionGroupUnitDetails();
+        $result = Engineering\ConvertUOM::getConversionCategoryUnitDetails();
         self::assertIsArray($result);
     }
 
     public function testGetConversionMultipliers(): void
     {
-        $result = Engineering::getConversionMultipliers();
+        $result = Engineering\ConvertUOM::getConversionMultipliers();
         self::assertIsArray($result);
     }
 
     public function testGetBinaryConversionMultipliers(): void
     {
-        $result = Engineering::getBinaryConversionMultipliers();
+        $result = Engineering\ConvertUOM::getBinaryConversionMultipliers();
         self::assertIsArray($result);
     }
 
@@ -47,7 +47,7 @@ class ConvertUoMTest extends TestCase
      */
     public function testCONVERTUOM($expectedResult, ...$args): void
     {
-        $result = Engineering::CONVERTUOM(...$args);
+        $result = Engineering\ConvertUOM::CONVERT(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, self::UOM_PRECISION);
     }
 

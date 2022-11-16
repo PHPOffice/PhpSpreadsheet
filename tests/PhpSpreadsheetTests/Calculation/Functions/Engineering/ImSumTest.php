@@ -3,7 +3,6 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Engineering;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheetTests\Custom\ComplexAssert;
 use PHPUnit\Framework\TestCase;
 
@@ -18,7 +17,6 @@ class ImSumTest extends TestCase
 
     protected function setUp(): void
     {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         $this->complexAssert = new ComplexAssert();
     }
 
@@ -29,7 +27,7 @@ class ImSumTest extends TestCase
      */
     public function testIMSUM($expectedResult, ...$args): void
     {
-        $result = Engineering::IMSUM(...$args);
+        $result = Engineering\ComplexOperations::IMSUM(...$args);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()

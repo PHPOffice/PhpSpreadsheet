@@ -4,16 +4,10 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Engineering;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PHPUnit\Framework\TestCase;
 
 class DeltaTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerDELTA
      *
@@ -23,7 +17,7 @@ class DeltaTest extends TestCase
      */
     public function testDELTA($expectedResult, $a, $b): void
     {
-        $result = Engineering::DELTA($a, $b);
+        $result = Engineering\Compare::DELTA($a, $b);
         self::assertEquals($expectedResult, $result);
     }
 

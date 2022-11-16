@@ -19,7 +19,7 @@ class ErfTest extends TestCase
      */
     public function testERF($expectedResult, $lower, $upper = null): void
     {
-        $result = Engineering::ERF($lower, $upper);
+        $result = Engineering\Erf::ERF($lower, $upper);
         self::assertEqualsWithDelta($expectedResult, $result, self::ERF_PRECISION);
     }
 

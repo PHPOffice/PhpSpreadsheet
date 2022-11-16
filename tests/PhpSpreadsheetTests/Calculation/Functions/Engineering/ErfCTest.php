@@ -18,7 +18,7 @@ class ErfCTest extends TestCase
      */
     public function testERFC($expectedResult, $lower): void
     {
-        $result = Engineering::ERFC($lower);
+        $result = Engineering\ErfC::ERFC($lower);
         self::assertEqualsWithDelta($expectedResult, $result, self::ERF_PRECISION);
     }
 
