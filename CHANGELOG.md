@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Changed
 
+- Changed Worksheet::rangeToArray() and Worksheet::rangeToRowGenerator() to add a map parameter letting user personalize keys instead of the 0-x or A-Z.
 - Changed if/else in Worksheet->rangeToArray() to clean up the code and make it more readable.
 
 ### Deprecated

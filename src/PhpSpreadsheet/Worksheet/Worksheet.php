@@ -2864,10 +2864,12 @@ class Worksheet implements IComparable
      * @param bool $formatData Should formatting be applied to cell values?
      * @param bool $returnCellRef False - Return a simple array of rows and columns indexed by number counting from zero
      *                            True - Return rows and columns indexed by their actual row and column IDs
+     * @param array $map an array to use for keys instead of column ID or column count
+     *                  Format should be [0=>'id', 1=>'name'] or ['A'=>'id', 'B'=>'name'] if $returnCellRef=true
      *
      * @return Generator|array
      */
-    public function rangeToRowGenerator($range, $nullValue = null, $calculateFormulas = true, $formatData = true, $returnCellRef = false)
+    public function rangeToRowGenerator($range, $nullValue = null, $calculateFormulas = true, $formatData = true, $returnCellRef = false, array $map = [])
     {
         // Returnvalue
         $returnValue = [];
@@ -2887,6 +2889,9 @@ class Worksheet implements IComparable
             // Loop through columns in the current row
             for ($col = $minCol; $col != $maxCol; ++$col) {
                 $cRef = $returnCellRef ? $col : ++$c;
+                if (isset($map[$cRef])) {
+                    $cRef = $map[$cRef];
+                }
 
                 //    Using getCell() will create a new cell if it doesn't already exist. We don't want that to happen
                 //        so we test and retrieve directly against cellCollection
@@ -2938,10 +2943,12 @@ class Worksheet implements IComparable
      * @param bool $formatData Should formatting be applied to cell values?
      * @param bool $returnCellRef False - Return a simple array of rows and columns indexed by number counting from zero
      *                               True - Return rows and columns indexed by their actual row and column IDs
+     * @param array $map an array to use for keys instead of column ID or column count.
+     *                  Format should be [0=>'id', 1=>'name'] or ['A'=>'id', 'B'=>'name'] if $returnCellRef=true
      *
      * @return array
      */
-    public function rangeToArray($range, $nullValue = null, $calculateFormulas = true, $formatData = true, $returnCellRef = false)
+    public function rangeToArray($range, $nullValue = null, $calculateFormulas = true, $formatData = true, $returnCellRef = false, array $map = [])
     {
         // Returnvalue
         $returnValue = [];
@@ -2961,6 +2968,9 @@ class Worksheet implements IComparable
             // Loop through columns in the current row
             for ($col = $minCol; $col != $maxCol; ++$col) {
                 $cRef = $returnCellRef ? $col : ++$c;
+                if (isset($map[$cRef])) {
+                    $cRef = $map[$cRef];
+                }
 
                 //    Using getCell() will create a new cell if it doesn't already exist. We don't want that to happen
                 //        so we test and retrieve directly against cellCollection
