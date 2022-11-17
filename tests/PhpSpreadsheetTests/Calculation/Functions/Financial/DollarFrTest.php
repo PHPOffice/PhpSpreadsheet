@@ -15,11 +15,11 @@ class DollarFrTest extends TestCase
     public function testDOLLARFR($expectedResult, ...$args): void
     {
         if (count($args) === 0) {
-            $result = Financial::DOLLARFR();
+            $result = Financial\Dollar::fractional();
         } elseif (count($args) === 1) {
-            $result = Financial::DOLLARFR($args[0]);
+            $result = Financial\Dollar::fractional($args[0]);
         } else {
-            $result = Financial::DOLLARFR($args[0], $args[1]);
+            $result = Financial\Dollar::fractional($args[0], $args[1]);
         }
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }

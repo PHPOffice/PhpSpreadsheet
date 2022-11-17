@@ -15,13 +15,13 @@ class RriTest extends TestCase
     public function testRRI($expectedResult, array $args): void
     {
         if (count($args) === 0) {
-            $result = Financial::RRI();
+            $result = Financial\CashFlow\Single::interestRate();
         } elseif (count($args) === 1) {
-            $result = Financial::RRI($args[0]);
+            $result = Financial\CashFlow\Single::interestRate($args[0]);
         } elseif (count($args) === 2) {
-            $result = Financial::RRI($args[0], $args[1]);
+            $result = Financial\CashFlow\Single::interestRate($args[0], $args[1]);
         } else {
-            $result = Financial::RRI($args[0], $args[1], $args[2]);
+            $result = Financial\CashFlow\Single::interestRate($args[0], $args[1], $args[2]);
         }
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }

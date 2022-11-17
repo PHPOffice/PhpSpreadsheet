@@ -3,16 +3,10 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Financial;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PHPUnit\Framework\TestCase;
 
 class NpvTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerNPV
      *
@@ -20,7 +14,7 @@ class NpvTest extends TestCase
      */
     public function testNPV($expectedResult, ...$args): void
     {
-        $result = Financial::NPV(...$args);
+        $result = Financial\CashFlow\Variable\Periodic::presentValue(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 

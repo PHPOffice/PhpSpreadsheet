@@ -3,16 +3,10 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Financial;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PHPUnit\Framework\TestCase;
 
 class AmorLincTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerAMORLINC
      *
@@ -20,7 +14,7 @@ class AmorLincTest extends TestCase
      */
     public function testAMORLINC($expectedResult, ...$args): void
     {
-        $result = Financial::AMORLINC(...$args);
+        $result = Financial\Amortization::AMORLINC(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 

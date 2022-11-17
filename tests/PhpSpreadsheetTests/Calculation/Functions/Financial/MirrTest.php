@@ -3,16 +3,10 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Financial;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PHPUnit\Framework\TestCase;
 
 class MirrTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerMIRR
      *
@@ -20,7 +14,7 @@ class MirrTest extends TestCase
      */
     public function testMIRR($expectedResult, ...$args): void
     {
-        $result = Financial::MIRR(...$args);
+        $result = Financial\CashFlow\Variable\Periodic::modifiedRate(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 

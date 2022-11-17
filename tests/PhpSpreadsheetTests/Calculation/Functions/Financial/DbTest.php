@@ -3,16 +3,10 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Financial;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PHPUnit\Framework\TestCase;
 
 class DbTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerDB
      *
@@ -20,7 +14,7 @@ class DbTest extends TestCase
      */
     public function testDB($expectedResult, ...$args): void
     {
-        $result = Financial::DB(...$args);
+        $result = Financial\Depreciation::DB(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 

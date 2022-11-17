@@ -3,16 +3,10 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Financial;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PHPUnit\Framework\TestCase;
 
 class PriceMatTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerPRICEMAT
      *
@@ -20,7 +14,7 @@ class PriceMatTest extends TestCase
      */
     public function testPRICEMAT($expectedResult, ...$args): void
     {
-        $result = Financial::PRICEMAT(...$args);
+        $result = Financial\Securities\Price::priceAtMaturity(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 

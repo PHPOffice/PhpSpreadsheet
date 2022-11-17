@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Financial;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\TestCase;
 
 class PvTest extends TestCase
@@ -14,20 +14,26 @@ class PvTest extends TestCase
      */
     public function testPV($expectedResult, array $args): void
     {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->fromArray($args, null, 'A1', true);
         if (count($args) === 0) {
-            $result = Financial::PV();
+            $formula = '=PV()';
         } elseif (count($args) === 1) {
-            $result = Financial::PV($args[0]);
+            $formula = '=PV(A1)';
         } elseif (count($args) === 2) {
-            $result = Financial::PV($args[0], $args[1]);
+            $formula = '=PV(A1, B1)';
         } elseif (count($args) === 3) {
-            $result = Financial::PV($args[0], $args[1], $args[2]);
+            $formula = '=PV(A1, B1, C1)';
         } elseif (count($args) === 4) {
-            $result = Financial::PV($args[0], $args[1], $args[2], $args[3]);
+            $formula = '=PV(A1, B1, C1, D1)';
         } else {
-            $result = Financial::PV($args[0], $args[1], $args[2], $args[3], $args[4]);
+            $formula = '=PV(A1, B1, C1, D1, E1)';
         }
+        $sheet->getCell('A2')->setValue($formula);
+        $result = $sheet->getCell('A2')->getCalculatedValue();
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function providerPV(): array

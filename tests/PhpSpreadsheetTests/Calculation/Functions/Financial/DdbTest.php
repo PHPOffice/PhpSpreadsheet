@@ -3,16 +3,10 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Financial;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PHPUnit\Framework\TestCase;
 
 class DdbTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerDDB
      *
@@ -20,7 +14,7 @@ class DdbTest extends TestCase
      */
     public function testDDB($expectedResult, ...$args): void
     {
-        $result = Financial::DDB(...$args);
+        $result = Financial\Depreciation::DDB(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 

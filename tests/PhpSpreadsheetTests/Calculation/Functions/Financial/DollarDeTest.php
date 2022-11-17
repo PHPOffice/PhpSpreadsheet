@@ -16,11 +16,11 @@ class DollarDeTest extends TestCase
     public function testDOLLARDE($expectedResult, ...$args): void
     {
         if (count($args) === 0) {
-            $result = Financial::DOLLARDE();
+            $result = Financial\Dollar::decimal();
         } elseif (count($args) === 1) {
-            $result = Financial::DOLLARDE($args[0]);
+            $result = Financial\Dollar::decimal($args[0]);
         } else {
-            $result = Financial::DOLLARDE($args[0], $args[1]);
+            $result = Financial\Dollar::decimal($args[0], $args[1]);
         }
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }

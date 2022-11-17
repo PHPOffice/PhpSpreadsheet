@@ -3,16 +3,10 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Financial;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PHPUnit\Framework\TestCase;
 
 class NominalTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerNOMINAL
      *
@@ -22,7 +16,7 @@ class NominalTest extends TestCase
      */
     public function testNOMINAL($expectedResult, $rate, $periods): void
     {
-        $result = Financial::NOMINAL($rate, $periods);
+        $result = Financial\InterestRate::nominal($rate, $periods);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 

@@ -3,16 +3,10 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Financial;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PHPUnit\Framework\TestCase;
 
 class TBillYieldTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerTBILLYIELD
      *
@@ -20,7 +14,7 @@ class TBillYieldTest extends TestCase
      */
     public function testTBILLYIELD($expectedResult, ...$args): void
     {
-        $result = Financial::TBILLYIELD(...$args);
+        $result = Financial\TreasuryBill::yield(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 

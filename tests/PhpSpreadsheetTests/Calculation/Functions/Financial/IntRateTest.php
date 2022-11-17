@@ -3,16 +3,10 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Financial;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PHPUnit\Framework\TestCase;
 
 class IntRateTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerINTRATE
      *
@@ -20,7 +14,7 @@ class IntRateTest extends TestCase
      */
     public function testINTRATE($expectedResult, ...$args): void
     {
-        $result = Financial::INTRATE(...$args);
+        $result = Financial\Securities\Rates::interest(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 

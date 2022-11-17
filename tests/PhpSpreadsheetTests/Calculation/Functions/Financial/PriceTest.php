@@ -3,16 +3,10 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Financial;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PHPUnit\Framework\TestCase;
 
 class PriceTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerPRICE
      *
@@ -20,7 +14,7 @@ class PriceTest extends TestCase
      */
     public function testPRICE($expectedResult, ...$args): void
     {
-        $result = Financial::PRICE(...$args);
+        $result = Financial\Securities\Price::price(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-7);
     }
 
@@ -39,7 +33,7 @@ class PriceTest extends TestCase
         // These results (PRICE function with basis codes 2 and 3)
         // agree with published algorithm, LibreOffice, and Gnumeric.
         // They do not agree with Excel.
-        $result = Financial::PRICE(...$args);
+        $result = Financial\Securities\Price::price(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-7);
     }
 

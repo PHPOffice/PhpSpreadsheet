@@ -3,16 +3,10 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Financial;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PHPUnit\Framework\TestCase;
 
 class ReceivedTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerRECEIVED
      *
@@ -20,7 +14,7 @@ class ReceivedTest extends TestCase
      */
     public function testRECEIVED($expectedResult, ...$args): void
     {
-        $result = Financial::RECEIVED(...$args);
+        $result = Financial\Securities\Price::received(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 

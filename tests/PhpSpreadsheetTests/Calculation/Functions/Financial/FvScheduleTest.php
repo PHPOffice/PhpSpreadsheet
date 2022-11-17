@@ -3,16 +3,10 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Financial;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PHPUnit\Framework\TestCase;
 
 class FvScheduleTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerFVSCHEDULE
      *
@@ -20,7 +14,7 @@ class FvScheduleTest extends TestCase
      */
     public function testFVSCHEDULE($expectedResult, ...$args): void
     {
-        $result = Financial::FVSCHEDULE(...$args);
+        $result = Financial\CashFlow\Single::futureValue(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 

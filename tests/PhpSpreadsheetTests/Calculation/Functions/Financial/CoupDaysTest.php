@@ -3,16 +3,10 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Financial;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PHPUnit\Framework\TestCase;
 
 class CoupDaysTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerCOUPDAYS
      *
@@ -20,7 +14,7 @@ class CoupDaysTest extends TestCase
      */
     public function testCOUPDAYS($expectedResult, ...$args): void
     {
-        $result = Financial::COUPDAYS(...$args);
+        $result = Financial\Coupons::COUPDAYS(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
