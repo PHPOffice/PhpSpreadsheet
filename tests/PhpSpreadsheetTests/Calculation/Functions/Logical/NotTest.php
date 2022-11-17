@@ -16,9 +16,9 @@ class NotTest extends TestCase
     public function testNOT($expectedResult, ...$args): void
     {
         if (count($args) === 0) {
-            $result = Logical::NOT();
+            $result = Logical\Operations::NOT();
         } else {
-            $result = Logical::NOT($args[0]);
+            $result = Logical\Operations::NOT($args[0]);
         }
         self::assertEquals($expectedResult, $result);
     }

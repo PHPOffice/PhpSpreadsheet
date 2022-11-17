@@ -3,17 +3,11 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Logical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Logical;
 use PHPUnit\Framework\TestCase;
 
 class IfNaTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerIFNA
      *
@@ -23,7 +17,7 @@ class IfNaTest extends TestCase
      */
     public function testIFNA($expectedResult, $value, $return): void
     {
-        $result = Logical::IFNA($value, $return);
+        $result = Logical\Conditional::IFNA($value, $return);
         self::assertEquals($expectedResult, $result);
     }
 

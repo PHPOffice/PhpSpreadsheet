@@ -2,17 +2,11 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Logical;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Logical;
 use PHPUnit\Framework\TestCase;
 
 class SwitchTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerSwitch
      *
@@ -20,7 +14,7 @@ class SwitchTest extends TestCase
      */
     public function testSWITCH($expectedResult, ...$args): void
     {
-        $result = Logical::statementSwitch(...$args);
+        $result = Logical\Conditional::statementSwitch(...$args);
         self::assertEquals($expectedResult, $result);
     }
 

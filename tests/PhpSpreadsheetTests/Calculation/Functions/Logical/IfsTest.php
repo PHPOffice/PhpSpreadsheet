@@ -2,17 +2,11 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Logical;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Logical;
 use PHPUnit\Framework\TestCase;
 
 class IfsTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerIFS
      *
@@ -21,7 +15,7 @@ class IfsTest extends TestCase
      */
     public function testIFS($expectedResult, ...$args): void
     {
-        $result = Logical::IFS(...$args);
+        $result = Logical\Conditional::IFS(...$args);
         self::assertEquals($expectedResult, $result);
     }
 
