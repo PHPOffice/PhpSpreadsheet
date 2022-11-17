@@ -45,6 +45,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - MATCH Function Problems with Int/Float Compare and Wildcards [Issue #3141](https://github.com/PHPOffice/PhpSpreadsheet/issues/3141) [PR #3142](https://github.com/PHPOffice/PhpSpreadsheet/pull/3142)
 - Fix ODS Read Filter on number-columns-repeated cell [Issue #3148](https://github.com/PHPOffice/PhpSpreadsheet/issues/3148) [PR #3149](https://github.com/PHPOffice/PhpSpreadsheet/pull/3149)
 - Problems Formatting Very Small and Very Large Numbers [Issue #3128](https://github.com/PHPOffice/PhpSpreadsheet/issues/3128) [PR #3152](https://github.com/PHPOffice/PhpSpreadsheet/pull/3152)
+- XlsxWrite does now preserve line styles for y-axis, not only x-axis [PR #3163](https://github.com/PHPOffice/PhpSpreadsheet/pull/3163)
 
 
 ## 1.25.2 - 2022-09-25
