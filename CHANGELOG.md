@@ -9,13 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Added
 
+- Added a new function to read a spreadsheet using generator syntax (https://www.php.net/manual/en/language.generators.syntax.php) to save memory which allow to read much more information than to put all data in a single array.
 - Allow the creation of In-Memory Drawings from a string of binary image data, or from a stream. [PR #3157](https://github.com/PHPOffice/PhpSpreadsheet/pull/3157)
 - Xlsx Reader support for Pivot Tables [PR #2829](https://github.com/PHPOffice/PhpSpreadsheet/pull/2829)
 - Permit Date/Time Entered on Spreadsheet to be calculated as Float [Issue #1416](https://github.com/PHPOffice/PhpSpreadsheet/issues/1416) [PR #3121](https://github.com/PHPOffice/PhpSpreadsheet/pull/3121)
 
 ### Changed
 
-- Nothing
+- Changed if/else in Worksheet->rangeToArray() to clean up the code and make it more readable.
 
 ### Deprecated
 

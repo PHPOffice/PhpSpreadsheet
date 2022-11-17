@@ -2855,6 +2855,81 @@ class Worksheet implements IComparable
     }
 
     /**
+     * Generate (yield) row array from a range of cells
+     * (using Generator syntax https://www.php.net/manual/en/language.generators.syntax.php)
+     *
+     * @param string $range Range of cells (i.e. "A1:B10"), or just one cell (i.e. "A1")
+     * @param mixed $nullValue Value returned in the array entry if a cell doesn't exist
+     * @param bool $calculateFormulas Should formulas be calculated?
+     * @param bool $formatData Should formatting be applied to cell values?
+     * @param bool $returnCellRef False - Return a simple array of rows and columns indexed by number counting from zero
+     *                            True - Return rows and columns indexed by their actual row and column IDs
+     *
+     * @return Generator|array
+     */
+    public function rangeToRowGenerator($range, $nullValue = null, $calculateFormulas = true, $formatData = true, $returnCellRef = false)
+    {
+        // Returnvalue
+        $returnValue = [];
+        //    Identify the range that we need to extract from the worksheet
+        [$rangeStart, $rangeEnd] = Coordinate::rangeBoundaries($range);
+        $minCol = Coordinate::stringFromColumnIndex($rangeStart[0]);
+        $minRow = $rangeStart[1];
+        $maxCol = Coordinate::stringFromColumnIndex($rangeEnd[0]);
+        $maxRow = $rangeEnd[1];
+
+        ++$maxCol;
+        // Loop through rows
+        $r = -1;
+        for ($row = $minRow; $row <= $maxRow; ++$row) {
+            $rRef = $returnCellRef ? $row : ++$r;
+            $c = -1;
+            // Loop through columns in the current row
+            for ($col = $minCol; $col != $maxCol; ++$col) {
+                $cRef = $returnCellRef ? $col : ++$c;
+
+                //    Using getCell() will create a new cell if it doesn't already exist. We don't want that to happen
+                //        so we test and retrieve directly against cellCollection
+                if (!$this->cellCollection->has($col . $row)) {
+                    // Cell doesn't exist
+                    $returnValue[$rRef][$cRef] = $nullValue;
+
+                    continue;
+                }
+
+                // Cell exists
+                $cell = $this->cellCollection->get($col . $row);
+                if ($cell->getValue() === null) {
+                    // Cell holds a NULL
+                    $returnValue[$rRef][$cRef] = $nullValue;
+
+                    continue;
+                }
+
+                if ($cell->getValue() instanceof RichText) {
+                    $returnValue[$rRef][$cRef] = $cell->getValue()->getPlainText();
+                } else {
+                    if ($calculateFormulas) {
+                        $returnValue[$rRef][$cRef] = $cell->getCalculatedValue();
+                    } else {
+                        $returnValue[$rRef][$cRef] = $cell->getValue();
+                    }
+                }
+
+                if ($formatData) {
+                    $style = $this->parent->getCellXfByIndex($cell->getXfIndex());
+                    $returnValue[$rRef][$cRef] = NumberFormat::toFormattedString(
+                        $returnValue[$rRef][$cRef],
+                        ($style && $style->getNumberFormat()) ? $style->getNumberFormat()->getFormatCode() : NumberFormat::FORMAT_GENERAL
+                    );
+                }
+            }
+            yield $returnValue[$rRef];
+            unset($returnValue[$rRef]);
+        }
+    }
+
+    /**
      * Create array from a range of cells.
      *
      * @param string $range Range of cells (i.e. "A1:B10"), or just one cell (i.e. "A1")
@@ -2886,36 +2961,41 @@ class Worksheet implements IComparable
             // Loop through columns in the current row
             for ($col = $minCol; $col != $maxCol; ++$col) {
                 $cRef = $returnCellRef ? $col : ++$c;
+
                 //    Using getCell() will create a new cell if it doesn't already exist. We don't want that to happen
                 //        so we test and retrieve directly against cellCollection
-                if ($this->cellCollection->has($col . $row)) {
-                    // Cell exists
-                    $cell = $this->cellCollection->get($col . $row);
-                    if ($cell->getValue() !== null) {
-                        if ($cell->getValue() instanceof RichText) {
-                            $returnValue[$rRef][$cRef] = $cell->getValue()->getPlainText();
-                        } else {
-                            if ($calculateFormulas) {
-                                $returnValue[$rRef][$cRef] = $cell->getCalculatedValue();
-                            } else {
-                                $returnValue[$rRef][$cRef] = $cell->getValue();
-                            }
-                        }
-
-                        if ($formatData) {
-                            $style = $this->parent->getCellXfByIndex($cell->getXfIndex());
-                            $returnValue[$rRef][$cRef] = NumberFormat::toFormattedString(
-                                $returnValue[$rRef][$cRef],
-                                ($style && $style->getNumberFormat()) ? $style->getNumberFormat()->getFormatCode() : NumberFormat::FORMAT_GENERAL
-                            );
-                        }
-                    } else {
-                        // Cell holds a NULL
-                        $returnValue[$rRef][$cRef] = $nullValue;
-                    }
-                } else {
+                if (!$this->cellCollection->has($col . $row)) {
                     // Cell doesn't exist
                     $returnValue[$rRef][$cRef] = $nullValue;
+
+                    continue;
+                }
+
+                // Cell exists
+                $cell = $this->cellCollection->get($col . $row);
+                if ($cell->getValue() === null) {
+                    // Cell holds a NULL
+                    $returnValue[$rRef][$cRef] = $nullValue;
+
+                    continue;
+                }
+
+                if ($cell->getValue() instanceof RichText) {
+                    $returnValue[$rRef][$cRef] = $cell->getValue()->getPlainText();
+                } else {
+                    if ($calculateFormulas) {
+                        $returnValue[$rRef][$cRef] = $cell->getCalculatedValue();
+                    } else {
+                        $returnValue[$rRef][$cRef] = $cell->getValue();
+                    }
+                }
+
+                if ($formatData) {
+                    $style = $this->parent->getCellXfByIndex($cell->getXfIndex());
+                    $returnValue[$rRef][$cRef] = NumberFormat::toFormattedString(
+                        $returnValue[$rRef][$cRef],
+                        ($style && $style->getNumberFormat()) ? $style->getNumberFormat()->getFormatCode() : NumberFormat::FORMAT_GENERAL
+                    );
                 }
             }
         }
