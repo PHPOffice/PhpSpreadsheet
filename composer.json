@@ -80,12 +80,12 @@
     "require-dev": {
         "dealerdirect/phpcodesniffer-composer-installer": "dev-master",
         "dompdf/dompdf": "^1.0 || ^2.0",
-        "friendsofphp/php-cs-fixer": "^3.2",
+        "friendsofphp/php-cs-fixer": "^3.13",
         "mitoteam/jpgraph": "^10.2.4",
         "mpdf/mpdf": "^8.1.1",
         "phpcompatibility/php-compatibility": "^9.3",
-        "phpstan/phpstan": "^1.1",
-        "phpstan/phpstan-phpunit": "^1.0",
+        "phpstan/phpstan": "^1.9",
+        "phpstan/phpstan-phpunit": "^1.2",
         "phpunit/phpunit": "^9.5",
         "squizlabs/php_codesniffer": "^3.7",
         "tecnickcom/tcpdf": "^6.5"
