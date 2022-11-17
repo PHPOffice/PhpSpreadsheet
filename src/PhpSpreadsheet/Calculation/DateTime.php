@@ -689,7 +689,7 @@ class DateTime
      *
      * @return array|int|string Week Number
      */
-    public static function WEEKNUM($dateValue = 1, $method = self::STARTWEEK_SUNDAY)
+    public static function WEEKNUM($dateValue = 1, $method = /** @scrutinizer ignore-deprecated */ self::STARTWEEK_SUNDAY)
     {
         return DateTimeExcel\Week::number($dateValue, $method);
     }
