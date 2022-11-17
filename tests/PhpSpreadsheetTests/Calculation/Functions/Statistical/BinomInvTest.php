@@ -15,7 +15,7 @@ class BinomInvTest extends TestCase
      */
     public function testBINOMINV($expectedResult, ...$args): void
     {
-        $result = Statistical::CRITBINOM(...$args);
+        $result = Statistical\Distributions\Binomial::inverse(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
