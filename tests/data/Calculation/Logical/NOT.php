@@ -1,8 +1,8 @@
 <?php
 
 return [
-    [
-        true,
+    'no arguments' => [
+        'exception',
     ],
     [
         true,

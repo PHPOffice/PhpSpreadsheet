@@ -2,10 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Logical;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Logical;
-use PHPUnit\Framework\TestCase;
-
-class XorTest extends TestCase
+class XorTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerXOR
@@ -14,8 +11,7 @@ class XorTest extends TestCase
      */
     public function testXOR($expectedResult, ...$args): void
     {
-        $result = Logical\Operations::logicalXor(...$args);
-        self::assertEquals($expectedResult, $result);
+        $this->runTestCase('XOR', $expectedResult, ...$args);
     }
 
     public function providerXOR(): array

@@ -2,14 +2,10 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Logical;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Logical;
-use PHPUnit\Framework\TestCase;
-
-class TrueTest extends TestCase
+class TrueTest extends AllSetupTeardown
 {
     public function testTRUE(): void
     {
-        $result = Logical\Boolean::TRUE();
-        self::assertTrue($result);
+        $this->runTestCase('TRUE', true);
     }
 }

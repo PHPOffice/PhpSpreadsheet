@@ -1,8 +1,8 @@
 <?php
 
 return [
-    [
-        null,
+    'empty cell treated as 0' => [
+        0,
         null,
         'Error',
     ],
