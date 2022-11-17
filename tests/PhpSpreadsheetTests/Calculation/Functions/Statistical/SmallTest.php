@@ -16,7 +16,7 @@ class SmallTest extends TestCase
      */
     public function testSMALL($expectedResult, $values, $position): void
     {
-        $result = Statistical::SMALL($values, $position);
+        $result = Statistical\Size::small($values, $position);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

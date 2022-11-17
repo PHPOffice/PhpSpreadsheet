@@ -18,7 +18,7 @@ class TDistTest extends TestCase
      */
     public function testTDIST($expectedResult, $value, $degrees, $tails): void
     {
-        $result = Statistical::TDIST($value, $degrees, $tails);
+        $result = Statistical\Distributions\StudentT::distribution($value, $degrees, $tails);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

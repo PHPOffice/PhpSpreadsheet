@@ -14,7 +14,7 @@ class MaxATest extends TestCase
      */
     public function testMAXA($expectedResult, ...$args): void
     {
-        $result = Statistical::MAXA(...$args);
+        $result = Statistical\Maximum::MAXA(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

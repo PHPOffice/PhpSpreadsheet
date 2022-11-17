@@ -3,17 +3,11 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 use PHPUnit\Framework\TestCase;
 
 class GammaLnTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerGAMMALN
      *
@@ -22,7 +16,7 @@ class GammaLnTest extends TestCase
      */
     public function testGAMMALN($expectedResult, $value): void
     {
-        $result = Statistical::GAMMALN($value);
+        $result = Statistical\Distributions\Gamma::ln($value);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

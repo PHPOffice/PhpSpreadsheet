@@ -16,7 +16,7 @@ class GammaTest extends TestCase
      */
     public function testGAMMA($expectedResult, $testValue): void
     {
-        $result = Statistical::GAMMAFunction($testValue);
+        $result = Statistical\Distributions\Gamma::gamma($testValue);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

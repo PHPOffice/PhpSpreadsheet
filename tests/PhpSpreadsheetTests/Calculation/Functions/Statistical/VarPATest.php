@@ -8,9 +8,17 @@ use PHPUnit\Framework\TestCase;
 
 class VarPATest extends TestCase
 {
+    /** @var string */
+    private $compatibilityMode;
+
+    protected function setUp(): void
+    {
+        $this->compatibilityMode = Functions::getCompatibilityMode();
+    }
+
     protected function tearDown(): void
     {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
+        Functions::setCompatibilityMode($this->compatibilityMode);
     }
 
     /**
@@ -21,7 +29,7 @@ class VarPATest extends TestCase
      */
     public function testVARPA($expectedResult, $values): void
     {
-        $result = Statistical::VARPA($values);
+        $result = Statistical\Variances::VARPA($values);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
@@ -40,7 +48,7 @@ class VarPATest extends TestCase
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
 
-        $result = Statistical::VARPA($values);
+        $result = Statistical\Variances::VARPA($values);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

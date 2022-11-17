@@ -15,7 +15,7 @@ class FDistTest extends TestCase
      */
     public function testFDIST($expectedResult, ...$args): void
     {
-        $result = Statistical::FDIST2(...$args);
+        $result = Statistical\Distributions\F::distribution(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

@@ -15,7 +15,7 @@ class NormSDist2Test extends TestCase
      */
     public function testNORMSDIST2($expectedResult, ...$args): void
     {
-        $result = Statistical::NORMSDIST2(...$args);
+        $result = Statistical\Distributions\StandardNormal::distribution(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

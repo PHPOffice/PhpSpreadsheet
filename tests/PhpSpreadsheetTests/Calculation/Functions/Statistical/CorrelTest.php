@@ -2,17 +2,11 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 use PHPUnit\Framework\TestCase;
 
 class CorrelTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerCORREL
      *
@@ -22,7 +16,7 @@ class CorrelTest extends TestCase
      */
     public function testCORREL($expectedResult, $xargs, $yargs): void
     {
-        $result = Statistical::CORREL($xargs, $yargs);
+        $result = Statistical\Trends::CORREL($xargs, $yargs);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

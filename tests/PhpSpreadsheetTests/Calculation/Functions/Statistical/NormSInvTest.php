@@ -16,7 +16,7 @@ class NormSInvTest extends TestCase
      */
     public function testNORMSINV($expectedResult, $testValue): void
     {
-        $result = Statistical::NORMSINV($testValue);
+        $result = Statistical\Distributions\StandardNormal::inverse($testValue);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

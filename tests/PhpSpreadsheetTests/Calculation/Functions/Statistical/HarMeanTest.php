@@ -2,17 +2,11 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 use PHPUnit\Framework\TestCase;
 
 class HarMeanTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerHARMEAN
      *
@@ -20,7 +14,7 @@ class HarMeanTest extends TestCase
      */
     public function testHARMEAN($expectedResult, ...$args): void
     {
-        $result = Statistical::HARMEAN(...$args);
+        $result = Statistical\Averages\Mean::harmonic(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

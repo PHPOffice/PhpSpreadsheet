@@ -15,7 +15,7 @@ class LogInvTest extends TestCase
      */
     public function testLOGINV($expectedResult, ...$args): void
     {
-        $result = Statistical::LOGINV(...$args);
+        $result = Statistical\Distributions\LogNormal::inverse(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

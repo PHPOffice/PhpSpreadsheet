@@ -15,7 +15,7 @@ class LogNormDistTest extends TestCase
      */
     public function testLOGNORMDIST($expectedResult, ...$args): void
     {
-        $result = Statistical::LOGNORMDIST(...$args);
+        $result = Statistical\Distributions\LogNormal::cumulative(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

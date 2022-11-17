@@ -8,9 +8,17 @@ use PHPUnit\Framework\TestCase;
 
 class StDevPATest extends TestCase
 {
+    /** @var string */
+    private $compatibilityMode;
+
+    protected function setUp(): void
+    {
+        $this->compatibilityMode = Functions::getCompatibilityMode();
+    }
+
     protected function tearDown(): void
     {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
+        Functions::setCompatibilityMode($this->compatibilityMode);
     }
 
     /**
@@ -21,7 +29,7 @@ class StDevPATest extends TestCase
      */
     public function testSTDEVPA($expectedResult, $values): void
     {
-        $result = Statistical::STDEVPA($values);
+        $result = Statistical\StandardDeviations::STDEVPA($values);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
@@ -40,7 +48,7 @@ class StDevPATest extends TestCase
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
 
-        $result = Statistical::STDEVPA($values);
+        $result = Statistical\StandardDeviations::STDEVPA($values);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

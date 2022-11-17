@@ -19,7 +19,7 @@ class WeibullTest extends TestCase
      */
     public function testWEIBULL($expectedResult, $value, $alpha, $beta, $cumulative): void
     {
-        $result = Statistical::WEIBULL($value, $alpha, $beta, $cumulative);
+        $result = Statistical\Distributions\Weibull::distribution($value, $alpha, $beta, $cumulative);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

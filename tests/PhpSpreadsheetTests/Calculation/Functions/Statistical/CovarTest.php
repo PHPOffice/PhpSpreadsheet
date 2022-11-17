@@ -2,17 +2,11 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 use PHPUnit\Framework\TestCase;
 
 class CovarTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerCOVAR
      *
@@ -20,7 +14,7 @@ class CovarTest extends TestCase
      */
     public function testCOVAR($expectedResult, ...$args): void
     {
-        $result = Statistical::COVAR(...$args);
+        $result = Statistical\Trends::COVAR(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

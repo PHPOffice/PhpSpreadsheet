@@ -15,7 +15,7 @@ class HypGeomDistTest extends TestCase
      */
     public function testHYPGEOMDIST($expectedResult, ...$args): void
     {
-        $result = Statistical::HYPGEOMDIST(...$args);
+        $result = Statistical\Distributions\HyperGeometric::distribution(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

@@ -3,17 +3,11 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 use PHPUnit\Framework\TestCase;
 
 class ChiInvRightTailTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerCHIINV
      *
@@ -23,7 +17,7 @@ class ChiInvRightTailTest extends TestCase
      */
     public function testCHIINV($expectedResult, $probability, $degrees): void
     {
-        $result = Statistical::CHIINV($probability, $degrees);
+        $result = Statistical\Distributions\ChiSquared::inverseRightTail($probability, $degrees);
         if (!is_string($expectedResult)) {
             $reverse = Statistical\Distributions\ChiSquared::distributionRightTail($result, $degrees);
             self::assertEqualsWithDelta($probability, $reverse, 1E-12);

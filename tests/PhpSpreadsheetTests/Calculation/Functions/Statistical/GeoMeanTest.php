@@ -2,17 +2,11 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 use PHPUnit\Framework\TestCase;
 
 class GeoMeanTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerGEOMEAN
      *
@@ -20,7 +14,7 @@ class GeoMeanTest extends TestCase
      */
     public function testGEOMEAN($expectedResult, ...$args): void
     {
-        $result = Statistical::GEOMEAN(...$args);
+        $result = Statistical\Averages\Mean::geometric(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

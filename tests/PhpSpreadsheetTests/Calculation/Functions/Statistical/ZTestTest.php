@@ -18,7 +18,7 @@ class ZTestTest extends TestCase
      */
     public function testZTEST($expectedResult, $dataSet, $value, $sigma = null): void
     {
-        $result = Statistical::ZTEST($dataSet, $value, $sigma);
+        $result = Statistical\Distributions\StandardNormal::zTest($dataSet, $value, $sigma);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

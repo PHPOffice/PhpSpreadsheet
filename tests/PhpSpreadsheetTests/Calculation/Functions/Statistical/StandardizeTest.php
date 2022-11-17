@@ -15,7 +15,7 @@ class StandardizeTest extends TestCase
      */
     public function testSTANDARDIZE($expectedResult, ...$args): void
     {
-        $result = Statistical::STANDARDIZE(...$args);
+        $result = Statistical\Standardize::execute(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

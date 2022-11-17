@@ -16,7 +16,7 @@ class GaussTest extends TestCase
      */
     public function testGAUSS($expectedResult, $testValue): void
     {
-        $result = Statistical::GAUSS($testValue);
+        $result = Statistical\Distributions\StandardNormal::gauss($testValue);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

@@ -16,7 +16,7 @@ class LargeTest extends TestCase
      */
     public function testLARGE($expectedResult, $values, $position): void
     {
-        $result = Statistical::LARGE($values, $position);
+        $result = Statistical\Size::large($values, $position);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

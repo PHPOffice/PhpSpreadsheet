@@ -3,17 +3,11 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 use PHPUnit\Framework\TestCase;
 
 class ForecastTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerFORECAST
      *
@@ -21,7 +15,7 @@ class ForecastTest extends TestCase
      */
     public function testFORECAST($expectedResult, ...$args): void
     {
-        $result = Statistical::FORECAST(...$args);
+        $result = Statistical\Trends::FORECAST(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

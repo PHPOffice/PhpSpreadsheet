@@ -3,17 +3,11 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 use PHPUnit\Framework\TestCase;
 
 class BetaInvTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerBETAINV
      *
@@ -21,7 +15,7 @@ class BetaInvTest extends TestCase
      */
     public function testBETAINV($expectedResult, ...$args): void
     {
-        $result = Statistical::BETAINV(...$args);
+        $result = Statistical\Distributions\Beta::inverse(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

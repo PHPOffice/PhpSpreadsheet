@@ -17,7 +17,7 @@ class TinvTest extends TestCase
      */
     public function testTINV($expectedResult, $probability, $degrees): void
     {
-        $result = Statistical::TINV($probability, $degrees);
+        $result = Statistical\Distributions\StudentT::inverse($probability, $degrees);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

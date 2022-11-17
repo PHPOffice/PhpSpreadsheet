@@ -2,17 +2,11 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 use PHPUnit\Framework\TestCase;
 
 class AveDevTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerAVEDEV
      *
@@ -20,7 +14,7 @@ class AveDevTest extends TestCase
      */
     public function testAVEDEV($expectedResult, ...$args): void
     {
-        $result = Statistical::AVEDEV(...$args);
+        $result = Statistical\Averages::averageDeviations(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

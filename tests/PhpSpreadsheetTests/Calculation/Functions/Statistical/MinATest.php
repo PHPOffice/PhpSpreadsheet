@@ -14,7 +14,7 @@ class MinATest extends TestCase
      */
     public function testMINA($expectedResult, ...$args): void
     {
-        $result = Statistical::MINA(...$args);
+        $result = Statistical\Minimum::minA(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

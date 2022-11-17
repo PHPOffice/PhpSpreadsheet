@@ -14,7 +14,7 @@ class KurtTest extends TestCase
      */
     public function testKURT($expectedResult, ...$args): void
     {
-        $result = Statistical::KURT(...$args);
+        $result = Statistical\Deviations::kurtosis(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
