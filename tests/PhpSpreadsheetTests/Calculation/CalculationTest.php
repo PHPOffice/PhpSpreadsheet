@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\TestCase;
 
@@ -214,6 +215,20 @@ class CalculationTest extends TestCase
         $cell2->setValue('=100*A1');
 
         self::assertSame(2.0, $cell2->getCalculatedValue());
+    }
+
+    public function testCellWithStringCurrency(): void
+    {
+        $currencyCode = StringHelper::getCurrencyCode();
+
+        $spreadsheet = new Spreadsheet();
+        $workSheet = $spreadsheet->getActiveSheet();
+        $cell1 = $workSheet->getCell('A1');
+        $cell1->setValue($currencyCode . '2');
+        $cell2 = $workSheet->getCell('B1');
+        $cell2->setValue('=100*A1');
+
+        self::assertSame(200.0, $cell2->getCalculatedValue());
     }
 
     public function testBranchPruningFormulaParsingSimpleCase(): void

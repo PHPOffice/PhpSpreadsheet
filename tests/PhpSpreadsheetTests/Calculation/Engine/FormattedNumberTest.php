@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Engine;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Engine\FormattedNumber;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PHPUnit\Framework\TestCase;
 
 class FormattedNumberTest extends TestCase
@@ -181,6 +182,46 @@ class FormattedNumberTest extends TestCase
             'permutation_86' => ['-2.5E-8', ' - % 2.50e-06 '],
             'permutation_87' => [' - % 2.50e- 06 ', ' - % 2.50e- 06 '],
             'permutation_88' => [' - % 2.50e - 06 ', ' - % 2.50e - 06 '],
+        ];
+    }
+
+    /**
+     * @dataProvider providerCurrencies
+     */
+    public function testCurrencies(string $expected, string $value): void
+    {
+        $originalValue = $value;
+        $result = FormattedNumber::convertToNumberIfCurrency($value);
+        if ($result === false) {
+            self::assertSame($expected, $originalValue);
+            self::assertSame($expected, $value);
+        } else {
+            self::assertSame($expected, (string) $value);
+            self::assertNotEquals($value, $originalValue);
+        }
+    }
+
+    public function providerCurrencies(): array
+    {
+        $currencyCode = StringHelper::getCurrencyCode();
+        return [
+            'basic_prefix_currency'    => ['2.75', "{$currencyCode}2.75"],
+            'basic_postfix_currency'    => ['2.75', "2.75{$currencyCode}"],
+
+            'basic_prefix_currency_with_spaces'    => ['2.75', "{$currencyCode} 2.75"],
+            'basic_postfix_currency_with_spaces'    => ['2.75', "2.75 {$currencyCode}"],
+
+            'negative_basic_prefix_currency'    => ['-2.75', "-{$currencyCode}2.75"],
+            'negative_basic_postfix_currency'    => ['-2.75', "-2.75{$currencyCode}"],
+
+            'negative_basic_prefix_currency_with_spaces'    => ['-2.75', "-{$currencyCode} 2.75"],
+            'negative_basic_postfix_currency_with_spaces'    => ['-2.75', "-2.75 {$currencyCode}"],
+
+            'basic_prefix_scientific_currency'    => ['2000000', "{$currencyCode}2E6"],
+            'basic_postfix_scientific_currency'    => ['2000000', "2E6{$currencyCode}"],
+
+            'basic_prefix_scientific_currency_with_spaces'    => ['2000000', "{$currencyCode} 2E6"],
+            'basic_postfix_scientific_currency_with_spaces'    => ['2000000', "2E6 {$currencyCode}"],
         ];
     }
 }
