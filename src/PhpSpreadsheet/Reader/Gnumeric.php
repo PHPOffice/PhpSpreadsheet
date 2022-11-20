@@ -272,7 +272,7 @@ class Gnumeric extends BaseReader
             //        name in line with the formula, not the reverse
             $this->spreadsheet->getActiveSheet()->setTitle($worksheetName, false, false);
 
-            $visibility = $sheetOrNull->attributes()['Visibility'] ?? 'GNM_SHEET_VISIBILITY_VISIBLE';
+            $visibility = $sheet->attributes()['Visibility'] ?? 'GNM_SHEET_VISIBILITY_VISIBLE';
             if ((string) $visibility !== 'GNM_SHEET_VISIBILITY_VISIBLE') {
                 $this->spreadsheet->getActiveSheet()->setSheetState(Worksheet::SHEETSTATE_HIDDEN);
             }
@@ -363,7 +363,7 @@ class Gnumeric extends BaseReader
         if ($sheet !== null && isset($sheet->MergedRegions)) {
             foreach ($sheet->MergedRegions->Merge as $mergeCells) {
                 if (strpos((string) $mergeCells, ':') !== false) {
-                    $this->spreadsheet->getActiveSheet()->mergeCells($mergeCells);
+                    $this->spreadsheet->getActiveSheet()->mergeCells($mergeCells, Worksheet::MERGE_CELL_CONTENT_HIDE);
                 }
             }
         }

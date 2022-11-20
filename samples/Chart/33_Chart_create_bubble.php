@@ -89,7 +89,8 @@ $series = new DataSeries(
 $series->setPlotBubbleSizes($dataSeriesBubbles);
 
 // Set the series in the plot area
-$plotArea = new PlotArea(null, [$series]);
+$plotArea = new PlotArea();
+$plotArea->setPlotSeries([$series]);
 // Set the chart legend
 $legend = new ChartLegend(ChartLegend::POSITION_RIGHT, null, false);
 

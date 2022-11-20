@@ -59,7 +59,7 @@ class ErfC
         $a = $n = 1;
         $b = $c = $value;
         $d = ($value * $value) + 0.5;
-        $q1 = $q2 = $b / $d;
+        $q2 = $b / $d;
         do {
             $t = $a * $n + $b * $value;
             $a = $b;

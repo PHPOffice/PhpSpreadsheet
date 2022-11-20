@@ -101,7 +101,7 @@ class ChiSquared
             return 1 - self::distributionRightTail($value, $degrees);
         }
 
-        return (($value ** (($degrees / 2) - 1) * exp(-$value / 2))) /
+        return ($value ** (($degrees / 2) - 1) * exp(-$value / 2)) /
             ((2 ** ($degrees / 2)) * Gamma::gammaValue($degrees / 2));
     }
 

@@ -31,6 +31,7 @@ class WorksheetTest extends TestCase
     /**
      * @param string $title
      * @param string $expectMessage
+     *
      * @dataProvider setTitleInvalidProvider
      */
     public function testSetTitleInvalid($title, $expectMessage): void
@@ -89,6 +90,7 @@ class WorksheetTest extends TestCase
     /**
      * @param string $codeName
      * @param string $expectMessage
+     *
      * @dataProvider setCodeNameInvalidProvider
      */
     public function testSetCodeNameInvalid($codeName, $expectMessage): void
@@ -153,6 +155,7 @@ class WorksheetTest extends TestCase
      * @param string $expectTitle
      * @param string $expectCell
      * @param string $expectCell2
+     *
      * @dataProvider extractSheetTitleProvider
      */
     public function testExtractSheetTitle($range, $expectTitle, $expectCell, $expectCell2): void

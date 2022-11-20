@@ -59,6 +59,8 @@ abstract class Properties
     const LINE_STYLE_COMPOUND_TRIPLE = 'tri';
     const LINE_STYLE_DASH_SOLID = 'solid';
     const LINE_STYLE_DASH_ROUND_DOT = 'sysDot';
+    const LINE_STYLE_DASH_SQUARE_DOT = 'sysDash';
+    /** @deprecated 1.24 use LINE_STYLE_DASH_SQUARE_DOT instead */
     const LINE_STYLE_DASH_SQUERE_DOT = 'sysDash';
     const LINE_STYPE_DASH_DASH = 'dash';
     const LINE_STYLE_DASH_DASH_DOT = 'dashDot';
@@ -68,7 +70,7 @@ abstract class Properties
     const LINE_STYLE_CAP_SQUARE = 'sq';
     const LINE_STYLE_CAP_ROUND = 'rnd';
     const LINE_STYLE_CAP_FLAT = 'flat';
-    const LINE_STYLE_JOIN_ROUND = 'bevel';
+    const LINE_STYLE_JOIN_ROUND = 'round';
     const LINE_STYLE_JOIN_MITER = 'miter';
     const LINE_STYLE_JOIN_BEVEL = 'bevel';
     const LINE_STYLE_ARROW_TYPE_NOARROW = null;
@@ -162,7 +164,7 @@ abstract class Properties
      *
      * @return $this
      */
-    protected function activateObject()
+    public function activateObject()
     {
         $this->objectState = true;
 
@@ -419,11 +421,19 @@ abstract class Properties
         ],
     ];
 
-    protected function getShadowPresetsMap($presetsOption)
+    protected function getShadowPresetsMap(int $presetsOption): array
     {
         return self::PRESETS_OPTIONS[$presetsOption] ?? self::PRESETS_OPTIONS[0];
     }
 
+    /**
+     * Get value of array element.
+     *
+     * @param mixed $properties
+     * @param mixed $elements
+     *
+     * @return mixed
+     */
     protected function getArrayElementsValue($properties, $elements)
     {
         $reference = &$properties;
@@ -529,7 +539,7 @@ abstract class Properties
     /**
      * Set Soft Edges Size.
      *
-     * @param float $size
+     * @param ?float $size
      */
     public function setSoftEdges($size): void
     {
@@ -644,30 +654,6 @@ abstract class Properties
     }
 
     /**
-     * Set Shadow Color.
-     *
-     * @param string $color
-     * @param int $alpha
-     * @param string $colorType
-     *
-     * @return $this
-     */
-    protected function setShadowColor($color, $alpha, $colorType)
-    {
-        if ($color !== null) {
-            $this->shadowProperties['color']['value'] = (string) $color;
-        }
-        if ($alpha !== null) {
-            $this->shadowProperties['color']['alpha'] = (int) $alpha;
-        }
-        if ($colorType !== null) {
-            $this->shadowProperties['color']['type'] = (string) $colorType;
-        }
-
-        return $this;
-    }
-
-    /**
      * Set Shadow Blur.
      *
      * @param ?float $blur
@@ -740,6 +726,16 @@ abstract class Properties
         return $this->getArrayElementsValue($this->shadowProperties, $elements);
     }
 
+    public function getShadowArray(): array
+    {
+        $array = $this->shadowProperties;
+        if ($this->getShadowColorObject()->isUsable()) {
+            $array['color'] = $this->getShadowProperty('color');
+        }
+
+        return $array;
+    }
+
     /** @var ChartColor */
     protected $lineColor;
 
@@ -766,6 +762,16 @@ abstract class Properties
         ],
     ];
 
+    public function copyLineStyles(self $otherProperties): void
+    {
+        $this->lineStyleProperties = $otherProperties->lineStyleProperties;
+        $this->lineColor = $otherProperties->lineColor;
+        $this->glowSize = $otherProperties->glowSize;
+        $this->glowColor = $otherProperties->glowColor;
+        $this->softEdges = $otherProperties->softEdges;
+        $this->shadowProperties = $otherProperties->shadowProperties;
+    }
+
     public function getLineColor(): ChartColor
     {
         return $this->lineColor;
@@ -776,9 +782,9 @@ abstract class Properties
      *
      * @param string $value
      * @param ?int $alpha
-     * @param string $colorType
+     * @param ?string $colorType
      */
-    public function setLineColorProperties($value, $alpha = null, $colorType = ChartColor::EXCEL_COLOR_TYPE_STANDARD): void
+    public function setLineColorProperties($value, $alpha = null, $colorType = null): void
     {
         $this->activateObject();
         $this->lineColor->setColorPropertiesArray(
@@ -867,6 +873,42 @@ abstract class Properties
         }
     }
 
+    public function getLineStyleArray(): array
+    {
+        return $this->lineStyleProperties;
+    }
+
+    public function setLineStyleArray(array $lineStyleProperties = []): self
+    {
+        $this->activateObject();
+        $this->lineStyleProperties['width'] = $lineStyleProperties['width'] ?? null;
+        $this->lineStyleProperties['compound'] = $lineStyleProperties['compound'] ?? '';
+        $this->lineStyleProperties['dash'] = $lineStyleProperties['dash'] ?? '';
+        $this->lineStyleProperties['cap'] = $lineStyleProperties['cap'] ?? '';
+        $this->lineStyleProperties['join'] = $lineStyleProperties['join'] ?? '';
+        $this->lineStyleProperties['arrow']['head']['type'] = $lineStyleProperties['arrow']['head']['type'] ?? '';
+        $this->lineStyleProperties['arrow']['head']['size'] = $lineStyleProperties['arrow']['head']['size'] ?? '';
+        $this->lineStyleProperties['arrow']['head']['w'] = $lineStyleProperties['arrow']['head']['w'] ?? '';
+        $this->lineStyleProperties['arrow']['head']['len'] = $lineStyleProperties['arrow']['head']['len'] ?? '';
+        $this->lineStyleProperties['arrow']['end']['type'] = $lineStyleProperties['arrow']['end']['type'] ?? '';
+        $this->lineStyleProperties['arrow']['end']['size'] = $lineStyleProperties['arrow']['end']['size'] ?? '';
+        $this->lineStyleProperties['arrow']['end']['w'] = $lineStyleProperties['arrow']['end']['w'] ?? '';
+        $this->lineStyleProperties['arrow']['end']['len'] = $lineStyleProperties['arrow']['end']['len'] ?? '';
+
+        return $this;
+    }
+
+    /**
+     * @param mixed $value
+     */
+    public function setLineStyleProperty(string $propertyName, $value): self
+    {
+        $this->activateObject();
+        $this->lineStyleProperties[$propertyName] = $value;
+
+        return $this;
+    }
+
     /**
      * Get Line Style Property.
      *
@@ -891,6 +933,14 @@ abstract class Properties
         9 => ['w' => 'lg', 'len' => 'lg'],
     ];
 
+    /**
+     * Get Line Style Arrow Size.
+     *
+     * @param int $arraySelector
+     * @param string $arrayKaySelector
+     *
+     * @return string
+     */
     protected function getLineStyleArrowSize($arraySelector, $arrayKaySelector)
     {
         return self::ARROW_SIZES[$arraySelector][$arrayKaySelector] ?? '';

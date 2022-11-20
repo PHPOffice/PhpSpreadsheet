@@ -18,7 +18,11 @@ class Subtotal
         return array_filter(
             $args,
             function ($index) use ($cellReference) {
-                [, $row, ] = explode('.', $index);
+                $explodeArray = explode('.', $index);
+                $row = $explodeArray[1] ?? '';
+                if (!is_numeric($row)) {
+                    return true;
+                }
 
                 return $cellReference->getWorksheet()->getRowDimension($row)->getVisible();
             },
@@ -35,7 +39,9 @@ class Subtotal
         return array_filter(
             $args,
             function ($index) use ($cellReference) {
-                [, $row, $column] = explode('.', $index);
+                $explodeArray = explode('.', $index);
+                $row = $explodeArray[1] ?? '';
+                $column = $explodeArray[2] ?? '';
                 $retVal = true;
                 if ($cellReference->getWorksheet()->cellExists($column . $row)) {
                     //take this cell out if it contains the SUBTOTAL or AGGREGATE functions in a formula
@@ -87,7 +93,22 @@ class Subtotal
     public static function evaluate($functionType, ...$args)
     {
         $cellReference = array_pop($args);
-        $aArgs = Functions::flattenArrayIndexed($args);
+        $bArgs = Functions::flattenArrayIndexed($args);
+        $aArgs = [];
+        // int keys must come before string keys for PHP 8.0+
+        // Otherwise, PHP thinks positional args follow keyword
+        //    in the subsequent call to call_user_func_array.
+        // Fortunately, order of args is unimportant to Subtotal.
+        foreach ($bArgs as $key => $value) {
+            if (is_int($key)) {
+                $aArgs[$key] = $value;
+            }
+        }
+        foreach ($bArgs as $key => $value) {
+            if (!is_int($key)) {
+                $aArgs[$key] = $value;
+            }
+        }
 
         try {
             $subtotal = (int) Helpers::validateNumericNullBool($functionType);

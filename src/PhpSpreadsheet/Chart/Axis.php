@@ -10,11 +10,33 @@ namespace PhpOffice\PhpSpreadsheet\Chart;
  */
 class Axis extends Properties
 {
+    const AXIS_TYPE_CATEGORY = 'catAx';
+    const AXIS_TYPE_DATE = 'dateAx';
+    const AXIS_TYPE_VALUE = 'valAx';
+
+    const TIME_UNIT_DAYS = 'days';
+    const TIME_UNIT_MONTHS = 'months';
+    const TIME_UNIT_YEARS = 'years';
+
     public function __construct()
     {
         parent::__construct();
         $this->fillColor = new ChartColor();
     }
+
+    /**
+     * Chart Major Gridlines as.
+     *
+     * @var ?GridLines
+     */
+    private $majorGridlines;
+
+    /**
+     * Chart Minor Gridlines as.
+     *
+     * @var ?GridLines
+     */
+    private $minorGridlines;
 
     /**
      * Axis Number.
@@ -26,6 +48,9 @@ class Axis extends Properties
         'source_linked' => 1,
         'numeric' => null,
     ];
+
+    /** @var string */
+    private $axisType = '';
 
     /**
      * Axis Options.
@@ -43,6 +68,11 @@ class Axis extends Properties
         'axis_labels' => self::AXIS_LABELS_NEXT_TO,
         'horizontal_crosses' => self::HORIZONTAL_CROSSES_AUTOZERO,
         'horizontal_crosses_value' => null,
+        'textRotation' => null,
+        'hidden' => null,
+        'majorTimeUnit' => self::TIME_UNIT_YEARS,
+        'minorTimeUnit' => self::TIME_UNIT_MONTHS,
+        'baseTimeUnit' => self::TIME_UNIT_DAYS,
     ];
 
     /**
@@ -55,6 +85,7 @@ class Axis extends Properties
     private const NUMERIC_FORMAT = [
         Properties::FORMAT_CODE_NUMBER,
         Properties::FORMAT_CODE_DATE,
+        Properties::FORMAT_CODE_DATE_ISO8601,
     ];
 
     /**
@@ -62,11 +93,11 @@ class Axis extends Properties
      *
      * @param mixed $format_code
      */
-    public function setAxisNumberProperties($format_code, ?bool $numeric = null): void
+    public function setAxisNumberProperties($format_code, ?bool $numeric = null, int $sourceLinked = 0): void
     {
         $format = (string) $format_code;
         $this->axisNumber['format'] = $format;
-        $this->axisNumber['source_linked'] = 0;
+        $this->axisNumber['source_linked'] = $sourceLinked;
         if (is_bool($numeric)) {
             $this->axisNumber['numeric'] = $numeric;
         } elseif (in_array($format, self::NUMERIC_FORMAT, true)) {
@@ -96,12 +127,12 @@ class Axis extends Properties
 
     public function getAxisIsNumericFormat(): bool
     {
-        return (bool) $this->axisNumber['numeric'];
+        return $this->axisType === self::AXIS_TYPE_DATE || (bool) $this->axisNumber['numeric'];
     }
 
     public function setAxisOption(string $key, ?string $value): void
     {
-        if (!empty($value)) {
+        if ($value !== null && $value !== '') {
             $this->axisOptions[$key] = $value;
         }
     }
@@ -119,7 +150,12 @@ class Axis extends Properties
         ?string $minimum = null,
         ?string $maximum = null,
         ?string $majorUnit = null,
-        ?string $minorUnit = null
+        ?string $minorUnit = null,
+        ?string $textRotation = null,
+        ?string $hidden = null,
+        ?string $baseTimeUnit = null,
+        ?string $majorTimeUnit = null,
+        ?string $minorTimeUnit = null
     ): void {
         $this->axisOptions['axis_labels'] = $axisLabels;
         $this->setAxisOption('horizontal_crosses_value', $horizontalCrossesValue);
@@ -127,11 +163,15 @@ class Axis extends Properties
         $this->setAxisOption('orientation', $axisOrientation);
         $this->setAxisOption('major_tick_mark', $majorTmt);
         $this->setAxisOption('minor_tick_mark', $minorTmt);
-        $this->setAxisOption('minor_tick_mark', $minorTmt);
         $this->setAxisOption('minimum', $minimum);
         $this->setAxisOption('maximum', $maximum);
         $this->setAxisOption('major_unit', $majorUnit);
         $this->setAxisOption('minor_unit', $minorUnit);
+        $this->setAxisOption('textRotation', $textRotation);
+        $this->setAxisOption('hidden', $hidden);
+        $this->setAxisOption('baseTimeUnit', $baseTimeUnit);
+        $this->setAxisOption('majorTimeUnit', $majorTimeUnit);
+        $this->setAxisOption('minorTimeUnit', $minorTimeUnit);
     }
 
     /**
@@ -156,6 +196,22 @@ class Axis extends Properties
         $this->axisOptions['orientation'] = (string) $orientation;
     }
 
+    public function getAxisType(): string
+    {
+        return $this->axisType;
+    }
+
+    public function setAxisType(string $type): self
+    {
+        if ($type === self::AXIS_TYPE_CATEGORY || $type === self::AXIS_TYPE_VALUE || $type === self::AXIS_TYPE_DATE) {
+            $this->axisType = $type;
+        } else {
+            $this->axisType = '';
+        }
+
+        return $this;
+    }
+
     /**
      * Set Fill Property.
      *
@@ -163,7 +219,7 @@ class Axis extends Properties
      * @param ?int $alpha
      * @param ?string $AlphaType
      */
-    public function setFillParameters($color, $alpha = null, $AlphaType = self::EXCEL_COLOR_TYPE_ARGB): void
+    public function setFillParameters($color, $alpha = null, $AlphaType = ChartColor::EXCEL_COLOR_TYPE_RGB): void
     {
         $this->fillColor->setColorProperties($color, $alpha, $AlphaType);
     }
@@ -215,5 +271,29 @@ class Axis extends Properties
     public function getCrossBetween(): string
     {
         return $this->crossBetween;
+    }
+
+    public function getMajorGridlines(): ?GridLines
+    {
+        return $this->majorGridlines;
+    }
+
+    public function getMinorGridlines(): ?GridLines
+    {
+        return $this->minorGridlines;
+    }
+
+    public function setMajorGridlines(?GridLines $gridlines): self
+    {
+        $this->majorGridlines = $gridlines;
+
+        return $this;
+    }
+
+    public function setMinorGridlines(?GridLines $gridlines): self
+    {
+        $this->minorGridlines = $gridlines;
+
+        return $this;
     }
 }

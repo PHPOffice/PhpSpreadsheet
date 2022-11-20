@@ -24,5 +24,7 @@ class Issue2301Test extends \PHPUnit\Framework\TestCase
         self::assertSame('Arial CE', $font->getName());
         self::assertSame(9.0, $font->getSize());
         self::assertSame('protected', $sheet->getCell('BT10')->getStyle()->getProtection()->getHidden());
+        $spreadsheet->disconnectWorksheets();
+        unset($spreadsheet);
     }
 }

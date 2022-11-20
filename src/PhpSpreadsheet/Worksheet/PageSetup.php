@@ -259,10 +259,11 @@ class PageSetup
     /**
      * First page number.
      *
-     * @var int
+     * @var ?int
      */
     private $firstPageNumber;
 
+    /** @var string */
     private $pageOrder = self::PAGEORDER_DOWN_THEN_OVER;
 
     /**
@@ -375,7 +376,7 @@ class PageSetup
     {
         // Microsoft Office Excel 2007 only allows setting a scale between 10 and 400 via the user interface,
         // but it is apparently still able to handle any scale >= 0, where 0 results in 100
-        if (($scale >= 0) || $scale === null) {
+        if ($scale === null || $scale >= 0) {
             $this->scale = $scale;
             if ($update) {
                 $this->fitToPage = false;
@@ -474,7 +475,7 @@ class PageSetup
      */
     public function isColumnsToRepeatAtLeftSet()
     {
-        if (is_array($this->columnsToRepeatAtLeft)) {
+        if (!empty($this->columnsToRepeatAtLeft)) {
             if ($this->columnsToRepeatAtLeft[0] != '' && $this->columnsToRepeatAtLeft[1] != '') {
                 return true;
             }
@@ -529,7 +530,7 @@ class PageSetup
      */
     public function isRowsToRepeatAtTopSet()
     {
-        if (is_array($this->rowsToRepeatAtTop)) {
+        if (!empty($this->rowsToRepeatAtTop)) {
             if ($this->rowsToRepeatAtTop[0] != 0 && $this->rowsToRepeatAtTop[1] != 0) {
                 return true;
             }
@@ -640,8 +641,7 @@ class PageSetup
         if ($index == 0) {
             return $this->printArea;
         }
-        /** @phpstan-ignore-next-line */
-        $printAreas = explode(',', $this->printArea);
+        $printAreas = explode(',', (string) $this->printArea);
         if (isset($printAreas[$index - 1])) {
             return $printAreas[$index - 1];
         }
@@ -664,8 +664,7 @@ class PageSetup
         if ($index == 0) {
             return $this->printArea !== null;
         }
-        /** @phpstan-ignore-next-line */
-        $printAreas = explode(',', $this->printArea);
+        $printAreas = explode(',', (string) $this->printArea);
 
         return isset($printAreas[$index - 1]);
     }
@@ -685,8 +684,7 @@ class PageSetup
         if ($index == 0) {
             $this->printArea = null;
         } else {
-            /** @phpstan-ignore-next-line */
-            $printAreas = explode(',', $this->printArea);
+            $printAreas = explode(',', (string) $this->printArea);
             if (isset($printAreas[$index - 1])) {
                 unset($printAreas[$index - 1]);
                 $this->printArea = implode(',', $printAreas);
@@ -734,8 +732,7 @@ class PageSetup
             if ($index == 0) {
                 $this->printArea = $value;
             } else {
-                /** @phpstan-ignore-next-line */
-                $printAreas = explode(',', $this->printArea);
+                $printAreas = explode(',', (string) $this->printArea);
                 if ($index < 0) {
                     $index = count($printAreas) - abs($index) + 1;
                 }
@@ -757,7 +754,7 @@ class PageSetup
                 if ($index > count($printAreas)) {
                     throw new PhpSpreadsheetException('Invalid index for setting print range.');
                 }
-                $printAreas = array_merge(array_slice($printAreas, 0, $index), [$value], array_slice($printAreas, $index));
+                $printAreas = array_merge(array_slice($printAreas, 0, /** @scrutinizer ignore-type */ $index), [$value], array_slice($printAreas, /** @scrutinizer ignore-type */ $index));
                 $this->printArea = implode(',', $printAreas);
             }
         } else {
@@ -845,7 +842,7 @@ class PageSetup
     /**
      * Get first page number.
      *
-     * @return int
+     * @return ?int
      */
     public function getFirstPageNumber()
     {
@@ -855,7 +852,7 @@ class PageSetup
     /**
      * Set first page number.
      *
-     * @param int $value
+     * @param ?int $value
      *
      * @return $this
      */

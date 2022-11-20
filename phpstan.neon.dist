@@ -11,17 +11,13 @@ parameters:
         - tests/
     excludePaths:
         - src/PhpSpreadsheet/Chart/Renderer/JpGraph.php
+        - src/PhpSpreadsheet/Chart/Renderer/JpGraphRendererBase.php
     parallel:
         processTimeout: 300.0
     checkMissingIterableValueType: false
     ignoreErrors:
-        - '~^Parameter \#1 \$im(age)? of function (imagedestroy|imageistruecolor|imagealphablending|imagesavealpha|imagecolortransparent|imagecolorsforindex|imagesavealpha|imagesx|imagesy) expects (GdImage|resource), GdImage\|resource given\.$~'
+        - '~^Parameter \#1 \$im(age)? of function (imagedestroy|imageistruecolor|imagealphablending|imagesavealpha|imagecolortransparent|imagecolorsforindex|imagesavealpha|imagesx|imagesy|imagepng) expects (GdImage|resource), GdImage\|resource given\.$~'
         - '~^Parameter \#2 \$src_im(age)? of function imagecopy expects (GdImage|resource), GdImage\|resource given\.$~'
         # Accept a bit anything for assert methods
         - '~^Parameter \#2 .* of static method PHPUnit\\Framework\\Assert\:\:assert\w+\(\) expects .*, .* given\.$~'
         - '~^Method PhpOffice\\PhpSpreadsheetTests\\.*\:\:test.*\(\) has parameter \$args with no type specified\.$~'
-
-        # Some issues in Xls/Parser between 1.6.3 and 1.7.7
-        -
-            message: "#^Offset '(left|right|value)' does not exist on (non-empty-array\\|string|array\\|null)\\.$#"
-            path: src/PhpSpreadsheet/Writer/Xls/Parser.php

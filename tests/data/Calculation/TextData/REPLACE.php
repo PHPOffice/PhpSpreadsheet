@@ -65,4 +65,20 @@ return [
     'negative length' => ['#VALUE!', 'hello', 3, -1, 'xyz'],
     'boolean 1st parm' => ['TRDFGE', true, 3, 1, 'DFG'],
     'boolean 4th parm' => ['heFALSElo', 'hello', 3, 1, false],
+    'propagate REF' => ['#REF!', '=sheet99!A1', 3, 1, 'x'],
+    'propagate DIV0' => ['#DIV/0!', '=1/0', 3, 1, 'x'],
+    'string which just sneaks in' => [
+        str_repeat('A', 32766) . 'C',
+        str_repeat('A', 32766) . 'B',
+        32767,
+        '1',
+        'C',
+    ],
+    'string which overflows' => [
+        '#VALUE!',
+        str_repeat('A', 32766) . 'B',
+        32767,
+        '1',
+        'CC',
+    ],
 ];

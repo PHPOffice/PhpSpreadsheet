@@ -13,7 +13,7 @@ class HtmlImageTest extends TestCase
 
         $html = '<table>
                     <tr>
-                        <td><img src="' . $imagePath . '" alt="test image"></td>
+                        <td><img src="' . $imagePath . '" alt="test image voilà"></td>
                     </tr>
                 </table>';
         $filename = HtmlHelper::createHtml($html);
@@ -24,7 +24,7 @@ class HtmlImageTest extends TestCase
         $drawing = $firstSheet->getDrawingCollection()[0];
         self::assertEquals($imagePath, $drawing->getPath());
         self::assertEquals('A1', $drawing->getCoordinates());
-        self::assertEquals('test image', $drawing->getName());
+        self::assertEquals('test image voilà', $drawing->getName());
         self::assertEquals('100', $drawing->getWidth());
         self::assertEquals('100', $drawing->getHeight());
     }

@@ -78,7 +78,7 @@ class Parser
     /**
      * The parse tree to be generated.
      *
-     * @var string
+     * @var array|string
      */
     public $parseTree;
 
@@ -469,6 +469,7 @@ class Parser
         'BAHTTEXT' => [368, 1, 0, 0],
     ];
 
+    /** @var Spreadsheet */
     private $spreadsheet;
 
     /**
@@ -531,7 +532,7 @@ class Parser
             {
                 return($this->convertFunction($token, $this->_func_args));
             }*/
-            // if it's an argument, ignore the token (the argument remains)
+        // if it's an argument, ignore the token (the argument remains)
         } elseif ($token == 'arg') {
             return '';
         }
@@ -752,6 +753,8 @@ class Parser
             throw new WriterException('Defined Name is too long');
         }
 
+        throw new WriterException('Cannot yet write formulae with defined names to Xls');
+        /*
         $nameReference = 1;
         foreach ($this->spreadsheet->getDefinedNames() as $definedName) {
             if ($name === $definedName->getName()) {
@@ -762,9 +765,9 @@ class Parser
 
         $ptgRef = pack('Cvxx', $this->ptg['ptgName'], $nameReference);
 
-        throw new WriterException('Cannot yet write formulae with defined names to Xls');
 
         return $ptgRef;
+        */
     }
 
     /**
@@ -965,7 +968,7 @@ class Parser
     /**
      * Advance to the next valid token.
      */
-    private function advance()
+    private function advance(): void
     {
         $token = '';
         $i = $this->currentCharacter;
@@ -995,7 +998,7 @@ class Parser
                 $this->currentCharacter = $i + 1;
                 $this->currentToken = $token;
 
-                return 1;
+                return;
             }
 
             if ($i < ($formula_length - 2)) {
@@ -1035,7 +1038,6 @@ class Parser
             case '%':
                 return $token;
 
-                break;
             case '>':
                 if ($this->lookAhead === '=') { // it's a GE token
                     break;
@@ -1043,7 +1045,6 @@ class Parser
 
                 return $token;
 
-                break;
             case '<':
                 // it's a LE or a NE token
                 if (($this->lookAhead === '=') || ($this->lookAhead === '>')) {
@@ -1052,7 +1053,6 @@ class Parser
 
                 return $token;
 
-                break;
             default:
                 // if it's a reference A1 or $A$1 or $A1 or A$1
                 if (preg_match('/^\$?[A-Ia-i]?[A-Za-z]\$?\d+$/', $token) && !preg_match('/\d/', $this->lookAhead) && ($this->lookAhead !== ':') && ($this->lookAhead !== '.') && ($this->lookAhead !== '!')) {
@@ -1278,7 +1278,8 @@ class Parser
      */
     private function fact()
     {
-        if ($this->currentToken === '(') {
+        $currentToken = $this->currentToken;
+        if ($currentToken === '(') {
             $this->advance(); // eat the "("
             $result = $this->parenthesizedExpression();
             if ($this->currentToken !== ')') {
@@ -1445,6 +1446,9 @@ class Parser
         if (empty($tree)) { // If it's the first call use parseTree
             $tree = $this->parseTree;
         }
+        if (!is_array($tree) || !isset($tree['left'], $tree['right'], $tree['value'])) {
+            throw new WriterException('Unexpected non-array');
+        }
 
         if (is_array($tree['left'])) {
             $converted_tree = $this->toReversePolish($tree['left']);
@@ -1475,7 +1479,7 @@ class Parser
                 $left_tree = '';
             }
 
-            // add it's left subtree and return.
+            // add its left subtree and return.
             return $left_tree . $this->convertFunction($tree['value'], $tree['right']);
         }
         $converted_tree = $this->convert($tree['value']);

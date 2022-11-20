@@ -129,6 +129,7 @@ class Beta
     {
         $a = 0;
         $b = 2;
+        $guess = ($a + $b) / 2;
 
         $i = 0;
         while ((($b - $a) > Functions::PRECISION) && (++$i <= self::MAX_ITERATIONS)) {

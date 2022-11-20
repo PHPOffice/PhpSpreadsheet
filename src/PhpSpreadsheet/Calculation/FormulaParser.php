@@ -61,7 +61,7 @@ class FormulaParser
     /**
      * Create a new FormulaParser.
      *
-     * @param string $formula Formula to parse
+     * @param ?string $formula Formula to parse
      */
     public function __construct($formula = '')
     {

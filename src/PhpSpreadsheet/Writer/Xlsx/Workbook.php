@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Namespaces;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -32,8 +33,8 @@ class Workbook extends WriterPart
         // workbook
         $objWriter->startElement('workbook');
         $objWriter->writeAttribute('xml:space', 'preserve');
-        $objWriter->writeAttribute('xmlns', 'http://schemas.openxmlformats.org/spreadsheetml/2006/main');
-        $objWriter->writeAttribute('xmlns:r', 'http://schemas.openxmlformats.org/officeDocument/2006/relationships');
+        $objWriter->writeAttribute('xmlns', Namespaces::MAIN);
+        $objWriter->writeAttribute('xmlns:r', Namespaces::SCHEMA_OFFICE_DOCUMENT);
 
         // fileVersion
         $this->writeFileVersion($objWriter);
@@ -104,14 +105,14 @@ class Workbook extends WriterPart
         // workbookView
         $objWriter->startElement('workbookView');
 
-        $objWriter->writeAttribute('activeTab', $spreadsheet->getActiveSheetIndex());
+        $objWriter->writeAttribute('activeTab', (string) $spreadsheet->getActiveSheetIndex());
         $objWriter->writeAttribute('autoFilterDateGrouping', ($spreadsheet->getAutoFilterDateGrouping() ? 'true' : 'false'));
-        $objWriter->writeAttribute('firstSheet', $spreadsheet->getFirstSheetIndex());
+        $objWriter->writeAttribute('firstSheet', (string) $spreadsheet->getFirstSheetIndex());
         $objWriter->writeAttribute('minimized', ($spreadsheet->getMinimized() ? 'true' : 'false'));
         $objWriter->writeAttribute('showHorizontalScroll', ($spreadsheet->getShowHorizontalScroll() ? 'true' : 'false'));
         $objWriter->writeAttribute('showSheetTabs', ($spreadsheet->getShowSheetTabs() ? 'true' : 'false'));
         $objWriter->writeAttribute('showVerticalScroll', ($spreadsheet->getShowVerticalScroll() ? 'true' : 'false'));
-        $objWriter->writeAttribute('tabRatio', $spreadsheet->getTabRatio());
+        $objWriter->writeAttribute('tabRatio', (string) $spreadsheet->getTabRatio());
         $objWriter->writeAttribute('visibility', $spreadsheet->getVisibility());
 
         $objWriter->endElement();
@@ -157,9 +158,9 @@ class Workbook extends WriterPart
         $objWriter->writeAttribute('calcId', '999999');
         $objWriter->writeAttribute('calcMode', 'auto');
         //    fullCalcOnLoad isn't needed if we've recalculating for the save
-        $objWriter->writeAttribute('calcCompleted', ($recalcRequired) ? 1 : 0);
-        $objWriter->writeAttribute('fullCalcOnLoad', ($recalcRequired) ? 0 : 1);
-        $objWriter->writeAttribute('forceFullCalc', ($recalcRequired) ? 0 : 1);
+        $objWriter->writeAttribute('calcCompleted', ($recalcRequired) ? '1' : '0');
+        $objWriter->writeAttribute('fullCalcOnLoad', ($recalcRequired) ? '0' : '1');
+        $objWriter->writeAttribute('forceFullCalc', ($recalcRequired) ? '0' : '1');
 
         $objWriter->endElement();
     }
@@ -200,7 +201,7 @@ class Workbook extends WriterPart
             // Write sheet
             $objWriter->startElement('sheet');
             $objWriter->writeAttribute('name', $worksheetName);
-            $objWriter->writeAttribute('sheetId', $worksheetId);
+            $objWriter->writeAttribute('sheetId', (string) $worksheetId);
             if ($sheetState !== 'visible' && $sheetState != '') {
                 $objWriter->writeAttribute('state', $sheetState);
             }

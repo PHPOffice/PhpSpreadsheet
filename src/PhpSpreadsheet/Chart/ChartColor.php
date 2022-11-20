@@ -6,6 +6,8 @@ class ChartColor
 {
     const EXCEL_COLOR_TYPE_STANDARD = 'prstClr';
     const EXCEL_COLOR_TYPE_SCHEME = 'schemeClr';
+    const EXCEL_COLOR_TYPE_RGB = 'srgbClr';
+    /** @deprecated 1.24 use EXCEL_COLOR_TYPE_RGB instead */
     const EXCEL_COLOR_TYPE_ARGB = 'srgbClr';
     const EXCEL_COLOR_TYPES = [
         self::EXCEL_COLOR_TYPE_ARGB,
@@ -21,6 +23,21 @@ class ChartColor
 
     /** @var ?int */
     private $alpha;
+
+    /** @var ?int */
+    private $brightness;
+
+    /**
+     * @param string|string[] $value
+     */
+    public function __construct($value = '', ?int $alpha = null, ?string $type = null, ?int $brightness = null)
+    {
+        if (is_array($value)) {
+            $this->setColorPropertiesArray($value);
+        } else {
+            $this->setColorProperties($value, $alpha, $type, $brightness);
+        }
+    }
 
     public function getValue(): string
     {
@@ -58,13 +75,37 @@ class ChartColor
         return $this;
     }
 
+    public function getBrightness(): ?int
+    {
+        return $this->brightness;
+    }
+
+    public function setBrightness(?int $brightness): self
+    {
+        $this->brightness = $brightness;
+
+        return $this;
+    }
+
     /**
      * @param null|float|int|string $alpha
+     * @param null|float|int|string $brightness
      */
-    public function setColorProperties(?string $color, $alpha, ?string $type): self
+    public function setColorProperties(?string $color, $alpha = null, ?string $type = null, $brightness = null): self
     {
+        if (empty($type) && !empty($color)) {
+            if (substr($color, 0, 1) === '*') {
+                $type = 'schemeClr';
+                $color = substr($color, 1);
+            } elseif (substr($color, 0, 1) === '/') {
+                $type = 'prstClr';
+                $color = substr($color, 1);
+            } elseif (preg_match('/^[0-9A-Fa-f]{6}$/', $color) === 1) {
+                $type = 'srgbClr';
+            }
+        }
         if ($color !== null) {
-            $this->setValue($color);
+            $this->setValue("$color");
         }
         if ($type !== null) {
             $this->setType($type);
@@ -74,27 +115,28 @@ class ChartColor
         } elseif (is_numeric($alpha)) {
             $this->setAlpha((int) $alpha);
         }
+        if ($brightness === null) {
+            $this->setBrightness(null);
+        } elseif (is_numeric($brightness)) {
+            $this->setBrightness((int) $brightness);
+        }
 
         return $this;
     }
 
     public function setColorPropertiesArray(array $color): self
     {
-        if (array_key_exists('value', $color) && is_string($color['value'])) {
-            $this->setValue($color['value']);
-        }
-        if (array_key_exists('type', $color) && is_string($color['type'])) {
-            $this->setType($color['type']);
-        }
-        if (array_key_exists('alpha', $color)) {
-            if ($color['alpha'] === null) {
-                $this->setAlpha(null);
-            } elseif (is_numeric($color['alpha'])) {
-                $this->setAlpha((int) $color['alpha']);
-            }
-        }
+        return $this->setColorProperties(
+            $color['value'] ?? '',
+            $color['alpha'] ?? null,
+            $color['type'] ?? null,
+            $color['brightness'] ?? null
+        );
+    }
 
-        return $this;
+    public function isUsable(): bool
+    {
+        return $this->type !== '' && $this->value !== '';
     }
 
     /**
@@ -113,6 +155,8 @@ class ChartColor
             $retVal = $this->type;
         } elseif ($propertyName === 'alpha') {
             $retVal = $this->alpha;
+        } elseif ($propertyName === 'brightness') {
+            $retVal = $this->brightness;
         }
 
         return $retVal;

@@ -84,12 +84,16 @@ class Charts32XmlTest extends TestCase
         $chart = $charts[0];
         self::assertNotNull($chart);
         $xAxis = $chart->getChartAxisX();
+        $yAxis = $chart->getChartAxisY();
         self::assertSame(Properties::FORMAT_CODE_GENERAL, $xAxis->getAxisNumberFormat());
         if (is_bool($numeric)) {
             $xAxis->setAxisNumberProperties(Properties::FORMAT_CODE_GENERAL, true);
         }
-        $yAxis = $chart->getChartAxisY();
+        self::assertSame('valAx', $yAxis->getAxisType());
+        self::assertSame('valAx', $xAxis->getAxisType());
         self::assertSame(Properties::FORMAT_CODE_GENERAL, $yAxis->getAxisNumberFormat());
+        $xAxis->setAxisType('');
+        $yAxis->setAxisType('');
         if (is_bool($numeric)) {
             $xAxis->setAxisNumberProperties(Properties::FORMAT_CODE_GENERAL, $numeric);
             $yAxis->setAxisNumberProperties(Properties::FORMAT_CODE_GENERAL, $numeric);
@@ -119,6 +123,34 @@ class Charts32XmlTest extends TestCase
         ];
     }
 
+    public function testCatAxValAxFromRead(): void
+    {
+        $file = self::DIRECTORY . '32readwriteScatterChart1.xlsx';
+        $reader = new XlsxReader();
+        $reader->setIncludeCharts(true);
+        $spreadsheet = $reader->load($file);
+        $sheet = $spreadsheet->getActiveSheet();
+        $charts = $sheet->getChartCollection();
+        self::assertCount(1, $charts);
+        $chart = $charts[0];
+        self::assertNotNull($chart);
+        $xAxis = $chart->getChartAxisX();
+        $yAxis = $chart->getChartAxisY();
+        self::assertSame(Properties::FORMAT_CODE_GENERAL, $xAxis->getAxisNumberFormat());
+        self::assertSame('valAx', $yAxis->getAxisType());
+        self::assertSame('valAx', $xAxis->getAxisType());
+        self::assertSame(Properties::FORMAT_CODE_GENERAL, $yAxis->getAxisNumberFormat());
+
+        $writer = new XlsxWriter($spreadsheet);
+        $writer->setIncludeCharts(true);
+        $writerChart = new XlsxWriter\Chart($writer);
+        $data = $writerChart->writeChart($chart);
+        $spreadsheet->disconnectWorksheets();
+
+        self::assertSame(0, substr_count($data, '<c:catAx>'));
+        self::assertSame(2, substr_count($data, '<c:valAx>'));
+    }
+
     public function testAreaPrstClr(): void
     {
         $file = self::DIRECTORY . '32readwriteAreaChart4.xlsx';
@@ -142,6 +174,47 @@ class Charts32XmlTest extends TestCase
             substr_count(
                 $data,
                 '</c:tx><c:spPr><a:solidFill><a:prstClr val="red"/>'
+            )
+        );
+    }
+
+    public function testDateAx(): void
+    {
+        $file = self::DIRECTORY . '32readwriteLineDateAxisChart1.xlsx';
+        $reader = new XlsxReader();
+        $reader->setIncludeCharts(true);
+        $spreadsheet = $reader->load($file);
+        $sheet = $spreadsheet->getActiveSheet();
+        $charts = $sheet->getChartCollection();
+        self::assertCount(2, $charts);
+        $chart = $charts[1];
+        self::assertNotNull($chart);
+
+        $writer = new XlsxWriter($spreadsheet);
+        $writer->setIncludeCharts(true);
+        $writerChart = new XlsxWriter\Chart($writer);
+        $data = $writerChart->writeChart($chart);
+        $spreadsheet->disconnectWorksheets();
+
+        self::assertSame(
+            1,
+            substr_count(
+                $data,
+                '<c:baseTimeUnit val="days"/><c:majorTimeUnit val="months"/><c:minorTimeUnit val="months"/>'
+            )
+        );
+        self::assertSame(
+            1,
+            substr_count(
+                $data,
+                '<c:dateAx>'
+            )
+        );
+        self::assertSame(
+            1,
+            substr_count(
+                $data,
+                '<c:valAx>'
             )
         );
     }

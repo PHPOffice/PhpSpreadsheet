@@ -9,8 +9,8 @@ use PhpOffice\PhpSpreadsheet\IComparable;
 class BaseDrawing implements IComparable
 {
     const EDIT_AS_ABSOLUTE = 'absolute';
-    const EDIT_AS_ONECELL = 'onecell';
-    const EDIT_AS_TWOCELL = 'twocell';
+    const EDIT_AS_ONECELL = 'oneCell';
+    const EDIT_AS_TWOCELL = 'twoCell';
     private const VALID_EDIT_AS = [
         self::EDIT_AS_ABSOLUTE,
         self::EDIT_AS_ONECELL,
@@ -232,7 +232,7 @@ class BaseDrawing implements IComparable
 
                 while ($iterator->valid()) {
                     if ($iterator->current()->getHashCode() === $this->getHashCode()) {
-                        $this->worksheet->getDrawingCollection()->offsetUnset($iterator->key());
+                        $this->worksheet->getDrawingCollection()->offsetUnset(/** @scrutinizer ignore-type */ $iterator->key());
                         $this->worksheet = null;
 
                         break;
@@ -486,7 +486,7 @@ class BaseDrawing implements IComparable
         if ($this->imageWidth === 0 && $this->imageHeight === 0 && $this->type === IMAGETYPE_UNKNOWN) {
             $imageData = getimagesize($path);
 
-            if (is_array($imageData)) {
+            if (!empty($imageData)) {
                 $this->imageWidth = $imageData[0];
                 $this->imageHeight = $imageData[1];
                 $this->type = $imageData[2];
@@ -530,6 +530,6 @@ class BaseDrawing implements IComparable
 
     public function validEditAs(): bool
     {
-        return in_array($this->editAs, self::VALID_EDIT_AS);
+        return in_array($this->editAs, self::VALID_EDIT_AS, true);
     }
 }

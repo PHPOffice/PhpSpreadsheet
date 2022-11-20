@@ -2,11 +2,29 @@
 
 namespace PhpOffice\PhpSpreadsheet\Cell;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Exception;
 
 class AddressHelper
 {
     public const R1C1_COORDINATE_REGEX = '/(R((?:\[-?\d*\])|(?:\d*))?)(C((?:\[-?\d*\])|(?:\d*))?)/i';
+
+    /** @return string[] */
+    public static function getRowAndColumnChars()
+    {
+        $rowChar = 'R';
+        $colChar = 'C';
+        if (Functions::getCompatibilityMode() === Functions::COMPATIBILITY_EXCEL) {
+            $rowColChars = Calculation::localeFunc('*RC');
+            if (mb_strlen($rowColChars) === 2) {
+                $rowChar = mb_substr($rowColChars, 0, 1);
+                $colChar = mb_substr($rowColChars, 1, 1);
+            }
+        }
+
+        return [$rowChar, $colChar];
+    }
 
     /**
      * Converts an R1C1 format cell address to an A1 format cell address.
@@ -14,11 +32,14 @@ class AddressHelper
     public static function convertToA1(
         string $address,
         int $currentRowNumber = 1,
-        int $currentColumnNumber = 1
+        int $currentColumnNumber = 1,
+        bool $useLocale = true
     ): string {
-        $validityCheck = preg_match('/^(R(\[?-?\d*\]?))(C(\[?-?\d*\]?))$/i', $address, $cellReference);
+        [$rowChar, $colChar] = $useLocale ? self::getRowAndColumnChars() : ['R', 'C'];
+        $regex = '/^(' . $rowChar . '(\[?[-+]?\d*\]?))(' . $colChar . '(\[?[-+]?\d*\]?))$/i';
+        $validityCheck = preg_match($regex, $address, $cellReference);
 
-        if ($validityCheck === 0) {
+        if (empty($validityCheck)) {
             throw new Exception('Invalid R1C1-format Cell Reference');
         }
 
@@ -56,7 +77,8 @@ class AddressHelper
         $key = false;
         foreach ($temp as &$value) {
             //    Only replace in alternate array entries (i.e. non-quoted blocks)
-            if ($key = !$key) {
+            $key = $key === false;
+            if ($key) {
                 $value = str_replace(['[.', ':.', ']'], ['', ':', ''], $value);
             }
         }
@@ -83,7 +105,8 @@ class AddressHelper
         $key = false;
         foreach ($temp as &$value) {
             //    Only replace in alternate array entries (i.e. non-quoted blocks)
-            if ($key = !$key) {
+            $key = $key === false;
+            if ($key) {
                 preg_match_all(self::R1C1_COORDINATE_REGEX, $value, $cellReferences, PREG_SET_ORDER + PREG_OFFSET_CAPTURE);
                 //    Reverse the matches array, otherwise all our offsets will become incorrect if we modify our way
                 //        through the formula from left to right. Reversing means that we work right to left.through
@@ -92,7 +115,7 @@ class AddressHelper
                 //    Loop through each R1C1 style reference in turn, converting it to its A1 style equivalent,
                 //        then modify the formula to use that new reference
                 foreach ($cellReferences as $cellReference) {
-                    $A1CellReference = self::convertToA1($cellReference[0][0], $currentRowNumber, $currentColumnNumber);
+                    $A1CellReference = self::convertToA1($cellReference[0][0], $currentRowNumber, $currentColumnNumber, false);
                     $value = substr_replace($value, $A1CellReference, $cellReference[0][1], strlen($cellReference[0][0]));
                 }
             }

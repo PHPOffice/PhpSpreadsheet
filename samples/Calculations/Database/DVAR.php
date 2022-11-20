@@ -3,7 +3,12 @@
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../../Header.php';
-$helper->log('Estimates variance based on a sample from selected database entries.');
+
+$category = 'Database';
+$functionName = 'DVAR';
+$description = 'Estimates variance based on a sample from selected database entries';
+
+$helper->titles($category, $functionName, $description);
 
 // Create new PhpSpreadsheet object
 $spreadsheet = new Spreadsheet();
@@ -35,21 +40,19 @@ $worksheet->setCellValue('B13', '=DVAR(A4:E10,2,A1:A3)');
 $helper->log('Database');
 
 $databaseData = $worksheet->rangeToArray('A4:E10', null, true, true, true);
-var_dump($databaseData);
+$helper->displayGrid($databaseData);
 
 // Test the formulae
 $helper->log('Criteria');
 
 $criteriaData = $worksheet->rangeToArray('A1:A3', null, true, true, true);
-var_dump($criteriaData);
+$helper->displayGrid($criteriaData);
 
-$helper->log($worksheet->getCell('A12')->getValue());
-$helper->log('DVAR() Result is ' . $worksheet->getCell('B12')->getCalculatedValue());
+$helper->logCalculationResult($worksheet, $functionName, 'B12', 'A12');
 
 $helper->log('Criteria');
 
 $criteriaData = $worksheet->rangeToArray('A1:A3', null, true, true, true);
-var_dump($criteriaData);
+$helper->displayGrid($criteriaData);
 
-$helper->log($worksheet->getCell('A13')->getValue());
-$helper->log('DVAR() Result is ' . $worksheet->getCell('B13')->getCalculatedValue());
+$helper->logCalculationResult($worksheet, $functionName, 'B13', 'A13');

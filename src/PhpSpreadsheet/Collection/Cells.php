@@ -91,10 +91,8 @@ class Cells
      * Whether the collection holds a cell for the given coordinate.
      *
      * @param string $cellCoordinate Coordinate of the cell to check
-     *
-     * @return bool
      */
-    public function has($cellCoordinate)
+    public function has($cellCoordinate): bool
     {
         return ($cellCoordinate === $this->currentCoordinate) || isset($this->index[$cellCoordinate]);
     }
@@ -103,10 +101,8 @@ class Cells
      * Add or update a cell in the collection.
      *
      * @param Cell $cell Cell to update
-     *
-     * @return Cell
      */
-    public function update(Cell $cell)
+    public function update(Cell $cell): Cell
     {
         return $this->add($cell->getCoordinate(), $cell);
     }
@@ -165,11 +161,11 @@ class Cells
 
     /**
      * Return the column coordinate of the currently active cell object.
-     *
-     * @return string
      */
-    public function getCurrentColumn()
+    public function getCurrentColumn(): string
     {
+        $column = 0;
+        $row = '';
         sscanf($this->currentCoordinate ?? '', '%[A-Z]%d', $column, $row);
 
         return $column;
@@ -177,11 +173,11 @@ class Cells
 
     /**
      * Return the row coordinate of the currently active cell object.
-     *
-     * @return int
      */
-    public function getCurrentRow()
+    public function getCurrentRow(): int
     {
+        $column = 0;
+        $row = '';
         sscanf($this->currentCoordinate ?? '', '%[A-Z]%d', $column, $row);
 
         return (int) $row;
@@ -276,7 +272,9 @@ class Cells
      */
     private function getUniqueID()
     {
-        return Settings::getCache() instanceof Memory
+        $cacheType = Settings::getCache();
+
+        return ($cacheType instanceof Memory\SimpleCache1 || $cacheType instanceof Memory\SimpleCache3)
             ? random_bytes(7) . ':'
             : uniqid('phpspreadsheet.', true) . '.';
     }
@@ -358,7 +356,7 @@ class Cells
     private function storeCurrentCell(): void
     {
         if ($this->currentCellIsDirty && isset($this->currentCoordinate, $this->currentCell)) {
-            $this->currentCell->detach();
+            $this->currentCell->/** @scrutinizer ignore-call */ detach();
 
             $stored = $this->cache->set($this->cachePrefix . $this->currentCoordinate, $this->currentCell);
             if ($stored === false) {
@@ -391,6 +389,8 @@ class Cells
         if ($cellCoordinate !== $this->currentCoordinate) {
             $this->storeCurrentCell();
         }
+        $column = 0;
+        $row = '';
         sscanf($cellCoordinate, '%[A-Z]%d', $column, $row);
         $this->index[$cellCoordinate] = (--$row * self::MAX_COLUMN_ID) + Coordinate::columnIndexFromString($column);
 
@@ -471,7 +471,7 @@ class Cells
      */
     private function getAllCacheKeys()
     {
-        foreach ($this->getCoordinates() as $coordinate) {
+        foreach ($this->index as $coordinate => $value) {
             yield $this->cachePrefix . $coordinate;
         }
     }

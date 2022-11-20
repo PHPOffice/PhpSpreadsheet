@@ -399,6 +399,6 @@ class Csv extends BaseWriter
         if ($this->outputEncoding != '') {
             $line = mb_convert_encoding($line, $this->outputEncoding);
         }
-        fwrite($fileHandle, $line);
+        fwrite($fileHandle, /** @scrutinizer ignore-type */ $line);
     }
 }

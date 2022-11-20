@@ -94,7 +94,7 @@ class DataSeries
     private $plotCategory = [];
 
     /**
-     * Smooth Line.
+     * Smooth Line. Must be specified for both DataSeries and DataSeriesValues.
      *
      * @var bool
      */
@@ -134,12 +134,12 @@ class DataSeries
         $this->plotOrder = $plotOrder;
         $keys = array_keys($plotValues);
         $this->plotValues = $plotValues;
-        if ((count($plotLabel) == 0) || ($plotLabel[$keys[0]] === null)) {
+        if (!isset($plotLabel[$keys[0]])) {
             $plotLabel[$keys[0]] = new DataSeriesValues();
         }
         $this->plotLabel = $plotLabel;
 
-        if ((count($plotCategory) == 0) || ($plotCategory[$keys[0]] === null)) {
+        if (!isset($plotCategory[$keys[0]])) {
             $plotCategory[$keys[0]] = new DataSeriesValues();
         }
         $this->plotCategory = $plotCategory;
@@ -257,8 +257,6 @@ class DataSeries
         $keys = array_keys($this->plotLabel);
         if (in_array($index, $keys)) {
             return $this->plotLabel[$index];
-        } elseif (isset($keys[$index])) {
-            return $this->plotLabel[$keys[$index]];
         }
 
         return false;
@@ -339,8 +337,6 @@ class DataSeries
         $keys = array_keys($this->plotValues);
         if (in_array($index, $keys)) {
             return $this->plotValues[$index];
-        } elseif (isset($keys[$index])) {
-            return $this->plotValues[$keys[$index]];
         }
 
         return false;

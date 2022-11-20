@@ -245,6 +245,7 @@ ROWS = RIVIT
 RTD = RTD
 TRANSPOSE = TRANSPONOI
 VLOOKUP = PHAKU
+*RC = RS
 
 ##
 ## Matemaattiset ja trigonometriset funktiot (Math & Trig Functions)

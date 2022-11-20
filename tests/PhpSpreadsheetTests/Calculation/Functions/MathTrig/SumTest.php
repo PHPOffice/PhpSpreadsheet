@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+
 class SumTest extends AllSetupTeardown
 {
     /**
@@ -43,5 +45,38 @@ class SumTest extends AllSetupTeardown
     public function providerSUMLiterals(): array
     {
         return require 'tests/data/Calculation/MathTrig/SUMLITERALS.php';
+    }
+
+    /**
+     * @dataProvider providerSUMWITHINDEXMATCH
+     *
+     * @param mixed $expectedResult
+     */
+    public function testSumWithIndexMatch($expectedResult, string $formula): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet1 = $spreadsheet->getActiveSheet();
+        $sheet1->setTitle('Formula');
+        $sheet1->fromArray(
+            [
+                ['Number', 'Formula'],
+                [83, $formula],
+            ]
+        );
+        $sheet2 = $spreadsheet->createSheet();
+        $sheet2->setTitle('Lookup');
+        $sheet2->fromArray(
+            [
+                ['Lookup', 'Match'],
+                [83, 16],
+            ]
+        );
+        self::assertSame($expectedResult, $sheet1->getCell('B2')->getCalculatedValue());
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function providerSUMWITHINDEXMATCH(): array
+    {
+        return require 'tests/data/Calculation/MathTrig/SUMWITHINDEXMATCH.php';
     }
 }

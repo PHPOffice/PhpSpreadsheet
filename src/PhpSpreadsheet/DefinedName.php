@@ -110,8 +110,9 @@ abstract class DefinedName
         $segMatcher = false;
         foreach (explode("'", $value) as $subVal) {
             //    Only test in alternate array entries (the non-quoted blocks)
+            $segMatcher = $segMatcher === false;
             if (
-                ($segMatcher = !$segMatcher) &&
+                $segMatcher &&
                 (preg_match('/' . self::REGEXP_IDENTIFY_FORMULA . '/miu', $subVal))
             ) {
                 return true;
@@ -150,7 +151,7 @@ abstract class DefinedName
 
             // New title
             $newTitle = $this->name;
-            ReferenceHelper::getInstance()->updateNamedFormulas($this->worksheet->getParent(), $oldTitle, $newTitle);
+            ReferenceHelper::getInstance()->updateNamedFormulae($this->worksheet->getParent(), $oldTitle, $newTitle);
         }
 
         return $this;
