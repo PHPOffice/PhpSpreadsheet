@@ -8089,7 +8089,6 @@ class Xls extends BaseReader
             $conditionalStyles[] = $conditional;
 
             $this->phpSheet->getStyle($cellRange)->setConditionalStyles($conditionalStyles);
-            $this->phpSheet->getStyle($cellRange)->setConditionalStyles($conditionalStyles);
         }
     }
 }
