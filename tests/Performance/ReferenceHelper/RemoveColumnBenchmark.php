@@ -12,7 +12,7 @@ class RemoveColumnBenchmark extends AbstractInsertDelete
     /**
      * @Groups({"slow"})
      * @revs(4)
-     * @Iterations(5)
+     * @Iterations(4)
      * @OutputTimeUnit("milliseconds")
      * @AfterMethods("tearDown")
      */
@@ -24,7 +24,7 @@ class RemoveColumnBenchmark extends AbstractInsertDelete
     /**
      * @Groups({"slow"})
      * @revs(4)
-     * @Iterations(5)
+     * @Iterations(4)
      * @OutputTimeUnit("milliseconds")
      * @AfterMethods("tearDown")
      */

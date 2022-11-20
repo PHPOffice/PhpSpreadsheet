@@ -12,7 +12,7 @@ class InsertRowBenchmark extends AbstractInsertDelete
     /**
      * @Groups({"slow"})
      * @revs(4)
-     * @Iterations(5)
+     * @Iterations(4)
      * @OutputTimeUnit("milliseconds")
      * @AfterMethods("tearDown")
      */
@@ -24,7 +24,7 @@ class InsertRowBenchmark extends AbstractInsertDelete
     /**
      * @Groups({"slow"})
      * @revs(4)
-     * @Iterations(7)
+     * @Iterations(4)
      * @OutputTimeUnit("milliseconds")
      * @AfterMethods("tearDown")
      */
@@ -36,7 +36,7 @@ class InsertRowBenchmark extends AbstractInsertDelete
     /**
      * @Groups({"slow"})
      * @revs(4)
-     * @Iterations(11)
+     * @Iterations(7)
      * @OutputTimeUnit("milliseconds")
      * @AfterMethods("tearDown")
      */
