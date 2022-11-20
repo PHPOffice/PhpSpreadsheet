@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Database;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical\StandardDeviations;
 
 class DStDev extends DatabaseAbstract
@@ -36,7 +37,7 @@ class DStDev extends DatabaseAbstract
     {
         $field = self::fieldExtract($database, $field);
         if ($field === null) {
-            return null;
+            return ExcelError::VALUE();
         }
 
         return StandardDeviations::STDEV(

@@ -34,7 +34,12 @@ abstract class DatabaseAbstract
 
         $fieldNames = array_map('strtoupper', array_shift($database));
         if (is_numeric($field)) {
-            return ((int) $field) - 1;
+            $field = (int) $field - 1;
+            if ($field < 0 || $field >= count($fieldNames)) {
+                return null;
+            }
+
+            return $field;
         }
         $key = array_search($field, array_values($fieldNames), true);
 

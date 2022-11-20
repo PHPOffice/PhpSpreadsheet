@@ -2,11 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Database;
 use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
-use PHPUnit\Framework\TestCase;
 
-class DProductTest extends TestCase
+class DProductTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerDProduct
@@ -18,24 +16,10 @@ class DProductTest extends TestCase
      */
     public function testDProduct($expectedResult, $database, $field, $criteria): void
     {
-        $result = Database\DProduct::evaluate($database, $field, $criteria);
-        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
+        $this->runTestCase('DPRODUCT', $expectedResult, $database, $field, $criteria);
     }
 
-    private function database1(): array
-    {
-        return [
-            ['Tree', 'Height', 'Age', 'Yield', 'Profit'],
-            ['Apple', 18, 20, 14, 105],
-            ['Pear', 12, 12, 10, 96],
-            ['Cherry', 13, 14, 9, 105],
-            ['Apple', 14, 15, 10, 75],
-            ['Pear', 9, 8, 8, 77],
-            ['Apple', 8, 9, 6, 45],
-        ];
-    }
-
-    private function database2(): array
+    private function database5(): array
     {
         return [
             ['Name', 'Date', 'Test', 'Score'],
@@ -58,7 +42,7 @@ class DProductTest extends TestCase
     {
         return [
             [
-                800,
+                800.0,
                 $this->database1(),
                 'Yield',
                 [
@@ -68,8 +52,8 @@ class DProductTest extends TestCase
                 ],
             ],
             [
-                36,
-                $this->database2(),
+                36.0,
+                $this->database5(),
                 'Score',
                 [
                     ['Name', 'Date'],
@@ -77,16 +61,16 @@ class DProductTest extends TestCase
                 ],
             ],
             [
-                8,
-                $this->database2(),
+                8.0,
+                $this->database5(),
                 'Score',
                 [
                     ['Test', 'Date'],
                     ['Test1', '<05-Jan-2017'],
                 ],
             ],
-            [
-                null,
+            'omitted field name' => [
+                '#VALUE!',
                 $this->database1(),
                 null,
                 $this->database1(),
