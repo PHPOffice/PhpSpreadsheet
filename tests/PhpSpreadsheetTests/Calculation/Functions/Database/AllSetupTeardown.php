@@ -83,7 +83,6 @@ class AllSetupTeardown extends TestCase
      */
     public function runTestCase(string $functionName, $expectedResult, array $database, $field, array $criteria): void
     {
-        $spreadsheet = new Spreadsheet();
         $sheet = $this->getSheet();
         $maxCol = '';
         $startCol = 'A';

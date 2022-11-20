@@ -30,7 +30,7 @@ class DProduct extends DatabaseAbstract
      *                                        the column label in which you specify a condition for the
      *                                        column.
      *
-     * @return null|float|string
+     * @return float|string
      */
     public static function evaluate($database, $field, $criteria)
     {

@@ -36,7 +36,7 @@ class Database
      *                                        the column label in which you specify a condition for the
      *                                        column.
      *
-     * @return null|float|string
+     * @return float|string
      */
     public static function DAVERAGE($database, $field, $criteria)
     {
@@ -97,7 +97,7 @@ class Database
      *                                        A database is a list of related data in which rows of related
      *                                        information are records, and columns of data are fields. The
      *                                        first row of the list contains labels for each column.
-     * @param null|int|string $field Indicates which column is used in the function. Enter the
+     * @param int|string $field Indicates which column is used in the function. Enter the
      *                                        column label enclosed between double quotation marks, such as
      *                                        "Age" or "Yield," or a number (without quotation marks) that
      *                                        represents the position of the column within the list: 1 for
@@ -178,7 +178,7 @@ class Database
      *                                        the column label in which you specify a condition for the
      *                                        column.
      *
-     * @return float
+     * @return null|float|string
      */
     public static function DMAX($database, $field, $criteria)
     {
@@ -213,7 +213,7 @@ class Database
      *                                        the column label in which you specify a condition for the
      *                                        column.
      *
-     * @return float
+     * @return null|float|string
      */
     public static function DMIN($database, $field, $criteria)
     {
@@ -351,7 +351,7 @@ class Database
      *                                        the column label in which you specify a condition for the
      *                                        column.
      *
-     * @return float|string
+     * @return null|float|string
      */
     public static function DSUM($database, $field, $criteria)
     {

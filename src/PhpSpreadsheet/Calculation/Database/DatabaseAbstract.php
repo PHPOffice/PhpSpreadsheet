@@ -8,6 +8,13 @@ use PhpOffice\PhpSpreadsheet\Calculation\Internal\WildcardMatch;
 
 abstract class DatabaseAbstract
 {
+    /**
+     * @param array $database
+     * @param int|string $field
+     * @param array $criteria
+     *
+     * @return null|float|int|string
+     */
     abstract public static function evaluate($database, $field, $criteria);
 
     /**
@@ -117,6 +124,9 @@ abstract class DatabaseAbstract
         return (count($rowQuery) > 1) ? 'OR(' . implode(',', $rowQuery) . ')' : ($rowQuery[0] ?? '');
     }
 
+    /**
+     * @param mixed $criterion
+     */
     private static function buildCondition($criterion, string $criterionName): string
     {
         $ifCondition = Functions::ifCondition($criterion);
@@ -158,6 +168,9 @@ abstract class DatabaseAbstract
         return $database;
     }
 
+    /**
+     * @return mixed
+     */
     private static function processCondition(string $criterion, array $fields, array $dataValues, string $conditions)
     {
         $key = array_search($criterion, $fields, true);
