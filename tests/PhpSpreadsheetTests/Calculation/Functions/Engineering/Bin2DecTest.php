@@ -42,6 +42,7 @@ class Bin2DecTest extends TestCase
         $sheet->getCell('A1')->setValue("=BIN2DEC($formula)");
         $result = $sheet->getCell('A1')->getCalculatedValue();
         self::assertEquals($expectedResult, $result);
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function providerBIN2DEC(): array
@@ -72,6 +73,7 @@ class Bin2DecTest extends TestCase
         $sheet->getCell('A1')->setValue("=BIN2DEC($formula)");
         $result = $sheet->getCell('A1')->getCalculatedValue();
         self::assertEquals($expectedResult, $result);
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testBIN2DECFrac(): void
@@ -90,6 +92,7 @@ class Bin2DecTest extends TestCase
         $cell = 'E1';
         $sheet->setCellValue($cell, '=BIN2DEC(101.1)');
         self::assertEquals('#NUM!', $sheet->getCell($cell)->getCalculatedValue(), 'Excel');
+        $spreadsheet->disconnectWorksheets();
     }
 
     /**

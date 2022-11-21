@@ -3,13 +3,9 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Engineering;
-use PHPUnit\Framework\TestCase;
 
-class BesselJTest extends TestCase
+class BesselJTest extends AllSetupTeardown
 {
-    const BESSEL_PRECISION = 1E-8;
-
     /**
      * @dataProvider providerBESSEJ
      *
@@ -17,8 +13,7 @@ class BesselJTest extends TestCase
      */
     public function testBESSELJ($expectedResult, ...$args): void
     {
-        $result = Engineering\BesselJ::BESSELJ(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, self::BESSEL_PRECISION);
+        $this->runTestCase('BESSELJ', $expectedResult, ...$args);
     }
 
     public function providerBESSEJ(): array

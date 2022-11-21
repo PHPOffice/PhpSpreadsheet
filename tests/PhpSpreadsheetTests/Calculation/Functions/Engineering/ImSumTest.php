@@ -2,24 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Engineering;
-use PhpOffice\PhpSpreadsheetTests\Custom\ComplexAssert;
-use PHPUnit\Framework\TestCase;
-
-class ImSumTest extends TestCase
+class ImSumTest extends AllSetupTeardown
 {
-    const COMPLEX_PRECISION = 1E-8;
-
-    /**
-     * @var ComplexAssert
-     */
-    private $complexAssert;
-
-    protected function setUp(): void
-    {
-        $this->complexAssert = new ComplexAssert();
-    }
-
     /**
      * @dataProvider providerIMSUM
      *
@@ -27,11 +11,7 @@ class ImSumTest extends TestCase
      */
     public function testIMSUM($expectedResult, ...$args): void
     {
-        $result = Engineering\ComplexOperations::IMSUM(...$args);
-        self::assertTrue(
-            $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
-            $this->complexAssert->getErrorMessage()
-        );
+        $this->runComplexTestCase('IMSUM', $expectedResult, ...$args);
     }
 
     public function providerIMSUM(): array

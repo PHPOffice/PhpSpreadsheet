@@ -3,37 +3,17 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Engineering;
-use PhpOffice\PhpSpreadsheetTests\Custom\ComplexAssert;
-use PHPUnit\Framework\TestCase;
 
-class ImCschTest extends TestCase
+class ImCschTest extends AllSetupTeardown
 {
-    const COMPLEX_PRECISION = 1E-8;
-
-    /**
-     * @var ComplexAssert
-     */
-    private $complexAssert;
-
-    protected function setUp(): void
-    {
-        $this->complexAssert = new ComplexAssert();
-    }
-
     /**
      * @dataProvider providerIMCSCH
      *
      * @param mixed $expectedResult
-     * @param mixed $value
      */
-    public function testIMCSCH($expectedResult, $value): void
+    public function testIMCSCH($expectedResult, ...$args): void
     {
-        $result = Engineering\ComplexFunctions::IMCSCH($value);
-        self::assertTrue(
-            $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
-            $this->complexAssert->getErrorMessage()
-        );
+        $this->runComplexTestCase('IMCSCH', $expectedResult, ...$args);
     }
 
     public function providerIMCSCH(): array

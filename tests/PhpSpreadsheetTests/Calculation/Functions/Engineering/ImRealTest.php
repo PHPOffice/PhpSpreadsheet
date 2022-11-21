@@ -3,23 +3,17 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Engineering;
-use PHPUnit\Framework\TestCase;
 
-class ImRealTest extends TestCase
+class ImRealTest extends AllSetupTeardown
 {
-    const COMPLEX_PRECISION = 1E-8;
-
     /**
      * @dataProvider providerIMREAL
      *
      * @param mixed $expectedResult
-     * @param mixed $value
      */
-    public function testIMREAL($expectedResult, $value): void
+    public function testIMREAL($expectedResult, ...$args): void
     {
-        $result = Engineering\Complex::IMREAL($value);
-        self::assertEqualsWithDelta($expectedResult, $result, self::COMPLEX_PRECISION);
+        $this->runComplexTestCase('IMREAL', $expectedResult, ...$args);
     }
 
     public function providerIMREAL(): array

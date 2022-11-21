@@ -3,24 +3,9 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Engineering;
-use PhpOffice\PhpSpreadsheetTests\Custom\ComplexAssert;
-use PHPUnit\Framework\TestCase;
 
-class ImPowerTest extends TestCase
+class ImPowerTest extends AllSetupTeardown
 {
-    const COMPLEX_PRECISION = 1E-8;
-
-    /**
-     * @var ComplexAssert
-     */
-    private $complexAssert;
-
-    protected function setUp(): void
-    {
-        $this->complexAssert = new ComplexAssert();
-    }
-
     /**
      * @dataProvider providerIMPOWER
      *
@@ -28,11 +13,7 @@ class ImPowerTest extends TestCase
      */
     public function testIMPOWER($expectedResult, ...$args): void
     {
-        $result = Engineering\ComplexFunctions::IMPOWER(...$args);
-        self::assertTrue(
-            $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
-            $this->complexAssert->getErrorMessage()
-        );
+        $this->runComplexTestCase('IMPOWER', $expectedResult, ...$args);
     }
 
     public function providerIMPOWER(): array

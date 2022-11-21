@@ -4,9 +4,8 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Engineering;
-use PHPUnit\Framework\TestCase;
 
-class ConvertUoMTest extends TestCase
+class ConvertUoMTest extends AllSetupTeardown
 {
     const UOM_PRECISION = 1E-12;
 
@@ -47,8 +46,7 @@ class ConvertUoMTest extends TestCase
      */
     public function testCONVERTUOM($expectedResult, ...$args): void
     {
-        $result = Engineering\ConvertUOM::CONVERT(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, self::UOM_PRECISION);
+        $this->runTestCase('CONVERT', $expectedResult, ...$args);
     }
 
     public function providerCONVERTUOM(): array

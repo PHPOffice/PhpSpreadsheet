@@ -3,23 +3,17 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Engineering;
-use PHPUnit\Framework\TestCase;
 
-class ImArgumentTest extends TestCase
+class ImArgumentTest extends AllSetupTeardown
 {
-    const COMPLEX_PRECISION = 1E-8;
-
     /**
      * @dataProvider providerIMARGUMENT
      *
      * @param mixed $expectedResult
-     * @param mixed $value
      */
-    public function testIMARGUMENT($expectedResult, $value): void
+    public function testIMARGUMENT($expectedResult, ...$args): void
     {
-        $result = Engineering\ComplexFunctions::IMARGUMENT($value);
-        self::assertEqualsWithDelta($expectedResult, $result, self::COMPLEX_PRECISION);
+        $this->runTestCase('IMARGUMENT', $expectedResult, ...$args);
     }
 
     public function providerIMARGUMENT(): array

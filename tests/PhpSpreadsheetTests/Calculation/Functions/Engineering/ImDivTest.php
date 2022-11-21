@@ -3,24 +3,9 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Engineering;
-use PhpOffice\PhpSpreadsheetTests\Custom\ComplexAssert;
-use PHPUnit\Framework\TestCase;
 
-class ImDivTest extends TestCase
+class ImDivTest extends AllSetupTeardown
 {
-    const COMPLEX_PRECISION = 1E-8;
-
-    /**
-     * @var ComplexAssert
-     */
-    private $complexAssert;
-
-    protected function setUp(): void
-    {
-        $this->complexAssert = new ComplexAssert();
-    }
-
     /**
      * @dataProvider providerIMDIV
      *
@@ -28,11 +13,7 @@ class ImDivTest extends TestCase
      */
     public function testIMDIV($expectedResult, ...$args): void
     {
-        $result = Engineering\ComplexOperations::IMDIV(...$args);
-        self::assertTrue(
-            $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
-            $this->complexAssert->getErrorMessage()
-        );
+        $this->runComplexTestCase('IMDIV', $expectedResult, ...$args);
     }
 
     public function providerIMDIV(): array

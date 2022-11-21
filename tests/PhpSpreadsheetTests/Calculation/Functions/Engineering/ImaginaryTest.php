@@ -3,23 +3,17 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Engineering;
-use PHPUnit\Framework\TestCase;
 
-class ImaginaryTest extends TestCase
+class ImaginaryTest extends AllSetupTeardown
 {
-    const COMPLEX_PRECISION = 1E-8;
-
     /**
      * @dataProvider providerIMAGINARY
      *
      * @param mixed $expectedResult
-     * @param mixed $value
      */
-    public function testIMAGINARY($expectedResult, $value): void
+    public function testIMAGINARY($expectedResult, ...$args): void
     {
-        $result = Engineering\Complex::IMAGINARY($value);
-        self::assertEqualsWithDelta($expectedResult, $result, self::COMPLEX_PRECISION);
+        $this->runTestCase('IMAGINARY', $expectedResult, ...$args);
     }
 
     public function providerIMAGINARY(): array
