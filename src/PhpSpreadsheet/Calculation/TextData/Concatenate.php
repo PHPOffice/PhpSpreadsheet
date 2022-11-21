@@ -56,7 +56,7 @@ class Concatenate
      *         If an array of values is passed for the $delimiter or $ignoreEmpty arguments, then the returned result
      *            will also be an array with matching dimensions
      */
-    public static function TEXTJOIN($delimiter, $ignoreEmpty, ...$args)
+    public static function TEXTJOIN($delimiter = '', $ignoreEmpty = true, ...$args)
     {
         if (is_array($delimiter) || is_array($ignoreEmpty)) {
             return self::evaluateArrayArgumentsSubset(
@@ -68,29 +68,35 @@ class Concatenate
             );
         }
 
-        // Loop through arguments
+        $delimiter ??= '';
+        $ignoreEmpty ??= true;
         $aArgs = Functions::flattenArray($args);
-        $returnValue = '';
+        $returnValue = self::evaluateTextJoinArray($ignoreEmpty, $aArgs);
+
+        $returnValue ??= implode($delimiter, $aArgs);
+        if (StringHelper::countCharacters($returnValue) > DataType::MAX_STRING_LENGTH) {
+            $returnValue = ExcelError::CALC();
+        }
+
+        return $returnValue;
+    }
+
+    private static function evaluateTextJoinArray(bool $ignoreEmpty, array &$aArgs): ?string
+    {
         foreach ($aArgs as $key => &$arg) {
             $value = Helpers::extractString($arg);
             if (ErrorValue::isError($value)) {
-                $returnValue = $value;
-
-                break;
+                return $value;
             }
-            if ($ignoreEmpty === true && is_string($arg) && trim($arg) === '') {
+
+            if ($ignoreEmpty === true && ((is_string($arg) && trim($arg) === '') || $arg === null)) {
                 unset($aArgs[$key]);
             } elseif (is_bool($arg)) {
                 $arg = Helpers::convertBooleanValue($arg);
             }
         }
 
-        $returnValue = ($returnValue !== '') ? $returnValue : implode($delimiter, $aArgs);
-        if (StringHelper::countCharacters($returnValue) > DataType::MAX_STRING_LENGTH) {
-            $returnValue = ExcelError::CALC();
-        }
-
-        return $returnValue;
+        return null;
     }
 
     /**
