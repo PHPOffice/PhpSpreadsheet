@@ -2,10 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Financial;
-use PHPUnit\Framework\TestCase;
-
-class PriceDiscTest extends TestCase
+class PriceDiscTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerPRICEDISC
@@ -14,8 +11,7 @@ class PriceDiscTest extends TestCase
      */
     public function testPRICEDISC($expectedResult, array $args): void
     {
-        $result = Financial\Securities\Price::priceDiscounted(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        $this->runTestCase('PRICEDISC', $expectedResult, $args);
     }
 
     public function providerPRICEDISC(): array

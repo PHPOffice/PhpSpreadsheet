@@ -791,6 +791,10 @@ class Financial
      * number_payments is the number of payments for the annuity
      *
      * pv is the loan amount or present value of the payments
+     *
+     * @param array $args
+     *
+     * @return float|string
      */
     public static function ISPMT(...$args)
     {
@@ -875,6 +879,8 @@ class Financial
      * @deprecated 1.18.0
      *      Use the presentValue() method in the Financial\CashFlow\Variable\Periodic class instead
      * @see Financial\CashFlow\Variable\Periodic::presentValue()
+     *
+     * @param array $args
      *
      * @return float
      */

@@ -2,10 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Financial;
-use PHPUnit\Framework\TestCase;
-
-class IPmtTest extends TestCase
+class IPmtTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerIPMT
@@ -14,8 +11,7 @@ class IPmtTest extends TestCase
      */
     public function testIPMT($expectedResult, array $args): void
     {
-        $result = Financial\CashFlow\Constant\Periodic\Interest::payment(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        $this->runTestCase('IPMT', $expectedResult, $args);
     }
 
     public function providerIPMT(): array

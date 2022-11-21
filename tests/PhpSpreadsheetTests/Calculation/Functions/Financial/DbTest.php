@@ -2,10 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Financial;
-use PHPUnit\Framework\TestCase;
-
-class DbTest extends TestCase
+class DbTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerDB
@@ -14,8 +11,7 @@ class DbTest extends TestCase
      */
     public function testDB($expectedResult, ...$args): void
     {
-        $result = Financial\Depreciation::DB(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        $this->runTestCase('DB', $expectedResult, $args);
     }
 
     public function providerDB(): array

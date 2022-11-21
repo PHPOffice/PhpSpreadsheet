@@ -2,10 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Financial;
-use PHPUnit\Framework\TestCase;
-
-class NpvTest extends TestCase
+class NpvTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerNPV
@@ -14,8 +11,7 @@ class NpvTest extends TestCase
      */
     public function testNPV($expectedResult, ...$args): void
     {
-        $result = Financial\CashFlow\Variable\Periodic::presentValue(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        $this->runTestCase('NPV', $expectedResult, $args);
     }
 
     public function providerNPV(): array

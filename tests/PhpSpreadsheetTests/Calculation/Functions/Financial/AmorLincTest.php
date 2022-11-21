@@ -2,10 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Financial;
-use PHPUnit\Framework\TestCase;
-
-class AmorLincTest extends TestCase
+class AmorLincTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerAMORLINC
@@ -14,8 +11,7 @@ class AmorLincTest extends TestCase
      */
     public function testAMORLINC($expectedResult, ...$args): void
     {
-        $result = Financial\Amortization::AMORLINC(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        $this->runTestCase('AMORLINC', $expectedResult, $args);
     }
 
     public function providerAMORLINC(): array

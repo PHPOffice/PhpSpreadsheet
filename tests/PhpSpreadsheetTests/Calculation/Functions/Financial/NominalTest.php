@@ -2,22 +2,16 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Financial;
-use PHPUnit\Framework\TestCase;
-
-class NominalTest extends TestCase
+class NominalTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerNOMINAL
      *
      * @param mixed $expectedResult
-     * @param mixed $rate
-     * @param mixed $periods
      */
-    public function testNOMINAL($expectedResult, $rate, $periods): void
+    public function testNOMINAL($expectedResult, ...$args): void
     {
-        $result = Financial\InterestRate::nominal($rate, $periods);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        $this->runTestCase('NOMINAL', $expectedResult, $args);
     }
 
     public function providerNOMINAL(): array

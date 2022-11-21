@@ -2,10 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Financial;
-use PHPUnit\Framework\TestCase;
-
-class SlnTest extends TestCase
+class SlnTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerSLN
@@ -14,8 +11,7 @@ class SlnTest extends TestCase
      */
     public function testSLN($expectedResult, array $args): void
     {
-        $result = Financial\Depreciation::SLN(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        $this->runTestCase('SLN', $expectedResult, $args);
     }
 
     public function providerSLN(): array

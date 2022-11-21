@@ -2,10 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Financial;
-use PHPUnit\Framework\TestCase;
-
-class CoupDaysTest extends TestCase
+class CoupDaysTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerCOUPDAYS
@@ -14,8 +11,7 @@ class CoupDaysTest extends TestCase
      */
     public function testCOUPDAYS($expectedResult, ...$args): void
     {
-        $result = Financial\Coupons::COUPDAYS(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        $this->runTestCase('COUPDAYS', $expectedResult, $args);
     }
 
     public function providerCOUPDAYS(): array

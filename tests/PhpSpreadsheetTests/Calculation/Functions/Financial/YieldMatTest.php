@@ -2,10 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Financial;
-use PHPUnit\Framework\TestCase;
-
-class YieldMatTest extends TestCase
+class YieldMatTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerYIELDMAT
@@ -14,8 +11,7 @@ class YieldMatTest extends TestCase
      */
     public function testYIELDMAT($expectedResult, ...$args): void
     {
-        $result = Financial\Securities\Yields::yieldAtMaturity(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        $this->runTestCase('YIELDMAT', $expectedResult, $args);
     }
 
     public function providerYIELDMAT(): array

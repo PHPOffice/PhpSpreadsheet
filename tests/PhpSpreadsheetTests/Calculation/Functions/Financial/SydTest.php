@@ -2,10 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Financial;
-use PHPUnit\Framework\TestCase;
-
-class SydTest extends TestCase
+class SydTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerSYD
@@ -14,8 +11,7 @@ class SydTest extends TestCase
      */
     public function testSYD($expectedResult, array $args): void
     {
-        $result = Financial\Depreciation::SYD(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        $this->runTestCase('SYD', $expectedResult, $args);
     }
 
     public function providerSYD(): array

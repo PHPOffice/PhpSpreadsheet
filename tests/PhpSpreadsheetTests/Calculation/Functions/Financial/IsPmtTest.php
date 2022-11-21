@@ -2,10 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Financial;
-use PHPUnit\Framework\TestCase;
-
-class IsPmtTest extends TestCase
+class IsPmtTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerISPMT
@@ -14,8 +11,7 @@ class IsPmtTest extends TestCase
      */
     public function testISPMT($expectedResult, ...$args): void
     {
-        $result = Financial\CashFlow\Constant\Periodic\Interest::schedulePayment(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        $this->runTestCase('ISPMT', $expectedResult, $args);
     }
 
     public function providerISPMT(): array

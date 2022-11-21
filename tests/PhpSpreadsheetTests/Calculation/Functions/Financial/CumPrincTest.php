@@ -2,10 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Financial;
-use PHPUnit\Framework\TestCase;
-
-class CumPrincTest extends TestCase
+class CumPrincTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerCUMPRINC
@@ -14,8 +11,7 @@ class CumPrincTest extends TestCase
      */
     public function testCUMPRINC($expectedResult, ...$args): void
     {
-        $result = Financial\CashFlow\Constant\Periodic\Cumulative::principal(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        $this->runTestCase('CUMPRINC', $expectedResult, $args);
     }
 
     public function providerCUMPRINC(): array

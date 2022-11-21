@@ -2,24 +2,16 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Financial\Dollar;
-use PHPUnit\Framework\TestCase;
-
-class UsDollarTest extends TestCase
+class UsDollarTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerUSDOLLAR
      *
      * @param mixed $expectedResult
      */
-    public function testUSDOLLAR($expectedResult, float $amount, ?int $precision = null): void
+    public function testUSDOLLAR($expectedResult, ...$args): void
     {
-        if ($precision === null) {
-            $result = Dollar::format($amount);
-        } else {
-            $result = Dollar::format($amount, $precision);
-        }
-        self::assertSame($expectedResult, $result);
+        $this->runTestCase('USDOLLAR', $expectedResult, $args);
     }
 
     public function providerUSDOLLAR(): array

@@ -2,10 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Financial;
-use PHPUnit\Framework\TestCase;
-
-class AmorDegRcTest extends TestCase
+class AmorDegRcTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerAMORDEGRC
@@ -14,8 +11,7 @@ class AmorDegRcTest extends TestCase
      */
     public function testAMORDEGRC($expectedResult, ...$args): void
     {
-        $result = Financial\Amortization::AMORDEGRC(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        $this->runTestCase('AMORDEGRC', $expectedResult, $args);
     }
 
     public function providerAMORDEGRC(): array

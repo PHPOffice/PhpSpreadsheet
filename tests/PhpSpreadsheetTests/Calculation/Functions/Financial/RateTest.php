@@ -2,10 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Financial;
-use PHPUnit\Framework\TestCase;
-
-class RateTest extends TestCase
+class RateTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerRATE
@@ -14,8 +11,7 @@ class RateTest extends TestCase
      */
     public function testRATE($expectedResult, ...$args): void
     {
-        $result = Financial\CashFlow\Constant\Periodic\Interest::rate(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        $this->runTestCase('RATE', $expectedResult, $args);
     }
 
     public function providerRATE(): array
