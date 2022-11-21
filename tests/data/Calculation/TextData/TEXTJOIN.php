@@ -16,6 +16,22 @@ return [
         ['-', true, 1, 2, 3],
     ],
     [
+        'A-B-C-E',
+        ['-', true, 'A', 'B', 'C', null, 'E'],
+    ],
+    [
+        'A-B-C--E',
+        ['-', false, 'A', 'B', 'C', null, 'E'],
+    ],
+    [
+        'A-B-C-',
+        ['-', false, 'A', 'B', 'C', null],
+    ],
+    [
+        'A-B-C--',
+        ['-', false, 'A', 'B', 'C', null, null],
+    ],
+    [
         '<<::>>',
         ['::', true, '<<', '>>'],
     ],
@@ -64,4 +80,5 @@ return [
     ],
     'propagate REF' => ['#REF!', [',', true, '1', '=sheet99!A1', '3']],
     'propagate NUM' => ['#NUM!', [',', true, '1', '=SQRT(-1)', '3']],
+    'propagate DIV0' => ['#DIV/0!', [',', true, '1', '=12/0', '3']],
 ];
