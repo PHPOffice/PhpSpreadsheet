@@ -16,6 +16,8 @@ jobs:
         include:
           - php-version: 'nightly'
             experimental: true
+          - php-version: '7.3'
+            experimental: true
 
     name: PHP ${{ matrix.php-version }}
 
@@ -43,7 +45,7 @@ jobs:
 
       - name: Delete composer lock file
         id: composer-lock
-        if: ${{ matrix.php-version == '8.1' || matrix.php-version == '8.2' || matrix.php-version == 'nightly' }}
+        if: ${{ matrix.php-version == '8.1' || matrix.php-version == '8.2' || matrix.php-version == '7.3' || matrix.php-version == 'nightly' }}
         run: |
           rm composer.lock
           echo "::set-output name=flags::--ignore-platform-reqs"
