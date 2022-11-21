@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests;
 
-use PhpOffice\PhpSpreadsheet\Exception as ssException;
+use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PHPUnit\Framework\TestCase;
@@ -67,7 +67,7 @@ class SpreadsheetTest extends TestCase
     public function testAddSheetDuplicateTitle(): void
     {
         $spreadsheet = $this->getSpreadsheet();
-        $this->expectException(ssException::class);
+        $this->expectException(Exception::class);
         $sheet = new Worksheet();
         $sheet->setTitle('someSheet2');
         $spreadsheet->addSheet($sheet);
@@ -98,7 +98,7 @@ class SpreadsheetTest extends TestCase
     public function testRemoveSheetIndexTooHigh(): void
     {
         $spreadsheet = $this->getSpreadsheet();
-        $this->expectException(ssException::class);
+        $this->expectException(Exception::class);
         $spreadsheet->removeSheetByIndex(4);
     }
 
@@ -123,14 +123,14 @@ class SpreadsheetTest extends TestCase
     public function testGetSheetIndexTooHigh(): void
     {
         $spreadsheet = $this->getSpreadsheet();
-        $this->expectException(ssException::class);
+        $this->expectException(Exception::class);
         $spreadsheet->getSheet(4);
     }
 
     public function testGetIndexNonExistent(): void
     {
         $spreadsheet = $this->getSpreadsheet();
-        $this->expectException(ssException::class);
+        $this->expectException(Exception::class);
         $sheet = new Worksheet();
         $sheet->setTitle('someSheet4');
         $spreadsheet->getIndex($sheet);
@@ -175,14 +175,14 @@ class SpreadsheetTest extends TestCase
     public function testSetActiveSheetIndexTooHigh(): void
     {
         $spreadsheet = $this->getSpreadsheet();
-        $this->expectException(ssException::class);
+        $this->expectException(Exception::class);
         $spreadsheet->setActiveSheetIndex(4);
     }
 
     public function testSetActiveSheetNoSuchName(): void
     {
         $spreadsheet = $this->getSpreadsheet();
-        $this->expectException(ssException::class);
+        $this->expectException(Exception::class);
         $spreadsheet->setActiveSheetIndexByName('unknown');
     }
 
@@ -210,7 +210,7 @@ class SpreadsheetTest extends TestCase
 
     public function testAddExternalDuplicateName(): void
     {
-        $this->expectException(ssException::class);
+        $this->expectException(Exception::class);
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->createSheet()->setTitle('someSheet1');
         $sheet->getCell('A1')->setValue(1);
@@ -274,5 +274,23 @@ class SpreadsheetTest extends TestCase
         // Prove Xf index changed although style is same.
         self::assertEquals($countXfs + $index, $sheet3->getCell('A2')->getXfIndex());
         self::assertEquals($countXfs + $index, $sheet3->getRowDimension(2)->getXfIndex());
+    }
+
+    public function testNotSerializable(): void
+    {
+        $this->spreadsheet = $spreadsheet = new Spreadsheet();
+
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Spreadsheet objects cannot be serialized');
+        serialize($this->spreadsheet);
+    }
+
+    public function testNotJsonEncodable(): void
+    {
+        $this->spreadsheet = $spreadsheet = new Spreadsheet();
+
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Spreadsheet objects cannot be json encoded');
+        json_encode($this->spreadsheet);
     }
 }

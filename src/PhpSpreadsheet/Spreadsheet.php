@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet;
 
+use JsonSerializable;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx as XlsxReader;
 use PhpOffice\PhpSpreadsheet\Shared\File;
@@ -11,7 +12,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Iterator;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx as XlsxWriter;
 
-class Spreadsheet
+class Spreadsheet implements JsonSerializable
 {
     // Allowable values for workbook window visilbity
     const VISIBILITY_VISIBLE = 'visible';
@@ -1636,5 +1637,23 @@ class Spreadsheet
     public function getSharedComponent(): Style
     {
         return new Style();
+    }
+
+    /**
+     * @throws Exception
+     *
+     * @return mixed
+     */
+    public function __serialize()
+    {
+        throw new Exception('Spreadsheet objects cannot be serialized');
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function jsonSerialize(): mixed
+    {
+        throw new Exception('Spreadsheet objects cannot be json encoded');
     }
 }
