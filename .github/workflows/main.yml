@@ -16,6 +16,8 @@ jobs:
         include:
           - php-version: 'nightly'
             experimental: true
+          - php-version: '7.3'
+            experimental: true
 
     name: PHP ${{ matrix.php-version }}
 
