@@ -4653,8 +4653,14 @@ class Calculation
                 }
             }
 
+            if ($token instanceof Operands\StructuredReference) {
+                throw new Exception('Structured References are not currently supported');
+                // The next step is converting any structured reference to a cell value of range
+                //     to a new $token value, which can then be processed in the following code.
+            }
+
             // if the token is a binary operator, pop the top two values off the stack, do the operation, and push the result back on the stack
-            if (!is_numeric($token) && isset(self::BINARY_OPERATORS[$token])) {
+            if (!is_numeric($token) && !is_object($token) && isset(self::BINARY_OPERATORS[$token])) {
                 //    We must have two operands, error if we don't
                 if (($operand2Data = $stack->pop()) === null) {
                     return $this->raiseFormulaError('Internal error - Operand value missing from stack');
@@ -5058,10 +5064,6 @@ class Calculation
                         $branchStore[$storeKey] = $result;
                     }
                 }
-            } elseif (
-                preg_match('/^' . self::CALCULATION_REGEXP_STRUCTURED_REFERENCE . '$/miu', $token ?? '', $matches)
-            ) {
-                throw new Exception('Structured References are not currently supported');
             } else {
                 // if the token is a number, boolean, string or an Excel error, push it onto the stack
                 if (isset(self::$excelConstants[strtoupper($token ?? '')])) {
