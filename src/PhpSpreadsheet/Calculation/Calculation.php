@@ -4833,7 +4833,7 @@ class Calculation
                         }
                         if (count(Functions::flattenArray($cellIntersect)) === 0) {
                             $this->debugLog->writeDebugLog('Evaluation Result is %s', $this->showTypeDetails($cellIntersect));
-                            $stack->push('Error', Functions::null(), null);
+                            $stack->push('Error', Information\ExcelError::null(), null);
                         } else {
                             $cellRef = Coordinate::stringFromColumnIndex(min($oCol) + 1) . min($oRow) . ':' .
                                 Coordinate::stringFromColumnIndex(max($oCol) + 1) . max($oRow);
