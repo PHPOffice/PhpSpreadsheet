@@ -1822,7 +1822,9 @@ class Worksheet implements IComparable
 
     private function clearMergeCellsByColumn(string $firstColumn, string $lastColumn, int $firstRow, int $lastRow, string $upperLeft, string $behaviour): void
     {
-        $leftCellValue = [$this->getCell($upperLeft)->getFormattedValue()];
+        $leftCellValue = ($behaviour === self::MERGE_CELL_CONTENT_MERGE)
+            ? [$this->getCell($upperLeft)->getFormattedValue()]
+            : [];
 
         foreach ($this->getColumnIterator($firstColumn, $lastColumn) as $column) {
             $iterator = $column->getCellIterator($firstRow);
@@ -1838,15 +1840,16 @@ class Worksheet implements IComparable
             }
         }
 
-        $leftCellValue = implode(' ', $leftCellValue);
         if ($behaviour === self::MERGE_CELL_CONTENT_MERGE) {
-            $this->getCell($upperLeft)->setValueExplicit($leftCellValue, DataType::TYPE_STRING);
+            $this->getCell($upperLeft)->setValueExplicit(implode(' ', $leftCellValue), DataType::TYPE_STRING);
         }
     }
 
     private function clearMergeCellsByRow(string $firstColumn, int $lastColumnIndex, int $firstRow, int $lastRow, string $upperLeft, string $behaviour): void
     {
-        $leftCellValue = [$this->getCell($upperLeft)->getFormattedValue()];
+        $leftCellValue = ($behaviour === self::MERGE_CELL_CONTENT_MERGE)
+            ? [$this->getCell($upperLeft)->getFormattedValue()]
+            : [];
 
         foreach ($this->getRowIterator($firstRow, $lastRow) as $row) {
             $iterator = $row->getCellIterator($firstColumn);
@@ -1863,9 +1866,8 @@ class Worksheet implements IComparable
             }
         }
 
-        $leftCellValue = implode(' ', $leftCellValue);
         if ($behaviour === self::MERGE_CELL_CONTENT_MERGE) {
-            $this->getCell($upperLeft)->setValueExplicit($leftCellValue, DataType::TYPE_STRING);
+            $this->getCell($upperLeft)->setValueExplicit(implode(' ', $leftCellValue), DataType::TYPE_STRING);
         }
     }
 
