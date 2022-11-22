@@ -3,10 +3,8 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\TextData;
-use PHPUnit\Framework\TestCase;
 
-class TTest extends TestCase
+class TTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerT
@@ -16,7 +14,10 @@ class TTest extends TestCase
      */
     public function testT($expectedResult, $value): void
     {
-        $result = TextData\Text::test($value);
+        $worksheet = $this->getSheet();
+        $this->setCell('A1', $value);
+        $worksheet->getCell('H1')->setValue('=T(A1)');
+        $result = $worksheet->getCell('H1')->getCalculatedValue();
         self::assertEquals($expectedResult, $result);
     }
 
