@@ -2,15 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Shared;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-
 class StringHelper
 {
-    /**    Constants                */
-    /**    Regular Expressions        */
-    //    Fraction
-    const STRING_REGEXP_FRACTION = '~^\s*(-?)((\d*)\s+)?(\d+\/\d+)\s*$~';
-
     /**
      * Control characters array.
      *
@@ -537,28 +530,6 @@ class StringHelper
 
         return implode('', $characters);
     }
-
-    /**
-     * Identify whether a string contains a fractional numeric value,
-     * and convert it to a numeric if it is.
-     *
-     * @param string $operand string value to test
-     */
-    public static function convertToNumberIfFraction(string &$operand): bool
-    {
-        if (preg_match(self::STRING_REGEXP_FRACTION, $operand, $match)) {
-            $sign = ($match[1] == '-') ? '-' : '+';
-            $wholePart = ($match[3] === '') ? '' : ($sign . $match[3]);
-            $fractionFormula = '=' . $wholePart . $sign . $match[4];
-            $operand = Calculation::getInstance()->_calculateFormulaValue($fractionFormula);
-
-            return true;
-        }
-
-        return false;
-    }
-
-    //    function convertToNumberIfFraction()
 
     /**
      * Get the decimal separator. If it has not yet been set explicitly, try to obtain number
