@@ -4560,7 +4560,13 @@ class Calculation
         return $operand;
     }
 
-    // evaluate postfix notation
+    private const NUMERIC_BINARY_OPERATIONS = [
+        '+' => 'plusEquals',
+        '-' => 'minusEquals',
+        '*' => 'arrayTimesEquals',
+        '/' => 'arrayRightDivide',
+        '^' => 'power',
+    ];
 
     /**
      * @param mixed $tokens
@@ -4760,35 +4766,11 @@ class Calculation
 
                         break;
                     case '+':            //    Addition
-                        $result = $this->executeNumericBinaryOperation($operand1, $operand2, $token, 'plusEquals', $stack);
-                        if (isset($storeKey)) {
-                            $branchStore[$storeKey] = $result;
-                        }
-
-                        break;
                     case '-':            //    Subtraction
-                        $result = $this->executeNumericBinaryOperation($operand1, $operand2, $token, 'minusEquals', $stack);
-                        if (isset($storeKey)) {
-                            $branchStore[$storeKey] = $result;
-                        }
-
-                        break;
                     case '*':            //    Multiplication
-                        $result = $this->executeNumericBinaryOperation($operand1, $operand2, $token, 'arrayTimesEquals', $stack);
-                        if (isset($storeKey)) {
-                            $branchStore[$storeKey] = $result;
-                        }
-
-                        break;
                     case '/':            //    Division
-                        $result = $this->executeNumericBinaryOperation($operand1, $operand2, $token, 'arrayRightDivide', $stack);
-                        if (isset($storeKey)) {
-                            $branchStore[$storeKey] = $result;
-                        }
-
-                        break;
                     case '^':            //    Exponential
-                        $result = $this->executeNumericBinaryOperation($operand1, $operand2, $token, 'power', $stack);
+                        $result = $this->executeNumericBinaryOperation($operand1, $operand2, $token, self::NUMERIC_BINARY_OPERATIONS[$token], $stack);
                         if (isset($storeKey)) {
                             $branchStore[$storeKey] = $result;
                         }
@@ -5228,19 +5210,19 @@ class Calculation
     /**
      * @param mixed $operand1
      * @param mixed $operand2
-     * @param mixed $operation
+     * @param string $operation
      * @param string $matrixFunction
-     * @param mixed $stack
+     * @param Stack $stack
      *
      * @return bool|mixed
      */
     private function executeNumericBinaryOperation($operand1, $operand2, $operation, $matrixFunction, &$stack)
     {
         //    Validate the two operands
-        if (!$this->validateBinaryOperand($operand1, $stack)) {
-            return false;
-        }
-        if (!$this->validateBinaryOperand($operand2, $stack)) {
+        if (
+            ($this->validateBinaryOperand($operand1, $stack) === false) ||
+            ($this->validateBinaryOperand($operand2, $stack) === false)
+        ) {
             return false;
         }
 
