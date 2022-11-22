@@ -626,6 +626,7 @@ class Chart extends WriterPart
 
         $objWriter->startElement('c:spPr');
         $this->writeColor($objWriter, $yAxis->getFillColorObject());
+        $this->writeLineStyles($objWriter, $yAxis);
         $this->writeEffects($objWriter, $yAxis);
         $objWriter->endElement(); // spPr
 

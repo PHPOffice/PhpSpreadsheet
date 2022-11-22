@@ -16,7 +16,7 @@ class ColumnsTest extends TestCase
      */
     public function testCOLUMNS($expectedResult, $arg): void
     {
-        $result = LookupRef::COLUMNS($arg);
+        $result = LookupRef\RowColumnInformation::COLUMNS($arg);
         self::assertEquals($expectedResult, $result);
     }
 
