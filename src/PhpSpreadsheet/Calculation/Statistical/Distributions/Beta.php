@@ -268,6 +268,7 @@ class Beta
         return $frac;
     }
 
+    /*
     private static function betaValue(float $a, float $b): float
     {
         return (Gamma::gammaValue($a) * Gamma::gammaValue($b)) /
@@ -278,4 +279,5 @@ class Beta
     {
         return self::incompleteBeta($value, $a, $b) / self::betaValue($a, $b);
     }
+    */
 }
