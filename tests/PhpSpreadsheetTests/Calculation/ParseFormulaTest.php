@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Calculation\Engine\Operands\StructuredReference;
 use PhpOffice\PhpSpreadsheet\NamedRange;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\TestCase;
@@ -20,7 +21,7 @@ class ParseFormulaTest extends TestCase
 
         $parser = Calculation::getInstance($spreadsheet);
         $stack = $parser->parseFormula($formula);
-        self::assertSame($expectedStack, $stack);
+        self::assertEquals($expectedStack, $stack);
     }
 
     public function providerBinaryOperations(): array
@@ -262,46 +263,58 @@ class ParseFormulaTest extends TestCase
             ],
             'Fully Qualified Structured Reference' => [
                 [
-                    ['type' => 'Structured Reference', 'value' => 'DeptSales[@Commission Amount]', 'reference' => null],
+                    ['type' => 'Structured Reference', 'value' => new StructuredReference('DeptSales[@Commission Amount]'), 'reference' => null],
                 ],
                 '=DeptSales[@Commission Amount]',
             ],
             'Fully Qualified Nested Structured Reference' => [
                 [
-                    ['type' => 'Structured Reference', 'value' => 'DeptSales[[#Totals],[Sales Amount]]', 'reference' => null],
+                    ['type' => 'Structured Reference', 'value' => new StructuredReference('DeptSales[[#Totals],[Sales Amount]]'), 'reference' => null],
                 ],
                 '=DeptSales[[#Totals],[Sales Amount]]',
             ],
-            'Complex Fully Qualified Nested Structured Reference' => [
+            'Complex Range Fully Qualified Nested Structured Reference' => [
                 [
-                    ['type' => 'Structured Reference', 'value' => 'Sales_Data[[#This Row],[Q1]:[Q4]]', 'reference' => null],
+                    ['type' => 'Structured Reference', 'value' => new StructuredReference('Sales_Data[[#This Row],[Q1]:[Q4]]'), 'reference' => null],
                 ],
                 '=Sales_Data[[#This Row],[Q1]:[Q4]]',
             ],
+            'Complex Range Fully Qualified Nested Structured Reference 2' => [
+                [
+                    ['type' => 'Structured Reference', 'value' => new StructuredReference('DeptSales[[#Headers],[Region]:[Commission Amount]]'), 'reference' => null],
+                ],
+                '=DeptSales[[#Headers],[Region]:[Commission Amount]]',
+            ],
+            [
+                'Multi-RowGroup Fully Qualified Nested Structured Reference' => [
+                    ['type' => 'Structured Reference', 'value' => new StructuredReference('DeptSales[[#Headers],[#Data],[% Commission]]'), 'reference' => null],
+                ],
+                '=DeptSales[[#Headers],[#Data],[% Commission]]',
+            ],
             'Unqualified Structured Reference' => [
                 [
-                    ['type' => 'Structured Reference', 'value' => '[@Quantity]', 'reference' => null],
+                    ['type' => 'Structured Reference', 'value' => new StructuredReference('[@Quantity]'), 'reference' => null],
                 ],
                 '=[@Quantity]',
             ],
             'Unqualified Nested Structured Reference' => [
                 [
-                    ['type' => 'Structured Reference', 'value' => '[@[Unit Price]]', 'reference' => null],
+                    ['type' => 'Structured Reference', 'value' => new StructuredReference('[@[Unit Price]]'), 'reference' => null],
                 ],
                 '=[@[Unit Price]]',
             ],
             'Structured Reference Arithmetic' => [
                 [
-                    ['type' => 'Structured Reference', 'value' => '[@Quantity]', 'reference' => null],
-                    ['type' => 'Structured Reference', 'value' => '[@[Unit Price]]', 'reference' => null],
+                    ['type' => 'Structured Reference', 'value' => new StructuredReference('[@Quantity]'), 'reference' => null],
+                    ['type' => 'Structured Reference', 'value' => new StructuredReference('[@[Unit Price]]'), 'reference' => null],
                     ['type' => 'Binary Operator', 'value' => '*', 'reference' => null],
                 ],
                 '=[@Quantity]*[@[Unit Price]]',
             ],
             'Structured Reference Intersection' => [
                 [
-                    ['type' => 'Structured Reference', 'value' => 'DeptSales[[Sales Person]:[Sales Amount]]', 'reference' => null],
-                    ['type' => 'Structured Reference', 'value' => 'DeptSales[[Region]:[% Commission]]', 'reference' => null],
+                    ['type' => 'Structured Reference', 'value' => new StructuredReference('DeptSales[[Sales Person]:[Sales Amount]]'), 'reference' => null],
+                    ['type' => 'Structured Reference', 'value' => new StructuredReference('DeptSales[[Region]:[% Commission]]'), 'reference' => null],
                     ['type' => 'Binary Operator', 'value' => '∩', 'reference' => null],
                 ],
                 '=DeptSales[[Sales Person]:[Sales Amount]] DeptSales[[Region]:[% Commission]]',

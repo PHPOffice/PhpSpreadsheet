@@ -13,7 +13,7 @@ final class StructuredReference implements Operand
 
     private string $value;
 
-    private function __construct(string $structuredReference)
+    public function __construct(string $structuredReference)
     {
         $this->value = $structuredReference;
     }

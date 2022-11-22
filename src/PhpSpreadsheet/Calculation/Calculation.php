@@ -4320,13 +4320,14 @@ class Calculation
                     $output[] = $outputItem;
                 } elseif (preg_match('/^' . self::CALCULATION_REGEXP_STRUCTURED_REFERENCE . '$/miu', $val, $matches)) {
                     try {
-                        $val = Operands\StructuredReference::fromParser($formula, $index, $matches)->value();
+                        $structuredReference = Operands\StructuredReference::fromParser($formula, $index, $matches);
                     } catch (Exception $e) {
                         return $this->raiseFormulaError($e->getMessage());
                     }
 
+                    $val = $structuredReference->value();
                     $length = strlen($val);
-                    $outputItem = $stack->getStackItem(Operands\StructuredReference::NAME, $val, null);
+                    $outputItem = $stack->getStackItem(Operands\StructuredReference::NAME, $structuredReference, null);
 
                     $output[] = $outputItem;
                     $expectingOperator = true;
