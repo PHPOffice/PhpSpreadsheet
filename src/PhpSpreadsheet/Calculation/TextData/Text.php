@@ -59,12 +59,12 @@ class Text
     }
 
     /**
-     * RETURNSTRING.
+     * T.
      *
      * @param mixed $testValue Value to check
      *                         Or can be an array of values
      *
-     * @return null|array|string
+     * @return array|string
      *         If an array of values is passed for the argument, then the returned result
      *            will also be an array with matching dimensions
      */
@@ -78,7 +78,7 @@ class Text
             return $testValue;
         }
 
-        return null;
+        return '';
     }
 
     /**
