@@ -278,7 +278,7 @@ class SpreadsheetTest extends TestCase
 
     public function testNotSerializable(): void
     {
-        $this->spreadsheet = $spreadsheet = new Spreadsheet();
+        $this->spreadsheet = new Spreadsheet();
 
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Spreadsheet objects cannot be serialized');
@@ -287,7 +287,7 @@ class SpreadsheetTest extends TestCase
 
     public function testNotJsonEncodable(): void
     {
-        $this->spreadsheet = $spreadsheet = new Spreadsheet();
+        $this->spreadsheet = new Spreadsheet();
 
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Spreadsheet objects cannot be json encoded');
