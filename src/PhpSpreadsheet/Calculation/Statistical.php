@@ -349,7 +349,7 @@ class Statistical
      * @param mixed $range Data values
      * @param string $condition the criteria that defines which cells will be counted
      *
-     * @return int
+     * @return int|string
      */
     public static function COUNTIF($range, $condition)
     {
@@ -371,7 +371,7 @@ class Statistical
      *
      * @param mixed $args Pairs of Ranges and Criteria
      *
-     * @return int
+     * @return int|string
      */
     public static function COUNTIFS(...$args)
     {

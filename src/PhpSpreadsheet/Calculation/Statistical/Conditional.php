@@ -74,7 +74,7 @@ class Conditional
      * @param mixed[] $range Data values
      * @param string $condition the criteria that defines which cells will be counted
      *
-     * @return int
+     * @return int|string
      */
     public static function COUNTIF($range, $condition)
     {
@@ -89,7 +89,7 @@ class Conditional
         $range = array_merge([[self::CONDITION_COLUMN_NAME]], array_chunk($range, 1));
         $condition = array_merge([[self::CONDITION_COLUMN_NAME]], [[$condition]]);
 
-        return DCount::evaluate($range, null, $condition);
+        return DCount::evaluate($range, null, $condition, false);
     }
 
     /**
@@ -102,7 +102,7 @@ class Conditional
      *
      * @param mixed $args Pairs of Ranges and Criteria
      *
-     * @return int
+     * @return int|string
      */
     public static function COUNTIFS(...$args)
     {
@@ -115,7 +115,7 @@ class Conditional
         $database = self::buildDatabase(...$args);
         $conditions = self::buildConditionSet(...$args);
 
-        return DCount::evaluate($database, null, $conditions);
+        return DCount::evaluate($database, null, $conditions, false);
     }
 
     /**
@@ -139,7 +139,7 @@ class Conditional
         $conditions = self::buildConditionSetForValueRange(...$args);
         $database = self::buildDatabaseWithValueRange(...$args);
 
-        return DMax::evaluate($database, self::VALUE_COLUMN_NAME, $conditions);
+        return DMax::evaluate($database, self::VALUE_COLUMN_NAME, $conditions, false);
     }
 
     /**
@@ -163,7 +163,7 @@ class Conditional
         $conditions = self::buildConditionSetForValueRange(...$args);
         $database = self::buildDatabaseWithValueRange(...$args);
 
-        return DMin::evaluate($database, self::VALUE_COLUMN_NAME, $conditions);
+        return DMin::evaluate($database, self::VALUE_COLUMN_NAME, $conditions, false);
     }
 
     /**
