@@ -832,6 +832,7 @@ class Chart
 
         foreach ($seriesValueSet->lvl as $seriesLevelIdx => $seriesLevel) {
             foreach ($seriesLevel as $seriesValueIdx => $seriesValue) {
+                $seriesValue = Xlsx::testSimpleXml($seriesValue);
                 switch ($seriesValueIdx) {
                     case 'ptCount':
                         $pointCount = self::getAttribute($seriesValue, 'val', 'integer');

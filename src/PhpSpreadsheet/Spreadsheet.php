@@ -22,7 +22,7 @@ class Spreadsheet implements JsonSerializable
     private const DEFINED_NAME_IS_RANGE = false;
     private const DEFINED_NAME_IS_FORMULA = true;
 
-    private static $workbookViewVisibilityValues = [
+    private const WORKBOOK_VIEW_VISIBILITY_VALUES = [
         self::VISIBILITY_VISIBLE,
         self::VISIBILITY_HIDDEN,
         self::VISIBILITY_VERY_HIDDEN,
@@ -377,7 +377,7 @@ class Spreadsheet implements JsonSerializable
     {
         $extension = pathinfo($path, PATHINFO_EXTENSION);
 
-        return is_array($extension) ? '' : $extension;
+        return substr(/** @scrutinizer ignore-type */$extension, 0);
     }
 
     /**
@@ -394,8 +394,6 @@ class Spreadsheet implements JsonSerializable
         switch ($what) {
             case 'all':
                 return $this->ribbonBinObjects;
-
-                break;
             case 'names':
             case 'data':
                 if (is_array($this->ribbonBinObjects) && isset($this->ribbonBinObjects[$what])) {
@@ -645,7 +643,7 @@ class Spreadsheet implements JsonSerializable
             }
         }
 
-        if ($worksheet->getParent() === null) {
+        if ($worksheet->getParent() === null) { // @phpstan-ignore-line
             $worksheet->rebindParent($this);
         }
 
@@ -764,7 +762,7 @@ class Spreadsheet implements JsonSerializable
      */
     public function setIndexByName($worksheetName, $newIndexPosition)
     {
-        $oldIndex = $this->getIndex($this->getSheetByName($worksheetName));
+        $oldIndex = $this->getIndex($this->getSheetByNameOrThrow($worksheetName));
         $worksheet = array_splice(
             $this->workSheetCollection,
             $oldIndex,
@@ -1583,7 +1581,7 @@ class Spreadsheet implements JsonSerializable
             $visibility = self::VISIBILITY_VISIBLE;
         }
 
-        if (in_array($visibility, self::$workbookViewVisibilityValues)) {
+        if (in_array($visibility, self::WORKBOOK_VIEW_VISIBILITY_VALUES)) {
             $this->visibility = $visibility;
         } else {
             throw new Exception('Invalid visibility value.');
