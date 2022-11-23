@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Engine;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\NamedRange;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\TestCase;
@@ -49,7 +49,7 @@ class RangeTest extends TestCase
             'Count with INTERSECTION #1' => ['=COUNT(A1:B3 A1:C2)', 4],
             'Sum with UNION #2' => ['=SUM(A1:A3,C1:C3)', 48],
             'Count with UNION #2' => ['=COUNT(A1:A3,C1:C3)', 6],
-            'Sum with INTERSECTION #2 - No Intersect' => ['=SUM(A1:A3 C1:C3)', Functions::null()],
+            'Sum with INTERSECTION #2 - No Intersect' => ['=SUM(A1:A3 C1:C3)', ExcelError::null()],
             'Count with INTERSECTION #2 - No Intersect' => ['=COUNT(A1:A3 C1:C3)', 0],
             'Sum with UNION #3' => ['=SUM(A1:B2,B2:C3)', 64],
             'Count with UNION #3' => ['=COUNT(A1:B2,B2:C3)', 8],
