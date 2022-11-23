@@ -3473,11 +3473,15 @@ class Calculation
             'cell' => $cell->getCoordinate(),
         ];
 
+        $cellAddressAttempted = false;
+        $cellAddress = null;
+
         try {
             $result = self::unwrapResult($this->_calculateFormulaValue($cell->getValue(), $cell->getCoordinate(), $cell));
             if ($this->spreadsheet === null) {
                 throw new Exception('null spreadsheet in calculateCellValue');
             }
+            $cellAddressAttempted = true;
             $cellAddress = array_pop($this->cellStack);
             if ($cellAddress === null) {
                 throw new Exception('null cellAddress in calculateCellValue');
@@ -3488,6 +3492,16 @@ class Calculation
             }
             $testSheet->getCell($cellAddress['cell']);
         } catch (\Exception $e) {
+            if (!$cellAddressAttempted) {
+                $cellAddress = array_pop($this->cellStack);
+            }
+            if ($this->spreadsheet !== null && is_array($cellAddress) && array_key_exists('sheet', $cellAddress)) {
+                $testSheet = $this->spreadsheet->getSheetByName($cellAddress['sheet']);
+                if ($testSheet !== null && array_key_exists('cell', $cellAddress)) {
+                    $testSheet->getCell($cellAddress['cell']);
+                }
+            }
+
             throw new Exception($e->getMessage());
         }
 
@@ -4831,7 +4845,7 @@ class Calculation
                         }
                         if (count(Functions::flattenArray($cellIntersect)) === 0) {
                             $this->debugLog->writeDebugLog('Evaluation Result is %s', $this->showTypeDetails($cellIntersect));
-                            $stack->push('Error', Functions::null(), null);
+                            $stack->push('Error', Information\ExcelError::null(), null);
                         } else {
                             $cellRef = Coordinate::stringFromColumnIndex(min($oCol) + 1) . min($oRow) . ':' .
                                 Coordinate::stringFromColumnIndex(max($oCol) + 1) . max($oRow);
