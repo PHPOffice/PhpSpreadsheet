@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\TextData;
 use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ErrorValue;
 
 class Text
 {
@@ -243,7 +244,7 @@ class Text
      */
     private static function formatValueMode1($cellValue): string
     {
-        if (is_string($cellValue) && Functions::isError($cellValue) === false) {
+        if (is_string($cellValue) && ErrorValue::isError($cellValue) === false) {
             return Calculation::FORMULA_STRING_QUOTE . $cellValue . Calculation::FORMULA_STRING_QUOTE;
         } elseif (is_bool($cellValue)) {
             return Calculation::getLocaleBoolean($cellValue ? 'TRUE' : 'FALSE');

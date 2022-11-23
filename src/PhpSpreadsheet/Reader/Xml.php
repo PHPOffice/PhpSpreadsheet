@@ -278,7 +278,7 @@ class Xml extends BaseReader
 
             if (
                 isset($this->loadSheetsOnly, $worksheet_ss['Name']) &&
-                (!in_array($worksheet_ss['Name'], $this->loadSheetsOnly))
+                (!in_array($worksheet_ss['Name'], /** @scrutinizer ignore-type */ $this->loadSheetsOnly))
             ) {
                 continue;
             }

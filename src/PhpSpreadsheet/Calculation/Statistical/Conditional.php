@@ -218,7 +218,8 @@ class Conditional
     {
         $conditions = self::buildConditions(1, ...$args);
 
-        return array_map(null, ...$conditions);
+        // Scrutinizer thinks first parameter of array_map can't be null. It is wrong.
+        return array_map(/** @scrutinizer ignore-type */ null, ...$conditions);
     }
 
     private static function buildConditionSetForValueRange(...$args): array
@@ -234,7 +235,7 @@ class Conditional
             );
         }
 
-        return array_map(null, ...$conditions);
+        return array_map(/** @scrutinizer ignore-type */ null, ...$conditions);
     }
 
     private static function buildConditions(int $startOffset, ...$args): array
@@ -281,7 +282,7 @@ class Conditional
             ++$pairCount;
         }
 
-        return array_map(null, ...$database);
+        return array_map(/** @scrutinizer ignore-type */ null, ...$database);
     }
 
     private static function databaseFromRangeAndValue(array $range, array $valueRange = []): array
@@ -293,11 +294,7 @@ class Conditional
             $valueRange = $range;
         }
 
-        $database = array_map(
-            null,
-            array_merge([self::CONDITION_COLUMN_NAME], $range),
-            array_merge([self::VALUE_COLUMN_NAME], $valueRange)
-        );
+        $database = array_map(/** @scrutinizer ignore-type */ null, array_merge([self::CONDITION_COLUMN_NAME], $range), array_merge([self::VALUE_COLUMN_NAME], $valueRange));
 
         return $database;
     }

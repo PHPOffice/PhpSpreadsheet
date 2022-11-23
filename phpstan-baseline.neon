@@ -870,7 +870,7 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xls.php
 		-
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 8
+			count: 7
 			path: src/PhpSpreadsheet/Reader/Xls.php
 
 		-
@@ -914,10 +914,6 @@ parameters:
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\RichText\\\\Run\\:\\:\\$font \\(PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\) does not accept PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/RichText/Run.php
-		-
-			message: "#^Cannot access offset 1 on array\\|false\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/Drawing.php
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DgContainer\\:\\:getDgId\\(\\) has no return type specified\\.$#"
 			count: 1
@@ -1362,26 +1358,6 @@ parameters:
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Trend\\\\Trend\\:\\:calculate\\(\\) has parameter \\$yValues with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Trend/Trend.php
-		-
-			message: "#^Call to function is_array\\(\\) with string will always evaluate to false\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Spreadsheet.php
-		-
-			message: "#^Parameter \\#1 \\$worksheet of method PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\:\\:getIndex\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet, PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Spreadsheet.php
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\:\\:\\$workbookViewVisibilityValues has no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Spreadsheet.php
-		-
-			message: "#^Strict comparison using \\=\\=\\= between PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet and null will always evaluate to false\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Spreadsheet.php
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Spreadsheet.php
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\ConditionalFormatting\\\\ConditionalDataBar\\:\\:setConditionalFormattingRuleExt\\(\\) has no return type specified\\.$#"
 			count: 1
