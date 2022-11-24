@@ -3,10 +3,8 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Permutations;
-use PHPUnit\Framework\TestCase;
 
-class PermutationATest extends TestCase
+class PermutationATest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerPERMUT
@@ -15,8 +13,7 @@ class PermutationATest extends TestCase
      */
     public function testPERMUT($expectedResult, ...$args): void
     {
-        $result = Permutations::PERMUTATIONA(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        $this->runTestCases('PERMUTATIONA', $expectedResult, ...$args);
     }
 
     public function providerPERMUT(): array

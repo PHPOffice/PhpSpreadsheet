@@ -2,35 +2,16 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
-use PHPUnit\Framework\TestCase;
-
-class VarATest extends TestCase
+class VarATest extends AllSetupTeardown
 {
-    /** @var string */
-    private $compatibilityMode;
-
-    protected function setUp(): void
-    {
-        $this->compatibilityMode = Functions::getCompatibilityMode();
-    }
-
-    protected function tearDown(): void
-    {
-        Functions::setCompatibilityMode($this->compatibilityMode);
-    }
-
     /**
      * @dataProvider providerVARA
      *
      * @param mixed $expectedResult
-     * @param mixed $values
      */
-    public function testVARA($expectedResult, $values): void
+    public function testVARA($expectedResult, ...$args): void
     {
-        $result = Statistical\Variances::VARA($values);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        $this->runTestCases('VARA', $expectedResult, ...$args);
     }
 
     public function providerVARA(): array
@@ -42,14 +23,11 @@ class VarATest extends TestCase
      * @dataProvider providerOdsVARA
      *
      * @param mixed $expectedResult
-     * @param mixed $values
      */
-    public function testOdsVARA($expectedResult, $values): void
+    public function testOdsVARA($expectedResult, ...$args): void
     {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
-
-        $result = Statistical\Variances::VARA($values);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        $this->setOpenOffice();
+        $this->runTestCases('VARA', $expectedResult, ...$args);
     }
 
     public function providerOdsVARA(): array

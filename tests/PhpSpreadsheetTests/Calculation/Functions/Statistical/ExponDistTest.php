@@ -3,10 +3,8 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
-use PHPUnit\Framework\TestCase;
 
-class ExponDistTest extends TestCase
+class ExponDistTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerEXPONDIST
@@ -15,8 +13,7 @@ class ExponDistTest extends TestCase
      */
     public function testEXPONDIST($expectedResult, ...$args): void
     {
-        $result = Statistical\Distributions\Exponential::distribution(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        $this->runTestCases('EXPONDIST', $expectedResult, ...$args);
     }
 
     public function providerEXPONDIST(): array

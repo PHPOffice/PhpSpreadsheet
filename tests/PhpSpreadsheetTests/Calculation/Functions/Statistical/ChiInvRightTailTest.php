@@ -3,31 +3,36 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
-use PHPUnit\Framework\TestCase;
 
-class ChiInvRightTailTest extends TestCase
+class ChiInvRightTailTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerCHIINV
      *
      * @param mixed $expectedResult
-     * @param mixed $probability
-     * @param mixed $degrees
      */
-    public function testCHIINV($expectedResult, $probability, $degrees): void
+    public function testCHIINV($expectedResult, ...$args): void
     {
-        $result = Statistical\Distributions\ChiSquared::inverseRightTail($probability, $degrees);
-        if (!is_string($expectedResult)) {
-            $reverse = Statistical\Distributions\ChiSquared::distributionRightTail($result, $degrees);
-            self::assertEqualsWithDelta($probability, $reverse, 1E-12);
-        }
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        $this->runTestCases('CHISQ.INV.RT', $expectedResult, ...$args);
     }
 
     public function providerCHIINV(): array
     {
         return require 'tests/data/Calculation/Statistical/CHIINVRightTail.php';
+    }
+
+    public function invVersusDistTest(): void
+    {
+        $expectedResult = 8.383430828608;
+        $probability = 0.3;
+        $degrees = 7;
+        $calculation = Calculation::getInstance();
+        $formula = "=CHISQ.INV.RT($probability, $degrees)";
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-8);
+        $formula = "=CHISQ.DIST.RT($result, $degrees)";
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEqualsWithDelta($probability, $result, 1.0e-8);
     }
 
     /**

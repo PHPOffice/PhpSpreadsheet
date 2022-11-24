@@ -2,10 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
-use PHPUnit\Framework\TestCase;
-
-class SteyxTest extends TestCase
+class SteyxTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerSTEYX
@@ -14,8 +11,9 @@ class SteyxTest extends TestCase
      */
     public function testSTEYX($expectedResult, array $xargs, array $yargs): void
     {
-        $result = Statistical\Trends::STEYX($xargs, $yargs);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        //$result = Statistical\Trends::STEYX($xargs, $yargs);
+        //self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        $this->runTestCaseReference('STEYX', $expectedResult, $xargs, $yargs);
     }
 
     public function providerSTEYX(): array

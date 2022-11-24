@@ -2,10 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
-use PHPUnit\Framework\TestCase;
-
-class SkewTest extends TestCase
+class SkewTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerSKEW
@@ -14,8 +11,7 @@ class SkewTest extends TestCase
      */
     public function testSKEW($expectedResult, array $args): void
     {
-        $result = Statistical\Deviations::skew($args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        $this->runTestCaseReference('SKEW', $expectedResult, ...$args);
     }
 
     public function providerSKEW(): array

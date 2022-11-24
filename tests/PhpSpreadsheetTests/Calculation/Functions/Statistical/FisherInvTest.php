@@ -3,21 +3,17 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
-use PHPUnit\Framework\TestCase;
 
-class FisherInvTest extends TestCase
+class FisherInvTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerFISHERINV
      *
      * @param mixed $expectedResult
-     * @param mixed $value
      */
-    public function testFISHERINV($expectedResult, $value): void
+    public function testFISHERINV($expectedResult, ...$args): void
     {
-        $result = Statistical\Distributions\Fisher::inverse($value);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        $this->runTestCases('FISHERINV', $expectedResult, ...$args);
     }
 
     public function providerFISHERINV(): array

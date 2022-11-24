@@ -3,10 +3,8 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
-use PHPUnit\Framework\TestCase;
 
-class BinomInvTest extends TestCase
+class BinomInvTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerBINOMINV
@@ -15,8 +13,7 @@ class BinomInvTest extends TestCase
      */
     public function testBINOMINV($expectedResult, ...$args): void
     {
-        $result = Statistical\Distributions\Binomial::inverse(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        $this->runTestCaseReference('BINOM.INV', $expectedResult, ...$args);
     }
 
     public function providerBINOMINV(): array

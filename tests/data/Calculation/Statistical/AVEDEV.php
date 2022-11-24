@@ -18,7 +18,7 @@ return [
         [10.5, 7.2, 200, 5.4, 8.1],
     ],
     [
-        1.825,
+        [1.825, '#VALUE!'],
         [
             // The index simulates a cell value
             // Numbers and Booleans are both counted
@@ -33,17 +33,17 @@ return [
             '0.9.A' => '',
         ],
     ],
-    [
-        1.85,
+    'numeric string' => [
+        [1.825, 1.85],
         [1, '2', 3.4, true, 5, 6.7],
     ],
-    [
+    'non-numeric string' => [
         // When non-numeric strings are passed directly, then a #VALUE! error is raised
-        '#VALUE!',
+        [1.825, '#VALUE!'],
         [1, '2', 3.4, true, 5, null, 6.7, 'STRING', ''],
     ],
-    [
-        '#NUM!',
+    'no arguments' => [
+        ['#NUM!', 'exception'],
         [],
     ],
 ];

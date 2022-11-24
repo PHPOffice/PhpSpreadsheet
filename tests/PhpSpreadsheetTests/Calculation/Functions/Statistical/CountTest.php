@@ -6,6 +6,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 use PHPUnit\Framework\TestCase;
 
+// TODO Run in spreadsheet context.
 class CountTest extends TestCase
 {
     /**

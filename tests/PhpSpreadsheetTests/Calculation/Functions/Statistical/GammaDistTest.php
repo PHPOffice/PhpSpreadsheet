@@ -3,10 +3,8 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
-use PHPUnit\Framework\TestCase;
 
-class GammaDistTest extends TestCase
+class GammaDistTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerGAMMADIST
@@ -15,8 +13,7 @@ class GammaDistTest extends TestCase
      */
     public function testGAMMADIST($expectedResult, ...$args): void
     {
-        $result = Statistical\Distributions\Gamma::distribution(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        $this->runTestCases('GAMMA.DIST', $expectedResult, ...$args);
     }
 
     public function providerGAMMADIST(): array

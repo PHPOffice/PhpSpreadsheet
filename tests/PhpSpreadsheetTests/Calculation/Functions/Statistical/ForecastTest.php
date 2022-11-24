@@ -6,6 +6,8 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 use PHPUnit\Framework\TestCase;
 
+// TODO Spreadsheet context.
+// Note that null in reference is treated differently than null in array.
 class ForecastTest extends TestCase
 {
     /**

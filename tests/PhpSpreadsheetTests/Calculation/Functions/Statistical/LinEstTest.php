@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 use PHPUnit\Framework\TestCase;
 
+// TODO run test in spreadsheet context
 class LinEstTest extends TestCase
 {
     /**

@@ -2,10 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
-use PHPUnit\Framework\TestCase;
-
-class AverageTest extends TestCase
+class AverageTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerAVERAGE
@@ -14,8 +11,7 @@ class AverageTest extends TestCase
      */
     public function testAVERAGE($expectedResult, ...$args): void
     {
-        $result = Statistical\Averages::average(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        $this->runTestCases('AVERAGE', $expectedResult, ...$args);
     }
 
     public function providerAVERAGE(): array

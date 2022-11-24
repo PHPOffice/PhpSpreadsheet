@@ -3,10 +3,8 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
-use PHPUnit\Framework\TestCase;
 
-class GammaInvTest extends TestCase
+class GammaInvTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerGAMMAINV
@@ -15,8 +13,7 @@ class GammaInvTest extends TestCase
      */
     public function testGAMMAINV($expectedResult, ...$args): void
     {
-        $result = Statistical\Distributions\Gamma::inverse(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        $this->runTestCases('GAMMA.INV', $expectedResult, ...$args);
     }
 
     public function providerGAMMAINV(): array
