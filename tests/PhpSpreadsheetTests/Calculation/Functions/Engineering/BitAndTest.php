@@ -25,6 +25,7 @@ class BitAndTest extends TestCase
         $sheet->getCell('A1')->setValue("=BITAND($formula)");
         $result = $sheet->getCell('A1')->getCalculatedValue();
         self::assertEquals($expectedResult, $result);
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function providerBITAND(): array
