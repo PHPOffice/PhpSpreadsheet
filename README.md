@@ -16,7 +16,7 @@ allow you to read and write various spreadsheet file formats such as Excel and L
 LTS: Support for PHP versions will only be maintained for a period of six months beyond the
 [end of life of that PHP version](https://www.php.net/eol.php).
 
-Currently the required PHP minimum version is PHP __7.3__.
+Currently the required PHP minimum version is PHP __7.4__.
 
 See the `composer.json` for other requirements.
 
@@ -36,7 +36,7 @@ If you are building your installation on a development machine that is on a diff
     },
     "config": {
         "platform": {
-            "php": "7.3"
+            "php": "7.4"
         }
     }
 }
