@@ -15,10 +15,10 @@ class MovedBitwiseTest extends TestCase
 {
     public function testMovedFunctions(): void
     {
-        self::assertEquals(1, Engineering::BITAND(1, 3));
-        self::assertEquals(3, Engineering::BITOR(1, 3));
-        self::assertEquals(2, Engineering::BITXOR(1, 3));
-        self::assertEquals(32, Engineering::BITLSHIFT(8, 2));
-        self::assertEquals(2, Engineering::BITRSHIFT(8, 2));
+        self::assertEquals(1, /** @scrutinizer ignore-deprecated */ Engineering::BITAND(1, 3));
+        self::assertEquals(3, /** @scrutinizer ignore-deprecated */ Engineering::BITOR(1, 3));
+        self::assertEquals(2, /** @scrutinizer ignore-deprecated */ Engineering::BITXOR(1, 3));
+        self::assertEquals(32, /** @scrutinizer ignore-deprecated */ Engineering::BITLSHIFT(8, 2));
+        self::assertEquals(2, /** @scrutinizer ignore-deprecated */ Engineering::BITRSHIFT(8, 2));
     }
 }

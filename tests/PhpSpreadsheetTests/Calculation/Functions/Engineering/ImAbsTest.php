@@ -3,29 +3,17 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Engineering;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PHPUnit\Framework\TestCase;
 
-class ImAbsTest extends TestCase
+class ImAbsTest extends AllSetupTeardown
 {
-    const COMPLEX_PRECISION = 1E-8;
-
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerIMABS
      *
      * @param mixed $expectedResult
-     * @param mixed $value
      */
-    public function testIMABS($expectedResult, $value): void
+    public function testIMABS($expectedResult, ...$args): void
     {
-        $result = Engineering::IMABS($value);
-        self::assertEqualsWithDelta($expectedResult, $result, self::COMPLEX_PRECISION);
+        $this->runTestCase('IMABS', $expectedResult, ...$args);
     }
 
     public function providerIMABS(): array

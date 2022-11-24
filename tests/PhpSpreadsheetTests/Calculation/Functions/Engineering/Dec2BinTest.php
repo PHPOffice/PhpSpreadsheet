@@ -42,6 +42,7 @@ class Dec2BinTest extends TestCase
         $sheet->getCell('A1')->setValue("=DEC2BIN($formula)");
         $result = $sheet->getCell('A1')->getCalculatedValue();
         self::assertEquals($expectedResult, $result);
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function providerDEC2BIN(): array
@@ -72,6 +73,7 @@ class Dec2BinTest extends TestCase
         $sheet->getCell('A1')->setValue("=DEC2BIN($formula)");
         $result = $sheet->getCell('A1')->getCalculatedValue();
         self::assertEquals($expectedResult, $result);
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testDEC2BINFrac(): void
@@ -90,6 +92,7 @@ class Dec2BinTest extends TestCase
         $cell = 'E1';
         $sheet->setCellValue($cell, '=DEC2BIN(5.1)');
         self::assertEquals(101, $sheet->getCell($cell)->getCalculatedValue(), 'Excel');
+        $spreadsheet->disconnectWorksheets();
     }
 
     /**
