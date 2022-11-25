@@ -87,6 +87,7 @@ class FormattedNumberTest extends TestCase
             'trailing percent with space' => ['0.02', '2 %'],
             'trailing percent with leading and trailing space' => ['0.02', ' 2 % '],
             'leading percent with decimals' => ['0.025', ' % 2.5'],
+            'Percentage with thousands separator' => ['12.345', ' % 1,234.5'],
 
             //These should all fail
             'percent only' => ['%', '%'],
