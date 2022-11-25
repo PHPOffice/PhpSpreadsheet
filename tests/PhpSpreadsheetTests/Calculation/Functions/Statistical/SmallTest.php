@@ -2,10 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
-use PHPUnit\Framework\TestCase;
-
-class SmallTest extends TestCase
+class SmallTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerSMALL
@@ -16,8 +13,7 @@ class SmallTest extends TestCase
      */
     public function testSMALL($expectedResult, $values, $position): void
     {
-        $result = Statistical::SMALL($values, $position);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        $this->runTestCaseReference('SMALL', $expectedResult, $values, $position);
     }
 
     public function providerSMALL(): array

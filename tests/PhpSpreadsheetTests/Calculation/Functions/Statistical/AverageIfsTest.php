@@ -2,17 +2,16 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 use PHPUnit\Framework\TestCase;
 
+// TODO figure out just what Excel is doing.
+// For example, A1=75, A2=94, A3=86:
+// =AVERAGEIFS(A1:A3,A1:A3,">80") gives an answer, but
+// =AVERAGEIFS({75;94;86},{75;94;86},">80") does not.
+
 class AverageIfsTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerAVERAGEIFS
      *

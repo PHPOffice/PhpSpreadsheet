@@ -2,17 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
-use PHPUnit\Framework\TestCase;
-
-class CountATest extends TestCase
+class CountATest extends AllSetupTeardown
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerCOUNTA
      *
@@ -20,8 +11,7 @@ class CountATest extends TestCase
      */
     public function testCOUNTA($expectedResult, ...$args): void
     {
-        $result = Statistical::COUNTA(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        $this->runTestCases('COUNTA', $expectedResult, ...$args);
     }
 
     public function providerCOUNTA(): array

@@ -2,27 +2,16 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
-use PHPUnit\Framework\TestCase;
-
-class VarPATest extends TestCase
+class VarPATest extends AllSetupTeardown
 {
-    protected function tearDown(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerVARPA
      *
      * @param mixed $expectedResult
-     * @param mixed $values
      */
-    public function testVARPA($expectedResult, $values): void
+    public function testVARPA($expectedResult, ...$args): void
     {
-        $result = Statistical::VARPA($values);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        $this->runTestCases('VARPA', $expectedResult, ...$args);
     }
 
     public function providerVARPA(): array
@@ -34,14 +23,11 @@ class VarPATest extends TestCase
      * @dataProvider providerOdsVARPA
      *
      * @param mixed $expectedResult
-     * @param mixed $values
      */
-    public function testOdsVARPA($expectedResult, $values): void
+    public function testOdsVARPA($expectedResult, ...$args): void
     {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
-
-        $result = Statistical::VARPA($values);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        $this->setOpenOffice();
+        $this->runTestCases('VARPA', $expectedResult, ...$args);
     }
 
     public function providerOdsVARPA(): array

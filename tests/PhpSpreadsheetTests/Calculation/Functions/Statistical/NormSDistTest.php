@@ -3,21 +3,17 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
-use PHPUnit\Framework\TestCase;
 
-class NormSDistTest extends TestCase
+class NormSDistTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerNORMSDIST
      *
      * @param mixed $expectedResult
-     * @param mixed $testValue
      */
-    public function testNORMSDIST($expectedResult, $testValue): void
+    public function testNORMSDIST($expectedResult, ...$args): void
     {
-        $result = Statistical::NORMSDIST($testValue);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        $this->runTestCases('NORMSDIST', $expectedResult, ...$args);
     }
 
     public function providerNORMSDIST(): array

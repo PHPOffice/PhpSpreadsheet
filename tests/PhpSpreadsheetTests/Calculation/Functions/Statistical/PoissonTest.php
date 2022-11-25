@@ -3,17 +3,9 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
-use PHPUnit\Framework\TestCase;
 
-class PoissonTest extends TestCase
+class PoissonTest extends AllSetupTeardown
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerPOISSON
      *
@@ -21,8 +13,7 @@ class PoissonTest extends TestCase
      */
     public function testPOISSON($expectedResult, ...$args): void
     {
-        $result = Statistical::POISSON(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        $this->runTestCases('POISSON', $expectedResult, ...$args);
     }
 
     public function providerPOISSON(): array

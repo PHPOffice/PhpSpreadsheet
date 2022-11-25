@@ -2,17 +2,12 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 use PHPUnit\Framework\TestCase;
 
+//TODO Run in spreadsheet content.
 class CountIfTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerCOUNTIF
      *
@@ -20,7 +15,7 @@ class CountIfTest extends TestCase
      */
     public function testCOUNTIF($expectedResult, ...$args): void
     {
-        $result = Statistical::COUNTIF(...$args);
+        $result = Statistical\Conditional::COUNTIF(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

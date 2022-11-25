@@ -2,10 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
-use PHPUnit\Framework\TestCase;
-
-class MaxTest extends TestCase
+class MaxTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerMAX
@@ -14,8 +11,7 @@ class MaxTest extends TestCase
      */
     public function testMAX($expectedResult, ...$args): void
     {
-        $result = Statistical::MAX(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        $this->runTestCases('MAX', $expectedResult, ...$args);
     }
 
     public function providerMAX(): array

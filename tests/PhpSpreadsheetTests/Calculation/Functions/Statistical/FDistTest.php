@@ -3,10 +3,8 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
-use PHPUnit\Framework\TestCase;
 
-class FDistTest extends TestCase
+class FDistTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerFDIST
@@ -15,8 +13,7 @@ class FDistTest extends TestCase
      */
     public function testFDIST($expectedResult, ...$args): void
     {
-        $result = Statistical::FDIST2(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        $this->runTestCases('F.DIST', $expectedResult, ...$args);
     }
 
     public function providerFDIST(): array

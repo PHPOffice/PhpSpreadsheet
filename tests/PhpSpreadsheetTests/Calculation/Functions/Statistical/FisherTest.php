@@ -3,27 +3,17 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
-use PHPUnit\Framework\TestCase;
 
-class FisherTest extends TestCase
+class FisherTest extends AllSetupTeardown
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerFISHER
      *
      * @param mixed $expectedResult
-     * @param mixed $value
      */
-    public function testFISHER($expectedResult, $value): void
+    public function testFISHER($expectedResult, ...$args): void
     {
-        $result = Statistical::FISHER($value);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        $this->runTestCases('FISHER', $expectedResult, ...$args);
     }
 
     public function providerFISHER(): array

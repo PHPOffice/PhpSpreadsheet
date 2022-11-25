@@ -2,27 +2,16 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
-use PHPUnit\Framework\TestCase;
-
-class VarTest extends TestCase
+class VarTest extends AllSetupTeardown
 {
-    protected function tearDown(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerVAR
      *
      * @param mixed $expectedResult
-     * @param mixed $values
      */
-    public function testVAR($expectedResult, $values): void
+    public function testVAR($expectedResult, ...$args): void
     {
-        $result = Statistical::VARFunc($values);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        $this->runTestCases('VAR', $expectedResult, ...$args);
     }
 
     public function providerVAR(): array
@@ -34,14 +23,11 @@ class VarTest extends TestCase
      * @dataProvider providerOdsVAR
      *
      * @param mixed $expectedResult
-     * @param mixed $values
      */
-    public function testOdsVAR($expectedResult, $values): void
+    public function testOdsVAR($expectedResult, ...$args): void
     {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
-
-        $result = Statistical::VARFunc($values);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        $this->setOpenOffice();
+        $this->runTestCases('VAR', $expectedResult, ...$args);
     }
 
     public function providerOdsVAR(): array
