@@ -113,4 +113,28 @@ class AllSetupTeardown extends TestCase
             }
         }
     }
+
+    /**
+     * @param mixed $expectedResult
+     */
+    public function runTestCase(string $functionName, $expectedResult, array $args): void
+    {
+        $this->mightHaveException($expectedResult);
+        $sheet = $this->getSheet();
+        $formula = "=$functionName(";
+        $row = 0;
+        $col = 'A';
+        $comma = '';
+        foreach ($args as $arg) {
+            ++$row;
+            $cell = "$col$row";
+            $this->setCell($cell, $arg);
+            $formula .= "$comma$cell";
+            $comma = ',';
+        }
+        $formula .= ')';
+        $sheet->getCell('B1')->setValue($formula);
+        $result = $sheet->getCell('B1')->getCalculatedValue();
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-7);
+    }
 }

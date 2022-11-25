@@ -57,18 +57,6 @@ parameters:
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Engineering/ErfC.php
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\:\\:ISPMT\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial.php
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\:\\:ISPMT\\(\\) has parameter \\$args with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial.php
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\:\\:NPV\\(\\) has parameter \\$args with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial.php
-		-
 			message: "#^Parameter \\#1 \\$year of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\DateTimeExcel\\\\Helpers\\:\\:isLeapYear\\(\\) expects int\\|string, array\\|int\\|string given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Financial/Amortization.php
@@ -98,10 +86,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic/Interest.php
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Constant\\\\Periodic\\\\Interest\\:\\:rateNextGuess\\(\\) has parameter \\$type with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic/Interest.php
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Constant\\\\Periodic\\\\Interest\\:\\:schedulePayment\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic/Interest.php
 		-
