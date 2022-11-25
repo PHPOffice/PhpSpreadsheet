@@ -93,6 +93,8 @@ class Table
 
     /**
      * Set Table name.
+     *
+     * @throws PhpSpreadsheetException
      */
     public function setName(string $name): self
     {
@@ -102,7 +104,7 @@ class Table
             if (strlen($name) === 1 && in_array($name, ['C', 'c', 'R', 'r'])) {
                 throw new PhpSpreadsheetException('The table name is invalid');
             }
-            if (strlen($name) > 255) {
+            if (StringHelper::countCharacters($name) > 255) {
                 throw new PhpSpreadsheetException('The table name cannot be longer than 255 characters');
             }
             // Check for A1 or R1C1 cell reference notation
@@ -118,11 +120,46 @@ class Table
             if (!preg_match('/^[\p{L}_\\\\][\p{L}\p{M}0-9\._]+$/iu', $name)) {
                 throw new PhpSpreadsheetException('The table name contains invalid characters');
             }
+
+            $this->checkForDuplicateTableNames($name, $this->workSheet);
+            $this->updateStructuredReferences($name);
         }
 
         $this->name = $name;
 
         return $this;
+    }
+
+    /**
+     * @throws PhpSpreadsheetException
+     */
+    private function checkForDuplicateTableNames(string $name, ?Worksheet $worksheet): void
+    {
+        // Remember that table names are case-insensitive
+        $tableName = StringHelper::strToLower($name);
+
+        if ($worksheet !== null && StringHelper::strToLower($this->name) !== $name) {
+            $spreadsheet = $worksheet->getParent();
+
+            foreach ($spreadsheet->getWorksheetIterator() as $sheet) {
+                foreach ($sheet->getTableCollection() as $table) {
+                    if (StringHelper::strToLower($table->getName()) === $tableName && $table != $this) {
+                        throw new PhpSpreadsheetException("Spreadsheet already contains a table named '{$this->name}'");
+                    }
+                }
+            }
+        }
+    }
+
+    private function updateStructuredReferences(string $name): void
+    {
+        // Remember that table names are case-insensitive
+        $name = StringHelper::strToLower($name);
+
+        if ($this->name !== null && StringHelper::strToLower($this->name) !== $name) {
+            // We need to check all formula cells that might contain fully-qualified Structured References
+            //    that refer to this table, and update those formulae to reference the new table name
+        }
     }
 
     /**
@@ -203,7 +240,7 @@ class Table
         $this->range = $range;
         $this->autoFilter->setRange($range);
 
-        //    Discard any column ruless that are no longer valid within this range
+        //    Discard any column rules that are no longer valid within this range
         [$rangeStart, $rangeEnd] = Coordinate::rangeBoundaries($this->range);
         foreach ($this->columns as $key => $value) {
             $colIndex = Coordinate::columnIndexFromString($key);

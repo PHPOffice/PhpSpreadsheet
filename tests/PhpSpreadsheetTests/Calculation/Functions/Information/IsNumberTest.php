@@ -3,14 +3,14 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Information;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
 use PHPUnit\Framework\TestCase;
 
 class IsNumberTest extends TestCase
 {
     public function testIsNumberNoArgument(): void
     {
-        $result = Functions::isNumber();
+        $result = Value::isNumber();
         self::assertFalse($result);
     }
 
@@ -21,7 +21,7 @@ class IsNumberTest extends TestCase
      */
     public function testIsNumber(bool $expectedResult, $value): void
     {
-        $result = Functions::isNumber($value);
+        $result = Value::isNumber($value);
         self::assertEquals($expectedResult, $result);
     }
 

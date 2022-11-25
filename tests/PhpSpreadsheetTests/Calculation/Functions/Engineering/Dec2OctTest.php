@@ -42,6 +42,7 @@ class Dec2OctTest extends TestCase
         $sheet->getCell('A1')->setValue("=DEC2OCT($formula)");
         $result = $sheet->getCell('A1')->getCalculatedValue();
         self::assertEquals($expectedResult, $result);
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function providerDEC2OCT(): array
@@ -72,6 +73,7 @@ class Dec2OctTest extends TestCase
         $sheet->getCell('A1')->setValue("=DEC2OCT($formula)");
         $result = $sheet->getCell('A1')->getCalculatedValue();
         self::assertEquals($expectedResult, $result);
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testDEC2OCTFrac(): void
@@ -90,6 +92,7 @@ class Dec2OctTest extends TestCase
         $cell = 'E1';
         $sheet->setCellValue($cell, '=DEC2OCT(17.1)');
         self::assertEquals(21, $sheet->getCell($cell)->getCalculatedValue(), 'Excel');
+        $spreadsheet->disconnectWorksheets();
     }
 
     /**

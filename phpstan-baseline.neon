@@ -1,66 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\:\\:DMAX\\(\\) should return float but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Database.php
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\:\\:DMIN\\(\\) should return float but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Database.php
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\:\\:DPRODUCT\\(\\) should return float\\|string but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Database.php
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\:\\:DSTDEV\\(\\) should return float\\|string but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Database.php
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\:\\:DSTDEVP\\(\\) should return float\\|string but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Database.php
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\:\\:DSUM\\(\\) should return float\\|string but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Database.php
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\:\\:DVAR\\(\\) should return float\\|string but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Database.php
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\:\\:DVARP\\(\\) should return float\\|string but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Database.php
-		-
-			message: "#^Parameter \\#2 \\$field of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\\\DCountA\\:\\:evaluate\\(\\) expects int\\|string, int\\|string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Database.php
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\\\DatabaseAbstract\\:\\:buildCondition\\(\\) has parameter \\$criterion with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Database/DatabaseAbstract.php
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\\\DatabaseAbstract\\:\\:evaluate\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Database/DatabaseAbstract.php
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\\\DatabaseAbstract\\:\\:evaluate\\(\\) has parameter \\$criteria with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Database/DatabaseAbstract.php
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\\\DatabaseAbstract\\:\\:evaluate\\(\\) has parameter \\$database with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Database/DatabaseAbstract.php
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\\\DatabaseAbstract\\:\\:evaluate\\(\\) has parameter \\$field with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Database/DatabaseAbstract.php
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Database\\\\DatabaseAbstract\\:\\:processCondition\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Database/DatabaseAbstract.php
-		-
 			message: "#^Variable \\$dateValue on left side of \\?\\? always exists and is not nullable\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/DateValue.php
@@ -930,7 +870,7 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xls.php
 		-
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 8
+			count: 7
 			path: src/PhpSpreadsheet/Reader/Xls.php
 
 		-
@@ -974,10 +914,6 @@ parameters:
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\RichText\\\\Run\\:\\:\\$font \\(PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\) does not accept PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/RichText/Run.php
-		-
-			message: "#^Cannot access offset 1 on array\\|false\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/Drawing.php
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DgContainer\\:\\:getDgId\\(\\) has no return type specified\\.$#"
 			count: 1
@@ -1422,26 +1358,6 @@ parameters:
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Trend\\\\Trend\\:\\:calculate\\(\\) has parameter \\$yValues with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Trend/Trend.php
-		-
-			message: "#^Call to function is_array\\(\\) with string will always evaluate to false\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Spreadsheet.php
-		-
-			message: "#^Parameter \\#1 \\$worksheet of method PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\:\\:getIndex\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet, PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Spreadsheet.php
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\:\\:\\$workbookViewVisibilityValues has no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Spreadsheet.php
-		-
-			message: "#^Strict comparison using \\=\\=\\= between PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet and null will always evaluate to false\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Spreadsheet.php
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Spreadsheet.php
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\ConditionalFormatting\\\\ConditionalDataBar\\:\\:setConditionalFormattingRuleExt\\(\\) has no return type specified\\.$#"
 			count: 1

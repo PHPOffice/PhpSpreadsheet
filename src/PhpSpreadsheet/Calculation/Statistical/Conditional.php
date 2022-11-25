@@ -74,7 +74,7 @@ class Conditional
      * @param mixed[] $range Data values
      * @param string $condition the criteria that defines which cells will be counted
      *
-     * @return int
+     * @return int|string
      */
     public static function COUNTIF($range, $condition)
     {
@@ -89,7 +89,7 @@ class Conditional
         $range = array_merge([[self::CONDITION_COLUMN_NAME]], array_chunk($range, 1));
         $condition = array_merge([[self::CONDITION_COLUMN_NAME]], [[$condition]]);
 
-        return DCount::evaluate($range, null, $condition);
+        return DCount::evaluate($range, null, $condition, false);
     }
 
     /**
@@ -102,7 +102,7 @@ class Conditional
      *
      * @param mixed $args Pairs of Ranges and Criteria
      *
-     * @return int
+     * @return int|string
      */
     public static function COUNTIFS(...$args)
     {
@@ -115,7 +115,7 @@ class Conditional
         $database = self::buildDatabase(...$args);
         $conditions = self::buildConditionSet(...$args);
 
-        return DCount::evaluate($database, null, $conditions);
+        return DCount::evaluate($database, null, $conditions, false);
     }
 
     /**
@@ -139,7 +139,7 @@ class Conditional
         $conditions = self::buildConditionSetForValueRange(...$args);
         $database = self::buildDatabaseWithValueRange(...$args);
 
-        return DMax::evaluate($database, self::VALUE_COLUMN_NAME, $conditions);
+        return DMax::evaluate($database, self::VALUE_COLUMN_NAME, $conditions, false);
     }
 
     /**
@@ -163,7 +163,7 @@ class Conditional
         $conditions = self::buildConditionSetForValueRange(...$args);
         $database = self::buildDatabaseWithValueRange(...$args);
 
-        return DMin::evaluate($database, self::VALUE_COLUMN_NAME, $conditions);
+        return DMin::evaluate($database, self::VALUE_COLUMN_NAME, $conditions, false);
     }
 
     /**
@@ -218,7 +218,8 @@ class Conditional
     {
         $conditions = self::buildConditions(1, ...$args);
 
-        return array_map(null, ...$conditions);
+        // Scrutinizer thinks first parameter of array_map can't be null. It is wrong.
+        return array_map(/** @scrutinizer ignore-type */ null, ...$conditions);
     }
 
     private static function buildConditionSetForValueRange(...$args): array
@@ -234,7 +235,7 @@ class Conditional
             );
         }
 
-        return array_map(null, ...$conditions);
+        return array_map(/** @scrutinizer ignore-type */ null, ...$conditions);
     }
 
     private static function buildConditions(int $startOffset, ...$args): array
@@ -281,7 +282,7 @@ class Conditional
             ++$pairCount;
         }
 
-        return array_map(null, ...$database);
+        return array_map(/** @scrutinizer ignore-type */ null, ...$database);
     }
 
     private static function databaseFromRangeAndValue(array $range, array $valueRange = []): array
@@ -293,11 +294,7 @@ class Conditional
             $valueRange = $range;
         }
 
-        $database = array_map(
-            null,
-            array_merge([self::CONDITION_COLUMN_NAME], $range),
-            array_merge([self::VALUE_COLUMN_NAME], $valueRange)
-        );
+        $database = array_map(/** @scrutinizer ignore-type */ null, array_merge([self::CONDITION_COLUMN_NAME], $range), array_merge([self::VALUE_COLUMN_NAME], $valueRange));
 
         return $database;
     }

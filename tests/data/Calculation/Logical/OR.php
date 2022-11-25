@@ -1,9 +1,8 @@
 <?php
 
 return [
-    // No arguments
-    [
-        '#VALUE!',
+    'no arguments' => [
+        'exception',
     ],
     // NULL
     [

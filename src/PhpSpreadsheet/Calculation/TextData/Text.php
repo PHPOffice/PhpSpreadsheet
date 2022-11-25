@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\TextData;
 use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ErrorValue;
 
 class Text
 {
@@ -58,12 +59,12 @@ class Text
     }
 
     /**
-     * RETURNSTRING.
+     * T.
      *
      * @param mixed $testValue Value to check
      *                         Or can be an array of values
      *
-     * @return null|array|string
+     * @return array|string
      *         If an array of values is passed for the argument, then the returned result
      *            will also be an array with matching dimensions
      */
@@ -77,7 +78,7 @@ class Text
             return $testValue;
         }
 
-        return null;
+        return '';
     }
 
     /**
@@ -243,7 +244,7 @@ class Text
      */
     private static function formatValueMode1($cellValue): string
     {
-        if (is_string($cellValue) && Functions::isError($cellValue) === false) {
+        if (is_string($cellValue) && ErrorValue::isError($cellValue) === false) {
             return Calculation::FORMULA_STRING_QUOTE . $cellValue . Calculation::FORMULA_STRING_QUOTE;
         } elseif (is_bool($cellValue)) {
             return Calculation::getLocaleBoolean($cellValue ? 'TRUE' : 'FALSE');
