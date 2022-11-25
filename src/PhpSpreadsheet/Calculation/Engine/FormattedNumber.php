@@ -9,7 +9,6 @@ class FormattedNumber
 {
     /**    Constants                */
     /**    Regular Expressions        */
-    //    Fraction
     private const STRING_REGEXP_FRACTION = '~^\s*(-?)((\d*)\s+)?(\d+\/\d+)\s*$~';
 
     private const STRING_REGEXP_PERCENT = '~^(?:(?: *(?<PrefixedSign>[-+])? *\% *(?<PrefixedSign2>[-+])? *(?<PrefixedValue>[0-9]+\.?[0-9*]*(?:E[-+]?[0-9]*)?) *)|(?: *(?<PostfixedSign>[-+])? *(?<PostfixedValue>[0-9]+\.?[0-9]*(?:E[-+]?[0-9]*)?) *\% *))$~i';
@@ -46,8 +45,10 @@ class FormattedNumber
      */
     public static function convertToNumberIfNumeric(string &$operand): bool
     {
-        if (is_numeric($operand)) {
-            $operand = (float) $operand;
+        $value = preg_replace(['/(\d),(\d)/u', '/([+-])\s+(\d)/u'], ['$1$2', '$1$2'], trim($operand));
+
+        if (is_numeric($value)) {
+            $operand = (float) $value;
 
             return true;
         }
