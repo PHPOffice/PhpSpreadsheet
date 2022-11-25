@@ -3,23 +3,19 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Engineering;
-use PHPUnit\Framework\TestCase;
 
-class ErfCTest extends TestCase
+class ErfCTest extends AllSetupTeardown
 {
     const ERF_PRECISION = 1E-12;
 
     /**
      * @dataProvider providerERFC
      *
-     * @param mixed $lower
      * @param mixed $expectedResult
      */
-    public function testERFC($expectedResult, $lower): void
+    public function testERFC($expectedResult, ...$args): void
     {
-        $result = Engineering::ERFC($lower);
-        self::assertEqualsWithDelta($expectedResult, $result, self::ERF_PRECISION);
+        $this->runTestCase('ERFC', $expectedResult, ...$args);
     }
 
     public function providerERFC(): array

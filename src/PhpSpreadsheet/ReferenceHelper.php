@@ -1175,7 +1175,7 @@ class ReferenceHelper
             if ($worksheet->cellExists($coordinate)) {
                 $xfIndex = $worksheet->getCell($coordinate)->getXfIndex();
                 for ($j = $beforeColumn; $j <= $beforeColumn - 1 + $numberOfColumns; ++$j) {
-                    $worksheet->getCellByColumnAndRow($j, $i)->setXfIndex($xfIndex);
+                    $worksheet->getCell([$j, $i])->setXfIndex($xfIndex);
                 }
             }
         }

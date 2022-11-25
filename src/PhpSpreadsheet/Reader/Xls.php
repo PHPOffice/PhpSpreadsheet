@@ -3187,7 +3187,7 @@ class Xls extends BaseReader
                 $cl = self::getUInt2d($recordData, 2 + 6 * $i + 4);
 
                 // not sure why two column indexes are necessary?
-                $this->phpSheet->setBreakByColumnAndRow($cf + 1, $r, Worksheet::BREAK_ROW);
+                $this->phpSheet->setBreak([$cf + 1, $r], Worksheet::BREAK_ROW);
             }
         }
     }
@@ -3214,7 +3214,7 @@ class Xls extends BaseReader
                 $rl = self::getUInt2d($recordData, 2 + 6 * $i + 4);
 
                 // not sure why two row indexes are necessary?
-                $this->phpSheet->setBreakByColumnAndRow($c + 1, $rf, Worksheet::BREAK_COLUMN);
+                $this->phpSheet->setBreak([$c + 1, $rf], Worksheet::BREAK_COLUMN);
             }
         }
     }
@@ -4947,8 +4947,6 @@ class Xls extends BaseReader
                 case 0x28:
                     // TODO: Investigate structure for .xls SHEETLAYOUT record as saved by MS Office Excel 2007
                     return;
-
-                    break;
             }
         }
     }
@@ -8088,7 +8086,6 @@ class Xls extends BaseReader
             $conditionalStyles = $this->phpSheet->getStyle($cellRange)->getConditionalStyles();
             $conditionalStyles[] = $conditional;
 
-            $this->phpSheet->getStyle($cellRange)->setConditionalStyles($conditionalStyles);
             $this->phpSheet->getStyle($cellRange)->setConditionalStyles($conditionalStyles);
         }
     }

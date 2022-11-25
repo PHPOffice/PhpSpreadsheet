@@ -278,7 +278,7 @@ class Styles extends BaseParserClass
      */
     public function readStyle(Style $docStyle, $style): void
     {
-        if ($style->numFmt instanceof SimpleXMLElement) {
+        if ($style instanceof SimpleXMLElement) {
             $this->readNumberFormat($docStyle->getNumberFormat(), $style->numFmt);
         } else {
             $docStyle->getNumberFormat()->setFormatCode(self::formatGeneral((string) $style->numFmt));

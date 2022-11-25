@@ -2,8 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Web;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Web;
 use PhpOffice\PhpSpreadsheet\Settings;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
@@ -13,8 +13,15 @@ use Psr\Http\Message\StreamInterface;
 
 class WebServiceTest extends TestCase
 {
+    /** @var ?Spreadsheet */
+    private $spreadsheet;
+
     protected function tearDown(): void
     {
+        if ($this->spreadsheet !== null) {
+            $this->spreadsheet->disconnectWorksheets();
+            $this->spreadsheet = null;
+        }
         Settings::unsetHttpClient();
     }
 
@@ -42,7 +49,10 @@ class WebServiceTest extends TestCase
             Settings::setHttpClient($client, $requestFactory);
         }
 
-        $result = Web::WEBSERVICE($url);
+        $this->spreadsheet = new Spreadsheet();
+        $sheet = $this->spreadsheet->getActiveSheet();
+        $sheet->getCell('A1')->setValue("=WEBSERVICE(\"$url\")");
+        $result = $sheet->getCell('A1')->getCalculatedValue();
         self::assertEquals($expectedResult, $result);
     }
 
@@ -65,13 +75,22 @@ class WebServiceTest extends TestCase
 
         Settings::setHttpClient($client, $requestFactory);
 
-        $result = Web::WEBSERVICE('https://example.com');
+        $url = 'https://example.com';
+        $this->spreadsheet = new Spreadsheet();
+        $sheet = $this->spreadsheet->getActiveSheet();
+        $sheet->getCell('A1')->setValue("=WEBSERVICE(\"$url\")");
+        $result = $sheet->getCell('A1')->getCalculatedValue();
         self::assertEquals('#VALUE!', $result);
     }
 
     public function testWEBSERVICEThrowsIfNotClientConfigured(): void
     {
         $this->expectExceptionMessage('HTTP client must be configured via Settings::setHttpClient() to be able to use WEBSERVICE function.');
-        Web::WEBSERVICE('https://example.com');
+        $url = 'https://example.com';
+        $this->spreadsheet = new Spreadsheet();
+        $sheet = $this->spreadsheet->getActiveSheet();
+        $sheet->getCell('A1')->setValue("=WEBSERVICE(\"$url\")");
+        $result = $sheet->getCell('A1')->getCalculatedValue();
+        self::assertEquals('#VALUE!', $result);
     }
 }

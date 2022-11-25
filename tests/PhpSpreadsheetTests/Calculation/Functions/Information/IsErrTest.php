@@ -3,14 +3,14 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Information;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ErrorValue;
 use PHPUnit\Framework\TestCase;
 
 class IsErrTest extends TestCase
 {
     public function testIsErrNoArgument(): void
     {
-        $result = Functions::isErr();
+        $result = ErrorValue::isErr();
         self::assertFalse($result);
     }
 
@@ -21,7 +21,7 @@ class IsErrTest extends TestCase
      */
     public function testIsErr(bool $expectedResult, $value): void
     {
-        $result = Functions::isErr($value);
+        $result = ErrorValue::isErr($value);
         self::assertEquals($expectedResult, $result);
     }
 

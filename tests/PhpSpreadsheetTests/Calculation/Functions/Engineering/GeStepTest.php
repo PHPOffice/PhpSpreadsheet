@@ -3,28 +3,17 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Engineering;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PHPUnit\Framework\TestCase;
 
-class GeStepTest extends TestCase
+class GeStepTest extends AllSetupTeardown
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerGESTEP
      *
-     * @param mixed $a
-     * @param mixed $b
      * @param mixed $expectedResult
      */
-    public function testGESTEP($expectedResult, $a, $b): void
+    public function testGESTEP($expectedResult, ...$args): void
     {
-        $result = Engineering::GESTEP($a, $b);
-        self::assertEquals($expectedResult, $result);
+        $this->runTestCase('GESTEP', $expectedResult, ...$args);
     }
 
     public function providerGESTEP(): array
