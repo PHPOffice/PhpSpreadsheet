@@ -2,26 +2,37 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Financial;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PHPUnit\Framework\TestCase;
-
-class FvScheduleTest extends TestCase
+class FvScheduleTest extends AllSetupTeardown
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerFVSCHEDULE
      *
      * @param mixed $expectedResult
+     * @param mixed $principal
      */
-    public function testFVSCHEDULE($expectedResult, ...$args): void
+    public function testFVSCHEDULE($expectedResult, $principal = null, ?array $schedule = null): void
     {
-        $result = Financial::FVSCHEDULE(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        $this->mightHaveException($expectedResult);
+        $sheet = $this->getSheet();
+        $formula = '=FVSCHEDULE(';
+        if ($principal !== null) {
+            $this->setCell('A1', $principal);
+            $formula .= 'A1';
+            if (!empty($schedule)) {
+                $row = 0;
+                foreach ($schedule as $value) {
+                    ++$row;
+                    $this->setCell("B$row", $value);
+                }
+                $formula .= ",B1:B$row";
+            }
+        }
+        $formula .= ')';
+        $sheet->getCell('D1')->setValue($formula);
+        $result = $sheet->getCell('D1')->getCalculatedValue();
+        $this->adjustResult($result, $expectedResult);
+
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0E-8);
     }
 
     public function providerFVSCHEDULE(): array

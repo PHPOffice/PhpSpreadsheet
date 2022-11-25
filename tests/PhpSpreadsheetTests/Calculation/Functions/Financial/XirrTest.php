@@ -8,12 +8,11 @@ class XirrTest extends AllSetupTeardown
      * @dataProvider providerXIRR
      *
      * @param mixed $expectedResult
-     * @param string $message
      * @param mixed $values
      * @param mixed $dates
      * @param mixed $guess
      */
-    public function testXIRR($expectedResult, $message, $values = null, $dates = null, $guess = null): void
+    public function testXIRR($expectedResult, $values = null, $dates = null, $guess = null): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -55,7 +54,7 @@ class XirrTest extends AllSetupTeardown
         $result = $sheet->getCell('D1')->getCalculatedValue();
         $this->adjustResult($result, $expectedResult);
 
-        self::assertEqualsWithDelta($expectedResult, $result, 0.1E-7, $message);
+        self::assertEqualsWithDelta($expectedResult, $result, 0.1E-7);
     }
 
     public function providerXIRR(): array

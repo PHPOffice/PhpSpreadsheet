@@ -78,7 +78,7 @@ class Style extends Supervisor
      * @see Style::applyFromArray()
      * @see Style::getHashCode()
      *
-     * @var ?array<string, array>
+     * @var null|array<string, array>
      */
     private static $cachedStyles;
 

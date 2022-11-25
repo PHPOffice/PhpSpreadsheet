@@ -4947,8 +4947,6 @@ class Xls extends BaseReader
                 case 0x28:
                     // TODO: Investigate structure for .xls SHEETLAYOUT record as saved by MS Office Excel 2007
                     return;
-
-                    break;
             }
         }
     }
@@ -8088,7 +8086,6 @@ class Xls extends BaseReader
             $conditionalStyles = $this->phpSheet->getStyle($cellRange)->getConditionalStyles();
             $conditionalStyles[] = $conditional;
 
-            $this->phpSheet->getStyle($cellRange)->setConditionalStyles($conditionalStyles);
             $this->phpSheet->getStyle($cellRange)->setConditionalStyles($conditionalStyles);
         }
     }

@@ -3,24 +3,19 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Engineering;
-use PHPUnit\Framework\TestCase;
 
-class ErfTest extends TestCase
+class ErfTest extends AllSetupTeardown
 {
     const ERF_PRECISION = 1E-12;
 
     /**
      * @dataProvider providerERF
      *
-     * @param mixed $lower
-     * @param null|mixed $upper
      * @param mixed $expectedResult
      */
-    public function testERF($expectedResult, $lower, $upper = null): void
+    public function testERF($expectedResult, ...$args): void
     {
-        $result = Engineering::ERF($lower, $upper);
-        self::assertEqualsWithDelta($expectedResult, $result, self::ERF_PRECISION);
+        $this->runTestCase('ERF', $expectedResult, ...$args);
     }
 
     public function providerERF(): array

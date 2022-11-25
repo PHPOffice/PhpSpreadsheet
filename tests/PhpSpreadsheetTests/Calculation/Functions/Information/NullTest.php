@@ -2,14 +2,14 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Information;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PHPUnit\Framework\TestCase;
 
 class NullTest extends TestCase
 {
     public function testNULL(): void
     {
-        $result = Functions::null();
+        $result = ExcelError::null();
         self::assertEquals('#NULL!', $result);
     }
 }

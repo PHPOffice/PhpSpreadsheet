@@ -74,28 +74,39 @@ return [
         5.5,
         5,
     ],
-    [
-        '#VALUE!',
+    'first argument must be array' => [
+        '#DIV/0!',
         999,
         1.23,
         2.34,
     ],
-    [
-        '#VALUE!',
+    'all values are positive' => [
+        '#DIV/0!',
         [0.12, 0.13, 0.125],
         1.23,
         2.34,
     ],
-    [
-        '#VALUE!',
+    'all values are negative' => [
+        '#DIV/0!',
         [-0.12, -0.13, -0.125],
         1.23,
         2.34,
     ],
-    [
-        '#VALUE!',
+    'result is NaN' => [
+        '#NUM!',
         [-0.12, 0.13, 0.125],
         1.23,
         -2.34,
+    ],
+    'valid result even when reinvest rate < -1' => [
+        -0.205225399,
+        [-0.12, 0.13, 0.25],
+        1.23,
+        -2.34,
+    ],
+    'exception for 2 arguments or fewer' => [
+        'exception',
+        [-0.12, 0.13, 0.25],
+        1.23,
     ],
 ];
