@@ -83,8 +83,10 @@ class FormattedNumber
      */
     public static function convertToNumberIfPercent(string &$operand): bool
     {
+        $value = preg_replace('/(\d),(\d)/u', '$1$2', $operand);
+
         $match = [];
-        if (preg_match(self::STRING_REGEXP_PERCENT, $operand, $match, PREG_UNMATCHED_AS_NULL)) {
+        if ($value !== null && preg_match(self::STRING_REGEXP_PERCENT, $value, $match, PREG_UNMATCHED_AS_NULL)) {
             //Calculate the percentage
             $sign = ($match['PrefixedSign'] ?? $match['PrefixedSign2'] ?? $match['PostfixedSign']) ?? '';
             $operand = (float) ($sign . ($match['PostfixedValue'] ?? $match['PrefixedValue'])) / 100;
