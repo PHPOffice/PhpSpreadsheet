@@ -76,7 +76,7 @@ class Table extends WriterPart
             }
 
             $column = $table->getColumnByOffset($offset);
-            $cell = $worksheet->getCellByColumnAndRow($columnIndex, $rangeStart[1]);
+            $cell = $worksheet->getCell([$columnIndex, $rangeStart[1]]);
 
             $objWriter->startElement('tableColumn');
             $objWriter->writeAttribute('id', (string) ($offset + 1));

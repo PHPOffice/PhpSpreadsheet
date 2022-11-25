@@ -641,10 +641,6 @@ parameters:
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Ods.php
 		-
-			message: "#^Cannot call method setSelectedCellByColumnAndRow\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Ods.php
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Ods\\:\\:listWorksheetNames\\(\\) should return array\\<string\\> but returns array\\<int, string\\|null\\>\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Ods.php

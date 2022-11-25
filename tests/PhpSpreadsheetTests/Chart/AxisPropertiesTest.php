@@ -221,9 +221,9 @@ class AxisPropertiesTest extends AbstractFunctional
         self::assertSame('5', $xAxis3->getAxisOptionsProperty('horizontal_crosses_value'));
 
         $yAxis3->setLineColorProperties('0000FF', null, 'srgbClr');
-        self::assertSame('0000FF', $yAxis3->getLineProperty('value'));
-        self::assertNull($yAxis3->getLineProperty('alpha'));
-        self::assertSame('srgbClr', $yAxis3->getLineProperty('type'));
+        self::assertSame('0000FF', $yAxis3->getLineColorProperty('value'));
+        self::assertNull($yAxis3->getLineColorProperty('alpha'));
+        self::assertSame('srgbClr', $yAxis3->getLineColorProperty('type'));
         $yAxis3->setAxisNumberProperties(Properties::FORMAT_CODE_GENERAL);
         self::assertFalse($yAxis3->getAxisIsNumericFormat());
         $yAxis3->setAxisNumberProperties(Properties::FORMAT_CODE_NUMBER);

@@ -1106,7 +1106,7 @@ class Xlsx extends BaseReader
 
                                             if (($column !== null) && ($row !== null)) {
                                                 // Set comment properties
-                                                $comment = $docSheet->getCommentByColumnAndRow($column + 1, $row + 1);
+                                                $comment = $docSheet->getComment([$column + 1, $row + 1]);
                                                 $comment->getFillColor()->setRGB($fillColor);
                                                 if (isset($drowingImages[$fillImageRelId])) {
                                                     $objDrawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();

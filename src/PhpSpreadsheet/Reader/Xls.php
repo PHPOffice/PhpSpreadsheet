@@ -3187,7 +3187,7 @@ class Xls extends BaseReader
                 $cl = self::getUInt2d($recordData, 2 + 6 * $i + 4);
 
                 // not sure why two column indexes are necessary?
-                $this->phpSheet->setBreakByColumnAndRow($cf + 1, $r, Worksheet::BREAK_ROW);
+                $this->phpSheet->setBreak([$cf + 1, $r], Worksheet::BREAK_ROW);
             }
         }
     }
@@ -3214,7 +3214,7 @@ class Xls extends BaseReader
                 $rl = self::getUInt2d($recordData, 2 + 6 * $i + 4);
 
                 // not sure why two row indexes are necessary?
-                $this->phpSheet->setBreakByColumnAndRow($c + 1, $rf, Worksheet::BREAK_COLUMN);
+                $this->phpSheet->setBreak([$c + 1, $rf], Worksheet::BREAK_COLUMN);
             }
         }
     }

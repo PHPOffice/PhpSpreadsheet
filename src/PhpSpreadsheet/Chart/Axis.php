@@ -244,10 +244,9 @@ class Axis extends Properties
     /**
      * Get Line Color Property.
      *
-     * @Deprecated 1.24.0
-     *
-     * @See Properties::getLineColorProperty()
+     * @deprecated 1.24.0
      *      Use the getLineColor property in the Properties class instead
+     * @see Properties::getLineColorProperty()
      *
      * @param string $propertyName
      *

@@ -379,7 +379,8 @@ class Chart
     /**
      * Get Major Gridlines.
      *
-     * @Deprecated 1.24.0 Use Axis->getMajorGridlines
+     * @deprecated 1.24.0 Use Axis->getMajorGridlines()
+     * @see Axis::getMajorGridlines()
      *
      * @codeCoverageIgnore
      */
@@ -391,7 +392,8 @@ class Chart
     /**
      * Get Minor Gridlines.
      *
-     * @Deprecated 1.24.0 Use Axis->getMinorGridlines
+     * @deprecated 1.24.0 Use Axis->getMinorGridlines()
+     * @see Axis::getMinorGridlines()
      *
      * @codeCoverageIgnore
      */

@@ -1155,9 +1155,10 @@ class Worksheet implements IComparable
     /**
      * Set a cell value by using numeric cell coordinates.
      *
-     * @Deprecated 1.23.0
+     * @deprecated 1.23.0
      *      Use the setCellValue() method with a cell address such as 'C5' instead;,
      *          or passing in an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress object.
+     * @see Worksheet::setCellValue()
      *
      * @param int $columnIndex Numeric column coordinate of the cell
      * @param int $row Numeric row coordinate of the cell
@@ -1185,6 +1186,8 @@ class Worksheet implements IComparable
      *       If you do mismatch value and datatpe, then the value you enter may be changed to match the datatype
      *          that you specify.
      *
+     * @see DataType
+     *
      * @return $this
      */
     public function setCellValueExplicit($coordinate, $value, $dataType)
@@ -1198,9 +1201,10 @@ class Worksheet implements IComparable
     /**
      * Set a cell value by using numeric cell coordinates.
      *
-     * @Deprecated 1.23.0
+     * @deprecated 1.23.0
      *      Use the setCellValueExplicit() method with a cell address such as 'C5' instead;,
      *          or passing in an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress object.
+     * @see Worksheet::setCellValueExplicit()
      *
      * @param int $columnIndex Numeric column coordinate of the cell
      * @param int $row Numeric row coordinate of the cell
@@ -1211,6 +1215,8 @@ class Worksheet implements IComparable
      *             the datatype match.
      *       If you do mismatch value and datatpe, then the value you enter may be changed to match the datatype
      *          that you specify.
+     *
+     * @see DataType
      *
      * @return $this
      */
@@ -1321,9 +1327,10 @@ class Worksheet implements IComparable
     /**
      * Get cell at a specific coordinate by using numeric cell coordinates.
      *
-     * @Deprecated 1.23.0
+     * @deprecated 1.23.0
      *      Use the getCell() method with a cell address such as 'C5' instead;,
      *          or passing in an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress object.
+     * @see Worksheet::getCell()
      *
      * @param int $columnIndex Numeric column coordinate of the cell
      * @param int $row Numeric row coordinate of the cell
@@ -1396,9 +1403,10 @@ class Worksheet implements IComparable
     /**
      * Cell at a specific coordinate by using numeric cell coordinates exists?
      *
-     * @Deprecated 1.23.0
+     * @deprecated 1.23.0
      *      Use the cellExists() method with a cell address such as 'C5' instead;,
      *          or passing in an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress object.
+     * @see Worksheet::cellExists()
      *
      * @param int $columnIndex Numeric column coordinate of the cell
      * @param int $row Numeric row coordinate of the cell
@@ -1497,10 +1505,11 @@ class Worksheet implements IComparable
     /**
      * Get style for cell by using numeric cell coordinates.
      *
-     * @Deprecated 1.23.0
+     * @deprecated 1.23.0
      *      Use the getStyle() method with a cell address range such as 'C5:F8' instead;,
      *          or passing in an array of [$fromColumnIndex, $fromRow, $toColumnIndex, $toRow] (e.g. [3, 5, 6, 8]),
      *          or an AddressRange object.
+     * @see Worksheet::getStyle()
      *
      * @param int $columnIndex1 Numeric column coordinate of the cell
      * @param int $row1 Numeric row coordinate of the cell
@@ -1737,9 +1746,10 @@ class Worksheet implements IComparable
     /**
      * Set break on a cell by using numeric cell coordinates.
      *
-     * @Deprecated 1.23.0
+     * @deprecated 1.23.0
      *      Use the setBreak() method with a cell address such as 'C5' instead;,
      *          or passing in an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress object.
+     * @see Worksheet::setBreak()
      *
      * @param int $columnIndex Numeric column coordinate of the cell
      * @param int $row Numeric row coordinate of the cell
@@ -1890,10 +1900,11 @@ class Worksheet implements IComparable
     /**
      * Set merge on a cell range by using numeric cell coordinates.
      *
-     * @Deprecated 1.23.0
+     * @deprecated 1.23.0
      *      Use the mergeCells() method with a cell address range such as 'C5:F8' instead;,
      *          or passing in an array of [$fromColumnIndex, $fromRow, $toColumnIndex, $toRow] (e.g. [3, 5, 6, 8]),
      *          or an AddressRange object.
+     * @see Worksheet::mergeCells()
      *
      * @param int $columnIndex1 Numeric column coordinate of the first cell
      * @param int $row1 Numeric row coordinate of the first cell
@@ -1946,10 +1957,11 @@ class Worksheet implements IComparable
     /**
      * Remove merge on a cell range by using numeric cell coordinates.
      *
-     * @Deprecated 1.23.0
+     * @deprecated 1.23.0
      *      Use the unmergeCells() method with a cell address range such as 'C5:F8' instead;,
      *          or passing in an array of [$fromColumnIndex, $fromRow, $toColumnIndex, $toRow] (e.g. [3, 5, 6, 8]),
      *          or an AddressRange object.
+     * @see Worksheet::unmergeCells()
      *
      * @param int $columnIndex1 Numeric column coordinate of the first cell
      * @param int $row1 Numeric row coordinate of the first cell
@@ -2019,10 +2031,11 @@ class Worksheet implements IComparable
     /**
      * Set protection on a cell range by using numeric cell coordinates.
      *
-     * @Deprecated 1.23.0
+     * @deprecated 1.23.0
      *      Use the protectCells() method with a cell address range such as 'C5:F8' instead;,
      *          or passing in an array of [$fromColumnIndex, $fromRow, $toColumnIndex, $toRow] (e.g. [3, 5, 6, 8]),
      *          or an AddressRange object.
+     * @see Worksheet::protectCells()
      *
      * @param int $columnIndex1 Numeric column coordinate of the first cell
      * @param int $row1 Numeric row coordinate of the first cell
@@ -2068,10 +2081,11 @@ class Worksheet implements IComparable
     /**
      * Remove protection on a cell range by using numeric cell coordinates.
      *
-     * @Deprecated 1.23.0
-     *      Use the protectCells() method with a cell address range such as 'C5:F8' instead;,
+     * @deprecated 1.23.0
+     *      Use the unprotectCells() method with a cell address range such as 'C5:F8' instead;,
      *          or passing in an array of [$fromColumnIndex, $fromRow, $toColumnIndex, $toRow] (e.g. [3, 5, 6, 8]),
      *          or an AddressRange object.
+     * @see Worksheet::unprotectCells()
      *
      * @param int $columnIndex1 Numeric column coordinate of the first cell
      * @param int $row1 Numeric row coordinate of the first cell
@@ -2136,10 +2150,11 @@ class Worksheet implements IComparable
     /**
      * Set Autofilter Range by using numeric cell coordinates.
      *
-     * @Deprecated 1.23.0
+     * @deprecated 1.23.0
      *      Use the setAutoFilter() method with a cell address range such as 'C5:F8' instead;,
      *          or passing in an array of [$fromColumnIndex, $fromRow, $toColumnIndex, $toRow] (e.g. [3, 5, 6, 8]),
      *          or an AddressRange object or AutoFilter object.
+     * @see Worksheet::setAutoFilter()
      *
      * @param int $columnIndex1 Numeric column coordinate of the first cell
      * @param int $row1 Numeric row coordinate of the first cell
@@ -2281,9 +2296,10 @@ class Worksheet implements IComparable
     /**
      * Freeze Pane by using numeric cell coordinates.
      *
-     * @Deprecated 1.23.0
+     * @deprecated 1.23.0
      *      Use the freezePane() method with a cell address such as 'C5' instead;,
      *          or passing in an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress object.
+     * @see Worksheet::freezePane()
      *
      * @param int $columnIndex Numeric column coordinate of the cell
      * @param int $row Numeric row coordinate of the cell
@@ -2701,9 +2717,10 @@ class Worksheet implements IComparable
     /**
      * Get comment for cell by using numeric cell coordinates.
      *
-     * @Deprecated 1.23.0
+     * @deprecated 1.23.0
      *      Use the getComment() method with a cell address such as 'C5' instead;,
      *          or passing in an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress object.
+     * @see Worksheet::getComment()
      *
      * @param int $columnIndex Numeric column coordinate of the cell
      * @param int $row Numeric row coordinate of the cell
@@ -2775,9 +2792,10 @@ class Worksheet implements IComparable
     /**
      * Selected cell by using numeric cell coordinates.
      *
-     * @Deprecated 1.23.0
+     * @deprecated 1.23.0
      *      Use the setSelectedCells() method with a cell address such as 'C5' instead;,
      *          or passing in an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress object.
+     * @see Worksheet::setSelectedCells()
      *
      * @param int $columnIndex Numeric column coordinate of the cell
      * @param int $row Numeric row coordinate of the cell
