@@ -1185,6 +1185,7 @@ class Worksheet implements IComparable
      *             the datatype match.
      *       If you do mismatch value and datatpe, then the value you enter may be changed to match the datatype
      *          that you specify.
+     *
      * @see DataType
      *
      * @return $this
@@ -1214,6 +1215,7 @@ class Worksheet implements IComparable
      *             the datatype match.
      *       If you do mismatch value and datatpe, then the value you enter may be changed to match the datatype
      *          that you specify.
+     *
      * @see DataType
      *
      * @return $this
