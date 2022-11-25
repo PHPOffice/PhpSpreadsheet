@@ -42,6 +42,7 @@ class Bin2HexTest extends TestCase
         $sheet->getCell('A1')->setValue("=BIN2HEX($formula)");
         $result = $sheet->getCell('A1')->getCalculatedValue();
         self::assertEquals($expectedResult, $result);
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function providerBIN2HEX(): array
@@ -72,6 +73,7 @@ class Bin2HexTest extends TestCase
         $sheet->getCell('A1')->setValue("=BIN2HEX($formula)");
         $result = $sheet->getCell('A1')->getCalculatedValue();
         self::assertEquals($expectedResult, $result);
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testBIN2HEXFrac(): void
@@ -90,6 +92,7 @@ class Bin2HexTest extends TestCase
         $cell = 'E1';
         $sheet->setCellValue($cell, '=BIN2HEX(101.1)');
         self::assertEquals('#NUM!', $sheet->getCell($cell)->getCalculatedValue());
+        $spreadsheet->disconnectWorksheets();
     }
 
     /**

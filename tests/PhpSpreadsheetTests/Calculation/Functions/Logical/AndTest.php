@@ -2,17 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Logical;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Logical;
-use PHPUnit\Framework\TestCase;
-
-class AndTest extends TestCase
+class AndTest extends AllSetupTeardown
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerAND
      *
@@ -20,8 +11,7 @@ class AndTest extends TestCase
      */
     public function testAND($expectedResult, ...$args): void
     {
-        $result = Logical::logicalAnd(...$args);
-        self::assertEquals($expectedResult, $result);
+        $this->runTestCase('AND', $expectedResult, ...$args);
     }
 
     public function providerAND(): array

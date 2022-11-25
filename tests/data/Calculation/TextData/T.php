@@ -2,7 +2,7 @@
 
 return [
     [
-        null,
+        '',
         123456.789,
     ],
     [
@@ -14,11 +14,12 @@ return [
         'Mark Baker',
     ],
     [
-        null,
+        '',
         null,
     ],
     [
-        null,
+        '',
         true,
     ],
+    'no arguments' => ['exception'],
 ];

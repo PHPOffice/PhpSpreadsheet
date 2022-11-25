@@ -150,6 +150,7 @@ class Chart
                                             }
                                             $xAxis->setAxisType($chartDetailKey);
                                             $this->readEffects($chartDetail, $xAxis);
+                                            $this->readLineStyle($chartDetail, $xAxis);
                                             if (isset($chartDetail->spPr)) {
                                                 $sppr = $chartDetail->spPr->children($this->aNamespace);
                                                 if (isset($sppr->solidFill)) {
@@ -219,6 +220,7 @@ class Chart
                                                 }
                                             }
                                             $this->readEffects($chartDetail, $whichAxis);
+                                            $this->readLineStyle($chartDetail, $whichAxis);
                                             if ($whichAxis !== null && isset($chartDetail->spPr)) {
                                                 $sppr = $chartDetail->spPr->children($this->aNamespace);
                                                 if (isset($sppr->solidFill)) {
@@ -830,6 +832,7 @@ class Chart
 
         foreach ($seriesValueSet->lvl as $seriesLevelIdx => $seriesLevel) {
             foreach ($seriesLevel as $seriesValueIdx => $seriesValue) {
+                $seriesValue = Xlsx::testSimpleXml($seriesValue);
                 switch ($seriesValueIdx) {
                     case 'ptCount':
                         $pointCount = self::getAttribute($seriesValue, 'val', 'integer');

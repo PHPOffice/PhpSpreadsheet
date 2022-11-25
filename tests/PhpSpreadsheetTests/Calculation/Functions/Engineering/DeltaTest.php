@@ -3,28 +3,17 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Engineering;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PHPUnit\Framework\TestCase;
 
-class DeltaTest extends TestCase
+class DeltaTest extends AllSetupTeardown
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerDELTA
      *
-     * @param mixed $a
-     * @param mixed $b
      * @param mixed $expectedResult
      */
-    public function testDELTA($expectedResult, $a, $b): void
+    public function testDELTA($expectedResult, ...$args): void
     {
-        $result = Engineering::DELTA($a, $b);
-        self::assertEquals($expectedResult, $result);
+        $this->runTestCase('DELTA', $expectedResult, ...$args);
     }
 
     public function providerDELTA(): array

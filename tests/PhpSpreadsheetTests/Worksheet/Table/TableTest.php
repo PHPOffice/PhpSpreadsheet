@@ -80,7 +80,7 @@ class TableTest extends SetupTeardown
         ];
     }
 
-    public function testUniqueTableName(): void
+    public function testUniqueTableNameOnBindToWorksheet(): void
     {
         $this->expectException(PhpSpreadsheetException::class);
         $sheet = $this->getSheet();
@@ -90,8 +90,23 @@ class TableTest extends SetupTeardown
         $sheet->addTable($table1);
 
         $table2 = new Table();
-        $table2->setName('table_1'); // case insensitive
+        $table2->setName('tABlE_1'); // case insensitive
         $sheet->addTable($table2);
+    }
+
+    public function testUniqueTableNameOnNameChange(): void
+    {
+        $this->expectException(PhpSpreadsheetException::class);
+        $sheet = $this->getSheet();
+
+        $table1 = new Table();
+        $table1->setName('Table_1');
+        $sheet->addTable($table1);
+
+        $table2 = new Table();
+        $table2->setName('table_2'); // case insensitive
+        $sheet->addTable($table2);
+        $table2->setName('tAbLe_1');
     }
 
     public function testVariousSets(): void

@@ -25,6 +25,7 @@ class BitOrTest extends TestCase
         $sheet->getCell('A1')->setValue("=BITOR($formula)");
         $result = $sheet->getCell('A1')->getCalculatedValue();
         self::assertEquals($expectedResult, $result);
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function providerBITOR(): array
