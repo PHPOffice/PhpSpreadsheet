@@ -204,24 +204,31 @@ class FormattedNumberTest extends TestCase
     public function providerCurrencies(): array
     {
         $currencyCode = StringHelper::getCurrencyCode();
+
         return [
-            'basic_prefix_currency'    => ['2.75', "{$currencyCode}2.75"],
-            'basic_postfix_currency'    => ['2.75', "2.75{$currencyCode}"],
+            'basic_prefix_currency' => ['2.75', "{$currencyCode}2.75"],
+            'basic_postfix_currency' => ['2.75', "2.75{$currencyCode}"],
 
-            'basic_prefix_currency_with_spaces'    => ['2.75', "{$currencyCode} 2.75"],
-            'basic_postfix_currency_with_spaces'    => ['2.75', "2.75 {$currencyCode}"],
+            'basic_prefix_currency_with_spaces' => ['2.75', "{$currencyCode} 2.75"],
+            'basic_postfix_currency_with_spaces' => ['2.75', "2.75 {$currencyCode}"],
 
-            'negative_basic_prefix_currency'    => ['-2.75', "-{$currencyCode}2.75"],
-            'negative_basic_postfix_currency'    => ['-2.75', "-2.75{$currencyCode}"],
+            'negative_basic_prefix_currency' => ['-2.75', "-{$currencyCode}2.75"],
+            'negative_basic_postfix_currency' => ['-2.75', "-2.75{$currencyCode}"],
 
-            'negative_basic_prefix_currency_with_spaces'    => ['-2.75', "-{$currencyCode} 2.75"],
-            'negative_basic_postfix_currency_with_spaces'    => ['-2.75', "-2.75 {$currencyCode}"],
+            'negative_basic_prefix_currency_with_spaces' => ['-2.75', "-{$currencyCode} 2.75"],
+            'negative_basic_postfix_currency_with_spaces' => ['-2.75', "-2.75 {$currencyCode}"],
 
-            'basic_prefix_scientific_currency'    => ['2000000', "{$currencyCode}2E6"],
-            'basic_postfix_scientific_currency'    => ['2000000', "2E6{$currencyCode}"],
+            'positive_signed_prefix_currency_with_spaces' => ['2.75', "+{$currencyCode} 2.75"],
+            'positive_signed_prefix_currency_with_spaces-2' => ['2.75', "{$currencyCode} +2.75"],
+            'positive_signed_postfix_currency_with_spaces' => ['2.75', "+2.75 {$currencyCode}"],
 
-            'basic_prefix_scientific_currency_with_spaces'    => ['2000000', "{$currencyCode} 2E6"],
-            'basic_postfix_scientific_currency_with_spaces'    => ['2000000', "2E6 {$currencyCode}"],
+            'basic_prefix_scientific_currency' => ['2000000', "{$currencyCode}2E6"],
+            'basic_postfix_scientific_currency' => ['2000000', "2E6{$currencyCode}"],
+
+            'basic_prefix_scientific_currency_with_spaces' => ['2000000', "{$currencyCode} 2E6"],
+            'basic_postfix_scientific_currency_with_spaces' => ['2000000', "2E6 {$currencyCode}"],
+
+            'high_value_currency_with_thousands_separator' => ['2750000', "+{$currencyCode} 2,750,000"],
         ];
     }
 }
