@@ -1757,7 +1757,7 @@ class Xlsx extends BaseReader
 
         if (isset($is->t)) {
             $value->createText(StringHelper::controlCharacterOOXML2PHP((string) $is->t));
-        } else {
+        } elseif ($is !== null) {
             if (is_object($is->r)) {
                 /** @var SimpleXMLElement $run */
                 foreach ($is->r as $run) {
@@ -1938,14 +1938,8 @@ class Xlsx extends BaseReader
         return trim(str_replace(["\r", "\n", ' '], '', $string), ';');
     }
 
-    /**
-     * @param mixed $value
-     */
-    private static function boolean($value): bool
+    private static function boolean(string $value): bool
     {
-        if (is_object($value)) {
-            $value = (string) $value;
-        }
         if (is_numeric($value)) {
             return (bool) $value;
         }

@@ -832,16 +832,6 @@ parameters:
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 7
 			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
-			message: "#^Cannot access property \\$r on SimpleXMLElement\\|null\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-		-
-			message: "#^Cannot cast object to string.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
 		-
 			message: "#^Parameter \\#1 \\$haystack of function strpos expects string, string\\|false given\\.$#"
 			count: 1
