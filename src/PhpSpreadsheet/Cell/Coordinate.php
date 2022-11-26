@@ -414,7 +414,7 @@ abstract class Coordinate
             $column = '';
             $row = 0;
             sscanf($coordinate, '%[A-Z]%d', $column, $row);
-            $key = (--$row * 16384) + self::columnIndexFromString($column);
+            $key = (--$row * 16384) + self::columnIndexFromString((string) $column);
             $sortKeys[$key] = $coordinate;
         }
         ksort($sortKeys);
