@@ -9,6 +9,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Engine\Operands;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ErrorValue;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Calculation\Token\Stack;
+use PhpOffice\PhpSpreadsheet\Cell\AddressRange;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
@@ -4404,12 +4405,12 @@ class Calculation
                                 $stackItemType = 'Row Reference';
                                 /** @var int $valx */
                                 $valx = $val;
-                                $endRowColRef = ($refSheet !== null) ? $refSheet->getHighestDataColumn($valx) : 'XFD'; //    Max 16,384 columns for Excel2007
+                                $endRowColRef = ($refSheet !== null) ? $refSheet->getHighestDataColumn($valx) : AddressRange::MAX_COLUMN; //    Max 16,384 columns for Excel2007
                                 $val = "{$rangeWS2}{$endRowColRef}{$val}";
                             } elseif (ctype_alpha($val) && strlen($val) <= 3) {
                                 //    Column range
                                 $stackItemType = 'Column Reference';
-                                $endRowColRef = ($refSheet !== null) ? $refSheet->getHighestDataRow($val) : 1048576; //    Max 1,048,576 rows for Excel2007
+                                $endRowColRef = ($refSheet !== null) ? $refSheet->getHighestDataRow($val) : AddressRange::MAX_ROW; //    Max 1,048,576 rows for Excel2007
                                 $val = "{$rangeWS2}{$val}{$endRowColRef}";
                             }
                             $stackItemReference = $val;

@@ -6,6 +6,7 @@ use Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
+use PhpOffice\PhpSpreadsheet\Cell\AddressRange;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
@@ -114,12 +115,12 @@ class Indirect
         // Being lazy, we're only checking a single row/column to get the max
         if (ctype_digit($start) && $start <= 1048576) {
             // Max 16,384 columns for Excel2007
-            $endColRef = ($worksheet !== null) ? $worksheet->getHighestDataColumn((int) $start) : 'XFD';
+            $endColRef = ($worksheet !== null) ? $worksheet->getHighestDataColumn((int) $start) : AddressRange::MAX_COLUMN;
 
             return "A{$start}:{$endColRef}{$end}";
         } elseif (ctype_alpha($start) && strlen($start) <= 3) {
             // Max 1,048,576 rows for Excel2007
-            $endRowRef = ($worksheet !== null) ? $worksheet->getHighestDataRow($start) : 1048576;
+            $endRowRef = ($worksheet !== null) ? $worksheet->getHighestDataRow($start) : AddressRange::MAX_ROW;
 
             return "{$start}1:{$end}{$endRowRef}";
         }
