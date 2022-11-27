@@ -92,6 +92,6 @@ class CommentTest extends TestCase
         $sheet->getComment('A2')->getText()->createText('Comment to delete');
         self::assertArrayHasKey('A2', $sheet->getComments());
         $sheet->removeComment('A2');
-        self::assertEmpty($sheet->getComments());
+        self::assertEmpty($sheet->getComments()); // @phpstan-ignore-line
     }
 }

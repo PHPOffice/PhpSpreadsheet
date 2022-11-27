@@ -31,7 +31,7 @@ class PercentageFormatter extends BaseFormatter
         }
         // Number of digits to display before the decimal
         if (preg_match('/([#0,]+)\.?/u', $format, $matches)) {
-            $firstZero = preg_replace('/^[#,]*/', '', $matches[1]);
+            $firstZero = preg_replace('/^[#,]*/', '', $matches[1]) ?? '';
             $wholePartSize = max($wholePartSize, strlen($firstZero));
         }
 

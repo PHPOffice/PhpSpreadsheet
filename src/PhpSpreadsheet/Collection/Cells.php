@@ -168,7 +168,7 @@ class Cells
         $row = '';
         sscanf($this->currentCoordinate ?? '', '%[A-Z]%d', $column, $row);
 
-        return $column;
+        return (string) $column;
     }
 
     /**
@@ -392,7 +392,7 @@ class Cells
         $column = 0;
         $row = '';
         sscanf($cellCoordinate, '%[A-Z]%d', $column, $row);
-        $this->index[$cellCoordinate] = (--$row * self::MAX_COLUMN_ID) + Coordinate::columnIndexFromString($column);
+        $this->index[$cellCoordinate] = (--$row * self::MAX_COLUMN_ID) + Coordinate::columnIndexFromString((string) $column);
 
         $this->currentCoordinate = $cellCoordinate;
         $this->currentCell = $cell;

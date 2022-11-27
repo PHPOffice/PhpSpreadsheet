@@ -27,7 +27,7 @@ class DefaultValueBinder implements IValueBinder
                 $value = $value->format('Y-m-d H:i:s');
             } elseif (!($value instanceof RichText)) {
                 // Attempt to cast any unexpected objects to string
-                $value = (string) $value;
+                $value = (string) $value; // @phpstan-ignore-line
             }
         }
 

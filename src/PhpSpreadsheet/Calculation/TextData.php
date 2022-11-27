@@ -150,7 +150,7 @@ class TextData
      *
      * @deprecated 1.18.0
      *      Use the FIXEDFORMAT() method in the TextData\Format class instead
-     * @see TextData\Format::FIXEDFORMAT($value, $decimals, $no_commas)
+     * @see TextData\Format::FIXEDFORMAT()
      *
      * @param mixed $value Value to check
      * @param int $decimals

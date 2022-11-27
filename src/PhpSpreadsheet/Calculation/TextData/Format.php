@@ -289,7 +289,7 @@ class Format
             if ($decimalPositions > 1) {
                 return ExcelError::VALUE();
             }
-            $decimalOffset = array_pop($matches[0])[1];
+            $decimalOffset = array_pop($matches[0])[1]; // @phpstan-ignore-line
             if (strpos($value, $groupSeparator, $decimalOffset) !== false) {
                 return ExcelError::VALUE();
             }

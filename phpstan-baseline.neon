@@ -289,10 +289,6 @@ parameters:
 			count: 2
 			path: src/PhpSpreadsheet/Calculation/MathTrig/Combinations.php
 		-
-			message: "#^Parameter \\#1 \\$factVal of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\MathTrig\\\\Factorial\\:\\:fact\\(\\) expects array\\|float, int\\<min, \\-2\\>\\|int\\<0, max\\> given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/MathTrig/Combinations.php
-		-
 			message: "#^Binary operation \"/\" between array\\|float\\|int\\|string and float\\|int results in an error\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/MathTrig/Factorial.php
@@ -469,10 +465,6 @@ parameters:
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Normal.php
 		-
-			message: "#^Parameter \\#1 \\$factVal of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\MathTrig\\\\Factorial\\:\\:fact\\(\\) expects array\\|float, int\\<0, max\\> given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Poisson.php
-		-
 			message: "#^Binary operation \"\\-\" between float\\|string and float\\|int\\|numeric\\-string results in an error\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/StandardNormal.php
@@ -593,10 +585,6 @@ parameters:
 			count: 1
 			path: src/PhpSpreadsheet/Reader/BaseReader.php
 		-
-			message: "#^Comparison operation \"\\<\" between int and SimpleXMLElement\\|null results in an error\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Reader/Gnumeric.php
-		-
 			message: "#^Offset 'percentage' does not exist on SimpleXMLElement\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Gnumeric/PageSetup.php
@@ -608,14 +596,6 @@ parameters:
 			message: "#^Variable \\$orientation on left side of \\?\\? always exists and is not nullable\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Gnumeric/PageSetup.php
-		-
-			message: "#^Comparison operation \"\\<\\=\" between SimpleXMLElement\\|null and int results in an error\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Reader/Gnumeric/Styles.php
-		-
-			message: "#^Comparison operation \"\\>\" between SimpleXMLElement\\|null and int results in an error\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Reader/Gnumeric/Styles.php
 		-
 			message: "#^Variable \\$value on left side of \\?\\? always exists and is not nullable\\.$#"
 			count: 1
@@ -852,12 +832,6 @@ parameters:
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 7
 			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
-			message: "#^Cannot access property \\$r on SimpleXMLElement\\|null\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
 		-
 			message: "#^Parameter \\#1 \\$haystack of function strpos expects string, string\\|false given\\.$#"
 			count: 1
