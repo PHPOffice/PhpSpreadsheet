@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet;
 
+use PhpOffice\PhpSpreadsheet\Cell\AddressRange;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 
 class CellReferenceHelper
@@ -79,16 +80,12 @@ class CellReferenceHelper
 
         // Create new column reference
         if ($updateColumn) {
-            $newColumn = ($includeAbsoluteReferences === false)
-                ? Coordinate::stringFromColumnIndex($newColumnIndex + $this->numberOfColumns)
-                : $absoluteColumn . Coordinate::stringFromColumnIndex($newColumnIndex + $this->numberOfColumns);
+            $newColumn = $this->updateColumnReference($newColumnIndex, $absoluteColumn);
         }
 
         // Create new row reference
         if ($updateRow) {
-            $newRow = ($includeAbsoluteReferences === false)
-                ? $newRowIndex + $this->numberOfRows
-                : $absoluteRow . (string) ($newRowIndex + $this->numberOfRows);
+            $newRow = $this->updateRowReference($newRowIndex, $absoluteRow);
         }
 
         // Return new reference
@@ -115,5 +112,21 @@ class CellReferenceHelper
         }
 
         return false;
+    }
+
+    protected function updateColumnReference(int $newColumnIndex, string $absoluteColumn): string
+    {
+        $newColumn = Coordinate::stringFromColumnIndex($newColumnIndex + $this->numberOfColumns);
+        $newColumn = ($newColumn > AddressRange::MAX_COLUMN) ? AddressRange::MAX_COLUMN : $newColumn;
+
+        return $absoluteColumn . $newColumn;
+    }
+
+    protected function updateRowReference(int $newRowIndex, string $absoluteRow): string
+    {
+        $newRow = $newRowIndex + $this->numberOfRows;
+        $newRow = ($newRow > AddressRange::MAX_ROW) ? AddressRange::MAX_ROW : $newRow;
+
+        return $absoluteRow . (string) $newRow;
     }
 }

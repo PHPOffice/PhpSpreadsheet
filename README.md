@@ -14,9 +14,9 @@ allow you to read and write various spreadsheet file formats such as Excel and L
 ## PHP Version Support
 
 LTS: Support for PHP versions will only be maintained for a period of six months beyond the
-[end of life of that PHP version](https://www.php.net/eol.php).
+[end of life](https://www.php.net/supported-versions) of that PHP version.
 
-Currently the required PHP minimum version is PHP __7.4__.
+Currently the required PHP minimum version is PHP __7.4__, and we [will support that version](https://www.php.net/eol.php) until 28th June 2023.
 
 See the `composer.json` for other requirements.
 

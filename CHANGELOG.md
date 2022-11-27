@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Added
 
+- Apply Row/Column limits (1048576 and XFD) in ReferenceHelper [PR #3213](https://github.com/PHPOffice/PhpSpreadsheet/pull/3213)
 - Allow the creation of In-Memory Drawings from a string of binary image data, or from a stream. [PR #3157](https://github.com/PHPOffice/PhpSpreadsheet/pull/3157)
 - Xlsx Reader support for Pivot Tables [PR #2829](https://github.com/PHPOffice/PhpSpreadsheet/pull/2829)
 - Permit Date/Time Entered on Spreadsheet to be calculated as Float [Issue #1416](https://github.com/PHPOffice/PhpSpreadsheet/issues/1416) [PR #3121](https://github.com/PHPOffice/PhpSpreadsheet/pull/3121)
@@ -30,6 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
+- Conditionals formatting rules applied to rows/columns are removed [Issue #3184](https://github.com/PHPOffice/PhpSpreadsheet/issues/3184) [PR #3213](https://github.com/PHPOffice/PhpSpreadsheet/pull/3213)
 - Treat strings containing currency or accounting values as floats in Calculation Engine operations [Issue #3165](https://github.com/PHPOffice/PhpSpreadsheet/issues/3165) [PR #3189](https://github.com/PHPOffice/PhpSpreadsheet/pull/3189)
 - Treat strings containing percentage values as floats in Calculation Engine operations [Issue #3155](https://github.com/PHPOffice/PhpSpreadsheet/issues/3155) [PR #3156](https://github.com/PHPOffice/PhpSpreadsheet/pull/3156) and [PR #3164](https://github.com/PHPOffice/PhpSpreadsheet/pull/3164)
 - Xlsx Reader Accept Palette of Fewer than 64 Colors [Issue #3093](https://github.com/PHPOffice/PhpSpreadsheet/issues/3093) [PR #3096](https://github.com/PHPOffice/PhpSpreadsheet/pull/3096)
