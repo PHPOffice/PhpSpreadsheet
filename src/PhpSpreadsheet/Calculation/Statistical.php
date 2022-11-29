@@ -318,7 +318,7 @@ class Statistical
      */
     public static function COUNTBLANK(...$args)
     {
-        return Counts::COUNTBLANK(...$args);
+        return Counts::COUNTBLANK(/** @scrutinize-ignore-type */ ...$args);
     }
 
     /**
