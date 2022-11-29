@@ -7,6 +7,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Database\DCount;
 use PhpOffice\PhpSpreadsheet\Calculation\Database\DMax;
 use PhpOffice\PhpSpreadsheet\Calculation\Database\DMin;
 use PhpOffice\PhpSpreadsheet\Calculation\Database\DSum;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcException;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class Conditional
@@ -23,14 +24,17 @@ class Conditional
      * Excel Function:
      *        AVERAGEIF(range,condition[, average_range])
      *
-     * @param mixed[] $range Data values
+     * @param mixed $range Data values
      * @param string $condition the criteria that defines which cells will be checked
-     * @param mixed[] $averageRange Data values
+     * @param mixed $averageRange Data values
      *
      * @return null|float|string
      */
     public static function AVERAGEIF($range, $condition, $averageRange = [])
     {
+        if (!is_array($range) || !is_array($averageRange) || array_key_exists(0, $range) || array_key_exists(0, $averageRange)) {
+            throw new CalcException('Must specify range of cells, not any kind of literal');
+        }
         $database = self::databaseFromRangeAndValue($range, $averageRange);
         $condition = [[self::CONDITION_COLUMN_NAME, self::VALUE_COLUMN_NAME], [$condition, null]];
 
@@ -55,6 +59,11 @@ class Conditional
             return 0.0;
         } elseif (count($args) === 3) {
             return self::AVERAGEIF($args[1], $args[2], $args[0]);
+        }
+        foreach ($args as $arg) {
+            if (is_array($arg) && array_key_exists(0, $arg)) {
+                throw new CalcException('Must specify range of cells, not any kind of literal');
+            }
         }
 
         $conditions = self::buildConditionSetForValueRange(...$args);

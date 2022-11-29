@@ -1,7 +1,7 @@
 <?php
 
 return [
-    [
+    'passing range do not count bool, null, or text numbers' => [
         3,
         [
             // The index simulates a cell value
@@ -16,20 +16,18 @@ return [
             '0.9.A' => 9,
         ],
     ],
-    [
-        6,
-        [
-            // No index indicates arguments passed as literals rather than cell values
-            // In this case, booleans are counted as well as numbers, as are numeric-value string literals
-            'A',
-            1,
-            true,
-            2.9,
-            false,
-            '3',
-            '',
-            null,
-            9,
-        ],
+    'passing values - count null, boolean and text numbers' => [
+        7,
+        // No index indicates arguments passed as literals rather than cell values
+        // In this case, booleans are counted as well as numbers, as are numeric-value string literals
+        'A',
+        1,
+        true,
+        2.9,
+        false,
+        '3',
+        '',
+        null,
+        9,
     ],
 ];

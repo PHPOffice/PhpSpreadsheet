@@ -2,11 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
-use PHPUnit\Framework\TestCase;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcException;
 
-// TODO Test error when array is supplied e.g. COUNTBLANK({32})
-class CountBlankTest extends TestCase
+class CountBlankTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerCOUNTBLANK
@@ -15,12 +13,41 @@ class CountBlankTest extends TestCase
      */
     public function testCOUNTBLANK($expectedResult, ...$args): void
     {
-        $result = Statistical\Counts::COUNTBLANK(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        $this->runTestCaseNoBracket('COUNTBLANK', $expectedResult, ...$args);
     }
 
     public function providerCOUNTBLANK(): array
     {
         return require 'tests/data/Calculation/Statistical/COUNTBLANK.php';
+    }
+
+    public function testOutliers(): void
+    {
+        $sheet = $this->getSheet();
+        $sheet->getCell('C1')->setValue(1);
+        $sheet->getCell('C2')->setValue(2);
+        $sheet->getCell('C4')->setValue(4);
+        $sheet->getCell('A1')->setValue('=COUNTBLANK(5)');
+
+        try {
+            $sheet->getCell('A1')->getCalculatedValue();
+            self::fail('Should receive exception for non-array arg');
+        } catch (CalcException $e) {
+            self::assertStringContainsString('Must specify range of cells', $e->getMessage());
+        }
+        $sheet->getCell('A2')->setValue('=COUNTBLANK({1;2;4})');
+
+        try {
+            $sheet->getCell('A1')->getCalculatedValue();
+            self::fail('Should receive exception for inline array arg');
+        } catch (CalcException $e) {
+            self::assertStringContainsString('Must specify range of cells', $e->getMessage());
+        }
+        $sheet->getCell('A3')->setValue('=COUNTBLANK(C1)');
+        self::assertSame(0, $sheet->getCell('A3')->getCalculatedValue(), 'arg is single non-blank cell');
+        $sheet->getCell('A4')->setValue('=COUNTBLANK(D2)');
+        self::assertSame(1, $sheet->getCell('A4')->getCalculatedValue(), 'arg is single null cell');
+        $sheet->getCell('A5')->setValue('=COUNTBLANK(D3:D4)');
+        self::assertSame(2, $sheet->getCell('A5')->getCalculatedValue(), 'arg is two cells both null');
     }
 }
