@@ -37,19 +37,27 @@ class ConditionalStyles
 
     public function load(): void
     {
+        $selectedCells = $this->worksheet->getSelectedCells();
+
         $this->setConditionalStyles(
             $this->worksheet,
             $this->readConditionalStyles($this->worksheetXml),
             $this->worksheetXml->extLst
         );
+
+        $this->worksheet->setSelectedCells($selectedCells);
     }
 
     public function loadFromExt(StyleReader $styleReader): void
     {
+        $selectedCells = $this->worksheet->getSelectedCells();
+
         $this->ns = $this->worksheetXml->getNamespaces(true);
         $this->setConditionalsFromExt(
             $this->readConditionalsFromExt($this->worksheetXml->extLst, $styleReader)
         );
+
+        $this->worksheet->setSelectedCells($selectedCells);
     }
 
     private function setConditionalsFromExt(array $conditionals): void
