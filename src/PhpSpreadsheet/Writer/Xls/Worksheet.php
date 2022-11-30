@@ -1126,7 +1126,7 @@ class Worksheet extends BIFFwriter
         $dir_short = (string) preg_replace('/\\.\\.\\\\/', '', $dir_long) . "\0";
 
         // Store the long dir name as a wchar string (non-null terminated)
-        $dir_long = $dir_long . "\0";
+        //$dir_long = $dir_long . "\0";
 
         // Pack the lengths of the dir strings
         $dir_short_len = pack('V', strlen($dir_short));
