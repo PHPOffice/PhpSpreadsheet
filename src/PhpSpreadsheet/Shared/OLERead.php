@@ -164,7 +164,6 @@ class OLERead
             $pos += 4 * $bbs;
         }
 
-        $pos = 0;
         $sbdBlock = $this->sbdStartBlock;
         $this->smallBlockChain = '';
         while ($sbdBlock != -2) {
@@ -186,7 +185,7 @@ class OLERead
     /**
      * Extract binary stream data.
      *
-     * @param int $stream
+     * @param ?int $stream
      *
      * @return null|string
      */
