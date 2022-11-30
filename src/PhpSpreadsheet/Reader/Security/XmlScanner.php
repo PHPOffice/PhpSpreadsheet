@@ -97,7 +97,17 @@ class XmlScanner
         $this->callback = $callback;
     }
 
-    /** @param string $xml */
+    /** @param mixed $arg */
+    private static function forceString($arg): string
+    {
+        return is_string($arg) ? $arg : '';
+    }
+
+    /**
+     * @param string $xml
+     *
+     * @return string
+     */
     private function toUtf8($xml)
     {
         $pattern = '/encoding="(.*?)"/';
@@ -105,7 +115,7 @@ class XmlScanner
         $charset = strtoupper($result ? $matches[1] : 'UTF-8');
 
         if ($charset !== 'UTF-8') {
-            $xml = mb_convert_encoding($xml, 'UTF-8', $charset);
+            $xml = self::forceString(mb_convert_encoding($xml, 'UTF-8', $charset));
 
             $result = preg_match($pattern, $xml, $matches);
             $charset = strtoupper($result ? $matches[1] : 'UTF-8');

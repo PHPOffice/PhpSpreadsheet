@@ -210,8 +210,6 @@ class Matrix
                     }
 
                     return $R;
-
-                    break;
                     //$R = array of row indices; $C = array of column indices
                 case 'array,array':
                     [$RL, $CL] = $args;
@@ -233,8 +231,6 @@ class Matrix
                     }
 
                     return $R;
-
-                    break;
                     //A($i0...$iF); $CL = array of column indices
                 case 'integer,integer,array':
                     [$i0, $iF, $CL] = $args;
@@ -256,8 +252,6 @@ class Matrix
                     }
 
                     return $R;
-
-                    break;
                     //$RL = array of row indices
                 case 'array,integer,integer':
                     [$RL, $j0, $jF] = $args;
@@ -279,8 +273,6 @@ class Matrix
                     }
 
                     return $R;
-
-                    break;
                 default:
                     throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
 
@@ -783,7 +775,7 @@ class Matrix
                             $M->set($i, $j, $this->A[$i][$j] / $value);
                         }
                     } else {
-                        $M->set($i, $j, ExcelError::NAN());
+                        $M->set($i, $j, /** @scrutinizer ignore-type */ ExcelError::NAN());
                     }
                 }
             }

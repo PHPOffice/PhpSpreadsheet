@@ -685,10 +685,6 @@ parameters:
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Security/XmlScanner.php
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Security\\\\XmlScanner\\:\\:toUtf8\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Security/XmlScanner.php
-		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Security\\\\XmlScanner\\:\\:\\$callback has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Security/XmlScanner.php
@@ -966,7 +962,7 @@ parameters:
 			path: src/PhpSpreadsheet/Shared/JAMA/Matrix.php
 		-
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 18
+			count: 14
 			path: src/PhpSpreadsheet/Shared/JAMA/Matrix.php
 		-
 			message: "#^Cannot access offset 1 on array\\|false\\.$#"
