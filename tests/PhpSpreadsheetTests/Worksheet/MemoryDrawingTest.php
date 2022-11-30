@@ -30,7 +30,6 @@ class MemoryDrawingTest extends TestCase
 
         if (version_compare(PHP_VERSION, '8.0.0', '>=') === true) {
             self::assertIsObject($drawing->getImageResource());
-            /** @phpstan-ignore-next-line */
             self::assertInstanceOf(GdImage::class, $drawing->getImageResource());
         } else {
             self::assertIsResource($drawing->getImageResource());
@@ -52,7 +51,6 @@ class MemoryDrawingTest extends TestCase
 
         if (version_compare(PHP_VERSION, '8.0.0', '>=') === true) {
             self::assertIsObject($drawing->getImageResource());
-            /** @phpstan-ignore-next-line */
             self::assertInstanceOf(GdImage::class, $drawing->getImageResource());
         } else {
             self::assertIsResource($drawing->getImageResource());
@@ -84,7 +82,6 @@ class MemoryDrawingTest extends TestCase
 
         if (version_compare(PHP_VERSION, '8.0.0', '>=') === true) {
             self::assertIsObject($drawing->getImageResource());
-            /** @phpstan-ignore-next-line */
             self::assertInstanceOf(GdImage::class, $drawing->getImageResource());
         } else {
             self::assertIsResource($drawing->getImageResource());

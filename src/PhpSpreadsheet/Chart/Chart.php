@@ -427,9 +427,11 @@ class Chart
     /**
      * Get the top left position of the chart.
      *
+     * Returns ['cell' => string cell address, 'xOffset' => int, 'yOffset' => int].
+     *
      * @return array{cell: string, xOffset: int, yOffset: int} an associative array containing the cell address, X-Offset and Y-Offset from the top left of that cell
      */
-    public function getTopLeftPosition()
+    public function getTopLeftPosition(): array
     {
         return [
             'cell' => $this->topLeftCellRef,

@@ -61,6 +61,7 @@ class AddressHelper
         if (is_string($columnReference) && $columnReference[0] === '[') {
             $columnReference = $currentColumnNumber + (int) trim($columnReference, '[]');
         }
+        $columnReference = (int) $columnReference;
 
         if ($columnReference <= 0 || $rowReference <= 0) {
             throw new Exception('Invalid R1C1-format Cell Reference, Value out of range');
