@@ -291,7 +291,7 @@ class NumberFormat extends Supervisor
         //      KOR fmt 55: "yyyy/mm/dd"
 
         // Built-in format codes
-        if (self::$builtInFormats === null) {
+        if (empty(self::$builtInFormats)) {
             self::$builtInFormats = [];
 
             // General

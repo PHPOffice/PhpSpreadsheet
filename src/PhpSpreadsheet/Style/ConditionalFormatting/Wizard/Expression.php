@@ -66,7 +66,7 @@ class Expression extends WizardAbstract implements WizardInterface
             throw new Exception('Invalid Operation for Expression CF Rule Wizard');
         }
 
-        $this->expression(...$arguments);
+        $this->expression(/** @scrutinizer ignore-type */ ...$arguments);
 
         return $this;
     }

@@ -97,6 +97,7 @@ class XmlScanner
         $this->callback = $callback;
     }
 
+    /** @param string $xml */
     private function toUtf8($xml)
     {
         $pattern = '/encoding="(.*?)"/';
@@ -119,18 +120,21 @@ class XmlScanner
     /**
      * Scan the XML for use of <!ENTITY to prevent XXE/XEE attacks.
      *
-     * @param mixed $xml
+     * @param false|string $xml
      *
      * @return string
      */
     public function scan($xml)
     {
+        if (!is_string($xml)) {
+            $xml = '';
+        }
         $this->disableEntityLoaderCheck();
 
         $xml = $this->toUtf8($xml);
 
         // Don't rely purely on libxml_disable_entity_loader()
-        $pattern = '/\\0?' . implode('\\0?', str_split($this->pattern)) . '\\0?/';
+        $pattern = '/\\0?' . implode('\\0?', /** @scrutinizer ignore-type */ str_split($this->pattern)) . '\\0?/';
 
         if (preg_match($pattern, $xml)) {
             throw new Reader\Exception('Detected use of ENTITY in XML, spreadsheet file load() aborted to prevent XXE/XEE attacks');

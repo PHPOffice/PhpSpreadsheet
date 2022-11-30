@@ -176,7 +176,7 @@ class CellValue extends WizardAbstract implements WizardInterface
                 throw new Exception('AND Value is only appropriate for range operators');
             }
 
-            $this->operand(1, ...$arguments);
+            $this->operand(1, /** @scrutinizer ignore-type */ ...$arguments);
 
             return $this;
         }

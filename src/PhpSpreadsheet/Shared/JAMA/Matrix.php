@@ -189,8 +189,6 @@ class Matrix
                     }
 
                     return $R;
-
-                    break;
                     //A($i0...$iF; $j0...$jF)
                 case 'integer,integer,integer,integer':
                     [$i0, $iF, $j0, $jF] = $args;
@@ -534,7 +532,7 @@ class Matrix
                     $validValues = true;
                     $value = $M->get($i, $j);
                     [$this->A[$i][$j], $validValues] = $this->validateExtractedValue($this->A[$i][$j], $validValues);
-                    [$value, $validValues] = $this->validateExtractedValue($value, $validValues);
+                    [$value, $validValues] = $this->validateExtractedValue($value, /** @scrutinizer ignore-type */ $validValues);
                     if ($validValues) {
                         $this->A[$i][$j] += $value;
                     } else {
@@ -628,7 +626,7 @@ class Matrix
                     $validValues = true;
                     $value = $M->get($i, $j);
                     [$this->A[$i][$j], $validValues] = $this->validateExtractedValue($this->A[$i][$j], $validValues);
-                    [$value, $validValues] = $this->validateExtractedValue($value, $validValues);
+                    [$value, $validValues] = $this->validateExtractedValue($value, /** @scrutinizer ignore-type */ $validValues);
                     if ($validValues) {
                         $this->A[$i][$j] -= $value;
                     } else {
@@ -724,7 +722,7 @@ class Matrix
                     $validValues = true;
                     $value = $M->get($i, $j);
                     [$this->A[$i][$j], $validValues] = $this->validateExtractedValue($this->A[$i][$j], $validValues);
-                    [$value, $validValues] = $this->validateExtractedValue($value, $validValues);
+                    [$value, $validValues] = $this->validateExtractedValue($value, /** @scrutinizer ignore-type */ $validValues);
                     if ($validValues) {
                         $this->A[$i][$j] *= $value;
                     } else {
@@ -776,11 +774,11 @@ class Matrix
                     $validValues = true;
                     $value = $M->get($i, $j);
                     [$this->A[$i][$j], $validValues] = $this->validateExtractedValue($this->A[$i][$j], $validValues);
-                    [$value, $validValues] = $this->validateExtractedValue($value, $validValues);
+                    [$value, $validValues] = $this->validateExtractedValue($value, /** @scrutinizer ignore-type */ $validValues);
                     if ($validValues) {
                         if ($value == 0) {
                             //    Trap for Divide by Zero error
-                            $M->set($i, $j, '#DIV/0!');
+                            $M->set($i, $j, /** @scrutinizer ignore-type */ '#DIV/0!');
                         } else {
                             $M->set($i, $j, $this->A[$i][$j] / $value);
                         }
@@ -1057,7 +1055,7 @@ class Matrix
                     $validValues = true;
                     $value = $M->get($i, $j);
                     [$this->A[$i][$j], $validValues] = $this->validateExtractedValue($this->A[$i][$j], $validValues);
-                    [$value, $validValues] = $this->validateExtractedValue($value, $validValues);
+                    [$value, $validValues] = $this->validateExtractedValue($value, /** @scrutinizer ignore-type */ $validValues);
                     if ($validValues) {
                         $this->A[$i][$j] = $this->A[$i][$j] ** $value;
                     } else {
