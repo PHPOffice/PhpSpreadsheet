@@ -2,17 +2,12 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 use PHPUnit\Framework\TestCase;
 
+// TODO Run test in spreadsheet context.
 class SlopeTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerSLOPE
      *
@@ -20,7 +15,7 @@ class SlopeTest extends TestCase
      */
     public function testSLOPE($expectedResult, array $xargs, array $yargs): void
     {
-        $result = Statistical::SLOPE($xargs, $yargs);
+        $result = Statistical\Trends::SLOPE($xargs, $yargs);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

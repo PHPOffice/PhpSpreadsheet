@@ -236,7 +236,7 @@ class Format
             $value = ($format === true) ? Calculation::wrapResult($value) : $value;
             $value = str_replace("\n", '', $value);
         } elseif (is_bool($value)) {
-            $value = Calculation::$localeBoolean[$value === true ? 'TRUE' : 'FALSE'];
+            $value = Calculation::getLocaleBoolean($value ? 'TRUE' : 'FALSE');
         }
 
         return (string) $value;
@@ -289,7 +289,7 @@ class Format
             if ($decimalPositions > 1) {
                 return ExcelError::VALUE();
             }
-            $decimalOffset = array_pop($matches[0])[1];
+            $decimalOffset = array_pop($matches[0])[1]; // @phpstan-ignore-line
             if (strpos($value, $groupSeparator, $decimalOffset) !== false) {
                 return ExcelError::VALUE();
             }

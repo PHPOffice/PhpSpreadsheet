@@ -2,17 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
-use PHPUnit\Framework\TestCase;
-
-class RankTest extends TestCase
+class RankTest extends AllSetupTeardown
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerRANK
      *
@@ -21,10 +12,13 @@ class RankTest extends TestCase
      * @param mixed[] $valueSet
      * @param mixed $order
      */
-    public function testRANK($expectedResult, $value, $valueSet, $order = 0): void
+    public function testRANK($expectedResult, $value, $valueSet, $order = null): void
     {
-        $result = Statistical::RANK($value, $valueSet, $order);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        if ($order === null) {
+            $this->runTestCaseReference('RANK', $expectedResult, $value, $valueSet);
+        } else {
+            $this->runTestCaseReference('RANK', $expectedResult, $value, $valueSet, $order);
+        }
     }
 
     public function providerRANK(): array

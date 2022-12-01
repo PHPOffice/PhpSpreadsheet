@@ -15,7 +15,7 @@ class AddressTest extends TestCase
      */
     public function testADDRESS($expectedResult, ...$args): void
     {
-        $result = LookupRef::cellAddress(...$args);
+        $result = LookupRef\Address::cell(...$args);
         self::assertEquals($expectedResult, $result);
     }
 

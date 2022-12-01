@@ -3,21 +3,17 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
-use PHPUnit\Framework\TestCase;
 
-class GammaTest extends TestCase
+class GammaTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerGAMMA
      *
      * @param mixed $expectedResult
-     * @param mixed $testValue
      */
-    public function testGAMMA($expectedResult, $testValue): void
+    public function testGAMMA($expectedResult, ...$args): void
     {
-        $result = Statistical::GAMMAFunction($testValue);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        $this->runTestCases('GAMMA', $expectedResult, ...$args);
     }
 
     public function providerGAMMA(): array

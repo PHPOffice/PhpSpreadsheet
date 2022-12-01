@@ -3,17 +3,9 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
-use PHPUnit\Framework\TestCase;
 
-class NegBinomDistTest extends TestCase
+class NegBinomDistTest extends AllSetupTeardown
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerNEGBINOMDIST
      *
@@ -21,8 +13,7 @@ class NegBinomDistTest extends TestCase
      */
     public function testNEGBINOMDIST($expectedResult, ...$args): void
     {
-        $result = Statistical::NEGBINOMDIST(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        $this->runTestCases('NEGBINOMDIST', $expectedResult, ...$args);
     }
 
     public function providerNEGBINOMDIST(): array

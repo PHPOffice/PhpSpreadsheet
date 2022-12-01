@@ -49,7 +49,7 @@ class Stack
         $stackItem = $this->getStackItem($type, $value, $reference);
         $this->stack[$this->count++] = $stackItem;
 
-        if ($type == 'Function') {
+        if ($type === 'Function') {
             $localeFunction = Calculation::localeFunc($value);
             if ($localeFunction != $value) {
                 $this->stack[($this->count - 1)]['localeValue'] = $localeFunction;

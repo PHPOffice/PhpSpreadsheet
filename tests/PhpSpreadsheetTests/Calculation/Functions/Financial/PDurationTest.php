@@ -2,10 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Financial;
-use PHPUnit\Framework\TestCase;
-
-class PDurationTest extends TestCase
+class PDurationTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerPDURATION
@@ -14,16 +11,7 @@ class PDurationTest extends TestCase
      */
     public function testPDURATION($expectedResult, array $args): void
     {
-        if (count($args) === 0) {
-            $result = Financial::PDURATION();
-        } elseif (count($args) === 1) {
-            $result = Financial::PDURATION($args[0]);
-        } elseif (count($args) === 2) {
-            $result = Financial::PDURATION($args[0], $args[1]);
-        } else {
-            $result = Financial::PDURATION($args[0], $args[1], $args[2]);
-        }
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        $this->runTestCase('PDURATION', $expectedResult, $args);
     }
 
     public function providerPDURATION(): array

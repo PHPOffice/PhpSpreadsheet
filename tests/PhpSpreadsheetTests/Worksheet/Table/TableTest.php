@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Worksheet\Table;
 use PhpOffice\PhpSpreadsheet\Cell\CellAddress;
 use PhpOffice\PhpSpreadsheet\Cell\CellRange;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
+use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter;
 use PhpOffice\PhpSpreadsheet\Worksheet\Table;
 use PhpOffice\PhpSpreadsheet\Worksheet\Table\Column;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
@@ -79,7 +80,7 @@ class TableTest extends SetupTeardown
         ];
     }
 
-    public function testUniqueTableName(): void
+    public function testUniqueTableNameOnBindToWorksheet(): void
     {
         $this->expectException(PhpSpreadsheetException::class);
         $sheet = $this->getSheet();
@@ -89,8 +90,23 @@ class TableTest extends SetupTeardown
         $sheet->addTable($table1);
 
         $table2 = new Table();
-        $table2->setName('table_1'); // case insensitive
+        $table2->setName('tABlE_1'); // case insensitive
         $sheet->addTable($table2);
+    }
+
+    public function testUniqueTableNameOnNameChange(): void
+    {
+        $this->expectException(PhpSpreadsheetException::class);
+        $sheet = $this->getSheet();
+
+        $table1 = new Table();
+        $table1->setName('Table_1');
+        $sheet->addTable($table1);
+
+        $table2 = new Table();
+        $table2->setName('table_2'); // case insensitive
+        $sheet->addTable($table2);
+        $table2->setName('tAbLe_1');
     }
 
     public function testVariousSets(): void
@@ -554,5 +570,26 @@ class TableTest extends SetupTeardown
         self::assertArrayHasKey('J', $columns);
         self::assertArrayHasKey('L', $columns);
         self::assertArrayHasKey('M', $columns);
+    }
+
+    public function testAutoFilterRule(): void
+    {
+        $table = new Table(self::INITIAL_RANGE);
+        $columnFilter = $table->getAutoFilter()->getColumn('H');
+        $columnFilter->setFilterType(AutoFilter\Column::AUTOFILTER_FILTERTYPE_FILTER);
+        $columnFilter->createRule()
+            ->setRule(
+                AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
+                3
+            );
+        $autoFilterRuleObject = new AutoFilter\Column\Rule($columnFilter);
+        self::assertEquals(AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_FILTER, $autoFilterRuleObject->getRuleType());
+        $ruleParent = $autoFilterRuleObject->getParent();
+        if ($ruleParent === null) {
+            self::fail('Unexpected null parent');
+        } else {
+            self::assertEquals('H', $ruleParent->getColumnIndex());
+            self::assertSame($columnFilter, $ruleParent);
+        }
     }
 }

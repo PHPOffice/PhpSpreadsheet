@@ -2,17 +2,12 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 use PHPUnit\Framework\TestCase;
 
+// TODO Test error when array is supplied e.g. COUNTBLANK({32})
 class CountBlankTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerCOUNTBLANK
      *
@@ -20,7 +15,7 @@ class CountBlankTest extends TestCase
      */
     public function testCOUNTBLANK($expectedResult, ...$args): void
     {
-        $result = Statistical::COUNTBLANK(...$args);
+        $result = Statistical\Counts::COUNTBLANK(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

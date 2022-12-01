@@ -52,7 +52,7 @@ class Ods extends BaseReader
             if ($zip->open($filename) === true) {
                 // check if it is an OOXML archive
                 $stat = $zip->statName('mimetype');
-                if ($stat && ($stat['size'] <= 255)) {
+                if (!empty($stat) && ($stat['size'] <= 255)) {
                     $mimeType = $zip->getFromName($stat['name']);
                 } elseif ($zip->statName('META-INF/manifest.xml')) {
                     $xml = simplexml_load_string(
@@ -64,6 +64,7 @@ class Ods extends BaseReader
                     if (isset($namespacesContent['manifest'])) {
                         $manifest = $xml->children($namespacesContent['manifest']);
                         foreach ($manifest as $manifestDataSet) {
+                            /** @scrutinizer ignore-call */
                             $manifestAttributes = $manifestDataSet->attributes($namespacesContent['manifest']);
                             if ($manifestAttributes && $manifestAttributes->{'full-path'} == '/') {
                                 $mimeType = (string) $manifestAttributes->{'media-type'};
@@ -311,7 +312,7 @@ class Ods extends BaseReader
 
                 // Check loadSheetsOnly
                 if (
-                    isset($this->loadSheetsOnly)
+                    $this->loadSheetsOnly !== null
                     && $worksheetName
                     && !in_array($worksheetName, $this->loadSheetsOnly)
                 ) {
@@ -374,7 +375,15 @@ class Ods extends BaseReader
                             foreach ($childNode->childNodes as $cellData) {
                                 if ($this->getReadFilter() !== null) {
                                     if (!$this->getReadFilter()->readCell($columnID, $rowID, $worksheetName)) {
-                                        ++$columnID;
+                                        if ($cellData->hasAttributeNS($tableNs, 'number-columns-repeated')) {
+                                            $colRepeats = (int) $cellData->getAttributeNS($tableNs, 'number-columns-repeated');
+                                        } else {
+                                            $colRepeats = 1;
+                                        }
+
+                                        for ($i = 0; $i < $colRepeats; ++$i) {
+                                            ++$columnID;
+                                        }
 
                                         continue;
                                     }
@@ -507,7 +516,7 @@ class Ods extends BaseReader
 
                                             $dataValue = Date::PHPToExcel(
                                                 strtotime(
-                                                    '01-01-1970 ' . implode(':', sscanf($timeValue, 'PT%dH%dM%dS') ?? [])
+                                                    '01-01-1970 ' . implode(':', /** @scrutinizer ignore-type */ sscanf($timeValue, 'PT%dH%dM%dS') ?? [])
                                                 )
                                             );
                                             $formatting = NumberFormat::FORMAT_DATE_TIME4;
@@ -668,10 +677,9 @@ class Ods extends BaseReader
     private function setSelected(Spreadsheet $spreadsheet, string $wsname, string $setCol, string $setRow): void
     {
         if (is_numeric($setCol) && is_numeric($setRow)) {
-            try {
-                $spreadsheet->getSheetByName($wsname)->setSelectedCellByColumnAndRow($setCol + 1, $setRow + 1);
-            } catch (Throwable $e) {
-                // do nothing
+            $sheet = $spreadsheet->getSheetByName($wsname);
+            if ($sheet !== null) {
+                $sheet->setSelectedCells([(int) $setCol + 1, (int) $setRow + 1]);
             }
         }
     }
@@ -693,6 +701,7 @@ class Ods extends BaseReader
 
                 // Multiple spaces?
                 /** @var DOMAttr $cAttr */
+                /** @scrutinizer ignore-call */
                 $cAttr = $child->attributes->getNamedItem('c');
                 $multiplier = self::getMultiplier($cAttr);
                 $str .= str_repeat(' ', $multiplier);

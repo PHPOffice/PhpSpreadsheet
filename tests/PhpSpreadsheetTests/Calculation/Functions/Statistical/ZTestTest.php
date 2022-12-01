@@ -3,23 +3,17 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
-use PHPUnit\Framework\TestCase;
 
-class ZTestTest extends TestCase
+class ZTestTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerZTEST
      *
      * @param mixed $expectedResult
-     * @param mixed $value
-     * @param mixed $dataSet
-     * @param null|mixed $sigma
      */
-    public function testZTEST($expectedResult, $dataSet, $value, $sigma = null): void
+    public function testZTEST($expectedResult, ...$args): void
     {
-        $result = Statistical::ZTEST($dataSet, $value, $sigma);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        $this->runTestCaseReference('ZTEST', $expectedResult, ...$args);
     }
 
     public function providerZTEST(): array

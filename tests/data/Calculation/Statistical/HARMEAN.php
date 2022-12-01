@@ -17,7 +17,7 @@ return [
         '#NUM!',
         2.5, 3, 0.0, 1, 3,
     ],
-    [
-        '#N/A',
+    'no arguments' => [
+        'exception',
     ],
 ];

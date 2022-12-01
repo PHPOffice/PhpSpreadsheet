@@ -47,12 +47,12 @@ class Difference
         // Execute function
         $PHPStartDateObject = SharedDateHelper::excelToDateTimeObject($startDate);
         $startDays = (int) $PHPStartDateObject->format('j');
-        $startMonths = (int) $PHPStartDateObject->format('n');
+        //$startMonths = (int) $PHPStartDateObject->format('n');
         $startYears = (int) $PHPStartDateObject->format('Y');
 
         $PHPEndDateObject = SharedDateHelper::excelToDateTimeObject($endDate);
         $endDays = (int) $PHPEndDateObject->format('j');
-        $endMonths = (int) $PHPEndDateObject->format('n');
+        //$endMonths = (int) $PHPEndDateObject->format('n');
         $endYears = (int) $PHPEndDateObject->format('Y');
 
         $PHPDiffDateObject = $PHPEndDateObject->diff($PHPStartDateObject);
@@ -133,12 +133,12 @@ class Difference
             // Adjust end year to be as close as possible as start year
             while ($PHPEndDateObject >= $PHPStartDateObject) {
                 $PHPEndDateObject->modify('-1 year');
-                $endYears = $PHPEndDateObject->format('Y');
+                //$endYears = $PHPEndDateObject->format('Y');
             }
             $PHPEndDateObject->modify('+1 year');
 
             // Get the result
-            $retVal = $PHPEndDateObject->diff($PHPStartDateObject)->days;
+            $retVal = (int) $PHPEndDateObject->diff($PHPStartDateObject)->days;
 
             // Adjust for leap years cases
             $isLeapEndYear = $PHPEndDateObject->format('L');

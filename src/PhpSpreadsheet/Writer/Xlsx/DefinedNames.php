@@ -8,7 +8,7 @@ use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\DefinedName;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet as ActualWorksheet;
 
 class DefinedNames
 {
@@ -98,7 +98,7 @@ class DefinedNames
     /**
      * Write Defined Name for autoFilter.
      */
-    private function writeNamedRangeForAutofilter(Worksheet $worksheet, int $worksheetId = 0): void
+    private function writeNamedRangeForAutofilter(ActualWorksheet $worksheet, int $worksheetId = 0): void
     {
         // NamedRange for autoFilter
         $autoFilterRange = $worksheet->getAutoFilter()->getRange();
@@ -112,10 +112,12 @@ class DefinedNames
             $range = Coordinate::splitRange($autoFilterRange);
             $range = $range[0];
             //    Strip any worksheet ref so we can make the cell ref absolute
-            [, $range[0]] = Worksheet::extractSheetTitle($range[0], true);
+            [, $range[0]] = ActualWorksheet::extractSheetTitle($range[0], true);
 
             $range[0] = Coordinate::absoluteCoordinate($range[0]);
-            $range[1] = Coordinate::absoluteCoordinate($range[1]);
+            if (count($range) > 1) {
+                $range[1] = Coordinate::absoluteCoordinate($range[1]);
+            }
             $range = implode(':', $range);
 
             $this->objWriter->writeRawData('\'' . str_replace("'", "''", $worksheet->getTitle()) . '\'!' . $range);
@@ -127,7 +129,7 @@ class DefinedNames
     /**
      * Write Defined Name for PrintTitles.
      */
-    private function writeNamedRangeForPrintTitles(Worksheet $worksheet, int $worksheetId = 0): void
+    private function writeNamedRangeForPrintTitles(ActualWorksheet $worksheet, int $worksheetId = 0): void
     {
         // NamedRange for PrintTitles
         if ($worksheet->getPageSetup()->isColumnsToRepeatAtLeftSet() || $worksheet->getPageSetup()->isRowsToRepeatAtTopSet()) {
@@ -165,7 +167,7 @@ class DefinedNames
     /**
      * Write Defined Name for PrintTitles.
      */
-    private function writeNamedRangeForPrintArea(Worksheet $worksheet, int $worksheetId = 0): void
+    private function writeNamedRangeForPrintArea(ActualWorksheet $worksheet, int $worksheetId = 0): void
     {
         // NamedRange for PrintArea
         if ($worksheet->getPageSetup()->isPrintAreaSet()) {

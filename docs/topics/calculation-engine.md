@@ -321,6 +321,19 @@ and false is failure (e.g. an invalid DateTimeZone value was passed.)
 These functions support a timezone as an optional second parameter.
 This applies a specific timezone to that function call without affecting the default PhpSpreadsheet Timezone.
 
+### Calculating Value of Date/Time Read From Spreadsheet
+
+Nothing special needs to be done to interpret Date/Time values entered directly into a spreadsheet. They will have been stored as numbers with an appropriate number format set for the cell. However, depending on their value, they may have been stored as either integer or float values. If that is a problem, you can force `getCalculatedValue` to return float rather than int depending on the number format used for the cell.
+
+```php
+// All fields with Date, Time, or DateTime styles returned as float.
+\PhpOffice\PhpSpreadsheet\Cell\Cell::setCalculateDateTimeType(\PhpOffice\PhpSpreadsheet\Cell\Cell::CALCULATE_DATE_TIME_FLOAT);
+// All fields with Time or DateTime styles returned as float.
+\PhpOffice\PhpSpreadsheet\Cell\Cell::setCalculateDateTimeType(\PhpOffice\PhpSpreadsheet\Cell\Cell::CALCULATE_TIME_FLOAT);
+// Default - fields with Date, Time, or DateTime styles returned as they had been stored.
+\PhpOffice\PhpSpreadsheet\Cell\Cell::setCalculateDateTimeType(\PhpOffice\PhpSpreadsheet\Cell\Cell::CALCULATE_DATE_TIME_ASIS);
+```
+
 ## Function Reference
 
 ### Database Functions

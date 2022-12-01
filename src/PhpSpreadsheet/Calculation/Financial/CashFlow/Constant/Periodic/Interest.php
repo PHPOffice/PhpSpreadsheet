@@ -88,6 +88,8 @@ class Interest
      * @param mixed $period is the period to calculate the interest rate.  It must be betweeen 1 and number_payments.
      * @param mixed $numberOfPeriods is the number of payments for the annuity
      * @param mixed $principleRemaining is the loan amount or present value of the payments
+     *
+     * @return float|string
      */
     public static function schedulePayment($interestRate, $period, $numberOfPeriods, $principleRemaining)
     {

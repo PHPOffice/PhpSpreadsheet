@@ -80,7 +80,11 @@ class PageSetup extends BaseParserClass
 
             $relAttributes = $xmlSheet->pageSetup->attributes(Namespaces::SCHEMA_OFFICE_DOCUMENT);
             if (isset($relAttributes['id'])) {
-                $unparsedLoadedData['sheets'][$worksheet->getCodeName()]['pageSetupRelId'] = (string) $relAttributes['id'];
+                $relid = (string) $relAttributes['id'];
+                if (substr($relid, -2) !== 'ps') {
+                    $relid .= 'ps';
+                }
+                $unparsedLoadedData['sheets'][$worksheet->getCodeName()]['pageSetupRelId'] = $relid;
             }
         }
 

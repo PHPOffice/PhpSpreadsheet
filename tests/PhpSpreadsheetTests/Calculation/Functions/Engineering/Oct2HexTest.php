@@ -42,6 +42,7 @@ class Oct2HexTest extends TestCase
         $sheet->getCell('A1')->setValue("=OCT2HEX($formula)");
         $result = $sheet->getCell('A1')->getCalculatedValue();
         self::assertEquals($expectedResult, $result);
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function providerOCT2HEX(): array
@@ -72,6 +73,7 @@ class Oct2HexTest extends TestCase
         $sheet->getCell('A1')->setValue("=OCT2HEX($formula)");
         $result = $sheet->getCell('A1')->getCalculatedValue();
         self::assertEquals($expectedResult, $result);
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testOCT2HEXFrac(): void
@@ -90,6 +92,7 @@ class Oct2HexTest extends TestCase
         $cell = 'E1';
         $sheet->setCellValue($cell, '=OCT2HEX(20.1)');
         self::assertEquals('#NUM!', $sheet->getCell($cell)->getCalculatedValue());
+        $spreadsheet->disconnectWorksheets();
     }
 
     /**

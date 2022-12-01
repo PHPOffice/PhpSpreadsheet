@@ -2,17 +2,12 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 use PHPUnit\Framework\TestCase;
 
+// TODO Run in spreadsheet context.
 class MaxIfsTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerMAXIFS
      *
@@ -20,7 +15,7 @@ class MaxIfsTest extends TestCase
      */
     public function testMAXIFS($expectedResult, ...$args): void
     {
-        $result = Statistical::MAXIFS(...$args);
+        $result = Statistical\Conditional::MAXIFS(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 

@@ -3,21 +3,17 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
-use PHPUnit\Framework\TestCase;
 
-class NormSInvTest extends TestCase
+class NormSInvTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerNORMSINV
      *
      * @param mixed $expectedResult
-     * @param mixed $testValue
      */
-    public function testNORMSINV($expectedResult, $testValue): void
+    public function testNORMSINV($expectedResult, ...$args): void
     {
-        $result = Statistical::NORMSINV($testValue);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        $this->runTestCases('NORMSINV', $expectedResult, ...$args);
     }
 
     public function providerNORMSINV(): array

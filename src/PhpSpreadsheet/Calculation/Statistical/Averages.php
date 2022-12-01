@@ -115,18 +115,17 @@ class Averages extends AggregateBase
         $aCount = 0;
         // Loop through arguments
         foreach (Functions::flattenArrayIndexed($args) as $k => $arg) {
-            if ((is_bool($arg)) && (!Functions::isMatrixValue($k))) {
+            if (is_numeric($arg)) {
+                // do nothing
+            } elseif (is_bool($arg)) {
+                $arg = (int) $arg;
+            } elseif (!Functions::isMatrixValue($k)) {
+                $arg = 0;
             } else {
-                if ((is_numeric($arg)) || (is_bool($arg)) || ((is_string($arg) && ($arg != '')))) {
-                    if (is_bool($arg)) {
-                        $arg = (int) $arg;
-                    } elseif (is_string($arg)) {
-                        $arg = 0;
-                    }
-                    $returnValue += $arg;
-                    ++$aCount;
-                }
+                return ExcelError::VALUE();
             }
+            $returnValue += $arg;
+            ++$aCount;
         }
 
         if ($aCount > 0) {

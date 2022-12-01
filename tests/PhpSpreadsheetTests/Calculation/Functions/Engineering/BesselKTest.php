@@ -3,19 +3,9 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Engineering;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PHPUnit\Framework\TestCase;
 
-class BesselKTest extends TestCase
+class BesselKTest extends AllSetupTeardown
 {
-    const BESSEL_PRECISION = 1E-12;
-
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerBESSELK
      *
@@ -23,8 +13,7 @@ class BesselKTest extends TestCase
      */
     public function testBESSELK($expectedResult, ...$args): void
     {
-        $result = Engineering::BESSELK(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, self::BESSEL_PRECISION);
+        $this->runTestCase('BESSELK', $expectedResult, ...$args);
     }
 
     public function providerBESSELK(): array

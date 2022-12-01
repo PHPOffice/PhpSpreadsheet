@@ -102,7 +102,7 @@ class Periodic
     public static function modifiedRate($values, $financeRate, $reinvestmentRate)
     {
         if (!is_array($values)) {
-            return ExcelError::VALUE();
+            return ExcelError::DIV0();
         }
         $values = Functions::flattenArray($values);
         $financeRate = Functions::flattenSingleValue($financeRate);
@@ -112,7 +112,7 @@ class Periodic
         $rr = 1.0 + $reinvestmentRate;
         $fr = 1.0 + $financeRate;
 
-        $npvPos = $npvNeg = 0.0;
+        $npvPos = $npvNeg = self::$zeroPointZero;
         foreach ($values as $i => $v) {
             if ($v >= 0) {
                 $npvPos += $v / $rr ** $i;
@@ -121,15 +121,22 @@ class Periodic
             }
         }
 
-        if (($npvNeg === 0.0) || ($npvPos === 0.0) || ($reinvestmentRate <= -1.0)) {
-            return ExcelError::VALUE();
+        if ($npvNeg === self::$zeroPointZero || $npvPos === self::$zeroPointZero) {
+            return ExcelError::DIV0();
         }
 
         $mirr = ((-$npvPos * $rr ** $n)
                 / ($npvNeg * ($rr))) ** (1.0 / ($n - 1)) - 1.0;
 
-        return is_finite($mirr) ? $mirr : ExcelError::VALUE();
+        return is_finite($mirr) ? $mirr : ExcelError::NAN();
     }
+
+    /**
+     * Sop to Scrutinizer.
+     *
+     * @var float
+     */
+    private static $zeroPointZero = 0.0;
 
     /**
      * NPV.

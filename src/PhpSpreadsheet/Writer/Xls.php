@@ -8,7 +8,6 @@ use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\RichText\Run;
-use PhpOffice\PhpSpreadsheet\Shared\Drawing as SharedDrawing;
 use PhpOffice\PhpSpreadsheet\Shared\Escher;
 use PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer;
 use PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer;
@@ -435,9 +434,12 @@ class Xls extends BaseWriter
         switch ($imageFormat) {
             case 1: // GIF, not supported by BIFF8, we convert to PNG
                 $blipType = BSE::BLIPTYPE_PNG;
+                $newImage = @imagecreatefromgif($filename);
+                if ($newImage === false) {
+                    throw new Exception("Unable to create image from $filename");
+                }
                 ob_start();
-                // @phpstan-ignore-next-line
-                imagepng(imagecreatefromgif($filename));
+                imagepng($newImage);
                 $blipData = ob_get_contents();
                 ob_end_clean();
 
@@ -454,9 +456,12 @@ class Xls extends BaseWriter
                 break;
             case 6: // Windows DIB (BMP), we convert to PNG
                 $blipType = BSE::BLIPTYPE_PNG;
+                $newImage = @imagecreatefrombmp($filename);
+                if ($newImage === false) {
+                    throw new Exception("Unable to create image from $filename");
+                }
                 ob_start();
-                // @phpstan-ignore-next-line
-                imagepng(SharedDrawing::imagecreatefrombmp($filename));
+                imagepng($newImage);
                 $blipData = ob_get_contents();
                 ob_end_clean();
 

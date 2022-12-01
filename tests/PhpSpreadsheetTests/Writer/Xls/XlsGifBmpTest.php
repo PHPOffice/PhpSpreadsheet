@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Xls;
 
 use DateTime;
+use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
@@ -40,13 +41,13 @@ class XlsGifBmpTest extends AbstractFunctional
         $drawing->setCoordinates('A1');
 
         $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, 'Xls');
+        $spreadsheet->disconnectWorksheets();
         $creationDatestamp = $reloadedSpreadsheet->getProperties()->getCreated();
         $filstart = $creationDatestamp;
         $worksheet = $reloadedSpreadsheet->getActiveSheet();
         $drawings = $worksheet->getDrawingCollection();
         self::assertCount(1, $drawings);
         foreach ($worksheet->getDrawingCollection() as $drawing) {
-            // See if Scrutinizer approves this
             $mimeType = ($drawing instanceof MemoryDrawing) ? $drawing->getMimeType() : 'notmemorydrawing';
             self::assertEquals('image/png', $mimeType);
         }
@@ -55,6 +56,7 @@ class XlsGifBmpTest extends AbstractFunctional
         self::assertLessThanOrEqual($pgmend, $pgmstart);
         self::assertLessThanOrEqual($pgmend, $filstart);
         self::assertLessThanOrEqual($filstart, $pgmstart);
+        $reloadedSpreadsheet->disconnectWorksheets();
     }
 
     public function testGif(): void
@@ -71,6 +73,7 @@ class XlsGifBmpTest extends AbstractFunctional
         $drawing->setCoordinates('A1');
 
         $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, 'Xls');
+        $spreadsheet->disconnectWorksheets();
         $worksheet = $reloadedSpreadsheet->getActiveSheet();
         $drawings = $worksheet->getDrawingCollection();
         self::assertCount(1, $drawings);
@@ -78,11 +81,13 @@ class XlsGifBmpTest extends AbstractFunctional
             $mimeType = ($drawing instanceof MemoryDrawing) ? $drawing->getMimeType() : 'notmemorydrawing';
             self::assertEquals('image/png', $mimeType);
         }
+        $reloadedSpreadsheet->disconnectWorksheets();
     }
 
     public function testInvalidTimestamp(): void
     {
-        $this->expectException(\PhpOffice\PhpSpreadsheet\Reader\Exception::class);
+        $this->expectException(ReaderException::class);
+        $this->expectExceptionMessage('Expecting 8 byte string');
         \PhpOffice\PhpSpreadsheet\Shared\OLE::OLE2LocalDate(' ');
     }
 }

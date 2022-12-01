@@ -3,10 +3,8 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
-use PHPUnit\Framework\TestCase;
 
-class HypGeomDistTest extends TestCase
+class HypGeomDistTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerHYPGEOMDIST
@@ -15,8 +13,7 @@ class HypGeomDistTest extends TestCase
      */
     public function testHYPGEOMDIST($expectedResult, ...$args): void
     {
-        $result = Statistical::HYPGEOMDIST(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        $this->runTestCases('HYPGEOMDIST', $expectedResult, ...$args);
     }
 
     public function providerHYPGEOMDIST(): array

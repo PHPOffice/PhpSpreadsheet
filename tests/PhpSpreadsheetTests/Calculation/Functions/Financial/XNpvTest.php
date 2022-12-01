@@ -2,26 +2,54 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Financial;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PHPUnit\Framework\TestCase;
-
-class XNpvTest extends TestCase
+class XNpvTest extends AllSetupTeardown
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerXNPV
      *
      * @param mixed $expectedResult
-     * @param mixed $message
+     * @param mixed $rate
+     * @param mixed $values
+     * @param mixed $dates
      */
-    public function testXNPV($expectedResult, $message, ...$args): void
+    public function testXNPV($expectedResult, $rate = null, $values = null, $dates = null): void
     {
-        $result = Financial::XNPV(...$args);
+        $this->mightHaveException($expectedResult);
+        $sheet = $this->getSheet();
+        $formula = '=XNPV(';
+        if ($rate !== null) {
+            $this->setCell('C1', $rate);
+            $formula .= 'C1,';
+            if ($values !== null) {
+                if (is_array($values)) {
+                    $row = 0;
+                    foreach ($values as $value) {
+                        ++$row;
+                        $sheet->getCell("A$row")->setValue($value);
+                    }
+                    $formula .= "A1:A$row";
+                } else {
+                    $sheet->getCell('A1')->setValue($values);
+                    $formula .= 'A1';
+                }
+                if ($dates !== null) {
+                    if (is_array($dates)) {
+                        $row = 0;
+                        foreach ($dates as $date) {
+                            ++$row;
+                            $sheet->getCell("B$row")->setValue($date);
+                        }
+                        $formula .= ",B1:B$row";
+                    } else {
+                        $sheet->getCell('B1')->setValue($dates);
+                        $formula .= ',B1';
+                    }
+                }
+            }
+        }
+        $formula .= ')';
+        $sheet->getCell('D1')->setValue($formula);
+        $result = $sheet->getCell('D1')->getCalculatedValue();
         if (is_numeric($result) && is_numeric($expectedResult)) {
             if ($expectedResult != 0) {
                 $frac = $result / $expectedResult;
@@ -30,7 +58,7 @@ class XNpvTest extends TestCase
                 }
             }
         }
-        self::assertEquals($expectedResult, $result, $message);
+        self::assertEquals($expectedResult, $result);
     }
 
     public function providerXNPV(): array

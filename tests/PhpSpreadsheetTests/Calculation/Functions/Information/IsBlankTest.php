@@ -3,14 +3,14 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Information;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
 use PHPUnit\Framework\TestCase;
 
 class IsBlankTest extends TestCase
 {
     public function testIsBlankNoArgument(): void
     {
-        $result = Functions::isBlank();
+        $result = Value::isBlank();
         self::assertTrue($result);
     }
 
@@ -21,7 +21,7 @@ class IsBlankTest extends TestCase
      */
     public function testIsBlank(bool $expectedResult, $value): void
     {
-        $result = Functions::isBlank($value);
+        $result = Value::isBlank($value);
         self::assertEquals($expectedResult, $result);
     }
 

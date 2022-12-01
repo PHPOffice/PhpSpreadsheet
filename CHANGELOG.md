@@ -9,6 +9,75 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Added
 
+- Apply Row/Column limits (1048576 and XFD) in ReferenceHelper [PR #3213](https://github.com/PHPOffice/PhpSpreadsheet/pull/3213)
+- Allow the creation of In-Memory Drawings from a string of binary image data, or from a stream. [PR #3157](https://github.com/PHPOffice/PhpSpreadsheet/pull/3157)
+- Xlsx Reader support for Pivot Tables [PR #2829](https://github.com/PHPOffice/PhpSpreadsheet/pull/2829)
+- Permit Date/Time Entered on Spreadsheet to be calculated as Float [Issue #1416](https://github.com/PHPOffice/PhpSpreadsheet/issues/1416) [PR #3121](https://github.com/PHPOffice/PhpSpreadsheet/pull/3121)
+
+### Changed
+
+- Nothing
+
+### Deprecated
+
+- Direct update of Calculation::suppressFormulaErrors is replaced with setter.
+- Font public static variable defaultColumnWidths replaced with constant DEFAULT_COLUMN_WIDTHS.
+- ExcelError public static variable errorCodes replaced with constant ERROR_CODES.
+- NumberFormat constant FORMAT_DATE_YYYYMMDD2 replaced with existing identical FORMAT_DATE_YYYYMMDD.
+
+### Removed
+
+- Nothing
+
+### Fixed
+
+- Conditionals formatting rules applied to rows/columns are removed [Issue #3184](https://github.com/PHPOffice/PhpSpreadsheet/issues/3184) [PR #3213](https://github.com/PHPOffice/PhpSpreadsheet/pull/3213)
+- Treat strings containing currency or accounting values as floats in Calculation Engine operations [Issue #3165](https://github.com/PHPOffice/PhpSpreadsheet/issues/3165) [PR #3189](https://github.com/PHPOffice/PhpSpreadsheet/pull/3189)
+- Treat strings containing percentage values as floats in Calculation Engine operations [Issue #3155](https://github.com/PHPOffice/PhpSpreadsheet/issues/3155) [PR #3156](https://github.com/PHPOffice/PhpSpreadsheet/pull/3156) and [PR #3164](https://github.com/PHPOffice/PhpSpreadsheet/pull/3164)
+- Xlsx Reader Accept Palette of Fewer than 64 Colors [Issue #3093](https://github.com/PHPOffice/PhpSpreadsheet/issues/3093) [PR #3096](https://github.com/PHPOffice/PhpSpreadsheet/pull/3096)
+- Use Locale-Independent Float Conversion for Xlsx Writer Custom Property [Issue #3095](https://github.com/PHPOffice/PhpSpreadsheet/issues/3095) [PR #3099](https://github.com/PHPOffice/PhpSpreadsheet/pull/3099)
+- Allow setting AutoFilter range on a single cell or row [Issue #3102](https://github.com/PHPOffice/PhpSpreadsheet/issues/3102) [PR #3111](https://github.com/PHPOffice/PhpSpreadsheet/pull/3111)
+- Xlsx Reader External Data Validations Flag Missing [Issue #2677](https://github.com/PHPOffice/PhpSpreadsheet/issues/2677) [PR #3078](https://github.com/PHPOffice/PhpSpreadsheet/pull/3078)
+- Reduces extra memory usage on `__destruct()` calls [PR #3092](https://github.com/PHPOffice/PhpSpreadsheet/pull/3092)
+- Additional properties for Trendlines [Issue #3011](https://github.com/PHPOffice/PhpSpreadsheet/issues/3011) [PR #3028](https://github.com/PHPOffice/PhpSpreadsheet/pull/3028)
+- Calculation suppressFormulaErrors fix [Issue #1531](https://github.com/PHPOffice/PhpSpreadsheet/issues/1531) [PR #3092](https://github.com/PHPOffice/PhpSpreadsheet/pull/3092)
+- Permit Date/Time Entered on Spreadsheet to be Calculated as Float [Issue #1416](https://github.com/PHPOffice/PhpSpreadsheet/issues/1416) [PR #3121](https://github.com/PHPOffice/PhpSpreadsheet/pull/3121)
+- Incorrect Handling of Data Validation Formula Containing Ampersand [Issue #3145](https://github.com/PHPOffice/PhpSpreadsheet/issues/3145) [PR #3146](https://github.com/PHPOffice/PhpSpreadsheet/pull/3146)
+- Xlsx Namespace Handling of Drawings, RowAndColumnAttributes, MergeCells [Issue #3138](https://github.com/PHPOffice/PhpSpreadsheet/issues/3138) [PR #3136](https://github.com/PHPOffice/PhpSpreadsheet/pull/3137)
+- Generation3 Copy With Image in Footer [Issue #3126](https://github.com/PHPOffice/PhpSpreadsheet/issues/3126) [PR #3140](https://github.com/PHPOffice/PhpSpreadsheet/pull/3140)
+- MATCH Function Problems with Int/Float Compare and Wildcards [Issue #3141](https://github.com/PHPOffice/PhpSpreadsheet/issues/3141) [PR #3142](https://github.com/PHPOffice/PhpSpreadsheet/pull/3142)
+- Fix ODS Read Filter on number-columns-repeated cell [Issue #3148](https://github.com/PHPOffice/PhpSpreadsheet/issues/3148) [PR #3149](https://github.com/PHPOffice/PhpSpreadsheet/pull/3149)
+- Problems Formatting Very Small and Very Large Numbers [Issue #3128](https://github.com/PHPOffice/PhpSpreadsheet/issues/3128) [PR #3152](https://github.com/PHPOffice/PhpSpreadsheet/pull/3152)
+- XlsxWrite does now preserve line styles for y-axis, not only x-axis [PR #3163](https://github.com/PHPOffice/PhpSpreadsheet/pull/3163)
+
+
+## 1.25.2 - 2022-09-25
+
+### Added
+
+- Nothing
+
+### Changed
+
+- Nothing
+
+### Deprecated
+
+- Nothing
+
+### Removed
+
+- Nothing
+
+### Fixed
+
+- Composer dependency clash with ezyang/htmlpurifier
+
+
+## 1.25.0 - 2022-09-25
+
+### Added
+
 - Implementation of the new `TEXTBEFORE()`, `TEXTAFTER()` and `TEXTSPLIT()` Excel Functions
 - Implementation of the `ARRAYTOTEXT()` and `VALUETOTEXT()` Excel Functions
 - Support for [mitoteam/jpgraph](https://packagist.org/packages/mitoteam/jpgraph) implementation of

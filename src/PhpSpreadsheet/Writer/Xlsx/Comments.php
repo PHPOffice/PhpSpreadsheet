@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Comment;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Namespaces;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 
 class Comments extends WriterPart
@@ -40,7 +41,7 @@ class Comments extends WriterPart
 
         // comments
         $objWriter->startElement('comments');
-        $objWriter->writeAttribute('xmlns', 'http://schemas.openxmlformats.org/spreadsheetml/2006/main');
+        $objWriter->writeAttribute('xmlns', Namespaces::MAIN);
 
         // Loop through authors
         $objWriter->startElement('authors');
@@ -107,9 +108,9 @@ class Comments extends WriterPart
 
         // xml
         $objWriter->startElement('xml');
-        $objWriter->writeAttribute('xmlns:v', 'urn:schemas-microsoft-com:vml');
-        $objWriter->writeAttribute('xmlns:o', 'urn:schemas-microsoft-com:office:office');
-        $objWriter->writeAttribute('xmlns:x', 'urn:schemas-microsoft-com:office:excel');
+        $objWriter->writeAttribute('xmlns:v', Namespaces::URN_VML);
+        $objWriter->writeAttribute('xmlns:o', Namespaces::URN_MSOFFICE);
+        $objWriter->writeAttribute('xmlns:x', Namespaces::URN_EXCEL);
 
         // o:shapelayout
         $objWriter->startElement('o:shapelayout');

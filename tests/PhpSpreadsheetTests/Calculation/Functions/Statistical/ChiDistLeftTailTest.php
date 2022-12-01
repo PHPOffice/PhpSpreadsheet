@@ -3,17 +3,9 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
-use PHPUnit\Framework\TestCase;
 
-class ChiDistLeftTailTest extends TestCase
+class ChiDistLeftTailTest extends AllSetupTeardown
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerCHIDIST
      *
@@ -21,8 +13,7 @@ class ChiDistLeftTailTest extends TestCase
      */
     public function testCHIDIST($expectedResult, ...$args): void
     {
-        $result = Statistical\Distributions\ChiSquared::distributionLeftTail(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        $this->runTestCaseReference('CHISQ.DIST', $expectedResult, ...$args);
     }
 
     public function providerCHIDIST(): array

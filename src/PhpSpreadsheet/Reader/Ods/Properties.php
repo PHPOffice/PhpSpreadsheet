@@ -20,14 +20,15 @@ class Properties
         $docProps = $this->spreadsheet->getProperties();
         $officeProperty = $xml->children($namespacesMeta['office']);
         foreach ($officeProperty as $officePropertyData) {
-            // @var \SimpleXMLElement $officePropertyData
             if (isset($namespacesMeta['dc'])) {
+                /** @scrutinizer ignore-call */
                 $officePropertiesDC = $officePropertyData->children($namespacesMeta['dc']);
                 $this->setCoreProperties($docProps, $officePropertiesDC);
             }
 
             $officePropertyMeta = null;
             if (isset($namespacesMeta['dc'])) {
+                /** @scrutinizer ignore-call */
                 $officePropertyMeta = $officePropertyData->children($namespacesMeta['meta']);
             }
             $officePropertyMeta = $officePropertyMeta ?? [];

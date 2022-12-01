@@ -167,7 +167,7 @@ class BesselJ
             if ($jsum === true) {
                 $sum += $bj;
             }
-            $jsum = !$jsum;
+            $jsum = $jsum === false;
             if ($j === $ord) {
                 $ans = $bjp;
             }

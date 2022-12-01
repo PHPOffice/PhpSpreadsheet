@@ -2278,7 +2278,7 @@ class Xls extends BaseReader
                 $diagonalDown = (0x40000000 & self::getInt4d($recordData, 10)) >> 30 ? true : false;
 
                 // bit: 31; mask: 0x80000000; 1 = diagonal line from bottom left to top right
-                $diagonalUp = (0x80000000 & self::getInt4d($recordData, 10)) >> 31 ? true : false;
+                $diagonalUp = ((int) 0x80000000 & self::getInt4d($recordData, 10)) >> 31 ? true : false;
 
                 if ($diagonalUp === false) {
                     if ($diagonalDown == false) {
@@ -2308,7 +2308,7 @@ class Xls extends BaseReader
                 }
 
                 // bit: 31-26; mask: 0xFC000000 fill pattern
-                if ($fillType = Xls\Style\FillPattern::lookup((0xFC000000 & self::getInt4d($recordData, 14)) >> 26)) {
+                if ($fillType = Xls\Style\FillPattern::lookup(((int) 0xFC000000 & self::getInt4d($recordData, 14)) >> 26)) {
                     $objStyle->getFill()->setFillType($fillType);
                 }
                 // offset: 18; size: 2; pattern and background colour
@@ -2360,7 +2360,7 @@ class Xls extends BaseReader
                 $objStyle->getBorders()->getBottom()->setBorderStyle(Xls\Style\Border::lookup((0x01C00000 & $borderAndBackground) >> 22));
 
                 // bit: 31-25; mask: 0xFE000000; bottom line color
-                $objStyle->getBorders()->getBottom()->colorIndex = (0xFE000000 & $borderAndBackground) >> 25;
+                $objStyle->getBorders()->getBottom()->colorIndex = ((int) 0xFE000000 & $borderAndBackground) >> 25;
 
                 // offset: 12; size: 4; cell border lines
                 $borderLines = self::getInt4d($recordData, 12);
@@ -3187,7 +3187,7 @@ class Xls extends BaseReader
                 $cl = self::getUInt2d($recordData, 2 + 6 * $i + 4);
 
                 // not sure why two column indexes are necessary?
-                $this->phpSheet->setBreakByColumnAndRow($cf + 1, $r, Worksheet::BREAK_ROW);
+                $this->phpSheet->setBreak([$cf + 1, $r], Worksheet::BREAK_ROW);
             }
         }
     }
@@ -3214,7 +3214,7 @@ class Xls extends BaseReader
                 $rl = self::getUInt2d($recordData, 2 + 6 * $i + 4);
 
                 // not sure why two row indexes are necessary?
-                $this->phpSheet->setBreakByColumnAndRow($c + 1, $rf, Worksheet::BREAK_COLUMN);
+                $this->phpSheet->setBreak([$c + 1, $rf], Worksheet::BREAK_COLUMN);
             }
         }
     }
@@ -4947,8 +4947,6 @@ class Xls extends BaseReader
                 case 0x28:
                     // TODO: Investigate structure for .xls SHEETLAYOUT record as saved by MS Office Excel 2007
                     return;
-
-                    break;
             }
         }
     }
@@ -7699,10 +7697,10 @@ class Xls extends BaseReader
     {
         $rknumhigh = self::getInt4d($data, 4);
         $rknumlow = self::getInt4d($data, 0);
-        $sign = ($rknumhigh & 0x80000000) >> 31;
+        $sign = ($rknumhigh & (int) 0x80000000) >> 31;
         $exp = (($rknumhigh & 0x7ff00000) >> 20) - 1023;
         $mantissa = (0x100000 | ($rknumhigh & 0x000fffff));
-        $mantissalow1 = ($rknumlow & 0x80000000) >> 31;
+        $mantissalow1 = ($rknumlow & (int) 0x80000000) >> 31;
         $mantissalow2 = ($rknumlow & 0x7fffffff);
         $value = $mantissa / 2 ** (20 - $exp);
 
@@ -7733,7 +7731,7 @@ class Xls extends BaseReader
             // The RK format calls for using only the most significant 30 bits
             // of the 64 bit floating point value. The other 34 bits are assumed
             // to be 0 so we use the upper 30 bits of $rknum as follows...
-            $sign = ($rknum & 0x80000000) >> 31;
+            $sign = ($rknum & (int) 0x80000000) >> 31;
             $exp = ($rknum & 0x7ff00000) >> 20;
             $mantissa = (0x100000 | ($rknum & 0x000ffffc));
             $value = $mantissa / 2 ** (20 - ($exp - 1023));
@@ -8088,7 +8086,6 @@ class Xls extends BaseReader
             $conditionalStyles = $this->phpSheet->getStyle($cellRange)->getConditionalStyles();
             $conditionalStyles[] = $conditional;
 
-            $this->phpSheet->getStyle($cellRange)->setConditionalStyles($conditionalStyles);
             $this->phpSheet->getStyle($cellRange)->setConditionalStyles($conditionalStyles);
         }
     }

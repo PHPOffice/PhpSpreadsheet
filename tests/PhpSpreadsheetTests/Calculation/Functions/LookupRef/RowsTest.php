@@ -12,10 +12,11 @@ class RowsTest extends TestCase
      * @dataProvider providerROWS
      *
      * @param mixed $expectedResult
+     * @param null|array|string $arg
      */
-    public function testROWS($expectedResult, ...$args): void
+    public function testROWS($expectedResult, $arg): void
     {
-        $result = LookupRef::ROWS(/** @scrutinizer ignore-type */ ...$args);
+        $result = LookupRef\RowColumnInformation::ROWS($arg);
         self::assertEquals($expectedResult, $result);
     }
 

@@ -75,7 +75,7 @@ class HLookupTest extends TestCase
         // Some old tests called function directly using array of strings;
         // ensure these work as before.
         $expectedResult = '#REF!';
-        $result = LookupRef::HLOOKUP(
+        $result = /** @scrutinizer ignore-deprecated */ LookupRef::HLOOKUP(
             'Selection column',
             ['Selection column', 'Value to retrieve'],
             5,
@@ -83,7 +83,7 @@ class HLookupTest extends TestCase
         );
         self::assertSame($expectedResult, $result);
         $expectedResult = 'Value to retrieve';
-        $result = LookupRef::HLOOKUP(
+        $result = /** @scrutinizer ignore-deprecated */ LookupRef::HLOOKUP(
             'Selection column',
             ['Selection column', 'Value to retrieve'],
             2,

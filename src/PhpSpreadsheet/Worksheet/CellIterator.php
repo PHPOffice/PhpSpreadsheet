@@ -2,16 +2,16 @@
 
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
-use Iterator;
+use Iterator as NativeIterator;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Collection\Cells;
 
 /**
  * @template TKey
  *
- * @implements Iterator<TKey, Cell>
+ * @implements NativeIterator<TKey, Cell>
  */
-abstract class CellIterator implements Iterator
+abstract class CellIterator implements NativeIterator
 {
     public const TREAT_NULL_VALUE_AS_EMPTY_CELL = 1;
 
