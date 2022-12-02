@@ -187,6 +187,49 @@ class AllSetupTeardown extends TestCase
     }
 
     /**
+     * Excel seems to reject bracket notation for literal arrays
+     * for some functions.
+     *
+     * @param mixed $expectedResult
+     * @param array $args
+     */
+    protected function runTestCaseNoBracket(string $functionName, $expectedResult, ...$args): void
+    {
+        $this->mightHaveException($expectedResult);
+        $sheet = $this->getSheet();
+        $formula = "=$functionName(";
+        $comma = '';
+        $row = 0;
+        foreach ($args as $arg) {
+            ++$row;
+            if (is_array($arg)) {
+                $col = 'A';
+                $arrayRange = '';
+                foreach ($arg as $arrayItem) {
+                    $cellId = "$col$row";
+                    $arrayRange = "A$row:$cellId";
+                    $this->setCell($cellId, $arrayItem);
+                    ++$col;
+                }
+                $formula .= "$comma$arrayRange";
+                $comma = ',';
+            } else { // @phpstan-ignore-line
+                $cellId = "A$row";
+                $formula .= "$comma$cellId";
+                $comma = ',';
+                if (is_string($arg) && substr($arg, 0, 1) === '=') {
+                    $sheet->getCell($cellId)->setValueExplicit($arg, DataType::TYPE_STRING);
+                } else {
+                    $this->setCell($cellId, $arg);
+                }
+            }
+        }
+        $formula .= ')';
+        $this->setCell('Z99', $formula);
+        self::assertEqualsWithDelta($expectedResult, $sheet->getCell('Z99')->getCalculatedValue(), 1.0e-8, 'arguments supplied as ranges');
+    }
+
+    /**
      * @param mixed $arg
      */
     private function convertToString($arg): string

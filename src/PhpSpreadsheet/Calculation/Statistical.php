@@ -312,13 +312,13 @@ class Statistical
      *      Use the COUNTBLANK() method in the Statistical\Counts class instead
      * @see Statistical\Counts::COUNTBLANK()
      *
-     * @param mixed ...$args Data values
+     * @param mixed $range Data values
      *
      * @return int
      */
-    public static function COUNTBLANK(...$args)
+    public static function COUNTBLANK($range)
     {
-        return Counts::COUNTBLANK(...$args);
+        return Counts::COUNTBLANK($range);
     }
 
     /**
