@@ -11,24 +11,24 @@ class Issue2810Test extends TestCase
     public function testIssue2810(): void
     {
         $content = <<<'EOF'
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset='utf-8'>
-    <title>Declaracion en Linea</title>
-</head>
-<body>
-  <table>
-    <tr>
-      <td>1</td>
-      <td>0</td>
-      <td>2</td>
-    </tr>
-  </table>
-</body>
-</html>
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <meta charset='utf-8'>
+                <title>Declaracion en Linea</title>
+            </head>
+            <body>
+              <table>
+                <tr>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>2</td>
+                </tr>
+              </table>
+            </body>
+            </html>
 
-EOF;
+            EOF;
         $reader = new Html();
         $spreadsheet = $reader->loadFromString($content);
         $sheet = $spreadsheet->getActiveSheet();
