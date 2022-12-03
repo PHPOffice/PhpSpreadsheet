@@ -1,8 +1,8 @@
 <?php
 
 return [
-    [
-        0,
+    'no argument' => [
+        'exception',
     ],
     [
         2,
@@ -19,6 +19,7 @@ return [
         ['C', 'B', 'A', 'B', 'B'],
         '=B',
     ],
+    // TODO I believe that PhpSpreadsheet counts false and shouldn't.
     //    [
     //        2,
     //        [1, 2, 3, 'B', null, '', false],

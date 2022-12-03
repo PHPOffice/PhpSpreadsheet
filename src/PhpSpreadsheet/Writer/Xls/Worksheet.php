@@ -1091,7 +1091,6 @@ class Worksheet extends BIFFwriter
         }
 
         $record = 0x01B8; // Record identifier
-        $length = 0x00000; // Bytes to follow
 
         // Strip URL type and change Unix dir separator to Dos style (if needed)
         //
@@ -1127,18 +1126,18 @@ class Worksheet extends BIFFwriter
         $dir_short = (string) preg_replace('/\\.\\.\\\\/', '', $dir_long) . "\0";
 
         // Store the long dir name as a wchar string (non-null terminated)
-        $dir_long = $dir_long . "\0";
+        //$dir_long = $dir_long . "\0";
 
         // Pack the lengths of the dir strings
         $dir_short_len = pack('V', strlen($dir_short));
-        $dir_long_len = pack('V', strlen($dir_long));
+        //$dir_long_len = pack('V', strlen($dir_long));
         $stream_len = pack('V', 0); //strlen($dir_long) + 0x06);
 
         // Pack the undocumented parts of the hyperlink stream
         $unknown1 = pack('H*', 'D0C9EA79F9BACE118C8200AA004BA90B02000000');
         $unknown2 = pack('H*', '0303000000000000C000000000000046');
         $unknown3 = pack('H*', 'FFFFADDE000000000000000000000000000000000000000');
-        $unknown4 = pack('v', 0x03);
+        //$unknown4 = pack('v', 0x03);
 
         // Pack the main data stream
         $data = pack('vvvv', $row1, $row2, $col1, $col2) .
@@ -1242,7 +1241,6 @@ class Worksheet extends BIFFwriter
         $record = 0x023E; // Record identifier
         $length = 0x0012;
 
-        $grbit = 0x00B6; // Option flags
         $rwTop = 0x0000; // Top row visible in window
         $colLeft = 0x0000; // Leftmost column visible in window
 
@@ -1605,7 +1603,7 @@ class Worksheet extends BIFFwriter
         $x = $column - 1;
         $y = $row - 1;
 
-        [$leftMostColumn, $topRow] = Coordinate::indexesFromString($this->phpSheet->getTopLeftCell());
+        [$leftMostColumn, $topRow] = Coordinate::indexesFromString($this->phpSheet->getTopLeftCell() ?? '');
         //Coordinates are zero-based in xls files
         $rwTop = $topRow - 1;
         $colLeft = $leftMostColumn - 1;
@@ -1650,7 +1648,6 @@ class Worksheet extends BIFFwriter
         $iPageStart = 0x01; // Starting page number
         $iFitWidth = (int) $this->phpSheet->getPageSetup()->getFitToWidth(); // Fit to number of pages wide
         $iFitHeight = (int) $this->phpSheet->getPageSetup()->getFitToHeight(); // Fit to number of pages high
-        $grbit = 0x00; // Option flags
         $iRes = 0x0258; // Print resolution
         $iVRes = 0x0258; // Vertical print resolution
 
@@ -2433,7 +2430,7 @@ class Worksheet extends BIFFwriter
     {
         // Open file.
         $bmp_fd = @fopen($bitmap, 'rb');
-        if (!$bmp_fd) {
+        if ($bmp_fd === false) {
             throw new WriterException("Couldn't import $bitmap");
         }
 
@@ -2766,7 +2763,7 @@ class Worksheet extends BIFFwriter
 
         $rt = 0x088B; // 2
         $grbitFrt = 0x0000; // 2
-        $reserved = 0x0000000000000000; // 8
+        //$reserved = 0x0000000000000000; // 8
         $wScalvePLV = $this->phpSheet->getSheetView()->getZoomScale(); // 2
 
         // The options flags that comprise $grbit
@@ -2902,8 +2899,8 @@ class Worksheet extends BIFFwriter
         }
         // Pattern
         $bFillStyle = ($conditional->getStyle()->getFill()->getFillType() === null ? 0 : 1);
-        $bFillColor = ($conditional->getStyle()->getFill()->getStartColor()->getARGB() == null ? 0 : 1);
-        $bFillColorBg = ($conditional->getStyle()->getFill()->getEndColor()->getARGB() == null ? 0 : 1);
+        $bFillColor = ($conditional->getStyle()->getFill()->getStartColor()->getARGB() === null ? 0 : 1);
+        $bFillColorBg = ($conditional->getStyle()->getFill()->getEndColor()->getARGB() === null ? 0 : 1);
         if ($bFillStyle == 0 || $bFillColor == 0 || $bFillColorBg == 0) {
             $bFormatFill = 1;
         } else {
@@ -2919,7 +2916,7 @@ class Worksheet extends BIFFwriter
             || $conditional->getStyle()->getFont()->getSubscript() !== null
             || $conditional->getStyle()->getFont()->getUnderline() !== null
             || $conditional->getStyle()->getFont()->getStrikethrough() !== null
-            || $conditional->getStyle()->getFont()->getColor()->getARGB() != null
+            || $conditional->getStyle()->getFont()->getColor()->getARGB() !== null
         ) {
             $bFormatFont = 1;
         } else {

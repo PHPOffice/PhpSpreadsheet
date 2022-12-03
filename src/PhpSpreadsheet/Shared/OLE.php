@@ -117,7 +117,7 @@ class OLE
     public function read($filename)
     {
         $fh = fopen($filename, 'rb');
-        if (!$fh) {
+        if ($fh === false) {
             throw new ReaderException("Can't open file $filename");
         }
         $this->_file_handle = $fh;
@@ -349,7 +349,7 @@ class OLE
             if ($pps->Type == self::OLE_PPS_TYPE_DIR || $pps->Type == self::OLE_PPS_TYPE_ROOT) {
                 $nos = [$pps->DirPps];
                 $pps->children = [];
-                while ($nos) {
+                while (!empty($nos)) {
                     $no = array_pop($nos);
                     if ($no != -1) {
                         $childPps = $this->_list[$no];

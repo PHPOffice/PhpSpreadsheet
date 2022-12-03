@@ -12,6 +12,9 @@ coding_style:
 build:
     nodes:
         analysis:
+            image: default-bionic
+            environment:
+                php: 8.1
             tests:
                 override:
                     - php-scrutinizer-run

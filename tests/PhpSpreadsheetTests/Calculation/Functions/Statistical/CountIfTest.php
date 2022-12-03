@@ -2,11 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
-use PHPUnit\Framework\TestCase;
-
-//TODO Run in spreadsheet content.
-class CountIfTest extends TestCase
+class CountIfTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerCOUNTIF
@@ -15,8 +11,18 @@ class CountIfTest extends TestCase
      */
     public function testCOUNTIF($expectedResult, ...$args): void
     {
-        $result = Statistical\Conditional::COUNTIF(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        $this->runTestCaseNoBracket('COUNTIF', $expectedResult, ...$args);
+    }
+
+    public function testMultipleRows(): void
+    {
+        $sheet = $this->getSheet();
+        $sheet->fromArray([
+            ['apples', 'oranges', 'peaches', 'apples'],
+            ['bananas', 'mangoes', 'grapes', 'cherries'],
+        ]);
+        $sheet->getCell('Z99')->setValue('=COUNTIF(A1:D2,"*p*e*")');
+        self::assertSame(4, $sheet->getCell('Z99')->getCalculatedValue());
     }
 
     public function providerCOUNTIF(): array

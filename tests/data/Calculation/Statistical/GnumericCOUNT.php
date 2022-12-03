@@ -1,7 +1,7 @@
 <?php
 
 return [
-    [
+    'range does not count bool, null, text string' => [
         3,
         [
             // The index simulates a cell value
@@ -16,19 +16,17 @@ return [
             '0.9.A' => 9,
         ],
     ],
-    [
+    'direct values also do not count bool, null, text string' => [
         3,
-        [
-            // No index indicates arguments passed as literals rather than cell values
-            'A',
-            1,
-            true,
-            2.9,
-            false,
-            '3',
-            '',
-            null,
-            9,
-        ],
+        // No index indicates arguments passed as literals rather than cell values
+        'A',
+        1,
+        true,
+        2.9,
+        false,
+        '3',
+        '',
+        null,
+        9,
     ],
 ];
