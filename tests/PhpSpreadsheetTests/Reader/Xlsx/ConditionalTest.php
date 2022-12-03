@@ -8,6 +8,17 @@ use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
 class ConditionalTest extends AbstractFunctional
 {
+    public function testLoadingConditionalDoesntLoseSelectedCell(): void
+    {
+        $filename = 'tests/data/Reader/XLSX/ConditionalFormat_Ranges.xlsx';
+        $reader = IOFactory::createReader('Xlsx');
+        $spreadsheet = $reader->load($filename);
+        $worksheet = $spreadsheet->getActiveSheet();
+
+        self::assertSame('A1', $worksheet->getActiveCell());
+        self::assertSame('A1', $worksheet->getSelectedCells());
+    }
+
     /**
      * Test check if conditional style with type 'notContainsText' works on xlsx.
      */
