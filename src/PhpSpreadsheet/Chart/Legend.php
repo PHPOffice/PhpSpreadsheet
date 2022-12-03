@@ -96,6 +96,7 @@ class Legend
      */
     public function getPositionXL()
     {
+        // Scrutinizer thinks the following could return string. It is wrong.
         return array_search($this->position, self::POSITION_XLREF);
     }
 

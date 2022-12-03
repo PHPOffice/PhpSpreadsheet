@@ -685,18 +685,6 @@ parameters:
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Security/XmlScanner.php
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Security\\\\XmlScanner\\:\\:toUtf8\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Security/XmlScanner.php
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Security\\\\XmlScanner\\:\\:toUtf8\\(\\) has parameter \\$xml with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Security/XmlScanner.php
-		-
-			message: "#^Parameter \\#2 \\$subject of function preg_match expects string, array\\<int, string\\>\\|string\\|false given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Security/XmlScanner.php
-		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Security\\\\XmlScanner\\:\\:\\$callback has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Security/XmlScanner.php
@@ -909,22 +897,6 @@ parameters:
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Escher/DggContainer/BstoreContainer/BSE.php
 		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\JAMA\\\\EigenvalueDecomposition\\:\\:\\$cdivi has no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/JAMA/EigenvalueDecomposition.php
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\JAMA\\\\EigenvalueDecomposition\\:\\:\\$e has no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/JAMA/EigenvalueDecomposition.php
-		-
-			message: "#^Else branch is unreachable because previous condition is always true\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/JAMA/LUDecomposition.php
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\JAMA\\\\LUDecomposition\\:\\:getDoublePivot\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/JAMA/LUDecomposition.php
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\JAMA\\\\Matrix\\:\\:__construct\\(\\) has parameter \\$args with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/JAMA/Matrix.php
@@ -990,16 +962,8 @@ parameters:
 			path: src/PhpSpreadsheet/Shared/JAMA/Matrix.php
 		-
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 19
+			count: 14
 			path: src/PhpSpreadsheet/Shared/JAMA/Matrix.php
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 7
-			path: src/PhpSpreadsheet/Shared/JAMA/SingularValueDecomposition.php
-		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 4
-			path: src/PhpSpreadsheet/Shared/JAMA/SingularValueDecomposition.php
 		-
 			message: "#^Cannot access offset 1 on array\\|false\\.$#"
 			count: 1

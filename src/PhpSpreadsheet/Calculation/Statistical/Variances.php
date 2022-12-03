@@ -76,7 +76,7 @@ class Variances extends VarianceBase
             } elseif ((is_string($arg)) && (!Functions::isMatrixValue($k))) {
             } else {
                 // Is it a numeric value?
-                if ((is_numeric($arg)) || (is_bool($arg)) || ((is_string($arg) & ($arg != '')))) {
+                if ((is_numeric($arg)) || (is_bool($arg)) || ((is_string($arg) && ($arg != '')))) {
                     $arg = self::datatypeAdjustmentAllowStrings($arg);
                     $summerA += ($arg * $arg);
                     $summerB += $arg;
@@ -165,7 +165,7 @@ class Variances extends VarianceBase
             } elseif ((is_string($arg)) && (!Functions::isMatrixValue($k))) {
             } else {
                 // Is it a numeric value?
-                if ((is_numeric($arg)) || (is_bool($arg)) || ((is_string($arg) & ($arg != '')))) {
+                if ((is_numeric($arg)) || (is_bool($arg)) || ((is_string($arg) && ($arg != '')))) {
                     $arg = self::datatypeAdjustmentAllowStrings($arg);
                     $summerA += ($arg * $arg);
                     $summerB += $arg;

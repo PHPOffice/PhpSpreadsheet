@@ -12,34 +12,34 @@ class HtmlTagsTest extends TestCase
     {
         $reader = new Html();
         $html1 = <<<EOF
-<table><tbody>
-<tr><td>1</td><td>2</td><td>3</td></tr>
-<tr><td><a href='www.google.com'>hyperlink</a></td><td>5<hr></td><td>6</td></tr>
-<tr><td>7</td><td>8</td><td>9</td></tr>
-<tr><td>10</td><td>11</td><td>12</td></tr>
-</tbody></table>
-<hr>
-<table><tbody>
-<tr><td>1</td><td><i>2</i></td><td>3</td></tr>
-<tr height='20'><td>4</td><td>5</td><td>6</td></tr>
-<tr><td>7</td><td>8</td><td>9</td></tr>
-<tr><td><ul><li>A</li><li>B</li><li>C</li></ul></td><td>11</td><td>12</td></tr>
-</tbody></table>
-<ul><li>D</li><li>E</li><li>F</li></ul>
-<br>
-<table><tbody>
-<tr><td>M</td>
-<td>
-  <table><tbody>
-  <tr><td>N</td><td>O</td></tr>
-  <tr><td>P</td><td>Q</td></tr>
-  </tbody></table>
-</td>
-<td>R</td>
-</tr>
-<tr><td>S</td><td>T</td><td>U</td></tr>
-</tbody></table>
-EOF;
+            <table><tbody>
+            <tr><td>1</td><td>2</td><td>3</td></tr>
+            <tr><td><a href='www.google.com'>hyperlink</a></td><td>5<hr></td><td>6</td></tr>
+            <tr><td>7</td><td>8</td><td>9</td></tr>
+            <tr><td>10</td><td>11</td><td>12</td></tr>
+            </tbody></table>
+            <hr>
+            <table><tbody>
+            <tr><td>1</td><td><i>2</i></td><td>3</td></tr>
+            <tr height='20'><td>4</td><td>5</td><td>6</td></tr>
+            <tr><td>7</td><td>8</td><td>9</td></tr>
+            <tr><td><ul><li>A</li><li>B</li><li>C</li></ul></td><td>11</td><td>12</td></tr>
+            </tbody></table>
+            <ul><li>D</li><li>E</li><li>F</li></ul>
+            <br>
+            <table><tbody>
+            <tr><td>M</td>
+            <td>
+              <table><tbody>
+              <tr><td>N</td><td>O</td></tr>
+              <tr><td>P</td><td>Q</td></tr>
+              </tbody></table>
+            </td>
+            <td>R</td>
+            </tr>
+            <tr><td>S</td><td>T</td><td>U</td></tr>
+            </tbody></table>
+            EOF;
         $robj = $reader->loadFromString($html1);
         $sheet = $robj->getActiveSheet();
 
@@ -77,30 +77,30 @@ EOF;
     {
         $reader = new Html();
         $html1 = <<<EOF
-<table>
-  <tr>
-    <th>Month</th>
-    <th>Savings</th>
-    <th>Expenses</th>
-  </tr>
-  <tr>
-    <td>January</td>
-    <td>$100</td>
-    <td rowspan="2">$50</td>
-  </tr>
-  <tr>
-    <td>February</td>
-    <td>$80</td>
-  </tr>
-  <tr>
-  <td rowspan="2" colspan="2" bgcolor="#00FFFF">Away in March</td>
-  <td>$30</td>
-  </tr>
-  <tr>
-  <td>$40</td>
-  </tr>
-</table>
-EOF;
+            <table>
+              <tr>
+                <th>Month</th>
+                <th>Savings</th>
+                <th>Expenses</th>
+              </tr>
+              <tr>
+                <td>January</td>
+                <td>$100</td>
+                <td rowspan="2">$50</td>
+              </tr>
+              <tr>
+                <td>February</td>
+                <td>$80</td>
+              </tr>
+              <tr>
+              <td rowspan="2" colspan="2" bgcolor="#00FFFF">Away in March</td>
+              <td>$30</td>
+              </tr>
+              <tr>
+              <td>$40</td>
+              </tr>
+            </table>
+            EOF;
         $robj = $reader->loadFromString($html1);
         $sheet = $robj->getActiveSheet();
 
@@ -113,33 +113,33 @@ EOF;
     {
         $reader = new Html();
         $html1 = <<<EOF
-<table><tbody>
-<tr><td>1</td><td>2</td><td>3</td></tr>
-<tr><td>4</td><td>5</td><td>6</td></tr>
-<tr><td>7</td><td>8</td><td>9</td></tr>
-<tr><td></td><td></td><td></td></tr>
-<tr><td></td><td></td><td></td></tr>
-<tr><td></td><td></td><td></td></tr>
-<tr><td>M</td>
-<td>
-  <table><tbody>
-  <tr><td>N</td>
-    <td>
-      <table><tbody>
-      <tr><td>10</td><td>11</td></tr>
-      <tr><td>12</td><td>13</td></tr>
-      </tbody></table>
-    </td>
-  <td>Y</td>
-  </tr>
-  <tr><td>P</td><td>Q</td><td>X</td></tr>
-  </tbody></table>
-</td>
-<td>R</td>
-</tr>
-<tr><td>S</td><td>T</td><td>U</td></tr>
-</tbody></table>
-EOF;
+            <table><tbody>
+            <tr><td>1</td><td>2</td><td>3</td></tr>
+            <tr><td>4</td><td>5</td><td>6</td></tr>
+            <tr><td>7</td><td>8</td><td>9</td></tr>
+            <tr><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td></tr>
+            <tr><td>M</td>
+            <td>
+              <table><tbody>
+              <tr><td>N</td>
+                <td>
+                  <table><tbody>
+                  <tr><td>10</td><td>11</td></tr>
+                  <tr><td>12</td><td>13</td></tr>
+                  </tbody></table>
+                </td>
+              <td>Y</td>
+              </tr>
+              <tr><td>P</td><td>Q</td><td>X</td></tr>
+              </tbody></table>
+            </td>
+            <td>R</td>
+            </tr>
+            <tr><td>S</td><td>T</td><td>U</td></tr>
+            </tbody></table>
+            EOF;
         $robj = $reader->loadFromString($html1);
         $sheet = $robj->getActiveSheet();
 
@@ -172,26 +172,26 @@ EOF;
     {
         $reader = new Html();
         $html1 = <<<EOF
-<h1>Here comes a list</h1>
-<ol>
-<li>Item 1</li>
-<li>Item 2</li>
-<li>Item 3</li>
-<li>Item 4</li>
-</ol>
-And here's another
-<ul>
-<li>Item A</li>
-<li>Item B</li>
-</ul>
-<ol>
-Content before list
-<li>Item I</li>
-<li>Item II</li>
-<li>This <i>is</i> <span style='color: #ff0000;'>rich</span> text</li>
-</ol>
+            <h1>Here comes a list</h1>
+            <ol>
+            <li>Item 1</li>
+            <li>Item 2</li>
+            <li>Item 3</li>
+            <li>Item 4</li>
+            </ol>
+            And here's another
+            <ul>
+            <li>Item A</li>
+            <li>Item B</li>
+            </ul>
+            <ol>
+            Content before list
+            <li>Item I</li>
+            <li>Item II</li>
+            <li>This <i>is</i> <span style='color: #ff0000;'>rich</span> text</li>
+            </ol>
 
-EOF;
+            EOF;
         $robj = $reader->loadFromString($html1);
         $sheet = $robj->getActiveSheet();
 
@@ -214,19 +214,19 @@ EOF;
     {
         $reader = new Html();
         $html1 = <<<EOF
-<table>
-	<tr>
-		<td rowspan="3">Title</td>
-		<td><a href="https://google.com">Link 1</a></td>
-	</tr>
-	<tr>
-		<td><a href="https://google.com">Link 2</a></td>
-	</tr>
-	<tr>
-		<td><a href="https://google.com">Link 3</a></td>
-	</tr>
-</table>
-EOF;
+            <table>
+            	<tr>
+            		<td rowspan="3">Title</td>
+            		<td><a href="https://google.com">Link 1</a></td>
+            	</tr>
+            	<tr>
+            		<td><a href="https://google.com">Link 2</a></td>
+            	</tr>
+            	<tr>
+            		<td><a href="https://google.com">Link 3</a></td>
+            	</tr>
+            </table>
+            EOF;
         $robj = $reader->loadFromString($html1);
         $sheet = $robj->getActiveSheet();
         self::assertEquals('https://google.com', $sheet->getCell('B1')->getHyperlink()->getUrl());

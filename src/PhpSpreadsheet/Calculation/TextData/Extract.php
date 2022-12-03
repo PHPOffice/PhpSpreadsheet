@@ -210,7 +210,7 @@ class Extract
         $oddReverseAdjustment = count($split) % 2;
 
         $split = ($instance < 0)
-            ? array_slice($split, count($split) - (abs($instance + 1) * 2) - $adjust - $oddReverseAdjustment)
+            ? array_slice($split, count($split) - ((int) abs($instance + 1) * 2) - $adjust - $oddReverseAdjustment)
             : array_slice($split, $instance * 2 - $adjust);
 
         return implode('', $split);

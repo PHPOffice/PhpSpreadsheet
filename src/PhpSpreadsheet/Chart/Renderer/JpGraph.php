@@ -22,6 +22,8 @@ class JpGraph extends JpGraphRendererBase
             return;
         }
 
+        // JpGraph is no longer included with distribution, but user may install it.
+        // So Scrutinizer's complaint that it can't find it is reasonable, but unfixable.
         \JpGraph\JpGraph::load();
         \JpGraph\JpGraph::module('bar');
         \JpGraph\JpGraph::module('contour');
