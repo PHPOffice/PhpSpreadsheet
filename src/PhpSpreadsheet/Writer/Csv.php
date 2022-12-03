@@ -43,7 +43,7 @@ class Csv extends BaseWriter
     private $sheetIndex = 0;
 
     /**
-     * Whether to write a BOM (for UTF8).
+     * Whether to write a UTF8 BOM.
      *
      * @var bool
      */
