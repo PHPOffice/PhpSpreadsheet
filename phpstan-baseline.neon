@@ -1029,14 +1029,6 @@ parameters:
 			count: 1
 			path: src/PhpSpreadsheet/Shared/OLE.php
 		-
-			message: "#^Parameter \\#2 \\$offset of function array_slice expects int, float given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/OLE/PPS.php
-		-
-			message: "#^Parameter \\#3 \\$length of function array_slice expects int\\|null, float given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/OLE/PPS.php
-		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\OLE\\\\PPS\\:\\:\\$_data \\(string\\) in isset\\(\\) is not nullable\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/OLE/PPS.php
@@ -1062,34 +1054,6 @@ parameters:
 			path: src/PhpSpreadsheet/Shared/OLE/PPS/File.php
 		-
 			message: "#^Parameter \\#1 \\$No of method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\OLE\\\\PPS\\:\\:__construct\\(\\) expects int, null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/OLE/PPS/Root.php
-		-
-			message: "#^Parameter \\#1 \\$iSBDcnt of method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\OLE\\\\PPS\\\\Root\\:\\:saveHeader\\(\\) expects int, float given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/OLE/PPS/Root.php
-		-
-			message: "#^Parameter \\#1 \\$iSbdSize of method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\OLE\\\\PPS\\\\Root\\:\\:saveBbd\\(\\) expects int, float given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/OLE/PPS/Root.php
-		-
-			message: "#^Parameter \\#1 \\$iStBlk of method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\OLE\\\\PPS\\\\Root\\:\\:saveBigData\\(\\) expects int, float given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/OLE/PPS/Root.php
-		-
-			message: "#^Parameter \\#2 \\$iBBcnt of method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\OLE\\\\PPS\\\\Root\\:\\:saveHeader\\(\\) expects int, float given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/OLE/PPS/Root.php
-		-
-			message: "#^Parameter \\#2 \\$iBsize of method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\OLE\\\\PPS\\\\Root\\:\\:saveBbd\\(\\) expects int, float given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/OLE/PPS/Root.php
-		-
-			message: "#^Parameter \\#3 \\$iPPScnt of method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\OLE\\\\PPS\\\\Root\\:\\:saveHeader\\(\\) expects int, float given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/OLE/PPS/Root.php
-		-
-			message: "#^Parameter \\#3 \\$iPpsCnt of method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\OLE\\\\PPS\\\\Root\\:\\:saveBbd\\(\\) expects int, float given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/OLE/PPS/Root.php
 		-
@@ -1138,10 +1102,6 @@ parameters:
 			path: src/PhpSpreadsheet/Shared/OLERead.php
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\OLERead\\:\\:\\$wrkbook has no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/OLERead.php
-		-
-			message: "#^Strict comparison using \\=\\=\\= between int and null will always evaluate to false\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/OLERead.php
 		-
@@ -1682,10 +1642,6 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
 		-
 			message: "#^Expression on left side of \\?\\? is not nullable\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
-		-
-			message: "#^Parameter \\#1 \\$coordinates of static method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Coordinate\\:\\:indexesFromString\\(\\) expects string, string\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
 		-
