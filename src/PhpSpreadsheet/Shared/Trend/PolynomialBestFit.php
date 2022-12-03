@@ -4,6 +4,10 @@ namespace PhpOffice\PhpSpreadsheet\Shared\Trend;
 
 use PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix;
 
+// Phpstan and Scrutinizer seem to have legitimate complaints.
+// $this->slope is specified where an array is expected in several places.
+// But it seems that it should always be float.
+// This code is probably not exercised at all in unit tests.
 class PolynomialBestFit extends BestFit
 {
     /**
@@ -42,6 +46,7 @@ class PolynomialBestFit extends BestFit
     {
         $retVal = $this->getIntersect();
         $slope = $this->getSlope();
+        // Phpstan and Scrutinizer are both correct - getSlope returns float, not array.
         // @phpstan-ignore-next-line
         foreach ($slope as $key => $value) {
             if ($value != 0.0) {
@@ -77,6 +82,7 @@ class PolynomialBestFit extends BestFit
         $intersect = $this->getIntersect($dp);
 
         $equation = 'Y = ' . $intersect;
+        // Phpstan and Scrutinizer are both correct - getSlope returns float, not array.
         // @phpstan-ignore-next-line
         foreach ($slope as $key => $value) {
             if ($value != 0.0) {
@@ -101,6 +107,7 @@ class PolynomialBestFit extends BestFit
     {
         if ($dp != 0) {
             $coefficients = [];
+            // Scrutinizer is correct - $this->slope is float, not array.
             foreach ($this->slope as $coefficient) {
                 $coefficients[] = round($coefficient, $dp);
             }
@@ -114,6 +121,7 @@ class PolynomialBestFit extends BestFit
 
     public function getCoefficients($dp = 0)
     {
+        // Phpstan and Scrutinizer are both correct - getSlope returns float, not array.
         // @phpstan-ignore-next-line
         return array_merge([$this->getIntersect($dp)], $this->getSlope($dp));
     }
