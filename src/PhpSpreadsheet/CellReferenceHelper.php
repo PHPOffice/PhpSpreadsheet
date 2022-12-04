@@ -62,7 +62,7 @@ class CellReferenceHelper
             throw new Exception('Only single cell references may be passed to this method.');
         }
 
-        // Get coordinate of $cellReference
+        // Get coordinate of $cellReference.
         [$newColumn, $newRow] = Coordinate::coordinateFromString($cellReference);
         $newColumnIndex = (int) Coordinate::columnIndexFromString(str_replace('$', '', $newColumn));
         $newRowIndex = (int) str_replace('$', '', $newRow);
