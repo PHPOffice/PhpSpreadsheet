@@ -12,9 +12,9 @@ class CsvIssue2840Test extends TestCase
         $reader = new Csv();
         self::assertFalse($reader->getPreserveNullString());
         $inputData = <<<EOF
-john,,doe,,
-mary,,jane,,
-EOF;
+            john,,doe,,
+            mary,,jane,,
+            EOF;
         $expected = [
             ['john', null, 'doe'],
             ['mary', null, 'jane'],
@@ -30,9 +30,9 @@ EOF;
         $reader = new Csv();
         $reader->setPreserveNullString(true);
         $inputData = <<<EOF
-john,,doe,,
-mary,,jane,,
-EOF;
+            john,,doe,,
+            mary,,jane,,
+            EOF;
         $expected = [
             ['john', '', 'doe', '', ''],
             ['mary', '', 'jane', '', ''],

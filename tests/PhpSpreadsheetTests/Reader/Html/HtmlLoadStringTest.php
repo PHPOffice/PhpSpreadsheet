@@ -93,15 +93,15 @@ class HtmlLoadStringTest extends TestCase
     public function testCanLoadDuplicateTitle(): void
     {
         $html = <<<'EOF'
-<html>
-<head>
-<title>Sheet</title>
-</head>
-<body>
-<table><tr><td>1</td></tr></table>
-</body>
-</html>
-EOF;
+            <html>
+            <head>
+            <title>Sheet</title>
+            </head>
+            <body>
+            <table><tr><td>1</td></tr></table>
+            </body>
+            </html>
+            EOF;
         $reader = new \PhpOffice\PhpSpreadsheet\Reader\Html();
         $spreadsheet = $reader->loadFromString($html);
         $reader->setSheetIndex(1);

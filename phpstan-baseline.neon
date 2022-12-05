@@ -289,10 +289,6 @@ parameters:
 			count: 2
 			path: src/PhpSpreadsheet/Calculation/MathTrig/Combinations.php
 		-
-			message: "#^Parameter \\#1 \\$factVal of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\MathTrig\\\\Factorial\\:\\:fact\\(\\) expects array\\|float, int\\<min, \\-2\\>\\|int\\<0, max\\> given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/MathTrig/Combinations.php
-		-
 			message: "#^Binary operation \"/\" between array\\|float\\|int\\|string and float\\|int results in an error\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/MathTrig/Factorial.php
@@ -469,10 +465,6 @@ parameters:
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Normal.php
 		-
-			message: "#^Parameter \\#1 \\$factVal of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\MathTrig\\\\Factorial\\:\\:fact\\(\\) expects array\\|float, int\\<0, max\\> given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Poisson.php
-		-
 			message: "#^Binary operation \"\\-\" between float\\|string and float\\|int\\|numeric\\-string results in an error\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/StandardNormal.php
@@ -593,10 +585,6 @@ parameters:
 			count: 1
 			path: src/PhpSpreadsheet/Reader/BaseReader.php
 		-
-			message: "#^Comparison operation \"\\<\" between int and SimpleXMLElement\\|null results in an error\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Reader/Gnumeric.php
-		-
 			message: "#^Offset 'percentage' does not exist on SimpleXMLElement\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Gnumeric/PageSetup.php
@@ -608,14 +596,6 @@ parameters:
 			message: "#^Variable \\$orientation on left side of \\?\\? always exists and is not nullable\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Gnumeric/PageSetup.php
-		-
-			message: "#^Comparison operation \"\\<\\=\" between SimpleXMLElement\\|null and int results in an error\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Reader/Gnumeric/Styles.php
-		-
-			message: "#^Comparison operation \"\\>\" between SimpleXMLElement\\|null and int results in an error\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Reader/Gnumeric/Styles.php
 		-
 			message: "#^Variable \\$value on left side of \\?\\? always exists and is not nullable\\.$#"
 			count: 1
@@ -702,18 +682,6 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Security/XmlScanner.php
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Security\\\\XmlScanner\\:\\:threadSafeLibxmlDisableEntityLoaderAvailability\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Security/XmlScanner.php
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Security\\\\XmlScanner\\:\\:toUtf8\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Security/XmlScanner.php
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Security\\\\XmlScanner\\:\\:toUtf8\\(\\) has parameter \\$xml with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Security/XmlScanner.php
-		-
-			message: "#^Parameter \\#2 \\$subject of function preg_match expects string, array\\<int, string\\>\\|string\\|false given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Security/XmlScanner.php
 		-
@@ -852,12 +820,6 @@ parameters:
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 7
 			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
-			message: "#^Cannot access property \\$r on SimpleXMLElement\\|null\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Reader/Xlsx.php
-
 		-
 			message: "#^Parameter \\#1 \\$haystack of function strpos expects string, string\\|false given\\.$#"
 			count: 1
@@ -935,22 +897,6 @@ parameters:
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Escher/DggContainer/BstoreContainer/BSE.php
 		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\JAMA\\\\EigenvalueDecomposition\\:\\:\\$cdivi has no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/JAMA/EigenvalueDecomposition.php
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\JAMA\\\\EigenvalueDecomposition\\:\\:\\$e has no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/JAMA/EigenvalueDecomposition.php
-		-
-			message: "#^Else branch is unreachable because previous condition is always true\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/JAMA/LUDecomposition.php
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\JAMA\\\\LUDecomposition\\:\\:getDoublePivot\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/JAMA/LUDecomposition.php
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\JAMA\\\\Matrix\\:\\:__construct\\(\\) has parameter \\$args with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/JAMA/Matrix.php
@@ -1016,16 +962,8 @@ parameters:
 			path: src/PhpSpreadsheet/Shared/JAMA/Matrix.php
 		-
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 19
+			count: 14
 			path: src/PhpSpreadsheet/Shared/JAMA/Matrix.php
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 7
-			path: src/PhpSpreadsheet/Shared/JAMA/SingularValueDecomposition.php
-		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 4
-			path: src/PhpSpreadsheet/Shared/JAMA/SingularValueDecomposition.php
 		-
 			message: "#^Cannot access offset 1 on array\\|false\\.$#"
 			count: 1
@@ -1091,14 +1029,6 @@ parameters:
 			count: 1
 			path: src/PhpSpreadsheet/Shared/OLE.php
 		-
-			message: "#^Parameter \\#2 \\$offset of function array_slice expects int, float given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/OLE/PPS.php
-		-
-			message: "#^Parameter \\#3 \\$length of function array_slice expects int\\|null, float given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/OLE/PPS.php
-		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\OLE\\\\PPS\\:\\:\\$_data \\(string\\) in isset\\(\\) is not nullable\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/OLE/PPS.php
@@ -1124,34 +1054,6 @@ parameters:
 			path: src/PhpSpreadsheet/Shared/OLE/PPS/File.php
 		-
 			message: "#^Parameter \\#1 \\$No of method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\OLE\\\\PPS\\:\\:__construct\\(\\) expects int, null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/OLE/PPS/Root.php
-		-
-			message: "#^Parameter \\#1 \\$iSBDcnt of method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\OLE\\\\PPS\\\\Root\\:\\:saveHeader\\(\\) expects int, float given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/OLE/PPS/Root.php
-		-
-			message: "#^Parameter \\#1 \\$iSbdSize of method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\OLE\\\\PPS\\\\Root\\:\\:saveBbd\\(\\) expects int, float given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/OLE/PPS/Root.php
-		-
-			message: "#^Parameter \\#1 \\$iStBlk of method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\OLE\\\\PPS\\\\Root\\:\\:saveBigData\\(\\) expects int, float given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/OLE/PPS/Root.php
-		-
-			message: "#^Parameter \\#2 \\$iBBcnt of method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\OLE\\\\PPS\\\\Root\\:\\:saveHeader\\(\\) expects int, float given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/OLE/PPS/Root.php
-		-
-			message: "#^Parameter \\#2 \\$iBsize of method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\OLE\\\\PPS\\\\Root\\:\\:saveBbd\\(\\) expects int, float given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/OLE/PPS/Root.php
-		-
-			message: "#^Parameter \\#3 \\$iPPScnt of method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\OLE\\\\PPS\\\\Root\\:\\:saveHeader\\(\\) expects int, float given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/OLE/PPS/Root.php
-		-
-			message: "#^Parameter \\#3 \\$iPpsCnt of method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\OLE\\\\PPS\\\\Root\\:\\:saveBbd\\(\\) expects int, float given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/OLE/PPS/Root.php
 		-
@@ -1200,10 +1102,6 @@ parameters:
 			path: src/PhpSpreadsheet/Shared/OLERead.php
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\OLERead\\:\\:\\$wrkbook has no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/OLERead.php
-		-
-			message: "#^Strict comparison using \\=\\=\\= between int and null will always evaluate to false\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/OLERead.php
 		-
@@ -1744,10 +1642,6 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
 		-
 			message: "#^Expression on left side of \\?\\? is not nullable\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
-		-
-			message: "#^Parameter \\#1 \\$coordinates of static method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Coordinate\\:\\:indexesFromString\\(\\) expects string, string\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
 		-

@@ -861,7 +861,7 @@ class Engineering
      *
      * @deprecated 1.18.0
      *      Use the IMSECH() method in the Engineering\ComplexFunctions class instead
-     * @see ComplexFunctions::IMSECH($complexNumber)
+     * @see ComplexFunctions::IMSECH()
      *
      * @param string $complexNumber the complex number for which you want the hyperbolic secant
      *
@@ -1119,7 +1119,7 @@ class Engineering
      *
      * @deprecated 1.17.0
      *      Use the DELTA() method in the Engineering\Compare class instead
-     * @see Engineering\Compare::DELTA($a, $b)
+     * @see Engineering\Compare::DELTA()
      *
      * @param float $a the first number
      * @param float $b The second number. If omitted, b is assumed to be zero.
