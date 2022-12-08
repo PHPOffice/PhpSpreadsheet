@@ -2,6 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Database\DMax;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
+
 class DMaxTest extends AllSetupTeardown
 {
     /**
@@ -12,9 +15,26 @@ class DMaxTest extends AllSetupTeardown
      * @param mixed $field
      * @param mixed $criteria
      */
-    public function testDMax($expectedResult, $database, $field, $criteria): void
+    public function testDirectCallToDMax($expectedResult, $database, $field, $criteria): void
     {
-        $this->runTestCase('DMAX', $expectedResult, $database, $field, $criteria);
+        $result = DMax::evaluate($database, $field, $criteria);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
+    }
+
+    /**
+     * @dataProvider providerDMax
+     *
+     * @param mixed $expectedResult
+     * @param mixed $database
+     * @param mixed $field
+     * @param mixed $criteria
+     */
+    public function testDMaxAsWorksheetFormula($expectedResult, $database, $field, $criteria): void
+    {
+        $this->prepareWorksheetWithFormula('DMAX', $database, $field, $criteria);
+
+        $result = $this->getSheet()->getCell(self::RESULT_CELL)->getCalculatedValue();
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
     public function providerDMax(): array
@@ -49,7 +69,7 @@ class DMaxTest extends AllSetupTeardown
                 ],
             ],
             'omitted field name' => [
-                '#VALUE!',
+                ExcelError::VALUE(),
                 $this->database1(),
                 null,
                 $this->database1(),
@@ -65,13 +85,13 @@ class DMaxTest extends AllSetupTeardown
                to me that I'm not going to bother coding that up,
                content to return #VALUE! as an invalid name would */
             'field column number too high' => [
-                '#VALUE!',
+                ExcelError::VALUE(),
                 $this->database1(),
                 99,
                 $this->database1(),
             ],
             'field column number too low' => [
-                '#VALUE!',
+                ExcelError::VALUE(),
                 $this->database1(),
                 0,
                 $this->database1(),
