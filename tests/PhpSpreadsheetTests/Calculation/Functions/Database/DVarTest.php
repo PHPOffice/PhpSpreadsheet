@@ -2,6 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Database\DVar;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
+
 class DVarTest extends AllSetupTeardown
 {
     /**
@@ -12,9 +15,26 @@ class DVarTest extends AllSetupTeardown
      * @param mixed $field
      * @param mixed $criteria
      */
-    public function testDVar($expectedResult, $database, $field, $criteria): void
+    public function testDirectCallToDVar($expectedResult, $database, $field, $criteria): void
     {
-        $this->runTestCase('DVAR', $expectedResult, $database, $field, $criteria);
+        $result = DVar::evaluate($database, $field, $criteria);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
+    }
+
+    /**
+     * @dataProvider providerDVar
+     *
+     * @param mixed $expectedResult
+     * @param mixed $database
+     * @param mixed $field
+     * @param mixed $criteria
+     */
+    public function testDVarAsWorksheetFormula($expectedResult, $database, $field, $criteria): void
+    {
+        $this->prepareWorksheetWithFormula('DVAR', $database, $field, $criteria);
+
+        $result = $this->getSheet()->getCell(self::RESULT_CELL)->getCalculatedValue();
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
     public function providerDVar(): array
@@ -49,7 +69,7 @@ class DVarTest extends AllSetupTeardown
                 ],
             ],
             'omitted field name' => [
-                '#VALUE!',
+                ExcelError::VALUE(),
                 $this->database1(),
                 null,
                 $this->database1(),
