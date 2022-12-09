@@ -57,7 +57,6 @@ class BitWise
         $split1 = self::splitNumber($number1);
         $split2 = self::splitNumber($number2);
 
-        // Scrutinizer does not like bitwise, and doesn't let you override its warning
         return  self::SPLIT_DIVISOR * ($split1[0] & $split2[0]) + ($split1[1] & $split2[1]);
     }
 
@@ -94,7 +93,6 @@ class BitWise
         $split1 = self::splitNumber($number1);
         $split2 = self::splitNumber($number2);
 
-        // Scrutinizer does not like bitwise, and doesn't let you override its warning
         return  self::SPLIT_DIVISOR * ($split1[0] | $split2[0]) + ($split1[1] | $split2[1]);
     }
 
