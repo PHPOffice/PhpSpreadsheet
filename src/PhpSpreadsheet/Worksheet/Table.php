@@ -4,8 +4,10 @@ namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
 use PhpOffice\PhpSpreadsheet\Cell\AddressRange;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Table\TableStyle;
 
 class Table
@@ -15,7 +17,7 @@ class Table
      *
      * @var string
      */
-    private $name = '';
+    private $name;
 
     /**
      * Show Header Row.
@@ -153,12 +155,48 @@ class Table
 
     private function updateStructuredReferences(string $name): void
     {
-        // Remember that table names are case-insensitive
-        $name = StringHelper::strToLower($name);
+        if ($this->workSheet === null || $this->name === null || $this->name === '') {
+            return;
+        }
 
-        if ($this->name !== null && StringHelper::strToLower($this->name) !== $name) {
+        // Remember that table names are case-insensitive
+        if (StringHelper::strToLower($this->name) !== StringHelper::strToLower($name)) {
             // We need to check all formula cells that might contain fully-qualified Structured References
             //    that refer to this table, and update those formulae to reference the new table name
+            $spreadsheet = $this->workSheet->getParent();
+            foreach ($spreadsheet->getWorksheetIterator() as $sheet) {
+                $this->updateStructuredReferencesInCells($sheet, $name);
+            }
+            $this->updateStructuredReferencesInNamedFormulae($spreadsheet, $name);
+        }
+    }
+
+    private function updateStructuredReferencesInCells(Worksheet $worksheet, string $newName): void
+    {
+        $pattern = '/' . preg_quote($this->name) . '\[/mui';
+
+        foreach ($worksheet->getCoordinates(false) as $coordinate) {
+            $cell = $worksheet->getCell($coordinate);
+            if ($cell->getDataType() === DataType::TYPE_FORMULA) {
+                $formula = $cell->getValue();
+                if (preg_match($pattern, $formula) === 1) {
+                    $formula = preg_replace($pattern, "{$newName}[", $formula);
+                    $cell->setValueExplicit($formula, DataType::TYPE_FORMULA);
+                }
+            }
+        }
+    }
+
+    private function updateStructuredReferencesInNamedFormulae(Spreadsheet $spreadsheet, string $newName): void
+    {
+        $pattern = '/' . preg_quote($this->name) . '\[/mui';
+
+        foreach ($spreadsheet->getNamedFormulae() as $namedFormula) {
+            $formula = $namedFormula->getValue();
+            if (preg_match($pattern, $formula) === 1) {
+                $formula = preg_replace($pattern, "{$newName}[", $formula);
+                $namedFormula->setValue($formula); // @phpstan-ignore-line
+            }
         }
     }
 
