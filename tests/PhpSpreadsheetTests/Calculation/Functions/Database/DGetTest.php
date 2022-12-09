@@ -2,6 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Database\DGet;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
+
 class DGetTest extends AllSetupTeardown
 {
     /**
@@ -12,16 +15,33 @@ class DGetTest extends AllSetupTeardown
      * @param mixed $field
      * @param mixed $criteria
      */
-    public function testDGet($expectedResult, $database, $field, $criteria): void
+    public function testDirectCallToDGet($expectedResult, $database, $field, $criteria): void
     {
-        $this->runTestCase('DGET', $expectedResult, $database, $field, $criteria);
+        $result = DGet::evaluate($database, $field, $criteria);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
+    }
+
+    /**
+     * @dataProvider providerDGet
+     *
+     * @param mixed $expectedResult
+     * @param mixed $database
+     * @param mixed $field
+     * @param mixed $criteria
+     */
+    public function testDGetAsWorksheetFormula($expectedResult, $database, $field, $criteria): void
+    {
+        $this->prepareWorksheetWithFormula('DGET', $database, $field, $criteria);
+
+        $result = $this->getSheet()->getCell(self::RESULT_CELL)->getCalculatedValue();
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
     public function providerDGet(): array
     {
         return [
             [
-                '#NUM!',
+                ExcelError::NAN(),
                 $this->database1(),
                 'Yield',
                 [
@@ -50,7 +70,7 @@ class DGetTest extends AllSetupTeardown
                 ],
             ],
             [
-                '#NUM!',
+                ExcelError::NAN(),
                 $this->database2(),
                 'Sales',
                 [
@@ -59,7 +79,7 @@ class DGetTest extends AllSetupTeardown
                 ],
             ],
             'omitted field name' => [
-                '#VALUE!',
+                ExcelError::VALUE(),
                 $this->database1(),
                 null,
                 $this->database1(),
