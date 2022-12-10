@@ -4,1702 +4,2127 @@ parameters:
 			message: "#^Variable \\$dateValue on left side of \\?\\? always exists and is not nullable\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/DateValue.php
+
 		-
 			message: "#^Variable \\$timeValue on left side of \\?\\? always exists and is not nullable\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/TimeValue.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\BesselJ\\:\\:besselj2a\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Engineering/BesselJ.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\BesselJ\\:\\:besselj2b\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Engineering/BesselJ.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\ConvertBase\\:\\:validatePlaces\\(\\) has parameter \\$places with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Engineering/ConvertBase.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\ConvertBase\\:\\:validateValue\\(\\) has parameter \\$value with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Engineering/ConvertBase.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\ConvertUOM\\:\\:getUOMDetails\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\ConvertUOM\\:\\:resolveTemperatureSynonyms\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\Erf\\:\\:erfValue\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Engineering/Erf.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\Erf\\:\\:erfValue\\(\\) has parameter \\$value with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Engineering/Erf.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\Erf\\:\\:\\$twoSqrtPi has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Engineering/Erf.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\ErfC\\:\\:erfcValue\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Engineering/ErfC.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\ErfC\\:\\:erfcValue\\(\\) has parameter \\$value with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Engineering/ErfC.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engineering\\\\ErfC\\:\\:\\$oneSqrtPi has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Engineering/ErfC.php
+
 		-
 			message: "#^Parameter \\#1 \\$year of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\DateTimeExcel\\\\Helpers\\:\\:isLeapYear\\(\\) expects int\\|string, array\\|int\\|string given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Financial/Amortization.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Constant\\\\Periodic\\\\Interest\\:\\:rateNextGuess\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic/Interest.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Constant\\\\Periodic\\\\Interest\\:\\:rateNextGuess\\(\\) has parameter \\$futureValue with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic/Interest.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Constant\\\\Periodic\\\\Interest\\:\\:rateNextGuess\\(\\) has parameter \\$numberOfPeriods with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic/Interest.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Constant\\\\Periodic\\\\Interest\\:\\:rateNextGuess\\(\\) has parameter \\$payment with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic/Interest.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Constant\\\\Periodic\\\\Interest\\:\\:rateNextGuess\\(\\) has parameter \\$presentValue with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic/Interest.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Constant\\\\Periodic\\\\Interest\\:\\:rateNextGuess\\(\\) has parameter \\$rate with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic/Interest.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Constant\\\\Periodic\\\\Interest\\:\\:rateNextGuess\\(\\) has parameter \\$type with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic/Interest.php
+
 		-
 			message: "#^Binary operation \"\\-\" between float\\|string and 0\\|float results in an error\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic/InterestAndPrincipal.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Constant\\\\Periodic\\\\InterestAndPrincipal\\:\\:\\$interest has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic/InterestAndPrincipal.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Constant\\\\Periodic\\\\InterestAndPrincipal\\:\\:\\$principal has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Constant/Periodic/InterestAndPrincipal.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Variable\\\\NonPeriodic\\:\\:xnpvOrdered\\(\\) should return float\\|string but returns array\\|string\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Variable/NonPeriodic.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\CashFlow\\\\Variable\\\\Periodic\\:\\:presentValue\\(\\) has parameter \\$args with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Financial/CashFlow/Variable/Periodic.php
+
 		-
 			message: "#^Parameter \\#1 \\$year of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Helpers\\:\\:daysPerYear\\(\\) expects int\\|string, array\\|int\\|string given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Financial/Coupons.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Depreciation\\:\\:validateCost\\(\\) has parameter \\$cost with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Financial/Depreciation.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Depreciation\\:\\:validateFactor\\(\\) has parameter \\$factor with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Financial/Depreciation.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Depreciation\\:\\:validateLife\\(\\) has parameter \\$life with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Financial/Depreciation.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Depreciation\\:\\:validateMonth\\(\\) has parameter \\$month with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Financial/Depreciation.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Depreciation\\:\\:validatePeriod\\(\\) has parameter \\$period with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Financial/Depreciation.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Depreciation\\:\\:validateSalvage\\(\\) has parameter \\$salvage with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Financial/Depreciation.php
+
 		-
 			message: "#^Binary operation \"/\" between float\\|string and float\\|string results in an error\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Price.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Securities\\\\Price\\:\\:received\\(\\) should return float\\|string but returns array\\|string\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Price.php
+
 		-
 			message: "#^Parameter \\#1 \\$year of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Helpers\\:\\:daysPerYear\\(\\) expects int\\|string, array\\|int\\|string given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Price.php
+
 		-
 			message: "#^Parameter \\#1 \\$year of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Financial\\\\Helpers\\:\\:daysPerYear\\(\\) expects int\\|string, array\\|int\\|string given\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Calculation/Financial/Securities/Yields.php
+
 		-
 			message: "#^Cannot call method getTokenSubType\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\FormulaToken\\|null\\.$#"
 			count: 4
 			path: src/PhpSpreadsheet/Calculation/FormulaParser.php
+
 		-
 			message: "#^Cannot call method getTokenType\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\FormulaToken\\|null\\.$#"
 			count: 9
 			path: src/PhpSpreadsheet/Calculation/FormulaParser.php
+
 		-
 			message: "#^Cannot call method setTokenSubType\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\FormulaToken\\|null\\.$#"
 			count: 5
 			path: src/PhpSpreadsheet/Calculation/FormulaParser.php
+
 		-
 			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\FormulaToken\\|null\\.$#"
 			count: 5
 			path: src/PhpSpreadsheet/Calculation/FormulaParser.php
+
 		-
 			message: "#^Strict comparison using \\=\\=\\= between PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\FormulaToken and null will always evaluate to false\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/FormulaParser.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Functions\\:\\:ifCondition\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Functions.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Functions\\:\\:ifCondition\\(\\) has parameter \\$condition with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Functions.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Functions\\:\\:isCellValue\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Functions.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Functions\\:\\:isCellValue\\(\\) has parameter \\$idx with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Functions.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Functions\\:\\:isMatrixValue\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Functions.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Functions\\:\\:isMatrixValue\\(\\) has parameter \\$idx with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Functions.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Functions\\:\\:isValue\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Functions.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Functions\\:\\:isValue\\(\\) has parameter \\$idx with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Functions.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Functions\\:\\:operandSpecialHandling\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Functions.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Functions\\:\\:operandSpecialHandling\\(\\) has parameter \\$operand with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Functions.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Internal\\\\MakeMatrix\\:\\:make\\(\\) has parameter \\$args with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Internal/MakeMatrix.php
+
 		-
 			message: "#^Call to function is_string\\(\\) with null will always evaluate to false\\.$#"
 			count: 3
 			path: src/PhpSpreadsheet/Calculation/Logical/Operations.php
+
 		-
 			message: "#^Result of && is always false\\.$#"
 			count: 3
 			path: src/PhpSpreadsheet/Calculation/Logical/Operations.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\:\\:CHOOSE\\(\\) has parameter \\$chooseArgs with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/LookupRef.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\:\\:OFFSET\\(\\) should return array\\|string but returns array\\|int\\|string\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/LookupRef.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\Address\\:\\:sheetName\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/LookupRef/Address.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\Lookup\\:\\:verifyResultVector\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/LookupRef/Lookup.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\Lookup\\:\\:verifyResultVector\\(\\) has parameter \\$resultVector with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/LookupRef/Lookup.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\LookupBase\\:\\:validateIndexLookup\\(\\) has parameter \\$index_number with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/LookupRef/LookupBase.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\Matrix\\:\\:extractRowValue\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/LookupRef/Matrix.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\Offset\\:\\:adjustEndCellColumnForWidth\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/LookupRef/Offset.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\Offset\\:\\:adjustEndCellColumnForWidth\\(\\) has parameter \\$columns with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/LookupRef/Offset.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\Offset\\:\\:adjustEndCellColumnForWidth\\(\\) has parameter \\$width with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/LookupRef/Offset.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\Offset\\:\\:adustEndCellRowForHeight\\(\\) has parameter \\$endCellRow with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/LookupRef/Offset.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\Offset\\:\\:adustEndCellRowForHeight\\(\\) has parameter \\$height with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/LookupRef/Offset.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\Offset\\:\\:adustEndCellRowForHeight\\(\\) has parameter \\$rows with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/LookupRef/Offset.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\Offset\\:\\:extractRequiredCells\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/LookupRef/Offset.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\Offset\\:\\:extractWorksheet\\(\\) has parameter \\$cellAddress with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/LookupRef/Offset.php
+
 		-
 			message: "#^Binary operation \"/\" between array\\|float\\|int\\|string and array\\|float\\|int\\|string results in an error\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Calculation/MathTrig/Combinations.php
+
 		-
 			message: "#^Binary operation \"/\" between array\\|float\\|int\\|string and float\\|int results in an error\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/MathTrig/Factorial.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\MathTrig\\\\IntClass\\:\\:evaluate\\(\\) should return array\\|string but returns int\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/MathTrig/IntClass.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\:\\:MAXIFS\\(\\) should return float but returns float\\|string\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\:\\:MINIFS\\(\\) should return float but returns float\\|string\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Averages\\:\\:filterArguments\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Averages.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Averages\\:\\:filterArguments\\(\\) has parameter \\$args with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Averages.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Averages\\:\\:modeCalc\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Averages.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Averages\\:\\:modeCalc\\(\\) has parameter \\$data with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Averages.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Conditional\\:\\:SUMIF\\(\\) should return float\\|string but returns float\\|string\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Conditional.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Conditional\\:\\:buildConditionSet\\(\\) has parameter \\$args with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Conditional.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Conditional\\:\\:buildConditionSetForValueRange\\(\\) has parameter \\$args with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Conditional.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Conditional\\:\\:buildConditions\\(\\) has parameter \\$args with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Conditional.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Conditional\\:\\:buildDataSet\\(\\) has parameter \\$args with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Conditional.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Conditional\\:\\:buildDatabase\\(\\) has parameter \\$args with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Conditional.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Conditional\\:\\:buildDatabaseWithValueRange\\(\\) has parameter \\$args with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Conditional.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\Beta\\:\\:\\$logBetaCacheP has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Beta.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\Beta\\:\\:\\$logBetaCacheQ has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Beta.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\Beta\\:\\:\\$logBetaCacheResult has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Beta.php
+
 		-
 			message: "#^Constant PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\ChiSquared\\:\\:MAX_ITERATIONS is unused\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/ChiSquared.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\ChiSquared\\:\\:gammp\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/ChiSquared.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\ChiSquared\\:\\:gammp\\(\\) has parameter \\$n with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/ChiSquared.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\ChiSquared\\:\\:gammp\\(\\) has parameter \\$x with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/ChiSquared.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\ChiSquared\\:\\:gcf\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/ChiSquared.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\ChiSquared\\:\\:gcf\\(\\) has parameter \\$n with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/ChiSquared.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\ChiSquared\\:\\:gcf\\(\\) has parameter \\$x with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/ChiSquared.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\ChiSquared\\:\\:gser\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/ChiSquared.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\ChiSquared\\:\\:gser\\(\\) has parameter \\$n with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/ChiSquared.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\ChiSquared\\:\\:gser\\(\\) has parameter \\$x with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/ChiSquared.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\ChiSquared\\:\\:pchisq\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/ChiSquared.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\ChiSquared\\:\\:pchisq\\(\\) has parameter \\$chi2 with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/ChiSquared.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\ChiSquared\\:\\:pchisq\\(\\) has parameter \\$degrees with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/ChiSquared.php
+
 		-
 			message: "#^Parameter \\#2 \\$columns of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\ChiSquared\\:\\:degrees\\(\\) expects int, float\\|int\\<0, max\\> given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/ChiSquared.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\GammaBase\\:\\:calculateDistribution\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/GammaBase.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\GammaBase\\:\\:calculateInverse\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/GammaBase.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\GammaBase\\:\\:logGamma1\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/GammaBase.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\GammaBase\\:\\:logGamma2\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/GammaBase.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\GammaBase\\:\\:logGamma3\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/GammaBase.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\GammaBase\\:\\:logGamma4\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/GammaBase.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\GammaBase\\:\\:\\$logGammaCacheResult has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/GammaBase.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\GammaBase\\:\\:\\$logGammaCacheX has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/GammaBase.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\NewtonRaphson\\:\\:execute\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/NewtonRaphson.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\NewtonRaphson\\:\\:\\$callback has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/NewtonRaphson.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\Normal\\:\\:inverseNcdf\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Normal.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\Normal\\:\\:inverseNcdf\\(\\) has parameter \\$p with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Normal.php
+
 		-
 			message: "#^Binary operation \"\\-\" between float\\|string and float\\|int\\|numeric\\-string results in an error\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/StandardNormal.php
+
 		-
 			message: "#^Constant PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Distributions\\\\StudentT\\:\\:MAX_ITERATIONS is unused\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/StudentT.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\MaxMinBase\\:\\:datatypeAdjustmentAllowStrings\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/MaxMinBase.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\MaxMinBase\\:\\:datatypeAdjustmentAllowStrings\\(\\) has parameter \\$value with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/MaxMinBase.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Percentiles\\:\\:percentileFilterValues\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Percentiles.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Percentiles\\:\\:rankFilterValues\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Percentiles.php
+
 		-
 			message: "#^Binary operation \"/\" between array\\|float\\|int\\|string and array\\|float\\|int\\|string results in an error\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Permutations.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Trends\\:\\:GROWTH\\(\\) should return array\\<float\\> but returns array\\<int, array\\<int, array\\<int, mixed\\>\\>\\>\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Trends.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Trends\\:\\:TREND\\(\\) should return array\\<float\\> but returns array\\<int, array\\<int, array\\<int, mixed\\>\\>\\>\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Trends.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Trends\\:\\:checkTrendArrays\\(\\) has parameter \\$array1 with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Trends.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Trends\\:\\:checkTrendArrays\\(\\) has parameter \\$array2 with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Trends.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\VarianceBase\\:\\:datatypeAdjustmentAllowStrings\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/VarianceBase.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\VarianceBase\\:\\:datatypeAdjustmentAllowStrings\\(\\) has parameter \\$value with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/VarianceBase.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\VarianceBase\\:\\:datatypeAdjustmentBooleans\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/VarianceBase.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\VarianceBase\\:\\:datatypeAdjustmentBooleans\\(\\) has parameter \\$value with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/VarianceBase.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\TextData\\:\\:CONCATENATE\\(\\) has parameter \\$args with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/TextData.php
+
 		-
 			message: "#^Variable \\$value on left side of \\?\\? always exists and is not nullable\\.$#"
 			count: 4
 			path: src/PhpSpreadsheet/Calculation/TextData/Extract.php
+
 		-
 			message: "#^Variable \\$value on left side of \\?\\? always exists and is not nullable\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/TextData/Text.php
+
 		-
 			message: "#^Call to an undefined method object\\:\\:getHashCode\\(\\)\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Cell/Coordinate.php
+
 		-
 			message: "#^Parameter \\#4 \\$currentRow of static method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Coordinate\\:\\:validateRange\\(\\) expects int, string given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Cell/Coordinate.php
+
 		-
 			message: "#^Parameter \\#5 \\$endRow of static method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Coordinate\\:\\:validateRange\\(\\) expects int, string given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Cell/Coordinate.php
+
 		-
 			message: "#^Parameter \\#1 \\$namedRange of method PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\:\\:addNamedRange\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\NamedRange, \\$this\\(PhpOffice\\\\PhpSpreadsheet\\\\DefinedName\\) given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/DefinedName.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\DefinedName\\:\\:\\$scope \\(PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\) does not accept PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
 			count: 3
 			path: src/PhpSpreadsheet/DefinedName.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\DefinedName\\:\\:\\$worksheet \\(PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\) does not accept PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/DefinedName.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\IOFactory\\:\\:createReader\\(\\) should return PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\IReader but returns object\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/IOFactory.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\IOFactory\\:\\:createWriter\\(\\) should return PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\IWriter but returns object\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/IOFactory.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\IOFactory\\:\\:\\$readers has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/IOFactory.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\IOFactory\\:\\:\\$writers has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/IOFactory.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\BaseReader\\:\\:getSecurityScanner\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/BaseReader.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\BaseReader\\:\\:\\$fileHandle has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/BaseReader.php
+
 		-
 			message: "#^Offset 'percentage' does not exist on SimpleXMLElement\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Gnumeric/PageSetup.php
+
 		-
 			message: "#^Offset 'value' does not exist on SimpleXMLElement\\|null\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Reader/Gnumeric/PageSetup.php
+
 		-
 			message: "#^Variable \\$orientation on left side of \\?\\? always exists and is not nullable\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Gnumeric/PageSetup.php
+
 		-
 			message: "#^Variable \\$value on left side of \\?\\? always exists and is not nullable\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Html.php
+
 		-
 			message: "#^Cannot call method children\\(\\) on SimpleXMLElement\\|false\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Ods.php
+
 		-
 			message: "#^Cannot call method getAttributeNS\\(\\) on DOMElement\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Ods.php
+
 		-
 			message: "#^Cannot call method getElementsByTagNameNS\\(\\) on DOMElement\\|null\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Reader/Ods.php
+
 		-
 			message: "#^Cannot call method getNamedItem\\(\\) on DOMNamedNodeMap\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Ods.php
+
 		-
 			message: "#^Cannot call method getNamespaces\\(\\) on SimpleXMLElement\\|false\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Ods.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Ods\\:\\:listWorksheetNames\\(\\) should return array\\<string\\> but returns array\\<int, string\\|null\\>\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Ods.php
+
 		-
 			message: "#^Parameter \\#1 \\$element of method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Ods\\:\\:scanElementForText\\(\\) expects DOMNode, DOMElement\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Ods.php
+
 		-
 			message: "#^Parameter \\#1 \\$settings of method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Ods\\:\\:lookForActiveSheet\\(\\) expects DOMElement, DOMElement\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Ods.php
+
 		-
 			message: "#^Parameter \\#1 \\$settings of method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Ods\\:\\:lookForSelectedCells\\(\\) expects DOMElement, DOMElement\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Ods.php
+
 		-
 			message: "#^Cannot call method getElementsByTagNameNS\\(\\) on DOMElement\\|null\\.$#"
 			count: 3
 			path: src/PhpSpreadsheet/Reader/Ods/PageSettings.php
+
 		-
 			message: "#^Expression on left side of \\?\\? is not nullable\\.$#"
 			count: 6
 			path: src/PhpSpreadsheet/Reader/Ods/PageSettings.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Ods\\\\PageSettings\\:\\:\\$pageLayoutStyles has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Ods/PageSettings.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Ods\\\\Properties\\:\\:load\\(\\) has parameter \\$namespacesMeta with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Ods/Properties.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Ods\\\\Properties\\:\\:setMetaProperties\\(\\) has parameter \\$namespacesMeta with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Ods/Properties.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Ods\\\\Properties\\:\\:setMetaProperties\\(\\) has parameter \\$propertyName with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Ods/Properties.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Ods\\\\Properties\\:\\:setUserDefinedProperty\\(\\) has parameter \\$propertyValue with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Ods/Properties.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Ods\\\\Properties\\:\\:setUserDefinedProperty\\(\\) has parameter \\$propertyValueAttributes with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Ods/Properties.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Ods\\\\Properties\\:\\:\\$spreadsheet has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Ods/Properties.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Security\\\\XmlScanner\\:\\:__construct\\(\\) has parameter \\$pattern with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Security/XmlScanner.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Security\\\\XmlScanner\\:\\:getInstance\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Security/XmlScanner.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Security\\\\XmlScanner\\:\\:threadSafeLibxmlDisableEntityLoaderAvailability\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Security/XmlScanner.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Security\\\\XmlScanner\\:\\:\\$callback has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Security/XmlScanner.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Security\\\\XmlScanner\\:\\:\\$libxmlDisableEntityLoaderValue has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Security/XmlScanner.php
+
 		-
 			message: "#^Call to an undefined method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\|PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DgContainer\\|PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DgContainer\\\\SpgrContainer\\|PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DgContainer\\\\SpgrContainer\\\\SpContainer\\|PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DggContainer\\|PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DggContainer\\\\BstoreContainer\\|PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DggContainer\\\\BstoreContainer\\\\BSE\\:\\:getDgContainer\\(\\)\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xls.php
+
 		-
 			message: "#^Call to an undefined method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\|PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DgContainer\\|PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DgContainer\\\\SpgrContainer\\|PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DgContainer\\\\SpgrContainer\\\\SpContainer\\|PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DggContainer\\|PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DggContainer\\\\BstoreContainer\\|PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DggContainer\\\\BstoreContainer\\\\BSE\\:\\:getDggContainer\\(\\)\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xls.php
+
 		-
 			message: "#^Call to an undefined method object\\:\\:getEndCoordinates\\(\\)\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xls.php
+
 		-
 			message: "#^Call to an undefined method object\\:\\:getEndOffsetX\\(\\)\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xls.php
+
 		-
 			message: "#^Call to an undefined method object\\:\\:getEndOffsetY\\(\\)\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xls.php
+
 		-
 			message: "#^Call to an undefined method object\\:\\:getNestingLevel\\(\\)\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xls.php
+
 		-
 			message: "#^Call to an undefined method object\\:\\:getOPT\\(\\)\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xls.php
+
 		-
 			message: "#^Call to an undefined method object\\:\\:getStartCoordinates\\(\\)\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Reader/Xls.php
+
 		-
 			message: "#^Call to an undefined method object\\:\\:getStartOffsetX\\(\\)\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xls.php
+
 		-
 			message: "#^Call to an undefined method object\\:\\:getStartOffsetY\\(\\)\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xls.php
+
 		-
 			message: "#^Cannot access offset 1 on array\\|false\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xls.php
+
 		-
 			message: "#^If condition is always true\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xls.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xls\\:\\:includeCellRangeFiltered\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xls.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xls\\:\\:includeCellRangeFiltered\\(\\) has parameter \\$cellRangeAddress with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xls.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xls\\:\\:parseRichText\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xls.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xls\\:\\:parseRichText\\(\\) has parameter \\$is with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xls.php
+
 		-
 			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xls.php
+
 		-
 			message: "#^Parameter \\#1 \\$block of method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xls\\:\\:makeKey\\(\\) expects int, float given\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Reader/Xls.php
+
 		-
 			message: "#^Parameter \\#1 \\$showSummaryBelow of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\:\\:setShowSummaryBelow\\(\\) expects bool, int given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xls.php
+
 		-
 			message: "#^Parameter \\#1 \\$showSummaryRight of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\:\\:setShowSummaryRight\\(\\) expects bool, int given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xls.php
+
 		-
 			message: "#^Parameter \\#2 \\$row of method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\IReadFilter\\:\\:readCell\\(\\) expects int, string given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xls.php
+
 		-
 			message: "#^Parameter \\#2 \\$row of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Xls\\:\\:sizeRow\\(\\) expects int, string given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xls.php
+
 		-
 			message: "#^Parameter \\#2 \\$startRow of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Xls\\:\\:getDistanceY\\(\\) expects int, string given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xls.php
+
 		-
 			message: "#^Parameter \\#3 \\$subject of function str_replace expects array\\|string, int\\|string\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xls.php
+
 		-
 			message: "#^Parameter \\#4 \\$endRow of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Xls\\:\\:getDistanceY\\(\\) expects int, string given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xls.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xls\\:\\:\\$data \\(string\\) does not accept string\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xls.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xls\\:\\:\\$documentSummaryInformation \\(string\\) does not accept string\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xls.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xls\\:\\:\\$documentSummaryInformation \\(string\\) in isset\\(\\) is not nullable\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xls.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xls\\:\\:\\$md5Ctxt is never written, only read\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xls.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xls\\:\\:\\$summaryInformation \\(string\\) does not accept string\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xls.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xls\\:\\:\\$summaryInformation \\(string\\) in isset\\(\\) is not nullable\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xls.php
+
 		-
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 7
 			path: src/PhpSpreadsheet/Reader/Xls.php
+
 		-
 			message: "#^Parameter \\#1 \\$haystack of function strpos expects string, string\\|false given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xml.php
+
 		-
 			message: "#^Parameter \\#1 \\$textValue of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\StringHelper\\:\\:convertEncoding\\(\\) expects string, string\\|false given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xml.php
+
 		-
 			message: "#^Parameter \\#2 \\$subject of function preg_match expects string, string\\|false given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xml.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xml\\:\\:\\$fileContents has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xml.php
+
 		-
 			message: "#^Argument of an invalid type SimpleXMLElement\\|null supplied for foreach, only iterables are supported\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xml/Properties.php
+
 		-
 			message: "#^Argument of an invalid type SimpleXMLElement\\|null supplied for foreach, only iterables are supported\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xml/Style.php
+
 		-
 			message: "#^Elseif condition is always true\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/ReferenceHelper.php
+
 		-
 			message: "#^Expression on left side of \\?\\? is not nullable\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/ReferenceHelper.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\RichText\\\\Run\\:\\:\\$font \\(PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\) does not accept PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/RichText/Run.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DgContainer\\:\\:getDgId\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Escher/DgContainer.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DgContainer\\:\\:getLastSpId\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Escher/DgContainer.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DgContainer\\:\\:getSpgrContainer\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Escher/DgContainer.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DgContainer\\:\\:setDgId\\(\\) has parameter \\$value with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Escher/DgContainer.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DgContainer\\:\\:setLastSpId\\(\\) has parameter \\$value with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Escher/DgContainer.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DgContainer\\:\\:setSpgrContainer\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Escher/DgContainer.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DgContainer\\:\\:setSpgrContainer\\(\\) has parameter \\$spgrContainer with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Escher/DgContainer.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DgContainer\\:\\:\\$spgrContainer has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Escher/DgContainer.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DgContainer\\\\SpgrContainer\\:\\:getChildren\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Escher/DgContainer/SpgrContainer.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DggContainer\\\\BstoreContainer\\\\BSE\\:\\:\\$parent is never read, only written\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Escher/DggContainer/BstoreContainer/BSE.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\JAMA\\\\Matrix\\:\\:__construct\\(\\) has parameter \\$args with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/JAMA/Matrix.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\JAMA\\\\Matrix\\:\\:arrayLeftDivide\\(\\) has parameter \\$args with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/JAMA/Matrix.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\JAMA\\\\Matrix\\:\\:arrayLeftDivideEquals\\(\\) has parameter \\$args with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/JAMA/Matrix.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\JAMA\\\\Matrix\\:\\:arrayRightDivide\\(\\) has parameter \\$args with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/JAMA/Matrix.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\JAMA\\\\Matrix\\:\\:arrayRightDivideEquals\\(\\) has parameter \\$args with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/JAMA/Matrix.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\JAMA\\\\Matrix\\:\\:arrayTimes\\(\\) has parameter \\$args with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/JAMA/Matrix.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\JAMA\\\\Matrix\\:\\:arrayTimesEquals\\(\\) has parameter \\$args with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/JAMA/Matrix.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\JAMA\\\\Matrix\\:\\:concat\\(\\) has parameter \\$args with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/JAMA/Matrix.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\JAMA\\\\Matrix\\:\\:getMatrix\\(\\) has parameter \\$args with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/JAMA/Matrix.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\JAMA\\\\Matrix\\:\\:minus\\(\\) has parameter \\$args with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/JAMA/Matrix.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\JAMA\\\\Matrix\\:\\:minusEquals\\(\\) has parameter \\$args with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/JAMA/Matrix.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\JAMA\\\\Matrix\\:\\:plus\\(\\) has parameter \\$args with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/JAMA/Matrix.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\JAMA\\\\Matrix\\:\\:plusEquals\\(\\) has parameter \\$args with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/JAMA/Matrix.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\JAMA\\\\Matrix\\:\\:power\\(\\) has parameter \\$args with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/JAMA/Matrix.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\JAMA\\\\Matrix\\:\\:times\\(\\) has parameter \\$args with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/JAMA/Matrix.php
+
 		-
 			message: "#^Parameter \\#3 \\$c of method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\JAMA\\\\Matrix\\:\\:set\\(\\) expects float\\|int\\|null, string given\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Shared/JAMA/Matrix.php
+
 		-
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 14
 			path: src/PhpSpreadsheet/Shared/JAMA/Matrix.php
+
 		-
 			message: "#^Cannot access offset 1 on array\\|false\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/OLE.php
+
 		-
 			message: "#^Cannot access offset 2 on array\\|false\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/OLE.php
+
 		-
 			message: "#^Cannot access offset 3 on array\\|false\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/OLE.php
+
 		-
 			message: "#^Cannot access offset 4 on array\\|false\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/OLE.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\OLE\\:\\:getData\\(\\) should return string but returns string\\|false\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/OLE.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\OLE\\:\\:getStream\\(\\) should return resource but returns resource\\|false\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/OLE.php
+
 		-
 			message: "#^Parameter \\#1 \\$No of class PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\OLE\\\\PPS constructor expects int, null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/OLE.php
+
 		-
 			message: "#^Parameter \\#1 \\$oleTimestamp of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\OLE\\:\\:OLE2LocalDate\\(\\) expects string, string\\|false given\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Shared/OLE.php
+
 		-
 			message: "#^Parameter \\#1 \\$string of function substr expects string, string\\|false given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/OLE.php
+
 		-
 			message: "#^Parameter \\#2 \\$name of class PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\OLE\\\\PPS constructor expects string, null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/OLE.php
+
 		-
 			message: "#^Parameter \\#3 \\$type of class PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\OLE\\\\PPS constructor expects int, null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/OLE.php
+
 		-
 			message: "#^Parameter \\#4 \\$prev of class PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\OLE\\\\PPS constructor expects int, null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/OLE.php
+
 		-
 			message: "#^Parameter \\#5 \\$next of class PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\OLE\\\\PPS constructor expects int, null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/OLE.php
+
 		-
 			message: "#^Parameter \\#6 \\$dir of class PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\OLE\\\\PPS constructor expects int, null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/OLE.php
+
 		-
 			message: "#^Parameter \\#9 \\$data of class PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\OLE\\\\PPS constructor expects string, null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/OLE.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\OLE\\:\\:\\$root \\(PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\OLE\\\\PPS\\\\Root\\) in isset\\(\\) is not nullable\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/OLE.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\OLE\\\\PPS\\:\\:\\$_data \\(string\\) in isset\\(\\) is not nullable\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/OLE/PPS.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\OLE\\\\PPS\\:\\:\\$startBlock \\(int\\) on left side of \\?\\? is not nullable\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/OLE/PPS.php
+
 		-
 			message: "#^Parameter \\#1 \\$No of method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\OLE\\\\PPS\\:\\:__construct\\(\\) expects int, null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/OLE/PPS/File.php
+
 		-
 			message: "#^Parameter \\#4 \\$prev of method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\OLE\\\\PPS\\:\\:__construct\\(\\) expects int, null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/OLE/PPS/File.php
+
 		-
 			message: "#^Parameter \\#5 \\$next of method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\OLE\\\\PPS\\:\\:__construct\\(\\) expects int, null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/OLE/PPS/File.php
+
 		-
 			message: "#^Parameter \\#6 \\$dir of method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\OLE\\\\PPS\\:\\:__construct\\(\\) expects int, null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/OLE/PPS/File.php
+
 		-
 			message: "#^Parameter \\#1 \\$No of method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\OLE\\\\PPS\\:\\:__construct\\(\\) expects int, null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/OLE/PPS/Root.php
+
 		-
 			message: "#^Parameter \\#4 \\$prev of method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\OLE\\\\PPS\\:\\:__construct\\(\\) expects int, null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/OLE/PPS/Root.php
+
 		-
 			message: "#^Parameter \\#5 \\$next of method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\OLE\\\\PPS\\:\\:__construct\\(\\) expects int, null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/OLE/PPS/Root.php
+
 		-
 			message: "#^Parameter \\#6 \\$dir of method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\OLE\\\\PPS\\:\\:__construct\\(\\) expects int, null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/OLE/PPS/Root.php
+
 		-
 			message: "#^Parameter \\#9 \\$data of method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\OLE\\\\PPS\\:\\:__construct\\(\\) expects string, null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/OLE/PPS/Root.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\OLE\\\\PPS\\\\Root\\:\\:\\$bigBlockSize \\(int\\) in isset\\(\\) is not nullable\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/OLE/PPS/Root.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\OLE\\\\PPS\\\\Root\\:\\:\\$smallBlockSize \\(int\\) in isset\\(\\) is not nullable\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/OLE/PPS/Root.php
+
 		-
 			message: "#^Parameter \\#1 \\$data of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\OLERead\\:\\:getInt4d\\(\\) expects string, string\\|false given\\.$#"
 			count: 8
 			path: src/PhpSpreadsheet/Shared/OLERead.php
+
 		-
 			message: "#^Parameter \\#1 \\$string of function substr expects string, string\\|false given\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Shared/OLERead.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\OLERead\\:\\:\\$data has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/OLERead.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\OLERead\\:\\:\\$documentSummaryInformation has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/OLERead.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\OLERead\\:\\:\\$summaryInformation has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/OLERead.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\OLERead\\:\\:\\$wrkbook has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/OLERead.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Trend\\\\BestFit\\:\\:calculateGoodnessOfFit\\(\\) has parameter \\$const with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Trend/BestFit.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Trend\\\\BestFit\\:\\:calculateGoodnessOfFit\\(\\) has parameter \\$meanX with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Trend/BestFit.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Trend\\\\BestFit\\:\\:calculateGoodnessOfFit\\(\\) has parameter \\$meanY with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Trend/BestFit.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Trend\\\\BestFit\\:\\:calculateGoodnessOfFit\\(\\) has parameter \\$sumX with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Trend/BestFit.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Trend\\\\BestFit\\:\\:calculateGoodnessOfFit\\(\\) has parameter \\$sumX2 with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Trend/BestFit.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Trend\\\\BestFit\\:\\:calculateGoodnessOfFit\\(\\) has parameter \\$sumXY with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Trend/BestFit.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Trend\\\\BestFit\\:\\:calculateGoodnessOfFit\\(\\) has parameter \\$sumY with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Trend/BestFit.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Trend\\\\BestFit\\:\\:calculateGoodnessOfFit\\(\\) has parameter \\$sumY2 with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Trend/BestFit.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Trend\\\\BestFit\\:\\:getBestFitType\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Trend/BestFit.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Trend\\\\BestFit\\:\\:getError\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Trend/BestFit.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Trend\\\\BestFit\\:\\:sumSquares\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Trend/BestFit.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Trend\\\\BestFit\\:\\:\\$DFResiduals has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Trend/BestFit.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Trend\\\\BestFit\\:\\:\\$SSRegression has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Trend/BestFit.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Trend\\\\BestFit\\:\\:\\$SSResiduals has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Trend/BestFit.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Trend\\\\BestFit\\:\\:\\$correlation has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Trend/BestFit.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Trend\\\\BestFit\\:\\:\\$covariance has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Trend/BestFit.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Trend\\\\BestFit\\:\\:\\$f has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Trend/BestFit.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Trend\\\\BestFit\\:\\:\\$goodnessOfFit has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Trend/BestFit.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Trend\\\\BestFit\\:\\:\\$intersect has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Trend/BestFit.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Trend\\\\BestFit\\:\\:\\$intersectSE has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Trend/BestFit.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Trend\\\\BestFit\\:\\:\\$slope has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Trend/BestFit.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Trend\\\\BestFit\\:\\:\\$slopeSE has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Trend/BestFit.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Trend\\\\BestFit\\:\\:\\$stdevOfResiduals has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Trend/BestFit.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Trend\\\\BestFit\\:\\:\\$xOffset has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Trend/BestFit.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Trend\\\\BestFit\\:\\:\\$yOffset has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Trend/BestFit.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Trend\\\\PolynomialBestFit\\:\\:getCoefficients\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Trend/PolynomialBestFit.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Trend\\\\PolynomialBestFit\\:\\:getCoefficients\\(\\) has parameter \\$dp with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Trend/PolynomialBestFit.php
+
 		-
 			message: "#^Call to an undefined method object\\:\\:getGoodnessOfFit\\(\\)\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Trend/Trend.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Trend\\\\Trend\\:\\:calculate\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Trend/Trend.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Trend\\\\Trend\\:\\:calculate\\(\\) has parameter \\$const with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Trend/Trend.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Trend\\\\Trend\\:\\:calculate\\(\\) has parameter \\$trendType with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Trend/Trend.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Trend\\\\Trend\\:\\:calculate\\(\\) has parameter \\$xValues with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Trend/Trend.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Trend\\\\Trend\\:\\:calculate\\(\\) has parameter \\$yValues with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Trend/Trend.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\ConditionalFormatting\\\\ConditionalDataBar\\:\\:setConditionalFormattingRuleExt\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalDataBar.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\ConditionalFormatting\\\\ConditionalDataBar\\:\\:setMaximumConditionalFormatValueObject\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalDataBar.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\ConditionalFormatting\\\\ConditionalDataBar\\:\\:setMinimumConditionalFormatValueObject\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalDataBar.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\ConditionalFormatting\\\\ConditionalDataBar\\:\\:setShowValue\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalDataBar.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\ConditionalFormatting\\\\ConditionalDataBarExtension\\:\\:getXmlAttributes\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalDataBarExtension.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\ConditionalFormatting\\\\ConditionalDataBarExtension\\:\\:getXmlElements\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalDataBarExtension.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\ConditionalFormatting\\\\ConditionalDataBarExtension\\:\\:setMaximumConditionalFormatValueObject\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalDataBarExtension.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\ConditionalFormatting\\\\ConditionalDataBarExtension\\:\\:setMinimumConditionalFormatValueObject\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalDataBarExtension.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\ConditionalFormatting\\\\ConditionalFormatValueObject\\:\\:__construct\\(\\) has parameter \\$type with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalFormatValueObject.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\ConditionalFormatting\\\\ConditionalFormatValueObject\\:\\:__construct\\(\\) has parameter \\$value with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalFormatValueObject.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\ConditionalFormatting\\\\ConditionalFormatValueObject\\:\\:setCellFormula\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalFormatValueObject.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\ConditionalFormatting\\\\ConditionalFormatValueObject\\:\\:setType\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalFormatValueObject.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\ConditionalFormatting\\\\ConditionalFormatValueObject\\:\\:setValue\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalFormatValueObject.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\ConditionalFormatting\\\\ConditionalFormatValueObject\\:\\:\\$cellFormula has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalFormatValueObject.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\ConditionalFormatting\\\\ConditionalFormatValueObject\\:\\:\\$type has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalFormatValueObject.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\ConditionalFormatting\\\\ConditionalFormatValueObject\\:\\:\\$value has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalFormatValueObject.php
+
 		-
 			message: "#^Cannot access property \\$axisPosition on SimpleXMLElement\\|null\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalFormattingRuleExtension.php
+
 		-
 			message: "#^Cannot access property \\$border on SimpleXMLElement\\|null\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalFormattingRuleExtension.php
+
 		-
 			message: "#^Cannot access property \\$direction on SimpleXMLElement\\|null\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalFormattingRuleExtension.php
+
 		-
 			message: "#^Cannot access property \\$gradient on SimpleXMLElement\\|null\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalFormattingRuleExtension.php
+
 		-
 			message: "#^Cannot access property \\$maxLength on SimpleXMLElement\\|null\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalFormattingRuleExtension.php
+
 		-
 			message: "#^Cannot access property \\$minLength on SimpleXMLElement\\|null\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalFormattingRuleExtension.php
+
 		-
 			message: "#^Cannot access property \\$negativeBarBorderColorSameAsPositive on SimpleXMLElement\\|null\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalFormattingRuleExtension.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\ConditionalFormatting\\\\ConditionalFormattingRuleExtension\\:\\:__construct\\(\\) has parameter \\$id with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalFormattingRuleExtension.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\ConditionalFormatting\\\\ConditionalFormattingRuleExtension\\:\\:generateUuid\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalFormattingRuleExtension.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\ConditionalFormatting\\\\ConditionalFormattingRuleExtension\\:\\:parseExtDataBarElementChildrenFromXml\\(\\) has parameter \\$ns with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalFormattingRuleExtension.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\ConditionalFormatting\\\\ConditionalFormattingRuleExtension\\:\\:parseExtLstXml\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalFormattingRuleExtension.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\ConditionalFormatting\\\\ConditionalFormattingRuleExtension\\:\\:parseExtLstXml\\(\\) has parameter \\$extLstXml with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalFormattingRuleExtension.php
+
 		-
 			message: "#^Offset 'rgb' does not exist on SimpleXMLElement\\|null\\.$#"
 			count: 4
 			path: src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalFormattingRuleExtension.php
+
 		-
 			message: "#^Offset 'theme' does not exist on SimpleXMLElement\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalFormattingRuleExtension.php
+
 		-
 			message: "#^Offset 'tint' does not exist on SimpleXMLElement\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalFormattingRuleExtension.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\ConditionalFormatting\\\\ConditionalFormattingRuleExtension\\:\\:\\$id has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalFormattingRuleExtension.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\NumberFormat\\\\Formatter\\:\\:splitFormat\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/NumberFormat/Formatter.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\NumberFormat\\\\Formatter\\:\\:splitFormat\\(\\) has parameter \\$sections with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/NumberFormat/Formatter.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\NumberFormat\\\\Formatter\\:\\:splitFormat\\(\\) has parameter \\$value with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/NumberFormat/Formatter.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\NumberFormat\\\\Formatter\\:\\:splitFormatCompare\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/NumberFormat/Formatter.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\NumberFormat\\\\Formatter\\:\\:splitFormatCompare\\(\\) has parameter \\$cond with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/NumberFormat/Formatter.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\NumberFormat\\\\Formatter\\:\\:splitFormatCompare\\(\\) has parameter \\$dfcond with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/NumberFormat/Formatter.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\NumberFormat\\\\Formatter\\:\\:splitFormatCompare\\(\\) has parameter \\$dfval with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/NumberFormat/Formatter.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\NumberFormat\\\\Formatter\\:\\:splitFormatCompare\\(\\) has parameter \\$val with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/NumberFormat/Formatter.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\NumberFormat\\\\Formatter\\:\\:splitFormatCompare\\(\\) has parameter \\$value with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/NumberFormat/Formatter.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\NumberFormat\\\\Formatter\\:\\:toFormattedString\\(\\) should return string but returns float\\|int\\|string\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/NumberFormat/Formatter.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\NumberFormat\\\\PercentageFormatter\\:\\:format\\(\\) has parameter \\$value with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/NumberFormat/PercentageFormatter.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\CellIterator\\:\\:adjustForExistingOnlyRange\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/CellIterator.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Drawing\\\\Shadow\\:\\:\\$color \\(PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Color\\) does not accept PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Color\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/Drawing/Shadow.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\PageSetup\\:\\:getPrintArea\\(\\) should return string but returns string\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/PageSetup.php
+
 		-
 			message: "#^Cannot call method getCalculatedValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
+
 		-
 			message: "#^Cannot call method getHashCode\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
+
 		-
 			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
 			count: 4
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
+
 		-
 			message: "#^Cannot call method getWorksheet\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\DefinedName\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
+
 		-
 			message: "#^Cannot call method getXfIndex\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Cell\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
+
 		-
 			message: "#^Cannot call method rangeToArray\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
+
 		-
 			message: "#^If condition is always true\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
+
 		-
 			message: "#^Left side of && is always true\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\:\\:getChartByName\\(\\) should return PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Chart\\|false but returns PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Chart\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
+
 		-
 			message: "#^Parameter \\#1 \\$index of class PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\ColumnDimension constructor expects string, null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
+
 		-
 			message: "#^Parameter \\#1 \\$index of class PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\RowDimension constructor expects int, null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
+
 		-
 			message: "#^Parameter \\#1 \\$range of static method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Coordinate\\:\\:rangeDimension\\(\\) expects string, string\\|false given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
+
 		-
 			message: "#^Parameter \\#2 \\$format of static method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\NumberFormat\\:\\:toFormattedString\\(\\) expects string, string\\|null given\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
+
 		-
 			message: "#^Parameter \\#3 \\$rotation of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Font\\:\\:calculateColumnWidth\\(\\) expects int, int\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\:\\:\\$parent \\(PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\) does not accept PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
+
 		-
 			message: "#^Right side of && is always true\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
+
 		-
 			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Ods.php
+
 		-
 			message: "#^If condition is always true\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Writer/Ods/Cell/Style.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Ods\\\\Cell\\\\Style\\:\\:\\$writer has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Ods/Cell/Style.php
+
 		-
 			message: "#^Parameter \\#1 \\$range of static method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Coordinate\\:\\:splitRange\\(\\) expects string, string\\|false given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Ods/Content.php
+
 		-
 			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, int\\<2, max\\> given\\.$#"
 			count: 3
 			path: src/PhpSpreadsheet/Writer/Ods/Content.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Ods\\\\Content\\:\\:\\$formulaConvertor has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Ods/Content.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Ods\\\\Formula\\:\\:\\$definedNames has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Ods/Formula.php
+
 		-
 			message: "#^Cannot call method getHashCode\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls.php
+
 		-
 			message: "#^Cannot use array destructuring on array\\|false\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls.php
+
 		-
 			message: "#^Offset 'endCoordinates' does not exist on array\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls.php
+
 		-
 			message: "#^Offset 'endOffsetX' does not exist on array\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls.php
+
 		-
 			message: "#^Offset 'endOffsetY' does not exist on array\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls.php
+
 		-
 			message: "#^Offset 'startCoordinates' does not exist on array\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls.php
+
 		-
 			message: "#^Offset 'startOffsetX' does not exist on array\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls.php
+
 		-
 			message: "#^Offset 'startOffsetY' does not exist on array\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls.php
+
 		-
 			message: "#^Parameter \\#1 \\$blipType of method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DggContainer\\\\BstoreContainer\\\\BSE\\:\\:setBlipType\\(\\) expects int, int\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls.php
+
 		-
 			message: "#^Parameter \\#1 \\$data of method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DggContainer\\\\BstoreContainer\\\\BSE\\\\Blip\\:\\:setData\\(\\) expects string, string\\|false given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls.php
+
 		-
 			message: "#^Parameter \\#1 \\$font of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Workbook\\:\\:addFont\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font, PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\:\\:\\$documentSummaryInformation \\(string\\) in isset\\(\\) is not nullable\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\:\\:\\$summaryInformation \\(string\\) in isset\\(\\) is not nullable\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\BIFFwriter\\:\\:writeEof\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/BIFFwriter.php
+
 		-
 			message: "#^Static property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\BIFFwriter\\:\\:\\$byteOrder \\(int\\) in isset\\(\\) is not nullable\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/BIFFwriter.php
+
 		-
 			message: "#^Elseif condition is always true\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Escher.php
+
 		-
 			message: "#^If condition is always true\\.$#"
 			count: 3
 			path: src/PhpSpreadsheet/Writer/Xls/Escher.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Escher\\:\\:\\$data has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Escher.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Escher\\:\\:\\$object has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Escher.php
+
 		-
 			message: "#^Cannot access offset 'encoding' on array\\|false\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Workbook.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Workbook\\:\\:writeAllDefinedNamesBiff8\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Workbook.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Workbook\\:\\:writeExternalsheetBiff8\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Workbook.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Workbook\\:\\:writeMsoDrawingGroup\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Workbook.php
+
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Workbook\\:\\:writeSupbookInternal\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Workbook.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Workbook\\:\\:\\$biffSize is never read, only written\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Workbook.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Workbook\\:\\:\\$colors has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Workbook.php
+
 		-
 			message: "#^Cannot access offset 'comp' on array\\|false\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
+
 		-
 			message: "#^Cannot access offset 'ident' on array\\|false\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
+
 		-
 			message: "#^Cannot access offset 'sa' on array\\|false\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
+
 		-
 			message: "#^Cannot access offset 1 on array\\|false\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
+
 		-
 			message: "#^Cannot access offset 2 on array\\|false\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
+
 		-
 			message: "#^Cannot call method getHashCode\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
+
 		-
 			message: "#^Expression on left side of \\?\\? is not nullable\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
+
 		-
 			message: "#^Parameter \\#1 \\$string of function strlen expects string, string\\|false given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
+
 		-
 			message: "#^Parameter \\#1 \\$string of function substr expects string, string\\|false given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
+
 		-
 			message: "#^Parameter \\#2 \\$length of function fread expects int\\<0, max\\>, int\\<0, max\\>\\|false given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
+
 		-
 			message: "#^Parameter \\#4 \\$isError of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Worksheet\\:\\:writeBoolErr\\(\\) expects bool, int given\\.$#"
 			count: 3
 			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
+
 		-
 			message: "#^Parameter \\#5 \\$width of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Worksheet\\:\\:positionImage\\(\\) expects int, float given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
+
 		-
 			message: "#^Parameter \\#6 \\$height of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Worksheet\\:\\:positionImage\\(\\) expects int, float given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Worksheet\\:\\:\\$activePane \\(int\\) does not accept int\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Worksheet\\:\\:\\$colors has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Worksheet\\:\\:\\$countCellStyleXfs is never read, only written\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Worksheet\\:\\:\\$outlineBelow is never read, only written\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Worksheet\\:\\:\\$outlineRight is never read, only written\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Worksheet\\:\\:\\$selection is never read, only written\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Worksheet\\:\\:\\$xlsStringMaxLength is never read, only written\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
+
 		-
 			message: "#^Parameter \\#1 \\$textRotation of static method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Xf\\:\\:mapTextRotation\\(\\) expects int, int\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Xf.php
+
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Xf\\:\\:\\$diag is never read, only written\\.$#"
 			count: 1
