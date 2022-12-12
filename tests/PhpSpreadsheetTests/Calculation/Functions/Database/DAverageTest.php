@@ -2,17 +2,37 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Database\DAverage;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
+
 class DAverageTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerDAverage
      *
      * @param mixed $expectedResult
+     * @param mixed $database
+     * @param mixed $field
+     * @param mixed $criteria
+     */
+    public function testDirectCallToDAverage($expectedResult, $database, $field, $criteria): void
+    {
+        $result = DAverage::evaluate($database, $field, $criteria);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
+    }
+
+    /**
+     * @dataProvider providerDAverage
+     *
+     * @param mixed $expectedResult
      * @param int|string $field
      */
-    public function testDAverage($expectedResult, array $database, $field, array $criteria): void
+    public function testDAverageAsWorksheetFormula($expectedResult, array $database, $field, array $criteria): void
     {
-        $this->runTestCase('DAVERAGE', $expectedResult, $database, $field, $criteria);
+        $this->prepareWorksheetWithFormula('DAVERAGE', $database, $field, $criteria);
+
+        $result = $this->getSheet()->getCell(self::RESULT_CELL)->getCalculatedValue();
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
     public function providerDAverage(): array
@@ -26,12 +46,6 @@ class DAverageTest extends AllSetupTeardown
                     ['Tree', 'Height'],
                     ['=Apple', '>10'],
                 ],
-            ],
-            'numeric column, in this case referring to age' => [
-                13,
-                $this->database1(),
-                3,
-                $this->database1(),
             ],
             [
                 268333.333333333333,
@@ -51,14 +65,20 @@ class DAverageTest extends AllSetupTeardown
                     ['1', 'South'],
                 ],
             ],
+            'numeric column, in this case referring to age' => [
+                13,
+                $this->database1(),
+                3,
+                $this->database1(),
+            ],
             'null field' => [
-                '#VALUE!',
+                ExcelError::VALUE(),
                 $this->database1(),
                 null,
                 $this->database1(),
             ],
             'field unknown column' => [
-                '#VALUE!',
+                ExcelError::VALUE(),
                 $this->database1(),
                 'xyz',
                 $this->database1(),
@@ -87,13 +107,13 @@ class DAverageTest extends AllSetupTeardown
                to me that I'm not going to bother coding that up,
                content to return #VALUE! as an invalid name would */
             'field column number too high' => [
-                '#VALUE!',
+                ExcelError::VALUE(),
                 $this->database1(),
                 99,
                 $this->database1(),
             ],
             'field column number too low' => [
-                '#VALUE!',
+                ExcelError::VALUE(),
                 $this->database1(),
                 0,
                 $this->database1(),

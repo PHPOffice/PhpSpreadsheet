@@ -2,6 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Database\DStDev;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
+
 class DStDevTest extends AllSetupTeardown
 {
     /**
@@ -12,9 +15,26 @@ class DStDevTest extends AllSetupTeardown
      * @param mixed $field
      * @param mixed $criteria
      */
-    public function testDStDev($expectedResult, $database, $field, $criteria): void
+    public function testDirectCallToDStDev($expectedResult, $database, $field, $criteria): void
     {
-        $this->runTestCase('DSTDEV', $expectedResult, $database, $field, $criteria);
+        $result = DStDev::evaluate($database, $field, $criteria);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
+    }
+
+    /**
+     * @dataProvider providerDStDev
+     *
+     * @param mixed $expectedResult
+     * @param mixed $database
+     * @param mixed $field
+     * @param mixed $criteria
+     */
+    public function testDStDevAsWorksheetFormula($expectedResult, $database, $field, $criteria): void
+    {
+        $this->prepareWorksheetWithFormula('DSTDEV', $database, $field, $criteria);
+
+        $result = $this->getSheet()->getCell(self::RESULT_CELL)->getCalculatedValue();
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
     public function providerDStDev(): array
@@ -49,7 +69,7 @@ class DStDevTest extends AllSetupTeardown
                 ],
             ],
             'omitted field name' => [
-                '#VALUE!',
+                ExcelError::VALUE(),
                 $this->database1(),
                 null,
                 $this->database1(),

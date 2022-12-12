@@ -4422,9 +4422,11 @@ class Calculation
                         $stackItemType = 'Constant';
                         $excelConstant = trim(strtoupper($val));
                         $val = self::$excelConstants[$excelConstant];
+                        $stackItemReference = $excelConstant;
                     } elseif (($localeConstant = array_search(trim(strtoupper($val)), self::$localeBoolean)) !== false) {
                         $stackItemType = 'Constant';
                         $val = self::$excelConstants[$localeConstant];
+                        $stackItemReference = $localeConstant;
                     } elseif (
                         preg_match('/^' . self::CALCULATION_REGEXP_ROW_RANGE . '/miu', substr($formula, $index), $rowRangeReference)
                     ) {

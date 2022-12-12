@@ -2,6 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Database\DVarP;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
+
 class DVarPTest extends AllSetupTeardown
 {
     /**
@@ -12,9 +15,26 @@ class DVarPTest extends AllSetupTeardown
      * @param mixed $field
      * @param mixed $criteria
      */
-    public function testDVarP($expectedResult, $database, $field, $criteria): void
+    public function testDirectCallToDVarP($expectedResult, $database, $field, $criteria): void
     {
-        $this->runTestCase('DVARP', $expectedResult, $database, $field, $criteria);
+        $result = DVarP::evaluate($database, $field, $criteria);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
+    }
+
+    /**
+     * @dataProvider providerDVarP
+     *
+     * @param mixed $expectedResult
+     * @param mixed $database
+     * @param mixed $field
+     * @param mixed $criteria
+     */
+    public function testDVarPAsWorksheetFormula($expectedResult, $database, $field, $criteria): void
+    {
+        $this->prepareWorksheetWithFormula('DVARP', $database, $field, $criteria);
+
+        $result = $this->getSheet()->getCell(self::RESULT_CELL)->getCalculatedValue();
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
     public function providerDVarP(): array
@@ -49,7 +69,7 @@ class DVarPTest extends AllSetupTeardown
                 ],
             ],
             'Omitted field name' => [
-                '#VALUE!',
+                ExcelError::VALUE(),
                 $this->database1(),
                 null,
                 $this->database1(),
