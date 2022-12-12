@@ -13,7 +13,8 @@ class ProtectionTest extends TestCase
         self::assertTrue($protection->verify('foo'), 'non-protected always pass');
 
         $protection->setSheet(true);
-        self::assertFalse($protection->verify('foo'), 'protected will fail');
+        self::assertTrue($protection->verify('foo'), 'no password will always pass 1');
+        self::assertTrue($protection->verify('xyz'), 'no password will always pass 2');
 
         $protection->setPassword('foo', true);
         self::assertSame('foo', $protection->getPassword(), 'was not stored as-is, without hashing');
@@ -31,8 +32,8 @@ class ProtectionTest extends TestCase
         $protection->setPassword('foo');
         $hash2 = $protection->getPassword();
 
-        self::assertSame(24, mb_strlen($hash1));
-        self::assertSame(24, mb_strlen($hash2));
+        self::assertSame(24, mb_strlen($hash1)); // @phpstan-ignore-line
+        self::assertSame(24, mb_strlen($hash2)); // @phpstan-ignore-line
         self::assertNotSame($hash1, $hash2, 'was hashed with automatic salt');
         self::assertTrue($protection->verify('foo'), 'setting password again, will hash with proper algorithm and will match');
     }
