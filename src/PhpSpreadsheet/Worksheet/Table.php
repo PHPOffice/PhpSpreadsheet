@@ -48,6 +48,13 @@ class Table
     private $workSheet;
 
     /**
+     * Table allow filter.
+     *
+     * @var bool
+     */
+    private $allowFilter = true;
+
+    /**
      * Table Column.
      *
      * @var Table\Column[]
@@ -232,6 +239,26 @@ class Table
     public function setShowTotalsRow(bool $showTotalsRow): self
     {
         $this->showTotalsRow = $showTotalsRow;
+
+        return $this;
+    }
+
+    /**
+     * Get allow filter.
+     * If false, autofiltering is disabled for the table, if true it is enabled.
+     */
+    public function getAllowFilter(): bool
+    {
+        return $this->allowFilter;
+    }
+
+    /**
+     * Set show Autofiltering.
+     * Disabling autofiltering has the same effect as hiding the filter button on all the columns in the table.
+     */
+    public function setAllowFilter(bool $allowFilter): self
+    {
+        $this->allowFilter = $allowFilter;
 
         return $this;
     }
