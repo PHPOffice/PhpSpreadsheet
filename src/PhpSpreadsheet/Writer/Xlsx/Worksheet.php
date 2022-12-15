@@ -498,7 +498,7 @@ class Worksheet extends WriterPart
                 if (is_bool($formula)) {
                     $formula = $formula ? 'TRUE' : 'FALSE';
                 }
-                $objWriter->writeElement('formula', Xlfn::addXlfn("$formula"));
+                $objWriter->writeElement('formula', FunctionPrefix::addFunctionPrefix("$formula"));
             }
         } else {
             if ($conditional->getConditionType() == Conditional::CONDITION_CONTAINSBLANKS) {
@@ -1204,7 +1204,7 @@ class Worksheet extends WriterPart
     {
         $objWriter->writeAttribute('t', $mappedType);
         $cellIsFormula = substr($cellValue, 0, 1) === '=';
-        self::writeElementIf($objWriter, $cellIsFormula, 'f', Xlfn::addXlfnStripEquals($cellValue));
+        self::writeElementIf($objWriter, $cellIsFormula, 'f', FunctionPrefix::addFunctionPrefixStripEquals($cellValue));
         $objWriter->writeElement('v', $cellIsFormula ? $formulaerr : $cellValue);
     }
 
@@ -1234,7 +1234,7 @@ class Worksheet extends WriterPart
             $objWriter->text(substr($cellValue, 1));
             $objWriter->endElement();
         } else {
-            $objWriter->writeElement('f', Xlfn::addXlfnStripEquals($cellValue));
+            $objWriter->writeElement('f', FunctionPrefix::addFunctionPrefixStripEquals($cellValue));
             self::writeElementIf(
                 $objWriter,
                 $this->getParentWriter()->getOffice2003Compatibility() === false,

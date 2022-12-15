@@ -31,6 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
+- Fixed handling for `_xlws` prefixed functions from Office365 [Issue #3245](https://github.com/PHPOffice/PhpSpreadsheet/issues/3245) [PR #3247](https://github.com/PHPOffice/PhpSpreadsheet/pull/3247)
 - Conditionals formatting rules applied to rows/columns are removed [Issue #3184](https://github.com/PHPOffice/PhpSpreadsheet/issues/3184) [PR #3213](https://github.com/PHPOffice/PhpSpreadsheet/pull/3213)
 - Treat strings containing currency or accounting values as floats in Calculation Engine operations [Issue #3165](https://github.com/PHPOffice/PhpSpreadsheet/issues/3165) [PR #3189](https://github.com/PHPOffice/PhpSpreadsheet/pull/3189)
 - Treat strings containing percentage values as floats in Calculation Engine operations [Issue #3155](https://github.com/PHPOffice/PhpSpreadsheet/issues/3155) [PR #3156](https://github.com/PHPOffice/PhpSpreadsheet/pull/3156) and [PR #3164](https://github.com/PHPOffice/PhpSpreadsheet/pull/3164)

@@ -33,7 +33,7 @@ class Calculation
     //    Opening bracket
     const CALCULATION_REGEXP_OPENBRACE = '\(';
     //    Function (allow for the old @ symbol that could be used to prefix a function, but we'll ignore it)
-    const CALCULATION_REGEXP_FUNCTION = '@?(?:_xlfn\.)?([\p{L}][\p{L}\p{N}\.]*)[\s]*\(';
+    const CALCULATION_REGEXP_FUNCTION = '@?(?:_xlfn\.)?(?:_xlws\.)?([\p{L}][\p{L}\p{N}\.]*)[\s]*\(';
     //    Cell reference (cell or range of cells, with or without a sheet reference)
     const CALCULATION_REGEXP_CELLREF = '((([^\s,!&%^\/\*\+<>=:`-]*)|(\'(?:[^\']|\'[^!])+?\')|(\"(?:[^\"]|\"[^!])+?\"))!)?\$?\b([a-z]{1,3})\$?(\d{1,7})(?![\w.])';
     //    Cell reference (with or without a sheet reference) ensuring absolute/relative
@@ -328,6 +328,11 @@ class Calculation
             'functionCall' => [MathTrig\Arabic::class, 'evaluate'],
             'argumentCount' => '1',
         ],
+        'ANCHORARRAY' => [
+            'category' => Category::CATEGORY_UNCATEGORISED,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '*',
+        ],
         'AREAS' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
             'functionCall' => [Functions::class, 'DUMMY'],
@@ -502,6 +507,16 @@ class Calculation
             'category' => Category::CATEGORY_ENGINEERING,
             'functionCall' => [Engineering\BitWise::class, 'BITRSHIFT'],
             'argumentCount' => '2',
+        ],
+        'BYCOL' => [
+            'category' => Category::CATEGORY_LOGICAL,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '*',
+        ],
+        'BYROW' => [
+            'category' => Category::CATEGORY_LOGICAL,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '*',
         ],
         'CEILING' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
@@ -1613,6 +1628,11 @@ class Calculation
             'functionCall' => [Statistical\Deviations::class, 'kurtosis'],
             'argumentCount' => '1+',
         ],
+        'LAMBDA' => [
+            'category' => Category::CATEGORY_UNCATEGORISED,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '*',
+        ],
         'LARGE' => [
             'category' => Category::CATEGORY_STATISTICAL,
             'functionCall' => [Statistical\Size::class, 'large'],
@@ -2306,6 +2326,11 @@ class Calculation
             'category' => Category::CATEGORY_MATH_AND_TRIG,
             'functionCall' => [MathTrig\Trig\Sine::class, 'sin'],
             'argumentCount' => '1',
+        ],
+        'SINGLE' => [
+            'category' => Category::CATEGORY_UNCATEGORISED,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '*',
         ],
         'SINH' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
