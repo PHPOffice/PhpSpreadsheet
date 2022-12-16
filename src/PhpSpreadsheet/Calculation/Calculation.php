@@ -318,6 +318,11 @@ class Calculation
             'functionCall' => [Financial\Amortization::class, 'AMORLINC'],
             'argumentCount' => '6,7',
         ],
+        'ANCHORARRAY' => [
+            'category' => Category::CATEGORY_UNCATEGORISED,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '*',
+        ],
         'AND' => [
             'category' => Category::CATEGORY_LOGICAL,
             'functionCall' => [Logical\Operations::class, 'logicalAnd'],
@@ -327,11 +332,6 @@ class Calculation
             'category' => Category::CATEGORY_MATH_AND_TRIG,
             'functionCall' => [MathTrig\Arabic::class, 'evaluate'],
             'argumentCount' => '1',
-        ],
-        'ANCHORARRAY' => [
-            'category' => Category::CATEGORY_UNCATEGORISED,
-            'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '*',
         ],
         'AREAS' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
@@ -1591,6 +1591,11 @@ class Calculation
             'functionCall' => [Information\Value::class, 'isOdd'],
             'argumentCount' => '1',
         ],
+        'ISOMITTED' => [
+            'category' => Category::CATEGORY_INFORMATION,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '*',
+        ],
         'ISOWEEKNUM' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
             'functionCall' => [DateTimeExcel\Week::class, 'isoWeekNumber'],
@@ -1629,7 +1634,7 @@ class Calculation
             'argumentCount' => '1+',
         ],
         'LAMBDA' => [
-            'category' => Category::CATEGORY_UNCATEGORISED,
+            'category' => Category::CATEGORY_LOGICAL,
             'functionCall' => [Functions::class, 'DUMMY'],
             'argumentCount' => '*',
         ],
@@ -1662,6 +1667,11 @@ class Calculation
             'category' => Category::CATEGORY_TEXT_AND_DATA,
             'functionCall' => [TextData\Text::class, 'length'],
             'argumentCount' => '1',
+        ],
+        'LET' => [
+            'category' => Category::CATEGORY_LOGICAL,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '*',
         ],
         'LINEST' => [
             'category' => Category::CATEGORY_STATISTICAL,
@@ -1717,6 +1727,16 @@ class Calculation
             'category' => Category::CATEGORY_TEXT_AND_DATA,
             'functionCall' => [TextData\CaseConvert::class, 'lower'],
             'argumentCount' => '1',
+        ],
+        'MAKEARRAY' => [
+            'category' => Category::CATEGORY_LOGICAL,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '*',
+        ],
+        'MAP' => [
+            'category' => Category::CATEGORY_LOGICAL,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '*',
         ],
         'MATCH' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
@@ -2190,6 +2210,11 @@ class Calculation
             'functionCall' => [Financial\Securities\Price::class, 'received'],
             'argumentCount' => '4-5',
         ],
+        'REDUCE' => [
+            'category' => Category::CATEGORY_LOGICAL,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '*',
+        ],
         'REPLACE' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
             'functionCall' => [TextData\Replace::class, 'replace'],
@@ -2276,6 +2301,11 @@ class Calculation
             'category' => Category::CATEGORY_TEXT_AND_DATA,
             'functionCall' => [TextData\Search::class, 'insensitive'],
             'argumentCount' => '2,3',
+        ],
+        'SCAN' => [
+            'category' => Category::CATEGORY_LOGICAL,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '*',
         ],
         'SEARCHB' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
