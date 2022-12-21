@@ -91,7 +91,7 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Cell.php"><a href="files/src-phpspreadsheet-cell-cell.html"><abbr title="src/PhpSpreadsheet/Cell/Cell.php">Cell.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">17</span>
+    <span class="phpdocumentor-element-found-in__line">18</span>
 </aside>
 
         
@@ -109,7 +109,35 @@
 </h3>
 
 <dl class="phpdocumentor-table-of-contents">
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html#constant_CALCULATE_DATE_TIME_ASIS">CALCULATE_DATE_TIME_ASIS</a>
+    <span>
+        &nbsp;= 0                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html#constant_CALCULATE_DATE_TIME_FLOAT">CALCULATE_DATE_TIME_FLOAT</a>
+    <span>
+        &nbsp;= 1                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html#constant_CALCULATE_TIME_FLOAT">CALCULATE_TIME_FLOAT</a>
+    <span>
+        &nbsp;= 2                    </span>
+</dt>
+<dd></dd>
+
                 <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html#property_calculateDateTimeType">$calculateDateTimeType</a>
+    <span>
+                &nbsp;: int            </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html#property_calculatedValue">$calculatedValue</a>
     <span>
                 &nbsp;: mixed            </span>
@@ -135,7 +163,7 @@
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html#property_parent">$parent</a>
     <span>
-                &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Collection-Cells.html"><abbr title="\PhpOffice\PhpSpreadsheet\Collection\Cells">Cells</abbr></a>            </span>
+                &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Collection-Cells.html"><abbr title="\PhpOffice\PhpSpreadsheet\Collection\Cells">Cells</abbr></a>|null            </span>
 </dt>
 <dd>The collection of cells that this cell belongs to (i.e. The Cell Collection for the parent Worksheet).</dd>
 
@@ -205,9 +233,16 @@
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html#method_getAppliedStyle">getAppliedStyle()</a>
     <span>
-                        &nbsp;: <abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr>    </span>
+                        &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a>    </span>
 </dt>
 <dd>Get cell style.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html#method_getCalculateDateTimeType">getCalculateDateTimeType()</a>
+    <span>
+                        &nbsp;: int    </span>
+</dt>
+<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html#method_getCalculatedValue">getCalculatedValue()</a>
@@ -284,7 +319,7 @@
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html#method_getParent">getParent()</a>
     <span>
-                        &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Collection-Cells.html"><abbr title="\PhpOffice\PhpSpreadsheet\Collection\Cells">Cells</abbr></a>    </span>
+                        &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Collection-Cells.html"><abbr title="\PhpOffice\PhpSpreadsheet\Collection\Cells">Cells</abbr></a>|null    </span>
 </dt>
 <dd>Get cell collection.</dd>
 
@@ -298,7 +333,7 @@
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html#method_getStyle">getStyle()</a>
     <span>
-                        &nbsp;: <abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr>    </span>
+                        &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a>    </span>
 </dt>
 <dd>Get cell style.</dd>
 
@@ -322,6 +357,13 @@
                         &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a>    </span>
 </dt>
 <dd>Get parent worksheet.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html#method_getWorksheetOrNull">getWorksheetOrNull()</a>
+    <span>
+                        &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a>|null    </span>
+</dt>
+<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html#method_getXfIndex">getXfIndex()</a>
@@ -385,6 +427,13 @@
                         &nbsp;: self    </span>
 </dt>
 <dd>Re-bind parent.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html#method_setCalculateDateTimeType">setCalculateDateTimeType()</a>
+    <span>
+                        &nbsp;: void    </span>
+</dt>
+<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html#method_setCalculatedValue">setCalculatedValue()</a>
@@ -456,11 +505,106 @@
 </dt>
 <dd>Update the cell into the cell collection.</dd>
 
+            <dt class="phpdocumentor-table-of-contents__entry -method -protected">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html#method_updateIfCellIsTableHeader">updateIfCellIsTableHeader()</a>
+    <span>
+                        &nbsp;: void    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html#method_convertDateTimeInt">convertDateTimeInt()</a>
+    <span>
+                        &nbsp;: mixed    </span>
+</dt>
+<dd>Convert date, time, or datetime from int to float if desired.</dd>
+
         </dl>
 
 
 
         
+    <section class="phpdocumentor-constants">
+        <h3 class="phpdocumentor-elements__header" id="constants">
+            Constants
+            <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html#constants" class="headerlink"><i class="fas fa-link"></i></a>
+        </h3>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_CALCULATE_DATE_TIME_ASIS">
+        CALCULATE_DATE_TIME_ASIS
+        <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html#constant_CALCULATE_DATE_TIME_ASIS" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Cell.php"><a href="files/src-phpspreadsheet-cell-cell.html"><abbr title="src/PhpSpreadsheet/Cell/Cell.php">Cell.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">307</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">CALCULATE_DATE_TIME_ASIS</span>
+    = <span class="phpdocumentor-signature__default-value">""</span>
+</code>
+
+
+    
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_CALCULATE_DATE_TIME_FLOAT">
+        CALCULATE_DATE_TIME_FLOAT
+        <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html#constant_CALCULATE_DATE_TIME_FLOAT" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Cell.php"><a href="files/src-phpspreadsheet-cell-cell.html"><abbr title="src/PhpSpreadsheet/Cell/Cell.php">Cell.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">308</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">CALCULATE_DATE_TIME_FLOAT</span>
+    = <span class="phpdocumentor-signature__default-value">1</span>
+</code>
+
+
+    
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_CALCULATE_TIME_FLOAT">
+        CALCULATE_TIME_FLOAT
+        <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html#constant_CALCULATE_TIME_FLOAT" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Cell.php"><a href="files/src-phpspreadsheet-cell-cell.html"><abbr title="src/PhpSpreadsheet/Cell/Cell.php">Cell.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">309</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">CALCULATE_TIME_FLOAT</span>
+    = <span class="phpdocumentor-signature__default-value">2</span>
+</code>
+
+
+    
+    
+
+</article>
+            </section>
 
         
     <section class="phpdocumentor-properties">
@@ -468,6 +612,37 @@
             Properties
             <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
         </h3>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+            -static                                            "
+>
+    <h4 class="phpdocumentor-element__name" id="property_calculateDateTimeType">
+        $calculateDateTimeType
+        <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html#property_calculateDateTimeType" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Cell.php"><a href="files/src-phpspreadsheet-cell-cell.html"><abbr title="src/PhpSpreadsheet/Cell/Cell.php">Cell.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">312</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">int</span>
+    <span class="phpdocumentor-signature__name">$calculateDateTimeType</span>
+     = <span class="phpdocumentor-signature__default-value">self::CALCULATE_DATE_TIME_ASIS</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+
+</article>
                     <article
         class="
             phpdocumentor-element
@@ -484,7 +659,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Cell.php"><a href="files/src-phpspreadsheet-cell-cell.html"><abbr title="src/PhpSpreadsheet/Cell/Cell.php">Cell.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">43</span>
+    <span class="phpdocumentor-element-found-in__line">44</span>
 </aside>
 
         <p class="phpdocumentor-summary">Calculated value of the cell (used for caching)
@@ -521,7 +696,7 @@ values used by the formula have changed since it was last calculated.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Cell.php"><a href="files/src-phpspreadsheet-cell-cell.html"><abbr title="src/PhpSpreadsheet/Cell/Cell.php">Cell.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">50</span>
+    <span class="phpdocumentor-element-found-in__line">51</span>
 </aside>
 
         <p class="phpdocumentor-summary">Type of the cell data.</p>
@@ -553,7 +728,7 @@ values used by the formula have changed since it was last calculated.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Cell.php"><a href="files/src-phpspreadsheet-cell-cell.html"><abbr title="src/PhpSpreadsheet/Cell/Cell.php">Cell.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">69</span>
+    <span class="phpdocumentor-element-found-in__line">72</span>
 </aside>
 
         <p class="phpdocumentor-summary">Attributes of the formula.</p>
@@ -585,14 +760,14 @@ values used by the formula have changed since it was last calculated.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Cell.php"><a href="files/src-phpspreadsheet-cell-cell.html"><abbr title="src/PhpSpreadsheet/Cell/Cell.php">Cell.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">57</span>
+    <span class="phpdocumentor-element-found-in__line">58</span>
 </aside>
 
         <p class="phpdocumentor-summary">The collection of cells that this cell belongs to (i.e. The Cell Collection for the parent Worksheet).</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type"><a href="classes/PhpOffice-PhpSpreadsheet-Collection-Cells.html"><abbr title="\PhpOffice\PhpSpreadsheet\Collection\Cells">Cells</abbr></a></span>
+        <span class="phpdocumentor-signature__type"><a href="classes/PhpOffice-PhpSpreadsheet-Collection-Cells.html"><abbr title="\PhpOffice\PhpSpreadsheet\Collection\Cells">Cells</abbr></a>|null</span>
     <span class="phpdocumentor-signature__name">$parent</span>
     </code>
 
@@ -617,7 +792,7 @@ values used by the formula have changed since it was last calculated.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Cell.php"><a href="files/src-phpspreadsheet-cell-cell.html"><abbr title="src/PhpSpreadsheet/Cell/Cell.php">Cell.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">31</span>
+    <span class="phpdocumentor-element-found-in__line">32</span>
 </aside>
 
         <p class="phpdocumentor-summary">Value of the cell.</p>
@@ -649,7 +824,7 @@ values used by the formula have changed since it was last calculated.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Cell.php"><a href="files/src-phpspreadsheet-cell-cell.html"><abbr title="src/PhpSpreadsheet/Cell/Cell.php">Cell.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">24</span>
+    <span class="phpdocumentor-element-found-in__line">25</span>
 </aside>
 
         <p class="phpdocumentor-summary">Value binder to use.</p>
@@ -681,7 +856,7 @@ values used by the formula have changed since it was last calculated.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Cell.php"><a href="files/src-phpspreadsheet-cell-cell.html"><abbr title="src/PhpSpreadsheet/Cell/Cell.php">Cell.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">64</span>
+    <span class="phpdocumentor-element-found-in__line">65</span>
 </aside>
 
         <p class="phpdocumentor-summary">Index to the cellXf reference for the styling of this cell.</p>
@@ -717,7 +892,7 @@ values used by the formula have changed since it was last calculated.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Cell.php"><a href="files/src-phpspreadsheet-cell-cell.html"><abbr title="src/PhpSpreadsheet/Cell/Cell.php">Cell.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">623</span>
+    <span class="phpdocumentor-element-found-in__line">730</span>
 </aside>
 
         <p class="phpdocumentor-summary">Implement PHP __clone to create a deep clone, not just a shallow copy.</p>
@@ -751,7 +926,7 @@ values used by the formula have changed since it was last calculated.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Cell.php"><a href="files/src-phpspreadsheet-cell-cell.html"><abbr title="src/PhpSpreadsheet/Cell/Cell.php">Cell.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">99</span>
+    <span class="phpdocumentor-element-found-in__line">105</span>
 </aside>
 
         <p class="phpdocumentor-summary">Create a new Cell.</p>
@@ -810,7 +985,7 @@ values used by the formula have changed since it was last calculated.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Cell.php"><a href="files/src-phpspreadsheet-cell-cell.html"><abbr title="src/PhpSpreadsheet/Cell/Cell.php">Cell.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">680</span>
+    <span class="phpdocumentor-element-found-in__line">789</span>
 </aside>
 
         <p class="phpdocumentor-summary">Convert to string.</p>
@@ -844,7 +1019,7 @@ values used by the formula have changed since it was last calculated.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Cell.php"><a href="files/src-phpspreadsheet-cell-cell.html"><abbr title="src/PhpSpreadsheet/Cell/Cell.php">Cell.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">89</span>
+    <span class="phpdocumentor-element-found-in__line">95</span>
 </aside>
 
     
@@ -886,7 +1061,7 @@ values used by the formula have changed since it was last calculated.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Cell.php"><a href="files/src-phpspreadsheet-cell-cell.html"><abbr title="src/PhpSpreadsheet/Cell/Cell.php">Cell.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">587</span>
+    <span class="phpdocumentor-element-found-in__line">694</span>
 </aside>
 
         <p class="phpdocumentor-summary">Compare 2 cells.</p>
@@ -942,7 +1117,7 @@ values used by the formula have changed since it was last calculated.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Cell.php"><a href="files/src-phpspreadsheet-cell-cell.html"><abbr title="src/PhpSpreadsheet/Cell/Cell.php">Cell.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">83</span>
+    <span class="phpdocumentor-element-found-in__line">90</span>
 </aside>
 
     
@@ -974,14 +1149,14 @@ values used by the formula have changed since it was last calculated.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Cell.php"><a href="files/src-phpspreadsheet-cell-cell.html"><abbr title="src/PhpSpreadsheet/Cell/Cell.php">Cell.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">536</span>
+    <span class="phpdocumentor-element-found-in__line">643</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get cell style.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">getAppliedStyle</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></span></code>
+                <span class="phpdocumentor-signature__name">getAppliedStyle</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a></span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -989,7 +1164,39 @@ values used by the formula have changed since it was last calculated.</p>
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></span>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a></span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getCalculateDateTimeType">
+        getCalculateDateTimeType()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html#method_getCalculateDateTimeType" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Cell.php"><a href="files/src-phpspreadsheet-cell-cell.html"><abbr title="src/PhpSpreadsheet/Cell/Cell.php">Cell.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">314</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">getCalculateDateTimeType</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">int</span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
@@ -1008,7 +1215,7 @@ values used by the formula have changed since it was last calculated.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Cell.php"><a href="files/src-phpspreadsheet-cell-cell.html"><abbr title="src/PhpSpreadsheet/Cell/Cell.php">Cell.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">271</span>
+    <span class="phpdocumentor-element-found-in__line">364</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get calculated cell value.</p>
@@ -1054,7 +1261,7 @@ values used by the formula have changed since it was last calculated.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Cell.php"><a href="files/src-phpspreadsheet-cell-cell.html"><abbr title="src/PhpSpreadsheet/Cell/Cell.php">Cell.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">123</span>
+    <span class="phpdocumentor-element-found-in__line">129</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get cell coordinate column.</p>
@@ -1088,7 +1295,7 @@ values used by the formula have changed since it was last calculated.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Cell.php"><a href="files/src-phpspreadsheet-cell-cell.html"><abbr title="src/PhpSpreadsheet/Cell/Cell.php">Cell.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">143</span>
+    <span class="phpdocumentor-element-found-in__line">159</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get cell coordinate.</p>
@@ -1122,7 +1329,7 @@ values used by the formula have changed since it was last calculated.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Cell.php"><a href="files/src-phpspreadsheet-cell-cell.html"><abbr title="src/PhpSpreadsheet/Cell/Cell.php">Cell.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">344</span>
+    <span class="phpdocumentor-element-found-in__line">438</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get cell data type.</p>
@@ -1156,7 +1363,7 @@ values used by the formula have changed since it was last calculated.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Cell.php"><a href="files/src-phpspreadsheet-cell-cell.html"><abbr title="src/PhpSpreadsheet/Cell/Cell.php">Cell.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">387</span>
+    <span class="phpdocumentor-element-found-in__line">481</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get Data validation rules.</p>
@@ -1190,7 +1397,7 @@ values used by the formula have changed since it was last calculated.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Cell.php"><a href="files/src-phpspreadsheet-cell-cell.html"><abbr title="src/PhpSpreadsheet/Cell/Cell.php">Cell.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">170</span>
+    <span class="phpdocumentor-element-found-in__line">187</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get cell value with formatting.</p>
@@ -1224,7 +1431,7 @@ values used by the formula have changed since it was last calculated.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Cell.php"><a href="files/src-phpspreadsheet-cell-cell.html"><abbr title="src/PhpSpreadsheet/Cell/Cell.php">Cell.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">670</span>
+    <span class="phpdocumentor-element-found-in__line">779</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get the formula attributes.</p>
@@ -1258,7 +1465,7 @@ values used by the formula have changed since it was last calculated.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Cell.php"><a href="files/src-phpspreadsheet-cell-cell.html"><abbr title="src/PhpSpreadsheet/Cell/Cell.php">Cell.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">435</span>
+    <span class="phpdocumentor-element-found-in__line">529</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get Hyperlink.</p>
@@ -1292,7 +1499,7 @@ values used by the formula have changed since it was last calculated.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Cell.php"><a href="files/src-phpspreadsheet-cell-cell.html"><abbr title="src/PhpSpreadsheet/Cell/Cell.php">Cell.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">514</span>
+    <span class="phpdocumentor-element-found-in__line">621</span>
 </aside>
 
         <p class="phpdocumentor-summary">If this cell is in a merge range, then return the range.</p>
@@ -1326,7 +1533,7 @@ values used by the formula have changed since it was last calculated.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Cell.php"><a href="files/src-phpspreadsheet-cell-cell.html"><abbr title="src/PhpSpreadsheet/Cell/Cell.php">Cell.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">336</span>
+    <span class="phpdocumentor-element-found-in__line">430</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get old calculated value (cached)
@@ -1365,14 +1572,14 @@ values used by the formula have changed since it was last calculated.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Cell.php"><a href="files/src-phpspreadsheet-cell-cell.html"><abbr title="src/PhpSpreadsheet/Cell/Cell.php">Cell.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">463</span>
+    <span class="phpdocumentor-element-found-in__line">557</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get cell collection.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">getParent</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Collection-Cells.html"><abbr title="\PhpOffice\PhpSpreadsheet\Collection\Cells">Cells</abbr></a></span></code>
+                <span class="phpdocumentor-signature__name">getParent</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Collection-Cells.html"><abbr title="\PhpOffice\PhpSpreadsheet\Collection\Cells">Cells</abbr></a>|null</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -1380,7 +1587,7 @@ values used by the formula have changed since it was last calculated.</p>
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Collection-Cells.html"><abbr title="\PhpOffice\PhpSpreadsheet\Collection\Cells">Cells</abbr></a></span>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Collection-Cells.html"><abbr title="\PhpOffice\PhpSpreadsheet\Collection\Cells">Cells</abbr></a>|null</span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
@@ -1399,7 +1606,7 @@ values used by the formula have changed since it was last calculated.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Cell.php"><a href="files/src-phpspreadsheet-cell-cell.html"><abbr title="src/PhpSpreadsheet/Cell/Cell.php">Cell.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">133</span>
+    <span class="phpdocumentor-element-found-in__line">144</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get cell coordinate row.</p>
@@ -1433,14 +1640,14 @@ values used by the formula have changed since it was last calculated.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Cell.php"><a href="files/src-phpspreadsheet-cell-cell.html"><abbr title="src/PhpSpreadsheet/Cell/Cell.php">Cell.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">528</span>
+    <span class="phpdocumentor-element-found-in__line">635</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get cell style.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">getStyle</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></span></code>
+                <span class="phpdocumentor-signature__name">getStyle</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a></span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -1448,7 +1655,7 @@ values used by the formula have changed since it was last calculated.</p>
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></span>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a></span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
@@ -1467,7 +1674,7 @@ values used by the formula have changed since it was last calculated.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Cell.php"><a href="files/src-phpspreadsheet-cell-cell.html"><abbr title="src/PhpSpreadsheet/Cell/Cell.php">Cell.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">162</span>
+    <span class="phpdocumentor-element-found-in__line">179</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get cell value.</p>
@@ -1501,7 +1708,7 @@ values used by the formula have changed since it was last calculated.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Cell.php"><a href="files/src-phpspreadsheet-cell-cell.html"><abbr title="src/PhpSpreadsheet/Cell/Cell.php">Cell.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">603</span>
+    <span class="phpdocumentor-element-found-in__line">710</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get value binder to use.</p>
@@ -1535,7 +1742,7 @@ values used by the formula have changed since it was last calculated.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Cell.php"><a href="files/src-phpspreadsheet-cell-cell.html"><abbr title="src/PhpSpreadsheet/Cell/Cell.php">Cell.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">471</span>
+    <span class="phpdocumentor-element-found-in__line">565</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get parent worksheet.</p>
@@ -1562,6 +1769,38 @@ values used by the formula have changed since it was last calculated.</p>
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_getWorksheetOrNull">
+        getWorksheetOrNull()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html#method_getWorksheetOrNull" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Cell.php"><a href="files/src-phpspreadsheet-cell-cell.html"><abbr title="src/PhpSpreadsheet/Cell/Cell.php">Cell.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">581</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">getWorksheetOrNull</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a>|null</span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a>|null</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_getXfIndex">
         getXfIndex()
         <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html#method_getXfIndex" class="headerlink"><i class="fas fa-link"></i></a>
@@ -1569,7 +1808,7 @@ values used by the formula have changed since it was last calculated.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Cell.php"><a href="files/src-phpspreadsheet-cell-cell.html"><abbr title="src/PhpSpreadsheet/Cell/Cell.php">Cell.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">638</span>
+    <span class="phpdocumentor-element-found-in__line">745</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get index to cellXf.</p>
@@ -1603,7 +1842,7 @@ values used by the formula have changed since it was last calculated.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Cell.php"><a href="files/src-phpspreadsheet-cell-cell.html"><abbr title="src/PhpSpreadsheet/Cell/Cell.php">Cell.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">375</span>
+    <span class="phpdocumentor-element-found-in__line">469</span>
 </aside>
 
         <p class="phpdocumentor-summary">Does this cell contain Data validation rules?</p>
@@ -1637,7 +1876,7 @@ values used by the formula have changed since it was last calculated.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Cell.php"><a href="files/src-phpspreadsheet-cell-cell.html"><abbr title="src/PhpSpreadsheet/Cell/Cell.php">Cell.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">423</span>
+    <span class="phpdocumentor-element-found-in__line">517</span>
 </aside>
 
         <p class="phpdocumentor-summary">Does this cell contain a Hyperlink?</p>
@@ -1671,7 +1910,7 @@ values used by the formula have changed since it was last calculated.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Cell.php"><a href="files/src-phpspreadsheet-cell-cell.html"><abbr title="src/PhpSpreadsheet/Cell/Cell.php">Cell.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">413</span>
+    <span class="phpdocumentor-element-found-in__line">507</span>
 </aside>
 
         <p class="phpdocumentor-summary">Does this cell contain valid value?</p>
@@ -1705,7 +1944,7 @@ values used by the formula have changed since it was last calculated.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Cell.php"><a href="files/src-phpspreadsheet-cell-cell.html"><abbr title="src/PhpSpreadsheet/Cell/Cell.php">Cell.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">367</span>
+    <span class="phpdocumentor-element-found-in__line">461</span>
 </aside>
 
         <p class="phpdocumentor-summary">Identify if the cell contains a formula.</p>
@@ -1739,7 +1978,7 @@ values used by the formula have changed since it was last calculated.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Cell.php"><a href="files/src-phpspreadsheet-cell-cell.html"><abbr title="src/PhpSpreadsheet/Cell/Cell.php">Cell.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">489</span>
+    <span class="phpdocumentor-element-found-in__line">596</span>
 </aside>
 
         <p class="phpdocumentor-summary">Is this cell in a merge range.</p>
@@ -1773,7 +2012,7 @@ values used by the formula have changed since it was last calculated.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Cell.php"><a href="files/src-phpspreadsheet-cell-cell.html"><abbr title="src/PhpSpreadsheet/Cell/Cell.php">Cell.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">566</span>
+    <span class="phpdocumentor-element-found-in__line">673</span>
 </aside>
 
         <p class="phpdocumentor-summary">Is cell in a specific range?</p>
@@ -1819,7 +2058,7 @@ values used by the formula have changed since it was last calculated.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Cell.php"><a href="files/src-phpspreadsheet-cell-cell.html"><abbr title="src/PhpSpreadsheet/Cell/Cell.php">Cell.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">497</span>
+    <span class="phpdocumentor-element-found-in__line">604</span>
 </aside>
 
         <p class="phpdocumentor-summary">Is this cell the master (top left cell) in a merge range (that holds the actual data value).</p>
@@ -1853,7 +2092,7 @@ values used by the formula have changed since it was last calculated.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Cell.php"><a href="files/src-phpspreadsheet-cell-cell.html"><abbr title="src/PhpSpreadsheet/Cell/Cell.php">Cell.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">554</span>
+    <span class="phpdocumentor-element-found-in__line">661</span>
 </aside>
 
         <p class="phpdocumentor-summary">Re-bind parent.</p>
@@ -1888,6 +2127,48 @@ values used by the formula have changed since it was last calculated.</p>
         class="phpdocumentor-element
             -method
             -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setCalculateDateTimeType">
+        setCalculateDateTimeType()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html#method_setCalculateDateTimeType" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Cell.php"><a href="files/src-phpspreadsheet-cell-cell.html"><abbr title="src/PhpSpreadsheet/Cell/Cell.php">Cell.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">319</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">setCalculateDateTimeType</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$calculateDateTimeType</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$calculateDateTimeType</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">void</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
                                                         "
 >
     <h4 class="phpdocumentor-element__name" id="method_setCalculatedValue">
@@ -1897,7 +2178,7 @@ values used by the formula have changed since it was last calculated.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Cell.php"><a href="files/src-phpspreadsheet-cell-cell.html"><abbr title="src/PhpSpreadsheet/Cell/Cell.php">Cell.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">317</span>
+    <span class="phpdocumentor-element-found-in__line">411</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set old calculated value (cached).</p>
@@ -1943,7 +2224,7 @@ values used by the formula have changed since it was last calculated.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Cell.php"><a href="files/src-phpspreadsheet-cell-cell.html"><abbr title="src/PhpSpreadsheet/Cell/Cell.php">Cell.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">354</span>
+    <span class="phpdocumentor-element-found-in__line">448</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set cell data type.</p>
@@ -1989,7 +2270,7 @@ values used by the formula have changed since it was last calculated.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Cell.php"><a href="files/src-phpspreadsheet-cell-cell.html"><abbr title="src/PhpSpreadsheet/Cell/Cell.php">Cell.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">399</span>
+    <span class="phpdocumentor-element-found-in__line">493</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set Data validation rules.</p>
@@ -2033,7 +2314,7 @@ values used by the formula have changed since it was last calculated.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Cell.php"><a href="files/src-phpspreadsheet-cell-cell.html"><abbr title="src/PhpSpreadsheet/Cell/Cell.php">Cell.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">660</span>
+    <span class="phpdocumentor-element-found-in__line">767</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set the formula attributes.</p>
@@ -2078,7 +2359,7 @@ values used by the formula have changed since it was last calculated.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Cell.php"><a href="files/src-phpspreadsheet-cell-cell.html"><abbr title="src/PhpSpreadsheet/Cell/Cell.php">Cell.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">447</span>
+    <span class="phpdocumentor-element-found-in__line">541</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set Hyperlink.</p>
@@ -2122,7 +2403,7 @@ values used by the formula have changed since it was last calculated.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Cell.php"><a href="files/src-phpspreadsheet-cell-cell.html"><abbr title="src/PhpSpreadsheet/Cell/Cell.php">Cell.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">188</span>
+    <span class="phpdocumentor-element-found-in__line">227</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set cell value.</p>
@@ -2169,7 +2450,7 @@ values used by the formula have changed since it was last calculated.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Cell.php"><a href="files/src-phpspreadsheet-cell-cell.html"><abbr title="src/PhpSpreadsheet/Cell/Cell.php">Cell.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">615</span>
+    <span class="phpdocumentor-element-found-in__line">722</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set value binder to use.</p>
@@ -2213,14 +2494,14 @@ values used by the formula have changed since it was last calculated.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Cell.php"><a href="files/src-phpspreadsheet-cell-cell.html"><abbr title="src/PhpSpreadsheet/Cell/Cell.php">Cell.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">210</span>
+    <span class="phpdocumentor-element-found-in__line">249</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set the value for a cell, with the explicit data type passed to the method (bypassing any use of the value binder).</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">setValueExplicit</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$dataType</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\Cell">Cell</abbr></a></span></code>
+                <span class="phpdocumentor-signature__name">setValueExplicit</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$dataType</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">DataType::TYPE_STRING</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\Cell">Cell</abbr></a></span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -2238,7 +2519,7 @@ values used by the formula have changed since it was last calculated.</p>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$dataType</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
+                 = <span class="phpdocumentor-signature__argument__default-value">DataType::TYPE_STRING</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>Explicit data type, see DataType::TYPE_*
 Note that PhpSpreadsheet does not validate that the value and datatype are consistent, in using this
@@ -2273,7 +2554,7 @@ that you specify.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Cell.php"><a href="files/src-phpspreadsheet-cell-cell.html"><abbr title="src/PhpSpreadsheet/Cell/Cell.php">Cell.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">646</span>
+    <span class="phpdocumentor-element-found-in__line">753</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set index to cellXf.</p>
@@ -2317,7 +2598,7 @@ that you specify.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Cell.php"><a href="files/src-phpspreadsheet-cell-cell.html"><abbr title="src/PhpSpreadsheet/Cell/Cell.php">Cell.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">76</span>
+    <span class="phpdocumentor-element-found-in__line">79</span>
 </aside>
 
         <p class="phpdocumentor-summary">Update the cell into the cell collection.</p>
@@ -2333,6 +2614,117 @@ that you specify.</p>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">$this</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -protected
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_updateIfCellIsTableHeader">
+        updateIfCellIsTableHeader()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html#method_updateIfCellIsTableHeader" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Cell.php"><a href="files/src-phpspreadsheet-cell-cell.html"><abbr title="src/PhpSpreadsheet/Cell/Cell.php">Cell.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">199</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">updateIfCellIsTableHeader</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$workSheet</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">self&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cell</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$oldValue</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$newValue</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$workSheet</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$cell</span>
+                : <span class="phpdocumentor-signature__argument__return-type">self</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$oldValue</span>
+                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$newValue</span>
+                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">void</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_convertDateTimeInt">
+        convertDateTimeInt()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html#method_convertDateTimeInt" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Cell.php"><a href="files/src-phpspreadsheet-cell-cell.html"><abbr title="src/PhpSpreadsheet/Cell/Cell.php">Cell.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">340</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Convert date, time, or datetime from int to float if desired.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__name">convertDateTimeInt</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$result</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$result</span>
+                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 

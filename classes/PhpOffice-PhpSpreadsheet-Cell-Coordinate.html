@@ -158,9 +158,9 @@ that Excel users are used to, and also match the Excel functions <code class="pr
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_coordinateFromString">coordinateFromString()</a>
     <span>
-                        &nbsp;: mixed    </span>
+                        &nbsp;: array&lt;string|int, mixed&gt;    </span>
 </dt>
-<dd>Coordinate from string.</dd>
+<dd>Convert string coordinate to [0 =&gt; int column index, 1 =&gt; int row index].</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_coordinateIsRange">coordinateIsRange()</a>
@@ -188,7 +188,7 @@ that Excel users are used to, and also match the Excel functions <code class="pr
     <span>
                         &nbsp;: array&lt;string|int, mixed&gt;    </span>
 </dt>
-<dd>Get indexes from a string coordinates.</dd>
+<dd>Convert string coordinate to [0 =&gt; int column index, 1 =&gt; int row index, 2 =&gt; string column string].</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Cell-Coordinate.html#method_mergeRangesInCollection">mergeRangesInCollection()</a>
@@ -539,11 +539,11 @@ Note that this value can be a row or column reference as well as a cell referenc
     <span class="phpdocumentor-element-found-in__line">33</span>
 </aside>
 
-        <p class="phpdocumentor-summary">Coordinate from string.</p>
+        <p class="phpdocumentor-summary">Convert string coordinate to [0 =&gt; int column index, 1 =&gt; int row index].</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">coordinateFromString</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cellAddress</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">coordinateFromString</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cellAddress</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -563,7 +563,7 @@ Note that this value can be a row or column reference as well as a cell referenc
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">mixed</span>
+    <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
@@ -727,7 +727,7 @@ where Start Cell and End Cell are arrays [Column ID, Row Number]</p>
     <span class="phpdocumentor-element-found-in__line">53</span>
 </aside>
 
-        <p class="phpdocumentor-summary">Get indexes from a string coordinates.</p>
+        <p class="phpdocumentor-summary">Convert string coordinate to [0 =&gt; int column index, 1 =&gt; int row index, 2 =&gt; string column string].</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -770,7 +770,7 @@ where Start Cell and End Cell are arrays [Column ID, Row Number]</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Coordinate.php"><a href="files/src-phpspreadsheet-cell-coordinate.html"><abbr title="src/PhpSpreadsheet/Cell/Coordinate.php">Coordinate.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">494</span>
+    <span class="phpdocumentor-element-found-in__line">496</span>
 </aside>
 
         <p class="phpdocumentor-summary">Convert an associative array of single cell coordinates to values to an associative array
@@ -1013,7 +1013,7 @@ or ['B4']</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Coordinate.php"><a href="files/src-phpspreadsheet-cell-coordinate.html"><abbr title="src/PhpSpreadsheet/Cell/Coordinate.php">Coordinate.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">571</span>
+    <span class="phpdocumentor-element-found-in__line">573</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get the individual cell blocks from a range string, removing any $ characters.</p>
@@ -1059,7 +1059,7 @@ or ['B4']</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Coordinate.php"><a href="files/src-phpspreadsheet-cell-coordinate.html"><abbr title="src/PhpSpreadsheet/Cell/Coordinate.php">Coordinate.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">430</span>
+    <span class="phpdocumentor-element-found-in__line">432</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get all cell references for an individual cell block.</p>
@@ -1197,7 +1197,7 @@ or ['B4']</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Cell/Coordinate.php"><a href="files/src-phpspreadsheet-cell-coordinate.html"><abbr title="src/PhpSpreadsheet/Cell/Coordinate.php">Coordinate.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">595</span>
+    <span class="phpdocumentor-element-found-in__line">597</span>
 </aside>
 
         <p class="phpdocumentor-summary">Check that the given range is valid, i.e. that the start column and row are not greater than the end column and

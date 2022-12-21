@@ -469,7 +469,7 @@
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Chart.html#method_getTopLeftPosition">getTopLeftPosition()</a>
     <span>
-                        &nbsp;: mixed    </span>
+                        &nbsp;: array&lt;string|int, mixed&gt;    </span>
 </dt>
 <dd>Get the top left position of the chart.</dd>
 
@@ -1674,7 +1674,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">748</span>
+    <span class="phpdocumentor-element-found-in__line">752</span>
 </aside>
 
     
@@ -1706,7 +1706,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">582</span>
+    <span class="phpdocumentor-element-found-in__line">586</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get the cell address where the bottom right of the chart is fixed.</p>
@@ -1740,7 +1740,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">613</span>
+    <span class="phpdocumentor-element-found-in__line">617</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get the offset position within the Bottom Right cell for the chart.</p>
@@ -1774,7 +1774,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">558</span>
+    <span class="phpdocumentor-element-found-in__line">562</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get the bottom right position of the chart.</p>
@@ -1809,7 +1809,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">633</span>
+    <span class="phpdocumentor-element-found-in__line">637</span>
 </aside>
 
     
@@ -1841,7 +1841,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">650</span>
+    <span class="phpdocumentor-element-found-in__line">654</span>
 </aside>
 
     
@@ -1994,7 +1994,7 @@
         class="phpdocumentor-element
             -method
             -public
-                                                        "
+            -deprecated                                            "
 >
     <h4 class="phpdocumentor-element__name" id="method_getMajorGridlines">
         getMajorGridlines()
@@ -2003,12 +2003,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">386</span>
+    <span class="phpdocumentor-element-found-in__line">387</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get Major Gridlines.</p>
 
-    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <code class="phpdocumentor-code phpdocumentor-signature -deprecated">
     <span class="phpdocumentor-signature__visibility">public</span>
                 <span class="phpdocumentor-signature__name">getMajorGridlines</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-GridLines.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\GridLines">GridLines</abbr></a>|null</span></code>
 
@@ -2022,12 +2022,22 @@
     </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">Deprecated</span>
+                    <span class="phpdocumentor-tag__name">deprecated</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.24.0</span>
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>1.24.0 Use Axis-&gt;getMajorGridlines</p>
+                                                 <section class="phpdocumentor-description"><p>Use Axis-&gt;getMajorGridlines()</p>
 </section>
+
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">see</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                    <span class="phpdocumentor-tag-link"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#method_getMajorGridlines"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Axis::getMajorGridlines()">Axis::getMajorGridlines()</abbr></a></span>
+                                        
+                                                 <section class="phpdocumentor-description"></section>
 
                                     </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
@@ -2051,7 +2061,7 @@
         class="phpdocumentor-element
             -method
             -public
-                                                        "
+            -deprecated                                            "
 >
     <h4 class="phpdocumentor-element__name" id="method_getMinorGridlines">
         getMinorGridlines()
@@ -2060,12 +2070,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">398</span>
+    <span class="phpdocumentor-element-found-in__line">400</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get Minor Gridlines.</p>
 
-    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <code class="phpdocumentor-code phpdocumentor-signature -deprecated">
     <span class="phpdocumentor-signature__visibility">public</span>
                 <span class="phpdocumentor-signature__name">getMinorGridlines</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-GridLines.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\GridLines">GridLines</abbr></a>|null</span></code>
 
@@ -2079,12 +2089,22 @@
     </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">Deprecated</span>
+                    <span class="phpdocumentor-tag__name">deprecated</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">1.24.0</span>
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>1.24.0 Use Axis-&gt;getMinorGridlines</p>
+                                                 <section class="phpdocumentor-description"><p>Use Axis-&gt;getMinorGridlines()</p>
 </section>
+
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">see</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                    <span class="phpdocumentor-tag-link"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#method_getMinorGridlines"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Axis::getMinorGridlines()">Axis::getMinorGridlines()</abbr></a></span>
+                                        
+                                                 <section class="phpdocumentor-description"></section>
 
                                     </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
@@ -2151,7 +2171,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">760</span>
+    <span class="phpdocumentor-element-found-in__line">764</span>
 </aside>
 
     
@@ -2183,7 +2203,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">736</span>
+    <span class="phpdocumentor-element-found-in__line">740</span>
 </aside>
 
     
@@ -2215,7 +2235,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">724</span>
+    <span class="phpdocumentor-element-found-in__line">728</span>
 </aside>
 
     
@@ -2313,7 +2333,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">712</span>
+    <span class="phpdocumentor-element-found-in__line">716</span>
 </aside>
 
     
@@ -2345,7 +2365,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">688</span>
+    <span class="phpdocumentor-element-found-in__line">692</span>
 </aside>
 
     
@@ -2377,7 +2397,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">700</span>
+    <span class="phpdocumentor-element-found-in__line">704</span>
 </aside>
 
     
@@ -2409,7 +2429,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">772</span>
+    <span class="phpdocumentor-element-found-in__line">776</span>
 </aside>
 
     
@@ -2473,7 +2493,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">444</span>
+    <span class="phpdocumentor-element-found-in__line">448</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get the cell address where the top left of the chart is fixed.</p>
@@ -2507,7 +2527,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">489</span>
+    <span class="phpdocumentor-element-found-in__line">493</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get the offset position within the Top Left cell for the chart.</p>
@@ -2541,22 +2561,23 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">430</span>
+    <span class="phpdocumentor-element-found-in__line">434</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get the top left position of the chart.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">getTopLeftPosition</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                <span class="phpdocumentor-signature__name">getTopLeftPosition</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
 
-        <section class="phpdocumentor-description"></section>
+        <section class="phpdocumentor-description"><p>Returns ['cell' =&gt; string cell address, 'xOffset' =&gt; int, 'yOffset' =&gt; int].</p>
+</section>
 
     
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">mixed</span>
+    <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
@@ -2575,7 +2596,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">509</span>
+    <span class="phpdocumentor-element-found-in__line">513</span>
 </aside>
 
     
@@ -2607,7 +2628,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">526</span>
+    <span class="phpdocumentor-element-found-in__line">530</span>
 </aside>
 
     
@@ -2737,7 +2758,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">655</span>
+    <span class="phpdocumentor-element-found-in__line">659</span>
 </aside>
 
     
@@ -2769,7 +2790,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">669</span>
+    <span class="phpdocumentor-element-found-in__line">673</span>
 </aside>
 
         <p class="phpdocumentor-summary">Render the chart to given file (or stream).</p>
@@ -2816,7 +2837,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">753</span>
+    <span class="phpdocumentor-element-found-in__line">757</span>
 </aside>
 
     
@@ -2858,7 +2879,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">572</span>
+    <span class="phpdocumentor-element-found-in__line">576</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set the Bottom Right cell for the chart.</p>
@@ -2902,14 +2923,14 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">595</span>
+    <span class="phpdocumentor-element-found-in__line">599</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set the offset position within the Bottom Right cell for the chart.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">setBottomRightOffset</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$xOffset</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$yOffset</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+                <span class="phpdocumentor-signature__name">setBottomRightOffset</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$xOffset</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$yOffset</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -2917,7 +2938,7 @@
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$xOffset</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int|null</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"></section>
@@ -2925,7 +2946,7 @@
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$yOffset</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int|null</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"></section>
@@ -2955,7 +2976,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">540</span>
+    <span class="phpdocumentor-element-found-in__line">544</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set the Bottom Right position of the chart.</p>
@@ -3016,7 +3037,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">626</span>
+    <span class="phpdocumentor-element-found-in__line">630</span>
 </aside>
 
     
@@ -3060,7 +3081,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">643</span>
+    <span class="phpdocumentor-element-found-in__line">647</span>
 </aside>
 
     
@@ -3323,7 +3344,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">765</span>
+    <span class="phpdocumentor-element-found-in__line">769</span>
 </aside>
 
     
@@ -3365,7 +3386,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">741</span>
+    <span class="phpdocumentor-element-found-in__line">745</span>
 </aside>
 
     
@@ -3407,7 +3428,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">729</span>
+    <span class="phpdocumentor-element-found-in__line">733</span>
 </aside>
 
     
@@ -3538,7 +3559,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">717</span>
+    <span class="phpdocumentor-element-found-in__line">721</span>
 </aside>
 
     
@@ -3580,7 +3601,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">693</span>
+    <span class="phpdocumentor-element-found-in__line">697</span>
 </aside>
 
     
@@ -3622,7 +3643,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">705</span>
+    <span class="phpdocumentor-element-found-in__line">709</span>
 </aside>
 
     
@@ -3664,7 +3685,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">777</span>
+    <span class="phpdocumentor-element-found-in__line">781</span>
 </aside>
 
     
@@ -3750,7 +3771,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">456</span>
+    <span class="phpdocumentor-element-found-in__line">460</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set the Top Left cell position for the chart.</p>
@@ -3795,14 +3816,14 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">471</span>
+    <span class="phpdocumentor-element-found-in__line">475</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set the offset position within the Top Left cell for the chart.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">setTopLeftOffset</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$xOffset</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$yOffset</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+                <span class="phpdocumentor-signature__name">setTopLeftOffset</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$xOffset</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$yOffset</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -3810,7 +3831,7 @@
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$xOffset</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int|null</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"></section>
@@ -3818,7 +3839,7 @@
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$yOffset</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int|null</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"></section>
@@ -3848,7 +3869,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">412</span>
+    <span class="phpdocumentor-element-found-in__line">414</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set the Top Left position for the chart.</p>
@@ -3909,7 +3930,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">502</span>
+    <span class="phpdocumentor-element-found-in__line">506</span>
 </aside>
 
     
@@ -3953,7 +3974,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Chart.php"><a href="files/src-phpspreadsheet-chart-chart.html"><abbr title="src/PhpSpreadsheet/Chart/Chart.php">Chart.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">519</span>
+    <span class="phpdocumentor-element-found-in__line">523</span>
 </aside>
 
     

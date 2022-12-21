@@ -131,6 +131,13 @@
 </dt>
 <dd>Map of BIFF2-BIFF8 codes for underline styles.</dd>
 
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Font.html#property_notImplemented">$notImplemented</a>
+    <span>
+                &nbsp;: int            </span>
+</dt>
+<dd></dd>
+
                 <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Font.html#method___construct">__construct()</a>
     <span>
@@ -258,7 +265,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Font.php"><a href="files/src-phpspreadsheet-writer-xls-font.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">124</span>
+    <span class="phpdocumentor-element-found-in__line">123</span>
 </aside>
 
         <p class="phpdocumentor-summary">Map of BIFF2-BIFF8 codes for underline styles.</p>
@@ -268,6 +275,37 @@
     <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array&lt;string|int, int&gt;</span>
     <span class="phpdocumentor-signature__name">$mapUnderline</span>
      = <span class="phpdocumentor-signature__default-value">[PhpOfficePhpSpreadsheetStyleFont::UNDERLINE_NONE =&gt; 0x0, PhpOfficePhpSpreadsheetStyleFont::UNDERLINE_SINGLE =&gt; 0x1, PhpOfficePhpSpreadsheetStyleFont::UNDERLINE_DOUBLE =&gt; 0x2, PhpOfficePhpSpreadsheetStyleFont::UNDERLINE_SINGLEACCOUNTING =&gt; 0x21, PhpOfficePhpSpreadsheetStyleFont::UNDERLINE_DOUBLEACCOUNTING =&gt; 0x22]</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+            -static                                            "
+>
+    <h4 class="phpdocumentor-element__name" id="property_notImplemented">
+        $notImplemented
+        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Font.html#property_notImplemented" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Font.php"><a href="files/src-phpspreadsheet-writer-xls-font.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Font.php">Font.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">43</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">int</span>
+    <span class="phpdocumentor-signature__name">$notImplemented</span>
+     = <span class="phpdocumentor-signature__default-value">0</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -383,7 +421,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Font.php"><a href="files/src-phpspreadsheet-writer-xls-font.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">47</span>
+    <span class="phpdocumentor-element-found-in__line">50</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get font record data.</p>
@@ -417,14 +455,14 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Font.php"><a href="files/src-phpspreadsheet-writer-xls-font.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">110</span>
+    <span class="phpdocumentor-element-found-in__line">109</span>
 </aside>
 
         <p class="phpdocumentor-summary">Map to BIFF5-BIFF8 codes for bold.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">mapBold</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$bold</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">mapBold</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">bool|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$bold</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -432,11 +470,10 @@
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$bold</span>
-                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                : <span class="phpdocumentor-signature__argument__return-type">bool|null</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
+                
             </dd>
             </dl>
 
@@ -462,7 +499,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Font.php"><a href="files/src-phpspreadsheet-writer-xls-font.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">139</span>
+    <span class="phpdocumentor-element-found-in__line">138</span>
 </aside>
 
         <p class="phpdocumentor-summary">Map underline.</p>

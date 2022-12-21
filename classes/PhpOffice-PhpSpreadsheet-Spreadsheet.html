@@ -84,13 +84,16 @@
 
     
     
+            <span class="phpdocumentor-element__implements">
+            implements
+                            <abbr title="\JsonSerializable">JsonSerializable</abbr>                    </span>
     
     </h2>
 
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">14</span>
+    <span class="phpdocumentor-element-found-in__line">15</span>
 </aside>
 
         
@@ -100,6 +103,17 @@
 
 
 
+<h3 id="interfaces_class_traits">
+    Interfaces, Classes and Traits
+    <a href="#interfaces_class_traits" class="headerlink"><i class="fas fa-link"></i></a>
+</h3>
+
+<dl class="phpdocumentor-table-of-contents">
+            <dt class="phpdocumentor-table-of-contents__entry -interface"><abbr title="\JsonSerializable">JsonSerializable</abbr></dt>
+        <dd></dd>
+    
+    
+    </dl>
 
 
 <h3 id="toc">
@@ -143,6 +157,13 @@
 </dt>
 <dd></dd>
 
+            <dt class="phpdocumentor-table-of-contents__entry -constant -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#constant_WORKBOOK_VIEW_VISIBILITY_VALUES">WORKBOOK_VIEW_VISIBILITY_VALUES</a>
+    <span>
+        &nbsp;= [self::VISIBILITY_VISIBLE, self::VISIBILITY_HIDDEN, self::VISIBILITY_VERY_HIDDEN]                    </span>
+</dt>
+<dd></dd>
+
                 <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#property_activeSheetIndex">$activeSheetIndex</a>
     <span>
@@ -169,21 +190,21 @@ interface.</dd>
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#property_cellStyleXfCollection">$cellStyleXfCollection</a>
     <span>
-                &nbsp;: array&lt;string|int, <abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr>&gt;            </span>
+                &nbsp;: array&lt;string|int, <a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a>&gt;            </span>
 </dt>
 <dd>CellStyleXf collection.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#property_cellXfCollection">$cellXfCollection</a>
     <span>
-                &nbsp;: array&lt;string|int, <abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr>&gt;            </span>
+                &nbsp;: array&lt;string|int, <a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a>&gt;            </span>
 </dt>
 <dd>CellXf collection.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#property_cellXfSupervisor">$cellXfSupervisor</a>
     <span>
-                &nbsp;: <abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr>            </span>
+                &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a>            </span>
 </dt>
 <dd>CellXf supervisor.</dd>
 
@@ -311,13 +332,6 @@ window width.</dd>
 <dd>Specifies the visible status of the workbook.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#property_workbookViewVisibilityValues">$workbookViewVisibilityValues</a>
-    <span>
-                &nbsp;: mixed            </span>
-</dt>
-<dd></dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#property_workSheetCollection">$workSheetCollection</a>
     <span>
                 &nbsp;: array&lt;string|int, <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a>&gt;            </span>
@@ -344,6 +358,13 @@ window width.</dd>
                         &nbsp;: mixed    </span>
 </dt>
 <dd>Code to execute when this worksheet is unset().</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#method___serialize">__serialize()</a>
+    <span>
+                        &nbsp;: mixed    </span>
+</dt>
+<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#method_addCellStyleXf">addCellStyleXf()</a>
@@ -477,56 +498,56 @@ filtering optiomd in the user interface.</dd>
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#method_getCellStyleXfByHashCode">getCellStyleXfByHashCode()</a>
     <span>
-                        &nbsp;: false|<abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr>    </span>
+                        &nbsp;: false|<a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a>    </span>
 </dt>
 <dd>Get cellStyleXf by hash code.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#method_getCellStyleXfByIndex">getCellStyleXfByIndex()</a>
     <span>
-                        &nbsp;: <abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr>    </span>
+                        &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a>    </span>
 </dt>
 <dd>Get cellStyleXf by index.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#method_getCellStyleXfCollection">getCellStyleXfCollection()</a>
     <span>
-                        &nbsp;: array&lt;string|int, <abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr>&gt;    </span>
+                        &nbsp;: array&lt;string|int, <a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a>&gt;    </span>
 </dt>
 <dd>Get the workbook collection of cellStyleXfs.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#method_getCellXfByHashCode">getCellXfByHashCode()</a>
     <span>
-                        &nbsp;: false|<abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr>    </span>
+                        &nbsp;: false|<a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a>    </span>
 </dt>
 <dd>Get cellXf by hash code.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#method_getCellXfByIndex">getCellXfByIndex()</a>
     <span>
-                        &nbsp;: <abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr>    </span>
+                        &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a>    </span>
 </dt>
 <dd>Get cellXf by index.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#method_getCellXfCollection">getCellXfCollection()</a>
     <span>
-                        &nbsp;: array&lt;string|int, <abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr>&gt;    </span>
+                        &nbsp;: array&lt;string|int, <a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a>&gt;    </span>
 </dt>
 <dd>Get the workbook collection of cellXfs.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#method_getCellXfSupervisor">getCellXfSupervisor()</a>
     <span>
-                        &nbsp;: <abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr>    </span>
+                        &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a>    </span>
 </dt>
 <dd>Get the cellXf supervisor.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#method_getDefaultStyle">getDefaultStyle()</a>
     <span>
-                        &nbsp;: <abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr>    </span>
+                        &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a>    </span>
 </dt>
 <dd>Get default style.</dd>
 
@@ -645,7 +666,7 @@ filtering optiomd in the user interface.</dd>
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#method_getSharedComponent">getSharedComponent()</a>
     <span>
-                        &nbsp;: <abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr>    </span>
+                        &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a>    </span>
 </dt>
 <dd>Silliness to mollify Scrutinizer.</dd>
 
@@ -760,6 +781,13 @@ filtering optiomd in the user interface.</dd>
                         &nbsp;: bool    </span>
 </dt>
 <dd>This workbook have additionnal object for the ribbon ?</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#method_jsonSerialize">jsonSerialize()</a>
+    <span>
+                        &nbsp;: mixed    </span>
+</dt>
+<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#method_reevaluateAutoFilters">reevaluateAutoFilters()</a>
@@ -992,7 +1020,7 @@ TabRatio is assumed to be out of 1000 of the horizontal window width.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">18</span>
+    <span class="phpdocumentor-element-found-in__line">19</span>
 </aside>
 
     
@@ -1017,7 +1045,7 @@ TabRatio is assumed to be out of 1000 of the horizontal window width.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">19</span>
+    <span class="phpdocumentor-element-found-in__line">20</span>
 </aside>
 
     
@@ -1042,7 +1070,7 @@ TabRatio is assumed to be out of 1000 of the horizontal window width.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">17</span>
+    <span class="phpdocumentor-element-found-in__line">18</span>
 </aside>
 
     
@@ -1067,7 +1095,7 @@ TabRatio is assumed to be out of 1000 of the horizontal window width.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">22</span>
+    <span class="phpdocumentor-element-found-in__line">23</span>
 </aside>
 
     
@@ -1092,7 +1120,7 @@ TabRatio is assumed to be out of 1000 of the horizontal window width.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">21</span>
+    <span class="phpdocumentor-element-found-in__line">22</span>
 </aside>
 
     
@@ -1101,6 +1129,31 @@ TabRatio is assumed to be out of 1000 of the horizontal window width.</dd>
     <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">DEFINED_NAME_IS_RANGE</span>
     = <span class="phpdocumentor-signature__default-value">false</span>
+</code>
+
+
+    
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -private ">
+    <h4 class="phpdocumentor-element__name" id="constant_WORKBOOK_VIEW_VISIBILITY_VALUES">
+        WORKBOOK_VIEW_VISIBILITY_VALUES
+        <a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#constant_WORKBOOK_VIEW_VISIBILITY_VALUES" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">25</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">WORKBOOK_VIEW_VISIBILITY_VALUES</span>
+    = <span class="phpdocumentor-signature__default-value">[self::VISIBILITY_VISIBLE, self::VISIBILITY_HIDDEN, self::VISIBILITY_VERY_HIDDEN]</span>
 </code>
 
 
@@ -1132,7 +1185,7 @@ TabRatio is assumed to be out of 1000 of the horizontal window width.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">70</span>
+    <span class="phpdocumentor-element-found-in__line">71</span>
 </aside>
 
         <p class="phpdocumentor-summary">Active sheet index.</p>
@@ -1164,7 +1217,7 @@ TabRatio is assumed to be out of 1000 of the horizontal window width.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">180</span>
+    <span class="phpdocumentor-element-found-in__line">181</span>
 </aside>
 
         <p class="phpdocumentor-summary">Specifies a boolean value that indicates whether to group dates
@@ -1198,7 +1251,7 @@ interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">63</span>
+    <span class="phpdocumentor-element-found-in__line">64</span>
 </aside>
 
         <p class="phpdocumentor-summary">Calculation Engine.</p>
@@ -1230,14 +1283,14 @@ interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">98</span>
+    <span class="phpdocumentor-element-found-in__line">99</span>
 </aside>
 
         <p class="phpdocumentor-summary">CellStyleXf collection.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type">array&lt;string|int, <abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr>&gt;</span>
+        <span class="phpdocumentor-signature__type">array&lt;string|int, <a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a>&gt;</span>
     <span class="phpdocumentor-signature__name">$cellStyleXfCollection</span>
      = <span class="phpdocumentor-signature__default-value">[]</span></code>
 
@@ -1262,14 +1315,14 @@ interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">91</span>
+    <span class="phpdocumentor-element-found-in__line">92</span>
 </aside>
 
         <p class="phpdocumentor-summary">CellXf collection.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type">array&lt;string|int, <abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr>&gt;</span>
+        <span class="phpdocumentor-signature__type">array&lt;string|int, <a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a>&gt;</span>
     <span class="phpdocumentor-signature__name">$cellXfCollection</span>
      = <span class="phpdocumentor-signature__default-value">[]</span></code>
 
@@ -1294,14 +1347,14 @@ interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">84</span>
+    <span class="phpdocumentor-element-found-in__line">85</span>
 </aside>
 
         <p class="phpdocumentor-summary">CellXf supervisor.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></span>
+        <span class="phpdocumentor-signature__type"><a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a></span>
     <span class="phpdocumentor-signature__name">$cellXfSupervisor</span>
     </code>
 
@@ -1326,7 +1379,7 @@ interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">77</span>
+    <span class="phpdocumentor-element-found-in__line">78</span>
 </aside>
 
         <p class="phpdocumentor-summary">Named ranges.</p>
@@ -1358,7 +1411,7 @@ interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">187</span>
+    <span class="phpdocumentor-element-found-in__line">188</span>
 </aside>
 
         <p class="phpdocumentor-summary">Specifies the index to the first sheet in the book view.</p>
@@ -1390,7 +1443,7 @@ interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">105</span>
+    <span class="phpdocumentor-element-found-in__line">106</span>
 </aside>
 
         <p class="phpdocumentor-summary">hasMacros : this workbook have macros ?</p>
@@ -1422,7 +1475,7 @@ interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">119</span>
+    <span class="phpdocumentor-element-found-in__line">120</span>
 </aside>
 
         <p class="phpdocumentor-summary">macrosCertificate : if macros are signed, contains binary data vbaProjectSignature.bin file, null if not signed.</p>
@@ -1454,7 +1507,7 @@ interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">112</span>
+    <span class="phpdocumentor-element-found-in__line">113</span>
 </aside>
 
         <p class="phpdocumentor-summary">macrosCode : all macros code as binary data (the vbaProject.bin file, this include form, code,  etc.), null if no macro.</p>
@@ -1486,7 +1539,7 @@ interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">171</span>
+    <span class="phpdocumentor-element-found-in__line">172</span>
 </aside>
 
         <p class="phpdocumentor-summary">Specifies a boolean value that indicates whether the workbook window
@@ -1519,7 +1572,7 @@ is minimized.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">42</span>
+    <span class="phpdocumentor-element-found-in__line">43</span>
 </aside>
 
         <p class="phpdocumentor-summary">Document properties.</p>
@@ -1551,7 +1604,7 @@ is minimized.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">134</span>
+    <span class="phpdocumentor-element-found-in__line">135</span>
 </aside>
 
         <p class="phpdocumentor-summary">ribbonBinObjects : null if workbook is&#039;nt Excel 2007 or not contain embedded objects (picture(s)) for Ribbon Elements
@@ -1584,7 +1637,7 @@ ignored if $ribbonXMLData is null.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">126</span>
+    <span class="phpdocumentor-element-found-in__line">127</span>
 </aside>
 
         <p class="phpdocumentor-summary">ribbonXMLData : null if workbook is&#039;nt Excel 2007 or not contain a customized UI.</p>
@@ -1616,7 +1669,7 @@ ignored if $ribbonXMLData is null.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">49</span>
+    <span class="phpdocumentor-element-found-in__line">50</span>
 </aside>
 
         <p class="phpdocumentor-summary">Document security.</p>
@@ -1648,7 +1701,7 @@ ignored if $ribbonXMLData is null.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">149</span>
+    <span class="phpdocumentor-element-found-in__line">150</span>
 </aside>
 
         <p class="phpdocumentor-summary">Controls visibility of the horizonal scroll bar in the application.</p>
@@ -1680,7 +1733,7 @@ ignored if $ribbonXMLData is null.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">163</span>
+    <span class="phpdocumentor-element-found-in__line">164</span>
 </aside>
 
         <p class="phpdocumentor-summary">Controls visibility of the sheet tabs in the application.</p>
@@ -1712,7 +1765,7 @@ ignored if $ribbonXMLData is null.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">156</span>
+    <span class="phpdocumentor-element-found-in__line">157</span>
 </aside>
 
         <p class="phpdocumentor-summary">Controls visibility of the horizonal scroll bar in the application.</p>
@@ -1744,7 +1797,7 @@ ignored if $ribbonXMLData is null.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">203</span>
+    <span class="phpdocumentor-element-found-in__line">204</span>
 </aside>
 
         <p class="phpdocumentor-summary">Specifies the ratio between the workbook tabs bar and the horizontal
@@ -1778,7 +1831,7 @@ window width.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">35</span>
+    <span class="phpdocumentor-element-found-in__line">36</span>
 </aside>
 
         <p class="phpdocumentor-summary">Unique ID.</p>
@@ -1810,7 +1863,7 @@ window width.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">142</span>
+    <span class="phpdocumentor-element-found-in__line">143</span>
 </aside>
 
         <p class="phpdocumentor-summary">List of unparsed loaded data for export to same format with better compatibility.</p>
@@ -1843,7 +1896,7 @@ window width.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">194</span>
+    <span class="phpdocumentor-element-found-in__line">195</span>
 </aside>
 
         <p class="phpdocumentor-summary">Specifies the visible status of the workbook.</p>
@@ -1864,36 +1917,6 @@ window width.</p>
             phpdocumentor-element
             -property
             -private
-            -static                                            "
->
-    <h4 class="phpdocumentor-element__name" id="property_workbookViewVisibilityValues">
-        $workbookViewVisibilityValues
-        <a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#property_workbookViewVisibilityValues" class="headerlink"><i class="fas fa-link"></i></a>
-        <span class="phpdocumentor-element__modifiers">
-                                </span>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">24</span>
-</aside>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">mixed</span>
-    <span class="phpdocumentor-signature__name">$workbookViewVisibilityValues</span>
-     = <span class="phpdocumentor-signature__default-value">[self::VISIBILITY_VISIBLE, self::VISIBILITY_HIDDEN, self::VISIBILITY_VERY_HIDDEN]</span></code>
-
-    
-    
-
-</article>
-                    <article
-        class="
-            phpdocumentor-element
-            -property
-            -private
                                                         "
 >
     <h4 class="phpdocumentor-element__name" id="property_workSheetCollection">
@@ -1905,7 +1928,7 @@ window width.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">56</span>
+    <span class="phpdocumentor-element-found-in__line">57</span>
 </aside>
 
         <p class="phpdocumentor-summary">Collection of Worksheet objects.</p>
@@ -1941,7 +1964,7 @@ window width.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1152</span>
+    <span class="phpdocumentor-element-found-in__line">1151</span>
 </aside>
 
     
@@ -1973,7 +1996,7 @@ window width.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">476</span>
+    <span class="phpdocumentor-element-found-in__line">475</span>
 </aside>
 
         <p class="phpdocumentor-summary">Create a new PhpSpreadsheet with one Worksheet.</p>
@@ -2007,7 +2030,7 @@ window width.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">507</span>
+    <span class="phpdocumentor-element-found-in__line">506</span>
 </aside>
 
         <p class="phpdocumentor-summary">Code to execute when this worksheet is unset().</p>
@@ -2034,6 +2057,54 @@ window width.</p>
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method___serialize">
+        __serialize()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#method___serialize" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">1645</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">__serialize</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><a href="classes/PhpOffice-PhpSpreadsheet-Exception.html"><abbr title="\PhpOffice\PhpSpreadsheet\Exception">Exception</abbr></a></span>
+                                                            
+                                                 <section class="phpdocumentor-description"></section>
+
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_addCellStyleXf">
         addCellStyleXf()
         <a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#method_addCellStyleXf" class="headerlink"><i class="fas fa-link"></i></a>
@@ -2041,14 +2112,14 @@ window width.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1315</span>
+    <span class="phpdocumentor-element-found-in__line">1314</span>
 </aside>
 
         <p class="phpdocumentor-summary">Add a cellStyleXf to the workbook.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">addCellStyleXf</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$style</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                <span class="phpdocumentor-signature__name">addCellStyleXf</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$style</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -2056,7 +2127,7 @@ window width.</p>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$style</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                 
@@ -2085,14 +2156,14 @@ window width.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1226</span>
+    <span class="phpdocumentor-element-found-in__line">1225</span>
 </aside>
 
         <p class="phpdocumentor-summary">Add a cellXf to the workbook.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">addCellXf</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$style</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                <span class="phpdocumentor-signature__name">addCellXf</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$style</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -2100,7 +2171,7 @@ window width.</p>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$style</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                 
@@ -2129,7 +2200,7 @@ window width.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">966</span>
+    <span class="phpdocumentor-element-found-in__line">965</span>
 </aside>
 
         <p class="phpdocumentor-summary">Add a defined name (either a named range or a named formula).</p>
@@ -2174,7 +2245,7 @@ window width.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">865</span>
+    <span class="phpdocumentor-element-found-in__line">864</span>
 </aside>
 
         <p class="phpdocumentor-summary">Add external sheet.</p>
@@ -2229,7 +2300,7 @@ window width.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">957</span>
+    <span class="phpdocumentor-element-found-in__line">956</span>
 </aside>
 
         <p class="phpdocumentor-summary">Add a named formula.</p>
@@ -2274,7 +2345,7 @@ window width.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">948</span>
+    <span class="phpdocumentor-element-found-in__line">947</span>
 </aside>
 
         <p class="phpdocumentor-summary">Add a named range.</p>
@@ -2319,7 +2390,7 @@ window width.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">619</span>
+    <span class="phpdocumentor-element-found-in__line">618</span>
 </aside>
 
         <p class="phpdocumentor-summary">Add sheet.</p>
@@ -2374,14 +2445,14 @@ window width.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1204</span>
+    <span class="phpdocumentor-element-found-in__line">1203</span>
 </aside>
 
         <p class="phpdocumentor-summary">Check if style exists in style collection.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">cellXfExists</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cellStyleIndex</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+                <span class="phpdocumentor-signature__name">cellXfExists</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cellStyleIndex</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -2389,7 +2460,7 @@ window width.</p>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$cellStyleIndex</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                 
@@ -2418,7 +2489,7 @@ window width.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1137</span>
+    <span class="phpdocumentor-element-found-in__line">1136</span>
 </aside>
 
         <p class="phpdocumentor-summary">Copy workbook (!= clone!).</p>
@@ -2452,7 +2523,7 @@ window width.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">591</span>
+    <span class="phpdocumentor-element-found-in__line">590</span>
 </aside>
 
         <p class="phpdocumentor-summary">Create sheet and add it to this workbook.</p>
@@ -2498,7 +2569,7 @@ window width.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">279</span>
+    <span class="phpdocumentor-element-found-in__line">280</span>
 </aside>
 
         <p class="phpdocumentor-summary">Remove all macros, certificate from spreadsheet.</p>
@@ -2532,7 +2603,7 @@ window width.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">519</span>
+    <span class="phpdocumentor-element-found-in__line">518</span>
 </aside>
 
         <p class="phpdocumentor-summary">Disconnect all worksheets from this PhpSpreadsheet workbook object,
@@ -2567,7 +2638,7 @@ typically so that the PhpSpreadsheet object can be unset.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1338</span>
+    <span class="phpdocumentor-element-found-in__line">1337</span>
 </aside>
 
         <p class="phpdocumentor-summary">Eliminate all unneeded cellXf and afterwards update the xfIndex for all cells
@@ -2602,7 +2673,7 @@ and columns in the workbook.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">579</span>
+    <span class="phpdocumentor-element-found-in__line">578</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get active sheet.</p>
@@ -2636,7 +2707,7 @@ and columns in the workbook.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">797</span>
+    <span class="phpdocumentor-element-found-in__line">796</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get active sheet index.</p>
@@ -2671,7 +2742,7 @@ and columns in the workbook.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">703</span>
+    <span class="phpdocumentor-element-found-in__line">702</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get all sheets.</p>
@@ -2705,7 +2776,7 @@ and columns in the workbook.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1511</span>
+    <span class="phpdocumentor-element-found-in__line">1510</span>
 </aside>
 
         <p class="phpdocumentor-summary">Return whether to group dates when presenting the user with
@@ -2741,7 +2812,7 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">533</span>
+    <span class="phpdocumentor-element-found-in__line">532</span>
 </aside>
 
         <p class="phpdocumentor-summary">Return the calculation engine for this worksheet.</p>
@@ -2775,14 +2846,14 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1301</span>
+    <span class="phpdocumentor-element-found-in__line">1300</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get cellStyleXf by hash code.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">getCellStyleXfByHashCode</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$hashcode</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">false|<abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></span></code>
+                <span class="phpdocumentor-signature__name">getCellStyleXfByHashCode</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$hashcode</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">false|<a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a></span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -2801,7 +2872,7 @@ filtering optiomd in the user interface.</p>
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">false|<abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></span>
+    <span class="phpdocumentor-signature__response_type">false|<a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a></span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
@@ -2820,14 +2891,14 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1289</span>
+    <span class="phpdocumentor-element-found-in__line">1288</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get cellStyleXf by index.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">getCellStyleXfByIndex</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cellStyleIndex</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></span></code>
+                <span class="phpdocumentor-signature__name">getCellStyleXfByIndex</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cellStyleIndex</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a></span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -2847,7 +2918,7 @@ filtering optiomd in the user interface.</p>
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></span>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a></span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
@@ -2866,14 +2937,14 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1277</span>
+    <span class="phpdocumentor-element-found-in__line">1276</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get the workbook collection of cellStyleXfs.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">getCellStyleXfCollection</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, <abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr>&gt;</span></code>
+                <span class="phpdocumentor-signature__name">getCellStyleXfCollection</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, <a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a>&gt;</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -2881,7 +2952,7 @@ filtering optiomd in the user interface.</p>
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">array&lt;string|int, <abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr>&gt;</span>
+    <span class="phpdocumentor-signature__response_type">array&lt;string|int, <a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a>&gt;</span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
@@ -2900,14 +2971,14 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1188</span>
+    <span class="phpdocumentor-element-found-in__line">1187</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get cellXf by hash code.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">getCellXfByHashCode</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$hashcode</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">false|<abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></span></code>
+                <span class="phpdocumentor-signature__name">getCellXfByHashCode</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$hashcode</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">false|<a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a></span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -2926,7 +2997,7 @@ filtering optiomd in the user interface.</p>
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">false|<abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></span>
+    <span class="phpdocumentor-signature__response_type">false|<a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a></span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
@@ -2945,14 +3016,14 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1176</span>
+    <span class="phpdocumentor-element-found-in__line">1175</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get cellXf by index.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">getCellXfByIndex</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cellStyleIndex</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></span></code>
+                <span class="phpdocumentor-signature__name">getCellXfByIndex</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cellStyleIndex</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a></span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -2971,7 +3042,7 @@ filtering optiomd in the user interface.</p>
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></span>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a></span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
@@ -2990,14 +3061,14 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1164</span>
+    <span class="phpdocumentor-element-found-in__line">1163</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get the workbook collection of cellXfs.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">getCellXfCollection</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, <abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr>&gt;</span></code>
+                <span class="phpdocumentor-signature__name">getCellXfCollection</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, <a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a>&gt;</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -3005,7 +3076,7 @@ filtering optiomd in the user interface.</p>
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">array&lt;string|int, <abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr>&gt;</span>
+    <span class="phpdocumentor-signature__response_type">array&lt;string|int, <a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a>&gt;</span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
@@ -3024,14 +3095,14 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1267</span>
+    <span class="phpdocumentor-element-found-in__line">1266</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get the cellXf supervisor.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">getCellXfSupervisor</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></span></code>
+                <span class="phpdocumentor-signature__name">getCellXfSupervisor</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a></span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -3039,7 +3110,7 @@ filtering optiomd in the user interface.</p>
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></span>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a></span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
@@ -3058,14 +3129,14 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1214</span>
+    <span class="phpdocumentor-element-found-in__line">1213</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get default style.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">getDefaultStyle</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></span></code>
+                <span class="phpdocumentor-signature__name">getDefaultStyle</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a></span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -3073,7 +3144,7 @@ filtering optiomd in the user interface.</p>
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></span>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a></span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
@@ -3092,7 +3163,7 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1044</span>
+    <span class="phpdocumentor-element-found-in__line">1043</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get named range.</p>
@@ -3145,7 +3216,7 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">939</span>
+    <span class="phpdocumentor-element-found-in__line">938</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get an array of all Defined Names (both named ranges and named formulae).</p>
@@ -3179,7 +3250,7 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1532</span>
+    <span class="phpdocumentor-element-found-in__line">1531</span>
 </aside>
 
         <p class="phpdocumentor-summary">Return the first sheet in the book view.</p>
@@ -3214,7 +3285,7 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1420</span>
+    <span class="phpdocumentor-element-found-in__line">1419</span>
 </aside>
 
         <p class="phpdocumentor-summary">Return the unique ID value assigned to this spreadsheet workbook.</p>
@@ -3248,7 +3319,7 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">745</span>
+    <span class="phpdocumentor-element-found-in__line">744</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get index for sheet.</p>
@@ -3293,7 +3364,7 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">271</span>
+    <span class="phpdocumentor-element-found-in__line">272</span>
 </aside>
 
         <p class="phpdocumentor-summary">Return the macros certificate.</p>
@@ -3327,7 +3398,7 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">241</span>
+    <span class="phpdocumentor-element-found-in__line">242</span>
 </aside>
 
         <p class="phpdocumentor-summary">Return the macros code.</p>
@@ -3361,7 +3432,7 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1490</span>
+    <span class="phpdocumentor-element-found-in__line">1489</span>
 </aside>
 
         <p class="phpdocumentor-summary">Return whether the workbook window is minimized.</p>
@@ -3396,7 +3467,7 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1003</span>
+    <span class="phpdocumentor-element-found-in__line">1002</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get named formula.</p>
@@ -3449,7 +3520,7 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">924</span>
+    <span class="phpdocumentor-element-found-in__line">923</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get an array of all Named Formulae.</p>
@@ -3483,7 +3554,7 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">983</span>
+    <span class="phpdocumentor-element-found-in__line">982</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get named range.</p>
@@ -3536,7 +3607,7 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">909</span>
+    <span class="phpdocumentor-element-found-in__line">908</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get an array of all Named Ranges.</p>
@@ -3570,7 +3641,7 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">543</span>
+    <span class="phpdocumentor-element-found-in__line">542</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get properties.</p>
@@ -3604,7 +3675,7 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">389</span>
+    <span class="phpdocumentor-element-found-in__line">390</span>
 </aside>
 
         <p class="phpdocumentor-summary">retrieve Binaries Ribbon Objects.</p>
@@ -3649,7 +3720,7 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">308</span>
+    <span class="phpdocumentor-element-found-in__line">309</span>
 </aside>
 
         <p class="phpdocumentor-summary">retrieve ribbon XML Data.</p>
@@ -3694,7 +3765,7 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">561</span>
+    <span class="phpdocumentor-element-found-in__line">560</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get security.</p>
@@ -3728,14 +3799,14 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1636</span>
+    <span class="phpdocumentor-element-found-in__line">1635</span>
 </aside>
 
         <p class="phpdocumentor-summary">Silliness to mollify Scrutinizer.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">getSharedComponent</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></span></code>
+                <span class="phpdocumentor-signature__name">getSharedComponent</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a></span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -3757,7 +3828,7 @@ filtering optiomd in the user interface.</p>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></span>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Style-Style.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Style">Style</abbr></a></span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
@@ -3776,7 +3847,7 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">685</span>
+    <span class="phpdocumentor-element-found-in__line">684</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get sheet by index.</p>
@@ -3822,7 +3893,7 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">461</span>
+    <span class="phpdocumentor-element-found-in__line">460</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get sheet by code name. Warning : sheet don&#039;t have always a code name !</p>
@@ -3868,7 +3939,7 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">715</span>
+    <span class="phpdocumentor-element-found-in__line">714</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get sheet by name.</p>
@@ -3914,7 +3985,7 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">730</span>
+    <span class="phpdocumentor-element-found-in__line">729</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get sheet by name, throwing exception if not found.</p>
@@ -3958,7 +4029,7 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">787</span>
+    <span class="phpdocumentor-element-found-in__line">786</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get sheet count.</p>
@@ -3992,7 +4063,7 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">846</span>
+    <span class="phpdocumentor-element-found-in__line">845</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get sheet names.</p>
@@ -4026,7 +4097,7 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1430</span>
+    <span class="phpdocumentor-element-found-in__line">1429</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get the visibility of the horizonal scroll bar in the application.</p>
@@ -4061,7 +4132,7 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1470</span>
+    <span class="phpdocumentor-element-found-in__line">1469</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get the visibility of the sheet tabs in the application.</p>
@@ -4096,7 +4167,7 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1450</span>
+    <span class="phpdocumentor-element-found-in__line">1449</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get the visibility of the vertical scroll bar in the application.</p>
@@ -4131,7 +4202,7 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1598</span>
+    <span class="phpdocumentor-element-found-in__line">1597</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get the ratio between the workbook tabs bar and the horizontal scroll bar.</p>
@@ -4167,7 +4238,7 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1559</span>
+    <span class="phpdocumentor-element-found-in__line">1558</span>
 </aside>
 
         <p class="phpdocumentor-summary">Return the visibility status of the workbook.</p>
@@ -4206,7 +4277,7 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1127</span>
+    <span class="phpdocumentor-element-found-in__line">1126</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get worksheet iterator.</p>
@@ -4240,7 +4311,7 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">210</span>
+    <span class="phpdocumentor-element-found-in__line">211</span>
 </aside>
 
         <p class="phpdocumentor-summary">The workbook has macros ?</p>
@@ -4274,7 +4345,7 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">261</span>
+    <span class="phpdocumentor-element-found-in__line">262</span>
 </aside>
 
         <p class="phpdocumentor-summary">Is the project signed ?</p>
@@ -4309,7 +4380,7 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">427</span>
+    <span class="phpdocumentor-element-found-in__line">426</span>
 </aside>
 
         <p class="phpdocumentor-summary">This workbook have a custom UI ?</p>
@@ -4343,7 +4414,7 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">437</span>
+    <span class="phpdocumentor-element-found-in__line">436</span>
 </aside>
 
         <p class="phpdocumentor-summary">This workbook have additionnal object for the ribbon ?</p>
@@ -4370,6 +4441,54 @@ filtering optiomd in the user interface.</p>
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_jsonSerialize">
+        jsonSerialize()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#method_jsonSerialize" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">1653</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">jsonSerialize</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><a href="classes/PhpOffice-PhpSpreadsheet-Exception.html"><abbr title="\PhpOffice\PhpSpreadsheet\Exception">Exception</abbr></a></span>
+                                                            
+                                                 <section class="phpdocumentor-description"></section>
+
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_reevaluateAutoFilters">
         reevaluateAutoFilters()
         <a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html#method_reevaluateAutoFilters" class="headerlink"><i class="fas fa-link"></i></a>
@@ -4377,7 +4496,7 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1618</span>
+    <span class="phpdocumentor-element-found-in__line">1617</span>
 </aside>
 
     
@@ -4419,7 +4538,7 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1326</span>
+    <span class="phpdocumentor-element-found-in__line">1325</span>
 </aside>
 
         <p class="phpdocumentor-summary">Remove cellStyleXf by index.</p>
@@ -4465,7 +4584,7 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1237</span>
+    <span class="phpdocumentor-element-found-in__line">1236</span>
 </aside>
 
         <p class="phpdocumentor-summary">Remove cellXf by index. It is ensured that all cells get their xf index updated.</p>
@@ -4511,7 +4630,7 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1103</span>
+    <span class="phpdocumentor-element-found-in__line">1102</span>
 </aside>
 
         <p class="phpdocumentor-summary">Remove defined name.</p>
@@ -4564,7 +4683,7 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1087</span>
+    <span class="phpdocumentor-element-found-in__line">1086</span>
 </aside>
 
         <p class="phpdocumentor-summary">Remove named formula.</p>
@@ -4617,7 +4736,7 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1071</span>
+    <span class="phpdocumentor-element-found-in__line">1070</span>
 </aside>
 
         <p class="phpdocumentor-summary">Remove named range.</p>
@@ -4670,7 +4789,7 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">659</span>
+    <span class="phpdocumentor-element-found-in__line">658</span>
 </aside>
 
         <p class="phpdocumentor-summary">Remove sheet by index.</p>
@@ -4716,7 +4835,7 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">809</span>
+    <span class="phpdocumentor-element-found-in__line">808</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set active sheet index.</p>
@@ -4762,7 +4881,7 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">830</span>
+    <span class="phpdocumentor-element-found-in__line">829</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set active sheet index by name.</p>
@@ -4808,7 +4927,7 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1522</span>
+    <span class="phpdocumentor-element-found-in__line">1521</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set whether to group dates when presenting the user with
@@ -4855,7 +4974,7 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1542</span>
+    <span class="phpdocumentor-element-found-in__line">1541</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set the first sheet in the book view.</p>
@@ -4901,7 +5020,7 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">220</span>
+    <span class="phpdocumentor-element-found-in__line">221</span>
 </aside>
 
         <p class="phpdocumentor-summary">Define if a workbook has macros.</p>
@@ -4947,7 +5066,7 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">764</span>
+    <span class="phpdocumentor-element-found-in__line">763</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set index for sheet by sheet name.</p>
@@ -5003,7 +5122,7 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">251</span>
+    <span class="phpdocumentor-element-found-in__line">252</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set the macros certificate.</p>
@@ -5048,7 +5167,7 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">230</span>
+    <span class="phpdocumentor-element-found-in__line">231</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set the macros code.</p>
@@ -5094,7 +5213,7 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1500</span>
+    <span class="phpdocumentor-element-found-in__line">1499</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set whether the workbook window is minimized.</p>
@@ -5140,7 +5259,7 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">551</span>
+    <span class="phpdocumentor-element-found-in__line">550</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set properties.</p>
@@ -5184,7 +5303,7 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">335</span>
+    <span class="phpdocumentor-element-found-in__line">336</span>
 </aside>
 
         <p class="phpdocumentor-summary">store binaries ribbon objects (pictures).</p>
@@ -5237,7 +5356,7 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">292</span>
+    <span class="phpdocumentor-element-found-in__line">293</span>
 </aside>
 
         <p class="phpdocumentor-summary">set ribbon XML data.</p>
@@ -5290,7 +5409,7 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">569</span>
+    <span class="phpdocumentor-element-found-in__line">568</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set security.</p>
@@ -5334,7 +5453,7 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1440</span>
+    <span class="phpdocumentor-element-found-in__line">1439</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set the visibility of the horizonal scroll bar in the application.</p>
@@ -5380,7 +5499,7 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1480</span>
+    <span class="phpdocumentor-element-found-in__line">1479</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set the visibility of the sheet tabs  in the application.</p>
@@ -5426,7 +5545,7 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1460</span>
+    <span class="phpdocumentor-element-found-in__line">1459</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set the visibility of the vertical scroll bar in the application.</p>
@@ -5472,7 +5591,7 @@ filtering optiomd in the user interface.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1609</span>
+    <span class="phpdocumentor-element-found-in__line">1608</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set the ratio between the workbook tabs bar and the horizontal scroll bar
@@ -5519,7 +5638,7 @@ TabRatio is assumed to be out of 1000 of the horizontal window width.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1579</span>
+    <span class="phpdocumentor-element-found-in__line">1578</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set the visibility status of the workbook.</p>
@@ -5576,7 +5695,7 @@ user interface.</li>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">449</span>
+    <span class="phpdocumentor-element-found-in__line">448</span>
 </aside>
 
         <p class="phpdocumentor-summary">Check if a sheet with a specified code name already exists.</p>
@@ -5622,7 +5741,7 @@ user interface.</li>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">606</span>
+    <span class="phpdocumentor-element-found-in__line">605</span>
 </aside>
 
         <p class="phpdocumentor-summary">Check if a sheet with a specified name already exists.</p>
@@ -5668,7 +5787,7 @@ user interface.</li>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">375</span>
+    <span class="phpdocumentor-element-found-in__line">376</span>
 </aside>
 
         <p class="phpdocumentor-summary">return the extension of a filename. Internal use for a array_map callback (php&lt;5.3 don&#039;t like lambda function).</p>
@@ -5713,7 +5832,7 @@ user interface.</li>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1018</span>
+    <span class="phpdocumentor-element-found-in__line">1017</span>
 </aside>
 
     
@@ -5762,7 +5881,7 @@ user interface.</li>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Spreadsheet.php"><a href="files/src-phpspreadsheet-spreadsheet.html"><abbr title="src/PhpSpreadsheet/Spreadsheet.php">Spreadsheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1027</span>
+    <span class="phpdocumentor-element-found-in__line">1026</span>
 </aside>
 
     

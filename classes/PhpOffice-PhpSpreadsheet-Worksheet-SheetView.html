@@ -130,19 +130,19 @@
 </dt>
 <dd></dd>
 
+            <dt class="phpdocumentor-table-of-contents__entry -constant -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-SheetView.html#constant_SHEET_VIEW_TYPES">SHEET_VIEW_TYPES</a>
+    <span>
+        &nbsp;= [self::SHEETVIEW_NORMAL, self::SHEETVIEW_PAGE_LAYOUT, self::SHEETVIEW_PAGE_BREAK_PREVIEW]                    </span>
+</dt>
+<dd></dd>
+
                 <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-SheetView.html#property_sheetviewType">$sheetviewType</a>
     <span>
                 &nbsp;: string            </span>
 </dt>
 <dd>View.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-SheetView.html#property_sheetViewTypes">$sheetViewTypes</a>
-    <span>
-                &nbsp;: mixed            </span>
-</dt>
-<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-SheetView.html#property_showZeros">$showZeros</a>
@@ -154,14 +154,14 @@
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-SheetView.html#property_zoomScale">$zoomScale</a>
     <span>
-                &nbsp;: int            </span>
+                &nbsp;: int|null            </span>
 </dt>
 <dd>ZoomScale.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-SheetView.html#property_zoomScaleNormal">$zoomScaleNormal</a>
     <span>
-                &nbsp;: int            </span>
+                &nbsp;: int|null            </span>
 </dt>
 <dd>ZoomScaleNormal.</dd>
 
@@ -196,14 +196,14 @@
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-SheetView.html#method_getZoomScale">getZoomScale()</a>
     <span>
-                        &nbsp;: int    </span>
+                        &nbsp;: int|null    </span>
 </dt>
 <dd>Get ZoomScale.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-SheetView.html#method_getZoomScaleNormal">getZoomScaleNormal()</a>
     <span>
-                        &nbsp;: int    </span>
+                        &nbsp;: int|null    </span>
 </dt>
 <dd>Get ZoomScaleNormal.</dd>
 
@@ -320,6 +320,31 @@
     
 
 </article>
+                    <article class="phpdocumentor-element -constant -private ">
+    <h4 class="phpdocumentor-element__name" id="constant_SHEET_VIEW_TYPES">
+        SHEET_VIEW_TYPES
+        <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-SheetView.html#constant_SHEET_VIEW_TYPES" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/SheetView.php"><a href="files/src-phpspreadsheet-worksheet-sheetview.html"><abbr title="src/PhpSpreadsheet/Worksheet/SheetView.php">SheetView.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">14</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">SHEET_VIEW_TYPES</span>
+    = <span class="phpdocumentor-signature__default-value">[self::SHEETVIEW_NORMAL, self::SHEETVIEW_PAGE_LAYOUT, self::SHEETVIEW_PAGE_BREAK_PREVIEW]</span>
+</code>
+
+
+    
+    
+
+</article>
             </section>
 
         
@@ -358,36 +383,6 @@
         <section class="phpdocumentor-description"><p>Valid values range from 10 to 400.</p>
 </section>
 
-    
-
-</article>
-                    <article
-        class="
-            phpdocumentor-element
-            -property
-            -private
-            -static                                            "
->
-    <h4 class="phpdocumentor-element__name" id="property_sheetViewTypes">
-        $sheetViewTypes
-        <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-SheetView.html#property_sheetViewTypes" class="headerlink"><i class="fas fa-link"></i></a>
-        <span class="phpdocumentor-element__modifiers">
-                                </span>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/SheetView.php"><a href="files/src-phpspreadsheet-worksheet-sheetview.html"><abbr title="src/PhpSpreadsheet/Worksheet/SheetView.php">SheetView.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">14</span>
-</aside>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">mixed</span>
-    <span class="phpdocumentor-signature__name">$sheetViewTypes</span>
-     = <span class="phpdocumentor-signature__default-value">[self::SHEETVIEW_NORMAL, self::SHEETVIEW_PAGE_LAYOUT, self::SHEETVIEW_PAGE_BREAK_PREVIEW]</span></code>
-
-    
     
 
 </article>
@@ -448,7 +443,7 @@ with the advanced worksheet option &quot;Show a zero in cells that have zero val
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type">int</span>
+        <span class="phpdocumentor-signature__type">int|null</span>
     <span class="phpdocumentor-signature__name">$zoomScale</span>
      = <span class="phpdocumentor-signature__default-value">100</span></code>
 
@@ -481,7 +476,7 @@ with the advanced worksheet option &quot;Show a zero in cells that have zero val
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type">int</span>
+        <span class="phpdocumentor-signature__type">int|null</span>
     <span class="phpdocumentor-signature__name">$zoomScaleNormal</span>
      = <span class="phpdocumentor-signature__default-value">100</span></code>
 
@@ -653,7 +648,7 @@ with the advanced worksheet option &quot;Show a zero in cells that have zero val
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">getZoomScale</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
+                <span class="phpdocumentor-signature__name">getZoomScale</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int|null</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -661,7 +656,7 @@ with the advanced worksheet option &quot;Show a zero in cells that have zero val
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">int</span>
+    <span class="phpdocumentor-signature__response_type">int|null</span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
@@ -687,7 +682,7 @@ with the advanced worksheet option &quot;Show a zero in cells that have zero val
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">getZoomScaleNormal</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
+                <span class="phpdocumentor-signature__name">getZoomScaleNormal</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int|null</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -695,7 +690,7 @@ with the advanced worksheet option &quot;Show a zero in cells that have zero val
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">int</span>
+    <span class="phpdocumentor-signature__response_type">int|null</span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
@@ -766,7 +761,7 @@ with the advanced worksheet option &quot;Show a zero in cells that have zero val
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">setView</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$sheetViewType</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+                <span class="phpdocumentor-signature__name">setView</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$sheetViewType</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
 
         <section class="phpdocumentor-description"><p>Valid values are
 'normal'            self::SHEETVIEW_NORMAL
@@ -778,7 +773,7 @@ with the advanced worksheet option &quot;Show a zero in cells that have zero val
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$sheetViewType</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"></section>
@@ -815,7 +810,7 @@ with the advanced worksheet option &quot;Show a zero in cells that have zero val
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">setZoomScale</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$zoomScale</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+                <span class="phpdocumentor-signature__name">setZoomScale</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$zoomScale</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
 
         <section class="phpdocumentor-description"><p>Valid values range from 10 to 400.</p>
 </section>
@@ -824,7 +819,7 @@ with the advanced worksheet option &quot;Show a zero in cells that have zero val
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$zoomScale</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int|null</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"></section>
@@ -861,7 +856,7 @@ with the advanced worksheet option &quot;Show a zero in cells that have zero val
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">setZoomScaleNormal</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$zoomScaleNormal</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+                <span class="phpdocumentor-signature__name">setZoomScaleNormal</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$zoomScaleNormal</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
 
         <section class="phpdocumentor-description"><p>Valid values range from 10 to 400.</p>
 </section>
@@ -870,7 +865,7 @@ with the advanced worksheet option &quot;Show a zero in cells that have zero val
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$zoomScaleNormal</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int|null</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"></section>

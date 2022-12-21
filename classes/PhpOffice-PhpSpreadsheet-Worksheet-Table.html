@@ -91,7 +91,7 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Table.php"><a href="files/src-phpspreadsheet-worksheet-table.html"><abbr title="src/PhpSpreadsheet/Worksheet/Table.php">Table.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">11</span>
+    <span class="phpdocumentor-element-found-in__line">13</span>
 </aside>
 
         
@@ -110,6 +110,20 @@
 
 <dl class="phpdocumentor-table-of-contents">
                 <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Table.html#property_allowFilter">$allowFilter</a>
+    <span>
+                &nbsp;: bool            </span>
+</dt>
+<dd>Table allow filter.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Table.html#property_autoFilter">$autoFilter</a>
+    <span>
+                &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter">AutoFilter</abbr></a>            </span>
+</dt>
+<dd>Table AutoFilter.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Table.html#property_columns">$columns</a>
     <span>
                 &nbsp;: array&lt;string|int, <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Table-Column.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Table\Column">Column</abbr></a>&gt;            </span>
@@ -186,6 +200,20 @@ referenced as a property of its worksheet.</dd>
                         &nbsp;: self    </span>
 </dt>
 <dd>Clear a specified Table Column.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Table.html#method_getAllowFilter">getAllowFilter()</a>
+    <span>
+                        &nbsp;: bool    </span>
+</dt>
+<dd>Get allow filter.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Table.html#method_getAutoFilter">getAutoFilter()</a>
+    <span>
+                        &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter">AutoFilter</abbr></a>    </span>
+</dt>
+<dd>Get AutoFilter.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Table.html#method_getColumn">getColumn()</a>
@@ -265,6 +293,20 @@ referenced as a property of its worksheet.</dd>
 <dd>Validate that the specified column is in the Table range.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Table.html#method_setAllowFilter">setAllowFilter()</a>
+    <span>
+                        &nbsp;: self    </span>
+</dt>
+<dd>Set show Autofiltering.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Table.html#method_setAutoFilter">setAutoFilter()</a>
+    <span>
+                        &nbsp;: self    </span>
+</dt>
+<dd>Set AutoFilter.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Table.html#method_setColumn">setColumn()</a>
     <span>
                         &nbsp;: self    </span>
@@ -327,6 +369,34 @@ referenced as a property of its worksheet.</dd>
 </dt>
 <dd>Shift an Table Column Rule to a different column.</dd>
 
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Table.html#method_checkForDuplicateTableNames">checkForDuplicateTableNames()</a>
+    <span>
+                        &nbsp;: void    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Table.html#method_updateStructuredReferences">updateStructuredReferences()</a>
+    <span>
+                        &nbsp;: void    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Table.html#method_updateStructuredReferencesInCells">updateStructuredReferencesInCells()</a>
+    <span>
+                        &nbsp;: void    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Table.html#method_updateStructuredReferencesInNamedFormulae">updateStructuredReferencesInNamedFormulae()</a>
+    <span>
+                        &nbsp;: void    </span>
+</dt>
+<dd></dd>
+
         </dl>
 
 
@@ -346,6 +416,70 @@ referenced as a property of its worksheet.</dd>
             -private
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="property_allowFilter">
+        $allowFilter
+        <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Table.html#property_allowFilter" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Table.php"><a href="files/src-phpspreadsheet-worksheet-table.html"><abbr title="src/PhpSpreadsheet/Worksheet/Table.php">Table.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">55</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Table allow filter.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">bool</span>
+    <span class="phpdocumentor-signature__name">$allowFilter</span>
+     = <span class="phpdocumentor-signature__default-value">true</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_autoFilter">
+        $autoFilter
+        <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Table.html#property_autoFilter" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Table.php"><a href="files/src-phpspreadsheet-worksheet-table.html"><abbr title="src/PhpSpreadsheet/Worksheet/Table.php">Table.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">76</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Table AutoFilter.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type"><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter">AutoFilter</abbr></a></span>
+    <span class="phpdocumentor-signature__name">$autoFilter</span>
+    </code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="property_columns">
         $columns
         <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Table.html#property_columns" class="headerlink"><i class="fas fa-link"></i></a>
@@ -355,7 +489,7 @@ referenced as a property of its worksheet.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Table.php"><a href="files/src-phpspreadsheet-worksheet-table.html"><abbr title="src/PhpSpreadsheet/Worksheet/Table.php">Table.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">53</span>
+    <span class="phpdocumentor-element-found-in__line">62</span>
 </aside>
 
         <p class="phpdocumentor-summary">Table Column.</p>
@@ -387,7 +521,7 @@ referenced as a property of its worksheet.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Table.php"><a href="files/src-phpspreadsheet-worksheet-table.html"><abbr title="src/PhpSpreadsheet/Worksheet/Table.php">Table.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">18</span>
+    <span class="phpdocumentor-element-found-in__line">20</span>
 </aside>
 
         <p class="phpdocumentor-summary">Table Name.</p>
@@ -396,7 +530,7 @@ referenced as a property of its worksheet.</dd>
     <span class="phpdocumentor-signature__visibility">private</span>
         <span class="phpdocumentor-signature__type">string</span>
     <span class="phpdocumentor-signature__name">$name</span>
-     = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span></code>
+    </code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -419,7 +553,7 @@ referenced as a property of its worksheet.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Table.php"><a href="files/src-phpspreadsheet-worksheet-table.html"><abbr title="src/PhpSpreadsheet/Worksheet/Table.php">Table.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">39</span>
+    <span class="phpdocumentor-element-found-in__line">41</span>
 </aside>
 
         <p class="phpdocumentor-summary">Table Range.</p>
@@ -451,7 +585,7 @@ referenced as a property of its worksheet.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Table.php"><a href="files/src-phpspreadsheet-worksheet-table.html"><abbr title="src/PhpSpreadsheet/Worksheet/Table.php">Table.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">25</span>
+    <span class="phpdocumentor-element-found-in__line">27</span>
 </aside>
 
         <p class="phpdocumentor-summary">Show Header Row.</p>
@@ -483,7 +617,7 @@ referenced as a property of its worksheet.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Table.php"><a href="files/src-phpspreadsheet-worksheet-table.html"><abbr title="src/PhpSpreadsheet/Worksheet/Table.php">Table.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">32</span>
+    <span class="phpdocumentor-element-found-in__line">34</span>
 </aside>
 
         <p class="phpdocumentor-summary">Show Totals Row.</p>
@@ -515,7 +649,7 @@ referenced as a property of its worksheet.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Table.php"><a href="files/src-phpspreadsheet-worksheet-table.html"><abbr title="src/PhpSpreadsheet/Worksheet/Table.php">Table.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">60</span>
+    <span class="phpdocumentor-element-found-in__line">69</span>
 </aside>
 
         <p class="phpdocumentor-summary">Table Style.</p>
@@ -547,7 +681,7 @@ referenced as a property of its worksheet.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Table.php"><a href="files/src-phpspreadsheet-worksheet-table.html"><abbr title="src/PhpSpreadsheet/Worksheet/Table.php">Table.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">46</span>
+    <span class="phpdocumentor-element-found-in__line">48</span>
 </aside>
 
         <p class="phpdocumentor-summary">Table Worksheet.</p>
@@ -583,7 +717,7 @@ referenced as a property of its worksheet.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Table.php"><a href="files/src-phpspreadsheet-worksheet-table.html"><abbr title="src/PhpSpreadsheet/Worksheet/Table.php">Table.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">421</span>
+    <span class="phpdocumentor-element-found-in__line">552</span>
 </aside>
 
         <p class="phpdocumentor-summary">Implement PHP __clone to create a deep clone, not just a shallow copy.</p>
@@ -617,7 +751,7 @@ referenced as a property of its worksheet.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Table.php"><a href="files/src-phpspreadsheet-worksheet-table.html"><abbr title="src/PhpSpreadsheet/Worksheet/Table.php">Table.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">71</span>
+    <span class="phpdocumentor-element-found-in__line">87</span>
 </aside>
 
         <p class="phpdocumentor-summary">Create a new Table.</p>
@@ -674,7 +808,7 @@ or an AddressRange object.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Table.php"><a href="files/src-phpspreadsheet-worksheet-table.html"><abbr title="src/PhpSpreadsheet/Worksheet/Table.php">Table.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">450</span>
+    <span class="phpdocumentor-element-found-in__line">581</span>
 </aside>
 
         <p class="phpdocumentor-summary">toString method replicates previous behavior by returning the range if object is
@@ -709,7 +843,7 @@ referenced as a property of its worksheet.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Table.php"><a href="files/src-phpspreadsheet-worksheet-table.html"><abbr title="src/PhpSpreadsheet/Worksheet/Table.php">Table.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">361</span>
+    <span class="phpdocumentor-element-found-in__line">474</span>
 </aside>
 
         <p class="phpdocumentor-summary">Clear a specified Table Column.</p>
@@ -748,6 +882,75 @@ referenced as a property of its worksheet.</p>
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_getAllowFilter">
+        getAllowFilter()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Table.html#method_getAllowFilter" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Table.php"><a href="files/src-phpspreadsheet-worksheet-table.html"><abbr title="src/PhpSpreadsheet/Worksheet/Table.php">Table.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">250</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Get allow filter.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">getAllowFilter</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+        <section class="phpdocumentor-description"><p>If false, autofiltering is disabled for the table, if true it is enabled.</p>
+</section>
+
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getAutoFilter">
+        getAutoFilter()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Table.html#method_getAutoFilter" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Table.php"><a href="files/src-phpspreadsheet-worksheet-table.html"><abbr title="src/PhpSpreadsheet/Worksheet/Table.php">Table.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">534</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Get AutoFilter.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">getAutoFilter</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter">AutoFilter</abbr></a></span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter">AutoFilter</abbr></a></span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_getColumn">
         getColumn()
         <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Table.html#method_getColumn" class="headerlink"><i class="fas fa-link"></i></a>
@@ -755,7 +958,7 @@ referenced as a property of its worksheet.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Table.php"><a href="files/src-phpspreadsheet-worksheet-table.html"><abbr title="src/PhpSpreadsheet/Worksheet/Table.php">Table.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">304</span>
+    <span class="phpdocumentor-element-found-in__line">417</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get a specified Table Column.</p>
@@ -801,7 +1004,7 @@ referenced as a property of its worksheet.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Table.php"><a href="files/src-phpspreadsheet-worksheet-table.html"><abbr title="src/PhpSpreadsheet/Worksheet/Table.php">Table.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">320</span>
+    <span class="phpdocumentor-element-found-in__line">433</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get a specified Table Column by it&#039;s offset.</p>
@@ -847,7 +1050,7 @@ referenced as a property of its worksheet.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Table.php"><a href="files/src-phpspreadsheet-worksheet-table.html"><abbr title="src/PhpSpreadsheet/Worksheet/Table.php">Table.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">294</span>
+    <span class="phpdocumentor-element-found-in__line">407</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get a specified Table Column Offset within the defined Table range.</p>
@@ -894,7 +1097,7 @@ referenced as a property of its worksheet.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Table.php"><a href="files/src-phpspreadsheet-worksheet-table.html"><abbr title="src/PhpSpreadsheet/Worksheet/Table.php">Table.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">260</span>
+    <span class="phpdocumentor-element-found-in__line">373</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get all Table Columns.</p>
@@ -928,7 +1131,7 @@ referenced as a property of its worksheet.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Table.php"><a href="files/src-phpspreadsheet-worksheet-table.html"><abbr title="src/PhpSpreadsheet/Worksheet/Table.php">Table.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">81</span>
+    <span class="phpdocumentor-element-found-in__line">98</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get Table name.</p>
@@ -962,7 +1165,7 @@ referenced as a property of its worksheet.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Table.php"><a href="files/src-phpspreadsheet-worksheet-table.html"><abbr title="src/PhpSpreadsheet/Worksheet/Table.php">Table.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">159</span>
+    <span class="phpdocumentor-element-found-in__line">269</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get Table Range.</p>
@@ -996,7 +1199,7 @@ referenced as a property of its worksheet.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Table.php"><a href="files/src-phpspreadsheet-worksheet-table.html"><abbr title="src/PhpSpreadsheet/Worksheet/Table.php">Table.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">123</span>
+    <span class="phpdocumentor-element-found-in__line">213</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get show Header Row.</p>
@@ -1030,7 +1233,7 @@ referenced as a property of its worksheet.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Table.php"><a href="files/src-phpspreadsheet-worksheet-table.html"><abbr title="src/PhpSpreadsheet/Worksheet/Table.php">Table.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">141</span>
+    <span class="phpdocumentor-element-found-in__line">231</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get show Totals Row.</p>
@@ -1064,7 +1267,7 @@ referenced as a property of its worksheet.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Table.php"><a href="files/src-phpspreadsheet-worksheet-table.html"><abbr title="src/PhpSpreadsheet/Worksheet/Table.php">Table.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">403</span>
+    <span class="phpdocumentor-element-found-in__line">516</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get table Style.</p>
@@ -1098,7 +1301,7 @@ referenced as a property of its worksheet.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Table.php"><a href="files/src-phpspreadsheet-worksheet-table.html"><abbr title="src/PhpSpreadsheet/Worksheet/Table.php">Table.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">227</span>
+    <span class="phpdocumentor-element-found-in__line">339</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get Table&#039;s Worksheet.</p>
@@ -1132,7 +1335,7 @@ referenced as a property of its worksheet.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Table.php"><a href="files/src-phpspreadsheet-worksheet-table.html"><abbr title="src/PhpSpreadsheet/Worksheet/Table.php">Table.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">272</span>
+    <span class="phpdocumentor-element-found-in__line">385</span>
 </aside>
 
         <p class="phpdocumentor-summary">Validate that the specified column is in the Table range.</p>
@@ -1172,6 +1375,95 @@ referenced as a property of its worksheet.</p>
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_setAllowFilter">
+        setAllowFilter()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Table.html#method_setAllowFilter" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Table.php"><a href="files/src-phpspreadsheet-worksheet-table.html"><abbr title="src/PhpSpreadsheet/Worksheet/Table.php">Table.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">259</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Set show Autofiltering.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">setAllowFilter</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$allowFilter</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
+
+        <section class="phpdocumentor-description"><p>Disabling autofiltering has the same effect as hiding the filter button on all the columns in the table.</p>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$allowFilter</span>
+                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">self</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setAutoFilter">
+        setAutoFilter()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Table.html#method_setAutoFilter" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Table.php"><a href="files/src-phpspreadsheet-worksheet-table.html"><abbr title="src/PhpSpreadsheet/Worksheet/Table.php">Table.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">542</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Set AutoFilter.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">setAutoFilter</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter">AutoFilter</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$autoFilter</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$autoFilter</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter">AutoFilter</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">self</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_setColumn">
         setColumn()
         <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Table.html#method_setColumn" class="headerlink"><i class="fas fa-link"></i></a>
@@ -1179,7 +1471,7 @@ referenced as a property of its worksheet.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Table.php"><a href="files/src-phpspreadsheet-worksheet-table.html"><abbr title="src/PhpSpreadsheet/Worksheet/Table.php">Table.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">334</span>
+    <span class="phpdocumentor-element-found-in__line">447</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set Table.</p>
@@ -1225,7 +1517,7 @@ referenced as a property of its worksheet.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Table.php"><a href="files/src-phpspreadsheet-worksheet-table.html"><abbr title="src/PhpSpreadsheet/Worksheet/Table.php">Table.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">89</span>
+    <span class="phpdocumentor-element-found-in__line">108</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set Table name.</p>
@@ -1248,6 +1540,21 @@ referenced as a property of its worksheet.</p>
             </dl>
 
     
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><a href="classes/PhpOffice-PhpSpreadsheet-Exception.html"><abbr title="\PhpOffice\PhpSpreadsheet\Exception">Exception</abbr></a></span>
+                                                            
+                                                 <section class="phpdocumentor-description"></section>
+
+                                    </dd>
+                        </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">self</span>
@@ -1269,7 +1576,7 @@ referenced as a property of its worksheet.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Table.php"><a href="files/src-phpspreadsheet-worksheet-table.html"><abbr title="src/PhpSpreadsheet/Worksheet/Table.php">Table.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">172</span>
+    <span class="phpdocumentor-element-found-in__line">282</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set Table Cell Range.</p>
@@ -1317,7 +1624,7 @@ or an AddressRange object.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Table.php"><a href="files/src-phpspreadsheet-worksheet-table.html"><abbr title="src/PhpSpreadsheet/Worksheet/Table.php">Table.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">211</span>
+    <span class="phpdocumentor-element-found-in__line">323</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set Table Cell Range to max row.</p>
@@ -1351,7 +1658,7 @@ or an AddressRange object.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Table.php"><a href="files/src-phpspreadsheet-worksheet-table.html"><abbr title="src/PhpSpreadsheet/Worksheet/Table.php">Table.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">131</span>
+    <span class="phpdocumentor-element-found-in__line">221</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set show Header Row.</p>
@@ -1395,7 +1702,7 @@ or an AddressRange object.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Table.php"><a href="files/src-phpspreadsheet-worksheet-table.html"><abbr title="src/PhpSpreadsheet/Worksheet/Table.php">Table.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">149</span>
+    <span class="phpdocumentor-element-found-in__line">239</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set show Totals Row.</p>
@@ -1439,7 +1746,7 @@ or an AddressRange object.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Table.php"><a href="files/src-phpspreadsheet-worksheet-table.html"><abbr title="src/PhpSpreadsheet/Worksheet/Table.php">Table.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">411</span>
+    <span class="phpdocumentor-element-found-in__line">524</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set table Style.</p>
@@ -1483,7 +1790,7 @@ or an AddressRange object.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Table.php"><a href="files/src-phpspreadsheet-worksheet-table.html"><abbr title="src/PhpSpreadsheet/Worksheet/Table.php">Table.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">235</span>
+    <span class="phpdocumentor-element-found-in__line">347</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set Table&#039;s Worksheet.</p>
@@ -1527,7 +1834,7 @@ or an AddressRange object.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Table.php"><a href="files/src-phpspreadsheet-worksheet-table.html"><abbr title="src/PhpSpreadsheet/Worksheet/Table.php">Table.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">382</span>
+    <span class="phpdocumentor-element-found-in__line">495</span>
 </aside>
 
         <p class="phpdocumentor-summary">Shift an Table Column Rule to a different column.</p>
@@ -1567,6 +1874,211 @@ Use with caution.</p>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">self</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_checkForDuplicateTableNames">
+        checkForDuplicateTableNames()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Table.html#method_checkForDuplicateTableNames" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Table.php"><a href="files/src-phpspreadsheet-worksheet-table.html"><abbr title="src/PhpSpreadsheet/Worksheet/Table.php">Table.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">145</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__name">checkForDuplicateTableNames</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$worksheet</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$name</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$worksheet</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a>|null</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><a href="classes/PhpOffice-PhpSpreadsheet-Exception.html"><abbr title="\PhpOffice\PhpSpreadsheet\Exception">Exception</abbr></a></span>
+                                                            
+                                                 <section class="phpdocumentor-description"></section>
+
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">void</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_updateStructuredReferences">
+        updateStructuredReferences()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Table.html#method_updateStructuredReferences" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Table.php"><a href="files/src-phpspreadsheet-worksheet-table.html"><abbr title="src/PhpSpreadsheet/Worksheet/Table.php">Table.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">163</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__name">updateStructuredReferences</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$name</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">void</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_updateStructuredReferencesInCells">
+        updateStructuredReferencesInCells()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Table.html#method_updateStructuredReferencesInCells" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Table.php"><a href="files/src-phpspreadsheet-worksheet-table.html"><abbr title="src/PhpSpreadsheet/Worksheet/Table.php">Table.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">181</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__name">updateStructuredReferencesInCells</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$worksheet</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$newName</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$worksheet</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet">Worksheet</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$newName</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">void</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_updateStructuredReferencesInNamedFormulae">
+        updateStructuredReferencesInNamedFormulae()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Table.html#method_updateStructuredReferencesInNamedFormulae" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Table.php"><a href="files/src-phpspreadsheet-worksheet-table.html"><abbr title="src/PhpSpreadsheet/Worksheet/Table.php">Table.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">197</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__name">updateStructuredReferencesInNamedFormulae</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$spreadsheet</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$newName</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$spreadsheet</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$newName</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">void</span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
