@@ -2236,6 +2236,11 @@ class Worksheet implements IComparable
         return $tableNames;
     }
 
+    /**
+     * @param string $name the table name to search
+     *
+     * @return null|Table The table from the tables collection, or null if not found
+     */
     public function getTableByName(string $name): ?Table
     {
         $tableIndex = $this->getTableIndexByName($name);
@@ -2243,6 +2248,11 @@ class Worksheet implements IComparable
         return ($tableIndex === null) ? null : $this->tableCollection[$tableIndex];
     }
 
+    /**
+     * @param string $name the table name to search
+     *
+     * @return null|int The index of the located table in the tables collection, or null if not found
+     */
     protected function getTableIndexByName(string $name): ?int
     {
         $name = Shared\StringHelper::strToUpper($name);
