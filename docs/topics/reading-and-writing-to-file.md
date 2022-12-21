@@ -861,11 +861,11 @@ of different libraries.
 
 Currently, the following libraries are supported:
 
-Library | Downloadable from                   | PhpSpreadsheet writer
---------|-------------------------------------|----------------------
-TCPDF   | https://github.com/tecnickcom/tcpdf | Tcpdf
-mPDF    | https://github.com/mpdf/mpdf        | Mpdf
-Dompdf  | https://github.com/dompdf/dompdf    | Dompdf
+| Library | Downloadable from                   | PhpSpreadsheet writer |
+|---------|-------------------------------------|-----------------------|
+| TCPDF   | https://github.com/tecnickcom/tcpdf | Tcpdf                 |
+| mPDF    | https://github.com/mpdf/mpdf        | Mpdf                  |
+| Dompdf  | https://github.com/dompdf/dompdf    | Dompdf                |
 
 The different libraries have different strengths and weaknesses. Some
 generate better formatted output than others, some are faster or use
@@ -1088,16 +1088,16 @@ Flags that are available that can be passed to the Reader in this way include:
  - $reader::READ_DATA_ONLY
  - $reader::SKIP_EMPTY_CELLS
 
-Readers  | LOAD_WITH_CHARTS | READ_DATA_ONLY | SKIP_EMPTY_CELLS |
----------|------------------|----------------|------------------|
-Xlsx     | YES              | YES            | YES              |
-Xls      | NO               | YES            | YES              |
-Xml      | NO               | NO             | NO               |
-Ods      | NO               | YES            | NO               |
-Gnumeric | NO               | YES            | NO               |
-Html     | N/A              | N/A            | N/A              |
-Slk      | N/A              | NO             | NO               |
-Csv      | N/A              | NO             | NO               |
+| Readers  | LOAD_WITH_CHARTS | READ_DATA_ONLY | SKIP_EMPTY_CELLS |
+|----------|------------------|----------------|------------------|
+| Xlsx     | YES              | YES            | YES              |
+| Xls      | NO               | YES            | YES              |
+| Xml      | NO               | NO             | NO               |
+| Ods      | NO               | YES            | NO               |
+| Gnumeric | NO               | YES            | NO               |
+| Html     | N/A              | N/A            | N/A              |
+| Slk      | N/A              | NO             | NO               |
+| Csv      | N/A              | NO             | NO               |
 
 Likewise, when saving a file using a Writer, loaded charts wil not be saved unless you explicitly tell the Writer to include them:
 
@@ -1117,12 +1117,21 @@ Flags that are available that can be passed to the Reader in this way include:
 - $reader::SAVE_WITH_CHARTS
 - $reader::DISABLE_PRECALCULATE_FORMULAE
 
-Writers | SAVE_WITH_CHARTS | DISABLE_PRECALCULATE_FORMULAE |
---------|------------------|-------------------------------|
-Xlsx    | YES              | YES                           |
-Xls     | NO               | NO                            |
-Ods     | NO               | YES                           |
-Html    | YES              | YES                           |
-Pdf     | YES              | YES                           |
-Csv     | N/A              | YES                           |
+| Writers | SAVE_WITH_CHARTS | DISABLE_PRECALCULATE_FORMULAE |
+|---------|------------------|-------------------------------|
+| Xlsx    | YES              | YES                           |
+| Xls     | NO               | NO                            |
+| Ods     | NO               | YES                           |
+| Html    | YES              | YES                           |
+| Pdf     | YES              | YES                           |
+| Csv     | N/A              | YES                           |
 
+### Combining Flags
+
+One benefit of flags is that you can pass several flags in a single method call.
+Two or more flags can be passed together using PHP's `|` operator.
+
+```php
+$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReaderForFile("myExampleFile.xlsx");
+$reader->load("spreadsheetWithCharts.xlsx", $reader::READ_DATA_ONLY | $reader::SKIP_EMPTY_CELLS);
+```
