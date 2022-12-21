@@ -2222,6 +2222,41 @@ class Worksheet implements IComparable
     }
 
     /**
+     * @return string[] array of Table names
+     */
+    public function getTableNames(): array
+    {
+        $tableNames = [];
+
+        foreach ($this->tableCollection as $table) {
+            /** @var Table $table */
+            $tableNames[] = $table->getName();
+        }
+
+        return $tableNames;
+    }
+
+    public function getTableByName(string $name): ?Table
+    {
+        $tableIndex = $this->getTableIndexByName($name);
+
+        return ($tableIndex === null) ? null : $this->tableCollection[$tableIndex];
+    }
+
+    protected function getTableIndexByName(string $name): ?int
+    {
+        $name = Shared\StringHelper::strToUpper($name);
+        foreach ($this->tableCollection as $index => $table) {
+            /** @var Table $table */
+            if (Shared\StringHelper::strToUpper($table->getName()) === $name) {
+                return $index;
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * Remove Table by name.
      *
      * @param string $name Table name
@@ -2230,11 +2265,10 @@ class Worksheet implements IComparable
      */
     public function removeTableByName(string $name): self
     {
-        $name = Shared\StringHelper::strToUpper($name);
-        foreach ($this->tableCollection as $key => $table) {
-            if (Shared\StringHelper::strToUpper($table->getName()) === $name) {
-                unset($this->tableCollection[$key]);
-            }
+        $tableIndex = $this->getTableIndexByName($name);
+
+        if ($tableIndex !== null) {
+            unset($this->tableCollection[$tableIndex]);
         }
 
         return $this;
