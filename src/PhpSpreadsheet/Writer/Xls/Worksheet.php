@@ -1494,6 +1494,24 @@ class Worksheet extends BIFFwriter
         $this->append($header . $recordData);
     }
 
+    private static function protectionBitsDefaultFalse(?bool $value, int $shift): int
+    {
+        if ($value === false) {
+            return 1 << $shift;
+        }
+
+        return 0;
+    }
+
+    private static function protectionBitsDefaultTrue(?bool $value, int $shift): int
+    {
+        if ($value !== false) {
+            return 1 << $shift;
+        }
+
+        return 0;
+    }
+
     /**
      * Write SHEETPROTECTION.
      */
@@ -1503,21 +1521,22 @@ class Worksheet extends BIFFwriter
         $record = 0x0867;
 
         // prepare options
-        $options = (int) !$this->phpSheet->getProtection()->getObjects()
-            | (int) !$this->phpSheet->getProtection()->getScenarios() << 1
-            | (int) !$this->phpSheet->getProtection()->getFormatCells() << 2
-            | (int) !$this->phpSheet->getProtection()->getFormatColumns() << 3
-            | (int) !$this->phpSheet->getProtection()->getFormatRows() << 4
-            | (int) !$this->phpSheet->getProtection()->getInsertColumns() << 5
-            | (int) !$this->phpSheet->getProtection()->getInsertRows() << 6
-            | (int) !$this->phpSheet->getProtection()->getInsertHyperlinks() << 7
-            | (int) !$this->phpSheet->getProtection()->getDeleteColumns() << 8
-            | (int) !$this->phpSheet->getProtection()->getDeleteRows() << 9
-            | (int) !$this->phpSheet->getProtection()->getSelectLockedCells() << 10
-            | (int) !$this->phpSheet->getProtection()->getSort() << 11
-            | (int) !$this->phpSheet->getProtection()->getAutoFilter() << 12
-            | (int) !$this->phpSheet->getProtection()->getPivotTables() << 13
-            | (int) !$this->phpSheet->getProtection()->getSelectUnlockedCells() << 14;
+        $protection = $this->phpSheet->getProtection();
+        $options = self::protectionBitsDefaultTrue($protection->getObjects(), 0)
+            | self::protectionBitsDefaultTrue($protection->getScenarios(), 1)
+            | self::protectionBitsDefaultFalse($protection->getFormatCells(), 2)
+            | self::protectionBitsDefaultFalse($protection->getFormatColumns(), 3)
+            | self::protectionBitsDefaultFalse($protection->getFormatRows(), 4)
+            | self::protectionBitsDefaultFalse($protection->getInsertColumns(), 5)
+            | self::protectionBitsDefaultFalse($protection->getInsertRows(), 6)
+            | self::protectionBitsDefaultFalse($protection->getInsertHyperlinks(), 7)
+            | self::protectionBitsDefaultFalse($protection->getDeleteColumns(), 8)
+            | self::protectionBitsDefaultFalse($protection->getDeleteRows(), 9)
+            | self::protectionBitsDefaultTrue($protection->getSelectLockedCells(), 10)
+            | self::protectionBitsDefaultFalse($protection->getSort(), 11)
+            | self::protectionBitsDefaultFalse($protection->getAutoFilter(), 12)
+            | self::protectionBitsDefaultFalse($protection->getPivotTables(), 13)
+            | self::protectionBitsDefaultTrue($protection->getSelectUnlockedCells(), 14);
 
         // record data
         $recordData = pack(
@@ -2083,7 +2102,7 @@ class Worksheet extends BIFFwriter
     private function writeProtect(): void
     {
         // Exit unless sheet protection has been specified
-        if (!$this->phpSheet->getProtection()->getSheet()) {
+        if ($this->phpSheet->getProtection()->getSheet() !== true) {
             return;
         }
 
@@ -2104,12 +2123,12 @@ class Worksheet extends BIFFwriter
     private function writeScenProtect(): void
     {
         // Exit if sheet protection is not active
-        if (!$this->phpSheet->getProtection()->getSheet()) {
+        if ($this->phpSheet->getProtection()->getSheet() !== true) {
             return;
         }
 
         // Exit if scenarios are not protected
-        if (!$this->phpSheet->getProtection()->getScenarios()) {
+        if ($this->phpSheet->getProtection()->getScenarios() !== true) {
             return;
         }
 
@@ -2128,12 +2147,12 @@ class Worksheet extends BIFFwriter
     private function writeObjectProtect(): void
     {
         // Exit if sheet protection is not active
-        if (!$this->phpSheet->getProtection()->getSheet()) {
+        if ($this->phpSheet->getProtection()->getSheet() !== true) {
             return;
         }
 
         // Exit if objects are not protected
-        if (!$this->phpSheet->getProtection()->getObjects()) {
+        if ($this->phpSheet->getProtection()->getObjects() !== true) {
             return;
         }
 
@@ -2152,7 +2171,7 @@ class Worksheet extends BIFFwriter
     private function writePassword(): void
     {
         // Exit unless sheet protection and password have been specified
-        if (!$this->phpSheet->getProtection()->getSheet() || !$this->phpSheet->getProtection()->getPassword() || $this->phpSheet->getProtection()->getAlgorithm() !== '') {
+        if ($this->phpSheet->getProtection()->getSheet() !== true || !$this->phpSheet->getProtection()->getPassword() || $this->phpSheet->getProtection()->getAlgorithm() !== '') {
             return;
         }
 

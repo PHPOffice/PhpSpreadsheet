@@ -144,6 +144,12 @@ abstract class BaseReader implements IReader
         if (((bool) ($flags & self::LOAD_WITH_CHARTS)) === true) {
             $this->setIncludeCharts(true);
         }
+        if (((bool) ($flags & self::READ_DATA_ONLY)) === true) {
+            $this->setReadDataOnly(true);
+        }
+        if (((bool) ($flags & self::SKIP_EMPTY_CELLS)) === true) {
+            $this->setReadEmptyCells(false);
+        }
     }
 
     protected function loadSpreadsheetFromFile(string $filename): Spreadsheet

@@ -303,6 +303,18 @@ class ParseFormulaTest extends TestCase
                 ],
                 '=[@[Unit Price]]',
             ],
+            'Fully Qualified Full Table Structured Reference' => [
+                [
+                    ['type' => 'Structured Reference', 'value' => new StructuredReference('DeptSales[]'), 'reference' => null],
+                ],
+                '=DeptSales[]',
+            ],
+            'Unqualified Full Table Structured Reference' => [
+                [
+                    ['type' => 'Structured Reference', 'value' => new StructuredReference('[]'), 'reference' => null],
+                ],
+                '=[]',
+            ],
             'Structured Reference Arithmetic' => [
                 [
                     ['type' => 'Structured Reference', 'value' => new StructuredReference('[@Quantity]'), 'reference' => null],
