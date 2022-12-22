@@ -3,7 +3,6 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\NamedRange;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -67,29 +66,6 @@ class HLookupTest extends TestCase
     public function providerHLOOKUP(): array
     {
         return require 'tests/data/Calculation/LookupRef/HLOOKUP.php';
-    }
-
-    public function testGrandfathered(): void
-    {
-        // Second parameter is supposed to be array of arrays.
-        // Some old tests called function directly using array of strings;
-        // ensure these work as before.
-        $expectedResult = '#REF!';
-        $result = /** @scrutinizer ignore-deprecated */ LookupRef::HLOOKUP(
-            'Selection column',
-            ['Selection column', 'Value to retrieve'],
-            5,
-            false
-        );
-        self::assertSame($expectedResult, $result);
-        $expectedResult = 'Value to retrieve';
-        $result = /** @scrutinizer ignore-deprecated */ LookupRef::HLOOKUP(
-            'Selection column',
-            ['Selection column', 'Value to retrieve'],
-            2,
-            false
-        );
-        self::assertSame($expectedResult, $result);
     }
 
     /**

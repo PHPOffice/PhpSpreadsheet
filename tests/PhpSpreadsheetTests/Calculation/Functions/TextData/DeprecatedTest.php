@@ -40,5 +40,6 @@ class DeprecatedTest extends TestCase
         self::assertSame('ayxw', /** @scrutinizer ignore-deprecated */ TextData::SUBSTITUTE('xyxw', 'x', 'a', 1));
         self::assertSame('1', /** @scrutinizer ignore-deprecated */ TextData::CHARACTER('49'));
         self::assertSame('0', /** @scrutinizer ignore-deprecated */ TextData::CHARACTER('48'));
+        self::assertSame('xyz', /** @scrutinizer ignore-deprecated */ TextData::RETURNSTRING('xyz'));
     }
 }
