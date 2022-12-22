@@ -1099,7 +1099,7 @@ Flags that are available that can be passed to the Reader in this way include:
 | Slk      | N/A              | NO             | NO               |
 | Csv      | N/A              | NO             | NO               |
 
-Likewise, when saving a file using a Writer, loaded charts wil not be saved unless you explicitly tell the Writer to include them:
+Likewise, when saving a file using a Writer, loaded charts will not be saved unless you explicitly tell the Writer to include them:
 
 ```php
 $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
