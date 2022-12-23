@@ -4630,14 +4630,6 @@ class Calculation
         return $operand;
     }
 
-    private const NUMERIC_BINARY_OPERATIONS = [
-        '+' => 'plusEquals',
-        '-' => 'minusEquals',
-        '*' => 'arrayTimesEquals',
-        '/' => 'arrayRightDivide',
-        '^' => 'power',
-    ];
-
     /**
      * @param mixed $tokens
      * @param null|string $cellID
@@ -4840,7 +4832,7 @@ class Calculation
                     case '*':            //    Multiplication
                     case '/':            //    Division
                     case '^':            //    Exponential
-                        $result = $this->executeNumericBinaryOperation($operand1, $operand2, $token, self::NUMERIC_BINARY_OPERATIONS[$token], $stack);
+                        $result = $this->executeNumericBinaryOperation($operand1, $operand2, $token, $stack);
                         if (isset($storeKey)) {
                             $branchStore[$storeKey] = $result;
                         }
@@ -4945,7 +4937,7 @@ class Calculation
                         $branchStore[$storeKey] = $result;
                     }
                 } else {
-                    $this->executeNumericBinaryOperation($multiplier, $arg, '*', 'arrayTimesEquals', $stack);
+                    $this->executeNumericBinaryOperation($multiplier, $arg, '*', $stack);
                 }
             } elseif (preg_match('/^' . self::CALCULATION_REGEXP_CELLREF . '$/i', $token ?? '', $matches)) {
                 $cellRef = null;
@@ -5285,12 +5277,11 @@ class Calculation
      * @param mixed $operand1
      * @param mixed $operand2
      * @param string $operation
-     * @param string $matrixFunction
      * @param Stack $stack
      *
      * @return bool|mixed
      */
-    private function executeNumericBinaryOperation($operand1, $operand2, $operation, $matrixFunction, &$stack)
+    private function executeNumericBinaryOperation($operand1, $operand2, $operation, &$stack)
     {
         //    Validate the two operands
         if (
@@ -5666,25 +5657,6 @@ class Calculation
         }
 
         return $args;
-    }
-
-    /**
-     * @param array $tokens
-     *
-     * @return string
-     */
-    private function getTokensAsString($tokens)
-    {
-        $tokensStr = array_map(function ($token) {
-            $value = $token['value'] ?? 'no value';
-            while (is_array($value)) {
-                $value = array_pop($value);
-            }
-
-            return $value;
-        }, $tokens);
-
-        return '[ ' . implode(' | ', $tokensStr) . ' ]';
     }
 
     /**
