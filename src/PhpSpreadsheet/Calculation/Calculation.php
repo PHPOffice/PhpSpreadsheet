@@ -4732,9 +4732,20 @@ class Calculation
             }
 
             if ($token instanceof Operands\StructuredReference) {
-                throw new Exception('Structured References are not currently supported');
                 // The next step is converting any structured reference to a cell value of range
-                //     to a new $token value, which can then be processed in the following code.
+                //     to a new $token value (a cell range), which can then be processed in the following code.
+                var_dump($token);
+
+                if ($cell === null) {
+                    return $this->raiseFormulaError('Structured References must exist in a Cell context');
+                }
+
+                try {
+                    $token->parse($cell);
+                } catch (Exception $e) {
+                    return $this->raiseFormulaError($e->getMessage());
+                }
+                die();
             }
 
             // if the token is a binary operator, pop the top two values off the stack, do the operation, and push the result back on the stack
