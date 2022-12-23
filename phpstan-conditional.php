@@ -74,11 +74,6 @@ if (PHP_VERSION_ID < 80000) {
         'path' => __DIR__ . '/src/PhpSpreadsheet/Calculation/TextData/Text.php',
         'count' => 1,
     ];
-    $config['parameters']['ignoreErrors'][] = [
-        'message' => '#^Property PhpOffice\\PhpSpreadsheet\\Shared\\JAMA\\Matrix::$A (array) does not accept array<int, array<int, int>|false>|false.$#',
-        'path' => __DIR__ . '/src/PhpSpreadsheet/Shared/JAMA/Matrix.php',
-        'count' => 2,
-    ];
 } else {
     // Flagged in Php8+ - unsure how to correct code
     $config['parameters']['ignoreErrors'][] = [

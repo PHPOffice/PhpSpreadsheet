@@ -11,7 +11,7 @@ class MaxTest extends AllSetupTeardown
      */
     public function testMAX($expectedResult, ...$args): void
     {
-        $this->runTestCases('MAX', $expectedResult, ...$args);
+        $this->runTestCaseReference('MAX', $expectedResult, ...$args);
     }
 
     public function providerMAX(): array

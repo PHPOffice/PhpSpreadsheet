@@ -29,4 +29,8 @@ return [
         0,
         null, null, null, null,
     ],
+    'error among arguments' => [
+        '#DIV/0!',
+        1, 3, '=5/0', -2,
+    ],
 ];
