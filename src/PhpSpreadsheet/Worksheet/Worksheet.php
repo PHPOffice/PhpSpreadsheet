@@ -1234,6 +1234,11 @@ class Worksheet implements IComparable
      *               or as an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress object.
      *
      * @return Cell Cell that was found or created
+     *              WARNING: Because the cell collection can be cached to reduce memory, it only allows one
+     *              "active" cell at a time in memory. If you assign that cell to a variable, then select
+     *              another cell using getCell() or any of its variants, the newly selected cell becomes
+     *              the "active" cell, and any previous assignment becomes a disconnected reference because
+     *              the active cell has changed.
      */
     public function getCell($coordinate): Cell
     {
@@ -1336,6 +1341,11 @@ class Worksheet implements IComparable
      * @param int $row Numeric row coordinate of the cell
      *
      * @return Cell Cell that was found/created or null
+     *              WARNING: Because the cell collection can be cached to reduce memory, it only allows one
+     *              "active" cell at a time in memory. If you assign that cell to a variable, then select
+     *              another cell using getCell() or any of its variants, the newly selected cell becomes
+     *              the "active" cell, and any previous assignment becomes a disconnected reference because
+     *              the active cell has changed.
      */
     public function getCellByColumnAndRow($columnIndex, $row): Cell
     {
@@ -1348,6 +1358,11 @@ class Worksheet implements IComparable
      * @param string $coordinate Coordinate of the cell
      *
      * @return Cell Cell that was created
+     *              WARNING: Because the cell collection can be cached to reduce memory, it only allows one
+     *              "active" cell at a time in memory. If you assign that cell to a variable, then select
+     *              another cell using getCell() or any of its variants, the newly selected cell becomes
+     *              the "active" cell, and any previous assignment becomes a disconnected reference because
+     *              the active cell has changed.
      */
     public function createNewCell($coordinate): Cell
     {
@@ -2207,6 +2222,51 @@ class Worksheet implements IComparable
     }
 
     /**
+     * @return string[] array of Table names
+     */
+    public function getTableNames(): array
+    {
+        $tableNames = [];
+
+        foreach ($this->tableCollection as $table) {
+            /** @var Table $table */
+            $tableNames[] = $table->getName();
+        }
+
+        return $tableNames;
+    }
+
+    /**
+     * @param string $name the table name to search
+     *
+     * @return null|Table The table from the tables collection, or null if not found
+     */
+    public function getTableByName(string $name): ?Table
+    {
+        $tableIndex = $this->getTableIndexByName($name);
+
+        return ($tableIndex === null) ? null : $this->tableCollection[$tableIndex];
+    }
+
+    /**
+     * @param string $name the table name to search
+     *
+     * @return null|int The index of the located table in the tables collection, or null if not found
+     */
+    protected function getTableIndexByName(string $name): ?int
+    {
+        $name = Shared\StringHelper::strToUpper($name);
+        foreach ($this->tableCollection as $index => $table) {
+            /** @var Table $table */
+            if (Shared\StringHelper::strToUpper($table->getName()) === $name) {
+                return $index;
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * Remove Table by name.
      *
      * @param string $name Table name
@@ -2215,11 +2275,10 @@ class Worksheet implements IComparable
      */
     public function removeTableByName(string $name): self
     {
-        $name = Shared\StringHelper::strToUpper($name);
-        foreach ($this->tableCollection as $key => $table) {
-            if (Shared\StringHelper::strToUpper($table->getName()) === $name) {
-                unset($this->tableCollection[$key]);
-            }
+        $tableIndex = $this->getTableIndexByName($name);
+
+        if ($tableIndex !== null) {
+            unset($this->tableCollection[$tableIndex]);
         }
 
         return $this;

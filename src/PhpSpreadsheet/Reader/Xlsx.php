@@ -760,7 +760,7 @@ class Xlsx extends BaseReader
                                     $sheetViews->load();
                                 }
 
-                                $sheetViewOptions = new SheetViewOptions($docSheet, $xmlSheet);
+                                $sheetViewOptions = new SheetViewOptions($docSheet, $xmlSheetNS);
                                 $sheetViewOptions->load($this->getReadDataOnly(), $this->styleReader);
 
                                 (new ColumnAndRowAttributes($docSheet, $xmlSheetNS))
@@ -896,11 +896,11 @@ class Xlsx extends BaseReader
                                 }
                             }
 
-                            $aKeys = ['sheet', 'objects', 'scenarios', 'formatCells', 'formatColumns', 'formatRows', 'insertColumns', 'insertRows', 'insertHyperlinks', 'deleteColumns', 'deleteRows', 'selectLockedCells', 'sort', 'autoFilter', 'pivotTables', 'selectUnlockedCells'];
-                            if (!$this->readDataOnly && $xmlSheet && $xmlSheet->sheetProtection) {
-                                foreach ($aKeys as $key) {
+                            if (!$this->readDataOnly && $xmlSheetNS && $xmlSheetNS->sheetProtection) {
+                                $protAttr = $xmlSheetNS->sheetProtection->attributes() ?? [];
+                                foreach ($protAttr as $key => $value) {
                                     $method = 'set' . ucfirst($key);
-                                    $docSheet->getProtection()->$method(self::boolean((string) $xmlSheet->sheetProtection[$key]));
+                                    $docSheet->getProtection()->$method(self::boolean((string) $value));
                                 }
                             }
 

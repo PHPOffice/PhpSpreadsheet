@@ -31,7 +31,7 @@ class Calculation
     //    Opening bracket
     const CALCULATION_REGEXP_OPENBRACE = '\(';
     //    Function (allow for the old @ symbol that could be used to prefix a function, but we'll ignore it)
-    const CALCULATION_REGEXP_FUNCTION = '@?(?:_xlfn\.)?([\p{L}][\p{L}\p{N}\.]*)[\s]*\(';
+    const CALCULATION_REGEXP_FUNCTION = '@?(?:_xlfn\.)?(?:_xlws\.)?([\p{L}][\p{L}\p{N}\.]*)[\s]*\(';
     //    Cell reference (cell or range of cells, with or without a sheet reference)
     const CALCULATION_REGEXP_CELLREF = '((([^\s,!&%^\/\*\+<>=:`-]*)|(\'(?:[^\']|\'[^!])+?\')|(\"(?:[^\"]|\"[^!])+?\"))!)?\$?\b([a-z]{1,3})\$?(\d{1,7})(?![\w.])';
     //    Cell reference (with or without a sheet reference) ensuring absolute/relative
@@ -45,7 +45,7 @@ class Calculation
     //    Defined Names: Named Range of cells, or Named Formulae
     const CALCULATION_REGEXP_DEFINEDNAME = '((([^\s,!&%^\/\*\+<>=-]*)|(\'(?:[^\']|\'[^!])+?\')|(\"(?:[^\"]|\"[^!])+?\"))!)?([_\p{L}][_\p{L}\p{N}\.]*)';
     // Structured Reference (Fully Qualified and Unqualified)
-    const CALCULATION_REGEXP_STRUCTURED_REFERENCE = '([\p{L}_\\\\][\p{L}\p{N}\._]+)?(\[(?:[^\d\]+-]))';
+    const CALCULATION_REGEXP_STRUCTURED_REFERENCE = '([\p{L}_\\\\][\p{L}\p{N}\._]+)?(\[(?:[^\d\]+-])?)';
     //    Error
     const CALCULATION_REGEXP_ERROR = '\#[A-Z][A-Z0_\/]*[!\?]?';
 
@@ -316,6 +316,11 @@ class Calculation
             'functionCall' => [Financial\Amortization::class, 'AMORLINC'],
             'argumentCount' => '6,7',
         ],
+        'ANCHORARRAY' => [
+            'category' => Category::CATEGORY_UNCATEGORISED,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '*',
+        ],
         'AND' => [
             'category' => Category::CATEGORY_LOGICAL,
             'functionCall' => [Logical\Operations::class, 'logicalAnd'],
@@ -500,6 +505,16 @@ class Calculation
             'category' => Category::CATEGORY_ENGINEERING,
             'functionCall' => [Engineering\BitWise::class, 'BITRSHIFT'],
             'argumentCount' => '2',
+        ],
+        'BYCOL' => [
+            'category' => Category::CATEGORY_LOGICAL,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '*',
+        ],
+        'BYROW' => [
+            'category' => Category::CATEGORY_LOGICAL,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '*',
         ],
         'CEILING' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
@@ -1574,6 +1589,11 @@ class Calculation
             'functionCall' => [Information\Value::class, 'isOdd'],
             'argumentCount' => '1',
         ],
+        'ISOMITTED' => [
+            'category' => Category::CATEGORY_INFORMATION,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '*',
+        ],
         'ISOWEEKNUM' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
             'functionCall' => [DateTimeExcel\Week::class, 'isoWeekNumber'],
@@ -1611,6 +1631,11 @@ class Calculation
             'functionCall' => [Statistical\Deviations::class, 'kurtosis'],
             'argumentCount' => '1+',
         ],
+        'LAMBDA' => [
+            'category' => Category::CATEGORY_LOGICAL,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '*',
+        ],
         'LARGE' => [
             'category' => Category::CATEGORY_STATISTICAL,
             'functionCall' => [Statistical\Size::class, 'large'],
@@ -1640,6 +1665,11 @@ class Calculation
             'category' => Category::CATEGORY_TEXT_AND_DATA,
             'functionCall' => [TextData\Text::class, 'length'],
             'argumentCount' => '1',
+        ],
+        'LET' => [
+            'category' => Category::CATEGORY_LOGICAL,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '*',
         ],
         'LINEST' => [
             'category' => Category::CATEGORY_STATISTICAL,
@@ -1695,6 +1725,16 @@ class Calculation
             'category' => Category::CATEGORY_TEXT_AND_DATA,
             'functionCall' => [TextData\CaseConvert::class, 'lower'],
             'argumentCount' => '1',
+        ],
+        'MAKEARRAY' => [
+            'category' => Category::CATEGORY_LOGICAL,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '*',
+        ],
+        'MAP' => [
+            'category' => Category::CATEGORY_LOGICAL,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '*',
         ],
         'MATCH' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
@@ -2168,6 +2208,11 @@ class Calculation
             'functionCall' => [Financial\Securities\Price::class, 'received'],
             'argumentCount' => '4-5',
         ],
+        'REDUCE' => [
+            'category' => Category::CATEGORY_LOGICAL,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '*',
+        ],
         'REPLACE' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
             'functionCall' => [TextData\Replace::class, 'replace'],
@@ -2255,6 +2300,11 @@ class Calculation
             'functionCall' => [TextData\Search::class, 'insensitive'],
             'argumentCount' => '2,3',
         ],
+        'SCAN' => [
+            'category' => Category::CATEGORY_LOGICAL,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '*',
+        ],
         'SEARCHB' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
             'functionCall' => [TextData\Search::class, 'insensitive'],
@@ -2304,6 +2354,11 @@ class Calculation
             'category' => Category::CATEGORY_MATH_AND_TRIG,
             'functionCall' => [MathTrig\Trig\Sine::class, 'sin'],
             'argumentCount' => '1',
+        ],
+        'SINGLE' => [
+            'category' => Category::CATEGORY_UNCATEGORISED,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '*',
         ],
         'SINH' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
@@ -4420,9 +4475,11 @@ class Calculation
                         $stackItemType = 'Constant';
                         $excelConstant = trim(strtoupper($val));
                         $val = self::$excelConstants[$excelConstant];
+                        $stackItemReference = $excelConstant;
                     } elseif (($localeConstant = array_search(trim(strtoupper($val)), self::$localeBoolean)) !== false) {
                         $stackItemType = 'Constant';
                         $val = self::$excelConstants[$localeConstant];
+                        $stackItemReference = $localeConstant;
                     } elseif (
                         preg_match('/^' . self::CALCULATION_REGEXP_ROW_RANGE . '/miu', substr($formula, $index), $rowRangeReference)
                     ) {

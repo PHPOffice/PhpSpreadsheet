@@ -2,6 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Database\DCountA;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
+
 class DCountATest extends AllSetupTeardown
 {
     /**
@@ -12,9 +15,26 @@ class DCountATest extends AllSetupTeardown
      * @param mixed $field
      * @param mixed $criteria
      */
-    public function testDCountA($expectedResult, $database, $field, $criteria): void
+    public function testDirectCallToDCountA($expectedResult, $database, $field, $criteria): void
     {
-        $this->runTestCase('DCOUNTA', $expectedResult, $database, $field, $criteria);
+        $result = DCountA::evaluate($database, $field, $criteria);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
+    }
+
+    /**
+     * @dataProvider providerDCountA
+     *
+     * @param mixed $expectedResult
+     * @param mixed $database
+     * @param mixed $field
+     * @param mixed $criteria
+     */
+    public function testDCountAAsWorksheetFormula($expectedResult, $database, $field, $criteria): void
+    {
+        $this->prepareWorksheetWithFormula('DCOUNTA', $database, $field, $criteria);
+
+        $result = $this->getSheet()->getCell(self::RESULT_CELL)->getCalculatedValue();
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
     public function providerDCountA(): array
@@ -57,7 +77,7 @@ class DCountATest extends AllSetupTeardown
                 ],
             ],
             'invalid field name' => [
-                '#VALUE!',
+                ExcelError::VALUE(),
                 $this->database3(),
                 'Scorex',
                 [

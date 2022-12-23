@@ -23,7 +23,7 @@ class Validations
 //                throw new Exception('Reference is not for this worksheet');
 //            }
 
-            return empty($worksheet) ? strtoupper($address) : $worksheet . '!' . strtoupper($address);
+            return empty($worksheet) ? strtoupper("$address") : $worksheet . '!' . strtoupper("$address");
         }
 
         if (is_array($cellAddress)) {
