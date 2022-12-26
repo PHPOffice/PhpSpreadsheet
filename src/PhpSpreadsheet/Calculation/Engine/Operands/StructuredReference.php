@@ -179,9 +179,9 @@ final class StructuredReference implements Operand
             $columnName = str_replace("\u{a0}", ' ', $columnName);
             $cellReference = $columnId . $cell->getRow();
             /** @var string $reference */
-            if (stripos($reference, '[' . $columnName . ']') !== false) {
+            if (stripos($reference, "[{$columnName}]") !== false) {
                 $reference = preg_replace('/\[' . preg_quote($columnName) . '\]/miu', $cellReference, $reference);
-            } elseif (stripos($reference, $columnName) !== false) {
+            } elseif (stripos($reference, "@{$columnName}") !== false) {
                 $reference = preg_replace('/@' . preg_quote($columnName) . '/miu', $cellReference, $reference);
             }
         }
@@ -200,21 +200,7 @@ final class StructuredReference implements Operand
         $startRow = ($this->totalsRow === null) ? $this->lastDataRow : $this->totalsRow;
         $endRow = ($this->headersRow === null) ? $this->firstDataRow : $this->headersRow;
 
-        $rowsSelected = false;
-        foreach (self::ITEM_SPECIFIER_ROWS_SET as $rowReference) {
-            /** @var string $reference */
-            if (stripos($reference, '[' . $rowReference . ']') !== false) {
-                $rowsSelected = true;
-                $startRow = min($startRow, $this->getMinimumRow($rowReference));
-                $endRow = max($endRow, $this->getMaximumRow($rowReference));
-                $reference = preg_replace('/\[' . $rowReference . '\],/mui', '', $reference);
-            }
-        }
-        if ($rowsSelected === false) {
-            // If there isn't any Special Item Identifier specified, then the selection defaults to data rows only.
-            $startRow = $this->firstDataRow;
-            $endRow = $this->lastDataRow;
-        }
+        [$startRow, $endRow] = $this->getRowsForColumnReference($reference, $startRow, $endRow);
 
         $columnsSelected = false;
         foreach ($this->columns as $columnId => $columnName) {
@@ -223,12 +209,9 @@ final class StructuredReference implements Operand
             $cellTo = "{$columnId}{$endRow}";
             $cellReference = ($cellFrom === $cellTo) ? $cellFrom : "{$cellFrom}:{$cellTo}";
             /** @var string $reference */
-            if (stripos($reference, '[' . $columnName . ']') !== false) {
+            if (stripos($reference, "[{$columnName}]") !== false) {
                 $columnsSelected = true;
                 $reference = preg_replace('/\[' . preg_quote($columnName) . '\]/miu', $cellReference, $reference);
-            } elseif (stripos($reference, $columnName) !== false) {
-                $reference = preg_replace('/@' . preg_quote($columnName) . '/miu', $cellReference, $reference);
-                $columnsSelected = true;
             }
         }
         if ($columnsSelected === false) {
@@ -300,5 +283,29 @@ final class StructuredReference implements Operand
     public function value(): string
     {
         return $this->value;
+    }
+
+    /**
+     * @return array<int, int>
+     */
+    public function getRowsForColumnReference(string &$reference, int $startRow, int $endRow): array
+    {
+        $rowsSelected = false;
+        foreach (self::ITEM_SPECIFIER_ROWS_SET as $rowReference) {
+            /** @var string $reference */
+            if (stripos($reference, "[{$rowReference}]") !== false) {
+                $rowsSelected = true;
+                $startRow = min($startRow, $this->getMinimumRow($rowReference));
+                $endRow = max($endRow, $this->getMaximumRow($rowReference));
+                $reference = preg_replace('/\[' . $rowReference . '\],/mui', '', $reference);
+            }
+        }
+        if ($rowsSelected === false) {
+            // If there isn't any Special Item Identifier specified, then the selection defaults to data rows only.
+            $startRow = $this->firstDataRow;
+            $endRow = $this->lastDataRow;
+        }
+
+        return [$startRow, $endRow];
     }
 }
