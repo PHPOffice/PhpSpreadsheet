@@ -4732,9 +4732,6 @@ class Calculation
             }
 
             if ($token instanceof Operands\StructuredReference) {
-                // The next step is converting any structured reference to a cell value of range
-                //     to a new $token value (a cell range), which can then be processed in the following code.
-
                 if ($cell === null) {
                     return $this->raiseFormulaError('Structured References must exist in a Cell context');
                 }
@@ -4743,7 +4740,7 @@ class Calculation
                     $cellRange = $token->parse($cell);
                     if (strpos($cellRange, ':') !== false) {
                         $this->debugLog->writeDebugLog('Evaluating Structured Reference %s as Cell Range %s', $token->value(), $cellRange);
-                        $rangeValue = self::getInstance($cell->getWorksheet()->getParent())->_calculateFormulaValue("={$cellRange}", '=>', $cell);
+                        $rangeValue = self::getInstance($cell->getWorksheet()->getParent())->_calculateFormulaValue("={$cellRange}", $token->value(), $cell);
                         $stack->push('Value', $rangeValue);
                         $this->debugLog->writeDebugLog('Evaluated Structured Reference %s as a value %s', $token->value(), $this->showValue($rangeValue));
                     } else {

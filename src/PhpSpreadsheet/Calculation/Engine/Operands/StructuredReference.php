@@ -218,8 +218,7 @@ final class StructuredReference implements Operand
             return $this->fullData($startRow, $endRow);
         }
 
-        /** @var string $reference */
-        $reference = trim($reference, '[]@ ');
+        $reference = trim($reference ?? '', '[]@ ');
         if (substr_count($reference, ':') > 1) {
             $cells = explode(':', $reference);
             $firstCell = array_shift($cells);
@@ -265,6 +264,8 @@ final class StructuredReference implements Operand
             case self::ITEM_SPECIFIER_TOTALS:
                 return $this->totalsRow ?? $this->lastDataRow;
         }
+
+        return 1;
     }
 
     private function getMaximumRow(string $reference): int
@@ -278,6 +279,8 @@ final class StructuredReference implements Operand
             case self::ITEM_SPECIFIER_TOTALS:
                 return $this->totalsRow ?? $this->lastDataRow;
         }
+
+        return 1;
     }
 
     public function value(): string
