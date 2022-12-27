@@ -46,7 +46,9 @@ class TextSplitTest extends AllSetupTeardown
         $worksheet = $this->getSheet();
         $worksheet->getCell('A1')->setValue($text);
         $this->setDelimiterValues($worksheet, 'B', $columnDelimiter);
-        $this->setDelimiterValues($worksheet, 'C', $rowDelimiter);
+        if (!empty($rowDelimiter)) {
+            $this->setDelimiterValues($worksheet, 'C', $rowDelimiter);
+        }
         $worksheet->getCell('H1')->setValue("=TEXTSPLIT({$args})");
 
         $result = Calculation::getInstance($this->getSpreadsheet())->calculateCellValue($worksheet->getCell('H1'));

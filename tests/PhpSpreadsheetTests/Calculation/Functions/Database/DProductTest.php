@@ -2,7 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Database\DProduct;
 use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 class DProductTest extends AllSetupTeardown
 {
@@ -14,9 +16,26 @@ class DProductTest extends AllSetupTeardown
      * @param mixed $field
      * @param mixed $criteria
      */
-    public function testDProduct($expectedResult, $database, $field, $criteria): void
+    public function testDirectCallToDProduct($expectedResult, $database, $field, $criteria): void
     {
-        $this->runTestCase('DPRODUCT', $expectedResult, $database, $field, $criteria);
+        $result = DProduct::evaluate($database, $field, $criteria);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
+    }
+
+    /**
+     * @dataProvider providerDProduct
+     *
+     * @param mixed $expectedResult
+     * @param mixed $database
+     * @param mixed $field
+     * @param mixed $criteria
+     */
+    public function testDProductAsWorksheetFormula($expectedResult, $database, $field, $criteria): void
+    {
+        $this->prepareWorksheetWithFormula('DPRODUCT', $database, $field, $criteria);
+
+        $result = $this->getSheet()->getCell(self::RESULT_CELL)->getCalculatedValue();
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
     private function database5(): array
@@ -70,7 +89,7 @@ class DProductTest extends AllSetupTeardown
                 ],
             ],
             'omitted field name' => [
-                '#VALUE!',
+                ExcelError::VALUE(),
                 $this->database1(),
                 null,
                 $this->database1(),
