@@ -1091,7 +1091,6 @@ class Worksheet extends BIFFwriter
         }
 
         $record = 0x01B8; // Record identifier
-        $length = 0x00000; // Bytes to follow
 
         // Strip URL type and change Unix dir separator to Dos style (if needed)
         //
@@ -1127,18 +1126,18 @@ class Worksheet extends BIFFwriter
         $dir_short = (string) preg_replace('/\\.\\.\\\\/', '', $dir_long) . "\0";
 
         // Store the long dir name as a wchar string (non-null terminated)
-        $dir_long = $dir_long . "\0";
+        //$dir_long = $dir_long . "\0";
 
         // Pack the lengths of the dir strings
         $dir_short_len = pack('V', strlen($dir_short));
-        $dir_long_len = pack('V', strlen($dir_long));
+        //$dir_long_len = pack('V', strlen($dir_long));
         $stream_len = pack('V', 0); //strlen($dir_long) + 0x06);
 
         // Pack the undocumented parts of the hyperlink stream
         $unknown1 = pack('H*', 'D0C9EA79F9BACE118C8200AA004BA90B02000000');
         $unknown2 = pack('H*', '0303000000000000C000000000000046');
         $unknown3 = pack('H*', 'FFFFADDE000000000000000000000000000000000000000');
-        $unknown4 = pack('v', 0x03);
+        //$unknown4 = pack('v', 0x03);
 
         // Pack the main data stream
         $data = pack('vvvv', $row1, $row2, $col1, $col2) .
@@ -1242,7 +1241,6 @@ class Worksheet extends BIFFwriter
         $record = 0x023E; // Record identifier
         $length = 0x0012;
 
-        $grbit = 0x00B6; // Option flags
         $rwTop = 0x0000; // Top row visible in window
         $colLeft = 0x0000; // Leftmost column visible in window
 
@@ -1496,6 +1494,24 @@ class Worksheet extends BIFFwriter
         $this->append($header . $recordData);
     }
 
+    private static function protectionBitsDefaultFalse(?bool $value, int $shift): int
+    {
+        if ($value === false) {
+            return 1 << $shift;
+        }
+
+        return 0;
+    }
+
+    private static function protectionBitsDefaultTrue(?bool $value, int $shift): int
+    {
+        if ($value !== false) {
+            return 1 << $shift;
+        }
+
+        return 0;
+    }
+
     /**
      * Write SHEETPROTECTION.
      */
@@ -1505,21 +1521,22 @@ class Worksheet extends BIFFwriter
         $record = 0x0867;
 
         // prepare options
-        $options = (int) !$this->phpSheet->getProtection()->getObjects()
-            | (int) !$this->phpSheet->getProtection()->getScenarios() << 1
-            | (int) !$this->phpSheet->getProtection()->getFormatCells() << 2
-            | (int) !$this->phpSheet->getProtection()->getFormatColumns() << 3
-            | (int) !$this->phpSheet->getProtection()->getFormatRows() << 4
-            | (int) !$this->phpSheet->getProtection()->getInsertColumns() << 5
-            | (int) !$this->phpSheet->getProtection()->getInsertRows() << 6
-            | (int) !$this->phpSheet->getProtection()->getInsertHyperlinks() << 7
-            | (int) !$this->phpSheet->getProtection()->getDeleteColumns() << 8
-            | (int) !$this->phpSheet->getProtection()->getDeleteRows() << 9
-            | (int) !$this->phpSheet->getProtection()->getSelectLockedCells() << 10
-            | (int) !$this->phpSheet->getProtection()->getSort() << 11
-            | (int) !$this->phpSheet->getProtection()->getAutoFilter() << 12
-            | (int) !$this->phpSheet->getProtection()->getPivotTables() << 13
-            | (int) !$this->phpSheet->getProtection()->getSelectUnlockedCells() << 14;
+        $protection = $this->phpSheet->getProtection();
+        $options = self::protectionBitsDefaultTrue($protection->getObjects(), 0)
+            | self::protectionBitsDefaultTrue($protection->getScenarios(), 1)
+            | self::protectionBitsDefaultFalse($protection->getFormatCells(), 2)
+            | self::protectionBitsDefaultFalse($protection->getFormatColumns(), 3)
+            | self::protectionBitsDefaultFalse($protection->getFormatRows(), 4)
+            | self::protectionBitsDefaultFalse($protection->getInsertColumns(), 5)
+            | self::protectionBitsDefaultFalse($protection->getInsertRows(), 6)
+            | self::protectionBitsDefaultFalse($protection->getInsertHyperlinks(), 7)
+            | self::protectionBitsDefaultFalse($protection->getDeleteColumns(), 8)
+            | self::protectionBitsDefaultFalse($protection->getDeleteRows(), 9)
+            | self::protectionBitsDefaultTrue($protection->getSelectLockedCells(), 10)
+            | self::protectionBitsDefaultFalse($protection->getSort(), 11)
+            | self::protectionBitsDefaultFalse($protection->getAutoFilter(), 12)
+            | self::protectionBitsDefaultFalse($protection->getPivotTables(), 13)
+            | self::protectionBitsDefaultTrue($protection->getSelectUnlockedCells(), 14);
 
         // record data
         $recordData = pack(
@@ -1605,7 +1622,7 @@ class Worksheet extends BIFFwriter
         $x = $column - 1;
         $y = $row - 1;
 
-        [$leftMostColumn, $topRow] = Coordinate::indexesFromString($this->phpSheet->getTopLeftCell());
+        [$leftMostColumn, $topRow] = Coordinate::indexesFromString($this->phpSheet->getTopLeftCell() ?? '');
         //Coordinates are zero-based in xls files
         $rwTop = $topRow - 1;
         $colLeft = $leftMostColumn - 1;
@@ -1650,7 +1667,6 @@ class Worksheet extends BIFFwriter
         $iPageStart = 0x01; // Starting page number
         $iFitWidth = (int) $this->phpSheet->getPageSetup()->getFitToWidth(); // Fit to number of pages wide
         $iFitHeight = (int) $this->phpSheet->getPageSetup()->getFitToHeight(); // Fit to number of pages high
-        $grbit = 0x00; // Option flags
         $iRes = 0x0258; // Print resolution
         $iVRes = 0x0258; // Vertical print resolution
 
@@ -2086,7 +2102,7 @@ class Worksheet extends BIFFwriter
     private function writeProtect(): void
     {
         // Exit unless sheet protection has been specified
-        if (!$this->phpSheet->getProtection()->getSheet()) {
+        if ($this->phpSheet->getProtection()->getSheet() !== true) {
             return;
         }
 
@@ -2107,12 +2123,12 @@ class Worksheet extends BIFFwriter
     private function writeScenProtect(): void
     {
         // Exit if sheet protection is not active
-        if (!$this->phpSheet->getProtection()->getSheet()) {
+        if ($this->phpSheet->getProtection()->getSheet() !== true) {
             return;
         }
 
         // Exit if scenarios are not protected
-        if (!$this->phpSheet->getProtection()->getScenarios()) {
+        if ($this->phpSheet->getProtection()->getScenarios() !== true) {
             return;
         }
 
@@ -2131,12 +2147,12 @@ class Worksheet extends BIFFwriter
     private function writeObjectProtect(): void
     {
         // Exit if sheet protection is not active
-        if (!$this->phpSheet->getProtection()->getSheet()) {
+        if ($this->phpSheet->getProtection()->getSheet() !== true) {
             return;
         }
 
         // Exit if objects are not protected
-        if (!$this->phpSheet->getProtection()->getObjects()) {
+        if ($this->phpSheet->getProtection()->getObjects() !== true) {
             return;
         }
 
@@ -2155,7 +2171,7 @@ class Worksheet extends BIFFwriter
     private function writePassword(): void
     {
         // Exit unless sheet protection and password have been specified
-        if (!$this->phpSheet->getProtection()->getSheet() || !$this->phpSheet->getProtection()->getPassword() || $this->phpSheet->getProtection()->getAlgorithm() !== '') {
+        if ($this->phpSheet->getProtection()->getSheet() !== true || !$this->phpSheet->getProtection()->getPassword() || $this->phpSheet->getProtection()->getAlgorithm() !== '') {
             return;
         }
 
@@ -2433,7 +2449,7 @@ class Worksheet extends BIFFwriter
     {
         // Open file.
         $bmp_fd = @fopen($bitmap, 'rb');
-        if (!$bmp_fd) {
+        if ($bmp_fd === false) {
             throw new WriterException("Couldn't import $bitmap");
         }
 
@@ -2766,7 +2782,7 @@ class Worksheet extends BIFFwriter
 
         $rt = 0x088B; // 2
         $grbitFrt = 0x0000; // 2
-        $reserved = 0x0000000000000000; // 8
+        //$reserved = 0x0000000000000000; // 8
         $wScalvePLV = $this->phpSheet->getSheetView()->getZoomScale(); // 2
 
         // The options flags that comprise $grbit
@@ -2902,8 +2918,8 @@ class Worksheet extends BIFFwriter
         }
         // Pattern
         $bFillStyle = ($conditional->getStyle()->getFill()->getFillType() === null ? 0 : 1);
-        $bFillColor = ($conditional->getStyle()->getFill()->getStartColor()->getARGB() == null ? 0 : 1);
-        $bFillColorBg = ($conditional->getStyle()->getFill()->getEndColor()->getARGB() == null ? 0 : 1);
+        $bFillColor = ($conditional->getStyle()->getFill()->getStartColor()->getARGB() === null ? 0 : 1);
+        $bFillColorBg = ($conditional->getStyle()->getFill()->getEndColor()->getARGB() === null ? 0 : 1);
         if ($bFillStyle == 0 || $bFillColor == 0 || $bFillColorBg == 0) {
             $bFormatFill = 1;
         } else {
@@ -2919,7 +2935,7 @@ class Worksheet extends BIFFwriter
             || $conditional->getStyle()->getFont()->getSubscript() !== null
             || $conditional->getStyle()->getFont()->getUnderline() !== null
             || $conditional->getStyle()->getFont()->getStrikethrough() !== null
-            || $conditional->getStyle()->getFont()->getColor()->getARGB() != null
+            || $conditional->getStyle()->getFont()->getColor()->getARGB() !== null
         ) {
             $bFormatFont = 1;
         } else {

@@ -43,6 +43,7 @@ class Dec2HexTest extends TestCase
         $sheet->getCell('A1')->setValue("=DEC2HEX($formula)");
         $result = $sheet->getCell('A1')->getCalculatedValue();
         self::assertEquals($expectedResult, $result);
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function providerDEC2HEX(): array
@@ -73,6 +74,7 @@ class Dec2HexTest extends TestCase
         $sheet->getCell('A1')->setValue("=DEC2HEX($formula)");
         $result = $sheet->getCell('A1')->getCalculatedValue();
         self::assertEquals($expectedResult, $result);
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testDEC2HEXFrac(): void
@@ -91,6 +93,7 @@ class Dec2HexTest extends TestCase
         $cell = 'E1';
         $sheet->setCellValue($cell, '=DEC2HEX(17.1)');
         self::assertEquals(11, $sheet->getCell($cell)->getCalculatedValue(), 'Excel');
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function test32bitHex(): void

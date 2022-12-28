@@ -33,7 +33,7 @@ abstract class LookupBase
         }
 
         // index_number must be less than or equal to the number of columns in lookup_array
-        if ((!is_array($lookup_array)) || (empty($lookup_array))) {
+        if (empty($lookup_array)) {
             throw new Exception(ExcelError::REF());
         }
 

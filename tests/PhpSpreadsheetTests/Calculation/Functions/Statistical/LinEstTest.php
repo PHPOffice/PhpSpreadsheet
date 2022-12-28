@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 use PHPUnit\Framework\TestCase;
 
+// TODO run test in spreadsheet context
 class LinEstTest extends TestCase
 {
     /**
@@ -17,7 +18,7 @@ class LinEstTest extends TestCase
      */
     public function testLINEST(array $expectedResult, $yValues, $xValues, $const, $stats): void
     {
-        $result = Statistical::LINEST($yValues, $xValues, $const, $stats);
+        $result = Statistical\Trends::LINEST($yValues, $xValues, $const, $stats);
         self::assertIsArray($result);
 
         $elements = count($expectedResult);

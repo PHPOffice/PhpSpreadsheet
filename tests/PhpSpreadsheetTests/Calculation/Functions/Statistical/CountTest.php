@@ -2,28 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
-use PHPUnit\Framework\TestCase;
-
-class CountTest extends TestCase
+class CountTest extends AllSetupTeardown
 {
-    /**
-     * @var string
-     */
-    private $compatibilityMode;
-
-    protected function setUp(): void
-    {
-        $this->compatibilityMode = Functions::getCompatibilityMode();
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
-    protected function tearDown(): void
-    {
-        Functions::setCompatibilityMode($this->compatibilityMode);
-    }
-
     /**
      * @dataProvider providerBasicCOUNT
      *
@@ -31,8 +11,7 @@ class CountTest extends TestCase
      */
     public function testBasicCOUNT($expectedResult, ...$args): void
     {
-        $result = Statistical::COUNT(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        $this->runTestCaseNoBracket('COUNT', $expectedResult, ...$args);
     }
 
     public function providerBasicCOUNT(): array
@@ -47,8 +26,11 @@ class CountTest extends TestCase
      */
     public function testExcelCOUNT($expectedResult, ...$args): void
     {
-        $result = Statistical::COUNT(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        if (is_array($args[0])) {
+            $this->runTestCaseNoBracket('COUNT', $expectedResult, ...$args);
+        } else {
+            $this->runTestCaseDirect('COUNT', $expectedResult, ...$args);
+        }
     }
 
     public function providerExcelCOUNT(): array
@@ -63,10 +45,12 @@ class CountTest extends TestCase
      */
     public function testOpenOfficeCOUNT($expectedResult, ...$args): void
     {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
-
-        $result = Statistical::COUNT(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        $this->setOpenOffice();
+        if (is_array($args[0])) {
+            $this->runTestCaseNoBracket('COUNT', $expectedResult, ...$args);
+        } else {
+            $this->runTestCaseDirect('COUNT', $expectedResult, ...$args);
+        }
     }
 
     public function providerOpenOfficeCOUNT(): array
@@ -81,10 +65,8 @@ class CountTest extends TestCase
      */
     public function testGnumericCOUNT($expectedResult, ...$args): void
     {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_GNUMERIC);
-
-        $result = Statistical::COUNT(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        $this->setGnumeric();
+        $this->runTestCaseNoBracket('COUNT', $expectedResult, ...$args);
     }
 
     public function providerGnumericCOUNT(): array

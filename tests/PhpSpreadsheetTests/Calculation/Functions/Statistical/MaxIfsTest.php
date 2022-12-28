@@ -2,17 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
-use PHPUnit\Framework\TestCase;
-
-class MaxIfsTest extends TestCase
+class MaxIfsTest extends AllSetupTeardown
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerMAXIFS
      *
@@ -20,8 +11,7 @@ class MaxIfsTest extends TestCase
      */
     public function testMAXIFS($expectedResult, ...$args): void
     {
-        $result = Statistical::MAXIFS(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        $this->runTestCaseNoBracket('MAXIFS', $expectedResult, ...$args);
     }
 
     public function providerMAXIFS(): array

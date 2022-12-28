@@ -147,11 +147,11 @@ class CsvTest extends TestCase
         $spreadsheet = $reader->load('tests/data/Reader/CSV/utf16be.line_break_in_enclosure.csv');
         $sheet = $spreadsheet->getActiveSheet();
         $expected = <<<EOF
-This is a test
-with line breaks
-that breaks the
-delimiters
-EOF;
+            This is a test
+            with line breaks
+            that breaks the
+            delimiters
+            EOF;
         self::assertEquals($expected, $sheet->getCell('B3')->getValue());
     }
 
@@ -161,12 +161,12 @@ EOF;
         $spreadsheet = $reader->load('tests/data/Reader/CSV/line_break_in_enclosure_with_escaped_quotes.csv');
         $sheet = $spreadsheet->getActiveSheet();
         $expected = <<<EOF
-This is a "test csv file"
-with both "line breaks"
-and "escaped
-quotes" that breaks
-the delimiters
-EOF;
+            This is a "test csv file"
+            with both "line breaks"
+            and "escaped
+            quotes" that breaks
+            the delimiters
+            EOF;
         self::assertEquals($expected, $sheet->getCell('B3')->getValue());
     }
 
@@ -177,12 +177,12 @@ EOF;
         $spreadsheet = $reader->load('tests/data/Reader/CSV/line_break_escaped_32le.csv');
         $sheet = $spreadsheet->getActiveSheet();
         $expected = <<<EOF
-This is a "test csv file"
-with both "line breaks"
-and "escaped
-quotes" that breaks
-the delimiters
-EOF;
+            This is a "test csv file"
+            with both "line breaks"
+            and "escaped
+            quotes" that breaks
+            the delimiters
+            EOF;
         self::assertEquals($expected, $sheet->getCell('B3')->getValue());
     }
 

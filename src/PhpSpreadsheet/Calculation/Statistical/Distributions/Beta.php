@@ -129,6 +129,7 @@ class Beta
     {
         $a = 0;
         $b = 2;
+        $guess = ($a + $b) / 2;
 
         $i = 0;
         while ((($b - $a) > Functions::PRECISION) && (++$i <= self::MAX_ITERATIONS)) {
@@ -267,6 +268,7 @@ class Beta
         return $frac;
     }
 
+    /*
     private static function betaValue(float $a, float $b): float
     {
         return (Gamma::gammaValue($a) * Gamma::gammaValue($b)) /
@@ -277,4 +279,5 @@ class Beta
     {
         return self::incompleteBeta($value, $a, $b) / self::betaValue($a, $b);
     }
+    */
 }

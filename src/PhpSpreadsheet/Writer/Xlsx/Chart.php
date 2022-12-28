@@ -626,6 +626,7 @@ class Chart extends WriterPart
 
         $objWriter->startElement('c:spPr');
         $this->writeColor($objWriter, $yAxis->getFillColorObject());
+        $this->writeLineStyles($objWriter, $yAxis);
         $this->writeEffects($objWriter, $yAxis);
         $objWriter->endElement(); // spPr
 
@@ -1413,16 +1414,14 @@ class Chart extends WriterPart
 
                 $dataValues = $plotSeriesValues->getDataValues();
                 if (!empty($dataValues)) {
-                    if (is_array($dataValues)) {
-                        foreach ($dataValues as $plotSeriesKey => $plotSeriesValue) {
-                            $objWriter->startElement('c:pt');
-                            $objWriter->writeAttribute('idx', $plotSeriesKey);
+                    foreach ($dataValues as $plotSeriesKey => $plotSeriesValue) {
+                        $objWriter->startElement('c:pt');
+                        $objWriter->writeAttribute('idx', $plotSeriesKey);
 
-                            $objWriter->startElement('c:v');
-                            $objWriter->writeRawData($plotSeriesValue);
-                            $objWriter->endElement();
-                            $objWriter->endElement();
-                        }
+                        $objWriter->startElement('c:v');
+                        $objWriter->writeRawData($plotSeriesValue);
+                        $objWriter->endElement();
+                        $objWriter->endElement();
                     }
                 }
 
@@ -1463,15 +1462,13 @@ class Chart extends WriterPart
 
         $dataValues = $plotSeriesValues->getDataValues();
         if (!empty($dataValues)) {
-            if (is_array($dataValues)) {
-                foreach ($dataValues as $plotSeriesKey => $plotSeriesValue) {
-                    $objWriter->startElement('c:pt');
-                    $objWriter->writeAttribute('idx', $plotSeriesKey);
-                    $objWriter->startElement('c:v');
-                    $objWriter->writeRawData('1');
-                    $objWriter->endElement();
-                    $objWriter->endElement();
-                }
+            foreach ($dataValues as $plotSeriesKey => $plotSeriesValue) {
+                $objWriter->startElement('c:pt');
+                $objWriter->writeAttribute('idx', $plotSeriesKey);
+                $objWriter->startElement('c:v');
+                $objWriter->writeRawData('1');
+                $objWriter->endElement();
+                $objWriter->endElement();
             }
         }
 

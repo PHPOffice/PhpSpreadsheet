@@ -57,13 +57,9 @@ return [
         '#VALUE!',
         7.5, 'NAN', 8, true,
     ],
-    [
-        '#VALUE!',
+    'too many arguments' => [
+        'exception',
         7.5, 13, 'NAN', 8, false,
-    ],
-    [
-        '#VALUE!',
-        7.5, 13, 8, 'NAN', false,
     ],
     [
         '#NUM!',

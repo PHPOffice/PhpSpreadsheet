@@ -133,7 +133,7 @@ class Difference
             // Adjust end year to be as close as possible as start year
             while ($PHPEndDateObject >= $PHPStartDateObject) {
                 $PHPEndDateObject->modify('-1 year');
-                $endYears = $PHPEndDateObject->format('Y');
+                //$endYears = $PHPEndDateObject->format('Y');
             }
             $PHPEndDateObject->modify('+1 year');
 

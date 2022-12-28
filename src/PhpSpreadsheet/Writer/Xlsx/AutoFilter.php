@@ -6,14 +6,14 @@ use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule;
-use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet as ActualWorksheet;
 
 class AutoFilter extends WriterPart
 {
     /**
      * Write AutoFilter.
      */
-    public static function writeAutoFilter(XMLWriter $objWriter, Worksheet $worksheet): void
+    public static function writeAutoFilter(XMLWriter $objWriter, ActualWorksheet $worksheet): void
     {
         $autoFilterRange = $worksheet->getAutoFilter()->getRange();
         if (!empty($autoFilterRange)) {
@@ -24,7 +24,7 @@ class AutoFilter extends WriterPart
             $range = Coordinate::splitRange($autoFilterRange);
             $range = $range[0];
             //    Strip any worksheet ref
-            [$ws, $range[0]] = Worksheet::extractSheetTitle($range[0], true);
+            [$ws, $range[0]] = ActualWorksheet::extractSheetTitle($range[0], true);
             $range = implode(':', $range);
 
             $objWriter->writeAttribute('ref', str_replace('$', '', $range));

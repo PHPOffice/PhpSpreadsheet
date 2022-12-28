@@ -2,22 +2,16 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
-use PHPUnit\Framework\TestCase;
-
-class LargeTest extends TestCase
+class LargeTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerLARGE
      *
      * @param mixed $expectedResult
-     * @param mixed $values
-     * @param mixed $position
      */
-    public function testLARGE($expectedResult, $values, $position): void
+    public function testLARGE($expectedResult, ...$args): void
     {
-        $result = Statistical::LARGE($values, $position);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        $this->runTestCaseReference('LARGE', $expectedResult, ...$args);
     }
 
     public function providerLARGE(): array

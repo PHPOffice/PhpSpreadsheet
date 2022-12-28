@@ -4,8 +4,10 @@ namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
 use Exception;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\CellIterator;
+use PhpOffice\PhpSpreadsheet\Worksheet\Table;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PHPUnit\Framework\TestCase;
 
@@ -505,5 +507,28 @@ class WorksheetTest extends TestCase
             ['H', false],
             ['I', true],
         ];
+    }
+
+    public function testGetTableNames(): void
+    {
+        $reader = new Xlsx();
+        $spreadsheet = $reader->load('tests/data/Worksheet/Table/TableFormulae.xlsx');
+        $worksheet = $spreadsheet->getActiveSheet();
+
+        $tables = $worksheet->getTableNames();
+        self::assertSame(['DeptSales'], $tables);
+    }
+
+    public function testGetTableByName(): void
+    {
+        $reader = new Xlsx();
+        $spreadsheet = $reader->load('tests/data/Worksheet/Table/TableFormulae.xlsx');
+        $worksheet = $spreadsheet->getActiveSheet();
+
+        $table = $worksheet->getTableByName('Non-existent Table');
+        self::assertNull($table);
+
+        $table = $worksheet->getTableByName('DeptSales');
+        self::assertInstanceOf(Table::class, $table);
     }
 }

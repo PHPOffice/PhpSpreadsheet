@@ -7,8 +7,8 @@ return [
         5,
         [-1, 0, 1, 2, 3],
     ],
-    [
-        11,
+    'null treated differently references vs. direct' => [
+        [11, 14],
         [
             // The index simulates a cell value
             '0.1.A' => Date::stringToExcel('1900-02-01'),
@@ -25,27 +25,6 @@ return [
             '0.12.A' => 4.8,
             '0.13.A' => 'Not a numeric',
             '0.14.A' => 6,
-        ],
-    ],
-    [
-        14,
-        [
-            // No index indicates arguments passed as literals rather than cell values
-            // In this case, nuls are counted as well as numbers
-            Date::stringToExcel('1900-02-01'),
-            0,
-            null,
-            1.2,
-            '',
-            2.4,
-            null,
-            '',
-            3.6,
-            null,
-            '',
-            4.8,
-            'Not a numeric',
-            6,
         ],
     ],
 ];

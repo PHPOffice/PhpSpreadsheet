@@ -84,17 +84,17 @@ class Root extends PPS
         // calculate values for header
         [$iSBDcnt, $iBBcnt, $iPPScnt] = $this->calcSize($aList); //, $rhInfo);
         // Save Header
-        $this->saveHeader($iSBDcnt, $iBBcnt, $iPPScnt);
+        $this->saveHeader((int) $iSBDcnt, (int) $iBBcnt, (int) $iPPScnt);
 
         // Make Small Data string (write SBD)
         $this->_data = $this->makeSmallData($aList);
 
         // Write BB
-        $this->saveBigData($iSBDcnt, $aList);
+        $this->saveBigData((int) $iSBDcnt, $aList);
         // Write PPS
         $this->savePps($aList);
         // Write Big Block Depot and BDList and Adding Header informations
-        $this->saveBbd($iSBDcnt, $iBBcnt, $iPPScnt);
+        $this->saveBbd((int) $iSBDcnt, (int) $iBBcnt, (int) $iPPScnt);
 
         return true;
     }
@@ -110,7 +110,6 @@ class Root extends PPS
     {
         // Calculate Basic Setting
         [$iSBDcnt, $iBBcnt, $iPPScnt] = [0, 0, 0];
-        $iSmallLen = 0;
         $iSBcnt = 0;
         $iCount = count($raList);
         for ($i = 0; $i < $iCount; ++$i) {

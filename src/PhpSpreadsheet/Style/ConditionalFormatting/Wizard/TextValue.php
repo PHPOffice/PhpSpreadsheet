@@ -67,9 +67,7 @@ class TextValue extends WizardAbstract implements WizardInterface
 
     protected function operand(string $operand, string $operandValueType = Wizard::VALUE_TYPE_LITERAL): void
     {
-        if (is_string($operand)) {
-            $operand = $this->validateOperand($operand, $operandValueType);
-        }
+        $operand = $this->validateOperand($operand, $operandValueType);
 
         $this->operand = $operand;
         $this->operandValueType = $operandValueType;
@@ -154,7 +152,12 @@ class TextValue extends WizardAbstract implements WizardInterface
         }
 
         $this->operator(self::MAGIC_OPERATIONS[$methodName]);
-        $this->operand(...$arguments);
+        //$this->operand(...$arguments);
+        if (count($arguments) < 2) {
+            $this->operand($arguments[0]);
+        } else {
+            $this->operand($arguments[0], $arguments[1]);
+        }
 
         return $this;
     }

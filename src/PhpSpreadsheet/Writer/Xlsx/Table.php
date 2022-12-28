@@ -47,9 +47,10 @@ class Table extends WriterPart
         [$rangeStart, $rangeEnd] = Coordinate::rangeBoundaries($table->getRange());
 
         // Table Auto Filter
-        if ($table->getShowHeaderRow()) {
+        if ($table->getShowHeaderRow() && $table->getAllowFilter() === true) {
             $objWriter->startElement('autoFilter');
             $objWriter->writeAttribute('ref', $range);
+            $objWriter->endElement();
             foreach (range($rangeStart[0], $rangeEnd[0]) as $offset => $columnIndex) {
                 $column = $table->getColumnByOffset($offset);
 
@@ -63,7 +64,6 @@ class Table extends WriterPart
                     AutoFilter::writeAutoFilterColumn($objWriter, $column, $offset);
                 }
             }
-            $objWriter->endElement();
         }
 
         // Table Columns
@@ -76,7 +76,7 @@ class Table extends WriterPart
             }
 
             $column = $table->getColumnByOffset($offset);
-            $cell = $worksheet->getCellByColumnAndRow($columnIndex, $rangeStart[1]);
+            $cell = $worksheet->getCell([$columnIndex, $rangeStart[1]]);
 
             $objWriter->startElement('tableColumn');
             $objWriter->writeAttribute('id', (string) ($offset + 1));

@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\TestCase;
 
@@ -178,6 +179,56 @@ class CalculationTest extends TestCase
         $cell3->setValue('=SUM(INDIRECT("A"&ROW()),INDIRECT("B"&ROW()),INDIRECT("C"&ROW()))');
 
         self::assertEquals('9', $cell3->getCalculatedValue());
+    }
+
+    public function testCellWithStringNumeric(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $workSheet = $spreadsheet->getActiveSheet();
+        $cell1 = $workSheet->getCell('A1');
+        $cell1->setValue('+2.5');
+        $cell2 = $workSheet->getCell('B1');
+        $cell2->setValue('=100*A1');
+
+        self::assertSame(250.0, $cell2->getCalculatedValue());
+    }
+
+    public function testCellWithStringFraction(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $workSheet = $spreadsheet->getActiveSheet();
+        $cell1 = $workSheet->getCell('A1');
+        $cell1->setValue('3/4');
+        $cell2 = $workSheet->getCell('B1');
+        $cell2->setValue('=100*A1');
+
+        self::assertSame(75.0, $cell2->getCalculatedValue());
+    }
+
+    public function testCellWithStringPercentage(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $workSheet = $spreadsheet->getActiveSheet();
+        $cell1 = $workSheet->getCell('A1');
+        $cell1->setValue('2%');
+        $cell2 = $workSheet->getCell('B1');
+        $cell2->setValue('=100*A1');
+
+        self::assertSame(2.0, $cell2->getCalculatedValue());
+    }
+
+    public function testCellWithStringCurrency(): void
+    {
+        $currencyCode = StringHelper::getCurrencyCode();
+
+        $spreadsheet = new Spreadsheet();
+        $workSheet = $spreadsheet->getActiveSheet();
+        $cell1 = $workSheet->getCell('A1');
+        $cell1->setValue($currencyCode . '2');
+        $cell2 = $workSheet->getCell('B1');
+        $cell2->setValue('=100*A1');
+
+        self::assertSame(200.0, $cell2->getCalculatedValue());
     }
 
     public function testBranchPruningFormulaParsingSimpleCase(): void

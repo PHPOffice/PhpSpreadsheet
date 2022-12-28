@@ -20,30 +20,30 @@ class MovedFunctionsTest extends TestCase
 {
     public function testMovedFunctions(): void
     {
-        self::assertTrue(DateTime::isLeapYear(1904));
-        self::assertSame('#VALUE!', DateTime::getDateValue('XYZ'));
-        self::assertSame(61.0, DateTime::getDateValue('1900-03-01'));
-        self::assertSame(61.0, DateTime::DATE(1900, 3, 1));
-        self::assertSame(365, DateTime::DATEDIF('2016-01-01', '2016-12-31', 'YD'));
-        self::assertSame(61.0, DateTime::DATEVALUE('1900-03-01'));
-        self::assertSame(28, DateTime::DAYOFMONTH('1904-02-28'));
-        self::assertSame(364, DateTime::DAYS('2007-12-31', '2007-1-1'));
-        self::assertSame(9, DateTime::DAYS360('2007-1-1', '2007-1-10', false));
-        self::assertSame(39493.0, DateTime::EDATE('15-Jan-2008', 1));
-        self::assertSame(39507.0, DateTime::EOMONTH('15-Jan-2008', 1));
-        self::assertSame(18, DateTime::HOUROFDAY(0.75));
-        self::assertSame(52, DateTime::ISOWEEKNUM('2000-01-01'));
-        self::assertSame(24, DateTime::MINUTE(0.6));
-        self::assertSame(11, DateTime::MONTHOFYEAR('11-Nov-1918'));
-        self::assertSame(8, DateTime::NETWORKDAYS('1-Jan-2007', '10-Jan-2007'));
-        self::assertSame(35, DateTime::SECOND('11:15:35'));
-        self::assertSame(0.5, DateTime::TIME(12, 0, 0));
-        self::assertSame(0.40625, DateTime::TIMEVALUE('33:45'));
-        self::assertSame(5, DateTime::WEEKDAY('24-Oct-1968'));
-        self::assertSame(52, DateTime::WEEKNUM('21-Dec-2000'));
-        self::assertSame(39094.0, DateTime::WORKDAY('1-Jan-2007', 9));
-        self::assertSame(1904, DateTime::YEAR('1904-02-28'));
-        self::assertSame(0.025, DateTime::YEARFRAC('2007-01-10', '2007-01-01', 0));
+        self::assertTrue(/** @scrutinizer ignore-deprecated */ DateTime::isLeapYear(1904));
+        self::assertSame('#VALUE!', /** @scrutinizer ignore-deprecated */ DateTime::getDateValue('XYZ'));
+        self::assertSame(61.0, /** @scrutinizer ignore-deprecated */ DateTime::getDateValue('1900-03-01'));
+        self::assertSame(61.0, /** @scrutinizer ignore-deprecated */ DateTime::DATE(1900, 3, 1));
+        self::assertSame(365, /** @scrutinizer ignore-deprecated */ DateTime::DATEDIF('2016-01-01', '2016-12-31', 'YD'));
+        self::assertSame(61.0, /** @scrutinizer ignore-deprecated */ DateTime::DATEVALUE('1900-03-01'));
+        self::assertSame(28, /** @scrutinizer ignore-deprecated */ DateTime::DAYOFMONTH('1904-02-28'));
+        self::assertSame(364, /** @scrutinizer ignore-deprecated */ DateTime::DAYS('2007-12-31', '2007-1-1'));
+        self::assertSame(9, /** @scrutinizer ignore-deprecated */ DateTime::DAYS360('2007-1-1', '2007-1-10', false));
+        self::assertSame(39493.0, /** @scrutinizer ignore-deprecated */ DateTime::EDATE('15-Jan-2008', 1));
+        self::assertSame(39507.0, /** @scrutinizer ignore-deprecated */ DateTime::EOMONTH('15-Jan-2008', 1));
+        self::assertSame(18, /** @scrutinizer ignore-deprecated */ DateTime::HOUROFDAY(0.75));
+        self::assertSame(52, /** @scrutinizer ignore-deprecated */ DateTime::ISOWEEKNUM('2000-01-01'));
+        self::assertSame(24, /** @scrutinizer ignore-deprecated */ DateTime::MINUTE(0.6));
+        self::assertSame(11, /** @scrutinizer ignore-deprecated */ DateTime::MONTHOFYEAR('11-Nov-1918'));
+        self::assertSame(8, /** @scrutinizer ignore-deprecated */ DateTime::NETWORKDAYS('1-Jan-2007', '10-Jan-2007'));
+        self::assertSame(35, /** @scrutinizer ignore-deprecated */ DateTime::SECOND('11:15:35'));
+        self::assertSame(0.5, /** @scrutinizer ignore-deprecated */ DateTime::TIME(12, 0, 0));
+        self::assertSame(0.40625, /** @scrutinizer ignore-deprecated */ DateTime::TIMEVALUE('33:45'));
+        self::assertSame(5, /** @scrutinizer ignore-deprecated */ DateTime::WEEKDAY('24-Oct-1968'));
+        self::assertSame(52, /** @scrutinizer ignore-deprecated */ DateTime::WEEKNUM('21-Dec-2000'));
+        self::assertSame(39094.0, /** @scrutinizer ignore-deprecated */ DateTime::WORKDAY('1-Jan-2007', 9));
+        self::assertSame(1904, /** @scrutinizer ignore-deprecated */ DateTime::YEAR('1904-02-28'));
+        self::assertSame(0.025, /** @scrutinizer ignore-deprecated */ DateTime::YEARFRAC('2007-01-10', '2007-01-01', 0));
     }
 
     public function testTodayAndNow(): void
@@ -53,11 +53,11 @@ class MovedFunctionsTest extends TestCase
         do {
             $dtStart = new DateTimeImmutable();
             $startSecond = $dtStart->format('s');
-            $nowResult = DateTime::DATETIMENOW();
-            $todayResult = DateTime::DATENOW();
+            $nowResult = /** @scrutinizer ignore-deprecated */ DateTime::DATETIMENOW();
+            $todayResult = /** @scrutinizer ignore-deprecated */ DateTime::DATENOW();
             $dtEnd = new DateTimeImmutable();
             $endSecond = $dtEnd->format('s');
         } while ($startSecond !== $endSecond);
-        self::assertSame(DateTime::DAYOFMONTH($nowResult), DateTime::DAYOFMONTH($todayResult));
+        self::assertSame(/** @scrutinizer ignore-deprecated */ DateTime::DAYOFMONTH($nowResult), /** @scrutinizer ignore-deprecated */ DateTime::DAYOFMONTH($todayResult));
     }
 }

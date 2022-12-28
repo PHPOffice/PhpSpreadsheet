@@ -42,6 +42,7 @@ class Bin2OctTest extends TestCase
         $sheet->getCell('A1')->setValue("=BIN2OCT($formula)");
         $result = $sheet->getCell('A1')->getCalculatedValue();
         self::assertEquals($expectedResult, $result);
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function providerBIN2OCT(): array
@@ -72,6 +73,7 @@ class Bin2OctTest extends TestCase
         $sheet->getCell('A1')->setValue("=BIN2OCT($formula)");
         $result = $sheet->getCell('A1')->getCalculatedValue();
         self::assertEquals($expectedResult, $result);
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testBIN2OCTFrac(): void
@@ -90,6 +92,7 @@ class Bin2OctTest extends TestCase
         $cell = 'E1';
         $sheet->setCellValue($cell, '=BIN2OCT(101.1)');
         self::assertEquals('#NUM!', $sheet->getCell($cell)->getCalculatedValue());
+        $spreadsheet->disconnectWorksheets();
     }
 
     /**

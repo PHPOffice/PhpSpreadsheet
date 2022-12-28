@@ -3,17 +3,9 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
-use PHPUnit\Framework\TestCase;
 
-class BetaInvTest extends TestCase
+class BetaInvTest extends AllSetupTeardown
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerBETAINV
      *
@@ -21,8 +13,7 @@ class BetaInvTest extends TestCase
      */
     public function testBETAINV($expectedResult, ...$args): void
     {
-        $result = Statistical::BETAINV(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        $this->runTestCaseReference('BETAINV', $expectedResult, ...$args);
     }
 
     public function providerBETAINV(): array

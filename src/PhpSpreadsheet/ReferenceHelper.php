@@ -80,6 +80,9 @@ class ReferenceHelper
         return -strcasecmp(strlen($a) . $a, strlen($b) . $b);
     }
 
+    /** @var int */
+    private static $scrutinizer0 = 0;
+
     /**
      * Compare two cell addresses
      * Intended for use as a Callback function for sorting cell addresses by column and row.
@@ -91,9 +94,14 @@ class ReferenceHelper
      */
     public static function cellSort($a, $b)
     {
+        $ac = $bc = '';
+        $ar = self::$scrutinizer0;
+        $br = 0;
         sscanf($a, '%[A-Z]%d', $ac, $ar);
         sscanf($b, '%[A-Z]%d', $bc, $br);
 
+        $ac = (string) $ac;
+        $bc = (string) $bc;
         if ($ar === $br) {
             return strcasecmp(strlen($ac) . $ac, strlen($bc) . $bc);
         }
@@ -112,9 +120,14 @@ class ReferenceHelper
      */
     public static function cellReverseSort($a, $b)
     {
+        $ac = $bc = '';
+        $ar = self::$scrutinizer0;
+        $br = 0;
         sscanf($a, '%[A-Z]%d', $ac, $ar);
         sscanf($b, '%[A-Z]%d', $bc, $br);
 
+        $ac = (string) $ac;
+        $bc = (string) $bc;
         if ($ar === $br) {
             return -strcasecmp(strlen($ac) . $ac, strlen($bc) . $bc);
         }
@@ -576,7 +589,8 @@ class ReferenceHelper
         $i = false;
         foreach ($formulaBlocks as &$formulaBlock) {
             //    Ignore blocks that were enclosed in quotes (alternating entries in the $formulaBlocks array after the explode)
-            if ($i = !$i) {
+            $i = $i === false;
+            if ($i) {
                 $adjustCount = 0;
                 $newCellTokens = $cellTokens = [];
                 //    Search for row ranges (e.g. 'Sheet1'!3:5 or 3:5) with or without $ absolutes (e.g. $3:5)
@@ -750,7 +764,7 @@ class ReferenceHelper
                 $formula = substr($formula, 0, $columnOffset) . $column . substr($formula, $columnOffset + $columnLength);
             }
             if (!empty($row) && $row[0] !== '$') {
-                $row += $numberOfRows;
+                $row = (int) $row + $numberOfRows;
                 $formula = substr($formula, 0, $rowOffset) . $row . substr($formula, $rowOffset + $rowLength);
             }
         }
@@ -824,11 +838,11 @@ class ReferenceHelper
             $toRow = $toRows[$splitCount][0];
 
             if (!empty($fromRow) && $fromRow[0] !== '$') {
-                $fromRow += $numberOfRows;
+                $fromRow = (int) $fromRow + $numberOfRows;
                 $formula = substr($formula, 0, $fromRowOffset) . $fromRow . substr($formula, $fromRowOffset + $fromRowLength);
             }
             if (!empty($toRow) && $toRow[0] !== '$') {
-                $toRow += $numberOfRows;
+                $toRow = (int) $toRow + $numberOfRows;
                 $formula = substr($formula, 0, $toRowOffset) . $toRow . substr($formula, $toRowOffset + $toRowLength);
             }
         }
@@ -1010,7 +1024,7 @@ class ReferenceHelper
                     $column = '';
                     $row = 0;
                     sscanf($beforeCellAddress, '%[A-Z]%d', $column, $row);
-                    $columnIndex = Coordinate::columnIndexFromString($column);
+                    $columnIndex = Coordinate::columnIndexFromString((string) $column);
                     [$rangeStart, $rangeEnd] = Coordinate::rangeBoundaries($autoFilterRange);
                     if ($columnIndex <= $rangeEnd[0]) {
                         if ($numberOfColumns < 0) {
@@ -1090,7 +1104,7 @@ class ReferenceHelper
                         $column = '';
                         $row = 0;
                         sscanf($beforeCellAddress, '%[A-Z]%d', $column, $row);
-                        $columnIndex = Coordinate::columnIndexFromString($column);
+                        $columnIndex = Coordinate::columnIndexFromString((string) $column);
                         [$rangeStart, $rangeEnd] = Coordinate::rangeBoundaries($tableRange);
                         if ($columnIndex <= $rangeEnd[0]) {
                             if ($numberOfColumns < 0) {
@@ -1165,7 +1179,7 @@ class ReferenceHelper
             if ($worksheet->cellExists($coordinate)) {
                 $xfIndex = $worksheet->getCell($coordinate)->getXfIndex();
                 for ($j = $beforeColumn; $j <= $beforeColumn - 1 + $numberOfColumns; ++$j) {
-                    $worksheet->getCellByColumnAndRow($j, $i)->setXfIndex($xfIndex);
+                    $worksheet->getCell([$j, $i])->setXfIndex($xfIndex);
                 }
             }
         }

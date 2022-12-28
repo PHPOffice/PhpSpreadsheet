@@ -25,6 +25,7 @@ class BitLShiftTest extends TestCase
         $sheet->getCell('A1')->setValue("=BITLSHIFT($formula)");
         $result = $sheet->getCell('A1')->getCalculatedValue();
         self::assertEquals($expectedResult, $result);
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function providerBITLSHIFT(): array

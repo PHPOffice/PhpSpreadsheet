@@ -2,17 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
-use PHPUnit\Framework\TestCase;
-
-class PercentRankTest extends TestCase
+class PercentRankTest extends AllSetupTeardown
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerPERCENTRANK
      *
@@ -21,10 +12,13 @@ class PercentRankTest extends TestCase
      * @param mixed $value
      * @param mixed $digits
      */
-    public function testPERCENTRANK($expectedResult, $valueSet, $value, $digits = 3): void
+    public function testPERCENTRANK($expectedResult, $valueSet, $value, $digits = null): void
     {
-        $result = Statistical::PERCENTRANK($valueSet, $value, $digits);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        if ($digits === null) {
+            $this->runTestCaseReference('PERCENTRANK', $expectedResult, $valueSet, $value);
+        } else {
+            $this->runTestCaseReference('PERCENTRANK', $expectedResult, $valueSet, $value, $digits);
+        }
     }
 
     public function providerPERCENTRANK(): array

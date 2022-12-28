@@ -2,27 +2,16 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
-use PHPUnit\Framework\TestCase;
-
-class StDevATest extends TestCase
+class StDevATest extends AllSetupTeardown
 {
-    protected function tearDown(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerSTDEVA
      *
      * @param mixed $expectedResult
-     * @param mixed $values
      */
-    public function testSTDEVA($expectedResult, $values): void
+    public function testSTDEVA($expectedResult, ...$args): void
     {
-        $result = Statistical::STDEVA($values);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        $this->runTestCaseReference('STDEVA', $expectedResult, ...$args);
     }
 
     public function providerSTDEVA(): array
@@ -34,14 +23,11 @@ class StDevATest extends TestCase
      * @dataProvider providerOdsSTDEVA
      *
      * @param mixed $expectedResult
-     * @param mixed $values
      */
-    public function testOdsSTDEVA($expectedResult, $values): void
+    public function testOdsSTDEVA($expectedResult, ...$args): void
     {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
-
-        $result = Statistical::STDEVA($values);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        $this->setOpenOffice();
+        $this->runTestCaseReference('STDEVA', $expectedResult, ...$args);
     }
 
     public function providerOdsSTDEVA(): array

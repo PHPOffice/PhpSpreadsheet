@@ -164,9 +164,11 @@ class Cells
      */
     public function getCurrentColumn(): string
     {
+        $column = 0;
+        $row = '';
         sscanf($this->currentCoordinate ?? '', '%[A-Z]%d', $column, $row);
 
-        return $column;
+        return (string) $column;
     }
 
     /**
@@ -174,6 +176,8 @@ class Cells
      */
     public function getCurrentRow(): int
     {
+        $column = 0;
+        $row = '';
         sscanf($this->currentCoordinate ?? '', '%[A-Z]%d', $column, $row);
 
         return (int) $row;
@@ -385,8 +389,10 @@ class Cells
         if ($cellCoordinate !== $this->currentCoordinate) {
             $this->storeCurrentCell();
         }
+        $column = 0;
+        $row = '';
         sscanf($cellCoordinate, '%[A-Z]%d', $column, $row);
-        $this->index[$cellCoordinate] = (--$row * self::MAX_COLUMN_ID) + Coordinate::columnIndexFromString($column);
+        $this->index[$cellCoordinate] = (--$row * self::MAX_COLUMN_ID) + Coordinate::columnIndexFromString((string) $column);
 
         $this->currentCoordinate = $cellCoordinate;
         $this->currentCell = $cell;

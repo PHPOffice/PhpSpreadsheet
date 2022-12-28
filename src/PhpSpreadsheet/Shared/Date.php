@@ -7,7 +7,6 @@ use DateTimeInterface;
 use DateTimeZone;
 use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
@@ -444,8 +443,9 @@ class Date
                 $segMatcher = false;
                 foreach (explode('"', $excelFormatCode) as $subVal) {
                     //    Only test in alternate array entries (the non-quoted blocks)
+                    $segMatcher = $segMatcher === false;
                     if (
-                        ($segMatcher = !$segMatcher) &&
+                        $segMatcher &&
                         (preg_match('/(^|\])[^\[]*[' . $possibleFormatCharacters . ']/i', $subVal))
                     ) {
                         return true;
@@ -480,13 +480,13 @@ class Date
 
         $dateValueNew = DateTimeExcel\DateValue::fromString($dateValue);
 
-        if ($dateValueNew === ExcelError::VALUE()) {
+        if (!is_float($dateValueNew)) {
             return false;
         }
 
         if (strpos($dateValue, ':') !== false) {
             $timeValue = DateTimeExcel\TimeValue::fromString($dateValue);
-            if ($timeValue === ExcelError::VALUE()) {
+            if (!is_float($timeValue)) {
                 return false;
             }
             $dateValueNew += $timeValue;

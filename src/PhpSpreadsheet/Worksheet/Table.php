@@ -4,8 +4,10 @@ namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
 use PhpOffice\PhpSpreadsheet\Cell\AddressRange;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Table\TableStyle;
 
 class Table
@@ -15,7 +17,7 @@ class Table
      *
      * @var string
      */
-    private $name = '';
+    private $name;
 
     /**
      * Show Header Row.
@@ -44,6 +46,13 @@ class Table
      * @var null|Worksheet
      */
     private $workSheet;
+
+    /**
+     * Table allow filter.
+     *
+     * @var bool
+     */
+    private $allowFilter = true;
 
     /**
      * Table Column.
@@ -93,6 +102,8 @@ class Table
 
     /**
      * Set Table name.
+     *
+     * @throws PhpSpreadsheetException
      */
     public function setName(string $name): self
     {
@@ -102,7 +113,7 @@ class Table
             if (strlen($name) === 1 && in_array($name, ['C', 'c', 'R', 'r'])) {
                 throw new PhpSpreadsheetException('The table name is invalid');
             }
-            if (strlen($name) > 255) {
+            if (StringHelper::countCharacters($name) > 255) {
                 throw new PhpSpreadsheetException('The table name cannot be longer than 255 characters');
             }
             // Check for A1 or R1C1 cell reference notation
@@ -118,11 +129,82 @@ class Table
             if (!preg_match('/^[\p{L}_\\\\][\p{L}\p{M}0-9\._]+$/iu', $name)) {
                 throw new PhpSpreadsheetException('The table name contains invalid characters');
             }
+
+            $this->checkForDuplicateTableNames($name, $this->workSheet);
+            $this->updateStructuredReferences($name);
         }
 
         $this->name = $name;
 
         return $this;
+    }
+
+    /**
+     * @throws PhpSpreadsheetException
+     */
+    private function checkForDuplicateTableNames(string $name, ?Worksheet $worksheet): void
+    {
+        // Remember that table names are case-insensitive
+        $tableName = StringHelper::strToLower($name);
+
+        if ($worksheet !== null && StringHelper::strToLower($this->name) !== $name) {
+            $spreadsheet = $worksheet->getParent();
+
+            foreach ($spreadsheet->getWorksheetIterator() as $sheet) {
+                foreach ($sheet->getTableCollection() as $table) {
+                    if (StringHelper::strToLower($table->getName()) === $tableName && $table != $this) {
+                        throw new PhpSpreadsheetException("Spreadsheet already contains a table named '{$this->name}'");
+                    }
+                }
+            }
+        }
+    }
+
+    private function updateStructuredReferences(string $name): void
+    {
+        if ($this->workSheet === null || $this->name === null || $this->name === '') {
+            return;
+        }
+
+        // Remember that table names are case-insensitive
+        if (StringHelper::strToLower($this->name) !== StringHelper::strToLower($name)) {
+            // We need to check all formula cells that might contain fully-qualified Structured References
+            //    that refer to this table, and update those formulae to reference the new table name
+            $spreadsheet = $this->workSheet->getParent();
+            foreach ($spreadsheet->getWorksheetIterator() as $sheet) {
+                $this->updateStructuredReferencesInCells($sheet, $name);
+            }
+            $this->updateStructuredReferencesInNamedFormulae($spreadsheet, $name);
+        }
+    }
+
+    private function updateStructuredReferencesInCells(Worksheet $worksheet, string $newName): void
+    {
+        $pattern = '/' . preg_quote($this->name) . '\[/mui';
+
+        foreach ($worksheet->getCoordinates(false) as $coordinate) {
+            $cell = $worksheet->getCell($coordinate);
+            if ($cell->getDataType() === DataType::TYPE_FORMULA) {
+                $formula = $cell->getValue();
+                if (preg_match($pattern, $formula) === 1) {
+                    $formula = preg_replace($pattern, "{$newName}[", $formula);
+                    $cell->setValueExplicit($formula, DataType::TYPE_FORMULA);
+                }
+            }
+        }
+    }
+
+    private function updateStructuredReferencesInNamedFormulae(Spreadsheet $spreadsheet, string $newName): void
+    {
+        $pattern = '/' . preg_quote($this->name) . '\[/mui';
+
+        foreach ($spreadsheet->getNamedFormulae() as $namedFormula) {
+            $formula = $namedFormula->getValue();
+            if (preg_match($pattern, $formula) === 1) {
+                $formula = preg_replace($pattern, "{$newName}[", $formula);
+                $namedFormula->setValue($formula); // @phpstan-ignore-line
+            }
+        }
     }
 
     /**
@@ -157,6 +239,26 @@ class Table
     public function setShowTotalsRow(bool $showTotalsRow): self
     {
         $this->showTotalsRow = $showTotalsRow;
+
+        return $this;
+    }
+
+    /**
+     * Get allow filter.
+     * If false, autofiltering is disabled for the table, if true it is enabled.
+     */
+    public function getAllowFilter(): bool
+    {
+        return $this->allowFilter;
+    }
+
+    /**
+     * Set show Autofiltering.
+     * Disabling autofiltering has the same effect as hiding the filter button on all the columns in the table.
+     */
+    public function setAllowFilter(bool $allowFilter): self
+    {
+        $this->allowFilter = $allowFilter;
 
         return $this;
     }
@@ -203,7 +305,7 @@ class Table
         $this->range = $range;
         $this->autoFilter->setRange($range);
 
-        //    Discard any column ruless that are no longer valid within this range
+        //    Discard any column rules that are no longer valid within this range
         [$rangeStart, $rangeEnd] = Coordinate::rangeBoundaries($this->range);
         foreach ($this->columns as $key => $value) {
             $colIndex = Coordinate::columnIndexFromString($key);

@@ -220,7 +220,7 @@ class PPS
             $raList[$cnt]->NextPps = 0xFFFFFFFF;
             $raList[$cnt]->DirPps = self::savePpsSetPnt($raList, @$raList[$cnt]->children, $depth++);
         } else {
-            $iPos = floor(count($to_save) / 2);
+            $iPos = (int) floor(count($to_save) / 2);
             $aPrev = array_slice($to_save, 0, $iPos);
             $aNext = array_slice($to_save, $iPos + 1);
             $cnt = count($raList);

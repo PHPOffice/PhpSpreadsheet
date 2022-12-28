@@ -2,10 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
-use PHPUnit\Framework\TestCase;
-
-class MinATest extends TestCase
+class MinATest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerMINA
@@ -14,8 +11,7 @@ class MinATest extends TestCase
      */
     public function testMINA($expectedResult, ...$args): void
     {
-        $result = Statistical::MINA(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        $this->runTestCases('MINA', $expectedResult, ...$args);
     }
 
     public function providerMINA(): array

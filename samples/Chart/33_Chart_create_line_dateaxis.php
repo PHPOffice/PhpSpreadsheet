@@ -358,7 +358,7 @@ function dateRange(int $nrows, Spreadsheet $wrkbk): array
     $ExcelQtrStartDateVal = SharedDate::convertIsoDate($qtrStartStr);
 
     // end the xaxis at the end of the quarter of the last date
-    $lastDateStr = $dataSheet->getCellByColumnAndRow(2, $nrows + 1)->getValue();
+    $lastDateStr = $dataSheet->getCell([2, $nrows + 1])->getValue();
     $lastDate = DateTime::createFromFormat('Y-m-d', $lastDateStr);
     $lastMonth = (int) $lastDate->format('n');
     $lastYr = (int) $lastDate->format('Y');

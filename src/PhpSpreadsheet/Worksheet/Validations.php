@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Cell\AddressRange;
 use PhpOffice\PhpSpreadsheet\Cell\CellAddress;
 use PhpOffice\PhpSpreadsheet\Cell\CellRange;
+use PhpOffice\PhpSpreadsheet\Exception as SpreadsheetException;
 
 class Validations
 {
@@ -22,7 +23,7 @@ class Validations
 //                throw new Exception('Reference is not for this worksheet');
 //            }
 
-            return empty($worksheet) ? strtoupper($address) : $worksheet . '!' . strtoupper($address);
+            return empty($worksheet) ? strtoupper("$address") : $worksheet . '!' . strtoupper("$address");
         }
 
         if (is_array($cellAddress)) {
@@ -76,7 +77,20 @@ class Validations
         }
 
         if (is_array($cellRange)) {
-            [$from, $to] = array_chunk($cellRange, 2);
+            switch (count($cellRange)) {
+                case 2:
+                    $from = [$cellRange[0], $cellRange[1]];
+                    $to = [$cellRange[0], $cellRange[1]];
+
+                    break;
+                case 4:
+                    $from = [$cellRange[0], $cellRange[1]];
+                    $to = [$cellRange[2], $cellRange[3]];
+
+                    break;
+                default:
+                    throw new SpreadsheetException('CellRange array length must be 2 or 4');
+            }
             $cellRange = new CellRange(CellAddress::fromColumnRowArray($from), CellAddress::fromColumnRowArray($to));
         }
 

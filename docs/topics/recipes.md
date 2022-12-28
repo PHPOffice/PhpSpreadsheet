@@ -1027,15 +1027,16 @@ which apply only to change tracking and history for shared workbooks.
 
 ### Worksheet
 
-An example on setting worksheet security:
+An example on setting worksheet security
+(user can sort, insert rows, or format cells without unprotecting):
 
 ```php
 $protection = $spreadsheet->getActiveSheet()->getProtection();
 $protection->setPassword('PhpSpreadsheet');
 $protection->setSheet(true);
-$protection->setSort(true);
-$protection->setInsertRows(true);
-$protection->setFormatCells(true);
+$protection->setSort(false);
+$protection->setInsertRows(false);
+$protection->setFormatCells(false);
 ```
 
 If writing Xlsx files you can specify the algorithm used to hash the password
@@ -1482,6 +1483,22 @@ $drawing->setMimeType(\PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing::MIMETYP
 $drawing->setHeight(36);
 $drawing->setWorksheet($spreadsheet->getActiveSheet());
 ```
+
+Note that GD images are memory-intensive.
+
+### Creating a Drawing from string or stream data
+
+If you want to create a drawing from a string containing the binary image data, or from an external datasource such as an S3 bucket, then you can create a new MemoryDrawing from these sources using the `fromString()` or `fromStream()` static methods.
+
+```php
+$drawing = MemoryDrawing::fromString($imageString);
+```
+
+```php
+$drawing = MemoryDrawing::fromStream($imageStreamFromS3Bucket);
+```
+
+Note that this is a memory-intensive process, like all gd images; and also creates a temporary file.
 
 ## Reading Images from a worksheet
 

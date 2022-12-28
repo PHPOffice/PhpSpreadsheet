@@ -475,7 +475,7 @@ class PageSetup
      */
     public function isColumnsToRepeatAtLeftSet()
     {
-        if (is_array($this->columnsToRepeatAtLeft)) {
+        if (!empty($this->columnsToRepeatAtLeft)) {
             if ($this->columnsToRepeatAtLeft[0] != '' && $this->columnsToRepeatAtLeft[1] != '') {
                 return true;
             }
@@ -530,7 +530,7 @@ class PageSetup
      */
     public function isRowsToRepeatAtTopSet()
     {
-        if (is_array($this->rowsToRepeatAtTop)) {
+        if (!empty($this->rowsToRepeatAtTop)) {
             if ($this->rowsToRepeatAtTop[0] != 0 && $this->rowsToRepeatAtTop[1] != 0) {
                 return true;
             }
@@ -641,8 +641,7 @@ class PageSetup
         if ($index == 0) {
             return $this->printArea;
         }
-        /** @phpstan-ignore-next-line */
-        $printAreas = explode(',', $this->printArea);
+        $printAreas = explode(',', (string) $this->printArea);
         if (isset($printAreas[$index - 1])) {
             return $printAreas[$index - 1];
         }
@@ -665,8 +664,7 @@ class PageSetup
         if ($index == 0) {
             return $this->printArea !== null;
         }
-        /** @phpstan-ignore-next-line */
-        $printAreas = explode(',', $this->printArea);
+        $printAreas = explode(',', (string) $this->printArea);
 
         return isset($printAreas[$index - 1]);
     }
@@ -686,8 +684,7 @@ class PageSetup
         if ($index == 0) {
             $this->printArea = null;
         } else {
-            /** @phpstan-ignore-next-line */
-            $printAreas = explode(',', $this->printArea);
+            $printAreas = explode(',', (string) $this->printArea);
             if (isset($printAreas[$index - 1])) {
                 unset($printAreas[$index - 1]);
                 $this->printArea = implode(',', $printAreas);
@@ -735,8 +732,7 @@ class PageSetup
             if ($index == 0) {
                 $this->printArea = $value;
             } else {
-                /** @phpstan-ignore-next-line */
-                $printAreas = explode(',', $this->printArea);
+                $printAreas = explode(',', (string) $this->printArea);
                 if ($index < 0) {
                     $index = count($printAreas) - abs($index) + 1;
                 }
@@ -750,10 +746,9 @@ class PageSetup
             if ($index == 0) {
                 $this->printArea = $this->printArea ? ($this->printArea . ',' . $value) : $value;
             } else {
-                /** @phpstan-ignore-next-line */
-                $printAreas = explode(',', $this->printArea);
+                $printAreas = explode(',', (string) $this->printArea);
                 if ($index < 0) {
-                    $index = abs($index) - 1;
+                    $index = (int) abs($index) - 1;
                 }
                 if ($index > count($printAreas)) {
                     throw new PhpSpreadsheetException('Invalid index for setting print range.');

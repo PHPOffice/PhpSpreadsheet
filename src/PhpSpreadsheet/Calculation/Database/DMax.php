@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Database;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Maximum;
 
 class DMax extends DatabaseAbstract
@@ -32,11 +33,11 @@ class DMax extends DatabaseAbstract
      *
      * @return null|float|string
      */
-    public static function evaluate($database, $field, $criteria)
+    public static function evaluate($database, $field, $criteria, bool $returnError = true)
     {
         $field = self::fieldExtract($database, $field);
         if ($field === null) {
-            return null;
+            return $returnError ? ExcelError::VALUE() : null;
         }
 
         return Maximum::max(

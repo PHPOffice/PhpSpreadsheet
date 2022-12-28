@@ -138,7 +138,7 @@ class Extract
         $matchEnd = (int) $matchEnd;
 
         $split = self::validateTextBeforeAfter($text, $delimiter, $instance, $matchMode, $matchEnd, $ifNotFound);
-        if (is_array($split) === false) {
+        if (is_string($split)) {
             return $split;
         }
         if (Helpers::extractString(Functions::flattenSingleValue($delimiter ?? '')) === '') {
@@ -196,7 +196,7 @@ class Extract
         $matchEnd = (int) $matchEnd;
 
         $split = self::validateTextBeforeAfter($text, $delimiter, $instance, $matchMode, $matchEnd, $ifNotFound);
-        if (is_array($split) === false) {
+        if (is_string($split)) {
             return $split;
         }
         if (Helpers::extractString(Functions::flattenSingleValue($delimiter ?? '')) === '') {
@@ -210,7 +210,7 @@ class Extract
         $oddReverseAdjustment = count($split) % 2;
 
         $split = ($instance < 0)
-            ? array_slice($split, count($split) - (abs($instance + 1) * 2) - $adjust - $oddReverseAdjustment)
+            ? array_slice($split, count($split) - ((int) abs($instance + 1) * 2) - $adjust - $oddReverseAdjustment)
             : array_slice($split, $instance * 2 - $adjust);
 
         return implode('', $split);
@@ -222,7 +222,7 @@ class Extract
      * @param int $matchEnd
      * @param mixed $ifNotFound
      *
-     * @return string|string[]
+     * @return array|string
      */
     private static function validateTextBeforeAfter(string $text, $delimiter, int $instance, $matchMode, $matchEnd, $ifNotFound)
     {
