@@ -7,7 +7,7 @@ require __DIR__ . '/../Header.php';
 $helper->log('Start');
 
 $inputFileType = 'Xlsx';
-$inputFileName = __DIR__ . '/sampleData/issue.1767.xlsx';
+$inputFileName = __DIR__ . '/sampleData/formscomments.xlsx';
 
 $helper->log('Loading file ' . $inputFileName . ' using IOFactory with a defined reader type of ' . $inputFileType);
 $reader = IOFactory::createReader($inputFileType);
@@ -16,7 +16,7 @@ $reader->setLoadAllSheets();
 $spreadsheet = $reader->load($inputFileName);
 
 // Save
-$helper->write($spreadsheet, __FILE__);
+$helper->write($spreadsheet, __FILE__, ['Xlsx']);
 $spreadsheet->disconnectWorksheets();
 
 $helper->log('end');

@@ -122,9 +122,12 @@ class Xlsx extends BaseReader
         return is_array($value) ? $value : [];
     }
 
-    private function loadZip(string $filename, string $ns = ''): SimpleXMLElement
+    private function loadZip(string $filename, string $ns = '', bool $replaceUnclosedBr = false): SimpleXMLElement
     {
         $contents = $this->getFromZipArchive($this->zip, $filename);
+        if ($replaceUnclosedBr) {
+            $contents = str_replace('<br>', '<br/>', $contents);
+        }
         $rels = simplexml_load_string(
             $this->securityScanner->scan($contents),
             'SimpleXMLElement',
@@ -1029,6 +1032,7 @@ class Xlsx extends BaseReader
 
                                 // later we will remove from it real vmlComments
                                 $unparsedVmlDrawings = $vmlComments;
+                                $vmlDrawingContents = [];
 
                                 // Loop through VML comments
                                 foreach ($vmlComments as $relName => $relPath) {
@@ -1037,7 +1041,7 @@ class Xlsx extends BaseReader
 
                                     try {
                                         // no namespace okay - processed with Xpath
-                                        $vmlCommentsFile = $this->loadZip($relPath, '');
+                                        $vmlCommentsFile = $this->loadZip($relPath, '', true);
                                         $vmlCommentsFile->registerXPathNamespace('v', Namespaces::URN_VML);
                                     } catch (Throwable $ex) {
                                         //Ignore unparsable vmlDrawings. Later they will be moved from $unparsedVmlDrawings to $unparsedLoadedData
@@ -1047,6 +1051,7 @@ class Xlsx extends BaseReader
                                     // Locate VML drawings image relations
                                     $drowingImages = [];
                                     $VMLDrawingsRelations = dirname($relPath) . '/_rels/' . basename($relPath) . '.rels';
+                                    $vmlDrawingContents[$relName] = $this->securityScanner->scan($this->getFromZipArchive($zip, $relPath));
                                     if ($zip->locateName($VMLDrawingsRelations)) {
                                         $relsVMLDrawing = $this->loadZip($VMLDrawingsRelations, Namespaces::RELATIONSHIPS);
                                         foreach ($relsVMLDrawing->Relationship as $elex) {
@@ -1516,6 +1521,14 @@ class Xlsx extends BaseReader
                                             $unparsedLoadedData['sheets'][$docSheet->getCodeName()]['drawingOriginalIds'][(string) $ele['Target']] = $drawingRelId;
                                             if (isset($unparsedDrawings[$drawingRelId])) {
                                                 $unparsedLoadedData['sheets'][$docSheet->getCodeName()]['Drawings'][$drawingRelId] = $unparsedDrawings[$drawingRelId];
+                                            }
+                                        }
+                                    }
+                                    if ($xmlSheet->legacyDrawing && !$this->readDataOnly) {
+                                        foreach ($xmlSheet->legacyDrawing as $drawing) {
+                                            $drawingRelId = (string) self::getArrayItem(self::getAttributes($drawing, $xmlNamespaceBase), 'id');
+                                            if (isset($vmlDrawingContents[$drawingRelId])) {
+                                                $unparsedLoadedData['sheets'][$docSheet->getCodeName()]['legacyDrawing'] = $vmlDrawingContents[$drawingRelId];
                                             }
                                         }
                                     }
