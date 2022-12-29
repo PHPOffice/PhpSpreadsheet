@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Added
 
-- Nothing
+- Support for Structured References in the Calculation Engine [PR #3261](https://github.com/PHPOffice/PhpSpreadsheet/pull/3261)
 
 ### Changed
 

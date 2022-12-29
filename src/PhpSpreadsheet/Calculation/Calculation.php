@@ -4732,13 +4732,28 @@ class Calculation
             }
 
             if ($token instanceof Operands\StructuredReference) {
-                throw new Exception('Structured References are not currently supported');
-                // The next step is converting any structured reference to a cell value of range
-                //     to a new $token value, which can then be processed in the following code.
-            }
+                if ($cell === null) {
+                    return $this->raiseFormulaError('Structured References must exist in a Cell context');
+                }
 
-            // if the token is a binary operator, pop the top two values off the stack, do the operation, and push the result back on the stack
-            if (!is_numeric($token) && !is_object($token) && isset(self::BINARY_OPERATORS[$token])) {
+                try {
+                    $cellRange = $token->parse($cell);
+                    if (strpos($cellRange, ':') !== false) {
+                        $this->debugLog->writeDebugLog('Evaluating Structured Reference %s as Cell Range %s', $token->value(), $cellRange);
+                        $rangeValue = self::getInstance($cell->getWorksheet()->getParent())->_calculateFormulaValue("={$cellRange}", $token->value(), $cell);
+                        $stack->push('Value', $rangeValue);
+                        $this->debugLog->writeDebugLog('Evaluated Structured Reference %s as a value %s', $token->value(), $this->showValue($rangeValue));
+                    } else {
+                        $this->debugLog->writeDebugLog('Evaluating Structured Reference %s as Cell %s', $token->value(), $cellRange);
+                        $cellValue = $cell->getWorksheet()->getCell($cellRange)->getCalculatedValue(false);
+                        $stack->push('Cell Reference', $cellValue, $cellRange);
+                        $this->debugLog->writeDebugLog('Evaluated Structured Reference %s as a value %s', $token->value(), $this->showValue($cellValue));
+                    }
+                } catch (Exception $e) {
+                    return $this->raiseFormulaError($e->getMessage());
+                }
+            } elseif (!is_numeric($token) && !is_object($token) && isset(self::BINARY_OPERATORS[$token])) {
+                // if the token is a binary operator, pop the top two values off the stack, do the operation, and push the result back on the stack
                 //    We must have two operands, error if we don't
                 if (($operand2Data = $stack->pop()) === null) {
                     return $this->raiseFormulaError('Internal error - Operand value missing from stack');
