@@ -184,6 +184,22 @@ code:
 it disables several Office2007 file format options, resulting in a
 lower-featured Office2007 spreadsheet.
 
+### Form Control Fields
+
+PhpSpreadsheet offers limited support for Forms Controls (buttons,
+checkboxes, etc.). The support is available only for Excel 2007 format,
+and is offered solely to allow loading a spreadsheet with such controls
+and saving it as a new file.
+Support is not available for adding such elements to the spreadsheet,
+nor even to locate them to determine their properties
+(so you can't modify or delete them).
+Modifications to a worksheet with controls are "caveat emptor";
+some modifications will work correctly,
+but others are very likely to cause problems,
+e.g. adding a comment to the worksheet,
+or inserting or deleting rows or columns in a manner that would
+cause the controls to change location.
+
 ## Excel 5 (BIFF) file format
 
 Xls file format is the old Excel file format, implemented in
@@ -1099,7 +1115,7 @@ Flags that are available that can be passed to the Reader in this way include:
 | Slk      | N/A              | NO             | NO               |
 | Csv      | N/A              | NO             | NO               |
 
-Likewise, when saving a file using a Writer, loaded charts wil not be saved unless you explicitly tell the Writer to include them:
+Likewise, when saving a file using a Writer, loaded charts will not be saved unless you explicitly tell the Writer to include them:
 
 ```php
 $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');

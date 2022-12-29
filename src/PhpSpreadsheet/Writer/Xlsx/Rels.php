@@ -239,14 +239,16 @@ class Rels extends WriterPart
 
         // Write comments relationship?
         $i = 1;
-        if (count($worksheet->getComments()) > 0) {
+        if (count($worksheet->getComments()) > 0 || isset($unparsedLoadedData['sheets'][$worksheet->getCodeName()]['legacyDrawing'])) {
             $this->writeRelationship(
                 $objWriter,
                 '_comments_vml' . $i,
                 Namespaces::VML,
                 '../drawings/vmlDrawing' . $worksheetId . '.vml'
             );
+        }
 
+        if (count($worksheet->getComments()) > 0) {
             $this->writeRelationship(
                 $objWriter,
                 '_comments' . $i,
