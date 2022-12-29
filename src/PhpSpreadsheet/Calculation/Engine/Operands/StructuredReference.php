@@ -203,25 +203,9 @@ final class StructuredReference implements Operand
         $endRow = ($this->headersRow === null) ? $this->firstDataRow : $this->headersRow;
 
         [$startRow, $endRow] = $this->getRowsForColumnReference($reference, $startRow, $endRow);
+        $reference = $this->getColumnsForColumnReference($reference, $startRow, $endRow);
 
-        $columnsSelected = false;
-        foreach ($this->columns as $columnId => $columnName) {
-            $columnName = str_replace("\u{a0}", ' ', $columnName);
-            $cellFrom = "{$columnId}{$startRow}";
-            $cellTo = "{$columnId}{$endRow}";
-            $cellReference = ($cellFrom === $cellTo) ? $cellFrom : "{$cellFrom}:{$cellTo}";
-            $pattern = '/\[' . preg_quote($columnName) . '\]/mui';
-            /** @var string $reference */
-            if (preg_match($pattern, $reference) === 1) {
-                $columnsSelected = true;
-                $reference = preg_replace($pattern, $cellReference, $reference);
-            }
-        }
-        if ($columnsSelected === false) {
-            return $this->fullData($startRow, $endRow);
-        }
-
-        $reference = trim($reference ?? '', '[]@, ');
+        $reference = trim($reference, '[]@, ');
         if (substr_count($reference, ':') > 1) {
             $cells = explode(':', $reference);
             $firstCell = array_shift($cells);
@@ -294,7 +278,7 @@ final class StructuredReference implements Operand
     /**
      * @return array<int, int>
      */
-    public function getRowsForColumnReference(string &$reference, int $startRow, int $endRow): array
+    private function getRowsForColumnReference(string &$reference, int $startRow, int $endRow): array
     {
         $rowsSelected = false;
         foreach (self::ITEM_SPECIFIER_ROWS_SET as $rowReference) {
@@ -314,5 +298,27 @@ final class StructuredReference implements Operand
         }
 
         return [$startRow, $endRow];
+    }
+
+    private function getColumnsForColumnReference(string $reference, int $startRow, int $endRow): string
+    {
+        $columnsSelected = false;
+        foreach ($this->columns as $columnId => $columnName) {
+            $columnName = str_replace("\u{a0}", ' ', $columnName);
+            $cellFrom = "{$columnId}{$startRow}";
+            $cellTo = "{$columnId}{$endRow}";
+            $cellReference = ($cellFrom === $cellTo) ? $cellFrom : "{$cellFrom}:{$cellTo}";
+            $pattern = '/\[' . preg_quote($columnName) . '\]/mui';
+            if (preg_match($pattern, $reference) === 1) {
+                $columnsSelected = true;
+                $reference = preg_replace($pattern, $cellReference, $reference);
+            }
+            /** @var string $reference */
+        }
+        if ($columnsSelected === false) {
+            return $this->fullData($startRow, $endRow);
+        }
+
+        return $reference;
     }
 }
