@@ -34,8 +34,6 @@ final class StructuredReference implements Operand
 
     private string $tableName;
 
-    private Table $table;
-
     private string $reference;
 
     private ?int $headersRow;
@@ -104,16 +102,16 @@ final class StructuredReference implements Operand
         preg_match(self::TABLE_REFERENCE, $this->value, $matches);
 
         $this->tableName = $matches[1];
-        $this->table = ($this->tableName === '')
+        $table = ($this->tableName === '')
             ? $this->getTableForCell($cell)
             : $this->getTableByName($cell);
         $this->reference = $matches[2];
-        $tableRange = Coordinate::getRangeBoundaries($this->table->getRange());
+        $tableRange = Coordinate::getRangeBoundaries($table->getRange());
 
-        $this->headersRow = ($this->table->getShowHeaderRow()) ? (int) $tableRange[0][1] : null;
-        $this->firstDataRow = ($this->table->getShowHeaderRow()) ? (int) $tableRange[0][1] + 1 : $tableRange[0][1];
-        $this->totalsRow = ($this->table->getShowTotalsRow()) ? (int) $tableRange[1][1] : null;
-        $this->lastDataRow = ($this->table->getShowTotalsRow()) ? (int) $tableRange[1][1] - 1 : $tableRange[1][1];
+        $this->headersRow = ($table->getShowHeaderRow()) ? (int) $tableRange[0][1] : null;
+        $this->firstDataRow = ($table->getShowHeaderRow()) ? (int) $tableRange[0][1] + 1 : $tableRange[0][1];
+        $this->totalsRow = ($table->getShowTotalsRow()) ? (int) $tableRange[1][1] : null;
+        $this->lastDataRow = ($table->getShowTotalsRow()) ? (int) $tableRange[1][1] - 1 : $tableRange[1][1];
 
         $this->columns = $this->getColumns($cell, $tableRange);
     }
@@ -180,16 +178,18 @@ final class StructuredReference implements Operand
         foreach ($this->columns as $columnId => $columnName) {
             $columnName = str_replace("\u{a0}", ' ', $columnName);
             $cellReference = $columnId . $cell->getRow();
+            $pattern1 = '/\[' . preg_quote($columnName) . '\]/miu';
+            $pattern2 = '/@' . preg_quote($columnName) . '/miu';
             /** @var string $reference */
-            if (stripos($reference, '[' . $columnName . ']') !== false) {
-                $reference = preg_replace('/\[' . preg_quote($columnName) . '\]/miu', $cellReference, $reference);
-            } elseif (stripos($reference, $columnName) !== false) {
-                $reference = preg_replace('/@' . preg_quote($columnName) . '/miu', $cellReference, $reference);
+            if (preg_match($pattern1, $reference) === 1) {
+                $reference = preg_replace($pattern1, $cellReference, $reference);
+            } elseif (preg_match($pattern2, $reference) === 1) {
+                $reference = preg_replace($pattern2, $cellReference, $reference);
             }
         }
 
         /** @var string $reference */
-        return $this->validateParsedReference(trim($reference, '[]@ '));
+        return $this->validateParsedReference(trim($reference, '[]@, '));
     }
 
     /**
@@ -202,43 +202,10 @@ final class StructuredReference implements Operand
         $startRow = ($this->totalsRow === null) ? $this->lastDataRow : $this->totalsRow;
         $endRow = ($this->headersRow === null) ? $this->firstDataRow : $this->headersRow;
 
-        $rowsSelected = false;
-        foreach (self::ITEM_SPECIFIER_ROWS_SET as $rowReference) {
-            /** @var string $reference */
-            if (stripos($reference, '[' . $rowReference . ']') !== false) {
-                $rowsSelected = true;
-                $startRow = min($startRow, $this->getMinimumRow($rowReference));
-                $endRow = max($endRow, $this->getMaximumRow($rowReference));
-                $reference = preg_replace('/\[' . $rowReference . '\],/mui', '', $reference);
-            }
-        }
-        if ($rowsSelected === false) {
-            // If there isn't any Special Item Identifier specified, then the selection defaults to data rows only.
-            $startRow = $this->firstDataRow;
-            $endRow = $this->lastDataRow;
-        }
+        [$startRow, $endRow] = $this->getRowsForColumnReference($reference, $startRow, $endRow);
+        $reference = $this->getColumnsForColumnReference($reference, $startRow, $endRow);
 
-        $columnsSelected = false;
-        foreach ($this->columns as $columnId => $columnName) {
-            $columnName = str_replace("\u{a0}", ' ', $columnName);
-            $cellFrom = "{$columnId}{$startRow}";
-            $cellTo = "{$columnId}{$endRow}";
-            $cellReference = ($cellFrom === $cellTo) ? $cellFrom : "{$cellFrom}:{$cellTo}";
-            /** @var string $reference */
-            if (stripos($reference, '[' . $columnName . ']') !== false) {
-                $columnsSelected = true;
-                $reference = preg_replace('/\[' . preg_quote($columnName) . '\]/miu', $cellReference, $reference);
-            } elseif (stripos($reference, $columnName) !== false) {
-                $reference = preg_replace('/@' . preg_quote($columnName) . '/miu', $cellReference, $reference);
-                $columnsSelected = true;
-            }
-        }
-        if ($columnsSelected === false) {
-            return $this->fullData($startRow, $endRow);
-        }
-
-        /** @var string $reference */
-        $reference = trim($reference, '[]@ ');
+        $reference = trim($reference, '[]@, ');
         if (substr_count($reference, ':') > 1) {
             $cells = explode(':', $reference);
             $firstCell = array_shift($cells);
@@ -284,6 +251,8 @@ final class StructuredReference implements Operand
             case self::ITEM_SPECIFIER_TOTALS:
                 return $this->totalsRow ?? $this->lastDataRow;
         }
+
+        return $this->headersRow ?? $this->firstDataRow;
     }
 
     private function getMaximumRow(string $reference): int
@@ -297,10 +266,59 @@ final class StructuredReference implements Operand
             case self::ITEM_SPECIFIER_TOTALS:
                 return $this->totalsRow ?? $this->lastDataRow;
         }
+
+        return $this->totalsRow ?? $this->lastDataRow;
     }
 
     public function value(): string
     {
         return $this->value;
+    }
+
+    /**
+     * @return array<int, int>
+     */
+    private function getRowsForColumnReference(string &$reference, int $startRow, int $endRow): array
+    {
+        $rowsSelected = false;
+        foreach (self::ITEM_SPECIFIER_ROWS_SET as $rowReference) {
+            $pattern = '/\[' . $rowReference . '\]/mui';
+            /** @var string $reference */
+            if (preg_match($pattern, $reference) === 1) {
+                $rowsSelected = true;
+                $startRow = min($startRow, $this->getMinimumRow($rowReference));
+                $endRow = max($endRow, $this->getMaximumRow($rowReference));
+                $reference = preg_replace($pattern, '', $reference);
+            }
+        }
+        if ($rowsSelected === false) {
+            // If there isn't any Special Item Identifier specified, then the selection defaults to data rows only.
+            $startRow = $this->firstDataRow;
+            $endRow = $this->lastDataRow;
+        }
+
+        return [$startRow, $endRow];
+    }
+
+    private function getColumnsForColumnReference(string $reference, int $startRow, int $endRow): string
+    {
+        $columnsSelected = false;
+        foreach ($this->columns as $columnId => $columnName) {
+            $columnName = str_replace("\u{a0}", ' ', $columnName);
+            $cellFrom = "{$columnId}{$startRow}";
+            $cellTo = "{$columnId}{$endRow}";
+            $cellReference = ($cellFrom === $cellTo) ? $cellFrom : "{$cellFrom}:{$cellTo}";
+            $pattern = '/\[' . preg_quote($columnName) . '\]/mui';
+            if (preg_match($pattern, $reference) === 1) {
+                $columnsSelected = true;
+                $reference = preg_replace($pattern, $cellReference, $reference);
+            }
+            /** @var string $reference */
+        }
+        if ($columnsSelected === false) {
+            return $this->fullData($startRow, $endRow);
+        }
+
+        return $reference;
     }
 }

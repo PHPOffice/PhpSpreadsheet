@@ -3,13 +3,17 @@
 namespace PhpOffice\PhpSpreadsheetTests\Custom;
 
 use Complex\Complex;
+use PHPUnit\Framework\TestCase;
 
-class ComplexAssert
+class ComplexAssert extends TestCase
 {
     /**
      * @var string
      */
     private $errorMessage = '';
+
+    /** @var float */
+    private $delta = 0.0;
 
     /**
      * @param mixed $expected
@@ -40,16 +44,26 @@ class ComplexAssert
         return $adjustedDelta > 1.0 ? 1.0 : $adjustedDelta;
     }
 
+    public function setDelta(float $delta): self
+    {
+        $this->delta = $delta;
+
+        return $this;
+    }
+
     /**
      * @param mixed $expected
      * @param mixed $actual
      */
-    public function assertComplexEquals($expected, $actual, float $delta = 0): bool
+    public function assertComplexEquals($expected, $actual, ?float $delta = null): bool
     {
         if ($expected === INF || (is_string($expected) && $expected[0] === '#')) {
             return $this->testExpectedExceptions($expected, $actual);
         }
 
+        if ($delta === null) {
+            $delta = $this->delta;
+        }
         $expectedComplex = new Complex($expected);
         $actualComplex = new Complex($actual);
 
@@ -79,5 +93,14 @@ class ComplexAssert
     public function getErrorMessage(): string
     {
         return $this->errorMessage;
+    }
+
+    /**
+     * @param mixed $expected
+     * @param mixed $actual
+     */
+    public function runAssertComplexEquals($expected, $actual, ?float $delta = null): void
+    {
+        self::assertTrue($this->assertComplexEquals($expected, $actual, $delta), $this->getErrorMessage());
     }
 }
