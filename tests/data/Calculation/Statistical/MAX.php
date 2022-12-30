@@ -13,4 +13,8 @@ return [
         0,
         null, 'STRING', true, '', '27',
     ],
+    'error among arguments' => [
+        '#DIV/0!',
+        1, 3, '=5/0', -2,
+    ],
 ];
