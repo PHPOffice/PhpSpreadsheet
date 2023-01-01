@@ -1041,11 +1041,12 @@ class Chart extends WriterPart
             $objWriter->startElement('c:ser');
 
             $objWriter->startElement('c:idx');
-            $objWriter->writeAttribute('val', (string) ($this->seriesIndex + $plotSeriesIdx));
+            $adder = array_key_exists(0, $plotSeriesOrder) ? $this->seriesIndex : 0;
+            $objWriter->writeAttribute('val', (string) ($adder + $plotSeriesIdx));
             $objWriter->endElement();
 
             $objWriter->startElement('c:order');
-            $objWriter->writeAttribute('val', (string) ($this->seriesIndex + $plotSeriesRef));
+            $objWriter->writeAttribute('val', (string) ($adder + $plotSeriesRef));
             $objWriter->endElement();
 
             $plotLabel = $plotGroup->getPlotLabelByIndex($plotSeriesIdx);
