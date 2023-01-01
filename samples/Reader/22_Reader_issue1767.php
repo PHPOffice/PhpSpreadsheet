@@ -17,5 +17,6 @@ $spreadsheet = $reader->load($inputFileName);
 
 // Save
 $helper->write($spreadsheet, __FILE__);
+$spreadsheet->disconnectWorksheets();
 
 $helper->log('end');

@@ -4987,12 +4987,14 @@ class Xls extends BaseReader
         $options = self::getUInt2d($recordData, 19);
 
         // bit: 0; mask 0x0001; 1 = user may edit objects, 0 = users must not edit objects
+        // Note - do not negate $bool
         $bool = (0x0001 & $options) >> 0;
-        $this->phpSheet->getProtection()->setObjects(!$bool);
+        $this->phpSheet->getProtection()->setObjects((bool) $bool);
 
         // bit: 1; mask 0x0002; edit scenarios
+        // Note - do not negate $bool
         $bool = (0x0002 & $options) >> 1;
-        $this->phpSheet->getProtection()->setScenarios(!$bool);
+        $this->phpSheet->getProtection()->setScenarios((bool) $bool);
 
         // bit: 2; mask 0x0004; format cells
         $bool = (0x0004 & $options) >> 2;
@@ -5027,8 +5029,9 @@ class Xls extends BaseReader
         $this->phpSheet->getProtection()->setDeleteRows(!$bool);
 
         // bit: 10; mask 0x0400; select locked cells
+        // Note that this is opposite of most of above.
         $bool = (0x0400 & $options) >> 10;
-        $this->phpSheet->getProtection()->setSelectLockedCells(!$bool);
+        $this->phpSheet->getProtection()->setSelectLockedCells((bool) $bool);
 
         // bit: 11; mask 0x0800; sort cell range
         $bool = (0x0800 & $options) >> 11;
@@ -5043,8 +5046,9 @@ class Xls extends BaseReader
         $this->phpSheet->getProtection()->setPivotTables(!$bool);
 
         // bit: 14; mask 0x4000; select unlocked cells
+        // Note that this is opposite of most of above.
         $bool = (0x4000 & $options) >> 14;
-        $this->phpSheet->getProtection()->setSelectUnlockedCells(!$bool);
+        $this->phpSheet->getProtection()->setSelectUnlockedCells((bool) $bool);
 
         // offset: 21; size: 2; not used
     }

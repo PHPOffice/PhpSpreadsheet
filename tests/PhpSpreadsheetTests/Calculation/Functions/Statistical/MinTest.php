@@ -11,7 +11,7 @@ class MinTest extends AllSetupTeardown
      */
     public function testMIN($expectedResult, ...$args): void
     {
-        $this->runTestCases('MIN', $expectedResult, ...$args);
+        $this->runTestCaseReference('MIN', $expectedResult, ...$args);
     }
 
     public function providerMIN(): array

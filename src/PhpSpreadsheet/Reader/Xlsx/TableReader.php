@@ -60,6 +60,12 @@ class TableReader
      */
     private function readTableAutoFilter(Table $table, SimpleXMLElement $autoFilterXml): void
     {
+        if ($autoFilterXml->filterColumn === null) {
+            $table->setAllowFilter(false);
+
+            return;
+        }
+
         foreach ($autoFilterXml->filterColumn as $filterColumn) {
             $column = $table->getColumnByOffset((int) $filterColumn['colId']);
             $column->setShowFilterButton((string) $filterColumn['hiddenButton'] !== '1');

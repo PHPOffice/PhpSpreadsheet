@@ -10,6 +10,8 @@ use PHPUnit\Framework\TestCase;
 
 class AllSetupTeardown extends TestCase
 {
+    protected const RESULT_CELL = 'Z1';
+
     /**
      * @var ?Spreadsheet
      */
@@ -78,10 +80,9 @@ class AllSetupTeardown extends TestCase
     }
 
     /**
-     * @param mixed $expectedResult
      * @param int|string $field
      */
-    public function runTestCase(string $functionName, $expectedResult, array $database, $field, array $criteria): void
+    public function prepareWorksheetWithFormula(string $functionName, array $database, $field, array $criteria): void
     {
         $sheet = $this->getSheet();
         $maxCol = '';
@@ -119,10 +120,7 @@ class AllSetupTeardown extends TestCase
         }
         $criteriaCells = "$startCol$startRow:$maxCol$maxRow";
         $sheet->getCell('N1')->setValue($field);
-        $sheet->getCell('Z1')->setValue("=$functionName($databaseCells, N1, $criteriaCells)");
-
-        $result = $sheet->getCell('Z1')->getCalculatedValue();
-        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
+        $sheet->getCell(self::RESULT_CELL)->setValue("=$functionName($databaseCells, N1, $criteriaCells)");
     }
 
     protected function database1(): array

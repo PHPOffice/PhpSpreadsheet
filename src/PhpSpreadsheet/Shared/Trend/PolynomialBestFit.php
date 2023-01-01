@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Shared\Trend;
 
-use PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix;
+use Matrix\Matrix;
 
 // Phpstan and Scrutinizer seem to have legitimate complaints.
 // $this->slope is specified where an array is expected in several places.
@@ -167,8 +167,8 @@ class PolynomialBestFit extends BestFit
         $C = $matrixA->solve($matrixB);
 
         $coefficients = [];
-        for ($i = 0; $i < $C->getRowDimension(); ++$i) {
-            $r = $C->get($i, 0);
+        for ($i = 0; $i < $C->rows; ++$i) {
+            $r = $C->getValue($i + 1, 1); // row and column are origin-1
             if (abs($r) <= 10 ** (-9)) {
                 $r = 0;
             }

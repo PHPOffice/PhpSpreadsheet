@@ -2,9 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-class Xlfn
+class FunctionPrefix
 {
-    const XLFNREGEXP = '/(?<!_xlfn[.])\\b('
+    const XLFNREGEXP = '/(?:_xlfn\.)?((?:_xlws\.)?('
             // functions added with Excel 2010
         . 'beta[.]dist'
         . '|beta[.]inv'
@@ -134,6 +134,7 @@ class Xlfn
         // functions added with Excel 365
         . '|filter'
         . '|randarray'
+        . '|anchorarray'
         . '|sequence'
         . '|sort'
         . '|sortby'
@@ -143,27 +144,51 @@ class Xlfn
         . '|arraytotext'
         . '|call'
         . '|let'
+        . '|lambda'
+        . '|single'
         . '|register[.]id'
         . '|textafter'
         . '|textbefore'
         . '|textsplit'
         . '|valuetotext'
-        . ')(?=\\s*[(])/i';
+        . '))\s*\(/Umui';
+
+    const XLWSREGEXP = '/(?<!_xlws\.)('
+        // functions added with Excel 365
+        . 'filter'
+        . '|sort'
+        . ')\s*\(/mui';
 
     /**
      * Prefix function name in string with _xlfn. where required.
      */
-    public static function addXlfn(string $funcstring): string
+    protected static function addXlfnPrefix(string $functionString): string
     {
-        return (string) preg_replace(self::XLFNREGEXP, '_xlfn.$1', $funcstring);
+        return (string) preg_replace(self::XLFNREGEXP, '_xlfn.$1(', $functionString);
+    }
+
+    /**
+     * Prefix function name in string with _xlws. where required.
+     */
+    protected static function addXlwsPrefix(string $functionString): string
+    {
+        return (string) preg_replace(self::XLWSREGEXP, '_xlws.$1(', $functionString);
+    }
+
+    /**
+     * Prefix function name in string with _xlfn. where required.
+     */
+    public static function addFunctionPrefix(string $functionString): string
+    {
+        return self::addXlwsPrefix(self::addXlfnPrefix($functionString));
     }
 
     /**
      * Prefix function name in string with _xlfn. where required.
      * Leading character, expected to be equals sign, is stripped.
      */
-    public static function addXlfnStripEquals(string $funcstring): string
+    public static function addFunctionPrefixStripEquals(string $functionString): string
     {
-        return self::addXlfn(substr($funcstring, 1));
+        return self::addFunctionPrefix(substr($functionString, 1));
     }
 }

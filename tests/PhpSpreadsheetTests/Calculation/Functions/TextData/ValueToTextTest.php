@@ -2,6 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
+use PhpOffice\PhpSpreadsheet\Calculation\TextData\Format;
+use PhpOffice\PhpSpreadsheet\RichText\RichText;
+
 class ValueToTextTest extends AllSetupTeardown
 {
     /**
@@ -24,5 +27,16 @@ class ValueToTextTest extends AllSetupTeardown
     public function providerVALUE(): array
     {
         return require 'tests/data/Calculation/TextData/VALUETOTEXT.php';
+    }
+
+    // In Spreadsheet context, never see cell value as RichText.
+    //    It will use calculatedValue, which is a string.
+    // Add an additional test for that condition.
+    public function testRichText(): void
+    {
+        $richText1 = new RichText();
+        $richText1->createTextRun('Hello');
+        $richText1->createText(' World');
+        self::assertSame('Hello World', Format::valueToText($richText1, 0));
     }
 }
