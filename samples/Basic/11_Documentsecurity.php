@@ -39,10 +39,13 @@ $spreadsheet->getSecurity()->setWorkbookPassword('PhpSpreadsheet');
 // Set sheet security
 $helper->log('Set sheet security');
 $spreadsheet->getActiveSheet()->getProtection()->setPassword('PhpSpreadsheet');
-$spreadsheet->getActiveSheet()->getProtection()->setSheet(true); // This should be enabled in order to enable any of the following!
-$spreadsheet->getActiveSheet()->getProtection()->setSort(true);
-$spreadsheet->getActiveSheet()->getProtection()->setInsertRows(true);
-$spreadsheet->getActiveSheet()->getProtection()->setFormatCells(true);
+// setSheet should be true in order to enable protection!
+$spreadsheet->getActiveSheet()->getProtection()->setSheet(true);
+// The following are set to false, i.e. user is allowed to
+//    sort, insert rows, or format cells without unprotecting sheet.
+$spreadsheet->getActiveSheet()->getProtection()->setSort(false);
+$spreadsheet->getActiveSheet()->getProtection()->setInsertRows(false);
+$spreadsheet->getActiveSheet()->getProtection()->setFormatCells(false);
 
 // Save
 $helper->write($spreadsheet, __FILE__);

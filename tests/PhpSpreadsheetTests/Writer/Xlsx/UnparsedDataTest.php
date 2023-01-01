@@ -94,9 +94,9 @@ class UnparsedDataTest extends TestCase
             self::fail('sheet1.xml/sheetProtection not found!');
         } else {
             self::assertEquals($xmlWorksheet->sheetProtection['password'], 'CBEB', 'sheet1.xml/sheetProtection[password] is wrong!');
-            self::assertEquals($xmlWorksheet->sheetProtection['sheet'], 'true', 'sheet1.xml/sheetProtection[sheet] is wrong!');
-            self::assertEquals($xmlWorksheet->sheetProtection['objects'], 'true', 'sheet1.xml/sheetProtection[objects] is wrong!');
-            self::assertEquals($xmlWorksheet->sheetProtection['scenarios'], 'true', 'sheet1.xml/sheetProtection[scenarios] is wrong!');
+            self::assertEquals($xmlWorksheet->sheetProtection['sheet'], '1', 'sheet1.xml/sheetProtection[sheet] is wrong!');
+            self::assertEquals($xmlWorksheet->sheetProtection['objects'], '1', 'sheet1.xml/sheetProtection[objects] is wrong!');
+            self::assertEquals($xmlWorksheet->sheetProtection['scenarios'], '1', 'sheet1.xml/sheetProtection[scenarios] is wrong!');
         }
         unset($xmlWorksheet);
 

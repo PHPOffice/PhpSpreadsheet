@@ -11,7 +11,7 @@ class MinATest extends AllSetupTeardown
      */
     public function testMINA($expectedResult, ...$args): void
     {
-        $this->runTestCases('MINA', $expectedResult, ...$args);
+        $this->runTestCaseReference('MINA', $expectedResult, ...$args);
     }
 
     public function providerMINA(): array

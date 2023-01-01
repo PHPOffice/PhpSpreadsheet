@@ -79,4 +79,27 @@ class SumTest extends AllSetupTeardown
     {
         return require 'tests/data/Calculation/MathTrig/SUMWITHINDEXMATCH.php';
     }
+
+    public function testSumWithIndexMatchMoved(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet1 = $spreadsheet->getActiveSheet();
+        $sheet1->setTitle('Formula');
+        $sheet1->getCell('G5')->setValue('Number');
+        $sheet1->getCell('H5')->setValue('Formula');
+        $sheet1->getCell('G6')->setValue(83);
+        $sheet1->getCell('H6')->setValue('=SUM(4 * INDEX(Lookup!D4:D6, MATCH(G6, Lookup!C4:C6, 0)))');
+        $sheet2 = $spreadsheet->createSheet();
+        $sheet2->setTitle('Lookup');
+        $sheet2->getCell('C3')->setValue('Lookup');
+        $sheet2->getCell('D3')->setValue('Match');
+        $sheet2->getCell('C4')->setValue(82);
+        $sheet2->getCell('D4')->setValue(15);
+        $sheet2->getCell('C5')->setValue(83);
+        $sheet2->getCell('D5')->setValue(16);
+        $sheet2->getCell('C6')->setValue(84);
+        $sheet2->getCell('D6')->setValue(17);
+        self::assertSame(64, $sheet1->getCell('H6')->getCalculatedValue());
+        $spreadsheet->disconnectWorksheets();
+    }
 }

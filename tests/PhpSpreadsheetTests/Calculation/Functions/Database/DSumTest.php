@@ -2,6 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Database\DSum;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
+
 class DSumTest extends AllSetupTeardown
 {
     /**
@@ -12,9 +15,26 @@ class DSumTest extends AllSetupTeardown
      * @param mixed $field
      * @param mixed $criteria
      */
-    public function testDSum($expectedResult, $database, $field, $criteria): void
+    public function testDirectCallToDSum($expectedResult, $database, $field, $criteria): void
     {
-        $this->runTestCase('DSUM', $expectedResult, $database, $field, $criteria);
+        $result = DSum::evaluate($database, $field, $criteria);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
+    }
+
+    /**
+     * @dataProvider providerDSum
+     *
+     * @param mixed $expectedResult
+     * @param mixed $database
+     * @param mixed $field
+     * @param mixed $criteria
+     */
+    public function testDSumAsWorksheetFormula($expectedResult, $database, $field, $criteria): void
+    {
+        $this->prepareWorksheetWithFormula('DSUM', $database, $field, $criteria);
+
+        $result = $this->getSheet()->getCell(self::RESULT_CELL)->getCalculatedValue();
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
     public function providerDSum(): array
@@ -67,7 +87,7 @@ class DSumTest extends AllSetupTeardown
                 ],
             ],
             'omitted field name' => [
-                '#VALUE!',
+                ExcelError::VALUE(),
                 $this->database1(),
                 null,
                 $this->database1(),
