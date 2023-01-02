@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ErrorValue;
 
 class Maximum extends MaxMinBase
 {
@@ -26,6 +27,11 @@ class Maximum extends MaxMinBase
         // Loop through arguments
         $aArgs = Functions::flattenArray($args);
         foreach ($aArgs as $arg) {
+            if (ErrorValue::isError($arg)) {
+                $returnValue = $arg;
+
+                break;
+            }
             // Is it a numeric value?
             if ((is_numeric($arg)) && (!is_string($arg))) {
                 if (($returnValue === null) || ($arg > $returnValue)) {
@@ -60,6 +66,11 @@ class Maximum extends MaxMinBase
         // Loop through arguments
         $aArgs = Functions::flattenArray($args);
         foreach ($aArgs as $arg) {
+            if (ErrorValue::isError($arg)) {
+                $returnValue = $arg;
+
+                break;
+            }
             // Is it a numeric value?
             if ((is_numeric($arg)) || (is_bool($arg)) || ((is_string($arg) && ($arg != '')))) {
                 $arg = self::datatypeAdjustmentAllowStrings($arg);

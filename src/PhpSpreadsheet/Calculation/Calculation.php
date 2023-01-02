@@ -6,8 +6,6 @@ use PhpOffice\PhpSpreadsheet\Calculation\Engine\BranchPruner;
 use PhpOffice\PhpSpreadsheet\Calculation\Engine\CyclicReferenceStack;
 use PhpOffice\PhpSpreadsheet\Calculation\Engine\Logger;
 use PhpOffice\PhpSpreadsheet\Calculation\Engine\Operands;
-use PhpOffice\PhpSpreadsheet\Calculation\Information\ErrorValue;
-use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Calculation\Token\Stack;
 use PhpOffice\PhpSpreadsheet\Cell\AddressRange;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
@@ -4632,14 +4630,6 @@ class Calculation
         return $operand;
     }
 
-    private const NUMERIC_BINARY_OPERATIONS = [
-        '+' => 'plusEquals',
-        '-' => 'minusEquals',
-        '*' => 'arrayTimesEquals',
-        '/' => 'arrayRightDivide',
-        '^' => 'power',
-    ];
-
     /**
      * @param mixed $tokens
      * @param null|string $cellID
@@ -4679,7 +4669,7 @@ class Calculation
 
                 if (
                     (isset($storeValue) || $tokenData['reference'] === 'NULL')
-                    && (!$storeValueAsBool || ErrorValue::isError($storeValue) || ($storeValue === 'Pruned branch'))
+                    && (!$storeValueAsBool || Information\ErrorValue::isError($storeValue) || ($storeValue === 'Pruned branch'))
                 ) {
                     // If branching value is not true, we don't need to compute
                     if (!isset($fakedForBranchPruning['onlyIf-' . $onlyIfStoreKey])) {
@@ -4711,7 +4701,7 @@ class Calculation
 
                 if (
                     (isset($storeValue) || $tokenData['reference'] === 'NULL')
-                    && ($storeValueAsBool || ErrorValue::isError($storeValue) || ($storeValue === 'Pruned branch'))
+                    && ($storeValueAsBool || Information\ErrorValue::isError($storeValue) || ($storeValue === 'Pruned branch'))
                 ) {
                     // If branching value is true, we don't need to compute
                     if (!isset($fakedForBranchPruning['onlyIfNot-' . $onlyIfNotStoreKey])) {
@@ -4862,7 +4852,7 @@ class Calculation
                     case '*':            //    Multiplication
                     case '/':            //    Division
                     case '^':            //    Exponential
-                        $result = $this->executeNumericBinaryOperation($operand1, $operand2, $token, self::NUMERIC_BINARY_OPERATIONS[$token], $stack);
+                        $result = $this->executeNumericBinaryOperation($operand1, $operand2, $token, $stack);
                         if (isset($storeKey)) {
                             $branchStore[$storeKey] = $result;
                         }
@@ -4872,29 +4862,30 @@ class Calculation
                         //    If either of the operands is a matrix, we need to treat them both as matrices
                         //        (converting the other operand to a matrix if need be); then perform the required
                         //        matrix operation
-                        if (is_bool($operand1)) {
-                            $operand1 = ($operand1) ? self::$localeBoolean['TRUE'] : self::$localeBoolean['FALSE'];
-                        }
-                        if (is_bool($operand2)) {
-                            $operand2 = ($operand2) ? self::$localeBoolean['TRUE'] : self::$localeBoolean['FALSE'];
-                        }
-                        if ((is_array($operand1)) || (is_array($operand2))) {
-                            //    Ensure that both operands are arrays/matrices
-                            self::checkMatrixOperands($operand1, $operand2, 2);
-
-                            try {
-                                //    Convert operand 1 from a PHP array to a matrix
-                                $matrix = new Shared\JAMA\Matrix($operand1);
-                                //    Perform the required operation against the operand 1 matrix, passing in operand 2
-                                $matrixResult = $matrix->concat($operand2);
-                                $result = $matrixResult->getArray();
-                                if (isset($result[0][0])) {
-                                    $result[0][0] = Shared\StringHelper::substring($result[0][0], 0, DataType::MAX_STRING_LENGTH);
-                                }
-                            } catch (\Exception $ex) {
-                                $this->debugLog->writeDebugLog('JAMA Matrix Exception: %s', $ex->getMessage());
-                                $result = '#VALUE!';
+                        $operand1 = self::boolToString($operand1);
+                        $operand2 = self::boolToString($operand2);
+                        if (is_array($operand1) || is_array($operand2)) {
+                            if (is_string($operand1)) {
+                                $operand1 = self::unwrapResult($operand1);
                             }
+                            if (is_string($operand2)) {
+                                $operand2 = self::unwrapResult($operand2);
+                            }
+                            //    Ensure that both operands are arrays/matrices
+                            [$rows, $columns] = self::checkMatrixOperands($operand1, $operand2, 2);
+
+                            for ($row = 0; $row < $rows; ++$row) {
+                                for ($column = 0; $column < $columns; ++$column) {
+                                    $operand1[$row][$column] =
+                                        Shared\StringHelper::substring(
+                                            self::boolToString($operand1[$row][$column])
+                                            . self::boolToString($operand2[$row][$column]),
+                                            0,
+                                            DataType::MAX_STRING_LENGTH
+                                        );
+                                }
+                            }
+                            $result = $operand1;
                         } else {
                             // In theory, we should truncate here.
                             // But I can't figure out a formula
@@ -4947,23 +4938,26 @@ class Calculation
                     $multiplier = 0.01;
                 }
                 if (is_array($arg)) {
-                    self::checkMatrixOperands($arg, $multiplier, 2);
-
-                    try {
-                        $matrix1 = new Shared\JAMA\Matrix($arg);
-                        $matrixResult = $matrix1->arrayTimesEquals($multiplier);
-                        $result = $matrixResult->getArray();
-                    } catch (\Exception $ex) {
-                        $this->debugLog->writeDebugLog('JAMA Matrix Exception: %s', $ex->getMessage());
-                        $result = '#VALUE!';
+                    $operand2 = $multiplier;
+                    $result = $arg;
+                    [$rows, $columns] = self::checkMatrixOperands($result, $operand2, 0);
+                    for ($row = 0; $row < $rows; ++$row) {
+                        for ($column = 0; $column < $columns; ++$column) {
+                            if (is_numeric($result[$row][$column])) {
+                                $result[$row][$column] *= $multiplier;
+                            } else {
+                                $result[$row][$column] = Information\ExcelError::VALUE();
+                            }
+                        }
                     }
+
                     $this->debugLog->writeDebugLog('Evaluation Result is %s', $this->showTypeDetails($result));
                     $stack->push('Value', $result);
                     if (isset($storeKey)) {
                         $branchStore[$storeKey] = $result;
                     }
                 } else {
-                    $this->executeNumericBinaryOperation($multiplier, $arg, '*', 'arrayTimesEquals', $stack);
+                    $this->executeNumericBinaryOperation($multiplier, $arg, '*', $stack);
                 }
             } elseif (preg_match('/^' . self::CALCULATION_REGEXP_CELLREF . '$/i', $token ?? '', $matches)) {
                 $cellRef = null;
@@ -5303,12 +5297,11 @@ class Calculation
      * @param mixed $operand1
      * @param mixed $operand2
      * @param string $operation
-     * @param string $matrixFunction
      * @param Stack $stack
      *
      * @return bool|mixed
      */
-    private function executeNumericBinaryOperation($operand1, $operand2, $operation, $matrixFunction, &$stack)
+    private function executeNumericBinaryOperation($operand1, $operand2, $operation, &$stack)
     {
         //    Validate the two operands
         if (
@@ -5318,69 +5311,112 @@ class Calculation
             return false;
         }
 
-        //    If either of the operands is a matrix, we need to treat them both as matrices
-        //        (converting the other operand to a matrix if need be); then perform the required
-        //        matrix operation
-        if ((is_array($operand1)) || (is_array($operand2))) {
-            //    Ensure that both operands are arrays/matrices of the same size
-            self::checkMatrixOperands($operand1, $operand2, 2);
-
-            try {
-                //    Convert operand 1 from a PHP array to a matrix
-                $matrix = new Shared\JAMA\Matrix($operand1);
-                //    Perform the required operation against the operand 1 matrix, passing in operand 2
-                $matrixResult = $matrix->$matrixFunction($operand2);
-                $result = $matrixResult->getArray();
-            } catch (\Exception $ex) {
-                $this->debugLog->writeDebugLog('JAMA Matrix Exception: %s', $ex->getMessage());
-                $result = '#VALUE!';
-            }
-        } else {
-            if (
-                (Functions::getCompatibilityMode() != Functions::COMPATIBILITY_OPENOFFICE) &&
-                ((is_string($operand1) && !is_numeric($operand1) && strlen($operand1) > 0) ||
-                    (is_string($operand2) && !is_numeric($operand2) && strlen($operand2) > 0))
-            ) {
-                $result = Information\ExcelError::VALUE();
-            } else {
-                //    If we're dealing with non-matrix operations, execute the necessary operation
-                switch ($operation) {
-                    //    Addition
-                    case '+':
-                        $result = $operand1 + $operand2;
-
-                        break;
-                    //    Subtraction
-                    case '-':
-                        $result = $operand1 - $operand2;
-
-                        break;
-                    //    Multiplication
-                    case '*':
-                        $result = $operand1 * $operand2;
-
-                        break;
-                    //    Division
-                    case '/':
-                        if ($operand2 == 0) {
-                            //    Trap for Divide by Zero error
-                            $stack->push('Error', ExcelError::DIV0());
-                            $this->debugLog->writeDebugLog('Evaluation Result is %s', $this->showTypeDetails(ExcelError::DIV0()));
-
-                            return false;
-                        }
-                        $result = $operand1 / $operand2;
-
-                        break;
-                    //    Power
-                    case '^':
-                        $result = $operand1 ** $operand2;
-
-                        break;
-
-                    default:
-                        throw new Exception('Unsupported numeric binary operation');
+        if (
+            (Functions::getCompatibilityMode() != Functions::COMPATIBILITY_OPENOFFICE) &&
+            ((is_string($operand1) && !is_numeric($operand1) && strlen($operand1) > 0) ||
+                (is_string($operand2) && !is_numeric($operand2) && strlen($operand2) > 0))
+        ) {
+            $result = Information\ExcelError::VALUE();
+        } elseif (is_array($operand1) || is_array($operand2)) {
+            //    Ensure that both operands are arrays/matrices
+            if (is_array($operand1)) {
+                foreach ($operand1 as $key => $value) {
+                    $operand1[$key] = Functions::flattenArray($value);
                 }
+            }
+            if (is_array($operand2)) {
+                foreach ($operand2 as $key => $value) {
+                    $operand2[$key] = Functions::flattenArray($value);
+                }
+            }
+            [$rows, $columns] = self::checkMatrixOperands($operand1, $operand2, 2);
+
+            for ($row = 0; $row < $rows; ++$row) {
+                for ($column = 0; $column < $columns; ++$column) {
+                    if ($operand1[$row][$column] === null) {
+                        $operand1[$row][$column] = 0;
+                    } elseif (!is_numeric($operand1[$row][$column])) {
+                        $operand1[$row][$column] = Information\ExcelError::VALUE();
+
+                        continue;
+                    }
+                    if ($operand2[$row][$column] === null) {
+                        $operand2[$row][$column] = 0;
+                    } elseif (!is_numeric($operand2[$row][$column])) {
+                        $operand1[$row][$column] = Information\ExcelError::VALUE();
+
+                        continue;
+                    }
+                    switch ($operation) {
+                        case '+':
+                            $operand1[$row][$column] += $operand2[$row][$column];
+
+                            break;
+                        case '-':
+                            $operand1[$row][$column] -= $operand2[$row][$column];
+
+                            break;
+                        case '*':
+                            $operand1[$row][$column] *= $operand2[$row][$column];
+
+                            break;
+                        case '/':
+                            if ($operand2[$row][$column] == 0) {
+                                $operand1[$row][$column] = Information\ExcelError::DIV0();
+                            } else {
+                                $operand1[$row][$column] /= $operand2[$row][$column];
+                            }
+
+                            break;
+                        case '^':
+                            $operand1[$row][$column] = $operand1[$row][$column] ** $operand2[$row][$column];
+
+                            break;
+
+                        default:
+                            throw new Exception('Unsupported numeric binary operation');
+                    }
+                }
+            }
+            $result = $operand1;
+        } else {
+            //    If we're dealing with non-matrix operations, execute the necessary operation
+            switch ($operation) {
+                //    Addition
+                case '+':
+                    $result = $operand1 + $operand2;
+
+                    break;
+                //    Subtraction
+                case '-':
+                    $result = $operand1 - $operand2;
+
+                    break;
+                //    Multiplication
+                case '*':
+                    $result = $operand1 * $operand2;
+
+                    break;
+                //    Division
+                case '/':
+                    if ($operand2 == 0) {
+                        //    Trap for Divide by Zero error
+                        $stack->push('Error', Information\ExcelError::DIV0());
+                        $this->debugLog->writeDebugLog('Evaluation Result is %s', $this->showTypeDetails(Information\ExcelError::DIV0()));
+
+                        return false;
+                    }
+                    $result = $operand1 / $operand2;
+
+                    break;
+                //    Power
+                case '^':
+                    $result = $operand1 ** $operand2;
+
+                    break;
+
+                default:
+                    throw new Exception('Unsupported numeric binary operation');
             }
         }
 
@@ -5644,25 +5680,6 @@ class Calculation
     }
 
     /**
-     * @param array $tokens
-     *
-     * @return string
-     */
-    private function getTokensAsString($tokens)
-    {
-        $tokensStr = array_map(function ($token) {
-            $value = $token['value'] ?? 'no value';
-            while (is_array($value)) {
-                $value = array_pop($value);
-            }
-
-            return $value;
-        }, $tokens);
-
-        return '[ ' . implode(' | ', $tokensStr) . ' ]';
-    }
-
-    /**
      * @return mixed|string
      */
     private function evaluateDefinedName(Cell $cell, DefinedName $namedRange, Worksheet $cellWorksheet, Stack $stack)
@@ -5729,5 +5746,21 @@ class Calculation
     private static function doNothing($arg): bool
     {
         return (bool) $arg;
+    }
+
+    /**
+     * @param mixed $operand1
+     *
+     * @return mixed
+     */
+    private static function boolToString($operand1)
+    {
+        if (is_bool($operand1)) {
+            $operand1 = ($operand1) ? self::$localeBoolean['TRUE'] : self::$localeBoolean['FALSE'];
+        } elseif ($operand1 === null) {
+            $operand1 = '';
+        }
+
+        return $operand1;
     }
 }
