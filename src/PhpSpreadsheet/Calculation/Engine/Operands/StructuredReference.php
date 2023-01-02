@@ -34,6 +34,8 @@ final class StructuredReference implements Operand
 
     private string $tableName;
 
+    private Table $table;
+
     private string $reference;
 
     private ?int $headersRow;
@@ -102,16 +104,16 @@ final class StructuredReference implements Operand
         preg_match(self::TABLE_REFERENCE, $this->value, $matches);
 
         $this->tableName = $matches[1];
-        $table = ($this->tableName === '')
+        $this->table = ($this->tableName === '')
             ? $this->getTableForCell($cell)
             : $this->getTableByName($cell);
         $this->reference = $matches[2];
-        $tableRange = Coordinate::getRangeBoundaries($table->getRange());
+        $tableRange = Coordinate::getRangeBoundaries($this->table->getRange());
 
-        $this->headersRow = ($table->getShowHeaderRow()) ? (int) $tableRange[0][1] : null;
-        $this->firstDataRow = ($table->getShowHeaderRow()) ? (int) $tableRange[0][1] + 1 : $tableRange[0][1];
-        $this->totalsRow = ($table->getShowTotalsRow()) ? (int) $tableRange[1][1] : null;
-        $this->lastDataRow = ($table->getShowTotalsRow()) ? (int) $tableRange[1][1] - 1 : $tableRange[1][1];
+        $this->headersRow = ($this->table->getShowHeaderRow()) ? (int) $tableRange[0][1] : null;
+        $this->firstDataRow = ($this->table->getShowHeaderRow()) ? (int) $tableRange[0][1] + 1 : $tableRange[0][1];
+        $this->totalsRow = ($this->table->getShowTotalsRow()) ? (int) $tableRange[1][1] : null;
+        $this->lastDataRow = ($this->table->getShowTotalsRow()) ? (int) $tableRange[1][1] - 1 : $tableRange[1][1];
 
         $this->columns = $this->getColumns($cell, $tableRange);
     }
@@ -160,7 +162,7 @@ final class StructuredReference implements Operand
         $lastColumn = ++$tableRange[1][0];
         for ($column = $tableRange[0][0]; $column !== $lastColumn; ++$column) {
             $columns[$column] = $worksheet
-                ->getCell($column . $this->headersRow)
+                ->getCell($column . ($this->headersRow ?? ($this->firstDataRow - 1)))
                 ->getCalculatedValue();
         }
 
@@ -285,6 +287,9 @@ final class StructuredReference implements Operand
             $pattern = '/\[' . $rowReference . '\]/mui';
             /** @var string $reference */
             if (preg_match($pattern, $reference) === 1) {
+                if (($rowReference === self::ITEM_SPECIFIER_HEADERS) && ($this->table->getShowHeaderRow() === false)) {
+                    throw new Exception('Table Headers are Hidden, and should not be Referenced');
+                }
                 $rowsSelected = true;
                 $startRow = min($startRow, $this->getMinimumRow($rowReference));
                 $endRow = max($endRow, $this->getMaximumRow($rowReference));

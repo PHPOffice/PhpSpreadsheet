@@ -4742,15 +4742,20 @@ class Calculation
                         $this->debugLog->writeDebugLog('Evaluating Structured Reference %s as Cell Range %s', $token->value(), $cellRange);
                         $rangeValue = self::getInstance($cell->getWorksheet()->getParent())->_calculateFormulaValue("={$cellRange}", $token->value(), $cell);
                         $stack->push('Value', $rangeValue);
-                        $this->debugLog->writeDebugLog('Evaluated Structured Reference %s as a value %s', $token->value(), $this->showValue($rangeValue));
+                        $this->debugLog->writeDebugLog('Evaluated Structured Reference %s as value %s', $token->value(), $this->showValue($rangeValue));
                     } else {
                         $this->debugLog->writeDebugLog('Evaluating Structured Reference %s as Cell %s', $token->value(), $cellRange);
                         $cellValue = $cell->getWorksheet()->getCell($cellRange)->getCalculatedValue(false);
                         $stack->push('Cell Reference', $cellValue, $cellRange);
-                        $this->debugLog->writeDebugLog('Evaluated Structured Reference %s as a value %s', $token->value(), $this->showValue($cellValue));
+                        $this->debugLog->writeDebugLog('Evaluated Structured Reference %s as value %s', $token->value(), $this->showValue($cellValue));
                     }
                 } catch (Exception $e) {
-                    return $this->raiseFormulaError($e->getMessage());
+                    if ($e->getMessage() === 'Table Headers are Hidden, and should not be Referenced') {
+                        $stack->push('Error', Information\ExcelError::REF(), null);
+                        $this->debugLog->writeDebugLog('Evaluated Structured Reference %s as error value %s', $token->value(), Information\ExcelError::REF());
+                    } else {
+                        return $this->raiseFormulaError($e->getMessage());
+                    }
                 }
             } elseif (!is_numeric($token) && !is_object($token) && isset(self::BINARY_OPERATORS[$token])) {
                 // if the token is a binary operator, pop the top two values off the stack, do the operation, and push the result back on the stack
