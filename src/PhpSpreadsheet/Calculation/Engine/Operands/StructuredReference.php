@@ -288,7 +288,10 @@ final class StructuredReference implements Operand
             /** @var string $reference */
             if (preg_match($pattern, $reference) === 1) {
                 if (($rowReference === self::ITEM_SPECIFIER_HEADERS) && ($this->table->getShowHeaderRow() === false)) {
-                    throw new Exception('Table Headers are Hidden, and should not be Referenced');
+                    throw new Exception(
+                        'Table Headers are Hidden, and should not be Referenced',
+                        Exception::CALCULATION_ENGINE_PUSH_TO_STACK
+                    );
                 }
                 $rowsSelected = true;
                 $startRow = min($startRow, $this->getMinimumRow($rowReference));

@@ -4740,7 +4740,7 @@ class Calculation
                         $this->debugLog->writeDebugLog('Evaluated Structured Reference %s as value %s', $token->value(), $this->showValue($cellValue));
                     }
                 } catch (Exception $e) {
-                    if ($e->getMessage() === 'Table Headers are Hidden, and should not be Referenced') {
+                    if ($e->getCode() === Exception::CALCULATION_ENGINE_PUSH_TO_STACK) {
                         $stack->push('Error', Information\ExcelError::REF(), null);
                         $this->debugLog->writeDebugLog('Evaluated Structured Reference %s as error value %s', $token->value(), Information\ExcelError::REF());
                     } else {
