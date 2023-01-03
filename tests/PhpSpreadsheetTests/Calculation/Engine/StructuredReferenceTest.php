@@ -104,6 +104,7 @@ class StructuredReferenceTest extends TestCase
         $table->setShowHeaderRow(false);
 
         self::expectException(Exception::class);
+        self::expectExceptionCode(1);
         self::expectExceptionMessage('Table Headers are Hidden, and should not be Referenced');
         $structuredReferenceObject = new StructuredReference('DeptSales[[#Headers],[% Commission]]');
         $cellRange = $structuredReferenceObject->parse($cell);
