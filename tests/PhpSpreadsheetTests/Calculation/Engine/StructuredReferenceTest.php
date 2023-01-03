@@ -92,6 +92,23 @@ class StructuredReferenceTest extends TestCase
         self::assertSame($expectedCellRange, $cellRange);
     }
 
+    public function testStructuredReferenceHeadersHidden(): void
+    {
+        $cell = $this->spreadSheet->getActiveSheet()->getCell('K1');
+        $table = $this->spreadSheet->getActiveSheet()->getTableByName('DeptSales');
+        /** @var Table $table */
+        $structuredReferenceObject = new StructuredReference('DeptSales[[#Headers],[% Commission]]');
+        $cellRange = $structuredReferenceObject->parse($cell);
+        self::assertSame('D1', $cellRange);
+
+        $table->setShowHeaderRow(false);
+
+        self::expectException(Exception::class);
+        self::expectExceptionMessage('Table Headers are Hidden, and should not be Referenced');
+        $structuredReferenceObject = new StructuredReference('DeptSales[[#Headers],[% Commission]]');
+        $cellRange = $structuredReferenceObject->parse($cell);
+    }
+
     public function structuredReferenceProviderColumnData(): array
     {
         return [
