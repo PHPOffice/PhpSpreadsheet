@@ -298,8 +298,8 @@ class Table
         }
 
         [$width, $height] = Coordinate::rangeDimension($range);
-        if ($width < 1 || $height < 2) {
-            throw new PhpSpreadsheetException('The table range must be at least 1 column and 2 rows');
+        if ($width < 1 || $height < 1) {
+            throw new PhpSpreadsheetException('The table range must be at least 1 column and row');
         }
 
         $this->range = $range;

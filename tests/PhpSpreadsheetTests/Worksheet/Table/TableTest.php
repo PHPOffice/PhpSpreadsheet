@@ -207,9 +207,8 @@ class TableTest extends SetupTeardown
     {
         return [
             ['A1'],
-            ['A1:A1'],
             ['B1:A4'],
-            ['A1:D1'],
+            ['B12:B4'],
             ['D1:A1'],
         ];
     }
