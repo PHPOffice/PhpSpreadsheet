@@ -15,6 +15,6 @@ class Issue3277Test extends TestCase
 
         $array = $spreadsheet->getActiveSheet()->toArray();
 
-        $this->assertSame('data', $array[0][0]);
+        self::assertSame('data', $array[0][0]);
     }
 }
