@@ -2112,7 +2112,7 @@ class Calculation
         ],
         'ROUND' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => 'round',
+            'functionCall' => [Kasko::class, 'ROUND'],
             'argumentCount' => '2',
         ],
         'ROUNDDOWN' => [
