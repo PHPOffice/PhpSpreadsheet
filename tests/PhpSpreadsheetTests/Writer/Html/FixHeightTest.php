@@ -11,7 +11,7 @@ class FixHeightTest extends TestCase
     public function testFixHeight(): void
     {
         $spreadsheet = new Spreadsheet();
-        $sheet0 = $spreadsheet->getActiveSheet();
+        //$sheet0 = $spreadsheet->getActiveSheet();
         $sheet1 = $spreadsheet->createSheet();
         $sheet2 = $spreadsheet->createSheet();
         $sheet3 = $spreadsheet->createSheet();
