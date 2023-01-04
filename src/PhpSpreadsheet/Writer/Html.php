@@ -804,6 +804,11 @@ class Html extends BaseWriter
     {
         // Calculate hash code
         $sheetIndex = $sheet->getParent()->getIndex($sheet);
+        $setup = $sheet->getPageSetup();
+        if ($setup->getFitToPage() && $setup->getFitToHeight() === 1) {
+            $css["table.sheet$sheetIndex"]['page-break-inside'] = 'avoid';
+            $css["table.sheet$sheetIndex"]['break-inside'] = 'avoid';
+        }
 
         // Build styles
         // Calculate column widths
