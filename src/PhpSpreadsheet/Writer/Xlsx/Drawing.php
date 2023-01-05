@@ -67,7 +67,7 @@ class Drawing extends WriterPart
         }
 
         // unparsed AlternateContent
-        $unparsedLoadedData = $worksheet->getParent()->getUnparsedLoadedData();
+        $unparsedLoadedData = $worksheet->getParentOrThrow()->getUnparsedLoadedData();
         if (isset($unparsedLoadedData['sheets'][$worksheet->getCodeName()]['drawingAlternateContents'])) {
             foreach ($unparsedLoadedData['sheets'][$worksheet->getCodeName()]['drawingAlternateContents'] as $drawingAlternateContent) {
                 $objWriter->writeRaw($drawingAlternateContent);

@@ -643,7 +643,7 @@ class Spreadsheet implements JsonSerializable
             }
         }
 
-        if ($worksheet->getParent() === null) { // @phpstan-ignore-line
+        if ($worksheet->getParent() === null) {
             $worksheet->rebindParent($this);
         }
 
@@ -871,7 +871,7 @@ class Spreadsheet implements JsonSerializable
         $countCellXfs = count($this->cellXfCollection);
 
         // copy all the shared cellXfs from the external workbook and append them to the current
-        foreach ($worksheet->getParent()->getCellXfCollection() as $cellXf) {
+        foreach ($worksheet->getParentOrThrow()->getCellXfCollection() as $cellXf) {
             $this->addCellXf(clone $cellXf);
         }
 

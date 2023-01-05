@@ -263,7 +263,7 @@ abstract class Coordinate
     /**
      * Column index from string.
      *
-     * @param string $columnAddress eg 'A'
+     * @param ?string $columnAddress eg 'A'
      *
      * @return int Column index (A = 1)
      */
@@ -273,6 +273,7 @@ abstract class Coordinate
         //    caching using a static within the method is faster than a class static,
         //        though it's additional memory overhead
         static $indexCache = [];
+        $columnAddress = $columnAddress ?? '';
 
         if (isset($indexCache[$columnAddress])) {
             return $indexCache[$columnAddress];

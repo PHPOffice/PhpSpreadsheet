@@ -10,7 +10,7 @@ class ColumnDimension extends Dimension
     /**
      * Column index.
      *
-     * @var string
+     * @var ?string
      */
     private $columnIndex;
 
@@ -33,7 +33,7 @@ class ColumnDimension extends Dimension
     /**
      * Create a new ColumnDimension.
      *
-     * @param string $index Character column index
+     * @param ?string $index Character column index
      */
     public function __construct($index = 'A')
     {
@@ -47,7 +47,7 @@ class ColumnDimension extends Dimension
     /**
      * Get column index as string eg: 'A'.
      */
-    public function getColumnIndex(): string
+    public function getColumnIndex(): ?string
     {
         return $this->columnIndex;
     }
@@ -67,7 +67,7 @@ class ColumnDimension extends Dimension
      */
     public function getColumnNumeric(): int
     {
-        return Coordinate::columnIndexFromString($this->columnIndex);
+        return Coordinate::columnIndexFromString($this->columnIndex ?? '');
     }
 
     /**
