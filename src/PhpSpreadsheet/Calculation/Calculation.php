@@ -1402,7 +1402,7 @@ class Calculation
         ],
         'INDEX' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
-            'functionCall' => [LookupRef::class, 'INDEX'],
+            'functionCall' => [Kasko::class, 'INDEX'],
             'argumentCount' => '1-4',
         ],
         'INDIRECT' => [
