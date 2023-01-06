@@ -5,7 +5,10 @@ namespace PhpOffice\PhpSpreadsheet\Calculation;
 class Kasko
 {
     /**
-     * Replacing native function for php 8.0
+     * Casting num native function for php 8.0
+     * Problem described here: https://github.com/PHPOffice/PhpSpreadsheet/issues/1789
+     * It was fixed by just adding validation, but our templates are full of formulas like:
+     * =ROUND('1.111'; 0)
      */
     public static function ROUND($num, $precision)
     {
