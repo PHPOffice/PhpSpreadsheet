@@ -27,10 +27,13 @@ class Kasko
         return round((float) $num, $precision);
     }
 
+    /**
+     * BC for our broken kasko insurer templates
+     * This is obvious bug that was fixed: https://github.com/PHPOffice/PhpSpreadsheet/issues/2066
+     */
     public static function INDEX($arrayValues, $rowNum = 0, $columnNum = 0)
     {
-        // BC for our broken kasko insurer templates
-        // This is obvious bug that was fixed: https://github.com/PHPOffice/PhpSpreadsheet/issues/2066
+
         if (Functions::NA() === Functions::flattenSingleValue($rowNum)) {
             return $arrayValues;
         }
