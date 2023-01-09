@@ -40,7 +40,7 @@ class Combinations
             return $e->getMessage();
         }
 
-        return round(Factorial::fact($numObjs) / Factorial::fact($numObjs - $numInSet)) / Factorial::fact($numInSet);
+        return round(Factorial::fact($numObjs) / Factorial::fact($numObjs - $numInSet)) / Factorial::fact($numInSet); // @phpstan-ignore-line
     }
 
     /**
@@ -85,7 +85,7 @@ class Combinations
         }
 
         return round(
-            Factorial::fact($numObjs + $numInSet - 1) / Factorial::fact($numObjs - 1)
+            Factorial::fact($numObjs + $numInSet - 1) / Factorial::fact($numObjs - 1) // @phpstan-ignore-line
         ) / Factorial::fact($numInSet);
     }
 }
