@@ -9,6 +9,7 @@ interface IReader
     public const READ_DATA_ONLY = 2;
 
     public const SKIP_EMPTY_CELLS = 4;
+    public const IGNORE_EMPTY_CELLS = 4;
 
     /**
      * IReader constructor.
