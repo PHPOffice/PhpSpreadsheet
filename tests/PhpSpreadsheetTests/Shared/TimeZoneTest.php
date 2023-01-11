@@ -52,7 +52,7 @@ class TimeZoneTest extends TestCase
 
     public function testSetTimezoneBackwardCompatible(): void
     {
-        $bcTimezone = 'Etc/GMT+10';
+        $bcTimezone = 'Etc/GMT-10';
         $result = TimeZone::setTimezone($bcTimezone);
         self::assertTrue($result);
         $result = Date::setDefaultTimezone($bcTimezone);

@@ -11,8 +11,6 @@ class StudentT
 {
     use ArrayEnabled;
 
-    private const MAX_ITERATIONS = 256;
-
     /**
      * TDIST.
      *

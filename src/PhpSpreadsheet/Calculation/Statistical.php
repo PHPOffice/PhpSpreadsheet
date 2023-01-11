@@ -15,8 +15,6 @@ use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Variances;
 
 /**
  * @deprecated 1.18.0
- *
- * @codeCoverageIgnore
  */
 class Statistical
 {
@@ -953,7 +951,7 @@ class Statistical
      *
      * @param mixed $args Data range and criterias
      *
-     * @return float
+     * @return null|float|string
      */
     public static function MAXIFS(...$args)
     {
@@ -1038,7 +1036,7 @@ class Statistical
      *
      * @param mixed $args Data range and criterias
      *
-     * @return float
+     * @return null|float|string
      */
     public static function MINIFS(...$args)
     {
@@ -1728,7 +1726,7 @@ class Statistical
      *      Use the zTest() method in the Statistical\Distributions\StandardNormal class instead
      * @see Statistical\Distributions\StandardNormal::zTest()
      *
-     * @param float $dataSet
+     * @param mixed $dataSet
      * @param float $m0 Alpha Parameter
      * @param float $sigma Beta Parameter
      *
