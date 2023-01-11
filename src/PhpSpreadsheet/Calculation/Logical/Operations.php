@@ -33,7 +33,9 @@ class Operations
      */
     public static function logicalAnd(...$args)
     {
-        return self::countTrueValues($args, 'and');
+        return self::countTrueValues($args, function (int $trueValueCount, int $count): bool {
+            return $trueValueCount === $count;
+        });
     }
 
     /**
@@ -58,7 +60,9 @@ class Operations
      */
     public static function logicalOr(...$args)
     {
-        return self::countTrueValues($args, 'or');
+        return self::countTrueValues($args, function (int $trueValueCount): bool {
+            return $trueValueCount > 0;
+        });
     }
 
     /**
@@ -85,7 +89,9 @@ class Operations
      */
     public static function logicalXor(...$args)
     {
-        return self::countTrueValues($args, 'xor');
+        return self::countTrueValues($args, function (int $trueValueCount): bool {
+            return $trueValueCount % 2 === 1;
+        });
     }
 
     /**
@@ -133,7 +139,7 @@ class Operations
     /**
      * @return bool|string
      */
-    private static function countTrueValues(array $args, string $operation)
+    private static function countTrueValues(array $args, callable $func)
     {
         $trueValueCount = 0;
         $count = 0;
@@ -161,17 +167,6 @@ class Operations
             }
         }
 
-        if ($count === 0) {
-            return ExcelError::VALUE();
-        }
-        if ($operation === 'and') {
-            return $trueValueCount === $count;
-        }
-        if ($operation === 'or') {
-            return $trueValueCount > 0;
-        }
-
-        // xor
-        return $trueValueCount % 2 === 1;
+        return ($count === 0) ? ExcelError::VALUE() : $func($trueValueCount, $count);
     }
 }
