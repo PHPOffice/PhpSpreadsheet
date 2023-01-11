@@ -148,6 +148,6 @@ class StandardNormal
 
         $sub1 = Averages::average($dataSet);
 
-        return is_string($sub1) ? $sub1 : (1 - self::cumulative(($sub1 - $m0) / ($sigma / sqrt($n))));
+        return is_numeric($sub1) ? (1 - self::cumulative(($sub1 - $m0) / ($sigma / sqrt($n)))) : $sub1;
     }
 }
