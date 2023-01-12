@@ -635,7 +635,7 @@ class Functions
     public static function expandDefinedName(string $coordinate, Cell $cell): string
     {
         $worksheet = $cell->getWorksheet();
-        $spreadsheet = $worksheet->getParent();
+        $spreadsheet = $worksheet->getParentOrThrow();
         // Uppercase coordinate
         $pCoordinatex = strtoupper($coordinate);
         // Eliminate leading equal sign

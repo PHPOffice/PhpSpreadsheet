@@ -9,7 +9,7 @@ class RowDimension extends Dimension
     /**
      * Row index.
      *
-     * @var int
+     * @var ?int
      */
     private $rowIndex;
 
@@ -32,7 +32,7 @@ class RowDimension extends Dimension
     /**
      * Create a new RowDimension.
      *
-     * @param int $index Numeric row index
+     * @param ?int $index Numeric row index
      */
     public function __construct($index = 0)
     {
@@ -46,7 +46,7 @@ class RowDimension extends Dimension
     /**
      * Get Row Index.
      */
-    public function getRowIndex(): int
+    public function getRowIndex(): ?int
     {
         return $this->rowIndex;
     }

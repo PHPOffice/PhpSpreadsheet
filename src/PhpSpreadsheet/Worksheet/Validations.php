@@ -103,7 +103,7 @@ class Validations
         $coordinate = strtoupper($coordinate);
         // Eliminate leading equal sign
         $testCoordinate = (string) preg_replace('/^=/', '', $coordinate);
-        $defined = $worksheet->getParent()->getDefinedName($testCoordinate, $worksheet);
+        $defined = $worksheet->getParentOrThrow()->getDefinedName($testCoordinate, $worksheet);
         if ($defined !== null) {
             if ($defined->getWorksheet() === $worksheet && !$defined->isFormula()) {
                 $coordinate = (string) preg_replace('/^=/', '', $defined->getValue());

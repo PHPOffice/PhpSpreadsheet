@@ -365,14 +365,14 @@ class Cell
     {
         if ($this->dataType === DataType::TYPE_FORMULA) {
             try {
-                $index = $this->getWorksheet()->getParent()->getActiveSheetIndex();
+                $index = $this->getWorksheet()->getParentOrThrow()->getActiveSheetIndex();
                 $selected = $this->getWorksheet()->getSelectedCells();
                 $result = Calculation::getInstance(
                     $this->getWorksheet()->getParent()
                 )->calculateCellValue($this, $resetLog);
                 $result = $this->convertDateTimeInt($result);
                 $this->getWorksheet()->setSelectedCells($selected);
-                $this->getWorksheet()->getParent()->setActiveSheetIndex($index);
+                $this->getWorksheet()->getParentOrThrow()->setActiveSheetIndex($index);
                 //    We don't yet handle array returns
                 if (is_array($result)) {
                     while (is_array($result)) {

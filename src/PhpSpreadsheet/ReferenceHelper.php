@@ -550,7 +550,7 @@ class ReferenceHelper
         }
 
         // Update workbook: define names
-        if (count($worksheet->getParent()->getDefinedNames()) > 0) {
+        if (count($worksheet->getParentOrThrow()->getDefinedNames()) > 0) {
             $this->updateDefinedNames($worksheet, $beforeCellAddress, $numberOfColumns, $numberOfRows);
         }
 
@@ -905,7 +905,7 @@ class ReferenceHelper
 
     private function updateDefinedNames(Worksheet $worksheet, string $beforeCellAddress, int $numberOfColumns, int $numberOfRows): void
     {
-        foreach ($worksheet->getParent()->getDefinedNames() as $definedName) {
+        foreach ($worksheet->getParentOrThrow()->getDefinedNames() as $definedName) {
             if ($definedName->isFormula() === false) {
                 $this->updateNamedRange($definedName, $worksheet, $beforeCellAddress, $numberOfColumns, $numberOfRows);
             } else {

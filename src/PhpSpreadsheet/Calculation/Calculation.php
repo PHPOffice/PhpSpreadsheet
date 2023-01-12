@@ -4450,7 +4450,7 @@ class Calculation
 
                             $refSheet = $pCellParent;
                             if ($pCellParent !== null && $rangeSheetRef !== '' && $rangeSheetRef !== $pCellParent->getTitle()) {
-                                $refSheet = $pCellParent->getParent()->getSheetByName($rangeSheetRef);
+                                $refSheet = $pCellParent->getParentOrThrow()->getSheetByName($rangeSheetRef);
                             }
 
                             if (ctype_digit($val) && $val <= 1048576) {
