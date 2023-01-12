@@ -2,7 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Worksheet\Table;
 use PHPUnit\Framework\TestCase;
 
 class StructuredReferenceFormulaTest extends TestCase
@@ -20,6 +22,28 @@ class StructuredReferenceFormulaTest extends TestCase
 
         $calculatedCellValue = $spreadsheet->getActiveSheet()->getCell($cellAddress)->getCalculatedValue();
         self::assertEqualsWithDelta($expectedValue, $calculatedCellValue, 1.0e-14, "Failed calculation for cell {$cellAddress}");
+    }
+
+    public function testStructuredReferenceHiddenHeaders(): void
+    {
+        $inputFileType = 'Xlsx';
+        $inputFileName = __DIR__ . '/../../data/Calculation/TableFormulae.xlsx';
+
+        $reader = IOFactory::createReader($inputFileType);
+        $spreadsheet = $reader->load($inputFileName);
+        /** @var Table $table */
+        $table = $spreadsheet->getActiveSheet()->getTableByName('DeptSales');
+
+        $cellAddress = 'G8';
+        $spreadsheet->getActiveSheet()->getCell($cellAddress)->setValue('=DeptSales[[#Headers][Region]]');
+        $result = $spreadsheet->getActiveSheet()->getCell($cellAddress)->getCalculatedValue();
+        self::assertSame('Region', $result);
+
+        $spreadsheet->getCalculationEngine()->flushInstance(); // @phpstan-ignore-line
+        $table->setShowHeaderRow(false);
+
+        $result = $spreadsheet->getActiveSheet()->getCell($cellAddress)->getCalculatedValue();
+        self::assertSame(ExcelError::REF(), $result);
     }
 
     public function structuredReferenceProvider(): array
