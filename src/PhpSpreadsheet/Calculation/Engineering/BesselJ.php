@@ -133,7 +133,7 @@ class BesselJ
         return self::besselj2b($ax, $ord, $x);
     }
 
-    private static function besselj2a(float $ax, int $ord, float $x)
+    private static function besselj2a(float $ax, int $ord, float $x): float
     {
         $tox = 2.0 / $ax;
         $bjm = self::besselJ0($ax);
@@ -148,7 +148,7 @@ class BesselJ
         return ($x < 0.0 && ($ord % 2) == 1) ? -$ans : $ans;
     }
 
-    private static function besselj2b(float $ax, int $ord, float $x)
+    private static function besselj2b(float $ax, int $ord, float $x): float
     {
         $tox = 2.0 / $ax;
         $jsum = false;
