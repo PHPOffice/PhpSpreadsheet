@@ -27,7 +27,7 @@ class Formula
         $cellReference = $matches[6] . $matches[7];
         $worksheetName = trim($matches[3], "'");
         $worksheet = (!empty($worksheetName))
-            ? $cell->getWorksheet()->getParent()->getSheetByName($worksheetName)
+            ? $cell->getWorksheet()->getParentOrThrow()->getSheetByName($worksheetName)
             : $cell->getWorksheet();
 
         if (

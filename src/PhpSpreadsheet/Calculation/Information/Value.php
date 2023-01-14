@@ -49,7 +49,7 @@ class Value
         $cellValue = Functions::trimTrailingRange($value);
         if (preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/ui', $cellValue) === 1) {
             [$worksheet, $cellValue] = Worksheet::extractSheetTitle($cellValue, true);
-            if (!empty($worksheet) && $cell->getWorksheet()->getParent()->getSheetByName($worksheet) === null) {
+            if (!empty($worksheet) && $cell->getWorksheet()->getParentOrThrow()->getSheetByName($worksheet) === null) {
                 return false;
             }
             [$column, $row] = Coordinate::indexesFromString($cellValue);
@@ -60,7 +60,7 @@ class Value
             return true;
         }
 
-        $namedRange = $cell->getWorksheet()->getParent()->getNamedRange($value);
+        $namedRange = $cell->getWorksheet()->getParentOrThrow()->getNamedRange($value);
 
         return $namedRange instanceof NamedRange;
     }
@@ -227,7 +227,7 @@ class Value
         $worksheetName = str_replace("''", "'", trim($matches[2], "'"));
 
         $worksheet = (!empty($worksheetName))
-            ? $cell->getWorksheet()->getParent()->getSheetByName($worksheetName)
+            ? $cell->getWorksheet()->getParentOrThrow()->getSheetByName($worksheetName)
             : $cell->getWorksheet();
 
         return ($worksheet !== null) ? $worksheet->getCell($fullCellReference)->isFormula() : ExcelError::REF();
