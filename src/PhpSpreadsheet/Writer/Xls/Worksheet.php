@@ -273,7 +273,7 @@ class Worksheet extends BIFFwriter
             $this->lastColumnIndex = 255;
         }
 
-        $this->countCellStyleXfs = count($phpSheet->getParent()->getCellStyleXfCollection());
+        $this->countCellStyleXfs = count($phpSheet->getParentOrThrow()->getCellStyleXfCollection());
     }
 
     /**
@@ -288,7 +288,7 @@ class Worksheet extends BIFFwriter
 
         // Storing selected cells and active sheet because it changes while parsing cells with formulas.
         $selectedCells = $this->phpSheet->getSelectedCells();
-        $activeSheetIndex = $this->phpSheet->getParent()->getActiveSheetIndex();
+        $activeSheetIndex = $this->phpSheet->getParentOrThrow()->getActiveSheetIndex();
 
         // Write BOF record
         $this->storeBof(0x0010);
@@ -307,7 +307,7 @@ class Worksheet extends BIFFwriter
 
         // Column dimensions
         if (($defaultWidth = $phpSheet->getDefaultColumnDimension()->getWidth()) < 0) {
-            $defaultWidth = \PhpOffice\PhpSpreadsheet\Shared\Font::getDefaultColumnWidthByFont($phpSheet->getParent()->getDefaultStyle()->getFont());
+            $defaultWidth = \PhpOffice\PhpSpreadsheet\Shared\Font::getDefaultColumnWidthByFont($phpSheet->getParentOrThrow()->getDefaultStyle()->getFont());
         }
 
         $columnDimensions = $phpSheet->getColumnDimensions();
@@ -498,7 +498,7 @@ class Worksheet extends BIFFwriter
         $this->writeMsoDrawing();
 
         // Restoring active sheet.
-        $this->phpSheet->getParent()->setActiveSheetIndex($activeSheetIndex);
+        $this->phpSheet->getParentOrThrow()->setActiveSheetIndex($activeSheetIndex);
 
         // Write WINDOW2 record
         $this->writeWindow2();
@@ -1255,7 +1255,7 @@ class Worksheet extends BIFFwriter
         $fDspGuts = $this->outlineOn; // 7
         $fFrozenNoSplit = 0; // 0 - bit
         // no support in PhpSpreadsheet for selected sheet, therefore sheet is only selected if it is the active sheet
-        $fSelected = ($this->phpSheet === $this->phpSheet->getParent()->getActiveSheet()) ? 1 : 0;
+        $fSelected = ($this->phpSheet === $this->phpSheet->getParentOrThrow()->getActiveSheet()) ? 1 : 0;
         $fPageBreakPreview = $this->phpSheet->getSheetView()->getView() === SheetView::SHEETVIEW_PAGE_BREAK_PREVIEW;
 
         $grbit = $fDspFmla;

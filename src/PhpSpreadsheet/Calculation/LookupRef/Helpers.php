@@ -66,7 +66,7 @@ class Helpers
         }
 
         $worksheet = ($sheetName !== '')
-            ? $cell->getWorksheet()->getParent()->getSheetByName($sheetName)
+            ? $cell->getWorksheet()->getParentOrThrow()->getSheetByName($sheetName)
             : $cell->getWorksheet();
 
         return [$cellAddress, $worksheet, $sheetName];
