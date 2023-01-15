@@ -291,7 +291,7 @@ class NonPeriodic
             if ($date0 > $datei) {
                 $dif = $ordered ? ExcelError::NAN() : -((int) DateTimeExcel\Difference::interval($datei, $date0, 'd'));
             } else {
-                $dif = DateTimeExcel\Difference::interval($date0, $datei, 'd');
+                $dif = Functions::scalar(DateTimeExcel\Difference::interval($date0, $datei, 'd'));
             }
             if (!is_numeric($dif)) {
                 return $dif;
