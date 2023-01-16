@@ -199,7 +199,8 @@ class Interest
         return $close ? $rate : ExcelError::NAN();
     }
 
-    private static function rateNextGuess($rate, $numberOfPeriods, $payment, $presentValue, $futureValue, $type)
+    /** @return float|string */
+    private static function rateNextGuess(float $rate, int $numberOfPeriods, float $payment, float $presentValue, float $futureValue, int $type)
     {
         if ($rate == 0.0) {
             return ExcelError::NAN();

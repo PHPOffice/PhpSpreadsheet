@@ -138,7 +138,7 @@ class Worksheet extends WriterPart
     {
         // sheetPr
         $objWriter->startElement('sheetPr');
-        if ($worksheet->getParent()->hasMacros()) {
+        if ($worksheet->getParentOrThrow()->hasMacros()) {
             //if the workbook have macros, we need to have codeName for the sheet
             if (!$worksheet->hasCodeName()) {
                 $worksheet->setCodeName($worksheet->getTitle());
@@ -969,7 +969,7 @@ class Worksheet extends WriterPart
         }
         $objWriter->writeAttribute('pageOrder', $worksheet->getPageSetup()->getPageOrder());
 
-        $getUnparsedLoadedData = $worksheet->getParent()->getUnparsedLoadedData();
+        $getUnparsedLoadedData = $worksheet->getParentOrThrow()->getUnparsedLoadedData();
         if (isset($getUnparsedLoadedData['sheets'][$worksheet->getCodeName()]['pageSetupRelId'])) {
             $objWriter->writeAttribute('r:id', $getUnparsedLoadedData['sheets'][$worksheet->getCodeName()]['pageSetupRelId']);
         }
@@ -1305,7 +1305,7 @@ class Worksheet extends WriterPart
      */
     private function writeDrawings(XMLWriter $objWriter, PhpspreadsheetWorksheet $worksheet, $includeCharts = false): void
     {
-        $unparsedLoadedData = $worksheet->getParent()->getUnparsedLoadedData();
+        $unparsedLoadedData = $worksheet->getParentOrThrow()->getUnparsedLoadedData();
         $hasUnparsedDrawing = isset($unparsedLoadedData['sheets'][$worksheet->getCodeName()]['drawingOriginalIds']);
         $chartCount = ($includeCharts) ? $worksheet->getChartCollection()->count() : 0;
         if ($chartCount == 0 && $worksheet->getDrawingCollection()->count() == 0 && !$hasUnparsedDrawing) {
@@ -1333,7 +1333,7 @@ class Worksheet extends WriterPart
     private function writeLegacyDrawing(XMLWriter $objWriter, PhpspreadsheetWorksheet $worksheet): void
     {
         // If sheet contains comments, add the relationships
-        $unparsedLoadedData = $worksheet->getParent()->getUnparsedLoadedData();
+        $unparsedLoadedData = $worksheet->getParentOrThrow()->getUnparsedLoadedData();
         if (count($worksheet->getComments()) > 0 || isset($unparsedLoadedData['sheets'][$worksheet->getCodeName()]['legacyDrawing'])) {
             $objWriter->startElement('legacyDrawing');
             $objWriter->writeAttribute('r:id', 'rId_comments_vml1');
@@ -1356,11 +1356,11 @@ class Worksheet extends WriterPart
 
     private function writeAlternateContent(XMLWriter $objWriter, PhpspreadsheetWorksheet $worksheet): void
     {
-        if (empty($worksheet->getParent()->getUnparsedLoadedData()['sheets'][$worksheet->getCodeName()]['AlternateContents'])) {
+        if (empty($worksheet->getParentOrThrow()->getUnparsedLoadedData()['sheets'][$worksheet->getCodeName()]['AlternateContents'])) {
             return;
         }
 
-        foreach ($worksheet->getParent()->getUnparsedLoadedData()['sheets'][$worksheet->getCodeName()]['AlternateContents'] as $alternateContent) {
+        foreach ($worksheet->getParentOrThrow()->getUnparsedLoadedData()['sheets'][$worksheet->getCodeName()]['AlternateContents'] as $alternateContent) {
             $objWriter->writeRaw($alternateContent);
         }
     }
