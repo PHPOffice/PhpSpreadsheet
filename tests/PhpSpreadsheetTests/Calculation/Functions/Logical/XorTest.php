@@ -18,4 +18,22 @@ class XorTest extends AllSetupTeardown
     {
         return require 'tests/data/Calculation/Logical/XOR.php';
     }
+
+    /**
+     * @dataProvider providerXORLiteral
+     *
+     * @param mixed $expectedResult
+     * @param string $formula
+     */
+    public function xtestXORLiteral($expectedResult, $formula): void
+    {
+        $sheet = $this->getSheet();
+        $sheet->getCell('A1')->setValue("=XOR($formula)");
+        self::assertSame($expectedResult, $sheet->getCell('A1')->getCalculatedValue());
+    }
+
+    public function providerXORLiteral(): array
+    {
+        return require 'tests/data/Calculation/Logical/XORLiteral.php';
+    }
 }

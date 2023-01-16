@@ -81,16 +81,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Internal/MakeMatrix.php
 
 		-
-			message: "#^Call to function is_string\\(\\) with null will always evaluate to false\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Calculation/Logical/Operations.php
-
-		-
-			message: "#^Result of && is always false\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Calculation/Logical/Operations.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\:\\:CHOOSE\\(\\) has parameter \\$chooseArgs with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/LookupRef.php
