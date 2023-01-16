@@ -24,7 +24,7 @@ class DateValue
      * Excel Function:
      *        DATEVALUE(dateValue)
      *
-     * @param array|string $dateValue Text that represents a date in a Microsoft Excel date format.
+     * @param null|array|string $dateValue Text that represents a date in a Microsoft Excel date format.
      *                                    For example, "1/30/2008" or "30-Jan-2008" are text strings within
      *                                    quotation marks that represent dates. Using the default date
      *                                    system in Excel for Windows, date_text must represent a date from

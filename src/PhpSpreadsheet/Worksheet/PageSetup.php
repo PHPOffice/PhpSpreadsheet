@@ -639,7 +639,7 @@ class PageSetup
     public function getPrintArea($index = 0)
     {
         if ($index == 0) {
-            return $this->printArea;
+            return (string) $this->printArea;
         }
         $printAreas = explode(',', (string) $this->printArea);
         if (isset($printAreas[$index - 1])) {

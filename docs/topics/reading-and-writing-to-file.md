@@ -1102,18 +1102,19 @@ $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load("spreadsheetWithCharts.
 Flags that are available that can be passed to the Reader in this way include:
  - $reader::LOAD_WITH_CHARTS
  - $reader::READ_DATA_ONLY
- - $reader::SKIP_EMPTY_CELLS
+ - $reader::IGNORE_EMPTY_CELLS 
+ - $reader::SKIP_EMPTY_CELLS (synonym for IGNORE_EMPTY_CELLS)
 
-| Readers  | LOAD_WITH_CHARTS | READ_DATA_ONLY | SKIP_EMPTY_CELLS |
-|----------|------------------|----------------|------------------|
-| Xlsx     | YES              | YES            | YES              |
-| Xls      | NO               | YES            | YES              |
-| Xml      | NO               | NO             | NO               |
-| Ods      | NO               | YES            | NO               |
-| Gnumeric | NO               | YES            | NO               |
-| Html     | N/A              | N/A            | N/A              |
-| Slk      | N/A              | NO             | NO               |
-| Csv      | N/A              | NO             | NO               |
+| Readers  | LOAD_WITH_CHARTS | READ_DATA_ONLY | IGNORE_EMPTY_CELLS |
+|----------|------------------|----------------|--------------------|
+| Xlsx     | YES              | YES            | YES                |
+| Xls      | NO               | YES            | YES                |
+| Xml      | NO               | NO             | NO                 |
+| Ods      | NO               | YES            | NO                 |
+| Gnumeric | NO               | YES            | NO                 |
+| Html     | N/A              | N/A            | N/A                |
+| Slk      | N/A              | NO             | NO                 |
+| Csv      | N/A              | NO             | NO                 |
 
 Likewise, when saving a file using a Writer, loaded charts will not be saved unless you explicitly tell the Writer to include them:
 

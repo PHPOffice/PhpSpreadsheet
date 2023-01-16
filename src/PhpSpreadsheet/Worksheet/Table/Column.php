@@ -215,7 +215,7 @@ class Column
         if (StringHelper::strToLower($oldTitle) !== StringHelper::strToLower($newTitle)) {
             // We need to check all formula cells that might contain Structured References that refer
             //    to this column, and update those formulae to reference the new column text
-            $spreadsheet = $workSheet->getParent();
+            $spreadsheet = $workSheet->getParentOrThrow();
             foreach ($spreadsheet->getWorksheetIterator() as $sheet) {
                 self::updateStructuredReferencesInCells($sheet, $oldTitle, $newTitle);
             }

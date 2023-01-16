@@ -245,7 +245,7 @@ class Xls extends BaseWriter
 
         foreach ($this->spreadsheet->getAllsheets() as $sheet) {
             // sheet index
-            $sheetIndex = $sheet->getParent()->getIndex($sheet);
+            $sheetIndex = $sheet->getParentOrThrow()->getIndex($sheet);
 
             // check if there are any shapes for this sheet
             $filterRange = $sheet->getAutoFilter()->getRange();
@@ -260,7 +260,7 @@ class Xls extends BaseWriter
             $dgContainer = new DgContainer();
 
             // set the drawing index (we use sheet index + 1)
-            $dgId = $sheet->getParent()->getIndex($sheet) + 1;
+            $dgId = $sheet->getParentOrThrow()->getIndex($sheet) + 1;
             $dgContainer->setDgId($dgId);
             $escher->setDgContainer($dgContainer);
 
@@ -272,7 +272,7 @@ class Xls extends BaseWriter
             $spContainer = new SpContainer();
             $spContainer->setSpgr(true);
             $spContainer->setSpType(0);
-            $spContainer->setSpId(($sheet->getParent()->getIndex($sheet) + 1) << 10);
+            $spContainer->setSpId(($sheet->getParentOrThrow()->getIndex($sheet) + 1) << 10);
             $spgrContainer->addChild($spContainer);
 
             // add the shapes
@@ -294,7 +294,7 @@ class Xls extends BaseWriter
 
                 // set the shape index (we combine 1-based sheet index and $countShapes to create unique shape index)
                 $reducedSpId = $countShapes[$sheetIndex];
-                $spId = $reducedSpId | ($sheet->getParent()->getIndex($sheet) + 1) << 10;
+                $spId = $reducedSpId | ($sheet->getParentOrThrow()->getIndex($sheet) + 1) << 10;
                 $spContainer->setSpId($spId);
 
                 // keep track of last reducedSpId
@@ -351,7 +351,7 @@ class Xls extends BaseWriter
 
                     // set the shape index (we combine 1-based sheet index and $countShapes to create unique shape index)
                     $reducedSpId = $countShapes[$sheetIndex];
-                    $spId = $reducedSpId | ($sheet->getParent()->getIndex($sheet) + 1) << 10;
+                    $spId = $reducedSpId | ($sheet->getParentOrThrow()->getIndex($sheet) + 1) << 10;
                     $spContainer->setSpId($spId);
 
                     // keep track of last reducedSpId

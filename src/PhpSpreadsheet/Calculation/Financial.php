@@ -12,8 +12,6 @@ use PhpOffice\PhpSpreadsheet\Calculation\Financial\TreasuryBill;
 
 /**
  * @deprecated 1.18.0
- *
- * @codeCoverageIgnore
  */
 class Financial
 {
@@ -543,7 +541,7 @@ class Financial
      *                                date when the security is traded to the buyer.
      * @param mixed $maturity The security's maturity date.
      *                                The maturity date is the date when the security expires.
-     * @param int $price The security's price per $100 face value
+     * @param mixed $price The security's price per $100 face value
      * @param int $redemption The security's redemption value per $100 face value
      * @param int $basis The type of day count to use.
      *                                        0 or omitted    US (NASD) 30/360
@@ -1004,7 +1002,7 @@ class Financial
      *                              is traded to the buyer.
      * @param mixed $maturity The security's maturity date.
      *                            The maturity date is the date when the security expires.
-     * @param int $discount The security's discount rate
+     * @param mixed $discount The security's discount rate
      * @param int $redemption The security's redemption value per $100 face value
      * @param int $basis The type of day count to use.
      *                                        0 or omitted    US (NASD) 30/360
@@ -1035,8 +1033,8 @@ class Financial
      * @param mixed $maturity The security's maturity date.
      *                            The maturity date is the date when the security expires.
      * @param mixed $issue The security's issue date
-     * @param int $rate The security's interest rate at date of issue
-     * @param int $yield The security's annual yield
+     * @param mixed $rate The security's interest rate at date of issue
+     * @param mixed $yield The security's annual yield
      * @param int $basis The type of day count to use.
      *                                        0 or omitted    US (NASD) 30/360
      *                                        1                Actual/actual
@@ -1216,7 +1214,7 @@ class Financial
      *                              Treasury bill is traded to the buyer.
      * @param mixed $maturity The Treasury bill's maturity date.
      *                                The maturity date is the date when the Treasury bill expires.
-     * @param int $discount The Treasury bill's discount rate
+     * @param mixed $discount The Treasury bill's discount rate
      *
      * @return float|string Result, or a string containing an error
      */
@@ -1239,7 +1237,7 @@ class Financial
      *                                    when the Treasury bill is traded to the buyer.
      * @param mixed $maturity The Treasury bill's maturity date.
      *                                The maturity date is the date when the Treasury bill expires.
-     * @param int $discount The Treasury bill's discount rate
+     * @param mixed $discount The Treasury bill's discount rate
      *
      * @return float|string Result, or a string containing an error
      */
@@ -1262,7 +1260,7 @@ class Financial
      *                                    when the Treasury bill is traded to the buyer.
      * @param mixed $maturity The Treasury bill's maturity date.
      *                                The maturity date is the date when the Treasury bill expires.
-     * @param int $price The Treasury bill's price per $100 face value
+     * @param mixed $price The Treasury bill's price per $100 face value
      *
      * @return float|mixed|string
      */
@@ -1342,7 +1340,7 @@ class Financial
      *                              is traded to the buyer.
      * @param mixed $maturity The security's maturity date.
      *                            The maturity date is the date when the security expires.
-     * @param int $price The security's price per $100 face value
+     * @param mixed $price The security's price per $100 face value
      * @param int $redemption The security's redemption value per $100 face value
      * @param int $basis The type of day count to use.
      *                                        0 or omitted    US (NASD) 30/360
@@ -1373,8 +1371,8 @@ class Financial
      * @param mixed $maturity The security's maturity date.
      *                            The maturity date is the date when the security expires.
      * @param mixed $issue The security's issue date
-     * @param int $rate The security's interest rate at date of issue
-     * @param int $price The security's price per $100 face value
+     * @param mixed $rate The security's interest rate at date of issue
+     * @param mixed $price The security's price per $100 face value
      * @param int $basis The type of day count to use.
      *                       0 or omitted    US (NASD) 30/360
      *                       1               Actual/actual

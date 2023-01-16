@@ -130,22 +130,26 @@ class Functions
         return '#Not Yet Implemented';
     }
 
-    public static function isMatrixValue($idx)
+    /** @param mixed $idx */
+    public static function isMatrixValue($idx): bool
     {
         return (substr_count($idx, '.') <= 1) || (preg_match('/\.[A-Z]/', $idx) > 0);
     }
 
-    public static function isValue($idx)
+    /** @param mixed $idx */
+    public static function isValue($idx): bool
     {
         return substr_count($idx, '.') === 0;
     }
 
-    public static function isCellValue($idx)
+    /** @param mixed $idx */
+    public static function isCellValue($idx): bool
     {
         return substr_count($idx, '.') > 1;
     }
 
-    public static function ifCondition($condition)
+    /** @param mixed $condition */
+    public static function ifCondition($condition): string
     {
         $condition = self::flattenSingleValue($condition);
 
@@ -180,6 +184,11 @@ class Functions
         return str_replace('""""', '""', $operator . $operand);
     }
 
+    /**
+     * @param mixed $operand
+     *
+     * @return mixed
+     */
     private static function operandSpecialHandling($operand)
     {
         if (is_numeric($operand) || is_bool($operand)) {
@@ -635,7 +644,7 @@ class Functions
     public static function expandDefinedName(string $coordinate, Cell $cell): string
     {
         $worksheet = $cell->getWorksheet();
-        $spreadsheet = $worksheet->getParent();
+        $spreadsheet = $worksheet->getParentOrThrow();
         // Uppercase coordinate
         $pCoordinatex = strtoupper($coordinate);
         // Eliminate leading equal sign
