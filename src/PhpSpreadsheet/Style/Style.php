@@ -130,7 +130,7 @@ class Style extends Supervisor
             $xfIndex = 0;
         }
 
-        return $activeSheet->getParent()->getCellXfByIndex($xfIndex);
+        return $activeSheet->getParentOrThrow()->getCellXfByIndex($xfIndex);
     }
 
     /**
@@ -138,7 +138,7 @@ class Style extends Supervisor
      */
     public function getParent(): Spreadsheet
     {
-        return $this->getActiveSheet()->getParent();
+        return $this->getActiveSheet()->getParentOrThrow();
     }
 
     /**
@@ -372,7 +372,7 @@ class Style extends Supervisor
             $oldXfIndexes = $this->getOldXfIndexes($selectionType, $rangeStartIndexes, $rangeEndIndexes, $columnStart, $columnEnd, $styleArray);
 
             // clone each of the affected styles, apply the style array, and add the new styles to the workbook
-            $workbook = $this->getActiveSheet()->getParent();
+            $workbook = $this->getActiveSheet()->getParentOrThrow();
             $newXfIndexes = [];
             foreach ($oldXfIndexes as $oldXfIndex => $dummy) {
                 $style = $workbook->getCellXfByIndex($oldXfIndex);

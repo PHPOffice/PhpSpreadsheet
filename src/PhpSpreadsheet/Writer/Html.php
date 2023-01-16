@@ -803,7 +803,12 @@ class Html extends BaseWriter
     private function buildCssPerSheet(Worksheet $sheet, array &$css): void
     {
         // Calculate hash code
-        $sheetIndex = $sheet->getParent()->getIndex($sheet);
+        $sheetIndex = $sheet->getParentOrThrow()->getIndex($sheet);
+        $setup = $sheet->getPageSetup();
+        if ($setup->getFitToPage() && $setup->getFitToHeight() === 1) {
+            $css["table.sheet$sheetIndex"]['page-break-inside'] = 'avoid';
+            $css["table.sheet$sheetIndex"]['break-inside'] = 'avoid';
+        }
 
         // Build styles
         // Calculate column widths
@@ -1139,7 +1144,7 @@ class Html extends BaseWriter
      */
     private function generateTableHeader(Worksheet $worksheet, $showid = true)
     {
-        $sheetIndex = $worksheet->getParent()->getIndex($worksheet);
+        $sheetIndex = $worksheet->getParentOrThrow()->getIndex($worksheet);
 
         // Construct HTML
         $html = '';
@@ -1284,7 +1289,7 @@ class Html extends BaseWriter
             $this->generateRowCellDataValueRich($cell, $cellData);
         } else {
             $origData = $this->preCalculateFormulas ? $cell->getCalculatedValue() : $cell->getValue();
-            $formatCode = $worksheet->getParent()->getCellXfByIndex($cell->getXfIndex())->getNumberFormat()->getFormatCode();
+            $formatCode = $worksheet->getParentOrThrow()->getCellXfByIndex($cell->getXfIndex())->getNumberFormat()->getFormatCode();
 
             $cellData = NumberFormat::toFormattedString(
                 $origData ?? '',
@@ -1295,9 +1300,9 @@ class Html extends BaseWriter
             if ($cellData === $origData) {
                 $cellData = htmlspecialchars($cellData, Settings::htmlEntityFlags());
             }
-            if ($worksheet->getParent()->getCellXfByIndex($cell->getXfIndex())->getFont()->getSuperscript()) {
+            if ($worksheet->getParentOrThrow()->getCellXfByIndex($cell->getXfIndex())->getFont()->getSuperscript()) {
                 $cellData = '<sup>' . $cellData . '</sup>';
-            } elseif ($worksheet->getParent()->getCellXfByIndex($cell->getXfIndex())->getFont()->getSubscript()) {
+            } elseif ($worksheet->getParentOrThrow()->getCellXfByIndex($cell->getXfIndex())->getFont()->getSubscript()) {
                 $cellData = '<sub>' . $cellData . '</sub>';
             }
         }
@@ -1342,7 +1347,7 @@ class Html extends BaseWriter
                 }
 
                 // General horizontal alignment: Actual horizontal alignment depends on dataType
-                $sharedStyle = $worksheet->getParent()->getCellXfByIndex($cell->getXfIndex());
+                $sharedStyle = $worksheet->getParentOrThrow()->getCellXfByIndex($cell->getXfIndex());
                 if (
                     $sharedStyle->getAlignment()->getHorizontal() == Alignment::HORIZONTAL_GENERAL
                     && isset($this->cssStyles['.' . $cell->getDataType()]['text-align'])
@@ -1449,7 +1454,7 @@ class Html extends BaseWriter
     private function generateRow(Worksheet $worksheet, array $values, $row, $cellType)
     {
         // Sheet index
-        $sheetIndex = $worksheet->getParent()->getIndex($worksheet);
+        $sheetIndex = $worksheet->getParentOrThrow()->getIndex($worksheet);
         $html = $this->generateRowStart($worksheet, $sheetIndex, $row);
         $generateDiv = $this->isMPdf && $worksheet->getRowDimension($row + 1)->getVisible() === false;
         if ($generateDiv) {
@@ -1470,14 +1475,14 @@ class Html extends BaseWriter
             }
 
             // Should the cell be written or is it swallowed by a rowspan or colspan?
-            $writeCell = !(isset($this->isSpannedCell[$worksheet->getParent()->getIndex($worksheet)][$row + 1][$colNum])
-                && $this->isSpannedCell[$worksheet->getParent()->getIndex($worksheet)][$row + 1][$colNum]);
+            $writeCell = !(isset($this->isSpannedCell[$worksheet->getParentOrThrow()->getIndex($worksheet)][$row + 1][$colNum])
+                && $this->isSpannedCell[$worksheet->getParentOrThrow()->getIndex($worksheet)][$row + 1][$colNum]);
 
             // Colspan and Rowspan
             $colSpan = 1;
             $rowSpan = 1;
-            if (isset($this->isBaseCell[$worksheet->getParent()->getIndex($worksheet)][$row + 1][$colNum])) {
-                $spans = $this->isBaseCell[$worksheet->getParent()->getIndex($worksheet)][$row + 1][$colNum];
+            if (isset($this->isBaseCell[$worksheet->getParentOrThrow()->getIndex($worksheet)][$row + 1][$colNum])) {
+                $spans = $this->isBaseCell[$worksheet->getParentOrThrow()->getIndex($worksheet)][$row + 1][$colNum];
                 $rowSpan = $spans['rowspan'];
                 $colSpan = $spans['colspan'];
 

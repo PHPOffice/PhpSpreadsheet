@@ -193,7 +193,7 @@ class CellMatcher
         }
 
         if (!empty($matches[4])) {
-            $worksheet = $this->worksheet->getParent()->getSheetByName(trim($matches[4], "'"));
+            $worksheet = $this->worksheet->getParentOrThrow()->getSheetByName(trim($matches[4], "'"));
             if ($worksheet === null) {
                 return $this->wrapValue(null);
             }

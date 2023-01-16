@@ -58,7 +58,7 @@ abstract class CellIterator implements NativeIterator
     /**
      * Validate start/end values for "IterateOnlyExistingCells" mode, and adjust if necessary.
      */
-    abstract protected function adjustForExistingOnlyRange();
+    abstract protected function adjustForExistingOnlyRange(): void;
 
     /**
      * Set the iterator to loop only existing cells.
