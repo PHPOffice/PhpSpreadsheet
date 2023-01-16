@@ -1041,11 +1041,6 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Ods/Formula.php
 
 		-
-			message: "#^Cannot call method getHashCode\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls.php
-
-		-
 			message: "#^Cannot use array destructuring on array\\|false\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls.php
@@ -1087,11 +1082,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$data of method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DggContainer\\\\BstoreContainer\\\\BSE\\\\Blip\\:\\:setData\\(\\) expects string, string\\|false given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls.php
-
-		-
-			message: "#^Parameter \\#1 \\$font of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Workbook\\:\\:addFont\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font, PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls.php
 
