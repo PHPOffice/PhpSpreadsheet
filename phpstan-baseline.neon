@@ -26,61 +26,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/FormulaParser.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Functions\\:\\:ifCondition\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Functions.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Functions\\:\\:ifCondition\\(\\) has parameter \\$condition with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Functions.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Functions\\:\\:isCellValue\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Functions.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Functions\\:\\:isCellValue\\(\\) has parameter \\$idx with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Functions.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Functions\\:\\:isMatrixValue\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Functions.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Functions\\:\\:isMatrixValue\\(\\) has parameter \\$idx with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Functions.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Functions\\:\\:isValue\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Functions.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Functions\\:\\:isValue\\(\\) has parameter \\$idx with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Functions.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Functions\\:\\:operandSpecialHandling\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Functions.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Functions\\:\\:operandSpecialHandling\\(\\) has parameter \\$operand with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Functions.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Internal\\\\MakeMatrix\\:\\:make\\(\\) has parameter \\$args with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Internal/MakeMatrix.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\:\\:CHOOSE\\(\\) has parameter \\$chooseArgs with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/LookupRef.php
@@ -154,21 +99,6 @@ parameters:
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\Offset\\:\\:extractWorksheet\\(\\) has parameter \\$cellAddress with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/LookupRef/Offset.php
-
-		-
-			message: "#^Binary operation \"/\" between array\\|float\\|int\\|string and array\\|float\\|int\\|string results in an error\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Calculation/MathTrig/Combinations.php
-
-		-
-			message: "#^Binary operation \"/\" between array\\|float\\|int\\|string and float\\|int results in an error\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/MathTrig/Factorial.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\MathTrig\\\\IntClass\\:\\:evaluate\\(\\) should return array\\|string but returns int\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/MathTrig/IntClass.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\:\\:MAXIFS\\(\\) should return float but returns float\\|string\\|null\\.$#"
