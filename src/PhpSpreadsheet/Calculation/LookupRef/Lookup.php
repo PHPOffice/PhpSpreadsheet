@@ -78,7 +78,7 @@ class Lookup
         return $lookupVector;
     }
 
-    private static function verifyResultVector(array $lookupVector, $resultVector)
+    private static function verifyResultVector(array $lookupVector, ?array $resultVector): array
     {
         if ($resultVector === null) {
             $resultVector = $lookupVector;
