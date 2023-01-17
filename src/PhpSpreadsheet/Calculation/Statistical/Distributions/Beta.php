@@ -184,10 +184,13 @@ class Beta
     }
 
     // Function cache for logBeta function
+    /** @var float */
     private static $logBetaCacheP = 0.0;
 
+    /** @var float */
     private static $logBetaCacheQ = 0.0;
 
+    /** @var float */
     private static $logBetaCacheResult = 0.0;
 
     /**

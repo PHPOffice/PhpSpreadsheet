@@ -18,4 +18,22 @@ class AndTest extends AllSetupTeardown
     {
         return require 'tests/data/Calculation/Logical/AND.php';
     }
+
+    /**
+     * @dataProvider providerANDLiteral
+     *
+     * @param mixed $expectedResult
+     * @param string $formula
+     */
+    public function testANDLiteral($expectedResult, $formula): void
+    {
+        $sheet = $this->getSheet();
+        $sheet->getCell('A1')->setValue("=AND($formula)");
+        self::assertSame($expectedResult, $sheet->getCell('A1')->getCalculatedValue());
+    }
+
+    public function providerANDLiteral(): array
+    {
+        return require 'tests/data/Calculation/Logical/ANDLiteral.php';
+    }
 }

@@ -18,4 +18,22 @@ class OrTest extends AllSetupTeardown
     {
         return require 'tests/data/Calculation/Logical/OR.php';
     }
+
+    /**
+     * @dataProvider providerORLiteral
+     *
+     * @param mixed $expectedResult
+     * @param string $formula
+     */
+    public function testORLiteral($expectedResult, $formula): void
+    {
+        $sheet = $this->getSheet();
+        $sheet->getCell('A1')->setValue("=OR($formula)");
+        self::assertSame($expectedResult, $sheet->getCell('A1')->getCalculatedValue());
+    }
+
+    public function providerORLiteral(): array
+    {
+        return require 'tests/data/Calculation/Logical/ORLiteral.php';
+    }
 }

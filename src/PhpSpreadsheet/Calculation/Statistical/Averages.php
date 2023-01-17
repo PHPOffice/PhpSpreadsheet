@@ -196,7 +196,7 @@ class Averages extends AggregateBase
         return $returnValue;
     }
 
-    protected static function filterArguments($args)
+    protected static function filterArguments(array $args): array
     {
         return array_filter(
             $args,
@@ -207,11 +207,13 @@ class Averages extends AggregateBase
         );
     }
 
-    //
-    //    Special variant of array_count_values that isn't limited to strings and integers,
-    //        but can work with floating point numbers as values
-    //
-    private static function modeCalc($data)
+    /**
+     * Special variant of array_count_values that isn't limited to strings and integers,
+     * but can work with floating point numbers as values.
+     *
+     * @return float|string
+     */
+    private static function modeCalc(array $data)
     {
         $frequencyArray = [];
         $index = 0;

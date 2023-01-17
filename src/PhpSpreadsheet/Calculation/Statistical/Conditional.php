@@ -187,7 +187,7 @@ class Conditional
      * @param mixed $sumRange
      * @param mixed $condition
      *
-     * @return float|string
+     * @return null|float|string
      */
     public static function SUMIF($range, $condition, $sumRange = [])
     {
@@ -223,6 +223,7 @@ class Conditional
         return DSum::evaluate($database, self::VALUE_COLUMN_NAME, $conditions);
     }
 
+    /** @param array $args */
     private static function buildConditionSet(...$args): array
     {
         $conditions = self::buildConditions(1, ...$args);
@@ -231,6 +232,7 @@ class Conditional
         return array_map(/** @scrutinizer ignore-type */ null, ...$conditions);
     }
 
+    /** @param array $args */
     private static function buildConditionSetForValueRange(...$args): array
     {
         $conditions = self::buildConditions(2, ...$args);
@@ -247,6 +249,7 @@ class Conditional
         return array_map(/** @scrutinizer ignore-type */ null, ...$conditions);
     }
 
+    /** @param array $args */
     private static function buildConditions(int $startOffset, ...$args): array
     {
         $conditions = [];
@@ -261,6 +264,7 @@ class Conditional
         return $conditions;
     }
 
+    /** @param array $args */
     private static function buildDatabase(...$args): array
     {
         $database = [];
@@ -268,6 +272,7 @@ class Conditional
         return self::buildDataSet(0, $database, ...$args);
     }
 
+    /** @param array $args */
     private static function buildDatabaseWithValueRange(...$args): array
     {
         $database = [];
@@ -279,6 +284,7 @@ class Conditional
         return self::buildDataSet(1, $database, ...$args);
     }
 
+    /** @param array $args */
     private static function buildDataSet(int $startOffset, array $database, ...$args): array
     {
         $pairCount = 1;

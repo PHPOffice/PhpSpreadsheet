@@ -104,7 +104,7 @@ class Normal
      *    email                : nickersonm@yahoo.com
      *
      */
-    private static function inverseNcdf($p)
+    private static function inverseNcdf(float $p): float
     {
         //    Inverse ncdf approximation by Peter J. Acklam, implementation adapted to
         //    PHP by Michael Nickerson, using Dr. Thomas Ziegler's C implementation as
