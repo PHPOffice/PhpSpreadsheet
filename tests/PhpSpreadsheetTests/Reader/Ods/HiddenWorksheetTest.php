@@ -3,29 +3,19 @@
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Ods;
 
 use PhpOffice\PhpSpreadsheet\Reader\Ods;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PHPUnit\Framework\TestCase;
 
 class HiddenWorksheetTest extends TestCase
 {
-    /**
-     * @var Spreadsheet
-     */
-    private $spreadsheet;
-
-    protected function setup(): void
+    public function testPageSetup(): void
     {
         $filename = 'tests/data/Reader/Ods/HiddenSheet.ods';
         $reader = new Ods();
-        $this->spreadsheet = $reader->load($filename);
-    }
-
-    public function testPageSetup(): void
-    {
+        $spreadsheet = $reader->load($filename);
         $assertions = $this->worksheetAssertions();
 
-        foreach ($this->spreadsheet->getAllSheets() as $worksheet) {
+        foreach ($spreadsheet->getAllSheets() as $worksheet) {
             if (!array_key_exists($worksheet->getTitle(), $assertions)) {
                 continue;
             }
@@ -40,6 +30,7 @@ class HiddenWorksheetTest extends TestCase
                 );
             }
         }
+        $spreadsheet->disconnectWorksheets();
     }
 
     private function worksheetAssertions(): array
