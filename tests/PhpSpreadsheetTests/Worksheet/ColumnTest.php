@@ -40,4 +40,14 @@ class ColumnTest extends TestCase
         self::assertInstanceOf(ColumnCellIterator::class, $cellIterator);
         $spreadsheet->disconnectWorksheets();
     }
+
+    public function testGetRowIterator(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $column = new Column($sheet);
+        $cellIterator = $column->getRowIterator();
+        self::assertInstanceOf(ColumnCellIterator::class, $cellIterator);
+        $spreadsheet->disconnectWorksheets();
+    }
 }
