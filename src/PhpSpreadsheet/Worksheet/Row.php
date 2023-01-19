@@ -51,12 +51,21 @@ class Row
      *
      * @param string $startColumn The column address at which to start iterating
      * @param string $endColumn Optionally, the column address at which to stop iterating
-     *
-     * @return RowCellIterator
      */
-    public function getCellIterator($startColumn = 'A', $endColumn = null)
+    public function getCellIterator($startColumn = 'A', $endColumn = null): RowCellIterator
     {
         return new RowCellIterator($this->worksheet, $this->rowIndex, $startColumn, $endColumn);
+    }
+
+    /**
+     * Get column iterator. Synonym for getCellIterator().
+     *
+     * @param string $startColumn The column address at which to start iterating
+     * @param string $endColumn Optionally, the column address at which to stop iterating
+     */
+    public function getColumnIterator($startColumn = 'A', $endColumn = null): RowCellIterator
+    {
+        return $this->getCellIterator($startColumn, $endColumn);
     }
 
     /**
