@@ -1677,7 +1677,7 @@ class Worksheet extends BIFFwriter
 
         // Order of printing pages
         $fLeftToRight = $this->phpSheet->getPageSetup()->getPageOrder() === PageSetup::PAGEORDER_DOWN_THEN_OVER
-            ? 0x1 : 0x0;
+            ? 0x0 : 0x1;
         // Page orientation
         $fLandscape = ($this->phpSheet->getPageSetup()->getOrientation() == PageSetup::ORIENTATION_LANDSCAPE)
             ? 0x0 : 0x1;
