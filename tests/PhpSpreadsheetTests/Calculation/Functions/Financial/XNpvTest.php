@@ -56,7 +56,7 @@ class XNpvTest extends AllSetupTeardown
                 if ($frac > 0.999999 && $frac < 1.000001) {
                     $result = $expectedResult;
                 }
-            } elseif (abs($result) < 1E-4) {
+            } elseif (abs((float) $result) < 1E-4) {
                 $result = 0;
             }
         }
