@@ -106,8 +106,9 @@ class StructuredReferenceTest extends TestCase
         self::expectException(Exception::class);
         self::expectExceptionCode(1);
         self::expectExceptionMessage('Table Headers are Hidden, and should not be Referenced');
+        $this->expectExceptionCode(Exception::CALCULATION_ENGINE_PUSH_TO_STACK);
         $structuredReferenceObject = new StructuredReference('DeptSales[[#Headers],[% Commission]]');
-        $cellRange = $structuredReferenceObject->parse($cell);
+        $structuredReferenceObject->parse($cell);
     }
 
     public function structuredReferenceProviderColumnData(): array
