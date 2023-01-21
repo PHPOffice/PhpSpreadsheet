@@ -160,7 +160,8 @@ class Periodic
         for ($i = 1; $i <= $countArgs; ++$i) {
             // Is it a numeric value?
             if (is_numeric($aArgs[$i - 1])) {
-                $returnValue += $aArgs[$i - 1] / (1 + $rate) ** $i;
+                $val = (1 + $rate) ** $i;
+                $returnValue += $val != 0 ? $aArgs[$i - 1] / $val : 0;
             }
         }
 
