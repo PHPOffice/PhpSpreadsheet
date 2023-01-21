@@ -30,6 +30,9 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Additional Method for XIRR if Newton-Raphson Doesn't Converge [Issue #689](https://github.com/PHPOffice/PhpSpreadsheet/issues/689) [PR #3262](https://github.com/PHPOffice/PhpSpreadsheet/pull/3262)
 - Better Handling of Composite Charts [Issue #2333](https://github.com/PHPOffice/PhpSpreadsheet/issues/2333) [PR #3265](https://github.com/PHPOffice/PhpSpreadsheet/pull/3265)
 - Update Column Reference for Columns Beginning with Y and Z [Issue #3263](https://github.com/PHPOffice/PhpSpreadsheet/issues/3263) [PR #3264](https://github.com/PHPOffice/PhpSpreadsheet/pull/3264)
+- Honor Fit to 1-Page Height Html/Pdf [Issue #3266](https://github.com/PHPOffice/PhpSpreadsheet/issues/3266) [PR #3279](https://github.com/PHPOffice/PhpSpreadsheet/pull/3279)
+- AND/OR/XOR Handling of Literal Strings [PR #3287](https://github.com/PHPOffice/PhpSpreadsheet/pull/3287)
+- Xls Reader Vertical Break and Writer Page Order [Issue #3305](https://github.com/PHPOffice/PhpSpreadsheet/issues/3305) [PR #3306](https://github.com/PHPOffice/PhpSpreadsheet/pull/3306)
 
 
 ## 1.26.0 - 2022-12-21
