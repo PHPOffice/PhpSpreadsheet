@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Added
 
+- Option for Cell Iterator to return a null value or create and return a new cell when accessing a cell that doesn't exist [PR #3314](https://github.com/PHPOffice/PhpSpreadsheet/pull/3314)
 - Support for Structured References in the Calculation Engine [PR #3261](https://github.com/PHPOffice/PhpSpreadsheet/pull/3261)
 - Limited Support for Form Controls [PR #3130](https://github.com/PHPOffice/PhpSpreadsheet/pull/3130) [Issue #2396](https://github.com/PHPOffice/PhpSpreadsheet/issues/2396) [Issue #1770](https://github.com/PHPOffice/PhpSpreadsheet/issues/1770) [Issue #2388](https://github.com/PHPOffice/PhpSpreadsheet/issues/2388) [Issue #2904](https://github.com/PHPOffice/PhpSpreadsheet/issues/2904) [Issue #2661](https://github.com/PHPOffice/PhpSpreadsheet/issues/2661)
 
