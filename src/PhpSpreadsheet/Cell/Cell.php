@@ -198,6 +198,7 @@ class Cell
      */
     protected static function updateIfCellIsTableHeader(Worksheet $workSheet, self $cell, $oldValue, $newValue): void
     {
+//        var_dump('=>', $oldValue, $newValue);
         if (StringHelper::strToLower($oldValue ?? '') === StringHelper::strToLower($newValue ?? '')) {
             return;
         }
