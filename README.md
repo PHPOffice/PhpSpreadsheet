@@ -112,6 +112,7 @@ Planned posts for the future include topics like:
  - Structured References
  - Array Formulae
  - Conditional Formatting
+ - Data Validation
  - Formula Debugging
  - Value Binders
 
