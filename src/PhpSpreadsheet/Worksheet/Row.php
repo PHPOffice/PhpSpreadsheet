@@ -84,13 +84,15 @@ class Row
      *              Possible Flag Values are:
      *                  CellIterator::TREAT_NULL_VALUE_AS_EMPTY_CELL
      *                  CellIterator::TREAT_EMPTY_STRING_AS_EMPTY_CELL
+     * @param string $startColumn The column address at which to start iterating
+     * @param string $endColumn Optionally, the column address at which to stop iterating
      */
-    public function isEmpty(int $definitionOfEmptyFlags = 0): bool
+    public function isEmpty(int $definitionOfEmptyFlags = 0, $startColumn = 'A', $endColumn = null): bool
     {
         $nullValueCellIsEmpty = (bool) ($definitionOfEmptyFlags & CellIterator::TREAT_NULL_VALUE_AS_EMPTY_CELL);
         $emptyStringCellIsEmpty = (bool) ($definitionOfEmptyFlags & CellIterator::TREAT_EMPTY_STRING_AS_EMPTY_CELL);
 
-        $cellIterator = $this->getCellIterator();
+        $cellIterator = $this->getCellIterator($startColumn, $endColumn);
         $cellIterator->setIterateOnlyExistingCells(true);
         foreach ($cellIterator as $cell) {
             /** @scrutinizer ignore-call */
