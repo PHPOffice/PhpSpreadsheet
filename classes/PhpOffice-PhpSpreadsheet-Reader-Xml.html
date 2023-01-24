@@ -51,8 +51,7 @@
     
     <section class="phpdocumentor-sidebar__category">
         <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
-                                <h3 class="phpdocumentor-sidebar__root-namespace"><a href="namespaces/default.html"><abbr title="\">Global</abbr></a></h3>
-                                        <h4 class="phpdocumentor-sidebar__root-namespace"><a href="namespaces/phpoffice.html"><abbr title="\PhpOffice">PhpOffice</abbr></a></h4>
+                                                <h4 class="phpdocumentor-sidebar__root-namespace"><a href="namespaces/phpoffice.html"><abbr title="\PhpOffice">PhpOffice</abbr></a></h4>
                 <ul class="phpdocumentor-list">
                                             <li><a href="namespaces/phpoffice-phpspreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet">PhpSpreadsheet</abbr></a></li>
                                     </ul>
@@ -203,7 +202,7 @@ Identifies whether the Reader should read data values for cells all cells, or sh
                         &nbsp;: bool    </span>
 </dt>
 <dd>Read charts in workbook?
-       If this is true, then the Reader will include any charts that exist in the workbook.</dd>
+     If this is true, then the Reader will include any charts that exist in the workbook.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_getLoadSheetsOnly">getLoadSheetsOnly()</a>
@@ -220,7 +219,8 @@ Returns either an array of worksheet names (the list of worksheets that should b
                         &nbsp;: bool    </span>
 </dt>
 <dd>Read data only?
-       If this is true, then the Reader will only read data values for cells, it will not read any formatting information.</dd>
+       If this is true, then the Reader will only read data values for cells, it will not read any formatting
+          or structural information (like merges).</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_getReadEmptyCells">getReadEmptyCells()</a>
@@ -278,7 +278,7 @@ Returns either an array of worksheet names (the list of worksheets that should b
                         &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\IReader">IReader</abbr></a>    </span>
 </dt>
 <dd>Set read charts in workbook
-       Set to true, to advise the Reader to include any charts that exist in the workbook.</dd>
+    Set to true, to advise the Reader to include any charts that exist in the workbook.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_setLoadAllSheets">setLoadAllSheets()</a>
@@ -301,7 +301,8 @@ Returns either an array of worksheet names (the list of worksheets that should b
                         &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\IReader">IReader</abbr></a>    </span>
 </dt>
 <dd>Set read data only
-       Set to true, to advise the Reader only to read data values for cells, and to ignore any formatting information.</dd>
+       Set to true, to advise the Reader only to read data values for cells, and to ignore any formatting
+           or structural information (like merges).</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_setReadEmptyCells">setReadEmptyCells()</a>
@@ -777,7 +778,7 @@ Identifies whether the Reader should read data values for cells all cells, or sh
 </aside>
 
         <p class="phpdocumentor-summary">Read charts in workbook?
-       If this is true, then the Reader will include any charts that exist in the workbook.</p>
+     If this is true, then the Reader will include any charts that exist in the workbook.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -850,7 +851,8 @@ Returns either an array of worksheet names (the list of worksheets that should b
 </aside>
 
         <p class="phpdocumentor-summary">Read data only?
-       If this is true, then the Reader will only read data values for cells, it will not read any formatting information.</p>
+       If this is true, then the Reader will only read data values for cells, it will not read any formatting
+          or structural information (like merges).</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1187,7 +1189,7 @@ IReader::LOAD_WITH_CHARTS - Include any charts that are defined in the loaded fi
 </aside>
 
         <p class="phpdocumentor-summary">Set read charts in workbook
-       Set to true, to advise the Reader to include any charts that exist in the workbook.</p>
+    Set to true, to advise the Reader to include any charts that exist in the workbook.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1314,7 +1316,8 @@ Set to false (the default) to discard charts.</p>
 </aside>
 
         <p class="phpdocumentor-summary">Set read data only
-       Set to true, to advise the Reader only to read data values for cells, and to ignore any formatting information.</p>
+       Set to true, to advise the Reader only to read data values for cells, and to ignore any formatting
+           or structural information (like merges).</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>

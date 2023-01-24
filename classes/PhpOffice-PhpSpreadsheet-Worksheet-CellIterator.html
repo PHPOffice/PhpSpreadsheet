@@ -51,8 +51,7 @@
     
     <section class="phpdocumentor-sidebar__category">
         <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
-                                <h3 class="phpdocumentor-sidebar__root-namespace"><a href="namespaces/default.html"><abbr title="\">Global</abbr></a></h3>
-                                        <h4 class="phpdocumentor-sidebar__root-namespace"><a href="namespaces/phpoffice.html"><abbr title="\PhpOffice">PhpOffice</abbr></a></h4>
+                                                <h4 class="phpdocumentor-sidebar__root-namespace"><a href="namespaces/phpoffice.html"><abbr title="\PhpOffice">PhpOffice</abbr></a></h4>
                 <ul class="phpdocumentor-list">
                                             <li><a href="namespaces/phpoffice-phpspreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet">PhpSpreadsheet</abbr></a></li>
                                     </ul>
@@ -149,6 +148,20 @@
 
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-CellIterator.html#constant_IF_NOT_EXISTS_CREATE_NEW">IF_NOT_EXISTS_CREATE_NEW</a>
+    <span>
+        &nbsp;= true                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-CellIterator.html#constant_IF_NOT_EXISTS_RETURN_NULL">IF_NOT_EXISTS_RETURN_NULL</a>
+    <span>
+        &nbsp;= false                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-CellIterator.html#constant_TREAT_EMPTY_STRING_AS_EMPTY_CELL">TREAT_EMPTY_STRING_AS_EMPTY_CELL</a>
     <span>
         &nbsp;= 2                    </span>
@@ -168,6 +181,14 @@
                 &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Collection-Cells.html"><abbr title="\PhpOffice\PhpSpreadsheet\Collection\Cells">Cells</abbr></a>            </span>
 </dt>
 <dd>Cell Collection to iterate.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -protected">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-CellIterator.html#property_ifNotExists">$ifNotExists</a>
+    <span>
+                &nbsp;: bool            </span>
+</dt>
+<dd>If iterating all cells, and a cell doesn&#039;t exist, identifies whether a new cell should be created,
+   or if the iterator should return a null value.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-CellIterator.html#property_onlyExistingCells">$onlyExistingCells</a>
@@ -191,11 +212,25 @@
 <dd>Destructor.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-CellIterator.html#method_getIfNotExists">getIfNotExists()</a>
+    <span>
+                        &nbsp;: bool    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-CellIterator.html#method_getIterateOnlyExistingCells">getIterateOnlyExistingCells()</a>
     <span>
                         &nbsp;: bool    </span>
 </dt>
 <dd>Get loop only existing cells.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-CellIterator.html#method_setIfNotExists">setIfNotExists()</a>
+    <span>
+                        &nbsp;: void    </span>
+</dt>
+<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-CellIterator.html#method_setIterateOnlyExistingCells">setIterateOnlyExistingCells()</a>
@@ -207,9 +242,9 @@
             <dt class="phpdocumentor-table-of-contents__entry -method -protected">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-CellIterator.html#method_adjustForExistingOnlyRange">adjustForExistingOnlyRange()</a>
     <span>
-                        &nbsp;: mixed    </span>
+                        &nbsp;: void    </span>
 </dt>
-<dd>Validate start/end values for &quot;IterateOnlyExistingCells&quot; mode, and adjust if necessary.</dd>
+<dd>Validate start/end values for &#039;IterateOnlyExistingCells&#039; mode, and adjust if necessary.</dd>
 
         </dl>
 
@@ -221,6 +256,56 @@
             Constants
             <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-CellIterator.html#constants" class="headerlink"><i class="fas fa-link"></i></a>
         </h3>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_IF_NOT_EXISTS_CREATE_NEW">
+        IF_NOT_EXISTS_CREATE_NEW
+        <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-CellIterator.html#constant_IF_NOT_EXISTS_CREATE_NEW" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/CellIterator.php"><a href="files/src-phpspreadsheet-worksheet-celliterator.html"><abbr title="src/PhpSpreadsheet/Worksheet/CellIterator.php">CellIterator.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">22</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">IF_NOT_EXISTS_CREATE_NEW</span>
+    = <span class="phpdocumentor-signature__default-value">true</span>
+</code>
+
+
+    
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_IF_NOT_EXISTS_RETURN_NULL">
+        IF_NOT_EXISTS_RETURN_NULL
+        <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-CellIterator.html#constant_IF_NOT_EXISTS_RETURN_NULL" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/CellIterator.php"><a href="files/src-phpspreadsheet-worksheet-celliterator.html"><abbr title="src/PhpSpreadsheet/Worksheet/CellIterator.php">CellIterator.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">20</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">IF_NOT_EXISTS_RETURN_NULL</span>
+    = <span class="phpdocumentor-signature__default-value">false</span>
+</code>
+
+
+    
+    
+
+</article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_TREAT_EMPTY_STRING_AS_EMPTY_CELL">
         TREAT_EMPTY_STRING_AS_EMPTY_CELL
@@ -295,7 +380,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/CellIterator.php"><a href="files/src-phpspreadsheet-worksheet-celliterator.html"><abbr title="src/PhpSpreadsheet/Worksheet/CellIterator.php">CellIterator.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">32</span>
+    <span class="phpdocumentor-element-found-in__line">36</span>
 </aside>
 
         <p class="phpdocumentor-summary">Cell Collection to iterate.</p>
@@ -318,6 +403,39 @@
             -protected
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="property_ifNotExists">
+        $ifNotExists
+        <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-CellIterator.html#property_ifNotExists" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/CellIterator.php"><a href="files/src-phpspreadsheet-worksheet-celliterator.html"><abbr title="src/PhpSpreadsheet/Worksheet/CellIterator.php">CellIterator.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">51</span>
+</aside>
+
+        <p class="phpdocumentor-summary">If iterating all cells, and a cell doesn&#039;t exist, identifies whether a new cell should be created,
+   or if the iterator should return a null value.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type">bool</span>
+    <span class="phpdocumentor-signature__name">$ifNotExists</span>
+     = <span class="phpdocumentor-signature__default-value">self::IF_NOT_EXISTS_CREATE_NEW</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -protected
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="property_onlyExistingCells">
         $onlyExistingCells
         <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-CellIterator.html#property_onlyExistingCells" class="headerlink"><i class="fas fa-link"></i></a>
@@ -327,7 +445,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/CellIterator.php"><a href="files/src-phpspreadsheet-worksheet-celliterator.html"><abbr title="src/PhpSpreadsheet/Worksheet/CellIterator.php">CellIterator.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">39</span>
+    <span class="phpdocumentor-element-found-in__line">43</span>
 </aside>
 
         <p class="phpdocumentor-summary">Iterate only existing cells.</p>
@@ -359,7 +477,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/CellIterator.php"><a href="files/src-phpspreadsheet-worksheet-celliterator.html"><abbr title="src/PhpSpreadsheet/Worksheet/CellIterator.php">CellIterator.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">25</span>
+    <span class="phpdocumentor-element-found-in__line">29</span>
 </aside>
 
         <p class="phpdocumentor-summary">Worksheet to iterate.</p>
@@ -395,7 +513,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/CellIterator.php"><a href="files/src-phpspreadsheet-worksheet-celliterator.html"><abbr title="src/PhpSpreadsheet/Worksheet/CellIterator.php">CellIterator.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">44</span>
+    <span class="phpdocumentor-element-found-in__line">56</span>
 </aside>
 
         <p class="phpdocumentor-summary">Destructor.</p>
@@ -422,6 +540,38 @@
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_getIfNotExists">
+        getIfNotExists()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-CellIterator.html#method_getIfNotExists" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/CellIterator.php"><a href="files/src-phpspreadsheet-worksheet-celliterator.html"><abbr title="src/PhpSpreadsheet/Worksheet/CellIterator.php">CellIterator.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">62</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">getIfNotExists</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_getIterateOnlyExistingCells">
         getIterateOnlyExistingCells()
         <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-CellIterator.html#method_getIterateOnlyExistingCells" class="headerlink"><i class="fas fa-link"></i></a>
@@ -429,7 +579,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/CellIterator.php"><a href="files/src-phpspreadsheet-worksheet-celliterator.html"><abbr title="src/PhpSpreadsheet/Worksheet/CellIterator.php">CellIterator.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">53</span>
+    <span class="phpdocumentor-element-found-in__line">75</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get loop only existing cells.</p>
@@ -456,6 +606,48 @@
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_setIfNotExists">
+        setIfNotExists()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-CellIterator.html#method_setIfNotExists" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/CellIterator.php"><a href="files/src-phpspreadsheet-worksheet-celliterator.html"><abbr title="src/PhpSpreadsheet/Worksheet/CellIterator.php">CellIterator.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">67</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">setIfNotExists</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$ifNotExists</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">self::IF_NOT_EXISTS_CREATE_NEW</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$ifNotExists</span>
+                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">self::IF_NOT_EXISTS_CREATE_NEW</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">void</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_setIterateOnlyExistingCells">
         setIterateOnlyExistingCells()
         <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-CellIterator.html#method_setIterateOnlyExistingCells" class="headerlink"><i class="fas fa-link"></i></a>
@@ -463,7 +655,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/CellIterator.php"><a href="files/src-phpspreadsheet-worksheet-celliterator.html"><abbr title="src/PhpSpreadsheet/Worksheet/CellIterator.php">CellIterator.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">66</span>
+    <span class="phpdocumentor-element-found-in__line">88</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set the iterator to loop only existing cells.</p>
@@ -507,14 +699,14 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/CellIterator.php"><a href="files/src-phpspreadsheet-worksheet-celliterator.html"><abbr title="src/PhpSpreadsheet/Worksheet/CellIterator.php">CellIterator.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">61</span>
+    <span class="phpdocumentor-element-found-in__line">83</span>
 </aside>
 
-        <p class="phpdocumentor-summary">Validate start/end values for &quot;IterateOnlyExistingCells&quot; mode, and adjust if necessary.</p>
+        <p class="phpdocumentor-summary">Validate start/end values for &#039;IterateOnlyExistingCells&#039; mode, and adjust if necessary.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
-    <span class="phpdocumentor-signature__abstract">abstract</span>            <span class="phpdocumentor-signature__name">adjustForExistingOnlyRange</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+    <span class="phpdocumentor-signature__abstract">abstract</span>            <span class="phpdocumentor-signature__name">adjustForExistingOnlyRange</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -522,7 +714,7 @@
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">mixed</span>
+    <span class="phpdocumentor-signature__response_type">void</span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 

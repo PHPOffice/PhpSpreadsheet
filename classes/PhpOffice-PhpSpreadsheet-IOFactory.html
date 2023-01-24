@@ -51,8 +51,7 @@
     
     <section class="phpdocumentor-sidebar__category">
         <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
-                                <h3 class="phpdocumentor-sidebar__root-namespace"><a href="namespaces/default.html"><abbr title="\">Global</abbr></a></h3>
-                                        <h4 class="phpdocumentor-sidebar__root-namespace"><a href="namespaces/phpoffice.html"><abbr title="\PhpOffice">PhpOffice</abbr></a></h4>
+                                                <h4 class="phpdocumentor-sidebar__root-namespace"><a href="namespaces/phpoffice.html"><abbr title="\PhpOffice">PhpOffice</abbr></a></h4>
                 <ul class="phpdocumentor-list">
                                             <li><a href="namespaces/phpoffice-phpspreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet">PhpSpreadsheet</abbr></a></li>
                                     </ul>
@@ -772,7 +771,7 @@ Especially for reading files with an unknown format.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/IOFactory.php"><a href="files/src-phpspreadsheet-iofactory.html"><abbr title="src/PhpSpreadsheet/IOFactory.php">IOFactory.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">127</span>
+    <span class="phpdocumentor-element-found-in__line">129</span>
 </aside>
 
         <p class="phpdocumentor-summary">Create Reader\IReader for file using automatic IReader resolution.</p>
@@ -880,7 +879,7 @@ IOFactory::READER_*.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/IOFactory.php"><a href="files/src-phpspreadsheet-iofactory.html"><abbr title="src/PhpSpreadsheet/IOFactory.php">IOFactory.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">108</span>
+    <span class="phpdocumentor-element-found-in__line">110</span>
 </aside>
 
         <p class="phpdocumentor-summary">Identify file type using automatic IReader resolution.</p>
@@ -931,7 +930,7 @@ IOFactory::READER_*.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/IOFactory.php"><a href="files/src-phpspreadsheet-iofactory.html"><abbr title="src/PhpSpreadsheet/IOFactory.php">IOFactory.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">98</span>
+    <span class="phpdocumentor-element-found-in__line">100</span>
 </aside>
 
         <p class="phpdocumentor-summary">Loads Spreadsheet from file using automatic Reader\IReader resolution.</p>
@@ -960,7 +959,9 @@ IOFactory::READER_*.</p>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>the optional second parameter flags may be used to identify specific elements
 that should be loaded, but which won't be loaded by default, using these values:
-IReader::LOAD_WITH_CHARTS - Include any charts that are defined in the loaded file</p>
+IReader::LOAD_WITH_CHARTS - Include any charts that are defined in the loaded file.
+IReader::READ_DATA_ONLY - Read cell values only, not formatting or merge structure.
+IReader::IGNORE_EMPTY_CELLS - Don't load empty cells into the model.</p>
 </section>
 
             </dd>
@@ -1001,7 +1002,7 @@ IOFactory::READER_*.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/IOFactory.php"><a href="files/src-phpspreadsheet-iofactory.html"><abbr title="src/PhpSpreadsheet/IOFactory.php">IOFactory.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">225</span>
+    <span class="phpdocumentor-element-found-in__line">227</span>
 </aside>
 
         <p class="phpdocumentor-summary">Register a reader with its type and class name.</p>
@@ -1052,7 +1053,7 @@ IOFactory::READER_*.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/IOFactory.php"><a href="files/src-phpspreadsheet-iofactory.html"><abbr title="src/PhpSpreadsheet/IOFactory.php">IOFactory.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">213</span>
+    <span class="phpdocumentor-element-found-in__line">215</span>
 </aside>
 
         <p class="phpdocumentor-summary">Register a writer with its type and class name.</p>
@@ -1103,7 +1104,7 @@ IOFactory::READER_*.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/IOFactory.php"><a href="files/src-phpspreadsheet-iofactory.html"><abbr title="src/PhpSpreadsheet/IOFactory.php">IOFactory.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">172</span>
+    <span class="phpdocumentor-element-found-in__line">174</span>
 </aside>
 
         <p class="phpdocumentor-summary">Guess a reader type from the file extension, if any.</p>

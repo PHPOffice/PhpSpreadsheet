@@ -51,8 +51,7 @@
     
     <section class="phpdocumentor-sidebar__category">
         <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
-                                <h3 class="phpdocumentor-sidebar__root-namespace"><a href="namespaces/default.html"><abbr title="\">Global</abbr></a></h3>
-                                        <h4 class="phpdocumentor-sidebar__root-namespace"><a href="namespaces/phpoffice.html"><abbr title="\PhpOffice">PhpOffice</abbr></a></h4>
+                                                <h4 class="phpdocumentor-sidebar__root-namespace"><a href="namespaces/phpoffice.html"><abbr title="\PhpOffice">PhpOffice</abbr></a></h4>
                 <ul class="phpdocumentor-list">
                                             <li><a href="namespaces/phpoffice-phpspreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet">PhpSpreadsheet</abbr></a></li>
                                     </ul>
@@ -250,7 +249,7 @@ Identifies whether the Reader should read data values for cells all cells, or sh
                         &nbsp;: bool    </span>
 </dt>
 <dd>Read charts in workbook?
-       If this is true, then the Reader will include any charts that exist in the workbook.</dd>
+     If this is true, then the Reader will include any charts that exist in the workbook.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_getLoadSheetsOnly">getLoadSheetsOnly()</a>
@@ -267,7 +266,8 @@ Returns either an array of worksheet names (the list of worksheets that should b
                         &nbsp;: bool    </span>
 </dt>
 <dd>Read data only?
-       If this is true, then the Reader will only read data values for cells, it will not read any formatting information.</dd>
+       If this is true, then the Reader will only read data values for cells, it will not read any formatting
+          or structural information (like merges).</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_getReadEmptyCells">getReadEmptyCells()</a>
@@ -318,7 +318,7 @@ Returns either an array of worksheet names (the list of worksheets that should b
                         &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\IReader">IReader</abbr></a>    </span>
 </dt>
 <dd>Set read charts in workbook
-       Set to true, to advise the Reader to include any charts that exist in the workbook.</dd>
+    Set to true, to advise the Reader to include any charts that exist in the workbook.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_setLoadAllSheets">setLoadAllSheets()</a>
@@ -341,7 +341,8 @@ Returns either an array of worksheet names (the list of worksheets that should b
                         &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\IReader">IReader</abbr></a>    </span>
 </dt>
 <dd>Set read data only
-       Set to true, to advise the Reader only to read data values for cells, and to ignore any formatting information.</dd>
+       Set to true, to advise the Reader only to read data values for cells, and to ignore any formatting
+           or structural information (like merges).</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_setReadEmptyCells">setReadEmptyCells()</a>
@@ -626,7 +627,7 @@ Returns either an array of worksheet names (the list of worksheets that should b
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">162</span>
+    <span class="phpdocumentor-element-found-in__line">165</span>
 </aside>
 
     
@@ -651,7 +652,7 @@ Returns either an array of worksheet names (the list of worksheets that should b
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">158</span>
+    <span class="phpdocumentor-element-found-in__line">161</span>
 </aside>
 
     
@@ -676,7 +677,7 @@ Returns either an array of worksheet names (the list of worksheets that should b
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">153</span>
+    <span class="phpdocumentor-element-found-in__line">156</span>
 </aside>
 
     
@@ -1216,7 +1217,7 @@ Identifies whether the Reader should read data values for cells all cells, or sh
 </aside>
 
         <p class="phpdocumentor-summary">Read charts in workbook?
-       If this is true, then the Reader will include any charts that exist in the workbook.</p>
+     If this is true, then the Reader will include any charts that exist in the workbook.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1289,7 +1290,8 @@ Returns either an array of worksheet names (the list of worksheets that should b
 </aside>
 
         <p class="phpdocumentor-summary">Read data only?
-       If this is true, then the Reader will only read data values for cells, it will not read any formatting information.</p>
+       If this is true, then the Reader will only read data values for cells, it will not read any formatting
+          or structural information (like merges).</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1423,7 +1425,7 @@ Returns either an array of worksheet names (the list of worksheets that should b
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">212</span>
+    <span class="phpdocumentor-element-found-in__line">215</span>
 </aside>
 
         <p class="phpdocumentor-summary">Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).</p>
@@ -1468,7 +1470,7 @@ Returns either an array of worksheet names (the list of worksheets that should b
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">173</span>
+    <span class="phpdocumentor-element-found-in__line">176</span>
 </aside>
 
         <p class="phpdocumentor-summary">Reads names of the worksheets from a file, without parsing the whole file to a Spreadsheet object.</p>
@@ -1574,7 +1576,7 @@ IReader::LOAD_WITH_CHARTS - Include any charts that are defined in the loaded fi
 </aside>
 
         <p class="phpdocumentor-summary">Set read charts in workbook
-       Set to true, to advise the Reader to include any charts that exist in the workbook.</p>
+    Set to true, to advise the Reader to include any charts that exist in the workbook.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1701,7 +1703,8 @@ Set to false (the default) to discard charts.</p>
 </aside>
 
         <p class="phpdocumentor-summary">Set read data only
-       Set to true, to advise the Reader only to read data values for cells, and to ignore any formatting information.</p>
+       Set to true, to advise the Reader only to read data values for cells, and to ignore any formatting
+           or structural information (like merges).</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1834,7 +1837,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1936</span>
+    <span class="phpdocumentor-element-found-in__line">1949</span>
 </aside>
 
     
@@ -1920,7 +1923,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">407</span>
+    <span class="phpdocumentor-element-found-in__line">410</span>
 </aside>
 
         <p class="phpdocumentor-summary">Loads Spreadsheet from file.</p>
@@ -2050,7 +2053,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1941</span>
+    <span class="phpdocumentor-element-found-in__line">1954</span>
 </aside>
 
     
@@ -2092,7 +2095,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">298</span>
+    <span class="phpdocumentor-element-found-in__line">301</span>
 </aside>
 
     
@@ -2134,7 +2137,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">310</span>
+    <span class="phpdocumentor-element-found-in__line">313</span>
 </aside>
 
     
@@ -2176,7 +2179,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">324</span>
+    <span class="phpdocumentor-element-found-in__line">327</span>
 </aside>
 
     
@@ -2263,7 +2266,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">315</span>
+    <span class="phpdocumentor-element-found-in__line">318</span>
 </aside>
 
     
@@ -2305,7 +2308,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1897</span>
+    <span class="phpdocumentor-element-found-in__line">1910</span>
 </aside>
 
     
@@ -2357,7 +2360,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2179</span>
+    <span class="phpdocumentor-element-found-in__line">2192</span>
 </aside>
 
     
@@ -2399,7 +2402,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2167</span>
+    <span class="phpdocumentor-element-found-in__line">2180</span>
 </aside>
 
     
@@ -2455,7 +2458,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">356</span>
+    <span class="phpdocumentor-element-found-in__line">359</span>
 </aside>
 
     
@@ -2506,7 +2509,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1888</span>
+    <span class="phpdocumentor-element-found-in__line">1901</span>
 </aside>
 
     
@@ -2558,7 +2561,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">381</span>
+    <span class="phpdocumentor-element-found-in__line">384</span>
 </aside>
 
     
@@ -2609,7 +2612,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1994</span>
+    <span class="phpdocumentor-element-found-in__line">2007</span>
 </aside>
 
     
@@ -2658,7 +2661,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2063</span>
+    <span class="phpdocumentor-element-found-in__line">2076</span>
 </aside>
 
     
@@ -2696,7 +2699,7 @@ Set to false (the default) to discard charts.</p>
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">loadZip</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$filename</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$ns</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\SimpleXMLElement">SimpleXMLElement</abbr></span></code>
+                <span class="phpdocumentor-signature__name">loadZip</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$filename</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$ns</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$replaceUnclosedBr</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">false</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\SimpleXMLElement">SimpleXMLElement</abbr></span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
@@ -2712,6 +2715,13 @@ Set to false (the default) to discard charts.</p>
                 <span class="phpdocumentor-signature__argument__name">$ns</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                  = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$replaceUnclosedBr</span>
+                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">false</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
                 
             </dd>
@@ -2739,7 +2749,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">140</span>
+    <span class="phpdocumentor-element-found-in__line">143</span>
 </aside>
 
     
@@ -2788,7 +2798,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1754</span>
+    <span class="phpdocumentor-element-found-in__line">1767</span>
 </aside>
 
     
@@ -2831,7 +2841,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2114</span>
+    <span class="phpdocumentor-element-found-in__line">2127</span>
 </aside>
 
     
@@ -2880,7 +2890,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2006</span>
+    <span class="phpdocumentor-element-found-in__line">2019</span>
 </aside>
 
     
@@ -2950,7 +2960,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1953</span>
+    <span class="phpdocumentor-element-found-in__line">1966</span>
 </aside>
 
     
@@ -3008,7 +3018,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2033</span>
+    <span class="phpdocumentor-element-found-in__line">2046</span>
 </aside>
 
     
@@ -3078,7 +3088,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1969</span>
+    <span class="phpdocumentor-element-found-in__line">1982</span>
 </aside>
 
     
@@ -3127,7 +3137,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1840</span>
+    <span class="phpdocumentor-element-found-in__line">1853</span>
 </aside>
 
     
@@ -3183,7 +3193,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2089</span>
+    <span class="phpdocumentor-element-found-in__line">2102</span>
 </aside>
 
     
@@ -3232,7 +3242,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2123</span>
+    <span class="phpdocumentor-element-found-in__line">2136</span>
 </aside>
 
     
@@ -3302,7 +3312,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2135</span>
+    <span class="phpdocumentor-element-found-in__line">2148</span>
 </aside>
 
     
@@ -3372,7 +3382,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xlsx.php"><a href="files/src-phpspreadsheet-reader-xlsx.html"><abbr title="src/PhpSpreadsheet/Reader/Xlsx.php">Xlsx.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1905</span>
+    <span class="phpdocumentor-element-found-in__line">1918</span>
 </aside>
 
     

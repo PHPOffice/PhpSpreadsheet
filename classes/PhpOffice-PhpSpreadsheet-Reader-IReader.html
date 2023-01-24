@@ -51,8 +51,7 @@
     
     <section class="phpdocumentor-sidebar__category">
         <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
-                                <h3 class="phpdocumentor-sidebar__root-namespace"><a href="namespaces/default.html"><abbr title="\">Global</abbr></a></h3>
-                                        <h4 class="phpdocumentor-sidebar__root-namespace"><a href="namespaces/phpoffice.html"><abbr title="\PhpOffice">PhpOffice</abbr></a></h4>
+                                                <h4 class="phpdocumentor-sidebar__root-namespace"><a href="namespaces/phpoffice.html"><abbr title="\PhpOffice">PhpOffice</abbr></a></h4>
                 <ul class="phpdocumentor-list">
                                             <li><a href="namespaces/phpoffice-phpspreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet">PhpSpreadsheet</abbr></a></li>
                                     </ul>
@@ -106,6 +105,13 @@
 
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html#constant_IGNORE_EMPTY_CELLS">IGNORE_EMPTY_CELLS</a>
+    <span>
+        &nbsp;= 4                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html#constant_LOAD_WITH_CHARTS">LOAD_WITH_CHARTS</a>
     <span>
         &nbsp;= 1                    </span>
@@ -146,7 +152,7 @@
                         &nbsp;: bool    </span>
 </dt>
 <dd>Read charts in workbook?
-       If this is true, then the Reader will include any charts that exist in the workbook.</dd>
+     If this is true, then the Reader will include any charts that exist in the workbook.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html#method_getLoadSheetsOnly">getLoadSheetsOnly()</a>
@@ -163,7 +169,8 @@ Returns either an array of worksheet names (the list of worksheets that should b
                         &nbsp;: bool    </span>
 </dt>
 <dd>Read data only?
-       If this is true, then the Reader will only read data values for cells, it will not read any formatting information.</dd>
+       If this is true, then the Reader will only read data values for cells, it will not read any formatting
+          or structural information (like merges).</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html#method_getReadEmptyCells">getReadEmptyCells()</a>
@@ -193,7 +200,7 @@ Returns either an array of worksheet names (the list of worksheets that should b
                         &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\IReader">IReader</abbr></a>    </span>
 </dt>
 <dd>Set read charts in workbook
-       Set to true, to advise the Reader to include any charts that exist in the workbook.</dd>
+    Set to true, to advise the Reader to include any charts that exist in the workbook.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html#method_setLoadAllSheets">setLoadAllSheets()</a>
@@ -216,7 +223,8 @@ Returns either an array of worksheet names (the list of worksheets that should b
                         &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html"><abbr title="\PhpOffice\PhpSpreadsheet\Reader\IReader">IReader</abbr></a>    </span>
 </dt>
 <dd>Set read data only
-       Set to true, to advise the Reader only to read data values for cells, and to ignore any formatting information.</dd>
+       Set to true, to advise the Reader only to read data values for cells, and to ignore any formatting
+           or structural information (like merges).</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html#method_setReadEmptyCells">setReadEmptyCells()</a>
@@ -243,6 +251,31 @@ Returns either an array of worksheet names (the list of worksheets that should b
             Constants
             <a href="classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html#constants" class="headerlink"><i class="fas fa-link"></i></a>
         </h3>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_IGNORE_EMPTY_CELLS">
+        IGNORE_EMPTY_CELLS
+        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-IReader.html#constant_IGNORE_EMPTY_CELLS" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/IReader.php"><a href="files/src-phpspreadsheet-reader-ireader.html"><abbr title="src/PhpSpreadsheet/Reader/IReader.php">IReader.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">12</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">IGNORE_EMPTY_CELLS</span>
+    = <span class="phpdocumentor-signature__default-value">4</span>
+</code>
+
+
+    
+    
+
+</article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_LOAD_WITH_CHARTS">
         LOAD_WITH_CHARTS
@@ -338,7 +371,7 @@ Returns either an array of worksheet names (the list of worksheets that should b
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/IReader.php"><a href="files/src-phpspreadsheet-reader-ireader.html"><abbr title="src/PhpSpreadsheet/Reader/IReader.php">IReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">16</span>
+    <span class="phpdocumentor-element-found-in__line">17</span>
 </aside>
 
         <p class="phpdocumentor-summary">IReader constructor.</p>
@@ -372,7 +405,7 @@ Returns either an array of worksheet names (the list of worksheets that should b
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/IReader.php"><a href="files/src-phpspreadsheet-reader-ireader.html"><abbr title="src/PhpSpreadsheet/Reader/IReader.php">IReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">21</span>
+    <span class="phpdocumentor-element-found-in__line">22</span>
 </aside>
 
         <p class="phpdocumentor-summary">Can the current IReader read the file?</p>
@@ -416,11 +449,11 @@ Returns either an array of worksheet names (the list of worksheets that should b
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/IReader.php"><a href="files/src-phpspreadsheet-reader-ireader.html"><abbr title="src/PhpSpreadsheet/Reader/IReader.php">IReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">71</span>
+    <span class="phpdocumentor-element-found-in__line">74</span>
 </aside>
 
         <p class="phpdocumentor-summary">Read charts in workbook?
-       If this is true, then the Reader will include any charts that exist in the workbook.</p>
+     If this is true, then the Reader will include any charts that exist in the workbook.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -453,7 +486,7 @@ If false (the default) it will ignore any charts defined in the workbook file.</
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/IReader.php"><a href="files/src-phpspreadsheet-reader-ireader.html"><abbr title="src/PhpSpreadsheet/Reader/IReader.php">IReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">92</span>
+    <span class="phpdocumentor-element-found-in__line">95</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get which sheets to load
@@ -489,11 +522,12 @@ Returns either an array of worksheet names (the list of worksheets that should b
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/IReader.php"><a href="files/src-phpspreadsheet-reader-ireader.html"><abbr title="src/PhpSpreadsheet/Reader/IReader.php">IReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">30</span>
+    <span class="phpdocumentor-element-found-in__line">32</span>
 </aside>
 
         <p class="phpdocumentor-summary">Read data only?
-       If this is true, then the Reader will only read data values for cells, it will not read any formatting information.</p>
+       If this is true, then the Reader will only read data values for cells, it will not read any formatting
+          or structural information (like merges).</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -525,7 +559,7 @@ Returns either an array of worksheet names (the list of worksheets that should b
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/IReader.php"><a href="files/src-phpspreadsheet-reader-ireader.html"><abbr title="src/PhpSpreadsheet/Reader/IReader.php">IReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">50</span>
+    <span class="phpdocumentor-element-found-in__line">53</span>
 </aside>
 
         <p class="phpdocumentor-summary">Read empty cells?
@@ -561,7 +595,7 @@ Returns either an array of worksheet names (the list of worksheets that should b
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/IReader.php"><a href="files/src-phpspreadsheet-reader-ireader.html"><abbr title="src/PhpSpreadsheet/Reader/IReader.php">IReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">118</span>
+    <span class="phpdocumentor-element-found-in__line">121</span>
 </aside>
 
         <p class="phpdocumentor-summary">Read filter.</p>
@@ -595,7 +629,7 @@ Returns either an array of worksheet names (the list of worksheets that should b
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/IReader.php"><a href="files/src-phpspreadsheet-reader-ireader.html"><abbr title="src/PhpSpreadsheet/Reader/IReader.php">IReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">139</span>
+    <span class="phpdocumentor-element-found-in__line">142</span>
 </aside>
 
         <p class="phpdocumentor-summary">Loads PhpSpreadsheet from file.</p>
@@ -654,11 +688,11 @@ empty string, or a string containing only whitespace characters)</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/IReader.php"><a href="files/src-phpspreadsheet-reader-ireader.html"><abbr title="src/PhpSpreadsheet/Reader/IReader.php">IReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">83</span>
+    <span class="phpdocumentor-element-found-in__line">86</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set read charts in workbook
-       Set to true, to advise the Reader to include any charts that exist in the workbook.</p>
+    Set to true, to advise the Reader to include any charts that exist in the workbook.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -702,7 +736,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/IReader.php"><a href="files/src-phpspreadsheet-reader-ireader.html"><abbr title="src/PhpSpreadsheet/Reader/IReader.php">IReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">111</span>
+    <span class="phpdocumentor-element-found-in__line">114</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set all sheets to load
@@ -737,7 +771,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/IReader.php"><a href="files/src-phpspreadsheet-reader-ireader.html"><abbr title="src/PhpSpreadsheet/Reader/IReader.php">IReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">103</span>
+    <span class="phpdocumentor-element-found-in__line">106</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set which sheets to load.</p>
@@ -784,11 +818,12 @@ If NULL, then it tells the Reader to read all worksheets in the workbook</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/IReader.php"><a href="files/src-phpspreadsheet-reader-ireader.html"><abbr title="src/PhpSpreadsheet/Reader/IReader.php">IReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">41</span>
+    <span class="phpdocumentor-element-found-in__line">44</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set read data only
-       Set to true, to advise the Reader only to read data values for cells, and to ignore any formatting information.</p>
+       Set to true, to advise the Reader only to read data values for cells, and to ignore any formatting
+           or structural information (like merges).</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -831,7 +866,7 @@ If NULL, then it tells the Reader to read all worksheets in the workbook</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/IReader.php"><a href="files/src-phpspreadsheet-reader-ireader.html"><abbr title="src/PhpSpreadsheet/Reader/IReader.php">IReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">61</span>
+    <span class="phpdocumentor-element-found-in__line">64</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set read empty cells
@@ -878,7 +913,7 @@ If NULL, then it tells the Reader to read all worksheets in the workbook</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/IReader.php"><a href="files/src-phpspreadsheet-reader-ireader.html"><abbr title="src/PhpSpreadsheet/Reader/IReader.php">IReader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">125</span>
+    <span class="phpdocumentor-element-found-in__line">128</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set read filter.</p>
