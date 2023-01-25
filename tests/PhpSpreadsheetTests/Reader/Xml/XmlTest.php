@@ -46,6 +46,7 @@ class XmlTest extends TestCase
         self::assertEquals(DataType::TYPE_STRING, $hyperlink->getDataType());
         self::assertEquals('PhpSpreadsheet', $hyperlink->getValue());
         self::assertEquals('https://phpspreadsheet.readthedocs.io', $hyperlink->getHyperlink()->getUrl());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testLoadCorruptedFile(): void

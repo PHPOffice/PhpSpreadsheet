@@ -49,6 +49,7 @@ class XmlStylesTest extends TestCase
         self::assertEquals(Borders::DIAGONAL_BOTH, $sheet->getCell('E18')->getStyle()->getBorders()->getDiagonalDirection());
         self::assertEquals(Borders::DIAGONAL_DOWN, $sheet->getCell('I18')->getStyle()->getBorders()->getDiagonalDirection());
         self::assertEquals(Borders::DIAGONAL_UP, $sheet->getCell('J18')->getStyle()->getBorders()->getDiagonalDirection());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testFont(): void
@@ -96,6 +97,7 @@ class XmlStylesTest extends TestCase
         self::assertEquals(Font::UNDERLINE_DOUBLE, $sheet->getCell('A24')->getStyle()->getFont()->getUnderline());
         self::assertTrue($sheet->getCell('B23')->getStyle()->getFont()->getSubScript());
         self::assertTrue($sheet->getCell('B24')->getStyle()->getFont()->getSuperScript());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testFill(): void
@@ -115,6 +117,7 @@ class XmlStylesTest extends TestCase
         self::assertEquals(Color::COLOR_YELLOW, $sheet->getCell('L19')->getStyle()->getFill()->getStartColor()->getARGB());
         self::assertEquals(Fill::FILL_SOLID, $sheet->getCell('K3')->getStyle()->getFill()->getFillType());
         self::assertEquals(Color::COLOR_RED, $sheet->getCell('K3')->getStyle()->getFill()->getEndColor()->getARGB());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testAlignment(): void
@@ -131,5 +134,6 @@ class XmlStylesTest extends TestCase
         self::assertEquals(Alignment::HORIZONTAL_CENTER, $sheet->getCell('N2')->getStyle()->getAlignment()->getHorizontal());
         self::assertEquals(Alignment::HORIZONTAL_RIGHT, $sheet->getCell('N3')->getStyle()->getAlignment()->getHorizontal());
         self::assertEquals(Alignment::VERTICAL_TOP, $sheet->getCell('K19')->getStyle()->getAlignment()->getVertical());
+        $spreadsheet->disconnectWorksheets();
     }
 }

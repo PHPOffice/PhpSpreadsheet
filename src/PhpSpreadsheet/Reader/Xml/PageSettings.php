@@ -63,27 +63,25 @@ class PageSettings
                 foreach ($pageSetupData as $pageSetupKey => $pageSetupValue) {
                     /** @scrutinizer ignore-call */
                     $pageSetupAttributes = $pageSetupValue->attributes($namespaces['x']);
-                    if (!$pageSetupAttributes) {
-                        continue;
-                    }
+                    if ($pageSetupAttributes !== null) {
+                        switch ($pageSetupKey) {
+                            case 'Layout':
+                                $this->setLayout($printDefaults, $pageSetupAttributes);
 
-                    switch ($pageSetupKey) {
-                        case 'Layout':
-                            $this->setLayout($printDefaults, $pageSetupAttributes);
+                                break;
+                            case 'Header':
+                                $printDefaults->headerMargin = (float) $pageSetupAttributes->Margin ?: 1.0;
 
-                            break;
-                        case 'Header':
-                            $printDefaults->headerMargin = (float) $pageSetupAttributes->Margin ?: 1.0;
+                                break;
+                            case 'Footer':
+                                $printDefaults->footerMargin = (float) $pageSetupAttributes->Margin ?: 1.0;
 
-                            break;
-                        case 'Footer':
-                            $printDefaults->footerMargin = (float) $pageSetupAttributes->Margin ?: 1.0;
+                                break;
+                            case 'PageMargins':
+                                $this->setMargins($printDefaults, $pageSetupAttributes);
 
-                            break;
-                        case 'PageMargins':
-                            $this->setMargins($printDefaults, $pageSetupAttributes);
-
-                            break;
+                                break;
+                        }
                     }
                 }
             }
