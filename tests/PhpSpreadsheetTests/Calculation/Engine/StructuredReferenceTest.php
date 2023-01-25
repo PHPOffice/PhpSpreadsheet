@@ -92,6 +92,18 @@ class StructuredReferenceTest extends TestCase
         self::assertSame($expectedCellRange, $cellRange);
     }
 
+    public function testInvalidStructuredReferenceRow(): void
+    {
+        $cell = $this->spreadSheet->getActiveSheet()->getCell('E5');
+
+        $this->expectException(Exception::class);
+        $this->expectExceptionCode(1);
+        $this->expectExceptionMessage('Invalid Structured Reference');
+        $this->expectExceptionCode(Exception::CALCULATION_ENGINE_PUSH_TO_STACK);
+        $structuredReferenceObject = new StructuredReference('DeptSales[@[Sales]:[%age Commission]]');
+        $structuredReferenceObject->parse($cell);
+    }
+
     public function testStructuredReferenceHeadersHidden(): void
     {
         $cell = $this->spreadSheet->getActiveSheet()->getCell('K1');
@@ -103,11 +115,12 @@ class StructuredReferenceTest extends TestCase
 
         $table->setShowHeaderRow(false);
 
-        self::expectException(Exception::class);
-        self::expectExceptionCode(1);
-        self::expectExceptionMessage('Table Headers are Hidden, and should not be Referenced');
+        $this->expectException(Exception::class);
+        $this->expectExceptionCode(1);
+        $this->expectExceptionMessage('Table Headers are Hidden, and should not be Referenced');
+        $this->expectExceptionCode(Exception::CALCULATION_ENGINE_PUSH_TO_STACK);
         $structuredReferenceObject = new StructuredReference('DeptSales[[#Headers],[% Commission]]');
-        $cellRange = $structuredReferenceObject->parse($cell);
+        $structuredReferenceObject->parse($cell);
     }
 
     public function structuredReferenceProviderColumnData(): array
