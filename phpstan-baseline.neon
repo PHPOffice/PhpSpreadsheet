@@ -26,81 +26,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/FormulaParser.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\:\\:CHOOSE\\(\\) has parameter \\$chooseArgs with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\:\\:OFFSET\\(\\) should return array\\|string but returns array\\|int\\|string\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\Address\\:\\:sheetName\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/Address.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\Lookup\\:\\:verifyResultVector\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/Lookup.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\Lookup\\:\\:verifyResultVector\\(\\) has parameter \\$resultVector with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/Lookup.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\LookupBase\\:\\:validateIndexLookup\\(\\) has parameter \\$index_number with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/LookupBase.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\Matrix\\:\\:extractRowValue\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/Matrix.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\Offset\\:\\:adjustEndCellColumnForWidth\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/Offset.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\Offset\\:\\:adjustEndCellColumnForWidth\\(\\) has parameter \\$columns with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/Offset.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\Offset\\:\\:adjustEndCellColumnForWidth\\(\\) has parameter \\$width with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/Offset.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\Offset\\:\\:adustEndCellRowForHeight\\(\\) has parameter \\$endCellRow with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/Offset.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\Offset\\:\\:adustEndCellRowForHeight\\(\\) has parameter \\$height with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/Offset.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\Offset\\:\\:adustEndCellRowForHeight\\(\\) has parameter \\$rows with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/Offset.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\Offset\\:\\:extractRequiredCells\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/Offset.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\\\Offset\\:\\:extractWorksheet\\(\\) has parameter \\$cellAddress with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/LookupRef/Offset.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Trends\\:\\:GROWTH\\(\\) should return array\\<float\\> but returns array\\<int, array\\<int, array\\<int, mixed\\>\\>\\>\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Trends.php
@@ -119,36 +44,6 @@ parameters:
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Statistical\\\\Trends\\:\\:checkTrendArrays\\(\\) has parameter \\$array2 with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Trends.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\TextData\\:\\:CONCATENATE\\(\\) has parameter \\$args with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/TextData.php
-
-		-
-			message: "#^Variable \\$value on left side of \\?\\? always exists and is not nullable\\.$#"
-			count: 4
-			path: src/PhpSpreadsheet/Calculation/TextData/Extract.php
-
-		-
-			message: "#^Variable \\$value on left side of \\?\\? always exists and is not nullable\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/TextData/Text.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:getHashCode\\(\\)\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Cell/Coordinate.php
-
-		-
-			message: "#^Parameter \\#4 \\$currentRow of static method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Coordinate\\:\\:validateRange\\(\\) expects int, string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Cell/Coordinate.php
-
-		-
-			message: "#^Parameter \\#5 \\$endRow of static method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Coordinate\\:\\:validateRange\\(\\) expects int, string given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Cell/Coordinate.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\IOFactory\\:\\:createReader\\(\\) should return PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\IReader but returns object\\.$#"
@@ -504,21 +399,6 @@ parameters:
 			message: "#^Argument of an invalid type SimpleXMLElement\\|null supplied for foreach, only iterables are supported\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xml/Style.php
-
-		-
-			message: "#^Elseif condition is always true\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/ReferenceHelper.php
-
-		-
-			message: "#^Expression on left side of \\?\\? is not nullable\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/ReferenceHelper.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\RichText\\\\Run\\:\\:\\$font \\(PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\) does not accept PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/RichText/Run.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DgContainer\\:\\:getDgId\\(\\) has no return type specified\\.$#"
@@ -1161,11 +1041,6 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Ods/Formula.php
 
 		-
-			message: "#^Cannot call method getHashCode\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls.php
-
-		-
 			message: "#^Cannot use array destructuring on array\\|false\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls.php
@@ -1207,11 +1082,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$data of method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DggContainer\\\\BstoreContainer\\\\BSE\\\\Blip\\:\\:setData\\(\\) expects string, string\\|false given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls.php
-
-		-
-			message: "#^Parameter \\#1 \\$font of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Workbook\\:\\:addFont\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font, PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls.php
 
