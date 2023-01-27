@@ -179,19 +179,28 @@ final class StructuredReference implements Operand
 
         foreach ($this->columns as $columnId => $columnName) {
             $columnName = str_replace("\u{a0}", ' ', $columnName);
+            $reference = $this->adjustRowReference($columnName, $reference, $cell, $columnId);
+        }
+
+        /** @var string $reference */
+        return $this->validateParsedReference(trim($reference, '[]@, '));
+    }
+
+    private function adjustRowReference(string $columnName, string $reference, Cell $cell, string $columnId): string
+    {
+        if ($columnName !== '') {
             $cellReference = $columnId . $cell->getRow();
             $pattern1 = '/\[' . preg_quote($columnName) . '\]/miu';
             $pattern2 = '/@' . preg_quote($columnName) . '/miu';
-            /** @var string $reference */
             if (preg_match($pattern1, $reference) === 1) {
                 $reference = preg_replace($pattern1, $cellReference, $reference);
             } elseif (preg_match($pattern2, $reference) === 1) {
                 $reference = preg_replace($pattern2, $cellReference, $reference);
             }
+            /** @var string $reference */
         }
 
-        /** @var string $reference */
-        return $this->validateParsedReference(trim($reference, '[]@, '));
+        return $reference;
     }
 
     /**
@@ -226,7 +235,10 @@ final class StructuredReference implements Operand
     {
         if (preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . ':' . Calculation::CALCULATION_REGEXP_CELLREF . '$/miu', $reference) !== 1) {
             if (preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/miu', $reference) !== 1) {
-                throw new Exception("Invalid Structured Reference {$this->reference} {$reference}");
+                throw new Exception(
+                    "Invalid Structured Reference {$this->reference} {$reference}",
+                    Exception::CALCULATION_ENGINE_PUSH_TO_STACK
+                );
             }
         }
 

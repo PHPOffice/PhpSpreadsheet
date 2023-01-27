@@ -39,8 +39,8 @@ class ColumnIteratorEmptyTest extends TestCase
         $sheet = self::getPopulatedSheet($spreadsheet);
         $iterator = new ColumnIterator($sheet, 'A', 'I');
         $iterator->seek($columnId);
-        $row = $iterator->current();
-        $isEmpty = $row->isEmpty();
+        $column = $iterator->current();
+        $isEmpty = $column->isEmpty();
         self::assertSame($expectedEmpty, $isEmpty);
         $spreadsheet->disconnectWorksheets();
     }
@@ -69,8 +69,8 @@ class ColumnIteratorEmptyTest extends TestCase
         $sheet = self::getPopulatedSheet($spreadsheet);
         $iterator = new ColumnIterator($sheet, 'A', 'I');
         $iterator->seek($columnId);
-        $row = $iterator->current();
-        $isEmpty = $row->isEmpty(CellIterator::TREAT_NULL_VALUE_AS_EMPTY_CELL);
+        $column = $iterator->current();
+        $isEmpty = $column->isEmpty(CellIterator::TREAT_NULL_VALUE_AS_EMPTY_CELL);
         self::assertSame($expectedEmpty, $isEmpty);
         $spreadsheet->disconnectWorksheets();
     }
@@ -99,8 +99,8 @@ class ColumnIteratorEmptyTest extends TestCase
         $sheet = self::getPopulatedSheet($spreadsheet);
         $iterator = new ColumnIterator($sheet, 'A', 'I');
         $iterator->seek($columnId);
-        $row = $iterator->current();
-        $isEmpty = $row->isEmpty(CellIterator::TREAT_EMPTY_STRING_AS_EMPTY_CELL);
+        $column = $iterator->current();
+        $isEmpty = $column->isEmpty(CellIterator::TREAT_EMPTY_STRING_AS_EMPTY_CELL);
         self::assertSame($expectedEmpty, $isEmpty);
         $spreadsheet->disconnectWorksheets();
     }
@@ -129,8 +129,8 @@ class ColumnIteratorEmptyTest extends TestCase
         $sheet = self::getPopulatedSheet($spreadsheet);
         $iterator = new ColumnIterator($sheet, 'A', 'I');
         $iterator->seek($columnId);
-        $row = $iterator->current();
-        $isEmpty = $row->isEmpty(
+        $column = $iterator->current();
+        $isEmpty = $column->isEmpty(
             CellIterator::TREAT_EMPTY_STRING_AS_EMPTY_CELL | CellIterator::TREAT_NULL_VALUE_AS_EMPTY_CELL
         );
         self::assertSame($expectedEmpty, $isEmpty);
@@ -150,5 +150,22 @@ class ColumnIteratorEmptyTest extends TestCase
             ['H', false],
             ['I', true],
         ];
+    }
+
+    public function testIteratorEmptyColumnWithRowLimit(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = self::getPopulatedSheet($spreadsheet);
+        $sheet->setCellValue('A8', 'NO LONGER EMPTY');
+
+        $iterator = new ColumnIterator($sheet, 'A', 'A');
+        $column = $iterator->current();
+
+        $isEmpty = $column->isEmpty(CellIterator::TREAT_NULL_VALUE_AS_EMPTY_CELL);
+        self::assertFalse($isEmpty);
+        $isEmpty = $column->isEmpty(CellIterator::TREAT_NULL_VALUE_AS_EMPTY_CELL, 2, 7);
+        self::assertTrue($isEmpty);
+
+        $spreadsheet->disconnectWorksheets();
     }
 }

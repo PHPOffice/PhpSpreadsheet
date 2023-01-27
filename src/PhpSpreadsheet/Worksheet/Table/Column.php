@@ -205,9 +205,9 @@ class Column
         return $this;
     }
 
-    public static function updateStructuredReferences(?Worksheet $workSheet, ?string $oldTitle, string $newTitle): void
+    public static function updateStructuredReferences(?Worksheet $workSheet, ?string $oldTitle, ?string $newTitle): void
     {
-        if ($workSheet === null || $oldTitle === null || $oldTitle === '') {
+        if ($workSheet === null || $oldTitle === null || $oldTitle === '' || $newTitle === null) {
             return;
         }
 
