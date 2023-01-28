@@ -83,7 +83,7 @@ class Address
         return self::formatAsR1C1($row, $column, $relativity, $sheetName);
     }
 
-    private static function sheetName(string $sheetName)
+    private static function sheetName(string $sheetName): string
     {
         if ($sheetName > '') {
             if (strpos($sheetName, ' ') !== false || strpos($sheetName, '[') !== false) {

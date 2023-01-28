@@ -91,15 +91,16 @@ class Offset
         return self::extractRequiredCells($worksheet, $cellAddress);
     }
 
+    /** @return mixed */
     private static function extractRequiredCells(?Worksheet $worksheet, string $cellAddress)
     {
         return Calculation::getInstance($worksheet !== null ? $worksheet->getParent() : null)
             ->extractCellRange($cellAddress, $worksheet, false);
     }
 
-    private static function extractWorksheet($cellAddress, Cell $cell): array
+    private static function extractWorksheet(?string $cellAddress, Cell $cell): array
     {
-        $cellAddress = self::assessCellAddress($cellAddress, $cell);
+        $cellAddress = self::assessCellAddress($cellAddress ?? '', $cell);
 
         $sheetName = '';
         if (strpos($cellAddress, '!') !== false) {
@@ -123,7 +124,11 @@ class Offset
         return $cellAddress;
     }
 
-    private static function adjustEndCellColumnForWidth(string $endCellColumn, $width, int $startCellColumn, $columns)
+    /**
+     * @param mixed $width
+     * @param mixed $columns
+     */
+    private static function adjustEndCellColumnForWidth(string $endCellColumn, $width, int $startCellColumn, $columns): int
     {
         $endCellColumn = Coordinate::columnIndexFromString($endCellColumn) - 1;
         if (($width !== null) && (!is_object($width))) {
@@ -135,6 +140,11 @@ class Offset
         return $endCellColumn;
     }
 
+    /**
+     * @param mixed $height
+     * @param mixed $rows
+     * @param mixed $endCellRow
+     */
     private static function adustEndCellRowForHeight($height, int $startCellRow, $rows, $endCellRow): int
     {
         if (($height !== null) && (!is_object($height))) {
