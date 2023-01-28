@@ -84,8 +84,8 @@ class Row
      *              Possible Flag Values are:
      *                  CellIterator::TREAT_NULL_VALUE_AS_EMPTY_CELL
      *                  CellIterator::TREAT_EMPTY_STRING_AS_EMPTY_CELL
-     * @param string $startColumn The column address at which to start iterating
-     * @param string $endColumn Optionally, the column address at which to stop iterating
+     * @param string $startColumn The column address at which to start checking if cells are empty
+     * @param string $endColumn Optionally, the column address at which to stop checking if cells are empty
      */
     public function isEmpty(int $definitionOfEmptyFlags = 0, $startColumn = 'A', $endColumn = null): bool
     {
