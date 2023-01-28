@@ -569,7 +569,7 @@ class Font
         // Check if file actually exists
         if ($checkPath && !file_exists($fontFile)) {
             $alternateName = $name;
-            if ($index !== 'x' && $fontFile !== $fontArray[$name]['x']) {
+            if ($index !== 'x' && $fontArray[$name][$index] !== $fontArray[$name]['x']) {
                 // Bold but no italic:
                 //   Comic Sans
                 //   Tahoma
