@@ -3211,10 +3211,10 @@ class Xls extends BaseReader
             for ($i = 0; $i < $nm; ++$i) {
                 $c = self::getUInt2d($recordData, 2 + 6 * $i);
                 $rf = self::getUInt2d($recordData, 2 + 6 * $i + 2);
-                $rl = self::getUInt2d($recordData, 2 + 6 * $i + 4);
+                //$rl = self::getUInt2d($recordData, 2 + 6 * $i + 4);
 
                 // not sure why two row indexes are necessary?
-                $this->phpSheet->setBreak([$c + 1, $rf], Worksheet::BREAK_COLUMN);
+                $this->phpSheet->setBreak([$c + 1, ($rf > 0) ? $rf : 1], Worksheet::BREAK_COLUMN);
             }
         }
     }

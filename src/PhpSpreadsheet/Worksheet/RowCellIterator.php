@@ -127,7 +127,11 @@ class RowCellIterator extends CellIterator
 
         return $this->cellCollection->has($cellAddress)
             ? $this->cellCollection->get($cellAddress)
-            : $this->worksheet->createNewCell($cellAddress);
+            : (
+                $this->ifNotExists === self::IF_NOT_EXISTS_CREATE_NEW
+                ? $this->worksheet->createNewCell($cellAddress)
+                : null
+            );
     }
 
     /**

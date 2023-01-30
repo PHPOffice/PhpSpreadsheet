@@ -2,12 +2,19 @@
 
 namespace PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Style\Color;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
 class Formatter
 {
-    private static function splitFormatCompare($value, $cond, $val, $dfcond, $dfval)
+    /**
+     * @param mixed $value
+     * @param mixed $val
+     * @param mixed $dfval
+     */
+    private static function splitFormatCompare($value, ?string $cond, $val, string $dfcond, $dfval): bool
     {
         if (!$cond) {
             $cond = $dfcond;
@@ -33,7 +40,8 @@ class Formatter
         return $value >= $val;
     }
 
-    private static function splitFormat($sections, $value)
+    /** @param mixed $value */
+    private static function splitFormat(array $sections, $value): array
     {
         // Extract the relevant section depending on whether number is positive, negative, or zero?
         // Text not supported yet.
@@ -93,7 +101,7 @@ class Formatter
     /**
      * Convert a value in a pre-defined format to a PHP string.
      *
-     * @param mixed $value Value to format
+     * @param null|bool|float|int|RichText|string $value Value to format
      * @param string $format Format code, see = NumberFormat::FORMAT_*
      * @param array $callBack Callback function for additional formatting of string
      *
@@ -101,15 +109,18 @@ class Formatter
      */
     public static function toFormattedString($value, $format, $callBack = null)
     {
+        if (is_bool($value)) {
+            return $value ? Calculation::getTRUE() : Calculation::getFALSE();
+        }
         // For now we do not treat strings although section 4 of a format code affects strings
         if (!is_numeric($value)) {
-            return $value;
+            return (string) $value;
         }
 
         // For 'General' format code, we just pass the value although this is not entirely the way Excel does it,
         // it seems to round numbers to a total of 10 digits.
         if (($format === NumberFormat::FORMAT_GENERAL) || ($format === NumberFormat::FORMAT_TEXT)) {
-            return $value;
+            return (string) $value;
         }
 
         // Ignore square-$-brackets prefix in format string, like "[$-411]ge.m.d", "[$-010419]0%", etc
@@ -127,7 +138,7 @@ class Formatter
         $format = (string) preg_replace('/(\\\(((.)(?!((AM\/PM)|(A\/P))))|([^ ])))(?=(?:[^"]|"[^"]*")*$)/ui', '"${2}"', $format);
 
         // Get the sections, there can be up to four sections, separated with a semi-colon (but only if not a quoted literal)
-        $sections = preg_split('/(;)(?=(?:[^"]|"[^"]*")*$)/u', $format);
+        $sections = preg_split('/(;)(?=(?:[^"]|"[^"]*")*$)/u', $format) ?: [];
 
         [$colors, $format, $value] = self::splitFormat($sections, $value);
 
@@ -145,8 +156,8 @@ class Formatter
             if (substr($format, 0, 1) === '"' && substr($format, -1, 1) === '"' && substr_count($format, '"') === 2) {
                 $value = substr($format, 1, -1);
             } elseif (preg_match('/[0#, ]%/', $format)) {
-                // % number format
-                $value = PercentageFormatter::format($value, $format);
+                // % number format - avoid weird '-0' problem
+                $value = PercentageFormatter::format(0 + (float) $value, $format);
             } else {
                 $value = NumberFormatter::format($value, $format);
             }

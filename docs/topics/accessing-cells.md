@@ -46,10 +46,10 @@ particularly when working with large spreadsheets. One technique used to
 reduce this memory overhead is cell caching, so cells are actually
 maintained in a collection that may or may not be held in memory while you
 are working with the spreadsheet. Because of this, a call to `getCell()`
-(or any similar method) returns the cell data, and a pointer to the collection.
+(or any similar method) returns the cell data, and sets a cell pointer to that cell in the collection.
 While this is not normally an issue, it can become significant
 if you assign the result of a call to `getCell()` to a variable. Any
-subsequent calls to retrieve other cells will unset that pointer, although
+subsequent calls to retrieve other cells will change that pointer, although
 the cell object will still retain its data values.
 
 What does this mean? Consider the following code:
@@ -441,16 +441,25 @@ foreach ($worksheet->getRowIterator() as $row) {
 echo '</table>' . PHP_EOL;
 ```
 
-Note that we have set the cell iterator's
-`setIterateOnlyExistingCells()` to FALSE. This makes the iterator loop
-all cells within the worksheet range, even if they have not been set.
+Note that we have set the cell iterator's `setIterateOnlyExistingCells()`
+to FALSE. This makes the iterator loop all cells within the worksheet
+range, even if they have not been set.
 
-The cell iterator will return a `null` as the cell value if it is not
-set in the worksheet. Setting the cell iterator's
-`setIterateOnlyExistingCells()` to `false` will loop all cells in the
-worksheet that can be available at that moment. This will create new
-cells if required and increase memory usage! Only use it if it is
-intended to loop all cells that are possibly available.
+The cell iterator will create a new empty cell in the worksheet if it
+doesn't exist; return a `null` as the cell value if it is not set in
+the worksheet; although we can also tell it to return a null value
+rather than returning a new empty cell.
+Setting the cell iterator's `setIterateOnlyExistingCells()` to `false`
+will loop all cells in the worksheet that can be available at that
+moment. If this is then set to create new cells if required, then it
+will likely increase memory usage!
+Only use it if it is intended to loop all cells that are possibly
+available; otherwise use the option to return a null value if a cell
+doesn't exist, or iterate only the cells that already exist.
+
+It is also possible to call the Row object's `isEmpty()` method to
+determine whether you need to instantiate the Cell Iterator for that
+Row.
 
 ### Looping through cells using indexes
 

@@ -38,8 +38,9 @@ class MergeBehaviourTest extends AbstractFunctional
         $worksheet->fromArray($this->testDataRaw, null, 'A1', true);
         $worksheet->mergeCells($mergeRange);
 
-        $mergeResult = $worksheet->toArray(null, true, true, false);
+        $mergeResult = $worksheet->toArray(null, true, false, false);
         self::assertSame($expectedResult, $mergeResult);
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testMergeCellsDefaultBehaviourFormatted(): void
@@ -57,6 +58,7 @@ class MergeBehaviourTest extends AbstractFunctional
 
         $mergeResult = $worksheet->toArray(null, true, true, false);
         self::assertSame($expectedResult, $mergeResult);
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testMergeCellsHideBehaviour(): void
@@ -73,8 +75,9 @@ class MergeBehaviourTest extends AbstractFunctional
         $worksheet->fromArray($this->testDataRaw, null, 'A1', true);
         $worksheet->mergeCells($mergeRange, Worksheet::MERGE_CELL_CONTENT_HIDE);
 
-        $mergeResult = $worksheet->toArray(null, true, true, false);
+        $mergeResult = $worksheet->toArray(null, true, false, false);
         self::assertSame($expectedResult, $mergeResult);
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testMergeCellsHideBehaviourFormatted(): void
@@ -92,6 +95,7 @@ class MergeBehaviourTest extends AbstractFunctional
 
         $mergeResult = $worksheet->toArray(null, true, true, false);
         self::assertSame($expectedResult, $mergeResult);
+        $spreadsheet->disconnectWorksheets();
     }
 
     /**
@@ -108,6 +112,7 @@ class MergeBehaviourTest extends AbstractFunctional
 
         $mergeResult = $worksheet->toArray(null, true, true, false);
         self::assertSame($expectedResult, $mergeResult);
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function mergeCellsMergeBehaviourProvider(): array
@@ -162,5 +167,6 @@ class MergeBehaviourTest extends AbstractFunctional
 
         $mergeResult = $worksheet->toArray(null, true, true, false);
         self::assertSame($expectedResult, $mergeResult);
+        $spreadsheet->disconnectWorksheets();
     }
 }

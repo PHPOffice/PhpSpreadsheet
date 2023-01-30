@@ -52,12 +52,21 @@ class Column
      *
      * @param int $startRow The row number at which to start iterating
      * @param int $endRow Optionally, the row number at which to stop iterating
-     *
-     * @return ColumnCellIterator
      */
-    public function getCellIterator($startRow = 1, $endRow = null)
+    public function getCellIterator($startRow = 1, $endRow = null): ColumnCellIterator
     {
         return new ColumnCellIterator($this->worksheet, $this->columnIndex, $startRow, $endRow);
+    }
+
+    /**
+     * Get row iterator. Synonym for getCellIterator().
+     *
+     * @param int $startRow The row number at which to start iterating
+     * @param int $endRow Optionally, the row number at which to stop iterating
+     */
+    public function getRowIterator($startRow = 1, $endRow = null): ColumnCellIterator
+    {
+        return $this->getCellIterator($startRow, $endRow);
     }
 
     /**
@@ -76,13 +85,15 @@ class Column
      *              Possible Flag Values are:
      *                  CellIterator::TREAT_NULL_VALUE_AS_EMPTY_CELL
      *                  CellIterator::TREAT_EMPTY_STRING_AS_EMPTY_CELL
+     * @param int $startRow The row number at which to start checking if cells are empty
+     * @param int $endRow Optionally, the row number at which to stop checking if cells are empty
      */
-    public function isEmpty(int $definitionOfEmptyFlags = 0): bool
+    public function isEmpty(int $definitionOfEmptyFlags = 0, $startRow = 1, $endRow = null): bool
     {
         $nullValueCellIsEmpty = (bool) ($definitionOfEmptyFlags & CellIterator::TREAT_NULL_VALUE_AS_EMPTY_CELL);
         $emptyStringCellIsEmpty = (bool) ($definitionOfEmptyFlags & CellIterator::TREAT_EMPTY_STRING_AS_EMPTY_CELL);
 
-        $cellIterator = $this->getCellIterator();
+        $cellIterator = $this->getCellIterator($startRow, $endRow);
         $cellIterator->setIterateOnlyExistingCells(true);
         foreach ($cellIterator as $cell) {
             /** @scrutinizer ignore-call */

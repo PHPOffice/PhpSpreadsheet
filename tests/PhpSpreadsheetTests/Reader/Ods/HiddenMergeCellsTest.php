@@ -7,11 +7,13 @@ use PHPUnit\Framework\TestCase;
 
 class HiddenMergeCellsTest extends TestCase
 {
+
+    private const FILENAME = 'tests/data/Reader/Ods/HiddenMergeCellsTest.ods';
+
     public function testHiddenMergeCells(): void
     {
-        $filename = 'tests/data/Reader/Ods/HiddenMergeCellsTest.ods';
         $reader = new Ods();
-        $spreadsheet = $reader->load($filename);
+        $spreadsheet = $reader->load(self::FILENAME);
         $c2InMergeRange = $spreadsheet->getActiveSheet()->getCell('C2')->isInMergeRange();
         self::assertTrue($c2InMergeRange);
         $a2InMergeRange = $spreadsheet->getActiveSheet()->getCell('A2')->isInMergeRange();
@@ -20,15 +22,16 @@ class HiddenMergeCellsTest extends TestCase
         self::assertTrue($a2MergeRangeValue);
 
         $cellArray = $spreadsheet->getActiveSheet()->rangeToArray('A2:C2');
+        self::assertSame([['12', '4', '3']], $cellArray);
+        $cellArray = $spreadsheet->getActiveSheet()->rangeToArray('A2:C2', null, true, false);
         self::assertSame([[12, 4, 3]], $cellArray);
         $spreadsheet->disconnectWorksheets();
     }
 
     public function testUnmergeHiddenMergeCells(): void
     {
-        $filename = 'tests/data/Reader/Ods/HiddenMergeCellsTest.ods';
         $reader = new Ods();
-        $spreadsheet = $reader->load($filename);
+        $spreadsheet = $reader->load(self::FILENAME);
         $spreadsheet->getActiveSheet()->unmergeCells('A2:C2');
 
         $c2InMergeRange = $spreadsheet->getActiveSheet()->getCell('C2')->isInMergeRange();

@@ -28,7 +28,7 @@ class Issue2488Test extends TestCase
         }
     }
 
-    public function testIssue2450(): void
+    public function testIssue2488(): void
     {
         // Cell explicitly typed as numeric but without value.
         $filename = self::$testbook;
@@ -39,11 +39,23 @@ class Issue2488Test extends TestCase
         // So is E2, but I don't see a practical difference
         //    between null string and null in that case.
         $expected = [
+            ['1', '2', '3', '0', null, '-1', '-2', '-3'],
+            ['a', 'b', 'c', 'xxx', '', 'd', 'e', 'f'],
+            ['FALSE', 'FALSE', 'FALSE', null, 'TRUE', 'TRUE', 'TRUE', 'TRUE'],
+        ];
+        self::assertSame($expected, $sheet->toArray());
+        $expected = [
+            ['1', '2', '3', '0', '', '-1', '-2', '-3'],
+            ['a', 'b', 'c', 'xxx', '', 'd', 'e', 'f'],
+            ['FALSE', 'FALSE', 'FALSE', '', 'TRUE', 'TRUE', 'TRUE', 'TRUE'],
+        ];
+        self::assertSame($expected, $sheet->toArray(''));
+        $expected = [
             [1, 2, 3, 0, null, -1, -2, -3],
             ['a', 'b', 'c', 'xxx', '', 'd', 'e', 'f'],
             [false, false, false, null, true, true, true, true],
         ];
-        self::assertSame($expected, $sheet->toArray());
+        self::assertSame($expected, $sheet->toArray(null, true, false));
 
         $spreadsheet->disconnectWorksheets();
     }
