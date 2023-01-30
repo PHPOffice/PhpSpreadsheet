@@ -156,8 +156,8 @@ class Formatter
             if (substr($format, 0, 1) === '"' && substr($format, -1, 1) === '"' && substr_count($format, '"') === 2) {
                 $value = substr($format, 1, -1);
             } elseif (preg_match('/[0#, ]%/', $format)) {
-                // % number format
-                $value = PercentageFormatter::format($value, $format);
+                // % number format - avoid weird '-0' problem
+                $value = PercentageFormatter::format(0 + (float) $value, $format);
             } else {
                 $value = NumberFormatter::format($value, $format);
             }
