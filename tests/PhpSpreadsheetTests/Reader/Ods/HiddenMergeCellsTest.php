@@ -7,7 +7,6 @@ use PHPUnit\Framework\TestCase;
 
 class HiddenMergeCellsTest extends TestCase
 {
-
     private const FILENAME = 'tests/data/Reader/Ods/HiddenMergeCellsTest.ods';
 
     public function testHiddenMergeCells(): void
