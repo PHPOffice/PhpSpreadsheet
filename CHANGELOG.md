@@ -9,6 +9,31 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Added
 
+- Nothing
+
+### Changed
+
+- Nothing
+
+### Deprecated
+
+- Nothing
+
+### Removed
+
+- Nothing
+
+### Fixed
+
+- Nothing
+
+
+## 1.27.0 - 2023-01-24
+
+### Added
+
+- Option to specify a range of columns/rows for the Row/Column `isEmpty()` methods [PR #3315](https://github.com/PHPOffice/PhpSpreadsheet/pull/3315)
+- Option for Cell Iterator to return a null value or create and return a new cell when accessing a cell that doesn't exist [PR #3314](https://github.com/PHPOffice/PhpSpreadsheet/pull/3314)
 - Support for Structured References in the Calculation Engine [PR #3261](https://github.com/PHPOffice/PhpSpreadsheet/pull/3261)
 - Limited Support for Form Controls [PR #3130](https://github.com/PHPOffice/PhpSpreadsheet/pull/3130) [Issue #2396](https://github.com/PHPOffice/PhpSpreadsheet/issues/2396) [Issue #1770](https://github.com/PHPOffice/PhpSpreadsheet/issues/1770) [Issue #2388](https://github.com/PHPOffice/PhpSpreadsheet/issues/2388) [Issue #2904](https://github.com/PHPOffice/PhpSpreadsheet/issues/2904) [Issue #2661](https://github.com/PHPOffice/PhpSpreadsheet/issues/2661)
 
@@ -30,6 +55,9 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Additional Method for XIRR if Newton-Raphson Doesn't Converge [Issue #689](https://github.com/PHPOffice/PhpSpreadsheet/issues/689) [PR #3262](https://github.com/PHPOffice/PhpSpreadsheet/pull/3262)
 - Better Handling of Composite Charts [Issue #2333](https://github.com/PHPOffice/PhpSpreadsheet/issues/2333) [PR #3265](https://github.com/PHPOffice/PhpSpreadsheet/pull/3265)
 - Update Column Reference for Columns Beginning with Y and Z [Issue #3263](https://github.com/PHPOffice/PhpSpreadsheet/issues/3263) [PR #3264](https://github.com/PHPOffice/PhpSpreadsheet/pull/3264)
+- Honor Fit to 1-Page Height Html/Pdf [Issue #3266](https://github.com/PHPOffice/PhpSpreadsheet/issues/3266) [PR #3279](https://github.com/PHPOffice/PhpSpreadsheet/pull/3279)
+- AND/OR/XOR Handling of Literal Strings [PR #3287](https://github.com/PHPOffice/PhpSpreadsheet/pull/3287)
+- Xls Reader Vertical Break and Writer Page Order [Issue #3305](https://github.com/PHPOffice/PhpSpreadsheet/issues/3305) [PR #3306](https://github.com/PHPOffice/PhpSpreadsheet/pull/3306)
 
 
 ## 1.26.0 - 2022-12-21

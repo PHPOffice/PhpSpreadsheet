@@ -1100,6 +1100,7 @@ $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load("spreadsheetWithCharts.
 ```
 
 Flags that are available that can be passed to the Reader in this way include:
+
  - $reader::LOAD_WITH_CHARTS
  - $reader::READ_DATA_ONLY
  - $reader::IGNORE_EMPTY_CELLS 
@@ -1131,6 +1132,7 @@ $writer->save('mySavedFileWithCharts.xlsx', \PhpOffice\PhpSpreadsheet\Writer\IWr
 ```
 
 Flags that are available that can be passed to the Reader in this way include:
+
 - $reader::SAVE_WITH_CHARTS
 - $reader::DISABLE_PRECALCULATE_FORMULAE
 
