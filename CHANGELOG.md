@@ -39,7 +39,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Changed
 
-- Nothing
+- `toFormattedString` will now always return a string. This can affect the results of `toArray`, `namedRangeToArray`, and `rangeToArray`. [PR #3304](https://github.com/PHPOffice/PhpSpreadsheet/pull/3304)
 
 ### Deprecated
 

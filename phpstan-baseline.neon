@@ -791,56 +791,6 @@ parameters:
 			path: src/PhpSpreadsheet/Shared/Trend/Trend.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\NumberFormat\\\\Formatter\\:\\:splitFormat\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/NumberFormat/Formatter.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\NumberFormat\\\\Formatter\\:\\:splitFormat\\(\\) has parameter \\$sections with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/NumberFormat/Formatter.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\NumberFormat\\\\Formatter\\:\\:splitFormat\\(\\) has parameter \\$value with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/NumberFormat/Formatter.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\NumberFormat\\\\Formatter\\:\\:splitFormatCompare\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/NumberFormat/Formatter.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\NumberFormat\\\\Formatter\\:\\:splitFormatCompare\\(\\) has parameter \\$cond with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/NumberFormat/Formatter.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\NumberFormat\\\\Formatter\\:\\:splitFormatCompare\\(\\) has parameter \\$dfcond with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/NumberFormat/Formatter.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\NumberFormat\\\\Formatter\\:\\:splitFormatCompare\\(\\) has parameter \\$dfval with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/NumberFormat/Formatter.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\NumberFormat\\\\Formatter\\:\\:splitFormatCompare\\(\\) has parameter \\$val with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/NumberFormat/Formatter.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\NumberFormat\\\\Formatter\\:\\:splitFormatCompare\\(\\) has parameter \\$value with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/NumberFormat/Formatter.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\NumberFormat\\\\Formatter\\:\\:toFormattedString\\(\\) should return string but returns float\\|int\\|string\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/NumberFormat/Formatter.php
-
-		-
 			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Ods.php
