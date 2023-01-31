@@ -17,6 +17,7 @@ abstract class LookupBase
         }
     }
 
+    /** @param float|int|string $index_number */
     protected static function validateIndexLookup(array $lookup_array, $index_number): int
     {
         // index_number must be a number greater than or equal to 1.

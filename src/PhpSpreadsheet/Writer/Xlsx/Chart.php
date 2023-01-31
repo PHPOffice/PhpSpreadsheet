@@ -174,7 +174,7 @@ class Chart extends WriterPart
         $this->writeLayout($objWriter, $title->getLayout());
 
         $objWriter->startElement('c:overlay');
-        $objWriter->writeAttribute('val', '0');
+        $objWriter->writeAttribute('val', ($title->getOverlay()) ? '1' : '0');
         $objWriter->endElement();
 
         $objWriter->endElement();

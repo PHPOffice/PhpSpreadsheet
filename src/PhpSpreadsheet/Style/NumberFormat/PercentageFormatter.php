@@ -6,6 +6,7 @@ use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
 class PercentageFormatter extends BaseFormatter
 {
+    /** @param float|int $value */
     public static function format($value, string $format): string
     {
         if ($format === NumberFormat::FORMAT_PERCENTAGE) {

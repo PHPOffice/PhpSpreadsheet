@@ -196,9 +196,9 @@ class Cell
      * @param mixed $oldValue
      * @param mixed $newValue
      */
-    protected static function updateIfCellIsTableHeader(Worksheet $workSheet, self $cell, $oldValue, $newValue): void
+    protected static function updateIfCellIsTableHeader(?Worksheet $workSheet, self $cell, $oldValue, $newValue): void
     {
-        if (StringHelper::strToLower($oldValue ?? '') === StringHelper::strToLower($newValue ?? '')) {
+        if (StringHelper::strToLower($oldValue ?? '') === StringHelper::strToLower($newValue ?? '') || $workSheet === null) {
             return;
         }
 

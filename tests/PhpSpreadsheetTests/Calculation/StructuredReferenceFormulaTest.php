@@ -46,6 +46,21 @@ class StructuredReferenceFormulaTest extends TestCase
         self::assertSame(ExcelError::REF(), $result);
     }
 
+    public function testStructuredReferenceInvalidColumn(): void
+    {
+        $inputFileType = 'Xlsx';
+        $inputFileName = __DIR__ . '/../../data/Calculation/TableFormulae.xlsx';
+
+        $reader = IOFactory::createReader($inputFileType);
+        $spreadsheet = $reader->load($inputFileName);
+
+        $cellAddress = 'E2';
+        $spreadsheet->getActiveSheet()->getCell($cellAddress)->setValue('=[@Sales Amount]*[@[%age Commission]]');
+
+        $result = $spreadsheet->getActiveSheet()->getCell($cellAddress)->getCalculatedValue();
+        self::assertSame(ExcelError::REF(), $result);
+    }
+
     public function structuredReferenceProvider(): array
     {
         return [
