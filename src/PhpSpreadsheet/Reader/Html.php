@@ -650,7 +650,7 @@ class Html extends BaseReader
         $dom = new DOMDocument();
         // Reload the HTML file into the DOM object
         try {
-            $convert = $this->securityScanner->scanFile($filename);
+            $convert = $this->getSecurityScannerOrThrow()->scanFile($filename);
             $lowend = "\u{80}";
             $highend = "\u{10ffff}";
             $regexp = "/[$lowend-$highend]/u";
@@ -684,7 +684,7 @@ class Html extends BaseReader
         $dom = new DOMDocument();
         //    Reload the HTML file into the DOM object
         try {
-            $convert = $this->securityScanner->scan($content);
+            $convert = $this->getSecurityScannerOrThrow()->scan($content);
             $lowend = "\u{80}";
             $highend = "\u{10ffff}";
             $regexp = "/[$lowend-$highend]/u";
@@ -941,7 +941,7 @@ class Html extends BaseReader
     public function getStyleColor($value)
     {
         $value = (string) $value;
-        if (strpos($value ?? '', '#') === 0) {
+        if (strpos($value, '#') === 0) {
             return substr($value, 1);
         }
 

@@ -46,56 +46,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Statistical/Trends.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\IOFactory\\:\\:createReader\\(\\) should return PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\IReader but returns object\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/IOFactory.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\IOFactory\\:\\:createWriter\\(\\) should return PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\IWriter but returns object\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/IOFactory.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\IOFactory\\:\\:\\$readers has no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/IOFactory.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\IOFactory\\:\\:\\$writers has no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/IOFactory.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\BaseReader\\:\\:getSecurityScanner\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/BaseReader.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\BaseReader\\:\\:\\$fileHandle has no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/BaseReader.php
-
-		-
-			message: "#^Offset 'percentage' does not exist on SimpleXMLElement\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Gnumeric/PageSetup.php
-
-		-
-			message: "#^Offset 'value' does not exist on SimpleXMLElement\\|null\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Reader/Gnumeric/PageSetup.php
-
-		-
-			message: "#^Variable \\$orientation on left side of \\?\\? always exists and is not nullable\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Gnumeric/PageSetup.php
-
-		-
-			message: "#^Variable \\$value on left side of \\?\\? always exists and is not nullable\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Html.php
-
-		-
 			message: "#^Cannot call method children\\(\\) on SimpleXMLElement\\|false\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Ods.php
@@ -184,31 +134,6 @@ parameters:
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Ods\\\\Properties\\:\\:\\$spreadsheet has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Ods/Properties.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Security\\\\XmlScanner\\:\\:__construct\\(\\) has parameter \\$pattern with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Security/XmlScanner.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Security\\\\XmlScanner\\:\\:getInstance\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Security/XmlScanner.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Security\\\\XmlScanner\\:\\:threadSafeLibxmlDisableEntityLoaderAvailability\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Security/XmlScanner.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Security\\\\XmlScanner\\:\\:\\$callback has no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Security/XmlScanner.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Security\\\\XmlScanner\\:\\:\\$libxmlDisableEntityLoaderValue has no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Security/XmlScanner.php
 
 		-
 			message: "#^Call to an undefined method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\|PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DgContainer\\|PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DgContainer\\\\SpgrContainer\\|PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DgContainer\\\\SpgrContainer\\\\SpContainer\\|PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DggContainer\\|PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DggContainer\\\\BstoreContainer\\|PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DggContainer\\\\BstoreContainer\\\\BSE\\:\\:getDgContainer\\(\\)\\.$#"
@@ -369,36 +294,6 @@ parameters:
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 7
 			path: src/PhpSpreadsheet/Reader/Xls.php
-
-		-
-			message: "#^Parameter \\#1 \\$haystack of function strpos expects string, string\\|false given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xml.php
-
-		-
-			message: "#^Parameter \\#1 \\$textValue of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\StringHelper\\:\\:convertEncoding\\(\\) expects string, string\\|false given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xml.php
-
-		-
-			message: "#^Parameter \\#2 \\$subject of function preg_match expects string, string\\|false given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xml.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xml\\:\\:\\$fileContents has no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xml.php
-
-		-
-			message: "#^Argument of an invalid type SimpleXMLElement\\|null supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xml/Properties.php
-
-		-
-			message: "#^Argument of an invalid type SimpleXMLElement\\|null supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xml/Style.php
 
 		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DgContainer\\:\\:getDgId\\(\\) has no return type specified\\.$#"
