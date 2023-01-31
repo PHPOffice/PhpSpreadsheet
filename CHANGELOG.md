@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Added
 
-- Nothing
+- Support for configuring a Chart Title's overlay [PR #3325](https://github.com/PHPOffice/PhpSpreadsheet/pull/3325)
 
 ### Changed
 
@@ -167,7 +167,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
-- Fix update to defined names when inserting/deleting rows/columns [Issue #3076](https://github.com/PHPOffice/PhpSpreadsheet/issues/3076) [PR #3077](https://github.com/PHPOffice/PhpSpreadsheet/pull/3077) 
+- Fix update to defined names when inserting/deleting rows/columns [Issue #3076](https://github.com/PHPOffice/PhpSpreadsheet/issues/3076) [PR #3077](https://github.com/PHPOffice/PhpSpreadsheet/pull/3077)
 - Fix DataValidation sqRef when inserting/deleting rows/columns [Issue #3056](https://github.com/PHPOffice/PhpSpreadsheet/issues/3056) [PR #3074](https://github.com/PHPOffice/PhpSpreadsheet/pull/3074)
 - Named ranges not usable as anchors in OFFSET function [Issue #3013](https://github.com/PHPOffice/PhpSpreadsheet/issues/3013)
 - Fully flatten an array [Issue #2955](https://github.com/PHPOffice/PhpSpreadsheet/issues/2955) [PR #2956](https://github.com/PHPOffice/PhpSpreadsheet/pull/2956)
@@ -357,7 +357,7 @@ Note that this will be the last 1.x branch release before the 2.x release. We wi
 - Use color palette if supplied [Issue #2499](https://github.com/PHPOffice/PhpSpreadsheet/issues/2499) [PR #2595](https://github.com/PHPOffice/PhpSpreadsheet/pull/2595)
 - Xls reader treat drawing offsets as int rather than float [PR #2648](https://github.com/PHPOffice/PhpSpreadsheet/pull/2648)
 - Handle booleans in conditional styles properly [PR #2654](https://github.com/PHPOffice/PhpSpreadsheet/pull/2654)
-- Fix for reading files in the root directory of a ZipFile, which should not be prefixed by relative paths ("./") as dirname($filename) does by default. 
+- Fix for reading files in the root directory of a ZipFile, which should not be prefixed by relative paths ("./") as dirname($filename) does by default.
 - Fix invalid style of cells in empty columns with columnDimensions and rows with rowDimensions in added external sheet. [PR #2739](https://github.com/PHPOffice/PhpSpreadsheet/pull/2739)
 - Time Interval Formatting [Issue #2768](https://github.com/PHPOffice/PhpSpreadsheet/issues/2768) [PR #2772](https://github.com/PHPOffice/PhpSpreadsheet/pull/2772)
 
@@ -370,9 +370,9 @@ Note that this will be the last 1.x branch release before the 2.x release. We wi
 
 - Improved support for passing of array arguments to Excel function implementations to return array results (where appropriate). [Issue #2551](https://github.com/PHPOffice/PhpSpreadsheet/issues/2551)
 
-  This is the first stage in an ongoing process of adding array support to all appropriate function implementations, 
+  This is the first stage in an ongoing process of adding array support to all appropriate function implementations,
 - Support for the Excel365 Math/Trig SEQUENCE() function [PR #2536](https://github.com/PHPOffice/PhpSpreadsheet/pull/2536)
-- Support for the Excel365 Math/Trig RANDARRAY() function [PR #2540](https://github.com/PHPOffice/PhpSpreadsheet/pull/2540) 
+- Support for the Excel365 Math/Trig RANDARRAY() function [PR #2540](https://github.com/PHPOffice/PhpSpreadsheet/pull/2540)
 
   Note that the Spill Operator is not yet supported in the Calculation Engine; but this can still be useful for defining array constants.
 - Improved support for Conditional Formatting Rules [PR #2491](https://github.com/PHPOffice/PhpSpreadsheet/pull/2491)
@@ -386,7 +386,7 @@ Note that this will be the last 1.x branch release before the 2.x release. We wi
     - Expression
   - Provision of CF Wizards (for all the above listed rule types) to help create/modify CF Rules without having to manage all the combinations of types/operators, and the complexities of formula expressions, or the text/timePeriod attributes.
 
-    See [documentation](https://phpspreadsheet.readthedocs.io/en/latest/topics/conditional-formatting/) for details 
+    See [documentation](https://phpspreadsheet.readthedocs.io/en/latest/topics/conditional-formatting/) for details
 
   - Full support of the above CF Rules for the Xlsx Reader and Writer; even when the file being loaded has CF rules listed in the `<extLst><ext><ConditionalFormattings>` element for the worksheet rather than the `<ConditionalFormatting>` element.
   - Provision of a CellMatcher to identify if rules are matched for a cell, and which matching style will be applied.
@@ -576,7 +576,7 @@ Note that this will be the last 1.x branch release before the 2.x release. We wi
 - Xls Reader changing grey background to black in Excel template [Issue #2147](https://github.com/PHPOffice/PhpSpreadsheet/issues/2147) [PR #2156](https://github.com/PHPOffice/PhpSpreadsheet/pull/2156)
 - Column width and Row height styles in the Html Reader when the value includes a unit of measure [Issue #2145](https://github.com/PHPOffice/PhpSpreadsheet/issues/2145).
 - Data Validation flags not set correctly when reading XLSX files [Issue #2224](https://github.com/PHPOffice/PhpSpreadsheet/issues/2224) [PR #2225](https://github.com/PHPOffice/PhpSpreadsheet/pull/2225)
-- Reading XLSX files without styles.xml throws an exception [Issue #2246](https://github.com/PHPOffice/PhpSpreadsheet/issues/2246) 
+- Reading XLSX files without styles.xml throws an exception [Issue #2246](https://github.com/PHPOffice/PhpSpreadsheet/issues/2246)
 - Improved performance of `Style::applyFromArray()` when applied to several cells [PR #1785](https://github.com/PHPOffice/PhpSpreadsheet/issues/1785).
 - Improve XLSX parsing speed if no readFilter is applied (again) - [#772](https://github.com/PHPOffice/PhpSpreadsheet/issues/772)
 
@@ -641,7 +641,7 @@ Note that this will be the last 1.x branch release before the 2.x release. We wi
   `ABS()`, `ACOS()`, `ACOSH()`, `ASIN()`, `ASINH()`, `ATAN()`, `ATANH()`,
   `COS()`, `COSH()`, `DEGREES()` (rad2deg), `EXP()`, `LN()` (log), `LOG10()`,
   `RADIANS()` (deg2rad), `SIN()`, `SINH()`, `SQRT()`, `TAN()`, `TANH()`.
-  
+
   One TextData function is also affected: `REPT()` (str_repeat).
 - `formatAsDate` correctly matches language metadata, reverting c55272e
 - Formulae that previously crashed on sub function call returning excel error value now return said value.
@@ -1271,7 +1271,7 @@ Note that this will be the last 1.x branch release before the 2.x release. We wi
 - Ignore inlineStr type if formula element exists - @ncrypthic [#570](https://github.com/PHPOffice/PHPExcel/issues/570)
 - Excel 2007 Reader freezes because of conditional formatting - @rentalhost [#575](https://github.com/PHPOffice/PHPExcel/issues/575)
 - Readers will now parse files containing worksheet titles over 31 characters [#176](https://github.com/PHPOffice/PhpSpreadsheet/pull/176)
-- Fixed PHP8 deprecation warning for libxml_disable_entity_loader() [#1625](https://github.com/phpoffice/phpspreadsheet/pull/1625) 
+- Fixed PHP8 deprecation warning for libxml_disable_entity_loader() [#1625](https://github.com/phpoffice/phpspreadsheet/pull/1625)
 
 ### General
 

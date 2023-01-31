@@ -1,11 +1,9 @@
 This is:
 
-```
 - [ ] a bugfix
 - [ ] a new feature
 - [ ] refactoring
 - [ ] additional unit tests
-```
 
 Checklist:
 
@@ -14,7 +12,7 @@ Checklist:
   - [ ] New unit tests have been added
 - [ ] Code style is respected
 - [ ] Commit message explains **why** the change is made (see https://github.com/erlang/otp/wiki/Writing-good-commit-messages)
-- [ ] CHANGELOG.md contains a short summary of the change
+- [ ] CHANGELOG.md contains a short summary of the change and a link to the pull request if applicable
 - [ ] Documentation is updated as necessary
 
 ### Why this change is needed?
