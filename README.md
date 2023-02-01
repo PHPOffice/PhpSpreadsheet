@@ -100,16 +100,19 @@ Supporters will receive access to articles about working with PhpSpreadsheet, an
 Posts already available to Patreon supporters:
  - The Dating Game
    - A  look at how MS Excel (and PhpSpreadsheet) handle date and time values.
+- Looping the Loop
+    - Advice on Iterating through the rows and cells in a worksheet.
 
 The next post (currently being written) will be:
- - Looping the Loop
-   - Advice on Iterating through the cells in a worksheet.
+ - Behind the Mask
+   - A look at Number Format Masks.
 
 My aim is to post at least one article each month, taking a detailed look at some feature of MS Excel and how to use that feature in PhpSpreadsheet, or on how to perform different activities in PhpSpreadsheet.
 
 Planned posts for the future include topics like:
  - Tables
  - Structured References
+ - AutoFiltering
  - Array Formulae
  - Conditional Formatting
  - Data Validation
