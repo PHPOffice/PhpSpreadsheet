@@ -3,7 +3,6 @@
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Ods;
 
 use PhpOffice\PhpSpreadsheet\Reader\Ods;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 use PHPUnit\Framework\TestCase;
 
@@ -11,25 +10,18 @@ class PageSetupBug1772Test extends TestCase
 {
     private const MARGIN_PRECISION = 0.00000001;
 
-    /**
-     * @var Spreadsheet
-     */
-    private $spreadsheet;
-
-    protected function setup(): void
+    public function testPageSetup(): void
     {
         $filename = 'tests/data/Reader/Ods/bug1772.ods';
         $reader = new Ods();
-        $this->spreadsheet = $reader->load($filename);
-    }
-
-    public function testPageSetup(): void
-    {
+        $spreadsheet = $reader->load($filename);
         $assertions = $this->pageSetupAssertions();
 
-        foreach ($this->spreadsheet->getAllSheets() as $worksheet) {
+        $sheetCount = 0;
+        foreach ($spreadsheet->getAllSheets() as $worksheet) {
+            ++$sheetCount;
             if (!array_key_exists($worksheet->getTitle(), $assertions)) {
-                continue;
+                self::fail('Unexpected worksheet ' . $worksheet->getTitle());
             }
 
             $sheetAssertions = $assertions[$worksheet->getTitle()];
@@ -43,15 +35,22 @@ class PageSetupBug1772Test extends TestCase
                 );
             }
         }
+        self::assertCount($sheetCount, $assertions);
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testPageMargins(): void
     {
+        $filename = 'tests/data/Reader/Ods/bug1772.ods';
+        $reader = new Ods();
+        $spreadsheet = $reader->load($filename);
         $assertions = $this->pageMarginAssertions();
 
-        foreach ($this->spreadsheet->getAllSheets() as $worksheet) {
+        $sheetCount = 0;
+        foreach ($spreadsheet->getAllSheets() as $worksheet) {
+            ++$sheetCount;
             if (!array_key_exists($worksheet->getTitle(), $assertions)) {
-                continue;
+                self::fail('Unexpected worksheet ' . $worksheet->getTitle());
             }
 
             $sheetAssertions = $assertions[$worksheet->getTitle()];
@@ -66,6 +65,8 @@ class PageSetupBug1772Test extends TestCase
                 );
             }
         }
+        self::assertCount($sheetCount, $assertions);
+        $spreadsheet->disconnectWorksheets();
     }
 
     private function pageSetupAssertions(): array

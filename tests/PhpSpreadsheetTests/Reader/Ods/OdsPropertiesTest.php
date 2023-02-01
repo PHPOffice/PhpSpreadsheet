@@ -65,6 +65,7 @@ class OdsPropertiesTest extends AbstractFunctional
             }
             self::assertSame($testData['value'], $result);
         }
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testReloadOdsWorkbookProperties(): void
@@ -81,6 +82,7 @@ class OdsPropertiesTest extends AbstractFunctional
         $reader = new Ods();
         $spreadsheetOld = $reader->load($filename);
         $spreadsheet = $this->writeAndReload($spreadsheetOld, 'Ods');
+        $spreadsheetOld->disconnectWorksheets();
 
         $properties = $spreadsheet->getProperties();
         // Core Properties
@@ -108,5 +110,6 @@ class OdsPropertiesTest extends AbstractFunctional
             }
             self::assertSame($testData['value'], $result);
         }
+        $spreadsheet->disconnectWorksheets();
     }
 }
