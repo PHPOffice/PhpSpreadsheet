@@ -57,6 +57,23 @@ class NumberFormatTest extends TestCase
     }
 
     /**
+     * @dataProvider providerNumberFormatFractions
+     *
+     * @param mixed $expectedResult
+     * @param mixed $args
+     */
+    public function testFormatValueWithMaskFraction($expectedResult, ...$args): void
+    {
+        $result = NumberFormat::toFormattedString(...$args);
+        self::assertEquals($expectedResult, $result);
+    }
+
+    public function providerNumberFormatFractions(): array
+    {
+        return require 'tests/data/Style/NumberFormatFractions.php';
+    }
+
+    /**
      * @dataProvider providerNumberFormatDates
      *
      * @param mixed $expectedResult
