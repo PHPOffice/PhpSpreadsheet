@@ -9,6 +9,7 @@ class FormulasTest extends AbstractFunctional
 {
     public function testFormulas(): void
     {
+        // This file was created with Excel 365.
         $filename = 'tests/data/Reader/XLS/formulas.xls';
         $reader = new Xls();
         $spreadsheet = $reader->load($filename);
@@ -25,6 +26,7 @@ class FormulasTest extends AbstractFunctional
 
     public function testDatabaseFormulas(): void
     {
+        // This file was created with Excel 2003.
         $filename = 'tests/data/Reader/XLS/formulas.database.xls';
         $reader = new Xls();
         $spreadsheet = $reader->load($filename);
