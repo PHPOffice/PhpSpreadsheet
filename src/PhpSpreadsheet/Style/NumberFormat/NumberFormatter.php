@@ -226,7 +226,7 @@ class NumberFormatter
             $format = self::pregReplace('/0,+/', '0', $format);
             $format = self::pregReplace('/#,+/', '#', $format);
         }
-        if (preg_match('/#?.*\?\/\?/', $format, $m)) {
+        if (preg_match('/#?.*\?\/(\?+|\d+)/', $format)) {
             $value = FractionFormatter::format($value, $format);
         } else {
             // Handle the number itself
