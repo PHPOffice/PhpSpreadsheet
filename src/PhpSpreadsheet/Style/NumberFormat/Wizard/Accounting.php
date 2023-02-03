@@ -38,11 +38,29 @@ class Accounting extends Currency
         $this->setLocale($locale);
     }
 
+    /**
+     * @throws Exception if the Intl extension and ICU version don't support Accounting formats
+     */
     protected function getLocaleFormat(): string
     {
+        if (version_compare(PHP_VERSION, '7.4.1', '<')) {
+            throw new Exception('The Intl extension does not support Accounting Formats below PHP 7.4.1');
+        }
+
+        if ($this->icuVersion() < 53.0) {
+            throw new Exception('The Intl extension does not support Accounting Formats without ICU 53');
+        }
+
         $formatter = new Locale($this->fullLocale, NumberFormatter::CURRENCY_ACCOUNTING); // @phpstan-ignore-line
 
         return str_replace('¤', $this->formatCurrencyCode(), $formatter->format());
+    }
+
+    private function icuVersion(): float
+    {
+        [$major, $minor] = explode('.', INTL_ICU_VERSION);
+
+        return (float) "{$major}.{$minor}";
     }
 
     private function formatCurrencyCode(): string
