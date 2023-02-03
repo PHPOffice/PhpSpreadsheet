@@ -60,7 +60,7 @@ class Arabic
 
     private static function strSplit(string $roman): array
     {
-        $rslt = str_split($roman);
+        $rslt = mb_str_split($roman);
 
         return self::mollifyScrutinizer($rslt);
     }
