@@ -39,7 +39,7 @@ class Properties
 
     protected function readCustomProperties(SimpleXMLElement $xml, array $namespaces): void
     {
-        if (isset($xml->CustomDocumentProperties)) {
+        if (isset($xml->CustomDocumentProperties) && is_iterable($xml->CustomDocumentProperties[0])) {
             $docProps = $this->spreadsheet->getProperties();
 
             foreach ($xml->CustomDocumentProperties[0] as $propertyName => $propertyValue) {
@@ -150,8 +150,6 @@ class Properties
 
     private static function getAttributes(?SimpleXMLElement $simple, string $node): SimpleXMLElement
     {
-        return ($simple === null)
-            ? new SimpleXMLElement('<xml></xml>')
-            : ($simple->attributes($node) ?? new SimpleXMLElement('<xml></xml>'));
+        return ($simple === null) ? new SimpleXMLElement('<xml></xml>') : ($simple->attributes($node) ?? new SimpleXMLElement('<xml></xml>'));
     }
 }

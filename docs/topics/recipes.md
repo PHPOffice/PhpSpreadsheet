@@ -187,7 +187,7 @@ internal English coding.
 
 ```php
 $formula = $spreadsheet->getActiveSheet()->getCell('B8')->getValue();
-$translatedFormula = \PhpOffice\PhpSpreadsheet\Calculation\Calculation::getInstance()->_translateFormulaToLocale($formula);
+$translatedFormula = \PhpOffice\PhpSpreadsheet\Calculation\Calculation::getInstance()->translateFormulaToLocale($formula);
 ```
 
 You can also create a formula using the function names and argument

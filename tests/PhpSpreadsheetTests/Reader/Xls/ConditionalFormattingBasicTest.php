@@ -4,39 +4,30 @@ namespace PhpOffice\PhpSpreadsheetTests\Reader\Xls;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xls;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
-use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PHPUnit\Framework\TestCase;
 
 class ConditionalFormattingBasicTest extends TestCase
 {
     /**
-     * @var Worksheet
-     */
-    protected $sheet;
-
-    protected function setUp(): void
-    {
-        $filename = 'tests/data/Reader/XLS/CF_Basic_Comparisons.xls';
-        $reader = new Xls();
-        $spreadsheet = $reader->load($filename);
-        $this->sheet = $spreadsheet->getActiveSheet();
-    }
-
-    /**
      * @dataProvider conditionalFormattingProvider
      */
     public function testReadConditionalFormatting(string $expectedRange, array $expectedRules): void
     {
-        $hasConditionalStyles = $this->sheet->conditionalStylesExists($expectedRange);
+        $filename = 'tests/data/Reader/XLS/CF_Basic_Comparisons.xls';
+        $reader = new Xls();
+        $spreadsheet = $reader->load($filename);
+        $sheet = $spreadsheet->getActiveSheet();
+        $hasConditionalStyles = $sheet->conditionalStylesExists($expectedRange);
         self::assertTrue($hasConditionalStyles);
 
-        $conditionalStyles = $this->sheet->getConditionalStyles($expectedRange);
+        $conditionalStyles = $sheet->getConditionalStyles($expectedRange);
 
         foreach ($conditionalStyles as $index => $conditionalStyle) {
             self::assertSame($expectedRules[$index]['type'], $conditionalStyle->getConditionType());
             self::assertSame($expectedRules[$index]['operator'], $conditionalStyle->getOperatorType());
             self::assertSame($expectedRules[$index]['conditions'], $conditionalStyle->getConditions());
         }
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function conditionalFormattingProvider(): array

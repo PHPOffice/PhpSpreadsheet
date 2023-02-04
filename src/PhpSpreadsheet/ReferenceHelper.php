@@ -518,7 +518,7 @@ class ReferenceHelper
 
         // Update worksheet: freeze pane
         if ($worksheet->getFreezePane()) {
-            $splitCell = $worksheet->getFreezePane() ?? '';
+            $splitCell = $worksheet->getFreezePane();
             $topLeftCell = $worksheet->getTopLeftCell() ?? '';
 
             $splitCell = $this->updateCellReference($splitCell);
@@ -862,17 +862,15 @@ class ReferenceHelper
         // Is it in another worksheet? Will not have to update anything.
         if (strpos($cellReference, '!') !== false) {
             return $cellReference;
+        }
         // Is it a range or a single cell?
-        } elseif (!Coordinate::coordinateIsRange($cellReference)) {
+        if (!Coordinate::coordinateIsRange($cellReference)) {
             // Single cell
             return $this->cellReferenceHelper->updateCellReference($cellReference, $includeAbsoluteReferences);
-        } elseif (Coordinate::coordinateIsRange($cellReference)) {
-            // Range
-            return $this->updateCellRange($cellReference, $includeAbsoluteReferences);
         }
 
-        // Return original
-        return $cellReference;
+        // Range
+        return $this->updateCellRange($cellReference, $includeAbsoluteReferences);
     }
 
     /**

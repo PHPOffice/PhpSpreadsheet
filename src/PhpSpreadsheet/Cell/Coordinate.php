@@ -461,7 +461,7 @@ abstract class Coordinate
             $currentColumnIndex = $startColumnIndex;
             $currentRow = $startRow;
 
-            self::validateRange($cellBlock, $startColumnIndex, $endColumnIndex, $currentRow, $endRow);
+            self::validateRange($cellBlock, $startColumnIndex, $endColumnIndex, (int) $currentRow, (int) $endRow);
 
             // Loop cells
             while ($currentColumnIndex < $endColumnIndex) {
@@ -508,7 +508,7 @@ abstract class Coordinate
 
             [$column, $row] = self::coordinateFromString($coord);
             $row = (int) (ltrim($row, '$'));
-            $hashCode = $column . '-' . (is_object($value) ? $value->getHashCode() : $value);
+            $hashCode = $column . '-' . ((is_object($value) && method_exists($value, 'getHashCode')) ? $value->getHashCode() : $value);
 
             if (!isset($hashedValues[$hashCode])) {
                 $hashedValues[$hashCode] = (object) [

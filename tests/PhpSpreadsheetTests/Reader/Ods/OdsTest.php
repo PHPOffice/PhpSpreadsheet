@@ -15,6 +15,10 @@ use PHPUnit\Framework\TestCase;
  */
 class OdsTest extends TestCase
 {
+    private const ODS_TEST_FILE = 'samples/templates/OOCalcTest.ods';
+
+    private const ODS_DATA_FILE = 'tests/data/Reader/Ods/data.ods';
+
     /** @var string */
     private $incompleteMessage = 'Features not implemented yet';
 
@@ -35,29 +39,13 @@ class OdsTest extends TestCase
     }
 
     /**
-     * @var ?Spreadsheet
-     */
-    private $spreadsheetOdsTest;
-
-    /**
-     * @var ?Spreadsheet
-     */
-    private $spreadsheetData;
-
-    /**
      * @return Spreadsheet
      */
     private function loadOdsTestFile()
     {
-        if (isset($this->spreadsheetOdsTest)) {
-            return $this->spreadsheetOdsTest;
-        }
-        $filename = 'samples/templates/OOCalcTest.ods';
-        // Load into this instance
         $reader = new Ods();
-        $this->spreadsheetOdsTest = $reader->loadIntoExisting($filename, new Spreadsheet());
 
-        return $this->spreadsheetOdsTest;
+        return $reader->loadIntoExisting(self::ODS_TEST_FILE, new Spreadsheet());
     }
 
     /**
@@ -65,15 +53,9 @@ class OdsTest extends TestCase
      */
     protected function loadDataFile()
     {
-        if (isset($this->spreadsheetData)) {
-            return $this->spreadsheetData;
-        }
-        $filename = 'tests/data/Reader/Ods/data.ods';
-        // Load into this instance
         $reader = new Ods();
-        $this->spreadsheetData = $reader->load($filename);
 
-        return $this->spreadsheetData;
+        return $reader->load(self::ODS_DATA_FILE);
     }
 
     public function testLoadWorksheets(): void
@@ -91,34 +73,31 @@ class OdsTest extends TestCase
         self::assertInstanceOf('PhpOffice\PhpSpreadsheet\Worksheet\Worksheet', $secondSheet);
         self::assertEquals('Sheet1', $spreadsheet->getSheet(0)->getTitle());
         self::assertEquals('Second Sheet', $spreadsheet->getSheet(1)->getTitle());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testLoadOneWorksheet(): void
     {
-        $filename = 'tests/data/Reader/Ods/data.ods';
-
-        // Load into this instance
         $reader = new Ods();
         $reader->setLoadSheetsOnly(['Sheet1']);
-        $spreadsheet = $reader->load($filename);
+        $spreadsheet = $reader->load(self::ODS_DATA_FILE);
 
         self::assertEquals(1, $spreadsheet->getSheetCount());
 
         self::assertEquals('Sheet1', $spreadsheet->getSheet(0)->getTitle());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testLoadOneWorksheetNotActive(): void
     {
-        $filename = 'tests/data/Reader/Ods/data.ods';
-
-        // Load into this instance
         $reader = new Ods();
         $reader->setLoadSheetsOnly(['Second Sheet']);
-        $spreadsheet = $reader->load($filename);
+        $spreadsheet = $reader->load(self::ODS_DATA_FILE);
 
         self::assertEquals(1, $spreadsheet->getSheetCount());
 
         self::assertEquals('Second Sheet', $spreadsheet->getSheet(0)->getTitle());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testLoadBadFile(): void
@@ -201,7 +180,11 @@ class OdsTest extends TestCase
 
         self::assertEquals(DataType::TYPE_FORMULA, $firstSheet->getCell('C6')->getDataType()); // Formula
         self::assertEquals('=TRUE()', $firstSheet->getCell('C6')->getValue()); // Formula
+        $spreadsheet->disconnectWorksheets();
+    }
 
+    public function testReadPercentageAndCurrency(): void
+    {
         // Percentage, Currency
 
         $spreadsheet = $this->loadDataFile();
@@ -219,6 +202,7 @@ class OdsTest extends TestCase
 
         self::assertEquals(DataType::TYPE_NUMERIC, $firstSheet->getCell('A5')->getDataType()); // Currency ($20)
         self::assertEquals(20, $firstSheet->getCell('A5')->getValue());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testReadColors(): void
@@ -233,6 +217,7 @@ class OdsTest extends TestCase
         self::assertEquals('none', $style->getFill()->getFillType());
         self::assertEquals('FFFFFFFF', $style->getFill()->getStartColor()->getARGB());
         self::assertEquals('FF000000', $style->getFill()->getEndColor()->getARGB());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testReadRichText(): void
@@ -245,6 +230,7 @@ class OdsTest extends TestCase
             'And this row should be autofit height with text wrap',
             $firstSheet->getCell('A28')->getValue()
         );
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testReadCellsWithRepeatedSpaces(): void
@@ -256,6 +242,7 @@ class OdsTest extends TestCase
         self::assertEquals('This only one after ', $firstSheet->getCell('A9')->getValue());
         self::assertEquals('Test with DIFFERENT styles     and multiple spaces:  ', $firstSheet->getCell('A10')->getValue());
         self::assertEquals("test with new \nLines", $firstSheet->getCell('A11')->getValue());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testReadHyperlinks(): void
@@ -268,6 +255,7 @@ class OdsTest extends TestCase
         self::assertEquals(DataType::TYPE_STRING, $hyperlink->getDataType());
         self::assertEquals('PhpSpreadsheet', $hyperlink->getValue());
         self::assertEquals('https://github.com/PHPOffice/phpspreadsheet', $hyperlink->getHyperlink()->getUrl());
+        $spreadsheet->disconnectWorksheets();
     }
 
     // Below some test for features not implemented yet
@@ -293,5 +281,6 @@ class OdsTest extends TestCase
         $style = $firstSheet->getCell('E1')->getStyle();
         self::assertTrue($style->getFont()->getBold());
         self::assertTrue($style->getFont()->getItalic());
+        $spreadsheet->disconnectWorksheets();
     }
 }
