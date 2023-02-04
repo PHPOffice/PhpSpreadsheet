@@ -9,6 +9,9 @@ use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
 class Formatter
 {
+    private const SYMBOL_AT = '/@(?=(?:[^"]*"[^"]*")*[^"]*\Z)/miu';
+    private const SECTION_SPLIT = '/;(?=(?:[^"]*"[^"]*")*[^"]*\Z)/miu';
+
     /**
      * @param mixed $value
      * @param mixed $val
@@ -112,7 +115,13 @@ class Formatter
         if (is_bool($value)) {
             return $value ? Calculation::getTRUE() : Calculation::getFALSE();
         }
-        // For now we do not treat strings although section 4 of a format code affects strings
+        // For now we do not treat strings in sections, although section 4 of a format code affects strings
+        // Process a single block format code containing @ for text substitution
+        if (preg_match(self::SECTION_SPLIT, $format) === 0 && preg_match(self::SYMBOL_AT, $format) === 1) {
+            return str_replace('"', '', preg_replace(self::SYMBOL_AT, (string) $value, $format) ?? '');
+        }
+
+        // If we have a text value, return it "as is"
         if (!is_numeric($value)) {
             return (string) $value;
         }
@@ -138,7 +147,7 @@ class Formatter
         $format = (string) preg_replace('/(\\\(((.)(?!((AM\/PM)|(A\/P))))|([^ ])))(?=(?:[^"]|"[^"]*")*$)/ui', '"${2}"', $format);
 
         // Get the sections, there can be up to four sections, separated with a semi-colon (but only if not a quoted literal)
-        $sections = preg_split('/(;)(?=(?:[^"]|"[^"]*")*$)/u', $format) ?: [];
+        $sections = preg_split(self::SECTION_SPLIT, $format) ?: [];
 
         [$colors, $format, $value] = self::splitFormat($sections, $value);
 
