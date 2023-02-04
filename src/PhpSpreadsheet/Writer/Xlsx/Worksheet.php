@@ -1026,6 +1026,10 @@ class Worksheet extends WriterPart
                 $objWriter->startElement('brk');
                 $objWriter->writeAttribute('id', $coords[1]);
                 $objWriter->writeAttribute('man', '1');
+                $rowBreakMax = $worksheet->getRowBreakMax($cell);
+                if ($rowBreakMax >= 0) {
+                    $objWriter->writeAttribute('max', "$rowBreakMax");
+                }
                 $objWriter->endElement();
             }
 

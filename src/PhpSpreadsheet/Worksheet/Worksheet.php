@@ -195,6 +195,13 @@ class Worksheet implements IComparable
     private $breaks = [];
 
     /**
+     * Collection of max column values for row breaks.
+     *
+     * @var int[]
+     */
+    private $rowBreaksMax = [];
+
+    /**
      * Collection of merged cell ranges.
      *
      * @var string[]
@@ -1748,7 +1755,7 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function setBreak($coordinate, $break)
+    public function setBreak($coordinate, $break, int $rowMax = -1)
     {
         $cellAddress = Functions::trimSheetFromCellReference(Validations::validateCellAddress($coordinate));
 
@@ -1758,6 +1765,9 @@ class Worksheet implements IComparable
             }
         } else {
             $this->breaks[$cellAddress] = $break;
+            if ($break === self::BREAK_ROW) {
+                $this->rowBreaksMax[$cellAddress] = $rowMax;
+            }
         }
 
         return $this;
@@ -1790,6 +1800,11 @@ class Worksheet implements IComparable
     public function getBreaks()
     {
         return $this->breaks;
+    }
+
+    public function getRowBreakMax(string $cellAddress): int
+    {
+        return $this->rowBreaksMax[$cellAddress] ?? -1;
     }
 
     /**
