@@ -3173,7 +3173,7 @@ class Worksheet implements IComparable
                 ++$startRow;
             }
         }
-        
+
         return $this;
     }
 
