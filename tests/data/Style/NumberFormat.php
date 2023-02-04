@@ -373,6 +373,27 @@ return [
         'test',
         '_-€* #,##0.00_-;"-€"* #,##0.00_-;_-€* -??_-;_-@_-',
     ],
+    // String masks (ie. @)
+    [
+        'World',
+        'World',
+        '@',
+    ],
+    [
+        'Hello World',
+        'World',
+        'Hello @',
+    ],
+    [
+        'Hello World',
+        'World',
+        '"Hello "@',
+    ],
+    [
+        'Meet me @ The Boathouse @ 16:30',
+        'The Boathouse',
+        '"Meet me @ "@" @ 16:30"',
+    ],
     // Named colours
     // Simple color
     [
