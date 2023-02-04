@@ -10,7 +10,7 @@ class RowBreakTest extends TestCase
 {
     public function testReadAndWriteRowBreak(): void
     {
-        $file = 'tests/data/Reader/Xlsx/issue.3143a.xlsx';
+        $file = 'tests/data/Reader/XLSX/issue.3143a.xlsx';
         $reader = new XlsxReader();
         $spreadsheet = $reader->load($file);
         $worksheet = $spreadsheet->getActiveSheet();
