@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Changed
 
-- Nothing
+- Improved handling for @ in Number Format Masks [PR #3344](https://github.com/PHPOffice/PhpSpreadsheet/pull/3344)
 
 ### Deprecated
 
