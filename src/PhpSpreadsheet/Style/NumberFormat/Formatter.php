@@ -9,42 +9,55 @@ use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
 class Formatter
 {
+    /**
+     * Matches any @ symbol that isn't enclosed in quotes.
+     */
     private const SYMBOL_AT = '/@(?=(?:[^"]*"[^"]*")*[^"]*\Z)/miu';
+
+    /**
+     * Matches any ; symbol that isn't enclosed in quotes, for a "section" split.
+     */
     private const SECTION_SPLIT = '/;(?=(?:[^"]*"[^"]*")*[^"]*\Z)/miu';
 
     /**
      * @param mixed $value
-     * @param mixed $val
-     * @param mixed $dfval
+     * @param mixed $comparisonValue
+     * @param mixed $defaultComparisonValue
      */
-    private static function splitFormatCompare($value, ?string $cond, $val, string $dfcond, $dfval): bool
-    {
-        if (!$cond) {
-            $cond = $dfcond;
-            $val = $dfval;
+    private static function splitFormatComparison(
+        $value,
+        ?string $condition,
+        $comparisonValue,
+        string $defaultCondition,
+        $defaultComparisonValue
+    ): bool {
+        if (!$condition) {
+            $condition = $defaultCondition;
+            $comparisonValue = $defaultComparisonValue;
         }
-        switch ($cond) {
+
+        switch ($condition) {
             case '>':
-                return $value > $val;
+                return $value > $comparisonValue;
 
             case '<':
-                return $value < $val;
+                return $value < $comparisonValue;
 
             case '<=':
-                return $value <= $val;
+                return $value <= $comparisonValue;
 
             case '<>':
-                return $value != $val;
+                return $value != $comparisonValue;
 
             case '=':
-                return $value == $val;
+                return $value == $comparisonValue;
         }
 
-        return $value >= $val;
+        return $value >= $comparisonValue;
     }
 
     /** @param mixed $value */
-    private static function splitFormat(array $sections, $value): array
+    private static function splitFormatForSectionSelection(array $sections, $value): array
     {
         // Extract the relevant section depending on whether number is positive, negative, or zero?
         // Text not supported yet.
@@ -53,30 +66,30 @@ class Formatter
         //   2 sections:  [POSITIVE/ZERO/TEXT] [NEGATIVE]
         //   3 sections:  [POSITIVE/TEXT] [NEGATIVE] [ZERO]
         //   4 sections:  [POSITIVE] [NEGATIVE] [ZERO] [TEXT]
-        $cnt = count($sections);
+        $sectionCount = count($sections);
         $color_regex = '/\\[(' . implode('|', Color::NAMED_COLORS) . ')\\]/mui';
         $cond_regex = '/\\[(>|>=|<|<=|=|<>)([+-]?\\d+([.]\\d+)?)\\]/';
         $colors = ['', '', '', '', ''];
-        $condops = ['', '', '', '', ''];
-        $condvals = [0, 0, 0, 0, 0];
-        for ($idx = 0; $idx < $cnt; ++$idx) {
+        $conditionOperations = ['', '', '', '', ''];
+        $conditionComparisonValues = [0, 0, 0, 0, 0];
+        for ($idx = 0; $idx < $sectionCount; ++$idx) {
             if (preg_match($color_regex, $sections[$idx], $matches)) {
                 $colors[$idx] = $matches[0];
                 $sections[$idx] = (string) preg_replace($color_regex, '', $sections[$idx]);
             }
             if (preg_match($cond_regex, $sections[$idx], $matches)) {
-                $condops[$idx] = $matches[1];
-                $condvals[$idx] = $matches[2];
+                $conditionOperations[$idx] = $matches[1];
+                $conditionComparisonValues[$idx] = $matches[2];
                 $sections[$idx] = (string) preg_replace($cond_regex, '', $sections[$idx]);
             }
         }
         $color = $colors[0];
         $format = $sections[0];
         $absval = $value;
-        switch ($cnt) {
+        switch ($sectionCount) {
             case 2:
                 $absval = abs($value);
-                if (!self::splitFormatCompare($value, $condops[0], $condvals[0], '>=', 0)) {
+                if (!self::splitFormatComparison($value, $conditionOperations[0], $conditionComparisonValues[0], '>=', 0)) {
                     $color = $colors[1];
                     $format = $sections[1];
                 }
@@ -85,8 +98,8 @@ class Formatter
             case 3:
             case 4:
                 $absval = abs($value);
-                if (!self::splitFormatCompare($value, $condops[0], $condvals[0], '>', 0)) {
-                    if (self::splitFormatCompare($value, $condops[1], $condvals[1], '<', 0)) {
+                if (!self::splitFormatComparison($value, $conditionOperations[0], $conditionComparisonValues[0], '>', 0)) {
+                    if (self::splitFormatComparison($value, $conditionOperations[1], $conditionComparisonValues[1], '<', 0)) {
                         $color = $colors[1];
                         $format = $sections[1];
                     } else {
@@ -105,7 +118,8 @@ class Formatter
      * Convert a value in a pre-defined format to a PHP string.
      *
      * @param null|bool|float|int|RichText|string $value Value to format
-     * @param string $format Format code, see = NumberFormat::FORMAT_*
+     * @param string $format Format code: see = self::FORMAT_* for predefined values;
+     *                          or can be any valid MS Excel custom format string
      * @param array $callBack Callback function for additional formatting of string
      *
      * @return string Formatted string
@@ -149,7 +163,7 @@ class Formatter
         // Get the sections, there can be up to four sections, separated with a semi-colon (but only if not a quoted literal)
         $sections = preg_split(self::SECTION_SPLIT, $format) ?: [];
 
-        [$colors, $format, $value] = self::splitFormat($sections, $value);
+        [$colors, $format, $value] = self::splitFormatForSectionSelection($sections, $value);
 
         // In Excel formats, "_" is used to add spacing,
         //    The following character indicates the size of the spacing, which we can't do in HTML, so we just use a standard space
