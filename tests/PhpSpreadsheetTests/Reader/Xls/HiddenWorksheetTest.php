@@ -15,9 +15,11 @@ class HiddenWorksheetTest extends TestCase
         $spreadsheet = $reader->load($filename);
         $assertions = $this->worksheetAssertions();
 
+        $sheetCount = 0;
         foreach ($spreadsheet->getAllSheets() as $worksheet) {
+            ++$sheetCount;
             if (!array_key_exists($worksheet->getTitle(), $assertions)) {
-                continue;
+                self::fail('Unexpected worksheet' . $worksheet->getTitle());
             }
 
             $sheetAssertions = $assertions[$worksheet->getTitle()];
@@ -30,6 +32,7 @@ class HiddenWorksheetTest extends TestCase
                 );
             }
         }
+        self::assertCount($sheetCount, $assertions);
         $spreadsheet->disconnectWorksheets();
     }
 

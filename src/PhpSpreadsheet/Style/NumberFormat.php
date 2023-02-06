@@ -432,7 +432,8 @@ class NumberFormat extends Supervisor
      * Convert a value in a pre-defined format to a PHP string.
      *
      * @param mixed $value Value to format
-     * @param string $format Format code, see = self::FORMAT_*
+     * @param string $format Format code: see = self::FORMAT_* for predefined values;
+     *                          or can be any valid MS Excel custom format string
      * @param array $callBack Callback function for additional formatting of string
      *
      * @return string Formatted string
