@@ -35,6 +35,8 @@ class Worksheet implements IComparable
     public const BREAK_NONE = 0;
     public const BREAK_ROW = 1;
     public const BREAK_COLUMN = 2;
+    // Maximum column for row break
+    public const BREAK_ROW_MAX_COLUMN = 16383;
 
     // Sheet state
     public const SHEETSTATE_VISIBLE = 'visible';
