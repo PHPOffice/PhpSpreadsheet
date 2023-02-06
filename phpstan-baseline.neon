@@ -596,41 +596,6 @@ parameters:
 			path: src/PhpSpreadsheet/Shared/Trend/Trend.php
 
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Ods.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Writer/Ods/Cell/Style.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Ods\\\\Cell\\\\Style\\:\\:\\$writer has no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Ods/Cell/Style.php
-
-		-
-			message: "#^Parameter \\#1 \\$range of static method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Coordinate\\:\\:splitRange\\(\\) expects string, string\\|false given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Ods/Content.php
-
-		-
-			message: "#^Parameter \\#2 \\$value of method XMLWriter\\:\\:writeAttribute\\(\\) expects string, int\\<2, max\\> given\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Writer/Ods/Content.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Ods\\\\Content\\:\\:\\$formulaConvertor has no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Ods/Content.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Ods\\\\Formula\\:\\:\\$definedNames has no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Ods/Formula.php
-
-		-
 			message: "#^Cannot use array destructuring on array\\|false\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls.php
