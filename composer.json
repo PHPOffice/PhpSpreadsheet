@@ -78,7 +78,7 @@
         "psr/simple-cache": "^1.0 || ^2.0 || ^3.0"
     },
     "require-dev": {
-        "dealerdirect/phpcodesniffer-composer-installer": "dev-master",
+        "dealerdirect/phpcodesniffer-composer-installer": "dev-main",
         "dompdf/dompdf": "^1.0 || ^2.0",
         "friendsofphp/php-cs-fixer": "^3.2",
         "mitoteam/jpgraph": "^10.2.4",

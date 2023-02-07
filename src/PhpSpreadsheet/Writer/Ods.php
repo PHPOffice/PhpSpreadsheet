@@ -117,10 +117,6 @@ class Ods extends BaseWriter
      */
     public function save($filename, int $flags = 0): void
     {
-        if (!$this->spreadSheet) {
-            throw new WriterException('PhpSpreadsheet object unassigned.');
-        }
-
         $this->processFlags($flags);
 
         // garbage collect
@@ -176,11 +172,7 @@ class Ods extends BaseWriter
      */
     public function getSpreadsheet()
     {
-        if ($this->spreadSheet !== null) {
-            return $this->spreadSheet;
-        }
-
-        throw new WriterException('No PhpSpreadsheet assigned.');
+        return $this->spreadSheet;
     }
 
     /**
