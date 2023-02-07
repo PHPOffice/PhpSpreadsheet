@@ -596,71 +596,6 @@ parameters:
 			path: src/PhpSpreadsheet/Shared/Trend/Trend.php
 
 		-
-			message: "#^Cannot use array destructuring on array\\|false\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls.php
-
-		-
-			message: "#^Offset 'endCoordinates' does not exist on array\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls.php
-
-		-
-			message: "#^Offset 'endOffsetX' does not exist on array\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls.php
-
-		-
-			message: "#^Offset 'endOffsetY' does not exist on array\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls.php
-
-		-
-			message: "#^Offset 'startCoordinates' does not exist on array\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls.php
-
-		-
-			message: "#^Offset 'startOffsetX' does not exist on array\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls.php
-
-		-
-			message: "#^Offset 'startOffsetY' does not exist on array\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls.php
-
-		-
-			message: "#^Parameter \\#1 \\$blipType of method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DggContainer\\\\BstoreContainer\\\\BSE\\:\\:setBlipType\\(\\) expects int, int\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls.php
-
-		-
-			message: "#^Parameter \\#1 \\$data of method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Escher\\\\DggContainer\\\\BstoreContainer\\\\BSE\\\\Blip\\:\\:setData\\(\\) expects string, string\\|false given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\:\\:\\$documentSummaryInformation \\(string\\) in isset\\(\\) is not nullable\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\:\\:\\$summaryInformation \\(string\\) in isset\\(\\) is not nullable\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\BIFFwriter\\:\\:writeEof\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/BIFFwriter.php
-
-		-
-			message: "#^Static property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\BIFFwriter\\:\\:\\$byteOrder \\(int\\) in isset\\(\\) is not nullable\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/BIFFwriter.php
-
-		-
 			message: "#^Elseif condition is always true\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Escher.php
@@ -679,41 +614,6 @@ parameters:
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Escher\\:\\:\\$object has no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Escher.php
-
-		-
-			message: "#^Cannot access offset 'encoding' on array\\|false\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Workbook.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Workbook\\:\\:writeAllDefinedNamesBiff8\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Workbook.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Workbook\\:\\:writeExternalsheetBiff8\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Workbook.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Workbook\\:\\:writeMsoDrawingGroup\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Workbook.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Workbook\\:\\:writeSupbookInternal\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Workbook.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Workbook\\:\\:\\$biffSize is never read, only written\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Workbook.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Workbook\\:\\:\\$colors has no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Workbook.php
 
 		-
 			message: "#^Cannot access offset 'comp' on array\\|false\\.$#"
@@ -814,13 +714,3 @@ parameters:
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Worksheet\\:\\:\\$xlsStringMaxLength is never read, only written\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
-
-		-
-			message: "#^Parameter \\#1 \\$textRotation of static method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Xf\\:\\:mapTextRotation\\(\\) expects int, int\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Xf.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Xf\\:\\:\\$diag is never read, only written\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Xls/Xf.php
