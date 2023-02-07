@@ -262,5 +262,14 @@ class DateTest extends TestCase
             ->getNumberFormat()
             ->setFormatCode('0.00E+00');
         self::assertFalse(null !== $cella3 && Date::isDateTime($cella3));
+
+        $cella4 = $sheet->getCell('A4');
+        self::assertNotNull($cella4);
+
+        $cella4->setValue('= 44 7510557347');
+        $sheet->getStyle('A4')
+            ->getNumberFormat()
+            ->setFormatCode('yyyy-mm-dd');
+        self::assertFalse(Date::isDateTime($cella4));
     }
 }
