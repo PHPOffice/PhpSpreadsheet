@@ -375,13 +375,18 @@ class Date
         if ($worksheet !== null && $spreadsheet !== null) {
             $index = $spreadsheet->getActiveSheetIndex();
             $selected = $worksheet->getSelectedCells();
-            $result = is_numeric($value ?? $cell->getCalculatedValue()) &&
-                self::isDateTimeFormat(
-                    $worksheet->getStyle(
-                        $cell->getCoordinate()
-                    )->getNumberFormat(),
-                    $dateWithoutTimeOkay
-                );
+
+            try {
+                $result = is_numeric($value ?? $cell->getCalculatedValue()) &&
+                    self::isDateTimeFormat(
+                        $worksheet->getStyle(
+                            $cell->getCoordinate()
+                        )->getNumberFormat(),
+                        $dateWithoutTimeOkay
+                    );
+            } catch (Exception $e) {
+                // Result is already false, so no need to actually do anything here
+            }
             $worksheet->setSelectedCells($selected);
             $spreadsheet->setActiveSheetIndex($index);
         }
