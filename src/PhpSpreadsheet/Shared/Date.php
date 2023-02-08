@@ -160,7 +160,9 @@ class Date
     }
 
     /**
-     * @param mixed $value
+     * @param mixed $value Converts a date/time in ISO-8601 standard format date string to an Excel
+     *                         serialized timestamp.
+     *                     See https://en.wikipedia.org/wiki/ISO_8601 for details of the ISO-8601 standard format.
      *
      * @return float|int
      */
@@ -194,8 +196,8 @@ class Date
      *
      * @param float|int $excelTimestamp MS Excel serialized date/time value
      * @param null|DateTimeZone|string $timeZone The timezone to assume for the Excel timestamp,
-     *                                                                        if you don't want to treat it as a UTC value
-     *                                                                    Use the default (UTC) unless you absolutely need a conversion
+     *                                           if you don't want to treat it as a UTC value
+     *                                           Use the default (UTC) unless you absolutely need a conversion
      *
      * @return DateTime PHP date/time object
      */
@@ -243,8 +245,8 @@ class Date
      *
      * @param float|int $excelTimestamp MS Excel serialized date/time value
      * @param null|DateTimeZone|string $timeZone The timezone to assume for the Excel timestamp,
-     *                                                                        if you don't want to treat it as a UTC value
-     *                                                                    Use the default (UTC) unless you absolutely need a conversion
+     *                                               if you don't want to treat it as a UTC value
+     *                                               Use the default (UTC) unless you absolutely need a conversion
      *
      * @return int Unix timetamp for this date/time
      */
@@ -395,7 +397,7 @@ class Date
     }
 
     /**
-     * Is a given number format a date/time?
+     * Is a given NumberFormat code a date/time format code?
      *
      * @return bool
      */
