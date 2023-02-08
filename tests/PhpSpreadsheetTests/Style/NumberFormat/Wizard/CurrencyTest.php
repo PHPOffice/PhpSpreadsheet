@@ -77,8 +77,8 @@ class CurrencyTest extends TestCase
 
         $locale = 'en-usa';
 
-        self::expectException(Exception::class);
-        self::expectExceptionMessage("Invalid locale code '{$locale}'");
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage("Invalid locale code '{$locale}'");
 
         $wizard = new Currency('€');
         $wizard->setLocale($locale);
@@ -92,8 +92,8 @@ class CurrencyTest extends TestCase
 
         $locale = 'nl-GB';
 
-        self::expectException(Exception::class);
-        self::expectExceptionMessage("Unable to read locale data for '{$locale}'");
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage("Unable to read locale data for '{$locale}'");
 
         $wizard = new Currency('€');
         $wizard->setLocale($locale);

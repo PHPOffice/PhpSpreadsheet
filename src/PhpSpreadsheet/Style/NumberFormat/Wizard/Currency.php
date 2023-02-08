@@ -69,7 +69,7 @@ class Currency extends Number
 
     protected function getLocaleFormat(): string
     {
-        $formatter = new Locale($this->fullLocale, NumberFormatter::CURRENCY); // @phpstan-ignore-line
+        $formatter = new Locale($this->fullLocale, NumberFormatter::CURRENCY);
 
         return str_replace('¤', $this->formatCurrencyCode(), $formatter->format());
     }
