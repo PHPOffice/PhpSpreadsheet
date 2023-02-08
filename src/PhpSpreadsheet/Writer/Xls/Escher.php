@@ -411,7 +411,7 @@ class Escher
                     $recVer = 0x3;
                     $recInstance = count($this->object->/** @scrutinizer ignore-call */ getOPTCollection());
                     $recType = 0xF00B;
-                    foreach ($this->object->getOPTCollection() as $property => $value) {
+                    foreach ($this->object->/** @scrutinizer ignore-call */ getOPTCollection() as $property => $value) {
                         $optData .= pack('vV', $property, $value);
                     }
                     $length = strlen($optData);
@@ -467,7 +467,7 @@ class Escher
                 }
 
                 // the client data, just empty for now
-                if (!$this->object->getSpgr()) {
+                if (!$this->object->/** @scrutinizer ignore-call */ getSpgr()) {
                     $clientDataData = '';
 
                     $recVer = 0x0;
