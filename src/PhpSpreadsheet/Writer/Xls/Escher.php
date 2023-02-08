@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
 
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use PhpOffice\PhpSpreadsheet\Shared\Escher as SharedEscher;
 use PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer;
 use PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer;
 use PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer\SpContainer;
@@ -15,11 +16,15 @@ class Escher
 {
     /**
      * The object we are writing.
+     *
+     * @var Blip|BSE|BstoreContainer|DgContainer|DggContainer|Escher|SpContainer|SpgrContainer
      */
     private $object;
 
     /**
      * The written binary data.
+     *
+     * @var string
      */
     private $data;
 
@@ -58,7 +63,7 @@ class Escher
         $this->data = '';
 
         switch (get_class($this->object)) {
-            case \PhpOffice\PhpSpreadsheet\Shared\Escher::class:
+            case SharedEscher::class:
                 if ($dggContainer = $this->object->getDggContainer()) {
                     $writer = new self($dggContainer);
                     $this->data = $writer->close();
@@ -282,7 +287,7 @@ class Escher
                 $header = pack('vvV', $recVerInstance, $recType, $length);
 
                 // number of shapes in this drawing (including group shape)
-                $countShapes = count($this->object->getSpgrContainer()->getChildren());
+                $countShapes = count($this->object->getSpgrContainerOrThrow()->getChildren());
                 $innerData .= $header . pack('VV', $countShapes, $this->object->getLastSpId());
 
                 // write the spgrContainer
