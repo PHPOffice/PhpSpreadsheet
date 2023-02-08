@@ -146,7 +146,7 @@ class Escher
 
                 // write the record
                 $recVer = 0xF;
-                $recInstance = count($this->object->getBSECollection());
+                $recInstance = count($this->object->/** @scrutinizer ignore-call */ getBSECollection());
                 $recType = 0xF001;
                 $length = strlen($innerData);
 
@@ -196,6 +196,7 @@ class Escher
 
                 // write the record
                 $recVer = 0x2;
+                /** @scrutinizer ignore-call */
                 $recInstance = $this->object->getBlipType();
                 $recType = 0xF007;
                 $length = strlen($data);
@@ -214,7 +215,7 @@ class Escher
                 // this is an atom record
 
                 // write the record
-                switch ($this->object->getParent()->/** @scrutinizer ignore-call */ getBlipType()) {
+                switch ($this->object->/** @scrutinizer ignore-call */ getParent()->/** @scrutinizer ignore-call */ getBlipType()) {
                     case BSE::BLIPTYPE_JPEG:
                         // initialize
                         $innerData = '';
@@ -252,7 +253,7 @@ class Escher
                         $tag = 0xFF; // todo
                         $innerData .= pack('C', $tag);
 
-                        $innerData .= $this->object->getData();
+                        $innerData .= $this->object->/** @scrutinizer ignore-call */ getData();
 
                         $recVer = 0x0;
                         $recInstance = 0x6E0;
@@ -391,6 +392,7 @@ class Escher
 
                 // write the shape record
                 $recVer = 0x2;
+                /** @scrutinizer ignore-call */
                 $recInstance = $this->object->getSpType(); // shape type
                 $recType = 0xF00A;
                 $length = 0x00000008;
@@ -400,14 +402,14 @@ class Escher
 
                 $header = pack('vvV', $recVerInstance, $recType, $length);
 
-                $data .= $header . pack('VV', $this->object->/** @scrutinizer ignore-call */ getSpId(), $this->object->getSpgr() ? 0x0005 : 0x0A00);
+                $data .= $header . pack('VV', $this->object->/** @scrutinizer ignore-call */ getSpId(), $this->object->/** @scrutinizer ignore-call */ getSpgr() ? 0x0005 : 0x0A00);
 
                 // the options
                 if ($this->object->/** @scrutinizer ignore-call */ getOPTCollection()) {
                     $optData = '';
 
                     $recVer = 0x3;
-                    $recInstance = count($this->object->getOPTCollection());
+                    $recInstance = count($this->object->/** @scrutinizer ignore-call */ getOPTCollection());
                     $recType = 0xF00B;
                     foreach ($this->object->getOPTCollection() as $property => $value) {
                         $optData .= pack('vV', $property, $value);
@@ -428,7 +430,7 @@ class Escher
                     $recType = 0xF010;
 
                     // start coordinates
-                    [$column, $row] = Coordinate::indexesFromString($this->object->getStartCoordinates());
+                    [$column, $row] = Coordinate::indexesFromString($this->object->/** @scrutinizer ignore-call */ getStartCoordinates());
                     $c1 = $column - 1;
                     $r1 = $row - 1;
 
