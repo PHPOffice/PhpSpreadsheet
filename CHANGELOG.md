@@ -10,6 +10,31 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Added
 
 - Support for configuring a Chart Title's overlay [PR #3325](https://github.com/PHPOffice/PhpSpreadsheet/pull/3325)
+- Wizards for defining Number Format masks for Numbers, Percentages, Scientific, Currency and Accounting [PR #3334](https://github.com/PHPOffice/PhpSpreadsheet/pull/3334)
+- Support for fixed value divisor in fractional Number Format Masks [PR #3339](https://github.com/PHPOffice/PhpSpreadsheet/pull/3339)
+
+### Changed
+
+- Improved handling for @ in Number Format Masks [PR #3344](https://github.com/PHPOffice/PhpSpreadsheet/pull/3344)
+
+### Deprecated
+
+- Nothing
+
+### Removed
+
+- Nothing
+
+### Fixed
+
+- Calculation Engine doesn't evaluate Defined Name when default cell A1 is quote-prefixed [Issue #3335](https://github.com/PHPOffice/PhpSpreadsheet/issues/3335) [PR #3336](https://github.com/PHPOffice/PhpSpreadsheet/pull/3336)
+
+
+## 1.27.1 - 2023-02-08
+
+### Added
+
+- Nothing
 
 ### Changed
 
@@ -25,7 +50,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
-- Calculation Engine doesn't evaluate Defined Name when default cell A1 is quote-prefixed [Issue #3335](https://github.com/PHPOffice/PhpSpreadsheet/issues/3335) [PR #3336](https://github.com/PHPOffice/PhpSpreadsheet/pull/3336)
+- Fix Composer --dev dependency issue with dealerdirect/phpcodesniffer-composer-installer renaming their `master` branch to `main`
 
 
 ## 1.27.0 - 2023-01-24
