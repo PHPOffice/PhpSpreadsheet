@@ -1006,12 +1006,11 @@ class Worksheet extends WriterPart
         // Get row and column breaks
         $aRowBreaks = [];
         $aColumnBreaks = [];
-        foreach ($worksheet->getBreaks() as $cell => $breakType) {
-            if ($breakType == PhpspreadsheetWorksheet::BREAK_ROW) {
-                $aRowBreaks[] = $cell;
-            } elseif ($breakType == PhpspreadsheetWorksheet::BREAK_COLUMN) {
-                $aColumnBreaks[] = $cell;
-            }
+        foreach ($worksheet->getRowBreaks() as $cell => $break) {
+            $aRowBreaks[$cell] = $break;
+        }
+        foreach ($worksheet->getColumnBreaks() as $cell => $break) {
+            $aColumnBreaks[$cell] = $break;
         }
 
         // rowBreaks
@@ -1020,13 +1019,13 @@ class Worksheet extends WriterPart
             $objWriter->writeAttribute('count', (string) count($aRowBreaks));
             $objWriter->writeAttribute('manualBreakCount', (string) count($aRowBreaks));
 
-            foreach ($aRowBreaks as $cell) {
+            foreach ($aRowBreaks as $cell => $break) {
                 $coords = Coordinate::coordinateFromString($cell);
 
                 $objWriter->startElement('brk');
                 $objWriter->writeAttribute('id', $coords[1]);
                 $objWriter->writeAttribute('man', '1');
-                $rowBreakMax = $worksheet->getRowBreakMax($cell);
+                $rowBreakMax = $break->getMaxColOrRow();
                 if ($rowBreakMax >= 0) {
                     $objWriter->writeAttribute('max', "$rowBreakMax");
                 }
@@ -1042,11 +1041,11 @@ class Worksheet extends WriterPart
             $objWriter->writeAttribute('count', (string) count($aColumnBreaks));
             $objWriter->writeAttribute('manualBreakCount', (string) count($aColumnBreaks));
 
-            foreach ($aColumnBreaks as $cell) {
+            foreach ($aColumnBreaks as $cell => $break) {
                 $coords = Coordinate::coordinateFromString($cell);
 
                 $objWriter->startElement('brk');
-                $objWriter->writeAttribute('id', (string) (Coordinate::columnIndexFromString($coords[0]) - 1));
+                $objWriter->writeAttribute('id', (string) ((int) $coords[0] - 1));
                 $objWriter->writeAttribute('man', '1');
                 $objWriter->endElement();
             }
