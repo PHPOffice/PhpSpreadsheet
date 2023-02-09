@@ -4,16 +4,11 @@ namespace PhpOffice\PhpSpreadsheetTests\Writer\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Style\Conditional;
-use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\Wizard;
-use PhpOffice\PhpSpreadsheet\Style\Fill;
-use PhpOffice\PhpSpreadsheet\Style\Style;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
 class ArrayFormulaPrefixTest extends AbstractFunctional
 {
-
     protected function setUp(): void
     {
         parent::setUp();
@@ -22,7 +17,7 @@ class ArrayFormulaPrefixTest extends AbstractFunctional
     /**
      * Test to ensure that xlfn prefix is being added to functions
      * included in an array formula, if appropriate.
-     * @return void
+     *
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      */
     public function testWriteArrayFormulaTextJoin(): void
@@ -57,8 +52,8 @@ class ArrayFormulaPrefixTest extends AbstractFunctional
 
     /**
      * Certain functions do not have the xlfn prefix applied.  Test an array formula
-     * that includes those functions to see if they are written properly
-     * @return void
+     * that includes those functions to see if they are written properly.
+     *
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      */
     public function testWriteArrayFormulaWithoutPrefix(): void
