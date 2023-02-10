@@ -18,7 +18,7 @@ abstract class NumberBase
 
     protected ?string $localeFormat = null;
 
-    public function setDecimals(int $decimals = 2, ?string $locale = null): void
+    public function setDecimals(int $decimals = 2): void
     {
         $this->decimals = ($decimals > self::MAX_DECIMALS) ? self::MAX_DECIMALS : max($decimals, 0);
     }

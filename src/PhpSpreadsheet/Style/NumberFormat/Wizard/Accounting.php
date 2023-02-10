@@ -51,7 +51,8 @@ class Accounting extends Currency
             throw new Exception('The Intl extension does not support Accounting Formats without ICU 53');
         }
 
-        $formatter = new Locale($this->fullLocale, NumberFormatter::CURRENCY_ACCOUNTING); // @phpstan-ignore-line
+        // Scrutinizer does not recognize CURRENCY_ACCOUNTING
+        $formatter = new Locale($this->fullLocale, NumberFormatter::CURRENCY_ACCOUNTING);
 
         return str_replace('¤', $this->formatCurrencyCode(), $formatter->format());
     }
