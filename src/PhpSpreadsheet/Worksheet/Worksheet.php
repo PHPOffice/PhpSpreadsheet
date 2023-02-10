@@ -733,14 +733,7 @@ class Worksheet implements IComparable
                 }
             }
 
-            $autoFilterRange = $autoFilterFirstRowRange = $this->autoFilter->getRange();
-            if (!empty($autoFilterRange)) {
-                $autoFilterRangeBoundaries = Coordinate::rangeBoundaries($autoFilterRange);
-                $autoFilterFirstRowRange = (string) new CellRange(
-                    CellAddress::fromColumnAndRow($autoFilterRangeBoundaries[0][0], $autoFilterRangeBoundaries[0][1]),
-                    CellAddress::fromColumnAndRow($autoFilterRangeBoundaries[1][0], $autoFilterRangeBoundaries[0][1])
-                );
-            }
+            $autoFilterIndentRanges = (new AutoFit($this))->getAutoFilterIndentRanges();
 
             // loop through all cells in the worksheet
             foreach ($this->getCoordinates(false) as $coordinate) {
@@ -767,8 +760,14 @@ class Worksheet implements IComparable
                         // Determine if we need to make an adjustment for the first row in an AutoFilter range that
                         //    has a column filter dropdown
                         $filterAdjustment = false;
-                        if (!empty($autoFilterRange) && $cell->isInRange($autoFilterFirstRowRange)) {
-                            $filterAdjustment = true;
+                        if (!empty($autoFilterIndentRanges)) {
+                            foreach ($autoFilterIndentRanges as $autoFilterFirstRowRange) {
+                                if ($cell->isInRange($autoFilterFirstRowRange)) {
+                                    $filterAdjustment = true;
+
+                                    break;
+                                }
+                            }
                         }
 
                         $indentAdjustment = $cell->getStyle()->getAlignment()->getIndent();
