@@ -369,7 +369,7 @@ class CalculationTest extends TestCase
      *
      * @dataProvider dataProviderBranchPruningFullExecution
      */
-    public function testFullExecution(
+    public function testFullExecutionDataPruning(
         $expectedResult,
         $dataArray,
         $formula,

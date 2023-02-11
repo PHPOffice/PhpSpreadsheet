@@ -79,7 +79,7 @@ if (PHP_VERSION_ID < 80000) {
     $config['parameters']['ignoreErrors'][] = [
         'message' => '#^Binary operation "/" between float and array[|]float[|]int[|]string results in an error.#',
         'path' => __DIR__ . '/src/PhpSpreadsheet/Calculation/MathTrig/Combinations.php',
-        'count' => 2,
+        'count' => 1,
     ];
 }
 
