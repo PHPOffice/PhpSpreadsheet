@@ -2022,27 +2022,15 @@ class Worksheet extends BIFFwriter
         $vbreaks = [];
         $hbreaks = [];
 
-        foreach ($this->phpSheet->getBreaks() as $cell => $breakType) {
+        foreach ($this->phpSheet->getRowBreaks() as $cell => $break) {
             // Fetch coordinates
             $coordinates = Coordinate::coordinateFromString($cell);
-
-            // Decide what to do by the type of break
-            switch ($breakType) {
-                case \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::BREAK_COLUMN:
-                    // Add to list of vertical breaks
-                    $vbreaks[] = Coordinate::columnIndexFromString($coordinates[0]) - 1;
-
-                    break;
-                case \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::BREAK_ROW:
-                    // Add to list of horizontal breaks
-                    $hbreaks[] = $coordinates[1];
-
-                    break;
-                case \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::BREAK_NONE:
-                default:
-                    // Nothing to do
-                    break;
-            }
+            $hbreaks[] = $coordinates[1];
+        }
+        foreach ($this->phpSheet->getColumnBreaks() as $cell => $break) {
+            // Fetch coordinates
+            $coordinates = Coordinate::indexesFromString($cell);
+            $vbreaks[] = $coordinates[0] - 1;
         }
 
         //horizontal page breaks
