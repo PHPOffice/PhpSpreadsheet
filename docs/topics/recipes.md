@@ -479,6 +479,15 @@ row 10.
 $spreadsheet->getActiveSheet()->setBreak('A10', \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::BREAK_ROW);
 ```
 
+If your print break is inside a defined print area, it may be necessary to add an extra parameter to specify the max column (and this probably won't hurt if the break is not inside a defined print area):
+
+```php
+$spreadsheet->getActiveSheet()
+    ->setBreak('A10',
+        \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::BREAK_ROW,
+        \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::BREAK_ROW_MAX_COLUMN);
+```
+
 The following line of code sets a print break on column D:
 
 ```php

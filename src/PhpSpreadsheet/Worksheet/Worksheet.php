@@ -35,6 +35,8 @@ class Worksheet implements IComparable
     public const BREAK_NONE = 0;
     public const BREAK_ROW = 1;
     public const BREAK_COLUMN = 2;
+    // Maximum column for row break
+    public const BREAK_ROW_MAX_COLUMN = 16383;
 
     // Sheet state
     public const SHEETSTATE_VISIBLE = 'visible';
@@ -188,11 +190,18 @@ class Worksheet implements IComparable
     private $conditionalStylesCollection = [];
 
     /**
-     * Collection of breaks.
+     * Collection of row breaks.
      *
-     * @var int[]
+     * @var PageBreak[]
      */
-    private $breaks = [];
+    private $rowBreaks = [];
+
+    /**
+     * Collection of column breaks.
+     *
+     * @var PageBreak[]
+     */
+    private $columnBreaks = [];
 
     /**
      * Collection of merged cell ranges.
@@ -1750,16 +1759,16 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function setBreak($coordinate, $break)
+    public function setBreak($coordinate, $break, int $max = -1)
     {
         $cellAddress = Functions::trimSheetFromCellReference(Validations::validateCellAddress($coordinate));
 
         if ($break === self::BREAK_NONE) {
-            if (isset($this->breaks[$cellAddress])) {
-                unset($this->breaks[$cellAddress]);
-            }
-        } else {
-            $this->breaks[$cellAddress] = $break;
+            unset($this->rowBreaks[$cellAddress], $this->columnBreaks[$cellAddress]);
+        } elseif ($break === self::BREAK_ROW) {
+            $this->rowBreaks[$cellAddress] = new PageBreak($break, $cellAddress, $max);
+        } elseif ($break === self::BREAK_COLUMN) {
+            $this->columnBreaks[$cellAddress] = new PageBreak($break, $cellAddress, $max);
         }
 
         return $this;
@@ -1791,7 +1800,35 @@ class Worksheet implements IComparable
      */
     public function getBreaks()
     {
-        return $this->breaks;
+        $breaks = [];
+        foreach ($this->rowBreaks as $break) {
+            $breaks[$break->getCoordinate()] = self::BREAK_ROW;
+        }
+        foreach ($this->columnBreaks as $break) {
+            $breaks[$break->getCoordinate()] = self::BREAK_COLUMN;
+        }
+
+        return $breaks;
+    }
+
+    /**
+     * Get row breaks.
+     *
+     * @return PageBreak[]
+     */
+    public function getRowBreaks()
+    {
+        return $this->rowBreaks;
+    }
+
+    /**
+     * Get row breaks.
+     *
+     * @return PageBreak[]
+     */
+    public function getColumnBreaks()
+    {
+        return $this->columnBreaks;
     }
 
     /**
