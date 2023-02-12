@@ -29,6 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 - Calculation Engine doesn't evaluate Defined Name when default cell A1 is quote-prefixed [Issue #3335](https://github.com/PHPOffice/PhpSpreadsheet/issues/3335) [PR #3336](https://github.com/PHPOffice/PhpSpreadsheet/pull/3336)
 - XLSX Writer - Array Formulas do not include function prefix [Issue #3337](https://github.com/PHPOffice/PhpSpreadsheet/issues/3337) [PR #3338](https://github.com/PHPOffice/PhpSpreadsheet/pull/3338)
+- AutoSize Columns should allow for dropdown icon when AutoFilter is for a Table [Issue #3356](https://github.com/PHPOffice/PhpSpreadsheet/issues/3356) [PR #3358](https://github.com/PHPOffice/PhpSpreadsheet/pull/3358)
 
 
 ## 1.27.1 - 2023-02-08
