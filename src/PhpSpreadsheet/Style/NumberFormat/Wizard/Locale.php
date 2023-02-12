@@ -17,13 +17,13 @@ final class Locale
 
     private NumberFormatter $formatter;
 
-    public function __construct(string $locale, int $style)
+    public function __construct(?string $locale, int $style)
     {
         if (class_exists(NumberFormatter::class) === false) {
             throw new Exception();
         }
 
-        $formatterLocale = str_replace('-', '_', $locale);
+        $formatterLocale = str_replace('-', '_', $locale ?? '');
         $this->formatter = new NumberFormatter($formatterLocale, $style);
         if ($this->formatter->getLocale() !== $formatterLocale) {
             throw new Exception("Unable to read locale data for '{$locale}'");

@@ -66,8 +66,8 @@ class ScientificTest extends TestCase
 
         $locale = 'en-usa';
 
-        self::expectException(Exception::class);
-        self::expectExceptionMessage("Invalid locale code '{$locale}'");
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage("Invalid locale code '{$locale}'");
 
         $wizard = new Scientific(2);
         $wizard->setLocale($locale);
