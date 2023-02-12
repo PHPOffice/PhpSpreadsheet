@@ -106,7 +106,7 @@ class FontTest extends TestCase
      * @dataProvider providerCalculateApproximateColumnWidth
      */
     public function testCalculateApproximateColumnWidth(
-        int $expectedWidth,
+        float $expectedWidth,
         StyleFont $font,
         string $text,
         int $rotation,
@@ -121,15 +121,15 @@ class FontTest extends TestCase
     public function providerCalculateApproximateColumnWidth(): array
     {
         return [
-            [13, new StyleFont(), 'Hello World', 0, new StyleFont(), false, 0],
-            [16, new StyleFont(), 'Hello World', 0, new StyleFont(), true, 0],
-            [16, new StyleFont(), 'Hello World', 0, new StyleFont(), false, 1],
-            [18, new StyleFont(), 'Hello World', 0, new StyleFont(), false, 2],
-            [20, new StyleFont(), 'Hello World', 0, new StyleFont(), false, 3],
-            [6, new StyleFont(), "Hello\nWorld", 0, new StyleFont(), false, 0],
-            [9, new StyleFont(), "Hello\nWorld", 0, new StyleFont(), true, 0],
-            [17, new StyleFont(), 'PhpSpreadsheet', 0, new StyleFont(), false, 0],
-            [19, new StyleFont(), 'PhpSpreadsheet', 0, new StyleFont(), false, 1],
+            [13.9966, new StyleFont(), 'Hello World', 0, new StyleFont(), false, 0],
+            [16.2817, new StyleFont(), 'Hello World', 0, new StyleFont(), true, 0],
+            [16.2817, new StyleFont(), 'Hello World', 0, new StyleFont(), false, 1],
+            [18.7097, new StyleFont(), 'Hello World', 0, new StyleFont(), false, 2],
+            [20.9949, new StyleFont(), 'Hello World', 0, new StyleFont(), false, 3],
+            [6.9983, new StyleFont(), "Hello\nWorld", 0, new StyleFont(), false, 0],
+            [9.2834, new StyleFont(), "Hello\nWorld", 0, new StyleFont(), true, 0],
+            [17.5671, new StyleFont(), 'PhpSpreadsheet', 0, new StyleFont(), false, 0],
+            [19.8523, new StyleFont(), 'PhpSpreadsheet', 0, new StyleFont(), false, 1],
         ];
     }
 }

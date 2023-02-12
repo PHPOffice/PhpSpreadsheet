@@ -358,7 +358,7 @@ class Font
         ?FontStyle $defaultFont = null,
         bool $filterAdjustment = false,
         int $indentAdjustment = 0
-    ): int {
+    ): float {
         // If it is rich text, use plain text
         if ($cellText instanceof RichText) {
             $cellText = $cellText->getPlainText();
@@ -412,13 +412,13 @@ class Font
         $columnWidth = Drawing::pixelsToCellDimension((int) $columnWidth, $defaultFont ?? new FontStyle());
 
         // Return
-        return (int) round($columnWidth, 6);
+        return round($columnWidth, 4);
     }
 
     /**
      * Get GD text width in pixels for a string of text in a certain font at a certain rotation angle.
      */
-    public static function getTextWidthPixelsExact(string $text, FontStyle $font, int $rotation = 0): int
+    public static function getTextWidthPixelsExact(string $text, FontStyle $font, int $rotation = 0): float
     {
         // font size should really be supplied in pixels in GD2,
         // but since GD2 seems to assume 72dpi, pixels and points are the same
@@ -437,7 +437,7 @@ class Font
         $upperLeftCornerX = $textBox[6];
 
         // Consider the rotation when calculating the width
-        return max($lowerRightCornerX - $upperLeftCornerX, $upperRightCornerX - $lowerLeftCornerX);
+        return round(max($lowerRightCornerX - $upperLeftCornerX, $upperRightCornerX - $lowerLeftCornerX), 4);
     }
 
     /**
