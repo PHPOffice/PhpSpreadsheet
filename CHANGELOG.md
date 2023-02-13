@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Wizards for defining Number Format masks for Numbers, Percentages, Scientific, Currency and Accounting [PR #3334](https://github.com/PHPOffice/PhpSpreadsheet/pull/3334)
 - Support for fixed value divisor in fractional Number Format Masks [PR #3339](https://github.com/PHPOffice/PhpSpreadsheet/pull/3339)
 - Allow More Fonts/Fontnames for Exact Width Calculation [PR #3326](https://github.com/PHPOffice/PhpSpreadsheet/pull/3326) [Issue #3190](https://github.com/PHPOffice/PhpSpreadsheet/issues/3190)
+- Allow override of the Value Binder when setting a Cell value [PR #3361](https://github.com/PHPOffice/PhpSpreadsheet/pull/3361)
 
 ### Changed
 
