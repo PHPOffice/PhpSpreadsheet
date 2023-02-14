@@ -69,25 +69,11 @@ class Worksheet extends BIFFwriter
     private $parser;
 
     /**
-     * Maximum number of characters for a string (LABEL record in BIFF5).
-     *
-     * @var int
-     */
-    private $xlsStringMaxLength;
-
-    /**
      * Array containing format information for columns.
      *
      * @var array
      */
     private $columnInfo;
-
-    /**
-     * Array containing the selected area for the worksheet.
-     *
-     * @var array
-     */
-    private $selection;
 
     /**
      * The active pane for the worksheet.
@@ -112,17 +98,19 @@ class Worksheet extends BIFFwriter
 
     /**
      * Whether to have outline summary below.
+     * Not currently used.
      *
      * @var bool
      */
-    private $outlineBelow;
+    private $outlineBelow; //* @phpstan-ignore-line
 
     /**
      * Whether to have outline summary at the right.
+     * Not currently used.
      *
      * @var bool
      */
-    private $outlineRight;
+    private $outlineRight; //* @phpstan-ignore-line
 
     /**
      * Reference to the total number of strings in the workbook.
@@ -147,6 +135,8 @@ class Worksheet extends BIFFwriter
 
     /**
      * Color cache.
+     *
+     * @var array
      */
     private $colors;
 
@@ -184,13 +174,6 @@ class Worksheet extends BIFFwriter
      * @var \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet
      */
     public $phpSheet;
-
-    /**
-     * Count cell style Xfs.
-     *
-     * @var int
-     */
-    private $countCellStyleXfs;
 
     /**
      * Escher object corresponding to MSODRAWING.
@@ -241,9 +224,7 @@ class Worksheet extends BIFFwriter
 
         $this->phpSheet = $phpSheet;
 
-        $this->xlsStringMaxLength = 255;
         $this->columnInfo = [];
-        $this->selection = [0, 0, 0, 0];
         $this->activePane = 3;
 
         $this->printHeaders = 0;
@@ -272,8 +253,6 @@ class Worksheet extends BIFFwriter
         if ($this->lastColumnIndex > 255) {
             $this->lastColumnIndex = 255;
         }
-
-        $this->countCellStyleXfs = count($phpSheet->getParentOrThrow()->getCellStyleXfCollection());
     }
 
     /**
@@ -428,10 +407,12 @@ class Worksheet extends BIFFwriter
                 $elements = $cVal->getRichTextElements();
                 foreach ($elements as $element) {
                     // FONT Index
+                    $str_fontidx = 0;
                     if ($element instanceof Run) {
-                        $str_fontidx = $this->fontHashIndex[$element->getFont()->getHashCode()];
-                    } else {
-                        $str_fontidx = 0;
+                        $getFont = $element->getFont();
+                        if ($getFont !== null) {
+                            $str_fontidx = $this->fontHashIndex[$getFont->getHashCode()];
+                        }
                     }
                     $arrcRun[] = ['strlen' => $str_pos, 'fontidx' => $str_fontidx];
                     // Position FROM
@@ -799,7 +780,7 @@ class Worksheet extends BIFFwriter
      * @param int $row Row index (0-based)
      * @param int $col Column index (0-based)
      * @param int $value
-     * @param bool $isError Error or Boolean?
+     * @param int $isError Error or Boolean?
      * @param int $xfIndex
      *
      * @return int
@@ -1618,7 +1599,7 @@ class Worksheet extends BIFFwriter
             return;
         }
 
-        [$column, $row] = Coordinate::indexesFromString($this->phpSheet->getFreezePane() ?? '');
+        [$column, $row] = Coordinate::indexesFromString($this->phpSheet->getFreezePane());
         $x = $column - 1;
         $y = $row - 1;
 
@@ -1632,7 +1613,7 @@ class Worksheet extends BIFFwriter
 
         // Determine which pane should be active. There is also the undocumented
         // option to override this should it be necessary: may be removed later.
-        $pnnAct = null;
+        $pnnAct = 0;
         if ($x != 0 && $y != 0) {
             $pnnAct = 0; // Bottom right
         }
@@ -2197,7 +2178,7 @@ class Worksheet extends BIFFwriter
         $height *= $scale_y;
 
         // Calculate the vertices of the image and write the OBJ record
-        $this->positionImage($col, $row, $x, $y, $width, $height);
+        $this->positionImage($col, $row, $x, $y, (int) $width, (int) $height);
 
         // Write the IMDATA record to store the bitmap data
         $record = 0x007f;
@@ -2442,7 +2423,7 @@ class Worksheet extends BIFFwriter
         }
 
         // Slurp the file into a string.
-        $data = fread($bmp_fd, filesize($bitmap));
+        $data = (string) fread($bmp_fd, (int) filesize($bitmap));
 
         // Check that the file is big enough to be a bitmap.
         if (strlen($data) <= 0x36) {
@@ -2451,9 +2432,8 @@ class Worksheet extends BIFFwriter
 
         // The first 2 bytes are used to identify the bitmap.
 
-        /** @phpstan-ignore-next-line */
         $identity = unpack('A2ident', $data);
-        if ($identity['ident'] != 'BM') {
+        if ($identity === false || $identity['ident'] != 'BM') {
             throw new WriterException("$bitmap doesn't appear to be a valid bitmap image.\n");
         }
 
@@ -2463,7 +2443,7 @@ class Worksheet extends BIFFwriter
         // Read and remove the bitmap size. This is more reliable than reading
         // the data size at offset 0x22.
         //
-        $size_array = unpack('Vsa', substr($data, 0, 4));
+        $size_array = unpack('Vsa', substr($data, 0, 4)) ?: [];
         $size = $size_array['sa'];
         $data = substr($data, 4);
         $size -= 0x36; // Subtract size of bitmap header.
@@ -2473,7 +2453,7 @@ class Worksheet extends BIFFwriter
         $data = substr($data, 12);
 
         // Read and remove the bitmap width and height. Verify the sizes.
-        $width_and_height = unpack('V2', substr($data, 0, 8));
+        $width_and_height = unpack('V2', substr($data, 0, 8)) ?: [];
         $width = $width_and_height[1];
         $height = $width_and_height[2];
         $data = substr($data, 8);
@@ -2487,7 +2467,7 @@ class Worksheet extends BIFFwriter
         // Read and remove the bitmap planes and bpp data. Verify them.
         $planes_and_bitcount = unpack('v2', substr($data, 0, 4));
         $data = substr($data, 4);
-        if ($planes_and_bitcount[2] != 24) { // Bitcount
+        if ($planes_and_bitcount === false || $planes_and_bitcount[2] != 24) { // Bitcount
             throw new WriterException("$bitmap isn't a 24bit true color bitmap.\n");
         }
         if ($planes_and_bitcount[1] != 1) {
@@ -2498,7 +2478,7 @@ class Worksheet extends BIFFwriter
         $compression = unpack('Vcomp', substr($data, 0, 4));
         $data = substr($data, 4);
 
-        if ($compression['comp'] != 0) {
+        if ($compression === false || $compression['comp'] != 0) {
             throw new WriterException("$bitmap: compression not supported in bitmap image.\n");
         }
 
