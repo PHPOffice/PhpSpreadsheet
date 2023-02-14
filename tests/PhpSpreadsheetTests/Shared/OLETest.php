@@ -14,7 +14,7 @@ class OLETest extends TestCase
         $this->expectException(ReaderException::class);
         $this->expectExceptionMessage('File doesn\'t seem to be an OLE container.');
         $ole = new OLE();
-        $oleData = $ole->read(__FILE__);
+        $ole->read(__FILE__);
     }
 
     public function testReadNotExist(): void
@@ -22,7 +22,7 @@ class OLETest extends TestCase
         $this->expectException(ReaderException::class);
         $this->expectExceptionMessage('Can\'t open file');
         $ole = new OLE();
-        $oleData = $ole->read(__FILE__ . '.xxx');
+        $ole->read(__FILE__ . '.xxx');
     }
 
     public function testReadOleStreams(): void
