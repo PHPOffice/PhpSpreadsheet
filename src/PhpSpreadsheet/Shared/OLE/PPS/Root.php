@@ -36,12 +36,12 @@ class Root extends PPS
     private $fileHandle;
 
     /**
-     * @var int
+     * @var ?int
      */
     private $smallBlockSize;
 
     /**
-     * @var int
+     * @var ?int
      */
     private $bigBlockSize;
 
