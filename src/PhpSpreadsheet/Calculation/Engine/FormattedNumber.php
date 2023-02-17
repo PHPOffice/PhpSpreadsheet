@@ -48,7 +48,10 @@ class FormattedNumber
      */
     public static function convertToNumberIfNumeric(string &$operand): bool
     {
-        $value = preg_replace(['/(\d),(\d)/u', '/([+-])\s+(\d)/u'], ['$1$2', '$1$2'], trim($operand));
+        $thousandsSeparator = preg_quote(StringHelper::getThousandsSeparator());
+        $value = preg_replace(['/(\d)' . $thousandsSeparator . '(\d)/u', '/([+-])\s+(\d)/u'], ['$1$2', '$1$2'], trim($operand));
+        $decimalSeparator = preg_quote(StringHelper::getDecimalSeparator());
+        $value = preg_replace(['/(\d)' . $decimalSeparator . '(\d)/u', '/([+-])\s+(\d)/u'], ['$1.$2', '$1$2'], $value ?? '');
 
         if (is_numeric($value)) {
             $operand = (float) $value;
@@ -87,7 +90,10 @@ class FormattedNumber
      */
     public static function convertToNumberIfPercent(string &$operand): bool
     {
-        $value = preg_replace('/(\d),(\d)/u', '$1$2', $operand);
+        $thousandsSeparator = preg_quote(StringHelper::getThousandsSeparator());
+        $value = preg_replace('/(\d)' . $thousandsSeparator . '(\d)/u', '$1$2', trim($operand));
+        $decimalSeparator = preg_quote(StringHelper::getDecimalSeparator());
+        $value = preg_replace(['/(\d)' . $decimalSeparator . '(\d)/u', '/([+-])\s+(\d)/u'], ['$1.$2', '$1$2'], $value ?? '');
 
         $match = [];
         if ($value !== null && preg_match(self::STRING_REGEXP_PERCENT, $value, $match, PREG_UNMATCHED_AS_NULL)) {
@@ -110,7 +116,8 @@ class FormattedNumber
     public static function convertToNumberIfCurrency(string &$operand): bool
     {
         $currencyRegexp = self::currencyMatcherRegexp();
-        $value = preg_replace('/(\d),(\d)/u', '$1$2', $operand);
+        $thousandsSeparator = preg_quote(StringHelper::getThousandsSeparator());
+        $value = preg_replace('/(\d)' . $thousandsSeparator . '(\d)/u', '$1$2', $operand);
 
         $match = [];
         if ($value !== null && preg_match($currencyRegexp, $value, $match, PREG_UNMATCHED_AS_NULL)) {
@@ -127,8 +134,9 @@ class FormattedNumber
 
     public static function currencyMatcherRegexp(): string
     {
-        $quotedCurrencyCode = sprintf(self::CURRENCY_CONVERSION_LIST, preg_quote(StringHelper::getCurrencyCode()));
+        $currencyCodes = sprintf(self::CURRENCY_CONVERSION_LIST, preg_quote(StringHelper::getCurrencyCode()));
+        $decimalSeparator = preg_quote(StringHelper::getDecimalSeparator());
 
-        return '~^(?:(?: *(?<PrefixedSign>[-+])? *(?<PrefixedCurrency>[' . $quotedCurrencyCode . ']) *(?<PrefixedSign2>[-+])? *(?<PrefixedValue>[0-9]+\.?[0-9*]*(?:E[-+]?[0-9]*)?) *)|(?: *(?<PostfixedSign>[-+])? *(?<PostfixedValue>[0-9]+\.?[0-9]*(?:E[-+]?[0-9]*)?) *(?<PostCurrency>[' . $quotedCurrencyCode . ']) *))$~ui';
+        return '~^(?:(?: *(?<PrefixedSign>[-+])? *(?<PrefixedCurrency>[' . $currencyCodes . ']) *(?<PrefixedSign2>[-+])? *(?<PrefixedValue>[0-9]+[' . $decimalSeparator . ']?[0-9*]*(?:E[-+]?[0-9]*)?) *)|(?: *(?<PostfixedSign>[-+])? *(?<PostfixedValue>[0-9]+' . $decimalSeparator . '?[0-9]*(?:E[-+]?[0-9]*)?) *(?<PostCurrency>[' . $currencyCodes . ']) *))$~ui';
     }
 }
