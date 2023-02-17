@@ -54,8 +54,24 @@ class AdvancedValueBinderTest extends TestCase
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
+
         $sheet->getCell('A1')->setValue(null);
         self::assertNull($sheet->getCell('A1')->getValue());
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testBoolean(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        $sheet->getCell('A1')->setValue(true);
+        self::assertTrue($sheet->getCell('A1')->getValue());
+
+        $sheet->getCell('A2')->setValue(false);
+        self::assertFalse($sheet->getCell('A2')->getValue());
+
         $spreadsheet->disconnectWorksheets();
     }
 
@@ -76,8 +92,10 @@ class AdvancedValueBinderTest extends TestCase
 
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
+
         $sheet->getCell('A1')->setValue($value);
         self::assertEquals($valueBinded, $sheet->getCell('A1')->getValue());
+
         $spreadsheet->disconnectWorksheets();
     }
 
@@ -92,6 +110,7 @@ class AdvancedValueBinderTest extends TestCase
             ['€ 2.020,20', 2020.2, '.', ',', '€'],
             ['€2,020.22', 2020.22, ',', '.', '€'],
             ['$10.11', 10.11, ',', '.', '€'],
+            ['€2,020.20', 2020.2, ',', '.', '$'],
         ];
     }
 
@@ -105,8 +124,10 @@ class AdvancedValueBinderTest extends TestCase
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
+
         $sheet->getCell('A1')->setValue($value);
         self::assertEquals($valueBinded, $sheet->getCell('A1')->getValue());
+
         $spreadsheet->disconnectWorksheets();
     }
 
@@ -137,8 +158,10 @@ class AdvancedValueBinderTest extends TestCase
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
+
         $sheet->getCell('A1')->setValue($value);
         self::assertEquals($valueBinded, $sheet->getCell('A1')->getValue());
+
         $spreadsheet->disconnectWorksheets();
     }
 
@@ -162,8 +185,10 @@ class AdvancedValueBinderTest extends TestCase
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
+
         $sheet->getCell('A1')->setValue($value);
         self::assertEqualsWithDelta($valueBinded, $sheet->getCell('A1')->getValue(), self::AVB_PRECISION);
+
         $spreadsheet->disconnectWorksheets();
     }
 
@@ -185,8 +210,10 @@ class AdvancedValueBinderTest extends TestCase
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
+
         $sheet->getCell('A1')->setValue($value);
         self::assertEquals($value, $sheet->getCell('A1')->getValue());
+
         $spreadsheet->disconnectWorksheets();
     }
 
