@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Changed
 
 - Improved handling for @ in Number Format Masks [PR #3344](https://github.com/PHPOffice/PhpSpreadsheet/pull/3344)
+- Improved support for locale settings and currency codes when matching formatted strings to numerics in the Calculation Engine [PR #3373](https://github.com/PHPOffice/PhpSpreadsheet/pull/3373) and [PR #3374](https://github.com/PHPOffice/PhpSpreadsheet/pull/3374) 
 
 ### Deprecated
 
