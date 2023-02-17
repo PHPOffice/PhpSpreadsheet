@@ -72,6 +72,12 @@ class AdvancedValueBinderTest extends TestCase
         $sheet->getCell('A2')->setValue(false);
         self::assertFalse($sheet->getCell('A2')->getValue());
 
+        $sheet->getCell('A3')->setValue('true');
+        self::assertTrue($sheet->getCell('A3')->getValue());
+
+        $sheet->getCell('A4')->setValue('false');
+        self::assertFalse($sheet->getCell('A4')->getValue());
+
         $spreadsheet->disconnectWorksheets();
     }
 
