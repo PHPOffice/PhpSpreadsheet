@@ -163,7 +163,7 @@ class ConditionalStyles
         $conditionals = [];
         foreach ($xmlSheet->conditionalFormatting as $conditional) {
             foreach ($conditional->cfRule as $cfRule) {
-                if (Conditional::isValidConditionType((string) $cfRule['type']) && isset($this->dxfs[(int) ($cfRule['dxfId'])])) {
+                if (Conditional::isValidConditionType((string) $cfRule['type']) && (!isset($cfRule['dxfId']) || isset($this->dxfs[(int) ($cfRule['dxfId'])]))) {
                     $conditionals[(string) $conditional['sqref']][(int) ($cfRule['priority'])] = $cfRule;
                 } elseif ((string) $cfRule['type'] == Conditional::CONDITION_DATABAR) {
                     $conditionals[(string) $conditional['sqref']][(int) ($cfRule['priority'])] = $cfRule;
@@ -197,6 +197,7 @@ class ConditionalStyles
             $objConditional = new Conditional();
             $objConditional->setConditionType((string) $cfRule['type']);
             $objConditional->setOperatorType((string) $cfRule['operator']);
+            $objConditional->setNoFormatSet(!isset($cfRule['dxfId']));
 
             if ((string) $cfRule['text'] != '') {
                 $objConditional->setText((string) $cfRule['text']);
@@ -227,7 +228,7 @@ class ConditionalStyles
                 $objConditional->setDataBar(
                     $this->readDataBarOfConditionalRule($cfRule, $conditionalFormattingRuleExtensions) // @phpstan-ignore-line
                 );
-            } else {
+            } elseif (isset($cfRule['dxfId'])) {
                 $objConditional->setStyle(clone $this->dxfs[(int) ($cfRule['dxfId'])]);
             }
 

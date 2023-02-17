@@ -527,8 +527,11 @@ class Style extends WriterPart
     private function writeBorderPr(XMLWriter $objWriter, $name, Border $border): void
     {
         // Write BorderPr
-        if ($border->getBorderStyle() != Border::BORDER_NONE) {
-            $objWriter->startElement($name);
+        if ($border->getBorderStyle() === Border::BORDER_OMIT) {
+            return;
+        }
+        $objWriter->startElement($name);
+        if ($border->getBorderStyle() !== Border::BORDER_NONE) {
             $objWriter->writeAttribute('style', $border->getBorderStyle());
 
             // color
@@ -536,10 +539,9 @@ class Style extends WriterPart
                 $objWriter->startElement('color');
                 $objWriter->writeAttribute('rgb', $border->getColor()->getARGB());
                 $objWriter->endElement();
-
-                $objWriter->endElement();
             }
         }
+        $objWriter->endElement();
     }
 
     /**
