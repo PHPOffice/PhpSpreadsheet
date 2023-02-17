@@ -96,7 +96,7 @@ $spreadsheet->getActiveSheet()->getStyle('A1:F1')->getAlignment()->setWrapText(t
 $spreadsheet->getActiveSheet()->getColumnDimension('C')->setWidth(12.5);
 $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(10.5);
 $spreadsheet->getActiveSheet()->getStyle('D2:D' . $row)->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_DATE_YYYYMMDD);
-$spreadsheet->getActiveSheet()->getStyle('E2:F' . $row)->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);
+$spreadsheet->getActiveSheet()->getStyle('E2:F' . $row)->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_CURRENCY_USD_INTEGER);
 $spreadsheet->getActiveSheet()->getColumnDimension('F')->setWidth(14);
 $spreadsheet->getActiveSheet()->freezePane('A2');
 
