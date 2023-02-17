@@ -34,11 +34,11 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
         // Style logic - strings
         if ($dataType === DataType::TYPE_STRING && !$value instanceof RichText) {
             //    Test for booleans using locale-setting
-            if ($value == Calculation::getTRUE()) {
+            if (StringHelper::strToUpper($value) === Calculation::getTRUE()) {
                 $cell->setValueExplicit(true, DataType::TYPE_BOOL);
 
                 return true;
-            } elseif ($value == Calculation::getFALSE()) {
+            } elseif (StringHelper::strToUpper($value) === Calculation::getFALSE()) {
                 $cell->setValueExplicit(false, DataType::TYPE_BOOL);
 
                 return true;
