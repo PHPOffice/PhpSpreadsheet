@@ -13,6 +13,9 @@ class FormattedNumber
 
     private const STRING_REGEXP_PERCENT = '~^(?:(?: *(?<PrefixedSign>[-+])? *\% *(?<PrefixedSign2>[-+])? *(?<PrefixedValue>[0-9]+\.?[0-9*]*(?:E[-+]?[0-9]*)?) *)|(?: *(?<PostfixedSign>[-+])? *(?<PostfixedValue>[0-9]+\.?[0-9]*(?:E[-+]?[0-9]*)?) *\% *))$~i';
 
+    // preg_quoted string for major currency symbols, with a %s for locale currency
+    private const CURRENCY_CONVERSION_LIST = '\$€£¥%s';
+
     private const STRING_CONVERSION_LIST = [
         [self::class, 'convertToNumberIfNumeric'],
         [self::class, 'convertToNumberIfFraction'],
@@ -106,13 +109,11 @@ class FormattedNumber
      */
     public static function convertToNumberIfCurrency(string &$operand): bool
     {
-        $quotedCurrencyCode = preg_quote(StringHelper::getCurrencyCode());
-
+        $currencyRegexp = self::currencyMatcherRegexp();
         $value = preg_replace('/(\d),(\d)/u', '$1$2', $operand);
-        $regExp = '~^(?:(?: *(?<PrefixedSign>[-+])? *' . $quotedCurrencyCode . ' *(?<PrefixedSign2>[-+])? *(?<PrefixedValue>[0-9]+\.?[0-9*]*(?:E[-+]?[0-9]*)?) *)|(?: *(?<PostfixedSign>[-+])? *(?<PostfixedValue>[0-9]+\.?[0-9]*(?:E[-+]?[0-9]*)?) *' . $quotedCurrencyCode . ' *))$~ui';
 
         $match = [];
-        if ($value !== null && preg_match($regExp, $value, $match, PREG_UNMATCHED_AS_NULL)) {
+        if ($value !== null && preg_match($currencyRegexp, $value, $match, PREG_UNMATCHED_AS_NULL)) {
             //Determine the sign
             $sign = ($match['PrefixedSign'] ?? $match['PrefixedSign2'] ?? $match['PostfixedSign']) ?? '';
             //Cast to a float
@@ -122,5 +123,12 @@ class FormattedNumber
         }
 
         return false;
+    }
+
+    public static function currencyMatcherRegexp(): string
+    {
+        $quotedCurrencyCode = sprintf(self::CURRENCY_CONVERSION_LIST, preg_quote(StringHelper::getCurrencyCode()));
+
+        return '~^(?:(?: *(?<PrefixedSign>[-+])? *(?<PrefixedCurrency>[' . $quotedCurrencyCode . ']) *(?<PrefixedSign2>[-+])? *(?<PrefixedValue>[0-9]+\.?[0-9*]*(?:E[-+]?[0-9]*)?) *)|(?: *(?<PostfixedSign>[-+])? *(?<PostfixedValue>[0-9]+\.?[0-9]*(?:E[-+]?[0-9]*)?) *(?<PostCurrency>[' . $quotedCurrencyCode . ']) *))$~ui';
     }
 }
