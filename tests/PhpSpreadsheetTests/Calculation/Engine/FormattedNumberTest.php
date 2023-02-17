@@ -233,6 +233,11 @@ class FormattedNumberTest extends TestCase
             'basic_postfix_scientific_currency_with_spaces' => ['2000000', "2E6 {$currencyCode}"],
 
             'high_value_currency_with_thousands_separator' => ['2750000', "+{$currencyCode} 2,750,000"],
+
+            'explicit dollar' => ['2.75', '$2.75'],
+            'explicit euro' => ['2.75', '2.75€'],
+            'explicit pound sterling' => ['2.75', '£2.75'],
+            'explicit yen' => ['275', '¥275'],
         ];
     }
 }
