@@ -217,7 +217,7 @@ class NumberFormat extends Supervisor
      *
      * @return $this
      */
-    public function setFormatCode($formatCode)
+    public function setFormatCode(string $formatCode)
     {
         if ($formatCode == '') {
             $formatCode = self::FORMAT_GENERAL;
@@ -251,11 +251,11 @@ class NumberFormat extends Supervisor
     /**
      * Set Built-In Format Code.
      *
-     * @param int $formatCodeIndex
+     * @param int $formatCodeIndex Id of the built-in format code to use
      *
      * @return $this
      */
-    public function setBuiltInFormatCode($formatCodeIndex)
+    public function setBuiltInFormatCode(int $formatCodeIndex)
     {
         if ($this->isSupervisor) {
             $styleArray = $this->getStyleArray(['formatCode' => self::builtInFormatCode($formatCodeIndex)]);
