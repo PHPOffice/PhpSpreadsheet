@@ -23,7 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Deprecated
 
-- Nothing
+- Rationalisation of Pre-defined Currency Format Masks
 
 ### Removed
 

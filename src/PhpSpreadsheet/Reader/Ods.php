@@ -485,7 +485,7 @@ class Ods extends BaseReader
                                             if (floor($dataValue) == $dataValue) {
                                                 $dataValue = (int) $dataValue;
                                             }
-                                            $formatting = NumberFormat::FORMAT_CURRENCY_USD_SIMPLE;
+                                            $formatting = NumberFormat::FORMAT_CURRENCY_USD_INTEGER;
 
                                             break;
                                         case 'float':

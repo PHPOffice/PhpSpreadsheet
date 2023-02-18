@@ -169,7 +169,7 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
         // Set style
         $cell->getWorksheet()->getStyle($cell->getCoordinate())
             ->getNumberFormat()->setFormatCode(
-                str_replace('$', '[$' . $currencyCode . ']', NumberFormat::FORMAT_CURRENCY_USD_SIMPLE)
+                str_replace('$', '[$' . $currencyCode . ']', NumberFormat::FORMAT_CURRENCY_USD)
             );
 
         return true;
