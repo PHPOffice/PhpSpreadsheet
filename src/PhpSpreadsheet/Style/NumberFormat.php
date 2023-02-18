@@ -79,10 +79,14 @@ class NumberFormat extends Supervisor
         self::FORMAT_DATE_TIME8,
     ];
 
-    const FORMAT_CURRENCY_USD_SIMPLE = '"$"#,##0.00_-';
-    const FORMAT_CURRENCY_USD = '$#,##0_-';
-    const FORMAT_CURRENCY_EUR_SIMPLE = '#,##0.00_-"€"';
-    const FORMAT_CURRENCY_EUR = '#,##0_-"€"';
+    /** @deprecated 1.28 use FORMAT_CURRENCY_USD_INTEGER instead */
+    const FORMAT_CURRENCY_USD_SIMPLE = '"$"#,##0_-';
+    const FORMAT_CURRENCY_USD_INTEGER = '$#,##0_-';
+    const FORMAT_CURRENCY_USD = '$#,##0.00_-';
+    /** @deprecated 1.28 use FORMAT_CURRENCY_EUR_INTEGER instead */
+    const FORMAT_CURRENCY_EUR_SIMPLE = '#,##0_-"€"';
+    const FORMAT_CURRENCY_EUR_INTEGER = '#,##0_-[$€]';
+    const FORMAT_CURRENCY_EUR = '#,##0.00_-[$€]';
     const FORMAT_ACCOUNTING_USD = '_("$"* #,##0.00_);_("$"* \(#,##0.00\);_("$"* "-"??_);_(@_)';
     const FORMAT_ACCOUNTING_EUR = '_("€"* #,##0.00_);_("€"* \(#,##0.00\);_("€"* "-"??_);_(@_)';
 

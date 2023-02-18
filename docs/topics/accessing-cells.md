@@ -584,6 +584,23 @@ $stringValueBinder->setNumericConversion(false)
 \PhpOffice\PhpSpreadsheet\Cell\Cell::setValueBinder( $stringValueBinder );
 ```
 
+You can override the current binder when setting individual cell values by specifying a different Binder to use in the Cell's `setValue()` or the Worksheet's `setCellValue()` methods.
+```php
+$spreadsheet = new Spreadsheet();
+Cell::setValueBinder(new AdvancedValueBinder());
+
+$value = '12.5%';
+
+$cell = $spreadsheet->getActiveSheet()->getCell('A1');
+// Value will be set as a number 0.125 with a format mask '0.00%'
+$cell->setValue($value); // Using the Advanced Value Binder
+
+$cell = $spreadsheet->getActiveSheet()->getCell('A2');
+// Value will be set as a string '12.5%' with a format mask 'General'
+$cell->setValue($value, new StringValueBinder()); // Overriding the Advanced Value Binder
+```
+
+
 ### Creating your own value binder
 
 Creating your own value binder is relatively straightforward. When more specialised
