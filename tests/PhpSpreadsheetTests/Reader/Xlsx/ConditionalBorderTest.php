@@ -32,7 +32,7 @@ class ConditionalBorderTest extends TestCase
         $data = file_get_contents($file);
         unlink($outfile);
 
-        $expected = '<dxfs count="1"><dxf><font/><alignment/><border><left/><right/></border></dxf></dxfs>';
+        $expected = '<dxfs count="1"><dxf><border><left/><right/></border></dxf></dxfs>';
         self::assertStringContainsString($expected, $data);
     }
 }
