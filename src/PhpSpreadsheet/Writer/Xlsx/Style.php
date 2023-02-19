@@ -243,8 +243,13 @@ class Style extends WriterPart
         if (self::writePatternColors($fill)) {
             // fgColor
             if ($fill->getStartColor()->getARGB()) {
-                $objWriter->startElement('fgColor');
-                $objWriter->writeAttribute('rgb', $fill->getStartColor()->getARGB());
+                if (!$fill->getEndColor()->getARGB() && $fill->getFillType() === Fill::FILL_SOLID) {
+                    $objWriter->startElement('bgColor');
+                    $objWriter->writeAttribute('rgb', $fill->getStartColor()->getARGB());
+                } else {
+                    $objWriter->startElement('fgColor');
+                    $objWriter->writeAttribute('rgb', $fill->getStartColor()->getARGB());
+                }
                 $objWriter->endElement();
             }
             // bgColor
