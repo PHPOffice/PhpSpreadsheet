@@ -18,7 +18,7 @@ class Accounting extends Currency
      * @param ?string $locale Set the locale for the currency format; or leave as the default null.
      *          If provided, Locale values must be a valid formatted locale string (e.g. 'en-GB', 'fr', uz-Arab-AF).
      *          Note that setting a locale will override any other settings defined in this class
-     *          other than the currency code.
+     *          other than the currency code; or decimals (unless the decimals value is set to 0).
      *
      * @throws Exception If a provided locale code is not a valid format
      */
@@ -53,8 +53,12 @@ class Accounting extends Currency
 
         // Scrutinizer does not recognize CURRENCY_ACCOUNTING
         $formatter = new Locale($this->fullLocale, NumberFormatter::CURRENCY_ACCOUNTING);
+        $mask = $formatter->format();
+        if ($this->decimals === 0) {
+            $mask = (string) preg_replace('/\.0*/', '', $mask);
+        }
 
-        return str_replace('¤', $this->formatCurrencyCode(), $formatter->format());
+        return str_replace('¤', $this->formatCurrencyCode(), $mask);
     }
 
     private function icuVersion(): float
