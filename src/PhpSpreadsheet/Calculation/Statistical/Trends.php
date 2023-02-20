@@ -21,6 +21,10 @@ class Trends
         }
     }
 
+    /**
+     * @param mixed $array1 should be array, but scalar is made into one
+     * @param mixed $array2 should be array, but scalar is made into one
+     */
     private static function checkTrendArrays(&$array1, &$array2): void
     {
         if (!is_array($array1)) {
@@ -168,7 +172,7 @@ class Trends
             $returnArray[0][] = [$bestFitExponential->getValueOfYForX($xValue)];
         }
 
-        return $returnArray;
+        return $returnArray; //* @phpstan-ignore-line
     }
 
     /**
@@ -425,6 +429,6 @@ class Trends
             $returnArray[0][] = [$bestFitLinear->getValueOfYForX($xValue)];
         }
 
-        return $returnArray;
+        return $returnArray; //* @phpstan-ignore-line
     }
 }

@@ -164,7 +164,10 @@ class NumberFormatter
 
         if (preg_match('/[0#]E[+-]0/i', $format)) {
             //    Scientific format
-            return sprintf('%5.2E', $valueFloat);
+            $decimals = strlen($right);
+            $size = $decimals + 3;
+
+            return sprintf("%{$size}.{$decimals}E", $valueFloat);
         } elseif (preg_match('/0([^\d\.]+)0/', $format) || substr_count($format, '.') > 1) {
             if ($valueFloat == floor($valueFloat) && substr_count($format, '.') === 1) {
                 $value *= 10 ** strlen(explode('.', $format)[1]);
