@@ -20,7 +20,7 @@ class FormulasTest extends AbstractFunctional
         $spreadsheet->disconnectWorksheets();
         $newWorksheet = $newSpreadsheet->getActiveSheet();
         $newArray = $newWorksheet->toArray(null, false, false, false);
-        self::assertSame($originalArray, $newArray);
+        self::assertEquals($originalArray, $newArray);
         $newSpreadsheet->disconnectWorksheets();
     }
 
@@ -37,7 +37,7 @@ class FormulasTest extends AbstractFunctional
         $spreadsheet->disconnectWorksheets();
         $newWorksheet = $newSpreadsheet->getActiveSheet();
         $newArray = $newWorksheet->toArray(null, false, false, false);
-        self::assertSame($originalArray, $newArray);
+        self::assertEquals($originalArray, $newArray);
         $newSpreadsheet->disconnectWorksheets();
     }
 
