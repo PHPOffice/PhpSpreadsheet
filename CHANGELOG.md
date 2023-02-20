@@ -35,7 +35,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - XLSX Writer - Array Formulas do not include function prefix [Issue #3337](https://github.com/PHPOffice/PhpSpreadsheet/issues/3337) [PR #3338](https://github.com/PHPOffice/PhpSpreadsheet/pull/3338)
 - Permit Max Column for Row Breaks [Issue #3143](https://github.com/PHPOffice/PhpSpreadsheet/issues/3143) [PR #3345](https://github.com/PHPOffice/PhpSpreadsheet/pull/3345)
 - AutoSize Columns should allow for dropdown icon when AutoFilter is for a Table [Issue #3356](https://github.com/PHPOffice/PhpSpreadsheet/issues/3356) [PR #3358](https://github.com/PHPOffice/PhpSpreadsheet/pull/3358)
-
+- Decimal Precision for Scientific Number Format Mask [Issue #3381](https://github.com/PHPOffice/PhpSpreadsheet/issues/3381) [PR #3382](https://github.com/PHPOffice/PhpSpreadsheet/pull/3382)
 
 ## 1.27.1 - 2023-02-08
 
