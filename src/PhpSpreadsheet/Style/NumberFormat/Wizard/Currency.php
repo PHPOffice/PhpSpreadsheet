@@ -72,7 +72,7 @@ class Currency extends Number
         $formatter = new Locale($this->fullLocale, NumberFormatter::CURRENCY);
         $mask = $formatter->format();
         if ($this->decimals === 0) {
-            $mask = (string) preg_replace('/\.0*/', '', $mask);
+            $mask = (string) preg_replace('/\.0+/miu', '', $mask);
         }
 
         return str_replace('¤', $this->formatCurrencyCode(), $mask);
