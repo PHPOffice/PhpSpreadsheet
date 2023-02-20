@@ -53,39 +53,55 @@ abstract class BestFit
      */
     protected $yBestFitValues = [];
 
+    /** @var float */
     protected $goodnessOfFit = 1;
 
+    /** @var float */
     protected $stdevOfResiduals = 0;
 
+    /** @var float */
     protected $covariance = 0;
 
+    /** @var float */
     protected $correlation = 0;
 
+    /** @var float */
     protected $SSRegression = 0;
 
+    /** @var float */
     protected $SSResiduals = 0;
 
+    /** @var float */
     protected $DFResiduals = 0;
 
+    /** @var float */
     protected $f = 0;
 
+    /** @var float */
     protected $slope = 0;
 
+    /** @var float */
     protected $slopeSE = 0;
 
+    /** @var float */
     protected $intersect = 0;
 
+    /** @var float */
     protected $intersectSE = 0;
 
+    /** @var float */
     protected $xOffset = 0;
 
+    /** @var float */
     protected $yOffset = 0;
 
+    /** @return bool */
     public function getError()
     {
         return $this->error;
     }
 
+    /** @return string */
     public function getBestFitType()
     {
         return $this->bestFitType;
@@ -344,6 +360,16 @@ abstract class BestFit
         return $x == $y;
     }
 
+    /**
+     * @param float $sumX
+     * @param float $sumY
+     * @param float $sumX2
+     * @param float $sumY2
+     * @param float $sumXY
+     * @param float $meanX
+     * @param float $meanY
+     * @param bool|int $const
+     */
     protected function calculateGoodnessOfFit($sumX, $sumY, $sumX2, $sumY2, $sumXY, $meanX, $meanY, $const): void
     {
         $SSres = $SScov = $SStot = $SSsex = 0.0;
@@ -399,6 +425,7 @@ abstract class BestFit
         }
     }
 
+    /** @return float|int */
     private function sumSquares(array $values)
     {
         return array_sum(

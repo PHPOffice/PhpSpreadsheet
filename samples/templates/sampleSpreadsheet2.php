@@ -120,7 +120,7 @@ $spreadsheet->getActiveSheet()->protectCells('A3:E13', 'PhpSpreadsheet');
 
 // Set cell number formats
 $helper->log('Set cell number formats');
-$spreadsheet->getActiveSheet()->getStyle('E4:E13')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE);
+$spreadsheet->getActiveSheet()->getStyle('E4:E13')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_CURRENCY_EUR_INTEGER);
 
 // Set column widths
 $helper->log('Set column widths');
