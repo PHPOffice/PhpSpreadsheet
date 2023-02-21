@@ -1494,4 +1494,19 @@ return [
         -12345.6789,
         '0.000E+00',
     ],
+    [
+        'Product SKU #12345',
+        12345,
+        '"Product SKU #"0',
+    ],
+    [
+        'Product SKU #12-345',
+        12345,
+        '"Product SKU #"00-000',
+    ],
+    [
+        '€12,345.74 Surplus for Product #12-345',
+        12345.74,
+        '[$€]#,##0.00" Surplus for Product #12-345";$-#,##0.00" Shortage for Product #12-345"',
+    ],
 ];
