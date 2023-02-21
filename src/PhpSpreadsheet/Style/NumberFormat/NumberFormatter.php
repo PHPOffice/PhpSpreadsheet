@@ -205,9 +205,6 @@ class NumberFormatter
         //    return 'EUR ' . sprintf('%1.2f', $value);
         //}
 
-        // Some non-number strings are quoted, so we'll get rid of the quotes, likewise any positional * symbols
-        $format = self::makeString(str_replace(['"', '*'], '', $format));
-
         // Find out if we need thousands separator
         // This is indicated by a comma enclosed by a digit placeholder:
         //        #,#   or   0,0
@@ -229,6 +226,7 @@ class NumberFormatter
             $format = self::pregReplace('/0,+/', '0', $format);
             $format = self::pregReplace('/#,+/', '#', $format);
         }
+
         if (preg_match('/#?.*\?\/(\?+|\d+)/', $format)) {
             $value = FractionFormatter::format($value, $format);
         } else {
@@ -236,13 +234,18 @@ class NumberFormatter
 
             // scale number
             $value = $value / $scale;
+
             // Strip #
-            $format = self::pregReplace('/\\#/', '0', $format);
+            $format = self::pregReplace('/\\#(?=(?:[^"]*"[^"]*")*[^"]*\Z)/', '0', $format);
             // Remove locale code [$-###]
             $format = self::pregReplace('/\[\$\-.*\]/', '', $format);
 
             $n = '/\\[[^\\]]+\\]/';
             $m = self::pregReplace($n, '', $format);
+
+            // Some non-number strings are quoted, so we'll get rid of the quotes, likewise any positional * symbols
+            $format = self::makeString(str_replace(['"', '*'], '', $format));
+
             if (preg_match(self::NUMBER_REGEX, $m, $matches)) {
                 // There are placeholders for digits, so inject digits from the value into the mask
                 $value = self::formatStraightNumericValue($value, $format, $matches, $useThousands);
