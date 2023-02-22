@@ -4944,7 +4944,7 @@ class Calculation
                     [$rows, $columns] = self::checkMatrixOperands($result, $operand2, 0);
                     for ($row = 0; $row < $rows; ++$row) {
                         for ($column = 0; $column < $columns; ++$column) {
-                            if (is_numeric($result[$row][$column])) {
+                            if (is_numeric($result[$row][$column]) || is_bool($result[$row][$column])) {
                                 $result[$row][$column] *= $multiplier;
                             } else {
                                 $result[$row][$column] = Information\ExcelError::VALUE();
