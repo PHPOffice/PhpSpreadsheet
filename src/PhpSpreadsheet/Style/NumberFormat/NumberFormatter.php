@@ -208,29 +208,8 @@ class NumberFormatter
 
         $baseFormat = $format;
 
-        // Find out if we need thousands separator
-        // This is indicated by a comma enclosed by a digit placeholder:
-        //        #,#   or   0,0
-        $useThousands = (bool) preg_match('/(#,#|0,0|\?,\?)/', $format);
-        if ($useThousands) {
-            $format = self::pregReplace('/0,0/', '00', $format);
-            $format = self::pregReplace('/#,#/', '##', $format);
-            $format = self::pregReplace('/\?,\?/', '??', $format);
-        }
-
-        // Scale thousands, millions,...
-        // This is indicated by a number of commas after a digit placeholder:
-        //        #,   or    0.0,,
-        $scale = 1; // same as no scale
-        $matches = [];
-        if (preg_match('/(#|0|\?)(,+)/', $format, $matches)) {
-            $scale = 1000 ** strlen($matches[2]);
-
-            // strip the commas
-            $format = self::pregReplace('/0,+/', '0', $format);
-            $format = self::pregReplace('/#,+/', '#', $format);
-            $format = self::pregReplace('/\?,+/', '?', $format);
-        }
+        $useThousands = self::areThousandsRequired($format);
+        $scale = self::scaleThousandsMillions($format);
 
         if (preg_match('/#?.*\?\/(\?+|\d+)/', $format)) {
             $value = FractionFormatter::format($value, $format);
@@ -240,9 +219,9 @@ class NumberFormatter
             $value = $value / $scale;
             $paddingPlaceholder = (strpos($format, '?') !== false);
 
-            // Strip #
+            // Replace # or ? with 0
             $format = self::pregReplace('/[\\#\?](?=(?:[^"]*"[^"]*")*[^"]*\Z)/', '0', $format);
-            // Remove locale code [$-###]
+            // Remove locale code [$-###] for an LCID
             $format = self::pregReplace('/\[\$\-.*\]/', '', $format);
 
             $n = '/\\[[^\\]]+\\]/';
@@ -310,5 +289,35 @@ class NumberFormatter
         }
 
         return $value;
+    }
+
+    /**
+     * Find out if we need thousands separator
+     * This is indicated by a comma enclosed by a digit placeholders: #, 0 or ?
+     */
+    public static function areThousandsRequired(string &$format): bool
+    {
+        $useThousands = (bool) preg_match('/([#\?0]),([#\?0])/', $format);
+        if ($useThousands) {
+            $format = self::pregReplace('/([#\?0]),([#\?0])/', '${1}${2}', $format);
+        }
+
+        return $useThousands;
+    }
+
+    /**
+     * Scale thousands, millions,...
+     * This is indicated by a number of commas after a digit placeholder: #, or 0.0,, or ?,.
+     */
+    public static function scaleThousandsMillions(string &$format): int
+    {
+        $scale = 1; // same as no scale
+        if (preg_match('/(#|0|\?)(,+)/', $format, $matches)) {
+            $scale = 1000 ** strlen($matches[2]);
+            // strip the commas
+            $format = self::pregReplace('/([#\?0]),+/', '${1}', $format);
+        }
+
+        return $scale;
     }
 }
