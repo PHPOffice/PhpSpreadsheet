@@ -802,6 +802,19 @@ class Worksheet extends BIFFwriter
     const WRITE_FORMULA_RANGE = -2;
     const WRITE_FORMULA_EXCEPTION = -3;
 
+    /** @var bool */
+    private static $allowThrow = false;
+
+    public static function setAllowThrow(bool $allowThrow): void
+    {
+        self::$allowThrow = $allowThrow;
+    }
+
+    public static function getAllowThrow(): bool
+    {
+        return self::$allowThrow;
+    }
+
     /**
      * Write a formula to the specified row and column (zero indexed).
      * The textual representation of the formula is passed to the parser in
@@ -892,6 +905,10 @@ class Worksheet extends BIFFwriter
 
             return self::WRITE_FORMULA_NORMAL;
         } catch (PhpSpreadsheetException $e) {
+            if (self::$allowThrow) {
+                throw $e;
+            }
+
             return self::WRITE_FORMULA_EXCEPTION;
         }
     }
