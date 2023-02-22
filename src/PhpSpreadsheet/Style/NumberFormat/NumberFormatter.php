@@ -186,6 +186,7 @@ class NumberFormatter
         }
 
         $sprintf_pattern = "%0$minWidth." . strlen($right) . 'f';
+
         /** @var float */
         $valueFloat = $value;
         $value = sprintf($sprintf_pattern, round($valueFloat, strlen($right)));
@@ -201,17 +202,20 @@ class NumberFormatter
         // The "_" in this string has already been stripped out,
         // so this test is never true. Furthermore, testing
         // on Excel shows this format uses Euro symbol, not "EUR".
-        //if ($format === NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE) {
-        //    return 'EUR ' . sprintf('%1.2f', $value);
-        //}
+        // if ($format === NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE) {
+        //     return 'EUR ' . sprintf('%1.2f', $value);
+        // }
+
+        $baseFormat = $format;
 
         // Find out if we need thousands separator
         // This is indicated by a comma enclosed by a digit placeholder:
         //        #,#   or   0,0
-        $useThousands = (bool) preg_match('/(#,#|0,0)/', $format);
+        $useThousands = (bool) preg_match('/(#,#|0,0|\?,\?)/', $format);
         if ($useThousands) {
             $format = self::pregReplace('/0,0/', '00', $format);
             $format = self::pregReplace('/#,#/', '##', $format);
+            $format = self::pregReplace('/\?,\?/', '??', $format);
         }
 
         // Scale thousands, millions,...
@@ -219,24 +223,25 @@ class NumberFormatter
         //        #,   or    0.0,,
         $scale = 1; // same as no scale
         $matches = [];
-        if (preg_match('/(#|0)(,+)/', $format, $matches)) {
+        if (preg_match('/(#|0|\?)(,+)/', $format, $matches)) {
             $scale = 1000 ** strlen($matches[2]);
 
             // strip the commas
             $format = self::pregReplace('/0,+/', '0', $format);
             $format = self::pregReplace('/#,+/', '#', $format);
+            $format = self::pregReplace('/\?,+/', '?', $format);
         }
 
         if (preg_match('/#?.*\?\/(\?+|\d+)/', $format)) {
             $value = FractionFormatter::format($value, $format);
         } else {
             // Handle the number itself
-
             // scale number
             $value = $value / $scale;
+            $paddingPlaceholder = (strpos($format, '?') !== false);
 
             // Strip #
-            $format = self::pregReplace('/\\#(?=(?:[^"]*"[^"]*")*[^"]*\Z)/', '0', $format);
+            $format = self::pregReplace('/[\\#\?](?=(?:[^"]*"[^"]*")*[^"]*\Z)/', '0', $format);
             // Remove locale code [$-###]
             $format = self::pregReplace('/\[\$\-.*\]/', '', $format);
 
@@ -245,10 +250,12 @@ class NumberFormatter
 
             // Some non-number strings are quoted, so we'll get rid of the quotes, likewise any positional * symbols
             $format = self::makeString(str_replace(['"', '*'], '', $format));
-
             if (preg_match(self::NUMBER_REGEX, $m, $matches)) {
                 // There are placeholders for digits, so inject digits from the value into the mask
                 $value = self::formatStraightNumericValue($value, $format, $matches, $useThousands);
+                if ($paddingPlaceholder === true) {
+                    $value = self::padValue($value, $baseFormat);
+                }
             } elseif ($format !== NumberFormat::FORMAT_GENERAL) {
                 // Yes, I know that this is basically just a hack;
                 //      if there's no placeholders for digits, just return the format mask "as is"
@@ -266,6 +273,13 @@ class NumberFormatter
             $value = self::pregReplace('/\[\$([^\]]*)\]/u', $currencyCode, (string) $value);
         }
 
+        if (
+            (strpos((string) $value, '0.') !== false) &&
+            ((strpos($baseFormat, '#.') !== false) || (strpos($baseFormat, '?.') !== false))
+        ) {
+            $value = preg_replace('/(\b)0\.|([^\d])0\./', '${2}.', (string) $value);
+        }
+
         return (string) $value;
     }
 
@@ -280,5 +294,21 @@ class NumberFormatter
     private static function pregReplace(string $pattern, string $replacement, string $subject): string
     {
         return self::makeString(preg_replace($pattern, $replacement, $subject) ?? '');
+    }
+
+    public static function padValue(string $value, string $baseFormat): string
+    {
+        /** @phpstan-ignore-next-line */
+        [$preDecimal, $postDecimal] = preg_split('/\.(?=(?:[^"]*"[^"]*")*[^"]*\Z)/miu', $baseFormat . '.?');
+
+        $length = strlen($value);
+        if (strpos($postDecimal, '?') !== false) {
+            $value = str_pad(rtrim($value, '0. '), $length, ' ', STR_PAD_RIGHT);
+        }
+        if (strpos($preDecimal, '?') !== false) {
+            $value = str_pad(ltrim($value, '0, '), $length, ' ', STR_PAD_LEFT);
+        }
+
+        return $value;
     }
 }
