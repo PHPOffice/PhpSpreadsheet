@@ -4944,10 +4944,10 @@ class Calculation
                     [$rows, $columns] = self::checkMatrixOperands($result, $operand2, 0);
                     for ($row = 0; $row < $rows; ++$row) {
                         for ($column = 0; $column < $columns; ++$column) {
-                            if (is_numeric($result[$row][$column])) {
+                            if (self::isNumericOrBool($result[$row][$column])) {
                                 $result[$row][$column] *= $multiplier;
                             } else {
-                                $result[$row][$column] = Information\ExcelError::VALUE();
+                                $result[$row][$column] = self::makeError($result[$row][$column]);
                             }
                         }
                     }
@@ -5336,15 +5336,15 @@ class Calculation
                 for ($column = 0; $column < $columns; ++$column) {
                     if ($operand1[$row][$column] === null) {
                         $operand1[$row][$column] = 0;
-                    } elseif (!is_numeric($operand1[$row][$column])) {
-                        $operand1[$row][$column] = Information\ExcelError::VALUE();
+                    } elseif (!self::isNumericOrBool($operand1[$row][$column])) {
+                        $operand1[$row][$column] = self::makeError($operand1[$row][$column]);
 
                         continue;
                     }
                     if ($operand2[$row][$column] === null) {
                         $operand2[$row][$column] = 0;
-                    } elseif (!is_numeric($operand2[$row][$column])) {
-                        $operand1[$row][$column] = Information\ExcelError::VALUE();
+                    } elseif (!self::isNumericOrBool($operand2[$row][$column])) {
+                        $operand1[$row][$column] = self::makeError($operand2[$row][$column]);
 
                         continue;
                     }
@@ -5763,5 +5763,17 @@ class Calculation
         }
 
         return $operand1;
+    }
+
+    /** @param mixed $operand */
+    private static function isNumericOrBool($operand): bool
+    {
+        return is_numeric($operand) || is_bool($operand);
+    }
+
+    /** @param mixed $operand */
+    private static function makeError($operand = ''): string
+    {
+        return Information\ErrorValue::isError($operand) ? $operand : Information\ExcelError::VALUE();
     }
 }
