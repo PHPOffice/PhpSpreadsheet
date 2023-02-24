@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Worksheet\Table;
 use PhpOffice\PhpSpreadsheet\Worksheet\Table\TableStyle;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
@@ -101,5 +102,16 @@ class AutoSizeTest extends TestCase
         $columnSizes = $this->readColumnSizes();
 
         self::assertSame(['A' => 5.856, 'B' => 9.283, 'C' => 16.425, 'D' => 6.998], $columnSizes);
+    }
+
+    public function testTableWithAutoFilterCenterHeaders(): void
+    {
+        $this->setTable();
+        $this->worksheet->getStyle('A1:D1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+
+        $this->worksheet->calculateColumnWidths();
+        $columnSizes = $this->readColumnSizes();
+
+        self::assertSame(['A' => 10.569, 'B' => 13.997, 'C' => 16.425, 'D' => 11.711], $columnSizes);
     }
 }
