@@ -37,6 +37,9 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Permit Max Column for Row Breaks [Issue #3143](https://github.com/PHPOffice/PhpSpreadsheet/issues/3143) [PR #3345](https://github.com/PHPOffice/PhpSpreadsheet/pull/3345)
 - AutoSize Columns should allow for dropdown icon when AutoFilter is for a Table [Issue #3356](https://github.com/PHPOffice/PhpSpreadsheet/issues/3356) [PR #3358](https://github.com/PHPOffice/PhpSpreadsheet/pull/3358)
 - Decimal Precision for Scientific Number Format Mask [Issue #3381](https://github.com/PHPOffice/PhpSpreadsheet/issues/3381) [PR #3382](https://github.com/PHPOffice/PhpSpreadsheet/pull/3382)
+- Xls Writer Parser Handle Boolean Literals as Function Arguments [Issue #3369](https://github.com/PHPOffice/PhpSpreadsheet/issues/3369) [PR #3391](https://github.com/PHPOffice/PhpSpreadsheet/pull/3391)
+- Conditional Formatting Improvements for Xlsx [Issue #3370](https://github.com/PHPOffice/PhpSpreadsheet/issues/3370) [Issue #3202](https://github.com/PHPOffice/PhpSpreadsheet/issues/3302) [PR #3372](https://github.com/PHPOffice/PhpSpreadsheet/pull/3372)
+- Coerce Bool to Int for Mathematical Operations on Arrays [Issue #3389](https://github.com/PHPOffice/PhpSpreadsheet/issues/3389) [Issue #3396](https://github.com/PHPOffice/PhpSpreadsheet/issues/3396) [PR #3392](https://github.com/PHPOffice/PhpSpreadsheet/pull/3392)
 
 ## 1.27.1 - 2023-02-08
 
