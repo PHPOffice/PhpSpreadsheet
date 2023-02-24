@@ -802,6 +802,19 @@ class Worksheet extends BIFFwriter
     const WRITE_FORMULA_RANGE = -2;
     const WRITE_FORMULA_EXCEPTION = -3;
 
+    /** @var bool */
+    private static $allowThrow = false;
+
+    public static function setAllowThrow(bool $allowThrow): void
+    {
+        self::$allowThrow = $allowThrow;
+    }
+
+    public static function getAllowThrow(): bool
+    {
+        return self::$allowThrow;
+    }
+
     /**
      * Write a formula to the specified row and column (zero indexed).
      * The textual representation of the formula is passed to the parser in
@@ -892,6 +905,10 @@ class Worksheet extends BIFFwriter
 
             return self::WRITE_FORMULA_NORMAL;
         } catch (PhpSpreadsheetException $e) {
+            if (self::$allowThrow) {
+                throw $e;
+            }
+
             return self::WRITE_FORMULA_EXCEPTION;
         }
     }
@@ -2871,15 +2888,11 @@ class Worksheet extends BIFFwriter
             $bFormatProt = 0;
         }
         // Border
-        $bBorderLeft = ($conditional->getStyle()->getBorders()->getLeft()->getColor()->getARGB() == Color::COLOR_BLACK
-        && $conditional->getStyle()->getBorders()->getLeft()->getBorderStyle() == Border::BORDER_NONE ? 1 : 0);
-        $bBorderRight = ($conditional->getStyle()->getBorders()->getRight()->getColor()->getARGB() == Color::COLOR_BLACK
-        && $conditional->getStyle()->getBorders()->getRight()->getBorderStyle() == Border::BORDER_NONE ? 1 : 0);
-        $bBorderTop = ($conditional->getStyle()->getBorders()->getTop()->getColor()->getARGB() == Color::COLOR_BLACK
-        && $conditional->getStyle()->getBorders()->getTop()->getBorderStyle() == Border::BORDER_NONE ? 1 : 0);
-        $bBorderBottom = ($conditional->getStyle()->getBorders()->getBottom()->getColor()->getARGB() == Color::COLOR_BLACK
-        && $conditional->getStyle()->getBorders()->getBottom()->getBorderStyle() == Border::BORDER_NONE ? 1 : 0);
-        if ($bBorderLeft == 0 || $bBorderRight == 0 || $bBorderTop == 0 || $bBorderBottom == 0) {
+        $bBorderLeft = ($conditional->getStyle()->getBorders()->getLeft()->getBorderStyle() !== Border::BORDER_OMIT) ? 1 : 0;
+        $bBorderRight = ($conditional->getStyle()->getBorders()->getRight()->getBorderStyle() !== Border::BORDER_OMIT) ? 1 : 0;
+        $bBorderTop = ($conditional->getStyle()->getBorders()->getTop()->getBorderStyle() !== Border::BORDER_OMIT) ? 1 : 0;
+        $bBorderBottom = ($conditional->getStyle()->getBorders()->getBottom()->getBorderStyle() !== Border::BORDER_OMIT) ? 1 : 0;
+        if ($bBorderLeft === 1 || $bBorderRight === 1 || $bBorderTop === 1 || $bBorderBottom === 1) {
             $bFormatBorder = 1;
         } else {
             $bFormatBorder = 0;
@@ -2888,7 +2901,7 @@ class Worksheet extends BIFFwriter
         $bFillStyle = ($conditional->getStyle()->getFill()->getFillType() === null ? 0 : 1);
         $bFillColor = ($conditional->getStyle()->getFill()->getStartColor()->getARGB() === null ? 0 : 1);
         $bFillColorBg = ($conditional->getStyle()->getFill()->getEndColor()->getARGB() === null ? 0 : 1);
-        if ($bFillStyle == 0 || $bFillColor == 0 || $bFillColorBg == 0) {
+        if ($bFillStyle == 1 || $bFillColor == 1 || $bFillColorBg == 1) {
             $bFormatFill = 1;
         } else {
             $bFormatFill = 0;
