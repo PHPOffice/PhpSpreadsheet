@@ -38,4 +38,28 @@ class SumProductTest extends AllSetupTeardown
     {
         return require 'tests/data/Calculation/MathTrig/SUMPRODUCT.php';
     }
+
+    public function testBoolsAsInt(): void
+    {
+        // issue 3389 not handling unary minus with boolean value
+        $sheet = $this->getSheet();
+        $sheet->fromArray(
+            [
+                ['Range 1', 'Range 2', null, 'Blue matches', 'Red matches'],
+                [0, 'Red', null, '=SUMPRODUCT(--(B3:B10=1), --(C3:C10="BLUE"))', '=SUMPRODUCT(--(B3:B10=1), --(C3:C10="RED"))'],
+                [1, 'Blue'],
+                [0, 'Blue'],
+                [1, 'Red'],
+                [1, 'Blue'],
+                [0, 'Blue'],
+                [1, 'Red'],
+                [1, 'Blue'],
+            ],
+            null, // null value
+            'B2', // start cell
+            true // strict null comparison
+        );
+        self::assertSame(3, $sheet->getCell('E3')->getCalculatedValue());
+        self::assertSame(2, $sheet->getCell('F3')->getCalculatedValue());
+    }
 }

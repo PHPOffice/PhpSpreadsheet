@@ -18,17 +18,19 @@ class FloatsRetainedTest extends TestCase
     public function testIntyFloatsRetainedByWriter($value): void
     {
         $outputFilename = File::temporaryFilename();
-        $sheet = new Spreadsheet();
-        $sheet->getActiveSheet()->getCell('A1')->setValue($value);
+        $spreadsheet = new Spreadsheet();
+        $spreadsheet->getActiveSheet()->getCell('A1')->setValue($value);
 
-        $writer = new Writer($sheet);
+        $writer = new Writer($spreadsheet);
         $writer->save($outputFilename);
+        $spreadsheet->disconnectWorksheets();
 
         $reader = new Reader();
-        $sheet = $reader->load($outputFilename);
+        $spreadsheet2 = $reader->load($outputFilename);
         unlink($outputFilename);
 
-        self::assertSame($value, $sheet->getActiveSheet()->getCell('A1')->getValue());
+        self::assertSame($value, $spreadsheet2->getActiveSheet()->getCell('A1')->getValue());
+        $spreadsheet2->disconnectWorksheets();
     }
 
     public function providerIntyFloatsRetainedByWriter(): array

@@ -70,6 +70,38 @@ class AccountingTest extends TestCase
         ];
     }
 
+    /**
+     * @dataProvider providerAccountingLocaleNoDecimals
+     */
+    public function testAccountingLocaleNoDecimals(
+        string $expectedResult,
+        string $currencyCode,
+        string $locale
+    ): void {
+        if (class_exists(NumberFormatter::class) === false) {
+            self::markTestSkipped('Intl extension is not available');
+        }
+
+        $wizard = new Accounting($currencyCode, 0);
+        $wizard->setLocale($locale);
+        self::assertSame($expectedResult, (string) $wizard);
+    }
+
+    public function providerAccountingLocaleNoDecimals(): array
+    {
+        return [
+            ["[\$€-fy-NL]\u{a0}#,##0;([\$€-fy-NL]\u{a0}#,##0)", '€', 'fy-NL'],
+            ["[\$€-nl-NL]\u{a0}#,##0;([\$€-nl-NL]\u{a0}#,##0)", '€', 'nl-NL'],
+            ["[\$€-nl-BE]\u{a0}#,##0;([\$€-nl-BE]\u{a0}#,##0)", '€', 'NL-BE'],
+            ["#,##0\u{a0}[\$€-fr-BE];(#,##0\u{a0}[\$€-fr-BE])", '€', 'fr-be'],
+            ["#,##0\u{a0}[\$€-el-GR]", '€', 'el-gr'],
+            ['[$$-en-CA]#,##0;([$$-en-CA]#,##0)', '$', 'en-ca'],
+            ["#,##0\u{a0}[\$\$-fr-CA];(#,##0\u{a0}[\$\$-fr-CA])", '$', 'fr-ca'],
+            ['[$¥-ja-JP]#,##0;([$¥-ja-JP]#,##0)', '¥', 'ja-JP'], // No decimals to truncate
+            ["#,##0\u{a0}[\$د.ب‎-ar-BH]", 'د.ب‎', 'ar-BH'],  // 3 decimals truncated to none
+        ];
+    }
+
     public function testAccountingLocaleInvalidFormat(): void
     {
         if (class_exists(NumberFormatter::class) === false) {

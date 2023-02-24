@@ -99,7 +99,7 @@ class Style extends Supervisor
         // Initialise values
         $this->font = new Font($isSupervisor, $isConditional);
         $this->fill = new Fill($isSupervisor, $isConditional);
-        $this->borders = new Borders($isSupervisor);
+        $this->borders = new Borders($isSupervisor, $isConditional);
         $this->alignment = new Alignment($isSupervisor, $isConditional);
         $this->numberFormat = new NumberFormat($isSupervisor, $isConditional);
         $this->protection = new Protection($isSupervisor, $isConditional);
