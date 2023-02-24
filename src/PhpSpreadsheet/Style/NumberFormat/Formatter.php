@@ -170,9 +170,11 @@ class Formatter
         $format = (string) preg_replace('/_.?/ui', ' ', $format);
 
         // Let's begin inspecting the format and converting the value to a formatted string
-
         //  Check for date/time characters (not inside quotes)
-        if (preg_match('/(\[\$[A-Z]*-[0-9A-F]*\])*[hmsdy](?=(?:[^"]|"[^"]*")*$)/miu', $format, $matches)) {
+        if (
+            (preg_match('/(\[\$[A-Z]*-[0-9A-F]*\])*[hmsdy](?=(?:[^"]|"[^"]*")*$)/miu', $format)) &&
+            (preg_match('/0(?![^\[]*\])/miu', $format) === 0)
+        ) {
             // datetime format
             $value = DateFormatter::format($value, $format);
         } else {
