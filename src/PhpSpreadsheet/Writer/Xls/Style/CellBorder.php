@@ -24,6 +24,7 @@ class CellBorder
         Border::BORDER_DASHDOTDOT => 0x0B,
         Border::BORDER_MEDIUMDASHDOTDOT => 0x0C,
         Border::BORDER_SLANTDASHDOT => 0x0D,
+        Border::BORDER_OMIT => 0x00,
     ];
 
     public static function style(Border $border): int
