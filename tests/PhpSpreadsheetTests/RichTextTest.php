@@ -36,5 +36,14 @@ class RichTextTest extends TestCase
         $cloneText = clone $richText;
         self::assertEquals($richText, $cloneText);
         self::assertNotSame($richText, $cloneText);
+
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->getCell('A1')->setValue($richText);
+        self::assertInstanceOf(RichText::class, $sheet->getCell('A1')->getValue());
+        self::assertSame('ABC', $sheet->getCell('A1')->getFormattedValue());
+        $sheet->getCell('B1')->setValue(-3.5);
+        self::assertSame([['ABC', '-3.5']], $sheet->toArray());
+        $spreadsheet->disconnectWorksheets();
     }
 }

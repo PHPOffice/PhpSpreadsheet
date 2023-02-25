@@ -127,6 +127,7 @@ class GnumericLoadTest extends TestCase
         self::assertFalse($rowDimension->getVisible());
 
         self::assertSame('B24', $sheet->getSelectedCells());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testLoadFilter(): void
@@ -144,6 +145,7 @@ class GnumericLoadTest extends TestCase
         self::assertEquals('', $sheet->getCell('A4')->getValue());
         $props = $spreadsheet->getProperties();
         self::assertEquals('Mark Baker', $props->getCreator());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testLoadOld(): void
@@ -155,6 +157,7 @@ class GnumericLoadTest extends TestCase
         $spreadsheet = $reader->load($filename);
         $props = $spreadsheet->getProperties();
         self::assertEquals('David Gilbert', $props->getCreator());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testLoadSelectedSheets(): void
@@ -171,5 +174,6 @@ class GnumericLoadTest extends TestCase
         self::assertEquals('Third Heading', $sheet->getCell('C2')->getValue());
 
         self::assertSame('A1', $sheet->getSelectedCells());
+        $spreadsheet->disconnectWorksheets();
     }
 }

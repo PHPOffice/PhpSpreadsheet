@@ -15,7 +15,7 @@ class Style
 
     public function parseStyles(SimpleXMLElement $xml, array $namespaces): array
     {
-        if (!isset($xml->Styles)) {
+        if (!isset($xml->Styles) || !is_iterable($xml->Styles[0])) {
             return [];
         }
 
@@ -33,7 +33,7 @@ class Style
             $alignment = $border = $font = $fill = $numberFormat = [];
 
             foreach ($style as $styleType => $styleDatax) {
-                $styleData = $styleDatax ?? new SimpleXMLElement('<xml></xml>');
+                $styleData = self::getSxml($styleDatax);
                 $styleAttributes = $styleData->attributes($namespaces['ss']);
 
                 switch ($styleType) {
@@ -74,10 +74,13 @@ class Style
         return $this->styles;
     }
 
-    protected static function getAttributes(?SimpleXMLElement $simple, string $node): SimpleXMLElement
+    private static function getAttributes(?SimpleXMLElement $simple, string $node): SimpleXMLElement
     {
-        return ($simple === null)
-            ? new SimpleXMLElement('<xml></xml>')
-            : ($simple->attributes($node) ?? new SimpleXMLElement('<xml></xml>'));
+        return ($simple === null) ? new SimpleXMLElement('<xml></xml>') : ($simple->attributes($node) ?? new SimpleXMLElement('<xml></xml>'));
+    }
+
+    private static function getSxml(?SimpleXMLElement $simple): SimpleXMLElement
+    {
+        return ($simple !== null) ? $simple : new SimpleXMLElement('<xml></xml>');
     }
 }

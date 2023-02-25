@@ -2,7 +2,11 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Cell;
 
+use PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder;
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use PhpOffice\PhpSpreadsheet\Cell\DefaultValueBinder;
+use PhpOffice\PhpSpreadsheet\Cell\StringValueBinder;
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Color;
@@ -13,6 +17,59 @@ use PHPUnit\Framework\TestCase;
 
 class CellTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+        Cell::setValueBinder(new DefaultValueBinder());
+    }
+
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+        Cell::setValueBinder(new DefaultValueBinder());
+    }
+
+    public function testSetValueBinderOverride(): void
+    {
+        $value = '12.5%';
+        $spreadsheet = new Spreadsheet();
+
+        $cell = $spreadsheet->getActiveSheet()->getCell('A1');
+        $cell->setValue($value); // Using the Default Value Binder
+
+        self::assertSame('12.5%', $cell->getValue());
+        self::assertSame('General', $cell->getStyle()->getNumberFormat()->getFormatCode());
+
+        $cell = $spreadsheet->getActiveSheet()->getCell('A2');
+        $cell->setValue($value, new AdvancedValueBinder()); // Overriding the Default Value Binder
+
+        self::assertSame(0.125, $cell->getValue());
+        self::assertSame('0.00%', $cell->getStyle()->getNumberFormat()->getFormatCode());
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testSetValueBinderOverride2(): void
+    {
+        $value = '12.5%';
+        $spreadsheet = new Spreadsheet();
+        Cell::setValueBinder(new AdvancedValueBinder());
+
+        $cell = $spreadsheet->getActiveSheet()->getCell('A1');
+        $cell->setValue($value); // Using the Advanced Value Binder
+
+        self::assertSame(0.125, $cell->getValue());
+        self::assertSame('0.00%', $cell->getStyle()->getNumberFormat()->getFormatCode());
+
+        $cell = $spreadsheet->getActiveSheet()->getCell('A2');
+        $cell->setValue($value, new StringValueBinder()); // Overriding the Advanced Value Binder
+
+        self::assertSame('12.5%', $cell->getValue());
+        self::assertSame('General', $cell->getStyle()->getNumberFormat()->getFormatCode());
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
     /**
      * @dataProvider providerSetValueExplicit
      *

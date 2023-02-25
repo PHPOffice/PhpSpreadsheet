@@ -223,7 +223,7 @@ class LookupRef
      * @param mixed $width The width, in number of columns, that you want the returned reference to be.
      *                         Width must be a positive number.
      *
-     * @return array|string An array containing a cell or range of cells, or a string on error
+     * @return array|int|string An array containing a cell or range of cells, or a string on error
      */
     public static function OFFSET($cellAddress = null, $rows = 0, $columns = 0, $height = null, $width = null, ?Cell $cell = null)
     {
@@ -242,6 +242,8 @@ class LookupRef
      * @deprecated 1.18.0
      *      Use the choose() method in the LookupRef\Selection class instead
      * @see LookupRef\Selection::choose()
+     *
+     * @param array $chooseArgs
      *
      * @return mixed The selected value
      */

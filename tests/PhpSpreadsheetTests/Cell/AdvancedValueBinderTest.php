@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\IValueBinder;
+use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\TestCase;
@@ -35,6 +36,7 @@ class AdvancedValueBinderTest extends TestCase
 
     protected function setUp(): void
     {
+        Settings::setLocale('en_US');
         $this->currencyCode = StringHelper::getCurrencyCode();
         $this->decimalSeparator = StringHelper::getDecimalSeparator();
         $this->thousandsSeparator = StringHelper::getThousandsSeparator();
@@ -54,8 +56,45 @@ class AdvancedValueBinderTest extends TestCase
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
+
         $sheet->getCell('A1')->setValue(null);
         self::assertNull($sheet->getCell('A1')->getValue());
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testBoolean(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        $sheet->getCell('A1')->setValue(true);
+        self::assertTrue($sheet->getCell('A1')->getValue());
+
+        $sheet->getCell('A2')->setValue(false);
+        self::assertFalse($sheet->getCell('A2')->getValue());
+
+        $sheet->getCell('A3')->setValue('true');
+        self::assertTrue($sheet->getCell('A3')->getValue());
+
+        $sheet->getCell('A4')->setValue('false');
+        self::assertFalse($sheet->getCell('A4')->getValue());
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testBooleanLocale(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        Settings::setLocale('nl_NL');
+
+        $sheet->getCell('A1')->setValue('Waar');
+        self::assertTrue($sheet->getCell('A1')->getValue());
+
+        $sheet->getCell('A2')->setValue('OnWaar');
+        self::assertFalse($sheet->getCell('A2')->getValue());
+
         $spreadsheet->disconnectWorksheets();
     }
 
@@ -76,8 +115,10 @@ class AdvancedValueBinderTest extends TestCase
 
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
+
         $sheet->getCell('A1')->setValue($value);
         self::assertEquals($valueBinded, $sheet->getCell('A1')->getValue());
+
         $spreadsheet->disconnectWorksheets();
     }
 
@@ -92,6 +133,9 @@ class AdvancedValueBinderTest extends TestCase
             ['€ 2.020,20', 2020.2, '.', ',', '€'],
             ['€2,020.22', 2020.22, ',', '.', '€'],
             ['$10.11', 10.11, ',', '.', '€'],
+            ['€2,020.20', 2020.2, ',', '.', '$'],
+            ['-2,020.20€', -2020.2, ',', '.', '$'],
+            ['- 2,020.20 € ', -2020.2, ',', '.', '$'],
         ];
     }
 
@@ -105,8 +149,10 @@ class AdvancedValueBinderTest extends TestCase
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
+
         $sheet->getCell('A1')->setValue($value);
         self::assertEquals($valueBinded, $sheet->getCell('A1')->getValue());
+
         $spreadsheet->disconnectWorksheets();
     }
 
@@ -115,6 +161,7 @@ class AdvancedValueBinderTest extends TestCase
         return [
             ['1/5', 0.2],
             ['-1/5', -0.2],
+            ['- 1/5', -0.2],
             ['12/5', 2.4],
             ['2/100', 0.02],
             ['15/12', 1.25],
@@ -124,6 +171,7 @@ class AdvancedValueBinderTest extends TestCase
             ['1 4/20', 1.2],
             ['1 16/20', 1.8],
             ['12 20/100', 12.2],
+            ['-1 4/20', -1.2],
         ];
     }
 
@@ -137,8 +185,10 @@ class AdvancedValueBinderTest extends TestCase
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
+
         $sheet->getCell('A1')->setValue($value);
         self::assertEquals($valueBinded, $sheet->getCell('A1')->getValue());
+
         $spreadsheet->disconnectWorksheets();
     }
 
@@ -149,6 +199,9 @@ class AdvancedValueBinderTest extends TestCase
             ['-12%', -0.12],
             ['120%', 1.2],
             ['12.5%', 0.125],
+            ['-12.5%', -0.125],
+            ['12,345%', 123.45],
+            ['12,345.67%', 123.4567],
         ];
     }
 
@@ -162,8 +215,10 @@ class AdvancedValueBinderTest extends TestCase
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
+
         $sheet->getCell('A1')->setValue($value);
         self::assertEqualsWithDelta($valueBinded, $sheet->getCell('A1')->getValue(), self::AVB_PRECISION);
+
         $spreadsheet->disconnectWorksheets();
     }
 
@@ -185,8 +240,10 @@ class AdvancedValueBinderTest extends TestCase
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
+
         $sheet->getCell('A1')->setValue($value);
         self::assertEquals($value, $sheet->getCell('A1')->getValue());
+
         $spreadsheet->disconnectWorksheets();
     }
 

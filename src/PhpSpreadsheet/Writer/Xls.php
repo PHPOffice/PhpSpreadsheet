@@ -170,7 +170,9 @@ class Xls extends BaseWriter
                     foreach ($elements as $element) {
                         if ($element instanceof Run) {
                             $font = $element->getFont();
-                            $this->writerWorksheets[$i]->fontHashIndex[$font->getHashCode()] = $this->writerWorkbook->addFont($font);
+                            if ($font !== null) {
+                                $this->writerWorksheets[$i]->fontHashIndex[$font->getHashCode()] = $this->writerWorkbook->addFont($font);
+                            }
                         }
                     }
                 }
@@ -199,14 +201,14 @@ class Xls extends BaseWriter
 
         $this->documentSummaryInformation = $this->writeDocumentSummaryInformation();
         // initialize OLE Document Summary Information
-        if (isset($this->documentSummaryInformation) && !empty($this->documentSummaryInformation)) {
+        if (!empty($this->documentSummaryInformation)) {
             $OLE_DocumentSummaryInformation = new File(OLE::ascToUcs(chr(5) . 'DocumentSummaryInformation'));
             $OLE_DocumentSummaryInformation->append($this->documentSummaryInformation);
         }
 
         $this->summaryInformation = $this->writeSummaryInformation();
         // initialize OLE Summary Information
-        if (isset($this->summaryInformation) && !empty($this->summaryInformation)) {
+        if (!empty($this->summaryInformation)) {
             $OLE_SummaryInformation = new File(OLE::ascToUcs(chr(5) . 'SummaryInformation'));
             $OLE_SummaryInformation->append($this->summaryInformation);
         }
@@ -315,14 +317,16 @@ class Xls extends BaseWriter
 
                 $twoAnchor = \PhpOffice\PhpSpreadsheet\Shared\Xls::oneAnchor2twoAnchor($sheet, $coordinates, $offsetX, $offsetY, $width, $height);
 
-                $spContainer->setStartCoordinates($twoAnchor['startCoordinates']);
-                $spContainer->setStartOffsetX($twoAnchor['startOffsetX']);
-                $spContainer->setStartOffsetY($twoAnchor['startOffsetY']);
-                $spContainer->setEndCoordinates($twoAnchor['endCoordinates']);
-                $spContainer->setEndOffsetX($twoAnchor['endOffsetX']);
-                $spContainer->setEndOffsetY($twoAnchor['endOffsetY']);
+                if (is_array($twoAnchor)) {
+                    $spContainer->setStartCoordinates($twoAnchor['startCoordinates']);
+                    $spContainer->setStartOffsetX($twoAnchor['startOffsetX']);
+                    $spContainer->setStartOffsetY($twoAnchor['startOffsetY']);
+                    $spContainer->setEndCoordinates($twoAnchor['endCoordinates']);
+                    $spContainer->setEndOffsetX($twoAnchor['endOffsetX']);
+                    $spContainer->setEndOffsetY($twoAnchor['endOffsetY']);
 
-                $spgrContainer->addChild($spContainer);
+                    $spgrContainer->addChild($spContainer);
+                }
             }
 
             // AutoFilters
@@ -414,7 +418,7 @@ class Xls extends BaseWriter
         ob_end_clean();
 
         $blip = new Blip();
-        $blip->setData($blipData);
+        $blip->setData("$blipData");
 
         $BSE = new BSE();
         $BSE->setBlipType($blipType);
@@ -425,11 +429,12 @@ class Xls extends BaseWriter
 
     private function processDrawing(BstoreContainer &$bstoreContainer, Drawing $drawing): void
     {
-        $blipType = null;
+        $blipType = 0;
         $blipData = '';
         $filename = $drawing->getPath();
 
-        [$imagesx, $imagesy, $imageFormat] = getimagesize($filename);
+        $imageSize = getimagesize($filename);
+        $imageFormat = empty($imageSize) ? 0 : ($imageSize[2] ?? 0);
 
         switch ($imageFormat) {
             case 1: // GIF, not supported by BIFF8, we convert to PNG

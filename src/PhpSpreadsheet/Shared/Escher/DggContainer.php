@@ -28,7 +28,7 @@ class DggContainer
     /**
      * BLIP Store Container.
      *
-     * @var DggContainer\BstoreContainer
+     * @var ?DggContainer\BstoreContainer
      */
     private $bstoreContainer;
 
@@ -109,7 +109,7 @@ class DggContainer
     /**
      * Get BLIP Store Container.
      *
-     * @return DggContainer\BstoreContainer
+     * @return ?DggContainer\BstoreContainer
      */
     public function getBstoreContainer()
     {

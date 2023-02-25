@@ -187,7 +187,7 @@ internal English coding.
 
 ```php
 $formula = $spreadsheet->getActiveSheet()->getCell('B8')->getValue();
-$translatedFormula = \PhpOffice\PhpSpreadsheet\Calculation\Calculation::getInstance()->_translateFormulaToLocale($formula);
+$translatedFormula = \PhpOffice\PhpSpreadsheet\Calculation\Calculation::getInstance()->translateFormulaToLocale($formula);
 ```
 
 You can also create a formula using the function names and argument
@@ -477,6 +477,15 @@ row 10.
 
 ```php
 $spreadsheet->getActiveSheet()->setBreak('A10', \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::BREAK_ROW);
+```
+
+If your print break is inside a defined print area, it may be necessary to add an extra parameter to specify the max column (and this probably won't hurt if the break is not inside a defined print area):
+
+```php
+$spreadsheet->getActiveSheet()
+    ->setBreak('A10',
+        \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::BREAK_ROW,
+        \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::BREAK_ROW_MAX_COLUMN);
 ```
 
 The following line of code sets a print break on column D:

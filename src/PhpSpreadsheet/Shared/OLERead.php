@@ -6,6 +6,7 @@ use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 
 class OLERead
 {
+    /** @var string */
     private $data = '';
 
     // Size of a sector = 512 bytes
@@ -34,10 +35,13 @@ class OLERead
     const START_BLOCK_POS = 0x74;
     const SIZE_POS = 0x78;
 
+    /** @var int */
     public $wrkbook;
 
+    /** @var int */
     public $summaryInformation;
 
+    /** @var int */
     public $documentSummaryInformation;
 
     /**
@@ -99,7 +103,7 @@ class OLERead
 
         // Get the file identifier
         // Don't bother reading the whole file until we know it's a valid OLE file
-        $this->data = file_get_contents($filename, false, null, 0, 8);
+        $this->data = (string) file_get_contents($filename, false, null, 0, 8);
 
         // Check OLE identifier
         $identifierOle = pack('CCCCCCCC', 0xd0, 0xcf, 0x11, 0xe0, 0xa1, 0xb1, 0x1a, 0xe1);
@@ -108,7 +112,7 @@ class OLERead
         }
 
         // Get the file data
-        $this->data = file_get_contents($filename);
+        $this->data = (string) file_get_contents($filename);
 
         // Total number of sectors used for the SAT
         $this->numBigBlockDepotBlocks = self::getInt4d($this->data, self::NUM_BIG_BLOCK_DEPOT_BLOCKS_POS);
