@@ -7921,7 +7921,7 @@ class Xls extends BaseReader
         // offset: 6; size: 4; Options
         $options = self::getInt4d($recordData, 6);
 
-        $style = new Style();
+        $style = new Style(false, true); // non-supervisor, conditional
         $this->getCFStyleOptions($options, $style);
 
         $hasFontRecord = (bool) ((0x04000000 & $options) >> 26);
