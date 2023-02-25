@@ -122,6 +122,13 @@
 </dt>
 <dd>Title Layout.</dd>
 
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Title.html#property_overlay">$overlay</a>
+    <span>
+                &nbsp;: bool            </span>
+</dt>
+<dd>Allow overlay of other elements?</dd>
+
                 <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Title.html#method___construct">__construct()</a>
     <span>
@@ -151,11 +158,25 @@
 <dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Title.html#method_getOverlay">getOverlay()</a>
+    <span>
+                        &nbsp;: bool    </span>
+</dt>
+<dd>Get allow overlay of other elements?</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Title.html#method_setCaption">setCaption()</a>
     <span>
                         &nbsp;: $this    </span>
 </dt>
 <dd>Set caption.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Title.html#method_setOverlay">setOverlay()</a>
+    <span>
+                        &nbsp;: void    </span>
+</dt>
+<dd>Set allow overlay of other elements?</dd>
 
         </dl>
 
@@ -217,7 +238,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Title.php"><a href="files/src-phpspreadsheet-chart-title.html"><abbr title="src/PhpSpreadsheet/Chart/Title.php">Title.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">21</span>
+    <span class="phpdocumentor-element-found-in__line">28</span>
 </aside>
 
         <p class="phpdocumentor-summary">Title Layout.</p>
@@ -227,6 +248,38 @@
         <span class="phpdocumentor-signature__type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Layout.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Layout">Layout</abbr></a>|null</span>
     <span class="phpdocumentor-signature__name">$layout</span>
     </code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_overlay">
+        $overlay
+        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Title.html#property_overlay" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Title.php"><a href="files/src-phpspreadsheet-chart-title.html"><abbr title="src/PhpSpreadsheet/Chart/Title.php">Title.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">21</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Allow overlay of other elements?</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">bool</span>
+    <span class="phpdocumentor-signature__name">$overlay</span>
+     = <span class="phpdocumentor-signature__default-value">true</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -253,14 +306,14 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Title.php"><a href="files/src-phpspreadsheet-chart-title.html"><abbr title="src/PhpSpreadsheet/Chart/Title.php">Title.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">28</span>
+    <span class="phpdocumentor-element-found-in__line">37</span>
 </aside>
 
         <p class="phpdocumentor-summary">Create a new Title.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;|<a href="classes/PhpOffice-PhpSpreadsheet-RichText-RichText.html"><abbr title="\PhpOffice\PhpSpreadsheet\RichText\RichText">RichText</abbr></a>|string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$caption</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Layout.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Layout">Layout</abbr></a>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$layout</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;|<a href="classes/PhpOffice-PhpSpreadsheet-RichText-RichText.html"><abbr title="\PhpOffice\PhpSpreadsheet\RichText\RichText">RichText</abbr></a>|string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$caption</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Layout.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Layout">Layout</abbr></a>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$layout</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$overlay</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">false</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -279,7 +332,16 @@
                 : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Layout.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Layout">Layout</abbr></a>|null</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$overlay</span>
+                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">false</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
             </dd>
             </dl>
 
@@ -305,7 +367,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Title.php"><a href="files/src-phpspreadsheet-chart-title.html"><abbr title="src/PhpSpreadsheet/Chart/Title.php">Title.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">39</span>
+    <span class="phpdocumentor-element-found-in__line">49</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get caption.</p>
@@ -339,7 +401,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Title.php"><a href="files/src-phpspreadsheet-chart-title.html"><abbr title="src/PhpSpreadsheet/Chart/Title.php">Title.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">44</span>
+    <span class="phpdocumentor-element-found-in__line">54</span>
 </aside>
 
     
@@ -371,7 +433,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Title.php"><a href="files/src-phpspreadsheet-chart-title.html"><abbr title="src/PhpSpreadsheet/Chart/Title.php">Title.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">81</span>
+    <span class="phpdocumentor-element-found-in__line">111</span>
 </aside>
 
     
@@ -396,6 +458,40 @@
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_getOverlay">
+        getOverlay()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Title.html#method_getOverlay" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Title.php"><a href="files/src-phpspreadsheet-chart-title.html"><abbr title="src/PhpSpreadsheet/Chart/Title.php">Title.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">96</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Get allow overlay of other elements?</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">getOverlay</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_setCaption">
         setCaption()
         <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Title.html#method_setCaption" class="headerlink"><i class="fas fa-link"></i></a>
@@ -403,7 +499,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Title.php"><a href="files/src-phpspreadsheet-chart-title.html"><abbr title="src/PhpSpreadsheet/Chart/Title.php">Title.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">74</span>
+    <span class="phpdocumentor-element-found-in__line">84</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set caption.</p>
@@ -430,6 +526,51 @@
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">$this</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setOverlay">
+        setOverlay()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Title.html#method_setOverlay" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Title.php"><a href="files/src-phpspreadsheet-chart-title.html"><abbr title="src/PhpSpreadsheet/Chart/Title.php">Title.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">106</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Set allow overlay of other elements?</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">setOverlay</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$overlay</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$overlay</span>
+                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">void</span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 

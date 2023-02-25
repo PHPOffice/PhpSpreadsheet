@@ -145,12 +145,12 @@
     <span>
                 &nbsp;: int            </span>
 </dt>
-<dd>The BIFF file size for the workbook.</dd>
+<dd>The BIFF file size for the workbook. Not currently used.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#property_byteOrder">$byteOrder</a>
     <span>
-                &nbsp;: int            </span>
+                &nbsp;: int|null            </span>
 </dt>
 <dd>The byte order of this architecture. 0 =&gt; little endian, 1 =&gt; big endian.</dd>
 
@@ -164,7 +164,7 @@
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Workbook.html#property_colors">$colors</a>
     <span>
-                &nbsp;: mixed            </span>
+                &nbsp;: array&lt;string|int, mixed&gt;            </span>
 </dt>
 <dd>Color cache.</dd>
 
@@ -326,7 +326,7 @@ recalculating it for each call to new().</dd>
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#method_writeEof">writeEof()</a>
     <span>
-                        &nbsp;: mixed    </span>
+                        &nbsp;: string    </span>
 </dt>
 <dd>Writes Excel EOF record to indicate the end of a BIFF stream.</dd>
 
@@ -400,7 +400,7 @@ must be split up into CONTINUE blocks.</dd>
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Workbook.html#method_writeAllDefinedNamesBiff8">writeAllDefinedNamesBiff8()</a>
     <span>
-                        &nbsp;: mixed    </span>
+                        &nbsp;: string    </span>
 </dt>
 <dd>Writes all the DEFINEDNAME records (BIFF8).</dd>
 
@@ -470,7 +470,7 @@ must be split up into CONTINUE blocks.</dd>
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Workbook.html#method_writeExternalsheetBiff8">writeExternalsheetBiff8()</a>
     <span>
-                        &nbsp;: mixed    </span>
+                        &nbsp;: string    </span>
 </dt>
 <dd>Writes the Excel BIFF EXTERNSHEET record. These references are used by
 formulas.</dd>
@@ -478,7 +478,7 @@ formulas.</dd>
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Workbook.html#method_writeMsoDrawingGroup">writeMsoDrawingGroup()</a>
     <span>
-                        &nbsp;: mixed    </span>
+                        &nbsp;: string    </span>
 </dt>
 <dd>Writes the MSODRAWINGGROUP record if needed. Possibly split using CONTINUE records.</dd>
 
@@ -531,7 +531,7 @@ supported).</dd>
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Workbook.html#method_writeSupbookInternal">writeSupbookInternal()</a>
     <span>
-                        &nbsp;: mixed    </span>
+                        &nbsp;: string    </span>
 </dt>
 <dd>Write Internal SUPBOOK record.</dd>
 
@@ -701,7 +701,7 @@ supported).</dd>
     <span class="phpdocumentor-element-found-in__line">64</span>
 </aside>
 
-        <p class="phpdocumentor-summary">The BIFF file size for the workbook.</p>
+        <p class="phpdocumentor-summary">The BIFF file size for the workbook. Not currently used.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
@@ -752,7 +752,7 @@ supported).</dd>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">int</span>
+    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">int|null</span>
     <span class="phpdocumentor-signature__name">$byteOrder</span>
     </code>
 
@@ -809,14 +809,14 @@ supported).</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Workbook.php"><a href="files/src-phpspreadsheet-writer-xls-workbook.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Workbook.php">Workbook.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">167</span>
+    <span class="phpdocumentor-element-found-in__line">169</span>
 </aside>
 
         <p class="phpdocumentor-summary">Color cache.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
     <span class="phpdocumentor-signature__name">$colors</span>
     </code>
 
@@ -873,7 +873,7 @@ supported).</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Workbook.php"><a href="files/src-phpspreadsheet-writer-xls-workbook.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Workbook.php">Workbook.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">174</span>
+    <span class="phpdocumentor-element-found-in__line">176</span>
 </aside>
 
         <p class="phpdocumentor-summary">Escher object corresponding to MSODRAWINGGROUP.</p>
@@ -1080,7 +1080,7 @@ supported).</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Workbook.php"><a href="files/src-phpspreadsheet-writer-xls-workbook.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Workbook.php">Workbook.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">177</span>
+    <span class="phpdocumentor-element-found-in__line">179</span>
 </aside>
 
     
@@ -1339,7 +1339,7 @@ supported).</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Workbook.php"><a href="files/src-phpspreadsheet-writer-xls-workbook.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Workbook.php">Workbook.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">189</span>
+    <span class="phpdocumentor-element-found-in__line">191</span>
 </aside>
 
         <p class="phpdocumentor-summary">Class constructor.</p>
@@ -1430,7 +1430,7 @@ supported).</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Workbook.php"><a href="files/src-phpspreadsheet-writer-xls-workbook.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Workbook.php">Workbook.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">282</span>
+    <span class="phpdocumentor-element-found-in__line">284</span>
 </aside>
 
         <p class="phpdocumentor-summary">Add a font to added fonts.</p>
@@ -1475,7 +1475,7 @@ supported).</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Workbook.php"><a href="files/src-phpspreadsheet-writer-xls-workbook.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Workbook.php">Workbook.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">234</span>
+    <span class="phpdocumentor-element-found-in__line">236</span>
 </aside>
 
         <p class="phpdocumentor-summary">Add a new XF writer.</p>
@@ -1564,7 +1564,7 @@ recalculating it for each call to new().</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Workbook.php"><a href="files/src-phpspreadsheet-writer-xls-workbook.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Workbook.php">Workbook.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1178</span>
+    <span class="phpdocumentor-element-found-in__line">1180</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get Escher object.</p>
@@ -1598,7 +1598,7 @@ recalculating it for each call to new().</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Workbook.php"><a href="files/src-phpspreadsheet-writer-xls-workbook.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Workbook.php">Workbook.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1186</span>
+    <span class="phpdocumentor-element-found-in__line">1188</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set Escher object.</p>
@@ -1695,7 +1695,7 @@ recalculating it for each call to new().</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">writeEof</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                <span class="phpdocumentor-signature__name">writeEof</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -1703,7 +1703,7 @@ recalculating it for each call to new().</p>
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">mixed</span>
+    <span class="phpdocumentor-signature__response_type">string</span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
@@ -1722,7 +1722,7 @@ recalculating it for each call to new().</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Workbook.php"><a href="files/src-phpspreadsheet-writer-xls-workbook.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Workbook.php">Workbook.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">418</span>
+    <span class="phpdocumentor-element-found-in__line">420</span>
 </aside>
 
         <p class="phpdocumentor-summary">Assemble worksheets into a workbook and send the BIFF data to an OLE
@@ -1898,7 +1898,7 @@ sub-stream in the BIFF file.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Workbook.php"><a href="files/src-phpspreadsheet-writer-xls-workbook.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Workbook.php">Workbook.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">308</span>
+    <span class="phpdocumentor-element-found-in__line">310</span>
 </aside>
 
         <p class="phpdocumentor-summary">Alter color palette adding a custom color.</p>
@@ -1996,7 +1996,7 @@ necessary.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Workbook.php"><a href="files/src-phpspreadsheet-writer-xls-workbook.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Workbook.php">Workbook.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">470</span>
+    <span class="phpdocumentor-element-found-in__line">472</span>
 </aside>
 
         <p class="phpdocumentor-summary">Calculate offsets for Worksheet BOF records.</p>
@@ -2030,7 +2030,7 @@ necessary.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Workbook.php"><a href="files/src-phpspreadsheet-writer-xls-workbook.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Workbook.php">Workbook.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">529</span>
+    <span class="phpdocumentor-element-found-in__line">531</span>
 </aside>
 
     
@@ -2072,7 +2072,7 @@ necessary.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Workbook.php"><a href="files/src-phpspreadsheet-writer-xls-workbook.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Workbook.php">Workbook.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">348</span>
+    <span class="phpdocumentor-element-found-in__line">350</span>
 </aside>
 
         <p class="phpdocumentor-summary">Sets the colour palette to the Excel 97+ default.</p>
@@ -2106,14 +2106,14 @@ necessary.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Workbook.php"><a href="files/src-phpspreadsheet-writer-xls-workbook.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Workbook.php">Workbook.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">584</span>
+    <span class="phpdocumentor-element-found-in__line">586</span>
 </aside>
 
         <p class="phpdocumentor-summary">Writes all the DEFINEDNAME records (BIFF8).</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">writeAllDefinedNamesBiff8</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                <span class="phpdocumentor-signature__name">writeAllDefinedNamesBiff8</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
         <section class="phpdocumentor-description"><p>So far this is only used for repeating rows/columns (print titles) and print areas.</p>
 </section>
@@ -2122,7 +2122,7 @@ necessary.</p>
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">mixed</span>
+    <span class="phpdocumentor-signature__response_type">string</span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
@@ -2141,7 +2141,7 @@ necessary.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Workbook.php"><a href="files/src-phpspreadsheet-writer-xls-workbook.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Workbook.php">Workbook.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">494</span>
+    <span class="phpdocumentor-element-found-in__line">496</span>
 </aside>
 
         <p class="phpdocumentor-summary">Store the Excel FONT records.</p>
@@ -2175,7 +2175,7 @@ necessary.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Workbook.php"><a href="files/src-phpspreadsheet-writer-xls-workbook.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Workbook.php">Workbook.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">504</span>
+    <span class="phpdocumentor-element-found-in__line">506</span>
 </aside>
 
         <p class="phpdocumentor-summary">Store user defined numerical formats i.e. FORMAT records.</p>
@@ -2209,7 +2209,7 @@ necessary.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Workbook.php"><a href="files/src-phpspreadsheet-writer-xls-workbook.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Workbook.php">Workbook.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">524</span>
+    <span class="phpdocumentor-element-found-in__line">526</span>
 </aside>
 
         <p class="phpdocumentor-summary">Write all STYLE records.</p>
@@ -2243,7 +2243,7 @@ necessary.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Workbook.php"><a href="files/src-phpspreadsheet-writer-xls-workbook.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Workbook.php">Workbook.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">514</span>
+    <span class="phpdocumentor-element-found-in__line">516</span>
 </aside>
 
         <p class="phpdocumentor-summary">Write all XF records.</p>
@@ -2277,7 +2277,7 @@ necessary.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Workbook.php"><a href="files/src-phpspreadsheet-writer-xls-workbook.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Workbook.php">Workbook.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">848</span>
+    <span class="phpdocumentor-element-found-in__line">850</span>
 </aside>
 
         <p class="phpdocumentor-summary">Writes Excel BIFF BOUNDSHEET record.</p>
@@ -2330,7 +2330,7 @@ necessary.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Workbook.php"><a href="files/src-phpspreadsheet-writer-xls-workbook.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Workbook.php">Workbook.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">802</span>
+    <span class="phpdocumentor-element-found-in__line">804</span>
 </aside>
 
         <p class="phpdocumentor-summary">Stores the CODEPAGE biff record.</p>
@@ -2364,7 +2364,7 @@ necessary.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Workbook.php"><a href="files/src-phpspreadsheet-writer-xls-workbook.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Workbook.php">Workbook.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">977</span>
+    <span class="phpdocumentor-element-found-in__line">979</span>
 </aside>
 
         <p class="phpdocumentor-summary">Stores the COUNTRY record for localization.</p>
@@ -2398,7 +2398,7 @@ necessary.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Workbook.php"><a href="files/src-phpspreadsheet-writer-xls-workbook.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Workbook.php">Workbook.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">958</span>
+    <span class="phpdocumentor-element-found-in__line">960</span>
 </aside>
 
         <p class="phpdocumentor-summary">Write DATEMODE record to indicate the date system in use (1904 or 1900).</p>
@@ -2432,7 +2432,7 @@ necessary.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Workbook.php"><a href="files/src-phpspreadsheet-writer-xls-workbook.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Workbook.php">Workbook.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">733</span>
+    <span class="phpdocumentor-element-found-in__line">735</span>
 </aside>
 
         <p class="phpdocumentor-summary">Write a DEFINEDNAME record for BIFF8 using explicit binary formula data.</p>
@@ -2506,7 +2506,7 @@ necessary.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Workbook.php"><a href="files/src-phpspreadsheet-writer-xls-workbook.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Workbook.php">Workbook.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">904</span>
+    <span class="phpdocumentor-element-found-in__line">906</span>
 </aside>
 
         <p class="phpdocumentor-summary">Writes the Excel BIFF EXTERNSHEET record. These references are used by
@@ -2514,7 +2514,7 @@ formulas.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">writeExternalsheetBiff8</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                <span class="phpdocumentor-signature__name">writeExternalsheetBiff8</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -2522,7 +2522,7 @@ formulas.</p>
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">mixed</span>
+    <span class="phpdocumentor-signature__response_type">string</span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
@@ -2541,14 +2541,14 @@ formulas.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Workbook.php"><a href="files/src-phpspreadsheet-writer-xls-workbook.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Workbook.php">Workbook.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1158</span>
+    <span class="phpdocumentor-element-found-in__line">1160</span>
 </aside>
 
         <p class="phpdocumentor-summary">Writes the MSODRAWINGGROUP record if needed. Possibly split using CONTINUE records.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">writeMsoDrawingGroup</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                <span class="phpdocumentor-signature__name">writeMsoDrawingGroup</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -2556,7 +2556,7 @@ formulas.</p>
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">mixed</span>
+    <span class="phpdocumentor-signature__response_type">string</span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
@@ -2575,7 +2575,7 @@ formulas.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Workbook.php"><a href="files/src-phpspreadsheet-writer-xls-workbook.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Workbook.php">Workbook.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">943</span>
+    <span class="phpdocumentor-element-found-in__line">945</span>
 </aside>
 
         <p class="phpdocumentor-summary">Writes Excel FORMAT record for non &quot;built-in&quot; numerical formats.</p>
@@ -2630,7 +2630,7 @@ formulas.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Workbook.php"><a href="files/src-phpspreadsheet-writer-xls-workbook.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Workbook.php">Workbook.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1010</span>
+    <span class="phpdocumentor-element-found-in__line">1012</span>
 </aside>
 
         <p class="phpdocumentor-summary">Stores the PALETTE biff record.</p>
@@ -2664,7 +2664,7 @@ formulas.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Workbook.php"><a href="files/src-phpspreadsheet-writer-xls-workbook.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Workbook.php">Workbook.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">994</span>
+    <span class="phpdocumentor-element-found-in__line">996</span>
 </aside>
 
         <p class="phpdocumentor-summary">Write the RECALCID record.</p>
@@ -2698,7 +2698,7 @@ formulas.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Workbook.php"><a href="files/src-phpspreadsheet-writer-xls-workbook.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Workbook.php">Workbook.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1044</span>
+    <span class="phpdocumentor-element-found-in__line">1046</span>
 </aside>
 
         <p class="phpdocumentor-summary">Handling of the SST continue blocks is complicated by the need to include an
@@ -2741,7 +2741,7 @@ required so we will ignore it.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Workbook.php"><a href="files/src-phpspreadsheet-writer-xls-workbook.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Workbook.php">Workbook.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">769</span>
+    <span class="phpdocumentor-element-found-in__line">771</span>
 </aside>
 
         <p class="phpdocumentor-summary">Write a short NAME record.</p>
@@ -2813,7 +2813,7 @@ required so we will ignore it.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Workbook.php"><a href="files/src-phpspreadsheet-writer-xls-workbook.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Workbook.php">Workbook.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">923</span>
+    <span class="phpdocumentor-element-found-in__line">925</span>
 </aside>
 
         <p class="phpdocumentor-summary">Write Excel BIFF STYLE records.</p>
@@ -2847,14 +2847,14 @@ required so we will ignore it.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Workbook.php"><a href="files/src-phpspreadsheet-writer-xls-workbook.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Workbook.php">Workbook.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">889</span>
+    <span class="phpdocumentor-element-found-in__line">891</span>
 </aside>
 
         <p class="phpdocumentor-summary">Write Internal SUPBOOK record.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">writeSupbookInternal</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                <span class="phpdocumentor-signature__name">writeSupbookInternal</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -2862,7 +2862,7 @@ required so we will ignore it.</p>
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">mixed</span>
+    <span class="phpdocumentor-signature__response_type">string</span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
@@ -2881,7 +2881,7 @@ required so we will ignore it.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Workbook.php"><a href="files/src-phpspreadsheet-writer-xls-workbook.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Workbook.php">Workbook.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">817</span>
+    <span class="phpdocumentor-element-found-in__line">819</span>
 </aside>
 
         <p class="phpdocumentor-summary">Write Excel BIFF WINDOW1 record.</p>

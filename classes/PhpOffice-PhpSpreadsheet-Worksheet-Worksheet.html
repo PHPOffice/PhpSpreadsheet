@@ -93,7 +93,7 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">32</span>
+    <span class="phpdocumentor-element-found-in__line">34</span>
 </aside>
 
         
@@ -140,6 +140,13 @@
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html#constant_BREAK_ROW">BREAK_ROW</a>
     <span>
         &nbsp;= 1                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html#constant_BREAK_ROW_MAX_COLUMN">BREAK_ROW_MAX_COLUMN</a>
+    <span>
+        &nbsp;= 16383                    </span>
 </dt>
 <dd></dd>
 
@@ -214,13 +221,6 @@
 <dd>Autofilter Range and selection.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html#property_breaks">$breaks</a>
-    <span>
-                &nbsp;: array&lt;string|int, int&gt;            </span>
-</dt>
-<dd>Collection of breaks.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html#property_cachedHighestColumn">$cachedHighestColumn</a>
     <span>
                 &nbsp;: int            </span>
@@ -254,6 +254,13 @@
                 &nbsp;: string            </span>
 </dt>
 <dd>CodeName.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html#property_columnBreaks">$columnBreaks</a>
+    <span>
+                &nbsp;: array&lt;string|int, <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-PageBreak.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\PageBreak">PageBreak</abbr></a>&gt;            </span>
+</dt>
+<dd>Collection of column breaks.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html#property_columnDimensions">$columnDimensions</a>
@@ -401,6 +408,13 @@
                 &nbsp;: bool            </span>
 </dt>
 <dd>Right-to-left?</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html#property_rowBreaks">$rowBreaks</a>
+    <span>
+                &nbsp;: array&lt;string|int, <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-PageBreak.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\PageBreak">PageBreak</abbr></a>&gt;            </span>
+</dt>
+<dd>Collection of row breaks.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html#property_rowDimensions">$rowDimensions</a>
@@ -747,6 +761,13 @@ typically so that the worksheet object can be unset.</dd>
 <dd>Return the code name of the sheet.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html#method_getColumnBreaks">getColumnBreaks()</a>
+    <span>
+                        &nbsp;: array&lt;string|int, <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-PageBreak.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\PageBreak">PageBreak</abbr></a>&gt;    </span>
+</dt>
+<dd>Get row breaks.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html#method_getColumnDimension">getColumnDimension()</a>
     <span>
                         &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-ColumnDimension.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\ColumnDimension">ColumnDimension</abbr></a>    </span>
@@ -997,6 +1018,13 @@ typically so that the worksheet object can be unset.</dd>
                         &nbsp;: bool    </span>
 </dt>
 <dd>Get right-to-left.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html#method_getRowBreaks">getRowBreaks()</a>
+    <span>
+                        &nbsp;: array&lt;string|int, <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-PageBreak.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\PageBreak">PageBreak</abbr></a>&gt;    </span>
+</dt>
+<dd>Get row breaks.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html#method_getRowDimension">getRowDimension()</a>
@@ -1693,7 +1721,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">37</span>
+    <span class="phpdocumentor-element-found-in__line">39</span>
 </aside>
 
     
@@ -1718,7 +1746,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">35</span>
+    <span class="phpdocumentor-element-found-in__line">37</span>
 </aside>
 
     
@@ -1743,7 +1771,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">36</span>
+    <span class="phpdocumentor-element-found-in__line">38</span>
 </aside>
 
     
@@ -1760,6 +1788,31 @@ contains reference to another sheet or a named range.</dd>
 
 </article>
                     <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_BREAK_ROW_MAX_COLUMN">
+        BREAK_ROW_MAX_COLUMN
+        <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html#constant_BREAK_ROW_MAX_COLUMN" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">41</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">BREAK_ROW_MAX_COLUMN</span>
+    = <span class="phpdocumentor-signature__default-value">16383</span>
+</code>
+
+
+    
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_MERGE_CELL_CONTENT_EMPTY">
         MERGE_CELL_CONTENT_EMPTY
         <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html#constant_MERGE_CELL_CONTENT_EMPTY" class="headerlink"><i class="fas fa-link"></i></a>
@@ -1768,7 +1821,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">44</span>
+    <span class="phpdocumentor-element-found-in__line">48</span>
 </aside>
 
     
@@ -1793,7 +1846,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">45</span>
+    <span class="phpdocumentor-element-found-in__line">49</span>
 </aside>
 
     
@@ -1818,7 +1871,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">46</span>
+    <span class="phpdocumentor-element-found-in__line">50</span>
 </aside>
 
     
@@ -1843,7 +1896,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">55</span>
+    <span class="phpdocumentor-element-found-in__line">59</span>
 </aside>
 
         <p class="phpdocumentor-summary">Maximum 31 characters allowed for sheet title.</p>
@@ -1870,7 +1923,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">41</span>
+    <span class="phpdocumentor-element-found-in__line">45</span>
 </aside>
 
     
@@ -1895,7 +1948,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">42</span>
+    <span class="phpdocumentor-element-found-in__line">46</span>
 </aside>
 
     
@@ -1920,7 +1973,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">40</span>
+    <span class="phpdocumentor-element-found-in__line">44</span>
 </aside>
 
     
@@ -1945,7 +1998,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">48</span>
+    <span class="phpdocumentor-element-found-in__line">52</span>
 </aside>
 
     
@@ -1985,7 +2038,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">279</span>
+    <span class="phpdocumentor-element-found-in__line">290</span>
 </aside>
 
         <p class="phpdocumentor-summary">Active cell. (Only one!).</p>
@@ -2017,7 +2070,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">216</span>
+    <span class="phpdocumentor-element-found-in__line">227</span>
 </aside>
 
         <p class="phpdocumentor-summary">Autofilter Range and selection.</p>
@@ -2040,38 +2093,6 @@ contains reference to another sheet or a named range.</dd>
             -private
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="property_breaks">
-        $breaks
-        <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html#property_breaks" class="headerlink"><i class="fas fa-link"></i></a>
-        <span class="phpdocumentor-element__modifiers">
-                                </span>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">195</span>
-</aside>
-
-        <p class="phpdocumentor-summary">Collection of breaks.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type">array&lt;string|int, int&gt;</span>
-    <span class="phpdocumentor-signature__name">$breaks</span>
-     = <span class="phpdocumentor-signature__default-value">[]</span></code>
-
-        <section class="phpdocumentor-description"></section>
-
-    
-
-</article>
-                    <article
-        class="
-            phpdocumentor-element
-            -property
-            -private
-                                                        "
->
     <h4 class="phpdocumentor-element__name" id="property_cachedHighestColumn">
         $cachedHighestColumn
         <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html#property_cachedHighestColumn" class="headerlink"><i class="fas fa-link"></i></a>
@@ -2081,7 +2102,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">293</span>
+    <span class="phpdocumentor-element-found-in__line">304</span>
 </aside>
 
         <p class="phpdocumentor-summary">Cached highest column.</p>
@@ -2113,7 +2134,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">300</span>
+    <span class="phpdocumentor-element-found-in__line">311</span>
 </aside>
 
         <p class="phpdocumentor-summary">Cached highest row.</p>
@@ -2145,7 +2166,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">76</span>
+    <span class="phpdocumentor-element-found-in__line">80</span>
 </aside>
 
         <p class="phpdocumentor-summary">Collection of cells.</p>
@@ -2177,7 +2198,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">118</span>
+    <span class="phpdocumentor-element-found-in__line">122</span>
 </aside>
 
         <p class="phpdocumentor-summary">Collection of Chart objects.</p>
@@ -2209,7 +2230,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">349</span>
+    <span class="phpdocumentor-element-found-in__line">360</span>
 </aside>
 
         <p class="phpdocumentor-summary">CodeName.</p>
@@ -2232,6 +2253,38 @@ contains reference to another sheet or a named range.</dd>
             -private
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="property_columnBreaks">
+        $columnBreaks
+        <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html#property_columnBreaks" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">206</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Collection of column breaks.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">array&lt;string|int, <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-PageBreak.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\PageBreak">PageBreak</abbr></a>&gt;</span>
+    <span class="phpdocumentor-signature__name">$columnBreaks</span>
+     = <span class="phpdocumentor-signature__default-value">[]</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="property_columnDimensions">
         $columnDimensions
         <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html#property_columnDimensions" class="headerlink"><i class="fas fa-link"></i></a>
@@ -2241,7 +2294,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">97</span>
+    <span class="phpdocumentor-element-found-in__line">101</span>
 </aside>
 
         <p class="phpdocumentor-summary">Collection of column dimensions.</p>
@@ -2273,7 +2326,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">272</span>
+    <span class="phpdocumentor-element-found-in__line">283</span>
 </aside>
 
         <p class="phpdocumentor-summary">Collection of comments.</p>
@@ -2305,7 +2358,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">188</span>
+    <span class="phpdocumentor-element-found-in__line">192</span>
 </aside>
 
         <p class="phpdocumentor-summary">Conditional styles. Indexed by cell coordinate, e.g. &#039;A1&#039;.</p>
@@ -2337,7 +2390,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">321</span>
+    <span class="phpdocumentor-element-found-in__line">332</span>
 </aside>
 
         <p class="phpdocumentor-summary">Data validation objects. Indexed by cell coordinate, e.g. &#039;A1&#039;.</p>
@@ -2369,7 +2422,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">104</span>
+    <span class="phpdocumentor-element-found-in__line">108</span>
 </aside>
 
         <p class="phpdocumentor-summary">Default column dimension.</p>
@@ -2401,7 +2454,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">90</span>
+    <span class="phpdocumentor-element-found-in__line">94</span>
 </aside>
 
         <p class="phpdocumentor-summary">Default row dimension.</p>
@@ -2433,7 +2486,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">335</span>
+    <span class="phpdocumentor-element-found-in__line">346</span>
 </aside>
 
         <p class="phpdocumentor-summary">Dirty flag.</p>
@@ -2465,7 +2518,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">111</span>
+    <span class="phpdocumentor-element-found-in__line">115</span>
 </aside>
 
         <p class="phpdocumentor-summary">Collection of drawings.</p>
@@ -2497,7 +2550,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">223</span>
+    <span class="phpdocumentor-element-found-in__line">234</span>
 </aside>
 
         <p class="phpdocumentor-summary">Freeze pane.</p>
@@ -2529,7 +2582,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">342</span>
+    <span class="phpdocumentor-element-found-in__line">353</span>
 </aside>
 
         <p class="phpdocumentor-summary">Hash.</p>
@@ -2561,7 +2614,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">160</span>
+    <span class="phpdocumentor-element-found-in__line">164</span>
 </aside>
 
         <p class="phpdocumentor-summary">Page header/footer.</p>
@@ -2593,7 +2646,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">314</span>
+    <span class="phpdocumentor-element-found-in__line">325</span>
 </aside>
 
         <p class="phpdocumentor-summary">Hyperlinks. Indexed by cell coordinate, e.g. &#039;A1&#039;.</p>
@@ -2625,7 +2678,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">62</span>
+    <span class="phpdocumentor-element-found-in__line">66</span>
 </aside>
 
         <p class="phpdocumentor-summary">Invalid characters in sheet title.</p>
@@ -2657,7 +2710,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">202</span>
+    <span class="phpdocumentor-element-found-in__line">213</span>
 </aside>
 
         <p class="phpdocumentor-summary">Collection of merged cell ranges.</p>
@@ -2689,7 +2742,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">153</span>
+    <span class="phpdocumentor-element-found-in__line">157</span>
 </aside>
 
         <p class="phpdocumentor-summary">Page margins.</p>
@@ -2721,7 +2774,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">146</span>
+    <span class="phpdocumentor-element-found-in__line">150</span>
 </aside>
 
         <p class="phpdocumentor-summary">Page setup.</p>
@@ -2753,7 +2806,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">69</span>
+    <span class="phpdocumentor-element-found-in__line">73</span>
 </aside>
 
         <p class="phpdocumentor-summary">Parent spreadsheet.</p>
@@ -2785,7 +2838,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">244</span>
+    <span class="phpdocumentor-element-found-in__line">255</span>
 </aside>
 
         <p class="phpdocumentor-summary">Print gridlines?</p>
@@ -2817,7 +2870,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">209</span>
+    <span class="phpdocumentor-element-found-in__line">220</span>
 </aside>
 
         <p class="phpdocumentor-summary">Collection of protected cell ranges.</p>
@@ -2849,7 +2902,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">174</span>
+    <span class="phpdocumentor-element-found-in__line">178</span>
 </aside>
 
         <p class="phpdocumentor-summary">Protection.</p>
@@ -2881,7 +2934,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">307</span>
+    <span class="phpdocumentor-element-found-in__line">318</span>
 </aside>
 
         <p class="phpdocumentor-summary">Right-to-left?</p>
@@ -2904,6 +2957,38 @@ contains reference to another sheet or a named range.</dd>
             -private
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="property_rowBreaks">
+        $rowBreaks
+        <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html#property_rowBreaks" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">199</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Collection of row breaks.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">array&lt;string|int, <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-PageBreak.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\PageBreak">PageBreak</abbr></a>&gt;</span>
+    <span class="phpdocumentor-signature__name">$rowBreaks</span>
+     = <span class="phpdocumentor-signature__default-value">[]</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="property_rowDimensions">
         $rowDimensions
         <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html#property_rowDimensions" class="headerlink"><i class="fas fa-link"></i></a>
@@ -2913,7 +2998,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">83</span>
+    <span class="phpdocumentor-element-found-in__line">87</span>
 </aside>
 
         <p class="phpdocumentor-summary">Collection of row dimensions.</p>
@@ -2945,7 +3030,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2248</span>
+    <span class="phpdocumentor-element-found-in__line">2292</span>
 </aside>
 
     
@@ -2976,7 +3061,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2245</span>
+    <span class="phpdocumentor-element-found-in__line">2289</span>
 </aside>
 
     
@@ -3007,7 +3092,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">286</span>
+    <span class="phpdocumentor-element-found-in__line">297</span>
 </aside>
 
         <p class="phpdocumentor-summary">Selected cells.</p>
@@ -3039,7 +3124,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">139</span>
+    <span class="phpdocumentor-element-found-in__line">143</span>
 </aside>
 
         <p class="phpdocumentor-summary">Sheet state.</p>
@@ -3071,7 +3156,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">167</span>
+    <span class="phpdocumentor-element-found-in__line">171</span>
 </aside>
 
         <p class="phpdocumentor-summary">Sheet view.</p>
@@ -3103,7 +3188,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">237</span>
+    <span class="phpdocumentor-element-found-in__line">248</span>
 </aside>
 
         <p class="phpdocumentor-summary">Show gridlines?</p>
@@ -3135,7 +3220,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">251</span>
+    <span class="phpdocumentor-element-found-in__line">262</span>
 </aside>
 
         <p class="phpdocumentor-summary">Show row and column headers?</p>
@@ -3167,7 +3252,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">258</span>
+    <span class="phpdocumentor-element-found-in__line">269</span>
 </aside>
 
         <p class="phpdocumentor-summary">Show summary below? (Row/Column outline).</p>
@@ -3199,7 +3284,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">265</span>
+    <span class="phpdocumentor-element-found-in__line">276</span>
 </aside>
 
         <p class="phpdocumentor-summary">Show summary right? (Row/Column outline).</p>
@@ -3231,7 +3316,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">181</span>
+    <span class="phpdocumentor-element-found-in__line">185</span>
 </aside>
 
         <p class="phpdocumentor-summary">Collection of styles.</p>
@@ -3263,7 +3348,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">328</span>
+    <span class="phpdocumentor-element-found-in__line">339</span>
 </aside>
 
         <p class="phpdocumentor-summary">Tab color.</p>
@@ -3295,7 +3380,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">125</span>
+    <span class="phpdocumentor-element-found-in__line">129</span>
 </aside>
 
         <p class="phpdocumentor-summary">Collection of Table objects.</p>
@@ -3327,7 +3412,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">132</span>
+    <span class="phpdocumentor-element-found-in__line">136</span>
 </aside>
 
         <p class="phpdocumentor-summary">Worksheet title.</p>
@@ -3359,7 +3444,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">230</span>
+    <span class="phpdocumentor-element-found-in__line">241</span>
 </aside>
 
         <p class="phpdocumentor-summary">Default position of the right bottom pane.</p>
@@ -3395,7 +3480,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3481</span>
+    <span class="phpdocumentor-element-found-in__line">3525</span>
 </aside>
 
         <p class="phpdocumentor-summary">Implement PHP __clone to create a deep clone, not just a shallow copy.</p>
@@ -3429,7 +3514,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">356</span>
+    <span class="phpdocumentor-element-found-in__line">367</span>
 </aside>
 
         <p class="phpdocumentor-summary">Create a new worksheet.</p>
@@ -3481,7 +3566,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">408</span>
+    <span class="phpdocumentor-element-found-in__line">419</span>
 </aside>
 
         <p class="phpdocumentor-summary">Code to execute when this worksheet is unset().</p>
@@ -3515,7 +3600,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">575</span>
+    <span class="phpdocumentor-element-found-in__line">586</span>
 </aside>
 
         <p class="phpdocumentor-summary">Add chart.</p>
@@ -3568,7 +3653,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2221</span>
+    <span class="phpdocumentor-element-found-in__line">2265</span>
 </aside>
 
         <p class="phpdocumentor-summary">Add Table.</p>
@@ -3612,7 +3697,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">716</span>
+    <span class="phpdocumentor-element-found-in__line">727</span>
 </aside>
 
         <p class="phpdocumentor-summary">Calculate widths for auto-size columns.</p>
@@ -3646,7 +3731,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">705</span>
+    <span class="phpdocumentor-element-found-in__line">716</span>
 </aside>
 
         <p class="phpdocumentor-summary">Calculate worksheet data dimension.</p>
@@ -3681,7 +3766,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">694</span>
+    <span class="phpdocumentor-element-found-in__line">705</span>
 </aside>
 
         <p class="phpdocumentor-summary">Calculate worksheet dimension.</p>
@@ -3716,7 +3801,7 @@ contains reference to another sheet or a named range.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1414</span>
+    <span class="phpdocumentor-element-found-in__line">1430</span>
 </aside>
 
         <p class="phpdocumentor-summary">Does the cell at a specific coordinate exist?</p>
@@ -3763,7 +3848,7 @@ or as an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress object.</
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1434</span>
+    <span class="phpdocumentor-element-found-in__line">1450</span>
 </aside>
 
         <p class="phpdocumentor-summary">Cell at a specific coordinate by using numeric cell coordinates exists?</p>
@@ -3844,7 +3929,7 @@ or passing in an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress o
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1605</span>
+    <span class="phpdocumentor-element-found-in__line">1621</span>
 </aside>
 
         <p class="phpdocumentor-summary">Do conditional styles exist for this cell?</p>
@@ -3894,7 +3979,7 @@ range of the conditional.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3413</span>
+    <span class="phpdocumentor-element-found-in__line">3457</span>
 </aside>
 
         <p class="phpdocumentor-summary">Copy worksheet (!= clone!).</p>
@@ -3928,7 +4013,7 @@ range of the conditional.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1372</span>
+    <span class="phpdocumentor-element-found-in__line">1388</span>
 </aside>
 
         <p class="phpdocumentor-summary">Create a new cell at the specified coordinate.</p>
@@ -3980,7 +4065,7 @@ the active cell has changed.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3321</span>
+    <span class="phpdocumentor-element-found-in__line">3365</span>
 </aside>
 
         <p class="phpdocumentor-summary">Data validation at a specific coordinate exists?</p>
@@ -4026,7 +4111,7 @@ the active cell has changed.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">394</span>
+    <span class="phpdocumentor-element-found-in__line">405</span>
 </aside>
 
         <p class="phpdocumentor-summary">Disconnect all cells from this Worksheet object,
@@ -4061,7 +4146,7 @@ typically so that the worksheet object can be unset.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1714</span>
+    <span class="phpdocumentor-element-found-in__line">1730</span>
 </aside>
 
         <p class="phpdocumentor-summary">Duplicate conditional style to a range of cells.</p>
@@ -4117,7 +4202,7 @@ typically so that the worksheet object can be unset.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1671</span>
+    <span class="phpdocumentor-element-found-in__line">1687</span>
 </aside>
 
         <p class="phpdocumentor-summary">Duplicate cell style to a range of cells.</p>
@@ -4173,7 +4258,7 @@ typically so that the worksheet object can be unset.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3198</span>
+    <span class="phpdocumentor-element-found-in__line">3242</span>
 </aside>
 
         <p class="phpdocumentor-summary">Extract worksheet title from range.</p>
@@ -4234,7 +4319,7 @@ Example: extractSheetTitle(&quot;A1:C3&quot;, true) ==&gt; ['', 'A1:C3']</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2336</span>
+    <span class="phpdocumentor-element-found-in__line">2380</span>
 </aside>
 
         <p class="phpdocumentor-summary">Freeze Pane.</p>
@@ -4299,7 +4384,7 @@ or a CellAddress object.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2379</span>
+    <span class="phpdocumentor-element-found-in__line">2423</span>
 </aside>
 
         <p class="phpdocumentor-summary">Freeze Pane by using numeric cell coordinates.</p>
@@ -4380,7 +4465,7 @@ or passing in an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress o
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2914</span>
+    <span class="phpdocumentor-element-found-in__line">2958</span>
 </aside>
 
         <p class="phpdocumentor-summary">Fill worksheet from values in array.</p>
@@ -4453,7 +4538,7 @@ or passing in an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress o
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3136</span>
+    <span class="phpdocumentor-element-found-in__line">3180</span>
 </aside>
 
         <p class="phpdocumentor-summary">Run PhpSpreadsheet garbage collector.</p>
@@ -4487,7 +4572,7 @@ or passing in an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress o
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2808</span>
+    <span class="phpdocumentor-element-found-in__line">2852</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get active cell.</p>
@@ -4522,7 +4607,7 @@ or passing in an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress o
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2142</span>
+    <span class="phpdocumentor-element-found-in__line">2186</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get Autofilter.</p>
@@ -4556,7 +4641,7 @@ or passing in an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress o
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1790</span>
+    <span class="phpdocumentor-element-found-in__line">1806</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get breaks.</p>
@@ -4590,7 +4675,7 @@ or passing in an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress o
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1248</span>
+    <span class="phpdocumentor-element-found-in__line">1264</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get cell at a specific coordinate.</p>
@@ -4643,7 +4728,7 @@ the active cell has changed.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1355</span>
+    <span class="phpdocumentor-element-found-in__line">1371</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get cell at a specific coordinate by using numeric cell coordinates.</p>
@@ -4730,7 +4815,7 @@ the active cell has changed.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">421</span>
+    <span class="phpdocumentor-element-found-in__line">432</span>
 </aside>
 
         <p class="phpdocumentor-summary">Return the cell collection.</p>
@@ -4764,7 +4849,7 @@ the active cell has changed.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">606</span>
+    <span class="phpdocumentor-element-found-in__line">617</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get a chart by its index position.</p>
@@ -4810,7 +4895,7 @@ the active cell has changed.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">644</span>
+    <span class="phpdocumentor-element-found-in__line">655</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get a chart by name.</p>
@@ -4856,7 +4941,7 @@ the active cell has changed.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">563</span>
+    <span class="phpdocumentor-element-found-in__line">574</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get collection of charts.</p>
@@ -4890,7 +4975,7 @@ the active cell has changed.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">594</span>
+    <span class="phpdocumentor-element-found-in__line">605</span>
 </aside>
 
         <p class="phpdocumentor-summary">Return the count of charts on this worksheet.</p>
@@ -4925,7 +5010,7 @@ the active cell has changed.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">627</span>
+    <span class="phpdocumentor-element-found-in__line">638</span>
 </aside>
 
         <p class="phpdocumentor-summary">Return an array of the names of charts on this worksheet.</p>
@@ -4960,7 +5045,7 @@ the active cell has changed.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3576</span>
+    <span class="phpdocumentor-element-found-in__line">3620</span>
 </aside>
 
         <p class="phpdocumentor-summary">Return the code name of the sheet.</p>
@@ -4987,6 +5072,40 @@ the active cell has changed.</p>
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_getColumnBreaks">
+        getColumnBreaks()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html#method_getColumnBreaks" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">1834</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Get row breaks.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">getColumnBreaks</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-PageBreak.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\PageBreak">PageBreak</abbr></a>&gt;</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">array&lt;string|int, <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-PageBreak.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\PageBreak">PageBreak</abbr></a>&gt;</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_getColumnDimension">
         getColumnDimension()
         <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html#method_getColumnDimension" class="headerlink"><i class="fas fa-link"></i></a>
@@ -4994,7 +5113,7 @@ the active cell has changed.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1466</span>
+    <span class="phpdocumentor-element-found-in__line">1482</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get column dimension at a specific column.</p>
@@ -5040,7 +5159,7 @@ the active cell has changed.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1489</span>
+    <span class="phpdocumentor-element-found-in__line">1505</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get column dimension at a specific column by using numeric cell coordinates.</p>
@@ -5086,7 +5205,7 @@ the active cell has changed.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">533</span>
+    <span class="phpdocumentor-element-found-in__line">544</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get collection of column dimensions.</p>
@@ -5120,7 +5239,7 @@ the active cell has changed.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3126</span>
+    <span class="phpdocumentor-element-found-in__line">3170</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get column iterator.</p>
@@ -5175,7 +5294,7 @@ the active cell has changed.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2763</span>
+    <span class="phpdocumentor-element-found-in__line">2807</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get comment for cell.</p>
@@ -5222,7 +5341,7 @@ or as an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress object.</
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2798</span>
+    <span class="phpdocumentor-element-found-in__line">2842</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get comment for cell by using numeric cell coordinates.</p>
@@ -5303,7 +5422,7 @@ or passing in an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress o
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2711</span>
+    <span class="phpdocumentor-element-found-in__line">2755</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get comments.</p>
@@ -5337,7 +5456,7 @@ or passing in an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress o
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1583</span>
+    <span class="phpdocumentor-element-found-in__line">1599</span>
 </aside>
 
     
@@ -5379,7 +5498,7 @@ or passing in an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress o
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1566</span>
+    <span class="phpdocumentor-element-found-in__line">1582</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get conditional styles for a cell.</p>
@@ -5429,7 +5548,7 @@ range of the conditional.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1641</span>
+    <span class="phpdocumentor-element-found-in__line">1657</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get collection of conditional styles.</p>
@@ -5463,7 +5582,7 @@ range of the conditional.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">495</span>
+    <span class="phpdocumentor-element-found-in__line">506</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get a sorted list of all cell coordinates currently held in the collection by row and column.</p>
@@ -5509,7 +5628,7 @@ range of the conditional.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3283</span>
+    <span class="phpdocumentor-element-found-in__line">3327</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get data validation.</p>
@@ -5555,7 +5674,7 @@ range of the conditional.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3331</span>
+    <span class="phpdocumentor-element-found-in__line">3375</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get collection of data validations.</p>
@@ -5589,7 +5708,7 @@ range of the conditional.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">543</span>
+    <span class="phpdocumentor-element-found-in__line">554</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get default column dimension.</p>
@@ -5623,7 +5742,7 @@ range of the conditional.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">523</span>
+    <span class="phpdocumentor-element-found-in__line">534</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get default row dimension.</p>
@@ -5657,7 +5776,7 @@ range of the conditional.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">553</span>
+    <span class="phpdocumentor-element-found-in__line">564</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get collection of drawings.</p>
@@ -5691,7 +5810,7 @@ range of the conditional.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2313</span>
+    <span class="phpdocumentor-element-found-in__line">2357</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get Freeze Pane.</p>
@@ -5725,7 +5844,7 @@ range of the conditional.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3173</span>
+    <span class="phpdocumentor-element-found-in__line">3217</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get hash code.</p>
@@ -5760,7 +5879,7 @@ range of the conditional.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1011</span>
+    <span class="phpdocumentor-element-found-in__line">1025</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get page header/footer.</p>
@@ -5794,7 +5913,7 @@ range of the conditional.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1081</span>
+    <span class="phpdocumentor-element-found-in__line">1095</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get highest worksheet column.</p>
@@ -5842,7 +5961,7 @@ or the highest column of any row if no row number is passed</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1098</span>
+    <span class="phpdocumentor-element-found-in__line">1112</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get highest worksheet column that contains data.</p>
@@ -5890,7 +6009,7 @@ or the highest data column of any row if no row number is passed</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1128</span>
+    <span class="phpdocumentor-element-found-in__line">1142</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get highest worksheet row that contains data.</p>
@@ -5938,7 +6057,7 @@ or the highest data row of any column if no column letter is passed</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1111</span>
+    <span class="phpdocumentor-element-found-in__line">1125</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get highest worksheet row.</p>
@@ -5986,7 +6105,7 @@ or the highest row of any column if no column letter is passed</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1138</span>
+    <span class="phpdocumentor-element-found-in__line">1152</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get highest worksheet column and highest row that have cell records.</p>
@@ -6021,7 +6140,7 @@ or the highest row of any column if no column letter is passed</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3223</span>
+    <span class="phpdocumentor-element-found-in__line">3267</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get hyperlink.</p>
@@ -6067,7 +6186,7 @@ or the highest row of any column if no column letter is passed</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3271</span>
+    <span class="phpdocumentor-element-found-in__line">3315</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get collection of hyperlinks.</p>
@@ -6101,7 +6220,7 @@ or the highest row of any column if no column letter is passed</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">431</span>
+    <span class="phpdocumentor-element-found-in__line">442</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get array of invalid characters for sheet title.</p>
@@ -6135,7 +6254,7 @@ or the highest row of any column if no column letter is passed</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2008</span>
+    <span class="phpdocumentor-element-found-in__line">2052</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get merge cells array.</p>
@@ -6169,7 +6288,7 @@ or the highest row of any column if no column letter is passed</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">989</span>
+    <span class="phpdocumentor-element-found-in__line">1003</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get page margins.</p>
@@ -6203,7 +6322,7 @@ or the highest row of any column if no column letter is passed</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">967</span>
+    <span class="phpdocumentor-element-found-in__line">981</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get page setup.</p>
@@ -6237,7 +6356,7 @@ or the highest row of any column if no column letter is passed</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">817</span>
+    <span class="phpdocumentor-element-found-in__line">831</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get parent or null.</p>
@@ -6271,7 +6390,7 @@ or the highest row of any column if no column letter is passed</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">825</span>
+    <span class="phpdocumentor-element-found-in__line">839</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get parent, throw exception if null.</p>
@@ -6305,7 +6424,7 @@ or the highest row of any column if no column letter is passed</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2621</span>
+    <span class="phpdocumentor-element-found-in__line">2665</span>
 </aside>
 
         <p class="phpdocumentor-summary">Print gridlines?</p>
@@ -6339,7 +6458,7 @@ or the highest row of any column if no column letter is passed</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2132</span>
+    <span class="phpdocumentor-element-found-in__line">2176</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get protected cells.</p>
@@ -6373,7 +6492,7 @@ or the highest row of any column if no column letter is passed</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1055</span>
+    <span class="phpdocumentor-element-found-in__line">1069</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get Protection.</p>
@@ -6407,7 +6526,7 @@ or the highest row of any column if no column letter is passed</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2885</span>
+    <span class="phpdocumentor-element-found-in__line">2929</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get right-to-left.</p>
@@ -6434,6 +6553,40 @@ or the highest row of any column if no column letter is passed</p>
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_getRowBreaks">
+        getRowBreaks()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html#method_getRowBreaks" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">1824</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Get row breaks.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">getRowBreaks</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-PageBreak.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\PageBreak">PageBreak</abbr></a>&gt;</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">array&lt;string|int, <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-PageBreak.html"><abbr title="\PhpOffice\PhpSpreadsheet\Worksheet\PageBreak">PageBreak</abbr></a>&gt;</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_getRowDimension">
         getRowDimension()
         <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-Worksheet.html#method_getRowDimension" class="headerlink"><i class="fas fa-link"></i></a>
@@ -6441,7 +6594,7 @@ or the highest row of any column if no column letter is passed</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1444</span>
+    <span class="phpdocumentor-element-found-in__line">1460</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get row dimension at a specific row.</p>
@@ -6487,7 +6640,7 @@ or the highest row of any column if no column letter is passed</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">513</span>
+    <span class="phpdocumentor-element-found-in__line">524</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get collection of row dimensions.</p>
@@ -6521,7 +6674,7 @@ or the highest row of any column if no column letter is passed</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3113</span>
+    <span class="phpdocumentor-element-found-in__line">3157</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get row iterator.</p>
@@ -6576,7 +6729,7 @@ or the highest row of any column if no column letter is passed</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2818</span>
+    <span class="phpdocumentor-element-found-in__line">2862</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get selected cells.</p>
@@ -6610,7 +6763,7 @@ or the highest row of any column if no column letter is passed</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">943</span>
+    <span class="phpdocumentor-element-found-in__line">957</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get sheet state.</p>
@@ -6645,7 +6798,7 @@ or the highest row of any column if no column letter is passed</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1033</span>
+    <span class="phpdocumentor-element-found-in__line">1047</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get sheet view.</p>
@@ -6679,7 +6832,7 @@ or the highest row of any column if no column letter is passed</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2599</span>
+    <span class="phpdocumentor-element-found-in__line">2643</span>
 </aside>
 
         <p class="phpdocumentor-summary">Show gridlines?</p>
@@ -6713,7 +6866,7 @@ or the highest row of any column if no column letter is passed</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2643</span>
+    <span class="phpdocumentor-element-found-in__line">2687</span>
 </aside>
 
         <p class="phpdocumentor-summary">Show row and column headers?</p>
@@ -6747,7 +6900,7 @@ or the highest row of any column if no column letter is passed</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2665</span>
+    <span class="phpdocumentor-element-found-in__line">2709</span>
 </aside>
 
         <p class="phpdocumentor-summary">Show summary below? (Row/Column outlining).</p>
@@ -6781,7 +6934,7 @@ or the highest row of any column if no column letter is passed</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2687</span>
+    <span class="phpdocumentor-element-found-in__line">2731</span>
 </aside>
 
         <p class="phpdocumentor-summary">Show summary right? (Row/Column outlining).</p>
@@ -6815,7 +6968,7 @@ or the highest row of any column if no column letter is passed</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1512</span>
+    <span class="phpdocumentor-element-found-in__line">1528</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get style for cell.</p>
@@ -6863,7 +7016,7 @@ or a CellAddress or AddressRange object.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1541</span>
+    <span class="phpdocumentor-element-found-in__line">1557</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get style for cell by using numeric cell coordinates.</p>
@@ -6963,7 +7116,7 @@ or an AddressRange object.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1499</span>
+    <span class="phpdocumentor-element-found-in__line">1515</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get styles.</p>
@@ -6997,7 +7150,7 @@ or an AddressRange object.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3377</span>
+    <span class="phpdocumentor-element-found-in__line">3421</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get tab color.</p>
@@ -7031,7 +7184,7 @@ or an AddressRange object.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2255</span>
+    <span class="phpdocumentor-element-found-in__line">2299</span>
 </aside>
 
     
@@ -7077,7 +7230,7 @@ or an AddressRange object.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2211</span>
+    <span class="phpdocumentor-element-found-in__line">2255</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get collection of Tables.</p>
@@ -7111,7 +7264,7 @@ or an AddressRange object.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2232</span>
+    <span class="phpdocumentor-element-found-in__line">2276</span>
 </aside>
 
     
@@ -7145,7 +7298,7 @@ or an AddressRange object.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">861</span>
+    <span class="phpdocumentor-element-found-in__line">875</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get title.</p>
@@ -7179,7 +7332,7 @@ or an AddressRange object.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2399</span>
+    <span class="phpdocumentor-element-found-in__line">2443</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get the default position of the right bottom pane.</p>
@@ -7213,7 +7366,7 @@ or an AddressRange object.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3586</span>
+    <span class="phpdocumentor-element-found-in__line">3630</span>
 </aside>
 
         <p class="phpdocumentor-summary">Sheet has a code name ?</p>
@@ -7247,7 +7400,7 @@ or an AddressRange object.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3261</span>
+    <span class="phpdocumentor-element-found-in__line">3305</span>
 </aside>
 
         <p class="phpdocumentor-summary">Hyperlink at a specific coordinate exists?</p>
@@ -7293,7 +7446,7 @@ or an AddressRange object.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2432</span>
+    <span class="phpdocumentor-element-found-in__line">2476</span>
 </aside>
 
         <p class="phpdocumentor-summary">Insert a new column, updating all possible related data.</p>
@@ -7348,7 +7501,7 @@ or an AddressRange object.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2452</span>
+    <span class="phpdocumentor-element-found-in__line">2496</span>
 </aside>
 
         <p class="phpdocumentor-summary">Insert a new column, updating all possible related data.</p>
@@ -7403,7 +7556,7 @@ or an AddressRange object.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2412</span>
+    <span class="phpdocumentor-element-found-in__line">2456</span>
 </aside>
 
         <p class="phpdocumentor-summary">Insert a new row, updating all possible related data.</p>
@@ -7458,7 +7611,7 @@ or an AddressRange object.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3465</span>
+    <span class="phpdocumentor-element-found-in__line">3509</span>
 </aside>
 
         <p class="phpdocumentor-summary">Returns a boolean true if the specified column contains no cells. By default, this means that no cell records
@@ -7522,7 +7675,7 @@ CellIterator::TREAT_EMPTY_STRING_AS_EMPTY_CELL</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3435</span>
+    <span class="phpdocumentor-element-found-in__line">3479</span>
 </aside>
 
         <p class="phpdocumentor-summary">Returns a boolean true if the specified row contains no cells. By default, this means that no cell records
@@ -7586,7 +7739,7 @@ CellIterator::TREAT_EMPTY_STRING_AS_EMPTY_CELL</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3403</span>
+    <span class="phpdocumentor-element-found-in__line">3447</span>
 </aside>
 
         <p class="phpdocumentor-summary">Tab color set?</p>
@@ -7620,7 +7773,7 @@ CellIterator::TREAT_EMPTY_STRING_AS_EMPTY_CELL</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1904</span>
+    <span class="phpdocumentor-element-found-in__line">1948</span>
 </aside>
 
     
@@ -7683,7 +7836,7 @@ CellIterator::TREAT_EMPTY_STRING_AS_EMPTY_CELL</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1809</span>
+    <span class="phpdocumentor-element-found-in__line">1853</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set merge on a cell range.</p>
@@ -7744,7 +7897,7 @@ MERGE_CELL_CONTENT_MERGE - Move the content of the hidden cells into the first c
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1941</span>
+    <span class="phpdocumentor-element-found-in__line">1985</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set merge on a cell range by using numeric cell coordinates.</p>
@@ -7857,7 +8010,7 @@ or an AddressRange object.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3065</span>
+    <span class="phpdocumentor-element-found-in__line">3109</span>
 </aside>
 
         <p class="phpdocumentor-summary">Create array from a range of cells.</p>
@@ -7940,7 +8093,7 @@ True - Return rows and columns indexed by their actual row and column IDs</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3591</span>
+    <span class="phpdocumentor-element-found-in__line">3635</span>
 </aside>
 
     
@@ -7982,7 +8135,7 @@ True - Return rows and columns indexed by their actual row and column IDs</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2039</span>
+    <span class="phpdocumentor-element-found-in__line">2083</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set protection on a cell or cell range.</p>
@@ -8048,7 +8201,7 @@ or a CellAddress or AddressRange object.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2069</span>
+    <span class="phpdocumentor-element-found-in__line">2113</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set protection on a cell range by using numeric cell coordinates.</p>
@@ -8166,7 +8319,7 @@ or an AddressRange object.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2959</span>
+    <span class="phpdocumentor-element-found-in__line">3003</span>
 </aside>
 
         <p class="phpdocumentor-summary">Create array from a range of cells.</p>
@@ -8249,7 +8402,7 @@ True - Return rows and columns indexed by their actual row and column IDs</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">839</span>
+    <span class="phpdocumentor-element-found-in__line">853</span>
 </aside>
 
         <p class="phpdocumentor-summary">Re-bind parent.</p>
@@ -8293,7 +8446,7 @@ True - Return rows and columns indexed by their actual row and column IDs</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">660</span>
+    <span class="phpdocumentor-element-found-in__line">671</span>
 </aside>
 
         <p class="phpdocumentor-summary">Refresh column dimensions.</p>
@@ -8327,7 +8480,7 @@ True - Return rows and columns indexed by their actual row and column IDs</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">677</span>
+    <span class="phpdocumentor-element-found-in__line">688</span>
 </aside>
 
         <p class="phpdocumentor-summary">Refresh row dimensions.</p>
@@ -8361,7 +8514,7 @@ True - Return rows and columns indexed by their actual row and column IDs</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2199</span>
+    <span class="phpdocumentor-element-found-in__line">2243</span>
 </aside>
 
         <p class="phpdocumentor-summary">Remove autofilter.</p>
@@ -8395,7 +8548,7 @@ True - Return rows and columns indexed by their actual row and column IDs</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2525</span>
+    <span class="phpdocumentor-element-found-in__line">2569</span>
 </aside>
 
         <p class="phpdocumentor-summary">Remove a column, updating all possible related data.</p>
@@ -8450,7 +8603,7 @@ True - Return rows and columns indexed by their actual row and column IDs</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2587</span>
+    <span class="phpdocumentor-element-found-in__line">2631</span>
 </aside>
 
         <p class="phpdocumentor-summary">Remove a column, updating all possible related data.</p>
@@ -8505,7 +8658,7 @@ True - Return rows and columns indexed by their actual row and column IDs</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2738</span>
+    <span class="phpdocumentor-element-found-in__line">2782</span>
 </aside>
 
         <p class="phpdocumentor-summary">Remove comment from cell.</p>
@@ -8552,7 +8705,7 @@ or as an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress object.</
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1629</span>
+    <span class="phpdocumentor-element-found-in__line">1645</span>
 </aside>
 
         <p class="phpdocumentor-summary">Removes conditional styles for a cell.</p>
@@ -8598,7 +8751,7 @@ or as an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress object.</
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2469</span>
+    <span class="phpdocumentor-element-found-in__line">2513</span>
 </aside>
 
         <p class="phpdocumentor-summary">Delete a row, updating all possible related data.</p>
@@ -8653,7 +8806,7 @@ or as an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress object.</
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2287</span>
+    <span class="phpdocumentor-element-found-in__line">2331</span>
 </aside>
 
         <p class="phpdocumentor-summary">Remove Table by name.</p>
@@ -8699,7 +8852,7 @@ or as an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress object.</
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2301</span>
+    <span class="phpdocumentor-element-found-in__line">2345</span>
 </aside>
 
         <p class="phpdocumentor-summary">Remove collection of Tables.</p>
@@ -8733,7 +8886,7 @@ or as an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress object.</
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3391</span>
+    <span class="phpdocumentor-element-found-in__line">3435</span>
 </aside>
 
         <p class="phpdocumentor-summary">Reset tab color.</p>
@@ -8767,7 +8920,7 @@ or as an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress object.</
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1456</span>
+    <span class="phpdocumentor-element-found-in__line">1472</span>
 </aside>
 
     
@@ -8809,7 +8962,7 @@ or as an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress object.</
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2157</span>
+    <span class="phpdocumentor-element-found-in__line">2201</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set AutoFilter.</p>
@@ -8857,7 +9010,7 @@ or an AddressRange.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2186</span>
+    <span class="phpdocumentor-element-found-in__line">2230</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set Autofilter Range by using numeric cell coordinates.</p>
@@ -8957,14 +9110,14 @@ or an AddressRange object or AutoFilter object.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1751</span>
+    <span class="phpdocumentor-element-found-in__line">1767</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set break on a cell.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">setBreak</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, int&gt;|<a href="classes/PhpOffice-PhpSpreadsheet-Cell-CellAddress.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\CellAddress">CellAddress</abbr></a>|string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$coordinate</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$break</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+                <span class="phpdocumentor-signature__name">setBreak</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, int&gt;|<a href="classes/PhpOffice-PhpSpreadsheet-Cell-CellAddress.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\CellAddress">CellAddress</abbr></a>|string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$coordinate</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$break</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$max</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">-1</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -8988,6 +9141,13 @@ or as an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress object.</
                     <section class="phpdocumentor-description"><p>Break type (type of Worksheet::BREAK_*)</p>
 </section>
 
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$max</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">-1</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
             </dd>
             </dl>
 
@@ -9013,7 +9173,7 @@ or as an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress object.</
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1780</span>
+    <span class="phpdocumentor-element-found-in__line">1796</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set break on a cell by using numeric cell coordinates.</p>
@@ -9103,14 +9263,14 @@ or passing in an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress o
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1152</span>
+    <span class="phpdocumentor-element-found-in__line">1167</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set a cell value.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">setCellValue</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, int&gt;|<a href="classes/PhpOffice-PhpSpreadsheet-Cell-CellAddress.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\CellAddress">CellAddress</abbr></a>|string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$coordinate</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+                <span class="phpdocumentor-signature__name">setCellValue</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, int&gt;|<a href="classes/PhpOffice-PhpSpreadsheet-Cell-CellAddress.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\CellAddress">CellAddress</abbr></a>|string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$coordinate</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">null|<a href="classes/PhpOffice-PhpSpreadsheet-Cell-IValueBinder.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\IValueBinder">IValueBinder</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$binder</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -9132,6 +9292,15 @@ or as an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress object.</
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>Value for the cell</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$binder</span>
+                : <span class="phpdocumentor-signature__argument__return-type">null|<a href="classes/PhpOffice-PhpSpreadsheet-Cell-IValueBinder.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\IValueBinder">IValueBinder</abbr></a></span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Value Binder to override the currently set Value Binder</p>
 </section>
 
             </dd>
@@ -9159,14 +9328,14 @@ or as an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress object.</
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1174</span>
+    <span class="phpdocumentor-element-found-in__line">1190</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set a cell value by using numeric cell coordinates.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature -deprecated">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">setCellValueByColumnAndRow</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$columnIndex</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$row</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+                <span class="phpdocumentor-signature__name">setCellValueByColumnAndRow</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$columnIndex</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$row</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">null|<a href="classes/PhpOffice-PhpSpreadsheet-Cell-IValueBinder.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\IValueBinder">IValueBinder</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$binder</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -9196,6 +9365,15 @@ or as an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress object.</
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>Value of the cell</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$binder</span>
+                : <span class="phpdocumentor-signature__argument__return-type">null|<a href="classes/PhpOffice-PhpSpreadsheet-Cell-IValueBinder.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\IValueBinder">IValueBinder</abbr></a></span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Value Binder to override the currently set Value Binder</p>
 </section>
 
             </dd>
@@ -9249,7 +9427,7 @@ or passing in an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress o
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1198</span>
+    <span class="phpdocumentor-element-found-in__line">1214</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set a cell value.</p>
@@ -9334,7 +9512,7 @@ that you specify.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1228</span>
+    <span class="phpdocumentor-element-found-in__line">1244</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set a cell value by using numeric cell coordinates.</p>
@@ -9447,7 +9625,7 @@ or passing in an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress o
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3523</span>
+    <span class="phpdocumentor-element-found-in__line">3567</span>
 </aside>
 
         <p class="phpdocumentor-summary">Define the code name of the sheet.</p>
@@ -9504,7 +9682,7 @@ at parse time (by Readers), where titles can be assumed to be valid.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2723</span>
+    <span class="phpdocumentor-element-found-in__line">2767</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set comments array for the entire sheet.</p>
@@ -9549,7 +9727,7 @@ at parse time (by Readers), where titles can be assumed to be valid.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1654</span>
+    <span class="phpdocumentor-element-found-in__line">1670</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set conditional styles.</p>
@@ -9603,7 +9781,7 @@ at parse time (by Readers), where titles can be assumed to be valid.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3303</span>
+    <span class="phpdocumentor-element-found-in__line">3347</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set data validation.</p>
@@ -9656,7 +9834,7 @@ at parse time (by Readers), where titles can be assumed to be valid.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1021</span>
+    <span class="phpdocumentor-element-found-in__line">1035</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set page header/footer.</p>
@@ -9700,7 +9878,7 @@ at parse time (by Readers), where titles can be assumed to be valid.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3243</span>
+    <span class="phpdocumentor-element-found-in__line">3287</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set hyperlink.</p>
@@ -9753,7 +9931,7 @@ at parse time (by Readers), where titles can be assumed to be valid.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2021</span>
+    <span class="phpdocumentor-element-found-in__line">2065</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set merge cells array for the entire sheet. Use instead mergeCells() to merge
@@ -9799,7 +9977,7 @@ a single cell range.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">999</span>
+    <span class="phpdocumentor-element-found-in__line">1013</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set page margins.</p>
@@ -9843,7 +10021,7 @@ a single cell range.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">977</span>
+    <span class="phpdocumentor-element-found-in__line">991</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set page setup.</p>
@@ -9887,7 +10065,7 @@ a single cell range.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2633</span>
+    <span class="phpdocumentor-element-found-in__line">2677</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set print gridlines.</p>
@@ -9933,7 +10111,7 @@ a single cell range.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1065</span>
+    <span class="phpdocumentor-element-found-in__line">1079</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set Protection.</p>
@@ -9977,7 +10155,7 @@ a single cell range.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2897</span>
+    <span class="phpdocumentor-element-found-in__line">2941</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set right-to-left.</p>
@@ -10023,7 +10201,7 @@ a single cell range.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2830</span>
+    <span class="phpdocumentor-element-found-in__line">2874</span>
 </aside>
 
         <p class="phpdocumentor-summary">Selected cell.</p>
@@ -10069,7 +10247,7 @@ a single cell range.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2875</span>
+    <span class="phpdocumentor-element-found-in__line">2919</span>
 </aside>
 
         <p class="phpdocumentor-summary">Selected cell by using numeric cell coordinates.</p>
@@ -10150,7 +10328,7 @@ or passing in an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress o
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2844</span>
+    <span class="phpdocumentor-element-found-in__line">2888</span>
 </aside>
 
         <p class="phpdocumentor-summary">Select a range of cells.</p>
@@ -10198,7 +10376,7 @@ or a CellAddress or AddressRange object.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">955</span>
+    <span class="phpdocumentor-element-found-in__line">969</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set sheet state.</p>
@@ -10244,7 +10422,7 @@ or a CellAddress or AddressRange object.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1043</span>
+    <span class="phpdocumentor-element-found-in__line">1057</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set sheet view.</p>
@@ -10288,7 +10466,7 @@ or a CellAddress or AddressRange object.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2611</span>
+    <span class="phpdocumentor-element-found-in__line">2655</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set show gridlines.</p>
@@ -10334,7 +10512,7 @@ or a CellAddress or AddressRange object.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2655</span>
+    <span class="phpdocumentor-element-found-in__line">2699</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set show row and column headers.</p>
@@ -10380,7 +10558,7 @@ or a CellAddress or AddressRange object.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2677</span>
+    <span class="phpdocumentor-element-found-in__line">2721</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set show summary below.</p>
@@ -10426,7 +10604,7 @@ or a CellAddress or AddressRange object.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2699</span>
+    <span class="phpdocumentor-element-found-in__line">2743</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set show summary right.</p>
@@ -10472,7 +10650,7 @@ or a CellAddress or AddressRange object.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">880</span>
+    <span class="phpdocumentor-element-found-in__line">894</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set title.</p>
@@ -10541,7 +10719,7 @@ at parse time (by Readers), where titles can be assumed to be valid.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2359</span>
+    <span class="phpdocumentor-element-found-in__line">2403</span>
 </aside>
 
     
@@ -10583,7 +10761,7 @@ at parse time (by Readers), where titles can be assumed to be valid.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3343</span>
+    <span class="phpdocumentor-element-found-in__line">3387</span>
 </aside>
 
         <p class="phpdocumentor-summary">Accepts a range, returning it as a range that falls within the current highest row and column of the worksheet.</p>
@@ -10629,7 +10807,7 @@ at parse time (by Readers), where titles can be assumed to be valid.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3092</span>
+    <span class="phpdocumentor-element-found-in__line">3136</span>
 </aside>
 
         <p class="phpdocumentor-summary">Create array from worksheet.</p>
@@ -10703,7 +10881,7 @@ True - Return rows and columns indexed by their actual row and column IDs</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2389</span>
+    <span class="phpdocumentor-element-found-in__line">2433</span>
 </aside>
 
         <p class="phpdocumentor-summary">Unfreeze Pane.</p>
@@ -10737,7 +10915,7 @@ True - Return rows and columns indexed by their actual row and column IDs</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1960</span>
+    <span class="phpdocumentor-element-found-in__line">2004</span>
 </aside>
 
         <p class="phpdocumentor-summary">Remove merge on a cell range.</p>
@@ -10785,7 +10963,7 @@ or an AddressRange.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1993</span>
+    <span class="phpdocumentor-element-found-in__line">2037</span>
 </aside>
 
         <p class="phpdocumentor-summary">Remove merge on a cell range by using numeric cell coordinates.</p>
@@ -10885,7 +11063,7 @@ or an AddressRange object.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2088</span>
+    <span class="phpdocumentor-element-found-in__line">2132</span>
 </aside>
 
         <p class="phpdocumentor-summary">Remove protection on a cell or cell range.</p>
@@ -10933,7 +11111,7 @@ or a CellAddress or AddressRange object.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2117</span>
+    <span class="phpdocumentor-element-found-in__line">2161</span>
 </aside>
 
         <p class="phpdocumentor-summary">Remove protection on a cell range by using numeric cell coordinates.</p>
@@ -11033,7 +11211,7 @@ or an AddressRange object.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2267</span>
+    <span class="phpdocumentor-element-found-in__line">2311</span>
 </aside>
 
     
@@ -11079,7 +11257,7 @@ or an AddressRange object.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">443</span>
+    <span class="phpdocumentor-element-found-in__line">454</span>
 </aside>
 
         <p class="phpdocumentor-summary">Check sheet code name for valid Excel syntax.</p>
@@ -11126,7 +11304,7 @@ or an AddressRange object.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">473</span>
+    <span class="phpdocumentor-element-found-in__line">484</span>
 </aside>
 
         <p class="phpdocumentor-summary">Check sheet title for valid Excel syntax.</p>
@@ -11173,7 +11351,7 @@ or an AddressRange object.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1853</span>
+    <span class="phpdocumentor-element-found-in__line">1897</span>
 </aside>
 
     
@@ -11250,7 +11428,7 @@ or an AddressRange object.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1878</span>
+    <span class="phpdocumentor-element-found-in__line">1922</span>
 </aside>
 
     
@@ -11327,7 +11505,7 @@ or an AddressRange object.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1327</span>
+    <span class="phpdocumentor-element-found-in__line">1343</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get an existing cell at a specific coordinate, or null.</p>
@@ -11374,7 +11552,7 @@ or an AddressRange object.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1273</span>
+    <span class="phpdocumentor-element-found-in__line">1289</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get the correct Worksheet and coordinate from a coordinate that may
@@ -11419,7 +11597,7 @@ contains reference to another sheet or a named range.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2559</span>
+    <span class="phpdocumentor-element-found-in__line">2603</span>
 </aside>
 
     
@@ -11468,7 +11646,7 @@ contains reference to another sheet or a named range.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">2498</span>
+    <span class="phpdocumentor-element-found-in__line">2542</span>
 </aside>
 
     
@@ -11517,7 +11695,7 @@ contains reference to another sheet or a named range.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/Worksheet.php"><a href="files/src-phpspreadsheet-worksheet-worksheet.html"><abbr title="src/PhpSpreadsheet/Worksheet/Worksheet.php">Worksheet.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">3018</span>
+    <span class="phpdocumentor-element-found-in__line">3062</span>
 </aside>
 
     

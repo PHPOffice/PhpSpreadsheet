@@ -126,7 +126,7 @@
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#property_byteOrder">$byteOrder</a>
     <span>
-                &nbsp;: int            </span>
+                &nbsp;: int|null            </span>
 </dt>
 <dd>The byte order of this architecture. 0 =&gt; little endian, 1 =&gt; big endian.</dd>
 
@@ -162,7 +162,7 @@ recalculating it for each call to new().</dd>
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-BIFFwriter.html#method_writeEof">writeEof()</a>
     <span>
-                        &nbsp;: mixed    </span>
+                        &nbsp;: string    </span>
 </dt>
 <dd>Writes Excel EOF record to indicate the end of a BIFF stream.</dd>
 
@@ -296,7 +296,7 @@ must be split up into CONTINUE blocks.</dd>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">int</span>
+    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">int|null</span>
     <span class="phpdocumentor-signature__name">$byteOrder</span>
     </code>
 
@@ -494,7 +494,7 @@ recalculating it for each call to new().</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">writeEof</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                <span class="phpdocumentor-signature__name">writeEof</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -502,7 +502,7 @@ recalculating it for each call to new().</p>
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">mixed</span>
+    <span class="phpdocumentor-signature__response_type">string</span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 

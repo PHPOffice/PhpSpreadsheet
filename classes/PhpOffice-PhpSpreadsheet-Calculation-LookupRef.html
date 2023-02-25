@@ -207,7 +207,7 @@ The LOOKUP function searches for value either from a one-row or one-column range
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Calculation-LookupRef.html#method_OFFSET">OFFSET()</a>
     <span>
-                        &nbsp;: array&lt;string|int, mixed&gt;|string    </span>
+                        &nbsp;: array&lt;string|int, mixed&gt;|int|string    </span>
 </dt>
 <dd>OFFSET.</dd>
 
@@ -383,14 +383,14 @@ FALSE                CELL_ADDRESS returns an R1C1-style reference</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/LookupRef.php"><a href="files/src-phpspreadsheet-calculation-lookupref.html"><abbr title="src/PhpSpreadsheet/Calculation/LookupRef.php">LookupRef.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">248</span>
+    <span class="phpdocumentor-element-found-in__line">250</span>
 </aside>
 
         <p class="phpdocumentor-summary">CHOOSE.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature -deprecated">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">CHOOSE</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__variadic-operator">...</span><span class="phpdocumentor-signature__argument__name">$chooseArgs</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">CHOOSE</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__variadic-operator">...</span><span class="phpdocumentor-signature__argument__name">$chooseArgs</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
         <section class="phpdocumentor-description"><p>Uses lookup_value to return a value from the list of value arguments.
 Use CHOOSE to select one of up to 254 values based on the lookup_value.</p>
@@ -402,10 +402,11 @@ Use CHOOSE to select one of up to 254 values based on the lookup_value.</p>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$chooseArgs</span>
-                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"></section>
+
             </dd>
             </dl>
 
@@ -619,7 +620,7 @@ for which you want the number of columns</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/LookupRef.php"><a href="files/src-phpspreadsheet-calculation-lookupref.html"><abbr title="src/PhpSpreadsheet/Calculation/LookupRef.php">LookupRef.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">396</span>
+    <span class="phpdocumentor-element-found-in__line">398</span>
 </aside>
 
         <p class="phpdocumentor-summary">FORMULATEXT.</p>
@@ -699,7 +700,7 @@ for which you want the number of columns</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/LookupRef.php"><a href="files/src-phpspreadsheet-calculation-lookupref.html"><abbr title="src/PhpSpreadsheet/Calculation/LookupRef.php">LookupRef.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">360</span>
+    <span class="phpdocumentor-element-found-in__line">362</span>
 </aside>
 
         <p class="phpdocumentor-summary">HLOOKUP
@@ -893,7 +894,7 @@ The first row is 1.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/LookupRef.php"><a href="files/src-phpspreadsheet-calculation-lookupref.html"><abbr title="src/PhpSpreadsheet/Calculation/LookupRef.php">LookupRef.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">297</span>
+    <span class="phpdocumentor-element-found-in__line">299</span>
 </aside>
 
         <p class="phpdocumentor-summary">INDEX.</p>
@@ -1073,7 +1074,7 @@ References are immediately evaluated to display their contents.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/LookupRef.php"><a href="files/src-phpspreadsheet-calculation-lookupref.html"><abbr title="src/PhpSpreadsheet/Calculation/LookupRef.php">LookupRef.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">379</span>
+    <span class="phpdocumentor-element-found-in__line">381</span>
 </aside>
 
         <p class="phpdocumentor-summary">LOOKUP
@@ -1164,7 +1165,7 @@ The LOOKUP function searches for value either from a one-row or one-column range
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/LookupRef.php"><a href="files/src-phpspreadsheet-calculation-lookupref.html"><abbr title="src/PhpSpreadsheet/Calculation/LookupRef.php">LookupRef.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">272</span>
+    <span class="phpdocumentor-element-found-in__line">274</span>
 </aside>
 
         <p class="phpdocumentor-summary">MATCH.</p>
@@ -1265,7 +1266,7 @@ If match_type is 1 or -1, the list has to be ordered.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature -deprecated">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">OFFSET</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">null|string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cellAddress</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$rows</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$columns</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$height</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$width</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\Cell">Cell</abbr></a>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cell</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;|string</span></code>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">OFFSET</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">null|string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cellAddress</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$rows</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$columns</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$height</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$width</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Cell-Cell.html"><abbr title="\PhpOffice\PhpSpreadsheet\Cell\Cell">Cell</abbr></a>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cell</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;|int|string</span></code>
 
         <section class="phpdocumentor-description"><p>Returns a reference to a range that is a specified number of rows and columns from a cell or range of cells.
 The reference that is returned can be a single cell or a range of cells. You can specify the number of rows and
@@ -1370,7 +1371,7 @@ Width must be a positive number.</p>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;|string</span>
+    <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;|int|string</span>
             &mdash;
             <section class="phpdocumentor-description"><p>An array containing a cell or range of cells, or a string on error</p>
 </section>
@@ -1552,7 +1553,7 @@ for which you want the number of rows</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/LookupRef.php"><a href="files/src-phpspreadsheet-calculation-lookupref.html"><abbr title="src/PhpSpreadsheet/Calculation/LookupRef.php">LookupRef.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">316</span>
+    <span class="phpdocumentor-element-found-in__line">318</span>
 </aside>
 
         <p class="phpdocumentor-summary">TRANSPOSE.</p>
@@ -1625,7 +1626,7 @@ this function will transpose a full matrix</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Calculation/LookupRef.php"><a href="files/src-phpspreadsheet-calculation-lookupref.html"><abbr title="src/PhpSpreadsheet/Calculation/LookupRef.php">LookupRef.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">338</span>
+    <span class="phpdocumentor-element-found-in__line">340</span>
 </aside>
 
         <p class="phpdocumentor-summary">VLOOKUP

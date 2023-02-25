@@ -176,6 +176,20 @@
 </dt>
 <dd></dd>
 
+            <dt class="phpdocumentor-table-of-contents__entry -constant -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#constant_SIGNED_4OCTET_LIMIT">SIGNED_4OCTET_LIMIT</a>
+    <span>
+        &nbsp;= 2147483648                    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#constant_SIGNED_4OCTET_SUBTRACT">SIGNED_4OCTET_SUBTRACT</a>
+    <span>
+        &nbsp;= 2 * self::SIGNED_4OCTET_LIMIT                    </span>
+</dt>
+<dd></dd>
+
                 <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#property__file_handle">$_file_handle</a>
     <span>
@@ -348,7 +362,7 @@ starting with the given PPS (not necessarily root).</dd>
     <span>
                         &nbsp;: int    </span>
 </dt>
-<dd>Reads an unsigned long (4 octets).</dd>
+<dd>Reads long (4 octets), interpreted as if signed on 32-bit system.</dd>
 
         </dl>
 
@@ -503,6 +517,56 @@ starting with the given PPS (not necessarily root).</dd>
     <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">OLE_PPS_TYPE_ROOT</span>
     = <span class="phpdocumentor-signature__default-value">5</span>
+</code>
+
+
+    
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -private ">
+    <h4 class="phpdocumentor-element__name" id="constant_SIGNED_4OCTET_LIMIT">
+        SIGNED_4OCTET_LIMIT
+        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#constant_SIGNED_4OCTET_LIMIT" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE.php"><a href="files/src-phpspreadsheet-shared-ole.html"><abbr title="src/PhpSpreadsheet/Shared/OLE.php">OLE.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">278</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">SIGNED_4OCTET_LIMIT</span>
+    = <span class="phpdocumentor-signature__default-value">2147483648</span>
+</code>
+
+
+    
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -private ">
+    <h4 class="phpdocumentor-element__name" id="constant_SIGNED_4OCTET_SUBTRACT">
+        SIGNED_4OCTET_SUBTRACT
+        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html#constant_SIGNED_4OCTET_SUBTRACT" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE.php"><a href="files/src-phpspreadsheet-shared-ole.html"><abbr title="src/PhpSpreadsheet/Shared/OLE.php">OLE.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">280</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">SIGNED_4OCTET_SUBTRACT</span>
+    = <span class="phpdocumentor-signature__default-value">2 * self::SIGNED_4OCTET_LIMIT</span>
 </code>
 
 
@@ -794,7 +858,7 @@ starting with the given PPS (not necessarily root).</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE.php"><a href="files/src-phpspreadsheet-shared-ole.html"><abbr title="src/PhpSpreadsheet/Shared/OLE.php">OLE.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">481</span>
+    <span class="phpdocumentor-element-found-in__line">490</span>
 </aside>
 
         <p class="phpdocumentor-summary">Utility function to transform ASCII text to Unicode.</p>
@@ -886,7 +950,7 @@ starting with the given PPS (not necessarily root).</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE.php"><a href="files/src-phpspreadsheet-shared-ole.html"><abbr title="src/PhpSpreadsheet/Shared/OLE.php">OLE.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">444</span>
+    <span class="phpdocumentor-element-found-in__line">453</span>
 </aside>
 
         <p class="phpdocumentor-summary">Gets data from a PPS
@@ -968,7 +1032,7 @@ If there is no PPS for the index given, it will return an empty string.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE.php"><a href="files/src-phpspreadsheet-shared-ole.html"><abbr title="src/PhpSpreadsheet/Shared/OLE.php">OLE.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">465</span>
+    <span class="phpdocumentor-element-found-in__line">474</span>
 </aside>
 
         <p class="phpdocumentor-summary">Gets the data length from a PPS
@@ -1064,7 +1128,7 @@ use \PhpOffice\PhpSpreadsheet\Shared\OLE\PPS\File::getStream().</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE.php"><a href="files/src-phpspreadsheet-shared-ole.html"><abbr title="src/PhpSpreadsheet/Shared/OLE.php">OLE.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">395</span>
+    <span class="phpdocumentor-element-found-in__line">404</span>
 </aside>
 
         <p class="phpdocumentor-summary">Checks whether a PPS is a File PPS or not.</p>
@@ -1112,7 +1176,7 @@ use \PhpOffice\PhpSpreadsheet\Shared\OLE\PPS\File::getStream().</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE.php"><a href="files/src-phpspreadsheet-shared-ole.html"><abbr title="src/PhpSpreadsheet/Shared/OLE.php">OLE.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">412</span>
+    <span class="phpdocumentor-element-found-in__line">421</span>
 </aside>
 
         <p class="phpdocumentor-summary">Checks whether a PPS is a Root PPS or not.</p>
@@ -1160,7 +1224,7 @@ use \PhpOffice\PhpSpreadsheet\Shared\OLE\PPS\File::getStream().</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE.php"><a href="files/src-phpspreadsheet-shared-ole.html"><abbr title="src/PhpSpreadsheet/Shared/OLE.php">OLE.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">501</span>
+    <span class="phpdocumentor-element-found-in__line">510</span>
 </aside>
 
         <p class="phpdocumentor-summary">Utility function
@@ -1208,7 +1272,7 @@ Returns a string for the OLE container with the date given.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE.php"><a href="files/src-phpspreadsheet-shared-ole.html"><abbr title="src/PhpSpreadsheet/Shared/OLE.php">OLE.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">536</span>
+    <span class="phpdocumentor-element-found-in__line">545</span>
 </aside>
 
         <p class="phpdocumentor-summary">Returns a timestamp from an OLE container&#039;s date.</p>
@@ -1255,7 +1319,7 @@ Returns a string for the OLE container with the date given.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE.php"><a href="files/src-phpspreadsheet-shared-ole.html"><abbr title="src/PhpSpreadsheet/Shared/OLE.php">OLE.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">426</span>
+    <span class="phpdocumentor-element-found-in__line">435</span>
 </aside>
 
         <p class="phpdocumentor-summary">Gives the total number of PPS&#039;s found in the OLE container.</p>
@@ -1351,7 +1415,7 @@ Returns a string for the OLE container with the date given.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE.php"><a href="files/src-phpspreadsheet-shared-ole.html"><abbr title="src/PhpSpreadsheet/Shared/OLE.php">OLE.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">298</span>
+    <span class="phpdocumentor-element-found-in__line">307</span>
 </aside>
 
         <p class="phpdocumentor-summary">Gets information about all PPS&#039;s on the OLE container from the PPS WK&#039;s
@@ -1399,7 +1463,7 @@ creates an OLE_PPS object for each one.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE.php"><a href="files/src-phpspreadsheet-shared-ole.html"><abbr title="src/PhpSpreadsheet/Shared/OLE.php">OLE.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">375</span>
+    <span class="phpdocumentor-element-found-in__line">384</span>
 </aside>
 
         <p class="phpdocumentor-summary">It checks whether the PPS tree is complete (all PPS&#039;s read)
@@ -1447,7 +1511,7 @@ starting with the given PPS (not necessarily root).</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE.php"><a href="files/src-phpspreadsheet-shared-ole.html"><abbr title="src/PhpSpreadsheet/Shared/OLE.php">OLE.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">252</span>
+    <span class="phpdocumentor-element-found-in__line">257</span>
 </aside>
 
         <p class="phpdocumentor-summary">Reads a signed char.</p>
@@ -1493,7 +1557,7 @@ starting with the given PPS (not necessarily root).</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE.php"><a href="files/src-phpspreadsheet-shared-ole.html"><abbr title="src/PhpSpreadsheet/Shared/OLE.php">OLE.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">267</span>
+    <span class="phpdocumentor-element-found-in__line">271</span>
 </aside>
 
         <p class="phpdocumentor-summary">Reads an unsigned short (2 octets).</p>
@@ -1539,10 +1603,10 @@ starting with the given PPS (not necessarily root).</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE.php"><a href="files/src-phpspreadsheet-shared-ole.html"><abbr title="src/PhpSpreadsheet/Shared/OLE.php">OLE.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">282</span>
+    <span class="phpdocumentor-element-found-in__line">289</span>
 </aside>
 
-        <p class="phpdocumentor-summary">Reads an unsigned long (4 octets).</p>
+        <p class="phpdocumentor-summary">Reads long (4 octets), interpreted as if signed on 32-bit system.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>

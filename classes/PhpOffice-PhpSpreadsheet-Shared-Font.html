@@ -617,6 +617,13 @@ user to make inappropriate alterations.</dd>
 <dd>AutoSize method.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Font.html#property_extraFontArray">$extraFontArray</a>
+    <span>
+                &nbsp;: array&lt;string|int, mixed&gt;            </span>
+</dt>
+<dd>Array that can be used to supplement FONT_FILE_NAMES for calculating exact width.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Font.html#property_trueTypeFontPath">$trueTypeFontPath</a>
     <span>
                 &nbsp;: string            </span>
@@ -626,7 +633,7 @@ user to make inappropriate alterations.</dd>
                 <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Font.html#method_calculateColumnWidth">calculateColumnWidth()</a>
     <span>
-                        &nbsp;: int    </span>
+                        &nbsp;: float    </span>
 </dt>
 <dd>Calculate an (approximate) OpenXML column width, based on font size and text contained.</dd>
 
@@ -675,6 +682,13 @@ For example, for Calibri 11 this is 9.140625 (64 px).</dd>
 For example, for Calibri 11 this is 15 points.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Font.html#method_getExtraFontArray">getExtraFontArray()</a>
+    <span>
+                        &nbsp;: array&lt;string|int, mixed&gt;    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Font.html#method_getTextWidthPixelsApprox">getTextWidthPixelsApprox()</a>
     <span>
                         &nbsp;: int    </span>
@@ -684,7 +698,7 @@ For example, for Calibri 11 this is 15 points.</dd>
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Font.html#method_getTextWidthPixelsExact">getTextWidthPixelsExact()</a>
     <span>
-                        &nbsp;: int    </span>
+                        &nbsp;: float    </span>
 </dt>
 <dd>Get GD text width in pixels for a string of text in a certain font at a certain rotation angle.</dd>
 
@@ -715,6 +729,13 @@ For example, for Calibri 11 this is 15 points.</dd>
                         &nbsp;: bool    </span>
 </dt>
 <dd>Set autoSize method.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Font.html#method_setExtraFontArray">setExtraFontArray()</a>
+    <span>
+                        &nbsp;: void    </span>
+</dt>
+<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Font.html#method_setTrueTypeFontPath">setTrueTypeFontPath()</a>
@@ -1396,7 +1417,7 @@ For example, for Calibri 11 this is 15 points.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Font.php"><a href="files/src-phpspreadsheet-shared-font.html"><abbr title="src/PhpSpreadsheet/Shared/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">563</span>
+    <span class="phpdocumentor-element-found-in__line">601</span>
 </aside>
 
     
@@ -1646,7 +1667,7 @@ For example, for Calibri 11 this is 15 points.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Font.php"><a href="files/src-phpspreadsheet-shared-font.html"><abbr title="src/PhpSpreadsheet/Shared/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">223</span>
+    <span class="phpdocumentor-element-found-in__line">240</span>
 </aside>
 
         <p class="phpdocumentor-summary">How wide is a default column for a given default font and size?
@@ -2516,7 +2537,7 @@ in Microsoft Office Excel 2007.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Font.php"><a href="files/src-phpspreadsheet-shared-font.html"><abbr title="src/PhpSpreadsheet/Shared/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">273</span>
+    <span class="phpdocumentor-element-found-in__line">290</span>
 </aside>
 
         <p class="phpdocumentor-summary">List of column widths. Replaced by constant;
@@ -2566,7 +2587,7 @@ user to make inappropriate alterations.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Font.php"><a href="files/src-phpspreadsheet-shared-font.html"><abbr title="src/PhpSpreadsheet/Shared/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">208</span>
+    <span class="phpdocumentor-element-found-in__line">225</span>
 </aside>
 
         <p class="phpdocumentor-summary">AutoSize method.</p>
@@ -2589,6 +2610,38 @@ user to make inappropriate alterations.</p>
             -private
             -static                                            "
 >
+    <h4 class="phpdocumentor-element__name" id="property_extraFontArray">
+        $extraFontArray
+        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Font.html#property_extraFontArray" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Font.php"><a href="files/src-phpspreadsheet-shared-font.html"><abbr title="src/PhpSpreadsheet/Shared/Font.php">Font.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">208</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Array that can be used to supplement FONT_FILE_NAMES for calculating exact width.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
+    <span class="phpdocumentor-signature__name">$extraFontArray</span>
+     = <span class="phpdocumentor-signature__default-value">[]</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+            -static                                            "
+>
     <h4 class="phpdocumentor-element__name" id="property_trueTypeFontPath">
         $trueTypeFontPath
         <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Font.html#property_trueTypeFontPath" class="headerlink"><i class="fas fa-link"></i></a>
@@ -2598,7 +2651,7 @@ user to make inappropriate alterations.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Font.php"><a href="files/src-phpspreadsheet-shared-font.html"><abbr title="src/PhpSpreadsheet/Shared/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">215</span>
+    <span class="phpdocumentor-element-found-in__line">232</span>
 </aside>
 
         <p class="phpdocumentor-summary">Path to folder containing TrueType font .ttf files.</p>
@@ -2634,14 +2687,14 @@ user to make inappropriate alterations.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Font.php"><a href="files/src-phpspreadsheet-shared-font.html"><abbr title="src/PhpSpreadsheet/Shared/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">337</span>
+    <span class="phpdocumentor-element-found-in__line">354</span>
 </aside>
 
         <p class="phpdocumentor-summary">Calculate an (approximate) OpenXML column width, based on font size and text contained.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">calculateColumnWidth</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Style-Font.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Font">Font</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$font</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">null|<a href="classes/PhpOffice-PhpSpreadsheet-RichText-RichText.html"><abbr title="\PhpOffice\PhpSpreadsheet\RichText\RichText">RichText</abbr></a>|string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cellText</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$rotation</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">null|<a href="classes/PhpOffice-PhpSpreadsheet-Style-Font.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Font">Font</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$defaultFont</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$filterAdjustment</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">false</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$indentAdjustment</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">calculateColumnWidth</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Style-Font.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Font">Font</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$font</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">null|<a href="classes/PhpOffice-PhpSpreadsheet-RichText-RichText.html"><abbr title="\PhpOffice\PhpSpreadsheet\RichText\RichText">RichText</abbr></a>|string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cellText</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$rotation</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">null|<a href="classes/PhpOffice-PhpSpreadsheet-Style-Font.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Font">Font</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$defaultFont</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$filterAdjustment</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">false</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$indentAdjustment</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">float</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -2704,7 +2757,7 @@ user to make inappropriate alterations.</p>
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">int</span>
+    <span class="phpdocumentor-signature__response_type">float</span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
@@ -2723,7 +2776,7 @@ user to make inappropriate alterations.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Font.php"><a href="files/src-phpspreadsheet-shared-font.html"><abbr title="src/PhpSpreadsheet/Shared/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">518</span>
+    <span class="phpdocumentor-element-found-in__line">531</span>
 </aside>
 
         <p class="phpdocumentor-summary">Calculate an (approximate) pixel size, based on centimeter size.</p>
@@ -2770,7 +2823,7 @@ user to make inappropriate alterations.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Font.php"><a href="files/src-phpspreadsheet-shared-font.html"><abbr title="src/PhpSpreadsheet/Shared/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">494</span>
+    <span class="phpdocumentor-element-found-in__line">507</span>
 </aside>
 
         <p class="phpdocumentor-summary">Calculate an (approximate) pixel size, based on a font points size.</p>
@@ -2817,7 +2870,7 @@ user to make inappropriate alterations.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Font.php"><a href="files/src-phpspreadsheet-shared-font.html"><abbr title="src/PhpSpreadsheet/Shared/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">297</span>
+    <span class="phpdocumentor-element-found-in__line">314</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get autoSize method.</p>
@@ -2851,7 +2904,7 @@ user to make inappropriate alterations.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Font.php"><a href="files/src-phpspreadsheet-shared-font.html"><abbr title="src/PhpSpreadsheet/Shared/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">577</span>
+    <span class="phpdocumentor-element-found-in__line">615</span>
 </aside>
 
         <p class="phpdocumentor-summary">Returns the associated charset for the font name.</p>
@@ -2898,7 +2951,7 @@ user to make inappropriate alterations.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Font.php"><a href="files/src-phpspreadsheet-shared-font.html"><abbr title="src/PhpSpreadsheet/Shared/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">591</span>
+    <span class="phpdocumentor-element-found-in__line">629</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get the effective column width for columns without a column dimension or column with width -1
@@ -2955,7 +3008,7 @@ For example, for Calibri 11 this is 9.140625 (64 px).</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Font.php"><a href="files/src-phpspreadsheet-shared-font.html"><abbr title="src/PhpSpreadsheet/Shared/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">623</span>
+    <span class="phpdocumentor-element-found-in__line">661</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get the effective row height for rows without a row dimension or rows with height -1
@@ -2996,6 +3049,38 @@ For example, for Calibri 11 this is 15 points.</p>
             -public
                                     -static                    "
 >
+    <h4 class="phpdocumentor-element__name" id="method_getExtraFontArray">
+        getExtraFontArray()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Font.html#method_getExtraFontArray" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Font.php"><a href="files/src-phpspreadsheet-shared-font.html"><abbr title="src/PhpSpreadsheet/Shared/Font.php">Font.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">215</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">getExtraFontArray</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
     <h4 class="phpdocumentor-element__name" id="method_getTextWidthPixelsApprox">
         getTextWidthPixelsApprox()
         <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Font.html#method_getTextWidthPixelsApprox" class="headerlink"><i class="fas fa-link"></i></a>
@@ -3003,7 +3088,7 @@ For example, for Calibri 11 this is 15 points.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Font.php"><a href="files/src-phpspreadsheet-shared-font.html"><abbr title="src/PhpSpreadsheet/Shared/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">438</span>
+    <span class="phpdocumentor-element-found-in__line">451</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get approximate width in pixels for a string of text in a certain font at a certain rotation angle.</p>
@@ -3064,14 +3149,14 @@ For example, for Calibri 11 this is 15 points.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Font.php"><a href="files/src-phpspreadsheet-shared-font.html"><abbr title="src/PhpSpreadsheet/Shared/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">404</span>
+    <span class="phpdocumentor-element-found-in__line">421</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get GD text width in pixels for a string of text in a certain font at a certain rotation angle.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">getTextWidthPixelsExact</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$text</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Style-Font.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Font">Font</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$font</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$rotation</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">getTextWidthPixelsExact</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$text</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Style-Font.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Font">Font</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$font</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$rotation</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">float</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -3103,7 +3188,7 @@ For example, for Calibri 11 this is 15 points.</p>
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">int</span>
+    <span class="phpdocumentor-signature__response_type">float</span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
@@ -3122,7 +3207,7 @@ For example, for Calibri 11 this is 15 points.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Font.php"><a href="files/src-phpspreadsheet-shared-font.html"><abbr title="src/PhpSpreadsheet/Shared/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">528</span>
+    <span class="phpdocumentor-element-found-in__line">541</span>
 </aside>
 
         <p class="phpdocumentor-summary">Returns the font path given the font.</p>
@@ -3174,7 +3259,7 @@ For example, for Calibri 11 this is 15 points.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Font.php"><a href="files/src-phpspreadsheet-shared-font.html"><abbr title="src/PhpSpreadsheet/Shared/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">323</span>
+    <span class="phpdocumentor-element-found-in__line">340</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get the path to the folder containing .ttf files.</p>
@@ -3208,7 +3293,7 @@ For example, for Calibri 11 this is 15 points.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Font.php"><a href="files/src-phpspreadsheet-shared-font.html"><abbr title="src/PhpSpreadsheet/Shared/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">506</span>
+    <span class="phpdocumentor-element-found-in__line">519</span>
 </aside>
 
         <p class="phpdocumentor-summary">Calculate an (approximate) pixel size, based on inch size.</p>
@@ -3255,7 +3340,7 @@ For example, for Calibri 11 this is 15 points.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Font.php"><a href="files/src-phpspreadsheet-shared-font.html"><abbr title="src/PhpSpreadsheet/Shared/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">282</span>
+    <span class="phpdocumentor-element-found-in__line">299</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set autoSize method.</p>
@@ -3295,6 +3380,48 @@ For example, for Calibri 11 this is 15 points.</p>
             -public
                                     -static                    "
 >
+    <h4 class="phpdocumentor-element__name" id="method_setExtraFontArray">
+        setExtraFontArray()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Font.html#method_setExtraFontArray" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Font.php"><a href="files/src-phpspreadsheet-shared-font.html"><abbr title="src/PhpSpreadsheet/Shared/Font.php">Font.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">210</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">setExtraFontArray</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$extraFontArray</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$extraFontArray</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">void</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
     <h4 class="phpdocumentor-element__name" id="method_setTrueTypeFontPath">
         setTrueTypeFontPath()
         <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Font.html#method_setTrueTypeFontPath" class="headerlink"><i class="fas fa-link"></i></a>
@@ -3302,7 +3429,7 @@ For example, for Calibri 11 this is 15 points.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/Font.php"><a href="files/src-phpspreadsheet-shared-font.html"><abbr title="src/PhpSpreadsheet/Shared/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">313</span>
+    <span class="phpdocumentor-element-found-in__line">330</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set the path to the folder containing .ttf files. There should be a trailing slash.</p>

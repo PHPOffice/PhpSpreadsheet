@@ -117,6 +117,14 @@
 <dd></dd>
 
                     <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-NumberFormatter.html#method_areThousandsRequired">areThousandsRequired()</a>
+    <span>
+                        &nbsp;: bool    </span>
+</dt>
+<dd>Find out if we need thousands separator
+This is indicated by a comma enclosed by a digit placeholders: #, 0 or ?</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-NumberFormatter.html#method_f2s">f2s()</a>
     <span>
                         &nbsp;: string    </span>
@@ -136,6 +144,21 @@
                         &nbsp;: string    </span>
 </dt>
 <dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-NumberFormatter.html#method_padValue">padValue()</a>
+    <span>
+                        &nbsp;: string    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-NumberFormatter.html#method_scaleThousandsMillions">scaleThousandsMillions()</a>
+    <span>
+                        &nbsp;: int    </span>
+</dt>
+<dd>Scale thousands, millions,...
+This is indicated by a number of commas after a digit placeholder: #, or 0.0,, or ?,.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-NumberFormatter.html#method_complexNumberFormatMask">complexNumberFormatMask()</a>
@@ -223,6 +246,51 @@
             Methods
             <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-NumberFormatter.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
         </h3>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_areThousandsRequired">
+        areThousandsRequired()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-NumberFormatter.html#method_areThousandsRequired" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/NumberFormatter.php"><a href="files/src-phpspreadsheet-style-numberformat-numberformatter.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/NumberFormatter.php">NumberFormatter.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">301</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Find out if we need thousands separator
+This is indicated by a comma enclosed by a digit placeholders: #, 0 or ?</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">areThousandsRequired</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$format</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$format</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
                     <article
         class="phpdocumentor-element
             -method
@@ -320,7 +388,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/NumberFormatter.php"><a href="files/src-phpspreadsheet-style-numberformat-numberformatter.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/NumberFormatter.php">NumberFormatter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">196</span>
+    <span class="phpdocumentor-element-found-in__line">200</span>
 </aside>
 
     
@@ -353,6 +421,100 @@
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">string</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_padValue">
+        padValue()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-NumberFormatter.html#method_padValue" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/NumberFormatter.php"><a href="files/src-phpspreadsheet-style-numberformat-numberformatter.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/NumberFormatter.php">NumberFormatter.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">281</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">padValue</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$baseFormat</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$value</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$baseFormat</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_scaleThousandsMillions">
+        scaleThousandsMillions()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-NumberFormat-NumberFormatter.html#method_scaleThousandsMillions" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/NumberFormatter.php"><a href="files/src-phpspreadsheet-style-numberformat-numberformatter.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/NumberFormatter.php">NumberFormatter.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">315</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Scale thousands, millions,...
+This is indicated by a number of commas after a digit placeholder: #, or 0.0,, or ?,.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">scaleThousandsMillions</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$format</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$format</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">int</span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
@@ -494,7 +656,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/NumberFormatter.php"><a href="files/src-phpspreadsheet-style-numberformat-numberformatter.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/NumberFormatter.php">NumberFormatter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">269</span>
+    <span class="phpdocumentor-element-found-in__line">271</span>
 </aside>
 
     
@@ -587,7 +749,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/NumberFormat/NumberFormatter.php"><a href="files/src-phpspreadsheet-style-numberformat-numberformatter.html"><abbr title="src/PhpSpreadsheet/Style/NumberFormat/NumberFormatter.php">NumberFormatter.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">274</span>
+    <span class="phpdocumentor-element-found-in__line">276</span>
 </aside>
 
     

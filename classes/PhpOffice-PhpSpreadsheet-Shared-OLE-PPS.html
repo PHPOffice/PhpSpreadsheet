@@ -192,7 +192,7 @@
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#property_startBlock">$startBlock</a>
     <span>
-                &nbsp;: int            </span>
+                &nbsp;: int|null            </span>
 </dt>
 <dd>Starting block (small or big) for this PPS&#039;s data  inside the container.</dd>
 
@@ -283,7 +283,7 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
     <span class="phpdocumentor-signature__visibility">public</span>
         <span class="phpdocumentor-signature__type">string</span>
     <span class="phpdocumentor-signature__name">$_data</span>
-    </code>
+     = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -569,7 +569,7 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">int</span>
+        <span class="phpdocumentor-signature__type">int|null</span>
     <span class="phpdocumentor-signature__name">$startBlock</span>
     </code>
 
@@ -701,7 +701,7 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$No</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$type</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$prev</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$next</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$dir</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">null|float|int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$time_1st</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">null|float|int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$time_2nd</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$data</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$children</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$No</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$type</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$prev</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$next</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$dir</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">null|float|int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$time_1st</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">null|float|int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$time_2nd</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$data</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$children</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -709,7 +709,7 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$No</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int|null</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>The PPS index</p>
@@ -718,7 +718,7 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$name</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>The PPS name</p>
@@ -727,7 +727,7 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$type</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int|null</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>The PPS type. Dir, Root or File</p>
@@ -736,7 +736,7 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$prev</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int|null</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>The index of the previous PPS</p>
@@ -745,7 +745,7 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$next</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int|null</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>The index of the next PPS</p>
@@ -754,7 +754,7 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$dir</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int|null</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>The index of it's first child if this is a Dir or Root PPS</p>
@@ -781,7 +781,7 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$data</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>The (usually binary) source data of the PPS</p>
@@ -821,7 +821,7 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE/PPS.php"><a href="files/src-phpspreadsheet-shared-ole-pps.html"><abbr title="src/PhpSpreadsheet/Shared/OLE/PPS.php">PPS.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">161</span>
+    <span class="phpdocumentor-element-found-in__line">157</span>
 </aside>
 
         <p class="phpdocumentor-summary">Returns the amount of data saved for this PPS.</p>
@@ -856,7 +856,7 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE/PPS.php"><a href="files/src-phpspreadsheet-shared-ole-pps.html"><abbr title="src/PhpSpreadsheet/Shared/OLE/PPS.php">PPS.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">175</span>
+    <span class="phpdocumentor-element-found-in__line">171</span>
 </aside>
 
         <p class="phpdocumentor-summary">Returns a string with the PPS&#039;s WK (What is a WK?).</p>
@@ -891,7 +891,7 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE/PPS.php"><a href="files/src-phpspreadsheet-shared-ole-pps.html"><abbr title="src/PhpSpreadsheet/Shared/OLE/PPS.php">PPS.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">210</span>
+    <span class="phpdocumentor-element-found-in__line">206</span>
 </aside>
 
         <p class="phpdocumentor-summary">Updates index and pointers to previous, next and children PPS&#039;s for this
