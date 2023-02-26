@@ -1055,14 +1055,6 @@ class Chart extends WriterPart
                 $labelFill = $plotLabel->getFillColorObject();
                 $labelFill = ($labelFill instanceof ChartColor) ? $labelFill : null;
             }
-            if ($plotLabel && $groupType !== DataSeries::TYPE_LINECHART) {
-                $fillColor = $plotLabel->getFillColorObject();
-                if ($fillColor !== null && !is_array($fillColor) && $fillColor->isUsable()) {
-                    $objWriter->startElement('c:spPr');
-                    $this->writeColor($objWriter, $fillColor);
-                    $objWriter->endElement(); // c:spPr
-                }
-            }
 
             //    Values
             $plotSeriesValues = $plotGroup->getPlotValuesByIndex($plotSeriesIdx);
@@ -1094,6 +1086,12 @@ class Chart extends WriterPart
                 $plotSeriesValues !== false
             ) {
                 $objWriter->startElement('c:spPr');
+                if ($plotLabel && $groupType !== DataSeries::TYPE_LINECHART) {
+                    $fillColor = $plotLabel->getFillColorObject();
+                    if ($fillColor !== null && !is_array($fillColor) && $fillColor->isUsable()) {
+                        $this->writeColor($objWriter, $fillColor);
+                    }
+                }
                 $fillObject = $labelFill ?? $plotSeriesValues->getFillColorObject();
                 $callLineStyles = true;
                 if ($fillObject instanceof ChartColor && $fillObject->isUsable()) {
