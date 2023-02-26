@@ -453,7 +453,7 @@ class ReferenceHelper
                 if ($cell->getDataType() === DataType::TYPE_FORMULA) {
                     // Formula should be adjusted
                     $worksheet->getCell($newCoordinate)
-                        ->setValue($this->updateFormulaReferences($cell->getValue(), $beforeCellAddress, $numberOfColumns, $numberOfRows, $worksheet->getTitle()));
+                        ->setValue($this->updateFormulaReferences($cell->getValue(), $beforeCellAddress, $numberOfColumns, $numberOfRows, $worksheet->getTitle(), true));
                 } else {
                     // Formula should not be adjusted
                     $worksheet->getCell($newCoordinate)->setValueExplicit($cell->getValue(), $cell->getDataType());
@@ -463,10 +463,10 @@ class ReferenceHelper
                 $worksheet->getCellCollection()->delete($coordinate);
             } else {
                 /*    We don't need to update styles for rows/columns before our insertion position,
-                        but we do still need to adjust any formulae    in those cells                    */
+                        but we do still need to adjust any formulae in those cells                    */
                 if ($cell->getDataType() === DataType::TYPE_FORMULA) {
                     // Formula should be adjusted
-                    $cell->setValue($this->updateFormulaReferences($cell->getValue(), $beforeCellAddress, $numberOfColumns, $numberOfRows, $worksheet->getTitle()));
+                    $cell->setValue($this->updateFormulaReferences($cell->getValue(), $beforeCellAddress, $numberOfColumns, $numberOfRows, $worksheet->getTitle(), true));
                 }
             }
         }
