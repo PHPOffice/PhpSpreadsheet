@@ -147,7 +147,7 @@ class Issue3397Test extends TestCase
             true, // plotVisibleOnly
             'gap', // displayBlanksAs
             $xAxisLabel, // xAxisLabel
-            $yAxisLabel,  // yAxisLabel
+            $yAxisLabel, // yAxisLabel
             null,
             $yaxis
         );
