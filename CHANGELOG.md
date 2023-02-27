@@ -25,7 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
-- Nothing
+- Updates Cell formula absolute ranges/references, and Defined Name absolute ranges/references when inserting/deleting rows/columns [Issue #3368](https://github.com/PHPOffice/PhpSpreadsheet/issues/3368) [PR #3402](https://github.com/PHPOffice/PhpSpreadsheet/pull/3402)
 
 
 ## 1.28.0 - 2023-02-25
