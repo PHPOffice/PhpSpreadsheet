@@ -36,6 +36,17 @@ return [
         22269.0625,
         '"y-m-d "yyyy-mm-dd" h:m:s "hh:mm:ss',
     ],
+    // Date with fractional/decimal time
+    [
+        '2023/02/28 0:00:00.000',
+        44985,
+        'yyyy/mm/dd\ h:mm:ss.000',
+    ],
+    [
+        '2023/02/28 07:35:02.000',
+        44985.316,
+        'yyyy/mm/dd\ hh:mm:ss.000',
+    ],
     [
         '07:35:00 AM',
         43270.315972222,
