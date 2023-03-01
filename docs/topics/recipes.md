@@ -997,7 +997,7 @@ $spreadsheet->getActiveSheet()->setAutoFilter('A1:C9');
 ```
 
 **Make sure that you always include the complete filter range!** Excel
-does support setting only the captionrow, but that's **not** a best
+does support setting only the caption row, but that's **not** a best
 practice...
 
 ## Setting security on a spreadsheet
@@ -1019,6 +1019,10 @@ code:
 ```php
 $spreadsheet->getActiveSheet()->getProtection()->setSheet(true);
 ```
+
+> Note that "protection" is not the same as "encryption".
+> Protection is about preventing parts of a spreadsheet from being changed, not about preventing the spreadsheet from being looked at.<br /><br />
+PhpSpreadsheet does not support encrypting a spreadsheet; nor can it read encrypted spreadsheets.
 
 ### Document
 
