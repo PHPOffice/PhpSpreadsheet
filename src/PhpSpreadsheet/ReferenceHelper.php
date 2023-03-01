@@ -75,13 +75,10 @@ class ReferenceHelper
      *
      * @return int
      */
-    public static function columnReverseSort($a, $b)
+    public static function columnReverseSort(string $a, string $b)
     {
         return -strcasecmp(strlen($a) . $a, strlen($b) . $b);
     }
-
-    /** @var int */
-    private static $scrutinizer0 = 0;
 
     /**
      * Compare two cell addresses
@@ -92,16 +89,16 @@ class ReferenceHelper
      *
      * @return int
      */
-    public static function cellSort($a, $b)
+    public static function cellSort(string $a, string $b)
     {
-        $ac = $bc = '';
-        $ar = self::$scrutinizer0;
-        $br = 0;
+        /** @scrutinizer be-damned */
         sscanf($a, '%[A-Z]%d', $ac, $ar);
+        /** @var int $ar */
+        /** @var string $ac */
+        /** @scrutinizer be-damned */
         sscanf($b, '%[A-Z]%d', $bc, $br);
-
-        $ac = (string) $ac;
-        $bc = (string) $bc;
+        /** @var int $br */
+        /** @var string $bc */
         if ($ar === $br) {
             return strcasecmp(strlen($ac) . $ac, strlen($bc) . $bc);
         }
@@ -118,16 +115,16 @@ class ReferenceHelper
      *
      * @return int
      */
-    public static function cellReverseSort($a, $b)
+    public static function cellReverseSort(string $a, string $b)
     {
-        $ac = $bc = '';
-        $ar = self::$scrutinizer0;
-        $br = 0;
+        /** @scrutinizer be-damned */
         sscanf($a, '%[A-Z]%d', $ac, $ar);
+        /** @var int $ar */
+        /** @var string $ac */
+        /** @scrutinizer be-damned */
         sscanf($b, '%[A-Z]%d', $bc, $br);
-
-        $ac = (string) $ac;
-        $bc = (string) $bc;
+        /** @var int $br */
+        /** @var string $bc */
         if ($ar === $br) {
             return -strcasecmp(strlen($ac) . $ac, strlen($bc) . $bc);
         }
@@ -142,7 +139,7 @@ class ReferenceHelper
      * @param int $numberOfColumns Number of columns to insert/delete (negative values indicate deletion)
      * @param int $numberOfRows Number of rows to insert/delete (negative values indicate deletion)
      */
-    protected function adjustPageBreaks(Worksheet $worksheet, $numberOfColumns, $numberOfRows): void
+    protected function adjustPageBreaks(Worksheet $worksheet, int $numberOfColumns, int $numberOfRows): void
     {
         $aBreaks = $worksheet->getBreaks();
         ($numberOfColumns > 0 || $numberOfRows > 0)
@@ -171,7 +168,7 @@ class ReferenceHelper
      *
      * @param Worksheet $worksheet The worksheet that we're editing
      */
-    protected function adjustComments($worksheet): void
+    protected function adjustComments(Worksheet $worksheet): void
     {
         $aComments = $worksheet->getComments();
         $aNewComments = []; // the new array of all comments
@@ -195,7 +192,7 @@ class ReferenceHelper
      * @param int $numberOfColumns Number of columns to insert/delete (negative values indicate deletion)
      * @param int $numberOfRows Number of rows to insert/delete (negative values indicate deletion)
      */
-    protected function adjustHyperlinks($worksheet, $numberOfColumns, $numberOfRows): void
+    protected function adjustHyperlinks(Worksheet $worksheet, int $numberOfColumns, int $numberOfRows): void
     {
         $aHyperlinkCollection = $worksheet->getHyperlinkCollection();
         ($numberOfColumns > 0 || $numberOfRows > 0)
@@ -220,7 +217,7 @@ class ReferenceHelper
      * @param int $numberOfColumns Number of columns to insert/delete (negative values indicate deletion)
      * @param int $numberOfRows Number of rows to insert/delete (negative values indicate deletion)
      */
-    protected function adjustConditionalFormatting($worksheet, $numberOfColumns, $numberOfRows): void
+    protected function adjustConditionalFormatting(Worksheet $worksheet, int $numberOfColumns, int $numberOfRows): void
     {
         $aStyles = $worksheet->getConditionalStylesCollection();
         ($numberOfColumns > 0 || $numberOfRows > 0)
@@ -259,7 +256,7 @@ class ReferenceHelper
      * @param int $numberOfColumns Number of columns to insert/delete (negative values indicate deletion)
      * @param int $numberOfRows Number of rows to insert/delete (negative values indicate deletion)
      */
-    protected function adjustDataValidations(Worksheet $worksheet, $numberOfColumns, $numberOfRows): void
+    protected function adjustDataValidations(Worksheet $worksheet, int $numberOfColumns, int $numberOfRows): void
     {
         $aDataValidationCollection = $worksheet->getDataValidationCollection();
         ($numberOfColumns > 0 || $numberOfRows > 0)
@@ -299,7 +296,7 @@ class ReferenceHelper
      * @param int $numberOfColumns Number of columns to insert/delete (negative values indicate deletion)
      * @param int $numberOfRows Number of rows to insert/delete (negative values indicate deletion)
      */
-    protected function adjustProtectedCells(Worksheet $worksheet, $numberOfColumns, $numberOfRows): void
+    protected function adjustProtectedCells(Worksheet $worksheet, int $numberOfColumns, int $numberOfRows): void
     {
         $aProtectedCells = $worksheet->getProtectedCells();
         ($numberOfColumns > 0 || $numberOfRows > 0)
