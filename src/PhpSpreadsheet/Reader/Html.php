@@ -305,7 +305,7 @@ class Html extends BaseReader
     private function processDomElementBody(Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child): void
     {
         $attributeArray = [];
-        foreach (($child->attributes ?? []) as $attribute) {
+        foreach ($child->attributes as $attribute) {
             $attributeArray[$attribute->name] = $attribute->value;
         }
 
