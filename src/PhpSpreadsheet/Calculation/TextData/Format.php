@@ -129,7 +129,7 @@ class Format
         $format = Helpers::extractString($format);
 
         if (!is_numeric($value) && Date::isDateTimeFormatCode($format)) {
-            $value = DateTimeExcel\DateValue::fromString($value);
+            $value = DateTimeExcel\DateValue::fromString($value) + DateTimeExcel\TimeValue::fromString($value);
         }
 
         return (string) NumberFormat::toFormattedString($value, $format);
