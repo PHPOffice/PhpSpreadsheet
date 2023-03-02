@@ -103,7 +103,7 @@ Posts already available to Patreon supporters:
 - Looping the Loop
     - Advice on Iterating through the rows and cells in a worksheet.
 
-The next post (currently being written) will be:
+And for Patrons at levels actively using PhpSpreadsheet:
  - Behind the Mask
    - A look at Number Format Masks.
 
@@ -118,6 +118,8 @@ Planned posts for the future include topics like:
  - Data Validation
  - Formula Debugging
  - Value Binders
+ - Images
+ - Charts
 
 After a period of six months exclusive to Patreon supporters, articles will be incorporated into the public documentation for the library.
 
