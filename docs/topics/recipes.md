@@ -1580,8 +1580,8 @@ Adding rich text to a cell can be done using
 `\PhpOffice\PhpSpreadsheet\RichText\RichText` instances. Here''s an example, which
 creates the following rich text string:
 
-> This invoice is ***payable within thirty days after the end of the
-> month*** unless specified otherwise on the invoice.
+> This invoice is <font color="darkgreen">***payable within thirty days after the end of the
+> month***</font> unless specified otherwise on the invoice.
 
 ```php
 $richText = new \PhpOffice\PhpSpreadsheet\RichText\RichText();
