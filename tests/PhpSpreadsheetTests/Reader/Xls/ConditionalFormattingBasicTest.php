@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xls;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xls;
+use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PHPUnit\Framework\TestCase;
 
@@ -145,5 +146,60 @@ class ConditionalFormattingBasicTest extends TestCase
                 ],
             ],
         ];
+    }
+
+    public function testReadConditionalFormattingStyles(): void
+    {
+        $filename = 'tests/data/Reader/XLS/CF_Basic_Comparisons.xls';
+        $reader = new Xls();
+        $spreadsheet = $reader->load($filename);
+        $sheet = $spreadsheet->getActiveSheet();
+        $expectedRange = 'A2:E5';
+        $hasConditionalStyles = $sheet->conditionalStylesExists($expectedRange);
+        self::assertTrue($hasConditionalStyles);
+
+        $conditionalStyles = $sheet->getConditionalStyles($expectedRange);
+        self::assertCount(3, $conditionalStyles);
+
+        $style = $conditionalStyles[0]->getStyle();
+        $font = $style->getFont();
+        self::assertSame('FF0000FF', $font->getColor()->getArgb());
+        self::assertNull($font->getItalic());
+        self::assertNull($font->getStrikethrough());
+        // Fill not handled correctly - forget for now
+        $borders = $style->getBorders();
+        self::assertSame(Border::BORDER_OMIT, $borders->getLeft()->getBorderStyle());
+        self::assertSame(Border::BORDER_OMIT, $borders->getRight()->getBorderStyle());
+        self::assertSame(Border::BORDER_OMIT, $borders->getTop()->getBorderStyle());
+        self::assertSame(Border::BORDER_OMIT, $borders->getBottom()->getBorderStyle());
+        self::assertNull($style->getNumberFormat()->getFormatCode());
+
+        $style = $conditionalStyles[1]->getStyle();
+        $font = $style->getFont();
+        self::assertSame('FF800000', $font->getColor()->getArgb());
+        self::assertNull($font->getItalic());
+        self::assertNull($font->getStrikethrough());
+        // Fill not handled correctly - forget for now
+        $borders = $style->getBorders();
+        self::assertSame(Border::BORDER_OMIT, $borders->getLeft()->getBorderStyle());
+        self::assertSame(Border::BORDER_OMIT, $borders->getRight()->getBorderStyle());
+        self::assertSame(Border::BORDER_OMIT, $borders->getTop()->getBorderStyle());
+        self::assertSame(Border::BORDER_OMIT, $borders->getBottom()->getBorderStyle());
+        self::assertNull($style->getNumberFormat()->getFormatCode());
+
+        $style = $conditionalStyles[2]->getStyle();
+        $font = $style->getFont();
+        self::assertSame('FF00FF00', $font->getColor()->getArgb());
+        self::assertNull($font->getItalic());
+        self::assertNull($font->getStrikethrough());
+        // Fill not handled correctly - forget for now
+        $borders = $style->getBorders();
+        self::assertSame(Border::BORDER_OMIT, $borders->getLeft()->getBorderStyle());
+        self::assertSame(Border::BORDER_OMIT, $borders->getRight()->getBorderStyle());
+        self::assertSame(Border::BORDER_OMIT, $borders->getTop()->getBorderStyle());
+        self::assertSame(Border::BORDER_OMIT, $borders->getBottom()->getBorderStyle());
+        self::assertNull($style->getNumberFormat()->getFormatCode());
+
+        $spreadsheet->disconnectWorksheets();
     }
 }

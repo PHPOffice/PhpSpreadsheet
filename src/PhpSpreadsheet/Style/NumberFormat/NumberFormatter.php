@@ -211,7 +211,10 @@ class NumberFormatter
         $useThousands = self::areThousandsRequired($format);
         $scale = self::scaleThousandsMillions($format);
 
-        if (preg_match('/#?.*\?\/(\?+|\d+)/', $format)) {
+        if (preg_match('/[#\?0]?.*[#\?0]\/(\?+|\d+|#)/', $format)) {
+            // It's a dirty hack; but replace # and 0 digit placeholders with ?
+            $format = (string) preg_replace('/[#0]+\//', '?/', $format);
+            $format = (string) preg_replace('/\/[#0]+/', '/?', $format);
             $value = FractionFormatter::format($value, $format);
         } else {
             // Handle the number itself

@@ -2448,12 +2448,12 @@ class Worksheet implements IComparable
     /**
      * Insert a new row, updating all possible related data.
      *
-     * @param int $before Insert before this one
-     * @param int $numberOfRows Number of rows to insert
+     * @param int $before Insert before this row number
+     * @param int $numberOfRows Number of new rows to insert
      *
      * @return $this
      */
-    public function insertNewRowBefore($before, $numberOfRows = 1)
+    public function insertNewRowBefore(int $before, int $numberOfRows = 1)
     {
         if ($before >= 1) {
             $objReferenceHelper = ReferenceHelper::getInstance();
@@ -2468,12 +2468,12 @@ class Worksheet implements IComparable
     /**
      * Insert a new column, updating all possible related data.
      *
-     * @param string $before Insert before this one, eg: 'A'
-     * @param int $numberOfColumns Number of columns to insert
+     * @param string $before Insert before this column Name, eg: 'A'
+     * @param int $numberOfColumns Number of new columns to insert
      *
      * @return $this
      */
-    public function insertNewColumnBefore($before, $numberOfColumns = 1)
+    public function insertNewColumnBefore(string $before, int $numberOfColumns = 1)
     {
         if (!is_numeric($before)) {
             $objReferenceHelper = ReferenceHelper::getInstance();
@@ -2488,12 +2488,12 @@ class Worksheet implements IComparable
     /**
      * Insert a new column, updating all possible related data.
      *
-     * @param int $beforeColumnIndex Insert before this one (numeric column coordinate of the cell)
-     * @param int $numberOfColumns Number of columns to insert
+     * @param int $beforeColumnIndex Insert before this column ID (numeric column coordinate of the cell)
+     * @param int $numberOfColumns Number of new columns to insert
      *
      * @return $this
      */
-    public function insertNewColumnBeforeByIndex($beforeColumnIndex, $numberOfColumns = 1)
+    public function insertNewColumnBeforeByIndex(int $beforeColumnIndex, int $numberOfColumns = 1)
     {
         if ($beforeColumnIndex >= 1) {
             return $this->insertNewColumnBefore(Coordinate::stringFromColumnIndex($beforeColumnIndex), $numberOfColumns);
@@ -2505,12 +2505,12 @@ class Worksheet implements IComparable
     /**
      * Delete a row, updating all possible related data.
      *
-     * @param int $row Remove starting with this one
+     * @param int $row Remove rows, starting with this row number
      * @param int $numberOfRows Number of rows to remove
      *
      * @return $this
      */
-    public function removeRow($row, $numberOfRows = 1)
+    public function removeRow(int $row, int $numberOfRows = 1)
     {
         if ($row < 1) {
             throw new Exception('Rows to be deleted should at least start from row 1.');
@@ -2561,12 +2561,12 @@ class Worksheet implements IComparable
     /**
      * Remove a column, updating all possible related data.
      *
-     * @param string $column Remove starting with this one, eg: 'A'
+     * @param string $column Remove columns starting with this column name, eg: 'A'
      * @param int $numberOfColumns Number of columns to remove
      *
      * @return $this
      */
-    public function removeColumn($column, $numberOfColumns = 1)
+    public function removeColumn(string $column, int $numberOfColumns = 1)
     {
         if (is_numeric($column)) {
             throw new Exception('Column references should not be numeric.');
@@ -2623,12 +2623,12 @@ class Worksheet implements IComparable
     /**
      * Remove a column, updating all possible related data.
      *
-     * @param int $columnIndex Remove starting with this one (numeric column coordinate of the cell)
+     * @param int $columnIndex Remove starting with this column Index (numeric column coordinate)
      * @param int $numColumns Number of columns to remove
      *
      * @return $this
      */
-    public function removeColumnByIndex($columnIndex, $numColumns = 1)
+    public function removeColumnByIndex(int $columnIndex, int $numColumns = 1)
     {
         if ($columnIndex >= 1) {
             return $this->removeColumn(Coordinate::stringFromColumnIndex($columnIndex), $numColumns);
