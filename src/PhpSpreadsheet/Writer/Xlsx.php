@@ -30,8 +30,7 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Theme;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Workbook;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Worksheet;
 use ZipArchive;
-use ZipStream\Exception\OverflowException;
-use ZipStream\Option\Archive;
+use ZipStream\Exception as ZipStreamException;
 use ZipStream\ZipStream;
 
 class Xlsx extends BaseWriter
@@ -546,18 +545,14 @@ class Xlsx extends BaseWriter
 
         $this->openFileHandle($filename);
 
-        $options = new Archive();
-        $options->setEnableZip64(false);
-        $options->setOutputStream($this->fileHandle);
-
-        $this->zip = new ZipStream(null, $options);
+        $this->zip = new ZipStream(outputStream: $this->fileHandle, enableZip64: false, sendHttpHeaders: false);
 
         $this->addZipFiles($zipContent);
 
         // Close file
         try {
             $this->zip->finish();
-        } catch (OverflowException $e) {
+        } catch (ZipStreamException $e) {
             throw new WriterException('Could not close resource.');
         }
 

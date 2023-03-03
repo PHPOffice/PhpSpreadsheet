@@ -11,8 +11,7 @@ use PhpOffice\PhpSpreadsheet\Writer\Ods\Mimetype;
 use PhpOffice\PhpSpreadsheet\Writer\Ods\Settings;
 use PhpOffice\PhpSpreadsheet\Writer\Ods\Styles;
 use PhpOffice\PhpSpreadsheet\Writer\Ods\Thumbnails;
-use ZipStream\Exception\OverflowException;
-use ZipStream\Option\Archive;
+use ZipStream\Exception as ZipStreamException;
 use ZipStream\ZipStream;
 
 class Ods extends BaseWriter
@@ -138,7 +137,7 @@ class Ods extends BaseWriter
         // Close file
         try {
             $zip->finish();
-        } catch (OverflowException $e) {
+        } catch (ZipStreamException $e) {
             throw new WriterException('Could not close resource.');
         }
 
@@ -158,11 +157,7 @@ class Ods extends BaseWriter
         }
 
         // Create new ZIP stream
-        $options = new Archive();
-        $options->setEnableZip64(false);
-        $options->setOutputStream($this->fileHandle);
-
-        return new ZipStream(null, $options);
+        return new ZipStream(outputStream: $this->fileHandle, enableZip64: false, sendHttpHeaders: false);
     }
 
     /**
