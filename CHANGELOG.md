@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Changed
 
-- Nothing
+- Upgrade to ZipStream 3.0 [PR #3402](https://github.com/PHPOffice/PhpSpreadsheet/pull/3431)
 
 ### Deprecated
 
