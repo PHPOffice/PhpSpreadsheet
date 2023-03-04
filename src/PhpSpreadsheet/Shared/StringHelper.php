@@ -452,6 +452,18 @@ class StringHelper
     }
 
     /**
+     * Get character count using mb_strwidth rather than mb_strlen.
+     *
+     * @param string $encoding Encoding
+     *
+     * @return int Character count
+     */
+    public static function countCharactersDbcs(string $textValue, string $encoding = 'UTF-8'): int
+    {
+        return mb_strwidth($textValue, $encoding);
+    }
+
+    /**
      * Get a substring of a UTF-8 encoded string.
      *
      * @param string $textValue UTF-8 encoded string
