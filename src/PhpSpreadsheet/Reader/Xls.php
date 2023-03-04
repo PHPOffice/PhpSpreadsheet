@@ -1097,7 +1097,7 @@ class Xls extends BaseReader
             // treat OBJ records
             foreach ($this->objs as $n => $obj) {
                 // the first shape container never has a corresponding OBJ record, hence $n + 1
-                if (isset($allSpContainers[$n + 1]) && is_object($allSpContainers[$n + 1])) {
+                if (isset($allSpContainers[$n + 1])) {
                     $spContainer = $allSpContainers[$n + 1];
 
                     // we skip all spContainers that are a part of a group shape since we cannot yet handle those
@@ -7921,7 +7921,7 @@ class Xls extends BaseReader
         // offset: 6; size: 4; Options
         $options = self::getInt4d($recordData, 6);
 
-        $style = new Style();
+        $style = new Style(false, true); // non-supervisor, conditional
         $this->getCFStyleOptions($options, $style);
 
         $hasFontRecord = (bool) ((0x04000000 & $options) >> 26);

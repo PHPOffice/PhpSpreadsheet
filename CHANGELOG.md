@@ -9,6 +9,29 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Added
 
+- Nothing
+
+### Changed
+
+- Nothing
+
+### Deprecated
+
+- Nothing
+
+### Removed
+
+- Nothing
+
+### Fixed
+
+- Updates Cell formula absolute ranges/references, and Defined Name absolute ranges/references when inserting/deleting rows/columns [Issue #3368](https://github.com/PHPOffice/PhpSpreadsheet/issues/3368) [PR #3402](https://github.com/PHPOffice/PhpSpreadsheet/pull/3402)
+
+
+## 1.28.0 - 2023-02-25
+
+### Added
+
 - Support for configuring a Chart Title's overlay [PR #3325](https://github.com/PHPOffice/PhpSpreadsheet/pull/3325)
 - Wizards for defining Number Format masks for Numbers, Percentages, Scientific, Currency and Accounting [PR #3334](https://github.com/PHPOffice/PhpSpreadsheet/pull/3334)
 - Support for fixed value divisor in fractional Number Format Masks [PR #3339](https://github.com/PHPOffice/PhpSpreadsheet/pull/3339)

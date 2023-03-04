@@ -714,7 +714,7 @@ class Html
         return self::COLOUR_MAP[$colorName] ?? '';
     }
 
-    private function startFontTag(DOMElement $tag): void
+    protected function startFontTag(DOMElement $tag): void
     {
         $attrs = $tag->attributes;
         if ($attrs !== null) {
@@ -737,72 +737,72 @@ class Html
         }
     }
 
-    private function endFontTag(): void
+    protected function endFontTag(): void
     {
         $this->face = $this->size = $this->color = null;
     }
 
-    private function startBoldTag(): void
+    protected function startBoldTag(): void
     {
         $this->bold = true;
     }
 
-    private function endBoldTag(): void
+    protected function endBoldTag(): void
     {
         $this->bold = false;
     }
 
-    private function startItalicTag(): void
+    protected function startItalicTag(): void
     {
         $this->italic = true;
     }
 
-    private function endItalicTag(): void
+    protected function endItalicTag(): void
     {
         $this->italic = false;
     }
 
-    private function startUnderlineTag(): void
+    protected function startUnderlineTag(): void
     {
         $this->underline = true;
     }
 
-    private function endUnderlineTag(): void
+    protected function endUnderlineTag(): void
     {
         $this->underline = false;
     }
 
-    private function startSubscriptTag(): void
+    protected function startSubscriptTag(): void
     {
         $this->subscript = true;
     }
 
-    private function endSubscriptTag(): void
+    protected function endSubscriptTag(): void
     {
         $this->subscript = false;
     }
 
-    private function startSuperscriptTag(): void
+    protected function startSuperscriptTag(): void
     {
         $this->superscript = true;
     }
 
-    private function endSuperscriptTag(): void
+    protected function endSuperscriptTag(): void
     {
         $this->superscript = false;
     }
 
-    private function startStrikethruTag(): void
+    protected function startStrikethruTag(): void
     {
         $this->strikethrough = true;
     }
 
-    private function endStrikethruTag(): void
+    protected function endStrikethruTag(): void
     {
         $this->strikethrough = false;
     }
 
-    private function breakTag(): void
+    protected function breakTag(): void
     {
         $this->stringData .= "\n";
     }
@@ -826,8 +826,9 @@ class Html
         if (isset($callbacks[$callbackTag])) {
             $elementHandler = $callbacks[$callbackTag];
             if (method_exists($this, $elementHandler)) {
-                /** @phpstan-ignore-next-line */
-                call_user_func([$this, $elementHandler], $element);
+                /** @var callable */
+                $callable = [$this, $elementHandler];
+                call_user_func($callable, $element);
             }
         }
     }
