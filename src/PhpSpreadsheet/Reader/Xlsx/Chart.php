@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Chart\Axis;
+use PhpOffice\PhpSpreadsheet\Chart\AxisText;
 use PhpOffice\PhpSpreadsheet\Chart\ChartColor;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeries;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues;
@@ -1182,7 +1183,11 @@ class Chart
             return;
         }
         $sppr = $chartDetail->spPr->children($this->aNamespace);
+        $this->readEffectsPart2($sppr, $chartObject);
+    }
 
+    private function readEffectsPart2(SimpleXMLElement $sppr, ChartProperties $chartObject): void
+    {
         if (isset($sppr->effectLst->glow)) {
             $axisGlowSize = (float) self::getAttribute($sppr->effectLst->glow, 'rad', 'integer') / ChartProperties::POINTS_WIDTH_MULTIPLIER;
             if ($axisGlowSize != 0.0) {
@@ -1412,12 +1417,27 @@ class Chart
         }
         if (isset($chartDetail->txPr)) {
             $children = $chartDetail->txPr->children($this->aNamespace);
+            $addAxisText = false;
+            $axisText = new AxisText();
             if (isset($children->bodyPr)) {
                 /** @var string */
                 $textRotation = self::getAttribute($children->bodyPr, 'rot', 'string');
                 if (is_numeric($textRotation)) {
-                    $whichAxis->setAxisOption('textRotation', (string) ChartProperties::xmlToAngle($textRotation));
+                    $axisText->setRotation((int) ChartProperties::xmlToAngle($textRotation));
+                    $addAxisText = true;
                 }
+            }
+            if (isset($children->p->pPr->defRPr->solidFill)) {
+                $colorArray = $this->readColor($children->p->pPr->defRPr->solidFill);
+                $axisText->getFillColorObject()->setColorPropertiesArray($colorArray);
+                $addAxisText = true;
+            }
+            if (isset($children->p->pPr->defRPr->effectLst)) {
+                $this->readEffectsPart2($children->p->pPr->defRPr, $axisText);
+                $addAxisText = true;
+            }
+            if ($addAxisText) {
+                $whichAxis->setAxisText($axisText);
             }
         }
     }
