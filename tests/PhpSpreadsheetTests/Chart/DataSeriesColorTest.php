@@ -149,7 +149,7 @@ class DataSeriesColorTest extends AbstractFunctional
 
         $yAxis = new ChartAxis();
         $yAxis->setLineStyleProperties(
-            2.5,     // width in points
+            2.5, // width in points
             Properties::LINE_STYLE_COMPOUND_SIMPLE,
             Properties::LINE_STYLE_DASH_DASH_DOT,
             Properties::LINE_STYLE_CAP_FLAT,
@@ -190,7 +190,7 @@ class DataSeriesColorTest extends AbstractFunctional
             true, // plotVisibleOnly
             DataSeries::EMPTY_AS_GAP, // displayBlanksAs
             null, // xAxisLabel
-            $yAxisLabel,  // yAxisLabel
+            $yAxisLabel, // yAxisLabel
             // added xAxis for correct date display
             $xAxis, // xAxis
             $yAxis, // yAxis
