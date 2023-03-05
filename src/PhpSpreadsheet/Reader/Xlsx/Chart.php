@@ -1177,17 +1177,19 @@ class Chart
         }
     }
 
-    private function readEffects(SimpleXMLElement $chartDetail, ?ChartProperties $chartObject): void
+    private function readEffects(SimpleXMLElement $chartDetail, ?ChartProperties $chartObject, bool $getSppr = true): void
     {
-        if (!isset($chartObject, $chartDetail->spPr)) {
+        if (!isset($chartObject)) {
             return;
         }
-        $sppr = $chartDetail->spPr->children($this->aNamespace);
-        $this->readEffectsPart2($sppr, $chartObject);
-    }
-
-    private function readEffectsPart2(SimpleXMLElement $sppr, ChartProperties $chartObject): void
-    {
+        if ($getSppr) {
+            if (!isset($chartDetail->spPr)) {
+                return;
+            }
+            $sppr = $chartDetail->spPr->children($this->aNamespace);
+        } else {
+            $sppr = $chartDetail;
+        }
         if (isset($sppr->effectLst->glow)) {
             $axisGlowSize = (float) self::getAttribute($sppr->effectLst->glow, 'rad', 'integer') / ChartProperties::POINTS_WIDTH_MULTIPLIER;
             if ($axisGlowSize != 0.0) {
@@ -1433,7 +1435,7 @@ class Chart
                 $addAxisText = true;
             }
             if (isset($children->p->pPr->defRPr->effectLst)) {
-                $this->readEffectsPart2($children->p->pPr->defRPr, $axisText);
+                $this->readEffects($children->p->pPr->defRPr, $axisText, false);
                 $addAxisText = true;
             }
             if ($addAxisText) {
