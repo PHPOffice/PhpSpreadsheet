@@ -32,7 +32,7 @@ class Issue3435Test extends \PHPUnit\Framework\TestCase
 
     public function testQuotePrefix(): void
     {
-        // Parsing of quotePrefix="0" was incorrect.
+        // Parsing of quotePrefix="0" was incorrect, now corrected.
         $reader = new Xlsx();
         $spreadsheet = $reader->load(self::$testbook);
         $sheet = $spreadsheet->getActiveSheet();
