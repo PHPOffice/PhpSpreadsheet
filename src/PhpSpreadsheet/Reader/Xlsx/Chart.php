@@ -351,6 +351,10 @@ class Chart
                                 $legendPos = 'r';
                                 $legendLayout = null;
                                 $legendOverlay = false;
+                                $legendBorderColor = null;
+                                $legendFillColor = null;
+                                $legendText = null;
+                                $addLegendText = false;
                                 foreach ($chartDetails as $chartDetailKey => $chartDetail) {
                                     $chartDetail = Xlsx::testSimpleXml($chartDetail);
                                     switch ($chartDetailKey) {
@@ -366,9 +370,43 @@ class Chart
                                             $legendLayout = $this->chartLayoutDetails($chartDetail);
 
                                             break;
+                                        case 'spPr':
+                                            $children = $chartDetails->spPr->children($this->aNamespace);
+                                            if (isset($children->solidFill)) {
+                                                $legendFillColor = $this->readColor($children->solidFill);
+                                            }
+                                            if (isset($children->ln->solidFill)) {
+                                                $legendBorderColor = $this->readColor($children->ln->solidFill);
+                                            }
+
+                                            break;
+                                        case 'txPr':
+                                            $children = $chartDetails->txPr->children($this->aNamespace);
+                                            $addLegendText = false;
+                                            $legendText = new AxisText();
+                                            if (isset($children->p->pPr->defRPr->solidFill)) {
+                                                $colorArray = $this->readColor($children->p->pPr->defRPr->solidFill);
+                                                $legendText->getFillColorObject()->setColorPropertiesArray($colorArray);
+                                                $addLegendText = true;
+                                            }
+                                            if (isset($children->p->pPr->defRPr->effectLst)) {
+                                                $this->readEffects($children->p->pPr->defRPr, $legendText, false);
+                                                $addLegendText = true;
+                                            }
+
+                                            break;
                                     }
                                 }
                                 $legend = new Legend("$legendPos", $legendLayout, (bool) $legendOverlay);
+                                if ($legendFillColor !== null) {
+                                    $legend->getFillColor()->setColorPropertiesArray($legendFillColor);
+                                }
+                                if ($legendBorderColor !== null) {
+                                    $legend->getBorderColor()->setColorPropertiesArray($legendBorderColor);
+                                }
+                                if ($addLegendText) {
+                                    $legend->setLegendText($legendText);
+                                }
 
                                 break;
                         }
