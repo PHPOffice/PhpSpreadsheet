@@ -618,7 +618,7 @@ class Xlsx extends BaseReader
                                     $numFmt = NumberFormat::builtInFormatCode((int) $xf['numFmtId']);
                                 }
                             }
-                            $quotePrefix = (bool) ($xf['quotePrefix'] ?? false);
+                            $quotePrefix = (bool) (string) ($xf['quotePrefix'] ?? '');
 
                             $style = (object) [
                                 'numFmt' => $numFmt ?? NumberFormat::FORMAT_GENERAL,
@@ -653,7 +653,7 @@ class Xlsx extends BaseReader
                                 }
                             }
 
-                            $quotePrefix = (bool) ($xf['quotePrefix'] ?? false);
+                            $quotePrefix = (bool) (string) ($xf['quotePrefix'] ?? '');
 
                             $cellStyle = (object) [
                                 'numFmt' => $numFmt,
