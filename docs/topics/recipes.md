@@ -20,6 +20,9 @@ finding a specific document in a file repository or a document
 management system. For example Microsoft Sharepoint uses document
 metadata to search for a specific document in its document lists.
 
+<details>
+  <summary>Click here for details of Spreadsheet Document Properties</summary>
+
 These are accessed in MS Excel from the "Info" option on the "File" menu:
 ![99-Properties_File-Menu.png](images%2F99-Properties_File-Menu.png)
 
@@ -44,7 +47,7 @@ The new property will then be created and displayed in the list at the bottom of
 While "Text", "Number" (can be an integer or a floating point value) and "Yes or No" types are straightforward to add a value, "Date" types are more difficult, and Microsoft provide very little help.
 However, you need to enter the date in the format that matches your locale, so an American would enter "7/4/2023 for the 4th of July; but in the UK I would enter "4/7/2023" for the same date.
 
----
+</details>
 
 Setting spreadsheet metadata in PhpSpreadsheet is done as follows:
 
@@ -62,6 +65,10 @@ $spreadsheet->getProperties()
 ```
 
 You can choose which properties to set or ignore.
+
+<details>
+  <summary>Click here for details of Property Getters/Setters</summary>
+
 PhpSpreadsheet provides specific getters/setters for a number of pre-defined properties.
 
 | Property Name    | DataType                | Getter/Setter                                | Notes                                                     |
@@ -79,6 +86,11 @@ PhpSpreadsheet provides specific getters/setters for a number of pre-defined pro
 | Manager          | string                  | getManager()<br />setManager()               | Not supported in xls files.                               |
 > **Note:** Not all Spreadsheet File Formats support all of these properties.
 > For example: "Category", "Company" and "Manager" are not supported in `xls` files.
+
+</details>
+
+<details>
+  <summary>Click here for details of Custom Properties</summary>
 
 Additionally, PhpSpreadsheet supports the creation and reading of custom properties for those file formats that accept custom properties.
 The following methods of the Properties class can be used when working with custom properties.
@@ -103,15 +115,6 @@ The recognised Property Types are:
 | Properties::PROPERTY_TYPE_DATE    | date     | d     |
 | Properties::PROPERTY_TYPE_STRING  | string   | s     |
 
-```php
-$spreadsheet->getProperties()
-    ->setCustomProperty('Editor', 'Mark Baker')
-    ->setCustomProperty('Version', 1.17)
-    ->setCustomProperty('Tested', true)
-    ->setCustomProperty('Test Date', '2021-03-17', Properties::PROPERTY_TYPE_DATE);
-```
-> **Warning:** If the datatype for a date is not explicitly used, then it will be treated as a string.
-
 When reading property types, you might also encounter:
 
 | Datatype | Value        |
@@ -122,23 +125,91 @@ When reading property types, you might also encounter:
 
 Other more complex types, such as pointers and filetime, are not supported by PhpSpreadsheet; and are discarded when reading a file.
 
+</details>
+
+```php
+$spreadsheet->getProperties()
+    ->setCustomProperty('Editor', 'Mark Baker')
+    ->setCustomProperty('Version', 1.17)
+    ->setCustomProperty('Tested', true)
+    ->setCustomProperty('Test Date', '2021-03-17', Properties::PROPERTY_TYPE_DATE);
+```
+> **Warning:** If the datatype for a date is not explicitly used, then it will be treated as a string.
+
 ## Setting a spreadsheet's active sheet
 
-The following line of code sets the active sheet index to the first
-sheet:
+A Spreadsheet consists of (very rarely) none, one or more Worksheets. If you have 1 or more Worksheets, then one (and only one) of those Worksheets can be "Active" (viewed or updated) at a time, but there will always be an "Active" Worksheet (unless you explicitly delete all of the Worksheets in the Spreadsheet).
+
+<details>
+  <summary>Click here for details about Worksheets</summary>
+
+When you create a new Spreadsheet in MS Excel, it creates the Spreadsheet with a single Worksheet ("Sheet1")
+
+![101-Basic-Spreadsheet-with-Worksheet.png](images%2F101-Basic-Spreadsheet-with-Worksheet.png)
+
+and that is the "Active" Worksheet.
+
+![101-Active-Worksheet-1.png](images%2F101-Active-Worksheet-1.png)
+
+This is the same as
+```php
+$spreadsheet = new Spreadsheet();
+$activeWorksheet = $spreadsheet->getActiveSheet();
+```
+in PhpSpreadsheet.
+
+And you can then write values to Cells in `$activeWorksheet` (`Sheet1`).
+
+To create a new Worksheet in MS Excel, you click on the "+" button in the Worksheet Tab Bar. MS Excel will then create a new Worksheet ("Sheet2") in the Spreadsheet, and make that the current "Active" Worksheet.
+
+![101-Active-Worksheet-2.png](images%2F101-Active-Worksheet-2.png)
+
+Excel always shows the "Active" Worksheet in the Grid, and you can see which Worksheet is "Active" because it is highlighted in the Worksheet Tab Bar at the bottom of the Worksheet Grid.
+
+This is the same as
+```php
+$activeWorksheet = $spreadsheet->createSheet();
+```
+in PhpSpreadsheet.
+
+And you can then write values to Cells in `$activeWorksheet` (`Sheet2`).
+
+</details>
+
+To switch between Worksheets in MS Excel, you click on the Tab for the Worksheet that you want to be "Active" in the Worksheet Tab Bar. Excel will then set that as the "Active" Worksheet.
+
+![101-Active-Worksheet-Change.png](images%2F101-Active-Worksheet-Change.png)
+
+In PhpSpreadsheet, you do this by calling the Spreadsheet's `setActiveSheetIndex()` methods.
+Either:
 
 ```php
-$spreadsheet->setActiveSheetIndex(0);
+$activeWorksheet = $spreadsheet->setActiveSheetIndexByName('Sheet1')
 ```
+using the name/title of the Worksheet that you want as the "Active" Worksheet.
 
-You can also set the active sheet by its name/title
-
+Or:
 ```php
-$spreadsheet->setActiveSheetIndexByName('DataSheet')
+$activeWorksheet = $spreadsheet->setActiveSheetIndex(0);
 ```
+Where you set the "Active" Worksheet by its position in the Worksheet Tab Bar, with 0 as the first Worksheet, 1 as the second, etc.
 
-will change the currently active sheet to the worksheet called
-"DataSheet".
+And you can then write values to Cells in `$activeWorksheet` (`Sheet1`) again.
+
+
+You don't have to assign the return value from calls to `createSheet()` and `setActiveSheetIndex()` to a variable, but it means that you can call Worksheet methods directly against `$activeWorksheet`, rather than having to call `$spreadsheet->getActiveSheet()` all the time.
+And, unlike MS Excel where you can only update Cells in the "Active" Worksheet; PhpSpreadsheet allows you to update Cells in any Worksheet:
+```php
+// Create a Spreadsheet, with Worksheet Sheet1, which is the Active Worksheet
+$spreadsheet = new Spreadsheet();
+// Assign the Active Worksheet (Sheet1) to $worksheet1
+$worksheet1 = $spreadsheet->getActiveSheet();
+// Create a new Worksheet (Sheet2) and make that the Active Worksheet
+$worksheet2 = $spreadsheet->createSheet();
+
+$worksheet1->setCellValue('A1', 'I am a cell on Sheet1');
+$worksheet2->setCellValue('A1', 'I am a cell on Sheet2');
+```
 
 ## Write a date or time into a cell
 
