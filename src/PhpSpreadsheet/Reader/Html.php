@@ -560,6 +560,8 @@ class Html extends BaseReader
     private function processDomElementDataFormat(Worksheet $sheet, int $row, string $column, array $attributeArray): void
     {
         if (isset($attributeArray['data-format'])) {
+            $value = $sheet->getCell($column . $row)->getValue();
+            $sheet->setCellValue($column . $row,(float) $value);
             $sheet->getStyle($column . $row)->getNumberFormat()->setFormatCode($attributeArray['data-format']);
         }
     }
