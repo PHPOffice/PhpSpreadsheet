@@ -10,6 +10,8 @@ For example, [setting a worksheet's page orientation and size
 orientation to A4. Other paper formats, like US Letter, are not covered
 in this document, but in the PhpSpreadsheet [API documentation](https://phpoffice.github.io/PhpSpreadsheet).
 
+My apologies if this documentation seems very basic to some of you; but I spend so much time having to provide help lessons in PHP 101 and Excel 101 that I feel I need to provide this level of very simple detail.
+
 ## Setting a spreadsheet's metadata
 
 PhpSpreadsheet allows an easy way to set a spreadsheet's metadata, using
@@ -18,12 +20,38 @@ finding a specific document in a file repository or a document
 management system. For example Microsoft Sharepoint uses document
 metadata to search for a specific document in its document lists.
 
-Setting spreadsheet metadata is done as follows:
+These are accessed in MS Excel from the "Info" option on the "File" menu:
+![99-Properties_File-Menu.png](images%2F99-Properties_File-Menu.png)
+
+Some of these properties can be edited "in situ" in the Properties Block:
+![99-Properties_Block.png](images%2F99-Properties_Block.png)
+
+For more advanced properties, click on the "Properties" dropdown:
+![99-Properties_Advanced.png](images%2F99-Properties_Advanced.png)
+
+And you will be able to add/edit/delete a lot of different property values.
+![99-Properties_Advanced-Form.png](images%2F99-Properties_Advanced-Form.png)
+
+Properties on the "General", "Statistics" and "Contents" tabs are informational, and cannot be user-defined in Excel itself.
+Properties on the "Summary" tab are all string values.
+
+The "Custom" tab allows you to define your own properties. More information from the Microsoft Documentation can be found [here](https://support.microsoft.com/en-us/office/view-or-change-the-properties-for-an-office-file-21d604c2-481e-4379-8e54-1dd4622c6b75).
+![99-Properties_Advanced-Form-2.png](images%2F99-Properties_Advanced-Form-2.png)
+
+You can select a property name from the dropdown, or type a new name of your choice; select a Type; enter a value; and then click on "Add".
+The new property will then be created and displayed in the list at the bottom of the form.
+
+While "Text", "Number" (can be an integer or a floating point value) and "Yes or No" types are straightforward to add a value, "Date" types are more difficult, and Microsoft provide very little help.
+However, you need to enter the date in the format that matches your locale, so an American would enter "7/4/2023 for the 4th of July; but in the UK I would enter "4/7/2023" for the same date.
+
+---
+
+Setting spreadsheet metadata in PhpSpreadsheet is done as follows:
 
 ```php
 $spreadsheet->getProperties()
     ->setCreator("Maarten Balliauw")
-    ->setLastModifiedBy("Maarten Balliauw")
+    ->setLastModifiedBy("Mark Baker")
     ->setTitle("Office 2007 XLSX Test Document")
     ->setSubject("Office 2007 XLSX Test Document")
     ->setDescription(
@@ -32,6 +60,67 @@ $spreadsheet->getProperties()
     ->setKeywords("office 2007 openxml php")
     ->setCategory("Test result file");
 ```
+
+You can choose which properties to set or ignore.
+PhpSpreadsheet provides specific getters/setters for a number of pre-defined properties.
+
+| Property Name    | DataType                | Getter/Setter                                | Notes                                                     |
+|------------------|-------------------------|----------------------------------------------|-----------------------------------------------------------|
+| Creator          | string                  | getCreator()<br />setCreator()               |                                                           |
+| Last Modified By | string                  | getLastModifiedBy()<br />setLastModifiedBy() |                                                           |
+| Created          | float/int<br/>timestamp | getCreated()<br />setCreated()               | Cannot be modified in MS Excel; but is automatically set. |
+| Modified         | float/int<br/>timestamp | getModified()<br />setModified()             | Cannot be modified in MS Excel; but is automatically set. |
+| Title            | string                  | getTitle()<br />setTitle()                   |                                                           |
+| Description      | string                  | getDescription()<br />setDescription()       |                                                           |
+| Subject          | string                  | getSubject()<br />setSubject()               |                                                           |
+| Keywords         | string                  | getKeywords()<br />setKeywords()             |                                                           |
+| Category         | string                  | getCategory()<br />setCategory()             | Not supported in xls files.                               |
+| Company          | string                  | getCompany()<br />setCompany()               | Not supported in xls files.                               |
+| Manager          | string                  | getManager()<br />setManager()               | Not supported in xls files.                               |
+> **Note:** Not all Spreadsheet File Formats support all of these properties.
+> For example: "Category", "Company" and "Manager" are not supported in `xls` files.
+
+Additionally, PhpSpreadsheet supports the creation and reading of custom properties for those file formats that accept custom properties.
+The following methods of the Properties class can be used when working with custom properties.
+ - `getCustomProperties()`<br />
+   Will return an array listing the names of all custom properties that are defined.
+ - `isCustomPropertySet(string $propertyName)`<br />
+   Will return a boolean indicating if the named custom property is defined.
+ - `getCustomPropertyValue(string $propertyName)`<br />
+   Will return the "raw" value of the named custom property; or null if the property doesn't exist.
+ - `getCustomPropertyType(string $propertyName)`<br />
+   Will return the datatype of the named custom property; or null if the property doesn't exist. 
+ - `setCustomProperty(string $propertyName, $propertyValue = '', $propertyType = null)`<br />
+   Will let you set (or modify) a custom property. If you don't provide a datatype, then PhpSpreadsheet will attempt to identify the datatype from the value that you set.
+
+The recognised Property Types are:
+
+| Constant                          | Datatype | Value |
+|-----------------------------------|----------|-------|
+| Properties::PROPERTY_TYPE_BOOLEAN | boolean  | b     |
+| Properties::PROPERTY_TYPE_INTEGER | integer  | i     |
+| Properties::PROPERTY_TYPE_FLOAT   | float    | f     |
+| Properties::PROPERTY_TYPE_DATE    | date     | d     |
+| Properties::PROPERTY_TYPE_STRING  | string   | s     |
+
+```php
+$spreadsheet->getProperties()
+    ->setCustomProperty('Editor', 'Mark Baker')
+    ->setCustomProperty('Version', 1.17)
+    ->setCustomProperty('Tested', true)
+    ->setCustomProperty('Test Date', '2021-03-17', Properties::PROPERTY_TYPE_DATE);
+```
+> **Warning:** If the datatype for a date is not explicitly used, then it will be treated as a string.
+
+When reading property types, you might also encounter:
+
+| Datatype | Value        |
+|----------|--------------|
+| null     | null value   |
+| empty    | empty string |
+| u        | unknown      |
+
+Other more complex types, such as pointers and filetime, are not supported by PhpSpreadsheet; and are discarded when reading a file.
 
 ## Setting a spreadsheet's active sheet
 
