@@ -17,4 +17,5 @@ return [
     ['#NUM!', '"37777777770"'], // too many digits
     [536870911, '"3777777777"'], // highest positive
     [-536870912, '"4000000000"'], // lowest negative
+    ['0', '""'],
 ];
