@@ -46,6 +46,7 @@ The new property will then be created and displayed in the list at the bottom of
 
 While "Text", "Number" (can be an integer or a floating point value) and "Yes or No" types are straightforward to add a value, "Date" types are more difficult, and Microsoft provide very little help.
 However, you need to enter the date in the format that matches your locale, so an American would enter "7/4/2023 for the 4th of July; but in the UK I would enter "4/7/2023" for the same date.
+Although typically recognised as a date elsewhere in MS Excel, the almost universally recognised `2022-12-31` date format is not recognised as valid here.
 
 </details>
 
@@ -135,6 +136,8 @@ $spreadsheet->getProperties()
     ->setCustomProperty('Test Date', '2021-03-17', Properties::PROPERTY_TYPE_DATE);
 ```
 > **Warning:** If the datatype for a date is not explicitly used, then it will be treated as a string.
+
+> **Note:** Although MS Excel doesn't recognise `2022-12-31` as valid date format when entering Custom Date Properties, PhpSpreadsheet will accept it.
 
 ## Setting a spreadsheet's active sheet
 
