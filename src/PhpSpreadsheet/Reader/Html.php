@@ -564,6 +564,18 @@ class Html extends BaseReader
         }
     }
 
+    private function processDomElementDataType(Worksheet $sheet, int $row, string $column, array $attributeArray): void
+    {
+        if (isset($attributeArray['data-type'])) {
+            $cell = $sheet->getCell($column . $row);
+            $cellValue = $cell->getValue();
+            //cast value to the datatype
+            $sheet->setCellValueExplicit($column . $row, $cellValue, $attributeArray['data-type']);
+            //set datatype
+            $cell->setDataType($attributeArray['data-type']);
+        }
+    }
+
     private function processDomElementThTd(Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child, array &$attributeArray): void
     {
         while (isset($this->rowspan[$column . $row])) {
@@ -582,6 +594,7 @@ class Html extends BaseReader
         $this->processDomElementAlign($sheet, $row, $column, $attributeArray);
         $this->processDomElementVAlign($sheet, $row, $column, $attributeArray);
         $this->processDomElementDataFormat($sheet, $row, $column, $attributeArray);
+        $this->processDomElementDataType($sheet, $row, $column, $attributeArray);
 
         if (isset($attributeArray['rowspan'], $attributeArray['colspan'])) {
             //create merging rowspan and colspan

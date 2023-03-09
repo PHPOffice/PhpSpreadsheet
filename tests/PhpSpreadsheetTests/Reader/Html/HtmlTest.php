@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Html;
 
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 use PhpOffice\PhpSpreadsheet\Reader\Html;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
@@ -362,5 +363,32 @@ class HtmlTest extends TestCase
         foreach ($totalBorders as $border) {
             self::assertEquals(Border::BORDER_THIN, $border->getBorderStyle());
         }
+    }
+
+    public function testDataType(): void
+    {
+        $html = '<table>
+                    <tr>
+                        <td data-type="b">1</td>
+                        <td data-type="s">12345678987654321</td>
+                        <td data-type="f">=CONCAT("TEXT A ","TEXT B")</td>
+                    </tr>
+                </table>';
+        $reader = new Html();
+        $spreadsheet = $reader->loadFromString($html);
+        $firstSheet = $spreadsheet->getSheet(0);
+
+        // check boolean data type
+        self::assertEquals(DataType::TYPE_BOOL, $firstSheet->getCell('A1')->getDataType());
+        self::assertIsBool($firstSheet->getCell('A1')->getValue());
+
+        // check string data type
+        self::assertEquals(DataType::TYPE_STRING, $firstSheet->getCell('B1')->getDataType());
+        self::assertIsString($firstSheet->getCell('B1')->getValue());
+
+        // check formula data type
+        self::assertEquals(DataType::TYPE_FORMULA, $firstSheet->getCell('C1')->getDataType());
+        // check formula output
+        self::assertEquals('TEXT A TEXT B', $firstSheet->getCell('C1')->getFormattedValue());
     }
 }
