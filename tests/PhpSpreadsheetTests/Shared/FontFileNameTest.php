@@ -151,4 +151,35 @@ class FontFileNameTest extends TestCase
             ['cour.ttf', ['name' => 'Courier New']],
         ];
     }
+
+    /**
+     * @dataProvider providerOverrideAbsolute
+     */
+    public function testOverrideFilenamesAbsolute(string $expected, array $fontArray): void
+    {
+        $realPath = realpath(self::MAC_DIRECTORY) . DIRECTORY_SEPARATOR;
+        Font::setTrueTypeFontPath(self::DEFAULT_DIRECTORY);
+        Font::setExtraFontArray([
+            'Arial' => [
+                'x' => $realPath . 'Arial.ttf',
+                'xb' => $realPath . 'Arial Bold.ttf',
+                'xi' => $realPath . 'Arial Italic.ttf',
+                'xbi' => $realPath . 'Arial Bold Italic.ttf',
+            ],
+        ]);
+        $font = (new StyleFont())->applyFromArray($fontArray);
+        $result = Font::getTrueTypeFontFileFromFont($font);
+        self::assertSame($expected, basename($result));
+    }
+
+    public function providerOverrideAbsolute(): array
+    {
+        return [
+            'absolute path normal' => ['Arial.ttf', ['name' => 'Arial']],
+            'absolute path bold' => ['Arial Bold.ttf', ['name' => 'Arial', 'bold' => true]],
+            'absolute path italic' => ['Arial Italic.ttf', ['name' => 'Arial', 'italic' => true]],
+            'absolute path bold italic' => ['Arial Bold Italic.ttf', ['name' => 'Arial', 'bold' => true, 'italic' => true]],
+            'non-absolute path uses TrueTypeFontPath' => ['cour.ttf', ['name' => 'Courier New']],
+        ];
+    }
 }
