@@ -3,45 +3,91 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\YearFrac;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
+use PHPUnit\Framework\TestCase;
 
-class YearFracTest extends AllSetupTeardown
+class YearFracTest extends TestCase
 {
     /**
      * @dataProvider providerYEARFRAC
      *
      * @param mixed $expectedResult
-     * @param mixed $arg1
-     * @param mixed $arg2
-     * @param mixed $arg3
      */
-    public function testYEARFRAC($expectedResult, $arg1 = 'omitted', $arg2 = 'omitted', $arg3 = 'omitted'): void
+    public function testDirectCallToYEARFRAC($expectedResult, ...$args): void
     {
-        $this->mightHaveException($expectedResult);
-        $sheet = $this->getSheet();
-        if ($arg1 !== null) {
-            $sheet->getCell('A1')->setValue($arg1);
-        }
-        if ($arg2 !== null) {
-            $sheet->getCell('A2')->setValue($arg2);
-        }
-        if ($arg3 !== null) {
-            $sheet->getCell('A3')->setValue($arg3);
-        }
-        if ($arg1 === 'omitted') {
-            $sheet->getCell('B1')->setValue('=YEARFRAC()');
-        } elseif ($arg2 === 'omitted') {
-            $sheet->getCell('B1')->setValue('=YEARFRAC(A1)');
-        } elseif ($arg3 === 'omitted') {
-            $sheet->getCell('B1')->setValue('=YEARFRAC(A1, A2)');
-        } else {
-            $sheet->getCell('B1')->setValue('=YEARFRAC(A1, A2, A3)');
-        }
-        self::assertEqualswithDelta($expectedResult, $sheet->getCell('B1')->getCalculatedValue(), 1E-6);
+        $result = YearFrac::fraction(...$args);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-6);
+    }
+
+    /**
+     * @dataProvider providerYEARFRAC
+     *
+     * @param mixed $expectedResult
+     */
+    public function testYEARFRACAsFormula($expectedResult, ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $calculation = Calculation::getInstance();
+        $formula = "=YEARFRAC({$arguments})";
+
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-6);
+    }
+
+    /**
+     * @dataProvider providerYEARFRAC
+     *
+     * @param mixed $expectedResult
+     */
+    public function testYEARFRACInWorksheet($expectedResult, ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=YEARFRAC({$argumentCells})";
+
+        $result = $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-6);
     }
 
     public function providerYEARFRAC(): array
     {
         return require 'tests/data/Calculation/DateTime/YEARFRAC.php';
+    }
+
+    /**
+     * @dataProvider providerUnhappyYEARFRAC
+     */
+    public function testYEARFRACUnhappyPath(string $expectedException, ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=YEARFRAC({$argumentCells})";
+
+        $this->expectException(CalculationException::class);
+        $this->expectExceptionMessage($expectedException);
+        $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+    }
+
+    public function providerUnhappyYEARFRAC(): array
+    {
+        return [
+            ['Formula Error: Wrong number of arguments for YEARFRAC() function'],
+            ['Formula Error: Wrong number of arguments for YEARFRAC() function', '2023-03-09'],
+        ];
     }
 
     /**

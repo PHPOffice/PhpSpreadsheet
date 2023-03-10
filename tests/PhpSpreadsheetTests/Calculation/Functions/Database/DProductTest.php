@@ -3,10 +3,10 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Database\DProduct;
-use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
+use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Helpers as DateTimeHelper;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
-class DProductTest extends AllSetupTeardown
+class DProductTest extends SetupTeardownDatabases
 {
     /**
      * @dataProvider providerDProduct
@@ -42,18 +42,18 @@ class DProductTest extends AllSetupTeardown
     {
         return [
             ['Name', 'Date', 'Test', 'Score'],
-            ['Gary', DateTimeExcel\Helpers::getDateValue('01-Jan-2017'), 'Test1', 4],
-            ['Gary', DateTimeExcel\Helpers::getDateValue('01-Jan-2017'), 'Test2', 4],
-            ['Gary', DateTimeExcel\Helpers::getDateValue('01-Jan-2017'), 'Test3', 3],
-            ['Gary', DateTimeExcel\Helpers::getDateValue('05-Jan-2017'), 'Test1', 3],
-            ['Gary', DateTimeExcel\Helpers::getDateValue('05-Jan-2017'), 'Test2', 4],
-            ['Gary', DateTimeExcel\Helpers::getDateValue('05-Jan-2017'), 'Test3', 3],
-            ['Kev', DateTimeExcel\Helpers::getDateValue('02-Jan-2017'), 'Test1', 2],
-            ['Kev', DateTimeExcel\Helpers::getDateValue('02-Jan-2017'), 'Test2', 3],
-            ['Kev', DateTimeExcel\Helpers::getDateValue('02-Jan-2017'), 'Test3', 5],
-            ['Kev', DateTimeExcel\Helpers::getDateValue('05-Jan-2017'), 'Test1', 3],
-            ['Kev', DateTimeExcel\Helpers::getDateValue('05-Jan-2017'), 'Test2', 2],
-            ['Kev', DateTimeExcel\Helpers::getDateValue('05-Jan-2017'), 'Test3', 5],
+            ['Gary', DateTimeHelper::getDateValue('01-Jan-2017'), 'Test1', 4],
+            ['Gary', DateTimeHelper::getDateValue('01-Jan-2017'), 'Test2', 4],
+            ['Gary', DateTimeHelper::getDateValue('01-Jan-2017'), 'Test3', 3],
+            ['Gary', DateTimeHelper::getDateValue('05-Jan-2017'), 'Test1', 3],
+            ['Gary', DateTimeHelper::getDateValue('05-Jan-2017'), 'Test2', 4],
+            ['Gary', DateTimeHelper::getDateValue('05-Jan-2017'), 'Test3', 3],
+            ['Kev', DateTimeHelper::getDateValue('02-Jan-2017'), 'Test1', 2],
+            ['Kev', DateTimeHelper::getDateValue('02-Jan-2017'), 'Test2', 3],
+            ['Kev', DateTimeHelper::getDateValue('02-Jan-2017'), 'Test3', 5],
+            ['Kev', DateTimeHelper::getDateValue('05-Jan-2017'), 'Test1', 3],
+            ['Kev', DateTimeHelper::getDateValue('05-Jan-2017'), 'Test2', 2],
+            ['Kev', DateTimeHelper::getDateValue('05-Jan-2017'), 'Test3', 5],
         ];
     }
 

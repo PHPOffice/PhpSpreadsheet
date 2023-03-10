@@ -5,7 +5,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 use PhpOffice\PhpSpreadsheet\Calculation\Database\DMin;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
-class DMinTest extends AllSetupTeardown
+class DMinTest extends SetupTeardownDatabases
 {
     /**
      * @dataProvider providerDMin

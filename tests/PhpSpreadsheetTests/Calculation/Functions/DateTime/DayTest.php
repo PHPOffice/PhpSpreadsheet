@@ -3,21 +3,79 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\DateParts;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
+use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
+use PHPUnit\Framework\TestCase;
 
-class DayTest extends AllSetupTeardown
+class DayTest extends TestCase
 {
+    /**
+     * @var string
+     */
+    private $compatibilityMode;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->compatibilityMode = Functions::getCompatibilityMode();
+    }
+
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+
+        Functions::setCompatibilityMode($this->compatibilityMode);
+    }
+
     /**
      * @dataProvider providerDAY
      *
      * @param mixed $expectedResultExcel
      */
-    public function testDAY($expectedResultExcel, string $dateTimeValue): void
+    public function testDirectCallToDAY($expectedResultExcel, ...$args): void
     {
-        $this->mightHaveException($expectedResultExcel);
-        $sheet = $this->getSheet();
-        $sheet->getCell('B1')->setValue('1954-11-23');
-        $sheet->getCell('A1')->setValue("=DAY($dateTimeValue)");
-        self::assertSame($expectedResultExcel, $sheet->getCell('A1')->getCalculatedValue());
+        $result = DateParts::day(...$args);
+        self::assertSame($expectedResultExcel, $result);
+    }
+
+    /**
+     * @dataProvider providerDAY
+     *
+     * @param mixed $expectedResultExcel
+     */
+    public function testDAYAsFormula($expectedResultExcel, ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $calculation = Calculation::getInstance();
+        $formula = "=DAY({$arguments})";
+
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertSame($expectedResultExcel, $result);
+    }
+
+    /**
+     * @dataProvider providerDAY
+     *
+     * @param mixed $expectedResult
+     */
+    public function testDAYInWorksheet($expectedResult, ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=DAY({$argumentCells})";
+
+        $result = $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+        self::assertSame($expectedResult, $result);
     }
 
     public function providerDAY(): array
@@ -30,18 +88,61 @@ class DayTest extends AllSetupTeardown
      *
      * @param mixed $expectedResultOpenOffice
      */
-    public function testDAYOpenOffice($expectedResultOpenOffice, string $dateTimeValue): void
+    public function testDirectCallToDAYOpenOffice($expectedResultOpenOffice, ...$args): void
     {
-        self::setOpenOffice();
-        $this->mightHaveException($expectedResultOpenOffice);
-        $sheet = $this->getSheet();
-        $sheet->getCell('A2')->setValue("=DAY($dateTimeValue)");
-        self::assertSame($expectedResultOpenOffice, $sheet->getCell('A2')->getCalculatedValue());
+        Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
+
+        $result = DateParts::day(...$args);
+        self::assertSame($expectedResultOpenOffice, $result);
+    }
+
+    /**
+     * @dataProvider providerDAYOpenOffice
+     *
+     * @param mixed $expectedResultOpenOffice
+     */
+    public function testDAYAsFormulaOpenOffice($expectedResultOpenOffice, ...$args): void
+    {
+        Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
+
+        $arguments = new FormulaArguments(...$args);
+
+        $calculation = Calculation::getInstance();
+        $formula = "=DAY({$arguments})";
+
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertSame($expectedResultOpenOffice, $result);
     }
 
     public function providerDAYOpenOffice(): array
     {
         return require 'tests/data/Calculation/DateTime/DAYOpenOffice.php';
+    }
+
+    /**
+     * @dataProvider providerUnhappyDAY
+     */
+    public function testDAYUnhappyPath(string $expectedException, ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=DAY({$argumentCells})";
+
+        $this->expectException(CalculationException::class);
+        $this->expectExceptionMessage($expectedException);
+        $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+    }
+
+    public function providerUnhappyDAY(): array
+    {
+        return [
+            ['Formula Error: Wrong number of arguments for DAY() function'],
+        ];
     }
 
     /**

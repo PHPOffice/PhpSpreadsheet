@@ -4,22 +4,87 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Date;
-use PhpOffice\PhpSpreadsheet\Calculation\Exception;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
+use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
+use PhpOffice\PhpSpreadsheet\Shared\Date as SharedDate;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
+use PHPUnit\Framework\TestCase;
 
-class DateTest extends AllSetupTeardown
+class DateTest extends TestCase
 {
+    /**
+     * @var int
+     */
+    private $excelCalendar;
+
+    /**
+     * @var string
+     */
+    private $returnDateType;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->excelCalendar = SharedDate::getExcelCalendar();
+        $this->returnDateType = Functions::getReturnDateType();
+    }
+
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+
+        SharedDate::setExcelCalendar($this->excelCalendar);
+        Functions::setReturnDateType($this->returnDateType);
+    }
+
     /**
      * @dataProvider providerDATE
      *
      * @param mixed $expectedResult
      */
-    public function testDATE($expectedResult, string $formula): void
+    public function testDirectCallToDATE($expectedResult, ...$args): void
     {
-        $this->mightHaveException($expectedResult);
-        $sheet = $this->getSheet();
-        $sheet->getCell('B1')->setValue('1954-11-23');
-        $sheet->getCell('A1')->setValue("=DATE($formula)");
-        self::assertEquals($expectedResult, $sheet->getCell('A1')->getCalculatedValue());
+        $result = Date::fromYMD(...$args);
+        self::assertSame($expectedResult, $result);
+    }
+
+    /**
+     * @dataProvider providerDATE
+     *
+     * @param mixed $expectedResult
+     */
+    public function testDATEAsFormula($expectedResult, ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $calculation = Calculation::getInstance();
+        $formula = "=DATE({$arguments})";
+
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertSame($expectedResult, $result);
+    }
+
+    /**
+     * @dataProvider providerDATE
+     *
+     * @param mixed $expectedResult
+     */
+    public function testDATEInWorksheet($expectedResult, ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=DATE({$argumentCells})";
+
+        $result = $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+        self::assertSame($expectedResult, $result);
     }
 
     public function providerDATE(): array
@@ -27,9 +92,35 @@ class DateTest extends AllSetupTeardown
         return require 'tests/data/Calculation/DateTime/DATE.php';
     }
 
+    /**
+     * @dataProvider providerUnhappyDATE
+     */
+    public function testDATEUnhappyPath(string $expectedException, ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=DATE({$argumentCells})";
+
+        $this->expectException(CalculationException::class);
+        $this->expectExceptionMessage($expectedException);
+        $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+    }
+
+    public function providerUnhappyDATE(): array
+    {
+        return [
+            ['Formula Error: Wrong number of arguments for DATE() function', 2023, 03],
+        ];
+    }
+
     public function testDATEtoUnixTimestamp(): void
     {
-        self::setUnixReturn();
+        Functions::setReturnDateType(Functions::RETURNDATE_UNIX_TIMESTAMP);
 
         $result = Date::fromYMD(2012, 1, 31); // 32-bit safe
         self::assertEquals(1327968000, $result);
@@ -37,7 +128,7 @@ class DateTest extends AllSetupTeardown
 
     public function testDATEtoDateTimeObject(): void
     {
-        self::setObjectReturn();
+        Functions::setReturnDateType(Functions::RETURNDATE_PHP_OBJECT);
 
         $result = Date::fromYMD(2012, 1, 31);
         //    Must return an object...
@@ -48,15 +139,15 @@ class DateTest extends AllSetupTeardown
         self::assertEquals($result->format('d-M-Y'), '31-Jan-2012');
     }
 
-    public function testDATEwith1904Calendar(): void
+    public function testDATEWith1904Calendar(): void
     {
-        self::setMac1904();
+        SharedDate::setExcelCalendar(SharedDate::CALENDAR_MAC_1904);
 
         $result = Date::fromYMD(1918, 11, 11);
         self::assertEquals($result, 5428);
 
         $result = Date::fromYMD(1901, 1, 31);
-        self::assertEquals($result, '#NUM!');
+        self::assertEquals($result, ExcelError::NAN());
     }
 
     /**
@@ -132,7 +223,7 @@ class DateTest extends AllSetupTeardown
     {
         $calculation = Calculation::getInstance();
 
-        $this->expectException(Exception::class);
+        $this->expectException(CalculationException::class);
         $this->expectExceptionMessage('Formulae with more than two array arguments are not supported');
 
         $formula = "=DATE({$year}, {$month}, {$day})";

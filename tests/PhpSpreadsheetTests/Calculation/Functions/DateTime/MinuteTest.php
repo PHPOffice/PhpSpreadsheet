@@ -3,26 +3,90 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\TimeParts;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
+use PHPUnit\Framework\TestCase;
 
-class MinuteTest extends AllSetupTeardown
+class MinuteTest extends TestCase
 {
     /**
      * @dataProvider providerMINUTE
      *
      * @param mixed $expectedResult
      */
-    public function testMINUTE($expectedResult, string $dateTimeValue): void
+    public function testDirectCallToMINUTE($expectedResult, ...$args): void
     {
-        $this->mightHaveException($expectedResult);
-        $sheet = $this->getSheet();
-        $sheet->getCell('A1')->setValue("=MINUTE($dateTimeValue)");
-        $sheet->getCell('B1')->setValue('1954-11-23 2:23:46');
-        self::assertSame($expectedResult, $sheet->getCell('A1')->getCalculatedValue());
+        $result = TimeParts::MINUTE(...$args);
+        self::assertSame($expectedResult, $result);
+    }
+
+    /**
+     * @dataProvider providerMINUTE
+     *
+     * @param mixed $expectedResult
+     */
+    public function testMINUTEAsFormula($expectedResult, ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $calculation = Calculation::getInstance();
+        $formula = "=MINUTE({$arguments})";
+
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertSame($expectedResult, $result);
+    }
+
+    /**
+     * @dataProvider providerMINUTE
+     *
+     * @param mixed $expectedResult
+     */
+    public function testMINUTEInWorksheet($expectedResult, ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=MINUTE({$argumentCells})";
+
+        $result = $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+        self::assertSame($expectedResult, $result);
     }
 
     public function providerMINUTE(): array
     {
         return require 'tests/data/Calculation/DateTime/MINUTE.php';
+    }
+
+    /**
+     * @dataProvider providerUnhappyMINUTE
+     */
+    public function testMINUTEUnhappyPath(string $expectedException, ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=MINUTE({$argumentCells})";
+
+        $this->expectException(CalculationException::class);
+        $this->expectExceptionMessage($expectedException);
+        $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+    }
+
+    public function providerUnhappyMINUTE(): array
+    {
+        return [
+            ['Formula Error: Wrong number of arguments for MINUTE() function'],
+        ];
     }
 
     /**
