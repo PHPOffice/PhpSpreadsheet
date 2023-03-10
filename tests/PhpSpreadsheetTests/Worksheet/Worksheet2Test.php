@@ -64,16 +64,28 @@ class Worksheet2Test extends TestCase
         $worksheet->freezePane('A1:B2');
     }
 
-    public function testFreeze(): void
+    /**
+     * @param mixed $expected
+     *
+     * @dataProvider freezeProvider
+     */
+    public function testFreeze($expected): void
     {
         $worksheet = new Worksheet();
         $worksheet->freezePane('A1');
         $freeze = $worksheet->getFreezePane();
         self::assertSame('A1', $freeze);
         $worksheet->unfreezePane();
-        $expected = null;
         $result = $worksheet->getFreezePane();
+        // Scrutinizer is an idiot. If it still complains, I give up.
         self::assertSame($expected, $result);
+    }
+
+    public function freezeProvider(): array
+    {
+        return [
+            [null],
+        ];
     }
 
     public function testInsertBeforeRowOne(): void
