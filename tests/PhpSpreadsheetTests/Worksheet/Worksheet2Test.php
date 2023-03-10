@@ -68,9 +68,12 @@ class Worksheet2Test extends TestCase
     {
         $worksheet = new Worksheet();
         $worksheet->freezePane('A1');
-        self::assertSame('A1', $worksheet->getFreezePane());
+        $freeze = $worksheet->getFreezePane();
+        self::assertSame('A1', $freeze);
         $worksheet->unfreezePane();
-        self::assertNull($worksheet->getFreezePane());
+        $expected = null;
+        $result = $worksheet->getFreezePane();
+        self::assertSame($expected, $result);
     }
 
     public function testInsertBeforeRowOne(): void

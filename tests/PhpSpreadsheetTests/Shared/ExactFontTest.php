@@ -58,10 +58,10 @@ class ExactFontTest extends TestCase
         $this->incompleteMessage = '';
         if (@is_readable($fontPath)) {
             if ('6a15e0a7c0367ba77a959ea27ebf11cf' !== md5_file($fontPath)) {
-                $incompleteMessage = 'Font file MD5 hash has changed';
+                $this->incompleteMessage = 'Font file MD5 hash has changed';
             }
         } else {
-            $incompleteMessage = 'Unable to locate font file';
+            $this->incompleteMessage = 'Unable to locate font file';
         }
         $this->directoryName = $direc;
     }
