@@ -13,6 +13,7 @@ If you would like to contribute, here are some notes and guidelines:
  - Please include Unit Tests to verify that a bug exists, and that this PR fixes it.
  - Please include Unit Tests to show that a new Feature works as expected.
  - Please don't "bundle" several changes into a single PR; submit a PR for each discrete change/fix.
+ - Remember to update documentation if necessary.
 
  - [Helpful article about forking](https://help.github.com/articles/fork-a-repo/ "Forking a GitHub repository")
  - [Helpful article about pull requests](https://help.github.com/articles/using-pull-requests/ "Pull Requests")
@@ -24,8 +25,11 @@ When writing Unit Tests, please
  - Put all assertions in the Test itself, not in an abstract class that the Test extends (even if this means code duplication between tests).
  - Include any necessary `setup()` and `tearDown()` in the Test itself.
  - If you change any global settings (such as system locale, or Compatibility Mode for Excel Function tests), make sure that you reset to the default in the `tearDown()`.
+ - Use the `ExcelError` functions in assertions for Excel Error values in Excel Function implementations.
+   <br />Not only does it reduce the risk of typos; but at some point in the future, ExcelError values will be an object rather than a string, and we won't then need to update all the tests.
+ - Don't over-complicate test code by testing happy and unhappy paths in the same test.
 
-This makes it easier to see exactly what is being tested when reviewing the PR. I want to be able to see it in the PR, not have to hunt in other classes to see what the test is doing.
+This makes it easier to see exactly what is being tested when reviewing the PR. I want to be able to see it in the PR, not have to hunt in other unchanged classes to see what the test is doing.
 
 ## How to release
 

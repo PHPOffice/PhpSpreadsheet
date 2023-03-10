@@ -18,7 +18,8 @@ class MonthTest extends TestCase
      */
     public function testDirectCallToMONTH($expectedResultExcel, ...$args): void
     {
-        $result = DateParts::month(/** @scrutinizer ignore-type */ ...$args);
+        /** @scrutinizer ignore-call */
+        $result = DateParts::month(...$args);
         self::assertSame($expectedResultExcel, $result);
     }
 
@@ -56,6 +57,8 @@ class MonthTest extends TestCase
             ->getCell('A1')
             ->getCalculatedValue();
         self::assertSame($expectedResult, $result);
+
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function providerMONTH(): array
@@ -80,6 +83,8 @@ class MonthTest extends TestCase
         $worksheet->setCellValue('A1', $formula)
             ->getCell('A1')
             ->getCalculatedValue();
+
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function providerUnhappyMONTH(): array

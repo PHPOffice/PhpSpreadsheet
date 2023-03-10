@@ -18,7 +18,8 @@ class MinuteTest extends TestCase
      */
     public function testDirectCallToMINUTE($expectedResult, ...$args): void
     {
-        $result = TimeParts::MINUTE(/** @scrutinizer ignore-type */ ...$args);
+        /** @scrutinizer ignore-call */
+        $result = TimeParts::MINUTE(...$args);
         self::assertSame($expectedResult, $result);
     }
 
@@ -56,6 +57,8 @@ class MinuteTest extends TestCase
             ->getCell('A1')
             ->getCalculatedValue();
         self::assertSame($expectedResult, $result);
+
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function providerMINUTE(): array
@@ -80,6 +83,8 @@ class MinuteTest extends TestCase
         $worksheet->setCellValue('A1', $formula)
             ->getCell('A1')
             ->getCalculatedValue();
+
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function providerUnhappyMINUTE(): array

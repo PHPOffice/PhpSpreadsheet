@@ -48,7 +48,7 @@ class DateValueTest extends TestCase
 
     private function parseTemplatedExpectation(string $expectedResult): string
     {
-        return DateValue::fromString(
+        return (string) DateValue::fromString(
             (new DateTimeImmutable(
                 str_replace('Y', (new DateTimeImmutable('now'))->format('Y'), $expectedResult)
             ))->format('Y-m-d')
@@ -66,7 +66,8 @@ class DateValueTest extends TestCase
             $expectedResult = $this->parseTemplatedExpectation($expectedResult);
         }
 
-        $result = DateValue::fromString(/** @scrutinizer ignore-type */ ...$args);
+        /** @scrutinizer ignore-call */
+        $result = DateValue::fromString(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-8);
     }
 
@@ -112,6 +113,8 @@ class DateValueTest extends TestCase
             ->getCell('A1')
             ->getCalculatedValue();
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-8);
+
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function providerDATEVALUE(): array
@@ -136,6 +139,8 @@ class DateValueTest extends TestCase
         $worksheet->setCellValue('A1', $formula)
             ->getCell('A1')
             ->getCalculatedValue();
+
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function providerUnhappyDATEVALUE(): array

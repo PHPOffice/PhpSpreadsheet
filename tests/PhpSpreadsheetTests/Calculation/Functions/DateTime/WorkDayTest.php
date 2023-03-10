@@ -55,6 +55,8 @@ class WorkDayTest extends TestCase
             ->getCell('A1')
             ->getCalculatedValue();
         self::assertSame($expectedResult, $result);
+
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function providerWORKDAY(): array
@@ -79,6 +81,8 @@ class WorkDayTest extends TestCase
         $worksheet->setCellValue('A1', $formula)
             ->getCell('A1')
             ->getCalculatedValue();
+
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function providerUnhappyWORKDAY(): array

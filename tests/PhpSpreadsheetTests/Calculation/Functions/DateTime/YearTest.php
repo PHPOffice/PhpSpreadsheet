@@ -17,7 +17,8 @@ class YearTest extends TestCase
      */
     public function testDirectCallToYEAR($expectedResultExcel, ...$args): void
     {
-        $result = DateParts::year(/** @scrutinizer ignore-type */ ...$args);
+        /** @scrutinizer ignore-call */
+        $result = DateParts::year(...$args);
         self::assertSame($expectedResultExcel, $result);
     }
 
@@ -55,6 +56,8 @@ class YearTest extends TestCase
             ->getCell('A1')
             ->getCalculatedValue();
         self::assertSame($expectedResult, $result);
+
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function providerYEAR(): array
@@ -79,6 +82,8 @@ class YearTest extends TestCase
         $worksheet->setCellValue('A1', $formula)
             ->getCell('A1')
             ->getCalculatedValue();
+
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function providerUnhappyYEAR(): array

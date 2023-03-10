@@ -37,7 +37,8 @@ class WeekDayTest extends TestCase
      */
     public function testDirectCallToWEEKDAY($expectedResult, ...$args): void
     {
-        $result = Week::day(/** @scrutinizer ignore-type */ ...$args);
+        /** @scrutinizer ignore-call */
+        $result = Week::day(...$args);
         self::assertSame($expectedResult, $result);
     }
 
@@ -75,6 +76,8 @@ class WeekDayTest extends TestCase
             ->getCell('A1')
             ->getCalculatedValue();
         self::assertSame($expectedResult, $result);
+
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function providerWEEKDAY(): array
@@ -99,6 +102,8 @@ class WeekDayTest extends TestCase
         $worksheet->setCellValue('A1', $formula)
             ->getCell('A1')
             ->getCalculatedValue();
+
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function providerUnhappyWEEKDAY(): array

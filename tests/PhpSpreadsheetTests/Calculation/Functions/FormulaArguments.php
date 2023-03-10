@@ -52,7 +52,7 @@ class FormulaArguments
     {
         $columns = [];
         foreach ($value as $column) {
-            $columns[] = self::stringify($column);
+            $columns[] = $this->stringify($column);
         }
 
         return implode(',', $columns);
@@ -66,9 +66,9 @@ class FormulaArguments
         $matrix = [];
         foreach ($value as $row) {
             if (is_array($row)) {
-                $matrix[] = self::matrixRows($row);
+                $matrix[] = $this->matrixRows($row);
             } else {
-                $matrix[] = self::stringify($row);
+                $matrix[] = $this->stringify($row);
             }
         }
 
@@ -81,7 +81,7 @@ class FormulaArguments
     private function stringify($value): string
     {
         if (is_array($value)) {
-            return '{' . self::makeMatrix($value) . '}';
+            return '{' . $this->makeMatrix($value) . '}';
         } elseif (null === $value) {
             return '';
         } elseif (is_string($value)) {

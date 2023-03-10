@@ -58,6 +58,28 @@ class EoMonthTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
+    /**
+     * @dataProvider providerEOMONTH
+     *
+     * @param mixed $expectedResult
+     */
+    public function testEOMONTHInWorksheet($expectedResult, ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=EOMONTH({$argumentCells})";
+
+        $result = $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+        self::assertSame($expectedResult, $result);
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
     public function providerEOMONTH(): array
     {
         return require 'tests/data/Calculation/DateTime/EOMONTH.php';
@@ -80,6 +102,8 @@ class EoMonthTest extends TestCase
         $worksheet->setCellValue('A1', $formula)
             ->getCell('A1')
             ->getCalculatedValue();
+
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function providerUnhappyEOMONTH(): array

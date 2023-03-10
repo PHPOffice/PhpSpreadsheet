@@ -56,6 +56,8 @@ class YearFracTest extends TestCase
             ->getCell('A1')
             ->getCalculatedValue();
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-6);
+
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function providerYEARFRAC(): array
@@ -80,6 +82,8 @@ class YearFracTest extends TestCase
         $worksheet->setCellValue('A1', $formula)
             ->getCell('A1')
             ->getCalculatedValue();
+
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function providerUnhappyYEARFRAC(): array

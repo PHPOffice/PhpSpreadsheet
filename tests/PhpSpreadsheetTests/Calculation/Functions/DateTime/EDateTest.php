@@ -58,6 +58,28 @@ class EDateTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
+    /**
+     * @dataProvider providerEDATE
+     *
+     * @param mixed $expectedResult
+     */
+    public function testEDATEInWorksheet($expectedResult, ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=EDATE({$argumentCells})";
+
+        $result = $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+        self::assertSame($expectedResult, $result);
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
     public function providerEDATE(): array
     {
         return require 'tests/data/Calculation/DateTime/EDATE.php';
@@ -80,6 +102,8 @@ class EDateTest extends TestCase
         $worksheet->setCellValue('A1', $formula)
             ->getCell('A1')
             ->getCalculatedValue();
+
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function providerUnhappyEDATE(): array

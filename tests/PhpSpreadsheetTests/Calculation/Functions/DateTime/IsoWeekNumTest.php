@@ -39,7 +39,8 @@ class IsoWeekNumTest extends TestCase
      */
     public function testDirectCallToISOWEEKNUM($expectedResult, ...$args): void
     {
-        $result = Week::isoWeekNumber(/** @scrutinizer ignore-type */ ...$args);
+        /** @scrutinizer ignore-call */
+        $result = Week::isoWeekNumber(...$args);
         self::assertSame($expectedResult, $result);
     }
 
@@ -58,6 +59,28 @@ class IsoWeekNumTest extends TestCase
 
         $result = $calculation->_calculateFormulaValue($formula);
         self::assertSame($expectedResult, $result);
+    }
+
+    /**
+     * @dataProvider providerISOWEEKNUM
+     *
+     * @param mixed $expectedResult
+     */
+    public function testISOWEEKNUMInWorksheet($expectedResult, ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=ISOWEEKNUM({$argumentCells})";
+
+        $result = $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+        self::assertSame($expectedResult, $result);
+
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function providerISOWEEKNUM(): array
@@ -82,6 +105,8 @@ class IsoWeekNumTest extends TestCase
         $worksheet->setCellValue('A1', $formula)
             ->getCell('A1')
             ->getCalculatedValue();
+
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function providerUnhappyISOWEEKNUM(): array
@@ -100,6 +125,7 @@ class IsoWeekNumTest extends TestCase
     {
         SharedDate::setExcelCalendar(SharedDate::CALENDAR_MAC_1904);
 
+        /** @scrutinizer ignore-call */
         $result = Week::isoWeekNumber(...$args);
         self::assertSame($expectedResult, $result);
     }

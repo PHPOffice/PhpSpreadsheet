@@ -38,7 +38,8 @@ class DayTest extends TestCase
      */
     public function testDirectCallToDAY($expectedResultExcel, ...$args): void
     {
-        $result = DateParts::day(/** @scrutinizer ignore-type */ ...$args);
+        /** @scrutinizer ignore-call */
+        $result = DateParts::day(...$args);
         self::assertSame($expectedResultExcel, $result);
     }
 
@@ -76,6 +77,8 @@ class DayTest extends TestCase
             ->getCell('A1')
             ->getCalculatedValue();
         self::assertSame($expectedResult, $result);
+
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function providerDAY(): array
@@ -92,6 +95,7 @@ class DayTest extends TestCase
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
 
+        /** @scrutinizer ignore-call */
         $result = DateParts::day(...$args);
         self::assertSame($expectedResultOpenOffice, $result);
     }
@@ -136,6 +140,8 @@ class DayTest extends TestCase
         $worksheet->setCellValue('A1', $formula)
             ->getCell('A1')
             ->getCalculatedValue();
+
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function providerUnhappyDAY(): array
@@ -143,6 +149,12 @@ class DayTest extends TestCase
         return [
             ['Formula Error: Wrong number of arguments for DAY() function'],
         ];
+    }
+
+    public function testDirectCallToDAYWithNull(): void
+    {
+        $result = DateParts::day(null);
+        self::assertSame(0, $result);
     }
 
     /**

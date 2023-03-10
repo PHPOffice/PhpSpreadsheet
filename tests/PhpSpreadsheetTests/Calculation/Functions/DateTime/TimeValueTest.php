@@ -38,7 +38,8 @@ class TimeValueTest extends TestCase
      */
     public function testDirectCallToTIMEVALUE($expectedResult, ...$args): void
     {
-        $result = TimeValue::fromString(/** @scrutinizer ignore-type */ ...$args);
+        /** @scrutinizer ignore-call */
+        $result = TimeValue::fromString(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-8);
     }
 
@@ -76,6 +77,8 @@ class TimeValueTest extends TestCase
             ->getCell('A1')
             ->getCalculatedValue();
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-8);
+
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function providerTIMEVALUE(): array
@@ -122,6 +125,8 @@ class TimeValueTest extends TestCase
         $worksheet->setCellValue('A1', $formula)
             ->getCell('A1')
             ->getCalculatedValue();
+
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function providerUnhappyTIMEVALUE(): array

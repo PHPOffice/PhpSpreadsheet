@@ -38,7 +38,8 @@ class WeekNumTest extends TestCase
      */
     public function testDirectCallToWEEKNUM($expectedResult, ...$args): void
     {
-        $result = Week::number(/** @scrutinizer ignore-type */ ...$args);
+        /** @scrutinizer ignore-call */
+        $result = Week::number(...$args);
         self::assertSame($expectedResult, $result);
     }
 
@@ -76,6 +77,8 @@ class WeekNumTest extends TestCase
             ->getCell('A1')
             ->getCalculatedValue();
         self::assertSame($expectedResult, $result);
+
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function providerWEEKNUM(): array
@@ -100,6 +103,8 @@ class WeekNumTest extends TestCase
         $worksheet->setCellValue('A1', $formula)
             ->getCell('A1')
             ->getCalculatedValue();
+
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function providerUnhappyWEEKNUM(): array
@@ -118,6 +123,7 @@ class WeekNumTest extends TestCase
     {
         SharedDate::setExcelCalendar(SharedDate::CALENDAR_MAC_1904);
 
+        /** @scrutinizer ignore-call */
         $result = Week::number(...$args);
         self::assertSame($expectedResult, $result);
     }

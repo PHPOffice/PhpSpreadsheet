@@ -17,7 +17,8 @@ class SecondTest extends TestCase
      */
     public function testDirectCallToSECOND($expectedResult, ...$args): void
     {
-        $result = TimeParts::second(/** @scrutinizer ignore-type */ ...$args);
+        /** @scrutinizer ignore-call */
+        $result = TimeParts::second(...$args);
         self::assertSame($expectedResult, $result);
     }
 
@@ -55,6 +56,8 @@ class SecondTest extends TestCase
             ->getCell('A1')
             ->getCalculatedValue();
         self::assertSame($expectedResult, $result);
+
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function providerSECOND(): array
@@ -79,6 +82,8 @@ class SecondTest extends TestCase
         $worksheet->setCellValue('A1', $formula)
             ->getCell('A1')
             ->getCalculatedValue();
+
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function providerUnhappySECOND(): array

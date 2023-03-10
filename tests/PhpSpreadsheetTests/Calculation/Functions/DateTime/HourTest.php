@@ -18,7 +18,8 @@ class HourTest extends TestCase
      */
     public function testDirectCallToHOUR($expectedResult, ...$args): void
     {
-        $result = TimeParts::hour(/** @scrutinizer ignore-type */ ...$args);
+        /** @scrutinizer ignore-call */
+        $result = TimeParts::hour(...$args);
         self::assertSame($expectedResult, $result);
     }
 
@@ -56,6 +57,8 @@ class HourTest extends TestCase
             ->getCell('A1')
             ->getCalculatedValue();
         self::assertSame($expectedResult, $result);
+
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function providerHOUR(): array
@@ -80,6 +83,8 @@ class HourTest extends TestCase
         $worksheet->setCellValue('A1', $formula)
             ->getCell('A1')
             ->getCalculatedValue();
+
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function providerUnhappyHOUR(): array

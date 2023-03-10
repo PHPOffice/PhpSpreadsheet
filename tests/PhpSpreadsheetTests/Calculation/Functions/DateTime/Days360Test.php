@@ -23,7 +23,8 @@ class Days360Test extends TestCase
      */
     public function testDirectCallToDAYS360($expectedResult, ...$args): void
     {
-        $result = Days360::between(/** @scrutinizer ignore-type */ ...$args);
+        /** @scrutinizer ignore-call */
+        $result = Days360::between(...$args);
         self::assertSame($expectedResult, $result);
     }
 
@@ -61,6 +62,8 @@ class Days360Test extends TestCase
             ->getCell('A1')
             ->getCalculatedValue();
         self::assertSame($expectedResult, $result);
+
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function providerDAYS360(): array
@@ -85,6 +88,8 @@ class Days360Test extends TestCase
         $worksheet->setCellValue('A1', $formula)
             ->getCell('A1')
             ->getCalculatedValue();
+
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function providerUnhappyDAYS360(): array
