@@ -71,7 +71,7 @@ jobs:
       - name: Setup PHP, with composer and extensions
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.4
+          php-version: 8.1
           extensions: ctype, dom, gd, iconv, fileinfo, libxml, mbstring, simplexml, xml, xmlreader, xmlwriter, zip, zlib
           coverage: none
           tools: cs2pr
@@ -102,7 +102,7 @@ jobs:
       - name: Setup PHP, with composer and extensions
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.4
+          php-version: 8.1
           extensions: ctype, dom, gd, iconv, fileinfo, libxml, mbstring, simplexml, xml, xmlreader, xmlwriter, zip, zlib
           coverage: none
           tools: cs2pr
@@ -133,7 +133,7 @@ jobs:
       - name: Setup PHP, with composer and extensions
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.4
+          php-version: 8.1
           extensions: ctype, dom, gd, iconv, fileinfo, libxml, mbstring, simplexml, xml, xmlreader, xmlwriter, zip, zlib
           coverage: none
           tools: cs2pr
@@ -164,7 +164,7 @@ jobs:
       - name: Setup PHP, with composer and extensions
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.4
+          php-version: 8.1
           extensions: ctype, dom, gd, iconv, fileinfo, libxml, mbstring, simplexml, xml, xmlreader, xmlwriter, zip, zlib
           coverage: none
           tools: cs2pr
@@ -195,7 +195,7 @@ jobs:
       - name: Setup PHP, with composer and extensions
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.4
+          php-version: 8.1
           extensions: ctype, dom, gd, iconv, fileinfo, libxml, mbstring, simplexml, xml, xmlreader, xmlwriter, zip, zlib
           coverage: pcov
 
