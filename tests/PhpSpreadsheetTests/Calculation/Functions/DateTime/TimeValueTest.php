@@ -38,7 +38,7 @@ class TimeValueTest extends TestCase
      */
     public function testDirectCallToTIMEVALUE($expectedResult, ...$args): void
     {
-        $result = TimeValue::fromString(...$args);
+        $result = TimeValue::fromString(/** @scrutinizer ignore-type */ ...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-8);
     }
 

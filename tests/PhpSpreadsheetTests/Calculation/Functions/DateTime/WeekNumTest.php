@@ -38,7 +38,7 @@ class WeekNumTest extends TestCase
      */
     public function testDirectCallToWEEKNUM($expectedResult, ...$args): void
     {
-        $result = Week::number(...$args);
+        $result = Week::number(/** @scrutinizer ignore-type */ ...$args);
         self::assertSame($expectedResult, $result);
     }
 

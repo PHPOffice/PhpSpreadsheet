@@ -66,7 +66,7 @@ class DateValueTest extends TestCase
             $expectedResult = $this->parseTemplatedExpectation($expectedResult);
         }
 
-        $result = DateValue::fromString(...$args);
+        $result = DateValue::fromString(/** @scrutinizer ignore-type */ ...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-8);
     }
 

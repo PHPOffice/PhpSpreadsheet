@@ -39,7 +39,7 @@ class IsoWeekNumTest extends TestCase
      */
     public function testDirectCallToISOWEEKNUM($expectedResult, ...$args): void
     {
-        $result = Week::isoWeekNumber(...$args);
+        $result = Week::isoWeekNumber(/** @scrutinizer ignore-type */ ...$args);
         self::assertSame($expectedResult, $result);
     }
 

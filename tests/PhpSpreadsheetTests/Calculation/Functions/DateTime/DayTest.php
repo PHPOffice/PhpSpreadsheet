@@ -38,7 +38,7 @@ class DayTest extends TestCase
      */
     public function testDirectCallToDAY($expectedResultExcel, ...$args): void
     {
-        $result = DateParts::day(...$args);
+        $result = DateParts::day(/** @scrutinizer ignore-type */ ...$args);
         self::assertSame($expectedResultExcel, $result);
     }
 
