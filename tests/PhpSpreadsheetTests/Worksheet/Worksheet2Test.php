@@ -76,9 +76,8 @@ class Worksheet2Test extends TestCase
         $freeze = $worksheet->getFreezePane();
         self::assertSame('A1', $freeze);
         $worksheet->unfreezePane();
-        $result = $worksheet->getFreezePane();
         // Scrutinizer is an idiot. If it still complains, I give up.
-        self::assertSame($expected, $result);
+        self::assertSame($expected, $worksheet->getFreezePane());
     }
 
     public function freezeProvider(): array
