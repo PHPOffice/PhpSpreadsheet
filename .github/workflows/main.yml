@@ -195,7 +195,7 @@ jobs:
       - name: Setup PHP, with composer and extensions
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.4
+          php-version: 8.1
           extensions: ctype, dom, gd, iconv, fileinfo, libxml, mbstring, simplexml, xml, xmlreader, xmlwriter, zip, zlib
           coverage: pcov
 
@@ -216,8 +216,8 @@ jobs:
       - name: Coverage
         run: |
           ./vendor/bin/phpunit --coverage-clover coverage-clover.xml
-          curl -LO https://scrutinizer-ci.com/ocular.phar
-          php ocular.phar code-coverage:upload --format=php-clover coverage-clover.xml
+          composer global require scrutinizer/ocular
+          ~/.composer/vendor/bin/ocular code-coverage:upload --format=php-clover coverage-clover.xml
 
   release:
     runs-on: ubuntu-latest
