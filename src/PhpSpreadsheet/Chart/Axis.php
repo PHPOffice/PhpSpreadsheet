@@ -52,6 +52,9 @@ class Axis extends Properties
     /** @var string */
     private $axisType = '';
 
+    /** @var ?AxisText */
+    private $axisText;
+
     /**
      * Axis Options.
      *
@@ -183,6 +186,14 @@ class Axis extends Properties
      */
     public function getAxisOptionsProperty($property)
     {
+        if ($property === 'textRotation') {
+            if ($this->axisText !== null) {
+                if ($this->axisText->getRotation() !== null) {
+                    return (string) $this->axisText->getRotation();
+                }
+            }
+        }
+
         return $this->axisOptions[$property];
     }
 
@@ -292,6 +303,18 @@ class Axis extends Properties
     public function setMinorGridlines(?GridLines $gridlines): self
     {
         $this->minorGridlines = $gridlines;
+
+        return $this;
+    }
+
+    public function getAxisText(): ?AxisText
+    {
+        return $this->axisText;
+    }
+
+    public function setAxisText(?AxisText $axisText): self
+    {
+        $this->axisText = $axisText;
 
         return $this;
     }

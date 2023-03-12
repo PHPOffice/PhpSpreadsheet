@@ -130,6 +130,8 @@ class FontTest extends TestCase
             [9.2834, new StyleFont(), "Hello\nWorld", 0, new StyleFont(), true, 0],
             [17.5671, new StyleFont(), 'PhpSpreadsheet', 0, new StyleFont(), false, 0],
             [19.8523, new StyleFont(), 'PhpSpreadsheet', 0, new StyleFont(), false, 1],
+            'CJK characters width must be >= 43.00' => [55.2722, new StyleFont(), '如果某一列是CJK 其中的一种，这样的设置方式无效', 0, new StyleFont(), false, 0],
+            'non-CJK characters width must be >= 24.73' => [31.7065, new StyleFont(), 'abcdefghijklmnopqrstuvwxyz', 0, new StyleFont(), false, 0],
         ];
     }
 }
