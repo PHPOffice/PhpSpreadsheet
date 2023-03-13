@@ -201,6 +201,22 @@ class Chart extends WriterPart
         $objWriter->writeAttribute('val', ($legend->getOverlay()) ? '1' : '0');
         $objWriter->endElement();
 
+        $fillColor = $legend->getFillColor();
+        $borderColor = $legend->getBorderColor();
+        if ($fillColor->isUsable() || $borderColor->isUsable()) {
+            $objWriter->startElement('c:spPr');
+            if ($fillColor->isUsable()) {
+                $this->writeColor($objWriter, $fillColor);
+            }
+            if ($borderColor->isUsable()) {
+                $objWriter->startElement('a:ln');
+                $this->writeColor($objWriter, $borderColor);
+                $objWriter->endElement(); // a:ln
+            }
+            $objWriter->endElement(); // c:spPr
+        }
+
+        $legendText = $legend->getLegendText();
         $objWriter->startElement('c:txPr');
         $objWriter->startElement('a:bodyPr');
         $objWriter->endElement();
@@ -213,17 +229,21 @@ class Chart extends WriterPart
         $objWriter->writeAttribute('rtl', '0');
 
         $objWriter->startElement('a:defRPr');
-        $objWriter->endElement();
-        $objWriter->endElement();
+        if ($legendText !== null) {
+            $this->writeColor($objWriter, $legendText->getFillColorObject());
+            $this->writeEffects($objWriter, $legendText);
+        }
+        $objWriter->endElement(); // a:defRpr
+        $objWriter->endElement(); // a:pPr
 
         $objWriter->startElement('a:endParaRPr');
         $objWriter->writeAttribute('lang', 'en-US');
-        $objWriter->endElement();
+        $objWriter->endElement(); // a:endParaRPr
 
-        $objWriter->endElement();
-        $objWriter->endElement();
+        $objWriter->endElement(); // a:p
+        $objWriter->endElement(); // c:txPr
 
-        $objWriter->endElement();
+        $objWriter->endElement(); // c:legend
     }
 
     /**
@@ -608,16 +628,24 @@ class Chart extends WriterPart
         }
 
         $textRotation = $yAxis->getAxisOptionsProperty('textRotation');
-        if (is_numeric($textRotation)) {
+        $axisText = $yAxis->getAxisText();
+
+        if ($axisText !== null || is_numeric($textRotation)) {
             $objWriter->startElement('c:txPr');
             $objWriter->startElement('a:bodyPr');
-            $objWriter->writeAttribute('rot', Properties::angleToXml((float) $textRotation));
+            if (is_numeric($textRotation)) {
+                $objWriter->writeAttribute('rot', Properties::angleToXml((float) $textRotation));
+            }
             $objWriter->endElement(); // a:bodyPr
             $objWriter->startElement('a:lstStyle');
             $objWriter->endElement(); // a:lstStyle
             $objWriter->startElement('a:p');
             $objWriter->startElement('a:pPr');
             $objWriter->startElement('a:defRPr');
+            if ($axisText !== null) {
+                $this->writeColor($objWriter, $axisText->getFillColorObject());
+                $this->writeEffects($objWriter, $axisText);
+            }
             $objWriter->endElement(); // a:defRPr
             $objWriter->endElement(); // a:pPr
             $objWriter->endElement(); // a:p
@@ -826,16 +854,24 @@ class Chart extends WriterPart
         }
 
         $textRotation = $xAxis->getAxisOptionsProperty('textRotation');
-        if (is_numeric($textRotation)) {
+        $axisText = $xAxis->getAxisText();
+
+        if ($axisText !== null || is_numeric($textRotation)) {
             $objWriter->startElement('c:txPr');
             $objWriter->startElement('a:bodyPr');
-            $objWriter->writeAttribute('rot', Properties::angleToXml((float) $textRotation));
+            if (is_numeric($textRotation)) {
+                $objWriter->writeAttribute('rot', Properties::angleToXml((float) $textRotation));
+            }
             $objWriter->endElement(); // a:bodyPr
             $objWriter->startElement('a:lstStyle');
             $objWriter->endElement(); // a:lstStyle
             $objWriter->startElement('a:p');
             $objWriter->startElement('a:pPr');
             $objWriter->startElement('a:defRPr');
+            if ($axisText !== null) {
+                $this->writeColor($objWriter, $axisText->getFillColorObject());
+                $this->writeEffects($objWriter, $axisText);
+            }
             $objWriter->endElement(); // a:defRPr
             $objWriter->endElement(); // a:pPr
             $objWriter->endElement(); // a:p

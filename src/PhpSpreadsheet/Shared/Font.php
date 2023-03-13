@@ -453,29 +453,26 @@ class Font
         $fontName = $font->getName();
         $fontSize = $font->getSize();
 
-        // Calculate column width in pixels. We assume fixed glyph width. Result varies with font name and size.
+        // Calculate column width in pixels.
+        // We assume fixed glyph width, but count double for "fullwidth" characters.
+        // Result varies with font name and size.
         switch ($fontName) {
-            case 'Calibri':
-                // value 8.26 was found via interpolation by inspecting real Excel files with Calibri 11 font.
-                $columnWidth = (int) (8.26 * StringHelper::countCharacters($columnText));
-                $columnWidth = $columnWidth * $fontSize / 11; // extrapolate from font size
-
-                break;
             case 'Arial':
                 // value 8 was set because of experience in different exports at Arial 10 font.
-                $columnWidth = (int) (8 * StringHelper::countCharacters($columnText));
+                $columnWidth = (int) (8 * StringHelper::countCharactersDbcs($columnText));
                 $columnWidth = $columnWidth * $fontSize / 10; // extrapolate from font size
 
                 break;
             case 'Verdana':
                 // value 8 was found via interpolation by inspecting real Excel files with Verdana 10 font.
-                $columnWidth = (int) (8 * StringHelper::countCharacters($columnText));
+                $columnWidth = (int) (8 * StringHelper::countCharactersDbcs($columnText));
                 $columnWidth = $columnWidth * $fontSize / 10; // extrapolate from font size
 
                 break;
             default:
                 // just assume Calibri
-                $columnWidth = (int) (8.26 * StringHelper::countCharacters($columnText));
+                // value 8.26 was found via interpolation by inspecting real Excel files with Calibri 11 font.
+                $columnWidth = (int) (8.26 * StringHelper::countCharactersDbcs($columnText));
                 $columnWidth = $columnWidth * $fontSize / 11; // extrapolate from font size
 
                 break;

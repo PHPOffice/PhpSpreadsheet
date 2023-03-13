@@ -42,13 +42,19 @@
     ],
     "scripts": {
         "check": [
+            "phpcs src/ tests/ --report=checkstyle",
+            "phpcs --report-width=200 samples/ src/ tests/ --ignore=samples/Header.php --standard=PHPCompatibility --runtime-set testVersion 7.4- -n",
             "php-cs-fixer fix --ansi --dry-run --diff",
-            "phpcs",
             "phpunit --color=always",
-            "phpstan analyse --ansi"
+            "phpstan analyse --ansi --memory-limit=2048M"
+        ],
+        "style": [
+            "phpcs src/ tests/ --report=checkstyle",
+            "php-cs-fixer fix --ansi --dry-run --diff"
         ],
         "fix": [
-            "php-cs-fixer fix --ansi"
+            "phpcbf src/ tests/ --report=checkstyle",
+            "php-cs-fixer fix"
         ],
         "versions": [
             "phpcs --report-width=200 samples/ src/ tests/ --ignore=samples/Header.php --standard=PHPCompatibility --runtime-set testVersion 7.4- -n"
