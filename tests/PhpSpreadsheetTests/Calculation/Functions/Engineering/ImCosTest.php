@@ -3,22 +3,124 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Calculation\Engineering\ComplexFunctions;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
+use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
+use PhpOffice\PhpSpreadsheetTests\Custom\ComplexAssert;
+use PHPUnit\Framework\TestCase;
 
-class ImCosTest extends AllSetupTeardown
+class ImCosTest extends TestCase
 {
+    const COMPLEX_PRECISION = 1E-12;
+
+    /**
+     * @var ComplexAssert
+     */
+    private $complexAssert;
+
+    protected function setUp(): void
+    {
+        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
+        $this->complexAssert = new ComplexAssert();
+    }
+
     /**
      * @dataProvider providerIMCOS
      *
      * @param mixed $expectedResult
      */
-    public function testIMCOS($expectedResult, ...$args): void
+    public function testDirectCallToIMCOS($expectedResult, ...$args): void
     {
-        $this->runComplexTestCase('IMCOS', $expectedResult, ...$args);
+        /** @scrutinizer ignore-call */
+        $result = ComplexFunctions::IMCOS(...$args);
+        self::assertTrue(
+            $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
+            $this->complexAssert->getErrorMessage()
+        );
+    }
+
+    private function trimIfQuoted(string $value): string
+    {
+        return trim($value, '"');
+    }
+
+    /**
+     * @dataProvider providerIMCOS
+     *
+     * @param mixed $expectedResult
+     */
+    public function testIMCOSAsFormula($expectedResult, ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $calculation = Calculation::getInstance();
+        $formula = "=IMCOS({$arguments})";
+
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertTrue(
+            $this->complexAssert->assertComplexEquals($expectedResult, $this->trimIfQuoted((string) $result), self::COMPLEX_PRECISION),
+            $this->complexAssert->getErrorMessage()
+        );
+    }
+
+    /**
+     * @dataProvider providerIMCOS
+     *
+     * @param mixed $expectedResult
+     */
+    public function testIMCOSInWorksheet($expectedResult, ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=IMCOS({$argumentCells})";
+
+        $result = $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+        self::assertTrue(
+            $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
+            $this->complexAssert->getErrorMessage()
+        );
+
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function providerIMCOS(): array
     {
         return require 'tests/data/Calculation/Engineering/IMCOS.php';
+    }
+
+    /**
+     * @dataProvider providerUnhappyIMCOS
+     */
+    public function testIMCOSUnhappyPath(string $expectedException, ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=IMCOS({$argumentCells})";
+
+        $this->expectException(CalculationException::class);
+        $this->expectExceptionMessage($expectedException);
+        $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function providerUnhappyIMCOS(): array
+    {
+        return [
+            ['Formula Error: Wrong number of arguments for IMCOS() function'],
+        ];
     }
 
     /**
