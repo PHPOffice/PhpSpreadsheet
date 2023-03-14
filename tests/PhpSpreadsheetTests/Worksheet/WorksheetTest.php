@@ -86,6 +86,7 @@ class WorksheetTest extends TestCase
         return [
             [str_repeat('a', 32), 'Maximum 31 characters allowed in sheet code name.'],
             ['invalid*code*name', 'Invalid character found in sheet code name'],
+            ['', 'Sheet code name cannot be empty'],
         ];
     }
 

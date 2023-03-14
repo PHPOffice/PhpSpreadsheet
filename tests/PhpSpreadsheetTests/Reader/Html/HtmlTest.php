@@ -98,6 +98,7 @@ class HtmlTest extends TestCase
         self::assertEquals('f0f8ff', $style->getFont()->getColor()->getRGB());
         self::assertEquals('eedfcc', $style->getFill()->getEndColor()->getRGB());
         self::assertEquals('eedfcc', $style->getFill()->getstartColor()->getRGB());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testCanApplyInlineFontStyles(): void
@@ -133,6 +134,7 @@ class HtmlTest extends TestCase
 
         $style = $firstSheet->getCell('F1')->getStyle();
         self::assertTrue($style->getFont()->getStrikethrough());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testCanApplyInlineWidth(): void
@@ -159,6 +161,7 @@ class HtmlTest extends TestCase
         $dimension = $firstSheet->getColumnDimension('C');
         self::assertNotNull($dimension);
         self::assertEquals(50, $dimension->getWidth('px'));
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testCanApplyInlineHeight(): void
@@ -189,6 +192,7 @@ class HtmlTest extends TestCase
         $dimension = $firstSheet->getRowDimension(3);
         self::assertNotNull($dimension);
         self::assertEquals(50, $dimension->getRowHeight('px'));
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testCanApplyAlignment(): void
@@ -224,6 +228,7 @@ class HtmlTest extends TestCase
 
         $style = $firstSheet->getCell('F1')->getStyle();
         self::assertTrue($style->getAlignment()->getWrapText());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testCanApplyInlineDataFormat(): void
@@ -231,14 +236,21 @@ class HtmlTest extends TestCase
         $html = '<table>
                     <tr>
                         <td data-format="mmm-yy">2019-02-02 12:34:00</td>
+                        <td data-format="#.000">3</td>
+                        <td data-format="#.000">x</td>
                     </tr>
                 </table>';
         $filename = HtmlHelper::createHtml($html);
         $spreadsheet = HtmlHelper::loadHtmlIntoSpreadsheet($filename, true);
-        $firstSheet = $spreadsheet->getSheet(0);
+        $sheet = $spreadsheet->getSheet(0);
 
-        $style = $firstSheet->getCell('A1')->getStyle();
-        self::assertEquals('mmm-yy', $style->getNumberFormat()->getFormatCode());
+        self::assertEquals('mmm-yy', $sheet->getStyle('A1')->getNumberFormat()->getFormatCode());
+        self::assertEquals('2019-02-02 12:34:00', $sheet->getCell('A1')->getFormattedValue(), 'field is string not number so not formatted');
+        self::assertEquals('#.000', $sheet->getStyle('B1')->getNumberFormat()->getFormatCode());
+        self::assertEquals('3.000', $sheet->getCell('B1')->getFormattedValue(), 'format applied to numeric value');
+        self::assertEquals('#.000', $sheet->getStyle('C1')->getNumberFormat()->getFormatCode());
+        self::assertEquals('x', $sheet->getCell('C1')->getFormattedValue(), 'format not applied to non-numeric value');
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testCanApplyCellWrapping(): void
@@ -270,6 +282,7 @@ class HtmlTest extends TestCase
         self::assertTrue($cellStyle->getAlignment()->getWrapText());
         $cellValue = $firstSheet->getCell('A3')->getValue();
         self::assertStringContainsString("\n", $cellValue);
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testRowspanInRendering(): void
@@ -280,6 +293,7 @@ class HtmlTest extends TestCase
 
         $actual = $spreadsheet->getActiveSheet()->getMergeCells();
         self::assertSame(['A2:C2' => 'A2:C2'], $actual);
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testTextIndentUseRowspan(): void
@@ -300,6 +314,7 @@ class HtmlTest extends TestCase
         $firstSheet = $spreadsheet->getSheet(0);
         $style = $firstSheet->getCell('C2')->getStyle();
         self::assertEquals(10, $style->getAlignment()->getIndent());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testBorderWithRowspanAndColspan(): void
@@ -331,6 +346,7 @@ class HtmlTest extends TestCase
         foreach ($totalBorders as $border) {
             self::assertEquals(Border::BORDER_THIN, $border->getBorderStyle());
         }
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testBorderWithColspan(): void
@@ -362,5 +378,6 @@ class HtmlTest extends TestCase
         foreach ($totalBorders as $border) {
             self::assertEquals(Border::BORDER_THIN, $border->getBorderStyle());
         }
+        $spreadsheet->disconnectWorksheets();
     }
 }
