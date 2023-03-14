@@ -13,7 +13,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 class Comment implements IComparable
 {
     /**
-     * Author.
+     * Author of the comment.
      *
      * @var string
      */
