@@ -3,22 +3,95 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Calculation\Engineering\Compare;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
+use PHPUnit\Framework\TestCase;
 
-class GeStepTest extends AllSetupTeardown
+class GeStepTest extends TestCase
 {
     /**
      * @dataProvider providerGESTEP
      *
      * @param mixed $expectedResult
      */
-    public function testGESTEP($expectedResult, ...$args): void
+    public function testDirectCallToGESTEP($expectedResult, ...$args): void
     {
-        $this->runTestCase('GESTEP', $expectedResult, ...$args);
+        /** @scrutinizer ignore-call */
+        $result = Compare::geStep(...$args);
+        self::assertSame($expectedResult, $result);
+    }
+
+    /**
+     * @dataProvider providerGESTEP
+     *
+     * @param mixed $expectedResult
+     */
+    public function testGESTEPAsFormula($expectedResult, ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $calculation = Calculation::getInstance();
+        $formula = "=GESTEP({$arguments})";
+
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertSame($expectedResult, $result);
+    }
+
+    /**
+     * @dataProvider providerGESTEP
+     *
+     * @param mixed $expectedResult
+     */
+    public function testGESTEPInWorksheet($expectedResult, ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=GESTEP({$argumentCells})";
+
+        $result = $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+        self::assertSame($expectedResult, $result);
+
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function providerGESTEP(): array
     {
         return require 'tests/data/Calculation/Engineering/GESTEP.php';
+    }
+
+    /**
+     * @dataProvider providerUnhappyGESTEP
+     */
+    public function testGESTEPUnhappyPath(string $expectedException, ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=GESTEP({$argumentCells})";
+
+        $this->expectException(CalculationException::class);
+        $this->expectExceptionMessage($expectedException);
+        $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function providerUnhappyGESTEP(): array
+    {
+        return [
+            ['Formula Error: Wrong number of arguments for GESTEP() function'],
+        ];
     }
 
     /**

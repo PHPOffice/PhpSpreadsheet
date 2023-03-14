@@ -4,23 +4,81 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\TimeValue;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
+use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
+use PHPUnit\Framework\TestCase;
 
-class TimeValueTest extends AllSetupTeardown
+class TimeValueTest extends TestCase
 {
+    /**
+     * @var string
+     */
+    private $returnDateType;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->returnDateType = Functions::getReturnDateType();
+    }
+
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+
+        Functions::setReturnDateType($this->returnDateType);
+    }
+
     /**
      * @dataProvider providerTIMEVALUE
      *
      * @param mixed $expectedResult
-     * @param mixed $timeValue
      */
-    public function testTIMEVALUE($expectedResult, $timeValue): void
+    public function testDirectCallToTIMEVALUE($expectedResult, ...$args): void
     {
-        $this->mightHaveException($expectedResult);
-        $sheet = $this->getSheet();
-        $sheet->getCell('B1')->setValue('03:45:52');
-        $sheet->getCell('A1')->setValue("=TIMEVALUE($timeValue)");
-        $result = $sheet->getCell('A1')->getCalculatedValue();
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        /** @scrutinizer ignore-call */
+        $result = TimeValue::fromString(...$args);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-8);
+    }
+
+    /**
+     * @dataProvider providerTIMEVALUE
+     *
+     * @param mixed $expectedResult
+     */
+    public function testTIMEVALUEAsFormula($expectedResult, ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $calculation = Calculation::getInstance();
+        $formula = "=TIMEVALUE({$arguments})";
+
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-8);
+    }
+
+    /**
+     * @dataProvider providerTIMEVALUE
+     *
+     * @param mixed $expectedResult
+     */
+    public function testTIMEVALUEInWorksheet($expectedResult, ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=TIMEVALUE({$argumentCells})";
+
+        $result = $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-8);
+
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function providerTIMEVALUE(): array
@@ -30,16 +88,16 @@ class TimeValueTest extends AllSetupTeardown
 
     public function testTIMEVALUEtoUnixTimestamp(): void
     {
-        self::setUnixReturn();
+        Functions::setReturnDateType(Functions::RETURNDATE_UNIX_TIMESTAMP);
 
         $result = TimeValue::fromString('7:30:20');
         self::assertEquals(23420, $result);
-        self::assertEqualsWithDelta(23420, $result, 1E-8);
+        self::assertEqualsWithDelta(23420, $result, 1.0e-8);
     }
 
     public function testTIMEVALUEtoDateTimeObject(): void
     {
-        self::setObjectReturn();
+        Functions::setReturnDateType(Functions::RETURNDATE_PHP_DATETIME_OBJECT);
 
         $result = TimeValue::fromString('7:30:20');
         //    Must return an object...
@@ -48,6 +106,34 @@ class TimeValueTest extends AllSetupTeardown
         self::assertTrue(is_a($result, 'DateTimeInterface'));
         //    ... with the correct value
         self::assertEquals($result->format('H:i:s'), '07:30:20');
+    }
+
+    /**
+     * @dataProvider providerUnhappyTIMEVALUE
+     */
+    public function testTIMEVALUEUnhappyPath(string $expectedException, ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=TIMEVALUE({$argumentCells})";
+
+        $this->expectException(CalculationException::class);
+        $this->expectExceptionMessage($expectedException);
+        $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function providerUnhappyTIMEVALUE(): array
+    {
+        return [
+            ['Formula Error: Wrong number of arguments for TIMEVALUE() function'],
+        ];
     }
 
     /**
