@@ -434,7 +434,7 @@ class Properties
      *
      * @param mixed $propertyValue
      * @param string $propertyType
-     *      'i'    : Integer
+     *   'i' : Integer
      *   'f' : Floating Point
      *   's' : String
      *   'd' : Date/Time

@@ -16,10 +16,6 @@ use PHPUnit\Framework\TestCase;
 
 class ReferenceHelperTest extends TestCase
 {
-    protected function setUp(): void
-    {
-    }
-
     public function testColumnSort(): void
     {
         $columnBase = $columnExpectedResult = [
