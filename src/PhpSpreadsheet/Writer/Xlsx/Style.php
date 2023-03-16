@@ -112,8 +112,10 @@ class Style extends WriterPart
         $objWriter->writeAttribute('count', (string) count($spreadsheet->getCellXfCollection()));
 
         // xf
+        $alignment = new Alignment();
+        $defaultAlignHash = $alignment->getHashCode();
         foreach ($spreadsheet->getCellXfCollection() as $cellXf) {
-            $this->writeCellStyleXf($objWriter, $cellXf, $spreadsheet);
+            $this->writeCellStyleXf($objWriter, $cellXf, $spreadsheet, $defaultAlignHash);
         }
 
         $objWriter->endElement();
@@ -400,7 +402,7 @@ class Style extends WriterPart
     /**
      * Write Cell Style Xf.
      */
-    private function writeCellStyleXf(XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\Style\Style $style, Spreadsheet $spreadsheet): void
+    private function writeCellStyleXf(XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\Style\Style $style, Spreadsheet $spreadsheet, string $defaultAlignHash): void
     {
         // xf
         $objWriter->startElement('xf');
@@ -424,7 +426,13 @@ class Style extends WriterPart
         $objWriter->writeAttribute('applyNumberFormat', ($spreadsheet->getDefaultStyle()->getNumberFormat()->getHashCode() != $style->getNumberFormat()->getHashCode()) ? '1' : '0');
         $objWriter->writeAttribute('applyFill', ($spreadsheet->getDefaultStyle()->getFill()->getHashCode() != $style->getFill()->getHashCode()) ? '1' : '0');
         $objWriter->writeAttribute('applyBorder', ($spreadsheet->getDefaultStyle()->getBorders()->getHashCode() != $style->getBorders()->getHashCode()) ? '1' : '0');
-        $applyAlignment = ($spreadsheet->getDefaultStyle()->getAlignment()->getHashCode() != $style->getAlignment()->getHashCode()) ? '1' : '0';
+        $applyAlignment = '1';
+        $defaultStyleAlignHash = $spreadsheet->getDefaultStyle()->getAlignment()->getHashCode();
+        if ($defaultStyleAlignHash === $style->getAlignment()->getHashCode()) {
+            if ($defaultStyleAlignHash === $defaultAlignHash) {
+                $applyAlignment = '0';
+            }
+        }
         $objWriter->writeAttribute('applyAlignment', $applyAlignment);
         if ($style->getProtection()->getLocked() != Protection::PROTECTION_INHERIT || $style->getProtection()->getHidden() != Protection::PROTECTION_INHERIT) {
             $objWriter->writeAttribute('applyProtection', 'true');
