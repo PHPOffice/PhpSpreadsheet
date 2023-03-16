@@ -25,7 +25,7 @@ class DateTimeTest extends TestCase
     {
         return [
             ['yyyy-mm-dd "at" hh:mm:ss', ' ', [new Date('-', 'yyyy', 'mm', 'dd'), 'at', new Time(':', 'hh', 'mm', 'ss')]],
-            ['dddd "à" hh "heures"', ' ', [new Date(null, 'dddd'), 'à', new Time(null, 'hh'), 'heures']],
+            ['dddd \à hh "heures"', ' ', [new Date(null, 'dddd'), 'à', new Time(null, 'hh'), 'heures']],
         ];
     }
 }

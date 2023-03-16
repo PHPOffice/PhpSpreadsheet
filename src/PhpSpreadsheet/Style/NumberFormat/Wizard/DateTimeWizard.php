@@ -4,6 +4,8 @@ namespace PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard;
 
 abstract class DateTimeWizard implements Wizard
 {
+    protected const NO_ESCAPING_NEEDED = "$+-/():!^&'~{}<>= ";
+
     protected function padSeparatorArray(array $separators, int $count): array
     {
         $lastSeparator = array_pop($separators);
@@ -11,10 +13,21 @@ abstract class DateTimeWizard implements Wizard
         return $separators + array_fill(0, $count, $lastSeparator);
     }
 
+    protected function escapeSingleCharacter(string $value): string
+    {
+        if (strpos(self::NO_ESCAPING_NEEDED, $value) !== false) {
+            return $value;
+        }
+
+        return "\\{$value}";
+    }
+
     protected function wrapLiteral(string $value): string
     {
-        // TODO Single characters can always be escaped, rather than quoted; and there are
-        //      some single characters that can be left as literals.
+        if (mb_strlen($value, 'UTF-8') === 1) {
+            return $this->escapeSingleCharacter($value);
+        }
+
         // Wrap any other string literals in quotes, so that they're clearly defined as string literals
         return '"' . str_replace('"', '""', $value) . '"';
     }

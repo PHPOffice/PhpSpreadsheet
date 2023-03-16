@@ -29,7 +29,7 @@ class DateTest extends TestCase
             ['dd-mmm yyyy', [Date::SEPARATOR_DASH, Date::SEPARATOR_SPACE], [Date::DAY_NUMBER_LONG, Date::MONTH_NAME_SHORT, Date::YEAR_FULL]],
             ['dddd dd.mm.yyyy', [Date::SEPARATOR_SPACE, Date::SEPARATOR_DOT], [Date::WEEKDAY_NAME_LONG, Date::DAY_NUMBER_LONG, Date::MONTH_NUMBER_LONG, Date::YEAR_FULL]],
             ['dd-mm "in the year" yyyy', [Date::SEPARATOR_DASH, Date::SEPARATOR_SPACE], [Date::DAY_NUMBER_LONG, Date::MONTH_NUMBER_LONG, 'in the year', Date::YEAR_FULL]],
-            ['yyyy-mm-dd "("ddd")"', [Date::SEPARATOR_DASH, Date::SEPARATOR_DASH, Date::SEPARATOR_SPACE, null], [Date::YEAR_FULL, Date::MONTH_NUMBER_LONG, Date::DAY_NUMBER_LONG, '(', Date::WEEKDAY_NAME_SHORT, ')']],
+            ['yyyy-mm-dd (ddd)', [Date::SEPARATOR_DASH, Date::SEPARATOR_DASH, Date::SEPARATOR_SPACE, null], [Date::YEAR_FULL, Date::MONTH_NUMBER_LONG, Date::DAY_NUMBER_LONG, '(', Date::WEEKDAY_NAME_SHORT, ')']],
         ];
     }
 }
