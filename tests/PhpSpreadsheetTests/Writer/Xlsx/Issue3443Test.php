@@ -75,18 +75,17 @@ class Issue3443Test extends AbstractFunctional
         $spreadsheet->disconnectWorksheets();
         $rsheet = $reloadedSpreadsheet->getActiveSheet();
         $expected1 = [
-            'horizontal' => '',
+            'horizontal' => 'general',
             'indent' => 0,
             'readOrder' => 0,
             'shrinkToFit' => false,
             'textRotation' => 0,
-            'vertical' => '',
+            'vertical' => 'bottom',
             'wrapText' => false,
         ];
         self::assertSame($expected1, $rsheet->getStyle('A1')->getAlignment()->exportArray());
         $expected2 = $expected1;
         $expected2['horizontal'] = 'left';
-        $expected2['vertical'] = 'bottom';
         self::assertSame($expected2, $rsheet->getStyle('A2')->getAlignment()->exportArray());
         self::assertSame($expected1, $rsheet->getStyle('A3')->getAlignment()->exportArray());
         self::assertSame('Courier New', $rsheet->getStyle('A1')->getFont()->getName());

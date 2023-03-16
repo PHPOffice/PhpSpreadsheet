@@ -114,6 +114,9 @@ class Style extends WriterPart
         // xf
         $alignment = new Alignment();
         $defaultAlignHash = $alignment->getHashCode();
+        if ($defaultAlignHash !== $spreadsheet->getDefaultStyle()->getAlignment()->getHashCode()) {
+            $defaultAlignHash = '';
+        }
         foreach ($spreadsheet->getCellXfCollection() as $cellXf) {
             $this->writeCellStyleXf($objWriter, $cellXf, $spreadsheet, $defaultAlignHash);
         }
@@ -426,12 +429,10 @@ class Style extends WriterPart
         $objWriter->writeAttribute('applyNumberFormat', ($spreadsheet->getDefaultStyle()->getNumberFormat()->getHashCode() != $style->getNumberFormat()->getHashCode()) ? '1' : '0');
         $objWriter->writeAttribute('applyFill', ($spreadsheet->getDefaultStyle()->getFill()->getHashCode() != $style->getFill()->getHashCode()) ? '1' : '0');
         $objWriter->writeAttribute('applyBorder', ($spreadsheet->getDefaultStyle()->getBorders()->getHashCode() != $style->getBorders()->getHashCode()) ? '1' : '0');
-        $applyAlignment = '1';
-        $defaultStyleAlignHash = $spreadsheet->getDefaultStyle()->getAlignment()->getHashCode();
-        if ($defaultStyleAlignHash === $style->getAlignment()->getHashCode()) {
-            if ($defaultStyleAlignHash === $defaultAlignHash) {
-                $applyAlignment = '0';
-            }
+        if ($defaultAlignHash !== '' && $defaultAlignHash === $style->getAlignment()->getHashCode()) {
+            $applyAlignment = '0';
+        } else {
+            $applyAlignment = '1';
         }
         $objWriter->writeAttribute('applyAlignment', $applyAlignment);
         if ($style->getProtection()->getLocked() != Protection::PROTECTION_INHERIT || $style->getProtection()->getHidden() != Protection::PROTECTION_INHERIT) {
