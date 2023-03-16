@@ -87,9 +87,8 @@ class Date extends DateTimeWizard
      *        If you want to use the same separator for all format blocks, then it can be passed as a string literal;
      *           if you wish to use different separators, then they should be passed as an array.
      *        If you want to use only a single format block, then pass a null as the separator argument
-     * @param string ...$formatBlocks
      */
-    public function __construct($separators, ...$formatBlocks)
+    public function __construct($separators, string ...$formatBlocks)
     {
         $this->separators = $this->padSeparatorArray(
             is_array($separators) ? $separators : [$separators],

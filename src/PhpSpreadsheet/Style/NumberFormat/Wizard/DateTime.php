@@ -35,6 +35,7 @@ class DateTime extends DateTimeWizard
     {
         // Any date masking codes are returned as lower case values
         if (is_object($value)) {
+            // We can't explicitly test for Stringable until PHP >= 8.0
             return $value;
         }
 
