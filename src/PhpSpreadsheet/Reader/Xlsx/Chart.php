@@ -366,7 +366,7 @@ class Chart
                                 $legendPos = 'r';
                                 $legendLayout = null;
                                 $legendOverlay = false;
-                                $legendBorderColor = null;
+                                $legendBorderLines = null;
                                 $legendFillColor = null;
                                 $legendText = null;
                                 $addLegendText = false;
@@ -390,8 +390,9 @@ class Chart
                                             if (isset($children->solidFill)) {
                                                 $legendFillColor = $this->readColor($children->solidFill);
                                             }
-                                            if (isset($children->ln->solidFill)) {
-                                                $legendBorderColor = $this->readColor($children->ln->solidFill);
+                                            if (isset($children->ln)) {
+                                                $legendBorderLines = new GridLines();
+                                                $this->readLineStyle($chartDetails, $legendBorderLines);
                                             }
 
                                             break;
@@ -416,8 +417,8 @@ class Chart
                                 if ($legendFillColor !== null) {
                                     $legend->getFillColor()->setColorPropertiesArray($legendFillColor);
                                 }
-                                if ($legendBorderColor !== null) {
-                                    $legend->getBorderColor()->setColorPropertiesArray($legendBorderColor);
+                                if ($legendBorderLines !== null) {
+                                    $legend->setBorderLines($legendBorderLines);
                                 }
                                 if ($addLegendText) {
                                     $legend->setLegendText($legendText);
