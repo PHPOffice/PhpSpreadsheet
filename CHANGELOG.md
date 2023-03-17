@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Added
 
-- Nothing
+- Wizards for defining Number Format masks for Dates and Times [PR #3458](https://github.com/PHPOffice/PhpSpreadsheet/pull/3458)
 
 ### Changed
 
