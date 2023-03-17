@@ -78,12 +78,16 @@ For Chart export, we support following packages, which you will also need to ins
 
 and then configure PhpSpreadsheet using:
 ```php
-Settings::setChartRenderer(\PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph::class); // to use jpgraph/jpgraph
+// to use jpgraph/jpgraph
+Settings::setChartRenderer(\PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph::class);
 //or
-Settings::setChartRenderer(\PhpOffice\PhpSpreadsheet\Chart\Renderer\MtJpGraphRenderer::class); // to use mitoteam/jpgraph
+// to use mitoteam/jpgraph
+Settings::setChartRenderer(\PhpOffice\PhpSpreadsheet\Chart\Renderer\MtJpGraphRenderer::class);
 ```
 
-One or the other of these libraries is necessary if you want to generate HTML or PDF files that include charts.
+One or the other of these libraries is necessary if you want to generate HTML or PDF files that include charts; or to render a Chart to an Image format from within your code.
+They are not necessary to define charts for writing to `Xlsx` files.
+Other file formats don't support writing Charts.
 
 ## Documentation
 
