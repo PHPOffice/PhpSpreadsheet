@@ -109,12 +109,20 @@ class Chart extends WriterPart
         $objWriter->endElement();
 
         $objWriter->endElement(); // c:chart
+
+        $objWriter->startElement('c:spPr');
         if ($chart->getNoFill()) {
-            $objWriter->startElement('c:spPr');
             $objWriter->startElement('a:noFill');
             $objWriter->endElement(); // a:noFill
-            $objWriter->endElement(); // c:spPr
         }
+        $fillColor = $chart->getFillColor();
+        if ($fillColor->isUsable()) {
+            $this->writeColor($objWriter, $fillColor);
+        }
+        $borderLines = $chart->getBorderLines();
+        $this->writeLineStyles($objWriter, $borderLines);
+        $this->writeEffects($objWriter, $borderLines);
+        $objWriter->endElement(); // c:spPr
 
         $this->writePrintSettings($objWriter);
 
@@ -654,7 +662,7 @@ class Chart extends WriterPart
 
         $objWriter->startElement('c:spPr');
         $this->writeColor($objWriter, $yAxis->getFillColorObject());
-        $this->writeLineStyles($objWriter, $yAxis);
+        $this->writeLineStyles($objWriter, $yAxis, $yAxis->getNoFill());
         $this->writeEffects($objWriter, $yAxis);
         $objWriter->endElement(); // spPr
 
@@ -880,7 +888,7 @@ class Chart extends WriterPart
 
         $objWriter->startElement('c:spPr');
         $this->writeColor($objWriter, $xAxis->getFillColorObject());
-        $this->writeLineStyles($objWriter, $xAxis);
+        $this->writeLineStyles($objWriter, $xAxis, $xAxis->getNoFill());
         $this->writeEffects($objWriter, $xAxis);
         $objWriter->endElement(); //end spPr
 
