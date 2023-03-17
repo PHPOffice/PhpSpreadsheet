@@ -7,6 +7,7 @@ use DOMElement;
 use DOMNode;
 use DOMText;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Helper\Dimension as CssDimension;
 use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -283,15 +284,34 @@ class Html extends BaseReader
      * @param int|string $row
      * @param mixed $cellContent
      */
-    protected function flushCell(Worksheet $sheet, $column, $row, &$cellContent): void
+    protected function flushCell(Worksheet $sheet, $column, $row, &$cellContent, array $attributeArray): void
     {
         if (is_string($cellContent)) {
             //    Simple String content
             if (trim($cellContent) > '') {
                 //    Only actually write it if there's content in the string
                 //    Write to worksheet to be done here...
-                //    ... we return the cell so we can mess about with styles more easily
-                $sheet->setCellValue($column . $row, $cellContent);
+                //    ... we return the cell, so we can mess about with styles more easily
+
+                // Set cell value explicitly if there is data-type attribute
+                if (isset($attributeArray['data-type'])) {
+                    $datatype = $attributeArray['data-type'];
+                    if ($datatype == DataType::TYPE_STRING || $datatype == DataType::TYPE_STRING2) {
+                        if (substr($cellContent, 0, 1) === '=' || is_numeric($cellContent)) {
+                            $sheet->getCell($column . $row)
+                                ->getStyle()
+                                ->setQuotePrefix(true);
+                        }
+                    }
+                    //catching the Exception and ignoring the invalid data types
+                    try {
+                        $sheet->setCellValueExplicit($column . $row, $cellContent, $attributeArray['data-type']);
+                    } catch (\PhpOffice\PhpSpreadsheet\Exception $exception) {
+                        $sheet->setCellValue($column . $row, $cellContent);
+                    }
+                } else {
+                    $sheet->setCellValue($column . $row, $cellContent);
+                }
                 $this->dataArray[$row][$column] = $cellContent;
             }
         } else {
@@ -355,7 +375,7 @@ class Html extends BaseReader
     private function processDomElementHr(Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child, array &$attributeArray): void
     {
         if ($child->nodeName === 'hr') {
-            $this->flushCell($sheet, $column, $row, $cellContent);
+            $this->flushCell($sheet, $column, $row, $cellContent, $attributeArray);
             ++$row;
             if (isset($this->formats[$child->nodeName])) {
                 $sheet->getStyle($column . $row)->applyFromArray($this->formats[$child->nodeName]);
@@ -375,7 +395,7 @@ class Html extends BaseReader
                 $sheet->getStyle($column . $row)->getAlignment()->setWrapText(true);
             } else {
                 //    Otherwise flush our existing content and move the row cursor on
-                $this->flushCell($sheet, $column, $row, $cellContent);
+                $this->flushCell($sheet, $column, $row, $cellContent, $attributeArray);
                 ++$row;
             }
         } else {
@@ -421,11 +441,11 @@ class Html extends BaseReader
                 $this->processDomElement($child, $sheet, $row, $column, $cellContent);
             } else {
                 if ($cellContent > '') {
-                    $this->flushCell($sheet, $column, $row, $cellContent);
+                    $this->flushCell($sheet, $column, $row, $cellContent, $attributeArray);
                     ++$row;
                 }
                 $this->processDomElement($child, $sheet, $row, $column, $cellContent);
-                $this->flushCell($sheet, $column, $row, $cellContent);
+                $this->flushCell($sheet, $column, $row, $cellContent, $attributeArray);
 
                 if (isset($this->formats[$child->nodeName])) {
                     $sheet->getStyle($column . $row)->applyFromArray($this->formats[$child->nodeName]);
@@ -448,11 +468,11 @@ class Html extends BaseReader
                 $this->processDomElement($child, $sheet, $row, $column, $cellContent);
             } else {
                 if ($cellContent > '') {
-                    $this->flushCell($sheet, $column, $row, $cellContent);
+                    $this->flushCell($sheet, $column, $row, $cellContent, $attributeArray);
                 }
                 ++$row;
                 $this->processDomElement($child, $sheet, $row, $column, $cellContent);
-                $this->flushCell($sheet, $column, $row, $cellContent);
+                $this->flushCell($sheet, $column, $row, $cellContent, $attributeArray);
                 $column = 'A';
             }
         } else {
@@ -472,7 +492,7 @@ class Html extends BaseReader
     private function processDomElementTable(Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child, array &$attributeArray): void
     {
         if ($child->nodeName === 'table') {
-            $this->flushCell($sheet, $column, $row, $cellContent);
+            $this->flushCell($sheet, $column, $row, $cellContent, $attributeArray);
             $column = $this->setTableStartColumn($column);
             if ($this->tableLevel > 1 && $row > 1) {
                 --$row;
@@ -564,18 +584,6 @@ class Html extends BaseReader
         }
     }
 
-    private function processDomElementDataType(Worksheet $sheet, int $row, string $column, array $attributeArray): void
-    {
-        if (isset($attributeArray['data-type'])) {
-            $cell = $sheet->getCell($column . $row);
-            $cellValue = $cell->getValue();
-            //cast value to the datatype
-            $sheet->setCellValueExplicit($column . $row, $cellValue, $attributeArray['data-type']);
-            //set datatype
-            $cell->setDataType($attributeArray['data-type']);
-        }
-    }
-
     private function processDomElementThTd(Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child, array &$attributeArray): void
     {
         while (isset($this->rowspan[$column . $row])) {
@@ -586,7 +594,7 @@ class Html extends BaseReader
         // apply inline style
         $this->applyInlineStyle($sheet, $row, $column, $attributeArray);
 
-        $this->flushCell($sheet, $column, $row, $cellContent);
+        $this->flushCell($sheet, $column, $row, $cellContent, $attributeArray);
 
         $this->processDomElementBgcolor($sheet, $row, $column, $attributeArray);
         $this->processDomElementWidth($sheet, $column, $attributeArray);
@@ -594,7 +602,6 @@ class Html extends BaseReader
         $this->processDomElementAlign($sheet, $row, $column, $attributeArray);
         $this->processDomElementVAlign($sheet, $row, $column, $attributeArray);
         $this->processDomElementDataFormat($sheet, $row, $column, $attributeArray);
-        $this->processDomElementDataType($sheet, $row, $column, $attributeArray);
 
         if (isset($attributeArray['rowspan'], $attributeArray['colspan'])) {
             //create merging rowspan and colspan
