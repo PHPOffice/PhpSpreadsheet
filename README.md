@@ -32,7 +32,7 @@ If you are building your installation on a development machine that is on a diff
 ```json
 {
     "require": {
-        "phpoffice/phpspreadsheet": "^1.23"
+        "phpoffice/phpspreadsheet": "^1.28"
     },
     "config": {
         "platform": {
@@ -107,6 +107,11 @@ And for Patrons at levels actively using PhpSpreadsheet:
  - Behind the Mask
    - A look at Number Format Masks.
 
+The Next Article (currently Work in Progress):
+ - Formula for Success
+   - How to debug formulae that don't produce the expected result.
+
+
 My aim is to post at least one article each month, taking a detailed look at some feature of MS Excel and how to use that feature in PhpSpreadsheet, or on how to perform different activities in PhpSpreadsheet.
 
 Planned posts for the future include topics like:
@@ -116,7 +121,6 @@ Planned posts for the future include topics like:
  - Array Formulae
  - Conditional Formatting
  - Data Validation
- - Formula Debugging
  - Value Binders
  - Images
  - Charts
