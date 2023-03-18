@@ -5,7 +5,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 use PhpOffice\PhpSpreadsheet\Calculation\Database\DMax;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
-class DMaxTest extends AllSetupTeardown
+class DMaxTest extends SetupTeardownDatabases
 {
     /**
      * @dataProvider providerDMax

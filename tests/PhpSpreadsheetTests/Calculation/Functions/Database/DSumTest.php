@@ -5,7 +5,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 use PhpOffice\PhpSpreadsheet\Calculation\Database\DSum;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
-class DSumTest extends AllSetupTeardown
+class DSumTest extends SetupTeardownDatabases
 {
     /**
      * @dataProvider providerDSum
