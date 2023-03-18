@@ -24,7 +24,7 @@ class TimeTest extends TestCase
         return [
             ['hh:mm:ss', Time::SEPARATOR_COLON, [Time::HOURS_LONG, Time::MINUTES_LONG, Time::SECONDS_LONG]],
             ['hh:mm', Time::SEPARATOR_COLON, [Time::HOURS_LONG, Time::MINUTES_LONG]],
-            ['hh:mm AM/PM', [Time::SEPARATOR_COLON, Time::SEPARATOR_SPACE], [Time::HOURS_LONG, Time::MINUTES_LONG, Time::MORNING_AFTERNOON]],
+            ["hh:mm\u{a0}AM/PM", [Time::SEPARATOR_COLON, Time::SEPARATOR_SPACE_NONBREAKING], [Time::HOURS_LONG, Time::MINUTES_LONG, Time::MORNING_AFTERNOON]],
             ['h "hours and" m "minutes past midnight"', Time::SEPARATOR_SPACE, [Time::HOURS_SHORT, 'hours and', Time::MINUTES_SHORT, 'minutes past midnight']],
         ];
     }
