@@ -2,13 +2,13 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcException;
+use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PHPUnit\Framework\TestCase;
 
-class AllSetupTeardown extends TestCase
+class SetupTeardownDatabases extends TestCase
 {
     protected const RESULT_CELL = 'Z1';
 
@@ -24,6 +24,7 @@ class AllSetupTeardown extends TestCase
 
     protected function setUp(): void
     {
+        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
 
     protected function tearDown(): void
@@ -33,94 +34,7 @@ class AllSetupTeardown extends TestCase
             $this->spreadsheet->disconnectWorksheets();
             $this->spreadsheet = null;
         }
-    }
-
-    /**
-     * @param mixed $expectedResult
-     */
-    protected function mightHaveException($expectedResult): void
-    {
-        if ($expectedResult === 'exception') {
-            $this->expectException(CalcException::class);
-        }
-    }
-
-    /**
-     * @param mixed $value
-     */
-    protected function setCell(string $cell, $value): void
-    {
-        if ($value !== null) {
-            if (is_string($value) && is_numeric($value)) {
-                $this->getSheet()->getCell($cell)->setValueExplicit($value, DataType::TYPE_STRING);
-            } else {
-                $this->getSheet()->getCell($cell)->setValue($value);
-            }
-        }
-    }
-
-    protected function getSpreadsheet(): Spreadsheet
-    {
-        if ($this->spreadsheet !== null) {
-            return $this->spreadsheet;
-        }
-        $this->spreadsheet = new Spreadsheet();
-
-        return $this->spreadsheet;
-    }
-
-    protected function getSheet(): Worksheet
-    {
-        if ($this->sheet !== null) {
-            return $this->sheet;
-        }
-        $this->sheet = $this->getSpreadsheet()->getActiveSheet();
-
-        return $this->sheet;
-    }
-
-    /**
-     * @param int|string $field
-     */
-    public function prepareWorksheetWithFormula(string $functionName, array $database, $field, array $criteria): void
-    {
-        $sheet = $this->getSheet();
-        $maxCol = '';
-        $startCol = 'A';
-        $maxRow = 0;
-        $startRow = 1;
-        $row = $startRow;
-        foreach ($database as $dataRow) {
-            $col = $startCol;
-            foreach ($dataRow as $dataCell) {
-                $sheet->getCell("$col$row")->setValue($dataCell);
-                $maxCol = max($col, $maxCol);
-                ++$col;
-            }
-            $maxRow = $row;
-            ++$row;
-        }
-        $databaseCells = "$startCol$startRow:$maxCol$maxRow";
-        $maxCol = '';
-        $startCol = 'P';
-        $maxRow = 0;
-        $startRow = 1;
-        $row = $startRow;
-        foreach ($criteria as $dataRow) {
-            $col = $startCol;
-            foreach ($dataRow as $dataCell) {
-                if ($dataCell !== null) {
-                    $sheet->getCell("$col$row")->setValueExplicit($dataCell, DataType::TYPE_STRING);
-                }
-                $maxCol = max($col, $maxCol);
-                ++$col;
-            }
-            $maxRow = $row;
-            ++$row;
-        }
-        $criteriaCells = "$startCol$startRow:$maxCol$maxRow";
-        $sheet->getCell('N1')->setValue($field);
-        $sheet->getCell(self::RESULT_CELL)->setValue("=$functionName($databaseCells, N1, $criteriaCells)");
+        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
 
     protected function database1(): array
@@ -196,5 +110,69 @@ class AllSetupTeardown extends TestCase
             ['Tom', 'Male', 9, 'English', 0.69],
             ['Tom', 'Male', 9, 'Science', 0.65],
         ];
+    }
+
+    protected function getSpreadsheet(): Spreadsheet
+    {
+        if ($this->spreadsheet !== null) {
+            return $this->spreadsheet;
+        }
+        $this->spreadsheet = new Spreadsheet();
+
+        return $this->spreadsheet;
+    }
+
+    protected function getSheet(): Worksheet
+    {
+        if ($this->sheet !== null) {
+            return $this->sheet;
+        }
+        $this->sheet = $this->getSpreadsheet()->getActiveSheet();
+
+        return $this->sheet;
+    }
+
+    /**
+     * @param int|string $field
+     */
+    public function prepareWorksheetWithFormula(string $functionName, array $database, $field, array $criteria): void
+    {
+        $sheet = $this->getSheet();
+        $maxCol = '';
+        $startCol = 'A';
+        $maxRow = 0;
+        $startRow = 1;
+        $row = $startRow;
+        foreach ($database as $dataRow) {
+            $col = $startCol;
+            foreach ($dataRow as $dataCell) {
+                $sheet->getCell("$col$row")->setValue($dataCell);
+                $maxCol = max($col, $maxCol);
+                ++$col;
+            }
+            $maxRow = $row;
+            ++$row;
+        }
+        $databaseCells = "$startCol$startRow:$maxCol$maxRow";
+        $maxCol = '';
+        $startCol = 'P';
+        $maxRow = 0;
+        $startRow = 1;
+        $row = $startRow;
+        foreach ($criteria as $dataRow) {
+            $col = $startCol;
+            foreach ($dataRow as $dataCell) {
+                if ($dataCell !== null) {
+                    $sheet->getCell("$col$row")->setValueExplicit($dataCell, DataType::TYPE_STRING);
+                }
+                $maxCol = max($col, $maxCol);
+                ++$col;
+            }
+            $maxRow = $row;
+            ++$row;
+        }
+        $criteriaCells = "$startCol$startRow:$maxCol$maxRow";
+        $sheet->getCell('N1')->setValue($field);
+        $sheet->getCell(self::RESULT_CELL)->setValue("=$functionName($databaseCells, N1, $criteriaCells)");
     }
 }

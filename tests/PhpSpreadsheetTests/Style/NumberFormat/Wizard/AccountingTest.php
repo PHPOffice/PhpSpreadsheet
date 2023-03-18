@@ -14,7 +14,7 @@ class AccountingTest extends TestCase
     /**
      * @dataProvider providerAccounting
      */
-    public function testCurrency(
+    public function testAccounting(
         string $expectedResult,
         string $currencyCode,
         int $decimals,

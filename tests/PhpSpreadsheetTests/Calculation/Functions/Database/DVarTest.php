@@ -5,7 +5,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 use PhpOffice\PhpSpreadsheet\Calculation\Database\DVar;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
-class DVarTest extends AllSetupTeardown
+class DVarTest extends SetupTeardownDatabases
 {
     /**
      * @dataProvider providerDVar

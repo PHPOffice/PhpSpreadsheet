@@ -1,20 +1,19 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
+
 return [
     ['751', '1357'],
     ['166', '246'],
     ['5349', '12345'],
-    ['#NUM!', '123.45'],
+    [ExcelError::NAN(), '123.45'],
     ['0', '0'],
-    ['#VALUE!', 'true'],
-    ['#VALUE!', 'false'],
-    ['#NUM!', '3579'],
+    [ExcelError::VALUE(), true],
+    [ExcelError::VALUE(), false],
+    [ExcelError::NAN(), '3579'],
     ['44', '54'],
     ['-165', '7777777533'], // 2's Complement
-    ['65', 'A2'],
-    ['0', 'A3'],
-    ['exception', ''],
-    ['#NUM!', '"37777777770"'], // too many digits
-    [536870911, '"3777777777"'], // highest positive
-    [-536870912, '"4000000000"'], // lowest negative
+    [ExcelError::NAN(), '37777777770'], // too many digits
+    ['536870911', '3777777777'], // highest positive
+    ['-536870912', '4000000000'], // lowest negative
 ];

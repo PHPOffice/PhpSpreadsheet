@@ -3,9 +3,12 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcExp;
+use PhpOffice\PhpSpreadsheet\Calculation\Engineering\ConvertOctal;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
 use PHPUnit\Framework\TestCase;
 
 class Oct2DecTest extends TestCase
@@ -29,19 +32,54 @@ class Oct2DecTest extends TestCase
      * @dataProvider providerOCT2DEC
      *
      * @param mixed $expectedResult
-     * @param mixed $formula
      */
-    public function testOCT2DEC($expectedResult, $formula): void
+    public function testDirectCallToOCT2DEC($expectedResult, ...$args): void
     {
-        if ($expectedResult === 'exception') {
-            $this->expectException(CalcExp::class);
-        }
+        /** @scrutinizer ignore-call */
+        $result = ConvertOctal::toDecimal(...$args);
+        self::assertSame($expectedResult, $result);
+    }
+
+    private function trimIfQuoted(string $value): string
+    {
+        return trim($value, '"');
+    }
+
+    /**
+     * @dataProvider providerOCT2DEC
+     *
+     * @param mixed $expectedResult
+     */
+    public function testOCT2DECAsFormula($expectedResult, ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $calculation = Calculation::getInstance();
+        $formula = "=OCT2DEC({$arguments})";
+
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertSame($expectedResult, $this->trimIfQuoted((string) $result));
+    }
+
+    /**
+     * @dataProvider providerOCT2DEC
+     *
+     * @param mixed $expectedResult
+     */
+    public function testOCT2DECInWorksheet($expectedResult, ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
         $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
-        $sheet->setCellValue('A2', 101);
-        $sheet->getCell('A1')->setValue("=OCT2DEC($formula)");
-        $result = $sheet->getCell('A1')->getCalculatedValue();
-        self::assertEquals($expectedResult, $result);
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=OCT2DEC({$argumentCells})";
+
+        $result = $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+        self::assertSame($expectedResult, $result);
+
         $spreadsheet->disconnectWorksheets();
     }
 
@@ -51,48 +89,68 @@ class Oct2DecTest extends TestCase
     }
 
     /**
-     * @dataProvider providerOCT2DEC
+     * @dataProvider providerUnhappyOCT2DEC
+     */
+    public function testOCT2DECUnhappyPath(string $expectedException, ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=OCT2DEC({$argumentCells})";
+
+        $this->expectException(CalculationException::class);
+        $this->expectExceptionMessage($expectedException);
+        $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function providerUnhappyOCT2DEC(): array
+    {
+        return [
+            ['Formula Error: Wrong number of arguments for OCT2DEC() function'],
+        ];
+    }
+
+    /**
+     * @dataProvider providerOCT2DECOds
      *
      * @param mixed $expectedResult
-     * @param mixed $formula
      */
-    public function testOCT2DECOds($expectedResult, $formula): void
+    public function testOCT2DECOds($expectedResult, ...$args): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
-        if ($expectedResult === 'exception') {
-            $this->expectException(CalcExp::class);
-        }
-        if ($formula === 'true') {
-            $expectedResult = 1;
-        } elseif ($formula === 'false') {
-            $expectedResult = 0;
-        }
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
-        $sheet->setCellValue('A2', 101);
-        $sheet->getCell('A1')->setValue("=OCT2DEC($formula)");
-        $result = $sheet->getCell('A1')->getCalculatedValue();
-        self::assertEquals($expectedResult, $result);
-        $spreadsheet->disconnectWorksheets();
+
+        /** @scrutinizer ignore-call */
+        $result = ConvertOctal::toDecimal(...$args);
+        self::assertSame($expectedResult, $result);
+    }
+
+    public function providerOCT2DECOds(): array
+    {
+        return require 'tests/data/Calculation/Engineering/OCT2DECOpenOffice.php';
     }
 
     public function testOCT2DECFrac(): void
     {
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
+        $calculation = Calculation::getInstance();
+        $formula = '=OCT2DEC(10.1)';
+
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_GNUMERIC);
-        $cell = 'G1';
-        $sheet->setCellValue($cell, '=OCT2DEC(10.1)');
-        self::assertEquals(8, $sheet->getCell($cell)->getCalculatedValue());
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertSame('8', $this->trimIfQuoted((string) $result), 'Gnumeric');
+
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
-        $cell = 'O1';
-        $sheet->setCellValue($cell, '=OCT2DEC(10.1)');
-        self::assertEquals('#NUM!', $sheet->getCell($cell)->getCalculatedValue());
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertSame(ExcelError::NAN(), $this->trimIfQuoted((string) $result), 'OpenOffice');
+
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-        $cell = 'E1';
-        $sheet->setCellValue($cell, '=OCT2DEC(10.1)');
-        self::assertEquals('#NUM!', $sheet->getCell($cell)->getCalculatedValue());
-        $spreadsheet->disconnectWorksheets();
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertSame(ExcelError::NAN(), $this->trimIfQuoted((string) $result), 'Excel');
     }
 
     /**

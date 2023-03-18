@@ -3,26 +3,95 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\DateParts;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
+use PHPUnit\Framework\TestCase;
 
-class MonthTest extends AllSetupTeardown
+class MonthTest extends TestCase
 {
+    /**
+     * @dataProvider providerMONTH
+     *
+     * @param mixed $expectedResultExcel
+     */
+    public function testDirectCallToMONTH($expectedResultExcel, ...$args): void
+    {
+        /** @scrutinizer ignore-call */
+        $result = DateParts::month(...$args);
+        self::assertSame($expectedResultExcel, $result);
+    }
+
     /**
      * @dataProvider providerMONTH
      *
      * @param mixed $expectedResult
      */
-    public function testMONTH($expectedResult, string $dateTimeValue): void
+    public function testMONTHAsFormula($expectedResult, ...$args): void
     {
-        $this->mightHaveException($expectedResult);
-        $sheet = $this->getSheet();
-        $sheet->getCell('A1')->setValue("=MONTH($dateTimeValue)");
-        $sheet->getCell('B1')->setValue('1954-11-23');
-        self::assertSame($expectedResult, $sheet->getCell('A1')->getCalculatedValue());
+        $arguments = new FormulaArguments(...$args);
+
+        $calculation = Calculation::getInstance();
+        $formula = "=MONTH({$arguments})";
+
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertSame($expectedResult, $result);
+    }
+
+    /**
+     * @dataProvider providerMONTH
+     *
+     * @param mixed $expectedResult
+     */
+    public function testMONTHInWorksheet($expectedResult, ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=MONTH({$argumentCells})";
+
+        $result = $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+        self::assertSame($expectedResult, $result);
+
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function providerMONTH(): array
     {
         return require 'tests/data/Calculation/DateTime/MONTH.php';
+    }
+
+    /**
+     * @dataProvider providerUnhappyMONTH
+     */
+    public function testMONTHUnhappyPath(string $expectedException, ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=MONTH({$argumentCells})";
+
+        $this->expectException(CalculationException::class);
+        $this->expectExceptionMessage($expectedException);
+        $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function providerUnhappyMONTH(): array
+    {
+        return [
+            ['Formula Error: Wrong number of arguments for MONTH() function'],
+        ];
     }
 
     /**

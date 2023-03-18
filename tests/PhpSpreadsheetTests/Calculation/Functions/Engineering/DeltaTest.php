@@ -3,22 +3,95 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Calculation\Engineering\Compare;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
+use PHPUnit\Framework\TestCase;
 
-class DeltaTest extends AllSetupTeardown
+class DeltaTest extends TestCase
 {
     /**
      * @dataProvider providerDELTA
      *
      * @param mixed $expectedResult
      */
-    public function testDELTA($expectedResult, ...$args): void
+    public function testDirectCallToDELTA($expectedResult, ...$args): void
     {
-        $this->runTestCase('DELTA', $expectedResult, ...$args);
+        /** @scrutinizer ignore-call */
+        $result = Compare::delta(...$args);
+        self::assertSame($expectedResult, $result);
+    }
+
+    /**
+     * @dataProvider providerDELTA
+     *
+     * @param mixed $expectedResult
+     */
+    public function testDELTAAsFormula($expectedResult, ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $calculation = Calculation::getInstance();
+        $formula = "=DELTA({$arguments})";
+
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertSame($expectedResult, $result);
+    }
+
+    /**
+     * @dataProvider providerDELTA
+     *
+     * @param mixed $expectedResult
+     */
+    public function testDELTAInWorksheet($expectedResult, ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=DELTA({$argumentCells})";
+
+        $result = $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+        self::assertSame($expectedResult, $result);
+
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function providerDELTA(): array
     {
         return require 'tests/data/Calculation/Engineering/DELTA.php';
+    }
+
+    /**
+     * @dataProvider providerUnhappyDELTA
+     */
+    public function testDELTAUnhappyPath(string $expectedException, ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=DELTA({$argumentCells})";
+
+        $this->expectException(CalculationException::class);
+        $this->expectExceptionMessage($expectedException);
+        $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function providerUnhappyDELTA(): array
+    {
+        return [
+            ['Formula Error: Wrong number of arguments for DELTA() function'],
+        ];
     }
 
     /**
