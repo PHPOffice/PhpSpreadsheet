@@ -47,6 +47,7 @@ class Time extends DateTimeWizard
     ];
 
     public const SEPARATOR_COLON = ':';
+    public const SEPARATOR_SPACE_NONBREAKING = "\u{a0}";
     public const SEPARATOR_SPACE = ' ';
 
     /**

@@ -70,6 +70,7 @@ class Date extends DateTimeWizard
     public const SEPARATOR_DASH = '-';
     public const SEPARATOR_DOT = '.';
     public const SEPARATOR_SLASH = '/';
+    public const SEPARATOR_SPACE_NONBREAKING = "\u{a0}";
     public const SEPARATOR_SPACE = ' ';
 
     /**
