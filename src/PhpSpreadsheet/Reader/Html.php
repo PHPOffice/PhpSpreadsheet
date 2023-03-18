@@ -296,8 +296,9 @@ class Html extends BaseReader
                 // Set cell value explicitly if there is data-type attribute
                 if (isset($attributeArray['data-type'])) {
                     $datatype = $attributeArray['data-type'];
-                    if ($datatype == DataType::TYPE_STRING || $datatype == DataType::TYPE_STRING2) {
-                        if (substr($cellContent, 0, 1) === '=' || is_numeric($cellContent)) {
+                    if (in_array($datatype, [DataType::TYPE_STRING, DataType::TYPE_STRING2, DataType::TYPE_INLINE])) {
+                        //Prevent to Excel treat string with beginning equal sign or convert big numbers to scientific number
+                        if (substr($cellContent, 0, 1) === '=') {
                             $sheet->getCell($column . $row)
                                 ->getStyle()
                                 ->setQuotePrefix(true);

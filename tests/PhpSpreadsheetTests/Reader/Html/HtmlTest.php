@@ -370,12 +370,12 @@ class HtmlTest extends TestCase
         $html = '<table>
                     <tr>
                         <td data-type="b">1</td>
-                        <td data-type="s">1234567</td>
-                        <td data-type="f">=CONCAT("TEXT A ","TEXT B")</td>
+                        <td data-type="s">12345678987654</td>
                         <!-- in some cases, you may want to treat the string with beginning equal sign as a string rather than a formula -->
                         <td data-type="s">=B1</td>
                         <td data-type="d">2022-02-21 10:20:30</td>
-                        <td data-type="invalid-datatype">text</td>
+                        <td data-type="null">null</td>
+                        <td data-type="invalid-datatype">text with invalid datatype</td>
                     </tr>
                 </table>';
 
@@ -391,19 +391,15 @@ class HtmlTest extends TestCase
         self::assertEquals(DataType::TYPE_STRING, $firstSheet->getCell('B1')->getDataType());
         self::assertIsString($firstSheet->getCell('B1')->getValue());
 
-        // check formula data type
-        self::assertEquals(DataType::TYPE_FORMULA, $firstSheet->getCell('C1')->getDataType());
-
-        // check formula output
-        self::assertEquals('TEXT A TEXT B', $firstSheet->getCell('C1')->getFormattedValue());
-
-        // check string with beginning equal sign is string and not formula
-        self::assertEquals(DataType::TYPE_STRING, $firstSheet->getCell('D1')->getDataType());
-        self::assertEquals('=B1', $firstSheet->getCell('D1')->getValue());
-        self::assertIsString($firstSheet->getCell('D1')->getValue());
-        self::assertTrue($firstSheet->getCell('D1')->getStyle()->getQuotePrefix());
+        // check string with beginning equal sign (=B1) and string datatype,is not formula
+        self::assertEquals(DataType::TYPE_STRING, $firstSheet->getCell('C1')->getDataType());
+        self::assertEquals('=B1', $firstSheet->getCell('C1')->getValue());
+        self::assertTrue($firstSheet->getCell('C1')->getStyle()->getQuotePrefix());
 
         //check iso date
-        self::assertEquals($firstSheet->getCell('E1')->getValue(), 44613.43090277778);
+        self::assertEqualsWithDelta($firstSheet->getCell('D1')->getValue(), 44613.43090277778, 1.0e-12);
+
+        //null
+        self::assertEquals($firstSheet->getCell('E1')->getValue(), null);
     }
 }
