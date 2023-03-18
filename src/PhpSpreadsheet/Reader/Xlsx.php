@@ -507,26 +507,6 @@ class Xlsx extends BaseReader
                     $relsWorkbook = $this->loadZip("$dir/_rels/" . basename($relTarget) . '.rels', '');
                     $relsWorkbook->registerXPathNamespace('rel', Namespaces::RELATIONSHIPS);
 
-                    $sharedStrings = [];
-                    $relType = "rel:Relationship[@Type='"
-                        //. Namespaces::SHARED_STRINGS
-                        . "$xmlNamespaceBase/sharedStrings"
-                        . "']";
-                    $xpath = self::getArrayItem($relsWorkbook->xpath($relType));
-
-                    if ($xpath) {
-                        $xmlStrings = $this->loadZip("$dir/$xpath[Target]", $mainNS);
-                        if (isset($xmlStrings->si)) {
-                            foreach ($xmlStrings->si as $val) {
-                                if (isset($val->t)) {
-                                    $sharedStrings[] = StringHelper::controlCharacterOOXML2PHP((string) $val->t);
-                                } elseif (isset($val->r)) {
-                                    $sharedStrings[] = $this->parseRichText($val);
-                                }
-                            }
-                        }
-                    }
-
                     $worksheets = [];
                     $macros = $customUI = null;
                     foreach ($relsWorkbook->Relationship as $elex) {
@@ -681,6 +661,27 @@ class Xlsx extends BaseReader
                     $this->styleReader->setStyleBaseData($theme, $styles, $cellStyles);
                     $dxfs = $this->styleReader->dxfs($this->readDataOnly);
                     $styles = $this->styleReader->styles();
+
+                    // Read content after setting the styles
+                    $sharedStrings = [];
+                    $relType = "rel:Relationship[@Type='"
+                        //. Namespaces::SHARED_STRINGS
+                        . "$xmlNamespaceBase/sharedStrings"
+                        . "']";
+                    $xpath = self::getArrayItem($relsWorkbook->xpath($relType));
+
+                    if ($xpath) {
+                        $xmlStrings = $this->loadZip("$dir/$xpath[Target]", $mainNS);
+                        if (isset($xmlStrings->si)) {
+                            foreach ($xmlStrings->si as $val) {
+                                if (isset($val->t)) {
+                                    $sharedStrings[] = StringHelper::controlCharacterOOXML2PHP((string) $val->t);
+                                } elseif (isset($val->r)) {
+                                    $sharedStrings[] = $this->parseRichText($val);
+                                }
+                            }
+                        }
+                    }
 
                     $xmlWorkbook = $this->loadZipNoNamespace($relTarget, $mainNS);
                     $xmlWorkbookNS = $this->loadZip($relTarget, $mainNS);
