@@ -232,7 +232,6 @@ Writing a date value in a cell consists of 2 lines of code. Select the
 method that suits you the best. Here are some examples:
 
 ```php
-
 // MySQL-like timestamp '2008-12-31' or date string
 \PhpOffice\PhpSpreadsheet\Cell\Cell::setValueBinder( new \PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder() );
 
@@ -257,23 +256,69 @@ $spreadsheet->getActiveSheet()->getStyle('D1')
     ->getNumberFormat()
     ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
 ```
-
 The above methods for entering a date all yield the same result.
-`\PhpOffice\PhpSpreadsheet\Style\NumberFormat` provides a lot of
-pre-defined date formats.
-
 The `\PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel()` method will also
-work with a PHP DateTime object.
+work with a PHP DateTime object; or with strings containing different well-recognised date formats
+(although this is limited in the same ways as using the Advanced Value Binder).
 
 Similarly, times (or date and time values) can be entered in the same
 fashion: just remember to use an appropriate format code.
 
-**Note:**
-
-See section "Using value binders to facilitate data entry" to learn more
+> **Note:** See section "Using value binders to facilitate data entry" to learn more
 about the AdvancedValueBinder used in the first example. Excel can also
 operate in a 1904-based calendar (default for workbooks saved on Mac).
 Normally, you do not have to worry about this when using PhpSpreadsheet.
+
+`\PhpOffice\PhpSpreadsheet\Style\NumberFormat` provides a number of
+pre-defined date formats; but this is just a string value, and you can
+define your own values as long as they are a valid MS Excel format.
+PhpSpreadsheet also provides a number of Wizards to help you create
+Date, Time and DateTime format masks.
+
+<details>
+  <summary>Click here for an example of the Date/Time Wizards</summary>
+
+```php
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\Date as DateWizard;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\Time as TimeWizard;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\DateTime as DateTimeWizard;
+
+$spreadsheet->getActiveSheet()->setCellValue('A1', '=NOW()')
+$spreadsheet->getActiveSheet()->setCellValue('A2', '=NOW()')
+$spreadsheet->getActiveSheet()->setCellValue('A3', '=NOW()')
+
+// yyyy-mm-dd
+$dateFormat = new DateWizard(
+    DateWizard::SEPARATOR_DASH,
+    DateWizard::YEAR_FULL,
+    DateWizard::MONTH_NUMBER_LONG,
+    DateWizard::DAY_NUMBER_LONG
+);
+
+$spreadsheet->getActiveSheet()->getStyle('A1')
+    ->getNumberFormat()
+    ->setFormatCode($dateFormat);
+
+// hh:mm
+$timeFormat = new TimeWizard(
+    TimeWizard::SEPARATOR_COLON,
+    TimeWizard::HOURS_LONG,
+    TimeWizard::MINUTES_LONG,
+);
+
+$spreadsheet->getActiveSheet()->getStyle('A2')
+    ->getNumberFormat()
+    ->setFormatCode($timeFormat);
+
+// yyyy-mm-dd hh:mm
+$dateTimeFormat = new DateTimeWizard(' ', $dateFormat, $timeFormat);
+
+$spreadsheet->getActiveSheet()->getStyle('A3')
+    ->getNumberFormat()
+    ->setFormatCode($dateTimeFormat);
+```
+
+</details>
 
 ## Write a formula into a cell
 
