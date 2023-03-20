@@ -60,7 +60,7 @@ jobs:
       - name: "Run PHPUnit tests (Experimental: ${{ matrix.experimental }})"
         env:
           FAILURE_ACTION: "${{ matrix.experimental == true }}"
-        run: vendor/bin/phpunit --verbose || $FAILURE_ACTION
+        run: vendor/bin/paratest --verbose || $FAILURE_ACTION
 
   php-cs-fixer:
     runs-on: ubuntu-latest
@@ -217,7 +217,7 @@ jobs:
 
       - name: Coverage
         run: |
-          ./vendor/bin/phpunit --coverage-clover coverage-clover.xml
+          ./vendor/bin/paratest --coverage-clover coverage-clover.xml
           composer global require scrutinizer/ocular
           ~/.composer/vendor/bin/ocular code-coverage:upload --format=php-clover coverage-clover.xml
 
