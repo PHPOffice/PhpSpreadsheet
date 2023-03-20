@@ -60,7 +60,7 @@ jobs:
       - name: "Run PHPUnit tests (Experimental: ${{ matrix.experimental }})"
         env:
           FAILURE_ACTION: "${{ matrix.experimental == true }}"
-        run: vendor/bin/paratest --verbose || $FAILURE_ACTION
+        run: vendor/bin/paratest -p4 --runner WrapperRunner --verbose || $FAILURE_ACTION
 
   php-cs-fixer:
     runs-on: ubuntu-latest
@@ -217,7 +217,7 @@ jobs:
 
       - name: Coverage
         run: |
-          ./vendor/bin/paratest -p4 --runner WrapperRunner --coverage-clover coverage-clover.xml
+          ./vendor/bin/paratest -p4 --runner WrapperRunner --passthru-php="'-d' 'memory_limit=4G'" --coverage-clover coverage-clover.xml
           composer global require scrutinizer/ocular
           ~/.composer/vendor/bin/ocular code-coverage:upload --format=php-clover coverage-clover.xml
 

@@ -106,6 +106,8 @@ class XlsTest extends AbstractFunctional
     }
 
     /**
+     * @Depends XlsTest::testLoadMacCentralEurope
+     *
      * First test changes array entry in CodePage.
      * This test confirms new that new entry is okay.
      */
