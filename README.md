@@ -32,7 +32,7 @@ If you are building your installation on a development machine that is on a diff
 ```json
 {
     "require": {
-        "phpoffice/phpspreadsheet": "^1.23"
+        "phpoffice/phpspreadsheet": "^1.28"
     },
     "config": {
         "platform": {
@@ -78,12 +78,16 @@ For Chart export, we support following packages, which you will also need to ins
 
 and then configure PhpSpreadsheet using:
 ```php
-Settings::setChartRenderer(\PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph::class); // to use jpgraph/jpgraph
+// to use jpgraph/jpgraph
+Settings::setChartRenderer(\PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph::class);
 //or
-Settings::setChartRenderer(\PhpOffice\PhpSpreadsheet\Chart\Renderer\MtJpGraphRenderer::class); // to use mitoteam/jpgraph
+// to use mitoteam/jpgraph
+Settings::setChartRenderer(\PhpOffice\PhpSpreadsheet\Chart\Renderer\MtJpGraphRenderer::class);
 ```
 
-One or the other of these libraries is necessary if you want to generate HTML or PDF files that include charts.
+One or the other of these libraries is necessary if you want to generate HTML or PDF files that include charts; or to render a Chart to an Image format from within your code.
+They are not necessary to define charts for writing to `Xlsx` files.
+Other file formats don't support writing Charts.
 
 ## Documentation
 
@@ -107,6 +111,11 @@ And for Patrons at levels actively using PhpSpreadsheet:
  - Behind the Mask
    - A look at Number Format Masks.
 
+The Next Article (currently Work in Progress):
+ - Formula for Success
+   - How to debug formulae that don't produce the expected result.
+
+
 My aim is to post at least one article each month, taking a detailed look at some feature of MS Excel and how to use that feature in PhpSpreadsheet, or on how to perform different activities in PhpSpreadsheet.
 
 Planned posts for the future include topics like:
@@ -116,7 +125,6 @@ Planned posts for the future include topics like:
  - Array Formulae
  - Conditional Formatting
  - Data Validation
- - Formula Debugging
  - Value Binders
  - Images
  - Charts
