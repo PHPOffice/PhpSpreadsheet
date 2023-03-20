@@ -19,8 +19,8 @@ class SampleCoverageTest extends TestCase
         $basic = $samples['Basic'];
         self::assertArrayHasKey('02 Types', $basic);
         self::assertSame('Basic/02_Types.php', $basic['02 Types']);
-        self::assertSame('phpunit', $helper->getPageTitle());
-        self::assertSame('<h1>phpunit</h1>', $helper->getPageHeading());
+        self::assertSame('phpunit-wrapper', $helper->getPageTitle());
+        self::assertSame('<h1>phpunit-wrapper</h1>', $helper->getPageHeading());
     }
 
     public function testDirectoryFail(): void

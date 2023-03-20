@@ -217,7 +217,7 @@ jobs:
 
       - name: Coverage
         run: |
-          ./vendor/bin/paratest --coverage-clover coverage-clover.xml
+          ./vendor/bin/paratest -p4 --runner WrapperRunner --coverage-clover coverage-clover.xml
           composer global require scrutinizer/ocular
           ~/.composer/vendor/bin/ocular code-coverage:upload --format=php-clover coverage-clover.xml
 
