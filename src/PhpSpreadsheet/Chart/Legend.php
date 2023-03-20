@@ -48,8 +48,8 @@ class Legend
      */
     private $layout;
 
-    /** @var ChartColor */
-    private $borderColor;
+    /** @var GridLines */
+    private $borderLines;
 
     /** @var ChartColor */
     private $fillColor;
@@ -69,13 +69,8 @@ class Legend
         $this->setPosition($position);
         $this->layout = $layout;
         $this->setOverlay($overlay);
-        $this->borderColor = new ChartColor();
+        $this->borderLines = new GridLines();
         $this->fillColor = new ChartColor();
-    }
-
-    public function getBorderColor(): ChartColor
-    {
-        return $this->borderColor;
     }
 
     public function getFillColor(): ChartColor
@@ -178,6 +173,18 @@ class Legend
     public function setLegendText(?AxisText $legendText): self
     {
         $this->legendText = $legendText;
+
+        return $this;
+    }
+
+    public function getBorderLines(): GridLines
+    {
+        return $this->borderLines;
+    }
+
+    public function setBorderLines(GridLines $borderLines): self
+    {
+        $this->borderLines = $borderLines;
 
         return $this;
     }

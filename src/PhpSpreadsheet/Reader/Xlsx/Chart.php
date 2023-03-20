@@ -77,15 +77,24 @@ class Chart
         $yAxis = new Axis();
         $autoTitleDeleted = null;
         $chartNoFill = false;
+        $chartBorderLines = null;
+        $chartFillColor = null;
         $gradientArray = [];
         $gradientLin = null;
         $roundedCorners = false;
         foreach ($chartElementsC as $chartElementKey => $chartElement) {
             switch ($chartElementKey) {
                 case 'spPr':
-                    $possibleNoFill = $chartElementsC->spPr->children($this->aNamespace);
-                    if (isset($possibleNoFill->noFill)) {
+                    $children = $chartElementsC->spPr->children($this->aNamespace);
+                    if (isset($children->noFill)) {
                         $chartNoFill = true;
+                    }
+                    if (isset($children->solidFill)) {
+                        $chartFillColor = $this->readColor($children->solidFill);
+                    }
+                    if (isset($children->ln)) {
+                        $chartBorderLines = new GridLines();
+                        $this->readLineStyle($chartElementsC, $chartBorderLines);
                     }
 
                     break;
@@ -158,6 +167,9 @@ class Chart
                                                     $axisColorArray = $this->readColor($sppr->solidFill);
                                                     $xAxis->setFillParameters($axisColorArray['value'], $axisColorArray['alpha'], $axisColorArray['type']);
                                                 }
+                                                if (isset($chartDetail->spPr->ln->noFill)) {
+                                                    $xAxis->setNoFill(true);
+                                                }
                                             }
                                             if (isset($chartDetail->majorGridlines)) {
                                                 $majorGridlines = new GridLines();
@@ -227,6 +239,9 @@ class Chart
                                                 if (isset($sppr->solidFill)) {
                                                     $axisColorArray = $this->readColor($sppr->solidFill);
                                                     $whichAxis->setFillParameters($axisColorArray['value'], $axisColorArray['alpha'], $axisColorArray['type']);
+                                                }
+                                                if (isset($sppr->ln->noFill)) {
+                                                    $whichAxis->setNoFill(true);
                                                 }
                                             }
                                             if ($whichAxis !== null && isset($chartDetail->majorGridlines)) {
@@ -351,7 +366,7 @@ class Chart
                                 $legendPos = 'r';
                                 $legendLayout = null;
                                 $legendOverlay = false;
-                                $legendBorderColor = null;
+                                $legendBorderLines = null;
                                 $legendFillColor = null;
                                 $legendText = null;
                                 $addLegendText = false;
@@ -375,8 +390,9 @@ class Chart
                                             if (isset($children->solidFill)) {
                                                 $legendFillColor = $this->readColor($children->solidFill);
                                             }
-                                            if (isset($children->ln->solidFill)) {
-                                                $legendBorderColor = $this->readColor($children->ln->solidFill);
+                                            if (isset($children->ln)) {
+                                                $legendBorderLines = new GridLines();
+                                                $this->readLineStyle($chartDetails, $legendBorderLines);
                                             }
 
                                             break;
@@ -401,8 +417,8 @@ class Chart
                                 if ($legendFillColor !== null) {
                                     $legend->getFillColor()->setColorPropertiesArray($legendFillColor);
                                 }
-                                if ($legendBorderColor !== null) {
-                                    $legend->getBorderColor()->setColorPropertiesArray($legendBorderColor);
+                                if ($legendBorderLines !== null) {
+                                    $legend->setBorderLines($legendBorderLines);
                                 }
                                 if ($addLegendText) {
                                     $legend->setLegendText($legendText);
@@ -416,6 +432,12 @@ class Chart
         $chart = new \PhpOffice\PhpSpreadsheet\Chart\Chart($chartName, $title, $legend, $plotArea, $plotVisOnly, (string) $dispBlanksAs, $XaxisLabel, $YaxisLabel, $xAxis, $yAxis);
         if ($chartNoFill) {
             $chart->setNoFill(true);
+        }
+        if ($chartFillColor !== null) {
+            $chart->getFillColor()->setColorPropertiesArray($chartFillColor);
+        }
+        if ($chartBorderLines !== null) {
+            $chart->setBorderLines($chartBorderLines);
         }
         $chart->setRoundedCorners($roundedCorners);
         if (is_bool($autoTitleDeleted)) {

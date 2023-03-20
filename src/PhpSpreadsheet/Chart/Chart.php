@@ -150,6 +150,12 @@ class Chart
     /** @var bool */
     private $roundedCorners = false;
 
+    /** @var GridLines */
+    private $borderLines;
+
+    /** @var ChartColor */
+    private $fillColor;
+
     /**
      * Create a new Chart.
      * majorGridlines and minorGridlines are deprecated, moved to Axis.
@@ -176,6 +182,8 @@ class Chart
         if ($minorGridlines !== null) {
             $this->yAxis->setMinorGridlines($minorGridlines);
         }
+        $this->fillColor = new ChartColor();
+        $this->borderLines = new GridLines();
     }
 
     /**
@@ -785,5 +793,22 @@ class Chart
         }
 
         return $this;
+    }
+
+    public function getBorderLines(): GridLines
+    {
+        return $this->borderLines;
+    }
+
+    public function setBorderLines(GridLines $borderLines): self
+    {
+        $this->borderLines = $borderLines;
+
+        return $this;
+    }
+
+    public function getFillColor(): ChartColor
+    {
+        return $this->fillColor;
     }
 }
