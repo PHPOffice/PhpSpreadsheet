@@ -790,7 +790,11 @@ class Xlsx extends BaseReader
                                             $coordinates = Coordinate::coordinateFromString($r);
 
                                             if (!$this->getReadFilter()->readCell($coordinates[0], (int) $coordinates[1], $docSheet->getTitle())) {
-                                                if (isset($cAttr->f)) {
+                                                // Normally, just testing for the f attribute should identify this cell as containing a formula
+                                                // that we need to read, even though it is outside of the filter range, in case it is a shared formula.
+                                                // But in some cases, this attribute isn't set; so we need to delve a level deeper and look at
+                                                // whether or not the cell has a child formula element that is shared.
+                                                if (isset($cAttr->f) || (isset($c->f, $c->f->attributes()['t']) && (string) $c->f->attributes()['t'] === 'shared')) {
                                                     $this->castToFormula($c, $r, $cellDataType, $value, $calculatedValue, $sharedFormulas, 'castToError');
                                                 }
                                                 ++$rowIndex;
