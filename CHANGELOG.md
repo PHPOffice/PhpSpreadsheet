@@ -9,8 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Added
 
-- Wizards for defining Number Format masks for Dates and Times [PR #3458](https://github.com/PHPOffice/PhpSpreadsheet/pull/3458)
-- Specify data type in html tags [Issue #3444](https://github.com/PHPOffice/PhpSpreadsheet/issues/3444) [PR #3445](https://github.com/PHPOffice/PhpSpreadsheet/pull/3445)
+- Wizards for defining Number Format masks for Dates and Times. [PR #3458](https://github.com/PHPOffice/PhpSpreadsheet/pull/3458)
+- Specify data type in html tags. [Issue #3444](https://github.com/PHPOffice/PhpSpreadsheet/issues/3444) [PR #3445](https://github.com/PHPOffice/PhpSpreadsheet/pull/3445)
+- Memory and speed optimisations for Read Filters with Xlsx Files and Shared Formulae. [PR #3474](https://github.com/PHPOffice/PhpSpreadsheet/pull/3474)
 
 ### Changed
 
@@ -26,23 +27,23 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
-- Updates Cell formula absolute ranges/references, and Defined Name absolute ranges/references when inserting/deleting rows/columns [Issue #3368](https://github.com/PHPOffice/PhpSpreadsheet/issues/3368) [PR #3402](https://github.com/PHPOffice/PhpSpreadsheet/pull/3402)
-- EOMONTH() and EDATE() Functions should round date value before evaluation [Issue #3436](https://github.com/PHPOffice/PhpSpreadsheet/issues/3436) [PR #3437](https://github.com/PHPOffice/PhpSpreadsheet/pull/3437)
-- NETWORKDAYS function erroneously being converted to NETWORK_xlfn.DAYS in Xlsx Writer [Issue #3461](https://github.com/PHPOffice/PhpSpreadsheet/issues/3461) [PR #3463](https://github.com/PHPOffice/PhpSpreadsheet/pull/3463)
-- Getting a style for a CellAddress instance fails if the worksheet is set in the CellAddress instance [Issue #3439](https://github.com/PHPOffice/PhpSpreadsheet/issues/3439) [PR #3469](https://github.com/PHPOffice/PhpSpreadsheet/pull/3469)
-- Shared Formulae outside the filter range when reading with a filter are not always being identified [Issue #3473](https://github.com/PHPOffice/PhpSpreadsheet/issues/3473) [PR #3474](https://github.com/PHPOffice/PhpSpreadsheet/pull/3474)
-- Xls Reader Conditional Styles [PR #3400](https://github.com/PHPOffice/PhpSpreadsheet/pull/3400)
-- Allow use of # and 0 digit placeholders in fraction masks [PR #3401](https://github.com/PHPOffice/PhpSpreadsheet/pull/3401)
-- Modify Date/Time check in the NumberFormatter for decimal/fractional times [PR #3413](https://github.com/PHPOffice/PhpSpreadsheet/pull/3413)
-- Misplaced Xml Writing Chart Label FillColor [Issue #3397](https://github.com/PHPOffice/PhpSpreadsheet/issues/3397) [PR #3404](https://github.com/PHPOffice/PhpSpreadsheet/pull/3404)
-- TEXT function ignores Time in DateTimeStamp [Issue #3409](https://github.com/PHPOffice/PhpSpreadsheet/issues/3409) [PR #3411](https://github.com/PHPOffice/PhpSpreadsheet/pull/3411)
-- Xlsx Column Autosize Approximate for CJK [Issue #3405](https://github.com/PHPOffice/PhpSpreadsheet/issues/3405) [PR #3416](https://github.com/PHPOffice/PhpSpreadsheet/pull/3416)
-- Correct Xlsx Parsing of quotePrefix="0" [Issue #3435](https://github.com/PHPOffice/PhpSpreadsheet/issues/3435) [PR #3438](https://github.com/PHPOffice/PhpSpreadsheet/pull/3438)
-- More Display Options for Chart Axis and Legend [Issue #3414](https://github.com/PHPOffice/PhpSpreadsheet/issues/3414) [PR #3434](https://github.com/PHPOffice/PhpSpreadsheet/pull/3434)
-- Apply strict type checking to Complex suffix [PR #3452](https://github.com/PHPOffice/PhpSpreadsheet/pull/3452)
-- Incorrect Font Color Read Xlsx Rich Text Indexed Color Custom Palette [Issue #3464](https://github.com/PHPOffice/PhpSpreadsheet/issues/3464) [PR #3465](https://github.com/PHPOffice/PhpSpreadsheet/pull/3465)
-- Xlsx Writer Honor Alignment in Default Font [Issue #3443](https://github.com/PHPOffice/PhpSpreadsheet/issues/3443) [PR #3459](https://github.com/PHPOffice/PhpSpreadsheet/pull/3459)
-- Support Border for Charts [PR #3462](https://github.com/PHPOffice/PhpSpreadsheet/pull/3462)
+- Updates Cell formula absolute ranges/references, and Defined Name absolute ranges/references when inserting/deleting rows/columns. [Issue #3368](https://github.com/PHPOffice/PhpSpreadsheet/issues/3368) [PR #3402](https://github.com/PHPOffice/PhpSpreadsheet/pull/3402)
+- EOMONTH() and EDATE() Functions should round date value before evaluation. [Issue #3436](https://github.com/PHPOffice/PhpSpreadsheet/issues/3436) [PR #3437](https://github.com/PHPOffice/PhpSpreadsheet/pull/3437)
+- NETWORKDAYS function erroneously being converted to NETWORK_xlfn.DAYS in Xlsx Writer. [Issue #3461](https://github.com/PHPOffice/PhpSpreadsheet/issues/3461) [PR #3463](https://github.com/PHPOffice/PhpSpreadsheet/pull/3463)
+- Getting a style for a CellAddress instance fails if the worksheet is set in the CellAddress instance. [Issue #3439](https://github.com/PHPOffice/PhpSpreadsheet/issues/3439) [PR #3469](https://github.com/PHPOffice/PhpSpreadsheet/pull/3469)
+- Shared Formulae outside the filter range when reading with a filter are not always being identified. [Issue #3473](https://github.com/PHPOffice/PhpSpreadsheet/issues/3473) [PR #3474](https://github.com/PHPOffice/PhpSpreadsheet/pull/3474)
+- Xls Reader Conditional Styles. [PR #3400](https://github.com/PHPOffice/PhpSpreadsheet/pull/3400)
+- Allow use of # and 0 digit placeholders in fraction masks. [PR #3401](https://github.com/PHPOffice/PhpSpreadsheet/pull/3401)
+- Modify Date/Time check in the NumberFormatter for decimal/fractional times. [PR #3413](https://github.com/PHPOffice/PhpSpreadsheet/pull/3413)
+- Misplaced Xml Writing Chart Label FillColor. [Issue #3397](https://github.com/PHPOffice/PhpSpreadsheet/issues/3397) [PR #3404](https://github.com/PHPOffice/PhpSpreadsheet/pull/3404)
+- TEXT function ignores Time in DateTimeStamp. [Issue #3409](https://github.com/PHPOffice/PhpSpreadsheet/issues/3409) [PR #3411](https://github.com/PHPOffice/PhpSpreadsheet/pull/3411)
+- Xlsx Column Autosize Approximate for CJK. [Issue #3405](https://github.com/PHPOffice/PhpSpreadsheet/issues/3405) [PR #3416](https://github.com/PHPOffice/PhpSpreadsheet/pull/3416)
+- Correct Xlsx Parsing of quotePrefix="0". [Issue #3435](https://github.com/PHPOffice/PhpSpreadsheet/issues/3435) [PR #3438](https://github.com/PHPOffice/PhpSpreadsheet/pull/3438)
+- More Display Options for Chart Axis and Legend. [Issue #3414](https://github.com/PHPOffice/PhpSpreadsheet/issues/3414) [PR #3434](https://github.com/PHPOffice/PhpSpreadsheet/pull/3434)
+- Apply strict type checking to Complex suffix. [PR #3452](https://github.com/PHPOffice/PhpSpreadsheet/pull/3452)
+- Incorrect Font Color Read Xlsx Rich Text Indexed Color Custom Palette. [Issue #3464](https://github.com/PHPOffice/PhpSpreadsheet/issues/3464) [PR #3465](https://github.com/PHPOffice/PhpSpreadsheet/pull/3465)
+- Xlsx Writer Honor Alignment in Default Font. [Issue #3443](https://github.com/PHPOffice/PhpSpreadsheet/issues/3443) [PR #3459](https://github.com/PHPOffice/PhpSpreadsheet/pull/3459)
+- Support Border for Charts. [PR #3462](https://github.com/PHPOffice/PhpSpreadsheet/pull/3462)
 
 
 ## 1.28.0 - 2023-02-25

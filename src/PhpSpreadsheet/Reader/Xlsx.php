@@ -336,7 +336,7 @@ class Xlsx extends BaseReader
             return;
         }
         $attr = $c->f->attributes();
-        $cellDataType = 'f';
+        $cellDataType = DataType::TYPE_FORMULA;
         $value = "={$c->f}";
         $calculatedValue = self::$castBaseType($c);
 
@@ -347,6 +347,8 @@ class Xlsx extends BaseReader
             if (!isset($this->sharedFormulae[(string) $attr['si']])) {
                 $this->sharedFormulae[$instance] = new SharedFormula($r, $value);
             } elseif ($updateSharedCells === true) {
+                // It's only worth the overhead of adjusting the shared formula for this cell if we're actually loading
+                //     the cell, which may not be the case if we're using a read filter.
                 $master = Coordinate::indexesFromString($this->sharedFormulae[$instance]->master());
                 $current = Coordinate::indexesFromString($r);
 
@@ -801,7 +803,7 @@ class Xlsx extends BaseReader
                                                 // that we need to read, even though it is outside of the filter range, in case it is a shared formula.
                                                 // But in some cases, this attribute isn't set; so we need to delve a level deeper and look at
                                                 // whether or not the cell has a child formula element that is shared.
-                                                if (isset($cAttr->f) || (isset($c->f, $c->f->attributes()['t']) && (string) $c->f->attributes()['t'] === 'shared')) {
+                                                if (isset($cAttr->f) || (isset($c->f, $c->f->attributes()['t']) && strtolower((string) $c->f->attributes()['t']) === 'shared')) {
                                                     $this->castToFormula($c, $r, $cellDataType, $value, $calculatedValue, 'castToError', false);
                                                 }
                                                 ++$rowIndex;
