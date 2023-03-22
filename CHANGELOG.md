@@ -11,11 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 - Wizards for defining Number Format masks for Dates and Times. [PR #3458](https://github.com/PHPOffice/PhpSpreadsheet/pull/3458)
 - Specify data type in html tags. [Issue #3444](https://github.com/PHPOffice/PhpSpreadsheet/issues/3444) [PR #3445](https://github.com/PHPOffice/PhpSpreadsheet/pull/3445)
-- Memory and speed optimisations for Read Filters with Xlsx Files and Shared Formulae. [PR #3474](https://github.com/PHPOffice/PhpSpreadsheet/pull/3474)
 
 ### Changed
 
-- Nothing
+- Memory and speed optimisations for Read Filters with Xlsx Files and Shared Formulae. [PR #3474](https://github.com/PHPOffice/PhpSpreadsheet/pull/3474)
 
 ### Deprecated
 
