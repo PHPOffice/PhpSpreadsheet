@@ -30,6 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - EOMONTH() and EDATE() Functions should round date value before evaluation [Issue #3436](https://github.com/PHPOffice/PhpSpreadsheet/issues/3436) [PR #3437](https://github.com/PHPOffice/PhpSpreadsheet/pull/3437)
 - NETWORKDAYS function erroneously being converted to NETWORK_xlfn.DAYS in Xlsx Writer [Issue #3461](https://github.com/PHPOffice/PhpSpreadsheet/issues/3461) [PR #3463](https://github.com/PHPOffice/PhpSpreadsheet/pull/3463)
 - Getting a style for a CellAddress instance fails if the worksheet is set in the CellAddress instance [Issue #3439](https://github.com/PHPOffice/PhpSpreadsheet/issues/3439) [PR #3469](https://github.com/PHPOffice/PhpSpreadsheet/pull/3469)
+- Shared Formulae outside the filter range when reading with a filter are not always being identified [Issue #3473](https://github.com/PHPOffice/PhpSpreadsheet/issues/3473) [PR #3474](https://github.com/PHPOffice/PhpSpreadsheet/pull/3474)
 - Xls Reader Conditional Styles [PR #3400](https://github.com/PHPOffice/PhpSpreadsheet/pull/3400)
 - Allow use of # and 0 digit placeholders in fraction masks [PR #3401](https://github.com/PHPOffice/PhpSpreadsheet/pull/3401)
 - Modify Date/Time check in the NumberFormatter for decimal/fractional times [PR #3413](https://github.com/PHPOffice/PhpSpreadsheet/pull/3413)
