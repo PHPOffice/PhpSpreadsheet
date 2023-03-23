@@ -636,9 +636,7 @@ class Chart extends WriterPart
             $objWriter->endElement(); // a:bodyPr
             $objWriter->startElement('a:lstStyle');
             $objWriter->endElement(); // a:lstStyle
-            if ($axisText !== null) {
-                $this->writeLabelFont($objWriter, $axisText->getFont(), $axisText);
-            }
+            $this->writeLabelFont($objWriter, ($axisText === null) ? null : $axisText->getFont(), $axisText);
             $objWriter->endElement(); // c:txPr
         }
 
@@ -856,9 +854,7 @@ class Chart extends WriterPart
             $objWriter->startElement('a:lstStyle');
             $objWriter->endElement(); // a:lstStyle
 
-            if ($axisText !== null) {
-                $this->writeLabelFont($objWriter, $axisText->getFont(), $axisText);
-            }
+            $this->writeLabelFont($objWriter, ($axisText === null) ? null : $axisText->getFont(), $axisText);
 
             $objWriter->endElement(); // c:txPr
         }
