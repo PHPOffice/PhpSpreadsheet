@@ -8,13 +8,13 @@ use PhpOffice\PhpSpreadsheet\Chart\PlotArea;
 use PhpOffice\PhpSpreadsheet\Chart\Title;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Theme;
+use PhpOffice\PhpSpreadsheet\Theme as SpreadsheetTheme;
 
 require __DIR__ . '/../Header.php';
 
 $spreadsheet = new Spreadsheet();
 // same as 33_Chart_create_area, but with 2013+ schemes
-$spreadsheet->getTheme()->setThemeColorName(Theme::COLOR_SCHEME_2013_PLUS_NAME);
+$spreadsheet->getTheme()->setThemeColorName(SpreadsheetTheme::COLOR_SCHEME_2013_PLUS_NAME);
 $worksheet = $spreadsheet->getActiveSheet();
 $worksheet->fromArray(
     [
