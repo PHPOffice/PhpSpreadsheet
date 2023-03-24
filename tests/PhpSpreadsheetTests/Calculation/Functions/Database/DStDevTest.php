@@ -5,7 +5,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 use PhpOffice\PhpSpreadsheet\Calculation\Database\DStDev;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
-class DStDevTest extends AllSetupTeardown
+class DStDevTest extends SetupTeardownDatabases
 {
     /**
      * @dataProvider providerDStDev

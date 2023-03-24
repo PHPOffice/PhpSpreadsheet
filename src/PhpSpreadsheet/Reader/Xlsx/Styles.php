@@ -253,10 +253,14 @@ class Styles extends BaseParserClass
 
     public function readAlignmentStyle(Alignment $alignment, SimpleXMLElement $alignmentXml): void
     {
-        $horizontal = $this->getAttribute($alignmentXml, 'horizontal');
-        $alignment->setHorizontal($horizontal);
-        $vertical = $this->getAttribute($alignmentXml, 'vertical');
-        $alignment->setVertical((string) $vertical);
+        $horizontal = (string) $this->getAttribute($alignmentXml, 'horizontal');
+        if ($horizontal !== '') {
+            $alignment->setHorizontal($horizontal);
+        }
+        $vertical = (string) $this->getAttribute($alignmentXml, 'vertical');
+        if ($vertical !== '') {
+            $alignment->setVertical($vertical);
+        }
 
         $textRotation = (int) $this->getAttribute($alignmentXml, 'textRotation');
         if ($textRotation > 90) {

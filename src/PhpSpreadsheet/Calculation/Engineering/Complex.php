@@ -49,7 +49,7 @@ class Complex
             return $e->getMessage();
         }
 
-        if (($suffix == 'i') || ($suffix == 'j') || ($suffix == '')) {
+        if (($suffix === 'i') || ($suffix === 'j') || ($suffix === '')) {
             $complex = new ComplexObject($realNumber, $imaginary, $suffix);
 
             return (string) $complex;

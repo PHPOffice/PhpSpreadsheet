@@ -64,7 +64,7 @@ $dataSeriesValues[2]->setLineWidth(60000 / Properties::POINTS_WIDTH_MULTIPLIER);
 // Build the dataseries
 $series = new DataSeries(
     DataSeries::TYPE_LINECHART, // plotType
-    DataSeries::GROUPING_STACKED, // plotGrouping
+    null, // plotGrouping, was DataSeries::GROUPING_STACKED, not a usual choice for line chart
     range(0, count($dataSeriesValues) - 1), // plotOrder
     $dataSeriesLabels, // plotLabel
     $xAxisTickValues, // plotCategory
@@ -76,7 +76,7 @@ $plotArea = new PlotArea(null, [$series]);
 // Set the chart legend
 $legend = new ChartLegend(ChartLegend::POSITION_TOPRIGHT, null, false);
 
-$title = new Title('Test Stacked Line Chart');
+$title = new Title('Test Line Chart');
 $yAxisLabel = new Title('Value ($k)');
 
 // Create the chart

@@ -1,6 +1,8 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Chart\AxisText;
 use PhpOffice\PhpSpreadsheet\Chart\Chart;
+use PhpOffice\PhpSpreadsheet\Chart\ChartColor;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeries;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues;
 use PhpOffice\PhpSpreadsheet\Chart\Legend as ChartLegend;
@@ -80,6 +82,12 @@ $series = new DataSeries(
 $plotArea = new PlotArea(null, [$series]);
 // Set the chart legend
 $legend = new ChartLegend(ChartLegend::POSITION_RIGHT, null, false);
+$legend->getBorderLines()->setLineColorProperties('ffc000', null, ChartColor::EXCEL_COLOR_TYPE_RGB);
+$legend->getFillColor()->setColorProperties('cccccc');
+$legendText = new AxisText();
+$legendText->getFillColorObject()->setValue('008080')->setType(ChartColor::EXCEL_COLOR_TYPE_RGB);
+$legendText->setShadowProperties(1);
+$legend->setLegendText($legendText);
 
 $title = new Title('Test Stock Chart');
 $xAxisLabel = new Title('Counts');
@@ -103,6 +111,7 @@ $chart->setBottomRightPosition('H20');
 
 // Add the chart to the worksheet
 $worksheet->addChart($chart);
+$worksheet->setSelectedCells('G2');
 
 // Save Excel 2007 file
 $filename = $helper->getFilename(__FILE__);

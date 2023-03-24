@@ -33,7 +33,7 @@ for details.
 LTS: Support for PHP versions will only be maintained for a period of six months beyond the
 [end of life of that PHP version](https://www.php.net/eol.php).
 
-Currently the required PHP minimum version is PHP 7.4. The last PHP release was 7.4.32 on 29th September 2022, and security support ends on 28th November 2022, so PhpSpreadsheet will support PHP 7.4 until 28th May 2023.
+Currently the required PHP minimum version is PHP 7.4: the last release was 7.4.32 on 29th September 2022, and security support ends on 28th November 2022, so PhpSpreadsheet will support PHP 7.4 until 28th May 2023.
 PHP 8.0 is officially [End of Life](https://www.php.net/supported-versions.php) on 26th November 2023, and PhpSpreadsheet will continue to support PHP 8.0 for six months after that date.
 
 See the `composer.json` for other requirements.
@@ -86,8 +86,8 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 $spreadsheet = new Spreadsheet();
-$sheet = $spreadsheet->getActiveSheet();
-$sheet->setCellValue('A1', 'Hello World !');
+$activeWorksheet = $spreadsheet->getActiveSheet();
+$activeWorksheet->setCellValue('A1', 'Hello World !');
 
 $writer = new Xlsx($spreadsheet);
 $writer->save('hello world.xlsx');

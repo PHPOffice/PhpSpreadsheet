@@ -5,7 +5,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 use PhpOffice\PhpSpreadsheet\Calculation\Database\DCount;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
-class DCountTest extends AllSetupTeardown
+class DCountTest extends SetupTeardownDatabases
 {
     /**
      * @dataProvider providerDCount

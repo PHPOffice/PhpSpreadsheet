@@ -16,6 +16,7 @@ use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Hyperlinks;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Namespaces;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\PageSetup;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Properties as PropertyReader;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx\SharedFormula;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\SheetViewOptions;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\SheetViews;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Styles;
@@ -60,6 +61,11 @@ class Xlsx extends BaseReader
 
     /** @var Styles */
     private $styleReader;
+
+    /**
+     * @var array
+     */
+    private $sharedFormulae = [];
 
     /**
      * Create a new Xlsx Reader instance.
@@ -324,13 +330,13 @@ class Xlsx extends BaseReader
      * @param mixed $value
      * @param mixed $calculatedValue
      */
-    private function castToFormula(?SimpleXMLElement $c, string $r, string &$cellDataType, &$value, &$calculatedValue, array &$sharedFormulas, string $castBaseType): void
+    private function castToFormula(?SimpleXMLElement $c, string $r, string &$cellDataType, &$value, &$calculatedValue, string $castBaseType, bool $updateSharedCells = true): void
     {
         if ($c === null) {
             return;
         }
         $attr = $c->f->attributes();
-        $cellDataType = 'f';
+        $cellDataType = DataType::TYPE_FORMULA;
         $value = "={$c->f}";
         $calculatedValue = self::$castBaseType($c);
 
@@ -338,17 +344,19 @@ class Xlsx extends BaseReader
         if (isset($attr['t']) && strtolower((string) $attr['t']) == 'shared') {
             $instance = (string) $attr['si'];
 
-            if (!isset($sharedFormulas[(string) $attr['si']])) {
-                $sharedFormulas[$instance] = ['master' => $r, 'formula' => $value];
-            } else {
-                $master = Coordinate::indexesFromString($sharedFormulas[$instance]['master']);
+            if (!isset($this->sharedFormulae[(string) $attr['si']])) {
+                $this->sharedFormulae[$instance] = new SharedFormula($r, $value);
+            } elseif ($updateSharedCells === true) {
+                // It's only worth the overhead of adjusting the shared formula for this cell if we're actually loading
+                //     the cell, which may not be the case if we're using a read filter.
+                $master = Coordinate::indexesFromString($this->sharedFormulae[$instance]->master());
                 $current = Coordinate::indexesFromString($r);
 
                 $difference = [0, 0];
                 $difference[0] = $current[0] - $master[0];
                 $difference[1] = $current[1] - $master[1];
 
-                $value = $this->referenceHelper->updateFormulaReferences($sharedFormulas[$instance]['formula'], 'A1', $difference[0], $difference[1]);
+                $value = $this->referenceHelper->updateFormulaReferences($this->sharedFormulae[$instance]->formula(), 'A1', $difference[0], $difference[1]);
             }
         }
     }
@@ -507,26 +515,6 @@ class Xlsx extends BaseReader
                     $relsWorkbook = $this->loadZip("$dir/_rels/" . basename($relTarget) . '.rels', '');
                     $relsWorkbook->registerXPathNamespace('rel', Namespaces::RELATIONSHIPS);
 
-                    $sharedStrings = [];
-                    $relType = "rel:Relationship[@Type='"
-                        //. Namespaces::SHARED_STRINGS
-                        . "$xmlNamespaceBase/sharedStrings"
-                        . "']";
-                    $xpath = self::getArrayItem($relsWorkbook->xpath($relType));
-
-                    if ($xpath) {
-                        $xmlStrings = $this->loadZip("$dir/$xpath[Target]", $mainNS);
-                        if (isset($xmlStrings->si)) {
-                            foreach ($xmlStrings->si as $val) {
-                                if (isset($val->t)) {
-                                    $sharedStrings[] = StringHelper::controlCharacterOOXML2PHP((string) $val->t);
-                                } elseif (isset($val->r)) {
-                                    $sharedStrings[] = $this->parseRichText($val);
-                                }
-                            }
-                        }
-                    }
-
                     $worksheets = [];
                     $macros = $customUI = null;
                     foreach ($relsWorkbook->Relationship as $elex) {
@@ -618,7 +606,7 @@ class Xlsx extends BaseReader
                                     $numFmt = NumberFormat::builtInFormatCode((int) $xf['numFmtId']);
                                 }
                             }
-                            $quotePrefix = (bool) ($xf['quotePrefix'] ?? false);
+                            $quotePrefix = (bool) (string) ($xf['quotePrefix'] ?? '');
 
                             $style = (object) [
                                 'numFmt' => $numFmt ?? NumberFormat::FORMAT_GENERAL,
@@ -653,7 +641,7 @@ class Xlsx extends BaseReader
                                 }
                             }
 
-                            $quotePrefix = (bool) ($xf['quotePrefix'] ?? false);
+                            $quotePrefix = (bool) (string) ($xf['quotePrefix'] ?? '');
 
                             $cellStyle = (object) [
                                 'numFmt' => $numFmt,
@@ -681,6 +669,27 @@ class Xlsx extends BaseReader
                     $this->styleReader->setStyleBaseData($theme, $styles, $cellStyles);
                     $dxfs = $this->styleReader->dxfs($this->readDataOnly);
                     $styles = $this->styleReader->styles();
+
+                    // Read content after setting the styles
+                    $sharedStrings = [];
+                    $relType = "rel:Relationship[@Type='"
+                        //. Namespaces::SHARED_STRINGS
+                        . "$xmlNamespaceBase/sharedStrings"
+                        . "']";
+                    $xpath = self::getArrayItem($relsWorkbook->xpath($relType));
+
+                    if ($xpath) {
+                        $xmlStrings = $this->loadZip("$dir/$xpath[Target]", $mainNS);
+                        if (isset($xmlStrings->si)) {
+                            foreach ($xmlStrings->si as $val) {
+                                if (isset($val->t)) {
+                                    $sharedStrings[] = StringHelper::controlCharacterOOXML2PHP((string) $val->t);
+                                } elseif (isset($val->r)) {
+                                    $sharedStrings[] = $this->parseRichText($val);
+                                }
+                            }
+                        }
+                    }
 
                     $xmlWorkbook = $this->loadZipNoNamespace($relTarget, $mainNS);
                     $xmlWorkbookNS = $this->loadZip($relTarget, $mainNS);
@@ -743,7 +752,8 @@ class Xlsx extends BaseReader
                             $xmlSheet = $this->loadZipNoNamespace("$dir/$fileWorksheet", $mainNS);
                             $xmlSheetNS = $this->loadZip("$dir/$fileWorksheet", $mainNS);
 
-                            $sharedFormulas = [];
+                            // Shared Formula table is unique to each Worksheet, so we need to reset it here
+                            $this->sharedFormulae = [];
 
                             if (isset($eleSheetAttr['state']) && (string) $eleSheetAttr['state'] != '') {
                                 $docSheet->setSheetState((string) $eleSheetAttr['state']);
@@ -789,8 +799,12 @@ class Xlsx extends BaseReader
                                             $coordinates = Coordinate::coordinateFromString($r);
 
                                             if (!$this->getReadFilter()->readCell($coordinates[0], (int) $coordinates[1], $docSheet->getTitle())) {
-                                                if (isset($cAttr->f)) {
-                                                    $this->castToFormula($c, $r, $cellDataType, $value, $calculatedValue, $sharedFormulas, 'castToError');
+                                                // Normally, just testing for the f attribute should identify this cell as containing a formula
+                                                // that we need to read, even though it is outside of the filter range, in case it is a shared formula.
+                                                // But in some cases, this attribute isn't set; so we need to delve a level deeper and look at
+                                                // whether or not the cell has a child formula element that is shared.
+                                                if (isset($cAttr->f) || (isset($c->f, $c->f->attributes()['t']) && strtolower((string) $c->f->attributes()['t']) === 'shared')) {
+                                                    $this->castToFormula($c, $r, $cellDataType, $value, $calculatedValue, 'castToError', false);
                                                 }
                                                 ++$rowIndex;
 
@@ -822,7 +836,7 @@ class Xlsx extends BaseReader
                                                     }
                                                 } else {
                                                     // Formula
-                                                    $this->castToFormula($c, $r, $cellDataType, $value, $calculatedValue, $sharedFormulas, 'castToBoolean');
+                                                    $this->castToFormula($c, $r, $cellDataType, $value, $calculatedValue, 'castToBoolean');
                                                     if (isset($c->f['t'])) {
                                                         $att = $c->f;
                                                         $docSheet->getCell($r)->setFormulaAttributes($att);
@@ -832,7 +846,7 @@ class Xlsx extends BaseReader
                                                 break;
                                             case 'inlineStr':
                                                 if (isset($c->f)) {
-                                                    $this->castToFormula($c, $r, $cellDataType, $value, $calculatedValue, $sharedFormulas, 'castToError');
+                                                    $this->castToFormula($c, $r, $cellDataType, $value, $calculatedValue, 'castToError');
                                                 } else {
                                                     $value = $this->parseRichText($c->is);
                                                 }
@@ -843,7 +857,7 @@ class Xlsx extends BaseReader
                                                     $value = self::castToError($c);
                                                 } else {
                                                     // Formula
-                                                    $this->castToFormula($c, $r, $cellDataType, $value, $calculatedValue, $sharedFormulas, 'castToError');
+                                                    $this->castToFormula($c, $r, $cellDataType, $value, $calculatedValue, 'castToError');
                                                 }
 
                                                 break;
@@ -852,7 +866,7 @@ class Xlsx extends BaseReader
                                                     $value = self::castToString($c);
                                                 } else {
                                                     // Formula
-                                                    $this->castToFormula($c, $r, $cellDataType, $value, $calculatedValue, $sharedFormulas, 'castToString');
+                                                    $this->castToFormula($c, $r, $cellDataType, $value, $calculatedValue, 'castToString');
                                                     if (isset($c->f['t'])) {
                                                         $attributes = $c->f['t'];
                                                         $docSheet->getCell($r)->setFormulaAttributes(['t' => (string) $attributes]);

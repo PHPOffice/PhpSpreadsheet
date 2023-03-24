@@ -61,6 +61,16 @@ return [
         '1-Jan-2012',
         'yyyy-mm-dd',
     ],
+    'time (issue 3409)' => [
+        '09:01:00',
+        '09:01',
+        'HH:MM:SS',
+    ],
+    'datetime' => [
+        '15-Feb-2014 04:17:00 PM',
+        '2014-02-15 16:17',
+        'dd-mmm-yyyy HH:MM:SS AM/PM',
+    ],
     [
         '1 3/4',
         1.75,

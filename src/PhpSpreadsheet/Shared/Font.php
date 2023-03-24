@@ -380,15 +380,15 @@ class Font
         $approximate = self::$autoSizeMethod === self::AUTOSIZE_METHOD_APPROX;
         $columnWidth = 0;
         if (!$approximate) {
-            $columnWidthAdjust = ceil(
-                self::getTextWidthPixelsExact(
-                    str_repeat('n', 1 * (($filterAdjustment ? 3 : 1) + ($indentAdjustment * 2))),
-                    $font,
-                    0
-                ) * 1.07
-            );
-
             try {
+                $columnWidthAdjust = ceil(
+                    self::getTextWidthPixelsExact(
+                        str_repeat('n', 1 * (($filterAdjustment ? 3 : 1) + ($indentAdjustment * 2))),
+                        $font,
+                        0
+                    ) * 1.07
+                );
+
                 // Width of text in pixels excl. padding
                 // and addition because Excel adds some padding, just use approx width of 'n' glyph
                 $columnWidth = self::getTextWidthPixelsExact($cellText, $font, $rotation) + $columnWidthAdjust;
@@ -453,29 +453,26 @@ class Font
         $fontName = $font->getName();
         $fontSize = $font->getSize();
 
-        // Calculate column width in pixels. We assume fixed glyph width. Result varies with font name and size.
+        // Calculate column width in pixels.
+        // We assume fixed glyph width, but count double for "fullwidth" characters.
+        // Result varies with font name and size.
         switch ($fontName) {
-            case 'Calibri':
-                // value 8.26 was found via interpolation by inspecting real Excel files with Calibri 11 font.
-                $columnWidth = (int) (8.26 * StringHelper::countCharacters($columnText));
-                $columnWidth = $columnWidth * $fontSize / 11; // extrapolate from font size
-
-                break;
             case 'Arial':
                 // value 8 was set because of experience in different exports at Arial 10 font.
-                $columnWidth = (int) (8 * StringHelper::countCharacters($columnText));
+                $columnWidth = (int) (8 * StringHelper::countCharactersDbcs($columnText));
                 $columnWidth = $columnWidth * $fontSize / 10; // extrapolate from font size
 
                 break;
             case 'Verdana':
                 // value 8 was found via interpolation by inspecting real Excel files with Verdana 10 font.
-                $columnWidth = (int) (8 * StringHelper::countCharacters($columnText));
+                $columnWidth = (int) (8 * StringHelper::countCharactersDbcs($columnText));
                 $columnWidth = $columnWidth * $fontSize / 10; // extrapolate from font size
 
                 break;
             default:
                 // just assume Calibri
-                $columnWidth = (int) (8.26 * StringHelper::countCharacters($columnText));
+                // value 8.26 was found via interpolation by inspecting real Excel files with Calibri 11 font.
+                $columnWidth = (int) (8.26 * StringHelper::countCharactersDbcs($columnText));
                 $columnWidth = $columnWidth * $fontSize / 11; // extrapolate from font size
 
                 break;
@@ -564,10 +561,13 @@ class Font
         if (mb_strlen(self::$trueTypeFontPath) > 1 && mb_substr(self::$trueTypeFontPath, -1) !== '/' && mb_substr(self::$trueTypeFontPath, -1) !== '\\') {
             $separator = DIRECTORY_SEPARATOR;
         }
-        $fontFile = self::$trueTypeFontPath . $separator . $fontFile;
+        $fontFileAbsolute = preg_match('~^([A-Za-z]:)?[/\\\\]~', $fontFile) === 1;
+        if (!$fontFileAbsolute) {
+            $fontFile = self::$trueTypeFontPath . $separator . $fontFile;
+        }
 
         // Check if file actually exists
-        if ($checkPath && !file_exists($fontFile)) {
+        if ($checkPath && !file_exists($fontFile) && !$fontFileAbsolute) {
             $alternateName = $name;
             if ($index !== 'x' && $fontArray[$name][$index] !== $fontArray[$name]['x']) {
                 // Bold but no italic:

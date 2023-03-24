@@ -3,22 +3,125 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Calculation\Engineering\ComplexOperations;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
+use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
+use PhpOffice\PhpSpreadsheetTests\Custom\ComplexAssert;
+use PHPUnit\Framework\TestCase;
 
-class ImDivTest extends AllSetupTeardown
+class ImDivTest extends TestCase
 {
+    const COMPLEX_PRECISION = 1E-12;
+
+    /**
+     * @var ComplexAssert
+     */
+    private $complexAssert;
+
+    protected function setUp(): void
+    {
+        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
+        $this->complexAssert = new ComplexAssert();
+    }
+
     /**
      * @dataProvider providerIMDIV
      *
      * @param mixed $expectedResult
      */
-    public function testIMDIV($expectedResult, ...$args): void
+    public function testDirectCallToIMDIV($expectedResult, ...$args): void
     {
-        $this->runComplexTestCase('IMDIV', $expectedResult, ...$args);
+        /** @scrutinizer ignore-call */
+        $result = ComplexOperations::IMDIV(...$args);
+        self::assertTrue(
+            $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
+            $this->complexAssert->getErrorMessage()
+        );
+    }
+
+    private function trimIfQuoted(string $value): string
+    {
+        return trim($value, '"');
+    }
+
+    /**
+     * @dataProvider providerIMDIV
+     *
+     * @param mixed $expectedResult
+     */
+    public function testIMDIVAsFormula($expectedResult, ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $calculation = Calculation::getInstance();
+        $formula = "=IMDIV({$arguments})";
+
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertTrue(
+            $this->complexAssert->assertComplexEquals($expectedResult, $this->trimIfQuoted((string) $result), self::COMPLEX_PRECISION),
+            $this->complexAssert->getErrorMessage()
+        );
+    }
+
+    /**
+     * @dataProvider providerIMDIV
+     *
+     * @param mixed $expectedResult
+     */
+    public function testIMDIVInWorksheet($expectedResult, ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=IMDIV({$argumentCells})";
+
+        $result = $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+        self::assertTrue(
+            $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
+            $this->complexAssert->getErrorMessage()
+        );
+
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function providerIMDIV(): array
     {
         return require 'tests/data/Calculation/Engineering/IMDIV.php';
+    }
+
+    /**
+     * @dataProvider providerUnhappyIMDIV
+     */
+    public function testIMDIVUnhappyPath(string $expectedException, ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=IMDIV({$argumentCells})";
+
+        $this->expectException(CalculationException::class);
+        $this->expectExceptionMessage($expectedException);
+        $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function providerUnhappyIMDIV(): array
+    {
+        return [
+            ['Formula Error: Wrong number of arguments for IMDIV() function'],
+            ['Formula Error: Wrong number of arguments for IMDIV() function', '1.23+4.56i'],
+        ];
     }
 
     /**

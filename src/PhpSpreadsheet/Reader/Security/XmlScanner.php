@@ -151,7 +151,7 @@ class XmlScanner
             throw new Reader\Exception('Detected use of ENTITY in XML, spreadsheet file load() aborted to prevent XXE/XEE attacks');
         }
 
-        if ($this->callback !== null && is_callable($this->callback)) {
+        if ($this->callback !== null) {
             $xml = call_user_func($this->callback, $xml);
         }
 

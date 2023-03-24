@@ -3,8 +3,10 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcExp;
+use PhpOffice\PhpSpreadsheet\Calculation\Engineering\BitWise;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
 use PHPUnit\Framework\TestCase;
 
 class BitLShiftTest extends TestCase
@@ -14,23 +16,82 @@ class BitLShiftTest extends TestCase
      *
      * @param mixed $expectedResult
      */
-    public function testBITLSHIFT($expectedResult, string $formula): void
+    public function testDirectCallToBITLSHIFT($expectedResult, ...$args): void
     {
-        if ($expectedResult === 'exception') {
-            $this->expectException(CalcExp::class);
-        }
+        $result = BitWise::BITLSHIFT(...$args);
+        self::assertSame($expectedResult, $result);
+    }
+
+    /**
+     * @dataProvider providerBITLSHIFT
+     *
+     * @param mixed $expectedResult
+     */
+    public function testBITLSHIFTAsFormula($expectedResult, ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $calculation = Calculation::getInstance();
+        $formula = "=BITLSHIFT({$arguments})";
+
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertSame($expectedResult, $result);
+    }
+
+    /**
+     * @dataProvider providerBITLSHIFT
+     *
+     * @param mixed $expectedResult
+     */
+    public function testBITLSHIFTInWorksheet($expectedResult, ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
         $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
-        $sheet->setCellValue('A2', 8);
-        $sheet->getCell('A1')->setValue("=BITLSHIFT($formula)");
-        $result = $sheet->getCell('A1')->getCalculatedValue();
-        self::assertEquals($expectedResult, $result);
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=BITLSHIFT({$argumentCells})";
+
+        $result = $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+        self::assertSame($expectedResult, $result);
+
         $spreadsheet->disconnectWorksheets();
     }
 
     public function providerBITLSHIFT(): array
     {
         return require 'tests/data/Calculation/Engineering/BITLSHIFT.php';
+    }
+
+    /**
+     * @dataProvider providerUnhappyBITLSHIFT
+     */
+    public function testBITLSHIFTUnhappyPath(string $expectedException, ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=BITLSHIFT({$argumentCells})";
+
+        $this->expectException(CalculationException::class);
+        $this->expectExceptionMessage($expectedException);
+        $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function providerUnhappyBITLSHIFT(): array
+    {
+        return [
+            ['Formula Error: Wrong number of arguments for BITLSHIFT() function'],
+            ['Formula Error: Wrong number of arguments for BITLSHIFT() function', 1234],
+        ];
     }
 
     /**
