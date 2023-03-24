@@ -50,6 +50,12 @@ class Time extends DateTimeWizard
     public const SEPARATOR_SPACE_NONBREAKING = "\u{a0}";
     public const SEPARATOR_SPACE = ' ';
 
+    protected const TIME_DEFAULT = [
+        self::HOURS_LONG,
+        self::MINUTES_LONG,
+        self::SECONDS_LONG,
+    ];
+
     /**
      * @var string[]
      */
@@ -66,8 +72,11 @@ class Time extends DateTimeWizard
      *           if you wish to use different separators, then they should be passed as an array.
      *        If you want to use only a single format block, then pass a null as the separator argument
      */
-    public function __construct($separators, string ...$formatBlocks)
+    public function __construct($separators = self::SEPARATOR_COLON, string ...$formatBlocks)
     {
+        $separators ??= self::SEPARATOR_COLON;
+        $formatBlocks = (count($formatBlocks) === 0) ? self::TIME_DEFAULT : $formatBlocks;
+
         $this->separators = $this->padSeparatorArray(
             is_array($separators) ? $separators : [$separators],
             count($formatBlocks) - 1

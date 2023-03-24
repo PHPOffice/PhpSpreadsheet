@@ -13,7 +13,7 @@ class DateTest extends TestCase
      * @param null|string|string[] $separators
      * @param string[] $formatBlocks
      */
-    public function testDate(string $expectedResult, $separators, array $formatBlocks): void
+    public function testDate(string $expectedResult, $separators = null, array $formatBlocks = []): void
     {
         $wizard = new Date($separators, ...$formatBlocks);
         self::assertSame($expectedResult, (string) $wizard);
@@ -30,6 +30,8 @@ class DateTest extends TestCase
             ['dddd dd.mm.yyyy', [Date::SEPARATOR_SPACE, Date::SEPARATOR_DOT], [Date::WEEKDAY_NAME_LONG, Date::DAY_NUMBER_LONG, Date::MONTH_NUMBER_LONG, Date::YEAR_FULL]],
             ['dd-mm "in the year" yyyy', [Date::SEPARATOR_DASH, Date::SEPARATOR_SPACE], [Date::DAY_NUMBER_LONG, Date::MONTH_NUMBER_LONG, 'in the year', Date::YEAR_FULL]],
             ["yyyy-mm-dd\u{a0}(ddd)", [Date::SEPARATOR_DASH, Date::SEPARATOR_DASH, Date::SEPARATOR_SPACE_NONBREAKING, null], [Date::YEAR_FULL, Date::MONTH_NUMBER_LONG, Date::DAY_NUMBER_LONG, '(', Date::WEEKDAY_NAME_SHORT, ')']],
+            ['yyyy-mm-dd', null, [Date::YEAR_FULL, Date::MONTH_NUMBER_LONG, Date::DAY_NUMBER_LONG]],
+            ['yyyy-mm-dd'],
         ];
     }
 }
