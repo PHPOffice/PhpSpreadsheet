@@ -252,6 +252,7 @@ class Xlsx extends BaseReader
                 $xmlWorkbook = $this->loadZip($relTarget, $mainNS);
                 if ($xmlWorkbook->sheets) {
                     $dir = dirname($relTarget);
+
                     /** @var SimpleXMLElement $eleSheet */
                     foreach ($xmlWorkbook->sheets->sheet as $eleSheet) {
                         $tmpInfo = [
@@ -267,8 +268,8 @@ class Xlsx extends BaseReader
 
                         $xml = new XMLReader();
                         $xml->xml(
-                            $this->getSecurityScannerOrThrow()->scanFile(
-                                'zip://' . File::realpath($filename) . '#' . $fileWorksheetPath
+                            $this->getSecurityScannerOrThrow()->scan(
+                                $this->getFromZipArchive($this->zip, $fileWorksheetPath)
                             ),
                             null,
                             Settings::getLibXmlLoaderOptions()
@@ -403,10 +404,16 @@ class Xlsx extends BaseReader
         // Sadly, some 3rd party xlsx generators don't use consistent case for filenaming
         //    so we need to load case-insensitively from the zip file
 
-        // Apache POI fixes
         $contents = $archive->getFromName($fileName, 0, ZipArchive::FL_NOCASE);
+
+        // Apache POI fixes
         if ($contents === false) {
             $contents = $archive->getFromName(substr($fileName, 1), 0, ZipArchive::FL_NOCASE);
+        }
+
+        // Has the file been saved with Windoze directory separators rather than unix?
+        if ($contents === false) {
+            $contents = $archive->getFromName(str_replace('/', '\\', $fileName), 0, ZipArchive::FL_NOCASE);
         }
 
         return ($contents === false) ? '' : $contents;
