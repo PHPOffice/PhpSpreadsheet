@@ -13,7 +13,7 @@ automatically your codebase. Assuming your files to be migrated lives
 in `src/`, you can run the migration like so:
 
 ```sh
-composer require rector/rector --dev
+composer require rector/rector phpoffice/phpspreadsheet --dev
 
 # this creates rector.php config
 vendor/bin/rector init 
@@ -41,7 +41,7 @@ vendor/bin/rector process src
 ```
 
 For more details, see
-[RectorPHP blog post](https://getrector.org/blog/2020/04/16/how-to-migrate-from-phpexcel-to-phpspreadsheet-with-rector-in-30-minutes).
+[rector-phpoffice](https://github.com/rectorphp/rector-phpoffice).
 
 ## Manual changes
 
