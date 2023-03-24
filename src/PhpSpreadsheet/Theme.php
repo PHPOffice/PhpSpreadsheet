@@ -8,7 +8,7 @@ class Theme
     private $themeColorName = 'Office';
 
     public const COLOR_SCHEME_2013_PLUS_NAME = 'Office 2013+';
-    public const COLOR_SCHEME_2013_PLUS = [ // color themes for Office 2013+
+    public const COLOR_SCHEME_2013_PLUS = [
         'dk1' => '000000',
         'lt1' => 'FFFFFF',
         'dk2' => '44546A',

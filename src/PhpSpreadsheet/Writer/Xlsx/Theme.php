@@ -781,7 +781,7 @@ class Theme extends WriterPart
         $objWriter->startElement('a:dk1');
         $objWriter->startElement('a:sysClr');
         $objWriter->writeAttribute('val', 'windowText');
-        $objWriter->writeAttribute('lastClr', $themeArray['dk1']);
+        $objWriter->writeAttribute('lastClr', $themeArray['dk1'] ?? '000000');
         $objWriter->endElement(); // a:sysClr
         $objWriter->endElement(); // a:dk1
 
@@ -789,7 +789,7 @@ class Theme extends WriterPart
         $objWriter->startElement('a:lt1');
         $objWriter->startElement('a:sysClr');
         $objWriter->writeAttribute('val', 'window');
-        $objWriter->writeAttribute('lastClr', $themeArray['lt1']);
+        $objWriter->writeAttribute('lastClr', $themeArray['lt1'] ?? 'FFFFFF');
         $objWriter->endElement(); // a:sysClr
         $objWriter->endElement(); // a:lt1
 
