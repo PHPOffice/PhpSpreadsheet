@@ -109,12 +109,20 @@ class Chart extends WriterPart
         $objWriter->endElement();
 
         $objWriter->endElement(); // c:chart
+
+        $objWriter->startElement('c:spPr');
         if ($chart->getNoFill()) {
-            $objWriter->startElement('c:spPr');
             $objWriter->startElement('a:noFill');
             $objWriter->endElement(); // a:noFill
-            $objWriter->endElement(); // c:spPr
         }
+        $fillColor = $chart->getFillColor();
+        if ($fillColor->isUsable()) {
+            $this->writeColor($objWriter, $fillColor);
+        }
+        $borderLines = $chart->getBorderLines();
+        $this->writeLineStyles($objWriter, $borderLines);
+        $this->writeEffects($objWriter, $borderLines);
+        $objWriter->endElement(); // c:spPr
 
         $this->writePrintSettings($objWriter);
 
@@ -201,20 +209,15 @@ class Chart extends WriterPart
         $objWriter->writeAttribute('val', ($legend->getOverlay()) ? '1' : '0');
         $objWriter->endElement();
 
+        $objWriter->startElement('c:spPr');
         $fillColor = $legend->getFillColor();
-        $borderColor = $legend->getBorderColor();
-        if ($fillColor->isUsable() || $borderColor->isUsable()) {
-            $objWriter->startElement('c:spPr');
-            if ($fillColor->isUsable()) {
-                $this->writeColor($objWriter, $fillColor);
-            }
-            if ($borderColor->isUsable()) {
-                $objWriter->startElement('a:ln');
-                $this->writeColor($objWriter, $borderColor);
-                $objWriter->endElement(); // a:ln
-            }
-            $objWriter->endElement(); // c:spPr
+        if ($fillColor->isUsable()) {
+            $this->writeColor($objWriter, $fillColor);
         }
+        $borderLines = $legend->getBorderLines();
+        $this->writeLineStyles($objWriter, $borderLines);
+        $this->writeEffects($objWriter, $borderLines);
+        $objWriter->endElement(); // c:spPr
 
         $legendText = $legend->getLegendText();
         $objWriter->startElement('c:txPr');
@@ -654,7 +657,7 @@ class Chart extends WriterPart
 
         $objWriter->startElement('c:spPr');
         $this->writeColor($objWriter, $yAxis->getFillColorObject());
-        $this->writeLineStyles($objWriter, $yAxis);
+        $this->writeLineStyles($objWriter, $yAxis, $yAxis->getNoFill());
         $this->writeEffects($objWriter, $yAxis);
         $objWriter->endElement(); // spPr
 
@@ -880,7 +883,7 @@ class Chart extends WriterPart
 
         $objWriter->startElement('c:spPr');
         $this->writeColor($objWriter, $xAxis->getFillColorObject());
-        $this->writeLineStyles($objWriter, $xAxis);
+        $this->writeLineStyles($objWriter, $xAxis, $xAxis->getNoFill());
         $this->writeEffects($objWriter, $xAxis);
         $objWriter->endElement(); //end spPr
 

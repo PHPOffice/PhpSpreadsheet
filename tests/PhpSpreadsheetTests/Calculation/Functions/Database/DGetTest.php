@@ -5,7 +5,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 use PhpOffice\PhpSpreadsheet\Calculation\Database\DGet;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
-class DGetTest extends AllSetupTeardown
+class DGetTest extends SetupTeardownDatabases
 {
     /**
      * @dataProvider providerDGet

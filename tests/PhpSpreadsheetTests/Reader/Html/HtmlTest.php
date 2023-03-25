@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Html;
 
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 use PhpOffice\PhpSpreadsheet\Reader\Html;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
@@ -379,5 +380,43 @@ class HtmlTest extends TestCase
             self::assertEquals(Border::BORDER_THIN, $border->getBorderStyle());
         }
         $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testDataType(): void
+    {
+        $html = '<table>
+                    <tr>
+                        <td data-type="b">1</td>
+                        <td data-type="s">12345678987654</td>
+                        <!-- in some cases, you may want to treat the string with beginning equal sign as a string rather than a formula -->
+                        <td data-type="s">=B1</td>
+                        <td data-type="d">2022-02-21 10:20:30</td>
+                        <td data-type="null">null</td>
+                        <td data-type="invalid-datatype">text with invalid datatype</td>
+                    </tr>
+                </table>';
+
+        $reader = new Html();
+        $spreadsheet = $reader->loadFromString($html);
+        $firstSheet = $spreadsheet->getSheet(0);
+
+        // check boolean data type
+        self::assertEquals(DataType::TYPE_BOOL, $firstSheet->getCell('A1')->getDataType());
+        self::assertIsBool($firstSheet->getCell('A1')->getValue());
+
+        // check string data type
+        self::assertEquals(DataType::TYPE_STRING, $firstSheet->getCell('B1')->getDataType());
+        self::assertIsString($firstSheet->getCell('B1')->getValue());
+
+        // check string with beginning equal sign (=B1) and string datatype,is not formula
+        self::assertEquals(DataType::TYPE_STRING, $firstSheet->getCell('C1')->getDataType());
+        self::assertEquals('=B1', $firstSheet->getCell('C1')->getValue());
+        self::assertTrue($firstSheet->getCell('C1')->getStyle()->getQuotePrefix());
+
+        //check iso date
+        self::assertEqualsWithDelta($firstSheet->getCell('D1')->getValue(), 44613.43090277778, 1.0e-12);
+
+        //null
+        self::assertEquals($firstSheet->getCell('E1')->getValue(), null);
     }
 }

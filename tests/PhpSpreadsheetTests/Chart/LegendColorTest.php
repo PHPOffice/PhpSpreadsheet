@@ -99,7 +99,7 @@ class LegendColorTest extends AbstractFunctional
         $plotArea = new PlotArea(null, [$series]);
         // Set the chart legend
         $legend = new ChartLegend(ChartLegend::POSITION_RIGHT, null, false);
-        $legend->getBorderColor()->setColorProperties('ffc000');
+        $legend->getBorderLines()->setLineColorProperties('ffc000', null, ChartColor::EXCEL_COLOR_TYPE_RGB);
         $legend->getFillColor()->setColorProperties('cccccc');
         $legendText = new AxisText();
         $legendText->getFillColorObject()->setValue('008080')->setType(ChartColor::EXCEL_COLOR_TYPE_RGB);
@@ -146,7 +146,7 @@ class LegendColorTest extends AbstractFunctional
         if ($legend2 === null) {
             self::fail('Unexpected null legend');
         } else {
-            self::assertSame('ffc000', $legend2->getBorderColor()->getValue());
+            self::assertSame('ffc000', $legend2->getBorderLines()->getLineColorProperty('value'));
             self::assertSame('cccccc', $legend2->getFillColor()->getValue());
             $legendText2 = $legend2->getLegendText();
             if ($legendText2 === null) {

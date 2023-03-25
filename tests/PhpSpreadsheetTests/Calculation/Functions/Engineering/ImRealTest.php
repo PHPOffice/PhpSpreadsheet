@@ -3,22 +3,103 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Calculation\Engineering\Complex;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
+use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
+use PHPUnit\Framework\TestCase;
 
-class ImRealTest extends AllSetupTeardown
+class ImRealTest extends TestCase
 {
+    const COMPLEX_PRECISION = 1E-12;
+
+    protected function setUp(): void
+    {
+        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
+    }
+
     /**
      * @dataProvider providerIMREAL
      *
      * @param mixed $expectedResult
      */
-    public function testIMREAL($expectedResult, ...$args): void
+    public function testDirectCallToIMREAL($expectedResult, ...$args): void
     {
-        $this->runComplexTestCase('IMREAL', $expectedResult, ...$args);
+        /** @scrutinizer ignore-call */
+        $result = Complex::IMREAL(...$args);
+        self::assertEqualsWithDelta($expectedResult, $result, self::COMPLEX_PRECISION);
+    }
+
+    /**
+     * @dataProvider providerIMREAL
+     *
+     * @param mixed $expectedResult
+     */
+    public function testIMREALAsFormula($expectedResult, ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $calculation = Calculation::getInstance();
+        $formula = "=IMREAL({$arguments})";
+
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEqualsWithDelta($expectedResult, $result, self::COMPLEX_PRECISION);
+    }
+
+    /**
+     * @dataProvider providerIMREAL
+     *
+     * @param mixed $expectedResult
+     */
+    public function testIMREALInWorksheet($expectedResult, ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=IMREAL({$argumentCells})";
+
+        $result = $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+        self::assertEqualsWithDelta($expectedResult, $result, self::COMPLEX_PRECISION);
+
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function providerIMREAL(): array
     {
         return require 'tests/data/Calculation/Engineering/IMREAL.php';
+    }
+
+    /**
+     * @dataProvider providerUnhappyIMREAL
+     */
+    public function testIMREALUnhappyPath(string $expectedException, ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=IMREAL({$argumentCells})";
+
+        $this->expectException(CalculationException::class);
+        $this->expectExceptionMessage($expectedException);
+        $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function providerUnhappyIMREAL(): array
+    {
+        return [
+            ['Formula Error: Wrong number of arguments for IMREAL() function'],
+        ];
     }
 
     /**

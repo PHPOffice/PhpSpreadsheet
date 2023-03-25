@@ -91,6 +91,9 @@ class Axis extends Properties
         Properties::FORMAT_CODE_DATE_ISO8601,
     ];
 
+    /** @var bool */
+    private $noFill = false;
+
     /**
      * Get Series Data Type.
      *
@@ -317,5 +320,17 @@ class Axis extends Properties
         $this->axisText = $axisText;
 
         return $this;
+    }
+
+    public function setNoFill(bool $noFill): self
+    {
+        $this->noFill = $noFill;
+
+        return $this;
+    }
+
+    public function getNoFill(): bool
+    {
+        return $this->noFill;
     }
 }

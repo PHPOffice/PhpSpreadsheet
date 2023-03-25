@@ -3,10 +3,11 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Engineering;
-use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcExp;
+use PhpOffice\PhpSpreadsheet\Calculation\Engineering\ConvertDecimal;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
 use PHPUnit\Framework\TestCase;
 
 class Dec2HexTest extends TestCase
@@ -30,19 +31,54 @@ class Dec2HexTest extends TestCase
      * @dataProvider providerDEC2HEX
      *
      * @param mixed $expectedResult
-     * @param mixed $formula
      */
-    public function testDEC2HEX($expectedResult, $formula): void
+    public function testDirectCallToDEC2HEX($expectedResult, ...$args): void
     {
-        if ($expectedResult === 'exception') {
-            $this->expectException(CalcExp::class);
-        }
+        /** @scrutinizer ignore-call */
+        $result = ConvertDecimal::toHex(...$args);
+        self::assertSame($expectedResult, $result);
+    }
+
+    private function trimIfQuoted(string $value): string
+    {
+        return trim($value, '"');
+    }
+
+    /**
+     * @dataProvider providerDEC2HEX
+     *
+     * @param mixed $expectedResult
+     */
+    public function testDEC2HEXAsFormula($expectedResult, ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $calculation = Calculation::getInstance();
+        $formula = "=DEC2HEX({$arguments})";
+
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertSame($expectedResult, $this->trimIfQuoted((string) $result));
+    }
+
+    /**
+     * @dataProvider providerDEC2HEX
+     *
+     * @param mixed $expectedResult
+     */
+    public function testDEC2HEXInWorksheet($expectedResult, ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
         $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
-        $sheet->setCellValue('A2', 17);
-        $sheet->getCell('A1')->setValue("=DEC2HEX($formula)");
-        $result = $sheet->getCell('A1')->getCalculatedValue();
-        self::assertEquals($expectedResult, $result);
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=DEC2HEX({$argumentCells})";
+
+        $result = $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+        self::assertSame($expectedResult, $result);
+
         $spreadsheet->disconnectWorksheets();
     }
 
@@ -52,55 +88,75 @@ class Dec2HexTest extends TestCase
     }
 
     /**
-     * @dataProvider providerDEC2HEX
+     * @dataProvider providerUnhappyDEC2HEX
+     */
+    public function testDEC2HEXUnhappyPath(string $expectedException, ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=DEC2HEX({$argumentCells})";
+
+        $this->expectException(CalculationException::class);
+        $this->expectExceptionMessage($expectedException);
+        $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function providerUnhappyDEC2HEX(): array
+    {
+        return [
+            ['Formula Error: Wrong number of arguments for DEC2HEX() function'],
+        ];
+    }
+
+    /**
+     * @dataProvider providerDEC2HEXOds
      *
      * @param mixed $expectedResult
-     * @param mixed $formula
      */
-    public function testDEC2HEXOds($expectedResult, $formula): void
+    public function testDEC2HEXOds($expectedResult, ...$args): void
     {
-        if ($expectedResult === 'exception') {
-            $this->expectException(CalcExp::class);
-        }
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
-        if ($formula === 'true') {
-            $expectedResult = 1;
-        } elseif ($formula === 'false') {
-            $expectedResult = 0;
-        }
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
-        $sheet->setCellValue('A2', 17);
-        $sheet->getCell('A1')->setValue("=DEC2HEX($formula)");
-        $result = $sheet->getCell('A1')->getCalculatedValue();
-        self::assertEquals($expectedResult, $result);
-        $spreadsheet->disconnectWorksheets();
+
+        /** @scrutinizer ignore-call */
+        $result = ConvertDecimal::toHex(...$args);
+        self::assertSame($expectedResult, $result);
+    }
+
+    public function providerDEC2HEXOds(): array
+    {
+        return require 'tests/data/Calculation/Engineering/DEC2HEXOpenOffice.php';
     }
 
     public function testDEC2HEXFrac(): void
     {
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
+        $calculation = Calculation::getInstance();
+        $formula = '=DEC2HEX(17.1)';
+
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_GNUMERIC);
-        $cell = 'G1';
-        $sheet->setCellValue($cell, '=DEC2HEX(17.1)');
-        self::assertEquals(11, $sheet->getCell($cell)->getCalculatedValue(), 'Gnumeric');
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertSame('11', $this->trimIfQuoted((string) $result), 'Gnumeric');
+
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
-        $cell = 'O1';
-        $sheet->setCellValue($cell, '=DEC2HEX(17.1)');
-        self::assertEquals(11, $sheet->getCell($cell)->getCalculatedValue(), 'Ods');
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertSame('11', $this->trimIfQuoted((string) $result), 'OpenOffice');
+
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-        $cell = 'E1';
-        $sheet->setCellValue($cell, '=DEC2HEX(17.1)');
-        self::assertEquals(11, $sheet->getCell($cell)->getCalculatedValue(), 'Excel');
-        $spreadsheet->disconnectWorksheets();
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertSame('11', $this->trimIfQuoted((string) $result), 'Excel');
     }
 
     public function test32bitHex(): void
     {
-        self::assertEquals('A2DE246000', Engineering\ConvertDecimal::hex32bit(-400000000000, 'DE246000', true));
-        self::assertEquals('7FFFFFFFFF', Engineering\ConvertDecimal::hex32bit(549755813887, 'FFFFFFFF', true));
-        self::assertEquals('FFFFFFFFFF', Engineering\ConvertDecimal::hex32bit(-1, 'FFFFFFFF', true));
+        self::assertEquals('A2DE246000', ConvertDecimal::hex32bit(-400000000000, 'DE246000', true));
+        self::assertEquals('7FFFFFFFFF', ConvertDecimal::hex32bit(549755813887, 'FFFFFFFF', true));
+        self::assertEquals('FFFFFFFFFF', ConvertDecimal::hex32bit(-1, 'FFFFFFFF', true));
     }
 
     /**
