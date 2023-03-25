@@ -14,6 +14,13 @@ class Title
     private $caption = '';
 
     /**
+     * Allow overlay of other elements?
+     *
+     * @var bool
+     */
+    private $overlay = true;
+
+    /**
      * Title Layout.
      *
      * @var ?Layout
@@ -24,11 +31,14 @@ class Title
      * Create a new Title.
      *
      * @param array|RichText|string $caption
+     * @param ?Layout $layout
+     * @param bool $overlay
      */
-    public function __construct($caption = '', ?Layout $layout = null)
+    public function __construct($caption = '', ?Layout $layout = null, $overlay = false)
     {
         $this->caption = $caption;
         $this->layout = $layout;
+        $this->setOverlay($overlay);
     }
 
     /**
@@ -76,6 +86,26 @@ class Title
         $this->caption = $caption;
 
         return $this;
+    }
+
+    /**
+     * Get allow overlay of other elements?
+     *
+     * @return bool
+     */
+    public function getOverlay()
+    {
+        return $this->overlay;
+    }
+
+    /**
+     * Set allow overlay of other elements?
+     *
+     * @param bool $overlay
+     */
+    public function setOverlay($overlay): void
+    {
+        $this->overlay = $overlay;
     }
 
     public function getLayout(): ?Layout

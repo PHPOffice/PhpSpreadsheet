@@ -1,5 +1,7 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
+
 return [
     ['545', '357'],
     ['2515', '1357'],
@@ -7,21 +9,21 @@ return [
     ['30071', '12345'],
     ['726746425', '123456789'],
     ['173', '123.45'],
-    ['072', '58, 3'],
+    ['072', 58, 3],
     ['0', '0'],
-    ['#VALUE!', '"3579A"'], // Invalid decimal
-    ['#VALUE!', 'true'], // ODS accepts bool, Excel/Gnumeric do not
-    ['#VALUE!', 'false'],
+    [ExcelError::VALUE(), '3579A'], // Invalid decimal
+    [ExcelError::VALUE(), true], // ODS accepts bool, Excel/Gnumeric do not
+    [ExcelError::VALUE(), false],
     ['7777777634', '-100'], // 2's Complement
     ['7777777625', '-107'], // 2's Complement
     ['3777777777', 536870911], // highest positive
-    ['#NUM!', 536870912],
+    [ExcelError::NAN(), 536870912],
     ['4000000000', -536870912], // lowest negative
-    ['#NUM!', -536870913],
-    ['0403', '259, 4'],
-    ['#NUM!', '259, 0'],
-    ['#NUM!', '259, -1'],
-    ['#NUM!', '259, 14'],
-    ['#NUM!', '259, 1'],
-    ['403', '259, 3'],
+    [ExcelError::NAN(), -536870913],
+    ['0403', 259, 4],
+    [ExcelError::NAN(), 259, 0],
+    [ExcelError::NAN(), 259, -1],
+    [ExcelError::NAN(), 259, 14],
+    [ExcelError::NAN(), 259, 1],
+    ['403', 259, 3],
 ];

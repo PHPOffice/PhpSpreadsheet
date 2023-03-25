@@ -3,17 +3,70 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Calculation\Engineering\ComplexFunctions;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
+use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
+use PHPUnit\Framework\TestCase;
 
-class ImArgumentTest extends AllSetupTeardown
+class ImArgumentTest extends TestCase
 {
+    const COMPLEX_PRECISION = 1E-12;
+
+    protected function setUp(): void
+    {
+        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
+    }
+
     /**
      * @dataProvider providerIMARGUMENT
      *
      * @param mixed $expectedResult
      */
-    public function testIMARGUMENT($expectedResult, ...$args): void
+    public function testDirectCallToIMARGUMENT($expectedResult, ...$args): void
     {
-        $this->runTestCase('IMARGUMENT', $expectedResult, ...$args);
+        /** @scrutinizer ignore-call */
+        $result = ComplexFunctions::IMARGUMENT(...$args);
+        self::assertEqualsWithDelta($expectedResult, $result, self::COMPLEX_PRECISION);
+    }
+
+    /**
+     * @dataProvider providerIMARGUMENT
+     *
+     * @param mixed $expectedResult
+     */
+    public function testIMARGUMENTAsFormula($expectedResult, ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $calculation = Calculation::getInstance();
+        $formula = "=IMARGUMENT({$arguments})";
+
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEqualsWithDelta($expectedResult, $result, self::COMPLEX_PRECISION);
+    }
+
+    /**
+     * @dataProvider providerIMARGUMENT
+     *
+     * @param mixed $expectedResult
+     */
+    public function testIMARGUMENTInWorksheet($expectedResult, ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=IMARGUMENT({$argumentCells})";
+
+        $result = $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+        self::assertEqualsWithDelta($expectedResult, $result, self::COMPLEX_PRECISION);
+
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function providerIMARGUMENT(): array
@@ -22,15 +75,31 @@ class ImArgumentTest extends AllSetupTeardown
     }
 
     /**
-     * @dataProvider providerImArgumentArray
+     * @dataProvider providerUnhappyIMARGUMENT
      */
-    public function testImArgumentArray(array $expectedResult, string $complex): void
+    public function testIMARGUMENTUnhappyPath(string $expectedException, ...$args): void
     {
-        $calculation = Calculation::getInstance();
+        $arguments = new FormulaArguments(...$args);
 
-        $formula = "=IMARGUMENT({$complex})";
-        $result = $calculation->_calculateFormulaValue($formula);
-        self::assertEquals($expectedResult, $result);
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=IMARGUMENT({$argumentCells})";
+
+        $this->expectException(CalculationException::class);
+        $this->expectExceptionMessage($expectedException);
+        $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function providerUnhappyIMARGUMENT(): array
+    {
+        return [
+            ['Formula Error: Wrong number of arguments for IMARGUMENT() function'],
+        ];
     }
 
     public function providerImArgumentArray(): array

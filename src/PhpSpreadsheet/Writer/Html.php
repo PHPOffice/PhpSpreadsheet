@@ -1193,7 +1193,7 @@ class Html extends BaseWriter
     {
         $html = '';
         if (count($worksheet->getBreaks()) > 0) {
-            $breaks = $worksheet->getBreaks();
+            $breaks = $worksheet->getRowBreaks();
 
             // check if a break is needed before this row
             if (isset($breaks['A' . $row])) {

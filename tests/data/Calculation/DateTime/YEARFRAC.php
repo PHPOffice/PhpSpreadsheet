@@ -1,5 +1,7 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
+
 return [
     [
         0.025,
@@ -12,12 +14,6 @@ return [
         '2007-1-1',
         '2007-1-10',
         null,
-    ],
-    [
-        0.025,
-        '2007-1-1',
-        '2007-1-10',
-        'omitted',
     ],
     [
         0.025,
@@ -571,11 +567,9 @@ return [
         '2025-05-28',
         1,
     ],
-    ['#VALUE!', '2023-04-27', 'ABQZ', 1],
-    ['#VALUE!', 'ABQZ', '2023-04-07', 1],
-    ['#NUM!', '2023-04-27', '2025-05-28', 6],
-    ['exception', '2023-04-27', 'omitted'],
-    ['exception', 'omitted'],
+    [ExcelError::VALUE(), '2023-04-27', 'ABQZ', 1],
+    [ExcelError::VALUE(), 'ABQZ', '2023-04-07', 1],
+    [ExcelError::NAN(), '2023-04-27', '2025-05-28', 6],
     [0, null, null],
     // Excel 1900 calendar gets all of the following wrong (null second arg).
     // PhpSpreadsheet is bug-compatible.

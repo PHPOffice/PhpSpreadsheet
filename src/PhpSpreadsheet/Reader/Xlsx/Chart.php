@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Chart\Axis;
+use PhpOffice\PhpSpreadsheet\Chart\AxisText;
 use PhpOffice\PhpSpreadsheet\Chart\ChartColor;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeries;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues;
@@ -76,15 +77,24 @@ class Chart
         $yAxis = new Axis();
         $autoTitleDeleted = null;
         $chartNoFill = false;
+        $chartBorderLines = null;
+        $chartFillColor = null;
         $gradientArray = [];
         $gradientLin = null;
         $roundedCorners = false;
         foreach ($chartElementsC as $chartElementKey => $chartElement) {
             switch ($chartElementKey) {
                 case 'spPr':
-                    $possibleNoFill = $chartElementsC->spPr->children($this->aNamespace);
-                    if (isset($possibleNoFill->noFill)) {
+                    $children = $chartElementsC->spPr->children($this->aNamespace);
+                    if (isset($children->noFill)) {
                         $chartNoFill = true;
+                    }
+                    if (isset($children->solidFill)) {
+                        $chartFillColor = $this->readColor($children->solidFill);
+                    }
+                    if (isset($children->ln)) {
+                        $chartBorderLines = new GridLines();
+                        $this->readLineStyle($chartElementsC, $chartBorderLines);
                     }
 
                     break;
@@ -157,6 +167,9 @@ class Chart
                                                     $axisColorArray = $this->readColor($sppr->solidFill);
                                                     $xAxis->setFillParameters($axisColorArray['value'], $axisColorArray['alpha'], $axisColorArray['type']);
                                                 }
+                                                if (isset($chartDetail->spPr->ln->noFill)) {
+                                                    $xAxis->setNoFill(true);
+                                                }
                                             }
                                             if (isset($chartDetail->majorGridlines)) {
                                                 $majorGridlines = new GridLines();
@@ -226,6 +239,9 @@ class Chart
                                                 if (isset($sppr->solidFill)) {
                                                     $axisColorArray = $this->readColor($sppr->solidFill);
                                                     $whichAxis->setFillParameters($axisColorArray['value'], $axisColorArray['alpha'], $axisColorArray['type']);
+                                                }
+                                                if (isset($sppr->ln->noFill)) {
+                                                    $whichAxis->setNoFill(true);
                                                 }
                                             }
                                             if ($whichAxis !== null && isset($chartDetail->majorGridlines)) {
@@ -350,6 +366,10 @@ class Chart
                                 $legendPos = 'r';
                                 $legendLayout = null;
                                 $legendOverlay = false;
+                                $legendBorderLines = null;
+                                $legendFillColor = null;
+                                $legendText = null;
+                                $addLegendText = false;
                                 foreach ($chartDetails as $chartDetailKey => $chartDetail) {
                                     $chartDetail = Xlsx::testSimpleXml($chartDetail);
                                     switch ($chartDetailKey) {
@@ -365,9 +385,44 @@ class Chart
                                             $legendLayout = $this->chartLayoutDetails($chartDetail);
 
                                             break;
+                                        case 'spPr':
+                                            $children = $chartDetails->spPr->children($this->aNamespace);
+                                            if (isset($children->solidFill)) {
+                                                $legendFillColor = $this->readColor($children->solidFill);
+                                            }
+                                            if (isset($children->ln)) {
+                                                $legendBorderLines = new GridLines();
+                                                $this->readLineStyle($chartDetails, $legendBorderLines);
+                                            }
+
+                                            break;
+                                        case 'txPr':
+                                            $children = $chartDetails->txPr->children($this->aNamespace);
+                                            $addLegendText = false;
+                                            $legendText = new AxisText();
+                                            if (isset($children->p->pPr->defRPr->solidFill)) {
+                                                $colorArray = $this->readColor($children->p->pPr->defRPr->solidFill);
+                                                $legendText->getFillColorObject()->setColorPropertiesArray($colorArray);
+                                                $addLegendText = true;
+                                            }
+                                            if (isset($children->p->pPr->defRPr->effectLst)) {
+                                                $this->readEffects($children->p->pPr->defRPr, $legendText, false);
+                                                $addLegendText = true;
+                                            }
+
+                                            break;
                                     }
                                 }
                                 $legend = new Legend("$legendPos", $legendLayout, (bool) $legendOverlay);
+                                if ($legendFillColor !== null) {
+                                    $legend->getFillColor()->setColorPropertiesArray($legendFillColor);
+                                }
+                                if ($legendBorderLines !== null) {
+                                    $legend->setBorderLines($legendBorderLines);
+                                }
+                                if ($addLegendText) {
+                                    $legend->setLegendText($legendText);
+                                }
 
                                 break;
                         }
@@ -377,6 +432,12 @@ class Chart
         $chart = new \PhpOffice\PhpSpreadsheet\Chart\Chart($chartName, $title, $legend, $plotArea, $plotVisOnly, (string) $dispBlanksAs, $XaxisLabel, $YaxisLabel, $xAxis, $yAxis);
         if ($chartNoFill) {
             $chart->setNoFill(true);
+        }
+        if ($chartFillColor !== null) {
+            $chart->getFillColor()->setColorPropertiesArray($chartFillColor);
+        }
+        if ($chartBorderLines !== null) {
+            $chart->setBorderLines($chartBorderLines);
         }
         $chart->setRoundedCorners($roundedCorners);
         if (is_bool($autoTitleDeleted)) {
@@ -402,6 +463,7 @@ class Chart
     {
         $caption = [];
         $titleLayout = null;
+        $titleOverlay = false;
         foreach ($titleDetails as $titleDetailKey => $chartDetail) {
             $chartDetail = Xlsx::testSimpleXml($chartDetail);
             switch ($titleDetailKey) {
@@ -425,6 +487,10 @@ class Chart
                     }
 
                     break;
+                case 'overlay':
+                    $titleOverlay = self::getAttribute($chartDetail, 'val', 'boolean');
+
+                    break;
                 case 'layout':
                     $titleLayout = $this->chartLayoutDetails($chartDetail);
 
@@ -432,7 +498,7 @@ class Chart
             }
         }
 
-        return new Title($caption, $titleLayout);
+        return new Title($caption, $titleLayout, (bool) $titleOverlay);
     }
 
     private function chartLayoutDetails(SimpleXMLElement $chartDetail): ?Layout
@@ -1171,13 +1237,19 @@ class Chart
         }
     }
 
-    private function readEffects(SimpleXMLElement $chartDetail, ?ChartProperties $chartObject): void
+    private function readEffects(SimpleXMLElement $chartDetail, ?ChartProperties $chartObject, bool $getSppr = true): void
     {
-        if (!isset($chartObject, $chartDetail->spPr)) {
+        if (!isset($chartObject)) {
             return;
         }
-        $sppr = $chartDetail->spPr->children($this->aNamespace);
-
+        if ($getSppr) {
+            if (!isset($chartDetail->spPr)) {
+                return;
+            }
+            $sppr = $chartDetail->spPr->children($this->aNamespace);
+        } else {
+            $sppr = $chartDetail;
+        }
         if (isset($sppr->effectLst->glow)) {
             $axisGlowSize = (float) self::getAttribute($sppr->effectLst->glow, 'rad', 'integer') / ChartProperties::POINTS_WIDTH_MULTIPLIER;
             if ($axisGlowSize != 0.0) {
@@ -1407,12 +1479,27 @@ class Chart
         }
         if (isset($chartDetail->txPr)) {
             $children = $chartDetail->txPr->children($this->aNamespace);
+            $addAxisText = false;
+            $axisText = new AxisText();
             if (isset($children->bodyPr)) {
                 /** @var string */
                 $textRotation = self::getAttribute($children->bodyPr, 'rot', 'string');
                 if (is_numeric($textRotation)) {
-                    $whichAxis->setAxisOption('textRotation', (string) ChartProperties::xmlToAngle($textRotation));
+                    $axisText->setRotation((int) ChartProperties::xmlToAngle($textRotation));
+                    $addAxisText = true;
                 }
+            }
+            if (isset($children->p->pPr->defRPr->solidFill)) {
+                $colorArray = $this->readColor($children->p->pPr->defRPr->solidFill);
+                $axisText->getFillColorObject()->setColorPropertiesArray($colorArray);
+                $addAxisText = true;
+            }
+            if (isset($children->p->pPr->defRPr->effectLst)) {
+                $this->readEffects($children->p->pPr->defRPr, $axisText, false);
+                $addAxisText = true;
+            }
+            if ($addAxisText) {
+                $whichAxis->setAxisText($axisText);
             }
         }
     }

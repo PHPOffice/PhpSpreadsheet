@@ -221,12 +221,16 @@ class Cell
      *    Sets the value for a cell, automatically determining the datatype using the value binder
      *
      * @param mixed $value Value
+     * @param null|IValueBinder $binder Value Binder to override the currently set Value Binder
+     *
+     * @throws Exception
      *
      * @return $this
      */
-    public function setValue($value): self
+    public function setValue($value, ?IValueBinder $binder = null): self
     {
-        if (!self::getValueBinder()->bindValue($this, $value)) {
+        $binder ??= self::getValueBinder();
+        if (!$binder->bindValue($this, $value)) {
             throw new Exception('Value could not be bound to cell.');
         }
 

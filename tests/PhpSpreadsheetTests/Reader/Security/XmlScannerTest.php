@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Security;
 
+use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
 use PhpOffice\PhpSpreadsheet\Reader\Xls;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
@@ -113,6 +114,14 @@ class XmlScannerTest extends TestCase
         self::assertNull($scanner);
     }
 
+    public function testGetSecurityScannerForNonXmlBasedReader2(): void
+    {
+        $this->expectException(ReaderException::class);
+        $this->expectExceptionMessage('Security scanner is unexpectedly null');
+        $fileReader = new Xls();
+        $fileReader->getSecurityScannerOrThrow();
+    }
+
     /**
      * @dataProvider providerValidXMLForCallback
      *
@@ -122,7 +131,7 @@ class XmlScannerTest extends TestCase
     public function testSecurityScanWithCallback($filename, $expectedResult): void
     {
         $fileReader = new Xlsx();
-        $scanner = $fileReader->getSecurityScanner();
+        $scanner = $fileReader->getSecurityScannerOrThrow();
         $scanner->setAdditionalCallback('strrev');
         $xml = $scanner->scanFile($filename);
 

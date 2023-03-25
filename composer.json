@@ -42,13 +42,19 @@
     ],
     "scripts": {
         "check": [
+            "phpcs src/ tests/ --report=checkstyle",
+            "phpcs --report-width=200 samples/ src/ tests/ --ignore=samples/Header.php --standard=PHPCompatibility --runtime-set testVersion 7.4- -n",
             "php-cs-fixer fix --ansi --dry-run --diff",
-            "phpcs",
             "phpunit --color=always",
-            "phpstan analyse --ansi"
+            "phpstan analyse --ansi --memory-limit=2048M"
+        ],
+        "style": [
+            "phpcs src/ tests/ --report=checkstyle",
+            "php-cs-fixer fix --ansi --dry-run --diff"
         ],
         "fix": [
-            "php-cs-fixer fix --ansi"
+            "phpcbf src/ tests/ --report=checkstyle",
+            "php-cs-fixer fix"
         ],
         "versions": [
             "phpcs --report-width=200 samples/ src/ tests/ --ignore=samples/Header.php --standard=PHPCompatibility --runtime-set testVersion 7.4- -n"
@@ -78,7 +84,7 @@
         "psr/simple-cache": "^1.0 || ^2.0 || ^3.0"
     },
     "require-dev": {
-        "dealerdirect/phpcodesniffer-composer-installer": "dev-master",
+        "dealerdirect/phpcodesniffer-composer-installer": "dev-main",
         "dompdf/dompdf": "^1.0 || ^2.0",
         "friendsofphp/php-cs-fixer": "^3.2",
         "mitoteam/jpgraph": "^10.2.4",

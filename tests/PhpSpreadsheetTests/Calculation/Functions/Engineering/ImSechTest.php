@@ -3,22 +3,124 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Calculation\Engineering\ComplexFunctions;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
+use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
+use PhpOffice\PhpSpreadsheetTests\Custom\ComplexAssert;
+use PHPUnit\Framework\TestCase;
 
-class ImSechTest extends AllSetupTeardown
+class ImSechTest extends TestCase
 {
+    const COMPLEX_PRECISION = 1E-12;
+
+    /**
+     * @var ComplexAssert
+     */
+    private $complexAssert;
+
+    protected function setUp(): void
+    {
+        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
+        $this->complexAssert = new ComplexAssert();
+    }
+
     /**
      * @dataProvider providerIMSECH
      *
      * @param mixed $expectedResult
      */
-    public function testIMSECH($expectedResult, ...$args): void
+    public function testDirectCallToIMSECH($expectedResult, ...$args): void
     {
-        $this->runComplexTestCase('IMSECH', $expectedResult, ...$args);
+        /** @scrutinizer ignore-call */
+        $result = ComplexFunctions::IMSECH(...$args);
+        self::assertTrue(
+            $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
+            $this->complexAssert->getErrorMessage()
+        );
+    }
+
+    private function trimIfQuoted(string $value): string
+    {
+        return trim($value, '"');
+    }
+
+    /**
+     * @dataProvider providerIMSECH
+     *
+     * @param mixed $expectedResult
+     */
+    public function testIMSECHAsFormula($expectedResult, ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $calculation = Calculation::getInstance();
+        $formula = "=IMSECH({$arguments})";
+
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertTrue(
+            $this->complexAssert->assertComplexEquals($expectedResult, $this->trimIfQuoted((string) $result), self::COMPLEX_PRECISION),
+            $this->complexAssert->getErrorMessage()
+        );
+    }
+
+    /**
+     * @dataProvider providerIMSECH
+     *
+     * @param mixed $expectedResult
+     */
+    public function testIMSECHInWorksheet($expectedResult, ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=IMSECH({$argumentCells})";
+
+        $result = $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+        self::assertTrue(
+            $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
+            $this->complexAssert->getErrorMessage()
+        );
+
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function providerIMSECH(): array
     {
         return require 'tests/data/Calculation/Engineering/IMSECH.php';
+    }
+
+    /**
+     * @dataProvider providerUnhappyIMSECH
+     */
+    public function testIMSECHUnhappyPath(string $expectedException, ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=IMSECH({$argumentCells})";
+
+        $this->expectException(CalculationException::class);
+        $this->expectExceptionMessage($expectedException);
+        $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function providerUnhappyIMSECH(): array
+    {
+        return [
+            ['Formula Error: Wrong number of arguments for IMSECH() function'],
+        ];
     }
 
     /**

@@ -3,26 +3,16 @@
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Ods;
 
 use PhpOffice\PhpSpreadsheet\Reader\Ods;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\TestCase;
 
 class DefinedNamesTest extends TestCase
 {
-    /**
-     * @var Spreadsheet
-     */
-    private $spreadsheet;
-
-    protected function setUp(): void
+    public function testDefinedNames(): void
     {
         $filename = 'tests/data/Reader/Ods/DefinedNames.ods';
         $reader = new Ods();
-        $this->spreadsheet = $reader->load($filename);
-    }
-
-    public function testDefinedNames(): void
-    {
-        $worksheet = $this->spreadsheet->getActiveSheet();
+        $spreadsheet = $reader->load($filename);
+        $worksheet = $spreadsheet->getActiveSheet();
 
         $firstDefinedNameValue = $worksheet->getCell('First')->getValue();
         $secondDefinedNameValue = $worksheet->getCell('Second')->getValue();
@@ -31,5 +21,6 @@ class DefinedNamesTest extends TestCase
         self::assertSame(3, $firstDefinedNameValue);
         self::assertSame(4, $secondDefinedNameValue);
         self::assertSame(12, $calculatedFormulaValue);
+        $spreadsheet->disconnectWorksheets();
     }
 }

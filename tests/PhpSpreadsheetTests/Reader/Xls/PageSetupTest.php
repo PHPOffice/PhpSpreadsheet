@@ -3,7 +3,6 @@
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xls;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xls;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 use PHPUnit\Framework\TestCase;
 
@@ -13,25 +12,18 @@ class PageSetupTest extends TestCase
 
     private const MARGIN_UNIT_CONVERSION = 2.54; // Inches to cm
 
-    /**
-     * @var Spreadsheet
-     */
-    private $spreadsheet;
-
-    protected function setup(): void
+    public function testPageSetup(): void
     {
         $filename = 'tests/data/Reader/XLS/PageSetup.xls';
         $reader = new Xls();
-        $this->spreadsheet = $reader->load($filename);
-    }
-
-    public function testPageSetup(): void
-    {
+        $spreadsheet = $reader->load($filename);
         $assertions = $this->pageSetupAssertions();
 
-        foreach ($this->spreadsheet->getAllSheets() as $worksheet) {
+        $sheetCount = 0;
+        foreach ($spreadsheet->getAllSheets() as $worksheet) {
+            ++$sheetCount;
             if (!array_key_exists($worksheet->getTitle(), $assertions)) {
-                continue;
+                self::fail('Unexpected worksheet ' . $worksheet->getTitle());
             }
 
             $sheetAssertions = $assertions[$worksheet->getTitle()];
@@ -45,15 +37,22 @@ class PageSetupTest extends TestCase
                 );
             }
         }
+        self::assertCount($sheetCount, $assertions);
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testPageMargins(): void
     {
+        $filename = 'tests/data/Reader/XLS/PageSetup.xls';
+        $reader = new Xls();
+        $spreadsheet = $reader->load($filename);
         $assertions = $this->pageMarginAssertions();
 
-        foreach ($this->spreadsheet->getAllSheets() as $worksheet) {
+        $sheetCount = 0;
+        foreach ($spreadsheet->getAllSheets() as $worksheet) {
+            ++$sheetCount;
             if (!array_key_exists($worksheet->getTitle(), $assertions)) {
-                continue;
+                self::fail('Unexpected worksheet ' . $worksheet->getTitle());
             }
 
             $sheetAssertions = $assertions[$worksheet->getTitle()];
@@ -68,6 +67,8 @@ class PageSetupTest extends TestCase
                 );
             }
         }
+        self::assertCount($sheetCount, $assertions);
+        $spreadsheet->disconnectWorksheets();
     }
 
     private function pageSetupAssertions(): array

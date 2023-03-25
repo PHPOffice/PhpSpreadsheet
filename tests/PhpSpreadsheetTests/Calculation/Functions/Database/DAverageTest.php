@@ -5,7 +5,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 use PhpOffice\PhpSpreadsheet\Calculation\Database\DAverage;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
-class DAverageTest extends AllSetupTeardown
+class DAverageTest extends SetupTeardownDatabases
 {
     /**
      * @dataProvider providerDAverage

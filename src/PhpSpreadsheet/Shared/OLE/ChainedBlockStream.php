@@ -48,7 +48,7 @@ class ChainedBlockStream
      */
     public function stream_open($path, $mode, $options, &$openedPath) // @codingStandardsIgnoreLine
     {
-        if ($mode != 'r') {
+        if ($mode[0] !== 'r') {
             if ($options & STREAM_REPORT_ERRORS) {
                 trigger_error('Only reading is supported', E_USER_WARNING);
             }
@@ -119,7 +119,7 @@ class ChainedBlockStream
         if ($this->stream_eof()) {
             return false;
         }
-        $s = substr($this->data, $this->pos, $count);
+        $s = substr($this->data, (int) $this->pos, $count);
         $this->pos += $count;
 
         return $s;

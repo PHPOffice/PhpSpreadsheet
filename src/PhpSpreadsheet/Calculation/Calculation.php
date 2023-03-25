@@ -3696,15 +3696,16 @@ class Calculation
      * @param string $formula The formula to parse and calculate
      * @param string $cellID The ID (e.g. A3) of the cell that we are calculating
      * @param Cell $cell Cell to calculate
+     * @param bool $ignoreQuotePrefix If set to true, evaluate the formyla even if the referenced cell is quote prefixed
      *
      * @return mixed
      */
-    public function _calculateFormulaValue($formula, $cellID = null, ?Cell $cell = null)
+    public function _calculateFormulaValue($formula, $cellID = null, ?Cell $cell = null, bool $ignoreQuotePrefix = false)
     {
         $cellValue = null;
 
         //  Quote-Prefixed cell values cannot be formulae, but are treated as strings
-        if ($cell !== null && $cell->getStyle()->getQuotePrefix() === true) {
+        if ($cell !== null && $ignoreQuotePrefix === false && $cell->getStyle()->getQuotePrefix() === true) {
             return self::wrapResult((string) $formula);
         }
 
@@ -4943,10 +4944,10 @@ class Calculation
                     [$rows, $columns] = self::checkMatrixOperands($result, $operand2, 0);
                     for ($row = 0; $row < $rows; ++$row) {
                         for ($column = 0; $column < $columns; ++$column) {
-                            if (is_numeric($result[$row][$column])) {
+                            if (self::isNumericOrBool($result[$row][$column])) {
                                 $result[$row][$column] *= $multiplier;
                             } else {
-                                $result[$row][$column] = Information\ExcelError::VALUE();
+                                $result[$row][$column] = self::makeError($result[$row][$column]);
                             }
                         }
                     }
@@ -5335,15 +5336,15 @@ class Calculation
                 for ($column = 0; $column < $columns; ++$column) {
                     if ($operand1[$row][$column] === null) {
                         $operand1[$row][$column] = 0;
-                    } elseif (!is_numeric($operand1[$row][$column])) {
-                        $operand1[$row][$column] = Information\ExcelError::VALUE();
+                    } elseif (!self::isNumericOrBool($operand1[$row][$column])) {
+                        $operand1[$row][$column] = self::makeError($operand1[$row][$column]);
 
                         continue;
                     }
                     if ($operand2[$row][$column] === null) {
                         $operand2[$row][$column] = 0;
-                    } elseif (!is_numeric($operand2[$row][$column])) {
-                        $operand1[$row][$column] = Information\ExcelError::VALUE();
+                    } elseif (!self::isNumericOrBool($operand2[$row][$column])) {
+                        $operand1[$row][$column] = self::makeError($operand2[$row][$column]);
 
                         continue;
                     }
@@ -5720,7 +5721,7 @@ class Calculation
         $recursiveCalculator = new self($this->spreadsheet);
         $recursiveCalculator->getDebugLog()->setWriteDebugLog($this->getDebugLog()->getWriteDebugLog());
         $recursiveCalculator->getDebugLog()->setEchoDebugLog($this->getDebugLog()->getEchoDebugLog());
-        $result = $recursiveCalculator->_calculateFormulaValue($definedNameValue, $recursiveCalculationCellAddress, $recursiveCalculationCell);
+        $result = $recursiveCalculator->_calculateFormulaValue($definedNameValue, $recursiveCalculationCellAddress, $recursiveCalculationCell, true);
 
         if ($this->getDebugLog()->getWriteDebugLog()) {
             $this->debugLog->mergeDebugLog(array_slice($recursiveCalculator->getDebugLog()->getLog(), 3));
@@ -5762,5 +5763,17 @@ class Calculation
         }
 
         return $operand1;
+    }
+
+    /** @param mixed $operand */
+    private static function isNumericOrBool($operand): bool
+    {
+        return is_numeric($operand) || is_bool($operand);
+    }
+
+    /** @param mixed $operand */
+    private static function makeError($operand = ''): string
+    {
+        return Information\ErrorValue::isError($operand) ? $operand : Information\ExcelError::VALUE();
     }
 }

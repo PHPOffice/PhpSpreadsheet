@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Cell;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Calculation\Engine\FormattedNumber;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
@@ -33,11 +34,11 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
         // Style logic - strings
         if ($dataType === DataType::TYPE_STRING && !$value instanceof RichText) {
             //    Test for booleans using locale-setting
-            if ($value == Calculation::getTRUE()) {
+            if (StringHelper::strToUpper($value) === Calculation::getTRUE()) {
                 $cell->setValueExplicit(true, DataType::TYPE_BOOL);
 
                 return true;
-            } elseif ($value == Calculation::getFALSE()) {
+            } elseif (StringHelper::strToUpper($value) === Calculation::getFALSE()) {
                 $cell->setValueExplicit(false, DataType::TYPE_BOOL);
 
                 return true;
@@ -50,35 +51,22 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
                 return $this->setImproperFraction($matches, $cell);
             }
 
+            $decimalSeparator = preg_quote(StringHelper::getDecimalSeparator());
+            $thousandsSeparator = preg_quote(StringHelper::getThousandsSeparator());
+
             // Check for percentage
-            if (preg_match('/^\-?\d*\.?\d*\s?\%$/', $value)) {
-                return $this->setPercentage($value, $cell);
+            if (preg_match('/^\-?\d*' . $decimalSeparator . '?\d*\s?\%$/', preg_replace('/(\d)' . $thousandsSeparator . '(\d)/u', '$1$2', $value))) {
+                return $this->setPercentage(preg_replace('/(\d)' . $thousandsSeparator . '(\d)/u', '$1$2', $value), $cell);
             }
 
             // Check for currency
-            $currencyCode = StringHelper::getCurrencyCode();
-            $decimalSeparator = StringHelper::getDecimalSeparator();
-            $thousandsSeparator = StringHelper::getThousandsSeparator();
-            if (preg_match('/^' . preg_quote($currencyCode, '/') . ' *(\d{1,3}(' . preg_quote($thousandsSeparator, '/') . '\d{3})*|(\d+))(' . preg_quote($decimalSeparator, '/') . '\d{2})?$/', $value)) {
+            if (preg_match(FormattedNumber::currencyMatcherRegexp(), preg_replace('/(\d)' . $thousandsSeparator . '(\d)/u', '$1$2', $value), $matches, PREG_UNMATCHED_AS_NULL)) {
                 // Convert value to number
-                $value = (float) trim(str_replace([$currencyCode, $thousandsSeparator, $decimalSeparator], ['', '', '.'], $value));
-                $cell->setValueExplicit($value, DataType::TYPE_NUMERIC);
-                // Set style
-                $cell->getWorksheet()->getStyle($cell->getCoordinate())
-                    ->getNumberFormat()->setFormatCode(
-                        str_replace('$', $currencyCode, NumberFormat::FORMAT_CURRENCY_USD_SIMPLE)
-                    );
+                $sign = ($matches['PrefixedSign'] ?? $matches['PrefixedSign2'] ?? $matches['PostfixedSign']) ?? null;
+                $currencyCode = $matches['PrefixedCurrency'] ?? $matches['PostfixedCurrency'];
+                $value = (float) ($sign . trim(str_replace([$decimalSeparator, $currencyCode, ' ', '-'], ['.', '', '', ''], preg_replace('/(\d)' . $thousandsSeparator . '(\d)/u', '$1$2', $value)))); // @phpstan-ignore-line
 
-                return true;
-            } elseif (preg_match('/^\$ *(\d{1,3}(\,\d{3})*|(\d+))(\.\d{2})?$/', $value)) {
-                // Convert value to number
-                $value = (float) trim(str_replace(['$', ','], '', $value));
-                $cell->setValueExplicit($value, DataType::TYPE_NUMERIC);
-                // Set style
-                $cell->getWorksheet()->getStyle($cell->getCoordinate())
-                    ->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);
-
-                return true;
+                return $this->setCurrency($value, $cell, $currencyCode); // @phpstan-ignore-line
             }
 
             // Check for time without seconds e.g. '9:45', '09:45'
@@ -171,6 +159,18 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
         // Set style
         $cell->getWorksheet()->getStyle($cell->getCoordinate())
             ->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_PERCENTAGE_00);
+
+        return true;
+    }
+
+    protected function setCurrency(float $value, Cell $cell, string $currencyCode): bool
+    {
+        $cell->setValueExplicit($value, DataType::TYPE_NUMERIC);
+        // Set style
+        $cell->getWorksheet()->getStyle($cell->getCoordinate())
+            ->getNumberFormat()->setFormatCode(
+                str_replace('$', '[$' . $currencyCode . ']', NumberFormat::FORMAT_CURRENCY_USD)
+            );
 
         return true;
     }

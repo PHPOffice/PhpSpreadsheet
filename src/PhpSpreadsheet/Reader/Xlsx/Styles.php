@@ -206,11 +206,21 @@ class Styles extends BaseParserClass
             $borderStyle->setDiagonalDirection(Borders::DIAGONAL_BOTH);
         }
 
-        $this->readBorder($borderStyle->getLeft(), $borderStyleXml->left);
-        $this->readBorder($borderStyle->getRight(), $borderStyleXml->right);
-        $this->readBorder($borderStyle->getTop(), $borderStyleXml->top);
-        $this->readBorder($borderStyle->getBottom(), $borderStyleXml->bottom);
-        $this->readBorder($borderStyle->getDiagonal(), $borderStyleXml->diagonal);
+        if (isset($borderStyleXml->left)) {
+            $this->readBorder($borderStyle->getLeft(), $borderStyleXml->left);
+        }
+        if (isset($borderStyleXml->right)) {
+            $this->readBorder($borderStyle->getRight(), $borderStyleXml->right);
+        }
+        if (isset($borderStyleXml->top)) {
+            $this->readBorder($borderStyle->getTop(), $borderStyleXml->top);
+        }
+        if (isset($borderStyleXml->bottom)) {
+            $this->readBorder($borderStyle->getBottom(), $borderStyleXml->bottom);
+        }
+        if (isset($borderStyleXml->diagonal)) {
+            $this->readBorder($borderStyle->getDiagonal(), $borderStyleXml->diagonal);
+        }
     }
 
     private function getAttribute(SimpleXMLElement $xml, string $attribute): string
@@ -233,6 +243,8 @@ class Styles extends BaseParserClass
         $style = $this->getAttribute($borderXml, 'style');
         if ($style !== '') {
             $border->setBorderStyle((string) $style);
+        } else {
+            $border->setBorderStyle(Border::BORDER_NONE);
         }
         if (isset($borderXml->color)) {
             $border->getColor()->setARGB($this->readColor($borderXml->color));
@@ -241,10 +253,14 @@ class Styles extends BaseParserClass
 
     public function readAlignmentStyle(Alignment $alignment, SimpleXMLElement $alignmentXml): void
     {
-        $horizontal = $this->getAttribute($alignmentXml, 'horizontal');
-        $alignment->setHorizontal($horizontal);
-        $vertical = $this->getAttribute($alignmentXml, 'vertical');
-        $alignment->setVertical((string) $vertical);
+        $horizontal = (string) $this->getAttribute($alignmentXml, 'horizontal');
+        if ($horizontal !== '') {
+            $alignment->setHorizontal($horizontal);
+        }
+        $vertical = (string) $this->getAttribute($alignmentXml, 'vertical');
+        if ($vertical !== '') {
+            $alignment->setVertical($vertical);
+        }
 
         $textRotation = (int) $this->getAttribute($alignmentXml, 'textRotation');
         if ($textRotation > 90) {

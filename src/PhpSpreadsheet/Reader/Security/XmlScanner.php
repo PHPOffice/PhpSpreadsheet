@@ -13,8 +13,10 @@ class XmlScanner
      */
     private $pattern;
 
+    /** @var ?callable */
     private $callback;
 
+    /** @var ?bool */
     private static $libxmlDisableEntityLoaderValue;
 
     /**
@@ -22,7 +24,7 @@ class XmlScanner
      */
     private static $shutdownRegistered = false;
 
-    public function __construct($pattern = '<!DOCTYPE')
+    public function __construct(string $pattern = '<!DOCTYPE')
     {
         $this->pattern = $pattern;
 
@@ -35,22 +37,17 @@ class XmlScanner
         }
     }
 
-    public static function getInstance(Reader\IReader $reader)
+    public static function getInstance(Reader\IReader $reader): self
     {
-        switch (true) {
-            case $reader instanceof Reader\Html:
-                return new self('<!ENTITY');
-            case $reader instanceof Reader\Xlsx:
-            case $reader instanceof Reader\Xml:
-            case $reader instanceof Reader\Ods:
-            case $reader instanceof Reader\Gnumeric:
-                return new self('<!DOCTYPE');
-            default:
-                return new self('<!DOCTYPE');
-        }
+        $pattern = ($reader instanceof Reader\Html) ? '<!ENTITY' : '<!DOCTYPE';
+
+        return new self($pattern);
     }
 
-    public static function threadSafeLibxmlDisableEntityLoaderAvailability()
+    /**
+     * @codeCoverageIgnore
+     */
+    public static function threadSafeLibxmlDisableEntityLoaderAvailability(): bool
     {
         if (PHP_MAJOR_VERSION === 7) {
             switch (PHP_MINOR_VERSION) {
@@ -68,6 +65,9 @@ class XmlScanner
         return false;
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     private function disableEntityLoaderCheck(): void
     {
         if (\PHP_VERSION_ID < 80000) {
@@ -79,6 +79,9 @@ class XmlScanner
         }
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public static function shutdown(): void
     {
         if (self::$libxmlDisableEntityLoaderValue !== null && \PHP_VERSION_ID < 80000) {
@@ -136,9 +139,7 @@ class XmlScanner
      */
     public function scan($xml)
     {
-        if (!is_string($xml)) {
-            $xml = '';
-        }
+        $xml = "$xml";
         $this->disableEntityLoaderCheck();
 
         $xml = $this->toUtf8($xml);
@@ -150,7 +151,7 @@ class XmlScanner
             throw new Reader\Exception('Detected use of ENTITY in XML, spreadsheet file load() aborted to prevent XXE/XEE attacks');
         }
 
-        if ($this->callback !== null && is_callable($this->callback)) {
+        if ($this->callback !== null) {
             $xml = call_user_func($this->callback, $xml);
         }
 
