@@ -73,6 +73,12 @@ class Date extends DateTimeWizard
     public const SEPARATOR_SPACE_NONBREAKING = "\u{a0}";
     public const SEPARATOR_SPACE = ' ';
 
+    protected const DATE_DEFAULT = [
+        self::YEAR_FULL,
+        self::MONTH_NUMBER_LONG,
+        self::DAY_NUMBER_LONG,
+    ];
+
     /**
      * @var string[]
      */
@@ -89,8 +95,11 @@ class Date extends DateTimeWizard
      *           if you wish to use different separators, then they should be passed as an array.
      *        If you want to use only a single format block, then pass a null as the separator argument
      */
-    public function __construct($separators, string ...$formatBlocks)
+    public function __construct($separators = self::SEPARATOR_DASH, string ...$formatBlocks)
     {
+        $separators ??= self::SEPARATOR_DASH;
+        $formatBlocks = (count($formatBlocks) === 0) ? self::DATE_DEFAULT : $formatBlocks;
+
         $this->separators = $this->padSeparatorArray(
             is_array($separators) ? $separators : [$separators],
             count($formatBlocks) - 1
