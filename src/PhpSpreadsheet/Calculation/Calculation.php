@@ -4364,8 +4364,12 @@ class Calculation
                                 $rangeStartCellRef = $output[count($output) - 2]['value'] ?? '';
                             }
                             preg_match('/^' . self::CALCULATION_REGEXP_CELLREF . '$/miu', $rangeStartCellRef, $rangeStartMatches);
-                            if ($rangeStartMatches[2] > '') {
-                                $val = $rangeStartMatches[2] . '!' . $val;
+                            if (array_key_exists(2, $rangeStartMatches)) {
+                                if ($rangeStartMatches[2] > '') {
+                                    $val = $rangeStartMatches[2] . '!' . $val;
+                                }
+                            } else {
+                                $val = Information\ExcelError::REF();
                             }
                         } else {
                             $rangeStartCellRef = $output[count($output) - 1]['value'] ?? '';
@@ -4434,6 +4438,8 @@ class Calculation
                                 }
                                 $val = $address;
                             }
+                        } elseif ($val === Information\ExcelError::REF()) {
+                            $stackItemReference = $val;
                         } else {
                             $startRowColRef = $output[count($output) - 1]['value'] ?? '';
                             [$rangeWS1, $startRowColRef] = Worksheet::extractSheetTitle($startRowColRef, true);
@@ -4793,7 +4799,7 @@ class Calculation
                                 }
                             }
                         }
-                        if (strpos($operand1Data['reference'], '!') !== false) {
+                        if (strpos($operand1Data['reference'] ?? '', '!') !== false) {
                             [$sheet1, $operand1Data['reference']] = Worksheet::extractSheetTitle($operand1Data['reference'], true);
                         } else {
                             $sheet1 = ($pCellWorksheet !== null) ? $pCellWorksheet->getTitle() : '';
@@ -4830,10 +4836,21 @@ class Calculation
 
                             $oData = array_merge(explode(':', $operand1Data['reference']), explode(':', $operand2Data['reference']));
                             $oCol = $oRow = [];
+                            $breakNeeded = false;
                             foreach ($oData as $oDatum) {
-                                $oCR = Coordinate::coordinateFromString($oDatum);
-                                $oCol[] = Coordinate::columnIndexFromString($oCR[0]) - 1;
-                                $oRow[] = $oCR[1];
+                                try {
+                                    $oCR = Coordinate::coordinateFromString($oDatum);
+                                    $oCol[] = Coordinate::columnIndexFromString($oCR[0]) - 1;
+                                    $oRow[] = $oCR[1];
+                                } catch (\Exception $e) {
+                                    $stack->push('Error', Information\ExcelError::REF(), null);
+                                    $breakNeeded = true;
+
+                                    break;
+                                }
+                            }
+                            if ($breakNeeded) {
+                                break;
                             }
                             $cellRef = Coordinate::stringFromColumnIndex(min($oCol) + 1) . min($oRow) . ':' . Coordinate::stringFromColumnIndex(max($oCol) + 1) . max($oRow);
                             if ($pCellParent !== null && $this->spreadsheet !== null) {
