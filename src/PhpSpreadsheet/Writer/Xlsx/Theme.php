@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Namespaces;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class Theme extends WriterPart
 {
@@ -84,29 +85,11 @@ class Theme extends WriterPart
     ];
 
     /**
-     * Map of core colours.
-     *
-     * @var string[]
-     */
-    private static $colourScheme = [
-        'dk2' => '1F497D',
-        'lt2' => 'EEECE1',
-        'accent1' => '4F81BD',
-        'accent2' => 'C0504D',
-        'accent3' => '9BBB59',
-        'accent4' => '8064A2',
-        'accent5' => '4BACC6',
-        'accent6' => 'F79646',
-        'hlink' => '0000FF',
-        'folHlink' => '800080',
-    ];
-
-    /**
      * Write theme to XML format.
      *
      * @return string XML Output
      */
-    public function writeTheme()
+    public function writeTheme(Spreadsheet $spreadsheet)
     {
         // Create XML writer
         $objWriter = null;
@@ -129,32 +112,9 @@ class Theme extends WriterPart
 
         // a:clrScheme
         $objWriter->startElement('a:clrScheme');
-        $objWriter->writeAttribute('name', 'Office');
+        $objWriter->writeAttribute('name', $spreadsheet->getTheme()->getThemeColorName());
 
-        // a:dk1
-        $objWriter->startElement('a:dk1');
-
-        // a:sysClr
-        $objWriter->startElement('a:sysClr');
-        $objWriter->writeAttribute('val', 'windowText');
-        $objWriter->writeAttribute('lastClr', '000000');
-        $objWriter->endElement();
-
-        $objWriter->endElement();
-
-        // a:lt1
-        $objWriter->startElement('a:lt1');
-
-        // a:sysClr
-        $objWriter->startElement('a:sysClr');
-        $objWriter->writeAttribute('val', 'window');
-        $objWriter->writeAttribute('lastClr', 'FFFFFF');
-        $objWriter->endElement();
-
-        $objWriter->endElement();
-
-        // a:dk2
-        $this->writeColourScheme($objWriter);
+        $this->writeColourScheme($objWriter, $spreadsheet);
 
         $objWriter->endElement();
 
@@ -814,16 +774,33 @@ class Theme extends WriterPart
     /**
      * Write colour scheme to XML format.
      */
-    private function writeColourScheme(XMLWriter $objWriter): void
+    private function writeColourScheme(XMLWriter $objWriter, Spreadsheet $spreadsheet): void
     {
-        foreach (self::$colourScheme as $colourName => $colourValue) {
-            $objWriter->startElement('a:' . $colourName);
+        $themeArray = $spreadsheet->getTheme()->getThemeColors();
+        // a:dk1
+        $objWriter->startElement('a:dk1');
+        $objWriter->startElement('a:sysClr');
+        $objWriter->writeAttribute('val', 'windowText');
+        $objWriter->writeAttribute('lastClr', $themeArray['dk1'] ?? '000000');
+        $objWriter->endElement(); // a:sysClr
+        $objWriter->endElement(); // a:dk1
 
-            $objWriter->startElement('a:srgbClr');
-            $objWriter->writeAttribute('val', $colourValue);
-            $objWriter->endElement();
+        // a:lt1
+        $objWriter->startElement('a:lt1');
+        $objWriter->startElement('a:sysClr');
+        $objWriter->writeAttribute('val', 'window');
+        $objWriter->writeAttribute('lastClr', $themeArray['lt1'] ?? 'FFFFFF');
+        $objWriter->endElement(); // a:sysClr
+        $objWriter->endElement(); // a:lt1
 
-            $objWriter->endElement();
+        foreach ($themeArray as $colourName => $colourValue) {
+            if ($colourName !== 'dk1' && $colourName !== 'lt1') {
+                $objWriter->startElement('a:' . $colourName);
+                $objWriter->startElement('a:srgbClr');
+                $objWriter->writeAttribute('val', $colourValue);
+                $objWriter->endElement(); // a:srgbClr
+                $objWriter->endElement(); // a:$colourName
+            }
         }
     }
 }

@@ -231,6 +231,9 @@ class Font extends Supervisor
             if (isset($styleArray['size'])) {
                 $this->setSize($styleArray['size']);
             }
+            if (isset($styleArray['chartColor'])) {
+                $this->chartColor = $styleArray['chartColor'];
+            }
         }
 
         return $this;
@@ -630,6 +633,13 @@ class Font extends Supervisor
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
             // @codeCoverageIgnoreEnd
         }
+
+        return $this;
+    }
+
+    public function setChartColorFromObject(?ChartColor $chartColor): self
+    {
+        $this->chartColor = $chartColor;
 
         return $this;
     }

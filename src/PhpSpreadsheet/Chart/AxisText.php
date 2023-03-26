@@ -2,18 +2,21 @@
 
 namespace PhpOffice\PhpSpreadsheet\Chart;
 
+use PhpOffice\PhpSpreadsheet\Style\Font;
+
 class AxisText extends Properties
 {
     /** @var ?int */
     private $rotation;
 
-    /** @var ChartColor */
-    private $fillColor;
+    /** @var Font */
+    private $font;
 
     public function __construct()
     {
         parent::__construct();
-        $this->fillColor = new ChartColor();
+        $this->font = new Font();
+        $this->font->setSize(null, true);
     }
 
     public function setRotation(?int $rotation): self
@@ -30,6 +33,24 @@ class AxisText extends Properties
 
     public function getFillColorObject(): ChartColor
     {
-        return $this->fillColor;
+        $fillColor = $this->font->getChartColor();
+        if ($fillColor === null) {
+            $fillColor = new ChartColor();
+            $this->font->setChartColorFromObject($fillColor);
+        }
+
+        return $fillColor;
+    }
+
+    public function getFont(): Font
+    {
+        return $this->font;
+    }
+
+    public function setFont(Font $font): self
+    {
+        $this->font = $font;
+
+        return $this;
     }
 }
