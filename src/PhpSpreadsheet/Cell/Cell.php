@@ -392,7 +392,7 @@ class Cell
 
                 throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(
                     $this->getWorksheet()->getTitle() . '!' . $this->getCoordinate() . ' -> ' . $ex->getMessage(),
-                    0,
+                    $ex->getCode(),
                     $ex
                 );
             }
