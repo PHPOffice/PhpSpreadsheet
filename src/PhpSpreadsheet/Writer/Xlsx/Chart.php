@@ -14,6 +14,7 @@ use PhpOffice\PhpSpreadsheet\Chart\Title;
 use PhpOffice\PhpSpreadsheet\Chart\TrendLine;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Namespaces;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
+use PhpOffice\PhpSpreadsheet\Style\Font;
 use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 
 class Chart extends WriterPart
@@ -451,8 +452,8 @@ class Chart extends WriterPart
             }
             $objWriter->endElement(); // c:spPr
         }
-        $fontColor = $chartLayout->getLabelFontColor();
-        if ($fontColor && $fontColor->isUsable()) {
+        $labelFont = $chartLayout->getLabelFont();
+        if ($labelFont !== null) {
             $objWriter->startElement('c:txPr');
 
             $objWriter->startElement('a:bodyPr');
@@ -468,14 +469,7 @@ class Chart extends WriterPart
 
             $objWriter->startElement('a:lstStyle');
             $objWriter->endElement(); // a:lstStyle
-
-            $objWriter->startElement('a:p');
-            $objWriter->startElement('a:pPr');
-            $objWriter->startElement('a:defRPr');
-            $this->writeColor($objWriter, $fontColor);
-            $objWriter->endElement(); // a:defRPr
-            $objWriter->endElement(); // a:pPr
-            $objWriter->endElement(); // a:p
+            $this->writeLabelFont($objWriter, $labelFont, $chartLayout->getLabelEffects());
 
             $objWriter->endElement(); // c:txPr
         }
@@ -642,16 +636,7 @@ class Chart extends WriterPart
             $objWriter->endElement(); // a:bodyPr
             $objWriter->startElement('a:lstStyle');
             $objWriter->endElement(); // a:lstStyle
-            $objWriter->startElement('a:p');
-            $objWriter->startElement('a:pPr');
-            $objWriter->startElement('a:defRPr');
-            if ($axisText !== null) {
-                $this->writeColor($objWriter, $axisText->getFillColorObject());
-                $this->writeEffects($objWriter, $axisText);
-            }
-            $objWriter->endElement(); // a:defRPr
-            $objWriter->endElement(); // a:pPr
-            $objWriter->endElement(); // a:p
+            $this->writeLabelFont($objWriter, ($axisText === null) ? null : $axisText->getFont(), $axisText);
             $objWriter->endElement(); // c:txPr
         }
 
@@ -868,16 +853,9 @@ class Chart extends WriterPart
             $objWriter->endElement(); // a:bodyPr
             $objWriter->startElement('a:lstStyle');
             $objWriter->endElement(); // a:lstStyle
-            $objWriter->startElement('a:p');
-            $objWriter->startElement('a:pPr');
-            $objWriter->startElement('a:defRPr');
-            if ($axisText !== null) {
-                $this->writeColor($objWriter, $axisText->getFillColorObject());
-                $this->writeEffects($objWriter, $axisText);
-            }
-            $objWriter->endElement(); // a:defRPr
-            $objWriter->endElement(); // a:pPr
-            $objWriter->endElement(); // a:p
+
+            $this->writeLabelFont($objWriter, ($axisText === null) ? null : $axisText->getFont(), $axisText);
+
             $objWriter->endElement(); // c:txPr
         }
 
@@ -1806,5 +1784,52 @@ class Chart extends WriterPart
                 $objWriter->endElement(); //a:solidFill
             }
         }
+    }
+
+    private function writeLabelFont(XMLWriter $objWriter, ?Font $labelFont, ?Properties $axisText): void
+    {
+        $objWriter->startElement('a:p');
+        $objWriter->startElement('a:pPr');
+        $objWriter->startElement('a:defRPr');
+        if ($labelFont !== null) {
+            $fontSize = $labelFont->getSize();
+            if (is_numeric($fontSize)) {
+                $fontSize *= (($fontSize < 100) ? 100 : 1);
+                $objWriter->writeAttribute('sz', (string) $fontSize);
+            }
+            if ($labelFont->getBold() === true) {
+                $objWriter->writeAttribute('b', '1');
+            }
+            if ($labelFont->getItalic() === true) {
+                $objWriter->writeAttribute('i', '1');
+            }
+            $fontColor = $labelFont->getChartColor();
+            if ($fontColor !== null) {
+                $this->writeColor($objWriter, $fontColor);
+            }
+        }
+        if ($axisText !== null) {
+            $this->writeEffects($objWriter, $axisText);
+        }
+        if ($labelFont !== null) {
+            if (!empty($labelFont->getLatin())) {
+                $objWriter->startElement('a:latin');
+                $objWriter->writeAttribute('typeface', $labelFont->getLatin());
+                $objWriter->endElement();
+            }
+            if (!empty($labelFont->getEastAsian())) {
+                $objWriter->startElement('a:eastAsian');
+                $objWriter->writeAttribute('typeface', $labelFont->getEastAsian());
+                $objWriter->endElement();
+            }
+            if (!empty($labelFont->getComplexScript())) {
+                $objWriter->startElement('a:complexScript');
+                $objWriter->writeAttribute('typeface', $labelFont->getComplexScript());
+                $objWriter->endElement();
+            }
+        }
+        $objWriter->endElement(); // a:defRPr
+        $objWriter->endElement(); // a:pPr
+        $objWriter->endElement(); // a:p
     }
 }

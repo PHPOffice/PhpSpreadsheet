@@ -377,7 +377,7 @@ class Xlsx extends BaseWriter
         }
 
         // Add theme to ZIP file
-        $zipContent['xl/theme/theme1.xml'] = $this->getWriterPartTheme()->writeTheme();
+        $zipContent['xl/theme/theme1.xml'] = $this->getWriterPartTheme()->writeTheme($this->spreadSheet);
 
         // Add string table to ZIP file
         $zipContent['xl/sharedStrings.xml'] = $this->getWriterPartStringTable()->writeStringTable($this->stringTable);

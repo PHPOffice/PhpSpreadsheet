@@ -226,9 +226,10 @@ class StringTable extends WriterPart
             if ($element->getFont() !== null) {
                 // rPr
                 $objWriter->startElement($prefix . 'rPr');
-                $size = $element->getFont()->getSize();
-                if (is_numeric($size)) {
-                    $objWriter->writeAttribute('sz', (string) (int) ($size * 100));
+                $fontSize = $element->getFont()->getSize();
+                if (is_numeric($fontSize)) {
+                    $fontSize *= (($fontSize < 100) ? 100 : 1);
+                    $objWriter->writeAttribute('sz', (string) $fontSize);
                 }
 
                 // Bold

@@ -455,6 +455,7 @@ class Xlsx extends BaseReader
 
                     $colourScheme = self::getAttributes($xmlTheme->themeElements->clrScheme);
                     $colourSchemeName = (string) $colourScheme['name'];
+                    $excel->getTheme()->setThemeColorName($colourSchemeName);
                     $colourScheme = $xmlTheme->themeElements->clrScheme->children($drawingNS);
 
                     $themeColours = [];
@@ -466,9 +467,11 @@ class Xlsx extends BaseReader
                         if (isset($xmlColour->sysClr)) {
                             $xmlColourData = self::getAttributes($xmlColour->sysClr);
                             $themeColours[$themePos] = (string) $xmlColourData['lastClr'];
+                            $excel->getTheme()->setThemeColor($k, (string) $xmlColourData['lastClr']);
                         } elseif (isset($xmlColour->srgbClr)) {
                             $xmlColourData = self::getAttributes($xmlColour->srgbClr);
                             $themeColours[$themePos] = (string) $xmlColourData['val'];
+                            $excel->getTheme()->setThemeColor($k, (string) $xmlColourData['val']);
                         }
                     }
                     $theme = new Theme($themeName, $colourSchemeName, $themeColours);
