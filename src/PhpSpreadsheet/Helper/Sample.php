@@ -195,7 +195,7 @@ class Sample
     public function log(string $message): void
     {
         $eol = $this->isCli() ? PHP_EOL : '<br />';
-        echo date('H:i:s ') . $message . $eol;
+        echo($this->isCli() ? date('H:i:s ') : '') . $message . $eol;
     }
 
     public function titles(string $category, string $functionName, ?string $description = null): void
