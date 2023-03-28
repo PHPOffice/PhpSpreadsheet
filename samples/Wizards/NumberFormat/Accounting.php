@@ -1,6 +1,6 @@
 <?php
 
-use PhpOffice\PhpSpreadsheet\Exception;
+use PhpOffice\PhpSpreadsheet\Exception as SpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Helper\Sample;
 use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
@@ -90,13 +90,14 @@ if (isset($_POST['submit'])) {
                 (isset($_POST['thousands']) ? 'WITH_THOUSANDS_SEPARATOR' : 'WITHOUT_THOUSANDS_SEPARATOR') .
                 ', Wizard\Currency::' . (((bool) $_POST['position']) ? 'LEADING_SYMBOL' : 'TRAILING_SYMBOL') .
                 ', Wizard\Currency::' . (((bool) $_POST['spacing']) ? 'SYMBOL_WITH_SPACING' : 'SYMBOL_WITHOUT_SPACING') .
-                ')<br />'
+                ');<br />'
             );
+            $helper->log('echo (string) $mask;');
             $helper->log('<hr /><b>Mask:</b><br />');
             $helper->log($mask . '<br />');
             $helper->log('<br /><b>Example:</b><br />');
             $helper->log($example);
-        } catch (Exception $e) {
+        } catch (SpreadsheetException $e) {
             $helper->log("Exception: {$e->getMessage()}");
         }
     }

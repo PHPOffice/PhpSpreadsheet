@@ -1,6 +1,6 @@
 <?php
 
-use PhpOffice\PhpSpreadsheet\Exception;
+use PhpOffice\PhpSpreadsheet\Exception as SpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Helper\Sample;
 use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
@@ -61,13 +61,14 @@ if (isset($_POST['submit'])) {
             $helper->log(
                 "\$mask = Wizard\\Number({$_POST['decimals']}, Wizard\\Number::" .
                 (isset($_POST['thousands']) ? 'WITH_THOUSANDS_SEPARATOR' : 'WITHOUT_THOUSANDS_SEPARATOR') .
-                ')<br />'
+                ');<br />'
             );
+            $helper->log('echo (string) $mask;');
             $helper->log('<hr /><b>Mask:</b>');
             $helper->log($mask);
             $helper->log('<b>Example:</b>');
             $helper->log($example);
-        } catch (Exception $e) {
+        } catch (SpreadsheetException $e) {
             $helper->log("Exception: {$e->getMessage()}");
         }
     }
