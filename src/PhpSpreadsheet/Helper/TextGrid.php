@@ -48,7 +48,7 @@ class TextGrid
 
     public function render(): string
     {
-        $this->gridDisplay = $this->isCli ? '' : '<code>';
+        $this->gridDisplay = $this->isCli ? '' : '<pre>';
 
         $maxRow = max($this->rows);
         $maxRowLength = strlen((string) $maxRow) + 1;
@@ -58,7 +58,7 @@ class TextGrid
         $this->renderRows($maxRowLength, $columnWidths);
         $this->renderFooter($maxRowLength, $columnWidths);
 
-        $this->gridDisplay .= $this->isCli ? '' : '</code>';
+        $this->gridDisplay .= $this->isCli ? '' : '</pre>';
 
         return $this->gridDisplay;
     }
