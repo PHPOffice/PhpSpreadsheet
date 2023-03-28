@@ -195,7 +195,8 @@ class Theme
         return $this->majorFontSubstitutions;
     }
 
-    public function setMajorFontValues(?string $latin, ?string $eastAsian, ?string $complexScript, ?array $substitutions): self
+    /** @param null|array $substitutions */
+    public function setMajorFontValues(?string $latin, ?string $eastAsian, ?string $complexScript, $substitutions): self
     {
         if (!empty($latin)) {
             $this->majorFontLatin = $latin;
@@ -233,7 +234,8 @@ class Theme
         return $this->minorFontSubstitutions;
     }
 
-    public function setMinorFontValues(?string $latin, ?string $eastAsian, ?string $complexScript, ?array $substitutions): self
+    /** @param null|array $substitutions */
+    public function setMinorFontValues(?string $latin, ?string $eastAsian, ?string $complexScript, $substitutions): self
     {
         if (!empty($latin)) {
             $this->minorFontLatin = $latin;
