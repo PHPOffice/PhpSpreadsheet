@@ -14,6 +14,16 @@ if ($helper->isCli()) {
 
     return;
 }
+
+$currencies = [
+    '$' => 'US Dollars ($)',
+    '€' => 'Euro (€)',
+    '¥' => 'Japanese Yen (¥)',
+    '£' => 'Pound Sterling (£)',
+    '₹' => 'Rupee (₹)',
+    '₽' => 'Rouble (₽)',
+];
+
 ?>
     <form action=Accounting.php method="POST">
         <div class="mb-3 row">
@@ -29,12 +39,9 @@ if ($helper->isCli()) {
             <label for="currency" class="col-sm-2 col-form-label">Currency</label>
             <div class="col-sm-10">
                 <select name="currency" class="form-select">
-                    <option value="$" <?php echo (isset($_POST['currency']) && $_POST['currency'] === '$') ? 'selected' : ''; ?>>US Dollars ($)</option>
-                    <option value="€" <?php echo (isset($_POST['currency']) && $_POST['currency'] === '€') ? 'selected' : ''; ?>>Euro (€)</option>
-                    <option value="¥" <?php echo (isset($_POST['currency']) && $_POST['currency'] === '¥') ? 'selected' : ''; ?>>Japanese Yen (¥)</option>
-                    <option value="£" <?php echo (isset($_POST['currency']) && $_POST['currency'] === '£') ? 'selected' : ''; ?>>Pound Sterling (£)</option>
-                    <option value="₹" <?php echo (isset($_POST['currency']) && $_POST['currency'] === '₹') ? 'selected' : ''; ?>>Rupee (₹)</option>
-                    <option value="₽" <?php echo (isset($_POST['currency']) && $_POST['currency'] === '₽') ? 'selected' : ''; ?>>Rouble (₽)</option>
+                    <?php foreach ($currencies as $currencySymbol => $currencyName) {
+                        echo "<option value=\"{$currencySymbol}\" " . ((isset($_POST['currency']) && $_POST['currency'] === $currencySymbol) ? 'selected' : '') . ">{$currencyName}</option>", PHP_EOL;
+                    } ?>
                 </select>
             </div>
         </div>
