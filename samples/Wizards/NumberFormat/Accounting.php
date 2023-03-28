@@ -15,7 +15,7 @@ if ($helper->isCli()) {
     return;
 }
 ?>
-    <form action="Currency.php" method="POST">
+    <form action=Accounting.php method="POST">
         <div class="mb-3 row">
             <label for="number" class="col-sm-2 col-form-label">Sample Number Value</label>
             <div class="col-sm-10">
@@ -86,10 +86,10 @@ if (isset($_POST['submit'])) {
             $helper->log('<hr /><b>Code:</b><br />');
             $helper->log('use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard;');
             $helper->log(
-                "\$mask = Wizard\Accounting('{$_POST['currency']}', {$_POST['decimals']}, Wizard\Number::" .
+                "\$mask = Wizard\\Accounting('{$_POST['currency']}', {$_POST['decimals']}, Wizard\\Number::" .
                 (isset($_POST['thousands']) ? 'WITH_THOUSANDS_SEPARATOR' : 'WITHOUT_THOUSANDS_SEPARATOR') .
-                (((bool) $_POST['position']) ? ', Wizard\Accounting::LEADING_SYMBOL' : ', Wizard\Accounting::TRAILING_SYMBOL') .
-                (((bool) $_POST['spacing']) ? ', Wizard\Accounting::SYMBOL_WITH_SPACING' : ', Wizard\Accounting::SYMBOL_WITHOUT_SPACING') .
+                ', Wizard\Currency::' . (((bool) $_POST['position']) ? 'LEADING_SYMBOL' : 'TRAILING_SYMBOL') .
+                ', Wizard\Currency::' . (((bool) $_POST['spacing']) ? 'SYMBOL_WITH_SPACING' : 'SYMBOL_WITHOUT_SPACING') .
                 ')<br />'
             );
             $helper->log('<hr /><b>Mask:</b><br />');

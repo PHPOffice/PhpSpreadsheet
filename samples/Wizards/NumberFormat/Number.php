@@ -59,7 +59,7 @@ if (isset($_POST['submit'])) {
             $helper->log('<hr /><b>Code:</b><br />');
             $helper->log('use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard;');
             $helper->log(
-                "\$mask = Wizard\Number({$_POST['decimals']}, Wizard\Number::" .
+                "\$mask = Wizard\\Number({$_POST['decimals']}, Wizard\\Number::" .
                 (isset($_POST['thousands']) ? 'WITH_THOUSANDS_SEPARATOR' : 'WITHOUT_THOUSANDS_SEPARATOR') .
                 ')<br />'
             );

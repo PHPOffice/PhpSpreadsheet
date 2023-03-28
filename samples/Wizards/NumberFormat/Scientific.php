@@ -52,7 +52,7 @@ if (isset($_POST['submit'])) {
             $example = (string) NumberFormat::toFormattedString((float) $_POST['number'], $mask);
             $helper->log('<hr /><b>Code:</b><br />');
             $helper->log('use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard;');
-            $helper->log("\$mask = Wizard\Scientific({$_POST['decimals']})<br />");
+            $helper->log("\$mask = Wizard\\Scientific({$_POST['decimals']})<br />");
             $helper->log('<hr /><b>Mask:</b><br />');
             $helper->log($mask . '<br />');
             $helper->log('<br /><b>Example:</b><br />');
