@@ -26,7 +26,7 @@ class Downloader
             throw new Exception("Folder {$folder} is not accessable");
         }
         $filepath = "{$folder}/{$filename}";
-        $this->filepath = realpath($filepath);
+        $this->filepath = (string) realpath($filepath);
         $this->filename = basename($filepath);
         if ((file_exists($this->filepath) === false) || (is_readable($this->filepath) === false)) {
             throw new Exception("{$this->filename} not found, or cannot be read");

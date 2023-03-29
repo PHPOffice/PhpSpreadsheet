@@ -249,7 +249,10 @@ class Sample
         $callTime = $callEndTime - $callStartTime;
         $reflection = new ReflectionClass($writer);
         $format = $reflection->getShortName();
-        $message = "Write {$format} format to <code>{$path}</code>  in " . sprintf('%.4f', $callTime) . ' seconds';
+
+        $message = ($this->isCli() === true)
+            ? "Write {$format} format to {$path}  in " . sprintf('%.4f', $callTime) . ' seconds'
+            : "Write {$format} format to <code>{$path}</code>  in " . sprintf('%.4f', $callTime) . ' seconds';
 
         $this->log($message);
     }
