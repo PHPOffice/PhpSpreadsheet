@@ -41,17 +41,16 @@ function createSheet(Spreadsheet $spreadsheet, string $rule): void
     $sheet->getColumnDimension('A')->setAutoSize(true);
     $sheet->getColumnDimension('B')->setAutoSize(true);
     $autoFilter = $spreadsheet->getActiveSheet()->getAutoFilter();
-    $autoFilter->setRange("A1:A$row");
+    $autoFilter->setRange("A1:A{$row}");
     $columnFilter = $autoFilter->getColumn('A');
     $columnFilter->setFilterType(Column::AUTOFILTER_FILTERTYPE_DYNAMICFILTER);
     $columnFilter->createRule()
-        ->setRule(
-            Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
-            '',
-            $rule
-        )
+        ->setRule(Rule::AUTOFILTER_COLUMN_RULE_EQUAL, '', $rule)
         ->setRuleType(Rule::AUTOFILTER_RULETYPE_DYNAMICFILTER);
     $sheet->setSelectedCell('B1');
+
+    $helper->log('Execute filtering (apply the filter rules)');
+    $autoFilter->showHideRows();
 }
 
 // Create new Spreadsheet object
