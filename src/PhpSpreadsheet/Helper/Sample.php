@@ -132,6 +132,9 @@ class Sample
             $callStartTime = microtime(true);
             $writer->save($path);
             $this->logWrite($writer, $path, /** @scrutinizer ignore-type */ $callStartTime);
+            if ($this->isCli() === false) {
+                echo '<a href="/download.php?type=' . pathinfo($path, PATHINFO_EXTENSION) . '&name=' . basename($path) . '">Download ' . basename($path) . '</a><br />';
+            }
         }
 
         $this->logEndingNotes();
@@ -147,7 +150,7 @@ class Sample
      *
      * @return string
      */
-    private function getTemporaryFolder()
+    public function getTemporaryFolder()
     {
         $tempFolder = sys_get_temp_dir() . '/phpspreadsheet';
         if (!$this->isDirOrMkdir($tempFolder)) {
