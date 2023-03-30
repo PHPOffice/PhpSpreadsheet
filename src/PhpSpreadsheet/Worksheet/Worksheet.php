@@ -2989,6 +2989,37 @@ class Worksheet implements IComparable
     }
 
     /**
+     * @param mixed $nullValue
+     *
+     * @throws Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Calculation\Exception
+     *
+     * @return mixed
+     */
+    protected function cellToArray(Cell $cell, bool $calculateFormulas, bool $formatData, $nullValue)
+    {
+        $returnValue = $nullValue;
+
+        if ($cell->getValue() !== null) {
+            if ($cell->getValue() instanceof RichText) {
+                $returnValue = $cell->getValue()->getPlainText();
+            } else {
+                $returnValue = ($calculateFormulas) ? $cell->getCalculatedValue() : $cell->getValue();
+            }
+
+            if ($formatData) {
+                $style = $this->getParentOrThrow()->getCellXfByIndex($cell->getXfIndex());
+                $returnValue = NumberFormat::toFormattedString(
+                    $returnValue,
+                    $style->getNumberFormat()->getFormatCode() ?? NumberFormat::FORMAT_GENERAL
+                );
+            }
+        }
+
+        return $returnValue;
+    }
+
+    /**
      * Create array from a range of cells.
      *
      * @param mixed $nullValue Value returned in the array entry if a cell doesn't exist
@@ -3035,33 +3066,9 @@ class Worksheet implements IComparable
                 //    Using getCell() will create a new cell if it doesn't already exist. We don't want that to happen
                 //        so we test and retrieve directly against cellCollection
                 $cell = $this->cellCollection->get("{$col}{$row}");
+                $returnValue[$rowRef][$columnRef] = $nullValue;
                 if ($cell !== null) {
-                    // Cell exists
-                    if ($cell->getValue() !== null) {
-                        if ($cell->getValue() instanceof RichText) {
-                            $returnValue[$rowRef][$columnRef] = $cell->getValue()->getPlainText();
-                        } else {
-                            if ($calculateFormulas) {
-                                $returnValue[$rowRef][$columnRef] = $cell->getCalculatedValue();
-                            } else {
-                                $returnValue[$rowRef][$columnRef] = $cell->getValue();
-                            }
-                        }
-
-                        if ($formatData) {
-                            $style = $this->getParentOrThrow()->getCellXfByIndex($cell->getXfIndex());
-                            $returnValue[$rowRef][$columnRef] = NumberFormat::toFormattedString(
-                                $returnValue[$rowRef][$columnRef],
-                                $style->getNumberFormat()->getFormatCode() ?? NumberFormat::FORMAT_GENERAL
-                            );
-                        }
-                    } else {
-                        // Cell holds a NULL
-                        $returnValue[$rowRef][$columnRef] = $nullValue;
-                    }
-                } else {
-                    // Cell doesn't exist
-                    $returnValue[$rowRef][$columnRef] = $nullValue;
+                    $returnValue[$rowRef][$columnRef] = $this->cellToArray($cell, $calculateFormulas, $formatData, $nullValue);
                 }
             }
         }
