@@ -2991,7 +2991,6 @@ class Worksheet implements IComparable
     /**
      * Create array from a range of cells.
      *
-     * @param string $range Range of cells (i.e. "A1:B10"), or just one cell (i.e. "A1")
      * @param mixed $nullValue Value returned in the array entry if a cell doesn't exist
      * @param bool $calculateFormulas Should formulas be calculated?
      * @param bool $formatData Should formatting be applied to cell values?
@@ -3008,6 +3007,8 @@ class Worksheet implements IComparable
         bool $returnCellRef = false,
         bool $ignoreHidden = false
     ): array {
+        $range = Validations::validateCellOrCellRange($range);
+
         $returnValue = [];
         //    Identify the range that we need to extract from the worksheet
         [$rangeStart, $rangeEnd] = Coordinate::rangeBoundaries($range);

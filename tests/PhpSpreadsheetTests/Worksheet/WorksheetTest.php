@@ -3,6 +3,8 @@
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
 use Exception;
+use PhpOffice\PhpSpreadsheet\Cell\CellAddress;
+use PhpOffice\PhpSpreadsheet\Cell\CellRange;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -599,6 +601,36 @@ class WorksheetTest extends TestCase
                 ['A', 'B', 'C', 'D', 'E', 'F'],
                 ['A', 'C', 'F'],
                 [1 => ['B' => 'B', 'D' => 'D', 'E' => 'E']],
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider rangeToArrayProvider
+     */
+    public function testRangeToArrayWithCellRangeObject(array $expected, string $fromCell, string $toCell): void
+    {
+        $initialData = array_chunk(range('A', 'Y'), 5);
+
+        $workbook = new Spreadsheet();
+        $worksheet = $workbook->getActiveSheet();
+        $worksheet->fromArray($initialData);
+
+        $cellRange = new CellRange(new CellAddress($fromCell), new CellAddress($toCell));
+
+        self::assertSame($expected, $worksheet->rangeToArray($cellRange));
+    }
+
+    public function rangeToArrayProvider(): array
+    {
+        return [
+            [
+                [['A', 'B'], ['F', 'G']],
+                'A1', 'B2',
+            ],
+            [
+                [['G', 'H', 'I'], ['L', 'M', 'N'], ['Q', 'R', 'S']],
+                'B2', 'D4',
             ],
         ];
     }
