@@ -156,7 +156,11 @@ class File
         if ($zipMember !== '') {
             $zipfile = "zip://$filename#$zipMember";
             if (!self::fileExists($zipfile)) {
-                throw new ReaderException("Could not find zip member $zipfile");
+                // Has the file been saved with Windoze directory separators rather than unix?
+                $zipfile = "zip://$filename#" . str_replace('/', '\\', $zipMember);
+                if (!self::fileExists($zipfile)) {
+                    throw new ReaderException("Could not find zip member $zipfile");
+                }
             }
         }
     }
@@ -180,6 +184,14 @@ class File
             return self::validateZipFirst4($filename);
         }
 
-        return self::fileExists("zip://$filename#$zipMember");
+        $zipfile = "zip://$filename#$zipMember";
+        if (self::fileExists($zipfile)) {
+            return true;
+        }
+
+        // Has the file been saved with Windoze directory separators rather than unix?
+        $zipfile = "zip://$filename#" . str_replace('/', '\\', $zipMember);
+
+        return self::fileExists($zipfile);
     }
 }
