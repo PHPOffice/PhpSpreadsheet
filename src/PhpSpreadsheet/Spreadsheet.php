@@ -203,6 +203,14 @@ class Spreadsheet implements JsonSerializable
      */
     private $tabRatio = 600;
 
+    /** @var Theme */
+    private $theme;
+
+    public function getTheme(): Theme
+    {
+        return $this->theme;
+    }
+
     /**
      * The workbook has macros ?
      *
@@ -476,6 +484,7 @@ class Spreadsheet implements JsonSerializable
     {
         $this->uniqueID = uniqid('', true);
         $this->calculationEngine = new Calculation($this);
+        $this->theme = new Theme();
 
         // Initialise worksheet collection and add one worksheet
         $this->workSheetCollection = [];
