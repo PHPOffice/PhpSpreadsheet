@@ -107,6 +107,9 @@ class Font extends Supervisor
      */
     public $colorIndex;
 
+    /** @var string */
+    protected $scheme = '';
+
     /**
      * Create a new Font.
      *
@@ -234,6 +237,9 @@ class Font extends Supervisor
             if (isset($styleArray['chartColor'])) {
                 $this->chartColor = $styleArray['chartColor'];
             }
+            if (isset($styleArray['scheme'])) {
+                $this->setScheme($styleArray['scheme']);
+            }
         }
 
         return $this;
@@ -281,13 +287,11 @@ class Font extends Supervisor
     }
 
     /**
-     * Set Name.
+     * Set Name and turn off Scheme.
      *
      * @param string $fontname
-     *
-     * @return $this
      */
-    public function setName($fontname)
+    public function setName($fontname): self
     {
         if ($fontname == '') {
             $fontname = 'Calibri';
@@ -299,7 +303,7 @@ class Font extends Supervisor
             $this->name = $fontname;
         }
 
-        return $this;
+        return $this->setScheme('');
     }
 
     public function setLatin(string $fontname): self
@@ -784,6 +788,7 @@ class Font extends Supervisor
             $this->underline .
             ($this->strikethrough ? 't' : 'f') .
             $this->color->getHashCode() .
+            $this->scheme .
             implode(
                 '*',
                 [
@@ -812,6 +817,7 @@ class Font extends Supervisor
         $this->exportArray2($exportedArray, 'italic', $this->getItalic());
         $this->exportArray2($exportedArray, 'latin', $this->getLatin());
         $this->exportArray2($exportedArray, 'name', $this->getName());
+        $this->exportArray2($exportedArray, 'scheme', $this->getScheme());
         $this->exportArray2($exportedArray, 'size', $this->getSize());
         $this->exportArray2($exportedArray, 'strikethrough', $this->getStrikethrough());
         $this->exportArray2($exportedArray, 'strikeType', $this->getStrikeType());
@@ -821,5 +827,28 @@ class Font extends Supervisor
         $this->exportArray2($exportedArray, 'underlineColor', $this->getUnderlineColor());
 
         return $exportedArray;
+    }
+
+    public function getScheme(): string
+    {
+        if ($this->isSupervisor) {
+            return $this->getSharedComponent()->getScheme();
+        }
+
+        return $this->scheme;
+    }
+
+    public function setScheme(string $scheme): self
+    {
+        if ($scheme === '' || $scheme === 'major' || $scheme === 'minor') {
+            if ($this->isSupervisor) {
+                $styleArray = $this->getStyleArray(['scheme' => $scheme]);
+                $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
+            } else {
+                $this->scheme = $scheme;
+            }
+        }
+
+        return $this;
     }
 }
