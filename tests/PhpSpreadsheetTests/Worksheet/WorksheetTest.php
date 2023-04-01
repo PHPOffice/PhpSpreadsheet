@@ -3,6 +3,8 @@
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
 use Exception;
+use PhpOffice\PhpSpreadsheet\Cell\CellAddress;
+use PhpOffice\PhpSpreadsheet\Cell\CellRange;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -531,5 +533,105 @@ class WorksheetTest extends TestCase
 
         $table = $worksheet->getTableByName('DeptSales');
         self::assertInstanceOf(Table::class, $table);
+    }
+
+    /**
+     * @dataProvider toArrayHiddenRowsProvider
+     */
+    public function testHiddenRows(
+        array $initialData,
+        array $hiddenRows,
+        array $expectedData
+    ): void {
+        $workbook = new Spreadsheet();
+        $worksheet = $workbook->getActiveSheet();
+        $worksheet->fromArray($initialData);
+
+        foreach ($hiddenRows as $hiddenRow) {
+            $worksheet->getRowDimension($hiddenRow)->setVisible(false);
+        }
+
+        self::assertSame($expectedData, $worksheet->toArray(null, false, false, true, true));
+    }
+
+    public function toArrayHiddenRowsProvider(): array
+    {
+        return [
+            [
+                [[1], [2], [3], [4], [5], [6]],
+                [2, 3, 5],
+                [1 => ['A' => 1], 4 => ['A' => 4], 6 => ['A' => 6]],
+            ],
+            [
+                [[1], [2], [3], [4], [5], [6]],
+                [1, 3, 6],
+                [2 => ['A' => 2], 4 => ['A' => 4], 5 => ['A' => 5]],
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider toArrayHiddenColumnsProvider
+     */
+    public function testHiddenColumns(
+        array $initialData,
+        array $hiddenColumns,
+        array $expectedData
+    ): void {
+        $workbook = new Spreadsheet();
+        $worksheet = $workbook->getActiveSheet();
+        $worksheet->fromArray($initialData);
+
+        foreach ($hiddenColumns as $hiddenColumn) {
+            $worksheet->getColumnDimension($hiddenColumn)->setVisible(false);
+        }
+
+        self::assertSame($expectedData, $worksheet->toArray(null, false, false, true, true));
+    }
+
+    public function toArrayHiddenColumnsProvider(): array
+    {
+        return [
+            [
+                ['A', 'B', 'C', 'D', 'E', 'F'],
+                ['B', 'C', 'E'],
+                [1 => ['A' => 'A', 'D' => 'D', 'F' => 'F']],
+            ],
+            [
+                ['A', 'B', 'C', 'D', 'E', 'F'],
+                ['A', 'C', 'F'],
+                [1 => ['B' => 'B', 'D' => 'D', 'E' => 'E']],
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider rangeToArrayProvider
+     */
+    public function testRangeToArrayWithCellRangeObject(array $expected, string $fromCell, string $toCell): void
+    {
+        $initialData = array_chunk(range('A', 'Y'), 5);
+
+        $workbook = new Spreadsheet();
+        $worksheet = $workbook->getActiveSheet();
+        $worksheet->fromArray($initialData);
+
+        $cellRange = new CellRange(new CellAddress($fromCell), new CellAddress($toCell));
+
+        self::assertSame($expected, $worksheet->rangeToArray($cellRange));
+    }
+
+    public function rangeToArrayProvider(): array
+    {
+        return [
+            [
+                [['A', 'B'], ['F', 'G']],
+                'A1', 'B2',
+            ],
+            [
+                [['G', 'H', 'I'], ['L', 'M', 'N'], ['Q', 'R', 'S']],
+                'B2', 'D4',
+            ],
+        ];
     }
 }

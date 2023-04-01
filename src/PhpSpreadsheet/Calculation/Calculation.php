@@ -4860,8 +4860,10 @@ class Calculation
                                 return $this->raiseFormulaError('Unable to access Cell Reference');
                             }
 
+                            $this->debugLog->writeDebugLog('Evaluation Result is %s', $this->showTypeDetails($cellValue));
                             $stack->push('Cell Reference', $cellValue, $cellRef);
                         } else {
+                            $this->debugLog->writeDebugLog('Evaluation Result is a #REF! Error');
                             $stack->push('Error', Information\ExcelError::REF(), null);
                         }
 
