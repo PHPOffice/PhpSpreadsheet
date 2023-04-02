@@ -4738,7 +4738,7 @@ class Calculation
                     $cellRange = $token->parse($cell);
                     if (strpos($cellRange, ':') !== false) {
                         $this->debugLog->writeDebugLog('Evaluating Structured Reference %s as Cell Range %s', $token->value(), $cellRange);
-                        $rangeValue = self::getInstance($cell->getWorksheet()->getParent())->_calculateFormulaValue("={$cellRange}", $token->value(), $cell);
+                        $rangeValue = self::getInstance($cell->getWorksheet()->getParent())->_calculateFormulaValue("={$cellRange}", $cellRange, $cell);
                         $stack->push('Value', $rangeValue);
                         $this->debugLog->writeDebugLog('Evaluated Structured Reference %s as value %s', $token->value(), $this->showValue($rangeValue));
                     } else {
