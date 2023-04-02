@@ -170,10 +170,5 @@ $spreadsheet->setActiveSheetIndex(0);
 
 // Display Results of filtering
 $helper->log('Display filtered rows');
-foreach ($spreadsheet->getActiveSheet()->getRowIterator() as $row) {
-    if ($spreadsheet->getActiveSheet()->getRowDimension($row->getRowIndex())->getVisible()) {
-        $helper->log('    Row number - ' . $row->getRowIndex());
-        $helper->log($spreadsheet->getActiveSheet()->getCell('C' . $row->getRowIndex())->getValue());
-        $helper->log($spreadsheet->getActiveSheet()->getCell('D' . $row->getRowIndex())->getFormattedValue());
-    }
-}
+
+$helper->displayGrid($spreadsheet->getActiveSheet()->toArray(null, false, true, true, true));

@@ -1,5 +1,6 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Helper\Sample;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule;
@@ -11,8 +12,10 @@ require __DIR__ . '/../Header.php';
 // This possibility is accounted for in unit tests,
 // but seems unneccesarily complicated for the sample.
 
-function createSheet(Spreadsheet $spreadsheet, string $rule): void
+function createSheet(Sample $helper, Spreadsheet $spreadsheet, string $rule, bool $displayInitialWorksheet): void
 {
+    $helper->log('Add data');
+
     $sheet = $spreadsheet->createSheet();
     $sheet->setTitle($rule);
     $sheet->getCell('A1')->setValue('Date');
@@ -40,6 +43,13 @@ function createSheet(Spreadsheet $spreadsheet, string $rule): void
     $sheet->getStyle('B1')->getNumberFormat()->setFormatCode('yyyy-mm-dd');
     $sheet->getColumnDimension('A')->setAutoSize(true);
     $sheet->getColumnDimension('B')->setAutoSize(true);
+
+    if ($displayInitialWorksheet) {
+        $helper->log('Unfiltered Dates');
+        $helper->displayGrid($sheet->toArray(null, true, true, true));
+    }
+
+    $helper->log("Filter for $rule");
     $autoFilter = $spreadsheet->getActiveSheet()->getAutoFilter();
     $autoFilter->setRange("A1:A{$row}");
     $columnFilter = $autoFilter->getColumn('A');
@@ -51,6 +61,9 @@ function createSheet(Spreadsheet $spreadsheet, string $rule): void
 
     $helper->log('Execute filtering (apply the filter rules)');
     $autoFilter->showHideRows();
+
+    $helper->log('Filtered Dates');
+    $helper->displayGrid($sheet->toArray(null, true, true, true, true));
 }
 
 // Create new Spreadsheet object
@@ -89,9 +102,8 @@ $ruleNames = [
 ];
 
 // Create the worksheets
-foreach ($ruleNames as $ruleName) {
-    $helper->log("Add data and filter for $ruleName");
-    createSheet($spreadsheet, $ruleName);
+foreach ($ruleNames as $index => $ruleName) {
+    createSheet($helper, $spreadsheet, $ruleName, $index === 0);
 }
 $spreadsheet->removeSheetByIndex(0);
 $spreadsheet->setActiveSheetIndex(0);

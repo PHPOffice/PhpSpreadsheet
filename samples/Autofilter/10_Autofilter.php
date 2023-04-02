@@ -100,4 +100,4 @@ $helper->log("Set autofilter for cells {$filterRange}");
 $spreadsheet->getActiveSheet()->setAutoFilter($filterRange);
 
 // Save
-$helper->write($spreadsheet, __FILE__);
+$helper->write($spreadsheet, __FILE__, ['Xlsx']);
