@@ -916,7 +916,8 @@ class Xlsx extends BaseReader
                                 }
                             }
                             if ($xmlSheetNS && $xmlSheetNS->ignoredErrors) {
-                                foreach ($xmlSheetNS->ignoredErrors->ignoredError as $ignoredError) {
+                                foreach ($xmlSheetNS->ignoredErrors->ignoredError as $ignoredErrorx) {
+                                    $ignoredError = self::testSimpleXml($ignoredErrorx);
                                     $this->processIgnoredErrors($ignoredError, $docSheet);
                                 }
                             }
