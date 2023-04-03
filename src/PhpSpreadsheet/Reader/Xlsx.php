@@ -915,6 +915,11 @@ class Xlsx extends BaseReader
                                     ++$cIndex;
                                 }
                             }
+                            if ($xmlSheetNS && $xmlSheetNS->ignoredErrors) {
+                                foreach ($xmlSheetNS->ignoredErrors->ignoredError as $ignoredError) {
+                                    $this->processIgnoredErrors($ignoredError, $docSheet);
+                                }
+                            }
 
                             if (!$this->readDataOnly && $xmlSheetNS && $xmlSheetNS->sheetProtection) {
                                 $protAttr = $xmlSheetNS->sheetProtection->attributes() ?? [];
@@ -2221,5 +2226,49 @@ class Xlsx extends BaseReader
         }
 
         return $array;
+    }
+
+    private function processIgnoredErrors(SimpleXMLElement $xml, Worksheet $sheet): void
+    {
+        $attributes = self::getAttributes($xml);
+        $sqref = (string) ($attributes['sqref'] ?? '');
+        $numberStoredAsText = (string) ($attributes['numberStoredAsText'] ?? '');
+        $formula = (string) ($attributes['formula'] ?? '');
+        $twoDigitTextYear = (string) ($attributes['twoDigitTextYear'] ?? '');
+        $evalError = (string) ($attributes['evalError'] ?? '');
+        if (!empty($sqref)) {
+            $explodedSqref = explode(' ', $sqref);
+            $pattern1 = '/^([A-Z]{1,3})([0-9]{1,7})(:([A-Z]{1,3})([0-9]{1,7}))?$/';
+            foreach ($explodedSqref as $sqref1) {
+                if (preg_match($pattern1, $sqref1, $matches) === 1) {
+                    $firstRow = $matches[2];
+                    $firstCol = $matches[1];
+                    if (array_key_exists(3, $matches)) {
+                        $lastCol = $matches[4];
+                        $lastRow = $matches[5];
+                    } else {
+                        $lastCol = $firstCol;
+                        $lastRow = $firstRow;
+                    }
+                    ++$lastCol;
+                    for ($row = $firstRow; $row <= $lastRow; ++$row) {
+                        for ($col = $firstCol; $col !== $lastCol; ++$col) {
+                            if ($numberStoredAsText === '1') {
+                                $sheet->getCell("$col$row")->setIgnoredErrorNumberStoredAsText(true);
+                            }
+                            if ($formula === '1') {
+                                $sheet->getCell("$col$row")->setIgnoredErrorFormula(true);
+                            }
+                            if ($twoDigitTextYear === '1') {
+                                $sheet->getCell("$col$row")->setIgnoredErrorTwoDigitTextYear(true);
+                            }
+                            if ($evalError === '1') {
+                                $sheet->getCell("$col$row")->setIgnoredErrorEvalError(true);
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }

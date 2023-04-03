@@ -71,6 +71,18 @@ class Cell
      */
     private $formulaAttributes;
 
+    /** @var bool */
+    private $ignoredErrorNumberStoredAsText = false;
+
+    /** @var bool */
+    private $ignoredErrorFormula = false;
+
+    /** @var bool */
+    private $ignoredErrorTwoDigitTextYear = false;
+
+    /** @var bool */
+    private $ignoredErrorEvalError = false;
+
     /**
      * Update the cell into the cell collection.
      *
@@ -795,5 +807,53 @@ class Cell
     public function __toString()
     {
         return (string) $this->getValue();
+    }
+
+    public function setIgnoredErrorNumberStoredAsText(bool $value): self
+    {
+        $this->ignoredErrorNumberStoredAsText = $value;
+
+        return $this;
+    }
+
+    public function getIgnoredErrorNumberStoredAsText(): bool
+    {
+        return $this->ignoredErrorNumberStoredAsText;
+    }
+
+    public function setIgnoredErrorFormula(bool $value): self
+    {
+        $this->ignoredErrorFormula = $value;
+
+        return $this;
+    }
+
+    public function getIgnoredErrorFormula(): bool
+    {
+        return $this->ignoredErrorFormula;
+    }
+
+    public function setIgnoredErrorTwoDigitTextYear(bool $value): self
+    {
+        $this->ignoredErrorTwoDigitTextYear = $value;
+
+        return $this;
+    }
+
+    public function getIgnoredErrorTwoDigitTextYear(): bool
+    {
+        return $this->ignoredErrorTwoDigitTextYear;
+    }
+
+    public function setIgnoredErrorEvalError(bool $value): self
+    {
+        $this->ignoredErrorEvalError = $value;
+
+        return $this;
+    }
+
+    public function getIgnoredErrorEvalError(): bool
+    {
+        return $this->ignoredErrorEvalError;
     }
 }
