@@ -108,6 +108,33 @@ class IOFactoryTest extends TestCase
         ];
     }
 
+    public function testIdentifyInvalid(): void
+    {
+        $file = __DIR__ . '/../data/Reader/NotASpreadsheetFile.doc';
+
+        $this->expectException(ReaderException::class);
+        $this->expectExceptionMessage('Unable to identify a reader for this file');
+        IOFactory::identify($file);
+    }
+
+    public function testCreateInvalid(): void
+    {
+        $file = __DIR__ . '/../data/Reader/NotASpreadsheetFile.doc';
+
+        $this->expectException(ReaderException::class);
+        $this->expectExceptionMessage('Unable to identify a reader for this file');
+        IOFactory::createReaderForFile($file);
+    }
+
+    public function testLoadInvalid(): void
+    {
+        $file = __DIR__ . '/../data/Reader/NotASpreadsheetFile.doc';
+
+        $this->expectException(ReaderException::class);
+        $this->expectExceptionMessage('Unable to identify a reader for this file');
+        IOFactory::load($file);
+    }
+
     public function testFormatAsExpected(): void
     {
         $fileName = 'samples/templates/30template.xls';
