@@ -922,6 +922,20 @@ $spreadsheet->getDefaultStyle()->getFont()->setName('Arial');
 $spreadsheet->getDefaultStyle()->getFont()->setSize(8);
 ```
 
+Excel also offers "theme fonts", with separate font names for major (header) and minor (body) text. PhpSpreadsheet will use the Excel 2007 default (Cambria) for major (default is Calibri Light in Excel 2013+); PhpSpreadsheet default for minor is Calibri, which is used by Excel 2007+. To align the default font name with the minor font name:
+
+```php
+$spreadsheet->getTheme()
+    ->setThemeFontName('custom')
+    ->setMinorFontValues('Arial', 'Arial', 'Arial', []);
+$spreadsheet->getDefaultStyle()->getFont()->setScheme('minor');
+```
+
+All cells bound to the theme fonts (via the `Font::setScheme` method) can be easily changed to a different font in Excel. To do this in PhpSpreadsheet, an additional method call is needed:
+```php
+$spreadsheet->resetThemeFonts();
+```
+
 ### Styling cell borders
 
 In PhpSpreadsheet it is easy to apply various borders on a rectangular
