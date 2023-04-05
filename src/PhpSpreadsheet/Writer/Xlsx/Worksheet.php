@@ -40,6 +40,10 @@ class Worksheet extends WriterPart
      */
     public function writeWorksheet(PhpspreadsheetWorksheet $worksheet, $stringTable = [], $includeCharts = false)
     {
+        $this->numberStoredAsText = '';
+        $this->formula = '';
+        $this->twoDigitTextYear = '';
+        $this->evalError = '';
         // Create XML writer
         $objWriter = null;
         if ($this->getParentWriter()->getUseDiskCaching()) {
@@ -1176,16 +1180,16 @@ class Worksheet extends WriterPart
                         foreach ($columnsInRow as $column) {
                             // Write cell
                             $coord = "$column$currentRow";
-                            if ($worksheet->getCell($coord)->getIgnoredErrorNumberStoredAsText()) {
+                            if ($worksheet->getCell($coord)->getIgnoredErrors()->getNumberStoredAsText()) {
                                 $this->numberStoredAsText .= " $coord";
                             }
-                            if ($worksheet->getCell($coord)->getIgnoredErrorFormula()) {
+                            if ($worksheet->getCell($coord)->getIgnoredErrors()->getFormula()) {
                                 $this->formula .= " $coord";
                             }
-                            if ($worksheet->getCell($coord)->getIgnoredErrorTwoDigitTextYear()) {
+                            if ($worksheet->getCell($coord)->getIgnoredErrors()->getTwoDigitTextYear()) {
                                 $this->twoDigitTextYear .= " $coord";
                             }
-                            if ($worksheet->getCell($coord)->getIgnoredErrorEvalError()) {
+                            if ($worksheet->getCell($coord)->getIgnoredErrors()->getEvalError()) {
                                 $this->evalError .= " $coord";
                             }
                             $this->writeCell($objWriter, $worksheet, $coord, $aFlippedStringTable);

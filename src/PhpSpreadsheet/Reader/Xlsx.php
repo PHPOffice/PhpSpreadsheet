@@ -2255,16 +2255,16 @@ class Xlsx extends BaseReader
                     for ($row = $firstRow; $row <= $lastRow; ++$row) {
                         for ($col = $firstCol; $col !== $lastCol; ++$col) {
                             if ($numberStoredAsText === '1') {
-                                $sheet->getCell("$col$row")->setIgnoredErrorNumberStoredAsText(true);
+                                $sheet->getCell("$col$row")->getIgnoredErrors()->setNumberStoredAsText(true);
                             }
                             if ($formula === '1') {
-                                $sheet->getCell("$col$row")->setIgnoredErrorFormula(true);
+                                $sheet->getCell("$col$row")->getIgnoredErrors()->setFormula(true);
                             }
                             if ($twoDigitTextYear === '1') {
-                                $sheet->getCell("$col$row")->setIgnoredErrorTwoDigitTextYear(true);
+                                $sheet->getCell("$col$row")->getIgnoredErrors()->setTwoDigitTextYear(true);
                             }
                             if ($evalError === '1') {
-                                $sheet->getCell("$col$row")->setIgnoredErrorEvalError(true);
+                                $sheet->getCell("$col$row")->getIgnoredErrors()->setEvalError(true);
                             }
                         }
                     }
