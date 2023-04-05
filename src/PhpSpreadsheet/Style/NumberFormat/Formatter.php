@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Reader\Xls\Color\BIFF8;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Style\Color;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
@@ -67,14 +68,19 @@ class Formatter
         //   3 sections:  [POSITIVE/TEXT] [NEGATIVE] [ZERO]
         //   4 sections:  [POSITIVE] [NEGATIVE] [ZERO] [TEXT]
         $sectionCount = count($sections);
-        $color_regex = '/\\[(' . implode('|', Color::NAMED_COLORS) . ')\\]/mui';
+        // Colour could be a named colour, or a numeric index entry in the colour-palette
+        $color_regex = '/\\[(' . implode('|', Color::NAMED_COLORS) . '|color\\s*(\\d+))\\]/mui';
         $cond_regex = '/\\[(>|>=|<|<=|=|<>)([+-]?\\d+([.]\\d+)?)\\]/';
         $colors = ['', '', '', '', ''];
         $conditionOperations = ['', '', '', '', ''];
         $conditionComparisonValues = [0, 0, 0, 0, 0];
         for ($idx = 0; $idx < $sectionCount; ++$idx) {
             if (preg_match($color_regex, $sections[$idx], $matches)) {
-                $colors[$idx] = $matches[0];
+                if (isset($matches[2])) {
+                    $colors[$idx] = '#' . BIFF8::lookup((int) $matches[2] + 7)['rgb'];
+                } else {
+                    $colors[$idx] = $matches[0];
+                }
                 $sections[$idx] = (string) preg_replace($color_regex, '', $sections[$idx]);
             }
             if (preg_match($cond_regex, $sections[$idx], $matches)) {
