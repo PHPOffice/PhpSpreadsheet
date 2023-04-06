@@ -18,7 +18,8 @@ class Issue3464Test extends \PHPUnit\Framework\TestCase
         $objReader = IOFactory::createReader($inputFileType);
         $objReader->setReadEmptyCells(false);
 
-        $sheet = $objReader->load(self::$testbook)->getActiveSheet();
+        $spreadsheet = $objReader->load(self::$testbook);
+        $sheet = $spreadsheet->getActiveSheet();
         $rickText = $sheet->getCell([1, 1])->getValue();
         self::assertInstanceOf(RichText::class, $rickText);
 
@@ -34,5 +35,6 @@ class Issue3464Test extends \PHPUnit\Framework\TestCase
         $font = $elements[1]->getFont();
         self::assertNotNull($font);
         self::assertEquals('ff2600', $font->getColor()->getRGB());
+        $spreadsheet->disconnectWorksheets();
     }
 }
