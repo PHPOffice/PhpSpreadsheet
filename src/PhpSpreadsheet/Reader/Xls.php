@@ -430,7 +430,7 @@ class Xls extends BaseReader
      */
     public function canRead(string $filename): bool
     {
-        if (!File::testFileNoThrow($filename)) {
+        if (File::testFileNoThrow($filename) === false) {
             return false;
         }
 
@@ -440,6 +440,9 @@ class Xls extends BaseReader
 
             // get excel data
             $ole->read($filename);
+            if ($ole->wrkbook === null) {
+                throw new Exception('The filename ' . $filename . ' is not recognised as a Spreadsheet file');
+            }
 
             return true;
         } catch (PhpSpreadsheetException $e) {
@@ -449,7 +452,7 @@ class Xls extends BaseReader
 
     public function setCodepage(string $codepage): void
     {
-        if (!CodePage::validate($codepage)) {
+        if (CodePage::validate($codepage) === false) {
             throw new PhpSpreadsheetException('Unknown codepage: ' . $codepage);
         }
 
