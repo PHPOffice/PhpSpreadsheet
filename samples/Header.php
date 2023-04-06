@@ -26,10 +26,14 @@ if ($helper->isCli()) {
     <link rel="stylesheet" href="/bootstrap/css/phpspreadsheet.css"/>
     <script src="/bootstrap/js/jquery.min.js"></script>
     <script src="/bootstrap/js/bootstrap.min.js"></script>
+
+    <style>
+        body { padding-top: 200px; }
+    </style>
 </head>
 <body>
     <div class="container">
-        <div class="navbar navbar-default" role="navigation">
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
             <div class="container-fluid">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">

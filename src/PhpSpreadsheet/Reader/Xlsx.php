@@ -945,6 +945,10 @@ class Xlsx extends BaseReader
                                                 // no style index means 0, it seems
                                                 $cell->setXfIndex(isset($styles[(int) ($cAttr['s'])]) ?
                                                     (int) ($cAttr['s']) : 0);
+                                                // issue 3495
+                                                if ($cell->getDataType() === DataType::TYPE_FORMULA) {
+                                                    $cell->getStyle()->setQuotePrefix(false);
+                                                }
                                             }
                                         }
                                         ++$rowIndex;
