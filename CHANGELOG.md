@@ -47,6 +47,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Xlsx Writer Honor Alignment in Default Font. [Issue #3443](https://github.com/PHPOffice/PhpSpreadsheet/issues/3443) [PR #3459](https://github.com/PHPOffice/PhpSpreadsheet/pull/3459)
 - Support Border for Charts. [PR #3462](https://github.com/PHPOffice/PhpSpreadsheet/pull/3462)
 - Error in "this row" structured reference calculation (cached result from first row when using a range) [Issue #3504](https://github.com/PHPOffice/PhpSpreadsheet/issues/3504) [PR #3505](https://github.com/PHPOffice/PhpSpreadsheet/pull/3505)
+- Allow colour palette index references in Number Format masks [Issue #3511](https://github.com/PHPOffice/PhpSpreadsheet/issues/3511) [PR #3512](https://github.com/PHPOffice/PhpSpreadsheet/pull/3512)
 
 
 ## 1.28.0 - 2023-02-25
