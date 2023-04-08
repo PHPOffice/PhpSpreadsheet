@@ -51,8 +51,8 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
                 return $this->setImproperFraction($matches, $cell);
             }
 
-            $decimalSeparator = preg_quote(StringHelper::getDecimalSeparator());
-            $thousandsSeparator = preg_quote(StringHelper::getThousandsSeparator());
+            $decimalSeparator = preg_quote(StringHelper::getDecimalSeparator(), '/');
+            $thousandsSeparator = preg_quote(StringHelper::getThousandsSeparator(), '/');
 
             // Check for percentage
             if (preg_match('/^\-?\d*' . $decimalSeparator . '?\d*\s?\%$/', preg_replace('/(\d)' . $thousandsSeparator . '(\d)/u', '$1$2', $value))) {

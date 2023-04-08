@@ -48,9 +48,9 @@ class FormattedNumber
      */
     public static function convertToNumberIfNumeric(string &$operand): bool
     {
-        $thousandsSeparator = preg_quote(StringHelper::getThousandsSeparator());
+        $thousandsSeparator = preg_quote(StringHelper::getThousandsSeparator(), '/');
         $value = preg_replace(['/(\d)' . $thousandsSeparator . '(\d)/u', '/([+-])\s+(\d)/u'], ['$1$2', '$1$2'], trim($operand));
-        $decimalSeparator = preg_quote(StringHelper::getDecimalSeparator());
+        $decimalSeparator = preg_quote(StringHelper::getDecimalSeparator(), '/');
         $value = preg_replace(['/(\d)' . $decimalSeparator . '(\d)/u', '/([+-])\s+(\d)/u'], ['$1.$2', '$1$2'], $value ?? '');
 
         if (is_numeric($value)) {
@@ -90,9 +90,9 @@ class FormattedNumber
      */
     public static function convertToNumberIfPercent(string &$operand): bool
     {
-        $thousandsSeparator = preg_quote(StringHelper::getThousandsSeparator());
+        $thousandsSeparator = preg_quote(StringHelper::getThousandsSeparator(), '/');
         $value = preg_replace('/(\d)' . $thousandsSeparator . '(\d)/u', '$1$2', trim($operand));
-        $decimalSeparator = preg_quote(StringHelper::getDecimalSeparator());
+        $decimalSeparator = preg_quote(StringHelper::getDecimalSeparator(), '/');
         $value = preg_replace(['/(\d)' . $decimalSeparator . '(\d)/u', '/([+-])\s+(\d)/u'], ['$1.$2', '$1$2'], $value ?? '');
 
         $match = [];
@@ -134,8 +134,8 @@ class FormattedNumber
 
     public static function currencyMatcherRegexp(): string
     {
-        $currencyCodes = sprintf(self::CURRENCY_CONVERSION_LIST, preg_quote(StringHelper::getCurrencyCode()));
-        $decimalSeparator = preg_quote(StringHelper::getDecimalSeparator());
+        $currencyCodes = sprintf(self::CURRENCY_CONVERSION_LIST, preg_quote(StringHelper::getCurrencyCode(), '/'));
+        $decimalSeparator = preg_quote(StringHelper::getDecimalSeparator(), '/');
 
         return '~^(?:(?: *(?<PrefixedSign>[-+])? *(?<PrefixedCurrency>[' . $currencyCodes . ']) *(?<PrefixedSign2>[-+])? *(?<PrefixedValue>[0-9]+[' . $decimalSeparator . ']?[0-9*]*(?:E[-+]?[0-9]*)?) *)|(?: *(?<PostfixedSign>[-+])? *(?<PostfixedValue>[0-9]+' . $decimalSeparator . '?[0-9]*(?:E[-+]?[0-9]*)?) *(?<PostfixedCurrency>[' . $currencyCodes . ']) *))$~ui';
     }
