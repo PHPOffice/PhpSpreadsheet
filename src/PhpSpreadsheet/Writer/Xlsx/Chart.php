@@ -331,19 +331,26 @@ class Chart extends WriterPart
                 $objWriter->startElement('c:hiLowLines');
                 $objWriter->endElement();
 
-                $objWriter->startElement('c:upDownBars');
-
-                $objWriter->startElement('c:gapWidth');
-                $objWriter->writeAttribute('val', '300');
-                $objWriter->endElement();
-
-                $objWriter->startElement('c:upBars');
-                $objWriter->endElement();
-
-                $objWriter->startElement('c:downBars');
-                $objWriter->endElement();
-
-                $objWriter->endElement();
+                $gapWidth = $plotArea->getGapWidth();
+                $upBars = $plotArea->getUseUpBars();
+                $downBars = $plotArea->getUseDownBars();
+                if ($gapWidth !== null || $upBars || $downBars) {
+                    $objWriter->startElement('c:upDownBars');
+                    if ($gapWidth !== null) {
+                        $objWriter->startElement('c:gapWidth');
+                        $objWriter->writeAttribute('val', "$gapWidth");
+                        $objWriter->endElement();
+                    }
+                    if ($upBars) {
+                        $objWriter->startElement('c:upBars');
+                        $objWriter->endElement();
+                    }
+                    if ($downBars) {
+                        $objWriter->startElement('c:downBars');
+                        $objWriter->endElement();
+                    }
+                    $objWriter->endElement(); // c:upDownBars
+                }
             }
 
             //    Generate 3 unique numbers to use for axId values
