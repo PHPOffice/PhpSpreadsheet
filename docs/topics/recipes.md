@@ -1037,13 +1037,13 @@ color       | setColor()
 
 Array key         | Maps to property
 ------------------|-------------------
-allBorders        | setLeft(); setRight(); setTop(); setBottom()
-bottom            | setBottom()
-diagonal          | setDiagonal()
+allBorders        | getLeft(); getRight(); getTop(); getBottom()
+bottom            | getBottom()
+diagonal          | getDiagonal()
 diagonalDirection | setDiagonalDirection()
-left              | setLeft()
-right             | setRight()
-top               | setTop()
+left              | getLeft()
+right             | getRight()
+top               | getTop()
 
 **\PhpOffice\PhpSpreadsheet\Style\Color**
 
