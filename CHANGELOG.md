@@ -52,6 +52,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Error in "this row" structured reference calculation (cached result from first row when using a range) [Issue #3504](https://github.com/PHPOffice/PhpSpreadsheet/issues/3504) [PR #3505](https://github.com/PHPOffice/PhpSpreadsheet/pull/3505)
 - Allow colour palette index references in Number Format masks [Issue #3511](https://github.com/PHPOffice/PhpSpreadsheet/issues/3511) [PR #3512](https://github.com/PHPOffice/PhpSpreadsheet/pull/3512)
 - Xlsx Reader formula with quotePrefix [Issue #3495](https://github.com/PHPOffice/PhpSpreadsheet/issues/3495) [PR #3497](https://github.com/PHPOffice/PhpSpreadsheet/pull/3497)
+- Handle REF error as part of range [Issue #3453](https://github.com/PHPOffice/PhpSpreadsheet/issues/3453) [PR #3467](https://github.com/PHPOffice/PhpSpreadsheet/pull/3467)
 
 
 ## 1.28.0 - 2023-02-25
