@@ -726,6 +726,8 @@ class Xlsx extends BaseReader
                                     $sharedStrings[] = StringHelper::controlCharacterOOXML2PHP((string) $val->t);
                                 } elseif (isset($val->r)) {
                                     $sharedStrings[] = $this->parseRichText($val);
+                                } else {
+                                    $sharedStrings[] = '';
                                 }
                             }
                         }
