@@ -7,7 +7,6 @@ use PhpOffice\PhpSpreadsheet\Chart\Layout;
 use PhpOffice\PhpSpreadsheet\Chart\Legend as ChartLegend;
 use PhpOffice\PhpSpreadsheet\Chart\PlotArea;
 use PhpOffice\PhpSpreadsheet\Chart\Title;
-use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
@@ -96,6 +95,8 @@ $chart1->setBottomRightPosition('H20');
 // Add the chart to the worksheet
 $worksheet->addChart($chart1);
 
+$helper->renderChart($chart1, __FILE__);
+
 // Set the Labels for each data series we want to plot
 //     Datatype
 //     Cell reference for data
@@ -166,10 +167,7 @@ $chart2->setBottomRightPosition('P20');
 // Add the chart to the worksheet
 $worksheet->addChart($chart2);
 
+$helper->renderChart($chart2, __FILE__);
+
 // Save Excel 2007 file
-$filename = $helper->getFilename(__FILE__);
-$writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
-$writer->setIncludeCharts(true);
-$callStartTime = microtime(true);
-$writer->save($filename);
-$helper->logWrite($writer, $filename, $callStartTime);
+$helper->write($spreadsheet, __FILE__, ['Xlsx'], true);
