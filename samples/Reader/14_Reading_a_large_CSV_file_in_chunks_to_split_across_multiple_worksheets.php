@@ -80,6 +80,8 @@ $loadedSheetNames = $spreadsheet->getSheetNames();
 foreach ($loadedSheetNames as $sheetIndex => $loadedSheetName) {
     $helper->log('<b>Worksheet #' . $sheetIndex . ' -> ' . $loadedSheetName . '</b>');
     $spreadsheet->setActiveSheetIndexByName($loadedSheetName);
-    $sheetData = $spreadsheet->getActiveSheet()->toArray(null, false, false, true);
-    var_dump($sheetData);
+
+    $activeRange = $spreadsheet->getActiveSheet()->calculateWorksheetDataDimension();
+    $sheetData = $spreadsheet->getActiveSheet()->rangeToArray($activeRange, null, true, true, true);
+    $helper->displayGrid($sheetData);
 }

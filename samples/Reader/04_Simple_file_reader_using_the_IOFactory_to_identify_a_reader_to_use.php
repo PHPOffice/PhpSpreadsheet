@@ -14,4 +14,4 @@ $reader = IOFactory::createReader($inputFileType);
 $spreadsheet = $reader->load($inputFileName);
 
 $sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
-var_dump($sheetData);
+$helper->displayGrid($sheetData);
