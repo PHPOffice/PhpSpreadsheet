@@ -207,6 +207,10 @@ class Sample
 
     public function renderChart(Chart $chart, string $fileName): void
     {
+        if ($this->isCli() === true) {
+            return;
+        }
+
         Settings::setChartRenderer(\PhpOffice\PhpSpreadsheet\Chart\Renderer\MtJpGraphRenderer::class);
 
         $fileName = $this->getFilename($fileName, 'png');
@@ -214,11 +218,9 @@ class Sample
         try {
             $chart->render($fileName);
             $this->log('Rendered image: ' . $fileName);
-            if ($this->isCli() === false) {
-                $imageData = file_get_contents($fileName);
-                if ($imageData !== false) {
-                    echo '<div><img src="data:image/gif;base64,' . base64_encode($imageData) . '" /></div>';
-                }
+            $imageData = file_get_contents($fileName);
+            if ($imageData !== false) {
+                echo '<div><img src="data:image/gif;base64,' . base64_encode($imageData) . '" /></div>';
             }
         } catch (Throwable $e) {
             $this->log('Error rendering chart: ' . $e->getMessage() . PHP_EOL);
