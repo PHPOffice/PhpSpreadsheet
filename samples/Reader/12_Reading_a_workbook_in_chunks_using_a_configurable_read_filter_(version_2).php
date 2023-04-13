@@ -62,6 +62,7 @@ for ($startRow = 2; $startRow <= 240; $startRow += $chunkSize) {
 
     // Do some processing here
 
-    $sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
-    var_dump($sheetData);
+    $activeRange = $spreadsheet->getActiveSheet()->calculateWorksheetDataDimension();
+    $sheetData = $spreadsheet->getActiveSheet()->rangeToArray($activeRange, null, true, true, true);
+    $helper->displayGrid($sheetData);
 }
