@@ -301,7 +301,7 @@ class CellTest extends TestCase
         }
     }
 
-    public function appliedStyling(): array
+    public static function appliedStyling(): array
     {
         return [
             'A1 - Conditional with Match' => ['A1', Fill::FILL_SOLID, Color::COLOR_RED],

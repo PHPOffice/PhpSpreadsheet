@@ -37,12 +37,12 @@ class DCountATest extends SetupTeardownDatabases
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
-    public function providerDCountA(): array
+    public static function providerDCountA(): array
     {
         return [
             [
                 1,
-                $this->database1(),
+                self::database1(),
                 'Profit',
                 [
                     ['Tree', 'Height', 'Height'],
@@ -51,7 +51,7 @@ class DCountATest extends SetupTeardownDatabases
             ],
             [
                 2,
-                $this->database3(),
+                self::database3(),
                 'Score',
                 [
                     ['Subject', 'Gender'],
@@ -60,7 +60,7 @@ class DCountATest extends SetupTeardownDatabases
             ],
             [
                 1,
-                $this->database3(),
+                self::database3(),
                 'Score',
                 [
                     ['Subject', 'Gender'],
@@ -69,7 +69,7 @@ class DCountATest extends SetupTeardownDatabases
             ],
             [
                 3,
-                $this->database3(),
+                self::database3(),
                 'Score',
                 [
                     ['Subject', 'Score'],
@@ -78,7 +78,7 @@ class DCountATest extends SetupTeardownDatabases
             ],
             'invalid field name' => [
                 ExcelError::VALUE(),
-                $this->database3(),
+                self::database3(),
                 'Scorex',
                 [
                     ['Subject', 'Score'],

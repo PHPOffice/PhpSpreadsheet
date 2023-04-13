@@ -37,7 +37,7 @@ class DCountTest extends SetupTeardownDatabases
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
-    private function database4(): array
+    private static function database4(): array
     {
         return [
             ['Status', 'Value'],
@@ -52,12 +52,12 @@ class DCountTest extends SetupTeardownDatabases
         ];
     }
 
-    public function providerDCount(): array
+    public static function providerDCount(): array
     {
         return [
             [
                 1,
-                $this->database1(),
+                self::database1(),
                 'Age',
                 [
                     ['Tree', 'Height', 'Height'],
@@ -66,7 +66,7 @@ class DCountTest extends SetupTeardownDatabases
             ],
             [
                 1,
-                $this->database3(),
+                self::database3(),
                 'Score',
                 [
                     ['Subject', 'Gender'],
@@ -75,7 +75,7 @@ class DCountTest extends SetupTeardownDatabases
             ],
             [
                 1,
-                $this->database3(),
+                self::database3(),
                 'Score',
                 [
                     ['Subject', 'Gender'],
@@ -84,7 +84,7 @@ class DCountTest extends SetupTeardownDatabases
             ],
             [
                 3,
-                $this->database4(),
+                self::database4(),
                 'Value',
                 [
                     ['Status'],
@@ -93,7 +93,7 @@ class DCountTest extends SetupTeardownDatabases
             ],
             [
                 5,
-                $this->database4(),
+                self::database4(),
                 'Value',
                 [
                     ['Status'],
@@ -102,13 +102,13 @@ class DCountTest extends SetupTeardownDatabases
             ],
             'field column number okay' => [
                 0,
-                $this->database1(),
+                self::database1(),
                 1,
-                $this->database1(),
+                self::database1(),
             ],
             'omitted field name' => [
                 ExcelError::VALUE(),
-                $this->database3(),
+                self::database3(),
                 null,
                 [
                     ['Subject', 'Score'],
@@ -121,15 +121,15 @@ class DCountTest extends SetupTeardownDatabases
                content to return #VALUE! as an invalid name would */
             'field column number too high' => [
                 ExcelError::VALUE(),
-                $this->database1(),
+                self::database1(),
                 99,
-                $this->database1(),
+                self::database1(),
             ],
             'field column number too low' => [
                 ExcelError::VALUE(),
-                $this->database1(),
+                self::database1(),
                 0,
-                $this->database1(),
+                self::database1(),
             ],
         ];
     }

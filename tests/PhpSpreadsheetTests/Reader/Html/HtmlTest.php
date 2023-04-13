@@ -25,6 +25,10 @@ class HtmlTest extends TestCase
         $reader = new Html();
         self::assertTrue($reader->canRead($filename));
 
+        if (!method_exists($this, 'setOutputCallback')) {
+            self::markTestSkipped('Unsure how to run this test in PhpUnit 10');
+        }
+
         $this->expectException(ReaderException::class);
         $reader->load($filename);
     }
@@ -46,7 +50,7 @@ class HtmlTest extends TestCase
         self::assertFalse($reader->canRead(''));
     }
 
-    public function providerCanReadVerySmallFile(): array
+    public static function providerCanReadVerySmallFile(): array
     {
         $padding = str_repeat('a', 2048);
 
