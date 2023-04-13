@@ -10,7 +10,6 @@ use PhpOffice\PhpSpreadsheet\Chart\Legend as ChartLegend;
 use PhpOffice\PhpSpreadsheet\Chart\PlotArea;
 use PhpOffice\PhpSpreadsheet\Chart\Properties;
 use PhpOffice\PhpSpreadsheet\Chart\Title;
-use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
@@ -185,11 +184,7 @@ $chart->setBottomRightPosition('P20');
 // Add the chart to the worksheet
 $worksheet->addChart($chart);
 
+$helper->renderChart($chart, __FILE__);
+
 // Save Excel 2007 file
-$filename = $helper->getFilename(__FILE__);
-$writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
-$writer->setIncludeCharts(true);
-$callStartTime = microtime(true);
-$writer->save($filename);
-$spreadsheet->disconnectWorksheets();
-$helper->logWrite($writer, $filename, $callStartTime);
+$helper->write($spreadsheet, __FILE__, ['Xlsx'], true);

@@ -32,9 +32,4 @@ $worksheet->fromArray(
 );
 
 // Save Excel 2007 file
-$filename = $helper->getFilename(__FILE__);
-$writer = new XlsxWriter($spreadsheet);
-$writer->setIncludeCharts(true);
-$callStartTime = microtime(true);
-$writer->save($filename);
-$helper->logWrite($writer, $filename, $callStartTime);
+$helper->write($spreadsheet, __FILE__, ['Xlsx'], true);
