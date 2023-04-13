@@ -57,7 +57,8 @@ class XmlTest extends TestCase
         $this->expectException(\PhpOffice\PhpSpreadsheet\Reader\Exception::class);
 
         $xmlReader = new Xml();
-        @$xmlReader->load('tests/data/Reader/Xml/CorruptedXmlFile.xml');
+        $spreadsheet = /** @scrutinizer ignore-unhandled */ @$xmlReader->load('tests/data/Reader/Xml/CorruptedXmlFile.xml');
+        self::assertNotSame('', $spreadsheet->getID());
     }
 
     public function testListWorksheetNamesCorruptedFile(): void
@@ -65,7 +66,8 @@ class XmlTest extends TestCase
         $this->expectException(\PhpOffice\PhpSpreadsheet\Reader\Exception::class);
 
         $xmlReader = new Xml();
-        @$xmlReader->listWorksheetNames('tests/data/Reader/Xml/CorruptedXmlFile.xml');
+        $names = /** @scrutinizer ignore-unhandled */ @$xmlReader->listWorksheetNames('tests/data/Reader/Xml/CorruptedXmlFile.xml');
+        self::assertNotEmpty($names);
     }
 
     public function testListWorksheetInfoCorruptedFile(): void
@@ -73,6 +75,7 @@ class XmlTest extends TestCase
         $this->expectException(\PhpOffice\PhpSpreadsheet\Reader\Exception::class);
 
         $xmlReader = new Xml();
-        @$xmlReader->listWorksheetInfo('tests/data/Reader/Xml/CorruptedXmlFile.xml');
+        $info = /** @scrutinizer ignore-unhandled */ @$xmlReader->listWorksheetInfo('tests/data/Reader/Xml/CorruptedXmlFile.xml');
+        self::assertNotEmpty($info);
     }
 }

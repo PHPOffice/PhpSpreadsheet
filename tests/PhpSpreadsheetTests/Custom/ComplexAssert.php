@@ -17,6 +17,7 @@ class ComplexAssert extends TestCase
 
     public function __construct()
     {
+        parent::__construct('complexAssert');
     }
 
     /**

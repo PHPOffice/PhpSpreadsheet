@@ -45,7 +45,7 @@ class HtmlLoadStringTest extends TestCase
         }
         $this->expectException(ReaderException::class);
         $html = '<table<>';
-        $spreadsheet = (new Html())->loadFromString($html);
+        (new Html())->loadFromString($html);
     }
 
     public function testCanLoadFromStringIntoExistingSpreadsheet(): void
