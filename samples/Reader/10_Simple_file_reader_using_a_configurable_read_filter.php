@@ -41,6 +41,7 @@ class MyReadFilter implements IReadFilter
 $filterSubset = new MyReadFilter(9, 15, range('G', 'K'));
 
 $helper->log('Loading file ' . /** @scrutinizer ignore-type */ pathinfo($inputFileName, PATHINFO_BASENAME) . ' using IOFactory with a defined reader type of ' . $inputFileType);
+$helper->log('Filter range is G9:K15');
 $reader = IOFactory::createReader($inputFileType);
 $helper->log('Loading Sheet "' . $sheetname . '" only');
 $reader->setLoadSheetsOnly($sheetname);
@@ -48,5 +49,6 @@ $helper->log('Loading Sheet using configurable filter');
 $reader->setReadFilter($filterSubset);
 $spreadsheet = $reader->load($inputFileName);
 
-$sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
-var_dump($sheetData);
+$activeRange = $spreadsheet->getActiveSheet()->calculateWorksheetDataDimension();
+$sheetData = $spreadsheet->getActiveSheet()->rangeToArray($activeRange, null, true, true, true);
+$helper->displayGrid($sheetData);
