@@ -46,16 +46,14 @@ class OLETest extends TestCase
         $openedPath = '';
         self::assertFalse($ole->stream_open('whatever', 'w', 0, $openedPath));
 
-        // Not sure how to do this test with PhpUnit 10
-        if (!method_exists($this, 'setOutputCallback')) {
-            self::markTestSkipped('Unsure how to run this test in PhpUnit 10');
-        }
-
-        try {
-            $ole->stream_open('whatever', 'w', STREAM_REPORT_ERRORS, $openedPath);
-            self::fail('Error in statement above should be caught');
-        } catch (Throwable $e) {
-            self::assertSame('Only reading is supported', $e->getMessage());
+        // Test moved to OLEPhpunit10Test for PhpUnit 10
+        if (method_exists($this, 'setOutputCallback')) {
+            try {
+                $ole->stream_open('whatever', 'w', STREAM_REPORT_ERRORS, $openedPath);
+                self::fail('Error in statement above should be caught');
+            } catch (Throwable $e) {
+                self::assertSame('Only reading is supported', $e->getMessage());
+            }
         }
     }
 

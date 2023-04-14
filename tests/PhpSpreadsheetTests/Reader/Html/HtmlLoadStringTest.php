@@ -40,12 +40,14 @@ class HtmlLoadStringTest extends TestCase
 
     public function testLoadInvalidString(): void
     {
-        if (!method_exists($this, 'setOutputCallback')) {
-            self::markTestSkipped('Unsure how to run this test in PhpUnit 10');
+        if (method_exists($this, 'setOutputCallback')) {
+            $this->expectException(ReaderException::class);
+            $html = '<table<>';
+            (new Html())->loadFromString($html);
+        } else {
+            // The meat of this test runs in HtmlPhpunit10Test
+            self::assertTrue(true);
         }
-        $this->expectException(ReaderException::class);
-        $html = '<table<>';
-        (new Html())->loadFromString($html);
     }
 
     public function testCanLoadFromStringIntoExistingSpreadsheet(): void

@@ -25,12 +25,12 @@ class HtmlTest extends TestCase
         $reader = new Html();
         self::assertTrue($reader->canRead($filename));
 
-        if (!method_exists($this, 'setOutputCallback')) {
-            self::markTestSkipped('Unsure how to run this test in PhpUnit 10');
+        if (method_exists($this, 'setOutputCallback')) {
+            // The meat of this test is moved to HtmlPhpunit10Test
+            // to run under all PhpUnit versions.
+            $this->expectException(ReaderException::class);
+            $reader->load($filename);
         }
-
-        $this->expectException(ReaderException::class);
-        $reader->load($filename);
     }
 
     public function testNonHtml(): void
