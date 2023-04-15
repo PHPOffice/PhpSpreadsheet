@@ -5,85 +5,10 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Namespaces;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Theme as SpreadsheetTheme;
 
 class Theme extends WriterPart
 {
-    /**
-     * Map of Major fonts to write.
-     *
-     * @var string[]
-     */
-    private static $majorFonts = [
-        'Jpan' => 'ＭＳ Ｐゴシック',
-        'Hang' => '맑은 고딕',
-        'Hans' => '宋体',
-        'Hant' => '新細明體',
-        'Arab' => 'Times New Roman',
-        'Hebr' => 'Times New Roman',
-        'Thai' => 'Tahoma',
-        'Ethi' => 'Nyala',
-        'Beng' => 'Vrinda',
-        'Gujr' => 'Shruti',
-        'Khmr' => 'MoolBoran',
-        'Knda' => 'Tunga',
-        'Guru' => 'Raavi',
-        'Cans' => 'Euphemia',
-        'Cher' => 'Plantagenet Cherokee',
-        'Yiii' => 'Microsoft Yi Baiti',
-        'Tibt' => 'Microsoft Himalaya',
-        'Thaa' => 'MV Boli',
-        'Deva' => 'Mangal',
-        'Telu' => 'Gautami',
-        'Taml' => 'Latha',
-        'Syrc' => 'Estrangelo Edessa',
-        'Orya' => 'Kalinga',
-        'Mlym' => 'Kartika',
-        'Laoo' => 'DokChampa',
-        'Sinh' => 'Iskoola Pota',
-        'Mong' => 'Mongolian Baiti',
-        'Viet' => 'Times New Roman',
-        'Uigh' => 'Microsoft Uighur',
-        'Geor' => 'Sylfaen',
-    ];
-
-    /**
-     * Map of Minor fonts to write.
-     *
-     * @var string[]
-     */
-    private static $minorFonts = [
-        'Jpan' => 'ＭＳ Ｐゴシック',
-        'Hang' => '맑은 고딕',
-        'Hans' => '宋体',
-        'Hant' => '新細明體',
-        'Arab' => 'Arial',
-        'Hebr' => 'Arial',
-        'Thai' => 'Tahoma',
-        'Ethi' => 'Nyala',
-        'Beng' => 'Vrinda',
-        'Gujr' => 'Shruti',
-        'Khmr' => 'DaunPenh',
-        'Knda' => 'Tunga',
-        'Guru' => 'Raavi',
-        'Cans' => 'Euphemia',
-        'Cher' => 'Plantagenet Cherokee',
-        'Yiii' => 'Microsoft Yi Baiti',
-        'Tibt' => 'Microsoft Himalaya',
-        'Thaa' => 'MV Boli',
-        'Deva' => 'Mangal',
-        'Telu' => 'Gautami',
-        'Taml' => 'Latha',
-        'Syrc' => 'Estrangelo Edessa',
-        'Orya' => 'Kalinga',
-        'Mlym' => 'Kartika',
-        'Laoo' => 'DokChampa',
-        'Sinh' => 'Iskoola Pota',
-        'Mong' => 'Mongolian Baiti',
-        'Viet' => 'Arial',
-        'Uigh' => 'Microsoft Uighur',
-        'Geor' => 'Sylfaen',
-    ];
-
     /**
      * Write theme to XML format.
      *
@@ -98,6 +23,7 @@ class Theme extends WriterPart
         } else {
             $objWriter = new XMLWriter(XMLWriter::STORAGE_MEMORY);
         }
+        $theme = $spreadsheet->getTheme();
 
         // XML header
         $objWriter->startDocument('1.0', 'UTF-8', 'yes');
@@ -112,27 +38,39 @@ class Theme extends WriterPart
 
         // a:clrScheme
         $objWriter->startElement('a:clrScheme');
-        $objWriter->writeAttribute('name', $spreadsheet->getTheme()->getThemeColorName());
+        $objWriter->writeAttribute('name', $theme->getThemeColorName());
 
-        $this->writeColourScheme($objWriter, $spreadsheet);
+        $this->writeColourScheme($objWriter, $theme);
 
         $objWriter->endElement();
 
         // a:fontScheme
         $objWriter->startElement('a:fontScheme');
-        $objWriter->writeAttribute('name', 'Office');
+        $objWriter->writeAttribute('name', $theme->getThemeFontName());
 
         // a:majorFont
         $objWriter->startElement('a:majorFont');
-        $this->writeFonts($objWriter, 'Cambria', self::$majorFonts);
-        $objWriter->endElement();
+        $this->writeFonts(
+            $objWriter,
+            $theme->getMajorFontLatin(),
+            $theme->getMajorFontEastAsian(),
+            $theme->getMajorFontComplexScript(),
+            $theme->getMajorFontSubstitutions()
+        );
+        $objWriter->endElement(); // a:majorFont
 
         // a:minorFont
         $objWriter->startElement('a:minorFont');
-        $this->writeFonts($objWriter, 'Calibri', self::$minorFonts);
-        $objWriter->endElement();
+        $this->writeFonts(
+            $objWriter,
+            $theme->getMinorFontLatin(),
+            $theme->getMinorFontEastAsian(),
+            $theme->getMinorFontComplexScript(),
+            $theme->getMinorFontSubstitutions()
+        );
+        $objWriter->endElement(); // a:minorFont
 
-        $objWriter->endElement();
+        $objWriter->endElement(); // a:fontScheme
 
         // a:fmtScheme
         $objWriter->startElement('a:fmtScheme');
@@ -746,7 +684,7 @@ class Theme extends WriterPart
      *
      * @param string[] $fontSet
      */
-    private function writeFonts(XMLWriter $objWriter, string $latinFont, array $fontSet): void
+    private function writeFonts(XMLWriter $objWriter, string $latinFont, string $eastAsianFont, string $complexScriptFont, array $fontSet): void
     {
         // a:latin
         $objWriter->startElement('a:latin');
@@ -755,12 +693,12 @@ class Theme extends WriterPart
 
         // a:ea
         $objWriter->startElement('a:ea');
-        $objWriter->writeAttribute('typeface', '');
+        $objWriter->writeAttribute('typeface', $eastAsianFont);
         $objWriter->endElement();
 
         // a:cs
         $objWriter->startElement('a:cs');
-        $objWriter->writeAttribute('typeface', '');
+        $objWriter->writeAttribute('typeface', $complexScriptFont);
         $objWriter->endElement();
 
         foreach ($fontSet as $fontScript => $typeface) {
@@ -774,9 +712,9 @@ class Theme extends WriterPart
     /**
      * Write colour scheme to XML format.
      */
-    private function writeColourScheme(XMLWriter $objWriter, Spreadsheet $spreadsheet): void
+    private function writeColourScheme(XMLWriter $objWriter, SpreadsheetTheme $theme): void
     {
-        $themeArray = $spreadsheet->getTheme()->getThemeColors();
+        $themeArray = $theme->getThemeColors();
         // a:dk1
         $objWriter->startElement('a:dk1');
         $objWriter->startElement('a:sysClr');

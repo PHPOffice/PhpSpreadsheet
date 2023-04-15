@@ -19,6 +19,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use ReflectionClassConstant;
 use ReflectionMethod;
 use ReflectionParameter;
+use Throwable;
 
 class Calculation
 {
@@ -3556,7 +3557,7 @@ class Calculation
                 }
             }
 
-            throw new Exception($e->getMessage());
+            throw new Exception($e->getMessage(), $e->getCode(), $e);
         }
 
         if ((is_array($result)) && (self::$returnArrayAsType != self::RETURN_ARRAY_AS_ARRAY)) {
@@ -4210,7 +4211,7 @@ class Calculation
                     try {
                         $this->branchPruner->closingBrace($d['value']);
                     } catch (Exception $e) {
-                        return $this->raiseFormulaError($e->getMessage());
+                        return $this->raiseFormulaError($e->getMessage(), $e->getCode(), $e);
                     }
 
                     $functionName = $matches[1]; //    Get the function name
@@ -4282,7 +4283,7 @@ class Calculation
                 try {
                     $this->branchPruner->argumentSeparator();
                 } catch (Exception $e) {
-                    return $this->raiseFormulaError($e->getMessage());
+                    return $this->raiseFormulaError($e->getMessage(), $e->getCode(), $e);
                 }
 
                 while (($o2 = $stack->pop()) && $o2['value'] !== '(') {        //    Pop off the stack back to the last (
@@ -4395,7 +4396,7 @@ class Calculation
                     try {
                         $structuredReference = Operands\StructuredReference::fromParser($formula, $index, $matches);
                     } catch (Exception $e) {
-                        return $this->raiseFormulaError($e->getMessage());
+                        return $this->raiseFormulaError($e->getMessage(), $e->getCode(), $e);
                     }
 
                     $val = $structuredReference->value();
@@ -4737,7 +4738,7 @@ class Calculation
                     $cellRange = $token->parse($cell);
                     if (strpos($cellRange, ':') !== false) {
                         $this->debugLog->writeDebugLog('Evaluating Structured Reference %s as Cell Range %s', $token->value(), $cellRange);
-                        $rangeValue = self::getInstance($cell->getWorksheet()->getParent())->_calculateFormulaValue("={$cellRange}", $token->value(), $cell);
+                        $rangeValue = self::getInstance($cell->getWorksheet()->getParent())->_calculateFormulaValue("={$cellRange}", $cellRange, $cell);
                         $stack->push('Value', $rangeValue);
                         $this->debugLog->writeDebugLog('Evaluated Structured Reference %s as value %s', $token->value(), $this->showValue($rangeValue));
                     } else {
@@ -4751,7 +4752,7 @@ class Calculation
                         $stack->push('Error', Information\ExcelError::REF(), null);
                         $this->debugLog->writeDebugLog('Evaluated Structured Reference %s as error value %s', $token->value(), Information\ExcelError::REF());
                     } else {
-                        return $this->raiseFormulaError($e->getMessage());
+                        return $this->raiseFormulaError($e->getMessage(), $e->getCode(), $e);
                     }
                 }
             } elseif (!is_numeric($token) && !is_object($token) && isset(self::BINARY_OPERATORS[$token])) {
@@ -4859,8 +4860,10 @@ class Calculation
                                 return $this->raiseFormulaError('Unable to access Cell Reference');
                             }
 
+                            $this->debugLog->writeDebugLog('Evaluation Result is %s', $this->showTypeDetails($cellValue));
                             $stack->push('Cell Reference', $cellValue, $cellRef);
                         } else {
+                            $this->debugLog->writeDebugLog('Evaluation Result is a #REF! Error');
                             $stack->push('Error', Information\ExcelError::REF(), null);
                         }
 
@@ -5451,13 +5454,13 @@ class Calculation
      *
      * @return false
      */
-    protected function raiseFormulaError(string $errorMessage)
+    protected function raiseFormulaError(string $errorMessage, int $code = 0, ?Throwable $exception = null)
     {
         $this->formulaError = $errorMessage;
         $this->cyclicReferenceStack->clear();
         $suppress = /** @scrutinizer ignore-deprecated */ $this->suppressFormulaErrors ?? $this->suppressFormulaErrorsNew;
         if (!$suppress) {
-            throw new Exception($errorMessage);
+            throw new Exception($errorMessage, $code, $exception);
         }
 
         return false;

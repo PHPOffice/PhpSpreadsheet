@@ -1663,4 +1663,26 @@ class Spreadsheet implements JsonSerializable
     {
         throw new Exception('Spreadsheet objects cannot be json encoded');
     }
+
+    public function resetThemeFonts(): void
+    {
+        $majorFontLatin = $this->theme->getMajorFontLatin();
+        $minorFontLatin = $this->theme->getMinorFontLatin();
+        foreach ($this->cellXfCollection as $cellStyleXf) {
+            $scheme = $cellStyleXf->getFont()->getScheme();
+            if ($scheme === 'major') {
+                $cellStyleXf->getFont()->setName($majorFontLatin)->setScheme($scheme);
+            } elseif ($scheme === 'minor') {
+                $cellStyleXf->getFont()->setName($minorFontLatin)->setScheme($scheme);
+            }
+        }
+        foreach ($this->cellStyleXfCollection as $cellStyleXf) {
+            $scheme = $cellStyleXf->getFont()->getScheme();
+            if ($scheme === 'major') {
+                $cellStyleXf->getFont()->setName($majorFontLatin)->setScheme($scheme);
+            } elseif ($scheme === 'minor') {
+                $cellStyleXf->getFont()->setName($minorFontLatin)->setScheme($scheme);
+            }
+        }
+    }
 }

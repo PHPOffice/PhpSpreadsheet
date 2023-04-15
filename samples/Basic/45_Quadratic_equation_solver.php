@@ -1,9 +1,17 @@
 <?php
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Helper\Sample;
 use PhpOffice\PhpSpreadsheet\Settings;
 
 require __DIR__ . '/../Header.php';
+
+$helper = new Sample();
+if ($helper->isCli()) {
+    $helper->log('This example should only be run from a Web Browser' . PHP_EOL);
+
+    return;
+}
 ?>
 <form action="45_Quadratic_equation_solver.php" method="POST">
     Enter the coefficients for the Ax<sup>2</sup> + Bx + C = 0

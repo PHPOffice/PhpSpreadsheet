@@ -18,6 +18,18 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet as PhpspreadsheetWorksheet;
 
 class Worksheet extends WriterPart
 {
+    /** @var string */
+    private $numberStoredAsText = '';
+
+    /** @var string */
+    private $formula = '';
+
+    /** @var string */
+    private $twoDigitTextYear = '';
+
+    /** @var string */
+    private $evalError = '';
+
     /**
      * Write worksheet to XML format.
      *
@@ -28,6 +40,10 @@ class Worksheet extends WriterPart
      */
     public function writeWorksheet(PhpspreadsheetWorksheet $worksheet, $stringTable = [], $includeCharts = false)
     {
+        $this->numberStoredAsText = '';
+        $this->formula = '';
+        $this->twoDigitTextYear = '';
+        $this->evalError = '';
         // Create XML writer
         $objWriter = null;
         if ($this->getParentWriter()->getUseDiskCaching()) {
@@ -118,6 +134,9 @@ class Worksheet extends WriterPart
         // AlternateContent
         $this->writeAlternateContent($objWriter, $worksheet);
 
+        // IgnoredErrors
+        $this->writeIgnoredErrors($objWriter);
+
         // Table
         $this->writeTable($objWriter, $worksheet);
 
@@ -129,6 +148,32 @@ class Worksheet extends WriterPart
 
         // Return
         return $objWriter->getData();
+    }
+
+    private function writeIgnoredError(XMLWriter $objWriter, bool &$started, string $attr, string $cells): void
+    {
+        if ($cells !== '') {
+            if (!$started) {
+                $objWriter->startElement('ignoredErrors');
+                $started = true;
+            }
+            $objWriter->startElement('ignoredError');
+            $objWriter->writeAttribute('sqref', substr($cells, 1));
+            $objWriter->writeAttribute($attr, '1');
+            $objWriter->endElement();
+        }
+    }
+
+    private function writeIgnoredErrors(XMLWriter $objWriter): void
+    {
+        $started = false;
+        $this->writeIgnoredError($objWriter, $started, 'numberStoredAsText', $this->numberStoredAsText);
+        $this->writeIgnoredError($objWriter, $started, 'formula', $this->formula);
+        $this->writeIgnoredError($objWriter, $started, 'twoDigitTextYear', $this->twoDigitTextYear);
+        $this->writeIgnoredError($objWriter, $started, 'evalError', $this->evalError);
+        if ($started) {
+            $objWriter->endElement();
+        }
     }
 
     /**
@@ -1134,7 +1179,20 @@ class Worksheet extends WriterPart
                         array_pop($columnsInRow);
                         foreach ($columnsInRow as $column) {
                             // Write cell
-                            $this->writeCell($objWriter, $worksheet, "{$column}{$currentRow}", $aFlippedStringTable);
+                            $coord = "$column$currentRow";
+                            if ($worksheet->getCell($coord)->getIgnoredErrors()->getNumberStoredAsText()) {
+                                $this->numberStoredAsText .= " $coord";
+                            }
+                            if ($worksheet->getCell($coord)->getIgnoredErrors()->getFormula()) {
+                                $this->formula .= " $coord";
+                            }
+                            if ($worksheet->getCell($coord)->getIgnoredErrors()->getTwoDigitTextYear()) {
+                                $this->twoDigitTextYear .= " $coord";
+                            }
+                            if ($worksheet->getCell($coord)->getIgnoredErrors()->getEvalError()) {
+                                $this->evalError .= " $coord";
+                            }
+                            $this->writeCell($objWriter, $worksheet, $coord, $aFlippedStringTable);
                         }
                     }
 

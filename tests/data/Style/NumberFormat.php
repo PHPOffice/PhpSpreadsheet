@@ -448,6 +448,43 @@ return [
         -2,
         '[Green]"Positive";[Red]"Negative";[Blue]"Zero"',
     ],
+    // Colour palette index
+    [
+        '+710',
+        710,
+        '[color 10]+#,##0;[color 12]-#,##0',
+    ],
+    [
+        '-710',
+        -710,
+        '[color 10]+#,##0;[color 12]-#,##0',
+    ],
+    // Colour palette index
+    [
+        '+710',
+        710,
+        '[color10]+#,##0;[color12]-#,##0',
+    ],
+    [
+        '-710',
+        -710,
+        '[color10]+#,##0;[color12]-#,##0',
+    ],
+    [
+        '-710',
+        -710,
+        '[color01]+#,##0;[color02]-#,##0',
+    ],
+    [
+        '-710',
+        -710,
+        '[color08]+#,##0;[color09]-#,##0',
+    ],
+    [
+        '-710',
+        -710,
+        '[color55]+#,##0;[color56]-#,##0',
+    ],
     // Value break points
     [
         '<=3500 red',
