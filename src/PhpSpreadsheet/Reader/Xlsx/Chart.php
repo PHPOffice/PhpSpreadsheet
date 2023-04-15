@@ -82,6 +82,9 @@ class Chart
         $gradientArray = [];
         $gradientLin = null;
         $roundedCorners = false;
+        $gapWidth = null;
+        $useUpBars = null;
+        $useDownBars = null;
         foreach ($chartElementsC as $chartElementKey => $chartElement) {
             switch ($chartElementKey) {
                 case 'spPr':
@@ -332,6 +335,15 @@ class Chart
                                             break;
                                         case 'stockChart':
                                             $plotSeries[] = $this->chartDataSeries($chartDetail, $chartDetailKey);
+                                            if (isset($chartDetail->upDownBars->gapWidth)) {
+                                                $gapWidth = self::getAttribute($chartDetail->upDownBars->gapWidth, 'val', 'integer');
+                                            }
+                                            if (isset($chartDetail->upDownBars->upBars)) {
+                                                $useUpBars = true;
+                                            }
+                                            if (isset($chartDetail->upDownBars->downBars)) {
+                                                $useDownBars = true;
+                                            }
                                             $plotAttributes = $this->readChartAttributes($chartDetail);
 
                                             break;
@@ -347,6 +359,15 @@ class Chart
                                 }
                                 if (!empty($gradientArray)) {
                                     $plotArea->setGradientFillProperties($gradientArray, $gradientLin);
+                                }
+                                if (is_int($gapWidth)) {
+                                    $plotArea->setGapWidth($gapWidth);
+                                }
+                                if ($useUpBars === true) {
+                                    $plotArea->setUseUpBars(true);
+                                }
+                                if ($useDownBars === true) {
+                                    $plotArea->setUseDownBars(true);
                                 }
 
                                 break;
