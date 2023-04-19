@@ -37,7 +37,7 @@ class ColumnCellIterator2Test extends TestCase
         self::assertSame($expectedResultLast, $lastCoordinate);
     }
 
-    public function providerExistingCell(): array
+    public static function providerExistingCell(): array
     {
         return [
             [null, 'B1', 'B8'],
@@ -67,7 +67,7 @@ class ColumnCellIterator2Test extends TestCase
         self::assertSame($expectedResult, $numCells);
     }
 
-    public function providerEmptyColumn(): array
+    public static function providerEmptyColumn(): array
     {
         return [
             [null, 6], // Default behaviour
@@ -115,7 +115,7 @@ class ColumnCellIterator2Test extends TestCase
         self::assertSame($expectedNullResult, $numEmptyCells);
     }
 
-    public function providerNullOrCreate(): array
+    public static function providerNullOrCreate(): array
     {
         return [
             [null, 3, 0], // Default behaviour

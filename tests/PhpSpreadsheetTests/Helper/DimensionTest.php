@@ -33,7 +33,7 @@ class DimensionTest extends TestCase
         (new Dimension('999'))->toUnit('pikachu');
     }
 
-    public function providerCellWidth(): array
+    public static function providerCellWidth(): array
     {
         return [
             [12.0, '12'],
@@ -52,7 +52,7 @@ class DimensionTest extends TestCase
         ];
     }
 
-    public function providerConvertUoM(): array
+    public static function providerConvertUoM(): array
     {
         return [
             [60, '8.54', Dimension::UOM_PIXELS],

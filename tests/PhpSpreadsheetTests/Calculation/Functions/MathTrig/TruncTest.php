@@ -25,7 +25,7 @@ class TruncTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerTRUNC(): array
+    public static function providerTRUNC(): array
     {
         return require 'tests/data/Calculation/MathTrig/TRUNC.php';
     }
@@ -42,7 +42,7 @@ class TruncTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerTruncArray(): array
+    public static function providerTruncArray(): array
     {
         return [
             'matrix' => [[[3.14, 3.141], [3.14159, 3.14159265]], '3.1415926536', '{2, 3; 5, 8}'],

@@ -83,7 +83,7 @@ class Hex2BinTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerHEX2BIN(): array
+    public static function providerHEX2BIN(): array
     {
         return require 'tests/data/Calculation/Engineering/HEX2BIN.php';
     }
@@ -109,7 +109,7 @@ class Hex2BinTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerUnhappyHEX2BIN(): array
+    public static function providerUnhappyHEX2BIN(): array
     {
         return [
             ['Formula Error: Wrong number of arguments for HEX2BIN() function'],
@@ -130,7 +130,7 @@ class Hex2BinTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerHEX2BINOds(): array
+    public static function providerHEX2BINOds(): array
     {
         return require 'tests/data/Calculation/Engineering/HEX2BINOpenOffice.php';
     }
@@ -165,7 +165,7 @@ class Hex2BinTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerHex2BinArray(): array
+    public static function providerHex2BinArray(): array
     {
         return [
             'row/column vector' => [

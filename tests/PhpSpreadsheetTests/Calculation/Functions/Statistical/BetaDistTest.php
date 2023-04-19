@@ -16,7 +16,7 @@ class BetaDistTest extends AllSetupTeardown
         $this->runTestCaseReference('BETADIST', $expectedResult, ...$args);
     }
 
-    public function providerBETADIST(): array
+    public static function providerBETADIST(): array
     {
         return require 'tests/data/Calculation/Statistical/BETADIST.php';
     }
@@ -33,7 +33,7 @@ class BetaDistTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerBetaDistArray(): array
+    public static function providerBetaDistArray(): array
     {
         return [
             'row/column vectors' => [

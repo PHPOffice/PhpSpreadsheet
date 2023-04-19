@@ -14,7 +14,7 @@ class NominalTest extends AllSetupTeardown
         $this->runTestCase('NOMINAL', $expectedResult, $args);
     }
 
-    public function providerNOMINAL(): array
+    public static function providerNOMINAL(): array
     {
         return require 'tests/data/Calculation/Financial/NOMINAL.php';
     }

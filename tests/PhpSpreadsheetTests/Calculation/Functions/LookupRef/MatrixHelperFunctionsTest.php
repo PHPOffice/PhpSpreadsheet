@@ -25,7 +25,7 @@ class MatrixHelperFunctionsTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    public function columnVectorProvider(): array
+    public static function columnVectorProvider(): array
     {
         return [
             [
@@ -48,7 +48,7 @@ class MatrixHelperFunctionsTest extends TestCase
         ];
     }
 
-    public function rowVectorProvider(): array
+    public static function rowVectorProvider(): array
     {
         return [
             [

@@ -21,7 +21,7 @@ class PercentRankTest extends AllSetupTeardown
         }
     }
 
-    public function providerPERCENTRANK(): array
+    public static function providerPERCENTRANK(): array
     {
         return require 'tests/data/Calculation/Statistical/PERCENTRANK.php';
     }

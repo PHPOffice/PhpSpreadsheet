@@ -54,7 +54,7 @@ class DateValueWizardTest extends TestCase
         self::assertEquals($newWizard, $dateWizard, 'fromConditional() Failure');
     }
 
-    public function dateValueWizardProvider(): array
+    public static function dateValueWizardProvider(): array
     {
         return [
             ['today', 'today', 'FLOOR(C3,1)=TODAY()'],

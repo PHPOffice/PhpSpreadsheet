@@ -90,7 +90,7 @@ class ImSecTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerIMSEC(): array
+    public static function providerIMSEC(): array
     {
         return require 'tests/data/Calculation/Engineering/IMSEC.php';
     }
@@ -116,7 +116,7 @@ class ImSecTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerUnhappyIMSEC(): array
+    public static function providerUnhappyIMSEC(): array
     {
         return [
             ['Formula Error: Wrong number of arguments for IMSEC() function'],
@@ -135,7 +135,7 @@ class ImSecTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerImSecArray(): array
+    public static function providerImSecArray(): array
     {
         return [
             'row/column vector' => [

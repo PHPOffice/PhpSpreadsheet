@@ -14,7 +14,7 @@ class AveDevTest extends AllSetupTeardown
         $this->runTestCases('AVEDEV', $expectedResult, ...$args);
     }
 
-    public function providerAVEDEV(): array
+    public static function providerAVEDEV(): array
     {
         return require 'tests/data/Calculation/Statistical/AVEDEV.php';
     }

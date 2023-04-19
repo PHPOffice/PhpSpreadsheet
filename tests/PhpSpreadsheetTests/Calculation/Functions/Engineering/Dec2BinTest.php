@@ -82,7 +82,7 @@ class Dec2BinTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerDEC2BIN(): array
+    public static function providerDEC2BIN(): array
     {
         return require 'tests/data/Calculation/Engineering/DEC2BIN.php';
     }
@@ -108,7 +108,7 @@ class Dec2BinTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerUnhappyDEC2BIN(): array
+    public static function providerUnhappyDEC2BIN(): array
     {
         return [
             ['Formula Error: Wrong number of arguments for DEC2BIN() function'],
@@ -129,7 +129,7 @@ class Dec2BinTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerDEC2BINOds(): array
+    public static function providerDEC2BINOds(): array
     {
         return require 'tests/data/Calculation/Engineering/DEC2BINOpenOffice.php';
     }
@@ -164,7 +164,7 @@ class Dec2BinTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerDec2BinArray(): array
+    public static function providerDec2BinArray(): array
     {
         return [
             'row/column vector' => [

@@ -14,7 +14,7 @@ class SlnTest extends AllSetupTeardown
         $this->runTestCase('SLN', $expectedResult, $args);
     }
 
-    public function providerSLN(): array
+    public static function providerSLN(): array
     {
         return require 'tests/data/Calculation/Financial/SLN.php';
     }

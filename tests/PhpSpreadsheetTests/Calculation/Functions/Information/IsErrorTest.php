@@ -25,7 +25,7 @@ class IsErrorTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerIsError(): array
+    public static function providerIsError(): array
     {
         return require 'tests/data/Calculation/Information/IS_ERROR.php';
     }
@@ -42,7 +42,7 @@ class IsErrorTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerIsErrorArray(): array
+    public static function providerIsErrorArray(): array
     {
         return [
             'vector' => [

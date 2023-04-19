@@ -9,7 +9,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class AutoFilterMonthTest extends SetupTeardown
 {
-    public function providerMonth(): array
+    public static function providerMonth(): array
     {
         return [
             [[2, 3], Rule::AUTOFILTER_RULETYPE_DYNAMIC_THISMONTH],

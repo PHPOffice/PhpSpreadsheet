@@ -105,7 +105,7 @@ class ExactFontTest extends TestCase
         }
     }
 
-    public function providerFontData(): array
+    public static function providerFontData(): array
     {
         return [
             ['DejaVu Sans', 19.82, 20.453125, 22.5659, 21.709],

@@ -14,7 +14,7 @@ class RateTest extends AllSetupTeardown
         $this->runTestCase('RATE', $expectedResult, $args);
     }
 
-    public function providerRATE(): array
+    public static function providerRATE(): array
     {
         return require 'tests/data/Calculation/Financial/RATE.php';
     }

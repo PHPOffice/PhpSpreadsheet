@@ -14,7 +14,7 @@ class IntRateTest extends AllSetupTeardown
         $this->runTestCase('INTRATE', $expectedResult, $args);
     }
 
-    public function providerINTRATE(): array
+    public static function providerINTRATE(): array
     {
         return require 'tests/data/Calculation/Financial/INTRATE.php';
     }

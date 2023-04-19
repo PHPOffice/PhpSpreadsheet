@@ -14,7 +14,7 @@ class HarMeanTest extends AllSetupTeardown
         $this->runTestCases('HARMEAN', $expectedResult, ...$args);
     }
 
-    public function providerHARMEAN(): array
+    public static function providerHARMEAN(): array
     {
         return require 'tests/data/Calculation/Statistical/HARMEAN.php';
     }

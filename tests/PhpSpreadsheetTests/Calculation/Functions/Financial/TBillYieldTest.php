@@ -14,7 +14,7 @@ class TBillYieldTest extends AllSetupTeardown
         $this->runTestCase('TBILLYIELD', $expectedResult, $args);
     }
 
-    public function providerTBILLYIELD(): array
+    public static function providerTBILLYIELD(): array
     {
         return require 'tests/data/Calculation/Financial/TBILLYIELD.php';
     }

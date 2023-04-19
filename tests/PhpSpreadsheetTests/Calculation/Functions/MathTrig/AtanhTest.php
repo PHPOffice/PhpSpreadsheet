@@ -21,7 +21,7 @@ class AtanhTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-6);
     }
 
-    public function providerAtanh(): array
+    public static function providerAtanh(): array
     {
         return require 'tests/data/Calculation/MathTrig/ATANH.php';
     }
@@ -38,7 +38,7 @@ class AtanhTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerAtanhArray(): array
+    public static function providerAtanhArray(): array
     {
         return [
             'row vector' => [[[1.83178082306482, 0.54930614433406, -1.83178082306482]], '{0.95, 0.5, -0.95}'],

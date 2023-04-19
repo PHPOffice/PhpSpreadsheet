@@ -55,7 +55,7 @@ class TranslationTest extends TestCase
         self::assertSame($formula, $restoredFormula);
     }
 
-    public function providerTranslations(): array
+    public static function providerTranslations(): array
     {
         return require 'tests/data/Calculation/Translations.php';
     }

@@ -21,7 +21,7 @@ class RankTest extends AllSetupTeardown
         }
     }
 
-    public function providerRANK(): array
+    public static function providerRANK(): array
     {
         return require 'tests/data/Calculation/Statistical/RANK.php';
     }

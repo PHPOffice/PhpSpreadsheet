@@ -16,7 +16,7 @@ class CountBlankTest extends AllSetupTeardown
         $this->runTestCaseNoBracket('COUNTBLANK', $expectedResult, ...$args);
     }
 
-    public function providerCOUNTBLANK(): array
+    public static function providerCOUNTBLANK(): array
     {
         return require 'tests/data/Calculation/Statistical/COUNTBLANK.php';
     }

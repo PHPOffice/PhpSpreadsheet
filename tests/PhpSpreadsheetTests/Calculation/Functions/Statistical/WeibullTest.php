@@ -16,7 +16,7 @@ class WeibullTest extends AllSetupTeardown
         $this->runTestCases('WEIBULL', $expectedResult, ...$args);
     }
 
-    public function providerWEIBULL(): array
+    public static function providerWEIBULL(): array
     {
         return require 'tests/data/Calculation/Statistical/WEIBULL.php';
     }
@@ -33,7 +33,7 @@ class WeibullTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerWeibullArray(): array
+    public static function providerWeibullArray(): array
     {
         return [
             'row/column vectors' => [

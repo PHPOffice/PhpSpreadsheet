@@ -83,7 +83,7 @@ class Hex2OctTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerHEX2OCT(): array
+    public static function providerHEX2OCT(): array
     {
         return require 'tests/data/Calculation/Engineering/HEX2OCT.php';
     }
@@ -109,7 +109,7 @@ class Hex2OctTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerUnhappyHEX2OCT(): array
+    public static function providerUnhappyHEX2OCT(): array
     {
         return [
             ['Formula Error: Wrong number of arguments for HEX2OCT() function'],
@@ -130,7 +130,7 @@ class Hex2OctTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerHEX2OCTOds(): array
+    public static function providerHEX2OCTOds(): array
     {
         return require 'tests/data/Calculation/Engineering/HEX2OCTOpenOffice.php';
     }
@@ -165,7 +165,7 @@ class Hex2OctTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerHex2OctArray(): array
+    public static function providerHex2OctArray(): array
     {
         return [
             'row/column vector' => [

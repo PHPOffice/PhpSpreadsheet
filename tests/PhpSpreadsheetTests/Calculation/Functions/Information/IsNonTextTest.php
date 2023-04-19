@@ -25,7 +25,7 @@ class IsNonTextTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerIsNonText(): array
+    public static function providerIsNonText(): array
     {
         return require 'tests/data/Calculation/Information/IS_NONTEXT.php';
     }
@@ -42,7 +42,7 @@ class IsNonTextTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerIsNonTextArray(): array
+    public static function providerIsNonTextArray(): array
     {
         return [
             'vector' => [

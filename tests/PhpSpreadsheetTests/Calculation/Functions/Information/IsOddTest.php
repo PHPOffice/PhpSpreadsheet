@@ -27,7 +27,7 @@ class IsOddTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerIsOdd(): array
+    public static function providerIsOdd(): array
     {
         return require 'tests/data/Calculation/Information/IS_ODD.php';
     }
@@ -44,7 +44,7 @@ class IsOddTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerIsOddArray(): array
+    public static function providerIsOddArray(): array
     {
         return [
             'vector' => [

@@ -69,7 +69,7 @@ class DateTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerDateTimeExcelToTimestamp1900(): array
+    public static function providerDateTimeExcelToTimestamp1900(): array
     {
         return require 'tests/data/Shared/Date/ExcelToTimestamp1900.php';
     }
@@ -88,7 +88,7 @@ class DateTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-5);
     }
 
-    public function providerDateTimeTimestampToExcel1900(): array
+    public static function providerDateTimeTimestampToExcel1900(): array
     {
         return require 'tests/data/Shared/Date/TimestampToExcel1900.php';
     }
@@ -107,7 +107,7 @@ class DateTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-5);
     }
 
-    public function providerDateTimeDateTimeToExcel(): array
+    public static function providerDateTimeDateTimeToExcel(): array
     {
         return require 'tests/data/Shared/Date/DateTimeToExcel.php';
     }
@@ -125,7 +125,7 @@ class DateTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-5);
     }
 
-    public function providerDateTimeFormattedPHPToExcel1900(): array
+    public static function providerDateTimeFormattedPHPToExcel1900(): array
     {
         return require 'tests/data/Shared/Date/FormattedPHPToExcel1900.php';
     }
@@ -147,7 +147,7 @@ class DateTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerDateTimeExcelToTimestamp1904(): array
+    public static function providerDateTimeExcelToTimestamp1904(): array
     {
         return require 'tests/data/Shared/Date/ExcelToTimestamp1904.php';
     }
@@ -166,7 +166,7 @@ class DateTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-5);
     }
 
-    public function providerDateTimeTimestampToExcel1904(): array
+    public static function providerDateTimeTimestampToExcel1904(): array
     {
         return require 'tests/data/Shared/Date/TimestampToExcel1904.php';
     }
@@ -182,7 +182,7 @@ class DateTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerIsDateTimeFormatCode(): array
+    public static function providerIsDateTimeFormatCode(): array
     {
         return require 'tests/data/Shared/Date/FormatCodes.php';
     }
@@ -205,7 +205,7 @@ class DateTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerDateTimeExcelToTimestamp1900Timezone(): array
+    public static function providerDateTimeExcelToTimestamp1900Timezone(): array
     {
         return require 'tests/data/Shared/Date/ExcelToTimestamp1900Timezone.php';
     }

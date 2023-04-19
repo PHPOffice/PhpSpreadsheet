@@ -80,7 +80,7 @@ class WeekDayTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerWEEKDAY(): array
+    public static function providerWEEKDAY(): array
     {
         return require 'tests/data/Calculation/DateTime/WEEKDAY.php';
     }
@@ -106,7 +106,7 @@ class WeekDayTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerUnhappyWEEKDAY(): array
+    public static function providerUnhappyWEEKDAY(): array
     {
         return [
             ['Formula Error: Wrong number of arguments for WEEKDAY() function'],
@@ -134,7 +134,7 @@ class WeekDayTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerWeekDayArray(): array
+    public static function providerWeekDayArray(): array
     {
         return [
             'row vector #1' => [[[7, 1, 7]], '{"2022-01-01", "2022-06-12", "2023-07-22"}', '1'],

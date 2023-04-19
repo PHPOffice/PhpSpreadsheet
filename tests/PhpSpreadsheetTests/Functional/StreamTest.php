@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class StreamTest extends TestCase
 {
-    public function providerFormats(): array
+    public static function providerFormats(): array
     {
         $providerFormats = [
             ['Xls'],

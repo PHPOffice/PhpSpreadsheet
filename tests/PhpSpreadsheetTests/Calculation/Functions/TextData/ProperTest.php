@@ -27,7 +27,7 @@ class ProperTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerPROPER(): array
+    public static function providerPROPER(): array
     {
         return require 'tests/data/Calculation/TextData/PROPER.php';
     }
@@ -52,7 +52,7 @@ class ProperTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerLocaleLOWER(): array
+    public static function providerLocaleLOWER(): array
     {
         return [
             ['Vrai', 'fr_FR', true],
@@ -78,7 +78,7 @@ class ProperTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerProperArray(): array
+    public static function providerProperArray(): array
     {
         return [
             'row vector' => [[["Let's", 'All Change', 'Case']], '{"lEt\'S", "aLl chAngE", "cAsE"}'],

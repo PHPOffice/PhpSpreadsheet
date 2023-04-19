@@ -28,7 +28,7 @@ class LnTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-6);
     }
 
-    public function providerLN(): array
+    public static function providerLN(): array
     {
         return require 'tests/data/Calculation/MathTrig/LN.php';
     }
@@ -45,7 +45,7 @@ class LnTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerLnArray(): array
+    public static function providerLnArray(): array
     {
         return [
             'row vector' => [[[-2.07944154167984, 0.85228540189824, 2.525728644308256]], '{0.125, 2.345, 12.5}'],

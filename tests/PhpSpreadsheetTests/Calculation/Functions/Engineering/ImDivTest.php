@@ -90,7 +90,7 @@ class ImDivTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerIMDIV(): array
+    public static function providerIMDIV(): array
     {
         return require 'tests/data/Calculation/Engineering/IMDIV.php';
     }
@@ -116,7 +116,7 @@ class ImDivTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerUnhappyIMDIV(): array
+    public static function providerUnhappyIMDIV(): array
     {
         return [
             ['Formula Error: Wrong number of arguments for IMDIV() function'],
@@ -136,7 +136,7 @@ class ImDivTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerImDivArray(): array
+    public static function providerImDivArray(): array
     {
         return [
             'matrix' => [

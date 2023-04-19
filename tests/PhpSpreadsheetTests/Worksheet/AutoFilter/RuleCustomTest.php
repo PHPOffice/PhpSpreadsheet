@@ -43,7 +43,7 @@ class RuleCustomTest extends SetupTeardown
         self::assertEquals($expectedResult, $this->getVisible());
     }
 
-    public function providerCondition(): array
+    public static function providerCondition(): array
     {
         return [
             [[3], Rule::AUTOFILTER_COLUMN_RULE_EQUAL],

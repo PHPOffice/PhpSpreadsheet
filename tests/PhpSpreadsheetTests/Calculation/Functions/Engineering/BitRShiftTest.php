@@ -60,7 +60,7 @@ class BitRShiftTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerBITRSHIFT(): array
+    public static function providerBITRSHIFT(): array
     {
         return require 'tests/data/Calculation/Engineering/BITRSHIFT.php';
     }
@@ -86,7 +86,7 @@ class BitRShiftTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerUnhappyBITRSHIFT(): array
+    public static function providerUnhappyBITRSHIFT(): array
     {
         return [
             ['Formula Error: Wrong number of arguments for BITRSHIFT() function'],
@@ -106,7 +106,7 @@ class BitRShiftTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerBitRShiftArray(): array
+    public static function providerBitRShiftArray(): array
     {
         return [
             'row/column vector' => [

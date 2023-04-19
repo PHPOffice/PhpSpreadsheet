@@ -81,7 +81,7 @@ class TimeValueTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerTIMEVALUE(): array
+    public static function providerTIMEVALUE(): array
     {
         return require 'tests/data/Calculation/DateTime/TIMEVALUE.php';
     }
@@ -129,7 +129,7 @@ class TimeValueTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerUnhappyTIMEVALUE(): array
+    public static function providerUnhappyTIMEVALUE(): array
     {
         return [
             ['Formula Error: Wrong number of arguments for TIMEVALUE() function'],
@@ -148,7 +148,7 @@ class TimeValueTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerTimeValueArray(): array
+    public static function providerTimeValueArray(): array
     {
         return [
             'row vector' => [[[0.04309027777777, 0.5515625, 0.80579861111111]], '{"2022-02-09 01:02:03", "2022-02-09 13:14:15", "2022-02-09 19:20:21"}'],

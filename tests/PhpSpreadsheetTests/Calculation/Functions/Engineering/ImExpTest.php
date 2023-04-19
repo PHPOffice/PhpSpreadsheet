@@ -90,7 +90,7 @@ class ImExpTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerIMEXP(): array
+    public static function providerIMEXP(): array
     {
         return require 'tests/data/Calculation/Engineering/IMEXP.php';
     }
@@ -116,7 +116,7 @@ class ImExpTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerUnhappyIMEXP(): array
+    public static function providerUnhappyIMEXP(): array
     {
         return [
             ['Formula Error: Wrong number of arguments for IMEXP() function'],
@@ -135,7 +135,7 @@ class ImExpTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerImExpArray(): array
+    public static function providerImExpArray(): array
     {
         return [
             'row/column vector' => [

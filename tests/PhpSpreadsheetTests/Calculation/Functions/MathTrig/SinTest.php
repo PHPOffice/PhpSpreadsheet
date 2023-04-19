@@ -21,7 +21,7 @@ class SinTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-6);
     }
 
-    public function providerSin(): array
+    public static function providerSin(): array
     {
         return require 'tests/data/Calculation/MathTrig/SIN.php';
     }
@@ -38,7 +38,7 @@ class SinTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerSinArray(): array
+    public static function providerSinArray(): array
     {
         return [
             'row vector' => [[[0.84147098480790, 0.47942553860420, -0.84147098480790]], '{1, 0.5, -1}'],

@@ -14,7 +14,7 @@ class MaxIfsTest extends AllSetupTeardown
         $this->runTestCaseNoBracket('MAXIFS', $expectedResult, ...$args);
     }
 
-    public function providerMAXIFS(): array
+    public static function providerMAXIFS(): array
     {
         return require 'tests/data/Calculation/Statistical/MAXIFS.php';
     }

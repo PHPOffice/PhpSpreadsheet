@@ -30,7 +30,7 @@ class TextJoinTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerTEXTJOIN(): array
+    public static function providerTEXTJOIN(): array
     {
         return require 'tests/data/Calculation/TextData/TEXTJOIN.php';
     }
@@ -47,7 +47,7 @@ class TextJoinTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerTextjoinArray(): array
+    public static function providerTextjoinArray(): array
     {
         return [
             'row vector #1' => [[['AB,CD,EF', 'AB;CD;EF']], '{",", ";"}', 'FALSE', '"AB", "CD", "EF"'],

@@ -39,7 +39,7 @@ class FormulaAsStringTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerFunctionsAsString(): array
+    public static function providerFunctionsAsString(): array
     {
         return require 'tests/data/Calculation/FunctionsAsString.php';
     }

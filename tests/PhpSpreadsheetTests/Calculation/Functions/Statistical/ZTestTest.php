@@ -16,7 +16,7 @@ class ZTestTest extends AllSetupTeardown
         $this->runTestCaseReference('ZTEST', $expectedResult, ...$args);
     }
 
-    public function providerZTEST(): array
+    public static function providerZTEST(): array
     {
         return require 'tests/data/Calculation/Statistical/ZTEST.php';
     }
@@ -33,7 +33,7 @@ class ZTestTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerZTestArray(): array
+    public static function providerZTestArray(): array
     {
         return [
             'row vector' => [

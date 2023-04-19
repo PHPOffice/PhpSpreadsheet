@@ -25,7 +25,7 @@ class CscTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-9);
     }
 
-    public function providerCSC(): array
+    public static function providerCSC(): array
     {
         return require 'tests/data/Calculation/MathTrig/CSC.php';
     }
@@ -42,7 +42,7 @@ class CscTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerCscArray(): array
+    public static function providerCscArray(): array
     {
         return [
             'row vector' => [[[1.18839510577812, 2.08582964293349, -1.18839510577812]], '{1, 0.5, -1}'],

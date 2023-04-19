@@ -16,7 +16,7 @@ class NormDistTest extends AllSetupTeardown
         $this->runTestCases('NORMDIST', $expectedResult, ...$args);
     }
 
-    public function providerNORMDIST(): array
+    public static function providerNORMDIST(): array
     {
         return require 'tests/data/Calculation/Statistical/NORMDIST.php';
     }
@@ -33,7 +33,7 @@ class NormDistTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerNormDistArray(): array
+    public static function providerNormDistArray(): array
     {
         return [
             'row/column vectors' => [

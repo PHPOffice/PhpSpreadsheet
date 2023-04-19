@@ -14,7 +14,7 @@ class MaxTest extends AllSetupTeardown
         $this->runTestCaseReference('MAX', $expectedResult, ...$args);
     }
 
-    public function providerMAX(): array
+    public static function providerMAX(): array
     {
         return require 'tests/data/Calculation/Statistical/MAX.php';
     }

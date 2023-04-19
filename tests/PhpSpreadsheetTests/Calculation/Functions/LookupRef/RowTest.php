@@ -18,7 +18,7 @@ class RowTest extends AllSetupTeardown
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerROW(): array
+    public static function providerROW(): array
     {
         return require 'tests/data/Calculation/LookupRef/ROW.php';
     }

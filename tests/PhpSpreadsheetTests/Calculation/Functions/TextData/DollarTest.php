@@ -31,7 +31,7 @@ class DollarTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerDOLLAR(): array
+    public static function providerDOLLAR(): array
     {
         return require 'tests/data/Calculation/TextData/DOLLAR.php';
     }
@@ -48,7 +48,7 @@ class DollarTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerDollarArray(): array
+    public static function providerDollarArray(): array
     {
         return [
             'row vector #1' => [[['-$123.32', '$123.46', '$12,345.68']], '{-123.321, 123.456, 12345.6789}', '2'],

@@ -32,7 +32,7 @@ class WizardFactoryTest extends TestCase
         self::assertInstanceOf($expectedWizard, $wizard);
     }
 
-    public function basicWizardFactoryProvider(): array
+    public static function basicWizardFactoryProvider(): array
     {
         return [
             'CellValue Wizard' => [Wizard::CELL_VALUE, Wizard\CellValue::class],
@@ -69,7 +69,7 @@ class WizardFactoryTest extends TestCase
         }
     }
 
-    public function conditionalProvider(): array
+    public static function conditionalProvider(): array
     {
         return [
             'cellIs Comparison A2' => ['cellIs Comparison', 'A2', [Wizard\CellValue::class, Wizard\CellValue::class, Wizard\CellValue::class]],

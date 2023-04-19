@@ -25,7 +25,7 @@ class IsNaTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerIsNa(): array
+    public static function providerIsNa(): array
     {
         return require 'tests/data/Calculation/Information/IS_NA.php';
     }
@@ -42,7 +42,7 @@ class IsNaTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerIsNaArray(): array
+    public static function providerIsNaArray(): array
     {
         return [
             'vector' => [

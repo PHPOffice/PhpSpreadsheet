@@ -89,7 +89,7 @@ class ColorTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerColorGetRed(): array
+    public static function providerColorGetRed(): array
     {
         return require 'tests/data/Style/Color/ColorGetRed.php';
     }
@@ -109,7 +109,7 @@ class ColorTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerColorGetGreen(): array
+    public static function providerColorGetGreen(): array
     {
         return require 'tests/data/Style/Color/ColorGetGreen.php';
     }
@@ -129,7 +129,7 @@ class ColorTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerColorGetBlue(): array
+    public static function providerColorGetBlue(): array
     {
         return require 'tests/data/Style/Color/ColorGetBlue.php';
     }
@@ -145,7 +145,7 @@ class ColorTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerColorChangeBrightness(): array
+    public static function providerColorChangeBrightness(): array
     {
         return require 'tests/data/Style/Color/ColorChangeBrightness.php';
     }

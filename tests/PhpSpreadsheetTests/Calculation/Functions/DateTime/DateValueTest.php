@@ -117,7 +117,7 @@ class DateValueTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerDATEVALUE(): array
+    public static function providerDATEVALUE(): array
     {
         return require 'tests/data/Calculation/DateTime/DATEVALUE.php';
     }
@@ -143,7 +143,7 @@ class DateValueTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerUnhappyDATEVALUE(): array
+    public static function providerUnhappyDATEVALUE(): array
     {
         return [
             ['Formula Error: Wrong number of arguments for DATEVALUE() function'],
@@ -194,7 +194,7 @@ class DateValueTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerDateValueArray(): array
+    public static function providerDateValueArray(): array
     {
         return [
             'row vector' => [[[44562, 44724, 45129]], '{"2022-01-01", "2022-06-12", "2023-07-22"}'],

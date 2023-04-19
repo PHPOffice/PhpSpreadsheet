@@ -60,7 +60,7 @@ class BitOrTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerBITOR(): array
+    public static function providerBITOR(): array
     {
         return require 'tests/data/Calculation/Engineering/BITOR.php';
     }
@@ -86,7 +86,7 @@ class BitOrTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerUnhappyBITOR(): array
+    public static function providerUnhappyBITOR(): array
     {
         return [
             ['Formula Error: Wrong number of arguments for BITOR() function'],
@@ -106,7 +106,7 @@ class BitOrTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerBitOrArray(): array
+    public static function providerBitOrArray(): array
     {
         return [
             'row/column vector' => [

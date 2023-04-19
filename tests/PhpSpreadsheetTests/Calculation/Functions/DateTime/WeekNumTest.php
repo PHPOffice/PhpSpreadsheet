@@ -81,7 +81,7 @@ class WeekNumTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerWEEKNUM(): array
+    public static function providerWEEKNUM(): array
     {
         return require 'tests/data/Calculation/DateTime/WEEKNUM.php';
     }
@@ -107,7 +107,7 @@ class WeekNumTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerUnhappyWEEKNUM(): array
+    public static function providerUnhappyWEEKNUM(): array
     {
         return [
             ['Formula Error: Wrong number of arguments for WEEKNUM() function'],
@@ -128,7 +128,7 @@ class WeekNumTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerWEEKNUM1904(): array
+    public static function providerWEEKNUM1904(): array
     {
         return require 'tests/data/Calculation/DateTime/WEEKNUM1904.php';
     }
@@ -145,7 +145,7 @@ class WeekNumTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerWeekNumArray(): array
+    public static function providerWeekNumArray(): array
     {
         return [
             'row vector #1' => [[[1, 25, 29]], '{"2022-01-01", "2022-06-12", "2023-07-22"}', '1'],

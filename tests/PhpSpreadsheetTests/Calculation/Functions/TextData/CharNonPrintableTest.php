@@ -30,7 +30,7 @@ class CharNonPrintableTest extends AbstractFunctional
         $reloadedSpreadsheet->disconnectWorksheets();
     }
 
-    public function providerType(): array
+    public static function providerType(): array
     {
         return [
             ['Xlsx'],

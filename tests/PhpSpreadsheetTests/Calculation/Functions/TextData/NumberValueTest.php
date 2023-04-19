@@ -39,7 +39,7 @@ class NumberValueTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, self::NV_PRECISION);
     }
 
-    public function providerNUMBERVALUE(): array
+    public static function providerNUMBERVALUE(): array
     {
         return require 'tests/data/Calculation/TextData/NUMBERVALUE.php';
     }
@@ -56,7 +56,7 @@ class NumberValueTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, self::NV_PRECISION);
     }
 
-    public function providerNumberValueArray(): array
+    public static function providerNumberValueArray(): array
     {
         return [
             'row vector #1' => [[[-123.321, 123.456, 12345.6789]], '{"-123,321", "123,456", "12 345,6789"}', '","', '" "'],

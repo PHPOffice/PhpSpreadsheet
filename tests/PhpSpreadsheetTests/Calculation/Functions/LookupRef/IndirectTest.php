@@ -54,7 +54,7 @@ class IndirectTest extends AllSetupTeardown
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerINDIRECT(): array
+    public static function providerINDIRECT(): array
     {
         return require 'tests/data/Calculation/LookupRef/INDIRECT.php';
     }
@@ -151,7 +151,7 @@ class IndirectTest extends AllSetupTeardown
         self::assertSame($expectedResult, $sheet->getCell('B2')->getCalculatedValue());
     }
 
-    public function providerRelative(): array
+    public static function providerRelative(): array
     {
         return [
             'same row with bracket next column' => ['c2', 'R[]C[+1]'],

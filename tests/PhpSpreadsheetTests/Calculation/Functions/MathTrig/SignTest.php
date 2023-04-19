@@ -24,7 +24,7 @@ class SignTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerSIGN(): array
+    public static function providerSIGN(): array
     {
         return require 'tests/data/Calculation/MathTrig/SIGN.php';
     }
@@ -41,7 +41,7 @@ class SignTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerSignArray(): array
+    public static function providerSignArray(): array
     {
         return [
             'row vector' => [[[-1, 0, 1]], '{-1.5, 0, 0.3}'],

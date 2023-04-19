@@ -19,7 +19,7 @@ class TimeTest extends TestCase
         self::assertSame($expectedResult, (string) $wizard);
     }
 
-    public function providerTime(): array
+    public static function providerTime(): array
     {
         return [
             ['hh:mm:ss', Time::SEPARATOR_COLON, [Time::HOURS_LONG, Time::MINUTES_LONG, Time::SECONDS_LONG]],
