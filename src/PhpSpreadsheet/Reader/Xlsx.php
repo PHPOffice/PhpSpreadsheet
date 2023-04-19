@@ -134,7 +134,7 @@ class Xlsx extends BaseReader
         if ($replaceUnclosedBr) {
             $contents = str_replace('<br>', '<br/>', $contents);
         }
-        $rels = simplexml_load_string(
+        $rels = @simplexml_load_string(
             $this->getSecurityScannerOrThrow()->scan($contents),
             'SimpleXMLElement',
             Settings::getLibXmlLoaderOptions(),

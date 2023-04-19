@@ -47,7 +47,7 @@ class RowIteratorEmptyTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function emptyRowBasic(): array
+    public static function emptyRowBasic(): array
     {
         return [
             [1, false],
@@ -77,7 +77,7 @@ class RowIteratorEmptyTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function emptyRowNullAsEmpty(): array
+    public static function emptyRowNullAsEmpty(): array
     {
         return [
             [1, false],
@@ -107,7 +107,7 @@ class RowIteratorEmptyTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function emptyRowEmptyStringAsEmpty(): array
+    public static function emptyRowEmptyStringAsEmpty(): array
     {
         return [
             [1, false],
@@ -139,7 +139,7 @@ class RowIteratorEmptyTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function emptyRowNullAndEmptyStringAsEmpty(): array
+    public static function emptyRowNullAndEmptyStringAsEmpty(): array
     {
         return [
             [1, false],

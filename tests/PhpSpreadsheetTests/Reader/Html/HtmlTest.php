@@ -25,8 +25,12 @@ class HtmlTest extends TestCase
         $reader = new Html();
         self::assertTrue($reader->canRead($filename));
 
-        $this->expectException(ReaderException::class);
-        $reader->load($filename);
+        if (method_exists($this, 'setOutputCallback')) {
+            // The meat of this test is moved to HtmlPhpunit10Test
+            // to run under all PhpUnit versions.
+            $this->expectException(ReaderException::class);
+            $reader->load($filename);
+        }
     }
 
     public function testNonHtml(): void
@@ -46,7 +50,7 @@ class HtmlTest extends TestCase
         self::assertFalse($reader->canRead(''));
     }
 
-    public function providerCanReadVerySmallFile(): array
+    public static function providerCanReadVerySmallFile(): array
     {
         $padding = str_repeat('a', 2048);
 

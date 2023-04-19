@@ -15,6 +15,11 @@ class ComplexAssert extends TestCase
     /** @var float */
     private $delta = 0.0;
 
+    public function __construct()
+    {
+        parent::__construct('complexAssert');
+    }
+
     /**
      * @param mixed $expected
      * @param mixed $actual

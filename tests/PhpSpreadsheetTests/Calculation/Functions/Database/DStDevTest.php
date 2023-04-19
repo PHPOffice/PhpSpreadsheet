@@ -37,12 +37,12 @@ class DStDevTest extends SetupTeardownDatabases
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
-    public function providerDStDev(): array
+    public static function providerDStDev(): array
     {
         return [
             [
                 2.966479394838,
-                $this->database1(),
+                self::database1(),
                 'Yield',
                 [
                     ['Tree'],
@@ -52,7 +52,7 @@ class DStDevTest extends SetupTeardownDatabases
             ],
             [
                 0.104403065089,
-                $this->database3FilledIn(),
+                self::database3FilledIn(),
                 'Score',
                 [
                     ['Subject', 'Gender'],
@@ -61,7 +61,7 @@ class DStDevTest extends SetupTeardownDatabases
             ],
             [
                 0.196723155729,
-                $this->database3FilledIn(),
+                self::database3FilledIn(),
                 'Score',
                 [
                     ['Subject', 'Age'],
@@ -70,9 +70,9 @@ class DStDevTest extends SetupTeardownDatabases
             ],
             'omitted field name' => [
                 ExcelError::VALUE(),
-                $this->database1(),
+                self::database1(),
                 null,
-                $this->database1(),
+                self::database1(),
             ],
         ];
     }

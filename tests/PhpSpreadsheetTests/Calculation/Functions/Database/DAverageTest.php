@@ -35,12 +35,12 @@ class DAverageTest extends SetupTeardownDatabases
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
-    public function providerDAverage(): array
+    public static function providerDAverage(): array
     {
         return [
             [
                 12,
-                $this->database1(),
+                self::database1(),
                 'Yield',
                 [
                     ['Tree', 'Height'],
@@ -49,7 +49,7 @@ class DAverageTest extends SetupTeardownDatabases
             ],
             [
                 268333.333333333333,
-                $this->database2(),
+                self::database2(),
                 'Sales',
                 [
                     ['Quarter', 'Sales Rep.'],
@@ -58,7 +58,7 @@ class DAverageTest extends SetupTeardownDatabases
             ],
             [
                 372500,
-                $this->database2(),
+                self::database2(),
                 'Sales',
                 [
                     ['Quarter', 'Area'],
@@ -67,25 +67,25 @@ class DAverageTest extends SetupTeardownDatabases
             ],
             'numeric column, in this case referring to age' => [
                 13,
-                $this->database1(),
+                self::database1(),
                 3,
-                $this->database1(),
+                self::database1(),
             ],
             'null field' => [
                 ExcelError::VALUE(),
-                $this->database1(),
+                self::database1(),
                 null,
-                $this->database1(),
+                self::database1(),
             ],
             'field unknown column' => [
                 ExcelError::VALUE(),
-                $this->database1(),
+                self::database1(),
                 'xyz',
-                $this->database1(),
+                self::database1(),
             ],
             'multiple criteria, omit equal sign' => [
                 10.5,
-                $this->database1(),
+                self::database1(),
                 'Yield',
                 [
                     ['Tree', 'Height'],
@@ -95,7 +95,7 @@ class DAverageTest extends SetupTeardownDatabases
             ],
             'multiple criteria for same field' => [
                 10,
-                $this->database1(),
+                self::database1(),
                 'Yield',
                 [
                     ['Tree', 'Height', 'Age', 'Height'],
@@ -108,15 +108,15 @@ class DAverageTest extends SetupTeardownDatabases
                content to return #VALUE! as an invalid name would */
             'field column number too high' => [
                 ExcelError::VALUE(),
-                $this->database1(),
+                self::database1(),
                 99,
-                $this->database1(),
+                self::database1(),
             ],
             'field column number too low' => [
                 ExcelError::VALUE(),
-                $this->database1(),
+                self::database1(),
                 0,
-                $this->database1(),
+                self::database1(),
             ],
         ];
     }
