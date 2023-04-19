@@ -52,6 +52,7 @@ foreach ($inputFileNames as $inputFileName) {
                 if ($groupCount == 1) {
                     $chartType = $chart->getPlotArea()->getPlotGroupByIndex(0)->getPlotType();
                     $helper->log($indentation . '    ' . $chartType);
+                    $helper->renderChart($chart, __FILE__);
                 } else {
                     $chartTypes = [];
                     for ($i = 0; $i < $groupCount; ++$i) {
@@ -61,10 +62,12 @@ foreach ($inputFileNames as $inputFileName) {
                     if (count($chartTypes) == 1) {
                         $chartType = 'Multiple Plot ' . array_pop($chartTypes);
                         $helper->log($indentation . '    ' . $chartType);
+                        $helper->renderChart($chart, __FILE__);
                     } elseif (count($chartTypes) == 0) {
                         $helper->log($indentation . '    *** Type not yet implemented');
                     } else {
                         $helper->log($indentation . '    Combination Chart');
+                        $helper->renderChart($chart, __FILE__);
                     }
                 }
             }

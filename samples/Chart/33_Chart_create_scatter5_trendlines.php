@@ -10,7 +10,6 @@ use PhpOffice\PhpSpreadsheet\Chart\PlotArea;
 use PhpOffice\PhpSpreadsheet\Chart\Properties;
 use PhpOffice\PhpSpreadsheet\Chart\Title;
 use PhpOffice\PhpSpreadsheet\Chart\TrendLine;
-use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
@@ -174,6 +173,8 @@ $chartSheet = $spreadsheet->getSheetByName('Scatter Chart');
 // Add the chart to the worksheet
 $chartSheet->addChart($chart);
 
+$helper->renderChart($chart, __FILE__);
+
 // ------------ Demonstrate Trendlines for metric3 values in a new chart ------------
 
 $dataSeriesLabels = [
@@ -263,12 +264,10 @@ $chart->setBottomRightPosition('P25');
 
 // Add the chart to the worksheet $chartSheet
 $chartSheet->addChart($chart);
+
+$helper->renderChart($chart, __FILE__);
+
 $spreadsheet->setActiveSheetIndex(1);
 
 // Save Excel 2007 file
-$filename = $helper->getFilename(__FILE__);
-$writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
-$writer->setIncludeCharts(true);
-$callStartTime = microtime(true);
-$writer->save($filename);
-$helper->logWrite($writer, $filename, $callStartTime);
+$helper->write($spreadsheet, __FILE__, ['Xlsx'], true);
