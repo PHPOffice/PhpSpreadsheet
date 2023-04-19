@@ -359,6 +359,13 @@ class Style extends WriterPart
             $objWriter->endElement();
         }
 
+        if (!empty($font->getScheme())) {
+            $this->startFont($objWriter, $fontStarted);
+            $objWriter->startElement('scheme');
+            $objWriter->writeAttribute('val', $font->getScheme());
+            $objWriter->endElement();
+        }
+
         if ($fontStarted) {
             $objWriter->endElement();
         }

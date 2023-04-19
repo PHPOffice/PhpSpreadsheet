@@ -82,6 +82,9 @@ class Chart
         $gradientArray = [];
         $gradientLin = null;
         $roundedCorners = false;
+        $gapWidth = null;
+        $useUpBars = null;
+        $useDownBars = null;
         foreach ($chartElementsC as $chartElementKey => $chartElement) {
             switch ($chartElementKey) {
                 case 'spPr':
@@ -332,6 +335,15 @@ class Chart
                                             break;
                                         case 'stockChart':
                                             $plotSeries[] = $this->chartDataSeries($chartDetail, $chartDetailKey);
+                                            if (isset($chartDetail->upDownBars->gapWidth)) {
+                                                $gapWidth = self::getAttribute($chartDetail->upDownBars->gapWidth, 'val', 'integer');
+                                            }
+                                            if (isset($chartDetail->upDownBars->upBars)) {
+                                                $useUpBars = true;
+                                            }
+                                            if (isset($chartDetail->upDownBars->downBars)) {
+                                                $useDownBars = true;
+                                            }
                                             $plotAttributes = $this->readChartAttributes($chartDetail);
 
                                             break;
@@ -347,6 +359,15 @@ class Chart
                                 }
                                 if (!empty($gradientArray)) {
                                     $plotArea->setGradientFillProperties($gradientArray, $gradientLin);
+                                }
+                                if (is_int($gapWidth)) {
+                                    $plotArea->setGapWidth($gapWidth);
+                                }
+                                if ($useUpBars === true) {
+                                    $plotArea->setUseUpBars(true);
+                                }
+                                if ($useDownBars === true) {
+                                    $plotArea->setUseDownBars(true);
                                 }
 
                                 break;
@@ -1143,6 +1164,37 @@ class Chart
         return $value;
     }
 
+    private function parseFont(SimpleXMLElement $titleDetailPart): ?Font
+    {
+        if (!isset($titleDetailPart->pPr->defRPr)) {
+            return null;
+        }
+        $fontArray = [];
+        $fontArray['size'] = self::getAttribute($titleDetailPart->pPr->defRPr, 'sz', 'integer');
+        $fontArray['bold'] = self::getAttribute($titleDetailPart->pPr->defRPr, 'b', 'boolean');
+        $fontArray['italic'] = self::getAttribute($titleDetailPart->pPr->defRPr, 'i', 'boolean');
+        $fontArray['underscore'] = self::getAttribute($titleDetailPart->pPr->defRPr, 'u', 'string');
+        $fontArray['strikethrough'] = self::getAttribute($titleDetailPart->pPr->defRPr, 'strike', 'string');
+
+        if (isset($titleDetailPart->pPr->defRPr->latin)) {
+            $fontArray['latin'] = self::getAttribute($titleDetailPart->pPr->defRPr->latin, 'typeface', 'string');
+        }
+        if (isset($titleDetailPart->pPr->defRPr->ea)) {
+            $fontArray['eastAsian'] = self::getAttribute($titleDetailPart->pPr->defRPr->ea, 'typeface', 'string');
+        }
+        if (isset($titleDetailPart->pPr->defRPr->cs)) {
+            $fontArray['complexScript'] = self::getAttribute($titleDetailPart->pPr->defRPr->cs, 'typeface', 'string');
+        }
+        if (isset($titleDetailPart->pPr->defRPr->solidFill)) {
+            $fontArray['chartColor'] = new ChartColor($this->readColor($titleDetailPart->pPr->defRPr->solidFill));
+        }
+        $font = new Font();
+        $font->setSize(null, true);
+        $font->applyFromArray($fontArray);
+
+        return $font;
+    }
+
     /**
      * @param ?SimpleXMLElement $chartDetail
      */
@@ -1189,8 +1241,13 @@ class Chart
             }
             if (isset($chartDetail->dLbls->txPr)) {
                 $txpr = $chartDetail->dLbls->txPr->children($this->aNamespace);
-                if (isset($txpr->p->pPr->defRPr->solidFill)) {
-                    $plotAttributes['labelFontColor'] = new ChartColor($this->readColor($txpr->p->pPr->defRPr->solidFill));
+                if (isset($txpr->p)) {
+                    $plotAttributes['labelFont'] = $this->parseFont($txpr->p);
+                    if (isset($txpr->p->pPr->defRPr->effectLst)) {
+                        $labelEffects = new GridLines();
+                        $this->readEffects($txpr->p->pPr->defRPr, $labelEffects, false);
+                        $plotAttributes['labelEffects'] = $labelEffects;
+                    }
                 }
             }
         }
@@ -1489,10 +1546,12 @@ class Chart
                     $addAxisText = true;
                 }
             }
-            if (isset($children->p->pPr->defRPr->solidFill)) {
-                $colorArray = $this->readColor($children->p->pPr->defRPr->solidFill);
-                $axisText->getFillColorObject()->setColorPropertiesArray($colorArray);
-                $addAxisText = true;
+            if (isset($children->p->pPr->defRPr)) {
+                $font = $this->parseFont($children->p);
+                if ($font !== null) {
+                    $axisText->setFont($font);
+                    $addAxisText = true;
+                }
             }
             if (isset($children->p->pPr->defRPr->effectLst)) {
                 $this->readEffects($children->p->pPr->defRPr, $axisText, false);

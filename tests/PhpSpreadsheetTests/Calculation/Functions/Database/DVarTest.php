@@ -37,12 +37,12 @@ class DVarTest extends SetupTeardownDatabases
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
-    public function providerDVar(): array
+    public static function providerDVar(): array
     {
         return [
             [
                 8.8,
-                $this->database1(),
+                self::database1(),
                 'Yield',
                 [
                     ['Tree'],
@@ -52,7 +52,7 @@ class DVarTest extends SetupTeardownDatabases
             ],
             [
                 0.038433333333,
-                $this->database3FilledIn(),
+                self::database3FilledIn(),
                 'Score',
                 [
                     ['Subject', 'Gender'],
@@ -61,7 +61,7 @@ class DVarTest extends SetupTeardownDatabases
             ],
             [
                 0.017433333333,
-                $this->database3FilledIn(),
+                self::database3FilledIn(),
                 'Score',
                 [
                     ['Subject', 'Age'],
@@ -70,9 +70,9 @@ class DVarTest extends SetupTeardownDatabases
             ],
             'omitted field name' => [
                 ExcelError::VALUE(),
-                $this->database1(),
+                self::database1(),
                 null,
-                $this->database1(),
+                self::database1(),
             ],
         ];
     }

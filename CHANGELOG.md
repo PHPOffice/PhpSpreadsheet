@@ -9,12 +9,18 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Added
 
-- Wizards for defining Number Format masks for Dates and Times. [PR #3458](https://github.com/PHPOffice/PhpSpreadsheet/pull/3458)
+- Wizards for defining Number Format masks for Dates and Times, including Durations/Intervals. [PR #3458](https://github.com/PHPOffice/PhpSpreadsheet/pull/3458)
 - Specify data type in html tags. [Issue #3444](https://github.com/PHPOffice/PhpSpreadsheet/issues/3444) [PR #3445](https://github.com/PHPOffice/PhpSpreadsheet/pull/3445)
+- Provide option to ignore hidden rows/columns in `toArray()` methods. [PR #3494](https://github.com/PHPOffice/PhpSpreadsheet/pull/3494)
+- Font/Effects/Theme support for Chart Data Labels and Axis. [PR #3476](https://github.com/PHPOffice/PhpSpreadsheet/pull/3476)
+- Font Themes support. [PR #3486](https://github.com/PHPOffice/PhpSpreadsheet/pull/3486)
+- Ability to Ignore Cell Errors in Excel. [Issue #1141](https://github.com/PHPOffice/PhpSpreadsheet/issues/1141) [PR #3508](https://github.com/PHPOffice/PhpSpreadsheet/pull/3508)
 
 ### Changed
 
+- Xlsx Color schemes read in will be written out (previously Excel 2007-2010 Color scheme was always written); manipulation of those schemes before write, including restoring prior behavior, is provided [PR #3476](https://github.com/PHPOffice/PhpSpreadsheet/pull/3476)
 - Memory and speed optimisations for Read Filters with Xlsx Files and Shared Formulae. [PR #3474](https://github.com/PHPOffice/PhpSpreadsheet/pull/3474)
+- Allow `CellRange` and `CellAddress` objects for the `range` argument in the `rangeToArray()` method. [PR #3494](https://github.com/PHPOffice/PhpSpreadsheet/pull/3494)
 
 ### Deprecated
 
@@ -43,6 +49,10 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Incorrect Font Color Read Xlsx Rich Text Indexed Color Custom Palette. [Issue #3464](https://github.com/PHPOffice/PhpSpreadsheet/issues/3464) [PR #3465](https://github.com/PHPOffice/PhpSpreadsheet/pull/3465)
 - Xlsx Writer Honor Alignment in Default Font. [Issue #3443](https://github.com/PHPOffice/PhpSpreadsheet/issues/3443) [PR #3459](https://github.com/PHPOffice/PhpSpreadsheet/pull/3459)
 - Support Border for Charts. [PR #3462](https://github.com/PHPOffice/PhpSpreadsheet/pull/3462)
+- Error in "this row" structured reference calculation (cached result from first row when using a range) [Issue #3504](https://github.com/PHPOffice/PhpSpreadsheet/issues/3504) [PR #3505](https://github.com/PHPOffice/PhpSpreadsheet/pull/3505)
+- Allow colour palette index references in Number Format masks [Issue #3511](https://github.com/PHPOffice/PhpSpreadsheet/issues/3511) [PR #3512](https://github.com/PHPOffice/PhpSpreadsheet/pull/3512)
+- Xlsx Reader formula with quotePrefix [Issue #3495](https://github.com/PHPOffice/PhpSpreadsheet/issues/3495) [PR #3497](https://github.com/PHPOffice/PhpSpreadsheet/pull/3497)
+- Handle REF error as part of range [Issue #3453](https://github.com/PHPOffice/PhpSpreadsheet/issues/3453) [PR #3467](https://github.com/PHPOffice/PhpSpreadsheet/pull/3467)
 
 
 ## 1.28.0 - 2023-02-25

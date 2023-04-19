@@ -134,7 +134,7 @@ class Xlsx extends BaseReader
         if ($replaceUnclosedBr) {
             $contents = str_replace('<br>', '<br/>', $contents);
         }
-        $rels = simplexml_load_string(
+        $rels = @simplexml_load_string(
             $this->getSecurityScannerOrThrow()->scan($contents),
             'SimpleXMLElement',
             Settings::getLibXmlLoaderOptions(),
@@ -252,6 +252,7 @@ class Xlsx extends BaseReader
                 $xmlWorkbook = $this->loadZip($relTarget, $mainNS);
                 if ($xmlWorkbook->sheets) {
                     $dir = dirname($relTarget);
+
                     /** @var SimpleXMLElement $eleSheet */
                     foreach ($xmlWorkbook->sheets->sheet as $eleSheet) {
                         $tmpInfo = [
@@ -267,8 +268,8 @@ class Xlsx extends BaseReader
 
                         $xml = new XMLReader();
                         $xml->xml(
-                            $this->getSecurityScannerOrThrow()->scanFile(
-                                'zip://' . File::realpath($filename) . '#' . $fileWorksheetPath
+                            $this->getSecurityScannerOrThrow()->scan(
+                                $this->getFromZipArchive($this->zip, $fileWorksheetPath)
                             ),
                             null,
                             Settings::getLibXmlLoaderOptions()
@@ -403,10 +404,16 @@ class Xlsx extends BaseReader
         // Sadly, some 3rd party xlsx generators don't use consistent case for filenaming
         //    so we need to load case-insensitively from the zip file
 
-        // Apache POI fixes
         $contents = $archive->getFromName($fileName, 0, ZipArchive::FL_NOCASE);
+
+        // Apache POI fixes
         if ($contents === false) {
             $contents = $archive->getFromName(substr($fileName, 1), 0, ZipArchive::FL_NOCASE);
+        }
+
+        // Has the file been saved with Windoze directory separators rather than unix?
+        if ($contents === false) {
+            $contents = $archive->getFromName(str_replace('/', '\\', $fileName), 0, ZipArchive::FL_NOCASE);
         }
 
         return ($contents === false) ? '' : $contents;
@@ -455,6 +462,7 @@ class Xlsx extends BaseReader
 
                     $colourScheme = self::getAttributes($xmlTheme->themeElements->clrScheme);
                     $colourSchemeName = (string) $colourScheme['name'];
+                    $excel->getTheme()->setThemeColorName($colourSchemeName);
                     $colourScheme = $xmlTheme->themeElements->clrScheme->children($drawingNS);
 
                     $themeColours = [];
@@ -466,13 +474,45 @@ class Xlsx extends BaseReader
                         if (isset($xmlColour->sysClr)) {
                             $xmlColourData = self::getAttributes($xmlColour->sysClr);
                             $themeColours[$themePos] = (string) $xmlColourData['lastClr'];
+                            $excel->getTheme()->setThemeColor($k, (string) $xmlColourData['lastClr']);
                         } elseif (isset($xmlColour->srgbClr)) {
                             $xmlColourData = self::getAttributes($xmlColour->srgbClr);
                             $themeColours[$themePos] = (string) $xmlColourData['val'];
+                            $excel->getTheme()->setThemeColor($k, (string) $xmlColourData['val']);
                         }
                     }
                     $theme = new Theme($themeName, $colourSchemeName, $themeColours);
                     $this->styleReader->setTheme($theme);
+
+                    $fontScheme = self::getAttributes($xmlTheme->themeElements->fontScheme);
+                    $fontSchemeName = (string) $fontScheme['name'];
+                    $excel->getTheme()->setThemeFontName($fontSchemeName);
+                    $majorFonts = [];
+                    $minorFonts = [];
+                    $fontScheme = $xmlTheme->themeElements->fontScheme->children($drawingNS);
+                    $majorLatin = self::getAttributes($fontScheme->majorFont->latin)['typeface'] ?? '';
+                    $majorEastAsian = self::getAttributes($fontScheme->majorFont->ea)['typeface'] ?? '';
+                    $majorComplexScript = self::getAttributes($fontScheme->majorFont->cs)['typeface'] ?? '';
+                    $minorLatin = self::getAttributes($fontScheme->minorFont->latin)['typeface'] ?? '';
+                    $minorEastAsian = self::getAttributes($fontScheme->minorFont->ea)['typeface'] ?? '';
+                    $minorComplexScript = self::getAttributes($fontScheme->minorFont->cs)['typeface'] ?? '';
+
+                    foreach ($fontScheme->majorFont->font as $xmlFont) {
+                        $fontAttributes = self::getAttributes($xmlFont);
+                        $script = (string) ($fontAttributes['script'] ?? '');
+                        if (!empty($script)) {
+                            $majorFonts[$script] = (string) ($fontAttributes['typeface'] ?? '');
+                        }
+                    }
+                    foreach ($fontScheme->minorFont->font as $xmlFont) {
+                        $fontAttributes = self::getAttributes($xmlFont);
+                        $script = (string) ($fontAttributes['script'] ?? '');
+                        if (!empty($script)) {
+                            $minorFonts[$script] = (string) ($fontAttributes['typeface'] ?? '');
+                        }
+                    }
+                    $excel->getTheme()->setMajorFontValues($majorLatin, $majorEastAsian, $majorComplexScript, $majorFonts);
+                    $excel->getTheme()->setMinorFontValues($minorLatin, $minorEastAsian, $minorComplexScript, $minorFonts);
 
                     break;
             }
@@ -905,11 +945,21 @@ class Xlsx extends BaseReader
                                                 // no style index means 0, it seems
                                                 $cell->setXfIndex(isset($styles[(int) ($cAttr['s'])]) ?
                                                     (int) ($cAttr['s']) : 0);
+                                                // issue 3495
+                                                if ($cell->getDataType() === DataType::TYPE_FORMULA) {
+                                                    $cell->getStyle()->setQuotePrefix(false);
+                                                }
                                             }
                                         }
                                         ++$rowIndex;
                                     }
                                     ++$cIndex;
+                                }
+                            }
+                            if ($xmlSheetNS && $xmlSheetNS->ignoredErrors) {
+                                foreach ($xmlSheetNS->ignoredErrors->ignoredError as $ignoredErrorx) {
+                                    $ignoredError = self::testSimpleXml($ignoredErrorx);
+                                    $this->processIgnoredErrors($ignoredError, $docSheet);
                                 }
                             }
 
@@ -2218,5 +2268,49 @@ class Xlsx extends BaseReader
         }
 
         return $array;
+    }
+
+    private function processIgnoredErrors(SimpleXMLElement $xml, Worksheet $sheet): void
+    {
+        $attributes = self::getAttributes($xml);
+        $sqref = (string) ($attributes['sqref'] ?? '');
+        $numberStoredAsText = (string) ($attributes['numberStoredAsText'] ?? '');
+        $formula = (string) ($attributes['formula'] ?? '');
+        $twoDigitTextYear = (string) ($attributes['twoDigitTextYear'] ?? '');
+        $evalError = (string) ($attributes['evalError'] ?? '');
+        if (!empty($sqref)) {
+            $explodedSqref = explode(' ', $sqref);
+            $pattern1 = '/^([A-Z]{1,3})([0-9]{1,7})(:([A-Z]{1,3})([0-9]{1,7}))?$/';
+            foreach ($explodedSqref as $sqref1) {
+                if (preg_match($pattern1, $sqref1, $matches) === 1) {
+                    $firstRow = $matches[2];
+                    $firstCol = $matches[1];
+                    if (array_key_exists(3, $matches)) {
+                        $lastCol = $matches[4];
+                        $lastRow = $matches[5];
+                    } else {
+                        $lastCol = $firstCol;
+                        $lastRow = $firstRow;
+                    }
+                    ++$lastCol;
+                    for ($row = $firstRow; $row <= $lastRow; ++$row) {
+                        for ($col = $firstCol; $col !== $lastCol; ++$col) {
+                            if ($numberStoredAsText === '1') {
+                                $sheet->getCell("$col$row")->getIgnoredErrors()->setNumberStoredAsText(true);
+                            }
+                            if ($formula === '1') {
+                                $sheet->getCell("$col$row")->getIgnoredErrors()->setFormula(true);
+                            }
+                            if ($twoDigitTextYear === '1') {
+                                $sheet->getCell("$col$row")->getIgnoredErrors()->setTwoDigitTextYear(true);
+                            }
+                            if ($evalError === '1') {
+                                $sheet->getCell("$col$row")->getIgnoredErrors()->setEvalError(true);
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }

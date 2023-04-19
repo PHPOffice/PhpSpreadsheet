@@ -48,6 +48,12 @@ class ExactFontTest extends TestCase
     /** @var string */
     private $incompleteMessage = '';
 
+    private const KNOWN_MD5 = [
+        '6a15e0a7c0367ba77a959ea27ebf11cf',
+        'b0e31de57cd5307954a3c54136ce68ae',
+        'be189a7e2711cdf2a7f6275c60cbc7e2',
+    ];
+
     protected function setUp(): void
     {
         $this->holdDirectory = Font::getTrueTypeFontPath();
@@ -57,8 +63,9 @@ class ExactFontTest extends TestCase
         $fontPath = $direc . $fontFile;
         $this->incompleteMessage = '';
         if (@is_readable($fontPath)) {
-            if ('6a15e0a7c0367ba77a959ea27ebf11cf' !== md5_file($fontPath)) {
-                $this->incompleteMessage = 'Font file MD5 hash has changed';
+            $hash = md5_file($fontPath);
+            if (!in_array($hash, self::KNOWN_MD5, true)) {
+                $this->incompleteMessage = "Unrecognized Font file MD5 hash $hash";
             }
         } else {
             $this->incompleteMessage = 'Unable to locate font file';

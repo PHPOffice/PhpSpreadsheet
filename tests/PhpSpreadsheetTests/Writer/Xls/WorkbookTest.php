@@ -15,9 +15,23 @@ class WorkbookTest extends TestCase
      */
     private $workbook;
 
-    protected function setUp(): void
+    /** @var ?Spreadsheet */
+    private $spreadsheet;
+
+    protected function tearDown(): void
     {
-        $spreadsheet = new Spreadsheet();
+        if ($this->spreadsheet !== null) {
+            $this->spreadsheet->disconnectWorksheets();
+            $this->spreadsheet = null;
+        }
+    }
+
+    private function setUpWorkbook(): void
+    {
+        if ($this->spreadsheet !== null) {
+            $this->spreadsheet->disconnectWorksheets();
+        }
+        $this->spreadsheet = $spreadsheet = new Spreadsheet();
         $strTotal = 0;
         $strUnique = 0;
         $str_table = [];
@@ -27,10 +41,7 @@ class WorkbookTest extends TestCase
         $this->workbook = new Workbook($spreadsheet, $strTotal, $strUnique, $str_table, $colors, $parser);
     }
 
-    /**
-     * @dataProvider providerAddColor
-     */
-    public function testAddColor(array $testColors, array $expectedResult): void
+    public function xtestAddColor(array $testColors, array $expectedResult): void
     {
         $workbookReflection = new ReflectionClass(Workbook::class);
         $methodAddColor = $workbookReflection->getMethod('addColor');
@@ -47,9 +58,20 @@ class WorkbookTest extends TestCase
         self::assertEquals($expectedResult, $palette);
     }
 
-    public function providerAddColor(): array
+    public function testAddColor(): void
     {
-        $this->setUp();
+        $i = 0;
+        $arrayEntries = $this->arrayAddColor();
+        while ($i < count($arrayEntries)) {
+            $this->xtestAddColor($arrayEntries[$i][0], $arrayEntries[$i][1]);
+            ++$i;
+            $arrayEntries = $this->arrayAddColor();
+        }
+    }
+
+    public function arrayAddColor(): array
+    {
+        $this->setUpWorkbook();
 
         $workbookReflection = new ReflectionClass(Workbook::class);
         $propertyPalette = $workbookReflection->getProperty('palette');

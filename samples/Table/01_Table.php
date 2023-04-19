@@ -93,5 +93,7 @@ $table->setStyle($tableStyle);
 $helper->log('Add Table to Worksheet');
 $spreadsheet->getActiveSheet()->addTable($table);
 
+$helper->displayGrid($spreadsheet->getActiveSheet()->toArray(null, true, true, true));
+
 // Save
 $helper->write($spreadsheet, __FILE__, ['Xlsx']);

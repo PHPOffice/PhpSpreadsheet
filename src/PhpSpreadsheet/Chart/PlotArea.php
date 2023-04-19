@@ -163,4 +163,49 @@ class PlotArea
     {
         return $this->gradientFillStops;
     }
+
+    /** @var ?int */
+    private $gapWidth;
+
+    /** @var bool */
+    private $useUpBars = false;
+
+    /** @var bool */
+    private $useDownBars = false;
+
+    public function getGapWidth(): ?int
+    {
+        return $this->gapWidth;
+    }
+
+    public function setGapWidth(?int $gapWidth): self
+    {
+        $this->gapWidth = $gapWidth;
+
+        return $this;
+    }
+
+    public function getUseUpBars(): bool
+    {
+        return $this->useUpBars;
+    }
+
+    public function setUseUpBars(bool $useUpBars): self
+    {
+        $this->useUpBars = $useUpBars;
+
+        return $this;
+    }
+
+    public function getUseDownBars(): bool
+    {
+        return $this->useDownBars;
+    }
+
+    public function setUseDownBars(bool $useDownBars): self
+    {
+        $this->useDownBars = $useDownBars;
+
+        return $this;
+    }
 }

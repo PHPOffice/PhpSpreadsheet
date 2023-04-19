@@ -40,12 +40,14 @@ class HtmlLoadStringTest extends TestCase
 
     public function testLoadInvalidString(): void
     {
-        $this->expectException(ReaderException::class);
-        $html = '<table<>';
-        $spreadsheet = (new Html())->loadFromString($html);
-        $firstSheet = $spreadsheet->getSheet(0);
-        $cellStyle = $firstSheet->getStyle('A1');
-        self::assertFalse($cellStyle->getAlignment()->getWrapText());
+        if (method_exists($this, 'setOutputCallback')) {
+            $this->expectException(ReaderException::class);
+            $html = '<table<>';
+            (new Html())->loadFromString($html);
+        } else {
+            // The meat of this test runs in HtmlPhpunit10Test
+            self::assertTrue(true);
+        }
     }
 
     public function testCanLoadFromStringIntoExistingSpreadsheet(): void

@@ -36,7 +36,7 @@ class TableTest extends SetupTeardown
         self::assertEquals($expected, $table->getName());
     }
 
-    public function validTableNamesProvider(): array
+    public static function validTableNamesProvider(): array
     {
         return [
             ['', ''],
@@ -61,7 +61,7 @@ class TableTest extends SetupTeardown
         $table->setName($name);
     }
 
-    public function invalidTableNamesProvider(): array
+    public static function invalidTableNamesProvider(): array
     {
         return [
             ['C'],
@@ -152,12 +152,10 @@ class TableTest extends SetupTeardown
     }
 
     /**
-     * @dataProvider validTableRangeProvider
-     *
      * @param AddressRange|array<int>|string $fullRange
      * @param string $fullRange
      */
-    public function testSetRangeValidRange($fullRange, string $actualRange): void
+    public function xtestSetRangeValidRange($fullRange, string $actualRange): void
     {
         $table = new Table(self::INITIAL_RANGE);
 
@@ -166,7 +164,14 @@ class TableTest extends SetupTeardown
         self::assertEquals($actualRange, $table->getRange());
     }
 
-    public function validTableRangeProvider(): array
+    public function testSetRangeValidRange(): void
+    {
+        foreach ($this->validTableRanges() as $arrayEntry) {
+            $this->xtestSetRangeValidRange($arrayEntry[0], $arrayEntry[1]);
+        }
+    }
+
+    public function validTableRanges(): array
     {
         $sheet = $this->getSheet();
         $title = $sheet->getTitle();
@@ -203,7 +208,7 @@ class TableTest extends SetupTeardown
         new Table($range);
     }
 
-    public function invalidTableRangeProvider(): array
+    public static function invalidTableRangeProvider(): array
     {
         return [
             ['A1'],

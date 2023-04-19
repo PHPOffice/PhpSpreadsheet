@@ -4,7 +4,6 @@ namespace PhpOffice\PhpSpreadsheet\Chart;
 
 use DateTime;
 use PhpOffice\PhpSpreadsheet\Chart\Legend as ChartLegend;
-use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Shared\Date as SharedDate;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
@@ -330,15 +329,13 @@ $chart->setRoundedCorners(true); // Rounded corners in Chart Outline
 
 // Add the chart to the worksheet $chartSheet
 $chartSheet->addChart($chart);
+
+$helper->renderChart($chart, __FILE__);
+
 $spreadsheet->setActiveSheetIndex(1);
 
 // Save Excel 2007 file
-$filename = $helper->getFilename(__FILE__);
-$writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
-$writer->setIncludeCharts(true);
-$callStartTime = microtime(true);
-$writer->save($filename);
-$helper->logWrite($writer, $filename, $callStartTime);
+$helper->write($spreadsheet, __FILE__, ['Xlsx'], true);
 $spreadsheet->disconnectWorksheets();
 
 function dateRange(int $nrows, Spreadsheet $wrkbk): array

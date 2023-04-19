@@ -136,6 +136,10 @@ class Styles extends BaseParserClass
                 }
             }
         }
+        if (isset($fontStyleXml->scheme)) {
+            $attr = $this->getStyleAttributes($fontStyleXml->scheme);
+            $fontStyle->setScheme((string) $attr['val']);
+        }
     }
 
     private function readNumberFormat(NumberFormat $numfmtStyle, SimpleXMLElement $numfmtStyleXml): void

@@ -37,7 +37,7 @@ class SetupTeardownDatabases extends TestCase
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
 
-    protected function database1(): array
+    protected static function database1(): array
     {
         return [
             ['Tree', 'Height', 'Age', 'Yield', 'Profit'],
@@ -50,7 +50,7 @@ class SetupTeardownDatabases extends TestCase
         ];
     }
 
-    protected function database2(): array
+    protected static function database2(): array
     {
         return [
             ['Quarter', 'Area', 'Sales Rep.', 'Sales'],
@@ -73,7 +73,7 @@ class SetupTeardownDatabases extends TestCase
         ];
     }
 
-    protected function database3(): array
+    protected static function database3(): array
     {
         return [
             ['Name', 'Gender', 'Age', 'Subject', 'Score'],
@@ -92,7 +92,7 @@ class SetupTeardownDatabases extends TestCase
         ];
     }
 
-    protected function database3FilledIn(): array
+    protected static function database3FilledIn(): array
     {
         // same as database3 except two omitted scores are filled in
         return [

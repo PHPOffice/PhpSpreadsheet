@@ -71,7 +71,7 @@ class DefinedNamesCalculationTest extends TestCase
         self::assertSame($expectedValue, $calculatedCellValue, "Failed calculation for cell {$cellAddress}");
     }
 
-    public function namedRangeCalculationTest1(): array
+    public static function namedRangeCalculationTest1(): array
     {
         return [
             ['C4', 56.25],
@@ -84,7 +84,7 @@ class DefinedNamesCalculationTest extends TestCase
         ];
     }
 
-    public function namedRangeCalculationTest2(): array
+    public static function namedRangeCalculationTest2(): array
     {
         return [
             ['C4', 93.75],
