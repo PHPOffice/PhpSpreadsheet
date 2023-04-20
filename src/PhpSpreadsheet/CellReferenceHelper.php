@@ -96,7 +96,6 @@ class CellReferenceHelper
             ) {
                 if ($topLeft) {
                     $newColumnIndex = $this->beforeColumn + $this->numberOfColumns;
-                    $newColumn = Coordinate::stringFromColumnIndex($newColumnIndex);
                 } else {
                     $newColumnIndex = $this->beforeColumn + $this->numberOfColumns - 1;
                 }
