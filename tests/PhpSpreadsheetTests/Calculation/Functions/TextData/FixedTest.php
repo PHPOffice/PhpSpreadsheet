@@ -37,7 +37,7 @@ class FixedTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerFIXED(): array
+    public static function providerFIXED(): array
     {
         return require 'tests/data/Calculation/TextData/FIXED.php';
     }
@@ -54,7 +54,7 @@ class FixedTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerFixedArray(): array
+    public static function providerFixedArray(): array
     {
         return [
             'row vector #1' => [[['-123.32', '123.46', '12,345.68']], '{-123.321, 123.456, 12345.6789}', '2'],

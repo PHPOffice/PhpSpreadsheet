@@ -16,7 +16,7 @@ class ChiInvRightTailTest extends AllSetupTeardown
         $this->runTestCases('CHISQ.INV.RT', $expectedResult, ...$args);
     }
 
-    public function providerCHIINV(): array
+    public static function providerCHIINV(): array
     {
         return require 'tests/data/Calculation/Statistical/CHIINVRightTail.php';
     }
@@ -47,7 +47,7 @@ class ChiInvRightTailTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerChiInvRightTailArray(): array
+    public static function providerChiInvRightTailArray(): array
     {
         return [
             'row/column vectors' => [

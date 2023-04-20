@@ -14,7 +14,7 @@ class SlopeTest extends AllSetupTeardown
         $this->runTestCaseNoBracket('SLOPE', $expectedResult, ...$args);
     }
 
-    public function providerSLOPE(): array
+    public static function providerSLOPE(): array
     {
         return require 'tests/data/Calculation/Statistical/SLOPE.php';
     }

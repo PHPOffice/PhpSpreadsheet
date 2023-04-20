@@ -19,7 +19,7 @@ class DateTest extends TestCase
         self::assertSame($expectedResult, (string) $wizard);
     }
 
-    public function providerDate(): array
+    public static function providerDate(): array
     {
         return [
             ['yyyy-mm-dd', Date::SEPARATOR_DASH, [Date::YEAR_FULL, Date::MONTH_NUMBER_LONG, Date::DAY_NUMBER_LONG]],

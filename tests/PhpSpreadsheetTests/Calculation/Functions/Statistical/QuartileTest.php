@@ -14,7 +14,7 @@ class QuartileTest extends AllSetupTeardown
         $this->runTestCaseReference('QUARTILE', $expectedResult, ...$args);
     }
 
-    public function providerQUARTILE(): array
+    public static function providerQUARTILE(): array
     {
         return require 'tests/data/Calculation/Statistical/QUARTILE.php';
     }

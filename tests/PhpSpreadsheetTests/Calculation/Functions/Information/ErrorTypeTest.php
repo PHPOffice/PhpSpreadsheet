@@ -26,7 +26,7 @@ class ErrorTypeTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerErrorType(): array
+    public static function providerErrorType(): array
     {
         return require 'tests/data/Calculation/Information/ERROR_TYPE.php';
     }
@@ -43,7 +43,7 @@ class ErrorTypeTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerErrorTypeArray(): array
+    public static function providerErrorTypeArray(): array
     {
         return [
             'vector' => [

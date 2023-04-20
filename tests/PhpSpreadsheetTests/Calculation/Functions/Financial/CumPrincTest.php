@@ -14,7 +14,7 @@ class CumPrincTest extends AllSetupTeardown
         $this->runTestCase('CUMPRINC', $expectedResult, $args);
     }
 
-    public function providerCUMPRINC(): array
+    public static function providerCUMPRINC(): array
     {
         return require 'tests/data/Calculation/Financial/CUMPRINC.php';
     }

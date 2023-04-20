@@ -65,7 +65,7 @@ class ComplexTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerCOMPLEX(): array
+    public static function providerCOMPLEX(): array
     {
         return require 'tests/data/Calculation/Engineering/COMPLEX.php';
     }
@@ -82,7 +82,7 @@ class ComplexTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerComplexArray(): array
+    public static function providerComplexArray(): array
     {
         return [
             'row/column vector' => [

@@ -29,7 +29,7 @@ class AutoFilterCustomNumericTest extends SetupTeardown
         return $sheet;
     }
 
-    public function providerCustomRule(): array
+    public static function providerCustomRule(): array
     {
         return [
             'equal to 3' => [[3, 10], Rule::AUTOFILTER_COLUMN_RULE_EQUAL, 3],

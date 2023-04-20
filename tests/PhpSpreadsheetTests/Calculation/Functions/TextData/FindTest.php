@@ -37,7 +37,7 @@ class FindTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerFIND(): array
+    public static function providerFIND(): array
     {
         return require 'tests/data/Calculation/TextData/FIND.php';
     }
@@ -54,7 +54,7 @@ class FindTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerFindArray(): array
+    public static function providerFindArray(): array
     {
         return [
             'row vector #1' => [[[3, 4, '#VALUE!']], '"l"', '{"Hello", "World", "PhpSpreadsheet"}'],

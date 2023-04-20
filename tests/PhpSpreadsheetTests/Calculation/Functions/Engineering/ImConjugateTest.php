@@ -90,7 +90,7 @@ class ImConjugateTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerIMCONJUGATE(): array
+    public static function providerIMCONJUGATE(): array
     {
         return require 'tests/data/Calculation/Engineering/IMCONJUGATE.php';
     }
@@ -116,7 +116,7 @@ class ImConjugateTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerUnhappyIMCONJUGATE(): array
+    public static function providerUnhappyIMCONJUGATE(): array
     {
         return [
             ['Formula Error: Wrong number of arguments for IMCONJUGATE() function'],
@@ -135,7 +135,7 @@ class ImConjugateTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerImConjugateArray(): array
+    public static function providerImConjugateArray(): array
     {
         return [
             'row/column vector' => [

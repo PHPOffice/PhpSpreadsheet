@@ -14,7 +14,7 @@ class MedianTest extends AllSetupTeardown
         $this->runTestCases('MEDIAN', $expectedResult, ...$args);
     }
 
-    public function providerMEDIAN(): array
+    public static function providerMEDIAN(): array
     {
         return require 'tests/data/Calculation/Statistical/MEDIAN.php';
     }

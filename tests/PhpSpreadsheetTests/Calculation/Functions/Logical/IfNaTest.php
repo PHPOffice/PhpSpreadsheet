@@ -16,7 +16,7 @@ class IfNaTest extends AllSetupTeardown
         $this->runTestCase('IFNA', $expectedResult, ...$args);
     }
 
-    public function providerIFNA(): array
+    public static function providerIFNA(): array
     {
         return require 'tests/data/Calculation/Logical/IFNA.php';
     }
@@ -33,7 +33,7 @@ class IfNaTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerIfNaArray(): array
+    public static function providerIfNaArray(): array
     {
         return [
             'vector' => [

@@ -14,7 +14,7 @@ class ReceivedTest extends AllSetupTeardown
         $this->runTestCase('RECEIVED', $expectedResult, $args);
     }
 
-    public function providerRECEIVED(): array
+    public static function providerRECEIVED(): array
     {
         return require 'tests/data/Calculation/Financial/RECEIVED.php';
     }

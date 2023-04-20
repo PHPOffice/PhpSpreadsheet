@@ -16,7 +16,7 @@ class NotTest extends AllSetupTeardown
         $this->runTestCase('NOT', $expectedResult, ...$args);
     }
 
-    public function providerNOT(): array
+    public static function providerNOT(): array
     {
         return require 'tests/data/Calculation/Logical/NOT.php';
     }
@@ -33,7 +33,7 @@ class NotTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerNotArray(): array
+    public static function providerNotArray(): array
     {
         return [
             'vector' => [

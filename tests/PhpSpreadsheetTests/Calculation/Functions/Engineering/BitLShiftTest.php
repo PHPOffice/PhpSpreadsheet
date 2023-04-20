@@ -60,7 +60,7 @@ class BitLShiftTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerBITLSHIFT(): array
+    public static function providerBITLSHIFT(): array
     {
         return require 'tests/data/Calculation/Engineering/BITLSHIFT.php';
     }
@@ -86,7 +86,7 @@ class BitLShiftTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerUnhappyBITLSHIFT(): array
+    public static function providerUnhappyBITLSHIFT(): array
     {
         return [
             ['Formula Error: Wrong number of arguments for BITLSHIFT() function'],
@@ -106,7 +106,7 @@ class BitLShiftTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerBitLShiftArray(): array
+    public static function providerBitLShiftArray(): array
     {
         return [
             'row/column vector' => [

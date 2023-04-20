@@ -28,7 +28,7 @@ class AutoFilterCustomTextTest extends SetupTeardown
         return $sheet;
     }
 
-    public function providerCustomText(): array
+    public static function providerCustomText(): array
     {
         return [
             'begins with a' => [[2, 8], 'a*'],
@@ -177,7 +177,7 @@ class AutoFilterCustomTextTest extends SetupTeardown
         self::assertEquals([5, 11, 12], $this->getVisible());
     }
 
-    public function providerCustomRule(): array
+    public static function providerCustomRule(): array
     {
         return [
             'equal to cba' => [[3], Rule::AUTOFILTER_COLUMN_RULE_EQUAL, 'cba'],

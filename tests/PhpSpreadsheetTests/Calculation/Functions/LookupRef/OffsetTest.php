@@ -19,7 +19,7 @@ class OffsetTest extends AllSetupTeardown
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerOFFSET(): array
+    public static function providerOFFSET(): array
     {
         return require 'tests/data/Calculation/LookupRef/OFFSET.php';
     }

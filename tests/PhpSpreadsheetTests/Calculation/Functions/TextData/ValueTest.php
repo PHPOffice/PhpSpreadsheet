@@ -62,7 +62,7 @@ class ValueTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerVALUE(): array
+    public static function providerVALUE(): array
     {
         return require 'tests/data/Calculation/TextData/VALUE.php';
     }
@@ -79,7 +79,7 @@ class ValueTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerValueArray(): array
+    public static function providerValueArray(): array
     {
         return [
             'row vector' => [[[44604, -1234.567]], '{"12-Feb-2022", "$ -1,234.567"}'],

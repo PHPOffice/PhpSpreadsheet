@@ -14,7 +14,7 @@ class CoupDaysTest extends AllSetupTeardown
         $this->runTestCase('COUPDAYS', $expectedResult, $args);
     }
 
-    public function providerCOUPDAYS(): array
+    public static function providerCOUPDAYS(): array
     {
         return require 'tests/data/Calculation/Financial/COUPDAYS.php';
     }

@@ -59,7 +59,7 @@ class WorkDayTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerWORKDAY(): array
+    public static function providerWORKDAY(): array
     {
         return require 'tests/data/Calculation/DateTime/WORKDAY.php';
     }
@@ -85,7 +85,7 @@ class WorkDayTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerUnhappyWORKDAY(): array
+    public static function providerUnhappyWORKDAY(): array
     {
         return [
             ['Formula Error: Wrong number of arguments for WORKDAY() function'],
@@ -108,7 +108,7 @@ class WorkDayTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerWorkDayArray(): array
+    public static function providerWorkDayArray(): array
     {
         return [
             'row vector #1' => [[[44595, 44596, 44599]], '{"2022-02-01", "2022-02-02", "2022-02-03"}', '2', null],

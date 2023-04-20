@@ -19,7 +19,7 @@ class ArrayFormulaTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerArrayFormulae(): array
+    public static function providerArrayFormulae(): array
     {
         return [
             [

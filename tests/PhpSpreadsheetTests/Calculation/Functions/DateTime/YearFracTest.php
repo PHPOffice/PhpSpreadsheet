@@ -60,7 +60,7 @@ class YearFracTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerYEARFRAC(): array
+    public static function providerYEARFRAC(): array
     {
         return require 'tests/data/Calculation/DateTime/YEARFRAC.php';
     }
@@ -86,7 +86,7 @@ class YearFracTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerUnhappyYEARFRAC(): array
+    public static function providerUnhappyYEARFRAC(): array
     {
         return [
             ['Formula Error: Wrong number of arguments for YEARFRAC() function'],
@@ -110,7 +110,7 @@ class YearFracTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerYearFracArray(): array
+    public static function providerYearFracArray(): array
     {
         return [
             'row vector #1' => [[[1.0, 0.55277777777778, 0.56111111111111]], '{"2022-01-01", "2022-06-12", "2023-07-22"}', '"2022-12-31"', null],

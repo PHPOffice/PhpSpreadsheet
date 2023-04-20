@@ -50,7 +50,7 @@ class CalculationSettingsTest extends TestCase
         self::assertFalse($calculation->setLocale('xx'));
     }
 
-    public function providerCanLoadAllSupportedLocales(): array
+    public static function providerCanLoadAllSupportedLocales(): array
     {
         return [
             ['bg'],

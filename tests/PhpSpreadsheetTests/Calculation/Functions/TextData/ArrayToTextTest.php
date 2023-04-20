@@ -17,7 +17,7 @@ class ArrayToTextTest extends AllSetupTeardown
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerARRAYTOTEXT(): array
+    public static function providerARRAYTOTEXT(): array
     {
         return require 'tests/data/Calculation/TextData/ARRAYTOTEXT.php';
     }

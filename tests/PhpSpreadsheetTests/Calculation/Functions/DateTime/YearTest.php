@@ -60,7 +60,7 @@ class YearTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerYEAR(): array
+    public static function providerYEAR(): array
     {
         return require 'tests/data/Calculation/DateTime/YEAR.php';
     }
@@ -86,7 +86,7 @@ class YearTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerUnhappyYEAR(): array
+    public static function providerUnhappyYEAR(): array
     {
         return [
             ['Formula Error: Wrong number of arguments for YEAR() function'],
@@ -105,7 +105,7 @@ class YearTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerYearArray(): array
+    public static function providerYearArray(): array
     {
         return [
             'row vector' => [[[2021, 2022, 2023]], '{"2021-01-01", "2022-01-01", "2023-01-01"}'],

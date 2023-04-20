@@ -22,7 +22,7 @@ class PreCalcTest extends AbstractFunctional
         }
     }
 
-    public function providerPreCalc(): array
+    public static function providerPreCalc(): array
     {
         return [
             [true, 'Xlsx'],

@@ -50,7 +50,7 @@ class StringValueBinderTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerDataValuesDefault(): array
+    public static function providerDataValuesDefault(): array
     {
         return [
             [null, '', DataType::TYPE_STRING],
@@ -101,7 +101,7 @@ class StringValueBinderTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerDataValuesSuppressNullConversion(): array
+    public static function providerDataValuesSuppressNullConversion(): array
     {
         return [
             [null, null, DataType::TYPE_NULL],
@@ -133,7 +133,7 @@ class StringValueBinderTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerDataValuesSuppressBooleanConversion(): array
+    public static function providerDataValuesSuppressBooleanConversion(): array
     {
         return [
             [true, true, DataType::TYPE_BOOL],
@@ -166,7 +166,7 @@ class StringValueBinderTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerDataValuesSuppressNumericConversion(): array
+    public static function providerDataValuesSuppressNumericConversion(): array
     {
         return [
             [123, 123, DataType::TYPE_NUMERIC],
@@ -206,7 +206,7 @@ class StringValueBinderTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerDataValuesSuppressFormulaConversion(): array
+    public static function providerDataValuesSuppressFormulaConversion(): array
     {
         return [
             ['=SUM(A1:C3)', '=SUM(A1:C3)', DataType::TYPE_FORMULA, false],
@@ -236,7 +236,7 @@ class StringValueBinderTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerDataValuesSuppressAllConversion(): array
+    public static function providerDataValuesSuppressAllConversion(): array
     {
         return [
             [null, null, DataType::TYPE_NULL],

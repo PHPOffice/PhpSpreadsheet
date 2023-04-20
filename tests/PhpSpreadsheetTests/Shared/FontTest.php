@@ -51,7 +51,7 @@ class FontTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerFontSizeToPixels(): array
+    public static function providerFontSizeToPixels(): array
     {
         return require 'tests/data/Shared/FontSizeToPixels.php';
     }
@@ -68,7 +68,7 @@ class FontTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, self::FONT_PRECISION);
     }
 
-    public function providerInchSizeToPixels(): array
+    public static function providerInchSizeToPixels(): array
     {
         return require 'tests/data/Shared/InchSizeToPixels.php';
     }
@@ -85,7 +85,7 @@ class FontTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, self::FONT_PRECISION);
     }
 
-    public function providerCentimeterSizeToPixels(): array
+    public static function providerCentimeterSizeToPixels(): array
     {
         return require 'tests/data/Shared/CentimeterSizeToPixels.php';
     }
@@ -118,7 +118,7 @@ class FontTest extends TestCase
         self::assertEquals($expectedWidth, $columnWidth);
     }
 
-    public function providerCalculateApproximateColumnWidth(): array
+    public static function providerCalculateApproximateColumnWidth(): array
     {
         return [
             [13.9966, new StyleFont(), 'Hello World', 0, new StyleFont(), false, 0],

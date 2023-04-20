@@ -14,7 +14,7 @@ class GeoMeanTest extends AllSetupTeardown
         $this->runTestCases('GEOMEAN', $expectedResult, ...$args);
     }
 
-    public function providerGEOMEAN(): array
+    public static function providerGEOMEAN(): array
     {
         return require 'tests/data/Calculation/Statistical/GEOMEAN.php';
     }

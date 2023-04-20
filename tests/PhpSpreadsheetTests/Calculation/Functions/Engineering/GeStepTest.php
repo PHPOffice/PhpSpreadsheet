@@ -61,7 +61,7 @@ class GeStepTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerGESTEP(): array
+    public static function providerGESTEP(): array
     {
         return require 'tests/data/Calculation/Engineering/GESTEP.php';
     }
@@ -87,7 +87,7 @@ class GeStepTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerUnhappyGESTEP(): array
+    public static function providerUnhappyGESTEP(): array
     {
         return [
             ['Formula Error: Wrong number of arguments for GESTEP() function'],
@@ -106,7 +106,7 @@ class GeStepTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerGeStepArray(): array
+    public static function providerGeStepArray(): array
     {
         return [
             'row/column vector' => [

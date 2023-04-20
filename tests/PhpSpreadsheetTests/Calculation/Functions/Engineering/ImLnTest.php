@@ -90,7 +90,7 @@ class ImLnTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerIMLN(): array
+    public static function providerIMLN(): array
     {
         return require 'tests/data/Calculation/Engineering/IMLN.php';
     }
@@ -116,7 +116,7 @@ class ImLnTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerUnhappyIMLN(): array
+    public static function providerUnhappyIMLN(): array
     {
         return [
             ['Formula Error: Wrong number of arguments for IMLN() function'],
@@ -135,7 +135,7 @@ class ImLnTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerImLnArray(): array
+    public static function providerImLnArray(): array
     {
         return [
             'row/column vector' => [

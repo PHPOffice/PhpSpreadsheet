@@ -25,7 +25,7 @@ class IsLogicalTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerIsLogical(): array
+    public static function providerIsLogical(): array
     {
         return require 'tests/data/Calculation/Information/IS_LOGICAL.php';
     }
@@ -42,7 +42,7 @@ class IsLogicalTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerIsLogicalArray(): array
+    public static function providerIsLogicalArray(): array
     {
         return [
             'vector' => [

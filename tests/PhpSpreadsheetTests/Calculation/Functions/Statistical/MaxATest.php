@@ -14,7 +14,7 @@ class MaxATest extends AllSetupTeardown
         $this->runTestCaseReference('MAXA', $expectedResult, ...$args);
     }
 
-    public function providerMAXA(): array
+    public static function providerMAXA(): array
     {
         return require 'tests/data/Calculation/Statistical/MAXA.php';
     }

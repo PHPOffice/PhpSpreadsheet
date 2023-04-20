@@ -71,7 +71,7 @@ class ExpressionWizardTest extends TestCase
         self::assertSame([$expectedExpression], $conditions);
     }
 
-    public function expressionDataProvider(): array
+    public static function expressionDataProvider(): array
     {
         return [
             ['ISODD(A1)', 'ISODD(C3)'],

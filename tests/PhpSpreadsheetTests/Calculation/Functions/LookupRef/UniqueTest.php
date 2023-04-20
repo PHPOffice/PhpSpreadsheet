@@ -48,7 +48,7 @@ class UniqueTest extends TestCase
         self::assertSame($lookupData, $result);
     }
 
-    public function uniqueTestProvider(): array
+    public static function uniqueTestProvider(): array
     {
         return [
             [

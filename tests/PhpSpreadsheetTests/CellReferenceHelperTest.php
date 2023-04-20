@@ -18,7 +18,7 @@ class CellReferenceHelperTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    public function cellReferenceHelperInsertColumnsProvider(): array
+    public static function cellReferenceHelperInsertColumnsProvider(): array
     {
         return [
             ['A1', 'A1'],
@@ -72,7 +72,7 @@ class CellReferenceHelperTest extends TestCase
         $cellReferenceHelper->updateCellReference('A1:A6');
     }
 
-    public function cellReferenceHelperDeleteColumnsProvider(): array
+    public static function cellReferenceHelperDeleteColumnsProvider(): array
     {
         return [
             ['A1', 'A1'],
@@ -100,7 +100,7 @@ class CellReferenceHelperTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    public function cellReferenceHelperInsertRowsProvider(): array
+    public static function cellReferenceHelperInsertRowsProvider(): array
     {
         return [
             ['A1', 'A1'],
@@ -132,7 +132,7 @@ class CellReferenceHelperTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    public function cellReferenceHelperDeleteRowsProvider(): array
+    public static function cellReferenceHelperDeleteRowsProvider(): array
     {
         return [
             ['A1', 'A1'],
@@ -160,7 +160,7 @@ class CellReferenceHelperTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    public function cellReferenceHelperInsertColumnsAbsoluteProvider(): array
+    public static function cellReferenceHelperInsertColumnsAbsoluteProvider(): array
     {
         return [
             ['A1', 'A1'],
@@ -188,7 +188,7 @@ class CellReferenceHelperTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    public function cellReferenceHelperDeleteColumnsAbsoluteProvider(): array
+    public static function cellReferenceHelperDeleteColumnsAbsoluteProvider(): array
     {
         return [
             ['A1', 'A1'],
@@ -216,7 +216,7 @@ class CellReferenceHelperTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    public function cellReferenceHelperInsertRowsAbsoluteProvider(): array
+    public static function cellReferenceHelperInsertRowsAbsoluteProvider(): array
     {
         return [
             ['A1', 'A1'],
@@ -244,7 +244,7 @@ class CellReferenceHelperTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    public function cellReferenceHelperDeleteRowsAbsoluteProvider(): array
+    public static function cellReferenceHelperDeleteRowsAbsoluteProvider(): array
     {
         return [
             ['A1', 'A1'],

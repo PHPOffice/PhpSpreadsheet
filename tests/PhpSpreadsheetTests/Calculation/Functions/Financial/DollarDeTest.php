@@ -16,7 +16,7 @@ class DollarDeTest extends AllSetupTeardown
         $this->runTestCase('DOLLARDE', $expectedResult, $args);
     }
 
-    public function providerDOLLARDE(): array
+    public static function providerDOLLARDE(): array
     {
         return require 'tests/data/Calculation/Financial/DOLLARDE.php';
     }
@@ -33,7 +33,7 @@ class DollarDeTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
-    public function providerDollarDeArray(): array
+    public static function providerDollarDeArray(): array
     {
         return [
             'first argument row vector' => [

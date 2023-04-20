@@ -69,7 +69,7 @@ class ImRealTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerIMREAL(): array
+    public static function providerIMREAL(): array
     {
         return require 'tests/data/Calculation/Engineering/IMREAL.php';
     }
@@ -95,7 +95,7 @@ class ImRealTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerUnhappyIMREAL(): array
+    public static function providerUnhappyIMREAL(): array
     {
         return [
             ['Formula Error: Wrong number of arguments for IMREAL() function'],
@@ -114,7 +114,7 @@ class ImRealTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerImRealArray(): array
+    public static function providerImRealArray(): array
     {
         return [
             'row/column vector' => [

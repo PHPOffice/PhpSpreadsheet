@@ -14,7 +14,7 @@ class RsqTest extends AllSetupTeardown
         $this->runTestCaseNoBracket('RSQ', $expectedResult, ...$args);
     }
 
-    public function providerRSQ(): array
+    public static function providerRSQ(): array
     {
         return require 'tests/data/Calculation/Statistical/RSQ.php';
     }

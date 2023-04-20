@@ -13,7 +13,7 @@ class HtmlCommentsTest extends Functional\AbstractFunctional
      */
     private $spreadsheet;
 
-    public function providerCommentRichText(): array
+    public static function providerCommentRichText(): array
     {
         $valueSingle = 'I am comment.';
         $valueMulti = 'I am ' . PHP_EOL . 'multi-line' . PHP_EOL . 'comment.';

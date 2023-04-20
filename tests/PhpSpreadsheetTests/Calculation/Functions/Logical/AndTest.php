@@ -14,7 +14,7 @@ class AndTest extends AllSetupTeardown
         $this->runTestCase('AND', $expectedResult, ...$args);
     }
 
-    public function providerAND(): array
+    public static function providerAND(): array
     {
         return require 'tests/data/Calculation/Logical/AND.php';
     }
@@ -32,7 +32,7 @@ class AndTest extends AllSetupTeardown
         self::assertSame($expectedResult, $sheet->getCell('A1')->getCalculatedValue());
     }
 
-    public function providerANDLiteral(): array
+    public static function providerANDLiteral(): array
     {
         return require 'tests/data/Calculation/Logical/ANDLiteral.php';
     }

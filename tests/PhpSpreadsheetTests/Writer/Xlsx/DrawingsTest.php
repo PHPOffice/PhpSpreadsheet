@@ -550,7 +550,7 @@ class DrawingsTest extends AbstractFunctional
         $reloadedSpreadsheet->disconnectWorksheets();
     }
 
-    public function providerEditAs(): array
+    public static function providerEditAs(): array
     {
         return [
             'absolute' => ['absolute'],

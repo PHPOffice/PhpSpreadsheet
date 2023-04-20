@@ -7,7 +7,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\ColumnDimension;
 
 class ColumnWidthTest extends AbstractFunctional
 {
-    public function providerFormats(): array
+    public static function providerFormats(): array
     {
         return [
             ['Xlsx'],

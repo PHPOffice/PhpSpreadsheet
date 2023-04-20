@@ -64,7 +64,7 @@ class DaysTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerDAYS(): array
+    public static function providerDAYS(): array
     {
         return require 'tests/data/Calculation/DateTime/DAYS.php';
     }
@@ -90,7 +90,7 @@ class DaysTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerUnhappyDAYS(): array
+    public static function providerUnhappyDAYS(): array
     {
         return [
             ['Formula Error: Wrong number of arguments for DAYS() function', '2023-04-01'],
@@ -123,7 +123,7 @@ class DaysTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerDaysArray(): array
+    public static function providerDaysArray(): array
     {
         return [
             'row vector #1' => [[[-364, -202, 203]], '{"2022-01-01", "2022-06-12", "2023-07-22"}', '"2022-12-31"'],

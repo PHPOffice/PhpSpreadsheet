@@ -63,7 +63,7 @@ class ErfCTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerERFC(): array
+    public static function providerERFC(): array
     {
         return require 'tests/data/Calculation/Engineering/ERFC.php';
     }
@@ -89,7 +89,7 @@ class ErfCTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerUnhappyERFC(): array
+    public static function providerUnhappyERFC(): array
     {
         return [
             ['Formula Error: Wrong number of arguments for ERFC() function'],
@@ -108,7 +108,7 @@ class ErfCTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, self::ERF_PRECISION);
     }
 
-    public function providerErfCArray(): array
+    public static function providerErfCArray(): array
     {
         return [
             'row vector' => [

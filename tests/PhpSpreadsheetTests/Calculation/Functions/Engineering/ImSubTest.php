@@ -90,7 +90,7 @@ class ImSubTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerIMSUB(): array
+    public static function providerIMSUB(): array
     {
         return require 'tests/data/Calculation/Engineering/IMSUB.php';
     }
@@ -116,7 +116,7 @@ class ImSubTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerUnhappyIMSUB(): array
+    public static function providerUnhappyIMSUB(): array
     {
         return [
             ['Formula Error: Wrong number of arguments for IMSUB() function'],
@@ -136,7 +136,7 @@ class ImSubTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerImSubArray(): array
+    public static function providerImSubArray(): array
     {
         return [
             'matrix' => [

@@ -25,7 +25,7 @@ class CeilingPreciseTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerFLOORPRECISE(): array
+    public static function providerFLOORPRECISE(): array
     {
         return require 'tests/data/Calculation/MathTrig/CEILINGPRECISE.php';
     }
@@ -42,7 +42,7 @@ class CeilingPreciseTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerCeilingArray(): array
+    public static function providerCeilingArray(): array
     {
         return [
             'matrix' => [[[3.15, 3.142], [3.1416, 3.141594]], '3.1415926536', '{0.01, 0.002; 0.00005, 0.000002}'],

@@ -90,7 +90,7 @@ class ImProductTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerIMPRODUCT(): array
+    public static function providerIMPRODUCT(): array
     {
         return require 'tests/data/Calculation/Engineering/IMPRODUCT.php';
     }
@@ -116,7 +116,7 @@ class ImProductTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerUnhappyIMPRODUCT(): array
+    public static function providerUnhappyIMPRODUCT(): array
     {
         return [
             ['Formula Error: Wrong number of arguments for IMPRODUCT() function'],

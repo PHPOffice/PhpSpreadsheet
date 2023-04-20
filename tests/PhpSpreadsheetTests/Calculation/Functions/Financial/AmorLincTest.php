@@ -14,7 +14,7 @@ class AmorLincTest extends AllSetupTeardown
         $this->runTestCase('AMORLINC', $expectedResult, $args);
     }
 
-    public function providerAMORLINC(): array
+    public static function providerAMORLINC(): array
     {
         return require 'tests/data/Calculation/Financial/AMORLINC.php';
     }

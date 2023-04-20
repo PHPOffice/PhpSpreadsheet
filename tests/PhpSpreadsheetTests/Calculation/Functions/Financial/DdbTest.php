@@ -14,7 +14,7 @@ class DdbTest extends AllSetupTeardown
         $this->runTestCase('DDB', $expectedResult, $args);
     }
 
-    public function providerDDB(): array
+    public static function providerDDB(): array
     {
         return require 'tests/data/Calculation/Financial/DDB.php';
     }

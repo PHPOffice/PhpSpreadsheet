@@ -21,7 +21,7 @@ class AsinhTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-6);
     }
 
-    public function providerAsinh(): array
+    public static function providerAsinh(): array
     {
         return require 'tests/data/Calculation/MathTrig/ASINH.php';
     }
@@ -38,7 +38,7 @@ class AsinhTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerAsinhArray(): array
+    public static function providerAsinhArray(): array
     {
         return [
             'row vector' => [[[0.88137358701954, 0.48121182505960, -0.88137358701954]], '{1, 0.5, -1}'],

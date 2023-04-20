@@ -26,7 +26,7 @@ class AbsTest extends AllSetupTeardown
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerAbs(): array
+    public static function providerAbs(): array
     {
         return require 'tests/data/Calculation/MathTrig/ABS.php';
     }
@@ -43,7 +43,7 @@ class AbsTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerAbsArray(): array
+    public static function providerAbsArray(): array
     {
         return [
             'row vector' => [[[1, 0, 1]], '{-1, 0, 1}'],

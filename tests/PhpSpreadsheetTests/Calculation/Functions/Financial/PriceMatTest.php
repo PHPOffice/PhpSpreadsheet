@@ -14,7 +14,7 @@ class PriceMatTest extends AllSetupTeardown
         $this->runTestCase('PRICEMAT', $expectedResult, $args);
     }
 
-    public function providerPRICEMAT(): array
+    public static function providerPRICEMAT(): array
     {
         return require 'tests/data/Calculation/Financial/PRICEMAT.php';
     }

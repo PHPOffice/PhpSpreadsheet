@@ -60,7 +60,7 @@ class BitAndTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerBITAND(): array
+    public static function providerBITAND(): array
     {
         return require 'tests/data/Calculation/Engineering/BITAND.php';
     }
@@ -86,7 +86,7 @@ class BitAndTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerUnhappyBITAND(): array
+    public static function providerUnhappyBITAND(): array
     {
         return [
             ['Formula Error: Wrong number of arguments for BITAND() function'],
@@ -106,7 +106,7 @@ class BitAndTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerBitAndArray(): array
+    public static function providerBitAndArray(): array
     {
         return [
             'row/column vector' => [

@@ -14,7 +14,7 @@ class CovarTest extends AllSetupTeardown
         $this->runTestCaseNoBracket('COVAR', $expectedResult, ...$args);
     }
 
-    public function providerCOVAR(): array
+    public static function providerCOVAR(): array
     {
         return require 'tests/data/Calculation/Statistical/COVAR.php';
     }

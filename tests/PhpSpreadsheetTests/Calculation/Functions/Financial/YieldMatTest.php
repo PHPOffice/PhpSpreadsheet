@@ -14,7 +14,7 @@ class YieldMatTest extends AllSetupTeardown
         $this->runTestCase('YIELDMAT', $expectedResult, $args);
     }
 
-    public function providerYIELDMAT(): array
+    public static function providerYIELDMAT(): array
     {
         return require 'tests/data/Calculation/Financial/YIELDMAT.php';
     }

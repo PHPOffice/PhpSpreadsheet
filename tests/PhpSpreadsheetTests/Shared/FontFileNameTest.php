@@ -53,7 +53,7 @@ class FontFileNameTest extends TestCase
         self::assertSame($expected, basename($result));
     }
 
-    public function providerDefault(): array
+    public static function providerDefault(): array
     {
         return [
             ['arial.ttf', ['name' => 'Arial']],
@@ -95,7 +95,7 @@ class FontFileNameTest extends TestCase
         self::assertSame($expected, ucfirst(basename($result))); // allow for Windows case-insensitivity
     }
 
-    public function providerMac(): array
+    public static function providerMac(): array
     {
         return [
             ['Arial.ttf', ['name' => 'Arial']],
@@ -141,7 +141,7 @@ class FontFileNameTest extends TestCase
         self::assertSame($expected, basename($result));
     }
 
-    public function providerOverride(): array
+    public static function providerOverride(): array
     {
         return [
             ['extrafont.ttf', ['name' => 'Arial']],
@@ -172,7 +172,7 @@ class FontFileNameTest extends TestCase
         self::assertSame($expected, basename($result));
     }
 
-    public function providerOverrideAbsolute(): array
+    public static function providerOverrideAbsolute(): array
     {
         return [
             'absolute path normal' => ['Arial.ttf', ['name' => 'Arial']],

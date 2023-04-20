@@ -81,7 +81,7 @@ class DayTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerDAY(): array
+    public static function providerDAY(): array
     {
         return require 'tests/data/Calculation/DateTime/DAY.php';
     }
@@ -118,7 +118,7 @@ class DayTest extends TestCase
         self::assertSame($expectedResultOpenOffice, $result);
     }
 
-    public function providerDAYOpenOffice(): array
+    public static function providerDAYOpenOffice(): array
     {
         return require 'tests/data/Calculation/DateTime/DAYOpenOffice.php';
     }
@@ -144,7 +144,7 @@ class DayTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerUnhappyDAY(): array
+    public static function providerUnhappyDAY(): array
     {
         return [
             ['Formula Error: Wrong number of arguments for DAY() function'],
@@ -169,7 +169,7 @@ class DayTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerDayArray(): array
+    public static function providerDayArray(): array
     {
         return [
             'row vector' => [[[1, 12, 22]], '{"2022-01-01", "2022-06-12", "2023-07-22"}'],

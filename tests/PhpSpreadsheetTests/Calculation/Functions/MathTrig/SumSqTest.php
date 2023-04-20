@@ -27,7 +27,7 @@ class SumSqTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerSUMSQ(): array
+    public static function providerSUMSQ(): array
     {
         return require 'tests/data/Calculation/MathTrig/SUMSQ.php';
     }

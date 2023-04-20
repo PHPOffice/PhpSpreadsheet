@@ -59,7 +59,7 @@ class NetworkDaysTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerNETWORKDAYS(): array
+    public static function providerNETWORKDAYS(): array
     {
         return require 'tests/data/Calculation/DateTime/NETWORKDAYS.php';
     }
@@ -85,7 +85,7 @@ class NetworkDaysTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerUnhappyNETWORKDAYS(): array
+    public static function providerUnhappyNETWORKDAYS(): array
     {
         return [
             ['Formula Error: Wrong number of arguments for NETWORKDAYS() function'],
@@ -109,7 +109,7 @@ class NetworkDaysTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerNetWorkDaysArray(): array
+    public static function providerNetWorkDaysArray(): array
     {
         return [
             'row vector #1' => [[[234, 233, 232]], '{"2022-02-01", "2022-02-02", "2022-02-03"}', '"2022-12-25"', null],

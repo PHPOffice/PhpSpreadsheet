@@ -14,7 +14,7 @@ class NPerTest extends AllSetupTeardown
         $this->runTestCase('NPER', $expectedResult, $args);
     }
 
-    public function providerNPER(): array
+    public static function providerNPER(): array
     {
         return require 'tests/data/Calculation/Financial/NPER.php';
     }

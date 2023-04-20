@@ -14,7 +14,7 @@ class CoupNumTest extends AllSetupTeardown
         $this->runTestCase('COUPNUM', $expectedResult, $args);
     }
 
-    public function providerCOUPNUM(): array
+    public static function providerCOUPNUM(): array
     {
         return require 'tests/data/Calculation/Financial/COUPNUM.php';
     }

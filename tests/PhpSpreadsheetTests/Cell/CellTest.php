@@ -86,7 +86,7 @@ class CellTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerSetValueExplicit(): array
+    public static function providerSetValueExplicit(): array
     {
         return require 'tests/data/Cell/SetValueExplicit.php';
     }
@@ -118,7 +118,7 @@ class CellTest extends TestCase
         $cell->setValueExplicit($value, $dataType);
     }
 
-    public function providerSetValueExplicitException(): array
+    public static function providerSetValueExplicitException(): array
     {
         return require 'tests/data/Cell/SetValueExplicitException.php';
     }
