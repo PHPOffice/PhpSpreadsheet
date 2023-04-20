@@ -28,7 +28,7 @@ class SqrtPiTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerSQRTPI(): array
+    public static function providerSQRTPI(): array
     {
         return require 'tests/data/Calculation/MathTrig/SQRTPI.php';
     }
@@ -45,7 +45,7 @@ class SqrtPiTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
-    public function providerSqrtPiArray(): array
+    public static function providerSqrtPiArray(): array
     {
         return [
             'row vector' => [[[5.317361552716, 6.2665706865775, 8.6832150546992]], '{9, 12.5, 24}'],

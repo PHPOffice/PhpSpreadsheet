@@ -25,7 +25,7 @@ class IntTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerINT(): array
+    public static function providerINT(): array
     {
         return require 'tests/data/Calculation/MathTrig/INT.php';
     }
@@ -42,7 +42,7 @@ class IntTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerIntArray(): array
+    public static function providerIntArray(): array
     {
         return [
             'row vector' => [[[-2, 0, 0]], '{-1.5, 0, 0.3}'],

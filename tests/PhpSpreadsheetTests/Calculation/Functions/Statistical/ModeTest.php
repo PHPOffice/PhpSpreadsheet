@@ -24,7 +24,7 @@ class ModeTest extends TestCase
         self::assertEquals($expectedResult, $sheet->getCell("C$row")->getCalculatedValue());
     }
 
-    public function providerMODE(): array
+    public static function providerMODE(): array
     {
         return require 'tests/data/Calculation/Statistical/MODE.php';
     }

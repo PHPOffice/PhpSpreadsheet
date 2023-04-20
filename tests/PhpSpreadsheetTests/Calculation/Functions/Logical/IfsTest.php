@@ -17,7 +17,7 @@ class IfsTest extends AllSetupTeardown
         $this->runTestCase('IFS', $expectedResult, ...$args);
     }
 
-    public function providerIFS(): array
+    public static function providerIFS(): array
     {
         return require 'tests/data/Calculation/Logical/IFS.php';
     }
@@ -34,7 +34,7 @@ class IfsTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerIfsArray(): array
+    public static function providerIfsArray(): array
     {
         return [
             'array return first item' => [

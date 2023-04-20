@@ -14,7 +14,7 @@ class UsDollarTest extends AllSetupTeardown
         $this->runTestCase('USDOLLAR', $expectedResult, $args);
     }
 
-    public function providerUSDOLLAR(): array
+    public static function providerUSDOLLAR(): array
     {
         return require 'tests/data/Calculation/Financial/USDOLLAR.php';
     }

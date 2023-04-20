@@ -35,7 +35,7 @@ class RefErrorTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerRefError(): array
+    public static function providerRefError(): array
     {
         return [
             'Subtotal9 Ok' => [12, '=SUBTOTAL(A1,A2:A4)'],

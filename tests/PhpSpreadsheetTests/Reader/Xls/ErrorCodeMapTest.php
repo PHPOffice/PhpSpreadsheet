@@ -17,7 +17,7 @@ class ErrorCodeMapTest extends TestCase
         self::assertSame($expected, ErrorCode::lookup($index));
     }
 
-    public function errorCodeMapProvider(): array
+    public static function errorCodeMapProvider(): array
     {
         return [
             [false, 0x01],

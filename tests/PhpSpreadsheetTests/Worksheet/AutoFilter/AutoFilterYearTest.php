@@ -8,7 +8,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule;
 
 class AutoFilterYearTest extends SetupTeardown
 {
-    public function providerYear(): array
+    public static function providerYear(): array
     {
         return [
             [[5, 6, 7], Rule::AUTOFILTER_RULETYPE_DYNAMIC_THISYEAR],

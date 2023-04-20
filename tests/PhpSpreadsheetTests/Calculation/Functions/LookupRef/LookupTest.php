@@ -20,7 +20,7 @@ class LookupTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerLOOKUP(): array
+    public static function providerLOOKUP(): array
     {
         return require 'tests/data/Calculation/LookupRef/LOOKUP.php';
     }
@@ -37,7 +37,7 @@ class LookupTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerLookupArray(): array
+    public static function providerLookupArray(): array
     {
         return [
             'row vector' => [

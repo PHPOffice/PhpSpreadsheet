@@ -16,7 +16,7 @@ class LogInvTest extends AllSetupTeardown
         $this->runTestCases('LOGINV', $expectedResult, ...$args);
     }
 
-    public function providerLOGINV(): array
+    public static function providerLOGINV(): array
     {
         return require 'tests/data/Calculation/Statistical/LOGINV.php';
     }
@@ -33,7 +33,7 @@ class LogInvTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerLogInvArray(): array
+    public static function providerLogInvArray(): array
     {
         return [
             'row/column vectors' => [

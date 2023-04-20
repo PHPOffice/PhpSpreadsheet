@@ -77,7 +77,7 @@ class MatchTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerMATCH(): array
+    public static function providerMATCH(): array
     {
         return require 'tests/data/Calculation/LookupRef/MATCH.php';
     }
@@ -94,7 +94,7 @@ class MatchTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerMatchArray(): array
+    public static function providerMatchArray(): array
     {
         return [
             'row vector' => [

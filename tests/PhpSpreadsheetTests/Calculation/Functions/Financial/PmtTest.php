@@ -14,7 +14,7 @@ class PmtTest extends AllSetupTeardown
         $this->runTestCase('PMT', $expectedResult, $args);
     }
 
-    public function providerPMT(): array
+    public static function providerPMT(): array
     {
         return require 'tests/data/Calculation/Financial/PMT.php';
     }

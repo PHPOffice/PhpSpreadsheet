@@ -14,7 +14,7 @@ class EffectTest extends AllSetupTeardown
         $this->runTestCase('EFFECT', $expectedResult, $args);
     }
 
-    public function providerEFFECT(): array
+    public static function providerEFFECT(): array
     {
         return require 'tests/data/Calculation/Financial/EFFECT.php';
     }

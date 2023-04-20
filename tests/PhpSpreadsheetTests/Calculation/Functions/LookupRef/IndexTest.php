@@ -29,7 +29,7 @@ class IndexTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerINDEX(): array
+    public static function providerINDEX(): array
     {
         return require 'tests/data/Calculation/LookupRef/INDEX.php';
     }
@@ -46,7 +46,7 @@ class IndexTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerIndexArray(): array
+    public static function providerIndexArray(): array
     {
         return [
             'row/column vectors' => [

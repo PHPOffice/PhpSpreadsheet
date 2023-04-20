@@ -16,7 +16,7 @@ class BetaInvTest extends AllSetupTeardown
         $this->runTestCaseReference('BETAINV', $expectedResult, ...$args);
     }
 
-    public function providerBETAINV(): array
+    public static function providerBETAINV(): array
     {
         return require 'tests/data/Calculation/Statistical/BETAINV.php';
     }
@@ -33,7 +33,7 @@ class BetaInvTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerBetaInvArray(): array
+    public static function providerBetaInvArray(): array
     {
         return [
             'row/column vectors' => [

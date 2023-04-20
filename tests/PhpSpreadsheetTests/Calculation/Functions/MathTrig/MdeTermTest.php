@@ -26,7 +26,7 @@ class MdeTermTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerMDETERM(): array
+    public static function providerMDETERM(): array
     {
         return require 'tests/data/Calculation/MathTrig/MDETERM.php';
     }

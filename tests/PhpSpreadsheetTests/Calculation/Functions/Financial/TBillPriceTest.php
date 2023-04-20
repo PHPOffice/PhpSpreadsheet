@@ -14,7 +14,7 @@ class TBillPriceTest extends AllSetupTeardown
         $this->runTestCase('TBILLPRICE', $expectedResult, $args);
     }
 
-    public function providerTBILLPRICE(): array
+    public static function providerTBILLPRICE(): array
     {
         return require 'tests/data/Calculation/Financial/TBILLPRICE.php';
     }

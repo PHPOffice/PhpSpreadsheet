@@ -14,7 +14,7 @@ class PDurationTest extends AllSetupTeardown
         $this->runTestCase('PDURATION', $expectedResult, $args);
     }
 
-    public function providerPDURATION(): array
+    public static function providerPDURATION(): array
     {
         return require 'tests/data/Calculation/Financial/PDURATION.php';
     }

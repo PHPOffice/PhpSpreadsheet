@@ -14,7 +14,7 @@ class YieldDiscTest extends AllSetupTeardown
         $this->runTestCase('YIELDDISC', $expectedResult, $args);
     }
 
-    public function providerYIELDDISC(): array
+    public static function providerYIELDDISC(): array
     {
         return require 'tests/data/Calculation/Financial/YIELDDISC.php';
     }

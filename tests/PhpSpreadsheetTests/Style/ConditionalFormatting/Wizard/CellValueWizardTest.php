@@ -57,7 +57,7 @@ class CellValueWizardTest extends TestCase
         self::assertEquals($newWizard, $wizard, 'fromConditional() Failure');
     }
 
-    public function basicCellValueDataProvider(): array
+    public static function basicCellValueDataProvider(): array
     {
         return [
             '=5' => ['equals', 5, Conditional::OPERATOR_EQUAL, 5],
@@ -97,7 +97,7 @@ class CellValueWizardTest extends TestCase
         self::assertEquals($newWizard, $wizard, 'fromConditional() Failure');
     }
 
-    public function relativeCellValueDataProvider(): array
+    public static function relativeCellValueDataProvider(): array
     {
         return [
             '= Cell value unpinned' => ['A1', 'C3'],
@@ -131,7 +131,7 @@ class CellValueWizardTest extends TestCase
         self::assertEquals($newWizard, $wizard, 'fromConditional() Failure');
     }
 
-    public function formulaCellValueDataProvider(): array
+    public static function formulaCellValueDataProvider(): array
     {
         return [
             '= Cell value unpinned in function' => ['SQRT(A1)', 'SQRT(C3)'],
@@ -168,7 +168,7 @@ class CellValueWizardTest extends TestCase
         self::assertEquals($newWizard, $wizard, 'fromConditional() Failure');
     }
 
-    public function rangeCellValueDataProvider(): array
+    public static function rangeCellValueDataProvider(): array
     {
         return [
             'between 5 and 10' => ['between', [5, 10], Conditional::OPERATOR_BETWEEN],
@@ -201,7 +201,7 @@ class CellValueWizardTest extends TestCase
         self::assertEquals($newWizard, $wizard, 'fromConditional() Failure');
     }
 
-    public function rangeRelativeCellValueDataProvider(): array
+    public static function rangeRelativeCellValueDataProvider(): array
     {
         return [
             'between A6 and 5' => [['A$6', 5], ['C$6', 5]],
@@ -233,7 +233,7 @@ class CellValueWizardTest extends TestCase
         self::assertEquals($newWizard, $wizard, 'fromConditional() Failure');
     }
 
-    public function rangeFormulaCellValueDataProvider(): array
+    public static function rangeFormulaCellValueDataProvider(): array
     {
         return [
             'between yesterday and tomorrow' => [['TODAY()-1', 'TODAY()+1'], ['TODAY()-1', 'TODAY()+1']],

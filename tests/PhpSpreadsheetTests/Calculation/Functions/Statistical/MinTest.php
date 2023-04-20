@@ -14,7 +14,7 @@ class MinTest extends AllSetupTeardown
         $this->runTestCaseReference('MIN', $expectedResult, ...$args);
     }
 
-    public function providerMIN(): array
+    public static function providerMIN(): array
     {
         return require 'tests/data/Calculation/Statistical/MIN.php';
     }

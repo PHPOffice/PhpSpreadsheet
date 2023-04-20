@@ -22,7 +22,7 @@ class Atan2Test extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-9);
     }
 
-    public function providerATAN2(): array
+    public static function providerATAN2(): array
     {
         return require 'tests/data/Calculation/MathTrig/ATAN2.php';
     }
@@ -39,7 +39,7 @@ class Atan2Test extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerAtan2Array(): array
+    public static function providerAtan2Array(): array
     {
         return [
             'first argument row vector' => [

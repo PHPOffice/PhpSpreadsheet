@@ -27,7 +27,7 @@ class DocumentGeneratorTest extends TestCase
         self::assertEquals($expected, DocumentGenerator::generateFunctionListByCategory($phpSpreadsheetFunctions));
     }
 
-    public function providerGenerateFunctionListByName(): array
+    public static function providerGenerateFunctionListByName(): array
     {
         return [
             [
@@ -58,7 +58,7 @@ class DocumentGeneratorTest extends TestCase
         ];
     }
 
-    public function providerGenerateFunctionListByCategory(): array
+    public static function providerGenerateFunctionListByCategory(): array
     {
         return [
             [

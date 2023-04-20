@@ -16,7 +16,7 @@ class PoissonTest extends AllSetupTeardown
         $this->runTestCases('POISSON', $expectedResult, ...$args);
     }
 
-    public function providerPOISSON(): array
+    public static function providerPOISSON(): array
     {
         return require 'tests/data/Calculation/Statistical/POISSON.php';
     }
@@ -33,7 +33,7 @@ class PoissonTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerPoissonArray(): array
+    public static function providerPoissonArray(): array
     {
         return [
             'row/column vectors' => [

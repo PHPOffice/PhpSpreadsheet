@@ -27,7 +27,7 @@ class LowerTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerLOWER(): array
+    public static function providerLOWER(): array
     {
         return require 'tests/data/Calculation/TextData/LOWER.php';
     }
@@ -52,7 +52,7 @@ class LowerTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerLocaleLOWER(): array
+    public static function providerLocaleLOWER(): array
     {
         return [
             ['vrai', 'fr_FR', true],
@@ -78,7 +78,7 @@ class LowerTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerLowerArray(): array
+    public static function providerLowerArray(): array
     {
         return [
             'row vector' => [[["let's", 'all change', 'case']], '{"lEt\'S", "aLl chAngE", "cAsE"}'],

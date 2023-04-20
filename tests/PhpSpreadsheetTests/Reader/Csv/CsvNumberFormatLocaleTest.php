@@ -71,7 +71,7 @@ class CsvNumberFormatLocaleTest extends TestCase
         self::assertSame($expectedFormat, $cell->getFormattedValue(), 'Format mask check');
     }
 
-    public function providerNumberFormatNoConversionTest(): array
+    public static function providerNumberFormatNoConversionTest(): array
     {
         return [
             [
@@ -115,7 +115,7 @@ class CsvNumberFormatLocaleTest extends TestCase
         self::assertSame($expectedValue, $cell->getValue(), 'Expected value check');
     }
 
-    public function providerNumberValueConversionTest(): array
+    public static function providerNumberValueConversionTest(): array
     {
         return [
             'A1' => [

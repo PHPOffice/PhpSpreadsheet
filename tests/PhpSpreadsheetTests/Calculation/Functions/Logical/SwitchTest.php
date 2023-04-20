@@ -16,7 +16,7 @@ class SwitchTest extends AllSetupTeardown
         $this->runTestCase('SWITCH', $expectedResult, ...$args);
     }
 
-    public function providerSwitch(): array
+    public static function providerSwitch(): array
     {
         return require 'tests/data/Calculation/Logical/SWITCH.php';
     }
@@ -37,7 +37,7 @@ class SwitchTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerSwitchArray(): array
+    public static function providerSwitchArray(): array
     {
         return [
             'Array return' => [

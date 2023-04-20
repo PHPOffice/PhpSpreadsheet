@@ -101,7 +101,7 @@ class HtmlBorderTest extends TestCase
         }
     }
 
-    public function providerBorderStyle(): array
+    public static function providerBorderStyle(): array
     {
         return [
             ['dash-dot', Border::BORDER_DASHDOT],

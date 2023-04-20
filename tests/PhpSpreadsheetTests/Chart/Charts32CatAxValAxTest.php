@@ -162,7 +162,7 @@ class Charts32CatAxValAxTest extends TestCase
         }
     }
 
-    public function providerCatAxValAx(): array
+    public static function providerCatAxValAx(): array
     {
         return [
             [true],

@@ -16,7 +16,7 @@ class IfErrorTest extends AllSetupTeardown
         $this->runTestCase('IFERROR', $expectedResult, ...$args);
     }
 
-    public function providerIFERROR(): array
+    public static function providerIFERROR(): array
     {
         return require 'tests/data/Calculation/Logical/IFERROR.php';
     }
@@ -33,7 +33,7 @@ class IfErrorTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerIfErrorArray(): array
+    public static function providerIfErrorArray(): array
     {
         return [
             'vector' => [

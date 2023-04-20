@@ -27,7 +27,7 @@ class LinEstTest extends TestCase
         }
     }
 
-    public function providerLINEST(): array
+    public static function providerLINEST(): array
     {
         return require 'tests/data/Calculation/Statistical/LINEST.php';
     }

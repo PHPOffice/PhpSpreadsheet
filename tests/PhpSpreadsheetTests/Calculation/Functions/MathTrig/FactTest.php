@@ -30,7 +30,7 @@ class FactTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerFACT(): array
+    public static function providerFACT(): array
     {
         return require 'tests/data/Calculation/MathTrig/FACT.php';
     }
@@ -58,7 +58,7 @@ class FactTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, self::FACT_PRECISION);
     }
 
-    public function providerFACTGnumeric(): array
+    public static function providerFACTGnumeric(): array
     {
         return require 'tests/data/Calculation/MathTrig/FACTGNUMERIC.php';
     }
@@ -75,7 +75,7 @@ class FactTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, self::FACT_PRECISION);
     }
 
-    public function providerFactArray(): array
+    public static function providerFactArray(): array
     {
         return [
             'row vector' => [[['#NUM!', 120, 362880]], '{-2, 5, 9}'],

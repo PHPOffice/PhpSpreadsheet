@@ -40,7 +40,7 @@ class CsvEncodingTest extends TestCase
         self::assertEquals(2, $info[0]['totalColumns']);
     }
 
-    public function providerEncodings(): array
+    public static function providerEncodings(): array
     {
         return [
             ['tests/data/Reader/CSV/encoding.iso88591.csv', 'ISO-8859-1'],
@@ -98,7 +98,7 @@ class CsvEncodingTest extends TestCase
         self::assertEquals('sixième', $sheet->getCell('C2')->getValue());
     }
 
-    public function providerGuessEncoding(): array
+    public static function providerGuessEncoding(): array
     {
         return [
             ['tests/data/Reader/CSV/premiere.utf8.csv'],

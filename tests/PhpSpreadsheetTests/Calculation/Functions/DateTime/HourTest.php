@@ -61,7 +61,7 @@ class HourTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerHOUR(): array
+    public static function providerHOUR(): array
     {
         return require 'tests/data/Calculation/DateTime/HOUR.php';
     }
@@ -87,7 +87,7 @@ class HourTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerUnhappyHOUR(): array
+    public static function providerUnhappyHOUR(): array
     {
         return [
             ['Formula Error: Wrong number of arguments for HOUR() function'],
@@ -106,7 +106,7 @@ class HourTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerHourArray(): array
+    public static function providerHourArray(): array
     {
         return [
             'row vector' => [[[1, 13, 19]], '{"2022-02-09 01:02:03", "2022-02-09 13:14:15", "2022-02-09 19:20:21"}'],

@@ -38,7 +38,7 @@ class SecurityTest extends AbstractFunctional
         self::assertSame($hashedRevisionsPassword, $reloadedSecurity->getWorkbookPassword());
     }
 
-    public function providerLocks(): array
+    public static function providerLocks(): array
     {
         return [
             [false, false, false],

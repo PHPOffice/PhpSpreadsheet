@@ -26,7 +26,7 @@ class GrowthTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result[0], 1E-12);
     }
 
-    public function providerGROWTH(): array
+    public static function providerGROWTH(): array
     {
         return require 'tests/data/Calculation/Statistical/GROWTH.php';
     }

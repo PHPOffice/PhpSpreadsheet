@@ -63,7 +63,7 @@ class XNpvTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerXNPV(): array
+    public static function providerXNPV(): array
     {
         return require 'tests/data/Calculation/Financial/XNPV.php';
     }

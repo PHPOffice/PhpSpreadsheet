@@ -51,7 +51,7 @@ class NumberFormatTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerNumberFormat(): array
+    public static function providerNumberFormat(): array
     {
         return require 'tests/data/Style/NumberFormat.php';
     }
@@ -68,7 +68,7 @@ class NumberFormatTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerNumberFormatFractions(): array
+    public static function providerNumberFormatFractions(): array
     {
         return require 'tests/data/Style/NumberFormatFractions.php';
     }
@@ -85,7 +85,7 @@ class NumberFormatTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerNumberFormatDates(): array
+    public static function providerNumberFormatDates(): array
     {
         return require 'tests/data/Style/NumberFormatDates.php';
     }
@@ -113,7 +113,7 @@ class NumberFormatTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerNoScientific(): array
+    public static function providerNoScientific(): array
     {
         return [
             'large number' => ['92' . str_repeat('0', 16), '9.2E+17'],

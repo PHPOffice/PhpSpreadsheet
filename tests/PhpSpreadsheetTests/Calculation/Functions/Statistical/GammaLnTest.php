@@ -16,7 +16,7 @@ class GammaLnTest extends AllSetupTeardown
         $this->runTestCases('GAMMALN', $expectedResult, ...$args);
     }
 
-    public function providerGAMMALN(): array
+    public static function providerGAMMALN(): array
     {
         return require 'tests/data/Calculation/Statistical/GAMMALN.php';
     }
@@ -33,7 +33,7 @@ class GammaLnTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerGammaLnArray(): array
+    public static function providerGammaLnArray(): array
     {
         return [
             'matrix' => [

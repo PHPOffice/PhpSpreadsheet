@@ -27,7 +27,7 @@ class CellAddressTest extends TestCase
         self::assertSame($expectedColumnName, $cellAddressObject->columnName());
     }
 
-    public function providerCreateFromCellAddress(): array
+    public static function providerCreateFromCellAddress(): array
     {
         return [
             ['A1', 'A', 1, 1],
@@ -53,7 +53,7 @@ class CellAddressTest extends TestCase
         CellAddress::fromCellAddress($cellAddress);
     }
 
-    public function providerCreateFromCellAddressException(): array
+    public static function providerCreateFromCellAddressException(): array
     {
         return [
             ['INVALID'],
@@ -96,7 +96,7 @@ class CellAddressTest extends TestCase
         CellAddress::fromColumnAndRow($columnId, $rowId);
     }
 
-    public function providerCreateFromColumnAndRow(): array
+    public static function providerCreateFromColumnAndRow(): array
     {
         return [
             [1, 1, 'A1', 'A'],
@@ -124,7 +124,7 @@ class CellAddressTest extends TestCase
         self::assertSame($expectedColumnName, $cellAddressObject->columnName());
     }
 
-    public function providerCreateFromColumnRowArray(): array
+    public static function providerCreateFromColumnRowArray(): array
     {
         return [
             [1, 1, 'A1', 'A'],
@@ -148,7 +148,7 @@ class CellAddressTest extends TestCase
         CellAddress::fromColumnRowArray($columnRowArray);
     }
 
-    public function providerCreateFromColumnRowException(): array
+    public static function providerCreateFromColumnRowException(): array
     {
         return [
             [-1, 1],
@@ -179,7 +179,7 @@ class CellAddressTest extends TestCase
         self::assertSame($expectedColumnName, $cellAddressObject->columnName());
     }
 
-    public function providerCreateFromCellAddressWithWorksheet(): array
+    public static function providerCreateFromCellAddressWithWorksheet(): array
     {
         return [
             ['A1', "'Mark''s Worksheet'!A1", 'A', 1, 1],

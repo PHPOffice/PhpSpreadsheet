@@ -25,7 +25,7 @@ class TTest extends AllSetupTeardown
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerT(): array
+    public static function providerT(): array
     {
         return require 'tests/data/Calculation/TextData/T.php';
     }
@@ -42,7 +42,7 @@ class TTest extends AllSetupTeardown
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerTArray(): array
+    public static function providerTArray(): array
     {
         return [
             'row vector #1' => [[['PHP', '', 'PHP8']], '{"PHP", 99, "PHP8"}'],

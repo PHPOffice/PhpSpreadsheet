@@ -14,7 +14,7 @@ class PriceDiscTest extends AllSetupTeardown
         $this->runTestCase('PRICEDISC', $expectedResult, $args);
     }
 
-    public function providerPRICEDISC(): array
+    public static function providerPRICEDISC(): array
     {
         return require 'tests/data/Calculation/Financial/PRICEDISC.php';
     }

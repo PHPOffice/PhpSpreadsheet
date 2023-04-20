@@ -28,7 +28,7 @@ class SequenceTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerSEQUENCE(): array
+    public static function providerSEQUENCE(): array
     {
         return require 'tests/data/Calculation/MathTrig/SEQUENCE.php';
     }

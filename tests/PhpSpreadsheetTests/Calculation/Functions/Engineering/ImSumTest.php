@@ -90,7 +90,7 @@ class ImSumTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerIMSUM(): array
+    public static function providerIMSUM(): array
     {
         return require 'tests/data/Calculation/Engineering/IMSUM.php';
     }
@@ -116,7 +116,7 @@ class ImSumTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerUnhappyIMSUM(): array
+    public static function providerUnhappyIMSUM(): array
     {
         return [
             ['Formula Error: Wrong number of arguments for IMSUM() function'],

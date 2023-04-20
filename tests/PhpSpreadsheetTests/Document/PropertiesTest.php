@@ -60,7 +60,7 @@ class PropertiesTest extends TestCase
         self::assertEquals($expectedCreationTime, $this->properties->getCreated());
     }
 
-    public function providerCreationTime(): array
+    public static function providerCreationTime(): array
     {
         return [
             [null, null],
@@ -92,7 +92,7 @@ class PropertiesTest extends TestCase
         self::assertEquals($expectedModifiedTime, $this->properties->getModified());
     }
 
-    public function providerModifiedTime(): array
+    public static function providerModifiedTime(): array
     {
         return [
             [null, null],
@@ -183,7 +183,7 @@ class PropertiesTest extends TestCase
         self::assertSame($expectedValue, $result);
     }
 
-    public function providerCustomProperties(): array
+    public static function providerCustomProperties(): array
     {
         return [
             [Properties::PROPERTY_TYPE_STRING, null, 'Editor', null],

@@ -14,7 +14,7 @@ class PercentileTest extends AllSetupTeardown
         $this->runTestCaseReference('PERCENTILE', $expectedResult, ...$args);
     }
 
-    public function providerPERCENTILE(): array
+    public static function providerPERCENTILE(): array
     {
         return require 'tests/data/Calculation/Statistical/PERCENTILE.php';
     }

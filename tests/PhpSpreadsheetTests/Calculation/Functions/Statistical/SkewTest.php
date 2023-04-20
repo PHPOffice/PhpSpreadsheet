@@ -14,7 +14,7 @@ class SkewTest extends AllSetupTeardown
         $this->runTestCaseReference('SKEW', $expectedResult, ...$args);
     }
 
-    public function providerSKEW(): array
+    public static function providerSKEW(): array
     {
         return require 'tests/data/Calculation/Statistical/SKEW.php';
     }

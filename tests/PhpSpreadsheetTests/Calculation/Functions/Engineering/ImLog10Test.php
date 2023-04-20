@@ -90,7 +90,7 @@ class ImLog10Test extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerIMLOG10(): array
+    public static function providerIMLOG10(): array
     {
         return require 'tests/data/Calculation/Engineering/IMLOG10.php';
     }
@@ -116,7 +116,7 @@ class ImLog10Test extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerUnhappyIMLOG10(): array
+    public static function providerUnhappyIMLOG10(): array
     {
         return [
             ['Formula Error: Wrong number of arguments for IMLOG10() function'],
@@ -135,7 +135,7 @@ class ImLog10Test extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerImLog10Array(): array
+    public static function providerImLog10Array(): array
     {
         return [
             'row/column vector' => [

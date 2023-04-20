@@ -40,7 +40,7 @@ class SeriesSumTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerSERIESSUM(): array
+    public static function providerSERIESSUM(): array
     {
         return require 'tests/data/Calculation/MathTrig/SERIESSUM.php';
     }
@@ -57,7 +57,7 @@ class SeriesSumTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerSeriesSumArray(): array
+    public static function providerSeriesSumArray(): array
     {
         return [
             'row vector #1' => [[[3780, 756]], '5', '{1, 0}', '1', '{1, 1, 0, 1, 1}'],

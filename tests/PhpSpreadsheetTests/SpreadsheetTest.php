@@ -36,7 +36,7 @@ class SpreadsheetTest extends TestCase
         return $spreadsheet;
     }
 
-    public function dataProviderForSheetNames(): array
+    public static function dataProviderForSheetNames(): array
     {
         $array = [
             [0, 'someSheet1'],

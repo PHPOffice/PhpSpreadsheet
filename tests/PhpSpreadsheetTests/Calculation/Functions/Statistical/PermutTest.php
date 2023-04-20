@@ -16,7 +16,7 @@ class PermutTest extends AllSetupTeardown
         $this->runTestCases('PERMUT', $expectedResult, ...$args);
     }
 
-    public function providerPERMUT(): array
+    public static function providerPERMUT(): array
     {
         return require 'tests/data/Calculation/Statistical/PERMUT.php';
     }
@@ -33,7 +33,7 @@ class PermutTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerPermutArray(): array
+    public static function providerPermutArray(): array
     {
         return [
             'first argument row vector' => [

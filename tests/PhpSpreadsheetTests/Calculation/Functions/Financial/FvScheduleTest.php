@@ -35,7 +35,7 @@ class FvScheduleTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0E-8);
     }
 
-    public function providerFVSCHEDULE(): array
+    public static function providerFVSCHEDULE(): array
     {
         return require 'tests/data/Calculation/Financial/FVSCHEDULE.php';
     }

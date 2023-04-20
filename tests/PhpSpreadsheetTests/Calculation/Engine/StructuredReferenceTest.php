@@ -122,7 +122,7 @@ class StructuredReferenceTest extends TestCase
         $structuredReferenceObject->parse($cell);
     }
 
-    public function structuredReferenceProviderColumnData(): array
+    public static function structuredReferenceProviderColumnData(): array
     {
         return [
             // Full table, with no column specified,  means data only, not headers or totals
@@ -151,7 +151,7 @@ class StructuredReferenceTest extends TestCase
         ];
     }
 
-    public function structuredReferenceProviderRowData(): array
+    public static function structuredReferenceProviderRowData(): array
     {
         return [
             ['E5', 'DeptSales[[#This Row], [Commission Amount]]'],

@@ -14,7 +14,7 @@ class StDevPATest extends AllSetupTeardown
         $this->runTestCaseReference('STDEVPA', $expectedResult, ...$args);
     }
 
-    public function providerSTDEVPA(): array
+    public static function providerSTDEVPA(): array
     {
         return require 'tests/data/Calculation/Statistical/STDEVPA.php';
     }
@@ -30,7 +30,7 @@ class StDevPATest extends AllSetupTeardown
         $this->runTestCaseReference('STDEVPA', $expectedResult, ...$args);
     }
 
-    public function providerOdsSTDEVPA(): array
+    public static function providerOdsSTDEVPA(): array
     {
         return require 'tests/data/Calculation/Statistical/STDEVPA_ODS.php';
     }

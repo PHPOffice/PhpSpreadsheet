@@ -16,7 +16,7 @@ class SmallTest extends AllSetupTeardown
         $this->runTestCaseReference('SMALL', $expectedResult, $values, $position);
     }
 
-    public function providerSMALL(): array
+    public static function providerSMALL(): array
     {
         return require 'tests/data/Calculation/Statistical/SMALL.php';
     }

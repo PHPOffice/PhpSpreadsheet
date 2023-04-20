@@ -19,7 +19,7 @@ class OpenOfficeTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerOpenOffice(): array
+    public static function providerOpenOffice(): array
     {
         return require 'tests/data/Calculation/TextData/OpenOffice.php';
     }

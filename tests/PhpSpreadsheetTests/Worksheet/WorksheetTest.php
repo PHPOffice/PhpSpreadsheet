@@ -24,7 +24,7 @@ class WorksheetTest extends TestCase
         self::assertSame($testTitle, $worksheet->getTitle());
     }
 
-    public function setTitleInvalidProvider(): array
+    public static function setTitleInvalidProvider(): array
     {
         return [
             [str_repeat('a', 32), 'Maximum 31 characters allowed in sheet title.'],
@@ -83,7 +83,7 @@ class WorksheetTest extends TestCase
         self::assertSame($testCodeName, $worksheet->getCodeName());
     }
 
-    public function setCodeNameInvalidProvider(): array
+    public static function setCodeNameInvalidProvider(): array
     {
         return [
             [str_repeat('a', 32), 'Maximum 31 characters allowed in sheet code name.'],
@@ -141,7 +141,7 @@ class WorksheetTest extends TestCase
         self::assertSame('B2', $worksheet->getTopLeftCell());
     }
 
-    public function extractSheetTitleProvider(): array
+    public static function extractSheetTitleProvider(): array
     {
         return [
             ['B2', '', '', 'B2'],
@@ -193,7 +193,7 @@ class WorksheetTest extends TestCase
         );
     }
 
-    public function removeColumnProvider(): array
+    public static function removeColumnProvider(): array
     {
         return [
             'Remove first column' => [
@@ -284,7 +284,7 @@ class WorksheetTest extends TestCase
         self::assertSame($expectedData, $worksheet->toArray());
     }
 
-    public function removeRowsProvider(): array
+    public static function removeRowsProvider(): array
     {
         return [
             'Remove all rows except first one' => [
@@ -468,7 +468,7 @@ class WorksheetTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function emptyRowProvider(): array
+    public static function emptyRowProvider(): array
     {
         return [
             [1, false],
@@ -497,7 +497,7 @@ class WorksheetTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function emptyColumnProvider(): array
+    public static function emptyColumnProvider(): array
     {
         return [
             ['A', false],
@@ -554,7 +554,7 @@ class WorksheetTest extends TestCase
         self::assertSame($expectedData, $worksheet->toArray(null, false, false, true, true));
     }
 
-    public function toArrayHiddenRowsProvider(): array
+    public static function toArrayHiddenRowsProvider(): array
     {
         return [
             [
@@ -589,7 +589,7 @@ class WorksheetTest extends TestCase
         self::assertSame($expectedData, $worksheet->toArray(null, false, false, true, true));
     }
 
-    public function toArrayHiddenColumnsProvider(): array
+    public static function toArrayHiddenColumnsProvider(): array
     {
         return [
             [
@@ -621,7 +621,7 @@ class WorksheetTest extends TestCase
         self::assertSame($expected, $worksheet->rangeToArray($cellRange));
     }
 
-    public function rangeToArrayProvider(): array
+    public static function rangeToArrayProvider(): array
     {
         return [
             [

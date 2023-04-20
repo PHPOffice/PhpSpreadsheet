@@ -14,7 +14,7 @@ class MinATest extends AllSetupTeardown
         $this->runTestCaseReference('MINA', $expectedResult, ...$args);
     }
 
-    public function providerMINA(): array
+    public static function providerMINA(): array
     {
         return require 'tests/data/Calculation/Statistical/MINA.php';
     }

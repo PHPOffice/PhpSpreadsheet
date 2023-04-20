@@ -27,7 +27,7 @@ class VisibilityTest extends AbstractFunctional
         }
     }
 
-    public function dataProviderRowVisibility(): array
+    public static function dataProviderRowVisibility(): array
     {
         return [
             [
@@ -55,7 +55,7 @@ class VisibilityTest extends AbstractFunctional
         }
     }
 
-    public function dataProviderColumnVisibility(): array
+    public static function dataProviderColumnVisibility(): array
     {
         return [
             [
@@ -84,7 +84,7 @@ class VisibilityTest extends AbstractFunctional
         }
     }
 
-    public function dataProviderSheetVisibility(): array
+    public static function dataProviderSheetVisibility(): array
     {
         return [
             [

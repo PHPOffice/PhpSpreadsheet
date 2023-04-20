@@ -63,7 +63,7 @@ class ImAbsTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerIMABS(): array
+    public static function providerIMABS(): array
     {
         return require 'tests/data/Calculation/Engineering/IMABS.php';
     }
@@ -89,7 +89,7 @@ class ImAbsTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerUnhappyIMABS(): array
+    public static function providerUnhappyIMABS(): array
     {
         return [
             ['Formula Error: Wrong number of arguments for IMABS() function'],
@@ -108,7 +108,7 @@ class ImAbsTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerImAbsArray(): array
+    public static function providerImAbsArray(): array
     {
         return [
             'row/column vector' => [

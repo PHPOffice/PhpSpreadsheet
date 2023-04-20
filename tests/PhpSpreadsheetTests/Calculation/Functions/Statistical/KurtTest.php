@@ -14,7 +14,7 @@ class KurtTest extends AllSetupTeardown
         $this->runTestCases('KURT', $expectedResult, ...$args);
     }
 
-    public function providerKURT(): array
+    public static function providerKURT(): array
     {
         return require 'tests/data/Calculation/Statistical/KURT.php';
     }

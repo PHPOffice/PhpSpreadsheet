@@ -26,7 +26,7 @@ class CodeTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerCODE(): array
+    public static function providerCODE(): array
     {
         return require 'tests/data/Calculation/TextData/CODE.php';
     }
@@ -43,7 +43,7 @@ class CodeTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerCodeArray(): array
+    public static function providerCodeArray(): array
     {
         return [
             'row vector' => [[[80, 72, 80]], '{"P", "H", "P"}'],

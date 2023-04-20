@@ -21,7 +21,7 @@ class ForecastTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerFORECAST(): array
+    public static function providerFORECAST(): array
     {
         return require 'tests/data/Calculation/Statistical/FORECAST.php';
     }
@@ -38,7 +38,7 @@ class ForecastTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerForecastArray(): array
+    public static function providerForecastArray(): array
     {
         return [
             'row vector' => [[[-11.047619047619047, 22.95238095238095, 42.38095238095237]], '{-2, 5, 9}', '{3, 7, 15, 20, 22, 27}', '{1, 2, 3, 4, 5, 6}'],

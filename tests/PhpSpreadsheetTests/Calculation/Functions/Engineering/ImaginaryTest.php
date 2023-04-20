@@ -69,7 +69,7 @@ class ImaginaryTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerIMAGINARY(): array
+    public static function providerIMAGINARY(): array
     {
         return require 'tests/data/Calculation/Engineering/IMAGINARY.php';
     }
@@ -95,7 +95,7 @@ class ImaginaryTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerUnhappyIMAGINARY(): array
+    public static function providerUnhappyIMAGINARY(): array
     {
         return [
             ['Formula Error: Wrong number of arguments for IMAGINARY() function'],
@@ -114,7 +114,7 @@ class ImaginaryTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerImaginaryArray(): array
+    public static function providerImaginaryArray(): array
     {
         return [
             'row/column vector' => [

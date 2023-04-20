@@ -18,7 +18,7 @@ class ScientificTest extends TestCase
         self::assertSame($expectedResult, (string) $wizard);
     }
 
-    public function providerScientific(): array
+    public static function providerScientific(): array
     {
         return [
             ['0E+00', 0],
@@ -46,7 +46,7 @@ class ScientificTest extends TestCase
         self::assertSame($expectedResult, (string) $wizard);
     }
 
-    public function providerScientificLocale(): array
+    public static function providerScientificLocale(): array
     {
         return [
             ['0.00E+00', 'en'],

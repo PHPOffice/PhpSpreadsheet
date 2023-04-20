@@ -14,7 +14,7 @@ class DevSqTest extends AllSetupTeardown
         $this->runTestCases('DEVSQ', $expectedResult, ...$args);
     }
 
-    public function providerDEVSQ(): array
+    public static function providerDEVSQ(): array
     {
         return require 'tests/data/Calculation/Statistical/DEVSQ.php';
     }

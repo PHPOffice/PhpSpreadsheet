@@ -60,7 +60,7 @@ class SecondTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerSECOND(): array
+    public static function providerSECOND(): array
     {
         return require 'tests/data/Calculation/DateTime/SECOND.php';
     }
@@ -86,7 +86,7 @@ class SecondTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerUnhappySECOND(): array
+    public static function providerUnhappySECOND(): array
     {
         return [
             ['Formula Error: Wrong number of arguments for SECOND() function'],
@@ -105,7 +105,7 @@ class SecondTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerSecondArray(): array
+    public static function providerSecondArray(): array
     {
         return [
             'row vector' => [[[3, 15, 21]], '{"2022-02-09 01:02:03", "2022-02-09 13:14:15", "2022-02-09 19:20:21"}'],

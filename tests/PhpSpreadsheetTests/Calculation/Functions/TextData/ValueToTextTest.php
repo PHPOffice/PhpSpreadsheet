@@ -24,7 +24,7 @@ class ValueToTextTest extends AllSetupTeardown
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerVALUE(): array
+    public static function providerVALUE(): array
     {
         return require 'tests/data/Calculation/TextData/VALUETOTEXT.php';
     }

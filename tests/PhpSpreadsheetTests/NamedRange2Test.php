@@ -102,7 +102,7 @@ class NamedRange2Test extends TestCase
         self::assertSame('yyyy-mm-dd', $sheet->getStyle('A1')->getNumberFormat()->getFormatCode());
     }
 
-    public function providerRangeOrFormula(): array
+    public static function providerRangeOrFormula(): array
     {
         return [
             'wrong sheet rel' => ['Invalid cell coordinate', 'SecondRel'],

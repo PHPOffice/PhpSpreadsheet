@@ -90,7 +90,7 @@ class ImCotTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerIMCOT(): array
+    public static function providerIMCOT(): array
     {
         return require 'tests/data/Calculation/Engineering/IMCOT.php';
     }
@@ -116,7 +116,7 @@ class ImCotTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerUnhappyIMCOT(): array
+    public static function providerUnhappyIMCOT(): array
     {
         return [
             ['Formula Error: Wrong number of arguments for IMCOT() function'],
@@ -135,7 +135,7 @@ class ImCotTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerImCotArray(): array
+    public static function providerImCotArray(): array
     {
         return [
             'row/column vector' => [

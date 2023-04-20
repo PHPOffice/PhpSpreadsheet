@@ -83,7 +83,7 @@ class Bin2DecTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerBIN2DEC(): array
+    public static function providerBIN2DEC(): array
     {
         return require 'tests/data/Calculation/Engineering/BIN2DEC.php';
     }
@@ -109,7 +109,7 @@ class Bin2DecTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerUnhappyBIN2DEC(): array
+    public static function providerUnhappyBIN2DEC(): array
     {
         return [
             ['Formula Error: Wrong number of arguments for BIN2DEC() function'],
@@ -130,7 +130,7 @@ class Bin2DecTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerBIN2DECOds(): array
+    public static function providerBIN2DECOds(): array
     {
         return require 'tests/data/Calculation/Engineering/BIN2DECOpenOffice.php';
     }
@@ -165,7 +165,7 @@ class Bin2DecTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerBin2DecArray(): array
+    public static function providerBin2DecArray(): array
     {
         return [
             'row/column vector' => [

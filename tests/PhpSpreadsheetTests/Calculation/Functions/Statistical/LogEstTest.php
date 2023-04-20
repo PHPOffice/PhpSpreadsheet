@@ -27,7 +27,7 @@ class LogEstTest extends TestCase
         }
     }
 
-    public function providerLOGEST(): array
+    public static function providerLOGEST(): array
     {
         return require 'tests/data/Calculation/Statistical/LOGEST.php';
     }

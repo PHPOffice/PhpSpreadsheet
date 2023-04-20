@@ -31,7 +31,7 @@ class ConditionalFormattingBasicTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function conditionalFormattingProvider(): array
+    public static function conditionalFormattingProvider(): array
     {
         return [
             [
