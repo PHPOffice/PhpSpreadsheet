@@ -108,7 +108,7 @@ class Issue589Test extends TestCase
                     if ($actualXml === false) {
                         self::fail('Failure saving the spPr element as xml string!');
                     } else {
-                        self::assertXmlStringEqualsXmlString('<c:spPr><a:ln><a:solidFill><a:srgbClr val="98B954"/></a:solidFill></a:ln></c:spPr>', $actualXml);
+                        self::assertSame('<c:spPr><a:ln><a:solidFill><a:srgbClr val="98B954"/></a:solidFill></a:ln></c:spPr>', $actualXml);
                     }
                 }
             }
@@ -153,7 +153,7 @@ class Issue589Test extends TestCase
                     if ($actualXml === false) {
                         self::fail('Failure saving the spPr element as xml string!');
                     } else {
-                        self::assertXmlStringEqualsXmlString('<c:spPr><a:ln/></c:spPr>', $actualXml);
+                        self::assertSame('<c:spPr><a:ln/></c:spPr>', $actualXml);
                     }
                 }
             }
