@@ -13,7 +13,7 @@ class HandlerTest extends TestCase
         self::assertTrue(Handler::suppressed());
     }
 
-    public function xtestDeprecated(): void
+    public function testDeprecated(): void
     {
         if (method_exists(\PHPUnit\Framework\TestCase::class, 'setOutputCallback')) {
             self::assertTrue(true);
