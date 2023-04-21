@@ -60,7 +60,10 @@ jobs:
       - name: "Run PHPUnit tests (Experimental: ${{ matrix.experimental }})"
         env:
           FAILURE_ACTION: "${{ matrix.experimental == true }}"
-        run: vendor/bin/phpunit || $FAILURE_ACTION
+        if: ${{ matrix.php-version == '7.4' || matrix.php-version == '8.0' }}
+        run: vendor/bin/phpunit --verbose || $FAILURE_ACTION
+        if: ${{ matrix.php-version == '8.1' || matrix.php-version == '8.2' || matrix.php-version == 'nightly' }}
+        run: vendor/bin/phpunit -c phpunit10.xml.dist || $FAILURE_ACTION
 
   php-cs-fixer:
     runs-on: ubuntu-latest
