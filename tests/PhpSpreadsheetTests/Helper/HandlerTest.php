@@ -15,15 +15,11 @@ class HandlerTest extends TestCase
 
     public function testDeprecated(): void
     {
-        if (method_exists(\PHPUnit\Framework\TestCase::class, 'setOutputCallback')) {
-            self::assertTrue(true);
-        } else {
-            try {
-                Handler::deprecated();
-                self::fail('Expected error/exception did not happen');
-            } catch (Throwable $e) {
-                self::assertStringContainsString('Invalid characters', $e->getMessage());
-            }
+        try {
+            Handler::deprecated();
+            self::fail('Expected error/exception did not happen');
+        } catch (Throwable $e) {
+            self::assertStringContainsString('Invalid characters', $e->getMessage());
         }
     }
 
@@ -49,15 +45,11 @@ class HandlerTest extends TestCase
 
     public function testUserDeprecated(): void
     {
-        if (method_exists(\PHPUnit\Framework\TestCase::class, 'setOutputCallback')) {
-            self::assertTrue(true);
-        } else {
-            try {
-                Handler::userDeprecated();
-                self::fail('Expected error/exception did not happen');
-            } catch (Throwable $e) {
-                self::assertStringContainsString('hello', $e->getMessage());
-            }
+        try {
+            Handler::userDeprecated();
+            self::fail('Expected error/exception did not happen');
+        } catch (Throwable $e) {
+            self::assertStringContainsString('hello', $e->getMessage());
         }
     }
 
