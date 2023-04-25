@@ -39,7 +39,7 @@ class MergedCellTest extends TestCase
         $spreadSheet->disconnectWorksheets();
     }
 
-    public function providerWorksheetFormulaeColumns(): array
+    public static function providerWorksheetFormulaeColumns(): array
     {
         return [
             ['=SUM(A1:A5)', 6.6],
@@ -81,7 +81,7 @@ class MergedCellTest extends TestCase
         $spreadSheet->disconnectWorksheets();
     }
 
-    public function providerWorksheetFormulaeRows(): array
+    public static function providerWorksheetFormulaeRows(): array
     {
         return [
             ['=SUM(A1:E1)', 6.6],

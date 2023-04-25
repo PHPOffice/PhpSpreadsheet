@@ -25,7 +25,7 @@ class AcotTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-9);
     }
 
-    public function providerACOT(): array
+    public static function providerACOT(): array
     {
         return require 'tests/data/Calculation/MathTrig/ACOT.php';
     }
@@ -42,7 +42,7 @@ class AcotTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerAcotArray(): array
+    public static function providerAcotArray(): array
     {
         return [
             'row vector' => [[[0.78539816339745, 1.10714871779409, 2.35619449019234]], '{1, 0.5, -1}'],

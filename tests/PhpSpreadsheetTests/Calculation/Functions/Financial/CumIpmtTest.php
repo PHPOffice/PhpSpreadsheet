@@ -14,7 +14,7 @@ class CumIpmtTest extends AllSetupTeardown
         $this->runTestCase('CUMIPMT', $expectedResult, $args);
     }
 
-    public function providerCUMIPMT(): array
+    public static function providerCUMIPMT(): array
     {
         return require 'tests/data/Calculation/Financial/CUMIPMT.php';
     }

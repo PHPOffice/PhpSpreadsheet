@@ -15,7 +15,7 @@ class TrimMeanTest extends AllSetupTeardown
         $this->runTestCaseReference('TRIMMEAN', $expectedResult, $args, $percentage);
     }
 
-    public function providerTRIMMEAN(): array
+    public static function providerTRIMMEAN(): array
     {
         return require 'tests/data/Calculation/Statistical/TRIMMEAN.php';
     }

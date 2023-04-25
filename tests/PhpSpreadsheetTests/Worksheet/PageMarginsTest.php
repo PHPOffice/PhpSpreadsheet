@@ -61,7 +61,7 @@ class PageMarginsTest extends TestCase
         self::assertSame($expectedResult, $actualResult);
     }
 
-    public function providerPointsAndInches(): array
+    public static function providerPointsAndInches(): array
     {
         return [
             [36, 0.5],
@@ -71,7 +71,7 @@ class PageMarginsTest extends TestCase
         ];
     }
 
-    public function providerCentimetersAndInches(): array
+    public static function providerCentimetersAndInches(): array
     {
         return [
             [1.27, 0.5],
@@ -79,7 +79,7 @@ class PageMarginsTest extends TestCase
         ];
     }
 
-    public function providerMillimetersAndInches(): array
+    public static function providerMillimetersAndInches(): array
     {
         return [
             [12.7, 0.5],

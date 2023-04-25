@@ -14,7 +14,7 @@ class VarPTest extends AllSetupTeardown
         $this->runTestCases('VARP', $expectedResult, ...$args);
     }
 
-    public function providerVARP(): array
+    public static function providerVARP(): array
     {
         return require 'tests/data/Calculation/Statistical/VARP.php';
     }
@@ -30,7 +30,7 @@ class VarPTest extends AllSetupTeardown
         $this->runTestCases('VARP', $expectedResult, ...$args);
     }
 
-    public function providerOdsVARP(): array
+    public static function providerOdsVARP(): array
     {
         return require 'tests/data/Calculation/Statistical/VARP_ODS.php';
     }

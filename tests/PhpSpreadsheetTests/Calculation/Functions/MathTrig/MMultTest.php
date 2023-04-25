@@ -17,7 +17,7 @@ class MMultTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerMMULT(): array
+    public static function providerMMULT(): array
     {
         return require 'tests/data/Calculation/MathTrig/MMULT.php';
     }

@@ -122,7 +122,7 @@ class AdvancedValueBinderTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function currencyProvider(): array
+    public static function currencyProvider(): array
     {
         return [
             ['$10.11', 10.11, ',', '.', '$'],
@@ -156,7 +156,7 @@ class AdvancedValueBinderTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function fractionProvider(): array
+    public static function fractionProvider(): array
     {
         return [
             ['1/5', 0.2],
@@ -192,7 +192,7 @@ class AdvancedValueBinderTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function percentageProvider(): array
+    public static function percentageProvider(): array
     {
         return [
             ['10%', 0.1],
@@ -222,7 +222,7 @@ class AdvancedValueBinderTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function timeProvider(): array
+    public static function timeProvider(): array
     {
         return [
             ['1:20', 0.05555555556],
@@ -247,7 +247,7 @@ class AdvancedValueBinderTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function stringProvider(): array
+    public static function stringProvider(): array
     {
         return [
             ['Hello World', false],

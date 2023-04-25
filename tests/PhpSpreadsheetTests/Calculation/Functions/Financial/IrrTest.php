@@ -43,7 +43,7 @@ class IrrTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 0.1E-8);
     }
 
-    public function providerIRR(): array
+    public static function providerIRR(): array
     {
         return require 'tests/data/Calculation/Financial/IRR.php';
     }

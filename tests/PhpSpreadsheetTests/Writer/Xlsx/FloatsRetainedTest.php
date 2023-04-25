@@ -33,7 +33,7 @@ class FloatsRetainedTest extends TestCase
         $spreadsheet2->disconnectWorksheets();
     }
 
-    public function providerIntyFloatsRetainedByWriter(): array
+    public static function providerIntyFloatsRetainedByWriter(): array
     {
         return [
             [-1.0],

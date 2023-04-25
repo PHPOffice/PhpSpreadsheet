@@ -25,7 +25,7 @@ class NTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
-    public function providerN(): array
+    public static function providerN(): array
     {
         return require 'tests/data/Calculation/Information/N.php';
     }

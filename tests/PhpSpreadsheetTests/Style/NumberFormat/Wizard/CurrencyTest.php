@@ -25,7 +25,7 @@ class CurrencyTest extends TestCase
         self::assertSame($expectedResult, (string) $wizard);
     }
 
-    public function providerCurrency(): array
+    public static function providerCurrency(): array
     {
         return [
             ["\$\u{a0}0", '$', 0, Number::WITHOUT_THOUSANDS_SEPARATOR, Currency::LEADING_SYMBOL, Currency::SYMBOL_WITH_SPACING],
@@ -54,7 +54,7 @@ class CurrencyTest extends TestCase
         self::assertSame($expectedResult, (string) $wizard);
     }
 
-    public function providerCurrencyLocale(): array
+    public static function providerCurrencyLocale(): array
     {
         return [
             ["[\$€-fy-NL]\u{a0}#,##0.00;[\$€-fy-NL]\u{a0}#,##0.00-", '€', 'fy-NL'], // Trailing negative
@@ -86,7 +86,7 @@ class CurrencyTest extends TestCase
         self::assertSame($expectedResult, (string) $wizard);
     }
 
-    public function providerCurrencyLocaleNoDecimals(): array
+    public static function providerCurrencyLocaleNoDecimals(): array
     {
         return [
             ["[\$€-fy-NL]\u{a0}#,##0;[\$€-fy-NL]\u{a0}#,##0-", '€', 'fy-NL'], // Trailing negative

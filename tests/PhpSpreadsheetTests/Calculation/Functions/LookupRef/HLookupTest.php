@@ -63,7 +63,7 @@ class HLookupTest extends TestCase
         return $rangeLookup ? ', true' : ', false';
     }
 
-    public function providerHLOOKUP(): array
+    public static function providerHLOOKUP(): array
     {
         return require 'tests/data/Calculation/LookupRef/HLOOKUP.php';
     }
@@ -96,7 +96,7 @@ class HLookupTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerHLookupNamedRange(): array
+    public static function providerHLookupNamedRange(): array
     {
         return [
             ['Average', 'D5'],
@@ -118,7 +118,7 @@ class HLookupTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerHLookupArray(): array
+    public static function providerHLookupArray(): array
     {
         return [
             'row vector #1' => [

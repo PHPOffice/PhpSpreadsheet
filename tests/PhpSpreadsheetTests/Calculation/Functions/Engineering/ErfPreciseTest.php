@@ -62,7 +62,7 @@ class ErfPreciseTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerERFPRECISE(): array
+    public static function providerERFPRECISE(): array
     {
         return require 'tests/data/Calculation/Engineering/ERFPRECISE.php';
     }
@@ -79,7 +79,7 @@ class ErfPreciseTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, self::ERF_PRECISION);
     }
 
-    public function providerErfPreciseArray(): array
+    public static function providerErfPreciseArray(): array
     {
         return [
             'row vector' => [

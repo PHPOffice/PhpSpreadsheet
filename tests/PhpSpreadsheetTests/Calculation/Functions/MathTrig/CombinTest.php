@@ -28,7 +28,7 @@ class CombinTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerCOMBIN(): array
+    public static function providerCOMBIN(): array
     {
         return require 'tests/data/Calculation/MathTrig/COMBIN.php';
     }
@@ -45,7 +45,7 @@ class CombinTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerCombinArray(): array
+    public static function providerCombinArray(): array
     {
         return [
             'first argument row vector' => [

@@ -60,7 +60,7 @@ class BitXorTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerBITXOR(): array
+    public static function providerBITXOR(): array
     {
         return require 'tests/data/Calculation/Engineering/BITXOR.php';
     }
@@ -86,7 +86,7 @@ class BitXorTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerUnhappyBITXOR(): array
+    public static function providerUnhappyBITXOR(): array
     {
         return [
             ['Formula Error: Wrong number of arguments for BITXOR() function'],
@@ -106,7 +106,7 @@ class BitXorTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerBitXorArray(): array
+    public static function providerBitXorArray(): array
     {
         return [
             'row/column vector' => [

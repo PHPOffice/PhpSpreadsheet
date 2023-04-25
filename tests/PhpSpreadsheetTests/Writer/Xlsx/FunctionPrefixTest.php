@@ -16,7 +16,7 @@ class FunctionPrefixTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    public function functionPrefixProvider(): array
+    public static function functionPrefixProvider(): array
     {
         return [
             'Basic Legacy Function' => ['SUM()', 'SUM()'],
@@ -44,7 +44,7 @@ class FunctionPrefixTest extends TestCase
 //        self::assertSame($expectedResult, $result);
 //    }
 //
-//    public function functionPrefixWithEqualsProvider(): array
+//    public static function functionPrefixWithEqualsProvider(): array
 //    {
 //        return [
 //            'Basic Legacy Function' => ['SUM()', '=SUM()'],

@@ -16,7 +16,7 @@ class HypGeomDistTest extends AllSetupTeardown
         $this->runTestCases('HYPGEOMDIST', $expectedResult, ...$args);
     }
 
-    public function providerHYPGEOMDIST(): array
+    public static function providerHYPGEOMDIST(): array
     {
         return require 'tests/data/Calculation/Statistical/HYPGEOMDIST.php';
     }
@@ -38,7 +38,7 @@ class HypGeomDistTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerHypGeomDistArray(): array
+    public static function providerHypGeomDistArray(): array
     {
         return [
             'row/column vectors' => [

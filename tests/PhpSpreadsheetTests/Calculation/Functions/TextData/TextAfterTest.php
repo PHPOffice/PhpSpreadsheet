@@ -29,7 +29,7 @@ class TextAfterTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerTEXTAFTER(): array
+    public static function providerTEXTAFTER(): array
     {
         return require 'tests/data/Calculation/TextData/TEXTAFTER.php';
     }

@@ -22,7 +22,7 @@ class RomanTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerROMAN(): array
+    public static function providerROMAN(): array
     {
         return require 'tests/data/Calculation/MathTrig/ROMAN.php';
     }
@@ -39,7 +39,7 @@ class RomanTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerRomanArray(): array
+    public static function providerRomanArray(): array
     {
         return [
             'row vector' => [[['XLIX', 'MMXXII', 'CDXCIX']], '{49, 2022, 499}', '0'],

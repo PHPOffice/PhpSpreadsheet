@@ -14,7 +14,7 @@ class MinIfsTest extends AllSetupTeardown
         $this->runTestCaseNoBracket('MINIFS', $expectedResult, ...$args);
     }
 
-    public function providerMINIFS(): array
+    public static function providerMINIFS(): array
     {
         return require 'tests/data/Calculation/Statistical/MINIFS.php';
     }

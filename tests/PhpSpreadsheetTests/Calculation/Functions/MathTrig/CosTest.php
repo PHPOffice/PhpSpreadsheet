@@ -21,7 +21,7 @@ class CosTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-6);
     }
 
-    public function providerCos(): array
+    public static function providerCos(): array
     {
         return require 'tests/data/Calculation/MathTrig/COS.php';
     }
@@ -38,7 +38,7 @@ class CosTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerCosArray(): array
+    public static function providerCosArray(): array
     {
         return [
             'row vector' => [[[0.54030230586814, 0.87758256189037, 0.54030230586814]], '{1, 0.5, -1}'],

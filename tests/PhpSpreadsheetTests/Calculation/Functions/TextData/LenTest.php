@@ -26,7 +26,7 @@ class LenTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerLEN(): array
+    public static function providerLEN(): array
     {
         return require 'tests/data/Calculation/TextData/LEN.php';
     }
@@ -43,7 +43,7 @@ class LenTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerLenArray(): array
+    public static function providerLenArray(): array
     {
         return [
             'row vector' => [[[3, 11, 14]], '{"PHP", "Hello World", "PhpSpreadsheet"}'],

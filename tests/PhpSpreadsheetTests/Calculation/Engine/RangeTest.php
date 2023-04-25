@@ -38,7 +38,7 @@ class RangeTest extends TestCase
         self::assertSame($expectedResult, $actualRresult);
     }
 
-    public function providerRangeEvaluation(): array
+    public static function providerRangeEvaluation(): array
     {
         return[
             'Sum with Simple Range' => ['=SUM(A1:C3)', 72],
@@ -93,7 +93,7 @@ class RangeTest extends TestCase
         self::assertSame($expectedResult, $sumRresult);
     }
 
-    public function providerNamedRangeEvaluation(): array
+    public static function providerNamedRangeEvaluation(): array
     {
         return[
             [['$A$1:$B$3', '$A$1:$C$2'], '=SUM(GROUP1,GROUP2)', 75],
@@ -131,7 +131,7 @@ class RangeTest extends TestCase
         self::assertSame($expectedResult, $sumRresult);
     }
 
-    public function providerUTF8NamedRangeEvaluation(): array
+    public static function providerUTF8NamedRangeEvaluation(): array
     {
         return[
             [['Γειά', 'σου', 'Κόσμε'], ['$A$1', '$B$1:$B$2', '$C$1:$C$3'], '=SUM(Γειά,σου,Κόσμε)', 38],
@@ -161,7 +161,7 @@ class RangeTest extends TestCase
         self::assertSame($expectedCount, $actualCount);
     }
 
-    public function providerCompositeNamedRangeEvaluation(): array
+    public static function providerCompositeNamedRangeEvaluation(): array
     {
         return[
             //  Calculation engine doesn't yet handle union ranges with overlap

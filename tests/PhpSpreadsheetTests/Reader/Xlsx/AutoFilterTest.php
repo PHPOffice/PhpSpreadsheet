@@ -20,7 +20,7 @@ class AutoFilterTest extends TestCase
         );
     }
 
-    public function loadDataProvider(): array
+    public static function loadDataProvider(): array
     {
         return [
             ['$B3$E8', 0, 'B3E8'],

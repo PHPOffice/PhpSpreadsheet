@@ -62,7 +62,7 @@ class BesselJTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerBESSELJ(): array
+    public static function providerBESSELJ(): array
     {
         return require 'tests/data/Calculation/Engineering/BESSELJ.php';
     }
@@ -88,7 +88,7 @@ class BesselJTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerUnhappyBESSELJ(): array
+    public static function providerUnhappyBESSELJ(): array
     {
         return [
             ['Formula Error: Wrong number of arguments for BESSELJ() function'],
@@ -108,7 +108,7 @@ class BesselJTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerBesselJArray(): array
+    public static function providerBesselJArray(): array
     {
         return [
             'row/column vector' => [

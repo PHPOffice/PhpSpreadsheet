@@ -83,7 +83,7 @@ class FunctionsTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerIfCondition(): array
+    public static function providerIfCondition(): array
     {
         return require 'tests/data/Calculation/Functions/IF_CONDITION.php';
     }

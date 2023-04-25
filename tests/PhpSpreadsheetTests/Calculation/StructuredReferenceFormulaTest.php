@@ -61,7 +61,7 @@ class StructuredReferenceFormulaTest extends TestCase
         self::assertSame(ExcelError::REF(), $result);
     }
 
-    public function structuredReferenceProvider(): array
+    public static function structuredReferenceProvider(): array
     {
         return [
             [26.0, 'E2'],

@@ -46,7 +46,7 @@ class CalculationFunctionListTest extends TestCase
         self::assertIsCallable($functionCall);
     }
 
-    public function providerGetFunctions(): array
+    public static function providerGetFunctions(): array
     {
         return Calculation::getInstance()->getFunctions();
     }

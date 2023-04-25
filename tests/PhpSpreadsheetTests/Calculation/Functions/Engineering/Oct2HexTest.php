@@ -83,7 +83,7 @@ class Oct2HexTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerOCT2HEX(): array
+    public static function providerOCT2HEX(): array
     {
         return require 'tests/data/Calculation/Engineering/OCT2HEX.php';
     }
@@ -109,7 +109,7 @@ class Oct2HexTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerUnhappyOCT2HEX(): array
+    public static function providerUnhappyOCT2HEX(): array
     {
         return [
             ['Formula Error: Wrong number of arguments for OCT2HEX() function'],
@@ -130,7 +130,7 @@ class Oct2HexTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerOCT2HEXOds(): array
+    public static function providerOCT2HEXOds(): array
     {
         return require 'tests/data/Calculation/Engineering/OCT2HEXOpenOffice.php';
     }
@@ -165,7 +165,7 @@ class Oct2HexTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerOct2HexArray(): array
+    public static function providerOct2HexArray(): array
     {
         return [
             'row/column vector' => [

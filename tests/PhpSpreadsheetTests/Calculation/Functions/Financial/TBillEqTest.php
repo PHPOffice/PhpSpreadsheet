@@ -14,7 +14,7 @@ class TBillEqTest extends AllSetupTeardown
         $this->runTestCase('TBILLEQ', $expectedResult, $args);
     }
 
-    public function providerTBILLEQ(): array
+    public static function providerTBILLEQ(): array
     {
         return require 'tests/data/Calculation/Financial/TBILLEQ.php';
     }

@@ -16,7 +16,7 @@ class ChiDistLeftTailTest extends AllSetupTeardown
         $this->runTestCaseReference('CHISQ.DIST', $expectedResult, ...$args);
     }
 
-    public function providerCHIDIST(): array
+    public static function providerCHIDIST(): array
     {
         return require 'tests/data/Calculation/Statistical/CHIDISTLeftTail.php';
     }
@@ -33,7 +33,7 @@ class ChiDistLeftTailTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerChiDistLeftTailArray(): array
+    public static function providerChiDistLeftTailArray(): array
     {
         return [
             'row/column vectors' => [

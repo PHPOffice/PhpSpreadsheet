@@ -16,7 +16,7 @@ class NormSInvTest extends AllSetupTeardown
         $this->runTestCases('NORMSINV', $expectedResult, ...$args);
     }
 
-    public function providerNORMSINV(): array
+    public static function providerNORMSINV(): array
     {
         return require 'tests/data/Calculation/Statistical/NORMSINV.php';
     }
@@ -33,7 +33,7 @@ class NormSInvTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerNormSInvArray(): array
+    public static function providerNormSInvArray(): array
     {
         return [
             'row/column vectors' => [

@@ -14,7 +14,7 @@ class FvTest extends AllSetupTeardown
         $this->runTestCase('FV', $expectedResult, $args);
     }
 
-    public function providerFV(): array
+    public static function providerFV(): array
     {
         return require 'tests/data/Calculation/Financial/FV.php';
     }

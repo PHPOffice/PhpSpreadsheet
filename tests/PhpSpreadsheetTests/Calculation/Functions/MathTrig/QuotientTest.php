@@ -34,7 +34,7 @@ class QuotientTest extends AllSetupTeardown
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerQUOTIENT(): array
+    public static function providerQUOTIENT(): array
     {
         return require 'tests/data/Calculation/MathTrig/QUOTIENT.php';
     }
@@ -51,7 +51,7 @@ class QuotientTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerQuotientArray(): array
+    public static function providerQuotientArray(): array
     {
         return [
             'matrix' => [[[3, 3, 2], [2, 2, 1], [1, 0, 0]], '{9, 8, 7; 6, 5, 4; 3, 2, 1}', '2.5'],

@@ -34,7 +34,7 @@ class SumX2PY2Test extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerSUMX2PY2(): array
+    public static function providerSUMX2PY2(): array
     {
         return require 'tests/data/Calculation/MathTrig/SUMX2PY2.php';
     }

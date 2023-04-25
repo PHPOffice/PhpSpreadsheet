@@ -16,7 +16,7 @@ class AverageIfTest extends AllSetupTeardown
         $this->runTestCaseNoBracket('AVERAGEIF', $expectedResult, ...$args);
     }
 
-    public function providerAVERAGEIF(): array
+    public static function providerAVERAGEIF(): array
     {
         return require 'tests/data/Calculation/Statistical/AVERAGEIF.php';
     }

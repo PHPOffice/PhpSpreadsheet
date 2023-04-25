@@ -14,7 +14,7 @@ class CoupDaysNcTest extends AllSetupTeardown
         $this->runTestCase('COUPDAYSNC', $expectedResult, $args);
     }
 
-    public function providerCOUPDAYSNC(): array
+    public static function providerCOUPDAYSNC(): array
     {
         return require 'tests/data/Calculation/Financial/COUPDAYSNC.php';
     }

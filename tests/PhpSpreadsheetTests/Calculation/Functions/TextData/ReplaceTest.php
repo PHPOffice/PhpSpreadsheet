@@ -44,7 +44,7 @@ class ReplaceTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerREPLACE(): array
+    public static function providerREPLACE(): array
     {
         return require 'tests/data/Calculation/TextData/REPLACE.php';
     }
@@ -66,7 +66,7 @@ class ReplaceTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerReplaceArray(): array
+    public static function providerReplaceArray(): array
     {
         return [
             'row vector' => [[['Elephpant', 'ElePHPant']], '"Elephant"', '4', '2', '{"php", "PHP"}'],

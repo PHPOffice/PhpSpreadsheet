@@ -39,7 +39,7 @@ class PasswordReloadTest extends AbstractFunctional
         $reloadedSpreadsheet->disconnectWorksheets();
     }
 
-    public function providerPasswords(): array
+    public static function providerPasswords(): array
     {
         return [
             'Xls basic algorithm' => ['Xls', ''],

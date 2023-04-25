@@ -82,7 +82,7 @@ class Dec2OctTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerDEC2OCT(): array
+    public static function providerDEC2OCT(): array
     {
         return require 'tests/data/Calculation/Engineering/DEC2OCT.php';
     }
@@ -108,7 +108,7 @@ class Dec2OctTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerUnhappyDEC2OCT(): array
+    public static function providerUnhappyDEC2OCT(): array
     {
         return [
             ['Formula Error: Wrong number of arguments for DEC2OCT() function'],
@@ -129,7 +129,7 @@ class Dec2OctTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerDEC2OCTOds(): array
+    public static function providerDEC2OCTOds(): array
     {
         return require 'tests/data/Calculation/Engineering/DEC2OCTOpenOffice.php';
     }
@@ -164,7 +164,7 @@ class Dec2OctTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerDec2OctArray(): array
+    public static function providerDec2OctArray(): array
     {
         return [
             'row/column vector' => [

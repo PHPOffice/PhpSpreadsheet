@@ -16,7 +16,7 @@ class FisherTest extends AllSetupTeardown
         $this->runTestCases('FISHER', $expectedResult, ...$args);
     }
 
-    public function providerFISHER(): array
+    public static function providerFISHER(): array
     {
         return require 'tests/data/Calculation/Statistical/FISHER.php';
     }
@@ -33,7 +33,7 @@ class FisherTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerFisherArray(): array
+    public static function providerFisherArray(): array
     {
         return [
             'row vector' => [

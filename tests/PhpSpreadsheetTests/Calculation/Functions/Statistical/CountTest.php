@@ -14,7 +14,7 @@ class CountTest extends AllSetupTeardown
         $this->runTestCaseNoBracket('COUNT', $expectedResult, ...$args);
     }
 
-    public function providerBasicCOUNT(): array
+    public static function providerBasicCOUNT(): array
     {
         return require 'tests/data/Calculation/Statistical/BasicCOUNT.php';
     }
@@ -33,7 +33,7 @@ class CountTest extends AllSetupTeardown
         }
     }
 
-    public function providerExcelCOUNT(): array
+    public static function providerExcelCOUNT(): array
     {
         return require 'tests/data/Calculation/Statistical/ExcelCOUNT.php';
     }
@@ -53,7 +53,7 @@ class CountTest extends AllSetupTeardown
         }
     }
 
-    public function providerOpenOfficeCOUNT(): array
+    public static function providerOpenOfficeCOUNT(): array
     {
         return require 'tests/data/Calculation/Statistical/OpenOfficeCOUNT.php';
     }
@@ -69,7 +69,7 @@ class CountTest extends AllSetupTeardown
         $this->runTestCaseNoBracket('COUNT', $expectedResult, ...$args);
     }
 
-    public function providerGnumericCOUNT(): array
+    public static function providerGnumericCOUNT(): array
     {
         return require 'tests/data/Calculation/Statistical/GnumericCOUNT.php';
     }

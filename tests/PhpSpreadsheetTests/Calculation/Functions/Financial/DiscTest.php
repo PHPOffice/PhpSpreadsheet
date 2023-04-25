@@ -14,7 +14,7 @@ class DiscTest extends AllSetupTeardown
         $this->runTestCase('DISC', $expectedResult, $args);
     }
 
-    public function providerDISC(): array
+    public static function providerDISC(): array
     {
         return require 'tests/data/Calculation/Financial/DISC.php';
     }

@@ -40,7 +40,7 @@ class BaseTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerBASE(): array
+    public static function providerBASE(): array
     {
         return require 'tests/data/Calculation/MathTrig/BASE.php';
     }
@@ -57,7 +57,7 @@ class BaseTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerBaseArray(): array
+    public static function providerBaseArray(): array
     {
         return [
             'matrix' => [[['1111111', '177'], ['127', '7F']], '127', '{2, 8; 10, 16}'],

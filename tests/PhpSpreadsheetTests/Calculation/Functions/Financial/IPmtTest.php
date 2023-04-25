@@ -14,7 +14,7 @@ class IPmtTest extends AllSetupTeardown
         $this->runTestCase('IPMT', $expectedResult, $args);
     }
 
-    public function providerIPMT(): array
+    public static function providerIPMT(): array
     {
         return require 'tests/data/Calculation/Financial/IPMT.php';
     }

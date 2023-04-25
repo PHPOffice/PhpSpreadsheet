@@ -61,7 +61,7 @@ class DeltaTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerDELTA(): array
+    public static function providerDELTA(): array
     {
         return require 'tests/data/Calculation/Engineering/DELTA.php';
     }
@@ -87,7 +87,7 @@ class DeltaTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerUnhappyDELTA(): array
+    public static function providerUnhappyDELTA(): array
     {
         return [
             ['Formula Error: Wrong number of arguments for DELTA() function'],
@@ -106,7 +106,7 @@ class DeltaTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerDeltaArray(): array
+    public static function providerDeltaArray(): array
     {
         return [
             'row/column vector' => [

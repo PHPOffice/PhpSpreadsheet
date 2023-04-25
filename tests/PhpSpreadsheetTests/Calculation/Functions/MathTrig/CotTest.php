@@ -25,7 +25,7 @@ class CotTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-9);
     }
 
-    public function providerCOT(): array
+    public static function providerCOT(): array
     {
         return require 'tests/data/Calculation/MathTrig/COT.php';
     }
@@ -42,7 +42,7 @@ class CotTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerCotArray(): array
+    public static function providerCotArray(): array
     {
         return [
             'row vector' => [[[0.64209261593433, 1.83048772171245, -0.64209261593433]], '{1, 0.5, -1}'],

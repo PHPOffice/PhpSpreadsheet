@@ -65,7 +65,7 @@ class DateDifTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerDATEDIF(): array
+    public static function providerDATEDIF(): array
     {
         return require 'tests/data/Calculation/DateTime/DATEDIF.php';
     }
@@ -91,7 +91,7 @@ class DateDifTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerUnhappyDATEDIF(): array
+    public static function providerUnhappyDATEDIF(): array
     {
         return [
             ['Formula Error: Wrong number of arguments for DATEDIF() function', '2023-03-1'],
@@ -128,7 +128,7 @@ class DateDifTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerDateDifArray(): array
+    public static function providerDateDifArray(): array
     {
         return [
             'row vector #1' => [[[364, 202, '#NUM!']], '{"2022-01-01", "2022-06-12", "2023-07-22"}', '"2022-12-31"', null],

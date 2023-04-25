@@ -16,7 +16,7 @@ class GammaTest extends AllSetupTeardown
         $this->runTestCases('GAMMA', $expectedResult, ...$args);
     }
 
-    public function providerGAMMA(): array
+    public static function providerGAMMA(): array
     {
         return require 'tests/data/Calculation/Statistical/GAMMA.php';
     }
@@ -33,7 +33,7 @@ class GammaTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerGammaArray(): array
+    public static function providerGammaArray(): array
     {
         return [
             'matrix' => [

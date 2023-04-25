@@ -27,7 +27,7 @@ class DataValidationTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function dataValidationProvider(): array
+    public static function dataValidationProvider(): array
     {
         return [
             [

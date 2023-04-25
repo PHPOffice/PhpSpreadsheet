@@ -83,7 +83,7 @@ class Bin2OctTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerBIN2OCT(): array
+    public static function providerBIN2OCT(): array
     {
         return require 'tests/data/Calculation/Engineering/BIN2OCT.php';
     }
@@ -109,7 +109,7 @@ class Bin2OctTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerUnhappyBIN2OCT(): array
+    public static function providerUnhappyBIN2OCT(): array
     {
         return [
             ['Formula Error: Wrong number of arguments for BIN2OCT() function'],
@@ -130,7 +130,7 @@ class Bin2OctTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerBIN2OCTOds(): array
+    public static function providerBIN2OCTOds(): array
     {
         return require 'tests/data/Calculation/Engineering/BIN2OCTOpenOffice.php';
     }
@@ -165,7 +165,7 @@ class Bin2OctTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerBin2OctArray(): array
+    public static function providerBin2OctArray(): array
     {
         return [
             'row/column vector' => [

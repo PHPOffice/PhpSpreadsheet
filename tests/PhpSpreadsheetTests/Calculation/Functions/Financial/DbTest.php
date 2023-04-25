@@ -14,7 +14,7 @@ class DbTest extends AllSetupTeardown
         $this->runTestCase('DB', $expectedResult, $args);
     }
 
-    public function providerDB(): array
+    public static function providerDB(): array
     {
         return require 'tests/data/Calculation/Financial/DB.php';
     }

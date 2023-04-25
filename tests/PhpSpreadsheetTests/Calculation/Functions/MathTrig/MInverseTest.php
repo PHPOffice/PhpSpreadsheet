@@ -17,7 +17,7 @@ class MInverseTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
     }
 
-    public function providerMINVERSE(): array
+    public static function providerMINVERSE(): array
     {
         return require 'tests/data/Calculation/MathTrig/MINVERSE.php';
     }

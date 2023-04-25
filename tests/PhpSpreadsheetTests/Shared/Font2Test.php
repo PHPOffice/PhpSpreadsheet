@@ -40,7 +40,7 @@ class Font2Test extends TestCase
         self::assertTrue($defaultCovered, 'Default key not tested');
     }
 
-    public function providerCharsetFromFontName(): array
+    public static function providerCharsetFromFontName(): array
     {
         return [
             ['EucrosiaUPC', Font::CHARSET_ANSI_THAI],

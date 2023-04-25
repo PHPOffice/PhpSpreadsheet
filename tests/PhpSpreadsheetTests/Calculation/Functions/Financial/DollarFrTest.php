@@ -14,7 +14,7 @@ class DollarFrTest extends AllSetupTeardown
         $this->runTestCase('DOLLARFR', $expectedResult, $args);
     }
 
-    public function providerDOLLARFR(): array
+    public static function providerDOLLARFR(): array
     {
         return require 'tests/data/Calculation/Financial/DOLLARFR.php';
     }

@@ -61,7 +61,7 @@ class DirectorySeparatorTest extends TestCase
         self::assertSame('Key ID', $cellValue);
     }
 
-    public function providerDirectorySeparator(): array
+    public static function providerDirectorySeparator(): array
     {
         return [
             ['Zip-Linux-Directory-Separator.xlsx'],

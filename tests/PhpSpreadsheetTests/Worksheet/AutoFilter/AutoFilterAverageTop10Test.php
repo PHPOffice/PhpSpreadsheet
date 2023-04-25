@@ -26,7 +26,7 @@ class AutoFilterAverageTop10Test extends SetupTeardown
         return $sheet;
     }
 
-    public function providerAverage(): array
+    public static function providerAverage(): array
     {
         return [
             [[5, 6, 9, 10], Rule::AUTOFILTER_RULETYPE_DYNAMIC_ABOVEAVERAGE],
@@ -56,7 +56,7 @@ class AutoFilterAverageTop10Test extends SetupTeardown
         self::assertEquals($expectedVisible, $this->getVisible());
     }
 
-    public function providerTop10(): array
+    public static function providerTop10(): array
     {
         return [
             [[6, 10], Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_BY_VALUE, Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_TOP, 2],
@@ -106,7 +106,7 @@ class AutoFilterAverageTop10Test extends SetupTeardown
         return $sheet;
     }
 
-    public function providerTop10Ties(): array
+    public static function providerTop10Ties(): array
     {
         return [
             [[2, 3, 4], Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_BY_VALUE, Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_BOTTOM, 2],

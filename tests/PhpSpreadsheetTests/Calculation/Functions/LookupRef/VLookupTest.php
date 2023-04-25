@@ -41,7 +41,7 @@ class VLookupTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerVLOOKUP(): array
+    public static function providerVLOOKUP(): array
     {
         return require 'tests/data/Calculation/LookupRef/VLOOKUP.php';
     }
@@ -58,7 +58,7 @@ class VLookupTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerVLookupArray(): array
+    public static function providerVLookupArray(): array
     {
         return [
             'row vector' => [

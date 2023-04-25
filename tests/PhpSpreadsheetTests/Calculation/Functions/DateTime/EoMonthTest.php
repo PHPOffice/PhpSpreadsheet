@@ -80,7 +80,7 @@ class EoMonthTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerEOMONTH(): array
+    public static function providerEOMONTH(): array
     {
         return require 'tests/data/Calculation/DateTime/EOMONTH.php';
     }
@@ -106,7 +106,7 @@ class EoMonthTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerUnhappyEOMONTH(): array
+    public static function providerUnhappyEOMONTH(): array
     {
         return [
             ['Formula Error: Wrong number of arguments for EOMONTH() function'],
@@ -147,7 +147,7 @@ class EoMonthTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerEoMonthArray(): array
+    public static function providerEoMonthArray(): array
     {
         return [
             'row vector #1' => [[[44620, 44651, 45351]], '{"2022-01-01", "2022-02-12", "2024-01-15"}', '1'],

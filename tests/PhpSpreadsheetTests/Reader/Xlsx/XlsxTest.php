@@ -232,7 +232,7 @@ class XlsxTest extends TestCase
         self::assertEquals(preg_match('/\s/', $string), 0);
     }
 
-    public function providerStripsWhiteSpaceFromStyleString(): array
+    public static function providerStripsWhiteSpaceFromStyleString(): array
     {
         return [
             ['position:absolute;margin-left:424.5pt;margin-top:169.5pt;width:67.5pt;

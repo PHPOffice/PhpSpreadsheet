@@ -22,7 +22,7 @@ class RefRangeTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerRefRange(): array
+    public static function providerRefRange(): array
     {
         return [
             'normal range' => [0, 'B1:B2'],

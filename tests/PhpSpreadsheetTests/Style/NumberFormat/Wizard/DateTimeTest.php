@@ -21,7 +21,7 @@ class DateTimeTest extends TestCase
         self::assertSame($expectedResult, (string) $wizard);
     }
 
-    public function providerDateTime(): array
+    public static function providerDateTime(): array
     {
         return [
             ['yyyy-mm-dd "at" hh:mm:ss', ' ', [new Date('-', 'yyyy', 'mm', 'dd'), 'at', new Time(':', 'hh', 'mm', 'ss')]],

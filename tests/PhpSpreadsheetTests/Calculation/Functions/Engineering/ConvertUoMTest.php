@@ -92,7 +92,7 @@ class ConvertUoMTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerCONVERTUOM(): array
+    public static function providerCONVERTUOM(): array
     {
         return require 'tests/data/Calculation/Engineering/CONVERTUOM.php';
     }
@@ -118,7 +118,7 @@ class ConvertUoMTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerUnhappyCONVERTUOM(): array
+    public static function providerUnhappyCONVERTUOM(): array
     {
         return [
             ['Formula Error: Wrong number of arguments for CONVERT() function'],
@@ -139,7 +139,7 @@ class ConvertUoMTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, self::UOM_PRECISION);
     }
 
-    public function providerConvertUoMArray(): array
+    public static function providerConvertUoMArray(): array
     {
         return [
             'Weight/Mass' => [

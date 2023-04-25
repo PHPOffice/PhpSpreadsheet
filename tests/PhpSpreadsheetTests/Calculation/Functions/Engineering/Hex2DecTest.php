@@ -83,7 +83,7 @@ class Hex2DecTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerHEX2DEC(): array
+    public static function providerHEX2DEC(): array
     {
         return require 'tests/data/Calculation/Engineering/HEX2DEC.php';
     }
@@ -109,7 +109,7 @@ class Hex2DecTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerUnhappyHEX2DEC(): array
+    public static function providerUnhappyHEX2DEC(): array
     {
         return [
             ['Formula Error: Wrong number of arguments for HEX2DEC() function'],
@@ -130,7 +130,7 @@ class Hex2DecTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerHEX2DECOds(): array
+    public static function providerHEX2DECOds(): array
     {
         return require 'tests/data/Calculation/Engineering/HEX2DECOpenOffice.php';
     }
@@ -165,7 +165,7 @@ class Hex2DecTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerHex2DecArray(): array
+    public static function providerHex2DecArray(): array
     {
         return [
             'row/column vector' => [

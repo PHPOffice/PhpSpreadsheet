@@ -80,7 +80,7 @@ class EDateTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerEDATE(): array
+    public static function providerEDATE(): array
     {
         return require 'tests/data/Calculation/DateTime/EDATE.php';
     }
@@ -106,7 +106,7 @@ class EDateTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerUnhappyEDATE(): array
+    public static function providerUnhappyEDATE(): array
     {
         return [
             ['Formula Error: Wrong number of arguments for EDATE() function', null],
@@ -148,7 +148,7 @@ class EDateTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerEDateArray(): array
+    public static function providerEDateArray(): array
     {
         return [
             'row vector #1' => [[[44593, 44632, 45337]], '{"2022-01-01", "2022-02-12", "2024-01-15"}', '1'],

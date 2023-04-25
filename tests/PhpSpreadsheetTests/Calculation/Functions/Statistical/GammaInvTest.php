@@ -16,7 +16,7 @@ class GammaInvTest extends AllSetupTeardown
         $this->runTestCases('GAMMA.INV', $expectedResult, ...$args);
     }
 
-    public function providerGAMMAINV(): array
+    public static function providerGAMMAINV(): array
     {
         return require 'tests/data/Calculation/Statistical/GAMMAINV.php';
     }
@@ -33,7 +33,7 @@ class GammaInvTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerGammaInvArray(): array
+    public static function providerGammaInvArray(): array
     {
         return [
             'row/column vectors' => [

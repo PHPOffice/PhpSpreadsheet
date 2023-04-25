@@ -25,7 +25,7 @@ class IsTextTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerIsText(): array
+    public static function providerIsText(): array
     {
         return require 'tests/data/Calculation/Information/IS_TEXT.php';
     }
@@ -42,7 +42,7 @@ class IsTextTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerIsTextArray(): array
+    public static function providerIsTextArray(): array
     {
         return [
             'vector' => [

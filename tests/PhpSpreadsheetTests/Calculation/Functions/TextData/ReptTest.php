@@ -31,7 +31,7 @@ class ReptTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerREPT(): array
+    public static function providerREPT(): array
     {
         return require 'tests/data/Calculation/TextData/REPT.php';
     }
@@ -48,7 +48,7 @@ class ReptTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerReptArray(): array
+    public static function providerReptArray(): array
     {
         return [
             'row vector #1' => [[['PHPPHPPHP', 'HAHAHA', 'HOHOHO']], '{"PHP", "HA", "HO"}', '3'],

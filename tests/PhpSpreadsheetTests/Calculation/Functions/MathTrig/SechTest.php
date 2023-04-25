@@ -25,7 +25,7 @@ class SechTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-9);
     }
 
-    public function providerSECH(): array
+    public static function providerSECH(): array
     {
         return require 'tests/data/Calculation/MathTrig/SECH.php';
     }
@@ -42,7 +42,7 @@ class SechTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerSechArray(): array
+    public static function providerSechArray(): array
     {
         return [
             'row vector' => [[[0.64805427366389, 0.88681888397007, 0.64805427366389]], '{1, 0.5, -1}'],

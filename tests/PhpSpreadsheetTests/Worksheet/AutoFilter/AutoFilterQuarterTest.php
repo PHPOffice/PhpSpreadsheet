@@ -9,7 +9,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class AutoFilterQuarterTest extends SetupTeardown
 {
-    public function providerQuarter(): array
+    public static function providerQuarter(): array
     {
         return [
             [[2, 3], Rule::AUTOFILTER_RULETYPE_DYNAMIC_THISQUARTER],

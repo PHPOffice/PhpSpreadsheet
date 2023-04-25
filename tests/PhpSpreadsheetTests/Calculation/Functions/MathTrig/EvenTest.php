@@ -21,7 +21,7 @@ class EvenTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $sheet->getCell('A1')->getCalculatedValue());
     }
 
-    public function providerEVEN(): array
+    public static function providerEVEN(): array
     {
         return require 'tests/data/Calculation/MathTrig/EVEN.php';
     }
@@ -38,7 +38,7 @@ class EvenTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerEvenArray(): array
+    public static function providerEvenArray(): array
     {
         return [
             'row vector' => [[[-4, 2, 4]], '{-3, 1, 4}'],

@@ -16,7 +16,7 @@ class BinomDistRangeTest extends AllSetupTeardown
         $this->runTestCaseReference('BINOM.DIST.RANGE', $expectedResult, ...$args);
     }
 
-    public function providerBINOMDISTRANGE(): array
+    public static function providerBINOMDISTRANGE(): array
     {
         return require 'tests/data/Calculation/Statistical/BINOMDISTRANGE.php';
     }
@@ -37,7 +37,7 @@ class BinomDistRangeTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerBinomDistRangeArray(): array
+    public static function providerBinomDistRangeArray(): array
     {
         return [
             'row/column vectors' => [

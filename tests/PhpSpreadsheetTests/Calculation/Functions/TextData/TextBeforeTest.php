@@ -29,7 +29,7 @@ class TextBeforeTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerTEXTBEFORE(): array
+    public static function providerTEXTBEFORE(): array
     {
         return require 'tests/data/Calculation/TextData/TEXTBEFORE.php';
     }

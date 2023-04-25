@@ -41,7 +41,7 @@ class RandBetweenTest extends AllSetupTeardown
         }
     }
 
-    public function providerRANDBETWEEN(): array
+    public static function providerRANDBETWEEN(): array
     {
         return require 'tests/data/Calculation/MathTrig/RANDBETWEEN.php';
     }
@@ -65,7 +65,7 @@ class RandBetweenTest extends AllSetupTeardown
         self::assertCount($expectedColumns, /** @scrutinizer ignore-type */ $result[0]);
     }
 
-    public function providerRandBetweenArray(): array
+    public static function providerRandBetweenArray(): array
     {
         return [
             'row/column vectors' => [2, 2, '{1, 10}', '{10; 100}'],
