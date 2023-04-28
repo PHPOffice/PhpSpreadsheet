@@ -57,10 +57,17 @@ jobs:
       - name: Setup problem matchers for PHPUnit
         run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
 
-      - name: "Run PHPUnit tests (Experimental: ${{ matrix.experimental }})"
+      - name: "Run PHPUnit tests 1 (Experimental: ${{ matrix.experimental }})"
         env:
           FAILURE_ACTION: "${{ matrix.experimental == true }}"
+        if: ${{ matrix.php-version == '7.4' || matrix.php-version == '8.0' }}
         run: vendor/bin/phpunit --verbose || $FAILURE_ACTION
+
+      - name: "Run PHPUnit tests 2 (Experimental: ${{ matrix.experimental }})"
+        env:
+          FAILURE_ACTION: "${{ matrix.experimental == true }}"
+        if: ${{ matrix.php-version == '8.1' || matrix.php-version == '8.2' || matrix.php-version == 'nightly' }}
+        run: vendor/bin/phpunit -c phpunit10.xml.dist --display-incomplete --display-skipped --display-deprecations --display-errors --display-notices --display-warnings || $FAILURE_ACTION
 
   php-cs-fixer:
     runs-on: ubuntu-latest
