@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d7335563825d618e364a1fc01a852baf",
+    "content-hash": "06031132b41198f02eff4f6289d43ae2",
     "packages": [
         {
             "name": "ezyang/htmlpurifier",
@@ -2009,16 +2009,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.10.9",
+            "version": "1.10.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "9b13dafe3d66693d20fe5729c3dde1d31bb64703"
+                "reference": "d232901b09e67538e5c86a724be841bea5768a7c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/9b13dafe3d66693d20fe5729c3dde1d31bb64703",
-                "reference": "9b13dafe3d66693d20fe5729c3dde1d31bb64703",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/d232901b09e67538e5c86a724be841bea5768a7c",
+                "reference": "d232901b09e67538e5c86a724be841bea5768a7c",
                 "shasum": ""
             },
             "require": {
@@ -2067,7 +2067,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-03-30T08:58:01+00:00"
+            "time": "2023-04-19T13:47:27+00:00"
         },
         {
             "name": "phpstan/phpstan-phpunit",
