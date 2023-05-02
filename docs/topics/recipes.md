@@ -993,6 +993,26 @@ vertical/horizontal, left/right/top/bottom/diagonal.
 This border hierarchy can be utilized to achieve various effects in an
 easy manner.
 
+#### Advanced borders
+
+There is a second parameter `$advancedBorders` which can be supplied to applyFromArray. The default is `true`; when set to this value, the border styles are applied to the range as a whole, not to the individual cells. When set to `false`, the border styles are applied to each cell. The following code and screenshot demonstrates the difference.
+
+```php
+$sheet->setShowGridlines(false);
+$styleArray = [
+    'borders' => [
+        'bottom' => ['borderStyle' => 'hair', 'color' => ['argb' => 'FFFF0000']],
+        'top' => ['borderStyle' => 'hair', 'color' => ['argb' => 'FFFF0000']],
+        'right' => ['borderStyle' => 'hair', 'color' => ['argb' => 'FF00FF00']],
+        'left' => ['borderStyle' => 'hair', 'color' => ['argb' => 'FF00FF00']],
+    ],
+];
+$sheet->getStyle('B2:C3')->applyFromArray($styleArray);
+$sheet->getStyle('B5:C6')->applyFromArray($styleArray, false);
+```
+
+![08-advance-borders.png](./images/08-advanced-borders.png)
+
 ### Valid array keys for style `applyFromArray()`
 
 The following table lists the valid array keys for
