@@ -4,7 +4,7 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 use PhpOffice\PhpSpreadsheet\Writer\Pdf\Dompdf;
 use PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf;
-use PhpOffice\PhpSpreadsheet\Writer\Pdf\Tcpdf;
+use PhpOffice\PhpSpreadsheet\Writer\Pdf\Tcpdf as TcpdfClass;
 
 function replaceBody(string $html): string
 {
@@ -60,14 +60,14 @@ $helper->write(
 );
 
 $helper->log('Write to Tcpdf');
-IOFactory::registerWriter('Pdf', Tcpdf::class);
+IOFactory::registerWriter('Pdf', TcpdfClass::class);
 $filename = str_replace('.php', '_tcpdf.php', __FILE__);
 $helper->write(
     $spreadsheet,
     $filename,
     ['Pdf'],
     false,
-    function (Tcpdf $writer): void {
+    function (TcpdfClass $writer): void {
         $writer->setEditHtmlCallback('replaceBody');
     }
 );
