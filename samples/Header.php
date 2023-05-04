@@ -51,7 +51,9 @@ if ($helper->isCli()) {
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $category ?><strong class="caret"></strong></a>
                             <ul class="dropdown-menu"><?php
                             foreach ($files as $name => $file) {
-                                echo '<li><a href="/' . $file . '">' . $name . '</a></li>';
+                                if (!in_array($file, ['Chart/35_Chart_render.php', 'Chart/35_Chart_render33.php'], true)) {
+                                    echo '<li><a href="/' . $file . '">' . $name . '</a></li>';
+                                }
                             } ?></ul>
                         </li>
                     <?php

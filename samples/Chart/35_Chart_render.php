@@ -54,6 +54,7 @@ foreach ($inputFileNames as $inputFileName) {
     $spreadsheet = $reader->load($inputFileName);
 
     $helper->log('Iterate worksheets looking at the charts');
+    $renderedCharts = 0;
     foreach ($spreadsheet->getWorksheetIterator() as $worksheet) {
         $sheetName = $worksheet->getTitle();
         $helper->log('Worksheet: ' . $sheetName);
@@ -63,7 +64,8 @@ foreach ($inputFileNames as $inputFileName) {
             $helper->log('    There are no charts in this worksheet');
         } else {
             natsort($chartNames);
-            foreach ($chartNames as $i => $chartName) {
+            foreach ($chartNames as $j => $chartName) {
+                $i = $renderedCharts + $j;
                 $chart = $worksheet->getChartByName($chartName);
                 if ($chart->getTitle() !== null) {
                     $caption = '"' . implode(' ', $chart->getTitle()->getCaption()) . '"';
@@ -86,6 +88,8 @@ foreach ($inputFileNames as $inputFileName) {
                 } catch (Exception $e) {
                     $helper->log('Error rendering chart: ' . $e->getMessage());
                 }
+
+                ++$renderedCharts;
             }
         }
     }

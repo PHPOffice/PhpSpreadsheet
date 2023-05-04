@@ -1,5 +1,6 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 use PhpOffice\PhpSpreadsheet\Writer\Pdf\Dompdf;
 use PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf;
@@ -33,19 +34,40 @@ $helper->log('Set orientation to landscape');
 $spreadsheet->getActiveSheet()->getPageSetup()->setOrientation(PageSetup::ORIENTATION_LANDSCAPE);
 
 $helper->log('Write to Dompdf');
-$writer = new Dompdf($spreadsheet);
-$filename = $helper->getFileName('21b_Pdf_dompdf.xlsx', 'pdf');
-$writer->setEditHtmlCallback('replaceBody');
-$writer->save($filename);
+IOFactory::registerWriter('Pdf', Dompdf::class);
+$filename = str_replace('.php', '_dompdf.php', __FILE__);
+$helper->write(
+    $spreadsheet,
+    $filename,
+    ['Pdf'],
+    false,
+    function (Dompdf $writer): void {
+        $writer->setEditHtmlCallback('replaceBody');
+    }
+);
 
 $helper->log('Write to Mpdf');
-$writer = new Mpdf($spreadsheet);
-$filename = $helper->getFileName('21b_Pdf_mpdf.xlsx', 'pdf');
-$writer->setEditHtmlCallback('replaceBody');
-$writer->save($filename);
+IOFactory::registerWriter('Pdf', Mpdf::class);
+$filename = str_replace('.php', '_mpdf.php', __FILE__);
+$helper->write(
+    $spreadsheet,
+    $filename,
+    ['Pdf'],
+    false,
+    function (Mpdf $writer): void {
+        $writer->setEditHtmlCallback('replaceBody');
+    }
+);
 
 $helper->log('Write to Tcpdf');
-$writer = new Tcpdf($spreadsheet);
-$filename = $helper->getFileName('21b_Pdf_tcpdf.xlsx', 'pdf');
-$writer->setEditHtmlCallback('replaceBody');
-$writer->save($filename);
+IOFactory::registerWriter('Pdf', Tcpdf::class);
+$filename = str_replace('.php', '_tcpdf.php', __FILE__);
+$helper->write(
+    $spreadsheet,
+    $filename,
+    ['Pdf'],
+    false,
+    function (Tcpdf $writer): void {
+        $writer->setEditHtmlCallback('replaceBody');
+    }
+);
