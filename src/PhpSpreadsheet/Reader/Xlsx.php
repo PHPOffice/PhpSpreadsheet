@@ -1037,6 +1037,10 @@ class Xlsx extends BaseReader
                                 $hyperlinkReader = new Hyperlinks($docSheet);
                                 // Locate hyperlink relations
                                 $relationsFileName = dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels';
+                                // Issue 3553 - not sure why this should be needed
+                                if (!$zip->locateName($relationsFileName) && substr($relationsFileName, 0, 1) === '/') {
+                                    $relationsFileName = substr($relationsFileName, 1);
+                                }
                                 if ($zip->locateName($relationsFileName)) {
                                     $relsWorksheet = $this->loadZip($relationsFileName, Namespaces::RELATIONSHIPS);
                                     $hyperlinkReader->readHyperlinks($relsWorksheet);
