@@ -26,6 +26,7 @@ function mpdfCjkWriter(Mpdf $writer): void
 function mpdfCjk(string $html): string
 {
     $html = str_replace("'Calibri'", "'Calibri',Sun-ExtA", $html);
+
     return str_replace("'Times New Roman'", "'Times New Roman',Sun-ExtA", $html);
 }
 
