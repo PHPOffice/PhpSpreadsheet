@@ -17,6 +17,7 @@ class Downloader
         'xls' => 'application/vnd.ms-excel',
         'ods' => 'application/vnd.oasis.opendocument.spreadsheet',
         'csv' => 'text/csv',
+        'html' => 'text/html',
         'pdf' => 'application/pdf',
     ];
 
