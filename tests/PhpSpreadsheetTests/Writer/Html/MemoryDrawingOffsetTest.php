@@ -2,10 +2,11 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Html;
 
+use Exception;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
 use PhpOffice\PhpSpreadsheet\Writer\Html;
 use PHPUnit\Framework\TestCase;
-use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
 
 class MemoryDrawingOffsetTest extends TestCase
 {
@@ -17,10 +18,12 @@ class MemoryDrawingOffsetTest extends TestCase
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
         $drawing = new MemoryDrawing();
-        if (($image = file_get_contents("https://avatars.githubusercontent.com/u/1836015")) === false)
-            throw new \Exception('image err1');
-        if (($image = imagecreatefromstring($image)) === false)
-            throw new \Exception('image err2');
+        if (($image = file_get_contents('https://avatars.githubusercontent.com/u/1836015')) === false) {
+            throw new Exception('image err1');
+        }
+        if (($image = imagecreatefromstring($image)) === false) {
+            throw new Exception('image err2');
+        }
 
         $drawing->setImageResource($image)
             ->setResizeProportional(false) //是否保持比例
