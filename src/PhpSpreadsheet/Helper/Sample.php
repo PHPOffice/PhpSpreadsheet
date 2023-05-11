@@ -123,7 +123,7 @@ class Sample
      * @param string $filename
      * @param string[] $writers
      */
-    public function write(Spreadsheet $spreadsheet, $filename, array $writers = ['Xlsx', 'Xls'], bool $withCharts = false): void
+    public function write(Spreadsheet $spreadsheet, $filename, array $writers = ['Xlsx', 'Xls'], bool $withCharts = false, ?callable $writerCallback = null): void
     {
         // Set active sheet index to the first sheet, so Excel opens this as the first sheet
         $spreadsheet->setActiveSheetIndex(0);
@@ -132,8 +132,9 @@ class Sample
         foreach ($writers as $writerType) {
             $path = $this->getFilename($filename, mb_strtolower($writerType));
             $writer = IOFactory::createWriter($spreadsheet, $writerType);
-            if ($writerType === 'Xlsx' && $withCharts === true) {
-                $writer->setIncludeCharts(true);
+            $writer->setIncludeCharts($withCharts);
+            if ($writerCallback !== null) {
+                $writerCallback($writer);
             }
             $callStartTime = microtime(true);
             $writer->save($path);
