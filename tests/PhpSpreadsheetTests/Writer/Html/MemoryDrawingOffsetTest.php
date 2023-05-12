@@ -2,7 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Html;
 
-use Exception;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
 use PhpOffice\PhpSpreadsheet\Writer\Html;
