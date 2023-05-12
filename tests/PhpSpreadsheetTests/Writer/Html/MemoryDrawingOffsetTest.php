@@ -17,14 +17,12 @@ class MemoryDrawingOffsetTest extends TestCase
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
-        $drawing = new MemoryDrawing();
-        if (($image = file_get_contents('https://avatars.githubusercontent.com/u/1836015')) === false) {
-            throw new Exception('image err1');
-        }
-        if (($image = imagecreatefromstring($image)) === false) {
-            throw new Exception('image err2');
-        }
 
+        $image = file_get_contents(__DIR__ . '/../../../data/Reader/HTML/memoryDrawingTest.jpg');
+        self::assertNotFalse($image, 'unable to read file');
+        $image = imagecreatefromstring($image);
+        self::assertNotFalse($image, 'unable to create image from string');
+        $drawing = new MemoryDrawing();
         $drawing->setImageResource($image)
             ->setResizeProportional(false) //是否保持比例
             ->setWidthAndHeight($w, $h) //图片宽高,原始尺寸 100*100
