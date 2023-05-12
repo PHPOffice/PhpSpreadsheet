@@ -1,7 +1,7 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf;
 
 require __DIR__ . '/../Header.php';
 
@@ -19,7 +19,6 @@ for ($row = 1; $row < 501; ++$row) {
 }
 
 $helper->log('Write to Mpdf');
-$writer = new Mpdf($spreadsheet);
-$filename = $helper->getFileName('21c_Pdf_mpdf.xlsx', 'pdf');
-$writer->save($filename);
-$helper->log("Saved $filename");
+IOFactory::registerWriter('Pdf', \PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf::class);
+$helper->write($spreadsheet, __FILE__, ['Pdf']);
+$spreadsheet->disconnectWorksheets();

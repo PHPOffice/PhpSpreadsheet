@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.1/phpunit.xsd" bootstrap="./tests/bootstrap.php" backupGlobals="true" colors="true" cacheResultFile="/tmp/.phpspreadsheet.phpunit.result.cache">
+  <coverage/>
+  <php>
+    <ini name="memory_limit" value="2048M"/>
+  </php>
+  <testsuite name="PhpSpreadsheet Unit Test Suite">
+    <directory>./tests/PhpSpreadsheetTests</directory>
+  </testsuite>
+  <source>
+    <include>
+      <directory suffix=".php">./src</directory>
+    </include>
+  </source>
+</phpunit>
