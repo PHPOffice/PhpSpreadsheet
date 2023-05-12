@@ -10,7 +10,7 @@ require __DIR__ . '/../Header.php';
 Settings::setChartRenderer(\PhpOffice\PhpSpreadsheet\Chart\Renderer\MtJpGraphRenderer::class);
 
 $inputFileType = 'Xlsx';
-$inputFileNames = __DIR__ . '/../templates/36write*.xlsx';
+$inputFileNames = $helper->getTemporaryFolder() . '/33_Chart_create_*.xlsx';
 
 if ((isset($argc)) && ($argc > 1)) {
     $inputFileNames = [];
@@ -20,11 +20,28 @@ if ((isset($argc)) && ($argc > 1)) {
 } else {
     $inputFileNames = glob($inputFileNames);
 }
+if (count($inputFileNames) === 1) {
+    $unresolvedErrors = [];
+} else {
+    $unresolvedErrors = [
+        // The following spreadsheet was created by 3rd party software,
+        // and doesn't include the data that usually accompanies a chart.
+        // That is good enough for Excel, but not for JpGraph.
+        '33_Chart_create_bar_stacked.xlsx',
+    ];
+}
 foreach ($inputFileNames as $inputFileName) {
     $inputFileNameShort = basename($inputFileName);
 
     if (!file_exists($inputFileName)) {
         $helper->log('File ' . $inputFileNameShort . ' does not exist');
+
+        continue;
+    }
+    if (in_array($inputFileNameShort, $unresolvedErrors, true)) {
+        $helper->log('*****');
+        $helper->log('***** File ' . $inputFileNameShort . ' does not yet work with this script');
+        $helper->log('*****');
 
         continue;
     }
@@ -36,6 +53,7 @@ foreach ($inputFileNames as $inputFileName) {
     $spreadsheet = $reader->load($inputFileName);
 
     $helper->log('Iterate worksheets looking at the charts');
+    $renderedCharts = 0;
     foreach ($spreadsheet->getWorksheetIterator() as $worksheet) {
         $sheetName = $worksheet->getTitle();
         $helper->log('Worksheet: ' . $sheetName);
@@ -45,7 +63,8 @@ foreach ($inputFileNames as $inputFileName) {
             $helper->log('    There are no charts in this worksheet');
         } else {
             natsort($chartNames);
-            foreach ($chartNames as $i => $chartName) {
+            foreach ($chartNames as $j => $chartName) {
+                $i = $renderedCharts + $j;
                 $chart = $worksheet->getChartByName($chartName);
                 if ($chart->getTitle() !== null) {
                     $caption = '"' . implode(' ', $chart->getTitle()->getCaption()) . '"';
@@ -53,34 +72,30 @@ foreach ($inputFileNames as $inputFileName) {
                     $caption = 'Untitled';
                 }
                 $helper->log('    ' . $chartName . ' - ' . $caption);
-                $helper->log(str_repeat(' ', strlen($chartName) + 3));
-                $groupCount = $chart->getPlotArea()->getPlotGroupCount();
-                if ($groupCount == 1) {
-                    $chartType = $chart->getPlotArea()->getPlotGroupByIndex(0)->getPlotType();
-                    $helper->log('    ' . $chartType);
-                } else {
-                    $chartTypes = [];
-                    for ($i = 0; $i < $groupCount; ++$i) {
-                        $chartTypes[] = $chart->getPlotArea()->getPlotGroupByIndex($i)->getPlotType();
-                    }
-                    $chartTypes = array_unique($chartTypes);
-                    if (count($chartTypes) == 1) {
-                        $chartType = 'Multiple Plot ' . array_pop($chartTypes);
-                        $helper->log('    ' . $chartType);
-                    } elseif (count($chartTypes) == 0) {
-                        $helper->log('    *** Type not yet implemented');
-                    } else {
-                        $helper->log('    Combination Chart');
-                    }
+
+                $pngFile = $helper->getFilename('35-' . $inputFileNameShort, 'png');
+                if ($i !== 0) {
+                    $pngFile = substr($pngFile, 0, -3) . "$i.png";
                 }
+                if (file_exists($pngFile)) {
+                    unlink($pngFile);
+                }
+
+                try {
+                    $chart->render($pngFile);
+                    $helper->log('Rendered image: ' . $pngFile);
+                } catch (Exception $e) {
+                    $helper->log('Error rendering chart: ' . $e->getMessage());
+                }
+
+                ++$renderedCharts;
             }
         }
     }
 
-    // Save
-    $filename = $helper->getFilename($inputFileName, 'html');
-    $helper->write($spreadsheet, $filename, ['Html'], true);
-
     $spreadsheet->disconnectWorksheets();
     unset($spreadsheet);
+    gc_collect_cycles();
 }
+
+$helper->log('Done rendering charts as images');

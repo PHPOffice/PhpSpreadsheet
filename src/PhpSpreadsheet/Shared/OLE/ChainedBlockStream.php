@@ -6,6 +6,9 @@ use PhpOffice\PhpSpreadsheet\Shared\OLE;
 
 class ChainedBlockStream
 {
+    /** @var mixed */
+    public $context;
+
     /**
      * The OLE container of the file that is being read.
      *

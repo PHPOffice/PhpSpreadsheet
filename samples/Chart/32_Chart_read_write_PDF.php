@@ -81,11 +81,7 @@ foreach ($inputFileNames as $inputFileName) {
 
     // Save
     $filename = $helper->getFilename($inputFileName, 'pdf');
-    $writer = IOFactory::createWriter($spreadsheet, 'Pdf');
-    $writer->setIncludeCharts(true);
-    $callStartTime = microtime(true);
-    $writer->save($filename);
-    $helper->logWrite($writer, $filename, $callStartTime);
+    $helper->write($spreadsheet, $filename, ['Pdf'], true);
 
     $spreadsheet->disconnectWorksheets();
     unset($spreadsheet);
