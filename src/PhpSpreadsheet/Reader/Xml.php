@@ -232,6 +232,19 @@ class Xml extends BaseReader
     }
 
     /**
+     * Loads Spreadsheet from string.
+     */
+    public function loadSpreadsheetFromString(string $contents): Spreadsheet
+    {
+        // Create new Spreadsheet
+        $spreadsheet = new Spreadsheet();
+        $spreadsheet->removeSheetByIndex(0);
+
+        // Load into this instance
+        return $this->loadIntoExisting($contents, $spreadsheet, true);
+    }
+
+    /**
      * Loads Spreadsheet from file.
      */
     protected function loadSpreadsheetFromFile(string $filename): Spreadsheet
@@ -245,17 +258,19 @@ class Xml extends BaseReader
     }
 
     /**
-     * Loads from file into Spreadsheet instance.
+     * Loads from file or contents into Spreadsheet instance.
      *
-     * @param string $filename
-     *
-     * @return Spreadsheet
+     * @param string $filename file name if useContents is false else file contents
      */
-    public function loadIntoExisting($filename, Spreadsheet $spreadsheet)
+    public function loadIntoExisting(string $filename, Spreadsheet $spreadsheet, bool $useContents = false): Spreadsheet
     {
-        File::assertFile($filename);
-        if (!$this->canRead($filename)) {
-            throw new Exception($filename . ' is an Invalid Spreadsheet file.');
+        if ($useContents) {
+            $this->fileContents = $filename;
+        } else {
+            File::assertFile($filename);
+            if (!$this->canRead($filename)) {
+                throw new Exception($filename . ' is an Invalid Spreadsheet file.');
+            }
         }
 
         $xml = $this->trySimpleXMLLoadString($filename);
@@ -321,6 +336,10 @@ class Xml extends BaseReader
                         $columnWidth = $columnData_ss['Width'];
                         $spreadsheet->getActiveSheet()->getColumnDimension($columnID)->setWidth($columnWidth / 5.4);
                     }
+                    if (isset($columnData_ss['Hidden'])) {
+                        $columnVisible = ((string) $columnData_ss['Hidden']) !== '1';
+                        $spreadsheet->getActiveSheet()->getColumnDimension($columnID)->setVisible($columnVisible);
+                    }
                     ++$columnID;
                 }
             }
@@ -333,6 +352,10 @@ class Xml extends BaseReader
                     $row_ss = self::getAttributes($rowData, $namespaces['ss']);
                     if (isset($row_ss['Index'])) {
                         $rowID = (int) $row_ss['Index'];
+                    }
+                    if (isset($row_ss['Hidden'])) {
+                        $rowVisible = ((string) $row_ss['Hidden']) !== '1';
+                        $spreadsheet->getActiveSheet()->getRowDimension($rowID)->setVisible($rowVisible);
                     }
 
                     $columnID = 'A';
