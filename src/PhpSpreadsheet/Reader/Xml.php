@@ -509,7 +509,11 @@ class Xml extends BaseReader
         }
 
         // Globally scoped defined names
-        $activeWorksheet = $spreadsheet->setActiveSheetIndex(0);
+        $activeSheetIndex = 0;
+        if (isset($xml->ExcelWorkbook->ActiveSheet)) {
+            $activeSheetIndex = (int) (string) $xml->ExcelWorkbook->ActiveSheet;
+        }
+        $activeWorksheet = $spreadsheet->setActiveSheetIndex($activeSheetIndex);
         if (isset($xml->Names[0])) {
             foreach ($xml->Names[0] as $definedName) {
                 $definedName_ss = self::getAttributes($definedName, $namespaces['ss']);
