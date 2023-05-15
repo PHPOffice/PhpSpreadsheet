@@ -494,6 +494,14 @@ class Xml extends BaseReader
                     $xmlX = $worksheet->children($namespaces['x']);
                     if (isset($xmlX->WorksheetOptions)) {
                         (new PageSettings($xmlX, $namespaces))->loadPageSettings($spreadsheet);
+                        if (isset($xmlX->WorksheetOptions->TopRowVisible, $xmlX->WorksheetOptions->LeftColumnVisible)) {
+                            $leftTopRow = (string) $xmlX->WorksheetOptions->TopRowVisible;
+                            $leftTopColumn = (string) $xmlX->WorksheetOptions->LeftColumnVisible;
+                            if (is_numeric($leftTopRow) && is_numeric($leftTopColumn)) {
+                                $leftTopCoordinate = Coordinate::stringFromColumnIndex((int) $leftTopColumn + 1) . (string) ($leftTopRow + 1);
+                                $spreadsheet->getActiveSheet()->setTopLeftCell($leftTopCoordinate);
+                            }
+                        }
                     }
                 }
             }

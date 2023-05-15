@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class XmlColumnRowHiddenTest extends TestCase
 {
-    public function testWriteThenRead(): void
+    public function testColumnRowHidden(): void
     {
         $xmldata = <<< 'EOT'
             <?xml version="1.0" encoding="UTF-8"?>
