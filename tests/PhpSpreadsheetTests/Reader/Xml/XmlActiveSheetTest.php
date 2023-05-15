@@ -63,6 +63,13 @@ class XmlActiveSheetTest extends TestCase
               </Table>
               <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
                <Selected/>
+               <Panes>
+                 <Pane>
+                   <Number>3</Number>
+                   <ActiveRow>2</ActiveRow>
+                   <ActiveCol>2</ActiveCol>
+                 </Pane>
+               </Panes>
                <ProtectObjects>False</ProtectObjects>
                <ProtectScenarios>False</ProtectScenarios>
               </WorksheetOptions>
@@ -81,10 +88,12 @@ class XmlActiveSheetTest extends TestCase
                 <PageMargins x:Bottom="0.75" x:Left="0.7" x:Right="0.7" x:Top="0.75"/>
                </PageSetup>
                <Panes>
-                <Pane>
-                 <Number>3</Number>
-                 <ActiveRow>1</ActiveRow>
-                </Pane>
+                 <Pane>
+                   <Number>3</Number>
+                   <ActiveRow>3</ActiveRow>
+                   <ActiveCol>2</ActiveCol>
+                   <RangeSelection>R4C3:R4C4</RangeSelection>
+                 </Pane>
                </Panes>
                <ProtectObjects>False</ProtectObjects>
                <ProtectScenarios>False</ProtectScenarios>
@@ -97,7 +106,10 @@ class XmlActiveSheetTest extends TestCase
         self::assertEquals(3, $spreadsheet->getSheetCount());
 
         $sheet = $spreadsheet->getActiveSheet();
-        self::assertEquals('sheet 2', $sheet->getTitle());
+        self::assertSame('sheet 2', $sheet->getTitle());
+        self::assertSame('C3', $sheet->getSelectedCells());
+        $sheet = $spreadsheet->getSheetByNameOrThrow('sheet 3');
+        self::assertSame('C4:D4', $sheet->getSelectedCells());
 
         $spreadsheet->disconnectWorksheets();
     }

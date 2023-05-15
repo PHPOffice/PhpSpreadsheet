@@ -502,6 +502,26 @@ class Xml extends BaseReader
                                 $spreadsheet->getActiveSheet()->setTopLeftCell($leftTopCoordinate);
                             }
                         }
+                        $rangeCalculated = false;
+                        if (isset($xmlX->WorksheetOptions->Panes->Pane->RangeSelection)) {
+                            if (1 === preg_match('/^R(\d+)C(\d+):R(\d+)C(\d+)$/', (string) $xmlX->WorksheetOptions->Panes->Pane->RangeSelection, $selectionMatches)) {
+                                $selectedCell = Coordinate::stringFromColumnIndex((int) $selectionMatches[2])
+                                    . $selectionMatches[1]
+                                    . ':'
+                                    . Coordinate::stringFromColumnIndex((int) $selectionMatches[4])
+                                    . $selectionMatches[3];
+                                $spreadsheet->getActiveSheet()->setSelectedCells($selectedCell);
+                                $rangeCalculated = true;
+                            }
+                        }
+                        if (!$rangeCalculated && isset($xmlX->WorksheetOptions->Panes->Pane->ActiveRow, $xmlX->WorksheetOptions->Panes->Pane->ActiveCol)) {
+                            $activeRow = (string) $xmlX->WorksheetOptions->Panes->Pane->ActiveRow;
+                            $activeColumn = (string) $xmlX->WorksheetOptions->Panes->Pane->ActiveCol;
+                            if (is_numeric($activeRow) && is_numeric($activeColumn)) {
+                                $selectedCell = Coordinate::stringFromColumnIndex((int) $activeColumn + 1) . (string) ($activeRow + 1);
+                                $spreadsheet->getActiveSheet()->setSelectedCells($selectedCell);
+                            }
+                        }
                     }
                 }
             }
