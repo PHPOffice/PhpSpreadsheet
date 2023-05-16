@@ -336,18 +336,34 @@ class Xml extends BaseReader
             if (isset($worksheet->Table->Column)) {
                 foreach ($worksheet->Table->Column as $columnData) {
                     $columnData_ss = self::getAttributes($columnData, $namespaces['ss']);
+                    $colspan = 0;
+                    if (isset($columnData_ss['Span'])) {
+                        $spanAttr = (string) $columnData_ss['Span'];
+                        if (is_numeric($spanAttr)) {
+                            $colspan = max(0, (int) $spanAttr);
+                        }
+                    }
                     if (isset($columnData_ss['Index'])) {
                         $columnID = Coordinate::stringFromColumnIndex((int) $columnData_ss['Index']);
                     }
+                    $columnWidth = null;
                     if (isset($columnData_ss['Width'])) {
                         $columnWidth = $columnData_ss['Width'];
-                        $spreadsheet->getActiveSheet()->getColumnDimension($columnID)->setWidth($columnWidth / 5.4);
                     }
+                    $columnVisible = null;
                     if (isset($columnData_ss['Hidden'])) {
                         $columnVisible = ((string) $columnData_ss['Hidden']) !== '1';
-                        $spreadsheet->getActiveSheet()->getColumnDimension($columnID)->setVisible($columnVisible);
                     }
-                    ++$columnID;
+                    while ($colspan >= 0) {
+                        if (isset($columnWidth)) {
+                            $spreadsheet->getActiveSheet()->getColumnDimension($columnID)->setWidth($columnWidth / 5.4);
+                        }
+                        if (isset($columnVisible)) {
+                            $spreadsheet->getActiveSheet()->getColumnDimension($columnID)->setVisible($columnVisible);
+                        }
+                        ++$columnID;
+                        --$colspan;
+                    }
                 }
             }
 
@@ -521,9 +537,17 @@ class Xml extends BaseReader
                                 $rangeCalculated = true;
                             }
                         }
-                        if (!$rangeCalculated && isset($xmlX->WorksheetOptions->Panes->Pane->ActiveRow, $xmlX->WorksheetOptions->Panes->Pane->ActiveCol)) {
-                            $activeRow = (string) $xmlX->WorksheetOptions->Panes->Pane->ActiveRow;
-                            $activeColumn = (string) $xmlX->WorksheetOptions->Panes->Pane->ActiveCol;
+                        if (!$rangeCalculated) {
+                            if (isset($xmlX->WorksheetOptions->Panes->Pane->ActiveRow)) {
+                                $activeRow = (string) $xmlX->WorksheetOptions->Panes->Pane->ActiveRow;
+                            } else {
+                                $activeRow = 0;
+                            }
+                            if (isset($xmlX->WorksheetOptions->Panes->Pane->ActiveCol)) {
+                                $activeColumn = (string) $xmlX->WorksheetOptions->Panes->Pane->ActiveCol;
+                            } else {
+                                $activeColumn = 0;
+                            }
                             if (is_numeric($activeRow) && is_numeric($activeColumn)) {
                                 $selectedCell = Coordinate::stringFromColumnIndex((int) $activeColumn + 1) . (string) ($activeRow + 1);
                                 $spreadsheet->getActiveSheet()->setSelectedCells($selectedCell);
