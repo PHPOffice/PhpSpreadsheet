@@ -283,6 +283,9 @@ class Xml extends BaseReader
         (new Properties($spreadsheet))->readProperties($xml, $namespaces);
 
         $this->styles = (new Style())->parseStyles($xml, $namespaces);
+        if (isset($this->styles['Default'])) {
+            $spreadsheet->getCellXfCollection()[0]->applyFromArray($this->styles['Default']);
+        }
 
         $worksheetID = 0;
         $xml_ss = $xml->children($namespaces['ss']);
@@ -309,6 +312,10 @@ class Xml extends BaseReader
                 //        formula cells... during the load, all formulae should be correct, and we're simply bringing
                 //        the worksheet name in line with the formula, not the reverse
                 $spreadsheet->getActiveSheet()->setTitle($worksheetName, false, false);
+            }
+            if (isset($worksheet_ss['Protected'])) {
+                $protection = (string) $worksheet_ss['Protected'] === '1';
+                $spreadsheet->getActiveSheet()->getProtection()->setSheet($protection);
             }
 
             // locally scoped defined names
