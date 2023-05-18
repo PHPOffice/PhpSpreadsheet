@@ -150,8 +150,11 @@ class Format
                 throw new CalcExp(ExcelError::VALUE());
             }
         }
-        if ($spacesMeanZero && is_string($value) && trim($value) === '') {
-            $value = 0;
+        if (is_string($value)) {
+            $value = trim($value);
+            if ($spacesMeanZero && $value === '') {
+                $value = 0;
+            }
         }
 
         return $value;
