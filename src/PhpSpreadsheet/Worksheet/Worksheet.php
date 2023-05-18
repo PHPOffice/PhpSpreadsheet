@@ -1806,9 +1806,15 @@ class Worksheet implements IComparable
     public function getBreaks()
     {
         $breaks = [];
+        /** @var callable */
+        $compareFunction = [self::class, 'compareRowBreaks'];
+        uksort($this->rowBreaks, $compareFunction);
         foreach ($this->rowBreaks as $break) {
             $breaks[$break->getCoordinate()] = self::BREAK_ROW;
         }
+        /** @var callable */
+        $compareFunction = [self::class, 'compareColumnBreaks'];
+        uksort($this->columnBreaks, $compareFunction);
         foreach ($this->columnBreaks as $break) {
             $breaks[$break->getCoordinate()] = self::BREAK_COLUMN;
         }
@@ -1823,16 +1829,40 @@ class Worksheet implements IComparable
      */
     public function getRowBreaks()
     {
+        /** @var callable */
+        $compareFunction = [self::class, 'compareRowBreaks'];
+        uksort($this->rowBreaks, $compareFunction);
+
         return $this->rowBreaks;
     }
 
+    protected static function compareRowBreaks(string $coordinate1, string $coordinate2): int
+    {
+        $row1 = Coordinate::indexesFromString($coordinate1)[1];
+        $row2 = Coordinate::indexesFromString($coordinate2)[1];
+
+        return $row1 - $row2;
+    }
+
+    protected static function compareColumnBreaks(string $coordinate1, string $coordinate2): int
+    {
+        $column1 = Coordinate::indexesFromString($coordinate1)[0];
+        $column2 = Coordinate::indexesFromString($coordinate2)[0];
+
+        return $column1 - $column2;
+    }
+
     /**
-     * Get row breaks.
+     * Get column breaks.
      *
      * @return PageBreak[]
      */
     public function getColumnBreaks()
     {
+        /** @var callable */
+        $compareFunction = [self::class, 'compareColumnBreaks'];
+        uksort($this->columnBreaks, $compareFunction);
+
         return $this->columnBreaks;
     }
 
