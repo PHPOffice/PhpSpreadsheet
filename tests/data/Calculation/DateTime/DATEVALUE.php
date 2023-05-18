@@ -91,4 +91,5 @@ return [
     [36751, '0-08-13'],
     [ExcelError::VALUE(), false],
     [ExcelError::VALUE(), true],
+    'do not try to parse if no digits' => [ExcelError::VALUE(), 'x'],
 ];

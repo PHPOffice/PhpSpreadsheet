@@ -45,6 +45,11 @@ class DateValue
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $dateValue);
         }
 
+        // try to parse as date iff there is at least one digit
+        if (is_string($dateValue) && preg_match('/\\d/', $dateValue) !== 1) {
+            return ExcelError::VALUE();
+        }
+
         $dti = new DateTimeImmutable();
         $baseYear = SharedDateHelper::getExcelCalendar();
         $dateValue = trim($dateValue ?? '', '"');
