@@ -255,7 +255,7 @@ class Functions
 
         if (!is_string($condition) || !in_array($condition[0], ['>', '<', '='])) {
             if (!is_numeric($condition)) {
-                $condition = Calculation::wrapResult(strtoupper($condition));
+                $condition = Calculation::wrapResult(strtoupper("$condition"));
             }
 
             return str_replace('""""', '""', '=' . $condition);
