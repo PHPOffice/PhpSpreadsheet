@@ -232,6 +232,19 @@ class Xml extends BaseReader
     }
 
     /**
+     * Loads Spreadsheet from string.
+     */
+    public function loadSpreadsheetFromString(string $contents): Spreadsheet
+    {
+        // Create new Spreadsheet
+        $spreadsheet = new Spreadsheet();
+        $spreadsheet->removeSheetByIndex(0);
+
+        // Load into this instance
+        return $this->loadIntoExisting($contents, $spreadsheet, true);
+    }
+
+    /**
      * Loads Spreadsheet from file.
      */
     protected function loadSpreadsheetFromFile(string $filename): Spreadsheet
@@ -245,17 +258,19 @@ class Xml extends BaseReader
     }
 
     /**
-     * Loads from file into Spreadsheet instance.
+     * Loads from file or contents into Spreadsheet instance.
      *
-     * @param string $filename
-     *
-     * @return Spreadsheet
+     * @param string $filename file name if useContents is false else file contents
      */
-    public function loadIntoExisting($filename, Spreadsheet $spreadsheet)
+    public function loadIntoExisting(string $filename, Spreadsheet $spreadsheet, bool $useContents = false): Spreadsheet
     {
-        File::assertFile($filename);
-        if (!$this->canRead($filename)) {
-            throw new Exception($filename . ' is an Invalid Spreadsheet file.');
+        if ($useContents) {
+            $this->fileContents = $filename;
+        } else {
+            File::assertFile($filename);
+            if (!$this->canRead($filename)) {
+                throw new Exception($filename . ' is an Invalid Spreadsheet file.');
+            }
         }
 
         $xml = $this->trySimpleXMLLoadString($filename);
@@ -268,6 +283,9 @@ class Xml extends BaseReader
         (new Properties($spreadsheet))->readProperties($xml, $namespaces);
 
         $this->styles = (new Style())->parseStyles($xml, $namespaces);
+        if (isset($this->styles['Default'])) {
+            $spreadsheet->getCellXfCollection()[0]->applyFromArray($this->styles['Default']);
+        }
 
         $worksheetID = 0;
         $xml_ss = $xml->children($namespaces['ss']);
@@ -295,6 +313,10 @@ class Xml extends BaseReader
                 //        the worksheet name in line with the formula, not the reverse
                 $spreadsheet->getActiveSheet()->setTitle($worksheetName, false, false);
             }
+            if (isset($worksheet_ss['Protected'])) {
+                $protection = (string) $worksheet_ss['Protected'] === '1';
+                $spreadsheet->getActiveSheet()->getProtection()->setSheet($protection);
+            }
 
             // locally scoped defined names
             if (isset($worksheet->Names[0])) {
@@ -314,14 +336,34 @@ class Xml extends BaseReader
             if (isset($worksheet->Table->Column)) {
                 foreach ($worksheet->Table->Column as $columnData) {
                     $columnData_ss = self::getAttributes($columnData, $namespaces['ss']);
+                    $colspan = 0;
+                    if (isset($columnData_ss['Span'])) {
+                        $spanAttr = (string) $columnData_ss['Span'];
+                        if (is_numeric($spanAttr)) {
+                            $colspan = max(0, (int) $spanAttr);
+                        }
+                    }
                     if (isset($columnData_ss['Index'])) {
                         $columnID = Coordinate::stringFromColumnIndex((int) $columnData_ss['Index']);
                     }
+                    $columnWidth = null;
                     if (isset($columnData_ss['Width'])) {
                         $columnWidth = $columnData_ss['Width'];
-                        $spreadsheet->getActiveSheet()->getColumnDimension($columnID)->setWidth($columnWidth / 5.4);
                     }
-                    ++$columnID;
+                    $columnVisible = null;
+                    if (isset($columnData_ss['Hidden'])) {
+                        $columnVisible = ((string) $columnData_ss['Hidden']) !== '1';
+                    }
+                    while ($colspan >= 0) {
+                        if (isset($columnWidth)) {
+                            $spreadsheet->getActiveSheet()->getColumnDimension($columnID)->setWidth($columnWidth / 5.4);
+                        }
+                        if (isset($columnVisible)) {
+                            $spreadsheet->getActiveSheet()->getColumnDimension($columnID)->setVisible($columnVisible);
+                        }
+                        ++$columnID;
+                        --$colspan;
+                    }
                 }
             }
 
@@ -333,6 +375,10 @@ class Xml extends BaseReader
                     $row_ss = self::getAttributes($rowData, $namespaces['ss']);
                     if (isset($row_ss['Index'])) {
                         $rowID = (int) $row_ss['Index'];
+                    }
+                    if (isset($row_ss['Hidden'])) {
+                        $rowVisible = ((string) $row_ss['Hidden']) !== '1';
+                        $spreadsheet->getActiveSheet()->getRowDimension($rowID)->setVisible($rowVisible);
                     }
 
                     $columnID = 'A';
@@ -471,6 +517,42 @@ class Xml extends BaseReader
                     $xmlX = $worksheet->children($namespaces['x']);
                     if (isset($xmlX->WorksheetOptions)) {
                         (new PageSettings($xmlX, $namespaces))->loadPageSettings($spreadsheet);
+                        if (isset($xmlX->WorksheetOptions->TopRowVisible, $xmlX->WorksheetOptions->LeftColumnVisible)) {
+                            $leftTopRow = (string) $xmlX->WorksheetOptions->TopRowVisible;
+                            $leftTopColumn = (string) $xmlX->WorksheetOptions->LeftColumnVisible;
+                            if (is_numeric($leftTopRow) && is_numeric($leftTopColumn)) {
+                                $leftTopCoordinate = Coordinate::stringFromColumnIndex((int) $leftTopColumn + 1) . (string) ($leftTopRow + 1);
+                                $spreadsheet->getActiveSheet()->setTopLeftCell($leftTopCoordinate);
+                            }
+                        }
+                        $rangeCalculated = false;
+                        if (isset($xmlX->WorksheetOptions->Panes->Pane->RangeSelection)) {
+                            if (1 === preg_match('/^R(\d+)C(\d+):R(\d+)C(\d+)$/', (string) $xmlX->WorksheetOptions->Panes->Pane->RangeSelection, $selectionMatches)) {
+                                $selectedCell = Coordinate::stringFromColumnIndex((int) $selectionMatches[2])
+                                    . $selectionMatches[1]
+                                    . ':'
+                                    . Coordinate::stringFromColumnIndex((int) $selectionMatches[4])
+                                    . $selectionMatches[3];
+                                $spreadsheet->getActiveSheet()->setSelectedCells($selectedCell);
+                                $rangeCalculated = true;
+                            }
+                        }
+                        if (!$rangeCalculated) {
+                            if (isset($xmlX->WorksheetOptions->Panes->Pane->ActiveRow)) {
+                                $activeRow = (string) $xmlX->WorksheetOptions->Panes->Pane->ActiveRow;
+                            } else {
+                                $activeRow = 0;
+                            }
+                            if (isset($xmlX->WorksheetOptions->Panes->Pane->ActiveCol)) {
+                                $activeColumn = (string) $xmlX->WorksheetOptions->Panes->Pane->ActiveCol;
+                            } else {
+                                $activeColumn = 0;
+                            }
+                            if (is_numeric($activeRow) && is_numeric($activeColumn)) {
+                                $selectedCell = Coordinate::stringFromColumnIndex((int) $activeColumn + 1) . (string) ($activeRow + 1);
+                                $spreadsheet->getActiveSheet()->setSelectedCells($selectedCell);
+                            }
+                        }
                     }
                 }
             }
@@ -478,7 +560,11 @@ class Xml extends BaseReader
         }
 
         // Globally scoped defined names
-        $activeWorksheet = $spreadsheet->setActiveSheetIndex(0);
+        $activeSheetIndex = 0;
+        if (isset($xml->ExcelWorkbook->ActiveSheet)) {
+            $activeSheetIndex = (int) (string) $xml->ExcelWorkbook->ActiveSheet;
+        }
+        $activeWorksheet = $spreadsheet->setActiveSheetIndex($activeSheetIndex);
         if (isset($xml->Names[0])) {
             foreach ($xml->Names[0] as $definedName) {
                 $definedName_ss = self::getAttributes($definedName, $namespaces['ss']);
