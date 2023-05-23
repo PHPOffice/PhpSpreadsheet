@@ -12,6 +12,10 @@ parameters:
     excludePaths:
         - src/PhpSpreadsheet/Chart/Renderer/JpGraph.php
         - src/PhpSpreadsheet/Chart/Renderer/JpGraphRendererBase.php
+        - src/PhpSpreadsheet/Collection/Memory/SimpleCache1.php
+        - src/PhpSpreadsheet/Collection/Memory/SimpleCache3.php
+        - src/PhpSpreadsheet/Writer/ZipStream2.php
+        - src/PhpSpreadsheet/Writer/ZipStream3.php
     parallel:
         processTimeout: 300.0
     checkMissingIterableValueType: false
