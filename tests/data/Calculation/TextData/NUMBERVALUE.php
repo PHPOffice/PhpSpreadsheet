@@ -51,4 +51,6 @@ return [
     ],
     'no arguments' => ['exception'],
     'boolean argument' => ['#VALUE!', true],
+    'slash as group separator' => [1234567.1, '1/234/567.1', '.', '/'],
+    'slash as decimal separator' => [1234567.1, '1,234,567/1', '/', ','],
 ];
