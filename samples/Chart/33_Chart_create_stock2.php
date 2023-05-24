@@ -8,7 +8,6 @@ use PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues;
 use PhpOffice\PhpSpreadsheet\Chart\Legend as ChartLegend;
 use PhpOffice\PhpSpreadsheet\Chart\PlotArea;
 use PhpOffice\PhpSpreadsheet\Chart\Title;
-use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
@@ -116,12 +115,8 @@ $chart->setBottomRightPosition('H20');
 
 // Add the chart to the worksheet
 $worksheet->addChart($chart);
+$helper->renderChart($chart, __FILE__);
 $worksheet->setSelectedCells('G2');
 
 // Save Excel 2007 file
-$filename = $helper->getFilename(__FILE__);
-$writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
-$writer->setIncludeCharts(true);
-$callStartTime = microtime(true);
-$writer->save($filename);
-$helper->logWrite($writer, $filename, $callStartTime);
+$helper->write($spreadsheet, __FILE__, ['Xlsx'], true);

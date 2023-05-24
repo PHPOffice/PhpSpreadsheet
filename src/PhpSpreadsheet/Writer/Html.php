@@ -693,7 +693,8 @@ class Html extends BaseWriter
                     //  max-width: 100% ensures that image doesnt overflow containing cell
                     //  width: X sets width of supplied image.
                     //  As a result, images bigger than cell will be contained and images smaller will not get stretched
-                    $html .= '<img alt="' . $filedesc . '" src="' . $dataUri . '" style="max-width:100%;width:' . $drawing->getWidth() . 'px;" />';
+                    $html .= '<img alt="' . $filedesc . '" src="' . $dataUri . '" style="max-width:100%;width:' . $drawing->getWidth() . 'px;left: ' .
+                    $drawing->getOffsetX() . 'px; top: ' . $drawing->getOffsetY() . 'px;position: absolute; z-index: 1;" />';
                 }
             }
         }

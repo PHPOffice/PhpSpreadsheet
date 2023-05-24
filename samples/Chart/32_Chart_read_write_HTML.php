@@ -79,11 +79,7 @@ foreach ($inputFileNames as $inputFileName) {
 
     // Save
     $filename = $helper->getFilename($inputFileName, 'html');
-    $writer = IOFactory::createWriter($spreadsheet, 'Html');
-    $writer->setIncludeCharts(true);
-    $callStartTime = microtime(true);
-    $writer->save($filename);
-    $helper->logWrite($writer, $filename, $callStartTime);
+    $helper->write($spreadsheet, $filename, ['Html'], true);
 
     $spreadsheet->disconnectWorksheets();
     unset($spreadsheet);

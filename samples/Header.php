@@ -1,7 +1,9 @@
 <?php
+
 /**
  * Header file.
  */
+
 use PhpOffice\PhpSpreadsheet\Helper\Sample;
 
 error_reporting(E_ALL);
@@ -48,18 +50,41 @@ if ($helper->isCli()) {
                     <ul class="nav navbar-nav"><?php
                     foreach ($helper->getSamples() as $category => $files) {
                         ?><li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $category ?><strong class="caret"></strong></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $category ?>
+                              <strong class="caret"></strong>
+                            </a>
                             <ul class="dropdown-menu"><?php
                             foreach ($files as $name => $file) {
-                                echo '<li><a href="/' . $file . '">' . $name . '</a></li>';
+                                if (
+                                    !in_array(
+                                        $file,
+                                        [
+                                            'Chart/35_Chart_render.php',
+                                            'Chart/35_Chart_render33.php',
+                                        ],
+                                        true
+                                    )
+                                ) {
+                                    echo '<li><a href="/' . $file . '">' . $name . '</a></li>';
+                                }
                             } ?></ul>
                         </li>
-                    <?php
+                        <?php
                     } ?>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="https://github.com/PHPOffice/PHPSpreadsheet"><i class="fa fa-github fa-lg" title="GitHub"></i>&nbsp;</a></li>
-                        <li><a href="https://phpspreadsheet.readthedocs.io"><i class="fa fa-book fa-lg" title="Docs"></i>&nbsp;</a></li>
+                        <li>
+                          <a href="https://github.com/PHPOffice/PHPSpreadsheet">
+                            <i class="fa fa-github fa-lg" title="GitHub"></i>
+                            &nbsp;
+                          </a>
+                        </li>
+                        <li>
+                          <a href="https://phpspreadsheet.readthedocs.io">
+                            <i class="fa fa-book fa-lg" title="Docs"></i>
+                            &nbsp;
+                          </a>
+                        </li>
                     </ul>
                 </div>
             </div>
