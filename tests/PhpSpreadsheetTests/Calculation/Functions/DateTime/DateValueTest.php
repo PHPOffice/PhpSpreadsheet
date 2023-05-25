@@ -122,6 +122,15 @@ class DateValueTest extends TestCase
         return require 'tests/data/Calculation/DateTime/DATEVALUE.php';
     }
 
+    public function testRefArgNull(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->getCell('A1')->setValue('=DATEVALUE(B1)');
+        self::assertSame('#VALUE!', $sheet->getCell('A1')->getCalculatedValue());
+        $spreadsheet->disconnectWorksheets();
+    }
+
     /**
      * @dataProvider providerUnhappyDATEVALUE
      */

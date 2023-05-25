@@ -86,6 +86,15 @@ class TimeValueTest extends TestCase
         return require 'tests/data/Calculation/DateTime/TIMEVALUE.php';
     }
 
+    public function testRefArgNull(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->getCell('A1')->setValue('=TIMEVALUE(B1)');
+        self::assertSame('#VALUE!', $sheet->getCell('A1')->getCalculatedValue());
+        $spreadsheet->disconnectWorksheets();
+    }
+
     public function testTIMEVALUEtoUnixTimestamp(): void
     {
         Functions::setReturnDateType(Functions::RETURNDATE_UNIX_TIMESTAMP);

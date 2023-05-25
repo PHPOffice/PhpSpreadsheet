@@ -51,4 +51,8 @@ return [
     ],
     'no arguments' => ['exception'],
     'boolean argument' => ['#VALUE!', true],
+    'issue 3574 null string treated as 0' => [0, '', ',', ' '],
+    'issue 3574 one or more spaces treated as 0' => [0, '   ', ',', ' '],
+    'issue 3574 non-blank numeric string okay' => [2, ' 2 ', ',', ' '],
+    'issue 3574 non-blank non-numeric string invalid' => ['#VALUE!', ' x ', ',', ' '],
 ];
