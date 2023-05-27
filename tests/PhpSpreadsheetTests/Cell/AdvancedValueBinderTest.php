@@ -14,41 +14,33 @@ class AdvancedValueBinderTest extends TestCase
 {
     const AVB_PRECISION = 1.0E-8;
 
-    /**
-     * @var string
-     */
-    private $currencyCode;
+    private string $originalLocale;
 
-    /**
-     * @var string
-     */
-    private $decimalSeparator;
+    private string $originalCurrencyCode;
 
-    /**
-     * @var string
-     */
-    private $thousandsSeparator;
+    private string $originalDecimalSeparator;
 
-    /**
-     * @var IValueBinder
-     */
-    private $valueBinder;
+    private string $originalThousandsSeparator;
+
+    private IValueBinder $valueBinder;
 
     protected function setUp(): void
     {
-        Settings::setLocale('en_US');
-        $this->currencyCode = StringHelper::getCurrencyCode();
-        $this->decimalSeparator = StringHelper::getDecimalSeparator();
-        $this->thousandsSeparator = StringHelper::getThousandsSeparator();
+        $this->originalLocale = Settings::getLocale();
+        $this->originalCurrencyCode = StringHelper::getCurrencyCode();
+        $this->originalDecimalSeparator = StringHelper::getDecimalSeparator();
+        $this->originalThousandsSeparator = StringHelper::getThousandsSeparator();
+
         $this->valueBinder = Cell::getValueBinder();
         Cell::setValueBinder(new AdvancedValueBinder());
     }
 
     protected function tearDown(): void
     {
-        StringHelper::setCurrencyCode($this->currencyCode);
-        StringHelper::setDecimalSeparator($this->decimalSeparator);
-        StringHelper::setThousandsSeparator($this->thousandsSeparator);
+        StringHelper::setCurrencyCode($this->originalCurrencyCode);
+        StringHelper::setDecimalSeparator($this->originalDecimalSeparator);
+        StringHelper::setThousandsSeparator($this->originalThousandsSeparator);
+        Settings::setLocale($this->originalLocale);
         Cell::setValueBinder($this->valueBinder);
     }
 
@@ -134,6 +126,8 @@ class AdvancedValueBinderTest extends TestCase
             ['€2,020.22', 2020.22, ',', '.', '€'],
             ['$10.11', 10.11, ',', '.', '€'],
             ['€2,020.20', 2020.2, ',', '.', '$'],
+            'slash as group separator' => ['€2/020.20', 2020.2, '/', '.', '$'],
+            'slash as decimal separator' => ['€2,020/20', 2020.2, ',', '/', '$'],
             ['-2,020.20€', -2020.2, ',', '.', '$'],
             ['- 2,020.20 € ', -2020.2, ',', '.', '$'],
         ];
