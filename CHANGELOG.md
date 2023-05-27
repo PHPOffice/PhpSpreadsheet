@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Xlsx Color schemes read in will be written out (previously Excel 2007-2010 Color scheme was always written); manipulation of those schemes before write, including restoring prior behavior, is provided [PR #3476](https://github.com/PHPOffice/PhpSpreadsheet/pull/3476)
 - Memory and speed optimisations for Read Filters with Xlsx Files and Shared Formulae. [PR #3474](https://github.com/PHPOffice/PhpSpreadsheet/pull/3474)
 - Allow `CellRange` and `CellAddress` objects for the `range` argument in the `rangeToArray()` method. [PR #3494](https://github.com/PHPOffice/PhpSpreadsheet/pull/3494)
+- Stock charts will now read and reproduce `upDownBars` and subsidiary tags; these were previously ignored on read and hard-coded on write. [PR #3515](https://github.com/PHPOffice/PhpSpreadsheet/pull/3515)
 
 ### Deprecated
 
@@ -53,6 +54,12 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Allow colour palette index references in Number Format masks [Issue #3511](https://github.com/PHPOffice/PhpSpreadsheet/issues/3511) [PR #3512](https://github.com/PHPOffice/PhpSpreadsheet/pull/3512)
 - Xlsx Reader formula with quotePrefix [Issue #3495](https://github.com/PHPOffice/PhpSpreadsheet/issues/3495) [PR #3497](https://github.com/PHPOffice/PhpSpreadsheet/pull/3497)
 - Handle REF error as part of range [Issue #3453](https://github.com/PHPOffice/PhpSpreadsheet/issues/3453) [PR #3467](https://github.com/PHPOffice/PhpSpreadsheet/pull/3467)
+- Handle Absolute Pathnames in Rels File [Issue #3553](https://github.com/PHPOffice/PhpSpreadsheet/issues/3553) [PR #3554](https://github.com/PHPOffice/PhpSpreadsheet/pull/3554)
+- Return Page Breaks in Order [Issue #3552](https://github.com/PHPOffice/PhpSpreadsheet/issues/3552) [PR #3555](https://github.com/PHPOffice/PhpSpreadsheet/pull/3555)
+- Add position attribute for MemoryDrawing in Html [Issue #3529](https://github.com/PHPOffice/PhpSpreadsheet/issues/3529 [PR #3535](https://github.com/PHPOffice/PhpSpreadsheet/pull/3535)
+- Allow Index_number as Array for VLOOKUP/HLOOKUP [Issue #3561](https://github.com/PHPOffice/PhpSpreadsheet/issues/3561 [PR #3570](https://github.com/PHPOffice/PhpSpreadsheet/pull/3570)
+- Add Unsupported Options in Xml Spreadsheet [Issue #3566](https://github.com/PHPOffice/PhpSpreadsheet/issues/3566 [Issue #3568](https://github.com/PHPOffice/PhpSpreadsheet/issues/3568 [Issue #3569](https://github.com/PHPOffice/PhpSpreadsheet/issues/3569 [PR #3567](https://github.com/PHPOffice/PhpSpreadsheet/pull/3567)
+- Changes to NUMBERVALUE, VALUE, DATEVALUE, TIMEVALUE [Issue #3574](https://github.com/PHPOffice/PhpSpreadsheet/issues/3574 [PR #3575](https://github.com/PHPOffice/PhpSpreadsheet/pull/3575)
 
 
 ## 1.28.0 - 2023-02-25

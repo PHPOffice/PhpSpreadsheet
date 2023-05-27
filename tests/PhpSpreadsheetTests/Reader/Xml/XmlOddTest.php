@@ -69,5 +69,6 @@ class XmlOddTest extends TestCase
         $props = $spreadsheet->getProperties();
         self::assertEquals('Xml2003 Short Workbook', $props->getTitle());
         self::assertEquals('2', $props->getCustomPropertyValue('myאInt'));
+        $spreadsheet->disconnectWorksheets();
     }
 }
