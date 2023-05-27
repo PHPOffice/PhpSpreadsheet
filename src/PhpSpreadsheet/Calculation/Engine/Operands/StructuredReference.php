@@ -190,8 +190,8 @@ final class StructuredReference implements Operand
     {
         if ($columnName !== '') {
             $cellReference = $columnId . $cell->getRow();
-            $pattern1 = '/\[' . preg_quote($columnName) . '\]/miu';
-            $pattern2 = '/@' . preg_quote($columnName) . '/miu';
+            $pattern1 = '/\[' . preg_quote($columnName, '/') . '\]/miu';
+            $pattern2 = '/@' . preg_quote($columnName, '/') . '/miu';
             if (preg_match($pattern1, $reference) === 1) {
                 $reference = preg_replace($pattern1, $cellReference, $reference);
             } elseif (preg_match($pattern2, $reference) === 1) {
@@ -328,7 +328,7 @@ final class StructuredReference implements Operand
             $cellFrom = "{$columnId}{$startRow}";
             $cellTo = "{$columnId}{$endRow}";
             $cellReference = ($cellFrom === $cellTo) ? $cellFrom : "{$cellFrom}:{$cellTo}";
-            $pattern = '/\[' . preg_quote($columnName) . '\]/mui';
+            $pattern = '/\[' . preg_quote($columnName, '/') . '\]/mui';
             if (preg_match($pattern, $reference) === 1) {
                 $columnsSelected = true;
                 $reference = preg_replace($pattern, $cellReference, $reference);
