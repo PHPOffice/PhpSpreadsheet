@@ -525,6 +525,10 @@ class Xlsx extends BaseReader
         foreach ($rels->Relationship as $relx) {
             $rel = self::getAttributes($relx);
             $relTarget = (string) $rel['Target'];
+            // issue 3553
+            if ($relTarget[0] === '/') {
+                $relTarget = substr($relTarget, 1);
+            }
             $relType = (string) $rel['Type'];
             $mainNS = self::REL_TO_MAIN[$relType] ?? Namespaces::MAIN;
             switch ($relType) {

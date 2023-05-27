@@ -75,6 +75,7 @@ class TableTest extends SetupTeardown
             ['R11C11'],
             ['123'],
             ['=Table'],
+            ['Name/Slash'],
             ['ிக'], // starting with UTF-8 combined character
             [bin2hex(random_bytes(255))], // random string with length greater than 255
         ];
