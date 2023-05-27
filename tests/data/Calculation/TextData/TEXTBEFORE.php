@@ -240,4 +240,11 @@ return [
             1,
         ],
     ],
+    'slash delimiter' => [
+        'How',
+        [
+            'How/about/that',
+            '/',
+        ],
+    ],
 ];
