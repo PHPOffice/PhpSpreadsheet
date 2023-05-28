@@ -160,8 +160,6 @@ class XmlPropertiesTest extends AbstractFunctional
         $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, 'Xls');
         $spreadsheet->disconnectWorksheets();
 
-        $properties = $reloadedSpreadsheet->getProperties();
-
         $sheet = $reloadedSpreadsheet->getActiveSheet();
         // Note that relative links don't actually work in XML format.
         // However, Xls Writer will convert relative to absolute.
