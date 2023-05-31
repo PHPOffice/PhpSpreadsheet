@@ -82,7 +82,7 @@ class Gnumeric extends BaseReader
     {
         $data = null;
         if (File::testFileNoThrow($filename)) {
-            $data = self::gzfileGetContents($filename);
+            $data = $this->gzfileGetContents($filename);
             if (strpos($data, self::NAMESPACE_GNM) === false) {
                 $data = '';
             }
