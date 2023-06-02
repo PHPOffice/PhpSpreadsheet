@@ -180,7 +180,7 @@ class Table
 
     private function updateStructuredReferencesInCells(Worksheet $worksheet, string $newName): void
     {
-        $pattern = '/' . preg_quote($this->name) . '\[/mui';
+        $pattern = '/' . preg_quote($this->name, '/') . '\[/mui';
 
         foreach ($worksheet->getCoordinates(false) as $coordinate) {
             $cell = $worksheet->getCell($coordinate);
@@ -196,7 +196,7 @@ class Table
 
     private function updateStructuredReferencesInNamedFormulae(Spreadsheet $spreadsheet, string $newName): void
     {
-        $pattern = '/' . preg_quote($this->name) . '\[/mui';
+        $pattern = '/' . preg_quote($this->name, '/') . '\[/mui';
 
         foreach ($spreadsheet->getNamedFormulae() as $namedFormula) {
             $formula = $namedFormula->getValue();
