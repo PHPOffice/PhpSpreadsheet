@@ -163,7 +163,7 @@ class ChainedBlockStream
             $this->pos = $offset;
         } elseif ($whence == SEEK_CUR && -$offset <= $this->pos) {
             $this->pos += $offset;
-        // @phpstan-ignore-next-line
+            // @phpstan-ignore-next-line
         } elseif ($whence == SEEK_END && -$offset <= count(/** @scrutinizer ignore-type */ $this->data)) {
             $this->pos = strlen($this->data) + $offset;
         } else {
