@@ -36,7 +36,7 @@ class MemoryDrawingOffsetTest extends TestCase
         unset($spreadsheet);
     }
 
-    public function dataProvider(): array
+    public static function dataProvider(): array
     {
         return [
             [33, 19, 0, 20],

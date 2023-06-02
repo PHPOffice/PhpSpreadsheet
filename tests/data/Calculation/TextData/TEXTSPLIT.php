@@ -104,4 +104,20 @@ return [
             '',
         ],
     ],
+    'slash as column delimiter' => [
+        [['Hello', 'World']],
+        [
+            'Hello/World',
+            '/',
+            '',
+        ],
+    ],
+    'slash as row delimiter' => [
+        [['ho', 'w'], ['about', '#N/A'], ['t', 'hat']],
+        [
+            'ho.w/about/t.hat',
+            '.',
+            '/',
+        ],
+    ],
 ];
