@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8c1ccd9ddeaa0f55e5fe86f2d53cc334",
+    "content-hash": "202b1e25cc7e8a5216ffa899dc111cda",
     "packages": [
         {
             "name": "ezyang/htmlpurifier",
@@ -1404,16 +1404,16 @@
         },
         {
             "name": "mitoteam/jpgraph",
-            "version": "10.2.6",
+            "version": "v10.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mitoteam/jpgraph.git",
-                "reference": "a36181cf31918b810d809816458083c4fac7d7e6"
+                "reference": "891f7c7a90c3a1b059f157d8b4765c7033da8a5d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mitoteam/jpgraph/zipball/a36181cf31918b810d809816458083c4fac7d7e6",
-                "reference": "a36181cf31918b810d809816458083c4fac7d7e6",
+                "url": "https://api.github.com/repos/mitoteam/jpgraph/zipball/891f7c7a90c3a1b059f157d8b4765c7033da8a5d",
+                "reference": "891f7c7a90c3a1b059f157d8b4765c7033da8a5d",
                 "shasum": ""
             },
             "require": {
@@ -1444,9 +1444,9 @@
             ],
             "support": {
                 "issues": "https://github.com/mitoteam/jpgraph/issues",
-                "source": "https://github.com/mitoteam/jpgraph/tree/10.2.6"
+                "source": "https://github.com/mitoteam/jpgraph/tree/v10.3.1"
             },
-            "time": "2023-03-10T11:02:47+00:00"
+            "time": "2023-05-31T14:15:30+00:00"
         },
         {
             "name": "mpdf/mpdf",
