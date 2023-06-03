@@ -643,7 +643,6 @@ class Parser
             // TODO: use real error codes
             throw new WriterException('Unknown range separator');
         }
-
         // Convert the cell references
         [$row1, $col1] = $this->cellToPackedRowcol($cell1);
         [$row2, $col2] = $this->cellToPackedRowcol($cell2);
@@ -1109,8 +1108,8 @@ class Parser
         if (is_numeric($token) && (!is_numeric($token . $this->lookAhead) || ($this->lookAhead == '')) && ($this->lookAhead !== '!') && ($this->lookAhead !== ':')) {
             return $token;
         }
-        // If it's a string (of maximum 255 characters)
         if (preg_match('/"([^"]|""){0,255}"/', $token) && $this->lookAhead !== '"' && (substr_count($token, '"') % 2 == 0)) {
+            // If it's a string (of maximum 255 characters)
             return $token;
         }
         // If it's an error code
@@ -1219,21 +1218,18 @@ class Parser
             $this->advance();
 
             return $result;
-        // If it's an error code
-        } elseif (preg_match('/^#[A-Z0\\/]{3,5}[!?]{1}$/', $this->currentToken) || $this->currentToken == '#N/A') {
+        } elseif (preg_match('/^#[A-Z0\\/]{3,5}[!?]{1}$/', $this->currentToken) || $this->currentToken == '#N/A') { // error code
             $result = $this->createTree($this->currentToken, 'ptgErr', '');
             $this->advance();
 
             return $result;
-        // If it's a negative value
-        } elseif ($this->currentToken == '-') {
+        } elseif ($this->currentToken == '-') { // negative value
             // catch "-" Term
             $this->advance();
             $result2 = $this->expression();
 
             return $this->createTree('ptgUminus', $result2, '');
-        // If it's a positive value
-        } elseif ($this->currentToken == '+') {
+        } elseif ($this->currentToken == '+') { // positive value
             // catch "+" Term
             $this->advance();
             $result2 = $this->expression();

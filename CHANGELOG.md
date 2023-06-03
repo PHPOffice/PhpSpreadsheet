@@ -56,6 +56,10 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Handle REF error as part of range [Issue #3453](https://github.com/PHPOffice/PhpSpreadsheet/issues/3453) [PR #3467](https://github.com/PHPOffice/PhpSpreadsheet/pull/3467)
 - Handle Absolute Pathnames in Rels File [Issue #3553](https://github.com/PHPOffice/PhpSpreadsheet/issues/3553) [PR #3554](https://github.com/PHPOffice/PhpSpreadsheet/pull/3554)
 - Return Page Breaks in Order [Issue #3552](https://github.com/PHPOffice/PhpSpreadsheet/issues/3552) [PR #3555](https://github.com/PHPOffice/PhpSpreadsheet/pull/3555)
+- Add position attribute for MemoryDrawing in Html [Issue #3529](https://github.com/PHPOffice/PhpSpreadsheet/issues/3529 [PR #3535](https://github.com/PHPOffice/PhpSpreadsheet/pull/3535)
+- Allow Index_number as Array for VLOOKUP/HLOOKUP [Issue #3561](https://github.com/PHPOffice/PhpSpreadsheet/issues/3561 [PR #3570](https://github.com/PHPOffice/PhpSpreadsheet/pull/3570)
+- Add Unsupported Options in Xml Spreadsheet [Issue #3566](https://github.com/PHPOffice/PhpSpreadsheet/issues/3566 [Issue #3568](https://github.com/PHPOffice/PhpSpreadsheet/issues/3568 [Issue #3569](https://github.com/PHPOffice/PhpSpreadsheet/issues/3569 [PR #3567](https://github.com/PHPOffice/PhpSpreadsheet/pull/3567)
+- Changes to NUMBERVALUE, VALUE, DATEVALUE, TIMEVALUE [Issue #3574](https://github.com/PHPOffice/PhpSpreadsheet/issues/3574 [PR #3575](https://github.com/PHPOffice/PhpSpreadsheet/pull/3575)
 
 
 ## 1.28.0 - 2023-02-25

@@ -225,7 +225,7 @@ class Column
 
     private static function updateStructuredReferencesInCells(Worksheet $worksheet, string $oldTitle, string $newTitle): void
     {
-        $pattern = '/\[(@?)' . preg_quote($oldTitle) . '\]/mui';
+        $pattern = '/\[(@?)' . preg_quote($oldTitle, '/') . '\]/mui';
 
         foreach ($worksheet->getCoordinates(false) as $coordinate) {
             $cell = $worksheet->getCell($coordinate);
@@ -241,7 +241,7 @@ class Column
 
     private static function updateStructuredReferencesInNamedFormulae(Spreadsheet $spreadsheet, string $oldTitle, string $newTitle): void
     {
-        $pattern = '/\[(@?)' . preg_quote($oldTitle) . '\]/mui';
+        $pattern = '/\[(@?)' . preg_quote($oldTitle, '/') . '\]/mui';
 
         foreach ($spreadsheet->getNamedFormulae() as $namedFormula) {
             $formula = $namedFormula->getValue();

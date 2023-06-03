@@ -24,10 +24,7 @@ if (count($inputFileNames) === 1) {
     $unresolvedErrors = [];
 } else {
     $unresolvedErrors = [
-        // The following spreadsheet was created by 3rd party software,
-        // and doesn't include the data that usually accompanies a chart.
-        // That is good enough for Excel, but not for JpGraph.
-        '33_Chart_create_bar_stacked.xlsx',
+        //'33_Chart_create_bar_stacked.xlsx', // fixed with mitoteam/jpgraph 10.3
     ];
 }
 foreach ($inputFileNames as $inputFileName) {
