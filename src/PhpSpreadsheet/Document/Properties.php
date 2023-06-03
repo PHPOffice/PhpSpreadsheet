@@ -107,6 +107,8 @@ class Properties
      */
     private $customProperties = [];
 
+    private string $hyperlinkBase = '';
+
     /**
      * Create a new Document Properties instance.
      */
@@ -533,5 +535,17 @@ class Properties
     public static function convertPropertyType(string $propertyType): string
     {
         return self::PROPERTY_TYPE_ARRAY[$propertyType] ?? self::PROPERTY_TYPE_UNKNOWN;
+    }
+
+    public function getHyperlinkBase(): string
+    {
+        return $this->hyperlinkBase;
+    }
+
+    public function setHyperlinkBase(string $hyperlinkBase): self
+    {
+        $this->hyperlinkBase = $hyperlinkBase;
+
+        return $this;
     }
 }

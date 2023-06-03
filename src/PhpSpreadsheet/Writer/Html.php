@@ -7,9 +7,11 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Chart\Chart;
+use PhpOffice\PhpSpreadsheet\Document\Properties;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\RichText\Run;
 use PhpOffice\PhpSpreadsheet\Settings;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\Drawing as SharedDrawing;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Shared\Font as SharedFont;
@@ -342,12 +344,20 @@ class Html extends BaseWriter
 
     private static function generateMeta(?string $val, string $desc): string
     {
-        return $val
+        return ($val || $val === '0')
             ? ('      <meta name="' . $desc . '" content="' . htmlspecialchars($val, Settings::htmlEntityFlags()) . '" />' . PHP_EOL)
             : '';
     }
 
     public const BODY_LINE = '  <body>' . PHP_EOL;
+
+    private const CUSTOM_TO_META = [
+        Properties::PROPERTY_TYPE_BOOLEAN => 'bool',
+        Properties::PROPERTY_TYPE_DATE => 'date',
+        Properties::PROPERTY_TYPE_FLOAT => 'float',
+        Properties::PROPERTY_TYPE_INTEGER => 'int',
+        Properties::PROPERTY_TYPE_STRING => 'string',
+    ];
 
     /**
      * Generate HTML header.
@@ -374,6 +384,36 @@ class Html extends BaseWriter
         $html .= self::generateMeta($properties->getCategory(), 'category');
         $html .= self::generateMeta($properties->getCompany(), 'company');
         $html .= self::generateMeta($properties->getManager(), 'manager');
+        $html .= self::generateMeta($properties->getLastModifiedBy(), 'lastModifiedBy');
+        $date = Date::dateTimeFromTimestamp((string) $properties->getCreated());
+        $date->setTimeZone(Date::getDefaultOrLocalTimeZone());
+        $html .= self::generateMeta($date->format(DATE_W3C), 'created');
+        $date = Date::dateTimeFromTimestamp((string) $properties->getModified());
+        $date->setTimeZone(Date::getDefaultOrLocalTimeZone());
+        $html .= self::generateMeta($date->format(DATE_W3C), 'modified');
+
+        $customProperties = $properties->getCustomProperties();
+        foreach ($customProperties as $customProperty) {
+            $propertyValue = $properties->getCustomPropertyValue($customProperty);
+            $propertyType = $properties->getCustomPropertyType($customProperty);
+            $propertyQualifier = self::CUSTOM_TO_META[$propertyType] ?? null;
+            if ($propertyQualifier !== null) {
+                if ($propertyType === Properties::PROPERTY_TYPE_BOOLEAN) {
+                    $propertyValue = $propertyValue ? '1' : '0';
+                } elseif ($propertyType === Properties::PROPERTY_TYPE_DATE) {
+                    $date = Date::dateTimeFromTimestamp((string) $propertyValue);
+                    $date->setTimeZone(Date::getDefaultOrLocalTimeZone());
+                    $propertyValue = $date->format(DATE_W3C);
+                } else {
+                    $propertyValue = (string) $propertyValue;
+                }
+                $html .= self::generateMeta($propertyValue, "custom.$propertyQualifier.$customProperty");
+            }
+        }
+
+        if (!empty($properties->getHyperlinkBase())) {
+            $html .= '      <base href="' . $properties->getHyperlinkBase() . '" />' . PHP_EOL;
+        }
 
         $html .= $includeStyles ? $this->generateStyles(true) : $this->generatePageDeclarations(true);
 

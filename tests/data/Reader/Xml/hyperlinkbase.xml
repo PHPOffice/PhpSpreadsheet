@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:dt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:html="http://www.w3.org/TR/REC-html40">
+ <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+  <Title>title</Title>
+  <Subject>topic</Subject>
+  <Author>author</Author>
+  <Keywords>keyword1, keyword2</Keywords>
+  <Description>no comment</Description>
+  <LastAuthor>last author</LastAuthor>
+  <Created>2023-05-18T11:21:43Z</Created>
+  <LastSaved>2023-05-18T11:30:00Z</LastSaved>
+  <Category>category</Category>
+  <Manager>manager</Manager>
+  <Company>company</Company>
+  <HyperlinkBase>https://phpspreadsheet.readthedocs.io/en/latest/</HyperlinkBase>
+  <Version>16.00</Version>
+ </DocumentProperties>
+ <CustomDocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+  <StringProperty dt:dt="string">TheString</StringProperty>
+  <NumberProperty dt:dt="integer">12345</NumberProperty>
+  <DateProperty dt:dt="dateTime.tz">2023-05-18T10:00:00Z</DateProperty>
+  <DateProperty2 dt:dt="dateTime.iso8601tz">2023-05-19T11:00:00Z</DateProperty2>
+  <BooleanPropertyTrue dt:dt="boolean">1</BooleanPropertyTrue>
+  <BooleanPropertyFalse dt:dt="boolean">0</BooleanPropertyFalse>
+  <FloatProperty dt:dt="float">1.2345</FloatProperty>
+ </CustomDocumentProperties>
+ <OfficeDocumentSettings xmlns="urn:schemas-microsoft-com:office:office">
+  <AllowPNG/>
+ </OfficeDocumentSettings>
+ <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
+  <WindowHeight>6820</WindowHeight>
+  <WindowWidth>19200</WindowWidth>
+  <WindowTopX>32767</WindowTopX>
+  <WindowTopY>32767</WindowTopY>
+  <ProtectStructure>False</ProtectStructure>
+  <ProtectWindows>False</ProtectWindows>
+ </ExcelWorkbook>
+ <Styles>
+  <Style ss:ID="Default" ss:Name="Normal">
+   <Alignment ss:Vertical="Bottom"/>
+   <Borders/>
+   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#000000"/>
+   <Interior/>
+   <NumberFormat/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="s62" ss:Name="Hyperlink">
+   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#0066CC"
+    ss:Underline="Single"/>
+  </Style>
+ </Styles>
+ <Worksheet ss:Name="Tabelle1">
+  <Table ss:ExpandedColumnCount="1" ss:ExpandedRowCount="4" x:FullColumns="1"
+   x:FullRows="1" ss:DefaultRowHeight="14.5">
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:StyleID="s62" ss:HRef="references/features-cross-reference/"><Data
+      ss:Type="String">references/features-cross-reference/</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:StyleID="s62" ss:Formula="=HYPERLINK(&quot;topics/accessing-cells/&quot;)"
+     ss:HRef="topics/accessing-cells/topics/accessing-cells/topics/accessing-cells/topics/accessing-cells/"><Data
+      ss:Type="String">topics/accessing-cells/</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:StyleID="s62" ss:HRef="https://www.google.com/"><Data ss:Type="String">https://www.google.com</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:StyleID="s62" ss:Formula="=HYPERLINK(&quot;https://www.yahoo.com&quot;)"
+     ss:HRef="https://www.yahoo.com/"><Data ss:Type="String">https://www.yahoo.com</Data></Cell>
+   </Row>
+  </Table>
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <Unsynced/>
+   <Selected/>
+   <Panes>
+    <Pane>
+     <Number>3</Number>
+     <ActiveRow>3</ActiveRow>
+    </Pane>
+   </Panes>
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+</Workbook>
