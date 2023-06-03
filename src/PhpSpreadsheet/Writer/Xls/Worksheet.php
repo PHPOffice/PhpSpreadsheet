@@ -503,6 +503,8 @@ class Worksheet extends BIFFwriter
         $this->writeMergedCells();
 
         // Hyperlinks
+        $phpParent = $phpSheet->getParent();
+        $hyperlinkbase = ($phpParent === null) ? '' : $phpParent->getProperties()->getHyperlinkBase();
         foreach ($phpSheet->getHyperLinkCollection() as $coordinate => $hyperlink) {
             [$column, $row] = Coordinate::indexesFromString($coordinate);
 
@@ -513,6 +515,11 @@ class Worksheet extends BIFFwriter
                 $url = str_replace('sheet://', 'internal:', $url);
             } elseif (preg_match('/^(http:|https:|ftp:|mailto:)/', $url)) {
                 // URL
+            } elseif (!empty($hyperlinkbase) && preg_match('~^([A-Za-z]:)?[/\\\\]~', $url) !== 1) {
+                $url = "$hyperlinkbase$url";
+                if (preg_match('/^(http:|https:|ftp:|mailto:)/', $url) !== 1) {
+                    $url = 'external:' . $url;
+                }
             } else {
                 // external (local file)
                 $url = 'external:' . $url;
