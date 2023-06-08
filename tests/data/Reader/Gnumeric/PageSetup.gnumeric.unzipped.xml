@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gnm:Workbook xmlns:gnm="http://www.gnumeric.org/v10.dtd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.gnumeric.org/v9.xsd">
+  <gnm:Version Epoch="1" Major="12" Minor="17" Full="1.12.17"/>
+  <gnm:Attributes>
+    <gnm:Attribute>
+      <gnm:name>WorkbookView::show_horizontal_scrollbar</gnm:name>
+      <gnm:value>TRUE</gnm:value>
+    </gnm:Attribute>
+    <gnm:Attribute>
+      <gnm:name>WorkbookView::show_vertical_scrollbar</gnm:name>
+      <gnm:value>TRUE</gnm:value>
+    </gnm:Attribute>
+    <gnm:Attribute>
+      <gnm:name>WorkbookView::show_notebook_tabs</gnm:name>
+      <gnm:value>TRUE</gnm:value>
+    </gnm:Attribute>
+    <gnm:Attribute>
+      <gnm:name>WorkbookView::do_auto_completion</gnm:name>
+      <gnm:value>TRUE</gnm:value>
+    </gnm:Attribute>
+    <gnm:Attribute>
+      <gnm:name>WorkbookView::is_protected</gnm:name>
+      <gnm:value>FALSE</gnm:value>
+    </gnm:Attribute>
+  </gnm:Attributes>
+  <office:document-meta xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:meta="urn:oasis:names:tc:opendocument:xmlns:meta:1.0" xmlns:ooo="http://openoffice.org/2004/office" office:version="1.2">
+    <office:meta>
+      <dc:creator>Mark Baker</dc:creator>
+      <dc:date>2020-07-04T15:11:06Z</dc:date>
+      <meta:user-defined meta:name="dc:publisher" meta:value-type="string"></meta:user-defined>
+      <meta:user-defined meta:name="gsf:links-dirty" meta:value-type="boolean">false</meta:user-defined>
+      <meta:user-defined meta:name="gsf:scale" meta:value-type="boolean">false</meta:user-defined>
+      <meta:user-defined meta:name="gsf:security" meta:value-type="float">0</meta:user-defined>
+      <meta:creation-date>2020-06-29T17:37:00Z</meta:creation-date>
+      <meta:initial-creator>Mark Baker</meta:initial-creator>
+      <meta:user-defined meta:name="meta:print-date" meta:value-type="date">2020-07-04T11:51:41Z</meta:user-defined>
+      <meta:user-defined meta:name="xlsx:HyperlinksChanged" meta:value-type="boolean">false</meta:user-defined>
+      <meta:user-defined meta:name="xlsx:SharedDoc" meta:value-type="boolean">false</meta:user-defined>
+    </office:meta>
+  </office:document-meta>
+  <gnm:Calculation ManualRecalc="0" EnableIteration="1" MaxIterations="100" IterationTolerance="0.001" FloatRadix="2" FloatDigits="53"/>
+  <gnm:SheetNameIndex>
+    <gnm:SheetName gnm:Cols="16384" gnm:Rows="1048576">Sheet1</gnm:SheetName>
+    <gnm:SheetName gnm:Cols="16384" gnm:Rows="1048576">Sheet2</gnm:SheetName>
+    <gnm:SheetName gnm:Cols="16384" gnm:Rows="1048576">Sheet3</gnm:SheetName>
+    <gnm:SheetName gnm:Cols="16384" gnm:Rows="1048576">Sheet4</gnm:SheetName>
+  </gnm:SheetNameIndex>
+  <gnm:Geometry Width="1440" Height="626"/>
+  <gnm:Sheets>
+    <gnm:Sheet DisplayFormulas="0" HideZero="0" HideGrid="0" HideColHeader="0" HideRowHeader="0" DisplayOutlines="1" OutlineSymbolsBelow="1" OutlineSymbolsRight="1" Visibility="GNM_SHEET_VISIBILITY_VISIBLE" GridColor="0:0:0">
+      <gnm:Name>Sheet1</gnm:Name>
+      <gnm:MaxCol>2</gnm:MaxCol>
+      <gnm:MaxRow>4</gnm:MaxRow>
+      <gnm:Zoom>1</gnm:Zoom>
+      <gnm:Names>
+        <gnm:Name>
+          <gnm:name>Print_Area</gnm:name>
+          <gnm:value>#REF!</gnm:value>
+          <gnm:position>A1</gnm:position>
+        </gnm:Name>
+        <gnm:Name>
+          <gnm:name>Sheet_Title</gnm:name>
+          <gnm:value>&quot;Sheet1&quot;</gnm:value>
+          <gnm:position>A1</gnm:position>
+        </gnm:Name>
+      </gnm:Names>
+      <gnm:PrintInformation>
+        <gnm:Margins>
+          <gnm:top Points="68.03" PrefUnit="mm"/>
+          <gnm:bottom Points="53.86" PrefUnit="mm"/>
+          <gnm:left Points="36.85" PrefUnit="mm"/>
+          <gnm:right Points="36.85" PrefUnit="mm"/>
+          <gnm:header Points="22.68" PrefUnit="mm"/>
+          <gnm:footer Points="22.68" PrefUnit="mm"/>
+        </gnm:Margins>
+        <gnm:Scale type="percentage" percentage="75"/>
+        <gnm:vcenter value="0"/>
+        <gnm:hcenter value="1"/>
+        <gnm:grid value="0"/>
+        <gnm:even_if_only_styles value="0"/>
+        <gnm:monochrome value="0"/>
+        <gnm:draft value="0"/>
+        <gnm:titles value="0"/>
+        <gnm:do_not_print value="0"/>
+        <gnm:print_range value="GNM_PRINT_ACTIVE_SHEET"/>
+        <gnm:order>d_then_r</gnm:order>
+        <gnm:orientation>portrait</gnm:orientation>
+        <gnm:Header Left="" Middle="&amp;[TAB]" Right=""/>
+        <gnm:Footer Left="" Middle="Page &amp;[PAGE]" Right=""/>
+        <gnm:paper>iso_a4</gnm:paper>
+        <gnm:comments placement="GNM_PRINT_COMMENTS_IN_PLACE"/>
+        <gnm:errors PrintErrorsAs="GNM_PRINT_ERRORS_AS_DISPLAYED"/>
+      </gnm:PrintInformation>
+      <gnm:Styles>
+        <gnm:StyleRegion startCol="0" startRow="0" endCol="16383" endRow="1048575">
+          <gnm:Style HAlign="GNM_HALIGN_GENERAL" VAlign="GNM_VALIGN_BOTTOM" WrapText="0" ShrinkToFit="0" Rotation="0" Shade="0" Indent="0" Locked="1" Hidden="0" Fore="0:0:0" Back="FFFF:FFFF:FFFF" PatternColor="0:0:0" Format="General">
+            <gnm:Font Unit="11" Bold="0" Italic="0" Underline="0" StrikeThrough="0" Script="0">Calibri</gnm:Font>
+          </gnm:Style>
+        </gnm:StyleRegion>
+      </gnm:Styles>
+      <gnm:Cols DefaultSizePts="48"/>
+      <gnm:Rows DefaultSizePts="14.25">
+        <gnm:RowInfo No="0" Unit="14.25" HardSize="1" Count="4"/>
+      </gnm:Rows>
+      <gnm:Selections CursorCol="0" CursorRow="0">
+        <gnm:Selection startCol="0" startRow="0" endCol="2" endRow="4"/>
+      </gnm:Selections>
+      <gnm:Cells>
+        <gnm:Cell Row="0" Col="0" ValueType="40">1</gnm:Cell>
+        <gnm:Cell Row="0" Col="1" ValueType="40">2</gnm:Cell>
+        <gnm:Cell Row="0" Col="2" ValueType="40">3</gnm:Cell>
+        <gnm:Cell Row="1" Col="0" ValueType="40">4</gnm:Cell>
+        <gnm:Cell Row="1" Col="1" ValueType="40">5</gnm:Cell>
+        <gnm:Cell Row="1" Col="2" ValueType="40">6</gnm:Cell>
+        <gnm:Cell Row="2" Col="0" ValueType="40">7</gnm:Cell>
+        <gnm:Cell Row="2" Col="1" ValueType="40">8</gnm:Cell>
+        <gnm:Cell Row="2" Col="2" ValueType="40">9</gnm:Cell>
+        <gnm:Cell Row="4" Col="0">=sum(A2:C2,B1:B3)</gnm:Cell>
+        <gnm:Cell Row="4" Col="1">=count(A2:C2,B1:B3)</gnm:Cell>
+      </gnm:Cells>
+      <gnm:SheetLayout TopLeft="A1"/>
+      <gnm:Solver ModelType="0" ProblemType="0" MaxTime="60" MaxIter="1000" NonNeg="1" Discr="0" AutoScale="0" ProgramR="0"/>
+    </gnm:Sheet>
+    <gnm:Sheet DisplayFormulas="0" HideZero="0" HideGrid="0" HideColHeader="0" HideRowHeader="0" DisplayOutlines="1" OutlineSymbolsBelow="1" OutlineSymbolsRight="1" Visibility="GNM_SHEET_VISIBILITY_VISIBLE" GridColor="0:0:0">
+      <gnm:Name>Sheet2</gnm:Name>
+      <gnm:MaxCol>2</gnm:MaxCol>
+      <gnm:MaxRow>4</gnm:MaxRow>
+      <gnm:Zoom>1</gnm:Zoom>
+      <gnm:Names>
+        <gnm:Name>
+          <gnm:name>Print_Area</gnm:name>
+          <gnm:value>#REF!</gnm:value>
+          <gnm:position>A1</gnm:position>
+        </gnm:Name>
+        <gnm:Name>
+          <gnm:name>Sheet_Title</gnm:name>
+          <gnm:value>&quot;Sheet2&quot;</gnm:value>
+          <gnm:position>A1</gnm:position>
+        </gnm:Name>
+      </gnm:Names>
+      <gnm:PrintInformation>
+        <gnm:Margins>
+          <gnm:top Points="53.86" PrefUnit="mm"/>
+          <gnm:bottom Points="53.86" PrefUnit="mm"/>
+          <gnm:left Points="51.02" PrefUnit="mm"/>
+          <gnm:right Points="51.02" PrefUnit="mm"/>
+          <gnm:header Points="22.68" PrefUnit="mm"/>
+          <gnm:footer Points="22.68" PrefUnit="mm"/>
+        </gnm:Margins>
+        <gnm:Scale type="percentage" percentage="100"/>
+        <gnm:vcenter value="1"/>
+        <gnm:hcenter value="0"/>
+        <gnm:grid value="0"/>
+        <gnm:even_if_only_styles value="0"/>
+        <gnm:monochrome value="0"/>
+        <gnm:draft value="0"/>
+        <gnm:titles value="0"/>
+        <gnm:do_not_print value="0"/>
+        <gnm:print_range value="GNM_PRINT_ACTIVE_SHEET"/>
+        <gnm:order>r_then_d</gnm:order>
+        <gnm:orientation>landscape</gnm:orientation>
+        <gnm:Header Left="" Middle="&amp;[TAB]" Right=""/>
+        <gnm:Footer Left="" Middle="Page &amp;[PAGE]" Right=""/>
+        <gnm:paper>iso_a4</gnm:paper>
+        <gnm:comments placement="GNM_PRINT_COMMENTS_IN_PLACE"/>
+        <gnm:errors PrintErrorsAs="GNM_PRINT_ERRORS_AS_DISPLAYED"/>
+      </gnm:PrintInformation>
+      <gnm:Styles>
+        <gnm:StyleRegion startCol="0" startRow="0" endCol="16383" endRow="1048575">
+          <gnm:Style HAlign="GNM_HALIGN_GENERAL" VAlign="GNM_VALIGN_BOTTOM" WrapText="0" ShrinkToFit="0" Rotation="0" Shade="0" Indent="0" Locked="1" Hidden="0" Fore="0:0:0" Back="FFFF:FFFF:FFFF" PatternColor="0:0:0" Format="General">
+            <gnm:Font Unit="11" Bold="0" Italic="0" Underline="0" StrikeThrough="0" Script="0">Calibri</gnm:Font>
+          </gnm:Style>
+        </gnm:StyleRegion>
+      </gnm:Styles>
+      <gnm:Cols DefaultSizePts="48"/>
+      <gnm:Rows DefaultSizePts="14.25">
+        <gnm:RowInfo No="0" Unit="14.25" HardSize="1" Count="4"/>
+      </gnm:Rows>
+      <gnm:Selections CursorCol="0" CursorRow="0">
+        <gnm:Selection startCol="0" startRow="0" endCol="2" endRow="4"/>
+      </gnm:Selections>
+      <gnm:Cells>
+        <gnm:Cell Row="0" Col="0" ValueType="40">1</gnm:Cell>
+        <gnm:Cell Row="0" Col="1" ValueType="40">2</gnm:Cell>
+        <gnm:Cell Row="0" Col="2" ValueType="40">3</gnm:Cell>
+        <gnm:Cell Row="1" Col="0" ValueType="40">4</gnm:Cell>
+        <gnm:Cell Row="1" Col="1" ValueType="40">5</gnm:Cell>
+        <gnm:Cell Row="1" Col="2" ValueType="40">6</gnm:Cell>
+        <gnm:Cell Row="2" Col="0" ValueType="40">7</gnm:Cell>
+        <gnm:Cell Row="2" Col="1" ValueType="40">8</gnm:Cell>
+        <gnm:Cell Row="2" Col="2" ValueType="40">9</gnm:Cell>
+        <gnm:Cell Row="4" Col="0" ExprID="1">=sum($A$1:$C$1,$A$3:$C$3,$A$1:$A$3,$C$1:$C$3)</gnm:Cell>
+        <gnm:Cell Row="4" Col="1" ExprID="2">=count($A$1:$C$1,$A$3:$C$3,$A$1:$A$3,$C$1:$C$3)</gnm:Cell>
+      </gnm:Cells>
+      <gnm:SheetLayout TopLeft="A1"/>
+      <gnm:Solver ModelType="0" ProblemType="0" MaxTime="60" MaxIter="1000" NonNeg="1" Discr="0" AutoScale="0" ProgramR="0"/>
+    </gnm:Sheet>
+    <gnm:Sheet DisplayFormulas="0" HideZero="0" HideGrid="0" HideColHeader="0" HideRowHeader="0" DisplayOutlines="1" OutlineSymbolsBelow="1" OutlineSymbolsRight="1" Visibility="GNM_SHEET_VISIBILITY_VISIBLE" GridColor="0:0:0">
+      <gnm:Name>Sheet3</gnm:Name>
+      <gnm:MaxCol>2</gnm:MaxCol>
+      <gnm:MaxRow>4</gnm:MaxRow>
+      <gnm:Zoom>1</gnm:Zoom>
+      <gnm:Names>
+        <gnm:Name>
+          <gnm:name>Print_Area</gnm:name>
+          <gnm:value>Sheet3!$A$1:$C$5</gnm:value>
+          <gnm:position>A1</gnm:position>
+        </gnm:Name>
+        <gnm:Name>
+          <gnm:name>Sheet_Title</gnm:name>
+          <gnm:value>&quot;Sheet3&quot;</gnm:value>
+          <gnm:position>A1</gnm:position>
+        </gnm:Name>
+      </gnm:Names>
+      <gnm:PrintInformation>
+        <gnm:Margins>
+          <gnm:top Points="68.03" PrefUnit="mm"/>
+          <gnm:bottom Points="68.03" PrefUnit="mm"/>
+          <gnm:left Points="51.02" PrefUnit="mm"/>
+          <gnm:right Points="51.02" PrefUnit="mm"/>
+          <gnm:header Points="36.85" PrefUnit="mm"/>
+          <gnm:footer Points="36.85" PrefUnit="mm"/>
+        </gnm:Margins>
+        <gnm:Scale type="percentage" percentage="90"/>
+        <gnm:vcenter value="1"/>
+        <gnm:hcenter value="1"/>
+        <gnm:grid value="0"/>
+        <gnm:even_if_only_styles value="0"/>
+        <gnm:monochrome value="0"/>
+        <gnm:draft value="0"/>
+        <gnm:titles value="0"/>
+        <gnm:do_not_print value="0"/>
+        <gnm:print_range value="GNM_PRINT_ACTIVE_SHEET"/>
+        <gnm:order>d_then_r</gnm:order>
+        <gnm:orientation>portrait</gnm:orientation>
+        <gnm:Header Left="" Middle="&amp;[TAB]" Right=""/>
+        <gnm:Footer Left="" Middle="Page &amp;[PAGE]" Right=""/>
+        <gnm:paper>iso_a4</gnm:paper>
+        <gnm:comments placement="GNM_PRINT_COMMENTS_IN_PLACE"/>
+        <gnm:errors PrintErrorsAs="GNM_PRINT_ERRORS_AS_DISPLAYED"/>
+      </gnm:PrintInformation>
+      <gnm:Styles>
+        <gnm:StyleRegion startCol="0" startRow="0" endCol="16383" endRow="1048575">
+          <gnm:Style HAlign="GNM_HALIGN_GENERAL" VAlign="GNM_VALIGN_BOTTOM" WrapText="0" ShrinkToFit="0" Rotation="0" Shade="0" Indent="0" Locked="1" Hidden="0" Fore="0:0:0" Back="FFFF:FFFF:FFFF" PatternColor="0:0:0" Format="General">
+            <gnm:Font Unit="11" Bold="0" Italic="0" Underline="0" StrikeThrough="0" Script="0">Calibri</gnm:Font>
+          </gnm:Style>
+        </gnm:StyleRegion>
+      </gnm:Styles>
+      <gnm:Cols DefaultSizePts="48"/>
+      <gnm:Rows DefaultSizePts="14.25">
+        <gnm:RowInfo No="0" Unit="14.25" HardSize="1" Count="4"/>
+      </gnm:Rows>
+      <gnm:Selections CursorCol="0" CursorRow="0">
+        <gnm:Selection startCol="0" startRow="0" endCol="2" endRow="4"/>
+      </gnm:Selections>
+      <gnm:Cells>
+        <gnm:Cell Row="0" Col="0" ValueType="40">1</gnm:Cell>
+        <gnm:Cell Row="0" Col="1" ValueType="40">2</gnm:Cell>
+        <gnm:Cell Row="0" Col="2" ValueType="40">3</gnm:Cell>
+        <gnm:Cell Row="1" Col="0" ValueType="40">4</gnm:Cell>
+        <gnm:Cell Row="1" Col="1" ValueType="40">5</gnm:Cell>
+        <gnm:Cell Row="1" Col="2" ValueType="40">6</gnm:Cell>
+        <gnm:Cell Row="2" Col="0" ValueType="40">7</gnm:Cell>
+        <gnm:Cell Row="2" Col="1" ValueType="40">8</gnm:Cell>
+        <gnm:Cell Row="2" Col="2" ValueType="40">9</gnm:Cell>
+        <gnm:Cell Row="4" Col="0" ExprID="1"/>
+        <gnm:Cell Row="4" Col="1" ExprID="2"/>
+      </gnm:Cells>
+      <gnm:SheetLayout TopLeft="B2">
+        <gnm:FreezePanes FrozenTopLeft="A1" UnfrozenTopLeft="B2"/>
+      </gnm:SheetLayout>
+      <gnm:Solver ModelType="0" ProblemType="0" MaxTime="60" MaxIter="1000" NonNeg="1" Discr="0" AutoScale="0" ProgramR="0"/>
+    </gnm:Sheet>
+    <gnm:Sheet DisplayFormulas="0" HideZero="0" HideGrid="0" HideColHeader="0" HideRowHeader="0" DisplayOutlines="1" OutlineSymbolsBelow="1" OutlineSymbolsRight="1" Visibility="GNM_SHEET_VISIBILITY_VISIBLE" GridColor="0:0:0">
+      <gnm:Name>Sheet4</gnm:Name>
+      <gnm:MaxCol>2</gnm:MaxCol>
+      <gnm:MaxRow>4</gnm:MaxRow>
+      <gnm:Zoom>1</gnm:Zoom>
+      <gnm:Names>
+        <gnm:Name>
+          <gnm:name>Print_Area</gnm:name>
+          <gnm:value>#REF!</gnm:value>
+          <gnm:position>A1</gnm:position>
+        </gnm:Name>
+        <gnm:Name>
+          <gnm:name>Sheet_Title</gnm:name>
+          <gnm:value>&quot;Sheet4&quot;</gnm:value>
+          <gnm:position>A1</gnm:position>
+        </gnm:Name>
+      </gnm:Names>
+      <gnm:PrintInformation>
+        <gnm:Margins>
+          <gnm:top Points="54" PrefUnit="mm"/>
+          <gnm:bottom Points="54" PrefUnit="mm"/>
+          <gnm:left Points="50.4" PrefUnit="mm"/>
+          <gnm:right Points="50.4" PrefUnit="mm"/>
+          <gnm:header Points="21.6" PrefUnit="mm"/>
+          <gnm:footer Points="21.6" PrefUnit="mm"/>
+        </gnm:Margins>
+        <gnm:Scale type="percentage" percentage="100"/>
+        <gnm:vcenter value="0"/>
+        <gnm:hcenter value="0"/>
+        <gnm:grid value="0"/>
+        <gnm:even_if_only_styles value="0"/>
+        <gnm:monochrome value="0"/>
+        <gnm:draft value="0"/>
+        <gnm:titles value="0"/>
+        <gnm:do_not_print value="0"/>
+        <gnm:print_range value="GNM_PRINT_ACTIVE_SHEET"/>
+        <gnm:order>d_then_r</gnm:order>
+        <gnm:orientation>portrait</gnm:orientation>
+        <gnm:Header Left="" Middle="&amp;[TAB]" Right=""/>
+        <gnm:Footer Left="" Middle="Page &amp;[PAGE]" Right=""/>
+        <gnm:paper>iso_a4</gnm:paper>
+        <gnm:comments placement="GNM_PRINT_COMMENTS_IN_PLACE"/>
+        <gnm:errors PrintErrorsAs="GNM_PRINT_ERRORS_AS_DISPLAYED"/>
+      </gnm:PrintInformation>
+      <gnm:Styles>
+        <gnm:StyleRegion startCol="0" startRow="0" endCol="16383" endRow="1048575">
+          <gnm:Style HAlign="GNM_HALIGN_GENERAL" VAlign="GNM_VALIGN_BOTTOM" WrapText="0" ShrinkToFit="0" Rotation="0" Shade="0" Indent="0" Locked="1" Hidden="0" Fore="0:0:0" Back="FFFF:FFFF:FFFF" PatternColor="0:0:0" Format="General">
+            <gnm:Font Unit="11" Bold="0" Italic="0" Underline="0" StrikeThrough="0" Script="0">Calibri</gnm:Font>
+          </gnm:Style>
+        </gnm:StyleRegion>
+      </gnm:Styles>
+      <gnm:Cols DefaultSizePts="48"/>
+      <gnm:Rows DefaultSizePts="14.25"/>
+      <gnm:Selections CursorCol="0" CursorRow="0">
+        <gnm:Selection startCol="0" startRow="0" endCol="2" endRow="4"/>
+      </gnm:Selections>
+      <gnm:Cells>
+        <gnm:Cell Row="0" Col="0" ValueType="40">1</gnm:Cell>
+        <gnm:Cell Row="0" Col="1" ValueType="40">2</gnm:Cell>
+        <gnm:Cell Row="0" Col="2" ValueType="40">3</gnm:Cell>
+        <gnm:Cell Row="1" Col="0" ValueType="40">4</gnm:Cell>
+        <gnm:Cell Row="1" Col="1" ValueType="40">5</gnm:Cell>
+        <gnm:Cell Row="1" Col="2" ValueType="40">6</gnm:Cell>
+        <gnm:Cell Row="2" Col="0" ValueType="40">7</gnm:Cell>
+        <gnm:Cell Row="2" Col="1" ValueType="40">8</gnm:Cell>
+        <gnm:Cell Row="2" Col="2" ValueType="40">9</gnm:Cell>
+        <gnm:Cell Row="4" Col="0" ExprID="1"/>
+        <gnm:Cell Row="4" Col="1" ExprID="2"/>
+      </gnm:Cells>
+      <gnm:SheetLayout TopLeft="A1"/>
+      <gnm:Solver ModelType="0" ProblemType="0" MaxTime="60" MaxIter="1000" NonNeg="1" Discr="0" AutoScale="0" ProgramR="0"/>
+    </gnm:Sheet>
+  </gnm:Sheets>
+  <gnm:UIData SelectedTab="2"/>
+</gnm:Workbook>

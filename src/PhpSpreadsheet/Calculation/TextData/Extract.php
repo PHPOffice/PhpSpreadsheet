@@ -261,7 +261,7 @@ class Extract
             $delimiter = Functions::flattenArray($delimiter);
             $quotedDelimiters = array_map(
                 function ($delimiter) {
-                    return preg_quote($delimiter ?? '');
+                    return preg_quote($delimiter ?? '', '/');
                 },
                 $delimiter
             );
@@ -270,7 +270,7 @@ class Extract
             return '(' . $delimiters . ')';
         }
 
-        return '(' . preg_quote($delimiter ?? '') . ')';
+        return '(' . preg_quote($delimiter ?? '', '/') . ')';
     }
 
     private static function matchFlags(int $matchMode): string
