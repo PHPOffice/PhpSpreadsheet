@@ -491,9 +491,12 @@ class Html extends BaseReader
         }
     }
 
+    private string $currentColumn = 'A';
+
     private function processDomElementTable(Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child, array &$attributeArray): void
     {
         if ($child->nodeName === 'table') {
+            $this->currentColumn = 'A';
             $this->flushCell($sheet, $column, $row, $cellContent, $attributeArray);
             $column = $this->setTableStartColumn($column);
             if ($this->tableLevel > 1 && $row > 1) {
@@ -513,7 +516,10 @@ class Html extends BaseReader
 
     private function processDomElementTr(Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child, array &$attributeArray): void
     {
-        if ($child->nodeName === 'tr') {
+        if ($child->nodeName === 'col') {
+            $this->applyInlineStyle($sheet, -1, $this->currentColumn, $attributeArray);
+            ++$this->currentColumn;
+        } elseif ($child->nodeName === 'tr') {
             $column = $this->getTableStartColumn();
             $cellContent = '';
             $this->processDomElement($child, $sheet, $row, $column, $cellContent);
@@ -877,7 +883,9 @@ class Html extends BaseReader
             return;
         }
 
-        if (isset($attributeArray['rowspan'], $attributeArray['colspan'])) {
+        if ($row <= 0 || $column === '') {
+            $cellStyle = new Style();
+        } elseif (isset($attributeArray['rowspan'], $attributeArray['colspan'])) {
             $columnTo = $column;
             for ($i = 0; $i < (int) $attributeArray['colspan'] - 1; ++$i) {
                 ++$columnTo;
@@ -1009,16 +1017,20 @@ class Html extends BaseReader
                     break;
 
                 case 'width':
-                    $sheet->getColumnDimension($column)->setWidth(
-                        (new CssDimension($styleValue ?? ''))->width()
-                    );
+                    if ($column !== '') {
+                        $sheet->getColumnDimension($column)->setWidth(
+                            (new CssDimension($styleValue ?? ''))->width()
+                        );
+                    }
 
                     break;
 
                 case 'height':
-                    $sheet->getRowDimension($row)->setRowHeight(
-                        (new CssDimension($styleValue ?? ''))->height()
-                    );
+                    if ($row > 0) {
+                        $sheet->getRowDimension($row)->setRowHeight(
+                            (new CssDimension($styleValue ?? ''))->height()
+                        );
+                    }
 
                     break;
 

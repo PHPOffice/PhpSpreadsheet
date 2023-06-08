@@ -126,7 +126,16 @@ class Content extends WriterPart
             $objWriter->writeAttribute('table:name', $spreadsheet->getSheet($sheetIndex)->getTitle());
             $objWriter->writeAttribute('table:style-name', Style::TABLE_STYLE_PREFIX . (string) ($sheetIndex + 1));
             $objWriter->writeElement('office:forms');
+            $lastColumn = 0;
             foreach ($spreadsheet->getSheet($sheetIndex)->getColumnDimensions() as $columnDimension) {
+                $thisColumn = $columnDimension->getColumnNumeric();
+                $emptyColumns = $thisColumn - $lastColumn - 1;
+                if ($emptyColumns > 0) {
+                    $objWriter->startElement('table:table-column');
+                    $objWriter->writeAttribute('table:number-columns-repeated', (string) $emptyColumns);
+                    $objWriter->endElement();
+                }
+                $lastColumn = $thisColumn;
                 $objWriter->startElement('table:table-column');
                 $objWriter->writeAttribute(
                     'table:style-name',
