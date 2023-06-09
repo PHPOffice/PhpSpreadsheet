@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Font/Effects/Theme support for Chart Data Labels and Axis. [PR #3476](https://github.com/PHPOffice/PhpSpreadsheet/pull/3476)
 - Font Themes support. [PR #3486](https://github.com/PHPOffice/PhpSpreadsheet/pull/3486)
 - Ability to Ignore Cell Errors in Excel. [Issue #1141](https://github.com/PHPOffice/PhpSpreadsheet/issues/1141) [PR #3508](https://github.com/PHPOffice/PhpSpreadsheet/pull/3508)
+- Unzipped Gnumeric file [PR #3591](https://github.com/PHPOffice/PhpSpreadsheet/pull/3591)
 
 ### Changed
 
@@ -60,7 +61,10 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Allow Index_number as Array for VLOOKUP/HLOOKUP [Issue #3561](https://github.com/PHPOffice/PhpSpreadsheet/issues/3561 [PR #3570](https://github.com/PHPOffice/PhpSpreadsheet/pull/3570)
 - Add Unsupported Options in Xml Spreadsheet [Issue #3566](https://github.com/PHPOffice/PhpSpreadsheet/issues/3566 [Issue #3568](https://github.com/PHPOffice/PhpSpreadsheet/issues/3568 [Issue #3569](https://github.com/PHPOffice/PhpSpreadsheet/issues/3569 [PR #3567](https://github.com/PHPOffice/PhpSpreadsheet/pull/3567)
 - Changes to NUMBERVALUE, VALUE, DATEVALUE, TIMEVALUE [Issue #3574](https://github.com/PHPOffice/PhpSpreadsheet/issues/3574 [PR #3575](https://github.com/PHPOffice/PhpSpreadsheet/pull/3575)
-
+- Redo calculation of color tinting [Issue #3550](https://github.com/PHPOffice/PhpSpreadsheet/issues/3550) [PR #3580](https://github.com/PHPOffice/PhpSpreadsheet/pull/3580)
+- Accommodate Slash with preg_quote [PR #3582](https://github.com/PHPOffice/PhpSpreadsheet/pull/3582) [PR #3583](https://github.com/PHPOffice/PhpSpreadsheet/pull/3583) [PR #3584](https://github.com/PHPOffice/PhpSpreadsheet/pull/3584)
+- HyperlinkBase Property and Html Handling of Properties [Issue #3573](https://github.com/PHPOffice/PhpSpreadsheet/issues/3573) [PR #3589](https://github.com/PHPOffice/PhpSpreadsheet/pull/3589)
+- Improvements for Data Validation [Issue #3592](https://github.com/PHPOffice/PhpSpreadsheet/issues/3592) [Issue #3594](https://github.com/PHPOffice/PhpSpreadsheet/issues/3594) [PR #3605](https://github.com/PHPOffice/PhpSpreadsheet/pull/3605)
 
 ## 1.28.0 - 2023-02-25
 
