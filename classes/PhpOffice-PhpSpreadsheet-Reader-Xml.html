@@ -93,7 +93,7 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xml.php"><a href="files/src-phpspreadsheet-reader-xml.html"><abbr title="src/PhpSpreadsheet/Reader/Xml.php">Xml.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">27</span>
+    <span class="phpdocumentor-element-found-in__line">28</span>
 </aside>
 
             <p class="phpdocumentor-summary">Reader for SpreadsheetML, the XML schema for Microsoft Office Excel 2003.</p>
@@ -113,6 +113,13 @@
 </h3>
 
 <dl class="phpdocumentor-table-of-contents">
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xml.html#constant_NAMESPACES_SS">NAMESPACES_SS</a>
+    <span>
+        &nbsp;= &#039;urn:schemas-microsoft-com:office:spreadsheet&#039;                    </span>
+</dt>
+<dd></dd>
+
                 <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#property_fileHandle">$fileHandle</a>
     <span>
@@ -277,7 +284,14 @@ Returns either an array of worksheet names (the list of worksheets that should b
     <span>
                         &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a>    </span>
 </dt>
-<dd>Loads from file into Spreadsheet instance.</dd>
+<dd>Loads from file or contents into Spreadsheet instance.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xml.html#method_loadSpreadsheetFromString">loadSpreadsheetFromString()</a>
+    <span>
+                        &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a>    </span>
+</dt>
+<dd>Loads Spreadsheet from string.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-BaseReader.html#method_setIncludeCharts">setIncludeCharts()</a>
@@ -387,6 +401,37 @@ Returns either an array of worksheet names (the list of worksheets that should b
 
 
         
+    <section class="phpdocumentor-constants">
+        <h3 class="phpdocumentor-elements__header" id="constants">
+            Constants
+            <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xml.html#constants" class="headerlink"><i class="fas fa-link"></i></a>
+        </h3>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_NAMESPACES_SS">
+        NAMESPACES_SS
+        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xml.html#constant_NAMESPACES_SS" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xml.php"><a href="files/src-phpspreadsheet-reader-xml.html"><abbr title="src/PhpSpreadsheet/Reader/Xml.php">Xml.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">30</span>
+</aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">NAMESPACES_SS</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;urn:schemas-microsoft-com:office:spreadsheet&#039;</span>
+</code>
+
+
+    
+    
+
+</article>
+            </section>
 
         
     <section class="phpdocumentor-properties">
@@ -638,7 +683,7 @@ Identifies whether the Reader should read data values for cells all cells, or sh
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xml.php"><a href="files/src-phpspreadsheet-reader-xml.html"><abbr title="src/PhpSpreadsheet/Reader/Xml.php">Xml.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">34</span>
+    <span class="phpdocumentor-element-found-in__line">37</span>
 </aside>
 
         <p class="phpdocumentor-summary">Formats.</p>
@@ -670,7 +715,7 @@ Identifies whether the Reader should read data values for cells all cells, or sh
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xml.php"><a href="files/src-phpspreadsheet-reader-xml.html"><abbr title="src/PhpSpreadsheet/Reader/Xml.php">Xml.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">46</span>
+    <span class="phpdocumentor-element-found-in__line">49</span>
 </aside>
 
     
@@ -705,7 +750,7 @@ Identifies whether the Reader should read data values for cells all cells, or sh
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xml.php"><a href="files/src-phpspreadsheet-reader-xml.html"><abbr title="src/PhpSpreadsheet/Reader/Xml.php">Xml.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">39</span>
+    <span class="phpdocumentor-element-found-in__line">42</span>
 </aside>
 
         <p class="phpdocumentor-summary">Create a new Excel2003XML Reader instance.</p>
@@ -739,7 +784,7 @@ Identifies whether the Reader should read data values for cells all cells, or sh
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xml.php"><a href="files/src-phpspreadsheet-reader-xml.html"><abbr title="src/PhpSpreadsheet/Reader/Xml.php">Xml.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">59</span>
+    <span class="phpdocumentor-element-found-in__line">62</span>
 </aside>
 
         <p class="phpdocumentor-summary">Can the current IReader read the file?</p>
@@ -1027,7 +1072,7 @@ Returns either an array of worksheet names (the list of worksheets that should b
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xml.php"><a href="files/src-phpspreadsheet-reader-xml.html"><abbr title="src/PhpSpreadsheet/Reader/Xml.php">Xml.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">167</span>
+    <span class="phpdocumentor-element-found-in__line">168</span>
 </aside>
 
         <p class="phpdocumentor-summary">Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).</p>
@@ -1072,7 +1117,7 @@ Returns either an array of worksheet names (the list of worksheets that should b
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xml.php"><a href="files/src-phpspreadsheet-reader-xml.html"><abbr title="src/PhpSpreadsheet/Reader/Xml.php">Xml.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">135</span>
+    <span class="phpdocumentor-element-found-in__line">138</span>
 </aside>
 
         <p class="phpdocumentor-summary">Reads names of the worksheets from a file, without parsing the whole file to a Spreadsheet object.</p>
@@ -1174,14 +1219,14 @@ IReader::LOAD_WITH_CHARTS - Include any charts that are defined in the loaded fi
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xml.php"><a href="files/src-phpspreadsheet-reader-xml.html"><abbr title="src/PhpSpreadsheet/Reader/Xml.php">Xml.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">254</span>
+    <span class="phpdocumentor-element-found-in__line">264</span>
 </aside>
 
-        <p class="phpdocumentor-summary">Loads from file into Spreadsheet instance.</p>
+        <p class="phpdocumentor-summary">Loads from file or contents into Spreadsheet instance.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">loadIntoExisting</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$filename</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$spreadsheet</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span></code>
+                <span class="phpdocumentor-signature__name">loadIntoExisting</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$filename</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$spreadsheet</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$useContents</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">false</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -1192,12 +1237,64 @@ IReader::LOAD_WITH_CHARTS - Include any charts that are defined in the loaded fi
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
+                    <section class="phpdocumentor-description"><p>file name if useContents is false else file contents</p>
+</section>
 
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$spreadsheet</span>
                 : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$useContents</span>
+                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">false</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_loadSpreadsheetFromString">
+        loadSpreadsheetFromString()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xml.html#method_loadSpreadsheetFromString" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xml.php"><a href="files/src-phpspreadsheet-reader-xml.html"><abbr title="src/PhpSpreadsheet/Reader/Xml.php">Xml.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">236</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Loads Spreadsheet from string.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">loadSpreadsheetFromString</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$contents</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a></span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$contents</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                 
@@ -1491,7 +1588,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xml.php"><a href="files/src-phpspreadsheet-reader-xml.html"><abbr title="src/PhpSpreadsheet/Reader/Xml.php">Xml.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">112</span>
+    <span class="phpdocumentor-element-found-in__line">115</span>
 </aside>
 
         <p class="phpdocumentor-summary">Check if the file is a valid SimpleXML.</p>
@@ -1536,7 +1633,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xml.php"><a href="files/src-phpspreadsheet-reader-xml.html"><abbr title="src/PhpSpreadsheet/Reader/Xml.php">Xml.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">48</span>
+    <span class="phpdocumentor-element-found-in__line">51</span>
 </aside>
 
     
@@ -1568,7 +1665,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xml.php"><a href="files/src-phpspreadsheet-reader-xml.html"><abbr title="src/PhpSpreadsheet/Reader/Xml.php">Xml.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">237</span>
+    <span class="phpdocumentor-element-found-in__line">249</span>
 </aside>
 
         <p class="phpdocumentor-summary">Loads Spreadsheet from file.</p>
@@ -1656,13 +1753,13 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xml.php"><a href="files/src-phpspreadsheet-reader-xml.html"><abbr title="src/PhpSpreadsheet/Reader/Xml.php">Xml.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">499</span>
+    <span class="phpdocumentor-element-found-in__line">594</span>
 </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
-                <span class="phpdocumentor-signature__name">parseCellComment</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\SimpleXMLElement">SimpleXMLElement</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$comment</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$namespaces</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$spreadsheet</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$columnID</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$rowID</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                <span class="phpdocumentor-signature__name">parseCellComment</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\SimpleXMLElement">SimpleXMLElement</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$comment</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$spreadsheet</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$columnID</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$rowID</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
@@ -1670,13 +1767,6 @@ Set to false (the default) to discard charts.</p>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$comment</span>
                 : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\SimpleXMLElement">SimpleXMLElement</abbr></span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$namespaces</span>
-                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                 
@@ -1726,7 +1816,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xml.php"><a href="files/src-phpspreadsheet-reader-xml.html"><abbr title="src/PhpSpreadsheet/Reader/Xml.php">Xml.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">519</span>
+    <span class="phpdocumentor-element-found-in__line">613</span>
 </aside>
 
     
@@ -1810,7 +1900,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xml.php"><a href="files/src-phpspreadsheet-reader-xml.html"><abbr title="src/PhpSpreadsheet/Reader/Xml.php">Xml.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">528</span>
+    <span class="phpdocumentor-element-found-in__line">622</span>
 </aside>
 
     

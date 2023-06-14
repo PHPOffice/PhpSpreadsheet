@@ -284,6 +284,34 @@ referenced as a property of its parent.</dd>
 </dt>
 <dd>Validate that the specified column is in the AutoFilter range.</dd>
 
+            <dt class="phpdocumentor-table-of-contents__entry -method -protected">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter.html#method_filterTestInCustomDataSet">filterTestInCustomDataSet()</a>
+    <span>
+                        &nbsp;: bool    </span>
+</dt>
+<dd>Test if cell value is within a set of values defined by a ruleset.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -protected">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter.html#method_filterTestInDateGroupSet">filterTestInDateGroupSet()</a>
+    <span>
+                        &nbsp;: bool    </span>
+</dt>
+<dd>Test if cell value is in the defined set of Excel date values.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -protected">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter.html#method_filterTestInPeriodDateSet">filterTestInPeriodDateSet()</a>
+    <span>
+                        &nbsp;: bool    </span>
+</dt>
+<dd>Test if cell date value is matches a set of values defined by a set of months.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -protected">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter.html#method_filterTestInSimpleDataSet">filterTestInSimpleDataSet()</a>
+    <span>
+                        &nbsp;: bool    </span>
+</dt>
+<dd>Test if cell value is in the defined set of values.</dd>
+
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter.html#method_calculateTopTenValue">calculateTopTenValue()</a>
     <span>
@@ -409,34 +437,6 @@ referenced as a property of its parent.</dd>
                         &nbsp;: array&lt;string|int, mixed&gt;    </span>
 </dt>
 <dd></dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter.html#method_filterTestInCustomDataSet">filterTestInCustomDataSet()</a>
-    <span>
-                        &nbsp;: bool    </span>
-</dt>
-<dd>Test if cell value is within a set of values defined by a ruleset.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter.html#method_filterTestInDateGroupSet">filterTestInDateGroupSet()</a>
-    <span>
-                        &nbsp;: bool    </span>
-</dt>
-<dd>Test if cell value is in the defined set of Excel date values.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter.html#method_filterTestInPeriodDateSet">filterTestInPeriodDateSet()</a>
-    <span>
-                        &nbsp;: bool    </span>
-</dt>
-<dd>Test if cell date value is matches a set of values defined by a set of months.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter.html#method_filterTestInSimpleDataSet">filterTestInSimpleDataSet()</a>
-    <span>
-                        &nbsp;: bool    </span>
-</dt>
-<dd>Test if cell value is in the defined set of values.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter.html#method_firstDayOfQuarter">firstDayOfQuarter()</a>
@@ -1478,6 +1478,218 @@ Use with caution.</p>
                     <article
         class="phpdocumentor-element
             -method
+            -protected
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_filterTestInCustomDataSet">
+        filterTestInCustomDataSet()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter.html#method_filterTestInCustomDataSet" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter.php"><a href="files/src-phpspreadsheet-worksheet-autofilter.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter.php">AutoFilter.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">387</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Test if cell value is within a set of values defined by a ruleset.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">filterTestInCustomDataSet</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cellValue</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$ruleSet</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$cellValue</span>
+                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$ruleSet</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -protected
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_filterTestInDateGroupSet">
+        filterTestInDateGroupSet()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter.html#method_filterTestInDateGroupSet" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter.php"><a href="files/src-phpspreadsheet-worksheet-autofilter.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter.php">AutoFilter.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">343</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Test if cell value is in the defined set of Excel date values.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">filterTestInDateGroupSet</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cellValue</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$dataSet</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$cellValue</span>
+                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$dataSet</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -protected
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_filterTestInPeriodDateSet">
+        filterTestInPeriodDateSet()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter.html#method_filterTestInPeriodDateSet" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter.php"><a href="files/src-phpspreadsheet-worksheet-autofilter.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter.php">AutoFilter.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">512</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Test if cell date value is matches a set of values defined by a set of months.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">filterTestInPeriodDateSet</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cellValue</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$monthSet</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$cellValue</span>
+                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$monthSet</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -protected
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_filterTestInSimpleDataSet">
+        filterTestInSimpleDataSet()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter.html#method_filterTestInSimpleDataSet" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter.php"><a href="files/src-phpspreadsheet-worksheet-autofilter.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter.php">AutoFilter.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">324</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Test if cell value is in the defined set of values.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">filterTestInSimpleDataSet</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cellValue</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$dataSet</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$cellValue</span>
+                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$dataSet</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
             -private
                                                         "
 >
@@ -2111,218 +2323,6 @@ Use with caution.</p>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
-
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -private
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name" id="method_filterTestInCustomDataSet">
-        filterTestInCustomDataSet()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter.html#method_filterTestInCustomDataSet" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter.php"><a href="files/src-phpspreadsheet-worksheet-autofilter.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter.php">AutoFilter.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">387</span>
-</aside>
-
-        <p class="phpdocumentor-summary">Test if cell value is within a set of values defined by a ruleset.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">filterTestInCustomDataSet</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cellValue</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$ruleSet</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
-
-        <section class="phpdocumentor-description"></section>
-
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$cellValue</span>
-                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$ruleSet</span>
-                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
-            </dd>
-            </dl>
-
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">bool</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
-
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -private
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name" id="method_filterTestInDateGroupSet">
-        filterTestInDateGroupSet()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter.html#method_filterTestInDateGroupSet" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter.php"><a href="files/src-phpspreadsheet-worksheet-autofilter.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter.php">AutoFilter.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">343</span>
-</aside>
-
-        <p class="phpdocumentor-summary">Test if cell value is in the defined set of Excel date values.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">filterTestInDateGroupSet</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cellValue</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$dataSet</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
-
-        <section class="phpdocumentor-description"></section>
-
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$cellValue</span>
-                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$dataSet</span>
-                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
-            </dd>
-            </dl>
-
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">bool</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
-
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -private
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name" id="method_filterTestInPeriodDateSet">
-        filterTestInPeriodDateSet()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter.html#method_filterTestInPeriodDateSet" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter.php"><a href="files/src-phpspreadsheet-worksheet-autofilter.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter.php">AutoFilter.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">512</span>
-</aside>
-
-        <p class="phpdocumentor-summary">Test if cell date value is matches a set of values defined by a set of months.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">filterTestInPeriodDateSet</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cellValue</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$monthSet</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
-
-        <section class="phpdocumentor-description"></section>
-
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$cellValue</span>
-                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$monthSet</span>
-                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
-            </dd>
-            </dl>
-
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">bool</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
-
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -private
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name" id="method_filterTestInSimpleDataSet">
-        filterTestInSimpleDataSet()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-AutoFilter.html#method_filterTestInSimpleDataSet" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/AutoFilter.php"><a href="files/src-phpspreadsheet-worksheet-autofilter.html"><abbr title="src/PhpSpreadsheet/Worksheet/AutoFilter.php">AutoFilter.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">324</span>
-</aside>
-
-        <p class="phpdocumentor-summary">Test if cell value is in the defined set of values.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">filterTestInSimpleDataSet</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cellValue</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$dataSet</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
-
-        <section class="phpdocumentor-description"></section>
-
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$cellValue</span>
-                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$dataSet</span>
-                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
-            </dd>
-            </dl>
-
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">bool</span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 

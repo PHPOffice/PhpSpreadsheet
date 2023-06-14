@@ -203,6 +203,13 @@
 <dd>Parent property name.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Font.html#property_scheme">$scheme</a>
+    <span>
+                &nbsp;: string            </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/PhpOffice-PhpSpreadsheet-Style-Font.html#property_size">$size</a>
     <span>
                 &nbsp;: null|float            </span>
@@ -413,6 +420,13 @@
 <dd>Get Name.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Font.html#method_getScheme">getScheme()</a>
+    <span>
+                        &nbsp;: string    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Style-Supervisor.html#method_getSelectedCells">getSelectedCells()</a>
     <span>
                         &nbsp;: string    </span>
@@ -504,6 +518,13 @@
 <dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Font.html#method_setChartColorFromObject">setChartColorFromObject()</a>
+    <span>
+                        &nbsp;: self    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Style-Font.html#method_setColor">setColor()</a>
     <span>
                         &nbsp;: $this    </span>
@@ -541,9 +562,16 @@
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Style-Font.html#method_setName">setName()</a>
     <span>
-                        &nbsp;: $this    </span>
+                        &nbsp;: self    </span>
 </dt>
-<dd>Set Name.</dd>
+<dd>Set Name and turn off Scheme.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Style-Font.html#method_setScheme">setScheme()</a>
+    <span>
+                        &nbsp;: self    </span>
+</dt>
+<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Style-Font.html#method_setSize">setSize()</a>
@@ -1021,6 +1049,37 @@ extends this class.</dd>
             -protected
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="property_scheme">
+        $scheme
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Font.html#property_scheme" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Font.php"><a href="files/src-phpspreadsheet-style-font.html"><abbr title="src/PhpSpreadsheet/Style/Font.php">Font.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">111</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">$scheme</span>
+     = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -protected
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="property_size">
         $size
         <a href="classes/PhpOffice-PhpSpreadsheet-Style-Font.html#property_size" class="headerlink"><i class="fas fa-link"></i></a>
@@ -1446,7 +1505,7 @@ extends this class.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Font.php"><a href="files/src-phpspreadsheet-style-font.html"><abbr title="src/PhpSpreadsheet/Style/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">120</span>
+    <span class="phpdocumentor-element-found-in__line">123</span>
 </aside>
 
         <p class="phpdocumentor-summary">Create a new Font.</p>
@@ -1505,7 +1564,7 @@ its ramifications are</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Font.php"><a href="files/src-phpspreadsheet-style-font.html"><abbr title="src/PhpSpreadsheet/Style/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">193</span>
+    <span class="phpdocumentor-element-found-in__line">196</span>
 </aside>
 
         <p class="phpdocumentor-summary">Apply styles from array.</p>
@@ -1725,7 +1784,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Font.php"><a href="files/src-phpspreadsheet-style-font.html"><abbr title="src/PhpSpreadsheet/Style/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">541</span>
+    <span class="phpdocumentor-element-found-in__line">548</span>
 </aside>
 
     
@@ -1757,7 +1816,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Font.php"><a href="files/src-phpspreadsheet-style-font.html"><abbr title="src/PhpSpreadsheet/Style/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">406</span>
+    <span class="phpdocumentor-element-found-in__line">413</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get Bold.</p>
@@ -1791,7 +1850,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Font.php"><a href="files/src-phpspreadsheet-style-font.html"><abbr title="src/PhpSpreadsheet/Style/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">613</span>
+    <span class="phpdocumentor-element-found-in__line">620</span>
 </aside>
 
     
@@ -1823,7 +1882,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Font.php"><a href="files/src-phpspreadsheet-style-font.html"><abbr title="src/PhpSpreadsheet/Style/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">719</span>
+    <span class="phpdocumentor-element-found-in__line">733</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get Color.</p>
@@ -1857,7 +1916,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Font.php"><a href="files/src-phpspreadsheet-style-font.html"><abbr title="src/PhpSpreadsheet/Style/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">271</span>
+    <span class="phpdocumentor-element-found-in__line">280</span>
 </aside>
 
     
@@ -1889,7 +1948,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Font.php"><a href="files/src-phpspreadsheet-style-font.html"><abbr title="src/PhpSpreadsheet/Style/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">262</span>
+    <span class="phpdocumentor-element-found-in__line">271</span>
 </aside>
 
     
@@ -1921,7 +1980,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Font.php"><a href="files/src-phpspreadsheet-style-font.html"><abbr title="src/PhpSpreadsheet/Style/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">761</span>
+    <span class="phpdocumentor-element-found-in__line">775</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get hash code.</p>
@@ -1990,7 +2049,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Font.php"><a href="files/src-phpspreadsheet-style-font.html"><abbr title="src/PhpSpreadsheet/Style/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">442</span>
+    <span class="phpdocumentor-element-found-in__line">449</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get Italic.</p>
@@ -2024,7 +2083,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Font.php"><a href="files/src-phpspreadsheet-style-font.html"><abbr title="src/PhpSpreadsheet/Style/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">253</span>
+    <span class="phpdocumentor-element-found-in__line">262</span>
 </aside>
 
     
@@ -2056,7 +2115,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Font.php"><a href="files/src-phpspreadsheet-style-font.html"><abbr title="src/PhpSpreadsheet/Style/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">244</span>
+    <span class="phpdocumentor-element-found-in__line">253</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get Name.</p>
@@ -2072,6 +2131,38 @@ NumberFormat, Protection, and Style.</p>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">null|string</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getScheme">
+        getScheme()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Font.html#method_getScheme" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Font.php"><a href="files/src-phpspreadsheet-style-font.html"><abbr title="src/PhpSpreadsheet/Style/Font.php">Font.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">832</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">getScheme</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string</span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
@@ -2126,7 +2217,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Font.php"><a href="files/src-phpspreadsheet-style-font.html"><abbr title="src/PhpSpreadsheet/Style/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">151</span>
+    <span class="phpdocumentor-element-found-in__line">154</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get the shared style component for the currently active cell in currently active sheet.</p>
@@ -2161,7 +2252,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Font.php"><a href="files/src-phpspreadsheet-style-font.html"><abbr title="src/PhpSpreadsheet/Style/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">361</span>
+    <span class="phpdocumentor-element-found-in__line">368</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get Size.</p>
@@ -2195,7 +2286,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Font.php"><a href="files/src-phpspreadsheet-style-font.html"><abbr title="src/PhpSpreadsheet/Style/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">682</span>
+    <span class="phpdocumentor-element-found-in__line">696</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get Strikethrough.</p>
@@ -2229,7 +2320,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Font.php"><a href="files/src-phpspreadsheet-style-font.html"><abbr title="src/PhpSpreadsheet/Style/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">565</span>
+    <span class="phpdocumentor-element-found-in__line">572</span>
 </aside>
 
     
@@ -2261,7 +2352,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Font.php"><a href="files/src-phpspreadsheet-style-font.html"><abbr title="src/PhpSpreadsheet/Style/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">166</span>
+    <span class="phpdocumentor-element-found-in__line">169</span>
 </aside>
 
         <p class="phpdocumentor-summary">Build style array from subcomponents.</p>
@@ -2306,7 +2397,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Font.php"><a href="files/src-phpspreadsheet-style-font.html"><abbr title="src/PhpSpreadsheet/Style/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">512</span>
+    <span class="phpdocumentor-element-found-in__line">519</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get Subscript.</p>
@@ -2340,7 +2431,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Font.php"><a href="files/src-phpspreadsheet-style-font.html"><abbr title="src/PhpSpreadsheet/Style/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">478</span>
+    <span class="phpdocumentor-element-found-in__line">485</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get Superscript.</p>
@@ -2374,7 +2465,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Font.php"><a href="files/src-phpspreadsheet-style-font.html"><abbr title="src/PhpSpreadsheet/Style/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">642</span>
+    <span class="phpdocumentor-element-found-in__line">656</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get Underline.</p>
@@ -2408,7 +2499,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Font.php"><a href="files/src-phpspreadsheet-style-font.html"><abbr title="src/PhpSpreadsheet/Style/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">589</span>
+    <span class="phpdocumentor-element-found-in__line">596</span>
 </aside>
 
     
@@ -2440,7 +2531,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Font.php"><a href="files/src-phpspreadsheet-style-font.html"><abbr title="src/PhpSpreadsheet/Style/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">550</span>
+    <span class="phpdocumentor-element-found-in__line">557</span>
 </aside>
 
     
@@ -2482,7 +2573,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Font.php"><a href="files/src-phpspreadsheet-style-font.html"><abbr title="src/PhpSpreadsheet/Style/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">422</span>
+    <span class="phpdocumentor-element-found-in__line">429</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set Bold.</p>
@@ -2527,7 +2618,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Font.php"><a href="files/src-phpspreadsheet-style-font.html"><abbr title="src/PhpSpreadsheet/Style/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">622</span>
+    <span class="phpdocumentor-element-found-in__line">629</span>
 </aside>
 
     
@@ -2562,6 +2653,48 @@ NumberFormat, Protection, and Style.</p>
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_setChartColorFromObject">
+        setChartColorFromObject()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Font.html#method_setChartColorFromObject" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Font.php"><a href="files/src-phpspreadsheet-style-font.html"><abbr title="src/PhpSpreadsheet/Style/Font.php">Font.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">644</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">setChartColorFromObject</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-ChartColor.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\ChartColor">ChartColor</abbr></a>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$chartColor</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$chartColor</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-ChartColor.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\ChartColor">ChartColor</abbr></a>|null</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">self</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_setColor">
         setColor()
         <a href="classes/PhpOffice-PhpSpreadsheet-Style-Font.html#method_setColor" class="headerlink"><i class="fas fa-link"></i></a>
@@ -2569,7 +2702,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Font.php"><a href="files/src-phpspreadsheet-style-font.html"><abbr title="src/PhpSpreadsheet/Style/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">729</span>
+    <span class="phpdocumentor-element-found-in__line">743</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set Color.</p>
@@ -2613,7 +2746,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Font.php"><a href="files/src-phpspreadsheet-style-font.html"><abbr title="src/PhpSpreadsheet/Style/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">338</span>
+    <span class="phpdocumentor-element-found-in__line">345</span>
 </aside>
 
     
@@ -2655,7 +2788,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Font.php"><a href="files/src-phpspreadsheet-style-font.html"><abbr title="src/PhpSpreadsheet/Style/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">320</span>
+    <span class="phpdocumentor-element-found-in__line">327</span>
 </aside>
 
     
@@ -2697,7 +2830,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Font.php"><a href="files/src-phpspreadsheet-style-font.html"><abbr title="src/PhpSpreadsheet/Style/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">458</span>
+    <span class="phpdocumentor-element-found-in__line">465</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set Italic.</p>
@@ -2742,7 +2875,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Font.php"><a href="files/src-phpspreadsheet-style-font.html"><abbr title="src/PhpSpreadsheet/Style/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">302</span>
+    <span class="phpdocumentor-element-found-in__line">309</span>
 </aside>
 
     
@@ -2784,14 +2917,14 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Font.php"><a href="files/src-phpspreadsheet-style-font.html"><abbr title="src/PhpSpreadsheet/Style/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">287</span>
+    <span class="phpdocumentor-element-found-in__line">294</span>
 </aside>
 
-        <p class="phpdocumentor-summary">Set Name.</p>
+        <p class="phpdocumentor-summary">Set Name and turn off Scheme.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">setName</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$fontname</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+                <span class="phpdocumentor-signature__name">setName</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$fontname</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -2810,7 +2943,49 @@ NumberFormat, Protection, and Style.</p>
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">$this</span>
+    <span class="phpdocumentor-signature__response_type">self</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setScheme">
+        setScheme()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Style-Font.html#method_setScheme" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Font.php"><a href="files/src-phpspreadsheet-style-font.html"><abbr title="src/PhpSpreadsheet/Style/Font.php">Font.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">841</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">setScheme</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$scheme</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$scheme</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">self</span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
@@ -2829,7 +3004,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Font.php"><a href="files/src-phpspreadsheet-style-font.html"><abbr title="src/PhpSpreadsheet/Style/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">377</span>
+    <span class="phpdocumentor-element-found-in__line">384</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set Size.</p>
@@ -2882,7 +3057,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Font.php"><a href="files/src-phpspreadsheet-style-font.html"><abbr title="src/PhpSpreadsheet/Style/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">698</span>
+    <span class="phpdocumentor-element-found-in__line">712</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set Strikethrough.</p>
@@ -2927,7 +3102,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Font.php"><a href="files/src-phpspreadsheet-style-font.html"><abbr title="src/PhpSpreadsheet/Style/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">574</span>
+    <span class="phpdocumentor-element-found-in__line">581</span>
 </aside>
 
     
@@ -2969,7 +3144,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Font.php"><a href="files/src-phpspreadsheet-style-font.html"><abbr title="src/PhpSpreadsheet/Style/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">526</span>
+    <span class="phpdocumentor-element-found-in__line">533</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set Subscript.</p>
@@ -3013,7 +3188,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Font.php"><a href="files/src-phpspreadsheet-style-font.html"><abbr title="src/PhpSpreadsheet/Style/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">492</span>
+    <span class="phpdocumentor-element-found-in__line">499</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set Superscript.</p>
@@ -3057,7 +3232,7 @@ NumberFormat, Protection, and Style.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Font.php"><a href="files/src-phpspreadsheet-style-font.html"><abbr title="src/PhpSpreadsheet/Style/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">660</span>
+    <span class="phpdocumentor-element-found-in__line">674</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set Underline.</p>
@@ -3105,7 +3280,7 @@ false equates to UNDERLINE_NONE</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Font.php"><a href="files/src-phpspreadsheet-style-font.html"><abbr title="src/PhpSpreadsheet/Style/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">598</span>
+    <span class="phpdocumentor-element-found-in__line">605</span>
 </aside>
 
     
@@ -3147,7 +3322,7 @@ false equates to UNDERLINE_NONE</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Font.php"><a href="files/src-phpspreadsheet-style-font.html"><abbr title="src/PhpSpreadsheet/Style/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">793</span>
+    <span class="phpdocumentor-element-found-in__line">808</span>
 </aside>
 
         <p class="phpdocumentor-summary">Abstract method to be implemented in anything which
@@ -3249,7 +3424,7 @@ or a Style object to be recursively added via exportArray.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Style/Font.php"><a href="files/src-phpspreadsheet-style-font.html"><abbr title="src/PhpSpreadsheet/Style/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">744</span>
+    <span class="phpdocumentor-element-found-in__line">758</span>
 </aside>
 
     

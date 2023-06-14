@@ -90,7 +90,7 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5</span>
+    <span class="phpdocumentor-element-found-in__line">7</span>
 </aside>
 
         
@@ -130,6 +130,13 @@
 <dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Layout.html#property_labelEffects">$labelEffects</a>
+    <span>
+                &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Properties.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Properties">Properties</abbr></a>            </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Layout.html#property_labelFillColor">$labelFillColor</a>
     <span>
                 &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Chart-ChartColor.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\ChartColor">ChartColor</abbr></a>|null            </span>
@@ -137,9 +144,9 @@
 <dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Layout.html#property_labelFontColor">$labelFontColor</a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Layout.html#property_labelFont">$labelFont</a>
     <span>
-                &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Chart-ChartColor.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\ChartColor">ChartColor</abbr></a>|null            </span>
+                &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Style-Font.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Font">Font</abbr></a>|null            </span>
 </dt>
 <dd></dd>
 
@@ -283,9 +290,23 @@ Specifies that the value should be shown in a data label.</dd>
 <dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Layout.html#method_getLabelEffects">getLabelEffects()</a>
+    <span>
+                        &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Properties.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Properties">Properties</abbr></a>|null    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Layout.html#method_getLabelFillColor">getLabelFillColor()</a>
     <span>
                         &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Chart-ChartColor.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\ChartColor">ChartColor</abbr></a>|null    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Layout.html#method_getLabelFont">getLabelFont()</a>
+    <span>
+                        &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Style-Font.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Font">Font</abbr></a>|null    </span>
 </dt>
 <dd></dd>
 
@@ -586,7 +607,7 @@ Specifies that the value should be shown in data labels.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">61</span>
+    <span class="phpdocumentor-element-found-in__line">63</span>
 </aside>
 
         <p class="phpdocumentor-summary">Position - t=top.</p>
@@ -618,7 +639,7 @@ Specifies that the value should be shown in data labels.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">54</span>
+    <span class="phpdocumentor-element-found-in__line">56</span>
 </aside>
 
         <p class="phpdocumentor-summary">height.</p>
@@ -650,7 +671,7 @@ Specifies that the value should be shown in data labels.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">128</span>
+    <span class="phpdocumentor-element-found-in__line">130</span>
 </aside>
 
     
@@ -658,6 +679,37 @@ Specifies that the value should be shown in data labels.</dd>
     <span class="phpdocumentor-signature__visibility">private</span>
         <span class="phpdocumentor-signature__type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-ChartColor.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\ChartColor">ChartColor</abbr></a>|null</span>
     <span class="phpdocumentor-signature__name">$labelBorderColor</span>
+    </code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_labelEffects">
+        $labelEffects
+        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Layout.html#property_labelEffects" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">136</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Properties.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Properties">Properties</abbr></a></span>
+    <span class="phpdocumentor-signature__name">$labelEffects</span>
     </code>
 
         <section class="phpdocumentor-description"></section>
@@ -681,7 +733,7 @@ Specifies that the value should be shown in data labels.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">125</span>
+    <span class="phpdocumentor-element-found-in__line">127</span>
 </aside>
 
     
@@ -703,23 +755,23 @@ Specifies that the value should be shown in data labels.</dd>
             -private
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="property_labelFontColor">
-        $labelFontColor
-        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Layout.html#property_labelFontColor" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="property_labelFont">
+        $labelFont
+        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Layout.html#property_labelFont" class="headerlink"><i class="fas fa-link"></i></a>
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">131</span>
+    <span class="phpdocumentor-element-found-in__line">133</span>
 </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-ChartColor.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\ChartColor">ChartColor</abbr></a>|null</span>
-    <span class="phpdocumentor-signature__name">$labelFontColor</span>
+        <span class="phpdocumentor-signature__type"><a href="classes/PhpOffice-PhpSpreadsheet-Style-Font.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Font">Font</abbr></a>|null</span>
+    <span class="phpdocumentor-signature__name">$labelFont</span>
     </code>
 
         <section class="phpdocumentor-description"></section>
@@ -743,7 +795,7 @@ Specifies that the value should be shown in data labels.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">12</span>
+    <span class="phpdocumentor-element-found-in__line">14</span>
 </aside>
 
         <p class="phpdocumentor-summary">layoutTarget.</p>
@@ -775,7 +827,7 @@ Specifies that the value should be shown in data labels.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">64</span>
+    <span class="phpdocumentor-element-found-in__line">66</span>
 </aside>
 
     
@@ -806,7 +858,7 @@ Specifies that the value should be shown in data labels.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">67</span>
+    <span class="phpdocumentor-element-found-in__line">69</span>
 </aside>
 
     
@@ -837,7 +889,7 @@ Specifies that the value should be shown in data labels.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">114</span>
+    <span class="phpdocumentor-element-found-in__line">116</span>
 </aside>
 
         <p class="phpdocumentor-summary">show bubble size.</p>
@@ -869,7 +921,7 @@ Specifies that the value should be shown in data labels.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">91</span>
+    <span class="phpdocumentor-element-found-in__line">93</span>
 </aside>
 
         <p class="phpdocumentor-summary">show category name
@@ -902,7 +954,7 @@ Specifies that the category name should be shown in the data label.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">122</span>
+    <span class="phpdocumentor-element-found-in__line">124</span>
 </aside>
 
         <p class="phpdocumentor-summary">show leader lines
@@ -935,7 +987,7 @@ Specifies that leader lines should be shown for the data label.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">75</span>
+    <span class="phpdocumentor-element-found-in__line">77</span>
 </aside>
 
         <p class="phpdocumentor-summary">show legend key
@@ -968,7 +1020,7 @@ Specifies that legend keys should be shown in data labels.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">107</span>
+    <span class="phpdocumentor-element-found-in__line">109</span>
 </aside>
 
         <p class="phpdocumentor-summary">show percentage
@@ -1001,7 +1053,7 @@ Specifies that the percentage should be shown in the data label.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">99</span>
+    <span class="phpdocumentor-element-found-in__line">101</span>
 </aside>
 
         <p class="phpdocumentor-summary">show data series name
@@ -1034,7 +1086,7 @@ Specifies that the series name should be shown in the data label.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">83</span>
+    <span class="phpdocumentor-element-found-in__line">85</span>
 </aside>
 
         <p class="phpdocumentor-summary">show value
@@ -1067,7 +1119,7 @@ Specifies that the value should be shown in a data label.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">47</span>
+    <span class="phpdocumentor-element-found-in__line">49</span>
 </aside>
 
         <p class="phpdocumentor-summary">width.</p>
@@ -1099,7 +1151,7 @@ Specifies that the value should be shown in a data label.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">19</span>
+    <span class="phpdocumentor-element-found-in__line">21</span>
 </aside>
 
         <p class="phpdocumentor-summary">X Mode.</p>
@@ -1131,7 +1183,7 @@ Specifies that the value should be shown in a data label.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">33</span>
+    <span class="phpdocumentor-element-found-in__line">35</span>
 </aside>
 
         <p class="phpdocumentor-summary">X-Position.</p>
@@ -1163,7 +1215,7 @@ Specifies that the value should be shown in a data label.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">26</span>
+    <span class="phpdocumentor-element-found-in__line">28</span>
 </aside>
 
         <p class="phpdocumentor-summary">Y Mode.</p>
@@ -1195,7 +1247,7 @@ Specifies that the value should be shown in a data label.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">40</span>
+    <span class="phpdocumentor-element-found-in__line">42</span>
 </aside>
 
         <p class="phpdocumentor-summary">Y-Position.</p>
@@ -1231,7 +1283,7 @@ Specifies that the value should be shown in a data label.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">136</span>
+    <span class="phpdocumentor-element-found-in__line">141</span>
 </aside>
 
         <p class="phpdocumentor-summary">Create a new Layout.</p>
@@ -1275,7 +1327,7 @@ Specifies that the value should be shown in a data label.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">508</span>
+    <span class="phpdocumentor-element-found-in__line">542</span>
 </aside>
 
     
@@ -1307,7 +1359,7 @@ Specifies that the value should be shown in a data label.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">341</span>
+    <span class="phpdocumentor-element-found-in__line">357</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get Height.</p>
@@ -1341,7 +1393,7 @@ Specifies that the value should be shown in a data label.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">484</span>
+    <span class="phpdocumentor-element-found-in__line">500</span>
 </aside>
 
     
@@ -1366,6 +1418,38 @@ Specifies that the value should be shown in a data label.</p>
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_getLabelEffects">
+        getLabelEffects()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Layout.html#method_getLabelEffects" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">517</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">getLabelEffects</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Properties.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Properties">Properties</abbr></a>|null</span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-Properties.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\Properties">Properties</abbr></a>|null</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_getLabelFillColor">
         getLabelFillColor()
         <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Layout.html#method_getLabelFillColor" class="headerlink"><i class="fas fa-link"></i></a>
@@ -1373,7 +1457,7 @@ Specifies that the value should be shown in a data label.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">472</span>
+    <span class="phpdocumentor-element-found-in__line">488</span>
 </aside>
 
     
@@ -1398,6 +1482,38 @@ Specifies that the value should be shown in a data label.</p>
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_getLabelFont">
+        getLabelFont()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Layout.html#method_getLabelFont" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">512</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">getLabelFont</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Style-Font.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Font">Font</abbr></a>|null</span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Style-Font.html"><abbr title="\PhpOffice\PhpSpreadsheet\Style\Font">Font</abbr></a>|null</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_getLabelFontColor">
         getLabelFontColor()
         <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Layout.html#method_getLabelFontColor" class="headerlink"><i class="fas fa-link"></i></a>
@@ -1405,7 +1521,7 @@ Specifies that the value should be shown in a data label.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">496</span>
+    <span class="phpdocumentor-element-found-in__line">522</span>
 </aside>
 
     
@@ -1437,7 +1553,7 @@ Specifies that the value should be shown in a data label.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">197</span>
+    <span class="phpdocumentor-element-found-in__line">213</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get Layout Target.</p>
@@ -1471,7 +1587,7 @@ Specifies that the value should be shown in a data label.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">520</span>
+    <span class="phpdocumentor-element-found-in__line">554</span>
 </aside>
 
     
@@ -1503,7 +1619,7 @@ Specifies that the value should be shown in a data label.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">532</span>
+    <span class="phpdocumentor-element-found-in__line">566</span>
 </aside>
 
     
@@ -1535,7 +1651,7 @@ Specifies that the value should be shown in a data label.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">440</span>
+    <span class="phpdocumentor-element-found-in__line">456</span>
 </aside>
 
     
@@ -1567,7 +1683,7 @@ Specifies that the value should be shown in a data label.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">392</span>
+    <span class="phpdocumentor-element-found-in__line">408</span>
 </aside>
 
     
@@ -1599,7 +1715,7 @@ Specifies that the value should be shown in a data label.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">456</span>
+    <span class="phpdocumentor-element-found-in__line">472</span>
 </aside>
 
     
@@ -1631,7 +1747,7 @@ Specifies that the value should be shown in a data label.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">360</span>
+    <span class="phpdocumentor-element-found-in__line">376</span>
 </aside>
 
     
@@ -1663,7 +1779,7 @@ Specifies that the value should be shown in a data label.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">424</span>
+    <span class="phpdocumentor-element-found-in__line">440</span>
 </aside>
 
     
@@ -1695,7 +1811,7 @@ Specifies that the value should be shown in a data label.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">408</span>
+    <span class="phpdocumentor-element-found-in__line">424</span>
 </aside>
 
     
@@ -1727,7 +1843,7 @@ Specifies that the value should be shown in a data label.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">376</span>
+    <span class="phpdocumentor-element-found-in__line">392</span>
 </aside>
 
     
@@ -1759,7 +1875,7 @@ Specifies that the value should be shown in a data label.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">317</span>
+    <span class="phpdocumentor-element-found-in__line">333</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get Width.</p>
@@ -1793,7 +1909,7 @@ Specifies that the value should be shown in a data label.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">221</span>
+    <span class="phpdocumentor-element-found-in__line">237</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get X-Mode.</p>
@@ -1827,7 +1943,7 @@ Specifies that the value should be shown in a data label.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">269</span>
+    <span class="phpdocumentor-element-found-in__line">285</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get X-Position.</p>
@@ -1861,7 +1977,7 @@ Specifies that the value should be shown in a data label.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">245</span>
+    <span class="phpdocumentor-element-found-in__line">261</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get Y-Mode.</p>
@@ -1895,7 +2011,7 @@ Specifies that the value should be shown in a data label.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">293</span>
+    <span class="phpdocumentor-element-found-in__line">309</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get Y-Position.</p>
@@ -1929,7 +2045,7 @@ Specifies that the value should be shown in a data label.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">513</span>
+    <span class="phpdocumentor-element-found-in__line">547</span>
 </aside>
 
     
@@ -1971,7 +2087,7 @@ Specifies that the value should be shown in a data label.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">353</span>
+    <span class="phpdocumentor-element-found-in__line">369</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set Height.</p>
@@ -2016,7 +2132,7 @@ Specifies that the value should be shown in a data label.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">489</span>
+    <span class="phpdocumentor-element-found-in__line">505</span>
 </aside>
 
     
@@ -2058,7 +2174,7 @@ Specifies that the value should be shown in a data label.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">477</span>
+    <span class="phpdocumentor-element-found-in__line">493</span>
 </aside>
 
     
@@ -2100,7 +2216,7 @@ Specifies that the value should be shown in a data label.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">501</span>
+    <span class="phpdocumentor-element-found-in__line">531</span>
 </aside>
 
     
@@ -2142,7 +2258,7 @@ Specifies that the value should be shown in a data label.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">209</span>
+    <span class="phpdocumentor-element-found-in__line">225</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set Layout Target.</p>
@@ -2187,7 +2303,7 @@ Specifies that the value should be shown in a data label.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">525</span>
+    <span class="phpdocumentor-element-found-in__line">559</span>
 </aside>
 
     
@@ -2229,7 +2345,7 @@ Specifies that the value should be shown in a data label.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">537</span>
+    <span class="phpdocumentor-element-found-in__line">571</span>
 </aside>
 
     
@@ -2271,7 +2387,7 @@ Specifies that the value should be shown in a data label.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">449</span>
+    <span class="phpdocumentor-element-found-in__line">465</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set show bubble size.</p>
@@ -2316,7 +2432,7 @@ Specifies that the value should be shown in a data label.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">401</span>
+    <span class="phpdocumentor-element-found-in__line">417</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set show cat name
@@ -2361,7 +2477,7 @@ Specifies that the category name should be shown in data labels.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">465</span>
+    <span class="phpdocumentor-element-found-in__line">481</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set show leader lines.</p>
@@ -2406,7 +2522,7 @@ Specifies that the category name should be shown in data labels.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">369</span>
+    <span class="phpdocumentor-element-found-in__line">385</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set show legend key
@@ -2451,7 +2567,7 @@ Specifies that legend keys should be shown in data labels.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">433</span>
+    <span class="phpdocumentor-element-found-in__line">449</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set show percentage.</p>
@@ -2496,7 +2612,7 @@ Specifies that legend keys should be shown in data labels.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">417</span>
+    <span class="phpdocumentor-element-found-in__line">433</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set show data series name.</p>
@@ -2541,7 +2657,7 @@ Specifies that legend keys should be shown in data labels.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">385</span>
+    <span class="phpdocumentor-element-found-in__line">401</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set show val
@@ -2586,7 +2702,7 @@ Specifies that the value should be shown in data labels.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">329</span>
+    <span class="phpdocumentor-element-found-in__line">345</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set Width.</p>
@@ -2631,7 +2747,7 @@ Specifies that the value should be shown in data labels.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">233</span>
+    <span class="phpdocumentor-element-found-in__line">249</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set X-Mode.</p>
@@ -2676,7 +2792,7 @@ Specifies that the value should be shown in data labels.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">281</span>
+    <span class="phpdocumentor-element-found-in__line">297</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set X-Position.</p>
@@ -2721,7 +2837,7 @@ Specifies that the value should be shown in data labels.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">257</span>
+    <span class="phpdocumentor-element-found-in__line">273</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set Y-Mode.</p>
@@ -2766,7 +2882,7 @@ Specifies that the value should be shown in data labels.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">305</span>
+    <span class="phpdocumentor-element-found-in__line">321</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set Y-Position.</p>
@@ -2811,7 +2927,7 @@ Specifies that the value should be shown in data labels.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">178</span>
+    <span class="phpdocumentor-element-found-in__line">194</span>
 </aside>
 
     
@@ -2860,7 +2976,7 @@ Specifies that the value should be shown in data labels.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Layout.php"><a href="files/src-phpspreadsheet-chart-layout.html"><abbr title="src/PhpSpreadsheet/Chart/Layout.php">Layout.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">185</span>
+    <span class="phpdocumentor-element-found-in__line">201</span>
 </aside>
 
     

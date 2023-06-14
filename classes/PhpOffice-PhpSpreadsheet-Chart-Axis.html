@@ -923,6 +923,13 @@ Time: 12:11 PM.</p>
 <dd>Axis Options.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#property_axisText">$axisText</a>
+    <span>
+                &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Chart-AxisText.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\AxisText">AxisText</abbr></a>|null            </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#property_axisType">$axisType</a>
     <span>
                 &nbsp;: string            </span>
@@ -956,6 +963,13 @@ Time: 12:11 PM.</p>
                 &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Chart-GridLines.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\GridLines">GridLines</abbr></a>|null            </span>
 </dt>
 <dd>Chart Minor Gridlines as.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#property_noFill">$noFill</a>
+    <span>
+                &nbsp;: bool            </span>
+</dt>
+<dd></dd>
 
                 <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#method___construct">__construct()</a>
@@ -1012,6 +1026,13 @@ Time: 12:11 PM.</p>
                         &nbsp;: string|null    </span>
 </dt>
 <dd>Get Axis Options Property.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#method_getAxisText">getAxisText()</a>
+    <span>
+                        &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Chart-AxisText.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\AxisText">AxisText</abbr></a>|null    </span>
+</dt>
+<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#method_getAxisType">getAxisType()</a>
@@ -1140,6 +1161,13 @@ Time: 12:11 PM.</p>
 <dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#method_getNoFill">getNoFill()</a>
+    <span>
+                        &nbsp;: bool    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Properties.html#method_getObjectState">getObjectState()</a>
     <span>
                         &nbsp;: bool    </span>
@@ -1210,6 +1238,13 @@ Time: 12:11 PM.</p>
 <dd>Set Axis Orientation Property.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#method_setAxisText">setAxisText()</a>
+    <span>
+                        &nbsp;: self    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#method_setAxisType">setAxisType()</a>
     <span>
                         &nbsp;: self    </span>
@@ -1274,6 +1309,13 @@ Time: 12:11 PM.</p>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#method_setMinorGridlines">setMinorGridlines()</a>
+    <span>
+                        &nbsp;: self    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#method_setNoFill">setNoFill()</a>
     <span>
                         &nbsp;: self    </span>
 </dt>
@@ -3978,7 +4020,7 @@ Time: 12:11 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">85</span>
+    <span class="phpdocumentor-element-found-in__line">88</span>
 </aside>
 
     
@@ -4324,7 +4366,7 @@ Time: 12:11 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">60</span>
+    <span class="phpdocumentor-element-found-in__line">63</span>
 </aside>
 
         <p class="phpdocumentor-summary">Axis Options.</p>
@@ -4334,6 +4376,37 @@ Time: 12:11 PM.</p>
         <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
     <span class="phpdocumentor-signature__name">$axisOptions</span>
      = <span class="phpdocumentor-signature__default-value">[&#039;minimum&#039; =&gt; null, &#039;maximum&#039; =&gt; null, &#039;major_unit&#039; =&gt; null, &#039;minor_unit&#039; =&gt; null, &#039;orientation&#039; =&gt; self::ORIENTATION_NORMAL, &#039;minor_tick_mark&#039; =&gt; self::TICK_MARK_NONE, &#039;major_tick_mark&#039; =&gt; self::TICK_MARK_NONE, &#039;axis_labels&#039; =&gt; self::AXIS_LABELS_NEXT_TO, &#039;horizontal_crosses&#039; =&gt; self::HORIZONTAL_CROSSES_AUTOZERO, &#039;horizontal_crosses_value&#039; =&gt; null, &#039;textRotation&#039; =&gt; null, &#039;hidden&#039; =&gt; null, &#039;majorTimeUnit&#039; =&gt; self::TIME_UNIT_YEARS, &#039;minorTimeUnit&#039; =&gt; self::TIME_UNIT_MONTHS, &#039;baseTimeUnit&#039; =&gt; self::TIME_UNIT_DAYS]</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_axisText">
+        $axisText
+        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#property_axisText" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">56</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-AxisText.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\AxisText">AxisText</abbr></a>|null</span>
+    <span class="phpdocumentor-signature__name">$axisText</span>
+    </code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -4387,7 +4460,7 @@ Time: 12:11 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">261</span>
+    <span class="phpdocumentor-element-found-in__line">275</span>
 </aside>
 
     
@@ -4418,7 +4491,7 @@ Time: 12:11 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">83</span>
+    <span class="phpdocumentor-element-found-in__line">86</span>
 </aside>
 
         <p class="phpdocumentor-summary">Fill Properties.</p>
@@ -4492,6 +4565,37 @@ Time: 12:11 PM.</p>
         <span class="phpdocumentor-signature__type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-GridLines.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\GridLines">GridLines</abbr></a>|null</span>
     <span class="phpdocumentor-signature__name">$minorGridlines</span>
     </code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_noFill">
+        $noFill
+        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#property_noFill" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">95</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">bool</span>
+    <span class="phpdocumentor-signature__name">$noFill</span>
+     = <span class="phpdocumentor-signature__default-value">false</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -4668,7 +4772,7 @@ Time: 12:11 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">128</span>
+    <span class="phpdocumentor-element-found-in__line">134</span>
 </aside>
 
     
@@ -4700,7 +4804,7 @@ Time: 12:11 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">113</span>
+    <span class="phpdocumentor-element-found-in__line">119</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get Axis Number Format Data Type.</p>
@@ -4734,7 +4838,7 @@ Time: 12:11 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">123</span>
+    <span class="phpdocumentor-element-found-in__line">129</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get Axis Number Source Linked.</p>
@@ -4768,7 +4872,7 @@ Time: 12:11 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">184</span>
+    <span class="phpdocumentor-element-found-in__line">190</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get Axis Options Property.</p>
@@ -4806,6 +4910,38 @@ Time: 12:11 PM.</p>
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_getAxisText">
+        getAxisText()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#method_getAxisText" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">313</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">getAxisText</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-AxisText.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\AxisText">AxisText</abbr></a>|null</span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-AxisText.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\AxisText">AxisText</abbr></a>|null</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_getAxisType">
         getAxisType()
         <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#method_getAxisType" class="headerlink"><i class="fas fa-link"></i></a>
@@ -4813,7 +4949,7 @@ Time: 12:11 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">199</span>
+    <span class="phpdocumentor-element-found-in__line">213</span>
 </aside>
 
     
@@ -4845,7 +4981,7 @@ Time: 12:11 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">270</span>
+    <span class="phpdocumentor-element-found-in__line">284</span>
 </aside>
 
     
@@ -4877,7 +5013,7 @@ Time: 12:11 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">239</span>
+    <span class="phpdocumentor-element-found-in__line">253</span>
 </aside>
 
     
@@ -4909,7 +5045,7 @@ Time: 12:11 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">234</span>
+    <span class="phpdocumentor-element-found-in__line">248</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get Fill Property.</p>
@@ -5187,7 +5323,7 @@ Time: 12:11 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">255</span>
+    <span class="phpdocumentor-element-found-in__line">269</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get Line Color Property.</p>
@@ -5477,7 +5613,7 @@ Time: 12:11 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">275</span>
+    <span class="phpdocumentor-element-found-in__line">289</span>
 </aside>
 
     
@@ -5509,7 +5645,7 @@ Time: 12:11 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">280</span>
+    <span class="phpdocumentor-element-found-in__line">294</span>
 </aside>
 
     
@@ -5523,6 +5659,38 @@ Time: 12:11 PM.</p>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-GridLines.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\GridLines">GridLines</abbr></a>|null</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getNoFill">
+        getNoFill()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#method_getNoFill" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">332</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">getNoFill</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
@@ -5760,7 +5928,7 @@ Time: 12:11 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">96</span>
+    <span class="phpdocumentor-element-found-in__line">102</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get Series Data Type.</p>
@@ -5819,7 +5987,7 @@ Time: 12:11 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">133</span>
+    <span class="phpdocumentor-element-found-in__line">139</span>
 </aside>
 
     
@@ -5868,7 +6036,7 @@ Time: 12:11 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">143</span>
+    <span class="phpdocumentor-element-found-in__line">149</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set Axis Options Properties.</p>
@@ -6010,7 +6178,7 @@ Time: 12:11 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">194</span>
+    <span class="phpdocumentor-element-found-in__line">208</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set Axis Orientation Property.</p>
@@ -6048,6 +6216,48 @@ Time: 12:11 PM.</p>
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_setAxisText">
+        setAxisText()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#method_setAxisText" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">318</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">setAxisText</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-AxisText.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\AxisText">AxisText</abbr></a>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$axisText</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$axisText</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-AxisText.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\AxisText">AxisText</abbr></a>|null</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">self</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_setAxisType">
         setAxisType()
         <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#method_setAxisType" class="headerlink"><i class="fas fa-link"></i></a>
@@ -6055,7 +6265,7 @@ Time: 12:11 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">204</span>
+    <span class="phpdocumentor-element-found-in__line">218</span>
 </aside>
 
     
@@ -6097,7 +6307,7 @@ Time: 12:11 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">263</span>
+    <span class="phpdocumentor-element-found-in__line">277</span>
 </aside>
 
     
@@ -6139,7 +6349,7 @@ Time: 12:11 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">222</span>
+    <span class="phpdocumentor-element-found-in__line">236</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set Fill Property.</p>
@@ -6564,7 +6774,7 @@ Time: 12:11 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">285</span>
+    <span class="phpdocumentor-element-found-in__line">299</span>
 </aside>
 
     
@@ -6606,7 +6816,7 @@ Time: 12:11 PM.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">292</span>
+    <span class="phpdocumentor-element-found-in__line">306</span>
 </aside>
 
     
@@ -6620,6 +6830,48 @@ Time: 12:11 PM.</p>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$gridlines</span>
                 : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Chart-GridLines.html"><abbr title="\PhpOffice\PhpSpreadsheet\Chart\GridLines">GridLines</abbr></a>|null</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">self</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setNoFill">
+        setNoFill()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Chart-Axis.html#method_setNoFill" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Chart/Axis.php"><a href="files/src-phpspreadsheet-chart-axis.html"><abbr title="src/PhpSpreadsheet/Chart/Axis.php">Axis.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">325</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">setNoFill</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$noFill</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$noFill</span>
+                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                 
