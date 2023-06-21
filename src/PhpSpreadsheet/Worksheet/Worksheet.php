@@ -3271,7 +3271,7 @@ class Worksheet implements IComparable
         $range = self::pregReplace('/^(\\d+):(\\d+)$/', 'A${1}:XFD${2}', $range);
 
         if (preg_match('/^([A-Z]+)(\\d+):([A-Z]+)(\\d+)$/', $range, $matches) === 1) {
-            if (!\array_key_exists($errorType, $this->ignoredErrors)) {
+            if (!array_key_exists($errorType, $this->ignoredErrors)) {
                 $this->ignoredErrors[$errorType] = [];
             }
             $this->ignoredErrors[$errorType][$range] = $range;
