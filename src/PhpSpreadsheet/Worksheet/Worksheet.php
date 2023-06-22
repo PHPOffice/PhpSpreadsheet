@@ -543,7 +543,16 @@ class Worksheet implements IComparable
      */
     public function getColumnDimensions()
     {
+        /** @var callable */
+        $callable = [self::class, 'columnDimensionCompare'];
+        uasort($this->columnDimensions, $callable);
+
         return $this->columnDimensions;
+    }
+
+    private static function columnDimensionCompare(ColumnDimension $a, ColumnDimension $b): int
+    {
+        return $a->getColumnNumeric() - $b->getColumnNumeric();
     }
 
     /**

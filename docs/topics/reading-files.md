@@ -303,7 +303,7 @@ class MyReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter
     public function readCell($columnAddress, $row, $worksheetName = '') {
         //  Read rows 1 to 7 and columns A to E only
         if ($row >= 1 && $row <= 7) {
-            if (in_array($column,range('A','E'))) {
+            if (in_array($columnAddress,range('A','E'))) {
                 return true;
             }
         }
@@ -348,7 +348,7 @@ class MyReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter
     public function readCell($columnAddress, $row, $worksheetName = '') {
         //  Only read the rows and columns that were configured
         if ($row >= $this->startRow && $row <= $this->endRow) {
-            if (in_array($column,$this->columns)) {
+            if (in_array($columnAddress,$this->columns)) {
                 return true;
             }
         }
