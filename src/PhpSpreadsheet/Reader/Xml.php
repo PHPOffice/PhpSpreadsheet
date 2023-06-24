@@ -534,7 +534,6 @@ class Xml extends BaseReader
                         $spreadsheet->getActiveSheet()->freezePane(Coordinate::stringFromColumnIndex($freezeColumn) . (string) $freezeRow, null, !isset($xmlX->WorksheetOptions->FrozenNoSplit));
                     }
                 } elseif (isset($xmlX->WorksheetOptions->SplitVertical) || isset($xmlX->WorksheetOptions->SplitHorizontal)) {
-                    $xSplit = $ySplit = 0;
                     if (isset($xmlX->WorksheetOptions->SplitHorizontal)) {
                         $ySplit = (int) $xmlX->WorksheetOptions->SplitHorizontal;
                         $spreadsheet->getActiveSheet()->setYSplit($ySplit);

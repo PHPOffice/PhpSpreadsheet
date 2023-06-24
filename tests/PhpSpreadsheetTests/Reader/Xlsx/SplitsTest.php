@@ -18,7 +18,6 @@ class SplitsTest extends AbstractFunctional
         $spreadsheet = $reader->load(self::$testbook);
         $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, 'Xlsx');
         $spreadsheet->disconnectWorksheets();
-        $reloadedSheet = $reloadedSpreadsheet->getActiveSheet();
 
         $sheet = $reloadedSpreadsheet->getSheetByNameOrThrow('Freeze');
         self::assertSame('E7', $sheet->getFreezePane());

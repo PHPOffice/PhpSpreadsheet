@@ -304,7 +304,6 @@ class Worksheet extends WriterPart
         $sqref = $worksheet->getSelectedCells();
 
         // Pane
-        $pane = '';
         if ($worksheet->usesPanes()) {
             $objWriter->startElement('pane');
             $xSplit = $worksheet->getXSplit();
