@@ -385,6 +385,7 @@ class Html extends BaseWriter
         $html .= self::generateMeta($properties->getCompany(), 'company');
         $html .= self::generateMeta($properties->getManager(), 'manager');
         $html .= self::generateMeta($properties->getLastModifiedBy(), 'lastModifiedBy');
+        $html .= self::generateMeta($properties->getViewport(), 'viewport');
         $date = Date::dateTimeFromTimestamp((string) $properties->getCreated());
         $date->setTimeZone(Date::getDefaultOrLocalTimeZone());
         $html .= self::generateMeta($date->format(DATE_W3C), 'created');

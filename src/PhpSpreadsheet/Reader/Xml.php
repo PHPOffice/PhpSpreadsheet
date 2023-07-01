@@ -525,7 +525,44 @@ class Xml extends BaseReader
                     if (isset($xmlX->WorksheetOptions->SplitVertical)) {
                         $freezeColumn = (int) $xmlX->WorksheetOptions->SplitVertical + 1;
                     }
-                    $spreadsheet->getActiveSheet()->freezePane(Coordinate::stringFromColumnIndex($freezeColumn) . (string) $freezeRow);
+                    $leftTopRow = (string) $xmlX->WorksheetOptions->TopRowBottomPane;
+                    $leftTopColumn = (string) $xmlX->WorksheetOptions->LeftColumnRightPane;
+                    if (is_numeric($leftTopRow) && is_numeric($leftTopColumn)) {
+                        $leftTopCoordinate = Coordinate::stringFromColumnIndex((int) $leftTopColumn + 1) . (string) ($leftTopRow + 1);
+                        $spreadsheet->getActiveSheet()->freezePane(Coordinate::stringFromColumnIndex($freezeColumn) . (string) $freezeRow, $leftTopCoordinate, !isset($xmlX->WorksheetOptions->FrozenNoSplit));
+                    } else {
+                        $spreadsheet->getActiveSheet()->freezePane(Coordinate::stringFromColumnIndex($freezeColumn) . (string) $freezeRow, null, !isset($xmlX->WorksheetOptions->FrozenNoSplit));
+                    }
+                } elseif (isset($xmlX->WorksheetOptions->SplitVertical) || isset($xmlX->WorksheetOptions->SplitHorizontal)) {
+                    if (isset($xmlX->WorksheetOptions->SplitHorizontal)) {
+                        $ySplit = (int) $xmlX->WorksheetOptions->SplitHorizontal;
+                        $spreadsheet->getActiveSheet()->setYSplit($ySplit);
+                    }
+                    if (isset($xmlX->WorksheetOptions->SplitVertical)) {
+                        $xSplit = (int) $xmlX->WorksheetOptions->SplitVertical;
+                        $spreadsheet->getActiveSheet()->setXSplit($xSplit);
+                    }
+                    if (isset($xmlX->WorksheetOptions->LeftColumnVisible) || isset($xmlX->WorksheetOptions->TopRowVisible)) {
+                        $leftTopColumn = $leftTopRow = 1;
+                        if (isset($xmlX->WorksheetOptions->LeftColumnVisible)) {
+                            $leftTopColumn = 1 + (int) $xmlX->WorksheetOptions->LeftColumnVisible;
+                        }
+                        if (isset($xmlX->WorksheetOptions->TopRowVisible)) {
+                            $leftTopRow = 1 + (int) $xmlX->WorksheetOptions->TopRowVisible;
+                        }
+                        $leftTopCoordinate = Coordinate::stringFromColumnIndex($leftTopColumn) . "$leftTopRow";
+                        $spreadsheet->getActiveSheet()->setTopLeftCell($leftTopCoordinate);
+                    }
+
+                    $leftTopColumn = $leftTopRow = 1;
+                    if (isset($xmlX->WorksheetOptions->LeftColumnRightPane)) {
+                        $leftTopColumn = 1 + (int) $xmlX->WorksheetOptions->LeftColumnRightPane;
+                    }
+                    if (isset($xmlX->WorksheetOptions->TopRowBottomPane)) {
+                        $leftTopRow = 1 + (int) $xmlX->WorksheetOptions->TopRowBottomPane;
+                    }
+                    $leftTopCoordinate = Coordinate::stringFromColumnIndex($leftTopColumn) . "$leftTopRow";
+                    $spreadsheet->getActiveSheet()->setPaneTopLeftCell($leftTopCoordinate);
                 }
                 (new PageSettings($xmlX))->loadPageSettings($spreadsheet);
                 if (isset($xmlX->WorksheetOptions->TopRowVisible, $xmlX->WorksheetOptions->LeftColumnVisible)) {
