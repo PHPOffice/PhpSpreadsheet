@@ -427,6 +427,8 @@ class Xls extends BaseWriter
         $bstoreContainer->addBSE($BSE);
     }
 
+    private static int $two = 2; // phpstan silliness
+
     private function processDrawing(BstoreContainer &$bstoreContainer, Drawing $drawing): void
     {
         $blipType = 0;
@@ -434,7 +436,7 @@ class Xls extends BaseWriter
         $filename = $drawing->getPath();
 
         $imageSize = getimagesize($filename);
-        $imageFormat = empty($imageSize) ? 0 : ($imageSize[2] ?? 0);
+        $imageFormat = empty($imageSize) ? 0 : ($imageSize[self::$two] ?? 0);
 
         switch ($imageFormat) {
             case 1: // GIF, not supported by BIFF8, we convert to PNG

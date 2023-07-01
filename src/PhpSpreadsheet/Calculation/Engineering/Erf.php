@@ -88,7 +88,9 @@ class Erf
     {
         $value = (float) $value;
         if (abs($value) > 2.2) {
-            return 1 - ErfC::ERFC($value);
+            $temp = ErfC::ERFC($value);
+
+            return 1 - (is_numeric($temp) ? $temp : 0);
         }
         $sum = $term = $value;
         $xsqr = ($value * $value);

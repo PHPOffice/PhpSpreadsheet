@@ -11,7 +11,6 @@ use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Offset;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\RowColumnInformation;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\VLookup;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
-use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 /**
  * @deprecated 1.18.0
