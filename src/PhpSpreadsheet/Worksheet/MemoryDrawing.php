@@ -162,6 +162,9 @@ class MemoryDrawing extends BaseDrawing
         }
 
         $mimeType = self::identifyMimeType($imageString);
+        if (imageistruecolor($gdImage) || imagecolortransparent($gdImage) >= 0) {
+            imagesavealpha($gdImage, true);
+        }
         $renderingFunction = self::identifyRenderingFunction($mimeType);
 
         $drawing = new self();
