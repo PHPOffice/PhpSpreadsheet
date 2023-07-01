@@ -709,7 +709,7 @@ class Html extends BaseWriter
                 if ($this->embedImages || substr($imageData, 0, 6) === 'zip://') {
                     $picture = @file_get_contents($filename);
                     if ($picture !== false) {
-                        $imageDetails = getimagesize($filename) ?: [];
+                        $imageDetails = getimagesize($filename) ?: ['mime' => ''];
                         // base64 encode the binary data
                         $base64 = base64_encode($picture);
                         $imageData = 'data:' . $imageDetails['mime'] . ';base64,' . $base64;
@@ -764,7 +764,7 @@ class Html extends BaseWriter
                     }
 
                     $html .= PHP_EOL;
-                    $imageDetails = getimagesize($chartFileName) ?: [];
+                    $imageDetails = getimagesize($chartFileName) ?: ['', '', 'mime' => ''];
                     $filedesc = $chart->getTitle();
                     $filedesc = $filedesc ? $filedesc->getCaptionText() : '';
                     $filedesc = $filedesc ? htmlspecialchars($filedesc, ENT_QUOTES) : 'Embedded chart';
