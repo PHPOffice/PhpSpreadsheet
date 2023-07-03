@@ -20,7 +20,7 @@ class SortTest extends TestCase
      * @dataProvider providerSortWithScalarArgumentErrorReturns
      *
      * @param mixed $sortIndex
-     * @param mixed$sortOrder
+     * @param mixed $sortOrder
      */
     public function testSortWithScalarArgumentErrorReturns($sortIndex, $sortOrder = 1): void
     {
