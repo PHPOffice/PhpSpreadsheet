@@ -749,6 +749,10 @@ class Html extends BaseReader
                         $properties->setTitle($metaContent);
 
                         break;
+                    case 'viewport':
+                        $properties->setViewport($metaContent);
+
+                        break;
                     default:
                         if (preg_match('/^custom[.](bool|date|float|int|string)[.](.+)$/', $metaName, $matches) === 1) {
                             switch ($matches[1]) {

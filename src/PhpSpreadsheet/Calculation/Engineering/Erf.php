@@ -77,6 +77,12 @@ class Erf
         return self::ERF($limit);
     }
 
+    /** @param mixed $value */
+    private static function makeFloat($value): float
+    {
+        return is_numeric($value) ? ((float) $value) : 0.0;
+    }
+
     /**
      * Method to calculate the erf value.
      *
@@ -88,7 +94,7 @@ class Erf
     {
         $value = (float) $value;
         if (abs($value) > 2.2) {
-            return 1 - ErfC::ERFC($value);
+            return 1 - self::makeFloat(ErfC::ERFC($value));
         }
         $sum = $term = $value;
         $xsqr = ($value * $value);

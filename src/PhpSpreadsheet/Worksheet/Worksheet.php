@@ -240,6 +240,28 @@ class Worksheet implements IComparable
      */
     private $topLeftCell;
 
+    private string $paneTopLeftCell = '';
+
+    private string $activePane = '';
+
+    private int $xSplit = 0;
+
+    private int $ySplit = 0;
+
+    private string $paneState = '';
+
+    /**
+     * Properties of the 4 panes.
+     *
+     * @var (null|Pane)[]
+     */
+    private $panes = [
+        'bottomRight' => null,
+        'bottomLeft' => null,
+        'topRight' => null,
+        'topLeft' => null,
+    ];
+
     /**
      * Show gridlines?
      *
@@ -2416,8 +2438,14 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function freezePane($coordinate, $topLeftCell = null)
+    public function freezePane($coordinate, $topLeftCell = null, bool $frozenSplit = false)
     {
+        $this->panes = [
+            'bottomRight' => null,
+            'bottomLeft' => null,
+            'topRight' => null,
+            'topLeft' => null,
+        ];
         $cellAddress = ($coordinate !== null)
             ? Functions::trimSheetFromCellReference(Validations::validateCellAddress($coordinate))
             : null;
@@ -2433,8 +2461,28 @@ class Worksheet implements IComparable
             $topLeftCell = $coordinate[0] . $coordinate[1];
         }
 
+        $topLeftCell = "$topLeftCell";
+        $this->paneTopLeftCell = $topLeftCell;
+
         $this->freezePane = $cellAddress;
         $this->topLeftCell = $topLeftCell;
+        if ($cellAddress === null) {
+            $this->paneState = '';
+            $this->xSplit = $this->ySplit = 0;
+            $this->activePane = '';
+        } else {
+            $coordinates = Coordinate::indexesFromString($cellAddress);
+            $this->xSplit = $coordinates[0] - 1;
+            $this->ySplit = $coordinates[1] - 1;
+            if ($this->xSplit > 0 || $this->ySplit > 0) {
+                $this->paneState = $frozenSplit ? self::PANE_FROZENSPLIT : self::PANE_FROZEN;
+                $this->setSelectedCellsActivePane();
+            } else {
+                $this->paneState = '';
+                $this->freezePane = null;
+                $this->activePane = '';
+            }
+        }
 
         return $this;
     }
@@ -2482,6 +2530,108 @@ class Worksheet implements IComparable
     public function getTopLeftCell()
     {
         return $this->topLeftCell;
+    }
+
+    public function getPaneTopLeftCell(): string
+    {
+        return $this->paneTopLeftCell;
+    }
+
+    public function setPaneTopLeftCell(string $paneTopLeftCell): self
+    {
+        $this->paneTopLeftCell = $paneTopLeftCell;
+
+        return $this;
+    }
+
+    public function usesPanes(): bool
+    {
+        return $this->xSplit > 0 || $this->ySplit > 0;
+    }
+
+    public function getPane(string $position): ?Pane
+    {
+        return $this->panes[$position] ?? null;
+    }
+
+    public function setPane(string $position, ?Pane $pane): self
+    {
+        if (array_key_exists($position, $this->panes)) {
+            $this->panes[$position] = $pane;
+        }
+
+        return $this;
+    }
+
+    /** @return (null|Pane)[] */
+    public function getPanes()
+    {
+        return $this->panes;
+    }
+
+    public function getActivePane(): string
+    {
+        return $this->activePane;
+    }
+
+    public function setActivePane(string $activePane): self
+    {
+        $this->activePane = array_key_exists($activePane, $this->panes) ? $activePane : '';
+
+        return $this;
+    }
+
+    public function getXSplit(): int
+    {
+        return $this->xSplit;
+    }
+
+    public function setXSplit(int $xSplit): self
+    {
+        $this->xSplit = $xSplit;
+        if (in_array($this->paneState, self::VALIDFROZENSTATE, true)) {
+            $this->freezePane([$this->xSplit + 1, $this->ySplit + 1], $this->topLeftCell, $this->paneState === self::PANE_FROZENSPLIT);
+        }
+
+        return $this;
+    }
+
+    public function getYSplit(): int
+    {
+        return $this->ySplit;
+    }
+
+    public function setYSplit(int $ySplit): self
+    {
+        $this->ySplit = $ySplit;
+        if (in_array($this->paneState, self::VALIDFROZENSTATE, true)) {
+            $this->freezePane([$this->xSplit + 1, $this->ySplit + 1], $this->topLeftCell, $this->paneState === self::PANE_FROZENSPLIT);
+        }
+
+        return $this;
+    }
+
+    public function getPaneState(): string
+    {
+        return $this->paneState;
+    }
+
+    public const PANE_FROZEN = 'frozen';
+    public const PANE_FROZENSPLIT = 'frozenSplit';
+    public const PANE_SPLIT = 'split';
+    private const VALIDPANESTATE = [self::PANE_FROZEN, self::PANE_SPLIT, self::PANE_FROZENSPLIT];
+    private const VALIDFROZENSTATE = [self::PANE_FROZEN, self::PANE_FROZENSPLIT];
+
+    public function setPaneState(string $paneState): self
+    {
+        $this->paneState = in_array($paneState, self::VALIDPANESTATE, true) ? $paneState : '';
+        if (in_array($this->paneState, self::VALIDFROZENSTATE, true)) {
+            $this->freezePane([$this->xSplit + 1, $this->ySplit + 1], $this->topLeftCell, $this->paneState === self::PANE_FROZENSPLIT);
+        } else {
+            $this->freezePane = null;
+        }
+
+        return $this;
     }
 
     /**
@@ -2938,8 +3088,28 @@ class Worksheet implements IComparable
             $this->activeCell = $coordinate;
         }
         $this->selectedCells = $coordinate;
+        $this->setSelectedCellsActivePane();
 
         return $this;
+    }
+
+    private function setSelectedCellsActivePane(): void
+    {
+        if (!empty($this->freezePane)) {
+            $coordinateC = Coordinate::indexesFromString($this->freezePane);
+            $coordinateT = Coordinate::indexesFromString($this->activeCell);
+            if ($coordinateC[0] === 1) {
+                $activePane = ($coordinateT[1] <= $coordinateC[1]) ? 'topLeft' : 'bottomLeft';
+            } elseif ($coordinateC[1] === 1) {
+                $activePane = ($coordinateT[0] <= $coordinateC[0]) ? 'topLeft' : 'topRight';
+            } elseif ($coordinateT[1] <= $coordinateC[1]) {
+                $activePane = ($coordinateT[0] <= $coordinateC[0]) ? 'topLeft' : 'topRight';
+            } else {
+                $activePane = ($coordinateT[0] <= $coordinateC[0]) ? 'bottomLeft' : 'bottomRight';
+            }
+            $this->setActivePane($activePane);
+            $this->panes[$activePane] = new Pane($activePane, $this->selectedCells, $this->activeCell);
+        }
     }
 
     /**

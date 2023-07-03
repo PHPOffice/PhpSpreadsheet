@@ -153,7 +153,7 @@ class Functions
     {
         $condition = self::flattenSingleValue($condition);
 
-        if ($condition === '') {
+        if ($condition === '' || $condition === null) {
             return '=""';
         }
         if (!is_string($condition) || !in_array($condition[0], ['>', '<', '='], true)) {
