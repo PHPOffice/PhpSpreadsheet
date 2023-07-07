@@ -342,16 +342,31 @@ class Font
         return self::$trueTypeFontPath;
     }
 
-    private static bool $usePaddingForExact = true;
+    /**
+     * Pad amount for exact in pixels; use best guess if null.
+     *
+     * @var null|float|int
+     */
+    private static $paddingAmountExact;
 
-    public static function setUsePaddingForExact(bool $usePaddingForExact): void
+    /**
+     * Set pad amount for exact in pixels; use best guess if null.
+     *
+     * @param null|float|int $paddingAmountExact
+     */
+    public static function setPaddingAmountExact($paddingAmountExact): void
     {
-        self::$usePaddingForExact = $usePaddingForExact;
+        self::$paddingAmountExact = $paddingAmountExact;
     }
 
-    public static function getUsePaddingForExact(): bool
+    /**
+     * Get pad amount for exact in pixels; or null if using best guess.
+     *
+     * @return null|float|int
+     */
+    public static function getPaddingAmountExact()
     {
-        return self::$usePaddingForExact;
+        return self::$paddingAmountExact;
     }
 
     /**
@@ -403,7 +418,7 @@ class Font
 
                 // Width of text in pixels excl. padding
                 // and addition because Excel adds some padding, just use approx width of 'n' glyph
-                $columnWidth = self::getTextWidthPixelsExact($cellText, $font, $rotation) + (self::$usePaddingForExact ? $columnWidthAdjust : 0.0);
+                $columnWidth = self::getTextWidthPixelsExact($cellText, $font, $rotation) + (self::$paddingAmountExact ?? $columnWidthAdjust);
             } catch (PhpSpreadsheetException $e) {
                 $approximate = true;
             }

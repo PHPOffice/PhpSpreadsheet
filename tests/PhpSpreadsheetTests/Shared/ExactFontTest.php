@@ -54,11 +54,12 @@ class ExactFontTest extends TestCase
         'be189a7e2711cdf2a7f6275c60cbc7e2',
     ];
 
-    private bool $usePaddingForExact;
+    /** @var null|float|int */
+    private $paddingAmountExact;
 
     protected function setUp(): void
     {
-        $this->usePaddingForExact = Font::getUsePaddingForExact();
+        $this->paddingAmountExact = Font::getPaddingAmountExact();
         $this->holdDirectory = Font::getTrueTypeFontPath();
         $this->holdAutoSizeMethod = Font::getAutoSizeMethod();
         $direc = realpath('vendor/mpdf/mpdf/ttfonts') . DIRECTORY_SEPARATOR;
@@ -80,7 +81,7 @@ class ExactFontTest extends TestCase
     {
         Font::setTrueTypeFontPath($this->holdDirectory);
         Font::setAutoSizeMethod($this->holdAutoSizeMethod);
-        Font::setUsePaddingForExact($this->usePaddingForExact);
+        Font::setPaddingAmountExact($this->paddingAmountExact);
         $this->directoryName = '';
     }
 
@@ -151,7 +152,7 @@ class ExactFontTest extends TestCase
         Font::setTrueTypeFontPath($this->directoryName);
         Font::setExtraFontArray(self::EXTRA_FONTS);
         Font::setAutoSizeMethod(Font::AUTOSIZE_METHOD_EXACT);
-        Font::setUsePaddingForExact(false);
+        Font::setPaddingAmountExact(0);
 
         $font = new StyleFont();
         $font->setName($fontName);
@@ -194,7 +195,7 @@ class ExactFontTest extends TestCase
         Font::setTrueTypeFontPath($this->directoryName);
         Font::setExtraFontArray(self::EXTRA_FONTS);
         Font::setAutoSizeMethod(Font::AUTOSIZE_METHOD_EXACT);
-        Font::setUsePaddingForExact(true);
+        //Font::setPaddingAmountExact(null); // default - not needed
 
         $font = new StyleFont();
         $font->setName($fontName);
