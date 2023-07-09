@@ -84,7 +84,6 @@ class CurrencyTest extends TestCase
 
         $currencyCode = "د.ب\u{200e}";
         $locale = 'ar-BH';
-        $expected = "#,##0.000\u{a0}[\$د.ب\u{200e}-ar-BH]";
         $wizardFalse = new Currency($currencyCode);
         $wizardFalse->setStripLeadingRLM(false);
         $wizardFalse->setLocale($locale);
