@@ -504,7 +504,8 @@ class Html extends BaseWriter
                 $html .= $startTag;
 
                 // Write row if there are HTML table cells in it
-                if (!isset($this->isSpannedRow[$sheet->getParent()->getIndex($sheet)][$row])) {
+                $mpdfInvisible = $this->isMPdf && $sheet->getRowDimension($row)->getVisible() === false;
+                if (!$mpdfInvisible && !isset($this->isSpannedRow[$sheet->getParent()->getIndex($sheet)][$row])) {
                     // Start a new rowData
                     $rowData = [];
                     // Loop through columns
@@ -732,9 +733,14 @@ class Html extends BaseWriter
 
                     //  Because of the nature of tables, width is more important than height.
                     //  max-width: 100% ensures that image doesnt overflow containing cell
+                    //    However, PR #3535 broke test
+                    //    25_In_memory_image, apparently because
+                    //    of the use of max-with. In addition,
+                    //    non-memory-drawings don't use max-width.
+                    //    Its use here is suspect and is being eliminated.
                     //  width: X sets width of supplied image.
                     //  As a result, images bigger than cell will be contained and images smaller will not get stretched
-                    $html .= '<img alt="' . $filedesc . '" src="' . $dataUri . '" style="max-width:100%;width:' . $drawing->getWidth() . 'px;left: ' .
+                    $html .= '<img alt="' . $filedesc . '" src="' . $dataUri . '" style="width:' . $drawing->getWidth() . 'px;left: ' .
                     $drawing->getOffsetX() . 'px; top: ' . $drawing->getOffsetY() . 'px;position: absolute; z-index: 1;" />';
                 }
             }
@@ -1498,10 +1504,6 @@ class Html extends BaseWriter
         // Sheet index
         $sheetIndex = $worksheet->getParentOrThrow()->getIndex($worksheet);
         $html = $this->generateRowStart($worksheet, $sheetIndex, $row);
-        $generateDiv = $this->isMPdf && $worksheet->getRowDimension($row + 1)->getVisible() === false;
-        if ($generateDiv) {
-            $html .= '<div style="visibility:hidden; display:none;">' . PHP_EOL;
-        }
 
         // Write cells
         $colNum = 0;
@@ -1546,9 +1548,6 @@ class Html extends BaseWriter
         }
 
         // Write row end
-        if ($generateDiv) {
-            $html .= '</div>' . PHP_EOL;
-        }
         $html .= '          </tr>' . PHP_EOL;
 
         // Return
