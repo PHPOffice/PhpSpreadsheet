@@ -109,6 +109,8 @@ class Properties
 
     private string $hyperlinkBase = '';
 
+    private string $viewport = '';
+
     /**
      * Create a new Document Properties instance.
      */
@@ -545,6 +547,20 @@ class Properties
     public function setHyperlinkBase(string $hyperlinkBase): self
     {
         $this->hyperlinkBase = $hyperlinkBase;
+
+        return $this;
+    }
+
+    public function getViewport(): string
+    {
+        return $this->viewport;
+    }
+
+    public const SUGGESTED_VIEWPORT = 'width=device-width, initial-scale=1';
+
+    public function setViewport(string $viewport): self
+    {
+        $this->viewport = $viewport;
 
         return $this;
     }

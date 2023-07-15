@@ -5,7 +5,6 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ErrorValue;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
-use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
 
 class Sum
 {

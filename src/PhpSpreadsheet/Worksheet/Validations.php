@@ -73,7 +73,7 @@ class Validations
             $addressRange = (string) preg_replace(
                 ['/^([A-Z]+):([A-Z]+)$/i', '/^(\\d+):(\\d+)$/'],
                 [self::SETMAXROW, self::SETMAXCOL],
-                $addressRange
+                $addressRange ?? ''
             );
 
             return empty($worksheet) ? strtoupper($addressRange) : $worksheet . '!' . strtoupper($addressRange);

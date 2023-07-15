@@ -71,13 +71,36 @@ class Worksheet2Test extends TestCase
 
     public function testFreeze(): void
     {
-        $worksheet = new Worksheet();
-        $worksheet->freezePane('A1');
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $pane = $worksheet->getActivePane();
+        self::assertEmpty($pane);
+        $worksheet->setSelectedCells('D3');
+        $worksheet->freezePane('A2');
         $freeze = $this->getPane($worksheet);
-        self::assertSame('A1', $freeze);
+        $pane = $worksheet->getActivePane();
+        $selected = $worksheet->getSelectedCells();
+        self::assertSame('A2', $freeze);
+        self::assertSame('D3', $selected);
+        self::assertSame('bottomLeft', $pane);
         $worksheet->unfreezePane();
         // Scrutinizer is an idiot. If it still complains, I give up.
         self::assertNull($this->getPane($worksheet));
+        $freeze = $this->getPane($worksheet);
+        $pane = $worksheet->getActivePane();
+        $selected = $worksheet->getSelectedCells();
+        self::assertEmpty($freeze);
+        self::assertEquals('', $pane);
+        self::assertSame('D3', $selected);
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testFreezeA1(): void
+    {
+        $worksheet = new Worksheet();
+        $worksheet->freezePane('A1');
+        $freeze = $this->getPane($worksheet);
+        self::assertNull($freeze);
     }
 
     public function testInsertBeforeRowOne(): void
