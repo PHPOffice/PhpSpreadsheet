@@ -2,8 +2,7 @@
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
-use PhpOffice\PhpSpreadsheet\Writer\Html as HtmlWriter;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx as XlsxWriter;
+use PhpOffice\PhpSpreadsheet\Writer\BaseWriter;
 
 require __DIR__ . '/../Header.php';
 
@@ -64,20 +63,16 @@ $drawing->setHeight(36);
 $drawing->setWorksheet($sheet2);
 $drawing->setCoordinates('C5');
 
-/** @param HtmlWriter|XlsxWriter $writer */
-function setAllSheetsForHtml($writer): void
-{
-    if (method_exists($writer, 'writeAllSheets')) {
-        $writer->writeAllSheets();
-    }
-}
-
 // Save
 $helper->write(
     $spreadsheet,
     __FILE__,
     ['Xlsx', 'Html'],
     false,
-    'setAllSheetsForHtml'
+    function (BaseWriter $writer): void {
+        if (method_exists($writer, 'writeAllSheets')) {
+            $writer->writeAllSheets();
+        }
+    }
 );
 $spreadsheet->disconnectWorksheets();

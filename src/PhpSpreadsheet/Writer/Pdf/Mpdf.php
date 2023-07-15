@@ -77,8 +77,7 @@ class Mpdf extends Pdf
             $pdf->WriteHTML(substr($html, 0, $bodyLocation));
             $html = substr($html, $bodyLocation);
         }
-        $lines = explode("\n", $html);
-        foreach ($lines as $line) {
+        foreach (explode("\n", $html) as $line) {
             $pdf->WriteHTML("$line\n");
         }
 
