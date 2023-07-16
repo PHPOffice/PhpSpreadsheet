@@ -159,8 +159,8 @@ class RowColumnInformation
         [, $cellAddress] = Worksheet::extractSheetTitle($cellAddress, true);
         if (strpos($cellAddress, ':') !== false) {
             [$startAddress, $endAddress] = explode(':', $cellAddress);
-            $startAddress = (string) preg_replace('/\D/', '', $startAddress);
-            $endAddress = (string) preg_replace('/\D/', '', $endAddress);
+            $startAddress = (int) (string) preg_replace('/\D/', '', $startAddress);
+            $endAddress = (int) (string) preg_replace('/\D/', '', $endAddress);
 
             return array_map(
                 function ($value) {
