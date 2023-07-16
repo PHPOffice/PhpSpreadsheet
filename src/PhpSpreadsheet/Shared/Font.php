@@ -343,6 +343,33 @@ class Font
     }
 
     /**
+     * Pad amount for exact in pixels; use best guess if null.
+     *
+     * @var null|float|int
+     */
+    private static $paddingAmountExact;
+
+    /**
+     * Set pad amount for exact in pixels; use best guess if null.
+     *
+     * @param null|float|int $paddingAmountExact
+     */
+    public static function setPaddingAmountExact($paddingAmountExact): void
+    {
+        self::$paddingAmountExact = $paddingAmountExact;
+    }
+
+    /**
+     * Get pad amount for exact in pixels; or null if using best guess.
+     *
+     * @return null|float|int
+     */
+    public static function getPaddingAmountExact()
+    {
+        return self::$paddingAmountExact;
+    }
+
+    /**
      * Calculate an (approximate) OpenXML column width, based on font size and text contained.
      *
      * @param FontStyle $font Font object
@@ -391,7 +418,7 @@ class Font
 
                 // Width of text in pixels excl. padding
                 // and addition because Excel adds some padding, just use approx width of 'n' glyph
-                $columnWidth = self::getTextWidthPixelsExact($cellText, $font, $rotation) + $columnWidthAdjust;
+                $columnWidth = self::getTextWidthPixelsExact($cellText, $font, $rotation) + (self::$paddingAmountExact ?? $columnWidthAdjust);
             } catch (PhpSpreadsheetException $e) {
                 $approximate = true;
             }
