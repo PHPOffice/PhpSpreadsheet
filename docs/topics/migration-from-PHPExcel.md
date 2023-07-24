@@ -13,7 +13,7 @@ automatically your codebase. Assuming your files to be migrated lives
 in `src/`, you can run the migration like so:
 
 ```sh
-composer require rector/rector phpoffice/phpspreadsheet --dev
+composer require rector/rector rector/rector-phpoffice phpoffice/phpspreadsheet --dev
 
 # this creates rector.php config
 vendor/bin/rector init 
