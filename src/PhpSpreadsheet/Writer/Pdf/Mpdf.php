@@ -3,11 +3,13 @@
 namespace PhpOffice\PhpSpreadsheet\Writer\Pdf;
 
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
-use PhpOffice\PhpSpreadsheet\Writer\Html;
 use PhpOffice\PhpSpreadsheet\Writer\Pdf;
 
 class Mpdf extends Pdf
 {
+    public const SIMULATED_BODY_START = '<!-- simulated body start -->';
+    private const BODY_TAG = '<body>';
+
     /** @var bool */
     protected $isMPdf = true;
 
@@ -61,16 +63,22 @@ class Mpdf extends Pdf
         $pdf->SetCreator($this->spreadsheet->getProperties()->getCreator());
 
         $html = $this->generateHTMLAll();
-        $bodyLocation = strpos($html, Html::BODY_LINE);
+        $bodyLocation = strpos($html, self::SIMULATED_BODY_START);
+        if ($bodyLocation === false) {
+            $bodyLocation = strpos($html, self::BODY_TAG);
+            if ($bodyLocation !== false) {
+                $bodyLocation += strlen(self::BODY_TAG);
+            }
+        }
         // Make sure first data presented to Mpdf includes body tag
+        //   (and any htmlpageheader/htmlpagefooter tags)
         //   so that Mpdf doesn't parse it as content. Issue 2432.
         if ($bodyLocation !== false) {
-            $bodyLocation += strlen(Html::BODY_LINE);
             $pdf->WriteHTML(substr($html, 0, $bodyLocation));
             $html = substr($html, $bodyLocation);
         }
-        foreach (\array_chunk(\explode(PHP_EOL, $html), 1000) as $lines) {
-            $pdf->WriteHTML(\implode(PHP_EOL, $lines));
+        foreach (explode("\n", $html) as $line) {
+            $pdf->WriteHTML("$line\n");
         }
 
         //  Write to file
