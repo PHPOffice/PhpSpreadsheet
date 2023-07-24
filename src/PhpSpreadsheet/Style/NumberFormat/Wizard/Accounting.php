@@ -28,7 +28,8 @@ class Accounting extends Currency
         bool $thousandsSeparator = true,
         bool $currencySymbolPosition = self::LEADING_SYMBOL,
         bool $currencySymbolSpacing = self::SYMBOL_WITHOUT_SPACING,
-        ?string $locale = null
+        ?string $locale = null,
+        bool $stripLeadingRLM = self::DEFAULT_STRIP_LEADING_RLM
     ) {
         $this->setCurrencyCode($currencyCode);
         $this->setThousandsSeparator($thousandsSeparator);
@@ -36,6 +37,7 @@ class Accounting extends Currency
         $this->setCurrencySymbolPosition($currencySymbolPosition);
         $this->setCurrencySymbolSpacing($currencySymbolSpacing);
         $this->setLocale($locale);
+        $this->stripLeadingRLM = $stripLeadingRLM;
     }
 
     /**
@@ -44,16 +46,20 @@ class Accounting extends Currency
     protected function getLocaleFormat(): string
     {
         if (version_compare(PHP_VERSION, '7.4.1', '<')) {
+            // @codeCoverageIgnoreStart
             throw new Exception('The Intl extension does not support Accounting Formats below PHP 7.4.1');
+            // @codeCoverageIgnoreEnd
         }
 
-        if ($this->icuVersion() < 53.0) {
+        if (self::icuVersion() < 53.0) {
+            // @codeCoverageIgnoreStart
             throw new Exception('The Intl extension does not support Accounting Formats without ICU 53');
+            // @codeCoverageIgnoreEnd
         }
 
         // Scrutinizer does not recognize CURRENCY_ACCOUNTING
         $formatter = new Locale($this->fullLocale, NumberFormatter::CURRENCY_ACCOUNTING);
-        $mask = $formatter->format();
+        $mask = $formatter->format($this->stripLeadingRLM);
         if ($this->decimals === 0) {
             $mask = (string) preg_replace('/\.0+/miu', '', $mask);
         }
@@ -61,7 +67,7 @@ class Accounting extends Currency
         return str_replace('¤', $this->formatCurrencyCode(), $mask);
     }
 
-    private function icuVersion(): float
+    public static function icuVersion(): float
     {
         [$major, $minor] = explode('.', INTL_ICU_VERSION);
 
