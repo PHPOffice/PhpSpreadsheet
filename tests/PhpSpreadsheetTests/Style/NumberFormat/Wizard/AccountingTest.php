@@ -44,19 +44,25 @@ class AccountingTest extends TestCase
     public function testAccountingLocale(
         string $expectedResult,
         string $currencyCode,
-        string $locale
+        string $locale,
+        ?bool $stripRLM = null
     ): void {
         if (class_exists(NumberFormatter::class) === false) {
             self::markTestSkipped('Intl extension is not available');
         }
 
         $wizard = new Accounting($currencyCode);
+        if ($stripRLM !== null) {
+            $wizard->setStripLeadingRLM($stripRLM);
+        }
         $wizard->setLocale($locale);
         self::assertSame($expectedResult, (string) $wizard);
     }
 
     public static function providerAccountingLocale(): array
     {
+        // \u{a0} is non-breaking space
+        // \u{200e} is LRM (left-to-right mark)
         return [
             ["[\$€-fy-NL]\u{a0}#,##0.00;([\$€-fy-NL]\u{a0}#,##0.00)", '€', 'fy-NL'],
             ["[\$€-nl-NL]\u{a0}#,##0.00;([\$€-nl-NL]\u{a0}#,##0.00)", '€', 'nl-NL'],
@@ -66,8 +72,32 @@ class AccountingTest extends TestCase
             ['[$$-en-CA]#,##0.00;([$$-en-CA]#,##0.00)', '$', 'en-ca'],
             ["#,##0.00\u{a0}[\$\$-fr-CA];(#,##0.00\u{a0}[\$\$-fr-CA])", '$', 'fr-ca'],
             ['[$¥-ja-JP]#,##0;([$¥-ja-JP]#,##0)', '¥', 'ja-JP'], // No decimals
-            ["#,##0.000\u{a0}[\$د.ب‎-ar-BH]", 'د.ب‎', 'ar-BH'],  // 3 decimals
+            ["#,##0.000\u{a0}[\$د.ب\u{200e}-ar-BH]", "د.ب\u{200e}", 'ar-BH', true],  // 3 decimals
         ];
+    }
+
+    public function testIcu721(): void
+    {
+        if (class_exists(NumberFormatter::class) === false) {
+            self::markTestSkipped('Intl extension is not available');
+        }
+
+        $currencyCode = "د.ب\u{200e}";
+        $locale = 'ar-BH';
+        $wizardFalse = new Accounting($currencyCode);
+        $wizardFalse->setStripLeadingRLM(false);
+        $wizardFalse->setLocale($locale);
+        $stringFalse = (string) $wizardFalse;
+        $wizardTrue = new Accounting($currencyCode);
+        $wizardTrue->setStripLeadingRLM(true);
+        $wizardTrue->setLocale($locale);
+        $stringTrue = (string) $wizardTrue;
+        $version = Accounting::icuVersion();
+        if ($version < 72.1) {
+            self::assertSame($stringFalse, $stringTrue);
+        } else {
+            self::assertSame("\u{200f}$stringTrue", $stringFalse);
+        }
     }
 
     /**
@@ -76,19 +106,25 @@ class AccountingTest extends TestCase
     public function testAccountingLocaleNoDecimals(
         string $expectedResult,
         string $currencyCode,
-        string $locale
+        string $locale,
+        ?bool $stripRLM = null
     ): void {
         if (class_exists(NumberFormatter::class) === false) {
             self::markTestSkipped('Intl extension is not available');
         }
 
         $wizard = new Accounting($currencyCode, 0);
+        if ($stripRLM !== null) {
+            $wizard->setStripLeadingRLM($stripRLM);
+        }
         $wizard->setLocale($locale);
         self::assertSame($expectedResult, (string) $wizard);
     }
 
     public static function providerAccountingLocaleNoDecimals(): array
     {
+        // \u{a0} is non-breaking space
+        // \u{200e} is LRM (left-to-right mark)
         return [
             ["[\$€-fy-NL]\u{a0}#,##0;([\$€-fy-NL]\u{a0}#,##0)", '€', 'fy-NL'],
             ["[\$€-nl-NL]\u{a0}#,##0;([\$€-nl-NL]\u{a0}#,##0)", '€', 'nl-NL'],
@@ -98,7 +134,7 @@ class AccountingTest extends TestCase
             ['[$$-en-CA]#,##0;([$$-en-CA]#,##0)', '$', 'en-ca'],
             ["#,##0\u{a0}[\$\$-fr-CA];(#,##0\u{a0}[\$\$-fr-CA])", '$', 'fr-ca'],
             ['[$¥-ja-JP]#,##0;([$¥-ja-JP]#,##0)', '¥', 'ja-JP'], // No decimals to truncate
-            ["#,##0\u{a0}[\$د.ب‎-ar-BH]", 'د.ب‎', 'ar-BH'],  // 3 decimals truncated to none
+            ["#,##0\u{a0}[\$د.ب\u{200e}-ar-BH]", "د.ب\u{200e}", 'ar-BH', true],  // 3 decimals truncated to none
         ];
     }
 
