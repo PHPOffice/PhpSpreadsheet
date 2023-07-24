@@ -9,11 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Added
 
-- Nothing
+- Split screens (Xlsx and Xml only, not 100% complete). [Issue #3601](https://github.com/PHPOffice/PhpSpreadsheet/issues/3601) [PR #3622](https://github.com/PHPOffice/PhpSpreadsheet/pull/3622)
+- Permit Meta Viewport in Html. [Issue #3565](https://github.com/PHPOffice/PhpSpreadsheet/issues/3565) [PR #3623](https://github.com/PHPOffice/PhpSpreadsheet/pull/3623)
 
 ### Changed
 
-- Nothing
+- RLM Added to NumberFormatter Currency. This happens depending on release of ICU which Php is using (it does not yet happen with any official release). PhpSpreadsheet will continue to use the value returned by Php, but a method is added to keep the result unchanged from release to release. [Issue #3571](https://github.com/PHPOffice/PhpSpreadsheet/issues/3571) [PR #3640](https://github.com/PHPOffice/PhpSpreadsheet/pull/3640)
 
 ### Deprecated
 
@@ -25,8 +26,13 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Fixed
 
-- Nothing
-
+- Take advantage of mitoteam/jpgraph Extended mode to enable rendering of more graphs. [PR #3603](https://github.com/PHPOffice/PhpSpreadsheet/pull/3603)
+- Column widths, especially for ODS. [Issue #3609](https://github.com/PHPOffice/PhpSpreadsheet/issues/3609) [PR #3610](https://github.com/PHPOffice/PhpSpreadsheet/pull/3610)
+- Avoid NULL in String Function call (partial solution). [Issue #3613](https://github.com/PHPOffice/PhpSpreadsheet/issues/3613) [PR #3617](https://github.com/PHPOffice/PhpSpreadsheet/pull/3617)
+- Preserve transparency in Memory Drawing. [Issue #3624](https://github.com/PHPOffice/PhpSpreadsheet/issues/3624) [PR #3627](https://github.com/PHPOffice/PhpSpreadsheet/pull/3627)
+- Customizable padding for Exact Column Width. [Issue #3626](https://github.com/PHPOffice/PhpSpreadsheet/issues/3626) [PR #3628](https://github.com/PHPOffice/PhpSpreadsheet/pull/3628)
+- Ensure ROW function returns int (problem exposed in unreleased Php). [PR #3641](https://github.com/PHPOffice/PhpSpreadsheet/pull/3641)
+- Minor changes to Mpdf and Html Writers. [PR #3645](https://github.com/PHPOffice/PhpSpreadsheet/pull/3645)
 
 ## 1.29.0 - 2023-06-15
 
