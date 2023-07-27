@@ -28,7 +28,7 @@ class Sum
         foreach (Functions::flattenArray($args) as $arg) {
             // Is it a numeric value?
             if (is_numeric($arg)) {
-                $returnValue += $arg;
+                $returnValue += (float) $arg;
             } elseif (ErrorValue::isError($arg)) {
                 return $arg;
             }
@@ -58,7 +58,7 @@ class Sum
             // Is it a numeric value?
             if (is_numeric($arg) || empty($arg)) {
                 if (is_string($arg)) {
-                    $arg = (int) $arg;
+                    $arg = (float) $arg;
                 }
                 $returnValue += $arg;
             } elseif (is_bool($arg)) {
