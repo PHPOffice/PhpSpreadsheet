@@ -31,7 +31,7 @@ class RefErrorTest extends TestCase
         $sheet1->getCell('C2')->setValue('=Sheet2!A1');
         $sheet1->getCell('C3')->setValue('=Sheet2!A2');
         $sheet1->getCell('H1')->setValue($formula);
-        self::assertEquals($expected, $sheet1->getCell('H1')->getCalculatedValue());
+        self::assertSame($expected, $sheet1->getCell('H1')->getCalculatedValue());
         $spreadsheet->disconnectWorksheets();
     }
 
