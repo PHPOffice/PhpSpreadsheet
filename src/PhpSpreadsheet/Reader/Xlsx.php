@@ -1184,7 +1184,7 @@ class Xlsx extends BaseReader
                                                 if (isset($drowingImages[$fillImageRelId])) {
                                                     $objDrawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
                                                     $objDrawing->setName($fillImageTitle);
-                                                    $imagePath = str_replace('../', 'xl/', $drowingImages[$fillImageRelId]);
+                                                    $imagePath = str_replace(['../', '/xl/'], 'xl/', $drowingImages[$fillImageRelId]);
                                                     $objDrawing->setPath(
                                                         'zip://' . File::realpath($filename) . '#' . $imagePath,
                                                         true,
@@ -2134,8 +2134,9 @@ class Xlsx extends BaseReader
                 $rId = $rId . 'ps'; // rIdXXX, add 'ps' suffix to avoid identical resource identifier collision with unparsed vmlDrawing
             }
             $unparsedPrinterSettings[$rId] = [];
-            $unparsedPrinterSettings[$rId]['filePath'] = self::dirAdd("$dir/$fileWorksheet", $printerSettings['Target']);
-            $unparsedPrinterSettings[$rId]['relFilePath'] = (string) $printerSettings['Target'];
+            $target = (string) str_replace('/xl/', '../', (string) $printerSettings['Target']);
+            $unparsedPrinterSettings[$rId]['filePath'] = self::dirAdd("$dir/$fileWorksheet", $target);
+            $unparsedPrinterSettings[$rId]['relFilePath'] = $target;
             $unparsedPrinterSettings[$rId]['content'] = $this->getSecurityScannerOrThrow()->scan($this->getFromZipArchive($zip, $unparsedPrinterSettings[$rId]['filePath']));
         }
         unset($unparsedPrinterSettings);
