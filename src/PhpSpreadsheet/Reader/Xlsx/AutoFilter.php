@@ -113,7 +113,7 @@ class AutoFilter
                 $column->setJoin(Column::AUTOFILTER_COLUMN_JOIN_AND);
             }
             foreach ($customFilters->customFilter as $filterRule) {
-                $attr2 = $filterRule->attributes() ?? ['operator' => '', 'val' => ''];
+                $attr2 = $filterRule->/** @scrutinizer ignore-call */ attributes() ?? ['operator' => '', 'val' => ''];
                 $column->createRule()->setRule(
                     (string) $attr2['operator'],
                     (string) $attr2['val']
