@@ -47,7 +47,7 @@ class AutoFilter
         $autoFilter->setRange($autoFilterRange);
 
         foreach ($this->worksheetXml->autoFilter->filterColumn as $filterColumn) {
-            $attributes = $filterColumn->attributes() ?? [];
+            $attributes = $filterColumn->/** @scrutinizer ignore-call */ attributes() ?? [];
             $column = $autoFilter->getColumnByOffset((int) ($attributes['colId'] ?? 0));
             //    Check for standard filters
             if ($filterColumn->filters) {
@@ -61,7 +61,7 @@ class AutoFilter
                 //    Entries can be either filter elements
                 foreach ($filterColumn->filters->filter as $filterRule) {
                     //    Operator is undefined, but always treated as EQUAL
-                    $attr2 = $filterRule->attributes() ?? ['val' => ''];
+                    $attr2 = $filterRule->/** @scrutinizer ignore-call */ attributes() ?? ['val' => ''];
                     $column->createRule()->setRule('', (string) $attr2['val'])->setRuleType(Rule::AUTOFILTER_RULETYPE_FILTER);
                 }
 
@@ -83,7 +83,7 @@ class AutoFilter
     {
         foreach ($filters->dateGroupItem as $dateGroupItemx) {
             //    Operator is undefined, but always treated as EQUAL
-            $dateGroupItem = $dateGroupItemx->attributes();
+            $dateGroupItem = $dateGroupItemx->/** @scrutinizer ignore-call */ attributes();
             if ($dateGroupItem !== null) {
                 $column->createRule()->setRule(
                     '',
