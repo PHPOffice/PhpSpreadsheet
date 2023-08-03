@@ -34,7 +34,8 @@ class AutoFilter
     {
         // Remove all "$" in the auto filter range
         $attrs = $this->worksheetXml->autoFilter->attributes() ?? [];
-        $autoFilterRange = (string) preg_replace('/\$/', '', $attrs['ref'] ?? '');
+        // Mysterious 'Node no longer exists' warning for Php7.4 only.
+        $autoFilterRange = (string) @preg_replace('/\$/', '', $attrs['ref'] ?? '');
         if (strpos($autoFilterRange, ':') !== false) {
             $this->readAutoFilter($autoFilterRange);
         }
