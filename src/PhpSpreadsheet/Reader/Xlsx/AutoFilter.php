@@ -129,7 +129,7 @@ class AutoFilter
             //    We should only ever have one dynamic filter
             foreach ($filterColumn->dynamicFilter as $filterRule) {
                 //    Operator is undefined, but always treated as EQUAL
-                $attr2 = $filterRule->attributes() ?? [];
+                $attr2 = $filterRule->/** @scrutinizer ignore-call */ attributes() ?? [];
                 $column->createRule()->setRule(
                     '',
                     (string) ($attr2['val'] ?? ''),
@@ -151,7 +151,7 @@ class AutoFilter
             $column->setFilterType(Column::AUTOFILTER_FILTERTYPE_TOPTENFILTER);
             //    We should only ever have one top10 filter
             foreach ($filterColumn->top10 as $filterRule) {
-                $attr2 = $filterRule->attributes() ?? [];
+                $attr2 = $filterRule->/** @scrutinizer ignore-call */ attributes() ?? [];
                 $column->createRule()->setRule(
                     (
                         ((isset($attr2['percent'])) && ((string) $attr2['percent'] === '1'))
