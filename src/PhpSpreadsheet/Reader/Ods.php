@@ -624,6 +624,9 @@ class Ods extends BaseReader
                                                 }
 
                                                 if ($hyperlink !== null) {
+                                                    if ($hyperlink[0] === '#') {
+                                                        $hyperlink = 'sheet://' . substr($hyperlink, 1);
+                                                    }
                                                     $cell->getHyperlink()
                                                         ->setUrl($hyperlink);
                                                 }
