@@ -56,7 +56,7 @@ class CellReferenceHelper
             $this->numberOfRows !== $numberOfRows;
     }
 
-    public function updateCellReference(string $cellReference = 'A1', bool $includeAbsoluteReferences = false): string
+    public function updateCellReference(string $cellReference = 'A1', bool $includeAbsoluteReferences = false, bool $onlyAbsoluteReferences = false): string
     {
         if (Coordinate::coordinateIsRange($cellReference)) {
             throw new Exception('Only single cell references may be passed to this method.');
@@ -70,7 +70,10 @@ class CellReferenceHelper
         $absoluteColumn = $newColumn[0] === '$' ? '$' : '';
         $absoluteRow = $newRow[0] === '$' ? '$' : '';
         // Verify which parts should be updated
-        if ($includeAbsoluteReferences === false) {
+        if ($onlyAbsoluteReferences === true) {
+            $updateColumn = (($absoluteColumn === '$') && $newColumnIndex >= $this->beforeColumn);
+            $updateRow = (($absoluteRow === '$') && $newRowIndex >= $this->beforeRow);
+        } elseif ($includeAbsoluteReferences === false) {
             $updateColumn = (($absoluteColumn !== '$') && $newColumnIndex >= $this->beforeColumn);
             $updateRow = (($absoluteRow !== '$') && $newRowIndex >= $this->beforeRow);
         } else {
