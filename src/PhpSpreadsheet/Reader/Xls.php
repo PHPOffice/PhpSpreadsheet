@@ -498,6 +498,10 @@ class Xls extends BaseReader
                     $this->readDefault();
 
                     break 2;
+                case self::XLS_TYPE_CODEPAGE:
+                    $this->readCodepage();
+
+                    break;
                 default:
                     $this->readDefault();
 
@@ -557,6 +561,10 @@ class Xls extends BaseReader
                     $this->readDefault();
 
                     break 2;
+                case self::XLS_TYPE_CODEPAGE:
+                    $this->readCodepage();
+
+                    break;
                 default:
                     $this->readDefault();
 
