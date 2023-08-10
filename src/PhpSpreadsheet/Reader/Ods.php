@@ -292,11 +292,11 @@ class Ods extends BaseReader
             Settings::getLibXmlLoaderOptions()
         );
 
-        $officeNs = $dom->lookupNamespaceUri('office');
-        $tableNs = $dom->lookupNamespaceUri('table');
-        $textNs = $dom->lookupNamespaceUri('text');
-        $xlinkNs = $dom->lookupNamespaceUri('xlink');
-        $styleNs = $dom->lookupNamespaceUri('style');
+        $officeNs = (string) $dom->lookupNamespaceUri('office');
+        $tableNs = (string) $dom->lookupNamespaceUri('table');
+        $textNs = (string) $dom->lookupNamespaceUri('text');
+        $xlinkNs = (string) $dom->lookupNamespaceUri('xlink');
+        $styleNs = (string) $dom->lookupNamespaceUri('style');
 
         $pageSettings->readStyleCrossReferences($dom);
 
@@ -668,9 +668,9 @@ class Ods extends BaseReader
             Settings::getLibXmlLoaderOptions()
         );
         //$xlinkNs = $dom->lookupNamespaceUri('xlink');
-        $configNs = $dom->lookupNamespaceUri('config');
+        $configNs = (string) $dom->lookupNamespaceUri('config');
         //$oooNs = $dom->lookupNamespaceUri('ooo');
-        $officeNs = $dom->lookupNamespaceUri('office');
+        $officeNs = (string) $dom->lookupNamespaceUri('office');
         $settings = $dom->getElementsByTagNameNS($officeNs, 'settings')
             ->item(0);
         if ($settings !== null) {
