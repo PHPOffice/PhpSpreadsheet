@@ -18,7 +18,7 @@ class Sum
      *
      * @param mixed ...$args Data values
      *
-     * @return float|integer|string
+     * @return float|int|string
      */
     public static function sumIgnoringStrings(...$args)
     {
@@ -47,7 +47,7 @@ class Sum
      *
      * @param mixed ...$args Data values
      *
-     * @return float|integer|string
+     * @return float|int|string
      */
     public static function sumErroringStrings(...$args)
     {
