@@ -793,6 +793,14 @@ class Xlsx extends BaseReader
                             $docSheet->setTitle((string) $eleSheetAttr['name'], false, false);
 
                             $fileWorksheet = (string) $worksheets[$sheetReferenceId];
+                            // issue 3665 adds test for /.
+                            // This broke XlsxRootZipFilesTest,
+                            //  but Excel reports an error with that file.
+                            //  Testing dir for . avoids this problem.
+                            //  It might be better just to drop the test.
+                            if ($fileWorksheet[0] == '/' && $dir !== '.') {
+                                $fileWorksheet = substr($fileWorksheet, strlen($dir) + 2);
+                            }
                             $xmlSheet = $this->loadZipNoNamespace("$dir/$fileWorksheet", $mainNS);
                             $xmlSheetNS = $this->loadZip("$dir/$fileWorksheet", $mainNS);
 
@@ -980,8 +988,8 @@ class Xlsx extends BaseReader
                             }
 
                             if ($this->readDataOnly === false) {
-                                $this->readAutoFilter($xmlSheet, $docSheet);
-                                $this->readTables($xmlSheet, $docSheet, $dir, $fileWorksheet, $zip);
+                                $this->readAutoFilter($xmlSheetNS, $docSheet);
+                                $this->readTables($xmlSheetNS, $docSheet, $dir, $fileWorksheet, $zip, $mainNS);
                             }
 
                             if ($xmlSheetNS && $xmlSheetNS->mergeCells && $xmlSheetNS->mergeCells->mergeCell && !$this->readDataOnly) {
@@ -2206,10 +2214,14 @@ class Xlsx extends BaseReader
         Worksheet $docSheet,
         string $dir,
         string $fileWorksheet,
-        ZipArchive $zip
+        ZipArchive $zip,
+        string $namespaceTable
     ): void {
-        if ($xmlSheet && $xmlSheet->tableParts && (int) $xmlSheet->tableParts['count'] > 0) {
-            $this->readTablesInTablesFile($xmlSheet, $dir, $fileWorksheet, $zip, $docSheet);
+        if ($xmlSheet && $xmlSheet->tableParts) {
+            $attributes = $xmlSheet->tableParts->attributes() ?? ['count' => 0];
+            if (((int) $attributes['count']) > 0) {
+                $this->readTablesInTablesFile($xmlSheet, $dir, $fileWorksheet, $zip, $docSheet, $namespaceTable);
+            }
         }
     }
 
@@ -2218,7 +2230,8 @@ class Xlsx extends BaseReader
         string $dir,
         string $fileWorksheet,
         ZipArchive $zip,
-        Worksheet $docSheet
+        Worksheet $docSheet,
+        string $namespaceTable
     ): void {
         foreach ($xmlSheet->tableParts->tablePart as $tablePart) {
             $relation = self::getAttributes($tablePart, Namespaces::SCHEMA_OFFICE_DOCUMENT);
@@ -2236,7 +2249,7 @@ class Xlsx extends BaseReader
                         $relationshipFilePath = File::realpath($relationshipFilePath);
 
                         if ($this->fileExistsInArchive($this->zip, $relationshipFilePath)) {
-                            $tableXml = $this->loadZip($relationshipFilePath);
+                            $tableXml = $this->loadZip($relationshipFilePath, $namespaceTable);
                             (new TableReader($docSheet, $tableXml))->load();
                         }
                     }
