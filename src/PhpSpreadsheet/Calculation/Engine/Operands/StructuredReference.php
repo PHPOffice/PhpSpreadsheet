@@ -85,8 +85,13 @@ final class StructuredReference implements Operand
     {
         $this->getTableStructure($cell);
         $cellRange = ($this->isRowReference()) ? $this->getRowReference($cell) : $this->getColumnReference();
+        $sheetName = '';
+        $worksheet = $this->table->getWorksheet();
+        if ($worksheet !== null && $worksheet !== $cell->getWorksheet()) {
+            $sheetName = "'" . $worksheet->getTitle() . "'!";
+        }
 
-        return $cellRange;
+        return $sheetName . $cellRange;
     }
 
     private function isRowReference(): bool
@@ -115,7 +120,12 @@ final class StructuredReference implements Operand
         $this->totalsRow = ($this->table->getShowTotalsRow()) ? (int) $tableRange[1][1] : null;
         $this->lastDataRow = ($this->table->getShowTotalsRow()) ? (int) $tableRange[1][1] - 1 : $tableRange[1][1];
 
-        $this->columns = $this->getColumns($cell, $tableRange);
+        $cellParam = $cell;
+        $worksheet = $this->table->getWorksheet();
+        if ($worksheet !== null && $worksheet !== $cell->getWorksheet()) {
+            $cellParam = $worksheet->getCell('A1');
+        }
+        $this->columns = $this->getColumns($cellParam, $tableRange);
     }
 
     /**
@@ -161,10 +171,12 @@ final class StructuredReference implements Operand
     {
         $spreadsheet = $cell->getWorksheet()->getParent();
 
-        foreach ($spreadsheet->getAllSheets() as $sheet) {
-            $table = $sheet->getTableByName($this->tableName);
-            if (null !== $table) {
-                return $table;
+        if ($spreadsheet !== null) {
+            foreach ($spreadsheet->getAllSheets() as $sheet) {
+                $table = $sheet->getTableByName($this->tableName);
+                if (null !== $table) {
+                    return $table;
+                }
             }
         }
 
@@ -342,7 +354,7 @@ final class StructuredReference implements Operand
     {
         $columnsSelected = false;
         foreach ($this->columns as $columnId => $columnName) {
-            $columnName = str_replace("\u{a0}", ' ', $columnName);
+            $columnName = str_replace("\u{a0}", ' ', $columnName ?? '');
             $cellFrom = "{$columnId}{$startRow}";
             $cellTo = "{$columnId}{$endRow}";
             $cellReference = ($cellFrom === $cellTo) ? $cellFrom : "{$cellFrom}:{$cellTo}";
