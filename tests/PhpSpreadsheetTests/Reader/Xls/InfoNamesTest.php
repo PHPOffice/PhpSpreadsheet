@@ -134,6 +134,9 @@ class InfoNamesTest extends TestCase
         self::assertSame('Ładowność', $sheet->getCell('I1')->getValue());
         self::assertSame(Xls::XLS_BIFF8, $reader->getVersion());
         self::assertSame('UTF-16LE', $reader->getCodepage());
+        $properties = $spreadsheet->getProperties();
+        // the following is stored as MACCENTRALEUROPE, not UTF-16LE
+        self::assertSame('Użytkownik Microsoft Office', $properties->getLastModifiedBy());
         $spreadsheet->disconnectWorksheets();
     }
 }
