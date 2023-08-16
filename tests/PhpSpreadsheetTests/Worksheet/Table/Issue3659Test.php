@@ -34,7 +34,6 @@ class Issue3659Test extends SetupTeardown
         $sheet->getCell('A2')->setValue('=SUM(Tableau1[])');
         $sheet->getCell('A3')->setValue('=SUM(Tableau1)');
         $sheet->getCell('A4')->setValue('=CONCAT(Tableau1)');
-        $result = $sheet->getCell('A1')->getCalculatedValue();
         self::assertSame(19, $sheet->getCell('A1')->getCalculatedValue());
         self::assertSame(39, $sheet->getCell('A2')->getCalculatedValue());
         self::assertSame(39, $sheet->getCell('A3')->getCalculatedValue());
