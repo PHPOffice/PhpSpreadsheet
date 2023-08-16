@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Worksheet\Table;
 
 use PhpOffice\PhpSpreadsheet\Worksheet\Table;
 
-class Issue3569Test extends SetupTeardown
+class Issue3659Test extends SetupTeardown
 {
     public function testTableOnOtherSheet(): void
     {
