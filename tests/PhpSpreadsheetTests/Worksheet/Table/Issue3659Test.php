@@ -16,7 +16,7 @@ class Issue3659Test extends SetupTeardown
         $tableSheet->fromArray(
             [
                 ['MyCol', 'Colonne2', 'Colonne3'],
-                [1],
+                [10, 20],
                 [2],
                 [3],
                 [4],
@@ -31,8 +31,14 @@ class Issue3659Test extends SetupTeardown
         $tableSheet->setSelectedCells('F8');
         self::assertSame($sheet, $spreadsheet->getActiveSheet());
         $sheet->getCell('A1')->setValue('=SUM(Tableau1[MyCol])');
+        $sheet->getCell('A2')->setValue('=SUM(Tableau1[])');
+        $sheet->getCell('A3')->setValue('=SUM(Tableau1)');
+        $sheet->getCell('A4')->setValue('=CONCAT(Tableau1)');
         $result = $sheet->getCell('A1')->getCalculatedValue();
-        self::assertSame(10, $result);
+        self::assertSame(19, $sheet->getCell('A1')->getCalculatedValue());
+        self::assertSame(39, $sheet->getCell('A2')->getCalculatedValue());
+        self::assertSame(39, $sheet->getCell('A3')->getCalculatedValue());
+        self::assertSame('1020234', $sheet->getCell('A4')->getCalculatedValue(), 'Header row not included');
         self::assertSame('F7', $sheet->getSelectedCells());
         self::assertSame('F8', $tableSheet->getSelectedCells());
         self::assertSame($sheet, $spreadsheet->getActiveSheet());

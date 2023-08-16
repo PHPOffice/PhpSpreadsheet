@@ -157,7 +157,10 @@ final class StructuredReference implements Operand
         $table = $cell->getWorksheet()->getTableByName($this->tableName);
 
         if ($table === null) {
-            $table = $this->findTableFromOtherSheets($cell);
+            $spreadsheet = $cell->getWorksheet()->getParent();
+            if ($spreadsheet !== null) {
+                $table = $spreadsheet->getTableByName($this->tableName);
+            }
         }
 
         if ($table === null) {
@@ -165,22 +168,6 @@ final class StructuredReference implements Operand
         }
 
         return $table;
-    }
-
-    private function findTableFromOtherSheets(Cell $cell): ?Table
-    {
-        $spreadsheet = $cell->getWorksheet()->getParent();
-
-        if ($spreadsheet !== null) {
-            foreach ($spreadsheet->getAllSheets() as $sheet) {
-                $table = $sheet->getTableByName($this->tableName);
-                if (null !== $table) {
-                    return $table;
-                }
-            }
-        }
-
-        return null;
     }
 
     private function getColumns(Cell $cell, array $tableRange): array
