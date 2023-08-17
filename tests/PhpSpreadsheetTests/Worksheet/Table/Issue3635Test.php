@@ -8,7 +8,6 @@ class Issue3635Test extends SetupTeardown
 {
     public function testNewExample(): void
     {
-        $spreadsheet = $this->getSpreadsheet();
         $sheet = $this->getSheet();
         $sheet->setTitle('Feuil1');
         $sheet->fromArray(
@@ -35,7 +34,6 @@ class Issue3635Test extends SetupTeardown
 
     public function testOriginalExample(): void
     {
-        $spreadsheet = $this->getSpreadsheet();
         $sheet = $this->getSheet();
         $formula = '=IF([@BAUTEIL]="EK","Entrauchungsklappe",(IF([@BAUTEIL]="VE","Entrauchungsventilator",(IF([@BAUTEIL]="JK","Jalousieklappe",(IF([@BAUTEIL]="LK","Lichtkuppel","ok")))))))';
         $sheet->fromArray(
