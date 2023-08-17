@@ -358,4 +358,9 @@ final class StructuredReference implements Operand
 
         return $reference;
     }
+
+    public function __toString(): string
+    {
+        return $this->value;
+    }
 }
