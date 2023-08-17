@@ -166,6 +166,37 @@ class DateFormatter
         // Excel 2003 XML formats, m will not have been changed to i above.
         // Change it now.
         $format = (string) \preg_replace('/\\\\:m/', ':i', $format);
+        $microseconds = (int) $dateObj->format('u');
+        if (strpos($format, ':s.000') !== false) {
+            $milliseconds = (int) round($microseconds / 1000.0);
+            if ($milliseconds === 1000) {
+                $milliseconds = 0;
+                $dateObj->modify('+1 second');
+            }
+            $dateObj->modify("-$microseconds microseconds");
+            $format = str_replace(':s.000', ':s.' . sprintf('%03d', $milliseconds), $format);
+        } elseif (strpos($format, ':s.00') !== false) {
+            $centiseconds = (int) round($microseconds / 10000.0);
+            if ($centiseconds === 100) {
+                $centiseconds = 0;
+                $dateObj->modify('+1 second');
+            }
+            $dateObj->modify("-$microseconds microseconds");
+            $format = str_replace(':s.00', ':s.' . sprintf('%02d', $centiseconds), $format);
+        } elseif (strpos($format, ':s.0') !== false) {
+            $deciseconds = (int) round($microseconds / 100000.0);
+            if ($deciseconds === 10) {
+                $deciseconds = 0;
+                $dateObj->modify('+1 second');
+            }
+            $dateObj->modify("-$microseconds microseconds");
+            $format = str_replace(':s.0', ':s.' . sprintf('%1d', $deciseconds), $format);
+        } else { // no fractional second
+            if ($microseconds >= 500000) {
+                $dateObj->modify('+1 second');
+            }
+            $dateObj->modify("-$microseconds microseconds");
+        }
 
         return $dateObj->format($format);
     }
