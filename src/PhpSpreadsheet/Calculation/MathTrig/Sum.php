@@ -18,7 +18,7 @@ class Sum
      *
      * @param mixed ...$args Data values
      *
-     * @return float|string
+     * @return float|int|string
      */
     public static function sumIgnoringStrings(...$args)
     {
@@ -47,7 +47,7 @@ class Sum
      *
      * @param mixed ...$args Data values
      *
-     * @return float|string
+     * @return float|int|string
      */
     public static function sumErroringStrings(...$args)
     {
@@ -56,10 +56,7 @@ class Sum
         $aArgs = Functions::flattenArrayIndexed($args);
         foreach ($aArgs as $k => $arg) {
             // Is it a numeric value?
-            if (is_numeric($arg) || empty($arg)) {
-                if (is_string($arg)) {
-                    $arg = (int) $arg;
-                }
+            if (is_numeric($arg)) {
                 $returnValue += $arg;
             } elseif (is_bool($arg)) {
                 $returnValue += (int) $arg;
