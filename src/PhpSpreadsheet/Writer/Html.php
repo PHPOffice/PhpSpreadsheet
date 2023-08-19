@@ -1384,14 +1384,10 @@ class Html extends BaseWriter
                 $cssClass .= ' style' . $cell->getXfIndex();
                 $cssClass .= ' ' . $cell->getDataType();
             } elseif (is_array($cssClass)) {
-                if ($cellType == 'th') {
-                    if (isset($this->cssStyles['th.style' . $cell->getXfIndex()])) {
-                        $cssClass = array_merge($cssClass, $this->cssStyles['th.style' . $cell->getXfIndex()]);
-                    }
-                } else {
-                    if (isset($this->cssStyles['td.style' . $cell->getXfIndex()])) {
-                        $cssClass = array_merge($cssClass, $this->cssStyles['td.style' . $cell->getXfIndex()]);
-                    }
+                $index = $cell->getXfIndex();
+                $styleIndex = 'td.style' . $index . ', th.style' . $index;
+                if (isset($this->cssStyles[$styleIndex])) {
+                    $cssClass = array_merge($cssClass, $this->cssStyles[$styleIndex]);
                 }
 
                 // General horizontal alignment: Actual horizontal alignment depends on dataType
