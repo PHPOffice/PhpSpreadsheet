@@ -1360,7 +1360,7 @@ class Html extends BaseWriter
      * @param null|Cell|string $cell
      * @param array|string $cssClass
      */
-    private function generateRowCellData(Worksheet $worksheet, $cell, &$cssClass, string $cellType): string
+    private function generateRowCellData(Worksheet $worksheet, $cell, &$cssClass): string
     {
         $cellData = '&nbsp;';
         if ($cell instanceof Cell) {
@@ -1507,7 +1507,7 @@ class Html extends BaseWriter
             [$cell, $cssClass, $coordinate] = $this->generateRowCellCss($worksheet, $cellAddress, $row, $colNum);
 
             // Cell Data
-            $cellData = $this->generateRowCellData($worksheet, $cell, $cssClass, $cellType);
+            $cellData = $this->generateRowCellData($worksheet, $cell, $cssClass);
 
             // Hyperlink?
             if ($worksheet->hyperlinkExists($coordinate) && !$worksheet->getHyperlink($coordinate)->isInternal()) {
