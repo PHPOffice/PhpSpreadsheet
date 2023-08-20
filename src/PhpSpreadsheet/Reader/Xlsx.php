@@ -1021,7 +1021,7 @@ class Xlsx extends BaseReader
                                         $xmlSheet->addChild('dataValidations');
                                     }
 
-                                    foreach ($extlst->children(Namespaces::DATA_VALIDATIONS1)->dataValidations->dataValidation as $item) {
+                                    foreach ($extlst->/** @scrutinizer ignore-call */ children(Namespaces::DATA_VALIDATIONS1)->dataValidations->dataValidation as $item) {
                                         $item = self::testSimpleXml($item);
                                         $node = self::testSimpleXml($xmlSheet->dataValidations)->addChild('dataValidation');
                                         foreach ($item->attributes() ?? [] as $attr) {
