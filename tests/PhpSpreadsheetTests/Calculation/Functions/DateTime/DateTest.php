@@ -118,7 +118,7 @@ class DateTest extends TestCase
     public static function providerUnhappyDATE(): array
     {
         return [
-            ['Formula Error: Wrong number of arguments for DATE() function', 2023, 03],
+            ['Formula Error: Wrong number of arguments for DATE() function', 2023, 3],
         ];
     }
 

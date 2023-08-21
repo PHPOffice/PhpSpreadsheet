@@ -193,7 +193,7 @@ class LocaleGenerator
             DIRECTORY_SEPARATOR .
             str_replace('_', DIRECTORY_SEPARATOR, $locale);
         if (!file_exists($localeFolder) || !is_dir($localeFolder)) {
-            mkdir($localeFolder, 0777, true);
+            mkdir($localeFolder, 7 * 64 + 7 * 8 + 7, true); // octal 777
         }
 
         return $localeFolder;
