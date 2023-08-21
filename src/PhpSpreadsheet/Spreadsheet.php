@@ -9,6 +9,7 @@ use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Style\Style;
 use PhpOffice\PhpSpreadsheet\Worksheet\Iterator;
+use PhpOffice\PhpSpreadsheet\Worksheet\Table;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx as XlsxWriter;
 
@@ -1684,5 +1685,18 @@ class Spreadsheet implements JsonSerializable
                 $cellStyleXf->getFont()->setName($minorFontLatin)->setScheme($scheme);
             }
         }
+    }
+
+    public function getTableByName(string $tableName): ?Table
+    {
+        $table = null;
+        foreach ($this->workSheetCollection as $sheet) {
+            $table = $sheet->getTableByName($tableName);
+            if ($table !== null) {
+                break;
+            }
+        }
+
+        return $table;
     }
 }

@@ -213,7 +213,7 @@ class Xls extends BaseReader
      *
      * @var int
      */
-    private $version;
+    private $version = 0;
 
     /**
      * Codepage set in the Excel file being read. Only important for BIFF5 (Excel 5.0 - Excel 95)
@@ -221,7 +221,7 @@ class Xls extends BaseReader
      *
      * @var string
      */
-    private $codepage;
+    private $codepage = '';
 
     /**
      * Shared formats.
@@ -459,6 +459,11 @@ class Xls extends BaseReader
         $this->codepage = $codepage;
     }
 
+    public function getCodepage(): string
+    {
+        return $this->codepage;
+    }
+
     /**
      * Reads names of the worksheets from a file, without parsing the whole file to a PhpSpreadsheet object.
      *
@@ -498,6 +503,10 @@ class Xls extends BaseReader
                     $this->readDefault();
 
                     break 2;
+                case self::XLS_TYPE_CODEPAGE:
+                    $this->readCodepage();
+
+                    break;
                 default:
                     $this->readDefault();
 
@@ -557,6 +566,10 @@ class Xls extends BaseReader
                     $this->readDefault();
 
                     break 2;
+                case self::XLS_TYPE_CODEPAGE:
+                    $this->readCodepage();
+
+                    break;
                 default:
                     $this->readDefault();
 
@@ -8087,5 +8100,10 @@ class Xls extends BaseReader
 
             $this->phpSheet->getStyle($cellRange)->setConditionalStyles($conditionalStyles);
         }
+    }
+
+    public function getVersion(): int
+    {
+        return $this->version;
     }
 }
