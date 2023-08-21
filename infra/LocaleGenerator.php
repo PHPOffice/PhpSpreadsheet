@@ -64,6 +64,8 @@ class LocaleGenerator
 
     protected $functionNameMap = [];
 
+    // Note - bg and en_uk are handled through pre-existing files,
+    //   not from the data in $translationSpreadsheetName (Translations.xlsx).
     public function __construct(
         string $translationBaseFolder,
         string $translationSpreadsheetName,
@@ -164,7 +166,7 @@ class LocaleGenerator
         $this->log("Building locale {$locale} ($language) configuration");
         $localeFolder = $this->getLocaleFolder($locale);
 
-        $configFileName = realpath($localeFolder . DIRECTORY_SEPARATOR . 'config');
+        $configFileName = realpath($localeFolder) . DIRECTORY_SEPARATOR . 'config';
         $this->log("Writing locale configuration to {$configFileName}");
 
         $configFile = fopen($configFileName, 'wb');
@@ -178,7 +180,7 @@ class LocaleGenerator
         $this->log("Building locale {$locale} ($language) function names");
         $localeFolder = $this->getLocaleFolder($locale);
 
-        $functionFileName = realpath($localeFolder . DIRECTORY_SEPARATOR . 'functions');
+        $functionFileName = realpath($localeFolder) . DIRECTORY_SEPARATOR . 'functions';
         $this->log("Writing local function names to {$functionFileName}");
 
         $functionFile = fopen($functionFileName, 'wb');
@@ -189,8 +191,10 @@ class LocaleGenerator
 
     protected function getLocaleFolder(string $locale): string
     {
+        $lastchar = substr($this->translationBaseFolder, -1);
+        $dirsep = ($lastchar === '/' || $lastchar === '\\') ? '' : DIRECTORY_SEPARATOR;
         $localeFolder = $this->translationBaseFolder .
-            DIRECTORY_SEPARATOR .
+            $dirsep .
             str_replace('_', DIRECTORY_SEPARATOR, $locale);
         if (!file_exists($localeFolder) || !is_dir($localeFolder)) {
             mkdir($localeFolder, 7 * 64 + 7 * 8 + 7, true); // octal 777
