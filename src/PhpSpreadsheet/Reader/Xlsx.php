@@ -793,6 +793,14 @@ class Xlsx extends BaseReader
                             $docSheet->setTitle((string) $eleSheetAttr['name'], false, false);
 
                             $fileWorksheet = (string) $worksheets[$sheetReferenceId];
+                            // issue 3665 adds test for /.
+                            // This broke XlsxRootZipFilesTest,
+                            //  but Excel reports an error with that file.
+                            //  Testing dir for . avoids this problem.
+                            //  It might be better just to drop the test.
+                            if ($fileWorksheet[0] == '/' && $dir !== '.') {
+                                $fileWorksheet = substr($fileWorksheet, strlen($dir) + 2);
+                            }
                             $xmlSheet = $this->loadZipNoNamespace("$dir/$fileWorksheet", $mainNS);
                             $xmlSheetNS = $this->loadZip("$dir/$fileWorksheet", $mainNS);
 
@@ -980,8 +988,8 @@ class Xlsx extends BaseReader
                             }
 
                             if ($this->readDataOnly === false) {
-                                $this->readAutoFilter($xmlSheet, $docSheet);
-                                $this->readTables($xmlSheet, $docSheet, $dir, $fileWorksheet, $zip);
+                                $this->readAutoFilter($xmlSheetNS, $docSheet);
+                                $this->readTables($xmlSheetNS, $docSheet, $dir, $fileWorksheet, $zip, $mainNS);
                             }
 
                             if ($xmlSheetNS && $xmlSheetNS->mergeCells && $xmlSheetNS->mergeCells->mergeCell && !$this->readDataOnly) {
@@ -1041,7 +1049,7 @@ class Xlsx extends BaseReader
                                 $hyperlinkReader = new Hyperlinks($docSheet);
                                 // Locate hyperlink relations
                                 $relationsFileName = dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels';
-                                if ($zip->locateName($relationsFileName)) {
+                                if ($zip->locateName($relationsFileName) !== false) {
                                     $relsWorksheet = $this->loadZip($relationsFileName, Namespaces::RELATIONSHIPS);
                                     $hyperlinkReader->readHyperlinks($relsWorksheet);
                                 }
@@ -1058,7 +1066,7 @@ class Xlsx extends BaseReader
                             if (!$this->readDataOnly) {
                                 // Locate comment relations
                                 $commentRelations = dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels';
-                                if ($zip->locateName($commentRelations)) {
+                                if ($zip->locateName($commentRelations) !== false) {
                                     $relsWorksheet = $this->loadZip($commentRelations, Namespaces::RELATIONSHIPS);
                                     foreach ($relsWorksheet->Relationship as $elex) {
                                         $ele = self::getAttributes($elex);
@@ -1120,7 +1128,7 @@ class Xlsx extends BaseReader
                                     $drowingImages = [];
                                     $VMLDrawingsRelations = dirname($relPath) . '/_rels/' . basename($relPath) . '.rels';
                                     $vmlDrawingContents[$relName] = $this->getSecurityScannerOrThrow()->scan($this->getFromZipArchive($zip, $relPath));
-                                    if ($zip->locateName($VMLDrawingsRelations)) {
+                                    if ($zip->locateName($VMLDrawingsRelations) !== false) {
                                         $relsVMLDrawing = $this->loadZip($VMLDrawingsRelations, Namespaces::RELATIONSHIPS);
                                         foreach ($relsVMLDrawing->Relationship as $elex) {
                                             $ele = self::getAttributes($elex);
@@ -1184,7 +1192,7 @@ class Xlsx extends BaseReader
                                                 if (isset($drowingImages[$fillImageRelId])) {
                                                     $objDrawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
                                                     $objDrawing->setName($fillImageTitle);
-                                                    $imagePath = str_replace('../', 'xl/', $drowingImages[$fillImageRelId]);
+                                                    $imagePath = str_replace(['../', '/xl/'], 'xl/', $drowingImages[$fillImageRelId]);
                                                     $objDrawing->setPath(
                                                         'zip://' . File::realpath($filename) . '#' . $imagePath,
                                                         true,
@@ -1241,7 +1249,7 @@ class Xlsx extends BaseReader
                                     if ($vmlHfRidAttr !== null && isset($vmlHfRidAttr['id'])) {
                                         $vmlHfRid = (string) $vmlHfRidAttr['id'][0];
                                     }
-                                    if ($zip->locateName(dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels')) {
+                                    if ($zip->locateName(dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels') !== false) {
                                         $relsWorksheet = $this->loadZipNoNamespace(dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels', Namespaces::RELATIONSHIPS);
                                         $vmlRelationship = '';
 
@@ -1320,7 +1328,7 @@ class Xlsx extends BaseReader
                             if (substr($drawingFilename, 0, 8) === '/xl//xl/') {
                                 $drawingFilename = substr($drawingFilename, 5);
                             }
-                            if ($zip->locateName($drawingFilename)) {
+                            if ($zip->locateName($drawingFilename) !== false) {
                                 $relsWorksheet = $this->loadZipNoNamespace($drawingFilename, Namespaces::RELATIONSHIPS);
                                 $drawings = [];
                                 foreach ($relsWorksheet->Relationship as $ele) {
@@ -2087,7 +2095,7 @@ class Xlsx extends BaseReader
     private function readFormControlProperties(Spreadsheet $excel, string $dir, string $fileWorksheet, Worksheet $docSheet, array &$unparsedLoadedData): void
     {
         $zip = $this->zip;
-        if (!$zip->locateName(dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels')) {
+        if ($zip->locateName(dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels') === false) {
             return;
         }
 
@@ -2114,7 +2122,7 @@ class Xlsx extends BaseReader
     private function readPrinterSettings(Spreadsheet $excel, string $dir, string $fileWorksheet, Worksheet $docSheet, array &$unparsedLoadedData): void
     {
         $zip = $this->zip;
-        if (!$zip->locateName(dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels')) {
+        if ($zip->locateName(dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels') === false) {
             return;
         }
 
@@ -2134,8 +2142,9 @@ class Xlsx extends BaseReader
                 $rId = $rId . 'ps'; // rIdXXX, add 'ps' suffix to avoid identical resource identifier collision with unparsed vmlDrawing
             }
             $unparsedPrinterSettings[$rId] = [];
-            $unparsedPrinterSettings[$rId]['filePath'] = self::dirAdd("$dir/$fileWorksheet", $printerSettings['Target']);
-            $unparsedPrinterSettings[$rId]['relFilePath'] = (string) $printerSettings['Target'];
+            $target = (string) str_replace('/xl/', '../', (string) $printerSettings['Target']);
+            $unparsedPrinterSettings[$rId]['filePath'] = self::dirAdd("$dir/$fileWorksheet", $target);
+            $unparsedPrinterSettings[$rId]['relFilePath'] = $target;
             $unparsedPrinterSettings[$rId]['content'] = $this->getSecurityScannerOrThrow()->scan($this->getFromZipArchive($zip, $unparsedPrinterSettings[$rId]['filePath']));
         }
         unset($unparsedPrinterSettings);
@@ -2206,10 +2215,14 @@ class Xlsx extends BaseReader
         Worksheet $docSheet,
         string $dir,
         string $fileWorksheet,
-        ZipArchive $zip
+        ZipArchive $zip,
+        string $namespaceTable
     ): void {
-        if ($xmlSheet && $xmlSheet->tableParts && (int) $xmlSheet->tableParts['count'] > 0) {
-            $this->readTablesInTablesFile($xmlSheet, $dir, $fileWorksheet, $zip, $docSheet);
+        if ($xmlSheet && $xmlSheet->tableParts) {
+            $attributes = $xmlSheet->tableParts->attributes() ?? ['count' => 0];
+            if (((int) $attributes['count']) > 0) {
+                $this->readTablesInTablesFile($xmlSheet, $dir, $fileWorksheet, $zip, $docSheet, $namespaceTable);
+            }
         }
     }
 
@@ -2218,14 +2231,15 @@ class Xlsx extends BaseReader
         string $dir,
         string $fileWorksheet,
         ZipArchive $zip,
-        Worksheet $docSheet
+        Worksheet $docSheet,
+        string $namespaceTable
     ): void {
         foreach ($xmlSheet->tableParts->tablePart as $tablePart) {
             $relation = self::getAttributes($tablePart, Namespaces::SCHEMA_OFFICE_DOCUMENT);
             $tablePartRel = (string) $relation['id'];
             $relationsFileName = dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels';
 
-            if ($zip->locateName($relationsFileName)) {
+            if ($zip->locateName($relationsFileName) !== false) {
                 $relsTableReferences = $this->loadZip($relationsFileName, Namespaces::RELATIONSHIPS);
                 foreach ($relsTableReferences->Relationship as $relationship) {
                     $relationshipAttributes = self::getAttributes($relationship, '');
@@ -2236,7 +2250,7 @@ class Xlsx extends BaseReader
                         $relationshipFilePath = File::realpath($relationshipFilePath);
 
                         if ($this->fileExistsInArchive($this->zip, $relationshipFilePath)) {
-                            $tableXml = $this->loadZip($relationshipFilePath);
+                            $tableXml = $this->loadZip($relationshipFilePath, $namespaceTable);
                             (new TableReader($docSheet, $tableXml))->load();
                         }
                     }
