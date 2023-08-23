@@ -6,7 +6,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheetInfra\LocaleGenerator;
 use PHPUnit\Framework\TestCase;
 
-class LocaleGeneratorTest extends TestCase
+class A1LocaleGeneratorTest extends TestCase
 {
     public function testLocaleGenerator(): void
     {
