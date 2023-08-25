@@ -607,7 +607,7 @@ class Ods extends BaseReader
                                                 }
 
                                                 if ($hasCalculatedValue) {
-                                                    $cell->setCalculatedValue($dataValue);
+                                                    $cell->setCalculatedValue($dataValue, $type === DataType::TYPE_NUMERIC);
                                                 }
 
                                                 // Set other properties

@@ -4042,7 +4042,7 @@ class Xls extends BaseReader
             }
 
             // store the cached calculated value
-            $cell->setCalculatedValue($value);
+            $cell->setCalculatedValue($value, $dataType === DataType::TYPE_NUMERIC);
         }
     }
 

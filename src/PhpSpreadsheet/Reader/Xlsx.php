@@ -843,6 +843,7 @@ class Xlsx extends BaseReader
                                             $r = Coordinate::stringFromColumnIndex($rowIndex) . $cIndex;
                                         }
                                         $cellDataType = (string) $cAttr['t'];
+                                        $originalCellDataTypeNumeric = $cellDataType === '';
                                         $value = null;
                                         $calculatedValue = null;
 
@@ -949,7 +950,7 @@ class Xlsx extends BaseReader
                                                 $cell->setValue($value);
                                             }
                                             if ($calculatedValue !== null) {
-                                                $cell->setCalculatedValue($calculatedValue);
+                                                $cell->setCalculatedValue($calculatedValue, $originalCellDataTypeNumeric);
                                             }
 
                                             // Style information?
