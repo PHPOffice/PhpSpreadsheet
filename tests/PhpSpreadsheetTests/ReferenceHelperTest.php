@@ -557,9 +557,6 @@ class ReferenceHelperTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    /** @var bool */
-    private static $productTotalFlag = false;
-
     public function testInsertDeleteRowsWithDefinedNames(): void
     {
         $spreadsheet = $this->buildDefinedNamesTestWorkbook();
@@ -603,13 +600,8 @@ class ReferenceHelperTest extends TestCase
         self::assertSame($dataSheet->getCell('D7')->getCalculatedValue(), $totalsSheet->getCell('D7')->getCalculatedValue());
         self::assertSame($dataSheet->getCell('B6')->getCalculatedValue(), $totalsSheet->getCell('B6')->getCalculatedValue());
         self::assertSame($dataSheet->getCell('B7')->getCalculatedValue(), $totalsSheet->getCell('B7')->getCalculatedValue());
-        if (self::$productTotalFlag) {
-            self::assertSame(4608, $dataSheet->getCell('B8')->getCalculatedValue());
-            self::assertSame($dataSheet->getCell('B8')->getCalculatedValue(), $totalsSheet->getCell('B8')->getCalculatedValue());
-        } else {
-            $spreadsheet->disconnectWorksheets();
-            self::markTestIncomplete('PhpSpreadsheet does not handle this correctly');
-        }
+        self::assertSame(4608, $dataSheet->getCell('B8')->getCalculatedValue());
+        self::assertSame($dataSheet->getCell('B8')->getCalculatedValue(), $totalsSheet->getCell('B8')->getCalculatedValue());
 
         $spreadsheet->disconnectWorksheets();
     }
@@ -649,12 +641,9 @@ class ReferenceHelperTest extends TestCase
         $totalsSheet->setCellValue('B3', '=SecondTotal');
         self::assertSame(42, $totalsSheet->getCell('B2')->getCalculatedValue());
         self::assertSame(56, $totalsSheet->getCell('B3')->getCalculatedValue());
-        if (self::$productTotalFlag) {
-            self::assertSame(4608, $dataSheet->getCell('B8')->getCalculatedValue());
-        } else {
-            $spreadsheet->disconnectWorksheets();
-            self::markTestIncomplete('PhpSpreadsheet does not handle this correctly');
-        }
+
+        self::assertSame(4608, $dataSheet->getCell('D4')->getCalculatedValue());
+
         $spreadsheet->disconnectWorksheets();
     }
 
