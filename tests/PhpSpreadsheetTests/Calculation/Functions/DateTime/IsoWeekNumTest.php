@@ -112,7 +112,7 @@ class IsoWeekNumTest extends TestCase
     public static function providerUnhappyISOWEEKNUM(): array
     {
         return [
-            ['Formula Error: Wrong number of arguments for ISOWEEKNUM() function', 2023, 03],
+            ['Formula Error: Wrong number of arguments for ISOWEEKNUM() function', 2023, 3],
         ];
     }
 
