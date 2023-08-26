@@ -106,7 +106,7 @@ class PreCalcTest extends AbstractFunctional
             $data = self::readFile($file);
             // confirm that file contains B2 pre-calculated or not as appropriate
             if ($preCalc === false) {
-                self::assertStringContainsString('<c r="B2" t="str"><f>3+A3</f><v>0</v></c>', $data);
+                self::assertStringContainsString('<c r="B2" t="str"><f>3+A3</f></c>', $data);
             } else {
                 self::assertStringContainsString('<c r="B2"><f>3+A3</f><v>14</v></c>', $data);
             }

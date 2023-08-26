@@ -418,10 +418,10 @@ class Cell
      *
      * @param mixed $originalValue Value
      */
-    public function setCalculatedValue($originalValue): self
+    public function setCalculatedValue($originalValue, bool $tryNumeric = true): self
     {
         if ($originalValue !== null) {
-            $this->calculatedValue = (is_numeric($originalValue)) ? (float) $originalValue : $originalValue;
+            $this->calculatedValue = ($tryNumeric && is_numeric($originalValue)) ? (0 + $originalValue) : $originalValue;
         }
 
         return $this->updateInCollection();

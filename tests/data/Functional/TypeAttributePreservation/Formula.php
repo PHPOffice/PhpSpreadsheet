@@ -37,4 +37,10 @@ return [
     [
         [null],
     ],
+    'issue3568' => [
+        ['="00"&B1', '123'],
+    ],
+    'unimplemented function' => [
+        ['=INFO("SYSTEM")'],
+    ],
 ];
