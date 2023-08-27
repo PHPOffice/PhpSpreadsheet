@@ -171,7 +171,7 @@ class Content extends WriterPart
                     $objWriter->endElement();
                     $span_row = 0;
                 } else {
-                    if ($sheet->getRowDimension($row->getRowIndex())->getRowHeight() > 0) {
+                    if ($sheet->rowDimensionExists($row->getRowIndex()) && $sheet->getRowDimension($row->getRowIndex())->getRowHeight() > 0) {
                         $objWriter->writeAttribute(
                             'table:style-name',
                             sprintf('%s_%d_%d', Style::ROW_STYLE_PREFIX, $sheetIndex, $row->getRowIndex())

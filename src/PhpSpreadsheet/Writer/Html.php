@@ -504,7 +504,7 @@ class Html extends BaseWriter
                 $html .= $startTag;
 
                 // Write row if there are HTML table cells in it
-                $mpdfInvisible = $this->isMPdf && $sheet->getRowDimension($row)->getVisible() === false;
+                $mpdfInvisible = $this->isMPdf && !$sheet->isRowVisible($row);
                 if (!$mpdfInvisible && !isset($this->isSpannedRow[$sheet->getParent()->getIndex($sheet)][$row])) {
                     // Start a new rowData
                     $rowData = [];

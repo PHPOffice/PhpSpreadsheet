@@ -62,7 +62,7 @@ class SetupTeardown extends TestCase
         $sheet->getAutoFilter()->showHideRows();
         $actualVisible = [];
         for ($row = 2; $row <= $this->maxRow; ++$row) {
-            if ($sheet->getRowDimension($row)->getVisible()) {
+            if ($sheet->isRowVisible($row)) {
                 $actualVisible[] = $row;
             }
         }
