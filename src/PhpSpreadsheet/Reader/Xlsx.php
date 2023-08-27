@@ -832,6 +832,7 @@ class Xlsx extends BaseReader
                                     ->load($this->getReadFilter(), $this->getReadDataOnly());
                             }
 
+                            $holdSelectedCells = $docSheet->getSelectedCells();
                             if ($xmlSheetNS && $xmlSheetNS->sheetData && $xmlSheetNS->sheetData->row) {
                                 $cIndex = 1; // Cell Start from 1
                                 foreach ($xmlSheetNS->sheetData->row as $row) {
@@ -969,6 +970,7 @@ class Xlsx extends BaseReader
                                     ++$cIndex;
                                 }
                             }
+                            $docSheet->setSelectedCells($holdSelectedCells);
                             if ($xmlSheetNS && $xmlSheetNS->ignoredErrors) {
                                 foreach ($xmlSheetNS->ignoredErrors->ignoredError as $ignoredErrorx) {
                                     $ignoredError = self::testSimpleXml($ignoredErrorx);
@@ -1008,23 +1010,30 @@ class Xlsx extends BaseReader
                                 $unparsedLoadedData = (new PageSetup($docSheet, $xmlSheet))->load($unparsedLoadedData);
                             }
 
-                            if ($xmlSheet !== false && isset($xmlSheet->extLst, $xmlSheet->extLst->ext, $xmlSheet->extLst->ext['uri']) && ($xmlSheet->extLst->ext['uri'] == '{CCE6A557-97BC-4b89-ADB6-D9C93CAAB3DF}')) {
-                                // Create dataValidations node if does not exists, maybe is better inside the foreach ?
-                                if (!$xmlSheet->dataValidations) {
-                                    $xmlSheet->addChild('dataValidations');
-                                }
-
-                                foreach ($xmlSheet->extLst->ext->children(Namespaces::DATA_VALIDATIONS1)->dataValidations->dataValidation as $item) {
-                                    $item = self::testSimpleXml($item);
-                                    $node = self::testSimpleXml($xmlSheet->dataValidations)->addChild('dataValidation');
-                                    foreach ($item->attributes() ?? [] as $attr) {
-                                        $node->addAttribute($attr->getName(), $attr);
+                            if ($xmlSheet !== false && isset($xmlSheet->extLst->ext)) {
+                                foreach ($xmlSheet->extLst->ext as $extlst) {
+                                    $extAttrs = $extlst->/** @scrutinizer ignore-call */ attributes() ?? [];
+                                    $extUri = (string) ($extAttrs['uri'] ?? '');
+                                    if ($extUri !== '{CCE6A557-97BC-4b89-ADB6-D9C93CAAB3DF}') {
+                                        continue;
                                     }
-                                    $node->addAttribute('sqref', $item->children(Namespaces::DATA_VALIDATIONS2)->sqref);
-                                    if (isset($item->formula1)) {
-                                        $childNode = $node->addChild('formula1');
-                                        if ($childNode !== null) { // null should never happen
-                                            $childNode[0] = (string) $item->formula1->children(Namespaces::DATA_VALIDATIONS2)->f; // @phpstan-ignore-line
+                                    // Create dataValidations node if does not exists, maybe is better inside the foreach ?
+                                    if (!$xmlSheet->dataValidations) {
+                                        $xmlSheet->addChild('dataValidations');
+                                    }
+
+                                    foreach ($extlst->/** @scrutinizer ignore-call */ children(Namespaces::DATA_VALIDATIONS1)->dataValidations->dataValidation as $item) {
+                                        $item = self::testSimpleXml($item);
+                                        $node = self::testSimpleXml($xmlSheet->dataValidations)->addChild('dataValidation');
+                                        foreach ($item->attributes() ?? [] as $attr) {
+                                            $node->addAttribute($attr->getName(), $attr);
+                                        }
+                                        $node->addAttribute('sqref', $item->children(Namespaces::DATA_VALIDATIONS2)->sqref);
+                                        if (isset($item->formula1)) {
+                                            $childNode = $node->addChild('formula1');
+                                            if ($childNode !== null) { // null should never happen
+                                                $childNode[0] = (string) $item->formula1->children(Namespaces::DATA_VALIDATIONS2)->f; // @phpstan-ignore-line
+                                            }
                                         }
                                     }
                                 }
@@ -1476,10 +1485,13 @@ class Xlsx extends BaseReader
                                             foreach ($xmlDrawingChildren->twoCellAnchor as $twoCellAnchor) {
                                                 $twoCellAnchor = self::testSimpleXml($twoCellAnchor);
                                                 if ($twoCellAnchor->pic->blipFill) {
+                                                    $objDrawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
                                                     $blip = $twoCellAnchor->pic->blipFill->children(Namespaces::DRAWINGML)->blip;
+                                                    if (isset($twoCellAnchor->pic->blipFill->children(Namespaces::DRAWINGML)->srcRect)) {
+                                                        $objDrawing->setSrcRect($twoCellAnchor->pic->blipFill->children(Namespaces::DRAWINGML)->srcRect->attributes());
+                                                    }
                                                     $xfrm = $twoCellAnchor->pic->spPr->children(Namespaces::DRAWINGML)->xfrm;
                                                     $outerShdw = $twoCellAnchor->pic->spPr->children(Namespaces::DRAWINGML)->effectLst->outerShdw;
-                                                    $objDrawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
                                                     /** @scrutinizer ignore-call */
                                                     $editAs = $twoCellAnchor->attributes();
                                                     if (isset($editAs, $editAs['editAs'])) {
