@@ -89,7 +89,7 @@ class Style
         ));
     }
 
-    protected function mapBorderWidth(Border $border): string
+    private function mapBorderWidth(Border $border): string
     {
         switch ($border->getBorderStyle()) {
             case Border::BORDER_THIN:
@@ -113,7 +113,7 @@ class Style
         return '1pt';
     }
 
-    protected function mapBorderStyle(Border $border): string
+    private function mapBorderStyle(Border $border): string
     {
         switch ($border->getBorderStyle()) {
             case Border::BORDER_DOTTED:
