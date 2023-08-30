@@ -1311,9 +1311,11 @@ class Worksheet extends WriterPart
             $objWriter->writeElement('f', FunctionPrefix::addFunctionPrefixStripEquals($cellValue));
             self::writeElementIf(
                 $objWriter,
-                $this->getParentWriter()->getOffice2003Compatibility() === false,
+                $this->getParentWriter()->getOffice2003Compatibility() === false
+                && $this->getParentWriter()->getPreCalculateFormulas()
+                && $calculatedValue !== null,
                 'v',
-                ($this->getParentWriter()->getPreCalculateFormulas() && !is_array($calculatedValue) && substr($calculatedValue ?? '', 0, 1) !== '#')
+                (!is_array($calculatedValue) && substr($calculatedValue ?? '', 0, 1) !== '#')
                     ? StringHelper::formatNumber($calculatedValue) : '0'
             );
         }

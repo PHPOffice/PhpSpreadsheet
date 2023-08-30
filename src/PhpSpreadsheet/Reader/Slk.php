@@ -270,6 +270,7 @@ class Slk extends BaseReader
     {
         //    Read cell value data
         $hasCalculatedValue = false;
+        $tryNumeric = false;
         $cellDataFormula = $cellData = '';
         foreach ($rowData as $rowDatum) {
             switch ($rowDatum[0]) {
@@ -285,6 +286,7 @@ class Slk extends BaseReader
                     break;
                 case 'K':
                     $cellData = substr($rowDatum, 1);
+                    $tryNumeric = is_numeric($cellData);
 
                     break;
                 case 'E':
@@ -306,16 +308,16 @@ class Slk extends BaseReader
         $cellData = Calculation::unwrapResult($cellData);
 
         // Set cell value
-        $this->processCFinal($spreadsheet, $hasCalculatedValue, $cellDataFormula, $cellData, "$columnLetter$row");
+        $this->processCFinal($spreadsheet, $hasCalculatedValue, $cellDataFormula, $cellData, "$columnLetter$row", $tryNumeric);
     }
 
-    private function processCFinal(Spreadsheet &$spreadsheet, bool $hasCalculatedValue, string $cellDataFormula, string $cellData, string $coordinate): void
+    private function processCFinal(Spreadsheet &$spreadsheet, bool $hasCalculatedValue, string $cellDataFormula, string $cellData, string $coordinate, bool $tryNumeric): void
     {
         // Set cell value
         $spreadsheet->getActiveSheet()->getCell($coordinate)->setValue(($hasCalculatedValue) ? $cellDataFormula : $cellData);
         if ($hasCalculatedValue) {
             $cellData = Calculation::unwrapResult($cellData);
-            $spreadsheet->getActiveSheet()->getCell($coordinate)->setCalculatedValue($cellData);
+            $spreadsheet->getActiveSheet()->getCell($coordinate)->setCalculatedValue($cellData, $tryNumeric);
         }
     }
 
