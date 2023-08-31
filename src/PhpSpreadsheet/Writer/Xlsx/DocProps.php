@@ -93,6 +93,9 @@ class DocProps extends WriterPart
         // SharedDoc
         $objWriter->writeElement('SharedDoc', 'false');
 
+        // HyperlinkBase
+        $objWriter->writeElement('HyperlinkBase', $spreadsheet->getProperties()->getHyperlinkBase());
+
         // HyperlinksChanged
         $objWriter->writeElement('HyperlinksChanged', 'false');
 

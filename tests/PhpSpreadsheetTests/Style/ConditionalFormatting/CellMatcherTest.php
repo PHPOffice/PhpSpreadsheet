@@ -63,7 +63,7 @@ class CellMatcherTest extends TestCase
         }
     }
 
-    public function basicCellIsComparisonDataProvider(): array
+    public static function basicCellIsComparisonDataProvider(): array
     {
         return [
             // Less than/Equal/Greater than with Literal
@@ -131,7 +131,7 @@ class CellMatcherTest extends TestCase
         self::assertSame($expectedMatch, $match);
     }
 
-    public function rangeCellIsComparisonDataProvider(): array
+    public static function rangeCellIsComparisonDataProvider(): array
     {
         return [
             // Range between Literals
@@ -174,7 +174,7 @@ class CellMatcherTest extends TestCase
         }
     }
 
-    public function cellIsExpressionMultipleDataProvider(): array
+    public static function cellIsExpressionMultipleDataProvider(): array
     {
         return [
             // Odd/Even
@@ -206,7 +206,7 @@ class CellMatcherTest extends TestCase
         self::assertSame($expectedMatch, $match);
     }
 
-    public function cellIsExpressionDataProvider(): array
+    public static function cellIsExpressionDataProvider(): array
     {
         return [
             // Sales Grid for Country
@@ -250,7 +250,7 @@ class CellMatcherTest extends TestCase
         self::assertSame($expectedMatch, $match);
     }
 
-    public function textExpressionsDataProvider(): array
+    public static function textExpressionsDataProvider(): array
     {
         return [
             // Text Begins With Literal
@@ -360,7 +360,7 @@ class CellMatcherTest extends TestCase
         }
     }
 
-    public function blanksDataProvider(): array
+    public static function blanksDataProvider(): array
     {
         return [
             // Blank/Not Blank
@@ -391,7 +391,7 @@ class CellMatcherTest extends TestCase
         }
     }
 
-    public function errorDataProvider(): array
+    public static function errorDataProvider(): array
     {
         return [
             // Error/Not Error
@@ -419,7 +419,7 @@ class CellMatcherTest extends TestCase
         self::assertSame($expectedMatch, $match);
     }
 
-    public function dateOccurringDataProvider(): array
+    public static function dateOccurringDataProvider(): array
     {
         return [
             // Today
@@ -463,7 +463,7 @@ class CellMatcherTest extends TestCase
         }
     }
 
-    public function duplicatesDataProvider(): array
+    public static function duplicatesDataProvider(): array
     {
         return [
             // Duplicate/Unique
@@ -495,7 +495,7 @@ class CellMatcherTest extends TestCase
         self::assertSame($expectedMatch, $match);
     }
 
-    public function textCrossWorksheetDataProvider(): array
+    public static function textCrossWorksheetDataProvider(): array
     {
         return [
             // Relative Cell References in another Worksheet

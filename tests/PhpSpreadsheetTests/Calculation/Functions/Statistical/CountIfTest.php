@@ -25,7 +25,7 @@ class CountIfTest extends AllSetupTeardown
         self::assertSame(4, $sheet->getCell('Z99')->getCalculatedValue());
     }
 
-    public function providerCOUNTIF(): array
+    public static function providerCOUNTIF(): array
     {
         return require 'tests/data/Calculation/Statistical/COUNTIF.php';
     }

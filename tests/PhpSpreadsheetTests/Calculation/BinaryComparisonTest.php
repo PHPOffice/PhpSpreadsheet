@@ -47,7 +47,7 @@ class BinaryComparisonTest extends TestCase
         self::assertEquals($expectedResultOpenOffice, $resultOpenOffice, 'should be OpenOffice compatible');
     }
 
-    public function providerBinaryComparison(): array
+    public static function providerBinaryComparison(): array
     {
         return require 'tests/data/Calculation/BinaryComparisonOperations.php';
     }

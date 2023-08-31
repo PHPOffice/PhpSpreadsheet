@@ -14,7 +14,7 @@ class XorTest extends AllSetupTeardown
         $this->runTestCase('XOR', $expectedResult, ...$args);
     }
 
-    public function providerXOR(): array
+    public static function providerXOR(): array
     {
         return require 'tests/data/Calculation/Logical/XOR.php';
     }
@@ -32,7 +32,7 @@ class XorTest extends AllSetupTeardown
         self::assertSame($expectedResult, $sheet->getCell('A1')->getCalculatedValue());
     }
 
-    public function providerXORLiteral(): array
+    public static function providerXORLiteral(): array
     {
         return require 'tests/data/Calculation/Logical/XORLiteral.php';
     }

@@ -90,7 +90,7 @@ class ImLog2Test extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerIMLOG2(): array
+    public static function providerIMLOG2(): array
     {
         return require 'tests/data/Calculation/Engineering/IMLOG2.php';
     }
@@ -116,7 +116,7 @@ class ImLog2Test extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerUnhappyIMLOG2(): array
+    public static function providerUnhappyIMLOG2(): array
     {
         return [
             ['Formula Error: Wrong number of arguments for IMLOG2() function'],
@@ -135,7 +135,7 @@ class ImLog2Test extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerImLog2Array(): array
+    public static function providerImLog2Array(): array
     {
         return [
             'row/column vector' => [

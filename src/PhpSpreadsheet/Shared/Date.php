@@ -184,7 +184,7 @@ class Date
             throw new Exception("Invalid string $value supplied for datatype Date");
         }
 
-        if (preg_match('/^\\d\\d:\\d\\d:\\d\\d/', $value) == 1) {
+        if (preg_match('/^\\s*\\d?\\d:\\d\\d(:\\d\\d([.]\\d+)?)?\\s*(am|pm)?\\s*$/i', $value) == 1) {
             $newValue = fmod($newValue, 1.0);
         }
 
@@ -223,11 +223,13 @@ class Date
 
         $days = floor($excelTimestamp);
         $partDay = $excelTimestamp - $days;
-        $hours = floor($partDay * 24);
-        $partDay = $partDay * 24 - $hours;
-        $minutes = floor($partDay * 60);
-        $partDay = $partDay * 60 - $minutes;
-        $seconds = round($partDay * 60);
+        $hms = 86400 * $partDay;
+        $microseconds = (int) round(fmod($hms, 1) * 1000000);
+        $hms = (int) floor($hms);
+        $hours = intdiv($hms, 3600);
+        $hms -= $hours * 3600;
+        $minutes = intdiv($hms, 60);
+        $seconds = $hms % 60;
 
         if ($days >= 0) {
             $days = '+' . $days;
@@ -235,7 +237,7 @@ class Date
         $interval = $days . ' days';
 
         return $baseDate->modify($interval)
-            ->setTime((int) $hours, (int) $minutes, (int) $seconds);
+            ->setTime((int) $hours, (int) $minutes, (int) $seconds, (int) $microseconds);
     }
 
     /**
@@ -252,8 +254,10 @@ class Date
      */
     public static function excelToTimestamp($excelTimestamp, $timeZone = null)
     {
-        return (int) self::excelToDateTimeObject($excelTimestamp, $timeZone)
-            ->format('U');
+        $dto = self::excelToDateTimeObject($excelTimestamp, $timeZone);
+        self::roundMicroseconds($dto);
+
+        return (int) $dto->format('U');
     }
 
     /**
@@ -287,13 +291,15 @@ class Date
      */
     public static function dateTimeToExcel(DateTimeInterface $dateValue)
     {
+        $seconds = (float) sprintf('%d.%06d', $dateValue->format('s'), $dateValue->format('u'));
+
         return self::formattedPHPToExcel(
             (int) $dateValue->format('Y'),
             (int) $dateValue->format('m'),
             (int) $dateValue->format('d'),
             (int) $dateValue->format('H'),
             (int) $dateValue->format('i'),
-            (int) $dateValue->format('s')
+            $seconds
         );
     }
 
@@ -323,7 +329,7 @@ class Date
      * @param int $day
      * @param int $hours
      * @param int $minutes
-     * @param int $seconds
+     * @param float|int $seconds
      *
      * @return float Excel date/time value
      */
@@ -552,5 +558,13 @@ class Date
         $dtobj = self::dateTimeFromTimestamp($date, $timeZone);
 
         return $dtobj->format($format);
+    }
+
+    public static function roundMicroseconds(DateTime $dti): void
+    {
+        $microseconds = (int) $dti->format('u');
+        if ($microseconds >= 500000) {
+            $dti->modify('+1 second');
+        }
     }
 }

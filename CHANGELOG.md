@@ -9,15 +9,49 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Added
 
+- Split screens (Xlsx and Xml only, not 100% complete). [Issue #3601](https://github.com/PHPOffice/PhpSpreadsheet/issues/3601) [PR #3622](https://github.com/PHPOffice/PhpSpreadsheet/pull/3622)
+- Permit Meta Viewport in Html. [Issue #3565](https://github.com/PHPOffice/PhpSpreadsheet/issues/3565) [PR #3623](https://github.com/PHPOffice/PhpSpreadsheet/pull/3623)
+
+### Changed
+
+- RLM Added to NumberFormatter Currency. This happens depending on release of ICU which Php is using (it does not yet happen with any official release). PhpSpreadsheet will continue to use the value returned by Php, but a method is added to keep the result unchanged from release to release. [Issue #3571](https://github.com/PHPOffice/PhpSpreadsheet/issues/3571) [PR #3640](https://github.com/PHPOffice/PhpSpreadsheet/pull/3640)
+
+### Deprecated
+
+- Nothing
+
+### Removed
+
+- Nothing
+
+### Fixed
+
+- Take advantage of mitoteam/jpgraph Extended mode to enable rendering of more graphs. [PR #3603](https://github.com/PHPOffice/PhpSpreadsheet/pull/3603)
+- Column widths, especially for ODS. [Issue #3609](https://github.com/PHPOffice/PhpSpreadsheet/issues/3609) [PR #3610](https://github.com/PHPOffice/PhpSpreadsheet/pull/3610)
+- Avoid NULL in String Function call (partial solution). [Issue #3613](https://github.com/PHPOffice/PhpSpreadsheet/issues/3613) [PR #3617](https://github.com/PHPOffice/PhpSpreadsheet/pull/3617)
+- Preserve transparency in Memory Drawing. [Issue #3624](https://github.com/PHPOffice/PhpSpreadsheet/issues/3624) [PR #3627](https://github.com/PHPOffice/PhpSpreadsheet/pull/3627)
+- Customizable padding for Exact Column Width. [Issue #3626](https://github.com/PHPOffice/PhpSpreadsheet/issues/3626) [PR #3628](https://github.com/PHPOffice/PhpSpreadsheet/pull/3628)
+- Ensure ROW function returns int (problem exposed in unreleased Php). [PR #3641](https://github.com/PHPOffice/PhpSpreadsheet/pull/3641)
+- Minor changes to Mpdf and Html Writers. [PR #3645](https://github.com/PHPOffice/PhpSpreadsheet/pull/3645)
+
+## 1.29.0 - 2023-06-15
+
+### Added
+
 - Wizards for defining Number Format masks for Dates and Times, including Durations/Intervals. [PR #3458](https://github.com/PHPOffice/PhpSpreadsheet/pull/3458)
 - Specify data type in html tags. [Issue #3444](https://github.com/PHPOffice/PhpSpreadsheet/issues/3444) [PR #3445](https://github.com/PHPOffice/PhpSpreadsheet/pull/3445)
-- Provide option to ignore hidden rows in `toArray()` methods. [PR #3494](https://github.com/PHPOffice/PhpSpreadsheet/pull/3494)
+- Provide option to ignore hidden rows/columns in `toArray()` methods. [PR #3494](https://github.com/PHPOffice/PhpSpreadsheet/pull/3494)
+- Font/Effects/Theme support for Chart Data Labels and Axis. [PR #3476](https://github.com/PHPOffice/PhpSpreadsheet/pull/3476)
+- Font Themes support. [PR #3486](https://github.com/PHPOffice/PhpSpreadsheet/pull/3486)
+- Ability to Ignore Cell Errors in Excel. [Issue #1141](https://github.com/PHPOffice/PhpSpreadsheet/issues/1141) [PR #3508](https://github.com/PHPOffice/PhpSpreadsheet/pull/3508)
+- Unzipped Gnumeric file [PR #3591](https://github.com/PHPOffice/PhpSpreadsheet/pull/3591)
 
 ### Changed
 
 - Xlsx Color schemes read in will be written out (previously Excel 2007-2010 Color scheme was always written); manipulation of those schemes before write, including restoring prior behavior, is provided [PR #3476](https://github.com/PHPOffice/PhpSpreadsheet/pull/3476)
 - Memory and speed optimisations for Read Filters with Xlsx Files and Shared Formulae. [PR #3474](https://github.com/PHPOffice/PhpSpreadsheet/pull/3474)
 - Allow `CellRange` and `CellAddress` objects for the `range` argument in the `rangeToArray()` method. [PR #3494](https://github.com/PHPOffice/PhpSpreadsheet/pull/3494)
+- Stock charts will now read and reproduce `upDownBars` and subsidiary tags; these were previously ignored on read and hard-coded on write. [PR #3515](https://github.com/PHPOffice/PhpSpreadsheet/pull/3515)
 
 ### Deprecated
 
@@ -48,7 +82,18 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Support Border for Charts. [PR #3462](https://github.com/PHPOffice/PhpSpreadsheet/pull/3462)
 - Error in "this row" structured reference calculation (cached result from first row when using a range) [Issue #3504](https://github.com/PHPOffice/PhpSpreadsheet/issues/3504) [PR #3505](https://github.com/PHPOffice/PhpSpreadsheet/pull/3505)
 - Allow colour palette index references in Number Format masks [Issue #3511](https://github.com/PHPOffice/PhpSpreadsheet/issues/3511) [PR #3512](https://github.com/PHPOffice/PhpSpreadsheet/pull/3512)
-
+- Xlsx Reader formula with quotePrefix [Issue #3495](https://github.com/PHPOffice/PhpSpreadsheet/issues/3495) [PR #3497](https://github.com/PHPOffice/PhpSpreadsheet/pull/3497)
+- Handle REF error as part of range [Issue #3453](https://github.com/PHPOffice/PhpSpreadsheet/issues/3453) [PR #3467](https://github.com/PHPOffice/PhpSpreadsheet/pull/3467)
+- Handle Absolute Pathnames in Rels File [Issue #3553](https://github.com/PHPOffice/PhpSpreadsheet/issues/3553) [PR #3554](https://github.com/PHPOffice/PhpSpreadsheet/pull/3554)
+- Return Page Breaks in Order [Issue #3552](https://github.com/PHPOffice/PhpSpreadsheet/issues/3552) [PR #3555](https://github.com/PHPOffice/PhpSpreadsheet/pull/3555)
+- Add position attribute for MemoryDrawing in Html [Issue #3529](https://github.com/PHPOffice/PhpSpreadsheet/issues/3529 [PR #3535](https://github.com/PHPOffice/PhpSpreadsheet/pull/3535)
+- Allow Index_number as Array for VLOOKUP/HLOOKUP [Issue #3561](https://github.com/PHPOffice/PhpSpreadsheet/issues/3561 [PR #3570](https://github.com/PHPOffice/PhpSpreadsheet/pull/3570)
+- Add Unsupported Options in Xml Spreadsheet [Issue #3566](https://github.com/PHPOffice/PhpSpreadsheet/issues/3566 [Issue #3568](https://github.com/PHPOffice/PhpSpreadsheet/issues/3568 [Issue #3569](https://github.com/PHPOffice/PhpSpreadsheet/issues/3569 [PR #3567](https://github.com/PHPOffice/PhpSpreadsheet/pull/3567)
+- Changes to NUMBERVALUE, VALUE, DATEVALUE, TIMEVALUE [Issue #3574](https://github.com/PHPOffice/PhpSpreadsheet/issues/3574 [PR #3575](https://github.com/PHPOffice/PhpSpreadsheet/pull/3575)
+- Redo calculation of color tinting [Issue #3550](https://github.com/PHPOffice/PhpSpreadsheet/issues/3550) [PR #3580](https://github.com/PHPOffice/PhpSpreadsheet/pull/3580)
+- Accommodate Slash with preg_quote [PR #3582](https://github.com/PHPOffice/PhpSpreadsheet/pull/3582) [PR #3583](https://github.com/PHPOffice/PhpSpreadsheet/pull/3583) [PR #3584](https://github.com/PHPOffice/PhpSpreadsheet/pull/3584)
+- HyperlinkBase Property and Html Handling of Properties [Issue #3573](https://github.com/PHPOffice/PhpSpreadsheet/issues/3573) [PR #3589](https://github.com/PHPOffice/PhpSpreadsheet/pull/3589)
+- Improvements for Data Validation [Issue #3592](https://github.com/PHPOffice/PhpSpreadsheet/issues/3592) [Issue #3594](https://github.com/PHPOffice/PhpSpreadsheet/issues/3594) [PR #3605](https://github.com/PHPOffice/PhpSpreadsheet/pull/3605)
 
 ## 1.28.0 - 2023-02-25
 

@@ -67,7 +67,7 @@ class TimeTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
-    public function providerTIME(): array
+    public static function providerTIME(): array
     {
         return require 'tests/data/Calculation/DateTime/TIME.php';
     }
@@ -93,10 +93,10 @@ class TimeTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerUnhappyTIME(): array
+    public static function providerUnhappyTIME(): array
     {
         return [
-            ['Formula Error: Wrong number of arguments for TIME() function', 2023, 03],
+            ['Formula Error: Wrong number of arguments for TIME() function', 2023, 3],
         ];
     }
 
@@ -147,7 +147,7 @@ class TimeTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerTimeArray(): array
+    public static function providerTimeArray(): array
     {
         return [
             'row vector hour' => [[[0.250706018518519, 0.50070601851852, 0.75070601851852]], '{6,12,18}', '1', '1'],
@@ -215,7 +215,7 @@ class TimeTest extends TestCase
         $calculation->_calculateFormulaValue($formula);
     }
 
-    public function providerTimeArrayException(): array
+    public static function providerTimeArrayException(): array
     {
         return [
             'matrix arguments with 3 array values' => [

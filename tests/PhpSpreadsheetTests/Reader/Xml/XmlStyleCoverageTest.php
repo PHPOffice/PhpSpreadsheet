@@ -63,7 +63,7 @@ class XmlStyleCoverageTest extends TestCase
         }
     }
 
-    public function providerBorderStyle(): array
+    public static function providerBorderStyle(): array
     {
         return [
             ['1continuous', Border::BORDER_THIN],
@@ -87,7 +87,7 @@ class XmlStyleCoverageTest extends TestCase
         ];
     }
 
-    public function providerFillType(): array
+    public static function providerFillType(): array
     {
         return [
             ['solid', Fill::FILL_SOLID],

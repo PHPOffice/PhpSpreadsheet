@@ -14,7 +14,7 @@ class PvTest extends AllSetupTeardown
         $this->runTestCase('PV', $expectedResult, $args);
     }
 
-    public function providerPV(): array
+    public static function providerPV(): array
     {
         return require 'tests/data/Calculation/Financial/PV.php';
     }

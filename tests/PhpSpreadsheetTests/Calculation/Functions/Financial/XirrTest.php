@@ -57,7 +57,7 @@ class XirrTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 0.1E-7);
     }
 
-    public function providerXIRR(): array
+    public static function providerXIRR(): array
     {
         return require 'tests/data/Calculation/Financial/XIRR.php';
     }

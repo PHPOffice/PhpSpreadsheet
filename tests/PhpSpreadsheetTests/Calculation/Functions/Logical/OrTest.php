@@ -14,7 +14,7 @@ class OrTest extends AllSetupTeardown
         $this->runTestCase('OR', $expectedResult, ...$args);
     }
 
-    public function providerOR(): array
+    public static function providerOR(): array
     {
         return require 'tests/data/Calculation/Logical/OR.php';
     }
@@ -32,7 +32,7 @@ class OrTest extends AllSetupTeardown
         self::assertSame($expectedResult, $sheet->getCell('A1')->getCalculatedValue());
     }
 
-    public function providerORLiteral(): array
+    public static function providerORLiteral(): array
     {
         return require 'tests/data/Calculation/Logical/ORLiteral.php';
     }

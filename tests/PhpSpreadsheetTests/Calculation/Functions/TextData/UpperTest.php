@@ -27,7 +27,7 @@ class UpperTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerUPPER(): array
+    public static function providerUPPER(): array
     {
         return require 'tests/data/Calculation/TextData/UPPER.php';
     }
@@ -52,7 +52,7 @@ class UpperTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerLocaleLOWER(): array
+    public static function providerLocaleLOWER(): array
     {
         return [
             ['VRAI', 'fr_FR', true],
@@ -78,7 +78,7 @@ class UpperTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerUpperArray(): array
+    public static function providerUpperArray(): array
     {
         return [
             'row vector' => [[["LET'S", 'ALL CHANGE', 'CASE']], '{"lEt\'S", "aLl chAngE", "cAsE"}'],

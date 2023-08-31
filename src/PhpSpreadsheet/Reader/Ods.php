@@ -8,6 +8,7 @@ use DOMElement;
 use DOMNode;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use PhpOffice\PhpSpreadsheet\Helper\Dimension as HelperDimension;
 use PhpOffice\PhpSpreadsheet\Reader\Ods\AutoFilter;
 use PhpOffice\PhpSpreadsheet\Reader\Ods\DefinedNames;
 use PhpOffice\PhpSpreadsheet\Reader\Ods\FormulaTranslator;
@@ -291,15 +292,33 @@ class Ods extends BaseReader
             Settings::getLibXmlLoaderOptions()
         );
 
-        $officeNs = $dom->lookupNamespaceUri('office');
-        $tableNs = $dom->lookupNamespaceUri('table');
-        $textNs = $dom->lookupNamespaceUri('text');
-        $xlinkNs = $dom->lookupNamespaceUri('xlink');
+        $officeNs = (string) $dom->lookupNamespaceUri('office');
+        $tableNs = (string) $dom->lookupNamespaceUri('table');
+        $textNs = (string) $dom->lookupNamespaceUri('text');
+        $xlinkNs = (string) $dom->lookupNamespaceUri('xlink');
+        $styleNs = (string) $dom->lookupNamespaceUri('style');
 
         $pageSettings->readStyleCrossReferences($dom);
 
         $autoFilterReader = new AutoFilter($spreadsheet, $tableNs);
         $definedNameReader = new DefinedNames($spreadsheet, $tableNs);
+        $columnWidths = [];
+        $automaticStyle0 = $dom->getElementsByTagNameNS($officeNs, 'automatic-styles')->item(0);
+        $automaticStyles = ($automaticStyle0 === null) ? [] : $automaticStyle0->getElementsByTagNameNS($styleNs, 'style');
+        foreach ($automaticStyles as $automaticStyle) {
+            $styleName = $automaticStyle->getAttributeNS($styleNs, 'name');
+            $styleFamily = $automaticStyle->getAttributeNS($styleNs, 'family');
+            if ($styleFamily === 'table-column') {
+                $tcprops = $automaticStyle->getElementsByTagNameNS($styleNs, 'table-column-properties');
+                if ($tcprops !== null) {
+                    $tcprop = $tcprops->item(0);
+                    if ($tcprop !== null) {
+                        $columnWidth = $tcprop->getAttributeNs($styleNs, 'column-width');
+                        $columnWidths[$styleName] = $columnWidth;
+                    }
+                }
+            }
+        }
 
         // Content
         $item0 = $dom->getElementsByTagNameNS($officeNs, 'body')->item(0);
@@ -340,6 +359,7 @@ class Ods extends BaseReader
 
                 // Go through every child of table element
                 $rowID = 1;
+                $tableColumnIndex = 1;
                 foreach ($worksheetDataSet->childNodes as $childNode) {
                     /** @var DOMElement $childNode */
 
@@ -366,6 +386,26 @@ class Ods extends BaseReader
 //                                $rowData = $cellData;
 //                                break;
 //                            }
+                            break;
+                        case 'table-column':
+                            if ($childNode->hasAttributeNS($tableNs, 'number-columns-repeated')) {
+                                $rowRepeats = (int) $childNode->getAttributeNS($tableNs, 'number-columns-repeated');
+                            } else {
+                                $rowRepeats = 1;
+                            }
+                            $tableStyleName = $childNode->getAttributeNS($tableNs, 'style-name');
+                            if (isset($columnWidths[$tableStyleName])) {
+                                $columnWidth = new HelperDimension($columnWidths[$tableStyleName]);
+                                $tableColumnString = Coordinate::stringFromColumnIndex($tableColumnIndex);
+                                for ($rowRepeats2 = $rowRepeats; $rowRepeats2 > 0; --$rowRepeats2) {
+                                    $spreadsheet->getActiveSheet()
+                                        ->getColumnDimension($tableColumnString)
+                                        ->setWidth($columnWidth->toUnit('cm'), 'cm');
+                                    ++$tableColumnString;
+                                }
+                            }
+                            $tableColumnIndex += $rowRepeats;
+
                             break;
                         case 'table-row':
                             if ($childNode->hasAttributeNS($tableNs, 'number-rows-repeated')) {
@@ -567,7 +607,7 @@ class Ods extends BaseReader
                                                 }
 
                                                 if ($hasCalculatedValue) {
-                                                    $cell->setCalculatedValue($dataValue);
+                                                    $cell->setCalculatedValue($dataValue, $type === DataType::TYPE_NUMERIC);
                                                 }
 
                                                 // Set other properties
@@ -584,6 +624,9 @@ class Ods extends BaseReader
                                                 }
 
                                                 if ($hyperlink !== null) {
+                                                    if ($hyperlink[0] === '#') {
+                                                        $hyperlink = 'sheet://' . substr($hyperlink, 1);
+                                                    }
                                                     $cell->getHyperlink()
                                                         ->setUrl($hyperlink);
                                                 }
@@ -628,9 +671,9 @@ class Ods extends BaseReader
             Settings::getLibXmlLoaderOptions()
         );
         //$xlinkNs = $dom->lookupNamespaceUri('xlink');
-        $configNs = $dom->lookupNamespaceUri('config');
+        $configNs = (string) $dom->lookupNamespaceUri('config');
         //$oooNs = $dom->lookupNamespaceUri('ooo');
-        $officeNs = $dom->lookupNamespaceUri('office');
+        $officeNs = (string) $dom->lookupNamespaceUri('office');
         $settings = $dom->getElementsByTagNameNS($officeNs, 'settings')
             ->item(0);
         if ($settings !== null) {

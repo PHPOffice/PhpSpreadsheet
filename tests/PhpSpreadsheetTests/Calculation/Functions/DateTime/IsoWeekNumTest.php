@@ -83,7 +83,7 @@ class IsoWeekNumTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerISOWEEKNUM(): array
+    public static function providerISOWEEKNUM(): array
     {
         return require 'tests/data/Calculation/DateTime/ISOWEEKNUM.php';
     }
@@ -109,10 +109,10 @@ class IsoWeekNumTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerUnhappyISOWEEKNUM(): array
+    public static function providerUnhappyISOWEEKNUM(): array
     {
         return [
-            ['Formula Error: Wrong number of arguments for ISOWEEKNUM() function', 2023, 03],
+            ['Formula Error: Wrong number of arguments for ISOWEEKNUM() function', 2023, 3],
         ];
     }
 
@@ -130,7 +130,7 @@ class IsoWeekNumTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerISOWEEKNUM1904(): array
+    public static function providerISOWEEKNUM1904(): array
     {
         return require 'tests/data/Calculation/DateTime/ISOWEEKNUM1904.php';
     }
@@ -147,7 +147,7 @@ class IsoWeekNumTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerIsoWeekNumArray(): array
+    public static function providerIsoWeekNumArray(): array
     {
         return [
             'row vector' => [[[52, 23, 29]], '{"2022-01-01", "2022-06-12", "2023-07-22"}'],

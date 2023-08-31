@@ -89,7 +89,7 @@ class DateTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerDATE(): array
+    public static function providerDATE(): array
     {
         return require 'tests/data/Calculation/DateTime/DATE.php';
     }
@@ -115,10 +115,10 @@ class DateTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerUnhappyDATE(): array
+    public static function providerUnhappyDATE(): array
     {
         return [
-            ['Formula Error: Wrong number of arguments for DATE() function', 2023, 03],
+            ['Formula Error: Wrong number of arguments for DATE() function', 2023, 3],
         ];
     }
 
@@ -166,7 +166,7 @@ class DateTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerDateArray(): array
+    public static function providerDateArray(): array
     {
         return [
             'row vector year' => [[[44197, 44562, 44927]], '{2021,2022,2023}', '1', '1'],
@@ -234,7 +234,7 @@ class DateTest extends TestCase
         $calculation->_calculateFormulaValue($formula);
     }
 
-    public function providerDateArrayException(): array
+    public static function providerDateArrayException(): array
     {
         return [
             'matrix arguments with 3 array values' => [

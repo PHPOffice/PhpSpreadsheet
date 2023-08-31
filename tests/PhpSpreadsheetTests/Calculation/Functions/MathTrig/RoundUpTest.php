@@ -25,7 +25,7 @@ class RoundUpTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerRoundUp(): array
+    public static function providerRoundUp(): array
     {
         return require 'tests/data/Calculation/MathTrig/ROUNDUP.php';
     }
@@ -42,7 +42,7 @@ class RoundUpTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerRoundUpArray(): array
+    public static function providerRoundUpArray(): array
     {
         return [
             'first argument row vector' => [

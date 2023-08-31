@@ -26,7 +26,7 @@ class CleanTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerCLEAN(): array
+    public static function providerCLEAN(): array
     {
         return require 'tests/data/Calculation/TextData/CLEAN.php';
     }
@@ -43,7 +43,7 @@ class CleanTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerCleanArray(): array
+    public static function providerCleanArray(): array
     {
         return [
             'row vector' => [[['PHP', 'MS Excel', 'Open/Libre Office']], '{"PHP", "MS Excel", "Open/Libre Office"}'],

@@ -63,7 +63,7 @@ class Date2Test extends TestCase
         self::assertSame(1, $this->spreadsheet->getActiveSheetIndex());
     }
 
-    public function providerTimeOnly(): array
+    public static function providerTimeOnly(): array
     {
         $integerValue = 44046;
         $integerValueAsFloat = (float) $integerValue;
@@ -112,7 +112,7 @@ class Date2Test extends TestCase
         self::assertSame(1, $this->spreadsheet->getActiveSheetIndex());
     }
 
-    public function providerDateAndTime(): array
+    public static function providerDateAndTime(): array
     {
         $integerValue = 44046;
         $integerValueAsFloat = (float) $integerValue;
@@ -187,7 +187,7 @@ class Date2Test extends TestCase
         self::assertSame(1, $this->spreadsheet->getActiveSheetIndex());
     }
 
-    public function providerAsis(): array
+    public static function providerAsis(): array
     {
         $integerValue = 44046;
         $integerValueAsFloat = (float) $integerValue;

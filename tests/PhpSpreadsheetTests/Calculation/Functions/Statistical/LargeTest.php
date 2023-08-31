@@ -14,7 +14,7 @@ class LargeTest extends AllSetupTeardown
         $this->runTestCaseReference('LARGE', $expectedResult, ...$args);
     }
 
-    public function providerLARGE(): array
+    public static function providerLARGE(): array
     {
         return require 'tests/data/Calculation/Statistical/LARGE.php';
     }

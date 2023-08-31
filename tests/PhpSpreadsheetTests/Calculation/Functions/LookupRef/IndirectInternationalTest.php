@@ -62,7 +62,7 @@ class IndirectInternationalTest extends AllSetupTeardown
         }
     }
 
-    public function providerInternational(): array
+    public static function providerInternational(): array
     {
         return [
             'English' => ['en'],
@@ -89,7 +89,7 @@ class IndirectInternationalTest extends AllSetupTeardown
         self::assertSame('text', $sheet->getCell($cell)->getCalculatedValue());
     }
 
-    public function providerRelativeInternational(): array
+    public static function providerRelativeInternational(): array
     {
         return [
             'English A3' => ['en', 'A3', 'R[]C[+2]'],
@@ -121,7 +121,7 @@ class IndirectInternationalTest extends AllSetupTeardown
         self::assertSame($expected2, $sheet->getCell('A2')->getCalculatedValue());
     }
 
-    public function providerCompatibility(): array
+    public static function providerCompatibility(): array
     {
         return [
             [Functions::COMPATIBILITY_EXCEL],

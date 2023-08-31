@@ -18,7 +18,7 @@ class ColumnTest extends AllSetupTeardown
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerCOLUMN(): array
+    public static function providerCOLUMN(): array
     {
         return require 'tests/data/Calculation/LookupRef/COLUMN.php';
     }

@@ -12,11 +12,15 @@ parameters:
     excludePaths:
         - src/PhpSpreadsheet/Chart/Renderer/JpGraph.php
         - src/PhpSpreadsheet/Chart/Renderer/JpGraphRendererBase.php
+        - src/PhpSpreadsheet/Collection/Memory/SimpleCache1.php
+        - src/PhpSpreadsheet/Collection/Memory/SimpleCache3.php
+        - src/PhpSpreadsheet/Writer/ZipStream2.php
+        - src/PhpSpreadsheet/Writer/ZipStream3.php
     parallel:
         processTimeout: 300.0
     checkMissingIterableValueType: false
     ignoreErrors:
-        - '~^Parameter \#1 \$im(age)? of function (imagedestroy|imageistruecolor|imagealphablending|imagesavealpha|imagecolortransparent|imagecolorsforindex|imagesavealpha|imagesx|imagesy|imagepng) expects (GdImage|resource), GdImage\|resource given\.$~'
+        - '~^Parameter \#1 \$im(age)? of function (imagedestroy|imageistruecolor|imagealphablending|imagesavealpha|imagecolortransparent|imagecolorsforindex|imagesavealpha|imagesx|imagesy|imagepng|imagecolorat) expects (GdImage|resource), GdImage\|resource given\.$~'
         - '~^Parameter \#2 \$src_im(age)? of function imagecopy expects (GdImage|resource), GdImage\|resource given\.$~'
         # Accept a bit anything for assert methods
         - '~^Parameter \#2 .* of static method PHPUnit\\Framework\\Assert\:\:assert\w+\(\) expects .*, .* given\.$~'

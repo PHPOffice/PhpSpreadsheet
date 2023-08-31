@@ -55,7 +55,7 @@ class TextSplitTest extends AllSetupTeardown
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerTEXTSPLIT(): array
+    public static function providerTEXTSPLIT(): array
     {
         return require 'tests/data/Calculation/TextData/TEXTSPLIT.php';
     }

@@ -19,7 +19,7 @@ class TDistTest extends AllSetupTeardown
         $this->runTestCaseReference('TDIST', $expectedResult, $value, $degrees, $tails);
     }
 
-    public function providerTDIST(): array
+    public static function providerTDIST(): array
     {
         return require 'tests/data/Calculation/Statistical/TDIST.php';
     }
@@ -36,7 +36,7 @@ class TDistTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerTDistArray(): array
+    public static function providerTDistArray(): array
     {
         return [
             'row/column vectors' => [

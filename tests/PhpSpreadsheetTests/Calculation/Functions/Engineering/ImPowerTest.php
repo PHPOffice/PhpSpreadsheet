@@ -90,7 +90,7 @@ class ImPowerTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerIMPOWER(): array
+    public static function providerIMPOWER(): array
     {
         return require 'tests/data/Calculation/Engineering/IMPOWER.php';
     }
@@ -116,7 +116,7 @@ class ImPowerTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerUnhappyIMPOWER(): array
+    public static function providerUnhappyIMPOWER(): array
     {
         return [
             ['Formula Error: Wrong number of arguments for IMPOWER() function'],
@@ -135,7 +135,7 @@ class ImPowerTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerImPowerArray(): array
+    public static function providerImPowerArray(): array
     {
         return [
             'matrix' => [

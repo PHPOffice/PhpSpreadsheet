@@ -16,7 +16,7 @@ class NegBinomDistTest extends AllSetupTeardown
         $this->runTestCases('NEGBINOMDIST', $expectedResult, ...$args);
     }
 
-    public function providerNEGBINOMDIST(): array
+    public static function providerNEGBINOMDIST(): array
     {
         return require 'tests/data/Calculation/Statistical/NEGBINOMDIST.php';
     }
@@ -37,7 +37,7 @@ class NegBinomDistTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerNegBinomDistArray(): array
+    public static function providerNegBinomDistArray(): array
     {
         return [
             'row/column vectors' => [

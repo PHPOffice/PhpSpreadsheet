@@ -18,7 +18,7 @@ class NumberTest extends TestCase
         self::assertSame($expectedResult, (string) $wizard);
     }
 
-    public function providerNumber(): array
+    public static function providerNumber(): array
     {
         return [
             ['0', 0, Number::WITHOUT_THOUSANDS_SEPARATOR],
@@ -46,7 +46,7 @@ class NumberTest extends TestCase
         self::assertSame($expectedResult, (string) $wizard);
     }
 
-    public function providerNumberLocale(): array
+    public static function providerNumberLocale(): array
     {
         return [
             ['#,##0.00', 'en-us'],

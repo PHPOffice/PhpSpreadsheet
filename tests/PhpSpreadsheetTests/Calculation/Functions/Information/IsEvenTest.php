@@ -27,7 +27,7 @@ class IsEvenTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerIsEven(): array
+    public static function providerIsEven(): array
     {
         return require 'tests/data/Calculation/Information/IS_EVEN.php';
     }
@@ -44,7 +44,7 @@ class IsEvenTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerIsEvenArray(): array
+    public static function providerIsEvenArray(): array
     {
         return [
             'vector' => [

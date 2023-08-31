@@ -2,7 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheet\Helper;
 
+use PhpOffice\PhpSpreadsheet\Chart\Chart;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Writer\IWriter;
@@ -12,6 +14,7 @@ use RecursiveRegexIterator;
 use ReflectionClass;
 use RegexIterator;
 use RuntimeException;
+use Throwable;
 
 /**
  * Helper class to be used in sample code.
@@ -120,7 +123,7 @@ class Sample
      * @param string $filename
      * @param string[] $writers
      */
-    public function write(Spreadsheet $spreadsheet, $filename, array $writers = ['Xlsx', 'Xls']): void
+    public function write(Spreadsheet $spreadsheet, $filename, array $writers = ['Xlsx', 'Xls'], bool $withCharts = false, ?callable $writerCallback = null): void
     {
         // Set active sheet index to the first sheet, so Excel opens this as the first sheet
         $spreadsheet->setActiveSheetIndex(0);
@@ -129,6 +132,10 @@ class Sample
         foreach ($writers as $writerType) {
             $path = $this->getFilename($filename, mb_strtolower($writerType));
             $writer = IOFactory::createWriter($spreadsheet, $writerType);
+            $writer->setIncludeCharts($withCharts);
+            if ($writerCallback !== null) {
+                $writerCallback($writer);
+            }
             $callStartTime = microtime(true);
             $writer->save($path);
             $this->logWrite($writer, $path, /** @scrutinizer ignore-type */ $callStartTime);
@@ -165,10 +172,8 @@ class Sample
      *
      * @param string $filename
      * @param string $extension
-     *
-     * @return string
      */
-    public function getFilename($filename, $extension = 'xlsx')
+    public function getFilename($filename, $extension = 'xlsx'): string
     {
         $originalExtension = pathinfo($filename, PATHINFO_EXTENSION);
 
@@ -199,6 +204,28 @@ class Sample
     {
         $eol = $this->isCli() ? PHP_EOL : '<br />';
         echo($this->isCli() ? date('H:i:s ') : '') . $message . $eol;
+    }
+
+    public function renderChart(Chart $chart, string $fileName): void
+    {
+        if ($this->isCli() === true) {
+            return;
+        }
+
+        Settings::setChartRenderer(\PhpOffice\PhpSpreadsheet\Chart\Renderer\MtJpGraphRenderer::class);
+
+        $fileName = $this->getFilename($fileName, 'png');
+
+        try {
+            $chart->render($fileName);
+            $this->log('Rendered image: ' . $fileName);
+            $imageData = file_get_contents($fileName);
+            if ($imageData !== false) {
+                echo '<div><img src="data:image/gif;base64,' . base64_encode($imageData) . '" /></div>';
+            }
+        } catch (Throwable $e) {
+            $this->log('Error rendering chart: ' . $e->getMessage() . PHP_EOL);
+        }
     }
 
     public function titles(string $category, string $functionName, ?string $description = null): void

@@ -30,7 +30,7 @@ class CsvTest extends TestCase
         self::assertSame($expectedValue, $actual, 'should be able to retrieve correct value');
     }
 
-    public function providerDelimiterDetection(): array
+    public static function providerDelimiterDetection(): array
     {
         return [
             [
@@ -102,7 +102,7 @@ class CsvTest extends TestCase
         self::assertSame($expected, $reader->canRead($filename));
     }
 
-    public function providerCanLoad(): array
+    public static function providerCanLoad(): array
     {
         return [
             [false, 'tests/data/Reader/Ods/data.ods'],
@@ -243,7 +243,7 @@ class CsvTest extends TestCase
         self::assertEquals($delimiter, $reader->getDelimiter());
     }
 
-    public function providerEscapes(): array
+    public static function providerEscapes(): array
     {
         return [
             ['\\', ';'],
@@ -266,7 +266,7 @@ class CsvTest extends TestCase
         self::assertSame($setNull, $reader->getDelimiter());
     }
 
-    public function providerNull(): array
+    public static function providerNull(): array
     {
         return [
             [null],

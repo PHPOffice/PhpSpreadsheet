@@ -55,7 +55,7 @@ class CsvIssue2232Test extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerIssue2232(): array
+    public static function providerIssue2232(): array
     {
         return [
             [false, false, false, true],
@@ -94,7 +94,7 @@ class CsvIssue2232Test extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerIssue2232locale(): array
+    public static function providerIssue2232locale(): array
     {
         return [
             [true, true, 'Faux', 'Vrai'],

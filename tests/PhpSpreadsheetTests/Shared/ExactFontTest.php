@@ -48,8 +48,18 @@ class ExactFontTest extends TestCase
     /** @var string */
     private $incompleteMessage = '';
 
+    private const KNOWN_MD5 = [
+        '6a15e0a7c0367ba77a959ea27ebf11cf',
+        'b0e31de57cd5307954a3c54136ce68ae',
+        'be189a7e2711cdf2a7f6275c60cbc7e2',
+    ];
+
+    /** @var null|float|int */
+    private $paddingAmountExact;
+
     protected function setUp(): void
     {
+        $this->paddingAmountExact = Font::getPaddingAmountExact();
         $this->holdDirectory = Font::getTrueTypeFontPath();
         $this->holdAutoSizeMethod = Font::getAutoSizeMethod();
         $direc = realpath('vendor/mpdf/mpdf/ttfonts') . DIRECTORY_SEPARATOR;
@@ -57,8 +67,9 @@ class ExactFontTest extends TestCase
         $fontPath = $direc . $fontFile;
         $this->incompleteMessage = '';
         if (@is_readable($fontPath)) {
-            if ('6a15e0a7c0367ba77a959ea27ebf11cf' !== md5_file($fontPath)) {
-                $this->incompleteMessage = 'Font file MD5 hash has changed';
+            $hash = md5_file($fontPath);
+            if (!in_array($hash, self::KNOWN_MD5, true)) {
+                $this->incompleteMessage = "Unrecognized Font file MD5 hash $hash";
             }
         } else {
             $this->incompleteMessage = 'Unable to locate font file';
@@ -70,6 +81,7 @@ class ExactFontTest extends TestCase
     {
         Font::setTrueTypeFontPath($this->holdDirectory);
         Font::setAutoSizeMethod($this->holdAutoSizeMethod);
+        Font::setPaddingAmountExact($this->paddingAmountExact);
         $this->directoryName = '';
     }
 
@@ -98,7 +110,7 @@ class ExactFontTest extends TestCase
         }
     }
 
-    public function providerFontData(): array
+    public static function providerFontData(): array
     {
         return [
             ['DejaVu Sans', 19.82, 20.453125, 22.5659, 21.709],
@@ -129,5 +141,91 @@ class ExactFontTest extends TestCase
         $widthRich = Font::calculateColumnWidth($arial, $richText);
         $widthText = Font::calculateColumnWidth($arial, 'ABC');
         self::assertSame($widthRich, $widthText);
+    }
+
+    public function testIssue3626NoPad(): void
+    {
+        $fontName = 'DejaVu Sans';
+        if ($this->incompleteMessage !== '') {
+            self::markTestIncomplete($this->incompleteMessage);
+        }
+        Font::setTrueTypeFontPath($this->directoryName);
+        Font::setExtraFontArray(self::EXTRA_FONTS);
+        Font::setAutoSizeMethod(Font::AUTOSIZE_METHOD_EXACT);
+        Font::setPaddingAmountExact(0);
+
+        $font = new StyleFont();
+        $font->setName($fontName);
+        $font->setSize(20);
+        $exactWidth = Font::calculateColumnWidth($font, 'Column2');
+        $expectedWidth = 16.853;
+        if ($exactWidth > 0.95 * $expectedWidth && $exactWidth < 1.05 * $expectedWidth) {
+            self::assertTrue(true);
+        } else {
+            self::fail("$exactWidth is not within 5% of expected $expectedWidth");
+        }
+
+        $font = new StyleFont();
+        $font->setName($fontName);
+        $exactWidth = Font::calculateColumnWidth($font, 'Col3');
+        $expectedWidth = 4.5703;
+        if ($exactWidth > 0.95 * $expectedWidth && $exactWidth < 1.05 * $expectedWidth) {
+            self::assertTrue(true);
+        } else {
+            self::fail("$exactWidth is not within 5% of expected $expectedWidth");
+        }
+
+        $font = new StyleFont();
+        $font->setName($fontName);
+        $exactWidth = Font::calculateColumnWidth($font, 'Big Column in 4 position');
+        $expectedWidth = 26.2793;
+        if ($exactWidth > 0.95 * $expectedWidth && $exactWidth < 1.05 * $expectedWidth) {
+            self::assertTrue(true);
+        } else {
+            self::fail("$exactWidth is not within 5% of expected $expectedWidth");
+        }
+    }
+
+    public function testIssue3626Pad(): void
+    {
+        $fontName = 'DejaVu Sans';
+        if ($this->incompleteMessage !== '') {
+            self::markTestIncomplete($this->incompleteMessage);
+        }
+        Font::setTrueTypeFontPath($this->directoryName);
+        Font::setExtraFontArray(self::EXTRA_FONTS);
+        Font::setAutoSizeMethod(Font::AUTOSIZE_METHOD_EXACT);
+        //Font::setPaddingAmountExact(null); // default - not needed
+
+        $font = new StyleFont();
+        $font->setName($fontName);
+        $font->setSize(20);
+        $exactWidth = Font::calculateColumnWidth($font, 'Column2');
+        $expectedWidth = 18.8525;
+        if ($exactWidth > 0.95 * $expectedWidth && $exactWidth < 1.05 * $expectedWidth) {
+            self::assertTrue(true);
+        } else {
+            self::fail("$exactWidth is not within 5% of expected $expectedWidth");
+        }
+
+        $font = new StyleFont();
+        $font->setName($fontName);
+        $exactWidth = Font::calculateColumnWidth($font, 'Col3');
+        $expectedWidth = 5.8557;
+        if ($exactWidth > 0.95 * $expectedWidth && $exactWidth < 1.05 * $expectedWidth) {
+            self::assertTrue(true);
+        } else {
+            self::fail("$exactWidth is not within 5% of expected $expectedWidth");
+        }
+
+        $font = new StyleFont();
+        $font->setName($fontName);
+        $exactWidth = Font::calculateColumnWidth($font, 'Big Column in 4 position');
+        $expectedWidth = 27.5647;
+        if ($exactWidth > 0.95 * $expectedWidth && $exactWidth < 1.05 * $expectedWidth) {
+            self::assertTrue(true);
+        } else {
+            self::fail("$exactWidth is not within 5% of expected $expectedWidth");
+        }
     }
 }

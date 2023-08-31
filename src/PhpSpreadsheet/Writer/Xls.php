@@ -427,6 +427,8 @@ class Xls extends BaseWriter
         $bstoreContainer->addBSE($BSE);
     }
 
+    private static int $two = 2; // phpstan silliness
+
     private function processDrawing(BstoreContainer &$bstoreContainer, Drawing $drawing): void
     {
         $blipType = 0;
@@ -434,7 +436,7 @@ class Xls extends BaseWriter
         $filename = $drawing->getPath();
 
         $imageSize = getimagesize($filename);
-        $imageFormat = empty($imageSize) ? 0 : ($imageSize[2] ?? 0);
+        $imageFormat = empty($imageSize) ? 0 : ($imageSize[self::$two] ?? 0);
 
         switch ($imageFormat) {
             case 1: // GIF, not supported by BIFF8, we convert to PNG
@@ -751,11 +753,12 @@ class Xls extends BaseWriter
                 $dataSection_Content .= $dataProp['data']['data'];
 
                 $dataSection_Content_Offset += 4 + 4 + strlen($dataProp['data']['data']);
-            // Condition below can never be true
-            //} elseif ($dataProp['type']['data'] == 0x40) { // Filetime (64-bit value representing the number of 100-nanosecond intervals since January 1, 1601)
-            //    $dataSection_Content .= $dataProp['data']['data'];
+                /* Condition below can never be true
+                } elseif ($dataProp['type']['data'] == 0x40) { // Filetime (64-bit value representing the number of 100-nanosecond intervals since January 1, 1601)
+                    $dataSection_Content .= $dataProp['data']['data'];
 
-            //    $dataSection_Content_Offset += 4 + 8;
+                    $dataSection_Content_Offset += 4 + 8;
+                */
             } else {
                 $dataSection_Content .= $dataProp['data']['data'];
 

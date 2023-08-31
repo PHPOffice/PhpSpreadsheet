@@ -14,7 +14,7 @@ class AccrintMTest extends AllSetupTeardown
         $this->runTestCase('ACCRINTM', $expectedResult, $args);
     }
 
-    public function providerACCRINTM(): array
+    public static function providerACCRINTM(): array
     {
         return require 'tests/data/Calculation/Financial/ACCRINTM.php';
     }

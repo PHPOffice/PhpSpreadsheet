@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Cell\AddressRange;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
@@ -154,7 +155,7 @@ class ReferenceHelper
             } else {
                 //    Otherwise update any affected breaks by inserting a new break at the appropriate point
                 //        and removing the old affected break
-                $newReference = $this->updateCellReference($cellAddress, false, null);
+                $newReference = $this->updateCellReference($cellAddress);
                 if ($cellAddress !== $newReference) {
                     $worksheet->setBreak($newReference, $value)
                         ->setBreak($cellAddress, Worksheet::BREAK_NONE);
@@ -177,7 +178,7 @@ class ReferenceHelper
             // Any comments inside a deleted range will be ignored
             if ($this->cellReferenceHelper->cellAddressInDeleteRange($cellAddress) === false) {
                 // Otherwise build a new array of comments indexed by the adjusted cell reference
-                $newReference = $this->updateCellReference($cellAddress, false, null);
+                $newReference = $this->updateCellReference($cellAddress);
                 $aNewComments[$newReference] = $value;
             }
         }
@@ -200,7 +201,7 @@ class ReferenceHelper
             : uksort($aHyperlinkCollection, [self::class, 'cellSort']);
 
         foreach ($aHyperlinkCollection as $cellAddress => $value) {
-            $newReference = $this->updateCellReference($cellAddress, false, null);
+            $newReference = $this->updateCellReference($cellAddress);
             if ($this->cellReferenceHelper->cellAddressInDeleteRange($cellAddress) === true) {
                 $worksheet->setHyperlink($cellAddress, null);
             } elseif ($cellAddress !== $newReference) {
@@ -228,7 +229,7 @@ class ReferenceHelper
 
         foreach ($aStyles as $cellAddress => $cfRules) {
             $worksheet->removeConditionalStyles($cellAddress);
-            $newReference = $this->updateCellReference($cellAddress, false, null);
+            $newReference = $this->updateCellReference($cellAddress);
 
             foreach ($cfRules as &$cfRule) {
                 /** @var Conditional $cfRule */
@@ -266,7 +267,7 @@ class ReferenceHelper
             : uksort($aDataValidationCollection, [self::class, 'cellSort']);
 
         foreach ($aDataValidationCollection as $cellAddress => $dataValidation) {
-            $newReference = $this->updateCellReference($cellAddress, false, null);
+            $newReference = $this->updateCellReference($cellAddress);
             if ($cellAddress !== $newReference) {
                 $dataValidation->setSqref($newReference);
                 $worksheet->setDataValidation($cellAddress, null);
@@ -287,7 +288,7 @@ class ReferenceHelper
         $aMergeCells = $worksheet->getMergeCells();
         $aNewMergeCells = []; // the new array of all merge cells
         foreach ($aMergeCells as $cellAddress => &$value) {
-            $newReference = $this->updateCellReference($cellAddress, false, null);
+            $newReference = $this->updateCellReference($cellAddress);
             if ($newReference) {
                 $aNewMergeCells[$newReference] = $newReference;
             }
@@ -309,7 +310,7 @@ class ReferenceHelper
             ? uksort($aProtectedCells, [self::class, 'cellReverseSort'])
             : uksort($aProtectedCells, [self::class, 'cellSort']);
         foreach ($aProtectedCells as $cellAddress => $value) {
-            $newReference = $this->updateCellReference($cellAddress, false, null);
+            $newReference = $this->updateCellReference($cellAddress);
             if ($cellAddress !== $newReference) {
                 $worksheet->unprotectCells($cellAddress);
                 if ($newReference) {
@@ -329,7 +330,7 @@ class ReferenceHelper
         $aColumnDimensions = array_reverse($worksheet->getColumnDimensions(), true);
         if (!empty($aColumnDimensions)) {
             foreach ($aColumnDimensions as $objColumnDimension) {
-                $newReference = $this->updateCellReference($objColumnDimension->getColumnIndex() . '1', false, null);
+                $newReference = $this->updateCellReference($objColumnDimension->getColumnIndex() . '1');
                 [$newReference] = Coordinate::coordinateFromString($newReference);
                 if ($objColumnDimension->getColumnIndex() !== $newReference) {
                     $objColumnDimension->setColumnIndex($newReference);
@@ -352,7 +353,7 @@ class ReferenceHelper
         $aRowDimensions = array_reverse($worksheet->getRowDimensions(), true);
         if (!empty($aRowDimensions)) {
             foreach ($aRowDimensions as $objRowDimension) {
-                $newReference = $this->updateCellReference('A' . $objRowDimension->getRowIndex(), false, null);
+                $newReference = $this->updateCellReference('A' . $objRowDimension->getRowIndex());
                 [, $newReference] = Coordinate::coordinateFromString($newReference);
                 $newRoweference = (int) $newReference;
                 if ($objRowDimension->getRowIndex() !== $newRoweference) {
@@ -527,8 +528,8 @@ class ReferenceHelper
             $splitCell = $worksheet->getFreezePane();
             $topLeftCell = $worksheet->getTopLeftCell() ?? '';
 
-            $splitCell = $this->updateCellReference($splitCell, false, null);
-            $topLeftCell = $this->updateCellReference($topLeftCell, false, null);
+            $splitCell = $this->updateCellReference($splitCell);
+            $topLeftCell = $this->updateCellReference($topLeftCell);
 
             $worksheet->freezePane($splitCell, $topLeftCell);
         }
@@ -536,19 +537,19 @@ class ReferenceHelper
         // Page setup
         if ($worksheet->getPageSetup()->isPrintAreaSet()) {
             $worksheet->getPageSetup()->setPrintArea(
-                $this->updateCellReference($worksheet->getPageSetup()->getPrintArea(), false, null)
+                $this->updateCellReference($worksheet->getPageSetup()->getPrintArea())
             );
         }
 
         // Update worksheet: drawings
         $aDrawings = $worksheet->getDrawingCollection();
         foreach ($aDrawings as $objDrawing) {
-            $newReference = $this->updateCellReference($objDrawing->getCoordinates(), false, null);
+            $newReference = $this->updateCellReference($objDrawing->getCoordinates());
             if ($objDrawing->getCoordinates() != $newReference) {
                 $objDrawing->setCoordinates($newReference);
             }
             if ($objDrawing->getCoordinates2() !== '') {
-                $newReference = $this->updateCellReference($objDrawing->getCoordinates2(), false, null);
+                $newReference = $this->updateCellReference($objDrawing->getCoordinates2());
                 if ($objDrawing->getCoordinates2() != $newReference) {
                     $objDrawing->setCoordinates2($newReference);
                 }
@@ -581,7 +582,8 @@ class ReferenceHelper
         $numberOfColumns = 0,
         $numberOfRows = 0,
         $worksheetName = '',
-        bool $includeAbsoluteReferences = false
+        bool $includeAbsoluteReferences = false,
+        bool $onlyAbsoluteReferences = false
     ) {
         if (
             $this->cellReferenceHelper === null ||
@@ -605,8 +607,8 @@ class ReferenceHelper
                     foreach ($matches as $match) {
                         $fromString = ($match[2] > '') ? $match[2] . '!' : '';
                         $fromString .= $match[3] . ':' . $match[4];
-                        $modified3 = substr($this->updateCellReference('$A' . $match[3], $includeAbsoluteReferences, true), 2);
-                        $modified4 = substr($this->updateCellReference('$A' . $match[4], $includeAbsoluteReferences, false), 2);
+                        $modified3 = substr($this->updateCellReference('$A' . $match[3], $includeAbsoluteReferences, $onlyAbsoluteReferences, true), 2);
+                        $modified4 = substr($this->updateCellReference('$A' . $match[4], $includeAbsoluteReferences, $onlyAbsoluteReferences, false), 2);
 
                         if ($match[3] . ':' . $match[4] !== $modified3 . ':' . $modified4) {
                             if (($match[2] == '') || (trim($match[2], "'") == $worksheetName)) {
@@ -630,8 +632,8 @@ class ReferenceHelper
                     foreach ($matches as $match) {
                         $fromString = ($match[2] > '') ? $match[2] . '!' : '';
                         $fromString .= $match[3] . ':' . $match[4];
-                        $modified3 = substr($this->updateCellReference($match[3] . '$1', $includeAbsoluteReferences, true), 0, -2);
-                        $modified4 = substr($this->updateCellReference($match[4] . '$1', $includeAbsoluteReferences, false), 0, -2);
+                        $modified3 = substr($this->updateCellReference($match[3] . '$1', $includeAbsoluteReferences, $onlyAbsoluteReferences, true), 0, -2);
+                        $modified4 = substr($this->updateCellReference($match[4] . '$1', $includeAbsoluteReferences, $onlyAbsoluteReferences, false), 0, -2);
 
                         if ($match[3] . ':' . $match[4] !== $modified3 . ':' . $modified4) {
                             if (($match[2] == '') || (trim($match[2], "'") == $worksheetName)) {
@@ -655,8 +657,8 @@ class ReferenceHelper
                     foreach ($matches as $match) {
                         $fromString = ($match[2] > '') ? $match[2] . '!' : '';
                         $fromString .= $match[3] . ':' . $match[4];
-                        $modified3 = $this->updateCellReference($match[3], $includeAbsoluteReferences, true);
-                        $modified4 = $this->updateCellReference($match[4], $includeAbsoluteReferences, false);
+                        $modified3 = $this->updateCellReference($match[3], $includeAbsoluteReferences, $onlyAbsoluteReferences, true);
+                        $modified4 = $this->updateCellReference($match[4], $includeAbsoluteReferences, $onlyAbsoluteReferences, false);
 
                         if ($match[3] . $match[4] !== $modified3 . $modified4) {
                             if (($match[2] == '') || (trim($match[2], "'") == $worksheetName)) {
@@ -683,7 +685,7 @@ class ReferenceHelper
                         $fromString = ($match[2] > '') ? $match[2] . '!' : '';
                         $fromString .= $match[3];
 
-                        $modified3 = $this->updateCellReference($match[3], $includeAbsoluteReferences, null);
+                        $modified3 = $this->updateCellReference($match[3], $includeAbsoluteReferences, $onlyAbsoluteReferences, null);
                         if ($match[3] !== $modified3) {
                             if (($match[2] == '') || (trim($match[2], "'") == $worksheetName)) {
                                 $toString = ($match[2] > '') ? $match[2] . '!' : '';
@@ -766,11 +768,13 @@ class ReferenceHelper
             $row = $rows[$splitCount][0];
 
             if (!empty($column) && $column[0] !== '$') {
-                $column = Coordinate::stringFromColumnIndex(Coordinate::columnIndexFromString($column) + $numberOfColumns);
+                $column = ((Coordinate::columnIndexFromString($column) + $numberOfColumns) % AddressRange::MAX_COLUMN_INT) ?: AddressRange::MAX_COLUMN_INT;
+                $column = Coordinate::stringFromColumnIndex($column);
+                $rowOffset -= ($columnLength - strlen($column));
                 $formula = substr($formula, 0, $columnOffset) . $column . substr($formula, $columnOffset + $columnLength);
             }
             if (!empty($row) && $row[0] !== '$') {
-                $row = (int) $row + $numberOfRows;
+                $row = (((int) $row + $numberOfRows) % AddressRange::MAX_ROW) ?: AddressRange::MAX_ROW;
                 $formula = substr($formula, 0, $rowOffset) . $row . substr($formula, $rowOffset + $rowLength);
             }
         }
@@ -863,7 +867,7 @@ class ReferenceHelper
      *
      * @return string Updated cell range
      */
-    private function updateCellReference($cellReference = 'A1', bool $includeAbsoluteReferences = false, ?bool $topLeft = null)
+    private function updateCellReference($cellReference = 'A1', bool $includeAbsoluteReferences = false, bool $onlyAbsoluteReferences = false, ?bool $topLeft = null)
     {
         // Is it in another worksheet? Will not have to update anything.
         if (strpos($cellReference, '!') !== false) {
@@ -872,11 +876,11 @@ class ReferenceHelper
         // Is it a range or a single cell?
         if (!Coordinate::coordinateIsRange($cellReference)) {
             // Single cell
-            return $this->cellReferenceHelper->updateCellReference($cellReference, $includeAbsoluteReferences, $topLeft);
+            return $this->cellReferenceHelper->updateCellReference($cellReference, $includeAbsoluteReferences, $onlyAbsoluteReferences, $topLeft);
         }
 
         // Range
-        return $this->updateCellRange($cellReference, $includeAbsoluteReferences);
+        return $this->updateCellRange($cellReference, $includeAbsoluteReferences, $onlyAbsoluteReferences);
     }
 
     /**
@@ -931,10 +935,10 @@ class ReferenceHelper
              *      them with a #REF!
              */
             if ($asFormula === true) {
-                $formula = $this->updateFormulaReferences($cellAddress, $beforeCellAddress, $numberOfColumns, $numberOfRows, $worksheet->getTitle(), true);
+                $formula = $this->updateFormulaReferences($cellAddress, $beforeCellAddress, $numberOfColumns, $numberOfRows, $worksheet->getTitle(), true, true);
                 $definedName->setValue($formula);
             } else {
-                $definedName->setValue($this->updateCellReference(ltrim($cellAddress, '='), true, null));
+                $definedName->setValue($this->updateCellReference(ltrim($cellAddress, '='), true));
             }
         }
     }
@@ -962,7 +966,7 @@ class ReferenceHelper
      *
      * @return string Updated cell range
      */
-    private function updateCellRange(string $cellRange = 'A1:A1', bool $includeAbsoluteReferences = false): string
+    private function updateCellRange(string $cellRange = 'A1:A1', bool $includeAbsoluteReferences = false, bool $onlyAbsoluteReferences = false): string
     {
         if (!Coordinate::coordinateIsRange($cellRange)) {
             throw new Exception('Only cell ranges may be passed to this method.');
@@ -976,14 +980,14 @@ class ReferenceHelper
             for ($j = 0; $j < $jc; ++$j) {
                 if (ctype_alpha($range[$i][$j])) {
                     $range[$i][$j] = Coordinate::coordinateFromString(
-                        $this->cellReferenceHelper->updateCellReference($range[$i][$j] . '1', $includeAbsoluteReferences, null)
+                        $this->cellReferenceHelper->updateCellReference($range[$i][$j] . '1', $includeAbsoluteReferences, $onlyAbsoluteReferences, null)
                     )[0];
                 } elseif (ctype_digit($range[$i][$j])) {
                     $range[$i][$j] = Coordinate::coordinateFromString(
-                        $this->cellReferenceHelper->updateCellReference('A' . $range[$i][$j], $includeAbsoluteReferences, null)
+                        $this->cellReferenceHelper->updateCellReference('A' . $range[$i][$j], $includeAbsoluteReferences, $onlyAbsoluteReferences, null)
                     )[1];
                 } else {
-                    $range[$i][$j] = $this->cellReferenceHelper->updateCellReference($range[$i][$j], $includeAbsoluteReferences, null);
+                    $range[$i][$j] = $this->cellReferenceHelper->updateCellReference($range[$i][$j], $includeAbsoluteReferences, $onlyAbsoluteReferences, null);
                 }
             }
         }
@@ -1061,7 +1065,7 @@ class ReferenceHelper
             }
 
             $worksheet->setAutoFilter(
-                $this->updateCellReference($autoFilterRange, false, null)
+                $this->updateCellReference($autoFilterRange)
             );
         }
     }
@@ -1140,7 +1144,7 @@ class ReferenceHelper
                     }
                 }
 
-                $table->setRange($this->updateCellReference($tableRange, false, null));
+                $table->setRange($this->updateCellReference($tableRange));
             }
         }
     }

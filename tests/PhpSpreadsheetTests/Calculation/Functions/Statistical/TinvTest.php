@@ -18,7 +18,7 @@ class TinvTest extends AllSetupTeardown
         $this->runTestCaseReference('TINV', $expectedResult, $probability, $degrees);
     }
 
-    public function providerTINV(): array
+    public static function providerTINV(): array
     {
         return require 'tests/data/Calculation/Statistical/TINV.php';
     }
@@ -35,7 +35,7 @@ class TinvTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerTInvArray(): array
+    public static function providerTInvArray(): array
     {
         return [
             'row vector' => [

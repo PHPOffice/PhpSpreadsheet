@@ -22,7 +22,7 @@ class ColorIndexTest extends TestCase
         }
     }
 
-    public function providerColorIndexes(): array
+    public static function providerColorIndexes(): array
     {
         return [
             'subtract 7 to return system color 4' => ['FF00FF00', '<fgColor indexed="11"/>'],

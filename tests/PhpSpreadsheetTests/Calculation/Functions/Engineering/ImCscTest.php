@@ -90,7 +90,7 @@ class ImCscTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerIMCSC(): array
+    public static function providerIMCSC(): array
     {
         return require 'tests/data/Calculation/Engineering/IMCSC.php';
     }
@@ -116,7 +116,7 @@ class ImCscTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerUnhappyIMCSC(): array
+    public static function providerUnhappyIMCSC(): array
     {
         return [
             ['Formula Error: Wrong number of arguments for IMCSC() function'],
@@ -147,7 +147,7 @@ class ImCscTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerImCscArray(): array
+    public static function providerImCscArray(): array
     {
         return [
             'row/column vector' => [

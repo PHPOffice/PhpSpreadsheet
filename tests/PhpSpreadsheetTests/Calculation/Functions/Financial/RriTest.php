@@ -14,7 +14,7 @@ class RriTest extends AllSetupTeardown
         $this->runTestCase('RRI', $expectedResult, $args);
     }
 
-    public function providerRRI(): array
+    public static function providerRRI(): array
     {
         return require 'tests/data/Calculation/Financial/RRI.php';
     }

@@ -64,7 +64,7 @@ class StringTable extends WriterPart
     /**
      * Write string table to XML format.
      *
-     * @param (string|RichText)[] $stringTable
+     * @param (RichText|string)[] $stringTable
      *
      * @return string XML Output
      */

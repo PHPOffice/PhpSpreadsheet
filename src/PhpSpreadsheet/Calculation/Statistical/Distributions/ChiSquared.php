@@ -96,7 +96,9 @@ class ChiSquared
         }
 
         if ($cumulative === true) {
-            return 1 - self::distributionRightTail($value, $degrees);
+            $temp = self::distributionRightTail($value, $degrees);
+
+            return 1 - (is_numeric($temp) ? $temp : 0);
         }
 
         return ($value ** (($degrees / 2) - 1) * exp(-$value / 2)) /

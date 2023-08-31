@@ -28,7 +28,7 @@ class ConcatenateTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerCONCATENATE(): array
+    public static function providerCONCATENATE(): array
     {
         return require 'tests/data/Calculation/TextData/CONCATENATE.php';
     }

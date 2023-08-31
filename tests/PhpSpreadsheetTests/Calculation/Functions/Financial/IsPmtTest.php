@@ -14,7 +14,7 @@ class IsPmtTest extends AllSetupTeardown
         $this->runTestCase('ISPMT', $expectedResult, $args);
     }
 
-    public function providerISPMT(): array
+    public static function providerISPMT(): array
     {
         return require 'tests/data/Calculation/Financial/ISPMT.php';
     }

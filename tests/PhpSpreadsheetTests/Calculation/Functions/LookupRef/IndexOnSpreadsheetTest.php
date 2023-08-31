@@ -32,7 +32,7 @@ class IndexOnSpreadsheetTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerINDEXonSpreadsheet(): array
+    public static function providerINDEXonSpreadsheet(): array
     {
         return require 'tests/data/Calculation/LookupRef/INDEXonSpreadsheet.php';
     }

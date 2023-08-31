@@ -24,7 +24,7 @@ class TypeTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerTYPE(): array
+    public static function providerTYPE(): array
     {
         return require 'tests/data/Calculation/Information/TYPE.php';
     }

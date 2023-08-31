@@ -38,7 +38,7 @@ class DProductTest extends SetupTeardownDatabases
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
-    private function database5(): array
+    private static function database5(): array
     {
         return [
             ['Name', 'Date', 'Test', 'Score'],
@@ -57,12 +57,12 @@ class DProductTest extends SetupTeardownDatabases
         ];
     }
 
-    public function providerDProduct(): array
+    public static function providerDProduct(): array
     {
         return [
             [
                 800.0,
-                $this->database1(),
+                self::database1(),
                 'Yield',
                 [
                     ['Tree', 'Height', 'Height'],
@@ -72,7 +72,7 @@ class DProductTest extends SetupTeardownDatabases
             ],
             [
                 36.0,
-                $this->database5(),
+                self::database5(),
                 'Score',
                 [
                     ['Name', 'Date'],
@@ -81,7 +81,7 @@ class DProductTest extends SetupTeardownDatabases
             ],
             [
                 8.0,
-                $this->database5(),
+                self::database5(),
                 'Score',
                 [
                     ['Test', 'Date'],
@@ -90,9 +90,9 @@ class DProductTest extends SetupTeardownDatabases
             ],
             'omitted field name' => [
                 ExcelError::VALUE(),
-                $this->database1(),
+                self::database1(),
                 null,
-                $this->database1(),
+                self::database1(),
             ],
         ];
     }

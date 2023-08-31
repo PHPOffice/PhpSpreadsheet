@@ -89,7 +89,7 @@ class HyperlinkTest extends AllSetupTeardown
         }
     }
 
-    public function providerHYPERLINK(): array
+    public static function providerHYPERLINK(): array
     {
         return require 'tests/data/Calculation/LookupRef/HYPERLINK.php';
     }

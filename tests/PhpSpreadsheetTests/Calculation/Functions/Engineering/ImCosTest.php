@@ -90,7 +90,7 @@ class ImCosTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerIMCOS(): array
+    public static function providerIMCOS(): array
     {
         return require 'tests/data/Calculation/Engineering/IMCOS.php';
     }
@@ -116,7 +116,7 @@ class ImCosTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerUnhappyIMCOS(): array
+    public static function providerUnhappyIMCOS(): array
     {
         return [
             ['Formula Error: Wrong number of arguments for IMCOS() function'],
@@ -135,7 +135,7 @@ class ImCosTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerImCosArray(): array
+    public static function providerImCosArray(): array
     {
         return [
             'row/column vector' => [

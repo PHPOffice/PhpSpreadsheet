@@ -14,7 +14,7 @@ class NpvTest extends AllSetupTeardown
         $this->runTestCase('NPV', $expectedResult, $args);
     }
 
-    public function providerNPV(): array
+    public static function providerNPV(): array
     {
         return require 'tests/data/Calculation/Financial/NPV.php';
     }

@@ -47,8 +47,14 @@ class HLookupTest extends TestCase
 
         $boolArg = self::parseRangeLookup($rangeLookup);
         $sheet->getCell('ZZ8')->setValue($lookup);
-        $sheet->getCell('ZZ7')->setValue($rowIndex);
-        $sheet->getCell('ZZ1')->setValue("=HLOOKUP(ZZ8, A1:$maxColLetter$maxRow, ZZ7$boolArg)");
+        if (is_array($rowIndex)) {
+            $sheet->fromArray($rowIndex, null, 'ZZ10', true);
+            $indexarg = 'ZZ10:ZZ' . (string) (9 + count($rowIndex));
+        } else {
+            $sheet->getCell('ZZ10')->setValue($rowIndex);
+            $indexarg = 'ZZ10';
+        }
+        $sheet->getCell('ZZ1')->setValue("=HLOOKUP(ZZ8, A1:$maxColLetter$maxRow, $indexarg$boolArg)");
         self::assertEquals($expectedResult, $sheet->getCell('ZZ1')->getCalculatedValue());
 
         $spreadsheet->disconnectWorksheets();
@@ -63,7 +69,7 @@ class HLookupTest extends TestCase
         return $rangeLookup ? ', true' : ', false';
     }
 
-    public function providerHLOOKUP(): array
+    public static function providerHLOOKUP(): array
     {
         return require 'tests/data/Calculation/LookupRef/HLOOKUP.php';
     }
@@ -96,7 +102,7 @@ class HLookupTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerHLookupNamedRange(): array
+    public static function providerHLookupNamedRange(): array
     {
         return [
             ['Average', 'D5'],
@@ -118,7 +124,7 @@ class HLookupTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerHLookupArray(): array
+    public static function providerHLookupArray(): array
     {
         return [
             'row vector #1' => [
@@ -138,6 +144,12 @@ class HLookupTest extends TestCase
                 '{"Axles", "Bolts"}',
                 '{"Axles", "Bearings", "Bolts"; 4, 4, 9; 5, 7, 10; 6, 8, 11}',
                 '{2; 3}',
+            ],
+            'issue 3561' => [
+                [[8, 9, 8]],
+                '6',
+                '{1,6,11;2,7,12;3,8,13;4,9,14;5,10,15}',
+                '{3,4,3}',
             ],
         ];
     }

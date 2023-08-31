@@ -7,7 +7,6 @@ use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Worksheet\Row;
 use PhpOffice\PhpSpreadsheet\Worksheet\RowCellIterator;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Writer\Exception;
@@ -126,7 +125,16 @@ class Content extends WriterPart
             $objWriter->writeAttribute('table:name', $spreadsheet->getSheet($sheetIndex)->getTitle());
             $objWriter->writeAttribute('table:style-name', Style::TABLE_STYLE_PREFIX . (string) ($sheetIndex + 1));
             $objWriter->writeElement('office:forms');
+            $lastColumn = 0;
             foreach ($spreadsheet->getSheet($sheetIndex)->getColumnDimensions() as $columnDimension) {
+                $thisColumn = $columnDimension->getColumnNumeric();
+                $emptyColumns = $thisColumn - $lastColumn - 1;
+                if ($emptyColumns > 0) {
+                    $objWriter->startElement('table:table-column');
+                    $objWriter->writeAttribute('table:number-columns-repeated', (string) $emptyColumns);
+                    $objWriter->endElement();
+                }
+                $lastColumn = $thisColumn;
                 $objWriter->startElement('table:table-column');
                 $objWriter->writeAttribute(
                     'table:style-name',
@@ -242,7 +250,23 @@ class Content extends WriterPart
                     // break intentionally omitted
                 case DataType::TYPE_STRING:
                     $objWriter->writeAttribute('office:value-type', 'string');
-                    $objWriter->writeElement('text:p', $cell->getValue());
+                    $url = $cell->getHyperlink()->getUrl();
+                    if (empty($url)) {
+                        $objWriter->writeElement('text:p', $cell->getValue());
+                    } else {
+                        $objWriter->startElement('text:p');
+                        $objWriter->startElement('text:a');
+                        $sheets = 'sheet://';
+                        $lensheets = strlen($sheets);
+                        if (substr($url, 0, $lensheets) === $sheets) {
+                            $url = '#' . substr($url, $lensheets);
+                        }
+                        $objWriter->writeAttribute('xlink:href', $url);
+                        $objWriter->writeAttribute('xlink:type', 'simple');
+                        $objWriter->text($cell->getValue());
+                        $objWriter->endElement(); // text:a
+                        $objWriter->endElement(); // text:p
+                    }
 
                     break;
             }

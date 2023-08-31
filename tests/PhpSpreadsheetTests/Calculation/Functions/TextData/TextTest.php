@@ -31,7 +31,7 @@ class TextTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerTEXT(): array
+    public static function providerTEXT(): array
     {
         return require 'tests/data/Calculation/TextData/TEXT.php';
     }
@@ -48,7 +48,7 @@ class TextTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerTextArray(): array
+    public static function providerTextArray(): array
     {
         return [
             'row vector' => [[['123.75%', '1 19/80']], '1.2375', '{"0.00%", "0 ??/???"}'],

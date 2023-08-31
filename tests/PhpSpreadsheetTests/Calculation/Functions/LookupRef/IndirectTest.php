@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
+use PhpOffice\PhpSpreadsheet\NamedFormula;
 use PhpOffice\PhpSpreadsheet\NamedRange;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx as ReaderXlsx;
 
@@ -54,7 +55,7 @@ class IndirectTest extends AllSetupTeardown
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerINDIRECT(): array
+    public static function providerINDIRECT(): array
     {
         return require 'tests/data/Calculation/LookupRef/INDIRECT.php';
     }
@@ -151,7 +152,7 @@ class IndirectTest extends AllSetupTeardown
         self::assertSame($expectedResult, $sheet->getCell('B2')->getCalculatedValue());
     }
 
-    public function providerRelative(): array
+    public static function providerRelative(): array
     {
         return [
             'same row with bracket next column' => ['c2', 'R[]C[+1]'],
@@ -175,5 +176,34 @@ class IndirectTest extends AllSetupTeardown
             'relative row absolute column lowercase' => ['a2', 'rc1'],
             'uninitialized cell' => [null, 'RC[+2]'], // Excel result is 0
         ];
+    }
+
+    /** @var bool */
+    private static $definedFormulaWorking = false;
+
+    public function testAboveCell(): void
+    {
+        $spreadsheet = $this->getSpreadsheet();
+        $spreadsheet->addNamedFormula(
+            new NamedFormula('SumAbove', $spreadsheet->getActiveSheet(), '=SUM(INDIRECT(ADDRESS(1,COLUMN())):INDIRECT(ADDRESS(ROW()-1,COLUMN())))')
+        );
+        $sheet = $this->getSheet();
+        $sheet->getCell('A1')->setValue(100);
+        $sheet->getCell('A2')->setValue(200);
+        $sheet->getCell('A3')->setValue(300);
+        $sheet->getCell('A4')->setValue(400);
+        $sheet->getCell('A5')->setValue(500);
+        $sheet->getCell('A6')->setValue('=SUM(A$1:INDIRECT(ADDRESS(ROW()-1,COLUMN())))');
+        self::AssertSame(1500, $sheet->getCell('A6')->getCalculatedValue());
+        if (self::$definedFormulaWorking) {
+            $sheet->getCell('B1')->setValue(10);
+            $sheet->getCell('B2')->setValue(20);
+            $sheet->getCell('B3')->setValue(30);
+            $sheet->getCell('B4')->setValue(40);
+            $sheet->getCell('B5')->setValue('=SumAbove');
+            self::AssertSame(100, $sheet->getCell('B5')->getCalculatedValue());
+        } else {
+            self::markTestIncomplete('PhpSpreadsheet does not handle this correctly');
+        }
     }
 }

@@ -3,7 +3,6 @@
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Ods;
 
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
-use PhpOffice\PhpSpreadsheet\Document\Properties;
 use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 use PhpOffice\PhpSpreadsheet\Reader\Ods;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -141,8 +140,8 @@ class OdsTest extends TestCase
 
         $firstSheet = $spreadsheet->getSheet(0);
 
-        self::assertEquals(29, $firstSheet->getHighestRow());
-        self::assertEquals('N', $firstSheet->getHighestColumn());
+        self::assertEquals(29, $firstSheet->getHighestDataRow());
+        self::assertEquals('N', $firstSheet->getHighestDataColumn());
 
         // Simple cell value
         self::assertEquals('Test String 1', $firstSheet->getCell('A1')->getValue());

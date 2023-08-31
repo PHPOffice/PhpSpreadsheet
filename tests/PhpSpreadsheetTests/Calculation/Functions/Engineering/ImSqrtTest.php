@@ -90,7 +90,7 @@ class ImSqrtTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerIMSQRT(): array
+    public static function providerIMSQRT(): array
     {
         return require 'tests/data/Calculation/Engineering/IMSQRT.php';
     }
@@ -116,7 +116,7 @@ class ImSqrtTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerUnhappyIMSQRT(): array
+    public static function providerUnhappyIMSQRT(): array
     {
         return [
             ['Formula Error: Wrong number of arguments for IMSQRT() function'],
@@ -135,7 +135,7 @@ class ImSqrtTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerImSqrtArray(): array
+    public static function providerImSqrtArray(): array
     {
         return [
             'row/column vector' => [

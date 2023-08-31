@@ -75,7 +75,7 @@ class ConditionalStyleTest extends TestCase
         self::assertSame($expectedGetConditionalStyles, !empty($cellHasConditionalStyles));
     }
 
-    public function cellConditionalStylesProvider(): array
+    public static function cellConditionalStylesProvider(): array
     {
         return [
             ['A1', true],

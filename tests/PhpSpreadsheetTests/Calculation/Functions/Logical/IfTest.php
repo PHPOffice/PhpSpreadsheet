@@ -14,7 +14,7 @@ class IfTest extends AllSetupTeardown
         $this->runTestCase('IF', $expectedResult, ...$args);
     }
 
-    public function providerIF(): array
+    public static function providerIF(): array
     {
         return require 'tests/data/Calculation/Logical/IF.php';
     }

@@ -24,7 +24,7 @@ class ParseFormulaTest extends TestCase
         self::assertEquals($expectedStack, $stack);
     }
 
-    public function providerBinaryOperations(): array
+    public static function providerBinaryOperations(): array
     {
         return [
             'Unary negative with Value' => [

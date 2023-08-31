@@ -33,7 +33,7 @@ class PasswordHasherTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerHashPassword(): array
+    public static function providerHashPassword(): array
     {
         return require 'tests/data/Shared/PasswordHashes.php';
     }

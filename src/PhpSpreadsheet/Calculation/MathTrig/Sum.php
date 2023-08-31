@@ -5,7 +5,6 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ErrorValue;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
-use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
 
 class Sum
 {
@@ -19,7 +18,7 @@ class Sum
      *
      * @param mixed ...$args Data values
      *
-     * @return float|string
+     * @return float|int|string
      */
     public static function sumIgnoringStrings(...$args)
     {
@@ -48,7 +47,7 @@ class Sum
      *
      * @param mixed ...$args Data values
      *
-     * @return float|string
+     * @return float|int|string
      */
     public static function sumErroringStrings(...$args)
     {
@@ -57,17 +56,14 @@ class Sum
         $aArgs = Functions::flattenArrayIndexed($args);
         foreach ($aArgs as $k => $arg) {
             // Is it a numeric value?
-            if (is_numeric($arg) || empty($arg)) {
-                if (is_string($arg)) {
-                    $arg = (int) $arg;
-                }
+            if (is_numeric($arg)) {
                 $returnValue += $arg;
             } elseif (is_bool($arg)) {
                 $returnValue += (int) $arg;
             } elseif (ErrorValue::isError($arg)) {
                 return $arg;
-            // ignore non-numerics from cell, but fail as literals (except null)
             } elseif ($arg !== null && !Functions::isCellValue($k)) {
+                // ignore non-numerics from cell, but fail as literals (except null)
                 return ExcelError::VALUE();
             }
         }

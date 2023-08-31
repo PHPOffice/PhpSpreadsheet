@@ -14,7 +14,7 @@ class AverageATest extends AllSetupTeardown
         $this->runTestCases('AVERAGEA', $expectedResult, ...$args);
     }
 
-    public function providerAVERAGEA(): array
+    public static function providerAVERAGEA(): array
     {
         return require 'tests/data/Calculation/Statistical/AVERAGEA.php';
     }

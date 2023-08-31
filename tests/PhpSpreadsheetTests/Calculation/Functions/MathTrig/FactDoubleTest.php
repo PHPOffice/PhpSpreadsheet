@@ -22,7 +22,7 @@ class FactDoubleTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerFACTDOUBLE(): array
+    public static function providerFACTDOUBLE(): array
     {
         return require 'tests/data/Calculation/MathTrig/FACTDOUBLE.php';
     }
@@ -39,7 +39,7 @@ class FactDoubleTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerFactDoubleArray(): array
+    public static function providerFactDoubleArray(): array
     {
         return [
             'row vector' => [[['#NUM!', 48, 945]], '{-2, 6, 9}'],

@@ -22,7 +22,7 @@ class ProductTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerPRODUCT(): array
+    public static function providerPRODUCT(): array
     {
         return require 'tests/data/Calculation/MathTrig/PRODUCT.php';
     }

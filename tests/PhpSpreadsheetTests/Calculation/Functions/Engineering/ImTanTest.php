@@ -90,7 +90,7 @@ class ImTanTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerIMTAN(): array
+    public static function providerIMTAN(): array
     {
         return require 'tests/data/Calculation/Engineering/IMTAN.php';
     }
@@ -116,7 +116,7 @@ class ImTanTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerUnhappyIMTAN(): array
+    public static function providerUnhappyIMTAN(): array
     {
         return [
             ['Formula Error: Wrong number of arguments for IMTAN() function'],
@@ -135,7 +135,7 @@ class ImTanTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerImTanArray(): array
+    public static function providerImTanArray(): array
     {
         return [
             'row/column vector' => [

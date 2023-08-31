@@ -61,7 +61,7 @@ class MinuteTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerMINUTE(): array
+    public static function providerMINUTE(): array
     {
         return require 'tests/data/Calculation/DateTime/MINUTE.php';
     }
@@ -87,7 +87,7 @@ class MinuteTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerUnhappyMINUTE(): array
+    public static function providerUnhappyMINUTE(): array
     {
         return [
             ['Formula Error: Wrong number of arguments for MINUTE() function'],
@@ -106,7 +106,7 @@ class MinuteTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerMinuteArray(): array
+    public static function providerMinuteArray(): array
     {
         return [
             'row vector' => [[[2, 14, 20]], '{"2022-02-09 01:02:03", "2022-02-09 13:14:15", "2022-02-09 19:20:21"}'],

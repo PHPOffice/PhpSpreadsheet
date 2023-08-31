@@ -19,7 +19,7 @@ class DeprecatedExcelErrorTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerDeprecatedExcelError(): array
+    public static function providerDeprecatedExcelError(): array
     {
         return [
             'NULL' => [

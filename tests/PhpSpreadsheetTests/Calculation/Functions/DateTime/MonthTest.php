@@ -61,7 +61,7 @@ class MonthTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerMONTH(): array
+    public static function providerMONTH(): array
     {
         return require 'tests/data/Calculation/DateTime/MONTH.php';
     }
@@ -87,7 +87,7 @@ class MonthTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerUnhappyMONTH(): array
+    public static function providerUnhappyMONTH(): array
     {
         return [
             ['Formula Error: Wrong number of arguments for MONTH() function'],
@@ -106,7 +106,7 @@ class MonthTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerMonthArray(): array
+    public static function providerMonthArray(): array
     {
         return [
             'row vector' => [[[1, 6, 1]], '{"2022-01-01", "2022-06-01", "2023-01-01"}'],

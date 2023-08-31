@@ -24,7 +24,7 @@ class IOFactoryTest extends TestCase
         self::assertSame($expected, get_class($actual));
     }
 
-    public function providerCreateWriter(): array
+    public static function providerCreateWriter(): array
     {
         return [
             ['Xls', Writer\Xls::class],
@@ -58,7 +58,7 @@ class IOFactoryTest extends TestCase
         self::assertSame($expected, get_class($actual));
     }
 
-    public function providerCreateReader(): array
+    public static function providerCreateReader(): array
     {
         return [
             ['Xls', Reader\Xls::class],
@@ -92,11 +92,12 @@ class IOFactoryTest extends TestCase
         self::assertInstanceOf(Spreadsheet::class, $actual);
     }
 
-    public function providerIdentify(): array
+    public static function providerIdentify(): array
     {
         return [
             ['samples/templates/26template.xlsx', 'Xlsx', Reader\Xlsx::class],
             ['samples/templates/GnumericTest.gnumeric', 'Gnumeric', Reader\Gnumeric::class],
+            ['tests/data/Reader/Gnumeric/PageSetup.gnumeric.unzipped.xml', 'Gnumeric', Reader\Gnumeric::class],
             ['samples/templates/old.gnumeric', 'Gnumeric', Reader\Gnumeric::class],
             ['samples/templates/30template.xls', 'Xls', Reader\Xls::class],
             ['samples/templates/OOCalcTest.ods', 'Ods', Reader\Ods::class],

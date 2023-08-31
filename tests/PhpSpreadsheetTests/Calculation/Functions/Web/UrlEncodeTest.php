@@ -19,7 +19,7 @@ class UrlEncodeTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerURLENCODE(): array
+    public static function providerURLENCODE(): array
     {
         return require 'tests/data/Calculation/Web/URLENCODE.php';
     }

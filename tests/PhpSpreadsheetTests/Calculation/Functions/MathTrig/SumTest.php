@@ -24,7 +24,7 @@ class SumTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerSUM(): array
+    public static function providerSUM(): array
     {
         return require 'tests/data/Calculation/MathTrig/SUM.php';
     }
@@ -42,7 +42,7 @@ class SumTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerSUMLiterals(): array
+    public static function providerSUMLiterals(): array
     {
         return require 'tests/data/Calculation/MathTrig/SUMLITERALS.php';
     }
@@ -75,7 +75,7 @@ class SumTest extends AllSetupTeardown
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerSUMWITHINDEXMATCH(): array
+    public static function providerSUMWITHINDEXMATCH(): array
     {
         return require 'tests/data/Calculation/MathTrig/SUMWITHINDEXMATCH.php';
     }

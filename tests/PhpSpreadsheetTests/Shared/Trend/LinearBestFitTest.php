@@ -44,7 +44,7 @@ class LinearBestFitTest extends TestCase
         self::assertSame($expectedGoodnessOfFit[1], $bestFit->getGoodnessOfFit());
     }
 
-    public function providerLinearBestFit(): array
+    public static function providerLinearBestFit(): array
     {
         return require 'tests/data/Shared/Trend/LinearBestFit.php';
     }

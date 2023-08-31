@@ -14,7 +14,7 @@ class CountATest extends AllSetupTeardown
         $this->runTestCases('COUNTA', $expectedResult, ...$args);
     }
 
-    public function providerCOUNTA(): array
+    public static function providerCOUNTA(): array
     {
         return require 'tests/data/Calculation/Statistical/COUNTA.php';
     }

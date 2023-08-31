@@ -47,7 +47,7 @@ class MirrTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0E-8);
     }
 
-    public function providerMIRR(): array
+    public static function providerMIRR(): array
     {
         return require 'tests/data/Calculation/Financial/MIRR.php';
     }

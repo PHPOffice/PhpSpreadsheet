@@ -182,7 +182,7 @@ class HtmlNumberFormatTest extends Functional\AbstractFunctional
         $this->writeAndReload($spreadsheet, 'Html');
     }
 
-    public function providerNumberFormat(): array
+    public static function providerNumberFormat(): array
     {
         return require __DIR__ . '/../../../data/Style/NumberFormat.php';
     }
@@ -218,7 +218,7 @@ class HtmlNumberFormatTest extends Functional\AbstractFunctional
         $this->writeAndReload($spreadsheet, 'Html');
     }
 
-    public function providerNumberFormatDates(): array
+    public static function providerNumberFormatDates(): array
     {
         return require __DIR__ . '/../../../data/Style/NumberFormatDates.php';
     }

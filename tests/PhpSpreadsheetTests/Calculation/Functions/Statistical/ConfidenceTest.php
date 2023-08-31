@@ -16,7 +16,7 @@ class ConfidenceTest extends AllSetupTeardown
         $this->runTestCaseReference('CONFIDENCE', $expectedResult, ...$args);
     }
 
-    public function providerCONFIDENCE(): array
+    public static function providerCONFIDENCE(): array
     {
         return require 'tests/data/Calculation/Statistical/CONFIDENCE.php';
     }
@@ -33,7 +33,7 @@ class ConfidenceTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerConfidenceArray(): array
+    public static function providerConfidenceArray(): array
     {
         return [
             'row/column vectors' => [

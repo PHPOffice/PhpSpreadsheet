@@ -54,7 +54,7 @@ class CalculationTest extends TestCase
         self::assertEquals($expectedResultOpenOffice, $resultOpenOffice, 'should be OpenOffice compatible');
     }
 
-    public function providerBinaryComparisonOperation(): array
+    public static function providerBinaryComparisonOperation(): array
     {
         return require 'tests/data/CalculationBinaryComparisonOperation.php';
     }
@@ -406,7 +406,7 @@ class CalculationTest extends TestCase
         self::assertEquals($expectedResult, $calculated);
     }
 
-    public function dataProviderBranchPruningFullExecution(): array
+    public static function dataProviderBranchPruningFullExecution(): array
     {
         return require 'tests/data/Calculation/Calculation.php';
     }

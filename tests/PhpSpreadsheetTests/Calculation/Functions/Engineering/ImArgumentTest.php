@@ -69,7 +69,7 @@ class ImArgumentTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerIMARGUMENT(): array
+    public static function providerIMARGUMENT(): array
     {
         return require 'tests/data/Calculation/Engineering/IMARGUMENT.php';
     }
@@ -95,14 +95,14 @@ class ImArgumentTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerUnhappyIMARGUMENT(): array
+    public static function providerUnhappyIMARGUMENT(): array
     {
         return [
             ['Formula Error: Wrong number of arguments for IMARGUMENT() function'],
         ];
     }
 
-    public function providerImArgumentArray(): array
+    public static function providerImArgumentArray(): array
     {
         return [
             'row/column vector' => [

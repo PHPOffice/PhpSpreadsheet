@@ -19,7 +19,7 @@ class FormattedNumberTest extends TestCase
         self::assertSame($expected, $value);
     }
 
-    public function providerNumbers(): array
+    public static function providerNumbers(): array
     {
         return [
             [-12.5, '-12.5'],
@@ -47,7 +47,7 @@ class FormattedNumberTest extends TestCase
         }
     }
 
-    public function providerFractions(): array
+    public static function providerFractions(): array
     {
         return [
             'non-fraction' => ['1', '1'],
@@ -76,7 +76,7 @@ class FormattedNumberTest extends TestCase
         }
     }
 
-    public function providerPercentages(): array
+    public static function providerPercentages(): array
     {
         return [
             'non-percentage' => ['10', '10'],
@@ -205,7 +205,7 @@ class FormattedNumberTest extends TestCase
         }
     }
 
-    public function providerCurrencies(): array
+    public static function providerCurrencies(): array
     {
         $currencyCode = StringHelper::getCurrencyCode();
 

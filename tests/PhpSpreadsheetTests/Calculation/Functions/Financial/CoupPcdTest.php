@@ -14,7 +14,7 @@ class CoupPcdTest extends AllSetupTeardown
         $this->runTestCase('COUPPCD', $expectedResult, $args);
     }
 
-    public function providerCOUPPCD(): array
+    public static function providerCOUPPCD(): array
     {
         return require 'tests/data/Calculation/Financial/COUPPCD.php';
     }

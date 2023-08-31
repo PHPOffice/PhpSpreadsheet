@@ -36,7 +36,7 @@ class RowOnSpreadsheetTest extends AllSetupTeardown
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerROWOnSpreadsheet(): array
+    public static function providerROWOnSpreadsheet(): array
     {
         return require 'tests/data/Calculation/LookupRef/ROWonSpreadsheet.php';
     }

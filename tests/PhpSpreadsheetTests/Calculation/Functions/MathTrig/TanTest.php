@@ -21,7 +21,7 @@ class TanTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-6);
     }
 
-    public function providerTan(): array
+    public static function providerTan(): array
     {
         return require 'tests/data/Calculation/MathTrig/TAN.php';
     }
@@ -38,7 +38,7 @@ class TanTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerTanArray(): array
+    public static function providerTanArray(): array
     {
         return [
             'row vector' => [[[1.55740772465490, 0.54630248984379, -1.55740772465490]], '{1, 0.5, -1}'],

@@ -297,55 +297,68 @@ class Worksheet extends WriterPart
         }
 
         $topLeftCell = $worksheet->getTopLeftCell();
+        if (!empty($topLeftCell) && $worksheet->getPaneState() !== PhpspreadsheetWorksheet::PANE_FROZEN && $worksheet->getPaneState() !== PhpspreadsheetWorksheet::PANE_FROZENSPLIT) {
+            $objWriter->writeAttribute('topLeftCell', $topLeftCell);
+        }
         $activeCell = $worksheet->getActiveCell();
         $sqref = $worksheet->getSelectedCells();
 
         // Pane
-        $pane = '';
-        if ($worksheet->getFreezePane()) {
-            [$xSplit, $ySplit] = Coordinate::coordinateFromString($worksheet->getFreezePane());
-            $xSplit = Coordinate::columnIndexFromString($xSplit);
-            --$xSplit;
-            --$ySplit;
-
-            // pane
-            $pane = 'topRight';
+        if ($worksheet->usesPanes()) {
             $objWriter->startElement('pane');
+            $xSplit = $worksheet->getXSplit();
+            $ySplit = $worksheet->getYSplit();
+            $pane = $worksheet->getActivePane();
+            $paneTopLeftCell = $worksheet->getPaneTopLeftCell();
             if ($xSplit > 0) {
                 $objWriter->writeAttribute('xSplit', "$xSplit");
             }
             if ($ySplit > 0) {
-                $objWriter->writeAttribute('ySplit', $ySplit);
-                $pane = ($xSplit > 0) ? 'bottomRight' : 'bottomLeft';
+                $objWriter->writeAttribute('ySplit', "$ySplit");
             }
-            self::writeAttributeNotNull($objWriter, 'topLeftCell', $topLeftCell);
-            $objWriter->writeAttribute('activePane', $pane);
-            $objWriter->writeAttribute('state', 'frozen');
-            $objWriter->endElement();
+            if ($pane !== '') {
+                $objWriter->writeAttribute('activePane', $pane);
+            }
+            $paneState = $worksheet->getPaneState();
+            if ($paneState !== '') {
+                $objWriter->writeAttribute('state', $paneState);
+            }
+            if ($paneTopLeftCell !== '') {
+                $objWriter->writeAttribute('topLeftCell', $paneTopLeftCell);
+            }
+            $objWriter->endElement(); // pane
 
-            if (($xSplit > 0) && ($ySplit > 0)) {
-                //    Write additional selections if more than two panes (ie both an X and a Y split)
-                $objWriter->startElement('selection');
-                $objWriter->writeAttribute('pane', 'topRight');
-                $objWriter->endElement();
-                $objWriter->startElement('selection');
-                $objWriter->writeAttribute('pane', 'bottomLeft');
-                $objWriter->endElement();
+            foreach ($worksheet->getPanes() as $panex) {
+                if ($panex !== null) {
+                    $sqref = $activeCell = '';
+                    $objWriter->startElement('selection');
+                    $objWriter->writeAttribute('pane', $panex->getPosition());
+                    $activeCellPane = $panex->getActiveCell();
+                    if ($activeCellPane !== '') {
+                        $objWriter->writeAttribute('activeCell', $activeCellPane);
+                    }
+                    $sqrefPane = $panex->getSqref();
+                    if ($sqrefPane !== '') {
+                        $objWriter->writeAttribute('sqref', $sqrefPane);
+                    }
+                    $objWriter->endElement(); // selection
+                }
             }
-        } else {
-            self::writeAttributeNotNull($objWriter, 'topLeftCell', $topLeftCell);
         }
 
         // Selection
         // Only need to write selection element if we have a split pane
         // We cheat a little by over-riding the active cell selection, setting it to the split cell
-        $objWriter->startElement('selection');
-        if ($pane != '') {
-            $objWriter->writeAttribute('pane', $pane);
+        if (!empty($sqref) || !empty($activeCell)) {
+            $objWriter->startElement('selection');
+            if (!empty($activeCell)) {
+                $objWriter->writeAttribute('activeCell', $activeCell);
+            }
+            if (!empty($sqref)) {
+                $objWriter->writeAttribute('sqref', $sqref);
+            }
+            $objWriter->endElement(); // selection
         }
-        $objWriter->writeAttribute('activeCell', $activeCell);
-        $objWriter->writeAttribute('sqref', $sqref);
-        $objWriter->endElement();
 
         $objWriter->endElement();
 
@@ -1298,9 +1311,11 @@ class Worksheet extends WriterPart
             $objWriter->writeElement('f', FunctionPrefix::addFunctionPrefixStripEquals($cellValue));
             self::writeElementIf(
                 $objWriter,
-                $this->getParentWriter()->getOffice2003Compatibility() === false,
+                $this->getParentWriter()->getOffice2003Compatibility() === false
+                && $this->getParentWriter()->getPreCalculateFormulas()
+                && $calculatedValue !== null,
                 'v',
-                ($this->getParentWriter()->getPreCalculateFormulas() && !is_array($calculatedValue) && substr($calculatedValue ?? '', 0, 1) !== '#')
+                (!is_array($calculatedValue) && substr($calculatedValue ?? '', 0, 1) !== '#')
                     ? StringHelper::formatNumber($calculatedValue) : '0'
             );
         }

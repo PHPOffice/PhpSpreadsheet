@@ -90,7 +90,7 @@ class ImSinhTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerIMSINH(): array
+    public static function providerIMSINH(): array
     {
         return require 'tests/data/Calculation/Engineering/IMSINH.php';
     }
@@ -116,7 +116,7 @@ class ImSinhTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerUnhappyIMSINH(): array
+    public static function providerUnhappyIMSINH(): array
     {
         return [
             ['Formula Error: Wrong number of arguments for IMSINH() function'],
@@ -135,7 +135,7 @@ class ImSinhTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerImSinHArray(): array
+    public static function providerImSinHArray(): array
     {
         return [
             'row/column vector' => [

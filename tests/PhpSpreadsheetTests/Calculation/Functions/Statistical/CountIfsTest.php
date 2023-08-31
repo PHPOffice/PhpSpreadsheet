@@ -15,7 +15,7 @@ class CountIfsTest extends AllSetupTeardown
         $this->runTestCaseNoBracket('COUNTIFS', $expectedResult, ...$args);
     }
 
-    public function providerCOUNTIFS(): array
+    public static function providerCOUNTIFS(): array
     {
         return require 'tests/data/Calculation/Statistical/COUNTIFS.php';
     }

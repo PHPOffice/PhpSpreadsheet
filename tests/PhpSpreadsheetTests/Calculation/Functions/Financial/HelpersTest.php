@@ -20,7 +20,7 @@ class HelpersTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerDaysPerYear(): array
+    public static function providerDaysPerYear(): array
     {
         return require 'tests/data/Calculation/Financial/DaysPerYear.php';
     }

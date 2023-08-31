@@ -25,7 +25,7 @@ class IsNumberTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerIsNumber(): array
+    public static function providerIsNumber(): array
     {
         return require 'tests/data/Calculation/Information/IS_NUMBER.php';
     }
@@ -42,7 +42,7 @@ class IsNumberTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerIsNumberArray(): array
+    public static function providerIsNumberArray(): array
     {
         return [
             'vector' => [

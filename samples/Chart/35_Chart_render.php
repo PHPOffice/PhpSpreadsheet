@@ -54,6 +54,7 @@ foreach ($inputFileNames as $inputFileName) {
     $spreadsheet = $reader->load($inputFileName);
 
     $helper->log('Iterate worksheets looking at the charts');
+    $renderedCharts = 0;
     foreach ($spreadsheet->getWorksheetIterator() as $worksheet) {
         $sheetName = $worksheet->getTitle();
         $helper->log('Worksheet: ' . $sheetName);
@@ -63,7 +64,8 @@ foreach ($inputFileNames as $inputFileName) {
             $helper->log('    There are no charts in this worksheet');
         } else {
             natsort($chartNames);
-            foreach ($chartNames as $i => $chartName) {
+            foreach ($chartNames as $j => $chartName) {
+                $i = $renderedCharts + $j;
                 $chart = $worksheet->getChartByName($chartName);
                 if ($chart->getTitle() !== null) {
                     $caption = '"' . implode(' ', $chart->getTitle()->getCaption()) . '"';
@@ -72,20 +74,22 @@ foreach ($inputFileNames as $inputFileName) {
                 }
                 $helper->log('    ' . $chartName . ' - ' . $caption);
 
-                $jpegFile = $helper->getFilename('35-' . $inputFileNameShort, 'png');
+                $pngFile = $helper->getFilename('35-' . $inputFileNameShort, 'png');
                 if ($i !== 0) {
-                    $jpegFile = substr($jpegFile, 0, -3) . "$i.png";
+                    $pngFile = substr($pngFile, 0, -3) . "$i.png";
                 }
-                if (file_exists($jpegFile)) {
-                    unlink($jpegFile);
+                if (file_exists($pngFile)) {
+                    unlink($pngFile);
                 }
 
                 try {
-                    $chart->render($jpegFile);
-                    $helper->log('Rendered image: ' . $jpegFile);
+                    $chart->render($pngFile);
+                    $helper->log('Rendered image: ' . $pngFile);
                 } catch (Exception $e) {
                     $helper->log('Error rendering chart: ' . $e->getMessage());
                 }
+
+                ++$renderedCharts;
             }
         }
     }

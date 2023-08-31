@@ -14,7 +14,7 @@ class SydTest extends AllSetupTeardown
         $this->runTestCase('SYD', $expectedResult, $args);
     }
 
-    public function providerSYD(): array
+    public static function providerSYD(): array
     {
         return require 'tests/data/Calculation/Financial/SYD.php';
     }

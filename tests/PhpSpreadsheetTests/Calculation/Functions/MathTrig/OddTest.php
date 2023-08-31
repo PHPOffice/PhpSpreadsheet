@@ -21,7 +21,7 @@ class OddTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $sheet->getCell('A1')->getCalculatedValue());
     }
 
-    public function providerODD(): array
+    public static function providerODD(): array
     {
         return require 'tests/data/Calculation/MathTrig/ODD.php';
     }
@@ -38,7 +38,7 @@ class OddTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerOddArray(): array
+    public static function providerOddArray(): array
     {
         return [
             'row vector' => [[[-3, 1, 5]], '{-3, 1, 4}'],

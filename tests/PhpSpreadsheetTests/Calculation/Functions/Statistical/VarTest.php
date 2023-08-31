@@ -14,7 +14,7 @@ class VarTest extends AllSetupTeardown
         $this->runTestCases('VAR', $expectedResult, ...$args);
     }
 
-    public function providerVAR(): array
+    public static function providerVAR(): array
     {
         return require 'tests/data/Calculation/Statistical/VAR.php';
     }
@@ -30,7 +30,7 @@ class VarTest extends AllSetupTeardown
         $this->runTestCases('VAR', $expectedResult, ...$args);
     }
 
-    public function providerOdsVAR(): array
+    public static function providerOdsVAR(): array
     {
         return require 'tests/data/Calculation/Statistical/VAR_ODS.php';
     }

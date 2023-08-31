@@ -91,7 +91,14 @@ class Properties
 
                 break;
             case 'user-defined':
-                $this->setUserDefinedProperty($propertyValueAttributes, $propertyValue, $docProps);
+                $name2 = (string) ($propertyValueAttributes['name'] ?? '');
+                if ($name2 === 'Company') {
+                    $docProps->setCompany($propertyValue);
+                } elseif ($name2 === 'category') {
+                    $docProps->setCategory($propertyValue);
+                } else {
+                    $this->setUserDefinedProperty($propertyValueAttributes, $propertyValue, $docProps);
+                }
 
                 break;
         }

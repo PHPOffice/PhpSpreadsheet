@@ -14,7 +14,7 @@ class PriceTest extends AllSetupTeardown
         $this->runTestCase('PRICE', $expectedResult, $args);
     }
 
-    public function providerPRICE(): array
+    public static function providerPRICE(): array
     {
         return require 'tests/data/Calculation/Financial/PRICE.php';
     }
@@ -32,7 +32,7 @@ class PriceTest extends AllSetupTeardown
         $this->runTestCase('PRICE', $expectedResult, $args);
     }
 
-    public function providerPRICE3(): array
+    public static function providerPRICE3(): array
     {
         return require 'tests/data/Calculation/Financial/PRICE3.php';
     }

@@ -14,7 +14,7 @@ class InterceptTest extends AllSetupTeardown
         $this->runTestCaseNoBracket('INTERCEPT', $expectedResult, ...$args);
     }
 
-    public function providerINTERCEPT(): array
+    public static function providerINTERCEPT(): array
     {
         return require 'tests/data/Calculation/Statistical/INTERCEPT.php';
     }

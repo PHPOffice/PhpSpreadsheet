@@ -31,7 +31,7 @@ class ExactTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerEXACT(): array
+    public static function providerEXACT(): array
     {
         return require 'tests/data/Calculation/TextData/EXACT.php';
     }
@@ -48,7 +48,7 @@ class ExactTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerExactArray(): array
+    public static function providerExactArray(): array
     {
         return [
             'row vector #1' => [[[true, false, false]], '{"PHP", "php", "PHP8"}', '"PHP"'],

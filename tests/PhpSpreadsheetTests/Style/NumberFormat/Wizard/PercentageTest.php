@@ -18,7 +18,7 @@ class PercentageTest extends TestCase
         self::assertSame($expectedResult, (string) $wizard);
     }
 
-    public function providerPercentage(): array
+    public static function providerPercentage(): array
     {
         return [
             ['0%', 0],
@@ -46,7 +46,7 @@ class PercentageTest extends TestCase
         self::assertSame($expectedResult, (string) $wizard);
     }
 
-    public function providerPercentageLocale(): array
+    public static function providerPercentageLocale(): array
     {
         return [
             ['#,##0.00%', 'fy-NL'],

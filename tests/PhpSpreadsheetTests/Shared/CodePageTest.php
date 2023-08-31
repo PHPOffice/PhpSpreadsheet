@@ -27,7 +27,7 @@ class CodePageTest extends TestCase
         }
     }
 
-    public function providerCodePage(): array
+    public static function providerCodePage(): array
     {
         return require 'tests/data/Shared/CodePage.php';
     }

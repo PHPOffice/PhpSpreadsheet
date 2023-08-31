@@ -16,7 +16,7 @@ class SteyxTest extends AllSetupTeardown
         $this->runTestCaseReference('STEYX', $expectedResult, $xargs, $yargs);
     }
 
-    public function providerSTEYX(): array
+    public static function providerSTEYX(): array
     {
         return require 'tests/data/Calculation/Statistical/STEYX.php';
     }

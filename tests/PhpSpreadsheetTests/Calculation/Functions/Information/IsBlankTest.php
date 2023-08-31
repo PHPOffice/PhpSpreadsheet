@@ -25,7 +25,7 @@ class IsBlankTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerIsBlank(): array
+    public static function providerIsBlank(): array
     {
         return require 'tests/data/Calculation/Information/IS_BLANK.php';
     }
@@ -42,7 +42,7 @@ class IsBlankTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerIsBlankArray(): array
+    public static function providerIsBlankArray(): array
     {
         return [
             'vector' => [

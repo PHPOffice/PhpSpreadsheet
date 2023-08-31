@@ -14,7 +14,7 @@ class AmorDegRcTest extends AllSetupTeardown
         $this->runTestCase('AMORDEGRC', $expectedResult, $args);
     }
 
-    public function providerAMORDEGRC(): array
+    public static function providerAMORDEGRC(): array
     {
         return require 'tests/data/Calculation/Financial/AMORDEGRC.php';
     }

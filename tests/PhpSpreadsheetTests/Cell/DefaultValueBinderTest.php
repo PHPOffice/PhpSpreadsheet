@@ -28,7 +28,7 @@ class DefaultValueBinderTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function binderProvider(): array
+    public static function binderProvider(): array
     {
         return [
             [null],
@@ -60,7 +60,7 @@ class DefaultValueBinderTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerDataTypeForValue(): array
+    public static function providerDataTypeForValue(): array
     {
         return require 'tests/data/Cell/DefaultValueBinder.php';
     }

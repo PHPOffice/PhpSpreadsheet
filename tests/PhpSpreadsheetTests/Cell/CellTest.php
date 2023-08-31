@@ -86,7 +86,7 @@ class CellTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerSetValueExplicit(): array
+    public static function providerSetValueExplicit(): array
     {
         return require 'tests/data/Cell/SetValueExplicit.php';
     }
@@ -118,7 +118,7 @@ class CellTest extends TestCase
         $cell->setValueExplicit($value, $dataType);
     }
 
-    public function providerSetValueExplicitException(): array
+    public static function providerSetValueExplicitException(): array
     {
         return require 'tests/data/Cell/SetValueExplicitException.php';
     }
@@ -301,7 +301,7 @@ class CellTest extends TestCase
         }
     }
 
-    public function appliedStyling(): array
+    public static function appliedStyling(): array
     {
         return [
             'A1 - Conditional with Match' => ['A1', Fill::FILL_SOLID, Color::COLOR_RED],

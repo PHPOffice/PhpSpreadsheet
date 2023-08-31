@@ -37,12 +37,12 @@ class DSumTest extends SetupTeardownDatabases
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
-    public function providerDSum(): array
+    public static function providerDSum(): array
     {
         return [
             [
                 225,
-                $this->database1(),
+                self::database1(),
                 'Profit',
                 [
                     ['Tree'],
@@ -51,7 +51,7 @@ class DSumTest extends SetupTeardownDatabases
             ],
             [
                 247.8,
-                $this->database1(),
+                self::database1(),
                 'Profit',
                 [
                     ['Tree', 'Height', 'Height'],
@@ -61,7 +61,7 @@ class DSumTest extends SetupTeardownDatabases
             ],
             [
                 1210000,
-                $this->database2(),
+                self::database2(),
                 'Sales',
                 [
                     ['Quarter', 'Area'],
@@ -70,7 +70,7 @@ class DSumTest extends SetupTeardownDatabases
             ],
             [
                 710000,
-                $this->database2(),
+                self::database2(),
                 'Sales',
                 [
                     ['Quarter', 'Sales Rep.'],
@@ -79,7 +79,7 @@ class DSumTest extends SetupTeardownDatabases
             ],
             [
                 705000,
-                $this->database2(),
+                self::database2(),
                 'Sales',
                 [
                     ['Quarter', 'Sales Rep.'],
@@ -88,9 +88,9 @@ class DSumTest extends SetupTeardownDatabases
             ],
             'omitted field name' => [
                 ExcelError::VALUE(),
-                $this->database1(),
+                self::database1(),
                 null,
-                $this->database1(),
+                self::database1(),
             ],
         ];
     }

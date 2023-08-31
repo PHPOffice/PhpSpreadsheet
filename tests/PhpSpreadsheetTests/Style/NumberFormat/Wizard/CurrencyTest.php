@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Style\NumberFormat\Wizard;
 
 use NumberFormatter;
 use PhpOffice\PhpSpreadsheet\Exception;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\Accounting;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\Currency;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\Number;
 use PHPUnit\Framework\TestCase;
@@ -25,7 +26,7 @@ class CurrencyTest extends TestCase
         self::assertSame($expectedResult, (string) $wizard);
     }
 
-    public function providerCurrency(): array
+    public static function providerCurrency(): array
     {
         return [
             ["\$\u{a0}0", '$', 0, Number::WITHOUT_THOUSANDS_SEPARATOR, Currency::LEADING_SYMBOL, Currency::SYMBOL_WITH_SPACING],
@@ -43,19 +44,25 @@ class CurrencyTest extends TestCase
     public function testCurrencyLocale(
         string $expectedResult,
         string $currencyCode,
-        string $locale
+        string $locale,
+        ?bool $stripRLM = null
     ): void {
         if (class_exists(NumberFormatter::class) === false) {
             self::markTestSkipped('Intl extension is not available');
         }
 
         $wizard = new Currency($currencyCode);
+        if ($stripRLM !== null) {
+            $wizard->setStripLeadingRLM($stripRLM);
+        }
         $wizard->setLocale($locale);
         self::assertSame($expectedResult, (string) $wizard);
     }
 
-    public function providerCurrencyLocale(): array
+    public static function providerCurrencyLocale(): array
     {
+        // \u{a0} is non-breaking space
+        // \u{200e} is LRM (left-to-right mark)
         return [
             ["[\$€-fy-NL]\u{a0}#,##0.00;[\$€-fy-NL]\u{a0}#,##0.00-", '€', 'fy-NL'], // Trailing negative
             ["[\$€-nl-NL]\u{a0}#,##0.00;[\$€-nl-NL]\u{a0}-#,##0.00", '€', 'nl-NL'], // Sign between currency and value
@@ -65,8 +72,32 @@ class CurrencyTest extends TestCase
             ['[$$-en-CA]#,##0.00', '$', 'en-ca'],
             ["#,##0.00\u{a0}[\$\$-fr-CA]", '$', 'fr-ca'],   // Trailing currency code
             ['[$¥-ja-JP]#,##0', '¥', 'ja-JP'], // No decimals
-            ["#,##0.000\u{a0}[\$د.ب‎-ar-BH]", 'د.ب‎', 'ar-BH'],  // 3 decimals
+            ["#,##0.000\u{a0}[\$د.ب\u{200e}-ar-BH]", "د.ب\u{200e}", 'ar-BH', true],  // 3 decimals
         ];
+    }
+
+    public function testIcu721(): void
+    {
+        if (class_exists(NumberFormatter::class) === false) {
+            self::markTestSkipped('Intl extension is not available');
+        }
+
+        $currencyCode = "د.ب\u{200e}";
+        $locale = 'ar-BH';
+        $wizardFalse = new Currency($currencyCode);
+        $wizardFalse->setStripLeadingRLM(false);
+        $wizardFalse->setLocale($locale);
+        $stringFalse = (string) $wizardFalse;
+        $wizardTrue = new Currency($currencyCode);
+        $wizardTrue->setStripLeadingRLM(true);
+        $wizardTrue->setLocale($locale);
+        $stringTrue = (string) $wizardTrue;
+        $version = Accounting::icuVersion();
+        if ($version < 72.1) {
+            self::assertSame($stringFalse, $stringTrue);
+        } else {
+            self::assertSame("\u{200f}$stringTrue", $stringFalse);
+        }
     }
 
     /**
@@ -75,19 +106,25 @@ class CurrencyTest extends TestCase
     public function testCurrencyLocaleNoDecimals(
         string $expectedResult,
         string $currencyCode,
-        string $locale
+        string $locale,
+        ?bool $stripRLM = null
     ): void {
         if (class_exists(NumberFormatter::class) === false) {
             self::markTestSkipped('Intl extension is not available');
         }
 
         $wizard = new Currency($currencyCode, 0);
+        if ($stripRLM !== null) {
+            $wizard->setStripLeadingRLM($stripRLM);
+        }
         $wizard->setLocale($locale);
         self::assertSame($expectedResult, (string) $wizard);
     }
 
-    public function providerCurrencyLocaleNoDecimals(): array
+    public static function providerCurrencyLocaleNoDecimals(): array
     {
+        // \u{a0} is non-breaking space
+        // \u{200e} is LRM (left-to-right mark)
         return [
             ["[\$€-fy-NL]\u{a0}#,##0;[\$€-fy-NL]\u{a0}#,##0-", '€', 'fy-NL'], // Trailing negative
             ["[\$€-nl-NL]\u{a0}#,##0;[\$€-nl-NL]\u{a0}-#,##0", '€', 'nl-NL'], // Sign between currency and value
@@ -97,7 +134,7 @@ class CurrencyTest extends TestCase
             ['[$$-en-CA]#,##0', '$', 'en-ca'],
             ["#,##0\u{a0}[\$\$-fr-CA]", '$', 'fr-ca'],   // Trailing currency code
             ['[$¥-ja-JP]#,##0', '¥', 'ja-JP'], // No decimals to truncate
-            ["#,##0\u{a0}[\$د.ب‎-ar-BH]", 'د.ب‎', 'ar-BH'],  // 3 decimals truncated to none
+            ["#,##0\u{a0}[\$د.ب\u{200e}-ar-BH]", "د.ب\u{200e}", 'ar-BH', true],  // 3 decimals truncated to none
         ];
     }
 

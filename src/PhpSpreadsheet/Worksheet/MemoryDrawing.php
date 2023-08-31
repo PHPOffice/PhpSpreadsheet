@@ -162,6 +162,9 @@ class MemoryDrawing extends BaseDrawing
         }
 
         $mimeType = self::identifyMimeType($imageString);
+        if (imageistruecolor($gdImage) || imagecolortransparent($gdImage) >= 0) {
+            imagesavealpha($gdImage, true);
+        }
         $renderingFunction = self::identifyRenderingFunction($mimeType);
 
         $drawing = new self();
@@ -230,7 +233,7 @@ class MemoryDrawing extends BaseDrawing
         if (function_exists('getimagesize')) {
             $imageSize = @getimagesize($temporaryFileName);
             if (is_array($imageSize)) {
-                $mimeType = $imageSize['mime'] ?? null;
+                $mimeType = $imageSize['mime'] ?? null; // @phpstan-ignore-line
 
                 return self::supportedMimeTypes($mimeType);
             }

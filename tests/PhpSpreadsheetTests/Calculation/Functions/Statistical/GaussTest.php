@@ -16,7 +16,7 @@ class GaussTest extends AllSetupTeardown
         $this->runTestCases('GAUSS', $expectedResult, ...$args);
     }
 
-    public function providerGAUSS(): array
+    public static function providerGAUSS(): array
     {
         return require 'tests/data/Calculation/Statistical/GAUSS.php';
     }
@@ -33,7 +33,7 @@ class GaussTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerGaussArray(): array
+    public static function providerGaussArray(): array
     {
         return [
             'matrix' => [

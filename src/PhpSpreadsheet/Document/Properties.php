@@ -107,6 +107,10 @@ class Properties
      */
     private $customProperties = [];
 
+    private string $hyperlinkBase = '';
+
+    private string $viewport = '';
+
     /**
      * Create a new Document Properties instance.
      */
@@ -533,5 +537,31 @@ class Properties
     public static function convertPropertyType(string $propertyType): string
     {
         return self::PROPERTY_TYPE_ARRAY[$propertyType] ?? self::PROPERTY_TYPE_UNKNOWN;
+    }
+
+    public function getHyperlinkBase(): string
+    {
+        return $this->hyperlinkBase;
+    }
+
+    public function setHyperlinkBase(string $hyperlinkBase): self
+    {
+        $this->hyperlinkBase = $hyperlinkBase;
+
+        return $this;
+    }
+
+    public function getViewport(): string
+    {
+        return $this->viewport;
+    }
+
+    public const SUGGESTED_VIEWPORT = 'width=device-width, initial-scale=1';
+
+    public function setViewport(string $viewport): self
+    {
+        $this->viewport = $viewport;
+
+        return $this;
     }
 }
