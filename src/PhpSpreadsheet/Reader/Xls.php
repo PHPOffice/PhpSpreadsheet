@@ -6975,6 +6975,7 @@ class Xls extends BaseReader
                 $index = self::getUInt2d($formulaData, 3);
                 // assume index is to EXTERNNAME record
                 $data = $this->externalNames[$index - 1]['name'] ?? '';
+
                 // offset: 5; size: 2; not used
                 break;
             case 0x3A:    //    3d reference to cell

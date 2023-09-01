@@ -228,6 +228,7 @@ class CellMatcher
             }
         }
         unset($value);
+
         //    Then rebuild the condition string to return it
         return implode(Calculation::FORMULA_STRING_QUOTE, $splitCondition);
     }
