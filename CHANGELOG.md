@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 - Split screens (Xlsx and Xml only, not 100% complete). [Issue #3601](https://github.com/PHPOffice/PhpSpreadsheet/issues/3601) [PR #3622](https://github.com/PHPOffice/PhpSpreadsheet/pull/3622)
 - Permit Meta Viewport in Html. [Issue #3565](https://github.com/PHPOffice/PhpSpreadsheet/issues/3565) [PR #3623](https://github.com/PHPOffice/PhpSpreadsheet/pull/3623)
+- Hyperlink support for Ods. [Issue #3660](https://github.com/PHPOffice/PhpSpreadsheet/issues/3660) [PR #3669](https://github.com/PHPOffice/PhpSpreadsheet/pull/3669)
 
 ### Changed
 
@@ -33,6 +34,17 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Customizable padding for Exact Column Width. [Issue #3626](https://github.com/PHPOffice/PhpSpreadsheet/issues/3626) [PR #3628](https://github.com/PHPOffice/PhpSpreadsheet/pull/3628)
 - Ensure ROW function returns int (problem exposed in unreleased Php). [PR #3641](https://github.com/PHPOffice/PhpSpreadsheet/pull/3641)
 - Minor changes to Mpdf and Html Writers. [PR #3645](https://github.com/PHPOffice/PhpSpreadsheet/pull/3645)
+- Xlsx Reader Namespacing for Tables, Autofilters. [Issue #3665](https://github.com/PHPOffice/PhpSpreadsheet/issues/3665) [PR #3668](https://github.com/PHPOffice/PhpSpreadsheet/pull/3668)
+- Read Code Page for Xls ListWorksheetInfo/Names BIFF5. [Issue #3671](https://github.com/PHPOffice/PhpSpreadsheet/issues/3671) [PR #3672](https://github.com/PHPOffice/PhpSpreadsheet/pull/3672)
+- Read Data from Table on Different Sheet. [Issue #3635](https://github.com/PHPOffice/PhpSpreadsheet/issues/3635) [PR #3659](https://github.com/PHPOffice/PhpSpreadsheet/pull/3659)
+- Html Writer Styles Using Inline Css. [Issue #3678](https://github.com/PHPOffice/PhpSpreadsheet/issues/3678) [PR #3680](https://github.com/PHPOffice/PhpSpreadsheet/pull/3680)
+- Xlsx Read Ignoring Some Comments. [Issue #3654](https://github.com/PHPOffice/PhpSpreadsheet/issues/3654) [PR #3655](https://github.com/PHPOffice/PhpSpreadsheet/pull/3655)
+- Fractional Seconds in Date/Time Values. [PR #3677](https://github.com/PHPOffice/PhpSpreadsheet/pull/3677)
+- SetCalculatedValue Avoid Casting String to Numeric. [Issue #3658](https://github.com/PHPOffice/PhpSpreadsheet/issues/3658) [PR #3685](https://github.com/PHPOffice/PhpSpreadsheet/pull/3685)
+- Several Problems in a Very Complicated Spreadsheet. [Issue #3679](https://github.com/PHPOffice/PhpSpreadsheet/issues/3679) [PR #3681](https://github.com/PHPOffice/PhpSpreadsheet/pull/3681)
+- Inconsistent String Handling for Sum Functions. [Issue #3652](https://github.com/PHPOffice/PhpSpreadsheet/issues/3652) [PR #3653](https://github.com/PHPOffice/PhpSpreadsheet/pull/3653)
+- Recomputation of Relative Addresses in Defined Names. [Issue #3661](https://github.com/PHPOffice/PhpSpreadsheet/issues/3661) [PR #3673](https://github.com/PHPOffice/PhpSpreadsheet/pull/3673)
+- Writer Xls Characters Outside BMP (emojis). [Issue #642](https://github.com/PHPOffice/PhpSpreadsheet/issues/642) [PR #3696](https://github.com/PHPOffice/PhpSpreadsheet/pull/3696)
 
 ## 1.29.0 - 2023-06-15
 

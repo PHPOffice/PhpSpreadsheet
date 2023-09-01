@@ -3188,6 +3188,7 @@ class Calculation
             //    Default is US English, if user isn't requesting US english, then read the necessary data from the locale files
             if ($locale !== 'en_us') {
                 $localeDir = implode(DIRECTORY_SEPARATOR, [__DIR__, 'locale', null]);
+
                 //    Search for a file with a list of function names for locale
                 try {
                     $functionNamesFile = $this->getLocaleFile($localeDir, $locale, $language, 'functions');

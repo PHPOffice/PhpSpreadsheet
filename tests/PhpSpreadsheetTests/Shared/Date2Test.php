@@ -42,7 +42,6 @@ class Date2Test extends TestCase
      *
      * @param float|int $expectedResult
      * @param float|int $value
-     * @param string $format
      */
     public function testTimeOnly($expectedResult, $value, ?string $format = null): void
     {
@@ -91,7 +90,6 @@ class Date2Test extends TestCase
      *
      * @param float|int $expectedResult
      * @param float|int $value
-     * @param string $format
      */
     public function testDateAndTime($expectedResult, $value, ?string $format = null): void
     {
@@ -140,7 +138,6 @@ class Date2Test extends TestCase
      *
      * @param float|int $expectedResult
      * @param float|int $value
-     * @param string $format
      */
     public function testDefault($expectedResult, $value, ?string $format = null): void
     {
@@ -166,7 +163,6 @@ class Date2Test extends TestCase
      *
      * @param float|int $expectedResult
      * @param float|int $value
-     * @param string $format
      */
     public function testAsis($expectedResult, $value, ?string $format = null): void
     {
