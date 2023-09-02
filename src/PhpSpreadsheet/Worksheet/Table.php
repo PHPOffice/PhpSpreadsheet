@@ -93,6 +93,14 @@ class Table
     }
 
     /**
+     * Code to execute when this table is unset().
+     */
+    public function __destruct()
+    {
+        $this->workSheet = null;
+    }
+
+    /**
      * Get Table name.
      */
     public function getName(): string
