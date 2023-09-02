@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Cell\Hyperlink;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\IComparable;
+use SimpleXMLElement;
 
 class BaseDrawing implements IComparable
 {
@@ -163,6 +164,9 @@ class BaseDrawing implements IComparable
      * @var int
      */
     protected $type = IMAGETYPE_UNKNOWN;
+
+    /** @var null|SimpleXMLElement|string[] */
+    protected $srcRect = [];
 
     /**
      * Create a new BaseDrawing.
@@ -531,5 +535,23 @@ class BaseDrawing implements IComparable
     public function validEditAs(): bool
     {
         return in_array($this->editAs, self::VALID_EDIT_AS, true);
+    }
+
+    /**
+     * @return null|SimpleXMLElement|string[]
+     */
+    public function getSrcRect()
+    {
+        return $this->srcRect;
+    }
+
+    /**
+     * @param null|SimpleXMLElement|string[] $srcRect
+     */
+    public function setSrcRect($srcRect): self
+    {
+        $this->srcRect = $srcRect;
+
+        return $this;
     }
 }

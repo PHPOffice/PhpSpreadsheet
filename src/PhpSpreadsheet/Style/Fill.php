@@ -320,6 +320,7 @@ class Fill extends Supervisor
         if ($this->isSupervisor) {
             return $this->getSharedComponent()->getHashCode();
         }
+
         // Note that we don't care about colours for fill type NONE, but could have duplicate NONEs with
         //  different hashes if we don't explicitly prevent this
         return md5(

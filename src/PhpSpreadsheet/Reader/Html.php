@@ -305,6 +305,7 @@ class Html extends BaseReader
                                 ->setQuotePrefix(true);
                         }
                     }
+
                     //catching the Exception and ignoring the invalid data types
                     try {
                         $sheet->setCellValueExplicit($column . $row, $cellContent, $attributeArray['data-type']);
@@ -676,6 +677,7 @@ class Html extends BaseReader
 
         // Create a new DOM object
         $dom = new DOMDocument();
+
         // Reload the HTML file into the DOM object
         try {
             $convert = $this->getSecurityScannerOrThrow()->scanFile($filename);
@@ -798,6 +800,7 @@ class Html extends BaseReader
     {
         //    Create a new DOM object
         $dom = new DOMDocument();
+
         //    Reload the HTML file into the DOM object
         try {
             $convert = $this->getSecurityScannerOrThrow()->scan($content);

@@ -96,7 +96,7 @@ class TimeTest extends TestCase
     public static function providerUnhappyTIME(): array
     {
         return [
-            ['Formula Error: Wrong number of arguments for TIME() function', 2023, 03],
+            ['Formula Error: Wrong number of arguments for TIME() function', 2023, 3],
         ];
     }
 

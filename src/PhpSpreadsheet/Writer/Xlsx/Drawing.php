@@ -270,10 +270,21 @@ class Drawing extends WriterPart
             $objWriter->writeAttribute('r:embed', 'rId' . $relationId);
             $objWriter->endElement();
 
-            // a:stretch
-            $objWriter->startElement('a:stretch');
-            $objWriter->writeElement('a:fillRect', null);
-            $objWriter->endElement();
+            $srcRect = $drawing->getSrcRect();
+            if (!empty($srcRect)) {
+                $objWriter->startElement('a:srcRect');
+                foreach ($srcRect as $key => $value) {
+                    $objWriter->writeAttribute($key, (string) $value);
+                }
+                $objWriter->endElement(); // a:srcRect
+                $objWriter->startElement('a:stretch');
+                $objWriter->endElement(); // a:stretch
+            } else {
+                // a:stretch
+                $objWriter->startElement('a:stretch');
+                $objWriter->writeElement('a:fillRect', null);
+                $objWriter->endElement();
+            }
 
             $objWriter->endElement();
 

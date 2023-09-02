@@ -108,7 +108,6 @@ class Security
     /**
      * Set RevisionsPassword.
      *
-     * @param string $password
      * @param bool $alreadyHashed If the password has already been hashed, set this to true
      *
      * @return $this
@@ -133,7 +132,6 @@ class Security
     /**
      * Set WorkbookPassword.
      *
-     * @param string $password
      * @param bool $alreadyHashed If the password has already been hashed, set this to true
      *
      * @return $this

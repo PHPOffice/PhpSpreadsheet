@@ -12,6 +12,7 @@ use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\DefinedName;
+use PhpOffice\PhpSpreadsheet\NamedRange;
 use PhpOffice\PhpSpreadsheet\ReferenceHelper;
 use PhpOffice\PhpSpreadsheet\Shared;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -3187,6 +3188,7 @@ class Calculation
             //    Default is US English, if user isn't requesting US english, then read the necessary data from the locale files
             if ($locale !== 'en_us') {
                 $localeDir = implode(DIRECTORY_SEPARATOR, [__DIR__, 'locale', null]);
+
                 //    Search for a file with a list of function names for locale
                 try {
                     $functionNamesFile = $this->getLocaleFile($localeDir, $locale, $language, 'functions');
@@ -5176,6 +5178,26 @@ class Calculation
 
                     $this->debugLog->writeDebugLog('Evaluating Defined Name %s', $definedName);
                     $namedRange = DefinedName::resolveName($definedName, $pCellWorksheet);
+                    // If not Defined Name, try as Table.
+                    if ($namedRange === null && $this->spreadsheet !== null) {
+                        $table = $this->spreadsheet->getTableByName($definedName);
+                        if ($table !== null) {
+                            $tableRange = Coordinate::getRangeBoundaries($table->getRange());
+                            if ($table->getShowHeaderRow()) {
+                                ++$tableRange[0][1];
+                            }
+                            if ($table->getShowTotalsRow()) {
+                                --$tableRange[1][1];
+                            }
+                            $tableRangeString =
+                                '$' . $tableRange[0][0]
+                                . '$' . $tableRange[0][1]
+                                . ':'
+                                . '$' . $tableRange[1][0]
+                                . '$' . $tableRange[1][1];
+                            $namedRange = new NamedRange($definedName, $table->getWorksheet(), $tableRangeString);
+                        }
+                    }
                     if ($namedRange === null) {
                         return $this->raiseFormulaError("undefined name '$definedName'");
                     }
@@ -5724,7 +5746,8 @@ class Calculation
 
         $this->debugLog->writeDebugLog('Defined Name is a %s with a value of %s', $definedNameType, $definedNameValue);
 
-        $recursiveCalculationCell = ($definedNameWorksheet !== null && $definedNameWorksheet !== $cellWorksheet)
+        $originalCoordinate = $cell->getCoordinate();
+        $recursiveCalculationCell = ($definedNameType !== 'Formula' && $definedNameWorksheet !== null && $definedNameWorksheet !== $cellWorksheet)
             ? $definedNameWorksheet->getCell('A1')
             : $cell;
         $recursiveCalculationCellAddress = $recursiveCalculationCell->getCoordinate();
@@ -5742,6 +5765,7 @@ class Calculation
         $recursiveCalculator->getDebugLog()->setWriteDebugLog($this->getDebugLog()->getWriteDebugLog());
         $recursiveCalculator->getDebugLog()->setEchoDebugLog($this->getDebugLog()->getEchoDebugLog());
         $result = $recursiveCalculator->_calculateFormulaValue($definedNameValue, $recursiveCalculationCellAddress, $recursiveCalculationCell, true);
+        $cellWorksheet->getCell($originalCoordinate);
 
         if ($this->getDebugLog()->getWriteDebugLog()) {
             $this->debugLog->mergeDebugLog(array_slice($recursiveCalculator->getDebugLog()->getLog(), 3));

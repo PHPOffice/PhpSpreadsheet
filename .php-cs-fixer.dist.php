@@ -134,6 +134,7 @@ $config
         'not_operator_with_successor_space' => false, // idem
         'nullable_type_declaration_for_default_null_value' => true,
         'object_operator_without_whitespace' => true,
+        'octal_notation' => true,
         'ordered_class_elements' => false, // We prefer to keep some freedom
         'ordered_imports' => true,
         'ordered_interfaces' => true,

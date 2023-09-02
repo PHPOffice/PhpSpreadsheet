@@ -50,6 +50,7 @@ class ArrayArgumentProcessor
                 // Logic for a matrix and a vector (row or column)
                 return self::evaluateVectorMatrixPair($method, $matrixPair, ...$arguments);
             }
+
             // Logic for matrix/matrix, column vector/column vector or row vector/row vector
             return self::evaluateMatrixPair($method, $matrixPair, ...$arguments);
         }
