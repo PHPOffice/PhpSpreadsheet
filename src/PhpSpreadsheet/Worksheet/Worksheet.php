@@ -3875,4 +3875,9 @@ class Worksheet implements IComparable
     {
         return preg_match(self::SHEET_NAME_REQUIRES_NO_QUOTES, $sheetName) !== 1;
     }
+
+    public function isRowVisible(int $row): bool
+    {
+        return !$this->rowDimensionExists($row) || $this->getRowDimension($row)->getVisible();
+    }
 }
