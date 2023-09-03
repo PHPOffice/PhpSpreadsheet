@@ -412,11 +412,9 @@ class StringHelper
      */
     public static function UTF8toBIFF8UnicodeLong(string $textValue): string
     {
-        // character count
-        $ln = self::countCharacters($textValue, 'UTF-8');
-
         // characters
         $chars = self::convertEncoding($textValue, 'UTF-16LE', 'UTF-8');
+        $ln = (int) (strlen($chars) / 2);  // N.B. - strlen, not mb_strlen issue #642
 
         return pack('vC', $ln, 0x0001) . $chars;
     }

@@ -74,9 +74,18 @@ class ConditionalStyles
     private function readConditionalsFromExt(SimpleXMLElement $extLst, StyleReader $styleReader): array
     {
         $conditionals = [];
+        if (!isset($extLst->ext)) {
+            return $conditionals;
+        }
 
-        if (isset($extLst->ext['uri']) && (string) $extLst->ext['uri'] === '{78C0D931-6437-407d-A8EE-F0AAD7539E65}') {
-            $conditionalFormattingRuleXml = $extLst->ext->children($this->ns['x14']);
+        foreach ($extLst->ext as $extlstcond) {
+            $extAttrs = $extlstcond->/** @scrutinizer ignore-call */ attributes() ?? [];
+            $extUri = (string) ($extAttrs['uri'] ?? '');
+            if ($extUri !== '{78C0D931-6437-407d-A8EE-F0AAD7539E65}') {
+                continue;
+            }
+            /** @scrutinizer ignore-call */
+            $conditionalFormattingRuleXml = $extlstcond->children($this->ns['x14']);
             if (!$conditionalFormattingRuleXml->conditionalFormattings) {
                 return [];
             }

@@ -21,6 +21,7 @@ class LocaleGenerator
 
     private const ARGUMENT_SEPARATOR_ROW = 5;
     private const ERROR_CODES_FIRST_ROW = 8;
+    private const CURRENCY_SYMBOL_ROW = 19;
 
     private const FUNCTION_NAME_LIST_FIRST_ROW = 4;
     private const ENGLISH_FUNCTION_CATEGORIES_COLUMN = 'A';
@@ -104,6 +105,7 @@ class LocaleGenerator
         $configFile = $this->openConfigFile($locale, $language, $localeLanguage);
 
         $this->writeConfigArgumentSeparator($configFile, $column);
+        $this->writeConfigCurrencySymbol($configFile, $column);
         $this->writeFileSectionHeader($configFile, 'Error Codes');
 
         foreach ($this->errorCodeMap as $errorCode => $row) {
@@ -131,6 +133,21 @@ class LocaleGenerator
             fwrite($configFile, $functionTranslation);
         } else {
             $this->log('No Argument Separator defined');
+        }
+    }
+
+    protected function writeConfigCurrencySymbol($configFile, $column): void
+    {
+        $translationCell = $this->localeTranslations->getCell($column . self::CURRENCY_SYMBOL_ROW);
+        $localeValue = $translationCell->getValue();
+        if (!empty($localeValue)) {
+            $functionTranslation = "currencySymbol = {$localeValue}" . self::EOL;
+            fwrite($configFile, '##' . self::EOL);
+            fwrite($configFile, '##  (For future use)' . self::EOL);
+            fwrite($configFile, '##' . self::EOL);
+            fwrite($configFile, $functionTranslation);
+        } else {
+            $this->log('No Currency Symbol defined');
         }
     }
 
@@ -164,7 +181,7 @@ class LocaleGenerator
         $this->log("Building locale {$locale} ($language) configuration");
         $localeFolder = $this->getLocaleFolder($locale);
 
-        $configFileName = realpath($localeFolder . DIRECTORY_SEPARATOR . 'config');
+        $configFileName = realpath($localeFolder) . DIRECTORY_SEPARATOR . 'config';
         $this->log("Writing locale configuration to {$configFileName}");
 
         $configFile = fopen($configFileName, 'wb');
@@ -178,7 +195,7 @@ class LocaleGenerator
         $this->log("Building locale {$locale} ($language) function names");
         $localeFolder = $this->getLocaleFolder($locale);
 
-        $functionFileName = realpath($localeFolder . DIRECTORY_SEPARATOR . 'functions');
+        $functionFileName = realpath($localeFolder) . DIRECTORY_SEPARATOR . 'functions';
         $this->log("Writing local function names to {$functionFileName}");
 
         $functionFile = fopen($functionFileName, 'wb');
@@ -189,11 +206,13 @@ class LocaleGenerator
 
     protected function getLocaleFolder(string $locale): string
     {
+        $lastchar = substr($this->translationBaseFolder, -1);
+        $dirsep = ($lastchar === '/' || $lastchar === '\\') ? '' : DIRECTORY_SEPARATOR;
         $localeFolder = $this->translationBaseFolder .
-            DIRECTORY_SEPARATOR .
+            $dirsep .
             str_replace('_', DIRECTORY_SEPARATOR, $locale);
         if (!file_exists($localeFolder) || !is_dir($localeFolder)) {
-            mkdir($localeFolder, 0777, true);
+            mkdir($localeFolder, 7 * 64 + 7 * 8 + 7, true); // octal 777
         }
 
         return $localeFolder;

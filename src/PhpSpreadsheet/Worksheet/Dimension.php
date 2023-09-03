@@ -112,8 +112,6 @@ abstract class Dimension
 
     /**
      * Get index to cellXf.
-     *
-     * @return int
      */
     public function getXfIndex(): ?int
     {
