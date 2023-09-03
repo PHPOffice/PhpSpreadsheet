@@ -444,7 +444,7 @@ class Worksheet implements IComparable
 
         $this->disconnectCells();
         $this->rowDimensions = [];
-        //$this->removeTableCollection(); // problem with phpunit10
+        $this->tableCollection = new ArrayObject();
     }
 
     /**
