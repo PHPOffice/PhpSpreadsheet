@@ -45,6 +45,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Inconsistent String Handling for Sum Functions. [Issue #3652](https://github.com/PHPOffice/PhpSpreadsheet/issues/3652) [PR #3653](https://github.com/PHPOffice/PhpSpreadsheet/pull/3653)
 - Recomputation of Relative Addresses in Defined Names. [Issue #3661](https://github.com/PHPOffice/PhpSpreadsheet/issues/3661) [PR #3673](https://github.com/PHPOffice/PhpSpreadsheet/pull/3673)
 - Writer Xls Characters Outside BMP (emojis). [Issue #642](https://github.com/PHPOffice/PhpSpreadsheet/issues/642) [PR #3696](https://github.com/PHPOffice/PhpSpreadsheet/pull/3696)
+- Xlsx Reader Improve Handling of Row and Column Styles. [Issue #3533](https://github.com/PHPOffice/PhpSpreadsheet/issues/3533) [Issue #3534](https://github.com/PHPOffice/PhpSpreadsheet/issues/3534) [PR #3688](https://github.com/PHPOffice/PhpSpreadsheet/pull/3688)
 
 ## 1.29.0 - 2023-06-15
 
