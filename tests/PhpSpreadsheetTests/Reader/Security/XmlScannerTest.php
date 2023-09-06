@@ -11,14 +11,6 @@ use XMLReader;
 
 class XmlScannerTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        // php 8.+ deprecated libxml_disable_entity_loader() - It's on by default
-        if (\PHP_VERSION_ID < 80000) {
-            libxml_disable_entity_loader(false);
-        }
-    }
-
     /**
      * @dataProvider providerValidXML
      *
@@ -27,19 +19,9 @@ class XmlScannerTest extends TestCase
      */
     public function testValidXML($filename, $expectedResult, bool $libxmlDisableEntityLoader): void
     {
-        // php 8.+ deprecated libxml_disable_entity_loader() - It's on by default
-        if (\PHP_VERSION_ID < 80000) {
-            $oldDisableEntityLoaderState = libxml_disable_entity_loader($libxmlDisableEntityLoader);
-        }
-
         $reader = XmlScanner::getInstance(new \PhpOffice\PhpSpreadsheet\Reader\Xml());
         $result = $reader->scanFile($filename);
         self::assertEquals($expectedResult, $result);
-
-        // php 8.+ deprecated libxml_disable_entity_loader() - It's on by default
-        if (isset($oldDisableEntityLoaderState)) {
-            libxml_disable_entity_loader($oldDisableEntityLoaderState);
-        }
     }
 
     public static function providerValidXML(): array
@@ -66,19 +48,10 @@ class XmlScannerTest extends TestCase
     {
         $this->expectException(\PhpOffice\PhpSpreadsheet\Reader\Exception::class);
 
-        // php 8.+ deprecated libxml_disable_entity_loader() - It's on by default
-        if (\PHP_VERSION_ID < 80000) {
-            libxml_disable_entity_loader($libxmlDisableEntityLoader);
-        }
-
         $reader = XmlScanner::getInstance(new \PhpOffice\PhpSpreadsheet\Reader\Xml());
         $expectedResult = 'FAILURE: Should throw an Exception rather than return a value';
         $result = $reader->scanFile($filename);
         self::assertEquals($expectedResult, $result);
-        // php 8.+ deprecated libxml_disable_entity_loader() - It's on by default
-        if (\PHP_VERSION_ID < 80000) {
-            self::assertEquals($libxmlDisableEntityLoader, libxml_disable_entity_loader());
-        }
     }
 
     public static function providerInvalidXML(): array

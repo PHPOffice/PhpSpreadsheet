@@ -541,7 +541,7 @@ function constructorCallback(\PhpOffice\PhpSpreadsheet\Reader\Csv $reader): void
     $reader->setDelimiter(',');
     $reader->setEnclosure('"');
     // Following represents how Excel behaves better than the default escape character
-    $reader->setEscapeCharacter((version_compare(PHP_VERSION, '7.4') < 0) ? "\x0" : '');
+    $reader->setEscapeCharacter('');
 }
 
 \PhpOffice\PhpSpreadsheet\Reader\Csv::setConstructorCallback('constructorCallback');
