@@ -17,7 +17,7 @@ class XmlScannerTest extends TestCase
      * @param mixed $filename
      * @param mixed $expectedResult
      */
-    public function testValidXML($filename, $expectedResult, bool $libxmlDisableEntityLoader): void
+    public function testValidXML($filename, $expectedResult): void
     {
         $reader = XmlScanner::getInstance(new \PhpOffice\PhpSpreadsheet\Reader\Xml());
         $result = $reader->scanFile($filename);
@@ -32,8 +32,7 @@ class XmlScannerTest extends TestCase
         foreach ($glob as $file) {
             $filename = realpath($file);
             $expectedResult = file_get_contents($file);
-            $tests[basename($file) . '_libxml_entity_loader_disabled'] = [$filename, $expectedResult, true];
-            $tests[basename($file) . '_libxml_entity_loader_enabled'] = [$filename, $expectedResult, false];
+            $tests[basename($file)] = [$filename, $expectedResult];
         }
 
         return $tests;
@@ -44,7 +43,7 @@ class XmlScannerTest extends TestCase
      *
      * @param mixed $filename
      */
-    public function testInvalidXML($filename, bool $libxmlDisableEntityLoader): void
+    public function testInvalidXML($filename): void
     {
         $this->expectException(\PhpOffice\PhpSpreadsheet\Reader\Exception::class);
 
@@ -61,8 +60,7 @@ class XmlScannerTest extends TestCase
         self::assertNotFalse($glob);
         foreach ($glob as $file) {
             $filename = realpath($file);
-            $tests[basename($file) . '_libxml_entity_loader_disabled'] = [$filename, true];
-            $tests[basename($file) . '_libxml_entity_loader_enabled'] = [$filename, false];
+            $tests[basename($file)] = [$filename];
         }
 
         return $tests;
