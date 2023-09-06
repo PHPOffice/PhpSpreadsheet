@@ -248,7 +248,7 @@ class CsvTest extends TestCase
         return [
             ['\\', ';'],
             ["\x0", ','],
-            [(version_compare(PHP_VERSION, '7.4') < 0) ? "\x0" : '', ','],
+            ['', ','],
         ];
     }
 

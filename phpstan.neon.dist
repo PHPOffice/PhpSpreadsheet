@@ -1,6 +1,5 @@
 includes:
     - phpstan-baseline.neon
-    - phpstan-conditional.php
     - vendor/phpstan/phpstan-phpunit/extension.neon
     - vendor/phpstan/phpstan-phpunit/rules.neon
 
