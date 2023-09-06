@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xml;
 
 use DateTimeZone;
+use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Reader\Xml;
 use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
@@ -125,6 +126,18 @@ class XmlLoadTest extends TestCase
         $sheet = $spreadsheet->getSheet(0);
         self::assertEquals('Report Data', $sheet->getTitle());
         self::assertEquals('Third Heading', $sheet->getCell('C2')->getValue());
+    }
+
+    public function testLoadNoSelectedSheets(): void
+    {
+        $this->expectException(PhpSpreadsheetException::class);
+        $this->expectExceptionMessage('You tried to set a sheet active by the out of bounds index');
+        $filename = __DIR__
+            . '/../../../..'
+            . '/samples/templates/excel2003.xml';
+        $reader = new Xml();
+        $reader->setLoadSheetsOnly(['Unknown Sheet', 'xReport Data']);
+        $this->spreadsheet = $reader->load($filename);
     }
 
     public function testLoadUnusableSample(): void

@@ -10,9 +10,4 @@ class BaseNoLoad extends BaseReader
     {
         return $filename !== '';
     }
-
-    public function loadxxx(string $filename): void
-    {
-        $this->loadSpreadsheetFromFile($filename);
-    }
 }
