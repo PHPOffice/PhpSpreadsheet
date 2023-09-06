@@ -43,7 +43,7 @@
     "scripts": {
         "check": [
             "phpcs src/ tests/ --report=checkstyle",
-            "phpcs --report-width=200 samples/ src/ tests/ --ignore=samples/Header.php --standard=PHPCompatibility --runtime-set testVersion 7.4- -n",
+            "phpcs --report-width=200 samples/ src/ tests/ --ignore=samples/Header.php --standard=PHPCompatibility --runtime-set testVersion 8.0- -n",
             "php-cs-fixer fix --ansi --dry-run --diff",
             "phpunit --color=always",
             "phpstan analyse --ansi --memory-limit=2048M"
@@ -57,11 +57,11 @@
             "php-cs-fixer fix"
         ],
         "versions": [
-            "phpcs --report-width=200 samples/ src/ tests/ --ignore=samples/Header.php --standard=PHPCompatibility --runtime-set testVersion 7.4- -n"
+            "phpcs --report-width=200 samples/ src/ tests/ --ignore=samples/Header.php --standard=PHPCompatibility --runtime-set testVersion 8.0- -n"
         ]
     },
     "require": {
-        "php": "^7.4 || ^8.0",
+        "php": "^8.0",
         "ext-ctype": "*",
         "ext-dom": "*",
         "ext-fileinfo": "*",
