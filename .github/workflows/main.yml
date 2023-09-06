@@ -50,6 +50,7 @@ jobs:
           echo "flags=--ignore-platform-reqs" >> $GITHUB_OUTPUT
 
       - name: Install dependencies
+        if: ${{ matrix.php-version != '7.4' }}
         run: composer update --no-progress --prefer-dist --optimize-autoloader ${{ steps.composer-lock.outputs.flags }}
 
       - name: Setup problem matchers for PHP
