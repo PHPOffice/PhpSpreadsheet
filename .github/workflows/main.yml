@@ -8,7 +8,6 @@ jobs:
         experimental:
           - false
         php-version:
-          - '7.4'
           - '8.0'
           - '8.1'
           - '8.2'
@@ -60,7 +59,7 @@ jobs:
       - name: "Run PHPUnit tests 1 (Experimental: ${{ matrix.experimental }})"
         env:
           FAILURE_ACTION: "${{ matrix.experimental == true }}"
-        if: ${{ matrix.php-version == '7.4' || matrix.php-version == '8.0' }}
+        if: ${{ matrix.php-version == '8.0' }}
         run: vendor/bin/phpunit --verbose || $FAILURE_ACTION
 
       - name: "Run PHPUnit tests 2 (Experimental: ${{ matrix.experimental }})"
@@ -160,7 +159,7 @@ jobs:
         run: composer install --no-progress --prefer-dist --optimize-autoloader
 
       - name: Code Version Compatibility check with PHP_CodeSniffer
-        run: ./vendor/bin/phpcs -q --report-width=200 --report=summary,full src/ --standard=PHPCompatibility --runtime-set testVersion 7.4-
+        run: ./vendor/bin/phpcs -q --report-width=200 --report=summary,full src/ --standard=PHPCompatibility --runtime-set testVersion 8.0-
 
   phpstan:
     runs-on: ubuntu-latest
