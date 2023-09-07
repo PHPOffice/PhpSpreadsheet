@@ -176,10 +176,8 @@ class Worksheet extends BIFFwriter
 
     /**
      * Escher object corresponding to MSODRAWING.
-     *
-     * @var null|\PhpOffice\PhpSpreadsheet\Shared\Escher
      */
-    private $escher;
+    private ?\PhpOffice\PhpSpreadsheet\Shared\Escher $escher = null;
 
     /**
      * Array of font hashes associated to FONT records index.

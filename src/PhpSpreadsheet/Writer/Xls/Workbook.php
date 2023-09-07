@@ -170,10 +170,8 @@ class Workbook extends BIFFwriter
 
     /**
      * Escher object corresponding to MSODRAWINGGROUP.
-     *
-     * @var null|\PhpOffice\PhpSpreadsheet\Shared\Escher
      */
-    private $escher;
+    private ?\PhpOffice\PhpSpreadsheet\Shared\Escher $escher = null;
 
     /** @var mixed */
     private static $scrutinizerFalse = false;

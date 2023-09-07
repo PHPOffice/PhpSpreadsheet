@@ -6,10 +6,8 @@ class SpgrContainer
 {
     /**
      * Parent Shape Group Container.
-     *
-     * @var null|SpgrContainer
      */
-    private $parent;
+    private ?self $parent = null;
 
     /**
      * Shape Container collection.

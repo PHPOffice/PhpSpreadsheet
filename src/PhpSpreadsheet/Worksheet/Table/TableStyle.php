@@ -70,10 +70,8 @@ class TableStyle
 
     /**
      * Theme.
-     *
-     * @var string
      */
-    private $theme;
+    private string $theme;
 
     /**
      * Show First Column.

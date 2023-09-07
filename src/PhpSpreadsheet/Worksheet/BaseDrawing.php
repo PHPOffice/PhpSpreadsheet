@@ -153,10 +153,8 @@ class BaseDrawing implements IComparable
 
     /**
      * Image hyperlink.
-     *
-     * @var null|Hyperlink
      */
-    private $hyperlink;
+    private ?Hyperlink $hyperlink = null;
 
     /**
      * Image type.
