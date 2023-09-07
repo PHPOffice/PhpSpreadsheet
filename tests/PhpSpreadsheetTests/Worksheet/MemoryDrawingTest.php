@@ -28,12 +28,8 @@ class MemoryDrawingTest extends TestCase
         $drawing->setRenderingFunction(MemoryDrawing::RENDERING_PNG);
         $drawing->setMimeType(MemoryDrawing::MIMETYPE_PNG);
 
-        if (version_compare(PHP_VERSION, '8.0.0', '>=') === true) {
-            self::assertIsObject($drawing->getImageResource());
-            self::assertInstanceOf(GdImage::class, $drawing->getImageResource());
-        } else {
-            self::assertIsResource($drawing->getImageResource());
-        }
+        self::assertIsObject($drawing->getImageResource());
+        self::assertInstanceOf(GdImage::class, $drawing->getImageResource());
 
         self::assertSame(MemoryDrawing::MIMETYPE_DEFAULT, $drawing->getMimeType());
         self::assertSame(MemoryDrawing::RENDERING_DEFAULT, $drawing->getRenderingFunction());
@@ -49,12 +45,8 @@ class MemoryDrawingTest extends TestCase
         }
         $drawing = MemoryDrawing::fromString($imageString);
 
-        if (version_compare(PHP_VERSION, '8.0.0', '>=') === true) {
-            self::assertIsObject($drawing->getImageResource());
-            self::assertInstanceOf(GdImage::class, $drawing->getImageResource());
-        } else {
-            self::assertIsResource($drawing->getImageResource());
-        }
+        self::assertIsObject($drawing->getImageResource());
+        self::assertInstanceOf(GdImage::class, $drawing->getImageResource());
 
         self::assertSame(MemoryDrawing::MIMETYPE_JPEG, $drawing->getMimeType());
         self::assertSame(MemoryDrawing::RENDERING_JPEG, $drawing->getRenderingFunction());
@@ -80,12 +72,8 @@ class MemoryDrawingTest extends TestCase
         $drawing = MemoryDrawing::fromStream($imageStream);
         fclose($imageStream);
 
-        if (version_compare(PHP_VERSION, '8.0.0', '>=') === true) {
-            self::assertIsObject($drawing->getImageResource());
-            self::assertInstanceOf(GdImage::class, $drawing->getImageResource());
-        } else {
-            self::assertIsResource($drawing->getImageResource());
-        }
+        self::assertIsObject($drawing->getImageResource());
+        self::assertInstanceOf(GdImage::class, $drawing->getImageResource());
 
         self::assertSame(MemoryDrawing::MIMETYPE_JPEG, $drawing->getMimeType());
         self::assertSame(MemoryDrawing::RENDERING_JPEG, $drawing->getRenderingFunction());

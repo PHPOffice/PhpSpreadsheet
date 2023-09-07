@@ -37,8 +37,8 @@ class CsvCallbackTest extends TestCase
     {
         $reader->setFallbackEncoding('ISO-8859-2');
         $reader->setInputEncoding(Csv::GUESS_ENCODING);
-        $reader->setEscapeCharacter((version_compare(PHP_VERSION, '7.4') < 0) ? "\x0" : '');
         $reader->setSheetNameIsFileName(true);
+        $reader->setEscapeCharacter('');
     }
 
     public function testFallbackEncodingDefltIso2(): void
