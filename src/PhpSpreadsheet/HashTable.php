@@ -109,10 +109,8 @@ class HashTable
 
     /**
      * Get index for hash code.
-     *
-     * @return false|int Index
      */
-    public function getIndexForHashCode(string $hashCode): int|bool
+    public function getIndexForHashCode(string $hashCode): false|int
     {
         // Scrutinizer thinks the following could return string. It is wrong.
         return array_search($hashCode, $this->keyMap, true);

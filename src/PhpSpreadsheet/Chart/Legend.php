@@ -106,10 +106,8 @@ class Legend
 
     /**
      * Get legend position as an Excel internal numeric value.
-     *
-     * @return false|int
      */
-    public function getPositionXL(): int|bool
+    public function getPositionXL(): false|int
     {
         // Scrutinizer thinks the following could return string. It is wrong.
         return array_search($this->position, self::POSITION_XLREF);
