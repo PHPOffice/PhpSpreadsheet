@@ -39,6 +39,11 @@ class CellAddress
         $this->worksheet = $worksheet;
     }
 
+    public function __destruct()
+    {
+        $this->worksheet = null;
+    }
+
     /**
      * @param mixed $columnId
      * @param mixed $rowId

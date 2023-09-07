@@ -519,6 +519,7 @@ class Spreadsheet implements JsonSerializable
         $this->calculationEngine = null;
         $this->cellXfCollection = [];
         $this->cellStyleXfCollection = [];
+        $this->definedNames = [];
     }
 
     /**

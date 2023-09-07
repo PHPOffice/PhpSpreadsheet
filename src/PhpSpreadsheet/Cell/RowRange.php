@@ -27,6 +27,11 @@ class RowRange implements AddressRange
         $this->worksheet = $worksheet;
     }
 
+    public function __destruct()
+    {
+        $this->worksheet = null;
+    }
+
     public static function fromArray(array $array, ?Worksheet $worksheet = null): self
     {
         [$from, $to] = $array;

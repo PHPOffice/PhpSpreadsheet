@@ -79,6 +79,7 @@ class MemoryDrawing extends BaseDrawing
             // "Fix" for Scrutinizer
             $this->imageResource = $rslt ? null : $this->alwaysNull;
         }
+        $this->worksheet = null;
     }
 
     public function __clone()
