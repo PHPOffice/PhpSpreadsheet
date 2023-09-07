@@ -9,12 +9,8 @@ class ValueToTextTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerVALUE
-     *
-     * @param mixed $expectedResult
-     * @param mixed $value
-     * @param mixed $format
      */
-    public function testVALUETOTEXT($expectedResult, $value, $format): void
+    public function testVALUETOTEXT(mixed $expectedResult, mixed $value, mixed $format): void
     {
         $sheet = $this->getSheet();
         $this->setCell('A1', $value);

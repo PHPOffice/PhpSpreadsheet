@@ -40,10 +40,9 @@ class Date2Test extends TestCase
     /**
      * @dataProvider providerTimeOnly
      *
-     * @param float|int $expectedResult
      * @param float|int $value
      */
-    public function testTimeOnly($expectedResult, $value, ?string $format = null): void
+    public function testTimeOnly(int|float $expectedResult, int|float|string $value, ?string $format = null): void
     {
         Cell::setCalculateDateTimeType(Cell::CALCULATE_TIME_FLOAT);
         $this->spreadsheet = new Spreadsheet();
@@ -87,11 +86,8 @@ class Date2Test extends TestCase
 
     /**
      * @dataProvider providerDateAndTime
-     *
-     * @param float|int $expectedResult
-     * @param float|int $value
      */
-    public function testDateAndTime($expectedResult, $value, ?string $format = null): void
+    public function testDateAndTime(int|float $expectedResult, int|float|string $value, ?string $format = null): void
     {
         Cell::setCalculateDateTimeType(Cell::CALCULATE_DATE_TIME_FLOAT);
         $this->spreadsheet = new Spreadsheet();
@@ -135,11 +131,8 @@ class Date2Test extends TestCase
 
     /**
      * @dataProvider providerAsis
-     *
-     * @param float|int $expectedResult
-     * @param float|int $value
      */
-    public function testDefault($expectedResult, $value, ?string $format = null): void
+    public function testDefault(int|float $expectedResult, int|float|string $value, ?string $format = null): void
     {
         //Cell::setCalculateDateTimeType(Cell::CALCULATE_DATE_TIME_ASIS);
         $this->spreadsheet = new Spreadsheet();
@@ -160,11 +153,8 @@ class Date2Test extends TestCase
 
     /**
      * @dataProvider providerAsis
-     *
-     * @param float|int $expectedResult
-     * @param float|int $value
      */
-    public function testAsis($expectedResult, $value, ?string $format = null): void
+    public function testAsis(int|float $expectedResult, int|float|string $value, ?string $format = null): void
     {
         Cell::setCalculateDateTimeType(Cell::CALCULATE_DATE_TIME_ASIS);
         $this->spreadsheet = new Spreadsheet();

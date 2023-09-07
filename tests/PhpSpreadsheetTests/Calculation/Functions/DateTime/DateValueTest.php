@@ -57,10 +57,8 @@ class DateValueTest extends TestCase
 
     /**
      * @dataProvider providerDATEVALUE
-     *
-     * @param mixed $expectedResult
      */
-    public function testDirectCallToDATEVALUE($expectedResult, ...$args): void
+    public function testDirectCallToDATEVALUE(mixed $expectedResult, mixed ...$args): void
     {
         if ($this->expectationIsTemplate($expectedResult)) {
             $expectedResult = $this->parseTemplatedExpectation($expectedResult);
@@ -73,10 +71,8 @@ class DateValueTest extends TestCase
 
     /**
      * @dataProvider providerDATEVALUE
-     *
-     * @param mixed $expectedResult
      */
-    public function testDATEVALUEAsFormula($expectedResult, ...$args): void
+    public function testDATEVALUEAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         if ($this->expectationIsTemplate($expectedResult)) {
             $expectedResult = $this->parseTemplatedExpectation($expectedResult);
@@ -93,10 +89,8 @@ class DateValueTest extends TestCase
 
     /**
      * @dataProvider providerDATEVALUE
-     *
-     * @param mixed $expectedResult
      */
-    public function testDATEVALUEInWorksheet($expectedResult, ...$args): void
+    public function testDATEVALUEInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         if ($this->expectationIsTemplate($expectedResult)) {
             $expectedResult = $this->parseTemplatedExpectation($expectedResult);
@@ -134,7 +128,7 @@ class DateValueTest extends TestCase
     /**
      * @dataProvider providerUnhappyDATEVALUE
      */
-    public function testDATEVALUEUnhappyPath(string $expectedException, ...$args): void
+    public function testDATEVALUEUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 

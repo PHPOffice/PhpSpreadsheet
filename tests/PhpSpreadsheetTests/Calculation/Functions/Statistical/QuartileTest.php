@@ -6,10 +6,8 @@ class QuartileTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerQUARTILE
-     *
-     * @param mixed $expectedResult
      */
-    public function testQUARTILE($expectedResult, ...$args): void
+    public function testQUARTILE(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCaseReference('QUARTILE', $expectedResult, ...$args);
     }

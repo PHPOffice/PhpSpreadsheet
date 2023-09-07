@@ -12,10 +12,8 @@ class ForecastTest extends TestCase
 {
     /**
      * @dataProvider providerFORECAST
-     *
-     * @param mixed $expectedResult
      */
-    public function testFORECAST($expectedResult, ...$args): void
+    public function testFORECAST(mixed $expectedResult, mixed ...$args): void
     {
         $result = Statistical\Trends::FORECAST(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);

@@ -8,10 +8,8 @@ class ExponDistTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerEXPONDIST
-     *
-     * @param mixed $expectedResult
      */
-    public function testEXPONDIST($expectedResult, ...$args): void
+    public function testEXPONDIST(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('EXPONDIST', $expectedResult, ...$args);
     }

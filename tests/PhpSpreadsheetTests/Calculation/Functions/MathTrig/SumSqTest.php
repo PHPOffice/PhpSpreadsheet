@@ -6,10 +6,8 @@ class SumSqTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerSUMSQ
-     *
-     * @param mixed $expectedResult
      */
-    public function testSUMSQ($expectedResult, ...$args): void
+    public function testSUMSQ(mixed $expectedResult, mixed ...$args): void
     {
         $this->mightHaveException($expectedResult);
         $maxRow = 0;

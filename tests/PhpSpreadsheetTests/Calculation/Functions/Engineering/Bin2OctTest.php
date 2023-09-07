@@ -30,10 +30,8 @@ class Bin2OctTest extends TestCase
 
     /**
      * @dataProvider providerBIN2OCT
-     *
-     * @param mixed $expectedResult
      */
-    public function testDirectCallToBIN2OCT($expectedResult, ...$args): void
+    public function testDirectCallToBIN2OCT(mixed $expectedResult, mixed ...$args): void
     {
         /** @scrutinizer ignore-call */
         $result = ConvertBinary::toOctal(...$args);
@@ -47,10 +45,8 @@ class Bin2OctTest extends TestCase
 
     /**
      * @dataProvider providerBIN2OCT
-     *
-     * @param mixed $expectedResult
      */
-    public function testBIN2OCTAsFormula($expectedResult, ...$args): void
+    public function testBIN2OCTAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -63,10 +59,8 @@ class Bin2OctTest extends TestCase
 
     /**
      * @dataProvider providerBIN2OCT
-     *
-     * @param mixed $expectedResult
      */
-    public function testBIN2OCTInWorksheet($expectedResult, ...$args): void
+    public function testBIN2OCTInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -91,7 +85,7 @@ class Bin2OctTest extends TestCase
     /**
      * @dataProvider providerUnhappyBIN2OCT
      */
-    public function testBIN2OCTUnhappyPath(string $expectedException, ...$args): void
+    public function testBIN2OCTUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -118,10 +112,8 @@ class Bin2OctTest extends TestCase
 
     /**
      * @dataProvider providerBIN2OCTOds
-     *
-     * @param mixed $expectedResult
      */
-    public function testBIN2OCTOds($expectedResult, ...$args): void
+    public function testBIN2OCTOds(mixed $expectedResult, mixed ...$args): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
 

@@ -8,12 +8,8 @@ class QuotientTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerQUOTIENT
-     *
-     * @param mixed $expectedResult
-     * @param mixed $arg1
-     * @param mixed $arg2
      */
-    public function testQUOTIENT($expectedResult, $arg1 = 'omitted', $arg2 = 'omitted'): void
+    public function testQUOTIENT(mixed $expectedResult, mixed $arg1 = 'omitted', mixed $arg2 = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

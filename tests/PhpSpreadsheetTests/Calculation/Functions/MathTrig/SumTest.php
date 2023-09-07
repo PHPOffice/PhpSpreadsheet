@@ -8,10 +8,8 @@ class SumTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerSUM
-     *
-     * @param mixed $expectedResult
      */
-    public function testSUM($expectedResult, ...$args): void
+    public function testSUM(mixed $expectedResult, mixed ...$args): void
     {
         $sheet = $this->getSheet();
         $row = 0;
@@ -31,10 +29,8 @@ class SumTest extends AllSetupTeardown
 
     /**
      * @dataProvider providerSUMLiterals
-     *
-     * @param mixed $expectedResult
      */
-    public function testSUMLiterals($expectedResult, string $args): void
+    public function testSUMLiterals(mixed $expectedResult, string $args): void
     {
         $sheet = $this->getSheet();
         $sheet->getCell('B1')->setValue("=SUM($args)");
@@ -49,10 +45,8 @@ class SumTest extends AllSetupTeardown
 
     /**
      * @dataProvider providerSUMWITHINDEXMATCH
-     *
-     * @param mixed $expectedResult
      */
-    public function testSumWithIndexMatch($expectedResult, string $formula): void
+    public function testSumWithIndexMatch(mixed $expectedResult, string $formula): void
     {
         $spreadsheet = new Spreadsheet();
         $sheet1 = $spreadsheet->getActiveSheet();

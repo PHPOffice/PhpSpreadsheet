@@ -6,10 +6,8 @@ class AndTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerAND
-     *
-     * @param mixed $expectedResult
      */
-    public function testAND($expectedResult, ...$args): void
+    public function testAND(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('AND', $expectedResult, ...$args);
     }
@@ -21,11 +19,8 @@ class AndTest extends AllSetupTeardown
 
     /**
      * @dataProvider providerANDLiteral
-     *
-     * @param mixed $expectedResult
-     * @param string $formula
      */
-    public function testANDLiteral($expectedResult, $formula): void
+    public function testANDLiteral(mixed $expectedResult, mixed $formula): void
     {
         $sheet = $this->getSheet();
         $sheet->getCell('A1')->setValue("=AND($formula)");

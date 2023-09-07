@@ -21,10 +21,8 @@ class ImArgumentTest extends TestCase
 
     /**
      * @dataProvider providerIMARGUMENT
-     *
-     * @param mixed $expectedResult
      */
-    public function testDirectCallToIMARGUMENT($expectedResult, ...$args): void
+    public function testDirectCallToIMARGUMENT(mixed $expectedResult, mixed ...$args): void
     {
         /** @scrutinizer ignore-call */
         $result = ComplexFunctions::IMARGUMENT(...$args);
@@ -33,10 +31,8 @@ class ImArgumentTest extends TestCase
 
     /**
      * @dataProvider providerIMARGUMENT
-     *
-     * @param mixed $expectedResult
      */
-    public function testIMARGUMENTAsFormula($expectedResult, ...$args): void
+    public function testIMARGUMENTAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -49,10 +45,8 @@ class ImArgumentTest extends TestCase
 
     /**
      * @dataProvider providerIMARGUMENT
-     *
-     * @param mixed $expectedResult
      */
-    public function testIMARGUMENTInWorksheet($expectedResult, ...$args): void
+    public function testIMARGUMENTInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -77,7 +71,7 @@ class ImArgumentTest extends TestCase
     /**
      * @dataProvider providerUnhappyIMARGUMENT
      */
-    public function testIMARGUMENTUnhappyPath(string $expectedException, ...$args): void
+    public function testIMARGUMENTUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 

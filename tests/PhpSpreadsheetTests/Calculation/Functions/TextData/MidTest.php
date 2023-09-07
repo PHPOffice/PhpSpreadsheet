@@ -11,12 +11,11 @@ class MidTest extends AllSetupTeardown
     /**
      * @dataProvider providerMID
      *
-     * @param mixed $expectedResult
      * @param mixed $str string from which to extract
      * @param mixed $start position at which to start
      * @param mixed $cnt number of characters to extract
      */
-    public function testMID($expectedResult, $str = 'omitted', $start = 'omitted', $cnt = 'omitted'): void
+    public function testMID(mixed $expectedResult, mixed $str = 'omitted', mixed $start = 'omitted', mixed $cnt = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -46,14 +45,8 @@ class MidTest extends AllSetupTeardown
 
     /**
      * @dataProvider providerLocaleMID
-     *
-     * @param string $expectedResult
-     * @param mixed $value
-     * @param mixed $locale
-     * @param mixed $offset
-     * @param mixed $characters
      */
-    public function testMiddleWithLocaleBoolean($expectedResult, $locale, $value, $offset, $characters): void
+    public function testMiddleWithLocaleBoolean(string $expectedResult, mixed $locale, mixed $value, mixed $offset, mixed $characters): void
     {
         $newLocale = Settings::setLocale($locale);
         if ($newLocale === false) {

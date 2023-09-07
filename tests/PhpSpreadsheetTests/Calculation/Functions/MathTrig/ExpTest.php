@@ -8,11 +8,8 @@ class ExpTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerEXP
-     *
-     * @param mixed $expectedResult
-     * @param mixed $number
      */
-    public function testEXP($expectedResult, $number = 'omitted'): void
+    public function testEXP(mixed $expectedResult, mixed $number = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

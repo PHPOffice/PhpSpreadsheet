@@ -10,13 +10,8 @@ class VLookupTest extends TestCase
 {
     /**
      * @dataProvider providerVLOOKUP
-     *
-     * @param mixed $expectedResult
-     * @param mixed $value
-     * @param mixed $table
-     * @param mixed $index
      */
-    public function testVLOOKUP($expectedResult, $value, $table, $index, ?bool $lookup = null): void
+    public function testVLOOKUP(mixed $expectedResult, mixed $value, mixed $table, mixed $index, ?bool $lookup = null): void
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();

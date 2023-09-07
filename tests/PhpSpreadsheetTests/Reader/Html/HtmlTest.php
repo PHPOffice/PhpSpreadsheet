@@ -64,11 +64,8 @@ class HtmlTest extends TestCase
 
     /**
      * @dataProvider providerCanReadVerySmallFile
-     *
-     * @param bool $expected
-     * @param string $content
      */
-    public function testCanReadVerySmallFile($expected, $content): void
+    public function testCanReadVerySmallFile(bool $expected, string $content): void
     {
         $filename = HtmlHelper::createHtml($content);
         $reader = new Html();

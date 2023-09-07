@@ -8,11 +8,8 @@ class DegreesTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerDEGREES
-     *
-     * @param mixed $expectedResult
-     * @param mixed $number
      */
-    public function testDegrees($expectedResult, $number = 'omitted'): void
+    public function testDegrees(mixed $expectedResult, mixed $number = 'omitted'): void
     {
         $sheet = $this->getSheet();
         $this->mightHaveException($expectedResult);

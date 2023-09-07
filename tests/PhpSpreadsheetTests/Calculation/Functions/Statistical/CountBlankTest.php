@@ -8,10 +8,8 @@ class CountBlankTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerCOUNTBLANK
-     *
-     * @param mixed $expectedResult
      */
-    public function testCOUNTBLANK($expectedResult, ...$args): void
+    public function testCOUNTBLANK(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCaseNoBracket('COUNTBLANK', $expectedResult, ...$args);
     }

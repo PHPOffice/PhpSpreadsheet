@@ -8,11 +8,8 @@ class MRoundTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerMROUND
-     *
-     * @param mixed $expectedResult
-     * @param mixed $formula
      */
-    public function testMROUND($expectedResult, $formula): void
+    public function testMROUND(mixed $expectedResult, mixed $formula): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

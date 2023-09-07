@@ -8,10 +8,8 @@ class ConfidenceTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerCONFIDENCE
-     *
-     * @param mixed $expectedResult
      */
-    public function testCONFIDENCE($expectedResult, ...$args): void
+    public function testCONFIDENCE(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCaseReference('CONFIDENCE', $expectedResult, ...$args);
     }

@@ -92,14 +92,8 @@ class AdvancedValueBinderTest extends TestCase
 
     /**
      * @dataProvider currencyProvider
-     *
-     * @param mixed $value
-     * @param mixed $valueBinded
-     * @param mixed $thousandsSeparator
-     * @param mixed $decimalSeparator
-     * @param mixed $currencyCode
      */
-    public function testCurrency($value, $valueBinded, $thousandsSeparator, $decimalSeparator, $currencyCode): void
+    public function testCurrency(mixed $value, mixed $valueBinded, mixed $thousandsSeparator, mixed $decimalSeparator, mixed $currencyCode): void
     {
         StringHelper::setCurrencyCode($currencyCode);
         StringHelper::setDecimalSeparator($decimalSeparator);
@@ -135,11 +129,8 @@ class AdvancedValueBinderTest extends TestCase
 
     /**
      * @dataProvider fractionProvider
-     *
-     * @param mixed $value
-     * @param mixed $valueBinded
      */
-    public function testFractions($value, $valueBinded): void
+    public function testFractions(mixed $value, mixed $valueBinded): void
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
@@ -171,11 +162,8 @@ class AdvancedValueBinderTest extends TestCase
 
     /**
      * @dataProvider percentageProvider
-     *
-     * @param mixed $value
-     * @param mixed $valueBinded
      */
-    public function testPercentages($value, $valueBinded): void
+    public function testPercentages(mixed $value, mixed $valueBinded): void
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
@@ -201,11 +189,8 @@ class AdvancedValueBinderTest extends TestCase
 
     /**
      * @dataProvider timeProvider
-     *
-     * @param mixed $value
-     * @param mixed $valueBinded
      */
-    public function testTimes($value, $valueBinded): void
+    public function testTimes(mixed $value, mixed $valueBinded): void
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();

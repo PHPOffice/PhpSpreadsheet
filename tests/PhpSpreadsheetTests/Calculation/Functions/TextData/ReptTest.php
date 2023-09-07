@@ -8,12 +8,8 @@ class ReptTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerREPT
-     *
-     * @param mixed $expectedResult
-     * @param mixed $val
-     * @param mixed $rpt
      */
-    public function testReptThroughEngine($expectedResult, $val = 'omitted', $rpt = 'omitted'): void
+    public function testReptThroughEngine(mixed $expectedResult, mixed $val = 'omitted', mixed $rpt = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

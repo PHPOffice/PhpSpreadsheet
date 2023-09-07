@@ -28,10 +28,8 @@ class ImCotTest extends TestCase
 
     /**
      * @dataProvider providerIMCOT
-     *
-     * @param mixed $expectedResult
      */
-    public function testDirectCallToIMCOT($expectedResult, ...$args): void
+    public function testDirectCallToIMCOT(mixed $expectedResult, mixed ...$args): void
     {
         /** @scrutinizer ignore-call */
         $result = ComplexFunctions::IMCOT(...$args);
@@ -48,10 +46,8 @@ class ImCotTest extends TestCase
 
     /**
      * @dataProvider providerIMCOT
-     *
-     * @param mixed $expectedResult
      */
-    public function testIMCOTAsFormula($expectedResult, ...$args): void
+    public function testIMCOTAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -67,10 +63,8 @@ class ImCotTest extends TestCase
 
     /**
      * @dataProvider providerIMCOT
-     *
-     * @param mixed $expectedResult
      */
-    public function testIMCOTInWorksheet($expectedResult, ...$args): void
+    public function testIMCOTInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -98,7 +92,7 @@ class ImCotTest extends TestCase
     /**
      * @dataProvider providerUnhappyIMCOT
      */
-    public function testIMCOTUnhappyPath(string $expectedException, ...$args): void
+    public function testIMCOTUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 

@@ -8,10 +8,8 @@ class AsinTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerAsin
-     *
-     * @param mixed $expectedResult
      */
-    public function testAsin($expectedResult, string $formula): void
+    public function testAsin(mixed $expectedResult, string $formula): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

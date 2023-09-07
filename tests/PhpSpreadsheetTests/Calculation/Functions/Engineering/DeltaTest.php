@@ -13,10 +13,8 @@ class DeltaTest extends TestCase
 {
     /**
      * @dataProvider providerDELTA
-     *
-     * @param mixed $expectedResult
      */
-    public function testDirectCallToDELTA($expectedResult, ...$args): void
+    public function testDirectCallToDELTA(mixed $expectedResult, mixed ...$args): void
     {
         /** @scrutinizer ignore-call */
         $result = Compare::delta(...$args);
@@ -25,10 +23,8 @@ class DeltaTest extends TestCase
 
     /**
      * @dataProvider providerDELTA
-     *
-     * @param mixed $expectedResult
      */
-    public function testDELTAAsFormula($expectedResult, ...$args): void
+    public function testDELTAAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -41,10 +37,8 @@ class DeltaTest extends TestCase
 
     /**
      * @dataProvider providerDELTA
-     *
-     * @param mixed $expectedResult
      */
-    public function testDELTAInWorksheet($expectedResult, ...$args): void
+    public function testDELTAInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -69,7 +63,7 @@ class DeltaTest extends TestCase
     /**
      * @dataProvider providerUnhappyDELTA
      */
-    public function testDELTAUnhappyPath(string $expectedException, ...$args): void
+    public function testDELTAUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 

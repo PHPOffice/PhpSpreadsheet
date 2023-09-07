@@ -33,10 +33,8 @@ class EDateTest extends TestCase
 
     /**
      * @dataProvider providerEDATE
-     *
-     * @param mixed $expectedResult
      */
-    public function testDirectCallToEDATE($expectedResult, ...$args): void
+    public function testDirectCallToEDATE(mixed $expectedResult, mixed ...$args): void
     {
         $result = Month::adjust(...$args);
         self::assertSame($expectedResult, $result);
@@ -44,10 +42,8 @@ class EDateTest extends TestCase
 
     /**
      * @dataProvider providerEDATE
-     *
-     * @param mixed $expectedResult
      */
-    public function testEDATEAsFormula($expectedResult, ...$args): void
+    public function testEDATEAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -60,10 +56,8 @@ class EDateTest extends TestCase
 
     /**
      * @dataProvider providerEDATE
-     *
-     * @param mixed $expectedResult
      */
-    public function testEDATEInWorksheet($expectedResult, ...$args): void
+    public function testEDATEInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -88,7 +82,7 @@ class EDateTest extends TestCase
     /**
      * @dataProvider providerUnhappyEDATE
      */
-    public function testEDATEUnhappyPath(string $expectedException, ...$args): void
+    public function testEDATEUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 

@@ -8,10 +8,8 @@ class NotTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerNOT
-     *
-     * @param mixed $expectedResult
      */
-    public function testNOT($expectedResult, ...$args): void
+    public function testNOT(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('NOT', $expectedResult, ...$args);
     }

@@ -6,10 +6,8 @@ class MedianTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerMEDIAN
-     *
-     * @param mixed $expectedResult
      */
-    public function testMEDIAN($expectedResult, ...$args): void
+    public function testMEDIAN(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('MEDIAN', $expectedResult, ...$args);
     }

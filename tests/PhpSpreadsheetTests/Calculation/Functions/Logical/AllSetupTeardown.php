@@ -51,20 +51,14 @@ class AllSetupTeardown extends TestCase
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_GNUMERIC);
     }
 
-    /**
-     * @param mixed $expectedResult
-     */
-    protected function mightHaveException($expectedResult): void
+    protected function mightHaveException(mixed $expectedResult): void
     {
         if ($expectedResult === 'exception') {
             $this->expectException(CalcException::class);
         }
     }
 
-    /**
-     * @param mixed $value
-     */
-    protected function setCell(string $cell, $value): void
+    protected function setCell(string $cell, mixed $value): void
     {
         if ($value !== null) {
             if (is_string($value) && is_numeric($value)) {
@@ -95,11 +89,7 @@ class AllSetupTeardown extends TestCase
         return $this->sheet;
     }
 
-    /**
-     * @param mixed $expectedResult
-     * @param array $args
-     */
-    protected function runTestCase(string $functionName, $expectedResult, ...$args): void
+    protected function runTestCase(string $functionName, mixed $expectedResult, mixed ...$args): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

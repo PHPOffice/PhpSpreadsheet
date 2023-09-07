@@ -6,10 +6,8 @@ class StDevPTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerSTDEVP
-     *
-     * @param mixed $expectedResult
      */
-    public function testSTDEVP($expectedResult, ...$args): void
+    public function testSTDEVP(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCaseReference('STDEVP', $expectedResult, ...$args);
     }
@@ -21,10 +19,8 @@ class StDevPTest extends AllSetupTeardown
 
     /**
      * @dataProvider providerOdsSTDEVP
-     *
-     * @param mixed $expectedResult
      */
-    public function testOdsSTDEVP($expectedResult, ...$args): void
+    public function testOdsSTDEVP(mixed $expectedResult, mixed ...$args): void
     {
         $this->setOpenOffice();
         $this->runTestCaseReference('STDEVP', $expectedResult, ...$args);

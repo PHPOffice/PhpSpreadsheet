@@ -8,10 +8,8 @@ class CosTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerCos
-     *
-     * @param mixed $expectedResult
      */
-    public function testCos($expectedResult, string $formula): void
+    public function testCos(mixed $expectedResult, string $formula): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

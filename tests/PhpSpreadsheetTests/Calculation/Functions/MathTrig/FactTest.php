@@ -10,11 +10,8 @@ class FactTest extends AllSetupTeardown
 
     /**
      * @dataProvider providerFACT
-     *
-     * @param mixed $expectedResult
-     * @param mixed $arg1
      */
-    public function testFACT($expectedResult, $arg1): void
+    public function testFACT(mixed $expectedResult, mixed $arg1): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -37,11 +34,8 @@ class FactTest extends AllSetupTeardown
 
     /**
      * @dataProvider providerFACTGnumeric
-     *
-     * @param mixed $expectedResult
-     * @param mixed $arg1
      */
-    public function testFACTGnumeric($expectedResult, $arg1): void
+    public function testFACTGnumeric(mixed $expectedResult, mixed $arg1): void
     {
         $this->mightHaveException($expectedResult);
         self::setGnumeric();

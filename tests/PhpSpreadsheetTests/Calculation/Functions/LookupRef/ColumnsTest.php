@@ -10,11 +10,8 @@ class ColumnsTest extends TestCase
 {
     /**
      * @dataProvider providerCOLUMNS
-     *
-     * @param mixed $expectedResult
-     * @param null|array|string $arg
      */
-    public function testCOLUMNS($expectedResult, $arg): void
+    public function testCOLUMNS(mixed $expectedResult, null|array|string $arg): void
     {
         $result = LookupRef\RowColumnInformation::COLUMNS($arg);
         self::assertEquals($expectedResult, $result);

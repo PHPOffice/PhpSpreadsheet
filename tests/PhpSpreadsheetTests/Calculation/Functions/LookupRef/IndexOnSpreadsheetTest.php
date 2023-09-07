@@ -6,12 +6,8 @@ class IndexOnSpreadsheetTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerINDEXonSpreadsheet
-     *
-     * @param mixed $expectedResult
-     * @param null|int|string $rowNum
-     * @param null|int|string $colNum
      */
-    public function testIndexOnSpreadsheet($expectedResult, array $matrix, $rowNum = null, $colNum = null): void
+    public function testIndexOnSpreadsheet(mixed $expectedResult, array $matrix, null|int|string $rowNum = null, null|int|string $colNum = null): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

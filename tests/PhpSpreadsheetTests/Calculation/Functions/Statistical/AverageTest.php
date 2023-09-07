@@ -6,10 +6,8 @@ class AverageTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerAVERAGE
-     *
-     * @param mixed $expectedResult
      */
-    public function testAVERAGE($expectedResult, ...$args): void
+    public function testAVERAGE(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('AVERAGE', $expectedResult, ...$args);
     }

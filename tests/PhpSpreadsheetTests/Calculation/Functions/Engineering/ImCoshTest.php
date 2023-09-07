@@ -28,10 +28,8 @@ class ImCoshTest extends TestCase
 
     /**
      * @dataProvider providerIMCOSH
-     *
-     * @param mixed $expectedResult
      */
-    public function testDirectCallToIMCOSH($expectedResult, ...$args): void
+    public function testDirectCallToIMCOSH(mixed $expectedResult, mixed ...$args): void
     {
         /** @scrutinizer ignore-call */
         $result = ComplexFunctions::IMCOSH(...$args);
@@ -48,10 +46,8 @@ class ImCoshTest extends TestCase
 
     /**
      * @dataProvider providerIMCOSH
-     *
-     * @param mixed $expectedResult
      */
-    public function testIMCOSHAsFormula($expectedResult, ...$args): void
+    public function testIMCOSHAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -67,10 +63,8 @@ class ImCoshTest extends TestCase
 
     /**
      * @dataProvider providerIMCOSH
-     *
-     * @param mixed $expectedResult
      */
-    public function testIMCOSHInWorksheet($expectedResult, ...$args): void
+    public function testIMCOSHInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -98,7 +92,7 @@ class ImCoshTest extends TestCase
     /**
      * @dataProvider providerUnhappyIMCOSH
      */
-    public function testIMCOSHUnhappyPath(string $expectedException, ...$args): void
+    public function testIMCOSHUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 

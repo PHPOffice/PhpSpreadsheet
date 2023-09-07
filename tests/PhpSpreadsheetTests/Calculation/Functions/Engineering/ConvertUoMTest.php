@@ -45,10 +45,8 @@ class ConvertUoMTest extends TestCase
 
     /**
      * @dataProvider providerCONVERTUOM
-     *
-     * @param mixed $expectedResult
      */
-    public function testDirectCallToCONVERTUOM($expectedResult, ...$args): void
+    public function testDirectCallToCONVERTUOM(mixed $expectedResult, mixed ...$args): void
     {
         $result = ConvertUOM::convert(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, self::UOM_PRECISION);
@@ -56,10 +54,8 @@ class ConvertUoMTest extends TestCase
 
     /**
      * @dataProvider providerCONVERTUOM
-     *
-     * @param mixed $expectedResult
      */
-    public function testCONVERTUOMAsFormula($expectedResult, ...$args): void
+    public function testCONVERTUOMAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -72,10 +68,8 @@ class ConvertUoMTest extends TestCase
 
     /**
      * @dataProvider providerCONVERTUOM
-     *
-     * @param mixed $expectedResult
      */
-    public function testCONVERTUOMInWorksheet($expectedResult, ...$args): void
+    public function testCONVERTUOMInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -100,7 +94,7 @@ class ConvertUoMTest extends TestCase
     /**
      * @dataProvider providerUnhappyCONVERTUOM
      */
-    public function testCONVERTUOMUnhappyPath(string $expectedException, ...$args): void
+    public function testCONVERTUOMUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 

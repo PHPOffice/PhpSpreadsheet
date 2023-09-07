@@ -6,10 +6,8 @@ class CoupNcdTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerCOUPNCD
-     *
-     * @param mixed $expectedResult
      */
-    public function testCOUPNCD($expectedResult, ...$args): void
+    public function testCOUPNCD(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('COUPNCD', $expectedResult, $args);
     }

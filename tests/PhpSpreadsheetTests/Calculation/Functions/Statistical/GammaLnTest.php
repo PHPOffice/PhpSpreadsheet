@@ -8,10 +8,8 @@ class GammaLnTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerGAMMALN
-     *
-     * @param mixed $expectedResult
      */
-    public function testGAMMALN($expectedResult, ...$args): void
+    public function testGAMMALN(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('GAMMALN', $expectedResult, ...$args);
     }

@@ -8,11 +8,8 @@ class TruncTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerTRUNC
-     *
-     * @param mixed $expectedResult
-     * @param string $formula
      */
-    public function testTRUNC($expectedResult, $formula): void
+    public function testTRUNC(mixed $expectedResult, string $formula): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

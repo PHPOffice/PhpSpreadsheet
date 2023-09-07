@@ -8,10 +8,8 @@ class LogInvTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerLOGINV
-     *
-     * @param mixed $expectedResult
      */
-    public function testLOGINV($expectedResult, ...$args): void
+    public function testLOGINV(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('LOGINV', $expectedResult, ...$args);
     }

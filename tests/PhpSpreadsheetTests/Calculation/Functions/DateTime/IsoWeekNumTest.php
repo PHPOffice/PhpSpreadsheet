@@ -33,11 +33,8 @@ class IsoWeekNumTest extends TestCase
 
     /**
      * @dataProvider providerISOWEEKNUM
-     *
-     * @param mixed $expectedResult
-     * @param mixed ...$args
      */
-    public function testDirectCallToISOWEEKNUM($expectedResult, ...$args): void
+    public function testDirectCallToISOWEEKNUM(mixed $expectedResult, mixed ...$args): void
     {
         /** @scrutinizer ignore-call */
         $result = Week::isoWeekNumber(...$args);
@@ -46,11 +43,8 @@ class IsoWeekNumTest extends TestCase
 
     /**
      * @dataProvider providerISOWEEKNUM
-     *
-     * @param mixed $expectedResult
-     * @param mixed ...$args
      */
-    public function testISOWEEKNUMAsFormula($expectedResult, ...$args): void
+    public function testISOWEEKNUMAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -63,10 +57,8 @@ class IsoWeekNumTest extends TestCase
 
     /**
      * @dataProvider providerISOWEEKNUM
-     *
-     * @param mixed $expectedResult
      */
-    public function testISOWEEKNUMInWorksheet($expectedResult, ...$args): void
+    public function testISOWEEKNUMInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -91,7 +83,7 @@ class IsoWeekNumTest extends TestCase
     /**
      * @dataProvider providerUnhappyISOWEEKNUM
      */
-    public function testISOWEEKNUMUnhappyPath(string $expectedException, ...$args): void
+    public function testISOWEEKNUMUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -118,10 +110,8 @@ class IsoWeekNumTest extends TestCase
 
     /**
      * @dataProvider providerISOWEEKNUM1904
-     *
-     * @param mixed $expectedResult
      */
-    public function testISOWEEKNUMWith1904Calendar($expectedResult, ...$args): void
+    public function testISOWEEKNUMWith1904Calendar(mixed $expectedResult, mixed ...$args): void
     {
         SharedDate::setExcelCalendar(SharedDate::CALENDAR_MAC_1904);
 

@@ -6,10 +6,8 @@ class HarMeanTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerHARMEAN
-     *
-     * @param mixed $expectedResult
      */
-    public function testHARMEAN($expectedResult, ...$args): void
+    public function testHARMEAN(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('HARMEAN', $expectedResult, ...$args);
     }

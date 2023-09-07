@@ -6,10 +6,8 @@ class ProductTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerPRODUCT
-     *
-     * @param mixed $expectedResult
      */
-    public function testPRODUCT($expectedResult, ...$args): void
+    public function testPRODUCT(mixed $expectedResult, mixed ...$args): void
     {
         $sheet = $this->getSheet();
         $row = 0;

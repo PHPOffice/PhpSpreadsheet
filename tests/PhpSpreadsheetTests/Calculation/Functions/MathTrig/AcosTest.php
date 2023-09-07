@@ -8,10 +8,8 @@ class AcosTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerAcos
-     *
-     * @param mixed $expectedResult
      */
-    public function testAcos($expectedResult, string $formula): void
+    public function testAcos(mixed $expectedResult, string $formula): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

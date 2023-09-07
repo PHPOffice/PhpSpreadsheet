@@ -8,11 +8,8 @@ class CharTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerCHAR
-     *
-     * @param mixed $expectedResult
-     * @param mixed $character
      */
-    public function testCHAR($expectedResult, $character = 'omitted'): void
+    public function testCHAR(mixed $expectedResult, mixed $character = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

@@ -16,11 +16,8 @@ class ErrorTypeTest extends TestCase
 
     /**
      * @dataProvider providerErrorType
-     *
-     * @param int|string $expectedResult
-     * @param mixed $value
      */
-    public function testErrorType($expectedResult, $value): void
+    public function testErrorType(int|string $expectedResult, mixed $value): void
     {
         $result = ExcelError::type($value);
         self::assertSame($expectedResult, $result);

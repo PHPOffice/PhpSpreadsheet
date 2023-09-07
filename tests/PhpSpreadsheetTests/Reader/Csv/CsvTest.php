@@ -10,13 +10,8 @@ class CsvTest extends TestCase
 {
     /**
      * @dataProvider providerDelimiterDetection
-     *
-     * @param string $filename
-     * @param string $expectedDelimiter
-     * @param string $cell
-     * @param float|int|string $expectedValue
      */
-    public function testDelimiterDetection($filename, $expectedDelimiter, $cell, $expectedValue): void
+    public function testDelimiterDetection(string $filename, string $expectedDelimiter, string $cell, string|float|int|null $expectedValue): void
     {
         $reader = new Csv();
         $delim1 = $reader->getDelimiter();
@@ -92,11 +87,8 @@ class CsvTest extends TestCase
 
     /**
      * @dataProvider providerCanLoad
-     *
-     * @param bool $expected
-     * @param string $filename
      */
-    public function testCanLoad($expected, $filename): void
+    public function testCanLoad(bool $expected, string $filename): void
     {
         $reader = new Csv();
         self::assertSame($expected, $reader->canRead($filename));

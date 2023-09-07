@@ -26,10 +26,8 @@ class RangeTest extends TestCase
 
     /**
      * @dataProvider providerRangeEvaluation
-     *
-     * @param mixed $expectedResult
      */
-    public function testRangeEvaluation(string $formula, $expectedResult): void
+    public function testRangeEvaluation(string $formula, int|string $expectedResult): void
     {
         $workSheet = $this->spreadSheet->getActiveSheet();
         $workSheet->setCellValue('H1', $formula);

@@ -6,10 +6,8 @@ class LcmTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerLCM
-     *
-     * @param mixed $expectedResult
      */
-    public function testLCM($expectedResult, ...$args): void
+    public function testLCM(mixed $expectedResult, mixed ...$args): void
     {
         $sheet = $this->getSheet();
         $row = 0;

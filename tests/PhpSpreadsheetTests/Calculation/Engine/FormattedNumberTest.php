@@ -10,10 +10,8 @@ class FormattedNumberTest extends TestCase
 {
     /**
      * @dataProvider providerNumbers
-     *
-     * @param mixed $expected
      */
-    public function testNumber($expected, string $value): void
+    public function testNumber(float $expected, string $value): void
     {
         FormattedNumber::convertToNumberIfFormatted($value);
         self::assertSame($expected, $value);

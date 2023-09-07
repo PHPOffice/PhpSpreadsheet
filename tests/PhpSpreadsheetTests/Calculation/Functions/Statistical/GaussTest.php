@@ -8,10 +8,8 @@ class GaussTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerGAUSS
-     *
-     * @param mixed $expectedResult
      */
-    public function testGAUSS($expectedResult, ...$args): void
+    public function testGAUSS(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('GAUSS', $expectedResult, ...$args);
     }

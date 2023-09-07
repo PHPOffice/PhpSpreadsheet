@@ -6,10 +6,8 @@ class SlopeTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerSLOPE
-     *
-     * @param mixed $expectedResult
      */
-    public function testSLOPE($expectedResult, ...$args): void
+    public function testSLOPE(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCaseNoBracket('SLOPE', $expectedResult, ...$args);
     }

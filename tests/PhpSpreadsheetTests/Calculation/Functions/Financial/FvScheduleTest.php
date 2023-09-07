@@ -6,11 +6,8 @@ class FvScheduleTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerFVSCHEDULE
-     *
-     * @param mixed $expectedResult
-     * @param mixed $principal
      */
-    public function testFVSCHEDULE($expectedResult, $principal = null, ?array $schedule = null): void
+    public function testFVSCHEDULE(mixed $expectedResult, mixed $principal = null, ?array $schedule = null): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

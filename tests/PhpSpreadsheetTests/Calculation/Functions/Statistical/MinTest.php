@@ -6,10 +6,8 @@ class MinTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerMIN
-     *
-     * @param mixed $expectedResult
      */
-    public function testMIN($expectedResult, ...$args): void
+    public function testMIN(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCaseReference('MIN', $expectedResult, ...$args);
     }

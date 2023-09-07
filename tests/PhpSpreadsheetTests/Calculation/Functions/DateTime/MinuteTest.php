@@ -13,10 +13,8 @@ class MinuteTest extends TestCase
 {
     /**
      * @dataProvider providerMINUTE
-     *
-     * @param mixed $expectedResult
      */
-    public function testDirectCallToMINUTE($expectedResult, ...$args): void
+    public function testDirectCallToMINUTE(mixed $expectedResult, mixed ...$args): void
     {
         /** @scrutinizer ignore-call */
         $result = TimeParts::MINUTE(...$args);
@@ -25,10 +23,8 @@ class MinuteTest extends TestCase
 
     /**
      * @dataProvider providerMINUTE
-     *
-     * @param mixed $expectedResult
      */
-    public function testMINUTEAsFormula($expectedResult, ...$args): void
+    public function testMINUTEAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -41,10 +37,8 @@ class MinuteTest extends TestCase
 
     /**
      * @dataProvider providerMINUTE
-     *
-     * @param mixed $expectedResult
      */
-    public function testMINUTEInWorksheet($expectedResult, ...$args): void
+    public function testMINUTEInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -69,7 +63,7 @@ class MinuteTest extends TestCase
     /**
      * @dataProvider providerUnhappyMINUTE
      */
-    public function testMINUTEUnhappyPath(string $expectedException, ...$args): void
+    public function testMINUTEUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 

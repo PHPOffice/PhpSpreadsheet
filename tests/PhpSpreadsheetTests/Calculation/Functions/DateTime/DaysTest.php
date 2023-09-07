@@ -17,10 +17,8 @@ class DaysTest extends TestCase
 {
     /**
      * @dataProvider providerDAYS
-     *
-     * @param mixed $expectedResult
      */
-    public function testDirectCallToDAYS($expectedResult, ...$args): void
+    public function testDirectCallToDAYS(mixed $expectedResult, mixed ...$args): void
     {
         $result = Days::between(...$args);
         self::assertSame($expectedResult, $result);
@@ -28,10 +26,8 @@ class DaysTest extends TestCase
 
     /**
      * @dataProvider providerDAYS
-     *
-     * @param mixed $expectedResult
      */
-    public function testDAYSAsFormula($expectedResult, ...$args): void
+    public function testDAYSAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -44,10 +40,8 @@ class DaysTest extends TestCase
 
     /**
      * @dataProvider providerDAYS
-     *
-     * @param mixed $expectedResult
      */
-    public function testDAYSInWorksheet($expectedResult, ...$args): void
+    public function testDAYSInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -72,7 +66,7 @@ class DaysTest extends TestCase
     /**
      * @dataProvider providerUnhappyDAYS
      */
-    public function testDAYSUnhappyPath(string $expectedException, ...$args): void
+    public function testDAYSUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 

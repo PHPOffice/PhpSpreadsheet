@@ -6,10 +6,8 @@ class IntRateTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerINTRATE
-     *
-     * @param mixed $expectedResult
      */
-    public function testINTRATE($expectedResult, ...$args): void
+    public function testINTRATE(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('INTRATE', $expectedResult, $args);
     }

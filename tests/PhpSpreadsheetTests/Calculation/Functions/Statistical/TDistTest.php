@@ -8,13 +8,8 @@ class TDistTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerTDIST
-     *
-     * @param mixed $expectedResult
-     * @param mixed $degrees
-     * @param mixed $value
-     * @param mixed $tails
      */
-    public function testTDIST($expectedResult, $value, $degrees, $tails): void
+    public function testTDIST(mixed $expectedResult, mixed $value, mixed $degrees, mixed $tails): void
     {
         $this->runTestCaseReference('TDIST', $expectedResult, $value, $degrees, $tails);
     }

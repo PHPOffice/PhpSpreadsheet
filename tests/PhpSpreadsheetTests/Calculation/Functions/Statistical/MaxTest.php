@@ -6,10 +6,8 @@ class MaxTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerMAX
-     *
-     * @param mixed $expectedResult
      */
-    public function testMAX($expectedResult, ...$args): void
+    public function testMAX(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCaseReference('MAX', $expectedResult, ...$args);
     }

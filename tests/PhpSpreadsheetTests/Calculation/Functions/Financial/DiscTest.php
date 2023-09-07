@@ -6,10 +6,8 @@ class DiscTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerDISC
-     *
-     * @param mixed $expectedResult
      */
-    public function testDISC($expectedResult, ...$args): void
+    public function testDISC(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('DISC', $expectedResult, $args);
     }

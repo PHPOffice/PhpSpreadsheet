@@ -6,10 +6,8 @@ class SlnTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerSLN
-     *
-     * @param mixed $expectedResult
      */
-    public function testSLN($expectedResult, array $args): void
+    public function testSLN(mixed $expectedResult, array $args): void
     {
         $this->runTestCase('SLN', $expectedResult, $args);
     }

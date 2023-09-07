@@ -6,10 +6,8 @@ class AveDevTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerAVEDEV
-     *
-     * @param mixed $expectedResult
      */
-    public function testAVEDEV($expectedResult, ...$args): void
+    public function testAVEDEV(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('AVEDEV', $expectedResult, ...$args);
     }

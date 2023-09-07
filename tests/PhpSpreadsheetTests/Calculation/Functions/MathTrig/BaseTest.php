@@ -8,13 +8,8 @@ class BaseTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerBASE
-     *
-     * @param mixed $expectedResult
-     * @param mixed $arg1
-     * @param mixed $arg2
-     * @param mixed $arg3
      */
-    public function testBASE($expectedResult, $arg1 = 'omitted', $arg2 = 'omitted', $arg3 = 'omitted'): void
+    public function testBASE(mixed $expectedResult, mixed $arg1 = 'omitted', mixed $arg2 = 'omitted', mixed $arg3 = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

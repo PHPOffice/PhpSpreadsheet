@@ -8,10 +8,8 @@ class BetaInvTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerBETAINV
-     *
-     * @param mixed $expectedResult
      */
-    public function testBETAINV($expectedResult, ...$args): void
+    public function testBETAINV(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCaseReference('BETAINV', $expectedResult, ...$args);
     }

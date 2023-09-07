@@ -8,14 +8,8 @@ class ReplaceTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerREPLACE
-     *
-     * @param mixed $expectedResult
-     * @param mixed $oldText
-     * @param mixed $start
-     * @param mixed $count
-     * @param mixed $newText
      */
-    public function testREPLACE($expectedResult, $oldText = 'omitted', $start = 'omitted', $count = 'omitted', $newText = 'omitted'): void
+    public function testREPLACE(mixed $expectedResult, mixed $oldText = 'omitted', mixed $start = 'omitted', mixed $count = 'omitted', mixed $newText = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

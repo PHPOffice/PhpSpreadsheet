@@ -8,10 +8,8 @@ class BinomDistTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerBINOMDIST
-     *
-     * @param mixed $expectedResult
      */
-    public function testBINOMDIST($expectedResult, ...$args): void
+    public function testBINOMDIST(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCaseReference('BINOMDIST', $expectedResult, ...$args);
     }

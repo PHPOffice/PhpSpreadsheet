@@ -16,10 +16,8 @@ class IsBlankTest extends TestCase
 
     /**
      * @dataProvider providerIsBlank
-     *
-     * @param mixed $value
      */
-    public function testIsBlank(bool $expectedResult, $value): void
+    public function testIsBlank(bool $expectedResult, mixed $value): void
     {
         $result = Value::isBlank($value);
         self::assertEquals($expectedResult, $result);

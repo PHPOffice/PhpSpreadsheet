@@ -8,11 +8,8 @@ class CeilingPreciseTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerFLOORPRECISE
-     *
-     * @param mixed $expectedResult
-     * @param string $formula
      */
-    public function testCEILINGPRECISE($expectedResult, $formula): void
+    public function testCEILINGPRECISE(mixed $expectedResult, string $formula): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

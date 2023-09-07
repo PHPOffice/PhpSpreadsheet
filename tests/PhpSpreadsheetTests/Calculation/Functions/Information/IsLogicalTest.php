@@ -16,10 +16,8 @@ class IsLogicalTest extends TestCase
 
     /**
      * @dataProvider providerIsLogical
-     *
-     * @param mixed $value
      */
-    public function testIsLogical(bool $expectedResult, $value): void
+    public function testIsLogical(bool $expectedResult, mixed $value): void
     {
         $result = Value::isLogical($value);
         self::assertEquals($expectedResult, $result);

@@ -6,10 +6,8 @@ class GcdTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerGCD
-     *
-     * @param mixed $expectedResult
      */
-    public function testGCD($expectedResult, ...$args): void
+    public function testGCD(mixed $expectedResult, mixed ...$args): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

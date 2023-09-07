@@ -6,10 +6,8 @@ class NpvTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerNPV
-     *
-     * @param mixed $expectedResult
      */
-    public function testNPV($expectedResult, ...$args): void
+    public function testNPV(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('NPV', $expectedResult, $args);
     }

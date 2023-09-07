@@ -11,13 +11,9 @@ use PHPUnit\Framework\TestCase;
 
 class CsvIssue2232Test extends TestCase
 {
-    /**
-     * @var IValueBinder
-     */
-    private $valueBinder;
+    private IValueBinder $valueBinder;
 
-    /** @var string */
-    private $locale;
+    private string $locale;
 
     protected function setUp(): void
     {
@@ -33,11 +29,8 @@ class CsvIssue2232Test extends TestCase
 
     /**
      * @dataProvider providerIssue2232
-     *
-     * @param mixed $b2Value
-     * @param mixed $b3Value
      */
-    public function testBooleanConversions(bool $useStringBinder, ?bool $preserveBoolString, $b2Value, $b3Value): void
+    public function testBooleanConversions(bool $useStringBinder, ?bool $preserveBoolString, bool|string $b2Value, bool|string $b3Value): void
     {
         if ($useStringBinder) {
             $binder = new StringValueBinder();
@@ -69,11 +62,8 @@ class CsvIssue2232Test extends TestCase
 
     /**
      * @dataProvider providerIssue2232locale
-     *
-     * @param mixed $b4Value
-     * @param mixed $b5Value
      */
-    public function testBooleanConversionsLocaleAware(bool $useStringBinder, ?bool $preserveBoolString, $b4Value, $b5Value): void
+    public function testBooleanConversionsLocaleAware(bool $useStringBinder, ?bool $preserveBoolString, mixed $b4Value, mixed $b5Value): void
     {
         if ($useStringBinder) {
             $binder = new StringValueBinder();

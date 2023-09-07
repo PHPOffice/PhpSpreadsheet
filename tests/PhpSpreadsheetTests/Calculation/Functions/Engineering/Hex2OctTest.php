@@ -30,10 +30,8 @@ class Hex2OctTest extends TestCase
 
     /**
      * @dataProvider providerHEX2OCT
-     *
-     * @param mixed $expectedResult
      */
-    public function testDirectCallToHEX2OCT($expectedResult, ...$args): void
+    public function testDirectCallToHEX2OCT(mixed $expectedResult, mixed ...$args): void
     {
         /** @scrutinizer ignore-call */
         $result = ConvertHex::toOctal(...$args);
@@ -47,10 +45,8 @@ class Hex2OctTest extends TestCase
 
     /**
      * @dataProvider providerHEX2OCT
-     *
-     * @param mixed $expectedResult
      */
-    public function testHEX2OCTAsFormula($expectedResult, ...$args): void
+    public function testHEX2OCTAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -63,10 +59,8 @@ class Hex2OctTest extends TestCase
 
     /**
      * @dataProvider providerHEX2OCT
-     *
-     * @param mixed $expectedResult
      */
-    public function testHEX2OCTInWorksheet($expectedResult, ...$args): void
+    public function testHEX2OCTInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -91,7 +85,7 @@ class Hex2OctTest extends TestCase
     /**
      * @dataProvider providerUnhappyHEX2OCT
      */
-    public function testHEX2OCTUnhappyPath(string $expectedException, ...$args): void
+    public function testHEX2OCTUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -118,10 +112,8 @@ class Hex2OctTest extends TestCase
 
     /**
      * @dataProvider providerHEX2OCTOds
-     *
-     * @param mixed $expectedResult
      */
-    public function testHEX2OCTOds($expectedResult, ...$args): void
+    public function testHEX2OCTOds(mixed $expectedResult, mixed ...$args): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
 

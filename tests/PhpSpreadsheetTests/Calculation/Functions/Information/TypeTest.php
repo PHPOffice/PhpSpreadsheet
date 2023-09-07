@@ -15,10 +15,8 @@ class TypeTest extends TestCase
 
     /**
      * @dataProvider providerTYPE
-     *
-     * @param mixed $value
      */
-    public function testTYPE(int $expectedResult, $value): void
+    public function testTYPE(int $expectedResult, mixed $value): void
     {
         $result = Value::type($value);
         self::assertSame($expectedResult, $result);

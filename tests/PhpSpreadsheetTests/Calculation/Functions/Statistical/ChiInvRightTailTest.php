@@ -8,10 +8,8 @@ class ChiInvRightTailTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerCHIINV
-     *
-     * @param mixed $expectedResult
      */
-    public function testCHIINV($expectedResult, ...$args): void
+    public function testCHIINV(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('CHISQ.INV.RT', $expectedResult, ...$args);
     }

@@ -8,10 +8,8 @@ class MMultTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerMMULT
-     *
-     * @param mixed $expectedResult
      */
-    public function testMMULT($expectedResult, ...$args): void
+    public function testMMULT(mixed $expectedResult, mixed ...$args): void
     {
         $result = MathTrig\MatrixFunctions::multiply(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-8);

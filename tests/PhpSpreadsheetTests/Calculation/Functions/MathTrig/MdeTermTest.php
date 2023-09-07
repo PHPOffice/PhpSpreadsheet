@@ -6,11 +6,8 @@ class MdeTermTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerMDETERM
-     *
-     * @param mixed $expectedResult
-     * @param mixed $matrix expect a matrix
      */
-    public function testMDETERM2($expectedResult, $matrix): void
+    public function testMDETERM2(mixed $expectedResult, mixed $matrix): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

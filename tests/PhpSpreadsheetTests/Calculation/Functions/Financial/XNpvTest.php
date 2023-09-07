@@ -6,13 +6,8 @@ class XNpvTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerXNPV
-     *
-     * @param mixed $expectedResult
-     * @param mixed $rate
-     * @param mixed $values
-     * @param mixed $dates
      */
-    public function testXNPV($expectedResult, $rate = null, $values = null, $dates = null): void
+    public function testXNPV(mixed $expectedResult, mixed $rate = null, mixed $values = null, mixed $dates = null): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

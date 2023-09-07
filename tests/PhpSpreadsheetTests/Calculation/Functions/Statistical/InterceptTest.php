@@ -6,10 +6,8 @@ class InterceptTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerINTERCEPT
-     *
-     * @param mixed $expectedResult
      */
-    public function testINTERCEPT($expectedResult, ...$args): void
+    public function testINTERCEPT(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCaseNoBracket('INTERCEPT', $expectedResult, ...$args);
     }

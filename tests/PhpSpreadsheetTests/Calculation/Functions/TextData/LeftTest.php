@@ -11,11 +11,10 @@ class LeftTest extends AllSetupTeardown
     /**
      * @dataProvider providerLEFT
      *
-     * @param mixed $expectedResult
      * @param mixed $str string from which to extract
      * @param mixed $cnt number of characters to extract
      */
-    public function testLEFT($expectedResult, $str = 'omitted', $cnt = 'omitted'): void
+    public function testLEFT(mixed $expectedResult, mixed $str = 'omitted', mixed $cnt = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -40,13 +39,8 @@ class LeftTest extends AllSetupTeardown
 
     /**
      * @dataProvider providerLocaleLEFT
-     *
-     * @param string $expectedResult
-     * @param mixed $value
-     * @param mixed $locale
-     * @param mixed $characters
      */
-    public function testLowerWithLocaleBoolean($expectedResult, $locale, $value, $characters): void
+    public function testLowerWithLocaleBoolean(string $expectedResult, mixed $locale, mixed $value, mixed $characters): void
     {
         $newLocale = Settings::setLocale($locale);
         if ($newLocale === false) {

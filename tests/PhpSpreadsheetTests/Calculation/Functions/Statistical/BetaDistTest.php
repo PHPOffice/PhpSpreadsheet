@@ -8,10 +8,8 @@ class BetaDistTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerBETADIST
-     *
-     * @param mixed $expectedResult
      */
-    public function testBETADIST($expectedResult, ...$args): void
+    public function testBETADIST(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCaseReference('BETADIST', $expectedResult, ...$args);
     }

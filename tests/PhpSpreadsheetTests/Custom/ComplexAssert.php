@@ -52,11 +52,7 @@ class ComplexAssert extends TestCase
         return $this;
     }
 
-    /**
-     * @param mixed $expected
-     * @param mixed $actual
-     */
-    public function assertComplexEquals($expected, $actual, ?float $delta = null): bool
+    public function assertComplexEquals(mixed $expected, mixed $actual, ?float $delta = null): bool
     {
         if ($expected === INF || (is_string($expected) && $expected[0] === '#')) {
             return $this->testExpectedExceptions($expected, $actual);
@@ -96,11 +92,7 @@ class ComplexAssert extends TestCase
         return $this->errorMessage;
     }
 
-    /**
-     * @param mixed $expected
-     * @param mixed $actual
-     */
-    public function runAssertComplexEquals($expected, $actual, ?float $delta = null): void
+    public function runAssertComplexEquals(mixed $expected, mixed $actual, ?float $delta = null): void
     {
         self::assertTrue($this->assertComplexEquals($expected, $actual, $delta), $this->getErrorMessage());
     }

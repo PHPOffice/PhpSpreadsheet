@@ -6,10 +6,8 @@ class LargeTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerLARGE
-     *
-     * @param mixed $expectedResult
      */
-    public function testLARGE($expectedResult, ...$args): void
+    public function testLARGE(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCaseReference('LARGE', $expectedResult, ...$args);
     }

@@ -33,10 +33,8 @@ class DayTest extends TestCase
 
     /**
      * @dataProvider providerDAY
-     *
-     * @param mixed $expectedResultExcel
      */
-    public function testDirectCallToDAY($expectedResultExcel, ...$args): void
+    public function testDirectCallToDAY(mixed $expectedResultExcel, mixed ...$args): void
     {
         /** @scrutinizer ignore-call */
         $result = DateParts::day(...$args);
@@ -45,10 +43,8 @@ class DayTest extends TestCase
 
     /**
      * @dataProvider providerDAY
-     *
-     * @param mixed $expectedResultExcel
      */
-    public function testDAYAsFormula($expectedResultExcel, ...$args): void
+    public function testDAYAsFormula(mixed $expectedResultExcel, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -61,10 +57,8 @@ class DayTest extends TestCase
 
     /**
      * @dataProvider providerDAY
-     *
-     * @param mixed $expectedResult
      */
-    public function testDAYInWorksheet($expectedResult, ...$args): void
+    public function testDAYInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -88,10 +82,8 @@ class DayTest extends TestCase
 
     /**
      * @dataProvider providerDAYOpenOffice
-     *
-     * @param mixed $expectedResultOpenOffice
      */
-    public function testDirectCallToDAYOpenOffice($expectedResultOpenOffice, ...$args): void
+    public function testDirectCallToDAYOpenOffice(mixed $expectedResultOpenOffice, mixed ...$args): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
 
@@ -102,10 +94,8 @@ class DayTest extends TestCase
 
     /**
      * @dataProvider providerDAYOpenOffice
-     *
-     * @param mixed $expectedResultOpenOffice
      */
-    public function testDAYAsFormulaOpenOffice($expectedResultOpenOffice, ...$args): void
+    public function testDAYAsFormulaOpenOffice(mixed $expectedResultOpenOffice, mixed ...$args): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
 
@@ -126,7 +116,7 @@ class DayTest extends TestCase
     /**
      * @dataProvider providerUnhappyDAY
      */
-    public function testDAYUnhappyPath(string $expectedException, ...$args): void
+    public function testDAYUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 

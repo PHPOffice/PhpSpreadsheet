@@ -36,12 +36,8 @@ class CalculationFunctionListTest extends TestCase
 
     /**
      * @dataProvider providerGetFunctions
-     *
-     * @param string $category
-     * @param array|string $functionCall
-     * @param string $argumentCount
      */
-    public function testGetFunctions(/** @scrutinizer ignore-unused */ $category, $functionCall, /** @scrutinizer ignore-unused */ $argumentCount): void
+    public function testGetFunctions(/** @scrutinizer ignore-unused */ string $category, array|string $functionCall): void
     {
         self::assertIsCallable($functionCall);
     }

@@ -9,13 +9,8 @@ class DMaxTest extends SetupTeardownDatabases
 {
     /**
      * @dataProvider providerDMax
-     *
-     * @param mixed $expectedResult
-     * @param mixed $database
-     * @param mixed $field
-     * @param mixed $criteria
      */
-    public function testDirectCallToDMax($expectedResult, $database, $field, $criteria): void
+    public function testDirectCallToDMax(int|string $expectedResult, array $database, string|null|int $field, array $criteria): void
     {
         $result = DMax::evaluate($database, $field, $criteria);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
@@ -23,13 +18,8 @@ class DMaxTest extends SetupTeardownDatabases
 
     /**
      * @dataProvider providerDMax
-     *
-     * @param mixed $expectedResult
-     * @param mixed $database
-     * @param mixed $field
-     * @param mixed $criteria
      */
-    public function testDMaxAsWorksheetFormula($expectedResult, $database, $field, $criteria): void
+    public function testDMaxAsWorksheetFormula(int|string $expectedResult, array $database, string|null|int $field, array $criteria): void
     {
         $this->prepareWorksheetWithFormula('DMAX', $database, $field, $criteria);
 

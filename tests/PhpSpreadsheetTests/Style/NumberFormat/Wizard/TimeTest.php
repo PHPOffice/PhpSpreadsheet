@@ -13,7 +13,7 @@ class TimeTest extends TestCase
      * @param null|string|string[] $separators
      * @param string[] $formatBlocks
      */
-    public function testTime(string $expectedResult, $separators = null, array $formatBlocks = []): void
+    public function testTime(string $expectedResult, string|array|null $separators = null, array $formatBlocks = []): void
     {
         $wizard = new Time($separators, ...$formatBlocks);
         self::assertSame($expectedResult, (string) $wizard);

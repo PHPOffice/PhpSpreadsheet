@@ -8,10 +8,8 @@ class AverageIfTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerAVERAGEIF
-     *
-     * @param mixed $expectedResult
      */
-    public function testAVERAGEIF($expectedResult, ...$args): void
+    public function testAVERAGEIF(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCaseNoBracket('AVERAGEIF', $expectedResult, ...$args);
     }

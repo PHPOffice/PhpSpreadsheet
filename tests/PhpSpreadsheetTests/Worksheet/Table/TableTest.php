@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet\Table;
 
+use PhpOffice\PhpSpreadsheet\Cell\AddressRange;
 use PhpOffice\PhpSpreadsheet\Cell\CellAddress;
 use PhpOffice\PhpSpreadsheet\Cell\CellRange;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
@@ -154,9 +155,8 @@ class TableTest extends SetupTeardown
 
     /**
      * @param AddressRange|array<int>|string $fullRange
-     * @param string $fullRange
      */
-    public function xtestSetRangeValidRange($fullRange, string $actualRange): void
+    public function xtestSetRangeValidRange(string|array|AddressRange $fullRange, string $actualRange): void
     {
         $table = new Table(self::INITIAL_RANGE);
 

@@ -8,11 +8,8 @@ class LnTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerLN
-     *
-     * @param mixed $expectedResult
-     * @param mixed $number
      */
-    public function testLN($expectedResult, $number = 'omitted'): void
+    public function testLN(mixed $expectedResult, mixed $number = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

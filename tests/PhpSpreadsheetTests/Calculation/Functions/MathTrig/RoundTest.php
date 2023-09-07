@@ -8,11 +8,8 @@ class RoundTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerRound
-     *
-     * @param mixed $expectedResult
-     * @param mixed $formula
      */
-    public function testRound($expectedResult, $formula): void
+    public function testRound(mixed $expectedResult, mixed $formula): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

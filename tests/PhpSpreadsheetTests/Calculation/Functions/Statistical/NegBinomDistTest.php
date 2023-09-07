@@ -8,10 +8,8 @@ class NegBinomDistTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerNEGBINOMDIST
-     *
-     * @param mixed $expectedResult
      */
-    public function testNEGBINOMDIST($expectedResult, ...$args): void
+    public function testNEGBINOMDIST(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('NEGBINOMDIST', $expectedResult, ...$args);
     }

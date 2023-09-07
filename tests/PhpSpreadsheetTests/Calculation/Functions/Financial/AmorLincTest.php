@@ -6,10 +6,8 @@ class AmorLincTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerAMORLINC
-     *
-     * @param mixed $expectedResult
      */
-    public function testAMORLINC($expectedResult, ...$args): void
+    public function testAMORLINC(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('AMORLINC', $expectedResult, $args);
     }

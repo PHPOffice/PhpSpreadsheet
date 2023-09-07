@@ -8,10 +8,8 @@ class HypGeomDistTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerHYPGEOMDIST
-     *
-     * @param mixed $expectedResult
      */
-    public function testHYPGEOMDIST($expectedResult, ...$args): void
+    public function testHYPGEOMDIST(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('HYPGEOMDIST', $expectedResult, ...$args);
     }

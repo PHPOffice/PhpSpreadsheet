@@ -15,11 +15,8 @@ class NTest extends TestCase
 
     /**
      * @dataProvider providerN
-     *
-     * @param mixed $expectedResult
-     * @param number|string $value
      */
-    public function testN($expectedResult, $value): void
+    public function testN(mixed $expectedResult, mixed $value): void
     {
         $result = Value::asNumber($value);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);

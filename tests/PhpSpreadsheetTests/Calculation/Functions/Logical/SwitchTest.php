@@ -8,10 +8,8 @@ class SwitchTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerSwitch
-     *
-     * @param mixed $expectedResult
      */
-    public function testSWITCH($expectedResult, ...$args): void
+    public function testSWITCH(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('SWITCH', $expectedResult, ...$args);
     }
@@ -23,12 +21,8 @@ class SwitchTest extends AllSetupTeardown
 
     /**
      * @dataProvider providerSwitchArray
-     *
-     * @param mixed $expression
-     * @param mixed $value1
-     * @param mixed $value2
      */
-    public function testIfsArray(array $expectedResult, $expression, $value1, string $result1, $value2, string $result2, string $default): void
+    public function testIfsArray(array $expectedResult, mixed $expression, mixed $value1, string $result1, mixed $value2, string $result2, string $default): void
     {
         $calculation = Calculation::getInstance();
 

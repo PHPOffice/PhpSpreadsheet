@@ -8,11 +8,8 @@ class ArabicTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerARABIC
-     *
-     * @param mixed $expectedResult
-     * @param string $romanNumeral
      */
-    public function testARABIC($expectedResult, $romanNumeral): void
+    public function testARABIC(mixed $expectedResult, string $romanNumeral): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

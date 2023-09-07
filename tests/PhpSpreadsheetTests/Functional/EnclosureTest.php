@@ -19,10 +19,8 @@ class EnclosureTest extends AbstractFunctional
 
     /**
      * @dataProvider providerFormats
-     *
-     * @param string $format
      */
-    public function testEnclosure($format): void
+    public function testEnclosure(string $format): void
     {
         $value = '<img alt="" src="http://example.com/image.jpg" />';
 

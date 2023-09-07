@@ -6,10 +6,8 @@ class DbTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerDB
-     *
-     * @param mixed $expectedResult
      */
-    public function testDB($expectedResult, ...$args): void
+    public function testDB(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('DB', $expectedResult, $args);
     }

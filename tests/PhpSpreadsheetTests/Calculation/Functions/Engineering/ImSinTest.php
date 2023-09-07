@@ -28,10 +28,8 @@ class ImSinTest extends TestCase
 
     /**
      * @dataProvider providerIMSIN
-     *
-     * @param mixed $expectedResult
      */
-    public function testDirectCallToIMSIN($expectedResult, ...$args): void
+    public function testDirectCallToIMSIN(mixed $expectedResult, mixed ...$args): void
     {
         /** @scrutinizer ignore-call */
         $result = ComplexFunctions::IMSIN(...$args);
@@ -48,10 +46,8 @@ class ImSinTest extends TestCase
 
     /**
      * @dataProvider providerIMSIN
-     *
-     * @param mixed $expectedResult
      */
-    public function testIMSINAsFormula($expectedResult, ...$args): void
+    public function testIMSINAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -67,10 +63,8 @@ class ImSinTest extends TestCase
 
     /**
      * @dataProvider providerIMSIN
-     *
-     * @param mixed $expectedResult
      */
-    public function testIMSINInWorksheet($expectedResult, ...$args): void
+    public function testIMSINInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -98,7 +92,7 @@ class ImSinTest extends TestCase
     /**
      * @dataProvider providerUnhappyIMSIN
      */
-    public function testIMSINUnhappyPath(string $expectedException, ...$args): void
+    public function testIMSINUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 

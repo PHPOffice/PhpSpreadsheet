@@ -8,10 +8,8 @@ class NormDistTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerNORMDIST
-     *
-     * @param mixed $expectedResult
      */
-    public function testNORMDIST($expectedResult, ...$args): void
+    public function testNORMDIST(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('NORMDIST', $expectedResult, ...$args);
     }

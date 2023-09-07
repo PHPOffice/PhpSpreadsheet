@@ -8,10 +8,8 @@ class PermutTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerPERMUT
-     *
-     * @param mixed $expectedResult
      */
-    public function testPERMUT($expectedResult, ...$args): void
+    public function testPERMUT(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('PERMUT', $expectedResult, ...$args);
     }

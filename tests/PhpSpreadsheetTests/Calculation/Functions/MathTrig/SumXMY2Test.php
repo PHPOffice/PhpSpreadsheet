@@ -8,10 +8,8 @@ class SumXMY2Test extends AllSetupTeardown
 {
     /**
      * @dataProvider providerSUMXMY2
-     *
-     * @param mixed $expectedResult
      */
-    public function testSUMXMY2($expectedResult, array $matrixData1, array $matrixData2): void
+    public function testSUMXMY2(mixed $expectedResult, array $matrixData1, array $matrixData2): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

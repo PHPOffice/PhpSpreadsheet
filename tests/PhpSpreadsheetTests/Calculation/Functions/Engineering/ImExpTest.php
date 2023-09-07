@@ -28,10 +28,8 @@ class ImExpTest extends TestCase
 
     /**
      * @dataProvider providerIMEXP
-     *
-     * @param mixed $expectedResult
      */
-    public function testDirectCallToIMEXP($expectedResult, ...$args): void
+    public function testDirectCallToIMEXP(mixed $expectedResult, mixed ...$args): void
     {
         /** @scrutinizer ignore-call */
         $result = ComplexFunctions::IMEXP(...$args);
@@ -48,10 +46,8 @@ class ImExpTest extends TestCase
 
     /**
      * @dataProvider providerIMEXP
-     *
-     * @param mixed $expectedResult
      */
-    public function testIMEXPAsFormula($expectedResult, ...$args): void
+    public function testIMEXPAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -67,10 +63,8 @@ class ImExpTest extends TestCase
 
     /**
      * @dataProvider providerIMEXP
-     *
-     * @param mixed $expectedResult
      */
-    public function testIMEXPInWorksheet($expectedResult, ...$args): void
+    public function testIMEXPInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -98,7 +92,7 @@ class ImExpTest extends TestCase
     /**
      * @dataProvider providerUnhappyIMEXP
      */
-    public function testIMEXPUnhappyPath(string $expectedException, ...$args): void
+    public function testIMEXPUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 

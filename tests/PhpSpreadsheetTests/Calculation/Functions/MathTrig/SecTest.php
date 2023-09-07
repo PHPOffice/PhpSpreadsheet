@@ -8,11 +8,8 @@ class SecTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerSEC
-     *
-     * @param mixed $expectedResult
-     * @param mixed $angle
      */
-    public function testSEC($expectedResult, $angle): void
+    public function testSEC(mixed $expectedResult, mixed $angle): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

@@ -12,10 +12,7 @@ class FormulaArguments
      */
     protected array $args;
 
-    /**
-     * @param mixed ...$args
-     */
-    public function __construct(...$args)
+    public function __construct(mixed ...$args)
     {
         $this->args = $args;
     }
@@ -69,10 +66,7 @@ class FormulaArguments
         return implode(';', $matrix);
     }
 
-    /**
-     * @param mixed $value
-     */
-    private function stringify($value): string
+    private function stringify(mixed $value): string
     {
         if (is_array($value)) {
             return '{' . $this->makeMatrix($value) . '}';

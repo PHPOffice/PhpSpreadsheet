@@ -8,11 +8,8 @@ class CleanTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerCLEAN
-     *
-     * @param mixed $expectedResult
-     * @param mixed $value
      */
-    public function testCLEAN($expectedResult, $value = 'omitted'): void
+    public function testCLEAN(mixed $expectedResult, mixed $value = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

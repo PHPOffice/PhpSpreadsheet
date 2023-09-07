@@ -8,12 +8,8 @@ class RandBetweenTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerRANDBETWEEN
-     *
-     * @param mixed $expectedResult
-     * @param mixed $min
-     * @param mixed $max
      */
-    public function testRANDBETWEEN($expectedResult, $min = 'omitted', $max = 'omitted'): void
+    public function testRANDBETWEEN(mixed $expectedResult, mixed $min = 'omitted', mixed $max = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

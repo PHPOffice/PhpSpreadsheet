@@ -8,11 +8,8 @@ class FloorTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerFLOOR
-     *
-     * @param mixed $expectedResult
-     * @param string $formula
      */
-    public function testFLOOR($expectedResult, $formula): void
+    public function testFLOOR(mixed $expectedResult, string $formula): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

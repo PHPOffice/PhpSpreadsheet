@@ -6,10 +6,8 @@ class OpenOfficeTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerOpenOffice
-     *
-     * @param mixed $expectedResult
      */
-    public function testOpenOffice($expectedResult, string $formula): void
+    public function testOpenOffice(mixed $expectedResult, string $formula): void
     {
         $this->setOpenOffice();
         $this->mightHaveException($expectedResult);

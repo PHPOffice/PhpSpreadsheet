@@ -28,10 +28,8 @@ class ImLnTest extends TestCase
 
     /**
      * @dataProvider providerIMLN
-     *
-     * @param mixed $expectedResult
      */
-    public function testDirectCallToIMLN($expectedResult, ...$args): void
+    public function testDirectCallToIMLN(mixed $expectedResult, mixed ...$args): void
     {
         /** @scrutinizer ignore-call */
         $result = ComplexFunctions::IMLN(...$args);
@@ -48,10 +46,8 @@ class ImLnTest extends TestCase
 
     /**
      * @dataProvider providerIMLN
-     *
-     * @param mixed $expectedResult
      */
-    public function testIMLNAsFormula($expectedResult, ...$args): void
+    public function testIMLNAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -67,10 +63,8 @@ class ImLnTest extends TestCase
 
     /**
      * @dataProvider providerIMLN
-     *
-     * @param mixed $expectedResult
      */
-    public function testIMLNInWorksheet($expectedResult, ...$args): void
+    public function testIMLNInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -98,7 +92,7 @@ class ImLnTest extends TestCase
     /**
      * @dataProvider providerUnhappyIMLN
      */
-    public function testIMLNUnhappyPath(string $expectedException, ...$args): void
+    public function testIMLNUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 

@@ -10,12 +10,8 @@ class ChiTestTest extends TestCase
 {
     /**
      * @dataProvider providerCHITEST
-     *
-     * @param mixed $expectedResult
-     * @param mixed $actual
-     * @param mixed $expected
      */
-    public function testCHITEST($expectedResult, $actual, $expected): void
+    public function testCHITEST(mixed $expectedResult, mixed $actual, mixed $expected): void
     {
         $result = Statistical\Distributions\ChiSquared::test($actual, $expected);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);

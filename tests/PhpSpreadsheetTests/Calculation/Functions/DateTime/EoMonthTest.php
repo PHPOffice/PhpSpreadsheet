@@ -33,10 +33,8 @@ class EoMonthTest extends TestCase
 
     /**
      * @dataProvider providerEOMONTH
-     *
-     * @param mixed $expectedResult
      */
-    public function testDirectCallToEOMONTH($expectedResult, ...$args): void
+    public function testDirectCallToEOMONTH(mixed $expectedResult, mixed ...$args): void
     {
         $result = Month::lastDay(...$args);
         self::assertSame($expectedResult, $result);
@@ -44,10 +42,8 @@ class EoMonthTest extends TestCase
 
     /**
      * @dataProvider providerEOMONTH
-     *
-     * @param mixed $expectedResult
      */
-    public function testEOMONTHAsFormula($expectedResult, ...$args): void
+    public function testEOMONTHAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -60,10 +56,8 @@ class EoMonthTest extends TestCase
 
     /**
      * @dataProvider providerEOMONTH
-     *
-     * @param mixed $expectedResult
      */
-    public function testEOMONTHInWorksheet($expectedResult, ...$args): void
+    public function testEOMONTHInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -88,7 +82,7 @@ class EoMonthTest extends TestCase
     /**
      * @dataProvider providerUnhappyEOMONTH
      */
-    public function testEOMONTHUnhappyPath(string $expectedException, ...$args): void
+    public function testEOMONTHUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 

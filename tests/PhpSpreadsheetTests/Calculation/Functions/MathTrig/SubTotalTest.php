@@ -6,11 +6,8 @@ class SubTotalTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerSUBTOTAL
-     *
-     * @param mixed $expectedResult
-     * @param mixed $type expect an integer
      */
-    public function testSubtotal($expectedResult, $type): void
+    public function testSubtotal(mixed $expectedResult, mixed $type): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -29,11 +26,8 @@ class SubTotalTest extends AllSetupTeardown
 
     /**
      * @dataProvider providerSUBTOTAL
-     *
-     * @param mixed $expectedResult
-     * @param mixed $type expect an integer
      */
-    public function testSubtotalColumnHidden($expectedResult, $type): void
+    public function testSubtotalColumnHidden(mixed $expectedResult, mixed $type): void
     {
         // Hidden columns don't affect calculation, only hidden rows
         $this->mightHaveException($expectedResult);
@@ -66,11 +60,8 @@ class SubTotalTest extends AllSetupTeardown
 
     /**
      * @dataProvider providerSUBTOTALHIDDEN
-     *
-     * @param mixed $expectedResult
-     * @param mixed $type expect an integer
      */
-    public function testSubtotalRowHidden($expectedResult, $type): void
+    public function testSubtotalRowHidden(mixed $expectedResult, mixed $type): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

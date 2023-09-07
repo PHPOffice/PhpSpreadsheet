@@ -8,10 +8,8 @@ class SinhTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerCosh
-     *
-     * @param mixed $expectedResult
      */
-    public function testSinh($expectedResult, string $formula): void
+    public function testSinh(mixed $expectedResult, string $formula): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

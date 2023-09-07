@@ -7,10 +7,8 @@ class CountIfsTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerCOUNTIFS
-     *
-     * @param mixed $expectedResult
      */
-    public function testCOUNTIFS($expectedResult, ...$args): void
+    public function testCOUNTIFS(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCaseNoBracket('COUNTIFS', $expectedResult, ...$args);
     }

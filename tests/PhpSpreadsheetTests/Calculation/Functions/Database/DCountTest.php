@@ -9,13 +9,8 @@ class DCountTest extends SetupTeardownDatabases
 {
     /**
      * @dataProvider providerDCount
-     *
-     * @param mixed $expectedResult
-     * @param mixed $database
-     * @param mixed $field
-     * @param mixed $criteria
      */
-    public function testDirectCallToDCount($expectedResult, $database, $field, $criteria): void
+    public function testDirectCallToDCount(int|string $expectedResult, array $database, string|int|null $field, array $criteria): void
     {
         $result = DCount::evaluate($database, $field, $criteria);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
@@ -23,13 +18,8 @@ class DCountTest extends SetupTeardownDatabases
 
     /**
      * @dataProvider providerDCount
-     *
-     * @param mixed $expectedResult
-     * @param mixed $database
-     * @param mixed $field
-     * @param mixed $criteria
      */
-    public function testDCountAsWorksheetFormula($expectedResult, $database, $field, $criteria): void
+    public function testDCountAsWorksheetFormula(int|string $expectedResult, array $database, string|int|null $field, array $criteria): void
     {
         $this->prepareWorksheetWithFormula('DCOUNT', $database, $field, $criteria);
 

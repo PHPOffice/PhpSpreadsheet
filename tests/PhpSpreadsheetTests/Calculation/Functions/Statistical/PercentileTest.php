@@ -6,10 +6,8 @@ class PercentileTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerPERCENTILE
-     *
-     * @param mixed $expectedResult
      */
-    public function testPERCENTILE($expectedResult, ...$args): void
+    public function testPERCENTILE(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCaseReference('PERCENTILE', $expectedResult, ...$args);
     }

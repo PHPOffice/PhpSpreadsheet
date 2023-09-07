@@ -28,10 +28,8 @@ class ImLog2Test extends TestCase
 
     /**
      * @dataProvider providerIMLOG2
-     *
-     * @param mixed $expectedResult
      */
-    public function testDirectCallToIMLOG2($expectedResult, ...$args): void
+    public function testDirectCallToIMLOG2(mixed $expectedResult, mixed ...$args): void
     {
         /** @scrutinizer ignore-call */
         $result = ComplexFunctions::IMLOG2(...$args);
@@ -48,10 +46,8 @@ class ImLog2Test extends TestCase
 
     /**
      * @dataProvider providerIMLOG2
-     *
-     * @param mixed $expectedResult
      */
-    public function testIMLOG2AsFormula($expectedResult, ...$args): void
+    public function testIMLOG2AsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -67,10 +63,8 @@ class ImLog2Test extends TestCase
 
     /**
      * @dataProvider providerIMLOG2
-     *
-     * @param mixed $expectedResult
      */
-    public function testIMLOG2InWorksheet($expectedResult, ...$args): void
+    public function testIMLOG2InWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -98,7 +92,7 @@ class ImLog2Test extends TestCase
     /**
      * @dataProvider providerUnhappyIMLOG2
      */
-    public function testIMLOG2UnhappyPath(string $expectedException, ...$args): void
+    public function testIMLOG2UnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 

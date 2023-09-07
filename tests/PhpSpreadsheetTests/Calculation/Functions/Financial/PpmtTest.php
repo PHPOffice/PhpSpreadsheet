@@ -6,10 +6,8 @@ class PpmtTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerPPMT
-     *
-     * @param mixed $expectedResult
      */
-    public function testPPMT($expectedResult, array $args): void
+    public function testPPMT(mixed $expectedResult, array $args): void
     {
         $this->runTestCase('PPMT', $expectedResult, $args);
     }

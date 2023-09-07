@@ -33,11 +33,8 @@ class CellValueWizardTest extends TestCase
 
     /**
      * @dataProvider basicCellValueDataProvider
-     *
-     * @param mixed $operand
-     * @param mixed $expectedCondition
      */
-    public function testBasicCellValueWizard(string $operator, $operand, string $expectedOperator, $expectedCondition): void
+    public function testBasicCellValueWizard(string $operator, mixed $operand, string $expectedOperator, mixed $expectedCondition): void
     {
         $ruleType = Wizard::CELL_VALUE;
         /** @var Wizard\CellValue $wizard */
@@ -75,11 +72,8 @@ class CellValueWizardTest extends TestCase
 
     /**
      * @dataProvider relativeCellValueDataProvider
-     *
-     * @param mixed $operand
-     * @param mixed $expectedCondition
      */
-    public function testRelativeCellValueWizard($operand, $expectedCondition): void
+    public function testRelativeCellValueWizard(mixed $operand, mixed $expectedCondition): void
     {
         $ruleType = Wizard::CELL_VALUE;
         /** @var Wizard\CellValue $wizard */
@@ -109,11 +103,8 @@ class CellValueWizardTest extends TestCase
 
     /**
      * @dataProvider formulaCellValueDataProvider
-     *
-     * @param mixed $operand
-     * @param mixed $expectedCondition
      */
-    public function testCellValueWizardWithFormula($operand, $expectedCondition): void
+    public function testCellValueWizardWithFormula(mixed $operand, mixed $expectedCondition): void
     {
         $ruleType = Wizard::CELL_VALUE;
         /** @var Wizard\CellValue $wizard */

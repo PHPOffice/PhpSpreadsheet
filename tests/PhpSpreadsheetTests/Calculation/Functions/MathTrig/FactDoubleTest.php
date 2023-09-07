@@ -8,11 +8,8 @@ class FactDoubleTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerFACTDOUBLE
-     *
-     * @param mixed $expectedResult
-     * @param mixed $value
      */
-    public function testFACTDOUBLE($expectedResult, $value): void
+    public function testFACTDOUBLE(mixed $expectedResult, mixed $value): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

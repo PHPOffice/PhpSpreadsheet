@@ -8,11 +8,8 @@ class FloorPreciseTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerFLOORPRECISE
-     *
-     * @param mixed $expectedResult
-     * @param string $formula
      */
-    public function testFLOORPRECISE($expectedResult, $formula): void
+    public function testFLOORPRECISE(mixed $expectedResult, string $formula): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

@@ -8,11 +8,8 @@ class SignTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerSIGN
-     *
-     * @param mixed $expectedResult
-     * @param mixed $value
      */
-    public function testSIGN($expectedResult, $value): void
+    public function testSIGN(mixed $expectedResult, mixed $value): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

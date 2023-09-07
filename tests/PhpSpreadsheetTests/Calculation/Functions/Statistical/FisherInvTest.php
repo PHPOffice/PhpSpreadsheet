@@ -8,10 +8,8 @@ class FisherInvTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerFISHERINV
-     *
-     * @param mixed $expectedResult
      */
-    public function testFISHERINV($expectedResult, ...$args): void
+    public function testFISHERINV(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('FISHERINV', $expectedResult, ...$args);
     }

@@ -6,10 +6,8 @@ class CumIpmtTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerCUMIPMT
-     *
-     * @param mixed $expectedResult
      */
-    public function testCUMIPMT($expectedResult, ...$args): void
+    public function testCUMIPMT(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('CUMIPMT', $expectedResult, $args);
     }

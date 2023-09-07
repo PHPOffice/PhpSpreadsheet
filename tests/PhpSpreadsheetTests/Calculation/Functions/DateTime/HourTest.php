@@ -13,10 +13,8 @@ class HourTest extends TestCase
 {
     /**
      * @dataProvider providerHOUR
-     *
-     * @param mixed $expectedResult
      */
-    public function testDirectCallToHOUR($expectedResult, ...$args): void
+    public function testDirectCallToHOUR(mixed $expectedResult, mixed ...$args): void
     {
         /** @scrutinizer ignore-call */
         $result = TimeParts::hour(...$args);
@@ -25,10 +23,8 @@ class HourTest extends TestCase
 
     /**
      * @dataProvider providerHOUR
-     *
-     * @param mixed $expectedResult
      */
-    public function testHOURAsFormula($expectedResult, ...$args): void
+    public function testHOURAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -41,10 +37,8 @@ class HourTest extends TestCase
 
     /**
      * @dataProvider providerHOUR
-     *
-     * @param mixed $expectedResult
      */
-    public function testHOURInWorksheet($expectedResult, ...$args): void
+    public function testHOURInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -69,7 +63,7 @@ class HourTest extends TestCase
     /**
      * @dataProvider providerUnhappyHOUR
      */
-    public function testHOURUnhappyPath(string $expectedException, ...$args): void
+    public function testHOURUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 

@@ -30,12 +30,8 @@ class AutoFilterTest extends TestCase
 
     /**
      * @dataProvider loadDataProvider
-     *
-     * @param string $ref
-     * @param int $expectedReadAutoFilterCalled
-     * @param string $expectedRef
      */
-    public function testLoad($ref, $expectedReadAutoFilterCalled, $expectedRef): void
+    public function testLoad(string $ref, int $expectedReadAutoFilterCalled, string $expectedRef): void
     {
         $worksheetAutoFilter = $this->getMockBuilder(WorksheetAutoFilter::class)
             ->disableOriginalConstructor()

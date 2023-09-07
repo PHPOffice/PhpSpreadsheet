@@ -17,11 +17,8 @@ class IsEvenTest extends TestCase
 
     /**
      * @dataProvider providerIsEven
-     *
-     * @param bool|string $expectedResult
-     * @param mixed $value
      */
-    public function testIsEven($expectedResult, $value): void
+    public function testIsEven(bool|string $expectedResult, mixed $value): void
     {
         $result = Value::isEven($value);
         self::assertEquals($expectedResult, $result);

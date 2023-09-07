@@ -8,12 +8,8 @@ class PowerTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerPOWER
-     *
-     * @param mixed $expectedResult
-     * @param mixed $base
-     * @param mixed $exponent
      */
-    public function testPOWER($expectedResult, $base = 'omitted', $exponent = 'omitted'): void
+    public function testPOWER(mixed $expectedResult, mixed $base = 'omitted', mixed $exponent = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

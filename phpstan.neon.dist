@@ -23,4 +23,3 @@ parameters:
         - '~^Parameter \#2 \$src_im(age)? of function imagecopy expects (GdImage|resource), GdImage\|resource given\.$~'
         # Accept a bit anything for assert methods
         - '~^Parameter \#2 .* of static method PHPUnit\\Framework\\Assert\:\:assert\w+\(\) expects .*, .* given\.$~'
-        - '~^Method PhpOffice\\PhpSpreadsheetTests\\.*\:\:test.*\(\) has parameter \$args with no type specified\.$~'

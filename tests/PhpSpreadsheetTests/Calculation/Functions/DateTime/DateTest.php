@@ -42,10 +42,8 @@ class DateTest extends TestCase
 
     /**
      * @dataProvider providerDATE
-     *
-     * @param mixed $expectedResult
      */
-    public function testDirectCallToDATE($expectedResult, ...$args): void
+    public function testDirectCallToDATE(mixed $expectedResult, mixed ...$args): void
     {
         $result = Date::fromYMD(...$args);
         self::assertSame($expectedResult, $result);
@@ -53,10 +51,8 @@ class DateTest extends TestCase
 
     /**
      * @dataProvider providerDATE
-     *
-     * @param mixed $expectedResult
      */
-    public function testDATEAsFormula($expectedResult, ...$args): void
+    public function testDATEAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -69,10 +65,8 @@ class DateTest extends TestCase
 
     /**
      * @dataProvider providerDATE
-     *
-     * @param mixed $expectedResult
      */
-    public function testDATEInWorksheet($expectedResult, ...$args): void
+    public function testDATEInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -97,7 +91,7 @@ class DateTest extends TestCase
     /**
      * @dataProvider providerUnhappyDATE
      */
-    public function testDATEUnhappyPath(string $expectedException, ...$args): void
+    public function testDATEUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 

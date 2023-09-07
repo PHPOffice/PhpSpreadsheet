@@ -8,10 +8,8 @@ class LogNormDistTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerLOGNORMDIST
-     *
-     * @param mixed $expectedResult
      */
-    public function testLOGNORMDIST($expectedResult, ...$args): void
+    public function testLOGNORMDIST(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('LOGNORMDIST', $expectedResult, ...$args);
     }

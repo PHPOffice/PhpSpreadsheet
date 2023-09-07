@@ -42,10 +42,8 @@ class TimeTest extends TestCase
 
     /**
      * @dataProvider providerTIME
-     *
-     * @param mixed $expectedResult
      */
-    public function testDirectCallToTIME($expectedResult, ...$args): void
+    public function testDirectCallToTIME(mixed $expectedResult, mixed ...$args): void
     {
         $result = Time::fromHMS(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
@@ -53,10 +51,8 @@ class TimeTest extends TestCase
 
     /**
      * @dataProvider providerTIME
-     *
-     * @param mixed $expectedResult
      */
-    public function testTIMEAsFormula($expectedResult, ...$args): void
+    public function testTIMEAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -75,7 +71,7 @@ class TimeTest extends TestCase
     /**
      * @dataProvider providerUnhappyTIME
      */
-    public function testTIMEUnhappyPath(string $expectedException, ...$args): void
+    public function testTIMEUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 

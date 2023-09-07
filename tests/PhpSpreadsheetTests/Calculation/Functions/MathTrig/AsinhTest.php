@@ -8,10 +8,8 @@ class AsinhTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerAsinh
-     *
-     * @param mixed $expectedResult
      */
-    public function testAsinh($expectedResult, string $formula): void
+    public function testAsinh(mixed $expectedResult, string $formula): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

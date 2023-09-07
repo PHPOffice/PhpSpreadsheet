@@ -10,12 +10,8 @@ class IndirectTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerINDIRECT
-     *
-     * @param mixed $expectedResult
-     * @param mixed $cellReference
-     * @param mixed $a1
      */
-    public function testINDIRECT($expectedResult, $cellReference = 'omitted', $a1 = 'omitted'): void
+    public function testINDIRECT(mixed $expectedResult, mixed $cellReference = 'omitted', mixed $a1 = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -135,11 +131,9 @@ class IndirectTest extends AllSetupTeardown
     }
 
     /**
-     * @param null|int|string $expectedResult
-     *
      * @dataProvider providerRelative
      */
-    public function testR1C1Relative($expectedResult, string $address): void
+    public function testR1C1Relative(string|int|null $expectedResult, string $address): void
     {
         $sheet = $this->getSheet();
         $sheet->fromArray([

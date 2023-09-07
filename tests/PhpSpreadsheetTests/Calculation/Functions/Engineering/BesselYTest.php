@@ -15,10 +15,8 @@ class BesselYTest extends TestCase
 
     /**
      * @dataProvider providerBESSELY
-     *
-     * @param mixed $expectedResult
      */
-    public function testDirectCallToBESSELY($expectedResult, ...$args): void
+    public function testDirectCallToBESSELY(mixed $expectedResult, mixed ...$args): void
     {
         $result = BesselY::besselY(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, self::BESSEL_PRECISION);
@@ -26,10 +24,8 @@ class BesselYTest extends TestCase
 
     /**
      * @dataProvider providerBESSELY
-     *
-     * @param mixed $expectedResult
      */
-    public function testBESSELYAsFormula($expectedResult, ...$args): void
+    public function testBESSELYAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -42,10 +38,8 @@ class BesselYTest extends TestCase
 
     /**
      * @dataProvider providerBESSELY
-     *
-     * @param mixed $expectedResult
      */
-    public function testBESSELYInWorksheet($expectedResult, ...$args): void
+    public function testBESSELYInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -70,7 +64,7 @@ class BesselYTest extends TestCase
     /**
      * @dataProvider providerUnhappyBESSELY
      */
-    public function testBESSELYUnhappyPath(string $expectedException, ...$args): void
+    public function testBESSELYUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 

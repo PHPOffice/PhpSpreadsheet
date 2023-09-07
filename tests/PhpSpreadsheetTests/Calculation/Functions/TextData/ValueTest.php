@@ -40,11 +40,8 @@ class ValueTest extends AllSetupTeardown
 
     /**
      * @dataProvider providerVALUE
-     *
-     * @param mixed $expectedResult
-     * @param mixed $value
      */
-    public function testVALUE($expectedResult, $value = 'omitted'): void
+    public function testVALUE(mixed $expectedResult, mixed $value = 'omitted'): void
     {
         StringHelper::setDecimalSeparator('.');
         StringHelper::setThousandsSeparator(' ');

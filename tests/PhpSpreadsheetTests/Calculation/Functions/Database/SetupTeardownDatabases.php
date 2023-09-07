@@ -132,10 +132,7 @@ class SetupTeardownDatabases extends TestCase
         return $this->sheet;
     }
 
-    /**
-     * @param int|string $field
-     */
-    public function prepareWorksheetWithFormula(string $functionName, array $database, $field, array $criteria): void
+    public function prepareWorksheetWithFormula(string $functionName, array $database, null|int|string $field, array $criteria): void
     {
         $sheet = $this->getSheet();
         $maxCol = '';

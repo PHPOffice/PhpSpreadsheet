@@ -8,11 +8,8 @@ class EvenTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerEVEN
-     *
-     * @param mixed $expectedResult
-     * @param mixed $value
      */
-    public function testEVEN($expectedResult, $value): void
+    public function testEVEN(mixed $expectedResult, mixed $value): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

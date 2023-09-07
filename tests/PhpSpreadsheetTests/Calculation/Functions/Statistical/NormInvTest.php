@@ -8,10 +8,8 @@ class NormInvTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerNORMINV
-     *
-     * @param mixed $expectedResult
      */
-    public function testNORMINV($expectedResult, ...$args): void
+    public function testNORMINV(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('NORMINV', $expectedResult, ...$args);
     }

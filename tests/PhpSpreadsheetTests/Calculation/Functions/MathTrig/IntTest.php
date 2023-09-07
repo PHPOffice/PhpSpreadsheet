@@ -8,11 +8,8 @@ class IntTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerINT
-     *
-     * @param mixed $expectedResult
-     * @param string $formula
      */
-    public function testINT($expectedResult, $formula): void
+    public function testINT(mixed $expectedResult, string $formula): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

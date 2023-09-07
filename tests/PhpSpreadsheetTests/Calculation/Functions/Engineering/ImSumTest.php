@@ -28,10 +28,8 @@ class ImSumTest extends TestCase
 
     /**
      * @dataProvider providerIMSUM
-     *
-     * @param mixed $expectedResult
      */
-    public function testDirectCallToIMSUM($expectedResult, ...$args): void
+    public function testDirectCallToIMSUM(mixed $expectedResult, mixed ...$args): void
     {
         /** @scrutinizer ignore-call */
         $result = ComplexOperations::IMSUM(...$args);
@@ -48,10 +46,8 @@ class ImSumTest extends TestCase
 
     /**
      * @dataProvider providerIMSUM
-     *
-     * @param mixed $expectedResult
      */
-    public function testIMSUMAsFormula($expectedResult, ...$args): void
+    public function testIMSUMAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -67,10 +63,8 @@ class ImSumTest extends TestCase
 
     /**
      * @dataProvider providerIMSUM
-     *
-     * @param mixed $expectedResult
      */
-    public function testIMSUMInWorksheet($expectedResult, ...$args): void
+    public function testIMSUMInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -98,7 +92,7 @@ class ImSumTest extends TestCase
     /**
      * @dataProvider providerUnhappyIMSUM
      */
-    public function testIMSUMUnhappyPath(string $expectedException, ...$args): void
+    public function testIMSUMUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 

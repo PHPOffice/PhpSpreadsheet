@@ -6,10 +6,8 @@ class RriTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerRRI
-     *
-     * @param mixed $expectedResult
      */
-    public function testRRI($expectedResult, array $args): void
+    public function testRRI(mixed $expectedResult, array $args): void
     {
         $this->runTestCase('RRI', $expectedResult, $args);
     }

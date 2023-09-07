@@ -9,11 +9,8 @@ class OffsetTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerOFFSET
-     *
-     * @param mixed $expectedResult
-     * @param null|string $cellReference
      */
-    public function testOFFSET($expectedResult, $cellReference = null): void
+    public function testOFFSET(mixed $expectedResult, null|string $cellReference = null): void
     {
         $result = LookupRef\Offset::OFFSET($cellReference);
         self::assertSame($expectedResult, $result);

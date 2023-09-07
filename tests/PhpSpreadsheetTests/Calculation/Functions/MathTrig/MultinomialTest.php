@@ -6,10 +6,8 @@ class MultinomialTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerMULTINOMIAL
-     *
-     * @param mixed $expectedResult
      */
-    public function testMULTINOMIAL($expectedResult, ...$args): void
+    public function testMULTINOMIAL(mixed $expectedResult, mixed ...$args): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

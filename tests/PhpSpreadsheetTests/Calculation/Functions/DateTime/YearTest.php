@@ -12,10 +12,8 @@ class YearTest extends TestCase
 {
     /**
      * @dataProvider providerYEAR
-     *
-     * @param mixed $expectedResultExcel
      */
-    public function testDirectCallToYEAR($expectedResultExcel, ...$args): void
+    public function testDirectCallToYEAR(mixed $expectedResultExcel, mixed ...$args): void
     {
         /** @scrutinizer ignore-call */
         $result = DateParts::year(...$args);
@@ -24,10 +22,8 @@ class YearTest extends TestCase
 
     /**
      * @dataProvider providerYEAR
-     *
-     * @param mixed $expectedResult
      */
-    public function testYEARAsFormula($expectedResult, ...$args): void
+    public function testYEARAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -40,10 +36,8 @@ class YearTest extends TestCase
 
     /**
      * @dataProvider providerYEAR
-     *
-     * @param mixed $expectedResult
      */
-    public function testYEARInWorksheet($expectedResult, ...$args): void
+    public function testYEARInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -68,7 +62,7 @@ class YearTest extends TestCase
     /**
      * @dataProvider providerUnhappyYEAR
      */
-    public function testYEARUnhappyPath(string $expectedException, ...$args): void
+    public function testYEARUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 

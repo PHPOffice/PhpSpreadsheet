@@ -8,11 +8,8 @@ class LenTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerLEN
-     *
-     * @param mixed $expectedResult
-     * @param mixed $str
      */
-    public function testLEN($expectedResult, $str = 'omitted'): void
+    public function testLEN(mixed $expectedResult, mixed $str = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

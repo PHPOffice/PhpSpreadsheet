@@ -6,10 +6,8 @@ class MaxIfsTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerMAXIFS
-     *
-     * @param mixed $expectedResult
      */
-    public function testMAXIFS($expectedResult, ...$args): void
+    public function testMAXIFS(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCaseNoBracket('MAXIFS', $expectedResult, ...$args);
     }

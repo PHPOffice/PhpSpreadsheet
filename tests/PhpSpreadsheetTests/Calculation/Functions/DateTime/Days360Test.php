@@ -18,10 +18,8 @@ class Days360Test extends TestCase
 {
     /**
      * @dataProvider providerDAYS360
-     *
-     * @param mixed $expectedResult
      */
-    public function testDirectCallToDAYS360($expectedResult, ...$args): void
+    public function testDirectCallToDAYS360(mixed $expectedResult, mixed ...$args): void
     {
         /** @scrutinizer ignore-call */
         $result = Days360::between(...$args);
@@ -30,10 +28,8 @@ class Days360Test extends TestCase
 
     /**
      * @dataProvider providerDAYS360
-     *
-     * @param mixed $expectedResult
      */
-    public function testDAYS360AsFormula($expectedResult, ...$args): void
+    public function testDAYS360AsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -46,10 +42,8 @@ class Days360Test extends TestCase
 
     /**
      * @dataProvider providerDAYS360
-     *
-     * @param mixed $expectedResult
      */
-    public function testDAYS360InWorksheet($expectedResult, ...$args): void
+    public function testDAYS360InWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -74,7 +68,7 @@ class Days360Test extends TestCase
     /**
      * @dataProvider providerUnhappyDAYS360
      */
-    public function testDAYS360UnhappyPath(string $expectedException, ...$args): void
+    public function testDAYS360UnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 

@@ -6,11 +6,8 @@ class IrrTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerIRR
-     *
-     * @param mixed $expectedResult
-     * @param mixed $values
      */
-    public function testIRR($expectedResult, $values = null): void
+    public function testIRR(mixed $expectedResult, mixed $values = null): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

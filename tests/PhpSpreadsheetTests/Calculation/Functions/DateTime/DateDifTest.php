@@ -18,10 +18,8 @@ class DateDifTest extends TestCase
 {
     /**
      * @dataProvider providerDATEDIF
-     *
-     * @param mixed $expectedResult
      */
-    public function testDirectCallToDATEDIF($expectedResult, string ...$args): void
+    public function testDirectCallToDATEDIF(array|int|string $expectedResult, string ...$args): void
     {
         $result = Difference::interval(...$args);
         self::assertSame($expectedResult, $result);
@@ -29,10 +27,8 @@ class DateDifTest extends TestCase
 
     /**
      * @dataProvider providerDATEDIF
-     *
-     * @param mixed $expectedResult
      */
-    public function testDATEDIFAsFormula($expectedResult, ...$args): void
+    public function testDATEDIFAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -45,10 +41,8 @@ class DateDifTest extends TestCase
 
     /**
      * @dataProvider providerDATEDIF
-     *
-     * @param mixed $expectedResult
      */
-    public function testDATEDIFInWorksheet($expectedResult, ...$args): void
+    public function testDATEDIFInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -73,7 +67,7 @@ class DateDifTest extends TestCase
     /**
      * @dataProvider providerUnhappyDATEDIF
      */
-    public function testDATEDIFUnhappyPath(string $expectedException, ...$args): void
+    public function testDATEDIFUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 

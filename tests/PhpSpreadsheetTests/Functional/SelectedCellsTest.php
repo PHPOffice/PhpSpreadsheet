@@ -17,10 +17,8 @@ class SelectedCellsTest extends AbstractFunctional
      * Test load file with correct selected cells.
      *
      * @dataProvider providerFormats
-     *
-     * @param string $format
      */
-    public function testSelectedCells($format): void
+    public function testSelectedCells(string $format): void
     {
         $spreadsheet = new Spreadsheet();
 

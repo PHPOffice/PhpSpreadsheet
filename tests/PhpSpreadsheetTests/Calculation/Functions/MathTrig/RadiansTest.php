@@ -8,11 +8,8 @@ class RadiansTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerRADIANS
-     *
-     * @param mixed $expectedResult
-     * @param mixed $number
      */
-    public function testRADIANS($expectedResult, $number = 'omitted'): void
+    public function testRADIANS(mixed $expectedResult, mixed $number = 'omitted'): void
     {
         $sheet = $this->getSheet();
         $this->mightHaveException($expectedResult);

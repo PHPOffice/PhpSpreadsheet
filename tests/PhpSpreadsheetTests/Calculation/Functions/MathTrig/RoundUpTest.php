@@ -8,11 +8,8 @@ class RoundUpTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerRoundUp
-     *
-     * @param mixed $expectedResult
-     * @param mixed $formula
      */
-    public function testRoundUp($expectedResult, $formula): void
+    public function testRoundUp(mixed $expectedResult, mixed $formula): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

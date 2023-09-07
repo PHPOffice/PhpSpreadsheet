@@ -8,11 +8,8 @@ class RomanTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerROMAN
-     *
-     * @param mixed $expectedResult
-     * @param mixed $formula
      */
-    public function testROMAN($expectedResult, $formula): void
+    public function testROMAN(mixed $expectedResult, mixed $formula): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

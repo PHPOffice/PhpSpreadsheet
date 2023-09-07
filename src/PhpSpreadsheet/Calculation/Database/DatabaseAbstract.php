@@ -10,7 +10,7 @@ abstract class DatabaseAbstract
 {
     /**
      * @param array $database
-     * @param int|string $field
+     * @param null|int|string $field
      * @param array $criteria
      *
      * @return null|float|int|string

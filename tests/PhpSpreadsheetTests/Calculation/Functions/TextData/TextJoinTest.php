@@ -8,10 +8,8 @@ class TextJoinTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerTEXTJOIN
-     *
-     * @param mixed $expectedResult
      */
-    public function testTEXTJOIN($expectedResult, array $args): void
+    public function testTEXTJOIN(mixed $expectedResult, array $args): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

@@ -16,10 +16,8 @@ class IsErrTest extends TestCase
 
     /**
      * @dataProvider providerIsErr
-     *
-     * @param mixed $value
      */
-    public function testIsErr(bool $expectedResult, $value): void
+    public function testIsErr(bool $expectedResult, mixed $value): void
     {
         $result = ErrorValue::isErr($value);
         self::assertEquals($expectedResult, $result);

@@ -6,13 +6,8 @@ class XirrTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerXIRR
-     *
-     * @param mixed $expectedResult
-     * @param mixed $values
-     * @param mixed $dates
-     * @param mixed $guess
      */
-    public function testXIRR($expectedResult, $values = null, $dates = null, $guess = null): void
+    public function testXIRR(mixed $expectedResult, mixed $values = null, mixed $dates = null, mixed $guess = null): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

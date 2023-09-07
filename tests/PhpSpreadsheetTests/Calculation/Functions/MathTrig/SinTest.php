@@ -8,10 +8,8 @@ class SinTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerSin
-     *
-     * @param mixed $expectedResult
      */
-    public function testSin($expectedResult, string $formula): void
+    public function testSin(mixed $expectedResult, string $formula): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

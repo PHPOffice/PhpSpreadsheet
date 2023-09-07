@@ -6,10 +6,8 @@ class MinIfsTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerMINIFS
-     *
-     * @param mixed $expectedResult
      */
-    public function testMINIFS($expectedResult, ...$args): void
+    public function testMINIFS(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCaseNoBracket('MINIFS', $expectedResult, ...$args);
     }

@@ -9,21 +9,14 @@ class ExponentialBestFitTest extends TestCase
 {
     /**
      * @dataProvider providerExponentialBestFit
-     *
-     * @param mixed $expectedSlope
-     * @param mixed $expectedIntersect
-     * @param mixed $expectedGoodnessOfFit
-     * @param mixed $yValues
-     * @param mixed $xValues
-     * @param mixed $expectedEquation
      */
     public function testExponentialBestFit(
-        $expectedSlope,
-        $expectedIntersect,
-        $expectedGoodnessOfFit,
-        $expectedEquation,
-        $yValues,
-        $xValues
+        mixed $expectedSlope,
+        mixed $expectedIntersect,
+        mixed $expectedGoodnessOfFit,
+        mixed $expectedEquation,
+        mixed $yValues,
+        mixed $xValues
     ): void {
         $bestFit = new ExponentialBestFit($yValues, $xValues);
         $slope = $bestFit->getSlope(1);

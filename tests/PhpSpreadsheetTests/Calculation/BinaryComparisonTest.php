@@ -27,13 +27,10 @@ class BinaryComparisonTest extends TestCase
 
     /**
      * @dataProvider providerBinaryComparison
-     *
-     * @param mixed $operand1
-     * @param mixed $operand2
      */
     public function testBinaryComparisonOperation(
-        $operand1,
-        $operand2,
+        mixed $operand1,
+        mixed $operand2,
         string $operator,
         bool $expectedResultExcel,
         bool $expectedResultOpenOffice

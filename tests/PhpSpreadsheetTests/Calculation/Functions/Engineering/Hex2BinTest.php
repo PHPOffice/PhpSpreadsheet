@@ -30,10 +30,8 @@ class Hex2BinTest extends TestCase
 
     /**
      * @dataProvider providerHEX2BIN
-     *
-     * @param mixed $expectedResult
      */
-    public function testDirectCallToHEX2BIN($expectedResult, ...$args): void
+    public function testDirectCallToHEX2BIN(mixed $expectedResult, mixed ...$args): void
     {
         /** @scrutinizer ignore-call */
         $result = ConvertHex::toBinary(...$args);
@@ -47,10 +45,8 @@ class Hex2BinTest extends TestCase
 
     /**
      * @dataProvider providerHEX2BIN
-     *
-     * @param mixed $expectedResult
      */
-    public function testHEX2BINAsFormula($expectedResult, ...$args): void
+    public function testHEX2BINAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -63,10 +59,8 @@ class Hex2BinTest extends TestCase
 
     /**
      * @dataProvider providerHEX2BIN
-     *
-     * @param mixed $expectedResult
      */
-    public function testHEX2BINInWorksheet($expectedResult, ...$args): void
+    public function testHEX2BINInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -91,7 +85,7 @@ class Hex2BinTest extends TestCase
     /**
      * @dataProvider providerUnhappyHEX2BIN
      */
-    public function testHEX2BINUnhappyPath(string $expectedException, ...$args): void
+    public function testHEX2BINUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -118,10 +112,8 @@ class Hex2BinTest extends TestCase
 
     /**
      * @dataProvider providerHEX2BINOds
-     *
-     * @param mixed $expectedResult
      */
-    public function testHEX2BINOds($expectedResult, ...$args): void
+    public function testHEX2BINOds(mixed $expectedResult, mixed ...$args): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
 

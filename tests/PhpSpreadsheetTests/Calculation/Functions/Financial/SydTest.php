@@ -6,10 +6,8 @@ class SydTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerSYD
-     *
-     * @param mixed $expectedResult
      */
-    public function testSYD($expectedResult, array $args): void
+    public function testSYD(mixed $expectedResult, array $args): void
     {
         $this->runTestCase('SYD', $expectedResult, $args);
     }

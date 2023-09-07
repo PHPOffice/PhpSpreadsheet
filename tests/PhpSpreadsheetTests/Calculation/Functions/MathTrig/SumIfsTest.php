@@ -8,10 +8,8 @@ class SumIfsTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerSUMIFS
-     *
-     * @param mixed $expectedResult
      */
-    public function testSUMIFS($expectedResult, ...$args): void
+    public function testSUMIFS(mixed $expectedResult, mixed ...$args): void
     {
         $result = Statistical\Conditional::SUMIFS(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);

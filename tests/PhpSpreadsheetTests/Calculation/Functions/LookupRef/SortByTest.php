@@ -18,11 +18,8 @@ class SortByTest extends TestCase
 
     /**
      * @dataProvider providerSortWithScalarArgumentErrorReturns
-     *
-     * @param mixed $sortIndex
-     * @param mixed $sortOrder
      */
-    public function testSortByWithArgumentErrorReturns($sortIndex, $sortOrder = 1): void
+    public function testSortByWithArgumentErrorReturns(mixed $sortIndex, mixed $sortOrder = 1): void
     {
         $value = [[1, 2], [3, 4], [5, 6]];
 
@@ -45,7 +42,7 @@ class SortByTest extends TestCase
     /**
      * @dataProvider providerSortByRow
      */
-    public function testSortByRow(array $expectedResult, array $matrix, ...$args): void
+    public function testSortByRow(array $expectedResult, array $matrix, mixed ...$args): void
     {
         $result = Sort::sortBy($matrix, ...$args);
         self::assertSame($expectedResult, $result);

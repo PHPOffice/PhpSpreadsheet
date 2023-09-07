@@ -8,10 +8,8 @@ class SumProductTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerSUMPRODUCT
-     *
-     * @param mixed $expectedResult
      */
-    public function testSUMPRODUCT($expectedResult, ...$args): void
+    public function testSUMPRODUCT(mixed $expectedResult, mixed ...$args): void
     {
         $sheet = $this->getSheet();
         $row = 0;

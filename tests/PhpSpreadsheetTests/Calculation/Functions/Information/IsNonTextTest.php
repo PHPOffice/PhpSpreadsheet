@@ -16,10 +16,8 @@ class IsNonTextTest extends TestCase
 
     /**
      * @dataProvider providerIsNonText
-     *
-     * @param mixed $value
      */
-    public function testIsNonText(bool $expectedResult, $value): void
+    public function testIsNonText(bool $expectedResult, mixed $value): void
     {
         $result = Value::isNonText($value);
         self::assertEquals($expectedResult, $result);

@@ -30,10 +30,8 @@ class Bin2DecTest extends TestCase
 
     /**
      * @dataProvider providerBIN2DEC
-     *
-     * @param mixed $expectedResult
      */
-    public function testDirectCallToBIN2DEC($expectedResult, ...$args): void
+    public function testDirectCallToBIN2DEC(mixed $expectedResult, mixed ...$args): void
     {
         /** @scrutinizer ignore-call */
         $result = ConvertBinary::toDecimal(...$args);
@@ -47,10 +45,8 @@ class Bin2DecTest extends TestCase
 
     /**
      * @dataProvider providerBIN2DEC
-     *
-     * @param mixed $expectedResult
      */
-    public function testBIN2DECAsFormula($expectedResult, ...$args): void
+    public function testBIN2DECAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -63,10 +59,8 @@ class Bin2DecTest extends TestCase
 
     /**
      * @dataProvider providerBIN2DEC
-     *
-     * @param mixed $expectedResult
      */
-    public function testBIN2DECInWorksheet($expectedResult, ...$args): void
+    public function testBIN2DECInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -91,7 +85,7 @@ class Bin2DecTest extends TestCase
     /**
      * @dataProvider providerUnhappyBIN2DEC
      */
-    public function testBIN2DECUnhappyPath(string $expectedException, ...$args): void
+    public function testBIN2DECUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -118,10 +112,8 @@ class Bin2DecTest extends TestCase
 
     /**
      * @dataProvider providerBIN2DECOds
-     *
-     * @param mixed $expectedResult
      */
-    public function testBIN2DECOds($expectedResult, ...$args): void
+    public function testBIN2DECOds(mixed $expectedResult, mixed ...$args): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
 

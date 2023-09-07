@@ -136,12 +136,8 @@ class WorkbookTest extends TestCase
 
     /**
      * Change palette color to rgb string.
-     *
-     * @param array $palette palette color
-     *
-     * @return string rgb string
      */
-    private function paletteToColor($palette): string
+    private function paletteToColor(array $palette): string
     {
         return $this->right('00' . dechex((int) ($palette[0])), 2)
             . $this->right('00' . dechex((int) ($palette[1])), 2)

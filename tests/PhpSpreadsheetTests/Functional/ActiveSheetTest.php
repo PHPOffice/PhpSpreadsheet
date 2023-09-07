@@ -18,10 +18,8 @@ class ActiveSheetTest extends AbstractFunctional
      * Test load file with correct active sheet.
      *
      * @dataProvider providerFormats
-     *
-     * @param string $format
      */
-    public function testActiveSheet($format): void
+    public function testActiveSheet(string $format): void
     {
         $spreadsheet = new Spreadsheet();
 

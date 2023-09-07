@@ -8,13 +8,8 @@ class MirrTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerMIRR
-     *
-     * @param mixed $expectedResult
-     * @param mixed $values
-     * @param mixed $financeRate
-     * @param mixed $reinvestRate
      */
-    public function testMIRR($expectedResult, $values, $financeRate = null, $reinvestRate = null): void
+    public function testMIRR(mixed $expectedResult, mixed $values, mixed $financeRate = null, mixed $reinvestRate = null): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

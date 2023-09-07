@@ -8,11 +8,8 @@ class SqrtPiTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerSQRTPI
-     *
-     * @param mixed $expectedResult
-     * @param mixed $number
      */
-    public function testSQRTPI($expectedResult, $number): void
+    public function testSQRTPI(mixed $expectedResult, mixed $number): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

@@ -8,12 +8,8 @@ class DollarTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerDOLLAR
-     *
-     * @param mixed $expectedResult
-     * @param mixed $amount
-     * @param mixed $decimals
      */
-    public function testDOLLAR($expectedResult, $amount = 'omitted', $decimals = 'omitted'): void
+    public function testDOLLAR(mixed $expectedResult, mixed $amount = 'omitted', mixed $decimals = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

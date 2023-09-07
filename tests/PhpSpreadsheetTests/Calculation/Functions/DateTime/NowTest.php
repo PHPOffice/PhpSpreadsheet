@@ -11,10 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class NowTest extends TestCase
 {
-    /**
-     * @param mixed $result
-     */
-    private function assertions(DateTimeImmutable $dtStart, $result): void
+    private function assertions(DateTimeImmutable $dtStart, mixed $result): void
     {
         self::assertEquals($dtStart->format('Y'), DateParts::year($result));
         self::assertEquals($dtStart->format('m'), DateParts::month($result));

@@ -48,11 +48,8 @@ class PropertiesTest extends TestCase
 
     /**
      * @dataProvider providerCreationTime
-     *
-     * @param mixed $expectedCreationTime
-     * @param mixed $created
      */
-    public function testSetCreated($expectedCreationTime, $created): void
+    public function testSetCreated(mixed $expectedCreationTime, mixed $created): void
     {
         $expectedCreationTime = $expectedCreationTime ?? $this->startTime;
 
@@ -80,11 +77,8 @@ class PropertiesTest extends TestCase
 
     /**
      * @dataProvider providerModifiedTime
-     *
-     * @param mixed $expectedModifiedTime
-     * @param mixed $modified
      */
-    public function testSetModified($expectedModifiedTime, $modified): void
+    public function testSetModified(mixed $expectedModifiedTime, mixed $modified): void
     {
         $expectedModifiedTime = $expectedModifiedTime ?? $this->startTime;
 
@@ -160,14 +154,8 @@ class PropertiesTest extends TestCase
 
     /**
      * @dataProvider providerCustomProperties
-     *
-     * @param mixed $expectedType
-     * @param mixed $expectedValue
-     * @param string $propertyName
-     * @param mixed $propertyValue
-     * @param ?string $propertyType
      */
-    public function testSetCustomProperties($expectedType, $expectedValue, $propertyName, $propertyValue, $propertyType = null): void
+    public function testSetCustomProperties(mixed $expectedType, mixed $expectedValue, string $propertyName, mixed $propertyValue, ?string $propertyType = null): void
     {
         if ($propertyType === null) {
             $this->properties->setCustomProperty($propertyName, $propertyValue);

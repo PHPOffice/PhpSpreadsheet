@@ -31,13 +31,10 @@ class StringValueBinderTest extends TestCase
 
     /**
      * @dataProvider providerDataValuesDefault
-     *
-     * @param mixed $value
-     * @param mixed $expectedValue
      */
     public function testStringValueBinderDefaultBehaviour(
-        $value,
-        $expectedValue,
+        mixed $value,
+        mixed $expectedValue,
         string $expectedDataType
     ): void {
         Cell::setValueBinder(new StringValueBinder());
@@ -80,13 +77,10 @@ class StringValueBinderTest extends TestCase
 
     /**
      * @dataProvider providerDataValuesSuppressNullConversion
-     *
-     * @param mixed $value
-     * @param mixed $expectedValue
      */
     public function testStringValueBinderSuppressNullConversion(
-        $value,
-        $expectedValue,
+        mixed $value,
+        mixed $expectedValue,
         string $expectedDataType
     ): void {
         $binder = new StringValueBinder();
@@ -112,13 +106,10 @@ class StringValueBinderTest extends TestCase
 
     /**
      * @dataProvider providerDataValuesSuppressBooleanConversion
-     *
-     * @param mixed $value
-     * @param mixed $expectedValue
      */
     public function testStringValueBinderSuppressBooleanConversion(
-        $value,
-        $expectedValue,
+        mixed $value,
+        mixed $expectedValue,
         string $expectedDataType
     ): void {
         $binder = new StringValueBinder();
@@ -145,13 +136,10 @@ class StringValueBinderTest extends TestCase
 
     /**
      * @dataProvider providerDataValuesSuppressNumericConversion
-     *
-     * @param mixed $value
-     * @param mixed $expectedValue
      */
     public function testStringValueBinderSuppressNumericConversion(
-        $value,
-        $expectedValue,
+        mixed $value,
+        mixed $expectedValue,
         string $expectedDataType
     ): void {
         $binder = new StringValueBinder();
@@ -185,13 +173,10 @@ class StringValueBinderTest extends TestCase
 
     /**
      * @dataProvider providerDataValuesSuppressFormulaConversion
-     *
-     * @param mixed $value
-     * @param mixed $expectedValue
      */
     public function testStringValueBinderSuppressFormulaConversion(
-        $value,
-        $expectedValue,
+        mixed $value,
+        mixed $expectedValue,
         string $expectedDataType
     ): void {
         $binder = new StringValueBinder();
@@ -215,13 +200,10 @@ class StringValueBinderTest extends TestCase
 
     /**
      * @dataProvider providerDataValuesSuppressAllConversion
-     *
-     * @param mixed $value
-     * @param mixed $expectedValue
      */
     public function testStringValueBinderSuppressAllConversion(
-        $value,
-        $expectedValue,
+        mixed $value,
+        mixed $expectedValue,
         string $expectedDataType
     ): void {
         $binder = new StringValueBinder();

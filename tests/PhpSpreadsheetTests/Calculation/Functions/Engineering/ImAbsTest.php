@@ -15,10 +15,8 @@ class ImAbsTest extends TestCase
 
     /**
      * @dataProvider providerIMABS
-     *
-     * @param mixed $expectedResult
      */
-    public function testDirectCallToIMABS($expectedResult, ...$args): void
+    public function testDirectCallToIMABS(mixed $expectedResult, mixed ...$args): void
     {
         /** @scrutinizer ignore-call */
         $result = ComplexFunctions::IMABS(...$args);
@@ -27,10 +25,8 @@ class ImAbsTest extends TestCase
 
     /**
      * @dataProvider providerIMABS
-     *
-     * @param mixed $expectedResult
      */
-    public function testIMABSAsFormula($expectedResult, ...$args): void
+    public function testIMABSAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -43,10 +39,8 @@ class ImAbsTest extends TestCase
 
     /**
      * @dataProvider providerIMABS
-     *
-     * @param mixed $expectedResult
      */
-    public function testIMABSInWorksheet($expectedResult, ...$args): void
+    public function testIMABSInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -71,7 +65,7 @@ class ImAbsTest extends TestCase
     /**
      * @dataProvider providerUnhappyIMABS
      */
-    public function testIMABSUnhappyPath(string $expectedException, ...$args): void
+    public function testIMABSUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 

@@ -8,10 +8,8 @@ class GammaTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerGAMMA
-     *
-     * @param mixed $expectedResult
      */
-    public function testGAMMA($expectedResult, ...$args): void
+    public function testGAMMA(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('GAMMA', $expectedResult, ...$args);
     }

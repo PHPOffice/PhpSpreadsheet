@@ -8,10 +8,8 @@ class GammaInvTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerGAMMAINV
-     *
-     * @param mixed $expectedResult
      */
-    public function testGAMMAINV($expectedResult, ...$args): void
+    public function testGAMMAINV(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('GAMMA.INV', $expectedResult, ...$args);
     }

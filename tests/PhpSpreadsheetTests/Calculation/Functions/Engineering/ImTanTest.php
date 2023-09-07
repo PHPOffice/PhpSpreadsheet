@@ -28,10 +28,8 @@ class ImTanTest extends TestCase
 
     /**
      * @dataProvider providerIMTAN
-     *
-     * @param mixed $expectedResult
      */
-    public function testDirectCallToIMTAN($expectedResult, ...$args): void
+    public function testDirectCallToIMTAN(mixed $expectedResult, mixed ...$args): void
     {
         /** @scrutinizer ignore-call */
         $result = ComplexFunctions::IMTAN(...$args);
@@ -48,10 +46,8 @@ class ImTanTest extends TestCase
 
     /**
      * @dataProvider providerIMTAN
-     *
-     * @param mixed $expectedResult
      */
-    public function testIMTANAsFormula($expectedResult, ...$args): void
+    public function testIMTANAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -67,10 +63,8 @@ class ImTanTest extends TestCase
 
     /**
      * @dataProvider providerIMTAN
-     *
-     * @param mixed $expectedResult
      */
-    public function testIMTANInWorksheet($expectedResult, ...$args): void
+    public function testIMTANInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -98,7 +92,7 @@ class ImTanTest extends TestCase
     /**
      * @dataProvider providerUnhappyIMTAN
      */
-    public function testIMTANUnhappyPath(string $expectedException, ...$args): void
+    public function testIMTANUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 

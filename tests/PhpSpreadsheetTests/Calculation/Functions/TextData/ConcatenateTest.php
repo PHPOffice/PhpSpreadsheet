@@ -8,11 +8,8 @@ class ConcatenateTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerCONCATENATE
-     *
-     * @param mixed $expectedResult
-     * @param array $args
      */
-    public function testCONCATENATE($expectedResult, ...$args): void
+    public function testCONCATENATE(mixed $expectedResult, mixed ...$args): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

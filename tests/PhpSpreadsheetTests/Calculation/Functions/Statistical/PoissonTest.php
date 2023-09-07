@@ -8,10 +8,8 @@ class PoissonTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerPOISSON
-     *
-     * @param mixed $expectedResult
      */
-    public function testPOISSON($expectedResult, ...$args): void
+    public function testPOISSON(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('POISSON', $expectedResult, ...$args);
     }

@@ -6,10 +6,8 @@ class IfTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerIF
-     *
-     * @param mixed $expectedResult
      */
-    public function testIF($expectedResult, ...$args): void
+    public function testIF(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('IF', $expectedResult, ...$args);
     }

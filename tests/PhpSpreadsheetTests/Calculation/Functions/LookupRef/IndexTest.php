@@ -11,13 +11,8 @@ class IndexTest extends TestCase
 {
     /**
      * @dataProvider providerINDEX
-     *
-     * @param mixed $expectedResult
-     * @param mixed $matrix
-     * @param mixed $rowNum
-     * @param mixed $colNum
      */
-    public function testINDEX($expectedResult, $matrix, $rowNum = null, $colNum = null): void
+    public function testINDEX(mixed $expectedResult, mixed $matrix, mixed $rowNum = null, mixed $colNum = null): void
     {
         if ($rowNum === null) {
             $result = Matrix::index($matrix);

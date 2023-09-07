@@ -6,10 +6,8 @@ class CoupDayBsTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerCOUPDAYBS
-     *
-     * @param mixed $expectedResult
      */
-    public function testCOUPDAYBS($expectedResult, ...$args): void
+    public function testCOUPDAYBS(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('COUPDAYBS', $expectedResult, $args);
     }

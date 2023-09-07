@@ -8,11 +8,8 @@ class ColumnTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerCOLUMN
-     *
-     * @param mixed $expectedResult
-     * @param null|array|string $cellReference
      */
-    public function testCOLUMN($expectedResult, $cellReference = null): void
+    public function testCOLUMN(mixed $expectedResult, null|array|string $cellReference = null): void
     {
         $result = LookupRef\RowColumnInformation::COLUMN($cellReference);
         self::assertSame($expectedResult, $result);

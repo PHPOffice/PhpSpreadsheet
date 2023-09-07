@@ -8,11 +8,9 @@ use PHPUnit\Framework\TestCase;
 class RefErrorTest extends TestCase
 {
     /**
-     * @param mixed $expected
-     *
      * @dataProvider providerRefError
      */
-    public function testRefError($expected, string $formula): void
+    public function testRefError(mixed $expected, string $formula): void
     {
         $spreadsheet = new Spreadsheet();
         $sheet1 = $spreadsheet->getActiveSheet();

@@ -16,10 +16,8 @@ class IsNaTest extends TestCase
 
     /**
      * @dataProvider providerIsNa
-     *
-     * @param mixed $value
      */
-    public function testIsNa(bool $expectedResult, $value): void
+    public function testIsNa(bool $expectedResult, mixed $value): void
     {
         $result = ErrorValue::isNa($value);
         self::assertEquals($expectedResult, $result);

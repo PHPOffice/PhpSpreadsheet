@@ -35,10 +35,8 @@ class CalculationSettingsTest extends TestCase
 
     /**
      * @dataProvider providerCanLoadAllSupportedLocales
-     *
-     * @param string $locale
      */
-    public function testCanLoadAllSupportedLocales($locale): void
+    public function testCanLoadAllSupportedLocales(string $locale): void
     {
         $calculation = Calculation::getInstance();
         self::assertTrue($calculation->setLocale($locale));

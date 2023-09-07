@@ -8,10 +8,8 @@ class FisherTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerFISHER
-     *
-     * @param mixed $expectedResult
      */
-    public function testFISHER($expectedResult, ...$args): void
+    public function testFISHER(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('FISHER', $expectedResult, ...$args);
     }

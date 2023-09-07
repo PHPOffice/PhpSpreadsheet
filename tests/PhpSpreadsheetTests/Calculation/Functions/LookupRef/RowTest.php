@@ -8,11 +8,8 @@ class RowTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerROW
-     *
-     * @param mixed $expectedResult
-     * @param null|array|string $cellReference
      */
-    public function testROW($expectedResult, $cellReference = null): void
+    public function testROW(mixed $expectedResult, null|array|string $cellReference = null): void
     {
         $result = LookupRef\RowColumnInformation::ROW($cellReference);
         self::assertSame($expectedResult, $result);

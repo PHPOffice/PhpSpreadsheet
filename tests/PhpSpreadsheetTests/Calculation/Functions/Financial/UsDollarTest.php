@@ -6,10 +6,8 @@ class UsDollarTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerUSDOLLAR
-     *
-     * @param mixed $expectedResult
      */
-    public function testUSDOLLAR($expectedResult, ...$args): void
+    public function testUSDOLLAR(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('USDOLLAR', $expectedResult, $args);
     }

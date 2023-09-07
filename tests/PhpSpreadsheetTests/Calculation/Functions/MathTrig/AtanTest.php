@@ -8,10 +8,8 @@ class AtanTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerAtan
-     *
-     * @param mixed $expectedResult
      */
-    public function testAtan($expectedResult, string $formula): void
+    public function testAtan(mixed $expectedResult, string $formula): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

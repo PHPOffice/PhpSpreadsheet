@@ -8,10 +8,8 @@ class IfNaTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerIFNA
-     *
-     * @param mixed $expectedResult
      */
-    public function testIFNA($expectedResult, ...$args): void
+    public function testIFNA(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('IFNA', $expectedResult, ...$args);
     }

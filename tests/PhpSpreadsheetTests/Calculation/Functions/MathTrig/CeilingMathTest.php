@@ -8,11 +8,8 @@ class CeilingMathTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerCEILINGMATH
-     *
-     * @param mixed $expectedResult
-     * @param string $formula
      */
-    public function testCEILINGMATH($expectedResult, $formula): void
+    public function testCEILINGMATH(mixed $expectedResult, string $formula): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

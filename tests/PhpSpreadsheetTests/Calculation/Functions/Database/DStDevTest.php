@@ -9,13 +9,8 @@ class DStDevTest extends SetupTeardownDatabases
 {
     /**
      * @dataProvider providerDStDev
-     *
-     * @param mixed $expectedResult
-     * @param mixed $database
-     * @param mixed $field
-     * @param mixed $criteria
      */
-    public function testDirectCallToDStDev($expectedResult, $database, $field, $criteria): void
+    public function testDirectCallToDStDev(float|string $expectedResult, array $database, ?string $field, array $criteria): void
     {
         $result = DStDev::evaluate($database, $field, $criteria);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
@@ -23,13 +18,8 @@ class DStDevTest extends SetupTeardownDatabases
 
     /**
      * @dataProvider providerDStDev
-     *
-     * @param mixed $expectedResult
-     * @param mixed $database
-     * @param mixed $field
-     * @param mixed $criteria
      */
-    public function testDStDevAsWorksheetFormula($expectedResult, $database, $field, $criteria): void
+    public function testDStDevAsWorksheetFormula(float|string $expectedResult, array $database, ?string $field, array $criteria): void
     {
         $this->prepareWorksheetWithFormula('DSTDEV', $database, $field, $criteria);
 

@@ -8,11 +8,8 @@ class AbsTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerAbs
-     *
-     * @param mixed $expectedResult
-     * @param mixed $number
      */
-    public function testAbs($expectedResult, $number = 'omitted'): void
+    public function testAbs(mixed $expectedResult, mixed $number = 'omitted'): void
     {
         $sheet = $this->getSheet();
         $this->mightHaveException($expectedResult);

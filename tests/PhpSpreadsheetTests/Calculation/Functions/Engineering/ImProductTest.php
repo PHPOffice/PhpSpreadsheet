@@ -28,10 +28,8 @@ class ImProductTest extends TestCase
 
     /**
      * @dataProvider providerIMPRODUCT
-     *
-     * @param mixed $expectedResult
      */
-    public function testDirectCallToIMPRODUCT($expectedResult, ...$args): void
+    public function testDirectCallToIMPRODUCT(mixed $expectedResult, mixed ...$args): void
     {
         /** @scrutinizer ignore-call */
         $result = ComplexOperations::IMPRODUCT(...$args);
@@ -48,10 +46,8 @@ class ImProductTest extends TestCase
 
     /**
      * @dataProvider providerIMPRODUCT
-     *
-     * @param mixed $expectedResult
      */
-    public function testIMPRODUCTAsFormula($expectedResult, ...$args): void
+    public function testIMPRODUCTAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -67,10 +63,8 @@ class ImProductTest extends TestCase
 
     /**
      * @dataProvider providerIMPRODUCT
-     *
-     * @param mixed $expectedResult
      */
-    public function testIMPRODUCTInWorksheet($expectedResult, ...$args): void
+    public function testIMPRODUCTInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -98,7 +92,7 @@ class ImProductTest extends TestCase
     /**
      * @dataProvider providerUnhappyIMPRODUCT
      */
-    public function testIMPRODUCTUnhappyPath(string $expectedException, ...$args): void
+    public function testIMPRODUCTUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 

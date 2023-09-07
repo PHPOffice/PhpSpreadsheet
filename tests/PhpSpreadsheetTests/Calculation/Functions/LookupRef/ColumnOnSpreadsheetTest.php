@@ -8,11 +8,8 @@ class ColumnOnSpreadsheetTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerCOLUMNonSpreadsheet
-     *
-     * @param mixed $expectedResult
-     * @param string $cellReference
      */
-    public function testColumnOnSpreadsheet($expectedResult, $cellReference = 'omitted'): void
+    public function testColumnOnSpreadsheet(mixed $expectedResult, string $cellReference = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

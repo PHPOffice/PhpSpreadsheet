@@ -32,10 +32,8 @@ class ReadFilterTest extends AbstractFunctional
      * Test load Xlsx file with many empty cells with no filter used.
      *
      * @dataProvider providerCellsValues
-     *
-     * @param mixed $format
      */
-    public function testXlsxLoadWithoutReadFilter($format, array $arrayData): void
+    public function testXlsxLoadWithoutReadFilter(mixed $format, array $arrayData): void
     {
         $spreadsheet = new Spreadsheet();
 
@@ -59,10 +57,8 @@ class ReadFilterTest extends AbstractFunctional
      * Test load Xlsx file with many empty cells (and big max row number) with readfilter.
      *
      * @dataProvider providerCellsValues
-     *
-     * @param mixed $format
      */
-    public function testXlsxLoadWithReadFilter($format, array $arrayData): void
+    public function testXlsxLoadWithReadFilter(mixed $format, array $arrayData): void
     {
         $spreadsheet = new Spreadsheet();
         $spreadsheet->getActiveSheet()->fromArray($arrayData, null, 'A1');

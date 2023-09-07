@@ -33,10 +33,8 @@ class WeekNumTest extends TestCase
 
     /**
      * @dataProvider providerWEEKNUM
-     *
-     * @param mixed $expectedResult
      */
-    public function testDirectCallToWEEKNUM($expectedResult, ...$args): void
+    public function testDirectCallToWEEKNUM(mixed $expectedResult, mixed ...$args): void
     {
         /** @scrutinizer ignore-call */
         $result = Week::number(...$args);
@@ -45,10 +43,8 @@ class WeekNumTest extends TestCase
 
     /**
      * @dataProvider providerWEEKNUM
-     *
-     * @param mixed $expectedResult
      */
-    public function testWEEKNUMAsFormula($expectedResult, ...$args): void
+    public function testWEEKNUMAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -61,10 +57,8 @@ class WeekNumTest extends TestCase
 
     /**
      * @dataProvider providerWEEKNUM
-     *
-     * @param mixed $expectedResult
      */
-    public function testWEEKNUMInWorksheet($expectedResult, ...$args): void
+    public function testWEEKNUMInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -89,7 +83,7 @@ class WeekNumTest extends TestCase
     /**
      * @dataProvider providerUnhappyWEEKNUM
      */
-    public function testWEEKNUMUnhappyPath(string $expectedException, ...$args): void
+    public function testWEEKNUMUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -116,10 +110,8 @@ class WeekNumTest extends TestCase
 
     /**
      * @dataProvider providerWEEKNUM1904
-     *
-     * @param mixed $expectedResult
      */
-    public function testWEEKNUMWith1904Calendar($expectedResult, ...$args): void
+    public function testWEEKNUMWith1904Calendar(mixed $expectedResult, mixed ...$args): void
     {
         SharedDate::setExcelCalendar(SharedDate::CALENDAR_MAC_1904);
 

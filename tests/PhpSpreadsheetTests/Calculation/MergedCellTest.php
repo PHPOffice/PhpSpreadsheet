@@ -11,11 +11,9 @@ use PHPUnit\Framework\TestCase;
 class MergedCellTest extends TestCase
 {
     /**
-     * @param mixed $expectedResult
-     *
      * @dataProvider providerWorksheetFormulaeColumns
      */
-    public function testMergedCellColumns(string $formula, $expectedResult): void
+    public function testMergedCellColumns(string $formula, mixed $expectedResult): void
     {
         $spreadSheet = new Spreadsheet();
 
@@ -53,11 +51,9 @@ class MergedCellTest extends TestCase
     }
 
     /**
-     * @param mixed $expectedResult
-     *
      * @dataProvider providerWorksheetFormulaeRows
      */
-    public function testMergedCellRows(string $formula, $expectedResult): void
+    public function testMergedCellRows(string $formula, mixed $expectedResult): void
     {
         $spreadSheet = new Spreadsheet();
 

@@ -6,10 +6,8 @@ class VarATest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerVARA
-     *
-     * @param mixed $expectedResult
      */
-    public function testVARA($expectedResult, ...$args): void
+    public function testVARA(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('VARA', $expectedResult, ...$args);
     }
@@ -21,10 +19,8 @@ class VarATest extends AllSetupTeardown
 
     /**
      * @dataProvider providerOdsVARA
-     *
-     * @param mixed $expectedResult
      */
-    public function testOdsVARA($expectedResult, ...$args): void
+    public function testOdsVARA(mixed $expectedResult, mixed ...$args): void
     {
         $this->setOpenOffice();
         $this->runTestCases('VARA', $expectedResult, ...$args);

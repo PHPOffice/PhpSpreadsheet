@@ -6,10 +6,8 @@ class PvTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerPV
-     *
-     * @param mixed $expectedResult
      */
-    public function testPV($expectedResult, array $args): void
+    public function testPV(mixed $expectedResult, array $args): void
     {
         $this->runTestCase('PV', $expectedResult, $args);
     }

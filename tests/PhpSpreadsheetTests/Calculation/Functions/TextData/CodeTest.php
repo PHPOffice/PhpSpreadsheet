@@ -8,11 +8,8 @@ class CodeTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerCODE
-     *
-     * @param mixed $expectedResult
-     * @param mixed $character
      */
-    public function testCODE($expectedResult, $character = 'omitted'): void
+    public function testCODE(mixed $expectedResult, mixed $character = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

@@ -30,10 +30,8 @@ class Hex2DecTest extends TestCase
 
     /**
      * @dataProvider providerHEX2DEC
-     *
-     * @param mixed $expectedResult
      */
-    public function testDirectCallToHEX2DEC($expectedResult, ...$args): void
+    public function testDirectCallToHEX2DEC(mixed $expectedResult, mixed ...$args): void
     {
         /** @scrutinizer ignore-call */
         $result = ConvertHex::toDecimal(...$args);
@@ -47,10 +45,8 @@ class Hex2DecTest extends TestCase
 
     /**
      * @dataProvider providerHEX2DEC
-     *
-     * @param mixed $expectedResult
      */
-    public function testHEX2DECAsFormula($expectedResult, ...$args): void
+    public function testHEX2DECAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -63,10 +59,8 @@ class Hex2DecTest extends TestCase
 
     /**
      * @dataProvider providerHEX2DEC
-     *
-     * @param mixed $expectedResult
      */
-    public function testHEX2DECInWorksheet($expectedResult, ...$args): void
+    public function testHEX2DECInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -91,7 +85,7 @@ class Hex2DecTest extends TestCase
     /**
      * @dataProvider providerUnhappyHEX2DEC
      */
-    public function testHEX2DECUnhappyPath(string $expectedException, ...$args): void
+    public function testHEX2DECUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -118,10 +112,8 @@ class Hex2DecTest extends TestCase
 
     /**
      * @dataProvider providerHEX2DECOds
-     *
-     * @param mixed $expectedResult
      */
-    public function testHEX2DECOds($expectedResult, ...$args): void
+    public function testHEX2DECOds(mixed $expectedResult, mixed ...$args): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
 

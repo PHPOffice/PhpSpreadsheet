@@ -8,12 +8,8 @@ class CombinTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerCOMBIN
-     *
-     * @param mixed $expectedResult
-     * @param mixed $numObjs
-     * @param mixed $numInSet
      */
-    public function testCOMBIN($expectedResult, $numObjs, $numInSet): void
+    public function testCOMBIN(mixed $expectedResult, mixed $numObjs, mixed $numInSet): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

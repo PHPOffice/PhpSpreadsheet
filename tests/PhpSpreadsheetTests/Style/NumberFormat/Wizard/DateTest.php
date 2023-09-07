@@ -13,7 +13,7 @@ class DateTest extends TestCase
      * @param null|string|string[] $separators
      * @param string[] $formatBlocks
      */
-    public function testDate(string $expectedResult, $separators = null, array $formatBlocks = []): void
+    public function testDate(string $expectedResult, string|array|null $separators = null, array $formatBlocks = []): void
     {
         $wizard = new Date($separators, ...$formatBlocks);
         self::assertSame($expectedResult, (string) $wizard);
