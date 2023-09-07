@@ -1473,7 +1473,7 @@ class Html extends BaseWriter
      * @param int $row Row number (0-based)
      * @param string $cellType eg: 'td'
      */
-    private function generateRow(Worksheet $worksheet, array $values, int $row, $cellType): string
+    private function generateRow(Worksheet $worksheet, array $values, int $row, string $cellType): string
     {
         // Sheet index
         $sheetIndex = $worksheet->getParentOrThrow()->getIndex($worksheet);

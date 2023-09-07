@@ -467,11 +467,9 @@ class Xls extends BaseReader
     /**
      * Reads names of the worksheets from a file, without parsing the whole file to a PhpSpreadsheet object.
      *
-     * @param string $filename
-     *
      * @return array
      */
-    public function listWorksheetNames($filename)
+    public function listWorksheetNames(string $filename)
     {
         File::assertFile($filename);
 
@@ -529,11 +527,9 @@ class Xls extends BaseReader
     /**
      * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
      *
-     * @param string $filename
-     *
      * @return array
      */
-    public function listWorksheetInfo($filename)
+    public function listWorksheetInfo(string $filename)
     {
         File::assertFile($filename);
 
@@ -1394,10 +1390,8 @@ class Xls extends BaseReader
 
     /**
      * Use OLE reader to extract the relevant data streams from the OLE file.
-     *
-     * @param string $filename
      */
-    private function loadOLE($filename): void
+    private function loadOLE(string $filename): void
     {
         // OLE reader
         $ole = new OLERead();
@@ -5257,7 +5251,7 @@ class Xls extends BaseReader
      *
      * @return string Human readable formula
      */
-    private function getFormulaFromData(string $formulaData, string $additionalData = '', $baseCell = 'A1'): string
+    private function getFormulaFromData(string $formulaData, string $additionalData = '', string $baseCell = 'A1'): string
     {
         // start parsing the formula data
         $tokens = [];
@@ -5454,7 +5448,7 @@ class Xls extends BaseReader
      *
      * @return array
      */
-    private function getNextToken(string $formulaData, $baseCell = 'A1')
+    private function getNextToken(string $formulaData, string $baseCell = 'A1')
     {
         // offset: 0; size: 1; token id
         $id = ord($formulaData[0]); // token id
@@ -7227,7 +7221,7 @@ class Xls extends BaseReader
      *
      * @return string Cell range address
      */
-    private function readBIFF8CellRangeAddressB(string $subData, $baseCell = 'A1'): string
+    private function readBIFF8CellRangeAddressB(string $subData, string $baseCell = 'A1'): string
     {
         [$baseCol, $baseRow] = Coordinate::indexesFromString($baseCell);
         $baseCol = $baseCol - 1;

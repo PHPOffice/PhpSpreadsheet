@@ -88,11 +88,9 @@ class Ods extends BaseReader
     /**
      * Reads names of the worksheets from a file, without parsing the whole file to a PhpSpreadsheet object.
      *
-     * @param string $filename
-     *
      * @return string[]
      */
-    public function listWorksheetNames($filename)
+    public function listWorksheetNames(string $filename)
     {
         File::assertFile($filename, self::INITIAL_FILE);
 
@@ -139,11 +137,9 @@ class Ods extends BaseReader
     /**
      * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
      *
-     * @param string $filename
-     *
      * @return array
      */
-    public function listWorksheetInfo($filename)
+    public function listWorksheetInfo(string $filename)
     {
         File::assertFile($filename, self::INITIAL_FILE);
 
@@ -248,11 +244,9 @@ class Ods extends BaseReader
     /**
      * Loads PhpSpreadsheet from file into PhpSpreadsheet instance.
      *
-     * @param string $filename
-     *
      * @return Spreadsheet
      */
-    public function loadIntoExisting($filename, Spreadsheet $spreadsheet)
+    public function loadIntoExisting(string $filename, Spreadsheet $spreadsheet)
     {
         File::assertFile($filename, self::INITIAL_FILE);
 

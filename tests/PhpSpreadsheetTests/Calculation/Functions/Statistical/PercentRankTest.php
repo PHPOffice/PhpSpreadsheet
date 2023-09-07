@@ -11,7 +11,7 @@ class PercentRankTest extends AllSetupTeardown
      *
      * @param mixed[] $valueSet
      */
-    public function testPERCENTRANK(mixed $expectedResult, $valueSet, mixed $value, mixed $digits = null): void
+    public function testPERCENTRANK(mixed $expectedResult, mixed $valueSet, mixed $value, mixed $digits = null): void
     {
         if ($digits === null) {
             $this->runTestCaseReference('PERCENTRANK', $expectedResult, $valueSet, $value);

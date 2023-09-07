@@ -218,13 +218,12 @@ class Extract
 
     /**
      * @param null|array|string $delimiter
-     * @param int $matchMode
      * @param int $matchEnd
      * @param mixed $ifNotFound
      *
      * @return array|string
      */
-    private static function validateTextBeforeAfter(string $text, $delimiter, int $instance, $matchMode, $matchEnd, $ifNotFound)
+    private static function validateTextBeforeAfter(string $text, $delimiter, int $instance, int $matchMode, $matchEnd, $ifNotFound)
     {
         $flags = self::matchFlags($matchMode);
         $delimiter = self::buildDelimiter($delimiter);

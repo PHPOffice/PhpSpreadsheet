@@ -32,7 +32,7 @@ class NonPeriodic
      *
      * @return float|string
      */
-    public static function rate($values, $dates, $guess = self::DEFAULT_GUESS)
+    public static function rate(array $values, array $dates, $guess = self::DEFAULT_GUESS)
     {
         $rslt = self::xirrPart1($values, $dates);
         if ($rslt !== '') {

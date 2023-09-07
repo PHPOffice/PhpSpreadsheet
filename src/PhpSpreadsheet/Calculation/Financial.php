@@ -1290,7 +1290,7 @@ class Financial
      *
      * @return float|mixed|string
      */
-    public static function XIRR($values, $dates, $guess = 0.1)
+    public static function XIRR(array $values, array $dates, $guess = 0.1)
     {
         return Financial\CashFlow\Variable\NonPeriodic::rate($values, $dates, $guess);
     }

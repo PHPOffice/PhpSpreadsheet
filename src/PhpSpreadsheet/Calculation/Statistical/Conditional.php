@@ -183,13 +183,12 @@ class Conditional
      * Excel Function:
      *        SUMIF(range, criteria, [sum_range])
      *
-     * @param mixed $range Data values
-     * @param mixed $sumRange
+     * @param array $range Data values
      * @param mixed $condition
      *
      * @return null|float|string
      */
-    public static function SUMIF($range, $condition, $sumRange = [])
+    public static function SUMIF(array $range, $condition, array $sumRange = [])
     {
         $database = self::databaseFromRangeAndValue($range, $sumRange);
         $condition = [[self::CONDITION_COLUMN_NAME, self::VALUE_COLUMN_NAME], [$condition, null]];

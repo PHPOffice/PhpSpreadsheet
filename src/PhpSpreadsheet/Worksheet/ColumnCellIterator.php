@@ -47,7 +47,7 @@ class ColumnCellIterator extends CellIterator
      * @param int $startRow The row number at which to start iterating
      * @param int $endRow Optionally, the row number at which to stop iterating
      */
-    public function __construct(Worksheet $worksheet, $columnIndex = 'A', $startRow = 1, $endRow = null)
+    public function __construct(Worksheet $worksheet, $columnIndex = 'A', int $startRow = 1, $endRow = null)
     {
         // Set subject
         $this->worksheet = $worksheet;

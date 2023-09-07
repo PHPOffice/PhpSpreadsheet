@@ -233,7 +233,7 @@ abstract class Coordinate
      *
      * @return array Range dimension (width, height)
      */
-    public static function rangeDimension($range)
+    public static function rangeDimension(string $range)
     {
         // Calculate range outer borders
         [$rangeStart, $rangeEnd] = self::rangeBoundaries($range);
@@ -249,7 +249,7 @@ abstract class Coordinate
      * @return array Range coordinates [Start Cell, End Cell]
      *                    where Start Cell and End Cell are arrays [Column ID, Row Number]
      */
-    public static function getRangeBoundaries($range)
+    public static function getRangeBoundaries(string $range)
     {
         [$rangeA, $rangeB] = self::rangeBoundaries($range);
 

@@ -206,7 +206,7 @@ class Xls
      *
      * @return null|array
      */
-    public static function oneAnchor2twoAnchor(Worksheet $worksheet, $coordinates, $offsetX, $offsetY, $width, $height)
+    public static function oneAnchor2twoAnchor(Worksheet $worksheet, string $coordinates, $offsetX, $offsetY, $width, $height)
     {
         [$col_start, $row] = Coordinate::indexesFromString($coordinates);
         $row_start = $row - 1;

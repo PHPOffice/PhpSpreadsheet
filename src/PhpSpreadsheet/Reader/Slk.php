@@ -132,11 +132,9 @@ class Slk extends BaseReader
     /**
      * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
      *
-     * @param string $filename
-     *
      * @return array
      */
-    public function listWorksheetInfo($filename)
+    public function listWorksheetInfo(string $filename)
     {
         // Open file
         $this->canReadOrBust($filename);
@@ -504,11 +502,9 @@ class Slk extends BaseReader
     /**
      * Loads PhpSpreadsheet from file into PhpSpreadsheet instance.
      *
-     * @param string $filename
-     *
      * @return Spreadsheet
      */
-    public function loadIntoExisting($filename, Spreadsheet $spreadsheet)
+    public function loadIntoExisting(string $filename, Spreadsheet $spreadsheet)
     {
         // Open file
         $this->canReadOrBust($filename);

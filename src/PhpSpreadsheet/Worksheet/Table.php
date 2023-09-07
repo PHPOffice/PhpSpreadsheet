@@ -412,7 +412,7 @@ class Table
      *
      * @return int The offset of the specified column within the table range
      */
-    public function getColumnOffset($column): int
+    public function getColumnOffset(string $column): int
     {
         return $this->isColumnInRange($column);
     }

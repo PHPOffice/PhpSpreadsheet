@@ -470,12 +470,11 @@ class Font
     /**
      * Get approximate width in pixels for a string of text in a certain font at a certain rotation angle.
      *
-     * @param string $columnText
      * @param int $rotation
      *
      * @return int Text width in pixels (no padding added)
      */
-    public static function getTextWidthPixelsApprox($columnText, FontStyle $font, $rotation = 0): int
+    public static function getTextWidthPixelsApprox(string $columnText, FontStyle $font, $rotation = 0): int
     {
         $fontName = $font->getName();
         $fontSize = $font->getSize();

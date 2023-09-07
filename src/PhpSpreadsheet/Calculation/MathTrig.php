@@ -762,13 +762,12 @@ class MathTrig
      *      Use the SUMIF() method in the Statistical\Conditional class instead
      * @see Statistical\Conditional::SUMIF()
      *
-     * @param mixed $range Data values
+     * @param array $range Data values
      * @param string $criteria the criteria that defines which cells will be summed
-     * @param mixed $sumRange
      *
      * @return null|float|string
      */
-    public static function SUMIF($range, $criteria, $sumRange = [])
+    public static function SUMIF(array $range, $criteria, array $sumRange = [])
     {
         return Statistical\Conditional::SUMIF($range, $criteria, $sumRange);
     }

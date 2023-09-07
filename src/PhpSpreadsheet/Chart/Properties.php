@@ -611,11 +611,9 @@ abstract class Properties
     /**
      * Set Shadow Presets Properties.
      *
-     * @param int $presets
-     *
      * @return $this
      */
-    protected function setShadowPresetsProperties($presets)
+    protected function setShadowPresetsProperties(int $presets)
     {
         $this->shadowProperties['presets'] = $presets;
         $this->setShadowPropertiesMapValues($this->getShadowPresetsMap($presets));
@@ -780,11 +778,10 @@ abstract class Properties
     /**
      * Set Line Color Properties.
      *
-     * @param string $value
      * @param ?int $alpha
      * @param ?string $colorType
      */
-    public function setLineColorProperties($value, $alpha = null, $colorType = null): void
+    public function setLineColorProperties(?string $value, $alpha = null, ?string $colorType = null): void
     {
         $this->activateObject();
         $this->lineColor->setColorPropertiesArray(

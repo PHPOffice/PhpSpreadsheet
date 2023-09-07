@@ -939,7 +939,7 @@ class Workbook extends BIFFwriter
      * @param string $format Custom format string
      * @param int $ifmt Format index code
      */
-    private function writeNumberFormat($format, $ifmt): void
+    private function writeNumberFormat(string $format, $ifmt): void
     {
         $record = 0x041E; // Record identifier
 

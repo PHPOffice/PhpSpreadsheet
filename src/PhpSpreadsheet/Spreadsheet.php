@@ -760,7 +760,7 @@ class Spreadsheet implements JsonSerializable
      *
      * @return int New sheet index
      */
-    public function setIndexByName($worksheetName, $newIndexPosition)
+    public function setIndexByName(string $worksheetName, $newIndexPosition)
     {
         $oldIndex = $this->getIndex($this->getSheetByNameOrThrow($worksheetName));
         $worksheet = array_splice(

@@ -3339,10 +3339,7 @@ class Calculation
     /** @var ?array */
     private static $functionReplaceToLocale;
 
-    /**
-     * @param string $formula
-     */
-    public function _translateFormulaToLocale($formula): string
+    public function _translateFormulaToLocale(string $formula): string
     {
         // Build list of function names and constants for translation
         if (self::$functionReplaceFromExcel === null) {
@@ -3380,10 +3377,7 @@ class Calculation
     /** @var ?array */
     private static $functionReplaceToExcel;
 
-    /**
-     * @param string $formula
-     */
-    public function _translateFormulaToEnglish($formula): string
+    public function _translateFormulaToEnglish(string $formula): string
     {
         if (self::$functionReplaceFromLocale === null) {
             self::$functionReplaceFromLocale = [];
@@ -5256,11 +5250,10 @@ class Calculation
     /**
      * @param mixed $operand1
      * @param mixed $operand2
-     * @param string $operation
      *
      * @return array
      */
-    private function executeArrayComparison($operand1, $operand2, $operation, Stack &$stack, bool $recursingArrays)
+    private function executeArrayComparison($operand1, $operand2, string $operation, Stack &$stack, bool $recursingArrays)
     {
         $result = [];
         if (!is_array($operand2)) {
@@ -5302,11 +5295,10 @@ class Calculation
     /**
      * @param mixed $operand1
      * @param mixed $operand2
-     * @param string $operation
      *
      * @return mixed
      */
-    private function executeBinaryComparisonOperation($operand1, $operand2, $operation, Stack &$stack, bool $recursingArrays = false)
+    private function executeBinaryComparisonOperation($operand1, $operand2, string $operation, Stack &$stack, bool $recursingArrays = false)
     {
         //    If we're dealing with matrix operations, we want a matrix result
         if ((is_array($operand1)) || (is_array($operand2))) {
@@ -5484,7 +5476,7 @@ class Calculation
      *
      * @return mixed Array of values in range if range contains more than one element. Otherwise, a single value is returned.
      */
-    public function extractCellRange(&$range = 'A1', ?Worksheet $worksheet = null, $resetLog = true)
+    public function extractCellRange(&$range = 'A1', ?Worksheet $worksheet = null, bool $resetLog = true)
     {
         // Return value
         $returnValue = [];
@@ -5536,7 +5528,7 @@ class Calculation
      *
      * @return mixed Array of values in range if range contains more than one element. Otherwise, a single value is returned.
      */
-    public function extractNamedRange(string &$range = 'A1', ?Worksheet $worksheet = null, $resetLog = true)
+    public function extractNamedRange(string &$range = 'A1', ?Worksheet $worksheet = null, bool $resetLog = true)
     {
         // Return value
         $returnValue = [];

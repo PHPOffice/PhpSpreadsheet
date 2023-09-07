@@ -45,7 +45,7 @@ class RowIterator implements NativeIterator
      * @param int $startRow The row number at which to start iterating
      * @param int $endRow Optionally, the row number at which to stop iterating
      */
-    public function __construct(Worksheet $subject, $startRow = 1, $endRow = null)
+    public function __construct(Worksheet $subject, int $startRow = 1, $endRow = null)
     {
         // Set subject
         $this->subject = $subject;
