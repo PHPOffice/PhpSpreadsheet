@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Html;
 
 use PhpOffice\PhpSpreadsheet\Reader\Html;
@@ -57,43 +59,43 @@ class Issue2029Test extends TestCase
                   </th>
                   <th class="text-center">
                       Apellido y Nombre
-                  </th>                        
+                  </th>
                   <th class="text-center">
                       Obra Social
                   </th>
                   <th class="text-center">
                     Corresponde Reducci&oacute;n?
-                  </th>                        
+                  </th>
                 </tr>
-                
+
                 <tr>
                     <td class="text-center">
                       12345678901
                     </td>
                     <td class="text-center">
                       EMILIANO ZAPATA SALAZAR
-                    </td>                        
+                    </td>
                     <td class="text-center">
                       101208
                     </td>
                     <td class="text-center">
                       Yes
-                    </td>                        
+                    </td>
                 </tr>
-                
+
                 <tr>
                     <td class="text-center">
                       23456789012
                     </td>
                     <td class="text-center">
                       FRANCISCO PANCHO VILLA
-                    </td>                        
+                    </td>
                     <td class="text-center">
                       101208
                     </td>
                     <td class="text-center">
                       No
-                    </td>                        
+                    </td>
                 </tr>
               </table>
             </body>

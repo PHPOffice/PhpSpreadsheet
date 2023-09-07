@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     ['#VALUE!', 'y', 3],
     ['#VALUE!', 3, 'y'],

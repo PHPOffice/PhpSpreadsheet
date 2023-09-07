@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // nominal_rate, npery, Result
 
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;

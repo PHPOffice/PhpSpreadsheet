@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Financial\Helpers;

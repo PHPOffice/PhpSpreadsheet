@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
 use DateTimeImmutable;
@@ -41,7 +43,7 @@ class DateValueTest extends TestCase
         Functions::setReturnDateType($this->returnDateType);
     }
 
-    private function expectationIsTemplate(string $expectedResult): bool
+    private function expectationIsTemplate(mixed $expectedResult): bool
     {
         return is_string($expectedResult) && substr($expectedResult, 0, 2) === 'Y-';
     }

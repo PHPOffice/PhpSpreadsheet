@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     [0.9087887802741, 42, 40, 1.5, true],
     [0.109340049784, 42, 40, 1.5, false],

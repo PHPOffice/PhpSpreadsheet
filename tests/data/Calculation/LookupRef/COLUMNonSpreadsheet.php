@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     'current column' => [2, 'omitted'],
     'global name $E$2:$E$6' => [5, 'namedrangex'],

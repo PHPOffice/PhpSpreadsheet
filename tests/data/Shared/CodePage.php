@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     // ANSI Latin I (BIFF4-BIFF7)
     [

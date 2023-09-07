@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     [19.3333333333333, 1],
     [12, 2],

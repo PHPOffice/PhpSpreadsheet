@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Helper;
 
 use PhpOffice\PhpSpreadsheet\Exception;

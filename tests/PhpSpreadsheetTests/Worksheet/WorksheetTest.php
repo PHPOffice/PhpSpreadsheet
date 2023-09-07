@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
 use Exception;
@@ -607,7 +609,7 @@ class WorksheetTest extends TestCase
 
         $cellRange = new CellRange(new CellAddress($fromCell), new CellAddress($toCell));
 
-        self::assertSame($expected, $worksheet->rangeToArray($cellRange));
+        self::assertSame($expected, $worksheet->rangeToArray((string) $cellRange));
     }
 
     public static function rangeToArrayProvider(): array

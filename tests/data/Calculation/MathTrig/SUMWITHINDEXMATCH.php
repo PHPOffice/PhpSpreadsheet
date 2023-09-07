@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     [
         64, '=SUM(4 * INDEX(Lookup!B2, MATCH(A2, Lookup!A2, 0)))',

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Security;
 
 use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;

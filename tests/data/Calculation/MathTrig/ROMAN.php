@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     ['XLIX', '49'],
     ['L', '50'],

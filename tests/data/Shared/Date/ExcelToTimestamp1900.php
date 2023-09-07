@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // Excel DateTimeStamp  Result            Comments
 return [
     // PHP 32-bit Earliest Date 14-Dec-1901
