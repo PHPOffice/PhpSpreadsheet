@@ -586,7 +586,7 @@ class Table
      * toString method replicates previous behavior by returning the range if object is
      * referenced as a property of its worksheet.
      */
-    public function __toString()
+    public function __toString(): string
     {
         return (string) $this->range;
     }

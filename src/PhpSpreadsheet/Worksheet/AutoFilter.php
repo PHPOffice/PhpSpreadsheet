@@ -1109,7 +1109,7 @@ class AutoFilter
      * toString method replicates previous behavior by returning the range if object is
      * referenced as a property of its parent.
      */
-    public function __toString()
+    public function __toString(): string
     {
         return (string) $this->range;
     }

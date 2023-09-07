@@ -45,7 +45,7 @@ class Size
         return $this->unit;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->size . $this->unit;
     }

@@ -159,7 +159,7 @@ class CellAddress
      *     (ie. if a Worksheet was provided to the constructor).
      *     e.g. "'Mark''s Worksheet'!C5".
      */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->fullCellAddress();
     }
