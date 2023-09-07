@@ -12,7 +12,6 @@ use PhpOffice\PhpSpreadsheet\RichText\Run;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Shared\Xls;
 use PhpOffice\PhpSpreadsheet\Style\Border;
-use PhpOffice\PhpSpreadsheet\Style\Color;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Style\Protection;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
@@ -2175,17 +2174,17 @@ class Worksheet extends BIFFwriter
      *
      * @param int $row The row we are going to insert the bitmap into
      * @param int $col The column we are going to insert the bitmap into
-     * @param mixed $bitmap The bitmap filename or GD-image resource
+     * @param GdImage|string $bitmap The bitmap filename or GD-image resource
      * @param int $x the horizontal position (offset) of the image inside the cell
      * @param int $y the vertical position (offset) of the image inside the cell
      * @param float $scale_x The horizontal scale
      * @param float $scale_y The vertical scale
      */
-    public function insertBitmap($row, $col, $bitmap, $x = 0, $y = 0, $scale_x = 1, $scale_y = 1): void
+    public function insertBitmap($row, $col, GdImage|string $bitmap, $x = 0, $y = 0, $scale_x = 1, $scale_y = 1): void
     {
-        $bitmap_array = (is_resource($bitmap) || $bitmap instanceof GdImage
+        $bitmap_array = $bitmap instanceof GdImage
             ? $this->processBitmapGd($bitmap)
-            : $this->processBitmap($bitmap));
+            : $this->processBitmap($bitmap);
         [$width, $height, $size, $data] = $bitmap_array;
 
         // Scale the frame of the image.
@@ -2391,11 +2390,11 @@ class Worksheet extends BIFFwriter
     /**
      * Convert a GD-image into the internal format.
      *
-     * @param GdImage|resource $image The image to process
+     * @param GdImage $image The image to process
      *
      * @return array Array with data and properties of the bitmap
      */
-    public function processBitmapGd($image)
+    public function processBitmapGd(GdImage $image)
     {
         $width = imagesx($image);
         $height = imagesy($image);

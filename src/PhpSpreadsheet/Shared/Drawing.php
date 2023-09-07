@@ -159,13 +159,11 @@ class Drawing
      *
      * @param string $bmpFilename Path to Windows DIB (BMP) image
      *
-     * @return GdImage|resource
-     *
      * @deprecated 1.26 use Php function imagecreatefrombmp instead
      *
      * @codeCoverageIgnore
      */
-    public static function imagecreatefrombmp($bmpFilename)
+    public static function imagecreatefrombmp($bmpFilename): GdImage
     {
         $retVal = @imagecreatefrombmp($bmpFilename);
         if ($retVal === false) {
