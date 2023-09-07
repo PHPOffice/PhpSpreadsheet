@@ -15,10 +15,8 @@ class DataValidator
      * Does this cell contain valid value?
      *
      * @param Cell $cell Cell to check the value
-     *
-     * @return bool
      */
-    public function isValid(Cell $cell)
+    public function isValid(Cell $cell): bool
     {
         if (!$cell->hasDataValidation() || $cell->getDataValidation()->getType() === DataValidation::TYPE_NONE) {
             return true;
@@ -86,10 +84,8 @@ class DataValidator
      * Does this cell contain valid value, based on list?
      *
      * @param Cell $cell Cell to check the value
-     *
-     * @return bool
      */
-    private function isValueInList(Cell $cell)
+    private function isValueInList(Cell $cell): bool
     {
         $cellValue = $cell->getValue();
         $dataValidation = $cell->getDataValidation();

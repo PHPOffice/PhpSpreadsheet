@@ -351,7 +351,7 @@ class Color extends Supervisor
      *
      * @return string The adjusted colour as an RGBA or RGB value (e.g. FF00CCCC or CCDDEE)
      */
-    public static function changeBrightness($hexColourValue, $adjustPercentage)
+    public static function changeBrightness($hexColourValue, $adjustPercentage): string
     {
         $rgba = (strlen($hexColourValue) === 8);
         $adjustPercentage = max(-1.0, min(1.0, $adjustPercentage));

@@ -23,50 +23,40 @@ class Sample
 {
     /**
      * Returns whether we run on CLI or browser.
-     *
-     * @return bool
      */
-    public function isCli()
+    public function isCli(): bool
     {
         return PHP_SAPI === 'cli';
     }
 
     /**
      * Return the filename currently being executed.
-     *
-     * @return string
      */
-    public function getScriptFilename()
+    public function getScriptFilename(): string
     {
         return basename($_SERVER['SCRIPT_FILENAME'], '.php');
     }
 
     /**
      * Whether we are executing the index page.
-     *
-     * @return bool
      */
-    public function isIndex()
+    public function isIndex(): bool
     {
         return $this->getScriptFilename() === 'index';
     }
 
     /**
      * Return the page title.
-     *
-     * @return string
      */
-    public function getPageTitle()
+    public function getPageTitle(): string
     {
         return $this->isIndex() ? 'PHPSpreadsheet' : $this->getScriptFilename();
     }
 
     /**
      * Return the page heading.
-     *
-     * @return string
      */
-    public function getPageHeading()
+    public function getPageHeading(): string
     {
         return $this->isIndex() ? '' : '<h1>' . str_replace('_', ' ', $this->getScriptFilename()) . '</h1>';
     }
@@ -154,10 +144,8 @@ class Sample
 
     /**
      * Returns the temporary directory and make sure it exists.
-     *
-     * @return string
      */
-    public function getTemporaryFolder()
+    public function getTemporaryFolder(): string
     {
         $tempFolder = sys_get_temp_dir() . '/phpspreadsheet';
         if (!$this->isDirOrMkdir($tempFolder)) {
@@ -184,10 +172,8 @@ class Sample
      * Return a random temporary file name.
      *
      * @param string $extension
-     *
-     * @return string
      */
-    public function getTemporaryFilename($extension = 'xlsx')
+    public function getTemporaryFilename($extension = 'xlsx'): string
     {
         $temporaryFilename = tempnam($this->getTemporaryFolder(), 'phpspreadsheet-');
         if ($temporaryFilename === false) {

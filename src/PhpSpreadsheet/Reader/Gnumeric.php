@@ -186,10 +186,8 @@ class Gnumeric extends BaseReader
 
     /**
      * @param string $filename
-     *
-     * @return string
      */
-    private function gzfileGetContents($filename)
+    private function gzfileGetContents($filename): string
     {
         $data = '';
         $contents = @file_get_contents($filename);

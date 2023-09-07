@@ -123,10 +123,8 @@ class Axis extends Properties
 
     /**
      * Get Axis Number Source Linked.
-     *
-     * @return string
      */
-    public function getAxisNumberSourceLinked()
+    public function getAxisNumberSourceLinked(): string
     {
         return (string) $this->axisNumber['source_linked'];
     }
@@ -242,10 +240,8 @@ class Axis extends Properties
      * Get Fill Property.
      *
      * @param string $property
-     *
-     * @return string
      */
-    public function getFillProperty($property)
+    public function getFillProperty($property): string
     {
         return (string) $this->fillColor->getColorProperty($property);
     }

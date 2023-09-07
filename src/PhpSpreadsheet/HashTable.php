@@ -101,10 +101,8 @@ class HashTable
 
     /**
      * Count.
-     *
-     * @return int
      */
-    public function count()
+    public function count(): int
     {
         return count($this->items);
     }
@@ -114,7 +112,7 @@ class HashTable
      *
      * @return false|int Index
      */
-    public function getIndexForHashCode(string $hashCode)
+    public function getIndexForHashCode(string $hashCode): int|bool
     {
         // Scrutinizer thinks the following could return string. It is wrong.
         return array_search($hashCode, $this->keyMap, true);

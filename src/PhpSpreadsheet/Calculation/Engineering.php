@@ -1054,10 +1054,8 @@ class Engineering
      * @see ComplexOperations::IMSUM()
      *
      * @param string ...$complexNumbers Series of complex numbers to add
-     *
-     * @return string
      */
-    public static function IMSUM(...$complexNumbers)
+    public static function IMSUM(...$complexNumbers): string
     {
         return ComplexOperations::IMSUM(...$complexNumbers);
     }
@@ -1075,10 +1073,8 @@ class Engineering
      * @see ComplexOperations::IMPRODUCT()
      *
      * @param string ...$complexNumbers Series of complex numbers to multiply
-     *
-     * @return string
      */
-    public static function IMPRODUCT(...$complexNumbers)
+    public static function IMPRODUCT(...$complexNumbers): string
     {
         return ComplexOperations::IMPRODUCT(...$complexNumbers);
     }

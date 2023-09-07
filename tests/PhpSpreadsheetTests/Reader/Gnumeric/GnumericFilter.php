@@ -7,7 +7,7 @@ use PhpOffice\PhpSpreadsheet\Reader\IReadFilter;
 /**  Define a Read Filter class implementing IReadFilter  */
 class GnumericFilter implements IReadFilter
 {
-    public function readCell($columnAddress, $row, $worksheetName = '')
+    public function readCell($columnAddress, $row, $worksheetName = ''): bool
     {
         return $row !== 4;
     }

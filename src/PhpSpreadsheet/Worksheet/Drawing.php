@@ -43,10 +43,8 @@ class Drawing extends BaseDrawing
 
     /**
      * Get Filename.
-     *
-     * @return string
      */
-    public function getFilename()
+    public function getFilename(): string
     {
         return basename($this->path);
     }
@@ -61,10 +59,8 @@ class Drawing extends BaseDrawing
 
     /**
      * Get Extension.
-     *
-     * @return string
      */
-    public function getExtension()
+    public function getExtension(): string
     {
         $exploded = explode('.', basename($this->path));
 
@@ -73,10 +69,8 @@ class Drawing extends BaseDrawing
 
     /**
      * Get full filepath to store drawing in zip archive.
-     *
-     * @return string
      */
-    public function getMediaFilename()
+    public function getMediaFilename(): string
     {
         if (!array_key_exists($this->type, self::IMAGE_TYPES_CONVERTION_MAP)) {
             throw new PhpSpreadsheetException('Unsupported image type in comment background. Supported types: PNG, JPEG, BMP, GIF.');
@@ -165,7 +159,7 @@ class Drawing extends BaseDrawing
      *
      * @return string Hash code
      */
-    public function getHashCode()
+    public function getHashCode(): string
     {
         return md5(
             $this->path .

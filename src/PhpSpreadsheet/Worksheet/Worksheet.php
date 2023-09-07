@@ -474,7 +474,7 @@ class Worksheet implements IComparable
      *
      * @return string The valid string
      */
-    private static function checkSheetCodeName($sheetCodeName)
+    private static function checkSheetCodeName($sheetCodeName): string
     {
         $charCount = Shared\StringHelper::countCharacters($sheetCodeName);
         if ($charCount == 0) {
@@ -504,7 +504,7 @@ class Worksheet implements IComparable
      *
      * @return string The valid string
      */
-    private static function checkSheetTitle($sheetTitle)
+    private static function checkSheetTitle($sheetTitle): string
     {
         // Some of the printable ASCII characters are invalid:  * : / \ ? [ ]
         if (str_replace(self::$invalidCharacters, '', $sheetTitle) !== $sheetTitle) {
@@ -634,7 +634,7 @@ class Worksheet implements IComparable
      *
      * @return int The number of charts
      */
-    public function getChartCount()
+    public function getChartCount(): int
     {
         return count($this->chartCollection);
     }
@@ -734,7 +734,7 @@ class Worksheet implements IComparable
      *
      * @return string String containing the dimension of this worksheet
      */
-    public function calculateWorksheetDimension()
+    public function calculateWorksheetDimension(): string
     {
         // Return
         return 'A1:' . $this->getHighestColumn() . $this->getHighestRow();
@@ -745,7 +745,7 @@ class Worksheet implements IComparable
      *
      * @return string String containing the dimension of this worksheet that actually contain data
      */
-    public function calculateWorksheetDataDimension()
+    public function calculateWorksheetDataDimension(): string
     {
         // Return
         return 'A1:' . $this->getHighestDataColumn() . $this->getHighestDataRow();
@@ -3541,10 +3541,8 @@ class Worksheet implements IComparable
      * Hyperlink at a specific coordinate exists?
      *
      * @param string $coordinate eg: 'A1'
-     *
-     * @return bool
      */
-    public function hyperlinkExists($coordinate)
+    public function hyperlinkExists($coordinate): bool
     {
         return isset($this->hyperlinkCollection[$coordinate]);
     }
@@ -3601,10 +3599,8 @@ class Worksheet implements IComparable
      * Data validation at a specific coordinate exists?
      *
      * @param string $coordinate eg: 'A1'
-     *
-     * @return bool
      */
-    public function dataValidationExists($coordinate)
+    public function dataValidationExists($coordinate): bool
     {
         return isset($this->dataValidationCollection[$coordinate]);
     }
@@ -3626,7 +3622,7 @@ class Worksheet implements IComparable
      *
      * @return string Adjusted range value
      */
-    public function shrinkRangeToFit($range)
+    public function shrinkRangeToFit($range): string
     {
         $maxCol = $this->getHighestColumn();
         $maxRow = $this->getHighestRow();
@@ -3683,10 +3679,8 @@ class Worksheet implements IComparable
 
     /**
      * Tab color set?
-     *
-     * @return bool
      */
-    public function isTabColorSet()
+    public function isTabColorSet(): bool
     {
         return $this->tabColor !== null;
     }
@@ -3866,10 +3860,8 @@ class Worksheet implements IComparable
 
     /**
      * Sheet has a code name ?
-     *
-     * @return bool
      */
-    public function hasCodeName()
+    public function hasCodeName(): bool
     {
         return $this->codeName !== null;
     }

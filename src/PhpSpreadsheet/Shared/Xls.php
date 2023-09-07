@@ -61,7 +61,7 @@ class Xls
      *
      * @return int The width in pixels
      */
-    public static function sizeRow(Worksheet $worksheet, $row = 1)
+    public static function sizeRow(Worksheet $worksheet, $row = 1): int
     {
         // default font of the workbook
         $font = $worksheet->getParentOrThrow()->getDefaultStyle()->getFont();
@@ -136,7 +136,7 @@ class Xls
      *
      * @return int Vertical distance measured in pixels
      */
-    public static function getDistanceY(Worksheet $worksheet, $startRow = 1, $startOffsetY = 0, $endRow = 1, $endOffsetY = 0)
+    public static function getDistanceY(Worksheet $worksheet, $startRow = 1, $startOffsetY = 0, $endRow = 1, $endOffsetY = 0): int
     {
         $distanceY = 0;
 

@@ -735,10 +735,8 @@ class Ods extends BaseReader
 
     /**
      * Recursively scan element.
-     *
-     * @return string
      */
-    protected function scanElementForText(DOMNode $element)
+    protected function scanElementForText(DOMNode $element): string
     {
         $str = '';
         foreach ($element->childNodes as $child) {

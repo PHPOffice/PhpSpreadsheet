@@ -435,10 +435,8 @@ class ConvertUOM
     /**
      *    getConversionGroups
      * Returns a list of the different conversion groups for UOM conversions.
-     *
-     * @return array
      */
-    public static function getConversionCategories()
+    public static function getConversionCategories(): array
     {
         $conversionGroups = [];
         foreach (self::$conversionUnits as $conversionUnit) {

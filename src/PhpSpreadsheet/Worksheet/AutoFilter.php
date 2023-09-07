@@ -381,10 +381,8 @@ class AutoFilter
      *
      * @param mixed $cellValue
      * @param mixed[] $ruleSet
-     *
-     * @return bool
      */
-    protected static function filterTestInCustomDataSet($cellValue, $ruleSet)
+    protected static function filterTestInCustomDataSet($cellValue, $ruleSet): bool
     {
         /** @var array[] */
         $dataSet = $ruleSet['filterRules'];
@@ -506,10 +504,8 @@ class AutoFilter
      *
      * @param mixed $cellValue
      * @param mixed[] $monthSet
-     *
-     * @return bool
      */
-    protected static function filterTestInPeriodDateSet($cellValue, $monthSet)
+    protected static function filterTestInPeriodDateSet($cellValue, $monthSet): bool
     {
         //    Blank cells are always ignored, so return a FALSE
         if (($cellValue == '') || ($cellValue === null)) {

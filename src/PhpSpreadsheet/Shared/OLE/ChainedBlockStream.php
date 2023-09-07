@@ -49,7 +49,7 @@ class ChainedBlockStream
      *
      * @return bool true on success
      */
-    public function stream_open($path, $mode, $options, &$openedPath) // @codingStandardsIgnoreLine
+    public function stream_open($path, $mode, $options, &$openedPath): bool // @codingStandardsIgnoreLine
     {
         if ($mode[0] !== 'r') {
             if ($options & STREAM_REPORT_ERRORS) {
@@ -133,7 +133,7 @@ class ChainedBlockStream
      *
      * @return bool TRUE if the file pointer is at EOF; otherwise FALSE
      */
-    public function stream_eof() // @codingStandardsIgnoreLine
+    public function stream_eof(): bool // @codingStandardsIgnoreLine
     {
         return $this->pos >= strlen($this->data);
     }
@@ -154,10 +154,8 @@ class ChainedBlockStream
      *
      * @param int $offset byte offset
      * @param int $whence SEEK_SET, SEEK_CUR or SEEK_END
-     *
-     * @return bool
      */
-    public function stream_seek($offset, $whence) // @codingStandardsIgnoreLine
+    public function stream_seek($offset, $whence): bool // @codingStandardsIgnoreLine
     {
         if ($whence == SEEK_SET && $offset >= 0) {
             $this->pos = $offset;

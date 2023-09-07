@@ -269,10 +269,8 @@ class Statistical
      * @see Statistical\Counts::COUNT()
      *
      * @param mixed ...$args Data values
-     *
-     * @return int
      */
-    public static function COUNT(...$args)
+    public static function COUNT(...$args): int
     {
         return Counts::COUNT(...$args);
     }
@@ -290,10 +288,8 @@ class Statistical
      * @see Statistical\Counts::COUNTA()
      *
      * @param mixed ...$args Data values
-     *
-     * @return int
      */
-    public static function COUNTA(...$args)
+    public static function COUNTA(...$args): int
     {
         return Counts::COUNTA(...$args);
     }
@@ -311,10 +307,8 @@ class Statistical
      * @see Statistical\Counts::COUNTBLANK()
      *
      * @param mixed $range Data values
-     *
-     * @return int
      */
-    public static function COUNTBLANK($range)
+    public static function COUNTBLANK($range): int
     {
         return Counts::COUNTBLANK($range);
     }

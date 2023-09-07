@@ -83,10 +83,8 @@ class RichText implements IComparable
 
     /**
      * Get plain text.
-     *
-     * @return string
      */
-    public function getPlainText()
+    public function getPlainText(): string
     {
         // Return value
         $returnValue = '';
@@ -138,7 +136,7 @@ class RichText implements IComparable
      *
      * @return string Hash code
      */
-    public function getHashCode()
+    public function getHashCode(): string
     {
         $hashElements = '';
         foreach ($this->richTextElements as $element) {

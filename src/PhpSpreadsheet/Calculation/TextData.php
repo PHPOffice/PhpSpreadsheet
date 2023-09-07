@@ -81,10 +81,8 @@ class TextData
      * @see TextData\Concatenate::CONCATENATE()
      *
      * @param array $args
-     *
-     * @return string
      */
-    public static function CONCATENATE(...$args)
+    public static function CONCATENATE(...$args): string
     {
         return TextData\Concatenate::CONCATENATE(...$args);
     }

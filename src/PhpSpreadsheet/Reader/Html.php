@@ -1062,10 +1062,8 @@ class Html extends BaseReader
      * Check if has #, so we can get clean hex.
      *
      * @param mixed $value
-     *
-     * @return null|string
      */
-    public function getStyleColor($value)
+    public function getStyleColor($value): string
     {
         $value = (string) $value;
         if (strpos($value, '#') === 0) {

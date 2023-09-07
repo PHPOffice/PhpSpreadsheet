@@ -695,7 +695,7 @@ class Style extends Supervisor
      *
      * @return string Hash code
      */
-    public function getHashCode()
+    public function getHashCode(): string
     {
         return md5(
             $this->fill->getHashCode() .

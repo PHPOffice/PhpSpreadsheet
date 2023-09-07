@@ -20,7 +20,7 @@ class DateTime
      *
      * @return bool TRUE if the year is a leap year, otherwise FALSE
      */
-    public static function isLeapYear($year)
+    public static function isLeapYear($year): bool
     {
         return DateTimeExcel\Helpers::isLeapYear($year);
     }

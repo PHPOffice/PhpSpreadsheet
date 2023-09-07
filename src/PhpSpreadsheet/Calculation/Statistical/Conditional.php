@@ -90,7 +90,7 @@ class Conditional
         // Filter out any empty values that shouldn't be included in a COUNT
         $range = array_filter(
             Functions::flattenArray($range),
-            function ($value) {
+            function ($value): bool {
                 return $value !== null && $value !== '';
             }
         );

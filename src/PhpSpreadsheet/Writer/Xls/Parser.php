@@ -562,10 +562,8 @@ class Parser
      * Convert a number token to ptgInt or ptgNum.
      *
      * @param mixed $num an integer or double for conversion to its ptg value
-     *
-     * @return string
      */
-    private function convertNumber($num)
+    private function convertNumber($num): string
     {
         // Integer in the range 0..2**16-1
         if ((preg_match('/^\\d+$/', $num)) && ($num <= 65535)) {
@@ -590,9 +588,9 @@ class Parser
      *
      * @param string $string a string for conversion to its ptg value
      *
-     * @return mixed the converted token on success
+     * @return string the converted token
      */
-    private function convertString($string)
+    private function convertString($string): string
     {
         // chop away beggining and ending quotes
         $string = substr($string, 1, -1);
@@ -612,7 +610,7 @@ class Parser
      *
      * @return string The packed ptg for the function
      */
-    private function convertFunction($token, $num_args)
+    private function convertFunction($token, $num_args): string
     {
         $args = $this->functions[$token][1];
 
@@ -630,10 +628,8 @@ class Parser
      *
      * @param string $range An Excel range in the A1:A2
      * @param int $class
-     *
-     * @return string
      */
-    private function convertRange2d($range, $class = 0)
+    private function convertRange2d($range, $class = 0): string
     {
         // TODO: possible class value 0,1,2 check Formula.pm
         // Split the range into 2 cell refs
@@ -668,9 +664,9 @@ class Parser
      *
      * @param string $token an Excel range in the Sheet1!A1:A2 format
      *
-     * @return mixed the packed ptgArea3d token on success
+     * @return string the packed ptgArea3d token on success
      */
-    private function convertRange3d($token)
+    private function convertRange3d($token): string
     {
         // Split the ref at the ! symbol
         [$ext_ref, $range] = PhpspreadsheetWorksheet::extractSheetTitle($token, true);
@@ -702,7 +698,7 @@ class Parser
      *
      * @return string The cell in packed() format with the corresponding ptg
      */
-    private function convertRef2d($cell)
+    private function convertRef2d($cell): string
     {
         // Convert the cell reference
         $cell_array = $this->cellToPackedRowcol($cell);
@@ -720,9 +716,9 @@ class Parser
      *
      * @param string $cell An Excel cell reference
      *
-     * @return mixed the packed ptgRef3d token on success
+     * @return string the packed ptgRef3d token on success
      */
-    private function convertRef3d($cell)
+    private function convertRef3d($cell): string
     {
         // Split the ref at the ! symbol
         [$ext_ref, $cell] = PhpspreadsheetWorksheet::extractSheetTitle($cell, true);
@@ -746,7 +742,7 @@ class Parser
      *
      * @return string The error code ptgErr
      */
-    private function convertError($errorCode)
+    private function convertError($errorCode): string
     {
         switch ($errorCode) {
             case '#NULL!':
@@ -803,9 +799,9 @@ class Parser
      *
      * @param string $ext_ref The name of the external reference
      *
-     * @return mixed The reference index in packed() format on success
+     * @return string The reference index in packed() format on success
      */
-    private function getRefIndex($ext_ref)
+    private function getRefIndex($ext_ref): string
     {
         $ext_ref = (string) preg_replace(["/^'/", "/'$/"], ['', ''], $ext_ref); // Remove leading and trailing ' if any.
         $ext_ref = str_replace('\'\'', '\'', $ext_ref); // Replace escaped '' with '
@@ -1144,9 +1140,9 @@ class Parser
      * @param string $formula the formula to parse, without the initial equal
      *                        sign (=)
      *
-     * @return mixed true on success
+     * @return bool true on success
      */
-    public function parse($formula)
+    public function parse($formula): bool
     {
         $this->currentCharacter = 0;
         $this->formula = (string) $formula;
@@ -1493,7 +1489,7 @@ class Parser
      *
      * @return string The tree in reverse polish notation
      */
-    public function toReversePolish($tree = [])
+    public function toReversePolish($tree = []): string
     {
         $polish = ''; // the string we are going to return
         if (empty($tree)) { // If it's the first call use parseTree

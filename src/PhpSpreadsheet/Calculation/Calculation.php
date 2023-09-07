@@ -3018,7 +3018,7 @@ class Calculation
      *
      * @return bool Success or failure
      */
-    public static function setArrayReturnType($returnType)
+    public static function setArrayReturnType($returnType): bool
     {
         if (
             ($returnType == self::RETURN_ARRAY_AS_VALUE) ||
@@ -3164,10 +3164,8 @@ class Calculation
      * Set the locale code.
      *
      * @param string $locale The locale to use for formula translation, eg: 'en_us'
-     *
-     * @return bool
      */
-    public function setLocale(string $locale)
+    public function setLocale(string $locale): bool
     {
         //    Identify our locale and language
         $language = $locale = strtolower($locale);
@@ -3343,10 +3341,8 @@ class Calculation
 
     /**
      * @param string $formula
-     *
-     * @return string
      */
-    public function _translateFormulaToLocale($formula)
+    public function _translateFormulaToLocale($formula): string
     {
         // Build list of function names and constants for translation
         if (self::$functionReplaceFromExcel === null) {
@@ -3386,10 +3382,8 @@ class Calculation
 
     /**
      * @param string $formula
-     *
-     * @return string
      */
-    public function _translateFormulaToEnglish($formula)
+    public function _translateFormulaToEnglish($formula): string
     {
         if (self::$functionReplaceFromLocale === null) {
             self::$functionReplaceFromLocale = [];
@@ -3976,10 +3970,8 @@ class Calculation
      * Format type and details of an operand for display in the log (based on operand type).
      *
      * @param mixed $value First matrix operand
-     *
-     * @return null|string
      */
-    private function showTypeDetails($value)
+    private function showTypeDetails($value): ?string
     {
         if ($this->debugLog->getWriteDebugLog()) {
             $testArray = Functions::flattenArray($value);
@@ -5224,10 +5216,8 @@ class Calculation
     /**
      * @param mixed $operand
      * @param mixed $stack
-     *
-     * @return bool
      */
-    private function validateBinaryOperand(&$operand, &$stack)
+    private function validateBinaryOperand(&$operand, &$stack): bool
     {
         if (is_array($operand)) {
             if ((count($operand, COUNT_RECURSIVE) - count($operand)) == 1) {
@@ -5476,7 +5466,7 @@ class Calculation
      *
      * @return false
      */
-    protected function raiseFormulaError(string $errorMessage, int $code = 0, ?Throwable $exception = null)
+    protected function raiseFormulaError(string $errorMessage, int $code = 0, ?Throwable $exception = null): bool
     {
         $this->formulaError = $errorMessage;
         $this->cyclicReferenceStack->clear();
@@ -5607,10 +5597,8 @@ class Calculation
      * Is a specific function implemented?
      *
      * @param string $function Function Name
-     *
-     * @return bool
      */
-    public function isImplemented($function)
+    public function isImplemented($function): bool
     {
         $function = strtoupper($function);
         $notImplemented = !isset(self::$phpSpreadsheetFunctions[$function]) || (is_array(self::$phpSpreadsheetFunctions[$function]['functionCall']) && self::$phpSpreadsheetFunctions[$function]['functionCall'][1] === 'DUMMY');

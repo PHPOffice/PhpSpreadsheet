@@ -66,7 +66,7 @@ class Root extends PPS
      *
      * @return bool true on success
      */
-    public function save($fileHandle)
+    public function save($fileHandle): bool
     {
         $this->fileHandle = $fileHandle;
 
@@ -141,11 +141,9 @@ class Root extends PPS
      *
      * @param int $i2 The argument
      *
-     * @return float
-     *
      * @see save()
      */
-    private static function adjust2($i2)
+    private static function adjust2($i2): float
     {
         $iWk = log($i2) / log(2);
 
@@ -267,10 +265,8 @@ class Root extends PPS
      * get small data (PPS's with data smaller than \PhpOffice\PhpSpreadsheet\Shared\OLE::OLE_DATA_SIZE_SMALL).
      *
      * @param array $raList Reference to array of PPS's
-     *
-     * @return string
      */
-    private function makeSmallData(&$raList)
+    private function makeSmallData(&$raList): string
     {
         $sRes = '';
         $FILE = $this->fileHandle;

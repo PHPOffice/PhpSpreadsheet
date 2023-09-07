@@ -288,10 +288,8 @@ class StringHelper
      * element or in the shared string <t> element.
      *
      * @param string $textValue Value to unescape
-     *
-     * @return string
      */
-    public static function controlCharacterOOXML2PHP($textValue)
+    public static function controlCharacterOOXML2PHP($textValue): string
     {
         self::buildCharacterSets();
 
@@ -310,10 +308,8 @@ class StringHelper
      * element or in the shared string <t> element.
      *
      * @param string $textValue Value to escape
-     *
-     * @return string
      */
-    public static function controlCharacterPHP2OOXML($textValue)
+    public static function controlCharacterPHP2OOXML($textValue): string
     {
         self::buildCharacterSets();
 

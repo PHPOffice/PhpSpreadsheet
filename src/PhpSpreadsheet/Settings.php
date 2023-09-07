@@ -53,7 +53,7 @@ class Settings
      *
      * @return bool Success or failure
      */
-    public static function setLocale(string $locale)
+    public static function setLocale(string $locale): bool
     {
         return Calculation::getInstance()->setLocale($locale);
     }

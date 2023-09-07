@@ -9,7 +9,7 @@ use PhpOffice\PhpSpreadsheet\Reader\IReadFilter;
  */
 class OddColumnReadFilter implements IReadFilter
 {
-    public function readCell($columnAddress, $row, $worksheetName = '')
+    public function readCell($columnAddress, $row, $worksheetName = ''): bool
     {
         return (\ord(\substr($columnAddress, -1, 1)) % 2) === 1;
     }

@@ -1345,7 +1345,7 @@ class Xls extends BaseReader
      *
      * @return string Record data
      */
-    private function readRecordData($data, $pos, $len)
+    private function readRecordData($data, $pos, $len): string
     {
         $data = substr($data, $pos, $len);
 
@@ -1929,7 +1929,7 @@ class Xls extends BaseReader
      *
      * @return bool Success
      */
-    private function verifyPassword($password, $docid, $salt_data, $hashedsalt_data, &$valContext)
+    private function verifyPassword($password, $docid, $salt_data, $hashedsalt_data, &$valContext): bool
     {
         $pwarray = str_repeat("\0", 64);
 
@@ -5230,7 +5230,7 @@ class Xls extends BaseReader
      *
      * @return string Human readable formula
      */
-    private function getFormulaFromStructure($formulaStructure, $baseCell = 'A1')
+    private function getFormulaFromStructure($formulaStructure, $baseCell = 'A1'): string
     {
         // offset: 0; size: 2; size of the following formula data
         $sz = self::getUInt2d($formulaStructure, 0);
@@ -5257,7 +5257,7 @@ class Xls extends BaseReader
      *
      * @return string Human readable formula
      */
-    private function getFormulaFromData($formulaData, $additionalData = '', $baseCell = 'A1')
+    private function getFormulaFromData($formulaData, $additionalData = '', $baseCell = 'A1'): string
     {
         // start parsing the formula data
         $tokens = [];
@@ -5280,7 +5280,7 @@ class Xls extends BaseReader
      *
      * @return string Human readable formula
      */
-    private function createFormulaFromTokens($tokens, $additionalData)
+    private function createFormulaFromTokens($tokens, $additionalData): string
     {
         // empty formula?
         if (empty($tokens)) {
@@ -7034,10 +7034,8 @@ class Xls extends BaseReader
      * section 3.3.4.
      *
      * @param string $cellAddressStructure
-     *
-     * @return string
      */
-    private function readBIFF8CellAddress($cellAddressStructure)
+    private function readBIFF8CellAddress($cellAddressStructure): string
     {
         // offset: 0; size: 2; index to row (0... 65535) (or offset (-32768... 32767))
         $row = self::getUInt2d($cellAddressStructure, 0) + 1;
@@ -7065,10 +7063,8 @@ class Xls extends BaseReader
      *
      * @param string $cellAddressStructure
      * @param string $baseCell Base cell, only needed when formula contains tRefN tokens, e.g. with shared formulas
-     *
-     * @return string
      */
-    private function readBIFF8CellAddressB($cellAddressStructure, $baseCell = 'A1')
+    private function readBIFF8CellAddressB($cellAddressStructure, $baseCell = 'A1'): string
     {
         [$baseCol, $baseRow] = Coordinate::coordinateFromString($baseCell);
         $baseCol = Coordinate::columnIndexFromString($baseCol) - 1;
@@ -7113,10 +7109,8 @@ class Xls extends BaseReader
      * section 2.5.14.
      *
      * @param string $subData
-     *
-     * @return string
      */
-    private function readBIFF5CellRangeAddressFixed($subData)
+    private function readBIFF5CellRangeAddressFixed($subData): string
     {
         // offset: 0; size: 2; index to first row
         $fr = self::getUInt2d($subData, 0) + 1;
@@ -7152,10 +7146,8 @@ class Xls extends BaseReader
      * section 2.5.14.
      *
      * @param string $subData
-     *
-     * @return string
      */
-    private function readBIFF8CellRangeAddressFixed($subData)
+    private function readBIFF8CellRangeAddressFixed($subData): string
     {
         // offset: 0; size: 2; index to first row
         $fr = self::getUInt2d($subData, 0) + 1;
@@ -7191,10 +7183,8 @@ class Xls extends BaseReader
      * section 3.3.4.
      *
      * @param string $subData
-     *
-     * @return string
      */
-    private function readBIFF8CellRangeAddress($subData)
+    private function readBIFF8CellRangeAddress($subData): string
     {
         // todo: if cell range is just a single cell, should this funciton
         // not just return e.g. 'A1' and not 'A1:A1' ?
@@ -7248,7 +7238,7 @@ class Xls extends BaseReader
      *
      * @return string Cell range address
      */
-    private function readBIFF8CellRangeAddressB($subData, $baseCell = 'A1')
+    private function readBIFF8CellRangeAddressB($subData, $baseCell = 'A1'): string
     {
         [$baseCol, $baseRow] = Coordinate::indexesFromString($baseCell);
         $baseCol = $baseCol - 1;
@@ -7691,10 +7681,8 @@ class Xls extends BaseReader
      * Example:  hello"world  -->  "hello""world".
      *
      * @param string $value UTF-8 encoded string
-     *
-     * @return string
      */
-    private static function UTF8toExcelDoubleQuoted($value)
+    private static function UTF8toExcelDoubleQuoted($value): string
     {
         return '"' . str_replace('"', '""', $value) . '"';
     }
@@ -7765,10 +7753,8 @@ class Xls extends BaseReader
      *
      * @param string $string
      * @param bool $compressed
-     *
-     * @return string
      */
-    private static function encodeUTF16($string, $compressed = false)
+    private static function encodeUTF16($string, $compressed = false): string
     {
         if ($compressed) {
             $string = self::uncompressByteString($string);
@@ -7781,10 +7767,8 @@ class Xls extends BaseReader
      * Convert UTF-16 string in compressed notation to uncompressed form. Only used for BIFF8.
      *
      * @param string $string
-     *
-     * @return string
      */
-    private static function uncompressByteString($string)
+    private static function uncompressByteString($string): string
     {
         $uncompressedString = '';
         $strLen = strlen($string);
@@ -7799,10 +7783,8 @@ class Xls extends BaseReader
      * Convert string to UTF-8. Only used for BIFF5.
      *
      * @param string $string
-     *
-     * @return string
      */
-    private function decodeCodepage($string)
+    private function decodeCodepage($string): string
     {
         return StringHelper::convertEncoding($string, 'UTF-8', $this->codepage);
     }
@@ -7812,10 +7794,8 @@ class Xls extends BaseReader
      *
      * @param string $data
      * @param int $pos
-     *
-     * @return int
      */
-    public static function getUInt2d($data, $pos)
+    public static function getUInt2d($data, $pos): int
     {
         return ord($data[$pos]) | (ord($data[$pos + 1]) << 8);
     }
@@ -7838,10 +7818,8 @@ class Xls extends BaseReader
      *
      * @param string $data
      * @param int $pos
-     *
-     * @return int
      */
-    public static function getInt4d($data, $pos)
+    public static function getInt4d($data, $pos): int
     {
         // FIX: represent numbers correctly on 64-bit system
         // http://sourceforge.net/tracker/index.php?func=detail&aid=1487372&group_id=99160&atid=623334

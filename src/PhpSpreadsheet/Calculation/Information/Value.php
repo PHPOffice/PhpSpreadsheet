@@ -37,10 +37,8 @@ class Value
      * IS_REF.
      *
      * @param mixed $value Value to check
-     *
-     * @return bool
      */
-    public static function isRef($value, ?Cell $cell = null)
+    public static function isRef($value, ?Cell $cell = null): bool
     {
         if ($cell === null || $value === $cell->getCoordinate()) {
             return false;
@@ -281,7 +279,7 @@ class Value
      *
      * @param null|mixed $value The value you want tested
      *
-     * @return number N converts values listed in the following table
+     * @return int N converts values listed in the following table
      *        If value is or refers to N returns
      *        A number            1
      *        Text                2
@@ -289,7 +287,7 @@ class Value
      *        An error value      16
      *        Array or Matrix     64
      */
-    public static function type($value = null)
+    public static function type($value = null): int
     {
         $value = Functions::flattenArrayIndexed($value);
         if (is_array($value) && (count($value) > 1)) {

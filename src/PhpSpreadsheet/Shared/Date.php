@@ -72,7 +72,7 @@ class Date
      *
      * @return bool Success or failure
      */
-    public static function setExcelCalendar($baseYear)
+    public static function setExcelCalendar($baseYear): bool
     {
         if (
             ($baseYear == self::CALENDAR_WINDOWS_1900) ||
@@ -103,7 +103,7 @@ class Date
      *
      * @return bool Success or failure
      */
-    public static function setDefaultTimezone($timeZone)
+    public static function setDefaultTimezone($timeZone): bool
     {
         try {
             $timeZone = self::validateTimeZone($timeZone);
@@ -252,7 +252,7 @@ class Date
      *
      * @return int Unix timetamp for this date/time
      */
-    public static function excelToTimestamp($excelTimestamp, $timeZone = null)
+    public static function excelToTimestamp($excelTimestamp, $timeZone = null): int
     {
         $dto = self::excelToDateTimeObject($excelTimestamp, $timeZone);
         self::roundMicroseconds($dto);
@@ -289,7 +289,7 @@ class Date
      *
      * @return float MS Excel serialized date/time value
      */
-    public static function dateTimeToExcel(DateTimeInterface $dateValue)
+    public static function dateTimeToExcel(DateTimeInterface $dateValue): float
     {
         $seconds = (float) sprintf('%d.%06d', $dateValue->format('s'), $dateValue->format('u'));
 
@@ -333,7 +333,7 @@ class Date
      *
      * @return float Excel date/time value
      */
-    public static function formattedPHPToExcel($year, $month, $day, $hours = 0, $minutes = 0, $seconds = 0)
+    public static function formattedPHPToExcel($year, $month, $day, $hours = 0, $minutes = 0, $seconds = 0): float
     {
         if (self::$excelCalendar == self::CALENDAR_WINDOWS_1900) {
             //
@@ -372,10 +372,8 @@ class Date
      * Is a given cell a date/time?
      *
      * @param mixed $value
-     *
-     * @return bool
      */
-    public static function isDateTime(Cell $cell, $value = null, bool $dateWithoutTimeOkay = true)
+    public static function isDateTime(Cell $cell, $value = null, bool $dateWithoutTimeOkay = true): bool
     {
         $result = false;
         $worksheet = $cell->getWorksheetOrNull();
@@ -404,10 +402,8 @@ class Date
 
     /**
      * Is a given NumberFormat code a date/time format code?
-     *
-     * @return bool
      */
-    public static function isDateTimeFormat(NumberFormat $excelFormatCode, bool $dateWithoutTimeOkay = true)
+    public static function isDateTimeFormat(NumberFormat $excelFormatCode, bool $dateWithoutTimeOkay = true): bool
     {
         return self::isDateTimeFormatCode((string) $excelFormatCode->getFormatCode(), $dateWithoutTimeOkay);
     }
@@ -419,10 +415,8 @@ class Date
      * Is a given number format code a date/time?
      *
      * @param string $excelFormatCode
-     *
-     * @return bool
      */
-    public static function isDateTimeFormatCode($excelFormatCode, bool $dateWithoutTimeOkay = true)
+    public static function isDateTimeFormatCode($excelFormatCode, bool $dateWithoutTimeOkay = true): bool
     {
         if (strtolower($excelFormatCode) === strtolower(NumberFormat::FORMAT_GENERAL)) {
             //    "General" contains an epoch letter 'e', so we trap for it explicitly here (case-insensitive check)

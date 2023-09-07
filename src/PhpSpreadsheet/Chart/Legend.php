@@ -92,10 +92,8 @@ class Legend
      * Get legend position using an excel string value.
      *
      * @param string $position see self::POSITION_*
-     *
-     * @return bool
      */
-    public function setPosition($position)
+    public function setPosition($position): bool
     {
         if (!in_array($position, self::POSITION_XLREF)) {
             return false;
@@ -111,7 +109,7 @@ class Legend
      *
      * @return false|int
      */
-    public function getPositionXL()
+    public function getPositionXL(): int|bool
     {
         // Scrutinizer thinks the following could return string. It is wrong.
         return array_search($this->position, self::POSITION_XLREF);
@@ -121,10 +119,8 @@ class Legend
      * Set legend position using an Excel internal numeric value.
      *
      * @param int $positionXL see self::XL_LEGEND_POSITION_*
-     *
-     * @return bool
      */
-    public function setPositionXL($positionXL)
+    public function setPositionXL($positionXL): bool
     {
         if (!isset(self::POSITION_XLREF[$positionXL])) {
             return false;

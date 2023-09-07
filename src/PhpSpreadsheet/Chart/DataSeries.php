@@ -366,10 +366,8 @@ class DataSeries
 
     /**
      * Get Number of Plot Series.
-     *
-     * @return int
      */
-    public function getPlotSeriesCount()
+    public function getPlotSeriesCount(): int
     {
         return count($this->plotValues);
     }

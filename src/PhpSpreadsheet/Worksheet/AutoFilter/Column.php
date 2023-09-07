@@ -314,10 +314,8 @@ class Column
 
     /**
      * Create a new AutoFilter Column Rule in the ruleset.
-     *
-     * @return Column\Rule
      */
-    public function createRule()
+    public function createRule(): Column\Rule
     {
         $this->setEvaluatedFalse();
         if ($this->filterType === self::AUTOFILTER_FILTERTYPE_CUSTOMFILTER && count($this->ruleset) >= 2) {

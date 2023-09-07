@@ -51,10 +51,8 @@ class MD5
 
     /**
      * Get MD5 stream context.
-     *
-     * @return string
      */
-    public function getContext()
+    public function getContext(): string
     {
         $s = '';
         foreach (['a', 'b', 'c', 'd'] as $i) {

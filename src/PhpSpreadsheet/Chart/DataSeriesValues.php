@@ -367,7 +367,7 @@ class DataSeriesValues extends Properties
      *
      * @return bool true if validation was successful
      */
-    private function validateColor($color)
+    private function validateColor($color): bool
     {
         if (!preg_match('/^[a-f0-9]{6}$/i', $color)) {
             throw new Exception(sprintf('Invalid hex color for chart series (color: "%s")', $color));
@@ -402,10 +402,8 @@ class DataSeriesValues extends Properties
 
     /**
      * Identify if the Data Series is a multi-level or a simple series.
-     *
-     * @return null|bool
      */
-    public function isMultiLevelSeries()
+    public function isMultiLevelSeries(): ?bool
     {
         if (!empty($this->dataValues)) {
             return is_array(array_values($this->dataValues)[0]);

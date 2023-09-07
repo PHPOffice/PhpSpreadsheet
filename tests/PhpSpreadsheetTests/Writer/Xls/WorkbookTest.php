@@ -141,7 +141,7 @@ class WorkbookTest extends TestCase
      *
      * @return string rgb string
      */
-    private function paletteToColor($palette)
+    private function paletteToColor($palette): string
     {
         return $this->right('00' . dechex((int) ($palette[0])), 2)
             . $this->right('00' . dechex((int) ($palette[1])), 2)
@@ -153,10 +153,8 @@ class WorkbookTest extends TestCase
      *
      * @param string $value text to get right character
      * @param int $nbchar number of char at right of string
-     *
-     * @return string
      */
-    private function right($value, $nbchar)
+    private function right($value, $nbchar): string
     {
         return mb_substr($value, mb_strlen($value) - $nbchar, $nbchar);
     }

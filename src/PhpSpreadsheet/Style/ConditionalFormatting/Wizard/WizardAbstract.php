@@ -136,7 +136,7 @@ abstract class WizardAbstract
             if ($i) {
                 $value = (string) preg_replace_callback(
                     '/' . Calculation::CALCULATION_REGEXP_CELLREF_RELATIVE . '/i',
-                    function ($matches) use ($referenceColumnIndex, $referenceRow) {
+                    function ($matches) use ($referenceColumnIndex, $referenceRow): string {
                         return self::reverseCellAdjustment($matches, $referenceColumnIndex, $referenceRow);
                     },
                     $value

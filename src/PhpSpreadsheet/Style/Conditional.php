@@ -325,7 +325,7 @@ class Conditional implements IComparable
      *
      * @return string Hash code
      */
-    public function getHashCode()
+    public function getHashCode(): string
     {
         return md5(
             $this->conditionType .

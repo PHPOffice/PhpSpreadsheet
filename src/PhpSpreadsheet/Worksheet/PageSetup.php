@@ -470,10 +470,8 @@ class PageSetup
 
     /**
      * Is Columns to repeat at left set?
-     *
-     * @return bool
      */
-    public function isColumnsToRepeatAtLeftSet()
+    public function isColumnsToRepeatAtLeftSet(): bool
     {
         if (!empty($this->columnsToRepeatAtLeft)) {
             if ($this->columnsToRepeatAtLeft[0] != '' && $this->columnsToRepeatAtLeft[1] != '') {
@@ -525,10 +523,8 @@ class PageSetup
 
     /**
      * Is Rows to repeat at top set?
-     *
-     * @return bool
      */
-    public function isRowsToRepeatAtTopSet()
+    public function isRowsToRepeatAtTopSet(): bool
     {
         if (!empty($this->rowsToRepeatAtTop)) {
             if ($this->rowsToRepeatAtTop[0] != 0 && $this->rowsToRepeatAtTop[1] != 0) {
@@ -656,10 +652,8 @@ class PageSetup
      *                            Default behaviour, or an index value of 0, will identify whether any print range is set
      *                            Otherwise, existence of the range identified by the value of $index will be returned
      *                            Print areas are numbered from 1
-     *
-     * @return bool
      */
-    public function isPrintAreaSet($index = 0)
+    public function isPrintAreaSet($index = 0): bool
     {
         if ($index == 0) {
             return $this->printArea !== null;

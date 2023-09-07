@@ -44,10 +44,8 @@ class Font
 
     /**
      * Get font record data.
-     *
-     * @return string
      */
-    public function writeFont()
+    public function writeFont(): string
     {
         $font_outline = self::$notImplemented;
         $font_shadow = self::$notImplemented;

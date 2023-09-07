@@ -59,10 +59,8 @@ class ReferenceHelper
      *
      * @param string $a First column to test (e.g. 'AA')
      * @param string $b Second column to test (e.g. 'Z')
-     *
-     * @return int
      */
-    public static function columnSort($a, $b)
+    public static function columnSort($a, $b): int
     {
         return strcasecmp(strlen($a) . $a, strlen($b) . $b);
     }
@@ -73,10 +71,8 @@ class ReferenceHelper
      *
      * @param string $a First column to test (e.g. 'AA')
      * @param string $b Second column to test (e.g. 'Z')
-     *
-     * @return int
      */
-    public static function columnReverseSort(string $a, string $b)
+    public static function columnReverseSort(string $a, string $b): int
     {
         return -strcasecmp(strlen($a) . $a, strlen($b) . $b);
     }
@@ -87,10 +83,8 @@ class ReferenceHelper
      *
      * @param string $a First cell to test (e.g. 'AA1')
      * @param string $b Second cell to test (e.g. 'Z1')
-     *
-     * @return int
      */
-    public static function cellSort(string $a, string $b)
+    public static function cellSort(string $a, string $b): int
     {
         /** @scrutinizer be-damned */
         sscanf($a, '%[A-Z]%d', $ac, $ar);
@@ -113,10 +107,8 @@ class ReferenceHelper
      *
      * @param string $a First cell to test (e.g. 'AA1')
      * @param string $b Second cell to test (e.g. 'Z1')
-     *
-     * @return int
      */
-    public static function cellReverseSort(string $a, string $b)
+    public static function cellReverseSort(string $a, string $b): int
     {
         /** @scrutinizer be-damned */
         sscanf($a, '%[A-Z]%d', $ac, $ar);
@@ -409,10 +401,10 @@ class ReferenceHelper
         // Find missing coordinates. This is important when inserting column before the last column
         $cellCollection = $worksheet->getCellCollection();
         $missingCoordinates = array_filter(
-            array_map(function ($row) use ($highestColumn) {
+            array_map(function ($row) use ($highestColumn): string {
                 return "{$highestColumn}{$row}";
             }, range(1, $highestRow)),
-            function ($coordinate) use ($cellCollection) {
+            function ($coordinate) use ($cellCollection): bool {
                 return $cellCollection->has($coordinate) === false;
             }
         );
@@ -575,7 +567,7 @@ class ReferenceHelper
         $worksheetName = '',
         bool $includeAbsoluteReferences = false,
         bool $onlyAbsoluteReferences = false
-    ) {
+    ): string {
         if (
             $this->cellReferenceHelper === null ||
             $this->cellReferenceHelper->refreshRequired($beforeCellAddress, $numberOfColumns, $numberOfRows)

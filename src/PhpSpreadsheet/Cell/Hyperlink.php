@@ -81,18 +81,13 @@ class Hyperlink
 
     /**
      * Is this hyperlink internal? (to another worksheet).
-     *
-     * @return bool
      */
-    public function isInternal()
+    public function isInternal(): bool
     {
         return strpos($this->url, 'sheet://') !== false;
     }
 
-    /**
-     * @return string
-     */
-    public function getTypeHyperlink()
+    public function getTypeHyperlink(): string
     {
         return $this->isInternal() ? '' : 'External';
     }
@@ -102,7 +97,7 @@ class Hyperlink
      *
      * @return string Hash code
      */
-    public function getHashCode()
+    public function getHashCode(): string
     {
         return md5(
             $this->url .

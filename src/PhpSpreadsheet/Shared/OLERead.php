@@ -190,10 +190,8 @@ class OLERead
      * Extract binary stream data.
      *
      * @param ?int $stream
-     *
-     * @return null|string
      */
-    public function getStream($stream)
+    public function getStream($stream): ?string
     {
         if ($stream === null) {
             return null;
@@ -242,7 +240,7 @@ class OLERead
      *
      * @return string Data for standard stream
      */
-    private function readData($block)
+    private function readData($block): string
     {
         $data = '';
 
@@ -319,10 +317,8 @@ class OLERead
      *
      * @param string $data
      * @param int $pos
-     *
-     * @return int
      */
-    private static function getInt4d($data, $pos)
+    private static function getInt4d($data, $pos): int
     {
         if ($pos < 0) {
             // Invalid position

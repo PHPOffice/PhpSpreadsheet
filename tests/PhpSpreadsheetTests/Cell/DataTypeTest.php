@@ -36,10 +36,8 @@ class DataTypeTest extends TestCase
 
     /**
      * @param int $length
-     *
-     * @return string
      */
-    private function randr($length = 8)
+    private function randr($length = 8): string
     {
         $string = '';
         for ($i = 0; $i < $length; ++$i) {

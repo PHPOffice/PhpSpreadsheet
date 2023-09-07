@@ -260,7 +260,7 @@ class Extract
         if (is_array($delimiter)) {
             $delimiter = Functions::flattenArray($delimiter);
             $quotedDelimiters = array_map(
-                function ($delimiter) {
+                function ($delimiter): string {
                     return preg_quote($delimiter ?? '', '/');
                 },
                 $delimiter

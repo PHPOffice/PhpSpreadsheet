@@ -160,7 +160,7 @@ class Xf
      *
      * @return string The XF record
      */
-    public function writeXf()
+    public function writeXf(): string
     {
         // Set the type of the XF record and some of the attributes.
         if ($this->isStyleXf) {
@@ -387,10 +387,8 @@ class Xf
      * Map locked values.
      *
      * @param string $locked
-     *
-     * @return int
      */
-    private static function mapLocked($locked)
+    private static function mapLocked($locked): int
     {
         return array_key_exists($locked, self::LOCK_ARRAY) ? self::LOCK_ARRAY[$locked] : 1;
     }
@@ -405,10 +403,8 @@ class Xf
      * Map hidden.
      *
      * @param string $hidden
-     *
-     * @return int
      */
-    private static function mapHidden($hidden)
+    private static function mapHidden($hidden): int
     {
         return array_key_exists($hidden, self::HIDDEN_ARRAY) ? self::HIDDEN_ARRAY[$hidden] : 0;
     }

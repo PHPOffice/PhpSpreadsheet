@@ -132,7 +132,7 @@ class Cells
      *
      * @return string[]
      */
-    public function getCoordinates()
+    public function getCoordinates(): array
     {
         return array_keys($this->index);
     }
@@ -142,7 +142,7 @@ class Cells
      *
      * @return string[]
      */
-    public function getSortedCoordinates()
+    public function getSortedCoordinates(): array
     {
         asort($this->index);
 
@@ -270,7 +270,7 @@ class Cells
      *
      * @return string Unique Reference
      */
-    private function getUniqueID()
+    private function getUniqueID(): string
     {
         $cacheType = Settings::getCache();
 

@@ -87,10 +87,8 @@ class Erf
      * Method to calculate the erf value.
      *
      * @param float|int|string $value
-     *
-     * @return float
      */
-    public static function erfValue($value)
+    public static function erfValue($value): float
     {
         $value = (float) $value;
         if (abs($value) > 2.2) {

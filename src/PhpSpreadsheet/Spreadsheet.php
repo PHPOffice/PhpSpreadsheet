@@ -268,7 +268,7 @@ class Spreadsheet implements JsonSerializable
      *
      * @return bool true|false
      */
-    public function hasMacrosCertificate()
+    public function hasMacrosCertificate(): bool
     {
         return $this->macrosCertificate !== null;
     }
@@ -379,10 +379,8 @@ class Spreadsheet implements JsonSerializable
      * return the extension of a filename. Internal use for a array_map callback (php<5.3 don't like lambda function).
      *
      * @param mixed $path
-     *
-     * @return string
      */
-    private function getExtensionOnly($path)
+    private function getExtensionOnly($path): string
     {
         $extension = pathinfo($path, PATHINFO_EXTENSION);
 
@@ -429,20 +427,16 @@ class Spreadsheet implements JsonSerializable
 
     /**
      * This workbook have a custom UI ?
-     *
-     * @return bool
      */
-    public function hasRibbon()
+    public function hasRibbon(): bool
     {
         return $this->ribbonXMLData !== null;
     }
 
     /**
      * This workbook have additionnal object for the ribbon ?
-     *
-     * @return bool
      */
-    public function hasRibbonBinObjects()
+    public function hasRibbonBinObjects(): bool
     {
         return $this->ribbonBinObjects !== null;
     }
@@ -451,10 +445,8 @@ class Spreadsheet implements JsonSerializable
      * Check if a sheet with a specified code name already exists.
      *
      * @param string $codeName Name of the worksheet to check
-     *
-     * @return bool
      */
-    public function sheetCodeNameExists($codeName)
+    public function sheetCodeNameExists($codeName): bool
     {
         return $this->getSheetByCodeName($codeName) !== null;
     }
@@ -609,10 +601,8 @@ class Spreadsheet implements JsonSerializable
      * Check if a sheet with a specified name already exists.
      *
      * @param string $worksheetName Name of the worksheet to check
-     *
-     * @return bool
      */
-    public function sheetNameExists($worksheetName)
+    public function sheetNameExists($worksheetName): bool
     {
         return $this->getSheetByName($worksheetName) !== null;
     }
@@ -790,10 +780,8 @@ class Spreadsheet implements JsonSerializable
 
     /**
      * Get sheet count.
-     *
-     * @return int
      */
-    public function getSheetCount()
+    public function getSheetCount(): int
     {
         return count($this->workSheetCollection);
     }
@@ -919,7 +907,7 @@ class Spreadsheet implements JsonSerializable
     {
         return array_filter(
             $this->definedNames,
-            function (DefinedName $definedName) {
+            function (DefinedName $definedName): bool {
                 return $definedName->isFormula() === self::DEFINED_NAME_IS_RANGE;
             }
         );
@@ -934,7 +922,7 @@ class Spreadsheet implements JsonSerializable
     {
         return array_filter(
             $this->definedNames,
-            function (DefinedName $definedName) {
+            function (DefinedName $definedName): bool {
                 return $definedName->isFormula() === self::DEFINED_NAME_IS_FORMULA;
             }
         );
@@ -1207,10 +1195,8 @@ class Spreadsheet implements JsonSerializable
 
     /**
      * Check if style exists in style collection.
-     *
-     * @return bool
      */
-    public function cellXfExists(Style $cellStyleIndex)
+    public function cellXfExists(Style $cellStyleIndex): bool
     {
         return in_array($cellStyleIndex, $this->cellXfCollection, true);
     }

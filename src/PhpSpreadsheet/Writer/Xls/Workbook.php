@@ -233,7 +233,7 @@ class Workbook extends BIFFwriter
      *
      * @return int Index to XF record
      */
-    public function addXfWriter(Style $style, $isStyleXf = false)
+    public function addXfWriter(Style $style, $isStyleXf = false): int
     {
         $xfWriter = new Xf($style);
         $xfWriter->setIsStyleXf($isStyleXf);
@@ -417,7 +417,7 @@ class Workbook extends BIFFwriter
      *
      * @return string Binary data for workbook stream
      */
-    public function writeWorkbook(array $worksheetSizes)
+    public function writeWorkbook(array $worksheetSizes): string
     {
         $this->worksheetSizes = $worksheetSizes;
 
@@ -731,7 +731,7 @@ class Workbook extends BIFFwriter
      *
      * @return string Complete binary record data
      */
-    private function writeDefinedNameBiff8($name, $formulaData, $sheetIndex = 0, $isBuiltIn = false)
+    private function writeDefinedNameBiff8($name, $formulaData, $sheetIndex = 0, $isBuiltIn = false): string
     {
         $record = 0x0018;
 
@@ -767,7 +767,7 @@ class Workbook extends BIFFwriter
      *
      * @return string Complete binary record data
      * */
-    private function writeShortNameBiff8($name, $sheetIndex, $rangeBounds, $isHidden = false)
+    private function writeShortNameBiff8($name, $sheetIndex, $rangeBounds, $isHidden = false): string
     {
         $record = 0x0018;
 
@@ -1042,7 +1042,7 @@ class Workbook extends BIFFwriter
      *
      * @return string Binary data
      */
-    private function writeSharedStringsTable()
+    private function writeSharedStringsTable(): string
     {
         // maximum size of record data (excluding record header)
         $continue_limit = 8224;

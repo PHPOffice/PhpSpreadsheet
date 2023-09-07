@@ -584,7 +584,7 @@ class Worksheet extends BIFFwriter
      *
      * @return string Binary data
      */
-    private function writeBIFF8CellRangeAddressFixed($range)
+    private function writeBIFF8CellRangeAddressFixed($range): string
     {
         $explodes = explode(':', $range);
 
@@ -663,10 +663,8 @@ class Worksheet extends BIFFwriter
      * @param int $col Zero indexed column
      * @param float $num The number to write
      * @param mixed $xfIndex The optional XF format
-     *
-     * @return int
      */
-    private function writeNumber($row, $col, $num, $xfIndex)
+    private function writeNumber($row, $col, $num, $xfIndex): int
     {
         $record = 0x0203; // Record identifier
         $length = 0x000E; // Number of bytes to follow
@@ -766,10 +764,8 @@ class Worksheet extends BIFFwriter
      * @param int $row Zero indexed row
      * @param int $col Zero indexed column
      * @param mixed $xfIndex The XF format index
-     *
-     * @return int
      */
-    public function writeBlank($row, $col, $xfIndex)
+    public function writeBlank($row, $col, $xfIndex): int
     {
         $record = 0x0201; // Record identifier
         $length = 0x0006; // Number of bytes to follow
@@ -789,10 +785,8 @@ class Worksheet extends BIFFwriter
      * @param int $value
      * @param int $isError Error or Boolean?
      * @param int $xfIndex
-     *
-     * @return int
      */
-    private function writeBoolErr($row, $col, $value, $isError, $xfIndex)
+    private function writeBoolErr($row, $col, $value, $isError, $xfIndex): int
     {
         $record = 0x0205;
         $length = 8;

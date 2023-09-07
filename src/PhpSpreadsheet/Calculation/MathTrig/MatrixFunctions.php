@@ -57,7 +57,7 @@ class MatrixFunctions
      *
      * @return array|string The resulting array, or a string containing an error
      */
-    public static function sequence($rows = 1, $columns = 1, $start = 1, $step = 1)
+    public static function sequence($rows = 1, $columns = 1, $start = 1, $step = 1): string|array
     {
         try {
             $rows = (int) Helpers::validateNumericNullSubstitution($rows, 1);

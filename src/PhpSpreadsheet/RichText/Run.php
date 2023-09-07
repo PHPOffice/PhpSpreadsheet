@@ -54,7 +54,7 @@ class Run extends TextElement implements ITextElement
      *
      * @return string Hash code
      */
-    public function getHashCode()
+    public function getHashCode(): string
     {
         return md5(
             $this->getText() .

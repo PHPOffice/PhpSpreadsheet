@@ -90,10 +90,8 @@ class XMLWriter extends \XMLWriter
      * Wrapper method for writeRaw.
      *
      * @param null|string|string[] $rawTextData
-     *
-     * @return bool
      */
-    public function writeRawData($rawTextData)
+    public function writeRawData($rawTextData): bool
     {
         if (is_array($rawTextData)) {
             $rawTextData = implode("\n", $rawTextData);

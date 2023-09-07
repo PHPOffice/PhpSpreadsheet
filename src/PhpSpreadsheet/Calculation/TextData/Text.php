@@ -121,7 +121,7 @@ class Text
         if ($ignoreEmpty === true) {
             $rows = array_values(array_filter(
                 $rows,
-                function ($row) {
+                function ($row): bool {
                     return $row !== '';
                 }
             ));
@@ -139,7 +139,7 @@ class Text
                     if ($ignoreEmpty === true) {
                         $row = array_values(array_filter(
                             $row,
-                            function ($value) {
+                            function ($value): bool {
                                 return $value !== '';
                             }
                         ));
@@ -149,7 +149,7 @@ class Text
             if ($ignoreEmpty === true) {
                 $rows = array_values(array_filter(
                     $rows,
-                    function ($row) {
+                    function ($row): bool {
                         return $row !== [] && $row !== [''];
                     }
                 ));
@@ -192,7 +192,7 @@ class Text
 
         if (is_array($delimiter) && count($valueSet) > 1) {
             $quotedDelimiters = array_map(
-                function ($delimiter) {
+                function ($delimiter): string {
                     return preg_quote($delimiter ?? '', '/');
                 },
                 $valueSet

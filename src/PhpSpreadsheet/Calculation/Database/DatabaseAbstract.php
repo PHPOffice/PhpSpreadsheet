@@ -115,7 +115,7 @@ abstract class DatabaseAbstract
         }
 
         $rowQuery = array_map(
-            function ($rowValue) {
+            function ($rowValue): string {
                 return (count($rowValue) > 1) ? 'AND(' . implode(',', $rowValue) . ')' : ($rowValue[0] ?? '');
             },
             $baseQuery

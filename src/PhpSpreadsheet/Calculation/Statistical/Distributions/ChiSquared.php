@@ -136,7 +136,7 @@ class ChiSquared
             return ExcelError::NAN();
         }
 
-        $callback = function ($value) use ($degrees) {
+        $callback = function ($value) use ($degrees): float {
             return 1 - (Gamma::incompleteGamma($degrees / 2, $value / 2)
                     / Gamma::gammaValue($degrees / 2));
         };
