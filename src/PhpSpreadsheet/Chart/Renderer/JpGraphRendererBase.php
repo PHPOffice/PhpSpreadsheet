@@ -729,7 +729,7 @@ abstract class JpGraphRendererBase implements IRenderer
         }
     }
 
-    private function renderCombinationChart($groupCount, $outputDestination)
+    private function renderCombinationChart($groupCount, $outputDestination): bool
     {
         $this->renderCartesianPlotArea();
 

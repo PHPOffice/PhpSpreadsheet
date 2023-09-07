@@ -68,7 +68,7 @@ abstract class Coordinate
      *
      * @return bool Whether the coordinate represents a range of cells
      */
-    public static function coordinateIsRange($cellAddress)
+    public static function coordinateIsRange($cellAddress): bool
     {
         return (strpos($cellAddress, ':') !== false) || (strpos($cellAddress, ',') !== false);
     }
