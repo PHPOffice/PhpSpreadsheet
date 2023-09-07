@@ -52,8 +52,7 @@ class DataValidator
         return $returnValue;
     }
 
-    /** @param float|int $cellValue */
-    private function numericOperator(DataValidation $dataValidation, $cellValue): bool
+    private function numericOperator(DataValidation $dataValidation, int|float $cellValue): bool
     {
         $operator = $dataValidation->getOperator();
         $formula1 = $dataValidation->getFormula1();

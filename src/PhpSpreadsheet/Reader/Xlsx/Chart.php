@@ -1255,10 +1255,7 @@ class Chart
         return $plotAttributes;
     }
 
-    /**
-     * @param mixed $plotAttributes
-     */
-    private function setChartAttributes(Layout $plotArea, $plotAttributes): void
+    private function setChartAttributes(Layout $plotArea, array $plotAttributes): void
     {
         foreach ($plotAttributes as $plotAttributeKey => $plotAttributeValue) {
             switch ($plotAttributeKey) {

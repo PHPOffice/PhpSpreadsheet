@@ -34,10 +34,7 @@ class DataTypeTest extends TestCase
         self::assertSame($expected, $result3);
     }
 
-    /**
-     * @param int $length
-     */
-    private function randr($length = 8): string
+    private function randr(int $length = 8): string
     {
         $string = '';
         for ($i = 0; $i < $length; ++$i) {

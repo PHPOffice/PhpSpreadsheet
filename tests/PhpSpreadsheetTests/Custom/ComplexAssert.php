@@ -20,11 +20,7 @@ class ComplexAssert extends TestCase
         parent::__construct('complexAssert');
     }
 
-    /**
-     * @param mixed $expected
-     * @param mixed $actual
-     */
-    private function testExpectedExceptions($expected, $actual): bool
+    private function testExpectedExceptions(string|float $expected, string|float $actual): bool
     {
         //    Expecting an error, so we do a straight string comparison
         if ($expected === $actual) {

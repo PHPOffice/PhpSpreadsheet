@@ -289,11 +289,8 @@ class Content extends WriterPart
 
     /**
      * Write span.
-     *
-     * @param int $curColumn
-     * @param int $prevColumn
      */
-    private function writeCellSpan(XMLWriter $objWriter, $curColumn, $prevColumn): void
+    private function writeCellSpan(XMLWriter $objWriter, int $curColumn, int $prevColumn): void
     {
         $diff = $curColumn - $prevColumn - 1;
         if (1 === $diff) {

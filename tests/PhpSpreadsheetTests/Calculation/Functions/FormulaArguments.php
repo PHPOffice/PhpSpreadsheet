@@ -45,10 +45,7 @@ class FormulaArguments
         return implode(',', $cells);
     }
 
-    /**
-     * @param mixed $value
-     */
-    private function matrixRows($value): string
+    private function matrixRows(array $value): string
     {
         $columns = [];
         foreach ($value as $column) {
@@ -58,10 +55,7 @@ class FormulaArguments
         return implode(',', $columns);
     }
 
-    /**
-     * @param mixed $value
-     */
-    private function makeMatrix($value): string
+    private function makeMatrix(array $value): string
     {
         $matrix = [];
         foreach ($value as $row) {

@@ -663,7 +663,7 @@ class Html extends BaseWriter
      * @param Worksheet $worksheet \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet
      * @param string $coordinates Cell coordinates
      */
-    private function writeImageInCell(Worksheet $worksheet, $coordinates): string
+    private function writeImageInCell(Worksheet $worksheet, string $coordinates): string
     {
         // Construct HTML
         $html = '';
@@ -1172,7 +1172,7 @@ class Html extends BaseWriter
      *
      * @return string
      */
-    private function generateTableHeader(Worksheet $worksheet, $showid = true)
+    private function generateTableHeader(Worksheet $worksheet, bool $showid = true)
     {
         $sheetIndex = $worksheet->getParentOrThrow()->getIndex($worksheet);
 
@@ -1217,7 +1217,7 @@ class Html extends BaseWriter
      * @param int $sheetIndex Sheet index (0-based)
      * @param int $row row number
      */
-    private function generateRowStart(Worksheet $worksheet, $sheetIndex, $row): string
+    private function generateRowStart(Worksheet $worksheet, $sheetIndex, int $row): string
     {
         $html = '';
         if (count($worksheet->getBreaks()) > 0) {
@@ -1473,7 +1473,7 @@ class Html extends BaseWriter
      * @param int $row Row number (0-based)
      * @param string $cellType eg: 'td'
      */
-    private function generateRow(Worksheet $worksheet, array $values, $row, $cellType): string
+    private function generateRow(Worksheet $worksheet, array $values, int $row, $cellType): string
     {
         // Sheet index
         $sheetIndex = $worksheet->getParentOrThrow()->getIndex($worksheet);
@@ -1777,10 +1777,8 @@ class Html extends BaseWriter
      * Write a comment in the same format as LibreOffice.
      *
      * @see https://github.com/LibreOffice/core/blob/9fc9bf3240f8c62ad7859947ab8a033ac1fe93fa/sc/source/filter/html/htmlexp.cxx#L1073-L1092
-     *
-     * @param string $coordinate
      */
-    private function writeComment(Worksheet $worksheet, $coordinate): string
+    private function writeComment(Worksheet $worksheet, string $coordinate): string
     {
         $result = '';
         if (!$this->isPdf && isset($worksheet->getComments()[$coordinate])) {
@@ -1808,10 +1806,8 @@ class Html extends BaseWriter
 
     /**
      * Generate @page declarations.
-     *
-     * @param bool $generateSurroundingHTML
      */
-    private function generatePageDeclarations($generateSurroundingHTML): string
+    private function generatePageDeclarations(bool $generateSurroundingHTML): string
     {
         // Ensure that Spans have been calculated?
         $this->calculateSpans();

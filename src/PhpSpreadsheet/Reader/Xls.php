@@ -1345,7 +1345,7 @@ class Xls extends BaseReader
      *
      * @return string Record data
      */
-    private function readRecordData($data, $pos, $len): string
+    private function readRecordData($data, int $pos, int $len): string
     {
         $data = substr($data, $pos, $len);
 
@@ -1894,7 +1894,7 @@ class Xls extends BaseReader
      *
      * @return Xls\RC4
      */
-    private function makeKey($block, $valContext)
+    private function makeKey(int $block, $valContext)
     {
         $pwarray = str_repeat("\0", 64);
 
@@ -1929,7 +1929,7 @@ class Xls extends BaseReader
      *
      * @return bool Success
      */
-    private function verifyPassword($password, $docid, $salt_data, $hashedsalt_data, &$valContext): bool
+    private function verifyPassword(string $password, string $docid, string $salt_data, string $hashedsalt_data, &$valContext): bool
     {
         $pwarray = str_repeat("\0", 64);
 
@@ -5257,7 +5257,7 @@ class Xls extends BaseReader
      *
      * @return string Human readable formula
      */
-    private function getFormulaFromData($formulaData, $additionalData = '', $baseCell = 'A1'): string
+    private function getFormulaFromData(string $formulaData, string $additionalData = '', $baseCell = 'A1'): string
     {
         // start parsing the formula data
         $tokens = [];
@@ -5275,12 +5275,11 @@ class Xls extends BaseReader
     /**
      * Take array of tokens together with additional data for formula and return human readable formula.
      *
-     * @param array $tokens
      * @param string $additionalData Additional binary data going with the formula
      *
      * @return string Human readable formula
      */
-    private function createFormulaFromTokens($tokens, $additionalData): string
+    private function createFormulaFromTokens(array $tokens, string $additionalData): string
     {
         // empty formula?
         if (empty($tokens)) {
@@ -5455,7 +5454,7 @@ class Xls extends BaseReader
      *
      * @return array
      */
-    private function getNextToken($formulaData, $baseCell = 'A1')
+    private function getNextToken(string $formulaData, $baseCell = 'A1')
     {
         // offset: 0; size: 1; token id
         $id = ord($formulaData[0]); // token id
@@ -7032,10 +7031,8 @@ class Xls extends BaseReader
     /**
      * Reads a cell address in BIFF8 e.g. 'A2' or '$A$2'
      * section 3.3.4.
-     *
-     * @param string $cellAddressStructure
      */
-    private function readBIFF8CellAddress($cellAddressStructure): string
+    private function readBIFF8CellAddress(string $cellAddressStructure): string
     {
         // offset: 0; size: 2; index to row (0... 65535) (or offset (-32768... 32767))
         $row = self::getUInt2d($cellAddressStructure, 0) + 1;
@@ -7061,10 +7058,9 @@ class Xls extends BaseReader
      * to indicate offsets from a base cell
      * section 3.3.4.
      *
-     * @param string $cellAddressStructure
      * @param string $baseCell Base cell, only needed when formula contains tRefN tokens, e.g. with shared formulas
      */
-    private function readBIFF8CellAddressB($cellAddressStructure, $baseCell = 'A1'): string
+    private function readBIFF8CellAddressB(string $cellAddressStructure, $baseCell = 'A1'): string
     {
         [$baseCol, $baseRow] = Coordinate::coordinateFromString($baseCell);
         $baseCol = Coordinate::columnIndexFromString($baseCol) - 1;
@@ -7107,10 +7103,8 @@ class Xls extends BaseReader
      * Reads a cell range address in BIFF5 e.g. 'A2:B6' or 'A1'
      * always fixed range
      * section 2.5.14.
-     *
-     * @param string $subData
      */
-    private function readBIFF5CellRangeAddressFixed($subData): string
+    private function readBIFF5CellRangeAddressFixed(string $subData): string
     {
         // offset: 0; size: 2; index to first row
         $fr = self::getUInt2d($subData, 0) + 1;
@@ -7144,10 +7138,8 @@ class Xls extends BaseReader
      * Reads a cell range address in BIFF8 e.g. 'A2:B6' or 'A1'
      * always fixed range
      * section 2.5.14.
-     *
-     * @param string $subData
      */
-    private function readBIFF8CellRangeAddressFixed($subData): string
+    private function readBIFF8CellRangeAddressFixed(string $subData): string
     {
         // offset: 0; size: 2; index to first row
         $fr = self::getUInt2d($subData, 0) + 1;
@@ -7181,10 +7173,8 @@ class Xls extends BaseReader
      * Reads a cell range address in BIFF8 e.g. 'A2:B6' or '$A$2:$B$6'
      * there are flags indicating whether column/row index is relative
      * section 3.3.4.
-     *
-     * @param string $subData
      */
-    private function readBIFF8CellRangeAddress($subData): string
+    private function readBIFF8CellRangeAddress(string $subData): string
     {
         // todo: if cell range is just a single cell, should this funciton
         // not just return e.g. 'A1' and not 'A1:A1' ?
@@ -7233,12 +7223,11 @@ class Xls extends BaseReader
      * to indicate offsets from a base cell
      * section 3.3.4.
      *
-     * @param string $subData
      * @param string $baseCell Base cell
      *
      * @return string Cell range address
      */
-    private function readBIFF8CellRangeAddressB($subData, $baseCell = 'A1'): string
+    private function readBIFF8CellRangeAddressB(string $subData, $baseCell = 'A1'): string
     {
         [$baseCol, $baseRow] = Coordinate::indexesFromString($baseCell);
         $baseCol = $baseCol - 1;
@@ -7319,11 +7308,9 @@ class Xls extends BaseReader
      * Read BIFF8 cell range address list
      * section 2.5.15.
      *
-     * @param string $subData
-     *
      * @return array
      */
-    private function readBIFF8CellRangeAddressList($subData)
+    private function readBIFF8CellRangeAddressList(string $subData)
     {
         $cellRangeAddresses = [];
 
@@ -7347,11 +7334,9 @@ class Xls extends BaseReader
      * Read BIFF5 cell range address list
      * section 2.5.15.
      *
-     * @param string $subData
-     *
      * @return array
      */
-    private function readBIFF5CellRangeAddressList($subData)
+    private function readBIFF5CellRangeAddressList(string $subData)
     {
         $cellRangeAddresses = [];
 
@@ -7377,11 +7362,9 @@ class Xls extends BaseReader
      * It can also happen that the REF structure uses the -1 (FFFF) code to indicate deleted sheets,
      * in which case an Exception is thrown.
      *
-     * @param int $index
-     *
      * @return false|string
      */
-    private function readSheetRangeByRefIndex($index)
+    private function readSheetRangeByRefIndex(int $index)
     {
         if (isset($this->ref[$index])) {
             $type = $this->externalBooks[$this->ref[$index]['externalBookIndex']]['type'];
@@ -7552,11 +7535,9 @@ class Xls extends BaseReader
      * Read byte string (8-bit string length)
      * OpenOffice documentation: 2.5.2.
      *
-     * @param string $subData
-     *
      * @return array
      */
-    private function readByteStringShort($subData)
+    private function readByteStringShort(string $subData)
     {
         // offset: 0; size: 1; length of the string (character count)
         $ln = ord($subData[0]);
@@ -7574,11 +7555,9 @@ class Xls extends BaseReader
      * Read byte string (16-bit string length)
      * OpenOffice documentation: 2.5.2.
      *
-     * @param string $subData
-     *
      * @return array
      */
-    private function readByteStringLong($subData)
+    private function readByteStringLong(string $subData)
     {
         // offset: 0; size: 2; length of the string (character count)
         $ln = self::getUInt2d($subData, 0);
@@ -7781,10 +7760,8 @@ class Xls extends BaseReader
 
     /**
      * Convert string to UTF-8. Only used for BIFF5.
-     *
-     * @param string $string
      */
-    private function decodeCodepage($string): string
+    private function decodeCodepage(string $string): string
     {
         return StringHelper::convertEncoding($string, 'UTF-8', $this->codepage);
     }

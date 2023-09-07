@@ -882,9 +882,8 @@ class Html extends BaseReader
      *
      * @param int $row
      * @param string $column
-     * @param array $attributeArray
      */
-    private function applyInlineStyle(Worksheet &$sheet, $row, $column, $attributeArray): void
+    private function applyInlineStyle(Worksheet &$sheet, $row, $column, array $attributeArray): void
     {
         if (!isset($attributeArray['style'])) {
             return;
@@ -1073,11 +1072,7 @@ class Html extends BaseReader
         return \PhpOffice\PhpSpreadsheet\Helper\Html::colourNameLookup($value);
     }
 
-    /**
-     * @param string    $column
-     * @param int       $row
-     */
-    private function insertImage(Worksheet $sheet, $column, $row, array $attributes): void
+    private function insertImage(Worksheet $sheet, string $column, int $row, array $attributes): void
     {
         if (!isset($attributes['src'])) {
             return;
@@ -1151,11 +1146,7 @@ class Html extends BaseReader
         return self::BORDER_MAPPINGS[$style] ?? null;
     }
 
-    /**
-     * @param string $styleValue
-     * @param string $type
-     */
-    private function setBorderStyle(Style $cellStyle, $styleValue, $type): void
+    private function setBorderStyle(Style $cellStyle, string $styleValue, string $type): void
     {
         if (trim($styleValue) === Border::BORDER_NONE) {
             $borderStyle = Border::BORDER_NONE;

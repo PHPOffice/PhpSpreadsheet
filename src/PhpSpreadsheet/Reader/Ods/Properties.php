@@ -106,9 +106,8 @@ class Properties
 
     /**
      * @param mixed $propertyValueAttributes
-     * @param mixed $propertyValue
      */
-    private function setUserDefinedProperty($propertyValueAttributes, $propertyValue, DocumentProperties $docProps): void
+    private function setUserDefinedProperty($propertyValueAttributes, string $propertyValue, DocumentProperties $docProps): void
     {
         $propertyValueName = '';
         $propertyValueType = DocumentProperties::PROPERTY_TYPE_STRING;

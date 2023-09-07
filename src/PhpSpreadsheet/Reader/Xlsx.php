@@ -362,10 +362,7 @@ class Xlsx extends BaseReader
         }
     }
 
-    /**
-     * @param string $fileName
-     */
-    private function fileExistsInArchive(ZipArchive $archive, $fileName = ''): bool
+    private function fileExistsInArchive(ZipArchive $archive, string $fileName = ''): bool
     {
         // Root-relative paths
         if (strpos($fileName, '//') !== false) {
@@ -2052,10 +2049,7 @@ class Xlsx extends BaseReader
         return $value === 'true' || $value === 'TRUE';
     }
 
-    /**
-     * @param array $hyperlinks
-     */
-    private function readHyperLinkDrawing(\PhpOffice\PhpSpreadsheet\Worksheet\Drawing $objDrawing, SimpleXMLElement $cellAnchor, $hyperlinks): void
+    private function readHyperLinkDrawing(\PhpOffice\PhpSpreadsheet\Worksheet\Drawing $objDrawing, SimpleXMLElement $cellAnchor, array $hyperlinks): void
     {
         $hlinkClick = $cellAnchor->pic->nvPicPr->cNvPr->children(Namespaces::DRAWINGML)->hlinkClick;
 

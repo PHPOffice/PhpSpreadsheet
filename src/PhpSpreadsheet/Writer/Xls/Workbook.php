@@ -731,7 +731,7 @@ class Workbook extends BIFFwriter
      *
      * @return string Complete binary record data
      */
-    private function writeDefinedNameBiff8($name, $formulaData, $sheetIndex = 0, $isBuiltIn = false): string
+    private function writeDefinedNameBiff8($name, $formulaData, int $sheetIndex = 0, bool $isBuiltIn = false): string
     {
         $record = 0x0018;
 
@@ -760,14 +760,12 @@ class Workbook extends BIFFwriter
     /**
      * Write a short NAME record.
      *
-     * @param string $name
      * @param int $sheetIndex 1-based sheet index the defined name applies to. 0 = global
      * @param int[][] $rangeBounds range boundaries
-     * @param bool $isHidden
      *
      * @return string Complete binary record data
      * */
-    private function writeShortNameBiff8($name, $sheetIndex, $rangeBounds, $isHidden = false): string
+    private function writeShortNameBiff8(string $name, int $sheetIndex, array $rangeBounds, bool $isHidden = false): string
     {
         $record = 0x0018;
 

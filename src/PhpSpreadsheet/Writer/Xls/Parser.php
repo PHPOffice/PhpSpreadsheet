@@ -861,7 +861,7 @@ class Parser
      *
      * @return int The sheet index, -1 if the sheet was not found
      */
-    private function getSheetIndex($sheet_name)
+    private function getSheetIndex(string $sheet_name)
     {
         if (!isset($this->externalSheets[$sheet_name])) {
             return -1;
@@ -921,7 +921,7 @@ class Parser
      *
      * @return array Array containing (row1,col1,row2,col2) in packed() format
      */
-    private function rangeToPackedRange($range)
+    private function rangeToPackedRange(string $range)
     {
         preg_match('/(\$)?(\d+)\:(\$)?(\d+)/', $range, $match);
         // return absolute rows if there is a $ in the ref
@@ -962,7 +962,7 @@ class Parser
      *
      * @return array
      */
-    private function cellToRowcol($cell)
+    private function cellToRowcol(string $cell)
     {
         preg_match('/(\$)?([A-I]?[A-Z])(\$)?(\d+)/', $cell, $match);
         // return absolute column if there is a $ in the ref
@@ -1036,11 +1036,11 @@ class Parser
     /**
      * Checks if it's a valid token.
      *
-     * @param mixed $token the token to check
+     * @param string $token the token to check
      *
      * @return mixed The checked token or false on failure
      */
-    private function match($token)
+    private function match(string $token)
     {
         switch ($token) {
             case '+':

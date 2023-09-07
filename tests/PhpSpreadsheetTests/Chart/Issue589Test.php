@@ -21,7 +21,7 @@ class Issue589Test extends TestCase
      *
      * @param string|string[] $color HEX color or array with HEX colors
      */
-    private function buildChartSpreadsheet($color): Spreadsheet
+    private function buildChartSpreadsheet(string|array $color): Spreadsheet
     {
         // Problem occurs when setting plot line color
         // The output chart xml file is missing the a:ln tag

@@ -152,12 +152,8 @@ class Root extends PPS
 
     /**
      * Save OLE header.
-     *
-     * @param int $iSBDcnt
-     * @param int $iBBcnt
-     * @param int $iPPScnt
      */
-    private function saveHeader($iSBDcnt, $iBBcnt, $iPPScnt): void
+    private function saveHeader(int $iSBDcnt, int $iBBcnt, int $iPPScnt): void
     {
         $FILE = $this->fileHandle;
 
@@ -233,10 +229,9 @@ class Root extends PPS
     /**
      * Saving big data (PPS's with data bigger than \PhpOffice\PhpSpreadsheet\Shared\OLE::OLE_DATA_SIZE_SMALL).
      *
-     * @param int $iStBlk
      * @param array $raList Reference to array of PPS's
      */
-    private function saveBigData($iStBlk, &$raList): void
+    private function saveBigData(int $iStBlk, &$raList): void
     {
         $FILE = $this->fileHandle;
 
@@ -333,12 +328,8 @@ class Root extends PPS
 
     /**
      * Saving Big Block Depot.
-     *
-     * @param int $iSbdSize
-     * @param int $iBsize
-     * @param int $iPpsCnt
      */
-    private function saveBbd($iSbdSize, $iBsize, $iPpsCnt): void
+    private function saveBbd(int $iSbdSize, int $iBsize, int $iPpsCnt): void
     {
         $FILE = $this->fileHandle;
         // Calculate Basic Setting

@@ -154,7 +154,7 @@ class WorkbookTest extends TestCase
      * @param string $value text to get right character
      * @param int $nbchar number of char at right of string
      */
-    private function right($value, $nbchar): string
+    private function right(string $value, int $nbchar): string
     {
         return mb_substr($value, mb_strlen($value) - $nbchar, $nbchar);
     }

@@ -774,11 +774,9 @@ class Ods extends BaseReader
     }
 
     /**
-     * @param string $is
-     *
      * @return RichText
      */
-    private function parseRichText($is)
+    private function parseRichText(string $is)
     {
         $value = new RichText();
         $value->createText($is);

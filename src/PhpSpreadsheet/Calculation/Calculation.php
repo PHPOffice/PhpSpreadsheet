@@ -4005,11 +4005,9 @@ class Calculation
     }
 
     /**
-     * @param string $formula
-     *
      * @return false|string False indicates an error
      */
-    private function convertMatrixReferences($formula)
+    private function convertMatrixReferences(string $formula)
     {
         static $matrixReplaceFrom = [self::FORMULA_OPEN_MATRIX_BRACE, ';', self::FORMULA_CLOSE_MATRIX_BRACE];
         static $matrixReplaceTo = ['MKMATRIX(MKMATRIX(', '),MKMATRIX(', '))'];
@@ -5305,11 +5303,10 @@ class Calculation
      * @param mixed $operand1
      * @param mixed $operand2
      * @param string $operation
-     * @param bool $recursingArrays
      *
      * @return mixed
      */
-    private function executeBinaryComparisonOperation($operand1, $operand2, $operation, Stack &$stack, $recursingArrays = false)
+    private function executeBinaryComparisonOperation($operand1, $operand2, $operation, Stack &$stack, bool $recursingArrays = false)
     {
         //    If we're dealing with matrix operations, we want a matrix result
         if ((is_array($operand1)) || (is_array($operand2))) {
@@ -5685,12 +5682,11 @@ class Calculation
     /**
      * Add cell reference if needed while making sure that it is the last argument.
      *
-     * @param bool $passCellReference
      * @param array|string $functionCall
      *
      * @return array
      */
-    private function addCellReference(array $args, $passCellReference, $functionCall, ?Cell $cell = null)
+    private function addCellReference(array $args, bool $passCellReference, $functionCall, ?Cell $cell = null)
     {
         if ($passCellReference) {
             if (is_array($functionCall)) {

@@ -662,9 +662,9 @@ class Worksheet extends BIFFwriter
      * @param int $row Zero indexed row
      * @param int $col Zero indexed column
      * @param float $num The number to write
-     * @param mixed $xfIndex The optional XF format
+     * @param int $xfIndex The optional XF format
      */
-    private function writeNumber($row, $col, $num, $xfIndex): int
+    private function writeNumber(int $row, int $col, $num, int $xfIndex): int
     {
         $record = 0x0203; // Record identifier
         $length = 0x000E; // Number of bytes to follow
@@ -689,7 +689,7 @@ class Worksheet extends BIFFwriter
      * @param string $str The string
      * @param int $xfIndex Index to XF record
      */
-    private function writeString($row, $col, $str, $xfIndex): void
+    private function writeString(int $row, int $col, $str, int $xfIndex): void
     {
         $this->writeLabelSst($row, $col, $str, $xfIndex);
     }
@@ -704,7 +704,7 @@ class Worksheet extends BIFFwriter
      * @param int $xfIndex The XF format index for the cell
      * @param array $arrcRun Index to Font record and characters beginning
      */
-    private function writeRichTextString($row, $col, $str, $xfIndex, $arrcRun): void
+    private function writeRichTextString(int $row, int $col, string $str, int $xfIndex, array $arrcRun): void
     {
         $record = 0x00FD; // Record identifier
         $length = 0x000A; // Bytes to follow
@@ -729,9 +729,9 @@ class Worksheet extends BIFFwriter
      * @param int $row Zero indexed row
      * @param int $col Zero indexed column
      * @param string $str The string to write
-     * @param mixed $xfIndex The XF format index for the cell
+     * @param int $xfIndex The XF format index for the cell
      */
-    private function writeLabelSst($row, $col, $str, $xfIndex): void
+    private function writeLabelSst(int $row, int $col, $str, int $xfIndex): void
     {
         $record = 0x00FD; // Record identifier
         $length = 0x000A; // Bytes to follow
@@ -763,7 +763,7 @@ class Worksheet extends BIFFwriter
      *
      * @param int $row Zero indexed row
      * @param int $col Zero indexed column
-     * @param mixed $xfIndex The XF format index
+     * @param int $xfIndex The XF format index
      */
     public function writeBlank($row, $col, $xfIndex): int
     {
@@ -784,9 +784,8 @@ class Worksheet extends BIFFwriter
      * @param int $col Column index (0-based)
      * @param int $value
      * @param int $isError Error or Boolean?
-     * @param int $xfIndex
      */
-    private function writeBoolErr($row, $col, $value, $isError, $xfIndex): int
+    private function writeBoolErr(int $row, int $col, $value, int $isError, int $xfIndex): int
     {
         $record = 0x0205;
         $length = 8;
@@ -829,12 +828,12 @@ class Worksheet extends BIFFwriter
      * @param int $row Zero indexed row
      * @param int $col Zero indexed column
      * @param string $formula The formula text string
-     * @param mixed $xfIndex The XF format index
+     * @param int $xfIndex The XF format index
      * @param mixed $calculatedValue Calculated value
      *
      * @return int
      */
-    private function writeFormula($row, $col, $formula, $xfIndex, $calculatedValue)
+    private function writeFormula(int $row, int $col, string $formula, int $xfIndex, $calculatedValue)
     {
         $record = 0x0006; // Record identifier
         // Initialize possible additional value for STRING record that should be written after the FORMULA record?
@@ -916,10 +915,8 @@ class Worksheet extends BIFFwriter
 
     /**
      * Write a STRING record. This.
-     *
-     * @param string $stringValue
      */
-    private function writeStringRecord($stringValue): void
+    private function writeStringRecord(string $stringValue): void
     {
         $record = 0x0207; // Record identifier
         $data = StringHelper::UTF8toBIFF8UnicodeLong($stringValue);
@@ -945,7 +942,7 @@ class Worksheet extends BIFFwriter
      * @param int $col Column
      * @param string $url URL string
      */
-    private function writeUrl($row, $col, $url): void
+    private function writeUrl(int $row, int $col, $url): void
     {
         // Add start row and col to arg list
         $this->writeUrlRange($row, $col, $row, $col, $url);
@@ -965,7 +962,7 @@ class Worksheet extends BIFFwriter
      *
      * @see writeUrl()
      */
-    private function writeUrlRange($row1, $col1, $row2, $col2, $url): void
+    private function writeUrlRange(int $row1, int $col1, int $row2, int $col2, $url): void
     {
         // Check for internal/external sheet links or default to web link
         if (preg_match('[^internal:]', $url)) {
@@ -1033,7 +1030,7 @@ class Worksheet extends BIFFwriter
      *
      * @see writeUrl()
      */
-    private function writeUrlInternal($row1, $col1, $row2, $col2, $url): void
+    private function writeUrlInternal(int $row1, int $col1, int $row2, int $col2, $url): void
     {
         $record = 0x01B8; // Record identifier
 
@@ -1081,7 +1078,7 @@ class Worksheet extends BIFFwriter
      *
      * @see writeUrl()
      */
-    private function writeUrlExternal($row1, $col1, $row2, $col2, $url): void
+    private function writeUrlExternal(int $row1, int $col1, int $row2, int $col2, $url): void
     {
         // Network drives are different. We will handle them separately
         // MS/Novell network drives and shares start with \\
@@ -1172,7 +1169,7 @@ class Worksheet extends BIFFwriter
      * @param bool $hidden The optional hidden attribute
      * @param int $level The optional outline level for row, in range [0,7]
      */
-    private function writeRow($row, $height, $xfIndex, $hidden = false, $level = 0): void
+    private function writeRow(int $row, int $height, int $xfIndex, bool $hidden = false, $level = 0): void
     {
         $record = 0x0208; // Record identifier
         $length = 0x0010; // Number of bytes to follow
@@ -2326,7 +2323,7 @@ class Worksheet extends BIFFwriter
      * @param int $rwB Row containing bottom right corner of object
      * @param int $dyB Distance from bottom of cell
      */
-    private function writeObjPicture($colL, $dxL, $rwT, $dyT, $colR, $dxR, $rwB, $dyB): void
+    private function writeObjPicture(int $colL, int $dxL, int $rwT, int|float $dyT, int $colR, int $dxR, int $rwB, int $dyB): void
     {
         $record = 0x005d; // Record identifier
         $length = 0x003c; // Bytes to follow
