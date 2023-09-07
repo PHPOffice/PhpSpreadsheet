@@ -106,6 +106,7 @@ class Days360Test extends TestCase
     {
         $obj1 = new Exception();
         $obj2 = new DateTimeImmutable('2000-2-29');
+        // @phpstan-ignore-next-line
         self::assertSame(ExcelError::VALUE(), Days::between($obj1, $obj2));
     }
 

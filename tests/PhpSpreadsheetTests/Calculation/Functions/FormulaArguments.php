@@ -26,7 +26,7 @@ class FormulaArguments
         foreach ($this->args as $value) {
             if (is_array($value)) {
                 // We need to set a matrix in the worksheet
-                $worksheet->fromArray($value, null, $cellAddress, true);
+                $worksheet->fromArray($value, null, (string) $cellAddress, true);
                 $from = (string) $cellAddress;
                 $columns = is_array($value[0]) ? count($value[0]) : count($value);
                 $rows = is_array($value[0]) ? count($value) : 1;
