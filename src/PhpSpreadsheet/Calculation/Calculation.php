@@ -3771,10 +3771,8 @@ class Calculation
      *                                            0 = no resize
      *                                            1 = shrink to fit
      *                                            2 = extend to fit
-     *
-     * @return array
      */
-    private static function checkMatrixOperands(&$operand1, &$operand2, $resize = 1)
+    private static function checkMatrixOperands(&$operand1, &$operand2, $resize = 1): array
     {
         //    Examine each of the two operands, and turn them into an array if they aren't one already
         //    Note that this function should only be called if one or both of the operand is already an array
@@ -3812,7 +3810,7 @@ class Calculation
      *
      * @return int[] An array comprising the number of rows, and number of columns
      */
-    public static function getMatrixDimensions(array &$matrix)
+    public static function getMatrixDimensions(array &$matrix): array
     {
         $matrixRows = count($matrix);
         $matrixColumns = 0;

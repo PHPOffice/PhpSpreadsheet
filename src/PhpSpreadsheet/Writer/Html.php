@@ -569,10 +569,8 @@ class Html extends BaseWriter
      * Chart/32_Chart_read_write_PDF.php.
      *
      * @param int $row Row to check for charts
-     *
-     * @return array
      */
-    private function extendRowsForCharts(Worksheet $worksheet, int $row)
+    private function extendRowsForCharts(Worksheet $worksheet, int $row): array
     {
         $rowMax = $row;
         $colMax = 'A';

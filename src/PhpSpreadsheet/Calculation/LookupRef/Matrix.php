@@ -114,7 +114,7 @@ class Matrix
         $columnNum = $columnKeys[--$columnNum];
         if ($rowNum === 0) {
             return array_map(
-                function ($value) {
+                function ($value): array {
                     return [$value];
                 },
                 array_column($matrix, $columnNum)

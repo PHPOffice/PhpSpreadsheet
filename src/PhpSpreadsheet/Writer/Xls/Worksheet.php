@@ -2392,7 +2392,7 @@ class Worksheet extends BIFFwriter
      *
      * @return array Array with data and properties of the bitmap
      */
-    public function processBitmapGd(GdImage $image)
+    public function processBitmapGd(GdImage $image): array
     {
         $width = imagesx($image);
         $height = imagesy($image);
@@ -2426,7 +2426,7 @@ class Worksheet extends BIFFwriter
      *
      * @return array Array with data and properties of the bitmap
      */
-    public function processBitmap($bitmap)
+    public function processBitmap($bitmap): array
     {
         // Open file.
         $bmp_fd = @fopen($bitmap, 'rb');

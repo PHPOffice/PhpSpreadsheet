@@ -106,7 +106,7 @@ class Root extends PPS
      *
      * @return float[] The array of numbers
      */
-    private function calcSize(&$raList)
+    private function calcSize(&$raList): array
     {
         // Calculate Basic Setting
         [$iSBDcnt, $iBBcnt, $iPPScnt] = [0, 0, 0];

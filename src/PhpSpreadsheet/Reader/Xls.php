@@ -5184,10 +5184,8 @@ class Xls extends BaseReader
      * records are found. Splices the record data pieces and returns the combined string as if record data
      * is in one piece.
      * Moves to next current position in data stream to start of next record different from a CONtINUE record.
-     *
-     * @return array
      */
-    private function getSplicedRecordData()
+    private function getSplicedRecordData(): array
     {
         $data = '';
         $spliceOffsets = [];
@@ -5445,10 +5443,8 @@ class Xls extends BaseReader
      *
      * @param string $formulaData Formula data
      * @param string $baseCell Base cell, only needed when formula contains tRefN tokens, e.g. with shared formulas
-     *
-     * @return array
      */
-    private function getNextToken(string $formulaData, string $baseCell = 'A1')
+    private function getNextToken(string $formulaData, string $baseCell = 'A1'): array
     {
         // offset: 0; size: 1; token id
         $id = ord($formulaData[0]); // token id
@@ -7301,10 +7297,8 @@ class Xls extends BaseReader
     /**
      * Read BIFF8 cell range address list
      * section 2.5.15.
-     *
-     * @return array
      */
-    private function readBIFF8CellRangeAddressList(string $subData)
+    private function readBIFF8CellRangeAddressList(string $subData): array
     {
         $cellRangeAddresses = [];
 
@@ -7327,10 +7321,8 @@ class Xls extends BaseReader
     /**
      * Read BIFF5 cell range address list
      * section 2.5.15.
-     *
-     * @return array
      */
-    private function readBIFF5CellRangeAddressList(string $subData)
+    private function readBIFF5CellRangeAddressList(string $subData): array
     {
         $cellRangeAddresses = [];
 
@@ -7408,10 +7400,8 @@ class Xls extends BaseReader
      * section 2.5.8.
      *
      * @param string $arrayData
-     *
-     * @return array
      */
-    private static function readBIFF8ConstantArray($arrayData)
+    private static function readBIFF8ConstantArray($arrayData): array
     {
         // offset: 0; size: 1; number of columns decreased by 1
         $nc = ord($arrayData[0]);
@@ -7447,10 +7437,8 @@ class Xls extends BaseReader
      * returns e.g. ['value' => '5', 'size' => 9].
      *
      * @param string $valueData
-     *
-     * @return array
      */
-    private static function readBIFF8Constant($valueData)
+    private static function readBIFF8Constant($valueData): array
     {
         // offset: 0; size: 1; identifier for type of constant
         $identifier = ord($valueData[0]);
@@ -7505,10 +7493,8 @@ class Xls extends BaseReader
      * OpenOffice.org's Documentation of the Microsoft Excel File Format, section 2.5.4.
      *
      * @param string $rgb Encoded RGB value (4 bytes)
-     *
-     * @return array
      */
-    private static function readRGB($rgb)
+    private static function readRGB($rgb): array
     {
         // offset: 0; size 1; Red component
         $r = ord($rgb[0]);
@@ -7528,10 +7514,8 @@ class Xls extends BaseReader
     /**
      * Read byte string (8-bit string length)
      * OpenOffice documentation: 2.5.2.
-     *
-     * @return array
      */
-    private function readByteStringShort(string $subData)
+    private function readByteStringShort(string $subData): array
     {
         // offset: 0; size: 1; length of the string (character count)
         $ln = ord($subData[0]);
@@ -7548,10 +7532,8 @@ class Xls extends BaseReader
     /**
      * Read byte string (16-bit string length)
      * OpenOffice documentation: 2.5.2.
-     *
-     * @return array
      */
-    private function readByteStringLong(string $subData)
+    private function readByteStringLong(string $subData): array
     {
         // offset: 0; size: 2; length of the string (character count)
         $ln = self::getUInt2d($subData, 0);
@@ -7621,10 +7603,8 @@ class Xls extends BaseReader
      *
      * @param string $subData
      * @param int $characterCount
-     *
-     * @return array
      */
-    private static function readUnicodeString($subData, $characterCount)
+    private static function readUnicodeString($subData, $characterCount): array
     {
         $value = '';
 

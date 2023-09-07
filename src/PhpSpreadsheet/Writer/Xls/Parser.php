@@ -892,7 +892,7 @@ class Parser
      *
      * @return array Array containing the row and column in packed() format
      */
-    private function cellToPackedRowcol($cell)
+    private function cellToPackedRowcol($cell): array
     {
         $cell = strtoupper($cell);
         [$row, $col, $row_rel, $col_rel] = $this->cellToRowcol($cell);
@@ -921,7 +921,7 @@ class Parser
      *
      * @return array Array containing (row1,col1,row2,col2) in packed() format
      */
-    private function rangeToPackedRange(string $range)
+    private function rangeToPackedRange(string $range): array
     {
         preg_match('/(\$)?(\d+)\:(\$)?(\d+)/', $range, $match);
         // return absolute rows if there is a $ in the ref
@@ -959,10 +959,8 @@ class Parser
      * whether the row or column are relative references.
      *
      * @param string $cell the Excel cell reference in A1 format
-     *
-     * @return array
      */
-    private function cellToRowcol(string $cell)
+    private function cellToRowcol(string $cell): array
     {
         preg_match('/(\$)?([A-I]?[A-Z])(\$)?(\d+)/', $cell, $match);
         // return absolute column if there is a $ in the ref
@@ -1457,7 +1455,7 @@ class Parser
      *
      * @return array A tree
      */
-    private function createTree($value, $left, $right)
+    private function createTree($value, $left, $right): array
     {
         return ['value' => $value, 'left' => $left, 'right' => $right];
     }

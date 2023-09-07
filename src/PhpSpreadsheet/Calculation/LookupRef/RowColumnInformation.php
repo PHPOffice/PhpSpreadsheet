@@ -163,7 +163,7 @@ class RowColumnInformation
             $endAddress = (int) (string) preg_replace('/\D/', '', $endAddress);
 
             return array_map(
-                function ($value) {
+                function ($value): array {
                     return [$value];
                 },
                 range($startAddress, $endAddress)

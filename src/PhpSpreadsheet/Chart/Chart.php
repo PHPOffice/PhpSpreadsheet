@@ -498,7 +498,7 @@ class Chart
      *
      * @return int[]
      */
-    public function getTopLeftOffset()
+    public function getTopLeftOffset(): array
     {
         return [
             'X' => $this->topLeftXOffset,
@@ -567,7 +567,7 @@ class Chart
      *
      * @return array an associative array containing the cell address, X-Offset and Y-Offset from the top left of that cell
      */
-    public function getBottomRightPosition()
+    public function getBottomRightPosition(): array
     {
         return [
             'cell' => $this->bottomRightCellRef,
@@ -622,7 +622,7 @@ class Chart
      *
      * @return int[]
      */
-    public function getBottomRightOffset()
+    public function getBottomRightOffset(): array
     {
         return [
             'X' => $this->bottomRightXOffset,

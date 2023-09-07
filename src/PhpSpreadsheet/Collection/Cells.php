@@ -188,7 +188,7 @@ class Cells
      *
      * @return array Highest column name and highest row number
      */
-    public function getHighestRowAndColumn()
+    public function getHighestRowAndColumn(): array
     {
         // Lookup highest column and highest row
         $maxRow = $maxColumn = 1;

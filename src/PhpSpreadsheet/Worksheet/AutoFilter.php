@@ -748,7 +748,7 @@ class AutoFilter
      *
      * @return mixed[]
      */
-    private function dynamicFilterDateRange($dynamicRuleType, AutoFilter\Column &$filterColumn)
+    private function dynamicFilterDateRange($dynamicRuleType, AutoFilter\Column &$filterColumn): array
     {
         $ruleValues = [];
         $callBack = [__CLASS__, self::DATE_FUNCTIONS[$dynamicRuleType]]; // What if not found?

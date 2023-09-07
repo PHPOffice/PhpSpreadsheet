@@ -238,7 +238,7 @@ class Conditional
 
         if (count($conditions) === 1) {
             return array_map(
-                function ($value) {
+                function ($value): array {
                     return [$value];
                 },
                 $conditions[0]

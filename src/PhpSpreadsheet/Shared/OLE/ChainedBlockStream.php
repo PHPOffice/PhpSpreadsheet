@@ -174,10 +174,8 @@ class ChainedBlockStream
     /**
      * Implements support for fstat(). Currently the only supported field is
      * "size".
-     *
-     * @return array
      */
-    public function stream_stat() // @codingStandardsIgnoreLine
+    public function stream_stat(): array // @codingStandardsIgnoreLine
     {
         return [
             'size' => strlen($this->data),
