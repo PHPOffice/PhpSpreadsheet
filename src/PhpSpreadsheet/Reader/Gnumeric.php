@@ -129,10 +129,8 @@ class Gnumeric extends BaseReader
 
     /**
      * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
-     *
-     * @param string $filename
      */
-    public function listWorksheetInfo($filename): array
+    public function listWorksheetInfo(string $filename): array
     {
         File::assertFile($filename);
         if (!$this->canRead($filename)) {
