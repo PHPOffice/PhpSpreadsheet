@@ -30,12 +30,14 @@ class CsvCallbackTest extends TestCase
         $spreadsheet = $reader->load($filename);
         $sheet = $spreadsheet->getActiveSheet();
         self::assertEquals('Å', $sheet->getCell('A1')->getValue());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function callbackSetFallbackEncoding(Csv $reader): void
     {
         $reader->setFallbackEncoding('ISO-8859-2');
         $reader->setInputEncoding(Csv::GUESS_ENCODING);
+        $reader->setSheetNameIsFileName(true);
         $reader->setEscapeCharacter('');
     }
 
@@ -48,6 +50,7 @@ class CsvCallbackTest extends TestCase
         $sheet = $spreadsheet->getActiveSheet();
         self::assertEquals('premičre', $sheet->getCell('A1')->getValue());
         self::assertEquals('sixičme', $sheet->getCell('C2')->getValue());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testIOFactory(): void
@@ -58,6 +61,7 @@ class CsvCallbackTest extends TestCase
         $sheet = $spreadsheet->getActiveSheet();
         self::assertEquals('premičre', $sheet->getCell('A1')->getValue());
         self::assertEquals('sixičme', $sheet->getCell('C2')->getValue());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testNonFallbackEncoding(): void
@@ -69,6 +73,7 @@ class CsvCallbackTest extends TestCase
         $sheet = $spreadsheet->getActiveSheet();
         self::assertEquals('première', $sheet->getCell('A1')->getValue());
         self::assertEquals('sixième', $sheet->getCell('C2')->getValue());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testDefaultEscape(): void
@@ -79,6 +84,7 @@ class CsvCallbackTest extends TestCase
         $sheet = $spreadsheet->getActiveSheet();
         // this is not how Excel views the file
         self::assertEquals('a\"hello', $sheet->getCell('A1')->getValue());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testBetterEscape(): void
@@ -89,5 +95,7 @@ class CsvCallbackTest extends TestCase
         $sheet = $spreadsheet->getActiveSheet();
         // this is how Excel views the file
         self::assertEquals('a\"hello;hello;hello;\"', $sheet->getCell('A1')->getValue());
+        self::assertSame('escape', $sheet->getTitle(), 'callback set sheet title to use file name rather than default');
+        $spreadsheet->disconnectWorksheets();
     }
 }
