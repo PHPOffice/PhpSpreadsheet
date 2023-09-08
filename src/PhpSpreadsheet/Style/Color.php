@@ -276,7 +276,7 @@ class Color extends Supervisor
      *
      * @return $this
      */
-    public function setRGB(?string $colorValue = self::COLOR_BLACK)
+    public function setRGB(?string $colorValue = self::COLOR_BLACK): static
     {
         return $this->setARGB($colorValue);
     }

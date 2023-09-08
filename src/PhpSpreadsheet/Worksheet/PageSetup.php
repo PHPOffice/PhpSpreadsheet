@@ -770,7 +770,7 @@ class PageSetup
      *
      * @return $this
      */
-    public function addPrintArea($value, $index = -1)
+    public function addPrintArea($value, $index = -1): static
     {
         return $this->setPrintArea($value, $index, self::SETPRINTRANGE_INSERT);
     }
@@ -798,7 +798,7 @@ class PageSetup
      *
      * @return $this
      */
-    public function setPrintAreaByColumnAndRow($column1, $row1, $column2, $row2, $index = 0, $method = self::SETPRINTRANGE_OVERWRITE)
+    public function setPrintAreaByColumnAndRow($column1, $row1, $column2, $row2, $index = 0, $method = self::SETPRINTRANGE_OVERWRITE): static
     {
         return $this->setPrintArea(
             Coordinate::stringFromColumnIndex($column1) . $row1 . ':' . Coordinate::stringFromColumnIndex($column2) . $row2,
@@ -823,7 +823,7 @@ class PageSetup
      *
      * @return $this
      */
-    public function addPrintAreaByColumnAndRow($column1, $row1, $column2, $row2, $index = -1)
+    public function addPrintAreaByColumnAndRow($column1, $row1, $column2, $row2, $index = -1): static
     {
         return $this->setPrintArea(
             Coordinate::stringFromColumnIndex($column1) . $row1 . ':' . Coordinate::stringFromColumnIndex($column2) . $row2,
@@ -861,7 +861,7 @@ class PageSetup
      *
      * @return $this
      */
-    public function resetFirstPageNumber()
+    public function resetFirstPageNumber(): static
     {
         return $this->setFirstPageNumber(null);
     }
