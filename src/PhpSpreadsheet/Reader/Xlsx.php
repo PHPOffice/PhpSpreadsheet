@@ -1846,10 +1846,7 @@ class Xlsx extends BaseReader
         return $excel;
     }
 
-    /**
-     * @return RichText
-     */
-    private function parseRichText(?SimpleXMLElement $is)
+    private function parseRichText(?SimpleXMLElement $is): RichText
     {
         $value = new RichText();
 

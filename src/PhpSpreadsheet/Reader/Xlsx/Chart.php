@@ -62,10 +62,8 @@ class Chart
 
     /**
      * @param string $chartName
-     *
-     * @return \PhpOffice\PhpSpreadsheet\Chart\Chart
      */
-    public function readChart(SimpleXMLElement $chartElements, $chartName)
+    public function readChart(SimpleXMLElement $chartElements, $chartName): \PhpOffice\PhpSpreadsheet\Chart\Chart
     {
         $chartElementsC = $chartElements->children($this->cNamespace);
 

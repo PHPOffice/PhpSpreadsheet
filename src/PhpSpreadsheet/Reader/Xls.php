@@ -1885,10 +1885,8 @@ class Xls extends BaseReader
      *
      * @param int $block Block for which to create decrypto
      * @param string $valContext MD5 context state
-     *
-     * @return Xls\RC4
      */
-    private function makeKey(int $block, $valContext)
+    private function makeKey(int $block, $valContext): Xls\RC4
     {
         $pwarray = str_repeat("\0", 64);
 

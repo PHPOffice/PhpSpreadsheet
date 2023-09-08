@@ -586,10 +586,8 @@ class Spreadsheet implements JsonSerializable
      * Create sheet and add it to this workbook.
      *
      * @param null|int $sheetIndex Index where sheet should go (0,1,..., or null for last)
-     *
-     * @return Worksheet
      */
-    public function createSheet($sheetIndex = null)
+    public function createSheet($sheetIndex = null): Worksheet
     {
         $newSheet = new Worksheet($this);
         $this->addSheet($newSheet, $sheetIndex);
@@ -1118,10 +1116,8 @@ class Spreadsheet implements JsonSerializable
 
     /**
      * Get worksheet iterator.
-     *
-     * @return Iterator
      */
-    public function getWorksheetIterator()
+    public function getWorksheetIterator(): Iterator
     {
         return new Iterator($this);
     }

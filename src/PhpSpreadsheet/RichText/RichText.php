@@ -55,10 +55,8 @@ class RichText implements IComparable
      * Create text.
      *
      * @param string $text Text
-     *
-     * @return TextElement
      */
-    public function createText($text)
+    public function createText($text): TextElement
     {
         $objText = new TextElement($text);
         $this->addText($objText);
@@ -70,10 +68,8 @@ class RichText implements IComparable
      * Create text run.
      *
      * @param string $text Text
-     *
-     * @return Run
      */
-    public function createTextRun($text)
+    public function createTextRun($text): Run
     {
         $objText = new Run($text);
         $this->addText($objText);

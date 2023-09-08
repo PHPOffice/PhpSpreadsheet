@@ -3393,10 +3393,8 @@ class Worksheet implements IComparable
      *
      * @param int $startRow The row number at which to start iterating
      * @param int $endRow The row number at which to stop iterating
-     *
-     * @return RowIterator
      */
-    public function getRowIterator($startRow = 1, $endRow = null)
+    public function getRowIterator($startRow = 1, $endRow = null): RowIterator
     {
         return new RowIterator($this, $startRow, $endRow);
     }
@@ -3406,10 +3404,8 @@ class Worksheet implements IComparable
      *
      * @param string $startColumn The column address at which to start iterating
      * @param string $endColumn The column address at which to stop iterating
-     *
-     * @return ColumnIterator
      */
-    public function getColumnIterator($startColumn = 'A', $endColumn = null)
+    public function getColumnIterator($startColumn = 'A', $endColumn = null): ColumnIterator
     {
         return new ColumnIterator($this, $startColumn, $endColumn);
     }
