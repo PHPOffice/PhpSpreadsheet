@@ -211,10 +211,8 @@ class BitWise
      * Validate arguments passed to the bitwise functions.
      *
      * @param mixed $value
-     *
-     * @return float
      */
-    private static function validateBitwiseArgument($value)
+    private static function validateBitwiseArgument($value): float
     {
         $value = self::nullFalseTrueToNumber($value);
 

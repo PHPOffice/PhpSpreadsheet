@@ -491,11 +491,11 @@ class Parser
     /**
      * Convert a token to the proper ptg value.
      *
-     * @param mixed $token the token to convert
+     * @param string $token the token to convert
      *
-     * @return mixed the converted token on success
+     * @return string the converted token on success
      */
-    private function convert($token)
+    private function convert(string $token): string
     {
         if (preg_match('/"([^"]|""){0,255}"/', $token)) {
             return $this->convertString($token);
@@ -1267,7 +1267,7 @@ class Parser
      *
      * @see fact()
      */
-    private function parenthesizedExpression()
+    private function parenthesizedExpression(): array
     {
         return $this->createTree('ptgParen', $this->expression(), '');
     }

@@ -623,7 +623,7 @@ class Style extends Supervisor
      *
      * @return Conditional[]
      */
-    public function getConditionalStyles()
+    public function getConditionalStyles(): array
     {
         return $this->getActiveSheet()->getConditionalStyles($this->getActiveCell());
     }

@@ -146,7 +146,7 @@ class Value
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function isLogical($value = null)
+    public static function isLogical($value = null): array|bool
     {
         if (is_array($value)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $value);

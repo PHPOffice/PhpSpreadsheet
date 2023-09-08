@@ -101,10 +101,10 @@ class Indirect
     /**
      * Extract range values.
      *
-     * @return mixed Array of values in range if range contains more than one element.
+     * @return array Array of values in range if range contains more than one element.
      *                  Otherwise, a single value is returned.
      */
-    private static function extractRequiredCells(?Worksheet $worksheet, string $cellAddress)
+    private static function extractRequiredCells(?Worksheet $worksheet, string $cellAddress): array
     {
         return Calculation::getInstance($worksheet !== null ? $worksheet->getParent() : null)
             ->extractCellRange($cellAddress, $worksheet, false);

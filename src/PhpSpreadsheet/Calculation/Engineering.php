@@ -1320,10 +1320,8 @@ class Engineering
      * @deprecated 1.16.0
      *      Use the getConversionCategories() method in the Engineering\ConvertUOM class instead
      * @see Engineering\ConvertUOM::getConversionCategories()
-     *
-     * @return array
      */
-    public static function getConversionGroups()
+    public static function getConversionGroups(): array
     {
         return Engineering\ConvertUOM::getConversionCategories();
     }
@@ -1337,10 +1335,8 @@ class Engineering
      * @see Engineering\ConvertUOM::getConversionCategoryUnits()
      *
      * @param null|mixed $category
-     *
-     * @return array
      */
-    public static function getConversionGroupUnits($category = null)
+    public static function getConversionGroupUnits($category = null): array
     {
         return Engineering\ConvertUOM::getConversionCategoryUnits($category);
     }
@@ -1353,10 +1349,8 @@ class Engineering
      * @see Engineering\ConvertUOM::getConversionCategoryUnitDetails()
      *
      * @param null|mixed $category
-     *
-     * @return array
      */
-    public static function getConversionGroupUnitDetails($category = null)
+    public static function getConversionGroupUnitDetails($category = null): array
     {
         return Engineering\ConvertUOM::getConversionCategoryUnitDetails($category);
     }

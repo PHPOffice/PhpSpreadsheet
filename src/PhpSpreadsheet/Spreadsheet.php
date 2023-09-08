@@ -852,10 +852,8 @@ class Spreadsheet implements JsonSerializable
      *
      * @param Worksheet $worksheet External sheet to add
      * @param null|int $sheetIndex Index where sheet should go (0,1,..., or null for last)
-     *
-     * @return Worksheet
      */
-    public function addExternalSheet(Worksheet $worksheet, $sheetIndex = null)
+    public function addExternalSheet(Worksheet $worksheet, $sheetIndex = null): Worksheet
     {
         if ($this->sheetNameExists($worksheet->getTitle())) {
             throw new Exception("Workbook already contains a worksheet named '{$worksheet->getTitle()}'. Rename the external sheet first.");

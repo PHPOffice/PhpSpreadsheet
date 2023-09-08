@@ -28,8 +28,6 @@ class Periodic
      * @param mixed $type A number 0 or 1 and indicates when payments are due:
      *                      0 or omitted    At the end of the period.
      *                      1               At the beginning of the period.
-     *
-     * @return float|string
      */
     public static function futureValue(
         $rate,
@@ -37,7 +35,7 @@ class Periodic
         $payment = 0.0,
         $presentValue = 0.0,
         $type = FinancialConstants::PAYMENT_END_OF_PERIOD
-    ) {
+    ): string|float {
         $rate = Functions::flattenSingleValue($rate);
         $numberOfPeriods = Functions::flattenSingleValue($numberOfPeriods);
         $payment = ($payment === null) ? 0.0 : Functions::flattenSingleValue($payment);
@@ -76,7 +74,7 @@ class Periodic
         $payment = 0.0,
         $futureValue = 0.0,
         $type = FinancialConstants::PAYMENT_END_OF_PERIOD
-    ) {
+    ): string|float {
         $rate = Functions::flattenSingleValue($rate);
         $numberOfPeriods = Functions::flattenSingleValue($numberOfPeriods);
         $payment = ($payment === null) ? 0.0 : Functions::flattenSingleValue($payment);

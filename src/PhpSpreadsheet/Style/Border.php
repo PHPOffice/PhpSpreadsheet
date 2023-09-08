@@ -99,10 +99,8 @@ class Border extends Supervisor
      * Build style array from subcomponents.
      *
      * @param array $array
-     *
-     * @return array
      */
-    public function getStyleArray($array)
+    public function getStyleArray($array): array
     {
         /** @var Style */
         $parent = $this->parent;

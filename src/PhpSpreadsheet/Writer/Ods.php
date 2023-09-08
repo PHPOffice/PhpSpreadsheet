@@ -146,10 +146,8 @@ class Ods extends BaseWriter
 
     /**
      * Create zip object.
-     *
-     * @return ZipStream
      */
-    private function createZip()
+    private function createZip(): ZipStream
     {
         // Try opening the ZIP file
         if (!is_resource($this->fileHandle)) {

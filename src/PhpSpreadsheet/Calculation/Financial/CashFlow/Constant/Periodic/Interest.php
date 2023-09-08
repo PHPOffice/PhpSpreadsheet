@@ -29,8 +29,6 @@ class Interest
      * @param mixed $presentValue Present Value
      * @param mixed $futureValue Future Value
      * @param mixed $type Payment type: 0 = at the end of each period, 1 = at the beginning of each period
-     *
-     * @return float|string
      */
     public static function payment(
         $interestRate,
@@ -39,7 +37,7 @@ class Interest
         $presentValue,
         $futureValue = 0,
         $type = FinancialConstants::PAYMENT_END_OF_PERIOD
-    ) {
+    ): string|float {
         $interestRate = Functions::flattenSingleValue($interestRate);
         $period = Functions::flattenSingleValue($period);
         $numberOfPeriods = Functions::flattenSingleValue($numberOfPeriods);

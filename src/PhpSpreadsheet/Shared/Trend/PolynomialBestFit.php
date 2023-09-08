@@ -120,10 +120,8 @@ class PolynomialBestFit extends BestFit
 
     /**
      * @param int $dp
-     *
-     * @return array
      */
-    public function getCoefficients($dp = 0)
+    public function getCoefficients($dp = 0): array
     {
         // Phpstan and Scrutinizer are both correct - getSlope returns float, not array.
         // @phpstan-ignore-next-line

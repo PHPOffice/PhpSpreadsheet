@@ -21,7 +21,7 @@ class Text
      *         If an array of values is passed for the argument, then the returned result
      *            will also be an array with matching dimensions
      */
-    public static function length($value = '')
+    public static function length($value = ''): array|int
     {
         if (is_array($value)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $value);
@@ -102,7 +102,7 @@ class Text
      *
      * @return array the array built from the text, split by the row and column delimiters
      */
-    public static function split($text, $columnDelimiter = null, $rowDelimiter = null, bool $ignoreEmpty = false, bool $matchMode = true, $padding = '#N/A')
+    public static function split($text, $columnDelimiter = null, $rowDelimiter = null, bool $ignoreEmpty = false, bool $matchMode = true, $padding = '#N/A'): array
     {
         $text = Functions::flattenSingleValue($text);
 

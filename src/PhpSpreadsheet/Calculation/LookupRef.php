@@ -314,7 +314,7 @@ class LookupRef
      * Unlike the Excel TRANSPOSE function, which will only work on a single row or column,
      *     this function will transpose a full matrix
      */
-    public static function TRANSPOSE($matrixData)
+    public static function TRANSPOSE($matrixData): array
     {
         return Matrix::transpose($matrixData);
     }

@@ -239,15 +239,14 @@ class Coupons
      *                         3               Actual/365
      *                         4               European 30/360
      *
-     * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
-     *                     depending on the value of the ReturnDateType flag
+     * @return float|string Excel date/time serial value or error message
      */
     public static function COUPNCD(
         $settlement,
         $maturity,
         $frequency,
         $basis = FinancialConstants::BASIS_DAYS_PER_YEAR_NASD
-    ) {
+    ): string|float {
         $settlement = Functions::flattenSingleValue($settlement);
         $maturity = Functions::flattenSingleValue($maturity);
         $frequency = Functions::flattenSingleValue($frequency);
@@ -355,15 +354,14 @@ class Coupons
      *                         3               Actual/365
      *                         4               European 30/360
      *
-     * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
-     *                     depending on the value of the ReturnDateType flag
+     * @return float|string Excel date/time serial value or error message
      */
     public static function COUPPCD(
         $settlement,
         $maturity,
         $frequency,
         $basis = FinancialConstants::BASIS_DAYS_PER_YEAR_NASD
-    ) {
+    ): string|float {
         $settlement = Functions::flattenSingleValue($settlement);
         $maturity = Functions::flattenSingleValue($maturity);
         $frequency = Functions::flattenSingleValue($frequency);

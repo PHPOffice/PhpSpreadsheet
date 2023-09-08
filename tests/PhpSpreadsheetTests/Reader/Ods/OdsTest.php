@@ -39,20 +39,14 @@ class OdsTest extends TestCase
         date_default_timezone_set($this->timeZone);
     }
 
-    /**
-     * @return Spreadsheet
-     */
-    private function loadOdsTestFile()
+    private function loadOdsTestFile(): Spreadsheet
     {
         $reader = new Ods();
 
         return $reader->loadIntoExisting(self::ODS_TEST_FILE, new Spreadsheet());
     }
 
-    /**
-     * @return Spreadsheet
-     */
-    protected function loadDataFile()
+    protected function loadDataFile(): Spreadsheet
     {
         $reader = new Ods();
 

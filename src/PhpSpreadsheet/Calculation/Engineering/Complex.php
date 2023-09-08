@@ -74,7 +74,7 @@ class Complex
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function IMAGINARY($complexNumber)
+    public static function IMAGINARY($complexNumber): array|string|float
     {
         if (is_array($complexNumber)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $complexNumber);
@@ -104,7 +104,7 @@ class Complex
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function IMREAL($complexNumber)
+    public static function IMREAL($complexNumber): array|string|float
     {
         if (is_array($complexNumber)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $complexNumber);

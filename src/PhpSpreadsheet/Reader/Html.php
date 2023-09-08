@@ -665,10 +665,8 @@ class Html extends BaseReader
      * Loads PhpSpreadsheet from file into PhpSpreadsheet instance.
      *
      * @param string $filename
-     *
-     * @return Spreadsheet
      */
-    public function loadIntoExisting($filename, Spreadsheet $spreadsheet)
+    public function loadIntoExisting($filename, Spreadsheet $spreadsheet): Spreadsheet
     {
         // Validate
         if (!$this->canRead($filename)) {

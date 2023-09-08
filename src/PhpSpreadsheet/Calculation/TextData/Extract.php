@@ -24,7 +24,7 @@ class Extract
      *         If an array of values is passed for the $value or $chars arguments, then the returned result
      *            will also be an array with matching dimensions
      */
-    public static function left($value, $chars = 1)
+    public static function left($value, $chars = 1): array|string
     {
         if (is_array($value) || is_array($chars)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $value, $chars);
@@ -54,7 +54,7 @@ class Extract
      *         If an array of values is passed for the $value, $start or $chars arguments, then the returned result
      *            will also be an array with matching dimensions
      */
-    public static function mid($value, $start, $chars)
+    public static function mid($value, $start, $chars): array|string
     {
         if (is_array($value) || is_array($start) || is_array($chars)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $value, $start, $chars);
@@ -83,7 +83,7 @@ class Extract
      *         If an array of values is passed for the $value or $chars arguments, then the returned result
      *            will also be an array with matching dimensions
      */
-    public static function right($value, $chars = 1)
+    public static function right($value, $chars = 1): array|string
     {
         if (is_array($value) || is_array($chars)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $value, $chars);

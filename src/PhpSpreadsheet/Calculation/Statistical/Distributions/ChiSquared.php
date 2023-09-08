@@ -160,7 +160,7 @@ class ChiSquared
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function inverseLeftTail($probability, $degrees)
+    public static function inverseLeftTail($probability, $degrees): array|string|float
     {
         if (is_array($probability) || is_array($degrees)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $probability, $degrees);

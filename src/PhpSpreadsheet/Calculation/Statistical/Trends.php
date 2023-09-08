@@ -210,9 +210,9 @@ class Trends
      * @param mixed $const A logical (boolean) value specifying whether to force the intersect to equal 0 or not
      * @param mixed $stats A logical (boolean) value specifying whether to return additional regression statistics
      *
-     * @return array|int|string The result, or a string containing an error
+     * @return array|string The result, or a string containing an error
      */
-    public static function LINEST(array $yValues, $xValues = null, $const = true, $stats = false)
+    public static function LINEST(array $yValues, $xValues = null, $const = true, $stats = false): string|array
     {
         $const = ($const === null) ? true : (bool) Functions::flattenSingleValue($const);
         $stats = ($stats === null) ? false : (bool) Functions::flattenSingleValue($stats);
@@ -271,9 +271,9 @@ class Trends
      * @param mixed $const A logical (boolean) value specifying whether to force the intersect to equal 0 or not
      * @param mixed $stats A logical (boolean) value specifying whether to return additional regression statistics
      *
-     * @return array|int|string The result, or a string containing an error
+     * @return array|string The result, or a string containing an error
      */
-    public static function LOGEST(array $yValues, $xValues = null, $const = true, $stats = false)
+    public static function LOGEST(array $yValues, $xValues = null, $const = true, $stats = false): string|array
     {
         $const = ($const === null) ? true : (bool) Functions::flattenSingleValue($const);
         $stats = ($stats === null) ? false : (bool) Functions::flattenSingleValue($stats);

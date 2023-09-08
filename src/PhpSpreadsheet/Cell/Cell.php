@@ -127,10 +127,8 @@ class Cell
 
     /**
      * Get cell coordinate column.
-     *
-     * @return string
      */
-    public function getColumn()
+    public function getColumn(): string
     {
         $parent = $this->parent;
         if ($parent === null) {
@@ -142,10 +140,8 @@ class Cell
 
     /**
      * Get cell coordinate row.
-     *
-     * @return int
      */
-    public function getRow()
+    public function getRow(): int
     {
         $parent = $this->parent;
         if ($parent === null) {

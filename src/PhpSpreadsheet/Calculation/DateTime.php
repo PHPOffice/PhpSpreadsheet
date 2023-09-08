@@ -34,9 +34,9 @@ class DateTime
      *
      * @param mixed $dateValue
      *
-     * @return mixed Excel date/time serial value, or string if error
+     * @return float|string Excel date/time serial value, or string if error
      */
-    public static function getDateValue($dateValue)
+    public static function getDateValue($dateValue): float|string
     {
         try {
             return DateTimeExcel\Helpers::getDateValue($dateValue);

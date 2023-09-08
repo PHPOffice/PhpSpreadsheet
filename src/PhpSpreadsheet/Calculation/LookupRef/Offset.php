@@ -91,8 +91,7 @@ class Offset
         return self::extractRequiredCells($worksheet, $cellAddress);
     }
 
-    /** @return mixed */
-    private static function extractRequiredCells(?Worksheet $worksheet, string $cellAddress)
+    private static function extractRequiredCells(?Worksheet $worksheet, string $cellAddress): array
     {
         return Calculation::getInstance($worksheet !== null ? $worksheet->getParent() : null)
             ->extractCellRange($cellAddress, $worksheet, false);

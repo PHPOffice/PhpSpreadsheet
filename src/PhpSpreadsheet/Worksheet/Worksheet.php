@@ -526,7 +526,7 @@ class Worksheet implements IComparable
      *
      * @return string[]
      */
-    public function getCoordinates($sorted = true)
+    public function getCoordinates($sorted = true): array
     {
         if ($this->cellCollection == null) {
             return [];
@@ -1179,7 +1179,7 @@ class Worksheet implements IComparable
      *
      * @return array Highest column name and highest row number
      */
-    public function getHighestRowAndColumn()
+    public function getHighestRowAndColumn(): array
     {
         return $this->cellCollection->getHighestRowAndColumn();
     }
@@ -1584,10 +1584,8 @@ class Worksheet implements IComparable
      * @param int $row1 Numeric row coordinate of the cell
      * @param null|int $columnIndex2 Numeric column coordinate of the range cell
      * @param null|int $row2 Numeric row coordinate of the range cell
-     *
-     * @return Style
      */
-    public function getStyleByColumnAndRow($columnIndex1, $row1, $columnIndex2 = null, $row2 = null)
+    public function getStyleByColumnAndRow($columnIndex1, $row1, $columnIndex2 = null, $row2 = null): Style
     {
         if ($columnIndex2 !== null && $row2 !== null) {
             $cellRange = new CellRange(
