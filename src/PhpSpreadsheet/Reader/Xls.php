@@ -417,6 +417,9 @@ class Xls extends BaseReader
      */
     private $baseCell;
 
+    /** @var bool */
+    private $activeSheetSet = false;
+
     /**
      * Create a new Xls Reader instance.
      */
@@ -829,6 +832,7 @@ class Xls extends BaseReader
         }
 
         // Parse the individual sheets
+        $this->activeSheetSet = false;
         foreach ($this->sheets as $sheet) {
             if ($sheet['sheetType'] != 0x00) {
                 // 0x00: Worksheet, 0x02: Chart, 0x06: Visual Basic module
@@ -1239,6 +1243,9 @@ class Xls extends BaseReader
                     $this->phpSheet->getComment($cellAddress)->setAuthor($noteDetails['author'])->setText($this->parseRichText($noteDetails['objTextData']['text']));
                 }
             }
+        }
+        if ($this->activeSheetSet === false) {
+            $this->spreadsheet->setActiveSheetIndex(0);
         }
 
         // add the named ranges (defined names)
@@ -4401,6 +4408,7 @@ class Xls extends BaseReader
         $isActive = (bool) ((0x0400 & $options) >> 10);
         if ($isActive) {
             $this->spreadsheet->setActiveSheetIndex($this->spreadsheet->getIndex($this->phpSheet));
+            $this->activeSheetSet = true;
         }
 
         // bit: 11; mask: 0x0800; 0 = normal view, 1 = page break view

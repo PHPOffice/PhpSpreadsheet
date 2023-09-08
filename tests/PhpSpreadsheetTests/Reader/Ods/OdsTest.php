@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Ods;
 
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 use PhpOffice\PhpSpreadsheet\Reader\Ods;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -78,7 +79,9 @@ class OdsTest extends TestCase
     public function testLoadOneWorksheet(): void
     {
         $reader = new Ods();
-        $reader->setLoadSheetsOnly(['Sheet1']);
+        //$reader->setLoadSheetsOnly(['Sheet1']);
+        $names = $reader->listWorksheetNames(self::ODS_DATA_FILE);
+        $reader->setLoadSheetsOnly([$names[0]]);
         $spreadsheet = $reader->load(self::ODS_DATA_FILE);
 
         self::assertEquals(1, $spreadsheet->getSheetCount());
@@ -97,6 +100,15 @@ class OdsTest extends TestCase
 
         self::assertEquals('Second Sheet', $spreadsheet->getSheet(0)->getTitle());
         $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testLoadNoSelectedWorksheet(): void
+    {
+        $this->expectException(PhpSpreadsheetException::class);
+        $this->expectExceptionMessage('You tried to set a sheet active by the out of bounds index');
+        $reader = new Ods();
+        $reader->setLoadSheetsOnly(['xSecond Sheet']);
+        $reader->load(self::ODS_DATA_FILE);
     }
 
     public function testLoadBadFile(): void

@@ -191,7 +191,7 @@ class PropertiesTest extends TestCase
             [Properties::PROPERTY_TYPE_FLOAT, 1.17, 'Version', 1.17],
             [Properties::PROPERTY_TYPE_INTEGER, 2, 'Revision', 2],
             [Properties::PROPERTY_TYPE_BOOLEAN, true, 'Tested', true],
-            [Properties::PROPERTY_TYPE_DATE, '2021-03-17', 'Test Date', '2021-03-17', Properties::PROPERTY_TYPE_DATE],
+            [Properties::PROPERTY_TYPE_DATE, '2021-03-17', 'Test Date', '2021-03-17T00:00:00Z', Properties::PROPERTY_TYPE_DATE],
         ];
     }
 
