@@ -82,7 +82,7 @@ class AutoFilter
      *
      * @return $this
      */
-    public function setParent(?Worksheet $worksheet = null)
+    public function setParent(?Worksheet $worksheet = null): static
     {
         $this->evaluated = false;
         $this->workSheet = $worksheet;
@@ -240,7 +240,7 @@ class AutoFilter
      *
      * @return $this
      */
-    public function setColumn($columnObjectOrString)
+    public function setColumn($columnObjectOrString): static
     {
         $this->evaluated = false;
         if ((is_string($columnObjectOrString)) && (!empty($columnObjectOrString))) {
@@ -270,7 +270,7 @@ class AutoFilter
      *
      * @return $this
      */
-    public function clearColumn($column)
+    public function clearColumn($column): static
     {
         $this->evaluated = false;
         $this->testColumnInRange($column);
@@ -294,7 +294,7 @@ class AutoFilter
      *
      * @return $this
      */
-    public function shiftColumn($fromColumn, $toColumn)
+    public function shiftColumn($fromColumn, $toColumn): static
     {
         $this->evaluated = false;
         $fromColumn = strtoupper($fromColumn);
@@ -808,7 +808,7 @@ class AutoFilter
      *
      * @return $this
      */
-    public function showHideRows()
+    public function showHideRows(): static
     {
         if ($this->workSheet === null) {
             return $this;

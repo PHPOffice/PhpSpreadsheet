@@ -44,7 +44,7 @@ class RichText implements IComparable
      *
      * @return $this
      */
-    public function addText(ITextElement $text)
+    public function addText(ITextElement $text): static
     {
         $this->richTextElements[] = $text;
 
@@ -118,7 +118,7 @@ class RichText implements IComparable
      *
      * @return $this
      */
-    public function setRichTextElements(array $textElements)
+    public function setRichTextElements(array $textElements): static
     {
         $this->richTextElements = $textElements;
 

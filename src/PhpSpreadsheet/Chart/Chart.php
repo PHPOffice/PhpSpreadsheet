@@ -216,7 +216,7 @@ class Chart
      *
      * @return $this
      */
-    public function setWorksheet(?Worksheet $worksheet = null)
+    public function setWorksheet(?Worksheet $worksheet = null): static
     {
         $this->worksheet = $worksheet;
 
@@ -233,7 +233,7 @@ class Chart
      *
      * @return $this
      */
-    public function setTitle(Title $title)
+    public function setTitle(Title $title): static
     {
         $this->title = $title;
 
@@ -250,7 +250,7 @@ class Chart
      *
      * @return $this
      */
-    public function setLegend(Legend $legend)
+    public function setLegend(Legend $legend): static
     {
         $this->legend = $legend;
 
@@ -267,7 +267,7 @@ class Chart
      *
      * @return $this
      */
-    public function setXAxisLabel(Title $label)
+    public function setXAxisLabel(Title $label): static
     {
         $this->xAxisLabel = $label;
 
@@ -284,7 +284,7 @@ class Chart
      *
      * @return $this
      */
-    public function setYAxisLabel(Title $label)
+    public function setYAxisLabel(Title $label): static
     {
         $this->yAxisLabel = $label;
 
@@ -323,7 +323,7 @@ class Chart
      *
      * @return $this
      */
-    public function setPlotVisibleOnly($plotVisibleOnly)
+    public function setPlotVisibleOnly($plotVisibleOnly): static
     {
         $this->plotVisibleOnly = $plotVisibleOnly;
 
@@ -347,7 +347,7 @@ class Chart
      *
      * @return $this
      */
-    public function setDisplayBlanksAs($displayBlanksAs)
+    public function setDisplayBlanksAs($displayBlanksAs): static
     {
         $this->displayBlanksAs = $displayBlanksAs;
 
@@ -419,7 +419,7 @@ class Chart
      *
      * @return $this
      */
-    public function setTopLeftPosition($cellAddress, $xOffset = null, $yOffset = null)
+    public function setTopLeftPosition($cellAddress, $xOffset = null, $yOffset = null): static
     {
         $this->topLeftCellRef = $cellAddress;
         if ($xOffset !== null) {
@@ -465,7 +465,7 @@ class Chart
      *
      * @return $this
      */
-    public function setTopLeftCell($cellAddress)
+    public function setTopLeftCell($cellAddress): static
     {
         $this->topLeftCellRef = $cellAddress;
 
@@ -480,7 +480,7 @@ class Chart
      *
      * @return $this
      */
-    public function setTopLeftOffset($xOffset, $yOffset)
+    public function setTopLeftOffset($xOffset, $yOffset): static
     {
         if ($xOffset !== null) {
             $this->setTopLeftXOffset($xOffset);
@@ -511,7 +511,7 @@ class Chart
      *
      * @return $this
      */
-    public function setTopLeftXOffset($xOffset)
+    public function setTopLeftXOffset($xOffset): static
     {
         $this->topLeftXOffset = $xOffset;
 
@@ -528,7 +528,7 @@ class Chart
      *
      * @return $this
      */
-    public function setTopLeftYOffset($yOffset)
+    public function setTopLeftYOffset($yOffset): static
     {
         $this->topLeftYOffset = $yOffset;
 
@@ -549,7 +549,7 @@ class Chart
      *
      * @return $this
      */
-    public function setBottomRightPosition($cellAddress = '', $xOffset = null, $yOffset = null)
+    public function setBottomRightPosition($cellAddress = '', $xOffset = null, $yOffset = null): static
     {
         $this->bottomRightCellRef = $cellAddress;
         if ($xOffset !== null) {
@@ -581,7 +581,7 @@ class Chart
      *
      * @return $this
      */
-    public function setBottomRightCell(string $cellAddress = '')
+    public function setBottomRightCell(string $cellAddress = ''): static
     {
         $this->bottomRightCellRef = $cellAddress;
 
@@ -604,7 +604,7 @@ class Chart
      *
      * @return $this
      */
-    public function setBottomRightOffset($xOffset, $yOffset)
+    public function setBottomRightOffset($xOffset, $yOffset): static
     {
         if ($xOffset !== null) {
             $this->setBottomRightXOffset($xOffset);
@@ -635,7 +635,7 @@ class Chart
      *
      * @return $this
      */
-    public function setBottomRightXOffset($xOffset)
+    public function setBottomRightXOffset($xOffset): static
     {
         $this->bottomRightXOffset = $xOffset;
 
@@ -652,7 +652,7 @@ class Chart
      *
      * @return $this
      */
-    public function setBottomRightYOffset($yOffset)
+    public function setBottomRightYOffset($yOffset): static
     {
         $this->bottomRightYOffset = $yOffset;
 

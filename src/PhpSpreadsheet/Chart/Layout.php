@@ -222,7 +222,7 @@ class Layout
      *
      * @return $this
      */
-    public function setLayoutTarget($target)
+    public function setLayoutTarget($target): static
     {
         $this->layoutTarget = $target;
 
@@ -246,7 +246,7 @@ class Layout
      *
      * @return $this
      */
-    public function setXMode($mode)
+    public function setXMode($mode): static
     {
         $this->xMode = (string) $mode;
 
@@ -270,7 +270,7 @@ class Layout
      *
      * @return $this
      */
-    public function setYMode($mode)
+    public function setYMode($mode): static
     {
         $this->yMode = (string) $mode;
 
@@ -294,7 +294,7 @@ class Layout
      *
      * @return $this
      */
-    public function setXPosition($position)
+    public function setXPosition($position): static
     {
         $this->xPos = (float) $position;
 
@@ -318,7 +318,7 @@ class Layout
      *
      * @return $this
      */
-    public function setYPosition($position)
+    public function setYPosition($position): static
     {
         $this->yPos = (float) $position;
 
@@ -342,7 +342,7 @@ class Layout
      *
      * @return $this
      */
-    public function setWidth($width)
+    public function setWidth($width): static
     {
         $this->width = $width;
 
@@ -366,7 +366,7 @@ class Layout
      *
      * @return $this
      */
-    public function setHeight($height)
+    public function setHeight($height): static
     {
         $this->height = $height;
 

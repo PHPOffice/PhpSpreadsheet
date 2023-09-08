@@ -156,7 +156,7 @@ class Conditional implements IComparable
      *
      * @return $this
      */
-    public function setConditionType($type)
+    public function setConditionType($type): static
     {
         $this->conditionType = $type;
 
@@ -180,7 +180,7 @@ class Conditional implements IComparable
      *
      * @return $this
      */
-    public function setOperatorType($type)
+    public function setOperatorType($type): static
     {
         $this->operatorType = $type;
 
@@ -204,7 +204,7 @@ class Conditional implements IComparable
      *
      * @return $this
      */
-    public function setText($text)
+    public function setText($text): static
     {
         $this->text = $text;
 
@@ -228,7 +228,7 @@ class Conditional implements IComparable
      *
      * @return $this
      */
-    public function setStopIfTrue($stopIfTrue)
+    public function setStopIfTrue($stopIfTrue): static
     {
         $this->stopIfTrue = $stopIfTrue;
 
@@ -252,7 +252,7 @@ class Conditional implements IComparable
      *
      * @return $this
      */
-    public function setConditions($conditions)
+    public function setConditions($conditions): static
     {
         if (!is_array($conditions)) {
             $conditions = [$conditions];
@@ -269,7 +269,7 @@ class Conditional implements IComparable
      *
      * @return $this
      */
-    public function addCondition($condition)
+    public function addCondition($condition): static
     {
         $this->condition[] = $condition;
 
@@ -291,7 +291,7 @@ class Conditional implements IComparable
      *
      * @return $this
      */
-    public function setStyle(Style $style)
+    public function setStyle(Style $style): static
     {
         $this->style = $style;
 
@@ -313,7 +313,7 @@ class Conditional implements IComparable
      *
      * @return $this
      */
-    public function setDataBar(ConditionalDataBar $dataBar)
+    public function setDataBar(ConditionalDataBar $dataBar): static
     {
         $this->dataBar = $dataBar;
 

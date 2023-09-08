@@ -64,7 +64,7 @@ class RowCellIterator extends CellIterator
      *
      * @return $this
      */
-    public function resetStart(string $startColumn = 'A')
+    public function resetStart(string $startColumn = 'A'): static
     {
         $this->startColumnIndex = Coordinate::columnIndexFromString($startColumn);
         $this->adjustForExistingOnlyRange();
@@ -80,7 +80,7 @@ class RowCellIterator extends CellIterator
      *
      * @return $this
      */
-    public function resetEnd($endColumn = null)
+    public function resetEnd($endColumn = null): static
     {
         $endColumn = $endColumn ?: $this->worksheet->getHighestColumn();
         $this->endColumnIndex = Coordinate::columnIndexFromString($endColumn);
@@ -96,7 +96,7 @@ class RowCellIterator extends CellIterator
      *
      * @return $this
      */
-    public function seek(string $column = 'A')
+    public function seek(string $column = 'A'): static
     {
         $columnId = Coordinate::columnIndexFromString($column);
         if ($this->onlyExistingCells && !($this->cellCollection->has($column . $this->rowIndex))) {

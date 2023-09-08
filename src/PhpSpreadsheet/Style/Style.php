@@ -199,7 +199,7 @@ class Style extends Supervisor
      *
      * @return $this
      */
-    public function applyFromArray(array $styleArray, $advancedBorders = true)
+    public function applyFromArray(array $styleArray, $advancedBorders = true): static
     {
         if ($this->isSupervisor) {
             $pRange = $this->getSelectedCells();
@@ -581,7 +581,7 @@ class Style extends Supervisor
      *
      * @return $this
      */
-    public function setFont(Font $font)
+    public function setFont(Font $font): static
     {
         $this->font = $font;
 
@@ -635,7 +635,7 @@ class Style extends Supervisor
      *
      * @return $this
      */
-    public function setConditionalStyles(array $conditionalStyleArray)
+    public function setConditionalStyles(array $conditionalStyleArray): static
     {
         $this->getActiveSheet()->setConditionalStyles($this->getSelectedCells(), $conditionalStyleArray);
 
@@ -673,7 +673,7 @@ class Style extends Supervisor
      *
      * @return $this
      */
-    public function setQuotePrefix($quotePrefix)
+    public function setQuotePrefix($quotePrefix): static
     {
         if ($quotePrefix == '') {
             $quotePrefix = false;

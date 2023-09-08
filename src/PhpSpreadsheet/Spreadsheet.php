@@ -1124,10 +1124,8 @@ class Spreadsheet implements JsonSerializable
 
     /**
      * Copy workbook (!= clone!).
-     *
-     * @return Spreadsheet
      */
-    public function copy()
+    public function copy(): self
     {
         $filename = File::temporaryFilename();
         $writer = new XlsxWriter($this);

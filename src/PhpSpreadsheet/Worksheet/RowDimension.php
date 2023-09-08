@@ -56,7 +56,7 @@ class RowDimension extends Dimension
      *
      * @return $this
      */
-    public function setRowIndex(int $index)
+    public function setRowIndex(int $index): static
     {
         $this->rowIndex = $index;
 
@@ -87,7 +87,7 @@ class RowDimension extends Dimension
      *
      * @return $this
      */
-    public function setRowHeight($height, ?string $unitOfMeasure = null)
+    public function setRowHeight($height, ?string $unitOfMeasure = null): static
     {
         $this->height = ($unitOfMeasure === null || $height < 0)
             ? $height
@@ -109,7 +109,7 @@ class RowDimension extends Dimension
      *
      * @return $this
      */
-    public function setZeroHeight(bool $zeroHeight)
+    public function setZeroHeight(bool $zeroHeight): static
     {
         $this->zeroHeight = $zeroHeight;
 

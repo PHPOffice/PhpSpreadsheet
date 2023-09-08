@@ -144,7 +144,7 @@ class DataSeriesValues extends Properties
      *
      * @return $this
      */
-    public function setDataType($dataType)
+    public function setDataType($dataType): static
     {
         if (!in_array($dataType, self::DATA_TYPE_VALUES)) {
             throw new Exception('Invalid datatype for chart data series values');
@@ -171,7 +171,7 @@ class DataSeriesValues extends Properties
      *
      * @return $this
      */
-    public function setDataSource($dataSource)
+    public function setDataSource($dataSource): static
     {
         $this->dataSource = $dataSource;
 
@@ -195,7 +195,7 @@ class DataSeriesValues extends Properties
      *
      * @return $this
      */
-    public function setPointMarker($marker)
+    public function setPointMarker($marker): static
     {
         $this->pointMarker = $marker;
 
@@ -225,7 +225,7 @@ class DataSeriesValues extends Properties
      *
      * @return $this
      */
-    public function setPointSize(int $size = 3)
+    public function setPointSize(int $size = 3): static
     {
         $this->pointSize = $size;
 
@@ -249,7 +249,7 @@ class DataSeriesValues extends Properties
      *
      * @return $this
      */
-    public function setFormatCode($formatCode)
+    public function setFormatCode($formatCode): static
     {
         $this->formatCode = $formatCode;
 
@@ -338,9 +338,9 @@ class DataSeriesValues extends Properties
      *
      * @param ChartColor|ChartColor[]|string|string[] $color HEX color or array with HEX colors
      *
-     * @return   DataSeriesValues
+     * @return   $this
      */
-    public function setFillColor($color)
+    public function setFillColor($color): static
     {
         if (is_array($color)) {
             $this->fillColor = [];
@@ -393,7 +393,7 @@ class DataSeriesValues extends Properties
      *
      * @return $this
      */
-    public function setLineWidth($width)
+    public function setLineWidth($width): static
     {
         $this->lineStyleProperties['width'] = $width;
 
@@ -461,7 +461,7 @@ class DataSeriesValues extends Properties
      *
      * @return $this
      */
-    public function setDataValues($dataValues)
+    public function setDataValues($dataValues): static
     {
         $this->dataValues = Functions::flattenArray($dataValues);
         $this->pointCount = count($dataValues);
@@ -560,7 +560,7 @@ class DataSeriesValues extends Properties
      *
      * @return $this
      */
-    public function setSmoothLine($smoothLine)
+    public function setSmoothLine($smoothLine): static
     {
         $this->smoothLine = $smoothLine;
 

@@ -257,7 +257,7 @@ class MemoryDrawing extends BaseDrawing
      *
      * @return $this
      */
-    public function setImageResource(?GdImage $value)
+    public function setImageResource(?GdImage $value): static
     {
         $this->imageResource = $value;
 
@@ -287,7 +287,7 @@ class MemoryDrawing extends BaseDrawing
      *
      * @return $this
      */
-    public function setRenderingFunction($value)
+    public function setRenderingFunction($value): static
     {
         $this->renderingFunction = $value;
 
@@ -311,7 +311,7 @@ class MemoryDrawing extends BaseDrawing
      *
      * @return $this
      */
-    public function setMimeType($value)
+    public function setMimeType($value): static
     {
         $this->mimeType = $value;
 

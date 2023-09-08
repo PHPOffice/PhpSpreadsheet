@@ -108,7 +108,7 @@ class Slk extends BaseReader
      *
      * @codeCoverageIgnore
      */
-    public function setInputEncoding($inputEncoding)
+    public function setInputEncoding($inputEncoding): static
     {
         $this->inputEncoding = $inputEncoding;
 
@@ -581,7 +581,7 @@ class Slk extends BaseReader
      *
      * @return $this
      */
-    public function setSheetIndex($sheetIndex)
+    public function setSheetIndex($sheetIndex): static
     {
         $this->sheetIndex = $sheetIndex;
 

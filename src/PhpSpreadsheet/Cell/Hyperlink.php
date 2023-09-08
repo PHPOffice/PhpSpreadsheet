@@ -48,7 +48,7 @@ class Hyperlink
      *
      * @return $this
      */
-    public function setUrl($url)
+    public function setUrl($url): static
     {
         $this->url = $url;
 
@@ -72,7 +72,7 @@ class Hyperlink
      *
      * @return $this
      */
-    public function setTooltip($tooltip)
+    public function setTooltip($tooltip): static
     {
         $this->tooltip = $tooltip;
 

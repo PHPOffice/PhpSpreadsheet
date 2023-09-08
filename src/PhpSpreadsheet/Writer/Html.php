@@ -293,7 +293,7 @@ class Html extends BaseWriter
      *
      * @return $this
      */
-    public function setSheetIndex($sheetIndex)
+    public function setSheetIndex($sheetIndex): static
     {
         $this->sheetIndex = $sheetIndex;
 
@@ -317,7 +317,7 @@ class Html extends BaseWriter
      *
      * @return $this
      */
-    public function setGenerateSheetNavigationBlock($generateSheetNavigationBlock)
+    public function setGenerateSheetNavigationBlock($generateSheetNavigationBlock): static
     {
         $this->generateSheetNavigationBlock = (bool) $generateSheetNavigationBlock;
 
@@ -329,7 +329,7 @@ class Html extends BaseWriter
      *
      * @return $this
      */
-    public function writeAllSheets()
+    public function writeAllSheets(): static
     {
         $this->sheetIndex = null;
 
@@ -1557,7 +1557,7 @@ class Html extends BaseWriter
      *
      * @return $this
      */
-    public function setImagesRoot($imagesRoot)
+    public function setImagesRoot($imagesRoot): static
     {
         $this->imagesRoot = $imagesRoot;
 
@@ -1581,7 +1581,7 @@ class Html extends BaseWriter
      *
      * @return $this
      */
-    public function setEmbedImages($embedImages)
+    public function setEmbedImages($embedImages): static
     {
         $this->embedImages = $embedImages;
 
@@ -1605,7 +1605,7 @@ class Html extends BaseWriter
      *
      * @return $this
      */
-    public function setUseInlineCss($useInlineCss)
+    public function setUseInlineCss($useInlineCss): static
     {
         $this->useInlineCss = $useInlineCss;
 
@@ -1637,7 +1637,7 @@ class Html extends BaseWriter
      *
      * @deprecated no longer used
      */
-    public function setUseEmbeddedCSS($useEmbeddedCSS)
+    public function setUseEmbeddedCSS($useEmbeddedCSS): static
     {
         $this->useEmbeddedCSS = $useEmbeddedCSS;
 

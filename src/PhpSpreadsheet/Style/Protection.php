@@ -85,7 +85,7 @@ class Protection extends Supervisor
      *
      * @return $this
      */
-    public function applyFromArray(array $styleArray)
+    public function applyFromArray(array $styleArray): static
     {
         if ($this->isSupervisor) {
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($this->getStyleArray($styleArray));
@@ -122,7 +122,7 @@ class Protection extends Supervisor
      *
      * @return $this
      */
-    public function setLocked($lockType)
+    public function setLocked($lockType): static
     {
         if ($this->isSupervisor) {
             $styleArray = $this->getStyleArray(['locked' => $lockType]);
@@ -155,7 +155,7 @@ class Protection extends Supervisor
      *
      * @return $this
      */
-    public function setHidden($hiddenType)
+    public function setHidden($hiddenType): static
     {
         if ($this->isSupervisor) {
             $styleArray = $this->getStyleArray(['hidden' => $hiddenType]);

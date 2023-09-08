@@ -185,7 +185,7 @@ class Color extends Supervisor
      *
      * @return $this
      */
-    public function applyFromArray(array $styleArray)
+    public function applyFromArray(array $styleArray): static
     {
         if ($this->isSupervisor) {
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($this->getStyleArray($styleArray));
@@ -239,7 +239,7 @@ class Color extends Supervisor
      *
      * @return $this
      */
-    public function setARGB(?string $colorValue = self::COLOR_BLACK)
+    public function setARGB(?string $colorValue = self::COLOR_BLACK): static
     {
         $this->hasChanged = true;
         $colorValue = $this->validateColor($colorValue);

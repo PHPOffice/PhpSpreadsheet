@@ -112,7 +112,7 @@ class PlotArea
      *
      * @return $this
      */
-    public function setPlotSeries(array $plotSeries)
+    public function setPlotSeries(array $plotSeries): static
     {
         $this->plotSeries = $plotSeries;
 

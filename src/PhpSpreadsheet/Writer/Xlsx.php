@@ -576,7 +576,7 @@ class Xlsx extends BaseWriter
      *
      * @return $this
      */
-    public function setSpreadsheet(Spreadsheet $spreadsheet)
+    public function setSpreadsheet(Spreadsheet $spreadsheet): static
     {
         $this->spreadSheet = $spreadsheet;
 
@@ -680,7 +680,7 @@ class Xlsx extends BaseWriter
      *
      * @return $this
      */
-    public function setOffice2003Compatibility($office2003compatibility)
+    public function setOffice2003Compatibility($office2003compatibility): static
     {
         $this->office2003compatibility = $office2003compatibility;
 

@@ -195,7 +195,7 @@ class Borders extends Supervisor
      *
      * @return $this
      */
-    public function applyFromArray(array $styleArray)
+    public function applyFromArray(array $styleArray): static
     {
         if ($this->isSupervisor) {
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($this->getStyleArray($styleArray));
@@ -370,7 +370,7 @@ class Borders extends Supervisor
      *
      * @return $this
      */
-    public function setDiagonalDirection($direction)
+    public function setDiagonalDirection($direction): static
     {
         if ($direction == '') {
             $direction = self::DIAGONAL_NONE;

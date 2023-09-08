@@ -144,7 +144,7 @@ class DataValidation
      *
      * @return $this
      */
-    public function setFormula1($formula)
+    public function setFormula1($formula): static
     {
         $this->formula1 = $formula;
 
@@ -168,7 +168,7 @@ class DataValidation
      *
      * @return $this
      */
-    public function setFormula2($formula)
+    public function setFormula2($formula): static
     {
         $this->formula2 = $formula;
 
@@ -192,7 +192,7 @@ class DataValidation
      *
      * @return $this
      */
-    public function setType($type)
+    public function setType($type): static
     {
         $this->type = $type;
 
@@ -216,7 +216,7 @@ class DataValidation
      *
      * @return $this
      */
-    public function setErrorStyle($errorStyle)
+    public function setErrorStyle($errorStyle): static
     {
         $this->errorStyle = $errorStyle;
 
@@ -240,7 +240,7 @@ class DataValidation
      *
      * @return $this
      */
-    public function setOperator($operator)
+    public function setOperator($operator): static
     {
         $this->operator = $operator;
 
@@ -264,7 +264,7 @@ class DataValidation
      *
      * @return $this
      */
-    public function setAllowBlank($allowBlank)
+    public function setAllowBlank($allowBlank): static
     {
         $this->allowBlank = $allowBlank;
 
@@ -288,7 +288,7 @@ class DataValidation
      *
      * @return $this
      */
-    public function setShowDropDown($showDropDown)
+    public function setShowDropDown($showDropDown): static
     {
         $this->showDropDown = $showDropDown;
 
@@ -312,7 +312,7 @@ class DataValidation
      *
      * @return $this
      */
-    public function setShowInputMessage($showInputMessage)
+    public function setShowInputMessage($showInputMessage): static
     {
         $this->showInputMessage = $showInputMessage;
 
@@ -336,7 +336,7 @@ class DataValidation
      *
      * @return $this
      */
-    public function setShowErrorMessage($showErrorMessage)
+    public function setShowErrorMessage($showErrorMessage): static
     {
         $this->showErrorMessage = $showErrorMessage;
 
@@ -360,7 +360,7 @@ class DataValidation
      *
      * @return $this
      */
-    public function setErrorTitle($errorTitle)
+    public function setErrorTitle($errorTitle): static
     {
         $this->errorTitle = $errorTitle;
 
@@ -384,7 +384,7 @@ class DataValidation
      *
      * @return $this
      */
-    public function setError($error)
+    public function setError($error): static
     {
         $this->error = $error;
 
@@ -408,7 +408,7 @@ class DataValidation
      *
      * @return $this
      */
-    public function setPromptTitle($promptTitle)
+    public function setPromptTitle($promptTitle): static
     {
         $this->promptTitle = $promptTitle;
 
@@ -432,7 +432,7 @@ class DataValidation
      *
      * @return $this
      */
-    public function setPrompt($prompt)
+    public function setPrompt($prompt): static
     {
         $this->prompt = $prompt;
 

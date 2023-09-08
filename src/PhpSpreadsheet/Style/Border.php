@@ -128,7 +128,7 @@ class Border extends Supervisor
      *
      * @return $this
      */
-    public function applyFromArray(array $styleArray)
+    public function applyFromArray(array $styleArray): static
     {
         if ($this->isSupervisor) {
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($this->getStyleArray($styleArray));
@@ -167,7 +167,7 @@ class Border extends Supervisor
      *
      * @return $this
      */
-    public function setBorderStyle($style)
+    public function setBorderStyle($style): static
     {
         if (empty($style)) {
             $style = self::BORDER_NONE;
@@ -200,7 +200,7 @@ class Border extends Supervisor
      *
      * @return $this
      */
-    public function setColor(Color $color)
+    public function setColor(Color $color): static
     {
         // make sure parameter is a real color and not a supervisor
         $color = $color->getIsSupervisor() ? $color->getSharedComponent() : $color;

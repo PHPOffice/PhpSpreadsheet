@@ -399,7 +399,7 @@ class Protection
      *
      * @return $this
      */
-    public function setPassword($password, $alreadyHashed = false)
+    public function setPassword($password, $alreadyHashed = false): static
     {
         if (!$alreadyHashed) {
             $salt = $this->generateSalt();

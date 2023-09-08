@@ -106,7 +106,7 @@ class ColumnDimension extends Dimension
      *
      * @return $this
      */
-    public function setWidth(float $width, ?string $unitOfMeasure = null)
+    public function setWidth(float $width, ?string $unitOfMeasure = null): static
     {
         $this->width = ($unitOfMeasure === null || $width < 0)
             ? $width
@@ -128,7 +128,7 @@ class ColumnDimension extends Dimension
      *
      * @return $this
      */
-    public function setAutoSize(bool $autosizeEnabled)
+    public function setAutoSize(bool $autosizeEnabled): static
     {
         $this->autoSize = $autosizeEnabled;
 

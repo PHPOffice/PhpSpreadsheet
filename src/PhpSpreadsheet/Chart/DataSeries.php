@@ -170,7 +170,7 @@ class DataSeries
      *
      * @return $this
      */
-    public function setPlotType($plotType)
+    public function setPlotType($plotType): static
     {
         $this->plotType = $plotType;
 
@@ -194,7 +194,7 @@ class DataSeries
      *
      * @return $this
      */
-    public function setPlotGrouping($groupingType)
+    public function setPlotGrouping($groupingType): static
     {
         $this->plotGrouping = $groupingType;
 
@@ -218,7 +218,7 @@ class DataSeries
      *
      * @return $this
      */
-    public function setPlotDirection($plotDirection)
+    public function setPlotDirection($plotDirection): static
     {
         $this->plotDirection = $plotDirection;
 
@@ -308,7 +308,7 @@ class DataSeries
      *
      * @return $this
      */
-    public function setPlotStyle($plotStyle)
+    public function setPlotStyle($plotStyle): static
     {
         $this->plotStyle = $plotStyle;
 
@@ -389,7 +389,7 @@ class DataSeries
      *
      * @return $this
      */
-    public function setSmoothLine($smoothLine)
+    public function setSmoothLine($smoothLine): static
     {
         $this->smoothLine = $smoothLine;
 

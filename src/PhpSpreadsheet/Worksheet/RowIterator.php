@@ -65,7 +65,7 @@ class RowIterator implements NativeIterator
      *
      * @return $this
      */
-    public function resetStart(int $startRow = 1)
+    public function resetStart(int $startRow = 1): static
     {
         if ($startRow > $this->subject->getHighestRow()) {
             throw new PhpSpreadsheetException(
@@ -89,7 +89,7 @@ class RowIterator implements NativeIterator
      *
      * @return $this
      */
-    public function resetEnd($endRow = null)
+    public function resetEnd($endRow = null): static
     {
         $this->endRow = $endRow ?: $this->subject->getHighestRow();
 
@@ -103,7 +103,7 @@ class RowIterator implements NativeIterator
      *
      * @return $this
      */
-    public function seek(int $row = 1)
+    public function seek(int $row = 1): static
     {
         if (($row < $this->startRow) || ($row > $this->endRow)) {
             throw new PhpSpreadsheetException("Row $row is out of range ({$this->startRow} - {$this->endRow})");

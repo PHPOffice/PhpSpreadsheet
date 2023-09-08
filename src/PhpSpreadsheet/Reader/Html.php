@@ -223,7 +223,7 @@ class Html extends BaseReader
      *
      * @deprecated no use is made of this property
      */
-    public function setInputEncoding($inputEncoding)
+    public function setInputEncoding($inputEncoding): static
     {
         $this->inputEncoding = $inputEncoding;
 
@@ -863,7 +863,7 @@ class Html extends BaseReader
      *
      * @return $this
      */
-    public function setSheetIndex($sheetIndex)
+    public function setSheetIndex($sheetIndex): static
     {
         $this->sheetIndex = $sheetIndex;
 
