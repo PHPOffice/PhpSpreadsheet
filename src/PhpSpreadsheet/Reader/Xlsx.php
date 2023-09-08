@@ -174,10 +174,8 @@ class Xlsx extends BaseReader
 
     /**
      * Reads names of the worksheets from a file, without parsing the whole file to a Spreadsheet object.
-     *
-     * @return array
      */
-    public function listWorksheetNames(string $filename)
+    public function listWorksheetNames(string $filename): array
     {
         File::assertFile($filename, self::INITIAL_FILE);
 
@@ -211,10 +209,8 @@ class Xlsx extends BaseReader
 
     /**
      * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
-     *
-     * @return array
      */
-    public function listWorksheetInfo(string $filename)
+    public function listWorksheetInfo(string $filename): array
     {
         File::assertFile($filename, self::INITIAL_FILE);
 

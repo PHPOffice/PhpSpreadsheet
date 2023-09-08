@@ -466,10 +466,8 @@ class Xls extends BaseReader
 
     /**
      * Reads names of the worksheets from a file, without parsing the whole file to a PhpSpreadsheet object.
-     *
-     * @return array
      */
-    public function listWorksheetNames(string $filename)
+    public function listWorksheetNames(string $filename): array
     {
         File::assertFile($filename);
 
@@ -526,10 +524,8 @@ class Xls extends BaseReader
 
     /**
      * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
-     *
-     * @return array
      */
-    public function listWorksheetInfo(string $filename)
+    public function listWorksheetInfo(string $filename): array
     {
         File::assertFile($filename);
 

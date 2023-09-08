@@ -998,10 +998,8 @@ class Html extends BaseWriter
 
     /**
      * Create CSS style.
-     *
-     * @return array
      */
-    private function createCSSStyleAlignment(Alignment $alignment)
+    private function createCSSStyleAlignment(Alignment $alignment): array
     {
         // Construct CSS
         $css = [];
@@ -1032,10 +1030,8 @@ class Html extends BaseWriter
 
     /**
      * Create CSS style.
-     *
-     * @return array
      */
-    private function createCSSStyleFont(Font $font)
+    private function createCSSStyleFont(Font $font): array
     {
         // Construct CSS
         $css = [];
@@ -1066,10 +1062,8 @@ class Html extends BaseWriter
      * Create CSS style.
      *
      * @param Borders $borders Borders
-     *
-     * @return array
      */
-    private function createCSSStyleBorders(Borders $borders)
+    private function createCSSStyleBorders(Borders $borders): array
     {
         // Construct CSS
         $css = [];

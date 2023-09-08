@@ -66,7 +66,7 @@ class Sample
      *
      * @return string[][] [$name => $path]
      */
-    public function getSamples()
+    public function getSamples(): array
     {
         // Populate samples
         $baseDir = realpath(__DIR__ . '/../../../samples');

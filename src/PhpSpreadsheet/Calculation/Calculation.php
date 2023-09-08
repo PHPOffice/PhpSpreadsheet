@@ -5248,10 +5248,8 @@ class Calculation
     /**
      * @param mixed $operand1
      * @param mixed $operand2
-     *
-     * @return array
      */
-    private function executeArrayComparison($operand1, $operand2, string $operation, Stack &$stack, bool $recursingArrays)
+    private function executeArrayComparison($operand1, $operand2, string $operation, Stack &$stack, bool $recursingArrays): array
     {
         $result = [];
         if (!is_array($operand2)) {
@@ -5472,9 +5470,9 @@ class Calculation
      * @param Worksheet $worksheet Worksheet
      * @param bool $resetLog Flag indicating whether calculation log should be reset or not
      *
-     * @return mixed Array of values in range if range contains more than one element. Otherwise, a single value is returned.
+     * @return array Array of values in range if range contains more than one element. Otherwise, a single value is returned.
      */
-    public function extractCellRange(&$range = 'A1', ?Worksheet $worksheet = null, bool $resetLog = true)
+    public function extractCellRange(&$range = 'A1', ?Worksheet $worksheet = null, bool $resetLog = true): array
     {
         // Return value
         $returnValue = [];
@@ -5603,10 +5601,8 @@ class Calculation
 
     /**
      * Get a list of implemented Excel function names.
-     *
-     * @return array
      */
-    public function getImplementedFunctionNames()
+    public function getImplementedFunctionNames(): array
     {
         $returnValue = [];
         foreach (self::$phpSpreadsheetFunctions as $functionName => $function) {

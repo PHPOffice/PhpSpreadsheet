@@ -667,7 +667,7 @@ class Worksheet implements IComparable
      *
      * @return string[] The names of charts
      */
-    public function getChartNames()
+    public function getChartNames(): array
     {
         $chartNames = [];
         foreach ($this->chartCollection as $chart) {
@@ -1838,7 +1838,7 @@ class Worksheet implements IComparable
      *
      * @return int[]
      */
-    public function getBreaks()
+    public function getBreaks(): array
     {
         $breaks = [];
         /** @var callable */

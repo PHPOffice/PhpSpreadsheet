@@ -90,7 +90,7 @@ class Ods extends BaseReader
      *
      * @return string[]
      */
-    public function listWorksheetNames(string $filename)
+    public function listWorksheetNames(string $filename): array
     {
         File::assertFile($filename, self::INITIAL_FILE);
 
@@ -136,10 +136,8 @@ class Ods extends BaseReader
 
     /**
      * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
-     *
-     * @return array
      */
-    public function listWorksheetInfo(string $filename)
+    public function listWorksheetInfo(string $filename): array
     {
         File::assertFile($filename, self::INITIAL_FILE);
 

@@ -838,7 +838,7 @@ class Spreadsheet implements JsonSerializable
      *
      * @return string[]
      */
-    public function getSheetNames()
+    public function getSheetNames(): array
     {
         $returnValue = [];
         $worksheetCount = $this->getSheetCount();

@@ -131,10 +131,8 @@ class Slk extends BaseReader
 
     /**
      * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
-     *
-     * @return array
      */
-    public function listWorksheetInfo(string $filename)
+    public function listWorksheetInfo(string $filename): array
     {
         // Open file
         $this->canReadOrBust($filename);

@@ -21,7 +21,7 @@ class StringTable extends WriterPart
      *
      * @return string[] String table for worksheet
      */
-    public function createStringTable(ActualWorksheet $worksheet, $existingTable = null)
+    public function createStringTable(ActualWorksheet $worksheet, $existingTable = null): array
     {
         // Create string lookup table
         $aStringTable = [];
@@ -324,10 +324,8 @@ class StringTable extends WriterPart
      * Flip string table (for index searching).
      *
      * @param array $stringTable Stringtable
-     *
-     * @return array
      */
-    public function flipStringTable(array $stringTable)
+    public function flipStringTable(array $stringTable): array
     {
         // Return value
         $returnValue = [];

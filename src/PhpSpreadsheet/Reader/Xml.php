@@ -130,10 +130,8 @@ class Xml extends BaseReader
 
     /**
      * Reads names of the worksheets from a file, without parsing the whole file to a Spreadsheet object.
-     *
-     * @return array
      */
-    public function listWorksheetNames(string $filename)
+    public function listWorksheetNames(string $filename): array
     {
         File::assertFile($filename);
         if (!$this->canRead($filename)) {
@@ -160,10 +158,8 @@ class Xml extends BaseReader
      * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
      *
      * @param string $filename
-     *
-     * @return array
      */
-    public function listWorksheetInfo($filename)
+    public function listWorksheetInfo($filename): array
     {
         File::assertFile($filename);
         if (!$this->canRead($filename)) {

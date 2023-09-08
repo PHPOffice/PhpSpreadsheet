@@ -56,7 +56,7 @@ class SpgrContainer
      *
      * @return SpgrContainer\SpContainer[]
      */
-    public function getAllSpContainers()
+    public function getAllSpContainers(): array
     {
         $allSpContainers = [];
 

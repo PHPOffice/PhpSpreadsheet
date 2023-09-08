@@ -31,10 +31,8 @@ class Matrix
      * TRANSPOSE.
      *
      * @param array|mixed $matrixData A matrix of values
-     *
-     * @return array
      */
-    public static function transpose($matrixData)
+    public static function transpose($matrixData): array
     {
         $returnMatrix = [];
         if (!is_array($matrixData)) {
