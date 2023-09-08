@@ -5669,10 +5669,8 @@ class Calculation
      * Add cell reference if needed while making sure that it is the last argument.
      *
      * @param array|string $functionCall
-     *
-     * @return array
      */
-    private function addCellReference(array $args, bool $passCellReference, $functionCall, ?Cell $cell = null)
+    private function addCellReference(array $args, bool $passCellReference, $functionCall, ?Cell $cell = null): array
     {
         if ($passCellReference) {
             if (is_array($functionCall)) {

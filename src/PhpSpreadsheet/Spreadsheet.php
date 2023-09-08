@@ -610,10 +610,8 @@ class Spreadsheet implements JsonSerializable
      *
      * @param Worksheet $worksheet The worksheet to add
      * @param null|int $sheetIndex Index where sheet should go (0,1,..., or null for last)
-     *
-     * @return Worksheet
      */
-    public function addSheet(Worksheet $worksheet, $sheetIndex = null)
+    public function addSheet(Worksheet $worksheet, $sheetIndex = null): Worksheet
     {
         if ($this->sheetNameExists($worksheet->getTitle())) {
             throw new Exception(

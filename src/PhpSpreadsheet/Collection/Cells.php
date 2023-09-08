@@ -379,10 +379,8 @@ class Cells
      *
      * @param string $cellCoordinate Coordinate of the cell to update
      * @param Cell $cell Cell to update
-     *
-     * @return Cell
      */
-    public function add($cellCoordinate, Cell $cell)
+    public function add($cellCoordinate, Cell $cell): Cell
     {
         if ($cellCoordinate !== $this->currentCoordinate) {
             $this->storeCurrentCell();

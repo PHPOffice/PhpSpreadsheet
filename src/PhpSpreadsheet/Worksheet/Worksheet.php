@@ -612,10 +612,8 @@ class Worksheet implements IComparable
      * Add chart.
      *
      * @param null|int $chartIndex Index where chart should go (0,1,..., or null for last)
-     *
-     * @return Chart
      */
-    public function addChart(Chart $chart, $chartIndex = null)
+    public function addChart(Chart $chart, $chartIndex = null): Chart
     {
         $chart->setWorksheet($this);
         if ($chartIndex === null) {

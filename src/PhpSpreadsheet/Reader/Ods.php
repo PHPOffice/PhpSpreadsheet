@@ -241,10 +241,8 @@ class Ods extends BaseReader
 
     /**
      * Loads PhpSpreadsheet from file into PhpSpreadsheet instance.
-     *
-     * @return Spreadsheet
      */
-    public function loadIntoExisting(string $filename, Spreadsheet $spreadsheet)
+    public function loadIntoExisting(string $filename, Spreadsheet $spreadsheet): Spreadsheet
     {
         File::assertFile($filename, self::INITIAL_FILE);
 
