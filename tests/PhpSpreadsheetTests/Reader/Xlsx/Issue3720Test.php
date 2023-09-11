@@ -78,20 +78,12 @@ class Issue3720Test extends \PHPUnit\Framework\TestCase
         $sheet = $spreadsheet->getSheetByNameOrThrow('Welcome');
         $drawings = $sheet->getDrawingCollection();
         self::assertCount(1, $drawings);
-        $failmsg = '';
-        if (isset($drawings[0])) {
-            $draw0 = $drawings[0];
-            if (method_exists($draw0, 'getPath')) {
-                self::assertSame('image1.jpeg', basename($draw0->getPath()));
-            } else {
-                $failmsg = 'unexpected missing getPath method';
-            }
-        } else {
-            $failmsg = 'unexpected missing array item 0';
-        }
+        $draw0 = $drawings[0] ?? null;
+        self::assertNotNull($draw0);
+        self::assertSame('Picture 1', $draw0->getName());
+        self::assertSame('C3', $draw0->getCoordinates());
+        self::assertSame('C10', $draw0->getCoordinates2());
+        self::assertSame('oneCell', $draw0->getEditAs());
         $spreadsheet->disconnectWorksheets();
-        if ($failmsg !== '') {
-            self::fail($failmsg);
-        }
     }
 }

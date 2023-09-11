@@ -809,8 +809,8 @@ class Cell
 
     public function isLocked(): bool
     {
-        $sheet = $this->parent?->getParent();
-        if ($sheet === null || $sheet->getProtection()->getSheet() !== true) {
+        $protected = $this->parent?->getParent()?->getProtection()?->getSheet();
+        if ($protected !== true) {
             return false;
         }
         $locked = $this->getStyle()->getProtection()->getLocked();
@@ -823,8 +823,8 @@ class Cell
         if ($this->getDataType() !== DataType::TYPE_FORMULA) {
             return false;
         }
-        $sheet = $this->parent?->getParent();
-        if ($sheet === null || $sheet->getProtection()->getSheet() !== true) {
+        $protected = $this->parent?->getParent()?->getProtection()?->getSheet();
+        if ($protected !== true) {
             return false;
         }
         $hidden = $this->getStyle()->getProtection()->getHidden();
