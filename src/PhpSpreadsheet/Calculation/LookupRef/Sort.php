@@ -228,7 +228,6 @@ class Sort extends LookupRefValidations
             $sortArguments[] = self::prepareSortVectorValues($sortValues);
             $sortArguments[] = $sortOrder[$index] === self::ORDER_ASCENDING ? SORT_ASC : SORT_DESC;
         }
-        $sortArguments = self::applyPHP7Patch($sortArray, $sortArguments);
 
         $sortVector = self::executeVectorSortQuery($sortData, $sortArguments);
 
@@ -272,7 +271,6 @@ class Sort extends LookupRefValidations
             $sortArguments[] = self::prepareSortVectorValues($sortValues);
             $sortArguments[] = $sortOrder[$index] === self::ORDER_ASCENDING ? SORT_ASC : SORT_DESC;
         }
-        $sortArguments = self::applyPHP7Patch($sortArray, $sortArguments);
 
         $sortData = self::executeVectorSortQuery($sortData, $sortArguments);
 
@@ -321,22 +319,5 @@ class Sort extends LookupRefValidations
 //        );
 //
 //        return $lookupArray;
-    }
-
-    /**
-     * Hack to handle PHP 7:
-     * From PHP 8.0.0, If two members compare as equal in a sort, they retain their original order;
-     *      but prior to PHP 8.0.0, their relative order in the sorted array was undefined.
-     * MS Excel replicates the PHP 8.0.0 behaviour, retaining the original order of matching elements.
-     * To replicate that behaviour with PHP 7, we add an extra sort based on the row index.
-     */
-    private static function applyPHP7Patch(array $sortArray, array $sortArguments): array
-    {
-        if (PHP_VERSION_ID < 80000) {
-            $sortArguments[] = range(1, count($sortArray));
-            $sortArguments[] = SORT_ASC;
-        }
-
-        return $sortArguments;
     }
 }

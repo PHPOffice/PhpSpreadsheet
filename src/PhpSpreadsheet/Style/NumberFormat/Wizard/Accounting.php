@@ -45,12 +45,6 @@ class Accounting extends Currency
      */
     protected function getLocaleFormat(): string
     {
-        if (version_compare(PHP_VERSION, '7.4.1', '<')) {
-            // @codeCoverageIgnoreStart
-            throw new Exception('The Intl extension does not support Accounting Formats below PHP 7.4.1');
-            // @codeCoverageIgnoreEnd
-        }
-
         if (self::icuVersion() < 53.0) {
             // @codeCoverageIgnoreStart
             throw new Exception('The Intl extension does not support Accounting Formats without ICU 53');

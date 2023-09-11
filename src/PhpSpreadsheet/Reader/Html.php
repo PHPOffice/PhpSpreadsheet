@@ -305,6 +305,7 @@ class Html extends BaseReader
                                 ->setQuotePrefix(true);
                         }
                     }
+
                     //catching the Exception and ignoring the invalid data types
                     try {
                         $sheet->setCellValueExplicit($column . $row, $cellContent, $attributeArray['data-type']);
@@ -676,6 +677,7 @@ class Html extends BaseReader
 
         // Create a new DOM object
         $dom = new DOMDocument();
+
         // Reload the HTML file into the DOM object
         try {
             $convert = $this->getSecurityScannerOrThrow()->scanFile($filename);
@@ -798,6 +800,7 @@ class Html extends BaseReader
     {
         //    Create a new DOM object
         $dom = new DOMDocument();
+
         //    Reload the HTML file into the DOM object
         try {
             $convert = $this->getSecurityScannerOrThrow()->scan($content);
@@ -1179,5 +1182,30 @@ class Html extends BaseReader
                 ],
             ],
         ]);
+    }
+
+    /**
+     * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
+     *
+     * @param string $filename
+     *
+     * @return array
+     */
+    public function listWorksheetInfo($filename)
+    {
+        $info = [];
+        $spreadsheet = new Spreadsheet();
+        $this->loadIntoExisting($filename, $spreadsheet);
+        foreach ($spreadsheet->getAllSheets() as $sheet) {
+            $newEntry = ['worksheetName' => $sheet->getTitle()];
+            $newEntry['lastColumnLetter'] = $sheet->getHighestDataColumn();
+            $newEntry['lastColumnIndex'] = Coordinate::columnIndexFromString($sheet->getHighestDataColumn()) - 1;
+            $newEntry['totalRows'] = $sheet->getHighestDataRow();
+            $newEntry['totalColumns'] = $newEntry['lastColumnIndex'] + 1;
+            $info[] = $newEntry;
+        }
+        $spreadsheet->disconnectWorksheets();
+
+        return $info;
     }
 }

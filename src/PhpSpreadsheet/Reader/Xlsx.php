@@ -955,14 +955,17 @@ class Xlsx extends BaseReader
                                             }
 
                                             // Style information?
-                                            if ($cAttr['s'] && !$this->readDataOnly) {
+                                            if (!$this->readDataOnly) {
+                                                $holdSelected = $docSheet->getSelectedCells();
+                                                $cAttrS = (int) ($cAttr['s'] ?? 0);
                                                 // no style index means 0, it seems
-                                                $cell->setXfIndex(isset($styles[(int) ($cAttr['s'])]) ?
-                                                    (int) ($cAttr['s']) : 0);
+                                                $cell->setXfIndex(isset($styles[$cAttrS]) ?
+                                                    $cAttrS : 0);
                                                 // issue 3495
                                                 if ($cell->getDataType() === DataType::TYPE_FORMULA) {
                                                     $cell->getStyle()->setQuotePrefix(false);
                                                 }
+                                                $docSheet->setSelectedCells($holdSelected);
                                             }
                                         }
                                         ++$rowIndex;

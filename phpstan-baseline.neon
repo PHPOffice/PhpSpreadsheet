@@ -24,3 +24,8 @@ parameters:
 			message: "#^Strict comparison using \\=\\=\\= between PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\FormulaToken and null will always evaluate to false\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/FormulaParser.php
+
+		-
+			message: "#^Binary operation \"/\" between float and array\\|float\\|int\\|string results in an error\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/MathTrig/Combinations.php

@@ -11,35 +11,17 @@ use XMLReader;
 
 class XmlScannerTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        // php 8.+ deprecated libxml_disable_entity_loader() - It's on by default
-        if (\PHP_VERSION_ID < 80000) {
-            libxml_disable_entity_loader(false);
-        }
-    }
-
     /**
      * @dataProvider providerValidXML
      *
      * @param mixed $filename
      * @param mixed $expectedResult
      */
-    public function testValidXML($filename, $expectedResult, bool $libxmlDisableEntityLoader): void
+    public function testValidXML($filename, $expectedResult): void
     {
-        // php 8.+ deprecated libxml_disable_entity_loader() - It's on by default
-        if (\PHP_VERSION_ID < 80000) {
-            $oldDisableEntityLoaderState = libxml_disable_entity_loader($libxmlDisableEntityLoader);
-        }
-
         $reader = XmlScanner::getInstance(new \PhpOffice\PhpSpreadsheet\Reader\Xml());
         $result = $reader->scanFile($filename);
         self::assertEquals($expectedResult, $result);
-
-        // php 8.+ deprecated libxml_disable_entity_loader() - It's on by default
-        if (isset($oldDisableEntityLoaderState)) {
-            libxml_disable_entity_loader($oldDisableEntityLoaderState);
-        }
     }
 
     public static function providerValidXML(): array
@@ -50,8 +32,7 @@ class XmlScannerTest extends TestCase
         foreach ($glob as $file) {
             $filename = realpath($file);
             $expectedResult = file_get_contents($file);
-            $tests[basename($file) . '_libxml_entity_loader_disabled'] = [$filename, $expectedResult, true];
-            $tests[basename($file) . '_libxml_entity_loader_enabled'] = [$filename, $expectedResult, false];
+            $tests[basename($file)] = [$filename, $expectedResult];
         }
 
         return $tests;
@@ -62,23 +43,14 @@ class XmlScannerTest extends TestCase
      *
      * @param mixed $filename
      */
-    public function testInvalidXML($filename, bool $libxmlDisableEntityLoader): void
+    public function testInvalidXML($filename): void
     {
         $this->expectException(\PhpOffice\PhpSpreadsheet\Reader\Exception::class);
-
-        // php 8.+ deprecated libxml_disable_entity_loader() - It's on by default
-        if (\PHP_VERSION_ID < 80000) {
-            libxml_disable_entity_loader($libxmlDisableEntityLoader);
-        }
 
         $reader = XmlScanner::getInstance(new \PhpOffice\PhpSpreadsheet\Reader\Xml());
         $expectedResult = 'FAILURE: Should throw an Exception rather than return a value';
         $result = $reader->scanFile($filename);
         self::assertEquals($expectedResult, $result);
-        // php 8.+ deprecated libxml_disable_entity_loader() - It's on by default
-        if (\PHP_VERSION_ID < 80000) {
-            self::assertEquals($libxmlDisableEntityLoader, libxml_disable_entity_loader());
-        }
     }
 
     public static function providerInvalidXML(): array
@@ -88,8 +60,7 @@ class XmlScannerTest extends TestCase
         self::assertNotFalse($glob);
         foreach ($glob as $file) {
             $filename = realpath($file);
-            $tests[basename($file) . '_libxml_entity_loader_disabled'] = [$filename, true];
-            $tests[basename($file) . '_libxml_entity_loader_enabled'] = [$filename, false];
+            $tests[basename($file)] = [$filename];
         }
 
         return $tests;

@@ -13,6 +13,7 @@ use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalDataBar;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalFormattingRuleExtension;
+use PhpOffice\PhpSpreadsheet\Worksheet\RowDimension;
 use PhpOffice\PhpSpreadsheet\Worksheet\SheetView;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet as PhpspreadsheetWorksheet;
 
@@ -1143,11 +1144,12 @@ class Worksheet extends WriterPart
         }
 
         $currentRow = 0;
+        $emptyDimension = new RowDimension();
         while ($currentRow++ < $highestRow) {
             $isRowSet = isset($cellsByRow[$currentRow]);
             if ($isRowSet || $worksheet->rowDimensionExists($currentRow)) {
                 // Get row dimension
-                $rowDimension = $worksheet->getRowDimension($currentRow);
+                $rowDimension = $worksheet->rowDimensionExists($currentRow) ? $worksheet->getRowDimension($currentRow) : $emptyDimension;
 
                 // Write current row?
                 $writeCurrentRow = $isRowSet || $rowDimension->getRowHeight() >= 0 || $rowDimension->getVisible() === false || $rowDimension->getCollapsed() === true || $rowDimension->getOutlineLevel() > 0 || $rowDimension->getXfIndex() !== null;

@@ -444,7 +444,7 @@ class Worksheet implements IComparable
 
         $this->disconnectCells();
         $this->rowDimensions = [];
-        //$this->removeTableCollection(); // problem with phpunit10
+        $this->tableCollection = new ArrayObject();
     }
 
     /**
@@ -1436,13 +1436,16 @@ class Worksheet implements IComparable
         $rowDimension = $this->rowDimensions[$row] ?? null;
         $columnDimension = $this->columnDimensions[$columnString] ?? null;
 
+        $xfSet = false;
         if ($rowDimension !== null) {
             $rowXf = (int) $rowDimension->getXfIndex();
             if ($rowXf > 0) {
                 // then there is a row dimension with explicit style, assign it to the cell
                 $cell->setXfIndex($rowXf);
+                $xfSet = true;
             }
-        } elseif ($columnDimension !== null) {
+        }
+        if (!$xfSet && $columnDimension !== null) {
             $colXf = (int) $columnDimension->getXfIndex();
             if ($colXf > 0) {
                 // then there is a column dimension, assign it to the cell
@@ -3874,5 +3877,10 @@ class Worksheet implements IComparable
     public static function nameRequiresQuotes(string $sheetName): bool
     {
         return preg_match(self::SHEET_NAME_REQUIRES_NO_QUOTES, $sheetName) !== 1;
+    }
+
+    public function isRowVisible(int $row): bool
+    {
+        return !$this->rowDimensionExists($row) || $this->getRowDimension($row)->getVisible();
     }
 }
