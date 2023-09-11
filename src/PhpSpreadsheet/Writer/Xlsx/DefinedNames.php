@@ -12,11 +12,9 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet as ActualWorksheet;
 
 class DefinedNames
 {
-    /** @var XMLWriter */
-    private $objWriter;
+    private \PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter;
 
-    /** @var Spreadsheet */
-    private $spreadsheet;
+    private \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet;
 
     public function __construct(XMLWriter $objWriter, Spreadsheet $spreadsheet)
     {

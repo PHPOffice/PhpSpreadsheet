@@ -63,10 +63,8 @@ class Parser
 
     /**
      * The formula to parse.
-     *
-     * @var string
      */
-    private $formula;
+    private string $formula;
 
     /**
      * The character ahead of the current char.
@@ -84,10 +82,8 @@ class Parser
 
     /**
      * Array of external sheets.
-     *
-     * @var array
      */
-    private $externalSheets;
+    private array $externalSheets;
 
     /**
      * Array of sheet references in the form of REF structures.
@@ -469,8 +465,7 @@ class Parser
         'BAHTTEXT' => [368, 1, 0, 0],
     ];
 
-    /** @var Spreadsheet */
-    private $spreadsheet;
+    private \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet;
 
     /**
      * The class constructor.

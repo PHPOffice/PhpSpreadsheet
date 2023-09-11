@@ -22,10 +22,8 @@ class Title
 
     /**
      * Title Layout.
-     *
-     * @var ?Layout
      */
-    private $layout;
+    private ?\PhpOffice\PhpSpreadsheet\Chart\Layout $layout;
 
     /**
      * Create a new Title.

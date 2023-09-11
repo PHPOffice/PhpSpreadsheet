@@ -48,10 +48,8 @@ class Column
 
     /**
      * Autofilter.
-     *
-     * @var null|AutoFilter
      */
-    private $parent;
+    private ?\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter $parent;
 
     /**
      * Autofilter Column Index.

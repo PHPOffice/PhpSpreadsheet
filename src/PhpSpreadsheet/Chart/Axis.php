@@ -80,10 +80,8 @@ class Axis extends Properties
 
     /**
      * Fill Properties.
-     *
-     * @var ChartColor
      */
-    private $fillColor;
+    private \PhpOffice\PhpSpreadsheet\Chart\ChartColor $fillColor;
 
     private const NUMERIC_FORMAT = [
         Properties::FORMAT_CODE_NUMBER,

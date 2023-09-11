@@ -11,17 +11,13 @@ class Protection extends Supervisor
 
     /**
      * Locked.
-     *
-     * @var string
      */
-    protected $locked;
+    protected ?string $locked = null;
 
     /**
      * Hidden.
-     *
-     * @var string
      */
-    protected $hidden;
+    protected ?string $hidden = null;
 
     /**
      * Create a new Protection.
@@ -103,10 +99,8 @@ class Protection extends Supervisor
 
     /**
      * Get locked.
-     *
-     * @return string
      */
-    public function getLocked()
+    public function getLocked(): ?string
     {
         if ($this->isSupervisor) {
             return $this->getSharedComponent()->getLocked();
@@ -136,10 +130,8 @@ class Protection extends Supervisor
 
     /**
      * Get hidden.
-     *
-     * @return string
      */
-    public function getHidden()
+    public function getHidden(): ?string
     {
         if ($this->isSupervisor) {
             return $this->getSharedComponent()->getHidden();

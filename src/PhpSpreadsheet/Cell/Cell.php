@@ -45,17 +45,15 @@ class Cell
 
     /**
      * Type of the cell data.
-     *
-     * @var string
      */
-    private $dataType;
+    private string $dataType;
 
     /**
      * The collection of cells that this cell belongs to (i.e. The Cell Collection for the parent Worksheet).
      *
      * @var ?Cells
      */
-    private $parent;
+    private ?Cells $parent;
 
     /**
      * Index to the cellXf reference for the styling of this cell.
@@ -71,8 +69,7 @@ class Cell
      */
     private $formulaAttributes;
 
-    /** @var IgnoredErrors */
-    private $ignoredErrors;
+    private IgnoredErrors $ignoredErrors;
 
     /**
      * Update the cell into the cell collection.

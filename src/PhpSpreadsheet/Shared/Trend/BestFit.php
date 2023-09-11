@@ -20,10 +20,8 @@ abstract class BestFit
 
     /**
      * Number of entries in the sets of x- and y-value arrays.
-     *
-     * @var int
      */
-    protected $valueCount = 0;
+    protected int $valueCount;
 
     /**
      * X-value dataseries of values.

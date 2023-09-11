@@ -34,10 +34,8 @@ class BaseDrawing implements IComparable
 
     /**
      * Image index.
-     *
-     * @var int
      */
-    private $imageIndex = 0;
+    private int $imageIndex;
 
     /**
      * Name.

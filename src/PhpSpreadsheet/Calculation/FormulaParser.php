@@ -46,10 +46,8 @@ class FormulaParser
 
     /**
      * Formula.
-     *
-     * @var string
      */
-    private $formula;
+    private string $formula;
 
     /**
      * Tokens.

@@ -7,7 +7,6 @@ use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
-use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class CellMatcher
 {
@@ -40,10 +39,7 @@ class CellMatcher
      */
     protected $cellRow;
 
-    /**
-     * @var Worksheet
-     */
-    protected $worksheet;
+    protected \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $worksheet;
 
     /**
      * @var int
@@ -70,10 +66,7 @@ class CellMatcher
      */
     protected $referenceColumn;
 
-    /**
-     * @var Calculation
-     */
-    protected $engine;
+    protected \PhpOffice\PhpSpreadsheet\Calculation\Calculation $engine;
 
     public function __construct(Cell $cell, string $conditionalRange)
     {

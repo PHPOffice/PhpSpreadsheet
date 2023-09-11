@@ -45,11 +45,9 @@ class DataSeriesValues extends Properties
      */
     private $pointMarker;
 
-    /** @var ChartColor */
-    private $markerFillColor;
+    private \PhpOffice\PhpSpreadsheet\Chart\ChartColor $markerFillColor;
 
-    /** @var ChartColor */
-    private $markerBorderColor;
+    private \PhpOffice\PhpSpreadsheet\Chart\ChartColor $markerBorderColor;
 
     /**
      * Series Point Size.

@@ -24,10 +24,7 @@ class MD5
      */
     private $d;
 
-    /**
-     * @var int
-     */
-    private static $allOneBits;
+    private static int $allOneBits;
 
     /**
      * MD5 stream constructor.

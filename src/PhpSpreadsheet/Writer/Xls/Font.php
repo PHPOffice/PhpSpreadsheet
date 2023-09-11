@@ -8,17 +8,13 @@ class Font
 {
     /**
      * Color index.
-     *
-     * @var int
      */
-    private $colorIndex;
+    private int $colorIndex;
 
     /**
      * Font.
-     *
-     * @var \PhpOffice\PhpSpreadsheet\Style\Font
      */
-    private $font;
+    private \PhpOffice\PhpSpreadsheet\Style\Font $font;
 
     /**
      * Constructor.

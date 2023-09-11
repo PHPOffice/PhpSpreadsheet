@@ -61,49 +61,49 @@ class Xlsx extends BaseWriter
      *
      * @var HashTable<Conditional>
      */
-    private $stylesConditionalHashTable;
+    private \PhpOffice\PhpSpreadsheet\HashTable $stylesConditionalHashTable;
 
     /**
      * Private unique Style HashTable.
      *
      * @var HashTable<\PhpOffice\PhpSpreadsheet\Style\Style>
      */
-    private $styleHashTable;
+    private \PhpOffice\PhpSpreadsheet\HashTable $styleHashTable;
 
     /**
      * Private unique Fill HashTable.
      *
      * @var HashTable<Fill>
      */
-    private $fillHashTable;
+    private \PhpOffice\PhpSpreadsheet\HashTable $fillHashTable;
 
     /**
      * Private unique \PhpOffice\PhpSpreadsheet\Style\Font HashTable.
      *
      * @var HashTable<Font>
      */
-    private $fontHashTable;
+    private \PhpOffice\PhpSpreadsheet\HashTable $fontHashTable;
 
     /**
      * Private unique Borders HashTable.
      *
      * @var HashTable<Borders>
      */
-    private $bordersHashTable;
+    private \PhpOffice\PhpSpreadsheet\HashTable $bordersHashTable;
 
     /**
      * Private unique NumberFormat HashTable.
      *
      * @var HashTable<NumberFormat>
      */
-    private $numFmtHashTable;
+    private \PhpOffice\PhpSpreadsheet\HashTable $numFmtHashTable;
 
     /**
      * Private unique \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet\BaseDrawing HashTable.
      *
      * @var HashTable<BaseDrawing>
      */
-    private $drawingHashTable;
+    private \PhpOffice\PhpSpreadsheet\HashTable $drawingHashTable;
 
     /**
      * Private handle for zip stream.
@@ -112,75 +112,33 @@ class Xlsx extends BaseWriter
      */
     private $zip;
 
-    /**
-     * @var Chart
-     */
-    private $writerPartChart;
+    private \PhpOffice\PhpSpreadsheet\Writer\Xlsx\Chart $writerPartChart;
 
-    /**
-     * @var Comments
-     */
-    private $writerPartComments;
+    private \PhpOffice\PhpSpreadsheet\Writer\Xlsx\Comments $writerPartComments;
 
-    /**
-     * @var ContentTypes
-     */
-    private $writerPartContentTypes;
+    private \PhpOffice\PhpSpreadsheet\Writer\Xlsx\ContentTypes $writerPartContentTypes;
 
-    /**
-     * @var DocProps
-     */
-    private $writerPartDocProps;
+    private \PhpOffice\PhpSpreadsheet\Writer\Xlsx\DocProps $writerPartDocProps;
 
-    /**
-     * @var Drawing
-     */
-    private $writerPartDrawing;
+    private \PhpOffice\PhpSpreadsheet\Writer\Xlsx\Drawing $writerPartDrawing;
 
-    /**
-     * @var Rels
-     */
-    private $writerPartRels;
+    private \PhpOffice\PhpSpreadsheet\Writer\Xlsx\Rels $writerPartRels;
 
-    /**
-     * @var RelsRibbon
-     */
-    private $writerPartRelsRibbon;
+    private \PhpOffice\PhpSpreadsheet\Writer\Xlsx\RelsRibbon $writerPartRelsRibbon;
 
-    /**
-     * @var RelsVBA
-     */
-    private $writerPartRelsVBA;
+    private \PhpOffice\PhpSpreadsheet\Writer\Xlsx\RelsVBA $writerPartRelsVBA;
 
-    /**
-     * @var StringTable
-     */
-    private $writerPartStringTable;
+    private \PhpOffice\PhpSpreadsheet\Writer\Xlsx\StringTable $writerPartStringTable;
 
-    /**
-     * @var Style
-     */
-    private $writerPartStyle;
+    private \PhpOffice\PhpSpreadsheet\Writer\Xlsx\Style $writerPartStyle;
 
-    /**
-     * @var Theme
-     */
-    private $writerPartTheme;
+    private \PhpOffice\PhpSpreadsheet\Writer\Xlsx\Theme $writerPartTheme;
 
-    /**
-     * @var Table
-     */
-    private $writerPartTable;
+    private \PhpOffice\PhpSpreadsheet\Writer\Xlsx\Table $writerPartTable;
 
-    /**
-     * @var Workbook
-     */
-    private $writerPartWorkbook;
+    private \PhpOffice\PhpSpreadsheet\Writer\Xlsx\Workbook $writerPartWorkbook;
 
-    /**
-     * @var Worksheet
-     */
-    private $writerPartWorksheet;
+    private \PhpOffice\PhpSpreadsheet\Writer\Xlsx\Worksheet $writerPartWorksheet;
 
     /**
      * Create a new Xlsx Writer.

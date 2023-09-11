@@ -20,10 +20,8 @@ class ColumnCellIterator extends CellIterator
 
     /**
      * Column index.
-     *
-     * @var int
      */
-    private $columnIndex;
+    private int $columnIndex;
 
     /**
      * Start position.

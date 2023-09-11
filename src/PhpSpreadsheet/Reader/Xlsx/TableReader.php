@@ -9,15 +9,9 @@ use SimpleXMLElement;
 
 class TableReader
 {
-    /**
-     * @var Worksheet
-     */
-    private $worksheet;
+    private \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $worksheet;
 
-    /**
-     * @var SimpleXMLElement
-     */
-    private $tableXml;
+    private SimpleXMLElement $tableXml;
 
     /** @var array|SimpleXMLElement */
     private $tableAttributes;

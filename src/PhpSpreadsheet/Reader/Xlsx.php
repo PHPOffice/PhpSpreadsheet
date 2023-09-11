@@ -49,10 +49,8 @@ class Xlsx extends BaseReader
 
     /**
      * ReferenceHelper instance.
-     *
-     * @var ReferenceHelper
      */
-    private $referenceHelper;
+    private \PhpOffice\PhpSpreadsheet\ReferenceHelper $referenceHelper;
 
     /**
      * @var ZipArchive

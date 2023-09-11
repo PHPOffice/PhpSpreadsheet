@@ -8,10 +8,8 @@ abstract class WriterPart
 {
     /**
      * Parent Ods object.
-     *
-     * @var Ods
      */
-    private $parentWriter;
+    private \PhpOffice\PhpSpreadsheet\Writer\Ods $parentWriter;
 
     /**
      * Get Ods writer.

@@ -32,10 +32,8 @@ class Logger
 
     /**
      * The calculation engine cell reference stack.
-     *
-     * @var CyclicReferenceStack
      */
-    private $cellStack;
+    private \PhpOffice\PhpSpreadsheet\Calculation\Engine\CyclicReferenceStack $cellStack;
 
     /**
      * Instantiate a Calculation engine logger.

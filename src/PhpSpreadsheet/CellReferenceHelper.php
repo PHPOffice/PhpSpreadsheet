@@ -12,25 +12,13 @@ class CellReferenceHelper
      */
     protected $beforeCellAddress;
 
-    /**
-     * @var int
-     */
-    protected $beforeColumn;
+    protected int $beforeColumn;
 
-    /**
-     * @var int
-     */
-    protected $beforeRow;
+    protected int $beforeRow;
 
-    /**
-     * @var int
-     */
-    protected $numberOfColumns;
+    protected int $numberOfColumns;
 
-    /**
-     * @var int
-     */
-    protected $numberOfRows;
+    protected int $numberOfRows;
 
     public function __construct(string $beforeCellAddress = 'A1', int $numberOfColumns = 0, int $numberOfRows = 0)
     {

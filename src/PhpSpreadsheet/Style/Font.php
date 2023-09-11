@@ -97,10 +97,8 @@ class Font extends Supervisor
 
     /**
      * Foreground color.
-     *
-     * @var Color
      */
-    protected $color;
+    protected \PhpOffice\PhpSpreadsheet\Style\Color $color;
 
     /**
      * @var null|int

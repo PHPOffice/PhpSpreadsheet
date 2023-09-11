@@ -136,8 +136,7 @@ abstract class Properties
     /** @var array */
     protected $shadowProperties = self::PRESETS_OPTIONS[0];
 
-    /** @var ChartColor */
-    protected $shadowColor;
+    protected \PhpOffice\PhpSpreadsheet\Chart\ChartColor $shadowColor;
 
     public function __construct()
     {

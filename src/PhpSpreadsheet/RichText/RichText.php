@@ -13,7 +13,7 @@ class RichText implements IComparable
      *
      * @var ITextElement[]
      */
-    private $richTextElements;
+    private array $richTextElements;
 
     /**
      * Create a new RichText instance.

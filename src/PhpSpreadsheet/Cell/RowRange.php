@@ -6,10 +6,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class RowRange implements AddressRange
 {
-    /**
-     * @var ?Worksheet
-     */
-    protected $worksheet;
+    protected ?\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $worksheet;
 
     /**
      * @var int

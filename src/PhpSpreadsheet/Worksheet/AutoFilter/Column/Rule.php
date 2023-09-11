@@ -169,13 +169,10 @@ class Rule
     // Rule Operators (Date Special) which are translated to standard numeric operators with calculated values
     //    const AUTOFILTER_COLUMN_RULE_BEFORE                = 'lessThan';
     //    const AUTOFILTER_COLUMN_RULE_AFTER                = 'greaterThan';
-
     /**
      * Autofilter Column.
-     *
-     * @var ?Column
      */
-    private $parent;
+    private ?\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column $parent;
 
     /**
      * Autofilter Rule Type.

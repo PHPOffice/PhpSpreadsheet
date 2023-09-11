@@ -77,21 +77,21 @@ class DataSeries
      *
      * @var int[]
      */
-    private $plotOrder = [];
+    private array $plotOrder;
 
     /**
      * Plot Label.
      *
      * @var DataSeriesValues[]
      */
-    private $plotLabel = [];
+    private array $plotLabel;
 
     /**
      * Plot Category.
      *
      * @var DataSeriesValues[]
      */
-    private $plotCategory = [];
+    private array $plotCategory;
 
     /**
      * Smooth Line. Must be specified for both DataSeries and DataSeriesValues.
@@ -105,7 +105,7 @@ class DataSeries
      *
      * @var DataSeriesValues[]
      */
-    private $plotValues = [];
+    private array $plotValues;
 
     /**
      * Plot Bubble Sizes.

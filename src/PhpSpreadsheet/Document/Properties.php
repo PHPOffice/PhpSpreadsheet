@@ -39,17 +39,13 @@ class Properties
 
     /**
      * Created.
-     *
-     * @var float|int
      */
-    private $created;
+    private float|int $created;
 
     /**
      * Modified.
-     *
-     * @var float|int
      */
-    private $modified;
+    private float|int $modified;
 
     /**
      * Title.

@@ -31,10 +31,8 @@ class Xls extends BaseWriter
 {
     /**
      * PhpSpreadsheet object.
-     *
-     * @var Spreadsheet
      */
-    private $spreadsheet;
+    private \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet;
 
     /**
      * Total number of shared strings in workbook.
@@ -66,10 +64,8 @@ class Xls extends BaseWriter
 
     /**
      * Formula parser.
-     *
-     * @var Parser
      */
-    private $parser;
+    private \PhpOffice\PhpSpreadsheet\Writer\Xls\Parser $parser;
 
     /**
      * Identifier clusters for drawings. Used in MSODRAWINGGROUP record.

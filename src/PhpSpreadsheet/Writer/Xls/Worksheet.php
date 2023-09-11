@@ -62,10 +62,8 @@ class Worksheet extends BIFFwriter
 
     /**
      * Formula parser.
-     *
-     * @var \PhpOffice\PhpSpreadsheet\Writer\Xls\Parser
      */
-    private $parser;
+    private \PhpOffice\PhpSpreadsheet\Writer\Xls\Parser $parser;
 
     /**
      * Array containing format information for columns.
@@ -76,40 +74,30 @@ class Worksheet extends BIFFwriter
 
     /**
      * The active pane for the worksheet.
-     *
-     * @var int
      */
-    private $activePane;
+    private int $activePane;
 
     /**
      * Whether to use outline.
-     *
-     * @var bool
      */
-    private $outlineOn;
+    private bool $outlineOn;
 
     /**
      * Auto outline styles.
-     *
-     * @var bool
      */
-    private $outlineStyle;
+    private bool $outlineStyle;
 
     /**
      * Whether to have outline summary below.
      * Not currently used.
-     *
-     * @var bool
      */
-    private $outlineBelow; //* @phpstan-ignore-line
+    private bool $outlineBelow; //* @phpstan-ignore-line
 
     /**
      * Whether to have outline summary at the right.
      * Not currently used.
-     *
-     * @var bool
      */
-    private $outlineRight; //* @phpstan-ignore-line
+    private bool $outlineRight; //* @phpstan-ignore-line
 
     /**
      * Reference to the total number of strings in the workbook.
@@ -141,31 +129,23 @@ class Worksheet extends BIFFwriter
 
     /**
      * Index of first used row (at least 0).
-     *
-     * @var int
      */
-    private $firstRowIndex;
+    private int $firstRowIndex;
 
     /**
      * Index of last used row. (no used rows means -1).
-     *
-     * @var int
      */
-    private $lastRowIndex;
+    private int $lastRowIndex;
 
     /**
      * Index of first used column (at least 0).
-     *
-     * @var int
      */
-    private $firstColumnIndex;
+    private int $firstColumnIndex;
 
     /**
      * Index of last used column (no used columns means -1).
-     *
-     * @var int
      */
-    private $lastColumnIndex;
+    private int $lastColumnIndex;
 
     /**
      * Sheet object.
@@ -191,10 +171,7 @@ class Worksheet extends BIFFwriter
      */
     private $preCalculateFormulas;
 
-    /**
-     * @var int
-     */
-    private $printHeaders;
+    private int $printHeaders;
 
     /**
      * Constructor.

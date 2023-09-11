@@ -43,16 +43,12 @@ class Legend
 
     /**
      * Legend Layout.
-     *
-     * @var ?Layout
      */
-    private $layout;
+    private ?\PhpOffice\PhpSpreadsheet\Chart\Layout $layout;
 
-    /** @var GridLines */
-    private $borderLines;
+    private \PhpOffice\PhpSpreadsheet\Chart\GridLines $borderLines;
 
-    /** @var ChartColor */
-    private $fillColor;
+    private \PhpOffice\PhpSpreadsheet\Chart\ChartColor $fillColor;
 
     /** @var ?AxisText */
     private $legendText;

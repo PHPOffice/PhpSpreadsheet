@@ -6,10 +6,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 
 class BranchPruner
 {
-    /**
-     * @var bool
-     */
-    protected $branchPruningEnabled = true;
+    protected bool $branchPruningEnabled;
 
     /**
      * Used to generate unique store keys.

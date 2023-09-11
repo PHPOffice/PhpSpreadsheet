@@ -31,24 +31,18 @@ class Spreadsheet implements JsonSerializable
 
     /**
      * Unique ID.
-     *
-     * @var string
      */
-    private $uniqueID;
+    private string $uniqueID;
 
     /**
      * Document properties.
-     *
-     * @var Document\Properties
      */
-    private $properties;
+    private \PhpOffice\PhpSpreadsheet\Document\Properties $properties;
 
     /**
      * Document security.
-     *
-     * @var Document\Security
      */
-    private $security;
+    private \PhpOffice\PhpSpreadsheet\Document\Security $security;
 
     /**
      * Collection of Worksheet objects.
@@ -66,10 +60,8 @@ class Spreadsheet implements JsonSerializable
 
     /**
      * Active sheet index.
-     *
-     * @var int
      */
-    private $activeSheetIndex = 0;
+    private int $activeSheetIndex;
 
     /**
      * Named ranges.
@@ -80,10 +72,8 @@ class Spreadsheet implements JsonSerializable
 
     /**
      * CellXf supervisor.
-     *
-     * @var Style
      */
-    private $cellXfSupervisor;
+    private \PhpOffice\PhpSpreadsheet\Style\Style $cellXfSupervisor;
 
     /**
      * CellXf collection.
@@ -204,8 +194,7 @@ class Spreadsheet implements JsonSerializable
      */
     private $tabRatio = 600;
 
-    /** @var Theme */
-    private $theme;
+    private \PhpOffice\PhpSpreadsheet\Theme $theme;
 
     public function getTheme(): Theme
     {

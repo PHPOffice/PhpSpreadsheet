@@ -19,56 +19,42 @@ class Shadow implements IComparable
 
     /**
      * Visible.
-     *
-     * @var bool
      */
-    private $visible;
+    private bool $visible;
 
     /**
      * Blur radius.
      *
      * Defaults to 6
-     *
-     * @var int
      */
-    private $blurRadius;
+    private int $blurRadius;
 
     /**
      * Shadow distance.
      *
      * Defaults to 2
-     *
-     * @var int
      */
-    private $distance;
+    private int $distance;
 
     /**
      * Shadow direction (in degrees).
-     *
-     * @var int
      */
-    private $direction;
+    private int $direction;
 
     /**
      * Shadow alignment.
-     *
-     * @var string
      */
-    private $alignment;
+    private string $alignment;
 
     /**
      * Color.
-     *
-     * @var Color
      */
-    private $color;
+    private \PhpOffice\PhpSpreadsheet\Style\Color $color;
 
     /**
      * Alpha.
-     *
-     * @var int
      */
-    private $alpha;
+    private int $alpha;
 
     /**
      * Create a new Shadow.

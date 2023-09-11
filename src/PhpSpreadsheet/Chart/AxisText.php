@@ -9,8 +9,7 @@ class AxisText extends Properties
     /** @var ?int */
     private $rotation;
 
-    /** @var Font */
-    private $font;
+    private \PhpOffice\PhpSpreadsheet\Style\Font $font;
 
     public function __construct()
     {

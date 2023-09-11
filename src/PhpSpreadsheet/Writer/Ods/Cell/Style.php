@@ -19,8 +19,7 @@ class Style
     public const ROW_STYLE_PREFIX = 'ro';
     public const TABLE_STYLE_PREFIX = 'ta';
 
-    /** @var XMLWriter */
-    private $writer;
+    private \PhpOffice\PhpSpreadsheet\Shared\XMLWriter $writer;
 
     public function __construct(XMLWriter $writer)
     {

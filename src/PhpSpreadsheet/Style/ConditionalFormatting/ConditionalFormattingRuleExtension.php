@@ -9,13 +9,10 @@ class ConditionalFormattingRuleExtension
 {
     const CONDITION_EXTENSION_DATABAR = 'dataBar';
 
-    /** <conditionalFormatting> attributes */
-
-    /** @var string */
-    private $id;
+    private string $id;
 
     /** @var string Conditional Formatting Rule */
-    private $cfRule;
+    private string $cfRule;
 
     /** <conditionalFormatting> children */
 

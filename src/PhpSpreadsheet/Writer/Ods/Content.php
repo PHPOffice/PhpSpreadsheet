@@ -22,8 +22,7 @@ class Content extends WriterPart
     const NUMBER_COLS_REPEATED_MAX = 1024;
     const NUMBER_ROWS_REPEATED_MAX = 1048576;
 
-    /** @var Formula */
-    private $formulaConvertor;
+    private \PhpOffice\PhpSpreadsheet\Writer\Ods\Formula $formulaConvertor;
 
     /**
      * Set parent Ods writer.

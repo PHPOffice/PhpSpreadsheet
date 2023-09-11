@@ -23,38 +23,28 @@ class Chart
 
     /**
      * Chart Title.
-     *
-     * @var ?Title
      */
-    private $title;
+    private ?\PhpOffice\PhpSpreadsheet\Chart\Title $title;
 
     /**
      * Chart Legend.
-     *
-     * @var ?Legend
      */
-    private $legend;
+    private ?\PhpOffice\PhpSpreadsheet\Chart\Legend $legend;
 
     /**
      * X-Axis Label.
-     *
-     * @var ?Title
      */
-    private $xAxisLabel;
+    private ?\PhpOffice\PhpSpreadsheet\Chart\Title $xAxisLabel;
 
     /**
      * Y-Axis Label.
-     *
-     * @var ?Title
      */
-    private $yAxisLabel;
+    private ?\PhpOffice\PhpSpreadsheet\Chart\Title $yAxisLabel;
 
     /**
      * Chart Plot Area.
-     *
-     * @var ?PlotArea
      */
-    private $plotArea;
+    private ?\PhpOffice\PhpSpreadsheet\Chart\PlotArea $plotArea;
 
     /**
      * Plot Visible Only.
@@ -72,17 +62,13 @@ class Chart
 
     /**
      * Chart Asix Y as.
-     *
-     * @var Axis
      */
-    private $yAxis;
+    private \PhpOffice\PhpSpreadsheet\Chart\Axis $yAxis;
 
     /**
      * Chart Asix X as.
-     *
-     * @var Axis
      */
-    private $xAxis;
+    private \PhpOffice\PhpSpreadsheet\Chart\Axis $xAxis;
 
     /**
      * Top-Left Cell Position.
@@ -150,11 +136,9 @@ class Chart
     /** @var bool */
     private $roundedCorners = false;
 
-    /** @var GridLines */
-    private $borderLines;
+    private \PhpOffice\PhpSpreadsheet\Chart\GridLines $borderLines;
 
-    /** @var ChartColor */
-    private $fillColor;
+    private \PhpOffice\PhpSpreadsheet\Chart\ChartColor $fillColor;
 
     /**
      * Create a new Chart.

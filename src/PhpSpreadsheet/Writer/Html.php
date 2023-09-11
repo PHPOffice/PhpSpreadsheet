@@ -33,10 +33,8 @@ class Html extends BaseWriter
 {
     /**
      * Spreadsheet object.
-     *
-     * @var Spreadsheet
      */
-    protected $spreadsheet;
+    protected \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet;
 
     /**
      * Sheet index to write.
@@ -89,10 +87,8 @@ class Html extends BaseWriter
 
     /**
      * Default font.
-     *
-     * @var Font
      */
-    private $defaultFont;
+    private \PhpOffice\PhpSpreadsheet\Style\Font $defaultFont;
 
     /**
      * Flag whether spans have been calculated.

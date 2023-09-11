@@ -48,85 +48,58 @@ class Xf
 {
     /**
      * Style XF or a cell XF ?
-     *
-     * @var bool
      */
-    private $isStyleXf;
+    private bool $isStyleXf;
 
     /**
      * Index to the FONT record. Index 4 does not exist.
-     *
-     * @var int
      */
-    private $fontIndex;
+    private int $fontIndex;
 
     /**
      * An index (2 bytes) to a FORMAT record (number format).
-     *
-     * @var int
      */
-    private $numberFormatIndex;
+    private int $numberFormatIndex;
 
     /**
      * 1 bit, apparently not used.
-     *
-     * @var int
      */
-    private $textJustLast;
+    private int $textJustLast;
 
     /**
      * The cell's foreground color.
-     *
-     * @var int
      */
-    private $foregroundColor;
+    private int $foregroundColor;
 
     /**
      * The cell's background color.
-     *
-     * @var int
      */
-    private $backgroundColor;
+    private int $backgroundColor;
 
     /**
      * Color of the bottom border of the cell.
-     *
-     * @var int
      */
-    private $bottomBorderColor;
+    private int $bottomBorderColor;
 
     /**
      * Color of the top border of the cell.
-     *
-     * @var int
      */
-    private $topBorderColor;
+    private int $topBorderColor;
 
     /**
      * Color of the left border of the cell.
-     *
-     * @var int
      */
-    private $leftBorderColor;
+    private int $leftBorderColor;
 
     /**
      * Color of the right border of the cell.
-     *
-     * @var int
      */
-    private $rightBorderColor;
+    private int $rightBorderColor;
 
     //private $diag; // theoretically int, not yet implemented
+    private int $diagColor;
 
-    /**
-     * @var int
-     */
-    private $diagColor;
-
-    /**
-     * @var Style
-     */
-    private $style;
+    private \PhpOffice\PhpSpreadsheet\Style\Style $style;
 
     /**
      * Constructor.
@@ -386,11 +359,11 @@ class Xf
     /**
      * Map locked values.
      *
-     * @param string $locked
+     * @param ?string $locked
      */
     private static function mapLocked($locked): int
     {
-        return array_key_exists($locked, self::LOCK_ARRAY) ? self::LOCK_ARRAY[$locked] : 1;
+        return $locked !== null && array_key_exists($locked, self::LOCK_ARRAY) ? self::LOCK_ARRAY[$locked] : 1;
     }
 
     private const HIDDEN_ARRAY = [
@@ -402,10 +375,10 @@ class Xf
     /**
      * Map hidden.
      *
-     * @param string $hidden
+     * @param ?string $hidden
      */
     private static function mapHidden($hidden): int
     {
-        return array_key_exists($hidden, self::HIDDEN_ARRAY) ? self::HIDDEN_ARRAY[$hidden] : 0;
+        return $hidden !== null && array_key_exists($hidden, self::HIDDEN_ARRAY) ? self::HIDDEN_ARRAY[$hidden] : 0;
     }
 }

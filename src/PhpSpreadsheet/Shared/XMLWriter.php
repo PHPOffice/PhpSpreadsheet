@@ -15,10 +15,8 @@ class XMLWriter extends \XMLWriter
 
     /**
      * Temporary filename.
-     *
-     * @var string
      */
-    private $tempFileName = '';
+    private string $tempFileName = '';
 
     /**
      * Create a new XMLWriter instance.

@@ -49,19 +49,15 @@ class Workbook extends BIFFwriter
 {
     /**
      * Formula parser.
-     *
-     * @var \PhpOffice\PhpSpreadsheet\Writer\Xls\Parser
      */
-    private $parser;
+    private \PhpOffice\PhpSpreadsheet\Writer\Xls\Parser $parser;
 
     /**
      * The BIFF file size for the workbook. Not currently used.
      *
-     * @var int
-     *
      * @see calcSheetOffsets()
      */
-    private $biffSize; // @phpstan-ignore-line
+    private int $biffSize; // @phpstan-ignore-line
 
     /**
      * XF Writers.
@@ -79,24 +75,18 @@ class Workbook extends BIFFwriter
 
     /**
      * The codepage indicates the text encoding used for strings.
-     *
-     * @var int
      */
-    private $codepage;
+    private int $codepage;
 
     /**
      * The country code used for localization.
-     *
-     * @var int
      */
-    private $countryCode;
+    private int $countryCode;
 
     /**
      * Workbook.
-     *
-     * @var Spreadsheet
      */
-    private $spreadsheet;
+    private \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet;
 
     /**
      * Fonts writers.

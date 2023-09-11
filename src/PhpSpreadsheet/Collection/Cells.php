@@ -14,10 +14,7 @@ class Cells
 {
     protected const MAX_COLUMN_ID = 16384;
 
-    /**
-     * @var CacheInterface
-     */
-    private $cache;
+    private \Psr\SimpleCache\CacheInterface $cache;
 
     /**
      * Parent worksheet.
@@ -57,10 +54,8 @@ class Cells
 
     /**
      * Prefix used to uniquely identify cache data for this worksheet.
-     *
-     * @var string
      */
-    private $cachePrefix;
+    private string $cachePrefix;
 
     /**
      * Initialise this new cell collection.

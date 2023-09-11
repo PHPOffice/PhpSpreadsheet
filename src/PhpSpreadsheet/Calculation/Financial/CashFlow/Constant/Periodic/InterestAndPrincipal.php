@@ -9,8 +9,7 @@ class InterestAndPrincipal
     /** @var float */
     protected $interest;
 
-    /** @var float */
-    protected $principal;
+    protected float $principal;
 
     public function __construct(
         float $rate = 0.0,

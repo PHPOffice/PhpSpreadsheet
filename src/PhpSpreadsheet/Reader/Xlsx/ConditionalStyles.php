@@ -14,19 +14,16 @@ use stdClass;
 
 class ConditionalStyles
 {
-    /** @var Worksheet */
-    private $worksheet;
+    private \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $worksheet;
 
-    /** @var SimpleXMLElement */
-    private $worksheetXml;
+    private SimpleXMLElement $worksheetXml;
 
     /**
      * @var array
      */
     private $ns;
 
-    /** @var array */
-    private $dxfs;
+    private array $dxfs;
 
     public function __construct(Worksheet $workSheet, SimpleXMLElement $worksheetXml, array $dxfs = [])
     {

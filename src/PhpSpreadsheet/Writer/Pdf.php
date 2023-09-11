@@ -11,10 +11,8 @@ abstract class Pdf extends Html
 {
     /**
      * Temporary storage directory.
-     *
-     * @var string
      */
-    protected $tempDir = '';
+    protected string $tempDir;
 
     /**
      * Font.

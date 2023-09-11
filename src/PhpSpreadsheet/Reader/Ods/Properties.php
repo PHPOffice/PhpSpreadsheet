@@ -8,8 +8,7 @@ use SimpleXMLElement;
 
 class Properties
 {
-    /** @var Spreadsheet */
-    private $spreadsheet;
+    private \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet;
 
     public function __construct(Spreadsheet $spreadsheet)
     {

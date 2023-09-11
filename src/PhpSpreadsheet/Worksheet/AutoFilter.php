@@ -17,17 +17,13 @@ class AutoFilter
 {
     /**
      * Autofilter Worksheet.
-     *
-     * @var null|Worksheet
      */
-    private $workSheet;
+    private ?\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $workSheet;
 
     /**
      * Autofilter Range.
-     *
-     * @var string
      */
-    private $range = '';
+    private string $range;
 
     /**
      * Autofilter Column Ruleset.
@@ -940,8 +936,7 @@ class AutoFilter
                             //    Number (Average) based
                             //    Calculate the average
                             $averageFormula = '=AVERAGE(' . $columnID . ($rangeStart[1] + 1) . ':' . $columnID . $rangeEnd[1] . ')';
-                            $spreadsheet = ($this->workSheet === null) ? null : $this->workSheet->getParent();
-                            $average = Calculation::getInstance($spreadsheet)->calculateFormula($averageFormula, null, $this->workSheet->getCell('A1'));
+                            $average = Calculation::getInstance($this->workSheet->getParent())->calculateFormula($averageFormula, null, $this->workSheet->getCell('A1'));
                             while (is_array($average)) {
                                 $average = array_pop($average);
                             }

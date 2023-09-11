@@ -8,132 +8,96 @@ class Layout
 {
     /**
      * layoutTarget.
-     *
-     * @var ?string
      */
-    private $layoutTarget;
+    private ?string $layoutTarget = null;
 
     /**
      * X Mode.
-     *
-     * @var ?string
      */
-    private $xMode;
+    private ?string $xMode = null;
 
     /**
      * Y Mode.
-     *
-     * @var ?string
      */
-    private $yMode;
+    private ?string $yMode = null;
 
     /**
      * X-Position.
-     *
-     * @var ?float
      */
-    private $xPos;
+    private ?float $xPos = null;
 
     /**
      * Y-Position.
-     *
-     * @var ?float
      */
-    private $yPos;
+    private ?float $yPos = null;
 
     /**
      * width.
-     *
-     * @var ?float
      */
-    private $width;
+    private ?float $width = null;
 
     /**
      * height.
-     *
-     * @var ?float
      */
-    private $height;
+    private ?float $height = null;
 
     /**
      * Position - t=top.
-     *
-     * @var string
      */
-    private $dLblPos = '';
+    private string $dLblPos = '';
 
-    /** @var string */
-    private $numFmtCode = '';
+    private string $numFmtCode = '';
 
-    /** @var bool */
-    private $numFmtLinked = false;
+    private bool $numFmtLinked = false;
 
     /**
      * show legend key
      * Specifies that legend keys should be shown in data labels.
-     *
-     * @var ?bool
      */
-    private $showLegendKey;
+    private ?bool $showLegendKey = null;
 
     /**
      * show value
      * Specifies that the value should be shown in a data label.
-     *
-     * @var ?bool
      */
-    private $showVal;
+    private ?bool $showVal = null;
 
     /**
      * show category name
      * Specifies that the category name should be shown in the data label.
-     *
-     * @var ?bool
      */
-    private $showCatName;
+    private ?bool $showCatName = null;
 
     /**
      * show data series name
      * Specifies that the series name should be shown in the data label.
-     *
-     * @var ?bool
      */
-    private $showSerName;
+    private ?bool $showSerName = null;
 
     /**
      * show percentage
      * Specifies that the percentage should be shown in the data label.
-     *
-     * @var ?bool
      */
-    private $showPercent;
+    private ?bool $showPercent = null;
 
     /**
      * show bubble size.
-     *
-     * @var ?bool
      */
-    private $showBubbleSize;
+    private ?bool $showBubbleSize = null;
 
     /**
      * show leader lines
      * Specifies that leader lines should be shown for the data label.
-     *
-     * @var ?bool
      */
-    private $showLeaderLines;
+    private ?bool $showLeaderLines = null;
 
-    /** @var ?ChartColor */
-    private $labelFillColor;
+    private ?ChartColor $labelFillColor = null;
 
-    /** @var ?ChartColor */
-    private $labelBorderColor;
+    private ?ChartColor $labelBorderColor = null;
 
-    /** @var ?Font */
-    private $labelFont;
+    private ?Font $labelFont = null;
 
-    /** @var Properties */
-    private $labelEffects;
+    private ?Properties $labelEffects = null;
 
     /**
      * Create a new Layout.
@@ -222,7 +186,7 @@ class Layout
      *
      * @return $this
      */
-    public function setLayoutTarget($target): static
+    public function setLayoutTarget(?string $target): static
     {
         $this->layoutTarget = $target;
 
@@ -290,13 +254,11 @@ class Layout
     /**
      * Set X-Position.
      *
-     * @param ?float $position
-     *
      * @return $this
      */
-    public function setXPosition($position): static
+    public function setXPosition(float $position): static
     {
-        $this->xPos = (float) $position;
+        $this->xPos = $position;
 
         return $this;
     }
@@ -314,13 +276,11 @@ class Layout
     /**
      * Set Y-Position.
      *
-     * @param ?float $position
-     *
      * @return $this
      */
-    public function setYPosition($position): static
+    public function setYPosition(float $position): static
     {
-        $this->yPos = (float) $position;
+        $this->yPos = $position;
 
         return $this;
     }
@@ -342,7 +302,7 @@ class Layout
      *
      * @return $this
      */
-    public function setWidth($width): static
+    public function setWidth(?float $width): static
     {
         $this->width = $width;
 
@@ -362,11 +322,9 @@ class Layout
     /**
      * Set Height.
      *
-     * @param ?float $height
-     *
      * @return $this
      */
-    public function setHeight($height): static
+    public function setHeight(?float $height): static
     {
         $this->height = $height;
 

@@ -33,24 +33,18 @@ class MemoryDrawing extends BaseDrawing
 
     /**
      * Rendering function.
-     *
-     * @var string
      */
-    private $renderingFunction;
+    private string $renderingFunction;
 
     /**
      * Mime type.
-     *
-     * @var string
      */
-    private $mimeType;
+    private string $mimeType;
 
     /**
      * Unique name.
-     *
-     * @var string
      */
-    private $uniqueName;
+    private string $uniqueName;
 
     /**
      * Create a new MemoryDrawing.

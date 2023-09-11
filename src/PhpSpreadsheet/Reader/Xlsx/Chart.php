@@ -22,11 +22,9 @@ use SimpleXMLElement;
 
 class Chart
 {
-    /** @var string */
-    private $cNamespace;
+    private string $cNamespace;
 
-    /** @var string */
-    private $aNamespace;
+    private string $aNamespace;
 
     public function __construct(string $cNamespace = Namespaces::CHART, string $aNamespace = Namespaces::DRAWINGML)
     {

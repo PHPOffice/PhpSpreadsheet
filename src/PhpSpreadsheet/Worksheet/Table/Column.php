@@ -54,10 +54,8 @@ class Column
 
     /**
      * Table.
-     *
-     * @var null|Table
      */
-    private $table;
+    private ?\PhpOffice\PhpSpreadsheet\Worksheet\Table $table;
 
     /**
      * Create a new Column.

@@ -9,11 +9,9 @@ class Delimiter
     /** @var resource */
     protected $fileHandle;
 
-    /** @var string */
-    protected $escapeCharacter;
+    protected string $escapeCharacter;
 
-    /** @var string */
-    protected $enclosure;
+    protected string $enclosure;
 
     /** @var array */
     protected $counts = [];

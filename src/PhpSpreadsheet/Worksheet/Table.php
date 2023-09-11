@@ -63,17 +63,13 @@ class Table
 
     /**
      * Table Style.
-     *
-     * @var TableStyle
      */
-    private $style;
+    private \PhpOffice\PhpSpreadsheet\Worksheet\Table\TableStyle $style;
 
     /**
      * Table AutoFilter.
-     *
-     * @var AutoFilter
      */
-    private $autoFilter;
+    private \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter $autoFilter;
 
     /**
      * Create a new Table.

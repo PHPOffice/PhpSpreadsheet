@@ -9,8 +9,7 @@ use SimpleXMLElement;
 
 class Hyperlinks
 {
-    /** @var Worksheet */
-    private $worksheet;
+    private \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $worksheet;
 
     /** @var array */
     private $hyperlinks = [];

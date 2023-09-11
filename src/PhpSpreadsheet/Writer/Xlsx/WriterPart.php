@@ -8,10 +8,8 @@ abstract class WriterPart
 {
     /**
      * Parent Xlsx object.
-     *
-     * @var Xlsx
      */
-    private $parentWriter;
+    private \PhpOffice\PhpSpreadsheet\Writer\Xlsx $parentWriter;
 
     /**
      * Get parent Xlsx object.

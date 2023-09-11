@@ -38,9 +38,9 @@ abstract class JpGraphRendererBase implements IRenderer
         'goldenrod2',
     ];
 
-    private static $markSet;
+    private static array $markSet;
 
-    private $chart;
+    private \PhpOffice\PhpSpreadsheet\Chart\Chart $chart;
 
     private $graph;
 

@@ -10,45 +10,33 @@ abstract class DefinedName
 
     /**
      * Name.
-     *
-     * @var string
      */
-    protected $name;
+    protected string $name;
 
     /**
      * Worksheet on which the defined name can be resolved.
-     *
-     * @var ?Worksheet
      */
-    protected $worksheet;
+    protected ?\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $worksheet;
 
     /**
      * Value of the named object.
-     *
-     * @var string
      */
-    protected $value;
+    protected string $value;
 
     /**
      * Is the defined named local? (i.e. can only be used on $this->worksheet).
-     *
-     * @var bool
      */
-    protected $localOnly;
+    protected bool $localOnly;
 
     /**
      * Scope.
-     *
-     * @var ?Worksheet
      */
-    protected $scope;
+    protected ?\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $scope;
 
     /**
      * Whether this is a named range or a named formula.
-     *
-     * @var bool
      */
-    protected $isFormula;
+    protected bool $isFormula;
 
     /**
      * Create a new Defined Name.
