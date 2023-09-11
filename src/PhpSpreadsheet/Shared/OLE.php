@@ -200,10 +200,8 @@ class OLE
 
     /**
      * @param int $blockId byte offset from beginning of file
-     *
-     * @return int
      */
-    public function getBlockOffset($blockId)
+    public function getBlockOffset(int $blockId): int
     {
         return 512 + $blockId * $this->bigBlockSize;
     }

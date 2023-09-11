@@ -316,7 +316,7 @@ class DataSeriesValues extends Properties
      *
      * @return string|string[] HEX color or array with HEX colors
      */
-    public function getFillColor()
+    public function getFillColor(): string|array
     {
         if ($this->fillColor === null) {
             return '';
@@ -490,7 +490,7 @@ class DataSeriesValues extends Properties
                 unset($dataValue);
             } else {
                 [$worksheet, $cellRange] = Worksheet::extractSheetTitle($this->dataSource, true);
-                $dimensions = Coordinate::rangeDimension(str_replace('$', '', $cellRange));
+                $dimensions = Coordinate::rangeDimension(str_replace('$', '', $cellRange ?? ''));
                 if (($dimensions[0] == 1) || ($dimensions[1] == 1)) {
                     $this->dataValues = Functions::flattenArray($newDataValues);
                 } else {

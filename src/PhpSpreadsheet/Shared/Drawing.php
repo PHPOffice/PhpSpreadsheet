@@ -15,7 +15,7 @@ class Drawing
      *
      * @return int Value in EMU
      */
-    public static function pixelsToEMU($pixelValue)
+    public static function pixelsToEMU($pixelValue): int|float
     {
         return $pixelValue * 9525;
     }
@@ -46,7 +46,7 @@ class Drawing
      *
      * @return float|int Value in cell dimension
      */
-    public static function pixelsToCellDimension($pixelValue, \PhpOffice\PhpSpreadsheet\Style\Font $defaultFont)
+    public static function pixelsToCellDimension($pixelValue, \PhpOffice\PhpSpreadsheet\Style\Font $defaultFont): int|float
     {
         // Font name and size
         $name = $defaultFont->getName();

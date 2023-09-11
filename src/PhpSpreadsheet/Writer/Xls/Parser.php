@@ -672,10 +672,10 @@ class Parser
         [$ext_ref, $range] = PhpspreadsheetWorksheet::extractSheetTitle($token, true);
 
         // Convert the external reference part (different for BIFF8)
-        $ext_ref = $this->getRefIndex($ext_ref);
+        $ext_ref = $this->getRefIndex($ext_ref ?? '');
 
         // Split the range into 2 cell refs
-        [$cell1, $cell2] = explode(':', $range);
+        [$cell1, $cell2] = explode(':', $range ?? '');
 
         // Convert the cell references
         if (preg_match('/^(\$)?[A-Ia-i]?[A-Za-z](\$)?(\\d+)$/', $cell1)) {
@@ -724,10 +724,10 @@ class Parser
         [$ext_ref, $cell] = PhpspreadsheetWorksheet::extractSheetTitle($cell, true);
 
         // Convert the external reference part (different for BIFF8)
-        $ext_ref = $this->getRefIndex($ext_ref);
+        $ext_ref = $this->getRefIndex($ext_ref ?? '');
 
         // Convert the cell reference part
-        [$row, $col] = $this->cellToPackedRowcol($cell);
+        [$row, $col] = $this->cellToPackedRowcol($cell ?? '');
 
         // The ptg value depends on the class of the ptg.
         $ptgRef = pack('C', $this->ptg['ptgRef3dA']);
@@ -1028,7 +1028,6 @@ class Parser
             }
             ++$i;
         }
-        //die("Lexical error ".$this->currentCharacter);
     }
 
     /**
@@ -1036,9 +1035,9 @@ class Parser
      *
      * @param string $token the token to check
      *
-     * @return mixed The checked token or false on failure
+     * @return string The checked token or empty string on failure
      */
-    private function match(string $token)
+    private function match(string $token): string
     {
         switch ($token) {
             case '+':

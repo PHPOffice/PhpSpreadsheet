@@ -78,7 +78,7 @@ class Format
      *         If an array of values is passed for either of the arguments, then the returned result
      *            will also be an array with matching dimensions
      */
-    public static function FIXEDFORMAT($value, $decimals = 2, $noCommas = false)
+    public static function FIXEDFORMAT($value, $decimals = 2, $noCommas = false): array|string
     {
         if (is_array($value) || is_array($decimals) || is_array($noCommas)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $value, $decimals, $noCommas);
@@ -119,7 +119,7 @@ class Format
      *         If an array of values is passed for either of the arguments, then the returned result
      *            will also be an array with matching dimensions
      */
-    public static function TEXTFORMAT($value, $format)
+    public static function TEXTFORMAT($value, $format): array|string
     {
         if (is_array($value) || is_array($format)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $value, $format);
@@ -230,7 +230,7 @@ class Format
      *         If an array of values is passed for either of the arguments, then the returned result
      *            will also be an array with matching dimensions
      */
-    public static function valueToText($value, $format = false)
+    public static function valueToText($value, $format = false): array|string
     {
         if (is_array($value) || is_array($format)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $value, $format);
@@ -276,10 +276,8 @@ class Format
      *                         Or can be an array of values
      * @param mixed $groupSeparator A string with the group/thousands separator to use, defaults to locale defined value
      *                         Or can be an array of values
-     *
-     * @return array|float|string
      */
-    public static function NUMBERVALUE($value = '', $decimalSeparator = null, $groupSeparator = null)
+    public static function NUMBERVALUE($value = '', $decimalSeparator = null, $groupSeparator = null): array|string|float
     {
         if (is_array($value) || is_array($decimalSeparator) || is_array($groupSeparator)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $value, $decimalSeparator, $groupSeparator);

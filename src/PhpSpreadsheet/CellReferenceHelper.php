@@ -40,7 +40,7 @@ class CellReferenceHelper
 
         // Get coordinate of $beforeCellAddress
         [$beforeColumn, $beforeRow] = Coordinate::coordinateFromString($beforeCellAddress);
-        $this->beforeColumn = (int) Coordinate::columnIndexFromString($beforeColumn);
+        $this->beforeColumn = Coordinate::columnIndexFromString($beforeColumn);
         $this->beforeRow = (int) $beforeRow;
     }
 
@@ -64,7 +64,7 @@ class CellReferenceHelper
 
         // Get coordinate of $cellReference
         [$newColumn, $newRow] = Coordinate::coordinateFromString($cellReference);
-        $newColumnIndex = (int) Coordinate::columnIndexFromString(str_replace('$', '', $newColumn));
+        $newColumnIndex = Coordinate::columnIndexFromString(str_replace('$', '', $newColumn));
         $newRowIndex = (int) str_replace('$', '', $newRow);
 
         $absoluteColumn = $newColumn[0] === '$' ? '$' : '';

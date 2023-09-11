@@ -147,7 +147,7 @@ class Date
      *
      * @return ?DateTimeZone The timezone as a timezone object
      */
-    private static function validateTimeZone($timeZone)
+    private static function validateTimeZone($timeZone): ?DateTimeZone
     {
         if ($timeZone instanceof DateTimeZone || $timeZone === null) {
             return $timeZone;
@@ -312,7 +312,7 @@ class Date
      *
      * @return false|float MS Excel serialized date/time value
      */
-    public static function timestampToExcel($unixTimestamp)
+    public static function timestampToExcel($unixTimestamp): bool|float
     {
         if (!is_numeric($unixTimestamp)) {
             return false;
@@ -476,7 +476,7 @@ class Date
      *
      * @return false|float Excel date/time serial value
      */
-    public static function stringToExcel($dateValue)
+    public static function stringToExcel($dateValue): bool|float
     {
         if (strlen($dateValue) < 2) {
             return false;

@@ -240,10 +240,8 @@ class Engineering
      *                                If places is not an integer, it is truncated.
      *                                If places is nonnumeric, DEC2BIN returns the #VALUE! error value.
      *                                If places is zero or negative, DEC2BIN returns the #NUM! error value.
-     *
-     * @return array|string
      */
-    public static function DECTOBIN($x, $places = null)
+    public static function DECTOBIN($x, $places = null): string|array
     {
         return Engineering\ConvertDecimal::toBinary($x, $places);
     }
@@ -276,10 +274,8 @@ class Engineering
      *                                If places is not an integer, it is truncated.
      *                                If places is nonnumeric, DEC2HEX returns the #VALUE! error value.
      *                                If places is zero or negative, DEC2HEX returns the #NUM! error value.
-     *
-     * @return array|string
      */
-    public static function DECTOHEX($x, $places = null)
+    public static function DECTOHEX($x, $places = null): string|array
     {
         return Engineering\ConvertDecimal::toHex($x, $places);
     }
@@ -312,10 +308,8 @@ class Engineering
      *                                If places is not an integer, it is truncated.
      *                                If places is nonnumeric, DEC2OCT returns the #VALUE! error value.
      *                                If places is zero or negative, DEC2OCT returns the #NUM! error value.
-     *
-     * @return array|string
      */
-    public static function DECTOOCT($x, $places = null)
+    public static function DECTOOCT($x, $places = null): string|array
     {
         return Engineering\ConvertDecimal::toOctal($x, $places);
     }
@@ -521,10 +515,8 @@ class Engineering
      *                                    If places is not an integer, it is truncated.
      *                                    If places is nonnumeric, OCT2HEX returns the #VALUE! error value.
      *                                    If places is negative, OCT2HEX returns the #NUM! error value.
-     *
-     * @return array|string
      */
-    public static function OCTTOHEX($x, $places = null)
+    public static function OCTTOHEX($x, $places = null): string|array
     {
         return Engineering\ConvertOctal::toHex($x, $places);
     }
@@ -567,10 +559,8 @@ class Engineering
      *
      * @param string $complexNumber the complex number for which you want the imaginary
      *                                         coefficient
-     *
-     * @return array|float|string
      */
-    public static function IMAGINARY($complexNumber)
+    public static function IMAGINARY($complexNumber): string|float|array
     {
         return Engineering\Complex::IMAGINARY($complexNumber);
     }
@@ -588,10 +578,8 @@ class Engineering
      * @see Engineering\Complex::IMREAL()
      *
      * @param string $complexNumber the complex number for which you want the real coefficient
-     *
-     * @return array|float|string
      */
-    public static function IMREAL($complexNumber)
+    public static function IMREAL($complexNumber): string|float|array
     {
         return Engineering\Complex::IMREAL($complexNumber);
     }
@@ -1258,10 +1246,8 @@ class Engineering
      * @param float $lower lower bound for integrating ERF
      * @param float $upper upper bound for integrating ERF.
      *                                If omitted, ERF integrates between zero and lower_limit
-     *
-     * @return array|float|string
      */
-    public static function ERF($lower, $upper = null)
+    public static function ERF($lower, $upper = null): float|string|array
     {
         return Engineering\Erf::ERF($lower, $upper);
     }

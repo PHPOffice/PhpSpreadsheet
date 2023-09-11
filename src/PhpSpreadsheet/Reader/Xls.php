@@ -33,6 +33,7 @@ use PhpOffice\PhpSpreadsheet\Style\Style;
 use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 use PhpOffice\PhpSpreadsheet\Worksheet\SheetView;
+use PhpOffice\PhpSpreadsheet\Worksheet\Table;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 // Original file header of ParseXL (used as the base for this class):
@@ -1243,18 +1244,17 @@ class Xls extends BaseReader
                         $ranges = explode(',', $definedName['formula']); // FIXME: what if sheetname contains comma?
 
                         $extractedRanges = [];
+                        /** @var non-empty-string $range */
                         foreach ($ranges as $range) {
                             // $range should look like one of these
                             //        Foo!$C$7:$J$66
                             //        Bar!$A$1:$IV$2
                             $explodes = Worksheet::extractSheetTitle($range, true);
                             $sheetName = trim($explodes[0], "'");
-                            if (count($explodes) == 2) {
-                                if (strpos($explodes[1], ':') === false) {
-                                    $explodes[1] = $explodes[1] . ':' . $explodes[1];
-                                }
-                                $extractedRanges[] = str_replace('$', '', $explodes[1]); // C7:J66
+                            if (strpos($explodes[1], ':') === false) {
+                                $explodes[1] = $explodes[1] . ':' . $explodes[1];
                             }
+                            $extractedRanges[] = str_replace('$', '', $explodes[1]); // C7:J66
                         }
                         if ($docSheet = $this->spreadsheet->getSheetByName($sheetName)) {
                             $docSheet->getPageSetup()->setPrintArea(implode(',', $extractedRanges)); // C7:J66,A1:IV2
@@ -1304,8 +1304,10 @@ class Xls extends BaseReader
                 }
             } else {
                 // Extract range
-                if (strpos($definedName['formula'], '!') !== false) {
-                    $explodes = Worksheet::extractSheetTitle($definedName['formula'], true);
+                /** @var non-empty-string $formula */
+                $formula = $definedName['formula'];
+                if (strpos($formula, '!') !== false) {
+                    $explodes = Worksheet::extractSheetTitle($formula, true);
                     if (
                         ($docSheet = $this->spreadsheet->getSheetByName($explodes[0])) ||
                         ($docSheet = $this->spreadsheet->getSheetByName(trim($explodes[0], "'")))
@@ -1320,7 +1322,7 @@ class Xls extends BaseReader
                     }
                 }
                 //    Named Value
-                    //    TODO Provide support for named values
+                //    TODO Provide support for named values
             }
         }
         $this->data = '';
@@ -3053,7 +3055,7 @@ class Xls extends BaseReader
                         $len = min($charsLeft, $limitpos - $pos);
                         for ($j = 0; $j < $len; ++$j) {
                             $retstr .= $recordData[$pos + $j]
-                            . chr(0);
+                                . chr(0);
                         }
                         $charsLeft -= $len;
                         $isCompressed = false;
@@ -7341,10 +7343,8 @@ class Xls extends BaseReader
      * Note: If there is only one sheet in the range, one gets e.g Sheet1
      * It can also happen that the REF structure uses the -1 (FFFF) code to indicate deleted sheets,
      * in which case an Exception is thrown.
-     *
-     * @return false|string
      */
-    private function readSheetRangeByRefIndex(int $index)
+    private function readSheetRangeByRefIndex(int $index): string|false
     {
         if (isset($this->ref[$index])) {
             $type = $this->externalBooks[$this->ref[$index]['externalBookIndex']]['type'];
@@ -7641,7 +7641,7 @@ class Xls extends BaseReader
      *
      * @return float
      */
-    private static function extractNumber($data)
+    private static function extractNumber($data): int|float
     {
         $rknumhigh = self::getInt4d($data, 4);
         $rknumlow = self::getInt4d($data, 0);
@@ -7669,7 +7669,7 @@ class Xls extends BaseReader
      *
      * @return float
      */
-    private static function getIEEE754($rknum)
+    private static function getIEEE754($rknum): float|int
     {
         if (($rknum & 0x02) != 0) {
             $value = $rknum >> 2;
@@ -7980,10 +7980,7 @@ class Xls extends BaseReader
     {
     }
 
-    /**
-     * @return null|float|int|string
-     */
-    private function readCFFormula(string $recordData, int $offset, int $size)
+    private function readCFFormula(string $recordData, int $offset, int $size): float|int|string|null
     {
         try {
             $formula = substr($recordData, $offset, $size);

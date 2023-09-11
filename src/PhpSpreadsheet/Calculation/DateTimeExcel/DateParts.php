@@ -28,7 +28,7 @@ class DateParts
      *         If an array of numbers is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function day($dateValue)
+    public static function day($dateValue): array|int|string
     {
         if (is_array($dateValue)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $dateValue);
@@ -69,7 +69,7 @@ class DateParts
      *         If an array of numbers is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function month($dateValue)
+    public static function month($dateValue): array|string|int
     {
         if (is_array($dateValue)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $dateValue);
@@ -108,7 +108,7 @@ class DateParts
      *         If an array of numbers is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function year($dateValue)
+    public static function year($dateValue): array|string|int
     {
         if (is_array($dateValue)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $dateValue);

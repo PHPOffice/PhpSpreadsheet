@@ -20,7 +20,7 @@ class Averages extends AggregateBase
      *
      * @return float|string (string if result is an error)
      */
-    public static function averageDeviations(...$args)
+    public static function averageDeviations(...$args): string|float
     {
         $aArgs = Functions::flattenArrayIndexed($args);
 
@@ -69,7 +69,7 @@ class Averages extends AggregateBase
      *
      * @return float|string (string if result is an error)
      */
-    public static function average(...$args)
+    public static function average(...$args): string|int|float
     {
         $returnValue = $aCount = 0;
 
@@ -108,7 +108,7 @@ class Averages extends AggregateBase
      *
      * @return float|string (string if result is an error)
      */
-    public static function averageA(...$args)
+    public static function averageA(...$args): string|int|float
     {
         $returnValue = null;
 

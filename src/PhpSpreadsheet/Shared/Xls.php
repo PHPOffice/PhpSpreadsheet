@@ -105,7 +105,7 @@ class Xls
      *
      * @return int Horizontal measured in pixels
      */
-    public static function getDistanceX(Worksheet $worksheet, $startColumn = 'A', $startOffsetX = 0, $endColumn = 'A', $endOffsetX = 0)
+    public static function getDistanceX(Worksheet $worksheet, $startColumn = 'A', $startOffsetX = 0, $endColumn = 'A', $endOffsetX = 0): int
     {
         $distanceX = 0;
 
@@ -203,10 +203,8 @@ class Xls
      * @param int $offsetY Vertical offset in pixels
      * @param int $width Width in pixels
      * @param int $height Height in pixels
-     *
-     * @return null|array
      */
-    public static function oneAnchor2twoAnchor(Worksheet $worksheet, string $coordinates, $offsetX, $offsetY, $width, $height)
+    public static function oneAnchor2twoAnchor(Worksheet $worksheet, string $coordinates, $offsetX, $offsetY, $width, $height): ?array
     {
         [$col_start, $row] = Coordinate::indexesFromString($coordinates);
         $row_start = $row - 1;

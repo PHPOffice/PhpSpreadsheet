@@ -117,7 +117,7 @@ class ChainedBlockStream
      *
      * @return false|string
      */
-    public function stream_read($count) // @codingStandardsIgnoreLine
+    public function stream_read($count): bool|string // @codingStandardsIgnoreLine
     {
         if ($this->stream_eof()) {
             return false;

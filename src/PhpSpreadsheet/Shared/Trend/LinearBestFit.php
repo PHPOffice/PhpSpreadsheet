@@ -19,7 +19,7 @@ class LinearBestFit extends BestFit
      *
      * @return float Y-Value
      */
-    public function getValueOfYForX($xValue)
+    public function getValueOfYForX($xValue): int|float
     {
         return $this->getIntersect() + $this->getSlope() * $xValue;
     }
@@ -31,7 +31,7 @@ class LinearBestFit extends BestFit
      *
      * @return float X-Value
      */
-    public function getValueOfXForY($yValue)
+    public function getValueOfXForY($yValue): int|float
     {
         return ($yValue - $this->getIntersect()) / $this->getSlope();
     }

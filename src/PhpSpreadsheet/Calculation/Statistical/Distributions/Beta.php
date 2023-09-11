@@ -91,7 +91,7 @@ class Beta
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function inverse($probability, $alpha, $beta, $rMin = 0.0, $rMax = 1.0)
+    public static function inverse($probability, $alpha, $beta, $rMin = 0.0, $rMax = 1.0): array|string|float
     {
         if (is_array($probability) || is_array($alpha) || is_array($beta) || is_array($rMin) || is_array($rMax)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $probability, $alpha, $beta, $rMin, $rMax);

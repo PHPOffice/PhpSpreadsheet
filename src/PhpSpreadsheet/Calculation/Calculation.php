@@ -3999,7 +3999,7 @@ class Calculation
     /**
      * @return false|string False indicates an error
      */
-    private function convertMatrixReferences(string $formula)
+    private function convertMatrixReferences(string $formula): false|string
     {
         static $matrixReplaceFrom = [self::FORMULA_OPEN_MATRIX_BRACE, ';', self::FORMULA_CLOSE_MATRIX_BRACE];
         static $matrixReplaceTo = ['MKMATRIX(MKMATRIX(', '),MKMATRIX(', '))'];
@@ -4102,7 +4102,7 @@ class Calculation
      *
      * @return array<int, mixed>|false
      */
-    private function internalParseFormula($formula, ?Cell $cell = null)
+    private function internalParseFormula($formula, ?Cell $cell = null): bool|array
     {
         if (($formula = $this->convertMatrixReferences(trim($formula))) === false) {
             return false;
@@ -4426,6 +4426,7 @@ class Calculation
                         } elseif ($val === Information\ExcelError::REF()) {
                             $stackItemReference = $val;
                         } else {
+                            /** @var non-empty-string $startRowColRef */
                             $startRowColRef = $output[count($output) - 1]['value'] ?? '';
                             [$rangeWS1, $startRowColRef] = Worksheet::extractSheetTitle($startRowColRef, true);
                             $rangeSheetRef = $rangeWS1;
@@ -4452,7 +4453,7 @@ class Calculation
                                 $valx = $val;
                                 $endRowColRef = ($refSheet !== null) ? $refSheet->getHighestDataColumn($valx) : AddressRange::MAX_COLUMN; //    Max 16,384 columns for Excel2007
                                 $val = "{$rangeWS2}{$endRowColRef}{$val}";
-                            } elseif (ctype_alpha($val) && strlen($val) <= 3) {
+                            } elseif (ctype_alpha($val) && strlen($val ?? '') <= 3) {
                                 //    Column range
                                 $stackItemType = 'Column Reference';
                                 $endRowColRef = ($refSheet !== null) ? $refSheet->getHighestDataRow($val) : AddressRange::MAX_ROW; //    Max 1,048,576 rows for Excel2007
@@ -4789,6 +4790,7 @@ class Calculation
                         } else {
                             $sheet1 = ($pCellWorksheet !== null) ? $pCellWorksheet->getTitle() : '';
                         }
+                        $sheet1 ??= '';
 
                         [$sheet2, $operand2Data['reference']] = Worksheet::extractSheetTitle($operand2Data['reference'], true);
                         if (empty($sheet2)) {
@@ -4819,7 +4821,7 @@ class Calculation
                                 }
                             }
 
-                            $oData = array_merge(explode(':', $operand1Data['reference']), explode(':', $operand2Data['reference']));
+                            $oData = array_merge(explode(':', $operand1Data['reference'] ?? ''), explode(':', $operand2Data['reference'] ?? ''));
                             $oCol = $oRow = [];
                             $breakNeeded = false;
                             foreach ($oData as $oDatum) {
@@ -5291,10 +5293,8 @@ class Calculation
     /**
      * @param mixed $operand1
      * @param mixed $operand2
-     *
-     * @return mixed
      */
-    private function executeBinaryComparisonOperation($operand1, $operand2, string $operation, Stack &$stack, bool $recursingArrays = false)
+    private function executeBinaryComparisonOperation($operand1, $operand2, string $operation, Stack &$stack, bool $recursingArrays = false): array|bool
     {
         //    If we're dealing with matrix operations, we want a matrix result
         if ((is_array($operand1)) || (is_array($operand2))) {
@@ -5522,9 +5522,9 @@ class Calculation
      * @param null|Worksheet $worksheet Worksheet
      * @param bool $resetLog Flag indicating whether calculation log should be reset or not
      *
-     * @return mixed Array of values in range if range contains more than one element. Otherwise, a single value is returned.
+     * @return array|string Array of values in range if range contains more than one element. Otherwise, a single value is returned.
      */
-    public function extractNamedRange(string &$range = 'A1', ?Worksheet $worksheet = null, bool $resetLog = true)
+    public function extractNamedRange(string &$range = 'A1', ?Worksheet $worksheet = null, bool $resetLog = true): string|array
     {
         // Return value
         $returnValue = [];

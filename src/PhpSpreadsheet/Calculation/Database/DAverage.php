@@ -32,7 +32,7 @@ class DAverage extends DatabaseAbstract
      *
      * @return float|string
      */
-    public static function evaluate($database, $field, $criteria)
+    public static function evaluate($database, $field, $criteria): string|int|float
     {
         $field = self::fieldExtract($database, $field);
         if ($field === null) {

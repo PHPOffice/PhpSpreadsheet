@@ -174,16 +174,13 @@ class Periodic
         return -$futureValue - $payment * $numberOfPeriods;
     }
 
-    /**
-     * @return float|string
-     */
     private static function calculatePeriods(
         float $rate,
         float $payment,
         float $presentValue,
         float $futureValue,
         int $type
-    ) {
+    ): string|float {
         if ($rate != 0.0) {
             if ($presentValue == 0.0) {
                 return ExcelError::NAN();

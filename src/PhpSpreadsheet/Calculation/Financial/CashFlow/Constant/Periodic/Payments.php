@@ -29,7 +29,7 @@ class Payments
         $presentValue,
         $futureValue = 0,
         $type = FinancialConstants::PAYMENT_END_OF_PERIOD
-    ) {
+    ): string|float {
         $interestRate = Functions::flattenSingleValue($interestRate);
         $numberOfPeriods = Functions::flattenSingleValue($numberOfPeriods);
         $presentValue = Functions::flattenSingleValue($presentValue);

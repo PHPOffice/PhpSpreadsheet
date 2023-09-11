@@ -71,12 +71,10 @@ class Database
      *                                        the column label in which you specify a condition for the
      *                                        column.
      *
-     * @return int|string
-     *
      * @TODO    The field argument is optional. If field is omitted, DCOUNT counts all records in the
      *            database that match the criteria.
      */
-    public static function DCOUNT($database, $field, $criteria)
+    public static function DCOUNT($database, $field, $criteria): string|int
     {
         return Database\DCount::evaluate($database, $field, $criteria);
     }
@@ -107,10 +105,8 @@ class Database
      *                                        includes at least one column label and at least one cell below
      *                                        the column label in which you specify a condition for the
      *                                        column.
-     *
-     * @return int|string
      */
-    public static function DCOUNTA($database, $field, $criteria)
+    public static function DCOUNTA($database, $field, $criteria): string|int
     {
         return Database\DCountA::evaluate($database, $field, $criteria);
     }

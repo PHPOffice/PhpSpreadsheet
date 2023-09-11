@@ -73,7 +73,7 @@ class PlotArea
      *
      * @return int
      */
-    public function getPlotSeriesCount()
+    public function getPlotSeriesCount(): int|float
     {
         $seriesCount = 0;
         foreach ($this->plotSeries as $plot) {

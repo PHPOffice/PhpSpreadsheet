@@ -124,10 +124,8 @@ class Statistical
      * @param float $beta Parameter to the distribution
      * @param mixed $rMin
      * @param mixed $rMax
-     *
-     * @return array|float|string
      */
-    public static function BETADIST($value, $alpha, $beta, $rMin = 0, $rMax = 1)
+    public static function BETADIST($value, $alpha, $beta, $rMin = 0, $rMax = 1): string|float|array
     {
         return Statistical\Distributions\Beta::distribution($value, $alpha, $beta, $rMin, $rMax);
     }
@@ -539,7 +537,7 @@ class Statistical
      *
      * @return array|float|string The result, or a string containing an error
      */
-    public static function GAMMAFunction($value)
+    public static function GAMMAFunction($value): string|float|array
     {
         return Statistical\Distributions\Gamma::gamma($value);
     }
@@ -595,10 +593,8 @@ class Statistical
      * @see Statistical\Distributions\Gamma::ln()
      *
      * @param float $value
-     *
-     * @return array|float|string
      */
-    public static function GAMMALN($value)
+    public static function GAMMALN($value): string|float|array
     {
         return Statistical\Distributions\Gamma::ln($value);
     }
@@ -792,9 +788,9 @@ class Statistical
      * @param bool $const a logical value specifying whether to force the intersect to equal 0
      * @param bool $stats a logical value specifying whether to return additional regression statistics
      *
-     * @return array|int|string The result, or a string containing an error
+     * @return array|string The result, or a string containing an error
      */
-    public static function LINEST(array $yValues, $xValues = null, $const = true, $stats = false)
+    public static function LINEST(array $yValues, $xValues = null, $const = true, $stats = false): string|array
     {
         return Trends::LINEST($yValues, $xValues, $const, $stats);
     }
@@ -814,9 +810,9 @@ class Statistical
      * @param bool $const a logical value specifying whether to force the intersect to equal 0
      * @param bool $stats a logical value specifying whether to return additional regression statistics
      *
-     * @return array|int|string The result, or a string containing an error
+     * @return array|string The result, or a string containing an error
      */
-    public static function LOGEST(array $yValues, $xValues = null, $const = true, $stats = false)
+    public static function LOGEST(array $yValues, $xValues = null, $const = true, $stats = false): string|array
     {
         return Trends::LOGEST($yValues, $xValues, $const, $stats);
     }
@@ -840,7 +836,7 @@ class Statistical
      *            accuracy if I can get my head round the mathematics
      *            (as described at) http://home.online.no/~pjacklam/notes/invnorm/
      */
-    public static function LOGINV($probability, $mean, $stdDev)
+    public static function LOGINV($probability, $mean, $stdDev): string|float|array
     {
         return Statistical\Distributions\LogNormal::inverse($probability, $mean, $stdDev);
     }
@@ -1223,7 +1219,7 @@ class Statistical
      *
      * @return float|string (string if result is an error)
      */
-    public static function PERCENTRANK($valueSet, $value, $significance = 3)
+    public static function PERCENTRANK($valueSet, $value, $significance = 3): string|float
     {
         return Statistical\Percentiles::PERCENTRANK($valueSet, $value, $significance);
     }

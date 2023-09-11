@@ -539,7 +539,7 @@ class Font
      *
      * @return int Size (in pixels)
      */
-    public static function inchSizeToPixels($sizeInInch)
+    public static function inchSizeToPixels($sizeInInch): int|float
     {
         return $sizeInInch * 96;
     }
@@ -650,9 +650,9 @@ class Font
      * @param FontStyle $font The workbooks default font
      * @param bool $returnAsPixels true = return column width in pixels, false = return in OOXML units
      *
-     * @return mixed Column width
+     * @return ($returnAsPixels is true ? int : float) Column width
      */
-    public static function getDefaultColumnWidthByFont(FontStyle $font, $returnAsPixels = false)
+    public static function getDefaultColumnWidthByFont(FontStyle $font, bool $returnAsPixels = false): float|int
     {
         if (isset(self::DEFAULT_COLUMN_WIDTHS[$font->getName()][$font->getSize()])) {
             // Exact width can be determined

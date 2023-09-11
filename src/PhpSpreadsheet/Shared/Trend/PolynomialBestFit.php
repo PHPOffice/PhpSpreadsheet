@@ -64,7 +64,7 @@ class PolynomialBestFit extends BestFit
      *
      * @return float X-Value
      */
-    public function getValueOfXForY($yValue)
+    public function getValueOfXForY($yValue): int|float
     {
         return ($yValue - $this->getIntersect()) / $this->getSlope();
     }

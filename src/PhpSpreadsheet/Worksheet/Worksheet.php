@@ -3471,9 +3471,9 @@ class Worksheet implements IComparable
      * @param string $range Range to extract title from
      * @param bool $returnRange Return range? (see example)
      *
-     * @return mixed
+     * @return ($range is non-empty-string ? ($returnRange is true ? array{0: string, 1: string} : string) : ($returnRange is true ? array{0: null, 1: null} : null))
      */
-    public static function extractSheetTitle($range, $returnRange = false)
+    public static function extractSheetTitle($range, $returnRange = false): array|null|string
     {
         if (empty($range)) {
             return $returnRange ? [null, null] : null;

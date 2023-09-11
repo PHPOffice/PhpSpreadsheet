@@ -111,7 +111,7 @@ abstract class Coordinate
      *
      * @return string Absolute coordinate        e.g. '$A$1'
      */
-    public static function absoluteCoordinate($cellAddress)
+    public static function absoluteCoordinate(string $cellAddress)
     {
         if (self::coordinateIsRange($cellAddress)) {
             throw new Exception('Cell coordinate string can not be a range of cells');
@@ -124,7 +124,7 @@ abstract class Coordinate
         }
 
         // Create absolute coordinate
-        [$column, $row] = self::coordinateFromString($cellAddress);
+        [$column, $row] = self::coordinateFromString($cellAddress); // @phpstan-ignore-line
         $column = ltrim($column, '$');
         $row = ltrim($row, '$');
 
@@ -266,7 +266,7 @@ abstract class Coordinate
      *
      * @return int Column index (A = 1)
      */
-    public static function columnIndexFromString($columnAddress)
+    public static function columnIndexFromString(?string $columnAddress): int
     {
         //    Using a lookup cache adds a slight memory overhead, but boosts speed
         //    caching using a static within the method is faster than a class static,
@@ -356,14 +356,14 @@ abstract class Coordinate
 
         [$worksheet, $cellRange] = Worksheet::extractSheetTitle($cellRange, true);
         $quoted = '';
-        if ($worksheet > '') {
+        if ($worksheet) {
             $quoted = Worksheet::nameRequiresQuotes($worksheet) ? "'" : '';
             if (substr($worksheet, 0, 1) === "'" && substr($worksheet, -1, 1) === "'") {
                 $worksheet = substr($worksheet, 1, -1);
             }
             $worksheet = str_replace("'", "''", $worksheet);
         }
-        [$ranges, $operators] = self::getCellBlocksFromRangeString($cellRange);
+        [$ranges, $operators] = self::getCellBlocksFromRangeString($cellRange); // @phpstan-ignore-line
 
         $cells = [];
         foreach ($ranges as $range) {

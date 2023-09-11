@@ -63,7 +63,7 @@ class AutoFilter
             [, $range] = Worksheet::extractSheetTitle(Validations::validateCellRange($range), true);
         }
 
-        $this->range = $range;
+        $this->range = $range ?? '';
         $this->workSheet = $worksheet;
     }
 
@@ -172,7 +172,7 @@ class AutoFilter
      *
      * @return int The column offset within the autofilter range
      */
-    public function testColumnInRange($column)
+    public function testColumnInRange($column): int
     {
         if (empty($this->range)) {
             throw new Exception('No autofilter range is defined.');

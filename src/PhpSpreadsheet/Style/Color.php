@@ -289,7 +289,7 @@ class Color extends Supervisor
      *
      * @return int|string The extracted colour component
      */
-    private static function getColourComponent($rgbValue, $offset, $hex = true)
+    private static function getColourComponent($rgbValue, $offset, $hex = true): string|int
     {
         $colour = substr($rgbValue, $offset, 2) ?: '';
         if (preg_match('/^[0-9a-f]{2}$/i', $colour) !== 1) {

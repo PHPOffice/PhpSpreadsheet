@@ -114,7 +114,7 @@ class DefinedNames
             //    Strip any worksheet ref so we can make the cell ref absolute
             [, $range[0]] = ActualWorksheet::extractSheetTitle($range[0], true);
 
-            $range[0] = Coordinate::absoluteCoordinate($range[0]);
+            $range[0] = Coordinate::absoluteCoordinate($range[0] ?? '');
             if (count($range) > 1) {
                 $range[1] = Coordinate::absoluteCoordinate($range[1]);
             }

@@ -33,7 +33,7 @@ class DVarP extends DatabaseAbstract
      *
      * @return float|string (string if result is an error)
      */
-    public static function evaluate($database, $field, $criteria)
+    public static function evaluate($database, $field, $criteria): string|float
     {
         $field = self::fieldExtract($database, $field);
         if ($field === null) {

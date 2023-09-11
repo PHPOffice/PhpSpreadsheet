@@ -82,10 +82,8 @@ class Conditional
      *
      * @param mixed[] $range Data values
      * @param string $condition the criteria that defines which cells will be counted
-     *
-     * @return int|string
      */
-    public static function COUNTIF($range, $condition)
+    public static function COUNTIF($range, $condition): string|int
     {
         // Filter out any empty values that shouldn't be included in a COUNT
         $range = array_filter(

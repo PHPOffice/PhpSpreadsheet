@@ -446,7 +446,7 @@ class HeaderFooter
      *
      * @return HeaderFooterDrawing[]
      */
-    public function getImages()
+    public function getImages(): array
     {
         // Sort array
         $images = [];

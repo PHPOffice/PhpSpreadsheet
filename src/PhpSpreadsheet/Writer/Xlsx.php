@@ -705,10 +705,7 @@ class Xlsx extends BaseWriter
         }
     }
 
-    /**
-     * @return mixed
-     */
-    private function processDrawing(WorksheetDrawing $drawing)
+    private function processDrawing(WorksheetDrawing $drawing): string|null|false
     {
         $data = null;
         $filename = $drawing->getPath();

@@ -1731,12 +1731,12 @@ class Xlsx extends BaseReader
                                             break;
                                         default:
                                             if ($mapSheetId[(int) $definedName['localSheetId']] !== null) {
-                                                $range = Worksheet::extractSheetTitle((string) $definedName, true);
+                                                $range = Worksheet::extractSheetTitle($extractedRange, true);
                                                 $scope = $excel->getSheet($mapSheetId[(int) $definedName['localSheetId']]);
                                                 if (strpos((string) $definedName, '!') !== false) {
                                                     $range[0] = str_replace("''", "'", $range[0]);
                                                     $range[0] = str_replace("'", '', $range[0]);
-                                                    if ($worksheet = $excel->getSheetByName($range[0])) { // @phpstan-ignore-line
+                                                    if ($worksheet = $excel->getSheetByName($range[0])) {
                                                         $excel->addDefinedName(DefinedName::createInstance((string) $definedName['name'], $worksheet, $extractedRange, true, $scope));
                                                     } else {
                                                         $excel->addDefinedName(DefinedName::createInstance((string) $definedName['name'], $scope, $extractedRange, true, $scope));
@@ -1749,25 +1749,24 @@ class Xlsx extends BaseReader
                                             break;
                                     }
                                 } elseif (!isset($definedName['localSheetId'])) {
-                                    $definedRange = (string) $definedName;
                                     // "Global" definedNames
                                     $locatedSheet = null;
                                     if (strpos((string) $definedName, '!') !== false) {
                                         // Modify range, and extract the first worksheet reference
                                         // Need to split on a comma or a space if not in quotes, and extract the first part.
-                                        $definedNameValueParts = preg_split("/[ ,](?=([^']*'[^']*')*[^']*$)/miuU", $definedRange);
+                                        $definedNameValueParts = preg_split("/[ ,](?=([^']*'[^']*')*[^']*$)/miuU", $extractedRange);
                                         // Extract sheet name
                                         [$extractedSheetName] = Worksheet::extractSheetTitle((string) $definedNameValueParts[0], true); // @phpstan-ignore-line
-                                        $extractedSheetName = trim($extractedSheetName, "'");
+                                        $extractedSheetName = trim($extractedSheetName, "'"); // @phpstan-ignore-line
 
                                         // Locate sheet
                                         $locatedSheet = $excel->getSheetByName($extractedSheetName);
                                     }
 
-                                    if ($locatedSheet === null && !DefinedName::testIfFormula($definedRange)) {
-                                        $definedRange = '#REF!';
+                                    if ($locatedSheet === null && !DefinedName::testIfFormula($extractedRange)) {
+                                        $extractedRange = '#REF!';
                                     }
-                                    $excel->addDefinedName(DefinedName::createInstance((string) $definedName['name'], $locatedSheet, $definedRange, false));
+                                    $excel->addDefinedName(DefinedName::createInstance((string) $definedName['name'], $locatedSheet, $extractedRange, false));
                                 }
                             }
                         }

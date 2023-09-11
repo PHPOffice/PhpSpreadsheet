@@ -1136,10 +1136,8 @@ class Html extends BaseReader
      * Map html border style to PhpSpreadsheet border style.
      *
      * @param  string $style
-     *
-     * @return null|string
      */
-    public function getBorderStyle($style)
+    public function getBorderStyle($style): ?string
     {
         return self::BORDER_MAPPINGS[$style] ?? null;
     }

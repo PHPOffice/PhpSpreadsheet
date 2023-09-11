@@ -29,7 +29,7 @@ class ComplexOperations
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function IMDIV($complexDividend, $complexDivisor)
+    public static function IMDIV($complexDividend, $complexDivisor): array|string
     {
         if (is_array($complexDividend) || is_array($complexDivisor)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $complexDividend, $complexDivisor);
@@ -59,7 +59,7 @@ class ComplexOperations
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function IMSUB($complexNumber1, $complexNumber2)
+    public static function IMSUB($complexNumber1, $complexNumber2): array|string
     {
         if (is_array($complexNumber1) || is_array($complexNumber2)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $complexNumber1, $complexNumber2);

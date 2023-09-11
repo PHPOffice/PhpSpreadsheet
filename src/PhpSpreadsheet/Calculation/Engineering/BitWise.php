@@ -41,7 +41,7 @@ class BitWise
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function BITAND($number1, $number2)
+    public static function BITAND($number1, $number2): array|string|int
     {
         if (is_array($number1) || is_array($number2)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $number1, $number2);
@@ -76,7 +76,7 @@ class BitWise
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function BITOR($number1, $number2)
+    public static function BITOR($number1, $number2): array|string|int
     {
         if (is_array($number1) || is_array($number2)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $number1, $number2);
@@ -112,7 +112,7 @@ class BitWise
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function BITXOR($number1, $number2)
+    public static function BITXOR($number1, $number2): array|string|int
     {
         if (is_array($number1) || is_array($number2)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $number1, $number2);
@@ -144,11 +144,11 @@ class BitWise
      * @param array|int $shiftAmount
      *                      Or can be an array of values
      *
-     * @return array|float|int|string
+     * @return array|float|string
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function BITLSHIFT($number, $shiftAmount)
+    public static function BITLSHIFT($number, $shiftAmount): array|string|float
     {
         if (is_array($number) || is_array($shiftAmount)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $number, $shiftAmount);
@@ -182,11 +182,11 @@ class BitWise
      * @param array|int $shiftAmount
      *                      Or can be an array of values
      *
-     * @return array|float|int|string
+     * @return array|float|string
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function BITRSHIFT($number, $shiftAmount)
+    public static function BITRSHIFT($number, $shiftAmount): array|string|float
     {
         if (is_array($number) || is_array($shiftAmount)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $number, $shiftAmount);

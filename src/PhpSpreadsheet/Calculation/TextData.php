@@ -49,10 +49,8 @@ class TextData
      * @see TextData\Trim::spaces()
      *
      * @param mixed $stringValue Value to check
-     *
-     * @return array|string
      */
-    public static function TRIMSPACES($stringValue = '')
+    public static function TRIMSPACES($stringValue = ''): string|array
     {
         return TextData\Trim::spaces($stringValue);
     }
@@ -68,7 +66,7 @@ class TextData
      *
      * @return array|int|string A string if arguments are invalid
      */
-    public static function ASCIICODE($characters)
+    public static function ASCIICODE($characters): string|int|array
     {
         return TextData\CharacterConvert::code($characters);
     }
@@ -172,10 +170,8 @@ class TextData
      *
      * @param array|string $value Value
      * @param array|int $chars Number of characters
-     *
-     * @return array|string
      */
-    public static function LEFT($value = '', $chars = 1)
+    public static function LEFT($value = '', $chars = 1): string|array
     {
         return TextData\Extract::left($value, $chars);
     }
@@ -190,10 +186,8 @@ class TextData
      * @param array|string $value Value
      * @param array|int $start Start character
      * @param array|int $chars Number of characters
-     *
-     * @return array|string
      */
-    public static function MID($value = '', $start = 1, $chars = null)
+    public static function MID($value = '', $start = 1, $chars = null): string|array
     {
         return TextData\Extract::mid($value, $start, $chars);
     }
@@ -207,10 +201,8 @@ class TextData
      *
      * @param array|string $value Value
      * @param array|int $chars Number of characters
-     *
-     * @return array|string
      */
-    public static function RIGHT($value = '', $chars = 1)
+    public static function RIGHT($value = '', $chars = 1): string|array
     {
         return TextData\Extract::right($value, $chars);
     }
@@ -223,10 +215,8 @@ class TextData
      * @see TextData\Text::length()
      *
      * @param string $value Value
-     *
-     * @return array|int
      */
-    public static function STRINGLENGTH($value = '')
+    public static function STRINGLENGTH($value = ''): int|array
     {
         return TextData\Text::length($value);
     }
@@ -241,10 +231,8 @@ class TextData
      * @see TextData\CaseConvert::lower()
      *
      * @param array|string $mixedCaseString
-     *
-     * @return array|string
      */
-    public static function LOWERCASE($mixedCaseString)
+    public static function LOWERCASE($mixedCaseString): string|array
     {
         return TextData\CaseConvert::lower($mixedCaseString);
     }
@@ -259,10 +247,8 @@ class TextData
      * @see TextData\CaseConvert::upper()
      *
      * @param string $mixedCaseString
-     *
-     * @return array|string
      */
-    public static function UPPERCASE($mixedCaseString)
+    public static function UPPERCASE($mixedCaseString): string|array
     {
         return TextData\CaseConvert::upper($mixedCaseString);
     }
@@ -277,10 +263,8 @@ class TextData
      * @see TextData\CaseConvert::proper()
      *
      * @param array|string $mixedCaseString
-     *
-     * @return array|string
      */
-    public static function PROPERCASE($mixedCaseString)
+    public static function PROPERCASE($mixedCaseString): string|array
     {
         return TextData\CaseConvert::proper($mixedCaseString);
     }
@@ -331,10 +315,8 @@ class TextData
      * @see TextData\Text::test()
      *
      * @param mixed $testValue Value to check
-     *
-     * @return null|array|string
      */
-    public static function RETURNSTRING($testValue = '')
+    public static function RETURNSTRING($testValue = ''): string|array
     {
         return TextData\Text::test($testValue);
     }
@@ -401,10 +383,8 @@ class TextData
      *
      * @param mixed $value1
      * @param mixed $value2
-     *
-     * @return array|bool
      */
-    public static function EXACT($value1, $value2)
+    public static function EXACT($value1, $value2): bool|array
     {
         return TextData\Text::exact($value1, $value2);
     }

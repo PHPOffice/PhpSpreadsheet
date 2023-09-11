@@ -39,9 +39,9 @@ class Offset
      * @param mixed $width The width, in number of columns, that you want the returned reference to be.
      *                         Width must be a positive number.
      *
-     * @return array|int|string An array containing a cell or range of cells, or a string on error
+     * @return array|string An array containing a cell or range of cells, or a string on error
      */
-    public static function OFFSET($cellAddress = null, $rows = 0, $columns = 0, $height = null, $width = null, ?Cell $cell = null)
+    public static function OFFSET($cellAddress = null, $rows = 0, $columns = 0, $height = null, $width = null, ?Cell $cell = null): string|array
     {
         $rows = Functions::flattenSingleValue($rows);
         $columns = Functions::flattenSingleValue($columns);

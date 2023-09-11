@@ -29,7 +29,7 @@ class Poisson
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function distribution($value, $mean, $cumulative)
+    public static function distribution($value, $mean, $cumulative): array|string|float
     {
         if (is_array($value) || is_array($mean) || is_array($cumulative)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $value, $mean, $cumulative);

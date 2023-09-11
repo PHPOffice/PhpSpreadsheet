@@ -25,7 +25,7 @@ class Mean
      *
      * @return float|string
      */
-    public static function geometric(...$args)
+    public static function geometric(...$args): float|int|string
     {
         $aArgs = Functions::flattenArray($args);
 
@@ -53,7 +53,7 @@ class Mean
      *
      * @return float|string
      */
-    public static function harmonic(...$args)
+    public static function harmonic(...$args): string|float|int
     {
         // Loop through arguments
         $aArgs = Functions::flattenArray($args);

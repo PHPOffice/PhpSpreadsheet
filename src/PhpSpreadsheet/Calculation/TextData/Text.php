@@ -46,7 +46,7 @@ class Text
      *         If an array of values is passed for either of the arguments, then the returned result
      *            will also be an array with matching dimensions
      */
-    public static function exact($value1, $value2)
+    public static function exact($value1, $value2): array|bool
     {
         if (is_array($value1) || is_array($value2)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $value1, $value2);
@@ -68,7 +68,7 @@ class Text
      *         If an array of values is passed for the argument, then the returned result
      *            will also be an array with matching dimensions
      */
-    public static function test($testValue = '')
+    public static function test($testValue = ''): array|string
     {
         if (is_array($testValue)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $testValue);

@@ -122,7 +122,7 @@ class Round
      *         If an array of numbers is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function multiple($number, $multiple)
+    public static function multiple($number, $multiple): array|string|int|float
     {
         if (is_array($number) || is_array($multiple)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $number, $multiple);
@@ -191,7 +191,7 @@ class Round
      *         If an array of numbers is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function odd($number)
+    public static function odd($number): array|string|int|float
     {
         if (is_array($number)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $number);

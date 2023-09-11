@@ -33,7 +33,7 @@ class Normal
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function distribution($value, $mean, $stdDev, $cumulative)
+    public static function distribution($value, $mean, $stdDev, $cumulative): array|string|float
     {
         if (is_array($value) || is_array($mean) || is_array($stdDev) || is_array($cumulative)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $value, $mean, $stdDev, $cumulative);
@@ -75,7 +75,7 @@ class Normal
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function inverse($probability, $mean, $stdDev)
+    public static function inverse($probability, $mean, $stdDev): array|string|float
     {
         if (is_array($probability) || is_array($mean) || is_array($stdDev)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $probability, $mean, $stdDev);

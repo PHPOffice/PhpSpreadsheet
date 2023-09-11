@@ -122,11 +122,11 @@ class Extract
      *                             The default is a #N/A Error
      *                          Or can be an array of values
      *
-     * @return mixed|mixed[] the string extracted from text before the delimiter; or the $ifNotFound value
+     * @return array|string the string extracted from text before the delimiter; or the $ifNotFound value
      *         If an array of values is passed for any of the arguments, then the returned result
      *            will also be an array with matching dimensions
      */
-    public static function before($text, $delimiter, $instance = 1, $matchMode = 0, $matchEnd = 0, $ifNotFound = '#N/A')
+    public static function before($text, $delimiter, $instance = 1, $matchMode = 0, $matchEnd = 0, $ifNotFound = '#N/A'): array|string
     {
         if (is_array($text) || is_array($instance) || is_array($matchMode) || is_array($matchEnd) || is_array($ifNotFound)) {
             return self::evaluateArrayArgumentsIgnore([self::class, __FUNCTION__], 1, $text, $delimiter, $instance, $matchMode, $matchEnd, $ifNotFound);
@@ -180,11 +180,11 @@ class Extract
      *                             The default is a #N/A Error
      *                          Or can be an array of values
      *
-     * @return mixed|mixed[] the string extracted from text before the delimiter; or the $ifNotFound value
+     * @return array|string the string extracted from text before the delimiter; or the $ifNotFound value
      *         If an array of values is passed for any of the arguments, then the returned result
      *            will also be an array with matching dimensions
      */
-    public static function after($text, $delimiter, $instance = 1, $matchMode = 0, $matchEnd = 0, $ifNotFound = '#N/A')
+    public static function after($text, $delimiter, $instance = 1, $matchMode = 0, $matchEnd = 0, $ifNotFound = '#N/A'): array|string
     {
         if (is_array($text) || is_array($instance) || is_array($matchMode) || is_array($matchEnd) || is_array($ifNotFound)) {
             return self::evaluateArrayArgumentsIgnore([self::class, __FUNCTION__], 1, $text, $delimiter, $instance, $matchMode, $matchEnd, $ifNotFound);

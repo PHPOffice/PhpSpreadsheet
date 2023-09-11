@@ -24,7 +24,7 @@ class Value
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function isBlank($value = null)
+    public static function isBlank($value = null): array|bool
     {
         if (is_array($value)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $value);
@@ -50,7 +50,7 @@ class Value
             if (!empty($worksheet) && $cell->getWorksheet()->getParentOrThrow()->getSheetByName($worksheet) === null) {
                 return false;
             }
-            [$column, $row] = Coordinate::indexesFromString($cellValue);
+            [$column, $row] = Coordinate::indexesFromString($cellValue ?? '');
             if ($column > 16384 || $row > 1048576) {
                 return false;
             }
@@ -73,7 +73,7 @@ class Value
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function isEven($value = null)
+    public static function isEven($value = null): array|string|bool
     {
         if (is_array($value)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $value);
@@ -98,7 +98,7 @@ class Value
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function isOdd($value = null)
+    public static function isOdd($value = null): array|string|bool
     {
         if (is_array($value)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $value);
@@ -123,7 +123,7 @@ class Value
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function isNumber($value = null)
+    public static function isNumber($value = null): array|bool
     {
         if (is_array($value)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $value);
@@ -165,7 +165,7 @@ class Value
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function isText($value = null)
+    public static function isText($value = null): array|bool
     {
         if (is_array($value)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $value);
@@ -184,7 +184,7 @@ class Value
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function isNonText($value = null)
+    public static function isNonText($value = null): array|bool
     {
         if (is_array($value)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $value);

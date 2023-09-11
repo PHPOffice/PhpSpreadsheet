@@ -444,10 +444,8 @@ class Functions
      *
      * @deprecated 1.23.0 Use the isLogical() method in the Information\Value class instead
      * @see Information\Value::isLogical()
-     *
-     * @return array|bool
      */
-    public static function isLogical($value = null)
+    public static function isLogical($value = null): bool|array
     {
         return Information\Value::isLogical($value);
     }
@@ -536,7 +534,7 @@ class Functions
      *
      * @return array Flattened array
      */
-    public static function flattenArray($array)
+    public static function flattenArray($array): array
     {
         if (!is_array($array)) {
             return (array) $array;
