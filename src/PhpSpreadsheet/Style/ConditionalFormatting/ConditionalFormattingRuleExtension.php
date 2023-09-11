@@ -124,8 +124,7 @@ class ConditionalFormattingRuleExtension
         }
     }
 
-    /** @param array|SimpleXMLElement $ns */
-    private static function parseExtDataBarElementChildrenFromXml(ConditionalDataBarExtension $extDataBarObj, SimpleXMLElement $dataBarXml, $ns): void
+    private static function parseExtDataBarElementChildrenFromXml(ConditionalDataBarExtension $extDataBarObj, SimpleXMLElement $dataBarXml, array $ns): void
     {
         if ($dataBarXml->borderColor) {
             $attributes = $dataBarXml->borderColor->attributes();

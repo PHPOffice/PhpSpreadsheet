@@ -3831,14 +3831,14 @@ class Calculation
     /**
      * Ensure that paired matrix operands are both matrices of the same size.
      *
-     * @param mixed $matrix1 First matrix operand
-     * @param mixed $matrix2 Second matrix operand
+     * @param array $matrix1 First matrix operand
+     * @param array $matrix2 Second matrix operand
      * @param int $matrix1Rows Row size of first matrix operand
      * @param int $matrix1Columns Column size of first matrix operand
      * @param int $matrix2Rows Row size of second matrix operand
      * @param int $matrix2Columns Column size of second matrix operand
      */
-    private static function resizeMatricesShrink(&$matrix1, &$matrix2, $matrix1Rows, $matrix1Columns, $matrix2Rows, $matrix2Columns): void
+    private static function resizeMatricesShrink(array &$matrix1, array &$matrix2, $matrix1Rows, $matrix1Columns, $matrix2Rows, $matrix2Columns): void
     {
         if (($matrix2Columns < $matrix1Columns) || ($matrix2Rows < $matrix1Rows)) {
             if ($matrix2Rows < $matrix1Rows) {
@@ -3874,14 +3874,14 @@ class Calculation
     /**
      * Ensure that paired matrix operands are both matrices of the same size.
      *
-     * @param mixed $matrix1 First matrix operand
-     * @param mixed $matrix2 Second matrix operand
+     * @param array $matrix1 First matrix operand
+     * @param array $matrix2 Second matrix operand
      * @param int $matrix1Rows Row size of first matrix operand
      * @param int $matrix1Columns Column size of first matrix operand
      * @param int $matrix2Rows Row size of second matrix operand
      * @param int $matrix2Columns Column size of second matrix operand
      */
-    private static function resizeMatricesExtend(&$matrix1, &$matrix2, $matrix1Rows, $matrix1Columns, $matrix2Rows, $matrix2Columns): void
+    private static function resizeMatricesExtend(array &$matrix1, array &$matrix2, $matrix1Rows, $matrix1Columns, $matrix2Rows, $matrix2Columns): void
     {
         if (($matrix2Columns < $matrix1Columns) || ($matrix2Rows < $matrix1Rows)) {
             if ($matrix2Columns < $matrix1Columns) {
@@ -4597,11 +4597,9 @@ class Calculation
     }
 
     /**
-     * @param array $operandData
-     *
      * @return mixed
      */
-    private static function dataTestReference(&$operandData)
+    private static function dataTestReference(array &$operandData)
     {
         $operand = $operandData['value'];
         if (($operandData['reference'] === null) && (is_array($operand))) {

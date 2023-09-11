@@ -626,11 +626,9 @@ abstract class Properties
     /**
      * Set Shadow Properties Values.
      *
-     * @param mixed $reference
-     *
      * @return $this
      */
-    protected function setShadowPropertiesMapValues(array $propertiesMap, &$reference = null)
+    protected function setShadowPropertiesMapValues(array $propertiesMap, ?array &$reference = null)
     {
         $base_reference = $reference;
         foreach ($propertiesMap as $property_key => $property_val) {

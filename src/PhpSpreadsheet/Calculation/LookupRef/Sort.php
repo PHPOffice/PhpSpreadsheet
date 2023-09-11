@@ -219,7 +219,7 @@ class Sort extends LookupRefValidations
      * @param array[] $sortIndex
      * @param int[] $sortOrder
      */
-    private static function processSortBy(array $sortArray, array $sortIndex, $sortOrder): array
+    private static function processSortBy(array $sortArray, array $sortIndex, array $sortOrder): array
     {
         $sortArguments = [];
         $sortData = [];

@@ -102,7 +102,7 @@ abstract class JpGraphRendererBase implements IRenderer
         return $seriesPlot;
     }
 
-    private function formatDataSetLabels(int $groupID, $datasetLabels, $rotation = '')
+    private function formatDataSetLabels(int $groupID, array $datasetLabels, $rotation = '')
     {
         $datasetLabelFormatCode = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotCategoryByIndex(0)->getFormatCode() ?? '';
         //    Retrieve any label formatting code
@@ -151,7 +151,7 @@ abstract class JpGraphRendererBase implements IRenderer
         return $sumValues;
     }
 
-    private function percentageAdjustValues($dataValues, $sumValues)
+    private function percentageAdjustValues(array $dataValues, array $sumValues)
     {
         foreach ($dataValues as $k => $dataValue) {
             $dataValues[$k] = $dataValue / $sumValues[$k] * 100;

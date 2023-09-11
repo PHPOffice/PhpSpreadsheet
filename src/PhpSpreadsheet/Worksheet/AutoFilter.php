@@ -321,7 +321,7 @@ class AutoFilter
      *
      * @return bool
      */
-    protected static function filterTestInSimpleDataSet($cellValue, $dataSet)
+    protected static function filterTestInSimpleDataSet($cellValue, array $dataSet)
     {
         $dataSetValues = $dataSet['filterValues'];
         $blanks = $dataSet['blanks'];
@@ -340,7 +340,7 @@ class AutoFilter
      *
      * @return bool
      */
-    protected static function filterTestInDateGroupSet($cellValue, $dataSet)
+    protected static function filterTestInDateGroupSet($cellValue, array $dataSet)
     {
         $dateSet = $dataSet['filterValues'];
         $blanks = $dataSet['blanks'];

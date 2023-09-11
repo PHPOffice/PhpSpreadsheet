@@ -135,7 +135,7 @@ class PolynomialBestFit extends BestFit
      * @param float[] $yValues The set of Y-values for this regression
      * @param float[] $xValues The set of X-values for this regression
      */
-    private function polynomialRegression($order, $yValues, $xValues): void
+    private function polynomialRegression($order, array $yValues, array $xValues): void
     {
         // calculate sums
         $x_sum = array_sum($xValues);
