@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
+use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 
 class Issue3720Test extends \PHPUnit\Framework\TestCase
 {
@@ -78,8 +79,7 @@ class Issue3720Test extends \PHPUnit\Framework\TestCase
         $sheet = $spreadsheet->getSheetByNameOrThrow('Welcome');
         $drawings = $sheet->getDrawingCollection();
         self::assertCount(1, $drawings);
-        $draw0 = $drawings[0] ?? null;
-        self::assertNotNull($draw0);
+        $draw0 = $drawings[0] ?? new Drawing();
         self::assertSame('Picture 1', $draw0->getName());
         self::assertSame('C3', $draw0->getCoordinates());
         self::assertSame('C10', $draw0->getCoordinates2());
