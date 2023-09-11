@@ -775,13 +775,12 @@ class AutoFilter
     /**
      * Apply the AutoFilter rules to the AutoFilter Range.
      *
-     * @param string $columnID
      * @param ?string $ruleType
      * @param mixed $ruleValue
      *
      * @return mixed
      */
-    private function calculateTopTenValue($columnID, int $startRow, int $endRow, $ruleType, $ruleValue)
+    private function calculateTopTenValue(string $columnID, int $startRow, int $endRow, $ruleType, $ruleValue)
     {
         $range = $columnID . $startRow . ':' . $columnID . $endRow;
         $retVal = null;

@@ -60,7 +60,7 @@ class ReferenceHelper
      * @param string $a First column to test (e.g. 'AA')
      * @param string $b Second column to test (e.g. 'Z')
      */
-    public static function columnSort($a, $b): int
+    public static function columnSort(string $a, string $b): int
     {
         return strcasecmp(strlen($a) . $a, strlen($b) . $b);
     }
@@ -873,7 +873,7 @@ class ReferenceHelper
      * @param string $oldName Old name (name to replace)
      * @param string $newName New name
      */
-    public function updateNamedFormulae(Spreadsheet $spreadsheet, $oldName = '', $newName = ''): void
+    public function updateNamedFormulae(Spreadsheet $spreadsheet, string $oldName = '', string $newName = ''): void
     {
         if ($oldName == '') {
             return;

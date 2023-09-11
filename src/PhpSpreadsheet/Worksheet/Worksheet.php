@@ -1715,7 +1715,7 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function duplicateStyle(Style $style, $range): static
+    public function duplicateStyle(Style $style, string $range): static
     {
         // Add the style to the workbook if necessary
         $workbook = $this->getParentOrThrow();
@@ -1758,7 +1758,7 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function duplicateConditionalStyle(array $styles, $range = ''): static
+    public function duplicateConditionalStyle(array $styles, string $range = ''): static
     {
         foreach ($styles as $cellStyle) {
             if (!($cellStyle instanceof Conditional)) {

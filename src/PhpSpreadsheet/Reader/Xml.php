@@ -108,11 +108,9 @@ class Xml extends BaseReader
     /**
      * Check if the file is a valid SimpleXML.
      *
-     * @param string $filename
-     *
      * @return false|SimpleXMLElement
      */
-    public function trySimpleXMLLoadString($filename): SimpleXMLElement|bool
+    public function trySimpleXMLLoadString(string $filename): SimpleXMLElement|bool
     {
         try {
             $xml = simplexml_load_string(

@@ -159,9 +159,8 @@ class Sample
      * Returns the filename that should be used for sample output.
      *
      * @param string $filename
-     * @param string $extension
      */
-    public function getFilename($filename, $extension = 'xlsx'): string
+    public function getFilename($filename, string $extension = 'xlsx'): string
     {
         $originalExtension = pathinfo($filename, PATHINFO_EXTENSION);
 
@@ -170,10 +169,8 @@ class Sample
 
     /**
      * Return a random temporary file name.
-     *
-     * @param string $extension
      */
-    public function getTemporaryFilename($extension = 'xlsx'): string
+    public function getTemporaryFilename(string $extension = 'xlsx'): string
     {
         $temporaryFilename = tempnam($this->getTemporaryFolder(), 'phpspreadsheet-');
         if ($temporaryFilename === false) {

@@ -112,7 +112,7 @@ class Cells
      *
      * @param string $cellCoordinate Coordinate of the cell to delete
      */
-    public function delete($cellCoordinate): void
+    public function delete(string $cellCoordinate): void
     {
         if ($cellCoordinate === $this->currentCoordinate && $this->currentCell !== null) {
             $this->currentCell->detach();
@@ -404,7 +404,7 @@ class Cells
      *
      * @return null|Cell Cell that was found, or null if not found
      */
-    public function get($cellCoordinate)
+    public function get(string $cellCoordinate)
     {
         if ($cellCoordinate === $this->currentCoordinate) {
             return $this->currentCell;

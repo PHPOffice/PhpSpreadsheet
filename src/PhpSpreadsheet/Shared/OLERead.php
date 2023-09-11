@@ -315,10 +315,9 @@ class OLERead
     /**
      * Read 4 bytes of data at specified position.
      *
-     * @param string $data
      * @param int $pos
      */
-    private static function getInt4d($data, $pos): int
+    private static function getInt4d(string $data, $pos): int
     {
         if ($pos < 0) {
             // Invalid position

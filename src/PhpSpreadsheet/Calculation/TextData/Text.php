@@ -239,10 +239,7 @@ class Text
         return (string) $cellValue;
     }
 
-    /**
-     * @param mixed $cellValue
-     */
-    private static function formatValueMode1($cellValue): string
+    private static function formatValueMode1(mixed $cellValue): string
     {
         if (is_string($cellValue) && ErrorValue::isError($cellValue) === false) {
             return Calculation::FORMULA_STRING_QUOTE . $cellValue . Calculation::FORMULA_STRING_QUOTE;

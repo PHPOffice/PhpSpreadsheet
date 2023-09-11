@@ -3426,11 +3426,9 @@ class Calculation
     /**
      * Wrap string values in quotes.
      *
-     * @param mixed $value
-     *
      * @return mixed
      */
-    public static function wrapResult($value)
+    public static function wrapResult(mixed $value)
     {
         if (is_string($value)) {
             //    Error values cannot be "wrapped"

@@ -281,11 +281,10 @@ class Html extends BaseReader
     /**
      * Flush cell.
      *
-     * @param string $column
      * @param int|string $row
      * @param mixed $cellContent
      */
-    protected function flushCell(Worksheet $sheet, $column, $row, &$cellContent, array $attributeArray): void
+    protected function flushCell(Worksheet $sheet, string $column, $row, &$cellContent, array $attributeArray): void
     {
         if (is_string($cellContent)) {
             //    Simple String content
@@ -663,10 +662,8 @@ class Html extends BaseReader
 
     /**
      * Loads PhpSpreadsheet from file into PhpSpreadsheet instance.
-     *
-     * @param string $filename
      */
-    public function loadIntoExisting($filename, Spreadsheet $spreadsheet): Spreadsheet
+    public function loadIntoExisting(string $filename, Spreadsheet $spreadsheet): Spreadsheet
     {
         // Validate
         if (!$this->canRead($filename)) {
@@ -879,9 +876,8 @@ class Html extends BaseReader
      * - Implement to other propertie, such as border
      *
      * @param int $row
-     * @param string $column
      */
-    private function applyInlineStyle(Worksheet &$sheet, $row, $column, array $attributeArray): void
+    private function applyInlineStyle(Worksheet &$sheet, $row, string $column, array $attributeArray): void
     {
         if (!isset($attributeArray['style'])) {
             return;

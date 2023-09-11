@@ -729,7 +729,7 @@ class Workbook extends BIFFwriter
      *
      * @return string Complete binary record data
      */
-    private function writeDefinedNameBiff8($name, $formulaData, int $sheetIndex = 0, bool $isBuiltIn = false): string
+    private function writeDefinedNameBiff8($name, string $formulaData, int $sheetIndex = 0, bool $isBuiltIn = false): string
     {
         $record = 0x0018;
 

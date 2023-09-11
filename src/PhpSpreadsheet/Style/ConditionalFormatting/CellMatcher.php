@@ -147,11 +147,9 @@ class CellMatcher
     }
 
     /**
-     * @param mixed $value
-     *
      * @return float|int|string
      */
-    protected function wrapValue($value)
+    protected function wrapValue(mixed $value)
     {
         if (!is_numeric($value)) {
             if (is_bool($value)) {

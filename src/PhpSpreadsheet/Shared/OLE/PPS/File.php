@@ -55,7 +55,7 @@ class File extends PPS
      *
      * @param string $data The data to append
      */
-    public function append($data): void
+    public function append(string $data): void
     {
         $this->_data .= $data;
     }
