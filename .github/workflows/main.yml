@@ -61,6 +61,23 @@ jobs:
           FAILURE_ACTION: "${{ matrix.experimental == true }}"
         run: vendor/bin/phpunit --verbose || $FAILURE_ACTION
 
+  phpdoc-types:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup PHP, with composer and extensions
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.1
+          extensions: ctype, dom, gd, iconv, fileinfo, libxml, mbstring, simplexml, xml, xmlreader, xmlwriter, zip, zlib
+          coverage: none
+          tools: cs2pr
+
+      - name: Check PHPDoc types
+        run: ./bin/check-phpdoc-types
+
   php-cs-fixer:
     runs-on: ubuntu-latest
     steps:
