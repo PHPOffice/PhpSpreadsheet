@@ -1164,4 +1164,29 @@ class Html extends BaseReader
             ],
         ]);
     }
+
+    /**
+     * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
+     *
+     * @param string $filename
+     *
+     * @return array
+     */
+    public function listWorksheetInfo($filename)
+    {
+        $info = [];
+        $spreadsheet = new Spreadsheet();
+        $this->loadIntoExisting($filename, $spreadsheet);
+        foreach ($spreadsheet->getAllSheets() as $sheet) {
+            $newEntry = ['worksheetName' => $sheet->getTitle()];
+            $newEntry['lastColumnLetter'] = $sheet->getHighestDataColumn();
+            $newEntry['lastColumnIndex'] = Coordinate::columnIndexFromString($sheet->getHighestDataColumn()) - 1;
+            $newEntry['totalRows'] = $sheet->getHighestDataRow();
+            $newEntry['totalColumns'] = $newEntry['lastColumnIndex'] + 1;
+            $info[] = $newEntry;
+        }
+        $spreadsheet->disconnectWorksheets();
+
+        return $info;
+    }
 }

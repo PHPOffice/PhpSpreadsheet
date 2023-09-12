@@ -165,7 +165,7 @@ class Slk extends BaseReader
 
                             break;
                         case 'Y':
-                            $rowIndex = substr($rowDatum, 1);
+                            $rowIndex = (int) substr($rowDatum, 1);
 
                             break;
                     }

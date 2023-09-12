@@ -10,6 +10,7 @@ use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class Csv extends BaseReader
 {
@@ -97,6 +98,9 @@ class Csv extends BaseReader
 
     /** @var bool */
     private $preserveNullString = false;
+
+    /** @var bool */
+    private $sheetNameIsFileName = false;
 
     /**
      * Create a new CSV Reader instance.
@@ -212,8 +216,12 @@ class Csv extends BaseReader
 
     /**
      * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
+     *
+     * @param string $filename
+     *
+     * @return array
      */
-    public function listWorksheetInfo(string $filename): array
+    public function listWorksheetInfo($filename)
     {
         // Open file
         $this->openFileOrMemory($filename);
@@ -373,6 +381,9 @@ class Csv extends BaseReader
             $spreadsheet->createSheet();
         }
         $sheet = $spreadsheet->setActiveSheetIndex($this->sheetIndex);
+        if ($this->sheetNameIsFileName) {
+            $sheet->setTitle(substr(basename($filename, '.csv'), 0, Worksheet::SHEET_TITLE_MAXIMUM_LENGTH));
+        }
 
         // Set our starting row based on whether we're in contiguous mode or not
         $currentRow = 1;
@@ -634,5 +645,12 @@ class Csv extends BaseReader
     public function getPreserveNullString(): bool
     {
         return $this->preserveNullString;
+    }
+
+    public function setSheetNameIsFileName(bool $sheetNameIsFileName): self
+    {
+        $this->sheetNameIsFileName = $sheetNameIsFileName;
+
+        return $this;
     }
 }

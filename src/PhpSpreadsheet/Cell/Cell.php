@@ -450,12 +450,9 @@ class Cell
      */
     public function setDataType($dataType): self
     {
-        if ($dataType == DataType::TYPE_STRING2) {
-            $dataType = DataType::TYPE_STRING;
-        }
-        $this->dataType = $dataType;
+        $this->setValueExplicit($this->value, $dataType);
 
-        return $this->updateInCollection();
+        return $this;
     }
 
     /**

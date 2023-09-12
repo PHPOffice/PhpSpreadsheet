@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Gnumeric;
 
 use DateTimeZone;
+use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 use PhpOffice\PhpSpreadsheet\Reader\Gnumeric;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
@@ -170,6 +171,16 @@ class GnumericLoadTest extends TestCase
 
         self::assertSame('A1', $sheet->getSelectedCells());
         $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testLoadNoSelectedSheets(): void
+    {
+        $this->expectException(PhpSpreadsheetException::class);
+        $this->expectExceptionMessage('You tried to set a sheet active by the out of bounds index');
+        $filename = 'samples/templates/GnumericTest.gnumeric';
+        $reader = new Gnumeric();
+        $reader->setLoadSheetsOnly(['Unknown Sheet', 'xReport Data']);
+        $reader->load($filename);
     }
 
     public function testLoadNotGnumeric(): void
