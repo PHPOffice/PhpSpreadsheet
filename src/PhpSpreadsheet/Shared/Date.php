@@ -433,12 +433,12 @@ class Date
         }
 
         //    Typically number, currency or accounting (or occasionally fraction) formats
-        if ((substr($excelFormatCode, 0, 1) == '_') || (substr($excelFormatCode, 0, 2) == '0 ')) {
+        if ((str_starts_with($excelFormatCode, '_')) || (str_starts_with($excelFormatCode, '0 '))) {
             return false;
         }
         // Some "special formats" provided in German Excel versions were detected as date time value,
         // so filter them out here - "\C\H\-00000" (Switzerland) and "\D-00000" (Germany).
-        if (\strpos($excelFormatCode, '-00000') !== false) {
+        if (str_contains($excelFormatCode, '-00000')) {
             return false;
         }
         $possibleFormatCharacters = $dateWithoutTimeOkay ? self::POSSIBLE_DATETIME_FORMAT_CHARACTERS : self::POSSIBLE_TIME_FORMAT_CHARACTERS;
@@ -446,7 +446,7 @@ class Date
         if (preg_match('/(^|\])[^\[]*[' . $possibleFormatCharacters . ']/i', $excelFormatCode)) {
             //    We might also have a format mask containing quoted strings...
             //        we don't want to test for any of our characters within the quoted blocks
-            if (strpos($excelFormatCode, '"') !== false) {
+            if (str_contains($excelFormatCode, '"')) {
                 $segMatcher = false;
                 foreach (explode('"', $excelFormatCode) as $subVal) {
                     //    Only test in alternate array entries (the non-quoted blocks)
@@ -491,7 +491,7 @@ class Date
             return false;
         }
 
-        if (strpos($dateValue, ':') !== false) {
+        if (str_contains($dateValue, ':')) {
             $timeValue = DateTimeExcel\TimeValue::fromString($dateValue);
             if (!is_float($timeValue)) {
                 return false;

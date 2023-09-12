@@ -86,7 +86,7 @@ class Address
     private static function sheetName(string $sheetName): string
     {
         if ($sheetName > '') {
-            if (strpos($sheetName, ' ') !== false || strpos($sheetName, '[') !== false) {
+            if (str_contains($sheetName, ' ') || str_contains($sheetName, '[')) {
                 $sheetName = "'{$sheetName}'";
             }
             $sheetName .= '!';

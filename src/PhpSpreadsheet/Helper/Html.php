@@ -723,7 +723,7 @@ class Html
                 if ($attributeName == 'color') {
                     if (preg_match('/rgb\s*\(/', $attributeValue)) {
                         $this->$attributeName = $this->rgbToColour($attributeValue);
-                    } elseif (strpos(trim($attributeValue), '#') === 0) {
+                    } elseif (str_starts_with(trim($attributeValue), '#')) {
                         $this->$attributeName = ltrim($attributeValue, '#');
                     } else {
                         $this->$attributeName = static::colourNameLookup($attributeValue);

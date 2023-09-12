@@ -1302,7 +1302,7 @@ class Worksheet implements IComparable
         $finalCoordinate = null;
 
         // Worksheet reference?
-        if (strpos($coordinate, '!') !== false) {
+        if (str_contains($coordinate, '!')) {
             $worksheetReference = self::extractSheetTitle($coordinate, true);
 
             $sheet = $this->getParentOrThrow()->getSheetByName($worksheetReference[0]);
@@ -1336,7 +1336,7 @@ class Worksheet implements IComparable
 
         if (Coordinate::coordinateIsRange($finalCoordinate)) {
             throw new Exception('Cell coordinate string can not be a range of cells.');
-        } elseif (strpos($finalCoordinate, '$') !== false) {
+        } elseif (str_contains($finalCoordinate, '$')) {
             throw new Exception('Cell coordinate must not be absolute.');
         }
 
@@ -1592,7 +1592,7 @@ class Worksheet implements IComparable
     public function getConditionalStyles(string $coordinate): array
     {
         $coordinate = strtoupper($coordinate);
-        if (strpos($coordinate, ':') !== false) {
+        if (str_contains($coordinate, ':')) {
             return $this->conditionalStylesCollection[$coordinate] ?? [];
         }
 
@@ -1631,7 +1631,7 @@ class Worksheet implements IComparable
     public function conditionalStylesExists($coordinate): bool
     {
         $coordinate = strtoupper($coordinate);
-        if (strpos($coordinate, ':') !== false) {
+        if (str_contains($coordinate, ':')) {
             return isset($this->conditionalStylesCollection[$coordinate]);
         }
 
@@ -1894,7 +1894,7 @@ class Worksheet implements IComparable
     {
         $range = Functions::trimSheetFromCellReference(Validations::validateCellRange($range));
 
-        if (strpos($range, ':') === false) {
+        if (!str_contains($range, ':')) {
             $range .= ":{$range}";
         }
 
@@ -2045,7 +2045,7 @@ class Worksheet implements IComparable
     {
         $range = Functions::trimSheetFromCellReference(Validations::validateCellRange($range));
 
-        if (strpos($range, ':') !== false) {
+        if (str_contains($range, ':')) {
             if (isset($this->mergeCells[$range])) {
                 unset($this->mergeCells[$range]);
             } else {
@@ -2953,7 +2953,7 @@ class Worksheet implements IComparable
 
         if (Coordinate::coordinateIsRange($cellAddress)) {
             throw new Exception('Cell coordinate string can not be a range of cells.');
-        } elseif (strpos($cellAddress, '$') !== false) {
+        } elseif (str_contains($cellAddress, '$')) {
             throw new Exception('Cell coordinate string must not be absolute.');
         } elseif ($cellAddress == '') {
             throw new Exception('Cell coordinate can not be zero-length string.');
@@ -2978,7 +2978,7 @@ class Worksheet implements IComparable
 
         if (Coordinate::coordinateIsRange($cellAddress)) {
             throw new Exception('Cell coordinate string can not be a range of cells.');
-        } elseif (strpos($cellAddress, '$') !== false) {
+        } elseif (str_contains($cellAddress, '$')) {
             throw new Exception('Cell coordinate string must not be absolute.');
         } elseif ($cellAddress == '') {
             throw new Exception('Cell coordinate can not be zero-length string.');

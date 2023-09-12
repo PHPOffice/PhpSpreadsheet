@@ -68,7 +68,7 @@ final class StructuredReference implements Operand
             }
             $srStringRemainder = substr($srStringRemainder, 0, $closingPos + 1);
             --$srCount;
-            if (strpos($srStringRemainder, self::OPEN_BRACE) !== false) {
+            if (str_contains($srStringRemainder, self::OPEN_BRACE)) {
                 ++$srCount;
             }
             $val .= $srStringRemainder;
@@ -96,8 +96,8 @@ final class StructuredReference implements Operand
 
     private function isRowReference(): bool
     {
-        return strpos($this->value, '[@') !== false
-            || strpos($this->value, '[' . self::ITEM_SPECIFIER_THIS_ROW . ']') !== false;
+        return str_contains($this->value, '[@')
+            || str_contains($this->value, '[' . self::ITEM_SPECIFIER_THIS_ROW . ']');
     }
 
     /**

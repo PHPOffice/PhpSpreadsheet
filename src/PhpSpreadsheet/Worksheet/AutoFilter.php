@@ -363,7 +363,7 @@ class AutoFilter
             }
             foreach ($dateSet as $dateValue) {
                 //    Use of substr to extract value at the appropriate group level
-                if (substr($dtVal, 0, strlen($dateValue)) == $dateValue) {
+                if (str_starts_with($dtVal, $dateValue)) {
                     return true;
                 }
             }

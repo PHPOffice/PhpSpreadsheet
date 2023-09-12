@@ -276,10 +276,10 @@ class DataSeriesValues extends Properties
     private function stringToChartColor(string $fillString): ChartColor
     {
         $value = $type = '';
-        if (substr($fillString, 0, 1) === '*') {
+        if (str_starts_with($fillString, '*')) {
             $type = 'schemeClr';
             $value = substr($fillString, 1);
-        } elseif (substr($fillString, 0, 1) === '/') {
+        } elseif (str_starts_with($fillString, '/')) {
             $type = 'prstClr';
             $value = substr($fillString, 1);
         } elseif ($fillString !== '') {

@@ -102,7 +102,7 @@ class Offset
         $cellAddress = self::assessCellAddress($cellAddress ?? '', $cell);
 
         $sheetName = '';
-        if (strpos($cellAddress, '!') !== false) {
+        if (str_contains($cellAddress, '!')) {
             [$sheetName, $cellAddress] = Worksheet::extractSheetTitle($cellAddress, true);
             $sheetName = trim($sheetName, "'");
         }

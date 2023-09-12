@@ -3158,7 +3158,7 @@ class Calculation
     {
         //    Identify our locale and language
         $language = $locale = strtolower($locale);
-        if (strpos($locale, '_') !== false) {
+        if (str_contains($locale, '_')) {
             [$language] = explode('_', $locale);
         }
         if (count(self::$validLocaleLanguages) == 1) {
@@ -3187,9 +3187,9 @@ class Calculation
                 $localeFunctions = file($functionNamesFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) ?: [];
                 foreach ($localeFunctions as $localeFunction) {
                     [$localeFunction] = explode('##', $localeFunction); //    Strip out comments
-                    if (strpos($localeFunction, '=') !== false) {
+                    if (str_contains($localeFunction, '=')) {
                         [$fName, $lfName] = array_map('trim', explode('=', $localeFunction));
-                        if ((substr($fName, 0, 1) === '*' || isset(self::$phpSpreadsheetFunctions[$fName])) && ($lfName != '') && ($fName != $lfName)) {
+                        if ((str_starts_with($fName, '*') || isset(self::$phpSpreadsheetFunctions[$fName])) && ($lfName != '') && ($fName != $lfName)) {
                             self::$localeFunctions[$fName] = $lfName;
                         }
                     }
@@ -3211,7 +3211,7 @@ class Calculation
                 $localeSettings = file($configFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) ?: [];
                 foreach ($localeSettings as $localeSetting) {
                     [$localeSetting] = explode('##', $localeSetting); //    Strip out comments
-                    if (strpos($localeSetting, '=') !== false) {
+                    if (str_contains($localeSetting, '=')) {
                         [$settingName, $settingValue] = array_map('trim', explode('=', $localeSetting));
                         $settingName = strtoupper($settingName);
                         if ($settingValue !== '') {
@@ -3298,7 +3298,7 @@ class Calculation
             $inFunctionBracesLevel = 0;
             $inMatrixBracesLevel = 0;
             //    If there is the possibility of separators within a quoted string, then we treat them as literals
-            if (strpos($formula, self::FORMULA_STRING_QUOTE) !== false) {
+            if (str_contains($formula, self::FORMULA_STRING_QUOTE)) {
                 //    So instead we skip replacing in any quoted strings by only replacing in every other array element
                 //       after we've exploded the formula
                 $temp = explode(self::FORMULA_STRING_QUOTE, $formula);
@@ -3992,9 +3992,9 @@ class Calculation
         static $matrixReplaceTo = ['MKMATRIX(MKMATRIX(', '),MKMATRIX(', '))'];
 
         //    Convert any Excel matrix references to the MKMATRIX() function
-        if (strpos($formula, self::FORMULA_OPEN_MATRIX_BRACE) !== false) {
+        if (str_contains($formula, self::FORMULA_OPEN_MATRIX_BRACE)) {
             //    If there is the possibility of braces within a quoted string, then we don't treat those as matrix indicators
-            if (strpos($formula, self::FORMULA_STRING_QUOTE) !== false) {
+            if (str_contains($formula, self::FORMULA_STRING_QUOTE)) {
                 //    So instead we skip replacing in any quoted strings by only replacing in every other array element after we've exploded
                 //        the formula
                 $temp = explode(self::FORMULA_STRING_QUOTE, $formula);
@@ -4354,7 +4354,7 @@ class Calculation
                                 return $this->raiseFormulaError('3D Range references are not yet supported');
                             }
                         }
-                    } elseif (strpos($val, '!') === false && $pCellParent !== null) {
+                    } elseif (!str_contains($val, '!') && $pCellParent !== null) {
                         $worksheet = $pCellParent->getTitle();
                         $val = "'{$worksheet}'!{$val}";
                     }
@@ -4398,7 +4398,7 @@ class Calculation
                                 $stackItemType = 'Defined Name';
                                 $address = str_replace('$', '', $namedRange->getValue());
                                 $stackItemReference = $val;
-                                if (strpos($address, ':') !== false) {
+                                if (str_contains($address, ':')) {
                                     // We'll need to manipulate the stack for an actual named range rather than a named cell
                                     $fromTo = explode(':', $address);
                                     $to = array_pop($fromTo);
@@ -4492,7 +4492,7 @@ class Calculation
                         $stackItemType = 'Defined Name';
                         $stackItemReference = $val;
                     } elseif (is_numeric($val)) {
-                        if ((strpos((string) $val, '.') !== false) || (stripos((string) $val, 'e') !== false) || ($val > PHP_INT_MAX) || ($val < -PHP_INT_MAX)) {
+                        if ((str_contains((string) $val, '.')) || (stripos((string) $val, 'e') !== false) || ($val > PHP_INT_MAX) || ($val < -PHP_INT_MAX)) {
                             $val = (float) $val;
                         } else {
                             $val = (int) $val;
@@ -4706,7 +4706,7 @@ class Calculation
 
                 try {
                     $cellRange = $token->parse($cell);
-                    if (strpos($cellRange, ':') !== false) {
+                    if (str_contains($cellRange, ':')) {
                         $this->debugLog->writeDebugLog('Evaluating Structured Reference %s as Cell Range %s', $token->value(), $cellRange);
                         $rangeValue = self::getInstance($cell->getWorksheet()->getParent())->_calculateFormulaValue("={$cellRange}", $cellRange, $cell);
                         $stack->push('Value', $rangeValue);
@@ -4770,7 +4770,7 @@ class Calculation
                                 }
                             }
                         }
-                        if (strpos($operand1Data['reference'] ?? '', '!') !== false) {
+                        if (str_contains($operand1Data['reference'] ?? '', '!')) {
                             [$sheet1, $operand1Data['reference']] = Worksheet::extractSheetTitle($operand1Data['reference'], true);
                         } else {
                             $sheet1 = ($pCellWorksheet !== null) ? $pCellWorksheet->getTitle() : '';
@@ -4962,7 +4962,7 @@ class Calculation
                         $cellRef = $matches[6] . $matches[7] . ':' . $matches[9] . $matches[10];
                         if ($matches[2] > '') {
                             $matches[2] = trim($matches[2], "\"'");
-                            if ((strpos($matches[2], '[') !== false) || (strpos($matches[2], ']') !== false)) {
+                            if ((str_contains($matches[2], '[')) || (str_contains($matches[2], ']'))) {
                                 //    It's a Reference to an external spreadsheet (not currently supported)
                                 return $this->raiseFormulaError('Unable to access External Workbook');
                             }
@@ -4992,7 +4992,7 @@ class Calculation
                         $cellRef = $matches[6] . $matches[7];
                         if ($matches[2] > '') {
                             $matches[2] = trim($matches[2], "\"'");
-                            if ((strpos($matches[2], '[') !== false) || (strpos($matches[2], ']') !== false)) {
+                            if ((str_contains($matches[2], '[')) || (str_contains($matches[2], ']'))) {
                                 //    It's a Reference to an external spreadsheet (not currently supported)
                                 return $this->raiseFormulaError('Unable to access External Workbook');
                             }
@@ -5465,7 +5465,7 @@ class Calculation
         if ($worksheet !== null) {
             $worksheetName = $worksheet->getTitle();
 
-            if (strpos($range, '!') !== false) {
+            if (str_contains($range, '!')) {
                 [$worksheetName, $range] = Worksheet::extractSheetTitle($range, true);
                 $worksheet = ($this->spreadsheet === null) ? null : $this->spreadsheet->getSheetByName($worksheetName);
             }
@@ -5515,7 +5515,7 @@ class Calculation
         $returnValue = [];
 
         if ($worksheet !== null) {
-            if (strpos($range, '!') !== false) {
+            if (str_contains($range, '!')) {
                 [$worksheetName, $range] = Worksheet::extractSheetTitle($range, true);
                 $worksheet = ($this->spreadsheet === null) ? null : $this->spreadsheet->getSheetByName($worksheetName);
             }
@@ -5636,7 +5636,7 @@ class Calculation
             if ($methodArgument->isDefaultValueConstant()) {
                 $constantName = $methodArgument->getDefaultValueConstantName() ?? '';
                 // read constant value
-                if (strpos($constantName, '::') !== false) {
+                if (str_contains($constantName, '::')) {
                     [$className, $constantName] = explode('::', $constantName);
                     $constantReflector = new ReflectionClassConstant($className, $constantName);
 

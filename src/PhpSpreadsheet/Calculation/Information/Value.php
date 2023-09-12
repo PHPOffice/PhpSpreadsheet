@@ -209,7 +209,7 @@ class Value
 
         $fullCellReference = Functions::expandDefinedName((string) $cellReference, $cell);
 
-        if (strpos($cellReference, '!') !== false) {
+        if (str_contains($cellReference, '!')) {
             $cellReference = Functions::trimSheetFromCellReference($cellReference);
             $cellReferences = Coordinate::extractAllCellReferencesInRange($cellReference);
             if (count($cellReferences) > 1) {

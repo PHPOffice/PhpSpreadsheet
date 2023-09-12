@@ -187,12 +187,12 @@ class Html extends BaseReader
 
     private static function startsWithTag(string $data): bool
     {
-        return '<' === substr(trim($data), 0, 1);
+        return str_starts_with(trim($data), '<');
     }
 
     private static function endsWithTag(string $data): bool
     {
-        return '>' === substr(trim($data), -1, 1);
+        return str_ends_with(trim($data), '>');
     }
 
     private static function containsTags(string $data): bool
@@ -298,7 +298,7 @@ class Html extends BaseReader
                     $datatype = $attributeArray['data-type'];
                     if (in_array($datatype, [DataType::TYPE_STRING, DataType::TYPE_STRING2, DataType::TYPE_INLINE])) {
                         //Prevent to Excel treat string with beginning equal sign or convert big numbers to scientific number
-                        if (substr($cellContent, 0, 1) === '=') {
+                        if (str_starts_with($cellContent, '=')) {
                             $sheet->getCell($column . $row)
                                 ->getStyle()
                                 ->setQuotePrefix(true);
@@ -1059,7 +1059,7 @@ class Html extends BaseReader
     public function getStyleColor($value): string
     {
         $value = (string) $value;
-        if (strpos($value, '#') === 0) {
+        if (str_starts_with($value, '#')) {
             return substr($value, 1);
         }
 

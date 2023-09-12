@@ -90,10 +90,10 @@ class ChartColor
     public function setColorProperties(?string $color, $alpha = null, ?string $type = null, $brightness = null): self
     {
         if (empty($type) && !empty($color)) {
-            if (substr($color, 0, 1) === '*') {
+            if (str_starts_with($color, '*')) {
                 $type = 'schemeClr';
                 $color = substr($color, 1);
-            } elseif (substr($color, 0, 1) === '/') {
+            } elseif (str_starts_with($color, '/')) {
                 $type = 'prstClr';
                 $color = substr($color, 1);
             } elseif (preg_match('/^[0-9A-Fa-f]{6}$/', $color) === 1) {

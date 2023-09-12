@@ -1256,7 +1256,7 @@ class Xls extends BaseReader
                             //        Bar!$A$1:$IV$2
                             $explodes = Worksheet::extractSheetTitle($range, true);
                             $sheetName = trim($explodes[0], "'");
-                            if (strpos($explodes[1], ':') === false) {
+                            if (!str_contains($explodes[1], ':')) {
                                 $explodes[1] = $explodes[1] . ':' . $explodes[1];
                             }
                             $extractedRanges[] = str_replace('$', '', $explodes[1]); // C7:J66
@@ -1282,7 +1282,7 @@ class Xls extends BaseReader
                             // $range should look like this one of these
                             //        Sheet!$A$1:$B$65536
                             //        Sheet!$A$1:$IV$2
-                            if (strpos($range, '!') !== false) {
+                            if (str_contains($range, '!')) {
                                 $explodes = Worksheet::extractSheetTitle($range, true);
                                 if ($docSheet = $this->spreadsheet->getSheetByName($explodes[0])) {
                                     $extractedRange = $explodes[1];
@@ -1311,7 +1311,7 @@ class Xls extends BaseReader
                 // Extract range
                 /** @var non-empty-string $formula */
                 $formula = $definedName['formula'];
-                if (strpos($formula, '!') !== false) {
+                if (str_contains($formula, '!')) {
                     $explodes = Worksheet::extractSheetTitle($formula, true);
                     if (
                         ($docSheet = $this->spreadsheet->getSheetByName($explodes[0])) ||
@@ -4600,7 +4600,7 @@ class Xls extends BaseReader
             $cellRangeAddressList = $this->readBIFF8CellRangeAddressList($recordData);
             foreach ($cellRangeAddressList['cellRangeAddresses'] as $cellRangeAddress) {
                 if (
-                    (strpos($cellRangeAddress, ':') !== false) &&
+                    (str_contains($cellRangeAddress, ':')) &&
                     ($this->includeCellRangeFiltered($cellRangeAddress))
                 ) {
                     $this->phpSheet->mergeCells($cellRangeAddress, Worksheet::MERGE_CELL_CONTENT_HIDE);
@@ -7994,7 +7994,7 @@ class Xls extends BaseReader
 
             $formula = $this->getFormulaFromStructure($formula);
             if (is_numeric($formula)) {
-                return (strpos($formula, '.') !== false) ? (float) $formula : (int) $formula;
+                return (str_contains($formula, '.')) ? (float) $formula : (int) $formula;
             }
 
             return $formula;

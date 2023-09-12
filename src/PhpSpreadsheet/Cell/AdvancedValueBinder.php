@@ -85,7 +85,7 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
                 // Convert value to number
                 $cell->setValueExplicit($d, DataType::TYPE_NUMERIC);
                 // Determine style. Either there is a time part or not. Look for ':'
-                if (strpos($value, ':') !== false) {
+                if (str_contains($value, ':')) {
                     $formatCode = 'yyyy-mm-dd h:mm';
                 } else {
                     $formatCode = 'yyyy-mm-dd';
@@ -97,7 +97,7 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
             }
 
             // Check for newline character "\n"
-            if (strpos($value, "\n") !== false) {
+            if (str_contains($value, "\n")) {
                 $cell->setValueExplicit($value, DataType::TYPE_STRING);
                 // Set style
                 $cell->getWorksheet()->getStyle($cell->getCoordinate())

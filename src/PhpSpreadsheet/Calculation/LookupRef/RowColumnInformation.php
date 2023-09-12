@@ -66,7 +66,7 @@ class RowColumnInformation
         [, $cellAddress] = Worksheet::extractSheetTitle($cellAddress, true);
         $cellAddress ??= '';
 
-        if (strpos($cellAddress, ':') !== false) {
+        if (str_contains($cellAddress, ':')) {
             [$startAddress, $endAddress] = explode(':', $cellAddress);
             $startAddress = (string) preg_replace('/[^a-z]/i', '', $startAddress);
             $endAddress = (string) preg_replace('/[^a-z]/i', '', $endAddress);
@@ -160,7 +160,7 @@ class RowColumnInformation
         }
         [, $cellAddress] = Worksheet::extractSheetTitle($cellAddress, true);
         $cellAddress ??= '';
-        if (strpos($cellAddress, ':') !== false) {
+        if (str_contains($cellAddress, ':')) {
             [$startAddress, $endAddress] = explode(':', $cellAddress);
             $startAddress = (int) (string) preg_replace('/\D/', '', $startAddress);
             $endAddress = (int) (string) preg_replace('/\D/', '', $endAddress);
