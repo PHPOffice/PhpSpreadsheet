@@ -7,8 +7,9 @@ use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Worksheet\Table;
+use Stringable;
 
-final class StructuredReference implements Operand
+final class StructuredReference implements Operand, Stringable
 {
     public const NAME = 'Structured Reference';
 

@@ -2,7 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard;
 
-abstract class DateTimeWizard implements Wizard
+use Stringable;
+
+abstract class DateTimeWizard implements Stringable, Wizard
 {
     protected const NO_ESCAPING_NEEDED = "$+-/():!^&'~{}<>= ";
 

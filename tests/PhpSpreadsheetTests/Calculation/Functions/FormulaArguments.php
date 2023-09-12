@@ -6,8 +6,9 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions;
 
 use PhpOffice\PhpSpreadsheet\Cell\CellAddress;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use Stringable;
 
-class FormulaArguments
+class FormulaArguments implements Stringable
 {
     /**
      * @var mixed[]
