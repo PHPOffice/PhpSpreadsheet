@@ -28,34 +28,22 @@ class Style
 
     private function mapHorizontalAlignment(string $horizontalAlignment): string
     {
-        switch ($horizontalAlignment) {
-            case Alignment::HORIZONTAL_CENTER:
-            case Alignment::HORIZONTAL_CENTER_CONTINUOUS:
-            case Alignment::HORIZONTAL_DISTRIBUTED:
-                return 'center';
-            case Alignment::HORIZONTAL_RIGHT:
-                return 'end';
-            case Alignment::HORIZONTAL_FILL:
-            case Alignment::HORIZONTAL_JUSTIFY:
-                return 'justify';
-        }
-
-        return 'start';
+        return match ($horizontalAlignment) {
+            Alignment::HORIZONTAL_CENTER, Alignment::HORIZONTAL_CENTER_CONTINUOUS, Alignment::HORIZONTAL_DISTRIBUTED => 'center',
+            Alignment::HORIZONTAL_RIGHT => 'end',
+            Alignment::HORIZONTAL_FILL, Alignment::HORIZONTAL_JUSTIFY => 'justify',
+            default => 'start',
+        };
     }
 
     private function mapVerticalAlignment(string $verticalAlignment): string
     {
-        switch ($verticalAlignment) {
-            case Alignment::VERTICAL_TOP:
-                return 'top';
-            case Alignment::VERTICAL_CENTER:
-                return 'middle';
-            case Alignment::VERTICAL_DISTRIBUTED:
-            case Alignment::VERTICAL_JUSTIFY:
-                return 'automatic';
-        }
-
-        return 'bottom';
+        return match ($verticalAlignment) {
+            Alignment::VERTICAL_TOP => 'top',
+            Alignment::VERTICAL_CENTER => 'middle',
+            Alignment::VERTICAL_DISTRIBUTED, Alignment::VERTICAL_JUSTIFY => 'automatic',
+            default => 'bottom',
+        };
     }
 
     private function writeFillStyle(Fill $fill): void
@@ -111,16 +99,11 @@ class Style
 
     protected function mapUnderlineStyle(Font $font): string
     {
-        switch ($font->getUnderline()) {
-            case Font::UNDERLINE_DOUBLE:
-            case Font::UNDERLINE_DOUBLEACCOUNTING:
-                return'double';
-            case Font::UNDERLINE_SINGLE:
-            case Font::UNDERLINE_SINGLEACCOUNTING:
-                return'single';
-        }
-
-        return 'none';
+        return match ($font->getUnderline()) {
+            Font::UNDERLINE_DOUBLE, Font::UNDERLINE_DOUBLEACCOUNTING => 'double',
+            Font::UNDERLINE_SINGLE, Font::UNDERLINE_SINGLEACCOUNTING => 'single',
+            default => 'none',
+        };
     }
 
     protected function writeTextProperties(CellStyle $style): void

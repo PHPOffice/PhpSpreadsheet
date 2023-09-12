@@ -89,13 +89,10 @@ class Amortization
             $fRest -= $fNRate;
 
             if ($fRest < 0.0) {
-                switch ($period - $n) {
-                    case 0:
-                    case 1:
-                        return round($cost * 0.5, 0);
-                    default:
-                        return 0.0;
-                }
+                return match ($period - $n) {
+                    0, 1 => round($cost * 0.5, 0),
+                    default => 0.0,
+                };
             }
             $cost -= $fNRate;
         }

@@ -739,24 +739,16 @@ class Parser
      */
     private function convertError($errorCode): string
     {
-        switch ($errorCode) {
-            case '#NULL!':
-                return pack('C', 0x00);
-            case '#DIV/0!':
-                return pack('C', 0x07);
-            case '#VALUE!':
-                return pack('C', 0x0F);
-            case '#REF!':
-                return pack('C', 0x17);
-            case '#NAME?':
-                return pack('C', 0x1D);
-            case '#NUM!':
-                return pack('C', 0x24);
-            case '#N/A':
-                return pack('C', 0x2A);
-        }
-
-        return pack('C', 0xFF);
+        return match ($errorCode) {
+            '#NULL!' => pack('C', 0x00),
+            '#DIV/0!' => pack('C', 0x07),
+            '#VALUE!' => pack('C', 0x0F),
+            '#REF!' => pack('C', 0x17),
+            '#NAME?' => pack('C', 0x1D),
+            '#NUM!' => pack('C', 0x24),
+            '#N/A' => pack('C', 0x2A),
+            default => pack('C', 0xFF),
+        };
     }
 
     /** @var bool */

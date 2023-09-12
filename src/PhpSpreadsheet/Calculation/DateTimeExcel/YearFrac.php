@@ -61,20 +61,14 @@ class YearFrac
             return $e->getMessage();
         }
 
-        switch ($method) {
-            case 0:
-                return Functions::scalar(Days360::between($startDate, $endDate)) / 360;
-            case 1:
-                return self::method1($startDate, $endDate);
-            case 2:
-                return Functions::scalar(Difference::interval($startDate, $endDate)) / 360;
-            case 3:
-                return Functions::scalar(Difference::interval($startDate, $endDate)) / 365;
-            case 4:
-                return Functions::scalar(Days360::between($startDate, $endDate, true)) / 360;
-        }
-
-        return ExcelError::NAN();
+        return match ($method) {
+            0 => Functions::scalar(Days360::between($startDate, $endDate)) / 360,
+            1 => self::method1($startDate, $endDate),
+            2 => Functions::scalar(Difference::interval($startDate, $endDate)) / 360,
+            3 => Functions::scalar(Difference::interval($startDate, $endDate)) / 365,
+            4 => Functions::scalar(Days360::between($startDate, $endDate, true)) / 360,
+            default => ExcelError::NAN(),
+        };
     }
 
     /**

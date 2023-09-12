@@ -55,15 +55,11 @@ class BesselY
 
     private static function calculate(float $x, int $ord): float
     {
-        // special cases
-        switch ($ord) {
-            case 0:
-                return self::besselY0($x);
-            case 1:
-                return self::besselY1($x);
-        }
-
-        return self::besselY2($x, $ord);
+        return match ($ord) {
+            0 => self::besselY0($x),
+            1 => self::besselY1($x),
+            default => self::besselY2($x, $ord),
+        };
     }
 
     /**

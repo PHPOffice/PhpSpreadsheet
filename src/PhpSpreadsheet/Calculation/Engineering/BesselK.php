@@ -56,15 +56,11 @@ class BesselK
 
     private static function calculate(float $x, int $ord): float
     {
-        // special cases
-        switch ($ord) {
-            case 0:
-                return self::besselK0($x);
-            case 1:
-                return self::besselK1($x);
-        }
-
-        return self::besselK2($x, $ord);
+        return match ($ord) {
+            0 => self::besselK0($x),
+            1 => self::besselK1($x),
+            default => self::besselK2($x, $ord),
+        };
     }
 
     /**

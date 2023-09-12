@@ -37,24 +37,14 @@ class Formatter
             $comparisonValue = $defaultComparisonValue;
         }
 
-        switch ($condition) {
-            case '>':
-                return $value > $comparisonValue;
-
-            case '<':
-                return $value < $comparisonValue;
-
-            case '<=':
-                return $value <= $comparisonValue;
-
-            case '<>':
-                return $value != $comparisonValue;
-
-            case '=':
-                return $value == $comparisonValue;
-        }
-
-        return $value >= $comparisonValue;
+        return match ($condition) {
+            '>' => $value > $comparisonValue,
+            '<' => $value < $comparisonValue,
+            '<=' => $value <= $comparisonValue,
+            '<>' => $value != $comparisonValue,
+            '=' => $value == $comparisonValue,
+            default => $value >= $comparisonValue,
+        };
     }
 
     /** @param mixed $value */

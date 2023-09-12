@@ -417,23 +417,12 @@ class Worksheet extends BIFFwriter
                                 $calculatedValue = $cell->getCalculatedValue();
                             }
                             $calctype = gettype($calculatedValue);
-                            switch ($calctype) {
-                                case 'integer':
-                                case 'double':
-                                    $this->writeNumber($row, $column, (float) $calculatedValue, $xfIndex);
-
-                                    break;
-                                case 'string':
-                                    $this->writeString($row, $column, $calculatedValue, $xfIndex);
-
-                                    break;
-                                case 'boolean':
-                                    $this->writeBoolErr($row, $column, (int) $calculatedValue, 0, $xfIndex);
-
-                                    break;
-                                default:
-                                    $this->writeString($row, $column, $cVal, $xfIndex);
-                            }
+                            match ($calctype) {
+                                'integer', 'double' => $this->writeNumber($row, $column, (float) $calculatedValue, $xfIndex),
+                                'string' => $this->writeString($row, $column, $calculatedValue, $xfIndex),
+                                'boolean' => $this->writeBoolErr($row, $column, (int) $calculatedValue, 0, $xfIndex),
+                                default => $this->writeString($row, $column, $cVal, $xfIndex),
+                            };
                         }
 
                         break;

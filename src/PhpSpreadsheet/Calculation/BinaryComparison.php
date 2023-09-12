@@ -73,28 +73,15 @@ class BinaryComparison
      */
     private static function evaluateComparison($operand1, $operand2, string $operator, bool $useLowercaseFirstComparison): bool
     {
-        switch ($operator) {
-            //    Equality
-            case '=':
-                return self::equal($operand1, $operand2);
-            //    Greater than
-            case '>':
-                return self::greaterThan($operand1, $operand2, $useLowercaseFirstComparison);
-            //    Less than
-            case '<':
-                return self::lessThan($operand1, $operand2, $useLowercaseFirstComparison);
-            //    Greater than or equal
-            case '>=':
-                return self::greaterThanOrEqual($operand1, $operand2, $useLowercaseFirstComparison);
-            //    Less than or equal
-            case '<=':
-                return self::lessThanOrEqual($operand1, $operand2, $useLowercaseFirstComparison);
-            //    Inequality
-            case '<>':
-                return self::notEqual($operand1, $operand2);
-            default:
-                throw new Exception('Unsupported binary comparison operator');
-        }
+        return match ($operator) {
+            '=' => self::equal($operand1, $operand2),
+            '>' => self::greaterThan($operand1, $operand2, $useLowercaseFirstComparison),
+            '<' => self::lessThan($operand1, $operand2, $useLowercaseFirstComparison),
+            '>=' => self::greaterThanOrEqual($operand1, $operand2, $useLowercaseFirstComparison),
+            '<=' => self::lessThanOrEqual($operand1, $operand2, $useLowercaseFirstComparison),
+            '<>' => self::notEqual($operand1, $operand2),
+            default => throw new Exception('Unsupported binary comparison operator'),
+        };
     }
 
     /**
