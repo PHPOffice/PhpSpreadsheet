@@ -62,7 +62,7 @@ class Escher
         // initialize
         $this->data = '';
 
-        switch (get_class($this->object)) {
+        switch ($this->object::class) {
             case SharedEscher::class:
                 if ($dggContainer = $this->object->/** @scrutinizer ignore-call */ getDggContainer()) {
                     $writer = new self($dggContainer);
