@@ -7,6 +7,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class CellMatcher
 {
@@ -29,17 +30,14 @@ class CellMatcher
         Conditional::CONDITION_UNIQUE => "COUNTIF('%s'!%s,%s)=1",
     ];
 
-    /**
-     * @var Cell
-     */
-    protected $cell;
+    protected Cell $cell;
 
     /**
      * @var int
      */
     protected $cellRow;
 
-    protected \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $worksheet;
+    protected Worksheet $worksheet;
 
     /**
      * @var int
@@ -66,7 +64,7 @@ class CellMatcher
      */
     protected $referenceColumn;
 
-    protected \PhpOffice\PhpSpreadsheet\Calculation\Calculation $engine;
+    protected Calculation $engine;
 
     public function __construct(Cell $cell, string $conditionalRange)
     {
