@@ -11,10 +11,7 @@ use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
 class OdsPropertiesTest extends AbstractFunctional
 {
-    /**
-     * @var string
-     */
-    private $timeZone;
+    private string $timeZone;
 
     protected function setUp(): void
     {

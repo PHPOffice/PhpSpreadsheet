@@ -14,10 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 class TimeValueTest extends TestCase
 {
-    /**
-     * @var string
-     */
-    private $returnDateType;
+    private string $returnDateType;
 
     protected function setUp(): void
     {

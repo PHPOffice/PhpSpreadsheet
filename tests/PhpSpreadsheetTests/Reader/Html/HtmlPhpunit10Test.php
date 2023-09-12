@@ -16,8 +16,7 @@ use PHPUnit\Framework\TestCase;
  */
 class HtmlPhpunit10Test extends TestCase
 {
-    /** @var string */
-    private static $errorString;
+    private static string $errorString;
 
     protected function setUp(): void
     {

@@ -12,15 +12,9 @@ use PHPUnit\Framework\TestCase;
 
 class TimeZoneTest extends TestCase
 {
-    /**
-     * @var string
-     */
-    private $tztimezone;
+    private string $tztimezone;
 
-    /**
-     * @var null|DateTimeZone
-     */
-    private $dttimezone;
+    private ?DateTimeZone $dttimezone;
 
     protected function setUp(): void
     {

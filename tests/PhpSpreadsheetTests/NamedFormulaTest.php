@@ -11,8 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class NamedFormulaTest extends TestCase
 {
-    /** @var Spreadsheet */
-    private $spreadsheet;
+    private \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet;
 
     protected function setUp(): void
     {

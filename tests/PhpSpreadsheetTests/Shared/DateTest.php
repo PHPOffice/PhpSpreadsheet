@@ -12,15 +12,9 @@ use PHPUnit\Framework\TestCase;
 
 class DateTest extends TestCase
 {
-    /**
-     * @var int
-     */
-    private $excelCalendar;
+    private int $excelCalendar;
 
-    /**
-     * @var null|DateTimeZone
-     */
-    private $dttimezone;
+    private ?DateTimeZone $dttimezone;
 
     protected function setUp(): void
     {

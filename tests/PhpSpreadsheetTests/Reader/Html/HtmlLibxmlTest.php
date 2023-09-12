@@ -19,8 +19,7 @@ use PHPUnit\Framework\TestCase;
  */
 class HtmlLibxmlTest extends TestCase
 {
-    /** @var bool */
-    private $useErrors;
+    private bool $useErrors;
 
     protected function setUp(): void
     {

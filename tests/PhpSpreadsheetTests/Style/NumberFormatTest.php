@@ -11,20 +11,11 @@ use PHPUnit\Framework\TestCase;
 
 class NumberFormatTest extends TestCase
 {
-    /**
-     * @var string
-     */
-    private $currencyCode;
+    private string $currencyCode;
 
-    /**
-     * @var string
-     */
-    private $decimalSeparator;
+    private string $decimalSeparator;
 
-    /**
-     * @var string
-     */
-    private $thousandsSeparator;
+    private string $thousandsSeparator;
 
     protected function setUp(): void
     {

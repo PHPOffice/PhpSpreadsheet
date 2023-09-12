@@ -11,15 +11,9 @@ use PHPUnit\Framework\TestCase;
 
 class CalculationFunctionListTest extends TestCase
 {
-    /**
-     * @var string
-     */
-    private $compatibilityMode;
+    private string $compatibilityMode;
 
-    /**
-     * @var string
-     */
-    private $locale;
+    private string $locale;
 
     protected function setUp(): void
     {

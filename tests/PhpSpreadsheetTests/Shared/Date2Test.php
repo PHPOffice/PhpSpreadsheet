@@ -15,8 +15,7 @@ class Date2Test extends TestCase
     /** @var ?Spreadsheet */
     private $spreadsheet;
 
-    /** @var int */
-    private $calculateDateTimeType;
+    private int $calculateDateTimeType;
 
     protected function setUp(): void
     {

@@ -11,10 +11,7 @@ use PhpOffice\PhpSpreadsheetTests\Functional;
 
 class ImagesRootTest extends Functional\AbstractFunctional
 {
-    /**
-     * @var string
-     */
-    private $curdir = '';
+    private string $curdir = '';
 
     protected function setUp(): void
     {

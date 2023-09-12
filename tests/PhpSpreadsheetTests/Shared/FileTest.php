@@ -10,8 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class FileTest extends TestCase
 {
-    /** @var bool */
-    private $uploadFlag = false;
+    private bool $uploadFlag = false;
 
     /** @var string */
     private $tempfile = '';

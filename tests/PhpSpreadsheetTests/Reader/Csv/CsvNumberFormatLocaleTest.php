@@ -10,10 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class CsvNumberFormatLocaleTest extends TestCase
 {
-    /**
-     * @var bool
-     */
-    private $localeAdjusted;
+    private bool $localeAdjusted;
 
     /**
      * @var false|string

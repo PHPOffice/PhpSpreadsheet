@@ -11,10 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class BinaryComparisonTest extends TestCase
 {
-    /**
-     * @var string
-     */
-    private $compatibilityMode;
+    private string $compatibilityMode;
 
     protected function setUp(): void
     {

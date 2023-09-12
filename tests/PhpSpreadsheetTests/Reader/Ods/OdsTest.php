@@ -23,10 +23,7 @@ class OdsTest extends TestCase
     /** @var string */
     private $incompleteMessage = 'Features not implemented yet';
 
-    /**
-     * @var string
-     */
-    private $timeZone;
+    private string $timeZone;
 
     protected function setUp(): void
     {

@@ -13,20 +13,11 @@ use PhpOffice\PhpSpreadsheetTests\Functional;
 
 class HtmlNumberFormatTest extends Functional\AbstractFunctional
 {
-    /**
-     * @var string
-     */
-    private $currency;
+    private string $currency;
 
-    /**
-     * @var string
-     */
-    private $decsep;
+    private string $decsep;
 
-    /**
-     * @var string
-     */
-    private $thosep;
+    private string $thosep;
 
     protected function setUp(): void
     {

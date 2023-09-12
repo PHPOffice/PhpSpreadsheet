@@ -24,14 +24,7 @@ class ContentTest extends TestCase
      */
     private $samplesPath = 'tests/data/Writer/Ods';
 
-    /**
-     * @var string
-     */
-
-    /**
-     * @var string
-     */
-    private $compatibilityMode;
+    private string $compatibilityMode;
 
     protected function setUp(): void
     {

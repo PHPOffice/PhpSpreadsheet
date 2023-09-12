@@ -10,11 +10,9 @@ use PHPUnit\Framework\TestCase;
 
 class DefaultPaperSizeTest extends TestCase
 {
-    /** @var int */
-    private $paperSize;
+    private int $paperSize;
 
-    /** @var string */
-    private $orientation;
+    private string $orientation;
 
     protected function setUp(): void
     {

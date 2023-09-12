@@ -9,10 +9,7 @@ use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
 class LocaleFloatsTest extends AbstractFunctional
 {
-    /**
-     * @var bool
-     */
-    private $localeAdjusted;
+    private bool $localeAdjusted;
 
     /**
      * @var false|string

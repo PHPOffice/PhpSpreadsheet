@@ -14,10 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 class EoMonthTest extends TestCase
 {
-    /**
-     * @var string
-     */
-    private $returnDateType;
+    private string $returnDateType;
 
     protected function setUp(): void
     {

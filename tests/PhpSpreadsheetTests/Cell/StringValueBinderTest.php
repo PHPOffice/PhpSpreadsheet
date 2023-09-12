@@ -8,7 +8,6 @@ use DateTime;
 use DateTimeZone;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
-use PhpOffice\PhpSpreadsheet\Cell\IValueBinder;
 use PhpOffice\PhpSpreadsheet\Cell\StringValueBinder;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -16,10 +15,7 @@ use PHPUnit\Framework\TestCase;
 
 class StringValueBinderTest extends TestCase
 {
-    /**
-     * @var IValueBinder
-     */
-    private $valueBinder;
+    private \PhpOffice\PhpSpreadsheet\Cell\IValueBinder $valueBinder;
 
     protected function setUp(): void
     {

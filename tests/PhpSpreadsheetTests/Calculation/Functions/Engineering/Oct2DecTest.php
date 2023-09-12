@@ -15,10 +15,7 @@ use PHPUnit\Framework\TestCase;
 
 class Oct2DecTest extends TestCase
 {
-    /**
-     * @var string
-     */
-    private $compatibilityMode;
+    private string $compatibilityMode;
 
     protected function setUp(): void
     {

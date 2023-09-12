@@ -14,11 +14,9 @@ class FontFileNameTest extends TestCase
     private const DEFAULT_DIRECTORY = 'tests/data/Shared/FakeFonts/Default';
     private const MAC_DIRECTORY = 'tests/data/Shared/FakeFonts/Mac';
 
-    /** @var string */
-    private $holdDirectory;
+    private string $holdDirectory;
 
-    /** @var array */
-    private $holdExtraFontArray;
+    private array $holdExtraFontArray;
 
     protected function setUp(): void
     {

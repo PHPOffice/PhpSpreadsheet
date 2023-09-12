@@ -16,15 +16,9 @@ use PHPUnit\Framework\TestCase;
 
 class TimeTest extends TestCase
 {
-    /**
-     * @var int
-     */
-    private $excelCalendar;
+    private int $excelCalendar;
 
-    /**
-     * @var string
-     */
-    private $returnDateType;
+    private string $returnDateType;
 
     protected function setUp(): void
     {

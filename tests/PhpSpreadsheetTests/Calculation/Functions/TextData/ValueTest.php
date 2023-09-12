@@ -9,20 +9,11 @@ use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 
 class ValueTest extends AllSetupTeardown
 {
-    /**
-     * @var string
-     */
-    private $currencyCode;
+    private string $currencyCode;
 
-    /**
-     * @var string
-     */
-    private $decimalSeparator;
+    private string $decimalSeparator;
 
-    /**
-     * @var string
-     */
-    private $thousandsSeparator;
+    private string $thousandsSeparator;
 
     protected function setUp(): void
     {

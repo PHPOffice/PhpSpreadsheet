@@ -9,8 +9,7 @@ use PhpOffice\PhpSpreadsheet\Settings;
 
 class AddressInternationalTest extends AllSetupTeardown
 {
-    /** @var string */
-    private $locale;
+    private string $locale;
 
     protected function setUp(): void
     {

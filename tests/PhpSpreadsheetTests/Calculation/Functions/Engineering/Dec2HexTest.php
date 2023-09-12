@@ -14,10 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 class Dec2HexTest extends TestCase
 {
-    /**
-     * @var string
-     */
-    private $compatibilityMode;
+    private string $compatibilityMode;
 
     protected function setUp(): void
     {

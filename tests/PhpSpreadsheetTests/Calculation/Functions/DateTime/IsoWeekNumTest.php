@@ -14,10 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 class IsoWeekNumTest extends TestCase
 {
-    /**
-     * @var int
-     */
-    private $excelCalendar;
+    private int $excelCalendar;
 
     protected function setUp(): void
     {

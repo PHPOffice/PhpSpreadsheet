@@ -15,10 +15,7 @@ use PHPUnit\Framework\TestCase;
 
 class Hex2OctTest extends TestCase
 {
-    /**
-     * @var string
-     */
-    private $compatibilityMode;
+    private string $compatibilityMode;
 
     protected function setUp(): void
     {

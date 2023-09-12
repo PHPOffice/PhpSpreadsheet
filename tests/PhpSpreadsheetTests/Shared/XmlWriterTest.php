@@ -10,8 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class XmlWriterTest extends TestCase
 {
-    /** @var bool */
-    private $debugEnabled;
+    private bool $debugEnabled;
 
     protected function setUp(): void
     {

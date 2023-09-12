@@ -17,10 +17,7 @@ class ImExpTest extends TestCase
 {
     const COMPLEX_PRECISION = 1E-12;
 
-    /**
-     * @var ComplexAssert
-     */
-    private $complexAssert;
+    private \PhpOffice\PhpSpreadsheetTests\Custom\ComplexAssert $complexAssert;
 
     protected function setUp(): void
     {

@@ -11,8 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class Font3Test extends TestCase
 {
-    /** @var string */
-    private $holdDirectory;
+    private string $holdDirectory;
 
     protected function setUp(): void
     {

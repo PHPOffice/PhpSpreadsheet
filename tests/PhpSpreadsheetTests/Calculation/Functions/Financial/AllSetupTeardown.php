@@ -13,10 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 class AllSetupTeardown extends TestCase
 {
-    /**
-     * @var string
-     */
-    private $compatibilityMode;
+    private string $compatibilityMode;
 
     /**
      * @var ?Spreadsheet

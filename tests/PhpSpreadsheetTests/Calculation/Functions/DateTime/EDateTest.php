@@ -14,10 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 class EDateTest extends TestCase
 {
-    /**
-     * @var string
-     */
-    private $returnDateType;
+    private string $returnDateType;
 
     protected function setUp(): void
     {

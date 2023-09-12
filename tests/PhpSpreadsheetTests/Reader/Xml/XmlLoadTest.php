@@ -16,8 +16,7 @@ class XmlLoadTest extends TestCase
     /** @var ?Spreadsheet */
     private $spreadsheet;
 
-    /** @var string */
-    private $locale;
+    private string $locale;
 
     protected function setUp(): void
     {

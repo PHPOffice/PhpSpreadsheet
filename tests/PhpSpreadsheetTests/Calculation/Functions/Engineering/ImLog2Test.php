@@ -17,10 +17,7 @@ class ImLog2Test extends TestCase
 {
     const COMPLEX_PRECISION = 1E-8;
 
-    /**
-     * @var ComplexAssert
-     */
-    private $complexAssert;
+    private \PhpOffice\PhpSpreadsheetTests\Custom\ComplexAssert $complexAssert;
 
     protected function setUp(): void
     {
