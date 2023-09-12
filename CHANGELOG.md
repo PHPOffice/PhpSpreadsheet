@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ## Unreleased - TBD
 
+### MINOR BREAKING CHANGE
+
+- Typing was strengthened by leveraging native typing. While this should not change any behavior, it might need minor
+  adaption of your code if you use static analysis tools such as PHPStan or
+  Psalm. [PR #3718](https://github.com/PHPOffice/PhpSpreadsheet/pull/3718)
+
 ### Added
 
 - Split screens (Xlsx and Xml only, not 100% complete). [Issue #3601](https://github.com/PHPOffice/PhpSpreadsheet/issues/3601) [PR #3622](https://github.com/PHPOffice/PhpSpreadsheet/pull/3622)
