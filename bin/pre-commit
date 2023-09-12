@@ -23,6 +23,12 @@ if [ "$files" != "" ]; then
     echo "$files" | xargs git add
 fi
 
+# Check PHPDoc types
+./bin/check-phpdoc-types
+if [ $? -ne 0 ]; then
+    pass=false
+fi
+
 if $pass; then
     exit 0
 else
