@@ -5,8 +5,9 @@ namespace PhpOffice\PhpSpreadsheet\RichText;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\IComparable;
+use Stringable;
 
-class RichText implements IComparable
+class RichText implements IComparable, Stringable
 {
     /**
      * Rich text elements.

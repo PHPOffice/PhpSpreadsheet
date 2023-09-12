@@ -12,8 +12,9 @@ use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule;
+use Stringable;
 
-class AutoFilter
+class AutoFilter implements Stringable
 {
     /**
      * Autofilter Worksheet.
