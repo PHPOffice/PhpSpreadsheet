@@ -33,7 +33,7 @@ class Border extends Supervisor
     /**
      * Border color.
      */
-    protected \PhpOffice\PhpSpreadsheet\Style\Color $color;
+    protected Color $color;
 
     /**
      * @var null|int

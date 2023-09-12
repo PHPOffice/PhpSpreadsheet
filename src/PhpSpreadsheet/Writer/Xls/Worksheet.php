@@ -63,7 +63,7 @@ class Worksheet extends BIFFwriter
     /**
      * Formula parser.
      */
-    private \PhpOffice\PhpSpreadsheet\Writer\Xls\Parser $parser;
+    private Parser $parser;
 
     /**
      * Array containing format information for columns.
@@ -233,7 +233,7 @@ class Worksheet extends BIFFwriter
      * Add data to the beginning of the workbook (note the reverse order)
      * and to the end of the workbook.
      *
-     * @see \PhpOffice\PhpSpreadsheet\Writer\Xls\Workbook::storeWorkbook()
+     * @see Workbook::storeWorkbook
      */
     public function close(): void
     {

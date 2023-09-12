@@ -125,7 +125,7 @@ abstract class Properties
     /** @var ?float */
     protected $glowSize;
 
-    protected \PhpOffice\PhpSpreadsheet\Chart\ChartColor $glowColor;
+    protected ChartColor $glowColor;
 
     /** @var array */
     protected $softEdges = [
@@ -135,7 +135,7 @@ abstract class Properties
     /** @var array */
     protected $shadowProperties = self::PRESETS_OPTIONS[0];
 
-    protected \PhpOffice\PhpSpreadsheet\Chart\ChartColor $shadowColor;
+    protected ChartColor $shadowColor;
 
     public function __construct()
     {
@@ -730,7 +730,7 @@ abstract class Properties
         return $array;
     }
 
-    protected \PhpOffice\PhpSpreadsheet\Chart\ChartColor $lineColor;
+    protected ChartColor $lineColor;
 
     /** @var array */
     protected $lineStyleProperties = [

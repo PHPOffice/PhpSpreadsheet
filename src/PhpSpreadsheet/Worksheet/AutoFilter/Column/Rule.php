@@ -172,7 +172,7 @@ class Rule
     /**
      * Autofilter Column.
      */
-    private ?\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column $parent;
+    private ?Column $parent;
 
     /**
      * Autofilter Rule Type.

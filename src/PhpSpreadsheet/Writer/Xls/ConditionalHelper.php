@@ -10,7 +10,7 @@ class ConditionalHelper
     /**
      * Formula parser.
      */
-    protected \PhpOffice\PhpSpreadsheet\Writer\Xls\Parser $parser;
+    protected Parser $parser;
 
     /**
      * @var mixed

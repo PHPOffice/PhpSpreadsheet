@@ -50,7 +50,7 @@ class Workbook extends BIFFwriter
     /**
      * Formula parser.
      */
-    private \PhpOffice\PhpSpreadsheet\Writer\Xls\Parser $parser;
+    private Parser $parser;
 
     /**
      * The BIFF file size for the workbook. Not currently used.
@@ -62,7 +62,7 @@ class Workbook extends BIFFwriter
     /**
      * XF Writers.
      *
-     * @var \PhpOffice\PhpSpreadsheet\Writer\Xls\Xf[]
+     * @var Xf[]
      */
     private $xfWriters = [];
 
@@ -86,7 +86,7 @@ class Workbook extends BIFFwriter
     /**
      * Workbook.
      */
-    private \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet;
+    private Spreadsheet $spreadsheet;
 
     /**
      * Fonts writers.

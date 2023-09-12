@@ -465,7 +465,7 @@ class Parser
         'BAHTTEXT' => [368, 1, 0, 0],
     ];
 
-    private \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet;
+    private Spreadsheet $spreadsheet;
 
     /**
      * The class constructor.
@@ -873,7 +873,7 @@ class Parser
      * @param string $name The name of the worksheet being added
      * @param int $index The index of the worksheet being added
      *
-     * @see \PhpOffice\PhpSpreadsheet\Writer\Xls\Workbook::addWorksheet()
+     * @see Workbook::addWorksheet
      */
     public function setExtSheet($name, $index): void
     {

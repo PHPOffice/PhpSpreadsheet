@@ -7,7 +7,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class CellAddress
 {
-    protected ?\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $worksheet;
+    protected ?Worksheet $worksheet;
 
     protected string $cellAddress;
 

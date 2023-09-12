@@ -16,7 +16,7 @@ abstract class DefinedName
     /**
      * Worksheet on which the defined name can be resolved.
      */
-    protected ?\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $worksheet;
+    protected ?Worksheet $worksheet;
 
     /**
      * Value of the named object.
@@ -31,7 +31,7 @@ abstract class DefinedName
     /**
      * Scope.
      */
-    protected ?\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $scope;
+    protected ?Worksheet $scope;
 
     /**
      * Whether this is a named range or a named formula.

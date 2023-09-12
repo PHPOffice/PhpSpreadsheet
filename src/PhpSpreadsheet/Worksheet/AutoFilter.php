@@ -18,7 +18,7 @@ class AutoFilter
     /**
      * Autofilter Worksheet.
      */
-    private ?\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $workSheet;
+    private ?Worksheet $workSheet;
 
     /**
      * Autofilter Range.

@@ -10,7 +10,7 @@ class Csv extends BaseWriter
     /**
      * PhpSpreadsheet object.
      */
-    private \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet;
+    private Spreadsheet $spreadsheet;
 
     /**
      * Delimiter.

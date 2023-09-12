@@ -39,7 +39,7 @@ class Table
     /**
      * Table Worksheet.
      */
-    private ?\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $workSheet = null;
+    private ?Worksheet $workSheet = null;
 
     /**
      * Table allow filter.
@@ -58,12 +58,12 @@ class Table
     /**
      * Table Style.
      */
-    private \PhpOffice\PhpSpreadsheet\Worksheet\Table\TableStyle $style;
+    private TableStyle $style;
 
     /**
      * Table AutoFilter.
      */
-    private \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter $autoFilter;
+    private AutoFilter $autoFilter;
 
     /**
      * Create a new Table.

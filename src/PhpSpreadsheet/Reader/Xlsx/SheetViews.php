@@ -14,7 +14,7 @@ class SheetViews extends BaseParserClass
 
     private SimpleXMLElement $sheetViewAttributes;
 
-    private \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $worksheet;
+    private Worksheet $worksheet;
 
     private string $activePane = '';
 

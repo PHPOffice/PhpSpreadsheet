@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Helper;
 
 use PhpOffice\PhpSpreadsheet\Chart\Chart;
+use PhpOffice\PhpSpreadsheet\Chart\Renderer\MtJpGraphRenderer;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -195,7 +196,7 @@ class Sample
             return;
         }
 
-        Settings::setChartRenderer(\PhpOffice\PhpSpreadsheet\Chart\Renderer\MtJpGraphRenderer::class);
+        Settings::setChartRenderer(MtJpGraphRenderer::class);
 
         $fileName = $this->getFilename($fileName, 'png');
 

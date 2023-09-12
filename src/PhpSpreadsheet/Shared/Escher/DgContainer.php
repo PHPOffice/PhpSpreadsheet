@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Shared\Escher;
 
 use PhpOffice\PhpSpreadsheet\Exception as SpreadsheetException;
+use PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer;
 
 class DgContainer
 {
@@ -16,7 +17,7 @@ class DgContainer
      */
     private ?int $lastSpId = null;
 
-    private ?\PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer $spgrContainer = null;
+    private ?SpgrContainer $spgrContainer = null;
 
     public function getDgId(): ?int
     {

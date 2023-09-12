@@ -54,12 +54,12 @@ class Fill extends Supervisor
     /**
      * Start color.
      */
-    protected \PhpOffice\PhpSpreadsheet\Style\Color $startColor;
+    protected Color $startColor;
 
     /**
      * End color.
      */
-    protected \PhpOffice\PhpSpreadsheet\Style\Color $endColor;
+    protected Color $endColor;
 
     /** @var bool */
     private $colorChanged = false;

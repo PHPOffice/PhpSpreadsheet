@@ -8,7 +8,7 @@ class AxisText extends Properties
 {
     private ?int $rotation = null;
 
-    private \PhpOffice\PhpSpreadsheet\Style\Font $font;
+    private Font $font;
 
     public function __construct()
     {

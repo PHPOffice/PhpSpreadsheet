@@ -14,7 +14,7 @@ use stdClass;
 
 class ConditionalStyles
 {
-    private \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $worksheet;
+    private Worksheet $worksheet;
 
     private SimpleXMLElement $worksheetXml;
 

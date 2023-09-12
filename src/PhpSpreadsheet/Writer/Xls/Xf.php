@@ -99,7 +99,7 @@ class Xf
     //private $diag; // theoretically int, not yet implemented
     private int $diagColor;
 
-    private \PhpOffice\PhpSpreadsheet\Style\Style $style;
+    private Style $style;
 
     /**
      * Constructor.

@@ -4,6 +4,8 @@ namespace PhpOffice\PhpSpreadsheet;
 
 use JsonSerializable;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Document\Properties;
+use PhpOffice\PhpSpreadsheet\Document\Security;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx as XlsxReader;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
@@ -37,12 +39,12 @@ class Spreadsheet implements JsonSerializable
     /**
      * Document properties.
      */
-    private \PhpOffice\PhpSpreadsheet\Document\Properties $properties;
+    private Properties $properties;
 
     /**
      * Document security.
      */
-    private \PhpOffice\PhpSpreadsheet\Document\Security $security;
+    private Security $security;
 
     /**
      * Collection of Worksheet objects.
@@ -73,7 +75,7 @@ class Spreadsheet implements JsonSerializable
     /**
      * CellXf supervisor.
      */
-    private \PhpOffice\PhpSpreadsheet\Style\Style $cellXfSupervisor;
+    private Style $cellXfSupervisor;
 
     /**
      * CellXf collection.
@@ -194,7 +196,7 @@ class Spreadsheet implements JsonSerializable
      */
     private $tabRatio = 600;
 
-    private \PhpOffice\PhpSpreadsheet\Theme $theme;
+    private Theme $theme;
 
     public function getTheme(): Theme
     {

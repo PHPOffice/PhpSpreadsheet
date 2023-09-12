@@ -20,7 +20,7 @@ class Comment implements IComparable
     /**
      * Rich text comment.
      */
-    private \PhpOffice\PhpSpreadsheet\RichText\RichText $text;
+    private RichText $text;
 
     /**
      * Comment width (CSS style, i.e. XXpx or YYpt).
@@ -52,7 +52,7 @@ class Comment implements IComparable
     /**
      * Comment fill color.
      */
-    private \PhpOffice\PhpSpreadsheet\Style\Color $fillColor;
+    private Color $fillColor;
 
     /**
      * Alignment.
@@ -62,7 +62,7 @@ class Comment implements IComparable
     /**
      * Background image in comment.
      */
-    private \PhpOffice\PhpSpreadsheet\Worksheet\Drawing $backgroundImage;
+    private Drawing $backgroundImage;
 
     /**
      * Create a new Comment.

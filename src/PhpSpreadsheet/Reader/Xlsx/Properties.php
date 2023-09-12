@@ -9,7 +9,7 @@ use SimpleXMLElement;
 
 class Properties
 {
-    private \PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner $securityScanner;
+    private XmlScanner $securityScanner;
 
     private DocumentProperties $docProps;
 

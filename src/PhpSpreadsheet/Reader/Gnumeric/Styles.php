@@ -14,7 +14,7 @@ use SimpleXMLElement;
 
 class Styles
 {
-    private \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet;
+    private Spreadsheet $spreadsheet;
 
     protected bool $readDataOnly;
 

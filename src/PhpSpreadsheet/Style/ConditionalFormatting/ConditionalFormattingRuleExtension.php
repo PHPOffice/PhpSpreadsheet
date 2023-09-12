@@ -14,7 +14,7 @@ class ConditionalFormattingRuleExtension
     /** @var string Conditional Formatting Rule */
     private string $cfRule;
 
-    private \PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalDataBarExtension $dataBar;
+    private ConditionalDataBarExtension $dataBar;
 
     /** @var string Sequence of References */
     private string $sqref = '';

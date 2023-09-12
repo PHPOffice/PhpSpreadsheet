@@ -54,7 +54,7 @@ abstract class BaseReader implements IReader
     /** @var resource */
     protected $fileHandle;
 
-    protected ?\PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner $securityScanner = null;
+    protected ?XmlScanner $securityScanner = null;
 
     public function __construct()
     {

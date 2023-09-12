@@ -27,12 +27,12 @@ class Axis extends Properties
     /**
      * Chart Major Gridlines as.
      */
-    private ?\PhpOffice\PhpSpreadsheet\Chart\GridLines $majorGridlines = null;
+    private ?GridLines $majorGridlines = null;
 
     /**
      * Chart Minor Gridlines as.
      */
-    private ?\PhpOffice\PhpSpreadsheet\Chart\GridLines $minorGridlines = null;
+    private ?GridLines $minorGridlines = null;
 
     /**
      * Axis Number.
@@ -47,7 +47,7 @@ class Axis extends Properties
 
     private string $axisType = '';
 
-    private ?\PhpOffice\PhpSpreadsheet\Chart\AxisText $axisText = null;
+    private ?AxisText $axisText = null;
 
     /**
      * Axis Options.
@@ -75,7 +75,7 @@ class Axis extends Properties
     /**
      * Fill Properties.
      */
-    private \PhpOffice\PhpSpreadsheet\Chart\ChartColor $fillColor;
+    private ChartColor $fillColor;
 
     private const NUMERIC_FORMAT = [
         Properties::FORMAT_CODE_NUMBER,

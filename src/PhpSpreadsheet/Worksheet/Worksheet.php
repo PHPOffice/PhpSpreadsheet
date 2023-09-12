@@ -68,12 +68,12 @@ class Worksheet implements IComparable
     /**
      * Parent spreadsheet.
      */
-    private ?\PhpOffice\PhpSpreadsheet\Spreadsheet $parent;
+    private ?Spreadsheet $parent;
 
     /**
      * Collection of cells.
      */
-    private ?\PhpOffice\PhpSpreadsheet\Collection\Cells $cellCollection;
+    private ?Cells $cellCollection;
 
     /**
      * Collection of row dimensions.
@@ -85,7 +85,7 @@ class Worksheet implements IComparable
     /**
      * Default row dimension.
      */
-    private \PhpOffice\PhpSpreadsheet\Worksheet\RowDimension $defaultRowDimension;
+    private RowDimension $defaultRowDimension;
 
     /**
      * Collection of column dimensions.
@@ -97,7 +97,7 @@ class Worksheet implements IComparable
     /**
      * Default column dimension.
      */
-    private \PhpOffice\PhpSpreadsheet\Worksheet\ColumnDimension $defaultColumnDimension;
+    private ColumnDimension $defaultColumnDimension;
 
     /**
      * Collection of drawings.
@@ -137,27 +137,27 @@ class Worksheet implements IComparable
     /**
      * Page setup.
      */
-    private \PhpOffice\PhpSpreadsheet\Worksheet\PageSetup $pageSetup;
+    private PageSetup $pageSetup;
 
     /**
      * Page margins.
      */
-    private \PhpOffice\PhpSpreadsheet\Worksheet\PageMargins $pageMargins;
+    private PageMargins $pageMargins;
 
     /**
      * Page header/footer.
      */
-    private \PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooter $headerFooter;
+    private HeaderFooter $headerFooter;
 
     /**
      * Sheet view.
      */
-    private \PhpOffice\PhpSpreadsheet\Worksheet\SheetView $sheetView;
+    private SheetView $sheetView;
 
     /**
      * Protection.
      */
-    private \PhpOffice\PhpSpreadsheet\Worksheet\Protection $protection;
+    private Protection $protection;
 
     /**
      * Collection of styles.
@@ -204,7 +204,7 @@ class Worksheet implements IComparable
     /**
      * Autofilter Range and selection.
      */
-    private \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter $autoFilter;
+    private AutoFilter $autoFilter;
 
     /**
      * Freeze pane.

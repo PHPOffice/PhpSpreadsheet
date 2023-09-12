@@ -7,7 +7,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 abstract class BaseLoader
 {
-    protected \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet;
+    protected Spreadsheet $spreadsheet;
 
     protected string $tableNs;
 

@@ -23,7 +23,7 @@ class Title
     /**
      * Title Layout.
      */
-    private ?\PhpOffice\PhpSpreadsheet\Chart\Layout $layout;
+    private ?Layout $layout;
 
     /**
      * Create a new Title.

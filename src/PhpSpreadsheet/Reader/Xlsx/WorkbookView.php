@@ -7,7 +7,7 @@ use SimpleXMLElement;
 
 class WorkbookView
 {
-    private \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet;
+    private Spreadsheet $spreadsheet;
 
     public function __construct(Spreadsheet $spreadsheet)
     {

@@ -44,13 +44,13 @@ class Legend
     /**
      * Legend Layout.
      */
-    private ?\PhpOffice\PhpSpreadsheet\Chart\Layout $layout;
+    private ?Layout $layout;
 
-    private \PhpOffice\PhpSpreadsheet\Chart\GridLines $borderLines;
+    private GridLines $borderLines;
 
-    private \PhpOffice\PhpSpreadsheet\Chart\ChartColor $fillColor;
+    private ChartColor $fillColor;
 
-    private ?\PhpOffice\PhpSpreadsheet\Chart\AxisText $legendText = null;
+    private ?AxisText $legendText = null;
 
     /**
      * Create a new Legend.

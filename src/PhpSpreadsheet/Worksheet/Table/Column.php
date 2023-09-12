@@ -45,7 +45,7 @@ class Column
     /**
      * Table.
      */
-    private ?\PhpOffice\PhpSpreadsheet\Worksheet\Table $table;
+    private ?Table $table;
 
     /**
      * Create a new Column.

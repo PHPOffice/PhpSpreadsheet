@@ -10,7 +10,7 @@ use SimpleXMLElement;
 
 class ColumnAndRowAttributes extends BaseParserClass
 {
-    private \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $worksheet;
+    private Worksheet $worksheet;
 
     private ?SimpleXMLElement $worksheetXml;
 

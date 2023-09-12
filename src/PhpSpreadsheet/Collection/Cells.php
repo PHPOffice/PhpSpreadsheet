@@ -14,7 +14,7 @@ class Cells
 {
     protected const MAX_COLUMN_ID = 16384;
 
-    private \Psr\SimpleCache\CacheInterface $cache;
+    private CacheInterface $cache;
 
     /**
      * Parent worksheet.

@@ -104,7 +104,7 @@ class TableStyle
     /**
      * Table.
      */
-    private ?\PhpOffice\PhpSpreadsheet\Worksheet\Table $table = null;
+    private ?Table $table = null;
 
     /**
      * Create a new Table Style.

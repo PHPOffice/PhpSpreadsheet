@@ -40,7 +40,7 @@ abstract class JpGraphRendererBase implements IRenderer
 
     private static array $markSet;
 
-    private \PhpOffice\PhpSpreadsheet\Chart\Chart $chart;
+    private Chart $chart;
 
     private $graph;
 

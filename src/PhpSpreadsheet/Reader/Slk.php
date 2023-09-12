@@ -8,6 +8,7 @@ use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class Slk extends BaseReader
@@ -376,7 +377,7 @@ class Slk extends BaseReader
             } elseif (array_key_exists($char, self::STYLE_SETTINGS_BORDER)) {
                 $styleData['borders'][self::STYLE_SETTINGS_BORDER[$char]]['borderStyle'] = Border::BORDER_THIN;
             } elseif ($char == 'S') {
-                $styleData['fill']['fillType'] = \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_GRAY125;
+                $styleData['fill']['fillType'] = Fill::FILL_PATTERN_GRAY125;
             } elseif ($char == 'M') {
                 if (preg_match('/M([1-9]\\d*)/', $styleSettings, $matches)) {
                     $fontStyle = $matches[1];

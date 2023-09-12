@@ -13,32 +13,32 @@ class Style extends Supervisor
     /**
      * Font.
      */
-    protected \PhpOffice\PhpSpreadsheet\Style\Font $font;
+    protected Font $font;
 
     /**
      * Fill.
      */
-    protected \PhpOffice\PhpSpreadsheet\Style\Fill $fill;
+    protected Fill $fill;
 
     /**
      * Borders.
      */
-    protected \PhpOffice\PhpSpreadsheet\Style\Borders $borders;
+    protected Borders $borders;
 
     /**
      * Alignment.
      */
-    protected \PhpOffice\PhpSpreadsheet\Style\Alignment $alignment;
+    protected Alignment $alignment;
 
     /**
      * Number Format.
      */
-    protected \PhpOffice\PhpSpreadsheet\Style\NumberFormat $numberFormat;
+    protected NumberFormat $numberFormat;
 
     /**
      * Protection.
      */
-    protected \PhpOffice\PhpSpreadsheet\Style\Protection $protection;
+    protected Protection $protection;
 
     /**
      * Index of style in collection. Only used for real style.

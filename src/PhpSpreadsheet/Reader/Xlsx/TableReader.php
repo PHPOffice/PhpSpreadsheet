@@ -9,7 +9,7 @@ use SimpleXMLElement;
 
 class TableReader
 {
-    private \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $worksheet;
+    private Worksheet $worksheet;
 
     private SimpleXMLElement $tableXml;
 

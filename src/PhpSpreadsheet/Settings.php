@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet;
 
+use const ENT_COMPAT;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Chart\Renderer\IRenderer;
 use PhpOffice\PhpSpreadsheet\Collection\Memory;
@@ -91,7 +92,7 @@ class Settings
 
     public static function htmlEntityFlags(): int
     {
-        return \ENT_COMPAT;
+        return ENT_COMPAT;
     }
 
     /**

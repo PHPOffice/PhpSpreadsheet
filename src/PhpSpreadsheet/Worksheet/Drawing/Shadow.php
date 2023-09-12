@@ -49,7 +49,7 @@ class Shadow implements IComparable
     /**
      * Color.
      */
-    private \PhpOffice\PhpSpreadsheet\Style\Color $color;
+    private Color $color;
 
     /**
      * Alpha.

@@ -45,9 +45,9 @@ class DataSeriesValues extends Properties
      */
     private $pointMarker;
 
-    private \PhpOffice\PhpSpreadsheet\Chart\ChartColor $markerFillColor;
+    private ChartColor $markerFillColor;
 
-    private \PhpOffice\PhpSpreadsheet\Chart\ChartColor $markerBorderColor;
+    private ChartColor $markerBorderColor;
 
     /**
      * Series Point Size.
@@ -83,7 +83,7 @@ class DataSeriesValues extends Properties
     /** @var bool */
     private $bubble3D = false;
 
-    private ?\PhpOffice\PhpSpreadsheet\Chart\Layout $labelLayout = null;
+    private ?Layout $labelLayout = null;
 
     /** @var TrendLine[] */
     private $trendLines = [];

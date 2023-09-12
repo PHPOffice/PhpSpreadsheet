@@ -49,7 +49,7 @@ class Column
     /**
      * Autofilter.
      */
-    private ?\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter $parent;
+    private ?AutoFilter $parent;
 
     /**
      * Autofilter Column Index.

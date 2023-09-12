@@ -6,7 +6,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class ColumnRange implements AddressRange
 {
-    protected ?\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $worksheet;
+    protected ?Worksheet $worksheet;
 
     protected int $from;
 

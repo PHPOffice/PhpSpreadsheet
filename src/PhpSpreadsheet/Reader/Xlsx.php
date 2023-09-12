@@ -50,7 +50,7 @@ class Xlsx extends BaseReader
     /**
      * ReferenceHelper instance.
      */
-    private \PhpOffice\PhpSpreadsheet\ReferenceHelper $referenceHelper;
+    private ReferenceHelper $referenceHelper;
 
     /**
      * @var ZipArchive
@@ -1903,7 +1903,7 @@ class Xlsx extends BaseReader
                         if (isset($run->rPr->u)) {
                             $attr = $run->rPr->u->attributes();
                             if (!isset($attr['val'])) {
-                                $objFont->setUnderline(\PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_SINGLE);
+                                $objFont->setUnderline(StyleFont::UNDERLINE_SINGLE);
                             } else {
                                 $objFont->setUnderline((string) $attr['val']);
                             }

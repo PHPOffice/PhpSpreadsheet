@@ -31,7 +31,7 @@ class PlotArea
     /**
      * PlotArea Layout.
      */
-    private ?\PhpOffice\PhpSpreadsheet\Chart\Layout $layout;
+    private ?Layout $layout;
 
     /**
      * Plot Series.

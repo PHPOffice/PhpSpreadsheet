@@ -111,7 +111,7 @@ class Conditional implements IComparable
     /**
      * Style.
      */
-    private \PhpOffice\PhpSpreadsheet\Style\Style $style;
+    private Style $style;
 
     /** @var bool */
     private $noFormatSet = false;

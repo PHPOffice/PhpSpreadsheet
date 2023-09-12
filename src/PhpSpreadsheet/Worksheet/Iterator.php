@@ -12,7 +12,7 @@ class Iterator implements \Iterator
     /**
      * Spreadsheet to iterate.
      */
-    private \PhpOffice\PhpSpreadsheet\Spreadsheet $subject;
+    private Spreadsheet $subject;
 
     /**
      * Current iterator position.

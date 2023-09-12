@@ -48,7 +48,7 @@ class Gnumeric extends BaseReader
      */
     private $spreadsheet;
 
-    private \PhpOffice\PhpSpreadsheet\ReferenceHelper $referenceHelper;
+    private ReferenceHelper $referenceHelper;
 
     /** @var array */
     public static $mappings = [

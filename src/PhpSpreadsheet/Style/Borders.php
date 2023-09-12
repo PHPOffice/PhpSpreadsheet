@@ -15,27 +15,27 @@ class Borders extends Supervisor
     /**
      * Left.
      */
-    protected \PhpOffice\PhpSpreadsheet\Style\Border $left;
+    protected Border $left;
 
     /**
      * Right.
      */
-    protected \PhpOffice\PhpSpreadsheet\Style\Border $right;
+    protected Border $right;
 
     /**
      * Top.
      */
-    protected \PhpOffice\PhpSpreadsheet\Style\Border $top;
+    protected Border $top;
 
     /**
      * Bottom.
      */
-    protected \PhpOffice\PhpSpreadsheet\Style\Border $bottom;
+    protected Border $bottom;
 
     /**
      * Diagonal.
      */
-    protected \PhpOffice\PhpSpreadsheet\Style\Border $diagonal;
+    protected Border $diagonal;
 
     /**
      * DiagonalDirection.

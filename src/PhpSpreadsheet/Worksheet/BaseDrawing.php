@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Cell\Hyperlink;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\IComparable;
+use PhpOffice\PhpSpreadsheet\Worksheet\Drawing\Shadow;
 use SimpleXMLElement;
 
 class BaseDrawing implements IComparable
@@ -48,7 +49,7 @@ class BaseDrawing implements IComparable
     /**
      * Worksheet.
      */
-    protected ?\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $worksheet = null;
+    protected ?Worksheet $worksheet = null;
 
     /**
      * Coordinates.
@@ -133,7 +134,7 @@ class BaseDrawing implements IComparable
     /**
      * Shadow.
      */
-    protected \PhpOffice\PhpSpreadsheet\Worksheet\Drawing\Shadow $shadow;
+    protected Shadow $shadow;
 
     /**
      * Image hyperlink.
