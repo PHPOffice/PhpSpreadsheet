@@ -166,7 +166,7 @@ class Date
      *
      * @return float|int
      */
-    public static function convertIsoDate($value)
+    public static function convertIsoDate(mixed $value)
     {
         if (!is_string($value)) {
             throw new Exception('Non-string value supplied for Iso Date conversion');
@@ -269,7 +269,7 @@ class Date
      * @return false|float Excel date/time value
      *                                  or boolean FALSE on failure
      */
-    public static function PHPToExcel($dateValue)
+    public static function PHPToExcel(mixed $dateValue)
     {
         if ((is_object($dateValue)) && ($dateValue instanceof DateTimeInterface)) {
             return self::dateTimeToExcel($dateValue);
@@ -370,10 +370,8 @@ class Date
 
     /**
      * Is a given cell a date/time?
-     *
-     * @param mixed $value
      */
-    public static function isDateTime(Cell $cell, $value = null, bool $dateWithoutTimeOkay = true): bool
+    public static function isDateTime(Cell $cell, mixed $value = null, bool $dateWithoutTimeOkay = true): bool
     {
         $result = false;
         $worksheet = $cell->getWorksheetOrNull();

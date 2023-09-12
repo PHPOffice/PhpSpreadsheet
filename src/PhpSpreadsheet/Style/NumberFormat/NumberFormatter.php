@@ -28,10 +28,7 @@ class NumberFormatter
         ];
     }
 
-    /**
-     * @param mixed $number
-     */
-    private static function processComplexNumberFormatMask($number, string $mask): string
+    private static function processComplexNumberFormatMask(mixed $number, string $mask): string
     {
         /** @var string */
         $result = $number;
@@ -63,10 +60,7 @@ class NumberFormatter
         return self::makeString($result);
     }
 
-    /**
-     * @param mixed $number
-     */
-    private static function complexNumberFormatMask($number, string $mask, bool $splitOnPoint = true): string
+    private static function complexNumberFormatMask(mixed $number, string $mask, bool $splitOnPoint = true): string
     {
         /** @var float */
         $numberFloat = $number;
@@ -138,10 +132,7 @@ class NumberFormatter
         return $s;
     }
 
-    /**
-     * @param mixed $value
-     */
-    private static function formatStraightNumericValue($value, string $format, array $matches, bool $useThousands): string
+    private static function formatStraightNumericValue(mixed $value, string $format, array $matches, bool $useThousands): string
     {
         /** @var float */
         $valueFloat = $value;
@@ -194,10 +185,7 @@ class NumberFormatter
         return self::pregReplace(self::NUMBER_REGEX, $value, $format);
     }
 
-    /**
-     * @param mixed $value
-     */
-    public static function format($value, string $format): string
+    public static function format(mixed $value, string $format): string
     {
         // The "_" in this string has already been stripped out,
         // so this test is never true. Furthermore, testing

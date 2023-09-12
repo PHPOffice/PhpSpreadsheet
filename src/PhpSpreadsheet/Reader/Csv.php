@@ -428,10 +428,8 @@ class Csv extends BaseReader
 
     /**
      * Convert string true/false to boolean, and null to null-string.
-     *
-     * @param mixed $rowDatum
      */
-    private function convertBoolean(&$rowDatum, bool $preserveBooleanString): void
+    private function convertBoolean(mixed &$rowDatum, bool $preserveBooleanString): void
     {
         if (is_string($rowDatum) && !$preserveBooleanString) {
             if (strcasecmp(Calculation::getTRUE(), $rowDatum) === 0 || strcasecmp('true', $rowDatum) === 0) {
@@ -446,10 +444,8 @@ class Csv extends BaseReader
 
     /**
      * Convert numeric strings to int or float values.
-     *
-     * @param mixed $rowDatum
      */
-    private function convertFormattedNumber(&$rowDatum): string
+    private function convertFormattedNumber(mixed &$rowDatum): string
     {
         $numberFormatMask = NumberFormat::FORMAT_GENERAL;
         if ($this->castFormattedNumberToNumeric === true && is_string($rowDatum)) {

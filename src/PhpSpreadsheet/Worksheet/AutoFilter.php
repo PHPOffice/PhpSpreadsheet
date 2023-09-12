@@ -313,12 +313,11 @@ class AutoFilter implements Stringable
     /**
      * Test if cell value is in the defined set of values.
      *
-     * @param mixed $cellValue
      * @param mixed[] $dataSet
      *
      * @return bool
      */
-    protected static function filterTestInSimpleDataSet($cellValue, array $dataSet)
+    protected static function filterTestInSimpleDataSet(mixed $cellValue, array $dataSet)
     {
         $dataSetValues = $dataSet['filterValues'];
         $blanks = $dataSet['blanks'];
@@ -332,12 +331,11 @@ class AutoFilter implements Stringable
     /**
      * Test if cell value is in the defined set of Excel date values.
      *
-     * @param mixed $cellValue
      * @param mixed[] $dataSet
      *
      * @return bool
      */
-    protected static function filterTestInDateGroupSet($cellValue, array $dataSet)
+    protected static function filterTestInDateGroupSet(mixed $cellValue, array $dataSet)
     {
         $dateSet = $dataSet['filterValues'];
         $blanks = $dataSet['blanks'];
@@ -376,10 +374,9 @@ class AutoFilter implements Stringable
     /**
      * Test if cell value is within a set of values defined by a ruleset.
      *
-     * @param mixed $cellValue
      * @param mixed[] $ruleSet
      */
-    protected static function filterTestInCustomDataSet($cellValue, $ruleSet): bool
+    protected static function filterTestInCustomDataSet(mixed $cellValue, $ruleSet): bool
     {
         /** @var array[] */
         $dataSet = $ruleSet['filterRules'];
@@ -490,10 +487,9 @@ class AutoFilter implements Stringable
     /**
      * Test if cell date value is matches a set of values defined by a set of months.
      *
-     * @param mixed $cellValue
      * @param mixed[] $monthSet
      */
-    protected static function filterTestInPeriodDateSet($cellValue, $monthSet): bool
+    protected static function filterTestInPeriodDateSet(mixed $cellValue, $monthSet): bool
     {
         //    Blank cells are always ignored, so return a FALSE
         if (($cellValue == '') || ($cellValue === null)) {
@@ -764,11 +760,10 @@ class AutoFilter implements Stringable
      * Apply the AutoFilter rules to the AutoFilter Range.
      *
      * @param ?string $ruleType
-     * @param mixed $ruleValue
      *
      * @return mixed
      */
-    private function calculateTopTenValue(string $columnID, int $startRow, int $endRow, $ruleType, $ruleValue)
+    private function calculateTopTenValue(string $columnID, int $startRow, int $endRow, $ruleType, mixed $ruleValue)
     {
         $range = $columnID . $startRow . ':' . $columnID . $endRow;
         $retVal = null;

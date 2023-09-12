@@ -51,10 +51,8 @@ class Styles extends BaseParserClass
 
     /**
      * Cast SimpleXMLElement to bool to overcome Scrutinizer problem.
-     *
-     * @param mixed $value
      */
-    private static function castBool($value): bool
+    private static function castBool(mixed $value): bool
     {
         return (bool) $value;
     }
@@ -451,7 +449,7 @@ class Styles extends BaseParserClass
      *
      * @return stdClass
      */
-    private static function getArrayItem($array, int $key = 0)
+    private static function getArrayItem(mixed $array, int $key = 0)
     {
         return is_array($array) ? ($array[$key] ?? null) : null;
     }

@@ -315,7 +315,7 @@ class MathTrig
      *
      * @return int|mixed|string Greatest Common Divisor, or a string containing an error
      */
-    public static function GCD(...$args)
+    public static function GCD(mixed ...$args)
     {
         return MathTrig\Gcd::evaluate(...$args);
     }
@@ -339,7 +339,7 @@ class MathTrig
      *
      * @return int|string Lowest Common Multiplier, or a string containing an error
      */
-    public static function LCM(...$args)
+    public static function LCM(mixed ...$args)
     {
         return MathTrig\Lcm::evaluate(...$args);
     }
@@ -532,7 +532,7 @@ class MathTrig
      *
      * @return float|string
      */
-    public static function PRODUCT(...$args)
+    public static function PRODUCT(mixed ...$args)
     {
         return MathTrig\Operations::product(...$args);
     }
@@ -550,12 +550,9 @@ class MathTrig
      * Excel Function:
      *        QUOTIENT(value1[,value2[, ...]])
      *
-     * @param mixed $numerator
-     * @param mixed $denominator
-     *
      * @return array|int|string
      */
-    public static function QUOTIENT($numerator, $denominator)
+    public static function QUOTIENT(mixed $numerator, mixed $denominator)
     {
         return MathTrig\Operations::quotient($numerator, $denominator);
     }
@@ -591,7 +588,7 @@ class MathTrig
      *
      * @return array|string Roman numeral, or a string containing an error
      */
-    public static function ROMAN($aValue, $style = 0): string|array
+    public static function ROMAN(mixed $aValue, mixed $style = 0): string|array
     {
         return MathTrig\Roman::evaluate($aValue, $style);
     }
@@ -650,7 +647,7 @@ class MathTrig
      *
      * @return array|float|string The result, or a string containing an error
      */
-    public static function SERIESSUM($x, $n, $m, ...$args): string|float|int|array
+    public static function SERIESSUM(mixed $x, mixed $n, mixed $m, ...$args): string|float|int|array
     {
         return MathTrig\SeriesSum::evaluate($x, $n, $m, ...$args);
     }
@@ -745,7 +742,7 @@ class MathTrig
      *
      * @return float|string
      */
-    public static function SUM(...$args)
+    public static function SUM(mixed ...$args)
     {
         return MathTrig\Sum::sumIgnoringStrings(...$args);
     }
@@ -788,7 +785,7 @@ class MathTrig
      *
      * @return null|float|string
      */
-    public static function SUMIFS(...$args)
+    public static function SUMIFS(mixed ...$args)
     {
         return Statistical\Conditional::SUMIFS(...$args);
     }
@@ -807,7 +804,7 @@ class MathTrig
      *
      * @return float|string The result, or a string containing an error
      */
-    public static function SUMPRODUCT(...$args): string|int|float
+    public static function SUMPRODUCT(mixed ...$args): string|int|float
     {
         return MathTrig\Sum::product(...$args);
     }
@@ -828,7 +825,7 @@ class MathTrig
      *
      * @return float|string
      */
-    public static function SUMSQ(...$args)
+    public static function SUMSQ(mixed ...$args)
     {
         return MathTrig\SumSquares::sumSquare(...$args);
     }
@@ -1293,7 +1290,7 @@ class MathTrig
      *
      * @return array|float|string Rounded number
      */
-    public static function builtinLN($number): string|float|array
+    public static function builtinLN(mixed $number): string|float|array
     {
         return MathTrig\Logarithms::natural($number);
     }
@@ -1311,7 +1308,7 @@ class MathTrig
      *
      * @return array|float|string Rounded number
      */
-    public static function builtinLOG10($number): string|float|array
+    public static function builtinLOG10(mixed $number): string|float|array
     {
         return MathTrig\Logarithms::base10($number);
     }
@@ -1430,10 +1427,8 @@ class MathTrig
      * @deprecated 1.18.0
      *      Use the validateNumericNullBool method in the MathTrig\Helpers class instead
      * @see MathTrig\Helpers::validateNumericNullBool()
-     *
-     * @param mixed $number
      */
-    public static function nullFalseTrueToNumber(&$number): void
+    public static function nullFalseTrueToNumber(mixed &$number): void
     {
         $number = Functions::flattenSingleValue($number);
         if ($number === null) {

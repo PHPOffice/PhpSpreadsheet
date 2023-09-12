@@ -796,7 +796,7 @@ class Worksheet extends BIFFwriter
      *
      * @return int
      */
-    private function writeFormula(int $row, int $col, string $formula, int $xfIndex, $calculatedValue)
+    private function writeFormula(int $row, int $col, string $formula, int $xfIndex, mixed $calculatedValue)
     {
         $record = 0x0006; // Record identifier
         // Initialize possible additional value for STRING record that should be written after the FORMULA record?

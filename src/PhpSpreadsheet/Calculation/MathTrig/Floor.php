@@ -36,7 +36,7 @@ class Floor
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function floor($number, $significance = null)
+    public static function floor(mixed $number, mixed $significance = null)
     {
         if (is_array($number) || is_array($significance)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $number, $significance);
@@ -75,7 +75,7 @@ class Floor
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function math($number, $significance = null, $mode = 0)
+    public static function math(mixed $number, mixed $significance = null, mixed $mode = 0)
     {
         if (is_array($number) || is_array($significance) || is_array($mode)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $number, $significance, $mode);

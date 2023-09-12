@@ -40,13 +40,13 @@ class Amortization
      * @return float|string (string containing the error type if there is an error)
      */
     public static function AMORDEGRC(
-        $cost,
-        $purchased,
-        $firstPeriod,
-        $salvage,
-        $period,
-        $rate,
-        $basis = FinancialConstants::BASIS_DAYS_PER_YEAR_NASD
+        mixed $cost,
+        mixed $purchased,
+        mixed $firstPeriod,
+        mixed $salvage,
+        mixed $period,
+        mixed $rate,
+        mixed $basis = FinancialConstants::BASIS_DAYS_PER_YEAR_NASD
     ): string|float {
         $cost = Functions::flattenSingleValue($cost);
         $purchased = Functions::flattenSingleValue($purchased);
@@ -90,7 +90,7 @@ class Amortization
 
             if ($fRest < 0.0) {
                 return match ($period - $n) {
-                    0, 1 => round($cost * 0.5, 0),
+                    1 => round($cost * 0.5, 0),
                     default => 0.0,
                 };
             }
@@ -126,13 +126,13 @@ class Amortization
      * @return float|string (string containing the error type if there is an error)
      */
     public static function AMORLINC(
-        $cost,
-        $purchased,
-        $firstPeriod,
-        $salvage,
-        $period,
-        $rate,
-        $basis = FinancialConstants::BASIS_DAYS_PER_YEAR_NASD
+        mixed $cost,
+        mixed $purchased,
+        mixed $firstPeriod,
+        mixed $salvage,
+        mixed $period,
+        mixed $rate,
+        mixed $basis = FinancialConstants::BASIS_DAYS_PER_YEAR_NASD
     ): string|float {
         $cost = Functions::flattenSingleValue($cost);
         $purchased = Functions::flattenSingleValue($purchased);

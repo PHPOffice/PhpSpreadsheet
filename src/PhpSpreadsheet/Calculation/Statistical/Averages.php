@@ -20,7 +20,7 @@ class Averages extends AggregateBase
      *
      * @return float|string (string if result is an error)
      */
-    public static function averageDeviations(...$args): string|float
+    public static function averageDeviations(mixed ...$args): string|float
     {
         $aArgs = Functions::flattenArrayIndexed($args);
 
@@ -69,7 +69,7 @@ class Averages extends AggregateBase
      *
      * @return float|string (string if result is an error)
      */
-    public static function average(...$args): string|int|float
+    public static function average(mixed ...$args): string|int|float
     {
         $returnValue = $aCount = 0;
 
@@ -108,7 +108,7 @@ class Averages extends AggregateBase
      *
      * @return float|string (string if result is an error)
      */
-    public static function averageA(...$args): string|int|float
+    public static function averageA(mixed ...$args): string|int|float
     {
         $returnValue = null;
 
@@ -147,7 +147,7 @@ class Averages extends AggregateBase
      *
      * @return float|string The result, or a string containing an error
      */
-    public static function median(...$args)
+    public static function median(mixed ...$args)
     {
         $aArgs = Functions::flattenArray($args);
 
@@ -181,7 +181,7 @@ class Averages extends AggregateBase
      *
      * @return float|string The result, or a string containing an error
      */
-    public static function mode(...$args)
+    public static function mode(mixed ...$args)
     {
         $returnValue = ExcelError::NA();
 

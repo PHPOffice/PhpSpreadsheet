@@ -85,10 +85,8 @@ class Logger
 
     /**
      * Write an entry to the calculation engine debug log.
-     *
-     * @param mixed $args
      */
-    public function writeDebugLog(string $message, ...$args): void
+    public function writeDebugLog(string $message, mixed ...$args): void
     {
         //    Only write the debug log if logging is enabled
         if ($this->writeDebugLog) {

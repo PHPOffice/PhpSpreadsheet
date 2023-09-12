@@ -558,7 +558,7 @@ class Parser
      *
      * @param mixed $num an integer or double for conversion to its ptg value
      */
-    private function convertNumber($num): string
+    private function convertNumber(mixed $num): string
     {
         // Integer in the range 0..2**16-1
         if ((preg_match('/^\\d+$/', $num)) && ($num <= 65535)) {
@@ -1441,7 +1441,7 @@ class Parser
      *
      * @return array A tree
      */
-    private function createTree($value, $left, $right): array
+    private function createTree(mixed $value, mixed $left, mixed $right): array
     {
         return ['value' => $value, 'left' => $left, 'right' => $right];
     }

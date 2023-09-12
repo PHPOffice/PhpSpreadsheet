@@ -97,10 +97,7 @@ class Xlsx extends BaseReader
         return $result;
     }
 
-    /**
-     * @param mixed $value
-     */
-    public static function testSimpleXml($value): SimpleXMLElement
+    public static function testSimpleXml(mixed $value): SimpleXMLElement
     {
         return ($value instanceof SimpleXMLElement) ? $value : new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><root></root>');
     }
@@ -118,10 +115,7 @@ class Xlsx extends BaseReader
         return self::falseToArray($sxml->xpath($path));
     }
 
-    /**
-     * @param mixed $value
-     */
-    public static function falseToArray($value): array
+    public static function falseToArray(mixed $value): array
     {
         return is_array($value) ? $value : [];
     }
@@ -317,11 +311,7 @@ class Xlsx extends BaseReader
         return isset($c, $c->v) ? (string) $c->v : null;
     }
 
-    /**
-     * @param mixed $value
-     * @param mixed $calculatedValue
-     */
-    private function castToFormula(?SimpleXMLElement $c, string $r, string &$cellDataType, &$value, &$calculatedValue, string $castBaseType, bool $updateSharedCells = true): void
+    private function castToFormula(?SimpleXMLElement $c, string $r, string &$cellDataType, mixed &$value, mixed &$calculatedValue, string $castBaseType, bool $updateSharedCells = true): void
     {
         if ($c === null) {
             return;

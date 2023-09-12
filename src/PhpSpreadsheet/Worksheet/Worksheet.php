@@ -1174,7 +1174,7 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function setCellValue($coordinate, $value, ?IValueBinder $binder = null): static
+    public function setCellValue($coordinate, mixed $value, ?IValueBinder $binder = null): static
     {
         $cellAddress = Functions::trimSheetFromCellReference(Validations::validateCellAddress($coordinate));
         $this->getCell($cellAddress)->setValue($value, $binder);
@@ -1197,7 +1197,7 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function setCellValueByColumnAndRow($columnIndex, $row, $value, ?IValueBinder $binder = null): static
+    public function setCellValueByColumnAndRow($columnIndex, $row, mixed $value, ?IValueBinder $binder = null): static
     {
         $this->getCell(Coordinate::stringFromColumnIndex($columnIndex) . $row)->setValue($value, $binder);
 
@@ -1221,7 +1221,7 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function setCellValueExplicit($coordinate, $value, string $dataType): static
+    public function setCellValueExplicit($coordinate, mixed $value, string $dataType): static
     {
         $cellAddress = Functions::trimSheetFromCellReference(Validations::validateCellAddress($coordinate));
         $this->getCell($cellAddress)->setValueExplicit($value, $dataType);
@@ -1251,7 +1251,7 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function setCellValueExplicitByColumnAndRow($columnIndex, $row, $value, string $dataType): static
+    public function setCellValueExplicitByColumnAndRow($columnIndex, $row, mixed $value, string $dataType): static
     {
         $this->getCell(Coordinate::stringFromColumnIndex($columnIndex) . $row)->setValueExplicit($value, $dataType);
 
@@ -3143,7 +3143,7 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function fromArray(array $source, $nullValue = null, $startCell = 'A1', $strictNullComparison = false): static
+    public function fromArray(array $source, mixed $nullValue = null, $startCell = 'A1', $strictNullComparison = false): static
     {
         //    Convert a 1-D array to 2-D (for ease of looping)
         if (!is_array(end($source))) {
@@ -3177,14 +3177,12 @@ class Worksheet implements IComparable
     }
 
     /**
-     * @param mixed $nullValue
-     *
      * @throws Exception
      * @throws \PhpOffice\PhpSpreadsheet\Calculation\Exception
      *
      * @return mixed
      */
-    protected function cellToArray(Cell $cell, bool $calculateFormulas, bool $formatData, $nullValue)
+    protected function cellToArray(Cell $cell, bool $calculateFormulas, bool $formatData, mixed $nullValue)
     {
         $returnValue = $nullValue;
 
@@ -3220,7 +3218,7 @@ class Worksheet implements IComparable
      */
     public function rangeToArray(
         string $range,
-        $nullValue = null,
+        mixed $nullValue = null,
         bool $calculateFormulas = true,
         bool $formatData = true,
         bool $returnCellRef = false,
@@ -3314,7 +3312,7 @@ class Worksheet implements IComparable
      */
     public function namedRangeToArray(
         string $definedName,
-        $nullValue = null,
+        mixed $nullValue = null,
         bool $calculateFormulas = true,
         bool $formatData = true,
         bool $returnCellRef = false,
@@ -3346,7 +3344,7 @@ class Worksheet implements IComparable
      *                            True - Don't return values for rows/columns that are defined as hidden.
      */
     public function toArray(
-        $nullValue = null,
+        mixed $nullValue = null,
         bool $calculateFormulas = true,
         bool $formatData = true,
         bool $returnCellRef = false,

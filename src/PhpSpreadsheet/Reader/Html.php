@@ -282,9 +282,8 @@ class Html extends BaseReader
      * Flush cell.
      *
      * @param int|string $row
-     * @param mixed $cellContent
      */
-    protected function flushCell(Worksheet $sheet, string $column, $row, &$cellContent, array $attributeArray): void
+    protected function flushCell(Worksheet $sheet, string $column, $row, mixed &$cellContent, array $attributeArray): void
     {
         if (is_string($cellContent)) {
             //    Simple String content
@@ -1041,10 +1040,8 @@ class Html extends BaseReader
 
     /**
      * Check if has #, so we can get clean hex.
-     *
-     * @param mixed $value
      */
-    public function getStyleColor($value): string
+    public function getStyleColor(mixed $value): string
     {
         $value = (string) $value;
         if (str_starts_with($value, '#')) {

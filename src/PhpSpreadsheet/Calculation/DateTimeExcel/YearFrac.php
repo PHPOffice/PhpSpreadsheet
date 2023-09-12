@@ -43,7 +43,7 @@ class YearFrac
      *         If an array of values is passed for the $startDate or $endDays,arguments, then the returned result
      *            will also be an array with matching dimensions
      */
-    public static function fraction($startDate, $endDate, $method = 0): array|string|int|float
+    public static function fraction(mixed $startDate, mixed $endDate, $method = 0): array|string|int|float
     {
         if (is_array($startDate) || is_array($endDate) || is_array($method)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $startDate, $endDate, $method);
@@ -73,11 +73,8 @@ class YearFrac
 
     /**
      * Excel 1900 calendar treats date argument of null as 1900-01-00. Really.
-     *
-     * @param mixed $startDate
-     * @param mixed $endDate
      */
-    private static function excelBug(float $sDate, $startDate, $endDate, int $method): float
+    private static function excelBug(float $sDate, mixed $startDate, mixed $endDate, int $method): float
     {
         if (Functions::getCompatibilityMode() !== Functions::COMPATIBILITY_OPENOFFICE && SharedDateHelper::getExcelCalendar() !== SharedDateHelper::CALENDAR_MAC_1904) {
             if ($endDate === null && $startDate !== null) {

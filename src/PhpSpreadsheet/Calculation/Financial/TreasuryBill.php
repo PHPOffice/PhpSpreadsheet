@@ -24,7 +24,7 @@ class TreasuryBill
      *
      * @return float|string Result, or a string containing an error
      */
-    public static function bondEquivalentYield($settlement, $maturity, $discount): string|float
+    public static function bondEquivalentYield(mixed $settlement, mixed $maturity, mixed $discount): string|float
     {
         $settlement = Functions::flattenSingleValue($settlement);
         $maturity = Functions::flattenSingleValue($maturity);
@@ -69,7 +69,7 @@ class TreasuryBill
      *
      * @return float|string Result, or a string containing an error
      */
-    public static function price($settlement, $maturity, $discount): string|float
+    public static function price(mixed $settlement, mixed $maturity, mixed $discount): string|float
     {
         $settlement = Functions::flattenSingleValue($settlement);
         $maturity = Functions::flattenSingleValue($maturity);
@@ -117,7 +117,7 @@ class TreasuryBill
      *                                The maturity date is the date when the Treasury bill expires.
      * @param float|string $price The Treasury bill's price per $100 face value
      */
-    public static function yield($settlement, $maturity, $price): string|float
+    public static function yield(mixed $settlement, mixed $maturity, $price): string|float
     {
         $settlement = Functions::flattenSingleValue($settlement);
         $maturity = Functions::flattenSingleValue($maturity);

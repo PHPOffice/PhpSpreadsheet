@@ -36,11 +36,7 @@ class BinaryComparison
         return strcmp($str1 ?? '', $str2 ?? '');
     }
 
-    /**
-     * @param mixed $operand1
-     * @param mixed $operand2
-     */
-    public static function compare($operand1, $operand2, string $operator): bool
+    public static function compare(mixed $operand1, mixed $operand2, string $operator): bool
     {
         //    Simple validate the two operands if they are string values
         if (is_string($operand1) && $operand1 > '' && $operand1[0] == Calculation::FORMULA_STRING_QUOTE) {
@@ -67,11 +63,7 @@ class BinaryComparison
         return self::evaluateComparison($operand1, $operand2, $operator, $useLowercaseFirstComparison);
     }
 
-    /**
-     * @param mixed $operand1
-     * @param mixed $operand2
-     */
-    private static function evaluateComparison($operand1, $operand2, string $operator, bool $useLowercaseFirstComparison): bool
+    private static function evaluateComparison(mixed $operand1, mixed $operand2, string $operator, bool $useLowercaseFirstComparison): bool
     {
         return match ($operator) {
             '=' => self::equal($operand1, $operand2),
@@ -84,11 +76,7 @@ class BinaryComparison
         };
     }
 
-    /**
-     * @param mixed $operand1
-     * @param mixed $operand2
-     */
-    private static function equal($operand1, $operand2): bool
+    private static function equal(mixed $operand1, mixed $operand2): bool
     {
         if (is_numeric($operand1) && is_numeric($operand2)) {
             $result = (abs($operand1 - $operand2) < self::DELTA);
@@ -101,11 +89,7 @@ class BinaryComparison
         return $result;
     }
 
-    /**
-     * @param mixed $operand1
-     * @param mixed $operand2
-     */
-    private static function greaterThanOrEqual($operand1, $operand2, bool $useLowercaseFirstComparison): bool
+    private static function greaterThanOrEqual(mixed $operand1, mixed $operand2, bool $useLowercaseFirstComparison): bool
     {
         if (is_numeric($operand1) && is_numeric($operand2)) {
             $result = ((abs($operand1 - $operand2) < self::DELTA) || ($operand1 > $operand2));
@@ -120,11 +104,7 @@ class BinaryComparison
         return $result;
     }
 
-    /**
-     * @param mixed $operand1
-     * @param mixed $operand2
-     */
-    private static function lessThanOrEqual($operand1, $operand2, bool $useLowercaseFirstComparison): bool
+    private static function lessThanOrEqual(mixed $operand1, mixed $operand2, bool $useLowercaseFirstComparison): bool
     {
         if (is_numeric($operand1) && is_numeric($operand2)) {
             $result = ((abs($operand1 - $operand2) < self::DELTA) || ($operand1 < $operand2));
@@ -139,29 +119,17 @@ class BinaryComparison
         return $result;
     }
 
-    /**
-     * @param mixed $operand1
-     * @param mixed $operand2
-     */
-    private static function greaterThan($operand1, $operand2, bool $useLowercaseFirstComparison): bool
+    private static function greaterThan(mixed $operand1, mixed $operand2, bool $useLowercaseFirstComparison): bool
     {
         return self::lessThanOrEqual($operand1, $operand2, $useLowercaseFirstComparison) !== true;
     }
 
-    /**
-     * @param mixed $operand1
-     * @param mixed $operand2
-     */
-    private static function lessThan($operand1, $operand2, bool $useLowercaseFirstComparison): bool
+    private static function lessThan(mixed $operand1, mixed $operand2, bool $useLowercaseFirstComparison): bool
     {
         return self::greaterThanOrEqual($operand1, $operand2, $useLowercaseFirstComparison) !== true;
     }
 
-    /**
-     * @param mixed $operand1
-     * @param mixed $operand2
-     */
-    private static function notEqual($operand1, $operand2): bool
+    private static function notEqual(mixed $operand1, mixed $operand2): bool
     {
         return self::equal($operand1, $operand2) !== true;
     }

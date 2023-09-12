@@ -34,10 +34,8 @@ class SpgrContainer
 
     /**
      * Add a child. This will be either spgrContainer or spContainer.
-     *
-     * @param mixed $child
      */
-    public function addChild($child): void
+    public function addChild(mixed $child): void
     {
         $this->children[] = $child;
         $child->setParent($this);

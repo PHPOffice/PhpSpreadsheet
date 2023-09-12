@@ -32,7 +32,7 @@ class Random
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function randBetween($min, $max): array|string|int
+    public static function randBetween(mixed $min, mixed $max): array|string|int
     {
         if (is_array($min) || is_array($max)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $min, $max);
@@ -67,7 +67,7 @@ class Random
      *
      * @return array|string The resulting array, or a string containing an error
      */
-    public static function randArray($rows = 1, $columns = 1, $min = 0, $max = 1, $wholeNumber = false): string|array
+    public static function randArray(mixed $rows = 1, mixed $columns = 1, mixed $min = 0, mixed $max = 1, $wholeNumber = false): string|array
     {
         try {
             $rows = (int) Helpers::validateNumericNullSubstitution($rows, 1);

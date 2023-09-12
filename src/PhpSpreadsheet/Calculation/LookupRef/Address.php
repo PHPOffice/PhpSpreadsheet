@@ -48,7 +48,7 @@ class Address
      *         If an array of values is passed as the $testValue argument, then the returned result will also be
      *            an array with the same dimensions
      */
-    public static function cell($row, $column, $relativity = 1, $referenceStyle = true, $sheetName = ''): array|string
+    public static function cell(mixed $row, mixed $column, mixed $relativity = 1, mixed $referenceStyle = true, mixed $sheetName = ''): array|string
     {
         if (
             is_array($row) || is_array($column) ||

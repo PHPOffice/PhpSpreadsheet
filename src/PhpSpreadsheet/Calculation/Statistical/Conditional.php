@@ -30,7 +30,7 @@ class Conditional
      *
      * @return null|float|string
      */
-    public static function AVERAGEIF($range, $condition, $averageRange = [])
+    public static function AVERAGEIF(mixed $range, $condition, mixed $averageRange = [])
     {
         if (!is_array($range) || !is_array($averageRange) || array_key_exists(0, $range) || array_key_exists(0, $averageRange)) {
             throw new CalcException('Must specify range of cells, not any kind of literal');
@@ -53,7 +53,7 @@ class Conditional
      *
      * @return null|float|string
      */
-    public static function AVERAGEIFS(...$args)
+    public static function AVERAGEIFS(mixed ...$args)
     {
         if (empty($args)) {
             return 0.0;
@@ -111,7 +111,7 @@ class Conditional
      *
      * @return int|string
      */
-    public static function COUNTIFS(...$args)
+    public static function COUNTIFS(mixed ...$args)
     {
         if (empty($args)) {
             return 0;
@@ -137,7 +137,7 @@ class Conditional
      *
      * @return null|float|string
      */
-    public static function MAXIFS(...$args)
+    public static function MAXIFS(mixed ...$args)
     {
         if (empty($args)) {
             return 0.0;
@@ -161,7 +161,7 @@ class Conditional
      *
      * @return null|float|string
      */
-    public static function MINIFS(...$args)
+    public static function MINIFS(mixed ...$args)
     {
         if (empty($args)) {
             return 0.0;
@@ -182,11 +182,10 @@ class Conditional
      *        SUMIF(range, criteria, [sum_range])
      *
      * @param array $range Data values
-     * @param mixed $condition
      *
      * @return null|float|string
      */
-    public static function SUMIF(array $range, $condition, array $sumRange = [])
+    public static function SUMIF(array $range, mixed $condition, array $sumRange = [])
     {
         $database = self::databaseFromRangeAndValue($range, $sumRange);
         $condition = [[self::CONDITION_COLUMN_NAME, self::VALUE_COLUMN_NAME], [$condition, null]];
@@ -206,7 +205,7 @@ class Conditional
      *
      * @return null|float|string
      */
-    public static function SUMIFS(...$args)
+    public static function SUMIFS(mixed ...$args)
     {
         if (empty($args)) {
             return 0.0;

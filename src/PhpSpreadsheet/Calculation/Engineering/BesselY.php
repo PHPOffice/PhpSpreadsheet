@@ -31,7 +31,7 @@ class BesselY
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function BESSELY($x, $ord): array|string|float
+    public static function BESSELY(mixed $x, mixed $ord): array|string|float
     {
         if (is_array($x) || is_array($ord)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $x, $ord);

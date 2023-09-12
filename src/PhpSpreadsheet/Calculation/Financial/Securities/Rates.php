@@ -35,11 +35,11 @@ class Rates
      * @return float|string
      */
     public static function discount(
-        $settlement,
-        $maturity,
-        $price,
-        $redemption,
-        $basis = FinancialConstants::BASIS_DAYS_PER_YEAR_NASD
+        mixed $settlement,
+        mixed $maturity,
+        mixed $price,
+        mixed $redemption,
+        mixed $basis = FinancialConstants::BASIS_DAYS_PER_YEAR_NASD
     ) {
         $settlement = Functions::flattenSingleValue($settlement);
         $maturity = Functions::flattenSingleValue($maturity);
@@ -98,11 +98,11 @@ class Rates
      * @return float|string
      */
     public static function interest(
-        $settlement,
-        $maturity,
-        $investment,
-        $redemption,
-        $basis = FinancialConstants::BASIS_DAYS_PER_YEAR_NASD
+        mixed $settlement,
+        mixed $maturity,
+        mixed $investment,
+        mixed $redemption,
+        mixed $basis = FinancialConstants::BASIS_DAYS_PER_YEAR_NASD
     ) {
         $settlement = Functions::flattenSingleValue($settlement);
         $maturity = Functions::flattenSingleValue($maturity);

@@ -31,10 +31,7 @@ class ConditionalHelper
         $this->parser = $parser;
     }
 
-    /**
-     * @param mixed $condition
-     */
-    public function processCondition($condition, string $cellRange): void
+    public function processCondition(mixed $condition, string $cellRange): void
     {
         $this->condition = $condition;
         $this->cellRange = $cellRange;

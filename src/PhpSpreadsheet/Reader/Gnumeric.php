@@ -222,10 +222,7 @@ class Gnumeric extends BaseReader
         }
     }
 
-    /**
-     * @param mixed $value
-     */
-    private static function testSimpleXml($value): SimpleXMLElement
+    private static function testSimpleXml(mixed $value): SimpleXMLElement
     {
         return ($value instanceof SimpleXMLElement) ? $value : new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><root></root>');
     }
