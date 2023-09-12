@@ -164,16 +164,12 @@ class MemoryDrawing extends BaseDrawing
 
     private static function identifyRenderingFunction(string $mimeType): string
     {
-        switch ($mimeType) {
-            case self::MIMETYPE_PNG:
-                return self::RENDERING_PNG;
-            case self::MIMETYPE_JPEG:
-                return self::RENDERING_JPEG;
-            case self::MIMETYPE_GIF:
-                return self::RENDERING_GIF;
-        }
-
-        return self::RENDERING_DEFAULT;
+        return match ($mimeType) {
+            self::MIMETYPE_PNG => self::RENDERING_PNG,
+            self::MIMETYPE_JPEG => self::RENDERING_JPEG,
+            self::MIMETYPE_GIF => self::RENDERING_GIF,
+            default => self::RENDERING_DEFAULT,
+        };
     }
 
     /**

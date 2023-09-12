@@ -33,7 +33,6 @@ use PhpOffice\PhpSpreadsheet\Style\Style;
 use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 use PhpOffice\PhpSpreadsheet\Worksheet\SheetView;
-use PhpOffice\PhpSpreadsheet\Worksheet\Table;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 // Original file header of ParseXL (used as the base for this class):
@@ -488,27 +487,16 @@ class Xls extends BaseReader
         while ($this->pos < $this->dataSize) {
             $code = self::getUInt2d($this->data, $this->pos);
 
-            switch ($code) {
-                case self::XLS_TYPE_BOF:
-                    $this->readBof();
+            match ($code) {
+                self::XLS_TYPE_BOF => $this->readBof(),
+                self::XLS_TYPE_SHEET => $this->readSheet(),
+                self::XLS_TYPE_EOF => $this->readDefault(),
+                self::XLS_TYPE_CODEPAGE => $this->readCodepage(),
+                default => $this->readDefault(),
+            };
 
-                    break;
-                case self::XLS_TYPE_SHEET:
-                    $this->readSheet();
-
-                    break;
-                case self::XLS_TYPE_EOF:
-                    $this->readDefault();
-
-                    break 2;
-                case self::XLS_TYPE_CODEPAGE:
-                    $this->readCodepage();
-
-                    break;
-                default:
-                    $this->readDefault();
-
-                    break;
+            if ($code === self::XLS_TYPE_EOF) {
+                break;
             }
         }
 
@@ -547,27 +535,16 @@ class Xls extends BaseReader
         while ($this->pos < $this->dataSize) {
             $code = self::getUInt2d($this->data, $this->pos);
 
-            switch ($code) {
-                case self::XLS_TYPE_BOF:
-                    $this->readBof();
+            match ($code) {
+                self::XLS_TYPE_BOF => $this->readBof(),
+                self::XLS_TYPE_SHEET => $this->readSheet(),
+                self::XLS_TYPE_EOF => $this->readDefault(),
+                self::XLS_TYPE_CODEPAGE => $this->readCodepage(),
+                default => $this->readDefault(),
+            };
 
-                    break;
-                case self::XLS_TYPE_SHEET:
-                    $this->readSheet();
-
-                    break;
-                case self::XLS_TYPE_EOF:
-                    $this->readDefault();
-
-                    break 2;
-                case self::XLS_TYPE_CODEPAGE:
-                    $this->readCodepage();
-
-                    break;
-                default:
-                    $this->readDefault();
-
-                    break;
+            if ($code === self::XLS_TYPE_EOF) {
+                break;
             }
         }
 
@@ -681,83 +658,30 @@ class Xls extends BaseReader
         while ($this->pos < $this->dataSize) {
             $code = self::getUInt2d($this->data, $this->pos);
 
-            switch ($code) {
-                case self::XLS_TYPE_BOF:
-                    $this->readBof();
+            match ($code) {
+                self::XLS_TYPE_BOF => $this->readBof(),
+                self::XLS_TYPE_FILEPASS => $this->readFilepass(),
+                self::XLS_TYPE_CODEPAGE => $this->readCodepage(),
+                self::XLS_TYPE_DATEMODE => $this->readDateMode(),
+                self::XLS_TYPE_FONT => $this->readFont(),
+                self::XLS_TYPE_FORMAT => $this->readFormat(),
+                self::XLS_TYPE_XF => $this->readXf(),
+                self::XLS_TYPE_XFEXT => $this->readXfExt(),
+                self::XLS_TYPE_STYLE => $this->readStyle(),
+                self::XLS_TYPE_PALETTE => $this->readPalette(),
+                self::XLS_TYPE_SHEET => $this->readSheet(),
+                self::XLS_TYPE_EXTERNALBOOK => $this->readExternalBook(),
+                self::XLS_TYPE_EXTERNNAME => $this->readExternName(),
+                self::XLS_TYPE_EXTERNSHEET => $this->readExternSheet(),
+                self::XLS_TYPE_DEFINEDNAME => $this->readDefinedName(),
+                self::XLS_TYPE_MSODRAWINGGROUP => $this->readMsoDrawingGroup(),
+                self::XLS_TYPE_SST => $this->readSst(),
+                self::XLS_TYPE_EOF => $this->readDefault(),
+                default => $this->readDefault(),
+            };
 
-                    break;
-                case self::XLS_TYPE_FILEPASS:
-                    $this->readFilepass();
-
-                    break;
-                case self::XLS_TYPE_CODEPAGE:
-                    $this->readCodepage();
-
-                    break;
-                case self::XLS_TYPE_DATEMODE:
-                    $this->readDateMode();
-
-                    break;
-                case self::XLS_TYPE_FONT:
-                    $this->readFont();
-
-                    break;
-                case self::XLS_TYPE_FORMAT:
-                    $this->readFormat();
-
-                    break;
-                case self::XLS_TYPE_XF:
-                    $this->readXf();
-
-                    break;
-                case self::XLS_TYPE_XFEXT:
-                    $this->readXfExt();
-
-                    break;
-                case self::XLS_TYPE_STYLE:
-                    $this->readStyle();
-
-                    break;
-                case self::XLS_TYPE_PALETTE:
-                    $this->readPalette();
-
-                    break;
-                case self::XLS_TYPE_SHEET:
-                    $this->readSheet();
-
-                    break;
-                case self::XLS_TYPE_EXTERNALBOOK:
-                    $this->readExternalBook();
-
-                    break;
-                case self::XLS_TYPE_EXTERNNAME:
-                    $this->readExternName();
-
-                    break;
-                case self::XLS_TYPE_EXTERNSHEET:
-                    $this->readExternSheet();
-
-                    break;
-                case self::XLS_TYPE_DEFINEDNAME:
-                    $this->readDefinedName();
-
-                    break;
-                case self::XLS_TYPE_MSODRAWINGGROUP:
-                    $this->readMsoDrawingGroup();
-
-                    break;
-                case self::XLS_TYPE_SST:
-                    $this->readSst();
-
-                    break;
-                case self::XLS_TYPE_EOF:
-                    $this->readDefault();
-
-                    break 2;
-                default:
-                    $this->readDefault();
-
-                    break;
+            if ($code === self::XLS_TYPE_EOF) {
+                break;
             }
         }
 
@@ -2677,24 +2601,12 @@ class Xls extends BaseReader
         $this->pos += 4 + $length;
 
         // offset: 4; size: 1; sheet state
-        switch (ord($recordData[4])) {
-            case 0x00:
-                $sheetState = Worksheet::SHEETSTATE_VISIBLE;
-
-                break;
-            case 0x01:
-                $sheetState = Worksheet::SHEETSTATE_HIDDEN;
-
-                break;
-            case 0x02:
-                $sheetState = Worksheet::SHEETSTATE_VERYHIDDEN;
-
-                break;
-            default:
-                $sheetState = Worksheet::SHEETSTATE_VISIBLE;
-
-                break;
-        }
+        $sheetState = match (ord($recordData[4])) {
+            0x00 => Worksheet::SHEETSTATE_VISIBLE,
+            0x01 => Worksheet::SHEETSTATE_HIDDEN,
+            0x02 => Worksheet::SHEETSTATE_VERYHIDDEN,
+            default => Worksheet::SHEETSTATE_VISIBLE,
+        };
 
         // offset: 5; size: 1; sheet type
         $sheetType = ord($recordData[5]);
@@ -5623,34 +5535,15 @@ class Xls extends BaseReader
                         $name = 'tAttrSpace';
                         $size = 4;
                         // offset: 2; size: 2; space type and position
-                        switch (ord($formulaData[2])) {
-                            case 0x00:
-                                $spacetype = 'type0';
-
-                                break;
-                            case 0x01:
-                                $spacetype = 'type1';
-
-                                break;
-                            case 0x02:
-                                $spacetype = 'type2';
-
-                                break;
-                            case 0x03:
-                                $spacetype = 'type3';
-
-                                break;
-                            case 0x04:
-                                $spacetype = 'type4';
-
-                                break;
-                            case 0x05:
-                                $spacetype = 'type5';
-
-                                break;
-                            default:
-                                throw new Exception('Unrecognized space type in tAttrSpace token');
-                        }
+                        $spacetype = match (ord($formulaData[2])) {
+                            0x00 => 'type0',
+                            0x01 => 'type1',
+                            0x02 => 'type2',
+                            0x03 => 'type3',
+                            0x04 => 'type4',
+                            0x05 => 'type5',
+                            default => throw new Exception('Unrecognized space type in tAttrSpace token'),
+                        };
                         // offset: 3; size: 1; number of inserted spaces/carriage returns
                         $spacecount = ord($formulaData[3]);
 
@@ -6522,362 +6415,97 @@ class Xls extends BaseReader
                 $args = ord($formulaData[1]);
                 // offset: 2: size: 2; index to built-in sheet function
                 $index = self::getUInt2d($formulaData, 2);
-                switch ($index) {
-                    case 0:
-                        $function = 'COUNT';
-
-                        break;
-                    case 1:
-                        $function = 'IF';
-
-                        break;
-                    case 4:
-                        $function = 'SUM';
-
-                        break;
-                    case 5:
-                        $function = 'AVERAGE';
-
-                        break;
-                    case 6:
-                        $function = 'MIN';
-
-                        break;
-                    case 7:
-                        $function = 'MAX';
-
-                        break;
-                    case 8:
-                        $function = 'ROW';
-
-                        break;
-                    case 9:
-                        $function = 'COLUMN';
-
-                        break;
-                    case 11:
-                        $function = 'NPV';
-
-                        break;
-                    case 12:
-                        $function = 'STDEV';
-
-                        break;
-                    case 13:
-                        $function = 'DOLLAR';
-
-                        break;
-                    case 14:
-                        $function = 'FIXED';
-
-                        break;
-                    case 28:
-                        $function = 'LOOKUP';
-
-                        break;
-                    case 29:
-                        $function = 'INDEX';
-
-                        break;
-                    case 36:
-                        $function = 'AND';
-
-                        break;
-                    case 37:
-                        $function = 'OR';
-
-                        break;
-                    case 46:
-                        $function = 'VAR';
-
-                        break;
-                    case 49:
-                        $function = 'LINEST';
-
-                        break;
-                    case 50:
-                        $function = 'TREND';
-
-                        break;
-                    case 51:
-                        $function = 'LOGEST';
-
-                        break;
-                    case 52:
-                        $function = 'GROWTH';
-
-                        break;
-                    case 56:
-                        $function = 'PV';
-
-                        break;
-                    case 57:
-                        $function = 'FV';
-
-                        break;
-                    case 58:
-                        $function = 'NPER';
-
-                        break;
-                    case 59:
-                        $function = 'PMT';
-
-                        break;
-                    case 60:
-                        $function = 'RATE';
-
-                        break;
-                    case 62:
-                        $function = 'IRR';
-
-                        break;
-                    case 64:
-                        $function = 'MATCH';
-
-                        break;
-                    case 70:
-                        $function = 'WEEKDAY';
-
-                        break;
-                    case 78:
-                        $function = 'OFFSET';
-
-                        break;
-                    case 82:
-                        $function = 'SEARCH';
-
-                        break;
-                    case 100:
-                        $function = 'CHOOSE';
-
-                        break;
-                    case 101:
-                        $function = 'HLOOKUP';
-
-                        break;
-                    case 102:
-                        $function = 'VLOOKUP';
-
-                        break;
-                    case 109:
-                        $function = 'LOG';
-
-                        break;
-                    case 115:
-                        $function = 'LEFT';
-
-                        break;
-                    case 116:
-                        $function = 'RIGHT';
-
-                        break;
-                    case 120:
-                        $function = 'SUBSTITUTE';
-
-                        break;
-                    case 124:
-                        $function = 'FIND';
-
-                        break;
-                    case 125:
-                        $function = 'CELL';
-
-                        break;
-                    case 144:
-                        $function = 'DDB';
-
-                        break;
-                    case 148:
-                        $function = 'INDIRECT';
-
-                        break;
-                    case 167:
-                        $function = 'IPMT';
-
-                        break;
-                    case 168:
-                        $function = 'PPMT';
-
-                        break;
-                    case 169:
-                        $function = 'COUNTA';
-
-                        break;
-                    case 183:
-                        $function = 'PRODUCT';
-
-                        break;
-                    case 193:
-                        $function = 'STDEVP';
-
-                        break;
-                    case 194:
-                        $function = 'VARP';
-
-                        break;
-                    case 197:
-                        $function = 'TRUNC';
-
-                        break;
-                    case 204:
-                        $function = 'USDOLLAR';
-
-                        break;
-                    case 205:
-                        $function = 'FINDB';
-
-                        break;
-                    case 206:
-                        $function = 'SEARCHB';
-
-                        break;
-                    case 208:
-                        $function = 'LEFTB';
-
-                        break;
-                    case 209:
-                        $function = 'RIGHTB';
-
-                        break;
-                    case 216:
-                        $function = 'RANK';
-
-                        break;
-                    case 219:
-                        $function = 'ADDRESS';
-
-                        break;
-                    case 220:
-                        $function = 'DAYS360';
-
-                        break;
-                    case 222:
-                        $function = 'VDB';
-
-                        break;
-                    case 227:
-                        $function = 'MEDIAN';
-
-                        break;
-                    case 228:
-                        $function = 'SUMPRODUCT';
-
-                        break;
-                    case 247:
-                        $function = 'DB';
-
-                        break;
-                    case 255:
-                        $function = '';
-
-                        break;
-                    case 269:
-                        $function = 'AVEDEV';
-
-                        break;
-                    case 270:
-                        $function = 'BETADIST';
-
-                        break;
-                    case 272:
-                        $function = 'BETAINV';
-
-                        break;
-                    case 317:
-                        $function = 'PROB';
-
-                        break;
-                    case 318:
-                        $function = 'DEVSQ';
-
-                        break;
-                    case 319:
-                        $function = 'GEOMEAN';
-
-                        break;
-                    case 320:
-                        $function = 'HARMEAN';
-
-                        break;
-                    case 321:
-                        $function = 'SUMSQ';
-
-                        break;
-                    case 322:
-                        $function = 'KURT';
-
-                        break;
-                    case 323:
-                        $function = 'SKEW';
-
-                        break;
-                    case 324:
-                        $function = 'ZTEST';
-
-                        break;
-                    case 329:
-                        $function = 'PERCENTRANK';
-
-                        break;
-                    case 330:
-                        $function = 'MODE';
-
-                        break;
-                    case 336:
-                        $function = 'CONCATENATE';
-
-                        break;
-                    case 344:
-                        $function = 'SUBTOTAL';
-
-                        break;
-                    case 345:
-                        $function = 'SUMIF';
-
-                        break;
-                    case 354:
-                        $function = 'ROMAN';
-
-                        break;
-                    case 358:
-                        $function = 'GETPIVOTDATA';
-
-                        break;
-                    case 359:
-                        $function = 'HYPERLINK';
-
-                        break;
-                    case 361:
-                        $function = 'AVERAGEA';
-
-                        break;
-                    case 362:
-                        $function = 'MAXA';
-
-                        break;
-                    case 363:
-                        $function = 'MINA';
-
-                        break;
-                    case 364:
-                        $function = 'STDEVPA';
-
-                        break;
-                    case 365:
-                        $function = 'VARPA';
-
-                        break;
-                    case 366:
-                        $function = 'STDEVA';
-
-                        break;
-                    case 367:
-                        $function = 'VARA';
-
-                        break;
-                    default:
-                        throw new Exception('Unrecognized function in formula');
-                }
+                $function = match ($index) {
+                    0 => 'COUNT',
+                    1 => 'IF',
+                    4 => 'SUM',
+                    5 => 'AVERAGE',
+                    6 => 'MIN',
+                    7 => 'MAX',
+                    8 => 'ROW',
+                    9 => 'COLUMN',
+                    11 => 'NPV',
+                    12 => 'STDEV',
+                    13 => 'DOLLAR',
+                    14 => 'FIXED',
+                    28 => 'LOOKUP',
+                    29 => 'INDEX',
+                    36 => 'AND',
+                    37 => 'OR',
+                    46 => 'VAR',
+                    49 => 'LINEST',
+                    50 => 'TREND',
+                    51 => 'LOGEST',
+                    52 => 'GROWTH',
+                    56 => 'PV',
+                    57 => 'FV',
+                    58 => 'NPER',
+                    59 => 'PMT',
+                    60 => 'RATE',
+                    62 => 'IRR',
+                    64 => 'MATCH',
+                    70 => 'WEEKDAY',
+                    78 => 'OFFSET',
+                    82 => 'SEARCH',
+                    100 => 'CHOOSE',
+                    101 => 'HLOOKUP',
+                    102 => 'VLOOKUP',
+                    109 => 'LOG',
+                    115 => 'LEFT',
+                    116 => 'RIGHT',
+                    120 => 'SUBSTITUTE',
+                    124 => 'FIND',
+                    125 => 'CELL',
+                    144 => 'DDB',
+                    148 => 'INDIRECT',
+                    167 => 'IPMT',
+                    168 => 'PPMT',
+                    169 => 'COUNTA',
+                    183 => 'PRODUCT',
+                    193 => 'STDEVP',
+                    194 => 'VARP',
+                    197 => 'TRUNC',
+                    204 => 'USDOLLAR',
+                    205 => 'FINDB',
+                    206 => 'SEARCHB',
+                    208 => 'LEFTB',
+                    209 => 'RIGHTB',
+                    216 => 'RANK',
+                    219 => 'ADDRESS',
+                    220 => 'DAYS360',
+                    222 => 'VDB',
+                    227 => 'MEDIAN',
+                    228 => 'SUMPRODUCT',
+                    247 => 'DB',
+                    255 => '',
+                    269 => 'AVEDEV',
+                    270 => 'BETADIST',
+                    272 => 'BETAINV',
+                    317 => 'PROB',
+                    318 => 'DEVSQ',
+                    319 => 'GEOMEAN',
+                    320 => 'HARMEAN',
+                    321 => 'SUMSQ',
+                    322 => 'KURT',
+                    323 => 'SKEW',
+                    324 => 'ZTEST',
+                    329 => 'PERCENTRANK',
+                    330 => 'MODE',
+                    336 => 'CONCATENATE',
+                    344 => 'SUBTOTAL',
+                    345 => 'SUMIF',
+                    354 => 'ROMAN',
+                    358 => 'GETPIVOTDATA',
+                    359 => 'HYPERLINK',
+                    361 => 'AVERAGEA',
+                    362 => 'MAXA',
+                    363 => 'MINA',
+                    364 => 'STDEVPA',
+                    365 => 'VARPA',
+                    366 => 'STDEVA',
+                    367 => 'VARA',
+                    default => throw new Exception('Unrecognized function in formula'),
+                };
                 $data = ['function' => $function, 'args' => $args];
 
                 break;

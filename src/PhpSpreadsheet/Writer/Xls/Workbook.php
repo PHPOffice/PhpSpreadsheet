@@ -836,26 +836,12 @@ class Workbook extends BIFFwriter
     {
         $sheetname = $sheet->getTitle();
         $record = 0x0085; // Record identifier
-
-        // sheet state
-        switch ($sheet->getSheetState()) {
-            case \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::SHEETSTATE_VISIBLE:
-                $ss = 0x00;
-
-                break;
-            case \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::SHEETSTATE_HIDDEN:
-                $ss = 0x01;
-
-                break;
-            case \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::SHEETSTATE_VERYHIDDEN:
-                $ss = 0x02;
-
-                break;
-            default:
-                $ss = 0x00;
-
-                break;
-        }
+        $ss = match ($sheet->getSheetState()) {
+            \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::SHEETSTATE_VISIBLE => 0x00,
+            \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::SHEETSTATE_HIDDEN => 0x01,
+            \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::SHEETSTATE_VERYHIDDEN => 0x02,
+            default => 0x00,
+        };
 
         // sheet type
         $st = 0x00;

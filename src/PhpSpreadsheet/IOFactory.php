@@ -182,35 +182,34 @@ abstract class IOFactory
             return null;
         }
 
-        switch (strtolower($pathinfo['extension'])) {
-            case 'xlsx': // Excel (OfficeOpenXML) Spreadsheet
-            case 'xlsm': // Excel (OfficeOpenXML) Macro Spreadsheet (macros will be discarded)
-            case 'xltx': // Excel (OfficeOpenXML) Template
-            case 'xltm': // Excel (OfficeOpenXML) Macro Template (macros will be discarded)
-                return 'Xlsx';
-            case 'xls': // Excel (BIFF) Spreadsheet
-            case 'xlt': // Excel (BIFF) Template
-                return 'Xls';
-            case 'ods': // Open/Libre Offic Calc
-            case 'ots': // Open/Libre Offic Calc Template
-                return 'Ods';
-            case 'slk':
-                return 'Slk';
-            case 'xml': // Excel 2003 SpreadSheetML
-                return 'Xml';
-            case 'gnumeric':
-                return 'Gnumeric';
-            case 'htm':
-            case 'html':
-                return 'Html';
-            case 'csv':
-                // Do nothing
-                // We must not try to use CSV reader since it loads
-                // all files including Excel files etc.
-                return null;
-            default:
-                return null;
-        }
+        return match (strtolower($pathinfo['extension'])) {
+            // Excel (OfficeOpenXML) Spreadsheet
+            'xlsx',
+            // Excel (OfficeOpenXML) Macro Spreadsheet (macros will be discarded)
+            'xlsm',
+            // Excel (OfficeOpenXML) Template
+            'xltx',
+            // Excel (OfficeOpenXML) Macro Template (macros will be discarded)
+            'xltm' => 'Xlsx',
+            // Excel (BIFF) Spreadsheet
+            'xls',
+            // Excel (BIFF) Template
+            'xlt' => 'Xls',
+            // Open/Libre Offic Calc
+            'ods',
+            // Open/Libre Offic Calc Template
+            'ots' => 'Ods',
+            'slk' => 'Slk',
+            // Excel 2003 SpreadSheetML
+            'xml' => 'Xml',
+            'gnumeric' => 'Gnumeric',
+            'htm', 'html' => 'Html',
+            // Do nothing
+            // We must not try to use CSV reader since it loads
+            // all files including Excel files etc.
+            'csv' => null,
+            default => null,
+        };
     }
 
     /**

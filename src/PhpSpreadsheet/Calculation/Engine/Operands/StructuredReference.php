@@ -274,32 +274,22 @@ final class StructuredReference implements Operand, Stringable
 
     private function getMinimumRow(string $reference): int
     {
-        switch ($reference) {
-            case self::ITEM_SPECIFIER_ALL:
-            case self::ITEM_SPECIFIER_HEADERS:
-                return $this->headersRow ?? $this->firstDataRow;
-            case self::ITEM_SPECIFIER_DATA:
-                return $this->firstDataRow;
-            case self::ITEM_SPECIFIER_TOTALS:
-                return $this->totalsRow ?? $this->lastDataRow;
-        }
-
-        return $this->headersRow ?? $this->firstDataRow;
+        return match ($reference) {
+            self::ITEM_SPECIFIER_ALL, self::ITEM_SPECIFIER_HEADERS => $this->headersRow ?? $this->firstDataRow,
+            self::ITEM_SPECIFIER_DATA => $this->firstDataRow,
+            self::ITEM_SPECIFIER_TOTALS => $this->totalsRow ?? $this->lastDataRow,
+            default => $this->headersRow ?? $this->firstDataRow,
+        };
     }
 
     private function getMaximumRow(string $reference): int
     {
-        switch ($reference) {
-            case self::ITEM_SPECIFIER_HEADERS:
-                return $this->headersRow ?? $this->firstDataRow;
-            case self::ITEM_SPECIFIER_DATA:
-                return $this->lastDataRow;
-            case self::ITEM_SPECIFIER_ALL:
-            case self::ITEM_SPECIFIER_TOTALS:
-                return $this->totalsRow ?? $this->lastDataRow;
-        }
-
-        return $this->totalsRow ?? $this->lastDataRow;
+        return match ($reference) {
+            self::ITEM_SPECIFIER_HEADERS => $this->headersRow ?? $this->firstDataRow,
+            self::ITEM_SPECIFIER_DATA => $this->lastDataRow,
+            self::ITEM_SPECIFIER_ALL, self::ITEM_SPECIFIER_TOTALS => $this->totalsRow ?? $this->lastDataRow,
+            default => $this->totalsRow ?? $this->lastDataRow,
+        };
     }
 
     public function value(): string

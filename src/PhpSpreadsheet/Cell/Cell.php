@@ -320,16 +320,10 @@ class Cell implements Stringable
 
     public static function setCalculateDateTimeType(int $calculateDateTimeType): void
     {
-        switch ($calculateDateTimeType) {
-            case self::CALCULATE_DATE_TIME_ASIS:
-            case self::CALCULATE_DATE_TIME_FLOAT:
-            case self::CALCULATE_TIME_FLOAT:
-                self::$calculateDateTimeType = $calculateDateTimeType;
-
-                break;
-            default:
-                throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception("Invalid value $calculateDateTimeType for calculated date time type");
-        }
+        self::$calculateDateTimeType = match ($calculateDateTimeType) {
+            self::CALCULATE_DATE_TIME_ASIS, self::CALCULATE_DATE_TIME_FLOAT, self::CALCULATE_TIME_FLOAT => $calculateDateTimeType,
+            default => throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception("Invalid value $calculateDateTimeType for calculated date time type"),
+        };
     }
 
     /**

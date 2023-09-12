@@ -432,20 +432,11 @@ class AutoFilter implements Stringable
                         break;
                 }
             } elseif ($ruleValue == '') {
-                switch ($ruleOperator) {
-                    case Rule::AUTOFILTER_COLUMN_RULE_EQUAL:
-                        $retVal = (($cellValue == '') || ($cellValue === null));
-
-                        break;
-                    case Rule::AUTOFILTER_COLUMN_RULE_NOTEQUAL:
-                        $retVal = (($cellValue != '') && ($cellValue !== null));
-
-                        break;
-                    default:
-                        $retVal = true;
-
-                        break;
-                }
+                $retVal = match ($ruleOperator) {
+                    Rule::AUTOFILTER_COLUMN_RULE_EQUAL => ($cellValue == '') || ($cellValue === null),
+                    Rule::AUTOFILTER_COLUMN_RULE_NOTEQUAL => ($cellValue != '') && ($cellValue !== null),
+                    default => true,
+                };
             } else {
                 //    String values are always tested for equality, factoring in for wildcards (hence a regexp test)
                 switch ($ruleOperator) {

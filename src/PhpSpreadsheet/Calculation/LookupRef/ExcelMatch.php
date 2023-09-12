@@ -64,19 +64,11 @@ class ExcelMatch
         }
 
         $valueKey = null;
-        switch ($matchType) {
-            case self::MATCHTYPE_LARGEST_VALUE:
-                $valueKey = self::matchLargestValue($lookupArray, $lookupValue, $keySet);
-
-                break;
-            case self::MATCHTYPE_FIRST_VALUE:
-                $valueKey = self::matchFirstValue($lookupArray, $lookupValue);
-
-                break;
-            case self::MATCHTYPE_SMALLEST_VALUE:
-            default:
-                $valueKey = self::matchSmallestValue($lookupArray, $lookupValue);
-        }
+        $valueKey = match ($matchType) {
+            self::MATCHTYPE_LARGEST_VALUE => self::matchLargestValue($lookupArray, $lookupValue, $keySet),
+            self::MATCHTYPE_FIRST_VALUE => self::matchFirstValue($lookupArray, $lookupValue),
+            default => self::matchSmallestValue($lookupArray, $lookupValue),
+        };
 
         if ($valueKey !== null) {
             return ++$valueKey;
