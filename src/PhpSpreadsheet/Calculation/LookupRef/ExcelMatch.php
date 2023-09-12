@@ -63,7 +63,6 @@ class ExcelMatch
             $lookupValue = StringHelper::strToLower($lookupValue);
         }
 
-        $valueKey = null;
         $valueKey = match ($matchType) {
             self::MATCHTYPE_LARGEST_VALUE => self::matchLargestValue($lookupArray, $lookupValue, $keySet),
             self::MATCHTYPE_FIRST_VALUE => self::matchFirstValue($lookupArray, $lookupValue),
