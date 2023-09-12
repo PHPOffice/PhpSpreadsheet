@@ -1117,7 +1117,7 @@ class Parser
         if (preg_match('/^false$/i', $token) && ($this->lookAhead === ')' || $this->lookAhead === ',')) {
             return $token;
         }
-        if (substr($token, -1) === ')') {
+        if (str_ends_with($token, ')')) {
             //    It's an argument of some description (e.g. a named range),
             //        precise nature yet to be determined
             return $token;

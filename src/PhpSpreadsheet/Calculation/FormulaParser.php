@@ -213,7 +213,7 @@ class FormulaParser
             }
 
             // scientific notation check
-            if (strpos(self::OPERATORS_SN, $this->formula[$index]) !== false) {
+            if (str_contains(self::OPERATORS_SN, $this->formula[$index])) {
                 if (strlen($value) > 1) {
                     if (preg_match('/^[1-9]{1}(\\.\\d+)?E{1}$/', $this->formula[$index]) != 0) {
                         $value .= $this->formula[$index];
@@ -367,7 +367,7 @@ class FormulaParser
             }
 
             // standard infix operators
-            if (strpos(self::OPERATORS_INFIX, $this->formula[$index]) !== false) {
+            if (str_contains(self::OPERATORS_INFIX, $this->formula[$index])) {
                 if (strlen($value) > 0) {
                     $tokens1[] = new FormulaToken($value, FormulaToken::TOKEN_TYPE_OPERAND);
                     $value = '';
@@ -379,7 +379,7 @@ class FormulaParser
             }
 
             // standard postfix operators (only one)
-            if (strpos(self::OPERATORS_POSTFIX, $this->formula[$index]) !== false) {
+            if (str_contains(self::OPERATORS_POSTFIX, $this->formula[$index])) {
                 if (strlen($value) > 0) {
                     $tokens1[] = new FormulaToken($value, FormulaToken::TOKEN_TYPE_OPERAND);
                     $value = '';
@@ -580,7 +580,7 @@ class FormulaParser
                 $token->getTokenType() == FormulaToken::TOKEN_TYPE_OPERATORINFIX &&
                 $token->getTokenSubType() == FormulaToken::TOKEN_SUBTYPE_NOTHING
             ) {
-                if (strpos('<>=', substr($token->getValue(), 0, 1)) !== false) {
+                if (str_contains('<>=', substr($token->getValue(), 0, 1))) {
                     $token->setTokenSubType(FormulaToken::TOKEN_SUBTYPE_LOGICAL);
                 } elseif ($token->getValue() == '&') {
                     $token->setTokenSubType(FormulaToken::TOKEN_SUBTYPE_CONCATENATION);
@@ -614,7 +614,7 @@ class FormulaParser
 
             if ($token->getTokenType() == FormulaToken::TOKEN_TYPE_FUNCTION) {
                 if (strlen($token->getValue()) > 0) {
-                    if (substr($token->getValue(), 0, 1) == '@') {
+                    if (str_starts_with($token->getValue(), '@')) {
                         $token->setValue(substr($token->getValue(), 1));
                     }
                 }

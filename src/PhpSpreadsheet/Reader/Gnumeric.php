@@ -82,7 +82,7 @@ class Gnumeric extends BaseReader
         $data = null;
         if (File::testFileNoThrow($filename)) {
             $data = $this->gzfileGetContents($filename);
-            if (strpos($data, self::NAMESPACE_GNM) === false) {
+            if (!str_contains($data, self::NAMESPACE_GNM)) {
                 $data = '';
             }
         }
@@ -183,7 +183,7 @@ class Gnumeric extends BaseReader
         $data = '';
         $contents = @file_get_contents($filename);
         if ($contents !== false) {
-            if (substr($contents, 0, 2) === "\x1f\x8b") {
+            if (str_starts_with($contents, "\x1f\x8b")) {
                 // Check if gzlib functions are available
                 if (function_exists('gzdecode')) {
                     $contents = @gzdecode($contents);
@@ -370,7 +370,7 @@ class Gnumeric extends BaseReader
         //    Handle Merged Cells in this worksheet
         if ($sheet !== null && isset($sheet->MergedRegions)) {
             foreach ($sheet->MergedRegions->Merge as $mergeCells) {
-                if (strpos((string) $mergeCells, ':') !== false) {
+                if (str_contains((string) $mergeCells, ':')) {
                     $this->spreadsheet->getActiveSheet()->mergeCells($mergeCells, Worksheet::MERGE_CELL_CONTENT_HIDE);
                 }
             }

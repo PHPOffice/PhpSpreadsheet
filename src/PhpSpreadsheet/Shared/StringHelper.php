@@ -647,7 +647,7 @@ class StringHelper
         self::buildCharacterSets();
 
         // If there is no escape character in the string there is nothing to do
-        if (strpos($textValue, '') === false) {
+        if (!str_contains($textValue, '')) {
             return $textValue;
         }
 

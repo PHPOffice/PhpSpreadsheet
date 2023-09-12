@@ -84,7 +84,7 @@ class Hyperlink
      */
     public function isInternal(): bool
     {
-        return strpos($this->url, 'sheet://') !== false;
+        return str_contains($this->url, 'sheet://');
     }
 
     public function getTypeHyperlink(): string

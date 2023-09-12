@@ -81,7 +81,7 @@ class NumberFormatter
         $sign = ($numberFloat < 0.0) ? '-' : '';
         $number = self::f2s(abs($numberFloat));
 
-        if ($splitOnPoint && strpos($mask, '.') !== false && strpos($number, '.') !== false) {
+        if ($splitOnPoint && str_contains($mask, '.') && str_contains($number, '.')) {
             $numbers = explode('.', $number);
             $masks = explode('.', $mask);
             if (count($masks) > 2) {
@@ -174,7 +174,7 @@ class NumberFormatter
             }
 
             $result = self::complexNumberFormatMask($value, $format);
-            if (strpos($result, 'E') !== false) {
+            if (str_contains($result, 'E')) {
                 // This is a hack and doesn't match Excel.
                 // It will, at least, be an accurate representation,
                 //  even if formatted incorrectly.
@@ -220,7 +220,7 @@ class NumberFormatter
             // Handle the number itself
             // scale number
             $value = $value / $scale;
-            $paddingPlaceholder = (strpos($format, '?') !== false);
+            $paddingPlaceholder = (str_contains($format, '?'));
 
             // Replace # or ? with 0
             $format = self::pregReplace('/[\\#\?](?=(?:[^"]*"[^"]*")*[^"]*\Z)/', '0', $format);
@@ -256,8 +256,8 @@ class NumberFormatter
         }
 
         if (
-            (strpos((string) $value, '0.') !== false) &&
-            ((strpos($baseFormat, '#.') !== false) || (strpos($baseFormat, '?.') !== false))
+            (str_contains((string) $value, '0.')) &&
+            ((str_contains($baseFormat, '#.')) || (str_contains($baseFormat, '?.')))
         ) {
             $value = preg_replace('/(\b)0\.|([^\d])0\./', '${2}.', (string) $value);
         }
@@ -284,10 +284,10 @@ class NumberFormatter
         [$preDecimal, $postDecimal] = preg_split('/\.(?=(?:[^"]*"[^"]*")*[^"]*\Z)/miu', $baseFormat . '.?');
 
         $length = strlen($value);
-        if (strpos($postDecimal, '?') !== false) {
+        if (str_contains($postDecimal, '?')) {
             $value = str_pad(rtrim($value, '0. '), $length, ' ', STR_PAD_RIGHT);
         }
-        if (strpos($preDecimal, '?') !== false) {
+        if (str_contains($preDecimal, '?')) {
             $value = str_pad(ltrim($value, '0, '), $length, ' ', STR_PAD_LEFT);
         }
 

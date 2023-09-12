@@ -171,13 +171,13 @@ class CellMatcher
         $column = $matches[6];
         $row = $matches[7];
 
-        if (strpos($column, '$') === false) {
+        if (!str_contains($column, '$')) {
             $column = Coordinate::columnIndexFromString($column);
             $column += $this->cellColumn - $this->referenceColumn;
             $column = Coordinate::stringFromColumnIndex($column);
         }
 
-        if (strpos($row, '$') === false) {
+        if (!str_contains($row, '$')) {
             $row += $this->cellRow - $this->referenceRow;
         }
 

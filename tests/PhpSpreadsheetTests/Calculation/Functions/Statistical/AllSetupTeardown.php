@@ -198,7 +198,7 @@ class AllSetupTeardown extends TestCase
                 $cellId = "A$row";
                 $formula .= "$comma$cellId";
                 $comma = ',';
-                if (is_string($arg) && substr($arg, 0, 1) === '=') {
+                if (is_string($arg) && str_starts_with($arg, '=')) {
                     $sheet->getCell($cellId)->setValueExplicit($arg, DataType::TYPE_STRING);
                 } else {
                     $this->setCell($cellId, $arg);

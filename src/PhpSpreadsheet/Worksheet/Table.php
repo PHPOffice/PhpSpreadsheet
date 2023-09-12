@@ -291,7 +291,7 @@ class Table
             return $this;
         }
 
-        if (strpos($range, ':') === false) {
+        if (!str_contains($range, ':')) {
             throw new PhpSpreadsheetException('Table must be set on a range of cells.');
         }
 

@@ -687,7 +687,7 @@ class Html extends BaseWriter
                 $html .= PHP_EOL;
                 $imageData = self::winFileToUrl($filename, $this->isMPdf);
 
-                if ($this->embedImages || substr($imageData, 0, 6) === 'zip://') {
+                if ($this->embedImages || str_starts_with($imageData, 'zip://')) {
                     $picture = @file_get_contents($filename);
                     if ($picture !== false) {
                         $imageDetails = getimagesize($filename) ?: ['mime' => ''];

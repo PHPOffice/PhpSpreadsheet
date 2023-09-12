@@ -360,7 +360,7 @@ class Ods extends BaseReader
                     $key = $childNode->nodeName;
 
                     // Remove ns from node name
-                    if (strpos($key, ':') !== false) {
+                    if (str_contains($key, ':')) {
                         $keyChunks = explode(':', $key);
                         $key = array_pop($keyChunks);
                     }

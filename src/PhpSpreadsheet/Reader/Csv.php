@@ -462,7 +462,7 @@ class Csv extends BaseReader
             if (is_numeric($numeric)) {
                 $decimalPos = strpos($rowDatum, StringHelper::getDecimalSeparator());
                 if ($this->preserveNumericFormatting === true) {
-                    $numberFormatMask = (strpos($rowDatum, StringHelper::getThousandsSeparator()) !== false)
+                    $numberFormatMask = (str_contains($rowDatum, StringHelper::getThousandsSeparator()))
                         ? '#,##0' : '0';
                     if ($decimalPos !== false) {
                         $decimals = strlen($rowDatum) - $decimalPos - 1;
@@ -600,7 +600,7 @@ class Csv extends BaseReader
     private static function guessEncodingTestBom(string &$encoding, string $first4, string $compare, string $setEncoding): void
     {
         if ($encoding === '') {
-            if ($compare === substr($first4, 0, strlen($compare))) {
+            if (str_starts_with($first4, $compare)) {
                 $encoding = $setEncoding;
             }
         }

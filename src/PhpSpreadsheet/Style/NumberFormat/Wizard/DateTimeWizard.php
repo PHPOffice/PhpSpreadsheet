@@ -15,7 +15,7 @@ abstract class DateTimeWizard implements Wizard
 
     protected function escapeSingleCharacter(string $value): string
     {
-        if (strpos(self::NO_ESCAPING_NEEDED, $value) !== false) {
+        if (str_contains(self::NO_ESCAPING_NEEDED, $value)) {
             return $value;
         }
 

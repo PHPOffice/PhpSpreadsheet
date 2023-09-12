@@ -39,15 +39,15 @@ class FractionFormatter extends BaseFormatter
         $adjustedDecimalPart = (int) round((int) $decimalPart / $fractionDivisor, 0);
         $adjustedDecimalDivisor = $decimalDivisor / $fractionDivisor;
 
-        if ((strpos($formatIntegerPart, '0') !== false)) {
+        if ((str_contains($formatIntegerPart, '0'))) {
             return "{$sign}{$integerPart} {$adjustedDecimalPart}/{$adjustedDecimalDivisor}";
-        } elseif ((strpos($formatIntegerPart, '#') !== false)) {
+        } elseif ((str_contains($formatIntegerPart, '#'))) {
             if ($integerPart == 0) {
                 return "{$sign}{$adjustedDecimalPart}/{$adjustedDecimalDivisor}";
             }
 
             return "{$sign}{$integerPart} {$adjustedDecimalPart}/{$adjustedDecimalDivisor}";
-        } elseif ((substr($formatIntegerPart, 0, 3) == '? ?')) {
+        } elseif ((str_starts_with($formatIntegerPart, '? ?'))) {
             if ($integerPart == 0) {
                 $integerPart = '';
             }

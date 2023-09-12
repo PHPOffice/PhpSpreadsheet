@@ -197,7 +197,7 @@ class Format
             $dateSetting = Functions::getReturnDateType();
             Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
 
-            if (strpos($value, ':') !== false) {
+            if (str_contains($value, ':')) {
                 $timeValue = Functions::scalar(DateTimeExcel\TimeValue::fromString($value));
                 if ($timeValue !== ExcelError::VALUE()) {
                     Functions::setReturnDateType($dateSetting);

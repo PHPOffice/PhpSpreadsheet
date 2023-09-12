@@ -233,7 +233,7 @@ class DefinedNames
             $definedRange = substr($definedRange, 0, $offset) . $newRange . substr($definedRange, $offset + $length);
         }
 
-        if (substr($definedRange, 0, 1) === '=') {
+        if (str_starts_with($definedRange, '=')) {
             $definedRange = substr($definedRange, 1);
         }
 
