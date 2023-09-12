@@ -36,7 +36,7 @@ class Service
 
         try {
             $response = $client->sendRequest($request);
-        } catch (ClientExceptionInterface $e) {
+        } catch (ClientExceptionInterface) {
             return ExcelError::VALUE(); // cURL error
         }
 

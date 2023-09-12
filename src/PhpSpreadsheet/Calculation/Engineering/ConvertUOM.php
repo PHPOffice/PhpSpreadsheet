@@ -540,7 +540,7 @@ class ConvertUOM
         try {
             [$fromUOM, $fromCategory, $fromMultiplier] = self::getUOMDetails($fromUOM);
             [$toUOM, $toCategory, $toMultiplier] = self::getUOMDetails($toUOM);
-        } catch (Exception $e) {
+        } catch (Exception) {
             return ExcelError::NA();
         }
 

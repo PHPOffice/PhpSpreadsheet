@@ -1119,7 +1119,7 @@ class Xlsx extends BaseReader
                                         // no namespace okay - processed with Xpath
                                         $vmlCommentsFile = $this->loadZip($relPath, '', true);
                                         $vmlCommentsFile->registerXPathNamespace('v', Namespaces::URN_VML);
-                                    } catch (Throwable $ex) {
+                                    } catch (Throwable) {
                                         //Ignore unparsable vmlDrawings. Later they will be moved from $unparsedVmlDrawings to $unparsedLoadedData
                                         continue;
                                     }

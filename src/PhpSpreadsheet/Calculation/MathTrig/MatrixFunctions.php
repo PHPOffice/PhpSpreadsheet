@@ -101,7 +101,7 @@ class MatrixFunctions
             $matrix = self::getMatrix($matrixValues);
 
             return $matrix->determinant();
-        } catch (MatrixException $ex) {
+        } catch (MatrixException) {
             return ExcelError::VALUE();
         } catch (Exception $e) {
             return $e->getMessage();
@@ -126,9 +126,9 @@ class MatrixFunctions
             $matrix = self::getMatrix($matrixValues);
 
             return $matrix->inverse()->toArray();
-        } catch (MatrixDiv0Exception $e) {
+        } catch (MatrixDiv0Exception) {
             return ExcelError::NAN();
-        } catch (MatrixException $e) {
+        } catch (MatrixException) {
             return ExcelError::VALUE();
         } catch (Exception $e) {
             return $e->getMessage();
@@ -150,7 +150,7 @@ class MatrixFunctions
             $matrixB = self::getMatrix($matrixData2);
 
             return $matrixA->multiply($matrixB)->toArray();
-        } catch (MatrixException $ex) {
+        } catch (MatrixException) {
             return ExcelError::VALUE();
         } catch (Exception $e) {
             return $e->getMessage();

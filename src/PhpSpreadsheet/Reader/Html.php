@@ -144,7 +144,7 @@ class Html extends BaseReader
         // Check if file exists
         try {
             $this->openFile($filename);
-        } catch (Exception $e) {
+        } catch (Exception) {
             return false;
         }
 
@@ -308,7 +308,7 @@ class Html extends BaseReader
                     //catching the Exception and ignoring the invalid data types
                     try {
                         $sheet->setCellValueExplicit($column . $row, $cellContent, $attributeArray['data-type']);
-                    } catch (\PhpOffice\PhpSpreadsheet\Exception $exception) {
+                    } catch (\PhpOffice\PhpSpreadsheet\Exception) {
                         $sheet->setCellValue($column . $row, $cellContent);
                     }
                 } else {

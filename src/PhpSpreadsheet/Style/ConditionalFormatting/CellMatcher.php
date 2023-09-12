@@ -294,7 +294,7 @@ class CellMatcher
         try {
             $this->engine->flushInstance();
             $result = (bool) $this->engine->calculateFormula($expression);
-        } catch (Exception $e) {
+        } catch (Exception) {
             return false;
         }
 

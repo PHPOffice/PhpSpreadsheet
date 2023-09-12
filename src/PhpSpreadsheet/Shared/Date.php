@@ -109,7 +109,7 @@ class Date
             $timeZone = self::validateTimeZone($timeZone);
             self::$defaultTimeZone = $timeZone;
             $retval = true;
-        } catch (PhpSpreadsheetException $e) {
+        } catch (PhpSpreadsheetException) {
             $retval = false;
         }
 
@@ -390,7 +390,7 @@ class Date
                         )->getNumberFormat(),
                         $dateWithoutTimeOkay
                     );
-            } catch (Exception $e) {
+            } catch (Exception) {
                 // Result is already false, so no need to actually do anything here
             }
             $worksheet->setSelectedCells($selected);

@@ -71,7 +71,7 @@ class DefinedNames
         if ($definedName->getLocalOnly() && $definedName->getScope() !== null) {
             try {
                 $local = $definedName->getScope()->getParentOrThrow()->getIndex($definedName->getScope());
-            } catch (Exception $e) {
+            } catch (Exception) {
                 // See issue 2266 - deleting sheet which contains
                 //     defined names will cause Exception above.
                 return;

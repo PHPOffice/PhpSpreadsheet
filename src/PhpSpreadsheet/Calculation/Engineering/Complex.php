@@ -82,7 +82,7 @@ class Complex
 
         try {
             $complex = new ComplexObject($complexNumber);
-        } catch (ComplexException $e) {
+        } catch (ComplexException) {
             return ExcelError::NAN();
         }
 
@@ -112,7 +112,7 @@ class Complex
 
         try {
             $complex = new ComplexObject($complexNumber);
-        } catch (ComplexException $e) {
+        } catch (ComplexException) {
             return ExcelError::NAN();
         }
 
