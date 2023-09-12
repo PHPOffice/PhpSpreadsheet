@@ -22,7 +22,7 @@ class Helpers
     /**
      * @param mixed $value String value from which to extract characters
      */
-    public static function extractString($value, bool $throwIfError = false): string
+    public static function extractString(mixed $value, bool $throwIfError = false): string
     {
         if (is_bool($value)) {
             return self::convertBooleanValue($value);
@@ -34,10 +34,7 @@ class Helpers
         return (string) $value;
     }
 
-    /**
-     * @param mixed $value
-     */
-    public static function extractInt($value, int $minValue, int $gnumericNull = 0, bool $ooBoolOk = false): int
+    public static function extractInt(mixed $value, int $minValue, int $gnumericNull = 0, bool $ooBoolOk = false): int
     {
         if ($value === null) {
             // usually 0, but sometimes 1 for Gnumeric
@@ -57,10 +54,7 @@ class Helpers
         return (int) $value;
     }
 
-    /**
-     * @param mixed $value
-     */
-    public static function extractFloat($value): float
+    public static function extractFloat(mixed $value): float
     {
         if ($value === null) {
             $value = 0.0;
@@ -75,10 +69,7 @@ class Helpers
         return (float) $value;
     }
 
-    /**
-     * @param mixed $value
-     */
-    public static function validateInt($value): int
+    public static function validateInt(mixed $value): int
     {
         if ($value === null) {
             $value = 0;

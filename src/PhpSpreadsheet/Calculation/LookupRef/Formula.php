@@ -16,7 +16,7 @@ class Formula
      *
      * @return string
      */
-    public static function text($cellReference = '', ?Cell $cell = null)
+    public static function text(mixed $cellReference = '', ?Cell $cell = null)
     {
         if ($cell === null) {
             return ExcelError::REF();

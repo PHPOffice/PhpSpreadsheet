@@ -248,11 +248,9 @@ class DataSeries
     /**
      * Get Plot Label by Index.
      *
-     * @param mixed $index
-     *
      * @return DataSeriesValues|false
      */
-    public function getPlotLabelByIndex($index)
+    public function getPlotLabelByIndex(mixed $index)
     {
         $keys = array_keys($this->plotLabel);
         if (in_array($index, $keys)) {
@@ -275,11 +273,9 @@ class DataSeries
     /**
      * Get Plot Category by Index.
      *
-     * @param mixed $index
-     *
      * @return DataSeriesValues|false
      */
-    public function getPlotCategoryByIndex($index)
+    public function getPlotCategoryByIndex(mixed $index)
     {
         $keys = array_keys($this->plotCategory);
         if (in_array($index, $keys)) {
@@ -328,11 +324,9 @@ class DataSeries
     /**
      * Get Plot Values by Index.
      *
-     * @param mixed $index
-     *
      * @return DataSeriesValues|false
      */
-    public function getPlotValuesByIndex($index)
+    public function getPlotValuesByIndex(mixed $index)
     {
         $keys = array_keys($this->plotValues);
         if (in_array($index, $keys)) {

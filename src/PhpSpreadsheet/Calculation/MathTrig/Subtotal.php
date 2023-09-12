@@ -9,11 +9,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 
 class Subtotal
 {
-    /**
-     * @param mixed $cellReference
-     * @param mixed $args
-     */
-    protected static function filterHiddenArgs($cellReference, $args): array
+    protected static function filterHiddenArgs(mixed $cellReference, mixed $args): array
     {
         return array_filter(
             $args,
@@ -30,11 +26,7 @@ class Subtotal
         );
     }
 
-    /**
-     * @param mixed $cellReference
-     * @param mixed $args
-     */
-    protected static function filterFormulaArgs($cellReference, $args): array
+    protected static function filterFormulaArgs(mixed $cellReference, mixed $args): array
     {
         return array_filter(
             $args,
@@ -90,7 +82,7 @@ class Subtotal
      *
      * @return float|string
      */
-    public static function evaluate($functionType, ...$args)
+    public static function evaluate(mixed $functionType, ...$args)
     {
         $cellReference = array_pop($args);
         $bArgs = Functions::flattenArrayIndexed($args);

@@ -41,11 +41,9 @@ class DefaultValueBinder implements IValueBinder
     /**
      * DataType for value.
      *
-     * @param mixed $value
-     *
      * @return string
      */
-    public static function dataTypeForValue($value)
+    public static function dataTypeForValue(mixed $value)
     {
         // Match the value against a few data types
         if ($value === null) {

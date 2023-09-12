@@ -17,7 +17,7 @@ class Deviations
      *
      * @param mixed ...$args Data values
      */
-    public static function sumSquares(...$args): string|float
+    public static function sumSquares(mixed ...$args): string|float
     {
         $aArgs = Functions::flattenArrayIndexed($args);
 

@@ -3105,10 +3105,8 @@ class Calculation
 
     /**
      * Enable/disable calculation cache.
-     *
-     * @param mixed $enabled
      */
-    public function setBranchPruningEnabled($enabled): void
+    public function setBranchPruningEnabled(mixed $enabled): void
     {
         $this->branchPruningEnabled = $enabled;
         $this->branchPruner = new BranchPruner($this->branchPruningEnabled);
@@ -3439,11 +3437,9 @@ class Calculation
     /**
      * Remove quotes used as a wrapper to identify string values.
      *
-     * @param mixed $value
-     *
      * @return mixed
      */
-    public static function unwrapResult($value)
+    public static function unwrapResult(mixed $value)
     {
         if (is_string($value)) {
             if ((isset($value[0])) && ($value[0] == self::FORMULA_STRING_QUOTE) && (substr($value, -1) == self::FORMULA_STRING_QUOTE)) {
@@ -3637,10 +3633,7 @@ class Calculation
         return $result;
     }
 
-    /**
-     * @param mixed $cellValue
-     */
-    public function getValueFromCache(string $cellReference, &$cellValue): bool
+    public function getValueFromCache(string $cellReference, mixed &$cellValue): bool
     {
         $this->debugLog->writeDebugLog('Testing cache value for cell %s', $cellReference);
         // Is calculation cacheing enabled?
@@ -3659,9 +3652,8 @@ class Calculation
 
     /**
      * @param string $cellReference
-     * @param mixed $cellValue
      */
-    public function saveValueToCache($cellReference, $cellValue): void
+    public function saveValueToCache($cellReference, mixed $cellValue): void
     {
         if ($this->calculationCacheEnabled) {
             $this->calculationCache[$cellReference] = $cellValue;
@@ -3759,7 +3751,7 @@ class Calculation
      *                                            1 = shrink to fit
      *                                            2 = extend to fit
      */
-    private static function checkMatrixOperands(&$operand1, &$operand2, $resize = 1): array
+    private static function checkMatrixOperands(mixed &$operand1, mixed &$operand2, $resize = 1): array
     {
         //    Examine each of the two operands, and turn them into an array if they aren't one already
         //    Note that this function should only be called if one or both of the operand is already an array
@@ -3912,7 +3904,7 @@ class Calculation
      *
      * @return mixed
      */
-    private function showValue($value)
+    private function showValue(mixed $value)
     {
         if ($this->debugLog->getWriteDebugLog()) {
             $testArray = Functions::flattenArray($value);
@@ -3950,7 +3942,7 @@ class Calculation
      *
      * @param mixed $value First matrix operand
      */
-    private function showTypeDetails($value): ?string
+    private function showTypeDetails(mixed $value): ?string
     {
         if ($this->debugLog->getWriteDebugLog()) {
             $testArray = Functions::flattenArray($value);
@@ -4609,12 +4601,11 @@ class Calculation
     }
 
     /**
-     * @param mixed $tokens
      * @param null|string $cellID
      *
      * @return array<int, mixed>|false
      */
-    private function processTokenStack($tokens, $cellID = null, ?Cell $cell = null)
+    private function processTokenStack(mixed $tokens, $cellID = null, ?Cell $cell = null)
     {
         if ($tokens === false) {
             return false;
@@ -5190,11 +5181,7 @@ class Calculation
         return $output;
     }
 
-    /**
-     * @param mixed $operand
-     * @param mixed $stack
-     */
-    private function validateBinaryOperand(&$operand, &$stack): bool
+    private function validateBinaryOperand(mixed &$operand, mixed &$stack): bool
     {
         if (is_array($operand)) {
             if ((count($operand, COUNT_RECURSIVE) - count($operand)) == 1) {
@@ -5232,11 +5219,7 @@ class Calculation
         return true;
     }
 
-    /**
-     * @param mixed $operand1
-     * @param mixed $operand2
-     */
-    private function executeArrayComparison($operand1, $operand2, string $operation, Stack &$stack, bool $recursingArrays): array
+    private function executeArrayComparison(mixed $operand1, mixed $operand2, string $operation, Stack &$stack, bool $recursingArrays): array
     {
         $result = [];
         if (!is_array($operand2)) {
@@ -5275,11 +5258,7 @@ class Calculation
         return $result;
     }
 
-    /**
-     * @param mixed $operand1
-     * @param mixed $operand2
-     */
-    private function executeBinaryComparisonOperation($operand1, $operand2, string $operation, Stack &$stack, bool $recursingArrays = false): array|bool
+    private function executeBinaryComparisonOperation(mixed $operand1, mixed $operand2, string $operation, Stack &$stack, bool $recursingArrays = false): array|bool
     {
         //    If we're dealing with matrix operations, we want a matrix result
         if ((is_array($operand1)) || (is_array($operand2))) {
@@ -5297,14 +5276,12 @@ class Calculation
     }
 
     /**
-     * @param mixed $operand1
-     * @param mixed $operand2
      * @param string $operation
      * @param Stack $stack
      *
      * @return bool|mixed
      */
-    private function executeNumericBinaryOperation($operand1, $operand2, $operation, &$stack)
+    private function executeNumericBinaryOperation(mixed $operand1, mixed $operand2, $operation, &$stack)
     {
         //    Validate the two operands
         if (
@@ -5740,18 +5717,15 @@ class Calculation
         return $this->suppressFormulaErrorsNew;
     }
 
-    /** @param mixed $arg */
-    private static function doNothing($arg): bool
+    private static function doNothing(mixed $arg): bool
     {
         return (bool) $arg;
     }
 
     /**
-     * @param mixed $operand1
-     *
      * @return mixed
      */
-    private static function boolToString($operand1)
+    private static function boolToString(mixed $operand1)
     {
         if (is_bool($operand1)) {
             $operand1 = ($operand1) ? self::$localeBoolean['TRUE'] : self::$localeBoolean['FALSE'];
@@ -5762,14 +5736,12 @@ class Calculation
         return $operand1;
     }
 
-    /** @param mixed $operand */
-    private static function isNumericOrBool($operand): bool
+    private static function isNumericOrBool(mixed $operand): bool
     {
         return is_numeric($operand) || is_bool($operand);
     }
 
-    /** @param mixed $operand */
-    private static function makeError($operand = ''): string
+    private static function makeError(mixed $operand = ''): string
     {
         return Information\ErrorValue::isError($operand) ? $operand : Information\ExcelError::VALUE();
     }

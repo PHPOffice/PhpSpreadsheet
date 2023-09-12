@@ -100,10 +100,8 @@ class Cell implements Stringable
 
     /**
      * Create a new Cell.
-     *
-     * @param mixed $value
      */
-    public function __construct($value, ?string $dataType, Worksheet $worksheet)
+    public function __construct(mixed $value, ?string $dataType, Worksheet $worksheet)
     {
         // Initialise cell value
         $this->value = $value;
@@ -190,11 +188,7 @@ class Cell implements Stringable
         );
     }
 
-    /**
-     * @param mixed $oldValue
-     * @param mixed $newValue
-     */
-    protected static function updateIfCellIsTableHeader(?Worksheet $workSheet, self $cell, $oldValue, $newValue): void
+    protected static function updateIfCellIsTableHeader(?Worksheet $workSheet, self $cell, mixed $oldValue, mixed $newValue): void
     {
         if (StringHelper::strToLower($oldValue ?? '') === StringHelper::strToLower($newValue ?? '') || $workSheet === null) {
             return;
@@ -225,7 +219,7 @@ class Cell implements Stringable
      *
      * @return $this
      */
-    public function setValue($value, ?IValueBinder $binder = null): self
+    public function setValue(mixed $value, ?IValueBinder $binder = null): self
     {
         $binder ??= self::getValueBinder();
         if (!$binder->bindValue($this, $value)) {
@@ -248,7 +242,7 @@ class Cell implements Stringable
      *
      * @return Cell
      */
-    public function setValueExplicit($value, string $dataType = DataType::TYPE_STRING)
+    public function setValueExplicit(mixed $value, string $dataType = DataType::TYPE_STRING)
     {
         $oldValue = $this->value;
 
@@ -329,11 +323,9 @@ class Cell implements Stringable
     /**
      * Convert date, time, or datetime from int to float if desired.
      *
-     * @param mixed $result
-     *
      * @return mixed
      */
-    private function convertDateTimeInt($result)
+    private function convertDateTimeInt(mixed $result)
     {
         if (is_int($result)) {
             if (self::$calculateDateTimeType === self::CALCULATE_TIME_FLOAT) {
@@ -406,7 +398,7 @@ class Cell implements Stringable
      *
      * @param mixed $originalValue Value
      */
-    public function setCalculatedValue($originalValue, bool $tryNumeric = true): self
+    public function setCalculatedValue(mixed $originalValue, bool $tryNumeric = true): self
     {
         if ($originalValue !== null) {
             $this->calculatedValue = ($tryNumeric && is_numeric($originalValue)) ? (0 + $originalValue) : $originalValue;
@@ -755,11 +747,9 @@ class Cell implements Stringable
     /**
      * Set the formula attributes.
      *
-     * @param mixed $attributes
-     *
      * @return $this
      */
-    public function setFormulaAttributes($attributes): self
+    public function setFormulaAttributes(mixed $attributes): self
     {
         $this->formulaAttributes = $attributes;
 

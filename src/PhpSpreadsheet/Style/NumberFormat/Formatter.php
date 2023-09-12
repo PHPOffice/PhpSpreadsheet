@@ -20,17 +20,12 @@ class Formatter
      */
     private const SECTION_SPLIT = '/;(?=(?:[^"]*"[^"]*")*[^"]*\Z)/miu';
 
-    /**
-     * @param mixed $value
-     * @param mixed $comparisonValue
-     * @param mixed $defaultComparisonValue
-     */
     private static function splitFormatComparison(
-        $value,
+        mixed $value,
         ?string $condition,
-        $comparisonValue,
+        mixed $comparisonValue,
         string $defaultCondition,
-        $defaultComparisonValue
+        mixed $defaultComparisonValue
     ): bool {
         if (!$condition) {
             $condition = $defaultCondition;
@@ -47,8 +42,7 @@ class Formatter
         };
     }
 
-    /** @param mixed $value */
-    private static function splitFormatForSectionSelection(array $sections, $value): array
+    private static function splitFormatForSectionSelection(array $sections, mixed $value): array
     {
         // Extract the relevant section depending on whether number is positive, negative, or zero?
         // Text not supported yet.

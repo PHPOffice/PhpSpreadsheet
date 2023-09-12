@@ -29,7 +29,7 @@ class Sort extends LookupRefValidations
      *
      * @return mixed The sorted values from the sort range
      */
-    public static function sort($sortArray, $sortIndex = 1, $sortOrder = self::ORDER_ASCENDING, $byColumn = false)
+    public static function sort(mixed $sortArray, mixed $sortIndex = 1, mixed $sortOrder = self::ORDER_ASCENDING, mixed $byColumn = false)
     {
         if (!is_array($sortArray)) {
             // Scalars are always returned "as is"
@@ -79,7 +79,7 @@ class Sort extends LookupRefValidations
      *
      * @return mixed The sorted values from the sort range
      */
-    public static function sortBy($sortArray, ...$args)
+    public static function sortBy(mixed $sortArray, mixed ...$args)
     {
         if (!is_array($sortArray)) {
             // Scalars are always returned "as is"
@@ -118,11 +118,7 @@ class Sort extends LookupRefValidations
         return array_values($sortArray);
     }
 
-    /**
-     * @param mixed $sortIndex
-     * @param mixed $sortOrder
-     */
-    private static function validateScalarArgumentsForSort(&$sortIndex, &$sortOrder, int $sortArraySize): void
+    private static function validateScalarArgumentsForSort(mixed &$sortIndex, mixed &$sortOrder, int $sortArraySize): void
     {
         if (is_array($sortIndex) || is_array($sortOrder)) {
             throw new Exception(ExcelError::VALUE());
@@ -137,10 +133,7 @@ class Sort extends LookupRefValidations
         $sortOrder = self::validateSortOrder($sortOrder);
     }
 
-    /**
-     * @param mixed $sortVector
-     */
-    private static function validateSortVector($sortVector, int $sortArraySize): array
+    private static function validateSortVector(mixed $sortVector, int $sortArraySize): array
     {
         if (!is_array($sortVector)) {
             throw new Exception(ExcelError::VALUE());
@@ -155,10 +148,7 @@ class Sort extends LookupRefValidations
         return $sortVector;
     }
 
-    /**
-     * @param mixed $sortOrder
-     */
-    private static function validateSortOrder($sortOrder): int
+    private static function validateSortOrder(mixed $sortOrder): int
     {
         $sortOrder = self::validateInt($sortOrder);
         if (($sortOrder == self::ORDER_ASCENDING || $sortOrder === self::ORDER_DESCENDING) === false) {
@@ -170,9 +160,8 @@ class Sort extends LookupRefValidations
 
     /**
      * @param array $sortIndex
-     * @param mixed $sortOrder
      */
-    private static function validateArrayArgumentsForSort(&$sortIndex, &$sortOrder, int $sortArraySize): void
+    private static function validateArrayArgumentsForSort(&$sortIndex, mixed &$sortOrder, int $sortArraySize): void
     {
         // It doesn't matter if they're row or column vectors, it works either way
         $sortIndex = Functions::flattenArray($sortIndex);

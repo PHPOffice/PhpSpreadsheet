@@ -333,10 +333,8 @@ class StringHelper
 
     /**
      * Strictly to satisfy Scrutinizer.
-     *
-     * @param mixed $value
      */
-    private static function returnString($value): string
+    private static function returnString(mixed $value): string
     {
         return is_string($value) ? $value : '';
     }

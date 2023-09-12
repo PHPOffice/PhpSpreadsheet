@@ -32,7 +32,7 @@ abstract class DatabaseAbstract
      *                                        represents the position of the column within the list: 1 for
      *                                        the first column, 2 for the second column, and so on.
      */
-    protected static function fieldExtract(array $database, $field): ?int
+    protected static function fieldExtract(array $database, mixed $field): ?int
     {
         $field = strtoupper(Functions::flattenSingleValue($field) ?? '');
         if ($field === '') {
@@ -124,10 +124,7 @@ abstract class DatabaseAbstract
         return (count($rowQuery) > 1) ? 'OR(' . implode(',', $rowQuery) . ')' : ($rowQuery[0] ?? '');
     }
 
-    /**
-     * @param mixed $criterion
-     */
-    private static function buildCondition($criterion, string $criterionName): string
+    private static function buildCondition(mixed $criterion, string $criterionName): string
     {
         $ifCondition = Functions::ifCondition($criterion);
 

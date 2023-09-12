@@ -29,7 +29,7 @@ class Replace
      *         If an array of values is passed for either of the arguments, then the returned result
      *            will also be an array with matching dimensions
      */
-    public static function replace($oldText, $start, $chars, $newText): array|string
+    public static function replace(mixed $oldText, mixed $start, mixed $chars, mixed $newText): array|string
     {
         if (is_array($oldText) || is_array($start) || is_array($chars) || is_array($newText)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $oldText, $start, $chars, $newText);
@@ -70,7 +70,7 @@ class Replace
      *         If an array of values is passed for either of the arguments, then the returned result
      *            will also be an array with matching dimensions
      */
-    public static function substitute($text = '', $fromText = '', $toText = '', $instance = null): array|string
+    public static function substitute(mixed $text = '', mixed $fromText = '', mixed $toText = '', mixed $instance = null): array|string
     {
         if (is_array($text) || is_array($fromText) || is_array($toText) || is_array($instance)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $text, $fromText, $toText, $instance);

@@ -58,10 +58,8 @@ class Dimension
     /**
      * Phpstan bug has been fixed; this function allows us to
      * pass Phpstan whether fixed or not.
-     *
-     * @param mixed $value
      */
-    private static function stanBugFixed($value): array
+    private static function stanBugFixed(mixed $value): array
     {
         return is_array($value) ? $value : [null, null];
     }
