@@ -601,7 +601,7 @@ class Workbook extends BIFFwriter
                         $scope = 0;
                     }
                     $chunk .= $this->writeData($this->writeDefinedNameBiff8($definedName->getName(), $formulaData, $scope, false));
-                } catch (PhpSpreadsheetException $e) {
+                } catch (PhpSpreadsheetException) {
                     // do nothing
                 }
             }

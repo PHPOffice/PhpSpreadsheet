@@ -70,7 +70,7 @@ class Slk extends BaseReader
     {
         try {
             $this->openFile($filename);
-        } catch (ReaderException $e) {
+        } catch (ReaderException) {
             return false;
         }
 

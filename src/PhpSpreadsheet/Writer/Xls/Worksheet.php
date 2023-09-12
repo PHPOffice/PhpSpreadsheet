@@ -2710,7 +2710,7 @@ class Worksheet extends BIFFwriter
                     $this->parser->parse($formula2);
                     $formula2 = $this->parser->toReversePolish();
                     $sz2 = strlen($formula2);
-                } catch (PhpSpreadsheetException $e) {
+                } catch (PhpSpreadsheetException) {
                     $sz2 = 0;
                     $formula2 = '';
                 }

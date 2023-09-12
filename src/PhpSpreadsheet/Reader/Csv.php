@@ -548,7 +548,7 @@ class Csv extends BaseReader
         // Check if file exists
         try {
             $this->openFile($filename);
-        } catch (ReaderException $e) {
+        } catch (ReaderException) {
             return false;
         }
 

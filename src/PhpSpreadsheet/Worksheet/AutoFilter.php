@@ -1058,7 +1058,7 @@ class AutoFilter implements Stringable
         if ($startRow === $endRow && $this->workSheet !== null) {
             try {
                 $rowIterator = $this->workSheet->getRowIterator($startRow + 1);
-            } catch (Exception $e) {
+            } catch (Exception) {
                 // If there are no rows below $startRow
                 return $startRow;
             }

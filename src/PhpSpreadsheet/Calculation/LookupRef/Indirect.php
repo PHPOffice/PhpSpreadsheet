@@ -84,7 +84,7 @@ class Indirect
 
         try {
             [$cellAddress1, $cellAddress2, $cellAddress] = Helpers::extractCellAddresses($cellAddress, $a1, $cell->getWorkSheet(), $sheetName, $baseRow, $baseCol);
-        } catch (Exception $e) {
+        } catch (Exception) {
             return ExcelError::REF();
         }
 

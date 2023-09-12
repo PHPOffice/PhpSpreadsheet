@@ -510,7 +510,7 @@ class Xlsx extends BaseWriter
         // Close file
         try {
             $this->zip->finish();
-        } catch (OverflowException $e) {
+        } catch (OverflowException) {
             throw new WriterException('Could not close resource.');
         }
 

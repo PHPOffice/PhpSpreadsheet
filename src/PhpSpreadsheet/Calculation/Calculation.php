@@ -3204,7 +3204,7 @@ class Calculation
 
                 try {
                     $configFile = $this->getLocaleFile($localeDir, $locale, $language, 'config');
-                } catch (Exception $e) {
+                } catch (Exception) {
                     return false;
                 }
 
@@ -4814,7 +4814,7 @@ class Calculation
                                     $oCR = Coordinate::coordinateFromString($oDatum);
                                     $oCol[] = Coordinate::columnIndexFromString($oCR[0]) - 1;
                                     $oRow[] = $oCR[1];
-                                } catch (\Exception $e) {
+                                } catch (\Exception) {
                                     $stack->push('Error', Information\ExcelError::REF(), null);
                                     $breakNeeded = true;
 

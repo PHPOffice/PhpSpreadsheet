@@ -678,7 +678,7 @@ class Ods extends BaseReader
             if ($t->getAttributeNs($configNs, 'name') === 'ActiveTable') {
                 try {
                     $spreadsheet->setActiveSheetIndexByName($t->nodeValue ?? '');
-                } catch (Throwable $e) {
+                } catch (Throwable) {
                     // do nothing
                 }
 

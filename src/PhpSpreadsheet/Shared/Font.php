@@ -419,7 +419,7 @@ class Font
                 // Width of text in pixels excl. padding
                 // and addition because Excel adds some padding, just use approx width of 'n' glyph
                 $columnWidth = self::getTextWidthPixelsExact($cellText, $font, $rotation) + (self::$paddingAmountExact ?? $columnWidthAdjust);
-            } catch (PhpSpreadsheetException $e) {
+            } catch (PhpSpreadsheetException) {
                 $approximate = true;
             }
         }

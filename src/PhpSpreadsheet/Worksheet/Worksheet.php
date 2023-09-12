@@ -3687,7 +3687,7 @@ class Worksheet implements IComparable
             $iterator = new RowIterator($this, $rowId, $rowId);
             $iterator->seek($rowId);
             $row = $iterator->current();
-        } catch (Exception $e) {
+        } catch (Exception) {
             return true;
         }
 
@@ -3717,7 +3717,7 @@ class Worksheet implements IComparable
             $iterator = new ColumnIterator($this, $columnId, $columnId);
             $iterator->seek($columnId);
             $column = $iterator->current();
-        } catch (Exception $e) {
+        } catch (Exception) {
             return true;
         }
 

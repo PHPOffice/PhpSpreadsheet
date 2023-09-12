@@ -99,7 +99,7 @@ class Arabic
 
         try {
             $arabic = self::calculateArabic(self::strSplit($roman));
-        } catch (Exception $e) {
+        } catch (Exception) {
             return ExcelError::VALUE(); // Invalid character detected
         }
 

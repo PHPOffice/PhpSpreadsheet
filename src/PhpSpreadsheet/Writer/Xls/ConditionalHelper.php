@@ -48,7 +48,7 @@ class ConditionalHelper
                 $this->parser->parse($formula);
                 $this->tokens = $this->parser->toReversePolish();
                 $this->size = strlen($this->tokens ?? '');
-            } catch (PhpSpreadsheetException $e) {
+            } catch (PhpSpreadsheetException) {
                 // In the event of a parser error with a formula value, we set the expression to ptgInt + 0
                 $this->tokens = pack('Cv', 0x1E, 0);
                 $this->size = 3;
