@@ -14,13 +14,10 @@ class ConditionalFormattingRuleExtension
     /** @var string Conditional Formatting Rule */
     private string $cfRule;
 
-    /** <conditionalFormatting> children */
-
-    /** @var ConditionalDataBarExtension */
-    private $dataBar;
+    private \PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalDataBarExtension $dataBar;
 
     /** @var string Sequence of References */
-    private $sqref;
+    private string $sqref = '';
 
     /**
      * ConditionalFormattingRuleExtension constructor.

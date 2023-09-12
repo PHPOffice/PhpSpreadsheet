@@ -14,10 +14,8 @@ class Table
 {
     /**
      * Table Name.
-     *
-     * @var string
      */
-    private $name;
+    private string $name;
 
     /**
      * Show Header Row.
@@ -35,17 +33,13 @@ class Table
 
     /**
      * Table Range.
-     *
-     * @var string
      */
-    private $range = '';
+    private string $range = '';
 
     /**
      * Table Worksheet.
-     *
-     * @var null|Worksheet
      */
-    private $workSheet;
+    private ?\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $workSheet = null;
 
     /**
      * Table allow filter.
@@ -166,7 +160,7 @@ class Table
 
     private function updateStructuredReferences(string $name): void
     {
-        if ($this->workSheet === null || $this->name === null || $this->name === '') {
+        if (!$this->workSheet || !$this->name) {
             return;
         }
 

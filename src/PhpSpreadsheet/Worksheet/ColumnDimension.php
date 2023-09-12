@@ -9,10 +9,8 @@ class ColumnDimension extends Dimension
 {
     /**
      * Column index.
-     *
-     * @var ?string
      */
-    private $columnIndex;
+    private ?string $columnIndex;
 
     /**
      * Column width.

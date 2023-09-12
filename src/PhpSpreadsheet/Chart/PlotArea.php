@@ -25,10 +25,8 @@ class PlotArea
 
     /**
      * PlotArea Gradient Angle.
-     *
-     * @var ?float
      */
-    private $gradientFillAngle;
+    private ?float $gradientFillAngle = null;
 
     /**
      * PlotArea Layout.
@@ -162,8 +160,7 @@ class PlotArea
         return $this->gradientFillStops;
     }
 
-    /** @var ?int */
-    private $gapWidth;
+    private ?int $gapWidth = null;
 
     /** @var bool */
     private $useUpBars = false;

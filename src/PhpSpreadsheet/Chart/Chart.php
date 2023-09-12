@@ -16,10 +16,8 @@ class Chart
 
     /**
      * Worksheet.
-     *
-     * @var ?Worksheet
      */
-    private $worksheet;
+    private ?\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $worksheet = null;
 
     /**
      * Chart Title.
@@ -93,10 +91,8 @@ class Chart
 
     /**
      * Bottom-Right Cell Position.
-     *
-     * @var string
      */
-    private $bottomRightCellRef = '';
+    private string $bottomRightCellRef = '';
 
     /**
      * Bottom-Right X-Offset.
@@ -112,17 +108,13 @@ class Chart
      */
     private $bottomRightYOffset = 10;
 
-    /** @var ?int */
-    private $rotX;
+    private ?int $rotX = null;
 
-    /** @var ?int */
-    private $rotY;
+    private ?int $rotY = null;
 
-    /** @var ?int */
-    private $rAngAx;
+    private ?int $rAngAx = null;
 
-    /** @var ?int */
-    private $perspective;
+    private ?int $perspective = null;
 
     /** @var bool */
     private $oneCellAnchor = false;

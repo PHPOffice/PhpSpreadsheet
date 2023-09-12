@@ -29,17 +29,13 @@ class Security
 
     /**
      * RevisionsPassword.
-     *
-     * @var string
      */
-    private $revisionsPassword = '';
+    private string $revisionsPassword = '';
 
     /**
      * WorkbookPassword.
-     *
-     * @var string
      */
-    private $workbookPassword = '';
+    private string $workbookPassword = '';
 
     /**
      * Create a new Document Security instance.

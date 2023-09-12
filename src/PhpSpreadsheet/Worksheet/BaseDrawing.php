@@ -20,10 +20,8 @@ class BaseDrawing implements IComparable
 
     /**
      * The editAs attribute, used only with two cell anchor.
-     *
-     * @var string
      */
-    protected $editAs = '';
+    protected string $editAs = '';
 
     /**
      * Image counter.
@@ -39,31 +37,23 @@ class BaseDrawing implements IComparable
 
     /**
      * Name.
-     *
-     * @var string
      */
-    protected $name = '';
+    protected string $name = '';
 
     /**
      * Description.
-     *
-     * @var string
      */
-    protected $description = '';
+    protected string $description = '';
 
     /**
      * Worksheet.
-     *
-     * @var null|Worksheet
      */
-    protected $worksheet;
+    protected ?\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $worksheet = null;
 
     /**
      * Coordinates.
-     *
-     * @var string
      */
-    protected $coordinates = 'A1';
+    protected string $coordinates = 'A1';
 
     /**
      * Offset X.
@@ -81,10 +71,8 @@ class BaseDrawing implements IComparable
 
     /**
      * Coordinates2.
-     *
-     * @var string
      */
-    protected $coordinates2 = '';
+    protected string $coordinates2 = '';
 
     /**
      * Offset X2.
@@ -144,10 +132,8 @@ class BaseDrawing implements IComparable
 
     /**
      * Shadow.
-     *
-     * @var Drawing\Shadow
      */
-    protected $shadow;
+    protected \PhpOffice\PhpSpreadsheet\Worksheet\Drawing\Shadow $shadow;
 
     /**
      * Image hyperlink.

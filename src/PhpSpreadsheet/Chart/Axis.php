@@ -26,17 +26,13 @@ class Axis extends Properties
 
     /**
      * Chart Major Gridlines as.
-     *
-     * @var ?GridLines
      */
-    private $majorGridlines;
+    private ?\PhpOffice\PhpSpreadsheet\Chart\GridLines $majorGridlines = null;
 
     /**
      * Chart Minor Gridlines as.
-     *
-     * @var ?GridLines
      */
-    private $minorGridlines;
+    private ?\PhpOffice\PhpSpreadsheet\Chart\GridLines $minorGridlines = null;
 
     /**
      * Axis Number.
@@ -49,11 +45,9 @@ class Axis extends Properties
         'numeric' => null,
     ];
 
-    /** @var string */
-    private $axisType = '';
+    private string $axisType = '';
 
-    /** @var ?AxisText */
-    private $axisText;
+    private ?\PhpOffice\PhpSpreadsheet\Chart\AxisText $axisText = null;
 
     /**
      * Axis Options.
@@ -265,8 +259,7 @@ class Axis extends Properties
         return $this->getLineColorProperty($propertyName);
     }
 
-    /** @var string */
-    private $crossBetween = ''; // 'between' or 'midCat' might be better
+    private string $crossBetween = ''; // 'between' or 'midCat' might be better
 
     public function setCrossBetween(string $crossBetween): self
     {

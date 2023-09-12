@@ -47,20 +47,11 @@ class BranchPruner
      */
     protected $braceDepthMap = [];
 
-    /**
-     * @var null|string
-     */
-    protected $currentCondition;
+    protected ?string $currentCondition = null;
 
-    /**
-     * @var null|string
-     */
-    protected $currentOnlyIf;
+    protected ?string $currentOnlyIf = null;
 
-    /**
-     * @var null|string
-     */
-    protected $currentOnlyIfNot;
+    protected ?string $currentOnlyIfNot = null;
 
     /**
      * @var null|string

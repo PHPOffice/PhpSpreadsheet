@@ -83,8 +83,7 @@ class DataSeriesValues extends Properties
     /** @var bool */
     private $bubble3D = false;
 
-    /** @var ?Layout */
-    private $labelLayout;
+    private ?\PhpOffice\PhpSpreadsheet\Chart\Layout $labelLayout = null;
 
     /** @var TrendLine[] */
     private $trendLines = [];

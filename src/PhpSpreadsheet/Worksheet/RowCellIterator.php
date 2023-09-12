@@ -13,10 +13,8 @@ class RowCellIterator extends CellIterator
 {
     /**
      * Current iterator position.
-     *
-     * @var int
      */
-    private $currentColumnIndex;
+    private int $currentColumnIndex;
 
     /**
      * Row index.

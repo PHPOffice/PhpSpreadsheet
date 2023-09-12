@@ -50,8 +50,7 @@ class Legend
 
     private \PhpOffice\PhpSpreadsheet\Chart\ChartColor $fillColor;
 
-    /** @var ?AxisText */
-    private $legendText;
+    private ?\PhpOffice\PhpSpreadsheet\Chart\AxisText $legendText = null;
 
     /**
      * Create a new Legend.

@@ -8,15 +8,9 @@ class ColumnRange implements AddressRange
 {
     protected ?\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $worksheet;
 
-    /**
-     * @var int
-     */
-    protected $from;
+    protected int $from;
 
-    /**
-     * @var int
-     */
-    protected $to;
+    protected int $to;
 
     public function __construct(string $from, ?string $to = null, ?Worksheet $worksheet = null)
     {

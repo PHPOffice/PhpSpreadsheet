@@ -9,21 +9,13 @@ class ConditionalDataBar
     /** @var null|bool */
     private $showValue;
 
-    /** <dataBar> children */
+    private ?\PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalFormatValueObject $minimumConditionalFormatValueObject = null;
 
-    /** @var ?ConditionalFormatValueObject */
-    private $minimumConditionalFormatValueObject;
+    private ?\PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalFormatValueObject $maximumConditionalFormatValueObject = null;
 
-    /** @var ?ConditionalFormatValueObject */
-    private $maximumConditionalFormatValueObject;
+    private string $color = '';
 
-    /** @var string */
-    private $color;
-
-    /** <extLst> */
-
-    /** @var ?ConditionalFormattingRuleExtension */
-    private $conditionalFormattingRuleExt;
+    private ?\PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalFormattingRuleExtension $conditionalFormattingRuleExt = null;
 
     /**
      * @return null|bool

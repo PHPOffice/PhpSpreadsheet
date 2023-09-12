@@ -10,8 +10,7 @@ class PageBreak
 {
     private int $breakType;
 
-    /** @var string */
-    private $coordinate;
+    private string $coordinate;
 
     private int $maxColOrRow;
 

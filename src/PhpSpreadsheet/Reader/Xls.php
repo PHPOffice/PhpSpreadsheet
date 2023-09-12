@@ -219,10 +219,8 @@ class Xls extends BaseReader
     /**
      * Codepage set in the Excel file being read. Only important for BIFF5 (Excel 5.0 - Excel 95)
      * For BIFF8 (Excel 97 - Excel 2003) this will always have the value 'UTF-16LE'.
-     *
-     * @var string
      */
-    private $codepage = '';
+    private string $codepage = '';
 
     /**
      * Shared formats.

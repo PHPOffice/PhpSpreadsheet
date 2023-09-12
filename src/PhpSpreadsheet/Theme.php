@@ -4,11 +4,9 @@ namespace PhpOffice\PhpSpreadsheet;
 
 class Theme
 {
-    /** @var string */
-    private $themeColorName = 'Office';
+    private string $themeColorName = 'Office';
 
-    /** @var string */
-    private $themeFontName = 'Office';
+    private string $themeFontName = 'Office';
 
     public const COLOR_SCHEME_2013_PLUS_NAME = 'Office 2013+';
     public const COLOR_SCHEME_2013_PLUS = [
@@ -45,23 +43,17 @@ class Theme
     /** @var string[] */
     private $themeColors = self::COLOR_SCHEME_2007_2010;
 
-    /** @var string */
-    private $majorFontLatin = 'Cambria';
+    private string $majorFontLatin = 'Cambria';
 
-    /** @var string */
-    private $majorFontEastAsian = '';
+    private string $majorFontEastAsian = '';
 
-    /** @var string */
-    private $majorFontComplexScript = '';
+    private string $majorFontComplexScript = '';
 
-    /** @var string */
-    private $minorFontLatin = 'Calibri';
+    private string $minorFontLatin = 'Calibri';
 
-    /** @var string */
-    private $minorFontEastAsian = '';
+    private string $minorFontEastAsian = '';
 
-    /** @var string */
-    private $minorFontComplexScript = '';
+    private string $minorFontComplexScript = '';
 
     /**
      * Map of Major (header) fonts to write.

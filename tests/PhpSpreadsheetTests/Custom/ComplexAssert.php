@@ -9,10 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class ComplexAssert extends TestCase
 {
-    /**
-     * @var string
-     */
-    private $errorMessage = '';
+    private string $errorMessage = '';
 
     /** @var float */
     private $delta = 0.0;

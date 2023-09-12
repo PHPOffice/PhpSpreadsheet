@@ -24,24 +24,18 @@ class Comment implements IComparable
 
     /**
      * Comment width (CSS style, i.e. XXpx or YYpt).
-     *
-     * @var string
      */
-    private $width = '96pt';
+    private string $width = '96pt';
 
     /**
      * Left margin (CSS style, i.e. XXpx or YYpt).
-     *
-     * @var string
      */
-    private $marginLeft = '59.25pt';
+    private string $marginLeft = '59.25pt';
 
     /**
      * Top margin (CSS style, i.e. XXpx or YYpt).
-     *
-     * @var string
      */
-    private $marginTop = '1.5pt';
+    private string $marginTop = '1.5pt';
 
     /**
      * Visible.
@@ -52,10 +46,8 @@ class Comment implements IComparable
 
     /**
      * Comment height (CSS style, i.e. XXpx or YYpt).
-     *
-     * @var string
      */
-    private $height = '55.5pt';
+    private string $height = '55.5pt';
 
     /**
      * Comment fill color.

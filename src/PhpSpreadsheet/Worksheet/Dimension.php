@@ -29,10 +29,8 @@ abstract class Dimension
 
     /**
      * Index to cellXf. Null value means row has no explicit cellXf format.
-     *
-     * @var null|int
      */
-    private $xfIndex;
+    private ?int $xfIndex;
 
     /**
      * Create a new Dimension.

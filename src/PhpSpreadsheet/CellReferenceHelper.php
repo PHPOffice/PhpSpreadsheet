@@ -7,10 +7,7 @@ use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 
 class CellReferenceHelper
 {
-    /**
-     * @var string
-     */
-    protected $beforeCellAddress;
+    protected string $beforeCellAddress;
 
     protected int $beforeColumn;
 

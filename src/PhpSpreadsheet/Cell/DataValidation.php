@@ -480,8 +480,7 @@ class DataValidation
         }
     }
 
-    /** @var ?string */
-    private $sqref;
+    private ?string $sqref = null;
 
     public function getSqref(): ?string
     {

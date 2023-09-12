@@ -103,10 +103,8 @@ class TableStyle
 
     /**
      * Table.
-     *
-     * @var null|Table
      */
-    private $table;
+    private ?\PhpOffice\PhpSpreadsheet\Worksheet\Table $table = null;
 
     /**
      * Create a new Table Style.

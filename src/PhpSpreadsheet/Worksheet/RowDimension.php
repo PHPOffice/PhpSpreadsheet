@@ -8,10 +8,8 @@ class RowDimension extends Dimension
 {
     /**
      * Row index.
-     *
-     * @var ?int
      */
-    private $rowIndex;
+    private ?int $rowIndex;
 
     /**
      * Row height (in pt).

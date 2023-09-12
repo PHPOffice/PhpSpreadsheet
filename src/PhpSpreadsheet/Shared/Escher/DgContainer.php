@@ -8,20 +8,15 @@ class DgContainer
 {
     /**
      * Drawing index, 1-based.
-     *
-     * @var ?int
      */
-    private $dgId;
+    private ?int $dgId = null;
 
     /**
      * Last shape index in this drawing.
-     *
-     * @var ?int
      */
-    private $lastSpId;
+    private ?int $lastSpId = null;
 
-    /** @var ?DgContainer\SpgrContainer */
-    private $spgrContainer;
+    private ?\PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer $spgrContainer = null;
 
     public function getDgId(): ?int
     {

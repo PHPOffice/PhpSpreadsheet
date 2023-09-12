@@ -19,10 +19,7 @@ abstract class WizardAbstract
      */
     protected $expression;
 
-    /**
-     * @var string
-     */
-    protected $cellRange;
+    protected string $cellRange;
 
     /**
      * @var string
