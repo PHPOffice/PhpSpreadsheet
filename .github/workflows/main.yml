@@ -66,6 +66,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
 
       - name: Setup PHP, with composer and extensions
         uses: shivammathur/setup-php@v2
@@ -73,8 +75,8 @@ jobs:
           php-version: 8.1
           extensions: ctype, dom, gd, iconv, fileinfo, libxml, mbstring, simplexml, xml, xmlreader, xmlwriter, zip, zlib
           coverage: none
-          tools: cs2pr
 
+      # This is non-ideal because it only checks for the last commit of the PR, not all of them, but better than nothing
       - name: Check PHPDoc types
         run: ./bin/check-phpdoc-types
 
