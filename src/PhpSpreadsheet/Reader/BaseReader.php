@@ -204,12 +204,8 @@ abstract class BaseReader implements IReader
 
     /**
      * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
-     *
-     * @param string $filename
-     *
-     * @return array
      */
-    public function listWorksheetInfo($filename)
+    public function listWorksheetInfo(string $filename): array
     {
         throw new PhpSpreadsheetException('Reader classes must implement their own listWorksheetInfo() method');
     }
@@ -219,12 +215,8 @@ abstract class BaseReader implements IReader
      * possibly without parsing the whole file to a Spreadsheet object.
      * Readers will often have a more efficient method with which
      * they can override this method.
-     *
-     * @param string $filename
-     *
-     * @return array
      */
-    public function listWorksheetNames($filename)
+    public function listWorksheetNames(string $filename): array
     {
         $returnArray = [];
         $info = $this->listWorksheetInfo($filename);

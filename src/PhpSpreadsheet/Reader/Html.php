@@ -1167,12 +1167,8 @@ class Html extends BaseReader
 
     /**
      * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
-     *
-     * @param string $filename
-     *
-     * @return array
      */
-    public function listWorksheetInfo($filename)
+    public function listWorksheetInfo(string $filename): array
     {
         $info = [];
         $spreadsheet = new Spreadsheet();
