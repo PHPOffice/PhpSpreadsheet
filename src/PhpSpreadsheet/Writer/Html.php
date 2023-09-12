@@ -2,7 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer;
 
-use HTMLPurifier;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
@@ -28,6 +27,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use voku\helper\AntiXSS;
 
 class Html extends BaseWriter
 {
@@ -1770,12 +1770,8 @@ class Html extends BaseWriter
     {
         $result = '';
         if (!$this->isPdf && isset($worksheet->getComments()[$coordinate])) {
-            $sanitizer = new HTMLPurifier();
-            $cachePath = File::sysGetTempDir() . '/phpsppur';
-            if (is_dir($cachePath) || mkdir($cachePath)) {
-                $sanitizer->config->set('Cache.SerializerPath', $cachePath);
-            }
-            $sanitizedString = $sanitizer->purify($worksheet->getComment($coordinate)->getText()->getPlainText());
+            $sanitizer = new AntiXSS();
+            $sanitizedString = $sanitizer->xss_clean($worksheet->getComment($coordinate)->getText()->getPlainText());
             if ($sanitizedString !== '') {
                 $result .= '<a class="comment-indicator"></a>';
                 $result .= '<div class="comment">' . nl2br($sanitizedString) . '</div>';
