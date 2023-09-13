@@ -109,7 +109,7 @@ class Date
             $timeZone = self::validateTimeZone($timeZone);
             self::$defaultTimeZone = $timeZone;
             $retval = true;
-        } catch (PhpSpreadsheetException $e) {
+        } catch (PhpSpreadsheetException) {
             $retval = false;
         }
 
@@ -166,7 +166,7 @@ class Date
      *
      * @return float|int
      */
-    public static function convertIsoDate($value)
+    public static function convertIsoDate(mixed $value)
     {
         if (!is_string($value)) {
             throw new Exception('Non-string value supplied for Iso Date conversion');
@@ -269,7 +269,7 @@ class Date
      * @return false|float Excel date/time value
      *                                  or boolean FALSE on failure
      */
-    public static function PHPToExcel($dateValue)
+    public static function PHPToExcel(mixed $dateValue)
     {
         if ((is_object($dateValue)) && ($dateValue instanceof DateTimeInterface)) {
             return self::dateTimeToExcel($dateValue);
@@ -370,10 +370,8 @@ class Date
 
     /**
      * Is a given cell a date/time?
-     *
-     * @param mixed $value
      */
-    public static function isDateTime(Cell $cell, $value = null, bool $dateWithoutTimeOkay = true): bool
+    public static function isDateTime(Cell $cell, mixed $value = null, bool $dateWithoutTimeOkay = true): bool
     {
         $result = false;
         $worksheet = $cell->getWorksheetOrNull();
@@ -390,7 +388,7 @@ class Date
                         )->getNumberFormat(),
                         $dateWithoutTimeOkay
                     );
-            } catch (Exception $e) {
+            } catch (Exception) {
                 // Result is already false, so no need to actually do anything here
             }
             $worksheet->setSelectedCells($selected);
@@ -433,12 +431,12 @@ class Date
         }
 
         //    Typically number, currency or accounting (or occasionally fraction) formats
-        if ((substr($excelFormatCode, 0, 1) == '_') || (substr($excelFormatCode, 0, 2) == '0 ')) {
+        if ((str_starts_with($excelFormatCode, '_')) || (str_starts_with($excelFormatCode, '0 '))) {
             return false;
         }
         // Some "special formats" provided in German Excel versions were detected as date time value,
         // so filter them out here - "\C\H\-00000" (Switzerland) and "\D-00000" (Germany).
-        if (\strpos($excelFormatCode, '-00000') !== false) {
+        if (str_contains($excelFormatCode, '-00000')) {
             return false;
         }
         $possibleFormatCharacters = $dateWithoutTimeOkay ? self::POSSIBLE_DATETIME_FORMAT_CHARACTERS : self::POSSIBLE_TIME_FORMAT_CHARACTERS;
@@ -446,7 +444,7 @@ class Date
         if (preg_match('/(^|\])[^\[]*[' . $possibleFormatCharacters . ']/i', $excelFormatCode)) {
             //    We might also have a format mask containing quoted strings...
             //        we don't want to test for any of our characters within the quoted blocks
-            if (strpos($excelFormatCode, '"') !== false) {
+            if (str_contains($excelFormatCode, '"')) {
                 $segMatcher = false;
                 foreach (explode('"', $excelFormatCode) as $subVal) {
                     //    Only test in alternate array entries (the non-quoted blocks)
@@ -491,7 +489,7 @@ class Date
             return false;
         }
 
-        if (strpos($dateValue, ':') !== false) {
+        if (str_contains($dateValue, ':')) {
             $timeValue = DateTimeExcel\TimeValue::fromString($dateValue);
             if (!is_float($timeValue)) {
                 return false;

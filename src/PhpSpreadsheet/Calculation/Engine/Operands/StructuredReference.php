@@ -7,8 +7,9 @@ use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Worksheet\Table;
+use Stringable;
 
-final class StructuredReference implements Operand
+final class StructuredReference implements Operand, Stringable
 {
     public const NAME = 'Structured Reference';
 
@@ -68,7 +69,7 @@ final class StructuredReference implements Operand
             }
             $srStringRemainder = substr($srStringRemainder, 0, $closingPos + 1);
             --$srCount;
-            if (strpos($srStringRemainder, self::OPEN_BRACE) !== false) {
+            if (str_contains($srStringRemainder, self::OPEN_BRACE)) {
                 ++$srCount;
             }
             $val .= $srStringRemainder;
@@ -96,8 +97,8 @@ final class StructuredReference implements Operand
 
     private function isRowReference(): bool
     {
-        return strpos($this->value, '[@') !== false
-            || strpos($this->value, '[' . self::ITEM_SPECIFIER_THIS_ROW . ']') !== false;
+        return str_contains($this->value, '[@')
+            || str_contains($this->value, '[' . self::ITEM_SPECIFIER_THIS_ROW . ']');
     }
 
     /**
@@ -273,32 +274,22 @@ final class StructuredReference implements Operand
 
     private function getMinimumRow(string $reference): int
     {
-        switch ($reference) {
-            case self::ITEM_SPECIFIER_ALL:
-            case self::ITEM_SPECIFIER_HEADERS:
-                return $this->headersRow ?? $this->firstDataRow;
-            case self::ITEM_SPECIFIER_DATA:
-                return $this->firstDataRow;
-            case self::ITEM_SPECIFIER_TOTALS:
-                return $this->totalsRow ?? $this->lastDataRow;
-        }
-
-        return $this->headersRow ?? $this->firstDataRow;
+        return match ($reference) {
+            self::ITEM_SPECIFIER_ALL, self::ITEM_SPECIFIER_HEADERS => $this->headersRow ?? $this->firstDataRow,
+            self::ITEM_SPECIFIER_DATA => $this->firstDataRow,
+            self::ITEM_SPECIFIER_TOTALS => $this->totalsRow ?? $this->lastDataRow,
+            default => $this->headersRow ?? $this->firstDataRow,
+        };
     }
 
     private function getMaximumRow(string $reference): int
     {
-        switch ($reference) {
-            case self::ITEM_SPECIFIER_HEADERS:
-                return $this->headersRow ?? $this->firstDataRow;
-            case self::ITEM_SPECIFIER_DATA:
-                return $this->lastDataRow;
-            case self::ITEM_SPECIFIER_ALL:
-            case self::ITEM_SPECIFIER_TOTALS:
-                return $this->totalsRow ?? $this->lastDataRow;
-        }
-
-        return $this->totalsRow ?? $this->lastDataRow;
+        return match ($reference) {
+            self::ITEM_SPECIFIER_HEADERS => $this->headersRow ?? $this->firstDataRow,
+            self::ITEM_SPECIFIER_DATA => $this->lastDataRow,
+            self::ITEM_SPECIFIER_ALL, self::ITEM_SPECIFIER_TOTALS => $this->totalsRow ?? $this->lastDataRow,
+            default => $this->totalsRow ?? $this->lastDataRow,
+        };
     }
 
     public function value(): string

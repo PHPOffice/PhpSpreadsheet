@@ -862,7 +862,7 @@ class ReferenceHelper
     private function updateCellReference($cellReference = 'A1', bool $includeAbsoluteReferences = false, bool $onlyAbsoluteReferences = false, ?bool $topLeft = null)
     {
         // Is it in another worksheet? Will not have to update anything.
-        if (strpos($cellReference, '!') !== false) {
+        if (str_contains($cellReference, '!')) {
             return $cellReference;
         }
         // Is it a range or a single cell?
@@ -893,7 +893,7 @@ class ReferenceHelper
                 $cell = $sheet->getCell($coordinate);
                 if ($cell->getDataType() === DataType::TYPE_FORMULA) {
                     $formula = $cell->getValue();
-                    if (strpos($formula, $oldName) !== false) {
+                    if (str_contains($formula, $oldName)) {
                         $formula = str_replace("'" . $oldName . "'!", "'" . $newName . "'!", $formula);
                         $formula = str_replace($oldName . '!', $newName . '!', $formula);
                         $cell->setValueExplicit($formula, DataType::TYPE_FORMULA);

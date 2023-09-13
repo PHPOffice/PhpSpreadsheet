@@ -116,7 +116,7 @@ class Ods extends BaseWriter
         // Close file
         try {
             $zip->finish();
-        } catch (OverflowException $e) {
+        } catch (OverflowException) {
             throw new WriterException('Could not close resource.');
         }
 

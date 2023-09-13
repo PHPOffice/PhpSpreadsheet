@@ -296,7 +296,7 @@ class Rels extends WriterPart
         }
 
         foreach ($unparsedLoadedData['sheets'][$worksheet->getCodeName()][$relationship] as $rId => $value) {
-            if (substr($rId, 0, 17) !== '_headerfooter_vml') {
+            if (!str_starts_with($rId, '_headerfooter_vml')) {
                 $this->writeRelationship(
                     $objWriter,
                     $rId,

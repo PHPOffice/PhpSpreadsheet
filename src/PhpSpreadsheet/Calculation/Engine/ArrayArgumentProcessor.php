@@ -11,13 +11,10 @@ class ArrayArgumentProcessor
      */
     private static $arrayArgumentHelper;
 
-    /**
-     * @param mixed ...$arguments
-     */
     public static function processArguments(
         ArrayArgumentHelper $arrayArgumentHelper,
         callable $method,
-        ...$arguments
+        mixed ...$arguments
     ): array {
         self::$arrayArgumentHelper = $arrayArgumentHelper;
 
@@ -60,10 +57,7 @@ class ArrayArgumentProcessor
         return ['#VALUE!'];
     }
 
-    /**
-     * @param mixed ...$arguments
-     */
-    private static function evaluateVectorMatrixPair(callable $method, array $matrixIndexes, ...$arguments): array
+    private static function evaluateVectorMatrixPair(callable $method, array $matrixIndexes, mixed ...$arguments): array
     {
         $matrix2 = array_pop($matrixIndexes);
         /** @var array $matrixValues2 */
@@ -101,10 +95,7 @@ class ArrayArgumentProcessor
         return $result;
     }
 
-    /**
-     * @param mixed ...$arguments
-     */
-    private static function evaluateMatrixPair(callable $method, array $matrixIndexes, ...$arguments): array
+    private static function evaluateMatrixPair(callable $method, array $matrixIndexes, mixed ...$arguments): array
     {
         $matrix2 = array_pop($matrixIndexes);
         /** @var array $matrixValues2 */
@@ -131,10 +122,7 @@ class ArrayArgumentProcessor
         return $result;
     }
 
-    /**
-     * @param mixed ...$arguments
-     */
-    private static function evaluateVectorPair(callable $method, int $rowIndex, int $columnIndex, ...$arguments): array
+    private static function evaluateVectorPair(callable $method, int $rowIndex, int $columnIndex, mixed ...$arguments): array
     {
         $rowVector = Functions::flattenArray($arguments[$rowIndex]);
         $columnVector = Functions::flattenArray($arguments[$columnIndex]);
@@ -156,10 +144,8 @@ class ArrayArgumentProcessor
 
     /**
      * Note, offset is from 1 (for the first argument) rather than from 0.
-     *
-     * @param mixed ...$arguments
      */
-    private static function evaluateNthArgumentAsArray(callable $method, int $nthArgument, ...$arguments): array
+    private static function evaluateNthArgumentAsArray(callable $method, int $nthArgument, mixed ...$arguments): array
     {
         $values = array_slice($arguments, $nthArgument - 1, 1);
         /** @var array $values */

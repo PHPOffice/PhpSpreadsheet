@@ -70,7 +70,7 @@ class Slk extends BaseReader
     {
         try {
             $this->openFile($filename);
-        } catch (ReaderException $e) {
+        } catch (ReaderException) {
             return false;
         }
 
@@ -83,7 +83,7 @@ class Slk extends BaseReader
 
         // Analyze first line looking for ID; signature
         $lines = explode("\n", $data);
-        $hasId = substr($lines[0], 0, 4) === 'ID;P';
+        $hasId = str_starts_with($lines[0], 'ID;P');
 
         fclose($this->fileHandle);
 

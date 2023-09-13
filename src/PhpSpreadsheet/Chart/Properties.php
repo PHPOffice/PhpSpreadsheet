@@ -427,12 +427,9 @@ abstract class Properties
     /**
      * Get value of array element.
      *
-     * @param mixed $properties
-     * @param mixed $elements
-     *
      * @return mixed
      */
-    protected function getArrayElementsValue($properties, $elements)
+    protected function getArrayElementsValue(mixed $properties, mixed $elements)
     {
         $reference = &$properties;
         if (!is_array($elements)) {
@@ -557,10 +554,7 @@ abstract class Properties
         return $this->softEdges['size'];
     }
 
-    /**
-     * @param mixed $value
-     */
-    public function setShadowProperty(string $propertyName, $value): self
+    public function setShadowProperty(string $propertyName, mixed $value): self
     {
         $this->activateObject();
         if ($propertyName === 'color' && is_array($value)) {
@@ -774,7 +768,6 @@ abstract class Properties
      * Set Line Color Properties.
      *
      * @param ?int $alpha
-     * @param ?string $colorType
      */
     public function setLineColorProperties(?string $value, $alpha = null, ?string $colorType = null): void
     {
@@ -890,10 +883,7 @@ abstract class Properties
         return $this;
     }
 
-    /**
-     * @param mixed $value
-     */
-    public function setLineStyleProperty(string $propertyName, $value): self
+    public function setLineStyleProperty(string $propertyName, mixed $value): self
     {
         $this->activateObject();
         $this->lineStyleProperties[$propertyName] = $value;

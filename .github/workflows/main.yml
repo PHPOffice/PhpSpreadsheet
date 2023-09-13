@@ -61,6 +61,25 @@ jobs:
           FAILURE_ACTION: "${{ matrix.experimental == true }}"
         run: vendor/bin/phpunit --verbose || $FAILURE_ACTION
 
+  phpdoc-types:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+
+      - name: Setup PHP, with composer and extensions
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.1
+          extensions: ctype, dom, gd, iconv, fileinfo, libxml, mbstring, simplexml, xml, xmlreader, xmlwriter, zip, zlib
+          coverage: none
+
+      # This is non-ideal because it only checks for the last commit of the PR, not all of them, but better than nothing
+      - name: Check PHPDoc types
+        run: ./bin/check-phpdoc-types
+
   php-cs-fixer:
     runs-on: ubuntu-latest
     steps:

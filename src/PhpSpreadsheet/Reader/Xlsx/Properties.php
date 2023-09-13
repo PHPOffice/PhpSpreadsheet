@@ -19,10 +19,7 @@ class Properties
         $this->docProps = $docProps;
     }
 
-    /**
-     * @param mixed $obj
-     */
-    private static function nullOrSimple($obj): ?SimpleXMLElement
+    private static function nullOrSimple(mixed $obj): ?SimpleXMLElement
     {
         return ($obj instanceof SimpleXMLElement) ? $obj : null;
     }
@@ -101,9 +98,8 @@ class Properties
 
     /**
      * @param null|array|false $array
-     * @param mixed $key
      */
-    private static function getArrayItem($array, $key = 0): ?SimpleXMLElement
+    private static function getArrayItem($array, mixed $key = 0): ?SimpleXMLElement
     {
         return is_array($array) ? ($array[$key] ?? null) : null;
     }

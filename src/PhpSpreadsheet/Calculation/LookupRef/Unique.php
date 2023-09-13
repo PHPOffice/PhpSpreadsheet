@@ -18,7 +18,7 @@ class Unique
      *
      * @return mixed The unique values from the search range
      */
-    public static function unique($lookupVector, $byColumn = false, $exactlyOnce = false)
+    public static function unique(mixed $lookupVector, mixed $byColumn = false, mixed $exactlyOnce = false)
     {
         if (!is_array($lookupVector)) {
             // Scalars are always returned "as is"

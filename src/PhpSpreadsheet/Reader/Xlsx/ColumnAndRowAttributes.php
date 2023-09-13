@@ -88,7 +88,7 @@ class ColumnAndRowAttributes extends BaseParserClass
             $rowsAttributes = $this->readRowAttributes($this->worksheetXml->sheetData->row, $readDataOnly);
         }
 
-        if ($readFilter !== null && get_class($readFilter) === DefaultReadFilter::class) {
+        if ($readFilter !== null && $readFilter::class === DefaultReadFilter::class) {
             $readFilter = null;
         }
 

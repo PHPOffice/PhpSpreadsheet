@@ -106,7 +106,7 @@ class DataValidator
                     }
 
                     return $result !== ExcelError::NA();
-                } catch (Exception $ex) {
+                } catch (Exception) {
                     return false;
                 }
             }

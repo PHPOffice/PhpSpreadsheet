@@ -29,7 +29,7 @@ class Periodic
      *                                    calculate the internal rate of return.
      * @param mixed $guess A number that you guess is close to the result of IRR
      */
-    public static function rate($values, $guess = 0.1): string|float
+    public static function rate(mixed $values, mixed $guess = 0.1): string|float
     {
         if (!is_array($values)) {
             return ExcelError::VALUE();
@@ -97,7 +97,7 @@ class Periodic
      *
      * @return float|string Result, or a string containing an error
      */
-    public static function modifiedRate($values, $financeRate, $reinvestmentRate): string|float
+    public static function modifiedRate(mixed $values, mixed $financeRate, mixed $reinvestmentRate): string|float
     {
         if (!is_array($values)) {
             return ExcelError::DIV0();
@@ -141,12 +141,11 @@ class Periodic
      *
      * Returns the Net Present Value of a cash flow series given a discount rate.
      *
-     * @param mixed $rate
      * @param array $args
      *
      * @return float
      */
-    public static function presentValue($rate, ...$args): int|float
+    public static function presentValue(mixed $rate, ...$args): int|float
     {
         $returnValue = 0;
 

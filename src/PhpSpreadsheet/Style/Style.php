@@ -194,7 +194,7 @@ class Style extends Supervisor
 
             // Uppercase coordinate and strip any Worksheet reference from the selected range
             $pRange = strtoupper($pRange);
-            if (strpos($pRange, '!') !== false) {
+            if (str_contains($pRange, '!')) {
                 $pRangeWorksheet = StringHelper::strToUpper(trim(substr($pRange, 0, (int) strrpos($pRange, '!')), "'"));
                 if ($pRangeWorksheet !== '' && StringHelper::strToUpper($this->getActiveSheet()->getTitle()) !== $pRangeWorksheet) {
                     throw new Exception('Invalid Worksheet for specified Range');
@@ -203,7 +203,7 @@ class Style extends Supervisor
             }
 
             // Is it a cell range or a single cell?
-            if (strpos($pRange, ':') === false) {
+            if (!str_contains($pRange, ':')) {
                 $rangeA = $pRange;
                 $rangeB = $pRange;
             } else {

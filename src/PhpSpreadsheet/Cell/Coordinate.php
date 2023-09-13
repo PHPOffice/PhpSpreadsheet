@@ -70,7 +70,7 @@ abstract class Coordinate
      */
     public static function coordinateIsRange($cellAddress): bool
     {
-        return (strpos($cellAddress, ':') !== false) || (strpos($cellAddress, ',') !== false);
+        return str_contains($cellAddress, ':') || str_contains($cellAddress, ',');
     }
 
     /**
@@ -199,7 +199,7 @@ abstract class Coordinate
         $range = strtoupper($range);
 
         // Extract range
-        if (strpos($range, ':') === false) {
+        if (!str_contains($range, ':')) {
             $rangeA = $rangeB = $range;
         } else {
             [$rangeA, $rangeB] = explode(':', $range);
@@ -358,7 +358,7 @@ abstract class Coordinate
         $quoted = '';
         if ($worksheet) {
             $quoted = Worksheet::nameRequiresQuotes($worksheet) ? "'" : '';
-            if (substr($worksheet, 0, 1) === "'" && substr($worksheet, -1, 1) === "'") {
+            if (str_starts_with($worksheet, "'") && str_ends_with($worksheet, "'")) {
                 $worksheet = substr($worksheet, 1, -1);
             }
             $worksheet = str_replace("'", "''", $worksheet);

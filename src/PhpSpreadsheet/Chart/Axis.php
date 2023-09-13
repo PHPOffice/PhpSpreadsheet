@@ -88,10 +88,8 @@ class Axis extends Properties
 
     /**
      * Get Series Data Type.
-     *
-     * @param mixed $format_code
      */
-    public function setAxisNumberProperties($format_code, ?bool $numeric = null, int $sourceLinked = 0): void
+    public function setAxisNumberProperties(mixed $format_code, ?bool $numeric = null, int $sourceLinked = 0): void
     {
         $format = (string) $format_code;
         $this->axisNumber['format'] = $format;
@@ -219,9 +217,7 @@ class Axis extends Properties
     /**
      * Set Fill Property.
      *
-     * @param ?string $color
      * @param ?int $alpha
-     * @param ?string $AlphaType
      */
     public function setFillParameters(?string $color, $alpha = null, ?string $AlphaType = ChartColor::EXCEL_COLOR_TYPE_RGB): void
     {

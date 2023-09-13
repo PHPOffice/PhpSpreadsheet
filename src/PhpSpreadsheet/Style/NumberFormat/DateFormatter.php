@@ -98,11 +98,10 @@ class DateFormatter
         '[ss]' => self::SECONDS_IN_DAY,
     ];
 
-    /** @param mixed $value */
-    private static function tryInterval(bool &$seekingBracket, string &$block, $value, string $format): void
+    private static function tryInterval(bool &$seekingBracket, string &$block, mixed $value, string $format): void
     {
         if ($seekingBracket) {
-            if (false !== strpos($block, $format)) {
+            if (str_contains($block, $format)) {
                 $hours = (string) (int) round(
                     self::INTERVAL_MULTIPLIER[$format] * $value,
                     self::INTERVAL_ROUND_PRECISION[$format]
@@ -116,8 +115,7 @@ class DateFormatter
         }
     }
 
-    /** @param mixed $value */
-    public static function format($value, string $format): string
+    public static function format(mixed $value, string $format): string
     {
         // strip off first part containing e.g. [$-F800] or [$USD-409]
         // general syntax: [$<Currency string>-<language info>]
@@ -167,7 +165,7 @@ class DateFormatter
         // Change it now.
         $format = (string) \preg_replace('/\\\\:m/', ':i', $format);
         $microseconds = (int) $dateObj->format('u');
-        if (strpos($format, ':s.000') !== false) {
+        if (str_contains($format, ':s.000')) {
             $milliseconds = (int) round($microseconds / 1000.0);
             if ($milliseconds === 1000) {
                 $milliseconds = 0;
@@ -175,7 +173,7 @@ class DateFormatter
             }
             $dateObj->modify("-$microseconds microseconds");
             $format = str_replace(':s.000', ':s.' . sprintf('%03d', $milliseconds), $format);
-        } elseif (strpos($format, ':s.00') !== false) {
+        } elseif (str_contains($format, ':s.00')) {
             $centiseconds = (int) round($microseconds / 10000.0);
             if ($centiseconds === 100) {
                 $centiseconds = 0;
@@ -183,7 +181,7 @@ class DateFormatter
             }
             $dateObj->modify("-$microseconds microseconds");
             $format = str_replace(':s.00', ':s.' . sprintf('%02d', $centiseconds), $format);
-        } elseif (strpos($format, ':s.0') !== false) {
+        } elseif (str_contains($format, ':s.0')) {
             $deciseconds = (int) round($microseconds / 100000.0);
             if ($deciseconds === 10) {
                 $deciseconds = 0;

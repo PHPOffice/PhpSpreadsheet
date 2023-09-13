@@ -25,11 +25,9 @@ class Helpers
     /**
      * getDateValue.
      *
-     * @param mixed $dateValue
-     *
      * @return float Excel date/time serial value
      */
-    public static function getDateValue($dateValue, bool $allowBool = true): float
+    public static function getDateValue(mixed $dateValue, bool $allowBool = true): float
     {
         if (is_object($dateValue)) {
             $retval = SharedDateHelper::PHPToExcel($dateValue);
@@ -76,10 +74,8 @@ class Helpers
 
     /**
      * Adjust date by given months.
-     *
-     * @param mixed $dateValue
      */
-    public static function adjustDateByMonths($dateValue = 0, float $adjustmentMonths = 0): DateTime
+    public static function adjustDateByMonths(mixed $dateValue = 0, float $adjustmentMonths = 0): DateTime
     {
         // Execute function
         $PHPDateObject = SharedDateHelper::excelToDateTimeObject($dateValue);
@@ -108,11 +104,8 @@ class Helpers
 
     /**
      * Help reduce perceived complexity of some tests.
-     *
-     * @param mixed $value
-     * @param mixed $altValue
      */
-    public static function replaceIfEmpty(&$value, $altValue): void
+    public static function replaceIfEmpty(mixed &$value, mixed $altValue): void
     {
         $value = $value ?: $altValue;
     }
@@ -216,10 +209,8 @@ class Helpers
 
     /**
      * Many functions accept null/false/true argument treated as 0/0/1.
-     *
-     * @param mixed $number
      */
-    public static function nullFalseTrueToNumber(&$number, bool $allowBool = true): void
+    public static function nullFalseTrueToNumber(mixed &$number, bool $allowBool = true): void
     {
         $number = Functions::flattenSingleValue($number);
         $nullVal = self::baseDate();
@@ -232,10 +223,8 @@ class Helpers
 
     /**
      * Many functions accept null argument treated as 0.
-     *
-     * @param mixed $number
      */
-    public static function validateNumericNull($number): int|float
+    public static function validateNumericNull(mixed $number): int|float
     {
         $number = Functions::flattenSingleValue($number);
         if ($number === null) {
@@ -254,11 +243,9 @@ class Helpers
     /**
      * Many functions accept null/false/true argument treated as 0/0/1.
      *
-     * @param mixed $number
-     *
      * @return float
      */
-    public static function validateNotNegative($number)
+    public static function validateNotNegative(mixed $number)
     {
         if (!is_numeric($number)) {
             throw new Exception(ExcelError::VALUE());

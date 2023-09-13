@@ -1263,7 +1263,7 @@ class Worksheet extends WriterPart
         if (is_float($cellValue)) {
             // force point as decimal separator in case current locale uses comma
             $cellValue = str_replace(',', '.', (string) $cellValue);
-            if (strpos($cellValue, '.') === false) {
+            if (!str_contains($cellValue, '.')) {
                 $cellValue = $cellValue . '.0';
             }
         }
@@ -1279,7 +1279,7 @@ class Worksheet extends WriterPart
     private function writeCellError(XMLWriter $objWriter, string $mappedType, string $cellValue, string $formulaerr = '#NULL!'): void
     {
         $objWriter->writeAttribute('t', $mappedType);
-        $cellIsFormula = substr($cellValue, 0, 1) === '=';
+        $cellIsFormula = str_starts_with($cellValue, '=');
         self::writeElementIf($objWriter, $cellIsFormula, 'f', FunctionPrefix::addFunctionPrefixStripEquals($cellValue));
         $objWriter->writeElement('v', $cellIsFormula ? $formulaerr : $cellValue);
     }
@@ -1317,7 +1317,7 @@ class Worksheet extends WriterPart
                 && $this->getParentWriter()->getPreCalculateFormulas()
                 && $calculatedValue !== null,
                 'v',
-                (!is_array($calculatedValue) && substr($calculatedValue ?? '', 0, 1) !== '#')
+                (!is_array($calculatedValue) && !str_starts_with($calculatedValue ?? '', '#'))
                     ? StringHelper::formatNumber($calculatedValue) : '0'
             );
         }

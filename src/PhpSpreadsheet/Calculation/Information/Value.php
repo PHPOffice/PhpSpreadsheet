@@ -24,7 +24,7 @@ class Value
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function isBlank($value = null): array|bool
+    public static function isBlank(mixed $value = null): array|bool
     {
         if (is_array($value)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $value);
@@ -38,7 +38,7 @@ class Value
      *
      * @param mixed $value Value to check
      */
-    public static function isRef($value, ?Cell $cell = null): bool
+    public static function isRef(mixed $value, ?Cell $cell = null): bool
     {
         if ($cell === null || $value === $cell->getCoordinate()) {
             return false;
@@ -73,7 +73,7 @@ class Value
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function isEven($value = null): array|string|bool
+    public static function isEven(mixed $value = null): array|string|bool
     {
         if (is_array($value)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $value);
@@ -98,7 +98,7 @@ class Value
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function isOdd($value = null): array|string|bool
+    public static function isOdd(mixed $value = null): array|string|bool
     {
         if (is_array($value)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $value);
@@ -123,7 +123,7 @@ class Value
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function isNumber($value = null): array|bool
+    public static function isNumber(mixed $value = null): array|bool
     {
         if (is_array($value)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $value);
@@ -146,7 +146,7 @@ class Value
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function isLogical($value = null): array|bool
+    public static function isLogical(mixed $value = null): array|bool
     {
         if (is_array($value)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $value);
@@ -165,7 +165,7 @@ class Value
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function isText($value = null): array|bool
+    public static function isText(mixed $value = null): array|bool
     {
         if (is_array($value)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $value);
@@ -184,7 +184,7 @@ class Value
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function isNonText($value = null): array|bool
+    public static function isNonText(mixed $value = null): array|bool
     {
         if (is_array($value)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $value);
@@ -201,7 +201,7 @@ class Value
      *
      * @return array|bool|string
      */
-    public static function isFormula($cellReference = '', ?Cell $cell = null)
+    public static function isFormula(mixed $cellReference = '', ?Cell $cell = null)
     {
         if ($cell === null) {
             return ExcelError::REF();
@@ -209,7 +209,7 @@ class Value
 
         $fullCellReference = Functions::expandDefinedName((string) $cellReference, $cell);
 
-        if (strpos($cellReference, '!') !== false) {
+        if (str_contains($cellReference, '!')) {
             $cellReference = Functions::trimSheetFromCellReference($cellReference);
             $cellReferences = Coordinate::extractAllCellReferencesInRange($cellReference);
             if (count($cellReferences) > 1) {

@@ -9,8 +9,9 @@ use PhpOffice\PhpSpreadsheet\Shared\Drawing as SharedDrawing;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Color;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
+use Stringable;
 
-class Comment implements IComparable
+class Comment implements IComparable, Stringable
 {
     /**
      * Author.
