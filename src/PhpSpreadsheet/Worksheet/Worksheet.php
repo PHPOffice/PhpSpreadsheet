@@ -422,12 +422,12 @@ class Worksheet implements IComparable
         Calculation::getInstance($this->parent)->clearCalculationCacheForWorksheet($this->title);
 
         $this->disconnectCells();
-        $this->rowDimensions = null; // @phpstan-ignore-line
-        $this->columnDimensions = null; // @phpstan-ignore-line
-        $this->tableCollection = null; // @phpstan-ignore-line
-        $this->drawingCollection = null; // @phpstan-ignore-line
-        $this->chartCollection = null; // @phpstan-ignore-line
-        $this->autoFilter = null; // @phpstan-ignore-line
+        $this->rowDimensions = [];
+        $this->columnDimensions = [];
+        $this->tableCollection = new ArrayObject();
+        $this->drawingCollection = new ArrayObject();
+        $this->chartCollection = new ArrayObject();
+        $this->autoFilter = new AutoFilter('');
     }
 
     /**
