@@ -1448,3 +1448,6 @@ For a comprehensive list of all class changes, and a semi-automated migration pa
 ## Previous versions of PHPExcel
 
 The changelog for the project when it was called PHPExcel is [still available](./CHANGELOG.PHPExcel.md).
+
+### Changed
+- Replace ezyang/htmlpurifier (LGPL2.1) with voku/anti-xss (MIT)
