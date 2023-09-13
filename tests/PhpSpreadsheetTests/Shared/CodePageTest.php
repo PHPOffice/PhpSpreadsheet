@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Shared;
 
 use PhpOffice\PhpSpreadsheet\Exception;
@@ -10,11 +12,8 @@ class CodePageTest extends TestCase
 {
     /**
      * @dataProvider providerCodePage
-     *
-     * @param mixed $expectedResult
-     * @param mixed $codePageIndex
      */
-    public function testCodePageNumberToName($expectedResult, $codePageIndex): void
+    public function testCodePageNumberToName(mixed $expectedResult, mixed $codePageIndex): void
     {
         if ($expectedResult === 'exception') {
             $this->expectException(Exception::class);

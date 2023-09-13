@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 //  Result, lower bound, upper bound
 return [
     [0.0, 0],

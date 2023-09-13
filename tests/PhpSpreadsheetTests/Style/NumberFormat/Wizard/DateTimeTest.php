@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Style\NumberFormat\Wizard;
 
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\Date;
@@ -15,7 +17,7 @@ class DateTimeTest extends TestCase
      * @param null|string|string[] $separators
      * @param string[] $formatBlocks
      */
-    public function testDateTime(string $expectedResult, $separators, array $formatBlocks): void
+    public function testDateTime(string $expectedResult, string|null|array $separators, array $formatBlocks): void
     {
         $wizard = new DateTime($separators, ...$formatBlocks);
         self::assertSame($expectedResult, (string) $wizard);

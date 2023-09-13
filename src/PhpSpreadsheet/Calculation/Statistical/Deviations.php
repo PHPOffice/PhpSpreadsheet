@@ -16,10 +16,8 @@ class Deviations
      *        DEVSQ(value1[,value2[, ...]])
      *
      * @param mixed ...$args Data values
-     *
-     * @return float|string
      */
-    public static function sumSquares(...$args)
+    public static function sumSquares(...$args): string|float
     {
         $aArgs = Functions::flattenArrayIndexed($args);
 
@@ -61,7 +59,7 @@ class Deviations
      *
      * @return float|string
      */
-    public static function kurtosis(...$args)
+    public static function kurtosis(...$args): string|int|float
     {
         $aArgs = Functions::flattenArrayIndexed($args);
         $mean = Averages::average($aArgs);
@@ -106,7 +104,7 @@ class Deviations
      *
      * @return float|int|string The result, or a string containing an error
      */
-    public static function skew(...$args)
+    public static function skew(...$args): string|int|float
     {
         $aArgs = Functions::flattenArrayIndexed($args);
         $mean = Averages::average($aArgs);

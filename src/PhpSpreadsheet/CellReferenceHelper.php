@@ -7,39 +7,21 @@ use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 
 class CellReferenceHelper
 {
-    /**
-     * @var string
-     */
-    protected $beforeCellAddress;
+    protected string $beforeCellAddress;
 
-    /**
-     * @var int
-     */
-    protected $beforeColumn;
+    protected int $beforeColumn;
 
-    /** @var string */
-    protected $beforeColumnString;
+    protected bool $beforeColumnAbsolute = false;
 
-    /** @var bool */
-    protected $beforeColumnAbsolute = false;
+    protected string $beforeColumnString;
 
-    /** @var bool */
-    protected $beforeRowAbsolute = false;
+    protected int $beforeRow;
 
-    /**
-     * @var int
-     */
-    protected $beforeRow;
+    protected bool $beforeRowAbsolute = false;
 
-    /**
-     * @var int
-     */
-    protected $numberOfColumns;
+    protected int $numberOfColumns;
 
-    /**
-     * @var int
-     */
-    protected $numberOfRows;
+    protected int $numberOfRows;
 
     public function __construct(string $beforeCellAddress = 'A1', int $numberOfColumns = 0, int $numberOfRows = 0)
     {
@@ -76,7 +58,7 @@ class CellReferenceHelper
 
         // Get coordinate of $cellReference
         [$newColumn, $newRow] = Coordinate::coordinateFromString($cellReference);
-        $newColumnIndex = (int) Coordinate::columnIndexFromString(str_replace('$', '', $newColumn));
+        $newColumnIndex = Coordinate::columnIndexFromString(str_replace('$', '', $newColumn));
         $newRowIndex = (int) str_replace('$', '', $newRow);
 
         $absoluteColumn = $newColumn[0] === '$' ? '$' : '';

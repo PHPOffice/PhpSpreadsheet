@@ -77,7 +77,7 @@ class StringValueBinder implements IValueBinder
      * @param Cell $cell Cell to bind value to
      * @param mixed $value Value to bind in cell
      */
-    public function bindValue(Cell $cell, $value)
+    public function bindValue(Cell $cell, $value): bool
     {
         if (is_object($value)) {
             return $this->bindObjectValue($cell, $value);

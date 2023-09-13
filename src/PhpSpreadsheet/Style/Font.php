@@ -97,10 +97,8 @@ class Font extends Supervisor
 
     /**
      * Foreground color.
-     *
-     * @var Color
      */
-    protected $color;
+    protected Color $color;
 
     /**
      * @var null|int
@@ -163,10 +161,8 @@ class Font extends Supervisor
      * Build style array from subcomponents.
      *
      * @param array $array
-     *
-     * @return array
      */
-    public function getStyleArray($array)
+    public function getStyleArray($array): array
     {
         return ['font' => $array];
     }
@@ -193,7 +189,7 @@ class Font extends Supervisor
      *
      * @return $this
      */
-    public function applyFromArray(array $styleArray)
+    public function applyFromArray(array $styleArray): static
     {
         if ($this->isSupervisor) {
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($this->getStyleArray($styleArray));
@@ -381,7 +377,7 @@ class Font extends Supervisor
      *
      * @return $this
      */
-    public function setSize($sizeInPoints, bool $nullOk = false)
+    public function setSize($sizeInPoints, bool $nullOk = false): static
     {
         if (is_string($sizeInPoints) || is_int($sizeInPoints)) {
             $sizeInPoints = (float) $sizeInPoints; // $pValue = 0 if given string is not numeric
@@ -426,7 +422,7 @@ class Font extends Supervisor
      *
      * @return $this
      */
-    public function setBold($bold)
+    public function setBold($bold): static
     {
         if ($bold == '') {
             $bold = false;
@@ -462,7 +458,7 @@ class Font extends Supervisor
      *
      * @return $this
      */
-    public function setItalic($italic)
+    public function setItalic($italic): static
     {
         if ($italic == '') {
             $italic = false;
@@ -496,7 +492,7 @@ class Font extends Supervisor
      *
      * @return $this
      */
-    public function setSuperscript(bool $superscript)
+    public function setSuperscript(bool $superscript): static
     {
         if ($this->isSupervisor) {
             $styleArray = $this->getStyleArray(['superscript' => $superscript]);
@@ -530,7 +526,7 @@ class Font extends Supervisor
      *
      * @return $this
      */
-    public function setSubscript(bool $subscript)
+    public function setSubscript(bool $subscript): static
     {
         if ($this->isSupervisor) {
             $styleArray = $this->getStyleArray(['subscript' => $subscript]);
@@ -671,7 +667,7 @@ class Font extends Supervisor
      *
      * @return $this
      */
-    public function setUnderline($underlineStyle)
+    public function setUnderline($underlineStyle): static
     {
         if (is_bool($underlineStyle)) {
             $underlineStyle = ($underlineStyle) ? self::UNDERLINE_SINGLE : self::UNDERLINE_NONE;
@@ -709,7 +705,7 @@ class Font extends Supervisor
      *
      * @return $this
      */
-    public function setStrikethrough($strikethru)
+    public function setStrikethrough($strikethru): static
     {
         if ($strikethru == '') {
             $strikethru = false;
@@ -740,7 +736,7 @@ class Font extends Supervisor
      *
      * @return $this
      */
-    public function setColor(Color $color)
+    public function setColor(Color $color): static
     {
         // make sure parameter is a real color and not a supervisor
         $color = $color->getIsSupervisor() ? $color->getSharedComponent() : $color;

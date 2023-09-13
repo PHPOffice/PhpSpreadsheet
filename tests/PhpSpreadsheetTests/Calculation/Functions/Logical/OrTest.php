@@ -1,15 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Logical;
 
 class OrTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerOR
-     *
-     * @param mixed $expectedResult
      */
-    public function testOR($expectedResult, ...$args): void
+    public function testOR(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('OR', $expectedResult, ...$args);
     }
@@ -21,11 +21,8 @@ class OrTest extends AllSetupTeardown
 
     /**
      * @dataProvider providerORLiteral
-     *
-     * @param mixed $expectedResult
-     * @param string $formula
      */
-    public function testORLiteral($expectedResult, $formula): void
+    public function testORLiteral(mixed $expectedResult, mixed $formula): void
     {
         $sheet = $this->getSheet();
         $sheet->getCell('A1')->setValue("=OR($formula)");

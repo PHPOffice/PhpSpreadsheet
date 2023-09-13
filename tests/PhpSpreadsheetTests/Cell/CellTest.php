@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Cell;
 
 use PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder;
@@ -72,11 +74,8 @@ class CellTest extends TestCase
 
     /**
      * @dataProvider providerSetValueExplicit
-     *
-     * @param mixed $expected
-     * @param mixed $value
      */
-    public function testSetValueExplicit($expected, $value, string $dataType): void
+    public function testSetValueExplicit(mixed $expected, mixed $value, string $dataType): void
     {
         $spreadsheet = new Spreadsheet();
         $cell = $spreadsheet->getActiveSheet()->getCell('A1');
@@ -106,10 +105,8 @@ class CellTest extends TestCase
 
     /**
      * @dataProvider providerSetValueExplicitException
-     *
-     * @param mixed $value
      */
-    public function testSetValueExplicitException($value, string $dataType): void
+    public function testSetValueExplicitException(mixed $value, string $dataType): void
     {
         $this->expectException(Exception::class);
 

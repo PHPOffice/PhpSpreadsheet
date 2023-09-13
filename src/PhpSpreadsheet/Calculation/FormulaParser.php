@@ -46,10 +46,8 @@ class FormulaParser
 
     /**
      * Formula.
-     *
-     * @var string
      */
-    private $formula;
+    private string $formula;
 
     /**
      * Tokens.
@@ -102,10 +100,8 @@ class FormulaParser
 
     /**
      * Get Token count.
-     *
-     * @return int
      */
-    public function getTokenCount()
+    public function getTokenCount(): int
     {
         return count($this->tokens);
     }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,12 +10,8 @@ class ExactTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerEXACT
-     *
-     * @param mixed $expectedResult
-     * @param mixed $string1
-     * @param mixed $string2
      */
-    public function testEXACT($expectedResult, $string1 = 'omitted', $string2 = 'omitted'): void
+    public function testEXACT(mixed $expectedResult, mixed $string1 = 'omitted', mixed $string2 = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

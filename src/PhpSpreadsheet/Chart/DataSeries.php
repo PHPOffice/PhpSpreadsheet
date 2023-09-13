@@ -77,21 +77,21 @@ class DataSeries
      *
      * @var int[]
      */
-    private $plotOrder = [];
+    private array $plotOrder;
 
     /**
      * Plot Label.
      *
      * @var DataSeriesValues[]
      */
-    private $plotLabel = [];
+    private array $plotLabel;
 
     /**
      * Plot Category.
      *
      * @var DataSeriesValues[]
      */
-    private $plotCategory = [];
+    private array $plotCategory;
 
     /**
      * Smooth Line. Must be specified for both DataSeries and DataSeriesValues.
@@ -105,7 +105,7 @@ class DataSeries
      *
      * @var DataSeriesValues[]
      */
-    private $plotValues = [];
+    private array $plotValues;
 
     /**
      * Plot Bubble Sizes.
@@ -170,7 +170,7 @@ class DataSeries
      *
      * @return $this
      */
-    public function setPlotType($plotType)
+    public function setPlotType($plotType): static
     {
         $this->plotType = $plotType;
 
@@ -194,7 +194,7 @@ class DataSeries
      *
      * @return $this
      */
-    public function setPlotGrouping($groupingType)
+    public function setPlotGrouping($groupingType): static
     {
         $this->plotGrouping = $groupingType;
 
@@ -218,7 +218,7 @@ class DataSeries
      *
      * @return $this
      */
-    public function setPlotDirection($plotDirection)
+    public function setPlotDirection($plotDirection): static
     {
         $this->plotDirection = $plotDirection;
 
@@ -308,7 +308,7 @@ class DataSeries
      *
      * @return $this
      */
-    public function setPlotStyle($plotStyle)
+    public function setPlotStyle($plotStyle): static
     {
         $this->plotStyle = $plotStyle;
 
@@ -366,10 +366,8 @@ class DataSeries
 
     /**
      * Get Number of Plot Series.
-     *
-     * @return int
      */
-    public function getPlotSeriesCount()
+    public function getPlotSeriesCount(): int
     {
         return count($this->plotValues);
     }
@@ -391,7 +389,7 @@ class DataSeries
      *
      * @return $this
      */
-    public function setSmoothLine($smoothLine)
+    public function setSmoothLine($smoothLine): static
     {
         $this->smoothLine = $smoothLine;
 

@@ -91,10 +91,8 @@ class Mpdf extends Pdf
      * Convert inches to mm.
      *
      * @param float $inches
-     *
-     * @return float
      */
-    private function inchesToMm($inches)
+    private function inchesToMm($inches): float
     {
         return $inches * 25.4;
     }

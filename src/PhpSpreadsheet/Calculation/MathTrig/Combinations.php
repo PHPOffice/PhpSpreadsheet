@@ -21,11 +21,11 @@ class Combinations
      * @param mixed $numObjs Number of different objects, or can be an array of numbers
      * @param mixed $numInSet Number of objects in each combination, or can be an array of numbers
      *
-     * @return array|float|int|string Number of combinations, or a string containing an error
+     * @return array|float|string Number of combinations, or a string containing an error
      *         If an array of numbers is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function withoutRepetition($numObjs, $numInSet)
+    public static function withoutRepetition($numObjs, $numInSet): array|string|float
     {
         if (is_array($numObjs) || is_array($numInSet)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $numObjs, $numInSet);
@@ -59,7 +59,7 @@ class Combinations
      *         If an array of numbers is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function withRepetition($numObjs, $numInSet)
+    public static function withRepetition($numObjs, $numInSet): array|int|string|float
     {
         if (is_array($numObjs) || is_array($numInSet)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $numObjs, $numInSet);

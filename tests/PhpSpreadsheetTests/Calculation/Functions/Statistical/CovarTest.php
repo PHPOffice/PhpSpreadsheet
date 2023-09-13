@@ -1,15 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 class CovarTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerCOVAR
-     *
-     * @param mixed $expectedResult
      */
-    public function testCOVAR($expectedResult, ...$args): void
+    public function testCOVAR(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCaseNoBracket('COVAR', $expectedResult, ...$args);
     }

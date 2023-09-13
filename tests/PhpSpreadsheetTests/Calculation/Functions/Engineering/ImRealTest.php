@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -21,10 +23,8 @@ class ImRealTest extends TestCase
 
     /**
      * @dataProvider providerIMREAL
-     *
-     * @param mixed $expectedResult
      */
-    public function testDirectCallToIMREAL($expectedResult, ...$args): void
+    public function testDirectCallToIMREAL(mixed $expectedResult, mixed ...$args): void
     {
         /** @scrutinizer ignore-call */
         $result = Complex::IMREAL(...$args);
@@ -33,10 +33,8 @@ class ImRealTest extends TestCase
 
     /**
      * @dataProvider providerIMREAL
-     *
-     * @param mixed $expectedResult
      */
-    public function testIMREALAsFormula($expectedResult, ...$args): void
+    public function testIMREALAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -49,10 +47,8 @@ class ImRealTest extends TestCase
 
     /**
      * @dataProvider providerIMREAL
-     *
-     * @param mixed $expectedResult
      */
-    public function testIMREALInWorksheet($expectedResult, ...$args): void
+    public function testIMREALInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -77,7 +73,7 @@ class ImRealTest extends TestCase
     /**
      * @dataProvider providerUnhappyIMREAL
      */
-    public function testIMREALUnhappyPath(string $expectedException, ...$args): void
+    public function testIMREALUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 

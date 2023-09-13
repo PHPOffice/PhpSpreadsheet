@@ -70,7 +70,7 @@ class PageMargins
      *
      * @return $this
      */
-    public function setLeft($left)
+    public function setLeft($left): static
     {
         $this->left = $left;
 
@@ -94,7 +94,7 @@ class PageMargins
      *
      * @return $this
      */
-    public function setRight($right)
+    public function setRight($right): static
     {
         $this->right = $right;
 
@@ -118,7 +118,7 @@ class PageMargins
      *
      * @return $this
      */
-    public function setTop($top)
+    public function setTop($top): static
     {
         $this->top = $top;
 
@@ -142,7 +142,7 @@ class PageMargins
      *
      * @return $this
      */
-    public function setBottom($bottom)
+    public function setBottom($bottom): static
     {
         $this->bottom = $bottom;
 
@@ -166,7 +166,7 @@ class PageMargins
      *
      * @return $this
      */
-    public function setHeader($header)
+    public function setHeader($header): static
     {
         $this->header = $header;
 
@@ -190,7 +190,7 @@ class PageMargins
      *
      * @return $this
      */
-    public function setFooter($footer)
+    public function setFooter($footer): static
     {
         $this->footer = $footer;
 

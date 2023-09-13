@@ -16,10 +16,7 @@ class AutoFilter
      */
     private $parent;
 
-    /**
-     * @var SimpleXMLElement
-     */
-    private $worksheetXml;
+    private SimpleXMLElement $worksheetXml;
 
     /**
      * @param Table|Worksheet $parent

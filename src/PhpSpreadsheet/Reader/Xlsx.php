@@ -49,10 +49,8 @@ class Xlsx extends BaseReader
 
     /**
      * ReferenceHelper instance.
-     *
-     * @var ReferenceHelper
      */
-    private $referenceHelper;
+    private ReferenceHelper $referenceHelper;
 
     /**
      * @var ZipArchive
@@ -174,12 +172,8 @@ class Xlsx extends BaseReader
 
     /**
      * Reads names of the worksheets from a file, without parsing the whole file to a Spreadsheet object.
-     *
-     * @param string $filename
-     *
-     * @return array
      */
-    public function listWorksheetNames($filename)
+    public function listWorksheetNames(string $filename): array
     {
         File::assertFile($filename, self::INITIAL_FILE);
 
@@ -213,12 +207,8 @@ class Xlsx extends BaseReader
 
     /**
      * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
-     *
-     * @param string $filename
-     *
-     * @return array
      */
-    public function listWorksheetInfo($filename)
+    public function listWorksheetInfo(string $filename): array
     {
         File::assertFile($filename, self::INITIAL_FILE);
 
@@ -362,10 +352,7 @@ class Xlsx extends BaseReader
         }
     }
 
-    /**
-     * @param string $fileName
-     */
-    private function fileExistsInArchive(ZipArchive $archive, $fileName = ''): bool
+    private function fileExistsInArchive(ZipArchive $archive, string $fileName = ''): bool
     {
         // Root-relative paths
         if (strpos($fileName, '//') !== false) {
@@ -1742,12 +1729,12 @@ class Xlsx extends BaseReader
                                             break;
                                         default:
                                             if ($mapSheetId[(int) $definedName['localSheetId']] !== null) {
-                                                $range = Worksheet::extractSheetTitle((string) $definedName, true);
+                                                $range = Worksheet::extractSheetTitle($extractedRange, true);
                                                 $scope = $excel->getSheet($mapSheetId[(int) $definedName['localSheetId']]);
                                                 if (strpos((string) $definedName, '!') !== false) {
                                                     $range[0] = str_replace("''", "'", $range[0]);
                                                     $range[0] = str_replace("'", '', $range[0]);
-                                                    if ($worksheet = $excel->getSheetByName($range[0])) { // @phpstan-ignore-line
+                                                    if ($worksheet = $excel->getSheetByName($range[0])) {
                                                         $excel->addDefinedName(DefinedName::createInstance((string) $definedName['name'], $worksheet, $extractedRange, true, $scope));
                                                     } else {
                                                         $excel->addDefinedName(DefinedName::createInstance((string) $definedName['name'], $scope, $extractedRange, true, $scope));
@@ -1760,25 +1747,24 @@ class Xlsx extends BaseReader
                                             break;
                                     }
                                 } elseif (!isset($definedName['localSheetId'])) {
-                                    $definedRange = (string) $definedName;
                                     // "Global" definedNames
                                     $locatedSheet = null;
                                     if (strpos((string) $definedName, '!') !== false) {
                                         // Modify range, and extract the first worksheet reference
                                         // Need to split on a comma or a space if not in quotes, and extract the first part.
-                                        $definedNameValueParts = preg_split("/[ ,](?=([^']*'[^']*')*[^']*$)/miuU", $definedRange);
+                                        $definedNameValueParts = preg_split("/[ ,](?=([^']*'[^']*')*[^']*$)/miuU", $extractedRange);
                                         // Extract sheet name
                                         [$extractedSheetName] = Worksheet::extractSheetTitle((string) $definedNameValueParts[0], true); // @phpstan-ignore-line
-                                        $extractedSheetName = trim($extractedSheetName, "'");
+                                        $extractedSheetName = trim($extractedSheetName, "'"); // @phpstan-ignore-line
 
                                         // Locate sheet
                                         $locatedSheet = $excel->getSheetByName($extractedSheetName);
                                     }
 
-                                    if ($locatedSheet === null && !DefinedName::testIfFormula($definedRange)) {
-                                        $definedRange = '#REF!';
+                                    if ($locatedSheet === null && !DefinedName::testIfFormula($extractedRange)) {
+                                        $extractedRange = '#REF!';
                                     }
-                                    $excel->addDefinedName(DefinedName::createInstance((string) $definedName['name'], $locatedSheet, $definedRange, false));
+                                    $excel->addDefinedName(DefinedName::createInstance((string) $definedName['name'], $locatedSheet, $extractedRange, false));
                                 }
                             }
                         }
@@ -1853,10 +1839,7 @@ class Xlsx extends BaseReader
         return $excel;
     }
 
-    /**
-     * @return RichText
-     */
-    private function parseRichText(?SimpleXMLElement $is)
+    private function parseRichText(?SimpleXMLElement $is): RichText
     {
         $value = new RichText();
 
@@ -1920,7 +1903,7 @@ class Xlsx extends BaseReader
                         if (isset($run->rPr->u)) {
                             $attr = $run->rPr->u->attributes();
                             if (!isset($attr['val'])) {
-                                $objFont->setUnderline(\PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_SINGLE);
+                                $objFont->setUnderline(StyleFont::UNDERLINE_SINGLE);
                             } else {
                                 $objFont->setUnderline((string) $attr['val']);
                             }
@@ -2052,10 +2035,7 @@ class Xlsx extends BaseReader
         return $value === 'true' || $value === 'TRUE';
     }
 
-    /**
-     * @param array $hyperlinks
-     */
-    private function readHyperLinkDrawing(\PhpOffice\PhpSpreadsheet\Worksheet\Drawing $objDrawing, SimpleXMLElement $cellAnchor, $hyperlinks): void
+    private function readHyperLinkDrawing(\PhpOffice\PhpSpreadsheet\Worksheet\Drawing $objDrawing, SimpleXMLElement $cellAnchor, array $hyperlinks): void
     {
         $hlinkClick = $cellAnchor->pic->nvPicPr->cNvPr->children(Namespaces::DRAWINGML)->hlinkClick;
 

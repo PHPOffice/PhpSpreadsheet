@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Database\DSum;
@@ -9,13 +11,8 @@ class DSumTest extends SetupTeardownDatabases
 {
     /**
      * @dataProvider providerDSum
-     *
-     * @param mixed $expectedResult
-     * @param mixed $database
-     * @param mixed $field
-     * @param mixed $criteria
      */
-    public function testDirectCallToDSum($expectedResult, $database, $field, $criteria): void
+    public function testDirectCallToDSum(int|float|string $expectedResult, array $database, ?string $field, array $criteria): void
     {
         $result = DSum::evaluate($database, $field, $criteria);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
@@ -23,13 +20,8 @@ class DSumTest extends SetupTeardownDatabases
 
     /**
      * @dataProvider providerDSum
-     *
-     * @param mixed $expectedResult
-     * @param mixed $database
-     * @param mixed $field
-     * @param mixed $criteria
      */
-    public function testDSumAsWorksheetFormula($expectedResult, $database, $field, $criteria): void
+    public function testDSumAsWorksheetFormula(int|float|string $expectedResult, array $database, ?string $field, array $criteria): void
     {
         $this->prepareWorksheetWithFormula('DSUM', $database, $field, $criteria);
 

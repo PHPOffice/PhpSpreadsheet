@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,11 +10,8 @@ class CeilingTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerCEILING
-     *
-     * @param mixed $expectedResult
-     * @param string $formula
      */
-    public function testCEILING($expectedResult, $formula): void
+    public function testCEILING(mixed $expectedResult, string $formula): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

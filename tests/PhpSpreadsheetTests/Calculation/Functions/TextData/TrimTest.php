@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,11 +10,8 @@ class TrimTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerTRIM
-     *
-     * @param mixed $expectedResult
-     * @param mixed $character
      */
-    public function testTRIM($expectedResult, $character = 'omitted'): void
+    public function testTRIM(mixed $expectedResult, mixed $character = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

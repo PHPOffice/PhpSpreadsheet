@@ -8,6 +8,7 @@ use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class Slk extends BaseReader
@@ -108,7 +109,7 @@ class Slk extends BaseReader
      *
      * @codeCoverageIgnore
      */
-    public function setInputEncoding($inputEncoding)
+    public function setInputEncoding($inputEncoding): static
     {
         $this->inputEncoding = $inputEncoding;
 
@@ -131,12 +132,8 @@ class Slk extends BaseReader
 
     /**
      * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
-     *
-     * @param string $filename
-     *
-     * @return array
      */
-    public function listWorksheetInfo($filename)
+    public function listWorksheetInfo(string $filename): array
     {
         // Open file
         $this->canReadOrBust($filename);
@@ -380,7 +377,7 @@ class Slk extends BaseReader
             } elseif (array_key_exists($char, self::STYLE_SETTINGS_BORDER)) {
                 $styleData['borders'][self::STYLE_SETTINGS_BORDER[$char]]['borderStyle'] = Border::BORDER_THIN;
             } elseif ($char == 'S') {
-                $styleData['fill']['fillType'] = \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_GRAY125;
+                $styleData['fill']['fillType'] = Fill::FILL_PATTERN_GRAY125;
             } elseif ($char == 'M') {
                 if (preg_match('/M([1-9]\\d*)/', $styleSettings, $matches)) {
                     $fontStyle = $matches[1];
@@ -504,11 +501,9 @@ class Slk extends BaseReader
     /**
      * Loads PhpSpreadsheet from file into PhpSpreadsheet instance.
      *
-     * @param string $filename
-     *
      * @return Spreadsheet
      */
-    public function loadIntoExisting($filename, Spreadsheet $spreadsheet)
+    public function loadIntoExisting(string $filename, Spreadsheet $spreadsheet)
     {
         // Open file
         $this->canReadOrBust($filename);
@@ -585,7 +580,7 @@ class Slk extends BaseReader
      *
      * @return $this
      */
-    public function setSheetIndex($sheetIndex)
+    public function setSheetIndex($sheetIndex): static
     {
         $this->sheetIndex = $sheetIndex;
 

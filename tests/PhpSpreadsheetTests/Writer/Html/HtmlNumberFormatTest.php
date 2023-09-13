@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Html;
 
 use DOMDocument;
@@ -11,20 +13,11 @@ use PhpOffice\PhpSpreadsheetTests\Functional;
 
 class HtmlNumberFormatTest extends Functional\AbstractFunctional
 {
-    /**
-     * @var string
-     */
-    private $currency;
+    private string $currency;
 
-    /**
-     * @var string
-     */
-    private $decsep;
+    private string $decsep;
 
-    /**
-     * @var string
-     */
-    private $thosep;
+    private string $thosep;
 
     protected function setUp(): void
     {
@@ -153,12 +146,8 @@ class HtmlNumberFormatTest extends Functional\AbstractFunctional
 
     /**
      * @dataProvider providerNumberFormat
-     *
-     * @param mixed $expectedResult
-     * @param mixed $val
-     * @param mixed $fmt
      */
-    public function testFormatValueWithMask($expectedResult, $val, $fmt): void
+    public function testFormatValueWithMask(mixed $expectedResult, mixed $val, mixed $fmt): void
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
@@ -189,12 +178,8 @@ class HtmlNumberFormatTest extends Functional\AbstractFunctional
 
     /**
      * @dataProvider providerNumberFormatDates
-     *
-     * @param mixed $expectedResult
-     * @param mixed $val
-     * @param mixed $fmt
      */
-    public function testFormatValueWithMaskDate($expectedResult, $val, $fmt): void
+    public function testFormatValueWithMaskDate(mixed $expectedResult, mixed $val, mixed $fmt): void
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();

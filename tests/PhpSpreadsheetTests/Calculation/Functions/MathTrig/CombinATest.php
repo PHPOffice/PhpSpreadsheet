@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,12 +10,8 @@ class CombinATest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerCOMBINA
-     *
-     * @param mixed $expectedResult
-     * @param mixed $numObjs
-     * @param mixed $numInSet
      */
-    public function testCOMBINA($expectedResult, $numObjs, $numInSet): void
+    public function testCOMBINA(mixed $expectedResult, mixed $numObjs, mixed $numInSet): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

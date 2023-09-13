@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
 use Exception;
@@ -33,12 +35,9 @@ class WorksheetTest extends TestCase
     }
 
     /**
-     * @param string $title
-     * @param string $expectMessage
-     *
      * @dataProvider setTitleInvalidProvider
      */
-    public function testSetTitleInvalid($title, $expectMessage): void
+    public function testSetTitleInvalid(string $title, string $expectMessage): void
     {
         // First, test setting title with validation disabled -- should be successful
         $worksheet = new Worksheet();
@@ -93,12 +92,9 @@ class WorksheetTest extends TestCase
     }
 
     /**
-     * @param string $codeName
-     * @param string $expectMessage
-     *
      * @dataProvider setCodeNameInvalidProvider
      */
-    public function testSetCodeNameInvalid($codeName, $expectMessage): void
+    public function testSetCodeNameInvalid(string $codeName, string $expectMessage): void
     {
         // First, test setting code name with validation disabled -- should be successful
         $worksheet = new Worksheet();
@@ -156,14 +152,9 @@ class WorksheetTest extends TestCase
     }
 
     /**
-     * @param string $range
-     * @param string $expectTitle
-     * @param string $expectCell
-     * @param string $expectCell2
-     *
      * @dataProvider extractSheetTitleProvider
      */
-    public function testExtractSheetTitle($range, $expectTitle, $expectCell, $expectCell2): void
+    public function testExtractSheetTitle(string $range, string $expectTitle, string $expectCell, string $expectCell2): void
     {
         // only cell reference
         self::assertSame($expectCell, Worksheet::extractSheetTitle($range));
@@ -618,7 +609,7 @@ class WorksheetTest extends TestCase
 
         $cellRange = new CellRange(new CellAddress($fromCell), new CellAddress($toCell));
 
-        self::assertSame($expected, $worksheet->rangeToArray($cellRange));
+        self::assertSame($expected, $worksheet->rangeToArray((string) $cellRange));
     }
 
     public static function rangeToArrayProvider(): array

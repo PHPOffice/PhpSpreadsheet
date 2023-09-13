@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Ods;
 
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
@@ -22,10 +24,7 @@ class OdsTest extends TestCase
     /** @var string */
     private $incompleteMessage = 'Features not implemented yet';
 
-    /**
-     * @var string
-     */
-    private $timeZone;
+    private string $timeZone;
 
     protected function setUp(): void
     {
@@ -38,20 +37,14 @@ class OdsTest extends TestCase
         date_default_timezone_set($this->timeZone);
     }
 
-    /**
-     * @return Spreadsheet
-     */
-    private function loadOdsTestFile()
+    private function loadOdsTestFile(): Spreadsheet
     {
         $reader = new Ods();
 
         return $reader->loadIntoExisting(self::ODS_TEST_FILE, new Spreadsheet());
     }
 
-    /**
-     * @return Spreadsheet
-     */
-    protected function loadDataFile()
+    protected function loadDataFile(): Spreadsheet
     {
         $reader = new Ods();
 

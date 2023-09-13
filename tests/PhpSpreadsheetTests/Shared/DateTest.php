@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Shared;
 
 use DateTimeZone;
@@ -10,15 +12,9 @@ use PHPUnit\Framework\TestCase;
 
 class DateTest extends TestCase
 {
-    /**
-     * @var int
-     */
-    private $excelCalendar;
+    private int $excelCalendar;
 
-    /**
-     * @var null|DateTimeZone
-     */
-    private $dttimezone;
+    private ?DateTimeZone $dttimezone;
 
     protected function setUp(): void
     {
@@ -54,11 +50,8 @@ class DateTest extends TestCase
 
     /**
      * @dataProvider providerDateTimeExcelToTimestamp1900
-     *
-     * @param mixed $expectedResult
-     * @param mixed $excelDateTimeValue
      */
-    public function testDateTimeExcelToTimestamp1900($expectedResult, $excelDateTimeValue): void
+    public function testDateTimeExcelToTimestamp1900(mixed $expectedResult, mixed $excelDateTimeValue): void
     {
         if (is_numeric($expectedResult) && ($expectedResult > PHP_INT_MAX || $expectedResult < PHP_INT_MIN)) {
             self::markTestSkipped('Test invalid on 32-bit system.');
@@ -76,11 +69,8 @@ class DateTest extends TestCase
 
     /**
      * @dataProvider providerDateTimeTimestampToExcel1900
-     *
-     * @param mixed $expectedResult
-     * @param mixed $unixTimestamp
      */
-    public function testDateTimeTimestampToExcel1900($expectedResult, $unixTimestamp): void
+    public function testDateTimeTimestampToExcel1900(mixed $expectedResult, mixed $unixTimestamp): void
     {
         Date::setExcelCalendar(Date::CALENDAR_WINDOWS_1900);
 
@@ -95,11 +85,8 @@ class DateTest extends TestCase
 
     /**
      * @dataProvider providerDateTimeDateTimeToExcel
-     *
-     * @param mixed $expectedResult
-     * @param mixed $dateTimeObject
      */
-    public function testDateTimeDateTimeToExcel($expectedResult, $dateTimeObject): void
+    public function testDateTimeDateTimeToExcel(mixed $expectedResult, mixed $dateTimeObject): void
     {
         Date::setExcelCalendar(Date::CALENDAR_WINDOWS_1900);
 
@@ -114,10 +101,8 @@ class DateTest extends TestCase
 
     /**
      * @dataProvider providerDateTimeFormattedPHPToExcel1900
-     *
-     * @param mixed $expectedResult
      */
-    public function testDateTimeFormattedPHPToExcel1900($expectedResult, ...$args): void
+    public function testDateTimeFormattedPHPToExcel1900(mixed $expectedResult, mixed ...$args): void
     {
         Date::setExcelCalendar(Date::CALENDAR_WINDOWS_1900);
 
@@ -132,11 +117,8 @@ class DateTest extends TestCase
 
     /**
      * @dataProvider providerDateTimeExcelToTimestamp1904
-     *
-     * @param mixed $expectedResult
-     * @param mixed $excelDateTimeValue
      */
-    public function testDateTimeExcelToTimestamp1904($expectedResult, $excelDateTimeValue): void
+    public function testDateTimeExcelToTimestamp1904(mixed $expectedResult, mixed $excelDateTimeValue): void
     {
         if (is_numeric($expectedResult) && ($expectedResult > PHP_INT_MAX || $expectedResult < PHP_INT_MIN)) {
             self::markTestSkipped('Test invalid on 32-bit system.');
@@ -154,11 +136,8 @@ class DateTest extends TestCase
 
     /**
      * @dataProvider providerDateTimeTimestampToExcel1904
-     *
-     * @param mixed $expectedResult
-     * @param mixed $unixTimestamp
      */
-    public function testDateTimeTimestampToExcel1904($expectedResult, $unixTimestamp): void
+    public function testDateTimeTimestampToExcel1904(mixed $expectedResult, mixed $unixTimestamp): void
     {
         Date::setExcelCalendar(Date::CALENDAR_MAC_1904);
 
@@ -173,10 +152,8 @@ class DateTest extends TestCase
 
     /**
      * @dataProvider providerIsDateTimeFormatCode
-     *
-     * @param mixed $expectedResult
      */
-    public function testIsDateTimeFormatCode($expectedResult, string $format): void
+    public function testIsDateTimeFormatCode(mixed $expectedResult, string $format): void
     {
         $result = Date::isDateTimeFormatCode($format);
         self::assertEquals($expectedResult, $result);
@@ -189,12 +166,8 @@ class DateTest extends TestCase
 
     /**
      * @dataProvider providerDateTimeExcelToTimestamp1900Timezone
-     *
-     * @param mixed $expectedResult
-     * @param mixed $excelDateTimeValue
-     * @param mixed $timezone
      */
-    public function testDateTimeExcelToTimestamp1900Timezone($expectedResult, $excelDateTimeValue, $timezone): void
+    public function testDateTimeExcelToTimestamp1900Timezone(mixed $expectedResult, mixed $excelDateTimeValue, mixed $timezone): void
     {
         if (is_numeric($expectedResult) && ($expectedResult > PHP_INT_MAX || $expectedResult < PHP_INT_MIN)) {
             self::markTestSkipped('Test invalid on 32-bit system.');

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Csv;
 
 use PhpOffice\PhpSpreadsheet\Reader\Csv;
@@ -9,11 +11,8 @@ class CsvEncodingTest extends TestCase
 {
     /**
      * @dataProvider providerEncodings
-     *
-     * @param string $filename
-     * @param string $encoding
      */
-    public function testEncodings($filename, $encoding): void
+    public function testEncodings(string $filename, string $encoding): void
     {
         $reader = new Csv();
         $reader->setInputEncoding($encoding);
@@ -24,11 +23,8 @@ class CsvEncodingTest extends TestCase
 
     /**
      * @dataProvider providerEncodings
-     *
-     * @param string $filename
-     * @param string $encoding
      */
-    public function testWorkSheetInfo($filename, $encoding): void
+    public function testWorkSheetInfo(string $filename, string $encoding): void
     {
         $reader = new Csv();
         $reader->setInputEncoding($encoding);

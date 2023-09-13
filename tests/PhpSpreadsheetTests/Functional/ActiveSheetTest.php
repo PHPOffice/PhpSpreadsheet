@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Functional;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -18,10 +20,8 @@ class ActiveSheetTest extends AbstractFunctional
      * Test load file with correct active sheet.
      *
      * @dataProvider providerFormats
-     *
-     * @param string $format
      */
-    public function testActiveSheet($format): void
+    public function testActiveSheet(string $format): void
     {
         $spreadsheet = new Spreadsheet();
 

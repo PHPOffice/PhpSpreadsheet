@@ -27,7 +27,7 @@ class ChiSquared
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function distributionRightTail($value, $degrees)
+    public static function distributionRightTail($value, $degrees): array|string|int|float
     {
         if (is_array($value) || is_array($degrees)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $value, $degrees);
@@ -70,7 +70,7 @@ class ChiSquared
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function distributionLeftTail($value, $degrees, $cumulative)
+    public static function distributionLeftTail($value, $degrees, $cumulative): array|string|int|float
     {
         if (is_array($value) || is_array($degrees) || is_array($cumulative)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $value, $degrees, $cumulative);
@@ -136,7 +136,7 @@ class ChiSquared
             return ExcelError::NAN();
         }
 
-        $callback = function ($value) use ($degrees) {
+        $callback = function ($value) use ($degrees): float {
             return 1 - (Gamma::incompleteGamma($degrees / 2, $value / 2)
                     / Gamma::gammaValue($degrees / 2));
         };
@@ -160,7 +160,7 @@ class ChiSquared
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function inverseLeftTail($probability, $degrees)
+    public static function inverseLeftTail($probability, $degrees): array|string|float
     {
         if (is_array($probability) || is_array($degrees)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $probability, $degrees);

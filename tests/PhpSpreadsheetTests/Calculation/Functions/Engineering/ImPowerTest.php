@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -15,10 +17,7 @@ class ImPowerTest extends TestCase
 {
     const COMPLEX_PRECISION = 1E-12;
 
-    /**
-     * @var ComplexAssert
-     */
-    private $complexAssert;
+    private \PhpOffice\PhpSpreadsheetTests\Custom\ComplexAssert $complexAssert;
 
     protected function setUp(): void
     {
@@ -28,10 +27,8 @@ class ImPowerTest extends TestCase
 
     /**
      * @dataProvider providerIMPOWER
-     *
-     * @param mixed $expectedResult
      */
-    public function testDirectCallToIMPOWER($expectedResult, ...$args): void
+    public function testDirectCallToIMPOWER(mixed $expectedResult, mixed ...$args): void
     {
         /** @scrutinizer ignore-call */
         $result = ComplexFunctions::IMPOWER(...$args);
@@ -48,10 +45,8 @@ class ImPowerTest extends TestCase
 
     /**
      * @dataProvider providerIMPOWER
-     *
-     * @param mixed $expectedResult
      */
-    public function testIMPOWERAsFormula($expectedResult, ...$args): void
+    public function testIMPOWERAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -67,10 +62,8 @@ class ImPowerTest extends TestCase
 
     /**
      * @dataProvider providerIMPOWER
-     *
-     * @param mixed $expectedResult
      */
-    public function testIMPOWERInWorksheet($expectedResult, ...$args): void
+    public function testIMPOWERInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -98,7 +91,7 @@ class ImPowerTest extends TestCase
     /**
      * @dataProvider providerUnhappyIMPOWER
      */
-    public function testIMPOWERUnhappyPath(string $expectedException, ...$args): void
+    public function testIMPOWERUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 

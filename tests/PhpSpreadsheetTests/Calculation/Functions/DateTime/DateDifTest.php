@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
 use DateTime;
@@ -18,10 +20,8 @@ class DateDifTest extends TestCase
 {
     /**
      * @dataProvider providerDATEDIF
-     *
-     * @param mixed $expectedResult
      */
-    public function testDirectCallToDATEDIF($expectedResult, string ...$args): void
+    public function testDirectCallToDATEDIF(array|int|string $expectedResult, string ...$args): void
     {
         $result = Difference::interval(...$args);
         self::assertSame($expectedResult, $result);
@@ -29,10 +29,8 @@ class DateDifTest extends TestCase
 
     /**
      * @dataProvider providerDATEDIF
-     *
-     * @param mixed $expectedResult
      */
-    public function testDATEDIFAsFormula($expectedResult, ...$args): void
+    public function testDATEDIFAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -45,10 +43,8 @@ class DateDifTest extends TestCase
 
     /**
      * @dataProvider providerDATEDIF
-     *
-     * @param mixed $expectedResult
      */
-    public function testDATEDIFInWorksheet($expectedResult, ...$args): void
+    public function testDATEDIFInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -73,7 +69,7 @@ class DateDifTest extends TestCase
     /**
      * @dataProvider providerUnhappyDATEDIF
      */
-    public function testDATEDIFUnhappyPath(string $expectedException, ...$args): void
+    public function testDATEDIFUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -109,6 +105,7 @@ class DateDifTest extends TestCase
     {
         $obj1 = new Exception();
         $obj2 = new DateTimeImmutable('2000-2-29');
+        // @phpstan-ignore-next-line
         self::assertSame(ExcelError::VALUE(), Days::between($obj1, $obj2));
     }
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // Issue date, 1st Interest, Settlement, Rate, Par, Freq, Basis, Result
 
 return [

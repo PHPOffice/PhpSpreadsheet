@@ -9,11 +9,9 @@ use SimpleXMLElement;
 
 class Properties
 {
-    /** @var XmlScanner */
-    private $securityScanner;
+    private XmlScanner $securityScanner;
 
-    /** @var DocumentProperties */
-    private $docProps;
+    private DocumentProperties $docProps;
 
     public function __construct(XmlScanner $securityScanner, DocumentProperties $docProps)
     {

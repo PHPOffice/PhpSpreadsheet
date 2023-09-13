@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -7,20 +9,11 @@ use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 
 class ValueTest extends AllSetupTeardown
 {
-    /**
-     * @var string
-     */
-    private $currencyCode;
+    private string $currencyCode;
 
-    /**
-     * @var string
-     */
-    private $decimalSeparator;
+    private string $decimalSeparator;
 
-    /**
-     * @var string
-     */
-    private $thousandsSeparator;
+    private string $thousandsSeparator;
 
     protected function setUp(): void
     {
@@ -40,11 +33,8 @@ class ValueTest extends AllSetupTeardown
 
     /**
      * @dataProvider providerVALUE
-     *
-     * @param mixed $expectedResult
-     * @param mixed $value
      */
-    public function testVALUE($expectedResult, $value = 'omitted'): void
+    public function testVALUE(mixed $expectedResult, mixed $value = 'omitted'): void
     {
         StringHelper::setDecimalSeparator('.');
         StringHelper::setThousandsSeparator(' ');

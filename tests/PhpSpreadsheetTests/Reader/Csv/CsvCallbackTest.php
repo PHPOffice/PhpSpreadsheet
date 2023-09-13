@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Csv;
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
@@ -13,10 +15,7 @@ class CsvCallbackTest extends TestCase
         Csv::setConstructorCallback(null);
     }
 
-    /**
-     * @param mixed $obj
-     */
-    public function callbackDoNothing($obj): void
+    public function callbackDoNothing(mixed $obj): void
     {
         self::assertInstanceOf(Csv::class, $obj);
     }

@@ -19,8 +19,7 @@ class TrendLine extends Properties
         self::TRENDLINE_MOVING_AVG,
     ];
 
-    /** @var string */
-    private $trendLineType = 'linear'; // TRENDLINE_LINEAR
+    private string $trendLineType = 'linear'; // TRENDLINE_LINEAR
 
     /** @var int */
     private $order = 2;
@@ -34,8 +33,7 @@ class TrendLine extends Properties
     /** @var bool */
     private $dispEq = false;
 
-    /** @var string */
-    private $name = '';
+    private string $name = '';
 
     /** @var float */
     private $backward = 0.0;

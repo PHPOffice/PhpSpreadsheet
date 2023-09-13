@@ -32,10 +32,8 @@ class Border extends Supervisor
 
     /**
      * Border color.
-     *
-     * @var Color
      */
-    protected $color;
+    protected Color $color;
 
     /**
      * @var null|int
@@ -99,10 +97,8 @@ class Border extends Supervisor
      * Build style array from subcomponents.
      *
      * @param array $array
-     *
-     * @return array
      */
-    public function getStyleArray($array)
+    public function getStyleArray($array): array
     {
         /** @var Style */
         $parent = $this->parent;
@@ -128,7 +124,7 @@ class Border extends Supervisor
      *
      * @return $this
      */
-    public function applyFromArray(array $styleArray)
+    public function applyFromArray(array $styleArray): static
     {
         if ($this->isSupervisor) {
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($this->getStyleArray($styleArray));
@@ -167,7 +163,7 @@ class Border extends Supervisor
      *
      * @return $this
      */
-    public function setBorderStyle($style)
+    public function setBorderStyle($style): static
     {
         if (empty($style)) {
             $style = self::BORDER_NONE;
@@ -200,7 +196,7 @@ class Border extends Supervisor
      *
      * @return $this
      */
-    public function setColor(Color $color)
+    public function setColor(Color $color): static
     {
         // make sure parameter is a real color and not a supervisor
         $color = $color->getIsSupervisor() ? $color->getSharedComponent() : $color;

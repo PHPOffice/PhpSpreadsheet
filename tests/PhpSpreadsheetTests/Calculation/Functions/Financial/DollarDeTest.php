@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,10 +10,8 @@ class DollarDeTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerDOLLARDE
-     *
-     * @param mixed $expectedResult
      */
-    public function testDOLLARDE($expectedResult, ...$args): void
+    public function testDOLLARDE(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('DOLLARDE', $expectedResult, $args);
     }

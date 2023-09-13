@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,12 +10,8 @@ class TinvTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerTINV
-     *
-     * @param mixed $expectedResult
-     * @param mixed $probability
-     * @param mixed $degrees
      */
-    public function testTINV($expectedResult, $probability, $degrees): void
+    public function testTINV(mixed $expectedResult, mixed $probability, mixed $degrees): void
     {
         $this->runTestCaseReference('TINV', $expectedResult, $probability, $degrees);
     }

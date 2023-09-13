@@ -9,21 +9,13 @@ class ConditionalDataBar
     /** @var null|bool */
     private $showValue;
 
-    /** <dataBar> children */
+    private ?ConditionalFormatValueObject $minimumConditionalFormatValueObject = null;
 
-    /** @var ?ConditionalFormatValueObject */
-    private $minimumConditionalFormatValueObject;
+    private ?ConditionalFormatValueObject $maximumConditionalFormatValueObject = null;
 
-    /** @var ?ConditionalFormatValueObject */
-    private $maximumConditionalFormatValueObject;
+    private string $color = '';
 
-    /** @var string */
-    private $color;
-
-    /** <extLst> */
-
-    /** @var ?ConditionalFormattingRuleExtension */
-    private $conditionalFormattingRuleExt;
+    private ?ConditionalFormattingRuleExtension $conditionalFormattingRuleExt = null;
 
     /**
      * @return null|bool

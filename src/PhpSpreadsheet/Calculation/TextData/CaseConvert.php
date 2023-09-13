@@ -21,7 +21,7 @@ class CaseConvert
      *         If an array of values is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function lower($mixedCaseValue)
+    public static function lower($mixedCaseValue): array|string
     {
         if (is_array($mixedCaseValue)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $mixedCaseValue);
@@ -44,7 +44,7 @@ class CaseConvert
      *         If an array of values is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function upper($mixedCaseValue)
+    public static function upper($mixedCaseValue): array|string
     {
         if (is_array($mixedCaseValue)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $mixedCaseValue);
@@ -67,7 +67,7 @@ class CaseConvert
      *         If an array of values is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function proper($mixedCaseValue)
+    public static function proper($mixedCaseValue): array|string
     {
         if (is_array($mixedCaseValue)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $mixedCaseValue);

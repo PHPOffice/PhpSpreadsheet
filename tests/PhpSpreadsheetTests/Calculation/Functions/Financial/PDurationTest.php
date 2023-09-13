@@ -1,15 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 class PDurationTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerPDURATION
-     *
-     * @param mixed $expectedResult
      */
-    public function testPDURATION($expectedResult, array $args): void
+    public function testPDURATION(mixed $expectedResult, array $args): void
     {
         $this->runTestCase('PDURATION', $expectedResult, $args);
     }

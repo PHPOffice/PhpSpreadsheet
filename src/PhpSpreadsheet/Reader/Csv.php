@@ -33,10 +33,8 @@ class Csv extends BaseReader
 
     /**
      * Input encoding.
-     *
-     * @var string
      */
-    private $inputEncoding = 'UTF-8';
+    private string $inputEncoding = 'UTF-8';
 
     /**
      * Fallback encoding if guess strikes out.
@@ -47,17 +45,13 @@ class Csv extends BaseReader
 
     /**
      * Delimiter.
-     *
-     * @var ?string
      */
-    private $delimiter;
+    private ?string $delimiter = null;
 
     /**
      * Enclosure.
-     *
-     * @var string
      */
-    private $enclosure = '"';
+    private string $enclosure = '"';
 
     /**
      * Sheet index to read.
@@ -75,10 +69,8 @@ class Csv extends BaseReader
 
     /**
      * The character that can escape the enclosure.
-     *
-     * @var string
      */
-    private $escapeCharacter = '\\';
+    private string $escapeCharacter = '\\';
 
     /**
      * Callback for setting defaults in construction.
@@ -224,12 +216,8 @@ class Csv extends BaseReader
 
     /**
      * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
-     *
-     * @param string $filename
-     *
-     * @return array
      */
-    public function listWorksheetInfo($filename)
+    public function listWorksheetInfo(string $filename): array
     {
         // Open file
         $this->openFileOrMemory($filename);

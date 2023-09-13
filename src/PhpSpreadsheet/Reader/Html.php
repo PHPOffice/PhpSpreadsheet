@@ -223,7 +223,7 @@ class Html extends BaseReader
      *
      * @deprecated no use is made of this property
      */
-    public function setInputEncoding($inputEncoding)
+    public function setInputEncoding($inputEncoding): static
     {
         $this->inputEncoding = $inputEncoding;
 
@@ -281,11 +281,10 @@ class Html extends BaseReader
     /**
      * Flush cell.
      *
-     * @param string $column
      * @param int|string $row
      * @param mixed $cellContent
      */
-    protected function flushCell(Worksheet $sheet, $column, $row, &$cellContent, array $attributeArray): void
+    protected function flushCell(Worksheet $sheet, string $column, $row, &$cellContent, array $attributeArray): void
     {
         if (is_string($cellContent)) {
             //    Simple String content
@@ -663,12 +662,8 @@ class Html extends BaseReader
 
     /**
      * Loads PhpSpreadsheet from file into PhpSpreadsheet instance.
-     *
-     * @param string $filename
-     *
-     * @return Spreadsheet
      */
-    public function loadIntoExisting($filename, Spreadsheet $spreadsheet)
+    public function loadIntoExisting(string $filename, Spreadsheet $spreadsheet): Spreadsheet
     {
         // Validate
         if (!$this->canRead($filename)) {
@@ -863,7 +858,7 @@ class Html extends BaseReader
      *
      * @return $this
      */
-    public function setSheetIndex($sheetIndex)
+    public function setSheetIndex($sheetIndex): static
     {
         $this->sheetIndex = $sheetIndex;
 
@@ -881,10 +876,8 @@ class Html extends BaseReader
      * - Implement to other propertie, such as border
      *
      * @param int $row
-     * @param string $column
-     * @param array $attributeArray
      */
-    private function applyInlineStyle(Worksheet &$sheet, $row, $column, $attributeArray): void
+    private function applyInlineStyle(Worksheet &$sheet, $row, string $column, array $attributeArray): void
     {
         if (!isset($attributeArray['style'])) {
             return;
@@ -1062,10 +1055,8 @@ class Html extends BaseReader
      * Check if has #, so we can get clean hex.
      *
      * @param mixed $value
-     *
-     * @return null|string
      */
-    public function getStyleColor($value)
+    public function getStyleColor($value): string
     {
         $value = (string) $value;
         if (strpos($value, '#') === 0) {
@@ -1075,11 +1066,7 @@ class Html extends BaseReader
         return \PhpOffice\PhpSpreadsheet\Helper\Html::colourNameLookup($value);
     }
 
-    /**
-     * @param string    $column
-     * @param int       $row
-     */
-    private function insertImage(Worksheet $sheet, $column, $row, array $attributes): void
+    private function insertImage(Worksheet $sheet, string $column, int $row, array $attributes): void
     {
         if (!isset($attributes['src'])) {
             return;
@@ -1145,19 +1132,13 @@ class Html extends BaseReader
      * Map html border style to PhpSpreadsheet border style.
      *
      * @param  string $style
-     *
-     * @return null|string
      */
-    public function getBorderStyle($style)
+    public function getBorderStyle($style): ?string
     {
         return self::BORDER_MAPPINGS[$style] ?? null;
     }
 
-    /**
-     * @param string $styleValue
-     * @param string $type
-     */
-    private function setBorderStyle(Style $cellStyle, $styleValue, $type): void
+    private function setBorderStyle(Style $cellStyle, string $styleValue, string $type): void
     {
         if (trim($styleValue) === Border::BORDER_NONE) {
             $borderStyle = Border::BORDER_NONE;
@@ -1186,12 +1167,8 @@ class Html extends BaseReader
 
     /**
      * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
-     *
-     * @param string $filename
-     *
-     * @return array
      */
-    public function listWorksheetInfo($filename)
+    public function listWorksheetInfo(string $filename): array
     {
         $info = [];
         $spreadsheet = new Spreadsheet();

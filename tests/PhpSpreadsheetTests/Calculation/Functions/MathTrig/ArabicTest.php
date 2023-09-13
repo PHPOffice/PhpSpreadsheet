@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,11 +10,8 @@ class ArabicTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerARABIC
-     *
-     * @param mixed $expectedResult
-     * @param string $romanNumeral
      */
-    public function testARABIC($expectedResult, $romanNumeral): void
+    public function testARABIC(mixed $expectedResult, string $romanNumeral): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

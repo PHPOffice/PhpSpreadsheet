@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Database\DProduct;
@@ -10,13 +12,8 @@ class DProductTest extends SetupTeardownDatabases
 {
     /**
      * @dataProvider providerDProduct
-     *
-     * @param mixed $expectedResult
-     * @param mixed $database
-     * @param mixed $field
-     * @param mixed $criteria
      */
-    public function testDirectCallToDProduct($expectedResult, $database, $field, $criteria): void
+    public function testDirectCallToDProduct(float|string $expectedResult, array $database, ?string $field, array $criteria): void
     {
         $result = DProduct::evaluate($database, $field, $criteria);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
@@ -24,13 +21,8 @@ class DProductTest extends SetupTeardownDatabases
 
     /**
      * @dataProvider providerDProduct
-     *
-     * @param mixed $expectedResult
-     * @param mixed $database
-     * @param mixed $field
-     * @param mixed $criteria
      */
-    public function testDProductAsWorksheetFormula($expectedResult, $database, $field, $criteria): void
+    public function testDProductAsWorksheetFormula(float|string $expectedResult, array $database, ?string $field, array $criteria): void
     {
         $this->prepareWorksheetWithFormula('DPRODUCT', $database, $field, $criteria);
 

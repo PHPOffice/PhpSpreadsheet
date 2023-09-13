@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
@@ -15,11 +17,8 @@ class TransposeTest extends TestCase
 
     /**
      * @dataProvider providerTRANSPOSE
-     *
-     * @param mixed $expectedResult
-     * @param mixed $matrix
      */
-    public function testTRANSPOSE($expectedResult, $matrix): void
+    public function testTRANSPOSE(mixed $expectedResult, mixed $matrix): void
     {
         $result = LookupRef\Matrix::transpose($matrix);
         self::assertEquals($expectedResult, $result);

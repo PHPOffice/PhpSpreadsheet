@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xml;
 
 use DateTimeZone;
@@ -15,8 +17,7 @@ class XmlLoadTest extends TestCase
     /** @var ?Spreadsheet */
     private $spreadsheet;
 
-    /** @var string */
-    private $locale;
+    private string $locale;
 
     protected function setUp(): void
     {

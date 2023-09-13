@@ -38,9 +38,9 @@ abstract class JpGraphRendererBase implements IRenderer
         'goldenrod2',
     ];
 
-    private static $markSet;
+    private static array $markSet;
 
-    private $chart;
+    private Chart $chart;
 
     private $graph;
 
@@ -102,7 +102,7 @@ abstract class JpGraphRendererBase implements IRenderer
         return $seriesPlot;
     }
 
-    private function formatDataSetLabels($groupID, $datasetLabels, $rotation = '')
+    private function formatDataSetLabels(int $groupID, array $datasetLabels, $rotation = '')
     {
         $datasetLabelFormatCode = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotCategoryByIndex(0)->getFormatCode() ?? '';
         //    Retrieve any label formatting code
@@ -129,7 +129,7 @@ abstract class JpGraphRendererBase implements IRenderer
         return $datasetLabels;
     }
 
-    private function percentageSumCalculation($groupID, $seriesCount)
+    private function percentageSumCalculation(int $groupID, $seriesCount)
     {
         $sumValues = [];
         //    Adjust our values to a percentage value across all series in the group
@@ -151,7 +151,7 @@ abstract class JpGraphRendererBase implements IRenderer
         return $sumValues;
     }
 
-    private function percentageAdjustValues($dataValues, $sumValues)
+    private function percentageAdjustValues(array $dataValues, array $sumValues)
     {
         foreach ($dataValues as $k => $dataValue) {
             $dataValues[$k] = $dataValue / $sumValues[$k] * 100;
@@ -219,7 +219,7 @@ abstract class JpGraphRendererBase implements IRenderer
         }
     }
 
-    private function renderCartesianPlotArea($type = 'textlin'): void
+    private function renderCartesianPlotArea(string $type = 'textlin'): void
     {
         $this->graph = new Graph(self::$width, self::$height);
         $this->graph->SetScale($type);
@@ -271,7 +271,7 @@ abstract class JpGraphRendererBase implements IRenderer
         $this->renderTitle();
     }
 
-    private function renderPlotLine($groupID, $filled = false, $combination = false): void
+    private function renderPlotLine(int $groupID, bool $filled = false, bool $combination = false): void
     {
         $grouping = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotGrouping();
 
@@ -338,7 +338,7 @@ abstract class JpGraphRendererBase implements IRenderer
         $this->graph->Add($groupPlot);
     }
 
-    private function renderPlotBar($groupID, $dimensions = '2d'): void
+    private function renderPlotBar(int $groupID, ?string $dimensions = '2d'): void
     {
         $rotation = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotDirection();
         //    Rotate for bar rather than column chart
@@ -426,7 +426,7 @@ abstract class JpGraphRendererBase implements IRenderer
         $this->graph->Add($groupPlot);
     }
 
-    private function renderPlotScatter($groupID, $bubble): void
+    private function renderPlotScatter(int $groupID, bool $bubble): void
     {
         $scatterStyle = $bubbleSize = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotStyle();
 
@@ -490,7 +490,7 @@ abstract class JpGraphRendererBase implements IRenderer
         }
     }
 
-    private function renderPlotRadar($groupID): void
+    private function renderPlotRadar(int $groupID): void
     {
         $radarStyle = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotStyle();
 
@@ -527,7 +527,7 @@ abstract class JpGraphRendererBase implements IRenderer
         }
     }
 
-    private function renderPlotContour($groupID): void
+    private function renderPlotContour(int $groupID): void
     {
         $seriesCount = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotSeriesCount();
 
@@ -543,7 +543,7 @@ abstract class JpGraphRendererBase implements IRenderer
         $this->graph->Add($seriesPlot);
     }
 
-    private function renderPlotStock($groupID): void
+    private function renderPlotStock(int $groupID): void
     {
         $seriesCount = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotSeriesCount();
         $plotOrder = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotOrder();
@@ -605,7 +605,7 @@ abstract class JpGraphRendererBase implements IRenderer
         }
     }
 
-    private function renderBarChart($groupCount, $dimensions = '2d'): void
+    private function renderBarChart($groupCount, ?string $dimensions = '2d'): void
     {
         $this->renderCartesianPlotArea();
 
@@ -632,7 +632,7 @@ abstract class JpGraphRendererBase implements IRenderer
         }
     }
 
-    private function renderPieChart($groupCount, $dimensions = '2d', $doughnut = false, $multiplePlots = false): void
+    private function renderPieChart($groupCount, ?string $dimensions = '2d', bool $doughnut = false, bool $multiplePlots = false): void
     {
         $this->renderPiePlotArea();
 
@@ -729,7 +729,7 @@ abstract class JpGraphRendererBase implements IRenderer
         }
     }
 
-    private function renderCombinationChart($groupCount, $outputDestination)
+    private function renderCombinationChart($groupCount, $outputDestination): bool
     {
         $this->renderCartesianPlotArea();
 

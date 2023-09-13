@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     ['R[2]C[2]', 'O18', 16, 13],
     ['R18C15', '$O$18', 16, 13],

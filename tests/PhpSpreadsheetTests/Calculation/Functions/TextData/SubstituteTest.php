@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,14 +10,8 @@ class SubstituteTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerSUBSTITUTE
-     *
-     * @param mixed $expectedResult
-     * @param mixed $text
-     * @param mixed $oldText
-     * @param mixed $newText
-     * @param mixed $instance
      */
-    public function testSUBSTITUTE($expectedResult, $text = 'omitted', $oldText = 'omitted', $newText = 'omitted', $instance = 'omitted'): void
+    public function testSUBSTITUTE(mixed $expectedResult, mixed $text = 'omitted', mixed $oldText = 'omitted', mixed $newText = 'omitted', mixed $instance = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

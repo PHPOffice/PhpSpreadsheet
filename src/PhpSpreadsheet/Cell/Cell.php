@@ -45,17 +45,15 @@ class Cell
 
     /**
      * Type of the cell data.
-     *
-     * @var string
      */
-    private $dataType;
+    private string $dataType;
 
     /**
      * The collection of cells that this cell belongs to (i.e. The Cell Collection for the parent Worksheet).
      *
      * @var ?Cells
      */
-    private $parent;
+    private ?Cells $parent;
 
     /**
      * Index to the cellXf reference for the styling of this cell.
@@ -71,8 +69,7 @@ class Cell
      */
     private $formulaAttributes;
 
-    /** @var IgnoredErrors */
-    private $ignoredErrors;
+    private IgnoredErrors $ignoredErrors;
 
     /**
      * Update the cell into the cell collection.
@@ -127,10 +124,8 @@ class Cell
 
     /**
      * Get cell coordinate column.
-     *
-     * @return string
      */
-    public function getColumn()
+    public function getColumn(): string
     {
         $parent = $this->parent;
         if ($parent === null) {
@@ -142,10 +137,8 @@ class Cell
 
     /**
      * Get cell coordinate row.
-     *
-     * @return int
      */
-    public function getRow()
+    public function getRow(): int
     {
         $parent = $this->parent;
         if ($parent === null) {
@@ -790,10 +783,8 @@ class Cell
 
     /**
      * Convert to string.
-     *
-     * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         return (string) $this->getValue();
     }

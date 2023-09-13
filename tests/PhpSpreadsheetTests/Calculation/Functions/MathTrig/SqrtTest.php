@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,11 +10,8 @@ class SqrtTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerSQRT
-     *
-     * @param mixed $expectedResult
-     * @param mixed $number
      */
-    public function testSQRT($expectedResult, $number = 'omitted'): void
+    public function testSQRT(mixed $expectedResult, mixed $number = 'omitted'): void
     {
         $sheet = $this->getSheet();
         $this->mightHaveException($expectedResult);

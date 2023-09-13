@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -15,10 +17,8 @@ class BesselITest extends TestCase
 
     /**
      * @dataProvider providerBESSELI
-     *
-     * @param mixed $expectedResult
      */
-    public function testDirectCallToBESSELI($expectedResult, ...$args): void
+    public function testDirectCallToBESSELI(mixed $expectedResult, mixed ...$args): void
     {
         $result = BesselI::besselI(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, self::BESSEL_PRECISION);
@@ -26,10 +26,8 @@ class BesselITest extends TestCase
 
     /**
      * @dataProvider providerBESSELI
-     *
-     * @param mixed $expectedResult
      */
-    public function testBESSELIAsFormula($expectedResult, ...$args): void
+    public function testBESSELIAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -42,10 +40,8 @@ class BesselITest extends TestCase
 
     /**
      * @dataProvider providerBESSELI
-     *
-     * @param mixed $expectedResult
      */
-    public function testBESSELIInWorksheet($expectedResult, ...$args): void
+    public function testBESSELIInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -70,7 +66,7 @@ class BesselITest extends TestCase
     /**
      * @dataProvider providerUnhappyBESSELI
      */
-    public function testBESSELIUnhappyPath(string $expectedException, ...$args): void
+    public function testBESSELIUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 

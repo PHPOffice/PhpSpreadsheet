@@ -114,7 +114,7 @@ class OLE
      *
      * @return bool true on success, PEAR_Error on failure
      */
-    public function read($filename)
+    public function read($filename): bool
     {
         $fh = @fopen($filename, 'rb');
         if ($fh === false) {
@@ -200,10 +200,8 @@ class OLE
 
     /**
      * @param int $blockId byte offset from beginning of file
-     *
-     * @return int
      */
-    public function getBlockOffset($blockId)
+    public function getBlockOffset(int $blockId): int
     {
         return 512 + $blockId * $this->bigBlockSize;
     }
@@ -304,7 +302,7 @@ class OLE
      *
      * @return bool true on success, PEAR_Error on failure
      */
-    public function readPpsWks($blockId)
+    public function readPpsWks($blockId): bool
     {
         $fh = $this->getStream($blockId);
         for ($pos = 0; true; $pos += 128) {
@@ -381,7 +379,7 @@ class OLE
      *
      * @return bool Whether the PPS tree for the given PPS is complete
      */
-    private function ppsTreeComplete($index)
+    private function ppsTreeComplete($index): bool
     {
         return isset($this->_list[$index]) &&
             ($pps = $this->_list[$index]) &&
@@ -401,7 +399,7 @@ class OLE
      *
      * @return bool true if it's a File PPS, false otherwise
      */
-    public function isFile($index)
+    public function isFile($index): bool
     {
         if (isset($this->_list[$index])) {
             return $this->_list[$index]->Type == self::OLE_PPS_TYPE_FILE;
@@ -418,7 +416,7 @@ class OLE
      *
      * @return bool true if it's a Root PPS, false otherwise
      */
-    public function isRoot($index)
+    public function isRoot($index): bool
     {
         if (isset($this->_list[$index])) {
             return $this->_list[$index]->Type == self::OLE_PPS_TYPE_ROOT;
@@ -432,7 +430,7 @@ class OLE
      *
      * @return int The total number of PPS's found in the OLE container
      */
-    public function ppsTotal()
+    public function ppsTotal(): int
     {
         return count($this->_list);
     }
@@ -450,7 +448,7 @@ class OLE
      *
      * @see OLE_PPS_File::getStream()
      */
-    public function getData($index, $position, $length)
+    public function getData($index, $position, $length): string
     {
         // if position is not valid return empty string
         if (!isset($this->_list[$index]) || ($position >= $this->_list[$index]->Size) || ($position < 0)) {
@@ -487,7 +485,7 @@ class OLE
      *
      * @return string The string in Unicode
      */
-    public static function ascToUcs($ascii)
+    public static function ascToUcs($ascii): string
     {
         $rawname = '';
         $iMax = strlen($ascii);
@@ -507,7 +505,7 @@ class OLE
      *
      * @return string The string for the OLE container
      */
-    public static function localDateToOLE($date)
+    public static function localDateToOLE($date): string
     {
         if (!$date) {
             return "\x00\x00\x00\x00\x00\x00\x00\x00";

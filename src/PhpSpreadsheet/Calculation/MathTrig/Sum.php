@@ -79,9 +79,9 @@ class Sum
      *
      * @param mixed ...$args Data values
      *
-     * @return float|string The result, or a string containing an error
+     * @return float|int|string The result, or a string containing an error
      */
-    public static function product(...$args)
+    public static function product(...$args): string|int|float
     {
         $arrayList = $args;
 

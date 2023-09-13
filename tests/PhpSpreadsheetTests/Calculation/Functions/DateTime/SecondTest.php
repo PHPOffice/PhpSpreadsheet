@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -12,10 +14,8 @@ class SecondTest extends TestCase
 {
     /**
      * @dataProvider providerSECOND
-     *
-     * @param mixed $expectedResult
      */
-    public function testDirectCallToSECOND($expectedResult, ...$args): void
+    public function testDirectCallToSECOND(mixed $expectedResult, mixed ...$args): void
     {
         /** @scrutinizer ignore-call */
         $result = TimeParts::second(...$args);
@@ -24,10 +24,8 @@ class SecondTest extends TestCase
 
     /**
      * @dataProvider providerSECOND
-     *
-     * @param mixed $expectedResult
      */
-    public function testSECONDAsFormula($expectedResult, ...$args): void
+    public function testSECONDAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -40,10 +38,8 @@ class SecondTest extends TestCase
 
     /**
      * @dataProvider providerSECOND
-     *
-     * @param mixed $expectedResult
      */
-    public function testSECONDInWorksheet($expectedResult, ...$args): void
+    public function testSECONDInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -68,7 +64,7 @@ class SecondTest extends TestCase
     /**
      * @dataProvider providerUnhappySECOND
      */
-    public function testSECONDUnhappyPath(string $expectedException, ...$args): void
+    public function testSECONDUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,10 +10,8 @@ class GammaInvTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerGAMMAINV
-     *
-     * @param mixed $expectedResult
      */
-    public function testGAMMAINV($expectedResult, ...$args): void
+    public function testGAMMAINV(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('GAMMA.INV', $expectedResult, ...$args);
     }

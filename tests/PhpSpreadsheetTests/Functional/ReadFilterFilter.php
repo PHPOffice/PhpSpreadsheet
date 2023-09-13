@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Functional;
 
 use PhpOffice\PhpSpreadsheet\Reader\IReadFilter;
@@ -11,11 +13,9 @@ class ReadFilterFilter implements IReadFilter
      * @param int $row Row number
      * @param string $worksheetName Optional worksheet name
      *
-     * @return bool
-     *
      * @see \PhpOffice\PhpSpreadsheet\Reader\IReadFilter::readCell()
      */
-    public function readCell($column, $row, $worksheetName = '')
+    public function readCell($column, $row, $worksheetName = ''): bool
     {
         // define filter range
         $rowMin = 2;

@@ -161,7 +161,7 @@ class Comments extends WriterPart
      * @param string $cellReference Cell reference, eg: 'A1'
      * @param Comment $comment Comment
      */
-    private function writeVMLComment(XMLWriter $objWriter, $cellReference, Comment $comment): void
+    private function writeVMLComment(XMLWriter $objWriter, string $cellReference, Comment $comment): void
     {
         // Metadata
         [$column, $row] = Coordinate::indexesFromString($cellReference);

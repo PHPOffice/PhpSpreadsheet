@@ -553,10 +553,7 @@ class Escher
         $this->applyAttribute('setEndOffsetY', $endOffsetY);
     }
 
-    /**
-     * @param mixed $value
-     */
-    private function applyAttribute(string $name, $value): void
+    private function applyAttribute(string $name, mixed $value): void
     {
         if (method_exists($this->object, $name)) {
             $this->object->$name($value);
@@ -581,7 +578,7 @@ class Escher
      * @param string $data Binary data
      * @param int $n Number of properties
      */
-    private function readOfficeArtRGFOPTE($data, $n): void
+    private function readOfficeArtRGFOPTE(string $data, int $n): void
     {
         $splicedComplexData = substr($data, 6 * $n);
 

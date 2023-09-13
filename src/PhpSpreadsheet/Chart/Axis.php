@@ -26,17 +26,13 @@ class Axis extends Properties
 
     /**
      * Chart Major Gridlines as.
-     *
-     * @var ?GridLines
      */
-    private $majorGridlines;
+    private ?GridLines $majorGridlines = null;
 
     /**
      * Chart Minor Gridlines as.
-     *
-     * @var ?GridLines
      */
-    private $minorGridlines;
+    private ?GridLines $minorGridlines = null;
 
     /**
      * Axis Number.
@@ -49,11 +45,9 @@ class Axis extends Properties
         'numeric' => null,
     ];
 
-    /** @var string */
-    private $axisType = '';
+    private string $axisType = '';
 
-    /** @var ?AxisText */
-    private $axisText;
+    private ?AxisText $axisText = null;
 
     /**
      * Axis Options.
@@ -80,10 +74,8 @@ class Axis extends Properties
 
     /**
      * Fill Properties.
-     *
-     * @var ChartColor
      */
-    private $fillColor;
+    private ChartColor $fillColor;
 
     private const NUMERIC_FORMAT = [
         Properties::FORMAT_CODE_NUMBER,
@@ -123,10 +115,8 @@ class Axis extends Properties
 
     /**
      * Get Axis Number Source Linked.
-     *
-     * @return string
      */
-    public function getAxisNumberSourceLinked()
+    public function getAxisNumberSourceLinked(): string
     {
         return (string) $this->axisNumber['source_linked'];
     }
@@ -233,7 +223,7 @@ class Axis extends Properties
      * @param ?int $alpha
      * @param ?string $AlphaType
      */
-    public function setFillParameters($color, $alpha = null, $AlphaType = ChartColor::EXCEL_COLOR_TYPE_RGB): void
+    public function setFillParameters(?string $color, $alpha = null, ?string $AlphaType = ChartColor::EXCEL_COLOR_TYPE_RGB): void
     {
         $this->fillColor->setColorProperties($color, $alpha, $AlphaType);
     }
@@ -242,10 +232,8 @@ class Axis extends Properties
      * Get Fill Property.
      *
      * @param string $property
-     *
-     * @return string
      */
-    public function getFillProperty($property)
+    public function getFillProperty($property): string
     {
         return (string) $this->fillColor->getColorProperty($property);
     }
@@ -271,8 +259,7 @@ class Axis extends Properties
         return $this->getLineColorProperty($propertyName);
     }
 
-    /** @var string */
-    private $crossBetween = ''; // 'between' or 'midCat' might be better
+    private string $crossBetween = ''; // 'between' or 'midCat' might be better
 
     public function setCrossBetween(string $crossBetween): self
     {

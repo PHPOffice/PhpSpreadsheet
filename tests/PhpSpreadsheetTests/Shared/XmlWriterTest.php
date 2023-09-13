@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Shared;
 
 use PhpOffice\PhpSpreadsheet\Exception as SpreadsheetException;
@@ -8,8 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class XmlWriterTest extends TestCase
 {
-    /** @var bool */
-    private $debugEnabled;
+    private bool $debugEnabled;
 
     protected function setUp(): void
     {

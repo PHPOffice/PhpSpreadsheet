@@ -617,11 +617,9 @@ class Html
     /**
      * Parse HTML formatting and return the resulting RichText.
      *
-     * @param string $html
-     *
      * @return RichText
      */
-    public function toRichTextObject($html)
+    public function toRichTextObject(string $html)
     {
         $this->initialise();
 
@@ -818,10 +816,7 @@ class Html
         $this->buildTextRun();
     }
 
-    /**
-     * @param string $callbackTag
-     */
-    private function handleCallback(DOMElement $element, $callbackTag, array $callbacks): void
+    private function handleCallback(DOMElement $element, string $callbackTag, array $callbacks): void
     {
         if (isset($callbacks[$callbackTag])) {
             $elementHandler = $callbacks[$callbackTag];

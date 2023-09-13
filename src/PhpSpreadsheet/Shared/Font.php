@@ -296,7 +296,7 @@ class Font
      *
      * @return bool Success or failure
      */
-    public static function setAutoSizeMethod($method)
+    public static function setAutoSizeMethod($method): bool
     {
         if (!in_array($method, self::AUTOSIZE_METHODS)) {
             return false;
@@ -470,12 +470,11 @@ class Font
     /**
      * Get approximate width in pixels for a string of text in a certain font at a certain rotation angle.
      *
-     * @param string $columnText
      * @param int $rotation
      *
      * @return int Text width in pixels (no padding added)
      */
-    public static function getTextWidthPixelsApprox($columnText, FontStyle $font, $rotation = 0)
+    public static function getTextWidthPixelsApprox(string $columnText, FontStyle $font, $rotation = 0): int
     {
         $fontName = $font->getName();
         $fontSize = $font->getSize();
@@ -528,7 +527,7 @@ class Font
      *
      * @return int Font size (in pixels)
      */
-    public static function fontSizeToPixels($fontSizeInPoints)
+    public static function fontSizeToPixels($fontSizeInPoints): int
     {
         return (int) ((4 / 3) * $fontSizeInPoints);
     }
@@ -540,7 +539,7 @@ class Font
      *
      * @return int Size (in pixels)
      */
-    public static function inchSizeToPixels($sizeInInch)
+    public static function inchSizeToPixels($sizeInInch): int|float
     {
         return $sizeInInch * 96;
     }
@@ -552,7 +551,7 @@ class Font
      *
      * @return float Size (in pixels)
      */
-    public static function centimeterSizeToPixels($sizeInCm)
+    public static function centimeterSizeToPixels($sizeInCm): float
     {
         return $sizeInCm * 37.795275591;
     }
@@ -639,7 +638,7 @@ class Font
      *
      * @return int Character set code
      */
-    public static function getCharsetFromFontName($fontName)
+    public static function getCharsetFromFontName($fontName): int
     {
         return self::CHARSET_FROM_FONT_NAME[$fontName] ?? self::CHARSET_ANSI_LATIN;
     }
@@ -651,9 +650,9 @@ class Font
      * @param FontStyle $font The workbooks default font
      * @param bool $returnAsPixels true = return column width in pixels, false = return in OOXML units
      *
-     * @return mixed Column width
+     * @return ($returnAsPixels is true ? int : float) Column width
      */
-    public static function getDefaultColumnWidthByFont(FontStyle $font, $returnAsPixels = false)
+    public static function getDefaultColumnWidthByFont(FontStyle $font, bool $returnAsPixels = false): float|int
     {
         if (isset(self::DEFAULT_COLUMN_WIDTHS[$font->getName()][$font->getSize()])) {
             // Exact width can be determined
@@ -685,7 +684,7 @@ class Font
      *
      * @return float Row height in points
      */
-    public static function getDefaultRowHeightByFont(FontStyle $font)
+    public static function getDefaultRowHeightByFont(FontStyle $font): float
     {
         $name = $font->getName();
         $size = $font->getSize();

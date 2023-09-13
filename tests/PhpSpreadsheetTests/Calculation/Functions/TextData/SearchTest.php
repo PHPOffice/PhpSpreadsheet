@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,13 +10,8 @@ class SearchTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerSEARCH
-     *
-     * @param mixed $expectedResult
-     * @param mixed $findText
-     * @param mixed $withinText
-     * @param mixed $start
      */
-    public function testSEARCH($expectedResult, $findText = 'omitted', $withinText = 'omitted', $start = 'omitted'): void
+    public function testSEARCH(mixed $expectedResult, mixed $findText = 'omitted', mixed $withinText = 'omitted', mixed $start = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

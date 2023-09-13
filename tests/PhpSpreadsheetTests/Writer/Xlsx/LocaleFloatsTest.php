@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -7,10 +9,7 @@ use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
 class LocaleFloatsTest extends AbstractFunctional
 {
-    /**
-     * @var bool
-     */
-    private $localeAdjusted;
+    private bool $localeAdjusted;
 
     /**
      * @var false|string

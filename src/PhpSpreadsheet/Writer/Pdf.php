@@ -11,10 +11,8 @@ abstract class Pdf extends Html
 {
     /**
      * Temporary storage directory.
-     *
-     * @var string
      */
-    protected $tempDir = '';
+    protected string $tempDir;
 
     /**
      * Font.
@@ -25,10 +23,8 @@ abstract class Pdf extends Html
 
     /**
      * Orientation (Over-ride).
-     *
-     * @var ?string
      */
-    protected $orientation;
+    protected ?string $orientation = null;
 
     /**
      * Paper size (Over-ride).

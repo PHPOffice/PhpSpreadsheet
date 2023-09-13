@@ -60,7 +60,7 @@ class Expression extends WizardAbstract implements WizardInterface
      * @param string $methodName
      * @param mixed[] $arguments
      */
-    public function __call($methodName, $arguments): self
+    public function __call($methodName, array $arguments): self
     {
         if ($methodName !== 'formula') {
             throw new Exception('Invalid Operation for Expression CF Rule Wizard');

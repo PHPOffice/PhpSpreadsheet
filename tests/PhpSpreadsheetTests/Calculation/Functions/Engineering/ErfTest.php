@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -15,10 +17,8 @@ class ErfTest extends TestCase
 
     /**
      * @dataProvider providerERF
-     *
-     * @param mixed $expectedResult
      */
-    public function testDirectCallToERF($expectedResult, ...$args): void
+    public function testDirectCallToERF(mixed $expectedResult, mixed ...$args): void
     {
         /** @scrutinizer ignore-call */
         $result = Erf::erf(...$args);
@@ -27,10 +27,8 @@ class ErfTest extends TestCase
 
     /**
      * @dataProvider providerERF
-     *
-     * @param mixed $expectedResult
      */
-    public function testERFAsFormula($expectedResult, ...$args): void
+    public function testERFAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -43,10 +41,8 @@ class ErfTest extends TestCase
 
     /**
      * @dataProvider providerERF
-     *
-     * @param mixed $expectedResult
      */
-    public function testERFInWorksheet($expectedResult, ...$args): void
+    public function testERFInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -71,7 +67,7 @@ class ErfTest extends TestCase
     /**
      * @dataProvider providerUnhappyERF
      */
-    public function testERFUnhappyPath(string $expectedException, ...$args): void
+    public function testERFUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 

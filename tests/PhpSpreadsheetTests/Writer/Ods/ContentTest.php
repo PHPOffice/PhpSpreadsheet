@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Ods;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
@@ -22,14 +24,7 @@ class ContentTest extends TestCase
      */
     private $samplesPath = 'tests/data/Writer/Ods';
 
-    /**
-     * @var string
-     */
-
-    /**
-     * @var string
-     */
-    private $compatibilityMode;
+    private string $compatibilityMode;
 
     protected function setUp(): void
     {

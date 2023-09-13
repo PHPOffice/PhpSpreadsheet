@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -14,10 +16,8 @@ class ErfPreciseTest extends TestCase
 
     /**
      * @dataProvider providerERFPRECISE
-     *
-     * @param mixed $expectedResult
      */
-    public function testDirectCallToERFPRECISE($expectedResult, ...$args): void
+    public function testDirectCallToERFPRECISE(mixed $expectedResult, mixed ...$args): void
     {
         /** @scrutinizer ignore-call */
         $result = Erf::ERFPRECISE(...$args);
@@ -26,10 +26,8 @@ class ErfPreciseTest extends TestCase
 
     /**
      * @dataProvider providerERFPRECISE
-     *
-     * @param mixed $expectedResult
      */
-    public function testERFPRECISEAsFormula($expectedResult, ...$args): void
+    public function testERFPRECISEAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -42,10 +40,8 @@ class ErfPreciseTest extends TestCase
 
     /**
      * @dataProvider providerERFPRECISE
-     *
-     * @param mixed $expectedResult
      */
-    public function testERFPRECISEInWorksheet($expectedResult, ...$args): void
+    public function testERFPRECISEInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -15,10 +17,7 @@ class ImSinTest extends TestCase
 {
     const COMPLEX_PRECISION = 1E-12;
 
-    /**
-     * @var ComplexAssert
-     */
-    private $complexAssert;
+    private \PhpOffice\PhpSpreadsheetTests\Custom\ComplexAssert $complexAssert;
 
     protected function setUp(): void
     {
@@ -28,10 +27,8 @@ class ImSinTest extends TestCase
 
     /**
      * @dataProvider providerIMSIN
-     *
-     * @param mixed $expectedResult
      */
-    public function testDirectCallToIMSIN($expectedResult, ...$args): void
+    public function testDirectCallToIMSIN(mixed $expectedResult, mixed ...$args): void
     {
         /** @scrutinizer ignore-call */
         $result = ComplexFunctions::IMSIN(...$args);
@@ -48,10 +45,8 @@ class ImSinTest extends TestCase
 
     /**
      * @dataProvider providerIMSIN
-     *
-     * @param mixed $expectedResult
      */
-    public function testIMSINAsFormula($expectedResult, ...$args): void
+    public function testIMSINAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -67,10 +62,8 @@ class ImSinTest extends TestCase
 
     /**
      * @dataProvider providerIMSIN
-     *
-     * @param mixed $expectedResult
      */
-    public function testIMSINInWorksheet($expectedResult, ...$args): void
+    public function testIMSINInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -98,7 +91,7 @@ class ImSinTest extends TestCase
     /**
      * @dataProvider providerUnhappyIMSIN
      */
-    public function testIMSINUnhappyPath(string $expectedException, ...$args): void
+    public function testIMSINUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 

@@ -1,15 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 class AccrintMTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerACCRINTM
-     *
-     * @param mixed $expectedResult
      */
-    public function testACCRINTM($expectedResult, ...$args): void
+    public function testACCRINTM(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('ACCRINTM', $expectedResult, $args);
     }

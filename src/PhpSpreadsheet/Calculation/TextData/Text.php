@@ -21,7 +21,7 @@ class Text
      *         If an array of values is passed for the argument, then the returned result
      *            will also be an array with matching dimensions
      */
-    public static function length($value = '')
+    public static function length($value = ''): array|int
     {
         if (is_array($value)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $value);
@@ -46,7 +46,7 @@ class Text
      *         If an array of values is passed for either of the arguments, then the returned result
      *            will also be an array with matching dimensions
      */
-    public static function exact($value1, $value2)
+    public static function exact($value1, $value2): array|bool
     {
         if (is_array($value1) || is_array($value2)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $value1, $value2);
@@ -68,7 +68,7 @@ class Text
      *         If an array of values is passed for the argument, then the returned result
      *            will also be an array with matching dimensions
      */
-    public static function test($testValue = '')
+    public static function test($testValue = ''): array|string
     {
         if (is_array($testValue)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $testValue);
@@ -102,7 +102,7 @@ class Text
      *
      * @return array the array built from the text, split by the row and column delimiters
      */
-    public static function split($text, $columnDelimiter = null, $rowDelimiter = null, bool $ignoreEmpty = false, bool $matchMode = true, $padding = '#N/A')
+    public static function split($text, $columnDelimiter = null, $rowDelimiter = null, bool $ignoreEmpty = false, bool $matchMode = true, $padding = '#N/A'): array
     {
         $text = Functions::flattenSingleValue($text);
 
@@ -121,7 +121,7 @@ class Text
         if ($ignoreEmpty === true) {
             $rows = array_values(array_filter(
                 $rows,
-                function ($row) {
+                function ($row): bool {
                     return $row !== '';
                 }
             ));
@@ -139,7 +139,7 @@ class Text
                     if ($ignoreEmpty === true) {
                         $row = array_values(array_filter(
                             $row,
-                            function ($value) {
+                            function ($value): bool {
                                 return $value !== '';
                             }
                         ));
@@ -149,7 +149,7 @@ class Text
             if ($ignoreEmpty === true) {
                 $rows = array_values(array_filter(
                     $rows,
-                    function ($row) {
+                    function ($row): bool {
                         return $row !== [] && $row !== [''];
                     }
                 ));
@@ -192,7 +192,7 @@ class Text
 
         if (is_array($delimiter) && count($valueSet) > 1) {
             $quotedDelimiters = array_map(
-                function ($delimiter) {
+                function ($delimiter): string {
                     return preg_quote($delimiter ?? '', '/');
                 },
                 $valueSet
@@ -239,10 +239,7 @@ class Text
         return (string) $cellValue;
     }
 
-    /**
-     * @param mixed $cellValue
-     */
-    private static function formatValueMode1($cellValue): string
+    private static function formatValueMode1(mixed $cellValue): string
     {
         if (is_string($cellValue) && ErrorValue::isError($cellValue) === false) {
             return Calculation::FORMULA_STRING_QUOTE . $cellValue . Calculation::FORMULA_STRING_QUOTE;
