@@ -17,24 +17,20 @@ abstract class Properties
     /** @deprecated 1.24 use constant from ChartColor instead */
     const EXCEL_COLOR_TYPE_ARGB = ChartColor::EXCEL_COLOR_TYPE_ARGB;
 
-    const
-        AXIS_LABELS_LOW = 'low';
+    const AXIS_LABELS_LOW = 'low';
     const AXIS_LABELS_HIGH = 'high';
     const AXIS_LABELS_NEXT_TO = 'nextTo';
     const AXIS_LABELS_NONE = 'none';
 
-    const
-        TICK_MARK_NONE = 'none';
+    const TICK_MARK_NONE = 'none';
     const TICK_MARK_INSIDE = 'in';
     const TICK_MARK_OUTSIDE = 'out';
     const TICK_MARK_CROSS = 'cross';
 
-    const
-        HORIZONTAL_CROSSES_AUTOZERO = 'autoZero';
+    const HORIZONTAL_CROSSES_AUTOZERO = 'autoZero';
     const HORIZONTAL_CROSSES_MAXIMUM = 'max';
 
-    const
-        FORMAT_CODE_GENERAL = 'General';
+    const FORMAT_CODE_GENERAL = 'General';
     const FORMAT_CODE_NUMBER = '#,##0.00';
     const FORMAT_CODE_CURRENCY = '$#,##0.00';
     const FORMAT_CODE_ACCOUNTING = '_($* #,##0.00_);_($* (#,##0.00);_($* "-"??_);_(@_)';
@@ -47,12 +43,10 @@ abstract class Properties
     const FORMAT_CODE_TEXT = '@';
     const FORMAT_CODE_SPECIAL = '00000';
 
-    const
-        ORIENTATION_NORMAL = 'minMax';
+    const ORIENTATION_NORMAL = 'minMax';
     const ORIENTATION_REVERSED = 'maxMin';
 
-    const
-        LINE_STYLE_COMPOUND_SIMPLE = 'sng';
+    const LINE_STYLE_COMPOUND_SIMPLE = 'sng';
     const LINE_STYLE_COMPOUND_DOUBLE = 'dbl';
     const LINE_STYLE_COMPOUND_THICKTHIN = 'thickThin';
     const LINE_STYLE_COMPOUND_THINTHICK = 'thinThick';
@@ -89,8 +83,7 @@ abstract class Properties
     const LINE_STYLE_ARROW_SIZE_8 = 8;
     const LINE_STYLE_ARROW_SIZE_9 = 9;
 
-    const
-        SHADOW_PRESETS_NOSHADOW = null;
+    const SHADOW_PRESETS_NOSHADOW = null;
     const SHADOW_PRESETS_OUTER_BOTTTOM_RIGHT = 1;
     const SHADOW_PRESETS_OUTER_BOTTOM = 2;
     const SHADOW_PRESETS_OUTER_BOTTOM_LEFT = 3;

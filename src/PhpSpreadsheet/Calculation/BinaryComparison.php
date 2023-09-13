@@ -56,9 +56,9 @@ class BinaryComparison
             }
         }
 
-        $useLowercaseFirstComparison = is_string($operand1) &&
-            is_string($operand2) &&
-            Functions::getCompatibilityMode() === Functions::COMPATIBILITY_OPENOFFICE;
+        $useLowercaseFirstComparison = is_string($operand1)
+            && is_string($operand2)
+            && Functions::getCompatibilityMode() === Functions::COMPATIBILITY_OPENOFFICE;
 
         return self::evaluateComparison($operand1, $operand2, $operator, $useLowercaseFirstComparison);
     }

@@ -424,9 +424,7 @@ abstract class BestFit
     {
         return array_sum(
             array_map(
-                function ($value): float|int {
-                    return $value ** 2;
-                },
+                fn ($value): float|int => $value ** 2,
                 $values
             )
         );

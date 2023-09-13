@@ -102,8 +102,8 @@ class ConditionalStyles
                 }
                 $conditionType = (string) $attributes->type;
                 if (
-                    !Conditional::isValidConditionType($conditionType) ||
-                    $conditionType === Conditional::CONDITION_DATABAR
+                    !Conditional::isValidConditionType($conditionType)
+                    || $conditionType === Conditional::CONDITION_DATABAR
                 ) {
                     continue;
                 }
@@ -134,11 +134,11 @@ class ConditionalStyles
         $conditional->setConditionType($conditionType);
         $conditional->setOperatorType($operatorType);
         if (
-            $conditionType === Conditional::CONDITION_CONTAINSTEXT ||
-            $conditionType === Conditional::CONDITION_NOTCONTAINSTEXT ||
-            $conditionType === Conditional::CONDITION_BEGINSWITH ||
-            $conditionType === Conditional::CONDITION_ENDSWITH ||
-            $conditionType === Conditional::CONDITION_TIMEPERIOD
+            $conditionType === Conditional::CONDITION_CONTAINSTEXT
+            || $conditionType === Conditional::CONDITION_NOTCONTAINSTEXT
+            || $conditionType === Conditional::CONDITION_BEGINSWITH
+            || $conditionType === Conditional::CONDITION_ENDSWITH
+            || $conditionType === Conditional::CONDITION_TIMEPERIOD
         ) {
             $conditional->setText(array_pop($operands) ?? '');
         }

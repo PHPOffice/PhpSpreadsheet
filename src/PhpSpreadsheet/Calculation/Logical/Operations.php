@@ -33,9 +33,7 @@ class Operations
      */
     public static function logicalAnd(mixed ...$args)
     {
-        return self::countTrueValues($args, function (int $trueValueCount, int $count): bool {
-            return $trueValueCount === $count;
-        });
+        return self::countTrueValues($args, fn (int $trueValueCount, int $count): bool => $trueValueCount === $count);
     }
 
     /**
@@ -60,9 +58,7 @@ class Operations
      */
     public static function logicalOr(mixed ...$args)
     {
-        return self::countTrueValues($args, function (int $trueValueCount): bool {
-            return $trueValueCount > 0;
-        });
+        return self::countTrueValues($args, fn (int $trueValueCount): bool => $trueValueCount > 0);
     }
 
     /**
@@ -89,9 +85,7 @@ class Operations
      */
     public static function logicalXor(mixed ...$args)
     {
-        return self::countTrueValues($args, function (int $trueValueCount): bool {
-            return $trueValueCount % 2 === 1;
-        });
+        return self::countTrueValues($args, fn (int $trueValueCount): bool => $trueValueCount % 2 === 1);
     }
 
     /**

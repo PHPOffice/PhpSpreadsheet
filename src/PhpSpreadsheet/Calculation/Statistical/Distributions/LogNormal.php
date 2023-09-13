@@ -90,8 +90,8 @@ class LogNormal
             return StandardNormal::distribution((log($value) - $mean) / $stdDev, true);
         }
 
-        return (1 / (sqrt(2 * M_PI) * $stdDev * $value)) *
-            exp(0 - ((log($value) - $mean) ** 2 / (2 * $stdDev ** 2)));
+        return (1 / (sqrt(2 * M_PI) * $stdDev * $value))
+            * exp(0 - ((log($value) - $mean) ** 2 / (2 * $stdDev ** 2)));
     }
 
     /**

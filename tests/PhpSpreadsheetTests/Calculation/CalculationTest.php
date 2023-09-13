@@ -242,11 +242,11 @@ class CalculationTest extends TestCase
             $correctOnlyIf = ($token['onlyIf'] ?? '') == 'storeKey-0';
             $isB1Reference = ($token['reference'] ?? '') == 'B1';
 
-            $foundEqualAssociatedToStoreKey = $foundEqualAssociatedToStoreKey ||
-                ($isBinaryOperator && $isEqual && $correctStoreKey);
+            $foundEqualAssociatedToStoreKey = $foundEqualAssociatedToStoreKey
+                || ($isBinaryOperator && $isEqual && $correctStoreKey);
 
-            $foundConditionalOnB1 = $foundConditionalOnB1 ||
-                ($isB1Reference && $correctOnlyIf);
+            $foundConditionalOnB1 = $foundConditionalOnB1
+                || ($isB1Reference && $correctOnlyIf);
         }
         self::assertTrue($foundEqualAssociatedToStoreKey);
         self::assertTrue($foundConditionalOnB1);
@@ -271,9 +271,9 @@ class CalculationTest extends TestCase
             $anyStoreKey = isset($token['storeKey']);
             $anyOnlyIf = isset($token['onlyIf']);
             $anyOnlyIfNot = isset($token['onlyIfNot']);
-            $plusGotTagged = $plusGotTagged ||
-                ($isBinaryOperator && $isPlus &&
-                    ($anyStoreKey || $anyOnlyIfNot || $anyOnlyIf));
+            $plusGotTagged = $plusGotTagged
+                || ($isBinaryOperator && $isPlus
+                    && ($anyStoreKey || $anyOnlyIfNot || $anyOnlyIf));
 
             $isFunction = $token['type'] == 'Function';
             $isProductFunction = $token['value'] == 'PRODUCT(';
@@ -343,8 +343,8 @@ class CalculationTest extends TestCase
             $isPlus = $token['value'] === '+';
             $hasOnlyIf = !empty($token['onlyIf']);
 
-            $properlyTaggedPlus = $properlyTaggedPlus ||
-                ($isPlus && $hasOnlyIf);
+            $properlyTaggedPlus = $properlyTaggedPlus
+                || ($isPlus && $hasOnlyIf);
         }
         self::assertTrue($properlyTaggedPlus);
     }

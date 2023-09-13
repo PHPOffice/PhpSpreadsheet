@@ -75,57 +75,57 @@ class Xls extends BaseReader
 
     // record identifiers
     const XLS_TYPE_FORMULA = 0x0006;
-    const XLS_TYPE_EOF = 0x000a;
+    const XLS_TYPE_EOF = 0x000A;
     const XLS_TYPE_PROTECT = 0x0012;
     const XLS_TYPE_OBJECTPROTECT = 0x0063;
-    const XLS_TYPE_SCENPROTECT = 0x00dd;
+    const XLS_TYPE_SCENPROTECT = 0x00DD;
     const XLS_TYPE_PASSWORD = 0x0013;
     const XLS_TYPE_HEADER = 0x0014;
     const XLS_TYPE_FOOTER = 0x0015;
     const XLS_TYPE_EXTERNSHEET = 0x0017;
     const XLS_TYPE_DEFINEDNAME = 0x0018;
-    const XLS_TYPE_VERTICALPAGEBREAKS = 0x001a;
-    const XLS_TYPE_HORIZONTALPAGEBREAKS = 0x001b;
-    const XLS_TYPE_NOTE = 0x001c;
-    const XLS_TYPE_SELECTION = 0x001d;
+    const XLS_TYPE_VERTICALPAGEBREAKS = 0x001A;
+    const XLS_TYPE_HORIZONTALPAGEBREAKS = 0x001B;
+    const XLS_TYPE_NOTE = 0x001C;
+    const XLS_TYPE_SELECTION = 0x001D;
     const XLS_TYPE_DATEMODE = 0x0022;
     const XLS_TYPE_EXTERNNAME = 0x0023;
     const XLS_TYPE_LEFTMARGIN = 0x0026;
     const XLS_TYPE_RIGHTMARGIN = 0x0027;
     const XLS_TYPE_TOPMARGIN = 0x0028;
     const XLS_TYPE_BOTTOMMARGIN = 0x0029;
-    const XLS_TYPE_PRINTGRIDLINES = 0x002b;
-    const XLS_TYPE_FILEPASS = 0x002f;
+    const XLS_TYPE_PRINTGRIDLINES = 0x002B;
+    const XLS_TYPE_FILEPASS = 0x002F;
     const XLS_TYPE_FONT = 0x0031;
-    const XLS_TYPE_CONTINUE = 0x003c;
+    const XLS_TYPE_CONTINUE = 0x003C;
     const XLS_TYPE_PANE = 0x0041;
     const XLS_TYPE_CODEPAGE = 0x0042;
     const XLS_TYPE_DEFCOLWIDTH = 0x0055;
-    const XLS_TYPE_OBJ = 0x005d;
-    const XLS_TYPE_COLINFO = 0x007d;
-    const XLS_TYPE_IMDATA = 0x007f;
+    const XLS_TYPE_OBJ = 0x005D;
+    const XLS_TYPE_COLINFO = 0x007D;
+    const XLS_TYPE_IMDATA = 0x007F;
     const XLS_TYPE_SHEETPR = 0x0081;
     const XLS_TYPE_HCENTER = 0x0083;
     const XLS_TYPE_VCENTER = 0x0084;
     const XLS_TYPE_SHEET = 0x0085;
     const XLS_TYPE_PALETTE = 0x0092;
-    const XLS_TYPE_SCL = 0x00a0;
-    const XLS_TYPE_PAGESETUP = 0x00a1;
-    const XLS_TYPE_MULRK = 0x00bd;
-    const XLS_TYPE_MULBLANK = 0x00be;
-    const XLS_TYPE_DBCELL = 0x00d7;
-    const XLS_TYPE_XF = 0x00e0;
-    const XLS_TYPE_MERGEDCELLS = 0x00e5;
-    const XLS_TYPE_MSODRAWINGGROUP = 0x00eb;
-    const XLS_TYPE_MSODRAWING = 0x00ec;
-    const XLS_TYPE_SST = 0x00fc;
-    const XLS_TYPE_LABELSST = 0x00fd;
-    const XLS_TYPE_EXTSST = 0x00ff;
-    const XLS_TYPE_EXTERNALBOOK = 0x01ae;
-    const XLS_TYPE_DATAVALIDATIONS = 0x01b2;
-    const XLS_TYPE_TXO = 0x01b6;
-    const XLS_TYPE_HYPERLINK = 0x01b8;
-    const XLS_TYPE_DATAVALIDATION = 0x01be;
+    const XLS_TYPE_SCL = 0x00A0;
+    const XLS_TYPE_PAGESETUP = 0x00A1;
+    const XLS_TYPE_MULRK = 0x00BD;
+    const XLS_TYPE_MULBLANK = 0x00BE;
+    const XLS_TYPE_DBCELL = 0x00D7;
+    const XLS_TYPE_XF = 0x00E0;
+    const XLS_TYPE_MERGEDCELLS = 0x00E5;
+    const XLS_TYPE_MSODRAWINGGROUP = 0x00EB;
+    const XLS_TYPE_MSODRAWING = 0x00EC;
+    const XLS_TYPE_SST = 0x00FC;
+    const XLS_TYPE_LABELSST = 0x00FD;
+    const XLS_TYPE_EXTSST = 0x00FF;
+    const XLS_TYPE_EXTERNALBOOK = 0x01AE;
+    const XLS_TYPE_DATAVALIDATIONS = 0x01B2;
+    const XLS_TYPE_TXO = 0x01B6;
+    const XLS_TYPE_HYPERLINK = 0x01B8;
+    const XLS_TYPE_DATAVALIDATION = 0x01BE;
     const XLS_TYPE_DIMENSION = 0x0200;
     const XLS_TYPE_BLANK = 0x0201;
     const XLS_TYPE_NUMBER = 0x0203;
@@ -133,23 +133,23 @@ class Xls extends BaseReader
     const XLS_TYPE_BOOLERR = 0x0205;
     const XLS_TYPE_STRING = 0x0207;
     const XLS_TYPE_ROW = 0x0208;
-    const XLS_TYPE_INDEX = 0x020b;
+    const XLS_TYPE_INDEX = 0x020B;
     const XLS_TYPE_ARRAY = 0x0221;
     const XLS_TYPE_DEFAULTROWHEIGHT = 0x0225;
-    const XLS_TYPE_WINDOW2 = 0x023e;
-    const XLS_TYPE_RK = 0x027e;
+    const XLS_TYPE_WINDOW2 = 0x023E;
+    const XLS_TYPE_RK = 0x027E;
     const XLS_TYPE_STYLE = 0x0293;
-    const XLS_TYPE_FORMAT = 0x041e;
-    const XLS_TYPE_SHAREDFMLA = 0x04bc;
+    const XLS_TYPE_FORMAT = 0x041E;
+    const XLS_TYPE_SHAREDFMLA = 0x04BC;
     const XLS_TYPE_BOF = 0x0809;
     const XLS_TYPE_SHEETPROTECTION = 0x0867;
     const XLS_TYPE_RANGEPROTECTION = 0x0868;
     const XLS_TYPE_SHEETLAYOUT = 0x0862;
-    const XLS_TYPE_XFEXT = 0x087d;
-    const XLS_TYPE_PAGELAYOUTVIEW = 0x088b;
-    const XLS_TYPE_CFHEADER = 0x01b0;
-    const XLS_TYPE_CFRULE = 0x01b1;
-    const XLS_TYPE_UNKNOWN = 0xffff;
+    const XLS_TYPE_XFEXT = 0x087D;
+    const XLS_TYPE_PAGELAYOUTVIEW = 0x088B;
+    const XLS_TYPE_CFHEADER = 0x01B0;
+    const XLS_TYPE_CFRULE = 0x01B1;
+    const XLS_TYPE_UNKNOWN = 0xFFFF;
 
     // Encryption type
     const MS_BIFF_CRYPTO_NONE = 0;
@@ -1238,8 +1238,8 @@ class Xls extends BaseReader
                 if (str_contains($formula, '!')) {
                     $explodes = Worksheet::extractSheetTitle($formula, true);
                     if (
-                        ($docSheet = $this->spreadsheet->getSheetByName($explodes[0])) ||
-                        ($docSheet = $this->spreadsheet->getSheetByName(trim($explodes[0], "'")))
+                        ($docSheet = $this->spreadsheet->getSheetByName($explodes[0]))
+                        || ($docSheet = $this->spreadsheet->getSheetByName(trim($explodes[0], "'")))
                     ) {
                         $extractedRange = $explodes[1];
 
@@ -1821,10 +1821,10 @@ class Xls extends BaseReader
             $pwarray[$i] = $valContext[$i];
         }
 
-        $pwarray[5] = chr($block & 0xff);
-        $pwarray[6] = chr(($block >> 8) & 0xff);
-        $pwarray[7] = chr(($block >> 16) & 0xff);
-        $pwarray[8] = chr(($block >> 24) & 0xff);
+        $pwarray[5] = chr($block & 0xFF);
+        $pwarray[6] = chr(($block >> 8) & 0xFF);
+        $pwarray[7] = chr(($block >> 16) & 0xFF);
+        $pwarray[8] = chr(($block >> 24) & 0xFF);
 
         $pwarray[9] = "\x80";
         $pwarray[56] = "\x48";
@@ -1855,11 +1855,11 @@ class Xls extends BaseReader
         $iMax = strlen($password);
         for ($i = 0; $i < $iMax; ++$i) {
             $o = ord(substr($password, $i, 1));
-            $pwarray[2 * $i] = chr($o & 0xff);
-            $pwarray[2 * $i + 1] = chr(($o >> 8) & 0xff);
+            $pwarray[2 * $i] = chr($o & 0xFF);
+            $pwarray[2 * $i + 1] = chr(($o >> 8) & 0xFF);
         }
         $pwarray[2 * $i] = chr(0x80);
-        $pwarray[56] = chr(($i << 4) & 0xff);
+        $pwarray[56] = chr(($i << 4) & 0xFF);
 
         $md5 = new Xls\MD5();
         $md5->add($pwarray);
@@ -4512,8 +4512,8 @@ class Xls extends BaseReader
             $cellRangeAddressList = $this->readBIFF8CellRangeAddressList($recordData);
             foreach ($cellRangeAddressList['cellRangeAddresses'] as $cellRangeAddress) {
                 if (
-                    (str_contains($cellRangeAddress, ':')) &&
-                    ($this->includeCellRangeFiltered($cellRangeAddress))
+                    (str_contains($cellRangeAddress, ':'))
+                    && ($this->includeCellRangeFiltered($cellRangeAddress))
                 ) {
                     $this->phpSheet->mergeCells($cellRangeAddress, Worksheet::MERGE_CELL_CONTENT_HIDE);
                 }
@@ -5168,7 +5168,7 @@ class Xls extends BaseReader
         // start parsing the formula data
         $tokens = [];
 
-        while (strlen($formulaData) > 0 && $token = $this->getNextToken($formulaData, $baseCell)) {
+        while ($formulaData !== '' && $token = $this->getNextToken($formulaData, $baseCell)) {
             $tokens[] = $token;
             $formulaData = substr($formulaData, $token['size']);
         }
@@ -7280,10 +7280,10 @@ class Xls extends BaseReader
         $rknumhigh = self::getInt4d($data, 4);
         $rknumlow = self::getInt4d($data, 0);
         $sign = ($rknumhigh & (int) 0x80000000) >> 31;
-        $exp = (($rknumhigh & 0x7ff00000) >> 20) - 1023;
-        $mantissa = (0x100000 | ($rknumhigh & 0x000fffff));
+        $exp = (($rknumhigh & 0x7FF00000) >> 20) - 1023;
+        $mantissa = (0x100000 | ($rknumhigh & 0x000FFFFF));
         $mantissalow1 = ($rknumlow & (int) 0x80000000) >> 31;
-        $mantissalow2 = ($rknumlow & 0x7fffffff);
+        $mantissalow2 = ($rknumlow & 0x7FFFFFFF);
         $value = $mantissa / 2 ** (20 - $exp);
 
         if ($mantissalow1 != 0) {
@@ -7314,8 +7314,8 @@ class Xls extends BaseReader
             // of the 64 bit floating point value. The other 34 bits are assumed
             // to be 0 so we use the upper 30 bits of $rknum as follows...
             $sign = ($rknum & (int) 0x80000000) >> 31;
-            $exp = ($rknum & 0x7ff00000) >> 20;
-            $mantissa = (0x100000 | ($rknum & 0x000ffffc));
+            $exp = ($rknum & 0x7FF00000) >> 20;
+            $mantissa = (0x100000 | ($rknum & 0x000FFFFC));
             $value = $mantissa / 2 ** (20 - ($exp - 1023));
             if ($sign) {
                 $value = -1 * $value;

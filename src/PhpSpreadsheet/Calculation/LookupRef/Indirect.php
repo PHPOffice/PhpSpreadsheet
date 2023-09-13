@@ -89,8 +89,8 @@ class Indirect
         }
 
         if (
-            (!preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/miu', $cellAddress1, $matches)) ||
-            (($cellAddress2 !== null) && (!preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/miu', $cellAddress2, $matches)))
+            (!preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/miu', $cellAddress1, $matches))
+            || (($cellAddress2 !== null) && (!preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/miu', $cellAddress2, $matches)))
         ) {
             return ExcelError::REF();
         }

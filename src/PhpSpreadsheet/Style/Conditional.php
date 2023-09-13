@@ -326,11 +326,11 @@ class Conditional implements IComparable
     public function getHashCode(): string
     {
         return md5(
-            $this->conditionType .
-            $this->operatorType .
-            implode(';', $this->condition) .
-            $this->style->getHashCode() .
-            __CLASS__
+            $this->conditionType
+            . $this->operatorType
+            . implode(';', $this->condition)
+            . $this->style->getHashCode()
+            . __CLASS__
         );
     }
 

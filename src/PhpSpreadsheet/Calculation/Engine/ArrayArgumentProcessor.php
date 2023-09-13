@@ -39,10 +39,10 @@ class ArrayArgumentProcessor
         $matrixPair = self::$arrayArgumentHelper->getMatrixPair();
         if ($matrixPair !== []) {
             if (
-                (self::$arrayArgumentHelper->isVector($matrixPair[0]) === true &&
-                    self::$arrayArgumentHelper->isVector($matrixPair[1]) === false) ||
-                (self::$arrayArgumentHelper->isVector($matrixPair[0]) === false &&
-                    self::$arrayArgumentHelper->isVector($matrixPair[1]) === true)
+                (self::$arrayArgumentHelper->isVector($matrixPair[0]) === true
+                    && self::$arrayArgumentHelper->isVector($matrixPair[1]) === false)
+                || (self::$arrayArgumentHelper->isVector($matrixPair[0]) === false
+                    && self::$arrayArgumentHelper->isVector($matrixPair[1]) === true)
             ) {
                 // Logic for a matrix and a vector (row or column)
                 return self::evaluateVectorMatrixPair($method, $matrixPair, ...$arguments);

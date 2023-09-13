@@ -87,14 +87,14 @@ class Accounting extends Currency
             '_-%s%s%s0%s%s%s_-',
             $this->currencySymbolPosition === self::LEADING_SYMBOL ? $this->formatCurrencyCode() : null,
             (
-                $this->currencySymbolPosition === self::LEADING_SYMBOL &&
-                $this->currencySymbolSpacing === self::SYMBOL_WITH_SPACING
+                $this->currencySymbolPosition === self::LEADING_SYMBOL
+                && $this->currencySymbolSpacing === self::SYMBOL_WITH_SPACING
             ) ? "\u{a0}" : '',
             $this->thousandsSeparator ? '#,##' : null,
             $this->decimals > 0 ? '.' . str_repeat('0', $this->decimals) : null,
             (
-                $this->currencySymbolPosition === self::TRAILING_SYMBOL &&
-                $this->currencySymbolSpacing === self::SYMBOL_WITH_SPACING
+                $this->currencySymbolPosition === self::TRAILING_SYMBOL
+                && $this->currencySymbolSpacing === self::SYMBOL_WITH_SPACING
             ) ? "\u{a0}" : '',
             $this->currencySymbolPosition === self::TRAILING_SYMBOL ? $this->formatCurrencyCode() : null
         );

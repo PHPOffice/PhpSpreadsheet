@@ -29,7 +29,7 @@ $spreadsheet->getProperties()->setCreator('Maarten Balliauw')
 $helper->log('Generate an image');
 $gdImage = @imagecreatetruecolor(120, 20);
 if (!$gdImage) {
-    die('Cannot Initialize new GD image stream');
+    exit('Cannot Initialize new GD image stream');
 }
 
 $textColor = imagecolorallocate($gdImage, 255, 255, 255);

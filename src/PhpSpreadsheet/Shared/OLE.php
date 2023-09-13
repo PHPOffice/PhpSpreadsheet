@@ -381,14 +381,14 @@ class OLE
      */
     private function ppsTreeComplete($index): bool
     {
-        return isset($this->_list[$index]) &&
-            ($pps = $this->_list[$index]) &&
-            ($pps->PrevPps == -1 ||
-                $this->ppsTreeComplete($pps->PrevPps)) &&
-            ($pps->NextPps == -1 ||
-                $this->ppsTreeComplete($pps->NextPps)) &&
-            ($pps->DirPps == -1 ||
-                $this->ppsTreeComplete($pps->DirPps));
+        return isset($this->_list[$index])
+            && ($pps = $this->_list[$index])
+            && ($pps->PrevPps == -1
+                || $this->ppsTreeComplete($pps->PrevPps))
+            && ($pps->NextPps == -1
+                || $this->ppsTreeComplete($pps->NextPps))
+            && ($pps->DirPps == -1
+                || $this->ppsTreeComplete($pps->DirPps));
     }
 
     /**

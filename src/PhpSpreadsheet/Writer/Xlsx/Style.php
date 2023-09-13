@@ -169,8 +169,8 @@ class Style extends WriterPart
     {
         // Check if this is a pattern type or gradient type
         if (
-            $fill->getFillType() === Fill::FILL_GRADIENT_LINEAR ||
-            $fill->getFillType() === Fill::FILL_GRADIENT_PATH
+            $fill->getFillType() === Fill::FILL_GRADIENT_LINEAR
+            || $fill->getFillType() === Fill::FILL_GRADIENT_PATH
         ) {
             // Gradient fill
             $this->writeGradientFill($objWriter, $fill);
@@ -539,19 +539,19 @@ class Style extends WriterPart
         // protection
         if ((!empty($style->getProtection()->getLocked())) || (!empty($style->getProtection()->getHidden()))) {
             if (
-                $style->getProtection()->getLocked() !== Protection::PROTECTION_INHERIT ||
-                $style->getProtection()->getHidden() !== Protection::PROTECTION_INHERIT
+                $style->getProtection()->getLocked() !== Protection::PROTECTION_INHERIT
+                || $style->getProtection()->getHidden() !== Protection::PROTECTION_INHERIT
             ) {
                 $objWriter->startElement('protection');
                 if (
-                    ($style->getProtection()->getLocked() !== null) &&
-                    ($style->getProtection()->getLocked() !== Protection::PROTECTION_INHERIT)
+                    ($style->getProtection()->getLocked() !== null)
+                    && ($style->getProtection()->getLocked() !== Protection::PROTECTION_INHERIT)
                 ) {
                     $objWriter->writeAttribute('locked', ($style->getProtection()->getLocked() == Protection::PROTECTION_PROTECTED ? 'true' : 'false'));
                 }
                 if (
-                    ($style->getProtection()->getHidden() !== null) &&
-                    ($style->getProtection()->getHidden() !== Protection::PROTECTION_INHERIT)
+                    ($style->getProtection()->getHidden() !== null)
+                    && ($style->getProtection()->getHidden() !== Protection::PROTECTION_INHERIT)
                 ) {
                     $objWriter->writeAttribute('hidden', ($style->getProtection()->getHidden() == Protection::PROTECTION_PROTECTED ? 'true' : 'false'));
                 }

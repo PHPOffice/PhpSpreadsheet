@@ -66,8 +66,8 @@ class TextElement implements ITextElement
     public function getHashCode()
     {
         return md5(
-            $this->text .
-            __CLASS__
+            $this->text
+            . __CLASS__
         );
     }
 }

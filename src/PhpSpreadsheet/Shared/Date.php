@@ -75,8 +75,8 @@ class Date
     public static function setExcelCalendar($baseYear): bool
     {
         if (
-            ($baseYear == self::CALENDAR_WINDOWS_1900) ||
-            ($baseYear == self::CALENDAR_MAC_1904)
+            ($baseYear == self::CALENDAR_WINDOWS_1900)
+            || ($baseYear == self::CALENDAR_MAC_1904)
         ) {
             self::$excelCalendar = $baseYear;
 
@@ -381,8 +381,8 @@ class Date
             $selected = $worksheet->getSelectedCells();
 
             try {
-                $result = is_numeric($value ?? $cell->getCalculatedValue()) &&
-                    self::isDateTimeFormat(
+                $result = is_numeric($value ?? $cell->getCalculatedValue())
+                    && self::isDateTimeFormat(
                         $worksheet->getStyle(
                             $cell->getCoordinate()
                         )->getNumberFormat(),
@@ -450,8 +450,8 @@ class Date
                     //    Only test in alternate array entries (the non-quoted blocks)
                     $segMatcher = $segMatcher === false;
                     if (
-                        $segMatcher &&
-                        (preg_match('/(^|\])[^\[]*[' . $possibleFormatCharacters . ']/i', $subVal))
+                        $segMatcher
+                        && (preg_match('/(^|\])[^\[]*[' . $possibleFormatCharacters . ']/i', $subVal))
                     ) {
                         return true;
                     }

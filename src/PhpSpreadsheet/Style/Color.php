@@ -401,8 +401,8 @@ class Color extends Supervisor
         }
 
         return md5(
-            $this->argb .
-            __CLASS__
+            $this->argb
+            . __CLASS__
         );
     }
 

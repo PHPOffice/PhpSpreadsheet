@@ -421,20 +421,20 @@ class BaseDrawing implements IComparable
     public function getHashCode(): string
     {
         return md5(
-            $this->name .
-            $this->description .
-            (($this->worksheet === null) ? '' : $this->worksheet->getHashCode()) .
-            $this->coordinates .
-            $this->offsetX .
-            $this->offsetY .
-            $this->coordinates2 .
-            $this->offsetX2 .
-            $this->offsetY2 .
-            $this->width .
-            $this->height .
-            $this->rotation .
-            $this->shadow->getHashCode() .
-            __CLASS__
+            $this->name
+            . $this->description
+            . (($this->worksheet === null) ? '' : $this->worksheet->getHashCode())
+            . $this->coordinates
+            . $this->offsetX
+            . $this->offsetY
+            . $this->coordinates2
+            . $this->offsetX2
+            . $this->offsetY2
+            . $this->width
+            . $this->height
+            . $this->rotation
+            . $this->shadow->getHashCode()
+            . __CLASS__
         );
     }
 

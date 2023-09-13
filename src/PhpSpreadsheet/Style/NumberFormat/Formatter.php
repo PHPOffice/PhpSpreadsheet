@@ -141,9 +141,7 @@ class Formatter
 
         $format = (string) preg_replace_callback(
             '/(["])(?:(?=(\\\\?))\\2.)*?\\1/u',
-            function (array $matches): string {
-                return str_replace('.', chr(0x00), $matches[0]);
-            },
+            fn (array $matches): string => str_replace('.', chr(0x00), $matches[0]),
             $format
         );
 

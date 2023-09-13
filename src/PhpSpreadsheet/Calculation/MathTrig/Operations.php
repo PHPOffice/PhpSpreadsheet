@@ -102,9 +102,7 @@ class Operations
     {
         $args = array_filter(
             Functions::flattenArray($args),
-            function ($value): bool {
-                return $value !== null;
-            }
+            fn ($value): bool => $value !== null
         );
 
         // Return value
