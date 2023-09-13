@@ -139,8 +139,8 @@ class RichText implements IComparable, Stringable
         }
 
         return md5(
-            $hashElements .
-            __CLASS__
+            $hashElements
+            . __CLASS__
         );
     }
 

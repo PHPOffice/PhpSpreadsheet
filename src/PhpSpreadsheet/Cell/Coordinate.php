@@ -379,9 +379,7 @@ abstract class Coordinate
         $cellList = array_merge(...$cells);
 
         return array_map(
-            function ($cellAddress) use ($worksheet, $quoted) {
-                return ($worksheet !== '') ? "{$quoted}{$worksheet}{$quoted}!{$cellAddress}" : $cellAddress;
-            },
+            fn ($cellAddress) => ($worksheet !== '') ? "{$quoted}{$worksheet}{$quoted}!{$cellAddress}" : $cellAddress,
             self::sortCellReferenceArray($cellList)
         );
     }

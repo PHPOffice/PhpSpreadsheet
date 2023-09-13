@@ -15,10 +15,10 @@ class AutoFilterTest extends TestCase
     private function getXMLInstance(string $ref): SimpleXMLElement
     {
         return new SimpleXMLElement(
-            '<?xml version="1.0" encoding="UTF-8"?>' .
-            '<root>' .
-                '<autoFilter ref="' . $ref . '"></autoFilter>' .
-            '</root>'
+            '<?xml version="1.0" encoding="UTF-8"?>'
+            . '<root>'
+                . '<autoFilter ref="' . $ref . '"></autoFilter>'
+            . '</root>'
         );
     }
 

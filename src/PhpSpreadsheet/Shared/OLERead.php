@@ -22,12 +22,12 @@ class OLERead
     const SMALL_BLOCK_THRESHOLD = 0x1000;
 
     // header offsets
-    const NUM_BIG_BLOCK_DEPOT_BLOCKS_POS = 0x2c;
+    const NUM_BIG_BLOCK_DEPOT_BLOCKS_POS = 0x2C;
     const ROOT_START_BLOCK_POS = 0x30;
-    const SMALL_BLOCK_DEPOT_BLOCK_POS = 0x3c;
+    const SMALL_BLOCK_DEPOT_BLOCK_POS = 0x3C;
     const EXTENSION_BLOCK_POS = 0x44;
     const NUM_EXTENSION_BLOCK_POS = 0x48;
-    const BIG_BLOCK_DEPOT_BLOCKS_POS = 0x4c;
+    const BIG_BLOCK_DEPOT_BLOCKS_POS = 0x4C;
 
     // property storage offsets (directory offsets)
     const SIZE_OF_NAME_POS = 0x40;
@@ -106,7 +106,7 @@ class OLERead
         $this->data = (string) file_get_contents($filename, false, null, 0, 8);
 
         // Check OLE identifier
-        $identifierOle = pack('CCCCCCCC', 0xd0, 0xcf, 0x11, 0xe0, 0xa1, 0xb1, 0x1a, 0xe1);
+        $identifierOle = pack('CCCCCCCC', 0xD0, 0xCF, 0x11, 0xE0, 0xA1, 0xB1, 0x1A, 0xE1);
         if ($this->data != $identifierOle) {
             throw new ReaderException('The filename ' . $filename . ' is not recognised as an OLE file');
         }

@@ -101,8 +101,8 @@ class ChiSquared
             return 1 - (is_numeric($temp) ? $temp : 0);
         }
 
-        return ($value ** (($degrees / 2) - 1) * exp(-$value / 2)) /
-            ((2 ** ($degrees / 2)) * Gamma::gammaValue($degrees / 2));
+        return ($value ** (($degrees / 2) - 1) * exp(-$value / 2))
+            / ((2 ** ($degrees / 2)) * Gamma::gammaValue($degrees / 2));
     }
 
     /**

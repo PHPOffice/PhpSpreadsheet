@@ -204,8 +204,8 @@ class ByColumnAndRowTest extends TestCase
             ->getComment('B2')
             ->getText()->createTextRun('My Test Comment');
 
-        $comment = /** @scrutinizer ignore-deprecated */
-        $sheet->getCommentByColumnAndRow(2, 2);
+        $comment /** @scrutinizer ignore-deprecated */
+        = $sheet->getCommentByColumnAndRow(2, 2);
         self::assertInstanceOf(Comment::class, $comment);
         self::assertSame('My Test Comment', $comment->getText()->getPlainText());
         $spreadsheet->disconnectWorksheets();

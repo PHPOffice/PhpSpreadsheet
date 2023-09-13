@@ -151,8 +151,8 @@ class Periodic
         int $type
     ): float {
         if ($rate !== null && $rate != 0) {
-            return -$presentValue *
-                (1 + $rate) ** $numberOfPeriods - $payment * (1 + $rate * $type) * ((1 + $rate) ** $numberOfPeriods - 1)
+            return -$presentValue
+                * (1 + $rate) ** $numberOfPeriods - $payment * (1 + $rate * $type) * ((1 + $rate) ** $numberOfPeriods - 1)
                     / $rate;
         }
 
@@ -186,8 +186,8 @@ class Periodic
                 return ExcelError::NAN();
             }
 
-            return log(($payment * (1 + $rate * $type) / $rate - $futureValue) /
-                    ($presentValue + $payment * (1 + $rate * $type) / $rate)) / log(1 + $rate);
+            return log(($payment * (1 + $rate * $type) / $rate - $futureValue)
+                    / ($presentValue + $payment * (1 + $rate * $type) / $rate)) / log(1 + $rate);
         }
 
         return (-$presentValue - $futureValue) / $payment;

@@ -230,8 +230,8 @@ class OdsTest extends TestCase
         $firstSheet = $spreadsheet->getSheet(0);
 
         self::assertEquals(
-            "I don't know if OOCalc supports Rich Text in the same way as Excel, " .
-            'And this row should be autofit height with text wrap',
+            "I don't know if OOCalc supports Rich Text in the same way as Excel, "
+            . 'And this row should be autofit height with text wrap',
             $firstSheet->getCell('A28')->getValue()
         );
         $spreadsheet->disconnectWorksheets();

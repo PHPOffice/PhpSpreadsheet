@@ -240,8 +240,8 @@ class ExcelMatch
                 $lookupArray[$i] = StringHelper::strToLower($value);
             }
             if (
-                ($value === null) &&
-                (($matchType == self::MATCHTYPE_LARGEST_VALUE) || ($matchType == self::MATCHTYPE_SMALLEST_VALUE))
+                ($value === null)
+                && (($matchType == self::MATCHTYPE_LARGEST_VALUE) || ($matchType == self::MATCHTYPE_SMALLEST_VALUE))
             ) {
                 unset($lookupArray[$i]);
             }

@@ -48,8 +48,8 @@ class Payments
 
         // Calculate
         if ($interestRate != 0.0) {
-            return (-$futureValue - $presentValue * (1 + $interestRate) ** $numberOfPeriods) /
-                (1 + $interestRate * $type) / (((1 + $interestRate) ** $numberOfPeriods - 1) / $interestRate);
+            return (-$futureValue - $presentValue * (1 + $interestRate) ** $numberOfPeriods)
+                / (1 + $interestRate * $type) / (((1 + $interestRate) ** $numberOfPeriods - 1) / $interestRate);
         }
 
         return (-$presentValue - $futureValue) / $numberOfPeriods;

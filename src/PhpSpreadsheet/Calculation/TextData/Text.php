@@ -121,9 +121,7 @@ class Text
         if ($ignoreEmpty === true) {
             $rows = array_values(array_filter(
                 $rows,
-                function ($row): bool {
-                    return $row !== '';
-                }
+                fn ($row): bool => $row !== ''
             ));
         }
 
@@ -139,9 +137,7 @@ class Text
                     if ($ignoreEmpty === true) {
                         $row = array_values(array_filter(
                             $row,
-                            function ($value): bool {
-                                return $value !== '';
-                            }
+                            fn ($value): bool => $value !== ''
                         ));
                     }
                 }
@@ -149,9 +145,7 @@ class Text
             if ($ignoreEmpty === true) {
                 $rows = array_values(array_filter(
                     $rows,
-                    function ($row): bool {
-                        return $row !== [] && $row !== [''];
-                    }
+                    fn ($row): bool => $row !== [] && $row !== ['']
                 ));
             }
         }
@@ -163,9 +157,7 @@ class Text
     {
         $columnCount = array_reduce(
             $rows,
-            function (int $counter, array $row): int {
-                return max($counter, count($row));
-            },
+            fn (int $counter, array $row): int => max($counter, count($row)),
             0
         );
 
@@ -189,9 +181,7 @@ class Text
 
         if (is_array($delimiter) && count($valueSet) > 1) {
             $quotedDelimiters = array_map(
-                function ($delimiter): string {
-                    return preg_quote($delimiter ?? '', '/');
-                },
+                fn ($delimiter): string => preg_quote($delimiter ?? '', '/'),
                 $valueSet
             );
             $delimiters = implode('|', $quotedDelimiters);

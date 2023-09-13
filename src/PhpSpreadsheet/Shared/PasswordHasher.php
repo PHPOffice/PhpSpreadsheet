@@ -63,7 +63,7 @@ class PasswordHasher
         for ($i = $pwlen; $i >= 0; --$i) {
             $intermediate1 = (($verifier & 0x4000) === 0) ? 0 : 1;
             $intermediate2 = 2 * $verifier;
-            $intermediate2 = $intermediate2 & 0x7fff;
+            $intermediate2 = $intermediate2 & 0x7FFF;
             $intermediate3 = $intermediate1 | $intermediate2;
             $verifier = $intermediate3 ^ ord($passwordArray[$i]);
         }

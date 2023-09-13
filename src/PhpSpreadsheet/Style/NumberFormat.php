@@ -424,9 +424,9 @@ class NumberFormat extends Supervisor
         }
 
         return md5(
-            $this->formatCode .
-            $this->builtInFormatCode .
-            __CLASS__
+            $this->formatCode
+            . $this->builtInFormatCode
+            . __CLASS__
         );
     }
 

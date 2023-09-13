@@ -54,9 +54,9 @@ class Functions
     public static function setCompatibilityMode($compatibilityMode): bool
     {
         if (
-            ($compatibilityMode == self::COMPATIBILITY_EXCEL) ||
-            ($compatibilityMode == self::COMPATIBILITY_GNUMERIC) ||
-            ($compatibilityMode == self::COMPATIBILITY_OPENOFFICE)
+            ($compatibilityMode == self::COMPATIBILITY_EXCEL)
+            || ($compatibilityMode == self::COMPATIBILITY_GNUMERIC)
+            || ($compatibilityMode == self::COMPATIBILITY_OPENOFFICE)
         ) {
             self::$compatibilityMode = $compatibilityMode;
 
@@ -94,9 +94,9 @@ class Functions
     public static function setReturnDateType($returnDateType): bool
     {
         if (
-            ($returnDateType == self::RETURNDATE_UNIX_TIMESTAMP) ||
-            ($returnDateType == self::RETURNDATE_PHP_DATETIME_OBJECT) ||
-            ($returnDateType == self::RETURNDATE_EXCEL)
+            ($returnDateType == self::RETURNDATE_UNIX_TIMESTAMP)
+            || ($returnDateType == self::RETURNDATE_PHP_DATETIME_OBJECT)
+            || ($returnDateType == self::RETURNDATE_EXCEL)
         ) {
             self::$returnDateType = $returnDateType;
 
@@ -643,8 +643,8 @@ class Functions
         if ($defined !== null) {
             $worksheet2 = $defined->getWorkSheet();
             if (!$defined->isFormula() && $worksheet2 !== null) {
-                $coordinate = "'" . $worksheet2->getTitle() . "'!" .
-                    (string) preg_replace('/^=/', '', str_replace('$', '', $defined->getValue()));
+                $coordinate = "'" . $worksheet2->getTitle() . "'!"
+                    . (string) preg_replace('/^=/', '', str_replace('$', '', $defined->getValue()));
             }
         }
 

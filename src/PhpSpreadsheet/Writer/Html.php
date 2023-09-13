@@ -697,10 +697,10 @@ class Html extends BaseWriter
                     }
                 }
 
-                $html .= '<img style="position: absolute; z-index: 1; left: ' .
-                    $drawing->getOffsetX() . 'px; top: ' . $drawing->getOffsetY() . 'px; width: ' .
-                    $drawing->getWidth() . 'px; height: ' . $drawing->getHeight() . 'px;" src="' .
-                    $imageData . '" alt="' . $filedesc . '" />';
+                $html .= '<img style="position: absolute; z-index: 1; left: '
+                    . $drawing->getOffsetX() . 'px; top: ' . $drawing->getOffsetY() . 'px; width: '
+                    . $drawing->getWidth() . 'px; height: ' . $drawing->getHeight() . 'px;" src="'
+                    . $imageData . '" alt="' . $filedesc . '" />';
             } elseif ($drawing instanceof MemoryDrawing) {
                 $imageResource = $drawing->getImageResource();
                 if ($imageResource) {
@@ -720,8 +720,8 @@ class Html extends BaseWriter
                     //    Its use here is suspect and is being eliminated.
                     //  width: X sets width of supplied image.
                     //  As a result, images bigger than cell will be contained and images smaller will not get stretched
-                    $html .= '<img alt="' . $filedesc . '" src="' . $dataUri . '" style="width:' . $drawing->getWidth() . 'px;left: ' .
-                    $drawing->getOffsetX() . 'px; top: ' . $drawing->getOffsetY() . 'px;position: absolute; z-index: 1;" />';
+                    $html .= '<img alt="' . $filedesc . '" src="' . $dataUri . '" style="width:' . $drawing->getWidth() . 'px;left: '
+                    . $drawing->getOffsetX() . 'px; top: ' . $drawing->getOffsetY() . 'px;position: absolute; z-index: 1;" />';
                 }
             }
         }
@@ -1100,8 +1100,8 @@ class Html extends BaseWriter
 
         // Create CSS
         if ($fill->getFillType() !== Fill::FILL_NONE) {
-            $value = $fill->getFillType() == Fill::FILL_NONE ?
-                'white' : '#' . $fill->getStartColor()->getRGB();
+            $value = $fill->getFillType() == Fill::FILL_NONE
+                ? 'white' : '#' . $fill->getStartColor()->getRGB();
             $css['background-color'] = $value;
         }
 
@@ -1123,8 +1123,8 @@ class Html extends BaseWriter
 
     private function generateTableTagInline(Worksheet $worksheet, string $id): string
     {
-        $style = isset($this->cssStyles['table']) ?
-            $this->assembleCSS($this->cssStyles['table']) : '';
+        $style = isset($this->cssStyles['table'])
+            ? $this->assembleCSS($this->cssStyles['table']) : '';
 
         $prntgrid = $worksheet->getPrintGridlines();
         $viewgrid = $this->isPdf ? $prntgrid : $worksheet->getShowGridlines();
@@ -1182,8 +1182,8 @@ class Html extends BaseWriter
             if (!$this->useInlineCss) {
                 $html .= '        <col class="col' . $i . '" />' . PHP_EOL;
             } else {
-                $style = isset($this->cssStyles['table.sheet' . $sheetIndex . ' col.col' . $i]) ?
-                    $this->assembleCSS($this->cssStyles['table.sheet' . $sheetIndex . ' col.col' . $i]) : '';
+                $style = isset($this->cssStyles['table.sheet' . $sheetIndex . ' col.col' . $i])
+                    ? $this->assembleCSS($this->cssStyles['table.sheet' . $sheetIndex . ' col.col' . $i]) : '';
                 $html .= '        <col style="' . $style . '" />' . PHP_EOL;
             }
         }
@@ -1674,8 +1674,8 @@ class Html extends BaseWriter
         // Identify all cells that should be omitted in HTML due to cell merge.
         // In HTML only the upper-left cell should be written and it should have
         //   appropriate rowspan / colspan attribute
-        $sheetIndexes = $this->sheetIndex !== null ?
-            [$this->sheetIndex] : range(0, $this->spreadsheet->getSheetCount() - 1);
+        $sheetIndexes = $this->sheetIndex !== null
+            ? [$this->sheetIndex] : range(0, $this->spreadsheet->getSheetCount() - 1);
 
         foreach ($sheetIndexes as $sheetIndex) {
             $sheet = $this->spreadsheet->getSheet($sheetIndex);

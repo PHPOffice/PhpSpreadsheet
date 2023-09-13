@@ -375,8 +375,8 @@ class ReferenceHelper
         $remove = ($numberOfColumns < 0 || $numberOfRows < 0);
 
         if (
-            $this->cellReferenceHelper === null ||
-            $this->cellReferenceHelper->refreshRequired($beforeCellAddress, $numberOfColumns, $numberOfRows)
+            $this->cellReferenceHelper === null
+            || $this->cellReferenceHelper->refreshRequired($beforeCellAddress, $numberOfColumns, $numberOfRows)
         ) {
             $this->cellReferenceHelper = new CellReferenceHelper($beforeCellAddress, $numberOfColumns, $numberOfRows);
         }
@@ -401,12 +401,8 @@ class ReferenceHelper
         // Find missing coordinates. This is important when inserting column before the last column
         $cellCollection = $worksheet->getCellCollection();
         $missingCoordinates = array_filter(
-            array_map(function ($row) use ($highestColumn): string {
-                return "{$highestColumn}{$row}";
-            }, range(1, $highestRow)),
-            function ($coordinate) use ($cellCollection): bool {
-                return $cellCollection->has($coordinate) === false;
-            }
+            array_map(fn ($row): string => "{$highestColumn}{$row}", range(1, $highestRow)),
+            fn ($coordinate): bool => $cellCollection->has($coordinate) === false
         );
 
         // Create missing cells with null values
@@ -569,8 +565,8 @@ class ReferenceHelper
         bool $onlyAbsoluteReferences = false
     ): string {
         if (
-            $this->cellReferenceHelper === null ||
-            $this->cellReferenceHelper->refreshRequired($beforeCellAddress, $numberOfColumns, $numberOfRows)
+            $this->cellReferenceHelper === null
+            || $this->cellReferenceHelper->refreshRequired($beforeCellAddress, $numberOfColumns, $numberOfRows)
         ) {
             $this->cellReferenceHelper = new CellReferenceHelper($beforeCellAddress, $numberOfColumns, $numberOfRows);
         }

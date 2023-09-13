@@ -48,9 +48,7 @@ class Filter
 
         return array_filter(
             array_values($lookupArray),
-            function ($index) use ($matchArray): bool {
-                return (bool) $matchArray[$index];
-            },
+            fn ($index): bool => (bool) $matchArray[$index],
             ARRAY_FILTER_USE_KEY
         );
     }
