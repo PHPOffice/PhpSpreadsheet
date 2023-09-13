@@ -47,7 +47,7 @@ class ColumnCellIterator extends CellIterator
      * @param int $startRow The row number at which to start iterating
      * @param int $endRow Optionally, the row number at which to stop iterating
      */
-    public function __construct(Worksheet $worksheet, $columnIndex = 'A', $startRow = 1, $endRow = null)
+    public function __construct(Worksheet $worksheet, $columnIndex = 'A', $startRow = 1, $endRow = null, bool $iterateOnlyExistingCells = false)
     {
         // Set subject
         $this->worksheet = $worksheet;
@@ -55,6 +55,7 @@ class ColumnCellIterator extends CellIterator
         $this->columnIndex = Coordinate::columnIndexFromString($columnIndex);
         $this->resetEnd($endRow);
         $this->resetStart($startRow);
+        $this->setIterateOnlyExistingCells($iterateOnlyExistingCells);
     }
 
     /**

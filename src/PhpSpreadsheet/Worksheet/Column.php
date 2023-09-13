@@ -53,9 +53,9 @@ class Column
      * @param int $startRow The row number at which to start iterating
      * @param int $endRow Optionally, the row number at which to stop iterating
      */
-    public function getCellIterator($startRow = 1, $endRow = null): ColumnCellIterator
+    public function getCellIterator($startRow = 1, $endRow = null, bool $iterateOnlyExistingCells = false): ColumnCellIterator
     {
-        return new ColumnCellIterator($this->worksheet, $this->columnIndex, $startRow, $endRow);
+        return new ColumnCellIterator($this->worksheet, $this->columnIndex, $startRow, $endRow, $iterateOnlyExistingCells);
     }
 
     /**
@@ -64,9 +64,9 @@ class Column
      * @param int $startRow The row number at which to start iterating
      * @param int $endRow Optionally, the row number at which to stop iterating
      */
-    public function getRowIterator($startRow = 1, $endRow = null): ColumnCellIterator
+    public function getRowIterator($startRow = 1, $endRow = null, bool $iterateOnlyExistingCells = false): ColumnCellIterator
     {
-        return $this->getCellIterator($startRow, $endRow);
+        return $this->getCellIterator($startRow, $endRow, $iterateOnlyExistingCells);
     }
 
     /**
