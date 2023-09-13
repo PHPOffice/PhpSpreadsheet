@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Style\NumberFormat\Wizard;
 
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\Duration;
@@ -13,7 +15,7 @@ class DurationTest extends TestCase
      * @param null|string|string[] $separators
      * @param string[] $formatBlocks
      */
-    public function testTime(string $expectedResult, $separators = null, array $formatBlocks = []): void
+    public function testTime(string $expectedResult, string|array|null $separators = null, array $formatBlocks = []): void
     {
         $wizard = new Duration($separators, ...$formatBlocks);
         self::assertSame($expectedResult, (string) $wizard);

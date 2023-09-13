@@ -1,15 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 class CountIfTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerCOUNTIF
-     *
-     * @param mixed $expectedResult
      */
-    public function testCOUNTIF($expectedResult, ...$args): void
+    public function testCOUNTIF(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCaseNoBracket('COUNTIF', $expectedResult, ...$args);
     }

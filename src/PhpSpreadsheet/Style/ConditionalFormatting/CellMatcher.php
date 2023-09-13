@@ -30,20 +30,14 @@ class CellMatcher
         Conditional::CONDITION_UNIQUE => "COUNTIF('%s'!%s,%s)=1",
     ];
 
-    /**
-     * @var Cell
-     */
-    protected $cell;
+    protected Cell $cell;
 
     /**
      * @var int
      */
     protected $cellRow;
 
-    /**
-     * @var Worksheet
-     */
-    protected $worksheet;
+    protected Worksheet $worksheet;
 
     /**
      * @var int
@@ -70,10 +64,7 @@ class CellMatcher
      */
     protected $referenceColumn;
 
-    /**
-     * @var Calculation
-     */
-    protected $engine;
+    protected Calculation $engine;
 
     public function __construct(Cell $cell, string $conditionalRange)
     {
@@ -147,11 +138,9 @@ class CellMatcher
     }
 
     /**
-     * @param mixed $value
-     *
      * @return float|int|string
      */
-    protected function wrapValue($value)
+    protected function wrapValue(mixed $value)
     {
         if (!is_numeric($value)) {
             if (is_bool($value)) {

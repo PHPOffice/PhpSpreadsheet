@@ -22,7 +22,7 @@ class SeriesSum
      *
      * @return array|float|string The result, or a string containing an error
      */
-    public static function evaluate($x, $n, $m, ...$args)
+    public static function evaluate($x, $n, $m, ...$args): array|string|float|int
     {
         if (is_array($x) || is_array($n) || is_array($m)) {
             return self::evaluateArrayArgumentsSubset([self::class, __FUNCTION__], 3, $x, $n, $m, ...$args);

@@ -10,6 +10,7 @@ use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class Csv extends BaseReader
 {
@@ -32,10 +33,8 @@ class Csv extends BaseReader
 
     /**
      * Input encoding.
-     *
-     * @var string
      */
-    private $inputEncoding = 'UTF-8';
+    private string $inputEncoding = 'UTF-8';
 
     /**
      * Fallback encoding if guess strikes out.
@@ -46,17 +45,13 @@ class Csv extends BaseReader
 
     /**
      * Delimiter.
-     *
-     * @var ?string
      */
-    private $delimiter;
+    private ?string $delimiter = null;
 
     /**
      * Enclosure.
-     *
-     * @var string
      */
-    private $enclosure = '"';
+    private string $enclosure = '"';
 
     /**
      * Sheet index to read.
@@ -74,10 +69,8 @@ class Csv extends BaseReader
 
     /**
      * The character that can escape the enclosure.
-     *
-     * @var string
      */
-    private $escapeCharacter = '\\';
+    private string $escapeCharacter = '\\';
 
     /**
      * Callback for setting defaults in construction.
@@ -105,6 +98,9 @@ class Csv extends BaseReader
 
     /** @var bool */
     private $preserveNullString = false;
+
+    /** @var bool */
+    private $sheetNameIsFileName = false;
 
     /**
      * Create a new CSV Reader instance.
@@ -381,6 +377,9 @@ class Csv extends BaseReader
             $spreadsheet->createSheet();
         }
         $sheet = $spreadsheet->setActiveSheetIndex($this->sheetIndex);
+        if ($this->sheetNameIsFileName) {
+            $sheet->setTitle(substr(basename($filename, '.csv'), 0, Worksheet::SHEET_TITLE_MAXIMUM_LENGTH));
+        }
 
         // Set our starting row based on whether we're in contiguous mode or not
         $currentRow = 1;
@@ -642,5 +641,12 @@ class Csv extends BaseReader
     public function getPreserveNullString(): bool
     {
         return $this->preserveNullString;
+    }
+
+    public function setSheetNameIsFileName(bool $sheetNameIsFileName): self
+    {
+        $this->sheetNameIsFileName = $sheetNameIsFileName;
+
+        return $this;
     }
 }

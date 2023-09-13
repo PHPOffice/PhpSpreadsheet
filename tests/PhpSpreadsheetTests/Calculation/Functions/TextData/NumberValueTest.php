@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -10,13 +12,8 @@ class NumberValueTest extends AllSetupTeardown
 
     /**
      * @dataProvider providerNUMBERVALUE
-     *
-     * @param mixed $expectedResult
-     * @param mixed $number
-     * @param mixed $decimal
-     * @param mixed $group
      */
-    public function testNUMBERVALUE($expectedResult, $number = 'omitted', $decimal = 'omitted', $group = 'omitted'): void
+    public function testNUMBERVALUE(mixed $expectedResult, mixed $number = 'omitted', mixed $decimal = 'omitted', mixed $group = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

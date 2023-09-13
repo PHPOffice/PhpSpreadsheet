@@ -567,7 +567,7 @@ class Style extends WriterPart
      *
      * @param string $name Element name
      */
-    private function writeBorderPr(XMLWriter $objWriter, $name, Border $border): void
+    private function writeBorderPr(XMLWriter $objWriter, string $name, Border $border): void
     {
         // Write BorderPr
         if ($border->getBorderStyle() === Border::BORDER_OMIT) {
@@ -592,7 +592,7 @@ class Style extends WriterPart
      *
      * @param int $id Number Format identifier
      */
-    private function writeNumFmt(XMLWriter $objWriter, ?NumberFormat $numberFormat, $id = 0): void
+    private function writeNumFmt(XMLWriter $objWriter, ?NumberFormat $numberFormat, int $id = 0): void
     {
         // Translate formatcode
         $formatCode = ($numberFormat === null) ? null : $numberFormat->getFormatCode();
@@ -621,7 +621,7 @@ class Style extends WriterPart
      *
      * @return Conditional[] All conditional styles in PhpSpreadsheet
      */
-    public function allConditionalStyles(Spreadsheet $spreadsheet)
+    public function allConditionalStyles(Spreadsheet $spreadsheet): array
     {
         // Get an array of all styles
         $aStyles = [];
@@ -673,7 +673,7 @@ class Style extends WriterPart
      *
      * @return Font[] All fonts in PhpSpreadsheet
      */
-    public function allFonts(Spreadsheet $spreadsheet)
+    public function allFonts(Spreadsheet $spreadsheet): array
     {
         // Get an array of unique fonts
         $aFonts = [];
@@ -694,7 +694,7 @@ class Style extends WriterPart
      *
      * @return Borders[] All borders in PhpSpreadsheet
      */
-    public function allBorders(Spreadsheet $spreadsheet)
+    public function allBorders(Spreadsheet $spreadsheet): array
     {
         // Get an array of unique borders
         $aBorders = [];
@@ -715,7 +715,7 @@ class Style extends WriterPart
      *
      * @return NumberFormat[] All number formats in PhpSpreadsheet
      */
-    public function allNumberFormats(Spreadsheet $spreadsheet)
+    public function allNumberFormats(Spreadsheet $spreadsheet): array
     {
         // Get an array of unique number formats
         $aNumFmts = [];

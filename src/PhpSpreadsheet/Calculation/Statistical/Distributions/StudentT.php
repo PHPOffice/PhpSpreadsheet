@@ -88,10 +88,7 @@ class StudentT
         return $newtonRaphson->execute($probability);
     }
 
-    /**
-     * @return float
-     */
-    private static function calculateDistribution(float $value, int $degrees, int $tails)
+    private static function calculateDistribution(float $value, int $degrees, int $tails): float
     {
         //    tdist, which finds the probability that corresponds to a given value
         //    of t with k degrees of freedom. This algorithm is translated from a

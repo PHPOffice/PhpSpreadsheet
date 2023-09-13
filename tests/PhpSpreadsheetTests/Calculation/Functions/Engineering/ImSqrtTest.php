@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -15,10 +17,7 @@ class ImSqrtTest extends TestCase
 {
     const COMPLEX_PRECISION = 1E-12;
 
-    /**
-     * @var ComplexAssert
-     */
-    private $complexAssert;
+    private \PhpOffice\PhpSpreadsheetTests\Custom\ComplexAssert $complexAssert;
 
     protected function setUp(): void
     {
@@ -28,10 +27,8 @@ class ImSqrtTest extends TestCase
 
     /**
      * @dataProvider providerIMSQRT
-     *
-     * @param mixed $expectedResult
      */
-    public function testDirectCallToIMSQRT($expectedResult, ...$args): void
+    public function testDirectCallToIMSQRT(mixed $expectedResult, mixed ...$args): void
     {
         /** @scrutinizer ignore-call */
         $result = ComplexFunctions::IMSQRT(...$args);
@@ -48,10 +45,8 @@ class ImSqrtTest extends TestCase
 
     /**
      * @dataProvider providerIMSQRT
-     *
-     * @param mixed $expectedResult
      */
-    public function testIMSQRTAsFormula($expectedResult, ...$args): void
+    public function testIMSQRTAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -67,10 +62,8 @@ class ImSqrtTest extends TestCase
 
     /**
      * @dataProvider providerIMSQRT
-     *
-     * @param mixed $expectedResult
      */
-    public function testIMSQRTInWorksheet($expectedResult, ...$args): void
+    public function testIMSQRTInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -98,7 +91,7 @@ class ImSqrtTest extends TestCase
     /**
      * @dataProvider providerUnhappyIMSQRT
      */
-    public function testIMSQRTUnhappyPath(string $expectedException, ...$args): void
+    public function testIMSQRTUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 

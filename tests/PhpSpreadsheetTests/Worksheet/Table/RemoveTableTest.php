@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet\Table;
 
 use PhpOffice\PhpSpreadsheet\Worksheet\Table;

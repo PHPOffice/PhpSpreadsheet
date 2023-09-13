@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -15,10 +17,7 @@ class ImConjugateTest extends TestCase
 {
     const COMPLEX_PRECISION = 1E-12;
 
-    /**
-     * @var ComplexAssert
-     */
-    private $complexAssert;
+    private \PhpOffice\PhpSpreadsheetTests\Custom\ComplexAssert $complexAssert;
 
     protected function setUp(): void
     {
@@ -28,10 +27,8 @@ class ImConjugateTest extends TestCase
 
     /**
      * @dataProvider providerIMCONJUGATE
-     *
-     * @param mixed $expectedResult
      */
-    public function testDirectCallToIMCONJUGATE($expectedResult, ...$args): void
+    public function testDirectCallToIMCONJUGATE(mixed $expectedResult, mixed ...$args): void
     {
         /** @scrutinizer ignore-call */
         $result = ComplexFunctions::IMCONJUGATE(...$args);
@@ -48,10 +45,8 @@ class ImConjugateTest extends TestCase
 
     /**
      * @dataProvider providerIMCONJUGATE
-     *
-     * @param mixed $expectedResult
      */
-    public function testIMCONJUGATEAsFormula($expectedResult, ...$args): void
+    public function testIMCONJUGATEAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -67,10 +62,8 @@ class ImConjugateTest extends TestCase
 
     /**
      * @dataProvider providerIMCONJUGATE
-     *
-     * @param mixed $expectedResult
      */
-    public function testIMCONJUGATEInWorksheet($expectedResult, ...$args): void
+    public function testIMCONJUGATEInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -98,7 +91,7 @@ class ImConjugateTest extends TestCase
     /**
      * @dataProvider providerUnhappyIMCONJUGATE
      */
-    public function testIMCONJUGATEUnhappyPath(string $expectedException, ...$args): void
+    public function testIMCONJUGATEUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 

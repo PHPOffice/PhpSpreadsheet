@@ -163,10 +163,8 @@ class Color extends Supervisor
      * Build style array from subcomponents.
      *
      * @param array $array
-     *
-     * @return array
      */
-    public function getStyleArray($array)
+    public function getStyleArray($array): array
     {
         /** @var Style */
         $parent = $this->parent;
@@ -185,7 +183,7 @@ class Color extends Supervisor
      *
      * @return $this
      */
-    public function applyFromArray(array $styleArray)
+    public function applyFromArray(array $styleArray): static
     {
         if ($this->isSupervisor) {
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($this->getStyleArray($styleArray));
@@ -239,7 +237,7 @@ class Color extends Supervisor
      *
      * @return $this
      */
-    public function setARGB(?string $colorValue = self::COLOR_BLACK)
+    public function setARGB(?string $colorValue = self::COLOR_BLACK): static
     {
         $this->hasChanged = true;
         $colorValue = $this->validateColor($colorValue);
@@ -276,7 +274,7 @@ class Color extends Supervisor
      *
      * @return $this
      */
-    public function setRGB(?string $colorValue = self::COLOR_BLACK)
+    public function setRGB(?string $colorValue = self::COLOR_BLACK): static
     {
         return $this->setARGB($colorValue);
     }
@@ -291,7 +289,7 @@ class Color extends Supervisor
      *
      * @return int|string The extracted colour component
      */
-    private static function getColourComponent($rgbValue, $offset, $hex = true)
+    private static function getColourComponent($rgbValue, $offset, $hex = true): string|int
     {
         $colour = substr($rgbValue, $offset, 2) ?: '';
         if (preg_match('/^[0-9a-f]{2}$/i', $colour) !== 1) {
@@ -351,7 +349,7 @@ class Color extends Supervisor
      *
      * @return string The adjusted colour as an RGBA or RGB value (e.g. FF00CCCC or CCDDEE)
      */
-    public static function changeBrightness($hexColourValue, $adjustPercentage)
+    public static function changeBrightness($hexColourValue, $adjustPercentage): string
     {
         $rgba = (strlen($hexColourValue) === 8);
         $adjustPercentage = max(-1.0, min(1.0, $adjustPercentage));

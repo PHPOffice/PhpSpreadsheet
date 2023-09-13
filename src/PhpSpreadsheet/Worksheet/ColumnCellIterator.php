@@ -13,17 +13,13 @@ class ColumnCellIterator extends CellIterator
 {
     /**
      * Current iterator position.
-     *
-     * @var int
      */
-    private $currentRow;
+    private int $currentRow;
 
     /**
      * Column index.
-     *
-     * @var int
      */
-    private $columnIndex;
+    private int $columnIndex;
 
     /**
      * Start position.
@@ -65,7 +61,7 @@ class ColumnCellIterator extends CellIterator
      *
      * @return $this
      */
-    public function resetStart(int $startRow = 1)
+    public function resetStart(int $startRow = 1): static
     {
         $this->startRow = $startRow;
         $this->adjustForExistingOnlyRange();
@@ -81,7 +77,7 @@ class ColumnCellIterator extends CellIterator
      *
      * @return $this
      */
-    public function resetEnd($endRow = null)
+    public function resetEnd($endRow = null): static
     {
         $this->endRow = $endRow ?: $this->worksheet->getHighestRow();
         $this->adjustForExistingOnlyRange();
@@ -96,7 +92,7 @@ class ColumnCellIterator extends CellIterator
      *
      * @return $this
      */
-    public function seek(int $row = 1)
+    public function seek(int $row = 1): static
     {
         if (
             $this->onlyExistingCells &&

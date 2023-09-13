@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // Cost, Date purchased, End of the 1st period, Salvage, Period, Depreciation, Basis, Result
 
 return [

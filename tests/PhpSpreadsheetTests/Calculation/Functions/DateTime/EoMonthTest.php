@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -12,10 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 class EoMonthTest extends TestCase
 {
-    /**
-     * @var string
-     */
-    private $returnDateType;
+    private string $returnDateType;
 
     protected function setUp(): void
     {
@@ -33,10 +32,8 @@ class EoMonthTest extends TestCase
 
     /**
      * @dataProvider providerEOMONTH
-     *
-     * @param mixed $expectedResult
      */
-    public function testDirectCallToEOMONTH($expectedResult, ...$args): void
+    public function testDirectCallToEOMONTH(mixed $expectedResult, mixed ...$args): void
     {
         $result = Month::lastDay(...$args);
         self::assertSame($expectedResult, $result);
@@ -44,10 +41,8 @@ class EoMonthTest extends TestCase
 
     /**
      * @dataProvider providerEOMONTH
-     *
-     * @param mixed $expectedResult
      */
-    public function testEOMONTHAsFormula($expectedResult, ...$args): void
+    public function testEOMONTHAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -60,10 +55,8 @@ class EoMonthTest extends TestCase
 
     /**
      * @dataProvider providerEOMONTH
-     *
-     * @param mixed $expectedResult
      */
-    public function testEOMONTHInWorksheet($expectedResult, ...$args): void
+    public function testEOMONTHInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -88,7 +81,7 @@ class EoMonthTest extends TestCase
     /**
      * @dataProvider providerUnhappyEOMONTH
      */
-    public function testEOMONTHUnhappyPath(string $expectedException, ...$args): void
+    public function testEOMONTHUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 

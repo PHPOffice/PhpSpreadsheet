@@ -29,17 +29,13 @@ class Security
 
     /**
      * RevisionsPassword.
-     *
-     * @var string
      */
-    private $revisionsPassword = '';
+    private string $revisionsPassword = '';
 
     /**
      * WorkbookPassword.
-     *
-     * @var string
      */
-    private $workbookPassword = '';
+    private string $workbookPassword = '';
 
     /**
      * Create a new Document Security instance.
@@ -112,7 +108,7 @@ class Security
      *
      * @return $this
      */
-    public function setRevisionsPassword(?string $password, bool $alreadyHashed = false)
+    public function setRevisionsPassword(?string $password, bool $alreadyHashed = false): static
     {
         if ($password !== null) {
             if (!$alreadyHashed) {
@@ -136,7 +132,7 @@ class Security
      *
      * @return $this
      */
-    public function setWorkbookPassword(?string $password, bool $alreadyHashed = false)
+    public function setWorkbookPassword(?string $password, bool $alreadyHashed = false): static
     {
         if ($password !== null) {
             if (!$alreadyHashed) {

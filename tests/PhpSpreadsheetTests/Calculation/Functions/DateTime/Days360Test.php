@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
 use DateTime;
@@ -18,10 +20,8 @@ class Days360Test extends TestCase
 {
     /**
      * @dataProvider providerDAYS360
-     *
-     * @param mixed $expectedResult
      */
-    public function testDirectCallToDAYS360($expectedResult, ...$args): void
+    public function testDirectCallToDAYS360(mixed $expectedResult, mixed ...$args): void
     {
         /** @scrutinizer ignore-call */
         $result = Days360::between(...$args);
@@ -30,10 +30,8 @@ class Days360Test extends TestCase
 
     /**
      * @dataProvider providerDAYS360
-     *
-     * @param mixed $expectedResult
      */
-    public function testDAYS360AsFormula($expectedResult, ...$args): void
+    public function testDAYS360AsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -46,10 +44,8 @@ class Days360Test extends TestCase
 
     /**
      * @dataProvider providerDAYS360
-     *
-     * @param mixed $expectedResult
      */
-    public function testDAYS360InWorksheet($expectedResult, ...$args): void
+    public function testDAYS360InWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -74,7 +70,7 @@ class Days360Test extends TestCase
     /**
      * @dataProvider providerUnhappyDAYS360
      */
-    public function testDAYS360UnhappyPath(string $expectedException, ...$args): void
+    public function testDAYS360UnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -110,6 +106,7 @@ class Days360Test extends TestCase
     {
         $obj1 = new Exception();
         $obj2 = new DateTimeImmutable('2000-2-29');
+        // @phpstan-ignore-next-line
         self::assertSame(ExcelError::VALUE(), Days::between($obj1, $obj2));
     }
 

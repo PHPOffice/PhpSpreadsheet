@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -13,10 +15,8 @@ class GeStepTest extends TestCase
 {
     /**
      * @dataProvider providerGESTEP
-     *
-     * @param mixed $expectedResult
      */
-    public function testDirectCallToGESTEP($expectedResult, ...$args): void
+    public function testDirectCallToGESTEP(mixed $expectedResult, mixed ...$args): void
     {
         /** @scrutinizer ignore-call */
         $result = Compare::geStep(...$args);
@@ -25,10 +25,8 @@ class GeStepTest extends TestCase
 
     /**
      * @dataProvider providerGESTEP
-     *
-     * @param mixed $expectedResult
      */
-    public function testGESTEPAsFormula($expectedResult, ...$args): void
+    public function testGESTEPAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -41,10 +39,8 @@ class GeStepTest extends TestCase
 
     /**
      * @dataProvider providerGESTEP
-     *
-     * @param mixed $expectedResult
      */
-    public function testGESTEPInWorksheet($expectedResult, ...$args): void
+    public function testGESTEPInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -69,7 +65,7 @@ class GeStepTest extends TestCase
     /**
      * @dataProvider providerUnhappyGESTEP
      */
-    public function testGESTEPUnhappyPath(string $expectedException, ...$args): void
+    public function testGESTEPUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 

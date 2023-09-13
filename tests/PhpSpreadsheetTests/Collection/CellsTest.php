@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Collection;
 
 use PhpOffice\PhpSpreadsheet\Cell\Cell;

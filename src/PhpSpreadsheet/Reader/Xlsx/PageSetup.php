@@ -8,11 +8,9 @@ use SimpleXMLElement;
 
 class PageSetup extends BaseParserClass
 {
-    /** @var Worksheet */
-    private $worksheet;
+    private Worksheet $worksheet;
 
-    /** @var ?SimpleXMLElement */
-    private $worksheetXml;
+    private ?SimpleXMLElement $worksheetXml;
 
     public function __construct(Worksheet $workSheet, ?SimpleXMLElement $worksheetXml = null)
     {

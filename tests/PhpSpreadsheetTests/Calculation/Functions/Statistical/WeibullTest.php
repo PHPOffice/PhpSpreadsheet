@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,10 +10,8 @@ class WeibullTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerWEIBULL
-     *
-     * @param mixed $expectedResult
      */
-    public function testWEIBULL($expectedResult, ...$args): void
+    public function testWEIBULL(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('WEIBULL', $expectedResult, ...$args);
     }

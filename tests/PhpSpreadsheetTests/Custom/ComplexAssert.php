@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Custom;
 
 use Complex\Complex;
@@ -7,10 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class ComplexAssert extends TestCase
 {
-    /**
-     * @var string
-     */
-    private $errorMessage = '';
+    private string $errorMessage = '';
 
     /** @var float */
     private $delta = 0.0;
@@ -20,11 +19,7 @@ class ComplexAssert extends TestCase
         parent::__construct('complexAssert');
     }
 
-    /**
-     * @param mixed $expected
-     * @param mixed $actual
-     */
-    private function testExpectedExceptions($expected, $actual): bool
+    private function testExpectedExceptions(string|float $expected, string|float $actual): bool
     {
         //    Expecting an error, so we do a straight string comparison
         if ($expected === $actual) {
@@ -56,11 +51,7 @@ class ComplexAssert extends TestCase
         return $this;
     }
 
-    /**
-     * @param mixed $expected
-     * @param mixed $actual
-     */
-    public function assertComplexEquals($expected, $actual, ?float $delta = null): bool
+    public function assertComplexEquals(mixed $expected, mixed $actual, ?float $delta = null): bool
     {
         if ($expected === INF || (is_string($expected) && $expected[0] === '#')) {
             return $this->testExpectedExceptions($expected, $actual);
@@ -100,11 +91,7 @@ class ComplexAssert extends TestCase
         return $this->errorMessage;
     }
 
-    /**
-     * @param mixed $expected
-     * @param mixed $actual
-     */
-    public function runAssertComplexEquals($expected, $actual, ?float $delta = null): void
+    public function runAssertComplexEquals(mixed $expected, mixed $actual, ?float $delta = null): void
     {
         self::assertTrue($this->assertComplexEquals($expected, $actual, $delta), $this->getErrorMessage());
     }

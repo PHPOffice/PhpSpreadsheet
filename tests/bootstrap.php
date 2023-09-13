@@ -1,9 +1,8 @@
 <?php
 
-setlocale(LC_ALL, 'en_US.utf8');
+declare(strict_types=1);
 
-// PHP 5.3 Compat
-//date_default_timezone_set('Europe/London');
+setlocale(LC_ALL, 'en_US.utf8');
 
 function phpunit10ErrorHandler(int $errno, string $errstr, string $filename, int $lineno): bool
 {

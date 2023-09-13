@@ -459,7 +459,7 @@ class Rels extends WriterPart
      * @param string $target Relationship target
      * @param string $targetMode Relationship target mode
      */
-    private function writeRelationship(XMLWriter $objWriter, $id, $type, $target, $targetMode = ''): void
+    private function writeRelationship(XMLWriter $objWriter, $id, string $type, $target, string $targetMode = ''): void
     {
         if ($type != '' && $target != '') {
             // Write relationship

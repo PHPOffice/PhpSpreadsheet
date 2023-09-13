@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -10,10 +12,8 @@ class ArrayFormulaTest extends TestCase
 {
     /**
      * @dataProvider providerArrayFormulae
-     *
-     * @param mixed $expectedResult
      */
-    public function testArrayFormula(string $formula, $expectedResult): void
+    public function testArrayFormula(string $formula, mixed $expectedResult): void
     {
         $result = Calculation::getInstance()->_calculateFormulaValue($formula);
         self::assertEquals($expectedResult, $result);

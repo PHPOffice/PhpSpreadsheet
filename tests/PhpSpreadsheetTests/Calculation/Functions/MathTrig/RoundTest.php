@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,11 +10,8 @@ class RoundTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerRound
-     *
-     * @param mixed $expectedResult
-     * @param mixed $formula
      */
-    public function testRound($expectedResult, $formula): void
+    public function testRound(mixed $expectedResult, mixed $formula): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

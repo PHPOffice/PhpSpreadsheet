@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,10 +10,8 @@ class ZTestTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerZTEST
-     *
-     * @param mixed $expectedResult
      */
-    public function testZTEST($expectedResult, ...$args): void
+    public function testZTEST(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCaseReference('ZTEST', $expectedResult, ...$args);
     }

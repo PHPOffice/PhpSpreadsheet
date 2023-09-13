@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Cell\Hyperlink;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\IComparable;
+use PhpOffice\PhpSpreadsheet\Worksheet\Drawing\Shadow;
 use SimpleXMLElement;
 
 class BaseDrawing implements IComparable
@@ -20,10 +21,8 @@ class BaseDrawing implements IComparable
 
     /**
      * The editAs attribute, used only with two cell anchor.
-     *
-     * @var string
      */
-    protected $editAs = '';
+    protected string $editAs = '';
 
     /**
      * Image counter.
@@ -34,38 +33,28 @@ class BaseDrawing implements IComparable
 
     /**
      * Image index.
-     *
-     * @var int
      */
-    private $imageIndex = 0;
+    private int $imageIndex;
 
     /**
      * Name.
-     *
-     * @var string
      */
-    protected $name = '';
+    protected string $name = '';
 
     /**
      * Description.
-     *
-     * @var string
      */
-    protected $description = '';
+    protected string $description = '';
 
     /**
      * Worksheet.
-     *
-     * @var null|Worksheet
      */
-    protected $worksheet;
+    protected ?Worksheet $worksheet = null;
 
     /**
      * Coordinates.
-     *
-     * @var string
      */
-    protected $coordinates = 'A1';
+    protected string $coordinates = 'A1';
 
     /**
      * Offset X.
@@ -83,10 +72,8 @@ class BaseDrawing implements IComparable
 
     /**
      * Coordinates2.
-     *
-     * @var string
      */
-    protected $coordinates2 = '';
+    protected string $coordinates2 = '';
 
     /**
      * Offset X2.
@@ -146,17 +133,13 @@ class BaseDrawing implements IComparable
 
     /**
      * Shadow.
-     *
-     * @var Drawing\Shadow
      */
-    protected $shadow;
+    protected Shadow $shadow;
 
     /**
      * Image hyperlink.
-     *
-     * @var null|Hyperlink
      */
-    private $hyperlink;
+    private ?Hyperlink $hyperlink = null;
 
     /**
      * Image type.
@@ -435,7 +418,7 @@ class BaseDrawing implements IComparable
      *
      * @return string Hash code
      */
-    public function getHashCode()
+    public function getHashCode(): string
     {
         return md5(
             $this->name .

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,11 +10,8 @@ class FactDoubleTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerFACTDOUBLE
-     *
-     * @param mixed $expectedResult
-     * @param mixed $value
      */
-    public function testFACTDOUBLE($expectedResult, $value): void
+    public function testFACTDOUBLE(mixed $expectedResult, mixed $value): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

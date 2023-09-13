@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Database\DAverage;
@@ -9,13 +11,8 @@ class DAverageTest extends SetupTeardownDatabases
 {
     /**
      * @dataProvider providerDAverage
-     *
-     * @param mixed $expectedResult
-     * @param mixed $database
-     * @param mixed $field
-     * @param mixed $criteria
      */
-    public function testDirectCallToDAverage($expectedResult, $database, $field, $criteria): void
+    public function testDirectCallToDAverage(int|float|string $expectedResult, array $database, string|int|null $field, array $criteria): void
     {
         $result = DAverage::evaluate($database, $field, $criteria);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
@@ -23,11 +20,8 @@ class DAverageTest extends SetupTeardownDatabases
 
     /**
      * @dataProvider providerDAverage
-     *
-     * @param mixed $expectedResult
-     * @param int|string $field
      */
-    public function testDAverageAsWorksheetFormula($expectedResult, array $database, $field, array $criteria): void
+    public function testDAverageAsWorksheetFormula(int|float|string $expectedResult, array $database, string|int|null $field, array $criteria): void
     {
         $this->prepareWorksheetWithFormula('DAVERAGE', $database, $field, $criteria);
 

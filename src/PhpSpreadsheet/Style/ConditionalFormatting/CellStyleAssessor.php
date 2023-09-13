@@ -8,15 +8,9 @@ use PhpOffice\PhpSpreadsheet\Style\Style;
 
 class CellStyleAssessor
 {
-    /**
-     * @var CellMatcher
-     */
-    protected $cellMatcher;
+    protected CellMatcher $cellMatcher;
 
-    /**
-     * @var StyleMerger
-     */
-    protected $styleMerger;
+    protected StyleMerger $styleMerger;
 
     public function __construct(Cell $cell, string $conditionalRange)
     {

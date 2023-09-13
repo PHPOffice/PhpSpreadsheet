@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     [4.1, '{5.6,4.1,4.1,3,2,4.1}'], // Calculated value was #N/A
     [4.1, '5.6,4.1,4.1,3,2,4.1'],

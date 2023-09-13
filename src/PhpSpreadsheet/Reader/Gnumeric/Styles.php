@@ -14,15 +14,9 @@ use SimpleXMLElement;
 
 class Styles
 {
-    /**
-     * @var Spreadsheet
-     */
-    private $spreadsheet;
+    private Spreadsheet $spreadsheet;
 
-    /**
-     * @var bool
-     */
-    protected $readDataOnly = false;
+    protected bool $readDataOnly;
 
     /** @var array */
     public static $mappings = [

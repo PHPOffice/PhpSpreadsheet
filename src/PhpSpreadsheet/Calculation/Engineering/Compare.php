@@ -29,7 +29,7 @@ class Compare
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function DELTA($a, $b = 0.0)
+    public static function DELTA($a, $b = 0.0): array|string|int
     {
         if (is_array($a) || is_array($b)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $a, $b);
@@ -64,7 +64,7 @@ class Compare
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function GESTEP($number, $step = 0.0)
+    public static function GESTEP($number, $step = 0.0): array|string|int
     {
         if (is_array($number) || is_array($step)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $number, $step);

@@ -1,15 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 class AmorDegRcTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerAMORDEGRC
-     *
-     * @param mixed $expectedResult
      */
-    public function testAMORDEGRC($expectedResult, ...$args): void
+    public function testAMORDEGRC(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('AMORDEGRC', $expectedResult, $args);
     }

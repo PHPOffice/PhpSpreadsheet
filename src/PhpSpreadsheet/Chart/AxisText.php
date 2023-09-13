@@ -6,11 +6,9 @@ use PhpOffice\PhpSpreadsheet\Style\Font;
 
 class AxisText extends Properties
 {
-    /** @var ?int */
-    private $rotation;
+    private ?int $rotation = null;
 
-    /** @var Font */
-    private $font;
+    private Font $font;
 
     public function __construct()
     {

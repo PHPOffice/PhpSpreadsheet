@@ -25,24 +25,20 @@ class PlotArea
 
     /**
      * PlotArea Gradient Angle.
-     *
-     * @var ?float
      */
-    private $gradientFillAngle;
+    private ?float $gradientFillAngle = null;
 
     /**
      * PlotArea Layout.
-     *
-     * @var ?Layout
      */
-    private $layout;
+    private ?Layout $layout;
 
     /**
      * Plot Series.
      *
      * @var DataSeries[]
      */
-    private $plotSeries = [];
+    private array $plotSeries;
 
     /**
      * Create a new PlotArea.
@@ -73,7 +69,7 @@ class PlotArea
      *
      * @return int
      */
-    public function getPlotSeriesCount()
+    public function getPlotSeriesCount(): int|float
     {
         $seriesCount = 0;
         foreach ($this->plotSeries as $plot) {
@@ -112,7 +108,7 @@ class PlotArea
      *
      * @return $this
      */
-    public function setPlotSeries(array $plotSeries)
+    public function setPlotSeries(array $plotSeries): static
     {
         $this->plotSeries = $plotSeries;
 
@@ -164,8 +160,7 @@ class PlotArea
         return $this->gradientFillStops;
     }
 
-    /** @var ?int */
-    private $gapWidth;
+    private ?int $gapWidth = null;
 
     /** @var bool */
     private $useUpBars = false;

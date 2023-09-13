@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     [3, '2.5, 1'],
     [-2, '"-2.5", "-2"'],

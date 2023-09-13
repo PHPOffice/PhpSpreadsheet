@@ -169,13 +169,10 @@ class Rule
     // Rule Operators (Date Special) which are translated to standard numeric operators with calculated values
     //    const AUTOFILTER_COLUMN_RULE_BEFORE                = 'lessThan';
     //    const AUTOFILTER_COLUMN_RULE_AFTER                = 'greaterThan';
-
     /**
      * Autofilter Column.
-     *
-     * @var ?Column
      */
-    private $parent;
+    private ?Column $parent;
 
     /**
      * Autofilter Rule Type.
@@ -237,7 +234,7 @@ class Rule
      *
      * @return $this
      */
-    public function setRuleType($ruleType)
+    public function setRuleType($ruleType): static
     {
         $this->setEvaluatedFalse();
         if (!in_array($ruleType, self::RULE_TYPES)) {
@@ -266,7 +263,7 @@ class Rule
      *
      * @return $this
      */
-    public function setValue($value)
+    public function setValue($value): static
     {
         $this->setEvaluatedFalse();
         if (is_array($value)) {
@@ -309,7 +306,7 @@ class Rule
      *
      * @return $this
      */
-    public function setOperator($operator)
+    public function setOperator($operator): static
     {
         $this->setEvaluatedFalse();
         if (empty($operator)) {
@@ -343,7 +340,7 @@ class Rule
      *
      * @return $this
      */
-    public function setGrouping($grouping)
+    public function setGrouping($grouping): static
     {
         $this->setEvaluatedFalse();
         if (
@@ -368,7 +365,7 @@ class Rule
      *
      * @return $this
      */
-    public function setRule($operator, $value, $grouping = null)
+    public function setRule($operator, $value, $grouping = null): static
     {
         $this->setEvaluatedFalse();
         $this->setOperator($operator);
@@ -398,7 +395,7 @@ class Rule
      *
      * @return $this
      */
-    public function setParent(?Column $parent = null)
+    public function setParent(?Column $parent = null): static
     {
         $this->setEvaluatedFalse();
         $this->parent = $parent;

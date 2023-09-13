@@ -64,7 +64,7 @@ class PolynomialBestFit extends BestFit
      *
      * @return float X-Value
      */
-    public function getValueOfXForY($yValue)
+    public function getValueOfXForY($yValue): int|float
     {
         return ($yValue - $this->getIntersect()) / $this->getSlope();
     }
@@ -73,10 +73,8 @@ class PolynomialBestFit extends BestFit
      * Return the Equation of the best-fit line.
      *
      * @param int $dp Number of places of decimal precision to display
-     *
-     * @return string
      */
-    public function getEquation($dp = 0)
+    public function getEquation($dp = 0): string
     {
         $slope = $this->getSlope($dp);
         $intersect = $this->getIntersect($dp);
@@ -122,10 +120,8 @@ class PolynomialBestFit extends BestFit
 
     /**
      * @param int $dp
-     *
-     * @return array
      */
-    public function getCoefficients($dp = 0)
+    public function getCoefficients($dp = 0): array
     {
         // Phpstan and Scrutinizer are both correct - getSlope returns float, not array.
         // @phpstan-ignore-next-line
@@ -139,7 +135,7 @@ class PolynomialBestFit extends BestFit
      * @param float[] $yValues The set of Y-values for this regression
      * @param float[] $xValues The set of X-values for this regression
      */
-    private function polynomialRegression($order, $yValues, $xValues): void
+    private function polynomialRegression($order, array $yValues, array $xValues): void
     {
         // calculate sums
         $x_sum = array_sum($xValues);

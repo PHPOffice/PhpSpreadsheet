@@ -1,15 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 class CoupNumTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerCOUPNUM
-     *
-     * @param mixed $expectedResult
      */
-    public function testCOUPNUM($expectedResult, ...$args): void
+    public function testCOUPNUM(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('COUPNUM', $expectedResult, $args);
     }

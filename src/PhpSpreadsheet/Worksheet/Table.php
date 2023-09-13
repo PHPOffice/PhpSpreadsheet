@@ -14,10 +14,8 @@ class Table
 {
     /**
      * Table Name.
-     *
-     * @var string
      */
-    private $name;
+    private string $name;
 
     /**
      * Show Header Row.
@@ -35,17 +33,13 @@ class Table
 
     /**
      * Table Range.
-     *
-     * @var string
      */
-    private $range = '';
+    private string $range = '';
 
     /**
      * Table Worksheet.
-     *
-     * @var null|Worksheet
      */
-    private $workSheet;
+    private ?Worksheet $workSheet = null;
 
     /**
      * Table allow filter.
@@ -63,17 +57,13 @@ class Table
 
     /**
      * Table Style.
-     *
-     * @var TableStyle
      */
-    private $style;
+    private TableStyle $style;
 
     /**
      * Table AutoFilter.
-     *
-     * @var AutoFilter
      */
-    private $autoFilter;
+    private AutoFilter $autoFilter;
 
     /**
      * Create a new Table.
@@ -170,7 +160,7 @@ class Table
 
     private function updateStructuredReferences(string $name): void
     {
-        if ($this->workSheet === null || $this->name === null || $this->name === '') {
+        if (!$this->workSheet || !$this->name) {
             return;
         }
 
@@ -412,7 +402,7 @@ class Table
      *
      * @return int The offset of the specified column within the table range
      */
-    public function getColumnOffset($column): int
+    public function getColumnOffset(string $column): int
     {
         return $this->isColumnInRange($column);
     }
@@ -586,7 +576,7 @@ class Table
      * toString method replicates previous behavior by returning the range if object is
      * referenced as a property of its worksheet.
      */
-    public function __toString()
+    public function __toString(): string
     {
         return (string) $this->range;
     }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,15 +10,9 @@ use PHPUnit\Framework\TestCase;
 
 class CalculationSettingsTest extends TestCase
 {
-    /**
-     * @var string
-     */
-    private $compatibilityMode;
+    private string $compatibilityMode;
 
-    /**
-     * @var string
-     */
-    private $locale;
+    private string $locale;
 
     protected function setUp(): void
     {
@@ -35,10 +31,8 @@ class CalculationSettingsTest extends TestCase
 
     /**
      * @dataProvider providerCanLoadAllSupportedLocales
-     *
-     * @param string $locale
      */
-    public function testCanLoadAllSupportedLocales($locale): void
+    public function testCanLoadAllSupportedLocales(string $locale): void
     {
         $calculation = Calculation::getInstance();
         self::assertTrue($calculation->setLocale($locale));

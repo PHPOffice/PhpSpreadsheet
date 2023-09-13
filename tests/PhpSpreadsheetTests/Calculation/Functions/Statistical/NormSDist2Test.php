@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,10 +10,8 @@ class NormSDist2Test extends AllSetupTeardown
 {
     /**
      * @dataProvider providerNORMSDIST2
-     *
-     * @param mixed $expectedResult
      */
-    public function testNORMSDIST2($expectedResult, ...$args): void
+    public function testNORMSDIST2(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('NORM.S.DIST', $expectedResult, ...$args);
     }

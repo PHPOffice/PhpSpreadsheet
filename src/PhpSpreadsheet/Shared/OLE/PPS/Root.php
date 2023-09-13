@@ -66,7 +66,7 @@ class Root extends PPS
      *
      * @return bool true on success
      */
-    public function save($fileHandle)
+    public function save($fileHandle): bool
     {
         $this->fileHandle = $fileHandle;
 
@@ -106,7 +106,7 @@ class Root extends PPS
      *
      * @return float[] The array of numbers
      */
-    private function calcSize(&$raList)
+    private function calcSize(array &$raList): array
     {
         // Calculate Basic Setting
         [$iSBDcnt, $iBBcnt, $iPPScnt] = [0, 0, 0];
@@ -141,11 +141,9 @@ class Root extends PPS
      *
      * @param int $i2 The argument
      *
-     * @return float
-     *
      * @see save()
      */
-    private static function adjust2($i2)
+    private static function adjust2($i2): float
     {
         $iWk = log($i2) / log(2);
 
@@ -154,12 +152,8 @@ class Root extends PPS
 
     /**
      * Save OLE header.
-     *
-     * @param int $iSBDcnt
-     * @param int $iBBcnt
-     * @param int $iPPScnt
      */
-    private function saveHeader($iSBDcnt, $iBBcnt, $iPPScnt): void
+    private function saveHeader(int $iSBDcnt, int $iBBcnt, int $iPPScnt): void
     {
         $FILE = $this->fileHandle;
 
@@ -235,10 +229,9 @@ class Root extends PPS
     /**
      * Saving big data (PPS's with data bigger than \PhpOffice\PhpSpreadsheet\Shared\OLE::OLE_DATA_SIZE_SMALL).
      *
-     * @param int $iStBlk
      * @param array $raList Reference to array of PPS's
      */
-    private function saveBigData($iStBlk, &$raList): void
+    private function saveBigData(int $iStBlk, array &$raList): void
     {
         $FILE = $this->fileHandle;
 
@@ -267,10 +260,8 @@ class Root extends PPS
      * get small data (PPS's with data smaller than \PhpOffice\PhpSpreadsheet\Shared\OLE::OLE_DATA_SIZE_SMALL).
      *
      * @param array $raList Reference to array of PPS's
-     *
-     * @return string
      */
-    private function makeSmallData(&$raList)
+    private function makeSmallData(array &$raList): string
     {
         $sRes = '';
         $FILE = $this->fileHandle;
@@ -320,7 +311,7 @@ class Root extends PPS
      *
      * @param array $raList Reference to an array with all PPS's
      */
-    private function savePps(&$raList): void
+    private function savePps(array &$raList): void
     {
         // Save each PPS WK
         $iC = count($raList);
@@ -337,12 +328,8 @@ class Root extends PPS
 
     /**
      * Saving Big Block Depot.
-     *
-     * @param int $iSbdSize
-     * @param int $iBsize
-     * @param int $iPpsCnt
      */
-    private function saveBbd($iSbdSize, $iBsize, $iPpsCnt): void
+    private function saveBbd(int $iSbdSize, int $iBsize, int $iPpsCnt): void
     {
         $FILE = $this->fileHandle;
         // Calculate Basic Setting

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -15,10 +17,7 @@ class ImDivTest extends TestCase
 {
     const COMPLEX_PRECISION = 1E-12;
 
-    /**
-     * @var ComplexAssert
-     */
-    private $complexAssert;
+    private \PhpOffice\PhpSpreadsheetTests\Custom\ComplexAssert $complexAssert;
 
     protected function setUp(): void
     {
@@ -28,10 +27,8 @@ class ImDivTest extends TestCase
 
     /**
      * @dataProvider providerIMDIV
-     *
-     * @param mixed $expectedResult
      */
-    public function testDirectCallToIMDIV($expectedResult, ...$args): void
+    public function testDirectCallToIMDIV(mixed $expectedResult, mixed ...$args): void
     {
         /** @scrutinizer ignore-call */
         $result = ComplexOperations::IMDIV(...$args);
@@ -48,10 +45,8 @@ class ImDivTest extends TestCase
 
     /**
      * @dataProvider providerIMDIV
-     *
-     * @param mixed $expectedResult
      */
-    public function testIMDIVAsFormula($expectedResult, ...$args): void
+    public function testIMDIVAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -67,10 +62,8 @@ class ImDivTest extends TestCase
 
     /**
      * @dataProvider providerIMDIV
-     *
-     * @param mixed $expectedResult
      */
-    public function testIMDIVInWorksheet($expectedResult, ...$args): void
+    public function testIMDIVInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -98,7 +91,7 @@ class ImDivTest extends TestCase
     /**
      * @dataProvider providerUnhappyIMDIV
      */
-    public function testIMDIVUnhappyPath(string $expectedException, ...$args): void
+    public function testIMDIVUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 

@@ -152,7 +152,7 @@ class ArrayArgumentHelper
     private function rows(array $arguments): array
     {
         return array_map(
-            function ($argument) {
+            function ($argument): int {
                 return is_countable($argument) ? count($argument) : 1;
             },
             $arguments
@@ -162,7 +162,7 @@ class ArrayArgumentHelper
     private function columns(array $arguments): array
     {
         return array_map(
-            function ($argument) {
+            function ($argument): int {
                 return is_array($argument) && is_array($argument[array_keys($argument)[0]])
                     ? count($argument[array_keys($argument)[0]])
                     : 1;
@@ -201,7 +201,7 @@ class ArrayArgumentHelper
     {
         return array_filter(
             $array,
-            function ($value) {
+            function ($value): bool {
                 return $value > 1;
             }
         );

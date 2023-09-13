@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -13,10 +15,8 @@ class BitOrTest extends TestCase
 {
     /**
      * @dataProvider providerBITOR
-     *
-     * @param mixed $expectedResult
      */
-    public function testDirectCallToBITOR($expectedResult, ...$args): void
+    public function testDirectCallToBITOR(mixed $expectedResult, mixed ...$args): void
     {
         $result = BitWise::BITOR(...$args);
         self::assertSame($expectedResult, $result);
@@ -24,10 +24,8 @@ class BitOrTest extends TestCase
 
     /**
      * @dataProvider providerBITOR
-     *
-     * @param mixed $expectedResult
      */
-    public function testBITORAsFormula($expectedResult, ...$args): void
+    public function testBITORAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -40,10 +38,8 @@ class BitOrTest extends TestCase
 
     /**
      * @dataProvider providerBITOR
-     *
-     * @param mixed $expectedResult
      */
-    public function testBITORInWorksheet($expectedResult, ...$args): void
+    public function testBITORInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -68,7 +64,7 @@ class BitOrTest extends TestCase
     /**
      * @dataProvider providerUnhappyBITOR
      */
-    public function testBITORUnhappyPath(string $expectedException, ...$args): void
+    public function testBITORUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 

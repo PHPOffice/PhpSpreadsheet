@@ -157,10 +157,8 @@ class NumberFormat extends Supervisor
      * Build style array from subcomponents.
      *
      * @param array $array
-     *
-     * @return array
      */
-    public function getStyleArray($array)
+    public function getStyleArray($array): array
     {
         return ['numberFormat' => $array];
     }
@@ -180,7 +178,7 @@ class NumberFormat extends Supervisor
      *
      * @return $this
      */
-    public function applyFromArray(array $styleArray)
+    public function applyFromArray(array $styleArray): static
     {
         if ($this->isSupervisor) {
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($this->getStyleArray($styleArray));
@@ -217,7 +215,7 @@ class NumberFormat extends Supervisor
      *
      * @return $this
      */
-    public function setFormatCode(string $formatCode)
+    public function setFormatCode(string $formatCode): static
     {
         if ($formatCode == '') {
             $formatCode = self::FORMAT_GENERAL;
@@ -255,7 +253,7 @@ class NumberFormat extends Supervisor
      *
      * @return $this
      */
-    public function setBuiltInFormatCode(int $formatCodeIndex)
+    public function setBuiltInFormatCode(int $formatCodeIndex): static
     {
         if ($this->isSupervisor) {
             $styleArray = $this->getStyleArray(['formatCode' => self::builtInFormatCode($formatCodeIndex)]);

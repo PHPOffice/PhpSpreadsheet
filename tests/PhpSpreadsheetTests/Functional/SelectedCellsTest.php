@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Functional;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -17,10 +19,8 @@ class SelectedCellsTest extends AbstractFunctional
      * Test load file with correct selected cells.
      *
      * @dataProvider providerFormats
-     *
-     * @param string $format
      */
-    public function testSelectedCells($format): void
+    public function testSelectedCells(string $format): void
     {
         $spreadsheet = new Spreadsheet();
 

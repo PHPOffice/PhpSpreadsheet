@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,12 +10,8 @@ class ModTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerMOD
-     *
-     * @param mixed $expectedResult
-     * @param mixed $dividend
-     * @param mixed $divisor
      */
-    public function testMOD($expectedResult, $dividend = 'omitted', $divisor = 'omitted'): void
+    public function testMOD(mixed $expectedResult, mixed $dividend = 'omitted', mixed $divisor = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

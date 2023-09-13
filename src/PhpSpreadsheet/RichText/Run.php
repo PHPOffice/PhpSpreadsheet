@@ -28,7 +28,7 @@ class Run extends TextElement implements ITextElement
     /**
      * Get font.
      *
-     * @return null|\PhpOffice\PhpSpreadsheet\Style\Font
+     * @return null|Font
      */
     public function getFont()
     {
@@ -42,7 +42,7 @@ class Run extends TextElement implements ITextElement
      *
      * @return $this
      */
-    public function setFont(?Font $font = null)
+    public function setFont(?Font $font = null): static
     {
         $this->font = $font;
 
@@ -54,7 +54,7 @@ class Run extends TextElement implements ITextElement
      *
      * @return string Hash code
      */
-    public function getHashCode()
+    public function getHashCode(): string
     {
         return md5(
             $this->getText() .

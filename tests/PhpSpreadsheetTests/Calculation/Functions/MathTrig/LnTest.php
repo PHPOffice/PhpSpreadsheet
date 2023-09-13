@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,11 +10,8 @@ class LnTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerLN
-     *
-     * @param mixed $expectedResult
-     * @param mixed $number
      */
-    public function testLN($expectedResult, $number = 'omitted'): void
+    public function testLN(mixed $expectedResult, mixed $number = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

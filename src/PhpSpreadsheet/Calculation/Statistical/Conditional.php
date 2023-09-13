@@ -82,15 +82,13 @@ class Conditional
      *
      * @param mixed[] $range Data values
      * @param string $condition the criteria that defines which cells will be counted
-     *
-     * @return int|string
      */
-    public static function COUNTIF($range, $condition)
+    public static function COUNTIF($range, $condition): string|int
     {
         // Filter out any empty values that shouldn't be included in a COUNT
         $range = array_filter(
             Functions::flattenArray($range),
-            function ($value) {
+            function ($value): bool {
                 return $value !== null && $value !== '';
             }
         );
@@ -183,13 +181,12 @@ class Conditional
      * Excel Function:
      *        SUMIF(range, criteria, [sum_range])
      *
-     * @param mixed $range Data values
-     * @param mixed $sumRange
+     * @param array $range Data values
      * @param mixed $condition
      *
      * @return null|float|string
      */
-    public static function SUMIF($range, $condition, $sumRange = [])
+    public static function SUMIF(array $range, $condition, array $sumRange = [])
     {
         $database = self::databaseFromRangeAndValue($range, $sumRange);
         $condition = [[self::CONDITION_COLUMN_NAME, self::VALUE_COLUMN_NAME], [$condition, null]];
@@ -239,7 +236,7 @@ class Conditional
 
         if (count($conditions) === 1) {
             return array_map(
-                function ($value) {
+                function ($value): array {
                     return [$value];
                 },
                 $conditions[0]

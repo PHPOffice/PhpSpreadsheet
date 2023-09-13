@@ -4,19 +4,12 @@ namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
 class Column
 {
-    /**
-     * \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet.
-     *
-     * @var Worksheet
-     */
-    private $worksheet;
+    private ?Worksheet $worksheet;
 
     /**
      * Column index.
-     *
-     * @var string
      */
-    private $columnIndex;
+    private string $columnIndex;
 
     /**
      * Create a new column.
@@ -35,7 +28,6 @@ class Column
      */
     public function __destruct()
     {
-        // @phpstan-ignore-next-line
         $this->worksheet = null;
     }
 
@@ -116,6 +108,7 @@ class Column
      */
     public function getWorksheet(): Worksheet
     {
+        // @phpstan-ignore-next-line
         return $this->worksheet;
     }
 }

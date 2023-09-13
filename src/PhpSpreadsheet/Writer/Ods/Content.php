@@ -22,8 +22,7 @@ class Content extends WriterPart
     const NUMBER_COLS_REPEATED_MAX = 1024;
     const NUMBER_ROWS_REPEATED_MAX = 1048576;
 
-    /** @var Formula */
-    private $formulaConvertor;
+    private Formula $formulaConvertor;
 
     /**
      * Set parent Ods writer.
@@ -194,7 +193,7 @@ class Content extends WriterPart
         $numberColsRepeated = self::NUMBER_COLS_REPEATED_MAX;
         $prevColumn = -1;
         foreach ($cells as $cell) {
-            /** @var \PhpOffice\PhpSpreadsheet\Cell\Cell $cell */
+            /** @var Cell $cell */
             $column = Coordinate::columnIndexFromString($cell->getColumn()) - 1;
 
             $this->writeCellSpan($objWriter, $column, $prevColumn);
@@ -289,11 +288,8 @@ class Content extends WriterPart
 
     /**
      * Write span.
-     *
-     * @param int $curColumn
-     * @param int $prevColumn
      */
-    private function writeCellSpan(XMLWriter $objWriter, $curColumn, $prevColumn): void
+    private function writeCellSpan(XMLWriter $objWriter, int $curColumn, int $prevColumn): void
     {
         $diff = $curColumn - $prevColumn - 1;
         if (1 === $diff) {

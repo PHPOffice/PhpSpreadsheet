@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,13 +10,8 @@ class FixedTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerFIXED
-     *
-     * @param mixed $expectedResult
-     * @param mixed $number
-     * @param mixed $decimals
-     * @param mixed $noCommas
      */
-    public function testFIXED($expectedResult, $number = 'omitted', $decimals = 'omitted', $noCommas = 'omitted'): void
+    public function testFIXED(mixed $expectedResult, mixed $number = 'omitted', mixed $decimals = 'omitted', mixed $noCommas = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

@@ -20,10 +20,8 @@ abstract class BestFit
 
     /**
      * Number of entries in the sets of x- and y-value arrays.
-     *
-     * @var int
      */
-    protected $valueCount = 0;
+    protected int $valueCount;
 
     /**
      * X-value dataseries of values.
@@ -430,7 +428,7 @@ abstract class BestFit
     {
         return array_sum(
             array_map(
-                function ($value) {
+                function ($value): float|int {
                     return $value ** 2;
                 },
                 $values

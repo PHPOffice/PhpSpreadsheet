@@ -43,19 +43,14 @@ class Legend
 
     /**
      * Legend Layout.
-     *
-     * @var ?Layout
      */
-    private $layout;
+    private ?Layout $layout;
 
-    /** @var GridLines */
-    private $borderLines;
+    private GridLines $borderLines;
 
-    /** @var ChartColor */
-    private $fillColor;
+    private ChartColor $fillColor;
 
-    /** @var ?AxisText */
-    private $legendText;
+    private ?AxisText $legendText = null;
 
     /**
      * Create a new Legend.
@@ -92,10 +87,8 @@ class Legend
      * Get legend position using an excel string value.
      *
      * @param string $position see self::POSITION_*
-     *
-     * @return bool
      */
-    public function setPosition($position)
+    public function setPosition($position): bool
     {
         if (!in_array($position, self::POSITION_XLREF)) {
             return false;
@@ -108,10 +101,8 @@ class Legend
 
     /**
      * Get legend position as an Excel internal numeric value.
-     *
-     * @return false|int
      */
-    public function getPositionXL()
+    public function getPositionXL(): false|int
     {
         // Scrutinizer thinks the following could return string. It is wrong.
         return array_search($this->position, self::POSITION_XLREF);
@@ -121,10 +112,8 @@ class Legend
      * Set legend position using an Excel internal numeric value.
      *
      * @param int $positionXL see self::XL_LEGEND_POSITION_*
-     *
-     * @return bool
      */
-    public function setPositionXL($positionXL)
+    public function setPositionXL($positionXL): bool
     {
         if (!isset(self::POSITION_XLREF[$positionXL])) {
             return false;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcException;
@@ -11,10 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 class AllSetupTeardown extends TestCase
 {
-    /**
-     * @var string
-     */
-    private $compatibilityMode;
+    private string $compatibilityMode;
 
     /**
      * @var ?Spreadsheet
@@ -51,20 +50,14 @@ class AllSetupTeardown extends TestCase
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_GNUMERIC);
     }
 
-    /**
-     * @param mixed $expectedResult
-     */
-    protected function mightHaveException($expectedResult): void
+    protected function mightHaveException(mixed $expectedResult): void
     {
         if ($expectedResult === 'exception') {
             $this->expectException(CalcException::class);
         }
     }
 
-    /**
-     * @param mixed $value
-     */
-    protected function setCell(string $cell, $value): void
+    protected function setCell(string $cell, mixed $value): void
     {
         if ($value !== null) {
             if (is_string($value) && is_numeric($value)) {

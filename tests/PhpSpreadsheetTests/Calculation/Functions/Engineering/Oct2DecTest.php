@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -13,10 +15,7 @@ use PHPUnit\Framework\TestCase;
 
 class Oct2DecTest extends TestCase
 {
-    /**
-     * @var string
-     */
-    private $compatibilityMode;
+    private string $compatibilityMode;
 
     protected function setUp(): void
     {
@@ -30,10 +29,8 @@ class Oct2DecTest extends TestCase
 
     /**
      * @dataProvider providerOCT2DEC
-     *
-     * @param mixed $expectedResult
      */
-    public function testDirectCallToOCT2DEC($expectedResult, ...$args): void
+    public function testDirectCallToOCT2DEC(mixed $expectedResult, mixed ...$args): void
     {
         /** @scrutinizer ignore-call */
         $result = ConvertOctal::toDecimal(...$args);
@@ -47,10 +44,8 @@ class Oct2DecTest extends TestCase
 
     /**
      * @dataProvider providerOCT2DEC
-     *
-     * @param mixed $expectedResult
      */
-    public function testOCT2DECAsFormula($expectedResult, ...$args): void
+    public function testOCT2DECAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -63,10 +58,8 @@ class Oct2DecTest extends TestCase
 
     /**
      * @dataProvider providerOCT2DEC
-     *
-     * @param mixed $expectedResult
      */
-    public function testOCT2DECInWorksheet($expectedResult, ...$args): void
+    public function testOCT2DECInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -91,7 +84,7 @@ class Oct2DecTest extends TestCase
     /**
      * @dataProvider providerUnhappyOCT2DEC
      */
-    public function testOCT2DECUnhappyPath(string $expectedException, ...$args): void
+    public function testOCT2DECUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -118,10 +111,8 @@ class Oct2DecTest extends TestCase
 
     /**
      * @dataProvider providerOCT2DECOds
-     *
-     * @param mixed $expectedResult
      */
-    public function testOCT2DECOds($expectedResult, ...$args): void
+    public function testOCT2DECOds(mixed $expectedResult, mixed ...$args): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
 

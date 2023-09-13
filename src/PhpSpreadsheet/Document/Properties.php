@@ -25,80 +25,58 @@ class Properties
 
     /**
      * Creator.
-     *
-     * @var string
      */
-    private $creator = 'Unknown Creator';
+    private string $creator = 'Unknown Creator';
 
     /**
      * LastModifiedBy.
-     *
-     * @var string
      */
-    private $lastModifiedBy;
+    private string $lastModifiedBy;
 
     /**
      * Created.
-     *
-     * @var float|int
      */
-    private $created;
+    private float|int $created;
 
     /**
      * Modified.
-     *
-     * @var float|int
      */
-    private $modified;
+    private float|int $modified;
 
     /**
      * Title.
-     *
-     * @var string
      */
-    private $title = 'Untitled Spreadsheet';
+    private string $title = 'Untitled Spreadsheet';
 
     /**
      * Description.
-     *
-     * @var string
      */
-    private $description = '';
+    private string $description = '';
 
     /**
      * Subject.
-     *
-     * @var string
      */
-    private $subject = '';
+    private string $subject = '';
 
     /**
      * Keywords.
-     *
-     * @var string
      */
-    private $keywords = '';
+    private string $keywords = '';
 
     /**
      * Category.
-     *
-     * @var string
      */
-    private $category = '';
+    private string $category = '';
 
     /**
      * Manager.
-     *
-     * @var string
      */
-    private $manager = '';
+    private string $manager = '';
 
     /**
      * Company.
-     *
-     * @var string
      */
-    private $company = '';
+    private string $company = '';
 
     /**
      * Custom Properties.

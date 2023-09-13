@@ -20,7 +20,7 @@ class SumSquares
      *
      * @return float|string
      */
-    public static function sumSquare(...$args)
+    public static function sumSquare(...$args): string|int|float
     {
         try {
             $returnValue = 0;
@@ -65,7 +65,7 @@ class SumSquares
      *
      * @return float|string
      */
-    public static function sumXSquaredMinusYSquared($matrixData1, $matrixData2)
+    public static function sumXSquaredMinusYSquared($matrixData1, $matrixData2): string|int|float
     {
         try {
             $array1 = Functions::flattenArray($matrixData1);
@@ -93,7 +93,7 @@ class SumSquares
      *
      * @return float|string
      */
-    public static function sumXSquaredPlusYSquared($matrixData1, $matrixData2)
+    public static function sumXSquaredPlusYSquared($matrixData1, $matrixData2): string|int|float
     {
         try {
             $array1 = Functions::flattenArray($matrixData1);
@@ -121,7 +121,7 @@ class SumSquares
      *
      * @return float|string
      */
-    public static function sumXMinusYSquared($matrixData1, $matrixData2)
+    public static function sumXMinusYSquared($matrixData1, $matrixData2): string|int|float
     {
         try {
             $array1 = Functions::flattenArray($matrixData1);

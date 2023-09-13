@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -13,10 +15,8 @@ class BitRShiftTest extends TestCase
 {
     /**
      * @dataProvider providerBITRSHIFT
-     *
-     * @param mixed $expectedResult
      */
-    public function testDirectCallToBITRSHIFT($expectedResult, ...$args): void
+    public function testDirectCallToBITRSHIFT(mixed $expectedResult, mixed ...$args): void
     {
         $result = BitWise::BITRSHIFT(...$args);
         self::assertSame($expectedResult, $result);
@@ -24,10 +24,8 @@ class BitRShiftTest extends TestCase
 
     /**
      * @dataProvider providerBITRSHIFT
-     *
-     * @param mixed $expectedResult
      */
-    public function testBITRSHIFTAsFormula($expectedResult, ...$args): void
+    public function testBITRSHIFTAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -40,10 +38,8 @@ class BitRShiftTest extends TestCase
 
     /**
      * @dataProvider providerBITRSHIFT
-     *
-     * @param mixed $expectedResult
      */
-    public function testBITRSHIFTInWorksheet($expectedResult, ...$args): void
+    public function testBITRSHIFTInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -68,7 +64,7 @@ class BitRShiftTest extends TestCase
     /**
      * @dataProvider providerUnhappyBITRSHIFT
      */
-    public function testBITRSHIFTUnhappyPath(string $expectedException, ...$args): void
+    public function testBITRSHIFTUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 

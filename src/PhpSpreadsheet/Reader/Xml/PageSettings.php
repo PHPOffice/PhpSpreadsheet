@@ -10,10 +10,7 @@ use stdClass;
 
 class PageSettings
 {
-    /**
-     * @var stdClass
-     */
-    private $printSettings;
+    private stdClass $printSettings;
 
     public function __construct(SimpleXMLElement $xmlX)
     {

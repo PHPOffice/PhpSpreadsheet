@@ -1,15 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 class LcmTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerLCM
-     *
-     * @param mixed $expectedResult
      */
-    public function testLCM($expectedResult, ...$args): void
+    public function testLCM(mixed $expectedResult, mixed ...$args): void
     {
         $sheet = $this->getSheet();
         $row = 0;

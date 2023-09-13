@@ -8,17 +8,13 @@ class Font
 {
     /**
      * Color index.
-     *
-     * @var int
      */
-    private $colorIndex;
+    private int $colorIndex;
 
     /**
      * Font.
-     *
-     * @var \PhpOffice\PhpSpreadsheet\Style\Font
      */
-    private $font;
+    private \PhpOffice\PhpSpreadsheet\Style\Font $font;
 
     /**
      * Constructor.
@@ -44,10 +40,8 @@ class Font
 
     /**
      * Get font record data.
-     *
-     * @return string
      */
-    public function writeFont()
+    public function writeFont(): string
     {
         $font_outline = self::$notImplemented;
         $font_shadow = self::$notImplemented;

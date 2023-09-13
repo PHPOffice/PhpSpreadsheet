@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
@@ -8,10 +10,8 @@ class SumX2PY2Test extends AllSetupTeardown
 {
     /**
      * @dataProvider providerSUMX2PY2
-     *
-     * @param mixed $expectedResult
      */
-    public function testSUMX2PY2($expectedResult, array $matrixData1, array $matrixData2): void
+    public function testSUMX2PY2(mixed $expectedResult, array $matrixData1, array $matrixData2): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

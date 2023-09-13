@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -13,10 +15,8 @@ class YearFracTest extends TestCase
 {
     /**
      * @dataProvider providerYEARFRAC
-     *
-     * @param mixed $expectedResult
      */
-    public function testDirectCallToYEARFRAC($expectedResult, ...$args): void
+    public function testDirectCallToYEARFRAC(mixed $expectedResult, mixed ...$args): void
     {
         $result = YearFrac::fraction(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-6);
@@ -24,10 +24,8 @@ class YearFracTest extends TestCase
 
     /**
      * @dataProvider providerYEARFRAC
-     *
-     * @param mixed $expectedResult
      */
-    public function testYEARFRACAsFormula($expectedResult, ...$args): void
+    public function testYEARFRACAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -40,10 +38,8 @@ class YearFracTest extends TestCase
 
     /**
      * @dataProvider providerYEARFRAC
-     *
-     * @param mixed $expectedResult
      */
-    public function testYEARFRACInWorksheet($expectedResult, ...$args): void
+    public function testYEARFRACInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -68,7 +64,7 @@ class YearFracTest extends TestCase
     /**
      * @dataProvider providerUnhappyYEARFRAC
      */
-    public function testYEARFRACUnhappyPath(string $expectedException, ...$args): void
+    public function testYEARFRACUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 

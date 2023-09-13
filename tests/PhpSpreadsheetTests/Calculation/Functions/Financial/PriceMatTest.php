@@ -1,15 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 class PriceMatTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerPRICEMAT
-     *
-     * @param mixed $expectedResult
      */
-    public function testPRICEMAT($expectedResult, ...$args): void
+    public function testPRICEMAT(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('PRICEMAT', $expectedResult, $args);
     }

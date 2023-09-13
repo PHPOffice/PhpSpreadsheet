@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,10 +10,8 @@ class ConfidenceTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerCONFIDENCE
-     *
-     * @param mixed $expectedResult
      */
-    public function testCONFIDENCE($expectedResult, ...$args): void
+    public function testCONFIDENCE(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCaseReference('CONFIDENCE', $expectedResult, ...$args);
     }

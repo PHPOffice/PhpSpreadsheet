@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Shared;
 
 use PhpOffice\PhpSpreadsheet\Exception as SSException;
@@ -9,8 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class Font3Test extends TestCase
 {
-    /** @var string */
-    private $holdDirectory;
+    private string $holdDirectory;
 
     protected function setUp(): void
     {

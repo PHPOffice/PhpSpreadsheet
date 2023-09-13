@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests;
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
@@ -13,11 +15,8 @@ class IOFactoryTest extends TestCase
 {
     /**
      * @dataProvider providerCreateWriter
-     *
-     * @param string $name
-     * @param string $expected
      */
-    public function testCreateWriter($name, $expected): void
+    public function testCreateWriter(string $name, string $expected): void
     {
         $spreadsheet = new Spreadsheet();
         $actual = IOFactory::createWriter($spreadsheet, $name);
@@ -48,11 +47,8 @@ class IOFactoryTest extends TestCase
 
     /**
      * @dataProvider providerCreateReader
-     *
-     * @param string $name
-     * @param string $expected
      */
-    public function testCreateReader($name, $expected): void
+    public function testCreateReader(string $name, string $expected): void
     {
         $actual = IOFactory::createReader($name);
         self::assertSame($expected, get_class($actual));

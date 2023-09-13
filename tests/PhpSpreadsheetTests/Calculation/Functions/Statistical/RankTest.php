@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 class RankTest extends AllSetupTeardown
@@ -7,12 +9,9 @@ class RankTest extends AllSetupTeardown
     /**
      * @dataProvider providerRANK
      *
-     * @param mixed $expectedResult
-     * @param mixed $value
      * @param mixed[] $valueSet
-     * @param mixed $order
      */
-    public function testRANK($expectedResult, $value, $valueSet, $order = null): void
+    public function testRANK(mixed $expectedResult, mixed $value, $valueSet, mixed $order = null): void
     {
         if ($order === null) {
             $this->runTestCaseReference('RANK', $expectedResult, $value, $valueSet);

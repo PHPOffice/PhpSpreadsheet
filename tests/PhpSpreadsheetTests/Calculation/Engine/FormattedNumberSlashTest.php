@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Engine;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Engine\FormattedNumber;
@@ -30,10 +32,8 @@ class FormattedNumberSlashTest extends TestCase
 
     /**
      * @dataProvider providerNumbers
-     *
-     * @param mixed $expected
      */
-    public function testNumber($expected, string $value, string $thousandsSeparator = ',', string $decimalSeparator = '.'): void
+    public function testNumber(float $expected, string $value, string $thousandsSeparator = ',', string $decimalSeparator = '.'): void
     {
         StringHelper::setThousandsSeparator($thousandsSeparator);
         StringHelper::setDecimalSeparator($decimalSeparator);

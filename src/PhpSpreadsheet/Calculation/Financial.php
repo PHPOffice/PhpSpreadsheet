@@ -319,10 +319,9 @@ class Financial
      *                                        3                Actual/365
      *                                        4                European 30/360
      *
-     * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
-     *                        depending on the value of the ReturnDateType flag
+     * @return float|string Excel date/time serial value or error message
      */
-    public static function COUPNCD($settlement, $maturity, $frequency, $basis = 0)
+    public static function COUPNCD($settlement, $maturity, $frequency, $basis = 0): string|float
     {
         return Coupons::COUPNCD($settlement, $maturity, $frequency, $basis);
     }
@@ -393,10 +392,9 @@ class Financial
      *                                        3                Actual/365
      *                                        4                European 30/360
      *
-     * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
-     *                        depending on the value of the ReturnDateType flag
+     * @return float|string Excel date/time serial value or error message
      */
-    public static function COUPPCD($settlement, $maturity, $frequency, $basis = 0)
+    public static function COUPPCD($settlement, $maturity, $frequency, $basis = 0): string|float
     {
         return Coupons::COUPPCD($settlement, $maturity, $frequency, $basis);
     }
@@ -573,10 +571,8 @@ class Financial
      *
      * @param array|float $fractional_dollar Fractional Dollar
      * @param array|int $fraction Fraction
-     *
-     * @return array|float|string
      */
-    public static function DOLLARDE($fractional_dollar = null, $fraction = 0)
+    public static function DOLLARDE($fractional_dollar = null, $fraction = 0): string|float|array
     {
         return Dollar::decimal($fractional_dollar, $fraction);
     }
@@ -597,10 +593,8 @@ class Financial
      *
      * @param array|float $decimal_dollar Decimal Dollar
      * @param array|int $fraction Fraction
-     *
-     * @return array|float|string
      */
-    public static function DOLLARFR($decimal_dollar = null, $fraction = 0)
+    public static function DOLLARFR($decimal_dollar = null, $fraction = 0): string|float|array
     {
         return Dollar::fractional($decimal_dollar, $fraction);
     }
@@ -620,10 +614,8 @@ class Financial
      *
      * @param float $nominalRate Nominal interest rate
      * @param int $periodsPerYear Number of compounding payments per year
-     *
-     * @return float|string
      */
-    public static function EFFECT($nominalRate = 0, $periodsPerYear = 0)
+    public static function EFFECT($nominalRate = 0, $periodsPerYear = 0): string|float
     {
         return Financial\InterestRate::effective($nominalRate, $periodsPerYear);
     }
@@ -650,10 +642,8 @@ class Financial
      * @param int $type A number 0 or 1 and indicates when payments are due:
      *                                0 or omitted    At the end of the period.
      *                                1                At the beginning of the period.
-     *
-     * @return float|string
      */
-    public static function FV($rate = 0, $nper = 0, $pmt = 0, $pv = 0, $type = 0)
+    public static function FV($rate = 0, $nper = 0, $pmt = 0, $pv = 0, $type = 0): string|float
     {
         return Financial\CashFlow\Constant\Periodic::futureValue($rate, $nper, $pmt, $pv, $type);
     }
@@ -733,10 +723,8 @@ class Financial
      * @param float $pv Present Value
      * @param float $fv Future Value
      * @param int $type Payment type: 0 = at the end of each period, 1 = at the beginning of each period
-     *
-     * @return float|string
      */
-    public static function IPMT($rate, $per, $nper, $pv, $fv = 0, $type = 0)
+    public static function IPMT($rate, $per, $nper, $pv, $fv = 0, $type = 0): string|float
     {
         return Financial\CashFlow\Constant\Periodic\Interest::payment($rate, $per, $nper, $pv, $fv, $type);
     }
@@ -842,7 +830,7 @@ class Financial
      *
      * @return float|string Result, or a string containing an error
      */
-    public static function NOMINAL($effectiveRate = 0, $periodsPerYear = 0)
+    public static function NOMINAL($effectiveRate = 0, $periodsPerYear = 0): string|float
     {
         return InterestRate::nominal($effectiveRate, $periodsPerYear);
     }
@@ -948,7 +936,7 @@ class Financial
      *
      * @return float|string Result, or a string containing an error
      */
-    public static function PPMT($rate, $per, $nper, $pv, $fv = 0, $type = 0)
+    public static function PPMT($rate, $per, $nper, $pv, $fv = 0, $type = 0): string|float
     {
         return Financial\CashFlow\Constant\Periodic\Payments::interestPayment($rate, $per, $nper, $pv, $fv, $type);
     }
@@ -983,7 +971,7 @@ class Financial
      *
      * @return float|string Result, or a string containing an error
      */
-    public static function PRICE($settlement, $maturity, $rate, $yield, $redemption, $frequency, $basis = 0)
+    public static function PRICE($settlement, $maturity, $rate, $yield, $redemption, $frequency, $basis = 0): string|float
     {
         return Securities\Price::price($settlement, $maturity, $rate, $yield, $redemption, $frequency, $basis);
     }
@@ -1066,7 +1054,7 @@ class Financial
      *
      * @return float|string Result, or a string containing an error
      */
-    public static function PV($rate = 0, $nper = 0, $pmt = 0, $fv = 0, $type = 0)
+    public static function PV($rate = 0, $nper = 0, $pmt = 0, $fv = 0, $type = 0): string|float
     {
         return Financial\CashFlow\Constant\Periodic::presentValue($rate, $nper, $pmt, $fv, $type);
     }
@@ -1218,7 +1206,7 @@ class Financial
      *
      * @return float|string Result, or a string containing an error
      */
-    public static function TBILLEQ($settlement, $maturity, $discount)
+    public static function TBILLEQ($settlement, $maturity, $discount): string|float
     {
         return TreasuryBill::bondEquivalentYield($settlement, $maturity, $discount);
     }
@@ -1241,7 +1229,7 @@ class Financial
      *
      * @return float|string Result, or a string containing an error
      */
-    public static function TBILLPRICE($settlement, $maturity, $discount)
+    public static function TBILLPRICE($settlement, $maturity, $discount): string|float
     {
         return TreasuryBill::price($settlement, $maturity, $discount);
     }
@@ -1261,10 +1249,8 @@ class Financial
      * @param mixed $maturity The Treasury bill's maturity date.
      *                                The maturity date is the date when the Treasury bill expires.
      * @param mixed $price The Treasury bill's price per $100 face value
-     *
-     * @return float|mixed|string
      */
-    public static function TBILLYIELD($settlement, $maturity, $price)
+    public static function TBILLYIELD($settlement, $maturity, $price): string|float
     {
         return TreasuryBill::yield($settlement, $maturity, $price);
     }
@@ -1290,7 +1276,7 @@ class Financial
      *
      * @return float|mixed|string
      */
-    public static function XIRR($values, $dates, $guess = 0.1)
+    public static function XIRR(array $values, array $dates, $guess = 0.1)
     {
         return Financial\CashFlow\Variable\NonPeriodic::rate($values, $dates, $guess);
     }

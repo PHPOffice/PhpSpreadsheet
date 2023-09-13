@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -12,10 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 class TimeValueTest extends TestCase
 {
-    /**
-     * @var string
-     */
-    private $returnDateType;
+    private string $returnDateType;
 
     protected function setUp(): void
     {
@@ -33,10 +32,8 @@ class TimeValueTest extends TestCase
 
     /**
      * @dataProvider providerTIMEVALUE
-     *
-     * @param mixed $expectedResult
      */
-    public function testDirectCallToTIMEVALUE($expectedResult, ...$args): void
+    public function testDirectCallToTIMEVALUE(mixed $expectedResult, mixed ...$args): void
     {
         /** @scrutinizer ignore-call */
         $result = TimeValue::fromString(...$args);
@@ -45,10 +42,8 @@ class TimeValueTest extends TestCase
 
     /**
      * @dataProvider providerTIMEVALUE
-     *
-     * @param mixed $expectedResult
      */
-    public function testTIMEVALUEAsFormula($expectedResult, ...$args): void
+    public function testTIMEVALUEAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -61,10 +56,8 @@ class TimeValueTest extends TestCase
 
     /**
      * @dataProvider providerTIMEVALUE
-     *
-     * @param mixed $expectedResult
      */
-    public function testTIMEVALUEInWorksheet($expectedResult, ...$args): void
+    public function testTIMEVALUEInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -120,7 +113,7 @@ class TimeValueTest extends TestCase
     /**
      * @dataProvider providerUnhappyTIMEVALUE
      */
-    public function testTIMEVALUEUnhappyPath(string $expectedException, ...$args): void
+    public function testTIMEVALUEUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 

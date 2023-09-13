@@ -9,21 +9,15 @@ class ConditionalFormattingRuleExtension
 {
     const CONDITION_EXTENSION_DATABAR = 'dataBar';
 
-    /** <conditionalFormatting> attributes */
-
-    /** @var string */
-    private $id;
+    private string $id;
 
     /** @var string Conditional Formatting Rule */
-    private $cfRule;
+    private string $cfRule;
 
-    /** <conditionalFormatting> children */
-
-    /** @var ConditionalDataBarExtension */
-    private $dataBar;
+    private ConditionalDataBarExtension $dataBar;
 
     /** @var string Sequence of References */
-    private $sqref;
+    private string $sqref = '';
 
     /**
      * ConditionalFormattingRuleExtension constructor.
@@ -124,8 +118,7 @@ class ConditionalFormattingRuleExtension
         }
     }
 
-    /** @param array|SimpleXMLElement $ns */
-    private static function parseExtDataBarElementChildrenFromXml(ConditionalDataBarExtension $extDataBarObj, SimpleXMLElement $dataBarXml, $ns): void
+    private static function parseExtDataBarElementChildrenFromXml(ConditionalDataBarExtension $extDataBarObj, SimpleXMLElement $dataBarXml, array $ns): void
     {
         if ($dataBarXml->borderColor) {
             $attributes = $dataBarXml->borderColor->attributes();

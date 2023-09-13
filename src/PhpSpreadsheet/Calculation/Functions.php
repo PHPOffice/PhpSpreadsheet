@@ -51,7 +51,7 @@ class Functions
      *
      * @return bool (Success or Failure)
      */
-    public static function setCompatibilityMode($compatibilityMode)
+    public static function setCompatibilityMode($compatibilityMode): bool
     {
         if (
             ($compatibilityMode == self::COMPATIBILITY_EXCEL) ||
@@ -91,7 +91,7 @@ class Functions
      *
      * @return bool Success or failure
      */
-    public static function setReturnDateType($returnDateType)
+    public static function setReturnDateType($returnDateType): bool
     {
         if (
             ($returnDateType == self::RETURNDATE_UNIX_TIMESTAMP) ||
@@ -125,7 +125,7 @@ class Functions
      *
      * @return string #Not Yet Implemented
      */
-    public static function DUMMY()
+    public static function DUMMY(): string
     {
         return '#Not Yet Implemented';
     }
@@ -220,7 +220,7 @@ class Functions
      *
      * @return string #NULL!
      */
-    public static function null()
+    public static function null(): string
     {
         return Information\ExcelError::null();
     }
@@ -235,7 +235,7 @@ class Functions
      *
      * @return string #NUM!
      */
-    public static function NAN()
+    public static function NAN(): string
     {
         return Information\ExcelError::NAN();
     }
@@ -250,7 +250,7 @@ class Functions
      *
      * @return string #REF!
      */
-    public static function REF()
+    public static function REF(): string
     {
         return Information\ExcelError::REF();
     }
@@ -269,7 +269,7 @@ class Functions
      *
      * @return string #N/A!
      */
-    public static function NA()
+    public static function NA(): string
     {
         return Information\ExcelError::NA();
     }
@@ -284,7 +284,7 @@ class Functions
      *
      * @return string #VALUE!
      */
-    public static function VALUE()
+    public static function VALUE(): string
     {
         return Information\ExcelError::VALUE();
     }
@@ -299,7 +299,7 @@ class Functions
      *
      * @return string #NAME?
      */
-    public static function NAME()
+    public static function NAME(): string
     {
         return Information\ExcelError::NAME();
     }
@@ -312,7 +312,7 @@ class Functions
      *
      * @return string #Not Yet Implemented
      */
-    public static function DIV0()
+    public static function DIV0(): string
     {
         return Information\ExcelError::DIV0();
     }
@@ -444,10 +444,8 @@ class Functions
      *
      * @deprecated 1.23.0 Use the isLogical() method in the Information\Value class instead
      * @see Information\Value::isLogical()
-     *
-     * @return array|bool
      */
-    public static function isLogical($value = null)
+    public static function isLogical($value = null): bool|array
     {
         return Information\Value::isLogical($value);
     }
@@ -516,7 +514,7 @@ class Functions
      *
      * @param null|mixed $value The value you want tested
      *
-     * @return number N converts values listed in the following table
+     * @return int N converts values listed in the following table
      *        If value is or refers to N returns
      *        A number            1
      *        Text                2
@@ -524,7 +522,7 @@ class Functions
      *        An error value        16
      *        Array or Matrix        64
      */
-    public static function TYPE($value = null)
+    public static function TYPE($value = null): int
     {
         return Information\Value::type($value);
     }
@@ -536,7 +534,7 @@ class Functions
      *
      * @return array Flattened array
      */
-    public static function flattenArray($array)
+    public static function flattenArray($array): array
     {
         if (!is_array($array)) {
             return (array) $array;

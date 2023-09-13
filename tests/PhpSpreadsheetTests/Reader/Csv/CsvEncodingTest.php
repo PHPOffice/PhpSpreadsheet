@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Csv;
 
 use PhpOffice\PhpSpreadsheet\Reader\Csv;
@@ -9,11 +11,8 @@ class CsvEncodingTest extends TestCase
 {
     /**
      * @dataProvider providerEncodings
-     *
-     * @param string $filename
-     * @param string $encoding
      */
-    public function testEncodings($filename, $encoding): void
+    public function testEncodings(string $filename, string $encoding): void
     {
         $reader = new Csv();
         $reader->setInputEncoding($encoding);
@@ -24,20 +23,19 @@ class CsvEncodingTest extends TestCase
 
     /**
      * @dataProvider providerEncodings
-     *
-     * @param string $filename
-     * @param string $encoding
      */
-    public function testWorkSheetInfo($filename, $encoding): void
+    public function testWorkSheetInfo(string $filename, string $encoding): void
     {
         $reader = new Csv();
         $reader->setInputEncoding($encoding);
         $info = $reader->listWorksheetInfo($filename);
-        self::assertEquals('Worksheet', $info[0]['worksheetName']);
-        self::assertEquals('B', $info[0]['lastColumnLetter']);
-        self::assertEquals(1, $info[0]['lastColumnIndex']);
-        self::assertEquals(2, $info[0]['totalRows']);
-        self::assertEquals(2, $info[0]['totalColumns']);
+        self::assertCount(1, $info);
+        self::assertSame('Worksheet', $info[0]['worksheetName']);
+        self::assertSame('B', $info[0]['lastColumnLetter']);
+        self::assertSame(1, $info[0]['lastColumnIndex']);
+        self::assertSame(2, $info[0]['totalRows']);
+        self::assertSame(2, $info[0]['totalColumns']);
+        self::assertSame(['Worksheet'], $reader->listWorksheetNames($filename));
     }
 
     public static function providerEncodings(): array
@@ -78,6 +76,9 @@ class CsvEncodingTest extends TestCase
         $filename = 'tests/data/Reader/CSV/premiere.utf16le.csv';
         $reader = new Csv();
         $reader->setInputEncoding(Csv::guessEncoding($filename));
+        $names = $reader->listWorksheetNames($filename);
+        // Following ignored, just make sure it's executable.
+        $reader->setLoadSheetsOnly([$names[0]]);
         $spreadsheet = $reader->load($filename);
         $sheet = $spreadsheet->getActiveSheet();
         self::assertEquals('𐐀', $sheet->getCell('A3')->getValue());

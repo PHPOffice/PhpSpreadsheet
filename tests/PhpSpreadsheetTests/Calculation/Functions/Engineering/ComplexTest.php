@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -12,10 +14,8 @@ class ComplexTest extends TestCase
 {
     /**
      * @dataProvider providerCOMPLEX
-     *
-     * @param mixed $expectedResult
      */
-    public function testDirectCallToCOMPLEX($expectedResult, ...$args): void
+    public function testDirectCallToCOMPLEX(mixed $expectedResult, mixed ...$args): void
     {
         /** @scrutinizer ignore-call */
         $result = Complex::complex(...$args);
@@ -29,10 +29,8 @@ class ComplexTest extends TestCase
 
     /**
      * @dataProvider providerCOMPLEX
-     *
-     * @param mixed $expectedResult
      */
-    public function testCOMPLEXAsFormula($expectedResult, ...$args): void
+    public function testCOMPLEXAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -45,10 +43,8 @@ class ComplexTest extends TestCase
 
     /**
      * @dataProvider providerCOMPLEX
-     *
-     * @param mixed $expectedResult
      */
-    public function testCOMPLEXInWorksheet($expectedResult, ...$args): void
+    public function testCOMPLEXInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 

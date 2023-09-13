@@ -1,15 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 class SteyxTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerSTEYX
-     *
-     * @param mixed $expectedResult
      */
-    public function testSTEYX($expectedResult, array $xargs, array $yargs): void
+    public function testSTEYX(mixed $expectedResult, array $xargs, array $yargs): void
     {
         //$result = Statistical\Trends::STEYX($xargs, $yargs);
         //self::assertEqualsWithDelta($expectedResult, $result, 1E-12);

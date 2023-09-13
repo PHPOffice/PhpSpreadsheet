@@ -4,12 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
 class Row
 {
-    /**
-     * \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet.
-     *
-     * @var Worksheet
-     */
-    private $worksheet;
+    private Worksheet $worksheet;
 
     /**
      * Row index.
@@ -35,7 +30,7 @@ class Row
      */
     public function __destruct()
     {
-        $this->worksheet = null; // @phpstan-ignore-line
+        $this->worksheet = new Worksheet();
     }
 
     /**

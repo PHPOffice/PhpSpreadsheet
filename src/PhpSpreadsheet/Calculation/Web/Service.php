@@ -64,7 +64,7 @@ class Service
      *
      * @return string the url encoded output
      */
-    public static function urlEncode($text)
+    public static function urlEncode($text): string|array
     {
         if (!is_string($text)) {
             return ExcelError::VALUE();

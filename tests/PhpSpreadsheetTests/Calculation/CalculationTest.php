@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -11,15 +13,9 @@ use PHPUnit\Framework\TestCase;
 
 class CalculationTest extends TestCase
 {
-    /**
-     * @var string
-     */
-    private $compatibilityMode;
+    private string $compatibilityMode;
 
-    /**
-     * @var string
-     */
-    private $locale;
+    private string $locale;
 
     protected function setUp(): void
     {
@@ -38,12 +34,8 @@ class CalculationTest extends TestCase
 
     /**
      * @dataProvider providerBinaryComparisonOperation
-     *
-     * @param mixed $formula
-     * @param mixed $expectedResultExcel
-     * @param mixed $expectedResultOpenOffice
      */
-    public function testBinaryComparisonOperation($formula, $expectedResultExcel, $expectedResultOpenOffice): void
+    public function testBinaryComparisonOperation(mixed $formula, mixed $expectedResultExcel, mixed $expectedResultOpenOffice): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         $resultExcel = Calculation::getInstance()->_calculateFormulaValue($formula);
@@ -358,9 +350,6 @@ class CalculationTest extends TestCase
     }
 
     /**
-     * @param mixed $expectedResult
-     * @param mixed $dataArray
-     * @param string $formula
      * @param string $cellCoordinates where to put the formula
      * @param string[] $shouldBeSetInCacheCells coordinates of cells that must
      *  be set in cache
@@ -370,12 +359,12 @@ class CalculationTest extends TestCase
      * @dataProvider dataProviderBranchPruningFullExecution
      */
     public function testFullExecutionDataPruning(
-        $expectedResult,
-        $dataArray,
-        $formula,
-        $cellCoordinates,
-        $shouldBeSetInCacheCells = [],
-        $shouldNotBeSetInCacheCells = []
+        mixed $expectedResult,
+        mixed $dataArray,
+        string $formula,
+        string $cellCoordinates,
+        array $shouldBeSetInCacheCells = [],
+        array $shouldNotBeSetInCacheCells = []
     ): void {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();

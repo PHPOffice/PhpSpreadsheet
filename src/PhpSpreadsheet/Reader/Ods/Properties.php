@@ -8,8 +8,7 @@ use SimpleXMLElement;
 
 class Properties
 {
-    /** @var Spreadsheet */
-    private $spreadsheet;
+    private Spreadsheet $spreadsheet;
 
     public function __construct(Spreadsheet $spreadsheet)
     {
@@ -106,9 +105,8 @@ class Properties
 
     /**
      * @param mixed $propertyValueAttributes
-     * @param mixed $propertyValue
      */
-    private function setUserDefinedProperty($propertyValueAttributes, $propertyValue, DocumentProperties $docProps): void
+    private function setUserDefinedProperty($propertyValueAttributes, string $propertyValue, DocumentProperties $docProps): void
     {
         $propertyValueName = '';
         $propertyValueType = DocumentProperties::PROPERTY_TYPE_STRING;

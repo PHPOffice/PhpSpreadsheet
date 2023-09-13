@@ -127,10 +127,8 @@ class Floor
 
     /**
      * Avoid Scrutinizer problems concerning complexity.
-     *
-     * @return float|string
      */
-    private static function argumentsOkPrecise(float $number, float $significance)
+    private static function argumentsOkPrecise(float $number, float $significance): string|float
     {
         if ($significance == 0.0) {
             return ExcelError::DIV0();
@@ -147,7 +145,7 @@ class Floor
      *
      * @return float|string Rounded Number, or a string containing an error
      */
-    private static function argsOk(float $number, float $significance, int $mode)
+    private static function argsOk(float $number, float $significance, int $mode): string|float
     {
         if (!$significance) {
             return ExcelError::DIV0();
@@ -172,10 +170,8 @@ class Floor
 
     /**
      * Avoid Scrutinizer problems concerning complexity.
-     *
-     * @return float|string
      */
-    private static function argumentsOk(float $number, float $significance)
+    private static function argumentsOk(float $number, float $significance): string|float
     {
         if ($significance == 0.0) {
             return ExcelError::DIV0();

@@ -4,6 +4,8 @@ namespace PhpOffice\PhpSpreadsheet;
 
 use JsonSerializable;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Document\Properties;
+use PhpOffice\PhpSpreadsheet\Document\Security;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx as XlsxReader;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
@@ -31,24 +33,18 @@ class Spreadsheet implements JsonSerializable
 
     /**
      * Unique ID.
-     *
-     * @var string
      */
-    private $uniqueID;
+    private string $uniqueID;
 
     /**
      * Document properties.
-     *
-     * @var Document\Properties
      */
-    private $properties;
+    private Properties $properties;
 
     /**
      * Document security.
-     *
-     * @var Document\Security
      */
-    private $security;
+    private Security $security;
 
     /**
      * Collection of Worksheet objects.
@@ -66,10 +62,8 @@ class Spreadsheet implements JsonSerializable
 
     /**
      * Active sheet index.
-     *
-     * @var int
      */
-    private $activeSheetIndex = 0;
+    private int $activeSheetIndex;
 
     /**
      * Named ranges.
@@ -80,10 +74,8 @@ class Spreadsheet implements JsonSerializable
 
     /**
      * CellXf supervisor.
-     *
-     * @var Style
      */
-    private $cellXfSupervisor;
+    private Style $cellXfSupervisor;
 
     /**
      * CellXf collection.
@@ -204,8 +196,7 @@ class Spreadsheet implements JsonSerializable
      */
     private $tabRatio = 600;
 
-    /** @var Theme */
-    private $theme;
+    private Theme $theme;
 
     public function getTheme(): Theme
     {
@@ -268,7 +259,7 @@ class Spreadsheet implements JsonSerializable
      *
      * @return bool true|false
      */
-    public function hasMacrosCertificate()
+    public function hasMacrosCertificate(): bool
     {
         return $this->macrosCertificate !== null;
     }
@@ -379,10 +370,8 @@ class Spreadsheet implements JsonSerializable
      * return the extension of a filename. Internal use for a array_map callback (php<5.3 don't like lambda function).
      *
      * @param mixed $path
-     *
-     * @return string
      */
-    private function getExtensionOnly($path)
+    private function getExtensionOnly($path): string
     {
         $extension = pathinfo($path, PATHINFO_EXTENSION);
 
@@ -429,20 +418,16 @@ class Spreadsheet implements JsonSerializable
 
     /**
      * This workbook have a custom UI ?
-     *
-     * @return bool
      */
-    public function hasRibbon()
+    public function hasRibbon(): bool
     {
         return $this->ribbonXMLData !== null;
     }
 
     /**
      * This workbook have additionnal object for the ribbon ?
-     *
-     * @return bool
      */
-    public function hasRibbonBinObjects()
+    public function hasRibbonBinObjects(): bool
     {
         return $this->ribbonBinObjects !== null;
     }
@@ -451,10 +436,8 @@ class Spreadsheet implements JsonSerializable
      * Check if a sheet with a specified code name already exists.
      *
      * @param string $codeName Name of the worksheet to check
-     *
-     * @return bool
      */
-    public function sheetCodeNameExists($codeName)
+    public function sheetCodeNameExists($codeName): bool
     {
         return $this->getSheetByCodeName($codeName) !== null;
     }
@@ -594,10 +577,8 @@ class Spreadsheet implements JsonSerializable
      * Create sheet and add it to this workbook.
      *
      * @param null|int $sheetIndex Index where sheet should go (0,1,..., or null for last)
-     *
-     * @return Worksheet
      */
-    public function createSheet($sheetIndex = null)
+    public function createSheet($sheetIndex = null): Worksheet
     {
         $newSheet = new Worksheet($this);
         $this->addSheet($newSheet, $sheetIndex);
@@ -609,10 +590,8 @@ class Spreadsheet implements JsonSerializable
      * Check if a sheet with a specified name already exists.
      *
      * @param string $worksheetName Name of the worksheet to check
-     *
-     * @return bool
      */
-    public function sheetNameExists($worksheetName)
+    public function sheetNameExists($worksheetName): bool
     {
         return $this->getSheetByName($worksheetName) !== null;
     }
@@ -622,10 +601,8 @@ class Spreadsheet implements JsonSerializable
      *
      * @param Worksheet $worksheet The worksheet to add
      * @param null|int $sheetIndex Index where sheet should go (0,1,..., or null for last)
-     *
-     * @return Worksheet
      */
-    public function addSheet(Worksheet $worksheet, $sheetIndex = null)
+    public function addSheet(Worksheet $worksheet, $sheetIndex = null): Worksheet
     {
         if ($this->sheetNameExists($worksheet->getTitle())) {
             throw new Exception(
@@ -770,7 +747,7 @@ class Spreadsheet implements JsonSerializable
      *
      * @return int New sheet index
      */
-    public function setIndexByName($worksheetName, $newIndexPosition)
+    public function setIndexByName(string $worksheetName, $newIndexPosition)
     {
         $oldIndex = $this->getIndex($this->getSheetByNameOrThrow($worksheetName));
         $worksheet = array_splice(
@@ -790,10 +767,8 @@ class Spreadsheet implements JsonSerializable
 
     /**
      * Get sheet count.
-     *
-     * @return int
      */
-    public function getSheetCount()
+    public function getSheetCount(): int
     {
         return count($this->workSheetCollection);
     }
@@ -836,7 +811,7 @@ class Spreadsheet implements JsonSerializable
      *
      * @return Worksheet
      */
-    public function setActiveSheetIndexByName($worksheetName)
+    public function setActiveSheetIndexByName(string $worksheetName)
     {
         if (($worksheet = $this->getSheetByName($worksheetName)) instanceof Worksheet) {
             $this->setActiveSheetIndex($this->getIndex($worksheet));
@@ -852,7 +827,7 @@ class Spreadsheet implements JsonSerializable
      *
      * @return string[]
      */
-    public function getSheetNames()
+    public function getSheetNames(): array
     {
         $returnValue = [];
         $worksheetCount = $this->getSheetCount();
@@ -868,10 +843,8 @@ class Spreadsheet implements JsonSerializable
      *
      * @param Worksheet $worksheet External sheet to add
      * @param null|int $sheetIndex Index where sheet should go (0,1,..., or null for last)
-     *
-     * @return Worksheet
      */
-    public function addExternalSheet(Worksheet $worksheet, $sheetIndex = null)
+    public function addExternalSheet(Worksheet $worksheet, $sheetIndex = null): Worksheet
     {
         if ($this->sheetNameExists($worksheet->getTitle())) {
             throw new Exception("Workbook already contains a worksheet named '{$worksheet->getTitle()}'. Rename the external sheet first.");
@@ -919,7 +892,7 @@ class Spreadsheet implements JsonSerializable
     {
         return array_filter(
             $this->definedNames,
-            function (DefinedName $definedName) {
+            function (DefinedName $definedName): bool {
                 return $definedName->isFormula() === self::DEFINED_NAME_IS_RANGE;
             }
         );
@@ -934,7 +907,7 @@ class Spreadsheet implements JsonSerializable
     {
         return array_filter(
             $this->definedNames,
-            function (DefinedName $definedName) {
+            function (DefinedName $definedName): bool {
                 return $definedName->isFormula() === self::DEFINED_NAME_IS_FORMULA;
             }
         );
@@ -1130,20 +1103,16 @@ class Spreadsheet implements JsonSerializable
 
     /**
      * Get worksheet iterator.
-     *
-     * @return Iterator
      */
-    public function getWorksheetIterator()
+    public function getWorksheetIterator(): Iterator
     {
         return new Iterator($this);
     }
 
     /**
      * Copy workbook (!= clone!).
-     *
-     * @return Spreadsheet
      */
-    public function copy()
+    public function copy(): self
     {
         $filename = File::temporaryFilename();
         $writer = new XlsxWriter($this);
@@ -1207,10 +1176,8 @@ class Spreadsheet implements JsonSerializable
 
     /**
      * Check if style exists in style collection.
-     *
-     * @return bool
      */
-    public function cellXfExists(Style $cellStyleIndex)
+    public function cellXfExists(Style $cellStyleIndex): bool
     {
         return in_array($cellStyleIndex, $this->cellXfCollection, true);
     }

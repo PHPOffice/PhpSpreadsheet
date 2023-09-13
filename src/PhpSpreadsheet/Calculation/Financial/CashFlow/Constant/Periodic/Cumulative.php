@@ -37,7 +37,7 @@ class Cumulative
         $start,
         $end,
         $type = FinancialConstants::PAYMENT_END_OF_PERIOD
-    ) {
+    ): string|float|int {
         $rate = Functions::flattenSingleValue($rate);
         $periods = Functions::flattenSingleValue($periods);
         $presentValue = Functions::flattenSingleValue($presentValue);
@@ -102,7 +102,7 @@ class Cumulative
         $start,
         $end,
         $type = FinancialConstants::PAYMENT_END_OF_PERIOD
-    ) {
+    ): string|float|int {
         $rate = Functions::flattenSingleValue($rate);
         $periods = Functions::flattenSingleValue($periods);
         $presentValue = Functions::flattenSingleValue($presentValue);

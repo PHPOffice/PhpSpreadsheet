@@ -114,7 +114,7 @@ class LogNormal
      *            accuracy if I can get my head round the mathematics
      *            (as described at) http://home.online.no/~pjacklam/notes/invnorm/
      */
-    public static function inverse($probability, $mean, $stdDev)
+    public static function inverse($probability, $mean, $stdDev): array|string|float
     {
         if (is_array($probability) || is_array($mean) || is_array($stdDev)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $probability, $mean, $stdDev);
