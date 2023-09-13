@@ -66,6 +66,7 @@ class MemoryDrawing extends BaseDrawing
             @imagedestroy($this->imageResource);
             $this->imageResource = null;
         }
+        $this->worksheet = null;
     }
 
     public function __clone()

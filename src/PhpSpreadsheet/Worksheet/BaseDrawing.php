@@ -164,6 +164,11 @@ class BaseDrawing implements IComparable
         $this->imageIndex = self::$imageCounter;
     }
 
+    public function __destruct()
+    {
+        $this->worksheet = null;
+    }
+
     public function getImageIndex(): int
     {
         return $this->imageIndex;

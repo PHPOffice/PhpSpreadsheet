@@ -22,6 +22,11 @@ class ColumnRange implements AddressRange, Stringable
         $this->worksheet = $worksheet;
     }
 
+    public function __destruct()
+    {
+        $this->worksheet = null;
+    }
+
     public static function fromColumnIndexes(int $from, int $to, ?Worksheet $worksheet = null): self
     {
         return new self(Coordinate::stringFromColumnIndex($from), Coordinate::stringFromColumnIndex($to), $worksheet);

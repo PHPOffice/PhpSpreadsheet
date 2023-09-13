@@ -66,6 +66,12 @@ abstract class DefinedName
         $this->isFormula = self::testIfFormula($this->value);
     }
 
+    public function __destruct()
+    {
+        $this->worksheet = null;
+        $this->scope = null;
+    }
+
     /**
      * Create a new defined name, either a range or a formula.
      */

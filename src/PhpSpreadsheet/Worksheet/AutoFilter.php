@@ -64,6 +64,11 @@ class AutoFilter implements Stringable
         $this->workSheet = $worksheet;
     }
 
+    public function __destruct()
+    {
+        $this->workSheet = null;
+    }
+
     /**
      * Get AutoFilter Parent Worksheet.
      *

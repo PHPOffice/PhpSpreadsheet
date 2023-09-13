@@ -25,6 +25,11 @@ class CellAddress implements Stringable
         $this->worksheet = $worksheet;
     }
 
+    public function __destruct()
+    {
+        $this->worksheet = null;
+    }
+
     private static function validateColumnAndRow(mixed $columnId, mixed $rowId): void
     {
         if (!is_numeric($columnId) || $columnId <= 0 || !is_numeric($rowId) || $rowId <= 0) {

@@ -423,8 +423,7 @@ class Worksheet implements IComparable
         Calculation::getInstance($this->parent)->clearCalculationCacheForWorksheet($this->title);
 
         $this->disconnectCells();
-        $this->rowDimensions = [];
-        $this->tableCollection = new ArrayObject();
+        unset($this->rowDimensions, $this->columnDimensions, $this->tableCollection, $this->drawingCollection, $this->chartCollection, $this->autoFilter);
     }
 
     /**
@@ -589,21 +588,10 @@ class Worksheet implements IComparable
         return $this->chartCollection;
     }
 
-    /**
-     * Add chart.
-     *
-     * @param null|int $chartIndex Index where chart should go (0,1,..., or null for last)
-     */
-    public function addChart(Chart $chart, $chartIndex = null): Chart
+    public function addChart(Chart $chart): Chart
     {
         $chart->setWorksheet($this);
-        if ($chartIndex === null) {
-            $this->chartCollection[] = $chart;
-        } else {
-            // Insert the chart at the requested index
-            // @phpstan-ignore-next-line
-            array_splice(/** @scrutinizer ignore-type */ $this->chartCollection, $chartIndex, 0, [$chart]);
-        }
+        $this->chartCollection[] = $chart;
 
         return $chart;
     }
