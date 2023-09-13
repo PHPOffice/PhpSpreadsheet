@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,11 +10,8 @@ class SecTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerSEC
-     *
-     * @param mixed $expectedResult
-     * @param mixed $angle
      */
-    public function testSEC($expectedResult, $angle): void
+    public function testSEC(mixed $expectedResult, mixed $angle): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

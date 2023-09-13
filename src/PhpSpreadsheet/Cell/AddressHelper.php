@@ -11,7 +11,7 @@ class AddressHelper
     public const R1C1_COORDINATE_REGEX = '/(R((?:\[-?\d*\])|(?:\d*))?)(C((?:\[-?\d*\])|(?:\d*))?)/i';
 
     /** @return string[] */
-    public static function getRowAndColumnChars()
+    public static function getRowAndColumnChars(): array
     {
         $rowChar = 'R';
         $colChar = 'C';

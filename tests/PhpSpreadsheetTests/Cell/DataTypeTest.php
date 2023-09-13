@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Cell;
 
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
@@ -34,12 +36,7 @@ class DataTypeTest extends TestCase
         self::assertSame($expected, $result3);
     }
 
-    /**
-     * @param int $length
-     *
-     * @return string
-     */
-    private function randr($length = 8)
+    private function randr(int $length = 8): string
     {
         $string = '';
         for ($i = 0; $i < $length; ++$i) {

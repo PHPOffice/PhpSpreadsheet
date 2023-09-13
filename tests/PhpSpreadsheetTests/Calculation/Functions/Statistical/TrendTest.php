@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
@@ -10,10 +12,8 @@ class TrendTest extends TestCase
 {
     /**
      * @dataProvider providerGROWTH
-     *
-     * @param mixed $expectedResult
      */
-    public function testTREND($expectedResult, array $yValues, array $xValues, ?array $newValues = null, ?bool $const = null): void
+    public function testTREND(mixed $expectedResult, array $yValues, array $xValues, ?array $newValues = null, ?bool $const = null): void
     {
         if ($newValues === null) {
             $result = Statistical\Trends::TREND($yValues, $xValues);

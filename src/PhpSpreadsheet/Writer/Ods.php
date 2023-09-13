@@ -23,40 +23,19 @@ class Ods extends BaseWriter
      */
     private $spreadSheet;
 
-    /**
-     * @var Content
-     */
-    private $writerPartContent;
+    private Content $writerPartContent;
 
-    /**
-     * @var Meta
-     */
-    private $writerPartMeta;
+    private Meta $writerPartMeta;
 
-    /**
-     * @var MetaInf
-     */
-    private $writerPartMetaInf;
+    private MetaInf $writerPartMetaInf;
 
-    /**
-     * @var Mimetype
-     */
-    private $writerPartMimetype;
+    private Mimetype $writerPartMimetype;
 
-    /**
-     * @var Settings
-     */
-    private $writerPartSettings;
+    private Settings $writerPartSettings;
 
-    /**
-     * @var Styles
-     */
-    private $writerPartStyles;
+    private Styles $writerPartStyles;
 
-    /**
-     * @var Thumbnails
-     */
-    private $writerPartThumbnails;
+    private Thumbnails $writerPartThumbnails;
 
     /**
      * Create a new Ods.
@@ -146,10 +125,8 @@ class Ods extends BaseWriter
 
     /**
      * Create zip object.
-     *
-     * @return ZipStream
      */
-    private function createZip()
+    private function createZip(): ZipStream
     {
         // Try opening the ZIP file
         if (!is_resource($this->fileHandle)) {
@@ -177,7 +154,7 @@ class Ods extends BaseWriter
      *
      * @return $this
      */
-    public function setSpreadsheet(Spreadsheet $spreadsheet)
+    public function setSpreadsheet(Spreadsheet $spreadsheet): static
     {
         $this->spreadSheet = $spreadsheet;
 

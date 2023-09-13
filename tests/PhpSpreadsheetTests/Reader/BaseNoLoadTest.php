@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader;
 
 use PhpOffice\PhpSpreadsheet\Exception as SpreadsheetException;
@@ -12,6 +14,14 @@ class BaseNoLoadTest extends TestCase
         $this->expectException(SpreadsheetException::class);
         $this->expectExceptionMessage('Reader classes must implement their own loadSpreadsheetFromFile() method');
         $reader = new BaseNoLoad();
-        $reader->loadxxx('unknown.file');
+        $reader->load('unknown.file');
+    }
+
+    public function testBaseNoLoadInfo(): void
+    {
+        $this->expectException(SpreadsheetException::class);
+        $this->expectExceptionMessage('Reader classes must implement their own listWorksheetInfo() method');
+        $reader = new BaseNoLoad();
+        $reader->listWorksheetInfo('unknown.file');
     }
 }

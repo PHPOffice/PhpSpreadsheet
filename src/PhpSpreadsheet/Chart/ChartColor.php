@@ -15,17 +15,13 @@ class ChartColor
         self::EXCEL_COLOR_TYPE_STANDARD,
     ];
 
-    /** @var string */
-    private $value = '';
+    private string $value = '';
 
-    /** @var string */
-    private $type = '';
+    private string $type = '';
 
-    /** @var ?int */
-    private $alpha;
+    private ?int $alpha = null;
 
-    /** @var ?int */
-    private $brightness;
+    private ?int $brightness = null;
 
     /**
      * @param string|string[] $value

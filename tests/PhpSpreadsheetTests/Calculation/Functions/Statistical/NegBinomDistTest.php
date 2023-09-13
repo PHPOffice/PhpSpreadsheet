@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,10 +10,8 @@ class NegBinomDistTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerNEGBINOMDIST
-     *
-     * @param mixed $expectedResult
      */
-    public function testNEGBINOMDIST($expectedResult, ...$args): void
+    public function testNEGBINOMDIST(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('NEGBINOMDIST', $expectedResult, ...$args);
     }

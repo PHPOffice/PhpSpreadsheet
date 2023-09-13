@@ -501,7 +501,7 @@ class Drawing extends WriterPart
      *
      * @param string $reference Reference
      */
-    private function writeVMLHeaderFooterImage(XMLWriter $objWriter, $reference, HeaderFooterDrawing $image): void
+    private function writeVMLHeaderFooterImage(XMLWriter $objWriter, string $reference, HeaderFooterDrawing $image): void
     {
         // Calculate object id
         preg_match('{(\d+)}', md5($reference), $m);
@@ -540,7 +540,7 @@ class Drawing extends WriterPart
      *
      * @return BaseDrawing[] All drawings in PhpSpreadsheet
      */
-    public function allDrawings(Spreadsheet $spreadsheet)
+    public function allDrawings(Spreadsheet $spreadsheet): array
     {
         // Get an array of all drawings
         $aDrawings = [];

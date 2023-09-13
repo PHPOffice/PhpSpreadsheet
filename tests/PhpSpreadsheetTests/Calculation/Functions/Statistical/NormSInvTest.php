@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,10 +10,8 @@ class NormSInvTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerNORMSINV
-     *
-     * @param mixed $expectedResult
      */
-    public function testNORMSINV($expectedResult, ...$args): void
+    public function testNORMSINV(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('NORMSINV', $expectedResult, ...$args);
     }

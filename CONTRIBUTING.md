@@ -4,7 +4,7 @@ If you would like to contribute, here are some notes and guidelines:
 
  - All new development should be on feature/fix branches, which are then merged to the `master` branch once stable and approved; so the `master` branch is always the most up-to-date, working code
  - If you are going to submit a pull request, please fork from `master`, and submit your pull request back as a fix/feature branch referencing the GitHub issue number
- - The code must work with all PHP versions that we support (currently PHP 7.4 to PHP 8.2).
+ - The code must work with all PHP versions that we support.
    - You can call `composer versions` to test version compatibility. 
  - Code style should be maintained.
    - `composer style` will identify any issues with Coding Style`.

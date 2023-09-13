@@ -124,10 +124,8 @@ class Statistical
      * @param float $beta Parameter to the distribution
      * @param mixed $rMin
      * @param mixed $rMax
-     *
-     * @return array|float|string
      */
-    public static function BETADIST($value, $alpha, $beta, $rMin = 0, $rMax = 1)
+    public static function BETADIST($value, $alpha, $beta, $rMin = 0, $rMax = 1): string|float|array
     {
         return Statistical\Distributions\Beta::distribution($value, $alpha, $beta, $rMin, $rMax);
     }
@@ -269,10 +267,8 @@ class Statistical
      * @see Statistical\Counts::COUNT()
      *
      * @param mixed ...$args Data values
-     *
-     * @return int
      */
-    public static function COUNT(...$args)
+    public static function COUNT(...$args): int
     {
         return Counts::COUNT(...$args);
     }
@@ -290,10 +286,8 @@ class Statistical
      * @see Statistical\Counts::COUNTA()
      *
      * @param mixed ...$args Data values
-     *
-     * @return int
      */
-    public static function COUNTA(...$args)
+    public static function COUNTA(...$args): int
     {
         return Counts::COUNTA(...$args);
     }
@@ -311,10 +305,8 @@ class Statistical
      * @see Statistical\Counts::COUNTBLANK()
      *
      * @param mixed $range Data values
-     *
-     * @return int
      */
-    public static function COUNTBLANK($range)
+    public static function COUNTBLANK($range): int
     {
         return Counts::COUNTBLANK($range);
     }
@@ -371,12 +363,12 @@ class Statistical
      *      Use the COVAR() method in the Statistical\Trends class instead
      * @see Statistical\Trends::COVAR()
      *
-     * @param mixed $yValues array of mixed Data Series Y
-     * @param mixed $xValues array of mixed Data Series X
+     * @param mixed[] $yValues array of mixed Data Series Y
+     * @param mixed[] $xValues array of mixed Data Series X
      *
      * @return float|string
      */
-    public static function COVAR($yValues, $xValues)
+    public static function COVAR(array $yValues, array $xValues)
     {
         return Trends::COVAR($yValues, $xValues);
     }
@@ -522,12 +514,12 @@ class Statistical
      * @see Statistical\Trends::FORECAST()
      *
      * @param float $xValue Value of X for which we want to find Y
-     * @param mixed $yValues array of mixed Data Series Y
-     * @param mixed $xValues of mixed Data Series X
+     * @param mixed[] $yValues array of mixed Data Series Y
+     * @param mixed[] $xValues array of mixed Data Series X
      *
      * @return array|bool|float|string
      */
-    public static function FORECAST($xValue, $yValues, $xValues)
+    public static function FORECAST($xValue, array $yValues, array $xValues)
     {
         return Trends::FORECAST($xValue, $yValues, $xValues);
     }
@@ -545,7 +537,7 @@ class Statistical
      *
      * @return array|float|string The result, or a string containing an error
      */
-    public static function GAMMAFunction($value)
+    public static function GAMMAFunction($value): string|float|array
     {
         return Statistical\Distributions\Gamma::gamma($value);
     }
@@ -601,10 +593,8 @@ class Statistical
      * @see Statistical\Distributions\Gamma::ln()
      *
      * @param float $value
-     *
-     * @return array|float|string
      */
-    public static function GAMMALN($value)
+    public static function GAMMALN($value): string|float|array
     {
         return Statistical\Distributions\Gamma::ln($value);
     }
@@ -735,7 +725,7 @@ class Statistical
      *
      * @return float|string
      */
-    public static function INTERCEPT($yValues, $xValues)
+    public static function INTERCEPT(array $yValues, array $xValues)
     {
         return Trends::INTERCEPT($yValues, $xValues);
     }
@@ -798,9 +788,9 @@ class Statistical
      * @param bool $const a logical value specifying whether to force the intersect to equal 0
      * @param bool $stats a logical value specifying whether to return additional regression statistics
      *
-     * @return array|int|string The result, or a string containing an error
+     * @return array|string The result, or a string containing an error
      */
-    public static function LINEST($yValues, $xValues = null, $const = true, $stats = false)
+    public static function LINEST(array $yValues, $xValues = null, $const = true, $stats = false): string|array
     {
         return Trends::LINEST($yValues, $xValues, $const, $stats);
     }
@@ -820,9 +810,9 @@ class Statistical
      * @param bool $const a logical value specifying whether to force the intersect to equal 0
      * @param bool $stats a logical value specifying whether to return additional regression statistics
      *
-     * @return array|int|string The result, or a string containing an error
+     * @return array|string The result, or a string containing an error
      */
-    public static function LOGEST($yValues, $xValues = null, $const = true, $stats = false)
+    public static function LOGEST(array $yValues, $xValues = null, $const = true, $stats = false): string|array
     {
         return Trends::LOGEST($yValues, $xValues, $const, $stats);
     }
@@ -846,7 +836,7 @@ class Statistical
      *            accuracy if I can get my head round the mathematics
      *            (as described at) http://home.online.no/~pjacklam/notes/invnorm/
      */
-    public static function LOGINV($probability, $mean, $stdDev)
+    public static function LOGINV($probability, $mean, $stdDev): string|float|array
     {
         return Statistical\Distributions\LogNormal::inverse($probability, $mean, $stdDev);
     }
@@ -1229,7 +1219,7 @@ class Statistical
      *
      * @return float|string (string if result is an error)
      */
-    public static function PERCENTRANK($valueSet, $value, $significance = 3)
+    public static function PERCENTRANK($valueSet, $value, $significance = 3): string|float
     {
         return Statistical\Percentiles::PERCENTRANK($valueSet, $value, $significance);
     }
@@ -1334,7 +1324,7 @@ class Statistical
      *
      * @return float|string The result, or a string containing an error
      */
-    public static function RSQ($yValues, $xValues)
+    public static function RSQ(array $yValues, array $xValues)
     {
         return Trends::RSQ($yValues, $xValues);
     }
@@ -1374,7 +1364,7 @@ class Statistical
      *
      * @return float|string The result, or a string containing an error
      */
-    public static function SLOPE($yValues, $xValues)
+    public static function SLOPE(array $yValues, array $xValues)
     {
         return Trends::SLOPE($yValues, $xValues);
     }
@@ -1520,7 +1510,7 @@ class Statistical
      *
      * @return float|string
      */
-    public static function STEYX($yValues, $xValues)
+    public static function STEYX(array $yValues, array $xValues)
     {
         return Trends::STEYX($yValues, $xValues);
     }

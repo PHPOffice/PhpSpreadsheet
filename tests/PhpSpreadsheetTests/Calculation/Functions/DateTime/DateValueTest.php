@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
 use DateTimeImmutable;
@@ -15,15 +17,9 @@ use PHPUnit\Framework\TestCase;
 
 class DateValueTest extends TestCase
 {
-    /**
-     * @var int
-     */
-    private $excelCalendar;
+    private int $excelCalendar;
 
-    /**
-     * @var string
-     */
-    private $returnDateType;
+    private string $returnDateType;
 
     protected function setUp(): void
     {
@@ -41,7 +37,7 @@ class DateValueTest extends TestCase
         Functions::setReturnDateType($this->returnDateType);
     }
 
-    private function expectationIsTemplate(string $expectedResult): bool
+    private function expectationIsTemplate(mixed $expectedResult): bool
     {
         return is_string($expectedResult) && substr($expectedResult, 0, 2) === 'Y-';
     }
@@ -57,10 +53,8 @@ class DateValueTest extends TestCase
 
     /**
      * @dataProvider providerDATEVALUE
-     *
-     * @param mixed $expectedResult
      */
-    public function testDirectCallToDATEVALUE($expectedResult, ...$args): void
+    public function testDirectCallToDATEVALUE(mixed $expectedResult, mixed ...$args): void
     {
         if ($this->expectationIsTemplate($expectedResult)) {
             $expectedResult = $this->parseTemplatedExpectation($expectedResult);
@@ -73,10 +67,8 @@ class DateValueTest extends TestCase
 
     /**
      * @dataProvider providerDATEVALUE
-     *
-     * @param mixed $expectedResult
      */
-    public function testDATEVALUEAsFormula($expectedResult, ...$args): void
+    public function testDATEVALUEAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         if ($this->expectationIsTemplate($expectedResult)) {
             $expectedResult = $this->parseTemplatedExpectation($expectedResult);
@@ -93,10 +85,8 @@ class DateValueTest extends TestCase
 
     /**
      * @dataProvider providerDATEVALUE
-     *
-     * @param mixed $expectedResult
      */
-    public function testDATEVALUEInWorksheet($expectedResult, ...$args): void
+    public function testDATEVALUEInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         if ($this->expectationIsTemplate($expectedResult)) {
             $expectedResult = $this->parseTemplatedExpectation($expectedResult);
@@ -134,7 +124,7 @@ class DateValueTest extends TestCase
     /**
      * @dataProvider providerUnhappyDATEVALUE
      */
-    public function testDATEVALUEUnhappyPath(string $expectedException, ...$args): void
+    public function testDATEVALUEUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 

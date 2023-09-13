@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,10 +10,8 @@ class StandardizeTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerSTANDARDIZE
-     *
-     * @param mixed $expectedResult
      */
-    public function testSTANDARDIZE($expectedResult, ...$args): void
+    public function testSTANDARDIZE(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('STANDARDIZE', $expectedResult, ...$args);
     }

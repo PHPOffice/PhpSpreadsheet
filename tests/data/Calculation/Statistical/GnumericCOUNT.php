@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     'range does not count bool, null, text string' => [
         3,

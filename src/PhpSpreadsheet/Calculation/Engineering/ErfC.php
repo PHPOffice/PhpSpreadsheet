@@ -52,7 +52,7 @@ class ErfC
      *
      * @return float
      */
-    private static function erfcValue($value)
+    private static function erfcValue($value): float|int
     {
         $value = (float) $value;
         if (abs($value) < 2.2) {

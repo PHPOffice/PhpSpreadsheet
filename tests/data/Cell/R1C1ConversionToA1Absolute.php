@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     ['A1', 'R1C1'],
     ['B2', 'R2C2'],

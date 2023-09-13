@@ -1,15 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 class TBillEqTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerTBILLEQ
-     *
-     * @param mixed $expectedResult
      */
-    public function testTBILLEQ($expectedResult, ...$args): void
+    public function testTBILLEQ(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('TBILLEQ', $expectedResult, $args);
     }

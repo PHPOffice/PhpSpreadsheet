@@ -4,12 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
 class Row
 {
-    /**
-     * \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet.
-     *
-     * @var Worksheet
-     */
-    private $worksheet;
+    private ?Worksheet $worksheet;
 
     /**
      * Row index.
@@ -35,7 +30,7 @@ class Row
      */
     public function __destruct()
     {
-        $this->worksheet = null; // @phpstan-ignore-line
+        $this->worksheet = null;
     }
 
     /**
@@ -54,7 +49,7 @@ class Row
      */
     public function getCellIterator($startColumn = 'A', $endColumn = null): RowCellIterator
     {
-        return new RowCellIterator($this->worksheet, $this->rowIndex, $startColumn, $endColumn);
+        return new RowCellIterator($this->getWorksheet(), $this->rowIndex, $startColumn, $endColumn);
     }
 
     /**
@@ -115,6 +110,7 @@ class Row
      */
     public function getWorksheet(): Worksheet
     {
+        // @phpstan-ignore-next-line
         return $this->worksheet;
     }
 }

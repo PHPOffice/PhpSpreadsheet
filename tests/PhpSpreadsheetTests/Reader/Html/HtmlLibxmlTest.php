@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Html;
 
 use PhpOffice\PhpSpreadsheet\Reader\Html;
@@ -17,8 +19,7 @@ use PHPUnit\Framework\TestCase;
  */
 class HtmlLibxmlTest extends TestCase
 {
-    /** @var bool */
-    private $useErrors;
+    private bool $useErrors;
 
     protected function setUp(): void
     {

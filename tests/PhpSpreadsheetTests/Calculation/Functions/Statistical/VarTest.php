@@ -1,15 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 class VarTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerVAR
-     *
-     * @param mixed $expectedResult
      */
-    public function testVAR($expectedResult, ...$args): void
+    public function testVAR(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('VAR', $expectedResult, ...$args);
     }
@@ -21,10 +21,8 @@ class VarTest extends AllSetupTeardown
 
     /**
      * @dataProvider providerOdsVAR
-     *
-     * @param mixed $expectedResult
      */
-    public function testOdsVAR($expectedResult, ...$args): void
+    public function testOdsVAR(mixed $expectedResult, mixed ...$args): void
     {
         $this->setOpenOffice();
         $this->runTestCases('VAR', $expectedResult, ...$args);

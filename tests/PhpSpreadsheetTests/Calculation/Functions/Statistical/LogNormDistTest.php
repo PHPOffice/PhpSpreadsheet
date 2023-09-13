@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,10 +10,8 @@ class LogNormDistTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerLOGNORMDIST
-     *
-     * @param mixed $expectedResult
      */
-    public function testLOGNORMDIST($expectedResult, ...$args): void
+    public function testLOGNORMDIST(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('LOGNORMDIST', $expectedResult, ...$args);
     }

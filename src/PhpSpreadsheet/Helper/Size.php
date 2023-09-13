@@ -6,20 +6,11 @@ class Size
 {
     const REGEXP_SIZE_VALIDATION = '/^(?P<size>\d*\.?\d+)(?P<unit>pt|px|em)?$/i';
 
-    /**
-     * @var bool
-     */
-    protected $valid;
+    protected bool $valid;
 
-    /**
-     * @var string
-     */
-    protected $size = '';
+    protected string $size = '';
 
-    /**
-     * @var string
-     */
-    protected $unit = '';
+    protected string $unit = '';
 
     public function __construct(string $size)
     {
@@ -45,7 +36,7 @@ class Size
         return $this->unit;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->size . $this->unit;
     }

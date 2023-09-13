@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,10 +10,8 @@ class FisherInvTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerFISHERINV
-     *
-     * @param mixed $expectedResult
      */
-    public function testFISHERINV($expectedResult, ...$args): void
+    public function testFISHERINV(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('FISHERINV', $expectedResult, ...$args);
     }

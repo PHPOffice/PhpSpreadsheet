@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
@@ -8,15 +10,9 @@ use PHPUnit\Framework\TestCase;
 
 class FunctionsTest extends TestCase
 {
-    /**
-     * @var string
-     */
-    private $compatibilityMode;
+    private string $compatibilityMode;
 
-    /**
-     * @var string
-     */
-    private $returnDate;
+    private string $returnDate;
 
     protected function setUp(): void
     {

@@ -354,7 +354,7 @@ class SpContainer
      *
      * @return int Nesting level
      */
-    public function getNestingLevel()
+    public function getNestingLevel(): int
     {
         $nestingLevel = 0;
 

@@ -14,45 +14,33 @@ class Borders extends Supervisor
 
     /**
      * Left.
-     *
-     * @var Border
      */
-    protected $left;
+    protected Border $left;
 
     /**
      * Right.
-     *
-     * @var Border
      */
-    protected $right;
+    protected Border $right;
 
     /**
      * Top.
-     *
-     * @var Border
      */
-    protected $top;
+    protected Border $top;
 
     /**
      * Bottom.
-     *
-     * @var Border
      */
-    protected $bottom;
+    protected Border $bottom;
 
     /**
      * Diagonal.
-     *
-     * @var Border
      */
-    protected $diagonal;
+    protected Border $diagonal;
 
     /**
      * DiagonalDirection.
-     *
-     * @var int
      */
-    protected $diagonalDirection;
+    protected int $diagonalDirection;
 
     /**
      * All borders pseudo-border. Only applies to supervisor.
@@ -150,10 +138,8 @@ class Borders extends Supervisor
      * Build style array from subcomponents.
      *
      * @param array $array
-     *
-     * @return array
      */
-    public function getStyleArray($array)
+    public function getStyleArray($array): array
     {
         return ['borders' => $array];
     }
@@ -197,7 +183,7 @@ class Borders extends Supervisor
      *
      * @return $this
      */
-    public function applyFromArray(array $styleArray)
+    public function applyFromArray(array $styleArray): static
     {
         if ($this->isSupervisor) {
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($this->getStyleArray($styleArray));
@@ -372,7 +358,7 @@ class Borders extends Supervisor
      *
      * @return $this
      */
-    public function setDiagonalDirection($direction)
+    public function setDiagonalDirection($direction): static
     {
         if ($direction == '') {
             $direction = self::DIAGONAL_NONE;

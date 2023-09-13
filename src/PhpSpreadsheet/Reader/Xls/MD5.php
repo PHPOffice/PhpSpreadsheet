@@ -24,10 +24,7 @@ class MD5
      */
     private $d;
 
-    /**
-     * @var int
-     */
-    private static $allOneBits;
+    private static int $allOneBits;
 
     /**
      * MD5 stream constructor.
@@ -51,10 +48,8 @@ class MD5
 
     /**
      * Get MD5 stream context.
-     *
-     * @return string
      */
-    public function getContext()
+    public function getContext(): string
     {
         $s = '';
         foreach (['a', 'b', 'c', 'd'] as $i) {

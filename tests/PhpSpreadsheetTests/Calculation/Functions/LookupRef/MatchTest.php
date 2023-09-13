@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,12 +10,8 @@ class MatchTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerMATCH
-     *
-     * @param mixed $expectedResult
-     * @param mixed $input
-     * @param mixed $type
      */
-    public function testMATCH($expectedResult, $input, array $array, $type = null): void
+    public function testMATCH(mixed $expectedResult, mixed $input, array $array, mixed $type = null): void
     {
         if (is_array($expectedResult)) {
             $expectedResult = $expectedResult[0];
@@ -43,12 +41,8 @@ class MatchTest extends AllSetupTeardown
 
     /**
      * @dataProvider providerMATCH
-     *
-     * @param mixed $expectedResult
-     * @param mixed $input
-     * @param mixed $type
      */
-    public function testMATCHLibre($expectedResult, $input, array $array, $type = null): void
+    public function testMATCHLibre(mixed $expectedResult, mixed $input, array $array, mixed $type = null): void
     {
         $this->setOpenOffice();
         if (is_array($expectedResult)) {

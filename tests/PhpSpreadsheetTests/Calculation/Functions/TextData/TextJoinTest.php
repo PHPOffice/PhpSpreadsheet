@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,10 +10,8 @@ class TextJoinTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerTEXTJOIN
-     *
-     * @param mixed $expectedResult
      */
-    public function testTEXTJOIN($expectedResult, array $args): void
+    public function testTEXTJOIN(mixed $expectedResult, array $args): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

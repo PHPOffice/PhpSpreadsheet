@@ -9,24 +9,18 @@ class Csv extends BaseWriter
 {
     /**
      * PhpSpreadsheet object.
-     *
-     * @var Spreadsheet
      */
-    private $spreadsheet;
+    private Spreadsheet $spreadsheet;
 
     /**
      * Delimiter.
-     *
-     * @var string
      */
-    private $delimiter = ',';
+    private string $delimiter = ',';
 
     /**
      * Enclosure.
-     *
-     * @var string
      */
-    private $enclosure = '"';
+    private string $enclosure = '"';
 
     /**
      * Line ending.
@@ -66,10 +60,8 @@ class Csv extends BaseWriter
 
     /**
      * Output encoding.
-     *
-     * @var string
      */
-    private $outputEncoding = '';
+    private string $outputEncoding = '';
 
     /**
      * Create a new CSV.

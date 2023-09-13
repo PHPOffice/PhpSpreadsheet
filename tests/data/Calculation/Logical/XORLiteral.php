@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     'both boolean true' => [false, 'true, true'],
     'boolean xor string-true' => [false, 'true, "true"'],

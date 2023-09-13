@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,12 +10,8 @@ class LogTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerLOG
-     *
-     * @param mixed $expectedResult
-     * @param mixed $number
-     * @param mixed $base
      */
-    public function testLOG($expectedResult, $number = 'omitted', $base = 'omitted'): void
+    public function testLOG(mixed $expectedResult, mixed $number = 'omitted', mixed $base = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

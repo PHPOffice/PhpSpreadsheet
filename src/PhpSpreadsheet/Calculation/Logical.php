@@ -159,7 +159,7 @@ class Logical
      *
      * @return array|bool|string the boolean inverse of the argument
      */
-    public static function NOT($logical = false)
+    public static function NOT($logical = false): bool|string|array
     {
         return Logical\Operations::NOT($logical);
     }

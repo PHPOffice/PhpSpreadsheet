@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,12 +10,8 @@ class TextTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerTEXT
-     *
-     * @param mixed $expectedResult
-     * @param mixed $value
-     * @param mixed $format
      */
-    public function testTEXT($expectedResult, $value = 'omitted', $format = 'omitted'): void
+    public function testTEXT(mixed $expectedResult, mixed $value = 'omitted', mixed $format = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

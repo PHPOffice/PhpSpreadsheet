@@ -10,11 +10,9 @@ use SimpleXMLElement;
 
 class ColumnAndRowAttributes extends BaseParserClass
 {
-    /** @var Worksheet */
-    private $worksheet;
+    private Worksheet $worksheet;
 
-    /** @var ?SimpleXMLElement */
-    private $worksheetXml;
+    private ?SimpleXMLElement $worksheetXml;
 
     public function __construct(Worksheet $workSheet, ?SimpleXMLElement $worksheetXml = null)
     {
@@ -29,7 +27,7 @@ class ColumnAndRowAttributes extends BaseParserClass
      * @param array $columnAttributes array of attributes (indexes are attribute name, values are value)
      *                               'xfIndex', 'visible', 'collapsed', 'outlineLevel', 'width', ... ?
      */
-    private function setColumnAttributes($columnAddress, array $columnAttributes): void
+    private function setColumnAttributes(string $columnAddress, array $columnAttributes): void
     {
         if (isset($columnAttributes['xfIndex'])) {
             $this->worksheet->getColumnDimension($columnAddress)->setXfIndex($columnAttributes['xfIndex']);
@@ -55,7 +53,7 @@ class ColumnAndRowAttributes extends BaseParserClass
      * @param array $rowAttributes array of attributes (indexes are attribute name, values are value)
      *                               'xfIndex', 'visible', 'collapsed', 'outlineLevel', 'rowHeight', ... ?
      */
-    private function setRowAttributes($rowNumber, array $rowAttributes): void
+    private function setRowAttributes(int $rowNumber, array $rowAttributes): void
     {
         if (isset($rowAttributes['xfIndex'])) {
             $this->worksheet->getRowDimension($rowNumber)->setXfIndex($rowAttributes['xfIndex']);

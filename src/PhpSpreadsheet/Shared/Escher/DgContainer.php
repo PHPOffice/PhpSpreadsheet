@@ -3,25 +3,21 @@
 namespace PhpOffice\PhpSpreadsheet\Shared\Escher;
 
 use PhpOffice\PhpSpreadsheet\Exception as SpreadsheetException;
+use PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer;
 
 class DgContainer
 {
     /**
      * Drawing index, 1-based.
-     *
-     * @var ?int
      */
-    private $dgId;
+    private ?int $dgId = null;
 
     /**
      * Last shape index in this drawing.
-     *
-     * @var ?int
      */
-    private $lastSpId;
+    private ?int $lastSpId = null;
 
-    /** @var ?DgContainer\SpgrContainer */
-    private $spgrContainer;
+    private ?SpgrContainer $spgrContainer = null;
 
     public function getDgId(): ?int
     {

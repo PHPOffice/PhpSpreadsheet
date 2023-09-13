@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -12,12 +14,8 @@ class HLookupTest extends TestCase
 {
     /**
      * @dataProvider providerHLOOKUP
-     *
-     * @param mixed $expectedResult
-     * @param mixed $lookup
-     * @param mixed $rowIndex
      */
-    public function testHLOOKUP($expectedResult, $lookup, array $values, $rowIndex, ?bool $rangeLookup = null): void
+    public function testHLOOKUP(mixed $expectedResult, mixed $lookup, array $values, mixed $rowIndex, ?bool $rangeLookup = null): void
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();

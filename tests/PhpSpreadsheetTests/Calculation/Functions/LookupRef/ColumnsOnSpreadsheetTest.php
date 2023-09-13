@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\NamedRange;
@@ -8,11 +10,8 @@ class ColumnsOnSpreadsheetTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerCOLUMNSonSpreadsheet
-     *
-     * @param mixed $expectedResult
-     * @param string $cellReference
      */
-    public function testColumnsOnSpreadsheet($expectedResult, $cellReference = 'omitted'): void
+    public function testColumnsOnSpreadsheet(mixed $expectedResult, string $cellReference = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

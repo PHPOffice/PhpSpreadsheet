@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -15,10 +17,7 @@ class ImLnTest extends TestCase
 {
     const COMPLEX_PRECISION = 1E-12;
 
-    /**
-     * @var ComplexAssert
-     */
-    private $complexAssert;
+    private \PhpOffice\PhpSpreadsheetTests\Custom\ComplexAssert $complexAssert;
 
     protected function setUp(): void
     {
@@ -28,10 +27,8 @@ class ImLnTest extends TestCase
 
     /**
      * @dataProvider providerIMLN
-     *
-     * @param mixed $expectedResult
      */
-    public function testDirectCallToIMLN($expectedResult, ...$args): void
+    public function testDirectCallToIMLN(mixed $expectedResult, mixed ...$args): void
     {
         /** @scrutinizer ignore-call */
         $result = ComplexFunctions::IMLN(...$args);
@@ -48,10 +45,8 @@ class ImLnTest extends TestCase
 
     /**
      * @dataProvider providerIMLN
-     *
-     * @param mixed $expectedResult
      */
-    public function testIMLNAsFormula($expectedResult, ...$args): void
+    public function testIMLNAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -67,10 +62,8 @@ class ImLnTest extends TestCase
 
     /**
      * @dataProvider providerIMLN
-     *
-     * @param mixed $expectedResult
      */
-    public function testIMLNInWorksheet($expectedResult, ...$args): void
+    public function testIMLNInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -98,7 +91,7 @@ class ImLnTest extends TestCase
     /**
      * @dataProvider providerUnhappyIMLN
      */
-    public function testIMLNUnhappyPath(string $expectedException, ...$args): void
+    public function testIMLNUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 

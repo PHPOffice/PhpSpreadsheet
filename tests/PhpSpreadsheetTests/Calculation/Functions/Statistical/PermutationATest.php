@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,10 +10,8 @@ class PermutationATest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerPERMUT
-     *
-     * @param mixed $expectedResult
      */
-    public function testPERMUT($expectedResult, ...$args): void
+    public function testPERMUT(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('PERMUTATIONA', $expectedResult, ...$args);
     }

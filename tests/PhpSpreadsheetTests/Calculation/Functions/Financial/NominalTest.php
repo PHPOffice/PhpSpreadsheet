@@ -1,15 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 class NominalTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerNOMINAL
-     *
-     * @param mixed $expectedResult
      */
-    public function testNOMINAL($expectedResult, ...$args): void
+    public function testNOMINAL(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('NOMINAL', $expectedResult, $args);
     }

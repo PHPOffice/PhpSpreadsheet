@@ -35,7 +35,7 @@ class Erf
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function ERF($lower, $upper = null)
+    public static function ERF($lower, $upper = null): array|float|string
     {
         if (is_array($lower) || is_array($upper)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $lower, $upper);
@@ -87,10 +87,8 @@ class Erf
      * Method to calculate the erf value.
      *
      * @param float|int|string $value
-     *
-     * @return float
      */
-    public static function erfValue($value)
+    public static function erfValue($value): float
     {
         $value = (float) $value;
         if (abs($value) > 2.2) {

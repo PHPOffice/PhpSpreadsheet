@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Logical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,10 +10,8 @@ class IfErrorTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerIFERROR
-     *
-     * @param mixed $expectedResult
      */
-    public function testIFERROR($expectedResult, ...$args): void
+    public function testIFERROR(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('IFERROR', $expectedResult, ...$args);
     }

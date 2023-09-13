@@ -53,17 +53,13 @@ class Fill extends Supervisor
 
     /**
      * Start color.
-     *
-     * @var Color
      */
-    protected $startColor;
+    protected Color $startColor;
 
     /**
      * End color.
-     *
-     * @var Color
      */
-    protected $endColor;
+    protected Color $endColor;
 
     /** @var bool */
     private $colorChanged = false;
@@ -115,10 +111,8 @@ class Fill extends Supervisor
      * Build style array from subcomponents.
      *
      * @param array $array
-     *
-     * @return array
      */
-    public function getStyleArray($array)
+    public function getStyleArray($array): array
     {
         return ['fill' => $array];
     }
@@ -145,7 +139,7 @@ class Fill extends Supervisor
      *
      * @return $this
      */
-    public function applyFromArray(array $styleArray)
+    public function applyFromArray(array $styleArray): static
     {
         if ($this->isSupervisor) {
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($this->getStyleArray($styleArray));
@@ -192,7 +186,7 @@ class Fill extends Supervisor
      *
      * @return $this
      */
-    public function setFillType($fillType)
+    public function setFillType($fillType): static
     {
         if ($this->isSupervisor) {
             $styleArray = $this->getStyleArray(['fillType' => $fillType]);
@@ -225,7 +219,7 @@ class Fill extends Supervisor
      *
      * @return $this
      */
-    public function setRotation($angleInDegrees)
+    public function setRotation($angleInDegrees): static
     {
         if ($this->isSupervisor) {
             $styleArray = $this->getStyleArray(['rotation' => $angleInDegrees]);
@@ -252,7 +246,7 @@ class Fill extends Supervisor
      *
      * @return $this
      */
-    public function setStartColor(Color $color)
+    public function setStartColor(Color $color): static
     {
         $this->colorChanged = true;
         // make sure parameter is a real color and not a supervisor
@@ -283,7 +277,7 @@ class Fill extends Supervisor
      *
      * @return $this
      */
-    public function setEndColor(Color $color)
+    public function setEndColor(Color $color): static
     {
         $this->colorChanged = true;
         // make sure parameter is a real color and not a supervisor

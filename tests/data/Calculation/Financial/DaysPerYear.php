@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use PhpOffice\PhpSpreadsheet\Calculation\Financial\Constants as FinancialConstants;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,11 +10,8 @@ class AcotTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerACOT
-     *
-     * @param mixed $expectedResult
-     * @param mixed $number
      */
-    public function testACOT($expectedResult, $number): void
+    public function testACOT(mixed $expectedResult, mixed $number): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

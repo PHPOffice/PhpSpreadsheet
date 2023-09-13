@@ -79,7 +79,7 @@ class SheetView
      *
      * @return $this
      */
-    public function setZoomScale($zoomScale)
+    public function setZoomScale($zoomScale): static
     {
         // Microsoft Office Excel 2007 only allows setting a scale between 10 and 400 via the user interface,
         // but it is apparently still able to handle any scale >= 1
@@ -110,7 +110,7 @@ class SheetView
      *
      * @return $this
      */
-    public function setZoomScaleNormal($zoomScaleNormal)
+    public function setZoomScaleNormal($zoomScaleNormal): static
     {
         if ($zoomScaleNormal === null || $zoomScaleNormal >= 1) {
             $this->zoomScaleNormal = $zoomScaleNormal;
@@ -161,7 +161,7 @@ class SheetView
      *
      * @return $this
      */
-    public function setView($sheetViewType)
+    public function setView($sheetViewType): static
     {
         // MS Excel 2007 allows setting the view to 'normal', 'pageLayout' or 'pageBreakPreview' via the user interface
         if ($sheetViewType === null) {

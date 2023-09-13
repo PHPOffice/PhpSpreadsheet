@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Shared;
 
 use PhpOffice\PhpSpreadsheet\Shared\Font;
@@ -41,11 +43,8 @@ class FontTest extends TestCase
 
     /**
      * @dataProvider providerFontSizeToPixels
-     *
-     * @param mixed $expectedResult
-     * @param mixed $size
      */
-    public function testFontSizeToPixels($expectedResult, $size): void
+    public function testFontSizeToPixels(mixed $expectedResult, mixed $size): void
     {
         $result = Font::fontSizeToPixels($size);
         self::assertEquals($expectedResult, $result);
@@ -58,11 +57,8 @@ class FontTest extends TestCase
 
     /**
      * @dataProvider providerInchSizeToPixels
-     *
-     * @param mixed $expectedResult
-     * @param mixed $size
      */
-    public function testInchSizeToPixels($expectedResult, $size): void
+    public function testInchSizeToPixels(mixed $expectedResult, mixed $size): void
     {
         $result = Font::inchSizeToPixels($size);
         self::assertEqualsWithDelta($expectedResult, $result, self::FONT_PRECISION);
@@ -75,11 +71,8 @@ class FontTest extends TestCase
 
     /**
      * @dataProvider providerCentimeterSizeToPixels
-     *
-     * @param mixed $expectedResult
-     * @param mixed $size
      */
-    public function testCentimeterSizeToPixels($expectedResult, $size): void
+    public function testCentimeterSizeToPixels(mixed $expectedResult, mixed $size): void
     {
         $result = Font::centimeterSizeToPixels($size);
         self::assertEqualsWithDelta($expectedResult, $result, self::FONT_PRECISION);

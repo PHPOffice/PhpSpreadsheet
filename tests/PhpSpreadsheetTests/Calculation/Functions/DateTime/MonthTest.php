@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -13,10 +15,8 @@ class MonthTest extends TestCase
 {
     /**
      * @dataProvider providerMONTH
-     *
-     * @param mixed $expectedResultExcel
      */
-    public function testDirectCallToMONTH($expectedResultExcel, ...$args): void
+    public function testDirectCallToMONTH(mixed $expectedResultExcel, mixed ...$args): void
     {
         /** @scrutinizer ignore-call */
         $result = DateParts::month(...$args);
@@ -25,10 +25,8 @@ class MonthTest extends TestCase
 
     /**
      * @dataProvider providerMONTH
-     *
-     * @param mixed $expectedResult
      */
-    public function testMONTHAsFormula($expectedResult, ...$args): void
+    public function testMONTHAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -41,10 +39,8 @@ class MonthTest extends TestCase
 
     /**
      * @dataProvider providerMONTH
-     *
-     * @param mixed $expectedResult
      */
-    public function testMONTHInWorksheet($expectedResult, ...$args): void
+    public function testMONTHInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -69,7 +65,7 @@ class MonthTest extends TestCase
     /**
      * @dataProvider providerUnhappyMONTH
      */
-    public function testMONTHUnhappyPath(string $expectedException, ...$args): void
+    public function testMONTHUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 

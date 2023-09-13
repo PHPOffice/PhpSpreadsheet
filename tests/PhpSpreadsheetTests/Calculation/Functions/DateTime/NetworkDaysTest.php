@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -12,10 +14,8 @@ class NetworkDaysTest extends TestCase
 {
     /**
      * @dataProvider providerNETWORKDAYS
-     *
-     * @param mixed $expectedResult
      */
-    public function testDirectCallToNETWORKDAYS($expectedResult, ...$args): void
+    public function testDirectCallToNETWORKDAYS(mixed $expectedResult, mixed ...$args): void
     {
         $result = NetworkDays::count(...$args);
         self::assertSame($expectedResult, $result);
@@ -23,10 +23,8 @@ class NetworkDaysTest extends TestCase
 
     /**
      * @dataProvider providerNETWORKDAYS
-     *
-     * @param mixed $expectedResult
      */
-    public function testNETWORKDAYSAsFormula($expectedResult, ...$args): void
+    public function testNETWORKDAYSAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -39,10 +37,8 @@ class NetworkDaysTest extends TestCase
 
     /**
      * @dataProvider providerNETWORKDAYS
-     *
-     * @param mixed $expectedResult
      */
-    public function testNETWORKDAYSInWorksheet($expectedResult, ...$args): void
+    public function testNETWORKDAYSInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -67,7 +63,7 @@ class NetworkDaysTest extends TestCase
     /**
      * @dataProvider providerUnhappyNETWORKDAYS
      */
-    public function testNETWORKDAYSUnhappyPath(string $expectedException, ...$args): void
+    public function testNETWORKDAYSUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 

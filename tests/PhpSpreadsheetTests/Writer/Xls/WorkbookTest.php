@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Xls;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -136,12 +138,8 @@ class WorkbookTest extends TestCase
 
     /**
      * Change palette color to rgb string.
-     *
-     * @param array $palette palette color
-     *
-     * @return string rgb string
      */
-    private function paletteToColor($palette)
+    private function paletteToColor(array $palette): string
     {
         return $this->right('00' . dechex((int) ($palette[0])), 2)
             . $this->right('00' . dechex((int) ($palette[1])), 2)
@@ -153,10 +151,8 @@ class WorkbookTest extends TestCase
      *
      * @param string $value text to get right character
      * @param int $nbchar number of char at right of string
-     *
-     * @return string
      */
-    private function right($value, $nbchar)
+    private function right(string $value, int $nbchar): string
     {
         return mb_substr($value, mb_strlen($value) - $nbchar, $nbchar);
     }

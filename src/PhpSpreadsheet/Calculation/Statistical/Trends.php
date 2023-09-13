@@ -90,12 +90,12 @@ class Trends
      *
      * Returns covariance, the average of the products of deviations for each data point pair.
      *
-     * @param mixed $yValues array of mixed Data Series Y
-     * @param mixed $xValues array of mixed Data Series X
+     * @param mixed[] $yValues array of mixed Data Series Y
+     * @param mixed[] $xValues array of mixed Data Series X
      *
      * @return float|string
      */
-    public static function COVAR($yValues, $xValues)
+    public static function COVAR(array $yValues, array $xValues)
     {
         try {
             self::checkTrendArrays($yValues, $xValues);
@@ -117,14 +117,14 @@ class Trends
      *
      * @param mixed $xValue Float value of X for which we want to find Y
      *                      Or can be an array of values
-     * @param mixed $yValues array of mixed Data Series Y
-     * @param mixed $xValues of mixed Data Series X
+     * @param mixed[] $yValues array of mixed Data Series Y
+     * @param mixed[] $xValues array of mixed Data Series X
      *
      * @return array|bool|float|string
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function FORECAST($xValue, $yValues, $xValues)
+    public static function FORECAST($xValue, array $yValues, array $xValues)
     {
         if (is_array($xValue)) {
             return self::evaluateArrayArgumentsSubset([self::class, __FUNCTION__], 1, $xValue, $yValues, $xValues);
@@ -185,7 +185,7 @@ class Trends
      *
      * @return float|string
      */
-    public static function INTERCEPT($yValues, $xValues)
+    public static function INTERCEPT(array $yValues, array $xValues)
     {
         try {
             self::checkTrendArrays($yValues, $xValues);
@@ -210,9 +210,9 @@ class Trends
      * @param mixed $const A logical (boolean) value specifying whether to force the intersect to equal 0 or not
      * @param mixed $stats A logical (boolean) value specifying whether to return additional regression statistics
      *
-     * @return array|int|string The result, or a string containing an error
+     * @return array|string The result, or a string containing an error
      */
-    public static function LINEST($yValues, $xValues = null, $const = true, $stats = false)
+    public static function LINEST(array $yValues, $xValues = null, $const = true, $stats = false): string|array
     {
         $const = ($const === null) ? true : (bool) Functions::flattenSingleValue($const);
         $stats = ($stats === null) ? false : (bool) Functions::flattenSingleValue($stats);
@@ -271,9 +271,9 @@ class Trends
      * @param mixed $const A logical (boolean) value specifying whether to force the intersect to equal 0 or not
      * @param mixed $stats A logical (boolean) value specifying whether to return additional regression statistics
      *
-     * @return array|int|string The result, or a string containing an error
+     * @return array|string The result, or a string containing an error
      */
-    public static function LOGEST($yValues, $xValues = null, $const = true, $stats = false)
+    public static function LOGEST(array $yValues, $xValues = null, $const = true, $stats = false): string|array
     {
         $const = ($const === null) ? true : (bool) Functions::flattenSingleValue($const);
         $stats = ($stats === null) ? false : (bool) Functions::flattenSingleValue($stats);
@@ -338,7 +338,7 @@ class Trends
      *
      * @return float|string The result, or a string containing an error
      */
-    public static function RSQ($yValues, $xValues)
+    public static function RSQ(array $yValues, array $xValues)
     {
         try {
             self::checkTrendArrays($yValues, $xValues);
@@ -362,7 +362,7 @@ class Trends
      *
      * @return float|string The result, or a string containing an error
      */
-    public static function SLOPE($yValues, $xValues)
+    public static function SLOPE(array $yValues, array $xValues)
     {
         try {
             self::checkTrendArrays($yValues, $xValues);
@@ -386,7 +386,7 @@ class Trends
      *
      * @return float|string
      */
-    public static function STEYX($yValues, $xValues)
+    public static function STEYX(array $yValues, array $xValues)
     {
         try {
             self::checkTrendArrays($yValues, $xValues);

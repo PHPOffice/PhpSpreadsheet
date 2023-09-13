@@ -48,10 +48,8 @@ class Dollar
      *              Or can be an array of values
      * @param mixed $fraction Fraction
      *              Or can be an array of values
-     *
-     * @return array|float|string
      */
-    public static function decimal($fractionalDollar = null, $fraction = 0)
+    public static function decimal($fractionalDollar = null, $fraction = 0): array|string|float
     {
         if (is_array($fractionalDollar) || is_array($fraction)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $fractionalDollar, $fraction);
@@ -96,10 +94,8 @@ class Dollar
      *              Or can be an array of values
      * @param mixed $fraction Fraction
      *              Or can be an array of values
-     *
-     * @return array|float|string
      */
-    public static function fractional($decimalDollar = null, $fraction = 0)
+    public static function fractional($decimalDollar = null, $fraction = 0): array|string|float
     {
         if (is_array($decimalDollar) || is_array($fraction)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $decimalDollar, $fraction);

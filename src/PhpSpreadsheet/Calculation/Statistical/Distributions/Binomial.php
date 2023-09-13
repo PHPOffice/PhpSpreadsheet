@@ -83,7 +83,7 @@ class Binomial
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function range($trials, $probability, $successes, $limit = null)
+    public static function range($trials, $probability, $successes, $limit = null): array|string|float|int
     {
         if (is_array($trials) || is_array($probability) || is_array($successes) || is_array($limit)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $trials, $probability, $successes, $limit);
@@ -141,7 +141,7 @@ class Binomial
      * TODO Add support for the cumulative flag not present for NEGBINOMDIST, but introduced for NEGBINOM.DIST
      *      The cumulative default should be false to reflect the behaviour of NEGBINOMDIST
      */
-    public static function negative($failures, $successes, $probability)
+    public static function negative($failures, $successes, $probability): array|string|float
     {
         if (is_array($failures) || is_array($successes) || is_array($probability)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $failures, $successes, $probability);
@@ -187,7 +187,7 @@ class Binomial
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function inverse($trials, $probability, $alpha)
+    public static function inverse($trials, $probability, $alpha): array|string|int
     {
         if (is_array($trials) || is_array($probability) || is_array($alpha)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $trials, $probability, $alpha);
@@ -219,10 +219,7 @@ class Binomial
         return $successes;
     }
 
-    /**
-     * @return float|int
-     */
-    private static function calculateCumulativeBinomial(int $value, int $trials, float $probability)
+    private static function calculateCumulativeBinomial(int $value, int $trials, float $probability): float|int
     {
         $summer = 0;
         for ($i = 0; $i <= $value; ++$i) {

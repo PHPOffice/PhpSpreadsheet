@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -9,10 +11,8 @@ class ModeTest extends TestCase
 {
     /**
      * @dataProvider providerMODE
-     *
-     * @param mixed $expectedResult
      */
-    public function testMODE($expectedResult, string $str): void
+    public function testMODE(mixed $expectedResult, string $str): void
     {
         $workbook = new Spreadsheet();
         $sheet = $workbook->getActiveSheet();

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Style;
 
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
@@ -9,20 +11,11 @@ use PHPUnit\Framework\TestCase;
 
 class NumberFormatTest extends TestCase
 {
-    /**
-     * @var string
-     */
-    private $currencyCode;
+    private string $currencyCode;
 
-    /**
-     * @var string
-     */
-    private $decimalSeparator;
+    private string $decimalSeparator;
 
-    /**
-     * @var string
-     */
-    private $thousandsSeparator;
+    private string $thousandsSeparator;
 
     protected function setUp(): void
     {
@@ -42,10 +35,8 @@ class NumberFormatTest extends TestCase
 
     /**
      * @dataProvider providerNumberFormat
-     *
-     * @param mixed $expectedResult
      */
-    public function testFormatValueWithMask($expectedResult, ...$args): void
+    public function testFormatValueWithMask(mixed $expectedResult, mixed ...$args): void
     {
         $result = NumberFormat::toFormattedString(...$args);
         self::assertSame($expectedResult, $result);
@@ -58,11 +49,8 @@ class NumberFormatTest extends TestCase
 
     /**
      * @dataProvider providerNumberFormatFractions
-     *
-     * @param mixed $expectedResult
-     * @param mixed $args
      */
-    public function testFormatValueWithMaskFraction($expectedResult, ...$args): void
+    public function testFormatValueWithMaskFraction(mixed $expectedResult, mixed ...$args): void
     {
         $result = NumberFormat::toFormattedString(...$args);
         self::assertEquals($expectedResult, $result);
@@ -75,11 +63,8 @@ class NumberFormatTest extends TestCase
 
     /**
      * @dataProvider providerNumberFormatDates
-     *
-     * @param mixed $expectedResult
-     * @param mixed $args
      */
-    public function testFormatValueWithMaskDate($expectedResult, ...$args): void
+    public function testFormatValueWithMaskDate(mixed $expectedResult, mixed ...$args): void
     {
         $result = NumberFormat::toFormattedString(...$args);
         self::assertEquals($expectedResult, $result);

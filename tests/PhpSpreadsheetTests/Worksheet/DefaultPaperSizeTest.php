@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -8,11 +10,9 @@ use PHPUnit\Framework\TestCase;
 
 class DefaultPaperSizeTest extends TestCase
 {
-    /** @var int */
-    private $paperSize;
+    private int $paperSize;
 
-    /** @var string */
-    private $orientation;
+    private string $orientation;
 
     protected function setUp(): void
     {

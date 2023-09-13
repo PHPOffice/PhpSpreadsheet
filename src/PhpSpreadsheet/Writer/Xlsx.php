@@ -61,49 +61,49 @@ class Xlsx extends BaseWriter
      *
      * @var HashTable<Conditional>
      */
-    private $stylesConditionalHashTable;
+    private HashTable $stylesConditionalHashTable;
 
     /**
      * Private unique Style HashTable.
      *
      * @var HashTable<\PhpOffice\PhpSpreadsheet\Style\Style>
      */
-    private $styleHashTable;
+    private HashTable $styleHashTable;
 
     /**
      * Private unique Fill HashTable.
      *
      * @var HashTable<Fill>
      */
-    private $fillHashTable;
+    private HashTable $fillHashTable;
 
     /**
      * Private unique \PhpOffice\PhpSpreadsheet\Style\Font HashTable.
      *
      * @var HashTable<Font>
      */
-    private $fontHashTable;
+    private HashTable $fontHashTable;
 
     /**
      * Private unique Borders HashTable.
      *
      * @var HashTable<Borders>
      */
-    private $bordersHashTable;
+    private HashTable $bordersHashTable;
 
     /**
      * Private unique NumberFormat HashTable.
      *
      * @var HashTable<NumberFormat>
      */
-    private $numFmtHashTable;
+    private HashTable $numFmtHashTable;
 
     /**
      * Private unique \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet\BaseDrawing HashTable.
      *
      * @var HashTable<BaseDrawing>
      */
-    private $drawingHashTable;
+    private HashTable $drawingHashTable;
 
     /**
      * Private handle for zip stream.
@@ -112,75 +112,33 @@ class Xlsx extends BaseWriter
      */
     private $zip;
 
-    /**
-     * @var Chart
-     */
-    private $writerPartChart;
+    private Chart $writerPartChart;
 
-    /**
-     * @var Comments
-     */
-    private $writerPartComments;
+    private Comments $writerPartComments;
 
-    /**
-     * @var ContentTypes
-     */
-    private $writerPartContentTypes;
+    private ContentTypes $writerPartContentTypes;
 
-    /**
-     * @var DocProps
-     */
-    private $writerPartDocProps;
+    private DocProps $writerPartDocProps;
 
-    /**
-     * @var Drawing
-     */
-    private $writerPartDrawing;
+    private Drawing $writerPartDrawing;
 
-    /**
-     * @var Rels
-     */
-    private $writerPartRels;
+    private Rels $writerPartRels;
 
-    /**
-     * @var RelsRibbon
-     */
-    private $writerPartRelsRibbon;
+    private RelsRibbon $writerPartRelsRibbon;
 
-    /**
-     * @var RelsVBA
-     */
-    private $writerPartRelsVBA;
+    private RelsVBA $writerPartRelsVBA;
 
-    /**
-     * @var StringTable
-     */
-    private $writerPartStringTable;
+    private StringTable $writerPartStringTable;
 
-    /**
-     * @var Style
-     */
-    private $writerPartStyle;
+    private Style $writerPartStyle;
 
-    /**
-     * @var Theme
-     */
-    private $writerPartTheme;
+    private Theme $writerPartTheme;
 
-    /**
-     * @var Table
-     */
-    private $writerPartTable;
+    private Table $writerPartTable;
 
-    /**
-     * @var Workbook
-     */
-    private $writerPartWorkbook;
+    private Workbook $writerPartWorkbook;
 
-    /**
-     * @var Worksheet
-     */
-    private $writerPartWorksheet;
+    private Worksheet $writerPartWorksheet;
 
     /**
      * Create a new Xlsx Writer.
@@ -576,7 +534,7 @@ class Xlsx extends BaseWriter
      *
      * @return $this
      */
-    public function setSpreadsheet(Spreadsheet $spreadsheet)
+    public function setSpreadsheet(Spreadsheet $spreadsheet): static
     {
         $this->spreadSheet = $spreadsheet;
 
@@ -680,7 +638,7 @@ class Xlsx extends BaseWriter
      *
      * @return $this
      */
-    public function setOffice2003Compatibility($office2003compatibility)
+    public function setOffice2003Compatibility($office2003compatibility): static
     {
         $this->office2003compatibility = $office2003compatibility;
 
@@ -705,10 +663,7 @@ class Xlsx extends BaseWriter
         }
     }
 
-    /**
-     * @return mixed
-     */
-    private function processDrawing(WorksheetDrawing $drawing)
+    private function processDrawing(WorksheetDrawing $drawing): string|null|false
     {
         $data = null;
         $filename = $drawing->getPath();

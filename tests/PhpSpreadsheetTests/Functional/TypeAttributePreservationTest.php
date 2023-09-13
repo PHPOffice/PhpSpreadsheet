@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Functional;
 
 use PhpOffice\PhpSpreadsheet\Reader\Ods as ReaderOds;
@@ -31,10 +33,8 @@ class TypeAttributePreservationTest extends AbstractFunctional
      * Ensure saved spreadsheets maintain the correct data type.
      *
      * @dataProvider providerFormulae
-     *
-     * @param string $format
      */
-    public function testFormulae($format, array $values): void
+    public function testFormulae(string $format, array $values): void
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
@@ -65,10 +65,8 @@ class TypeAttributePreservationTest extends AbstractFunctional
      * Ensure saved spreadsheets maintain the correct data type.
      *
      * @dataProvider providerFormulae
-     *
-     * @param string $format
      */
-    public function testFormulaeNoPrecalc($format, array $values): void
+    public function testFormulaeNoPrecalc(string $format, array $values): void
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();

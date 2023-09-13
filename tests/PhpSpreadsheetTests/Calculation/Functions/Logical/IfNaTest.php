@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Logical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,10 +10,8 @@ class IfNaTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerIFNA
-     *
-     * @param mixed $expectedResult
      */
-    public function testIFNA($expectedResult, ...$args): void
+    public function testIFNA(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('IFNA', $expectedResult, ...$args);
     }

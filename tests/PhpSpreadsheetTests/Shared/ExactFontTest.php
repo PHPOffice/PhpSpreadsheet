@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Shared;
 
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
@@ -36,17 +38,13 @@ class ExactFontTest extends TestCase
         ],
     ];
 
-    /** @var string */
-    private $holdDirectory;
+    private string $holdDirectory;
 
-    /** @var string */
-    private $holdAutoSizeMethod;
+    private string $holdAutoSizeMethod;
 
-    /** @var string */
-    private $directoryName = '';
+    private string $directoryName = '';
 
-    /** @var string */
-    private $incompleteMessage = '';
+    private string $incompleteMessage = '';
 
     private const KNOWN_MD5 = [
         '6a15e0a7c0367ba77a959ea27ebf11cf',
@@ -54,8 +52,7 @@ class ExactFontTest extends TestCase
         'be189a7e2711cdf2a7f6275c60cbc7e2',
     ];
 
-    /** @var null|float|int */
-    private $paddingAmountExact;
+    private float|int|null $paddingAmountExact;
 
     protected function setUp(): void
     {

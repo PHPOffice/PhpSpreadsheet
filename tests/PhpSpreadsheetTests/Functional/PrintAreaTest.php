@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Functional;
 
 use PhpOffice\PhpSpreadsheet\Reader\BaseReader;
@@ -17,10 +19,8 @@ class PrintAreaTest extends AbstractFunctional
 
     /**
      * @dataProvider providerFormats
-     *
-     * @param string $format
      */
-    public function testPageSetup($format): void
+    public function testPageSetup(string $format): void
     {
         // Create new workbook with 6 sheets and different print areas
         $spreadsheet = new Spreadsheet();

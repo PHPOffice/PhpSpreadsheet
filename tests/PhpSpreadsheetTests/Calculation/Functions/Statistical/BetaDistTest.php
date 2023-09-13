@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,10 +10,8 @@ class BetaDistTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerBETADIST
-     *
-     * @param mixed $expectedResult
      */
-    public function testBETADIST($expectedResult, ...$args): void
+    public function testBETADIST(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCaseReference('BETADIST', $expectedResult, ...$args);
     }

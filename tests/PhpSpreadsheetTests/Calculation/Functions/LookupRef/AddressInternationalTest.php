@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
@@ -7,8 +9,7 @@ use PhpOffice\PhpSpreadsheet\Settings;
 
 class AddressInternationalTest extends AllSetupTeardown
 {
-    /** @var string */
-    private $locale;
+    private string $locale;
 
     protected function setUp(): void
     {

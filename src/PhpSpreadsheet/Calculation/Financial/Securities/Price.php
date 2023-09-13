@@ -46,7 +46,7 @@ class Price
         $redemption,
         $frequency,
         $basis = FinancialConstants::BASIS_DAYS_PER_YEAR_NASD
-    ) {
+    ): string|float {
         $settlement = Functions::flattenSingleValue($settlement);
         $maturity = Functions::flattenSingleValue($maturity);
         $rate = Functions::flattenSingleValue($rate);

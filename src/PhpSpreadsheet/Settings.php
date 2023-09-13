@@ -53,7 +53,7 @@ class Settings
      *
      * @return bool Success or failure
      */
-    public static function setLocale(string $locale)
+    public static function setLocale(string $locale): bool
     {
         return Calculation::getInstance()->setLocale($locale);
     }
@@ -91,7 +91,7 @@ class Settings
 
     public static function htmlEntityFlags(): int
     {
-        return \ENT_COMPAT;
+        return ENT_COMPAT;
     }
 
     /**
@@ -174,9 +174,7 @@ class Settings
 
     public static function useSimpleCacheVersion3(): bool
     {
-        return
-            PHP_MAJOR_VERSION === 8 &&
-            (new ReflectionClass(CacheInterface::class))->getMethod('get')->getReturnType() !== null;
+        return (new ReflectionClass(CacheInterface::class))->getMethod('get')->getReturnType() !== null;
     }
 
     /**

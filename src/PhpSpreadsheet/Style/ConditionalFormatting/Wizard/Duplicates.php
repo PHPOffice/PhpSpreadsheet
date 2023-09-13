@@ -16,10 +16,7 @@ class Duplicates extends WizardAbstract implements WizardInterface
         'unique' => true,
     ];
 
-    /**
-     * @var bool
-     */
-    protected $inverse;
+    protected bool $inverse;
 
     public function __construct(string $cellRange, bool $inverse = false)
     {

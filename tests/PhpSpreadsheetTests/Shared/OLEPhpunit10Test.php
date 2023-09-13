@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Shared;
 
 use PhpOffice\PhpSpreadsheet\Shared\OLE;
@@ -14,8 +16,7 @@ use PHPUnit\Framework\TestCase;
  */
 class OLEPhpunit10Test extends TestCase
 {
-    /** @var string */
-    private static $errorString;
+    private static string $errorString;
 
     protected function setUp(): void
     {

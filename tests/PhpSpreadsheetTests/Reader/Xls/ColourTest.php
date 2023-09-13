@@ -1,17 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xls;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xls;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
 class ColourTest extends AbstractFunctional
 {
-    /**
-     * @var Spreadsheet
-     */
-    private $spreadsheet;
+    private \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet;
 
     protected function setup(): void
     {

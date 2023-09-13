@@ -10,14 +10,11 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class NamedExpressions
 {
-    /** @var XMLWriter */
-    private $objWriter;
+    private XMLWriter $objWriter;
 
-    /** @var Spreadsheet */
-    private $spreadsheet;
+    private Spreadsheet $spreadsheet;
 
-    /** @var Formula */
-    private $formulaConvertor;
+    private Formula $formulaConvertor;
 
     public function __construct(XMLWriter $objWriter, Spreadsheet $spreadsheet, Formula $formulaConvertor)
     {

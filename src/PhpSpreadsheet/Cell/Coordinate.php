@@ -29,7 +29,7 @@ abstract class Coordinate
      *
      * @return array{0: string, 1: string} Array containing column and row (indexes 0 and 1)
      */
-    public static function coordinateFromString($cellAddress): array
+    public static function coordinateFromString(string $cellAddress): array
     {
         if (preg_match(self::A1_COORDINATE_REGEX, $cellAddress, $matches)) {
             return [$matches['col'], $matches['row']];
@@ -68,7 +68,7 @@ abstract class Coordinate
      *
      * @return bool Whether the coordinate represents a range of cells
      */
-    public static function coordinateIsRange($cellAddress)
+    public static function coordinateIsRange($cellAddress): bool
     {
         return (strpos($cellAddress, ':') !== false) || (strpos($cellAddress, ',') !== false);
     }
@@ -111,7 +111,7 @@ abstract class Coordinate
      *
      * @return string Absolute coordinate        e.g. '$A$1'
      */
-    public static function absoluteCoordinate($cellAddress)
+    public static function absoluteCoordinate(string $cellAddress)
     {
         if (self::coordinateIsRange($cellAddress)) {
             throw new Exception('Cell coordinate string can not be a range of cells');
@@ -124,7 +124,7 @@ abstract class Coordinate
         }
 
         // Create absolute coordinate
-        [$column, $row] = self::coordinateFromString($cellAddress);
+        [$column, $row] = self::coordinateFromString($cellAddress); // @phpstan-ignore-line
         $column = ltrim($column, '$');
         $row = ltrim($row, '$');
 
@@ -233,7 +233,7 @@ abstract class Coordinate
      *
      * @return array Range dimension (width, height)
      */
-    public static function rangeDimension($range)
+    public static function rangeDimension(string $range)
     {
         // Calculate range outer borders
         [$rangeStart, $rangeEnd] = self::rangeBoundaries($range);
@@ -249,7 +249,7 @@ abstract class Coordinate
      * @return array Range coordinates [Start Cell, End Cell]
      *                    where Start Cell and End Cell are arrays [Column ID, Row Number]
      */
-    public static function getRangeBoundaries($range)
+    public static function getRangeBoundaries(string $range)
     {
         [$rangeA, $rangeB] = self::rangeBoundaries($range);
 
@@ -266,7 +266,7 @@ abstract class Coordinate
      *
      * @return int Column index (A = 1)
      */
-    public static function columnIndexFromString($columnAddress)
+    public static function columnIndexFromString(?string $columnAddress): int
     {
         //    Using a lookup cache adds a slight memory overhead, but boosts speed
         //    caching using a static within the method is faster than a class static,
@@ -356,14 +356,14 @@ abstract class Coordinate
 
         [$worksheet, $cellRange] = Worksheet::extractSheetTitle($cellRange, true);
         $quoted = '';
-        if ($worksheet > '') {
+        if ($worksheet) {
             $quoted = Worksheet::nameRequiresQuotes($worksheet) ? "'" : '';
             if (substr($worksheet, 0, 1) === "'" && substr($worksheet, -1, 1) === "'") {
                 $worksheet = substr($worksheet, 1, -1);
             }
             $worksheet = str_replace("'", "''", $worksheet);
         }
-        [$ranges, $operators] = self::getCellBlocksFromRangeString($cellRange);
+        [$ranges, $operators] = self::getCellBlocksFromRangeString($cellRange); // @phpstan-ignore-line
 
         $cells = [];
         foreach ($ranges as $range) {
@@ -594,7 +594,7 @@ abstract class Coordinate
      * @param int $currentRow
      * @param int $endRow
      */
-    private static function validateRange($cellBlock, $startColumnIndex, $endColumnIndex, $currentRow, $endRow): void
+    private static function validateRange(string $cellBlock, $startColumnIndex, $endColumnIndex, $currentRow, $endRow): void
     {
         if ($startColumnIndex >= $endColumnIndex || $currentRow > $endRow) {
             throw new Exception('Invalid range: "' . $cellBlock . '"');

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,10 +10,8 @@ class GaussTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerGAUSS
-     *
-     * @param mixed $expectedResult
      */
-    public function testGAUSS($expectedResult, ...$args): void
+    public function testGAUSS(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('GAUSS', $expectedResult, ...$args);
     }

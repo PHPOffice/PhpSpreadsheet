@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Database\DVar;
@@ -9,13 +11,8 @@ class DVarTest extends SetupTeardownDatabases
 {
     /**
      * @dataProvider providerDVar
-     *
-     * @param mixed $expectedResult
-     * @param mixed $database
-     * @param mixed $field
-     * @param mixed $criteria
      */
-    public function testDirectCallToDVar($expectedResult, $database, $field, $criteria): void
+    public function testDirectCallToDVar(float|string $expectedResult, array $database, ?string $field, array $criteria): void
     {
         $result = DVar::evaluate($database, $field, $criteria);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
@@ -23,13 +20,8 @@ class DVarTest extends SetupTeardownDatabases
 
     /**
      * @dataProvider providerDVar
-     *
-     * @param mixed $expectedResult
-     * @param mixed $database
-     * @param mixed $field
-     * @param mixed $criteria
      */
-    public function testDVarAsWorksheetFormula($expectedResult, $database, $field, $criteria): void
+    public function testDVarAsWorksheetFormula(float|string $expectedResult, array $database, ?string $field, array $criteria): void
     {
         $this->prepareWorksheetWithFormula('DVAR', $database, $field, $criteria);
 

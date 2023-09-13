@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -12,10 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 class Dec2BinTest extends TestCase
 {
-    /**
-     * @var string
-     */
-    private $compatibilityMode;
+    private string $compatibilityMode;
 
     protected function setUp(): void
     {
@@ -29,10 +28,8 @@ class Dec2BinTest extends TestCase
 
     /**
      * @dataProvider providerDEC2BIN
-     *
-     * @param mixed $expectedResult
      */
-    public function testDirectCallToDEC2BIN($expectedResult, ...$args): void
+    public function testDirectCallToDEC2BIN(mixed $expectedResult, mixed ...$args): void
     {
         /** @scrutinizer ignore-call */
         $result = ConvertDecimal::toBinary(...$args);
@@ -46,10 +43,8 @@ class Dec2BinTest extends TestCase
 
     /**
      * @dataProvider providerDEC2BIN
-     *
-     * @param mixed $expectedResult
      */
-    public function testDEC2BINAsFormula($expectedResult, ...$args): void
+    public function testDEC2BINAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -62,10 +57,8 @@ class Dec2BinTest extends TestCase
 
     /**
      * @dataProvider providerDEC2BIN
-     *
-     * @param mixed $expectedResult
      */
-    public function testDEC2BINInWorksheet($expectedResult, ...$args): void
+    public function testDEC2BINInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -90,7 +83,7 @@ class Dec2BinTest extends TestCase
     /**
      * @dataProvider providerUnhappyDEC2BIN
      */
-    public function testDEC2BINUnhappyPath(string $expectedException, ...$args): void
+    public function testDEC2BINUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -117,10 +110,8 @@ class Dec2BinTest extends TestCase
 
     /**
      * @dataProvider providerDEC2BINOds
-     *
-     * @param mixed $expectedResult
      */
-    public function testDEC2BINOds($expectedResult, ...$args): void
+    public function testDEC2BINOds(mixed $expectedResult, mixed ...$args): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
 
