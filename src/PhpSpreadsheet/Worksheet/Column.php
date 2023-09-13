@@ -28,7 +28,7 @@ class Column
      */
     public function __destruct()
     {
-        $this->worksheet = new Worksheet();
+        unset($this->worksheet);
     }
 
     /**
