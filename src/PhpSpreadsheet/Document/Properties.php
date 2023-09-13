@@ -393,10 +393,7 @@ class Properties
         return $this->customProperties[$propertyName]['type'] ?? null;
     }
 
-    /**
-     * @param mixed $propertyValue
-     */
-    private function identifyPropertyType($propertyValue): string
+    private function identifyPropertyType(mixed $propertyValue): string
     {
         if (is_float($propertyValue)) {
             return self::PROPERTY_TYPE_FLOAT;
@@ -414,7 +411,6 @@ class Properties
     /**
      * Set a Custom Property.
      *
-     * @param mixed $propertyValue
      * @param string $propertyType
      *   'i' : Integer
      *   'f' : Floating Point
@@ -424,7 +420,7 @@ class Properties
      *
      * @return $this
      */
-    public function setCustomProperty(string $propertyName, $propertyValue = '', $propertyType = null): self
+    public function setCustomProperty(string $propertyName, mixed $propertyValue = '', $propertyType = null): self
     {
         if (($propertyType === null) || (!in_array($propertyType, self::VALID_PROPERTY_TYPE_LIST))) {
             $propertyType = $this->identifyPropertyType($propertyValue);
@@ -477,11 +473,9 @@ class Properties
     /**
      * Convert property to form desired by Excel.
      *
-     * @param mixed $propertyValue
-     *
      * @return mixed
      */
-    public static function convertProperty($propertyValue, string $propertyType)
+    public static function convertProperty(mixed $propertyValue, string $propertyType)
     {
         return self::SPECIAL_TYPES[$propertyType] ?? self::convertProperty2($propertyValue, $propertyType);
     }
@@ -489,11 +483,9 @@ class Properties
     /**
      * Convert property to form desired by Excel.
      *
-     * @param mixed $propertyValue
-     *
      * @return mixed
      */
-    private static function convertProperty2($propertyValue, string $type)
+    private static function convertProperty2(mixed $propertyValue, string $type)
     {
         $propertyType = self::convertPropertyType($type);
         switch ($propertyType) {

@@ -9,8 +9,9 @@ use PhpOffice\PhpSpreadsheet\Shared\Drawing as SharedDrawing;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Color;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
+use Stringable;
 
-class Comment implements IComparable
+class Comment implements IComparable, Stringable
 {
     /**
      * Author.
@@ -257,17 +258,17 @@ class Comment implements IComparable
     public function getHashCode(): string
     {
         return md5(
-            $this->author .
-            $this->text->getHashCode() .
-            $this->width .
-            $this->height .
-            $this->marginLeft .
-            $this->marginTop .
-            ($this->visible ? 1 : 0) .
-            $this->fillColor->getHashCode() .
-            $this->alignment .
-            ($this->hasBackgroundImage() ? $this->backgroundImage->getHashCode() : '') .
-            __CLASS__
+            $this->author
+            . $this->text->getHashCode()
+            . $this->width
+            . $this->height
+            . $this->marginLeft
+            . $this->marginTop
+            . ($this->visible ? 1 : 0)
+            . $this->fillColor->getHashCode()
+            . $this->alignment
+            . ($this->hasBackgroundImage() ? $this->backgroundImage->getHashCode() : '')
+            . __CLASS__
         );
     }
 

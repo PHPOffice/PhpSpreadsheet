@@ -63,10 +63,8 @@ class Escher
 
     /**
      * Create a new Escher instance.
-     *
-     * @param mixed $object
      */
-    public function __construct($object)
+    public function __construct(mixed $object)
     {
         $this->object = $object;
     }

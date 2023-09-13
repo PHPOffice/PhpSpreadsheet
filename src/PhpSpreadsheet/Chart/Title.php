@@ -29,7 +29,6 @@ class Title
      * Create a new Title.
      *
      * @param array|RichText|string $caption
-     * @param ?Layout $layout
      * @param bool $overlay
      */
     public function __construct($caption = '', ?Layout $layout = null, $overlay = false)

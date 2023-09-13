@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
 class Row
 {
-    private ?Worksheet $worksheet;
+    private Worksheet $worksheet;
 
     /**
      * Row index.
@@ -30,7 +30,7 @@ class Row
      */
     public function __destruct()
     {
-        $this->worksheet = null;
+        unset($this->worksheet);
     }
 
     /**
@@ -47,9 +47,9 @@ class Row
      * @param string $startColumn The column address at which to start iterating
      * @param string $endColumn Optionally, the column address at which to stop iterating
      */
-    public function getCellIterator($startColumn = 'A', $endColumn = null): RowCellIterator
+    public function getCellIterator($startColumn = 'A', $endColumn = null, bool $iterateOnlyExistingCells = false): RowCellIterator
     {
-        return new RowCellIterator($this->getWorksheet(), $this->rowIndex, $startColumn, $endColumn);
+        return new RowCellIterator($this->worksheet, $this->rowIndex, $startColumn, $endColumn, $iterateOnlyExistingCells);
     }
 
     /**
@@ -58,9 +58,9 @@ class Row
      * @param string $startColumn The column address at which to start iterating
      * @param string $endColumn Optionally, the column address at which to stop iterating
      */
-    public function getColumnIterator($startColumn = 'A', $endColumn = null): RowCellIterator
+    public function getColumnIterator($startColumn = 'A', $endColumn = null, bool $iterateOnlyExistingCells = false): RowCellIterator
     {
-        return $this->getCellIterator($startColumn, $endColumn);
+        return $this->getCellIterator($startColumn, $endColumn, $iterateOnlyExistingCells);
     }
 
     /**
@@ -110,7 +110,6 @@ class Row
      */
     public function getWorksheet(): Worksheet
     {
-        // @phpstan-ignore-next-line
         return $this->worksheet;
     }
 }

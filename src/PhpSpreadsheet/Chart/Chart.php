@@ -136,11 +136,9 @@ class Chart
      * Create a new Chart.
      * majorGridlines and minorGridlines are deprecated, moved to Axis.
      *
-     * @param mixed $name
-     * @param mixed $plotVisibleOnly
      * @param string $displayBlanksAs
      */
-    public function __construct($name, ?Title $title = null, ?Legend $legend = null, ?PlotArea $plotArea = null, $plotVisibleOnly = true, $displayBlanksAs = DataSeries::EMPTY_AS_GAP, ?Title $xAxisLabel = null, ?Title $yAxisLabel = null, ?Axis $xAxis = null, ?Axis $yAxis = null, ?GridLines $majorGridlines = null, ?GridLines $minorGridlines = null)
+    public function __construct(mixed $name, ?Title $title = null, ?Legend $legend = null, ?PlotArea $plotArea = null, mixed $plotVisibleOnly = true, $displayBlanksAs = DataSeries::EMPTY_AS_GAP, ?Title $xAxisLabel = null, ?Title $yAxisLabel = null, ?Axis $xAxis = null, ?Axis $yAxis = null, ?GridLines $majorGridlines = null, ?GridLines $minorGridlines = null)
     {
         $this->name = $name;
         $this->title = $title;

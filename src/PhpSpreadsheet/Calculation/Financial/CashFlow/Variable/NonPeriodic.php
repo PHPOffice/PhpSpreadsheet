@@ -32,7 +32,7 @@ class NonPeriodic
      *
      * @return float|string
      */
-    public static function rate(array $values, array $dates, $guess = self::DEFAULT_GUESS)
+    public static function rate(array $values, array $dates, mixed $guess = self::DEFAULT_GUESS)
     {
         $rslt = self::xirrPart1($values, $dates);
         if ($rslt !== '') {
@@ -131,11 +131,7 @@ class NonPeriodic
         return $neg && $pos;
     }
 
-    /**
-     * @param mixed $values
-     * @param mixed $dates
-     */
-    private static function xirrPart1(&$values, &$dates): string
+    private static function xirrPart1(mixed &$values, mixed &$dates): string
     {
         $values = Functions::flattenArray($values);
         $dates = Functions::flattenArray($dates);
@@ -248,13 +244,9 @@ class NonPeriodic
     }
 
     /**
-     * @param mixed $rate
-     * @param mixed $values
-     * @param mixed $dates
-     *
      * @return float|string
      */
-    private static function xnpvOrdered($rate, $values, $dates, bool $ordered = true, bool $capAtNegative1 = false)
+    private static function xnpvOrdered(mixed $rate, mixed $values, mixed $dates, bool $ordered = true, bool $capAtNegative1 = false)
     {
         $rate = Functions::flattenSingleValue($rate);
         $values = Functions::flattenArray($values);
@@ -300,10 +292,7 @@ class NonPeriodic
         return is_finite($xnpv) ? $xnpv : ExcelError::VALUE();
     }
 
-    /**
-     * @param mixed $rate
-     */
-    private static function validateXnpv($rate, array $values, array $dates): void
+    private static function validateXnpv(mixed $rate, array $values, array $dates): void
     {
         if (!is_numeric($rate)) {
             throw new Exception(ExcelError::VALUE());

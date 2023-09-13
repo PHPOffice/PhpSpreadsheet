@@ -22,8 +22,8 @@ $config
         'braces' => true,
         'cast_spaces' => true,
         'class_attributes_separation' => ['elements' => ['method' => 'one', 'property' => 'one']], // const are often grouped with other related const
-        'class_definition' => false,
-        'class_keyword_remove' => false, // ::class keyword gives us better support in IDE
+        'class_definition' => false, // phpcs disagree
+        'class_keyword_remove' => false, // Deprecated, and ::class keyword gives us better support in IDE
         'combine_consecutive_issets' => true,
         'combine_consecutive_unsets' => true,
         'combine_nested_dirname' => true,
@@ -40,15 +40,17 @@ $config
         'doctrine_annotation_indentation' => true,
         'doctrine_annotation_spaces' => true,
         'elseif' => true,
+        'empty_loop_body' => true,
+        'empty_loop_condition' => true,
         'encoding' => true,
         'ereg_to_preg' => true,
+        'error_suppression' => false, // it breaks \PhpOffice\PhpSpreadsheet\Helper\Handler
         'escape_implicit_backslashes' => true,
         'explicit_indirect_variable' => false, // I feel it makes the code actually harder to read
         'explicit_string_variable' => false, // I feel it makes the code actually harder to read
         'final_class' => false, // We need non-final classes
         'final_internal_class' => true,
         'final_public_method_for_abstract_class' => false, // We need non-final methods
-        'self_static_accessor' => true,
         'fopen_flag_order' => true,
         'fopen_flags' => true,
         'full_opening_tag' => true,
@@ -57,7 +59,9 @@ $config
         'function_to_constant' => true,
         'function_typehint_space' => true,
         'general_phpdoc_annotation_remove' => ['annotations' => ['access', 'category', 'copyright']],
+        'general_phpdoc_tag_rename' => true,
         'global_namespace_import' => true,
+        'group_import' => false, // I feel it makes the code actually harder to read
         'header_comment' => false, // We don't use common header in all our files
         'heredoc_indentation' => true,
         'heredoc_to_nowdoc' => false, // Not sure about this one
@@ -65,7 +69,9 @@ $config
         'include' => true,
         'increment_style' => true,
         'indentation_type' => true,
+        'integer_literal_case' => true,
         'is_null' => true,
+        'lambda_not_used_import' => true,
         'line_ending' => true,
         'linebreak_after_opening_tag' => true,
         'list_syntax' => ['syntax' => 'short'],
@@ -78,6 +84,7 @@ $config
         'mb_str_functions' => false, // No, too dangerous to change that
         'method_argument_space' => true,
         'method_chaining_indentation' => true,
+        'modernize_strpos' => true,
         'modernize_types_casting' => true,
         'multiline_comment_opening_closing' => true,
         'multiline_whitespace_before_semicolons' => true,
@@ -87,6 +94,7 @@ $config
         'native_function_type_declaration_casing' => true,
         'new_with_braces' => true,
         'no_alias_functions' => true,
+        'no_alias_language_construct_call' => true,
         'no_alternative_syntax' => true,
         'no_binary_string' => true,
         'no_blank_lines_after_class_opening' => true,
@@ -108,6 +116,7 @@ $config
         'no_short_bool_cast' => true,
         'echo_tag_syntax' => ['format' => 'long'],
         'no_singleline_whitespace_before_semicolons' => true,
+        'no_space_around_double_colon' => true,
         'no_spaces_after_function_name' => true,
         'no_spaces_around_offset' => true,
         'no_spaces_inside_parenthesis' => true,
@@ -117,15 +126,17 @@ $config
         'no_trailing_comma_in_singleline_array' => true,
         'no_trailing_whitespace' => true,
         'no_trailing_whitespace_in_comment' => true,
+        'no_trailing_whitespace_in_string' => false, // Too dangerous
         'no_unneeded_control_parentheses' => true,
         'no_unneeded_curly_braces' => true,
         'no_unneeded_final_method' => true,
         'no_unreachable_default_argument_value' => true,
         'no_unset_cast' => true,
-        'no_unset_on_property' => true,
+        'no_unset_on_property' => false,
         'no_unused_imports' => true,
         'no_useless_else' => true,
         'no_useless_return' => true,
+        'no_useless_sprintf' => true,
         'no_whitespace_before_comma_in_array' => true,
         'no_whitespace_in_blank_line' => true,
         'non_printable_character' => true,
@@ -135,9 +146,11 @@ $config
         'nullable_type_declaration_for_default_null_value' => true,
         'object_operator_without_whitespace' => true,
         'octal_notation' => true,
+        'operator_linebreak' => true,
         'ordered_class_elements' => false, // We prefer to keep some freedom
         'ordered_imports' => true,
         'ordered_interfaces' => true,
+        'ordered_traits' => true,
         'php_unit_construct' => true,
         'php_unit_dedicate_assert' => true,
         'php_unit_dedicate_assert_internal_type' => true,
@@ -173,9 +186,12 @@ $config
         'phpdoc_separation' => true,
         'phpdoc_single_line_var_spacing' => true,
         'phpdoc_summary' => true,
+        'phpdoc_tag_casing' => true,
+        'phpdoc_tag_type' => true,
         'phpdoc_to_comment' => false, // interferes with annotations
         'phpdoc_to_param_type' => false, // Because experimental, but interesting for one shot use
-        'phpdoc_to_return_type' => false, // idem
+        'phpdoc_to_property_type' => false, // Because experimental, but interesting for one shot use
+        'phpdoc_to_return_type' => false, // Because experimental, but interesting for one shot use
         'phpdoc_trim' => true,
         'phpdoc_trim_consecutive_blank_line_separation' => true,
         'phpdoc_types' => true,
@@ -184,8 +200,7 @@ $config
         'phpdoc_var_without_name' => true,
         'pow_to_exponentiation' => true,
         'protected_to_private' => true,
-        //'psr0' => true,
-        //'psr4' => true,
+        'psr_autoloading' => true,
         'random_api_migration' => true,
         'return_assignment' => false, // Sometimes useful for clarity or debug
         'return_type_declaration' => true,
@@ -195,6 +210,7 @@ $config
         'set_type_to_cast' => true,
         'short_scalar_cast' => true,
         'simple_to_complex_string_variable' => false, // Would differ from TypeScript without obvious advantages
+        'simplified_if_return' => false, // Even if technically correct we prefer to be explicit
         'simplified_null_return' => false, // Even if technically correct we prefer to be explicit
         'single_blank_line_at_eof' => true,
         'single_blank_line_before_namespace' => true,
@@ -204,6 +220,7 @@ $config
         'single_line_comment_style' => true,
         'single_line_throw' => false, // I don't see any reason for having a special case for Exception
         'single_quote' => true,
+        'single_space_after_construct' => true,
         'single_trait_insert_per_statement' => true,
         'space_after_semicolon' => true,
         'standardize_increment' => true,
@@ -211,14 +228,19 @@ $config
         'static_lambda' => false, // Risky if we can't guarantee nobody use `bindTo()`
         'strict_comparison' => false, // No, too dangerous to change that
         'strict_param' => false, // No, too dangerous to change that
+        'string_length_to_empty' => true,
         'string_line_ending' => true,
         'switch_case_semicolon_to_colon' => true,
         'switch_case_space' => true,
+        'switch_continue_to_break' => true,
         'ternary_operator_spaces' => true,
+        'ternary_to_elvis_operator' => true,
         'ternary_to_null_coalescing' => true,
         'trailing_comma_in_multiline' => true,
         'trim_array_spaces' => true,
+        'types_spaces' => true,
         'unary_operator_spaces' => true,
+        'use_arrow_functions' => true,
         'visibility_required' => ['elements' => ['property', 'method']], // not const
         'void_return' => true,
         'whitespace_after_comma_in_array' => true,

@@ -349,11 +349,7 @@ abstract class BestFit
     /** @var mixed */
     private static $scrutinizerZeroPointZero = 0.0;
 
-    /**
-     * @param mixed $x
-     * @param mixed $y
-     */
-    private static function scrutinizerLooseCompare($x, $y): bool
+    private static function scrutinizerLooseCompare(mixed $x, mixed $y): bool
     {
         return $x == $y;
     }
@@ -428,9 +424,7 @@ abstract class BestFit
     {
         return array_sum(
             array_map(
-                function ($value): float|int {
-                    return $value ** 2;
-                },
+                fn ($value): float|int => $value ** 2,
                 $values
             )
         );

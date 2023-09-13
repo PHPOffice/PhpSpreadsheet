@@ -22,7 +22,7 @@ class Tangent
      *         If an array of numbers is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function tan($angle)
+    public static function tan(mixed $angle)
     {
         if (is_array($angle)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $angle);
@@ -48,7 +48,7 @@ class Tangent
      *         If an array of numbers is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function tanh($angle): array|string|float
+    public static function tanh(mixed $angle): array|string|float
     {
         if (is_array($angle)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $angle);
@@ -139,7 +139,7 @@ class Tangent
      *         If an array of numbers is passed as one of the arguments, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function atan2($xCoordinate, $yCoordinate): array|string|float
+    public static function atan2(mixed $xCoordinate, mixed $yCoordinate): array|string|float
     {
         if (is_array($xCoordinate) || is_array($yCoordinate)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $xCoordinate, $yCoordinate);

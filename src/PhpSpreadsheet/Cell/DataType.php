@@ -76,7 +76,7 @@ class DataType
      *
      * @return string Sanitized value
      */
-    public static function checkErrorCode($value): string
+    public static function checkErrorCode(mixed $value): string
     {
         $value = (string) $value;
 

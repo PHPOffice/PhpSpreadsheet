@@ -16,7 +16,7 @@ class Formula
      *
      * @return string
      */
-    public static function text($cellReference = '', ?Cell $cell = null)
+    public static function text(mixed $cellReference = '', ?Cell $cell = null)
     {
         if ($cell === null) {
             return ExcelError::REF();
@@ -31,9 +31,9 @@ class Formula
             : $cell->getWorksheet();
 
         if (
-            $worksheet === null ||
-            !$worksheet->cellExists($cellReference) ||
-            !$worksheet->getCell($cellReference)->isFormula()
+            $worksheet === null
+            || !$worksheet->cellExists($cellReference)
+            || !$worksheet->getCell($cellReference)->isFormula()
         ) {
             return ExcelError::NA();
         }

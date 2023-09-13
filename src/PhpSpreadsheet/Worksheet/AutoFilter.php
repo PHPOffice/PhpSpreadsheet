@@ -12,8 +12,9 @@ use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule;
+use Stringable;
 
-class AutoFilter
+class AutoFilter implements Stringable
 {
     /**
      * Autofilter Worksheet.
@@ -317,12 +318,11 @@ class AutoFilter
     /**
      * Test if cell value is in the defined set of values.
      *
-     * @param mixed $cellValue
      * @param mixed[] $dataSet
      *
      * @return bool
      */
-    protected static function filterTestInSimpleDataSet($cellValue, array $dataSet)
+    protected static function filterTestInSimpleDataSet(mixed $cellValue, array $dataSet)
     {
         $dataSetValues = $dataSet['filterValues'];
         $blanks = $dataSet['blanks'];
@@ -336,12 +336,11 @@ class AutoFilter
     /**
      * Test if cell value is in the defined set of Excel date values.
      *
-     * @param mixed $cellValue
      * @param mixed[] $dataSet
      *
      * @return bool
      */
-    protected static function filterTestInDateGroupSet($cellValue, array $dataSet)
+    protected static function filterTestInDateGroupSet(mixed $cellValue, array $dataSet)
     {
         $dateSet = $dataSet['filterValues'];
         $blanks = $dataSet['blanks'];
@@ -368,7 +367,7 @@ class AutoFilter
             }
             foreach ($dateSet as $dateValue) {
                 //    Use of substr to extract value at the appropriate group level
-                if (substr($dtVal, 0, strlen($dateValue)) == $dateValue) {
+                if (str_starts_with($dtVal, $dateValue)) {
                     return true;
                 }
             }
@@ -380,10 +379,9 @@ class AutoFilter
     /**
      * Test if cell value is within a set of values defined by a ruleset.
      *
-     * @param mixed $cellValue
      * @param mixed[] $ruleSet
      */
-    protected static function filterTestInCustomDataSet($cellValue, $ruleSet): bool
+    protected static function filterTestInCustomDataSet(mixed $cellValue, $ruleSet): bool
     {
         /** @var array[] */
         $dataSet = $ruleSet['filterRules'];
@@ -436,20 +434,11 @@ class AutoFilter
                         break;
                 }
             } elseif ($ruleValue == '') {
-                switch ($ruleOperator) {
-                    case Rule::AUTOFILTER_COLUMN_RULE_EQUAL:
-                        $retVal = (($cellValue == '') || ($cellValue === null));
-
-                        break;
-                    case Rule::AUTOFILTER_COLUMN_RULE_NOTEQUAL:
-                        $retVal = (($cellValue != '') && ($cellValue !== null));
-
-                        break;
-                    default:
-                        $retVal = true;
-
-                        break;
-                }
+                $retVal = match ($ruleOperator) {
+                    Rule::AUTOFILTER_COLUMN_RULE_EQUAL => ($cellValue == '') || ($cellValue === null),
+                    Rule::AUTOFILTER_COLUMN_RULE_NOTEQUAL => ($cellValue != '') && ($cellValue !== null),
+                    default => true,
+                };
             } else {
                 //    String values are always tested for equality, factoring in for wildcards (hence a regexp test)
                 switch ($ruleOperator) {
@@ -503,10 +492,9 @@ class AutoFilter
     /**
      * Test if cell date value is matches a set of values defined by a set of months.
      *
-     * @param mixed $cellValue
      * @param mixed[] $monthSet
      */
-    protected static function filterTestInPeriodDateSet($cellValue, $monthSet): bool
+    protected static function filterTestInPeriodDateSet(mixed $cellValue, $monthSet): bool
     {
         //    Blank cells are always ignored, so return a FALSE
         if (($cellValue == '') || ($cellValue === null)) {
@@ -777,11 +765,10 @@ class AutoFilter
      * Apply the AutoFilter rules to the AutoFilter Range.
      *
      * @param ?string $ruleType
-     * @param mixed $ruleValue
      *
      * @return mixed
      */
-    private function calculateTopTenValue(string $columnID, int $startRow, int $endRow, $ruleType, $ruleValue)
+    private function calculateTopTenValue(string $columnID, int $startRow, int $endRow, $ruleType, mixed $ruleValue)
     {
         $range = $columnID . $startRow . ':' . $columnID . $endRow;
         $retVal = null;
@@ -855,38 +842,38 @@ class AutoFilter
                             }
                             $date = $time = '';
                             if (
-                                (isset($ruleValue[Rule::AUTOFILTER_RULETYPE_DATEGROUP_YEAR])) &&
-                                ($ruleValue[Rule::AUTOFILTER_RULETYPE_DATEGROUP_YEAR] !== '')
+                                (isset($ruleValue[Rule::AUTOFILTER_RULETYPE_DATEGROUP_YEAR]))
+                                && ($ruleValue[Rule::AUTOFILTER_RULETYPE_DATEGROUP_YEAR] !== '')
                             ) {
                                 $date .= sprintf('%04d', $ruleValue[Rule::AUTOFILTER_RULETYPE_DATEGROUP_YEAR]);
                             }
                             if (
-                                (isset($ruleValue[Rule::AUTOFILTER_RULETYPE_DATEGROUP_MONTH])) &&
-                                ($ruleValue[Rule::AUTOFILTER_RULETYPE_DATEGROUP_MONTH] != '')
+                                (isset($ruleValue[Rule::AUTOFILTER_RULETYPE_DATEGROUP_MONTH]))
+                                && ($ruleValue[Rule::AUTOFILTER_RULETYPE_DATEGROUP_MONTH] != '')
                             ) {
                                 $date .= sprintf('%02d', $ruleValue[Rule::AUTOFILTER_RULETYPE_DATEGROUP_MONTH]);
                             }
                             if (
-                                (isset($ruleValue[Rule::AUTOFILTER_RULETYPE_DATEGROUP_DAY])) &&
-                                ($ruleValue[Rule::AUTOFILTER_RULETYPE_DATEGROUP_DAY] !== '')
+                                (isset($ruleValue[Rule::AUTOFILTER_RULETYPE_DATEGROUP_DAY]))
+                                && ($ruleValue[Rule::AUTOFILTER_RULETYPE_DATEGROUP_DAY] !== '')
                             ) {
                                 $date .= sprintf('%02d', $ruleValue[Rule::AUTOFILTER_RULETYPE_DATEGROUP_DAY]);
                             }
                             if (
-                                (isset($ruleValue[Rule::AUTOFILTER_RULETYPE_DATEGROUP_HOUR])) &&
-                                ($ruleValue[Rule::AUTOFILTER_RULETYPE_DATEGROUP_HOUR] !== '')
+                                (isset($ruleValue[Rule::AUTOFILTER_RULETYPE_DATEGROUP_HOUR]))
+                                && ($ruleValue[Rule::AUTOFILTER_RULETYPE_DATEGROUP_HOUR] !== '')
                             ) {
                                 $time .= sprintf('%02d', $ruleValue[Rule::AUTOFILTER_RULETYPE_DATEGROUP_HOUR]);
                             }
                             if (
-                                (isset($ruleValue[Rule::AUTOFILTER_RULETYPE_DATEGROUP_MINUTE])) &&
-                                ($ruleValue[Rule::AUTOFILTER_RULETYPE_DATEGROUP_MINUTE] !== '')
+                                (isset($ruleValue[Rule::AUTOFILTER_RULETYPE_DATEGROUP_MINUTE]))
+                                && ($ruleValue[Rule::AUTOFILTER_RULETYPE_DATEGROUP_MINUTE] !== '')
                             ) {
                                 $time .= sprintf('%02d', $ruleValue[Rule::AUTOFILTER_RULETYPE_DATEGROUP_MINUTE]);
                             }
                             if (
-                                (isset($ruleValue[Rule::AUTOFILTER_RULETYPE_DATEGROUP_SECOND])) &&
-                                ($ruleValue[Rule::AUTOFILTER_RULETYPE_DATEGROUP_SECOND] !== '')
+                                (isset($ruleValue[Rule::AUTOFILTER_RULETYPE_DATEGROUP_SECOND]))
+                                && ($ruleValue[Rule::AUTOFILTER_RULETYPE_DATEGROUP_SECOND] !== '')
                             ) {
                                 $time .= sprintf('%02d', $ruleValue[Rule::AUTOFILTER_RULETYPE_DATEGROUP_SECOND]);
                             }
@@ -935,8 +922,8 @@ class AutoFilter
                         //    We should only ever have one Dynamic Filter Rule anyway
                         $dynamicRuleType = $rule->getGrouping();
                         if (
-                            ($dynamicRuleType == Rule::AUTOFILTER_RULETYPE_DYNAMIC_ABOVEAVERAGE) ||
-                            ($dynamicRuleType == Rule::AUTOFILTER_RULETYPE_DYNAMIC_BELOWAVERAGE)
+                            ($dynamicRuleType == Rule::AUTOFILTER_RULETYPE_DYNAMIC_ABOVEAVERAGE)
+                            || ($dynamicRuleType == Rule::AUTOFILTER_RULETYPE_DYNAMIC_BELOWAVERAGE)
                         ) {
                             //    Number (Average) based
                             //    Calculate the average
@@ -1033,9 +1020,9 @@ class AutoFilter
             foreach ($columnFilterTests as $columnID => $columnFilterTest) {
                 $cellValue = $this->workSheet->getCell($columnID . $row)->getCalculatedValue();
                 //    Execute the filter test
-                $result = // $result && // phpstan says $result is always true here
+                $result // $result && // phpstan says $result is always true here
                     // @phpstan-ignore-next-line
-                    call_user_func_array([self::class, $columnFilterTest['method']], [$cellValue, $columnFilterTest['arguments']]);
+                    = call_user_func_array([self::class, $columnFilterTest['method']], [$cellValue, $columnFilterTest['arguments']]);
                 //    If filter test has resulted in FALSE, exit the loop straightaway rather than running any more tests
                 if (!$result) {
                     break;
@@ -1062,7 +1049,7 @@ class AutoFilter
         if ($startRow === $endRow && $this->workSheet !== null) {
             try {
                 $rowIterator = $this->workSheet->getRowIterator($startRow + 1);
-            } catch (Exception $e) {
+            } catch (Exception) {
                 // If there are no rows below $startRow
                 return $startRow;
             }

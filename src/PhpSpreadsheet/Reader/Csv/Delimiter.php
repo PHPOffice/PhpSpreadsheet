@@ -90,9 +90,7 @@ class Delimiter
 
             $meanSquareDeviations[$delimiter] = array_reduce(
                 $series,
-                function ($sum, $value) use ($median): int|float {
-                    return $sum + ($value - $median) ** 2;
-                }
+                fn ($sum, $value): int|float => $sum + ($value - $median) ** 2
             ) / count($series);
         }
 

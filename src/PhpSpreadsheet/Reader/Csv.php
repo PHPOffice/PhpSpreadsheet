@@ -428,10 +428,8 @@ class Csv extends BaseReader
 
     /**
      * Convert string true/false to boolean, and null to null-string.
-     *
-     * @param mixed $rowDatum
      */
-    private function convertBoolean(&$rowDatum, bool $preserveBooleanString): void
+    private function convertBoolean(mixed &$rowDatum, bool $preserveBooleanString): void
     {
         if (is_string($rowDatum) && !$preserveBooleanString) {
             if (strcasecmp(Calculation::getTRUE(), $rowDatum) === 0 || strcasecmp('true', $rowDatum) === 0) {
@@ -446,10 +444,8 @@ class Csv extends BaseReader
 
     /**
      * Convert numeric strings to int or float values.
-     *
-     * @param mixed $rowDatum
      */
-    private function convertFormattedNumber(&$rowDatum): string
+    private function convertFormattedNumber(mixed &$rowDatum): string
     {
         $numberFormatMask = NumberFormat::FORMAT_GENERAL;
         if ($this->castFormattedNumberToNumeric === true && is_string($rowDatum)) {
@@ -462,7 +458,7 @@ class Csv extends BaseReader
             if (is_numeric($numeric)) {
                 $decimalPos = strpos($rowDatum, StringHelper::getDecimalSeparator());
                 if ($this->preserveNumericFormatting === true) {
-                    $numberFormatMask = (strpos($rowDatum, StringHelper::getThousandsSeparator()) !== false)
+                    $numberFormatMask = (str_contains($rowDatum, StringHelper::getThousandsSeparator()))
                         ? '#,##0' : '0';
                     if ($decimalPos !== false) {
                         $decimals = strlen($rowDatum) - $decimalPos - 1;
@@ -548,7 +544,7 @@ class Csv extends BaseReader
         // Check if file exists
         try {
             $this->openFile($filename);
-        } catch (ReaderException $e) {
+        } catch (ReaderException) {
             return false;
         }
 
@@ -600,7 +596,7 @@ class Csv extends BaseReader
     private static function guessEncodingTestBom(string &$encoding, string $first4, string $compare, string $setEncoding): void
     {
         if ($encoding === '') {
-            if ($compare === substr($first4, 0, strlen($compare))) {
+            if (str_starts_with($first4, $compare)) {
                 $encoding = $setEncoding;
             }
         }

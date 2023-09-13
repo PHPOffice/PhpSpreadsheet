@@ -37,7 +37,7 @@ class ComplexOperations
 
         try {
             return (string) (new ComplexObject($complexDividend))->divideby(new ComplexObject($complexDivisor));
-        } catch (ComplexException $e) {
+        } catch (ComplexException) {
             return ExcelError::NAN();
         }
     }
@@ -67,7 +67,7 @@ class ComplexOperations
 
         try {
             return (string) (new ComplexObject($complexNumber1))->subtract(new ComplexObject($complexNumber2));
-        } catch (ComplexException $e) {
+        } catch (ComplexException) {
             return ExcelError::NAN();
         }
     }
@@ -93,7 +93,7 @@ class ComplexOperations
             foreach ($aArgs as $complex) {
                 $returnValue = $returnValue->add(new ComplexObject($complex));
             }
-        } catch (ComplexException $e) {
+        } catch (ComplexException) {
             return ExcelError::NAN();
         }
 
@@ -121,7 +121,7 @@ class ComplexOperations
             foreach ($aArgs as $complex) {
                 $returnValue = $returnValue->multiply(new ComplexObject($complex));
             }
-        } catch (ComplexException $e) {
+        } catch (ComplexException) {
             return ExcelError::NAN();
         }
 

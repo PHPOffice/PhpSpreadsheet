@@ -375,8 +375,8 @@ class ReferenceHelper
         $remove = ($numberOfColumns < 0 || $numberOfRows < 0);
 
         if (
-            $this->cellReferenceHelper === null ||
-            $this->cellReferenceHelper->refreshRequired($beforeCellAddress, $numberOfColumns, $numberOfRows)
+            $this->cellReferenceHelper === null
+            || $this->cellReferenceHelper->refreshRequired($beforeCellAddress, $numberOfColumns, $numberOfRows)
         ) {
             $this->cellReferenceHelper = new CellReferenceHelper($beforeCellAddress, $numberOfColumns, $numberOfRows);
         }
@@ -401,12 +401,8 @@ class ReferenceHelper
         // Find missing coordinates. This is important when inserting column before the last column
         $cellCollection = $worksheet->getCellCollection();
         $missingCoordinates = array_filter(
-            array_map(function ($row) use ($highestColumn): string {
-                return "{$highestColumn}{$row}";
-            }, range(1, $highestRow)),
-            function ($coordinate) use ($cellCollection): bool {
-                return $cellCollection->has($coordinate) === false;
-            }
+            array_map(fn ($row): string => "{$highestColumn}{$row}", range(1, $highestRow)),
+            fn ($coordinate): bool => $cellCollection->has($coordinate) === false
         );
 
         // Create missing cells with null values
@@ -569,8 +565,8 @@ class ReferenceHelper
         bool $onlyAbsoluteReferences = false
     ): string {
         if (
-            $this->cellReferenceHelper === null ||
-            $this->cellReferenceHelper->refreshRequired($beforeCellAddress, $numberOfColumns, $numberOfRows)
+            $this->cellReferenceHelper === null
+            || $this->cellReferenceHelper->refreshRequired($beforeCellAddress, $numberOfColumns, $numberOfRows)
         ) {
             $this->cellReferenceHelper = new CellReferenceHelper($beforeCellAddress, $numberOfColumns, $numberOfRows);
         }
@@ -853,7 +849,7 @@ class ReferenceHelper
     private function updateCellReference($cellReference = 'A1', bool $includeAbsoluteReferences = false, bool $onlyAbsoluteReferences = false)
     {
         // Is it in another worksheet? Will not have to update anything.
-        if (strpos($cellReference, '!') !== false) {
+        if (str_contains($cellReference, '!')) {
             return $cellReference;
         }
         // Is it a range or a single cell?
@@ -884,7 +880,7 @@ class ReferenceHelper
                 $cell = $sheet->getCell($coordinate);
                 if ($cell->getDataType() === DataType::TYPE_FORMULA) {
                     $formula = $cell->getValue();
-                    if (strpos($formula, $oldName) !== false) {
+                    if (str_contains($formula, $oldName)) {
                         $formula = str_replace("'" . $oldName . "'!", "'" . $newName . "'!", $formula);
                         $formula = str_replace($oldName . '!', $newName . '!', $formula);
                         $cell->setValueExplicit($formula, DataType::TYPE_FORMULA);

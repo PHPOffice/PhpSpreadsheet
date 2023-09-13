@@ -313,8 +313,8 @@ class Rule
             $operator = self::AUTOFILTER_COLUMN_RULE_EQUAL;
         }
         if (
-            (!in_array($operator, self::OPERATORS)) &&
-            (!in_array($operator, self::TOP_TEN_VALUE))
+            (!in_array($operator, self::OPERATORS))
+            && (!in_array($operator, self::TOP_TEN_VALUE))
         ) {
             throw new PhpSpreadsheetException('Invalid operator for column AutoFilter Rule.');
         }
@@ -344,10 +344,10 @@ class Rule
     {
         $this->setEvaluatedFalse();
         if (
-            ($grouping !== null) &&
-            (!in_array($grouping, self::DATE_TIME_GROUPS)) &&
-            (!in_array($grouping, self::DYNAMIC_TYPES)) &&
-            (!in_array($grouping, self::TOP_TEN_TYPE))
+            ($grouping !== null)
+            && (!in_array($grouping, self::DATE_TIME_GROUPS))
+            && (!in_array($grouping, self::DYNAMIC_TYPES))
+            && (!in_array($grouping, self::TOP_TEN_TYPE))
         ) {
             throw new PhpSpreadsheetException('Invalid grouping for column AutoFilter Rule.');
         }

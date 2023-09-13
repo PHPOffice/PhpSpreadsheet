@@ -25,7 +25,7 @@ class Trends
      * @param mixed $array1 should be array, but scalar is made into one
      * @param mixed $array2 should be array, but scalar is made into one
      */
-    private static function checkTrendArrays(&$array1, &$array2): void
+    private static function checkTrendArrays(mixed &$array1, mixed &$array2): void
     {
         if (!is_array($array1)) {
             $array1 = [$array1];
@@ -67,7 +67,7 @@ class Trends
      *
      * @return float|string
      */
-    public static function CORREL($yValues, $xValues = null)
+    public static function CORREL(mixed $yValues, $xValues = null)
     {
         if (($xValues === null) || (!is_array($yValues)) || (!is_array($xValues))) {
             return ExcelError::VALUE();
@@ -124,7 +124,7 @@ class Trends
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function FORECAST($xValue, array $yValues, array $xValues)
+    public static function FORECAST(mixed $xValue, array $yValues, array $xValues)
     {
         if (is_array($xValue)) {
             return self::evaluateArrayArgumentsSubset([self::class, __FUNCTION__], 1, $xValue, $yValues, $xValues);
@@ -155,7 +155,7 @@ class Trends
      *
      * @return float[]
      */
-    public static function GROWTH($yValues, $xValues = [], $newValues = [], $const = true)
+    public static function GROWTH($yValues, $xValues = [], $newValues = [], mixed $const = true)
     {
         $yValues = Functions::flattenArray($yValues);
         $xValues = Functions::flattenArray($xValues);
@@ -212,7 +212,7 @@ class Trends
      *
      * @return array|string The result, or a string containing an error
      */
-    public static function LINEST(array $yValues, $xValues = null, $const = true, $stats = false): string|array
+    public static function LINEST(array $yValues, $xValues = null, mixed $const = true, mixed $stats = false): string|array
     {
         $const = ($const === null) ? true : (bool) Functions::flattenSingleValue($const);
         $stats = ($stats === null) ? false : (bool) Functions::flattenSingleValue($stats);
@@ -273,7 +273,7 @@ class Trends
      *
      * @return array|string The result, or a string containing an error
      */
-    public static function LOGEST(array $yValues, $xValues = null, $const = true, $stats = false): string|array
+    public static function LOGEST(array $yValues, $xValues = null, mixed $const = true, mixed $stats = false): string|array
     {
         $const = ($const === null) ? true : (bool) Functions::flattenSingleValue($const);
         $stats = ($stats === null) ? false : (bool) Functions::flattenSingleValue($stats);
@@ -412,7 +412,7 @@ class Trends
      *
      * @return float[]
      */
-    public static function TREND($yValues, $xValues = [], $newValues = [], $const = true)
+    public static function TREND($yValues, $xValues = [], $newValues = [], mixed $const = true)
     {
         $yValues = Functions::flattenArray($yValues);
         $xValues = Functions::flattenArray($xValues);

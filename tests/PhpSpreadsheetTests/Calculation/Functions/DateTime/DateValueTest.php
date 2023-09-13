@@ -39,7 +39,7 @@ class DateValueTest extends TestCase
 
     private function expectationIsTemplate(mixed $expectedResult): bool
     {
-        return is_string($expectedResult) && substr($expectedResult, 0, 2) === 'Y-';
+        return is_string($expectedResult) && str_starts_with($expectedResult, 'Y-');
     }
 
     private function parseTemplatedExpectation(string $expectedResult): string

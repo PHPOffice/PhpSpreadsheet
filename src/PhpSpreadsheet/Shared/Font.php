@@ -393,7 +393,7 @@ class Font
 
         // Special case if there are one or more newline characters ("\n")
         $cellText = (string) $cellText;
-        if (strpos($cellText, "\n") !== false) {
+        if (str_contains($cellText, "\n")) {
             $lineTexts = explode("\n", $cellText);
             $lineWidths = [];
             foreach ($lineTexts as $lineText) {
@@ -419,7 +419,7 @@ class Font
                 // Width of text in pixels excl. padding
                 // and addition because Excel adds some padding, just use approx width of 'n' glyph
                 $columnWidth = self::getTextWidthPixelsExact($cellText, $font, $rotation) + (self::$paddingAmountExact ?? $columnWidthAdjust);
-            } catch (PhpSpreadsheetException $e) {
+            } catch (PhpSpreadsheetException) {
                 $approximate = true;
             }
         }
@@ -656,14 +656,14 @@ class Font
     {
         if (isset(self::DEFAULT_COLUMN_WIDTHS[$font->getName()][$font->getSize()])) {
             // Exact width can be determined
-            $columnWidth = $returnAsPixels ?
-                self::DEFAULT_COLUMN_WIDTHS[$font->getName()][$font->getSize()]['px']
+            $columnWidth = $returnAsPixels
+                ? self::DEFAULT_COLUMN_WIDTHS[$font->getName()][$font->getSize()]['px']
                     : self::DEFAULT_COLUMN_WIDTHS[$font->getName()][$font->getSize()]['width'];
         } else {
             // We don't have data for this particular font and size, use approximation by
             // extrapolating from Calibri 11
-            $columnWidth = $returnAsPixels ?
-                self::DEFAULT_COLUMN_WIDTHS['Calibri'][11]['px']
+            $columnWidth = $returnAsPixels
+                ? self::DEFAULT_COLUMN_WIDTHS['Calibri'][11]['px']
                     : self::DEFAULT_COLUMN_WIDTHS['Calibri'][11]['width'];
             $columnWidth = $columnWidth * $font->getSize() / 11;
 

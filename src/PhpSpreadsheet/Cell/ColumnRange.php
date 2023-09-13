@@ -3,8 +3,9 @@
 namespace PhpOffice\PhpSpreadsheet\Cell;
 
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use Stringable;
 
-class ColumnRange implements AddressRange
+class ColumnRange implements AddressRange, Stringable
 {
     protected ?Worksheet $worksheet;
 

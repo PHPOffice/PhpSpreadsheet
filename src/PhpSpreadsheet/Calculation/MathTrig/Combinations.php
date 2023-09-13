@@ -25,7 +25,7 @@ class Combinations
      *         If an array of numbers is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function withoutRepetition($numObjs, $numInSet): array|string|float
+    public static function withoutRepetition(mixed $numObjs, mixed $numInSet): array|string|float
     {
         if (is_array($numObjs) || is_array($numInSet)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $numObjs, $numInSet);
@@ -59,7 +59,7 @@ class Combinations
      *         If an array of numbers is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function withRepetition($numObjs, $numInSet): array|int|string|float
+    public static function withRepetition(mixed $numObjs, mixed $numInSet): array|int|string|float
     {
         if (is_array($numObjs) || is_array($numInSet)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $numObjs, $numInSet);

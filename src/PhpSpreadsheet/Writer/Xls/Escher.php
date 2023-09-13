@@ -44,10 +44,8 @@ class Escher
 
     /**
      * Constructor.
-     *
-     * @param mixed $object
      */
-    public function __construct($object)
+    public function __construct(mixed $object)
     {
         $this->object = $object;
     }
@@ -62,7 +60,7 @@ class Escher
         // initialize
         $this->data = '';
 
-        switch (get_class($this->object)) {
+        switch ($this->object::class) {
             case SharedEscher::class:
                 if ($dggContainer = $this->object->/** @scrutinizer ignore-call */ getDggContainer()) {
                     $writer = new self($dggContainer);
@@ -90,8 +88,8 @@ class Escher
                 $recVerInstance |= $recInstance << 4;
 
                 // dgg data
-                $dggData =
-                    pack(
+                $dggData
+                    = pack(
                         'VVVV',
                         $this->object->/** @scrutinizer ignore-call */ getSpIdMax(), // maximum shape identifier increased by one
                         $this->object->/** @scrutinizer ignore-call */ getCDgSaved() + 1, // number of file identifier clusters increased by one

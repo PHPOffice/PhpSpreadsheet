@@ -92,11 +92,9 @@ class PlotArea
     /**
      * Get Plot Series by Index.
      *
-     * @param mixed $index
-     *
      * @return DataSeries
      */
-    public function getPlotGroupByIndex($index)
+    public function getPlotGroupByIndex(mixed $index)
     {
         return $this->plotSeries[$index];
     }

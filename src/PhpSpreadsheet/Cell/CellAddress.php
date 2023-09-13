@@ -4,8 +4,9 @@ namespace PhpOffice\PhpSpreadsheet\Cell;
 
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use Stringable;
 
-class CellAddress
+class CellAddress implements Stringable
 {
     protected ?Worksheet $worksheet;
 
@@ -29,22 +30,14 @@ class CellAddress
         $this->worksheet = null;
     }
 
-    /**
-     * @param mixed $columnId
-     * @param mixed $rowId
-     */
-    private static function validateColumnAndRow($columnId, $rowId): void
+    private static function validateColumnAndRow(mixed $columnId, mixed $rowId): void
     {
         if (!is_numeric($columnId) || $columnId <= 0 || !is_numeric($rowId) || $rowId <= 0) {
             throw new Exception('Row and Column Ids must be positive integer values');
         }
     }
 
-    /**
-     * @param mixed $columnId
-     * @param mixed $rowId
-     */
-    public static function fromColumnAndRow($columnId, $rowId, ?Worksheet $worksheet = null): self
+    public static function fromColumnAndRow(mixed $columnId, mixed $rowId, ?Worksheet $worksheet = null): self
     {
         self::validateColumnAndRow($columnId, $rowId);
 
@@ -59,10 +52,7 @@ class CellAddress
         return static::fromColumnAndRow($columnId, $rowId, $worksheet);
     }
 
-    /**
-     * @param mixed $cellAddress
-     */
-    public static function fromCellAddress($cellAddress, ?Worksheet $worksheet = null): self
+    public static function fromCellAddress(mixed $cellAddress, ?Worksheet $worksheet = null): self
     {
         /** @phpstan-ignore-next-line */
         return new static($cellAddress, $worksheet);

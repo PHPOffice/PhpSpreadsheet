@@ -163,10 +163,7 @@ class BranchPruner
         }
     }
 
-    /**
-     * @param mixed $value
-     */
-    public function closingBrace($value): void
+    public function closingBrace(mixed $value): void
     {
         if (!empty($this->pendingStoreKey) && $this->braceDepthMap[$this->pendingStoreKey] === -1) {
             // we are closing an IF(

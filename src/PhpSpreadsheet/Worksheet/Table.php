@@ -9,8 +9,9 @@ use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Table\TableStyle;
+use Stringable;
 
-class Table
+class Table implements Stringable
 {
     /**
      * Table Name.
@@ -116,8 +117,8 @@ class Table
             }
             // Check for A1 or R1C1 cell reference notation
             if (
-                preg_match(Coordinate::A1_COORDINATE_REGEX, $name) ||
-                preg_match('/^R\[?\-?[0-9]*\]?C\[?\-?[0-9]*\]?$/i', $name)
+                preg_match(Coordinate::A1_COORDINATE_REGEX, $name)
+                || preg_match('/^R\[?\-?[0-9]*\]?C\[?\-?[0-9]*\]?$/i', $name)
             ) {
                 throw new PhpSpreadsheetException('The table name can\'t be the same as a cell reference');
             }
@@ -291,7 +292,7 @@ class Table
             return $this;
         }
 
-        if (strpos($range, ':') === false) {
+        if (!str_contains($range, ':')) {
             throw new PhpSpreadsheetException('Table must be set on a range of cells.');
         }
 

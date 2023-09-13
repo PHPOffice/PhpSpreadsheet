@@ -119,16 +119,16 @@ class Root extends PPS
                     $iSBcnt += floor($raList[$i]->Size / $this->smallBlockSize)
                         + (($raList[$i]->Size % $this->smallBlockSize) ? 1 : 0);
                 } else {
-                    $iBBcnt += (floor($raList[$i]->Size / $this->bigBlockSize) +
-                        (($raList[$i]->Size % $this->bigBlockSize) ? 1 : 0));
+                    $iBBcnt += (floor($raList[$i]->Size / $this->bigBlockSize)
+                        + (($raList[$i]->Size % $this->bigBlockSize) ? 1 : 0));
                 }
             }
         }
         $iSmallLen = $iSBcnt * $this->smallBlockSize;
         $iSlCnt = floor($this->bigBlockSize / OLE::OLE_LONG_INT_SIZE);
         $iSBDcnt = floor($iSBcnt / $iSlCnt) + (($iSBcnt % $iSlCnt) ? 1 : 0);
-        $iBBcnt += (floor($iSmallLen / $this->bigBlockSize) +
-            (($iSmallLen % $this->bigBlockSize) ? 1 : 0));
+        $iBBcnt += (floor($iSmallLen / $this->bigBlockSize)
+            + (($iSmallLen % $this->bigBlockSize) ? 1 : 0));
         $iCnt = count($raList);
         $iBdCnt = $this->bigBlockSize / OLE::OLE_PPS_SIZE;
         $iPPScnt = (floor($iCnt / $iBdCnt) + (($iCnt % $iBdCnt) ? 1 : 0));
@@ -188,7 +188,7 @@ class Root extends PPS
             . "\x00\x00\x00\x00"
             . "\x00\x00\x00\x00"
             . "\x00\x00\x00\x00"
-            . pack('v', 0x3b)
+            . pack('v', 0x3B)
             . pack('v', 0x03)
             . pack('v', -2)
             . pack('v', 9)
@@ -248,9 +248,9 @@ class Root extends PPS
                     }
                     // Set For PPS
                     $raList[$i]->startBlock = $iStBlk;
-                    $iStBlk +=
-                        (floor($raList[$i]->Size / $this->bigBlockSize) +
-                            (($raList[$i]->Size % $this->bigBlockSize) ? 1 : 0));
+                    $iStBlk
+                        += (floor($raList[$i]->Size / $this->bigBlockSize)
+                            + (($raList[$i]->Size % $this->bigBlockSize) ? 1 : 0));
                 }
             }
         }

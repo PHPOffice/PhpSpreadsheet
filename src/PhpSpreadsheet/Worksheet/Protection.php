@@ -134,23 +134,23 @@ class Protection
     public function isProtectionEnabled(): bool
     {
         return
-            $this->password !== '' ||
-            isset($this->sheet) ||
-            isset($this->objects) ||
-            isset($this->scenarios) ||
-            isset($this->formatCells) ||
-            isset($this->formatColumns) ||
-            isset($this->formatRows) ||
-            isset($this->insertColumns) ||
-            isset($this->insertRows) ||
-            isset($this->insertHyperlinks) ||
-            isset($this->deleteColumns) ||
-            isset($this->deleteRows) ||
-            isset($this->selectLockedCells) ||
-            isset($this->sort) ||
-            isset($this->autoFilter) ||
-            isset($this->pivotTables) ||
-            isset($this->selectUnlockedCells);
+            $this->password !== ''
+            || isset($this->sheet)
+            || isset($this->objects)
+            || isset($this->scenarios)
+            || isset($this->formatCells)
+            || isset($this->formatColumns)
+            || isset($this->formatRows)
+            || isset($this->insertColumns)
+            || isset($this->insertRows)
+            || isset($this->insertHyperlinks)
+            || isset($this->deleteColumns)
+            || isset($this->deleteRows)
+            || isset($this->selectLockedCells)
+            || isset($this->sort)
+            || isset($this->autoFilter)
+            || isset($this->pivotTables)
+            || isset($this->selectUnlockedCells);
     }
 
     public function getSheet(): ?bool
