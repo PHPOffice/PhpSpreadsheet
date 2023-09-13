@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     'unsorted numeric array still finds match with type 1?' => [
         2, // Expected

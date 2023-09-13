@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -21,10 +23,8 @@ class ImaginaryTest extends TestCase
 
     /**
      * @dataProvider providerIMAGINARY
-     *
-     * @param mixed $expectedResult
      */
-    public function testDirectCallToIMAGINARY($expectedResult, ...$args): void
+    public function testDirectCallToIMAGINARY(mixed $expectedResult, mixed ...$args): void
     {
         /** @scrutinizer ignore-call */
         $result = Complex::IMAGINARY(...$args);
@@ -33,10 +33,8 @@ class ImaginaryTest extends TestCase
 
     /**
      * @dataProvider providerIMAGINARY
-     *
-     * @param mixed $expectedResult
      */
-    public function testIMAGINARYAsFormula($expectedResult, ...$args): void
+    public function testIMAGINARYAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -49,10 +47,8 @@ class ImaginaryTest extends TestCase
 
     /**
      * @dataProvider providerIMAGINARY
-     *
-     * @param mixed $expectedResult
      */
-    public function testIMAGINARYInWorksheet($expectedResult, ...$args): void
+    public function testIMAGINARYInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -77,7 +73,7 @@ class ImaginaryTest extends TestCase
     /**
      * @dataProvider providerUnhappyIMAGINARY
      */
-    public function testIMAGINARYUnhappyPath(string $expectedException, ...$args): void
+    public function testIMAGINARYUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 

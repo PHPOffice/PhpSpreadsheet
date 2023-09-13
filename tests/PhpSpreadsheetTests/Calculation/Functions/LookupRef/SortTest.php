@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
@@ -18,11 +20,8 @@ class SortTest extends TestCase
 
     /**
      * @dataProvider providerSortWithScalarArgumentErrorReturns
-     *
-     * @param mixed $sortIndex
-     * @param mixed $sortOrder
      */
-    public function testSortWithScalarArgumentErrorReturns($sortIndex, $sortOrder = 1): void
+    public function testSortWithScalarArgumentErrorReturns(mixed $sortIndex, mixed $sortOrder = 1): void
     {
         $value = [[1, 2], [3, 4], [5, 6]];
 

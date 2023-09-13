@@ -31,10 +31,8 @@ class Xls extends BaseWriter
 {
     /**
      * PhpSpreadsheet object.
-     *
-     * @var Spreadsheet
      */
-    private $spreadsheet;
+    private Spreadsheet $spreadsheet;
 
     /**
      * Total number of shared strings in workbook.
@@ -66,10 +64,8 @@ class Xls extends BaseWriter
 
     /**
      * Formula parser.
-     *
-     * @var Parser
      */
-    private $parser;
+    private Parser $parser;
 
     /**
      * Identifier clusters for drawings. Used in MSODRAWINGGROUP record.
@@ -571,10 +567,8 @@ class Xls extends BaseWriter
 
     /**
      * Build the OLE Part for DocumentSummary Information.
-     *
-     * @return string
      */
-    private function writeDocumentSummaryInformation()
+    private function writeDocumentSummaryInformation(): string
     {
         // offset: 0; size: 2; must be 0xFE 0xFF (UTF-16 LE byte order mark)
         $data = pack('v', 0xFFFE);
@@ -812,10 +806,8 @@ class Xls extends BaseWriter
 
     /**
      * Build the OLE Part for Summary Information.
-     *
-     * @return string
      */
-    private function writeSummaryInformation()
+    private function writeSummaryInformation(): string
     {
         // offset: 0; size: 2; must be 0xFE 0xFF (UTF-16 LE byte order mark)
         $data = pack('v', 0xFFFE);

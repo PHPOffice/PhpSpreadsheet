@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests;
 
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
@@ -224,7 +226,7 @@ class ReferenceHelperTest extends TestCase
         $sheet->insertNewRowBefore(2, 2);
 
         $comments = array_map(
-            function (Comment $value) {
+            function (Comment $value): string {
                 return $value->getText()->getPlainText();
             },
             $sheet->getComments()
@@ -245,7 +247,7 @@ class ReferenceHelperTest extends TestCase
         $sheet->removeRow(2, 2);
 
         $comments = array_map(
-            function (Comment $value) {
+            function (Comment $value): string {
                 return $value->getText()->getPlainText();
             },
             $sheet->getComments()

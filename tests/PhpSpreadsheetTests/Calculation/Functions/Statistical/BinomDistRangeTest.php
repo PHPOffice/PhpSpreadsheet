@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,10 +10,8 @@ class BinomDistRangeTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerBINOMDISTRANGE
-     *
-     * @param mixed $expectedResult
      */
-    public function testBINOMDISTRANGE($expectedResult, ...$args): void
+    public function testBINOMDISTRANGE(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCaseReference('BINOM.DIST.RANGE', $expectedResult, ...$args);
     }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // values, finance_rate, reinvestment_rate, Result
 
 return [

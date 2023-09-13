@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // fractional_dollar, fraction, result
 
 return [

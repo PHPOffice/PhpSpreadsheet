@@ -12,10 +12,8 @@ class Column
 {
     /**
      * Table Column Index.
-     *
-     * @var string
      */
-    private $columnIndex = '';
+    private string $columnIndex = '';
 
     /**
      * Show Filter Button.
@@ -26,38 +24,28 @@ class Column
 
     /**
      * Total Row Label.
-     *
-     * @var string
      */
-    private $totalsRowLabel;
+    private ?string $totalsRowLabel = null;
 
     /**
      * Total Row Function.
-     *
-     * @var string
      */
-    private $totalsRowFunction;
+    private ?string $totalsRowFunction = null;
 
     /**
      * Total Row Formula.
-     *
-     * @var string
      */
-    private $totalsRowFormula;
+    private ?string $totalsRowFormula = null;
 
     /**
      * Column Formula.
-     *
-     * @var string
      */
-    private $columnFormula;
+    private ?string $columnFormula = null;
 
     /**
      * Table.
-     *
-     * @var null|Table
      */
-    private $table;
+    private ?Table $table;
 
     /**
      * Create a new Column.

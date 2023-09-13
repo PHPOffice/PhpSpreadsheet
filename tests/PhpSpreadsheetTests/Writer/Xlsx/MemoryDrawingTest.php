@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Xlsx;
 
 use GdImage;
@@ -67,10 +69,8 @@ class MemoryDrawingTest extends AbstractFunctional
      * Determine if image uses transparency.
      *
      * @see https://stackoverflow.com/questions/5495275/how-to-check-if-a-png-image-has-transparency-using-gd
-     *
-     * @param GdImage|resource $im
      */
-    private static function checkTransparent($im): bool
+    private static function checkTransparent(GdImage $im): bool
     {
         $width = imagesx($im); // Get the width of the image
         $height = imagesy($im); // Get the height of the image

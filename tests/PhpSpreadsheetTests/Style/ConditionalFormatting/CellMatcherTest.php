@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Style\ConditionalFormatting;
 
 use PhpOffice\PhpSpreadsheet\Cell\Cell;

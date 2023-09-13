@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions;
 
 use PhpOffice\PhpSpreadsheet\Cell\CellAddress;
@@ -12,10 +14,7 @@ class FormulaArguments
      */
     protected array $args;
 
-    /**
-     * @param mixed ...$args
-     */
-    public function __construct(...$args)
+    public function __construct(mixed ...$args)
     {
         $this->args = $args;
     }
@@ -27,7 +26,7 @@ class FormulaArguments
         foreach ($this->args as $value) {
             if (is_array($value)) {
                 // We need to set a matrix in the worksheet
-                $worksheet->fromArray($value, null, $cellAddress, true);
+                $worksheet->fromArray($value, null, (string) $cellAddress, true);
                 $from = (string) $cellAddress;
                 $columns = is_array($value[0]) ? count($value[0]) : count($value);
                 $rows = is_array($value[0]) ? count($value) : 1;
@@ -45,10 +44,7 @@ class FormulaArguments
         return implode(',', $cells);
     }
 
-    /**
-     * @param mixed $value
-     */
-    private function matrixRows($value): string
+    private function matrixRows(array $value): string
     {
         $columns = [];
         foreach ($value as $column) {
@@ -58,10 +54,7 @@ class FormulaArguments
         return implode(',', $columns);
     }
 
-    /**
-     * @param mixed $value
-     */
-    private function makeMatrix($value): string
+    private function makeMatrix(array $value): string
     {
         $matrix = [];
         foreach ($value as $row) {
@@ -75,10 +68,7 @@ class FormulaArguments
         return implode(';', $matrix);
     }
 
-    /**
-     * @param mixed $value
-     */
-    private function stringify($value): string
+    private function stringify(mixed $value): string
     {
         if (is_array($value)) {
             return '{' . $this->makeMatrix($value) . '}';

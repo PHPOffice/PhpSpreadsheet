@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,11 +10,8 @@ class CscTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerCSC
-     *
-     * @param mixed $expectedResult
-     * @param mixed $angle
      */
-    public function testCSC($expectedResult, $angle): void
+    public function testCSC(mixed $expectedResult, mixed $angle): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

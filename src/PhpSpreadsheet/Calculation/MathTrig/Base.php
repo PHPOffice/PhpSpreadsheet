@@ -29,7 +29,7 @@ class Base
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function evaluate($number, $radix, $minLength = null)
+    public static function evaluate($number, $radix, $minLength = null): array|string
     {
         if (is_array($number) || is_array($radix) || is_array($minLength)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $number, $radix, $minLength);

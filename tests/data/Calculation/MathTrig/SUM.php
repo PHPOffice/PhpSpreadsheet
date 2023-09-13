@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     [50, 5, 15, 30],
     [52, 5, 15, 30, 2],

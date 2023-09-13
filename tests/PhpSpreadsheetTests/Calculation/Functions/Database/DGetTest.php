@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Database\DGet;
@@ -9,13 +11,8 @@ class DGetTest extends SetupTeardownDatabases
 {
     /**
      * @dataProvider providerDGet
-     *
-     * @param mixed $expectedResult
-     * @param mixed $database
-     * @param mixed $field
-     * @param mixed $criteria
      */
-    public function testDirectCallToDGet($expectedResult, $database, $field, $criteria): void
+    public function testDirectCallToDGet(string|int $expectedResult, array $database, ?string $field, array $criteria): void
     {
         $result = DGet::evaluate($database, $field, $criteria);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
@@ -23,13 +20,8 @@ class DGetTest extends SetupTeardownDatabases
 
     /**
      * @dataProvider providerDGet
-     *
-     * @param mixed $expectedResult
-     * @param mixed $database
-     * @param mixed $field
-     * @param mixed $criteria
      */
-    public function testDGetAsWorksheetFormula($expectedResult, $database, $field, $criteria): void
+    public function testDGetAsWorksheetFormula(string|int $expectedResult, array $database, ?string $field, array $criteria): void
     {
         $this->prepareWorksheetWithFormula('DGET', $database, $field, $criteria);
 

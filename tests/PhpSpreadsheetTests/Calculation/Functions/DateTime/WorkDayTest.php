@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -12,10 +14,8 @@ class WorkDayTest extends TestCase
 {
     /**
      * @dataProvider providerWORKDAY
-     *
-     * @param mixed $expectedResult
      */
-    public function testDirectCallToWORKDAY($expectedResult, ...$args): void
+    public function testDirectCallToWORKDAY(mixed $expectedResult, mixed ...$args): void
     {
         $result = WorkDay::date(...$args);
         self::assertSame($expectedResult, $result);
@@ -23,10 +23,8 @@ class WorkDayTest extends TestCase
 
     /**
      * @dataProvider providerWORKDAY
-     *
-     * @param mixed $expectedResult
      */
-    public function testWORKDAYAsFormula($expectedResult, ...$args): void
+    public function testWORKDAYAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -39,10 +37,8 @@ class WorkDayTest extends TestCase
 
     /**
      * @dataProvider providerWORKDAY
-     *
-     * @param mixed $expectedResult
      */
-    public function testWORKDAYInWorksheet($expectedResult, ...$args): void
+    public function testWORKDAYInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -67,7 +63,7 @@ class WorkDayTest extends TestCase
     /**
      * @dataProvider providerUnhappyWORKDAY
      */
-    public function testWORKDAYUnhappyPath(string $expectedException, ...$args): void
+    public function testWORKDAYUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 

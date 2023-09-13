@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -12,10 +14,7 @@ class TextSplitTest extends AllSetupTeardown
         return '{' . $column . implode(',' . $column, range(1, count($argument))) . '}';
     }
 
-    /**
-     * @param array|string $argument
-     */
-    private function setDelimiterValues(Worksheet $worksheet, string $column, $argument): void
+    private function setDelimiterValues(Worksheet $worksheet, string $column, array|string $argument): void
     {
         if (is_array($argument)) {
             foreach ($argument as $index => $value) {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Cell;
 
 use DateTime;
@@ -14,10 +16,8 @@ class DefaultValueBinderTest extends TestCase
 {
     /**
      * @dataProvider binderProvider
-     *
-     * @param mixed $value
      */
-    public function testBindValue($value): void
+    public function testBindValue(null|string|bool|int|float|DateTime|DateTimeImmutable $value): void
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
@@ -50,11 +50,8 @@ class DefaultValueBinderTest extends TestCase
 
     /**
      * @dataProvider providerDataTypeForValue
-     *
-     * @param mixed $expectedResult
-     * @param mixed $value
      */
-    public function testDataTypeForValue($expectedResult, $value): void
+    public function testDataTypeForValue(mixed $expectedResult, mixed $value): void
     {
         $result = DefaultValueBinder::dataTypeForValue($value);
         self::assertEquals($expectedResult, $result);

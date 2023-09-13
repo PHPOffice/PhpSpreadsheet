@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
@@ -10,10 +12,8 @@ class DeprecatedExcelErrorTest extends TestCase
 {
     /**
      * @dataProvider providerDeprecatedExcelError
-     *
-     * @param mixed $expectedResult
      */
-    public function testDeprecatedExcelError(callable $deprecatedMethod, $expectedResult): void
+    public function testDeprecatedExcelError(callable $deprecatedMethod, mixed $expectedResult): void
     {
         $result = $deprecatedMethod();
         self::assertEquals($expectedResult, $result);

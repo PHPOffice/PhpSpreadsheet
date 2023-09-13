@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -13,10 +15,7 @@ use PHPUnit\Framework\TestCase;
 
 class Oct2BinTest extends TestCase
 {
-    /**
-     * @var string
-     */
-    private $compatibilityMode;
+    private string $compatibilityMode;
 
     protected function setUp(): void
     {
@@ -30,10 +29,8 @@ class Oct2BinTest extends TestCase
 
     /**
      * @dataProvider providerOCT2BIN
-     *
-     * @param mixed $expectedResult
      */
-    public function testDirectCallToOCT2BIN($expectedResult, ...$args): void
+    public function testDirectCallToOCT2BIN(mixed $expectedResult, mixed ...$args): void
     {
         /** @scrutinizer ignore-call */
         $result = ConvertOctal::toBinary(...$args);
@@ -47,10 +44,8 @@ class Oct2BinTest extends TestCase
 
     /**
      * @dataProvider providerOCT2BIN
-     *
-     * @param mixed $expectedResult
      */
-    public function testOCT2BINAsFormula($expectedResult, ...$args): void
+    public function testOCT2BINAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -63,10 +58,8 @@ class Oct2BinTest extends TestCase
 
     /**
      * @dataProvider providerOCT2BIN
-     *
-     * @param mixed $expectedResult
      */
-    public function testOCT2BINInWorksheet($expectedResult, ...$args): void
+    public function testOCT2BINInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -91,7 +84,7 @@ class Oct2BinTest extends TestCase
     /**
      * @dataProvider providerUnhappyOCT2BIN
      */
-    public function testOCT2BINUnhappyPath(string $expectedException, ...$args): void
+    public function testOCT2BINUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -118,10 +111,8 @@ class Oct2BinTest extends TestCase
 
     /**
      * @dataProvider providerOCT2BINOds
-     *
-     * @param mixed $expectedResult
      */
-    public function testOCT2BINOds($expectedResult, ...$args): void
+    public function testOCT2BINOds(mixed $expectedResult, mixed ...$args): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
 

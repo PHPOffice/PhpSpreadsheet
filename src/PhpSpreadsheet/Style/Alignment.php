@@ -181,10 +181,8 @@ class Alignment extends Supervisor
      * Build style array from subcomponents.
      *
      * @param array $array
-     *
-     * @return array
      */
-    public function getStyleArray($array)
+    public function getStyleArray($array): array
     {
         return ['alignment' => $array];
     }
@@ -207,7 +205,7 @@ class Alignment extends Supervisor
      *
      * @return $this
      */
-    public function applyFromArray(array $styleArray)
+    public function applyFromArray(array $styleArray): static
     {
         if ($this->isSupervisor) {
             $this->getActiveSheet()->getStyle($this->getSelectedCells())
@@ -260,7 +258,7 @@ class Alignment extends Supervisor
      *
      * @return $this
      */
-    public function setHorizontal(string $horizontalAlignment)
+    public function setHorizontal(string $horizontalAlignment): static
     {
         $horizontalAlignment = strtolower($horizontalAlignment);
         if ($horizontalAlignment === self::HORIZONTAL_CENTER_CONTINUOUS_LC) {
@@ -298,7 +296,7 @@ class Alignment extends Supervisor
      *
      * @return $this
      */
-    public function setVertical($verticalAlignment)
+    public function setVertical($verticalAlignment): static
     {
         $verticalAlignment = strtolower($verticalAlignment);
 
@@ -333,7 +331,7 @@ class Alignment extends Supervisor
      *
      * @return $this
      */
-    public function setTextRotation($angleInDegrees)
+    public function setTextRotation($angleInDegrees): static
     {
         // Excel2007 value 255 => PhpSpreadsheet value -165
         if ($angleInDegrees == self::TEXTROTATION_STACK_EXCEL) {
@@ -376,7 +374,7 @@ class Alignment extends Supervisor
      *
      * @return $this
      */
-    public function setWrapText($wrapped)
+    public function setWrapText($wrapped): static
     {
         if ($wrapped == '') {
             $wrapped = false;
@@ -412,7 +410,7 @@ class Alignment extends Supervisor
      *
      * @return $this
      */
-    public function setShrinkToFit($shrink)
+    public function setShrinkToFit($shrink): static
     {
         if ($shrink == '') {
             $shrink = false;
@@ -448,7 +446,7 @@ class Alignment extends Supervisor
      *
      * @return $this
      */
-    public function setIndent($indent)
+    public function setIndent($indent): static
     {
         if ($indent > 0) {
             if (
@@ -491,7 +489,7 @@ class Alignment extends Supervisor
      *
      * @return $this
      */
-    public function setReadOrder($readOrder)
+    public function setReadOrder($readOrder): static
     {
         if ($readOrder < 0 || $readOrder > 2) {
             $readOrder = 0;

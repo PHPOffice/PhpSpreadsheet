@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -11,10 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 class WeekDayTest extends TestCase
 {
-    /**
-     * @var int
-     */
-    private $excelCalendar;
+    private int $excelCalendar;
 
     protected function setUp(): void
     {
@@ -32,10 +31,8 @@ class WeekDayTest extends TestCase
 
     /**
      * @dataProvider providerWEEKDAY
-     *
-     * @param mixed $expectedResult
      */
-    public function testDirectCallToWEEKDAY($expectedResult, ...$args): void
+    public function testDirectCallToWEEKDAY(mixed $expectedResult, mixed ...$args): void
     {
         /** @scrutinizer ignore-call */
         $result = Week::day(...$args);
@@ -44,10 +41,8 @@ class WeekDayTest extends TestCase
 
     /**
      * @dataProvider providerWEEKDAY
-     *
-     * @param mixed $expectedResult
      */
-    public function testWEEKDAYAsFormula($expectedResult, ...$args): void
+    public function testWEEKDAYAsFormula(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -60,10 +55,8 @@ class WeekDayTest extends TestCase
 
     /**
      * @dataProvider providerWEEKDAY
-     *
-     * @param mixed $expectedResult
      */
-    public function testWEEKDAYInWorksheet($expectedResult, ...$args): void
+    public function testWEEKDAYInWorksheet(mixed $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -88,7 +81,7 @@ class WeekDayTest extends TestCase
     /**
      * @dataProvider providerUnhappyWEEKDAY
      */
-    public function testWEEKDAYUnhappyPath(string $expectedException, ...$args): void
+    public function testWEEKDAYUnhappyPath(string $expectedException, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 

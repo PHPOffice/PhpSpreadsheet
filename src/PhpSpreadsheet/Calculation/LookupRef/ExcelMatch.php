@@ -32,7 +32,7 @@ class ExcelMatch
      *
      * @return array|int|string The relative position of the found item
      */
-    public static function MATCH($lookupValue, $lookupArray, $matchType = self::MATCHTYPE_LARGEST_VALUE)
+    public static function MATCH($lookupValue, $lookupArray, $matchType = self::MATCHTYPE_LARGEST_VALUE): array|string|int|float
     {
         if (is_array($lookupValue)) {
             return self::evaluateArrayArgumentsIgnore([self::class, __FUNCTION__], 1, $lookupValue, $lookupArray, $matchType);
@@ -88,10 +88,8 @@ class ExcelMatch
 
     /**
      * @param mixed $lookupValue
-     *
-     * @return mixed
      */
-    private static function matchFirstValue(array $lookupArray, $lookupValue)
+    private static function matchFirstValue(array $lookupArray, $lookupValue): int|string|null
     {
         if (is_string($lookupValue)) {
             $valueIsString = true;
@@ -168,10 +166,8 @@ class ExcelMatch
 
     /**
      * @param mixed $lookupValue
-     *
-     * @return mixed
      */
-    private static function matchSmallestValue(array $lookupArray, $lookupValue)
+    private static function matchSmallestValue(array $lookupArray, $lookupValue): int|string|null
     {
         $valueKey = null;
         if (is_string($lookupValue)) {

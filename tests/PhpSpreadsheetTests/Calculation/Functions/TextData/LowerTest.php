@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -9,11 +11,8 @@ class LowerTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerLOWER
-     *
-     * @param mixed $expectedResult
-     * @param mixed $str
      */
-    public function testLOWER($expectedResult, $str = 'omitted'): void
+    public function testLOWER(mixed $expectedResult, mixed $str = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -34,12 +33,8 @@ class LowerTest extends AllSetupTeardown
 
     /**
      * @dataProvider providerLocaleLOWER
-     *
-     * @param string $expectedResult
-     * @param mixed $value
-     * @param mixed $locale
      */
-    public function testLowerWithLocaleBoolean($expectedResult, $locale, $value): void
+    public function testLowerWithLocaleBoolean(string $expectedResult, mixed $locale, mixed $value): void
     {
         $newLocale = Settings::setLocale($locale);
         if ($newLocale === false) {

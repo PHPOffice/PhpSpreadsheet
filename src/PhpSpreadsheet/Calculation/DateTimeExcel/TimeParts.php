@@ -27,7 +27,7 @@ class TimeParts
      *         If an array of numbers is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function hour($timeValue)
+    public static function hour($timeValue): array|string|int
     {
         if (is_array($timeValue)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $timeValue);
@@ -68,7 +68,7 @@ class TimeParts
      *         If an array of numbers is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function minute($timeValue)
+    public static function minute($timeValue): array|string|int
     {
         if (is_array($timeValue)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $timeValue);
@@ -109,7 +109,7 @@ class TimeParts
      *         If an array of numbers is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function second($timeValue)
+    public static function second($timeValue): array|string|int
     {
         if (is_array($timeValue)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $timeValue);

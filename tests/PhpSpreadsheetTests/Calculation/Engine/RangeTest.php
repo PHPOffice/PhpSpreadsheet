@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Engine;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
@@ -12,10 +14,7 @@ class RangeTest extends TestCase
     /** @var string */
     private $incompleteMessage = 'Must be revisited';
 
-    /**
-     * @var Spreadsheet
-     */
-    private $spreadSheet;
+    private \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadSheet;
 
     protected function setUp(): void
     {
@@ -26,10 +25,8 @@ class RangeTest extends TestCase
 
     /**
      * @dataProvider providerRangeEvaluation
-     *
-     * @param mixed $expectedResult
      */
-    public function testRangeEvaluation(string $formula, $expectedResult): void
+    public function testRangeEvaluation(string $formula, int|string $expectedResult): void
     {
         $workSheet = $this->spreadSheet->getActiveSheet();
         $workSheet->setCellValue('H1', $formula);

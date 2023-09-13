@@ -28,34 +28,23 @@ class MemoryDrawing extends BaseDrawing
 
     /**
      * Image resource.
-     *
-     * @var null|GdImage|resource
      */
-    private $imageResource;
+    private null|GdImage $imageResource = null;
 
     /**
      * Rendering function.
-     *
-     * @var string
      */
-    private $renderingFunction;
+    private string $renderingFunction;
 
     /**
      * Mime type.
-     *
-     * @var string
      */
-    private $mimeType;
+    private string $mimeType;
 
     /**
      * Unique name.
-     *
-     * @var string
      */
-    private $uniqueName;
-
-    /** @var null|resource */
-    private $alwaysNull;
+    private string $uniqueName;
 
     /**
      * Create a new MemoryDrawing.
@@ -66,7 +55,6 @@ class MemoryDrawing extends BaseDrawing
         $this->renderingFunction = self::RENDERING_DEFAULT;
         $this->mimeType = self::MIMETYPE_DEFAULT;
         $this->uniqueName = md5(mt_rand(0, 9999) . time() . mt_rand(0, 9999));
-        $this->alwaysNull = null;
 
         // Initialize parent
         parent::__construct();
@@ -75,9 +63,8 @@ class MemoryDrawing extends BaseDrawing
     public function __destruct()
     {
         if ($this->imageResource) {
-            $rslt = @imagedestroy($this->imageResource);
-            // "Fix" for Scrutinizer
-            $this->imageResource = $rslt ? null : $this->alwaysNull;
+            @imagedestroy($this->imageResource);
+            $this->imageResource = null;
         }
     }
 
@@ -253,10 +240,8 @@ class MemoryDrawing extends BaseDrawing
 
     /**
      * Get image resource.
-     *
-     * @return null|GdImage|resource
      */
-    public function getImageResource()
+    public function getImageResource(): ?GdImage
     {
         return $this->imageResource;
     }
@@ -264,11 +249,9 @@ class MemoryDrawing extends BaseDrawing
     /**
      * Set image resource.
      *
-     * @param GdImage|resource $value
-     *
      * @return $this
      */
-    public function setImageResource($value)
+    public function setImageResource(?GdImage $value): static
     {
         $this->imageResource = $value;
 
@@ -298,7 +281,7 @@ class MemoryDrawing extends BaseDrawing
      *
      * @return $this
      */
-    public function setRenderingFunction($value)
+    public function setRenderingFunction($value): static
     {
         $this->renderingFunction = $value;
 
@@ -322,7 +305,7 @@ class MemoryDrawing extends BaseDrawing
      *
      * @return $this
      */
-    public function setMimeType($value)
+    public function setMimeType($value): static
     {
         $this->mimeType = $value;
 
@@ -346,7 +329,7 @@ class MemoryDrawing extends BaseDrawing
      *
      * @return string Hash code
      */
-    public function getHashCode()
+    public function getHashCode(): string
     {
         return md5(
             $this->renderingFunction .

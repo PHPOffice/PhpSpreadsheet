@@ -1,15 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Logical;
 
 class XorTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerXOR
-     *
-     * @param mixed $expectedResult
      */
-    public function testXOR($expectedResult, ...$args): void
+    public function testXOR(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('XOR', $expectedResult, ...$args);
     }
@@ -21,11 +21,8 @@ class XorTest extends AllSetupTeardown
 
     /**
      * @dataProvider providerXORLiteral
-     *
-     * @param mixed $expectedResult
-     * @param string $formula
      */
-    public function xtestXORLiteral($expectedResult, $formula): void
+    public function xtestXORLiteral(mixed $expectedResult, string $formula): void
     {
         $sheet = $this->getSheet();
         $sheet->getCell('A1')->setValue("=XOR($formula)");

@@ -7,30 +7,15 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class CellAddress
 {
-    /**
-     * @var ?Worksheet
-     */
-    protected $worksheet;
+    protected ?Worksheet $worksheet;
 
-    /**
-     * @var string
-     */
-    protected $cellAddress;
+    protected string $cellAddress;
 
-    /**
-     * @var string
-     */
-    protected $columnName;
+    protected string $columnName = '';
 
-    /**
-     * @var int
-     */
-    protected $columnId;
+    protected int $columnId;
 
-    /**
-     * @var int
-     */
-    protected $rowId;
+    protected int $rowId;
 
     public function __construct(string $cellAddress, ?Worksheet $worksheet = null)
     {
@@ -159,7 +144,7 @@ class CellAddress
      *     (ie. if a Worksheet was provided to the constructor).
      *     e.g. "'Mark''s Worksheet'!C5".
      */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->fullCellAddress();
     }

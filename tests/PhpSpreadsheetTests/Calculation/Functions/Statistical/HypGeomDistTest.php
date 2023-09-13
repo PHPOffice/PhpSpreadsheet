@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,10 +10,8 @@ class HypGeomDistTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerHYPGEOMDIST
-     *
-     * @param mixed $expectedResult
      */
-    public function testHYPGEOMDIST($expectedResult, ...$args): void
+    public function testHYPGEOMDIST(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('HYPGEOMDIST', $expectedResult, ...$args);
     }

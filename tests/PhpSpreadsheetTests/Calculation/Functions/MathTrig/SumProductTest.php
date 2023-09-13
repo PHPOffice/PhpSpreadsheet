@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
@@ -8,10 +10,8 @@ class SumProductTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerSUMPRODUCT
-     *
-     * @param mixed $expectedResult
      */
-    public function testSUMPRODUCT($expectedResult, ...$args): void
+    public function testSUMPRODUCT(mixed $expectedResult, mixed ...$args): void
     {
         $sheet = $this->getSheet();
         $row = 0;

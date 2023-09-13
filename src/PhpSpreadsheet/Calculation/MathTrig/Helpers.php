@@ -13,7 +13,7 @@ class Helpers
      *
      * @return float|string quotient or DIV0 if denominator is too small
      */
-    public static function verySmallDenominator(float $numerator, float $denominator)
+    public static function verySmallDenominator(float $numerator, float $denominator): string|float
     {
         return (abs($denominator) < 1.0E-12) ? ExcelError::DIV0() : ($numerator / $denominator);
     }
@@ -22,10 +22,8 @@ class Helpers
      * Many functions accept null/false/true argument treated as 0/0/1.
      *
      * @param mixed $number
-     *
-     * @return float|int
      */
-    public static function validateNumericNullBool($number)
+    public static function validateNumericNullBool($number): int|float
     {
         $number = Functions::flattenSingleValue($number);
         if ($number === null) {

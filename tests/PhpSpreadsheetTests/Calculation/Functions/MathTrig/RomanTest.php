@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,11 +10,8 @@ class RomanTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerROMAN
-     *
-     * @param mixed $expectedResult
-     * @param mixed $formula
      */
-    public function testROMAN($expectedResult, $formula): void
+    public function testROMAN(mixed $expectedResult, mixed $formula): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

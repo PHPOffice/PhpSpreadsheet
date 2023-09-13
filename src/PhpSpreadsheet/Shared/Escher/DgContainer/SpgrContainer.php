@@ -6,10 +6,8 @@ class SpgrContainer
 {
     /**
      * Parent Shape Group Container.
-     *
-     * @var null|SpgrContainer
      */
-    private $parent;
+    private ?self $parent = null;
 
     /**
      * Shape Container collection.
@@ -58,7 +56,7 @@ class SpgrContainer
      *
      * @return SpgrContainer\SpContainer[]
      */
-    public function getAllSpContainers()
+    public function getAllSpContainers(): array
     {
         $allSpContainers = [];
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,11 +10,8 @@ class FloorPreciseTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerFLOORPRECISE
-     *
-     * @param mixed $expectedResult
-     * @param string $formula
      */
-    public function testFLOORPRECISE($expectedResult, $formula): void
+    public function testFLOORPRECISE(mixed $expectedResult, string $formula): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

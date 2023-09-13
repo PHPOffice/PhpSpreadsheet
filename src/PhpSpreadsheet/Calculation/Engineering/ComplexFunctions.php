@@ -91,7 +91,7 @@ class ComplexFunctions
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function IMCONJUGATE($complexNumber)
+    public static function IMCONJUGATE($complexNumber): array|string
     {
         if (is_array($complexNumber)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $complexNumber);
@@ -117,11 +117,11 @@ class ComplexFunctions
      * @param array|string $complexNumber the complex number for which you want the cosine
      *                      Or can be an array of values
      *
-     * @return array|float|string
+     * @return array|string
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function IMCOS($complexNumber)
+    public static function IMCOS($complexNumber): array|string
     {
         if (is_array($complexNumber)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $complexNumber);
@@ -147,11 +147,11 @@ class ComplexFunctions
      * @param array|string $complexNumber the complex number for which you want the hyperbolic cosine
      *                      Or can be an array of values
      *
-     * @return array|float|string
+     * @return array|string
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function IMCOSH($complexNumber)
+    public static function IMCOSH($complexNumber): array|string
     {
         if (is_array($complexNumber)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $complexNumber);
@@ -177,11 +177,11 @@ class ComplexFunctions
      * @param array|string $complexNumber the complex number for which you want the cotangent
      *                      Or can be an array of values
      *
-     * @return array|float|string
+     * @return array|string
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function IMCOT($complexNumber)
+    public static function IMCOT($complexNumber): array|string
     {
         if (is_array($complexNumber)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $complexNumber);
@@ -207,11 +207,11 @@ class ComplexFunctions
      * @param array|string $complexNumber the complex number for which you want the cosecant
      *                      Or can be an array of values
      *
-     * @return array|float|string
+     * @return array|string
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function IMCSC($complexNumber)
+    public static function IMCSC($complexNumber): array|string
     {
         if (is_array($complexNumber)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $complexNumber);
@@ -237,11 +237,11 @@ class ComplexFunctions
      * @param array|string $complexNumber the complex number for which you want the hyperbolic cosecant
      *                      Or can be an array of values
      *
-     * @return array|float|string
+     * @return array|string
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function IMCSCH($complexNumber)
+    public static function IMCSCH($complexNumber): array|string
     {
         if (is_array($complexNumber)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $complexNumber);
@@ -267,11 +267,11 @@ class ComplexFunctions
      * @param array|string $complexNumber the complex number for which you want the sine
      *                      Or can be an array of values
      *
-     * @return array|float|string
+     * @return array|string
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function IMSIN($complexNumber)
+    public static function IMSIN($complexNumber): array|string
     {
         if (is_array($complexNumber)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $complexNumber);
@@ -297,11 +297,11 @@ class ComplexFunctions
      * @param array|string $complexNumber the complex number for which you want the hyperbolic sine
      *                      Or can be an array of values
      *
-     * @return array|float|string
+     * @return array|string
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function IMSINH($complexNumber)
+    public static function IMSINH($complexNumber): array|string
     {
         if (is_array($complexNumber)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $complexNumber);
@@ -327,11 +327,11 @@ class ComplexFunctions
      * @param array|string $complexNumber the complex number for which you want the secant
      *                      Or can be an array of values
      *
-     * @return array|float|string
+     * @return array|string
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function IMSEC($complexNumber)
+    public static function IMSEC($complexNumber): array|string
     {
         if (is_array($complexNumber)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $complexNumber);
@@ -357,11 +357,11 @@ class ComplexFunctions
      * @param array|string $complexNumber the complex number for which you want the hyperbolic secant
      *                      Or can be an array of values
      *
-     * @return array|float|string
+     * @return array|string
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function IMSECH($complexNumber)
+    public static function IMSECH($complexNumber): array|string
     {
         if (is_array($complexNumber)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $complexNumber);
@@ -387,11 +387,11 @@ class ComplexFunctions
      * @param array|string $complexNumber the complex number for which you want the tangent
      *                      Or can be an array of values
      *
-     * @return array|float|string
+     * @return array|string
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function IMTAN($complexNumber)
+    public static function IMTAN($complexNumber): array|string
     {
         if (is_array($complexNumber)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $complexNumber);
@@ -421,7 +421,7 @@ class ComplexFunctions
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function IMSQRT($complexNumber)
+    public static function IMSQRT($complexNumber): array|string
     {
         if (is_array($complexNumber)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $complexNumber);
@@ -456,7 +456,7 @@ class ComplexFunctions
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function IMLN($complexNumber)
+    public static function IMLN($complexNumber): array|string
     {
         if (is_array($complexNumber)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $complexNumber);
@@ -490,7 +490,7 @@ class ComplexFunctions
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function IMLOG10($complexNumber)
+    public static function IMLOG10($complexNumber): array|string
     {
         if (is_array($complexNumber)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $complexNumber);
@@ -524,7 +524,7 @@ class ComplexFunctions
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function IMLOG2($complexNumber)
+    public static function IMLOG2($complexNumber): array|string
     {
         if (is_array($complexNumber)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $complexNumber);
@@ -558,7 +558,7 @@ class ComplexFunctions
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function IMEXP($complexNumber)
+    public static function IMEXP($complexNumber): array|string
     {
         if (is_array($complexNumber)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $complexNumber);
@@ -590,7 +590,7 @@ class ComplexFunctions
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function IMPOWER($complexNumber, $realNumber)
+    public static function IMPOWER($complexNumber, $realNumber): array|string
     {
         if (is_array($complexNumber) || is_array($realNumber)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $complexNumber, $realNumber);

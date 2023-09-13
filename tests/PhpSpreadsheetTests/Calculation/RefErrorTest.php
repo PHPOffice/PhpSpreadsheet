@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -8,11 +10,9 @@ use PHPUnit\Framework\TestCase;
 class RefErrorTest extends TestCase
 {
     /**
-     * @param mixed $expected
-     *
      * @dataProvider providerRefError
      */
-    public function testRefError($expected, string $formula): void
+    public function testRefError(mixed $expected, string $formula): void
     {
         $spreadsheet = new Spreadsheet();
         $sheet1 = $spreadsheet->getActiveSheet();

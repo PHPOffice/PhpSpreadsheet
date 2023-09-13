@@ -15,7 +15,7 @@ class Color
      *
      * @return array RGB color value, example: ['rgb' => 'FF0000']
      */
-    public static function map($color, $palette, $version)
+    public static function map($color, array $palette, $version)
     {
         if ($color <= 0x07 || $color >= 0x40) {
             // special built-in color

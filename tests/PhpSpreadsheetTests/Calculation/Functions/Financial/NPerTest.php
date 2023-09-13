@@ -1,15 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 class NPerTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerNPER
-     *
-     * @param mixed $expectedResult
      */
-    public function testNPER($expectedResult, array $args): void
+    public function testNPER(mixed $expectedResult, array $args): void
     {
         $this->runTestCase('NPER', $expectedResult, $args);
     }

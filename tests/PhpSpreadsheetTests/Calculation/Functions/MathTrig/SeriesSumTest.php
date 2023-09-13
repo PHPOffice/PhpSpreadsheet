@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -9,13 +11,8 @@ class SeriesSumTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerSERIESSUM
-     *
-     * @param mixed $expectedResult
-     * @param mixed $arg1
-     * @param mixed $arg2
-     * @param mixed $arg3
      */
-    public function testSERIESSUM($expectedResult, $arg1, $arg2, $arg3, ...$args): void
+    public function testSERIESSUM(mixed $expectedResult, mixed $arg1, mixed $arg2, mixed $arg3, mixed ...$args): void
     {
         $sheet = $this->getSheet();
         if ($arg1 !== null) {

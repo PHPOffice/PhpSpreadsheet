@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Database\DVarP;
@@ -9,13 +11,8 @@ class DVarPTest extends SetupTeardownDatabases
 {
     /**
      * @dataProvider providerDVarP
-     *
-     * @param mixed $expectedResult
-     * @param mixed $database
-     * @param mixed $field
-     * @param mixed $criteria
      */
-    public function testDirectCallToDVarP($expectedResult, $database, $field, $criteria): void
+    public function testDirectCallToDVarP(float|string $expectedResult, array $database, ?string $field, array $criteria): void
     {
         $result = DVarP::evaluate($database, $field, $criteria);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
@@ -23,13 +20,8 @@ class DVarPTest extends SetupTeardownDatabases
 
     /**
      * @dataProvider providerDVarP
-     *
-     * @param mixed $expectedResult
-     * @param mixed $database
-     * @param mixed $field
-     * @param mixed $criteria
      */
-    public function testDVarPAsWorksheetFormula($expectedResult, $database, $field, $criteria): void
+    public function testDVarPAsWorksheetFormula(float|string $expectedResult, array $database, ?string $field, array $criteria): void
     {
         $this->prepareWorksheetWithFormula('DVARP', $database, $field, $criteria);
 

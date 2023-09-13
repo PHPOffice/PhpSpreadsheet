@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Html;
 
 use PhpOffice\PhpSpreadsheet\Reader\Html;
@@ -14,8 +16,7 @@ use PHPUnit\Framework\TestCase;
  */
 class HtmlPhpunit10Test extends TestCase
 {
-    /** @var string */
-    private static $errorString;
+    private static string $errorString;
 
     protected function setUp(): void
     {

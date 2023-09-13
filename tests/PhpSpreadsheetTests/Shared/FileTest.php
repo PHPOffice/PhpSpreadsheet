@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Shared;
 
 use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
@@ -8,8 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class FileTest extends TestCase
 {
-    /** @var bool */
-    private $uploadFlag = false;
+    private bool $uploadFlag = false;
 
     /** @var string */
     private $tempfile = '';

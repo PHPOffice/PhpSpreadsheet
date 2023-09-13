@@ -57,7 +57,7 @@ class MatrixFunctions
      *
      * @return array|string The resulting array, or a string containing an error
      */
-    public static function sequence($rows = 1, $columns = 1, $start = 1, $step = 1)
+    public static function sequence($rows = 1, $columns = 1, $start = 1, $step = 1): string|array
     {
         try {
             $rows = (int) Helpers::validateNumericNullSubstitution($rows, 1);
@@ -120,7 +120,7 @@ class MatrixFunctions
      *
      * @return array|string The result, or a string containing an error
      */
-    public static function inverse($matrixValues)
+    public static function inverse($matrixValues): array|string
     {
         try {
             $matrix = self::getMatrix($matrixValues);
@@ -143,7 +143,7 @@ class MatrixFunctions
      *
      * @return array|string The result, or a string containing an error
      */
-    public static function multiply($matrixData1, $matrixData2)
+    public static function multiply($matrixData1, $matrixData2): array|string
     {
         try {
             $matrixA = self::getMatrix($matrixData1);

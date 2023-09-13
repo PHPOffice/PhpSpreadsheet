@@ -31,10 +31,8 @@ class Matrix
      * TRANSPOSE.
      *
      * @param array|mixed $matrixData A matrix of values
-     *
-     * @return array
      */
-    public static function transpose($matrixData)
+    public static function transpose($matrixData): array
     {
         $returnMatrix = [];
         if (!is_array($matrixData)) {
@@ -114,7 +112,7 @@ class Matrix
         $columnNum = $columnKeys[--$columnNum];
         if ($rowNum === 0) {
             return array_map(
-                function ($value) {
+                function ($value): array {
                     return [$value];
                 },
                 array_column($matrix, $columnNum)

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     [
         '=DAGEN360(DATUM(2010;2;5);DATUM(2010;12;31);WAAR)',

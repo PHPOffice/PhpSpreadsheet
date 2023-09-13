@@ -22,7 +22,7 @@ class Gamma extends GammaBase
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function gamma($value)
+    public static function gamma($value): array|string|float
     {
         if (is_array($value)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $value);
@@ -130,7 +130,7 @@ class Gamma extends GammaBase
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function ln($value)
+    public static function ln($value): array|string|float
     {
         if (is_array($value)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $value);

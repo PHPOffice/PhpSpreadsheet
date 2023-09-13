@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet\AutoFilter;
 
 class DeleteAutoFilterTest extends SetupTeardown

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,10 +10,8 @@ class BinomInvTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerBINOMINV
-     *
-     * @param mixed $expectedResult
      */
-    public function testBINOMINV($expectedResult, ...$args): void
+    public function testBINOMINV(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCaseReference('BINOM.INV', $expectedResult, ...$args);
     }

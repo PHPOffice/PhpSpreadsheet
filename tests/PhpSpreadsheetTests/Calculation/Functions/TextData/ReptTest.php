@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,12 +10,8 @@ class ReptTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerREPT
-     *
-     * @param mixed $expectedResult
-     * @param mixed $val
-     * @param mixed $rpt
      */
-    public function testReptThroughEngine($expectedResult, $val = 'omitted', $rpt = 'omitted'): void
+    public function testReptThroughEngine(mixed $expectedResult, mixed $val = 'omitted', mixed $rpt = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

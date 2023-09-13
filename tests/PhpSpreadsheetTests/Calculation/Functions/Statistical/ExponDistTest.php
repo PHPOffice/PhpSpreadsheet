@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,10 +10,8 @@ class ExponDistTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerEXPONDIST
-     *
-     * @param mixed $expectedResult
      */
-    public function testEXPONDIST($expectedResult, ...$args): void
+    public function testEXPONDIST(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('EXPONDIST', $expectedResult, ...$args);
     }

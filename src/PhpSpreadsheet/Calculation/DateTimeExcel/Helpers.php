@@ -133,10 +133,8 @@ class Helpers
 
     /**
      * Return result in one of three formats.
-     *
-     * @return mixed
      */
-    public static function returnIn3FormatsArray(array $dateArray, bool $noFrac = false)
+    public static function returnIn3FormatsArray(array $dateArray, bool $noFrac = false): DateTime|float|int
     {
         $retType = Functions::getReturnDateType();
         if ($retType === Functions::RETURNDATE_PHP_DATETIME_OBJECT) {
@@ -159,11 +157,11 @@ class Helpers
                 $dateArray['second']
             );
         if ($retType === Functions::RETURNDATE_EXCEL) {
-            return $noFrac ? floor($excelDateValue) : (float) $excelDateValue;
+            return $noFrac ? floor($excelDateValue) : $excelDateValue;
         }
         // RETURNDATE_UNIX_TIMESTAMP)
 
-        return (int) SharedDateHelper::excelToTimestamp($excelDateValue);
+        return  SharedDateHelper::excelToTimestamp($excelDateValue);
     }
 
     /**
@@ -187,10 +185,8 @@ class Helpers
 
     /**
      * Return result in one of three formats.
-     *
-     * @return mixed
      */
-    public static function returnIn3FormatsObject(DateTime $PHPDateObject)
+    public static function returnIn3FormatsObject(DateTime $PHPDateObject): DateTime|float|int
     {
         $retType = Functions::getReturnDateType();
         if ($retType === Functions::RETURNDATE_PHP_DATETIME_OBJECT) {
@@ -203,7 +199,7 @@ class Helpers
         $stamp = SharedDateHelper::PHPToExcel($PHPDateObject);
         $stamp = is_bool($stamp) ? ((int) $stamp) : $stamp;
 
-        return (int) SharedDateHelper::excelToTimestamp($stamp);
+        return SharedDateHelper::excelToTimestamp($stamp);
     }
 
     private static function baseDate(): int
@@ -238,10 +234,8 @@ class Helpers
      * Many functions accept null argument treated as 0.
      *
      * @param mixed $number
-     *
-     * @return float|int
      */
-    public static function validateNumericNull($number)
+    public static function validateNumericNull($number): int|float
     {
         $number = Functions::flattenSingleValue($number);
         if ($number === null) {

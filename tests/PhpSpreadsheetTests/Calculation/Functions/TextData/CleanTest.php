@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,11 +10,8 @@ class CleanTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerCLEAN
-     *
-     * @param mixed $expectedResult
-     * @param mixed $value
      */
-    public function testCLEAN($expectedResult, $value = 'omitted'): void
+    public function testCLEAN(mixed $expectedResult, mixed $value = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

@@ -74,7 +74,7 @@ class Percentiles
      *
      * @return float|string (string if result is an error)
      */
-    public static function PERCENTRANK($valueSet, $value, $significance = 3)
+    public static function PERCENTRANK($valueSet, $value, $significance = 3): string|float
     {
         $valueSet = Functions::flattenArray($valueSet);
         $value = Functions::flattenSingleValue($value);

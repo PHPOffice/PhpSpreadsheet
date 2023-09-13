@@ -217,7 +217,7 @@ class ContentTypes extends WriterPart
      *
      * @return string Mime Type
      */
-    private function getImageMimeType($filename)
+    private function getImageMimeType($filename): string
     {
         if (File::fileExists($filename)) {
             $image = getimagesize($filename);

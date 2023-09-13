@@ -40,10 +40,8 @@ class LookupRef
      *                                TRUE or omitted      CELL_ADDRESS returns an A1-style reference
      *                                FALSE                CELL_ADDRESS returns an R1C1-style reference
      * @param array|string $sheetText Optional Name of worksheet to use
-     *
-     * @return array|string
      */
-    public static function cellAddress($row, $column, $relativity = 1, $referenceStyle = true, $sheetText = '')
+    public static function cellAddress($row, $column, $relativity = 1, $referenceStyle = true, $sheetText = ''): string|array
     {
         return Address::cell($row, $column, $relativity, $referenceStyle, $sheetText);
     }
@@ -268,9 +266,9 @@ class LookupRef
      * @param mixed $matchType The number -1, 0, or 1. -1 means above, 0 means exact match, 1 means below.
      *                         If match_type is 1 or -1, the list has to be ordered.
      *
-     * @return array|int|string The relative position of the found item
+     * @return array|float|int|string The relative position of the found item
      */
-    public static function MATCH($lookupValue, $lookupArray, $matchType = 1)
+    public static function MATCH($lookupValue, $lookupArray, $matchType = 1): array|float|int|string
     {
         return LookupRef\ExcelMatch::MATCH($lookupValue, $lookupArray, $matchType);
     }
@@ -314,7 +312,7 @@ class LookupRef
      * Unlike the Excel TRANSPOSE function, which will only work on a single row or column,
      *     this function will transpose a full matrix
      */
-    public static function TRANSPOSE($matrixData)
+    public static function TRANSPOSE($matrixData): array
     {
         return Matrix::transpose($matrixData);
     }

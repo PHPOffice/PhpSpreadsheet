@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx as Reader;
@@ -12,10 +14,8 @@ class FloatsRetainedTest extends TestCase
 {
     /**
      * @dataProvider providerIntyFloatsRetainedByWriter
-     *
-     * @param float|int $value
      */
-    public function testIntyFloatsRetainedByWriter($value): void
+    public function testIntyFloatsRetainedByWriter(float|int $value): void
     {
         $outputFilename = File::temporaryFilename();
         $spreadsheet = new Spreadsheet();

@@ -32,7 +32,7 @@ class NonPeriodic
      *
      * @return float|string
      */
-    public static function rate($values, $dates, $guess = self::DEFAULT_GUESS)
+    public static function rate(array $values, array $dates, $guess = self::DEFAULT_GUESS)
     {
         $rslt = self::xirrPart1($values, $dates);
         if ($rslt !== '') {
@@ -182,10 +182,7 @@ class NonPeriodic
         return '';
     }
 
-    /**
-     * @return float|string
-     */
-    private static function xirrPart3(array $values, array $dates, float $x1, float $x2)
+    private static function xirrPart3(array $values, array $dates, float $x1, float $x2): float|string
     {
         $f = self::xnpvOrdered($x1, $values, $dates, false);
         if ($f < 0.0) {
@@ -214,10 +211,7 @@ class NonPeriodic
         return $rslt;
     }
 
-    /**
-     * @return float|string
-     */
-    private static function xirrBisection(array $values, array $dates, float $x1, float $x2)
+    private static function xirrBisection(array $values, array $dates, float $x1, float $x2): string|float
     {
         $rslt = ExcelError::NAN();
         for ($i = 0; $i < self::FINANCIAL_MAX_ITERATIONS; ++$i) {

@@ -30,7 +30,7 @@ class HyperGeometric
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function distribution($sampleSuccesses, $sampleNumber, $populationSuccesses, $populationNumber)
+    public static function distribution($sampleSuccesses, $sampleNumber, $populationSuccesses, $populationNumber): array|string|float
     {
         if (
             is_array($sampleSuccesses) || is_array($sampleNumber) ||

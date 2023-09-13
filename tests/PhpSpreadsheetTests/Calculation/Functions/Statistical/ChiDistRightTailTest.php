@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,10 +10,8 @@ class ChiDistRightTailTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerCHIDIST
-     *
-     * @param mixed $expectedResult
      */
-    public function testCHIDIST($expectedResult, ...$args): void
+    public function testCHIDIST(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCaseReference('CHISQ.DIST.RT', $expectedResult, ...$args);
     }

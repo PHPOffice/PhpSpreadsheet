@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     'passing range count bool but not null nor text numbers' => [
         5,

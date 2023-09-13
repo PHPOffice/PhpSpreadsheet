@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,11 +10,8 @@ class TruncTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerTRUNC
-     *
-     * @param mixed $expectedResult
-     * @param string $formula
      */
-    public function testTRUNC($expectedResult, $formula): void
+    public function testTRUNC(mixed $expectedResult, string $formula): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

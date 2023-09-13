@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Formula;
@@ -10,11 +12,9 @@ use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Formula;
 class FormulaTextTest extends AllSetupTeardown
 {
     /**
-     * @param mixed $value
-     *
      * @dataProvider providerFormulaText
      */
-    public function testFormulaText(string $expectedResult, $value): void
+    public function testFormulaText(string $expectedResult, mixed $value): void
     {
         $sheet = $this->getSheet();
         $reference = 'A1';

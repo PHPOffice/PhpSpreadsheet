@@ -8,10 +8,8 @@ abstract class WriterPart
 {
     /**
      * Parent Xlsx object.
-     *
-     * @var Xlsx
      */
-    private $parentWriter;
+    private Xlsx $parentWriter;
 
     /**
      * Get parent Xlsx object.

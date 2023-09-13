@@ -48,7 +48,7 @@ class Dimension
      *                If this is a height, then size is measured in pixels ()
      *                   or in points () if $unit is null.
      */
-    protected $size;
+    protected float|int $size;
 
     /**
      * @var null|string

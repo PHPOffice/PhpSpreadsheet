@@ -28,10 +28,8 @@ class Periodic
      *                                Values must contain at least one positive value and one negative value to
      *                                    calculate the internal rate of return.
      * @param mixed $guess A number that you guess is close to the result of IRR
-     *
-     * @return float|string
      */
-    public static function rate($values, $guess = 0.1)
+    public static function rate($values, $guess = 0.1): string|float
     {
         if (!is_array($values)) {
             return ExcelError::VALUE();
@@ -99,7 +97,7 @@ class Periodic
      *
      * @return float|string Result, or a string containing an error
      */
-    public static function modifiedRate($values, $financeRate, $reinvestmentRate)
+    public static function modifiedRate($values, $financeRate, $reinvestmentRate): string|float
     {
         if (!is_array($values)) {
             return ExcelError::DIV0();
@@ -148,7 +146,7 @@ class Periodic
      *
      * @return float
      */
-    public static function presentValue($rate, ...$args)
+    public static function presentValue($rate, ...$args): int|float
     {
         $returnValue = 0;
 

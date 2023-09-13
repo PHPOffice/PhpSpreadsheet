@@ -165,7 +165,7 @@ class CellValue extends WizardAbstract implements WizardInterface
      * @param string $methodName
      * @param mixed[] $arguments
      */
-    public function __call($methodName, $arguments): self
+    public function __call($methodName, array $arguments): self
     {
         if (!isset(self::MAGIC_OPERATIONS[$methodName]) && $methodName !== 'and') {
             throw new Exception('Invalid Operator for Cell Value CF Rule Wizard');

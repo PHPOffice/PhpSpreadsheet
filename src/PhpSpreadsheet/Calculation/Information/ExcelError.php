@@ -53,10 +53,8 @@ class ExcelError
      * ERROR_TYPE.
      *
      * @param mixed $value Value to check
-     *
-     * @return array|int|string
      */
-    public static function type($value = '')
+    public static function type($value = ''): array|int|string
     {
         if (is_array($value)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $value);

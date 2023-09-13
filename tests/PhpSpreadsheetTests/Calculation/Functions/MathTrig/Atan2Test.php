@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,10 +10,8 @@ class Atan2Test extends AllSetupTeardown
 {
     /**
      * @dataProvider providerATAN2
-     *
-     * @param mixed $expectedResult
      */
-    public function testATAN2($expectedResult, string $formula): void
+    public function testATAN2(mixed $expectedResult, string $formula): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

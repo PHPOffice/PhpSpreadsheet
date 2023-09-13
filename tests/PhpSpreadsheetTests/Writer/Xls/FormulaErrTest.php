@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Xls;
 
 use PhpOffice\PhpSpreadsheet\NamedRange;
@@ -16,8 +18,7 @@ class FormulaErrTest extends AbstractFunctional
     /** @var ?Spreadsheet */
     private $reloadedSpreadsheet;
 
-    /** @var bool */
-    private $allowThrow;
+    private bool $allowThrow;
 
     protected function setUp(): void
     {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Csv;
 
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
@@ -8,10 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class CsvNumberFormatLocaleTest extends TestCase
 {
-    /**
-     * @var bool
-     */
-    private $localeAdjusted;
+    private bool $localeAdjusted;
 
     /**
      * @var false|string
@@ -53,10 +52,8 @@ class CsvNumberFormatLocaleTest extends TestCase
 
     /**
      * @dataProvider providerNumberFormatNoConversionTest
-     *
-     * @param mixed $expectedValue
      */
-    public function testNumberFormatNoConversion($expectedValue, string $expectedFormat, string $cellAddress): void
+    public function testNumberFormatNoConversion(mixed $expectedValue, string $expectedFormat, string $cellAddress): void
     {
         if (!$this->localeAdjusted) {
             self::markTestSkipped('Unable to set locale for testing.');
@@ -95,11 +92,9 @@ class CsvNumberFormatLocaleTest extends TestCase
     /**
      * @dataProvider providerNumberValueConversionTest
      *
-     * @param mixed $expectedValue
-     *
      * @runInSeparateProcess
      */
-    public function testNumberValueConversion($expectedValue, string $cellAddress): void
+    public function testNumberValueConversion(mixed $expectedValue, string $cellAddress): void
     {
         if (!$this->localeAdjusted) {
             self::markTestSkipped('Unable to set locale for testing.');

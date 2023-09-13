@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,10 +10,8 @@ class CoshTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerCosh
-     *
-     * @param mixed $expectedResult
      */
-    public function testCosh($expectedResult, string $formula): void
+    public function testCosh(mixed $expectedResult, string $formula): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

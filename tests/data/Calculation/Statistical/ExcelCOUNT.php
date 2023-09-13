@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     'passing range do not count bool, null, or text numbers' => [
         3,

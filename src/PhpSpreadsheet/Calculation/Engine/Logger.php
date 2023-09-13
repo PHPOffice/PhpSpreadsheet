@@ -32,10 +32,8 @@ class Logger
 
     /**
      * The calculation engine cell reference stack.
-     *
-     * @var CyclicReferenceStack
      */
-    private $cellStack;
+    private CyclicReferenceStack $cellStack;
 
     /**
      * Instantiate a Calculation engine logger.

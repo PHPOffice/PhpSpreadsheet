@@ -22,10 +22,8 @@ class Title
 
     /**
      * Title Layout.
-     *
-     * @var ?Layout
      */
-    private $layout;
+    private ?Layout $layout;
 
     /**
      * Create a new Title.
@@ -81,7 +79,7 @@ class Title
      *
      * @return $this
      */
-    public function setCaption($caption)
+    public function setCaption($caption): static
     {
         $this->caption = $caption;
 

@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Helper;
 
 use PhpOffice\PhpSpreadsheet\Chart\Chart;
+use PhpOffice\PhpSpreadsheet\Chart\Renderer\MtJpGraphRenderer;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -23,50 +24,40 @@ class Sample
 {
     /**
      * Returns whether we run on CLI or browser.
-     *
-     * @return bool
      */
-    public function isCli()
+    public function isCli(): bool
     {
         return PHP_SAPI === 'cli';
     }
 
     /**
      * Return the filename currently being executed.
-     *
-     * @return string
      */
-    public function getScriptFilename()
+    public function getScriptFilename(): string
     {
         return basename($_SERVER['SCRIPT_FILENAME'], '.php');
     }
 
     /**
      * Whether we are executing the index page.
-     *
-     * @return bool
      */
-    public function isIndex()
+    public function isIndex(): bool
     {
         return $this->getScriptFilename() === 'index';
     }
 
     /**
      * Return the page title.
-     *
-     * @return string
      */
-    public function getPageTitle()
+    public function getPageTitle(): string
     {
         return $this->isIndex() ? 'PHPSpreadsheet' : $this->getScriptFilename();
     }
 
     /**
      * Return the page heading.
-     *
-     * @return string
      */
-    public function getPageHeading()
+    public function getPageHeading(): string
     {
         return $this->isIndex() ? '' : '<h1>' . str_replace('_', ' ', $this->getScriptFilename()) . '</h1>';
     }
@@ -76,7 +67,7 @@ class Sample
      *
      * @return string[][] [$name => $path]
      */
-    public function getSamples()
+    public function getSamples(): array
     {
         // Populate samples
         $baseDir = realpath(__DIR__ . '/../../../samples');
@@ -154,10 +145,8 @@ class Sample
 
     /**
      * Returns the temporary directory and make sure it exists.
-     *
-     * @return string
      */
-    public function getTemporaryFolder()
+    public function getTemporaryFolder(): string
     {
         $tempFolder = sys_get_temp_dir() . '/phpspreadsheet';
         if (!$this->isDirOrMkdir($tempFolder)) {
@@ -171,9 +160,8 @@ class Sample
      * Returns the filename that should be used for sample output.
      *
      * @param string $filename
-     * @param string $extension
      */
-    public function getFilename($filename, $extension = 'xlsx'): string
+    public function getFilename($filename, string $extension = 'xlsx'): string
     {
         $originalExtension = pathinfo($filename, PATHINFO_EXTENSION);
 
@@ -182,12 +170,8 @@ class Sample
 
     /**
      * Return a random temporary file name.
-     *
-     * @param string $extension
-     *
-     * @return string
      */
-    public function getTemporaryFilename($extension = 'xlsx')
+    public function getTemporaryFilename(string $extension = 'xlsx'): string
     {
         $temporaryFilename = tempnam($this->getTemporaryFolder(), 'phpspreadsheet-');
         if ($temporaryFilename === false) {
@@ -212,7 +196,7 @@ class Sample
             return;
         }
 
-        Settings::setChartRenderer(\PhpOffice\PhpSpreadsheet\Chart\Renderer\MtJpGraphRenderer::class);
+        Settings::setChartRenderer(MtJpGraphRenderer::class);
 
         $fileName = $this->getFilename($fileName, 'png');
 

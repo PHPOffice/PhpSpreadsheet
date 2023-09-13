@@ -1,17 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 class SmallTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerSMALL
-     *
-     * @param mixed $expectedResult
-     * @param mixed $values
-     * @param mixed $position
      */
-    public function testSMALL($expectedResult, $values, $position): void
+    public function testSMALL(mixed $expectedResult, mixed $values, mixed $position): void
     {
         $this->runTestCaseReference('SMALL', $expectedResult, $values, $position);
     }

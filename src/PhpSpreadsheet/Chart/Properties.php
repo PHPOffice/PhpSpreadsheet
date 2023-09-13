@@ -125,8 +125,7 @@ abstract class Properties
     /** @var ?float */
     protected $glowSize;
 
-    /** @var ChartColor */
-    protected $glowColor;
+    protected ChartColor $glowColor;
 
     /** @var array */
     protected $softEdges = [
@@ -136,8 +135,7 @@ abstract class Properties
     /** @var array */
     protected $shadowProperties = self::PRESETS_OPTIONS[0];
 
-    /** @var ChartColor */
-    protected $shadowColor;
+    protected ChartColor $shadowColor;
 
     public function __construct()
     {
@@ -611,11 +609,9 @@ abstract class Properties
     /**
      * Set Shadow Presets Properties.
      *
-     * @param int $presets
-     *
      * @return $this
      */
-    protected function setShadowPresetsProperties($presets)
+    protected function setShadowPresetsProperties(int $presets)
     {
         $this->shadowProperties['presets'] = $presets;
         $this->setShadowPropertiesMapValues($this->getShadowPresetsMap($presets));
@@ -628,11 +624,9 @@ abstract class Properties
     /**
      * Set Shadow Properties Values.
      *
-     * @param mixed $reference
-     *
      * @return $this
      */
-    protected function setShadowPropertiesMapValues(array $propertiesMap, &$reference = null)
+    protected function setShadowPropertiesMapValues(array $propertiesMap, ?array &$reference = null)
     {
         $base_reference = $reference;
         foreach ($propertiesMap as $property_key => $property_val) {
@@ -736,8 +730,7 @@ abstract class Properties
         return $array;
     }
 
-    /** @var ChartColor */
-    protected $lineColor;
+    protected ChartColor $lineColor;
 
     /** @var array */
     protected $lineStyleProperties = [
@@ -780,11 +773,10 @@ abstract class Properties
     /**
      * Set Line Color Properties.
      *
-     * @param string $value
      * @param ?int $alpha
      * @param ?string $colorType
      */
-    public function setLineColorProperties($value, $alpha = null, $colorType = null): void
+    public function setLineColorProperties(?string $value, $alpha = null, ?string $colorType = null): void
     {
         $this->activateObject();
         $this->lineColor->setColorPropertiesArray(
