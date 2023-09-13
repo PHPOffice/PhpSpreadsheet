@@ -11,6 +11,7 @@ use PhpOffice\PhpSpreadsheet\Shared\Date as SharedDate;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\CellStyleAssessor;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+use PhpOffice\PhpSpreadsheet\Style\Protection;
 use PhpOffice\PhpSpreadsheet\Style\Style;
 use PhpOffice\PhpSpreadsheet\Worksheet\Table;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
@@ -777,5 +778,30 @@ class Cell implements Stringable
     public function getIgnoredErrors(): IgnoredErrors
     {
         return $this->ignoredErrors;
+    }
+
+    public function isLocked(): bool
+    {
+        $protected = $this->parent?->getParent()?->getProtection()?->getSheet();
+        if ($protected !== true) {
+            return false;
+        }
+        $locked = $this->getStyle()->getProtection()->getLocked();
+
+        return $locked !== Protection::PROTECTION_UNPROTECTED;
+    }
+
+    public function isHiddenOnFormulaBar(): bool
+    {
+        if ($this->getDataType() !== DataType::TYPE_FORMULA) {
+            return false;
+        }
+        $protected = $this->parent?->getParent()?->getProtection()?->getSheet();
+        if ($protected !== true) {
+            return false;
+        }
+        $hidden = $this->getStyle()->getProtection()->getHidden();
+
+        return $hidden !== Protection::PROTECTION_UNPROTECTED;
     }
 }

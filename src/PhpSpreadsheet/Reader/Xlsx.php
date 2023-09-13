@@ -220,7 +220,7 @@ class Xlsx extends BaseReader
                 $relTarget = (string) $rel['Target'];
                 $dir = dirname($relTarget);
                 $namespace = dirname($relType);
-                $relsWorkbook = $this->loadZip("$dir/_rels/" . basename($relTarget) . '.rels', '');
+                $relsWorkbook = $this->loadZip("$dir/_rels/" . basename($relTarget) . '.rels', Namespaces::RELATIONSHIPS);
 
                 $worksheets = [];
                 foreach ($relsWorkbook->Relationship as $elex) {
@@ -533,7 +533,7 @@ class Xlsx extends BaseReader
                     $dir = dirname($relTarget);
 
                     // Do not specify namespace in next stmt - do it in Xpath
-                    $relsWorkbook = $this->loadZip("$dir/_rels/" . basename($relTarget) . '.rels', '');
+                    $relsWorkbook = $this->loadZip("$dir/_rels/" . basename($relTarget) . '.rels', Namespaces::RELATIONSHIPS);
                     $relsWorkbook->registerXPathNamespace('rel', Namespaces::RELATIONSHIPS);
 
                     $worksheets = [];
@@ -1319,9 +1319,10 @@ class Xlsx extends BaseReader
                                 $drawingFilename = substr($drawingFilename, 5);
                             }
                             if ($zip->locateName($drawingFilename) !== false) {
-                                $relsWorksheet = $this->loadZipNoNamespace($drawingFilename, Namespaces::RELATIONSHIPS);
+                                $relsWorksheet = $this->loadZip($drawingFilename, Namespaces::RELATIONSHIPS);
                                 $drawings = [];
-                                foreach ($relsWorksheet->Relationship as $ele) {
+                                foreach ($relsWorksheet->Relationship as $elex) {
+                                    $ele = self::getAttributes($elex);
                                     if ((string) $ele['Type'] === "$xmlNamespaceBase/drawing") {
                                         $eleTarget = (string) $ele['Target'];
                                         if (str_starts_with($eleTarget, '/xl/')) {
@@ -1339,12 +1340,13 @@ class Xlsx extends BaseReader
                                         $drawingRelId = (string) self::getArrayItem(self::getAttributes($drawing, $xmlNamespaceBase), 'id');
                                         $fileDrawing = $drawings[$drawingRelId];
                                         $drawingFilename = dirname($fileDrawing) . '/_rels/' . basename($fileDrawing) . '.rels';
-                                        $relsDrawing = $this->loadZipNoNamespace($drawingFilename, $xmlNamespaceBase);
+                                        $relsDrawing = $this->loadZip($drawingFilename, Namespaces::RELATIONSHIPS);
 
                                         $images = [];
                                         $hyperlinks = [];
                                         if ($relsDrawing && $relsDrawing->Relationship) {
-                                            foreach ($relsDrawing->Relationship as $ele) {
+                                            foreach ($relsDrawing->Relationship as $elex) {
+                                                $ele = self::getAttributes($elex);
                                                 $eleType = (string) $ele['Type'];
                                                 if ($eleType === Namespaces::HYPERLINK) {
                                                     $hyperlinks[(string) $ele['Id']] = (string) $ele['Target'];
@@ -1584,7 +1586,8 @@ class Xlsx extends BaseReader
 
                                     // store original rId of drawing files
                                     $unparsedLoadedData['sheets'][$docSheet->getCodeName()]['drawingOriginalIds'] = [];
-                                    foreach ($relsWorksheet->Relationship as $ele) {
+                                    foreach ($relsWorksheet->Relationship as $elex) {
+                                        $ele = self::getAttributes($elex);
                                         if ((string) $ele['Type'] === "$xmlNamespaceBase/drawing") {
                                             $drawingRelId = (string) $ele['Id'];
                                             $unparsedLoadedData['sheets'][$docSheet->getCodeName()]['drawingOriginalIds'][(string) $ele['Target']] = $drawingRelId;

@@ -29,6 +29,7 @@ use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Color;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+use PhpOffice\PhpSpreadsheet\Style\Protection as StyleProtection;
 use PhpOffice\PhpSpreadsheet\Style\Style;
 
 class Worksheet implements IComparable
@@ -1484,6 +1485,11 @@ class Worksheet implements IComparable
     public function rowDimensionExists(int $row): bool
     {
         return isset($this->rowDimensions[$row]);
+    }
+
+    public function columnDimensionExists(string $column): bool
+    {
+        return isset($this->columnDimensions[$column]);
     }
 
     /**
@@ -3841,5 +3847,54 @@ class Worksheet implements IComparable
     public function isRowVisible(int $row): bool
     {
         return !$this->rowDimensionExists($row) || $this->getRowDimension($row)->getVisible();
+    }
+
+    /**
+     * Same as Cell->isLocked, but without creating cell if it doesn't exist.
+     */
+    public function isCellLocked(string $coordinate): bool
+    {
+        if ($this->getProtection()->getsheet() !== true) {
+            return false;
+        }
+        if ($this->cellExists($coordinate)) {
+            return $this->getCell($coordinate)->isLocked();
+        }
+        $spreadsheet = $this->parent;
+        $xfIndex = $this->getXfIndex($coordinate);
+        if ($spreadsheet === null || $xfIndex === null) {
+            return true;
+        }
+
+        return $spreadsheet->getCellXfByIndex($xfIndex)->getProtection()->getLocked() !== StyleProtection::PROTECTION_UNPROTECTED;
+    }
+
+    /**
+     * Same as Cell->isHiddenOnFormulaBar, but without creating cell if it doesn't exist.
+     */
+    public function isCellHiddenOnFormulaBar(string $coordinate): bool
+    {
+        if ($this->cellExists($coordinate)) {
+            return $this->getCell($coordinate)->isHiddenOnFormulaBar();
+        }
+
+        // cell doesn't exist, therefore isn't a formula,
+        // therefore isn't hidden on formula bar.
+        return false;
+    }
+
+    private function getXfIndex(string $coordinate): ?int
+    {
+        [$column, $row] = Coordinate::coordinateFromString($coordinate);
+        $row = (int) $row;
+        $xfIndex = null;
+        if ($this->rowDimensionExists($row)) {
+            $xfIndex = $this->getRowDimension($row)->getXfIndex();
+        }
+        if ($xfIndex === null && $this->ColumnDimensionExists($column)) {
+            $xfIndex = $this->getColumnDimension($column)->getXfIndex();
+        }
+
+        return $xfIndex;
     }
 }

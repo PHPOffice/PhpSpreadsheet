@@ -1309,12 +1309,17 @@ when setting a new password.
 
 ### Cell
 
-An example on setting cell security:
+An example on setting cell security.
+Note that cell security is honored only when sheet is protected.
+Also note that the `hidden` property applies only to formulas,
+and tells whether the formula is hidden on the formula bar,
+not in the cell.
 
 ```php
 $spreadsheet->getActiveSheet()->getStyle('B1')
     ->getProtection()
-    ->setLocked(\PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_UNPROTECTED);
+    ->setLocked(\PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_UNPROTECTED)
+    ->setHidden(\PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_PROTECTED);
 ```
 
 ## Reading protected spreadsheet
