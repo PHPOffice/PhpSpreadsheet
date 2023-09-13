@@ -60,7 +60,7 @@ for ($row = 1; $row <= 12; ++$row) {
         'Between %s and %s is %d working days; %d with public holidays',
         $worksheet->getCell('A1')->getFormattedValue(),
         $worksheet->getCell('B' . $row)->getFormattedValue(),
-        $worksheet->getCell('C' . $row)->getCalculatedValue(),
-        $worksheet->getCell('D' . $row)->getCalculatedValue()
+        $helper->noArray($worksheet->getCell('C' . $row)->getCalculatedValue()),
+        $helper->noArray($worksheet->getCell('D' . $row)->getCalculatedValue())
     ));
 }

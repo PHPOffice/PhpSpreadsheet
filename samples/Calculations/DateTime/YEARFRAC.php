@@ -55,22 +55,22 @@ for ($row = 1; $row <= $testDateCount; ++$row) {
     ));
     $helper->log(sprintf(
         'Days: %f - US (NASD) 30/360',
-        $worksheet->getCell('G' . $row)->getCalculatedValue()
+        $helper->noArray($worksheet->getCell('G' . $row)->getCalculatedValue())
     ));
     $helper->log(sprintf(
         'Days: %f - Actual',
-        $worksheet->getCell('H' . $row)->getCalculatedValue()
+        $helper->noArray($worksheet->getCell('H' . $row)->getCalculatedValue())
     ));
     $helper->log(sprintf(
         'Days: %f - Actual/360',
-        $worksheet->getCell('I' . $row)->getCalculatedValue()
+        $helper->noArray($worksheet->getCell('I' . $row)->getCalculatedValue())
     ));
     $helper->log(sprintf(
         'Days: %f - Actual/365',
-        $worksheet->getCell('J' . $row)->getCalculatedValue()
+        $helper->noArray($worksheet->getCell('J' . $row)->getCalculatedValue())
     ));
     $helper->log(sprintf(
         'Days: %f - European 30/360',
-        $worksheet->getCell('K' . $row)->getCalculatedValue()
+        $helper->noArray($worksheet->getCell('K' . $row)->getCalculatedValue())
     ));
 }

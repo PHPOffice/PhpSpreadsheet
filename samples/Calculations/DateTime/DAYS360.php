@@ -51,7 +51,7 @@ for ($row = 1; $row <= $testDateCount; ++$row) {
     ));
     $helper->log(sprintf(
         'Days: %d (US) %d (European)',
-        $worksheet->getCell('G' . $row)->getCalculatedValue(),
-        $worksheet->getCell('H' . $row)->getCalculatedValue()
+        $helper->noArray($worksheet->getCell('G' . $row)->getCalculatedValue()),
+        $helper->noArray($worksheet->getCell('H' . $row)->getCalculatedValue())
     ));
 }

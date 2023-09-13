@@ -283,4 +283,9 @@ class Sample
 
         $this->log($message);
     }
+
+    public function noArray(mixed $value): bool|float|int|string
+    {
+        return is_scalar($value) ? $value : '';
+    }
 }
