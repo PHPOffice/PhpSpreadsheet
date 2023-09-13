@@ -26,7 +26,7 @@ class NamespaceStdTest extends \PHPUnit\Framework\TestCase
         if ($data === false) {
             self::fail('Unable to read file');
         } else {
-            if (strpos(__FILE__, 'NonStd') === false) {
+            if (!str_contains(__FILE__, 'NonStd')) {
                 self::assertStringNotContainsString('nonstd', self::$testbook);
                 self::assertStringContainsString('<workbook ', $data);
             } else {
@@ -75,7 +75,7 @@ class NamespaceStdTest extends \PHPUnit\Framework\TestCase
         $spreadsheet = $reader->load(self::$testbook);
         $sheet = $spreadsheet->getSheet(0);
         self::assertEquals('SylkTest', $sheet->getTitle());
-        if (strpos(__FILE__, 'NonStd') !== false) {
+        if (str_contains(__FILE__, 'NonStd')) {
             self::markTestIncomplete('Not yet ready');
         }
 
@@ -166,7 +166,7 @@ class NamespaceStdTest extends \PHPUnit\Framework\TestCase
         $spreadsheet = $reader->load(self::$testbook);
         $sheet = $spreadsheet->getSheet(1);
         self::assertEquals('Second', $sheet->getTitle());
-        if (strpos(__FILE__, 'NonStd') !== false) {
+        if (str_contains(__FILE__, 'NonStd')) {
             self::markTestIncomplete('Not yet ready');
         }
         self::assertEquals('center', $sheet->getCell('A2')->getStyle()->getAlignment()->getHorizontal());

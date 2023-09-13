@@ -16,11 +16,9 @@ class ConditionalFormatValueObject
     /**
      * ConditionalFormatValueObject constructor.
      *
-     * @param mixed $type
-     * @param mixed $value
      * @param null|mixed $cellFormula
      */
-    public function __construct($type, $value = null, $cellFormula = null)
+    public function __construct(mixed $type, mixed $value = null, $cellFormula = null)
     {
         $this->type = $type;
         $this->value = $value;
@@ -35,10 +33,7 @@ class ConditionalFormatValueObject
         return $this->type;
     }
 
-    /**
-     * @param mixed $type
-     */
-    public function setType($type): self
+    public function setType(mixed $type): self
     {
         $this->type = $type;
 
@@ -53,10 +48,7 @@ class ConditionalFormatValueObject
         return $this->value;
     }
 
-    /**
-     * @param mixed $value
-     */
-    public function setValue($value): self
+    public function setValue(mixed $value): self
     {
         $this->value = $value;
 
@@ -71,10 +63,7 @@ class ConditionalFormatValueObject
         return $this->cellFormula;
     }
 
-    /**
-     * @param mixed $cellFormula
-     */
-    public function setCellFormula($cellFormula): self
+    public function setCellFormula(mixed $cellFormula): self
     {
         $this->cellFormula = $cellFormula;
 

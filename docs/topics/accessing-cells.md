@@ -479,8 +479,8 @@ $spreadsheet = $reader->load("test.xlsx");
 
 $worksheet = $spreadsheet->getActiveSheet();
 // Get the highest row and column numbers referenced in the worksheet
-$highestRow = $worksheet->getHighestRow(); // e.g. 10
-$highestColumn = $worksheet->getHighestColumn(); // e.g 'F'
+$highestRow = $worksheet->getHighestDataRow(); // e.g. 10
+$highestColumn = $worksheet->getHighestDataColumn(); // e.g 'F'
 $highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($highestColumn); // e.g. 5
 
 echo '<table>' . "\n";
@@ -505,8 +505,8 @@ $spreadsheet = $reader->load("test.xlsx");
 
 $worksheet = $spreadsheet->getActiveSheet();
 // Get the highest row number and column letter referenced in the worksheet
-$highestRow = $worksheet->getHighestRow(); // e.g. 10
-$highestColumn = $worksheet->getHighestColumn(); // e.g 'F'
+$highestRow = $worksheet->getHighestDataRow(); // e.g. 10
+$highestColumn = $worksheet->getHighestDataColumn(); // e.g 'F'
 // Increment the highest column letter
 $highestColumn++;
 

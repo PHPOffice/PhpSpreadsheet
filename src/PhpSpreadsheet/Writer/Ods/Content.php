@@ -225,7 +225,7 @@ class Content extends WriterPart
                     if ($this->getParentWriter()->getPreCalculateFormulas()) {
                         try {
                             $formulaValue = $cell->getCalculatedValue();
-                        } catch (Exception $e) {
+                        } catch (Exception) {
                             // don't do anything
                         }
                     }

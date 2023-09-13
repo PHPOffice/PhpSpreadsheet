@@ -22,7 +22,7 @@ class Round
      *         If an array of numbers is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function round($number, $precision): array|string|float
+    public static function round(mixed $number, mixed $precision): array|string|float
     {
         if (is_array($number) || is_array($precision)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $number, $precision);
@@ -122,7 +122,7 @@ class Round
      *         If an array of numbers is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function multiple($number, $multiple): array|string|int|float
+    public static function multiple(mixed $number, mixed $multiple): array|string|int|float
     {
         if (is_array($number) || is_array($multiple)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $number, $multiple);

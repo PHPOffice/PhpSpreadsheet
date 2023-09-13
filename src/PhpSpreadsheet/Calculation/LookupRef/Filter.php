@@ -7,13 +7,9 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 class Filter
 {
     /**
-     * @param mixed $lookupArray
-     * @param mixed $matchArray
-     * @param mixed $ifEmpty
-     *
      * @return mixed
      */
-    public static function filter($lookupArray, $matchArray, $ifEmpty = null)
+    public static function filter(mixed $lookupArray, mixed $matchArray, mixed $ifEmpty = null)
     {
         if (!is_array($matchArray)) {
             return ExcelError::VALUE();

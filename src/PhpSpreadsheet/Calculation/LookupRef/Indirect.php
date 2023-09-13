@@ -19,7 +19,7 @@ class Indirect
      * @param mixed $a1fmt Expect bool Helpers::CELLADDRESS_USE_A1 or CELLADDRESS_USE_R1C1,
      *                      but can be provided as numeric which is cast to bool
      */
-    private static function a1Format($a1fmt): bool
+    private static function a1Format(mixed $a1fmt): bool
     {
         $a1fmt = Functions::flattenSingleValue($a1fmt);
         if ($a1fmt === null) {
@@ -63,7 +63,7 @@ class Indirect
      *
      * @return array|string An array containing a cell or range of cells, or a string on error
      */
-    public static function INDIRECT($cellAddress, $a1fmt, Cell $cell): string|array
+    public static function INDIRECT($cellAddress, mixed $a1fmt, Cell $cell): string|array
     {
         [$baseCol, $baseRow] = Coordinate::indexesFromString($cell->getCoordinate());
 
@@ -84,7 +84,7 @@ class Indirect
 
         try {
             [$cellAddress1, $cellAddress2, $cellAddress] = Helpers::extractCellAddresses($cellAddress, $a1, $cell->getWorkSheet(), $sheetName, $baseRow, $baseCol);
-        } catch (Exception $e) {
+        } catch (Exception) {
             return ExcelError::REF();
         }
 

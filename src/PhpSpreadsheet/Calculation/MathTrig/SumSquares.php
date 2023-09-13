@@ -20,7 +20,7 @@ class SumSquares
      *
      * @return float|string
      */
-    public static function sumSquare(...$args): string|int|float
+    public static function sumSquare(mixed ...$args): string|int|float
     {
         try {
             $returnValue = 0;
@@ -49,10 +49,8 @@ class SumSquares
 
     /**
      * These functions accept only numeric arguments, not even strings which are numeric.
-     *
-     * @param mixed $item
      */
-    private static function numericNotString($item): bool
+    private static function numericNotString(mixed $item): bool
     {
         return is_numeric($item) && !is_string($item);
     }

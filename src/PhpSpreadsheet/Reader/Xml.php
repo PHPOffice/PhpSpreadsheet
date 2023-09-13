@@ -85,7 +85,7 @@ class Xml extends BaseReader
         $valid = true;
         foreach ($signature as $match) {
             // every part of the signature must be present
-            if (strpos($data, $match) === false) {
+            if (!str_contains($data, $match)) {
                 $valid = false;
 
                 break;

@@ -540,7 +540,7 @@ class ConvertUOM
         try {
             [$fromUOM, $fromCategory, $fromMultiplier] = self::getUOMDetails($fromUOM);
             [$toUOM, $toCategory, $toMultiplier] = self::getUOMDetails($toUOM);
-        } catch (Exception $e) {
+        } catch (Exception) {
             return ExcelError::NA();
         }
 
@@ -674,15 +674,11 @@ class ConvertUOM
 
     private static function resolveTemperatureSynonyms(string $uom): string
     {
-        switch ($uom) {
-            case 'fah':
-                return 'F';
-            case 'cel':
-                return 'C';
-            case 'kel':
-                return 'K';
-        }
-
-        return $uom;
+        return match ($uom) {
+            'fah' => 'F',
+            'cel' => 'C',
+            'kel' => 'K',
+            default => $uom,
+        };
     }
 }

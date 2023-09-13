@@ -143,7 +143,7 @@ class Engineering
      *
      * @return array|string
      */
-    public static function BINTODEC($x)
+    public static function BINTODEC(mixed $x)
     {
         return Engineering\ConvertBinary::toDecimal($x);
     }
@@ -175,7 +175,7 @@ class Engineering
      *
      * @return array|string
      */
-    public static function BINTOHEX($x, $places = null)
+    public static function BINTOHEX(mixed $x, mixed $places = null)
     {
         return Engineering\ConvertBinary::toHex($x, $places);
     }
@@ -207,7 +207,7 @@ class Engineering
      *
      * @return array|string
      */
-    public static function BINTOOCT($x, $places = null)
+    public static function BINTOOCT(mixed $x, mixed $places = null)
     {
         return Engineering\ConvertBinary::toOctal($x, $places);
     }
@@ -241,7 +241,7 @@ class Engineering
      *                                If places is nonnumeric, DEC2BIN returns the #VALUE! error value.
      *                                If places is zero or negative, DEC2BIN returns the #NUM! error value.
      */
-    public static function DECTOBIN($x, $places = null): string|array
+    public static function DECTOBIN(mixed $x, mixed $places = null): string|array
     {
         return Engineering\ConvertDecimal::toBinary($x, $places);
     }
@@ -275,7 +275,7 @@ class Engineering
      *                                If places is nonnumeric, DEC2HEX returns the #VALUE! error value.
      *                                If places is zero or negative, DEC2HEX returns the #NUM! error value.
      */
-    public static function DECTOHEX($x, $places = null): string|array
+    public static function DECTOHEX(mixed $x, mixed $places = null): string|array
     {
         return Engineering\ConvertDecimal::toHex($x, $places);
     }
@@ -309,7 +309,7 @@ class Engineering
      *                                If places is nonnumeric, DEC2OCT returns the #VALUE! error value.
      *                                If places is zero or negative, DEC2OCT returns the #NUM! error value.
      */
-    public static function DECTOOCT($x, $places = null): string|array
+    public static function DECTOOCT(mixed $x, mixed $places = null): string|array
     {
         return Engineering\ConvertDecimal::toOctal($x, $places);
     }
@@ -345,7 +345,7 @@ class Engineering
      *
      * @return array|string
      */
-    public static function HEXTOBIN($x, $places = null)
+    public static function HEXTOBIN(mixed $x, mixed $places = null)
     {
         return Engineering\ConvertHex::toBinary($x, $places);
     }
@@ -372,7 +372,7 @@ class Engineering
      *
      * @return array|string
      */
-    public static function HEXTODEC($x)
+    public static function HEXTODEC(mixed $x)
     {
         return Engineering\ConvertHex::toDecimal($x);
     }
@@ -412,7 +412,7 @@ class Engineering
      *
      * @return array|string
      */
-    public static function HEXTOOCT($x, $places = null)
+    public static function HEXTOOCT(mixed $x, mixed $places = null)
     {
         return Engineering\ConvertHex::toOctal($x, $places);
     }
@@ -454,7 +454,7 @@ class Engineering
      *
      * @return array|string
      */
-    public static function OCTTOBIN($x, $places = null)
+    public static function OCTTOBIN(mixed $x, mixed $places = null)
     {
         return Engineering\ConvertOctal::toBinary($x, $places);
     }
@@ -481,7 +481,7 @@ class Engineering
      *
      * @return array|string
      */
-    public static function OCTTODEC($x)
+    public static function OCTTODEC(mixed $x)
     {
         return Engineering\ConvertOctal::toDecimal($x);
     }
@@ -516,7 +516,7 @@ class Engineering
      *                                    If places is nonnumeric, OCT2HEX returns the #VALUE! error value.
      *                                    If places is negative, OCT2HEX returns the #NUM! error value.
      */
-    public static function OCTTOHEX($x, $places = null): string|array
+    public static function OCTTOHEX(mixed $x, mixed $places = null): string|array
     {
         return Engineering\ConvertOctal::toHex($x, $places);
     }

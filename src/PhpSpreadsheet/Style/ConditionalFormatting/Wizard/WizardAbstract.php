@@ -89,11 +89,11 @@ abstract class WizardAbstract
     {
         if (
             $operandValueType === Wizard::VALUE_TYPE_LITERAL &&
-            substr($operand, 0, 1) === '"' &&
-            substr($operand, -1) === '"'
+            str_starts_with($operand, '"') &&
+            str_ends_with($operand, '"')
         ) {
             $operand = str_replace('""', '"', substr($operand, 1, -1));
-        } elseif ($operandValueType === Wizard::VALUE_TYPE_FORMULA && substr($operand, 0, 1) === '=') {
+        } elseif ($operandValueType === Wizard::VALUE_TYPE_FORMULA && str_starts_with($operand, '=')) {
             $operand = substr($operand, 1);
         }
 
@@ -106,13 +106,13 @@ abstract class WizardAbstract
         $column = $matches[6];
         $row = $matches[7];
 
-        if (strpos($column, '$') === false) {
+        if (!str_contains($column, '$')) {
             $column = Coordinate::columnIndexFromString($column);
             $column -= $referenceColumn - 1;
             $column = Coordinate::stringFromColumnIndex($column);
         }
 
-        if (strpos($row, '$') === false) {
+        if (!str_contains($row, '$')) {
             $row -= $referenceRow - 1;
         }
 
@@ -152,13 +152,13 @@ abstract class WizardAbstract
         $column = $matches[6];
         $row = $matches[7];
 
-        if (strpos($column, '$') === false) {
+        if (!str_contains($column, '$')) {
             $column = Coordinate::columnIndexFromString($column);
             $column += $this->referenceColumn - 1;
             $column = Coordinate::stringFromColumnIndex($column);
         }
 
-        if (strpos($row, '$') === false) {
+        if (!str_contains($row, '$')) {
             $row += $this->referenceRow - 1;
         }
 

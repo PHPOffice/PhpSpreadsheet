@@ -96,7 +96,7 @@ class AddressHelper
         int $currentRowNumber = 1,
         int $currentColumnNumber = 1
     ): string {
-        if (substr($formula, 0, 3) == 'of:') {
+        if (str_starts_with($formula, 'of:')) {
             // We have an old-style SpreadsheetML Formula
             return self::convertSpreadsheetMLFormula($formula);
         }

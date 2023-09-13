@@ -30,7 +30,7 @@ class Permutations
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function PERMUT($numObjs, $numInSet)
+    public static function PERMUT(mixed $numObjs, mixed $numInSet)
     {
         if (is_array($numObjs) || is_array($numInSet)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $numObjs, $numInSet);
@@ -75,7 +75,7 @@ class Permutations
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function PERMUTATIONA($numObjs, $numInSet)
+    public static function PERMUTATIONA(mixed $numObjs, mixed $numInSet)
     {
         if (is_array($numObjs) || is_array($numInSet)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $numObjs, $numInSet);

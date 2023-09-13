@@ -24,7 +24,7 @@ class Fisher
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function distribution($value): array|string|float
+    public static function distribution(mixed $value): array|string|float
     {
         if (is_array($value)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $value);
@@ -57,7 +57,7 @@ class Fisher
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function inverse($probability): array|string|float
+    public static function inverse(mixed $probability): array|string|float
     {
         if (is_array($probability)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $probability);

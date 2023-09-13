@@ -417,23 +417,12 @@ class Worksheet extends BIFFwriter
                                 $calculatedValue = $cell->getCalculatedValue();
                             }
                             $calctype = gettype($calculatedValue);
-                            switch ($calctype) {
-                                case 'integer':
-                                case 'double':
-                                    $this->writeNumber($row, $column, (float) $calculatedValue, $xfIndex);
-
-                                    break;
-                                case 'string':
-                                    $this->writeString($row, $column, $calculatedValue, $xfIndex);
-
-                                    break;
-                                case 'boolean':
-                                    $this->writeBoolErr($row, $column, (int) $calculatedValue, 0, $xfIndex);
-
-                                    break;
-                                default:
-                                    $this->writeString($row, $column, $cVal, $xfIndex);
-                            }
+                            match ($calctype) {
+                                'integer', 'double' => $this->writeNumber($row, $column, (float) $calculatedValue, $xfIndex),
+                                'string' => $this->writeString($row, $column, $calculatedValue, $xfIndex),
+                                'boolean' => $this->writeBoolErr($row, $column, (int) $calculatedValue, 0, $xfIndex),
+                                default => $this->writeString($row, $column, $cVal, $xfIndex),
+                            };
                         }
 
                         break;
@@ -484,7 +473,7 @@ class Worksheet extends BIFFwriter
 
             $url = $hyperlink->getUrl();
 
-            if (strpos($url, 'sheet://') !== false) {
+            if (str_contains($url, 'sheet://')) {
                 // internal to current workbook
                 $url = str_replace('sheet://', 'internal:', $url);
             } elseif (preg_match('/^(http:|https:|ftp:|mailto:)/', $url)) {
@@ -807,7 +796,7 @@ class Worksheet extends BIFFwriter
      *
      * @return int
      */
-    private function writeFormula(int $row, int $col, string $formula, int $xfIndex, $calculatedValue)
+    private function writeFormula(int $row, int $col, string $formula, int $xfIndex, mixed $calculatedValue)
     {
         $record = 0x0006; // Record identifier
         // Initialize possible additional value for STRING record that should be written after the FORMULA record?
@@ -2710,7 +2699,7 @@ class Worksheet extends BIFFwriter
                     $this->parser->parse($formula2);
                     $formula2 = $this->parser->toReversePolish();
                     $sz2 = strlen($formula2);
-                } catch (PhpSpreadsheetException $e) {
+                } catch (PhpSpreadsheetException) {
                     $sz2 = 0;
                     $formula2 = '';
                 }

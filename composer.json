@@ -42,6 +42,7 @@
     ],
     "scripts": {
         "check": [
+            "./bin/check-phpdoc-types",
             "phpcs src/ tests/ --report=checkstyle",
             "phpcs --report-width=200 samples/ src/ tests/ --ignore=samples/Header.php --standard=PHPCompatibility --runtime-set testVersion 8.0- -n",
             "php-cs-fixer fix --ansi --dry-run --diff",

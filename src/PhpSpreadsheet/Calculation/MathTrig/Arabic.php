@@ -50,10 +50,7 @@ class Arabic
         return $sum;
     }
 
-    /**
-     * @param mixed $value
-     */
-    private static function mollifyScrutinizer($value): array
+    private static function mollifyScrutinizer(mixed $value): array
     {
         return is_array($value) ? $value : [];
     }
@@ -79,7 +76,7 @@ class Arabic
      *         If an array of numbers is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function evaluate($roman)
+    public static function evaluate(mixed $roman)
     {
         if (is_array($roman)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $roman);
@@ -99,7 +96,7 @@ class Arabic
 
         try {
             $arabic = self::calculateArabic(self::strSplit($roman));
-        } catch (Exception $e) {
+        } catch (Exception) {
             return ExcelError::VALUE(); // Invalid character detected
         }
 

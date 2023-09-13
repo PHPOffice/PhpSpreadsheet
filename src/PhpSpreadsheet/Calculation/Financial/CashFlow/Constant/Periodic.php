@@ -30,11 +30,11 @@ class Periodic
      *                      1               At the beginning of the period.
      */
     public static function futureValue(
-        $rate,
-        $numberOfPeriods,
-        $payment = 0.0,
-        $presentValue = 0.0,
-        $type = FinancialConstants::PAYMENT_END_OF_PERIOD
+        mixed $rate,
+        mixed $numberOfPeriods,
+        mixed $payment = 0.0,
+        mixed $presentValue = 0.0,
+        mixed $type = FinancialConstants::PAYMENT_END_OF_PERIOD
     ): string|float {
         $rate = Functions::flattenSingleValue($rate);
         $numberOfPeriods = Functions::flattenSingleValue($numberOfPeriods);
@@ -69,11 +69,11 @@ class Periodic
      * @return float|string Result, or a string containing an error
      */
     public static function presentValue(
-        $rate,
-        $numberOfPeriods,
-        $payment = 0.0,
-        $futureValue = 0.0,
-        $type = FinancialConstants::PAYMENT_END_OF_PERIOD
+        mixed $rate,
+        mixed $numberOfPeriods,
+        mixed $payment = 0.0,
+        mixed $futureValue = 0.0,
+        mixed $type = FinancialConstants::PAYMENT_END_OF_PERIOD
     ): string|float {
         $rate = Functions::flattenSingleValue($rate);
         $numberOfPeriods = Functions::flattenSingleValue($numberOfPeriods);
@@ -113,11 +113,11 @@ class Periodic
      * @return float|string Result, or a string containing an error
      */
     public static function periods(
-        $rate,
-        $payment,
-        $presentValue,
-        $futureValue = 0.0,
-        $type = FinancialConstants::PAYMENT_END_OF_PERIOD
+        mixed $rate,
+        mixed $payment,
+        mixed $presentValue,
+        mixed $futureValue = 0.0,
+        mixed $type = FinancialConstants::PAYMENT_END_OF_PERIOD
     ) {
         $rate = Functions::flattenSingleValue($rate);
         $payment = Functions::flattenSingleValue($payment);

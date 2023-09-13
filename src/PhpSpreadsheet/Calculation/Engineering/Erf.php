@@ -35,7 +35,7 @@ class Erf
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function ERF($lower, $upper = null): array|float|string
+    public static function ERF(mixed $lower, mixed $upper = null): array|float|string
     {
         if (is_array($lower) || is_array($upper)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $lower, $upper);
@@ -68,7 +68,7 @@ class Erf
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function ERFPRECISE($limit)
+    public static function ERFPRECISE(mixed $limit)
     {
         if (is_array($limit)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $limit);
@@ -77,8 +77,7 @@ class Erf
         return self::ERF($limit);
     }
 
-    /** @param mixed $value */
-    private static function makeFloat($value): float
+    private static function makeFloat(mixed $value): float
     {
         return is_numeric($value) ? ((float) $value) : 0.0;
     }

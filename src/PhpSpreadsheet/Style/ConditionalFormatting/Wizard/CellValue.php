@@ -61,10 +61,7 @@ class CellValue extends WizardAbstract implements WizardInterface
         $this->operator = $operator;
     }
 
-    /**
-     * @param mixed $operand
-     */
-    protected function operand(int $index, $operand, string $operandValueType = Wizard::VALUE_TYPE_LITERAL): void
+    protected function operand(int $index, mixed $operand, string $operandValueType = Wizard::VALUE_TYPE_LITERAL): void
     {
         if (is_string($operand)) {
             $operand = $this->validateOperand($operand, $operandValueType);
@@ -75,11 +72,9 @@ class CellValue extends WizardAbstract implements WizardInterface
     }
 
     /**
-     * @param mixed $value
-     *
      * @return float|int|string
      */
-    protected function wrapValue($value, string $operandValueType)
+    protected function wrapValue(mixed $value, string $operandValueType)
     {
         if (!is_numeric($value) && !is_bool($value) && null !== $value) {
             if ($operandValueType === Wizard::VALUE_TYPE_LITERAL) {
@@ -117,7 +112,7 @@ class CellValue extends WizardAbstract implements WizardInterface
 
     protected static function unwrapString(string $condition): string
     {
-        if ((strpos($condition, '"') === 0) && (strpos(strrev($condition), '"') === 0)) {
+        if ((str_starts_with($condition, '"')) && (str_starts_with(strrev($condition), '"'))) {
             $condition = substr($condition, 1, -1);
         }
 

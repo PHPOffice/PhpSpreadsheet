@@ -67,7 +67,7 @@ class WizardFactoryTest extends TestCase
 
         foreach ($conditionals as $index => $conditional) {
             $wizard = Wizard::fromConditional($conditional);
-            self::assertEquals($expectedWizads[$index], get_class($wizard));
+            self::assertEquals($expectedWizads[$index], $wizard::class);
         }
     }
 

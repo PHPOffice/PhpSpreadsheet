@@ -32,7 +32,7 @@ class BesselK
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function BESSELK($x, $ord): array|string|float
+    public static function BESSELK(mixed $x, mixed $ord): array|string|float
     {
         if (is_array($x) || is_array($ord)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $x, $ord);
@@ -56,15 +56,11 @@ class BesselK
 
     private static function calculate(float $x, int $ord): float
     {
-        // special cases
-        switch ($ord) {
-            case 0:
-                return self::besselK0($x);
-            case 1:
-                return self::besselK1($x);
-        }
-
-        return self::besselK2($x, $ord);
+        return match ($ord) {
+            0 => self::besselK0($x),
+            1 => self::besselK1($x),
+            default => self::besselK2($x, $ord),
+        };
     }
 
     /**

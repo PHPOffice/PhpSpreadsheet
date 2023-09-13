@@ -21,7 +21,7 @@ class Text
      *         If an array of values is passed for the argument, then the returned result
      *            will also be an array with matching dimensions
      */
-    public static function length($value = ''): array|int
+    public static function length(mixed $value = ''): array|int
     {
         if (is_array($value)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $value);
@@ -46,7 +46,7 @@ class Text
      *         If an array of values is passed for either of the arguments, then the returned result
      *            will also be an array with matching dimensions
      */
-    public static function exact($value1, $value2): array|bool
+    public static function exact(mixed $value1, mixed $value2): array|bool
     {
         if (is_array($value1) || is_array($value2)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $value1, $value2);
@@ -68,7 +68,7 @@ class Text
      *         If an array of values is passed for the argument, then the returned result
      *            will also be an array with matching dimensions
      */
-    public static function test($testValue = ''): array|string
+    public static function test(mixed $testValue = ''): array|string
     {
         if (is_array($testValue)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $testValue);
@@ -102,7 +102,7 @@ class Text
      *
      * @return array the array built from the text, split by the row and column delimiters
      */
-    public static function split($text, $columnDelimiter = null, $rowDelimiter = null, bool $ignoreEmpty = false, bool $matchMode = true, $padding = '#N/A'): array
+    public static function split(mixed $text, $columnDelimiter = null, $rowDelimiter = null, bool $ignoreEmpty = false, bool $matchMode = true, mixed $padding = '#N/A'): array
     {
         $text = Functions::flattenSingleValue($text);
 
@@ -159,10 +159,7 @@ class Text
         return self::applyPadding($rows, $padding);
     }
 
-    /**
-     * @param mixed $padding
-     */
-    private static function applyPadding(array $rows, $padding): array
+    private static function applyPadding(array $rows, mixed $padding): array
     {
         $columnCount = array_reduce(
             $rows,
@@ -227,10 +224,7 @@ class Text
         return ($format === 1) ? '{' . $result . '}' : $result;
     }
 
-    /**
-     * @param mixed $cellValue
-     */
-    private static function formatValueMode0($cellValue): string
+    private static function formatValueMode0(mixed $cellValue): string
     {
         if (is_bool($cellValue)) {
             return Calculation::getLocaleBoolean($cellValue ? 'TRUE' : 'FALSE');

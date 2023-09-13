@@ -20,45 +20,29 @@ class Formatter
      */
     private const SECTION_SPLIT = '/;(?=(?:[^"]*"[^"]*")*[^"]*\Z)/miu';
 
-    /**
-     * @param mixed $value
-     * @param mixed $comparisonValue
-     * @param mixed $defaultComparisonValue
-     */
     private static function splitFormatComparison(
-        $value,
+        mixed $value,
         ?string $condition,
-        $comparisonValue,
+        mixed $comparisonValue,
         string $defaultCondition,
-        $defaultComparisonValue
+        mixed $defaultComparisonValue
     ): bool {
         if (!$condition) {
             $condition = $defaultCondition;
             $comparisonValue = $defaultComparisonValue;
         }
 
-        switch ($condition) {
-            case '>':
-                return $value > $comparisonValue;
-
-            case '<':
-                return $value < $comparisonValue;
-
-            case '<=':
-                return $value <= $comparisonValue;
-
-            case '<>':
-                return $value != $comparisonValue;
-
-            case '=':
-                return $value == $comparisonValue;
-        }
-
-        return $value >= $comparisonValue;
+        return match ($condition) {
+            '>' => $value > $comparisonValue,
+            '<' => $value < $comparisonValue,
+            '<=' => $value <= $comparisonValue,
+            '<>' => $value != $comparisonValue,
+            '=' => $value == $comparisonValue,
+            default => $value >= $comparisonValue,
+        };
     }
 
-    /** @param mixed $value */
-    private static function splitFormatForSectionSelection(array $sections, $value): array
+    private static function splitFormatForSectionSelection(array $sections, mixed $value): array
     {
         // Extract the relevant section depending on whether number is positive, negative, or zero?
         // Text not supported yet.
@@ -185,7 +169,7 @@ class Formatter
             // datetime format
             $value = DateFormatter::format($value, $format);
         } else {
-            if (substr($format, 0, 1) === '"' && substr($format, -1, 1) === '"' && substr_count($format, '"') === 2) {
+            if (str_starts_with($format, '"') && str_ends_with($format, '"') && substr_count($format, '"') === 2) {
                 $value = substr($format, 1, -1);
             } elseif (preg_match('/[0#, ]%/', $format)) {
                 // % number format - avoid weird '-0' problem
