@@ -656,14 +656,14 @@ class Font
     {
         if (isset(self::DEFAULT_COLUMN_WIDTHS[$font->getName()][$font->getSize()])) {
             // Exact width can be determined
-            $columnWidth = $returnAsPixels ?
-                self::DEFAULT_COLUMN_WIDTHS[$font->getName()][$font->getSize()]['px']
+            $columnWidth = $returnAsPixels
+                ? self::DEFAULT_COLUMN_WIDTHS[$font->getName()][$font->getSize()]['px']
                     : self::DEFAULT_COLUMN_WIDTHS[$font->getName()][$font->getSize()]['width'];
         } else {
             // We don't have data for this particular font and size, use approximation by
             // extrapolating from Calibri 11
-            $columnWidth = $returnAsPixels ?
-                self::DEFAULT_COLUMN_WIDTHS['Calibri'][11]['px']
+            $columnWidth = $returnAsPixels
+                ? self::DEFAULT_COLUMN_WIDTHS['Calibri'][11]['px']
                     : self::DEFAULT_COLUMN_WIDTHS['Calibri'][11]['width'];
             $columnWidth = $columnWidth * $font->getSize() / 11;
 

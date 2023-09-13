@@ -100,9 +100,9 @@ class Hyperlink
     public function getHashCode(): string
     {
         return md5(
-            $this->url .
-            $this->tooltip .
-            __CLASS__
+            $this->url
+            . $this->tooltip
+            . __CLASS__
         );
     }
 }

@@ -88,9 +88,9 @@ abstract class WizardAbstract
     protected function validateOperand(string $operand, string $operandValueType = Wizard::VALUE_TYPE_LITERAL): string
     {
         if (
-            $operandValueType === Wizard::VALUE_TYPE_LITERAL &&
-            str_starts_with($operand, '"') &&
-            str_ends_with($operand, '"')
+            $operandValueType === Wizard::VALUE_TYPE_LITERAL
+            && str_starts_with($operand, '"')
+            && str_ends_with($operand, '"')
         ) {
             $operand = str_replace('""', '"', substr($operand, 1, -1));
         } elseif ($operandValueType === Wizard::VALUE_TYPE_FORMULA && str_starts_with($operand, '=')) {
@@ -133,9 +133,7 @@ abstract class WizardAbstract
             if ($i) {
                 $value = (string) preg_replace_callback(
                     '/' . Calculation::CALCULATION_REGEXP_CELLREF_RELATIVE . '/i',
-                    function ($matches) use ($referenceColumnIndex, $referenceRow): string {
-                        return self::reverseCellAdjustment($matches, $referenceColumnIndex, $referenceRow);
-                    },
+                    fn ($matches): string => self::reverseCellAdjustment($matches, $referenceColumnIndex, $referenceRow),
                     $value
                 );
             }

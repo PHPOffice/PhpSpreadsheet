@@ -226,8 +226,8 @@ class Xlsx extends BaseReader
                 foreach ($relsWorkbook->Relationship as $elex) {
                     $ele = self::getAttributes($elex);
                     if (
-                        ((string) $ele['Type'] === "$namespace/worksheet") ||
-                        ((string) $ele['Type'] === "$namespace/chartsheet")
+                        ((string) $ele['Type'] === "$namespace/worksheet")
+                        || ((string) $ele['Type'] === "$namespace/chartsheet")
                     ) {
                         $worksheets[(string) $ele['Id']] = $ele['Target'];
                     }
@@ -620,9 +620,9 @@ class Xlsx extends BaseReader
                                 //  But there's a lot of naughty homebrew xlsx writers that do use "reserved" id values that aren't actually used
                                 //  So we make allowance for them rather than lose formatting masks
                                 if (
-                                    $numFmt === null &&
-                                    (int) $xf['numFmtId'] < 164 &&
-                                    NumberFormat::builtInFormatCode((int) $xf['numFmtId']) !== ''
+                                    $numFmt === null
+                                    && (int) $xf['numFmtId'] < 164
+                                    && NumberFormat::builtInFormatCode((int) $xf['numFmtId']) !== ''
                                 ) {
                                     $numFmt = NumberFormat::builtInFormatCode((int) $xf['numFmtId']);
                                 }
@@ -936,8 +936,8 @@ class Xlsx extends BaseReader
                                                 $holdSelected = $docSheet->getSelectedCells();
                                                 $cAttrS = (int) ($cAttr['s'] ?? 0);
                                                 // no style index means 0, it seems
-                                                $cell->setXfIndex(isset($styles[$cAttrS]) ?
-                                                    $cAttrS : 0);
+                                                $cell->setXfIndex(isset($styles[$cAttrS])
+                                                    ? $cAttrS : 0);
                                                 // issue 3495
                                                 if ($cell->getDataType() === DataType::TYPE_FORMULA) {
                                                     $cell->getStyle()->setQuotePrefix(false);
@@ -1399,8 +1399,8 @@ class Xlsx extends BaseReader
                                                     );
                                                     if (isset($images[$embedImageKey])) {
                                                         $objDrawing->setPath(
-                                                            'zip://' . File::realpath($filename) . '#' .
-                                                            $images[$embedImageKey],
+                                                            'zip://' . File::realpath($filename) . '#'
+                                                            . $images[$embedImageKey],
                                                             false
                                                         );
                                                     } else {
@@ -1487,8 +1487,8 @@ class Xlsx extends BaseReader
                                                     );
                                                     if (isset($images[$embedImageKey])) {
                                                         $objDrawing->setPath(
-                                                            'zip://' . File::realpath($filename) . '#' .
-                                                            $images[$embedImageKey],
+                                                            'zip://' . File::realpath($filename) . '#'
+                                                            . $images[$embedImageKey],
                                                             false
                                                         );
                                                     } else {
@@ -1866,8 +1866,8 @@ class Xlsx extends BaseReader
                         if (isset($run->rPr->b)) {
                             $attr = $run->rPr->b->attributes();
                             if (
-                                (isset($attr['val']) && self::boolean((string) $attr['val'])) ||
-                                (!isset($attr['val']))
+                                (isset($attr['val']) && self::boolean((string) $attr['val']))
+                                || (!isset($attr['val']))
                             ) {
                                 $objFont->setBold(true);
                             }
@@ -1875,8 +1875,8 @@ class Xlsx extends BaseReader
                         if (isset($run->rPr->i)) {
                             $attr = $run->rPr->i->attributes();
                             if (
-                                (isset($attr['val']) && self::boolean((string) $attr['val'])) ||
-                                (!isset($attr['val']))
+                                (isset($attr['val']) && self::boolean((string) $attr['val']))
+                                || (!isset($attr['val']))
                             ) {
                                 $objFont->setItalic(true);
                             }
@@ -1904,8 +1904,8 @@ class Xlsx extends BaseReader
                         if (isset($run->rPr->strike)) {
                             $attr = $run->rPr->strike->attributes();
                             if (
-                                (isset($attr['val']) && self::boolean((string) $attr['val'])) ||
-                                (!isset($attr['val']))
+                                (isset($attr['val']) && self::boolean((string) $attr['val']))
+                                || (!isset($attr['val']))
                             ) {
                                 $objFont->setStrikethrough(true);
                             }

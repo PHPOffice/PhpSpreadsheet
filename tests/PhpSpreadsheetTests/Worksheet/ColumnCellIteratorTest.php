@@ -13,8 +13,8 @@ use PHPUnit\Framework\TestCase;
 
 class ColumnCellIteratorTest extends TestCase
 {
-    private const CELL_VALUES =
-        [
+    private const CELL_VALUES
+        = [
             [110, 210, 310, 410, 510, 610, 710],
             [120, 220, 320, 420, 520, 620],
             [130, 230, 330, 430, 530, 630],

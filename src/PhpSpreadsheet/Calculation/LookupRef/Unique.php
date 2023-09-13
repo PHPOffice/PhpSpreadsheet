@@ -104,9 +104,7 @@ class Unique
     {
         $caseInsensitiveCounts = array_count_values(
             array_map(
-                function (string $value): string {
-                    return StringHelper::strToUpper($value);
-                },
+                fn (string $value): string => StringHelper::strToUpper($value),
                 $caseSensitiveLookupValues
             )
         );
@@ -133,9 +131,7 @@ class Unique
     {
         return array_filter(
             $values,
-            function ($value): bool {
-                return $value === 1;
-            }
+            fn ($value): bool => $value === 1
         );
     }
 }

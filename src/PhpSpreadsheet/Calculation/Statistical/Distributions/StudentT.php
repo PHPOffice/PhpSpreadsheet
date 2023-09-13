@@ -79,9 +79,7 @@ class StudentT
             return ExcelError::NAN();
         }
 
-        $callback = function ($value) use ($degrees) {
-            return self::distribution($value, $degrees, 2);
-        };
+        $callback = fn ($value) => self::distribution($value, $degrees, 2);
 
         $newtonRaphson = new NewtonRaphson($callback);
 

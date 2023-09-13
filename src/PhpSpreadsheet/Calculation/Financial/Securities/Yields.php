@@ -145,9 +145,9 @@ class Yields
         }
         $daysBetweenSettlementAndMaturity *= $daysPerYear;
 
-        return ((1 + (($daysBetweenIssueAndMaturity / $daysPerYear) * $rate) -
-                    (($price / 100) + (($daysBetweenIssueAndSettlement / $daysPerYear) * $rate))) /
-                (($price / 100) + (($daysBetweenIssueAndSettlement / $daysPerYear) * $rate))) *
-            ($daysPerYear / $daysBetweenSettlementAndMaturity);
+        return ((1 + (($daysBetweenIssueAndMaturity / $daysPerYear) * $rate)
+                    - (($price / 100) + (($daysBetweenIssueAndSettlement / $daysPerYear) * $rate)))
+                / (($price / 100) + (($daysBetweenIssueAndSettlement / $daysPerYear) * $rate)))
+            * ($daysPerYear / $daysBetweenSettlementAndMaturity);
     }
 }

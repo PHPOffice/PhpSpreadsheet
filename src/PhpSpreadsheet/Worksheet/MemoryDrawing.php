@@ -328,11 +328,11 @@ class MemoryDrawing extends BaseDrawing
     public function getHashCode(): string
     {
         return md5(
-            $this->renderingFunction .
-            $this->mimeType .
-            $this->uniqueName .
-            parent::getHashCode() .
-            __CLASS__
+            $this->renderingFunction
+            . $this->mimeType
+            . $this->uniqueName
+            . parent::getHashCode()
+            . __CLASS__
         );
     }
 }

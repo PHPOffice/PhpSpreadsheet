@@ -168,8 +168,8 @@ class Sort extends LookupRefValidations
         $sortOrder = Functions::flattenArray($sortOrder);
 
         if (
-            count($sortOrder) === 0 || count($sortOrder) > $sortArraySize ||
-            (count($sortOrder) > count($sortIndex))
+            count($sortOrder) === 0 || count($sortOrder) > $sortArraySize
+            || (count($sortOrder) > count($sortIndex))
         ) {
             throw new Exception(ExcelError::VALUE());
         }

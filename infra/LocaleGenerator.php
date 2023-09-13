@@ -208,9 +208,9 @@ class LocaleGenerator
     {
         $lastchar = substr($this->translationBaseFolder, -1);
         $dirsep = ($lastchar === '/' || $lastchar === '\\') ? '' : DIRECTORY_SEPARATOR;
-        $localeFolder = $this->translationBaseFolder .
-            $dirsep .
-            str_replace('_', DIRECTORY_SEPARATOR, $locale);
+        $localeFolder = $this->translationBaseFolder
+            . $dirsep
+            . str_replace('_', DIRECTORY_SEPARATOR, $locale);
         if (!file_exists($localeFolder) || !is_dir($localeFolder)) {
             mkdir($localeFolder, 7 * 64 + 7 * 8 + 7, true); // octal 777
         }

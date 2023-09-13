@@ -385,13 +385,13 @@ class Borders extends Supervisor
         }
 
         return md5(
-            $this->getLeft()->getHashCode() .
-            $this->getRight()->getHashCode() .
-            $this->getTop()->getHashCode() .
-            $this->getBottom()->getHashCode() .
-            $this->getDiagonal()->getHashCode() .
-            $this->getDiagonalDirection() .
-            __CLASS__
+            $this->getLeft()->getHashCode()
+            . $this->getRight()->getHashCode()
+            . $this->getTop()->getHashCode()
+            . $this->getBottom()->getHashCode()
+            . $this->getDiagonal()->getHashCode()
+            . $this->getDiagonalDirection()
+            . __CLASS__
         );
     }
 

@@ -775,17 +775,17 @@ class Font extends Supervisor
         }
 
         return md5(
-            $this->name .
-            $this->size .
-            ($this->bold ? 't' : 'f') .
-            ($this->italic ? 't' : 'f') .
-            ($this->superscript ? 't' : 'f') .
-            ($this->subscript ? 't' : 'f') .
-            $this->underline .
-            ($this->strikethrough ? 't' : 'f') .
-            $this->color->getHashCode() .
-            $this->scheme .
-            implode(
+            $this->name
+            . $this->size
+            . ($this->bold ? 't' : 'f')
+            . ($this->italic ? 't' : 'f')
+            . ($this->superscript ? 't' : 'f')
+            . ($this->subscript ? 't' : 'f')
+            . $this->underline
+            . ($this->strikethrough ? 't' : 'f')
+            . $this->color->getHashCode()
+            . $this->scheme
+            . implode(
                 '*',
                 [
                     $this->latin,
@@ -796,8 +796,8 @@ class Font extends Supervisor
                     $this->hashChartColor($this->underlineColor),
                     (string) $this->baseLine,
                 ]
-            ) .
-            __CLASS__
+            )
+            . __CLASS__
         );
     }
 

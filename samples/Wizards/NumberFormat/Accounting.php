@@ -83,7 +83,7 @@ $currencies = [
 if (isset($_POST['submit'])) {
     if (!is_numeric($_POST['number'])) {
         $helper->log('The Sample Number Value must be numeric');
-    } elseif (!is_numeric($_POST['decimals']) || strpos($_POST['decimals'], '.') !== false || (int) $_POST['decimals'] < 0) {
+    } elseif (!is_numeric($_POST['decimals']) || str_contains($_POST['decimals'], '.') || (int) $_POST['decimals'] < 0) {
         $helper->log('The Decimal Places value must be positive integer');
     } else {
         try {
@@ -93,11 +93,11 @@ if (isset($_POST['submit'])) {
             $helper->log('<hr /><b>Code:</b><br />');
             $helper->log('use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard;');
             $helper->log(
-                "\$mask = Wizard\\Accounting('{$_POST['currency']}', {$_POST['decimals']}, Wizard\\Number::" .
-                (isset($_POST['thousands']) ? 'WITH_THOUSANDS_SEPARATOR' : 'WITHOUT_THOUSANDS_SEPARATOR') .
-                ', Wizard\Currency::' . (((bool) $_POST['position']) ? 'LEADING_SYMBOL' : 'TRAILING_SYMBOL') .
-                ', Wizard\Currency::' . (((bool) $_POST['spacing']) ? 'SYMBOL_WITH_SPACING' : 'SYMBOL_WITHOUT_SPACING') .
-                ');<br />'
+                "\$mask = Wizard\\Accounting('{$_POST['currency']}', {$_POST['decimals']}, Wizard\\Number::"
+                . (isset($_POST['thousands']) ? 'WITH_THOUSANDS_SEPARATOR' : 'WITHOUT_THOUSANDS_SEPARATOR')
+                . ', Wizard\Currency::' . (((bool) $_POST['position']) ? 'LEADING_SYMBOL' : 'TRAILING_SYMBOL')
+                . ', Wizard\Currency::' . (((bool) $_POST['spacing']) ? 'SYMBOL_WITH_SPACING' : 'SYMBOL_WITHOUT_SPACING')
+                . ');<br />'
             );
             $helper->log('echo (string) $mask;');
             $helper->log('<hr /><b>Mask:</b><br />');

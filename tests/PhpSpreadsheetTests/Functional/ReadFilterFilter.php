@@ -30,8 +30,8 @@ class ReadFilterFilter implements IReadFilter
 
         $col = sprintf('%04s', $column);
         if (
-            $col > sprintf('%04s', $columnMax) ||
-            $col < sprintf('%04s', $columnMin)
+            $col > sprintf('%04s', $columnMax)
+            || $col < sprintf('%04s', $columnMin)
         ) {
             return false;
         }

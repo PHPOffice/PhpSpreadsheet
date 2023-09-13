@@ -95,8 +95,8 @@ class ColumnCellIterator extends CellIterator
     public function seek(int $row = 1): static
     {
         if (
-            $this->onlyExistingCells &&
-            (!$this->cellCollection->has(Coordinate::stringFromColumnIndex($this->columnIndex) . $row))
+            $this->onlyExistingCells
+            && (!$this->cellCollection->has(Coordinate::stringFromColumnIndex($this->columnIndex) . $row))
         ) {
             throw new PhpSpreadsheetException('In "IterateOnlyExistingCells" mode and Cell does not exist');
         }
@@ -149,9 +149,9 @@ class ColumnCellIterator extends CellIterator
         do {
             ++$this->currentRow;
         } while (
-            ($this->onlyExistingCells) &&
-            ($this->currentRow <= $this->endRow) &&
-            (!$this->cellCollection->has($columnAddress . $this->currentRow))
+            ($this->onlyExistingCells)
+            && ($this->currentRow <= $this->endRow)
+            && (!$this->cellCollection->has($columnAddress . $this->currentRow))
         );
     }
 
@@ -164,9 +164,9 @@ class ColumnCellIterator extends CellIterator
         do {
             --$this->currentRow;
         } while (
-            ($this->onlyExistingCells) &&
-            ($this->currentRow >= $this->startRow) &&
-            (!$this->cellCollection->has($columnAddress . $this->currentRow))
+            ($this->onlyExistingCells)
+            && ($this->currentRow >= $this->startRow)
+            && (!$this->cellCollection->has($columnAddress . $this->currentRow))
         );
     }
 
@@ -186,14 +186,14 @@ class ColumnCellIterator extends CellIterator
         if ($this->onlyExistingCells) {
             $columnAddress = Coordinate::stringFromColumnIndex($this->columnIndex);
             while (
-                (!$this->cellCollection->has($columnAddress . $this->startRow)) &&
-                ($this->startRow <= $this->endRow)
+                (!$this->cellCollection->has($columnAddress . $this->startRow))
+                && ($this->startRow <= $this->endRow)
             ) {
                 ++$this->startRow;
             }
             while (
-                (!$this->cellCollection->has($columnAddress . $this->endRow)) &&
-                ($this->endRow >= $this->startRow)
+                (!$this->cellCollection->has($columnAddress . $this->endRow))
+                && ($this->endRow >= $this->startRow)
             ) {
                 --$this->endRow;
             }

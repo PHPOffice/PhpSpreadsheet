@@ -244,8 +244,8 @@ class NumberFormatter
         }
 
         if (
-            (str_contains((string) $value, '0.')) &&
-            ((str_contains($baseFormat, '#.')) || (str_contains($baseFormat, '?.')))
+            (str_contains((string) $value, '0.'))
+            && ((str_contains($baseFormat, '#.')) || (str_contains($baseFormat, '?.')))
         ) {
             $value = preg_replace('/(\b)0\.|([^\d])0\./', '${2}.', (string) $value);
         }

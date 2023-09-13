@@ -51,8 +51,8 @@ class Address
     public static function cell(mixed $row, mixed $column, mixed $relativity = 1, mixed $referenceStyle = true, mixed $sheetName = ''): array|string
     {
         if (
-            is_array($row) || is_array($column) ||
-            is_array($relativity) || is_array($referenceStyle) || is_array($sheetName)
+            is_array($row) || is_array($column)
+            || is_array($relativity) || is_array($referenceStyle) || is_array($sheetName)
         ) {
             return self::evaluateArrayArguments(
                 [self::class, __FUNCTION__],

@@ -258,17 +258,17 @@ class Comment implements IComparable, Stringable
     public function getHashCode(): string
     {
         return md5(
-            $this->author .
-            $this->text->getHashCode() .
-            $this->width .
-            $this->height .
-            $this->marginLeft .
-            $this->marginTop .
-            ($this->visible ? 1 : 0) .
-            $this->fillColor->getHashCode() .
-            $this->alignment .
-            ($this->hasBackgroundImage() ? $this->backgroundImage->getHashCode() : '') .
-            __CLASS__
+            $this->author
+            . $this->text->getHashCode()
+            . $this->width
+            . $this->height
+            . $this->marginLeft
+            . $this->marginTop
+            . ($this->visible ? 1 : 0)
+            . $this->fillColor->getHashCode()
+            . $this->alignment
+            . ($this->hasBackgroundImage() ? $this->backgroundImage->getHashCode() : '')
+            . __CLASS__
         );
     }
 

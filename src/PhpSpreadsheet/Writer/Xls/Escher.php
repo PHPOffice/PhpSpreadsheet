@@ -88,8 +88,8 @@ class Escher
                 $recVerInstance |= $recInstance << 4;
 
                 // dgg data
-                $dggData =
-                    pack(
+                $dggData
+                    = pack(
                         'VVVV',
                         $this->object->/** @scrutinizer ignore-call */ getSpIdMax(), // maximum shape identifier increased by one
                         $this->object->/** @scrutinizer ignore-call */ getCDgSaved() + 1, // number of file identifier clusters increased by one

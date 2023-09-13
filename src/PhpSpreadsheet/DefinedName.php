@@ -100,8 +100,8 @@ abstract class DefinedName
             //    Only test in alternate array entries (the non-quoted blocks)
             $segMatcher = $segMatcher === false;
             if (
-                $segMatcher &&
-                (preg_match('/' . self::REGEXP_IDENTIFY_FORMULA . '/miu', $subVal))
+                $segMatcher
+                && (preg_match('/' . self::REGEXP_IDENTIFY_FORMULA . '/miu', $subVal))
             ) {
                 return true;
             }
