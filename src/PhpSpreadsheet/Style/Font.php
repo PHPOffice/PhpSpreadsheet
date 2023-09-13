@@ -377,7 +377,7 @@ class Font extends Supervisor
      *
      * @return $this
      */
-    public function setSize($sizeInPoints, bool $nullOk = false): static
+    public function setSize(mixed $sizeInPoints, bool $nullOk = false): static
     {
         if (is_string($sizeInPoints) || is_int($sizeInPoints)) {
             $sizeInPoints = (float) $sizeInPoints; // $pValue = 0 if given string is not numeric

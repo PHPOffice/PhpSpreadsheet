@@ -469,7 +469,7 @@ class Xlsx extends BaseWriter
             if ($this->getDrawingHashTable()->getByIndex($i) instanceof WorksheetDrawing) {
                 $imageContents = null;
                 $imagePath = $this->getDrawingHashTable()->getByIndex($i)->getPath();
-                if (strpos($imagePath, 'zip://') !== false) {
+                if (str_contains($imagePath, 'zip://')) {
                     $imagePath = substr($imagePath, 6);
                     $imagePathSplitted = explode('#', $imagePath);
 
@@ -510,7 +510,7 @@ class Xlsx extends BaseWriter
         // Close file
         try {
             $this->zip->finish();
-        } catch (OverflowException $e) {
+        } catch (OverflowException) {
             throw new WriterException('Could not close resource.');
         }
 

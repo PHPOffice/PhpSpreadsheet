@@ -87,7 +87,7 @@ abstract class DefinedName
 
     public static function testIfFormula(string $value): bool
     {
-        if (substr($value, 0, 1) === '=') {
+        if (str_starts_with($value, '=')) {
             $value = substr($value, 1);
         }
 

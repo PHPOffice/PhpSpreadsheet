@@ -24,7 +24,7 @@ class Extract
      *         If an array of values is passed for the $value or $chars arguments, then the returned result
      *            will also be an array with matching dimensions
      */
-    public static function left($value, $chars = 1): array|string
+    public static function left(mixed $value, mixed $chars = 1): array|string
     {
         if (is_array($value) || is_array($chars)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $value, $chars);
@@ -54,7 +54,7 @@ class Extract
      *         If an array of values is passed for the $value, $start or $chars arguments, then the returned result
      *            will also be an array with matching dimensions
      */
-    public static function mid($value, $start, $chars): array|string
+    public static function mid(mixed $value, mixed $start, mixed $chars): array|string
     {
         if (is_array($value) || is_array($start) || is_array($chars)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $value, $start, $chars);
@@ -83,7 +83,7 @@ class Extract
      *         If an array of values is passed for the $value or $chars arguments, then the returned result
      *            will also be an array with matching dimensions
      */
-    public static function right($value, $chars = 1): array|string
+    public static function right(mixed $value, mixed $chars = 1): array|string
     {
         if (is_array($value) || is_array($chars)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $value, $chars);
@@ -126,7 +126,7 @@ class Extract
      *         If an array of values is passed for any of the arguments, then the returned result
      *            will also be an array with matching dimensions
      */
-    public static function before($text, $delimiter, $instance = 1, $matchMode = 0, $matchEnd = 0, $ifNotFound = '#N/A'): array|string
+    public static function before(mixed $text, $delimiter, mixed $instance = 1, mixed $matchMode = 0, mixed $matchEnd = 0, mixed $ifNotFound = '#N/A'): array|string
     {
         if (is_array($text) || is_array($instance) || is_array($matchMode) || is_array($matchEnd) || is_array($ifNotFound)) {
             return self::evaluateArrayArgumentsIgnore([self::class, __FUNCTION__], 1, $text, $delimiter, $instance, $matchMode, $matchEnd, $ifNotFound);
@@ -184,7 +184,7 @@ class Extract
      *         If an array of values is passed for any of the arguments, then the returned result
      *            will also be an array with matching dimensions
      */
-    public static function after($text, $delimiter, $instance = 1, $matchMode = 0, $matchEnd = 0, $ifNotFound = '#N/A'): array|string
+    public static function after(mixed $text, $delimiter, mixed $instance = 1, mixed $matchMode = 0, mixed $matchEnd = 0, mixed $ifNotFound = '#N/A'): array|string
     {
         if (is_array($text) || is_array($instance) || is_array($matchMode) || is_array($matchEnd) || is_array($ifNotFound)) {
             return self::evaluateArrayArgumentsIgnore([self::class, __FUNCTION__], 1, $text, $delimiter, $instance, $matchMode, $matchEnd, $ifNotFound);
@@ -219,11 +219,10 @@ class Extract
     /**
      * @param null|array|string $delimiter
      * @param int $matchEnd
-     * @param mixed $ifNotFound
      *
      * @return array|string
      */
-    private static function validateTextBeforeAfter(string $text, $delimiter, int $instance, int $matchMode, $matchEnd, $ifNotFound)
+    private static function validateTextBeforeAfter(string $text, $delimiter, int $instance, int $matchMode, $matchEnd, mixed $ifNotFound)
     {
         $flags = self::matchFlags($matchMode);
         $delimiter = self::buildDelimiter($delimiter);

@@ -182,8 +182,6 @@ class Layout
     /**
      * Set Layout Target.
      *
-     * @param ?string $target
-     *
      * @return $this
      */
     public function setLayoutTarget(?string $target): static
@@ -297,8 +295,6 @@ class Layout
 
     /**
      * Set Width.
-     *
-     * @param ?float $width
      *
      * @return $this
      */

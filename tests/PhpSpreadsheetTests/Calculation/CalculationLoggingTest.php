@@ -75,7 +75,7 @@ class CalculationLoggingTest extends TestCase
         self::assertStringContainsString('Evaluation Result', $finalEntry);
 
         $e1Log = array_filter($log, function ($entry): bool {
-            return strpos($entry, 'E1') !== false;
+            return str_contains($entry, 'E1');
         });
         $e1Entries = count($e1Log);
         self::assertGreaterThan(0, $e1Entries);
@@ -84,7 +84,7 @@ class CalculationLoggingTest extends TestCase
         self::assertStringContainsString('Evaluation Result', $e1FinalEntry);
 
         $e3Log = array_filter($log, function ($entry): bool {
-            return strpos($entry, 'E1') !== false;
+            return str_contains($entry, 'E1');
         });
         $e3Entries = count($e3Log);
         self::assertGreaterThan(0, $e3Entries);

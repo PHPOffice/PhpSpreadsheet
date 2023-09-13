@@ -14,10 +14,7 @@ class WorkbookView
         $this->spreadsheet = $spreadsheet;
     }
 
-    /**
-     * @param mixed $mainNS
-     */
-    public function viewSettings(SimpleXMLElement $xmlWorkbook, $mainNS, array $mapSheetId, bool $readDataOnly): void
+    public function viewSettings(SimpleXMLElement $xmlWorkbook, mixed $mainNS, array $mapSheetId, bool $readDataOnly): void
     {
         // Default active sheet index to the first loaded worksheet from the file
         $this->spreadsheet->setActiveSheetIndex(0);
@@ -43,10 +40,7 @@ class WorkbookView
         }
     }
 
-    /**
-     * @param mixed $value
-     */
-    public static function testSimpleXml($value): SimpleXMLElement
+    public static function testSimpleXml(mixed $value): SimpleXMLElement
     {
         return ($value instanceof SimpleXMLElement)
             ? $value

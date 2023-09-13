@@ -2,7 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheet\Helper;
 
-class Size
+use Stringable;
+
+class Size implements Stringable
 {
     const REGEXP_SIZE_VALIDATION = '/^(?P<size>\d*\.?\d+)(?P<unit>pt|px|em)?$/i';
 

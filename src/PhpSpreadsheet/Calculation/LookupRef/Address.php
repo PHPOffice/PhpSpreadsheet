@@ -48,7 +48,7 @@ class Address
      *         If an array of values is passed as the $testValue argument, then the returned result will also be
      *            an array with the same dimensions
      */
-    public static function cell($row, $column, $relativity = 1, $referenceStyle = true, $sheetName = ''): array|string
+    public static function cell(mixed $row, mixed $column, mixed $relativity = 1, mixed $referenceStyle = true, mixed $sheetName = ''): array|string
     {
         if (
             is_array($row) || is_array($column) ||
@@ -86,7 +86,7 @@ class Address
     private static function sheetName(string $sheetName): string
     {
         if ($sheetName > '') {
-            if (strpos($sheetName, ' ') !== false || strpos($sheetName, '[') !== false) {
+            if (str_contains($sheetName, ' ') || str_contains($sheetName, '[')) {
                 $sheetName = "'{$sheetName}'";
             }
             $sheetName .= '!';

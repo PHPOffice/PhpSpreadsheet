@@ -24,11 +24,11 @@ class Payments
      * @return float|string Result, or a string containing an error
      */
     public static function annuity(
-        $interestRate,
-        $numberOfPeriods,
-        $presentValue,
-        $futureValue = 0,
-        $type = FinancialConstants::PAYMENT_END_OF_PERIOD
+        mixed $interestRate,
+        mixed $numberOfPeriods,
+        mixed $presentValue,
+        mixed $futureValue = 0,
+        mixed $type = FinancialConstants::PAYMENT_END_OF_PERIOD
     ): string|float {
         $interestRate = Functions::flattenSingleValue($interestRate);
         $numberOfPeriods = Functions::flattenSingleValue($numberOfPeriods);
@@ -71,12 +71,12 @@ class Payments
      * @return float|string Result, or a string containing an error
      */
     public static function interestPayment(
-        $interestRate,
-        $period,
-        $numberOfPeriods,
-        $presentValue,
-        $futureValue = 0,
-        $type = FinancialConstants::PAYMENT_END_OF_PERIOD
+        mixed $interestRate,
+        mixed $period,
+        mixed $numberOfPeriods,
+        mixed $presentValue,
+        mixed $futureValue = 0,
+        mixed $type = FinancialConstants::PAYMENT_END_OF_PERIOD
     ): string|float {
         $interestRate = Functions::flattenSingleValue($interestRate);
         $period = Functions::flattenSingleValue($period);

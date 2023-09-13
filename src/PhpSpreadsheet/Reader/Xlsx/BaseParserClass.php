@@ -4,10 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
 class BaseParserClass
 {
-    /**
-     * @param mixed $value
-     */
-    protected static function boolean($value): bool
+    protected static function boolean(mixed $value): bool
     {
         if (is_object($value)) {
             $value = (string) $value; // @phpstan-ignore-line

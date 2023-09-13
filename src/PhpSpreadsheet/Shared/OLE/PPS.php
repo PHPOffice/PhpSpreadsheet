@@ -198,12 +198,10 @@ class PPS
      *
      * @param array $raList Reference to the array of PPS's for the whole OLE
      *                          container
-     * @param mixed $to_save
-     * @param mixed $depth
      *
      * @return int The index for this PPS
      */
-    public static function savePpsSetPnt(array &$raList, $to_save, $depth = 0)
+    public static function savePpsSetPnt(array &$raList, mixed $to_save, mixed $depth = 0)
     {
         if (!is_array($to_save) || (empty($to_save))) {
             return 0xFFFFFFFF;

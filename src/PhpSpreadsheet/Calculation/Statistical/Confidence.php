@@ -27,7 +27,7 @@ class Confidence
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function CONFIDENCE($alpha, $stdDev, $size)
+    public static function CONFIDENCE(mixed $alpha, mixed $stdDev, mixed $size)
     {
         if (is_array($alpha) || is_array($stdDev) || is_array($size)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $alpha, $stdDev, $size);

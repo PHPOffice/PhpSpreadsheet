@@ -130,26 +130,22 @@ class Functions
         return '#Not Yet Implemented';
     }
 
-    /** @param mixed $idx */
-    public static function isMatrixValue($idx): bool
+    public static function isMatrixValue(mixed $idx): bool
     {
         return (substr_count($idx, '.') <= 1) || (preg_match('/\.[A-Z]/', $idx) > 0);
     }
 
-    /** @param mixed $idx */
-    public static function isValue($idx): bool
+    public static function isValue(mixed $idx): bool
     {
         return substr_count($idx, '.') === 0;
     }
 
-    /** @param mixed $idx */
-    public static function isCellValue($idx): bool
+    public static function isCellValue(mixed $idx): bool
     {
         return substr_count($idx, '.') > 1;
     }
 
-    /** @param mixed $condition */
-    public static function ifCondition($condition): string
+    public static function ifCondition(mixed $condition): string
     {
         $condition = self::flattenSingleValue($condition);
 
@@ -185,11 +181,9 @@ class Functions
     }
 
     /**
-     * @param mixed $operand
-     *
      * @return mixed
      */
-    private static function operandSpecialHandling($operand)
+    private static function operandSpecialHandling(mixed $operand)
     {
         if (is_numeric($operand) || is_bool($operand)) {
             return $operand;
@@ -327,7 +321,7 @@ class Functions
      *
      * @return array|int|string
      */
-    public static function errorType($value = '')
+    public static function errorType(mixed $value = '')
     {
         return Information\ExcelError::type($value);
     }
@@ -342,7 +336,7 @@ class Functions
      *
      * @return array|bool
      */
-    public static function isBlank($value = null)
+    public static function isBlank(mixed $value = null)
     {
         return Information\Value::isBlank($value);
     }
@@ -357,7 +351,7 @@ class Functions
      *
      * @return array|bool
      */
-    public static function isErr($value = '')
+    public static function isErr(mixed $value = '')
     {
         return Information\ErrorValue::isErr($value);
     }
@@ -372,7 +366,7 @@ class Functions
      *
      * @return array|bool
      */
-    public static function isError($value = '')
+    public static function isError(mixed $value = '')
     {
         return Information\ErrorValue::isError($value);
     }
@@ -387,7 +381,7 @@ class Functions
      *
      * @return array|bool
      */
-    public static function isNa($value = '')
+    public static function isNa(mixed $value = '')
     {
         return Information\ErrorValue::isNa($value);
     }
@@ -402,7 +396,7 @@ class Functions
      *
      * @return array|bool|string
      */
-    public static function isEven($value = null)
+    public static function isEven(mixed $value = null)
     {
         return Information\Value::isEven($value);
     }
@@ -417,7 +411,7 @@ class Functions
      *
      * @return array|bool|string
      */
-    public static function isOdd($value = null)
+    public static function isOdd(mixed $value = null)
     {
         return Information\Value::isOdd($value);
     }
@@ -432,7 +426,7 @@ class Functions
      *
      * @return array|bool
      */
-    public static function isNumber($value = null)
+    public static function isNumber(mixed $value = null)
     {
         return Information\Value::isNumber($value);
     }
@@ -445,7 +439,7 @@ class Functions
      * @deprecated 1.23.0 Use the isLogical() method in the Information\Value class instead
      * @see Information\Value::isLogical()
      */
-    public static function isLogical($value = null): bool|array
+    public static function isLogical(mixed $value = null): bool|array
     {
         return Information\Value::isLogical($value);
     }
@@ -460,7 +454,7 @@ class Functions
      *
      * @return array|bool
      */
-    public static function isText($value = null)
+    public static function isText(mixed $value = null)
     {
         return Information\Value::isText($value);
     }
@@ -475,7 +469,7 @@ class Functions
      *
      * @return array|bool
      */
-    public static function isNonText($value = null)
+    public static function isNonText(mixed $value = null)
     {
         return Information\Value::isNonText($value);
     }
@@ -557,11 +551,9 @@ class Functions
     }
 
     /**
-     * @param mixed $value
-     *
      * @return null|mixed
      */
-    public static function scalar($value)
+    public static function scalar(mixed $value)
     {
         if (!is_array($value)) {
             return $value;
@@ -614,7 +606,7 @@ class Functions
      *
      * @return mixed
      */
-    public static function flattenSingleValue($value = '')
+    public static function flattenSingleValue(mixed $value = '')
     {
         while (is_array($value)) {
             $value = array_shift($value);
@@ -634,7 +626,7 @@ class Functions
      *
      * @return array|bool|string
      */
-    public static function isFormula($cellReference = '', ?Cell $cell = null)
+    public static function isFormula(mixed $cellReference = '', ?Cell $cell = null)
     {
         return Information\Value::isFormula($cellReference, $cell);
     }
@@ -666,7 +658,7 @@ class Functions
 
     public static function trimSheetFromCellReference(string $coordinate): string
     {
-        if (strpos($coordinate, '!') !== false) {
+        if (str_contains($coordinate, '!')) {
             $coordinate = substr($coordinate, strrpos($coordinate, '!') + 1);
         }
 

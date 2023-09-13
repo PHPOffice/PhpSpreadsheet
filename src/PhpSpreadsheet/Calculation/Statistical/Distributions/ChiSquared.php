@@ -27,7 +27,7 @@ class ChiSquared
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function distributionRightTail($value, $degrees): array|string|int|float
+    public static function distributionRightTail(mixed $value, mixed $degrees): array|string|int|float
     {
         if (is_array($value) || is_array($degrees)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $value, $degrees);
@@ -70,7 +70,7 @@ class ChiSquared
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function distributionLeftTail($value, $degrees, $cumulative): array|string|int|float
+    public static function distributionLeftTail(mixed $value, mixed $degrees, mixed $cumulative): array|string|int|float
     {
         if (is_array($value) || is_array($degrees) || is_array($cumulative)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $value, $degrees, $cumulative);
@@ -119,7 +119,7 @@ class ChiSquared
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function inverseRightTail($probability, $degrees)
+    public static function inverseRightTail(mixed $probability, mixed $degrees)
     {
         if (is_array($probability) || is_array($degrees)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $probability, $degrees);
@@ -160,7 +160,7 @@ class ChiSquared
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function inverseLeftTail($probability, $degrees): array|string|float
+    public static function inverseLeftTail(mixed $probability, mixed $degrees): array|string|float
     {
         if (is_array($probability) || is_array($degrees)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $probability, $degrees);
@@ -192,7 +192,7 @@ class ChiSquared
      *
      * @return float|string
      */
-    public static function test($actual, $expected)
+    public static function test(mixed $actual, mixed $expected)
     {
         $rows = count($actual);
         $actual = Functions::flattenArray($actual);

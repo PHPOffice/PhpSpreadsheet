@@ -19,10 +19,7 @@ class CashFlowValidations extends FinancialValidations
         return $rate;
     }
 
-    /**
-     * @param mixed $type
-     */
-    public static function validatePeriodType($type): int
+    public static function validatePeriodType(mixed $type): int
     {
         $rate = self::validateInt($type);
         if (
@@ -35,18 +32,12 @@ class CashFlowValidations extends FinancialValidations
         return $rate;
     }
 
-    /**
-     * @param mixed $presentValue
-     */
-    public static function validatePresentValue($presentValue): float
+    public static function validatePresentValue(mixed $presentValue): float
     {
         return self::validateFloat($presentValue);
     }
 
-    /**
-     * @param mixed $futureValue
-     */
-    public static function validateFutureValue($futureValue): float
+    public static function validateFutureValue(mixed $futureValue): float
     {
         return self::validateFloat($futureValue);
     }

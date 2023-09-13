@@ -115,7 +115,7 @@ class Time
     /**
      * @param mixed $value expect int
      */
-    private static function toIntWithNullBool($value): int
+    private static function toIntWithNullBool(mixed $value): int
     {
         $value = $value ?? 0;
         if (is_bool($value)) {

@@ -333,10 +333,8 @@ class StringHelper
 
     /**
      * Strictly to satisfy Scrutinizer.
-     *
-     * @param mixed $value
      */
-    private static function returnString($value): string
+    private static function returnString(mixed $value): string
     {
         return is_string($value) ? $value : '';
     }
@@ -647,7 +645,7 @@ class StringHelper
         self::buildCharacterSets();
 
         // If there is no escape character in the string there is nothing to do
-        if (strpos($textValue, '') === false) {
+        if (!str_contains($textValue, '')) {
             return $textValue;
         }
 

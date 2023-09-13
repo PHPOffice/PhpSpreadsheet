@@ -20,7 +20,7 @@ class Sum
      *
      * @return float|int|string
      */
-    public static function sumIgnoringStrings(...$args)
+    public static function sumIgnoringStrings(mixed ...$args)
     {
         $returnValue = 0;
 
@@ -49,7 +49,7 @@ class Sum
      *
      * @return float|int|string
      */
-    public static function sumErroringStrings(...$args)
+    public static function sumErroringStrings(mixed ...$args)
     {
         $returnValue = 0;
         // Loop through the arguments
@@ -81,7 +81,7 @@ class Sum
      *
      * @return float|int|string The result, or a string containing an error
      */
-    public static function product(...$args): string|int|float
+    public static function product(mixed ...$args): string|int|float
     {
         $arrayList = $args;
 

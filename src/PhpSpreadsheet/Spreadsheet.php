@@ -368,10 +368,8 @@ class Spreadsheet implements JsonSerializable
 
     /**
      * return the extension of a filename. Internal use for a array_map callback (php<5.3 don't like lambda function).
-     *
-     * @param mixed $path
      */
-    private function getExtensionOnly($path): string
+    private function getExtensionOnly(mixed $path): string
     {
         $extension = pathinfo($path, PATHINFO_EXTENSION);
 

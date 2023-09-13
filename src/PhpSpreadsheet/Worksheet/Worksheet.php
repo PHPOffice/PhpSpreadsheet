@@ -1175,7 +1175,7 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function setCellValue($coordinate, $value, ?IValueBinder $binder = null): static
+    public function setCellValue($coordinate, mixed $value, ?IValueBinder $binder = null): static
     {
         $cellAddress = Functions::trimSheetFromCellReference(Validations::validateCellAddress($coordinate));
         $this->getCell($cellAddress)->setValue($value, $binder);
@@ -1198,7 +1198,7 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function setCellValueByColumnAndRow($columnIndex, $row, $value, ?IValueBinder $binder = null): static
+    public function setCellValueByColumnAndRow($columnIndex, $row, mixed $value, ?IValueBinder $binder = null): static
     {
         $this->getCell(Coordinate::stringFromColumnIndex($columnIndex) . $row)->setValue($value, $binder);
 
@@ -1222,7 +1222,7 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function setCellValueExplicit($coordinate, $value, string $dataType): static
+    public function setCellValueExplicit($coordinate, mixed $value, string $dataType): static
     {
         $cellAddress = Functions::trimSheetFromCellReference(Validations::validateCellAddress($coordinate));
         $this->getCell($cellAddress)->setValueExplicit($value, $dataType);
@@ -1252,7 +1252,7 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function setCellValueExplicitByColumnAndRow($columnIndex, $row, $value, string $dataType): static
+    public function setCellValueExplicitByColumnAndRow($columnIndex, $row, mixed $value, string $dataType): static
     {
         $this->getCell(Coordinate::stringFromColumnIndex($columnIndex) . $row)->setValueExplicit($value, $dataType);
 
@@ -1303,7 +1303,7 @@ class Worksheet implements IComparable
         $finalCoordinate = null;
 
         // Worksheet reference?
-        if (strpos($coordinate, '!') !== false) {
+        if (str_contains($coordinate, '!')) {
             $worksheetReference = self::extractSheetTitle($coordinate, true);
 
             $sheet = $this->getParentOrThrow()->getSheetByName($worksheetReference[0]);
@@ -1337,7 +1337,7 @@ class Worksheet implements IComparable
 
         if (Coordinate::coordinateIsRange($finalCoordinate)) {
             throw new Exception('Cell coordinate string can not be a range of cells.');
-        } elseif (strpos($finalCoordinate, '$') !== false) {
+        } elseif (str_contains($finalCoordinate, '$')) {
             throw new Exception('Cell coordinate must not be absolute.');
         }
 
@@ -1598,7 +1598,7 @@ class Worksheet implements IComparable
     public function getConditionalStyles(string $coordinate): array
     {
         $coordinate = strtoupper($coordinate);
-        if (strpos($coordinate, ':') !== false) {
+        if (str_contains($coordinate, ':')) {
             return $this->conditionalStylesCollection[$coordinate] ?? [];
         }
 
@@ -1637,7 +1637,7 @@ class Worksheet implements IComparable
     public function conditionalStylesExists($coordinate): bool
     {
         $coordinate = strtoupper($coordinate);
-        if (strpos($coordinate, ':') !== false) {
+        if (str_contains($coordinate, ':')) {
             return isset($this->conditionalStylesCollection[$coordinate]);
         }
 
@@ -1900,7 +1900,7 @@ class Worksheet implements IComparable
     {
         $range = Functions::trimSheetFromCellReference(Validations::validateCellRange($range));
 
-        if (strpos($range, ':') === false) {
+        if (!str_contains($range, ':')) {
             $range .= ":{$range}";
         }
 
@@ -2051,7 +2051,7 @@ class Worksheet implements IComparable
     {
         $range = Functions::trimSheetFromCellReference(Validations::validateCellRange($range));
 
-        if (strpos($range, ':') !== false) {
+        if (str_contains($range, ':')) {
             if (isset($this->mergeCells[$range])) {
                 unset($this->mergeCells[$range]);
             } else {
@@ -2959,7 +2959,7 @@ class Worksheet implements IComparable
 
         if (Coordinate::coordinateIsRange($cellAddress)) {
             throw new Exception('Cell coordinate string can not be a range of cells.');
-        } elseif (strpos($cellAddress, '$') !== false) {
+        } elseif (str_contains($cellAddress, '$')) {
             throw new Exception('Cell coordinate string must not be absolute.');
         } elseif ($cellAddress == '') {
             throw new Exception('Cell coordinate can not be zero-length string.');
@@ -2984,7 +2984,7 @@ class Worksheet implements IComparable
 
         if (Coordinate::coordinateIsRange($cellAddress)) {
             throw new Exception('Cell coordinate string can not be a range of cells.');
-        } elseif (strpos($cellAddress, '$') !== false) {
+        } elseif (str_contains($cellAddress, '$')) {
             throw new Exception('Cell coordinate string must not be absolute.');
         } elseif ($cellAddress == '') {
             throw new Exception('Cell coordinate can not be zero-length string.');
@@ -3149,7 +3149,7 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function fromArray(array $source, $nullValue = null, $startCell = 'A1', $strictNullComparison = false): static
+    public function fromArray(array $source, mixed $nullValue = null, $startCell = 'A1', $strictNullComparison = false): static
     {
         //    Convert a 1-D array to 2-D (for ease of looping)
         if (!is_array(end($source))) {
@@ -3183,14 +3183,12 @@ class Worksheet implements IComparable
     }
 
     /**
-     * @param mixed $nullValue
-     *
      * @throws Exception
      * @throws \PhpOffice\PhpSpreadsheet\Calculation\Exception
      *
      * @return mixed
      */
-    protected function cellToArray(Cell $cell, bool $calculateFormulas, bool $formatData, $nullValue)
+    protected function cellToArray(Cell $cell, bool $calculateFormulas, bool $formatData, mixed $nullValue)
     {
         $returnValue = $nullValue;
 
@@ -3226,7 +3224,7 @@ class Worksheet implements IComparable
      */
     public function rangeToArray(
         string $range,
-        $nullValue = null,
+        mixed $nullValue = null,
         bool $calculateFormulas = true,
         bool $formatData = true,
         bool $returnCellRef = false,
@@ -3320,7 +3318,7 @@ class Worksheet implements IComparable
      */
     public function namedRangeToArray(
         string $definedName,
-        $nullValue = null,
+        mixed $nullValue = null,
         bool $calculateFormulas = true,
         bool $formatData = true,
         bool $returnCellRef = false,
@@ -3352,7 +3350,7 @@ class Worksheet implements IComparable
      *                            True - Don't return values for rows/columns that are defined as hidden.
      */
     public function toArray(
-        $nullValue = null,
+        mixed $nullValue = null,
         bool $calculateFormulas = true,
         bool $formatData = true,
         bool $returnCellRef = false,
@@ -3693,7 +3691,7 @@ class Worksheet implements IComparable
             $iterator = new RowIterator($this, $rowId, $rowId);
             $iterator->seek($rowId);
             $row = $iterator->current();
-        } catch (Exception $e) {
+        } catch (Exception) {
             return true;
         }
 
@@ -3723,7 +3721,7 @@ class Worksheet implements IComparable
             $iterator = new ColumnIterator($this, $columnId, $columnId);
             $iterator->seek($columnId);
             $column = $iterator->current();
-        } catch (Exception $e) {
+        } catch (Exception) {
             return true;
         }
 
