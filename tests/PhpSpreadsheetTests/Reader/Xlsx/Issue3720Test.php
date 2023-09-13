@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
+use PhpOffice\PhpSpreadsheet\Style\Protection;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 
 class Issue3720Test extends \PHPUnit\Framework\TestCase
@@ -68,14 +69,37 @@ class Issue3720Test extends \PHPUnit\Framework\TestCase
         $sheetProtection = $sheet->getProtection();
         self::assertTrue($sheetProtection->getSheet());
         self::assertSame(' FILL IN WHITE CELLS ONLY', $sheet->getCell('B3')->getValue());
-        // inherit because no cell, row, or column style.
+        // inherit because cell style is inherit.
         // effectively protected because sheet is locked.
+        self::assertTrue($sheet->cellExists('A12'));
+        self::assertSame(Protection::PROTECTION_INHERIT, $sheet->getStyle('A12')->getProtection()->getLocked());
         self::assertTrue($sheet->getCell('A12')->isLocked());
-        // unprotected because column is unprotected (no cell or row style)
+        // unprotected because column is unprotected (no cell or row dimension style)
+        self::assertFalse($sheet->cellExists('B12'));
+        self::assertFalse($sheet->rowDimensionExists(12));
+        self::assertTrue($sheet->columnDimensionExists('B'));
+        $dxf = $sheet->getColumnDimension('B')->getXfIndex();
+        if ($dxf === null) {
+            self::fail('Unexpected null column xfIndex');
+        } else {
+            self::assertSame(Protection::PROTECTION_UNPROTECTED, $spreadsheet->getCellXfByIndex($dxf)->getProtection()->getLocked());
+        }
         self::assertFalse($sheet->getCell('B12')->isLocked());
-        // inherit because cell has style with protection omitted.
+        // inherit because cell doesn't exist, no row dimension, no column dimension.
         // effectively protected because sheet is locked.
-        self::assertTrue($sheet->getCell('B11')->isLocked());
+        self::assertFalse($sheet->cellExists('W8'));
+        self::assertFalse($sheet->rowDimensionExists(8));
+        self::assertFalse($sheet->columnDimensionExists('W'));
+        self::assertTrue($sheet->getCell('W8')->isLocked());
+        // inherit because cell doesn't exist, row dimension exists without style, no column dimension.
+        // effectively protected because sheet is locked.
+        self::assertFalse($sheet->cellExists('X11'));
+        self::assertTrue($sheet->rowDimensionExists(11));
+        $dxf = $sheet->getRowDimension(11)->getXfIndex();
+        self::assertNull($dxf);
+        self::assertFalse($sheet->columnDimensionExists('X'));
+        self::assertTrue($sheet->getCell('X11')->isLocked());
+
         $sheet = $spreadsheet->getSheetByNameOrThrow('Welcome');
         $drawings = $sheet->getDrawingCollection();
         self::assertCount(1, $drawings);
