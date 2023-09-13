@@ -132,7 +132,7 @@ $config
         'no_unneeded_final_method' => true,
         'no_unreachable_default_argument_value' => true,
         'no_unset_cast' => true,
-        'no_unset_on_property' => true,
+        'no_unset_on_property' => false,
         'no_unused_imports' => true,
         'no_useless_else' => true,
         'no_useless_return' => true,
