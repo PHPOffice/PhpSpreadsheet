@@ -51,7 +51,9 @@ for ($row = 1; $row <= $testDateCount; ++$row) {
     ));
     $helper->log(sprintf(
         'Days: %d (US) %d (European)',
+        /** @scrutinizer ignore-type */
         $worksheet->getCell('G' . $row)->getCalculatedValue(),
+        /** @scrutinizer ignore-type */
         $worksheet->getCell('H' . $row)->getCalculatedValue()
     ));
 }

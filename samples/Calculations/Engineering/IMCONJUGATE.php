@@ -43,6 +43,7 @@ for ($row = 1; $row <= $testDataCount; ++$row) {
         '(E%d): The Conjugate of %s is %s',
         $row,
         $worksheet->getCell('A' . $row)->getValue(),
+        /** @scrutinizer ignore-type */
         $worksheet->getCell('B' . $row)->getCalculatedValue(),
     ));
 }

@@ -27,7 +27,7 @@ class DrawingImageHyperlinkTest extends AbstractFunctional
             $drawing->setName('In-Memory image 1');
             $drawing->setDescription('In-Memory image 1');
             $drawing->setCoordinates('A1');
-            $drawing->setImageResource($gdImage);
+            $drawing->setImageResource(/** @scrutinizer ignore-type */ $gdImage);
             $drawing->setRenderingFunction(
                 MemoryDrawing::RENDERING_JPEG
             );
