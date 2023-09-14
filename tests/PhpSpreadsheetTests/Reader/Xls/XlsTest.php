@@ -82,7 +82,7 @@ class XlsTest extends AbstractFunctional
                 $cell = $cellx;
                 /** @scrutinizer ignore-call */
                 $valOld = $cell->getFormattedValue();
-                $valNew = $newsheet->getCell($cell->getCoordinate())->getFormattedValue();
+                $valNew = $newsheet->getCell($cell->/** @scrutinizer ignore-call */ getCoordinate())->getFormattedValue();
                 self::assertEquals($valOld, $valNew);
             }
         }
