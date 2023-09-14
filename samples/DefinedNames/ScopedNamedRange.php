@@ -62,10 +62,12 @@ $worksheet
 
 $helper->log(sprintf(
     'Worked %.2f hours at a rate of %s - Charge to the client is %.2f',
+    /** @scrutinizer ignore-type */
     $worksheet->getCell("B{$row}")->getCalculatedValue(),
     $chargeRateCellValue = $spreadsheet
         ->getSheetByName($spreadsheet->getNamedRange('CHARGE_RATE')->getWorksheet()->getTitle())
         ->getCell($spreadsheet->getNamedRange('CHARGE_RATE')->getCellsInRange()[0])->getValue(),
+    /** @scrutinizer ignore-type */
     $worksheet->getCell("C{$row}")->getCalculatedValue()
 ));
 

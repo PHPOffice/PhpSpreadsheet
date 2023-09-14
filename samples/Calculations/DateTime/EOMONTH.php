@@ -37,6 +37,7 @@ for ($row = 1; $row <= $testDateCount; ++$row) {
         '%s and %d months is %d (%s)',
         $worksheet->getCell('B' . $row)->getFormattedValue(),
         $worksheet->getCell('C' . $row)->getFormattedValue(),
+        /** @scrutinizer ignore-type */
         $worksheet->getCell('D' . $row)->getCalculatedValue(),
         $worksheet->getCell('D' . $row)->getFormattedValue()
     ));

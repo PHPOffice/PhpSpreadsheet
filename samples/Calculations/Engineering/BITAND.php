@@ -42,8 +42,11 @@ for ($row = 1; $row <= $testDataCount; ++$row) {
         $worksheet->getCell('A' . $row)->getValue(),
         $worksheet->getCell('C' . $row)->getCalculatedValue(),
         $worksheet->getCell('B' . $row)->getValue(),
+        /** @scrutinizer ignore-type */
         $worksheet->getCell('D' . $row)->getCalculatedValue(),
+        /** @scrutinizer ignore-type */
         $worksheet->getCell('E' . $row)->getCalculatedValue(),
+        /** @scrutinizer ignore-type */
         $worksheet->getCell('F' . $row)->getCalculatedValue(),
     ));
 }
