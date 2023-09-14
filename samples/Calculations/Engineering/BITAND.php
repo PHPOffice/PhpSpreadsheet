@@ -40,6 +40,7 @@ for ($row = 1; $row <= $testDataCount; ++$row) {
         '(E%d): Bitwise AND of %d (%s) and %d (%s) is %d (%s)',
         $row,
         $worksheet->getCell('A' . $row)->getValue(),
+        /** @scrutinizer ignore-type */
         $worksheet->getCell('C' . $row)->getCalculatedValue(),
         $worksheet->getCell('B' . $row)->getValue(),
         /** @scrutinizer ignore-type */
