@@ -11,6 +11,7 @@ use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
+use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalColorScale;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalDataBar;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalFormattingRuleExtension;
 use PhpOffice\PhpSpreadsheet\Worksheet\RowDimension;
@@ -717,6 +718,64 @@ class Worksheet extends WriterPart
         }
     }
 
+    private static function writeColorScaleElements(XMLWriter $objWriter, ?ConditionalColorScale $colorScale): void
+    {
+        if ($colorScale) {
+            $objWriter->startElement('colorScale');
+            self::writeAttributeIf($objWriter, null !== $colorScale->getShowValue(), 'showValue', $colorScale->getShowValue() ? '1' : '0');
+
+            $minCfvo = $colorScale->getMinimumConditionalFormatValueObject();
+            if ($minCfvo) {
+                $objWriter->startElement('cfvo');
+                self::writeAttributeIf($objWriter, $minCfvo->getType(), 'type', (string) $minCfvo->getType());
+                self::writeAttributeIf($objWriter, $minCfvo->getValue(), 'val', (string) $minCfvo->getValue());
+                $objWriter->endElement();
+            }
+            $midCfvo = $colorScale->getMidpointConditionalFormatValueObject();
+            if ($midCfvo) {
+                $objWriter->startElement('cfvo');
+                self::writeAttributeIf($objWriter, $midCfvo->getType(), 'type', (string) $midCfvo->getType());
+                self::writeAttributeIf($objWriter, $midCfvo->getValue(), 'val', (string) $midCfvo->getValue());
+                $objWriter->endElement();
+            }
+            $maxCfvo = $colorScale->getMaximumConditionalFormatValueObject();
+            if ($maxCfvo) {
+                $objWriter->startElement('cfvo');
+                self::writeAttributeIf($objWriter, $maxCfvo->getType(), 'type', (string) $maxCfvo->getType());
+                self::writeAttributeIf($objWriter, $maxCfvo->getValue(), 'val', (string) $maxCfvo->getValue());
+                $objWriter->endElement();
+            }
+            if ($colorScale->getMinimumColor()) {
+                $objWriter->startElement('color');
+                $objWriter->writeAttribute('rgb', $colorScale->getMinimumColor());
+                $objWriter->endElement();
+            }
+            if ($colorScale->getMidpointColor()) {
+                $objWriter->startElement('color');
+                $objWriter->writeAttribute('rgb', $colorScale->getMidpointColor());
+                $objWriter->endElement();
+            }
+            if ($colorScale->getMaximumColor()) {
+                $objWriter->startElement('color');
+                $objWriter->writeAttribute('rgb', $colorScale->getMaximumColor());
+                $objWriter->endElement();
+            }
+            $objWriter->endElement(); // end colorScale
+
+            if ($colorScale->getConditionalFormattingRuleExt()) {
+                $objWriter->startElement('extLst');
+                $extension = $colorScale->getConditionalFormattingRuleExt();
+                $objWriter->startElement('ext');
+                $objWriter->writeAttribute('uri', '{B025F937-C7B1-47D3-B67F-A62EFF666E3E}');
+                $objWriter->startElementNs('x14', 'id', null);
+                $objWriter->text($extension->getId());
+                $objWriter->endElement();
+                $objWriter->endElement();
+                $objWriter->endElement(); //end extLst
+            }
+        }
+    }
+
     /**
      * Write ConditionalFormatting.
      */
@@ -740,7 +799,9 @@ class Worksheet extends WriterPart
                 $objWriter->writeAttribute('type', $conditional->getConditionType());
                 self::writeAttributeIf(
                     $objWriter,
-                    ($conditional->getConditionType() !== Conditional::CONDITION_DATABAR && $conditional->getNoFormatSet() === false),
+                    ($conditional->getConditionType() !== Conditional::CONDITION_COLORSCALE
+						&& $conditional->getConditionType() !== Conditional::CONDITION_DATABAR
+						&& $conditional->getNoFormatSet() === false),
                     'dxfId',
                     (string) $this->getParentWriter()->getStylesConditionalHashTable()->getIndexForHashCode($conditional->getHashCode())
                 );
@@ -773,6 +834,8 @@ class Worksheet extends WriterPart
                     self::writeTextCondElements($objWriter, $conditional, $topLeftCell);
                 } elseif ($conditional->getConditionType() === Conditional::CONDITION_TIMEPERIOD) {
                     self::writeTimePeriodCondElements($objWriter, $conditional, $topLeftCell);
+                } elseif ($conditional->getConditionType() === Conditional::CONDITION_COLORSCALE) {
+                    self::writeColorScaleElements($objWriter, $conditional->getColorScale());
                 } else {
                     self::writeOtherCondElements($objWriter, $conditional, $topLeftCell);
                 }

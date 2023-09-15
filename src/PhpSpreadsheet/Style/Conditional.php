@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Style;
 
 use PhpOffice\PhpSpreadsheet\IComparable;
+use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalColorScale;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalDataBar;
 
 class Conditional implements IComparable
@@ -11,6 +12,7 @@ class Conditional implements IComparable
     const CONDITION_NONE = 'none';
     const CONDITION_BEGINSWITH = 'beginsWith';
     const CONDITION_CELLIS = 'cellIs';
+    const CONDITION_COLORSCALE = 'colorScale';
     const CONDITION_CONTAINSBLANKS = 'containsBlanks';
     const CONDITION_CONTAINSERRORS = 'containsErrors';
     const CONDITION_CONTAINSTEXT = 'containsText';
@@ -27,6 +29,7 @@ class Conditional implements IComparable
     private const CONDITION_TYPES = [
         self::CONDITION_BEGINSWITH,
         self::CONDITION_CELLIS,
+        self::CONDITION_COLORSCALE,
         self::CONDITION_CONTAINSBLANKS,
         self::CONDITION_CONTAINSERRORS,
         self::CONDITION_CONTAINSTEXT,
@@ -107,6 +110,11 @@ class Conditional implements IComparable
      * @var ConditionalDataBar
      */
     private $dataBar;
+
+    /**
+     * @var ConditionalColorScale
+     */
+    private $colorScale;
 
     /**
      * Style.
@@ -314,6 +322,28 @@ class Conditional implements IComparable
     public function setDataBar(ConditionalDataBar $dataBar): static
     {
         $this->dataBar = $dataBar;
+
+        return $this;
+    }
+
+    /**
+     * get ColorScale.
+     *
+     * @return null|ConditionalColorScale
+     */
+    public function getColorScale()
+    {
+        return $this->colorScale;
+    }
+
+    /**
+     * set ColorScale.
+     *
+     * @return $this
+     */
+    public function setColorScale(ConditionalColorScale $colorScale): static
+    {
+        $this->colorScale = $colorScale;
 
         return $this;
     }
