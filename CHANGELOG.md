@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - ListWorksheetInfo/Names for Html/Csv/Slk. [Issue #3706](https://github.com/PHPOffice/PhpSpreadsheet/issues/3706) [PR #3709](https://github.com/PHPOffice/PhpSpreadsheet/pull/3709)
 - Methods to determine if cell is actually locked, or hidden on formula bar. [PR #3722](https://github.com/PHPOffice/PhpSpreadsheet/pull/3722)
 - Add iterateOnlyExistingCells to Constructors. [Issue #3721](https://github.com/PHPOffice/PhpSpreadsheet/issues/3721) [PR #3727](https://github.com/PHPOffice/PhpSpreadsheet/pull/3727)
+- Writer ODS : Write Border Style for cells [Issue #3690](https://github.com/PHPOffice/PhpSpreadsheet/issues/3690) [PR #3693](https://github.com/PHPOffice/PhpSpreadsheet/pull/3693)
 
 ### Changed
 

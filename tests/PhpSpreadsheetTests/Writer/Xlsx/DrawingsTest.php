@@ -588,7 +588,7 @@ class DrawingsTest extends AbstractFunctional
                 $drawing->setCoordinates2('D' . ((4 * $i) + 4));
                 $drawing->setEditAs($mode);
 
-                $drawing->setImageResource($gdImage);
+                $drawing->setImageResource(/** @scrutinizer ignore-type */ $gdImage);
                 $drawing->setRenderingFunction(
                     MemoryDrawing::RENDERING_JPEG
                 );
