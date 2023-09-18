@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xls;
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PHPUnit\Framework\TestCase;
-use SplFileInfo;
 
 class XlsBugPr3734Test extends TestCase
 {
@@ -13,12 +14,10 @@ class XlsBugPr3734Test extends TestCase
      */
     public function testXlsFileWithNoFontIndex(): void
     {
-        $fileName = dirname(__DIR__, 3) . '/data/Reader/XLS/bug-pr-3734.xls';
-        $file = new SplFileInfo($fileName);
-
-        IOFactory::load($file);
-
-        // If no error occurs on load, test is passed!
-        self::assertTrue(true);
+        $fileName = 'tests/data/Reader/XLS/bug-pr-3734.xls';
+        $spreadsheet = IOFactory::load($fileName);
+        $sheet = $spreadsheet->getActiveSheet();
+        self::assertSame('Calibri', $sheet->getStyle('A1')->getFont()->getName());
+        $spreadsheet->disconnectWorksheets();
     }
 }
