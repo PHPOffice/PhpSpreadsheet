@@ -486,7 +486,7 @@ class Layout
     {
         if ($this->labelFont === null) {
             $this->labelFont = new Font();
-            $this->labelFont->setSize(null, true);
+            $this->labelFont->/** @scrutinizer ignore-call */ setSize(null, true);
         }
         $this->labelFont->setChartColorFromObject($chartColor);
 

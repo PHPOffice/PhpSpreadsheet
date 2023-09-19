@@ -1311,15 +1311,14 @@ class Worksheet extends WriterPart
             $objWriter->endElement();
         } else {
             $objWriter->writeElement('f', FunctionPrefix::addFunctionPrefixStripEquals($cellValue));
-            self::writeElementIf(
-                $objWriter,
-                $this->getParentWriter()->getOffice2003Compatibility() === false
+            if (
+                $calculatedValue !== null
+                && !is_array($calculatedValue)
+                && $this->getParentWriter()->getOffice2003Compatibility() === false
                 && $this->getParentWriter()->getPreCalculateFormulas()
-                && $calculatedValue !== null,
-                'v',
-                (!is_array($calculatedValue) && !str_starts_with($calculatedValue ?? '', '#'))
-                    ? StringHelper::formatNumber($calculatedValue) : '0'
-            );
+            ) {
+                $objWriter->writeElement('v', StringHelper::formatNumber($calculatedValue));
+            }
         }
     }
 

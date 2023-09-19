@@ -131,7 +131,7 @@ class Sample
             $writer->save($path);
             $this->logWrite($writer, $path, /** @scrutinizer ignore-type */ $callStartTime);
             if ($this->isCli() === false) {
-                echo '<a href="/download.php?type=' . pathinfo($path, PATHINFO_EXTENSION) . '&name=' . basename($path) . '">Download ' . basename($path) . '</a><br />';
+                echo '<a href="/download.php?type=' . /** @scrutinizer ignore-type */ pathinfo($path, PATHINFO_EXTENSION) . '&name=' . basename($path) . '">Download ' . basename($path) . '</a><br />';
             }
         }
 

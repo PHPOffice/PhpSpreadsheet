@@ -146,7 +146,7 @@ abstract class IOFactory
 
         // First, lucky guess by inspecting file extension
         $guessedReader = self::getReaderTypeFromExtension($filename);
-        if (($guessedReader !== null) && array_key_exists($guessedReader, $testReaders)) {
+        if (array_key_exists($guessedReader, $testReaders)) {
             $reader = self::createReader($guessedReader);
 
             // Let's see if we are lucky
@@ -173,11 +173,11 @@ abstract class IOFactory
     /**
      * Guess a reader type from the file extension, if any.
      */
-    private static function getReaderTypeFromExtension(string $filename): ?string
+    private static function getReaderTypeFromExtension(string $filename): string
     {
         $pathinfo = pathinfo($filename);
         if (!isset($pathinfo['extension'])) {
-            return null;
+            return '';
         }
 
         return match (strtolower($pathinfo['extension'])) {
@@ -205,8 +205,8 @@ abstract class IOFactory
             // Do nothing
             // We must not try to use CSV reader since it loads
             // all files including Excel files etc.
-            'csv' => null,
-            default => null,
+            'csv' => '',
+            default => '',
         };
     }
 

@@ -113,6 +113,6 @@ class Replace
             --$instance;
         }
 
-        return Functions::scalar(self::REPLACE($text, ++$pos, StringHelper::countCharacters($fromText), $toText));
+        return (string) Functions::scalar(self::REPLACE($text, ++$pos, StringHelper::countCharacters($fromText), $toText));
     }
 }

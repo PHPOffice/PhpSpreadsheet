@@ -34,10 +34,11 @@ class Downloader
         }
 
         $filetype ??= pathinfo($filename, PATHINFO_EXTENSION);
-        if (array_key_exists(strtolower($filetype), self::CONTENT_TYPES) === false) {
+        $filetypeLower = strtolower(/** @scrutinizer ignore-type */ $filetype);
+        if (array_key_exists($filetypeLower, self::CONTENT_TYPES) === false) {
             throw new Exception("Invalid filetype: {$filetype} cannot be downloaded");
         }
-        $this->filetype = strtolower($filetype);
+        $this->filetype = $filetypeLower;
     }
 
     public function download(): void

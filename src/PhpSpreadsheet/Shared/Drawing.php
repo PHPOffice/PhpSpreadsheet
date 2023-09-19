@@ -166,7 +166,7 @@ class Drawing
     public static function imagecreatefrombmp($bmpFilename): GdImage
     {
         $retVal = @imagecreatefrombmp($bmpFilename);
-        if ($retVal === false) {
+        if (!($retVal instanceof GdImage)) {
             throw new ReaderException("Unable to create image from $bmpFilename");
         }
 

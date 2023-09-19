@@ -63,8 +63,9 @@ class MemoryDrawing extends BaseDrawing
     public function __destruct()
     {
         if ($this->imageResource) {
-            @imagedestroy($this->imageResource);
-            $this->imageResource = null;
+            $nullValue = null;
+            $rc = @imagedestroy($this->imageResource);
+            $this->imageResource = $rc ? null : $nullValue;
         }
         $this->worksheet = null;
     }
@@ -156,7 +157,7 @@ class MemoryDrawing extends BaseDrawing
         $renderingFunction = self::identifyRenderingFunction($mimeType);
 
         $drawing = new self();
-        $drawing->setImageResource($gdImage);
+        $drawing->setImageResource(/** @scrutinizer ignore-type */ $gdImage);
         $drawing->setRenderingFunction($renderingFunction);
         $drawing->setMimeType($mimeType);
 

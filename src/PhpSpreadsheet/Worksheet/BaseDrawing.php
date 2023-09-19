@@ -214,8 +214,8 @@ class BaseDrawing implements IComparable
             // Add drawing to \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet
             if ($worksheet !== null) {
                 $this->worksheet = $worksheet;
-                $this->worksheet->getCell($this->coordinates);
-                $this->worksheet->getDrawingCollection()->append($this);
+                $worksheet->getCell($this->coordinates);
+                $worksheet->getDrawingCollection()->append($this);
             }
         } else {
             if ($overrideOld) {
