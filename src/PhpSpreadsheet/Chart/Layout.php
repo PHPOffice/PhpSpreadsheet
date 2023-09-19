@@ -488,7 +488,7 @@ class Layout
             $this->labelFont = new Font();
             $this->labelFont->/** @scrutinizer ignore-call */ setSize(null, true);
         }
-        $this->labelFont->setChartColorFromObject($chartColor);
+        $this->labelFont->/** @scrutinizer ignore-call */ setChartColorFromObject($chartColor);
 
         return $this;
     }
