@@ -156,7 +156,7 @@ class TableTest extends SetupTeardown
     }
 
     /**
-     * @param AddressRange|array<int>|string $fullRange
+     * @param AddressRange|array{0: int, 1: int, 2: int, 3: int}|array{0: int, 1: int}|string $fullRange
      */
     public function xtestSetRangeValidRange(string|array|AddressRange $fullRange, string $actualRange): void
     {
