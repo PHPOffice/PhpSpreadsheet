@@ -23,7 +23,6 @@ class Days360Test extends TestCase
      */
     public function testDirectCallToDAYS360(mixed $expectedResult, mixed ...$args): void
     {
-        /** @scrutinizer ignore-call */
         $result = Days360::between(...$args);
         self::assertSame($expectedResult, $result);
     }

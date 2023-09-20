@@ -42,7 +42,6 @@ class RowCellIteratorTest extends TestCase
         $values = [];
         foreach ($iterator as $key => $RowCell) {
             self::assertNotNull($RowCell);
-            /** @scrutinizer ignore-call */
             $values[] = $RowCell->getValue();
             self::assertEquals($RowCellIndexResult++, $key);
             self::assertInstanceOf(Cell::class, $RowCell);
@@ -62,7 +61,6 @@ class RowCellIteratorTest extends TestCase
         $values = [];
         foreach ($iterator as $key => $RowCell) {
             self::assertNotNull($RowCell);
-            /** @scrutinizer ignore-call */
             $values[] = $RowCell->getValue();
             self::assertEquals($RowCellIndexResult++, $key);
             self::assertInstanceOf(Cell::class, $RowCell);
@@ -84,7 +82,6 @@ class RowCellIteratorTest extends TestCase
         while ($iterator->valid()) {
             $current = $iterator->current();
             self::assertNotNull($current);
-            /** @scrutinizer ignore-call */
             $cell = $current->getCoordinate();
             $values[] = $sheet->getCell($cell)->getValue();
             $iterator->prev();

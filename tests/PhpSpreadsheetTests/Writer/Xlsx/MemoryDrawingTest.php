@@ -56,7 +56,7 @@ class MemoryDrawingTest extends AbstractFunctional
                 if ($gdImage === false) {
                     self::fail('unexpected failure in imagecreatefromstring');
                 } else {
-                    self::assertTrue(self::checkTransparent(/** @scrutinizer ignore-type */ $gdImage));
+                    self::assertTrue(self::checkTransparent($gdImage));
                 }
             } else {
                 self::fail('Unexpected drawing not in Drawing class');

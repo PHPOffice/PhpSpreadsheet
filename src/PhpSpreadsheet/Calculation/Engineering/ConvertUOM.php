@@ -558,7 +558,7 @@ class ConvertUOM
         } elseif ($fromUOM === $toUOM) {
             return $value / $toMultiplier;
         } elseif ($fromCategory === self::CATEGORY_TEMPERATURE) {
-            return self::convertTemperature($fromUOM, $toUOM, /** @scrutinizer ignore-type */ $value);
+            return self::convertTemperature($fromUOM, $toUOM, $value);
         }
 
         $baseValue = $value * (1.0 / self::$unitConversions[$fromCategory][$fromUOM]);

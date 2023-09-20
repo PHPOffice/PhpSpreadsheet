@@ -50,7 +50,6 @@ for ($row = 1; $row <= $testDataCount1; ++$row) {
         $row,
         $worksheet->getCell('C' . $row)->getValue(),
         $worksheet->getCell('A' . $row)->getValue(),
-        /** @scrutinizer ignore-type */
         $worksheet->getCell('C' . $row)->getCalculatedValue(),
     ));
 }
@@ -63,7 +62,6 @@ for ($row = $testDataCount1 + 1; $row <= $testDataCount2 + $testDataCount1; ++$r
         $worksheet->getCell('C' . $row)->getValue(),
         $worksheet->getCell('A' . $row)->getValue(),
         $worksheet->getCell('B' . $row)->getValue(),
-        /** @scrutinizer ignore-type */
         $worksheet->getCell('C' . $row)->getCalculatedValue(),
     ));
 }

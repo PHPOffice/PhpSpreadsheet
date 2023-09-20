@@ -26,7 +26,6 @@ class ImRealTest extends TestCase
      */
     public function testDirectCallToIMREAL(mixed $expectedResult, mixed ...$args): void
     {
-        /** @scrutinizer ignore-call */
         $result = Complex::IMREAL(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, self::COMPLEX_PRECISION);
     }

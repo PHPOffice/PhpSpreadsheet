@@ -172,7 +172,7 @@ class CellValue extends WizardAbstract implements WizardInterface
             }
 
             // Scrutinizer ignores its own suggested workaround.
-            //$this->operand(1, /** @scrutinizer ignore-type */ ...$arguments);
+            //$this->operand(1, ...$arguments);
             if (count($arguments) < 2) {
                 $this->operand(1, $arguments[0]);
             } else {

@@ -224,7 +224,7 @@ class BaseDrawing implements IComparable
 
                 while ($iterator->valid()) {
                     if ($iterator->current()->getHashCode() === $this->getHashCode()) {
-                        $this->worksheet->getDrawingCollection()->offsetUnset(/** @scrutinizer ignore-type */ $iterator->key());
+                        $this->worksheet->getDrawingCollection()->offsetUnset($iterator->key());
                         $this->worksheet = null;
 
                         break;

@@ -349,7 +349,7 @@ class Cells
     private function storeCurrentCell(): void
     {
         if ($this->currentCellIsDirty && isset($this->currentCoordinate, $this->currentCell)) {
-            $this->currentCell->/** @scrutinizer ignore-call */ detach();
+            $this->currentCell->detach();
 
             $stored = $this->cache->set($this->cachePrefix . $this->currentCoordinate, $this->currentCell);
             if ($stored === false) {

@@ -30,7 +30,6 @@ class ImPowerTest extends TestCase
      */
     public function testDirectCallToIMPOWER(mixed $expectedResult, mixed ...$args): void
     {
-        /** @scrutinizer ignore-call */
         $result = ComplexFunctions::IMPOWER(...$args);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),

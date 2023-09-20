@@ -20,7 +20,6 @@ class ImAbsTest extends TestCase
      */
     public function testDirectCallToIMABS(mixed $expectedResult, mixed ...$args): void
     {
-        /** @scrutinizer ignore-call */
         $result = ComplexFunctions::IMABS(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, self::COMPLEX_PRECISION);
     }

@@ -25,7 +25,7 @@ $drawing = new \PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing();
 $drawing->setName('In-Memory image 1');
 $drawing->setDescription('In-Memory image 1');
 $drawing->setCoordinates('A1');
-$drawing->setImageResource(/** @scrutinizer ignore-type */ $gdImage);
+$drawing->setImageResource($gdImage);
 $drawing->setRenderingFunction(
     \PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing::RENDERING_JPEG
 );

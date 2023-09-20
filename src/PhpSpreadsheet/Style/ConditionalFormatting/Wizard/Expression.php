@@ -67,7 +67,7 @@ class Expression extends WizardAbstract implements WizardInterface
         }
 
         // Scrutinizer ignores its own recommendation
-        //$this->expression(/** @scrutinizer ignore-type */ ...$arguments);
+        //$this->expression(...$arguments);
         $this->expression($arguments[0]);
 
         return $this;

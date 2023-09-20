@@ -18,7 +18,6 @@ class DeltaTest extends TestCase
      */
     public function testDirectCallToDELTA(mixed $expectedResult, mixed ...$args): void
     {
-        /** @scrutinizer ignore-call */
         $result = Compare::delta(...$args);
         self::assertSame($expectedResult, $result);
     }

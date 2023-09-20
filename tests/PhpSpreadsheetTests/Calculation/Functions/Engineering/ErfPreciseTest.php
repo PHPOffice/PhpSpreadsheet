@@ -19,7 +19,6 @@ class ErfPreciseTest extends TestCase
      */
     public function testDirectCallToERFPRECISE(mixed $expectedResult, mixed ...$args): void
     {
-        /** @scrutinizer ignore-call */
         $result = Erf::ERFPRECISE(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, self::ERF_PRECISION);
     }

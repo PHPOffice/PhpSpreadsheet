@@ -30,7 +30,6 @@ class ImConjugateTest extends TestCase
      */
     public function testDirectCallToIMCONJUGATE(mixed $expectedResult, mixed ...$args): void
     {
-        /** @scrutinizer ignore-call */
         $result = ComplexFunctions::IMCONJUGATE(...$args);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),

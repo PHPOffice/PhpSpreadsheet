@@ -32,7 +32,6 @@ class Hex2OctTest extends TestCase
      */
     public function testDirectCallToHEX2OCT(mixed $expectedResult, mixed ...$args): void
     {
-        /** @scrutinizer ignore-call */
         $result = ConvertHex::toOctal(...$args);
         self::assertSame($expectedResult, $result);
     }
@@ -116,7 +115,6 @@ class Hex2OctTest extends TestCase
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
 
-        /** @scrutinizer ignore-call */
         $result = ConvertHex::toOctal(...$args);
         self::assertSame($expectedResult, $result);
     }

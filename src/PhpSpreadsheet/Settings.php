@@ -133,7 +133,7 @@ class Settings
      *
      * @codeCoverageIgnore
      */
-    public static function setLibXmlDisableEntityLoader(/** @scrutinizer ignore-unused */ $state): void
+    public static function setLibXmlDisableEntityLoader($state): void
     {
         // noop
     }

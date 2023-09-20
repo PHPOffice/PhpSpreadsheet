@@ -24,7 +24,7 @@ class MemoryDrawingOffsetTest extends TestCase
         $image = imagecreatefromstring($image);
         self::assertNotFalse($image, 'unable to create image from string');
         $drawing = new MemoryDrawing();
-        $drawing->setImageResource(/** @scrutinizer ignore-type */ $image)
+        $drawing->setImageResource($image)
             ->setResizeProportional(false) //是否保持比例
             ->setWidthAndHeight($w, $h) //图片宽高,原始尺寸 100*100
             ->setOffsetX($x)

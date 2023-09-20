@@ -5417,7 +5417,7 @@ class Calculation
     {
         $this->formulaError = $errorMessage;
         $this->cyclicReferenceStack->clear();
-        $suppress = /** @scrutinizer ignore-deprecated */ $this->suppressFormulaErrors ?? $this->suppressFormulaErrorsNew;
+        $suppress = $this->suppressFormulaErrors ?? $this->suppressFormulaErrorsNew;
         if (!$suppress) {
             throw new Exception($errorMessage, $code, $exception);
         }

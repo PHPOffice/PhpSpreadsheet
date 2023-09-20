@@ -978,7 +978,6 @@ class Xlsx extends BaseReader
 
                             if ($xmlSheetNS && $xmlSheetNS->mergeCells && $xmlSheetNS->mergeCells->mergeCell && !$this->readDataOnly) {
                                 foreach ($xmlSheetNS->mergeCells->mergeCell as $mergeCellx) {
-                                    /** @scrutinizer ignore-call */
                                     $mergeCell = $mergeCellx->attributes();
                                     $mergeRef = (string) ($mergeCell['ref'] ?? '');
                                     if (str_contains($mergeRef, ':')) {
@@ -993,7 +992,7 @@ class Xlsx extends BaseReader
 
                             if ($xmlSheet !== false && isset($xmlSheet->extLst->ext)) {
                                 foreach ($xmlSheet->extLst->ext as $extlst) {
-                                    $extAttrs = $extlst->/** @scrutinizer ignore-call */ attributes() ?? [];
+                                    $extAttrs = $extlst->attributes() ?? [];
                                     $extUri = (string) ($extAttrs['uri'] ?? '');
                                     if ($extUri !== '{CCE6A557-97BC-4b89-ADB6-D9C93CAAB3DF}') {
                                         continue;
@@ -1003,7 +1002,7 @@ class Xlsx extends BaseReader
                                         $xmlSheet->addChild('dataValidations');
                                     }
 
-                                    foreach ($extlst->/** @scrutinizer ignore-call */ children(Namespaces::DATA_VALIDATIONS1)->dataValidations->dataValidation as $item) {
+                                    foreach ($extlst->children(Namespaces::DATA_VALIDATIONS1)->dataValidations->dataValidation as $item) {
                                         $item = self::testSimpleXml($item);
                                         $node = self::testSimpleXml($xmlSheet->dataValidations)->addChild('dataValidation');
                                         foreach ($item->attributes() ?? [] as $attr) {
@@ -1475,7 +1474,6 @@ class Xlsx extends BaseReader
                                                     }
                                                     $xfrm = $twoCellAnchor->pic->spPr->children(Namespaces::DRAWINGML)->xfrm;
                                                     $outerShdw = $twoCellAnchor->pic->spPr->children(Namespaces::DRAWINGML)->effectLst->outerShdw;
-                                                    /** @scrutinizer ignore-call */
                                                     $editAs = $twoCellAnchor->attributes();
                                                     if (isset($editAs, $editAs['editAs'])) {
                                                         $objDrawing->setEditAs($editAs['editAs']);

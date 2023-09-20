@@ -30,7 +30,6 @@ class ImExpTest extends TestCase
      */
     public function testDirectCallToIMEXP(mixed $expectedResult, mixed ...$args): void
     {
-        /** @scrutinizer ignore-call */
         $result = ComplexFunctions::IMEXP(...$args);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),

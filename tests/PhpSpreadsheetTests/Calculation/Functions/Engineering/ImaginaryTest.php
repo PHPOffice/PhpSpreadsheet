@@ -26,7 +26,6 @@ class ImaginaryTest extends TestCase
      */
     public function testDirectCallToIMAGINARY(mixed $expectedResult, mixed ...$args): void
     {
-        /** @scrutinizer ignore-call */
         $result = Complex::IMAGINARY(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, self::COMPLEX_PRECISION);
     }

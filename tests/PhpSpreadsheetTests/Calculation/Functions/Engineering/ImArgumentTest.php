@@ -26,7 +26,6 @@ class ImArgumentTest extends TestCase
      */
     public function testDirectCallToIMARGUMENT(mixed $expectedResult, mixed ...$args): void
     {
-        /** @scrutinizer ignore-call */
         $result = ComplexFunctions::IMARGUMENT(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, self::COMPLEX_PRECISION);
     }

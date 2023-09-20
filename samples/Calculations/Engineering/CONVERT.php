@@ -43,7 +43,6 @@ for ($row = 1; $row <= $testDataCount; ++$row) {
         $worksheet->getCell('D' . $row)->getValue(),
         $worksheet->getCell('A' . $row)->getValue(),
         trim($worksheet->getCell('B' . $row)->getValue(), '"'),
-        /** @scrutinizer ignore-type */
         $worksheet->getCell('D' . $row)->getCalculatedValue(),
         trim($worksheet->getCell('C' . $row)->getValue(), '"')
     ));
@@ -55,6 +54,5 @@ $helper->log(sprintf(
     '(A%d): Unit of Measure Conversion Formula %s result is %s',
     $row,
     $worksheet->getCell('H1')->getValue(),
-    /** @scrutinizer ignore-type */
     $worksheet->getCell('H1')->getCalculatedValue()
 ));

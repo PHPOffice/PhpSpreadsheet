@@ -55,10 +55,8 @@ $worksheet
 
 $helper->log(sprintf(
     'Worked %.2f hours at a rate of %.2f - Charge to the client is %.2f',
-    /** @scrutinizer ignore-type */
     $worksheet->getCell("B{$row}")->getCalculatedValue(),
     $worksheet->getCell('B1')->getValue(),
-    /** @scrutinizer ignore-type */
     $worksheet->getCell("C{$row}")->getCalculatedValue()
 ));
 

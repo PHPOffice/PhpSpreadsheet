@@ -628,7 +628,6 @@ class Html
         //    Load the HTML file into the DOM object
         //  Note the use of error suppression, because typically this will be an html fragment, so not fully valid markup
         $prefix = '<?xml encoding="UTF-8">';
-        /** @scrutinizer ignore-unhandled */
         @$dom->loadHTML($prefix . $html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
         //    Discard excess white space
         $dom->preserveWhiteSpace = false;

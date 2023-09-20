@@ -32,7 +32,6 @@ class Oct2DecTest extends TestCase
      */
     public function testDirectCallToOCT2DEC(mixed $expectedResult, mixed ...$args): void
     {
-        /** @scrutinizer ignore-call */
         $result = ConvertOctal::toDecimal(...$args);
         self::assertSame($expectedResult, $result);
     }
@@ -116,7 +115,6 @@ class Oct2DecTest extends TestCase
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
 
-        /** @scrutinizer ignore-call */
         $result = ConvertOctal::toDecimal(...$args);
         self::assertSame($expectedResult, $result);
     }

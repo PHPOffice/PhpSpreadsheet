@@ -17,16 +17,16 @@ class DeprecatedFunctionsTest extends TestCase
 {
     public function testDeprecated(): void
     {
-        self::assertFalse(/** @scrutinizer ignore-deprecated */ Logical::false());
-        self::assertFalse(/** @scrutinizer ignore-deprecated */ Logical::logicalAnd(true, false));
-        self::assertTrue(/** @scrutinizer ignore-deprecated */ Logical::NOT(false));
-        self::assertTrue(/** @scrutinizer ignore-deprecated */ Logical::logicalOr(true, false));
-        self::assertTrue(/** @scrutinizer ignore-deprecated */ Logical::logicalXor(true, false));
-        self::assertTrue(/** @scrutinizer ignore-deprecated */ Logical::true());
-        self::assertFalse(/** @scrutinizer ignore-deprecated */ Logical::statementIf(false));
-        self::assertSame('error', /** @scrutinizer ignore-deprecated */ Logical::IFERROR('#VALUE!', 'error'));
-        self::assertSame('#VALUE!', /** @scrutinizer ignore-deprecated */ Logical::IFNA('#VALUE!', 'error'));
-        self::assertSame('two', /** @scrutinizer ignore-deprecated */ Logical::IFS(false, 'one', true, 'two', true, 'three'));
-        self::assertSame(31, /** @scrutinizer ignore-deprecated */ Logical::statementSwitch(30, 10, 11, 20, 21, 30, 31, 40, 41));
+        self::assertFalse(Logical::false());
+        self::assertFalse(Logical::logicalAnd(true, false));
+        self::assertTrue(Logical::NOT(false));
+        self::assertTrue(Logical::logicalOr(true, false));
+        self::assertTrue(Logical::logicalXor(true, false));
+        self::assertTrue(Logical::true());
+        self::assertFalse(Logical::statementIf(false));
+        self::assertSame('error', Logical::IFERROR('#VALUE!', 'error'));
+        self::assertSame('#VALUE!', Logical::IFNA('#VALUE!', 'error'));
+        self::assertSame('two', Logical::IFS(false, 'one', true, 'two', true, 'three'));
+        self::assertSame(31, Logical::statementSwitch(30, 10, 11, 20, 21, 30, 31, 40, 41));
     }
 }

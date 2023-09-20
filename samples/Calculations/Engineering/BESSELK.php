@@ -23,7 +23,6 @@ for ($n = 0; $n <= 5; ++$n) {
         $helper->log(sprintf(
             '%s = %f',
             $worksheet->getCell('A1')->getValue(),
-            /** @scrutinizer ignore-type */
             $worksheet->getCell('A1')->getCalculatedValue()
         ));
     }

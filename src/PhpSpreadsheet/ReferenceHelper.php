@@ -86,11 +86,9 @@ class ReferenceHelper
      */
     public static function cellSort(string $a, string $b): int
     {
-        /** @scrutinizer be-damned */
         sscanf($a, '%[A-Z]%d', $ac, $ar);
         /** @var int $ar */
         /** @var string $ac */
-        /** @scrutinizer be-damned */
         sscanf($b, '%[A-Z]%d', $bc, $br);
         /** @var int $br */
         /** @var string $bc */
@@ -110,11 +108,9 @@ class ReferenceHelper
      */
     public static function cellReverseSort(string $a, string $b): int
     {
-        /** @scrutinizer be-damned */
         sscanf($a, '%[A-Z]%d', $ac, $ar);
         /** @var int $ar */
         /** @var string $ac */
-        /** @scrutinizer be-damned */
         sscanf($b, '%[A-Z]%d', $bc, $br);
         /** @var int $br */
         /** @var string $bc */

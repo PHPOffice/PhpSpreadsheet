@@ -41,7 +41,6 @@ for ($row = 1; $row <= $testDataCount; ++$row) {
         '(B%d): Binary %s is hexadecimal %s',
         $row,
         $worksheet->getCell('A' . $row)->getValue(),
-        /** @scrutinizer ignore-type */
         $worksheet->getCell('B' . $row)->getCalculatedValue(),
     ));
 }

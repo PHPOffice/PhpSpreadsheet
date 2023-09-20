@@ -2712,7 +2712,7 @@ class Worksheet implements IComparable
             } elseif ($num > $highRow) {
                 $num -= $numberOfRows;
                 $cloneDimension = clone $rowDimension;
-                $cloneDimension->setRowIndex(/** @scrutinizer ignore-type */ $num);
+                $cloneDimension->setRowIndex($num);
                 $holdRowDimensions[$num] = $cloneDimension;
             }
         }

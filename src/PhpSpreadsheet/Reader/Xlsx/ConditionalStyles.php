@@ -76,12 +76,11 @@ class ConditionalStyles
         }
 
         foreach ($extLst->ext as $extlstcond) {
-            $extAttrs = $extlstcond->/** @scrutinizer ignore-call */ attributes() ?? [];
+            $extAttrs = $extlstcond->attributes() ?? [];
             $extUri = (string) ($extAttrs['uri'] ?? '');
             if ($extUri !== '{78C0D931-6437-407d-A8EE-F0AAD7539E65}') {
                 continue;
             }
-            /** @scrutinizer ignore-call */
             $conditionalFormattingRuleXml = $extlstcond->children($this->ns['x14']);
             if (!$conditionalFormattingRuleXml->conditionalFormattings) {
                 return [];

@@ -36,7 +36,6 @@ for ($row = 1; $row <= $testDataCount; ++$row) {
         $row,
         $worksheet->getCell('C' . $row)->getValue(),
         $worksheet->getCell('A' . $row)->getValue(),
-        /** @scrutinizer ignore-type */
         $worksheet->getCell('C' . $row)->getCalculatedValue(),
     ));
 }
