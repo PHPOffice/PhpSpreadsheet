@@ -318,11 +318,9 @@ abstract class Coordinate
     /**
      * String from column index.
      *
-     * @param int $columnIndex Column index (A = 1)
-     *
-     * @return string
+     * @param int|numeric-string $columnIndex Column index (A = 1)
      */
-    public static function stringFromColumnIndex($columnIndex)
+    public static function stringFromColumnIndex(int|string $columnIndex): string
     {
         static $indexCache = [];
         static $lookupCache = ' ABCDEFGHIJKLMNOPQRSTUVWXYZ';

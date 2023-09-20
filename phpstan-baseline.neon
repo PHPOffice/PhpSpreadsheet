@@ -29,3 +29,13 @@ parameters:
 			message: "#^Binary operation \"/\" between float and array\\|float\\|int\\|string results in an error\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/MathTrig/Combinations.php
+
+		-
+			message: "#^Offset 2 does not exist on array\\{int, int, int, int\\}\\|array\\{int, int\\}\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Worksheet/Validations.php
+
+		-
+			message: "#^Offset 3 does not exist on array\\{int, int, int, int\\}\\|array\\{int, int\\}\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Worksheet/Validations.php
