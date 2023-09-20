@@ -328,15 +328,7 @@ class StringHelper
         $returnValue = mb_convert_encoding($textValue, 'UTF-8', 'UTF-8');
         mb_substitute_character($subst);
 
-        return self::returnString($returnValue);
-    }
-
-    /**
-     * Strictly to satisfy Scrutinizer.
-     */
-    private static function returnString(mixed $value): string
-    {
-        return is_string($value) ? $value : '';
+        return $returnValue;
     }
 
     /**
@@ -428,7 +420,7 @@ class StringHelper
             }
         }
 
-        return self::returnString(mb_convert_encoding($textValue, $to, $from));
+        return mb_convert_encoding($textValue, $to, $from);
     }
 
     /**

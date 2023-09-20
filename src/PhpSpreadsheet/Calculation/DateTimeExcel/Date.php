@@ -72,7 +72,7 @@ class Date
         $baseYear = SharedDateHelper::getExcelCalendar();
 
         try {
-            $year = self::getYear($year, $baseYear); // must be int - Scrutinizer is wrong
+            $year = self::getYear($year, $baseYear);
             $month = self::getMonth($month);
             $day = self::getDay($day);
             self::adjustYearMonth($year, $month, $baseYear);

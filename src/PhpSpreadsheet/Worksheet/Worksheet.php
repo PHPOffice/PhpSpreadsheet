@@ -2319,12 +2319,6 @@ class Worksheet implements IComparable
         return $tableNames;
     }
 
-    /** @var null|Table */
-    private static $scrutinizerNullTable;
-
-    /** @var null|int */
-    private static $scrutinizerNullInt;
-
     /**
      * @param string $name the table name to search
      *
@@ -2334,7 +2328,7 @@ class Worksheet implements IComparable
     {
         $tableIndex = $this->getTableIndexByName($name);
 
-        return ($tableIndex === null) ? self::$scrutinizerNullTable : $this->tableCollection[$tableIndex];
+        return ($tableIndex === null) ? null : $this->tableCollection[$tableIndex];
     }
 
     /**
@@ -2352,7 +2346,7 @@ class Worksheet implements IComparable
             }
         }
 
-        return self::$scrutinizerNullInt;
+        return null;
     }
 
     /**

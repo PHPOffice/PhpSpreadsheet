@@ -50,9 +50,6 @@ class PasswordHasher
      * Daniel Rentz of OpenOffice and the PEAR package
      * Spreadsheet_Excel_Writer by Xavier Noguer <xnoguer@rezebra.com>.
      *
-     * Scrutinizer will squawk at the use of bitwise operations here,
-     * but it should ultimately pass.
-     *
      * @param string $password Password to hash
      */
     private static function defaultHashPassword(string $password): string

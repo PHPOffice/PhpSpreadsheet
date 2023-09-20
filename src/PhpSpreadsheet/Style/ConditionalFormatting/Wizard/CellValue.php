@@ -171,13 +171,7 @@ class CellValue extends WizardAbstract implements WizardInterface
                 throw new Exception('AND Value is only appropriate for range operators');
             }
 
-            // Scrutinizer ignores its own suggested workaround.
-            //$this->operand(1, ...$arguments);
-            if (count($arguments) < 2) {
-                $this->operand(1, $arguments[0]);
-            } else {
-                $this->operand(1, $arguments[0], $arguments[1]);
-            }
+            $this->operand(1, ...$arguments);
 
             return $this;
         }

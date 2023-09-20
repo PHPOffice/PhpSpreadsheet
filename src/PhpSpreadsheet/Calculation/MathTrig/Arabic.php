@@ -50,18 +50,6 @@ class Arabic
         return $sum;
     }
 
-    private static function mollifyScrutinizer(mixed $value): array
-    {
-        return is_array($value) ? $value : [];
-    }
-
-    private static function strSplit(string $roman): array
-    {
-        $rslt = str_split($roman);
-
-        return self::mollifyScrutinizer($rslt);
-    }
-
     /**
      * ARABIC.
      *
@@ -95,7 +83,7 @@ class Arabic
         }
 
         try {
-            $arabic = self::calculateArabic(self::strSplit($roman));
+            $arabic = self::calculateArabic(str_split($roman));
         } catch (Exception) {
             return ExcelError::VALUE(); // Invalid character detected
         }

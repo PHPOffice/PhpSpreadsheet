@@ -108,8 +108,6 @@ class Xlsx extends BaseReader
     }
 
     // Phpstan thinks, correctly, that xpath can return false.
-    // Scrutinizer thinks it can't.
-    // Sigh.
     private static function xpathNoFalse(SimpleXmlElement $sxml, string $path): array
     {
         return self::falseToArray($sxml->xpath($path));

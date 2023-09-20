@@ -11,8 +11,6 @@ use PHPUnit\Framework\TestCase;
 // Sanity tests for functions which have been moved out of Financial
 // to their own classes. A deprecated version remains in Financial;
 // this class contains cursory tests to ensure that those work properly.
-// If Scrutinizer fails the PR because of these deprecations, I will
-// remove this class from the PR.
 
 class MovedFunctionsTest extends TestCase
 {

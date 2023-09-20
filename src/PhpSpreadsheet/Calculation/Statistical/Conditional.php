@@ -222,7 +222,6 @@ class Conditional
     {
         $conditions = self::buildConditions(1, ...$args);
 
-        // Scrutinizer thinks first parameter of array_map can't be null. It is wrong.
         return array_map(null, ...$conditions);
     }
 

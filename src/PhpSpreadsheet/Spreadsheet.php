@@ -1600,16 +1600,6 @@ class Spreadsheet implements JsonSerializable
     }
 
     /**
-     * Silliness to mollify Scrutinizer.
-     *
-     * @codeCoverageIgnore
-     */
-    public function getSharedComponent(): Style
-    {
-        return new Style();
-    }
-
-    /**
      * @throws Exception
      *
      * @return mixed

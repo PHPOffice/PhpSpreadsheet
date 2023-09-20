@@ -242,7 +242,6 @@ class NumberFormat extends Supervisor
             return $this->getSharedComponent()->getBuiltInFormatCode();
         }
 
-        // Scrutinizer says this could return true. It is wrong.
         return $this->builtInFormatCode;
     }
 
