@@ -36,6 +36,7 @@ for ($row = 1; $row <= $testDataCount; ++$row) {
         '(A%d): Formula %s result is %s',
         $row,
         $worksheet->getCell('A' . $row)->getValue(),
+        /** @scrutinizer ignore-type */
         $worksheet->getCell('A' . $row)->getCalculatedValue()
     ));
 }

@@ -22,6 +22,7 @@ $worksheet->getStyle('A1')
 // Test the formulae
 $helper->log(sprintf(
     'Today is %d (%s)',
+    /** @scrutinizer ignore-type */
     $worksheet->getCell('A1')->getCalculatedValue(),
     $worksheet->getCell('A1')->getFormattedValue()
 ));

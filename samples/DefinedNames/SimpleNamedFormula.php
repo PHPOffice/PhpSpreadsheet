@@ -34,9 +34,12 @@ $worksheet
 
 $helper->log(sprintf(
     'With a Tax Rate of %.2f and a net price of %.2f, Tax is %.2f and the gross price is %.2f',
+    /** @scrutinizer ignore-type */
     $worksheet->getCell('B1')->getCalculatedValue(),
     $worksheet->getCell('B3')->getValue(),
+    /** @scrutinizer ignore-type */
     $worksheet->getCell('B4')->getCalculatedValue(),
+    /** @scrutinizer ignore-type */
     $worksheet->getCell('B5')->getCalculatedValue()
 ));
 

@@ -78,9 +78,11 @@ $worksheet
 foreach ($spreadsheet->getAllSheets() as $worksheet) {
     $helper->log(sprintf(
         'Worked %.2f hours for "%s" at a rate of %.2f - Charge to the client is %.2f',
+        /** @scrutinizer ignore-type */
         $worksheet->getCell("B{$row}")->getCalculatedValue(),
         $worksheet->getTitle(),
         $worksheet->getCell('B1')->getValue(),
+        /** @scrutinizer ignore-type */
         $worksheet->getCell("C{$row}")->getCalculatedValue()
     ));
 }
