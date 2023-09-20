@@ -131,7 +131,9 @@ class Sample
             $writer->save($path);
             $this->logWrite($writer, $path, /** @scrutinizer ignore-type */ $callStartTime);
             if ($this->isCli() === false) {
+                // @codeCoverageIgnoreStart
                 echo '<a href="/download.php?type=' . pathinfo($path, PATHINFO_EXTENSION) . '&name=' . basename($path) . '">Download ' . basename($path) . '</a><br />';
+                // @codeCoverageIgnoreEnd
             }
         }
 
@@ -190,12 +192,17 @@ class Sample
         echo($this->isCli() ? date('H:i:s ') : '') . $message . $eol;
     }
 
+    /**
+     * Render chart as part of running chart samples in browser.
+     * Charts are not rendered in unit tests, which are command line.
+     *
+     * @codeCoverageIgnore
+     */
     public function renderChart(Chart $chart, string $fileName): void
     {
         if ($this->isCli() === true) {
             return;
         }
-
         Settings::setChartRenderer(MtJpGraphRenderer::class);
 
         $fileName = $this->getFilename($fileName, 'png');
@@ -261,9 +268,8 @@ class Sample
         $reflection = new ReflectionClass($writer);
         $format = $reflection->getShortName();
 
-        $message = ($this->isCli() === true)
-            ? "Write {$format} format to {$path}  in " . sprintf('%.4f', $callTime) . ' seconds'
-            : "Write {$format} format to <code>{$path}</code>  in " . sprintf('%.4f', $callTime) . ' seconds';
+        $codePath = $this->isCli() ? $path : "<code>$path</code>";
+        $message = "Write {$format} format to {$codePath}  in " . sprintf('%.4f', $callTime) . ' seconds';
 
         $this->log($message);
     }
