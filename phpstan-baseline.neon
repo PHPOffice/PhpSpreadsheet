@@ -39,3 +39,8 @@ parameters:
 			message: "#^Offset 3 does not exist on array\\{int, int, int, int\\}\\|array\\{int, int\\}\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/Validations.php
+
+		-
+			message: "#^Parameter \\#2 \\$value of function ini_set expects string, int given\\.$#"
+			count: 1
+			path: tests/bootstrap.php
