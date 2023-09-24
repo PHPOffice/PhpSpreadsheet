@@ -3442,7 +3442,7 @@ class Worksheet implements IComparable
      * @param string $range Range to extract title from
      * @param bool $returnRange Return range? (see example)
      *
-     * @return ($range is non-empty-string ? ($returnRange is true ? array{0: string, 1: string} : string) : ($returnRange is true ? array{0: null, 1: null} : null)) Scrutinizer does not understand this but it helps Phpstan
+     * @return ($range is non-empty-string ? ($returnRange is true ? array{0: string, 1: string} : string) : ($returnRange is true ? array{0: null, 1: null} : null))
      */
     public static function extractSheetTitle($range, $returnRange = false): array|null|string
     {

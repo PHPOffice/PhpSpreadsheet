@@ -56,7 +56,7 @@ class DefinedNames extends BaseLoader
     /**
      * Assess scope and store the Defined Name.
      *
-     * @param non-empty-string $baseAddress Scrutinizer does not understand this, but it helps Phpstan analyze call to extractSheetTitle better
+     * @param non-empty-string $baseAddress
      */
     private function addDefinedName(string $baseAddress, string $definedName, string $value): void
     {

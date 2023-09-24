@@ -498,7 +498,7 @@ class Xlsx extends BaseReader
         $rels = $this->loadZip(self::INITIAL_FILE, Namespaces::RELATIONSHIPS);
 
         $propertyReader = new PropertyReader($this->getSecurityScannerOrThrow(), $excel->getProperties());
-        $chartDetails = [];
+        $charts = $chartDetails = [];
         foreach ($rels->Relationship as $relx) {
             $rel = self::getAttributes($relx);
             $relTarget = (string) $rel['Target'];
