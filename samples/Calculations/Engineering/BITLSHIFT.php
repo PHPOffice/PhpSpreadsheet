@@ -42,24 +42,33 @@ for ($row = 1; $row <= $testDataCount; ++$row) {
         '(E%d): Bitwise Left Shift of %d (%s) by 1 bit is %d (%s)',
         $row,
         $worksheet->getCell('A' . $row)->getValue(),
+        /** @scrutinizer ignore-type */
         $worksheet->getCell('B' . $row)->getCalculatedValue(),
+        /** @scrutinizer ignore-type */
         $worksheet->getCell('C' . $row)->getCalculatedValue(),
+        /** @scrutinizer ignore-type */
         $worksheet->getCell('D' . $row)->getCalculatedValue(),
     ));
     $helper->log(sprintf(
         '(E%d): Bitwise Left Shift of %d (%s) by 2 bits is %d (%s)',
         $row,
         $worksheet->getCell('A' . $row)->getValue(),
+        /** @scrutinizer ignore-type */
         $worksheet->getCell('B' . $row)->getCalculatedValue(),
+        /** @scrutinizer ignore-type */
         $worksheet->getCell('E' . $row)->getCalculatedValue(),
+        /** @scrutinizer ignore-type */
         $worksheet->getCell('F' . $row)->getCalculatedValue(),
     ));
     $helper->log(sprintf(
         '(E%d): Bitwise Left Shift of %d (%s) by 3 bits is %d (%s)',
         $row,
         $worksheet->getCell('A' . $row)->getValue(),
+        /** @scrutinizer ignore-type */
         $worksheet->getCell('B' . $row)->getCalculatedValue(),
+        /** @scrutinizer ignore-type */
         $worksheet->getCell('G' . $row)->getCalculatedValue(),
+        /** @scrutinizer ignore-type */
         $worksheet->getCell('H' . $row)->getCalculatedValue(),
     ));
 }

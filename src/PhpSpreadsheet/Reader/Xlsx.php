@@ -972,8 +972,9 @@ class Xlsx extends BaseReader
 
                             if ($this->readDataOnly === false) {
                                 $this->readAutoFilter($xmlSheetNS, $docSheet);
-                                $this->readTables($xmlSheetNS, $docSheet, $dir, $fileWorksheet, $zip, $mainNS);
                             }
+
+                            $this->readTables($xmlSheetNS, $docSheet, $dir, $fileWorksheet, $zip, $mainNS);
 
                             if ($xmlSheetNS && $xmlSheetNS->mergeCells && $xmlSheetNS->mergeCells->mergeCell && !$this->readDataOnly) {
                                 foreach ($xmlSheetNS->mergeCells->mergeCell as $mergeCellx) {

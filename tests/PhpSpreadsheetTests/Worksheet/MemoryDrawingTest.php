@@ -26,7 +26,7 @@ class MemoryDrawingTest extends TestCase
         $drawing->setName($name);
         $drawing->setDescription('In-Memory image 1');
         $drawing->setCoordinates('A1');
-        $drawing->setImageResource($gdImage);
+        $drawing->setImageResource(/** @scrutinizer ignore-type */ $gdImage);
         $drawing->setRenderingFunction(MemoryDrawing::RENDERING_PNG);
         $drawing->setMimeType(MemoryDrawing::MIMETYPE_PNG);
 
