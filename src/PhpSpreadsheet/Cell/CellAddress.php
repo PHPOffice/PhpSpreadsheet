@@ -18,12 +18,7 @@ class CellAddress implements Stringable
 
     protected int $rowId;
 
-    final public function __construct(string $cellAddress, ?Worksheet $worksheet = null)
-    {
-        $this->doConstruct($cellAddress, $worksheet);
-    }
-
-    protected function doConstruct(string $cellAddress, ?Worksheet $worksheet = null): void
+    public function __construct(string $cellAddress, ?Worksheet $worksheet = null)
     {
         $this->cellAddress = str_replace('$', '', $cellAddress);
         [$this->columnId, $this->rowId, $this->columnName] = Coordinate::indexesFromString($this->cellAddress);
@@ -46,19 +41,19 @@ class CellAddress implements Stringable
     {
         self::validateColumnAndRow($columnId, $rowId);
 
-        return new static(Coordinate::stringFromColumnIndex($columnId) . ((string) $rowId), $worksheet);
+        return new self(Coordinate::stringFromColumnIndex($columnId) . ((string) $rowId), $worksheet);
     }
 
     public static function fromColumnRowArray(array $array, ?Worksheet $worksheet = null): self
     {
         [$columnId, $rowId] = $array;
 
-        return static::fromColumnAndRow($columnId, $rowId, $worksheet);
+        return self::fromColumnAndRow($columnId, $rowId, $worksheet);
     }
 
     public static function fromCellAddress(mixed $cellAddress, ?Worksheet $worksheet = null): self
     {
-        return new static($cellAddress, $worksheet);
+        return new self($cellAddress, $worksheet);
     }
 
     /**
@@ -114,7 +109,7 @@ class CellAddress implements Stringable
             $newRowId = 1;
         }
 
-        return static::fromColumnAndRow($this->columnId, $newRowId);
+        return self::fromColumnAndRow($this->columnId, $newRowId);
     }
 
     public function previousRow(int $offset = 1): self
@@ -129,7 +124,7 @@ class CellAddress implements Stringable
             $newColumnId = 1;
         }
 
-        return static::fromColumnAndRow($newColumnId, $this->rowId);
+        return self::fromColumnAndRow($newColumnId, $this->rowId);
     }
 
     public function previousColumn(int $offset = 1): self
