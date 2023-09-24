@@ -67,7 +67,7 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
                 $currencyCode = $matches['PrefixedCurrency'] ?? $matches['PostfixedCurrency'];
                 $value = (float) ($sign . trim(str_replace([$decimalSeparatorNoPreg, $currencyCode, ' ', '-'], ['.', '', '', ''], preg_replace('/(\d)' . $thousandsSeparator . '(\d)/u', '$1$2', $value)))); // @phpstan-ignore-line
 
-                return $this->setCurrency($value, $cell, $currencyCode); // @phpstan-ignore-line
+                return $this->setCurrency($value, $cell, $currencyCode ?? '');
             }
 
             // Check for time without seconds e.g. '9:45', '09:45'

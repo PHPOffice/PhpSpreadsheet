@@ -296,9 +296,9 @@ class Cell implements Stringable
 
         $this->updateInCollection();
         $cellCoordinate = $this->getCoordinate();
-        self::updateIfCellIsTableHeader($this->getParent()->getParent(), $this, $oldValue, $value); // @phpstan-ignore-line
+        self::updateIfCellIsTableHeader($this->getParent()?->getParent(), $this, $oldValue, $value);
 
-        return $this->getParent()->get($cellCoordinate); // @phpstan-ignore-line
+        return $this->getParent()?->get($cellCoordinate) ?? $this;
     }
 
     public const CALCULATE_DATE_TIME_ASIS = 0;

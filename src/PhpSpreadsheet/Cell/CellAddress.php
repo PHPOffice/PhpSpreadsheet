@@ -18,7 +18,12 @@ class CellAddress implements Stringable
 
     protected int $rowId;
 
-    public function __construct(string $cellAddress, ?Worksheet $worksheet = null)
+    final public function __construct(string $cellAddress, ?Worksheet $worksheet = null)
+    {
+        $this->doConstruct($cellAddress, $worksheet);
+    }
+
+    protected function doConstruct(string $cellAddress, ?Worksheet $worksheet = null): void
     {
         $this->cellAddress = str_replace('$', '', $cellAddress);
         [$this->columnId, $this->rowId, $this->columnName] = Coordinate::indexesFromString($this->cellAddress);
@@ -27,7 +32,7 @@ class CellAddress implements Stringable
 
     public function __destruct()
     {
-        $this->worksheet = null;
+        unset($this->worksheet);
     }
 
     private static function validateColumnAndRow(mixed $columnId, mixed $rowId): void
@@ -41,7 +46,6 @@ class CellAddress implements Stringable
     {
         self::validateColumnAndRow($columnId, $rowId);
 
-        /** @phpstan-ignore-next-line */
         return new static(Coordinate::stringFromColumnIndex($columnId) . ((string) $rowId), $worksheet);
     }
 
@@ -54,7 +58,6 @@ class CellAddress implements Stringable
 
     public static function fromCellAddress(mixed $cellAddress, ?Worksheet $worksheet = null): self
     {
-        /** @phpstan-ignore-next-line */
         return new static($cellAddress, $worksheet);
     }
 

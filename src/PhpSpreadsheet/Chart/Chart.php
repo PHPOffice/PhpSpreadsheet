@@ -671,9 +671,10 @@ class Chart
         // Ensure that data series values are up-to-date before we render
         $this->refresh();
 
+        /** @var Renderer\IRenderer */
         $renderer = new $libraryName($this);
 
-        return $renderer->render($outputDestination); // @phpstan-ignore-line
+        return $renderer->render($outputDestination);
     }
 
     public function getRotX(): ?int
