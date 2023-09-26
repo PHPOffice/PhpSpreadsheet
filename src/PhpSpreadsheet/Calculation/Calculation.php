@@ -4205,7 +4205,7 @@ class Calculation
                             }
                         }
                     } elseif ($expectedArgumentCount != '*') {
-                        $isOperandOrFunction = preg_match('/(\d*)([-+,])(\d*)/', $expectedArgumentCount, $argMatch);
+                        preg_match('/(\d*)([-+,])(\d*)/', $expectedArgumentCount, $argMatch);
                         switch ($argMatch[2] ?? '') {
                             case '+':
                                 if ($argumentCount < $argMatch[1]) {
