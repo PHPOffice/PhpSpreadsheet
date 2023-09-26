@@ -49,22 +49,11 @@ class Styles extends BaseParserClass
         $this->workbookPalette = $palette;
     }
 
-    /**
-     * Cast SimpleXMLElement to bool to overcome Scrutinizer problem.
-     */
-    private static function castBool(mixed $value): bool
-    {
-        return (bool) $value;
-    }
-
     private function getStyleAttributes(SimpleXMLElement $value): SimpleXMLElement
     {
-        $attr = null;
-        if (self::castBool($value)) {
-            $attr = $value->attributes('');
-            if ($attr === null || count($attr) === 0) {
-                $attr = $value->attributes($this->namespace);
-            }
+        $attr = $value->attributes('');
+        if ($attr === null || count($attr) === 0) {
+            $attr = $value->attributes($this->namespace);
         }
 
         return Xlsx::testSimpleXml($attr);

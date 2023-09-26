@@ -18,7 +18,6 @@ class GeStepTest extends TestCase
      */
     public function testDirectCallToGESTEP(mixed $expectedResult, mixed ...$args): void
     {
-        /** @scrutinizer ignore-call */
         $result = Compare::geStep(...$args);
         self::assertSame($expectedResult, $result);
     }

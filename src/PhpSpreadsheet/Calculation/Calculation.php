@@ -4184,14 +4184,8 @@ class Calculation
                     $output[] = $stack->pop(); //    Pop the function and push onto the output
                     if (isset(self::$controlFunctions[$functionName])) {
                         $expectedArgumentCount = self::$controlFunctions[$functionName]['argumentCount'];
-                        // Scrutinizer says functionCall is unused after this assignment.
-                        // It might be right, but I'm too lazy to confirm.
-                        $functionCall = self::$controlFunctions[$functionName]['functionCall'];
-                        self::doNothing($functionCall);
                     } elseif (isset(self::$phpSpreadsheetFunctions[$functionName])) {
                         $expectedArgumentCount = self::$phpSpreadsheetFunctions[$functionName]['argumentCount'];
-                        $functionCall = self::$phpSpreadsheetFunctions[$functionName]['functionCall'];
-                        self::doNothing($functionCall);
                     } else {    // did we somehow push a non-function on the stack? this should never happen
                         return $this->raiseFormulaError('Formula Error: Internal error, non-function on stack');
                     }
@@ -4211,8 +4205,7 @@ class Calculation
                             }
                         }
                     } elseif ($expectedArgumentCount != '*') {
-                        $isOperandOrFunction = preg_match('/(\d*)([-+,])(\d*)/', $expectedArgumentCount, $argMatch);
-                        self::doNothing($isOperandOrFunction);
+                        preg_match('/(\d*)([-+,])(\d*)/', $expectedArgumentCount, $argMatch);
                         switch ($argMatch[2] ?? '') {
                             case '+':
                                 if ($argumentCount < $argMatch[1]) {
@@ -5417,7 +5410,7 @@ class Calculation
     {
         $this->formulaError = $errorMessage;
         $this->cyclicReferenceStack->clear();
-        $suppress = /** @scrutinizer ignore-deprecated */ $this->suppressFormulaErrors ?? $this->suppressFormulaErrorsNew;
+        $suppress = $this->suppressFormulaErrors ?? $this->suppressFormulaErrorsNew;
         if (!$suppress) {
             throw new Exception($errorMessage, $code, $exception);
         }
@@ -5715,11 +5708,6 @@ class Calculation
     public function getSuppressFormulaErrors(): bool
     {
         return $this->suppressFormulaErrorsNew;
-    }
-
-    private static function doNothing(mixed $arg): bool
-    {
-        return (bool) $arg;
     }
 
     /**

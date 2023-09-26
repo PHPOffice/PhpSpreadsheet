@@ -127,7 +127,7 @@ class IndirectTest extends AllSetupTeardown
         $sheet = $this->getSheet();
         $sheet->getCell('A1')->setValue('A2');
         $sheet->getCell('A2')->setValue('This is it');
-        $result = /** @scrutinizer ignore-deprecated */ \PhpOffice\PhpSpreadsheet\Calculation\LookupRef::INDIRECT('A2', $sheet->getCell('A1'));
+        $result = \PhpOffice\PhpSpreadsheet\Calculation\LookupRef::INDIRECT('A2', $sheet->getCell('A1'));
         $result = \PhpOffice\PhpSpreadsheet\Calculation\Functions::flattenSingleValue($result);
         self::assertSame('This is it', $result);
     }

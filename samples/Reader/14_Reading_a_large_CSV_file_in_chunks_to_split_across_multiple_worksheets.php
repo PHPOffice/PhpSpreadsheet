@@ -40,7 +40,7 @@ class ChunkReadFilter implements IReadFilter
     }
 }
 
-$helper->log('Loading file ' . /** @scrutinizer ignore-type */ pathinfo($inputFileName, PATHINFO_BASENAME) . ' using Csv reader');
+$helper->log('Loading file ' . pathinfo($inputFileName, PATHINFO_BASENAME) . ' using Csv reader');
 // Create a new Reader of the type defined in $inputFileType
 $reader = new Csv();
 
