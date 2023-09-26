@@ -139,9 +139,7 @@ abstract class IOFactory
             $readers = array_map('strtoupper', $readers);
             $testReaders = array_filter(
                 self::$readers,
-                function (string $readerType) use ($readers): bool {
-                    return in_array(strtoupper($readerType), $readers, true);
-                },
+                fn (string $readerType): bool => in_array(strtoupper($readerType), $readers, true),
                 ARRAY_FILTER_USE_KEY
             );
         }

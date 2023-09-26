@@ -265,12 +265,12 @@ class Style extends Supervisor
                 // loop through up to 3 x 3 = 9 regions
                 for ($x = 1; $x <= $xMax; ++$x) {
                     // start column index for region
-                    $colStart = ($x == 3) ?
-                        Coordinate::stringFromColumnIndex($rangeEndIndexes[0])
+                    $colStart = ($x == 3)
+                        ? Coordinate::stringFromColumnIndex($rangeEndIndexes[0])
                         : Coordinate::stringFromColumnIndex($rangeStartIndexes[0] + $x - 1);
                     // end column index for region
-                    $colEnd = ($x == 1) ?
-                        Coordinate::stringFromColumnIndex($rangeStartIndexes[0])
+                    $colEnd = ($x == 1)
+                        ? Coordinate::stringFromColumnIndex($rangeStartIndexes[0])
                         : Coordinate::stringFromColumnIndex($rangeEndIndexes[0] - $xMax + $x);
 
                     for ($y = 1; $y <= $yMax; ++$y) {
@@ -294,12 +294,12 @@ class Style extends Supervisor
                         }
 
                         // start row index for region
-                        $rowStart = ($y == 3) ?
-                            $rangeEndIndexes[1] : $rangeStartIndexes[1] + $y - 1;
+                        $rowStart = ($y == 3)
+                            ? $rangeEndIndexes[1] : $rangeStartIndexes[1] + $y - 1;
 
                         // end row index for region
-                        $rowEnd = ($y == 1) ?
-                            $rangeStartIndexes[1] : $rangeEndIndexes[1] - $yMax + $y;
+                        $rowEnd = ($y == 1)
+                            ? $rangeStartIndexes[1] : $rangeEndIndexes[1] - $yMax + $y;
 
                         // build range for region
                         $range = $colStart . $rowStart . ':' . $colEnd . $rowEnd;
@@ -684,14 +684,14 @@ class Style extends Supervisor
     public function getHashCode(): string
     {
         return md5(
-            $this->fill->getHashCode() .
-            $this->font->getHashCode() .
-            $this->borders->getHashCode() .
-            $this->alignment->getHashCode() .
-            $this->numberFormat->getHashCode() .
-            $this->protection->getHashCode() .
-            ($this->quotePrefix ? 't' : 'f') .
-            __CLASS__
+            $this->fill->getHashCode()
+            . $this->font->getHashCode()
+            . $this->borders->getHashCode()
+            . $this->alignment->getHashCode()
+            . $this->numberFormat->getHashCode()
+            . $this->protection->getHashCode()
+            . ($this->quotePrefix ? 't' : 'f')
+            . __CLASS__
         );
     }
 

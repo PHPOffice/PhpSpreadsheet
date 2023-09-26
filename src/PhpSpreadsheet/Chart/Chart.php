@@ -160,6 +160,11 @@ class Chart
         $this->borderLines = new GridLines();
     }
 
+    public function __destruct()
+    {
+        $this->worksheet = null;
+    }
+
     /**
      * Get Name.
      *

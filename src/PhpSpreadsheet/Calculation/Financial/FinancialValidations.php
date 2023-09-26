@@ -56,9 +56,9 @@ class FinancialValidations
     {
         $frequency = self::validateInt($frequency);
         if (
-            ($frequency !== FinancialConstants::FREQUENCY_ANNUAL) &&
-            ($frequency !== FinancialConstants::FREQUENCY_SEMI_ANNUAL) &&
-            ($frequency !== FinancialConstants::FREQUENCY_QUARTERLY)
+            ($frequency !== FinancialConstants::FREQUENCY_ANNUAL)
+            && ($frequency !== FinancialConstants::FREQUENCY_SEMI_ANNUAL)
+            && ($frequency !== FinancialConstants::FREQUENCY_QUARTERLY)
         ) {
             throw new Exception(ExcelError::NAN());
         }

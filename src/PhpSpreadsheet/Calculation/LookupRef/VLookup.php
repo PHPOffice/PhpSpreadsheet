@@ -94,9 +94,9 @@ class VLookup extends LookupBase
 
             // break if we have passed possible keys
             if (
-                $notExactMatch &&
-                (($bothNumeric && ($rowData[$column] > $lookupValue)) ||
-                ($bothNotNumeric && ($cellDataLower > $lookupLower)))
+                $notExactMatch
+                && (($bothNumeric && ($rowData[$column] > $lookupValue))
+                || ($bothNotNumeric && ($cellDataLower > $lookupLower)))
             ) {
                 break;
             }

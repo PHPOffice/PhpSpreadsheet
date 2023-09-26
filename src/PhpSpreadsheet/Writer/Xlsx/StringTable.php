@@ -40,18 +40,18 @@ class StringTable extends WriterPart
             $cell = $worksheet->getCellCollection()->get($coordinate);
             $cellValue = $cell->getValue();
             if (
-                !is_object($cellValue) &&
-                ($cellValue !== null) &&
-                $cellValue !== '' &&
-                ($cell->getDataType() == DataType::TYPE_STRING || $cell->getDataType() == DataType::TYPE_STRING2 || $cell->getDataType() == DataType::TYPE_NULL) &&
-                !isset($aFlippedStringTable[$cellValue])
+                !is_object($cellValue)
+                && ($cellValue !== null)
+                && $cellValue !== ''
+                && ($cell->getDataType() == DataType::TYPE_STRING || $cell->getDataType() == DataType::TYPE_STRING2 || $cell->getDataType() == DataType::TYPE_NULL)
+                && !isset($aFlippedStringTable[$cellValue])
             ) {
                 $aStringTable[] = $cellValue;
                 $aFlippedStringTable[$cellValue] = true;
             } elseif (
-                $cellValue instanceof RichText &&
-                ($cellValue !== null) &&
-                !isset($aFlippedStringTable[$cellValue->getHashCode()])
+                $cellValue instanceof RichText
+                && ($cellValue !== null)
+                && !isset($aFlippedStringTable[$cellValue->getHashCode()])
             ) {
                 $aStringTable[] = $cellValue;
                 $aFlippedStringTable[$cellValue->getHashCode()] = true;

@@ -71,9 +71,9 @@ class AutoFilter extends WriterPart
     private static function writeAutoFilterColumnRule(Column $column, Rule $rule, XMLWriter $objWriter): void
     {
         if (
-            ($column->getFilterType() === Column::AUTOFILTER_FILTERTYPE_FILTER) &&
-            ($rule->getOperator() === Rule::AUTOFILTER_COLUMN_RULE_EQUAL) &&
-            ($rule->getValue() === '')
+            ($column->getFilterType() === Column::AUTOFILTER_FILTERTYPE_FILTER)
+            && ($rule->getOperator() === Rule::AUTOFILTER_COLUMN_RULE_EQUAL)
+            && ($rule->getValue() === '')
         ) {
             //    Filter rule for Blanks
             $objWriter->writeAttribute('blank', '1');

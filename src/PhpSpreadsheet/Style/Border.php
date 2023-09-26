@@ -98,7 +98,7 @@ class Border extends Supervisor
         /** @var Style */
         $parent = $this->parent;
 
-        return $parent->/** @scrutinizer ignore-call */ getStyleArray([$this->parentPropertyName => $array]);
+        return $parent->getStyleArray([$this->parentPropertyName => $array]);
     }
 
     /**
@@ -218,9 +218,9 @@ class Border extends Supervisor
         }
 
         return md5(
-            $this->borderStyle .
-            $this->color->getHashCode() .
-            __CLASS__
+            $this->borderStyle
+            . $this->color->getHashCode()
+            . __CLASS__
         );
     }
 

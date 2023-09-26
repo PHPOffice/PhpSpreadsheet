@@ -88,9 +88,7 @@ class Conditional
         // Filter out any empty values that shouldn't be included in a COUNT
         $range = array_filter(
             Functions::flattenArray($range),
-            function ($value): bool {
-                return $value !== null && $value !== '';
-            }
+            fn ($value): bool => $value !== null && $value !== ''
         );
 
         $range = array_merge([[self::CONDITION_COLUMN_NAME]], array_chunk($range, 1));
@@ -224,8 +222,7 @@ class Conditional
     {
         $conditions = self::buildConditions(1, ...$args);
 
-        // Scrutinizer thinks first parameter of array_map can't be null. It is wrong.
-        return array_map(/** @scrutinizer ignore-type */ null, ...$conditions);
+        return array_map(null, ...$conditions);
     }
 
     /** @param array $args */
@@ -235,14 +232,12 @@ class Conditional
 
         if (count($conditions) === 1) {
             return array_map(
-                function ($value): array {
-                    return [$value];
-                },
+                fn ($value): array => [$value],
                 $conditions[0]
             );
         }
 
-        return array_map(/** @scrutinizer ignore-type */ null, ...$conditions);
+        return array_map(null, ...$conditions);
     }
 
     /** @param array $args */
@@ -293,7 +288,7 @@ class Conditional
             ++$pairCount;
         }
 
-        return array_map(/** @scrutinizer ignore-type */ null, ...$database);
+        return array_map(null, ...$database);
     }
 
     private static function databaseFromRangeAndValue(array $range, array $valueRange = []): array
@@ -305,7 +300,7 @@ class Conditional
             $valueRange = $range;
         }
 
-        $database = array_map(/** @scrutinizer ignore-type */ null, array_merge([self::CONDITION_COLUMN_NAME], $range), array_merge([self::VALUE_COLUMN_NAME], $valueRange));
+        $database = array_map(null, array_merge([self::CONDITION_COLUMN_NAME], $range), array_merge([self::VALUE_COLUMN_NAME], $valueRange));
 
         return $database;
     }

@@ -164,6 +164,11 @@ class BaseDrawing implements IComparable
         $this->imageIndex = self::$imageCounter;
     }
 
+    public function __destruct()
+    {
+        $this->worksheet = null;
+    }
+
     public function getImageIndex(): int
     {
         return $this->imageIndex;
@@ -219,7 +224,7 @@ class BaseDrawing implements IComparable
 
                 while ($iterator->valid()) {
                     if ($iterator->current()->getHashCode() === $this->getHashCode()) {
-                        $this->worksheet->getDrawingCollection()->offsetUnset(/** @scrutinizer ignore-type */ $iterator->key());
+                        $this->worksheet->getDrawingCollection()->offsetUnset($iterator->key());
                         $this->worksheet = null;
 
                         break;
@@ -421,20 +426,20 @@ class BaseDrawing implements IComparable
     public function getHashCode(): string
     {
         return md5(
-            $this->name .
-            $this->description .
-            (($this->worksheet === null) ? '' : $this->worksheet->getHashCode()) .
-            $this->coordinates .
-            $this->offsetX .
-            $this->offsetY .
-            $this->coordinates2 .
-            $this->offsetX2 .
-            $this->offsetY2 .
-            $this->width .
-            $this->height .
-            $this->rotation .
-            $this->shadow->getHashCode() .
-            __CLASS__
+            $this->name
+            . $this->description
+            . (($this->worksheet === null) ? '' : $this->worksheet->getHashCode())
+            . $this->coordinates
+            . $this->offsetX
+            . $this->offsetY
+            . $this->coordinates2
+            . $this->offsetX2
+            . $this->offsetY2
+            . $this->width
+            . $this->height
+            . $this->rotation
+            . $this->shadow->getHashCode()
+            . __CLASS__
         );
     }
 

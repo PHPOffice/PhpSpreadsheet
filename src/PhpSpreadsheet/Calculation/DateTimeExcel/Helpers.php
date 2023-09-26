@@ -140,8 +140,8 @@ class Helpers
                 . ':' . $dateArray['second']
             );
         }
-        $excelDateValue =
-            SharedDateHelper::formattedPHPToExcel(
+        $excelDateValue
+            = SharedDateHelper::formattedPHPToExcel(
                 $dateArray['year'],
                 $dateArray['month'],
                 $dateArray['day'],
@@ -154,7 +154,7 @@ class Helpers
         }
         // RETURNDATE_UNIX_TIMESTAMP)
 
-        return  SharedDateHelper::excelToTimestamp($excelDateValue);
+        return SharedDateHelper::excelToTimestamp($excelDateValue);
     }
 
     /**

@@ -12,5 +12,5 @@ try {
     $downloader = new Downloader((new Sample())->getTemporaryFolder(), $filename, $filetype);
     $downloader->download();
 } catch (Exception $e) {
-    die($e->getMessage());
+    exit($e->getMessage());
 }

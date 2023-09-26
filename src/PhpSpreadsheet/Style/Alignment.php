@@ -450,10 +450,10 @@ class Alignment extends Supervisor
     {
         if ($indent > 0) {
             if (
-                $this->getHorizontal() != self::HORIZONTAL_GENERAL &&
-                $this->getHorizontal() != self::HORIZONTAL_LEFT &&
-                $this->getHorizontal() != self::HORIZONTAL_RIGHT &&
-                $this->getHorizontal() != self::HORIZONTAL_DISTRIBUTED
+                $this->getHorizontal() != self::HORIZONTAL_GENERAL
+                && $this->getHorizontal() != self::HORIZONTAL_LEFT
+                && $this->getHorizontal() != self::HORIZONTAL_RIGHT
+                && $this->getHorizontal() != self::HORIZONTAL_DISTRIBUTED
             ) {
                 $indent = 0; // indent not supported
             }
@@ -516,14 +516,14 @@ class Alignment extends Supervisor
         }
 
         return md5(
-            $this->horizontal .
-            $this->vertical .
-            $this->textRotation .
-            ($this->wrapText ? 't' : 'f') .
-            ($this->shrinkToFit ? 't' : 'f') .
-            $this->indent .
-            $this->readOrder .
-            __CLASS__
+            $this->horizontal
+            . $this->vertical
+            . $this->textRotation
+            . ($this->wrapText ? 't' : 'f')
+            . ($this->shrinkToFit ? 't' : 'f')
+            . $this->indent
+            . $this->readOrder
+            . __CLASS__
         );
     }
 

@@ -44,8 +44,8 @@ class Duplicates extends WizardAbstract implements WizardInterface
     public static function fromConditional(Conditional $conditional, string $cellRange = 'A1'): WizardInterface
     {
         if (
-            $conditional->getConditionType() !== Conditional::CONDITION_DUPLICATES &&
-            $conditional->getConditionType() !== Conditional::CONDITION_UNIQUE
+            $conditional->getConditionType() !== Conditional::CONDITION_DUPLICATES
+            && $conditional->getConditionType() !== Conditional::CONDITION_UNIQUE
         ) {
             throw new Exception('Conditional is not a Duplicates CF Rule conditional');
         }

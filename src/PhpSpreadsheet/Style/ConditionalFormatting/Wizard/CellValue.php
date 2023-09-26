@@ -141,8 +141,8 @@ class CellValue extends WizardAbstract implements WizardInterface
                     $operandValueType = Wizard::VALUE_TYPE_CELL;
                     $condition = self::reverseAdjustCellRef($condition, $cellRange);
                 } elseif (
-                    preg_match('/\(\)/', $condition) ||
-                    preg_match('/' . Calculation::CALCULATION_REGEXP_CELLREF_RELATIVE . '/i', $condition)
+                    preg_match('/\(\)/', $condition)
+                    || preg_match('/' . Calculation::CALCULATION_REGEXP_CELLREF_RELATIVE . '/i', $condition)
                 ) {
                     $operandValueType = Wizard::VALUE_TYPE_FORMULA;
                     $condition = self::reverseAdjustCellRef($condition, $cellRange);
@@ -171,13 +171,7 @@ class CellValue extends WizardAbstract implements WizardInterface
                 throw new Exception('AND Value is only appropriate for range operators');
             }
 
-            // Scrutinizer ignores its own suggested workaround.
-            //$this->operand(1, /** @scrutinizer ignore-type */ ...$arguments);
-            if (count($arguments) < 2) {
-                $this->operand(1, $arguments[0]);
-            } else {
-                $this->operand(1, $arguments[0], $arguments[1]);
-            }
+            $this->operand(1, ...$arguments);
 
             return $this;
         }

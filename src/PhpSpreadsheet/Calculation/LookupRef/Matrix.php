@@ -23,8 +23,8 @@ class Matrix
      */
     public static function isRowVector(array $values): bool
     {
-        return count($values, COUNT_RECURSIVE) > 1 &&
-            (count($values, COUNT_NORMAL) === 1 || count($values, COUNT_RECURSIVE) === count($values, COUNT_NORMAL));
+        return count($values, COUNT_RECURSIVE) > 1
+            && (count($values, COUNT_NORMAL) === 1 || count($values, COUNT_RECURSIVE) === count($values, COUNT_NORMAL));
     }
 
     /**
@@ -112,9 +112,7 @@ class Matrix
         $columnNum = $columnKeys[--$columnNum];
         if ($rowNum === 0) {
             return array_map(
-                function ($value): array {
-                    return [$value];
-                },
+                fn ($value): array => [$value],
                 array_column($matrix, $columnNum)
             );
         }

@@ -169,7 +169,7 @@ class Color extends Supervisor
         /** @var Style */
         $parent = $this->parent;
 
-        return $parent->/** @scrutinizer ignore-call */ getStyleArray([$this->parentPropertyName => $array]);
+        return $parent->getStyleArray([$this->parentPropertyName => $array]);
     }
 
     /**
@@ -401,8 +401,8 @@ class Color extends Supervisor
         }
 
         return md5(
-            $this->argb .
-            __CLASS__
+            $this->argb
+            . __CLASS__
         );
     }
 

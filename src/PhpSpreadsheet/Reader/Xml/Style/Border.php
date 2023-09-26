@@ -58,8 +58,8 @@ class Border extends StyleBase
                 $borderStyleValue = (string) $borderStyleValuex;
                 switch ($borderStyleKey) {
                     case 'Position':
-                        [$borderPosition, $diagonalDirection] =
-                            $this->parsePosition($borderStyleValue, $diagonalDirection);
+                        [$borderPosition, $diagonalDirection]
+                            = $this->parsePosition($borderStyleValue, $diagonalDirection);
 
                         break;
                     case 'Color':

@@ -96,8 +96,8 @@ class ColumnAndRowAttributes extends BaseParserClass
         $columnsAttributesAreSet = [];
         foreach ($columnsAttributes as $columnCoordinate => $columnAttributes) {
             if (
-                $readFilter === null ||
-                !$this->isFilteredColumn($readFilter, $columnCoordinate, $rowsAttributes)
+                $readFilter === null
+                || !$this->isFilteredColumn($readFilter, $columnCoordinate, $rowsAttributes)
             ) {
                 if (!isset($columnsAttributesAreSet[$columnCoordinate])) {
                     $this->setColumnAttributes($columnCoordinate, $columnAttributes);
@@ -109,8 +109,8 @@ class ColumnAndRowAttributes extends BaseParserClass
         $rowsAttributesAreSet = [];
         foreach ($rowsAttributes as $rowCoordinate => $rowAttributes) {
             if (
-                $readFilter === null ||
-                !$this->isFilteredRow($readFilter, $rowCoordinate, $columnsAttributes)
+                $readFilter === null
+                || !$this->isFilteredRow($readFilter, $rowCoordinate, $columnsAttributes)
             ) {
                 if (!isset($rowsAttributesAreSet[$rowCoordinate])) {
                     $this->setRowAttributes($rowCoordinate, $rowAttributes);
@@ -136,7 +136,6 @@ class ColumnAndRowAttributes extends BaseParserClass
         $columnAttributes = [];
 
         foreach ($worksheetCols->col as $columnx) {
-            /** @scrutinizer ignore-call */
             $column = $columnx->attributes();
             if ($column !== null) {
                 $startColumn = Coordinate::stringFromColumnIndex((int) $column['min']);
@@ -195,7 +194,6 @@ class ColumnAndRowAttributes extends BaseParserClass
         $rowAttributes = [];
 
         foreach ($worksheetRow as $rowx) {
-            /** @scrutinizer ignore-call */
             $row = $rowx->attributes();
             if ($row !== null) {
                 if (isset($row['ht']) && !$readDataOnly) {

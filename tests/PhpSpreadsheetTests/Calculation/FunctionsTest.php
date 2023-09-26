@@ -86,7 +86,7 @@ class FunctionsTest extends TestCase
 
     public function testDeprecatedIsFormula(): void
     {
-        $result = /** @scrutinizer ignore-deprecated */ Functions::isFormula('="STRING"');
+        $result = Functions::isFormula('="STRING"');
         self::assertEquals(ExcelError::REF(), $result);
     }
 

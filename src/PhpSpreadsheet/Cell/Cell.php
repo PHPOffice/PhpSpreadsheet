@@ -667,8 +667,8 @@ class Cell implements Stringable
         $myRow = $this->getRow();
 
         // Verify if cell is in range
-        return ($rangeStart[0] <= $myColumn) && ($rangeEnd[0] >= $myColumn) &&
-                ($rangeStart[1] <= $myRow) && ($rangeEnd[1] >= $myRow);
+        return ($rangeStart[0] <= $myColumn) && ($rangeEnd[0] >= $myColumn)
+                && ($rangeStart[1] <= $myRow) && ($rangeEnd[1] >= $myRow);
     }
 
     /**

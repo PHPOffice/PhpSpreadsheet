@@ -19,7 +19,7 @@ class RandArrayTest extends AllSetupTeardown
 
         $result = MathTrig\Random::randArray($rows, $cols, $min, $max, true);
         self::assertIsArray($result);
-        self::assertCount($rows, /** @scrutinizer ignore-type */ $result);
+        self::assertCount($rows, $result);
         self::assertIsArray($result[0]);
         self::assertCount($cols, $result[0]);
 
@@ -42,7 +42,7 @@ class RandArrayTest extends AllSetupTeardown
 
         $result = MathTrig\Random::randArray($rows, $cols, $min, $max, false);
         self::assertIsArray($result);
-        self::assertCount($rows, /** @scrutinizer ignore-type */ $result);
+        self::assertCount($rows, $result);
         self::assertIsArray($result[0]);
         self::assertCount($cols, $result[0]);
 

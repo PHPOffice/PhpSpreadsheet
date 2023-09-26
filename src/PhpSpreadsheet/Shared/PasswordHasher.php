@@ -50,9 +50,6 @@ class PasswordHasher
      * Daniel Rentz of OpenOffice and the PEAR package
      * Spreadsheet_Excel_Writer by Xavier Noguer <xnoguer@rezebra.com>.
      *
-     * Scrutinizer will squawk at the use of bitwise operations here,
-     * but it should ultimately pass.
-     *
      * @param string $password Password to hash
      */
     private static function defaultHashPassword(string $password): string
@@ -63,7 +60,7 @@ class PasswordHasher
         for ($i = $pwlen; $i >= 0; --$i) {
             $intermediate1 = (($verifier & 0x4000) === 0) ? 0 : 1;
             $intermediate2 = 2 * $verifier;
-            $intermediate2 = $intermediate2 & 0x7fff;
+            $intermediate2 = $intermediate2 & 0x7FFF;
             $intermediate3 = $intermediate1 | $intermediate2;
             $verifier = $intermediate3 ^ ord($passwordArray[$i]);
         }
@@ -99,7 +96,7 @@ class PasswordHasher
         $saltValue = base64_decode($salt);
         $encodedPassword = mb_convert_encoding($password, 'UCS-2LE', 'UTF-8');
 
-        $hashValue = hash($phpAlgorithm, $saltValue . /** @scrutinizer ignore-type */ $encodedPassword, true);
+        $hashValue = hash($phpAlgorithm, $saltValue . $encodedPassword, true);
         for ($i = 0; $i < $spinCount; ++$i) {
             $hashValue = hash($phpAlgorithm, $hashValue . pack('L', $i), true);
         }

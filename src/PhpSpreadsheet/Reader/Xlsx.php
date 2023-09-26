@@ -108,8 +108,6 @@ class Xlsx extends BaseReader
     }
 
     // Phpstan thinks, correctly, that xpath can return false.
-    // Scrutinizer thinks it can't.
-    // Sigh.
     private static function xpathNoFalse(SimpleXmlElement $sxml, string $path): array
     {
         return self::falseToArray($sxml->xpath($path));
@@ -226,8 +224,8 @@ class Xlsx extends BaseReader
                 foreach ($relsWorkbook->Relationship as $elex) {
                     $ele = self::getAttributes($elex);
                     if (
-                        ((string) $ele['Type'] === "$namespace/worksheet") ||
-                        ((string) $ele['Type'] === "$namespace/chartsheet")
+                        ((string) $ele['Type'] === "$namespace/worksheet")
+                        || ((string) $ele['Type'] === "$namespace/chartsheet")
                     ) {
                         $worksheets[(string) $ele['Id']] = $ele['Target'];
                     }
@@ -620,9 +618,9 @@ class Xlsx extends BaseReader
                                 //  But there's a lot of naughty homebrew xlsx writers that do use "reserved" id values that aren't actually used
                                 //  So we make allowance for them rather than lose formatting masks
                                 if (
-                                    $numFmt === null &&
-                                    (int) $xf['numFmtId'] < 164 &&
-                                    NumberFormat::builtInFormatCode((int) $xf['numFmtId']) !== ''
+                                    $numFmt === null
+                                    && (int) $xf['numFmtId'] < 164
+                                    && NumberFormat::builtInFormatCode((int) $xf['numFmtId']) !== ''
                                 ) {
                                     $numFmt = NumberFormat::builtInFormatCode((int) $xf['numFmtId']);
                                 }
@@ -936,8 +934,8 @@ class Xlsx extends BaseReader
                                                 $holdSelected = $docSheet->getSelectedCells();
                                                 $cAttrS = (int) ($cAttr['s'] ?? 0);
                                                 // no style index means 0, it seems
-                                                $cell->setXfIndex(isset($styles[$cAttrS]) ?
-                                                    $cAttrS : 0);
+                                                $cell->setXfIndex(isset($styles[$cAttrS])
+                                                    ? $cAttrS : 0);
                                                 // issue 3495
                                                 if ($cell->getDataType() === DataType::TYPE_FORMULA) {
                                                     $cell->getStyle()->setQuotePrefix(false);
@@ -972,12 +970,12 @@ class Xlsx extends BaseReader
 
                             if ($this->readDataOnly === false) {
                                 $this->readAutoFilter($xmlSheetNS, $docSheet);
-                                $this->readTables($xmlSheetNS, $docSheet, $dir, $fileWorksheet, $zip, $mainNS);
                             }
+
+                            $this->readTables($xmlSheetNS, $docSheet, $dir, $fileWorksheet, $zip, $mainNS);
 
                             if ($xmlSheetNS && $xmlSheetNS->mergeCells && $xmlSheetNS->mergeCells->mergeCell && !$this->readDataOnly) {
                                 foreach ($xmlSheetNS->mergeCells->mergeCell as $mergeCellx) {
-                                    /** @scrutinizer ignore-call */
                                     $mergeCell = $mergeCellx->attributes();
                                     $mergeRef = (string) ($mergeCell['ref'] ?? '');
                                     if (str_contains($mergeRef, ':')) {
@@ -992,7 +990,7 @@ class Xlsx extends BaseReader
 
                             if ($xmlSheet !== false && isset($xmlSheet->extLst->ext)) {
                                 foreach ($xmlSheet->extLst->ext as $extlst) {
-                                    $extAttrs = $extlst->/** @scrutinizer ignore-call */ attributes() ?? [];
+                                    $extAttrs = $extlst->attributes() ?? [];
                                     $extUri = (string) ($extAttrs['uri'] ?? '');
                                     if ($extUri !== '{CCE6A557-97BC-4b89-ADB6-D9C93CAAB3DF}') {
                                         continue;
@@ -1002,7 +1000,7 @@ class Xlsx extends BaseReader
                                         $xmlSheet->addChild('dataValidations');
                                     }
 
-                                    foreach ($extlst->/** @scrutinizer ignore-call */ children(Namespaces::DATA_VALIDATIONS1)->dataValidations->dataValidation as $item) {
+                                    foreach ($extlst->children(Namespaces::DATA_VALIDATIONS1)->dataValidations->dataValidation as $item) {
                                         $item = self::testSimpleXml($item);
                                         $node = self::testSimpleXml($xmlSheet->dataValidations)->addChild('dataValidation');
                                         foreach ($item->attributes() ?? [] as $attr) {
@@ -1399,8 +1397,8 @@ class Xlsx extends BaseReader
                                                     );
                                                     if (isset($images[$embedImageKey])) {
                                                         $objDrawing->setPath(
-                                                            'zip://' . File::realpath($filename) . '#' .
-                                                            $images[$embedImageKey],
+                                                            'zip://' . File::realpath($filename) . '#'
+                                                            . $images[$embedImageKey],
                                                             false
                                                         );
                                                     } else {
@@ -1474,7 +1472,6 @@ class Xlsx extends BaseReader
                                                     }
                                                     $xfrm = $twoCellAnchor->pic->spPr->children(Namespaces::DRAWINGML)->xfrm;
                                                     $outerShdw = $twoCellAnchor->pic->spPr->children(Namespaces::DRAWINGML)->effectLst->outerShdw;
-                                                    /** @scrutinizer ignore-call */
                                                     $editAs = $twoCellAnchor->attributes();
                                                     if (isset($editAs, $editAs['editAs'])) {
                                                         $objDrawing->setEditAs($editAs['editAs']);
@@ -1487,8 +1484,8 @@ class Xlsx extends BaseReader
                                                     );
                                                     if (isset($images[$embedImageKey])) {
                                                         $objDrawing->setPath(
-                                                            'zip://' . File::realpath($filename) . '#' .
-                                                            $images[$embedImageKey],
+                                                            'zip://' . File::realpath($filename) . '#'
+                                                            . $images[$embedImageKey],
                                                             false
                                                         );
                                                     } else {
@@ -1866,8 +1863,8 @@ class Xlsx extends BaseReader
                         if (isset($run->rPr->b)) {
                             $attr = $run->rPr->b->attributes();
                             if (
-                                (isset($attr['val']) && self::boolean((string) $attr['val'])) ||
-                                (!isset($attr['val']))
+                                (isset($attr['val']) && self::boolean((string) $attr['val']))
+                                || (!isset($attr['val']))
                             ) {
                                 $objFont->setBold(true);
                             }
@@ -1875,8 +1872,8 @@ class Xlsx extends BaseReader
                         if (isset($run->rPr->i)) {
                             $attr = $run->rPr->i->attributes();
                             if (
-                                (isset($attr['val']) && self::boolean((string) $attr['val'])) ||
-                                (!isset($attr['val']))
+                                (isset($attr['val']) && self::boolean((string) $attr['val']))
+                                || (!isset($attr['val']))
                             ) {
                                 $objFont->setItalic(true);
                             }
@@ -1904,8 +1901,8 @@ class Xlsx extends BaseReader
                         if (isset($run->rPr->strike)) {
                             $attr = $run->rPr->strike->attributes();
                             if (
-                                (isset($attr['val']) && self::boolean((string) $attr['val'])) ||
-                                (!isset($attr['val']))
+                                (isset($attr['val']) && self::boolean((string) $attr['val']))
+                                || (!isset($attr['val']))
                             ) {
                                 $objFont->setStrikethrough(true);
                             }

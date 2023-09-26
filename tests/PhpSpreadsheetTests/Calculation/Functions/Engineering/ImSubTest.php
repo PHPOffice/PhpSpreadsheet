@@ -30,7 +30,6 @@ class ImSubTest extends TestCase
      */
     public function testDirectCallToIMSUB(mixed $expectedResult, mixed ...$args): void
     {
-        /** @scrutinizer ignore-call */
         $result = ComplexOperations::IMSUB(...$args);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),

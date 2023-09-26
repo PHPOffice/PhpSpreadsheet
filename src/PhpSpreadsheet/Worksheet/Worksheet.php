@@ -423,8 +423,7 @@ class Worksheet implements IComparable
         Calculation::getInstance($this->parent)->clearCalculationCacheForWorksheet($this->title);
 
         $this->disconnectCells();
-        $this->rowDimensions = [];
-        $this->tableCollection = new ArrayObject();
+        unset($this->rowDimensions, $this->columnDimensions, $this->tableCollection, $this->drawingCollection, $this->chartCollection, $this->autoFilter);
     }
 
     /**
@@ -463,9 +462,9 @@ class Worksheet implements IComparable
         }
         // Some of the printable ASCII characters are invalid:  * : / \ ? [ ] and  first and last characters cannot be a "'"
         if (
-            (str_replace(self::$invalidCharacters, '', $sheetCodeName) !== $sheetCodeName) ||
-            (Shared\StringHelper::substring($sheetCodeName, -1, 1) == '\'') ||
-            (Shared\StringHelper::substring($sheetCodeName, 0, 1) == '\'')
+            (str_replace(self::$invalidCharacters, '', $sheetCodeName) !== $sheetCodeName)
+            || (Shared\StringHelper::substring($sheetCodeName, -1, 1) == '\'')
+            || (Shared\StringHelper::substring($sheetCodeName, 0, 1) == '\'')
         ) {
             throw new Exception('Invalid character found in sheet code name');
         }
@@ -589,21 +588,10 @@ class Worksheet implements IComparable
         return $this->chartCollection;
     }
 
-    /**
-     * Add chart.
-     *
-     * @param null|int $chartIndex Index where chart should go (0,1,..., or null for last)
-     */
-    public function addChart(Chart $chart, $chartIndex = null): Chart
+    public function addChart(Chart $chart): Chart
     {
         $chart->setWorksheet($this);
-        if ($chartIndex === null) {
-            $this->chartCollection[] = $chart;
-        } else {
-            // Insert the chart at the requested index
-            // @phpstan-ignore-next-line
-            array_splice(/** @scrutinizer ignore-type */ $this->chartCollection, $chartIndex, 0, [$chart]);
-        }
+        $this->chartCollection[] = $chart;
 
         return $chart;
     }
@@ -1313,8 +1301,8 @@ class Worksheet implements IComparable
                 throw new Exception('Sheet not found for name: ' . $worksheetReference[0]);
             }
         } elseif (
-            !preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $coordinate) &&
-            preg_match('/^' . Calculation::CALCULATION_REGEXP_DEFINEDNAME . '$/iu', $coordinate)
+            !preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $coordinate)
+            && preg_match('/^' . Calculation::CALCULATION_REGEXP_DEFINEDNAME . '$/iu', $coordinate)
         ) {
             // Named range?
             $namedRange = $this->validateNamedRange($coordinate, true);
@@ -1538,7 +1526,7 @@ class Worksheet implements IComparable
     /**
      * Get style for cell.
      *
-     * @param AddressRange|array<int>|CellAddress|int|string $cellCoordinate
+     * @param AddressRange|array{0: int, 1: int, 2: int, 3: int}|array{0: int, 1: int}|CellAddress|int|string $cellCoordinate
      *              A simple string containing a cell address like 'A1' or a cell range like 'A1:E10'
      *              or passing in an array of [$fromColumnIndex, $fromRow, $toColumnIndex, $toRow] (e.g. [3, 5, 6, 8]),
      *              or a CellAddress or AddressRange object.
@@ -1885,7 +1873,7 @@ class Worksheet implements IComparable
     /**
      * Set merge on a cell range.
      *
-     * @param AddressRange|array<int>|string $range A simple string containing a Cell range like 'A1:E10'
+     * @param AddressRange|array{0: int, 1: int, 2: int, 3: int}|array{0: int, 1: int}|string $range A simple string containing a Cell range like 'A1:E10'
      *              or passing in an array of [$fromColumnIndex, $fromRow, $toColumnIndex, $toRow] (e.g. [3, 5, 6, 8]),
      *              or an AddressRange.
      * @param string $behaviour How the merged cells should behave.
@@ -2041,7 +2029,7 @@ class Worksheet implements IComparable
     /**
      * Remove merge on a cell range.
      *
-     * @param AddressRange|array<int>|string $range A simple string containing a Cell range like 'A1:E10'
+     * @param AddressRange|array{0: int, 1: int, 2: int, 3: int}|array{0: int, 1: int}|string $range A simple string containing a Cell range like 'A1:E10'
      *              or passing in an array of [$fromColumnIndex, $fromRow, $toColumnIndex, $toRow] (e.g. [3, 5, 6, 8]),
      *              or an AddressRange.
      *
@@ -2118,7 +2106,7 @@ class Worksheet implements IComparable
     /**
      * Set protection on a cell or cell range.
      *
-     * @param AddressRange|array<int>|CellAddress|int|string $range A simple string containing a Cell range like 'A1:E10'
+     * @param AddressRange|array{0: int, 1: int, 2: int, 3: int}|array{0: int, 1: int}|CellAddress|int|string $range A simple string containing a Cell range like 'A1:E10'
      *              or passing in an array of [$fromColumnIndex, $fromRow, $toColumnIndex, $toRow] (e.g. [3, 5, 6, 8]),
      *              or a CellAddress or AddressRange object.
      * @param string $password Password to unlock the protection
@@ -2169,7 +2157,7 @@ class Worksheet implements IComparable
     /**
      * Remove protection on a cell or cell range.
      *
-     * @param AddressRange|array<int>|CellAddress|int|string $range A simple string containing a Cell range like 'A1:E10'
+     * @param AddressRange|array{0: int, 1: int, 2: int, 3: int}|array{0: int, 1: int}|CellAddress|int|string $range A simple string containing a Cell range like 'A1:E10'
      *              or passing in an array of [$fromColumnIndex, $fromRow, $toColumnIndex, $toRow] (e.g. [3, 5, 6, 8]),
      *              or a CellAddress or AddressRange object.
      *
@@ -2237,7 +2225,7 @@ class Worksheet implements IComparable
     /**
      * Set AutoFilter.
      *
-     * @param AddressRange|array<int>|AutoFilter|string $autoFilterOrRange
+     * @param AddressRange|array{0: int, 1: int, 2: int, 3: int}|array{0: int, 1: int}|AutoFilter|string $autoFilterOrRange
      *            A simple string containing a Cell range like 'A1:E10' is permitted for backward compatibility
      *              or passing in an array of [$fromColumnIndex, $fromRow, $toColumnIndex, $toRow] (e.g. [3, 5, 6, 8]),
      *              or an AddressRange.
@@ -2331,12 +2319,6 @@ class Worksheet implements IComparable
         return $tableNames;
     }
 
-    /** @var null|Table */
-    private static $scrutinizerNullTable;
-
-    /** @var null|int */
-    private static $scrutinizerNullInt;
-
     /**
      * @param string $name the table name to search
      *
@@ -2346,7 +2328,7 @@ class Worksheet implements IComparable
     {
         $tableIndex = $this->getTableIndexByName($name);
 
-        return ($tableIndex === null) ? self::$scrutinizerNullTable : $this->tableCollection[$tableIndex];
+        return ($tableIndex === null) ? null : $this->tableCollection[$tableIndex];
     }
 
     /**
@@ -2364,7 +2346,7 @@ class Worksheet implements IComparable
             }
         }
 
-        return self::$scrutinizerNullInt;
+        return null;
     }
 
     /**
@@ -2724,7 +2706,7 @@ class Worksheet implements IComparable
             } elseif ($num > $highRow) {
                 $num -= $numberOfRows;
                 $cloneDimension = clone $rowDimension;
-                $cloneDimension->setRowIndex(/** @scrutinizer ignore-type */ $num);
+                $cloneDimension->setRowIndex($num);
                 $holdRowDimensions[$num] = $cloneDimension;
             }
         }
@@ -3053,7 +3035,7 @@ class Worksheet implements IComparable
     /**
      * Select a range of cells.
      *
-     * @param AddressRange|array<int>|CellAddress|int|string $coordinate A simple string containing a Cell range like 'A1:E10'
+     * @param AddressRange|array{0: int, 1: int, 2: int, 3: int}|array{0: int, 1: int}|CellAddress|int|string $coordinate A simple string containing a Cell range like 'A1:E10'
      *              or passing in an array of [$fromColumnIndex, $fromRow, $toColumnIndex, $toRow] (e.g. [3, 5, 6, 8]),
      *              or a CellAddress or AddressRange object.
      *

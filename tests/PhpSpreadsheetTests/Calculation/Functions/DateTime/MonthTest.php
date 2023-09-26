@@ -18,7 +18,6 @@ class MonthTest extends TestCase
      */
     public function testDirectCallToMONTH(mixed $expectedResultExcel, mixed ...$args): void
     {
-        /** @scrutinizer ignore-call */
         $result = DateParts::month(...$args);
         self::assertSame($expectedResultExcel, $result);
     }

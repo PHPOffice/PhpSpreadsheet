@@ -31,9 +31,9 @@ class Formula
             : $cell->getWorksheet();
 
         if (
-            $worksheet === null ||
-            !$worksheet->cellExists($cellReference) ||
-            !$worksheet->getCell($cellReference)->isFormula()
+            $worksheet === null
+            || !$worksheet->cellExists($cellReference)
+            || !$worksheet->getCell($cellReference)->isFormula()
         ) {
             return ExcelError::NA();
         }
