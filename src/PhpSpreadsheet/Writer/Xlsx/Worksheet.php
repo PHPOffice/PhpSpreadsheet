@@ -729,9 +729,7 @@ class Worksheet extends WriterPart
             if ($minCfvo !== null || $minArgb !== null) {
                 $objWriter->startElement('cfvo');
                 $objWriter->writeAttribute('type', $minCfvo?->getType() ?? 'min');
-                if ($minCfvo?->getValue() !== null) {
-                    $objWriter->writeAttribute('val', (string) $minCfvo->getValue());
-                }
+                self::writeAttributeIf($objWriter, $minCfvo?->getValue() !== null, 'val', (string) $minCfvo?->getValue());
                 $objWriter->endElement();
             }
             $midCfvo = $colorScale->getMidpointConditionalFormatValueObject();
@@ -747,45 +745,25 @@ class Worksheet extends WriterPart
             if ($maxCfvo !== null || $maxArgb !== null) {
                 $objWriter->startElement('cfvo');
                 $objWriter->writeAttribute('type', $maxCfvo?->getType() ?? 'max');
-                if ($maxCfvo?->getValue() !== null) {
-                    $objWriter->writeAttribute('val', (string) $maxCfvo->getValue());
-                }
+                self::writeAttributeIf($objWriter, $maxCfvo?->getValue() !== null, 'val', (string) $maxCfvo?->getValue());
                 $objWriter->endElement();
             }
             if ($minCfvo !== null || $minArgb !== null) {
                 $objWriter->startElement('color');
-                if ($minArgb !== null) {
-                    $objWriter->writeAttribute('rgb', $minArgb);
-                }
+                self::writeAttributeIf($objWriter, $minArgb !== null, 'rgb', "$minArgb");
                 $objWriter->endElement();
             }
             if ($midCfvo !== null || $midArgb !== null) {
                 $objWriter->startElement('color');
-                if ($midArgb !== null) {
-                    $objWriter->writeAttribute('rgb', $midArgb);
-                }
+                self::writeAttributeIf($objWriter, $midArgb !== null, 'rgb', "$midArgb");
                 $objWriter->endElement();
             }
             if ($maxCfvo !== null || $maxArgb !== null) {
                 $objWriter->startElement('color');
-                if ($maxArgb !== null) {
-                    $objWriter->writeAttribute('rgb', $maxArgb);
-                }
+                self::writeAttributeIf($objWriter, $maxArgb !== null, 'rgb', "$maxArgb");
                 $objWriter->endElement();
             }
             $objWriter->endElement(); // end colorScale
-
-            if ($colorScale->getConditionalFormattingRuleExt()) {
-                $objWriter->startElement('extLst');
-                $extension = $colorScale->getConditionalFormattingRuleExt();
-                $objWriter->startElement('ext');
-                $objWriter->writeAttribute('uri', '{B025F937-C7B1-47D3-B67F-A62EFF666E3E}');
-                $objWriter->startElementNs('x14', 'id', null);
-                $objWriter->text($extension->getId());
-                $objWriter->endElement();
-                $objWriter->endElement();
-                $objWriter->endElement(); //end extLst
-            }
         }
     }
 
