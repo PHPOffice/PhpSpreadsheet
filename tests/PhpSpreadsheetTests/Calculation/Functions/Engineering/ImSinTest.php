@@ -30,7 +30,6 @@ class ImSinTest extends TestCase
      */
     public function testDirectCallToIMSIN(mixed $expectedResult, mixed ...$args): void
     {
-        /** @scrutinizer ignore-call */
         $result = ComplexFunctions::IMSIN(...$args);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),

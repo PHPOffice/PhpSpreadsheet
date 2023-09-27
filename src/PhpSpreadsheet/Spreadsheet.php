@@ -368,14 +368,12 @@ class Spreadsheet implements JsonSerializable
 
     /**
      * return the extension of a filename. Internal use for a array_map callback (php<5.3 don't like lambda function).
-     *
-     * @param mixed $path
      */
-    private function getExtensionOnly($path): string
+    private function getExtensionOnly(mixed $path): string
     {
         $extension = pathinfo($path, PATHINFO_EXTENSION);
 
-        return substr(/** @scrutinizer ignore-type */$extension, 0);
+        return substr($extension, 0);
     }
 
     /**
@@ -401,8 +399,8 @@ class Spreadsheet implements JsonSerializable
                 break;
             case 'types':
                 if (
-                    is_array($this->ribbonBinObjects) &&
-                    isset($this->ribbonBinObjects['data']) && is_array($this->ribbonBinObjects['data'])
+                    is_array($this->ribbonBinObjects)
+                    && isset($this->ribbonBinObjects['data']) && is_array($this->ribbonBinObjects['data'])
                 ) {
                     $tmpTypes = array_keys($this->ribbonBinObjects['data']);
                     $ReturnData = array_unique(array_map([$this, 'getExtensionOnly'], $tmpTypes));
@@ -502,6 +500,7 @@ class Spreadsheet implements JsonSerializable
         $this->calculationEngine = null;
         $this->cellXfCollection = [];
         $this->cellStyleXfCollection = [];
+        $this->definedNames = [];
     }
 
     /**
@@ -654,8 +653,8 @@ class Spreadsheet implements JsonSerializable
 
         // Adjust active sheet index if necessary
         if (
-            ($this->activeSheetIndex >= $sheetIndex) &&
-            ($this->activeSheetIndex > 0 || $numSheets <= 1)
+            ($this->activeSheetIndex >= $sheetIndex)
+            && ($this->activeSheetIndex > 0 || $numSheets <= 1)
         ) {
             --$this->activeSheetIndex;
         }
@@ -892,9 +891,7 @@ class Spreadsheet implements JsonSerializable
     {
         return array_filter(
             $this->definedNames,
-            function (DefinedName $definedName): bool {
-                return $definedName->isFormula() === self::DEFINED_NAME_IS_RANGE;
-            }
+            fn (DefinedName $definedName): bool => $definedName->isFormula() === self::DEFINED_NAME_IS_RANGE
         );
     }
 
@@ -907,9 +904,7 @@ class Spreadsheet implements JsonSerializable
     {
         return array_filter(
             $this->definedNames,
-            function (DefinedName $definedName): bool {
-                return $definedName->isFormula() === self::DEFINED_NAME_IS_FORMULA;
-            }
+            fn (DefinedName $definedName): bool => $definedName->isFormula() === self::DEFINED_NAME_IS_FORMULA
         );
     }
 
@@ -1602,16 +1597,6 @@ class Spreadsheet implements JsonSerializable
                 $filter->showHideRows();
             }
         }
-    }
-
-    /**
-     * Silliness to mollify Scrutinizer.
-     *
-     * @codeCoverageIgnore
-     */
-    public function getSharedComponent(): Style
-    {
-        return new Style();
     }
 
     /**

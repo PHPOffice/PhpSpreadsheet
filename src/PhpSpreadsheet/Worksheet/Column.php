@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
 class Column
 {
-    private ?Worksheet $worksheet;
+    private Worksheet $worksheet;
 
     /**
      * Column index.
@@ -28,7 +28,7 @@ class Column
      */
     public function __destruct()
     {
-        $this->worksheet = null;
+        unset($this->worksheet);
     }
 
     /**
@@ -45,9 +45,9 @@ class Column
      * @param int $startRow The row number at which to start iterating
      * @param int $endRow Optionally, the row number at which to stop iterating
      */
-    public function getCellIterator($startRow = 1, $endRow = null): ColumnCellIterator
+    public function getCellIterator($startRow = 1, $endRow = null, bool $iterateOnlyExistingCells = false): ColumnCellIterator
     {
-        return new ColumnCellIterator($this->getWorksheet(), $this->columnIndex, $startRow, $endRow);
+        return new ColumnCellIterator($this->worksheet, $this->columnIndex, $startRow, $endRow, $iterateOnlyExistingCells);
     }
 
     /**
@@ -56,9 +56,9 @@ class Column
      * @param int $startRow The row number at which to start iterating
      * @param int $endRow Optionally, the row number at which to stop iterating
      */
-    public function getRowIterator($startRow = 1, $endRow = null): ColumnCellIterator
+    public function getRowIterator($startRow = 1, $endRow = null, bool $iterateOnlyExistingCells = false): ColumnCellIterator
     {
-        return $this->getCellIterator($startRow, $endRow);
+        return $this->getCellIterator($startRow, $endRow, $iterateOnlyExistingCells);
     }
 
     /**
@@ -88,7 +88,6 @@ class Column
         $cellIterator = $this->getCellIterator($startRow, $endRow);
         $cellIterator->setIterateOnlyExistingCells(true);
         foreach ($cellIterator as $cell) {
-            /** @scrutinizer ignore-call */
             $value = $cell->getValue();
             if ($value === null && $nullValueCellIsEmpty === true) {
                 continue;
@@ -108,7 +107,6 @@ class Column
      */
     public function getWorksheet(): Worksheet
     {
-        // @phpstan-ignore-next-line
         return $this->worksheet;
     }
 }

@@ -30,7 +30,6 @@ class ImTanTest extends TestCase
      */
     public function testDirectCallToIMTAN(mixed $expectedResult, mixed ...$args): void
     {
-        /** @scrutinizer ignore-call */
         $result = ComplexFunctions::IMTAN(...$args);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),

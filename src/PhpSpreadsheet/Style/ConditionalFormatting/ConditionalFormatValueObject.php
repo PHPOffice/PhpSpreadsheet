@@ -52,10 +52,7 @@ class ConditionalFormatValueObject
         return $this->cellFormula;
     }
 
-    /**
-     * @param mixed $cellFormula
-     */
-    public function setCellFormula($cellFormula): self
+    public function setCellFormula(mixed $cellFormula): self
     {
         $this->cellFormula = $cellFormula;
 

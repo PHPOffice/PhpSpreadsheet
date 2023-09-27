@@ -59,7 +59,7 @@ class XmlTest extends TestCase
         $this->expectException(\PhpOffice\PhpSpreadsheet\Reader\Exception::class);
 
         $xmlReader = new Xml();
-        $spreadsheet = /** @scrutinizer ignore-unhandled */ @$xmlReader->load('tests/data/Reader/Xml/CorruptedXmlFile.xml');
+        $spreadsheet = @$xmlReader->load('tests/data/Reader/Xml/CorruptedXmlFile.xml');
         self::assertNotSame('', $spreadsheet->getID());
     }
 
@@ -68,7 +68,7 @@ class XmlTest extends TestCase
         $this->expectException(\PhpOffice\PhpSpreadsheet\Reader\Exception::class);
 
         $xmlReader = new Xml();
-        $names = /** @scrutinizer ignore-unhandled */ @$xmlReader->listWorksheetNames('tests/data/Reader/Xml/CorruptedXmlFile.xml');
+        $names = @$xmlReader->listWorksheetNames('tests/data/Reader/Xml/CorruptedXmlFile.xml');
         self::assertNotEmpty($names);
     }
 
@@ -77,7 +77,7 @@ class XmlTest extends TestCase
         $this->expectException(\PhpOffice\PhpSpreadsheet\Reader\Exception::class);
 
         $xmlReader = new Xml();
-        $info = /** @scrutinizer ignore-unhandled */ @$xmlReader->listWorksheetInfo('tests/data/Reader/Xml/CorruptedXmlFile.xml');
+        $info = @$xmlReader->listWorksheetInfo('tests/data/Reader/Xml/CorruptedXmlFile.xml');
         self::assertNotEmpty($info);
     }
 }

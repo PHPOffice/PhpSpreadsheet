@@ -40,7 +40,7 @@ class Statistical
      *
      * @return float|string
      */
-    public static function AVEDEV(...$args)
+    public static function AVEDEV(mixed ...$args)
     {
         return Averages::averageDeviations(...$args);
     }
@@ -61,7 +61,7 @@ class Statistical
      *
      * @return float|string
      */
-    public static function AVERAGE(...$args)
+    public static function AVERAGE(mixed ...$args)
     {
         return Averages::average(...$args);
     }
@@ -82,7 +82,7 @@ class Statistical
      *
      * @return float|string
      */
-    public static function AVERAGEA(...$args)
+    public static function AVERAGEA(mixed ...$args)
     {
         return Averages::averageA(...$args);
     }
@@ -105,7 +105,7 @@ class Statistical
      *
      * @return null|float|string
      */
-    public static function AVERAGEIF($range, $condition, $averageRange = [])
+    public static function AVERAGEIF(mixed $range, $condition, $averageRange = [])
     {
         return Conditional::AVERAGEIF($range, $condition, $averageRange);
     }
@@ -122,10 +122,8 @@ class Statistical
      * @param float $value Value at which you want to evaluate the distribution
      * @param float $alpha Parameter to the distribution
      * @param float $beta Parameter to the distribution
-     * @param mixed $rMin
-     * @param mixed $rMax
      */
-    public static function BETADIST($value, $alpha, $beta, $rMin = 0, $rMax = 1): string|float|array
+    public static function BETADIST($value, $alpha, $beta, mixed $rMin = 0, mixed $rMax = 1): string|float|array
     {
         return Statistical\Distributions\Beta::distribution($value, $alpha, $beta, $rMin, $rMax);
     }
@@ -168,11 +166,10 @@ class Statistical
      * @param mixed $value Number of successes in trials
      * @param mixed $trials Number of trials
      * @param mixed $probability Probability of success on each trial
-     * @param mixed $cumulative
      *
      * @return array|float|string
      */
-    public static function BINOMDIST($value, $trials, $probability, $cumulative)
+    public static function BINOMDIST(mixed $value, mixed $trials, mixed $probability, mixed $cumulative)
     {
         return Statistical\Distributions\Binomial::distribution($value, $trials, $probability, $cumulative);
     }
@@ -249,7 +246,7 @@ class Statistical
      *
      * @return float|string
      */
-    public static function CORREL($yValues, $xValues = null)
+    public static function CORREL(mixed $yValues, $xValues = null)
     {
         return Trends::CORREL($xValues, $yValues);
     }
@@ -268,7 +265,7 @@ class Statistical
      *
      * @param mixed ...$args Data values
      */
-    public static function COUNT(...$args): int
+    public static function COUNT(mixed ...$args): int
     {
         return Counts::COUNT(...$args);
     }
@@ -287,7 +284,7 @@ class Statistical
      *
      * @param mixed ...$args Data values
      */
-    public static function COUNTA(...$args): int
+    public static function COUNTA(mixed ...$args): int
     {
         return Counts::COUNTA(...$args);
     }
@@ -306,7 +303,7 @@ class Statistical
      *
      * @param mixed $range Data values
      */
-    public static function COUNTBLANK($range): int
+    public static function COUNTBLANK(mixed $range): int
     {
         return Counts::COUNTBLANK($range);
     }
@@ -328,7 +325,7 @@ class Statistical
      *
      * @return int|string
      */
-    public static function COUNTIF($range, $condition)
+    public static function COUNTIF(mixed $range, $condition)
     {
         return Conditional::COUNTIF($range, $condition);
     }
@@ -349,7 +346,7 @@ class Statistical
      *
      * @return int|string
      */
-    public static function COUNTIFS(...$args)
+    public static function COUNTIFS(mixed ...$args)
     {
         return Conditional::COUNTIFS(...$args);
     }
@@ -412,7 +409,7 @@ class Statistical
      *
      * @return float|string
      */
-    public static function DEVSQ(...$args)
+    public static function DEVSQ(mixed ...$args)
     {
         return Statistical\Deviations::sumSquares(...$args);
     }
@@ -636,7 +633,7 @@ class Statistical
      *
      * @return float|string
      */
-    public static function GEOMEAN(...$args)
+    public static function GEOMEAN(mixed ...$args)
     {
         return Statistical\Averages\Mean::geometric(...$args);
     }
@@ -679,7 +676,7 @@ class Statistical
      *
      * @return float|string
      */
-    public static function HARMEAN(...$args)
+    public static function HARMEAN(mixed ...$args)
     {
         return Statistical\Averages\Mean::harmonic(...$args);
     }
@@ -701,7 +698,7 @@ class Statistical
      *
      * @return array|float|string
      */
-    public static function HYPGEOMDIST($sampleSuccesses, $sampleNumber, $populationSuccesses, $populationNumber)
+    public static function HYPGEOMDIST(mixed $sampleSuccesses, mixed $sampleNumber, mixed $populationSuccesses, mixed $populationNumber)
     {
         return Statistical\Distributions\HyperGeometric::distribution(
             $sampleSuccesses,
@@ -768,7 +765,7 @@ class Statistical
      *
      * @return float|string The result, or a string containing an error
      */
-    public static function LARGE(...$args)
+    public static function LARGE(mixed ...$args)
     {
         return Statistical\Size::large(...$args);
     }
@@ -901,7 +898,7 @@ class Statistical
      *
      * @return float
      */
-    public static function MAX(...$args)
+    public static function MAX(mixed ...$args)
     {
         return Maximum::max(...$args);
     }
@@ -922,7 +919,7 @@ class Statistical
      *
      * @return float
      */
-    public static function MAXA(...$args)
+    public static function MAXA(mixed ...$args)
     {
         return Maximum::maxA(...$args);
     }
@@ -943,7 +940,7 @@ class Statistical
      *
      * @return null|float|string
      */
-    public static function MAXIFS(...$args)
+    public static function MAXIFS(mixed ...$args)
     {
         return Conditional::MAXIFS(...$args);
     }
@@ -964,7 +961,7 @@ class Statistical
      *
      * @return float|string The result, or a string containing an error
      */
-    public static function MEDIAN(...$args)
+    public static function MEDIAN(mixed ...$args)
     {
         return Statistical\Averages::median(...$args);
     }
@@ -986,7 +983,7 @@ class Statistical
      *
      * @return float
      */
-    public static function MIN(...$args)
+    public static function MIN(mixed ...$args)
     {
         return Minimum::min(...$args);
     }
@@ -1007,7 +1004,7 @@ class Statistical
      *
      * @return float
      */
-    public static function MINA(...$args)
+    public static function MINA(mixed ...$args)
     {
         return Minimum::minA(...$args);
     }
@@ -1028,7 +1025,7 @@ class Statistical
      *
      * @return null|float|string
      */
-    public static function MINIFS(...$args)
+    public static function MINIFS(mixed ...$args)
     {
         return Conditional::MINIFS(...$args);
     }
@@ -1049,7 +1046,7 @@ class Statistical
      *
      * @return float|string The result, or a string containing an error
      */
-    public static function MODE(...$args)
+    public static function MODE(mixed ...$args)
     {
         return Statistical\Averages::mode(...$args);
     }
@@ -1073,7 +1070,7 @@ class Statistical
      *
      * @return array|float|string The result, or a string containing an error
      */
-    public static function NEGBINOMDIST($failures, $successes, $probability)
+    public static function NEGBINOMDIST(mixed $failures, mixed $successes, mixed $probability)
     {
         return Statistical\Distributions\Binomial::negative($failures, $successes, $probability);
     }
@@ -1089,14 +1086,12 @@ class Statistical
      *      Use the distribution() method in the Statistical\Distributions\Normal class instead
      * @see Statistical\Distributions\Normal::distribution()
      *
-     * @param mixed $value
      * @param mixed $mean Mean Value
      * @param mixed $stdDev Standard Deviation
-     * @param mixed $cumulative
      *
      * @return array|float|string The result, or a string containing an error
      */
-    public static function NORMDIST($value, $mean, $stdDev, $cumulative)
+    public static function NORMDIST(mixed $value, mixed $mean, mixed $stdDev, mixed $cumulative)
     {
         return Statistical\Distributions\Normal::distribution($value, $mean, $stdDev, $cumulative);
     }
@@ -1110,13 +1105,12 @@ class Statistical
      *      Use the inverse() method in the Statistical\Distributions\Normal class instead
      * @see Statistical\Distributions\Normal::inverse()
      *
-     * @param mixed $probability
      * @param mixed $mean Mean Value
      * @param mixed $stdDev Standard Deviation
      *
      * @return array|float|string The result, or a string containing an error
      */
-    public static function NORMINV($probability, $mean, $stdDev)
+    public static function NORMINV(mixed $probability, mixed $mean, mixed $stdDev)
     {
         return Statistical\Distributions\Normal::inverse($probability, $mean, $stdDev);
     }
@@ -1132,11 +1126,9 @@ class Statistical
      *      Use the cumulative() method in the Statistical\Distributions\StandardNormal class instead
      * @see Statistical\Distributions\StandardNormal::cumulative()
      *
-     * @param mixed $value
-     *
      * @return array|float|string The result, or a string containing an error
      */
-    public static function NORMSDIST($value)
+    public static function NORMSDIST(mixed $value)
     {
         return Statistical\Distributions\StandardNormal::cumulative($value);
     }
@@ -1152,12 +1144,9 @@ class Statistical
      *      Use the distribution() method in the Statistical\Distributions\StandardNormal class instead
      * @see Statistical\Distributions\StandardNormal::distribution()
      *
-     * @param mixed $value
-     * @param mixed $cumulative
-     *
      * @return array|float|string The result, or a string containing an error
      */
-    public static function NORMSDIST2($value, $cumulative)
+    public static function NORMSDIST2(mixed $value, mixed $cumulative)
     {
         return Statistical\Distributions\StandardNormal::distribution($value, $cumulative);
     }
@@ -1171,11 +1160,9 @@ class Statistical
      *      Use the inverse() method in the Statistical\Distributions\StandardNormal class instead
      * @see Statistical\Distributions\StandardNormal::inverse()
      *
-     * @param mixed $value
-     *
      * @return array|float|string The result, or a string containing an error
      */
-    public static function NORMSINV($value)
+    public static function NORMSINV(mixed $value)
     {
         return Statistical\Distributions\StandardNormal::inverse($value);
     }
@@ -1196,7 +1183,7 @@ class Statistical
      *
      * @return float|string The result, or a string containing an error
      */
-    public static function PERCENTILE(...$args)
+    public static function PERCENTILE(mixed ...$args)
     {
         return Statistical\Percentiles::PERCENTILE(...$args);
     }
@@ -1219,7 +1206,7 @@ class Statistical
      *
      * @return float|string (string if result is an error)
      */
-    public static function PERCENTRANK($valueSet, $value, $significance = 3): string|float
+    public static function PERCENTRANK(mixed $valueSet, mixed $value, mixed $significance = 3): string|float
     {
         return Statistical\Percentiles::PERCENTRANK($valueSet, $value, $significance);
     }
@@ -1258,13 +1245,11 @@ class Statistical
      * Use the distribution() method in the Statistical\Distributions\Poisson class instead
      * @see Statistical\Distributions\Poisson::distribution()
      *
-     * @param mixed $value
      * @param mixed $mean Mean Value
-     * @param mixed $cumulative
      *
      * @return array|float|string The result, or a string containing an error
      */
-    public static function POISSON($value, $mean, $cumulative)
+    public static function POISSON(mixed $value, mixed $mean, mixed $cumulative)
     {
         return Statistical\Distributions\Poisson::distribution($value, $mean, $cumulative);
     }
@@ -1285,7 +1270,7 @@ class Statistical
      *
      * @return float|string The result, or a string containing an error
      */
-    public static function QUARTILE(...$args)
+    public static function QUARTILE(mixed ...$args)
     {
         return Statistical\Percentiles::QUARTILE(...$args);
     }
@@ -1305,7 +1290,7 @@ class Statistical
      *
      * @return float|string The result, or a string containing an error
      */
-    public static function RANK($value, $valueSet, $order = 0)
+    public static function RANK(mixed $value, mixed $valueSet, mixed $order = 0)
     {
         return Statistical\Percentiles::RANK($value, $valueSet, $order);
     }
@@ -1386,7 +1371,7 @@ class Statistical
      *
      * @return float|string The result, or a string containing an error
      */
-    public static function SMALL(...$args)
+    public static function SMALL(mixed ...$args)
     {
         return Statistical\Size::small(...$args);
     }
@@ -1428,7 +1413,7 @@ class Statistical
      *
      * @return float|string The result, or a string containing an error
      */
-    public static function STDEV(...$args)
+    public static function STDEV(mixed ...$args)
     {
         return StandardDeviations::STDEV(...$args);
     }
@@ -1449,7 +1434,7 @@ class Statistical
      *
      * @return float|string
      */
-    public static function STDEVA(...$args)
+    public static function STDEVA(mixed ...$args)
     {
         return StandardDeviations::STDEVA(...$args);
     }
@@ -1470,7 +1455,7 @@ class Statistical
      *
      * @return float|string
      */
-    public static function STDEVP(...$args)
+    public static function STDEVP(mixed ...$args)
     {
         return StandardDeviations::STDEVP(...$args);
     }
@@ -1491,7 +1476,7 @@ class Statistical
      *
      * @return float|string
      */
-    public static function STDEVPA(...$args)
+    public static function STDEVPA(mixed ...$args)
     {
         return StandardDeviations::STDEVPA(...$args);
     }
@@ -1593,7 +1578,7 @@ class Statistical
      *
      * @return float|string
      */
-    public static function TRIMMEAN(...$args)
+    public static function TRIMMEAN(mixed ...$args)
     {
         return Statistical\Averages\Mean::trim(...$args);
     }
@@ -1614,7 +1599,7 @@ class Statistical
      *
      * @return float|string (string if result is an error)
      */
-    public static function VARFunc(...$args)
+    public static function VARFunc(mixed ...$args)
     {
         return Variances::VAR(...$args);
     }
@@ -1635,7 +1620,7 @@ class Statistical
      *
      * @return float|string (string if result is an error)
      */
-    public static function VARA(...$args)
+    public static function VARA(mixed ...$args)
     {
         return Variances::VARA(...$args);
     }
@@ -1656,7 +1641,7 @@ class Statistical
      *
      * @return float|string (string if result is an error)
      */
-    public static function VARP(...$args)
+    public static function VARP(mixed ...$args)
     {
         return Variances::VARP(...$args);
     }
@@ -1677,7 +1662,7 @@ class Statistical
      *
      * @return float|string (string if result is an error)
      */
-    public static function VARPA(...$args)
+    public static function VARPA(mixed ...$args)
     {
         return Variances::VARPA(...$args);
     }
@@ -1716,13 +1701,12 @@ class Statistical
      *      Use the zTest() method in the Statistical\Distributions\StandardNormal class instead
      * @see Statistical\Distributions\StandardNormal::zTest()
      *
-     * @param mixed $dataSet
      * @param float $m0 Alpha Parameter
      * @param float $sigma Beta Parameter
      *
      * @return array|float|string (string if result is an error)
      */
-    public static function ZTEST($dataSet, $m0, $sigma = null)
+    public static function ZTEST(mixed $dataSet, $m0, $sigma = null)
     {
         return Statistical\Distributions\StandardNormal::zTest($dataSet, $m0, $sigma);
     }

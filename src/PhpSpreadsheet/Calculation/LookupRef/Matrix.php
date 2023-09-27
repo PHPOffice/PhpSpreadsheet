@@ -23,8 +23,8 @@ class Matrix
      */
     public static function isRowVector(array $values): bool
     {
-        return count($values, COUNT_RECURSIVE) > 1 &&
-            (count($values, COUNT_NORMAL) === 1 || count($values, COUNT_RECURSIVE) === count($values, COUNT_NORMAL));
+        return count($values, COUNT_RECURSIVE) > 1
+            && (count($values, COUNT_NORMAL) === 1 || count($values, COUNT_RECURSIVE) === count($values, COUNT_NORMAL));
     }
 
     /**
@@ -74,7 +74,7 @@ class Matrix
      *         If an array of values is passed as the $rowNum and/or $columnNum arguments, then the returned result
      *            will also be an array with the same dimensions
      */
-    public static function index($matrix, $rowNum = 0, $columnNum = null)
+    public static function index(mixed $matrix, mixed $rowNum = 0, mixed $columnNum = null)
     {
         if (is_array($rowNum) || is_array($columnNum)) {
             return self::evaluateArrayArgumentsSubsetFrom([self::class, __FUNCTION__], 1, $matrix, $rowNum, $columnNum);
@@ -112,9 +112,7 @@ class Matrix
         $columnNum = $columnKeys[--$columnNum];
         if ($rowNum === 0) {
             return array_map(
-                function ($value): array {
-                    return [$value];
-                },
+                fn ($value): array => [$value],
                 array_column($matrix, $columnNum)
             );
         }

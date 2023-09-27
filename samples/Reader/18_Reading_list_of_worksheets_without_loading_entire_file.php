@@ -6,7 +6,7 @@ require __DIR__ . '/../Header.php';
 
 $inputFileName = __DIR__ . '/sampleData/example1.xls';
 
-$helper->log('Loading file ' . /** @scrutinizer ignore-type */ pathinfo($inputFileName, PATHINFO_BASENAME) . ' information using Xls reader');
+$helper->log('Loading file ' . pathinfo($inputFileName, PATHINFO_BASENAME) . ' information using Xls reader');
 
 $reader = new Xls();
 $worksheetNames = $reader->listWorksheetNames($inputFileName);

@@ -17,7 +17,6 @@ class SecondTest extends TestCase
      */
     public function testDirectCallToSECOND(mixed $expectedResult, mixed ...$args): void
     {
-        /** @scrutinizer ignore-call */
         $result = TimeParts::second(...$args);
         self::assertSame($expectedResult, $result);
     }

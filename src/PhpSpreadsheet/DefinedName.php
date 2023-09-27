@@ -66,6 +66,12 @@ abstract class DefinedName
         $this->isFormula = self::testIfFormula($this->value);
     }
 
+    public function __destruct()
+    {
+        $this->worksheet = null;
+        $this->scope = null;
+    }
+
     /**
      * Create a new defined name, either a range or a formula.
      */
@@ -87,7 +93,7 @@ abstract class DefinedName
 
     public static function testIfFormula(string $value): bool
     {
-        if (substr($value, 0, 1) === '=') {
+        if (str_starts_with($value, '=')) {
             $value = substr($value, 1);
         }
 
@@ -100,8 +106,8 @@ abstract class DefinedName
             //    Only test in alternate array entries (the non-quoted blocks)
             $segMatcher = $segMatcher === false;
             if (
-                $segMatcher &&
-                (preg_match('/' . self::REGEXP_IDENTIFY_FORMULA . '/miu', $subVal))
+                $segMatcher
+                && (preg_match('/' . self::REGEXP_IDENTIFY_FORMULA . '/miu', $subVal))
             ) {
                 return true;
             }

@@ -27,11 +27,9 @@ class Chart extends WriterPart
     /**
      * Write charts to XML format.
      *
-     * @param mixed $calculateCellValues
-     *
      * @return string XML Output
      */
-    public function writeChart(\PhpOffice\PhpSpreadsheet\Chart\Chart $chart, $calculateCellValues = true)
+    public function writeChart(\PhpOffice\PhpSpreadsheet\Chart\Chart $chart, mixed $calculateCellValues = true)
     {
         // Create XML writer
         $objWriter = null;

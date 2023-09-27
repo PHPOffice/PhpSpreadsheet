@@ -34,6 +34,6 @@ final class Locale
     {
         $str = $this->formatter->getPattern();
 
-        return ($stripRlm && substr($str, 0, 3) === "\xe2\x80\x8f") ? substr($str, 3) : $str;
+        return ($stripRlm && str_starts_with($str, "\xe2\x80\x8f")) ? substr($str, 3) : $str;
     }
 }

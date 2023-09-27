@@ -36,7 +36,7 @@ class TextData
      *
      * @return null|array|string
      */
-    public static function TRIMNONPRINTABLE($stringValue = '')
+    public static function TRIMNONPRINTABLE(mixed $stringValue = '')
     {
         return TextData\Trim::nonPrintable($stringValue);
     }
@@ -50,7 +50,7 @@ class TextData
      *
      * @param mixed $stringValue Value to check
      */
-    public static function TRIMSPACES($stringValue = ''): string|array
+    public static function TRIMSPACES(mixed $stringValue = ''): string|array
     {
         return TextData\Trim::spaces($stringValue);
     }
@@ -156,7 +156,7 @@ class TextData
      *
      * @return array|string
      */
-    public static function FIXEDFORMAT($value, $decimals = 2, $no_commas = false)
+    public static function FIXEDFORMAT(mixed $value, $decimals = 2, $no_commas = false)
     {
         return TextData\Format::FIXEDFORMAT($value, $decimals, $no_commas);
     }
@@ -316,7 +316,7 @@ class TextData
      *
      * @param mixed $testValue Value to check
      */
-    public static function RETURNSTRING($testValue = ''): string|array
+    public static function RETURNSTRING(mixed $testValue = ''): string|array
     {
         return TextData\Text::test($testValue);
     }
@@ -333,7 +333,7 @@ class TextData
      *
      * @return array|string
      */
-    public static function TEXTFORMAT($value, $format)
+    public static function TEXTFORMAT(mixed $value, $format)
     {
         return TextData\Format::TEXTFORMAT($value, $format);
     }
@@ -349,7 +349,7 @@ class TextData
      *
      * @return array|DateTimeInterface|float|int|string A string if arguments are invalid
      */
-    public static function VALUE($value = '')
+    public static function VALUE(mixed $value = '')
     {
         return TextData\Format::VALUE($value);
     }
@@ -367,7 +367,7 @@ class TextData
      *
      * @return array|float|string
      */
-    public static function NUMBERVALUE($value = '', $decimalSeparator = null, $groupSeparator = null)
+    public static function NUMBERVALUE(mixed $value = '', $decimalSeparator = null, $groupSeparator = null)
     {
         return TextData\Format::NUMBERVALUE($value, $decimalSeparator, $groupSeparator);
     }
@@ -380,11 +380,8 @@ class TextData
      * @deprecated 1.18.0
      *      Use the exact() method in the TextData\Text class instead
      * @see TextData\Text::exact()
-     *
-     * @param mixed $value1
-     * @param mixed $value2
      */
-    public static function EXACT($value1, $value2): bool|array
+    public static function EXACT(mixed $value1, mixed $value2): bool|array
     {
         return TextData\Text::exact($value1, $value2);
     }
@@ -396,13 +393,9 @@ class TextData
      *      Use the TEXTJOIN() method in the TextData\Concatenate class instead
      * @see TextData\Concatenate::TEXTJOIN()
      *
-     * @param mixed $delimiter
-     * @param mixed $ignoreEmpty
-     * @param mixed $args
-     *
      * @return array|string
      */
-    public static function TEXTJOIN($delimiter, $ignoreEmpty, ...$args)
+    public static function TEXTJOIN(mixed $delimiter, mixed $ignoreEmpty, mixed ...$args)
     {
         return TextData\Concatenate::TEXTJOIN($delimiter, $ignoreEmpty, ...$args);
     }
@@ -421,7 +414,7 @@ class TextData
      *
      * @return array|string
      */
-    public static function builtinREPT($str, $number)
+    public static function builtinREPT($str, mixed $number)
     {
         return TextData\Concatenate::builtinREPT($str, $number);
     }

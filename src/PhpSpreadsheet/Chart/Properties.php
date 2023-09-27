@@ -17,24 +17,20 @@ abstract class Properties
     /** @deprecated 1.24 use constant from ChartColor instead */
     const EXCEL_COLOR_TYPE_ARGB = ChartColor::EXCEL_COLOR_TYPE_ARGB;
 
-    const
-        AXIS_LABELS_LOW = 'low';
+    const AXIS_LABELS_LOW = 'low';
     const AXIS_LABELS_HIGH = 'high';
     const AXIS_LABELS_NEXT_TO = 'nextTo';
     const AXIS_LABELS_NONE = 'none';
 
-    const
-        TICK_MARK_NONE = 'none';
+    const TICK_MARK_NONE = 'none';
     const TICK_MARK_INSIDE = 'in';
     const TICK_MARK_OUTSIDE = 'out';
     const TICK_MARK_CROSS = 'cross';
 
-    const
-        HORIZONTAL_CROSSES_AUTOZERO = 'autoZero';
+    const HORIZONTAL_CROSSES_AUTOZERO = 'autoZero';
     const HORIZONTAL_CROSSES_MAXIMUM = 'max';
 
-    const
-        FORMAT_CODE_GENERAL = 'General';
+    const FORMAT_CODE_GENERAL = 'General';
     const FORMAT_CODE_NUMBER = '#,##0.00';
     const FORMAT_CODE_CURRENCY = '$#,##0.00';
     const FORMAT_CODE_ACCOUNTING = '_($* #,##0.00_);_($* (#,##0.00);_($* "-"??_);_(@_)';
@@ -47,12 +43,10 @@ abstract class Properties
     const FORMAT_CODE_TEXT = '@';
     const FORMAT_CODE_SPECIAL = '00000';
 
-    const
-        ORIENTATION_NORMAL = 'minMax';
+    const ORIENTATION_NORMAL = 'minMax';
     const ORIENTATION_REVERSED = 'maxMin';
 
-    const
-        LINE_STYLE_COMPOUND_SIMPLE = 'sng';
+    const LINE_STYLE_COMPOUND_SIMPLE = 'sng';
     const LINE_STYLE_COMPOUND_DOUBLE = 'dbl';
     const LINE_STYLE_COMPOUND_THICKTHIN = 'thickThin';
     const LINE_STYLE_COMPOUND_THINTHICK = 'thinThick';
@@ -89,8 +83,7 @@ abstract class Properties
     const LINE_STYLE_ARROW_SIZE_8 = 8;
     const LINE_STYLE_ARROW_SIZE_9 = 9;
 
-    const
-        SHADOW_PRESETS_NOSHADOW = null;
+    const SHADOW_PRESETS_NOSHADOW = null;
     const SHADOW_PRESETS_OUTER_BOTTTOM_RIGHT = 1;
     const SHADOW_PRESETS_OUTER_BOTTOM = 2;
     const SHADOW_PRESETS_OUTER_BOTTOM_LEFT = 3;
@@ -427,12 +420,9 @@ abstract class Properties
     /**
      * Get value of array element.
      *
-     * @param mixed $properties
-     * @param mixed $elements
-     *
      * @return mixed
      */
-    protected function getArrayElementsValue($properties, $elements)
+    protected function getArrayElementsValue(mixed $properties, mixed $elements)
     {
         $reference = &$properties;
         if (!is_array($elements)) {
@@ -557,10 +547,7 @@ abstract class Properties
         return $this->softEdges['size'];
     }
 
-    /**
-     * @param mixed $value
-     */
-    public function setShadowProperty(string $propertyName, $value): self
+    public function setShadowProperty(string $propertyName, mixed $value): self
     {
         $this->activateObject();
         if ($propertyName === 'color' && is_array($value)) {
@@ -774,7 +761,6 @@ abstract class Properties
      * Set Line Color Properties.
      *
      * @param ?int $alpha
-     * @param ?string $colorType
      */
     public function setLineColorProperties(?string $value, $alpha = null, ?string $colorType = null): void
     {
@@ -890,10 +876,7 @@ abstract class Properties
         return $this;
     }
 
-    /**
-     * @param mixed $value
-     */
-    public function setLineStyleProperty(string $propertyName, $value): self
+    public function setLineStyleProperty(string $propertyName, mixed $value): self
     {
         $this->activateObject();
         $this->lineStyleProperties[$propertyName] = $value;

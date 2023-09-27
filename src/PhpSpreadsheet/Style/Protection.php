@@ -171,9 +171,9 @@ class Protection extends Supervisor
         }
 
         return md5(
-            $this->locked .
-            $this->hidden .
-            __CLASS__
+            $this->locked
+            . $this->hidden
+            . __CLASS__
         );
     }
 

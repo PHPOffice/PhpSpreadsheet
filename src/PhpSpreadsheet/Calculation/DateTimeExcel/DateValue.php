@@ -74,7 +74,7 @@ class DateValue
         }
         if (count($t1) === 1) {
             //    We've been fed a time value without any date
-            return ((strpos((string) $t, ':') === false)) ? ExcelError::Value() : 0.0;
+            return ((!str_contains((string) $t, ':'))) ? ExcelError::Value() : 0.0;
         }
         unset($t);
 

@@ -9,8 +9,9 @@ use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Table\TableStyle;
+use Stringable;
 
-class Table
+class Table implements Stringable
 {
     /**
      * Table Name.
@@ -68,7 +69,7 @@ class Table
     /**
      * Create a new Table.
      *
-     * @param AddressRange|array<int>|string $range
+     * @param AddressRange|array{0: int, 1: int, 2: int, 3: int}|array{0: int, 1: int}|string $range
      *            A simple string containing a Cell range like 'A1:E10' is permitted
      *              or passing in an array of [$fromColumnIndex, $fromRow, $toColumnIndex, $toRow] (e.g. [3, 5, 6, 8]),
      *              or an AddressRange object.
@@ -116,8 +117,8 @@ class Table
             }
             // Check for A1 or R1C1 cell reference notation
             if (
-                preg_match(Coordinate::A1_COORDINATE_REGEX, $name) ||
-                preg_match('/^R\[?\-?[0-9]*\]?C\[?\-?[0-9]*\]?$/i', $name)
+                preg_match(Coordinate::A1_COORDINATE_REGEX, $name)
+                || preg_match('/^R\[?\-?[0-9]*\]?C\[?\-?[0-9]*\]?$/i', $name)
             ) {
                 throw new PhpSpreadsheetException('The table name can\'t be the same as a cell reference');
             }
@@ -272,7 +273,7 @@ class Table
     /**
      * Set Table Cell Range.
      *
-     * @param AddressRange|array<int>|string $range
+     * @param AddressRange|array{0: int, 1: int, 2: int, 3: int}|array{0: int, 1: int}|string $range
      *            A simple string containing a Cell range like 'A1:E10' is permitted
      *              or passing in an array of [$fromColumnIndex, $fromRow, $toColumnIndex, $toRow] (e.g. [3, 5, 6, 8]),
      *              or an AddressRange object.
@@ -291,7 +292,7 @@ class Table
             return $this;
         }
 
-        if (strpos($range, ':') === false) {
+        if (!str_contains($range, ':')) {
             throw new PhpSpreadsheetException('Table must be set on a range of cells.');
         }
 

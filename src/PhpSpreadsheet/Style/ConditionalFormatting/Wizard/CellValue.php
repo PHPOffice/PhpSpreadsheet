@@ -61,10 +61,7 @@ class CellValue extends WizardAbstract implements WizardInterface
         $this->operator = $operator;
     }
 
-    /**
-     * @param mixed $operand
-     */
-    protected function operand(int $index, $operand, string $operandValueType = Wizard::VALUE_TYPE_LITERAL): void
+    protected function operand(int $index, mixed $operand, string $operandValueType = Wizard::VALUE_TYPE_LITERAL): void
     {
         if (is_string($operand)) {
             $operand = $this->validateOperand($operand, $operandValueType);
@@ -75,11 +72,9 @@ class CellValue extends WizardAbstract implements WizardInterface
     }
 
     /**
-     * @param mixed $value
-     *
      * @return float|int|string
      */
-    protected function wrapValue($value, string $operandValueType)
+    protected function wrapValue(mixed $value, string $operandValueType)
     {
         if (!is_numeric($value) && !is_bool($value) && null !== $value) {
             if ($operandValueType === Wizard::VALUE_TYPE_LITERAL) {
@@ -117,7 +112,7 @@ class CellValue extends WizardAbstract implements WizardInterface
 
     protected static function unwrapString(string $condition): string
     {
-        if ((strpos($condition, '"') === 0) && (strpos(strrev($condition), '"') === 0)) {
+        if ((str_starts_with($condition, '"')) && (str_starts_with(strrev($condition), '"'))) {
             $condition = substr($condition, 1, -1);
         }
 
@@ -146,8 +141,8 @@ class CellValue extends WizardAbstract implements WizardInterface
                     $operandValueType = Wizard::VALUE_TYPE_CELL;
                     $condition = self::reverseAdjustCellRef($condition, $cellRange);
                 } elseif (
-                    preg_match('/\(\)/', $condition) ||
-                    preg_match('/' . Calculation::CALCULATION_REGEXP_CELLREF_RELATIVE . '/i', $condition)
+                    preg_match('/\(\)/', $condition)
+                    || preg_match('/' . Calculation::CALCULATION_REGEXP_CELLREF_RELATIVE . '/i', $condition)
                 ) {
                     $operandValueType = Wizard::VALUE_TYPE_FORMULA;
                     $condition = self::reverseAdjustCellRef($condition, $cellRange);
@@ -176,13 +171,7 @@ class CellValue extends WizardAbstract implements WizardInterface
                 throw new Exception('AND Value is only appropriate for range operators');
             }
 
-            // Scrutinizer ignores its own suggested workaround.
-            //$this->operand(1, /** @scrutinizer ignore-type */ ...$arguments);
-            if (count($arguments) < 2) {
-                $this->operand(1, $arguments[0]);
-            } else {
-                $this->operand(1, $arguments[0], $arguments[1]);
-            }
+            $this->operand(1, ...$arguments);
 
             return $this;
         }

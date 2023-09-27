@@ -28,7 +28,7 @@ class MyReadFilter implements IReadFilter
 
 $filterSubset = new MyReadFilter();
 
-$helper->log('Loading file ' . /** @scrutinizer ignore-type */ pathinfo($inputFileName, PATHINFO_BASENAME) . ' using IOFactory with a defined reader type of ' . $inputFileType);
+$helper->log('Loading file ' . pathinfo($inputFileName, PATHINFO_BASENAME) . ' using IOFactory with a defined reader type of ' . $inputFileType);
 $helper->log('Filter range is A9:E15');
 $reader = IOFactory::createReader($inputFileType);
 $helper->log('Loading Sheet "' . $sheetname . '" only');

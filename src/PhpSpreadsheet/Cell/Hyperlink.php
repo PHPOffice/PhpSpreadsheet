@@ -84,7 +84,7 @@ class Hyperlink
      */
     public function isInternal(): bool
     {
-        return strpos($this->url, 'sheet://') !== false;
+        return str_contains($this->url, 'sheet://');
     }
 
     public function getTypeHyperlink(): string
@@ -100,9 +100,9 @@ class Hyperlink
     public function getHashCode(): string
     {
         return md5(
-            $this->url .
-            $this->tooltip .
-            __CLASS__
+            $this->url
+            . $this->tooltip
+            . __CLASS__
         );
     }
 }

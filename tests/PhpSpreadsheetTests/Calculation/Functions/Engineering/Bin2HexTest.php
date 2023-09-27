@@ -32,7 +32,6 @@ class Bin2HexTest extends TestCase
      */
     public function testDirectCallToBIN2HEX(mixed $expectedResult, mixed ...$args): void
     {
-        /** @scrutinizer ignore-call */
         $result = ConvertBinary::toHex(...$args);
         self::assertSame($expectedResult, $result);
     }
@@ -116,7 +115,6 @@ class Bin2HexTest extends TestCase
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
 
-        /** @scrutinizer ignore-call */
         $result = ConvertBinary::toDecimal(...$args);
         self::assertSame($expectedResult, $result);
     }

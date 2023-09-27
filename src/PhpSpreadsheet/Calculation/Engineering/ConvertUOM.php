@@ -540,7 +540,7 @@ class ConvertUOM
         try {
             [$fromUOM, $fromCategory, $fromMultiplier] = self::getUOMDetails($fromUOM);
             [$toUOM, $toCategory, $toMultiplier] = self::getUOMDetails($toUOM);
-        } catch (Exception $e) {
+        } catch (Exception) {
             return ExcelError::NA();
         }
 
@@ -558,7 +558,7 @@ class ConvertUOM
         } elseif ($fromUOM === $toUOM) {
             return $value / $toMultiplier;
         } elseif ($fromCategory === self::CATEGORY_TEMPERATURE) {
-            return self::convertTemperature($fromUOM, $toUOM, /** @scrutinizer ignore-type */ $value);
+            return self::convertTemperature($fromUOM, $toUOM, $value);
         }
 
         $baseValue = $value * (1.0 / self::$unitConversions[$fromCategory][$fromUOM]);
@@ -674,15 +674,11 @@ class ConvertUOM
 
     private static function resolveTemperatureSynonyms(string $uom): string
     {
-        switch ($uom) {
-            case 'fah':
-                return 'F';
-            case 'cel':
-                return 'C';
-            case 'kel':
-                return 'K';
-        }
-
-        return $uom;
+        return match ($uom) {
+            'fah' => 'F',
+            'cel' => 'C',
+            'kel' => 'K',
+            default => $uom,
+        };
     }
 }

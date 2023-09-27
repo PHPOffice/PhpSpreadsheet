@@ -346,18 +346,6 @@ abstract class BestFit
         return $this->yBestFitValues;
     }
 
-    /** @var mixed */
-    private static $scrutinizerZeroPointZero = 0.0;
-
-    /**
-     * @param mixed $x
-     * @param mixed $y
-     */
-    private static function scrutinizerLooseCompare($x, $y): bool
-    {
-        return $x == $y;
-    }
-
     /**
      * @param float $sumX
      * @param float $sumY
@@ -396,8 +384,8 @@ abstract class BestFit
         } else {
             $this->stdevOfResiduals = sqrt($SSres / $this->DFResiduals);
         }
-        // Scrutinizer thinks $SSres == $SStot is always true. It is wrong.
-        if ($SStot == self::$scrutinizerZeroPointZero || self::scrutinizerLooseCompare($SSres, $SStot)) {
+
+        if ($SStot == 0.0 || $SSres == $SStot) {
             $this->goodnessOfFit = 1;
         } else {
             $this->goodnessOfFit = 1 - ($SSres / $SStot);
@@ -428,9 +416,7 @@ abstract class BestFit
     {
         return array_sum(
             array_map(
-                function ($value): float|int {
-                    return $value ** 2;
-                },
+                fn ($value): float|int => $value ** 2,
                 $values
             )
         );

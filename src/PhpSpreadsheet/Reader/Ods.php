@@ -66,7 +66,6 @@ class Ods extends BaseReader
                         if (isset($namespacesContent['manifest'])) {
                             $manifest = $xml->children($namespacesContent['manifest']);
                             foreach ($manifest as $manifestDataSet) {
-                                /** @scrutinizer ignore-call */
                                 $manifestAttributes = $manifestDataSet->attributes($namespacesContent['manifest']);
                                 if ($manifestAttributes && $manifestAttributes->{'full-path'} == '/') {
                                     $mimeType = (string) $manifestAttributes->{'media-type'};
@@ -360,7 +359,7 @@ class Ods extends BaseReader
                     $key = $childNode->nodeName;
 
                     // Remove ns from node name
-                    if (strpos($key, ':') !== false) {
+                    if (str_contains($key, ':')) {
                         $keyChunks = explode(':', $key);
                         $key = array_pop($keyChunks);
                     }
@@ -549,7 +548,7 @@ class Ods extends BaseReader
 
                                             $dataValue = Date::PHPToExcel(
                                                 strtotime(
-                                                    '01-01-1970 ' . implode(':', /** @scrutinizer ignore-type */ sscanf($timeValue, 'PT%dH%dM%dS') ?? [])
+                                                    '01-01-1970 ' . implode(':', sscanf($timeValue, 'PT%dH%dM%dS') ?? [])
                                                 )
                                             );
                                             $formatting = NumberFormat::FORMAT_DATE_TIME4;
@@ -678,7 +677,7 @@ class Ods extends BaseReader
             if ($t->getAttributeNs($configNs, 'name') === 'ActiveTable') {
                 try {
                     $spreadsheet->setActiveSheetIndexByName($t->nodeValue ?? '');
-                } catch (Throwable $e) {
+                } catch (Throwable) {
                     // do nothing
                 }
 

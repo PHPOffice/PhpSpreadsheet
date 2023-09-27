@@ -32,7 +32,6 @@ class Bin2OctTest extends TestCase
      */
     public function testDirectCallToBIN2OCT(mixed $expectedResult, mixed ...$args): void
     {
-        /** @scrutinizer ignore-call */
         $result = ConvertBinary::toOctal(...$args);
         self::assertSame($expectedResult, $result);
     }
@@ -116,7 +115,6 @@ class Bin2OctTest extends TestCase
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
 
-        /** @scrutinizer ignore-call */
         $result = ConvertBinary::toDecimal(...$args);
         self::assertSame($expectedResult, $result);
     }

@@ -128,7 +128,7 @@ class NamedExpressions
             $address = substr($address, 0, $offset) . $newRange . substr($address, $offset + $length);
         }
 
-        if (substr($address, 0, 1) === '=') {
+        if (str_starts_with($address, '=')) {
             $address = substr($address, 1);
         }
 

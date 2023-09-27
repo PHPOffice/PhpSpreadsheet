@@ -70,7 +70,7 @@ abstract class Coordinate
      */
     public static function coordinateIsRange($cellAddress): bool
     {
-        return (strpos($cellAddress, ':') !== false) || (strpos($cellAddress, ',') !== false);
+        return str_contains($cellAddress, ':') || str_contains($cellAddress, ',');
     }
 
     /**
@@ -199,7 +199,7 @@ abstract class Coordinate
         $range = strtoupper($range);
 
         // Extract range
-        if (strpos($range, ':') === false) {
+        if (!str_contains($range, ':')) {
             $rangeA = $rangeB = $range;
         } else {
             [$rangeA, $rangeB] = explode(':', $range);
@@ -318,11 +318,9 @@ abstract class Coordinate
     /**
      * String from column index.
      *
-     * @param int $columnIndex Column index (A = 1)
-     *
-     * @return string
+     * @param int|numeric-string $columnIndex Column index (A = 1)
      */
-    public static function stringFromColumnIndex($columnIndex)
+    public static function stringFromColumnIndex(int|string $columnIndex): string
     {
         static $indexCache = [];
         static $lookupCache = ' ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -358,7 +356,7 @@ abstract class Coordinate
         $quoted = '';
         if ($worksheet) {
             $quoted = Worksheet::nameRequiresQuotes($worksheet) ? "'" : '';
-            if (substr($worksheet, 0, 1) === "'" && substr($worksheet, -1, 1) === "'") {
+            if (str_starts_with($worksheet, "'") && str_ends_with($worksheet, "'")) {
                 $worksheet = substr($worksheet, 1, -1);
             }
             $worksheet = str_replace("'", "''", $worksheet);
@@ -379,9 +377,7 @@ abstract class Coordinate
         $cellList = array_merge(...$cells);
 
         return array_map(
-            function ($cellAddress) use ($worksheet, $quoted) {
-                return ($worksheet !== '') ? "{$quoted}{$worksheet}{$quoted}!{$cellAddress}" : $cellAddress;
-            },
+            fn ($cellAddress) => ($worksheet !== '') ? "{$quoted}{$worksheet}{$quoted}!{$cellAddress}" : $cellAddress,
             self::sortCellReferenceArray($cellList)
         );
     }

@@ -17,7 +17,7 @@ class Deviations
      *
      * @param mixed ...$args Data values
      */
-    public static function sumSquares(...$args): string|float
+    public static function sumSquares(mixed ...$args): string|float
     {
         $aArgs = Functions::flattenArrayIndexed($args);
 
@@ -32,9 +32,9 @@ class Deviations
         foreach ($aArgs as $k => $arg) {
             // Is it a numeric value?
             if (
-                (is_bool($arg)) &&
-                ((!Functions::isCellValue($k)) ||
-                    (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_OPENOFFICE))
+                (is_bool($arg))
+                && ((!Functions::isCellValue($k))
+                    || (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_OPENOFFICE))
             ) {
                 $arg = (int) $arg;
             }
@@ -83,9 +83,9 @@ class Deviations
             }
 
             if ($count > 3) {
-                return $summer * ($count * ($count + 1) /
-                        (($count - 1) * ($count - 2) * ($count - 3))) - (3 * ($count - 1) ** 2 /
-                        (($count - 2) * ($count - 3)));
+                return $summer * ($count * ($count + 1)
+                        / (($count - 1) * ($count - 2) * ($count - 3))) - (3 * ($count - 1) ** 2
+                        / (($count - 2) * ($count - 3)));
             }
         }
 

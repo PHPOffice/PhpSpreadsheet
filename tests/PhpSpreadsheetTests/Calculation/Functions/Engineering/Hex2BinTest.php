@@ -32,7 +32,6 @@ class Hex2BinTest extends TestCase
      */
     public function testDirectCallToHEX2BIN(mixed $expectedResult, mixed ...$args): void
     {
-        /** @scrutinizer ignore-call */
         $result = ConvertHex::toBinary(...$args);
         self::assertSame($expectedResult, $result);
     }
@@ -116,7 +115,6 @@ class Hex2BinTest extends TestCase
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
 
-        /** @scrutinizer ignore-call */
         $result = ConvertHex::toBinary(...$args);
         self::assertSame($expectedResult, $result);
     }

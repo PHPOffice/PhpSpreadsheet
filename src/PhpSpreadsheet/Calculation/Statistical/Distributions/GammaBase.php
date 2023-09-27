@@ -129,7 +129,7 @@ abstract class GammaBase
         return exp(0 - $tmp + log(self::SQRT2PI * $summer / $x));
     }
 
-    private const  LG_D1 = -0.5772156649015328605195174;
+    private const LG_D1 = -0.5772156649015328605195174;
 
     private const LG_D2 = 0.4227843350984671393993777;
 

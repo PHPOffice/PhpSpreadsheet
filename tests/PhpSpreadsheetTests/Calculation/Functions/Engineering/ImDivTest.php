@@ -30,7 +30,6 @@ class ImDivTest extends TestCase
      */
     public function testDirectCallToIMDIV(mixed $expectedResult, mixed ...$args): void
     {
-        /** @scrutinizer ignore-call */
         $result = ComplexOperations::IMDIV(...$args);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),

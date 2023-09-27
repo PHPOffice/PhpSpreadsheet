@@ -147,10 +147,10 @@ class Xf
         $atr_num = ($this->numberFormatIndex != 0) ? 1 : 0;
         $atr_fnt = ($this->fontIndex != 0) ? 1 : 0;
         $atr_alc = ((int) $this->style->getAlignment()->getWrapText()) ? 1 : 0;
-        $atr_bdr = (CellBorder::style($this->style->getBorders()->getBottom()) ||
-            CellBorder::style($this->style->getBorders()->getTop()) ||
-            CellBorder::style($this->style->getBorders()->getLeft()) ||
-            CellBorder::style($this->style->getBorders()->getRight())) ? 1 : 0;
+        $atr_bdr = (CellBorder::style($this->style->getBorders()->getBottom())
+            || CellBorder::style($this->style->getBorders()->getTop())
+            || CellBorder::style($this->style->getBorders()->getLeft())
+            || CellBorder::style($this->style->getBorders()->getRight())) ? 1 : 0;
         $atr_pat = ($this->foregroundColor != 0x40) ? 1 : 0;
         $atr_pat = ($this->backgroundColor != 0x41) ? 1 : $atr_pat;
         $atr_pat = CellFill::style($this->style->getFill()) ? 1 : $atr_pat;

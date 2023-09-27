@@ -34,7 +34,7 @@ class Binomial
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function distribution($value, $trials, $probability, $cumulative)
+    public static function distribution(mixed $value, mixed $trials, mixed $probability, mixed $cumulative)
     {
         if (is_array($value) || is_array($trials) || is_array($probability) || is_array($cumulative)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $value, $trials, $probability, $cumulative);
@@ -83,7 +83,7 @@ class Binomial
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function range($trials, $probability, $successes, $limit = null): array|string|float|int
+    public static function range(mixed $trials, mixed $probability, mixed $successes, mixed $limit = null): array|string|float|int
     {
         if (is_array($trials) || is_array($probability) || is_array($successes) || is_array($limit)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $trials, $probability, $successes, $limit);
@@ -141,7 +141,7 @@ class Binomial
      * TODO Add support for the cumulative flag not present for NEGBINOMDIST, but introduced for NEGBINOM.DIST
      *      The cumulative default should be false to reflect the behaviour of NEGBINOMDIST
      */
-    public static function negative($failures, $successes, $probability): array|string|float
+    public static function negative(mixed $failures, mixed $successes, mixed $probability): array|string|float
     {
         if (is_array($failures) || is_array($successes) || is_array($probability)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $failures, $successes, $probability);
@@ -187,7 +187,7 @@ class Binomial
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function inverse($trials, $probability, $alpha): array|string|int
+    public static function inverse(mixed $trials, mixed $probability, mixed $alpha): array|string|int
     {
         if (is_array($trials) || is_array($probability) || is_array($alpha)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $trials, $probability, $alpha);

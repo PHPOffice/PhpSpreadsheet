@@ -31,12 +31,12 @@ class Interest
      * @param mixed $type Payment type: 0 = at the end of each period, 1 = at the beginning of each period
      */
     public static function payment(
-        $interestRate,
-        $period,
-        $numberOfPeriods,
-        $presentValue,
-        $futureValue = 0,
-        $type = FinancialConstants::PAYMENT_END_OF_PERIOD
+        mixed $interestRate,
+        mixed $period,
+        mixed $numberOfPeriods,
+        mixed $presentValue,
+        mixed $futureValue = 0,
+        mixed $type = FinancialConstants::PAYMENT_END_OF_PERIOD
     ): string|float {
         $interestRate = Functions::flattenSingleValue($interestRate);
         $period = Functions::flattenSingleValue($period);
@@ -87,7 +87,7 @@ class Interest
      * @param mixed $numberOfPeriods is the number of payments for the annuity
      * @param mixed $principleRemaining is the loan amount or present value of the payments
      */
-    public static function schedulePayment($interestRate, $period, $numberOfPeriods, $principleRemaining): string|float
+    public static function schedulePayment(mixed $interestRate, mixed $period, mixed $numberOfPeriods, mixed $principleRemaining): string|float
     {
         $interestRate = Functions::flattenSingleValue($interestRate);
         $period = Functions::flattenSingleValue($period);
@@ -150,12 +150,12 @@ class Interest
      *                          If you omit guess, it is assumed to be 10 percent.
      */
     public static function rate(
-        $numberOfPeriods,
-        $payment,
-        $presentValue,
-        $futureValue = 0.0,
-        $type = FinancialConstants::PAYMENT_END_OF_PERIOD,
-        $guess = 0.1
+        mixed $numberOfPeriods,
+        mixed $payment,
+        mixed $presentValue,
+        mixed $futureValue = 0.0,
+        mixed $type = FinancialConstants::PAYMENT_END_OF_PERIOD,
+        mixed $guess = 0.1
     ): string|float {
         $numberOfPeriods = Functions::flattenSingleValue($numberOfPeriods);
         $payment = Functions::flattenSingleValue($payment);

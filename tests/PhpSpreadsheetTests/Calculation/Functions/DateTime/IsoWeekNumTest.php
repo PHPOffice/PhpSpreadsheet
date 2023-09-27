@@ -35,7 +35,6 @@ class IsoWeekNumTest extends TestCase
      */
     public function testDirectCallToISOWEEKNUM(mixed $expectedResult, mixed ...$args): void
     {
-        /** @scrutinizer ignore-call */
         $result = Week::isoWeekNumber(...$args);
         self::assertSame($expectedResult, $result);
     }
@@ -114,7 +113,6 @@ class IsoWeekNumTest extends TestCase
     {
         SharedDate::setExcelCalendar(SharedDate::CALENDAR_MAC_1904);
 
-        /** @scrutinizer ignore-call */
         $result = Week::isoWeekNumber(...$args);
         self::assertSame($expectedResult, $result);
     }

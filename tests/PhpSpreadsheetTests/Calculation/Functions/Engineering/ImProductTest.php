@@ -30,7 +30,6 @@ class ImProductTest extends TestCase
      */
     public function testDirectCallToIMPRODUCT(mixed $expectedResult, mixed ...$args): void
     {
-        /** @scrutinizer ignore-call */
         $result = ComplexOperations::IMPRODUCT(...$args);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),

@@ -38,10 +38,8 @@ class Stack
 
     /**
      * Push a new entry onto the stack.
-     *
-     * @param mixed $value
      */
-    public function push(string $type, $value, ?string $reference = null): void
+    public function push(string $type, mixed $value, ?string $reference = null): void
     {
         $stackItem = $this->getStackItem($type, $value, $reference);
         $this->stack[$this->count++] = $stackItem;
@@ -59,10 +57,7 @@ class Stack
         $this->stack[$this->count++] = $stackItem;
     }
 
-    /**
-     * @param mixed $value
-     */
-    public function getStackItem(string $type, $value, ?string $reference = null): array
+    public function getStackItem(string $type, mixed $value, ?string $reference = null): array
     {
         $stackItem = [
             'type' => $type,

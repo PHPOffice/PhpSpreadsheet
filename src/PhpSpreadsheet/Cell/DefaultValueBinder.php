@@ -41,11 +41,9 @@ class DefaultValueBinder implements IValueBinder
     /**
      * DataType for value.
      *
-     * @param mixed $value
-     *
      * @return string
      */
-    public static function dataTypeForValue($value)
+    public static function dataTypeForValue(mixed $value)
     {
         // Match the value against a few data types
         if ($value === null) {
@@ -64,7 +62,7 @@ class DefaultValueBinder implements IValueBinder
             $tValue = ltrim($value, '+-');
             if (is_string($value) && strlen($tValue) > 1 && $tValue[0] === '0' && $tValue[1] !== '.') {
                 return DataType::TYPE_STRING;
-            } elseif ((strpos($value, '.') === false) && ($value > PHP_INT_MAX)) {
+            } elseif ((!str_contains($value, '.')) && ($value > PHP_INT_MAX)) {
                 return DataType::TYPE_STRING;
             } elseif (!is_numeric($value)) {
                 return DataType::TYPE_STRING;

@@ -326,19 +326,9 @@ class StringHelper
         mb_substitute_character(65533); // Unicode substitution character
         // Phpstan does not think this can return false.
         $returnValue = mb_convert_encoding($textValue, 'UTF-8', 'UTF-8');
-        mb_substitute_character(/** @scrutinizer ignore-type */ $subst);
+        mb_substitute_character($subst);
 
-        return self::returnString($returnValue);
-    }
-
-    /**
-     * Strictly to satisfy Scrutinizer.
-     *
-     * @param mixed $value
-     */
-    private static function returnString($value): string
-    {
-        return is_string($value) ? $value : '';
+        return $returnValue;
     }
 
     /**
@@ -430,7 +420,7 @@ class StringHelper
             }
         }
 
-        return self::returnString(mb_convert_encoding($textValue, $to, $from));
+        return mb_convert_encoding($textValue, $to, $from);
     }
 
     /**
@@ -647,7 +637,7 @@ class StringHelper
         self::buildCharacterSets();
 
         // If there is no escape character in the string there is nothing to do
-        if (strpos($textValue, '') === false) {
+        if (!str_contains($textValue, '')) {
             return $textValue;
         }
 

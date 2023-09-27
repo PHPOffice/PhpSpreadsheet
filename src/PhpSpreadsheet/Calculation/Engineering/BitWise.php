@@ -56,7 +56,7 @@ class BitWise
         $split1 = self::splitNumber($number1);
         $split2 = self::splitNumber($number2);
 
-        return  self::SPLIT_DIVISOR * ($split1[0] & $split2[0]) + ($split1[1] & $split2[1]);
+        return self::SPLIT_DIVISOR * ($split1[0] & $split2[0]) + ($split1[1] & $split2[1]);
     }
 
     /**
@@ -92,7 +92,7 @@ class BitWise
         $split1 = self::splitNumber($number1);
         $split2 = self::splitNumber($number2);
 
-        return  self::SPLIT_DIVISOR * ($split1[0] | $split2[0]) + ($split1[1] | $split2[1]);
+        return self::SPLIT_DIVISOR * ($split1[0] | $split2[0]) + ($split1[1] | $split2[1]);
     }
 
     /**
@@ -128,7 +128,7 @@ class BitWise
         $split1 = self::splitNumber($number1);
         $split2 = self::splitNumber($number2);
 
-        return  self::SPLIT_DIVISOR * ($split1[0] ^ $split2[0]) + ($split1[1] ^ $split2[1]);
+        return self::SPLIT_DIVISOR * ($split1[0] ^ $split2[0]) + ($split1[1] ^ $split2[1]);
     }
 
     /**
@@ -209,10 +209,8 @@ class BitWise
 
     /**
      * Validate arguments passed to the bitwise functions.
-     *
-     * @param mixed $value
      */
-    private static function validateBitwiseArgument($value): float
+    private static function validateBitwiseArgument(mixed $value): float
     {
         $value = self::nullFalseTrueToNumber($value);
 
@@ -235,11 +233,9 @@ class BitWise
     /**
      * Validate arguments passed to the bitwise functions.
      *
-     * @param mixed $value
-     *
      * @return int
      */
-    private static function validateShiftAmount($value)
+    private static function validateShiftAmount(mixed $value)
     {
         $value = self::nullFalseTrueToNumber($value);
 
@@ -257,11 +253,9 @@ class BitWise
     /**
      * Many functions accept null/false/true argument treated as 0/0/1.
      *
-     * @param mixed $number
-     *
      * @return mixed
      */
-    private static function nullFalseTrueToNumber(&$number)
+    private static function nullFalseTrueToNumber(mixed &$number)
     {
         if ($number === null) {
             $number = 0;

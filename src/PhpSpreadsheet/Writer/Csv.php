@@ -260,10 +260,8 @@ class Csv extends BaseWriter
 
     /**
      * Convert boolean to TRUE/FALSE; otherwise return element cast to string.
-     *
-     * @param mixed $element
      */
-    private static function elementToString($element): string
+    private static function elementToString(mixed $element): string
     {
         if (is_bool($element)) {
             return $element ? 'TRUE' : 'FALSE';
@@ -313,6 +311,6 @@ class Csv extends BaseWriter
         if ($this->outputEncoding != '') {
             $line = mb_convert_encoding($line, $this->outputEncoding);
         }
-        fwrite($fileHandle, /** @scrutinizer ignore-type */ $line);
+        fwrite($fileHandle, $line);
     }
 }

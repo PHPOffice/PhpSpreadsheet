@@ -3,8 +3,9 @@
 namespace PhpOffice\PhpSpreadsheet\Cell;
 
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use Stringable;
 
-class ColumnRange implements AddressRange
+class ColumnRange implements AddressRange, Stringable
 {
     protected ?Worksheet $worksheet;
 
@@ -19,6 +20,11 @@ class ColumnRange implements AddressRange
             Coordinate::columnIndexFromString($to ?? $from)
         );
         $this->worksheet = $worksheet;
+    }
+
+    public function __destruct()
+    {
+        $this->worksheet = null;
     }
 
     public static function fromColumnIndexes(int $from, int $to, ?Worksheet $worksheet = null): self

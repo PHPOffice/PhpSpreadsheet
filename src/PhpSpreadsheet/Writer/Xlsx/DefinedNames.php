@@ -71,7 +71,7 @@ class DefinedNames
         if ($definedName->getLocalOnly() && $definedName->getScope() !== null) {
             try {
                 $local = $definedName->getScope()->getParentOrThrow()->getIndex($definedName->getScope());
-            } catch (Exception $e) {
+            } catch (Exception) {
                 // See issue 2266 - deleting sheet which contains
                 //     defined names will cause Exception above.
                 return;
@@ -233,7 +233,7 @@ class DefinedNames
             $definedRange = substr($definedRange, 0, $offset) . $newRange . substr($definedRange, $offset + $length);
         }
 
-        if (substr($definedRange, 0, 1) === '=') {
+        if (str_starts_with($definedRange, '=')) {
             $definedRange = substr($definedRange, 1);
         }
 
