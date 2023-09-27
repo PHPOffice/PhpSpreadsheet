@@ -3,7 +3,9 @@
 namespace PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Styles as StyleReader;
+use PhpOffice\PhpSpreadsheet\Style\Color;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
+use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalColorScale;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalDataBar;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalFormattingRuleExtension;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalFormatValueObject;
@@ -199,6 +201,7 @@ class ConditionalStyles
         $conditionalFormattingRuleExtensions = ConditionalFormattingRuleExtension::parseExtLstXml($extLst);
         $conditionalStyles = [];
 
+        /** @var SimpleXMLElement $cfRule */
         foreach ($cfRules as $cfRule) {
             $objConditional = new Conditional();
             $objConditional->setConditionType((string) $cfRule['type']);
@@ -232,7 +235,11 @@ class ConditionalStyles
 
             if (isset($cfRule->dataBar)) {
                 $objConditional->setDataBar(
-                    $this->readDataBarOfConditionalRule($cfRule, $conditionalFormattingRuleExtensions) // @phpstan-ignore-line
+                    $this->readDataBarOfConditionalRule($cfRule, $conditionalFormattingRuleExtensions)
+                );
+            } elseif (isset($cfRule->colorScale)) {
+                $objConditional->setColorScale(
+                    $this->readColorScale($cfRule)
                 );
             } elseif (isset($cfRule['dxfId'])) {
                 $objConditional->setStyle(clone $this->dxfs[(int) ($cfRule['dxfId'])]);
@@ -277,6 +284,41 @@ class ConditionalStyles
         $this->readDataBarExtLstOfConditionalRule($dataBar, $cfRule, $conditionalFormattingRuleExtensions);
 
         return $dataBar;
+    }
+
+    private function readColorScale(simpleXMLElement|stdClass $cfRule): ConditionalColorScale
+    {
+        $colorScale = new ConditionalColorScale();
+        $types = [];
+        foreach ($cfRule->colorScale->cfvo as $cfvoXml) {
+            $attr = $cfvoXml->attributes() ?? [];
+            $type = (string) ($attr['type'] ?? '');
+            $types[] = $type;
+            $val = $attr['val'] ?? null;
+            if ($type === 'min') {
+                $colorScale->setMinimumConditionalFormatValueObject(new ConditionalFormatValueObject($type, $val));
+            } elseif ($type === 'percentile') {
+                $colorScale->setMidpointConditionalFormatValueObject(new ConditionalFormatValueObject($type, $val));
+            } elseif ($type === 'max') {
+                $colorScale->setMaximumConditionalFormatValueObject(new ConditionalFormatValueObject($type, $val));
+            }
+        }
+        $idx = 0;
+        foreach ($cfRule->colorScale->color as $color) {
+            $type = $types[$idx];
+            $attr = $color->attributes() ?? [];
+            $rgb = $attr['rgb'] ?? '';
+            if ($type === 'min') {
+                $colorScale->setMinimumColor(new Color($rgb));
+            } elseif ($type === 'percentile') {
+                $colorScale->setMidpointColor(new Color($rgb));
+            } elseif ($type === 'max') {
+                $colorScale->setMaximumColor(new Color($rgb));
+            }
+            ++$idx;
+        }
+
+        return $colorScale;
     }
 
     /**

@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting;
 
+use PhpOffice\PhpSpreadsheet\Style\Color;
+
 class ConditionalColorScale
 {
     /** <colorScale> attribute  */
@@ -42,10 +44,7 @@ class ConditionalColorScale
         return $this->showValue;
     }
 
-    /**
-     * @param bool $showValue
-     */
-    public function setShowValue($showValue): self
+    public function setShowValue(bool $showValue): self
     {
         $this->showValue = $showValue;
 
@@ -88,36 +87,36 @@ class ConditionalColorScale
         return $this;
     }
 
-    public function getMinimumColor(): string
+    public function getMinimumColor(): ?Color
     {
         return $this->minimumColor;
     }
 
-    public function setMinimumColor(string $minimumColor): self
+    public function setMinimumColor(Color $minimumColor): self
     {
         $this->minimumColor = $minimumColor;
 
         return $this;
     }
 
-    public function getMidpointColor(): ?string
+    public function getMidpointColor(): ?Color
     {
         return $this->midpointColor;
     }
 
-    public function setMidpointColor(string $midpointColor): self
+    public function setMidpointColor(Color $midpointColor): self
     {
         $this->midpointColor = $midpointColor;
 
         return $this;
     }
 
-    public function getMaximumColor(): string
+    public function getMaximumColor(): ?Color
     {
         return $this->maximumColor;
     }
 
-    public function setMaximumColor(string $maximumColor): self
+    public function setMaximumColor(Color $maximumColor): self
     {
         $this->maximumColor = $maximumColor;
 

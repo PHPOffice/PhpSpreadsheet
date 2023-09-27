@@ -686,15 +686,15 @@ class Worksheet extends WriterPart
             $minCfvo = $dataBar->getMinimumConditionalFormatValueObject();
             if ($minCfvo) {
                 $objWriter->startElement('cfvo');
-                self::writeAttributeIf($objWriter, $minCfvo->getType(), 'type', (string) $minCfvo->getType());
-                self::writeAttributeIf($objWriter, $minCfvo->getValue(), 'val', (string) $minCfvo->getValue());
+                $objWriter->writeAttribute('type', $minCfvo->getType());
+                self::writeAttributeIf($objWriter, $minCfvo->getValue() !== null, 'val', (string) $minCfvo->getValue());
                 $objWriter->endElement();
             }
             $maxCfvo = $dataBar->getMaximumConditionalFormatValueObject();
             if ($maxCfvo) {
                 $objWriter->startElement('cfvo');
-                self::writeAttributeIf($objWriter, $maxCfvo->getType(), 'type', (string) $maxCfvo->getType());
-                self::writeAttributeIf($objWriter, $maxCfvo->getValue(), 'val', (string) $maxCfvo->getValue());
+                $objWriter->writeAttribute('type', $maxCfvo->getType());
+                self::writeAttributeIf($objWriter, $maxCfvo->getValue() !== null, 'val', (string) $maxCfvo->getValue());
                 $objWriter->endElement();
             }
             if ($dataBar->getColor()) {
@@ -725,39 +725,52 @@ class Worksheet extends WriterPart
             self::writeAttributeIf($objWriter, null !== $colorScale->getShowValue(), 'showValue', $colorScale->getShowValue() ? '1' : '0');
 
             $minCfvo = $colorScale->getMinimumConditionalFormatValueObject();
-            if ($minCfvo) {
+            $minArgb = $colorScale->getMinimumColor()?->getARGB();
+            if ($minCfvo !== null || $minArgb !== null) {
                 $objWriter->startElement('cfvo');
-                self::writeAttributeIf($objWriter, $minCfvo->getType(), 'type', (string) $minCfvo->getType());
-                self::writeAttributeIf($objWriter, $minCfvo->getValue(), 'val', (string) $minCfvo->getValue());
+                $objWriter->writeAttribute('type', $minCfvo?->getType() ?? 'min');
+                if ($minCfvo?->getValue() !== null) {
+                    $objWriter->writeAttribute('val', (string) $minCfvo->getValue());
+                }
                 $objWriter->endElement();
             }
             $midCfvo = $colorScale->getMidpointConditionalFormatValueObject();
-            if ($midCfvo) {
+            $midArgb = $colorScale->getMidpointColor()?->getARGB();
+            if ($midCfvo !== null || $midArgb !== null) {
                 $objWriter->startElement('cfvo');
-                self::writeAttributeIf($objWriter, $midCfvo->getType(), 'type', (string) $midCfvo->getType());
-                self::writeAttributeIf($objWriter, $midCfvo->getValue(), 'val', (string) $midCfvo->getValue());
+                $objWriter->writeAttribute('type', $midCfvo?->getType() ?? 'percentile');
+                $objWriter->writeAttribute('val', (string) (($midCfvo?->getValue()) ?? '50'));
                 $objWriter->endElement();
             }
             $maxCfvo = $colorScale->getMaximumConditionalFormatValueObject();
-            if ($maxCfvo) {
+            $maxArgb = $colorScale->getMaximumColor()?->getARGB();
+            if ($maxCfvo !== null || $maxArgb !== null) {
                 $objWriter->startElement('cfvo');
-                self::writeAttributeIf($objWriter, $maxCfvo->getType(), 'type', (string) $maxCfvo->getType());
-                self::writeAttributeIf($objWriter, $maxCfvo->getValue(), 'val', (string) $maxCfvo->getValue());
+                $objWriter->writeAttribute('type', $maxCfvo?->getType() ?? 'max');
+                if ($maxCfvo?->getValue() !== null) {
+                    $objWriter->writeAttribute('val', (string) $maxCfvo->getValue());
+                }
                 $objWriter->endElement();
             }
-            if ($colorScale->getMinimumColor()) {
+            if ($minCfvo !== null || $minArgb !== null) {
                 $objWriter->startElement('color');
-                $objWriter->writeAttribute('rgb', $colorScale->getMinimumColor());
+                if ($minArgb !== null) {
+                    $objWriter->writeAttribute('rgb', $minArgb);
+                }
                 $objWriter->endElement();
             }
-            if ($colorScale->getMidpointColor()) {
+            if ($midCfvo !== null || $midArgb !== null) {
                 $objWriter->startElement('color');
-                $objWriter->writeAttribute('rgb', $colorScale->getMidpointColor());
+                if ($midArgb !== null) {
+                    $objWriter->writeAttribute('rgb', $midArgb);
+                }
                 $objWriter->endElement();
             }
-            if ($colorScale->getMaximumColor()) {
+            if ($maxCfvo !== null || $maxArgb !== null) {
                 $objWriter->startElement('color');
-                $objWriter->writeAttribute('rgb', $colorScale->getMaximumColor());
+                if ($maxArgb !== null) {
+                    $objWriter->writeAttribute('rgb', $maxArgb);
+                }
                 $objWriter->endElement();
             }
             $objWriter->endElement(); // end colorScale
@@ -800,8 +813,8 @@ class Worksheet extends WriterPart
                 self::writeAttributeIf(
                     $objWriter,
                     ($conditional->getConditionType() !== Conditional::CONDITION_COLORSCALE
-						&& $conditional->getConditionType() !== Conditional::CONDITION_DATABAR
-						&& $conditional->getNoFormatSet() === false),
+                        && $conditional->getConditionType() !== Conditional::CONDITION_DATABAR
+                        && $conditional->getNoFormatSet() === false),
                     'dxfId',
                     (string) $this->getParentWriter()->getStylesConditionalHashTable()->getIndexForHashCode($conditional->getHashCode())
                 );
