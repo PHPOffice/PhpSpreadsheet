@@ -6,13 +6,6 @@ use PhpOffice\PhpSpreadsheet\Style\Color;
 
 class ConditionalColorScale
 {
-    /** <colorScale> attribute  */
-
-    /** @var null|bool */
-    private $showValue;
-
-    /** <colorScale> children */
-
     /** @var ?ConditionalFormatValueObject */
     private $minimumConditionalFormatValueObject;
 
@@ -30,26 +23,6 @@ class ConditionalColorScale
 
     /** @var ?Color */
     private $maximumColor;
-
-    /** <extLst> */
-
-    /** @var ?ConditionalFormattingRuleExtension */
-    private $conditionalFormattingRuleExt;
-
-    /**
-     * @return null|bool
-     */
-    public function getShowValue()
-    {
-        return $this->showValue;
-    }
-
-    public function setShowValue(bool $showValue): self
-    {
-        $this->showValue = $showValue;
-
-        return $this;
-    }
 
     public function getMinimumConditionalFormatValueObject(): ?ConditionalFormatValueObject
     {
@@ -119,18 +92,6 @@ class ConditionalColorScale
     public function setMaximumColor(Color $maximumColor): self
     {
         $this->maximumColor = $maximumColor;
-
-        return $this;
-    }
-
-    public function getConditionalFormattingRuleExt(): ?ConditionalFormattingRuleExtension
-    {
-        return $this->conditionalFormattingRuleExt;
-    }
-
-    public function setConditionalFormattingRuleExt(ConditionalFormattingRuleExtension $conditionalFormattingRuleExt): self
-    {
-        $this->conditionalFormattingRuleExt = $conditionalFormattingRuleExt;
 
         return $this;
     }

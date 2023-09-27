@@ -722,11 +722,11 @@ class Worksheet extends WriterPart
     {
         if ($colorScale) {
             $objWriter->startElement('colorScale');
-            self::writeAttributeIf($objWriter, null !== $colorScale->getShowValue(), 'showValue', $colorScale->getShowValue() ? '1' : '0');
 
             $minCfvo = $colorScale->getMinimumConditionalFormatValueObject();
             $minArgb = $colorScale->getMinimumColor()?->getARGB();
-            if ($minCfvo !== null || $minArgb !== null) {
+            $useMin = $minCfvo !== null || $minArgb !== null;
+            if ($useMin) {
                 $objWriter->startElement('cfvo');
                 $objWriter->writeAttribute('type', $minCfvo?->getType() ?? 'min');
                 self::writeAttributeIf($objWriter, $minCfvo?->getValue() !== null, 'val', (string) $minCfvo?->getValue());
@@ -734,7 +734,8 @@ class Worksheet extends WriterPart
             }
             $midCfvo = $colorScale->getMidpointConditionalFormatValueObject();
             $midArgb = $colorScale->getMidpointColor()?->getARGB();
-            if ($midCfvo !== null || $midArgb !== null) {
+            $useMid = $midCfvo !== null || $midArgb !== null;
+            if ($useMid) {
                 $objWriter->startElement('cfvo');
                 $objWriter->writeAttribute('type', $midCfvo?->getType() ?? 'percentile');
                 $objWriter->writeAttribute('val', (string) (($midCfvo?->getValue()) ?? '50'));
@@ -742,23 +743,24 @@ class Worksheet extends WriterPart
             }
             $maxCfvo = $colorScale->getMaximumConditionalFormatValueObject();
             $maxArgb = $colorScale->getMaximumColor()?->getARGB();
-            if ($maxCfvo !== null || $maxArgb !== null) {
+            $useMax = $maxCfvo !== null || $maxArgb !== null;
+            if ($useMax) {
                 $objWriter->startElement('cfvo');
                 $objWriter->writeAttribute('type', $maxCfvo?->getType() ?? 'max');
                 self::writeAttributeIf($objWriter, $maxCfvo?->getValue() !== null, 'val', (string) $maxCfvo?->getValue());
                 $objWriter->endElement();
             }
-            if ($minCfvo !== null || $minArgb !== null) {
+            if ($useMin) {
                 $objWriter->startElement('color');
                 self::writeAttributeIf($objWriter, $minArgb !== null, 'rgb', "$minArgb");
                 $objWriter->endElement();
             }
-            if ($midCfvo !== null || $midArgb !== null) {
+            if ($useMid) {
                 $objWriter->startElement('color');
                 self::writeAttributeIf($objWriter, $midArgb !== null, 'rgb', "$midArgb");
                 $objWriter->endElement();
             }
-            if ($maxCfvo !== null || $maxArgb !== null) {
+            if ($useMax) {
                 $objWriter->startElement('color');
                 self::writeAttributeIf($objWriter, $maxArgb !== null, 'rgb', "$maxArgb");
                 $objWriter->endElement();
