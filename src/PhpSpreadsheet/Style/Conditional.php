@@ -94,10 +94,8 @@ class Conditional implements IComparable
 
     /**
      * Stop on this condition, if it matches.
-     *
-     * @var bool
      */
-    private $stopIfTrue = false;
+    private bool $stopIfTrue = false;
 
     /**
      * Condition.
@@ -106,23 +104,13 @@ class Conditional implements IComparable
      */
     private $condition = [];
 
-    /**
-     * @var ConditionalDataBar
-     */
-    private $dataBar;
+    private ?ConditionalDataBar $dataBar = null;
 
-    /**
-     * @var ConditionalColorScale
-     */
-    private $colorScale;
+    private ?ConditionalColorScale $colorScale = null;
 
-    /**
-     * Style.
-     */
     private Style $style;
 
-    /** @var bool */
-    private $noFormatSet = false;
+    private bool $noFormatSet = false;
 
     /**
      * Create a new Conditional.
@@ -304,21 +292,11 @@ class Conditional implements IComparable
         return $this;
     }
 
-    /**
-     * get DataBar.
-     *
-     * @return null|ConditionalDataBar
-     */
-    public function getDataBar()
+    public function getDataBar(): ?ConditionalDataBar
     {
         return $this->dataBar;
     }
 
-    /**
-     * set DataBar.
-     *
-     * @return $this
-     */
     public function setDataBar(ConditionalDataBar $dataBar): static
     {
         $this->dataBar = $dataBar;
@@ -326,21 +304,11 @@ class Conditional implements IComparable
         return $this;
     }
 
-    /**
-     * get ColorScale.
-     *
-     * @return null|ConditionalColorScale
-     */
-    public function getColorScale()
+    public function getColorScale(): ?ConditionalColorScale
     {
         return $this->colorScale;
     }
 
-    /**
-     * set ColorScale.
-     *
-     * @return $this
-     */
     public function setColorScale(ConditionalColorScale $colorScale): static
     {
         $this->colorScale = $colorScale;

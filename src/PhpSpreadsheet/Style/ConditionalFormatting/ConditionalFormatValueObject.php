@@ -10,10 +10,7 @@ class ConditionalFormatValueObject
 
     private mixed $cellFormula;
 
-    /**
-     * ConditionalFormatValueObject constructor.
-     */
-    public function __construct(string $type, mixed $value = null, mixed $cellFormula = null)
+    public function __construct(string $type, null|float|int|string $value = null, mixed $cellFormula = null)
     {
         $this->type = $type;
         $this->value = $value;
@@ -44,10 +41,7 @@ class ConditionalFormatValueObject
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getCellFormula()
+    public function getCellFormula(): mixed
     {
         return $this->cellFormula;
     }

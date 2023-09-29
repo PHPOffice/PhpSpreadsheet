@@ -6,23 +6,17 @@ use PhpOffice\PhpSpreadsheet\Style\Color;
 
 class ConditionalColorScale
 {
-    /** @var ?ConditionalFormatValueObject */
-    private $minimumConditionalFormatValueObject;
+    private ?ConditionalFormatValueObject $minimumConditionalFormatValueObject = null;
 
-    /** @var ?ConditionalFormatValueObject */
-    private $midpointConditionalFormatValueObject;
+    private ?ConditionalFormatValueObject $midpointConditionalFormatValueObject = null;
 
-    /** @var ?ConditionalFormatValueObject */
-    private $maximumConditionalFormatValueObject;
+    private ?ConditionalFormatValueObject $maximumConditionalFormatValueObject = null;
 
-    /** @var ?Color */
-    private $minimumColor;
+    private ?Color $minimumColor = null;
 
-    /** @var ?Color */
-    private $midpointColor;
+    private ?Color $midpointColor = null;
 
-    /** @var ?Color */
-    private $maximumColor;
+    private ?Color $maximumColor = null;
 
     public function getMinimumConditionalFormatValueObject(): ?ConditionalFormatValueObject
     {

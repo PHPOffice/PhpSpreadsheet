@@ -4,7 +4,6 @@ namespace PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting;
 
 class ConditionalDataBar
 {
-    /** <dataBar> attribute  */
     private ?bool $showValue = null;
 
     private ?ConditionalFormatValueObject $minimumConditionalFormatValueObject = null;
