@@ -790,10 +790,10 @@ class Xlsx extends BaseReader
                                 // Setting Conditional Styles adjusts selected cells, so we need to execute this
                                 //    before reading the sheet view data to get the actual selected cells
                                 if (!$this->readDataOnly && ($xmlSheet->conditionalFormatting)) {
-                                    (new ConditionalStyles($docSheet, $xmlSheet, $dxfs))->load();
+                                    (new ConditionalStyles($docSheet, $xmlSheet, $dxfs, $this->styleReader))->load();
                                 }
                                 if (!$this->readDataOnly && $xmlSheet->extLst) {
-                                    (new ConditionalStyles($docSheet, $xmlSheet, $dxfs))->loadFromExt($this->styleReader);
+                                    (new ConditionalStyles($docSheet, $xmlSheet, $dxfs, $this->styleReader))->loadFromExt();
                                 }
                                 if (isset($xmlSheetMain->sheetViews, $xmlSheetMain->sheetViews->sheetView)) {
                                     $sheetViews = new SheetViews($xmlSheetMain->sheetViews->sheetView, $docSheet);
