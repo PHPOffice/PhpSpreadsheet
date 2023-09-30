@@ -496,7 +496,7 @@ class Xlsx extends BaseReader
         $rels = $this->loadZip(self::INITIAL_FILE, Namespaces::RELATIONSHIPS);
 
         $propertyReader = new PropertyReader($this->getSecurityScannerOrThrow(), $excel->getProperties());
-        $chartDetails = [];
+        $charts = $chartDetails = [];
         foreach ($rels->Relationship as $relx) {
             $rel = self::getAttributes($relx);
             $relTarget = (string) $rel['Target'];
@@ -1743,12 +1743,14 @@ class Xlsx extends BaseReader
                                         // Modify range, and extract the first worksheet reference
                                         // Need to split on a comma or a space if not in quotes, and extract the first part.
                                         $definedNameValueParts = preg_split("/[ ,](?=([^']*'[^']*')*[^']*$)/miuU", $extractedRange);
-                                        // Extract sheet name
-                                        [$extractedSheetName] = Worksheet::extractSheetTitle((string) $definedNameValueParts[0], true); // @phpstan-ignore-line
-                                        $extractedSheetName = trim($extractedSheetName, "'"); // @phpstan-ignore-line
+                                        if (is_array($definedNameValueParts)) {
+                                            // Extract sheet name
+                                            [$extractedSheetName] = Worksheet::extractSheetTitle((string) $definedNameValueParts[0], true);
+                                            $extractedSheetName = trim((string) $extractedSheetName, "'");
 
-                                        // Locate sheet
-                                        $locatedSheet = $excel->getSheetByName($extractedSheetName);
+                                            // Locate sheet
+                                            $locatedSheet = $excel->getSheetByName($extractedSheetName);
+                                        }
                                     }
 
                                     if ($locatedSheet === null && !DefinedName::testIfFormula($extractedRange)) {
@@ -1790,8 +1792,8 @@ class Xlsx extends BaseReader
                             $objChart = $chartReader->readChart($chartElements, basename($chartEntryRef, '.xml'));
                             if (isset($charts[$chartEntryRef])) {
                                 $chartPositionRef = $charts[$chartEntryRef]['sheet'] . '!' . $charts[$chartEntryRef]['id'];
-                                if (isset($chartDetails[$chartPositionRef])) {
-                                    $excel->getSheetByName($charts[$chartEntryRef]['sheet'])->addChart($objChart); // @phpstan-ignore-line
+                                if (isset($chartDetails[$chartPositionRef]) && $excel->getSheetByName($charts[$chartEntryRef]['sheet']) !== null) {
+                                    $excel->getSheetByName($charts[$chartEntryRef]['sheet'])->addChart($objChart);
                                     $objChart->setWorksheet($excel->getSheetByName($charts[$chartEntryRef]['sheet']));
                                     // For oneCellAnchor or absoluteAnchor positioned charts,
                                     //     toCoordinate is not in the data. Does it need to be calculated?

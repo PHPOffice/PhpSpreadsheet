@@ -124,7 +124,7 @@ abstract class Coordinate
         }
 
         // Create absolute coordinate
-        [$column, $row] = self::coordinateFromString($cellAddress); // @phpstan-ignore-line
+        [$column, $row] = self::coordinateFromString($cellAddress ?? 'A1');
         $column = ltrim($column, '$');
         $row = ltrim($row, '$');
 
@@ -148,13 +148,12 @@ abstract class Coordinate
         }
 
         $exploded = explode(',', $range);
-        $counter = count($exploded);
-        for ($i = 0; $i < $counter; ++$i) {
-            // @phpstan-ignore-next-line
-            $exploded[$i] = explode(':', $exploded[$i]);
+        $outArray = [];
+        foreach ($exploded as $value) {
+            $outArray[] = explode(':', $value);
         }
 
-        return $exploded;
+        return $outArray;
     }
 
     /**
@@ -361,7 +360,7 @@ abstract class Coordinate
             }
             $worksheet = str_replace("'", "''", $worksheet);
         }
-        [$ranges, $operators] = self::getCellBlocksFromRangeString($cellRange); // @phpstan-ignore-line
+        [$ranges, $operators] = self::getCellBlocksFromRangeString($cellRange ?? 'A1');
 
         $cells = [];
         foreach ($ranges as $range) {
@@ -571,8 +570,7 @@ abstract class Coordinate
         $rangeString = str_replace('$', '', strtoupper($rangeString));
 
         // split range sets on intersection (space) or union (,) operators
-        $tokens = preg_split('/([ ,])/', $rangeString, -1, PREG_SPLIT_DELIM_CAPTURE);
-        /** @phpstan-ignore-next-line */
+        $tokens = preg_split('/([ ,])/', $rangeString, -1, PREG_SPLIT_DELIM_CAPTURE) ?: [];
         $split = array_chunk($tokens, 2);
         $ranges = array_column($split, 0);
         $operators = array_column($split, 1);

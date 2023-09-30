@@ -55,7 +55,7 @@ class RowIterator implements NativeIterator
 
     public function __destruct()
     {
-        $this->subject = null; // @phpstan-ignore-line
+        unset($this->subject);
     }
 
     /**

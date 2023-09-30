@@ -60,8 +60,7 @@ class ColumnIterator implements NativeIterator
      */
     public function __destruct()
     {
-        // @phpstan-ignore-next-line
-        $this->worksheet = null;
+        unset($this->worksheet);
     }
 
     /**
