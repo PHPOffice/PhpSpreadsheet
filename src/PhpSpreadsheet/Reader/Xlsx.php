@@ -108,8 +108,6 @@ class Xlsx extends BaseReader
     }
 
     // Phpstan thinks, correctly, that xpath can return false.
-    // Scrutinizer thinks it can't.
-    // Sigh.
     private static function xpathNoFalse(SimpleXmlElement $sxml, string $path): array
     {
         return self::falseToArray($sxml->xpath($path));
@@ -792,10 +790,10 @@ class Xlsx extends BaseReader
                                 // Setting Conditional Styles adjusts selected cells, so we need to execute this
                                 //    before reading the sheet view data to get the actual selected cells
                                 if (!$this->readDataOnly && ($xmlSheet->conditionalFormatting)) {
-                                    (new ConditionalStyles($docSheet, $xmlSheet, $dxfs))->load();
+                                    (new ConditionalStyles($docSheet, $xmlSheet, $dxfs, $this->styleReader))->load();
                                 }
                                 if (!$this->readDataOnly && $xmlSheet->extLst) {
-                                    (new ConditionalStyles($docSheet, $xmlSheet, $dxfs))->loadFromExt($this->styleReader);
+                                    (new ConditionalStyles($docSheet, $xmlSheet, $dxfs, $this->styleReader))->loadFromExt();
                                 }
                                 if (isset($xmlSheetMain->sheetViews, $xmlSheetMain->sheetViews->sheetView)) {
                                     $sheetViews = new SheetViews($xmlSheetMain->sheetViews->sheetView, $docSheet);
@@ -972,12 +970,12 @@ class Xlsx extends BaseReader
 
                             if ($this->readDataOnly === false) {
                                 $this->readAutoFilter($xmlSheetNS, $docSheet);
-                                $this->readTables($xmlSheetNS, $docSheet, $dir, $fileWorksheet, $zip, $mainNS);
                             }
+
+                            $this->readTables($xmlSheetNS, $docSheet, $dir, $fileWorksheet, $zip, $mainNS);
 
                             if ($xmlSheetNS && $xmlSheetNS->mergeCells && $xmlSheetNS->mergeCells->mergeCell && !$this->readDataOnly) {
                                 foreach ($xmlSheetNS->mergeCells->mergeCell as $mergeCellx) {
-                                    /** @scrutinizer ignore-call */
                                     $mergeCell = $mergeCellx->attributes();
                                     $mergeRef = (string) ($mergeCell['ref'] ?? '');
                                     if (str_contains($mergeRef, ':')) {
@@ -992,7 +990,7 @@ class Xlsx extends BaseReader
 
                             if ($xmlSheet !== false && isset($xmlSheet->extLst->ext)) {
                                 foreach ($xmlSheet->extLst->ext as $extlst) {
-                                    $extAttrs = $extlst->/** @scrutinizer ignore-call */ attributes() ?? [];
+                                    $extAttrs = $extlst->attributes() ?? [];
                                     $extUri = (string) ($extAttrs['uri'] ?? '');
                                     if ($extUri !== '{CCE6A557-97BC-4b89-ADB6-D9C93CAAB3DF}') {
                                         continue;
@@ -1002,7 +1000,7 @@ class Xlsx extends BaseReader
                                         $xmlSheet->addChild('dataValidations');
                                     }
 
-                                    foreach ($extlst->/** @scrutinizer ignore-call */ children(Namespaces::DATA_VALIDATIONS1)->dataValidations->dataValidation as $item) {
+                                    foreach ($extlst->children(Namespaces::DATA_VALIDATIONS1)->dataValidations->dataValidation as $item) {
                                         $item = self::testSimpleXml($item);
                                         $node = self::testSimpleXml($xmlSheet->dataValidations)->addChild('dataValidation');
                                         foreach ($item->attributes() ?? [] as $attr) {
@@ -1474,7 +1472,6 @@ class Xlsx extends BaseReader
                                                     }
                                                     $xfrm = $twoCellAnchor->pic->spPr->children(Namespaces::DRAWINGML)->xfrm;
                                                     $outerShdw = $twoCellAnchor->pic->spPr->children(Namespaces::DRAWINGML)->effectLst->outerShdw;
-                                                    /** @scrutinizer ignore-call */
                                                     $editAs = $twoCellAnchor->attributes();
                                                     if (isset($editAs, $editAs['editAs'])) {
                                                         $objDrawing->setEditAs($editAs['editAs']);

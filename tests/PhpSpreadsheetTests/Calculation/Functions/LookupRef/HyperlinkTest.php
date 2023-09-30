@@ -9,13 +9,12 @@ use PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
 
 class HyperlinkTest extends AllSetupTeardown
 {
-    /** @var bool */
-    protected $issue2464 = true;
+    private bool $issue2464 = true;
 
     /**
      * @dataProvider providerHYPERLINK
      */
-    public function testHYPERLINK(array|string $expectedResult, ?string $linkUrl, ?string $description): void
+    public function testHYPERLINK(mixed $expectedResult, ?string $linkUrl, ?string $description): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -43,7 +42,7 @@ class HyperlinkTest extends AllSetupTeardown
     /**
      * @dataProvider providerHYPERLINK
      */
-    public function testHYPERLINKcellRef(array|string $expectedResult, ?string $linkUrl, ?string $description): void
+    public function testHYPERLINKcellRef(mixed $expectedResult, ?string $linkUrl, ?string $description): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

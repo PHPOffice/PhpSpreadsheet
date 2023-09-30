@@ -257,8 +257,7 @@ class Coupons
             $maturity = FinancialValidations::validateMaturityDate($maturity);
             self::validateCouponPeriod($settlement, $maturity);
             $frequency = FinancialValidations::validateFrequency($frequency);
-            $basis = FinancialValidations::validateBasis($basis);
-            self::doNothing($basis);
+            FinancialValidations::validateBasis($basis);
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -310,8 +309,7 @@ class Coupons
             $maturity = FinancialValidations::validateMaturityDate($maturity);
             self::validateCouponPeriod($settlement, $maturity);
             $frequency = FinancialValidations::validateFrequency($frequency);
-            $basis = FinancialValidations::validateBasis($basis);
-            self::doNothing($basis);
+            FinancialValidations::validateBasis($basis);
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -370,8 +368,7 @@ class Coupons
             $maturity = FinancialValidations::validateMaturityDate($maturity);
             self::validateCouponPeriod($settlement, $maturity);
             $frequency = FinancialValidations::validateFrequency($frequency);
-            $basis = FinancialValidations::validateBasis($basis);
-            self::doNothing($basis);
+            FinancialValidations::validateBasis($basis);
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -410,10 +407,5 @@ class Coupons
         if ($settlement >= $maturity) {
             throw new Exception(ExcelError::NAN());
         }
-    }
-
-    private static function doNothing(mixed $basis): bool
-    {
-        return $basis;
     }
 }

@@ -11,10 +11,10 @@ Cell::setValueBinder(new AdvancedValueBinder());
 $inputFileName = __DIR__ . '/sampleData/example1.tsv';
 
 $reader = new Csv();
-$helper->log('Loading file ' . /** @scrutinizer ignore-type */ pathinfo($inputFileName, PATHINFO_BASENAME) . ' into WorkSheet #1 using Csv reader');
+$helper->log('Loading file ' . pathinfo($inputFileName, PATHINFO_BASENAME) . ' into WorkSheet #1 using Csv reader');
 $reader->setDelimiter("\t");
 $spreadsheet = $reader->load($inputFileName);
-$spreadsheet->getActiveSheet()->setTitle(/** @scrutinizer ignore-type */ pathinfo($inputFileName, PATHINFO_BASENAME));
+$spreadsheet->getActiveSheet()->setTitle(pathinfo($inputFileName, PATHINFO_BASENAME));
 
 $helper->log($spreadsheet->getSheetCount() . ' worksheet' . (($spreadsheet->getSheetCount() == 1) ? '' : 's') . ' loaded');
 $loadedSheetNames = $spreadsheet->getSheetNames();

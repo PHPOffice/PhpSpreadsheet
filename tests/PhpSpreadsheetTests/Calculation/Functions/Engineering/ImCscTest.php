@@ -30,7 +30,6 @@ class ImCscTest extends TestCase
      */
     public function testDirectCallToIMCSC(mixed $expectedResult, mixed ...$args): void
     {
-        /** @scrutinizer ignore-call */
         $result = ComplexFunctions::IMCSC(...$args);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),

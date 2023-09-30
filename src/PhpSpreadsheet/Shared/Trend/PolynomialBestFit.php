@@ -105,7 +105,6 @@ class PolynomialBestFit extends BestFit
     {
         if ($dp != 0) {
             $coefficients = [];
-            // Scrutinizer is correct - $this->slope is float, not array.
             //* @phpstan-ignore-next-line
             foreach ($this->slope as $coefficient) {
                 $coefficients[] = round($coefficient, $dp);
@@ -178,7 +177,7 @@ class PolynomialBestFit extends BestFit
         }
 
         $this->intersect = array_shift($coefficients);
-        // Phpstan (and maybe Scrutinizer) are correct
+        // Phpstan is correct
         //* @phpstan-ignore-next-line
         $this->slope = $coefficients;
 

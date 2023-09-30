@@ -299,6 +299,7 @@ class FormulaParser
                     $value = '';
                 }
 
+                /** @var FormulaToken $tmp */
                 $tmp = array_pop($stack);
                 $tmp->setValue('');
                 $tmp->setTokenSubType(FormulaToken::TOKEN_SUBTYPE_STOP);
@@ -322,11 +323,13 @@ class FormulaParser
                     $value = '';
                 }
 
+                /** @var FormulaToken $tmp */
                 $tmp = array_pop($stack);
                 $tmp->setValue('');
                 $tmp->setTokenSubType(FormulaToken::TOKEN_SUBTYPE_STOP);
                 $tokens1[] = $tmp;
 
+                /** @var FormulaToken $tmp */
                 $tmp = array_pop($stack);
                 $tmp->setValue('');
                 $tmp->setTokenSubType(FormulaToken::TOKEN_SUBTYPE_STOP);
@@ -414,6 +417,7 @@ class FormulaParser
                     $value = '';
                 }
 
+                /** @var FormulaToken $tmp */
                 $tmp = array_pop($stack);
                 $tmp->setValue('');
                 $tmp->setTokenSubType(FormulaToken::TOKEN_SUBTYPE_STOP);
@@ -436,6 +440,7 @@ class FormulaParser
                     $value = '';
                 }
 
+                /** @var FormulaToken $tmp */
                 $tmp = array_pop($stack);
                 $tmp->setValue('');
                 $tmp->setTokenSubType(FormulaToken::TOKEN_SUBTYPE_STOP);
@@ -469,10 +474,6 @@ class FormulaParser
                 $nextToken = $tokens1[$i + 1];
             } else {
                 $nextToken = null;
-            }
-
-            if ($token === null) {
-                continue;
             }
 
             if ($token->getTokenType() != FormulaToken::TOKEN_TYPE_WHITESPACE) {
@@ -523,15 +524,6 @@ class FormulaParser
                 $previousToken = $tokens2[$i - 1];
             } else {
                 $previousToken = null;
-            }
-            //if (isset($tokens2[$i + 1])) {
-            //    $nextToken = $tokens2[$i + 1];
-            //} else {
-            //    $nextToken = null;
-            //}
-
-            if ($token === null) {
-                continue;
             }
 
             if ($token->getTokenType() == FormulaToken::TOKEN_TYPE_OPERATORINFIX && $token->getValue() == '-') {

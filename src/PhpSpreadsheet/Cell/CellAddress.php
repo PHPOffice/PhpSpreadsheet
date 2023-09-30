@@ -30,6 +30,10 @@ class CellAddress implements Stringable
         $this->worksheet = null;
     }
 
+    /**
+     * @phpstan-assert int|numeric-string $columnId
+     * @phpstan-assert int|numeric-string $rowId
+     */
     private static function validateColumnAndRow(mixed $columnId, mixed $rowId): void
     {
         if (!is_numeric($columnId) || $columnId <= 0 || !is_numeric($rowId) || $rowId <= 0) {

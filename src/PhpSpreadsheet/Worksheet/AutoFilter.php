@@ -49,7 +49,7 @@ class AutoFilter implements Stringable
     /**
      * Create a new AutoFilter.
      *
-     * @param AddressRange|array<int>|string $range
+     * @param AddressRange|array{0: int, 1: int, 2: int, 3: int}|array{0: int, 1: int}|string $range
      *            A simple string containing a Cell range like 'A1:E10' is permitted
      *              or passing in an array of [$fromColumnIndex, $fromRow, $toColumnIndex, $toRow] (e.g. [3, 5, 6, 8]),
      *              or an AddressRange object.
@@ -105,7 +105,7 @@ class AutoFilter implements Stringable
     /**
      * Set AutoFilter Cell Range.
      *
-     * @param AddressRange|array<int>|string $range
+     * @param AddressRange|array{0: int, 1: int, 2: int, 3: int}|array{0: int, 1: int}|string $range
      *            A simple string containing a Cell range like 'A1:E10' or a Cell address like 'A1' is permitted
      *              or passing in an array of [$fromColumnIndex, $fromRow, $toColumnIndex, $toRow] (e.g. [3, 5, 6, 8]),
      *              or an AddressRange object.

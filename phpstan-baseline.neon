@@ -7,25 +7,25 @@ parameters:
 
 		-
 			message: "#^Cannot call method getTokenType\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\FormulaToken\\|null\\.$#"
-			count: 9
-			path: src/PhpSpreadsheet/Calculation/FormulaParser.php
-
-		-
-			message: "#^Cannot call method setTokenSubType\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\FormulaToken\\|null\\.$#"
-			count: 5
-			path: src/PhpSpreadsheet/Calculation/FormulaParser.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\FormulaToken\\|null\\.$#"
-			count: 5
-			path: src/PhpSpreadsheet/Calculation/FormulaParser.php
-
-		-
-			message: "#^Strict comparison using \\=\\=\\= between PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\FormulaToken and null will always evaluate to false\\.$#"
-			count: 1
+			count: 8
 			path: src/PhpSpreadsheet/Calculation/FormulaParser.php
 
 		-
 			message: "#^Binary operation \"/\" between float and array\\|float\\|int\\|string results in an error\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/MathTrig/Combinations.php
+
+		-
+			message: "#^Offset 2 does not exist on array\\{int, int, int, int\\}\\|array\\{int, int\\}\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Worksheet/Validations.php
+
+		-
+			message: "#^Offset 3 does not exist on array\\{int, int, int, int\\}\\|array\\{int, int\\}\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Worksheet/Validations.php
+
+		-
+			message: "#^Parameter \\#2 \\$value of function ini_set expects string, int given\\.$#"
+			count: 1
+			path: tests/bootstrap.php

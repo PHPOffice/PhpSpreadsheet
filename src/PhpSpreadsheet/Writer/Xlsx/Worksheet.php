@@ -11,6 +11,7 @@ use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
+use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalColorScale;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalDataBar;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalFormattingRuleExtension;
 use PhpOffice\PhpSpreadsheet\Worksheet\RowDimension;
@@ -685,15 +686,15 @@ class Worksheet extends WriterPart
             $minCfvo = $dataBar->getMinimumConditionalFormatValueObject();
             if ($minCfvo) {
                 $objWriter->startElement('cfvo');
-                self::writeAttributeIf($objWriter, $minCfvo->getType(), 'type', (string) $minCfvo->getType());
-                self::writeAttributeIf($objWriter, $minCfvo->getValue(), 'val', (string) $minCfvo->getValue());
+                $objWriter->writeAttribute('type', $minCfvo->getType());
+                self::writeAttributeIf($objWriter, $minCfvo->getValue() !== null, 'val', (string) $minCfvo->getValue());
                 $objWriter->endElement();
             }
             $maxCfvo = $dataBar->getMaximumConditionalFormatValueObject();
             if ($maxCfvo) {
                 $objWriter->startElement('cfvo');
-                self::writeAttributeIf($objWriter, $maxCfvo->getType(), 'type', (string) $maxCfvo->getType());
-                self::writeAttributeIf($objWriter, $maxCfvo->getValue(), 'val', (string) $maxCfvo->getValue());
+                $objWriter->writeAttribute('type', $maxCfvo->getType());
+                self::writeAttributeIf($objWriter, $maxCfvo->getValue() !== null, 'val', (string) $maxCfvo->getValue());
                 $objWriter->endElement();
             }
             if ($dataBar->getColor()) {
@@ -714,6 +715,57 @@ class Worksheet extends WriterPart
                 $objWriter->endElement();
                 $objWriter->endElement(); //end extLst
             }
+        }
+    }
+
+    private static function writeColorScaleElements(XMLWriter $objWriter, ?ConditionalColorScale $colorScale): void
+    {
+        if ($colorScale) {
+            $objWriter->startElement('colorScale');
+
+            $minCfvo = $colorScale->getMinimumConditionalFormatValueObject();
+            $minArgb = $colorScale->getMinimumColor()?->getARGB();
+            $useMin = $minCfvo !== null || $minArgb !== null;
+            if ($useMin) {
+                $objWriter->startElement('cfvo');
+                $objWriter->writeAttribute('type', $minCfvo?->getType() ?? 'min');
+                self::writeAttributeIf($objWriter, $minCfvo?->getValue() !== null, 'val', (string) $minCfvo?->getValue());
+                $objWriter->endElement();
+            }
+            $midCfvo = $colorScale->getMidpointConditionalFormatValueObject();
+            $midArgb = $colorScale->getMidpointColor()?->getARGB();
+            $useMid = $midCfvo !== null || $midArgb !== null;
+            if ($useMid) {
+                $objWriter->startElement('cfvo');
+                $objWriter->writeAttribute('type', $midCfvo?->getType() ?? 'percentile');
+                $objWriter->writeAttribute('val', (string) (($midCfvo?->getValue()) ?? '50'));
+                $objWriter->endElement();
+            }
+            $maxCfvo = $colorScale->getMaximumConditionalFormatValueObject();
+            $maxArgb = $colorScale->getMaximumColor()?->getARGB();
+            $useMax = $maxCfvo !== null || $maxArgb !== null;
+            if ($useMax) {
+                $objWriter->startElement('cfvo');
+                $objWriter->writeAttribute('type', $maxCfvo?->getType() ?? 'max');
+                self::writeAttributeIf($objWriter, $maxCfvo?->getValue() !== null, 'val', (string) $maxCfvo?->getValue());
+                $objWriter->endElement();
+            }
+            if ($useMin) {
+                $objWriter->startElement('color');
+                self::writeAttributeIf($objWriter, $minArgb !== null, 'rgb', "$minArgb");
+                $objWriter->endElement();
+            }
+            if ($useMid) {
+                $objWriter->startElement('color');
+                self::writeAttributeIf($objWriter, $midArgb !== null, 'rgb', "$midArgb");
+                $objWriter->endElement();
+            }
+            if ($useMax) {
+                $objWriter->startElement('color');
+                self::writeAttributeIf($objWriter, $maxArgb !== null, 'rgb', "$maxArgb");
+                $objWriter->endElement();
+            }
+            $objWriter->endElement(); // end colorScale
         }
     }
 
@@ -740,7 +792,9 @@ class Worksheet extends WriterPart
                 $objWriter->writeAttribute('type', $conditional->getConditionType());
                 self::writeAttributeIf(
                     $objWriter,
-                    ($conditional->getConditionType() !== Conditional::CONDITION_DATABAR && $conditional->getNoFormatSet() === false),
+                    ($conditional->getConditionType() !== Conditional::CONDITION_COLORSCALE
+                        && $conditional->getConditionType() !== Conditional::CONDITION_DATABAR
+                        && $conditional->getNoFormatSet() === false),
                     'dxfId',
                     (string) $this->getParentWriter()->getStylesConditionalHashTable()->getIndexForHashCode($conditional->getHashCode())
                 );
@@ -773,6 +827,8 @@ class Worksheet extends WriterPart
                     self::writeTextCondElements($objWriter, $conditional, $topLeftCell);
                 } elseif ($conditional->getConditionType() === Conditional::CONDITION_TIMEPERIOD) {
                     self::writeTimePeriodCondElements($objWriter, $conditional, $topLeftCell);
+                } elseif ($conditional->getConditionType() === Conditional::CONDITION_COLORSCALE) {
+                    self::writeColorScaleElements($objWriter, $conditional->getColorScale());
                 } else {
                     self::writeOtherCondElements($objWriter, $conditional, $topLeftCell);
                 }

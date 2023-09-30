@@ -5,6 +5,8 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Ods\Cell;
 use PhpOffice\PhpSpreadsheet\Helper\Dimension;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Style\Borders;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Font;
 use PhpOffice\PhpSpreadsheet\Style\Style as CellStyle;
@@ -65,6 +67,80 @@ class Style
         }
     }
 
+    private function writeBordersStyle(Borders $borders): void
+    {
+        $this->writeBorderStyle('bottom', $borders->getBottom());
+        $this->writeBorderStyle('left', $borders->getLeft());
+        $this->writeBorderStyle('right', $borders->getRight());
+        $this->writeBorderStyle('top', $borders->getTop());
+    }
+
+    private function writeBorderStyle(string $direction, Border $border): void
+    {
+        if ($border->getBorderStyle() === Border::BORDER_NONE) {
+            return;
+        }
+
+        $this->writer->writeAttribute('fo:border-' . $direction, sprintf(
+            '%s %s #%s',
+            $this->mapBorderWidth($border),
+            $this->mapBorderStyle($border),
+            $border->getColor()->getRGB(),
+        ));
+    }
+
+    private function mapBorderWidth(Border $border): string
+    {
+        switch ($border->getBorderStyle()) {
+            case Border::BORDER_THIN:
+            case Border::BORDER_DASHED:
+            case Border::BORDER_DASHDOT:
+            case Border::BORDER_DASHDOTDOT:
+            case Border::BORDER_DOTTED:
+            case Border::BORDER_HAIR:
+                return '0.75pt';
+            case Border::BORDER_MEDIUM:
+            case Border::BORDER_MEDIUMDASHED:
+            case Border::BORDER_MEDIUMDASHDOT:
+            case Border::BORDER_MEDIUMDASHDOTDOT:
+            case Border::BORDER_SLANTDASHDOT:
+                return '1.75pt';
+            case Border::BORDER_DOUBLE:
+            case Border::BORDER_THICK:
+                return '2.5pt';
+        }
+
+        return '1pt';
+    }
+
+    private function mapBorderStyle(Border $border): string
+    {
+        switch ($border->getBorderStyle()) {
+            case Border::BORDER_DOTTED:
+            case Border::BORDER_MEDIUMDASHDOTDOT:
+                return Border::BORDER_DOTTED;
+
+            case Border::BORDER_DASHED:
+            case Border::BORDER_DASHDOT:
+            case Border::BORDER_DASHDOTDOT:
+            case Border::BORDER_MEDIUMDASHDOT:
+            case Border::BORDER_MEDIUMDASHED:
+            case Border::BORDER_SLANTDASHDOT:
+                return Border::BORDER_DASHED;
+
+            case Border::BORDER_DOUBLE:
+                return Border::BORDER_DOUBLE;
+
+            case Border::BORDER_HAIR:
+            case Border::BORDER_MEDIUM:
+            case Border::BORDER_THICK:
+            case Border::BORDER_THIN:
+                return 'solid';
+        }
+
+        return 'solid';
+    }
+
     private function writeCellProperties(CellStyle $style): void
     {
         // Align
@@ -86,6 +162,9 @@ class Style
 
         // Fill
         $this->writeFillStyle($style->getFill());
+
+        // Border
+        $this->writeBordersStyle($style->getBorders());
 
         $this->writer->endElement();
 

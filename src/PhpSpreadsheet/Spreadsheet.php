@@ -373,7 +373,7 @@ class Spreadsheet implements JsonSerializable
     {
         $extension = pathinfo($path, PATHINFO_EXTENSION);
 
-        return substr(/** @scrutinizer ignore-type */ $extension, 0);
+        return substr($extension, 0);
     }
 
     /**
@@ -1597,16 +1597,6 @@ class Spreadsheet implements JsonSerializable
                 $filter->showHideRows();
             }
         }
-    }
-
-    /**
-     * Silliness to mollify Scrutinizer.
-     *
-     * @codeCoverageIgnore
-     */
-    public function getSharedComponent(): Style
-    {
-        return new Style();
     }
 
     /**

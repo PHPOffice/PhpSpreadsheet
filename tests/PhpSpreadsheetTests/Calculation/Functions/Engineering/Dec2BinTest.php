@@ -31,7 +31,6 @@ class Dec2BinTest extends TestCase
      */
     public function testDirectCallToDEC2BIN(mixed $expectedResult, mixed ...$args): void
     {
-        /** @scrutinizer ignore-call */
         $result = ConvertDecimal::toBinary(...$args);
         self::assertSame($expectedResult, $result);
     }
@@ -115,7 +114,6 @@ class Dec2BinTest extends TestCase
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
 
-        /** @scrutinizer ignore-call */
         $result = ConvertDecimal::toBinary(...$args);
         self::assertSame($expectedResult, $result);
     }

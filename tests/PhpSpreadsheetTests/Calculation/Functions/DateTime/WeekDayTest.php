@@ -34,7 +34,6 @@ class WeekDayTest extends TestCase
      */
     public function testDirectCallToWEEKDAY(mixed $expectedResult, mixed ...$args): void
     {
-        /** @scrutinizer ignore-call */
         $result = Week::day(...$args);
         self::assertSame($expectedResult, $result);
     }
