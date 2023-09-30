@@ -21,6 +21,8 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - ListWorksheetInfo/Names for Html/Csv/Slk. [Issue #3706](https://github.com/PHPOffice/PhpSpreadsheet/issues/3706) [PR #3709](https://github.com/PHPOffice/PhpSpreadsheet/pull/3709)
 - Methods to determine if cell is actually locked, or hidden on formula bar. [PR #3722](https://github.com/PHPOffice/PhpSpreadsheet/pull/3722)
 - Add iterateOnlyExistingCells to Constructors. [Issue #3721](https://github.com/PHPOffice/PhpSpreadsheet/issues/3721) [PR #3727](https://github.com/PHPOffice/PhpSpreadsheet/pull/3727)
+- Support for Conditional Formatting Color Scale. [PR #3738](https://github.com/PHPOffice/PhpSpreadsheet/pull/3738)
+- Support Additional Tags in Helper/Html. [Issue #3751](https://github.com/PHPOffice/PhpSpreadsheet/issues/3751) [PR #3752](https://github.com/PHPOffice/PhpSpreadsheet/pull/3752)
 - Writer ODS : Write Border Style for cells [Issue #3690](https://github.com/PHPOffice/PhpSpreadsheet/issues/3690) [PR #3693](https://github.com/PHPOffice/PhpSpreadsheet/pull/3693)
 
 ### Changed
@@ -63,6 +65,8 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Inconsistency Between Cell Data and Explicitly Declared Type. [Issue #3711](https://github.com/PHPOffice/PhpSpreadsheet/issues/3711) [PR #3715](https://github.com/PHPOffice/PhpSpreadsheet/pull/3715)
 - Unexpected Namespacing in rels File. [Issue #3720](https://github.com/PHPOffice/PhpSpreadsheet/issues/3720) [PR #3722](https://github.com/PHPOffice/PhpSpreadsheet/pull/3722)
 - Break Some Circular References. [PR #3716](https://github.com/PHPOffice/PhpSpreadsheet/pull/3716) [PR #3707](https://github.com/PHPOffice/PhpSpreadsheet/pull/3707)
+- Missing Font Index in Some Xls. [PR #3734](https://github.com/PHPOffice/PhpSpreadsheet/pull/3734)
+- Load Tables even with READ_DATA_ONLY. [PR #3726](https://github.com/PHPOffice/PhpSpreadsheet/pull/3726)
 
 ## 1.29.0 - 2023-06-15
 
