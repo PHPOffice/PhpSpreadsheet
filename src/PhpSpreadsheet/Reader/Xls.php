@@ -1062,7 +1062,7 @@ class Xls extends BaseReader
                         case 0x19:
                             // Note
                             if (isset($this->cellNotes[$obj['idObjID']])) {
-                                $cellNote = $this->cellNotes[$obj['idObjID']];
+                                //$cellNote = $this->cellNotes[$obj['idObjID']];
 
                                 if (isset($this->textObjects[$obj['idObjID']])) {
                                     $textObject = $this->textObjects[$obj['idObjID']];
@@ -1347,7 +1347,7 @@ class Xls extends BaseReader
         // offset: 6; size: 2; OS indicator
         // offset: 8; size: 16
         // offset: 24; size: 4; section count
-        $secCount = self::getInt4d($this->summaryInformation, 24);
+        //$secCount = self::getInt4d($this->summaryInformation, 24);
 
         // offset: 28; size: 16; first section's class id: e0 85 9f f2 f9 4f 68 10 ab 91 08 00 2b 27 b3 d9
         // offset: 44; size: 4
@@ -1355,7 +1355,7 @@ class Xls extends BaseReader
 
         // section header
         // offset: $secOffset; size: 4; section length
-        $secLength = self::getInt4d($this->summaryInformation, $secOffset);
+        //$secLength = self::getInt4d($this->summaryInformation, $secOffset);
 
         // offset: $secOffset+4; size: 4; property count
         $countProperties = self::getInt4d($this->summaryInformation, $secOffset + 4);
@@ -1494,7 +1494,7 @@ class Xls extends BaseReader
         //    offset: 6;    size: 2;    OS indicator
         //    offset: 8;    size: 16
         //    offset: 24;    size: 4;    section count
-        $secCount = self::getInt4d($this->documentSummaryInformation, 24);
+        //$secCount = self::getInt4d($this->documentSummaryInformation, 24);
 
         // offset: 28;    size: 16;    first section's class id: 02 d5 cd d5 9c 2e 1b 10 93 97 08 00 2b 2c f9 ae
         // offset: 44;    size: 4;    first section offset
@@ -1502,7 +1502,7 @@ class Xls extends BaseReader
 
         //    section header
         //    offset: $secOffset;    size: 4;    section length
-        $secLength = self::getInt4d($this->documentSummaryInformation, $secOffset);
+        //$secLength = self::getInt4d($this->documentSummaryInformation, $secOffset);
 
         //    offset: $secOffset+4;    size: 4;    property count
         $countProperties = self::getInt4d($this->documentSummaryInformation, $secOffset + 4);
@@ -1660,14 +1660,14 @@ class Xls extends BaseReader
                 //    If the address row is -1 and the column is 0, (which translates as $B$65536) then this is a continuation
                 //        note from the previous cell annotation. We're not yet handling this, so annotations longer than the
                 //        max 2048 bytes will probably throw a wobbly.
-                $row = self::getUInt2d($recordData, 0);
+                //$row = self::getUInt2d($recordData, 0);
                 $extension = true;
                 $arrayKeys = array_keys($this->phpSheet->getComments());
                 $cellAddress = array_pop($arrayKeys);
             }
 
             $cellAddress = str_replace('$', '', (string) $cellAddress);
-            $noteLength = self::getUInt2d($recordData, 4);
+            //$noteLength = self::getUInt2d($recordData, 4);
             $noteText = trim(substr($recordData, 6));
 
             if ($extension) {
@@ -1706,7 +1706,7 @@ class Xls extends BaseReader
         // followed by the continuation records containing the actual text and formatting
         $grbitOpts = self::getUInt2d($recordData, 0);
         $rot = self::getUInt2d($recordData, 2);
-        $cchText = self::getUInt2d($recordData, 10);
+        //$cchText = self::getUInt2d($recordData, 10);
         $cbRuns = self::getUInt2d($recordData, 12);
         $text = $this->getSplicedRecordData();
 
@@ -2222,12 +2222,12 @@ class Xls extends BaseReader
                 $diagonalUp = ((int) 0x80000000 & self::getInt4d($recordData, 10)) >> 31 ? true : false;
 
                 if ($diagonalUp === false) {
-                    if ($diagonalDown == false) {
+                    if ($diagonalDown === false) {
                         $objStyle->getBorders()->setDiagonalDirection(Borders::DIAGONAL_NONE);
                     } else {
                         $objStyle->getBorders()->setDiagonalDirection(Borders::DIAGONAL_DOWN);
                     }
-                } elseif ($diagonalDown == false) {
+                } elseif ($diagonalDown === false) {
                     $objStyle->getBorders()->setDiagonalDirection(Borders::DIAGONAL_UP);
                 } else {
                     $objStyle->getBorders()->setDiagonalDirection(Borders::DIAGONAL_BOTH);
@@ -2366,7 +2366,7 @@ class Xls extends BaseReader
             // offset: 16; size: 2; not used
 
             // offset: 18; size: 2; number of extension properties that follow
-            $cexts = self::getUInt2d($recordData, 18);
+            //$cexts = self::getUInt2d($recordData, 18);
 
             // start reading the actual extension data
             $offset = 20;
@@ -2532,7 +2532,7 @@ class Xls extends BaseReader
             $ixfe = self::getUInt2d($recordData, 0);
 
             // bit: 11-0; mask 0x0FFF; index to XF record
-            $xfIndex = (0x0FFF & $ixfe) >> 0;
+            //$xfIndex = (0x0FFF & $ixfe) >> 0;
 
             // bit: 15; mask 0x8000; 0 = user-defined style, 1 = built-in style
             $isBuiltIn = (bool) ((0x8000 & $ixfe) >> 15);
@@ -2820,7 +2820,7 @@ class Xls extends BaseReader
      */
     private function readMsoDrawingGroup(): void
     {
-        $length = self::getUInt2d($this->data, $this->pos + 2);
+        //$length = self::getUInt2d($this->data, $this->pos + 2);
 
         // get spliced record data
         $splicedRecordData = $this->getSplicedRecordData();
@@ -3113,7 +3113,7 @@ class Xls extends BaseReader
             for ($i = 0; $i < $nm; ++$i) {
                 $r = self::getUInt2d($recordData, 2 + 6 * $i);
                 $cf = self::getUInt2d($recordData, 2 + 6 * $i + 2);
-                $cl = self::getUInt2d($recordData, 2 + 6 * $i + 4);
+                //$cl = self::getUInt2d($recordData, 2 + 6 * $i + 4);
 
                 // not sure why two column indexes are necessary?
                 $this->phpSheet->setBreak([$cf + 1, $r], Worksheet::BREAK_ROW);
@@ -3660,7 +3660,7 @@ class Xls extends BaseReader
         $column = self::getUInt2d($recordData, 2);
         $columnString = Coordinate::stringFromColumnIndex($column + 1);
 
-        $emptyCell = true;
+        $cell = null;
         // Read cell?
         if (($this->getReadFilter() !== null) && $this->getReadFilter()->readCell($columnString, $row + 1, $this->phpSheet->getTitle())) {
             // offset: 4; size: 2; index to XF record
@@ -3707,17 +3707,15 @@ class Xls extends BaseReader
                 if ($this->readEmptyCells || trim($richText->getPlainText()) !== '') {
                     $cell = $this->phpSheet->getCell($columnString . ($row + 1));
                     $cell->setValueExplicit($richText, DataType::TYPE_STRING);
-                    $emptyCell = false;
                 }
             } else {
                 if ($this->readEmptyCells || trim($this->sst[$index]['value']) !== '') {
                     $cell = $this->phpSheet->getCell($columnString . ($row + 1));
                     $cell->setValueExplicit($this->sst[$index]['value'], DataType::TYPE_STRING);
-                    $emptyCell = false;
                 }
             }
 
-            if (!$this->readDataOnly && !$emptyCell && isset($this->mapCellXfIndex[$xfIndex])) {
+            if (!$this->readDataOnly && $cell !== null && isset($this->mapCellXfIndex[$xfIndex])) {
                 // add style information
                 $cell->setXfIndex($this->mapCellXfIndex[$xfIndex]);
             }
@@ -3967,13 +3965,13 @@ class Xls extends BaseReader
         $this->pos += 4 + $length;
 
         // offset: 0, size: 6; cell range address of the area used by the shared formula, not used for anything
-        $cellRange = substr($recordData, 0, 6);
-        $cellRange = $this->readBIFF5CellRangeAddressFixed($cellRange); // note: even BIFF8 uses BIFF5 syntax
+        //$cellRange = substr($recordData, 0, 6);
+        //$cellRange = $this->readBIFF5CellRangeAddressFixed($cellRange); // note: even BIFF8 uses BIFF5 syntax
 
         // offset: 6, size: 1; not used
 
         // offset: 7, size: 1; number of existing FORMULA records for this shared formula
-        $no = ord($recordData[7]);
+        //$no = ord($recordData[7]);
 
         // offset: 8, size: var; Binary token array of the shared formula
         $formula = substr($recordData, 8);
@@ -4194,7 +4192,7 @@ class Xls extends BaseReader
      */
     private function readMsoDrawing(): void
     {
-        $length = self::getUInt2d($this->data, $this->pos + 2);
+        //$length = self::getUInt2d($this->data, $this->pos + 2);
 
         // get spliced record data
         $splicedRecordData = $this->getSplicedRecordData();
@@ -4258,10 +4256,10 @@ class Xls extends BaseReader
         $options = self::getUInt2d($recordData, 0);
 
         // offset: 2; size: 2; index to first visible row
-        $firstVisibleRow = self::getUInt2d($recordData, 2);
+        //$firstVisibleRow = self::getUInt2d($recordData, 2);
 
         // offset: 4; size: 2; index to first visible colum
-        $firstVisibleColumn = self::getUInt2d($recordData, 4);
+        //$firstVisibleColumn = self::getUInt2d($recordData, 4);
         $zoomscaleInPageBreakPreview = 0;
         $zoomscaleInNormalView = 0;
         if ($this->version === self::XLS_BIFF8) {
@@ -4341,10 +4339,10 @@ class Xls extends BaseReader
 
         // offset: 0; size: 2; rt
         //->ignore
-        $rt = self::getUInt2d($recordData, 0);
+        //$rt = self::getUInt2d($recordData, 0);
         // offset: 2; size: 2; grbitfr
         //->ignore
-        $grbitFrt = self::getUInt2d($recordData, 2);
+        //$grbitFrt = self::getUInt2d($recordData, 2);
         // offset: 4; size: 8; reserved
         //->ignore
 
@@ -4355,8 +4353,8 @@ class Xls extends BaseReader
 
         // decomprise grbit
         $fPageLayoutView = $grbit & 0x01;
-        $fRulerVisible = ($grbit >> 1) & 0x01; //no support
-        $fWhitespaceHidden = ($grbit >> 3) & 0x01; //no support
+        //$fRulerVisible = ($grbit >> 1) & 0x01; //no support
+        //$fWhitespaceHidden = ($grbit >> 3) & 0x01; //no support
 
         if ($fPageLayoutView === 1) {
             $this->phpSheet->getSheetView()->setView(SheetView::SHEETVIEW_PAGE_LAYOUT);
@@ -4433,17 +4431,17 @@ class Xls extends BaseReader
 
         if (!$this->readDataOnly) {
             // offset: 0; size: 1; pane identifier
-            $paneId = ord($recordData[0]);
+            //$paneId = ord($recordData[0]);
 
             // offset: 1; size: 2; index to row of the active cell
-            $r = self::getUInt2d($recordData, 1);
+            //$r = self::getUInt2d($recordData, 1);
 
             // offset: 3; size: 2; index to column of the active cell
-            $c = self::getUInt2d($recordData, 3);
+            //$c = self::getUInt2d($recordData, 3);
 
             // offset: 5; size: 2; index into the following cell range list to the
             //  entry that contains the active cell
-            $index = self::getUInt2d($recordData, 5);
+            //$index = self::getUInt2d($recordData, 5);
 
             // offset: 7; size: var; cell range address list containing all selected cell ranges
             $data = substr($recordData, 7);
@@ -4549,7 +4547,7 @@ class Xls extends BaseReader
             $isFileLinkOrUrl = (0x00000001 & self::getUInt2d($recordData, 28)) >> 0;
 
             // bit: 1; mask: 0x00000002; 0 = relative path, 1 = absolute path or URL
-            $isAbsPathOrUrl = (0x00000001 & self::getUInt2d($recordData, 28)) >> 1;
+            //$isAbsPathOrUrl = (0x00000001 & self::getUInt2d($recordData, 28)) >> 1;
 
             // bit: 2 (and 4); mask: 0x00000014; 0 = no description
             $hasDesc = (0x00000014 & self::getUInt2d($recordData, 28)) >> 2;
@@ -4570,7 +4568,7 @@ class Xls extends BaseReader
                 // offset: 32; size: var; character count of description text
                 $dl = self::getInt4d($recordData, 32);
                 // offset: 36; size: var; character array of description text, no Unicode string header, always 16-bit characters, zero terminated
-                $desc = self::encodeUTF16(substr($recordData, 36, 2 * ($dl - 1)), false);
+                //$desc = self::encodeUTF16(substr($recordData, 36, 2 * ($dl - 1)), false);
                 $offset += 4 + 2 * $dl;
             }
             if ($hasFrame) {
@@ -4643,6 +4641,7 @@ class Xls extends BaseReader
                     $sz = self::getInt4d($recordData, $offset);
                     $offset += 4;
 
+                    $extendedFilePath = '';
                     // only present if $sz > 0
                     if ($sz > 0) {
                         // offset: var; size: 4; size of the character array of the extended file path and name
@@ -4700,7 +4699,7 @@ class Xls extends BaseReader
     private function readDataValidations(): void
     {
         $length = self::getUInt2d($this->data, $this->pos + 2);
-        $recordData = $this->readRecordData($this->data, $this->pos + 4, $length);
+        //$recordData = $this->readRecordData($this->data, $this->pos + 4, $length);
 
         // move stream pointer forward to next record
         $this->pos += 4 + $length;
@@ -4853,9 +4852,6 @@ class Xls extends BaseReader
 
         // move stream pointer to next record
         $this->pos += 4 + $length;
-
-        // local pointer in record data
-        $offset = 0;
 
         if (!$this->readDataOnly) {
             // offset: 0; size: 2; repeated record identifier 0x0862
@@ -5031,7 +5027,7 @@ class Xls extends BaseReader
             }
 
             // offset: var; size: var; variable length of feature specific data
-            $rgbFeat = substr($recordData, $offset);
+            //$rgbFeat = substr($recordData, $offset);
             $offset += 4;
 
             // offset: var; size: 4; the encrypted password (only 16-bit although field is 32-bit)
@@ -5111,7 +5107,7 @@ class Xls extends BaseReader
             ++$i;
 
             // offset: 0; size: 2; identifier
-            $identifier = self::getUInt2d($this->data, $this->pos);
+            //$identifier = self::getUInt2d($this->data, $this->pos);
             // offset: 2; size: 2; length
             $length = self::getUInt2d($this->data, $this->pos + 2);
             $data .= $this->readRecordData($this->data, $this->pos + 4, $length);
@@ -7187,8 +7183,6 @@ class Xls extends BaseReader
      */
     private static function readUnicodeStringShort($subData)
     {
-        $value = '';
-
         // offset: 0: size: 1; length of the string (character count)
         $characterCount = ord($subData[0]);
 
@@ -7211,8 +7205,6 @@ class Xls extends BaseReader
      */
     private static function readUnicodeStringLong($subData)
     {
-        $value = '';
-
         // offset: 0: size: 2; length of the string (character count)
         $characterCount = self::getUInt2d($subData, 0);
 
@@ -7234,17 +7226,15 @@ class Xls extends BaseReader
      */
     private static function readUnicodeString($subData, $characterCount): array
     {
-        $value = '';
-
         // offset: 0: size: 1; option flags
         // bit: 0; mask: 0x01; character compression (0 = compressed 8-bit, 1 = uncompressed 16-bit)
         $isCompressed = !((0x01 & ord($subData[0])) >> 0);
 
         // bit: 2; mask: 0x04; Asian phonetic settings
-        $hasAsian = (0x04) & ord($subData[0]) >> 2;
+        //$hasAsian = (0x04) & ord($subData[0]) >> 2;
 
         // bit: 3; mask: 0x08; Rich-Text settings
-        $hasRichText = (0x08) & ord($subData[0]) >> 3;
+        //$hasRichText = (0x08) & ord($subData[0]) >> 3;
 
         // offset: 1: size: var; character array
         // this offset assumes richtext and Asian phonetic settings are off which is generally wrong
@@ -7514,13 +7504,13 @@ class Xls extends BaseReader
 
         if ($hasAlignmentRecord === true) {
             $alignmentStyle = substr($recordData, $offset, 8);
-            $this->getCFAlignmentStyle($alignmentStyle, $style);
+            //$this->getCFAlignmentStyle($alignmentStyle, $style);
             $offset += 8;
         }
 
         if ($hasBorderRecord === true) {
             $borderStyle = substr($recordData, $offset, 8);
-            $this->getCFBorderStyle($borderStyle, $style);
+            //$this->getCFBorderStyle($borderStyle, $style);
             $offset += 8;
         }
 
@@ -7532,7 +7522,7 @@ class Xls extends BaseReader
 
         if ($hasProtectionRecord === true) {
             $protectionStyle = substr($recordData, $offset, 4);
-            $this->getCFProtectionStyle($protectionStyle, $style);
+            //$this->getCFProtectionStyle($protectionStyle, $style);
             $offset += 2;
         }
 
@@ -7579,13 +7569,13 @@ class Xls extends BaseReader
         }
     }
 
-    private function getCFAlignmentStyle(string $options, Style $style): void
+    /*private function getCFAlignmentStyle(string $options, Style $style): void
     {
-    }
+    }*/
 
-    private function getCFBorderStyle(string $options, Style $style): void
+    /*private function getCFBorderStyle(string $options, Style $style): void
     {
-    }
+    }*/
 
     private function getCFFillStyle(string $options, Style $style): void
     {
@@ -7610,9 +7600,9 @@ class Xls extends BaseReader
         }
     }
 
-    private function getCFProtectionStyle(string $options, Style $style): void
+    /*private function getCFProtectionStyle(string $options, Style $style): void
     {
-    }
+    }*/
 
     private function readCFFormula(string $recordData, int $offset, int $size): float|int|string|null
     {
@@ -7627,9 +7617,8 @@ class Xls extends BaseReader
 
             return $formula;
         } catch (PhpSpreadsheetException) {
+            return null;
         }
-
-        return null;
     }
 
     /**
