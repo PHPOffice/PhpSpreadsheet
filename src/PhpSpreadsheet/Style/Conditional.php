@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Style;
 
 use PhpOffice\PhpSpreadsheet\IComparable;
+use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalColorScale;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalDataBar;
 
 class Conditional implements IComparable
@@ -11,6 +12,7 @@ class Conditional implements IComparable
     const CONDITION_NONE = 'none';
     const CONDITION_BEGINSWITH = 'beginsWith';
     const CONDITION_CELLIS = 'cellIs';
+    const CONDITION_COLORSCALE = 'colorScale';
     const CONDITION_CONTAINSBLANKS = 'containsBlanks';
     const CONDITION_CONTAINSERRORS = 'containsErrors';
     const CONDITION_CONTAINSTEXT = 'containsText';
@@ -27,6 +29,7 @@ class Conditional implements IComparable
     private const CONDITION_TYPES = [
         self::CONDITION_BEGINSWITH,
         self::CONDITION_CELLIS,
+        self::CONDITION_COLORSCALE,
         self::CONDITION_CONTAINSBLANKS,
         self::CONDITION_CONTAINSERRORS,
         self::CONDITION_CONTAINSTEXT,
@@ -91,10 +94,8 @@ class Conditional implements IComparable
 
     /**
      * Stop on this condition, if it matches.
-     *
-     * @var bool
      */
-    private $stopIfTrue = false;
+    private bool $stopIfTrue = false;
 
     /**
      * Condition.
@@ -103,18 +104,13 @@ class Conditional implements IComparable
      */
     private $condition = [];
 
-    /**
-     * @var ConditionalDataBar
-     */
-    private $dataBar;
+    private ?ConditionalDataBar $dataBar = null;
 
-    /**
-     * Style.
-     */
+    private ?ConditionalColorScale $colorScale = null;
+
     private Style $style;
 
-    /** @var bool */
-    private $noFormatSet = false;
+    private bool $noFormatSet = false;
 
     /**
      * Create a new Conditional.
@@ -296,24 +292,26 @@ class Conditional implements IComparable
         return $this;
     }
 
-    /**
-     * get DataBar.
-     *
-     * @return null|ConditionalDataBar
-     */
-    public function getDataBar()
+    public function getDataBar(): ?ConditionalDataBar
     {
         return $this->dataBar;
     }
 
-    /**
-     * set DataBar.
-     *
-     * @return $this
-     */
     public function setDataBar(ConditionalDataBar $dataBar): static
     {
         $this->dataBar = $dataBar;
+
+        return $this;
+    }
+
+    public function getColorScale(): ?ConditionalColorScale
+    {
+        return $this->colorScale;
+    }
+
+    public function setColorScale(ConditionalColorScale $colorScale): static
+    {
+        $this->colorScale = $colorScale;
 
         return $this;
     }
