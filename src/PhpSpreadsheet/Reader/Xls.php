@@ -1173,6 +1173,7 @@ class Xls extends BaseReader
                         $ranges = explode(',', $definedName['formula']); // FIXME: what if sheetname contains comma?
 
                         $extractedRanges = [];
+                        $sheetName = '';
                         /** @var non-empty-string $range */
                         foreach ($ranges as $range) {
                             // $range should look like one of these
@@ -2705,7 +2706,7 @@ class Xls extends BaseReader
         // external sheet references provided for named cells
         if ($this->version == self::XLS_BIFF8) {
             // offset: 0; size: 2; options
-            $options = self::getUInt2d($recordData, 0);
+            //$options = self::getUInt2d($recordData, 0);
 
             // offset: 2; size: 2;
 
@@ -4733,7 +4734,7 @@ class Xls extends BaseReader
 
         // bit: 7; mask: 0x00000080; 1= formula is explicit (only applies to list)
         // I have only seen cases where this is 1
-        $explicitFormula = (0x00000080 & $options) >> 7;
+        //$explicitFormula = (0x00000080 & $options) >> 7;
 
         // bit: 8; mask: 0x00000100; 1= empty cells allowed
         $allowBlank = (0x00000100 & $options) >> 8;
@@ -7486,7 +7487,7 @@ class Xls extends BaseReader
         $options = self::getInt4d($recordData, 6);
 
         $style = new Style(false, true); // non-supervisor, conditional
-        $this->getCFStyleOptions($options, $style);
+        //$this->getCFStyleOptions($options, $style);
 
         $hasFontRecord = (bool) ((0x04000000 & $options) >> 26);
         $hasAlignmentRecord = (bool) ((0x08000000 & $options) >> 27);
@@ -7503,13 +7504,13 @@ class Xls extends BaseReader
         }
 
         if ($hasAlignmentRecord === true) {
-            $alignmentStyle = substr($recordData, $offset, 8);
+            //$alignmentStyle = substr($recordData, $offset, 8);
             //$this->getCFAlignmentStyle($alignmentStyle, $style);
             $offset += 8;
         }
 
         if ($hasBorderRecord === true) {
-            $borderStyle = substr($recordData, $offset, 8);
+            //$borderStyle = substr($recordData, $offset, 8);
             //$this->getCFBorderStyle($borderStyle, $style);
             $offset += 8;
         }
@@ -7521,7 +7522,7 @@ class Xls extends BaseReader
         }
 
         if ($hasProtectionRecord === true) {
-            $protectionStyle = substr($recordData, $offset, 4);
+            //$protectionStyle = substr($recordData, $offset, 4);
             //$this->getCFProtectionStyle($protectionStyle, $style);
             $offset += 2;
         }
@@ -7548,9 +7549,9 @@ class Xls extends BaseReader
         $this->setCFRules($cellRangeAddresses, $type, $operator, $formula1, $formula2, $style);
     }
 
-    private function getCFStyleOptions(int $options, Style $style): void
+    /*private function getCFStyleOptions(int $options, Style $style): void
     {
-    }
+    }*/
 
     private function getCFFontStyle(string $options, Style $style): void
     {
