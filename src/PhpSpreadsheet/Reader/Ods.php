@@ -41,16 +41,22 @@ class Ods extends BaseReader
 
     /**
      * Can the current IReader read the file?
+     *
+     * @param resource|string $file
      */
-    public function canRead(string $filename): bool
+    public function canRead($file): bool
     {
+        if (is_resource($file)) {
+            return false; // TODO
+        }
+
         $mimeType = 'UNKNOWN';
 
         // Load file
 
-        if (File::testFileNoThrow($filename, '')) {
+        if (File::testFileNoThrow($file, '')) {
             $zip = new ZipArchive();
-            if ($zip->open($filename) === true) {
+            if ($zip->open($file) === true) {
                 // check if it is an OOXML archive
                 $stat = $zip->statName('mimetype');
                 if (!empty($stat) && ($stat['size'] <= 255)) {
@@ -87,17 +93,22 @@ class Ods extends BaseReader
     /**
      * Reads names of the worksheets from a file, without parsing the whole file to a PhpSpreadsheet object.
      *
+     * @param resource|string $file
+     *
      * @return string[]
      */
-    public function listWorksheetNames(string $filename): array
+    public function listWorksheetNames($file): array
     {
-        File::assertFile($filename, self::INITIAL_FILE);
+        if (is_resource($file)) {
+            throw new Exception('file as stream not supported');
+        }
+        File::assertFile($file, self::INITIAL_FILE);
 
         $worksheetNames = [];
 
         $xml = new XMLReader();
         $xml->xml(
-            $this->getSecurityScannerOrThrow()->scanFile('zip://' . realpath($filename) . '#' . self::INITIAL_FILE),
+            $this->getSecurityScannerOrThrow()->scanFile('zip://' . realpath($file) . '#' . self::INITIAL_FILE),
             null,
             Settings::getLibXmlLoaderOptions()
         );
@@ -135,16 +146,22 @@ class Ods extends BaseReader
 
     /**
      * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
+     *
+     * @param resource|string $file
      */
-    public function listWorksheetInfo(string $filename): array
+    public function listWorksheetInfo($file): array
     {
-        File::assertFile($filename, self::INITIAL_FILE);
+        if (is_resource($file)) {
+            throw new Exception('file as stream not supported');
+        }
+
+        File::assertFile($file, self::INITIAL_FILE);
 
         $worksheetInfo = [];
 
         $xml = new XMLReader();
         $xml->xml(
-            $this->getSecurityScannerOrThrow()->scanFile('zip://' . realpath($filename) . '#' . self::INITIAL_FILE),
+            $this->getSecurityScannerOrThrow()->scanFile('zip://' . realpath($file) . '#' . self::INITIAL_FILE),
             null,
             Settings::getLibXmlLoaderOptions()
         );
@@ -228,15 +245,21 @@ class Ods extends BaseReader
 
     /**
      * Loads PhpSpreadsheet from file.
+     *
+     * @param resource|string $file
      */
-    protected function loadSpreadsheetFromFile(string $filename): Spreadsheet
+    protected function loadSpreadsheetFromFile($file): Spreadsheet
     {
+        if (is_resource($file)) {
+            throw new Exception('file as stream not supported');
+        }
+
         // Create new Spreadsheet
         $spreadsheet = new Spreadsheet();
         $spreadsheet->removeSheetByIndex(0);
 
         // Load into this instance
-        return $this->loadIntoExisting($filename, $spreadsheet);
+        return $this->loadIntoExisting($file, $spreadsheet);
     }
 
     /**

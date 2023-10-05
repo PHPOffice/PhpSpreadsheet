@@ -77,17 +77,23 @@ class Xlsx extends BaseReader
 
     /**
      * Can the current IReader read the file?
+     *
+     * @param resource|string $file
      */
-    public function canRead(string $filename): bool
+    public function canRead($file): bool
     {
-        if (!File::testFileNoThrow($filename, self::INITIAL_FILE)) {
+        if (is_resource($file)) {
+            return false; // TODO
+        }
+
+        if (!File::testFileNoThrow($file, self::INITIAL_FILE)) {
             return false;
         }
 
         $result = false;
         $this->zip = $zip = new ZipArchive();
 
-        if ($zip->open($filename) === true) {
+        if ($zip->open($file) === true) {
             [$workbookBasename] = $this->getWorkbookBaseName();
             $result = !empty($workbookBasename);
 
@@ -164,15 +170,21 @@ class Xlsx extends BaseReader
 
     /**
      * Reads names of the worksheets from a file, without parsing the whole file to a Spreadsheet object.
+     *
+     * @param resource|string $file
      */
-    public function listWorksheetNames(string $filename): array
+    public function listWorksheetNames($file): array
     {
-        File::assertFile($filename, self::INITIAL_FILE);
+        if (is_resource($file)) {
+            throw new Exception('file as stream not supported');
+        }
+
+        File::assertFile($file, self::INITIAL_FILE);
 
         $worksheetNames = [];
 
         $this->zip = $zip = new ZipArchive();
-        $zip->open($filename);
+        $zip->open($file);
 
         //    The files we're looking at here are small enough that simpleXML is more efficient than XMLReader
         $rels = $this->loadZip(self::INITIAL_FILE, Namespaces::RELATIONSHIPS);
@@ -199,15 +211,21 @@ class Xlsx extends BaseReader
 
     /**
      * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
+     *
+     * @param resource|string $file
      */
-    public function listWorksheetInfo(string $filename): array
+    public function listWorksheetInfo($file): array
     {
-        File::assertFile($filename, self::INITIAL_FILE);
+        if (is_resource($file)) {
+            throw new Exception('file as stream not supported');
+        }
+
+        File::assertFile($file, self::INITIAL_FILE);
 
         $worksheetInfo = [];
 
         $this->zip = $zip = new ZipArchive();
-        $zip->open($filename);
+        $zip->open($file);
 
         $rels = $this->loadZip(self::INITIAL_FILE, Namespaces::RELATIONSHIPS);
         foreach ($rels->Relationship as $relx) {
@@ -396,10 +414,16 @@ class Xlsx extends BaseReader
 
     /**
      * Loads Spreadsheet from file.
+     *
+     * @param resource|string $file
      */
-    protected function loadSpreadsheetFromFile(string $filename): Spreadsheet
+    protected function loadSpreadsheetFromFile($file): Spreadsheet
     {
-        File::assertFile($filename, self::INITIAL_FILE);
+        if (is_resource($file)) {
+            throw new Exception('file as stream not supported');
+        }
+
+        File::assertFile($file, self::INITIAL_FILE);
 
         // Initialisations
         $excel = new Spreadsheet();
@@ -410,7 +434,7 @@ class Xlsx extends BaseReader
         $unparsedLoadedData = [];
 
         $this->zip = $zip = new ZipArchive();
-        $zip->open($filename);
+        $zip->open($file);
 
         //    Read the theme first, because we need the colour scheme when reading the styles
         [$workbookBasename, $xmlNamespaceBase] = $this->getWorkbookBaseName();
@@ -1182,7 +1206,7 @@ class Xlsx extends BaseReader
                                                     $objDrawing->setName($fillImageTitle);
                                                     $imagePath = str_replace(['../', '/xl/'], 'xl/', $drowingImages[$fillImageRelId]);
                                                     $objDrawing->setPath(
-                                                        'zip://' . File::realpath($filename) . '#' . $imagePath,
+                                                        'zip://' . File::realpath($file) . '#' . $imagePath,
                                                         true,
                                                         $zip
                                                     );
@@ -1287,7 +1311,7 @@ class Xlsx extends BaseReader
                                                         $hfImages[$shapeId]->setName((string) $imageData['title']);
                                                     }
 
-                                                    $hfImages[$shapeId]->setPath('zip://' . File::realpath($filename) . '#' . $drawings[(string) $imageData['relid']], false);
+                                                    $hfImages[$shapeId]->setPath('zip://' . File::realpath($file) . '#' . $drawings[(string) $imageData['relid']], false);
                                                     $hfImages[$shapeId]->setResizeProportional(false);
                                                     $hfImages[$shapeId]->setWidth($style['width']);
                                                     $hfImages[$shapeId]->setHeight($style['height']);
@@ -1397,7 +1421,7 @@ class Xlsx extends BaseReader
                                                     );
                                                     if (isset($images[$embedImageKey])) {
                                                         $objDrawing->setPath(
-                                                            'zip://' . File::realpath($filename) . '#'
+                                                            'zip://' . File::realpath($file) . '#'
                                                             . $images[$embedImageKey],
                                                             false
                                                         );
@@ -1484,7 +1508,7 @@ class Xlsx extends BaseReader
                                                     );
                                                     if (isset($images[$embedImageKey])) {
                                                         $objDrawing->setPath(
-                                                            'zip://' . File::realpath($filename) . '#'
+                                                            'zip://' . File::realpath($file) . '#'
                                                             . $images[$embedImageKey],
                                                             false
                                                         );

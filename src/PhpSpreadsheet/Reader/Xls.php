@@ -428,10 +428,16 @@ class Xls extends BaseReader
 
     /**
      * Can the current IReader read the file?
+     *
+     * @param resource|string $file
      */
-    public function canRead(string $filename): bool
+    public function canRead($file): bool
     {
-        if (File::testFileNoThrow($filename) === false) {
+        if (is_resource($file)) {
+            return false; // TODO
+        }
+
+        if (File::testFileNoThrow($file) === false) {
             return false;
         }
 
@@ -440,9 +446,9 @@ class Xls extends BaseReader
             $ole = new OLERead();
 
             // get excel data
-            $ole->read($filename);
+            $ole->read($file);
             if ($ole->wrkbook === null) {
-                throw new Exception('The filename ' . $filename . ' is not recognised as a Spreadsheet file');
+                throw new Exception('The filename ' . $file . ' is not recognised as a Spreadsheet file');
             }
 
             return true;
@@ -467,15 +473,21 @@ class Xls extends BaseReader
 
     /**
      * Reads names of the worksheets from a file, without parsing the whole file to a PhpSpreadsheet object.
+     *
+     * @param resource|string $file
      */
-    public function listWorksheetNames(string $filename): array
+    public function listWorksheetNames($file): array
     {
-        File::assertFile($filename);
+        if (is_resource($file)) {
+            throw new Exception('file as stream not supported');
+        }
+
+        File::assertFile($file);
 
         $worksheetNames = [];
 
         // Read the OLE file
-        $this->loadOLE($filename);
+        $this->loadOLE($file);
 
         // total byte size of Excel data (workbook global substream + sheet substreams)
         $this->dataSize = strlen($this->data);
@@ -514,15 +526,21 @@ class Xls extends BaseReader
 
     /**
      * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
+     *
+     * @param resource|string $file
      */
-    public function listWorksheetInfo(string $filename): array
+    public function listWorksheetInfo($file): array
     {
-        File::assertFile($filename);
+        if (is_resource($file)) {
+            throw new Exception('file as stream not supported');
+        }
+
+        File::assertFile($file);
 
         $worksheetInfo = [];
 
         // Read the OLE file
-        $this->loadOLE($filename);
+        $this->loadOLE($file);
 
         // total byte size of Excel data (workbook global substream + sheet substreams)
         $this->dataSize = strlen($this->data);
@@ -615,11 +633,17 @@ class Xls extends BaseReader
 
     /**
      * Loads PhpSpreadsheet from file.
+     *
+     * @param resource|string $file
      */
-    protected function loadSpreadsheetFromFile(string $filename): Spreadsheet
+    protected function loadSpreadsheetFromFile($file): Spreadsheet
     {
+        if (is_resource($file)) {
+            throw new Exception('file as stream not supported');
+        }
+
         // Read the OLE file
-        $this->loadOLE($filename);
+        $this->loadOLE($file);
 
         // Initialisations
         $this->spreadsheet = new Spreadsheet();

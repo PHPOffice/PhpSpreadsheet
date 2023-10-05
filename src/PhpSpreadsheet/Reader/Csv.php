@@ -216,11 +216,13 @@ class Csv extends BaseReader
 
     /**
      * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
+     *
+     * @param resource|string $file
      */
-    public function listWorksheetInfo(string $filename): array
+    public function listWorksheetInfo($file): array
     {
         // Open file
-        $this->openFileOrMemory($filename);
+        $this->openFileOrMemory($file);
         $fileHandle = $this->fileHandle;
 
         // Skip BOM, if any
@@ -254,14 +256,16 @@ class Csv extends BaseReader
 
     /**
      * Loads Spreadsheet from file.
+     *
+     * @param resource|string $file
      */
-    protected function loadSpreadsheetFromFile(string $filename): Spreadsheet
+    protected function loadSpreadsheetFromFile($file): Spreadsheet
     {
         // Create new Spreadsheet
         $spreadsheet = new Spreadsheet();
 
         // Load into this instance
-        return $this->loadIntoExisting($filename, $spreadsheet);
+        return $this->loadIntoExisting($file, $spreadsheet);
     }
 
     /**
@@ -276,7 +280,10 @@ class Csv extends BaseReader
         return $this->loadStringOrFile('data://text/plain,' . urlencode($contents), $spreadsheet, true);
     }
 
-    private function openFileOrMemory(string $filename): void
+    /**
+     * @param resource|string $filename
+     */
+    private function openFileOrMemory($filename): void
     {
         // Open file
         $fhandle = $this->canRead($filename);
@@ -345,6 +352,8 @@ class Csv extends BaseReader
 
     /**
      * Loads PhpSpreadsheet from file into PhpSpreadsheet instance.
+     *
+     * @param resource|string $file
      */
     public function loadIntoExisting(string $filename, Spreadsheet $spreadsheet): Spreadsheet
     {
@@ -353,6 +362,8 @@ class Csv extends BaseReader
 
     /**
      * Loads PhpSpreadsheet from file into PhpSpreadsheet instance.
+     *
+     * @param resource|string $file
      */
     private function loadStringOrFile(string $filename, Spreadsheet $spreadsheet, bool $dataUri): Spreadsheet
     {
@@ -539,11 +550,11 @@ class Csv extends BaseReader
     /**
      * Can the current IReader read the file?
      */
-    public function canRead(string $filename): bool
+    public function canRead($file): bool
     {
         // Check if file exists
         try {
-            $this->openFile($filename);
+            $this->openFile($file);
         } catch (ReaderException) {
             return false;
         }
@@ -551,13 +562,13 @@ class Csv extends BaseReader
         fclose($this->fileHandle);
 
         // Trust file extension if any
-        $extension = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
+        $extension = strtolower(pathinfo($file, PATHINFO_EXTENSION));
         if (in_array($extension, ['csv', 'tsv'])) {
             return true;
         }
 
         // Attempt to guess mimetype
-        $type = mime_content_type($filename);
+        $type = mime_content_type($file);
         $supportedTypes = [
             'application/csv',
             'text/csv',

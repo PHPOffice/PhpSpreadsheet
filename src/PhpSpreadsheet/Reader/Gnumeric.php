@@ -76,12 +76,18 @@ class Gnumeric extends BaseReader
 
     /**
      * Can the current IReader read the file?
+     *
+     * @param resource|string $file
      */
-    public function canRead(string $filename): bool
+    public function canRead($file): bool
     {
+        if (is_resource($file)) {
+            return false; // TODO
+        }
+
         $data = null;
-        if (File::testFileNoThrow($filename)) {
-            $data = $this->gzfileGetContents($filename);
+        if (File::testFileNoThrow($file)) {
+            $data = $this->gzfileGetContents($file);
             if (!str_contains($data, self::NAMESPACE_GNM)) {
                 $data = '';
             }
@@ -99,16 +105,22 @@ class Gnumeric extends BaseReader
 
     /**
      * Reads names of the worksheets from a file, without parsing the whole file to a Spreadsheet object.
+     *
+     * @param resource|string $file
      */
-    public function listWorksheetNames(string $filename): array
+    public function listWorksheetNames($file): array
     {
-        File::assertFile($filename);
-        if (!$this->canRead($filename)) {
-            throw new Exception($filename . ' is an invalid Gnumeric file.');
+        if (is_resource($file)) {
+            throw new Exception('file as stream not supported');
+        }
+
+        File::assertFile($file);
+        if (!$this->canRead($file)) {
+            throw new Exception($file . ' is an invalid Gnumeric file.');
         }
 
         $xml = new XMLReader();
-        $contents = $this->gzfileGetContents($filename);
+        $contents = $this->gzfileGetContents($file);
         $xml->xml($contents, null, Settings::getLibXmlLoaderOptions());
         $xml->setParserProperty(2, true);
 
@@ -128,16 +140,22 @@ class Gnumeric extends BaseReader
 
     /**
      * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
+     *
+     * @param resource|string $file
      */
-    public function listWorksheetInfo(string $filename): array
+    public function listWorksheetInfo($file): array
     {
-        File::assertFile($filename);
-        if (!$this->canRead($filename)) {
-            throw new Exception($filename . ' is an invalid Gnumeric file.');
+        if (is_resource($file)) {
+            throw new Exception('file as stream not supported');
+        }
+
+        File::assertFile($file);
+        if (!$this->canRead($file)) {
+            throw new Exception($file . ' is an invalid Gnumeric file.');
         }
 
         $xml = new XMLReader();
-        $contents = $this->gzfileGetContents($filename);
+        $contents = $this->gzfileGetContents($file);
         $xml->xml($contents, null, Settings::getLibXmlLoaderOptions());
         $xml->setParserProperty(2, true);
 
@@ -229,15 +247,21 @@ class Gnumeric extends BaseReader
 
     /**
      * Loads Spreadsheet from file.
+     *
+     * @param resource|string $file
      */
-    protected function loadSpreadsheetFromFile(string $filename): Spreadsheet
+    protected function loadSpreadsheetFromFile($file): Spreadsheet
     {
+        if (is_resource($file)) {
+            throw new Exception('file as stream not supported');
+        }
+
         // Create new Spreadsheet
         $spreadsheet = new Spreadsheet();
         $spreadsheet->removeSheetByIndex(0);
 
         // Load into this instance
-        return $this->loadIntoExisting($filename, $spreadsheet);
+        return $this->loadIntoExisting($file, $spreadsheet);
     }
 
     /**

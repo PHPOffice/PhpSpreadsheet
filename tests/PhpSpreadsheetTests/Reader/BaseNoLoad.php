@@ -8,8 +8,11 @@ use PhpOffice\PhpSpreadsheet\Reader\BaseReader;
 
 class BaseNoLoad extends BaseReader
 {
-    public function canRead(string $filename): bool
+    /**
+     * @param resource|string $file
+     */
+    public function canRead($file): bool
     {
-        return $filename !== '';
+        return is_string($file) && $file !== '';
     }
 }

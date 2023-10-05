@@ -138,12 +138,14 @@ class Html extends BaseReader
 
     /**
      * Validate that the current file is an HTML file.
+     *
+     * @param resource|string $file
      */
-    public function canRead(string $filename): bool
+    public function canRead($file): bool
     {
         // Check if file exists
         try {
-            $this->openFile($filename);
+            $this->openFile($file);
         } catch (Exception) {
             return false;
         }
@@ -202,14 +204,16 @@ class Html extends BaseReader
 
     /**
      * Loads Spreadsheet from file.
+     *
+     * @param resource|string $file
      */
-    public function loadSpreadsheetFromFile(string $filename): Spreadsheet
+    public function loadSpreadsheetFromFile($file): Spreadsheet
     {
         // Create new Spreadsheet
         $spreadsheet = new Spreadsheet();
 
         // Load into this instance
-        return $this->loadIntoExisting($filename, $spreadsheet);
+        return $this->loadIntoExisting($file, $spreadsheet);
     }
 
     /**
@@ -661,12 +665,18 @@ class Html extends BaseReader
 
     /**
      * Loads PhpSpreadsheet from file into PhpSpreadsheet instance.
+     *
+     * @param resource|string $file
      */
-    public function loadIntoExisting(string $filename, Spreadsheet $spreadsheet): Spreadsheet
+    public function loadIntoExisting($file, Spreadsheet $spreadsheet): Spreadsheet
     {
+        if (is_resource($file)) {
+            throw new Exception('file as stream not supported');
+        }
+
         // Validate
-        if (!$this->canRead($filename)) {
-            throw new Exception($filename . ' is an Invalid HTML file.');
+        if (!$this->canRead($file)) {
+            throw new Exception($file . ' is an Invalid HTML file.');
         }
 
         // Create a new DOM object
@@ -674,7 +684,7 @@ class Html extends BaseReader
 
         // Reload the HTML file into the DOM object
         try {
-            $convert = $this->getSecurityScannerOrThrow()->scanFile($filename);
+            $convert = $this->getSecurityScannerOrThrow()->scanFile($file);
             $lowend = "\u{80}";
             $highend = "\u{10ffff}";
             $regexp = "/[$lowend-$highend]/u";
@@ -686,7 +696,7 @@ class Html extends BaseReader
             $loaded = false;
         }
         if ($loaded === false) {
-            throw new Exception('Failed to load ' . $filename . ' as a DOM Document', 0, $e ?? null);
+            throw new Exception('Failed to load ' . $file . ' as a DOM Document', 0, $e ?? null);
         }
         self::loadProperties($dom, $spreadsheet);
 
@@ -1152,12 +1162,18 @@ class Html extends BaseReader
 
     /**
      * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
+     *
+     * @param resource|string $file
      */
-    public function listWorksheetInfo(string $filename): array
+    public function listWorksheetInfo($file): array
     {
+        if (is_resource($file)) {
+            throw new Exception('file as stream not supported');
+        }
+
         $info = [];
         $spreadsheet = new Spreadsheet();
-        $this->loadIntoExisting($filename, $spreadsheet);
+        $this->loadIntoExisting($file, $spreadsheet);
         foreach ($spreadsheet->getAllSheets() as $sheet) {
             $newEntry = ['worksheetName' => $sheet->getTitle()];
             $newEntry['lastColumnLetter'] = $sheet->getHighestDataColumn();
