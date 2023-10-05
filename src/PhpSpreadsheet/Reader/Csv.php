@@ -281,22 +281,20 @@ class Csv extends BaseReader
     }
 
     /**
-     * @param resource|string $filename
+     * @param resource|string $file
      */
-    private function openFileOrMemory($filename): void
+    private function openFileOrMemory($file): void
     {
         // Open file
-        $fhandle = $this->canRead($filename);
-        if (!$fhandle) {
-            throw new Exception($filename . ' is an Invalid Spreadsheet file.');
+        if (!$this->canRead($file)) {
+            throw new Exception($file . ' is an Invalid Spreadsheet file.');
         }
         if ($this->inputEncoding === self::GUESS_ENCODING) {
-            $this->inputEncoding = self::guessEncoding($filename, $this->fallbackEncoding);
+            $this->inputEncoding = self::guessEncoding($file, $this->fallbackEncoding);
         }
-        $this->openFile($filename);
+        $this->openFile($file);
         if ($this->inputEncoding !== 'UTF-8') {
-            fclose($this->fileHandle);
-            $entireFile = file_get_contents($filename);
+            $entireFile = stream_get_contents($this->fileHandle);
             $fileHandle = fopen('php://memory', 'r+b');
             if ($fileHandle !== false && $entireFile !== false) {
                 $this->fileHandle = $fileHandle;
@@ -355,9 +353,9 @@ class Csv extends BaseReader
      *
      * @param resource|string $file
      */
-    public function loadIntoExisting(string $filename, Spreadsheet $spreadsheet): Spreadsheet
+    public function loadIntoExisting($file, Spreadsheet $spreadsheet): Spreadsheet
     {
-        return $this->loadStringOrFile($filename, $spreadsheet, false);
+        return $this->loadStringOrFile($file, $spreadsheet, false);
     }
 
     /**
@@ -365,16 +363,21 @@ class Csv extends BaseReader
      *
      * @param resource|string $file
      */
-    private function loadStringOrFile(string $filename, Spreadsheet $spreadsheet, bool $dataUri): Spreadsheet
+    private function loadStringOrFile($file, Spreadsheet $spreadsheet, bool $dataUri): Spreadsheet
     {
         // Deprecated in Php8.1
         $iniset = $this->setAutoDetect('1');
 
         // Open file
         if ($dataUri) {
-            $this->openDataUri($filename);
+            if (!is_string($file)) {
+                throw new \Exception('$file must be an uri');
+            }
+            $this->openDataUri($file);
+            $filename = $file;
         } else {
-            $this->openFileOrMemory($filename);
+            $this->openFileOrMemory($file);
+            $filename = 'escape';
         }
         $fileHandle = $this->fileHandle;
 
@@ -559,22 +562,32 @@ class Csv extends BaseReader
             return false;
         }
 
-        fclose($this->fileHandle);
+        rewind($this->fileHandle);
 
-        // Trust file extension if any
-        $extension = strtolower(pathinfo($file, PATHINFO_EXTENSION));
-        if (in_array($extension, ['csv', 'tsv'])) {
-            return true;
+        if (is_string($file)) {
+            // Trust file extension if any
+            $extension = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+            if (in_array($extension, ['csv', 'tsv'])) {
+                return true;
+            }
         }
 
         // Attempt to guess mimetype
-        $type = mime_content_type($file);
+        $type = mime_content_type($this->fileHandle);
         $supportedTypes = [
             'application/csv',
             'text/csv',
             'text/plain',
             'inode/x-empty',
         ];
+
+        if (is_resource($file)) {
+            // reading mime types from a stream causes sometimes different results
+            $supportedTypes[] = 'application/x-empty';
+            $supportedTypes[] = 'text/html';
+        }
+
+        rewind($this->fileHandle);
 
         return in_array($type, $supportedTypes, true);
     }
@@ -589,10 +602,13 @@ class Csv extends BaseReader
         }
     }
 
-    private static function guessEncodingNoBom(string $filename): string
+    /**
+     * @param resource|string $file
+     */
+    private static function guessEncodingNoBom($file): string
     {
+        $contents = is_resource($file) ? stream_get_contents($file) : file_get_contents($file);
         $encoding = '';
-        $contents = file_get_contents($filename);
         self::guessEncodingTestNoBom($encoding, $contents, self::UTF32BE_LF, 'UTF-32BE');
         self::guessEncodingTestNoBom($encoding, $contents, self::UTF32LE_LF, 'UTF-32LE');
         self::guessEncodingTestNoBom($encoding, $contents, self::UTF16BE_LF, 'UTF-16BE');
@@ -613,10 +629,17 @@ class Csv extends BaseReader
         }
     }
 
-    private static function guessEncodingBom(string $filename): string
+    /**
+     * @param resource|string $file
+     */
+    private static function guessEncodingBom($file): string
     {
         $encoding = '';
-        $first4 = file_get_contents($filename, false, null, 0, 4);
+        if (is_resource($file)) {
+            $first4 = stream_get_contents($file, 0, 4);
+        } else {
+            $first4 = file_get_contents($file, false, null, 0, 4);
+        }
         if ($first4 !== false) {
             self::guessEncodingTestBom($encoding, $first4, self::UTF8_BOM, 'UTF-8');
             self::guessEncodingTestBom($encoding, $first4, self::UTF16BE_BOM, 'UTF-16BE');
@@ -628,11 +651,14 @@ class Csv extends BaseReader
         return $encoding;
     }
 
-    public static function guessEncoding(string $filename, string $dflt = self::DEFAULT_FALLBACK_ENCODING): string
+    /**
+     * @param resource|string $file
+     */
+    public static function guessEncoding($file, string $dflt = self::DEFAULT_FALLBACK_ENCODING): string
     {
-        $encoding = self::guessEncodingBom($filename);
+        $encoding = self::guessEncodingBom($file);
         if ($encoding === '') {
-            $encoding = self::guessEncodingNoBom($filename);
+            $encoding = self::guessEncodingNoBom($file);
         }
 
         return ($encoding === '') ? $dflt : $encoding;

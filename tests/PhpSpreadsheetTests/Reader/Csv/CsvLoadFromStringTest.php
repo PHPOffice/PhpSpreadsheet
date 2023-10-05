@@ -25,4 +25,23 @@ class CsvLoadFromStringTest extends TestCase
         self::AssertSame('7 , 8', $sheet->getCell('A3')->getValue());
         self::AssertSame("12\n13", $sheet->getCell('B4')->getValue());
     }
+
+    public function testLoadFromStream(): void
+    {
+        $data = <<<EOF
+            1,2,3
+            4,2+3,6
+            "7 , 8", 9, 10
+            11,"12
+            13",14
+            EOF;
+        $stream = fopen('data://text/plain;base64,' . base64_encode($data), 'rb');
+        self::assertNotFalse($stream);
+        $reader = new Csv();
+        $spreadsheet = $reader->load($stream);
+        $sheet = $spreadsheet->getActiveSheet();
+        self::AssertSame('2+3', $sheet->getCell('B2')->getValue());
+        self::AssertSame('7 , 8', $sheet->getCell('A3')->getValue());
+        self::AssertSame("12\n13", $sheet->getCell('B4')->getValue());
+    }
 }

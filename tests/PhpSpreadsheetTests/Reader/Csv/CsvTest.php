@@ -96,6 +96,23 @@ class CsvTest extends TestCase
         self::assertSame($expected, $reader->canRead($filename));
     }
 
+    /**
+     * @dataProvider providerCanLoad
+     */
+    public function testCanLoadFromStream(bool $expected, string $filename): void
+    {
+        $reader = new Csv();
+        $stream = fopen('php://memory', 'r+b');
+        self::assertNotFalse($stream);
+
+        $contents = file_get_contents($filename);
+        self::assertNotFalse($contents);
+        fwrite($stream, $contents);
+        rewind($stream);
+
+        self::assertSame($expected, $reader->canRead($stream));
+    }
+
     public static function providerCanLoad(): array
     {
         return [

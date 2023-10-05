@@ -194,7 +194,6 @@ abstract class BaseReader implements IReader
      */
     protected function openFile($file): void
     {
-        $fileHandle = false;
         if (is_string($file)) {
             $filename = $file;
             File::assertFile($file);
@@ -204,6 +203,8 @@ abstract class BaseReader implements IReader
         } elseif (is_resource($file)) {
             $filename = 'stream';
             $fileHandle = $file;
+        } else {
+            throw new ReaderException('invalid type for file. Only file path or a stream resource is allowed');
         }
         if ($fileHandle === false) {
             throw new ReaderException('Could not open file ' . $filename . ' for reading.');
