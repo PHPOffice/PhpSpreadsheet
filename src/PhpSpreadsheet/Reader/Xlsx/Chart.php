@@ -1513,6 +1513,9 @@ class Chart
         if (isset($chartDetail->scaling->max)) {
             $whichAxis->setAxisOption('maximum', (string) self::getAttribute($chartDetail->scaling->max, 'val', 'string'));
         }
+        if (isset($chartDetail->scaling->logBase)) {
+            $whichAxis->setAxisOption('logBase', (string) self::getAttribute($chartDetail->scaling->logBase, 'val', 'string'));
+        }
         if (isset($chartDetail->scaling->min)) {
             $whichAxis->setAxisOption('minimum', (string) self::getAttribute($chartDetail->scaling->min, 'val', 'string'));
         }

@@ -537,6 +537,12 @@ class Chart extends WriterPart
             $objWriter->writeAttribute('val', $yAxis->getAxisOptionsProperty('maximum'));
             $objWriter->endElement();
         }
+
+        if ($yAxis->getAxisOptionsProperty('logBase') !== null) {
+            $objWriter->startElement('c:logBase');
+            $objWriter->writeAttribute('val', $yAxis->getAxisOptionsProperty('logBase'));
+            $objWriter->endElement();
+        }
         if ($yAxis->getAxisOptionsProperty('minimum') !== null) {
             $objWriter->startElement('c:min');
             $objWriter->writeAttribute('val', $yAxis->getAxisOptionsProperty('minimum'));

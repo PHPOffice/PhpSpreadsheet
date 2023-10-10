@@ -73,6 +73,7 @@ class Axis extends Properties
         'horizontal_crosses_value' => null,
         'textRotation' => null,
         'hidden' => null,
+        'logBase' => null,
         'majorTimeUnit' => self::TIME_UNIT_YEARS,
         'minorTimeUnit' => self::TIME_UNIT_MONTHS,
         'baseTimeUnit' => self::TIME_UNIT_DAYS,
