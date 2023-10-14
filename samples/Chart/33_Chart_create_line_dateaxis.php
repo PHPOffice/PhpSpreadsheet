@@ -361,8 +361,8 @@ function dateRange(int $nrows, Spreadsheet $wrkbk): array
     $lastYr = (int) $lastDate->format('Y');
     $qtr = intdiv($lastMonth, 3) + (($lastMonth % 3 > 0) ? 1 : 0);
     $qtrEndMonth = 3 + (($qtr - 1) * 3);
-    $lastDOM = cal_days_in_month(CAL_GREGORIAN, $qtrEndMonth, $lastYr);
     $qtrEndMonth = sprintf('%02d', $qtrEndMonth);
+    $lastDOM = DateTime::createFromFormat('Y-m-d', "$lastYr-$qtrEndMonth-01")->format('t');
     $qtrEndStr = "$lastYr-$qtrEndMonth-$lastDOM";
     $ExcelQtrEndDateVal = SharedDate::convertIsoDate($qtrEndStr);
 
