@@ -21,6 +21,7 @@ class MemoryDrawingOffsetTest extends TestCase
 
         $image = file_get_contents(__DIR__ . '/../../../data/Reader/HTML/memoryDrawingTest.jpg');
         self::assertNotFalse($image, 'unable to read file');
+        MemoryDrawing::checkGd();
         $image = imagecreatefromstring($image);
         self::assertNotFalse($image, 'unable to create image from string');
         $drawing = new MemoryDrawing();

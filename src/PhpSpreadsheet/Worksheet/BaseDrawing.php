@@ -542,4 +542,18 @@ class BaseDrawing implements IComparable
 
         return $this;
     }
+
+    private static ?bool $gdEnabled = null;
+
+    public static function checkGd(): void
+    {
+        if (self::$gdEnabled === null) {
+            self::$gdEnabled = extension_loaded('gd');
+        }
+        if (self::$gdEnabled !== true) {
+            // @codeCoverageIgnoreStart
+            throw new PhpSpreadsheetException('Required PHP extension Gd is not enabled');
+            // @codeCoverageIgnoreEnd
+        }
+    }
 }

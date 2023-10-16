@@ -404,7 +404,7 @@ class Font
         }
 
         // Try to get the exact text width in pixels
-        $approximate = self::$autoSizeMethod === self::AUTOSIZE_METHOD_APPROX;
+        $approximate = (self::$autoSizeMethod === self::AUTOSIZE_METHOD_APPROX) || !extension_loaded('gd');
         $columnWidth = 0;
         if (!$approximate) {
             try {

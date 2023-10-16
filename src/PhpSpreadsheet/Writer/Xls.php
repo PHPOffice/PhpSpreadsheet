@@ -437,6 +437,7 @@ class Xls extends BaseWriter
         switch ($imageFormat) {
             case 1: // GIF, not supported by BIFF8, we convert to PNG
                 $blipType = BSE::BLIPTYPE_PNG;
+                BaseDrawing::checkGd();
                 $newImage = @imagecreatefromgif($filename);
                 if ($newImage === false) {
                     throw new Exception("Unable to create image from $filename");
@@ -459,6 +460,7 @@ class Xls extends BaseWriter
                 break;
             case 6: // Windows DIB (BMP), we convert to PNG
                 $blipType = BSE::BLIPTYPE_PNG;
+                BaseDrawing::checkGd();
                 $newImage = @imagecreatefrombmp($filename);
                 if ($newImage === false) {
                     throw new Exception("Unable to create image from $filename");

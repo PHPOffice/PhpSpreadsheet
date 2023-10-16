@@ -88,6 +88,9 @@ class ExactFontTest extends TestCase
         if ($this->incompleteMessage !== '') {
             self::markTestIncomplete($this->incompleteMessage);
         }
+        if (!extension_loaded('gd')) {
+            self::markTestSkipped('Need GD extension for exact font sizes');
+        }
         $font = new StyleFont();
         $font->setName($fontName);
         $font->setSize(11);
@@ -165,7 +168,7 @@ class ExactFontTest extends TestCase
         $font = new StyleFont();
         $font->setName($fontName);
         $exactWidth = Font::calculateColumnWidth($font, 'Col3');
-        $expectedWidth = 4.5703;
+        $expectedWidth = extension_loaded('gd') ? 4.5703 : 5.8557;
         if ($exactWidth > 0.95 * $expectedWidth && $exactWidth < 1.05 * $expectedWidth) {
             self::assertTrue(true);
         } else {
@@ -175,7 +178,7 @@ class ExactFontTest extends TestCase
         $font = new StyleFont();
         $font->setName($fontName);
         $exactWidth = Font::calculateColumnWidth($font, 'Big Column in 4 position');
-        $expectedWidth = 26.2793;
+        $expectedWidth = extension_loaded('gd') ? 26.2793 : 29.4214;
         if ($exactWidth > 0.95 * $expectedWidth && $exactWidth < 1.05 * $expectedWidth) {
             self::assertTrue(true);
         } else {
@@ -198,7 +201,7 @@ class ExactFontTest extends TestCase
         $font->setName($fontName);
         $font->setSize(20);
         $exactWidth = Font::calculateColumnWidth($font, 'Column2');
-        $expectedWidth = 18.8525;
+        $expectedWidth = extension_loaded('gd') ? 18.8525 : 16.7102;
         if ($exactWidth > 0.95 * $expectedWidth && $exactWidth < 1.05 * $expectedWidth) {
             self::assertTrue(true);
         } else {
@@ -218,7 +221,7 @@ class ExactFontTest extends TestCase
         $font = new StyleFont();
         $font->setName($fontName);
         $exactWidth = Font::calculateColumnWidth($font, 'Big Column in 4 position');
-        $expectedWidth = 27.5647;
+        $expectedWidth = extension_loaded('gd') ? 27.5647 : 29.4214;
         if ($exactWidth > 0.95 * $expectedWidth && $exactWidth < 1.05 * $expectedWidth) {
             self::assertTrue(true);
         } else {

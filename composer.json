@@ -69,7 +69,6 @@
         "ext-ctype": "*",
         "ext-dom": "*",
         "ext-fileinfo": "*",
-        "ext-gd": "*",
         "ext-iconv": "*",
         "ext-libxml": "*",
         "ext-mbstring": "*",
@@ -88,6 +87,7 @@
         "voku/anti-xss": "^4.1"
     },
     "require-dev": {
+        "ext-gd": "*",
         "dealerdirect/phpcodesniffer-composer-installer": "dev-main",
         "dompdf/dompdf": "^2.0",
         "friendsofphp/php-cs-fixer": "^3.2",
@@ -101,6 +101,7 @@
         "tecnickcom/tcpdf": "^6.5"
     },
     "suggest": {
+        "ext-gd": "Graphics for images including graphs, and exact font measurement",
         "ext-intl": "PHP Internationalization Functions",
         "mpdf/mpdf": "Option for rendering PDF with PDF Writer",
         "dompdf/dompdf": "Option for rendering PDF with PDF Writer",

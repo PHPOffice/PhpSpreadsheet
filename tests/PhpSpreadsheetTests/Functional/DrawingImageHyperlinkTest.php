@@ -12,6 +12,7 @@ class DrawingImageHyperlinkTest extends AbstractFunctional
 {
     public function testDrawingImageHyperlinkTest(): void
     {
+        MemoryDrawing::checkGd();
         $gdImage = @imagecreatetruecolor(120, 20);
         $textColor = ($gdImage === false) ? false : imagecolorallocate($gdImage, 255, 255, 255);
         if ($gdImage === false || $textColor === false) {

@@ -80,6 +80,7 @@ class MemoryDrawing extends BaseDrawing
         if (!$this->imageResource) {
             return;
         }
+        self::checkGd();
 
         $width = (int) imagesx($this->imageResource);
         $height = (int) imagesy($this->imageResource);
@@ -144,6 +145,7 @@ class MemoryDrawing extends BaseDrawing
      */
     public static function fromString(string $imageString): self
     {
+        self::checkGd();
         $gdImage = @imagecreatefromstring($imageString);
         if ($gdImage === false) {
             throw new Exception('Value cannot be converted to an image');
@@ -254,6 +256,7 @@ class MemoryDrawing extends BaseDrawing
 
         if ($this->imageResource !== null) {
             // Get width/height
+            self::checkGd();
             $this->width = (int) imagesx($this->imageResource);
             $this->height = (int) imagesy($this->imageResource);
         }

@@ -2,11 +2,13 @@
 
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\BaseDrawing;
 
 require __DIR__ . '/../Header.php';
 $inputFileType = 'Xlsx';
 
 $helper->log('Start');
+BaseDrawing::checkGd();
 
 $spreadsheet = new Spreadsheet();
 

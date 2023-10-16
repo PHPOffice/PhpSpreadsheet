@@ -565,6 +565,7 @@ class DrawingsTest extends AbstractFunctional
 
     public function testMemoryDrawingDuplicateResource(): void
     {
+        BaseDrawing::checkGd();
         $gdImage = imagecreatetruecolor(120, 20);
         $textColor = ($gdImage === false) ? false : imagecolorallocate($gdImage, 255, 255, 255);
         if ($gdImage === false || $textColor === false) {

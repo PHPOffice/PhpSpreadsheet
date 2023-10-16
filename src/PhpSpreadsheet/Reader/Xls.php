@@ -1091,6 +1091,7 @@ class Xls extends BaseReader
 
                                 // need check because some blip types are not supported by Escher reader such as EMF
                                 if ($blip = $BSE->getBlip()) {
+                                    MemoryDrawing::checkGd();
                                     $ih = imagecreatefromstring($blip->getData());
                                     if ($ih !== false) {
                                         $drawing = new MemoryDrawing();

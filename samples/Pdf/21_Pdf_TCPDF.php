@@ -17,4 +17,8 @@ $helper->log("Write to PDF format using {$className}");
 IOFactory::registerWriter('Pdf', $className);
 
 // Save
-$helper->write($spreadsheet, __FILE__, ['Pdf']);
+if (extension_loaded('gd')) {
+    $helper->write($spreadsheet, __FILE__, ['Pdf']);
+} else {
+    $helper->log('Required PHP Extension Gd is not enabled');
+}

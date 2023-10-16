@@ -672,6 +672,7 @@ class Xlsx extends BaseWriter
         if (!empty($imageData)) {
             switch ($imageData[2]) {
                 case 1: // GIF, not supported by BIFF8, we convert to PNG
+                    BaseDrawing::checkGd();
                     $image = imagecreatefromgif($filename);
                     if ($image !== false) {
                         ob_start();
@@ -693,6 +694,7 @@ class Xlsx extends BaseWriter
                     break;
 
                 case 6: // Windows DIB (BMP), we convert to PNG
+                    BaseDrawing::checkGd();
                     $image = imagecreatefrombmp($filename);
                     if ($image !== false) {
                         ob_start();

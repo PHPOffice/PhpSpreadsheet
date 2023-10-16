@@ -15,6 +15,7 @@ class DrawingTest extends TestCase
 {
     public function testCloningWorksheetWithImages(): void
     {
+        MemoryDrawing::checkGd();
         $gdImage = @imagecreatetruecolor(120, 20);
         $textColor = ($gdImage === false) ? false : imagecolorallocate($gdImage, 255, 255, 255);
         if ($gdImage === false || $textColor === false) {

@@ -13,6 +13,7 @@ class MemoryDrawingTest extends TestCase
 {
     public function testMemoryDrawing(): void
     {
+        MemoryDrawing::checkGd();
         $name = 'In-Memory image';
         $gdImage = @imagecreatetruecolor(120, 20);
         if ($gdImage === false) {
@@ -56,6 +57,7 @@ class MemoryDrawingTest extends TestCase
 
     public function testMemoryDrawingFromInvalidString(): void
     {
+        MemoryDrawing::checkGd();
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Value cannot be converted to an image');
 

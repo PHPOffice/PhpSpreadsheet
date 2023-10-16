@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Chart;
 
 use PhpOffice\PhpSpreadsheet\Settings;
+use PhpOffice\PhpSpreadsheet\Worksheet\BaseDrawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class Chart
@@ -673,6 +674,7 @@ class Chart
 
         /** @var Renderer\IRenderer */
         $renderer = new $libraryName($this);
+        BaseDrawing::checkGd();
 
         return $renderer->render($outputDestination);
     }
