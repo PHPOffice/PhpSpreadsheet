@@ -43,7 +43,7 @@ class Issue3767Test extends AbstractFunctional
         $sheet = $spreadsheet->getActiveSheet();
         $charts = $sheet->getChartCollection();
         self::assertCount(0, $charts);
-        $this->tempfile = $temp = File::temporaryFileName();
+        $this->tempfile = File::temporaryFileName();
         $writer = new XlsxWriter($spreadsheet);
         $this->writeCharts($writer);
         $writer->save($this->tempfile);
