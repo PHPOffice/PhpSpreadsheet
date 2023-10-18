@@ -9,7 +9,6 @@ use PhpOffice\PhpSpreadsheet\Reader\Csv\Delimiter;
 use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class Csv extends BaseReader
@@ -105,6 +104,10 @@ class Csv extends BaseReader
     private string $getTrue = 'true';
 
     private string $getFalse = 'false';
+
+    private string $thousandsSeparator = ',';
+
+    private string $decimalSeparator = '.';
 
     /**
      * Create a new CSV Reader instance.
@@ -397,6 +400,8 @@ class Csv extends BaseReader
         $preserveBooleanString = method_exists($valueBinder, 'getBooleanConversion') && $valueBinder->getBooleanConversion();
         $this->getTrue = Calculation::getTRUE();
         $this->getFalse = Calculation::getFALSE();
+        $this->thousandsSeparator = StringHelper::getThousandsSeparator();
+        $this->decimalSeparator = StringHelper::getDecimalSeparator();
         while (is_array($rowData)) {
             $noOutputYet = true;
             $columnLetter = 'A';
@@ -461,18 +466,18 @@ class Csv extends BaseReader
      */
     private function convertFormattedNumber(mixed &$rowDatum): string
     {
-        $numberFormatMask = NumberFormat::FORMAT_GENERAL;
+        $numberFormatMask = '';
         if ($this->castFormattedNumberToNumeric === true && is_string($rowDatum)) {
             $numeric = str_replace(
-                [StringHelper::getThousandsSeparator(), StringHelper::getDecimalSeparator()],
+                [$this->thousandsSeparator, $this->decimalSeparator],
                 ['', '.'],
                 $rowDatum
             );
 
             if (is_numeric($numeric)) {
-                $decimalPos = strpos($rowDatum, StringHelper::getDecimalSeparator());
+                $decimalPos = strpos($rowDatum, $this->decimalSeparator);
                 if ($this->preserveNumericFormatting === true) {
-                    $numberFormatMask = (str_contains($rowDatum, StringHelper::getThousandsSeparator()))
+                    $numberFormatMask = (str_contains($rowDatum, $this->thousandsSeparator))
                         ? '#,##0' : '0';
                     if ($decimalPos !== false) {
                         $decimals = strlen($rowDatum) - $decimalPos - 1;
