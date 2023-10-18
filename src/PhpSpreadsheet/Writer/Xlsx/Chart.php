@@ -169,8 +169,8 @@ class Chart extends WriterPart
         $objWriter->endElement();
 
         $caption = $title->getCaption();
-        if ((is_array($caption)) && (count($caption) > 0)) {
-            $caption = $caption[0];
+        if (is_array($caption)) {
+            $caption = $caption[0] ?? '';
         }
         $this->getParentWriter()->getWriterPartstringtable()->writeRichTextForCharts($objWriter, $caption, 'a');
 
