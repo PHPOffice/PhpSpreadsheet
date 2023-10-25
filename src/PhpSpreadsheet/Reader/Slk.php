@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Reader;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
+use PhpOffice\PhpSpreadsheet\ReferenceHelper;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Border;
@@ -269,14 +270,14 @@ class Slk extends BaseReader
         $hasCalculatedValue = false;
         $tryNumeric = false;
         $cellDataFormula = $cellData = '';
+        $sharedColumn = $sharedRow = -1;
+        $sharedFormula = false;
         foreach ($rowData as $rowDatum) {
             switch ($rowDatum[0]) {
-                case 'C':
                 case 'X':
                     $column = substr($rowDatum, 1);
 
                     break;
-                case 'R':
                 case 'Y':
                     $row = substr($rowDatum, 1);
 
@@ -299,7 +300,34 @@ class Slk extends BaseReader
                         ->createText($comment);
 
                     break;
+                case 'C':
+                    $sharedColumn = (int) substr($rowDatum, 1);
+
+                    break;
+                case 'R':
+                    $sharedRow = (int) substr($rowDatum, 1);
+
+                    break;
+                case 'S':
+                    $sharedFormula = true;
+
+                    break;
             }
+        }
+        if ($sharedFormula === true && $sharedRow >= 0 && $sharedColumn >= 0) {
+            $thisCoordinate = Coordinate::stringFromColumnIndex((int) $column) . $row;
+            $sharedCoordinate = Coordinate::stringFromColumnIndex($sharedColumn) . $sharedRow;
+            $formula = $spreadsheet->getActiveSheet()->getCell($sharedCoordinate)->getValue();
+            $spreadsheet->getActiveSheet()->getCell($thisCoordinate)->setValue($formula);
+            $referenceHelper = ReferenceHelper::getInstance();
+            $newFormula = $referenceHelper->updateFormulaReferences($formula, 'A1', (int) $column - $sharedColumn, (int) $row - $sharedRow, '', true, false);
+            $spreadsheet->getActiveSheet()->getCell($thisCoordinate)->setValue($newFormula);
+            //$calc = $spreadsheet->getActiveSheet()->getCell($thisCoordinate)->getCalculatedValue();
+            //$spreadsheet->getActiveSheet()->getCell($thisCoordinate)->setCalculatedValue($calc);
+            $cellData = Calculation::unwrapResult($cellData);
+            $spreadsheet->getActiveSheet()->getCell($thisCoordinate)->setCalculatedValue($cellData, $tryNumeric);
+
+            return;
         }
         $columnLetter = Coordinate::stringFromColumnIndex((int) $column);
         $cellData = Calculation::unwrapResult($cellData);
