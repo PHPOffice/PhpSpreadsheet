@@ -427,6 +427,9 @@ class Xlsx extends BaseReader
             }
             switch ($rel['Type']) {
                 case "$xmlNamespaceBase/theme":
+                    if (!$this->fileExistsInArchive($zip, "xl/{$relTarget}")) {
+                        break; // issue3770
+                    }
                     $themeOrderArray = ['lt1', 'dk1', 'lt2', 'dk2'];
                     $themeOrderAdditional = count($themeOrderArray);
 
