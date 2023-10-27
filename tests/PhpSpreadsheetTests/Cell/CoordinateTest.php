@@ -300,6 +300,22 @@ class CoordinateTest extends TestCase
         return require 'tests/data/CellGetRangeBoundaries.php';
     }
 
+    public static function testCoordinateIsInsideRange(): void 
+    {
+        $cellRange = "A1:D4";
+        $cellCordinate = "B2";
+        $result = Coordinate::coordinateIsInsideRange($cellRange, $cellCordinate);
+        self::assertEquals(true, $result);
+    }
+
+    public static function testCoordinateIsOutsideRange(): void 
+    {
+        $cellRange = "A1:D4";
+        $cellCordinate = "F6";
+        $result = Coordinate::coordinateIsInsideRange($cellRange, $cellCordinate);
+        self::assertEquals(false, $result);
+    }
+
     /**
      * @dataProvider providerExtractAllCellReferencesInRange
      */
