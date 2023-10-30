@@ -9,7 +9,6 @@ use PhpOffice\PhpSpreadsheet\Reader\Csv\Delimiter;
 use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class Csv extends BaseReader
@@ -101,6 +100,14 @@ class Csv extends BaseReader
 
     /** @var bool */
     private $sheetNameIsFileName = false;
+
+    private string $getTrue = 'true';
+
+    private string $getFalse = 'false';
+
+    private string $thousandsSeparator = ',';
+
+    private string $decimalSeparator = '.';
 
     /**
      * Create a new CSV Reader instance.
@@ -234,13 +241,14 @@ class Csv extends BaseReader
         $worksheetInfo[0]['lastColumnIndex'] = 0;
         $worksheetInfo[0]['totalRows'] = 0;
         $worksheetInfo[0]['totalColumns'] = 0;
+        $delimiter = $this->delimiter ?? '';
 
         // Loop through each line of the file in turn
-        $rowData = fgetcsv($fileHandle, 0, $this->delimiter ?? '', $this->enclosure, $this->escapeCharacter);
+        $rowData = fgetcsv($fileHandle, 0, $delimiter, $this->enclosure, $this->escapeCharacter);
         while (is_array($rowData)) {
             ++$worksheetInfo[0]['totalRows'];
             $worksheetInfo[0]['lastColumnIndex'] = max($worksheetInfo[0]['lastColumnIndex'], count($rowData) - 1);
-            $rowData = fgetcsv($fileHandle, 0, $this->delimiter ?? '', $this->enclosure, $this->escapeCharacter);
+            $rowData = fgetcsv($fileHandle, 0, $delimiter, $this->enclosure, $this->escapeCharacter);
         }
 
         $worksheetInfo[0]['lastColumnLetter'] = Coordinate::stringFromColumnIndex($worksheetInfo[0]['lastColumnIndex'] + 1);
@@ -386,15 +394,24 @@ class Csv extends BaseReader
         $outRow = 0;
 
         // Loop through each line of the file in turn
-        $rowData = fgetcsv($fileHandle, 0, $this->delimiter ?? '', $this->enclosure, $this->escapeCharacter);
+        $delimiter = $this->delimiter ?? '';
+        $rowData = fgetcsv($fileHandle, 0, $delimiter, $this->enclosure, $this->escapeCharacter);
         $valueBinder = Cell::getValueBinder();
         $preserveBooleanString = method_exists($valueBinder, 'getBooleanConversion') && $valueBinder->getBooleanConversion();
+        $this->getTrue = Calculation::getTRUE();
+        $this->getFalse = Calculation::getFALSE();
+        $this->thousandsSeparator = StringHelper::getThousandsSeparator();
+        $this->decimalSeparator = StringHelper::getDecimalSeparator();
         while (is_array($rowData)) {
             $noOutputYet = true;
             $columnLetter = 'A';
             foreach ($rowData as $rowDatum) {
-                $this->convertBoolean($rowDatum, $preserveBooleanString);
-                $numberFormatMask = $this->convertFormattedNumber($rowDatum);
+                if ($preserveBooleanString) {
+                    $rowDatum = $rowDatum ?? '';
+                } else {
+                    $this->convertBoolean($rowDatum);
+                }
+                $numberFormatMask = $this->castFormattedNumberToNumeric ? $this->convertFormattedNumber($rowDatum) : '';
                 if (($rowDatum !== '' || $this->preserveNullString) && $this->readFilter->readCell($columnLetter, $currentRow)) {
                     if ($this->contiguous) {
                         if ($noOutputYet) {
@@ -405,15 +422,17 @@ class Csv extends BaseReader
                         $outRow = $currentRow;
                     }
                     // Set basic styling for the value (Note that this could be overloaded by styling in a value binder)
-                    $sheet->getCell($columnLetter . $outRow)->getStyle()
-                        ->getNumberFormat()
-                        ->setFormatCode($numberFormatMask);
+                    if ($numberFormatMask !== '') {
+                        $sheet->getStyle($columnLetter . $outRow)
+                            ->getNumberFormat()
+                            ->setFormatCode($numberFormatMask);
+                    }
                     // Set cell value
                     $sheet->getCell($columnLetter . $outRow)->setValue($rowDatum);
                 }
                 ++$columnLetter;
             }
-            $rowData = fgetcsv($fileHandle, 0, $this->delimiter ?? '', $this->enclosure, $this->escapeCharacter);
+            $rowData = fgetcsv($fileHandle, 0, $delimiter, $this->enclosure, $this->escapeCharacter);
             ++$currentRow;
         }
 
@@ -429,12 +448,12 @@ class Csv extends BaseReader
     /**
      * Convert string true/false to boolean, and null to null-string.
      */
-    private function convertBoolean(mixed &$rowDatum, bool $preserveBooleanString): void
+    private function convertBoolean(mixed &$rowDatum): void
     {
-        if (is_string($rowDatum) && !$preserveBooleanString) {
-            if (strcasecmp(Calculation::getTRUE(), $rowDatum) === 0 || strcasecmp('true', $rowDatum) === 0) {
+        if (is_string($rowDatum)) {
+            if (strcasecmp($this->getTrue, $rowDatum) === 0 || strcasecmp('true', $rowDatum) === 0) {
                 $rowDatum = true;
-            } elseif (strcasecmp(Calculation::getFALSE(), $rowDatum) === 0 || strcasecmp('false', $rowDatum) === 0) {
+            } elseif (strcasecmp($this->getFalse, $rowDatum) === 0 || strcasecmp('false', $rowDatum) === 0) {
                 $rowDatum = false;
             }
         } else {
@@ -447,18 +466,18 @@ class Csv extends BaseReader
      */
     private function convertFormattedNumber(mixed &$rowDatum): string
     {
-        $numberFormatMask = NumberFormat::FORMAT_GENERAL;
+        $numberFormatMask = '';
         if ($this->castFormattedNumberToNumeric === true && is_string($rowDatum)) {
             $numeric = str_replace(
-                [StringHelper::getThousandsSeparator(), StringHelper::getDecimalSeparator()],
+                [$this->thousandsSeparator, $this->decimalSeparator],
                 ['', '.'],
                 $rowDatum
             );
 
             if (is_numeric($numeric)) {
-                $decimalPos = strpos($rowDatum, StringHelper::getDecimalSeparator());
+                $decimalPos = strpos($rowDatum, $this->decimalSeparator);
                 if ($this->preserveNumericFormatting === true) {
-                    $numberFormatMask = (str_contains($rowDatum, StringHelper::getThousandsSeparator()))
+                    $numberFormatMask = (str_contains($rowDatum, $this->thousandsSeparator))
                         ? '#,##0' : '0';
                     if ($decimalPos !== false) {
                         $decimals = strlen($rowDatum) - $decimalPos - 1;

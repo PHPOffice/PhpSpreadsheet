@@ -67,6 +67,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Break Some Circular References. [PR #3716](https://github.com/PHPOffice/PhpSpreadsheet/pull/3716) [PR #3707](https://github.com/PHPOffice/PhpSpreadsheet/pull/3707)
 - Missing Font Index in Some Xls. [PR #3734](https://github.com/PHPOffice/PhpSpreadsheet/pull/3734)
 - Load Tables even with READ_DATA_ONLY. [PR #3726](https://github.com/PHPOffice/PhpSpreadsheet/pull/3726)
+- Theme File Missing but Referenced in Spreadsheet. [Issue #3770](https://github.com/PHPOffice/PhpSpreadsheet/issues/3770) [PR #3772](https://github.com/PHPOffice/PhpSpreadsheet/pull/3772)
 
 ## 1.29.0 - 2023-06-15
 
