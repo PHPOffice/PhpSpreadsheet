@@ -274,7 +274,7 @@ abstract class Coordinate
         }
 
         try {
-            self::coordinateIsRange($coordinate);
+            self::coordinateFromString($coordinate);
         } catch (Throwable $th) {
             throw new Exception('Second argument needs to be a single coordinate');
         }
