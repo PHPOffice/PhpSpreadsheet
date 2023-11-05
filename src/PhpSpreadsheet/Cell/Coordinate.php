@@ -262,30 +262,35 @@ abstract class Coordinate
      * Check if coordinate is inside a range.
      *
      * @param string $range Cell range, Single Cell, Row/Column Range (e.g. A1:A1, B2, B:C, 2:3)
-     *
      * @param string $coordinate Cell coordinate (e.g. A1)
      *
-     * @return bool True if coordinate is inside range.
+     * @return bool true if coordinate is inside range
      */
     public static function coordinateIsInsideRange(string $range, string $coordinate): bool
     {
-        if (self::coordinateIsRange($range)) {
-            $boundaries = self::rangeBoundaries($range);
-
-            $coordinates = self::coordinateFromString($coordinate);
-            $coordinates[0] = self::columnIndexFromString($coordinates[0]);
-
-            $columnIsInside = $boundaries[0][0] <= $coordinates[0] && $coordinates[0] <= $boundaries[1][0];
-            if (!$columnIsInside) {
-                return false;
-            }
-            $rowIsInside = $boundaries[0][1] <= $coordinates[1] && $coordinates[1] <= $boundaries[1][1];
-            if (!$rowIsInside) {
-                return false;
-            }
-            return true;
+        if (!self::coordinateIsRange($range)) {
+            throw new Exception('First argument needs to be a range');
         }
-        throw new Exception('First argument needs to be a range');
+
+        if (self::coordinateIsRange($coordinate)) {
+            throw new Exception('Second argument needs to be a single coordinate');
+        }
+
+        $boundaries = self::rangeBoundaries($range);
+
+        $coordinates = self::coordinateFromString($coordinate);
+        $coordinates[0] = self::columnIndexFromString($coordinates[0]);
+
+        $columnIsInside = $boundaries[0][0] <= $coordinates[0] && $coordinates[0] <= $boundaries[1][0];
+        if (!$columnIsInside) {
+            return false;
+        }
+        $rowIsInside = $boundaries[0][1] <= $coordinates[1] && $coordinates[1] <= $boundaries[1][1];
+        if (!$rowIsInside) {
+            return false;
+        }
+
+        return true;
     }
 
     /**

@@ -300,20 +300,52 @@ class CoordinateTest extends TestCase
         return require 'tests/data/CellGetRangeBoundaries.php';
     }
 
-    public static function testCoordinateIsInsideRange(): void 
+    public static function testCoordinateIsInsideRange(): void
     {
-        $cellRange = "A1:D4";
-        $cellCordinate = "B2";
+        $cellRange = 'A1:D4';
+        $cellCordinate = 'B2';
         $result = Coordinate::coordinateIsInsideRange($cellRange, $cellCordinate);
-        self::assertEquals(true, $result);
+        self::assertTrue($result);
     }
 
-    public static function testCoordinateIsOutsideRange(): void 
+    public static function testCoordinateIsOutsideRange(): void
     {
-        $cellRange = "A1:D4";
-        $cellCordinate = "F6";
+        $cellRange = 'A1:D4';
+        $cellCordinate = 'F6';
         $result = Coordinate::coordinateIsInsideRange($cellRange, $cellCordinate);
-        self::assertEquals(false, $result);
+        self::assertFalse($result);
+    }
+
+    public static function testCoordinateIsInsideRangeInvalidFirstArgument(): void
+    {
+        $cellRange = 'inavlidRange';
+        $cellCordinate = 'F6';
+
+        try {
+            Coordinate::coordinateIsInsideRange($cellRange, $cellCordinate);
+        } catch (\Exception $e) {
+            self::assertInstanceOf(Exception::class, $e);
+            self::assertEquals($e->getMessage(), 'First argument needs to be a range');
+
+            return;
+        }
+        self::fail('An expected exception has not been raised.');
+    }
+
+    public static function testCoordinateIsInsideRangeInvalidSecondArgument(): void
+    {
+        $cellRange = 'A1:D4';
+        $cellCordinate = 'invalidCoordinate';
+
+        try {
+            Coordinate::coordinateIsInsideRange($cellRange, $cellCordinate);
+        } catch (\Exception $e) {
+            self::assertInstanceOf(Exception::class, $e);
+            self::assertEquals($e->getMessage(), 'Second argument needs to be a single coordinate');
+
+            return;
+        }
+        self::fail('An expected exception has not been raised.');
     }
 
     /**
