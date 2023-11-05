@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Cell;
 
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use Throwable;
 
 /**
  * Helper class to manipulate cell coordinates.
@@ -272,7 +273,9 @@ abstract class Coordinate
             throw new Exception('First argument needs to be a range');
         }
 
-        if (self::coordinateIsRange($coordinate)) {
+        try {
+            self::coordinateIsRange($coordinate);
+        } catch (Throwable $th) {
             throw new Exception('Second argument needs to be a single coordinate');
         }
 
