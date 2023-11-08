@@ -26,9 +26,8 @@ use StockPlot;
  */
 abstract class JpGraphRendererBase implements IRenderer
 {
-    private static $width = 640;
-
-    private static $height = 480;
+    private const DEFAULT_WIDTH = 640;
+    private const DEFAULT_HEIGHT = 480;
 
     private static $colourSet = [
         'mediumpurple1', 'palegreen3', 'gold1', 'cadetblue1',
@@ -74,6 +73,16 @@ abstract class JpGraphRendererBase implements IRenderer
      * This method should be overriden in descendants to do real JpGraph library initialization.
      */
     abstract protected static function init(): void;
+
+    private function getGraphWidth(): ?float
+    {
+      return $this->chart->getPlotArea()?->getLayout()?->getWidth() ?: self::DEFAULT_WIDTH;
+    }
+
+    private function getGraphHeight(): ?float
+    {
+      return $this->chart->getPlotArea()?->getLayout()?->getHeight() ?: self::DEFAULT_HEIGHT;
+    }
 
     private function formatPointMarker($seriesPlot, $markerID)
     {
@@ -221,7 +230,7 @@ abstract class JpGraphRendererBase implements IRenderer
 
     private function renderCartesianPlotArea(string $type = 'textlin'): void
     {
-        $this->graph = new Graph(self::$width, self::$height);
+        $this->graph = new Graph($this->getGraphWidth(), $this->getGraphHeight());
         $this->graph->SetScale($type);
 
         $this->renderTitle();
@@ -258,14 +267,14 @@ abstract class JpGraphRendererBase implements IRenderer
 
     private function renderPiePlotArea(): void
     {
-        $this->graph = new PieGraph(self::$width, self::$height);
+        $this->graph = new PieGraph($this->getGraphWidth(), $this->getGraphHeight());
 
         $this->renderTitle();
     }
 
     private function renderRadarPlotArea(): void
     {
-        $this->graph = new RadarGraph(self::$width, self::$height);
+        $this->graph = new RadarGraph($this->getGraphWidth(), $this->getGraphHeight());
         $this->graph->SetScale('lin');
 
         $this->renderTitle();
@@ -468,7 +477,7 @@ abstract class JpGraphRendererBase implements IRenderer
                 $seriesPlot->link->SetColor(self::$colourSet[self::$plotColour]);
             } elseif ($scatterStyle == 'smoothMarker') {
                 $spline = new Spline($dataValuesY, $dataValuesX);
-                [$splineDataY, $splineDataX] = $spline->Get(count($dataValuesX) * self::$width / 20);
+                [$splineDataY, $splineDataX] = $spline->Get(count($dataValuesX) * $this->getGraphWidth() / 20);
                 $lplot = new LinePlot($splineDataX, $splineDataY);
                 $lplot->SetColor(self::$colourSet[self::$plotColour]);
 
