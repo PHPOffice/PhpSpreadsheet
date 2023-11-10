@@ -31,6 +31,10 @@ use voku\helper\AntiXSS;
 
 class Html extends BaseWriter
 {
+    private const DEFAULT_CELL_WIDTH_POINTS = 42;
+
+    private const DEFAULT_CELL_WIDTH_PIXELS = 56;
+
     /**
      * Spreadsheet object.
      */
@@ -580,9 +584,9 @@ class Html extends BaseWriter
                     $chartCol = Coordinate::columnIndexFromString($chartTL[0]);
                     if ($chartTL[1] > $rowMax) {
                         $rowMax = $chartTL[1];
-                        if ($chartCol > Coordinate::columnIndexFromString($colMax)) {
-                            $colMax = $chartTL[0];
-                        }
+                    }
+                    if ($chartCol > Coordinate::columnIndexFromString($colMax)) {
+                        $colMax = $chartTL[0];
                     }
                 }
             }
@@ -601,9 +605,9 @@ class Html extends BaseWriter
             $imageCol = Coordinate::columnIndexFromString($imageTL[0]);
             if ($imageTL[1] > $rowMax) {
                 $rowMax = $imageTL[1];
-                if ($imageCol > Coordinate::columnIndexFromString($colMax)) {
-                    $colMax = $imageTL[0];
-                }
+            }
+            if ($imageCol > Coordinate::columnIndexFromString($colMax)) {
+                $colMax = $imageTL[0];
             }
         }
 
@@ -745,7 +749,15 @@ class Html extends BaseWriter
                 $chartCoordinates = $chart->getTopLeftPosition();
                 if ($chartCoordinates['cell'] == $coordinates) {
                     $chartFileName = File::sysGetTempDir() . '/' . uniqid('', true) . '.png';
-                    if (!$chart->render($chartFileName)) {
+                    $renderedWidth = $chart->getRenderedWidth();
+                    $renderedHeight = $chart->getRenderedHeight();
+                    if ($renderedWidth === null || $renderedHeight === null) {
+                        $this->adjustRendererPositions($chart, $worksheet);
+                    }
+                    $renderSuccessful = $chart->render($chartFileName);
+                    $chart->setRenderedWidth($renderedWidth);
+                    $chart->setRenderedHeight($renderedHeight);
+                    if (!$renderSuccessful) {
                         return '';
                     }
 
@@ -768,6 +780,37 @@ class Html extends BaseWriter
 
         // Return
         return $html;
+    }
+
+    private function adjustRendererPositions(Chart $chart, Worksheet $sheet): void
+    {
+        $topLeft = $chart->getTopLeftPosition();
+        $bottomRight = $chart->getBottomRightPosition();
+        $tlCell = $topLeft['cell'];
+        $brCell = $bottomRight['cell'];
+        if ($tlCell !== '' && $brCell !== '') {
+            $tlCoordinate = Coordinate::indexesFromString($tlCell);
+            $brCoordinate = Coordinate::indexesFromString($brCell);
+            $totalHeight = 0.0;
+            $totalWidth = 0.0;
+            $defaultRowHeight = $sheet->getDefaultRowDimension()->getRowHeight();
+            $defaultRowHeight = SharedDrawing::pointsToPixels(($defaultRowHeight >= 0) ? $defaultRowHeight : SharedFont::getDefaultRowHeightByFont($this->defaultFont));
+            if ($tlCoordinate[1] <= $brCoordinate[1] && $tlCoordinate[0] <= $brCoordinate[0]) {
+                for ($row = $tlCoordinate[1]; $row <= $brCoordinate[1]; ++$row) {
+                    $height = $sheet->getRowDimension($row)->getRowHeight('pt');
+                    $totalHeight += ($height >= 0) ? $height : $defaultRowHeight;
+                }
+                $rightEdge = $brCoordinate[2];
+                ++$rightEdge;
+                for ($column = $tlCoordinate[2]; $column !== $rightEdge; ++$column) {
+                    $width = $sheet->getColumnDimension($column)->getWidth();
+                    $width = ($width < 0) ? self::DEFAULT_CELL_WIDTH_PIXELS : SharedDrawing::cellDimensionToPixels($sheet->getColumnDimension($column)->getWidth(), $this->defaultFont);
+                    $totalWidth += $width;
+                }
+                $chart->setRenderedWidth($totalWidth);
+                $chart->setRenderedHeight($totalHeight);
+            }
+        }
     }
 
     /**
@@ -844,8 +887,8 @@ class Html extends BaseWriter
         $highestColumnIndex = Coordinate::columnIndexFromString($sheet->getHighestColumn()) - 1;
         $column = -1;
         while ($column++ < $highestColumnIndex) {
-            $this->columnWidths[$sheetIndex][$column] = 42; // approximation
-            $css['table.sheet' . $sheetIndex . ' col.col' . $column]['width'] = '42pt';
+            $this->columnWidths[$sheetIndex][$column] = self::DEFAULT_CELL_WIDTH_POINTS; // approximation
+            $css['table.sheet' . $sheetIndex . ' col.col' . $column]['width'] = self::DEFAULT_CELL_WIDTH_POINTS . 'pt';
         }
 
         // col elements, loop through columnDimensions and set width
