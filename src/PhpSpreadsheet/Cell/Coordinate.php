@@ -259,7 +259,15 @@ abstract class Coordinate
         ];
     }
 
-    private static function validateReferenceAndGetData($reference)
+    /**
+     * Check if cell or range reference is valid and return an array with type of reference (cell or range), worksheet (if it was given)
+     * and the coordinate or the first coordinate and second coordinate if it is a range.
+     *
+     * @param string $reference Coordinate or Range (e.g. A1:A1, B2, B:C, 2:3)
+     *
+     * @return array reference data
+     */
+    private static function validateReferenceAndGetData($reference): array
     {
         preg_match('/^(?:(?<worksheet>[^!]*)!)?(?<localReference>(?<firstCoordinate>[A-Z]{1,3}\d{1,7})(?:\:(?<secondCoordinate>[A-Z]{1,3}\d{1,7}))?)$/', $reference, $matches);
         if (count($matches) === 0) {
