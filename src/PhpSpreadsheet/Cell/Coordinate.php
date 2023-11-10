@@ -259,6 +259,30 @@ abstract class Coordinate
         ];
     }
 
+    private static function validateReferenceAndGetData($reference)
+    {
+        preg_match('/^(?:(?<worksheet>[^!]*)!)?(?<localReference>(?<firstCoordinate>[A-Z]{1,3}\d{1,7})(?:\:(?<secondCoordinate>[A-Z]{1,3}\d{1,7}))?)$/', $reference, $matches);
+        if (count($matches) === 0) {
+            throw new Exception('Invalid Cell or Range Reference');
+        }
+
+        if (isset($matches['secondCoordinate'])) {
+            $data['type'] = 'range';
+            $data['firstCoordinate'] = $matches['firstCoordinate'];
+            $data['secondCoordinate'] = $matches['secondCoordinate'];
+        } else {
+            $data['coordinate'] = $matches['firstCoordinate'];
+            $data['type'] = 'coordinate';
+        }
+
+        if ($matches['worksheet'] !== '') {
+            $data['worksheet'] = $matches['worksheet'];
+        }
+        $data['localReference'] = $matches['localReference'];
+
+        return $data;
+    }
+
     /**
      * Check if coordinate is inside a range.
      *
@@ -269,14 +293,38 @@ abstract class Coordinate
      */
     public static function coordinateIsInsideRange(string $range, string $coordinate): bool
     {
-        if (!self::coordinateIsRange($range)) {
+        try {
+            $rangeData = self::validateReferenceAndGetData($range);
+            if ($rangeData['type'] !== 'range') {
+                throw new Exception();
+            }
+        } catch (Throwable $th) {
             throw new Exception('First argument needs to be a range');
         }
 
         try {
-            self::coordinateFromString($coordinate);
+            $coordinateData = self::validateReferenceAndGetData($coordinate);
+            if ($coordinateData['type'] !== 'coordinate') {
+                throw new Exception();
+            }
         } catch (Throwable $th) {
             throw new Exception('Second argument needs to be a single coordinate');
+        }
+
+        if (isset($coordinateData['worksheet']) && !isset($rangeData['worksheet'])) {
+            return false;
+        }
+        if (!isset($coordinateData['worksheet']) && isset($rangeData['worksheet'])) {
+            return false;
+        }
+
+        if (isset($coordinateData['worksheet'], $rangeData['worksheet'])) {
+            if ($coordinateData['worksheet'] == $rangeData['worksheet']) {
+                $range = $rangeData['localReference'];
+                $coordinate = $coordinateData['localReference'];
+            } else {
+                return false;
+            }
         }
 
         $boundaries = self::rangeBoundaries($range);
