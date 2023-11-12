@@ -269,6 +269,7 @@ abstract class Coordinate
      */
     private static function validateReferenceAndGetData($reference): array
     {
+        $data = [];
         preg_match(self::FULL_REFERENCE_REGEX, $reference, $matches);
         if (count($matches) === 0) {
             return ['type' => 'invalid'];
@@ -319,16 +320,13 @@ abstract class Coordinate
         }
 
         if (isset($coordinateData['worksheet'], $rangeData['worksheet'])) {
-            if ($coordinateData['worksheet'] == $rangeData['worksheet']) {
-                $range = $rangeData['localReference'];
-                $coordinate = $coordinateData['localReference'];
-            } else {
+            if ($coordinateData['worksheet'] !== $rangeData['worksheet']) {
                 return false;
             }
         }
 
         $boundaries = self::rangeBoundaries($rangeData['localReference']);
-        $coordinates = self::indexesFromString($coordinate);
+        $coordinates = self::indexesFromString($coordinateData['localReference']);
 
         $columnIsInside = $boundaries[0][0] <= $coordinates[0] && $coordinates[0] <= $boundaries[1][0];
         if (!$columnIsInside) {
