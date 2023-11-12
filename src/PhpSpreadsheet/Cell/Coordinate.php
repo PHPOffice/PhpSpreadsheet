@@ -4,7 +4,6 @@ namespace PhpOffice\PhpSpreadsheet\Cell;
 
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
-use Throwable;
 
 /**
  * Helper class to manipulate cell coordinates.
@@ -15,6 +14,7 @@ use Throwable;
 abstract class Coordinate
 {
     public const A1_COORDINATE_REGEX = '/^(?<col>\$?[A-Z]{1,3})(?<row>\$?\d{1,7})$/i';
+    public const FULL_REFERENCE_REGEX = '/^(?:(?<worksheet>[^!]*)!)?(?<localReference>(?<firstCoordinate>[$]?[A-Z]{1,3}[$]?\d{1,7})(?:\:(?<secondCoordinate>[$]?[A-Z]{1,3}[$]?\d{1,7}))?)$/i';
 
     /**
      * Default range variable constant.
@@ -269,24 +269,24 @@ abstract class Coordinate
      */
     private static function validateReferenceAndGetData($reference): array
     {
-        preg_match('/^(?:(?<worksheet>[^!]*)!)?(?<localReference>(?<firstCoordinate>[A-Z]{1,3}\d{1,7})(?:\:(?<secondCoordinate>[A-Z]{1,3}\d{1,7}))?)$/', $reference, $matches);
+        preg_match(self::FULL_REFERENCE_REGEX, $reference, $matches);
         if (count($matches) === 0) {
-            throw new Exception('Invalid Cell or Range Reference');
+            return ['type' => 'invalid'];
         }
 
         if (isset($matches['secondCoordinate'])) {
             $data['type'] = 'range';
-            $data['firstCoordinate'] = $matches['firstCoordinate'];
-            $data['secondCoordinate'] = $matches['secondCoordinate'];
+            $data['firstCoordinate'] = str_replace('$', '', $matches['firstCoordinate']);
+            $data['secondCoordinate'] = str_replace('$', '', $matches['secondCoordinate']);
         } else {
-            $data['coordinate'] = $matches['firstCoordinate'];
             $data['type'] = 'coordinate';
+            $data['coordinate'] = str_replace('$', '', $matches['firstCoordinate']);
         }
 
         if ($matches['worksheet'] !== '') {
-            $data['worksheet'] = $matches['worksheet'];
+            $data['worksheet'] = strtolower(str_replace('\'', '', $matches['worksheet']));
         }
-        $data['localReference'] = $matches['localReference'];
+        $data['localReference'] = str_replace('$', '', $matches['localReference']);
 
         return $data;
     }
@@ -301,21 +301,13 @@ abstract class Coordinate
      */
     public static function coordinateIsInsideRange(string $range, string $coordinate): bool
     {
-        try {
-            $rangeData = self::validateReferenceAndGetData($range);
-            if ($rangeData['type'] !== 'range') {
-                throw new Exception();
-            }
-        } catch (Throwable $th) {
+        $rangeData = self::validateReferenceAndGetData($range);
+        if ($rangeData['type'] === 'invalid') {
             throw new Exception('First argument needs to be a range');
         }
 
-        try {
-            $coordinateData = self::validateReferenceAndGetData($coordinate);
-            if ($coordinateData['type'] !== 'coordinate') {
-                throw new Exception();
-            }
-        } catch (Throwable $th) {
+        $coordinateData = self::validateReferenceAndGetData($coordinate);
+        if ($coordinateData['type'] === 'invalid') {
             throw new Exception('Second argument needs to be a single coordinate');
         }
 
@@ -336,9 +328,7 @@ abstract class Coordinate
         }
 
         $boundaries = self::rangeBoundaries($range);
-
-        $coordinates = self::coordinateFromString($coordinate);
-        $coordinates[0] = self::columnIndexFromString($coordinates[0]);
+        $coordinates = self::indexesFromString($coordinate);
 
         $columnIsInside = $boundaries[0][0] <= $coordinates[0] && $coordinates[0] <= $boundaries[1][0];
         if (!$columnIsInside) {

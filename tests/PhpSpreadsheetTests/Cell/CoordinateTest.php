@@ -300,52 +300,39 @@ class CoordinateTest extends TestCase
         return require 'tests/data/CellGetRangeBoundaries.php';
     }
 
-    public static function testCoordinateIsInsideRange(): void
+    /**
+     * @dataProvider providerCoordinateIsInsideRange
+     */
+    public static function testCoordinateIsInsideRange(bool $expectedResult, string $range, string $coordinate): void
     {
-        $cellRange = 'A1:D4';
-        $cellCordinate = 'B2';
-        $result = Coordinate::coordinateIsInsideRange($cellRange, $cellCordinate);
-        self::assertTrue($result);
+        $result = Coordinate::coordinateIsInsideRange($range, $coordinate);
+        self::assertEquals($result, $expectedResult);
     }
 
-    public static function testCoordinateIsOutsideRange(): void
+    public static function providerCoordinateIsInsideRange(): array
     {
-        $cellRange = 'A1:D4';
-        $cellCordinate = 'F6';
-        $result = Coordinate::coordinateIsInsideRange($cellRange, $cellCordinate);
-        self::assertFalse($result);
+        return require 'tests/data/coordinateIsInsideRange.php';
     }
 
-    public static function testCoordinateIsInsideRangeInvalidFirstArgument(): void
+    /**
+     * @dataProvider providerCoordinateIsInsideRangeException
+     */
+    public static function testCoordinateIsInsideRangeException(string $expectedResult, string $range, string $coordinate): void
     {
-        $cellRange = 'inavlidRange';
-        $cellCordinate = 'F6';
-
         try {
-            Coordinate::coordinateIsInsideRange($cellRange, $cellCordinate);
+            Coordinate::coordinateIsInsideRange($range, $coordinate);
         } catch (\Exception $e) {
             self::assertInstanceOf(Exception::class, $e);
-            self::assertEquals($e->getMessage(), 'First argument needs to be a range');
+            self::assertEquals($e->getMessage(), $expectedResult);
 
             return;
         }
         self::fail('An expected exception has not been raised.');
     }
 
-    public static function testCoordinateIsInsideRangeInvalidSecondArgument(): void
+    public static function providerCoordinateIsInsideRangeException(): array
     {
-        $cellRange = 'A1:D4';
-        $cellCordinate = 'invalidCoordinate';
-
-        try {
-            Coordinate::coordinateIsInsideRange($cellRange, $cellCordinate);
-        } catch (\Exception $e) {
-            self::assertInstanceOf(Exception::class, $e);
-            self::assertEquals($e->getMessage(), 'Second argument needs to be a single coordinate');
-
-            return;
-        }
-        self::fail('An expected exception has not been raised.');
+        return require 'tests/data/coordinateIsInsideRangeException.php';
     }
 
     /**
