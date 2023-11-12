@@ -327,7 +327,7 @@ abstract class Coordinate
             }
         }
 
-        $boundaries = self::rangeBoundaries($coordinateData['localReference']);
+        $boundaries = self::rangeBoundaries($rangeData['localReference']);
         $coordinates = self::indexesFromString($coordinate);
 
         $columnIsInside = $boundaries[0][0] <= $coordinates[0] && $coordinates[0] <= $boundaries[1][0];
