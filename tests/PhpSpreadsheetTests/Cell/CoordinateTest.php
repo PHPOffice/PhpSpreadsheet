@@ -311,7 +311,7 @@ class CoordinateTest extends TestCase
 
     public static function providerCoordinateIsInsideRange(): array
     {
-        return require 'tests/data/coordinateIsInsideRange.php';
+        return require 'tests/data/Cell/CoordinateIsInsideRange.php';
     }
 
     /**
@@ -332,7 +332,7 @@ class CoordinateTest extends TestCase
 
     public static function providerCoordinateIsInsideRangeException(): array
     {
-        return require 'tests/data/coordinateIsInsideRangeException.php';
+        return require 'tests/data/Cell/CoordinateIsInsideRangeException.php';
     }
 
     /**
