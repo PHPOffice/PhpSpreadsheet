@@ -110,7 +110,7 @@ class Drawing
     /**
      * Convert points to pixels.
      *
-     * @param int $pointValue Value in points
+     * @param float|int $pointValue Value in points
      *
      * @return int Value in pixels
      */
