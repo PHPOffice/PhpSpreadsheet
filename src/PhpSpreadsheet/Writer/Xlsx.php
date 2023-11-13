@@ -410,6 +410,9 @@ class Xlsx extends BaseWriter
                     }
                 }
             }
+            if (isset($unparsedLoadedData['sheets'][$sheetCodeName]['drawingOriginalIds']) && !isset($zipContent['xl/drawings/drawing' . ($i + 1) . '.xml'])) {
+                $zipContent['xl/drawings/drawing' . ($i + 1) . '.xml'] = '<xml></xml>';
+            }
 
             // Add comment relationship parts
             $legacy = $unparsedLoadedData['sheets'][$this->spreadSheet->getSheet($i)->getCodeName()]['legacyDrawing'] ?? null;

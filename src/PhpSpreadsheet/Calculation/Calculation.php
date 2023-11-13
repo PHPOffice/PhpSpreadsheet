@@ -4409,7 +4409,7 @@ class Calculation
                             [$rangeWS2, $val] = Worksheet::extractSheetTitle($val, true);
                             if ($rangeWS2 !== '') {
                                 $rangeWS2 .= '!';
-                            } else { // @phpstan-ignore-line
+                            } else {
                                 $rangeWS2 = $rangeWS1;
                             }
 
