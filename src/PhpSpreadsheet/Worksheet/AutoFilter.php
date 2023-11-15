@@ -71,10 +71,8 @@ class AutoFilter implements Stringable
 
     /**
      * Get AutoFilter Parent Worksheet.
-     *
-     * @return null|Worksheet
      */
-    public function getParent()
+    public function getParent(): null|Worksheet
     {
         return $this->workSheet;
     }
@@ -94,10 +92,8 @@ class AutoFilter implements Stringable
 
     /**
      * Get AutoFilter Range.
-     *
-     * @return string
      */
-    public function getRange()
+    public function getRange(): string
     {
         return $this->range;
     }
@@ -162,7 +158,7 @@ class AutoFilter implements Stringable
      *
      * @return AutoFilter\Column[]
      */
-    public function getColumns()
+    public function getColumns(): array
     {
         return $this->columns;
     }
@@ -196,7 +192,7 @@ class AutoFilter implements Stringable
      *
      * @return int The offset of the specified column within the autofilter range
      */
-    public function getColumnOffset($column)
+    public function getColumnOffset($column): int
     {
         return $this->testColumnInRange($column);
     }
@@ -205,10 +201,8 @@ class AutoFilter implements Stringable
      * Get a specified AutoFilter Column.
      *
      * @param string $column Column name (e.g. A)
-     *
-     * @return AutoFilter\Column
      */
-    public function getColumn($column)
+    public function getColumn($column): AutoFilter\Column
     {
         $this->testColumnInRange($column);
 
@@ -223,10 +217,8 @@ class AutoFilter implements Stringable
      * Get a specified AutoFilter Column by it's offset.
      *
      * @param int $columnOffset Column offset within range (starting from 0)
-     *
-     * @return AutoFilter\Column
      */
-    public function getColumnByOffset($columnOffset)
+    public function getColumnByOffset($columnOffset): AutoFilter\Column
     {
         [$rangeStart, $rangeEnd] = Coordinate::rangeBoundaries($this->range);
         $pColumn = Coordinate::stringFromColumnIndex($rangeStart[0] + $columnOffset);
@@ -319,10 +311,8 @@ class AutoFilter implements Stringable
      * Test if cell value is in the defined set of values.
      *
      * @param mixed[] $dataSet
-     *
-     * @return bool
      */
-    protected static function filterTestInSimpleDataSet(mixed $cellValue, array $dataSet)
+    protected static function filterTestInSimpleDataSet(mixed $cellValue, array $dataSet): bool
     {
         $dataSetValues = $dataSet['filterValues'];
         $blanks = $dataSet['blanks'];
@@ -337,10 +327,8 @@ class AutoFilter implements Stringable
      * Test if cell value is in the defined set of Excel date values.
      *
      * @param mixed[] $dataSet
-     *
-     * @return bool
      */
-    protected static function filterTestInDateGroupSet(mixed $cellValue, array $dataSet)
+    protected static function filterTestInDateGroupSet(mixed $cellValue, array $dataSet): bool
     {
         $dateSet = $dataSet['filterValues'];
         $blanks = $dataSet['blanks'];
@@ -765,10 +753,8 @@ class AutoFilter implements Stringable
      * Apply the AutoFilter rules to the AutoFilter Range.
      *
      * @param ?string $ruleType
-     *
-     * @return mixed
      */
-    private function calculateTopTenValue(string $columnID, int $startRow, int $endRow, $ruleType, mixed $ruleValue)
+    private function calculateTopTenValue(string $columnID, int $startRow, int $endRow, $ruleType, mixed $ruleValue): mixed
     {
         $range = $columnID . $startRow . ':' . $columnID . $endRow;
         $retVal = null;

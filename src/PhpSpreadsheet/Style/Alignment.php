@@ -166,10 +166,8 @@ class Alignment extends Supervisor
     /**
      * Get the shared style component for the currently active cell in currently active sheet.
      * Only used for style supervisor.
-     *
-     * @return Alignment
      */
-    public function getSharedComponent()
+    public function getSharedComponent(): self
     {
         /** @var Style */
         $parent = $this->parent;
@@ -239,10 +237,8 @@ class Alignment extends Supervisor
 
     /**
      * Get Horizontal.
-     *
-     * @return null|string
      */
-    public function getHorizontal()
+    public function getHorizontal(): null|string
     {
         if ($this->isSupervisor) {
             return $this->getSharedComponent()->getHorizontal();
@@ -277,10 +273,8 @@ class Alignment extends Supervisor
 
     /**
      * Get Vertical.
-     *
-     * @return null|string
      */
-    public function getVertical()
+    public function getVertical(): null|string
     {
         if ($this->isSupervisor) {
             return $this->getSharedComponent()->getVertical();
@@ -312,10 +306,8 @@ class Alignment extends Supervisor
 
     /**
      * Get TextRotation.
-     *
-     * @return null|int
      */
-    public function getTextRotation()
+    public function getTextRotation(): null|int
     {
         if ($this->isSupervisor) {
             return $this->getSharedComponent()->getTextRotation();
@@ -355,10 +347,8 @@ class Alignment extends Supervisor
 
     /**
      * Get Wrap Text.
-     *
-     * @return bool
      */
-    public function getWrapText()
+    public function getWrapText(): bool
     {
         if ($this->isSupervisor) {
             return $this->getSharedComponent()->getWrapText();
@@ -391,10 +381,8 @@ class Alignment extends Supervisor
 
     /**
      * Get Shrink to fit.
-     *
-     * @return bool
      */
-    public function getShrinkToFit()
+    public function getShrinkToFit(): bool
     {
         if ($this->isSupervisor) {
             return $this->getSharedComponent()->getShrinkToFit();
@@ -427,10 +415,8 @@ class Alignment extends Supervisor
 
     /**
      * Get indent.
-     *
-     * @return int
      */
-    public function getIndent()
+    public function getIndent(): int
     {
         if ($this->isSupervisor) {
             return $this->getSharedComponent()->getIndent();
@@ -470,10 +456,8 @@ class Alignment extends Supervisor
 
     /**
      * Get read order.
-     *
-     * @return int
      */
-    public function getReadOrder()
+    public function getReadOrder(): int
     {
         if ($this->isSupervisor) {
             return $this->getSharedComponent()->getReadOrder();
@@ -509,7 +493,7 @@ class Alignment extends Supervisor
      *
      * @return string Hash code
      */
-    public function getHashCode()
+    public function getHashCode(): string
     {
         if ($this->isSupervisor) {
             return $this->getSharedComponent()->getHashCode();

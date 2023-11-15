@@ -103,10 +103,8 @@ class Axis extends Properties
 
     /**
      * Get Axis Number Format Data Type.
-     *
-     * @return string
      */
-    public function getAxisNumberFormat()
+    public function getAxisNumberFormat(): string
     {
         return $this->axisNumber['format'];
     }
@@ -175,7 +173,7 @@ class Axis extends Properties
      *
      * @return ?string
      */
-    public function getAxisOptionsProperty($property)
+    public function getAxisOptionsProperty($property): ?string
     {
         if ($property === 'textRotation') {
             if ($this->axisText !== null) {
@@ -247,10 +245,8 @@ class Axis extends Properties
      * @see Properties::getLineColorProperty()
      *
      * @param string $propertyName
-     *
-     * @return null|int|string
      */
-    public function getLineProperty($propertyName)
+    public function getLineProperty($propertyName): null|int|string
     {
         return $this->getLineColorProperty($propertyName);
     }

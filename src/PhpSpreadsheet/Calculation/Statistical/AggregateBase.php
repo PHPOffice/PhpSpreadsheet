@@ -13,7 +13,7 @@ abstract class AggregateBase
      *
      * @return int|mixed
      */
-    protected static function testAcceptedBoolean(mixed $arg, mixed $k)
+    protected static function testAcceptedBoolean(mixed $arg, mixed $k): mixed
     {
         if (!is_bool($arg)) {
             return $arg;
