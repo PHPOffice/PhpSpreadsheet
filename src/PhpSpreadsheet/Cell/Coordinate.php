@@ -284,8 +284,12 @@ abstract class Coordinate
             $data['coordinate'] = str_replace('$', '', $matches['firstCoordinate']);
         }
 
-        if ($matches['worksheet'] !== '') {
-            $data['worksheet'] = strtolower(str_replace('\'', '', $matches['worksheet']));
+        $worksheet = $matches['worksheet'];
+        if ($worksheet !== '') {
+            if (substr($worksheet, 0, 1) === "'" && substr($worksheet, -1, 1) === "'") {
+                $worksheet = substr($worksheet, 1, -1);
+            }
+            $data['worksheet'] = strtolower($worksheet);
         }
         $data['localReference'] = str_replace('$', '', $matches['localReference']);
 
