@@ -878,6 +878,11 @@ class Html extends BaseWriter
             $css["table.sheet$sheetIndex"]['page-break-inside'] = 'avoid';
             $css["table.sheet$sheetIndex"]['break-inside'] = 'avoid';
         }
+        $picture = $sheet->getBackgroundImage();
+        if ($picture !== '') {
+            $base64 = base64_encode($picture);
+            $css["table.sheet$sheetIndex"]['background-image'] = 'url(data:' . $sheet->getBackgroundMime() . ';base64,' . $base64 . ')';
+        }
 
         // Build styles
         // Calculate column widths

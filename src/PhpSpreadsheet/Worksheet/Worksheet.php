@@ -3879,4 +3879,47 @@ class Worksheet implements IComparable
 
         return $xfIndex;
     }
+
+    private string $backgroundImage = '';
+
+    private string $backgroundMime = '';
+
+    private string $backgroundExtension = '';
+
+    public function getBackgroundImage(): string
+    {
+        return $this->backgroundImage;
+    }
+
+    public function getBackgroundMime(): string
+    {
+        return $this->backgroundMime;
+    }
+
+    public function getBackgroundExtension(): string
+    {
+        return $this->backgroundExtension;
+    }
+
+    /**
+     * Set background image.
+     * Used on read/write for Xlsx.
+     * Used on write for Html.
+     *
+     * @param string $backgroundImage Image represented as a string, e.g. results of file_get_contents
+     */
+    public function setBackgroundImage(string $backgroundImage): self
+    {
+        $imageArray = getimagesizefromstring($backgroundImage) ?: ['mime' => ''];
+        $mime = $imageArray['mime'];
+        if ($mime !== '') {
+            $extension = explode('/', $mime);
+            $extension = $extension[1];
+            $this->backgroundImage = $backgroundImage;
+            $this->backgroundMime = $mime;
+            $this->backgroundExtension = $extension;
+        }
+
+        return $this;
+    }
 }
