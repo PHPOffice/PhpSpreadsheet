@@ -99,9 +99,11 @@ class Chart extends WriterPart
         $objWriter->writeAttribute('val', (string) (int) $chart->getPlotVisibleOnly());
         $objWriter->endElement();
 
-        $objWriter->startElement('c:dispBlanksAs');
-        $objWriter->writeAttribute('val', $chart->getDisplayBlanksAs());
-        $objWriter->endElement();
+        if ($chart->getDisplayBlanksAs() !== '') {
+            $objWriter->startElement('c:dispBlanksAs');
+            $objWriter->writeAttribute('val', $chart->getDisplayBlanksAs());
+            $objWriter->endElement();
+        }
 
         $objWriter->startElement('c:showDLblsOverMax');
         $objWriter->writeAttribute('val', '0');
@@ -151,6 +153,9 @@ class Chart extends WriterPart
         if ($title === null) {
             return;
         }
+        if ($this->writeCalculatedTitle($objWriter, $title)) {
+            return;
+        }
 
         $objWriter->startElement('c:title');
         $objWriter->startElement('c:tx');
@@ -185,6 +190,60 @@ class Chart extends WriterPart
         $objWriter->endElement();
 
         $objWriter->endElement();
+    }
+
+    /**
+     * Write Calculated Chart Title.
+     */
+    private function writeCalculatedTitle(XMLWriter $objWriter, Title $title): bool
+    {
+        $calc = $title->getCalculatedTitle($this->getParentWriter()->getSpreadsheet());
+        if (empty($calc)) {
+            return false;
+        }
+
+        $objWriter->startElement('c:title');
+        $objWriter->startElement('c:tx');
+        $objWriter->startElement('c:strRef');
+        $objWriter->writeElement('c:f', $title->getCellReference());
+        $objWriter->startElement('c:strCache');
+
+        $objWriter->startElement('c:ptCount');
+        $objWriter->writeAttribute('val', '1');
+        $objWriter->endElement(); // c:ptCount
+        $objWriter->startElement('c:pt');
+        $objWriter->writeAttribute('idx', '0');
+        $objWriter->writeElement('c:v', $calc);
+        $objWriter->endElement(); // c:pt
+
+        $objWriter->endElement(); // c:strCache
+        $objWriter->endElement(); // c:strRef
+        $objWriter->endElement(); // c:tx
+
+        $this->writeLayout($objWriter, $title->getLayout());
+
+        $objWriter->startElement('c:overlay');
+        $objWriter->writeAttribute('val', ($title->getOverlay()) ? '1' : '0');
+        $objWriter->endElement(); // c:overlay
+        // c:spPr
+
+        // c:txPr
+        $labelFont = $title->getFont();
+        if ($labelFont !== null) {
+            $objWriter->startElement('c:txPr');
+
+            $objWriter->startElement('a:bodyPr');
+            $objWriter->endElement(); // a:bodyPr
+            $objWriter->startElement('a:lstStyle');
+            $objWriter->endElement(); // a:lstStyle
+            $this->writeLabelFont($objWriter, $labelFont, null);
+
+            $objWriter->endElement(); // c:txPr
+        }
+
+        $objWriter->endElement(); // c:title
+
+        return true;
     }
 
     /**
@@ -1803,6 +1862,10 @@ class Chart extends WriterPart
             }
             if ($labelFont->getItalic() === true) {
                 $objWriter->writeAttribute('i', '1');
+            }
+            $cap = $labelFont->getCap();
+            if ($cap !== null) {
+                $objWriter->writeAttribute('cap', $cap);
             }
             $fontColor = $labelFont->getChartColor();
             if ($fontColor !== null) {
