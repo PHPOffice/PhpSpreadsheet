@@ -621,10 +621,9 @@ class Html extends BaseWriter
     /**
      * Generate image tag in cell.
      *
-     * @param Worksheet $worksheet \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet
      * @param string $coordinates Cell coordinates
      */
-    private function writeImageInCell(Worksheet $worksheet, string $coordinates): string
+    private function writeImageInCell(string $coordinates): string
     {
         // Construct HTML
         $html = '';
@@ -1415,7 +1414,7 @@ class Html extends BaseWriter
     private function generateRowWriteCell(string &$html, Worksheet $worksheet, string $coordinate, string $cellType, string $cellData, int $colSpan, int $rowSpan, $cssClass, int $colNum, int $sheetIndex, int $row): void
     {
         // Image?
-        $htmlx = $this->writeImageInCell($worksheet, $coordinate);
+        $htmlx = $this->writeImageInCell($coordinate);
         // Chart?
         $htmlx .= $this->generateRowIncludeCharts($worksheet, $coordinate);
         // Column start
