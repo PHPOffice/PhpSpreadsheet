@@ -81,14 +81,14 @@ class Validations
 
         if (is_array($cellRange)) {
             switch (count($cellRange)) {
-                case 2:
-                    $from = [$cellRange[0], $cellRange[1]];
-                    $to = [$cellRange[0], $cellRange[1]];
-
-                    break;
                 case 4:
                     $from = [$cellRange[0], $cellRange[1]];
                     $to = [$cellRange[2], $cellRange[3]];
+
+                    break;
+                case 2:
+                    $from = [$cellRange[0], $cellRange[1]];
+                    $to = [$cellRange[0], $cellRange[1]];
 
                     break;
                 default:

@@ -32,6 +32,6 @@ function phpunit10ErrorHandler(int $errno, string $errstr, string $filename, int
 }
 
 if (!method_exists(\PHPUnit\Framework\TestCase::class, 'setOutputCallback')) {
-    ini_set('error_reporting', E_ALL);
+    ini_set('error_reporting', (string) E_ALL);
     set_error_handler('phpunit10ErrorHandler');
 }
