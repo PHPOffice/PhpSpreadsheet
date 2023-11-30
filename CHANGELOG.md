@@ -26,6 +26,8 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Writer ODS : Write Border Style for cells [Issue #3690](https://github.com/PHPOffice/PhpSpreadsheet/issues/3690) [PR #3693](https://github.com/PHPOffice/PhpSpreadsheet/pull/3693)
 - Sheet Background Images [Issue #1649](https://github.com/PHPOffice/PhpSpreadsheet/issues/1649) [PR #3795](https://github.com/PHPOffice/PhpSpreadsheet/pull/3795)
 - Check if Coordinate is Inside Range [PR #3779](https://github.com/PHPOffice/PhpSpreadsheet/pull/3779)
+- Flipping Images [Issue #731](https://github.com/PHPOffice/PhpSpreadsheet/issues/731) [PR #3801](https://github.com/PHPOffice/PhpSpreadsheet/pull/3801)
+- Chart Dynamic Title and Font Properties [Issue #3797](https://github.com/PHPOffice/PhpSpreadsheet/issues/3797) [PR #3800](https://github.com/PHPOffice/PhpSpreadsheet/pull/3800)
 
 ### Changed
 
