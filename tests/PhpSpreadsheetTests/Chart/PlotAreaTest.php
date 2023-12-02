@@ -53,7 +53,7 @@ class PlotAreaTest extends TestCase
         );
 
         // Set the series in the plot area
-        $plotArea = new PlotArea(null, [$series]);
+        //$plotArea = new PlotArea(null, [$series]);
 
         // Create the chart
         $chart = new Chart(

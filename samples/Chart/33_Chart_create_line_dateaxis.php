@@ -3,7 +3,6 @@
 namespace PhpOffice\PhpSpreadsheet\Chart;
 
 use DateTime;
-use Exception;
 use PhpOffice\PhpSpreadsheet\Chart\Legend as ChartLegend;
 use PhpOffice\PhpSpreadsheet\Shared\Date as SharedDate;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
