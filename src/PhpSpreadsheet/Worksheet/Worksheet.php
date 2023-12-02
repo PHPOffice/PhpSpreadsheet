@@ -662,6 +662,16 @@ class Worksheet implements IComparable
         return false;
     }
 
+    public function getChartByNameOrThrow(string $chartName): Chart
+    {
+        $chart = $this->getChartByName($chartName);
+        if ($chart !== false) {
+            return $chart;
+        }
+
+        throw new Exception("Sheet does not have a chart named $chartName.");
+    }
+
     /**
      * Refresh column dimensions.
      *

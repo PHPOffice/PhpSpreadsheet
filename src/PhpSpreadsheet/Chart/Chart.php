@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Chart;
 
+use PhpOffice\PhpSpreadsheet\Exception as SpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
@@ -283,6 +284,16 @@ class Chart
     public function getPlotArea(): ?PlotArea
     {
         return $this->plotArea;
+    }
+
+    public function getPlotAreaOrThrow(): PlotArea
+    {
+        $plotArea = $this->getPlotArea();
+        if ($plotArea !== null) {
+            return $plotArea;
+        }
+
+        throw new SpreadsheetException('Chart has no PlotArea');
     }
 
     /**

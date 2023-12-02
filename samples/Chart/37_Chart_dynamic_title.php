@@ -37,7 +37,7 @@ foreach ($inputFileNames as $inputFileName) {
         } else {
             natsort($chartNames);
             foreach ($chartNames as $i => $chartName) {
-                $chart = $worksheet->getChartByName($chartName);
+                $chart = $worksheet->getChartByNameOrThrow($chartName);
                 if ($chart->getTitle() !== null) {
                     $caption = '"' . $chart->getTitle()->getCaptionText($spreadsheet) . '"';
                 } else {
@@ -45,15 +45,15 @@ foreach ($inputFileNames as $inputFileName) {
                 }
                 $helper->log('    ' . $chartName . ' - ' . $caption);
                 $indentation = str_repeat(' ', strlen($chartName) + 3);
-                $groupCount = $chart->getPlotArea()->getPlotGroupCount();
+                $groupCount = $chart->getPlotAreaOrThrow()->getPlotGroupCount();
                 if ($groupCount == 1) {
-                    $chartType = $chart->getPlotArea()->getPlotGroupByIndex(0)->getPlotType();
+                    $chartType = $chart->getPlotAreaOrThrow()->getPlotGroupByIndex(0)->getPlotType();
                     $helper->log($indentation . '    ' . $chartType);
                     $helper->renderChart($chart, __FILE__, $spreadsheet);
                 } else {
                     $chartTypes = [];
                     for ($i = 0; $i < $groupCount; ++$i) {
-                        $chartTypes[] = $chart->getPlotArea()->getPlotGroupByIndex($i)->getPlotType();
+                        $chartTypes[] = $chart->getPlotAreaOrThrow()->getPlotGroupByIndex($i)->getPlotType();
                     }
                     $chartTypes = array_unique($chartTypes);
                     if (count($chartTypes) == 1) {

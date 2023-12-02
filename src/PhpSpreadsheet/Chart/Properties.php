@@ -795,9 +795,9 @@ abstract class Properties
      * @param string $capType
      * @param string $joinType
      * @param string $headArrowType
-     * @param string $headArrowSize
+     * @param null|int|string $headArrowSize index into ARROW_SIZES array
      * @param string $endArrowType
-     * @param string $endArrowSize
+     * @param null|int|string $endArrowSize index into ARROW_SIZES array
      * @param string $headArrowWidth
      * @param string $headArrowLength
      * @param string $endArrowWidth
@@ -824,7 +824,7 @@ abstract class Properties
         if ($headArrowType !== '') {
             $this->lineStyleProperties['arrow']['head']['type'] = $headArrowType;
         }
-        if (array_key_exists($headArrowSize, self::ARROW_SIZES)) {
+        if (isset(self::ARROW_SIZES[$headArrowSize])) {
             $this->lineStyleProperties['arrow']['head']['size'] = $headArrowSize;
             $this->lineStyleProperties['arrow']['head']['w'] = self::ARROW_SIZES[$headArrowSize]['w'];
             $this->lineStyleProperties['arrow']['head']['len'] = self::ARROW_SIZES[$headArrowSize]['len'];
@@ -832,7 +832,7 @@ abstract class Properties
         if ($endArrowType !== '') {
             $this->lineStyleProperties['arrow']['end']['type'] = $endArrowType;
         }
-        if (array_key_exists($endArrowSize, self::ARROW_SIZES)) {
+        if (isset(self::ARROW_SIZES[$endArrowSize])) {
             $this->lineStyleProperties['arrow']['end']['size'] = $endArrowSize;
             $this->lineStyleProperties['arrow']['end']['w'] = self::ARROW_SIZES[$endArrowSize]['w'];
             $this->lineStyleProperties['arrow']['end']['len'] = self::ARROW_SIZES[$endArrowSize]['len'];

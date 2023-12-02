@@ -124,10 +124,10 @@ class Axis extends Properties
         return $this->axisType === self::AXIS_TYPE_DATE || (bool) $this->axisNumber['numeric'];
     }
 
-    public function setAxisOption(string $key, ?string $value): void
+    public function setAxisOption(string $key, null|float|int|string $value): void
     {
         if ($value !== null && $value !== '') {
-            $this->axisOptions[$key] = $value;
+            $this->axisOptions[$key] = (string) $value;
         }
     }
 
@@ -141,11 +141,11 @@ class Axis extends Properties
         ?string $axisOrientation = null,
         ?string $majorTmt = null,
         ?string $minorTmt = null,
-        ?string $minimum = null,
-        ?string $maximum = null,
-        ?string $majorUnit = null,
-        ?string $minorUnit = null,
-        ?string $textRotation = null,
+        null|float|int|string $minimum = null,
+        null|float|int|string $maximum = null,
+        null|float|int|string $majorUnit = null,
+        null|float|int|string $minorUnit = null,
+        null|float|int|string $textRotation = null,
         ?string $hidden = null,
         ?string $baseTimeUnit = null,
         ?string $majorTimeUnit = null,

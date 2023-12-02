@@ -98,9 +98,8 @@ class DataSeriesValues extends Properties
      * @param mixed $dataValues
      * @param null|mixed $marker
      * @param null|ChartColor|ChartColor[]|string|string[] $fillColor
-     * @param string $pointSize
      */
-    public function __construct($dataType = self::DATASERIES_TYPE_NUMBER, $dataSource = null, $formatCode = null, $pointCount = 0, $dataValues = [], $marker = null, $fillColor = null, $pointSize = '3')
+    public function __construct($dataType = self::DATASERIES_TYPE_NUMBER, $dataSource = null, $formatCode = null, $pointCount = 0, $dataValues = [], $marker = null, $fillColor = null, int|string $pointSize = '3')
     {
         parent::__construct();
         $this->markerFillColor = new ChartColor();

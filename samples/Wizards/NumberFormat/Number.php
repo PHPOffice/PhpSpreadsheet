@@ -49,11 +49,11 @@ if ($helper->isCli()) {
 if (isset($_POST['submit'])) {
     if (!is_numeric($_POST['number'])) {
         $helper->log('The Sample Number Value must be numeric');
-    } elseif (!is_numeric($_POST['decimals']) || str_contains($_POST['decimals'], '.') || (int) $_POST['decimals'] < 0) {
+    } elseif (!is_numeric($_POST['decimals']) || str_contains((string) $_POST['decimals'], '.') || (int) $_POST['decimals'] < 0) {
         $helper->log('The Decimal Places value must be positive integer');
     } else {
         try {
-            $wizard = new Wizard\Number($_POST['decimals'], isset($_POST['thousands']));
+            $wizard = new Wizard\Number((int) $_POST['decimals'], isset($_POST['thousands']));
             $mask = $wizard->format();
             $example = NumberFormat::toFormattedString((float) $_POST['number'], $mask);
             $helper->log('<hr /><b>Code:</b><br />');

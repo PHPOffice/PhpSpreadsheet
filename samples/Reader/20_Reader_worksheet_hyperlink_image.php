@@ -14,9 +14,12 @@ $aSheet = $spreadsheet->getActiveSheet();
 
 $gdImage = @imagecreatetruecolor(120, 20);
 if ($gdImage === false) {
-    throw new \Exception('imagecreatetruecolor failed');
+    throw new Exception('imagecreatetruecolor failed');
 }
 $textColor = imagecolorallocate($gdImage, 255, 255, 255);
+if ($textColor === false) {
+    throw new Exception('imagecolorallocate failed');
+}
 imagestring($gdImage, 1, 5, 5, 'Created with PhpSpreadsheet', $textColor);
 
 $baseUrl = 'https://phpspreadsheet.readthedocs.io';
@@ -52,7 +55,7 @@ unlink($filename);
 $helper->log('reloaded Spreadsheet');
 
 foreach ($reloadedSpreadsheet->getActiveSheet()->getDrawingCollection() as $pDrawing) {
-    $helper->log('Read link: ' . $pDrawing->getHyperlink()->getUrl());
+    $helper->log('Read link: ' . ($pDrawing->getHyperlink()?->getUrl() ?? 'none'));
 }
 
 $helper->log('end');
