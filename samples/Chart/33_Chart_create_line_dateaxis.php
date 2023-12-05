@@ -370,7 +370,7 @@ function dateRange(int $nrows, Spreadsheet $wrkbk): array
     $qtrEndMonth = sprintf('%02d', $qtrEndMonth);
     $lastDOMDate = DateTime::createFromFormat('Y-m-d', "$lastYr-$qtrEndMonth-01");
     if ($lastDOMDate === false) {
-        throw new Exception("invalid start date $startDateStr on spreadsheet");
+        throw new Exception("invalid last dom date $lastYr-$qtrEndMonth-01 on spreadsheet");
     }
     $lastDOM = $lastDOMDate->format('t');
     $qtrEndStr = "$lastYr-$qtrEndMonth-$lastDOM";

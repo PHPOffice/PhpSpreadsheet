@@ -7,8 +7,8 @@ namespace PhpOffice\PhpSpreadsheetTests\Chart;
 use PhpOffice\PhpSpreadsheet\Chart\Chart;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeries;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues;
+use PhpOffice\PhpSpreadsheet\Chart\Exception as ChartException;
 use PhpOffice\PhpSpreadsheet\Chart\PlotArea;
-use PhpOffice\PhpSpreadsheet\Exception as SpreadsheetException;
 use PHPUnit\Framework\TestCase;
 
 class PlotAreaTest extends TestCase
@@ -41,7 +41,7 @@ class PlotAreaTest extends TestCase
     public function testNoPlotArea(): void
     {
         $chart = new Chart('chart1');
-        $this->expectException(SpreadsheetException::class);
+        $this->expectException(ChartException::class);
         $this->expectExceptionMessage('Chart has no PlotArea');
         $chart->getPlotAreaOrThrow();
     }
