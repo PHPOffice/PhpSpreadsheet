@@ -940,7 +940,7 @@ class Xlsx extends BaseReader
                                                 $cAttrS = isset($styles[$cAttrS]) ? $cAttrS : 0;
                                                 $cell->setXfIndex($cAttrS);
                                                 // issue 3495
-                                                if ($cell->getDataType() === DataType::TYPE_FORMULA && $styles[$cAttrS]->quotePrefix === true) {
+                                                if ($cellDataType === DataType::TYPE_FORMULA && $styles[$cAttrS]->quotePrefix === true) {
                                                     $cell->getStyle()->setQuotePrefix(false);
                                                 }
                                                 $docSheet->setSelectedCells($holdSelected);
