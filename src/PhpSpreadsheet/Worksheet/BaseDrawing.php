@@ -131,6 +131,10 @@ class BaseDrawing implements IComparable
      */
     protected $rotation = 0;
 
+    protected bool $flipVertical = false;
+
+    protected bool $flipHorizontal = false;
+
     /**
      * Shadow.
      */
@@ -541,5 +545,29 @@ class BaseDrawing implements IComparable
         $this->srcRect = $srcRect;
 
         return $this;
+    }
+
+    public function setFlipHorizontal(bool $flipHorizontal): self
+    {
+        $this->flipHorizontal = $flipHorizontal;
+
+        return $this;
+    }
+
+    public function getFlipHorizontal(): bool
+    {
+        return $this->flipHorizontal;
+    }
+
+    public function setFlipVertical(bool $flipVertical): self
+    {
+        $this->flipVertical = $flipVertical;
+
+        return $this;
+    }
+
+    public function getFlipVertical(): bool
+    {
+        return $this->flipVertical;
     }
 }

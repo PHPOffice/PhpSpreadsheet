@@ -4715,7 +4715,7 @@ class Calculation
                 if (($operand2Data = $stack->pop()) === null) {
                     return $this->raiseFormulaError('Internal error - Operand value missing from stack');
                 }
-                if (($operand1Data = $stack->pop()) === null) {
+                if (($operand1Data = $stack->pop()) === null) { // @phpstan-ignore-line
                     return $this->raiseFormulaError('Internal error - Operand value missing from stack');
                 }
 

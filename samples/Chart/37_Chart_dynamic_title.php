@@ -1,20 +1,16 @@
 <?php
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Settings;
 
 require __DIR__ . '/../Header.php';
 
 $inputFileType = 'Xlsx';
-$inputFileNames = __DIR__ . '/../templates/32readwrite*[0-9].xlsx';
+$inputFileName = __DIR__ . '/../templates/37dynamictitle.xlsx';
+var_dump($inputFileName);
+var_dump(realpath($inputFileName));
+$inputFileNames = [$inputFileName];
 
-if ((isset($argc)) && ($argc > 1)) {
-    $inputFileNames = [];
-    for ($i = 1; $i < $argc; ++$i) {
-        $inputFileNames[] = __DIR__ . '/../templates/' . $argv[$i];
-    }
-} else {
-    $inputFileNames = glob($inputFileNames);
-}
 foreach ($inputFileNames as $inputFileName) {
     $inputFileNameShort = basename($inputFileName);
 
@@ -32,6 +28,7 @@ foreach ($inputFileNames as $inputFileName) {
     $helper->log('Iterate worksheets looking at the charts');
     foreach ($spreadsheet->getWorksheetIterator() as $worksheet) {
         $sheetName = $worksheet->getTitle();
+        $worksheet->getCell('A1')->setValue('Changed Title');
         $helper->log('Worksheet: ' . $sheetName);
 
         $chartNames = $worksheet->getChartNames();
@@ -52,7 +49,7 @@ foreach ($inputFileNames as $inputFileName) {
                 if ($groupCount == 1) {
                     $chartType = $chart->getPlotArea()->getPlotGroupByIndex(0)->getPlotType();
                     $helper->log($indentation . '    ' . $chartType);
-                    $helper->renderChart($chart, __FILE__);
+                    $helper->renderChart($chart, __FILE__, $spreadsheet);
                 } else {
                     $chartTypes = [];
                     for ($i = 0; $i < $groupCount; ++$i) {
@@ -74,12 +71,12 @@ foreach ($inputFileNames as $inputFileName) {
         }
     }
 
-    $outputFileName = $helper->getFilename($inputFileName);
-    $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
-    $writer->setIncludeCharts(true);
     $callStartTime = microtime(true);
-    $writer->save($outputFileName);
-    $helper->logWrite($writer, $outputFileName, $callStartTime);
+    $helper->write($spreadsheet, $inputFileName, ['Xlsx'], true);
+
+    Settings::setChartRenderer(\PhpOffice\PhpSpreadsheet\Chart\Renderer\MtJpGraphRenderer::class);
+    $callStartTime = microtime(true);
+    $helper->write($spreadsheet, $inputFileName, ['Html'], true);
 
     $spreadsheet->disconnectWorksheets();
     unset($spreadsheet);
