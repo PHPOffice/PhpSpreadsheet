@@ -4,9 +4,15 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 
 require __DIR__ . '/../Header.php';
 
+/** @return string[] */
+function getDesiredSheetNames(): array
+{
+    return ['Data Sheet #1', 'Data Sheet #3'];
+}
+
 $inputFileType = 'Xls';
 $inputFileName = __DIR__ . '/sampleData/example1.xls';
-$sheetnames = ['Data Sheet #1', 'Data Sheet #3'];
+$sheetnames = getDesiredSheetNames();
 
 $helper->log('Loading file ' . pathinfo($inputFileName, PATHINFO_BASENAME) . ' using IOFactory with a defined reader type of ' . $inputFileType);
 $reader = IOFactory::createReader($inputFileType);

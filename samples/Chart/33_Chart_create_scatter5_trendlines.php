@@ -169,7 +169,7 @@ $spreadsheet->createSheet();
 $chartSheet = $spreadsheet->getSheet(1);
 $chartSheet->setTitle('Scatter Chart');
 
-$chartSheet = $spreadsheet->getSheetByName('Scatter Chart');
+$chartSheet = $spreadsheet->getSheetByNameOrThrow('Scatter Chart');
 // Add the chart to the worksheet
 $chartSheet->addChart($chart);
 

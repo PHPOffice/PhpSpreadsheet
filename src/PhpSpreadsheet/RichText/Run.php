@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\RichText;
 
+use PhpOffice\PhpSpreadsheet\Exception as SpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Style\Font;
 
 class Run extends TextElement implements ITextElement
@@ -32,6 +33,15 @@ class Run extends TextElement implements ITextElement
      */
     public function getFont()
     {
+        return $this->font;
+    }
+
+    public function getFontOrThrow(): Font
+    {
+        if ($this->font === null) {
+            throw new SpreadsheetException('unexpected null font');
+        }
+
         return $this->font;
     }
 
