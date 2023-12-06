@@ -9,6 +9,7 @@ parameters:
         - src/
         - tests/
         - samples/
+        - infra/
     excludePaths:
         - src/PhpSpreadsheet/Chart/Renderer/JpGraph.php
         - src/PhpSpreadsheet/Chart/Renderer/JpGraphRendererBase.php

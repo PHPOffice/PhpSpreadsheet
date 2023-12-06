@@ -140,9 +140,11 @@ class DataValidation
     /**
      * Set Formula 1.
      *
+     * @param float|int|string $formula usually string, but can be number (test for equal)
+     *
      * @return $this
      */
-    public function setFormula1(float|int|string $formula): static
+    public function setFormula1($formula): static
     {
         $this->formula1 = (string) $formula;
 
@@ -162,9 +164,11 @@ class DataValidation
     /**
      * Set Formula 2.
      *
+     * @param float|int|string $formula usually string, but can be number (test for equal)
+     *
      * @return $this
      */
-    public function setFormula2(float|int|string $formula): static
+    public function setFormula2($formula): static
     {
         $this->formula2 = (string) $formula;
 

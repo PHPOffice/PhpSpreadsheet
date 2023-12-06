@@ -124,9 +124,10 @@ class DataSeries
      * @param DataSeriesValues[] $plotCategory
      * @param DataSeriesValues[] $plotValues
      * @param null|string $plotDirection
+     * @param null|bool $smoothLine null treated as false
      * @param null|string $plotStyle
      */
-    public function __construct($plotType = null, $plotGrouping = null, array $plotOrder = [], array $plotLabel = [], array $plotCategory = [], array $plotValues = [], $plotDirection = null, ?bool $smoothLine = false, $plotStyle = null)
+    public function __construct($plotType = null, $plotGrouping = null, array $plotOrder = [], array $plotLabel = [], array $plotCategory = [], array $plotValues = [], $plotDirection = null, $smoothLine = false, $plotStyle = null)
     {
         $this->plotType = $plotType;
         $this->plotGrouping = $plotGrouping;
