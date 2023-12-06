@@ -937,10 +937,10 @@ class Xlsx extends BaseReader
                                                 $holdSelected = $docSheet->getSelectedCells();
                                                 $cAttrS = (int) ($cAttr['s'] ?? 0);
                                                 // no style index means 0, it seems
-                                                $cell->setXfIndex(isset($styles[$cAttrS])
-                                                    ? $cAttrS : 0);
+                                                $cAttrS = isset($styles[$cAttrS]) ? $cAttrS : 0;
+                                                $cell->setXfIndex($cAttrS);
                                                 // issue 3495
-                                                if ($cell->getDataType() === DataType::TYPE_FORMULA) {
+                                                if ($cellDataType === DataType::TYPE_FORMULA && $styles[$cAttrS]->quotePrefix === true) {
                                                     $cell->getStyle()->setQuotePrefix(false);
                                                 }
                                                 $docSheet->setSelectedCells($holdSelected);
