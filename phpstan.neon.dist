@@ -8,6 +8,8 @@ parameters:
     paths:
         - src/
         - tests/
+        - samples/
+        - infra/
     excludePaths:
         - src/PhpSpreadsheet/Chart/Renderer/JpGraph.php
         - src/PhpSpreadsheet/Chart/Renderer/JpGraphRendererBase.php
@@ -21,3 +23,4 @@ parameters:
     ignoreErrors:
         # Accept a bit anything for assert methods
         - '~^Parameter \#2 .* of static method PHPUnit\\Framework\\Assert\:\:assert\w+\(\) expects .*, .* given\.$~'
+        - '~^Variable \$helper might not be defined\.$~'

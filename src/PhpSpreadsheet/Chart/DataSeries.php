@@ -124,7 +124,7 @@ class DataSeries
      * @param DataSeriesValues[] $plotCategory
      * @param DataSeriesValues[] $plotValues
      * @param null|string $plotDirection
-     * @param bool $smoothLine
+     * @param null|bool $smoothLine null treated as false
      * @param null|string $plotStyle
      */
     public function __construct($plotType = null, $plotGrouping = null, array $plotOrder = [], array $plotLabel = [], array $plotCategory = [], array $plotValues = [], $plotDirection = null, $smoothLine = false, $plotStyle = null)
@@ -144,7 +144,7 @@ class DataSeries
         }
         $this->plotCategory = $plotCategory;
 
-        $this->smoothLine = $smoothLine;
+        $this->smoothLine = (bool) $smoothLine;
         $this->plotStyle = $plotStyle;
 
         if ($plotDirection === null) {

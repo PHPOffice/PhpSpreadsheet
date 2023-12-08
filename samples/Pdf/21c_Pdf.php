@@ -16,7 +16,7 @@ function addHeadersFootersMpdf2000(string $html): string
         odd-footer-name: html_myFooter2;
 
         EOF;
-    $html = preg_replace('/@page page0 {/', $pagerepl, $html);
+    $html = preg_replace('/@page page0 {/', $pagerepl, $html) ?? '';
     $bodystring = '/<body>/';
     $simulatedBodyStart = Mpdf::SIMULATED_BODY_START;
     $bodyrepl = <<<EOF
@@ -40,7 +40,7 @@ function addHeadersFootersMpdf2000(string $html): string
 
         EOF;
 
-    return preg_replace($bodystring, $bodyrepl, $html);
+    return preg_replace($bodystring, $bodyrepl, $html) ?? '';
 }
 
 $spreadsheet = new Spreadsheet();

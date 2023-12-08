@@ -13,17 +13,14 @@ $inputFileName = __DIR__ . '/sampleData/example2.csv';
 /**  Define a Read Filter class implementing IReadFilter  */
 class ChunkReadFilter implements IReadFilter
 {
-    private $startRow = 0;
+    private int $startRow = 0;
 
-    private $endRow = 0;
+    private int $endRow = 0;
 
     /**
      * Set the list of rows that we want to read.
-     *
-     * @param mixed $startRow
-     * @param mixed $chunkSize
      */
-    public function setRows($startRow, $chunkSize): void
+    public function setRows(int $startRow, int $chunkSize): void
     {
         $this->startRow = $startRow;
         $this->endRow = $startRow + $chunkSize;
@@ -51,8 +48,8 @@ $chunkFilter = new ChunkReadFilter();
 
 // Tell the Reader that we want to use the Read Filter that we've Instantiated
 // and that we want to store it in contiguous rows/columns
-$reader->setReadFilter($chunkFilter)
-    ->setContiguous(true);
+$reader->setReadFilter($chunkFilter);
+$reader->setContiguous(true);
 
 // Instantiate a new PhpSpreadsheet object manually
 $spreadsheet = new Spreadsheet();

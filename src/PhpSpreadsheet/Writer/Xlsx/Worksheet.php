@@ -139,6 +139,9 @@ class Worksheet extends WriterPart
         // IgnoredErrors
         $this->writeIgnoredErrors($objWriter);
 
+        // BackgroundImage must come after ignored, before table
+        $this->writeBackgroundImage($objWriter, $worksheet);
+
         // Table
         $this->writeTable($objWriter, $worksheet);
 
@@ -1042,6 +1045,9 @@ class Worksheet extends WriterPart
     private function writeTable(XMLWriter $objWriter, PhpspreadsheetWorksheet $worksheet): void
     {
         $tableCount = $worksheet->getTableCollection()->count();
+        if ($tableCount === 0) {
+            return;
+        }
 
         $objWriter->startElement('tableParts');
         $objWriter->writeAttribute('count', (string) $tableCount);
@@ -1053,6 +1059,18 @@ class Worksheet extends WriterPart
         }
 
         $objWriter->endElement();
+    }
+
+    /**
+     * Write Background Image.
+     */
+    private function writeBackgroundImage(XMLWriter $objWriter, PhpspreadsheetWorksheet $worksheet): void
+    {
+        if ($worksheet->getBackgroundImage() !== '') {
+            $objWriter->startElement('picture');
+            $objWriter->writeAttribute('r:id', 'rIdBg');
+            $objWriter->endElement();
+        }
     }
 
     /**
@@ -1098,19 +1116,31 @@ class Worksheet extends WriterPart
     private function writeHeaderFooter(XMLWriter $objWriter, PhpspreadsheetWorksheet $worksheet): void
     {
         // headerFooter
+        $headerFooter = $worksheet->getHeaderFooter();
+        $oddHeader = $headerFooter->getOddHeader();
+        $oddFooter = $headerFooter->getOddFooter();
+        $evenHeader = $headerFooter->getEvenHeader();
+        $evenFooter = $headerFooter->getEvenFooter();
+        $firstHeader = $headerFooter->getFirstHeader();
+        $firstFooter = $headerFooter->getFirstFooter();
+        if ("$oddHeader$oddFooter$evenHeader$evenFooter$firstHeader$firstFooter" === '') {
+            return;
+        }
+
         $objWriter->startElement('headerFooter');
         $objWriter->writeAttribute('differentOddEven', ($worksheet->getHeaderFooter()->getDifferentOddEven() ? 'true' : 'false'));
         $objWriter->writeAttribute('differentFirst', ($worksheet->getHeaderFooter()->getDifferentFirst() ? 'true' : 'false'));
         $objWriter->writeAttribute('scaleWithDoc', ($worksheet->getHeaderFooter()->getScaleWithDocument() ? 'true' : 'false'));
         $objWriter->writeAttribute('alignWithMargins', ($worksheet->getHeaderFooter()->getAlignWithMargins() ? 'true' : 'false'));
 
-        $objWriter->writeElement('oddHeader', $worksheet->getHeaderFooter()->getOddHeader());
-        $objWriter->writeElement('oddFooter', $worksheet->getHeaderFooter()->getOddFooter());
-        $objWriter->writeElement('evenHeader', $worksheet->getHeaderFooter()->getEvenHeader());
-        $objWriter->writeElement('evenFooter', $worksheet->getHeaderFooter()->getEvenFooter());
-        $objWriter->writeElement('firstHeader', $worksheet->getHeaderFooter()->getFirstHeader());
-        $objWriter->writeElement('firstFooter', $worksheet->getHeaderFooter()->getFirstFooter());
-        $objWriter->endElement();
+        self::writeElementIf($objWriter, $oddHeader !== '', 'oddHeader', $oddHeader);
+        self::writeElementIf($objWriter, $oddFooter !== '', 'oddFooter', $oddFooter);
+        self::writeElementIf($objWriter, $evenHeader !== '', 'evenHeader', $evenHeader);
+        self::writeElementIf($objWriter, $evenFooter !== '', 'evenFooter', $evenFooter);
+        self::writeElementIf($objWriter, $firstHeader !== '', 'firstHeader', $firstHeader);
+        self::writeElementIf($objWriter, $firstFooter !== '', 'firstFooter', $firstFooter);
+
+        $objWriter->endElement(); // headerFooter
     }
 
     /**

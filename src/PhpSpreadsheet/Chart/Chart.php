@@ -134,6 +134,16 @@ class Chart
     private ChartColor $fillColor;
 
     /**
+     * Rendered width in pixels.
+     */
+    private ?float $renderedWidth = null;
+
+    /**
+     * Rendered height in pixels.
+     */
+    private ?float $renderedHeight = null;
+
+    /**
      * Create a new Chart.
      * majorGridlines and minorGridlines are deprecated, moved to Axis.
      *
@@ -274,6 +284,16 @@ class Chart
     public function getPlotArea(): ?PlotArea
     {
         return $this->plotArea;
+    }
+
+    public function getPlotAreaOrThrow(): PlotArea
+    {
+        $plotArea = $this->getPlotArea();
+        if ($plotArea !== null) {
+            return $plotArea;
+        }
+
+        throw new Exception('Chart has no PlotArea');
     }
 
     /**
@@ -792,5 +812,29 @@ class Chart
     public function getFillColor(): ChartColor
     {
         return $this->fillColor;
+    }
+
+    public function setRenderedWidth(?float $width): self
+    {
+        $this->renderedWidth = $width;
+
+        return $this;
+    }
+
+    public function getRenderedWidth(): ?float
+    {
+        return $this->renderedWidth;
+    }
+
+    public function setRenderedHeight(?float $height): self
+    {
+        $this->renderedHeight = $height;
+
+        return $this;
+    }
+
+    public function getRenderedHeight(): ?float
+    {
+        return $this->renderedHeight;
     }
 }
