@@ -60,12 +60,18 @@ $worksheet
     ->setCellValue("B{$row}", '=SUM(COLUMN_DATA_VALUES)')
     ->setCellValue("C{$row}", '=SUM(COLUMN_DATA_VALUES)');
 
+$range = $spreadsheet->getNamedRange('CHARGE_RATE');
+if ($range === null || $range->getWorksheet() === null) {
+    throw new Exception('expected named range not found');
+}
+$chargeRateCellValue = $spreadsheet
+    ->getSheetByNameOrThrow($range->getWorksheet()->getTitle())
+    ->getCell($range->getCellsInRange()[0])->getValue();
+
 $helper->log(sprintf(
     'Worked %.2f hours at a rate of %s - Charge to the client is %.2f',
     $worksheet->getCell("B{$row}")->getCalculatedValue(),
-    $chargeRateCellValue = $spreadsheet
-        ->getSheetByName($spreadsheet->getNamedRange('CHARGE_RATE')->getWorksheet()->getTitle())
-        ->getCell($spreadsheet->getNamedRange('CHARGE_RATE')->getCellsInRange()[0])->getValue(),
+    $chargeRateCellValue,
     $worksheet->getCell("C{$row}")->getCalculatedValue()
 ));
 

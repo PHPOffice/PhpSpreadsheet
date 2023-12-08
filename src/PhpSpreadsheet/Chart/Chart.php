@@ -285,6 +285,16 @@ class Chart
         return $this->plotArea;
     }
 
+    public function getPlotAreaOrThrow(): PlotArea
+    {
+        $plotArea = $this->getPlotArea();
+        if ($plotArea !== null) {
+            return $plotArea;
+        }
+
+        throw new Exception('Chart has no PlotArea');
+    }
+
     /**
      * Set Plot Area.
      */

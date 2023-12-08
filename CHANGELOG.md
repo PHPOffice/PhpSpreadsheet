@@ -77,6 +77,8 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Slk Shared Formulas. [Issue #2267](https://github.com/PHPOffice/PhpSpreadsheet/issues/2267) [PR #3776](https://github.com/PHPOffice/PhpSpreadsheet/pull/3776)
 - Html omitting some charts. [Issue #3767](https://github.com/PHPOffice/PhpSpreadsheet/issues/3767) [PR #3771](https://github.com/PHPOffice/PhpSpreadsheet/pull/3771)
 - Case Insensitive Comparison for Sheet Names [PR #3791](https://github.com/PHPOffice/PhpSpreadsheet/pull/3791)
+- Performance improvement for Xlsx Reader. [Issue #3683](https://github.com/PHPOffice/PhpSpreadsheet/issues/3683) [PR #3810](https://github.com/PHPOffice/PhpSpreadsheet/pull/3810)
+- Prevent loop in Shared/File. [Issue #3807](https://github.com/PHPOffice/PhpSpreadsheet/issues/3807) [PR #3809](https://github.com/PHPOffice/PhpSpreadsheet/pull/3809)
 
 ## 1.29.0 - 2023-06-15
 

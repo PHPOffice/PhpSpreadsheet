@@ -13,13 +13,13 @@ $sheetname = 'Data Sheet #3';
 
 class MyReadFilter implements IReadFilter
 {
-    private $startRow = 0;
+    private int $startRow = 0;
 
-    private $endRow = 0;
+    private int $endRow = 0;
 
-    private $columns = [];
+    private array $columns = [];
 
-    public function __construct($startRow, $endRow, $columns)
+    public function __construct(int $startRow, int $endRow, array $columns)
     {
         $this->startRow = $startRow;
         $this->endRow = $endRow;
