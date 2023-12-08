@@ -294,13 +294,13 @@ Refer to [the new documentation](./memory_saving.md) to see how to migrate.
 
 ### Dropped conditionally returned cell
 
-For all the following methods, it is no more possible to change the type of
-returned value. It always return the Worksheet and never the Cell or Rule:
+For all the following methods, it is not possible to change the type of
+returned value. They will always return the Worksheet and never the Cell or Rule:
 
 - Worksheet::setCellValue()
-- Worksheet::setCellValueByColumnAndRow()
+- Worksheet::setCellValueByColumnAndRow() (*deprecated*)
 - Worksheet::setCellValueExplicit()
-- Worksheet::setCellValueExplicitByColumnAndRow()
+- Worksheet::setCellValueExplicitByColumnAndRow() (*deprecated*)
 - Worksheet::addRule()
 
 Migration would be similar to:
@@ -412,19 +412,19 @@ So the code must be adapted with something like:
 // Before
 $cell = $worksheet->getCellByColumnAndRow($column, $row);
 
-for ($column = 0; $column < $max; $column++) {
-    $worksheet->setCellValueByColumnAndRow($column, $row, 'value ' . $column);
+for ($column = 0; $column < $max; ++$column) {
+    $worksheet->setCellValueByColumnAndRow($column, $row, 'value');
 }
 
 // After
-$cell = $worksheet->getCellByColumnAndRow($column + 1, $row);
+$cell = $worksheet->getCell([$column + 1, $row]);
 
-for ($column = 1; $column <= $max; $column++) {
-    $worksheet->setCellValueByColumnAndRow($column, $row, 'value ' . $column);
+for ($column = 1; $column <= $max; ++$column) {
+    $worksheet->setCellValue([$column, $row], 'value');
 }
 ```
 
-All the following methods are affected:
+All the following methods are affected, and all are now deprecated (see example above for how to replace them):
 
 - `PHPExcel_Worksheet::cellExistsByColumnAndRow()`
 - `PHPExcel_Worksheet::freezePaneByColumnAndRow()`
