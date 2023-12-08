@@ -222,13 +222,17 @@ $writer = new \PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf($spreadsheet);
 
 ### Rendering charts
 
-When rendering charts for HTML or PDF outputs, the process was also simplified. And while
-JpGraph support is still available, it is unfortunately not up to date for latest PHP versions
-and it will generate various warnings.
-
-If you rely on this feature, please consider
-contributing either patches to JpGraph or another `IRenderer` implementation (a good
+When rendering charts for HTML or PDF outputs, the process was simplified.
+And, while JpGraph support is still available,
+the version distributed via Composer is no longer maintained,
+so you would need to install the current version manually.
+If you rely on this package, please consider
+contributing patches either to JpGraph or another `IRenderer` implementation (a good
 candidate might be [CpChart](https://github.com/szymach/c-pchart)).
+
+The package [mitoteam/jpgraph](https://github.com/mitoteam/jpgraph)
+is distributed via Composer, and is fully compatible with Jpgraph.
+We recommend that it be used for rendering.
 
 Before:
 
@@ -245,13 +249,13 @@ After:
 Require the dependency via composer:
 
 ```sh
-composer require jpgraph/jpgraph
+composer require mitoteam/jpgraph
 ```
 
 And then:
 
 ```php
-Settings::setChartRenderer(\PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph::class);
+Settings::setChartRenderer(\PhpOffice\PhpSpreadsheet\Chart\Renderer\MtJpGraphRenderer::class);
 ```
 
 ### PclZip and ZipArchive
