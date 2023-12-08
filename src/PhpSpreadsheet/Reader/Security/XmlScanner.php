@@ -74,7 +74,7 @@ class XmlScanner
         $xml = $this->toUtf8($xml);
 
         // Don't rely purely on libxml_disable_entity_loader()
-        $pattern = '/\\0?' . implode('\\0?', /** @scrutinizer ignore-type */ str_split($this->pattern)) . '\\0?/';
+        $pattern = '/\\0?' . implode('\\0?', str_split($this->pattern)) . '\\0?/';
 
         if (preg_match($pattern, $xml)) {
             throw new Reader\Exception('Detected use of ENTITY in XML, spreadsheet file load() aborted to prevent XXE/XEE attacks');

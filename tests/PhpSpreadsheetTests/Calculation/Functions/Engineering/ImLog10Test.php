@@ -30,7 +30,6 @@ class ImLog10Test extends TestCase
      */
     public function testDirectCallToIMLOG10(mixed $expectedResult, mixed ...$args): void
     {
-        /** @scrutinizer ignore-call */
         $result = ComplexFunctions::IMLOG10(...$args);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),

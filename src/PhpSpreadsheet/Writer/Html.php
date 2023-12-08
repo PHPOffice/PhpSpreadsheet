@@ -23,6 +23,7 @@ use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Font;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Style\Style;
+use PhpOffice\PhpSpreadsheet\Worksheet\BaseDrawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
@@ -31,6 +32,10 @@ use voku\helper\AntiXSS;
 
 class Html extends BaseWriter
 {
+    private const DEFAULT_CELL_WIDTH_POINTS = 42;
+
+    private const DEFAULT_CELL_WIDTH_PIXELS = 56;
+
     /**
      * Spreadsheet object.
      */
@@ -145,6 +150,12 @@ class Html extends BaseWriter
      * @var null|callable
      */
     private $editHtmlCallback;
+
+    /** @var BaseDrawing[] */
+    private $sheetDrawings;
+
+    /** @var Chart[] */
+    private $sheetCharts;
 
     /**
      * Create a new HTML.
@@ -475,11 +486,14 @@ class Html extends BaseWriter
         foreach ($sheets as $sheet) {
             // Write table header
             $html .= $this->generateTableHeader($sheet);
+            $this->sheetCharts = [];
+            $this->sheetDrawings = [];
 
             // Get worksheet dimension
             [$min, $max] = explode(':', $sheet->calculateWorksheetDataDimension());
             [$minCol, $minRow] = Coordinate::indexesFromString($min);
             [$maxCol, $maxRow] = Coordinate::indexesFromString($max);
+            $this->extendRowsAndColumns($sheet, $maxCol, $maxRow);
 
             [$theadStart, $theadEnd, $tbodyStart] = $this->generateSheetStarts($sheet, $minRow);
 
@@ -506,8 +520,6 @@ class Html extends BaseWriter
 
                 $html .= $endTag;
             }
-            --$row;
-            $html .= $this->extendRowsForChartsAndImages($sheet, $row);
 
             // Write table footer
             $html .= $this->generateTableFooter();
@@ -559,78 +571,33 @@ class Html extends BaseWriter
         return $html;
     }
 
-    /**
-     * Extend Row if chart is placed after nominal end of row.
-     * This code should be exercised by sample:
-     * Chart/32_Chart_read_write_PDF.php.
-     *
-     * @param int $row Row to check for charts
-     */
-    private function extendRowsForCharts(Worksheet $worksheet, int $row): array
+    private function extendRowsAndColumns(Worksheet $worksheet, int &$colMax, int &$rowMax): void
     {
-        $rowMax = $row;
-        $colMax = 'A';
-        $anyfound = false;
         if ($this->includeCharts) {
             foreach ($worksheet->getChartCollection() as $chart) {
                 if ($chart instanceof Chart) {
-                    $anyfound = true;
                     $chartCoordinates = $chart->getTopLeftPosition();
-                    $chartTL = Coordinate::coordinateFromString($chartCoordinates['cell']);
-                    $chartCol = Coordinate::columnIndexFromString($chartTL[0]);
+                    $this->sheetCharts[$chartCoordinates['cell']] = $chart;
+                    $chartTL = Coordinate::indexesFromString($chartCoordinates['cell']);
                     if ($chartTL[1] > $rowMax) {
                         $rowMax = $chartTL[1];
-                        if ($chartCol > Coordinate::columnIndexFromString($colMax)) {
-                            $colMax = $chartTL[0];
-                        }
+                    }
+                    if ($chartTL[0] > $colMax) {
+                        $colMax = $chartTL[0];
                     }
                 }
             }
         }
-
-        return [$rowMax, $colMax, $anyfound];
-    }
-
-    private function extendRowsForChartsAndImages(Worksheet $worksheet, int $row): string
-    {
-        [$rowMax, $colMax, $anyfound] = $this->extendRowsForCharts($worksheet, $row);
-
         foreach ($worksheet->getDrawingCollection() as $drawing) {
-            $anyfound = true;
-            $imageTL = Coordinate::coordinateFromString($drawing->getCoordinates());
-            $imageCol = Coordinate::columnIndexFromString($imageTL[0]);
+            $imageTL = Coordinate::indexesFromString($drawing->getCoordinates());
+            $this->sheetDrawings[$drawing->getCoordinates()] = $drawing;
             if ($imageTL[1] > $rowMax) {
                 $rowMax = $imageTL[1];
-                if ($imageCol > Coordinate::columnIndexFromString($colMax)) {
-                    $colMax = $imageTL[0];
-                }
+            }
+            if ($imageTL[0] > $colMax) {
+                $colMax = $imageTL[0];
             }
         }
-
-        // Don't extend rows if not needed
-        if ($row === $rowMax || !$anyfound) {
-            return '';
-        }
-
-        $html = '';
-        ++$colMax;
-        ++$row;
-        while ($row <= $rowMax) {
-            $html .= '<tr>';
-            for ($col = 'A'; $col != $colMax; ++$col) {
-                $htmlx = $this->writeImageInCell($worksheet, $col . $row);
-                $htmlx .= $this->includeCharts ? $this->writeChartInCell($worksheet, $col . $row) : '';
-                if ($htmlx) {
-                    $html .= "<td class='style0' style='position: relative;'>$htmlx</td>";
-                } else {
-                    $html .= "<td class='style0'></td>";
-                }
-            }
-            ++$row;
-            $html .= '</tr>' . PHP_EOL;
-        }
-
-        return $html;
     }
 
     /**
@@ -654,19 +621,16 @@ class Html extends BaseWriter
     /**
      * Generate image tag in cell.
      *
-     * @param Worksheet $worksheet \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet
      * @param string $coordinates Cell coordinates
      */
-    private function writeImageInCell(Worksheet $worksheet, string $coordinates): string
+    private function writeImageInCell(string $coordinates): string
     {
         // Construct HTML
         $html = '';
 
         // Write images
-        foreach ($worksheet->getDrawingCollection() as $drawing) {
-            if ($drawing->getCoordinates() != $coordinates) {
-                continue;
-            }
+        $drawing = $this->sheetDrawings[$coordinates] ?? null;
+        if ($drawing !== null) {
             $filedesc = $drawing->getDescription();
             $filedesc = $filedesc ? htmlspecialchars($filedesc, ENT_QUOTES) : 'Embedded image';
             if ($drawing instanceof Drawing) {
@@ -740,34 +704,83 @@ class Html extends BaseWriter
         $html = '';
 
         // Write charts
-        foreach ($worksheet->getChartCollection() as $chart) {
-            if ($chart instanceof Chart) {
-                $chartCoordinates = $chart->getTopLeftPosition();
-                if ($chartCoordinates['cell'] == $coordinates) {
-                    $chartFileName = File::sysGetTempDir() . '/' . uniqid('', true) . '.png';
-                    if (!$chart->render($chartFileName)) {
-                        return '';
-                    }
-
-                    $html .= PHP_EOL;
-                    $imageDetails = getimagesize($chartFileName) ?: ['', '', 'mime' => ''];
-                    $filedesc = $chart->getTitle();
-                    $filedesc = $filedesc ? $filedesc->getCaptionText() : '';
-                    $filedesc = $filedesc ? htmlspecialchars($filedesc, ENT_QUOTES) : 'Embedded chart';
-                    $picture = file_get_contents($chartFileName);
-                    if ($picture !== false) {
-                        $base64 = base64_encode($picture);
-                        $imageData = 'data:' . $imageDetails['mime'] . ';base64,' . $base64;
-
-                        $html .= '<img style="position: absolute; z-index: 1; left: ' . $chartCoordinates['xOffset'] . 'px; top: ' . $chartCoordinates['yOffset'] . 'px; width: ' . $imageDetails[0] . 'px; height: ' . $imageDetails[1] . 'px;" src="' . $imageData . '" alt="' . $filedesc . '" />' . PHP_EOL;
-                    }
-                    unlink($chartFileName);
+        $chart = $this->sheetCharts[$coordinates] ?? null;
+        if ($chart !== null) {
+            $chartCoordinates = $chart->getTopLeftPosition();
+            $chartFileName = File::sysGetTempDir() . '/' . uniqid('', true) . '.png';
+            $renderedWidth = $chart->getRenderedWidth();
+            $renderedHeight = $chart->getRenderedHeight();
+            if ($renderedWidth === null || $renderedHeight === null) {
+                $this->adjustRendererPositions($chart, $worksheet);
+            }
+            $title = $chart->getTitle();
+            $caption = null;
+            $filedesc = '';
+            if ($title !== null) {
+                $calculatedTitle = $title->getCalculatedTitle($worksheet->getParent());
+                if ($calculatedTitle !== null) {
+                    $caption = $title->getCaption();
+                    $title->setCaption($calculatedTitle);
                 }
+                $filedesc = $title->getCaptionText($worksheet->getParent());
+            }
+            $renderSuccessful = $chart->render($chartFileName);
+            $chart->setRenderedWidth($renderedWidth);
+            $chart->setRenderedHeight($renderedHeight);
+            if (isset($title, $caption)) {
+                $title->setCaption($caption);
+            }
+            if (!$renderSuccessful) {
+                return '';
+            }
+
+            $html .= PHP_EOL;
+            $imageDetails = getimagesize($chartFileName) ?: ['', '', 'mime' => ''];
+
+            $filedesc = $filedesc ? htmlspecialchars($filedesc, ENT_QUOTES) : 'Embedded chart';
+            $picture = file_get_contents($chartFileName);
+            unlink($chartFileName);
+            if ($picture !== false) {
+                $base64 = base64_encode($picture);
+                $imageData = 'data:' . $imageDetails['mime'] . ';base64,' . $base64;
+
+                $html .= '<img style="position: absolute; z-index: 1; left: ' . $chartCoordinates['xOffset'] . 'px; top: ' . $chartCoordinates['yOffset'] . 'px; width: ' . $imageDetails[0] . 'px; height: ' . $imageDetails[1] . 'px;" src="' . $imageData . '" alt="' . $filedesc . '" />' . PHP_EOL;
             }
         }
 
         // Return
         return $html;
+    }
+
+    private function adjustRendererPositions(Chart $chart, Worksheet $sheet): void
+    {
+        $topLeft = $chart->getTopLeftPosition();
+        $bottomRight = $chart->getBottomRightPosition();
+        $tlCell = $topLeft['cell'];
+        $brCell = $bottomRight['cell'];
+        if ($tlCell !== '' && $brCell !== '') {
+            $tlCoordinate = Coordinate::indexesFromString($tlCell);
+            $brCoordinate = Coordinate::indexesFromString($brCell);
+            $totalHeight = 0.0;
+            $totalWidth = 0.0;
+            $defaultRowHeight = $sheet->getDefaultRowDimension()->getRowHeight();
+            $defaultRowHeight = SharedDrawing::pointsToPixels(($defaultRowHeight >= 0) ? $defaultRowHeight : SharedFont::getDefaultRowHeightByFont($this->defaultFont));
+            if ($tlCoordinate[1] <= $brCoordinate[1] && $tlCoordinate[0] <= $brCoordinate[0]) {
+                for ($row = $tlCoordinate[1]; $row <= $brCoordinate[1]; ++$row) {
+                    $height = $sheet->getRowDimension($row)->getRowHeight('pt');
+                    $totalHeight += ($height >= 0) ? $height : $defaultRowHeight;
+                }
+                $rightEdge = $brCoordinate[2];
+                ++$rightEdge;
+                for ($column = $tlCoordinate[2]; $column !== $rightEdge; ++$column) {
+                    $width = $sheet->getColumnDimension($column)->getWidth();
+                    $width = ($width < 0) ? self::DEFAULT_CELL_WIDTH_PIXELS : SharedDrawing::cellDimensionToPixels($sheet->getColumnDimension($column)->getWidth(), $this->defaultFont);
+                    $totalWidth += $width;
+                }
+                $chart->setRenderedWidth($totalWidth);
+                $chart->setRenderedHeight($totalHeight);
+            }
+        }
     }
 
     /**
@@ -835,6 +848,11 @@ class Html extends BaseWriter
             $css["table.sheet$sheetIndex"]['page-break-inside'] = 'avoid';
             $css["table.sheet$sheetIndex"]['break-inside'] = 'avoid';
         }
+        $picture = $sheet->getBackgroundImage();
+        if ($picture !== '') {
+            $base64 = base64_encode($picture);
+            $css["table.sheet$sheetIndex"]['background-image'] = 'url(data:' . $sheet->getBackgroundMime() . ';base64,' . $base64 . ')';
+        }
 
         // Build styles
         // Calculate column widths
@@ -844,8 +862,8 @@ class Html extends BaseWriter
         $highestColumnIndex = Coordinate::columnIndexFromString($sheet->getHighestColumn()) - 1;
         $column = -1;
         while ($column++ < $highestColumnIndex) {
-            $this->columnWidths[$sheetIndex][$column] = 42; // approximation
-            $css['table.sheet' . $sheetIndex . ' col.col' . $column]['width'] = '42pt';
+            $this->columnWidths[$sheetIndex][$column] = self::DEFAULT_CELL_WIDTH_POINTS; // approximation
+            $css['table.sheet' . $sheetIndex . ' col.col' . $column]['width'] = self::DEFAULT_CELL_WIDTH_POINTS . 'pt';
         }
 
         // col elements, loop through columnDimensions and set width
@@ -1396,7 +1414,7 @@ class Html extends BaseWriter
     private function generateRowWriteCell(string &$html, Worksheet $worksheet, string $coordinate, string $cellType, string $cellData, int $colSpan, int $rowSpan, $cssClass, int $colNum, int $sheetIndex, int $row): void
     {
         // Image?
-        $htmlx = $this->writeImageInCell($worksheet, $coordinate);
+        $htmlx = $this->writeImageInCell($coordinate);
         // Chart?
         $htmlx .= $this->generateRowIncludeCharts($worksheet, $coordinate);
         // Column start

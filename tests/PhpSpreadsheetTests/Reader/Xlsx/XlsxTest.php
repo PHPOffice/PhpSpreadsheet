@@ -6,6 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Reader\IReader;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
@@ -244,5 +245,31 @@ height:13.5pt;z-index:5;mso-wrap-style:tight'],
             ['position:absolute; margin-left:424.5pt; margin-top:169.5pt; width:67.5pt;
             height:13.5pt;z-index:5;mso-wrap-style:tight'],
         ];
+    }
+
+    public function testLoadDataOnlyLoadsAlsoTables(): void
+    {
+        $filename = 'tests/data/Reader/XLSX/data_with_tables.xlsx';
+        $reader = new Xlsx();
+        $excel = $reader->load($filename, IReader::READ_DATA_ONLY);
+
+        self::assertEquals(['First', 'Second'], $excel->getSheetNames());
+
+        $table = $excel->getTableByName('Tableau1');
+        $firstSheet = $excel->getSheetByName('First');
+        $secondSheet = $excel->getSheetByName('Second');
+        if (!$table || !$firstSheet || !$secondSheet) {
+            self::fail('Table or Sheet not found.');
+        }
+
+        self::assertEquals('A1:B5', $table->getRange());
+        self::assertEquals([['1', '2', '3']], $firstSheet->toArray());
+        self::assertEquals([
+            ['Colonne1', 'Colonne2'],
+            ['a', 'b'],
+            ['c', 'd'],
+            ['e', 'f'],
+            ['g', 'h'],
+        ], $secondSheet->toArray());
     }
 }

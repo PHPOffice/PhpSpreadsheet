@@ -163,9 +163,6 @@ class Workbook extends BIFFwriter
      */
     private ?\PhpOffice\PhpSpreadsheet\Shared\Escher $escher = null;
 
-    /** @var mixed */
-    private static $scrutinizerFalse = false;
-
     /**
      * Class constructor.
      *
@@ -242,7 +239,7 @@ class Workbook extends BIFFwriter
         $xfWriter->setDiagColor($this->addColor($style->getBorders()->getDiagonal()->getColor()->getRGB()));
 
         // Add the number format if it is not a built-in one and not already added
-        if ($style->getNumberFormat()->getBuiltInFormatCode() === self::$scrutinizerFalse) {
+        if ($style->getNumberFormat()->getBuiltInFormatCode() === false) {
             $numberFormatHashCode = $style->getNumberFormat()->getHashCode();
 
             if (isset($this->addedNumberFormats[$numberFormatHashCode])) {

@@ -189,7 +189,7 @@ class Text
             return '(' . $delimiters . ')';
         }
 
-        return '(' . preg_quote(/** @scrutinizer ignore-type */ Functions::flattenSingleValue($delimiter), '/') . ')';
+        return '(' . preg_quote(Functions::flattenSingleValue($delimiter), '/') . ')';
     }
 
     private static function matchFlags(bool $matchMode): string

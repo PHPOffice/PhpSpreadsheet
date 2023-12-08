@@ -373,7 +373,7 @@ class Spreadsheet implements JsonSerializable
     {
         $extension = pathinfo($path, PATHINFO_EXTENSION);
 
-        return substr(/** @scrutinizer ignore-type */ $extension, 0);
+        return substr($extension, 0);
     }
 
     /**
@@ -701,7 +701,7 @@ class Spreadsheet implements JsonSerializable
     {
         $worksheetCount = count($this->workSheetCollection);
         for ($i = 0; $i < $worksheetCount; ++$i) {
-            if ($this->workSheetCollection[$i]->getTitle() === trim($worksheetName, "'")) {
+            if (strcasecmp($this->workSheetCollection[$i]->getTitle(), trim($worksheetName, "'")) === 0) {
                 return $this->workSheetCollection[$i];
             }
         }
@@ -1597,16 +1597,6 @@ class Spreadsheet implements JsonSerializable
                 $filter->showHideRows();
             }
         }
-    }
-
-    /**
-     * Silliness to mollify Scrutinizer.
-     *
-     * @codeCoverageIgnore
-     */
-    public function getSharedComponent(): Style
-    {
-        return new Style();
     }
 
     /**

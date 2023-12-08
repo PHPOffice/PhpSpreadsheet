@@ -98,7 +98,7 @@ class DataSeriesValues extends Properties
      * @param mixed $dataValues
      * @param null|mixed $marker
      * @param null|ChartColor|ChartColor[]|string|string[] $fillColor
-     * @param string $pointSize
+     * @param int|string $pointSize point size
      */
     public function __construct($dataType = self::DATASERIES_TYPE_NUMBER, $dataSource = null, $formatCode = null, $pointCount = 0, $dataValues = [], $marker = null, $fillColor = null, $pointSize = '3')
     {
@@ -491,7 +491,7 @@ class DataSeriesValues extends Properties
                 if (($dimensions[0] == 1) || ($dimensions[1] == 1)) {
                     $this->dataValues = Functions::flattenArray($newDataValues);
                 } else {
-                    $newArray = array_values(array_shift(/** @scrutinizer ignore-type */ $newDataValues));
+                    $newArray = array_values(array_shift($newDataValues));
                     foreach ($newArray as $i => $newDataSet) {
                         $newArray[$i] = [$newDataSet];
                     }

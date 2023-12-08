@@ -206,6 +206,6 @@ class DateFormatter
 
     private static function escapeQuotesCallback(array $matches): string
     {
-        return '\\' . implode('\\', /** @scrutinizer ignore-type */ str_split($matches[1]));
+        return '\\' . implode('\\', str_split($matches[1]));
     }
 }

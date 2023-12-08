@@ -55,8 +55,7 @@ abstract class CellIterator implements NativeIterator
      */
     public function __destruct()
     {
-        // @phpstan-ignore-next-line
-        $this->worksheet = $this->cellCollection = null;
+        unset($this->worksheet, $this->cellCollection);
     }
 
     public function getIfNotExists(): bool

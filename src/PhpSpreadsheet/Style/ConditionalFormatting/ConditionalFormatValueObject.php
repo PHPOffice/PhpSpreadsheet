@@ -4,61 +4,44 @@ namespace PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting;
 
 class ConditionalFormatValueObject
 {
-    /** @var mixed */
-    private $type;
+    private string $type;
 
-    /** @var mixed */
-    private $value;
+    private null|float|int|string $value;
 
-    /** @var mixed */
-    private $cellFormula;
+    private mixed $cellFormula;
 
-    /**
-     * ConditionalFormatValueObject constructor.
-     *
-     * @param null|mixed $cellFormula
-     */
-    public function __construct(mixed $type, mixed $value = null, $cellFormula = null)
+    public function __construct(string $type, null|float|int|string $value = null, mixed $cellFormula = null)
     {
         $this->type = $type;
         $this->value = $value;
         $this->cellFormula = $cellFormula;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }
 
-    public function setType(mixed $type): self
+    public function setType(string $type): self
     {
         $this->type = $type;
 
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getValue()
+    public function getValue(): null|float|int|string
     {
         return $this->value;
     }
 
-    public function setValue(mixed $value): self
+    public function setValue(null|float|int|string $value): self
     {
         $this->value = $value;
 
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getCellFormula()
+    public function getCellFormula(): mixed
     {
         return $this->cellFormula;
     }

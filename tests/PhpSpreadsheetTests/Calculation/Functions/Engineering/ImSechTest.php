@@ -30,7 +30,6 @@ class ImSechTest extends TestCase
      */
     public function testDirectCallToIMSECH(mixed $expectedResult, mixed ...$args): void
     {
-        /** @scrutinizer ignore-call */
         $result = ComplexFunctions::IMSECH(...$args);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),

@@ -11,6 +11,7 @@ use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
+use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalColorScale;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalDataBar;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalFormattingRuleExtension;
 use PhpOffice\PhpSpreadsheet\Worksheet\RowDimension;
@@ -137,6 +138,9 @@ class Worksheet extends WriterPart
 
         // IgnoredErrors
         $this->writeIgnoredErrors($objWriter);
+
+        // BackgroundImage must come after ignored, before table
+        $this->writeBackgroundImage($objWriter, $worksheet);
 
         // Table
         $this->writeTable($objWriter, $worksheet);
@@ -685,15 +689,15 @@ class Worksheet extends WriterPart
             $minCfvo = $dataBar->getMinimumConditionalFormatValueObject();
             if ($minCfvo) {
                 $objWriter->startElement('cfvo');
-                self::writeAttributeIf($objWriter, $minCfvo->getType(), 'type', (string) $minCfvo->getType());
-                self::writeAttributeIf($objWriter, $minCfvo->getValue(), 'val', (string) $minCfvo->getValue());
+                $objWriter->writeAttribute('type', $minCfvo->getType());
+                self::writeAttributeIf($objWriter, $minCfvo->getValue() !== null, 'val', (string) $minCfvo->getValue());
                 $objWriter->endElement();
             }
             $maxCfvo = $dataBar->getMaximumConditionalFormatValueObject();
             if ($maxCfvo) {
                 $objWriter->startElement('cfvo');
-                self::writeAttributeIf($objWriter, $maxCfvo->getType(), 'type', (string) $maxCfvo->getType());
-                self::writeAttributeIf($objWriter, $maxCfvo->getValue(), 'val', (string) $maxCfvo->getValue());
+                $objWriter->writeAttribute('type', $maxCfvo->getType());
+                self::writeAttributeIf($objWriter, $maxCfvo->getValue() !== null, 'val', (string) $maxCfvo->getValue());
                 $objWriter->endElement();
             }
             if ($dataBar->getColor()) {
@@ -714,6 +718,57 @@ class Worksheet extends WriterPart
                 $objWriter->endElement();
                 $objWriter->endElement(); //end extLst
             }
+        }
+    }
+
+    private static function writeColorScaleElements(XMLWriter $objWriter, ?ConditionalColorScale $colorScale): void
+    {
+        if ($colorScale) {
+            $objWriter->startElement('colorScale');
+
+            $minCfvo = $colorScale->getMinimumConditionalFormatValueObject();
+            $minArgb = $colorScale->getMinimumColor()?->getARGB();
+            $useMin = $minCfvo !== null || $minArgb !== null;
+            if ($useMin) {
+                $objWriter->startElement('cfvo');
+                $objWriter->writeAttribute('type', $minCfvo?->getType() ?? 'min');
+                self::writeAttributeIf($objWriter, $minCfvo?->getValue() !== null, 'val', (string) $minCfvo?->getValue());
+                $objWriter->endElement();
+            }
+            $midCfvo = $colorScale->getMidpointConditionalFormatValueObject();
+            $midArgb = $colorScale->getMidpointColor()?->getARGB();
+            $useMid = $midCfvo !== null || $midArgb !== null;
+            if ($useMid) {
+                $objWriter->startElement('cfvo');
+                $objWriter->writeAttribute('type', $midCfvo?->getType() ?? 'percentile');
+                $objWriter->writeAttribute('val', (string) (($midCfvo?->getValue()) ?? '50'));
+                $objWriter->endElement();
+            }
+            $maxCfvo = $colorScale->getMaximumConditionalFormatValueObject();
+            $maxArgb = $colorScale->getMaximumColor()?->getARGB();
+            $useMax = $maxCfvo !== null || $maxArgb !== null;
+            if ($useMax) {
+                $objWriter->startElement('cfvo');
+                $objWriter->writeAttribute('type', $maxCfvo?->getType() ?? 'max');
+                self::writeAttributeIf($objWriter, $maxCfvo?->getValue() !== null, 'val', (string) $maxCfvo?->getValue());
+                $objWriter->endElement();
+            }
+            if ($useMin) {
+                $objWriter->startElement('color');
+                self::writeAttributeIf($objWriter, $minArgb !== null, 'rgb', "$minArgb");
+                $objWriter->endElement();
+            }
+            if ($useMid) {
+                $objWriter->startElement('color');
+                self::writeAttributeIf($objWriter, $midArgb !== null, 'rgb', "$midArgb");
+                $objWriter->endElement();
+            }
+            if ($useMax) {
+                $objWriter->startElement('color');
+                self::writeAttributeIf($objWriter, $maxArgb !== null, 'rgb', "$maxArgb");
+                $objWriter->endElement();
+            }
+            $objWriter->endElement(); // end colorScale
         }
     }
 
@@ -740,7 +795,9 @@ class Worksheet extends WriterPart
                 $objWriter->writeAttribute('type', $conditional->getConditionType());
                 self::writeAttributeIf(
                     $objWriter,
-                    ($conditional->getConditionType() !== Conditional::CONDITION_DATABAR && $conditional->getNoFormatSet() === false),
+                    ($conditional->getConditionType() !== Conditional::CONDITION_COLORSCALE
+                        && $conditional->getConditionType() !== Conditional::CONDITION_DATABAR
+                        && $conditional->getNoFormatSet() === false),
                     'dxfId',
                     (string) $this->getParentWriter()->getStylesConditionalHashTable()->getIndexForHashCode($conditional->getHashCode())
                 );
@@ -773,6 +830,8 @@ class Worksheet extends WriterPart
                     self::writeTextCondElements($objWriter, $conditional, $topLeftCell);
                 } elseif ($conditional->getConditionType() === Conditional::CONDITION_TIMEPERIOD) {
                     self::writeTimePeriodCondElements($objWriter, $conditional, $topLeftCell);
+                } elseif ($conditional->getConditionType() === Conditional::CONDITION_COLORSCALE) {
+                    self::writeColorScaleElements($objWriter, $conditional->getColorScale());
                 } else {
                     self::writeOtherCondElements($objWriter, $conditional, $topLeftCell);
                 }
@@ -986,6 +1045,9 @@ class Worksheet extends WriterPart
     private function writeTable(XMLWriter $objWriter, PhpspreadsheetWorksheet $worksheet): void
     {
         $tableCount = $worksheet->getTableCollection()->count();
+        if ($tableCount === 0) {
+            return;
+        }
 
         $objWriter->startElement('tableParts');
         $objWriter->writeAttribute('count', (string) $tableCount);
@@ -997,6 +1059,18 @@ class Worksheet extends WriterPart
         }
 
         $objWriter->endElement();
+    }
+
+    /**
+     * Write Background Image.
+     */
+    private function writeBackgroundImage(XMLWriter $objWriter, PhpspreadsheetWorksheet $worksheet): void
+    {
+        if ($worksheet->getBackgroundImage() !== '') {
+            $objWriter->startElement('picture');
+            $objWriter->writeAttribute('r:id', 'rIdBg');
+            $objWriter->endElement();
+        }
     }
 
     /**
@@ -1042,19 +1116,31 @@ class Worksheet extends WriterPart
     private function writeHeaderFooter(XMLWriter $objWriter, PhpspreadsheetWorksheet $worksheet): void
     {
         // headerFooter
+        $headerFooter = $worksheet->getHeaderFooter();
+        $oddHeader = $headerFooter->getOddHeader();
+        $oddFooter = $headerFooter->getOddFooter();
+        $evenHeader = $headerFooter->getEvenHeader();
+        $evenFooter = $headerFooter->getEvenFooter();
+        $firstHeader = $headerFooter->getFirstHeader();
+        $firstFooter = $headerFooter->getFirstFooter();
+        if ("$oddHeader$oddFooter$evenHeader$evenFooter$firstHeader$firstFooter" === '') {
+            return;
+        }
+
         $objWriter->startElement('headerFooter');
         $objWriter->writeAttribute('differentOddEven', ($worksheet->getHeaderFooter()->getDifferentOddEven() ? 'true' : 'false'));
         $objWriter->writeAttribute('differentFirst', ($worksheet->getHeaderFooter()->getDifferentFirst() ? 'true' : 'false'));
         $objWriter->writeAttribute('scaleWithDoc', ($worksheet->getHeaderFooter()->getScaleWithDocument() ? 'true' : 'false'));
         $objWriter->writeAttribute('alignWithMargins', ($worksheet->getHeaderFooter()->getAlignWithMargins() ? 'true' : 'false'));
 
-        $objWriter->writeElement('oddHeader', $worksheet->getHeaderFooter()->getOddHeader());
-        $objWriter->writeElement('oddFooter', $worksheet->getHeaderFooter()->getOddFooter());
-        $objWriter->writeElement('evenHeader', $worksheet->getHeaderFooter()->getEvenHeader());
-        $objWriter->writeElement('evenFooter', $worksheet->getHeaderFooter()->getEvenFooter());
-        $objWriter->writeElement('firstHeader', $worksheet->getHeaderFooter()->getFirstHeader());
-        $objWriter->writeElement('firstFooter', $worksheet->getHeaderFooter()->getFirstFooter());
-        $objWriter->endElement();
+        self::writeElementIf($objWriter, $oddHeader !== '', 'oddHeader', $oddHeader);
+        self::writeElementIf($objWriter, $oddFooter !== '', 'oddFooter', $oddFooter);
+        self::writeElementIf($objWriter, $evenHeader !== '', 'evenHeader', $evenHeader);
+        self::writeElementIf($objWriter, $evenFooter !== '', 'evenFooter', $evenFooter);
+        self::writeElementIf($objWriter, $firstHeader !== '', 'firstHeader', $firstHeader);
+        self::writeElementIf($objWriter, $firstFooter !== '', 'firstFooter', $firstFooter);
+
+        $objWriter->endElement(); // headerFooter
     }
 
     /**

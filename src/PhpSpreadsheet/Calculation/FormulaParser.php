@@ -299,6 +299,7 @@ class FormulaParser
                     $value = '';
                 }
 
+                /** @var FormulaToken $tmp */
                 $tmp = array_pop($stack);
                 $tmp->setValue('');
                 $tmp->setTokenSubType(FormulaToken::TOKEN_SUBTYPE_STOP);
@@ -322,11 +323,13 @@ class FormulaParser
                     $value = '';
                 }
 
+                /** @var FormulaToken $tmp */
                 $tmp = array_pop($stack);
                 $tmp->setValue('');
                 $tmp->setTokenSubType(FormulaToken::TOKEN_SUBTYPE_STOP);
                 $tokens1[] = $tmp;
 
+                /** @var FormulaToken $tmp */
                 $tmp = array_pop($stack);
                 $tmp->setValue('');
                 $tmp->setTokenSubType(FormulaToken::TOKEN_SUBTYPE_STOP);
@@ -414,6 +417,7 @@ class FormulaParser
                     $value = '';
                 }
 
+                /** @var FormulaToken $tmp */
                 $tmp = array_pop($stack);
                 $tmp->setValue('');
                 $tmp->setTokenSubType(FormulaToken::TOKEN_SUBTYPE_STOP);
@@ -436,6 +440,7 @@ class FormulaParser
                     $value = '';
                 }
 
+                /** @var FormulaToken $tmp */
                 $tmp = array_pop($stack);
                 $tmp->setValue('');
                 $tmp->setTokenSubType(FormulaToken::TOKEN_SUBTYPE_STOP);
@@ -469,10 +474,6 @@ class FormulaParser
                 $nextToken = $tokens1[$i + 1];
             } else {
                 $nextToken = null;
-            }
-
-            if ($token === null) {
-                continue;
             }
 
             if ($token->getTokenType() != FormulaToken::TOKEN_TYPE_WHITESPACE) {
@@ -524,26 +525,17 @@ class FormulaParser
             } else {
                 $previousToken = null;
             }
-            //if (isset($tokens2[$i + 1])) {
-            //    $nextToken = $tokens2[$i + 1];
-            //} else {
-            //    $nextToken = null;
-            //}
-
-            if ($token === null) {
-                continue;
-            }
 
             if ($token->getTokenType() == FormulaToken::TOKEN_TYPE_OPERATORINFIX && $token->getValue() == '-') {
                 if ($i == 0) {
                     $token->setTokenType(FormulaToken::TOKEN_TYPE_OPERATORPREFIX);
                 } elseif (
-                    (($previousToken->getTokenType() == FormulaToken::TOKEN_TYPE_FUNCTION)
-                        && ($previousToken->getTokenSubType() == FormulaToken::TOKEN_SUBTYPE_STOP))
-                    || (($previousToken->getTokenType() == FormulaToken::TOKEN_TYPE_SUBEXPRESSION)
-                        && ($previousToken->getTokenSubType() == FormulaToken::TOKEN_SUBTYPE_STOP))
-                    || ($previousToken->getTokenType() == FormulaToken::TOKEN_TYPE_OPERATORPOSTFIX)
-                    || ($previousToken->getTokenType() == FormulaToken::TOKEN_TYPE_OPERAND)
+                    (($previousToken?->getTokenType() == FormulaToken::TOKEN_TYPE_FUNCTION)
+                        && ($previousToken?->getTokenSubType() == FormulaToken::TOKEN_SUBTYPE_STOP))
+                    || (($previousToken?->getTokenType() == FormulaToken::TOKEN_TYPE_SUBEXPRESSION)
+                        && ($previousToken?->getTokenSubType() == FormulaToken::TOKEN_SUBTYPE_STOP))
+                    || ($previousToken?->getTokenType() == FormulaToken::TOKEN_TYPE_OPERATORPOSTFIX)
+                    || ($previousToken?->getTokenType() == FormulaToken::TOKEN_TYPE_OPERAND)
                 ) {
                     $token->setTokenSubType(FormulaToken::TOKEN_SUBTYPE_MATH);
                 } else {
@@ -559,12 +551,12 @@ class FormulaParser
                 if ($i == 0) {
                     continue;
                 } elseif (
-                    (($previousToken->getTokenType() == FormulaToken::TOKEN_TYPE_FUNCTION)
-                        && ($previousToken->getTokenSubType() == FormulaToken::TOKEN_SUBTYPE_STOP))
-                    || (($previousToken->getTokenType() == FormulaToken::TOKEN_TYPE_SUBEXPRESSION)
-                        && ($previousToken->getTokenSubType() == FormulaToken::TOKEN_SUBTYPE_STOP))
-                    || ($previousToken->getTokenType() == FormulaToken::TOKEN_TYPE_OPERATORPOSTFIX)
-                    || ($previousToken->getTokenType() == FormulaToken::TOKEN_TYPE_OPERAND)
+                    (($previousToken?->getTokenType() == FormulaToken::TOKEN_TYPE_FUNCTION)
+                        && ($previousToken?->getTokenSubType() == FormulaToken::TOKEN_SUBTYPE_STOP))
+                    || (($previousToken?->getTokenType() == FormulaToken::TOKEN_TYPE_SUBEXPRESSION)
+                        && ($previousToken?->getTokenSubType() == FormulaToken::TOKEN_SUBTYPE_STOP))
+                    || ($previousToken?->getTokenType() == FormulaToken::TOKEN_TYPE_OPERATORPOSTFIX)
+                    || ($previousToken?->getTokenType() == FormulaToken::TOKEN_TYPE_OPERAND)
                 ) {
                     $token->setTokenSubType(FormulaToken::TOKEN_SUBTYPE_MATH);
                 } else {

@@ -246,7 +246,7 @@ class CoordinateTest extends TestCase
 
         $cellRange = null;
         // @phpstan-ignore-next-line
-        Coordinate::buildRange(/** @scrutinizer ignore-type */ $cellRange);
+        Coordinate::buildRange($cellRange);
     }
 
     public function testBuildRangeInvalid2(): void
@@ -298,6 +298,41 @@ class CoordinateTest extends TestCase
     public static function providerGetRangeBoundaries(): array
     {
         return require 'tests/data/CellGetRangeBoundaries.php';
+    }
+
+    /**
+     * @dataProvider providerCoordinateIsInsideRange
+     */
+    public static function testCoordinateIsInsideRange(bool $expectedResult, string $range, string $coordinate): void
+    {
+        $result = Coordinate::coordinateIsInsideRange($range, $coordinate);
+        self::assertEquals($result, $expectedResult);
+    }
+
+    public static function providerCoordinateIsInsideRange(): array
+    {
+        return require 'tests/data/Cell/CoordinateIsInsideRange.php';
+    }
+
+    /**
+     * @dataProvider providerCoordinateIsInsideRangeException
+     */
+    public static function testCoordinateIsInsideRangeException(string $expectedResult, string $range, string $coordinate): void
+    {
+        try {
+            Coordinate::coordinateIsInsideRange($range, $coordinate);
+        } catch (\Exception $e) {
+            self::assertInstanceOf(Exception::class, $e);
+            self::assertEquals($e->getMessage(), $expectedResult);
+
+            return;
+        }
+        self::fail('An expected exception has not been raised.');
+    }
+
+    public static function providerCoordinateIsInsideRangeException(): array
+    {
+        return require 'tests/data/Cell/CoordinateIsInsideRangeException.php';
     }
 
     /**

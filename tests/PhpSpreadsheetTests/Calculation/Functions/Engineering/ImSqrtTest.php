@@ -30,7 +30,6 @@ class ImSqrtTest extends TestCase
      */
     public function testDirectCallToIMSQRT(mixed $expectedResult, mixed ...$args): void
     {
-        /** @scrutinizer ignore-call */
         $result = ComplexFunctions::IMSQRT(...$args);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),

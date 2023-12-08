@@ -27,12 +27,15 @@ $spreadsheet->getProperties()->setCreator('Maarten Balliauw')
 
 // Generate an image
 $helper->log('Generate an image');
-$gdImage = @imagecreatetruecolor(120, 20);
+$gdImage = imagecreatetruecolor(120, 20);
 if (!$gdImage) {
-    exit('Cannot Initialize new GD image stream');
+    throw new Exception('Cannot Initialize new GD image stream');
 }
 
 $textColor = imagecolorallocate($gdImage, 255, 255, 255);
+if ($textColor === false) {
+    throw new Exception('imagecolorallocate failed');
+}
 imagestring($gdImage, 1, 5, 5, 'Created with PhpSpreadsheet', $textColor);
 
 // Add a drawing to the worksheet

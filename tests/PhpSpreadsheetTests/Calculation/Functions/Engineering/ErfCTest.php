@@ -20,7 +20,6 @@ class ErfCTest extends TestCase
      */
     public function testDirectCallToERFC(mixed $expectedResult, mixed ...$args): void
     {
-        /** @scrutinizer ignore-call */
         $result = ErfC::ERFC(...$args);
         self::assertEqualsWithDelta($expectedResult, $result, self::ERF_PRECISION);
     }

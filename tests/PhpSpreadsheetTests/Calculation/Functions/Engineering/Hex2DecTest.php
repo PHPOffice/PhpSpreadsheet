@@ -32,7 +32,6 @@ class Hex2DecTest extends TestCase
      */
     public function testDirectCallToHEX2DEC(mixed $expectedResult, mixed ...$args): void
     {
-        /** @scrutinizer ignore-call */
         $result = ConvertHex::toDecimal(...$args);
         self::assertSame($expectedResult, $result);
     }
@@ -116,7 +115,6 @@ class Hex2DecTest extends TestCase
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
 
-        /** @scrutinizer ignore-call */
         $result = ConvertHex::toDecimal(...$args);
         self::assertSame($expectedResult, $result);
     }

@@ -497,6 +497,8 @@ class Chart
         $caption = [];
         $titleLayout = null;
         $titleOverlay = false;
+        $titleFormula = null;
+        $titleFont = null;
         foreach ($titleDetails as $titleDetailKey => $chartDetail) {
             $chartDetail = Xlsx::testSimpleXml($chartDetail);
             switch ($titleDetailKey) {
@@ -517,6 +519,9 @@ class Chart
                                 $caption[] = (string) $pt->v;
                             }
                         }
+                        if (isset($chartDetail->strRef->f)) {
+                            $titleFormula = (string) $chartDetail->strRef->f;
+                        }
                     }
 
                     break;
@@ -528,10 +533,23 @@ class Chart
                     $titleLayout = $this->chartLayoutDetails($chartDetail);
 
                     break;
+                case 'txPr':
+                    if (isset($chartDetail->children($this->aNamespace)->p)) {
+                        $titleFont = $this->parseFont($chartDetail->children($this->aNamespace)->p);
+                    }
+
+                    break;
             }
         }
+        $title = new Title($caption, $titleLayout, (bool) $titleOverlay);
+        if (!empty($titleFormula)) {
+            $title->setCellReference($titleFormula);
+        }
+        if ($titleFont !== null) {
+            $title->setFont($titleFont);
+        }
 
-        return new Title($caption, $titleLayout, (bool) $titleOverlay);
+        return $title;
     }
 
     private function chartLayoutDetails(SimpleXMLElement $chartDetail): ?Layout
@@ -1185,6 +1203,7 @@ class Chart
         $fontArray['italic'] = self::getAttributeBoolean($titleDetailPart->pPr->defRPr, 'i');
         $fontArray['underscore'] = self::getAttributeString($titleDetailPart->pPr->defRPr, 'u');
         $fontArray['strikethrough'] = self::getAttributeString($titleDetailPart->pPr->defRPr, 'strike');
+        $fontArray['cap'] = self::getAttributeString($titleDetailPart->pPr->defRPr, 'cap');
 
         if (isset($titleDetailPart->pPr->defRPr->latin)) {
             $fontArray['latin'] = self::getAttributeString($titleDetailPart->pPr->defRPr->latin, 'typeface');

@@ -18,7 +18,6 @@ class MinuteTest extends TestCase
      */
     public function testDirectCallToMINUTE(mixed $expectedResult, mixed ...$args): void
     {
-        /** @scrutinizer ignore-call */
         $result = TimeParts::MINUTE(...$args);
         self::assertSame($expectedResult, $result);
     }

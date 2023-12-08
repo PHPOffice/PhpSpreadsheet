@@ -65,7 +65,7 @@ class TableReader
         }
 
         foreach ($autoFilterXml->filterColumn as $filterColumn) {
-            $attributes = $filterColumn->/** @scrutinizer ignore-call */ attributes() ?? ['colId' => 0, 'hiddenButton' => 0];
+            $attributes = $filterColumn->attributes() ?? ['colId' => 0, 'hiddenButton' => 0];
             $column = $table->getColumnByOffset((int) $attributes['colId']);
             $column->setShowFilterButton(((string) $attributes['hiddenButton']) !== '1');
         }
@@ -78,7 +78,7 @@ class TableReader
     {
         $offset = 0;
         foreach ($tableColumnsXml->tableColumn as $tableColumn) {
-            $attributes = $tableColumn->/** @scrutinizer ignore-call */ attributes() ?? ['totalsRowLabel' => 0, 'totalsRowFunction' => 0];
+            $attributes = $tableColumn->attributes() ?? ['totalsRowLabel' => 0, 'totalsRowFunction' => 0];
             $column = $table->getColumnByOffset($offset++);
 
             if ($table->getShowTotalsRow()) {
