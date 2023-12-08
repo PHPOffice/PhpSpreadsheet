@@ -427,6 +427,9 @@ class Xlsx extends BaseReader
             }
             switch ($rel['Type']) {
                 case "$xmlNamespaceBase/theme":
+                    if (!$this->fileExistsInArchive($zip, "xl/{$relTarget}")) {
+                        break; // issue3770
+                    }
                     $themeOrderArray = ['lt1', 'dk1', 'lt2', 'dk2'];
                     $themeOrderAdditional = count($themeOrderArray);
 
@@ -496,7 +499,7 @@ class Xlsx extends BaseReader
         $rels = $this->loadZip(self::INITIAL_FILE, Namespaces::RELATIONSHIPS);
 
         $propertyReader = new PropertyReader($this->getSecurityScannerOrThrow(), $excel->getProperties());
-        $chartDetails = [];
+        $charts = $chartDetails = [];
         foreach ($rels->Relationship as $relx) {
             $rel = self::getAttributes($relx);
             $relTarget = (string) $rel['Target'];
@@ -790,10 +793,10 @@ class Xlsx extends BaseReader
                                 // Setting Conditional Styles adjusts selected cells, so we need to execute this
                                 //    before reading the sheet view data to get the actual selected cells
                                 if (!$this->readDataOnly && ($xmlSheet->conditionalFormatting)) {
-                                    (new ConditionalStyles($docSheet, $xmlSheet, $dxfs))->load();
+                                    (new ConditionalStyles($docSheet, $xmlSheet, $dxfs, $this->styleReader))->load();
                                 }
                                 if (!$this->readDataOnly && $xmlSheet->extLst) {
-                                    (new ConditionalStyles($docSheet, $xmlSheet, $dxfs))->loadFromExt($this->styleReader);
+                                    (new ConditionalStyles($docSheet, $xmlSheet, $dxfs, $this->styleReader))->loadFromExt();
                                 }
                                 if (isset($xmlSheetMain->sheetViews, $xmlSheetMain->sheetViews->sheetView)) {
                                     $sheetViews = new SheetViews($xmlSheetMain->sheetViews->sheetView, $docSheet);
@@ -934,10 +937,10 @@ class Xlsx extends BaseReader
                                                 $holdSelected = $docSheet->getSelectedCells();
                                                 $cAttrS = (int) ($cAttr['s'] ?? 0);
                                                 // no style index means 0, it seems
-                                                $cell->setXfIndex(isset($styles[$cAttrS])
-                                                    ? $cAttrS : 0);
+                                                $cAttrS = isset($styles[$cAttrS]) ? $cAttrS : 0;
+                                                $cell->setXfIndex($cAttrS);
                                                 // issue 3495
-                                                if ($cell->getDataType() === DataType::TYPE_FORMULA) {
+                                                if ($cellDataType === DataType::TYPE_FORMULA && $styles[$cAttrS]->quotePrefix === true) {
                                                     $cell->getStyle()->setQuotePrefix(false);
                                                 }
                                                 $docSheet->setSelectedCells($holdSelected);
@@ -970,6 +973,7 @@ class Xlsx extends BaseReader
 
                             if ($this->readDataOnly === false) {
                                 $this->readAutoFilter($xmlSheetNS, $docSheet);
+                                $this->readBackgroundImage($xmlSheetNS, $docSheet, dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels');
                             }
 
                             $this->readTables($xmlSheetNS, $docSheet, $dir, $fileWorksheet, $zip, $mainNS);
@@ -1420,6 +1424,8 @@ class Xlsx extends BaseReader
                                                     $objDrawing->setHeight(Drawing::EMUToPixels(self::getArrayItem(self::getAttributes($oneCellAnchor->ext), 'cy')));
                                                     if ($xfrm) {
                                                         $objDrawing->setRotation((int) Drawing::angleToDegrees(self::getArrayItem(self::getAttributes($xfrm), 'rot')));
+                                                        $objDrawing->setFlipVertical((bool) self::getArrayItem(self::getAttributes($xfrm), 'flipV'));
+                                                        $objDrawing->setFlipHorizontal((bool) self::getArrayItem(self::getAttributes($xfrm), 'flipH'));
                                                     }
                                                     if ($outerShdw) {
                                                         $shadow = $objDrawing->getShadow();
@@ -1514,6 +1520,8 @@ class Xlsx extends BaseReader
                                                         $objDrawing->setWidth(Drawing::EMUToPixels(self::getArrayItem(self::getAttributes($xfrm->ext), 'cx')));
                                                         $objDrawing->setHeight(Drawing::EMUToPixels(self::getArrayItem(self::getAttributes($xfrm->ext), 'cy')));
                                                         $objDrawing->setRotation(Drawing::angleToDegrees(self::getArrayItem(self::getAttributes($xfrm), 'rot')));
+                                                        $objDrawing->setFlipVertical((bool) self::getArrayItem(self::getAttributes($xfrm), 'flipV'));
+                                                        $objDrawing->setFlipHorizontal((bool) self::getArrayItem(self::getAttributes($xfrm), 'flipH'));
                                                     }
                                                     if ($outerShdw) {
                                                         $shadow = $objDrawing->getShadow();
@@ -1743,12 +1751,14 @@ class Xlsx extends BaseReader
                                         // Modify range, and extract the first worksheet reference
                                         // Need to split on a comma or a space if not in quotes, and extract the first part.
                                         $definedNameValueParts = preg_split("/[ ,](?=([^']*'[^']*')*[^']*$)/miuU", $extractedRange);
-                                        // Extract sheet name
-                                        [$extractedSheetName] = Worksheet::extractSheetTitle((string) $definedNameValueParts[0], true); // @phpstan-ignore-line
-                                        $extractedSheetName = trim($extractedSheetName, "'"); // @phpstan-ignore-line
+                                        if (is_array($definedNameValueParts)) {
+                                            // Extract sheet name
+                                            [$extractedSheetName] = Worksheet::extractSheetTitle((string) $definedNameValueParts[0], true);
+                                            $extractedSheetName = trim((string) $extractedSheetName, "'");
 
-                                        // Locate sheet
-                                        $locatedSheet = $excel->getSheetByName($extractedSheetName);
+                                            // Locate sheet
+                                            $locatedSheet = $excel->getSheetByName($extractedSheetName);
+                                        }
                                     }
 
                                     if ($locatedSheet === null && !DefinedName::testIfFormula($extractedRange)) {
@@ -1790,8 +1800,8 @@ class Xlsx extends BaseReader
                             $objChart = $chartReader->readChart($chartElements, basename($chartEntryRef, '.xml'));
                             if (isset($charts[$chartEntryRef])) {
                                 $chartPositionRef = $charts[$chartEntryRef]['sheet'] . '!' . $charts[$chartEntryRef]['id'];
-                                if (isset($chartDetails[$chartPositionRef])) {
-                                    $excel->getSheetByName($charts[$chartEntryRef]['sheet'])->addChart($objChart); // @phpstan-ignore-line
+                                if (isset($chartDetails[$chartPositionRef]) && $excel->getSheetByName($charts[$chartEntryRef]['sheet']) !== null) {
+                                    $excel->getSheetByName($charts[$chartEntryRef]['sheet'])->addChart($objChart);
                                     $objChart->setWorksheet($excel->getSheetByName($charts[$chartEntryRef]['sheet']));
                                     // For oneCellAnchor or absoluteAnchor positioned charts,
                                     //     toCoordinate is not in the data. Does it need to be calculated?
@@ -2193,6 +2203,27 @@ class Xlsx extends BaseReader
     ): void {
         if ($xmlSheet && $xmlSheet->autoFilter) {
             (new AutoFilter($docSheet, $xmlSheet))->load();
+        }
+    }
+
+    private function readBackgroundImage(
+        SimpleXMLElement $xmlSheet,
+        Worksheet $docSheet,
+        string $relsName
+    ): void {
+        if ($xmlSheet && $xmlSheet->picture) {
+            $id = (string) self::getArrayItem(self::getAttributes($xmlSheet->picture, Namespaces::SCHEMA_OFFICE_DOCUMENT), 'id');
+            $rels = $this->loadZip($relsName);
+            foreach ($rels->Relationship as $rel) {
+                $attrs = $rel->attributes() ?? [];
+                $rid = (string) ($attrs['Id'] ?? '');
+                $target = (string) ($attrs['Target'] ?? '');
+                if ($rid === $id && substr($target, 0, 2) === '..') {
+                    $target = 'xl' . substr($target, 2);
+                    $content = $this->getFromZipArchive($this->zip, $target);
+                    $docSheet->setBackgroundImage($content);
+                }
+            }
         }
     }
 

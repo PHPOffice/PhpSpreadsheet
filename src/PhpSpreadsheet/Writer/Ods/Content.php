@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Ods;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
@@ -9,7 +10,6 @@ use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\RowCellIterator;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
-use PhpOffice\PhpSpreadsheet\Writer\Exception;
 use PhpOffice\PhpSpreadsheet\Writer\Ods;
 use PhpOffice\PhpSpreadsheet\Writer\Ods\Cell\Comment;
 use PhpOffice\PhpSpreadsheet\Writer\Ods\Cell\Style;
@@ -225,7 +225,7 @@ class Content extends WriterPart
                     if ($this->getParentWriter()->getPreCalculateFormulas()) {
                         try {
                             $formulaValue = $cell->getCalculatedValue();
-                        } catch (Exception) {
+                        } catch (CalculationException $e) {
                             // don't do anything
                         }
                     }

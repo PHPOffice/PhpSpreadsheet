@@ -4715,7 +4715,7 @@ class Calculation
                 if (($operand2Data = $stack->pop()) === null) {
                     return $this->raiseFormulaError('Internal error - Operand value missing from stack');
                 }
-                if (($operand1Data = $stack->pop()) === null) {
+                if (($operand1Data = $stack->pop()) === null) { // @phpstan-ignore-line
                     return $this->raiseFormulaError('Internal error - Operand value missing from stack');
                 }
 
@@ -5072,7 +5072,7 @@ class Calculation
                     krsort($args);
                     krsort($emptyArguments);
 
-                    if ($argCount > 0) {
+                    if ($argCount > 0 && is_array($functionCall)) {
                         $args = $this->addDefaultArgumentValues($functionCall, $args, $emptyArguments);
                     }
 
@@ -5571,7 +5571,7 @@ class Calculation
 
     private function addDefaultArgumentValues(array $functionCall, array $args, array $emptyArguments): array
     {
-        $reflector = new ReflectionMethod(implode('::', $functionCall));
+        $reflector = new ReflectionMethod($functionCall[0], $functionCall[1]);
         $methodArguments = $reflector->getParameters();
 
         if (count($methodArguments) > 0) {

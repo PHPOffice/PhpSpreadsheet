@@ -40,6 +40,7 @@ class AccruedInterest
      *                         2               Actual/360
      *                         3               Actual/365
      *                         4               European 30/360
+     * @param mixed $calcMethod Unused by PhpSpreadsheet, and apparently by Excel (https://exceljet.net/functions/accrint-function)
      *
      * @return float|string Result, or a string containing an error
      */

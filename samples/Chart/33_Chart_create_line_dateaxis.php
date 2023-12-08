@@ -195,7 +195,7 @@ $spreadsheet->createSheet();
 $chartSheet = $spreadsheet->getSheet(1);
 $chartSheet->setTitle('Scatter+Line Chart');
 
-$chartSheet = $spreadsheet->getSheetByName('Scatter+Line Chart');
+$chartSheet = $spreadsheet->getSheetByNameOrThrow('Scatter+Line Chart');
 // Add the chart to the worksheet
 $chartSheet->addChart($chart);
 
@@ -340,11 +340,14 @@ $spreadsheet->disconnectWorksheets();
 
 function dateRange(int $nrows, Spreadsheet $wrkbk): array
 {
-    $dataSheet = $wrkbk->getSheetByName('Data');
+    $dataSheet = $wrkbk->getSheetByNameOrThrow('Data');
 
     // start the xaxis at the beginning of the quarter of the first date
     $startDateStr = $dataSheet->getCell('B2')->getValue(); // yyyy-mm-dd date string
     $startDate = DateTime::createFromFormat('Y-m-d', $startDateStr); // php date obj
+    if ($startDate === false) {
+        throw new Exception("invalid start date $startDateStr on spreadsheet");
+    }
 
     // get date of first day of the quarter of the start date
     $startMonth = (int) $startDate->format('n'); // suppress leading zero
@@ -357,12 +360,19 @@ function dateRange(int $nrows, Spreadsheet $wrkbk): array
     // end the xaxis at the end of the quarter of the last date
     $lastDateStr = $dataSheet->getCell([2, $nrows + 1])->getValue();
     $lastDate = DateTime::createFromFormat('Y-m-d', $lastDateStr);
+    if ($lastDate === false) {
+        throw new Exception("invalid last date $lastDateStr on spreadsheet");
+    }
     $lastMonth = (int) $lastDate->format('n');
     $lastYr = (int) $lastDate->format('Y');
     $qtr = intdiv($lastMonth, 3) + (($lastMonth % 3 > 0) ? 1 : 0);
     $qtrEndMonth = 3 + (($qtr - 1) * 3);
-    $lastDOM = cal_days_in_month(CAL_GREGORIAN, $qtrEndMonth, $lastYr);
     $qtrEndMonth = sprintf('%02d', $qtrEndMonth);
+    $lastDOMDate = DateTime::createFromFormat('Y-m-d', "$lastYr-$qtrEndMonth-01");
+    if ($lastDOMDate === false) {
+        throw new Exception("invalid last dom date $lastYr-$qtrEndMonth-01 on spreadsheet");
+    }
+    $lastDOM = $lastDOMDate->format('t');
     $qtrEndStr = "$lastYr-$qtrEndMonth-$lastDOM";
     $ExcelQtrEndDateVal = SharedDate::convertIsoDate($qtrEndStr);
 

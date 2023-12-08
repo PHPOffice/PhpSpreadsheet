@@ -21,13 +21,21 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - ListWorksheetInfo/Names for Html/Csv/Slk. [Issue #3706](https://github.com/PHPOffice/PhpSpreadsheet/issues/3706) [PR #3709](https://github.com/PHPOffice/PhpSpreadsheet/pull/3709)
 - Methods to determine if cell is actually locked, or hidden on formula bar. [PR #3722](https://github.com/PHPOffice/PhpSpreadsheet/pull/3722)
 - Add iterateOnlyExistingCells to Constructors. [Issue #3721](https://github.com/PHPOffice/PhpSpreadsheet/issues/3721) [PR #3727](https://github.com/PHPOffice/PhpSpreadsheet/pull/3727)
+- Support for Conditional Formatting Color Scale. [PR #3738](https://github.com/PHPOffice/PhpSpreadsheet/pull/3738)
+- Support Additional Tags in Helper/Html. [Issue #3751](https://github.com/PHPOffice/PhpSpreadsheet/issues/3751) [PR #3752](https://github.com/PHPOffice/PhpSpreadsheet/pull/3752)
 - Writer ODS : Write Border Style for cells [Issue #3690](https://github.com/PHPOffice/PhpSpreadsheet/issues/3690) [PR #3693](https://github.com/PHPOffice/PhpSpreadsheet/pull/3693)
+- Sheet Background Images [Issue #1649](https://github.com/PHPOffice/PhpSpreadsheet/issues/1649) [PR #3795](https://github.com/PHPOffice/PhpSpreadsheet/pull/3795)
+- Check if Coordinate is Inside Range [PR #3779](https://github.com/PHPOffice/PhpSpreadsheet/pull/3779)
+- Flipping Images [Issue #731](https://github.com/PHPOffice/PhpSpreadsheet/issues/731) [PR #3801](https://github.com/PHPOffice/PhpSpreadsheet/pull/3801)
+- Chart Dynamic Title and Font Properties [Issue #3797](https://github.com/PHPOffice/PhpSpreadsheet/issues/3797) [PR #3800](https://github.com/PHPOffice/PhpSpreadsheet/pull/3800)
 
 ### Changed
 
 - Drop support for PHP 7.4, according to https://phpspreadsheet.readthedocs.io/en/latest/#php-version-support [PR #3713](https://github.com/PHPOffice/PhpSpreadsheet/pull/3713)
 - RLM Added to NumberFormatter Currency. This happens depending on release of ICU which Php is using (it does not yet happen with any official release). PhpSpreadsheet will continue to use the value returned by Php, but a method is added to keep the result unchanged from release to release. [Issue #3571](https://github.com/PHPOffice/PhpSpreadsheet/issues/3571) [PR #3640](https://github.com/PHPOffice/PhpSpreadsheet/pull/3640)
 - `toFormattedString` will now always return a string. This was introduced with 1.28.0, but was not properly documented at the time. This can affect the results of `toArray`, `namedRangeToArray`, and `rangeToArray`. [PR #3304](https://github.com/PHPOffice/PhpSpreadsheet/pull/3304)
+- Value of constants FORMAT_CURRENCY_EUR and FORMAT_CURRENCY_USD was changed in 1.28.0, but was not properly documented at the time. [Issue #3577](https://github.com/PHPOffice/PhpSpreadsheet/issues/3577)
+- Html Writer will attempt to use Chart coordinates to determine image size. [Issue #3783](https://github.com/PHPOffice/PhpSpreadsheet/issues/3783) [PR #3787](https://github.com/PHPOffice/PhpSpreadsheet/pull/3787)
 
 ### Deprecated
 
@@ -63,6 +71,14 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Inconsistency Between Cell Data and Explicitly Declared Type. [Issue #3711](https://github.com/PHPOffice/PhpSpreadsheet/issues/3711) [PR #3715](https://github.com/PHPOffice/PhpSpreadsheet/pull/3715)
 - Unexpected Namespacing in rels File. [Issue #3720](https://github.com/PHPOffice/PhpSpreadsheet/issues/3720) [PR #3722](https://github.com/PHPOffice/PhpSpreadsheet/pull/3722)
 - Break Some Circular References. [PR #3716](https://github.com/PHPOffice/PhpSpreadsheet/pull/3716) [PR #3707](https://github.com/PHPOffice/PhpSpreadsheet/pull/3707)
+- Missing Font Index in Some Xls. [PR #3734](https://github.com/PHPOffice/PhpSpreadsheet/pull/3734)
+- Load Tables even with READ_DATA_ONLY. [PR #3726](https://github.com/PHPOffice/PhpSpreadsheet/pull/3726)
+- Theme File Missing but Referenced in Spreadsheet. [Issue #3770](https://github.com/PHPOffice/PhpSpreadsheet/issues/3770) [PR #3772](https://github.com/PHPOffice/PhpSpreadsheet/pull/3772)
+- Slk Shared Formulas. [Issue #2267](https://github.com/PHPOffice/PhpSpreadsheet/issues/2267) [PR #3776](https://github.com/PHPOffice/PhpSpreadsheet/pull/3776)
+- Html omitting some charts. [Issue #3767](https://github.com/PHPOffice/PhpSpreadsheet/issues/3767) [PR #3771](https://github.com/PHPOffice/PhpSpreadsheet/pull/3771)
+- Case Insensitive Comparison for Sheet Names [PR #3791](https://github.com/PHPOffice/PhpSpreadsheet/pull/3791)
+- Performance improvement for Xlsx Reader. [Issue #3683](https://github.com/PHPOffice/PhpSpreadsheet/issues/3683) [PR #3810](https://github.com/PHPOffice/PhpSpreadsheet/pull/3810)
+- Prevent loop in Shared/File. [Issue #3807](https://github.com/PHPOffice/PhpSpreadsheet/issues/3807) [PR #3809](https://github.com/PHPOffice/PhpSpreadsheet/pull/3809)
 
 ## 1.29.0 - 2023-06-15
 
@@ -142,10 +158,11 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Improved support for locale settings and currency codes when matching formatted strings to numerics in the Calculation Engine [PR #3373](https://github.com/PHPOffice/PhpSpreadsheet/pull/3373) and [PR #3374](https://github.com/PHPOffice/PhpSpreadsheet/pull/3374) 
 - Improved support for locale settings and matching in the Advanced Value Binder [PR #3376](https://github.com/PHPOffice/PhpSpreadsheet/pull/3376)
 - `toFormattedString` will now always return a string. This can affect the results of `toArray`, `namedRangeToArray`, and `rangeToArray`. [PR #3304](https://github.com/PHPOffice/PhpSpreadsheet/pull/3304)
+- Value of constants FORMAT_CURRENCY_EUR and FORMAT_CURRENCY_USD is changed. [Issue #3577](https://github.com/PHPOffice/PhpSpreadsheet/issues/3577) [PR #3377](https://github.com/PHPOffice/PhpSpreadsheet/pull/3377)
 
 ### Deprecated
 
-- Rationalisation of Pre-defined Currency Format Masks
+- Rationalisation of Pre-defined Currency Format Masks [PR #3377](https://github.com/PHPOffice/PhpSpreadsheet/pull/3377)
 
 ### Removed
 

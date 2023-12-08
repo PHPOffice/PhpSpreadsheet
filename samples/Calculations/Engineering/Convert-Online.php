@@ -77,6 +77,7 @@ if (isset($_POST['submit'])) {
     $quantity = $_POST['quantity'];
     $fromUnit = $_POST['fromUnit'];
     $toUnit = $_POST['toUnit'];
+    /** @var float|string */
     $result = ConvertUOM::CONVERT($quantity, $fromUnit, $toUnit);
 
     echo "{$quantity} {$units[$_POST['category']][$fromUnit]} is {$result} {$units[$_POST['category']][$toUnit]}", PHP_EOL;

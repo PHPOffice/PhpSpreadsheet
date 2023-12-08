@@ -2841,8 +2841,8 @@ class Worksheet extends BIFFwriter
             $bFormatAlign = 0;
         }
         // Protection
-        $bProtLocked = ($conditional->getStyle()->getProtection()->getLocked() == null ? 1 : 0);
-        $bProtHidden = ($conditional->getStyle()->getProtection()->getHidden() == null ? 1 : 0);
+        $bProtLocked = ($conditional->getStyle()->getProtection()->getLocked() === null ? 1 : 0);
+        $bProtHidden = ($conditional->getStyle()->getProtection()->getHidden() === null ? 1 : 0);
         if ($bProtLocked == 0 || $bProtHidden == 0) {
             $bFormatProt = 1;
         } else {
