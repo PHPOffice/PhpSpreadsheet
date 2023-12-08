@@ -6,9 +6,9 @@ For all of these, the cell can be accessed by coordinate (e.g. `B3`),
 by an array of column index (where A is 1) and row (e.g. `[2, 3]`),
 or as a CellAddress object (e.g. `new CellAddress('B3', /* optional */ $worksheet)`.
 
-## Setting a cell value by coordinate
+## Setting a cell value
 
-Setting a cell value by coordinate can be done using the worksheet's
+Setting a cell value can be done using the worksheet's
 `setCellValue()` method.
 
 ```php
@@ -321,7 +321,7 @@ $spreadsheet->getActiveSheet()
 
 ![07-simple-example-4.png](./images/07-simple-example-4.png)
 
-## Retrieving a cell value by coordinate
+## Retrieving a cell value
 
 To retrieve the value of a cell, the cell should first be retrieved from
 the worksheet using the `getCell()` method. A cell's value can be read
@@ -480,7 +480,7 @@ $worksheet = $spreadsheet->getActiveSheet();
 $highestRow = $worksheet->getHighestDataRow(); // e.g. 10
 $highestColumn = $worksheet->getHighestDataColumn(); // e.g 'F'
 // Increment the highest column letter
-$highestColumn++;
+++$highestColumn;
 
 echo '<table>' . "\n";
 for ($row = 1; $row <= $highestRow; ++$row) {
