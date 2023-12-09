@@ -29,10 +29,8 @@ class NonPeriodic
      *                                The first payment date indicates the beginning of the schedule of payments
      *                                All other dates must be later than this date, but they may occur in any order
      * @param mixed $guess        An optional guess at the expected answer
-     *
-     * @return float|string
      */
-    public static function rate(array $values, array $dates, mixed $guess = self::DEFAULT_GUESS)
+    public static function rate(array $values, array $dates, mixed $guess = self::DEFAULT_GUESS): float|string
     {
         $rslt = self::xirrPart1($values, $dates);
         if ($rslt !== '') {
@@ -118,10 +116,8 @@ class NonPeriodic
      * @param mixed[] $dates A schedule of payment dates that corresponds to the cash flow payments.
      *                         The first payment date indicates the beginning of the schedule of payments.
      *                         All other dates must be later than this date, but they may occur in any order.
-     *
-     * @return float|string
      */
-    public static function presentValue($rate, $values, $dates)
+    public static function presentValue($rate, $values, $dates): float|string
     {
         return self::xnpvOrdered($rate, $values, $dates, true);
     }
@@ -243,10 +239,7 @@ class NonPeriodic
         return $rslt;
     }
 
-    /**
-     * @return float|string
-     */
-    private static function xnpvOrdered(mixed $rate, mixed $values, mixed $dates, bool $ordered = true, bool $capAtNegative1 = false)
+    private static function xnpvOrdered(mixed $rate, mixed $values, mixed $dates, bool $ordered = true, bool $capAtNegative1 = false): float|string
     {
         $rate = Functions::flattenSingleValue($rate);
         $values = Functions::flattenArray($values);

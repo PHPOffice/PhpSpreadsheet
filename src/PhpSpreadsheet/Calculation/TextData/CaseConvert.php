@@ -17,8 +17,7 @@ class CaseConvert
      * @param mixed $mixedCaseValue The string value to convert to lower case
      *                              Or can be an array of values
      *
-     * @return array|string
-     *         If an array of values is passed as the argument, then the returned result will also be an array
+     * @return array|string If an array of values is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
     public static function lower(mixed $mixedCaseValue): array|string
@@ -40,8 +39,7 @@ class CaseConvert
      * @param mixed $mixedCaseValue The string value to convert to upper case
      *                              Or can be an array of values
      *
-     * @return array|string
-     *         If an array of values is passed as the argument, then the returned result will also be an array
+     * @return array|string If an array of values is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
     public static function upper(mixed $mixedCaseValue): array|string
@@ -63,8 +61,7 @@ class CaseConvert
      * @param mixed $mixedCaseValue The string value to convert to title case
      *                              Or can be an array of values
      *
-     * @return array|string
-     *         If an array of values is passed as the argument, then the returned result will also be an array
+     * @return array|string If an array of values is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
     public static function proper(mixed $mixedCaseValue): array|string

@@ -13,10 +13,8 @@ class Formula
      *
      * @param mixed $cellReference The cell to check
      * @param Cell $cell The current cell (containing this formula)
-     *
-     * @return string
      */
-    public static function text(mixed $cellReference = '', ?Cell $cell = null)
+    public static function text(mixed $cellReference = '', ?Cell $cell = null): string
     {
         if ($cell === null) {
             return ExcelError::REF();

@@ -30,10 +30,8 @@ class DMax extends DatabaseAbstract
      *                                        includes at least one column label and at least one cell below
      *                                        the column label in which you specify a condition for the
      *                                        column.
-     *
-     * @return null|float|string
      */
-    public static function evaluate($database, $field, $criteria, bool $returnError = true)
+    public static function evaluate($database, $field, $criteria, bool $returnError = true): null|float|string
     {
         $field = self::fieldExtract($database, $field);
         if ($field === null) {

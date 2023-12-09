@@ -615,12 +615,7 @@ class ConvertUOM
         throw new Exception('UoM Not Found');
     }
 
-    /**
-     * @param float|int $value
-     *
-     * @return float|int
-     */
-    protected static function convertTemperature(string $fromUOM, string $toUOM, $value)
+    protected static function convertTemperature(string $fromUOM, string $toUOM, float|int $value): float|int
     {
         $fromUOM = self::resolveTemperatureSynonyms($fromUOM);
         $toUOM = self::resolveTemperatureSynonyms($toUOM);

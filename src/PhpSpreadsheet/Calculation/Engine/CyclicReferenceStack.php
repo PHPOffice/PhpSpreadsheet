@@ -29,10 +29,8 @@ class CyclicReferenceStack
 
     /**
      * Pop the last entry from the stack.
-     *
-     * @return mixed
      */
-    public function pop()
+    public function pop(): mixed
     {
         return array_pop($this->stack);
     }

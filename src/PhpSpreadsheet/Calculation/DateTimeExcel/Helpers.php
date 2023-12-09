@@ -159,17 +159,15 @@ class Helpers
 
     /**
      * Return result in one of three formats.
-     *
-     * @return mixed
      */
-    public static function returnIn3FormatsFloat(float $excelDateValue)
+    public static function returnIn3FormatsFloat(float $excelDateValue): float|int|DateTime
     {
         $retType = Functions::getReturnDateType();
         if ($retType === Functions::RETURNDATE_EXCEL) {
             return $excelDateValue;
         }
         if ($retType === Functions::RETURNDATE_UNIX_TIMESTAMP) {
-            return (int) SharedDateHelper::excelToTimestamp($excelDateValue);
+            return SharedDateHelper::excelToTimestamp($excelDateValue);
         }
         // RETURNDATE_PHP_DATETIME_OBJECT
 
@@ -242,10 +240,8 @@ class Helpers
 
     /**
      * Many functions accept null/false/true argument treated as 0/0/1.
-     *
-     * @return float
      */
-    public static function validateNotNegative(mixed $number)
+    public static function validateNotNegative(mixed $number): float
     {
         if (!is_numeric($number)) {
             throw new Exception(ExcelError::VALUE());

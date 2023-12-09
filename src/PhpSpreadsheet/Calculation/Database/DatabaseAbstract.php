@@ -12,10 +12,8 @@ abstract class DatabaseAbstract
      * @param array $database
      * @param null|int|string $field
      * @param array $criteria
-     *
-     * @return null|float|int|string
      */
-    abstract public static function evaluate($database, $field, $criteria);
+    abstract public static function evaluate($database, $field, $criteria): null|float|int|string;
 
     /**
      * fieldExtract.
@@ -163,10 +161,7 @@ abstract class DatabaseAbstract
         return $database;
     }
 
-    /**
-     * @return mixed
-     */
-    private static function processCondition(string $criterion, array $fields, array $dataValues, string $conditions)
+    private static function processCondition(string $criterion, array $fields, array $dataValues, string $conditions): mixed
     {
         $key = array_search($criterion, $fields, true);
 

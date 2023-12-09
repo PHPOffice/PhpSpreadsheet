@@ -113,10 +113,7 @@ class ExcelMatch
         return null;
     }
 
-    /**
-     * @return mixed
-     */
-    private static function matchLargestValue(array $lookupArray, mixed $lookupValue, array $keySet)
+    private static function matchLargestValue(array $lookupArray, mixed $lookupValue, array $keySet): mixed
     {
         if (is_string($lookupValue)) {
             if (Functions::getCompatibilityMode() === Functions::COMPATIBILITY_OPENOFFICE) {

@@ -201,7 +201,7 @@ class Date
      *
      * @return DateTime PHP date/time object
      */
-    public static function excelToDateTimeObject($excelTimestamp, $timeZone = null)
+    public static function excelToDateTimeObject($excelTimestamp, $timeZone = null): DateTime
     {
         $timeZone = ($timeZone === null) ? self::getDefaultTimezone() : self::validateTimeZone($timeZone);
         if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_EXCEL) {
@@ -237,7 +237,7 @@ class Date
         $interval = $days . ' days';
 
         return $baseDate->modify($interval)
-            ->setTime((int) $hours, (int) $minutes, (int) $seconds, (int) $microseconds);
+            ->setTime($hours, $minutes, $seconds, $microseconds);
     }
 
     /**

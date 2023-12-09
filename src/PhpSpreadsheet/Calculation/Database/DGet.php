@@ -29,10 +29,8 @@ class DGet extends DatabaseAbstract
      *                                        includes at least one column label and at least one cell below
      *                                        the column label in which you specify a condition for the
      *                                        column.
-     *
-     * @return mixed
      */
-    public static function evaluate($database, $field, $criteria)
+    public static function evaluate($database, $field, $criteria): null|float|int|string
     {
         $field = self::fieldExtract($database, $field);
         if ($field === null) {

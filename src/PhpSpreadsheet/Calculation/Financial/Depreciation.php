@@ -33,8 +33,6 @@ class Depreciation
      *                          depreciation. Period must use the same units as life.
      * @param mixed $month Number of months in the first year. If month is omitted,
      *                         it defaults to 12.
-     *
-     * @return float|string
      */
     public static function DB(mixed $cost, mixed $salvage, mixed $life, mixed $period, mixed $month = 12): string|float|int
     {
@@ -99,10 +97,8 @@ class Depreciation
      * @param mixed $factor The rate at which the balance declines.
      *                                If factor is omitted, it is assumed to be 2 (the
      *                                double-declining balance method).
-     *
-     * @return float|string
      */
-    public static function DDB(mixed $cost, mixed $salvage, mixed $life, mixed $period, mixed $factor = 2.0)
+    public static function DDB(mixed $cost, mixed $salvage, mixed $life, mixed $period, mixed $factor = 2.0): float|string
     {
         $cost = Functions::flattenSingleValue($cost);
         $salvage = Functions::flattenSingleValue($salvage);

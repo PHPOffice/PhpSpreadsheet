@@ -39,8 +39,6 @@ class Coupons
      *                         2               Actual/360
      *                         3               Actual/365
      *                         4               European 30/360
-     *
-     * @return float|string
      */
     public static function COUPDAYBS(
         mixed $settlement,
@@ -102,8 +100,6 @@ class Coupons
      *                         2               Actual/360
      *                         3               Actual/365
      *                         4               European 30/360
-     *
-     * @return float|string
      */
     public static function COUPDAYS(
         mixed $settlement,
