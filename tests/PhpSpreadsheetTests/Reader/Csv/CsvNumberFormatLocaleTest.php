@@ -60,6 +60,9 @@ class CsvNumberFormatLocaleTest extends TestCase
         if (!$this->localeAdjusted) {
             self::markTestSkipped('Unable to set locale for testing.');
         }
+        $localeconv = localeconv();
+        self::assertSame(',', $localeconv['decimal_point'], 'unexpected change to German decimal separator');
+        self::assertSame('.', $localeconv['thousands_sep'], 'unexpected change to German thousands separator');
 
         $spreadsheet = $this->csvReader->load($this->filename);
         $worksheet = $spreadsheet->getActiveSheet();
@@ -101,6 +104,9 @@ class CsvNumberFormatLocaleTest extends TestCase
         if (!$this->localeAdjusted) {
             self::markTestSkipped('Unable to set locale for testing.');
         }
+        $localeconv = localeconv();
+        self::assertSame(',', $localeconv['decimal_point'], 'unexpected change to German decimal separator');
+        self::assertSame('.', $localeconv['thousands_sep'], 'unexpected change to German thousands separator');
 
         $this->csvReader->castFormattedNumberToNumeric(true);
         $spreadsheet = $this->csvReader->load($this->filename);
