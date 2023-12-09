@@ -10,7 +10,7 @@ $sheetnames = ['Data Sheet #1', 'Data Sheet #3'];
 
 $helper->log('Loading file ' . pathinfo($inputFileName, PATHINFO_BASENAME) . ' using IOFactory with a defined reader type of ' . $inputFileType);
 $reader = IOFactory::createReader($inputFileType);
-$helper->log('Loading Sheet' . ((count($sheetnames) == 1) ? '' : 's') . ' "' . implode('" and "', $sheetnames) . '" only');
+$helper->log('Loading Sheets "' . implode('" and "', $sheetnames) . '" only');
 $reader->setLoadSheetsOnly($sheetnames);
 $spreadsheet = $reader->load($inputFileName);
 

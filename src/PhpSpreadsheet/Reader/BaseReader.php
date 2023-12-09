@@ -62,48 +62,48 @@ abstract class BaseReader implements IReader
         $this->readFilter = new DefaultReadFilter();
     }
 
-    public function getReadDataOnly()
+    public function getReadDataOnly(): bool
     {
         return $this->readDataOnly;
     }
 
-    public function setReadDataOnly($readCellValuesOnly)
+    public function setReadDataOnly(bool $readCellValuesOnly): self
     {
-        $this->readDataOnly = (bool) $readCellValuesOnly;
+        $this->readDataOnly = $readCellValuesOnly;
 
         return $this;
     }
 
-    public function getReadEmptyCells()
+    public function getReadEmptyCells(): bool
     {
         return $this->readEmptyCells;
     }
 
-    public function setReadEmptyCells($readEmptyCells)
+    public function setReadEmptyCells(bool $readEmptyCells): self
     {
-        $this->readEmptyCells = (bool) $readEmptyCells;
+        $this->readEmptyCells = $readEmptyCells;
 
         return $this;
     }
 
-    public function getIncludeCharts()
+    public function getIncludeCharts(): bool
     {
         return $this->includeCharts;
     }
 
-    public function setIncludeCharts($includeCharts)
+    public function setIncludeCharts(bool $includeCharts): self
     {
-        $this->includeCharts = (bool) $includeCharts;
+        $this->includeCharts = $includeCharts;
 
         return $this;
     }
 
-    public function getLoadSheetsOnly()
+    public function getLoadSheetsOnly(): ?array
     {
         return $this->loadSheetsOnly;
     }
 
-    public function setLoadSheetsOnly($sheetList)
+    public function setLoadSheetsOnly(string|array|null $sheetList): self
     {
         if ($sheetList === null) {
             return $this->setLoadAllSheets();
@@ -114,19 +114,19 @@ abstract class BaseReader implements IReader
         return $this;
     }
 
-    public function setLoadAllSheets()
+    public function setLoadAllSheets(): self
     {
         $this->loadSheetsOnly = null;
 
         return $this;
     }
 
-    public function getReadFilter()
+    public function getReadFilter(): IReadFilter
     {
         return $this->readFilter;
     }
 
-    public function setReadFilter(IReadFilter $readFilter)
+    public function setReadFilter(IReadFilter $readFilter): self
     {
         $this->readFilter = $readFilter;
 

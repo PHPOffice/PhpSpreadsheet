@@ -27,10 +27,8 @@ class Run extends TextElement implements ITextElement
 
     /**
      * Get font.
-     *
-     * @return null|Font
      */
-    public function getFont()
+    public function getFont(): ?Font
     {
         return $this->font;
     }

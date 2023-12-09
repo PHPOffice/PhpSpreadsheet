@@ -20,10 +20,6 @@ $spreadsheet->getProperties()
     ->setDescription('Test document for PhpSpreadsheet, generated using PHP classes.')
     ->setKeywords('Office PhpSpreadsheet php')
     ->setCategory('Test result file');
-function transpose($value)
-{
-    return [$value];
-}
 
 // Add some data
 $continentColumn = 'D';
@@ -39,7 +35,7 @@ foreach ($continents as $key => $filename) {
     $countryCount = count($countries);
 
     // Transpose $countries from a row to a column array
-    $countries = array_map('transpose', $countries);
+    $countries = array_map(fn (mixed $value): array => [$value], $countries);
     $spreadsheet->getActiveSheet()
         ->fromArray($countries, null, $column . '1');
     $spreadsheet->addNamedRange(

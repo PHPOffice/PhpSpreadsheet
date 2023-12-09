@@ -29,7 +29,7 @@ class TextElement implements ITextElement
      *
      * @return string Text
      */
-    public function getText()
+    public function getText(): string
     {
         return $this->text;
     }
@@ -41,7 +41,7 @@ class TextElement implements ITextElement
      *
      * @return $this
      */
-    public function setText($text)
+    public function setText(string $text): self
     {
         $this->text = $text;
 
@@ -50,10 +50,8 @@ class TextElement implements ITextElement
 
     /**
      * Get font. For this class, the return value is always null.
-     *
-     * @return null|Font
      */
-    public function getFont()
+    public function getFont(): ?Font
     {
         return null;
     }
@@ -63,7 +61,7 @@ class TextElement implements ITextElement
      *
      * @return string Hash code
      */
-    public function getHashCode()
+    public function getHashCode(): string
     {
         return md5(
             $this->text

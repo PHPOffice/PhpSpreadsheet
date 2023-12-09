@@ -45,36 +45,36 @@ abstract class BaseWriter implements IWriter
      */
     private $shouldCloseFile;
 
-    public function getIncludeCharts()
+    public function getIncludeCharts(): bool
     {
         return $this->includeCharts;
     }
 
-    public function setIncludeCharts($includeCharts)
+    public function setIncludeCharts(bool $includeCharts): self
     {
-        $this->includeCharts = (bool) $includeCharts;
+        $this->includeCharts = $includeCharts;
 
         return $this;
     }
 
-    public function getPreCalculateFormulas()
+    public function getPreCalculateFormulas(): bool
     {
         return $this->preCalculateFormulas;
     }
 
-    public function setPreCalculateFormulas($precalculateFormulas)
+    public function setPreCalculateFormulas(bool $precalculateFormulas): self
     {
-        $this->preCalculateFormulas = (bool) $precalculateFormulas;
+        $this->preCalculateFormulas = $precalculateFormulas;
 
         return $this;
     }
 
-    public function getUseDiskCaching()
+    public function getUseDiskCaching(): bool
     {
         return $this->useDiskCaching;
     }
 
-    public function setUseDiskCaching($useDiskCache, $cacheDirectory = null)
+    public function setUseDiskCaching(bool $useDiskCache, ?string $cacheDirectory = null): self
     {
         $this->useDiskCaching = $useDiskCache;
 
@@ -89,7 +89,7 @@ abstract class BaseWriter implements IWriter
         return $this;
     }
 
-    public function getDiskCachingDirectory()
+    public function getDiskCachingDirectory(): string
     {
         return $this->diskCachingDirectory;
     }

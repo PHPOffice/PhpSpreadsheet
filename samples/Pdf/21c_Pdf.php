@@ -40,7 +40,7 @@ function addHeadersFootersMpdf2000(string $html): string
 
         EOF;
 
-    return preg_replace($bodystring, $bodyrepl, $html);
+    return preg_replace($bodystring, $bodyrepl, $html ?? '') ?? '';
 }
 
 $spreadsheet = new Spreadsheet();

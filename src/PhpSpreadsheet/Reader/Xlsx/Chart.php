@@ -1448,8 +1448,8 @@ class Chart
         } else {
             $joinType = '';
         }
-        $headArrowSize = '';
-        $endArrowSize = '';
+        $headArrowSize = 0;
+        $endArrowSize = 0;
         /** @var string */
         $headArrowType = self::getAttributeString($sppr->ln->headEnd, 'type');
         /** @var string */

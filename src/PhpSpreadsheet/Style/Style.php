@@ -556,10 +556,8 @@ class Style extends Supervisor
 
     /**
      * Get Font.
-     *
-     * @return Font
      */
-    public function getFont()
+    public function getFont(): Font
     {
         return $this->font;
     }

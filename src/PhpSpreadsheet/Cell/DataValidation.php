@@ -31,17 +31,13 @@ class DataValidation
 
     /**
      * Formula 1.
-     *
-     * @var string
      */
-    private $formula1 = '';
+    private string $formula1 = '';
 
     /**
      * Formula 2.
-     *
-     * @var string
      */
-    private $formula2 = '';
+    private string $formula2 = '';
 
     /**
      * Type.
@@ -129,10 +125,8 @@ class DataValidation
 
     /**
      * Get Formula 1.
-     *
-     * @return string
      */
-    public function getFormula1()
+    public function getFormula1(): string
     {
         return $this->formula1;
     }
@@ -140,11 +134,9 @@ class DataValidation
     /**
      * Set Formula 1.
      *
-     * @param string $formula
-     *
      * @return $this
      */
-    public function setFormula1($formula): static
+    public function setFormula1(string $formula): static
     {
         $this->formula1 = $formula;
 
@@ -153,10 +145,8 @@ class DataValidation
 
     /**
      * Get Formula 2.
-     *
-     * @return string
      */
-    public function getFormula2()
+    public function getFormula2(): string
     {
         return $this->formula2;
     }
@@ -164,11 +154,9 @@ class DataValidation
     /**
      * Set Formula 2.
      *
-     * @param string $formula
-     *
      * @return $this
      */
-    public function setFormula2($formula): static
+    public function setFormula2(string $formula): static
     {
         $this->formula2 = $formula;
 

@@ -52,9 +52,9 @@ class Axis extends Properties
     /**
      * Axis Options.
      *
-     * @var mixed[]
+     * @var array<string, null|string>
      */
-    private $axisOptions = [
+    private array $axisOptions = [
         'minimum' => null,
         'maximum' => null,
         'major_unit' => null,
@@ -169,11 +169,9 @@ class Axis extends Properties
     /**
      * Get Axis Options Property.
      *
-     * @param string $property
-     *
      * @return ?string
      */
-    public function getAxisOptionsProperty($property): ?string
+    public function getAxisOptionsProperty(string $property): ?string
     {
         if ($property === 'textRotation') {
             if ($this->axisText !== null) {

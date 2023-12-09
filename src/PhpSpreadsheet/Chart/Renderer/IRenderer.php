@@ -18,5 +18,5 @@ interface IRenderer
      *
      * @return bool true on success
      */
-    public function render($filename);
+    public function render(?string $filename): bool;
 }

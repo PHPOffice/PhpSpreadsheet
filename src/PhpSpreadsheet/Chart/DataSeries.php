@@ -127,8 +127,17 @@ class DataSeries
      * @param bool $smoothLine
      * @param null|string $plotStyle
      */
-    public function __construct($plotType = null, $plotGrouping = null, array $plotOrder = [], array $plotLabel = [], array $plotCategory = [], array $plotValues = [], $plotDirection = null, $smoothLine = false, $plotStyle = null)
-    {
+    public function __construct(
+        $plotType = null,
+        $plotGrouping = null,
+        array $plotOrder = [],
+        array $plotLabel = [],
+        array $plotCategory = [],
+        array $plotValues = [],
+        $plotDirection = null,
+        $smoothLine = false,
+        $plotStyle = null
+    ) {
         $this->plotType = $plotType;
         $this->plotGrouping = $plotGrouping;
         $this->plotOrder = $plotOrder;

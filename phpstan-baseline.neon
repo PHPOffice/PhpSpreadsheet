@@ -1,6 +1,231 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Parameter \\#1 \\$formula of method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\DataValidation\\:\\:setFormula1\\(\\) expects string, int given\\.$#"
+			count: 1
+			path: samples/Basic/15_Datavalidation.php
+
+		-
+			message: "#^Parameter \\#1 \\$formula of method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\DataValidation\\:\\:setFormula2\\(\\) expects string, int given\\.$#"
+			count: 1
+			path: samples/Basic/15_Datavalidation.php
+
+		-
+			message: "#^Parameter \\#6 \\$color of function imagestring expects int, int\\|false given\\.$#"
+			count: 1
+			path: samples/Basic/25_In_memory_image.php
+
+		-
+			message: "#^Argument of an invalid type array\\<int, string\\>\\|false supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: samples/Basic/39_Dropdown.php
+
+		-
+			message: "#^Parameter \\#1 \\$value of function count expects array\\|Countable, array\\<int, string\\>\\|false given\\.$#"
+			count: 2
+			path: samples/Basic/39_Dropdown.php
+
+		-
+			message: "#^Parameter \\#2 \\$array of function array_map expects array, array\\<int, string\\>\\|false given\\.$#"
+			count: 1
+			path: samples/Basic/39_Dropdown.php
+
+		-
+			message: "#^Part \\$result \\(array\\|float\\|string\\) of encapsed string cannot be cast to string\\.$#"
+			count: 1
+			path: samples/Calculations/Engineering/Convert-Online.php
+
+		-
+			message: "#^Argument of an invalid type array\\<int, string\\>\\|false supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: samples/Chart/32_Chart_read_write.php
+
+		-
+			message: "#^Cannot call method getPlotArea\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Chart\\|false\\.$#"
+			count: 3
+			path: samples/Chart/32_Chart_read_write.php
+
+		-
+			message: "#^Cannot call method getTitle\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Chart\\|false\\.$#"
+			count: 2
+			path: samples/Chart/32_Chart_read_write.php
+
+		-
+			message: "#^Parameter \\#2 \\$array of function implode expects array\\|null, array\\|PhpOffice\\\\PhpSpreadsheet\\\\RichText\\\\RichText\\|string given\\.$#"
+			count: 1
+			path: samples/Chart/32_Chart_read_write.php
+
+		-
+			message: "#^Argument of an invalid type array\\<int, string\\>\\|false supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: samples/Chart/32_Chart_read_write_HTML.php
+
+		-
+			message: "#^Cannot call method getPlotArea\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Chart\\|false\\.$#"
+			count: 3
+			path: samples/Chart/32_Chart_read_write_HTML.php
+
+		-
+			message: "#^Cannot call method getTitle\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Chart\\|false\\.$#"
+			count: 2
+			path: samples/Chart/32_Chart_read_write_HTML.php
+
+		-
+			message: "#^Parameter \\#2 \\$array of function implode expects array\\|null, array\\|PhpOffice\\\\PhpSpreadsheet\\\\RichText\\\\RichText\\|string given\\.$#"
+			count: 1
+			path: samples/Chart/32_Chart_read_write_HTML.php
+
+		-
+			message: "#^Argument of an invalid type array\\<int, string\\>\\|false supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: samples/Chart/32_Chart_read_write_PDF.php
+
+		-
+			message: "#^Cannot call method getPlotArea\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Chart\\|false\\.$#"
+			count: 3
+			path: samples/Chart/32_Chart_read_write_PDF.php
+
+		-
+			message: "#^Cannot call method getTitle\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Chart\\|false\\.$#"
+			count: 2
+			path: samples/Chart/32_Chart_read_write_PDF.php
+
+		-
+			message: "#^Parameter \\#2 \\$array of function implode expects array\\|null, array\\|PhpOffice\\\\PhpSpreadsheet\\\\RichText\\\\RichText\\|string given\\.$#"
+			count: 1
+			path: samples/Chart/32_Chart_read_write_PDF.php
+
+		-
+			message: "#^Cannot call method format\\(\\) on DateTime\\|false\\.$#"
+			count: 5
+			path: samples/Chart/33_Chart_create_line_dateaxis.php
+
+		-
+			message: "#^Argument of an invalid type array\\<int, string\\>\\|false supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: samples/Chart/35_Chart_render.php
+
+		-
+			message: "#^Cannot call method getTitle\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Chart\\|false\\.$#"
+			count: 2
+			path: samples/Chart/35_Chart_render.php
+
+		-
+			message: "#^Cannot call method render\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Chart\\|false\\.$#"
+			count: 1
+			path: samples/Chart/35_Chart_render.php
+
+		-
+			message: "#^Parameter \\#1 \\$value of function count expects array\\|Countable, array\\<int, string\\>\\|false given\\.$#"
+			count: 1
+			path: samples/Chart/35_Chart_render.php
+
+		-
+			message: "#^Parameter \\#2 \\$array of function implode expects array\\|null, array\\|PhpOffice\\\\PhpSpreadsheet\\\\RichText\\\\RichText\\|string given\\.$#"
+			count: 1
+			path: samples/Chart/35_Chart_render.php
+
+		-
+			message: "#^Argument of an invalid type array\\<int, string\\>\\|false supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: samples/Chart/35_Chart_render33.php
+
+		-
+			message: "#^Call to function in_array\\(\\) with arguments string, array\\{\\} and true will always evaluate to false\\.$#"
+			count: 1
+			path: samples/Chart/35_Chart_render33.php
+
+		-
+			message: "#^Cannot call method getTitle\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Chart\\|false\\.$#"
+			count: 2
+			path: samples/Chart/35_Chart_render33.php
+
+		-
+			message: "#^Cannot call method render\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Chart\\|false\\.$#"
+			count: 1
+			path: samples/Chart/35_Chart_render33.php
+
+		-
+			message: "#^Parameter \\#1 \\$value of function count expects array\\|Countable, array\\<int, string\\>\\|false given\\.$#"
+			count: 1
+			path: samples/Chart/35_Chart_render33.php
+
+		-
+			message: "#^Parameter \\#2 \\$array of function implode expects array\\|null, array\\|PhpOffice\\\\PhpSpreadsheet\\\\RichText\\\\RichText\\|string given\\.$#"
+			count: 1
+			path: samples/Chart/35_Chart_render33.php
+
+		-
+			message: "#^Call to method save\\(\\) on an unknown class PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Pdf\\\\Mpdf2\\.$#"
+			count: 1
+			path: samples/Pdf/21e_UnusualFont_mpdf.php
+
+		-
+			message: "#^Instantiated class PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Pdf\\\\Mpdf2 not found\\.$#"
+			count: 1
+			path: samples/Pdf/21e_UnusualFont_mpdf.php
+
+		-
+			message: "#^Call to an undefined method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\BaseReader\\:\\:setContiguous\\(\\)\\.$#"
+			count: 1
+			path: samples/Reader/14_Reading_a_large_CSV_file_in_chunks_to_split_across_multiple_worksheets.php
+
+		-
+			message: "#^Parameter \\#6 \\$color of function imagestring expects int, int\\|false given\\.$#"
+			count: 1
+			path: samples/Reader/20_Reader_worksheet_hyperlink_image.php
+
+		-
+			message: "#^Parameter \\#1 \\$haystack of function str_contains expects string, float\\|int\\|string given\\.$#"
+			count: 1
+			path: samples/Wizards/NumberFormat/Accounting.php
+
+		-
+			message: "#^Parameter \\#2 \\$decimals of class PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\NumberFormat\\\\Wizard\\\\Accounting constructor expects int, float\\|int\\|string given\\.$#"
+			count: 1
+			path: samples/Wizards/NumberFormat/Accounting.php
+
+		-
+			message: "#^Parameter \\#1 \\$haystack of function str_contains expects string, float\\|int\\|string given\\.$#"
+			count: 1
+			path: samples/Wizards/NumberFormat/Currency.php
+
+		-
+			message: "#^Parameter \\#2 \\$decimals of class PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\NumberFormat\\\\Wizard\\\\Currency constructor expects int, float\\|int\\|string given\\.$#"
+			count: 1
+			path: samples/Wizards/NumberFormat/Currency.php
+
+		-
+			message: "#^Parameter \\#1 \\$decimals of class PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\NumberFormat\\\\Wizard\\\\Number constructor expects int, float\\|int\\|string given\\.$#"
+			count: 1
+			path: samples/Wizards/NumberFormat/Number.php
+
+		-
+			message: "#^Parameter \\#1 \\$haystack of function str_contains expects string, float\\|int\\|string given\\.$#"
+			count: 1
+			path: samples/Wizards/NumberFormat/Number.php
+
+		-
+			message: "#^Parameter \\#1 \\$decimals of class PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\NumberFormat\\\\Wizard\\\\Percentage constructor expects int, float\\|int\\|string given\\.$#"
+			count: 1
+			path: samples/Wizards/NumberFormat/Percentage.php
+
+		-
+			message: "#^Parameter \\#1 \\$haystack of function str_contains expects string, float\\|int\\|string given\\.$#"
+			count: 1
+			path: samples/Wizards/NumberFormat/Percentage.php
+
+		-
+			message: "#^Parameter \\#1 \\$decimals of class PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\NumberFormat\\\\Wizard\\\\Scientific constructor expects int, float\\|int\\|string given\\.$#"
+			count: 1
+			path: samples/Wizards/NumberFormat/Scientific.php
+
+		-
+			message: "#^Parameter \\#1 \\$haystack of function str_contains expects string, float\\|int\\|string given\\.$#"
+			count: 1
+			path: samples/Wizards/NumberFormat/Scientific.php
+
+		-
 			message: "#^Cannot call method getTokenSubType\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\FormulaToken\\|null\\.$#"
 			count: 4
 			path: src/PhpSpreadsheet/Calculation/FormulaParser.php

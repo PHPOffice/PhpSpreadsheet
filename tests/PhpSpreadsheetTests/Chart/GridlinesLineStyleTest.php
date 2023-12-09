@@ -103,9 +103,9 @@ class GridlinesLineStyleTest extends AbstractFunctional
         $cap = Properties::LINE_STYLE_CAP_ROUND;
         $join = Properties::LINE_STYLE_JOIN_MITER;
         $headArrowType = Properties::LINE_STYLE_ARROW_TYPE_DIAMOND;
-        $headArrowSize = (string) Properties::LINE_STYLE_ARROW_SIZE_2;
+        $headArrowSize = Properties::LINE_STYLE_ARROW_SIZE_2;
         $endArrowType = Properties::LINE_STYLE_ARROW_TYPE_OVAL;
-        $endArrowSize = (string) Properties::LINE_STYLE_ARROW_SIZE_3;
+        $endArrowSize = Properties::LINE_STYLE_ARROW_SIZE_3;
         $majorGridlines->setLineStyleProperties(
             $width,
             $compound,
@@ -299,9 +299,9 @@ class GridlinesLineStyleTest extends AbstractFunctional
         $cap = Properties::LINE_STYLE_CAP_ROUND;
         $join = Properties::LINE_STYLE_JOIN_MITER;
         $headArrowType = Properties::LINE_STYLE_ARROW_TYPE_DIAMOND;
-        $headArrowSize = (string) Properties::LINE_STYLE_ARROW_SIZE_2;
+        $headArrowSize = Properties::LINE_STYLE_ARROW_SIZE_2;
         $endArrowType = Properties::LINE_STYLE_ARROW_TYPE_OVAL;
-        $endArrowSize = (string) Properties::LINE_STYLE_ARROW_SIZE_3;
+        $endArrowSize = Properties::LINE_STYLE_ARROW_SIZE_3;
         $majorGridlines->setLineStyleProperties(
             $width,
             $compound,

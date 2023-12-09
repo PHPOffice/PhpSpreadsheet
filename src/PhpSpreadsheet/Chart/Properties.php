@@ -795,16 +795,27 @@ abstract class Properties
      * @param string $capType
      * @param string $joinType
      * @param string $headArrowType
-     * @param string $headArrowSize
      * @param string $endArrowType
-     * @param string $endArrowSize
      * @param string $headArrowWidth
      * @param string $headArrowLength
      * @param string $endArrowWidth
      * @param string $endArrowLength
      */
-    public function setLineStyleProperties($lineWidth = null, $compoundType = '', $dashType = '', $capType = '', $joinType = '', $headArrowType = '', $headArrowSize = '', $endArrowType = '', $endArrowSize = '', $headArrowWidth = '', $headArrowLength = '', $endArrowWidth = '', $endArrowLength = ''): void
-    {
+    public function setLineStyleProperties(
+        $lineWidth = null,
+        $compoundType = '',
+        $dashType = '',
+        $capType = '',
+        $joinType = '',
+        $headArrowType = '',
+        int $headArrowSize = 0,
+        $endArrowType = '',
+        int $endArrowSize = 0,
+        $headArrowWidth = '',
+        $headArrowLength = '',
+        $endArrowWidth = '',
+        $endArrowLength = ''
+    ): void {
         $this->activateObject();
         if (is_numeric($lineWidth)) {
             $this->lineStyleProperties['width'] = $lineWidth;
