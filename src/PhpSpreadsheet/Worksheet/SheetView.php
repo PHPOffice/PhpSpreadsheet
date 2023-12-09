@@ -24,7 +24,7 @@ class SheetView
      *
      * @var ?int
      */
-    private $zoomScale = 100;
+    private ?int $zoomScale = 100;
 
     /**
      * ZoomScaleNormal.
@@ -33,26 +33,22 @@ class SheetView
      *
      * @var ?int
      */
-    private $zoomScaleNormal = 100;
+    private ?int $zoomScaleNormal = 100;
 
     /**
      * ShowZeros.
      *
      * If true, "null" values from a calculation will be shown as "0". This is the default Excel behaviour and can be changed
      * with the advanced worksheet option "Show a zero in cells that have zero value"
-     *
-     * @var bool
      */
-    private $showZeros = true;
+    private bool $showZeros = true;
 
     /**
      * View.
      *
      * Valid values range from 10 to 400.
-     *
-     * @var string
      */
-    private $sheetviewType = self::SHEETVIEW_NORMAL;
+    private string $sheetviewType = self::SHEETVIEW_NORMAL;
 
     /**
      * Create a new SheetView.

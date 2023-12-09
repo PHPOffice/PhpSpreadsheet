@@ -39,7 +39,7 @@ class Axis extends Properties
      *
      * @var mixed[]
      */
-    private $axisNumber = [
+    private array $axisNumber = [
         'format' => self::FORMAT_CODE_GENERAL,
         'source_linked' => 1,
         'numeric' => null,
@@ -83,8 +83,7 @@ class Axis extends Properties
         Properties::FORMAT_CODE_DATE_ISO8601,
     ];
 
-    /** @var bool */
-    private $noFill = false;
+    private bool $noFill = false;
 
     /**
      * Get Series Data Type.

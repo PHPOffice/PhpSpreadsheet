@@ -31,10 +31,9 @@ class AutoFilter implements Stringable
      *
      * @var AutoFilter\Column[]
      */
-    private $columns = [];
+    private array $columns = [];
 
-    /** @var bool */
-    private $evaluated = false;
+    private bool $evaluated = false;
 
     public function getEvaluated(): bool
     {

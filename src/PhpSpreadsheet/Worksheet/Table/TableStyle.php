@@ -75,31 +75,23 @@ class TableStyle
 
     /**
      * Show First Column.
-     *
-     * @var bool
      */
-    private $showFirstColumn = false;
+    private bool $showFirstColumn = false;
 
     /**
      * Show Last Column.
-     *
-     * @var bool
      */
-    private $showLastColumn = false;
+    private bool $showLastColumn = false;
 
     /**
      * Show Row Stripes.
-     *
-     * @var bool
      */
-    private $showRowStripes = false;
+    private bool $showRowStripes = false;
 
     /**
      * Show Column Stripes.
-     *
-     * @var bool
      */
-    private $showColumnStripes = false;
+    private bool $showColumnStripes = false;
 
     /**
      * Table.

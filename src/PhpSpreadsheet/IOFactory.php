@@ -31,7 +31,7 @@ abstract class IOFactory
     public const WRITER_HTML = 'Html';
 
     /** @var string[] */
-    private static $readers = [
+    private static array $readers = [
         self::READER_XLSX => Reader\Xlsx::class,
         self::READER_XLS => Reader\Xls::class,
         self::READER_XML => Reader\Xml::class,
@@ -43,7 +43,7 @@ abstract class IOFactory
     ];
 
     /** @var string[] */
-    private static $writers = [
+    private static array $writers = [
         self::WRITER_XLS => Writer\Xls::class,
         self::WRITER_XLSX => Writer\Xlsx::class,
         self::WRITER_ODS => Writer\Ods::class,

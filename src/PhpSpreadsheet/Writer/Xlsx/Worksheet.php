@@ -20,17 +20,13 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet as PhpspreadsheetWorksheet;
 
 class Worksheet extends WriterPart
 {
-    /** @var string */
-    private $numberStoredAsText = '';
+    private string $numberStoredAsText = '';
 
-    /** @var string */
-    private $formula = '';
+    private string $formula = '';
 
-    /** @var string */
-    private $twoDigitTextYear = '';
+    private string $twoDigitTextYear = '';
 
-    /** @var string */
-    private $evalError = '';
+    private string $evalError = '';
 
     /**
      * Write worksheet to XML format.

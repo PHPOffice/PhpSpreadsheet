@@ -8,10 +8,8 @@ class Row
 
     /**
      * Row index.
-     *
-     * @var int
      */
-    private $rowIndex = 0;
+    private int $rowIndex = 0;
 
     /**
      * Create a new row.

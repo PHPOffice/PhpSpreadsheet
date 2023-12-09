@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 class Date2Test extends TestCase
 {
     /** @var ?Spreadsheet */
-    private $spreadsheet;
+    private ?Spreadsheet $spreadsheet = null;
 
     private int $calculateDateTimeType;
 

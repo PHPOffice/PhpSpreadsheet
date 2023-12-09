@@ -22,10 +22,8 @@ class Cell implements Stringable
 {
     /**
      * Value binder to use.
-     *
-     * @var IValueBinder
      */
-    private static $valueBinder;
+    private static ?IValueBinder $valueBinder = null;
 
     /**
      * Value of the cell.
@@ -60,10 +58,8 @@ class Cell implements Stringable
 
     /**
      * Index to the cellXf reference for the styling of this cell.
-     *
-     * @var int
      */
-    private $xfIndex = 0;
+    private int $xfIndex = 0;
 
     /**
      * Attributes of the formula.
@@ -310,15 +306,14 @@ class Cell implements Stringable
     public const CALCULATE_DATE_TIME_FLOAT = 1;
     public const CALCULATE_TIME_FLOAT = 2;
 
-    /** @var int */
-    private static $calculateDateTimeType = self::CALCULATE_DATE_TIME_ASIS;
+    private static int $calculateDateTimeType = self::CALCULATE_DATE_TIME_ASIS;
 
     public static function getCalculateDateTimeType(): int
     {
         return self::$calculateDateTimeType;
     }
 
-    /** @throws CalculationException*/
+    /** @throws CalculationException */
     public static function setCalculateDateTimeType(int $calculateDateTimeType): void
     {
         self::$calculateDateTimeType = match ($calculateDateTimeType) {
@@ -688,7 +683,7 @@ class Cell implements Stringable
 
         // Verify if cell is in range
         return ($rangeStart[0] <= $myColumn) && ($rangeEnd[0] >= $myColumn)
-                && ($rangeStart[1] <= $myRow) && ($rangeEnd[1] >= $myRow);
+            && ($rangeStart[1] <= $myRow) && ($rangeEnd[1] >= $myRow);
     }
 
     /**

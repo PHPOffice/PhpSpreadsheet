@@ -19,31 +19,25 @@ class DataSeriesValues extends Properties
 
     /**
      * Series Data Type.
-     *
-     * @var string
      */
-    private $dataType;
+    private string $dataType;
 
     /**
      * Series Data Source.
      *
      * @var ?string
      */
-    private $dataSource;
+    private ?string $dataSource;
 
     /**
      * Format Code.
-     *
-     * @var string
      */
-    private $formatCode;
+    private ?string $formatCode;
 
     /**
      * Series Point Marker.
-     *
-     * @var string
      */
-    private $pointMarker;
+    private ?string $pointMarker;
 
     private ChartColor $markerFillColor;
 
@@ -51,24 +45,18 @@ class DataSeriesValues extends Properties
 
     /**
      * Series Point Size.
-     *
-     * @var int
      */
-    private $pointSize = 3;
+    private int $pointSize = 3;
 
     /**
      * Point Count (The number of datapoints in the dataseries).
-     *
-     * @var int
      */
-    private $pointCount = 0;
+    private int $pointCount;
 
     /**
      * Data Values.
-     *
-     * @var mixed[]
      */
-    private $dataValues = [];
+    private ?array $dataValues;
 
     /**
      * Fill color (can be array with colors if dataseries have custom colors).
@@ -77,30 +65,30 @@ class DataSeriesValues extends Properties
      */
     private $fillColor;
 
-    /** @var bool */
-    private $scatterLines = true;
+    private bool $scatterLines = true;
 
-    /** @var bool */
-    private $bubble3D = false;
+    private bool $bubble3D = false;
 
     private ?Layout $labelLayout = null;
 
     /** @var TrendLine[] */
-    private $trendLines = [];
+    private array $trendLines = [];
 
     /**
      * Create a new DataSeriesValues object.
      *
-     * @param string $dataType
-     * @param string $dataSource
-     * @param null|mixed $formatCode
-     * @param int $pointCount
-     * @param mixed $dataValues
-     * @param null|mixed $marker
      * @param null|ChartColor|ChartColor[]|string|string[] $fillColor
      */
-    public function __construct($dataType = self::DATASERIES_TYPE_NUMBER, $dataSource = null, $formatCode = null, $pointCount = 0, $dataValues = [], $marker = null, $fillColor = null, int|string $pointSize = '3')
-    {
+    public function __construct(
+        string $dataType = self::DATASERIES_TYPE_NUMBER,
+        ?string $dataSource = null,
+        ?string $formatCode = null,
+        int $pointCount = 0,
+        ?array $dataValues = [],
+        ?string $marker = null,
+        null|ChartColor|array|string $fillColor = null,
+        int|string $pointSize = 3
+    ) {
         parent::__construct();
         $this->markerFillColor = new ChartColor();
         $this->markerBorderColor = new ChartColor();
@@ -176,10 +164,8 @@ class DataSeriesValues extends Properties
 
     /**
      * Get Point Marker.
-     *
-     * @return string
      */
-    public function getPointMarker()
+    public function getPointMarker(): ?string
     {
         return $this->pointMarker;
     }
@@ -187,11 +173,9 @@ class DataSeriesValues extends Properties
     /**
      * Set Point Marker.
      *
-     * @param string $marker
-     *
      * @return $this
      */
-    public function setPointMarker($marker): static
+    public function setPointMarker(string $marker): static
     {
         $this->pointMarker = $marker;
 
@@ -230,10 +214,8 @@ class DataSeriesValues extends Properties
 
     /**
      * Get Series Format Code.
-     *
-     * @return string
      */
-    public function getFormatCode()
+    public function getFormatCode(): ?string
     {
         return $this->formatCode;
     }
@@ -241,11 +223,9 @@ class DataSeriesValues extends Properties
     /**
      * Set Series Format Code.
      *
-     * @param string $formatCode
-     *
      * @return $this
      */
-    public function setFormatCode($formatCode): static
+    public function setFormatCode(string $formatCode): static
     {
         $this->formatCode = $formatCode;
 
@@ -534,10 +514,8 @@ class DataSeriesValues extends Properties
 
     /**
      * Smooth Line. Must be specified for both DataSeries and DataSeriesValues.
-     *
-     * @var bool
      */
-    private $smoothLine;
+    private bool $smoothLine = false;
 
     /**
      * Get Smooth Line.

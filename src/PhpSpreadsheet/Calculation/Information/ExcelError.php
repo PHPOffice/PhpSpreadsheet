@@ -39,7 +39,7 @@ class ExcelError
      *
      * @var array<string, string>
      */
-    public static $errorCodes = self::ERROR_CODES;
+    public static array $errorCodes = self::ERROR_CODES;
 
     public static function throwError(mixed $value): string
     {

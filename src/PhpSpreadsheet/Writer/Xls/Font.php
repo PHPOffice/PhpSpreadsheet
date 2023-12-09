@@ -35,8 +35,7 @@ class Font
         $this->colorIndex = $colorIndex;
     }
 
-    /** @var int */
-    private static $notImplemented = 0;
+    private static int $notImplemented = 0;
 
     /**
      * Get font record data.
@@ -114,7 +113,7 @@ class Font
      *
      * @var int[]
      */
-    private static $mapUnderline = [
+    private static array $mapUnderline = [
         \PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_NONE => 0x00,
         \PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_SINGLE => 0x01,
         \PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_DOUBLE => 0x02,

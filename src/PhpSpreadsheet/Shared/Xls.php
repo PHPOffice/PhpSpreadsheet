@@ -99,13 +99,13 @@ class Xls
      * The distanceX is found as sum of all the spanning columns widths minus correction for the two offsets.
      *
      * @param string $startColumn
-     * @param int $startOffsetX Offset within start cell measured in 1/1024 of the cell width
+     * @param float|int $startOffsetX Offset within start cell measured in 1/1024 of the cell width
      * @param string $endColumn
-     * @param int $endOffsetX Offset within end cell measured in 1/1024 of the cell width
+     * @param float|int $endOffsetX Offset within end cell measured in 1/1024 of the cell width
      *
      * @return int Horizontal measured in pixels
      */
-    public static function getDistanceX(Worksheet $worksheet, $startColumn = 'A', $startOffsetX = 0, $endColumn = 'A', $endOffsetX = 0): int
+    public static function getDistanceX(Worksheet $worksheet, $startColumn = 'A', float|int $startOffsetX = 0, $endColumn = 'A', float|int $endOffsetX = 0): int
     {
         $distanceX = 0;
 
@@ -130,13 +130,13 @@ class Xls
      * The distanceY is found as sum of all the spanning rows minus two offsets.
      *
      * @param int $startRow (1-based)
-     * @param int $startOffsetY Offset within start cell measured in 1/256 of the cell height
+     * @param float|int $startOffsetY Offset within start cell measured in 1/256 of the cell height
      * @param int $endRow (1-based)
-     * @param int $endOffsetY Offset within end cell measured in 1/256 of the cell height
+     * @param float|int $endOffsetY Offset within end cell measured in 1/256 of the cell height
      *
      * @return int Vertical distance measured in pixels
      */
-    public static function getDistanceY(Worksheet $worksheet, $startRow = 1, $startOffsetY = 0, $endRow = 1, $endOffsetY = 0): int
+    public static function getDistanceY(Worksheet $worksheet, $startRow = 1, float|int $startOffsetY = 0, $endRow = 1, float|int $endOffsetY = 0): int
     {
         $distanceY = 0;
 

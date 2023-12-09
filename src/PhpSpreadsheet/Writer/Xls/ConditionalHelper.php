@@ -17,10 +17,7 @@ class ConditionalHelper
      */
     protected $condition;
 
-    /**
-     * @var string
-     */
-    protected $cellRange;
+    protected string $cellRange;
 
     protected ?string $tokens = null;
 

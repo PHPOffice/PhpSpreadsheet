@@ -58,52 +58,46 @@ class OLE
 
     /**
      * Array of PPS's found on the OLE container.
-     *
-     * @var array
      */
-    public $_list = [];
+    public array $_list = [];
 
     /**
      * Root directory of OLE container.
-     *
-     * @var Root
      */
-    public $root;
+    public Root $root;
 
     /**
      * Big Block Allocation Table.
      *
      * @var array (blockId => nextBlockId)
      */
-    public $bbat;
+    public array $bbat;
 
     /**
      * Short Block Allocation Table.
      *
      * @var array (blockId => nextBlockId)
      */
-    public $sbat;
+    public array $sbat;
 
     /**
      * Size of big blocks. This is usually 512.
      *
      * @var int number of octets per block
      */
-    public $bigBlockSize;
+    public int $bigBlockSize;
 
     /**
      * Size of small blocks. This is usually 64.
      *
      * @var int number of octets per block
      */
-    public $smallBlockSize;
+    public int $smallBlockSize;
 
     /**
      * Threshold for big blocks.
-     *
-     * @var int
      */
-    public $bigBlockThreshold;
+    public int $bigBlockThreshold;
 
     /**
      * Reads an OLE container from the contents of the file given.
@@ -345,7 +339,7 @@ class OLE
             $this->_list[] = $pps;
 
             // check if the PPS tree (starting from root) is complete
-            if (isset($this->root) && $this->ppsTreeComplete($this->root->No)) { //* @phpstan-ignore-line
+            if (isset($this->root) && $this->ppsTreeComplete($this->root->No)) {
                 break;
             }
         }

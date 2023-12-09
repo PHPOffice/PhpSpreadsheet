@@ -25,20 +25,15 @@ class Border extends Supervisor
 
     /**
      * Border style.
-     *
-     * @var string
      */
-    protected $borderStyle = self::BORDER_NONE;
+    protected string $borderStyle = self::BORDER_NONE;
 
     /**
      * Border color.
      */
     protected Color $color;
 
-    /**
-     * @var null|int
-     */
-    public $colorIndex;
+    public ?int $colorIndex = null;
 
     /**
      * Create a new Border.

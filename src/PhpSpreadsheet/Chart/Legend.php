@@ -29,17 +29,13 @@ class Legend
 
     /**
      * Legend position.
-     *
-     * @var string
      */
-    private $position = self::POSITION_RIGHT;
+    private string $position = self::POSITION_RIGHT;
 
     /**
      * Allow overlay of other elements?
-     *
-     * @var bool
      */
-    private $overlay = true;
+    private bool $overlay = true;
 
     /**
      * Legend Layout.

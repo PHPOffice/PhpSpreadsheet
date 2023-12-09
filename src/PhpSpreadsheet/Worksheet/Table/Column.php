@@ -17,10 +17,8 @@ class Column
 
     /**
      * Show Filter Button.
-     *
-     * @var bool
      */
-    private $showFilterButton = true;
+    private bool $showFilterButton = true;
 
     /**
      * Total Row Label.

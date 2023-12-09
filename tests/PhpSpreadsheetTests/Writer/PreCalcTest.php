@@ -13,8 +13,7 @@ use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
 class PreCalcTest extends AbstractFunctional
 {
-    /** @var string */
-    private $outfile = '';
+    private string $outfile = '';
 
     protected function tearDown(): void
     {

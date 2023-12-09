@@ -22,22 +22,17 @@ class Styles extends BaseParserClass
      *
      * @var ?Theme
      */
-    private $theme;
+    private ?Theme $theme = null;
 
-    /** @var array */
-    private $workbookPalette = [];
+    private array $workbookPalette = [];
 
-    /** @var array */
-    private $styles = [];
+    private array $styles = [];
 
-    /** @var array */
-    private $cellStyles = [];
+    private array $cellStyles = [];
 
-    /** @var SimpleXMLElement */
-    private $styleXml;
+    private SimpleXMLElement $styleXml;
 
-    /** @var string */
-    private $namespace = '';
+    private string $namespace = '';
 
     public function setNamespace(string $namespace): void
     {

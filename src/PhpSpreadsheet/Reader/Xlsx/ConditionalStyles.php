@@ -20,10 +20,7 @@ class ConditionalStyles
 
     private SimpleXMLElement $worksheetXml;
 
-    /**
-     * @var array
-     */
-    private $ns;
+    private array $ns;
 
     private array $dxfs;
 

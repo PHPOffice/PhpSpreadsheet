@@ -12,14 +12,14 @@ class HashTable
      *
      * @var array<string, T>
      */
-    protected $items = [];
+    protected array $items = [];
 
     /**
      * HashTable key map.
      *
      * @var array<int, string>
      */
-    protected $keyMap = [];
+    protected array $keyMap = [];
 
     /**
      * Create a new HashTable.

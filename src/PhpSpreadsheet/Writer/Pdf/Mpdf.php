@@ -10,8 +10,7 @@ class Mpdf extends Pdf
     public const SIMULATED_BODY_START = '<!-- simulated body start -->';
     private const BODY_TAG = '<body>';
 
-    /** @var bool */
-    protected $isMPdf = true;
+    protected bool $isMPdf = true;
 
     /**
      * Gets the implementation of external PDF library that should be used.

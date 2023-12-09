@@ -18,31 +18,23 @@ class Cells
 
     /**
      * Parent worksheet.
-     *
-     * @var null|Worksheet
      */
-    private $parent;
+    private ?Worksheet $parent = null;
 
     /**
      * The currently active Cell.
-     *
-     * @var null|Cell
      */
-    private $currentCell;
+    private ?Cell $currentCell = null;
 
     /**
      * Coordinate of the currently active Cell.
-     *
-     * @var null|string
      */
-    private $currentCoordinate;
+    private ?string $currentCoordinate = null;
 
     /**
      * Flag indicating whether the currently active Cell requires saving.
-     *
-     * @var bool
      */
-    private $currentCellIsDirty = false;
+    private bool $currentCellIsDirty = false;
 
     /**
      * An index of existing cells. int pointer to the coordinate (0-base-indexed row * 16,384 + 1-base indexed column)
@@ -50,7 +42,7 @@ class Cells
      *
      * @var int[]
      */
-    private $index = [];
+    private array $index = [];
 
     /**
      * Prefix used to uniquely identify cache data for this worksheet.

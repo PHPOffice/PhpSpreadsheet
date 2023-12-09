@@ -24,7 +24,7 @@ class Logger
      *
      * @var string[]
      */
-    private $debugLog = [];
+    private array $debugLog = [];
 
     /**
      * The calculation engine cell reference stack.

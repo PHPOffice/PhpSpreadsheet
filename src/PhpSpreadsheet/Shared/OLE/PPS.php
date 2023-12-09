@@ -31,45 +31,33 @@ class PPS
 {
     /**
      * The PPS index.
-     *
-     * @var int
      */
-    public $No;
+    public int $No;
 
     /**
      * The PPS name (in Unicode).
-     *
-     * @var string
      */
-    public $Name;
+    public string $Name;
 
     /**
      * The PPS type. Dir, Root or File.
-     *
-     * @var int
      */
-    public $Type;
+    public int $Type;
 
     /**
      * The index of the previous PPS.
-     *
-     * @var int
      */
-    public $PrevPps;
+    public int $PrevPps;
 
     /**
      * The index of the next PPS.
-     *
-     * @var int
      */
-    public $NextPps;
+    public int $NextPps;
 
     /**
      * The index of it's first child if this is a Dir or Root PPS.
-     *
-     * @var int
      */
-    public $DirPps;
+    public int $DirPps;
 
     /**
      * A timestamp.
@@ -90,35 +78,27 @@ class PPS
      *
      * @var ?int
      */
-    public $startBlock;
+    public ?int $startBlock = null;
 
     /**
      * The size of the PPS's data (in bytes).
-     *
-     * @var int
      */
-    public $Size;
+    public int $Size;
 
     /**
      * The PPS's data (only used if it's not using a temporary file).
-     *
-     * @var string
      */
-    public $_data = '';
+    public string $_data = '';
 
     /**
      * Array of child PPS's (only used by Root and Dir PPS's).
-     *
-     * @var array
      */
-    public $children = [];
+    public array $children = [];
 
     /**
      * Pointer to OLE container.
-     *
-     * @var OLE
      */
-    public $ole;
+    public OLE $ole;
 
     /**
      * The constructor.

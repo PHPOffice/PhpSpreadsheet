@@ -42,52 +42,38 @@ class Html extends BaseWriter
 
     /**
      * Sheet index to write.
-     *
-     * @var null|int
      */
-    private $sheetIndex = 0;
+    private ?int $sheetIndex = 0;
 
     /**
      * Images root.
-     *
-     * @var string
      */
-    private $imagesRoot = '';
+    private string $imagesRoot = '';
 
     /**
      * embed images, or link to images.
-     *
-     * @var bool
      */
-    protected $embedImages = false;
+    protected bool $embedImages = false;
 
     /**
      * Use inline CSS?
-     *
-     * @var bool
      */
-    private $useInlineCss = false;
+    private bool $useInlineCss = false;
 
     /**
      * Use embedded CSS?
-     *
-     * @var bool
      */
-    private $useEmbeddedCSS = true;
+    private bool $useEmbeddedCSS = true;
 
     /**
      * Array of CSS styles.
-     *
-     * @var array
      */
-    private $cssStyles;
+    private ?array $cssStyles = null;
 
     /**
      * Array of column widths in points.
-     *
-     * @var array
      */
-    private $columnWidths;
+    private array $columnWidths;
 
     /**
      * Default font.
@@ -96,52 +82,38 @@ class Html extends BaseWriter
 
     /**
      * Flag whether spans have been calculated.
-     *
-     * @var bool
      */
-    private $spansAreCalculated = false;
+    private bool $spansAreCalculated = false;
 
     /**
      * Excel cells that should not be written as HTML cells.
-     *
-     * @var array
      */
-    private $isSpannedCell = [];
+    private array $isSpannedCell = [];
 
     /**
      * Excel cells that are upper-left corner in a cell merge.
-     *
-     * @var array
      */
-    private $isBaseCell = [];
+    private array $isBaseCell = [];
 
     /**
      * Excel rows that should not be written as HTML rows.
-     *
-     * @var array
      */
-    private $isSpannedRow = [];
+    private array $isSpannedRow = [];
 
     /**
      * Is the current writer creating PDF?
-     *
-     * @var bool
      */
-    protected $isPdf = false;
+    protected bool $isPdf = false;
 
     /**
      * Is the current writer creating mPDF?
-     *
-     * @var bool
      */
-    protected $isMPdf = false;
+    protected bool $isMPdf = false;
 
     /**
      * Generate the Navigation block.
-     *
-     * @var bool
      */
-    private $generateSheetNavigationBlock = true;
+    private bool $generateSheetNavigationBlock = true;
 
     /**
      * Callback for editing generated html.

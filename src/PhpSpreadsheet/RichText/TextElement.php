@@ -8,10 +8,8 @@ class TextElement implements ITextElement
 {
     /**
      * Text.
-     *
-     * @var string
      */
-    private $text;
+    private string $text;
 
     /**
      * Create a new TextElement instance.

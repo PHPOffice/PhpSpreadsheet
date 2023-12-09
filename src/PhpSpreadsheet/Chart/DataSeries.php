@@ -46,31 +46,23 @@ class DataSeries
 
     /**
      * Series Plot Type.
-     *
-     * @var string
      */
-    private $plotType;
+    private ?string $plotType;
 
     /**
      * Plot Grouping Type.
-     *
-     * @var string
      */
-    private $plotGrouping;
+    private ?string $plotGrouping;
 
     /**
      * Plot Direction.
-     *
-     * @var string
      */
-    private $plotDirection;
+    private string $plotDirection;
 
     /**
      * Plot Style.
-     *
-     * @var null|string
      */
-    private $plotStyle;
+    private ?string $plotStyle = null;
 
     /**
      * Order of plots in Series.
@@ -95,10 +87,8 @@ class DataSeries
 
     /**
      * Smooth Line. Must be specified for both DataSeries and DataSeriesValues.
-     *
-     * @var bool
      */
-    private $smoothLine;
+    private bool $smoothLine;
 
     /**
      * Plot Values.
@@ -112,13 +102,12 @@ class DataSeries
      *
      * @var DataSeriesValues[]
      */
-    private $plotBubbleSizes = [];
+    private array $plotBubbleSizes = [];
 
     /**
      * Create a new DataSeries.
      *
      * @param null|mixed $plotType
-     * @param null|mixed $plotGrouping
      * @param int[] $plotOrder
      * @param DataSeriesValues[] $plotLabel
      * @param DataSeriesValues[] $plotCategory
@@ -129,7 +118,7 @@ class DataSeries
      */
     public function __construct(
         $plotType = null,
-        $plotGrouping = null,
+        null|string $plotGrouping = null,
         array $plotOrder = [],
         array $plotLabel = [],
         array $plotCategory = [],
@@ -164,10 +153,8 @@ class DataSeries
 
     /**
      * Get Plot Type.
-     *
-     * @return string
      */
-    public function getPlotType()
+    public function getPlotType(): ?string
     {
         return $this->plotType;
     }
@@ -175,11 +162,9 @@ class DataSeries
     /**
      * Set Plot Type.
      *
-     * @param string $plotType
-     *
      * @return $this
      */
-    public function setPlotType($plotType): static
+    public function setPlotType(string $plotType): static
     {
         $this->plotType = $plotType;
 
@@ -188,10 +173,8 @@ class DataSeries
 
     /**
      * Get Plot Grouping Type.
-     *
-     * @return string
      */
-    public function getPlotGrouping()
+    public function getPlotGrouping(): ?string
     {
         return $this->plotGrouping;
     }
@@ -199,11 +182,9 @@ class DataSeries
     /**
      * Set Plot Grouping Type.
      *
-     * @param string $groupingType
-     *
      * @return $this
      */
-    public function setPlotGrouping($groupingType): static
+    public function setPlotGrouping(string $groupingType): static
     {
         $this->plotGrouping = $groupingType;
 

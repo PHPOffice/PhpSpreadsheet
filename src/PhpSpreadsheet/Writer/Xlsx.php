@@ -37,24 +37,20 @@ class Xlsx extends BaseWriter
 {
     /**
      * Office2003 compatibility.
-     *
-     * @var bool
      */
-    private $office2003compatibility = false;
+    private bool $office2003compatibility = false;
 
     /**
      * Private Spreadsheet.
-     *
-     * @var Spreadsheet
      */
-    private $spreadSheet;
+    private Spreadsheet $spreadSheet;
 
     /**
      * Private string table.
      *
      * @var string[]
      */
-    private $stringTable = [];
+    private array $stringTable = [];
 
     /**
      * Private unique Conditional HashTable.
@@ -107,10 +103,8 @@ class Xlsx extends BaseWriter
 
     /**
      * Private handle for zip stream.
-     *
-     * @var ZipStream
      */
-    private $zip;
+    private ZipStream $zip;
 
     private Chart $writerPartChart;
 
@@ -648,8 +642,7 @@ class Xlsx extends BaseWriter
         return $this;
     }
 
-    /** @var array */
-    private $pathNames = [];
+    private array $pathNames = [];
 
     private function addZipFile(string $path, string $content): void
     {

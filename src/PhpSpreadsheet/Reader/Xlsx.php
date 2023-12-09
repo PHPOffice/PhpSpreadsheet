@@ -52,18 +52,11 @@ class Xlsx extends BaseReader
      */
     private ReferenceHelper $referenceHelper;
 
-    /**
-     * @var ZipArchive
-     */
-    private $zip;
+    private ZipArchive $zip;
 
-    /** @var Styles */
-    private $styleReader;
+    private Styles $styleReader;
 
-    /**
-     * @var array
-     */
-    private $sharedFormulae = [];
+    private array $sharedFormulae = [];
 
     /**
      * Create a new Xlsx Reader instance.

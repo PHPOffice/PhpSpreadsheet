@@ -99,10 +99,8 @@ class Protection
 
     /**
      * Hashed password.
-     *
-     * @var string
      */
-    private $password = '';
+    private string $password = '';
 
     /**
      * Algorithm name.
@@ -116,10 +114,8 @@ class Protection
 
     /**
      * Spin count.
-     *
-     * @var int
      */
-    private $spinCount = 10000;
+    private int $spinCount = 10000;
 
     /**
      * Create a new Protection.

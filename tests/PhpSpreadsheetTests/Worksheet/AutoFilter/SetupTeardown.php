@@ -13,17 +13,14 @@ class SetupTeardown extends TestCase
     /**
      * @var ?Spreadsheet
      */
-    private $spreadsheet;
+    private ?Spreadsheet $spreadsheet = null;
 
     /**
      * @var ?Worksheet
      */
-    private $sheet;
+    private ?Worksheet $sheet = null;
 
-    /**
-     * @var int
-     */
-    protected $maxRow = 4;
+    protected int $maxRow = 4;
 
     protected function tearDown(): void
     {

@@ -92,24 +92,18 @@ class NumberFormat extends Supervisor
 
     /**
      * Excel built-in number formats.
-     *
-     * @var array
      */
-    protected static $builtInFormats;
+    protected static array $builtInFormats;
 
     /**
      * Excel built-in number formats (flipped, for faster lookups).
-     *
-     * @var array
      */
-    protected static $flippedBuiltInFormats;
+    protected static array $flippedBuiltInFormats;
 
     /**
      * Format Code.
-     *
-     * @var null|string
      */
-    protected $formatCode = self::FORMAT_GENERAL;
+    protected ?string $formatCode = self::FORMAT_GENERAL;
 
     /**
      * Built-in format Code.

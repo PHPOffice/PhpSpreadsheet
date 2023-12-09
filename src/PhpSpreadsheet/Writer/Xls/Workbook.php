@@ -64,14 +64,12 @@ class Workbook extends BIFFwriter
      *
      * @var Xf[]
      */
-    private $xfWriters = [];
+    private array $xfWriters = [];
 
     /**
      * Array containing the colour palette.
-     *
-     * @var array
      */
-    private $palette;
+    private array $palette;
 
     /**
      * The codepage indicates the text encoding used for strings.
@@ -93,70 +91,52 @@ class Workbook extends BIFFwriter
      *
      * @var Font[]
      */
-    private $fontWriters = [];
+    private array $fontWriters = [];
 
     /**
      * Added fonts. Maps from font's hash => index in workbook.
-     *
-     * @var array
      */
-    private $addedFonts = [];
+    private array $addedFonts = [];
 
     /**
      * Shared number formats.
-     *
-     * @var array
      */
-    private $numberFormats = [];
+    private array $numberFormats = [];
 
     /**
      * Added number formats. Maps from numberFormat's hash => index in workbook.
-     *
-     * @var array
      */
-    private $addedNumberFormats = [];
+    private array $addedNumberFormats = [];
 
     /**
      * Sizes of the binary worksheet streams.
-     *
-     * @var array
      */
-    private $worksheetSizes = [];
+    private array $worksheetSizes = [];
 
     /**
      * Offsets of the binary worksheet streams relative to the start of the global workbook stream.
-     *
-     * @var array
      */
-    private $worksheetOffsets = [];
+    private array $worksheetOffsets = [];
 
     /**
      * Total number of shared strings in workbook.
-     *
-     * @var int
      */
-    private $stringTotal;
+    private int $stringTotal;
 
     /**
      * Number of unique shared strings in workbook.
-     *
-     * @var int
      */
-    private $stringUnique;
+    private int $stringUnique;
 
     /**
      * Array of unique shared strings in workbook.
-     *
-     * @var array
      */
-    private $stringTable;
+    private array $stringTable;
 
     /**
      * Color cache.
-     *
-     * @var array
      */
-    private $colors;
+    private array $colors;
 
     /**
      * Escher object corresponding to MSODRAWINGGROUP.

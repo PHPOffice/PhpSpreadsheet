@@ -15,10 +15,8 @@ class Title
 
     /**
      * Allow overlay of other elements?
-     *
-     * @var bool
      */
-    private $overlay = true;
+    private bool $overlay = true;
 
     /**
      * Title Layout.

@@ -25,7 +25,7 @@ class Date
      *
      * @var string[]
      */
-    public static $monthNames = [
+    public static array $monthNames = [
         'Jan' => 'January',
         'Feb' => 'February',
         'Mar' => 'March',
@@ -43,7 +43,7 @@ class Date
     /**
      * @var string[]
      */
-    public static $numberSuffixes = [
+    public static array $numberSuffixes = [
         'st',
         'nd',
         'rd',
@@ -53,17 +53,13 @@ class Date
     /**
      * Base calendar year to use for calculations
      * Value is either CALENDAR_WINDOWS_1900 (1900) or CALENDAR_MAC_1904 (1904).
-     *
-     * @var int
      */
-    protected static $excelCalendar = self::CALENDAR_WINDOWS_1900;
+    protected static int $excelCalendar = self::CALENDAR_WINDOWS_1900;
 
     /**
      * Default timezone to use for DateTime objects.
-     *
-     * @var null|DateTimeZone
      */
-    protected static $defaultTimeZone;
+    protected static ?DateTimeZone $defaultTimeZone = null;
 
     /**
      * Set the Excel calendar (Windows 1900 or Mac 1904).

@@ -32,37 +32,19 @@ class CellMatcher
 
     protected Cell $cell;
 
-    /**
-     * @var int
-     */
-    protected $cellRow;
+    protected int $cellRow;
 
     protected Worksheet $worksheet;
 
-    /**
-     * @var int
-     */
-    protected $cellColumn;
+    protected int $cellColumn;
 
-    /**
-     * @var string
-     */
-    protected $conditionalRange;
+    protected string $conditionalRange;
 
-    /**
-     * @var string
-     */
-    protected $referenceCell;
+    protected string $referenceCell;
 
-    /**
-     * @var int
-     */
-    protected $referenceRow;
+    protected int $referenceRow;
 
-    /**
-     * @var int
-     */
-    protected $referenceColumn;
+    protected int $referenceColumn;
 
     protected Calculation $engine;
 

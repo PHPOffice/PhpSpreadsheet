@@ -18,10 +18,8 @@ class Ods extends BaseWriter
 {
     /**
      * Private PhpSpreadsheet.
-     *
-     * @var Spreadsheet
      */
-    private $spreadSheet;
+    private Spreadsheet $spreadSheet;
 
     private Content $writerPartContent;
 

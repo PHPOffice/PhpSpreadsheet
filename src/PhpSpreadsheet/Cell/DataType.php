@@ -23,7 +23,7 @@ class DataType
      *
      * @var array<string, int>
      */
-    private static $errorCodes = [
+    private static array $errorCodes = [
         '#NULL!' => 0,
         '#DIV/0!' => 1,
         '#VALUE!' => 2,

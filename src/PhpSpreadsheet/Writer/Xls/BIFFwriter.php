@@ -44,30 +44,24 @@ class BIFFwriter
      *
      * @var ?int
      */
-    private static $byteOrder;
+    private static ?int $byteOrder;
 
     /**
      * The string containing the data of the BIFF stream.
-     *
-     * @var null|string
      */
-    public $_data;
+    public ?string $_data;
 
     /**
      * The size of the data in bytes. Should be the same as strlen($this->_data).
-     *
-     * @var int
      */
-    public $_datasize;
+    public int $_datasize;
 
     /**
      * The maximum length for a BIFF record (excluding record header and length field). See addContinue().
      *
-     * @var int
-     *
      * @see addContinue()
      */
-    private $limit = 8224;
+    private int $limit = 8224;
 
     /**
      * Constructor.

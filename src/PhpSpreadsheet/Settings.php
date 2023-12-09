@@ -18,33 +18,28 @@ class Settings
      *
      * @var ?string
      */
-    private static $chartRenderer;
+    private static ?string $chartRenderer = null;
 
     /**
      * Default options for libxml loader.
      *
      * @var ?int
      */
-    private static $libXmlLoaderOptions;
+    private static ?int $libXmlLoaderOptions = null;
 
     /**
      * The cache implementation to be used for cell collection.
      *
      * @var ?CacheInterface
      */
-    private static $cache;
+    private static ?CacheInterface $cache = null;
 
     /**
      * The HTTP client implementation to be used for network request.
-     *
-     * @var null|ClientInterface
      */
-    private static $httpClient;
+    private static ?ClientInterface $httpClient = null;
 
-    /**
-     * @var null|RequestFactoryInterface
-     */
-    private static $requestFactory;
+    private static ?RequestFactoryInterface $requestFactory = null;
 
     /**
      * Set the locale code to use for formula translations and any special formatting.

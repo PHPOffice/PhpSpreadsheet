@@ -6,24 +6,20 @@ class Theme
 {
     /**
      * Theme Name.
-     *
-     * @var string
      */
-    private $themeName;
+    private string $themeName;
 
     /**
      * Colour Scheme Name.
-     *
-     * @var string
      */
-    private $colourSchemeName;
+    private string $colourSchemeName;
 
     /**
      * Colour Map.
      *
      * @var string[]
      */
-    private $colourMap;
+    private array $colourMap;
 
     /**
      * Create a new Theme.

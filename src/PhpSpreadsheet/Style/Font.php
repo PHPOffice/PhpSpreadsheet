@@ -15,98 +15,72 @@ class Font extends Supervisor
 
     /**
      * Font Name.
-     *
-     * @var null|string
      */
-    protected $name = 'Calibri';
+    protected ?string $name = 'Calibri';
 
     /**
      * The following 7 are used only for chart titles, I think.
-     *
-     *@var string
      */
-    private $latin = '';
+    private string $latin = '';
 
-    /** @var string */
-    private $eastAsian = '';
+    private string $eastAsian = '';
 
-    /** @var string */
-    private $complexScript = '';
+    private string $complexScript = '';
 
-    /** @var int */
-    private $baseLine = 0;
+    private int $baseLine = 0;
 
-    /** @var string */
-    private $strikeType = '';
+    private string $strikeType = '';
 
     /** @var ?ChartColor */
-    private $underlineColor;
+    private ?ChartColor $underlineColor = null;
 
     /** @var ?ChartColor */
-    private $chartColor;
+    private ?ChartColor $chartColor = null;
     // end of chart title items
 
     /**
      * Font Size.
-     *
-     * @var null|float
      */
-    protected $size = 11;
+    protected ?float $size = 11;
 
     /**
      * Bold.
-     *
-     * @var null|bool
      */
-    protected $bold = false;
+    protected ?bool $bold = false;
 
     /**
      * Italic.
-     *
-     * @var null|bool
      */
-    protected $italic = false;
+    protected ?bool $italic = false;
 
     /**
      * Superscript.
-     *
-     * @var null|bool
      */
-    protected $superscript = false;
+    protected ?bool $superscript = false;
 
     /**
      * Subscript.
-     *
-     * @var null|bool
      */
-    protected $subscript = false;
+    protected ?bool $subscript = false;
 
     /**
      * Underline.
-     *
-     * @var null|string
      */
-    protected $underline = self::UNDERLINE_NONE;
+    protected ?string $underline = self::UNDERLINE_NONE;
 
     /**
      * Strikethrough.
-     *
-     * @var null|bool
      */
-    protected $strikethrough = false;
+    protected ?bool $strikethrough = false;
 
     /**
      * Foreground color.
      */
     protected Color $color;
 
-    /**
-     * @var null|int
-     */
-    public $colorIndex;
+    public ?int $colorIndex = null;
 
-    /** @var string */
-    protected $scheme = '';
+    protected string $scheme = '';
 
     /**
      * Create a new Font.

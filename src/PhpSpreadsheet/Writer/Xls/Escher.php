@@ -23,24 +23,18 @@ class Escher
 
     /**
      * The written binary data.
-     *
-     * @var string
      */
-    private $data;
+    private string $data;
 
     /**
      * Shape offsets. Positions in binary stream where a new shape record begins.
-     *
-     * @var array
      */
-    private $spOffsets;
+    private array $spOffsets;
 
     /**
      * Shape types.
-     *
-     * @var array
      */
-    private $spTypes;
+    private array $spTypes;
 
     /**
      * Constructor.

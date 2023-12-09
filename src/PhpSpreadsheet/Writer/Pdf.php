@@ -16,10 +16,8 @@ abstract class Pdf extends Html
 
     /**
      * Font.
-     *
-     * @var string
      */
-    protected $font = 'freesans';
+    protected string $font = 'freesans';
 
     /**
      * Orientation (Over-ride).
@@ -31,14 +29,12 @@ abstract class Pdf extends Html
      *
      * @var ?int
      */
-    protected $paperSize;
+    protected ?int $paperSize = null;
 
     /**
      * Paper Sizes xRef List.
-     *
-     * @var array
      */
-    protected static $paperSizes = [
+    protected static array $paperSizes = [
         PageSetup::PAPERSIZE_LETTER => 'LETTER', //    (8.5 in. by 11 in.)
         PageSetup::PAPERSIZE_LETTER_SMALL => 'LETTER', //    (8.5 in. by 11 in.)
         PageSetup::PAPERSIZE_TABLOID => [792.00, 1224.00], //    (11 in. by 17 in.)

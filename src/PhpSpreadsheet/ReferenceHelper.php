@@ -25,12 +25,9 @@ class ReferenceHelper
      *
      * @var ?ReferenceHelper
      */
-    private static $instance;
+    private static ?ReferenceHelper $instance = null;
 
-    /**
-     * @var CellReferenceHelper
-     */
-    private $cellReferenceHelper;
+    private ?CellReferenceHelper $cellReferenceHelper = null;
 
     /**
      * Get an instance of this class.

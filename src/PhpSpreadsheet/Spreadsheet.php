@@ -51,14 +51,12 @@ class Spreadsheet implements JsonSerializable
      *
      * @var Worksheet[]
      */
-    private $workSheetCollection = [];
+    private array $workSheetCollection = [];
 
     /**
      * Calculation Engine.
-     *
-     * @var null|Calculation
      */
-    private $calculationEngine;
+    private ?Calculation $calculationEngine = null;
 
     /**
      * Active sheet index.
@@ -70,7 +68,7 @@ class Spreadsheet implements JsonSerializable
      *
      * @var DefinedName[]
      */
-    private $definedNames = [];
+    private array $definedNames = [];
 
     /**
      * CellXf supervisor.
@@ -82,119 +80,93 @@ class Spreadsheet implements JsonSerializable
      *
      * @var Style[]
      */
-    private $cellXfCollection = [];
+    private array $cellXfCollection = [];
 
     /**
      * CellStyleXf collection.
      *
      * @var Style[]
      */
-    private $cellStyleXfCollection = [];
+    private array $cellStyleXfCollection = [];
 
     /**
      * hasMacros : this workbook have macros ?
-     *
-     * @var bool
      */
-    private $hasMacros = false;
+    private bool $hasMacros = false;
 
     /**
      * macrosCode : all macros code as binary data (the vbaProject.bin file, this include form, code,  etc.), null if no macro.
-     *
-     * @var null|string
      */
-    private $macrosCode;
+    private ?string $macrosCode = null;
 
     /**
      * macrosCertificate : if macros are signed, contains binary data vbaProjectSignature.bin file, null if not signed.
-     *
-     * @var null|string
      */
-    private $macrosCertificate;
+    private ?string $macrosCertificate = null;
 
     /**
      * ribbonXMLData : null if workbook is'nt Excel 2007 or not contain a customized UI.
      *
      * @var null|array{target: string, data: string}
      */
-    private $ribbonXMLData;
+    private ?array $ribbonXMLData = null;
 
     /**
      * ribbonBinObjects : null if workbook is'nt Excel 2007 or not contain embedded objects (picture(s)) for Ribbon Elements
      * ignored if $ribbonXMLData is null.
-     *
-     * @var null|array
      */
-    private $ribbonBinObjects;
+    private ?array $ribbonBinObjects = null;
 
     /**
      * List of unparsed loaded data for export to same format with better compatibility.
      * It has to be minimized when the library start to support currently unparsed data.
-     *
-     * @var array
      */
-    private $unparsedLoadedData = [];
+    private array $unparsedLoadedData = [];
 
     /**
      * Controls visibility of the horizonal scroll bar in the application.
-     *
-     * @var bool
      */
-    private $showHorizontalScroll = true;
+    private bool $showHorizontalScroll = true;
 
     /**
      * Controls visibility of the horizonal scroll bar in the application.
-     *
-     * @var bool
      */
-    private $showVerticalScroll = true;
+    private bool $showVerticalScroll = true;
 
     /**
      * Controls visibility of the sheet tabs in the application.
-     *
-     * @var bool
      */
-    private $showSheetTabs = true;
+    private bool $showSheetTabs = true;
 
     /**
      * Specifies a boolean value that indicates whether the workbook window
      * is minimized.
-     *
-     * @var bool
      */
-    private $minimized = false;
+    private bool $minimized = false;
 
     /**
      * Specifies a boolean value that indicates whether to group dates
      * when presenting the user with filtering optiomd in the user
      * interface.
-     *
-     * @var bool
      */
-    private $autoFilterDateGrouping = true;
+    private bool $autoFilterDateGrouping = true;
 
     /**
      * Specifies the index to the first sheet in the book view.
-     *
-     * @var int
      */
-    private $firstSheetIndex = 0;
+    private int $firstSheetIndex = 0;
 
     /**
      * Specifies the visible status of the workbook.
-     *
-     * @var string
      */
-    private $visibility = self::VISIBILITY_VISIBLE;
+    private string $visibility = self::VISIBILITY_VISIBLE;
 
     /**
      * Specifies the ratio between the workbook tabs bar and the horizontal
      * scroll bar.  TabRatio is assumed to be out of 1000 of the horizontal
      * window width.
-     *
-     * @var int
      */
-    private $tabRatio = 600;
+    private int $tabRatio = 600;
 
     private Theme $theme;
 

@@ -6,17 +6,13 @@ abstract class BestFit
 {
     /**
      * Indicator flag for a calculation error.
-     *
-     * @var bool
      */
-    protected $error = false;
+    protected bool $error = false;
 
     /**
      * Algorithm type to use for best-fit.
-     *
-     * @var string
      */
-    protected $bestFitType = 'undetermined';
+    protected string $bestFitType = 'undetermined';
 
     /**
      * Number of entries in the sets of x- and y-value arrays.
@@ -28,70 +24,54 @@ abstract class BestFit
      *
      * @var float[]
      */
-    protected $xValues = [];
+    protected array $xValues = [];
 
     /**
      * Y-value dataseries of values.
      *
      * @var float[]
      */
-    protected $yValues = [];
+    protected array $yValues = [];
 
     /**
      * Flag indicating whether values should be adjusted to Y=0.
-     *
-     * @var bool
      */
-    protected $adjustToZero = false;
+    protected bool $adjustToZero = false;
 
     /**
      * Y-value series of best-fit values.
      *
      * @var float[]
      */
-    protected $yBestFitValues = [];
+    protected array $yBestFitValues = [];
 
-    /** @var float */
-    protected $goodnessOfFit = 1;
+    protected float $goodnessOfFit = 1;
 
-    /** @var float */
-    protected $stdevOfResiduals = 0;
+    protected float $stdevOfResiduals = 0;
 
-    /** @var float */
-    protected $covariance = 0;
+    protected float $covariance = 0;
 
-    /** @var float */
-    protected $correlation = 0;
+    protected float $correlation = 0;
 
-    /** @var float */
-    protected $SSRegression = 0;
+    protected float $SSRegression = 0;
 
-    /** @var float */
-    protected $SSResiduals = 0;
+    protected float $SSResiduals = 0;
 
-    /** @var float */
-    protected $DFResiduals = 0;
+    protected float $DFResiduals = 0;
 
-    /** @var float */
-    protected $f = 0;
+    protected float $f = 0;
 
-    /** @var float */
-    protected $slope = 0;
+    protected float $slope = 0;
 
-    /** @var float */
-    protected $slopeSE = 0;
+    protected float $slopeSE = 0;
 
-    /** @var float */
-    protected $intersect = 0;
+    protected float $intersect = 0;
 
-    /** @var float */
-    protected $intersectSE = 0;
+    protected float $intersectSE = 0;
 
-    /** @var float */
-    protected $xOffset = 0;
+    protected float $xOffset = 0;
 
-    /** @var float */
-    protected $yOffset = 0;
+    protected float $yOffset = 0;
 
     /** @return bool */
     public function getError()

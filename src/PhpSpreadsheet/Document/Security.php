@@ -8,24 +8,18 @@ class Security
 {
     /**
      * LockRevision.
-     *
-     * @var bool
      */
-    private $lockRevision = false;
+    private bool $lockRevision = false;
 
     /**
      * LockStructure.
-     *
-     * @var bool
      */
-    private $lockStructure = false;
+    private bool $lockStructure = false;
 
     /**
      * LockWindows.
-     *
-     * @var bool
      */
-    private $lockWindows = false;
+    private bool $lockWindows = false;
 
     /**
      * RevisionsPassword.

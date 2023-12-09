@@ -8,10 +8,8 @@ class PlotArea
 {
     /**
      * No fill in plot area (show Excel gridlines through chart).
-     *
-     * @var bool
      */
-    private $noFill = false;
+    private bool $noFill = false;
 
     /**
      * PlotArea Gradient Stop list.
@@ -21,7 +19,7 @@ class PlotArea
      *
      * @var array[]
      */
-    private $gradientFillStops = [];
+    private array $gradientFillStops = [];
 
     /**
      * PlotArea Gradient Angle.
@@ -160,11 +158,9 @@ class PlotArea
 
     private ?int $gapWidth = null;
 
-    /** @var bool */
-    private $useUpBars = false;
+    private bool $useUpBars = false;
 
-    /** @var bool */
-    private $useDownBars = false;
+    private bool $useDownBars = false;
 
     public function getGapWidth(): ?int
     {

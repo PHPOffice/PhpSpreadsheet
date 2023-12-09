@@ -202,10 +202,8 @@ class Font
 
     /**
      * Array that can be used to supplement FONT_FILE_NAMES for calculating exact width.
-     *
-     * @var array
      */
-    private static $extraFontArray = [];
+    private static array $extraFontArray = [];
 
     public static function setExtraFontArray(array $extraFontArray): void
     {
@@ -219,17 +217,13 @@ class Font
 
     /**
      * AutoSize method.
-     *
-     * @var string
      */
-    private static $autoSizeMethod = self::AUTOSIZE_METHOD_APPROX;
+    private static string $autoSizeMethod = self::AUTOSIZE_METHOD_APPROX;
 
     /**
      * Path to folder containing TrueType font .ttf files.
-     *
-     * @var string
      */
-    private static $trueTypeFontPath = '';
+    private static string $trueTypeFontPath = '';
 
     /**
      * How wide is a default column for a given default font and size?
@@ -284,10 +278,8 @@ class Font
      * user to make inappropriate alterations.
      *
      * @deprecated 1.25.0 Use DEFAULT_COLUMN_WIDTHS constant instead.
-     *
-     * @var array
      */
-    public static $defaultColumnWidths = self::DEFAULT_COLUMN_WIDTHS;
+    public static array $defaultColumnWidths = self::DEFAULT_COLUMN_WIDTHS;
 
     /**
      * Set autoSize method.

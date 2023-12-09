@@ -7,10 +7,8 @@ class LogarithmicBestFit extends BestFit
     /**
      * Algorithm type to use for best-fit
      * (Name of this Trend class).
-     *
-     * @var string
      */
-    protected $bestFitType = 'logarithmic';
+    protected string $bestFitType = 'logarithmic';
 
     /**
      * Return the Y-Value for a specified value of X.

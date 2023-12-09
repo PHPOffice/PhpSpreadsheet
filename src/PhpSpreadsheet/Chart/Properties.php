@@ -112,21 +112,18 @@ abstract class Properties
     const ANGLE_MULTIPLIER = 60000; // direction and size-kx size-ky
     const PERCENTAGE_MULTIPLIER = 100000; // size sx and sy
 
-    /** @var bool */
-    protected $objectState = false; // used only for minor gridlines
+    protected bool $objectState = false; // used only for minor gridlines
 
     /** @var ?float */
-    protected $glowSize;
+    protected ?float $glowSize = null;
 
     protected ChartColor $glowColor;
 
-    /** @var array */
-    protected $softEdges = [
+    protected array $softEdges = [
         'size' => null,
     ];
 
-    /** @var array */
-    protected $shadowProperties = self::PRESETS_OPTIONS[0];
+    protected array $shadowProperties = self::PRESETS_OPTIONS[0];
 
     protected ChartColor $shadowColor;
 
@@ -719,8 +716,7 @@ abstract class Properties
 
     protected ChartColor $lineColor;
 
-    /** @var array */
-    protected $lineStyleProperties = [
+    protected array $lineStyleProperties = [
         'width' => null, //'9525',
         'compound' => '', //self::LINE_STYLE_COMPOUND_SIMPLE,
         'dash' => '', //self::LINE_STYLE_DASH_SOLID,

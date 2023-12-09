@@ -9,10 +9,7 @@ use PhpOffice\PhpSpreadsheet\RichText\RichText;
 
 class Issue2301Test extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @var string
-     */
-    private static $testbook = 'tests/data/Reader/XLSX/issue.2301.xlsx';
+    private static string $testbook = 'tests/data/Reader/XLSX/issue.2301.xlsx';
 
     public static function testReadRichText(): void
     {

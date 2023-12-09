@@ -13,17 +13,13 @@ class PolynomialBestFit extends BestFit
     /**
      * Algorithm type to use for best-fit
      * (Name of this Trend class).
-     *
-     * @var string
      */
-    protected $bestFitType = 'polynomial';
+    protected string $bestFitType = 'polynomial';
 
     /**
      * Polynomial order.
-     *
-     * @var int
      */
-    protected $order = 0;
+    protected int $order = 0;
 
     /**
      * Return the order of this polynomial.

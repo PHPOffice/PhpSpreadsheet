@@ -12,13 +12,10 @@ use ReflectionClass;
 
 class WorkbookTest extends TestCase
 {
-    /**
-     * @var Workbook
-     */
-    private $workbook;
+    private Workbook $workbook;
 
     /** @var ?Spreadsheet */
-    private $spreadsheet;
+    private ?Spreadsheet $spreadsheet = null;
 
     protected function tearDown(): void
     {

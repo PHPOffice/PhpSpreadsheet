@@ -164,56 +164,44 @@ class Xls extends BaseReader
      *
      * @var ?string
      */
-    private $summaryInformation;
+    private ?string $summaryInformation = null;
 
     /**
      * Extended Summary Information stream data.
      *
      * @var ?string
      */
-    private $documentSummaryInformation;
+    private ?string $documentSummaryInformation = null;
 
     /**
      * Workbook stream data. (Includes workbook globals substream as well as sheet substreams).
-     *
-     * @var string
      */
-    private $data;
+    private string $data;
 
     /**
      * Size in bytes of $this->data.
-     *
-     * @var int
      */
-    private $dataSize;
+    private int $dataSize;
 
     /**
      * Current position in stream.
-     *
-     * @var int
      */
-    private $pos;
+    private int $pos;
 
     /**
      * Workbook to be returned by the reader.
-     *
-     * @var Spreadsheet
      */
-    private $spreadsheet;
+    private Spreadsheet $spreadsheet;
 
     /**
      * Worksheet that is currently being built by the reader.
-     *
-     * @var Worksheet
      */
-    private $phpSheet;
+    private Worksheet $phpSheet;
 
     /**
      * BIFF version.
-     *
-     * @var int
      */
-    private $version = 0;
+    private int $version = 0;
 
     /**
      * Codepage set in the Excel file being read. Only important for BIFF5 (Excel 5.0 - Excel 95)
@@ -223,200 +211,145 @@ class Xls extends BaseReader
 
     /**
      * Shared formats.
-     *
-     * @var array
      */
-    private $formats;
+    private array $formats;
 
     /**
      * Shared fonts.
      *
      * @var Font[]
      */
-    private $objFonts;
+    private array $objFonts;
 
     /**
      * Color palette.
-     *
-     * @var array
      */
-    private $palette;
+    private array $palette;
 
     /**
      * Worksheets.
-     *
-     * @var array
      */
-    private $sheets;
+    private array $sheets;
 
     /**
      * External books.
-     *
-     * @var array
      */
-    private $externalBooks;
+    private array $externalBooks;
 
     /**
      * REF structures. Only applies to BIFF8.
-     *
-     * @var array
      */
-    private $ref;
+    private array $ref;
 
     /**
      * External names.
-     *
-     * @var array
      */
-    private $externalNames;
+    private array $externalNames;
 
     /**
      * Defined names.
-     *
-     * @var array
      */
-    private $definedname;
+    private array $definedname;
 
     /**
      * Shared strings. Only applies to BIFF8.
-     *
-     * @var array
      */
-    private $sst;
+    private array $sst;
 
     /**
      * Panes are frozen? (in sheet currently being read). See WINDOW2 record.
-     *
-     * @var bool
      */
-    private $frozen;
+    private bool $frozen;
 
     /**
      * Fit printout to number of pages? (in sheet currently being read). See SHEETPR record.
-     *
-     * @var bool
      */
-    private $isFitToPages;
+    private bool $isFitToPages;
 
     /**
      * Objects. One OBJ record contributes with one entry.
-     *
-     * @var array
      */
-    private $objs;
+    private array $objs;
 
     /**
      * Text Objects. One TXO record corresponds with one entry.
-     *
-     * @var array
      */
-    private $textObjects;
+    private array $textObjects;
 
     /**
      * Cell Annotations (BIFF8).
-     *
-     * @var array
      */
-    private $cellNotes;
+    private array $cellNotes;
 
     /**
      * The combined MSODRAWINGGROUP data.
-     *
-     * @var string
      */
-    private $drawingGroupData;
+    private string $drawingGroupData;
 
     /**
      * The combined MSODRAWING data (per sheet).
-     *
-     * @var string
      */
-    private $drawingData;
+    private string $drawingData;
 
     /**
      * Keep track of XF index.
-     *
-     * @var int
      */
-    private $xfIndex;
+    private int $xfIndex;
 
     /**
      * Mapping of XF index (that is a cell XF) to final index in cellXf collection.
-     *
-     * @var array
      */
-    private $mapCellXfIndex;
+    private array $mapCellXfIndex;
 
     /**
      * Mapping of XF index (that is a style XF) to final index in cellStyleXf collection.
-     *
-     * @var array
      */
-    private $mapCellStyleXfIndex;
+    private array $mapCellStyleXfIndex;
 
     /**
      * The shared formulas in a sheet. One SHAREDFMLA record contributes with one value.
-     *
-     * @var array
      */
-    private $sharedFormulas;
+    private array $sharedFormulas;
 
     /**
      * The shared formula parts in a sheet. One FORMULA record contributes with one value if it
      * refers to a shared formula.
-     *
-     * @var array
      */
-    private $sharedFormulaParts;
+    private array $sharedFormulaParts;
 
     /**
      * The type of encryption in use.
-     *
-     * @var int
      */
-    private $encryption = 0;
+    private int $encryption = 0;
 
     /**
      * The position in the stream after which contents are encrypted.
-     *
-     * @var int
      */
-    private $encryptionStartPos = 0;
+    private int $encryptionStartPos = 0;
 
     /**
      * The current RC4 decryption object.
      *
      * @var ?Xls\RC4
      */
-    private $rc4Key;
+    private ?Xls\RC4 $rc4Key = null;
 
     /**
      * The position in the stream that the RC4 decryption object was left at.
-     *
-     * @var int
      */
-    private $rc4Pos = 0;
+    private int $rc4Pos = 0;
 
     /**
      * The current MD5 context state.
      * It is never set in the program, so code which uses it is suspect.
-     *
-     * @var string
      */
-    private $md5Ctxt; // @phpstan-ignore-line
+    private string $md5Ctxt; // @phpstan-ignore-line
 
-    /**
-     * @var int
-     */
-    private $textObjRef;
+    private int $textObjRef;
 
-    /**
-     * @var string
-     */
-    private $baseCell;
+    private string $baseCell;
 
-    /** @var bool */
-    private $activeSheetSet = false;
+    private bool $activeSheetSet = false;
 
     /**
      * Create a new Xls Reader instance.

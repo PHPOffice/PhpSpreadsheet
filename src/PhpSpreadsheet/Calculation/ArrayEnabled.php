@@ -7,10 +7,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Engine\ArrayArgumentProcessor;
 
 trait ArrayEnabled
 {
-    /**
-     * @var ArrayArgumentHelper
-     */
-    private static $arrayArgumentHelper;
+    private static ?ArrayArgumentHelper $arrayArgumentHelper = null;
 
     /**
      * @param array|false $arguments Can be changed to array for Php8.1+

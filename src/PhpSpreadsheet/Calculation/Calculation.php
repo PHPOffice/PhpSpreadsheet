@@ -62,15 +62,14 @@ class Calculation
     const FORMULA_CLOSE_MATRIX_BRACE = '}';
     const FORMULA_STRING_QUOTE = '"';
 
-    /** @var string */
-    private static $returnArrayAsType = self::RETURN_ARRAY_AS_VALUE;
+    private static string $returnArrayAsType = self::RETURN_ARRAY_AS_VALUE;
 
     /**
      * Instance of this class.
      *
      * @var ?Calculation
      */
-    private static $instance;
+    private static ?Calculation $instance = null;
 
     /**
      * Instance of the spreadsheet this Calculation Engine is using.
@@ -79,24 +78,17 @@ class Calculation
 
     /**
      * Calculation cache.
-     *
-     * @var array
      */
-    private $calculationCache = [];
+    private array $calculationCache = [];
 
     /**
      * Calculation cache enabled.
-     *
-     * @var bool
      */
-    private $calculationCacheEnabled = true;
+    private bool $calculationCacheEnabled = true;
 
     private BranchPruner $branchPruner;
 
-    /**
-     * @var bool
-     */
-    private $branchPruningEnabled = true;
+    private bool $branchPruningEnabled = true;
 
     /**
      * List of operators that can be used within formulae
@@ -134,17 +126,14 @@ class Calculation
      *
      * @deprecated 1.25.2 use setSuppressFormulaErrors() instead
      */
-    public $suppressFormulaErrors;
+    public ?bool $suppressFormulaErrors = null;
 
-    /** @var bool */
-    private $suppressFormulaErrorsNew = false;
+    private bool $suppressFormulaErrorsNew = false;
 
     /**
      * Error message for any error that was raised/thrown by the calculation engine.
-     *
-     * @var null|string
      */
-    public $formulaError;
+    public ?string $formulaError = null;
 
     /**
      * Reference Helper.
@@ -156,34 +145,26 @@ class Calculation
      */
     private CyclicReferenceStack $cyclicReferenceStack;
 
-    /** @var array */
-    private $cellStack = [];
+    private array $cellStack = [];
 
     /**
      * Current iteration counter for cyclic formulae
      * If the value is 0 (or less) then cyclic formulae will throw an exception,
      * otherwise they will iterate to the limit defined here before returning a result.
-     *
-     * @var int
      */
-    private $cyclicFormulaCounter = 1;
+    private int $cyclicFormulaCounter = 1;
 
-    /** @var string */
-    private $cyclicFormulaCell = '';
+    private string $cyclicFormulaCell = '';
 
     /**
      * Number of iterations for cyclic formulae.
-     *
-     * @var int
      */
-    public $cyclicFormulaCount = 1;
+    public int $cyclicFormulaCount = 1;
 
     /**
      * The current locale setting.
-     *
-     * @var string
      */
-    private static $localeLanguage = 'en_us'; //    US English    (default locale)
+    private static string $localeLanguage = 'en_us'; //    US English    (default locale)
 
     /**
      * List of available locale settings
@@ -191,26 +172,23 @@ class Calculation
      *
      * @var string[]
      */
-    private static $validLocaleLanguages = [
+    private static array $validLocaleLanguages = [
         'en', //    English        (default language)
     ];
 
     /**
      * Locale-specific argument separator for function arguments.
-     *
-     * @var string
      */
-    private static $localeArgumentSeparator = ',';
+    private static string $localeArgumentSeparator = ',';
 
-    /** @var array */
-    private static $localeFunctions = [];
+    private static array $localeFunctions = [];
 
     /**
      * Locale-specific translations for Excel constants (True, False and Null).
      *
      * @var array<string, string>
      */
-    private static $localeBoolean = [
+    private static array $localeBoolean = [
         'TRUE' => 'TRUE',
         'FALSE' => 'FALSE',
         'NULL' => 'NULL',
@@ -227,7 +205,7 @@ class Calculation
      *
      * @var array<string, mixed>
      */
-    private static $excelConstants = [
+    private static array $excelConstants = [
         'TRUE' => true,
         'FALSE' => false,
         'NULL' => null,
@@ -248,10 +226,8 @@ class Calculation
      * Array of functions usable on Spreadsheet.
      * In theory, this could be const rather than static;
      *   however, Phpstan breaks trying to analyze it when attempted.
-     *
-     *@var array
      */
-    private static $phpSpreadsheetFunctions = [
+    private static array $phpSpreadsheetFunctions = [
         'ABS' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
             'functionCall' => [MathTrig\Absolute::class, 'evaluate'],
@@ -2891,10 +2867,8 @@ class Calculation
 
     /**
      *    Internal functions used for special control purposes.
-     *
-     * @var array
      */
-    private static $controlFunctions = [
+    private static array $controlFunctions = [
         'MKMATRIX' => [
             'argumentCount' => '*',
             'functionCall' => [Internal\MakeMatrix::class, 'make'],
@@ -2945,7 +2919,7 @@ class Calculation
             }
         }
 
-        if (!isset(self::$instance) || (self::$instance === null)) {
+        if (!self::$instance) {
             self::$instance = new self();
         }
 
@@ -3321,10 +3295,10 @@ class Calculation
     }
 
     /** @var ?array */
-    private static $functionReplaceFromExcel;
+    private static ?array $functionReplaceFromExcel;
 
     /** @var ?array */
-    private static $functionReplaceToLocale;
+    private static ?array $functionReplaceToLocale;
 
     public function _translateFormulaToLocale(string $formula): string
     {
@@ -3359,10 +3333,10 @@ class Calculation
     }
 
     /** @var ?array */
-    private static $functionReplaceFromLocale;
+    private static ?array $functionReplaceFromLocale;
 
     /** @var ?array */
-    private static $functionReplaceToExcel;
+    private static ?array $functionReplaceToExcel;
 
     public function _translateFormulaToEnglish(string $formula): string
     {
@@ -4034,10 +4008,8 @@ class Calculation
      *    Binary Operators.
      *    These operators always work on two values.
      *    Array key is the operator, the value indicates whether this is a left or right associative operator.
-     *
-     * @var array
      */
-    private static $operatorAssociativity = [
+    private static array $operatorAssociativity = [
         '^' => 0, //    Exponentiation
         '*' => 0, '/' => 0, //    Multiplication and Division
         '+' => 0, '-' => 0, //    Addition and Subtraction
@@ -4049,19 +4021,15 @@ class Calculation
     /**
      *    Comparison (Boolean) Operators.
      *    These operators work on two values, but always return a boolean result.
-     *
-     * @var array
      */
-    private static $comparisonOperators = ['>' => true, '<' => true, '=' => true, '>=' => true, '<=' => true, '<>' => true];
+    private static array $comparisonOperators = ['>' => true, '<' => true, '=' => true, '>=' => true, '<=' => true, '<>' => true];
 
     /**
      *    Operator Precedence.
      *    This list includes all valid operators, whether binary (including boolean) or unary (such as %).
      *    Array key is the operator, the value is its precedence.
-     *
-     * @var array
      */
-    private static $operatorPrecedence = [
+    private static array $operatorPrecedence = [
         ':' => 9, //    Range
         '∩' => 8, //    Intersect
         '∪' => 7, //    Union

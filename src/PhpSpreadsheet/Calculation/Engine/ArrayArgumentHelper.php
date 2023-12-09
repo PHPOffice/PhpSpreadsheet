@@ -6,30 +6,15 @@ use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 
 class ArrayArgumentHelper
 {
-    /**
-     * @var int
-     */
-    protected $indexStart = 0;
+    protected int $indexStart = 0;
 
-    /**
-     * @var array
-     */
-    protected $arguments;
+    protected array $arguments;
 
-    /**
-     * @var int
-     */
-    protected $argumentCount;
+    protected int $argumentCount;
 
-    /**
-     * @var array
-     */
-    protected $rows;
+    protected array $rows;
 
-    /**
-     * @var array
-     */
-    protected $columns;
+    protected array $columns;
 
     public function initialise(array $arguments): void
     {

@@ -54,11 +54,9 @@ use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 // */
 class Worksheet extends BIFFwriter
 {
-    /** @var int */
-    private static $always0 = 0;
+    private static int $always0 = 0;
 
-    /** @var int */
-    private static $always1 = 1;
+    private static int $always1 = 1;
 
     /**
      * Formula parser.
@@ -67,10 +65,8 @@ class Worksheet extends BIFFwriter
 
     /**
      * Array containing format information for columns.
-     *
-     * @var array
      */
-    private $columnInfo;
+    private array $columnInfo;
 
     /**
      * The active pane for the worksheet.
@@ -101,31 +97,23 @@ class Worksheet extends BIFFwriter
 
     /**
      * Reference to the total number of strings in the workbook.
-     *
-     * @var int
      */
-    private $stringTotal;
+    private int $stringTotal;
 
     /**
      * Reference to the number of unique strings in the workbook.
-     *
-     * @var int
      */
-    private $stringUnique;
+    private int $stringUnique;
 
     /**
      * Reference to the array containing all the unique strings in the workbook.
-     *
-     * @var array
      */
-    private $stringTable;
+    private array $stringTable;
 
     /**
      * Color cache.
-     *
-     * @var array
      */
-    private $colors;
+    private array $colors;
 
     /**
      * Index of first used row (at least 0).
@@ -149,10 +137,8 @@ class Worksheet extends BIFFwriter
 
     /**
      * Sheet object.
-     *
-     * @var \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet
      */
-    public $phpSheet;
+    public \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $phpSheet;
 
     /**
      * Escher object corresponding to MSODRAWING.
@@ -161,15 +147,10 @@ class Worksheet extends BIFFwriter
 
     /**
      * Array of font hashes associated to FONT records index.
-     *
-     * @var array
      */
-    public $fontHashIndex;
+    public array $fontHashIndex;
 
-    /**
-     * @var bool
-     */
-    private $preCalculateFormulas;
+    private bool $preCalculateFormulas;
 
     private int $printHeaders;
 
@@ -765,8 +746,7 @@ class Worksheet extends BIFFwriter
     const WRITE_FORMULA_RANGE = -2;
     const WRITE_FORMULA_EXCEPTION = -3;
 
-    /** @var bool */
-    private static $allowThrow = false;
+    private static bool $allowThrow = false;
 
     public static function setAllowThrow(bool $allowThrow): void
     {

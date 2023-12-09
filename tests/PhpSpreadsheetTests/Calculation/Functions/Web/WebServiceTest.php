@@ -16,7 +16,7 @@ use Psr\Http\Message\StreamInterface;
 class WebServiceTest extends TestCase
 {
     /** @var ?Spreadsheet */
-    private $spreadsheet;
+    private ?Spreadsheet $spreadsheet = null;
 
     protected function tearDown(): void
     {

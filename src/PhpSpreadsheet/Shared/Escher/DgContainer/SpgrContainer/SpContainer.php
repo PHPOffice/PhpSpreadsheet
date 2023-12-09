@@ -8,87 +8,63 @@ class SpContainer
 {
     /**
      * Parent Shape Group Container.
-     *
-     * @var SpgrContainer
      */
-    private $parent;
+    private SpgrContainer $parent;
 
     /**
      * Is this a group shape?
-     *
-     * @var bool
      */
-    private $spgr = false;
+    private bool $spgr = false;
 
     /**
      * Shape type.
-     *
-     * @var int
      */
-    private $spType;
+    private int $spType;
 
     /**
      * Shape flag.
-     *
-     * @var int
      */
-    private $spFlag;
+    private int $spFlag;
 
     /**
      * Shape index (usually group shape has index 0, and the rest: 1,2,3...).
-     *
-     * @var int
      */
-    private $spId;
+    private int $spId;
 
     /**
      * Array of options.
-     *
-     * @var array
      */
-    private $OPT;
+    private array $OPT = [];
 
     /**
      * Cell coordinates of upper-left corner of shape, e.g. 'A1'.
-     *
-     * @var string
      */
-    private $startCoordinates;
+    private string $startCoordinates = '';
 
     /**
      * Horizontal offset of upper-left corner of shape measured in 1/1024 of column width.
-     *
-     * @var int
      */
-    private $startOffsetX;
+    private int|float $startOffsetX;
 
     /**
      * Vertical offset of upper-left corner of shape measured in 1/256 of row height.
-     *
-     * @var int
      */
-    private $startOffsetY;
+    private int|float $startOffsetY;
 
     /**
      * Cell coordinates of bottom-right corner of shape, e.g. 'B2'.
-     *
-     * @var string
      */
-    private $endCoordinates;
+    private string $endCoordinates;
 
     /**
      * Horizontal offset of bottom-right corner of shape measured in 1/1024 of column width.
-     *
-     * @var int
      */
-    private $endOffsetX;
+    private int|float $endOffsetX;
 
     /**
      * Vertical offset of bottom-right corner of shape measured in 1/256 of row height.
-     *
-     * @var int
      */
-    private $endOffsetY;
+    private int|float $endOffsetY;
 
     /**
      * Set parent Shape Group Container.
@@ -248,40 +224,32 @@ class SpContainer
 
     /**
      * Set offset in x-direction of upper-left corner of shape measured in 1/1024 of column width.
-     *
-     * @param int $startOffsetX
      */
-    public function setStartOffsetX($startOffsetX): void
+    public function setStartOffsetX(int|float $startOffsetX): void
     {
         $this->startOffsetX = $startOffsetX;
     }
 
     /**
      * Get offset in x-direction of upper-left corner of shape measured in 1/1024 of column width.
-     *
-     * @return int
      */
-    public function getStartOffsetX()
+    public function getStartOffsetX(): int|float
     {
         return $this->startOffsetX;
     }
 
     /**
      * Set offset in y-direction of upper-left corner of shape measured in 1/256 of row height.
-     *
-     * @param int $startOffsetY
      */
-    public function setStartOffsetY($startOffsetY): void
+    public function setStartOffsetY(int|float $startOffsetY): void
     {
         $this->startOffsetY = $startOffsetY;
     }
 
     /**
      * Get offset in y-direction of upper-left corner of shape measured in 1/256 of row height.
-     *
-     * @return int
      */
-    public function getStartOffsetY()
+    public function getStartOffsetY(): int|float
     {
         return $this->startOffsetY;
     }
@@ -308,40 +276,32 @@ class SpContainer
 
     /**
      * Set offset in x-direction of bottom-right corner of shape measured in 1/1024 of column width.
-     *
-     * @param int $endOffsetX
      */
-    public function setEndOffsetX($endOffsetX): void
+    public function setEndOffsetX(int|float $endOffsetX): void
     {
         $this->endOffsetX = $endOffsetX;
     }
 
     /**
      * Get offset in x-direction of bottom-right corner of shape measured in 1/1024 of column width.
-     *
-     * @return int
      */
-    public function getEndOffsetX()
+    public function getEndOffsetX(): int|float
     {
         return $this->endOffsetX;
     }
 
     /**
      * Set offset in y-direction of bottom-right corner of shape measured in 1/256 of row height.
-     *
-     * @param int $endOffsetY
      */
-    public function setEndOffsetY($endOffsetY): void
+    public function setEndOffsetY(int|float $endOffsetY): void
     {
         $this->endOffsetY = $endOffsetY;
     }
 
     /**
      * Get offset in y-direction of bottom-right corner of shape measured in 1/256 of row height.
-     *
-     * @return int
      */
-    public function getEndOffsetY()
+    public function getEndOffsetY(): int|float
     {
         return $this->endOffsetY;
     }

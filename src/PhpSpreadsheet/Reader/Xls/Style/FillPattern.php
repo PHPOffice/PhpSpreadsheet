@@ -9,7 +9,7 @@ class FillPattern
     /**
      * @var array<int, string>
      */
-    protected static $fillPatternMap = [
+    protected static array $fillPatternMap = [
         0x00 => Fill::FILL_NONE,
         0x01 => Fill::FILL_SOLID,
         0x02 => Fill::FILL_PATTERN_MEDIUMGRAY,

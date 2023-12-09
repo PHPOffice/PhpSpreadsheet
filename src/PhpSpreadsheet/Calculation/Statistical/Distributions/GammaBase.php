@@ -217,11 +217,10 @@ abstract class GammaBase
     private const PNT68 = 0.6796875;
 
     // Function cache for logGamma
-    /** @var float */
-    private static $logGammaCacheResult = 0.0;
 
-    /** @var float */
-    private static $logGammaCacheX = 0.0;
+    private static float $logGammaCacheResult = 0.0;
+
+    private static float $logGammaCacheX = 0.0;
 
     /**
      * logGamma function.

@@ -54,7 +54,7 @@ class FormulaParser
      *
      * @var FormulaToken[]
      */
-    private $tokens = [];
+    private array $tokens = [];
 
     /**
      * Create a new FormulaParser.

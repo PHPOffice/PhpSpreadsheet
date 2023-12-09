@@ -36,31 +36,23 @@ class Xls extends BaseWriter
 
     /**
      * Total number of shared strings in workbook.
-     *
-     * @var int
      */
-    private $strTotal = 0;
+    private int $strTotal = 0;
 
     /**
      * Number of unique shared strings in workbook.
-     *
-     * @var int
      */
-    private $strUnique = 0;
+    private int $strUnique = 0;
 
     /**
      * Array of unique shared strings in workbook.
-     *
-     * @var array
      */
-    private $strTable = [];
+    private array $strTable = [];
 
     /**
      * Color cache. Mapping between RGB value and color index.
-     *
-     * @var array
      */
-    private $colors;
+    private array $colors;
 
     /**
      * Formula parser.
@@ -69,34 +61,25 @@ class Xls extends BaseWriter
 
     /**
      * Identifier clusters for drawings. Used in MSODRAWINGGROUP record.
-     *
-     * @var array
      */
-    private $IDCLs;
+    private array $IDCLs;
 
     /**
      * Basic OLE object summary information.
-     *
-     * @var string
      */
-    private $summaryInformation;
+    private string $summaryInformation;
 
     /**
      * Extended OLE object document summary information.
-     *
-     * @var string
      */
-    private $documentSummaryInformation;
+    private string $documentSummaryInformation;
 
-    /**
-     * @var Workbook
-     */
-    private $writerWorkbook;
+    private Workbook $writerWorkbook;
 
     /**
      * @var Worksheet[]
      */
-    private $writerWorksheets;
+    private array $writerWorksheets;
 
     /**
      * Create a new Xls Writer.

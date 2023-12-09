@@ -6,8 +6,7 @@ use PhpOffice\PhpSpreadsheet\Exception as SpreadsheetException;
 
 class XMLWriter extends \XMLWriter
 {
-    /** @var bool */
-    public static $debugEnabled = false;
+    public static bool $debugEnabled = false;
 
     /** Temporary storage method */
     const STORAGE_MEMORY = 1;

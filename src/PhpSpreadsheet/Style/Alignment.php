@@ -94,52 +94,38 @@ class Alignment extends Supervisor
 
     /**
      * Horizontal alignment.
-     *
-     * @var null|string
      */
-    protected $horizontal = self::HORIZONTAL_GENERAL;
+    protected ?string $horizontal = self::HORIZONTAL_GENERAL;
 
     /**
      * Vertical alignment.
-     *
-     * @var null|string
      */
-    protected $vertical = self::VERTICAL_BOTTOM;
+    protected ?string $vertical = self::VERTICAL_BOTTOM;
 
     /**
      * Text rotation.
-     *
-     * @var null|int
      */
-    protected $textRotation = 0;
+    protected ?int $textRotation = 0;
 
     /**
      * Wrap text.
-     *
-     * @var bool
      */
-    protected $wrapText = false;
+    protected bool $wrapText = false;
 
     /**
      * Shrink to fit.
-     *
-     * @var bool
      */
-    protected $shrinkToFit = false;
+    protected bool $shrinkToFit = false;
 
     /**
      * Indent - only possible with horizontal alignment left and right.
-     *
-     * @var int
      */
-    protected $indent = 0;
+    protected int $indent = 0;
 
     /**
      * Read order.
-     *
-     * @var int
      */
-    protected $readOrder = 0;
+    protected int $readOrder = 0;
 
     /**
      * Create a new Alignment.

@@ -38,12 +38,12 @@ class Root extends PPS
     /**
      * @var ?int
      */
-    private $smallBlockSize;
+    private ?int $smallBlockSize = null;
 
     /**
      * @var ?int
      */
-    private $bigBlockSize;
+    private ?int $bigBlockSize = null;
 
     /**
      * @param null|float|int $time_1st A timestamp

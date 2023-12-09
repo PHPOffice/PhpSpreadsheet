@@ -13,10 +13,8 @@ class Blip
 
     /**
      * Raw image data.
-     *
-     * @var string
      */
-    private $data;
+    private string $data;
 
     /**
      * Get the raw image data.

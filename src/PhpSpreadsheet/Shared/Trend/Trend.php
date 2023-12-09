@@ -21,7 +21,7 @@ class Trend
      *
      * @var string[]
      */
-    private static $trendTypes = [
+    private static array $trendTypes = [
         self::TREND_LINEAR,
         self::TREND_LOGARITHMIC,
         self::TREND_EXPONENTIAL,
@@ -33,7 +33,7 @@ class Trend
      *
      * @var string[]
      */
-    private static $trendTypePolynomialOrders = [
+    private static array $trendTypePolynomialOrders = [
         self::TREND_POLYNOMIAL_2,
         self::TREND_POLYNOMIAL_3,
         self::TREND_POLYNOMIAL_4,
@@ -46,7 +46,7 @@ class Trend
      *
      * @var BestFit[]
      */
-    private static $trendCache = [];
+    private static array $trendCache = [];
 
     /**
      * @param array $yValues

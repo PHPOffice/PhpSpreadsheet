@@ -28,38 +28,23 @@ class LocaleGenerator
     private const ENGLISH_REFERENCE_COLUMN = 'B';
     private const EOL = "\n"; // not PHP_EOL
 
-    /**
-     * @var string
-     */
-    protected $translationSpreadsheetName;
+    protected string $translationSpreadsheetName;
 
-    /**
-     * @var string
-     */
-    protected $translationBaseFolder;
+    protected string $translationBaseFolder;
 
     protected $phpSpreadsheetFunctions;
 
-    /**
-     * @var Spreadsheet
-     */
-    protected $translationSpreadsheet;
+    protected Spreadsheet $translationSpreadsheet;
 
     protected $verbose;
 
-    /**
-     * @var Worksheet
-     */
-    protected $localeTranslations;
+    protected Worksheet $localeTranslations;
 
     protected $localeLanguageMap = [];
 
     protected $errorCodeMap = [];
 
-    /**
-     * @var Worksheet
-     */
-    private $functionNameTranslations;
+    private Worksheet $functionNameTranslations;
 
     protected $functionNameLanguageMap = [];
 

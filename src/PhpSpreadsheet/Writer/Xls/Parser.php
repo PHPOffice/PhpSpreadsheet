@@ -49,17 +49,13 @@ class Parser
 
     /**
      * The index of the character we are currently looking at.
-     *
-     * @var int
      */
-    public $currentCharacter;
+    public int $currentCharacter;
 
     /**
      * The token we are working on.
-     *
-     * @var string
      */
-    public $currentToken;
+    public string $currentToken;
 
     /**
      * The formula to parse.
@@ -68,10 +64,8 @@ class Parser
 
     /**
      * The character ahead of the current char.
-     *
-     * @var string
      */
-    public $lookAhead;
+    public string $lookAhead;
 
     /**
      * The parse tree to be generated.
@@ -87,17 +81,13 @@ class Parser
 
     /**
      * Array of sheet references in the form of REF structures.
-     *
-     * @var array
      */
-    public $references;
+    public array $references;
 
     /**
      * The Excel ptg indices.
-     *
-     * @var array
      */
-    private $ptg = [
+    private array $ptg = [
         'ptgExp' => 0x01,
         'ptgTbl' => 0x02,
         'ptgAdd' => 0x03,
@@ -208,10 +198,8 @@ class Parser
      *           -1  is a variable  number of arguments.
      * class: The reference, value or array class of the function args.
      * vol:   The function is volatile.
-     *
-     * @var array
      */
-    private $functions = [
+    private array $functions = [
         // function                  ptg  args  class  vol
         'COUNT' => [0, -1, 0, 0],
         'IF' => [1, -1, 1, 0],
@@ -751,8 +739,7 @@ class Parser
         };
     }
 
-    /** @var bool */
-    private $tryDefinedName = false;
+    private bool $tryDefinedName = false;
 
     private function convertDefinedName(string $name): string
     {

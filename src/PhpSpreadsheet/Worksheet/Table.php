@@ -20,17 +20,13 @@ class Table implements Stringable
 
     /**
      * Show Header Row.
-     *
-     * @var bool
      */
-    private $showHeaderRow = true;
+    private bool $showHeaderRow = true;
 
     /**
      * Show Totals Row.
-     *
-     * @var bool
      */
-    private $showTotalsRow = false;
+    private bool $showTotalsRow = false;
 
     /**
      * Table Range.
@@ -44,17 +40,15 @@ class Table implements Stringable
 
     /**
      * Table allow filter.
-     *
-     * @var bool
      */
-    private $allowFilter = true;
+    private bool $allowFilter = true;
 
     /**
      * Table Column.
      *
      * @var Table\Column[]
      */
-    private $columns = [];
+    private array $columns = [];
 
     /**
      * Table Style.

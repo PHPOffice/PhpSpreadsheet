@@ -61,10 +61,8 @@ class Worksheet implements IComparable
 
     /**
      * Invalid characters in sheet title.
-     *
-     * @var array
      */
-    private static $invalidCharacters = ['*', ':', '/', '\\', '?', '[', ']'];
+    private static array $invalidCharacters = ['*', ':', '/', '\\', '?', '[', ']'];
 
     /**
      * Parent spreadsheet.
@@ -81,7 +79,7 @@ class Worksheet implements IComparable
      *
      * @var RowDimension[]
      */
-    private $rowDimensions = [];
+    private array $rowDimensions = [];
 
     /**
      * Default row dimension.
@@ -93,7 +91,7 @@ class Worksheet implements IComparable
      *
      * @var ColumnDimension[]
      */
-    private $columnDimensions = [];
+    private array $columnDimensions = [];
 
     /**
      * Default column dimension.
@@ -123,17 +121,13 @@ class Worksheet implements IComparable
 
     /**
      * Worksheet title.
-     *
-     * @var string
      */
-    private $title;
+    private string $title = '';
 
     /**
      * Sheet state.
-     *
-     * @var string
      */
-    private $sheetState;
+    private string $sheetState;
 
     /**
      * Page setup.
@@ -165,42 +159,40 @@ class Worksheet implements IComparable
      *
      * @var Style[]
      */
-    private $styles = [];
+    private array $styles = [];
 
     /**
      * Conditional styles. Indexed by cell coordinate, e.g. 'A1'.
-     *
-     * @var array
      */
-    private $conditionalStylesCollection = [];
+    private array $conditionalStylesCollection = [];
 
     /**
      * Collection of row breaks.
      *
      * @var PageBreak[]
      */
-    private $rowBreaks = [];
+    private array $rowBreaks = [];
 
     /**
      * Collection of column breaks.
      *
      * @var PageBreak[]
      */
-    private $columnBreaks = [];
+    private array $columnBreaks = [];
 
     /**
      * Collection of merged cell ranges.
      *
      * @var string[]
      */
-    private $mergeCells = [];
+    private array $mergeCells = [];
 
     /**
      * Collection of protected cell ranges.
      *
      * @var string[]
      */
-    private $protectedCells = [];
+    private array $protectedCells = [];
 
     /**
      * Autofilter Range and selection.
@@ -209,17 +201,13 @@ class Worksheet implements IComparable
 
     /**
      * Freeze pane.
-     *
-     * @var null|string
      */
-    private $freezePane;
+    private ?string $freezePane = null;
 
     /**
      * Default position of the right bottom pane.
-     *
-     * @var null|string
      */
-    private $topLeftCell;
+    private ?string $topLeftCell = null;
 
     private string $paneTopLeftCell = '';
 
@@ -236,7 +224,7 @@ class Worksheet implements IComparable
      *
      * @var (null|Pane)[]
      */
-    private $panes = [
+    private array $panes = [
         'bottomRight' => null,
         'bottomLeft' => null,
         'topRight' => null,
@@ -245,122 +233,90 @@ class Worksheet implements IComparable
 
     /**
      * Show gridlines?
-     *
-     * @var bool
      */
-    private $showGridlines = true;
+    private bool $showGridlines = true;
 
     /**
      * Print gridlines?
-     *
-     * @var bool
      */
-    private $printGridlines = false;
+    private bool $printGridlines = false;
 
     /**
      * Show row and column headers?
-     *
-     * @var bool
      */
-    private $showRowColHeaders = true;
+    private bool $showRowColHeaders = true;
 
     /**
      * Show summary below? (Row/Column outline).
-     *
-     * @var bool
      */
-    private $showSummaryBelow = true;
+    private bool $showSummaryBelow = true;
 
     /**
      * Show summary right? (Row/Column outline).
-     *
-     * @var bool
      */
-    private $showSummaryRight = true;
+    private bool $showSummaryRight = true;
 
     /**
      * Collection of comments.
      *
      * @var Comment[]
      */
-    private $comments = [];
+    private array $comments = [];
 
     /**
      * Active cell. (Only one!).
-     *
-     * @var string
      */
-    private $activeCell = 'A1';
+    private string $activeCell = 'A1';
 
     /**
      * Selected cells.
-     *
-     * @var string
      */
-    private $selectedCells = 'A1';
+    private string $selectedCells = 'A1';
 
     /**
      * Cached highest column.
-     *
-     * @var int
      */
-    private $cachedHighestColumn = 1;
+    private int $cachedHighestColumn = 1;
 
     /**
      * Cached highest row.
-     *
-     * @var int
      */
-    private $cachedHighestRow = 1;
+    private int $cachedHighestRow = 1;
 
     /**
      * Right-to-left?
-     *
-     * @var bool
      */
-    private $rightToLeft = false;
+    private bool $rightToLeft = false;
 
     /**
      * Hyperlinks. Indexed by cell coordinate, e.g. 'A1'.
-     *
-     * @var array
      */
-    private $hyperlinkCollection = [];
+    private array $hyperlinkCollection = [];
 
     /**
      * Data validation objects. Indexed by cell coordinate, e.g. 'A1'.
-     *
-     * @var array
      */
-    private $dataValidationCollection = [];
+    private array $dataValidationCollection = [];
 
     /**
      * Tab color.
-     *
-     * @var null|Color
      */
-    private $tabColor;
+    private ?Color $tabColor = null;
 
     /**
      * Dirty flag.
-     *
-     * @var bool
      */
-    private $dirty = true;
+    private bool $dirty = true;
 
     /**
      * Hash.
-     *
-     * @var string
      */
-    private $hash;
+    private string $hash;
 
     /**
      * CodeName.
-     *
-     * @var string
      */
-    private $codeName;
+    private ?string $codeName = null;
 
     /**
      * Create a new worksheet.

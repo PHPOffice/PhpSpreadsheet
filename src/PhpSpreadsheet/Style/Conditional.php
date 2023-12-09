@@ -73,24 +73,18 @@ class Conditional implements IComparable
 
     /**
      * Condition type.
-     *
-     * @var string
      */
-    private $conditionType = self::CONDITION_NONE;
+    private string $conditionType = self::CONDITION_NONE;
 
     /**
      * Operator type.
-     *
-     * @var string
      */
-    private $operatorType = self::OPERATOR_NONE;
+    private string $operatorType = self::OPERATOR_NONE;
 
     /**
      * Text.
-     *
-     * @var string
      */
-    private $text;
+    private string $text;
 
     /**
      * Stop on this condition, if it matches.
@@ -102,7 +96,7 @@ class Conditional implements IComparable
      *
      * @var (bool|float|int|string)[]
      */
-    private $condition = [];
+    private array $condition = [];
 
     private ?ConditionalDataBar $dataBar = null;
 

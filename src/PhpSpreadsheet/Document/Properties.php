@@ -83,7 +83,7 @@ class Properties
      *
      * @var array{value: mixed, type: string}[]
      */
-    private $customProperties = [];
+    private array $customProperties = [];
 
     private string $hyperlinkBase = '';
 

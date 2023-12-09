@@ -30,24 +30,18 @@ class Html extends BaseReader
 
     /**
      * Input encoding.
-     *
-     * @var string
      */
-    protected $inputEncoding = 'ANSI';
+    protected string $inputEncoding = 'ANSI';
 
     /**
      * Sheet index to read.
-     *
-     * @var int
      */
-    protected $sheetIndex = 0;
+    protected int $sheetIndex = 0;
 
     /**
      * Formats.
-     *
-     * @var array
      */
-    protected $formats = [
+    protected array $formats = [
         'h1' => [
             'font' => [
                 'bold' => true,
@@ -124,8 +118,7 @@ class Html extends BaseReader
         ], //    Italic
     ];
 
-    /** @var array */
-    protected $rowspan = [];
+    protected array $rowspan = [];
 
     /**
      * Create a new HTML Reader instance.
@@ -246,14 +239,11 @@ class Html extends BaseReader
 
     //    Data Array used for testing only, should write to Spreadsheet object on completion of tests
 
-    /** @var array */
-    protected $dataArray = [];
+    protected array $dataArray = [];
 
-    /** @var int */
-    protected $tableLevel = 0;
+    protected int $tableLevel = 0;
 
-    /** @var array */
-    protected $nestedColumn = ['A'];
+    protected array $nestedColumn = ['A'];
 
     protected function setTableStartColumn(string $column): string
     {

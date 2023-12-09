@@ -19,10 +19,7 @@ use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 
 class Chart extends WriterPart
 {
-    /**
-     * @var int
-     */
-    private $seriesIndex;
+    private int $seriesIndex;
 
     /**
      * Write charts to XML format.

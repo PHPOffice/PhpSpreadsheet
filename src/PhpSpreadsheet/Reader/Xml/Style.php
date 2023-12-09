@@ -9,10 +9,8 @@ class Style
 {
     /**
      * Formats.
-     *
-     * @var array
      */
-    protected $styles = [];
+    protected array $styles = [];
 
     public function parseStyles(SimpleXMLElement $xml, array $namespaces): array
     {

@@ -16,7 +16,7 @@ class SimpleCache3 implements CacheInterface
     /**
      * @var array Cell Cache
      */
-    private $cache = [];
+    private array $cache = [];
 
     public function clear(): bool
     {

@@ -36,16 +36,14 @@ class CellValue extends WizardAbstract implements WizardInterface
 
     protected const RANGE_OPERATORS = CellMatcher::COMPARISON_RANGE_OPERATORS;
 
-    /** @var string */
-    protected $operator = Conditional::OPERATOR_EQUAL;
+    protected string $operator = Conditional::OPERATOR_EQUAL;
 
-    /** @var array */
-    protected $operand = [0];
+    protected array $operand = [0];
 
     /**
      * @var string[]
      */
-    protected $operandValueType = [];
+    protected array $operandValueType = [];
 
     public function __construct(string $cellRange)
     {

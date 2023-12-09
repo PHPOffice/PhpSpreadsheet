@@ -9,10 +9,8 @@ class Chart
 {
     /**
      * Chart Name.
-     *
-     * @var string
      */
-    private $name = '';
+    private string $name = '';
 
     /**
      * Worksheet.
@@ -46,17 +44,13 @@ class Chart
 
     /**
      * Plot Visible Only.
-     *
-     * @var bool
      */
-    private $plotVisibleOnly = true;
+    private bool $plotVisibleOnly = true;
 
     /**
      * Display Blanks as.
-     *
-     * @var string
      */
-    private $displayBlanksAs = DataSeries::EMPTY_AS_GAP;
+    private string $displayBlanksAs = DataSeries::EMPTY_AS_GAP;
 
     /**
      * Chart Asix Y as.
@@ -70,24 +64,18 @@ class Chart
 
     /**
      * Top-Left Cell Position.
-     *
-     * @var string
      */
-    private $topLeftCellRef = 'A1';
+    private string $topLeftCellRef = 'A1';
 
     /**
      * Top-Left X-Offset.
-     *
-     * @var int
      */
-    private $topLeftXOffset = 0;
+    private int $topLeftXOffset = 0;
 
     /**
      * Top-Left Y-Offset.
-     *
-     * @var int
      */
-    private $topLeftYOffset = 0;
+    private int $topLeftYOffset = 0;
 
     /**
      * Bottom-Right Cell Position.
@@ -96,17 +84,13 @@ class Chart
 
     /**
      * Bottom-Right X-Offset.
-     *
-     * @var int
      */
-    private $bottomRightXOffset = 10;
+    private int $bottomRightXOffset = 10;
 
     /**
      * Bottom-Right Y-Offset.
-     *
-     * @var int
      */
-    private $bottomRightYOffset = 10;
+    private int $bottomRightYOffset = 10;
 
     private ?int $rotX = null;
 
@@ -116,17 +100,13 @@ class Chart
 
     private ?int $perspective = null;
 
-    /** @var bool */
-    private $oneCellAnchor = false;
+    private bool $oneCellAnchor = false;
 
-    /** @var bool */
-    private $autoTitleDeleted = false;
+    private bool $autoTitleDeleted = false;
 
-    /** @var bool */
-    private $noFill = false;
+    private bool $noFill = false;
 
-    /** @var bool */
-    private $roundedCorners = false;
+    private bool $roundedCorners = false;
 
     private GridLines $borderLines;
 

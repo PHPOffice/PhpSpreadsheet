@@ -23,17 +23,13 @@ class ColumnCellIterator extends CellIterator
 
     /**
      * Start position.
-     *
-     * @var int
      */
-    private $startRow = 1;
+    private int $startRow = 1;
 
     /**
      * End position.
-     *
-     * @var int
      */
-    private $endRow = 1;
+    private int $endRow = 1;
 
     /**
      * Create a new row iterator.
