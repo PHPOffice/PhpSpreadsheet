@@ -60,6 +60,9 @@ class LocaleFloatsTest extends AbstractFunctional
             $this->currentPhpLocale = false;
             self::markTestSkipped('Unable to set locale for testing.');
         }
+        $localeconv = localeconv();
+        $decimalSeparator = $localeconv['decimal_point'];
+        self::assertNotEquals('.', $decimalSeparator, 'unexpected change to French decimal separator');
         $this->spreadsheet = $spreadsheet = new Spreadsheet();
         $properties = $spreadsheet->getProperties();
         $properties->setCustomProperty('Version', 1.2);
@@ -73,7 +76,7 @@ class LocaleFloatsTest extends AbstractFunctional
         self::assertEqualsWithDelta(1.2, $prop, 1.0E-8);
 
         $actual = $reloadedSpreadsheet->getActiveSheet()->getCell('A1')->getFormattedValue();
-        self::assertStringContainsString('1,1', $actual);
+        self::assertStringContainsString("1{$decimalSeparator}1", $actual);
     }
 
     public function testPercentageStoredAsString(): void
@@ -82,7 +85,7 @@ class LocaleFloatsTest extends AbstractFunctional
         StringHelper::setDecimalSeparator(',');
         StringHelper::setThousandsSeparator('.');
         $reader = new XlsxReader();
-        $this->spreadsheet = $spreadsheet = $reader->load('tests/data/Writer/XLSX/issue.3811b.xlsx');
+        $this->spreadsheet = $spreadsheet = $reader->load('tests/data/Writer/Xlsx/issue.3811b.xlsx');
         $sheet = $spreadsheet->getActiveSheet();
         self::assertSame('48,34%', $sheet->getCell('L2')->getValue());
         self::assertIsString($sheet->getCell('L2')->getValue());
@@ -113,26 +116,29 @@ class LocaleFloatsTest extends AbstractFunctional
             $this->currentPhpLocale = false;
             self::markTestSkipped('Unable to set locale for testing.');
         }
+        $localeconv = localeconv();
+        $thousandsSeparator = $localeconv['thousands_sep'];
+        $decimalSeparator = $localeconv['decimal_point'];
+        self::assertNotEquals('.', $decimalSeparator, 'unexpected change to French decimal separator');
+        self::assertNotEquals(',', $thousandsSeparator, 'unexpected change to French thousands separator');
         $reader = new XlsxReader();
-        $this->spreadsheet = $spreadsheet = $reader->load('tests/data/Writer/XLSX/issue.3811b.xlsx');
+        $this->spreadsheet = $spreadsheet = $reader->load('tests/data/Writer/Xlsx/issue.3811b.xlsx');
         $sheet = $spreadsheet->getActiveSheet();
         self::assertSame('48,34%', $sheet->getCell('L2')->getValue());
         self::assertIsString($sheet->getCell('L2')->getValue());
         self::assertSame('=(10%+L2)/2', $sheet->getCell('L1')->getValue());
         self::assertEqualsWithDelta(0.2917, $sheet->getCell('L1')->getCalculatedValue(), 1E-8);
         self::assertIsFloat($sheet->getCell('L1')->getCalculatedValue());
-        self::assertEquals('29,17%', $sheet->getCell('L1')->getFormattedValue());
+        self::assertSame("29{$decimalSeparator}17%", $sheet->getCell('L1')->getFormattedValue());
 
         $sheet->getCell('A10')->setValue(3.2);
         self::assertSame(NumberFormat::FORMAT_GENERAL, $sheet->getStyle('A10')->getNumberFormat()->getFormatCode());
-        self::assertSame('3,2', $sheet->getCell('A10')->getFormattedValue());
-        $narrowNonBreakSpace = "\u{202f}";
-        self::assertSame($narrowNonBreakSpace, localeconv()['thousands_sep']);
+        self::assertSame("3{$decimalSeparator}2", $sheet->getCell('A10')->getFormattedValue());
         $sheet->getCell('A11')->setValue(1002.5);
         $sheet->getStyle('A11')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
-        self::assertSame('1' . $narrowNonBreakSpace . '002,50', $sheet->getCell('A11')->getFormattedValue());
+        self::assertSame("1{$thousandsSeparator}002{$decimalSeparator}50", $sheet->getCell('A11')->getFormattedValue());
         $sheet->getCell('A12')->setValue(2.5);
         $sheet->getStyle('A12')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_NUMBER_00);
-        self::assertSame('2,50', $sheet->getCell('A12')->getFormattedValue());
+        self::assertSame("2{$decimalSeparator}50", $sheet->getCell('A12')->getFormattedValue());
     }
 }
