@@ -46,22 +46,22 @@
     "scripts": {
         "check": [
             "./bin/check-phpdoc-types",
-            "phpcs src/ tests/ --report=checkstyle",
-            "phpcs --report-width=200 samples/ src/ tests/ --ignore=samples/Header.php --standard=PHPCompatibility --runtime-set testVersion 8.0- -n",
+            "phpcs samples/ src/ tests/ --report=checkstyle",
+            "phpcs samples/ src/ tests/ --standard=PHPCompatibility --runtime-set testVersion 8.0- -n",
             "php-cs-fixer fix --ansi --dry-run --diff",
             "phpunit --color=always",
             "phpstan analyse --ansi --memory-limit=2048M"
         ],
         "style": [
-            "phpcs src/ tests/ --report=checkstyle",
+            "phpcs samples/ src/ tests/ --report=checkstyle",
             "php-cs-fixer fix --ansi --dry-run --diff"
         ],
         "fix": [
-            "phpcbf src/ tests/ --report=checkstyle",
+            "phpcbf samples/ src/ tests/ --report=checkstyle",
             "php-cs-fixer fix"
         ],
         "versions": [
-            "phpcs --report-width=200 samples/ src/ tests/ --ignore=samples/Header.php --standard=PHPCompatibility --runtime-set testVersion 8.0- -n"
+            "phpcs samples/ src/ tests/ --standard=PHPCompatibility --runtime-set testVersion 8.0- -n"
         ]
     },
     "require": {
