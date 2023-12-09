@@ -85,7 +85,7 @@ class LocaleFloatsTest extends AbstractFunctional
         StringHelper::setDecimalSeparator(',');
         StringHelper::setThousandsSeparator('.');
         $reader = new XlsxReader();
-        $this->spreadsheet = $spreadsheet = $reader->load('tests/data/Writer/Xlsx/issue.3811b.xlsx');
+        $this->spreadsheet = $spreadsheet = $reader->load('tests/data/Writer/XLSX/issue.3811b.xlsx');
         $sheet = $spreadsheet->getActiveSheet();
         self::assertSame('48,34%', $sheet->getCell('L2')->getValue());
         self::assertIsString($sheet->getCell('L2')->getValue());
@@ -122,7 +122,7 @@ class LocaleFloatsTest extends AbstractFunctional
         self::assertNotEquals('.', $decimalSeparator, 'unexpected change to French decimal separator');
         self::assertNotEquals(',', $thousandsSeparator, 'unexpected change to French thousands separator');
         $reader = new XlsxReader();
-        $this->spreadsheet = $spreadsheet = $reader->load('tests/data/Writer/Xlsx/issue.3811b.xlsx');
+        $this->spreadsheet = $spreadsheet = $reader->load('tests/data/Writer/XLSX/issue.3811b.xlsx');
         $sheet = $spreadsheet->getActiveSheet();
         self::assertSame('48,34%', $sheet->getCell('L2')->getValue());
         self::assertIsString($sheet->getCell('L2')->getValue());
