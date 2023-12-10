@@ -10,7 +10,6 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Logical;
 use PhpOffice\PhpSpreadsheetInfra\DocumentGenerator;
 use PHPUnit\Framework\TestCase;
-use ReflectionClass;
 use UnexpectedValueException;
 
 class DocumentGeneratorTest extends TestCase
@@ -170,10 +169,7 @@ class DocumentGeneratorTest extends TestCase
         }
         $directory = 'docs/references/';
         self::assertNotEmpty($directory);
-        $phpSpreadsheetFunctionsProperty = (new ReflectionClass(Calculation::class))
-            ->getProperty('phpSpreadsheetFunctions');
-        $phpSpreadsheetFunctionsProperty->setAccessible(true);
-        $phpSpreadsheetFunctions = $phpSpreadsheetFunctionsProperty->getValue();
+        $phpSpreadsheetFunctions = Calculation::getFunctions();
         ksort($phpSpreadsheetFunctions);
 
         self::assertNotFalse(file_put_contents(
