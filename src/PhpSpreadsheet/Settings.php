@@ -120,32 +120,6 @@ class Settings
     }
 
     /**
-     * Deprecated, has no effect.
-     *
-     * @deprecated will be removed without replacement as it is no longer necessary on PHP 7.3.0+
-     *
-     * @codeCoverageIgnore
-     */
-    public static function setLibXmlDisableEntityLoader(bool $state): void
-    {
-        // noop
-    }
-
-    /**
-     * Deprecated, has no effect.
-     *
-     * @return bool $state
-     *
-     * @deprecated will be removed without replacement as it is no longer necessary on PHP 7.3.0+
-     *
-     * @codeCoverageIgnore
-     */
-    public static function getLibXmlDisableEntityLoader(): bool
-    {
-        return true;
-    }
-
-    /**
      * Sets the implementation of cache that should be used for cell collection.
      */
     public static function setCache(?CacheInterface $cache): void

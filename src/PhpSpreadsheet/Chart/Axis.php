@@ -228,18 +228,6 @@ class Axis extends Properties
         return $this->fillColor;
     }
 
-    /**
-     * Get Line Color Property.
-     *
-     * @deprecated 1.24.0
-     *      Use the getLineColor property in the Properties class instead
-     * @see Properties::getLineColorProperty()
-     */
-    public function getLineProperty(string $propertyName): null|int|string
-    {
-        return $this->getLineColorProperty($propertyName);
-    }
-
     private string $crossBetween = ''; // 'between' or 'midCat' might be better
 
     public function setCrossBetween(string $crossBetween): self

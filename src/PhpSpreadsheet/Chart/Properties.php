@@ -10,13 +10,6 @@ namespace PhpOffice\PhpSpreadsheet\Chart;
  */
 abstract class Properties
 {
-    /** @deprecated 1.24 use constant from ChartColor instead */
-    const EXCEL_COLOR_TYPE_STANDARD = ChartColor::EXCEL_COLOR_TYPE_STANDARD;
-    /** @deprecated 1.24 use constant from ChartColor instead */
-    const EXCEL_COLOR_TYPE_SCHEME = ChartColor::EXCEL_COLOR_TYPE_SCHEME;
-    /** @deprecated 1.24 use constant from ChartColor instead */
-    const EXCEL_COLOR_TYPE_ARGB = ChartColor::EXCEL_COLOR_TYPE_ARGB;
-
     const AXIS_LABELS_LOW = 'low';
     const AXIS_LABELS_HIGH = 'high';
     const AXIS_LABELS_NEXT_TO = 'nextTo';
@@ -54,8 +47,6 @@ abstract class Properties
     const LINE_STYLE_DASH_SOLID = 'solid';
     const LINE_STYLE_DASH_ROUND_DOT = 'sysDot';
     const LINE_STYLE_DASH_SQUARE_DOT = 'sysDash';
-    /** @deprecated 1.24 use LINE_STYLE_DASH_SQUARE_DOT instead */
-    const LINE_STYLE_DASH_SQUERE_DOT = 'sysDash';
     const LINE_STYPE_DASH_DASH = 'dash';
     const LINE_STYLE_DASH_DASH_DOT = 'dashDot';
     const LINE_STYLE_DASH_LONG_DASH = 'lgDash';

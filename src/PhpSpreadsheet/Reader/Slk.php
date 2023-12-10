@@ -15,11 +15,6 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 class Slk extends BaseReader
 {
     /**
-     * Input encoding.
-     */
-    private string $inputEncoding = 'ANSI';
-
-    /**
      * Sheet index to read.
      */
     private int $sheetIndex = 0;
@@ -85,36 +80,6 @@ class Slk extends BaseReader
             throw new ReaderException($filename . ' is an Invalid SYLK file.');
         }
         $this->openFile($filename);
-    }
-
-    /**
-     * Set input encoding.
-     *
-     * @deprecated no use is made of this property
-     *
-     * @param string $inputEncoding Input encoding, eg: 'ANSI'
-     *
-     * @return $this
-     *
-     * @codeCoverageIgnore
-     */
-    public function setInputEncoding(string $inputEncoding): static
-    {
-        $this->inputEncoding = $inputEncoding;
-
-        return $this;
-    }
-
-    /**
-     * Get input encoding.
-     *
-     * @deprecated no use is made of this property
-     *
-     * @codeCoverageIgnore
-     */
-    public function getInputEncoding(): string
-    {
-        return $this->inputEncoding;
     }
 
     /**

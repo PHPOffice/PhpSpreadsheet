@@ -8,7 +8,6 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Cell\AddressRange;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\CellAddress;
-use PhpOffice\PhpSpreadsheet\Cell\CellRange;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Cell\DataValidation;
@@ -1106,28 +1105,6 @@ class Worksheet implements IComparable
     }
 
     /**
-     * Set a cell value by using numeric cell coordinates.
-     *
-     * @deprecated 1.23.0
-     *      Use the setCellValue() method with a cell address such as 'C5' instead;,
-     *          or passing in an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress object.
-     * @see Worksheet::setCellValue()
-     *
-     * @param int $columnIndex Numeric column coordinate of the cell
-     * @param int $row Numeric row coordinate of the cell
-     * @param mixed $value Value of the cell
-     * @param null|IValueBinder $binder Value Binder to override the currently set Value Binder
-     *
-     * @return $this
-     */
-    public function setCellValueByColumnAndRow(int $columnIndex, int $row, mixed $value, ?IValueBinder $binder = null): static
-    {
-        $this->getCell(Coordinate::stringFromColumnIndex($columnIndex) . $row)->setValue($value, $binder);
-
-        return $this;
-    }
-
-    /**
      * Set a cell value.
      *
      * @param array<int>|CellAddress|string $coordinate Coordinate of the cell as a string, eg: 'C5';
@@ -1148,35 +1125,6 @@ class Worksheet implements IComparable
     {
         $cellAddress = Functions::trimSheetFromCellReference(Validations::validateCellAddress($coordinate));
         $this->getCell($cellAddress)->setValueExplicit($value, $dataType);
-
-        return $this;
-    }
-
-    /**
-     * Set a cell value by using numeric cell coordinates.
-     *
-     * @deprecated 1.23.0
-     *      Use the setCellValueExplicit() method with a cell address such as 'C5' instead;,
-     *          or passing in an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress object.
-     * @see Worksheet::setCellValueExplicit()
-     *
-     * @param int $columnIndex Numeric column coordinate of the cell
-     * @param int $row Numeric row coordinate of the cell
-     * @param mixed $value Value of the cell
-     * @param string $dataType Explicit data type, see DataType::TYPE_*
-     *        Note that PhpSpreadsheet does not validate that the value and datatype are consistent, in using this
-     *             method, then it is your responsibility as an end-user developer to validate that the value and
-     *             the datatype match.
-     *       If you do mismatch value and datatpe, then the value you enter may be changed to match the datatype
-     *          that you specify.
-     *
-     * @see DataType
-     *
-     * @return $this
-     */
-    public function setCellValueExplicitByColumnAndRow(int $columnIndex, int $row, mixed $value, string $dataType): static
-    {
-        $this->getCell(Coordinate::stringFromColumnIndex($columnIndex) . $row)->setValueExplicit($value, $dataType);
 
         return $this;
     }
@@ -1284,29 +1232,6 @@ class Worksheet implements IComparable
     }
 
     /**
-     * Get cell at a specific coordinate by using numeric cell coordinates.
-     *
-     * @deprecated 1.23.0
-     *      Use the getCell() method with a cell address such as 'C5' instead;,
-     *          or passing in an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress object.
-     * @see Worksheet::getCell()
-     *
-     * @param int $columnIndex Numeric column coordinate of the cell
-     * @param int $row Numeric row coordinate of the cell
-     *
-     * @return Cell Cell that was found/created or null
-     *              WARNING: Because the cell collection can be cached to reduce memory, it only allows one
-     *              "active" cell at a time in memory. If you assign that cell to a variable, then select
-     *              another cell using getCell() or any of its variants, the newly selected cell becomes
-     *              the "active" cell, and any previous assignment becomes a disconnected reference because
-     *              the active cell has changed.
-     */
-    public function getCellByColumnAndRow(int $columnIndex, int $row): Cell
-    {
-        return $this->getCell(Coordinate::stringFromColumnIndex($columnIndex) . $row);
-    }
-
-    /**
      * Create a new cell at the specified coordinate.
      *
      * @param string $coordinate Coordinate of the cell
@@ -1369,22 +1294,6 @@ class Worksheet implements IComparable
         [$sheet, $finalCoordinate] = $this->getWorksheetAndCoordinate($cellAddress);
 
         return $sheet->getCellCollection()->has($finalCoordinate);
-    }
-
-    /**
-     * Cell at a specific coordinate by using numeric cell coordinates exists?
-     *
-     * @deprecated 1.23.0
-     *      Use the cellExists() method with a cell address such as 'C5' instead;,
-     *          or passing in an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress object.
-     * @see Worksheet::cellExists()
-     *
-     * @param int $columnIndex Numeric column coordinate of the cell
-     * @param int $row Numeric row coordinate of the cell
-     */
-    public function cellExistsByColumnAndRow(int $columnIndex, int $row): bool
-    {
-        return $this->cellExists(Coordinate::stringFromColumnIndex($columnIndex) . $row);
     }
 
     /**
@@ -1476,34 +1385,6 @@ class Worksheet implements IComparable
         $this->setSelectedCells($cellCoordinate);
 
         return $this->getParentOrThrow()->getCellXfSupervisor();
-    }
-
-    /**
-     * Get style for cell by using numeric cell coordinates.
-     *
-     * @deprecated 1.23.0
-     *      Use the getStyle() method with a cell address range such as 'C5:F8' instead;,
-     *          or passing in an array of [$fromColumnIndex, $fromRow, $toColumnIndex, $toRow] (e.g. [3, 5, 6, 8]),
-     *          or an AddressRange object.
-     * @see Worksheet::getStyle()
-     *
-     * @param int $columnIndex1 Numeric column coordinate of the cell
-     * @param int $row1 Numeric row coordinate of the cell
-     * @param null|int $columnIndex2 Numeric column coordinate of the range cell
-     * @param null|int $row2 Numeric row coordinate of the range cell
-     */
-    public function getStyleByColumnAndRow(int $columnIndex1, int $row1, ?int $columnIndex2 = null, ?int $row2 = null): Style
-    {
-        if ($columnIndex2 !== null && $row2 !== null) {
-            $cellRange = new CellRange(
-                CellAddress::fromColumnAndRow($columnIndex1, $row1),
-                CellAddress::fromColumnAndRow($columnIndex2, $row2)
-            );
-
-            return $this->getStyle($cellRange);
-        }
-
-        return $this->getStyle(CellAddress::fromColumnAndRow($columnIndex1, $row1));
     }
 
     /**
@@ -1716,25 +1597,6 @@ class Worksheet implements IComparable
     }
 
     /**
-     * Set break on a cell by using numeric cell coordinates.
-     *
-     * @deprecated 1.23.0
-     *      Use the setBreak() method with a cell address such as 'C5' instead;,
-     *          or passing in an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress object.
-     * @see Worksheet::setBreak()
-     *
-     * @param int $columnIndex Numeric column coordinate of the cell
-     * @param int $row Numeric row coordinate of the cell
-     * @param int $break Break type (type of Worksheet::BREAK_*)
-     *
-     * @return $this
-     */
-    public function setBreakByColumnAndRow(int $columnIndex, int $row, int $break): static
-    {
-        return $this->setBreak(Coordinate::stringFromColumnIndex($columnIndex) . $row, $break);
-    }
-
-    /**
      * Get breaks.
      *
      * @return int[]
@@ -1928,37 +1790,6 @@ class Worksheet implements IComparable
     }
 
     /**
-     * Set merge on a cell range by using numeric cell coordinates.
-     *
-     * @deprecated 1.23.0
-     *      Use the mergeCells() method with a cell address range such as 'C5:F8' instead;,
-     *          or passing in an array of [$fromColumnIndex, $fromRow, $toColumnIndex, $toRow] (e.g. [3, 5, 6, 8]),
-     *          or an AddressRange object.
-     * @see Worksheet::mergeCells()
-     *
-     * @param int $columnIndex1 Numeric column coordinate of the first cell
-     * @param int $row1 Numeric row coordinate of the first cell
-     * @param int $columnIndex2 Numeric column coordinate of the last cell
-     * @param int $row2 Numeric row coordinate of the last cell
-     * @param string $behaviour How the merged cells should behave.
-     *               Possible values are:
-     *                   MERGE_CELL_CONTENT_EMPTY - Empty the content of the hidden cells
-     *                   MERGE_CELL_CONTENT_HIDE - Keep the content of the hidden cells
-     *                   MERGE_CELL_CONTENT_MERGE - Move the content of the hidden cells into the first cell
-     *
-     * @return $this
-     */
-    public function mergeCellsByColumnAndRow(int $columnIndex1, int $row1, int $columnIndex2, int $row2, string $behaviour = self::MERGE_CELL_CONTENT_EMPTY): static
-    {
-        $cellRange = new CellRange(
-            CellAddress::fromColumnAndRow($columnIndex1, $row1),
-            CellAddress::fromColumnAndRow($columnIndex2, $row2)
-        );
-
-        return $this->mergeCells($cellRange, $behaviour);
-    }
-
-    /**
      * Remove merge on a cell range.
      *
      * @param AddressRange|array{0: int, 1: int, 2: int, 3: int}|array{0: int, 1: int}|string $range A simple string containing a Cell range like 'A1:E10'
@@ -1982,32 +1813,6 @@ class Worksheet implements IComparable
         }
 
         return $this;
-    }
-
-    /**
-     * Remove merge on a cell range by using numeric cell coordinates.
-     *
-     * @deprecated 1.23.0
-     *      Use the unmergeCells() method with a cell address range such as 'C5:F8' instead;,
-     *          or passing in an array of [$fromColumnIndex, $fromRow, $toColumnIndex, $toRow] (e.g. [3, 5, 6, 8]),
-     *          or an AddressRange object.
-     * @see Worksheet::unmergeCells()
-     *
-     * @param int $columnIndex1 Numeric column coordinate of the first cell
-     * @param int $row1 Numeric row coordinate of the first cell
-     * @param int $columnIndex2 Numeric column coordinate of the last cell
-     * @param int $row2 Numeric row coordinate of the last cell
-     *
-     * @return $this
-     */
-    public function unmergeCellsByColumnAndRow(int $columnIndex1, int $row1, int $columnIndex2, int $row2): static
-    {
-        $cellRange = new CellRange(
-            CellAddress::fromColumnAndRow($columnIndex1, $row1),
-            CellAddress::fromColumnAndRow($columnIndex2, $row2)
-        );
-
-        return $this->unmergeCells($cellRange);
     }
 
     /**
@@ -2059,34 +1864,6 @@ class Worksheet implements IComparable
     }
 
     /**
-     * Set protection on a cell range by using numeric cell coordinates.
-     *
-     * @deprecated 1.23.0
-     *      Use the protectCells() method with a cell address range such as 'C5:F8' instead;,
-     *          or passing in an array of [$fromColumnIndex, $fromRow, $toColumnIndex, $toRow] (e.g. [3, 5, 6, 8]),
-     *          or an AddressRange object.
-     * @see Worksheet::protectCells()
-     *
-     * @param int $columnIndex1 Numeric column coordinate of the first cell
-     * @param int $row1 Numeric row coordinate of the first cell
-     * @param int $columnIndex2 Numeric column coordinate of the last cell
-     * @param int $row2 Numeric row coordinate of the last cell
-     * @param string $password Password to unlock the protection
-     * @param bool $alreadyHashed If the password has already been hashed, set this to true
-     *
-     * @return $this
-     */
-    public function protectCellsByColumnAndRow(int $columnIndex1, int $row1, int $columnIndex2, int $row2, string $password, bool $alreadyHashed = false): static
-    {
-        $cellRange = new CellRange(
-            CellAddress::fromColumnAndRow($columnIndex1, $row1),
-            CellAddress::fromColumnAndRow($columnIndex2, $row2)
-        );
-
-        return $this->protectCells($cellRange, $password, $alreadyHashed);
-    }
-
-    /**
      * Remove protection on a cell or cell range.
      *
      * @param AddressRange|array{0: int, 1: int, 2: int, 3: int}|array{0: int, 1: int}|CellAddress|int|string $range A simple string containing a Cell range like 'A1:E10'
@@ -2106,32 +1883,6 @@ class Worksheet implements IComparable
         }
 
         return $this;
-    }
-
-    /**
-     * Remove protection on a cell range by using numeric cell coordinates.
-     *
-     * @deprecated 1.23.0
-     *      Use the unprotectCells() method with a cell address range such as 'C5:F8' instead;,
-     *          or passing in an array of [$fromColumnIndex, $fromRow, $toColumnIndex, $toRow] (e.g. [3, 5, 6, 8]),
-     *          or an AddressRange object.
-     * @see Worksheet::unprotectCells()
-     *
-     * @param int $columnIndex1 Numeric column coordinate of the first cell
-     * @param int $row1 Numeric row coordinate of the first cell
-     * @param int $columnIndex2 Numeric column coordinate of the last cell
-     * @param int $row2 Numeric row coordinate of the last cell
-     *
-     * @return $this
-     */
-    public function unprotectCellsByColumnAndRow(int $columnIndex1, int $row1, int $columnIndex2, int $row2): static
-    {
-        $cellRange = new CellRange(
-            CellAddress::fromColumnAndRow($columnIndex1, $row1),
-            CellAddress::fromColumnAndRow($columnIndex2, $row2)
-        );
-
-        return $this->unprotectCells($cellRange);
     }
 
     /**
@@ -2173,32 +1924,6 @@ class Worksheet implements IComparable
         }
 
         return $this;
-    }
-
-    /**
-     * Set Autofilter Range by using numeric cell coordinates.
-     *
-     * @deprecated 1.23.0
-     *      Use the setAutoFilter() method with a cell address range such as 'C5:F8' instead;,
-     *          or passing in an array of [$fromColumnIndex, $fromRow, $toColumnIndex, $toRow] (e.g. [3, 5, 6, 8]),
-     *          or an AddressRange object or AutoFilter object.
-     * @see Worksheet::setAutoFilter()
-     *
-     * @param int $columnIndex1 Numeric column coordinate of the first cell
-     * @param int $row1 Numeric row coordinate of the first cell
-     * @param int $columnIndex2 Numeric column coordinate of the second cell
-     * @param int $row2 Numeric row coordinate of the second cell
-     *
-     * @return $this
-     */
-    public function setAutoFilterByColumnAndRow(int $columnIndex1, int $row1, int $columnIndex2, int $row2): static
-    {
-        $cellRange = new CellRange(
-            CellAddress::fromColumnAndRow($columnIndex1, $row1),
-            CellAddress::fromColumnAndRow($columnIndex2, $row2)
-        );
-
-        return $this->setAutoFilter($cellRange);
     }
 
     /**
@@ -2387,24 +2112,6 @@ class Worksheet implements IComparable
         $this->topLeftCell = $topLeftCell;
 
         return $this;
-    }
-
-    /**
-     * Freeze Pane by using numeric cell coordinates.
-     *
-     * @deprecated 1.23.0
-     *      Use the freezePane() method with a cell address such as 'C5' instead;,
-     *          or passing in an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress object.
-     * @see Worksheet::freezePane()
-     *
-     * @param int $columnIndex Numeric column coordinate of the cell
-     * @param int $row Numeric row coordinate of the cell
-     *
-     * @return $this
-     */
-    public function freezePaneByColumnAndRow(int $columnIndex, int $row): static
-    {
-        return $this->freezePane(Coordinate::stringFromColumnIndex($columnIndex) . $row);
     }
 
     /**
@@ -2911,22 +2618,6 @@ class Worksheet implements IComparable
     }
 
     /**
-     * Get comment for cell by using numeric cell coordinates.
-     *
-     * @deprecated 1.23.0
-     *      Use the getComment() method with a cell address such as 'C5' instead;,
-     *          or passing in an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress object.
-     * @see Worksheet::getComment()
-     *
-     * @param int $columnIndex Numeric column coordinate of the cell
-     * @param int $row Numeric row coordinate of the cell
-     */
-    public function getCommentByColumnAndRow(int $columnIndex, int $row): Comment
-    {
-        return $this->getComment(Coordinate::stringFromColumnIndex($columnIndex) . $row);
-    }
-
-    /**
      * Get active cell.
      *
      * @return string Example: 'A1'
@@ -3001,24 +2692,6 @@ class Worksheet implements IComparable
             $this->setActivePane($activePane);
             $this->panes[$activePane] = new Pane($activePane, $this->selectedCells, $this->activeCell);
         }
-    }
-
-    /**
-     * Selected cell by using numeric cell coordinates.
-     *
-     * @deprecated 1.23.0
-     *      Use the setSelectedCells() method with a cell address such as 'C5' instead;,
-     *          or passing in an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress object.
-     * @see Worksheet::setSelectedCells()
-     *
-     * @param int $columnIndex Numeric column coordinate of the cell
-     * @param int $row Numeric row coordinate of the cell
-     *
-     * @return $this
-     */
-    public function setSelectedCellByColumnAndRow(int $columnIndex, int $row): static
-    {
-        return $this->setSelectedCells(Coordinate::stringFromColumnIndex($columnIndex) . $row);
     }
 
     /**

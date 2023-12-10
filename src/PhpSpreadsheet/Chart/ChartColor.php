@@ -7,10 +7,8 @@ class ChartColor
     const EXCEL_COLOR_TYPE_STANDARD = 'prstClr';
     const EXCEL_COLOR_TYPE_SCHEME = 'schemeClr';
     const EXCEL_COLOR_TYPE_RGB = 'srgbClr';
-    /** @deprecated 1.24 use EXCEL_COLOR_TYPE_RGB instead */
-    const EXCEL_COLOR_TYPE_ARGB = 'srgbClr';
     const EXCEL_COLOR_TYPES = [
-        self::EXCEL_COLOR_TYPE_ARGB,
+        self::EXCEL_COLOR_TYPE_RGB,
         self::EXCEL_COLOR_TYPE_SCHEME,
         self::EXCEL_COLOR_TYPE_STANDARD,
     ];

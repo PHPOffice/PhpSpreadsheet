@@ -342,32 +342,6 @@ class Chart
     }
 
     /**
-     * Get Major Gridlines.
-     *
-     * @deprecated 1.24.0 Use Axis->getMajorGridlines()
-     * @see Axis::getMajorGridlines()
-     *
-     * @codeCoverageIgnore
-     */
-    public function getMajorGridlines(): ?GridLines
-    {
-        return $this->yAxis->getMajorGridLines();
-    }
-
-    /**
-     * Get Minor Gridlines.
-     *
-     * @deprecated 1.24.0 Use Axis->getMinorGridlines()
-     * @see Axis::getMinorGridlines()
-     *
-     * @codeCoverageIgnore
-     */
-    public function getMinorGridlines(): ?GridLines
-    {
-        return $this->yAxis->getMinorGridLines();
-    }
-
-    /**
      * Set the Top Left position for the chart.
      *
      * @return $this

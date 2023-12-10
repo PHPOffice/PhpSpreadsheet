@@ -19,8 +19,6 @@ class NumberFormat extends Supervisor
     const FORMAT_PERCENTAGE_0 = '0.0%';
     const FORMAT_PERCENTAGE_00 = '0.00%';
 
-    /** @deprecated 1.26 use FORMAT_DATE_YYYYMMDD instead */
-    const FORMAT_DATE_YYYYMMDD2 = 'yyyy-mm-dd';
     const FORMAT_DATE_YYYYMMDD = 'yyyy-mm-dd';
     const FORMAT_DATE_DDMMYYYY = 'dd/mm/yyyy';
     const FORMAT_DATE_DMYSLASH = 'd/m/yy';
@@ -79,12 +77,8 @@ class NumberFormat extends Supervisor
         self::FORMAT_DATE_TIME8,
     ];
 
-    /** @deprecated 1.28 use FORMAT_CURRENCY_USD_INTEGER instead */
-    const FORMAT_CURRENCY_USD_SIMPLE = '"$"#,##0_-';
     const FORMAT_CURRENCY_USD_INTEGER = '$#,##0_-';
     const FORMAT_CURRENCY_USD = '$#,##0.00_-';
-    /** @deprecated 1.28 use FORMAT_CURRENCY_EUR_INTEGER instead */
-    const FORMAT_CURRENCY_EUR_SIMPLE = '#,##0_-"€"';
     const FORMAT_CURRENCY_EUR_INTEGER = '#,##0_-[$€]';
     const FORMAT_CURRENCY_EUR = '#,##0.00_-[$€]';
     const FORMAT_ACCOUNTING_USD = '_("$"* #,##0.00_);_("$"* \(#,##0.00\);_("$"* "-"??_);_(@_)';

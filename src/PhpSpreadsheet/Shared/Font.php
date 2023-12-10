@@ -273,15 +273,6 @@ class Font
     ];
 
     /**
-     * List of column widths. Replaced by constant;
-     * previously it was public and updateable, allowing
-     * user to make inappropriate alterations.
-     *
-     * @deprecated 1.25.0 Use DEFAULT_COLUMN_WIDTHS constant instead.
-     */
-    public static array $defaultColumnWidths = self::DEFAULT_COLUMN_WIDTHS;
-
-    /**
      * Set autoSize method.
      *
      * @param string $method see self::AUTOSIZE_METHOD_*
