@@ -77,10 +77,8 @@ class Drawing extends BaseDrawing
 
     /**
      * Get Path.
-     *
-     * @return string
      */
-    public function getPath()
+    public function getPath(): string
     {
         return $this->path;
     }

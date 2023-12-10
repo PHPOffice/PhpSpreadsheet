@@ -110,11 +110,9 @@ class Slk extends BaseReader
      *
      * @deprecated no use is made of this property
      *
-     * @return string
-     *
      * @codeCoverageIgnore
      */
-    public function getInputEncoding()
+    public function getInputEncoding(): string
     {
         return $this->inputEncoding;
     }
@@ -516,10 +514,8 @@ class Slk extends BaseReader
 
     /**
      * Loads PhpSpreadsheet from file into PhpSpreadsheet instance.
-     *
-     * @return Spreadsheet
      */
-    public function loadIntoExisting(string $filename, Spreadsheet $spreadsheet)
+    public function loadIntoExisting(string $filename, Spreadsheet $spreadsheet): Spreadsheet
     {
         // Open file
         $this->canReadOrBust($filename);
@@ -581,10 +577,8 @@ class Slk extends BaseReader
 
     /**
      * Get sheet index.
-     *
-     * @return int
      */
-    public function getSheetIndex()
+    public function getSheetIndex(): int
     {
         return $this->sheetIndex;
     }

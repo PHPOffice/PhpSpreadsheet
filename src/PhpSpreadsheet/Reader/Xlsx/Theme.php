@@ -39,11 +39,9 @@ class Theme
     /**
      * Not called by Reader, never accessible any other time.
      *
-     * @return string
-     *
      * @codeCoverageIgnore
      */
-    public function getThemeName()
+    public function getThemeName(): string
     {
         return $this->themeName;
     }
@@ -51,11 +49,9 @@ class Theme
     /**
      * Not called by Reader, never accessible any other time.
      *
-     * @return string
-     *
      * @codeCoverageIgnore
      */
-    public function getColourSchemeName()
+    public function getColourSchemeName(): string
     {
         return $this->colourSchemeName;
     }
@@ -64,10 +60,8 @@ class Theme
      * Get colour Map Value by Position.
      *
      * @param int $index
-     *
-     * @return null|string
      */
-    public function getColourByIndex($index)
+    public function getColourByIndex($index): ?string
     {
         return $this->colourMap[$index] ?? null;
     }

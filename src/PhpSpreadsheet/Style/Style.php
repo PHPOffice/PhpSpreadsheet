@@ -542,10 +542,8 @@ class Style extends Supervisor
 
     /**
      * Get Fill.
-     *
-     * @return Fill
      */
-    public function getFill()
+    public function getFill(): Fill
     {
         return $this->fill;
     }
@@ -572,30 +570,24 @@ class Style extends Supervisor
 
     /**
      * Get Borders.
-     *
-     * @return Borders
      */
-    public function getBorders()
+    public function getBorders(): Borders
     {
         return $this->borders;
     }
 
     /**
      * Get Alignment.
-     *
-     * @return Alignment
      */
-    public function getAlignment()
+    public function getAlignment(): Alignment
     {
         return $this->alignment;
     }
 
     /**
      * Get Number Format.
-     *
-     * @return NumberFormat
      */
-    public function getNumberFormat()
+    public function getNumberFormat(): NumberFormat
     {
         return $this->numberFormat;
     }
@@ -626,20 +618,16 @@ class Style extends Supervisor
 
     /**
      * Get Protection.
-     *
-     * @return Protection
      */
-    public function getProtection()
+    public function getProtection(): Protection
     {
         return $this->protection;
     }
 
     /**
      * Get quote prefix.
-     *
-     * @return bool
      */
-    public function getQuotePrefix()
+    public function getQuotePrefix(): bool
     {
         if ($this->isSupervisor) {
             return $this->getSharedComponent()->getQuotePrefix();
@@ -691,10 +679,8 @@ class Style extends Supervisor
 
     /**
      * Get own index in style collection.
-     *
-     * @return int
      */
-    public function getIndex()
+    public function getIndex(): int
     {
         return $this->index;
     }

@@ -36,7 +36,7 @@ class Worksheet extends WriterPart
      *
      * @return string XML Output
      */
-    public function writeWorksheet(PhpspreadsheetWorksheet $worksheet, array $stringTable = [], $includeCharts = false)
+    public function writeWorksheet(PhpspreadsheetWorksheet $worksheet, array $stringTable = [], $includeCharts = false): string
     {
         $this->numberStoredAsText = '';
         $this->formula = '';

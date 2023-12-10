@@ -46,10 +46,8 @@ class Escher
 
     /**
      * Process the object to be written.
-     *
-     * @return string
      */
-    public function close()
+    public function close(): string
     {
         // initialize
         $this->data = '';
@@ -485,20 +483,16 @@ class Escher
 
     /**
      * Gets the shape offsets.
-     *
-     * @return array
      */
-    public function getSpOffsets()
+    public function getSpOffsets(): array
     {
         return $this->spOffsets;
     }
 
     /**
      * Gets the shape types.
-     *
-     * @return array
      */
-    public function getSpTypes()
+    public function getSpTypes(): array
     {
         return $this->spTypes;
     }

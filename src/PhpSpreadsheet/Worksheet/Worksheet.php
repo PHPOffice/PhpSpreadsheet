@@ -384,10 +384,8 @@ class Worksheet implements IComparable
 
     /**
      * Return the cell collection.
-     *
-     * @return Cells
      */
-    public function getCellCollection()
+    public function getCellCollection(): Cells
     {
         // @phpstan-ignore-next-line
         return $this->cellCollection;
@@ -395,10 +393,8 @@ class Worksheet implements IComparable
 
     /**
      * Get array of invalid characters for sheet title.
-     *
-     * @return array
      */
-    public static function getInvalidCharacters()
+    public static function getInvalidCharacters(): array
     {
         return self::$invalidCharacters;
     }
@@ -480,17 +476,15 @@ class Worksheet implements IComparable
      *
      * @return RowDimension[]
      */
-    public function getRowDimensions()
+    public function getRowDimensions(): array
     {
         return $this->rowDimensions;
     }
 
     /**
      * Get default row dimension.
-     *
-     * @return RowDimension
      */
-    public function getDefaultRowDimension()
+    public function getDefaultRowDimension(): RowDimension
     {
         return $this->defaultRowDimension;
     }
@@ -500,7 +494,7 @@ class Worksheet implements IComparable
      *
      * @return ColumnDimension[]
      */
-    public function getColumnDimensions()
+    public function getColumnDimensions(): array
     {
         /** @var callable */
         $callable = [self::class, 'columnDimensionCompare'];
@@ -516,10 +510,8 @@ class Worksheet implements IComparable
 
     /**
      * Get default column dimension.
-     *
-     * @return ColumnDimension
      */
-    public function getDefaultColumnDimension()
+    public function getDefaultColumnDimension(): ColumnDimension
     {
         return $this->defaultColumnDimension;
     }
@@ -529,7 +521,7 @@ class Worksheet implements IComparable
      *
      * @return ArrayObject<int, BaseDrawing>
      */
-    public function getDrawingCollection()
+    public function getDrawingCollection(): ArrayObject
     {
         return $this->drawingCollection;
     }
@@ -539,7 +531,7 @@ class Worksheet implements IComparable
      *
      * @return ArrayObject<int, Chart>
      */
-    public function getChartCollection()
+    public function getChartCollection(): ArrayObject
     {
         return $this->chartCollection;
     }
@@ -824,10 +816,8 @@ class Worksheet implements IComparable
 
     /**
      * Get title.
-     *
-     * @return string
      */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }
@@ -909,7 +899,7 @@ class Worksheet implements IComparable
      *
      * @return string Sheet state (visible, hidden, veryHidden)
      */
-    public function getSheetState()
+    public function getSheetState(): string
     {
         return $this->sheetState;
     }
@@ -930,10 +920,8 @@ class Worksheet implements IComparable
 
     /**
      * Get page setup.
-     *
-     * @return PageSetup
      */
-    public function getPageSetup()
+    public function getPageSetup(): PageSetup
     {
         return $this->pageSetup;
     }
@@ -952,10 +940,8 @@ class Worksheet implements IComparable
 
     /**
      * Get page margins.
-     *
-     * @return PageMargins
      */
-    public function getPageMargins()
+    public function getPageMargins(): PageMargins
     {
         return $this->pageMargins;
     }
@@ -974,10 +960,8 @@ class Worksheet implements IComparable
 
     /**
      * Get page header/footer.
-     *
-     * @return HeaderFooter
      */
-    public function getHeaderFooter()
+    public function getHeaderFooter(): HeaderFooter
     {
         return $this->headerFooter;
     }
@@ -996,10 +980,8 @@ class Worksheet implements IComparable
 
     /**
      * Get sheet view.
-     *
-     * @return SheetView
      */
-    public function getSheetView()
+    public function getSheetView(): SheetView
     {
         return $this->sheetView;
     }
@@ -1018,10 +1000,8 @@ class Worksheet implements IComparable
 
     /**
      * Get Protection.
-     *
-     * @return Protection
      */
-    public function getProtection()
+    public function getProtection(): Protection
     {
         return $this->protection;
     }
@@ -1047,7 +1027,7 @@ class Worksheet implements IComparable
      *
      * @return string Highest column name
      */
-    public function getHighestColumn($row = null)
+    public function getHighestColumn($row = null): string
     {
         if ($row === null) {
             return Coordinate::stringFromColumnIndex($this->cachedHighestColumn);
@@ -1064,7 +1044,7 @@ class Worksheet implements IComparable
      *
      * @return string Highest column name that contains data
      */
-    public function getHighestDataColumn($row = null)
+    public function getHighestDataColumn($row = null): string
     {
         return $this->getCellCollection()->getHighestColumn($row);
     }
@@ -1077,7 +1057,7 @@ class Worksheet implements IComparable
      *
      * @return int Highest row number
      */
-    public function getHighestRow($column = null)
+    public function getHighestRow($column = null): int
     {
         if ($column === null) {
             return $this->cachedHighestRow;
@@ -1094,7 +1074,7 @@ class Worksheet implements IComparable
      *
      * @return int Highest row number that contains data
      */
-    public function getHighestDataRow($column = null)
+    public function getHighestDataRow($column = null): int
     {
         return $this->getCellCollection()->getHighestRow($column);
     }
@@ -1474,7 +1454,7 @@ class Worksheet implements IComparable
      *
      * @return Style[]
      */
-    public function getStyles()
+    public function getStyles(): array
     {
         return $this->styles;
     }
@@ -1611,10 +1591,8 @@ class Worksheet implements IComparable
 
     /**
      * Get collection of conditional styles.
-     *
-     * @return array
      */
-    public function getConditionalStylesCollection()
+    public function getConditionalStylesCollection(): array
     {
         return $this->conditionalStylesCollection;
     }
@@ -1787,7 +1765,7 @@ class Worksheet implements IComparable
      *
      * @return PageBreak[]
      */
-    public function getRowBreaks()
+    public function getRowBreaks(): array
     {
         /** @var callable */
         $compareFunction = [self::class, 'compareRowBreaks'];
@@ -1817,7 +1795,7 @@ class Worksheet implements IComparable
      *
      * @return PageBreak[]
      */
-    public function getColumnBreaks()
+    public function getColumnBreaks(): array
     {
         /** @var callable */
         $compareFunction = [self::class, 'compareColumnBreaks'];
@@ -2039,7 +2017,7 @@ class Worksheet implements IComparable
      *
      * @return string[]
      */
-    public function getMergeCells()
+    public function getMergeCells(): array
     {
         return $this->mergeCells;
     }
@@ -2163,17 +2141,15 @@ class Worksheet implements IComparable
      *
      * @return string[]
      */
-    public function getProtectedCells()
+    public function getProtectedCells(): array
     {
         return $this->protectedCells;
     }
 
     /**
      * Get Autofilter.
-     *
-     * @return AutoFilter
      */
-    public function getAutoFilter()
+    public function getAutoFilter(): AutoFilter
     {
         return $this->autoFilter;
     }
@@ -2242,7 +2218,7 @@ class Worksheet implements IComparable
      *
      * @return ArrayObject<int, Table>
      */
-    public function getTableCollection()
+    public function getTableCollection(): ArrayObject
     {
         return $this->tableCollection;
     }
@@ -2335,10 +2311,8 @@ class Worksheet implements IComparable
 
     /**
      * Get Freeze Pane.
-     *
-     * @return null|string
      */
-    public function getFreezePane()
+    public function getFreezePane(): ?string
     {
         return $this->freezePane;
     }
@@ -2447,10 +2421,8 @@ class Worksheet implements IComparable
 
     /**
      * Get the default position of the right bottom pane.
-     *
-     * @return null|string
      */
-    public function getTopLeftCell()
+    public function getTopLeftCell(): ?string
     {
         return $this->topLeftCell;
     }
@@ -2487,7 +2459,7 @@ class Worksheet implements IComparable
     }
 
     /** @return (null|Pane)[] */
-    public function getPanes()
+    public function getPanes(): array
     {
         return $this->panes;
     }
@@ -2864,7 +2836,7 @@ class Worksheet implements IComparable
      *
      * @return Comment[]
      */
-    public function getComments()
+    public function getComments(): array
     {
         return $this->comments;
     }
@@ -2961,17 +2933,15 @@ class Worksheet implements IComparable
      *
      * @return string Example: 'A1'
      */
-    public function getActiveCell()
+    public function getActiveCell(): string
     {
         return $this->activeCell;
     }
 
     /**
      * Get selected cells.
-     *
-     * @return string
      */
-    public function getSelectedCells()
+    public function getSelectedCells(): string
     {
         return $this->selectedCells;
     }
@@ -3055,10 +3025,8 @@ class Worksheet implements IComparable
 
     /**
      * Get right-to-left.
-     *
-     * @return bool
      */
-    public function getRightToLeft()
+    public function getRightToLeft(): bool
     {
         return $this->rightToLeft;
     }
@@ -3123,10 +3091,8 @@ class Worksheet implements IComparable
     /**
      * @throws Exception
      * @throws \PhpOffice\PhpSpreadsheet\Calculation\Exception
-     *
-     * @return mixed
      */
-    protected function cellToArray(Cell $cell, bool $calculateFormulas, bool $formatData, mixed $nullValue)
+    protected function cellToArray(Cell $cell, bool $calculateFormulas, bool $formatData, mixed $nullValue): mixed
     {
         $returnValue = $nullValue;
 
@@ -3416,10 +3382,8 @@ class Worksheet implements IComparable
      * Get hyperlink.
      *
      * @param string $cellCoordinate Cell coordinate to get hyperlink for, eg: 'A1'
-     *
-     * @return Hyperlink
      */
-    public function getHyperlink($cellCoordinate)
+    public function getHyperlink($cellCoordinate): Hyperlink
     {
         // return hyperlink if we already have one
         if (isset($this->hyperlinkCollection[$cellCoordinate])) {
@@ -3465,7 +3429,7 @@ class Worksheet implements IComparable
      *
      * @return Hyperlink[]
      */
-    public function getHyperlinkCollection()
+    public function getHyperlinkCollection(): array
     {
         return $this->hyperlinkCollection;
     }
@@ -3474,10 +3438,8 @@ class Worksheet implements IComparable
      * Get data validation.
      *
      * @param string $cellCoordinate Cell coordinate to get data validation for, eg: 'A1'
-     *
-     * @return DataValidation
      */
-    public function getDataValidation($cellCoordinate)
+    public function getDataValidation($cellCoordinate): DataValidation
     {
         // return data validation if we already have one
         if (isset($this->dataValidationCollection[$cellCoordinate])) {
@@ -3523,7 +3485,7 @@ class Worksheet implements IComparable
      *
      * @return DataValidation[]
      */
-    public function getDataValidationCollection()
+    public function getDataValidationCollection(): array
     {
         return $this->dataValidationCollection;
     }
@@ -3566,10 +3528,8 @@ class Worksheet implements IComparable
 
     /**
      * Get tab color.
-     *
-     * @return Color
      */
-    public function getTabColor()
+    public function getTabColor(): Color
     {
         if ($this->tabColor === null) {
             $this->tabColor = new Color();
@@ -3761,10 +3721,8 @@ class Worksheet implements IComparable
 
     /**
      * Return the code name of the sheet.
-     *
-     * @return null|string
      */
-    public function getCodeName()
+    public function getCodeName(): ?string
     {
         return $this->codeName;
     }

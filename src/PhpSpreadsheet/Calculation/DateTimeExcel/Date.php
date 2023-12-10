@@ -63,7 +63,7 @@ class Date
      *         If an array of numbers is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function fromYMD($year, $month, $day)
+    public static function fromYMD($year, $month, $day): mixed
     {
         if (is_array($year) || is_array($month) || is_array($day)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $year, $month, $day);

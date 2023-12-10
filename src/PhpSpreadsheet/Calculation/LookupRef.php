@@ -158,7 +158,7 @@ class LookupRef
      *
      * @return string The value of $displayName (or $linkURL if $displayName was blank)
      */
-    public static function HYPERLINK(mixed $linkURL = '', mixed $displayName = null, ?Cell $cell = null)
+    public static function HYPERLINK(mixed $linkURL = '', mixed $displayName = null, ?Cell $cell = null): string
     {
         return LookupRef\Hyperlink::set($linkURL, $displayName, $cell);
     }
@@ -244,7 +244,7 @@ class LookupRef
      *
      * @return mixed The selected value
      */
-    public static function CHOOSE(...$chooseArgs)
+    public static function CHOOSE(...$chooseArgs): mixed
     {
         return LookupRef\Selection::choose(...$chooseArgs);
     }
@@ -292,7 +292,7 @@ class LookupRef
      *
      * @return mixed the value of a specified cell or array of cells
      */
-    public static function INDEX(mixed $matrix, mixed $rowNum = 0, mixed $columnNum = 0)
+    public static function INDEX(mixed $matrix, mixed $rowNum = 0, mixed $columnNum = 0): mixed
     {
         return Matrix::index($matrix, $rowNum, $columnNum);
     }
@@ -333,7 +333,7 @@ class LookupRef
      *
      * @return mixed The value of the found cell
      */
-    public static function VLOOKUP(mixed $lookup_value, mixed $lookup_array, mixed $index_number, mixed $not_exact_match = true)
+    public static function VLOOKUP(mixed $lookup_value, mixed $lookup_array, mixed $index_number, mixed $not_exact_match = true): mixed
     {
         return VLookup::lookup($lookup_value, $lookup_array, $index_number, $not_exact_match);
     }
@@ -355,7 +355,7 @@ class LookupRef
      *
      * @return mixed The value of the found cell
      */
-    public static function HLOOKUP(mixed $lookup_value, mixed $lookup_array, mixed $index_number, mixed $not_exact_match = true)
+    public static function HLOOKUP(mixed $lookup_value, mixed $lookup_array, mixed $index_number, mixed $not_exact_match = true): mixed
     {
         return HLookup::lookup($lookup_value, $lookup_array, $index_number, $not_exact_match);
     }
@@ -374,7 +374,7 @@ class LookupRef
      *
      * @return mixed The value of the found cell
      */
-    public static function LOOKUP(mixed $lookup_value, mixed $lookup_vector, $result_vector = null)
+    public static function LOOKUP(mixed $lookup_value, mixed $lookup_vector, $result_vector = null): mixed
     {
         return Lookup::lookup($lookup_value, $lookup_vector, $result_vector);
     }
@@ -388,10 +388,8 @@ class LookupRef
      *
      * @param mixed $cellReference The cell to check
      * @param Cell $cell The current cell (containing this formula)
-     *
-     * @return string
      */
-    public static function FORMULATEXT(mixed $cellReference = '', ?Cell $cell = null)
+    public static function FORMULATEXT(mixed $cellReference = '', ?Cell $cell = null): string
     {
         return LookupRef\Formula::text($cellReference, $cell);
     }

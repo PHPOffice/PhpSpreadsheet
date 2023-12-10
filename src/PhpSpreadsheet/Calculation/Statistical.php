@@ -654,7 +654,7 @@ class Statistical
      *
      * @return float[]
      */
-    public static function GROWTH($yValues, $xValues = [], $newValues = [], $const = true)
+    public static function GROWTH($yValues, $xValues = [], $newValues = [], $const = true): array
     {
         return Trends::GROWTH($yValues, $xValues, $newValues, $const);
     }
@@ -895,10 +895,8 @@ class Statistical
      * @see Statistical\Maximum::max()
      *
      * @param mixed ...$args Data values
-     *
-     * @return float
      */
-    public static function MAX(mixed ...$args)
+    public static function MAX(mixed ...$args): float|int|string
     {
         return Maximum::max(...$args);
     }
@@ -916,10 +914,8 @@ class Statistical
      * @see Statistical\Maximum::maxA()
      *
      * @param mixed ...$args Data values
-     *
-     * @return float
      */
-    public static function MAXA(mixed ...$args)
+    public static function MAXA(mixed ...$args): float|int|string
     {
         return Maximum::maxA(...$args);
     }
@@ -980,10 +976,8 @@ class Statistical
      * @see Statistical\Minimum::min()
      *
      * @param mixed ...$args Data values
-     *
-     * @return float
      */
-    public static function MIN(mixed ...$args)
+    public static function MIN(mixed ...$args): float|int|string
     {
         return Minimum::min(...$args);
     }
@@ -1001,10 +995,8 @@ class Statistical
      * @see Statistical\Minimum::minA()
      *
      * @param mixed ...$args Data values
-     *
-     * @return float
      */
-    public static function MINA(mixed ...$args)
+    public static function MINA(mixed ...$args): float|int|string
     {
         return Minimum::minA(...$args);
     }
@@ -1555,7 +1547,7 @@ class Statistical
      *
      * @return float[]
      */
-    public static function TREND($yValues, $xValues = [], $newValues = [], $const = true)
+    public static function TREND($yValues, $xValues = [], $newValues = [], $const = true): array
     {
         return Trends::TREND($yValues, $xValues, $newValues, $const);
     }

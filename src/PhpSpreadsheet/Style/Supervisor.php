@@ -56,20 +56,16 @@ abstract class Supervisor implements IComparable
 
     /**
      * Is this a supervisor or a cell style component?
-     *
-     * @return bool
      */
-    public function getIsSupervisor()
+    public function getIsSupervisor(): bool
     {
         return $this->isSupervisor;
     }
 
     /**
      * Get the currently active sheet. Only used for supervisor.
-     *
-     * @return Worksheet
      */
-    public function getActiveSheet()
+    public function getActiveSheet(): Worksheet
     {
         return $this->parent->getActiveSheet();
     }
@@ -80,7 +76,7 @@ abstract class Supervisor implements IComparable
      *
      * @return string E.g. 'A1'
      */
-    public function getSelectedCells()
+    public function getSelectedCells(): string
     {
         return $this->getActiveSheet()->getSelectedCells();
     }
@@ -91,7 +87,7 @@ abstract class Supervisor implements IComparable
      *
      * @return string E.g. 'A1'
      */
-    public function getActiveCell()
+    public function getActiveCell(): string
     {
         return $this->getActiveSheet()->getActiveCell();
     }
@@ -153,17 +149,13 @@ abstract class Supervisor implements IComparable
     /**
      * Get the shared style component for the currently active cell in currently active sheet.
      * Only used for style supervisor.
-     *
-     * @return mixed
      */
-    abstract public function getSharedComponent();
+    abstract public function getSharedComponent(): mixed;
 
     /**
      * Build style array from subcomponents.
      *
      * @param array $array
-     *
-     * @return array
      */
-    abstract public function getStyleArray($array);
+    abstract public function getStyleArray($array): array;
 }

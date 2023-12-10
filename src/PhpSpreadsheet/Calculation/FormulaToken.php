@@ -84,10 +84,8 @@ class FormulaToken
 
     /**
      * Get Value.
-     *
-     * @return string
      */
-    public function getValue()
+    public function getValue(): string
     {
         return $this->value;
     }
@@ -104,10 +102,8 @@ class FormulaToken
 
     /**
      * Get Token Type (represented by TOKEN_TYPE_*).
-     *
-     * @return string
      */
-    public function getTokenType()
+    public function getTokenType(): string
     {
         return $this->tokenType;
     }
@@ -124,10 +120,8 @@ class FormulaToken
 
     /**
      * Get Token SubType (represented by TOKEN_SUBTYPE_*).
-     *
-     * @return string
      */
-    public function getTokenSubType()
+    public function getTokenSubType(): string
     {
         return $this->tokenSubType;
     }

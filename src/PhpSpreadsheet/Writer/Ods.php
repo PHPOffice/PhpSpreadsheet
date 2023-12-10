@@ -137,10 +137,8 @@ class Ods extends BaseWriter
 
     /**
      * Get Spreadsheet object.
-     *
-     * @return Spreadsheet
      */
-    public function getSpreadsheet()
+    public function getSpreadsheet(): Spreadsheet
     {
         return $this->spreadSheet;
     }

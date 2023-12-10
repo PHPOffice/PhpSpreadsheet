@@ -228,10 +228,8 @@ class StringHelper
 
     /**
      * Get whether iconv extension is available.
-     *
-     * @return bool
      */
-    public static function getIsIconvEnabled()
+    public static function getIsIconvEnabled(): bool
     {
         if (isset(self::$isIconvEnabled)) {
             return self::$isIconvEnabled;
@@ -650,7 +648,7 @@ class StringHelper
      *
      * @return mixed string or only the leading numeric part of the string
      */
-    public static function testStringAsNumeric($textValue)
+    public static function testStringAsNumeric($textValue): mixed
     {
         if (is_numeric($textValue)) {
             return $textValue;

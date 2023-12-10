@@ -193,10 +193,8 @@ class DataSeries
 
     /**
      * Get Plot Direction.
-     *
-     * @return string
      */
-    public function getPlotDirection()
+    public function getPlotDirection(): string
     {
         return $this->plotDirection;
     }
@@ -220,7 +218,7 @@ class DataSeries
      *
      * @return int[]
      */
-    public function getPlotOrder()
+    public function getPlotOrder(): array
     {
         return $this->plotOrder;
     }
@@ -230,7 +228,7 @@ class DataSeries
      *
      * @return DataSeriesValues[]
      */
-    public function getPlotLabels()
+    public function getPlotLabels(): array
     {
         return $this->plotLabel;
     }
@@ -255,7 +253,7 @@ class DataSeries
      *
      * @return DataSeriesValues[]
      */
-    public function getPlotCategories()
+    public function getPlotCategories(): array
     {
         return $this->plotCategory;
     }
@@ -279,10 +277,8 @@ class DataSeries
 
     /**
      * Get Plot Style.
-     *
-     * @return null|string
      */
-    public function getPlotStyle()
+    public function getPlotStyle(): ?string
     {
         return $this->plotStyle;
     }
@@ -306,7 +302,7 @@ class DataSeries
      *
      * @return DataSeriesValues[]
      */
-    public function getPlotValues()
+    public function getPlotValues(): array
     {
         return $this->plotValues;
     }
@@ -358,10 +354,8 @@ class DataSeries
 
     /**
      * Get Smooth Line.
-     *
-     * @return bool
      */
-    public function getSmoothLine()
+    public function getSmoothLine(): bool
     {
         return $this->smoothLine;
     }

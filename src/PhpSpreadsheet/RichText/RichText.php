@@ -107,7 +107,7 @@ class RichText implements IComparable, Stringable
      *
      * @return ITextElement[]
      */
-    public function getRichTextElements()
+    public function getRichTextElements(): array
     {
         return $this->richTextElements;
     }

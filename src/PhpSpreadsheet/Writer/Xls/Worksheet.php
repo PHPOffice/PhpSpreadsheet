@@ -554,7 +554,7 @@ class Worksheet extends BIFFwriter
      *
      * @return string The data
      */
-    public function getData()
+    public function getData(): string
     {
         // Return data stored in memory
         if (isset($this->_data)) {
@@ -773,10 +773,8 @@ class Worksheet extends BIFFwriter
      * @param string $formula The formula text string
      * @param int $xfIndex The XF format index
      * @param mixed $calculatedValue Calculated value
-     *
-     * @return int
      */
-    private function writeFormula(int $row, int $col, string $formula, int $xfIndex, mixed $calculatedValue)
+    private function writeFormula(int $row, int $col, string $formula, int $xfIndex, mixed $calculatedValue): int
     {
         $record = 0x0006; // Record identifier
         // Initialize possible additional value for STRING record that should be written after the FORMULA record?

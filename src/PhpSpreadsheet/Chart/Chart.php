@@ -157,10 +157,8 @@ class Chart
 
     /**
      * Get Name.
-     *
-     * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -277,10 +275,8 @@ class Chart
 
     /**
      * Get Plot Visible Only.
-     *
-     * @return bool
      */
-    public function getPlotVisibleOnly()
+    public function getPlotVisibleOnly(): bool
     {
         return $this->plotVisibleOnly;
     }
@@ -301,10 +297,8 @@ class Chart
 
     /**
      * Get Display Blanks as.
-     *
-     * @return string
      */
-    public function getDisplayBlanksAs()
+    public function getDisplayBlanksAs(): string
     {
         return $this->displayBlanksAs;
     }
@@ -419,10 +413,8 @@ class Chart
 
     /**
      * Get the cell address where the top left of the chart is fixed.
-     *
-     * @return string
      */
-    public function getTopLeftCell()
+    public function getTopLeftCell(): string
     {
         return $this->topLeftCellRef;
     }
@@ -647,7 +639,7 @@ class Chart
      *
      * @return bool true on success
      */
-    public function render($outputDestination = null)
+    public function render($outputDestination = null): bool
     {
         if ($outputDestination == 'php://output') {
             $outputDestination = null;

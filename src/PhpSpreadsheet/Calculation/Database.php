@@ -138,10 +138,8 @@ class Database
      *                                        includes at least one column label and at least one cell below
      *                                        the column label in which you specify a condition for the
      *                                        column.
-     *
-     * @return mixed
      */
-    public static function DGET($database, $field, $criteria)
+    public static function DGET($database, $field, $criteria): mixed
     {
         return Database\DGet::evaluate($database, $field, $criteria);
     }

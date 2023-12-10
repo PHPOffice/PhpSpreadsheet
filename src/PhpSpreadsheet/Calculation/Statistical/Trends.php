@@ -155,7 +155,7 @@ class Trends
      *
      * @return float[]
      */
-    public static function GROWTH($yValues, $xValues = [], $newValues = [], mixed $const = true)
+    public static function GROWTH($yValues, $xValues = [], $newValues = [], mixed $const = true): array
     {
         $yValues = Functions::flattenArray($yValues);
         $xValues = Functions::flattenArray($xValues);
@@ -412,7 +412,7 @@ class Trends
      *
      * @return float[]
      */
-    public static function TREND($yValues, $xValues = [], $newValues = [], mixed $const = true)
+    public static function TREND($yValues, $xValues = [], $newValues = [], mixed $const = true): array
     {
         $yValues = Functions::flattenArray($yValues);
         $xValues = Functions::flattenArray($xValues);

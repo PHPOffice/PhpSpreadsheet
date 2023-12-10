@@ -43,10 +43,8 @@ class PageMargins
 
     /**
      * Get Left.
-     *
-     * @return float
      */
-    public function getLeft()
+    public function getLeft(): float
     {
         return $this->left;
     }
@@ -67,10 +65,8 @@ class PageMargins
 
     /**
      * Get Right.
-     *
-     * @return float
      */
-    public function getRight()
+    public function getRight(): float
     {
         return $this->right;
     }
@@ -91,10 +87,8 @@ class PageMargins
 
     /**
      * Get Top.
-     *
-     * @return float
      */
-    public function getTop()
+    public function getTop(): float
     {
         return $this->top;
     }
@@ -115,10 +109,8 @@ class PageMargins
 
     /**
      * Get Bottom.
-     *
-     * @return float
      */
-    public function getBottom()
+    public function getBottom(): float
     {
         return $this->bottom;
     }
@@ -139,10 +131,8 @@ class PageMargins
 
     /**
      * Get Header.
-     *
-     * @return float
      */
-    public function getHeader()
+    public function getHeader(): float
     {
         return $this->header;
     }
@@ -163,10 +153,8 @@ class PageMargins
 
     /**
      * Get Footer.
-     *
-     * @return float
      */
-    public function getFooter()
+    public function getFooter(): float
     {
         return $this->footer;
     }

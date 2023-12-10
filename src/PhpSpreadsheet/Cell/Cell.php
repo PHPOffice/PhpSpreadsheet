@@ -173,10 +173,8 @@ class Cell implements Stringable
 
     /**
      * Get cell value.
-     *
-     * @return mixed
      */
-    public function getValue()
+    public function getValue(): mixed
     {
         return $this->value;
     }
@@ -324,10 +322,8 @@ class Cell implements Stringable
 
     /**
      * Convert date, time, or datetime from int to float if desired.
-     *
-     * @return mixed
      */
-    private function convertDateTimeInt(mixed $result)
+    private function convertDateTimeInt(mixed $result): mixed
     {
         if (is_int($result)) {
             if (self::$calculateDateTimeType === self::CALCULATE_TIME_FLOAT) {
@@ -416,10 +412,8 @@ class Cell implements Stringable
      *    Note that this value is not guaranteed to reflect the actual calculated value because it is
      *        possible that auto-calculation was disabled in the original spreadsheet, and underlying data
      *        values used by the formula have changed since it was last calculated.
-     *
-     * @return mixed
      */
-    public function getOldCalculatedValue()
+    public function getOldCalculatedValue(): mixed
     {
         return $this->calculatedValue;
     }
@@ -555,7 +549,7 @@ class Cell implements Stringable
      *
      * @return ?Cells
      */
-    public function getParent()
+    public function getParent(): ?Cells
     {
         return $this->parent;
     }
@@ -774,10 +768,8 @@ class Cell implements Stringable
 
     /**
      * Get the formula attributes.
-     *
-     * @return mixed
      */
-    public function getFormulaAttributes()
+    public function getFormulaAttributes(): mixed
     {
         return $this->formulaAttributes;
     }

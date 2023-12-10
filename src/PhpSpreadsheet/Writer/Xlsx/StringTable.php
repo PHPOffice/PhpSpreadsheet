@@ -68,7 +68,7 @@ class StringTable extends WriterPart
      *
      * @return string XML Output
      */
-    public function writeStringTable(array $stringTable)
+    public function writeStringTable(array $stringTable): string
     {
         // Create XML writer
         $objWriter = null;

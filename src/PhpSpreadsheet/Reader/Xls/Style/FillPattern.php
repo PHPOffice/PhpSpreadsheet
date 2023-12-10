@@ -36,10 +36,8 @@ class FillPattern
      * OpenOffice documentation: 2.5.12.
      *
      * @param int $index
-     *
-     * @return string
      */
-    public static function lookup($index)
+    public static function lookup($index): string
     {
         if (isset(self::$fillPatternMap[$index])) {
             return self::$fillPatternMap[$index];

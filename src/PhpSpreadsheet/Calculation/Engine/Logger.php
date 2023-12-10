@@ -123,7 +123,7 @@ class Logger
      *
      * @return string[]
      */
-    public function getLog()
+    public function getLog(): array
     {
         return $this->debugLog;
     }

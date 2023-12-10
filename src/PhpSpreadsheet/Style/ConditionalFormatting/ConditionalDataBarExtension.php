@@ -73,10 +73,7 @@ class ConditionalDataBarExtension
         return $ret;
     }
 
-    /**
-     * @return int
-     */
-    public function getMinLength()
+    public function getMinLength(): int
     {
         return $this->minLength;
     }
@@ -88,10 +85,7 @@ class ConditionalDataBarExtension
         return $this;
     }
 
-    /**
-     * @return int
-     */
-    public function getMaxLength()
+    public function getMaxLength(): int
     {
         return $this->maxLength;
     }
@@ -103,10 +97,7 @@ class ConditionalDataBarExtension
         return $this;
     }
 
-    /**
-     * @return null|bool
-     */
-    public function getBorder()
+    public function getBorder(): ?bool
     {
         return $this->border;
     }
@@ -118,10 +109,7 @@ class ConditionalDataBarExtension
         return $this;
     }
 
-    /**
-     * @return null|bool
-     */
-    public function getGradient()
+    public function getGradient(): ?bool
     {
         return $this->gradient;
     }
@@ -145,10 +133,7 @@ class ConditionalDataBarExtension
         return $this;
     }
 
-    /**
-     * @return null|bool
-     */
-    public function getNegativeBarBorderColorSameAsPositive()
+    public function getNegativeBarBorderColorSameAsPositive(): ?bool
     {
         return $this->negativeBarBorderColorSameAsPositive;
     }
@@ -172,10 +157,7 @@ class ConditionalDataBarExtension
         return $this;
     }
 
-    /**
-     * @return ConditionalFormatValueObject
-     */
-    public function getMaximumConditionalFormatValueObject()
+    public function getMaximumConditionalFormatValueObject(): ConditionalFormatValueObject
     {
         return $this->maximumConditionalFormatValueObject;
     }
@@ -187,10 +169,7 @@ class ConditionalDataBarExtension
         return $this;
     }
 
-    /**
-     * @return ConditionalFormatValueObject
-     */
-    public function getMinimumConditionalFormatValueObject()
+    public function getMinimumConditionalFormatValueObject(): ConditionalFormatValueObject
     {
         return $this->minimumConditionalFormatValueObject;
     }

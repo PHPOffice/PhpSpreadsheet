@@ -516,10 +516,8 @@ class Xlsx extends BaseWriter
 
     /**
      * Get Spreadsheet object.
-     *
-     * @return Spreadsheet
      */
-    public function getSpreadsheet()
+    public function getSpreadsheet(): Spreadsheet
     {
         return $this->spreadSheet;
     }
@@ -543,7 +541,7 @@ class Xlsx extends BaseWriter
      *
      * @return string[]
      */
-    public function getStringTable()
+    public function getStringTable(): array
     {
         return $this->stringTable;
     }
@@ -553,7 +551,7 @@ class Xlsx extends BaseWriter
      *
      * @return HashTable<\PhpOffice\PhpSpreadsheet\Style\Style>
      */
-    public function getStyleHashTable()
+    public function getStyleHashTable(): HashTable
     {
         return $this->styleHashTable;
     }
@@ -563,7 +561,7 @@ class Xlsx extends BaseWriter
      *
      * @return HashTable<Conditional>
      */
-    public function getStylesConditionalHashTable()
+    public function getStylesConditionalHashTable(): HashTable
     {
         return $this->stylesConditionalHashTable;
     }
@@ -573,7 +571,7 @@ class Xlsx extends BaseWriter
      *
      * @return HashTable<Fill>
      */
-    public function getFillHashTable()
+    public function getFillHashTable(): HashTable
     {
         return $this->fillHashTable;
     }
@@ -583,7 +581,7 @@ class Xlsx extends BaseWriter
      *
      * @return HashTable<Font>
      */
-    public function getFontHashTable()
+    public function getFontHashTable(): HashTable
     {
         return $this->fontHashTable;
     }
@@ -593,7 +591,7 @@ class Xlsx extends BaseWriter
      *
      * @return HashTable<Borders>
      */
-    public function getBordersHashTable()
+    public function getBordersHashTable(): HashTable
     {
         return $this->bordersHashTable;
     }
@@ -603,7 +601,7 @@ class Xlsx extends BaseWriter
      *
      * @return HashTable<NumberFormat>
      */
-    public function getNumFmtHashTable()
+    public function getNumFmtHashTable(): HashTable
     {
         return $this->numFmtHashTable;
     }
@@ -613,17 +611,15 @@ class Xlsx extends BaseWriter
      *
      * @return HashTable<BaseDrawing>
      */
-    public function getDrawingHashTable()
+    public function getDrawingHashTable(): HashTable
     {
         return $this->drawingHashTable;
     }
 
     /**
      * Get Office2003 compatibility.
-     *
-     * @return bool
      */
-    public function getOffice2003Compatibility()
+    public function getOffice2003Compatibility(): bool
     {
         return $this->office2003compatibility;
     }

@@ -52,10 +52,8 @@ class Trend
      * @param array $yValues
      * @param array $xValues
      * @param bool $const
-     *
-     * @return mixed
      */
-    public static function calculate(string $trendType = self::TREND_BEST_FIT, $yValues = [], $xValues = [], $const = true)
+    public static function calculate(string $trendType = self::TREND_BEST_FIT, $yValues = [], $xValues = [], $const = true): mixed
     {
         //    Calculate number of points in each dataset
         $nY = count($yValues);

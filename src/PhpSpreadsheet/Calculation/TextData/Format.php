@@ -134,10 +134,8 @@ class Format
 
     /**
      * @param mixed $value Value to check
-     *
-     * @return mixed
      */
-    private static function convertValue(mixed $value, bool $spacesMeanZero = false)
+    private static function convertValue(mixed $value, bool $spacesMeanZero = false): mixed
     {
         $value = $value ?? 0;
         if (is_bool($value)) {

@@ -26,7 +26,7 @@ class Chart extends WriterPart
      *
      * @return string XML Output
      */
-    public function writeChart(\PhpOffice\PhpSpreadsheet\Chart\Chart $chart, mixed $calculateCellValues = true)
+    public function writeChart(\PhpOffice\PhpSpreadsheet\Chart\Chart $chart, mixed $calculateCellValues = true): string
     {
         // Create XML writer
         $objWriter = null;

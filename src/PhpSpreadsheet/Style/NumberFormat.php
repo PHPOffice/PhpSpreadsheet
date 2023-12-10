@@ -136,10 +136,8 @@ class NumberFormat extends Supervisor
     /**
      * Get the shared style component for the currently active cell in currently active sheet.
      * Only used for style supervisor.
-     *
-     * @return NumberFormat
      */
-    public function getSharedComponent()
+    public function getSharedComponent(): self
     {
         /** @var Style */
         $parent = $this->parent;
@@ -187,10 +185,8 @@ class NumberFormat extends Supervisor
 
     /**
      * Get Format Code.
-     *
-     * @return null|string
      */
-    public function getFormatCode()
+    public function getFormatCode(): ?string
     {
         if ($this->isSupervisor) {
             return $this->getSharedComponent()->getFormatCode();
@@ -366,10 +362,8 @@ class NumberFormat extends Supervisor
      * Get built-in format code.
      *
      * @param int $index
-     *
-     * @return string
      */
-    public static function builtInFormatCode($index)
+    public static function builtInFormatCode($index): string
     {
         // Clean parameter
         $index = (int) $index;
@@ -433,7 +427,7 @@ class NumberFormat extends Supervisor
      *
      * @return string Formatted string
      */
-    public static function toFormattedString(mixed $value, $format, $callBack = null)
+    public static function toFormattedString(mixed $value, $format, $callBack = null): string
     {
         return NumberFormat\Formatter::toFormattedString($value, $format, $callBack);
     }

@@ -76,10 +76,8 @@ class FormulaParser
 
     /**
      * Get Formula.
-     *
-     * @return string
      */
-    public function getFormula()
+    public function getFormula(): string
     {
         return $this->formula;
     }
@@ -111,7 +109,7 @@ class FormulaParser
      *
      * @return FormulaToken[]
      */
-    public function getTokens()
+    public function getTokens(): array
     {
         return $this->tokens;
     }

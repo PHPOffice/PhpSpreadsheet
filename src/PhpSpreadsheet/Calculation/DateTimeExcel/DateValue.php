@@ -39,7 +39,7 @@ class DateValue
      *         If an array of numbers is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function fromString($dateValue)
+    public static function fromString($dateValue): mixed
     {
         if (is_array($dateValue)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $dateValue);
@@ -134,7 +134,7 @@ class DateValue
      * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
      *                        depending on the value of the ReturnDateType flag
      */
-    private static function finalResults(array $PHPDateArray, DateTimeImmutable $dti, int $baseYear)
+    private static function finalResults(array $PHPDateArray, DateTimeImmutable $dti, int $baseYear): mixed
     {
         $retValue = ExcelError::Value();
         if (Helpers::dateParseSucceeded($PHPDateArray)) {

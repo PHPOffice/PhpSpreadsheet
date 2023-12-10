@@ -143,10 +143,8 @@ class DataValidation
 
     /**
      * Get Type.
-     *
-     * @return string
      */
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }
@@ -167,10 +165,8 @@ class DataValidation
 
     /**
      * Get Error style.
-     *
-     * @return string
      */
-    public function getErrorStyle()
+    public function getErrorStyle(): string
     {
         return $this->errorStyle;
     }
@@ -191,10 +187,8 @@ class DataValidation
 
     /**
      * Get Operator.
-     *
-     * @return string
      */
-    public function getOperator()
+    public function getOperator(): string
     {
         return $this->operator;
     }
@@ -215,10 +209,8 @@ class DataValidation
 
     /**
      * Get Allow Blank.
-     *
-     * @return bool
      */
-    public function getAllowBlank()
+    public function getAllowBlank(): bool
     {
         return $this->allowBlank;
     }
@@ -239,10 +231,8 @@ class DataValidation
 
     /**
      * Get Show DropDown.
-     *
-     * @return bool
      */
-    public function getShowDropDown()
+    public function getShowDropDown(): bool
     {
         return $this->showDropDown;
     }
@@ -263,10 +253,8 @@ class DataValidation
 
     /**
      * Get Show InputMessage.
-     *
-     * @return bool
      */
-    public function getShowInputMessage()
+    public function getShowInputMessage(): bool
     {
         return $this->showInputMessage;
     }
@@ -287,10 +275,8 @@ class DataValidation
 
     /**
      * Get Show ErrorMessage.
-     *
-     * @return bool
      */
-    public function getShowErrorMessage()
+    public function getShowErrorMessage(): bool
     {
         return $this->showErrorMessage;
     }
@@ -311,10 +297,8 @@ class DataValidation
 
     /**
      * Get Error title.
-     *
-     * @return string
      */
-    public function getErrorTitle()
+    public function getErrorTitle(): string
     {
         return $this->errorTitle;
     }
@@ -335,10 +319,8 @@ class DataValidation
 
     /**
      * Get Error.
-     *
-     * @return string
      */
-    public function getError()
+    public function getError(): string
     {
         return $this->error;
     }
@@ -359,10 +341,8 @@ class DataValidation
 
     /**
      * Get Prompt title.
-     *
-     * @return string
      */
-    public function getPromptTitle()
+    public function getPromptTitle(): string
     {
         return $this->promptTitle;
     }
@@ -383,10 +363,8 @@ class DataValidation
 
     /**
      * Get Prompt.
-     *
-     * @return string
      */
-    public function getPrompt()
+    public function getPrompt(): string
     {
         return $this->prompt;
     }

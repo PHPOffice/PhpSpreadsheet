@@ -38,10 +38,8 @@ class DggContainer
 
     /**
      * Get maximum shape index of all shapes in all drawings (plus one).
-     *
-     * @return int
      */
-    public function getSpIdMax()
+    public function getSpIdMax(): int
     {
         return $this->spIdMax;
     }
@@ -58,10 +56,8 @@ class DggContainer
 
     /**
      * Get total number of drawings saved.
-     *
-     * @return int
      */
-    public function getCDgSaved()
+    public function getCDgSaved(): int
     {
         return $this->cDgSaved;
     }
@@ -78,10 +74,8 @@ class DggContainer
 
     /**
      * Get total number of shapes saved (including group shapes).
-     *
-     * @return int
      */
-    public function getCSpSaved()
+    public function getCSpSaved(): int
     {
         return $this->cSpSaved;
     }
@@ -101,7 +95,7 @@ class DggContainer
      *
      * @return ?DggContainer\BstoreContainer
      */
-    public function getBstoreContainer()
+    public function getBstoreContainer(): ?DggContainer\BstoreContainer
     {
         return $this->bstoreContainer;
     }
@@ -130,10 +124,8 @@ class DggContainer
      * Get an option for the drawing group.
      *
      * @param int $property The number specifies the option
-     *
-     * @return mixed
      */
-    public function getOPT($property)
+    public function getOPT($property): mixed
     {
         if (isset($this->OPT[$property])) {
             return $this->OPT[$property];
@@ -144,10 +136,8 @@ class DggContainer
 
     /**
      * Get identifier clusters.
-     *
-     * @return array
      */
-    public function getIDCLs()
+    public function getIDCLs(): array
     {
         return $this->IDCLs;
     }

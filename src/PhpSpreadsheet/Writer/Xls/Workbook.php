@@ -246,7 +246,7 @@ class Workbook extends BIFFwriter
      *
      * @return int Index to FONT record
      */
-    public function addFont(\PhpOffice\PhpSpreadsheet\Style\Font $font)
+    public function addFont(\PhpOffice\PhpSpreadsheet\Style\Font $font): int
     {
         $fontHashCode = $font->getHashCode();
         if (isset($this->addedFonts[$fontHashCode])) {
@@ -272,7 +272,7 @@ class Workbook extends BIFFwriter
      *
      * @return int Color index
      */
-    private function addColor($rgb)
+    private function addColor($rgb): int
     {
         if (!isset($this->colors[$rgb])) {
             $color
@@ -921,10 +921,8 @@ class Workbook extends BIFFwriter
 
     /**
      * Stores the COUNTRY record for localization.
-     *
-     * @return string
      */
-    private function writeCountry()
+    private function writeCountry(): string
     {
         $record = 0x008C; // Record identifier
         $length = 4; // Number of bytes to follow
@@ -938,10 +936,8 @@ class Workbook extends BIFFwriter
 
     /**
      * Write the RECALCID record.
-     *
-     * @return string
      */
-    private function writeRecalcId()
+    private function writeRecalcId(): string
     {
         $record = 0x01C1; // Record identifier
         $length = 8; // Number of bytes to follow

@@ -78,10 +78,8 @@ class SpContainer
 
     /**
      * Get the parent Shape Group Container.
-     *
-     * @return SpgrContainer
      */
-    public function getParent()
+    public function getParent(): SpgrContainer
     {
         return $this->parent;
     }
@@ -98,10 +96,8 @@ class SpContainer
 
     /**
      * Get whether this is a group shape.
-     *
-     * @return bool
      */
-    public function getSpgr()
+    public function getSpgr(): bool
     {
         return $this->spgr;
     }
@@ -118,10 +114,8 @@ class SpContainer
 
     /**
      * Get the shape type.
-     *
-     * @return int
      */
-    public function getSpType()
+    public function getSpType(): int
     {
         return $this->spType;
     }
@@ -138,10 +132,8 @@ class SpContainer
 
     /**
      * Get the shape flag.
-     *
-     * @return int
      */
-    public function getSpFlag()
+    public function getSpFlag(): int
     {
         return $this->spFlag;
     }
@@ -158,10 +150,8 @@ class SpContainer
 
     /**
      * Get the shape index.
-     *
-     * @return int
      */
-    public function getSpId()
+    public function getSpId(): int
     {
         return $this->spId;
     }
@@ -180,10 +170,8 @@ class SpContainer
      * Get an option for the Shape Group Container.
      *
      * @param int $property The number specifies the option
-     *
-     * @return mixed
      */
-    public function getOPT($property)
+    public function getOPT($property): mixed
     {
         if (isset($this->OPT[$property])) {
             return $this->OPT[$property];
@@ -194,10 +182,8 @@ class SpContainer
 
     /**
      * Get the collection of options.
-     *
-     * @return array
      */
-    public function getOPTCollection()
+    public function getOPTCollection(): array
     {
         return $this->OPT;
     }
@@ -214,10 +200,8 @@ class SpContainer
 
     /**
      * Get cell coordinates of upper-left corner of shape.
-     *
-     * @return string
      */
-    public function getStartCoordinates()
+    public function getStartCoordinates(): string
     {
         return $this->startCoordinates;
     }
@@ -266,10 +250,8 @@ class SpContainer
 
     /**
      * Get cell coordinates of bottom-right corner of shape.
-     *
-     * @return string
      */
-    public function getEndCoordinates()
+    public function getEndCoordinates(): string
     {
         return $this->endCoordinates;
     }

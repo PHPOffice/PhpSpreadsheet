@@ -62,10 +62,8 @@ class Border extends Supervisor
     /**
      * Get the shared style component for the currently active cell in currently active sheet.
      * Only used for style supervisor.
-     *
-     * @return Border
      */
-    public function getSharedComponent()
+    public function getSharedComponent(): self
     {
         /** @var Style */
         $parent = $this->parent;
@@ -132,10 +130,8 @@ class Border extends Supervisor
 
     /**
      * Get Border style.
-     *
-     * @return string
      */
-    public function getBorderStyle()
+    public function getBorderStyle(): string
     {
         if ($this->isSupervisor) {
             return $this->getSharedComponent()->getBorderStyle();
@@ -173,10 +169,8 @@ class Border extends Supervisor
 
     /**
      * Get Border Color.
-     *
-     * @return Color
      */
-    public function getColor()
+    public function getColor(): Color
     {
         return $this->color;
     }

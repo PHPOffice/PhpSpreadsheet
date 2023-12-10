@@ -120,10 +120,8 @@ class Font extends Supervisor
     /**
      * Get the shared style component for the currently active cell in currently active sheet.
      * Only used for style supervisor.
-     *
-     * @return Font
      */
-    public function getSharedComponent()
+    public function getSharedComponent(): self
     {
         /** @var Style */
         $parent = $this->parent;
@@ -217,10 +215,8 @@ class Font extends Supervisor
 
     /**
      * Get Name.
-     *
-     * @return null|string
      */
-    public function getName()
+    public function getName(): ?string
     {
         if ($this->isSupervisor) {
             return $this->getSharedComponent()->getName();
@@ -332,10 +328,8 @@ class Font extends Supervisor
 
     /**
      * Get Size.
-     *
-     * @return null|float
      */
-    public function getSize()
+    public function getSize(): ?float
     {
         if ($this->isSupervisor) {
             return $this->getSharedComponent()->getSize();
@@ -377,10 +371,8 @@ class Font extends Supervisor
 
     /**
      * Get Bold.
-     *
-     * @return null|bool
      */
-    public function getBold()
+    public function getBold(): ?bool
     {
         if ($this->isSupervisor) {
             return $this->getSharedComponent()->getBold();
@@ -413,10 +405,8 @@ class Font extends Supervisor
 
     /**
      * Get Italic.
-     *
-     * @return null|bool
      */
-    public function getItalic()
+    public function getItalic(): ?bool
     {
         if ($this->isSupervisor) {
             return $this->getSharedComponent()->getItalic();
@@ -449,10 +439,8 @@ class Font extends Supervisor
 
     /**
      * Get Superscript.
-     *
-     * @return null|bool
      */
-    public function getSuperscript()
+    public function getSuperscript(): ?bool
     {
         if ($this->isSupervisor) {
             return $this->getSharedComponent()->getSuperscript();
@@ -483,10 +471,8 @@ class Font extends Supervisor
 
     /**
      * Get Subscript.
-     *
-     * @return null|bool
      */
-    public function getSubscript()
+    public function getSubscript(): ?bool
     {
         if ($this->isSupervisor) {
             return $this->getSharedComponent()->getSubscript();
@@ -620,10 +606,8 @@ class Font extends Supervisor
 
     /**
      * Get Underline.
-     *
-     * @return null|string
      */
-    public function getUnderline()
+    public function getUnderline(): ?string
     {
         if ($this->isSupervisor) {
             return $this->getSharedComponent()->getUnderline();
@@ -660,10 +644,8 @@ class Font extends Supervisor
 
     /**
      * Get Strikethrough.
-     *
-     * @return null|bool
      */
-    public function getStrikethrough()
+    public function getStrikethrough(): ?bool
     {
         if ($this->isSupervisor) {
             return $this->getSharedComponent()->getStrikethrough();
@@ -697,10 +679,8 @@ class Font extends Supervisor
 
     /**
      * Get Color.
-     *
-     * @return Color
      */
-    public function getColor()
+    public function getColor(): Color
     {
         return $this->color;
     }

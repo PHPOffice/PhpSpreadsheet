@@ -3924,7 +3924,7 @@ class Xls extends BaseReader
      *
      * @return string The string contents as UTF-8
      */
-    private function readString()
+    private function readString(): string
     {
         $length = self::getUInt2d($this->data, $this->pos + 2);
         $recordData = $this->readRecordData($this->data, $this->pos + 4, $length);
@@ -7117,10 +7117,8 @@ class Xls extends BaseReader
      * function will automatically find out where the Unicode string ends.
      *
      * @param string $subData
-     *
-     * @return array
      */
-    private static function readUnicodeStringShort($subData)
+    private static function readUnicodeStringShort($subData): array
     {
         $value = '';
 
@@ -7141,10 +7139,8 @@ class Xls extends BaseReader
      * this function is under construction, needs to support rich text, and Asian phonetic settings.
      *
      * @param string $subData
-     *
-     * @return array
      */
-    private static function readUnicodeStringLong($subData)
+    private static function readUnicodeStringLong($subData): array
     {
         $value = '';
 
@@ -7319,10 +7315,8 @@ class Xls extends BaseReader
      *
      * @param string $data
      * @param int $pos
-     *
-     * @return int
      */
-    public static function getInt2d($data, $pos)
+    public static function getInt2d($data, $pos): int
     {
         return unpack('s', $data[$pos] . $data[$pos + 1])[1]; // @phpstan-ignore-line
     }

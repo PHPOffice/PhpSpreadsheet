@@ -75,10 +75,8 @@ class BIFFwriter
     /**
      * Determine the byte order and store it as class data to avoid
      * recalculating it for each call to new().
-     *
-     * @return int
      */
-    public static function getByteOrder()
+    public static function getByteOrder(): int
     {
         if (!isset(self::$byteOrder)) {
             // Check if "pack" gives the required IEEE 64bit float
@@ -116,10 +114,8 @@ class BIFFwriter
      * General storage function like append, but returns string instead of modifying $this->_data.
      *
      * @param string $data binary data to write
-     *
-     * @return string
      */
-    public function writeData($data)
+    public function writeData($data): string
     {
         if (strlen($data) - 4 > $this->limit) {
             $data = $this->addContinue($data);
@@ -190,7 +186,7 @@ class BIFFwriter
      *
      * @return string A very convenient string of continue blocks
      */
-    private function addContinue($data)
+    private function addContinue($data): string
     {
         $limit = $this->limit;
         $record = 0x003C; // Record identifier

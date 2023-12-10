@@ -232,10 +232,8 @@ class BitWise
 
     /**
      * Validate arguments passed to the bitwise functions.
-     *
-     * @return int
      */
-    private static function validateShiftAmount(mixed $value)
+    private static function validateShiftAmount(mixed $value): int
     {
         $value = self::nullFalseTrueToNumber($value);
 
@@ -252,10 +250,8 @@ class BitWise
 
     /**
      * Many functions accept null/false/true argument treated as 0/0/1.
-     *
-     * @return mixed
      */
-    private static function nullFalseTrueToNumber(mixed &$number)
+    private static function nullFalseTrueToNumber(mixed &$number): mixed
     {
         if ($number === null) {
             $number = 0;

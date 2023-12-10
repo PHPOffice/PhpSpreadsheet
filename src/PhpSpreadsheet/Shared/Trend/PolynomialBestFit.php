@@ -23,10 +23,8 @@ class PolynomialBestFit extends BestFit
 
     /**
      * Return the order of this polynomial.
-     *
-     * @return int
      */
-    public function getOrder()
+    public function getOrder(): int
     {
         return $this->order;
     }
@@ -38,7 +36,7 @@ class PolynomialBestFit extends BestFit
      *
      * @return float Y-Value
      */
-    public function getValueOfYForX($xValue)
+    public function getValueOfYForX($xValue): float
     {
         $retVal = $this->getIntersect();
         $slope = $this->getSlope();
@@ -60,7 +58,7 @@ class PolynomialBestFit extends BestFit
      *
      * @return float X-Value
      */
-    public function getValueOfXForY($yValue): int|float
+    public function getValueOfXForY($yValue): float
     {
         return ($yValue - $this->getIntersect()) / $this->getSlope();
     }
@@ -94,10 +92,8 @@ class PolynomialBestFit extends BestFit
      * Return the Slope of the line.
      *
      * @param int $dp Number of places of decimal precision to display
-     *
-     * @return float
      */
-    public function getSlope($dp = 0)
+    public function getSlope($dp = 0): float
     {
         if ($dp != 0) {
             $coefficients = [];

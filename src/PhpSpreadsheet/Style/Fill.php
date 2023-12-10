@@ -85,10 +85,8 @@ class Fill extends Supervisor
     /**
      * Get the shared style component for the currently active cell in currently active sheet.
      * Only used for style supervisor.
-     *
-     * @return Fill
      */
-    public function getSharedComponent()
+    public function getSharedComponent(): self
     {
         /** @var Style */
         $parent = $this->parent;
@@ -156,10 +154,8 @@ class Fill extends Supervisor
 
     /**
      * Get Fill Type.
-     *
-     * @return null|string
      */
-    public function getFillType()
+    public function getFillType(): ?string
     {
         if ($this->isSupervisor) {
             return $this->getSharedComponent()->getFillType();
@@ -189,10 +185,8 @@ class Fill extends Supervisor
 
     /**
      * Get Rotation.
-     *
-     * @return float
      */
-    public function getRotation()
+    public function getRotation(): float
     {
         if ($this->isSupervisor) {
             return $this->getSharedComponent()->getRotation();
@@ -222,10 +216,8 @@ class Fill extends Supervisor
 
     /**
      * Get Start Color.
-     *
-     * @return Color
      */
-    public function getStartColor()
+    public function getStartColor(): Color
     {
         return $this->startColor;
     }
@@ -253,10 +245,8 @@ class Fill extends Supervisor
 
     /**
      * Get End Color.
-     *
-     * @return Color
      */
-    public function getEndColor()
+    public function getEndColor(): Color
     {
         return $this->endColor;
     }

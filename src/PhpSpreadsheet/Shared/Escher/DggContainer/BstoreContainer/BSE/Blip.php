@@ -18,10 +18,8 @@ class Blip
 
     /**
      * Get the raw image data.
-     *
-     * @return string
      */
-    public function getData()
+    public function getData(): string
     {
         return $this->data;
     }

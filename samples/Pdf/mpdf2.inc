@@ -17,10 +17,8 @@ class Mpdf2 extends Mpdf
      * Other configuration options may be specified here.
      *
      * @param array $config Configuration array
-     *
-     * @return \Mpdf\Mpdf implementation
      */
-    protected function createExternalWriterInstance($config)
+    protected function createExternalWriterInstance($config): \Mpdf\Mpdf
     {
         $defaultConfig = (new \Mpdf\Config\ConfigVariables())->getDefaults();
         $fontDirs = $defaultConfig['fontDir'];

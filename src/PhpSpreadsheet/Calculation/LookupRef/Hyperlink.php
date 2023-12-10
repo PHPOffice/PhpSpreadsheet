@@ -20,7 +20,7 @@ class Hyperlink
      *
      * @return mixed The value of $displayName (or $linkURL if $displayName was blank)
      */
-    public static function set(mixed $linkURL = '', mixed $displayName = null, ?Cell $cell = null)
+    public static function set(mixed $linkURL = '', mixed $displayName = null, ?Cell $cell = null): mixed
     {
         $linkURL = ($linkURL === null) ? '' : Functions::flattenSingleValue($linkURL);
         $displayName = ($displayName === null) ? '' : Functions::flattenSingleValue($displayName);

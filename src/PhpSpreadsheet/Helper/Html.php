@@ -607,10 +607,8 @@ class Html
 
     /**
      * Parse HTML formatting and return the resulting RichText.
-     *
-     * @return RichText
      */
-    public function toRichTextObject(string $html)
+    public function toRichTextObject(string $html): RichText
     {
         $this->initialise();
 

@@ -18,7 +18,7 @@ class Service
      *
      * @return string the output resulting from a call to the webservice
      */
-    public static function webService(string $url)
+    public static function webService(string $url): string
     {
         $url = trim($url);
         if (strlen($url) > 2048) {

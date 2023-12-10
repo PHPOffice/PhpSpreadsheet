@@ -81,7 +81,7 @@ abstract class Coordinate
      *
      * @return string Absolute coordinate        e.g. '$A' or '$1' or '$A$1'
      */
-    public static function absoluteReference($cellAddress)
+    public static function absoluteReference($cellAddress): string
     {
         if (self::coordinateIsRange($cellAddress)) {
             throw new Exception('Cell coordinate string can not be a range of cells');
@@ -111,7 +111,7 @@ abstract class Coordinate
      *
      * @return string Absolute coordinate        e.g. '$A$1'
      */
-    public static function absoluteCoordinate(string $cellAddress)
+    public static function absoluteCoordinate(string $cellAddress): string
     {
         if (self::coordinateIsRange($cellAddress)) {
             throw new Exception('Cell coordinate string can not be a range of cells');
@@ -140,7 +140,7 @@ abstract class Coordinate
      *                                e.g. ['B4','D9'] or [['B4','D9'], ['H2','O11']]
      *                                        or ['B4']
      */
-    public static function splitRange($range)
+    public static function splitRange($range): array
     {
         // Ensure $pRange is a valid range
         if (empty($range)) {
@@ -163,7 +163,7 @@ abstract class Coordinate
      *
      * @return string String representation of $pRange
      */
-    public static function buildRange(array $range)
+    public static function buildRange(array $range): string
     {
         // Verify range
         if (empty($range) || !is_array($range[0])) {
@@ -232,7 +232,7 @@ abstract class Coordinate
      *
      * @return array Range dimension (width, height)
      */
-    public static function rangeDimension(string $range)
+    public static function rangeDimension(string $range): array
     {
         // Calculate range outer borders
         [$rangeStart, $rangeEnd] = self::rangeBoundaries($range);
@@ -248,7 +248,7 @@ abstract class Coordinate
      * @return array Range coordinates [Start Cell, End Cell]
      *                    where Start Cell and End Cell are arrays [Column ID, Row Number]
      */
-    public static function getRangeBoundaries(string $range)
+    public static function getRangeBoundaries(string $range): array
     {
         [$rangeA, $rangeB] = self::rangeBoundaries($range);
 
@@ -424,7 +424,7 @@ abstract class Coordinate
      *
      * @return array All individual cells in that range
      */
-    private static function getReferencesForCellBlock($cellBlock)
+    private static function getReferencesForCellBlock($cellBlock): array
     {
         $returnValue = [];
 
@@ -488,7 +488,7 @@ abstract class Coordinate
      *
      * @return array associative array mapping coordinate ranges to valuea
      */
-    public static function mergeRangesInCollection(array $coordinateCollection)
+    public static function mergeRangesInCollection(array $coordinateCollection): array
     {
         $hashedValues = [];
         $mergedCoordCollection = [];
@@ -565,7 +565,7 @@ abstract class Coordinate
      *
      * @return array[]
      */
-    private static function getCellBlocksFromRangeString($rangeString)
+    private static function getCellBlocksFromRangeString($rangeString): array
     {
         $rangeString = str_replace('$', '', strtoupper($rangeString));
 

@@ -22,7 +22,7 @@ class Style extends WriterPart
      *
      * @return string XML Output
      */
-    public function writeStyles(Spreadsheet $spreadsheet)
+    public function writeStyles(Spreadsheet $spreadsheet): string
     {
         // Create XML writer
         $objWriter = null;
@@ -608,7 +608,7 @@ class Style extends WriterPart
      *
      * @return \PhpOffice\PhpSpreadsheet\Style\Style[] All styles in PhpSpreadsheet
      */
-    public function allStyles(Spreadsheet $spreadsheet)
+    public function allStyles(Spreadsheet $spreadsheet): array
     {
         return $spreadsheet->getCellXfCollection();
     }
@@ -640,7 +640,7 @@ class Style extends WriterPart
      *
      * @return Fill[] All fills in PhpSpreadsheet
      */
-    public function allFills(Spreadsheet $spreadsheet)
+    public function allFills(Spreadsheet $spreadsheet): array
     {
         // Get an array of unique fills
         $aFills = [];

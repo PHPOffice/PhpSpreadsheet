@@ -85,10 +85,8 @@ class Title
 
     /**
      * Get allow overlay of other elements?
-     *
-     * @return bool
      */
-    public function getOverlay()
+    public function getOverlay(): bool
     {
         return $this->overlay;
     }

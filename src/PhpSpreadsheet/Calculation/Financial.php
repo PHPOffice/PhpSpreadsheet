@@ -867,10 +867,8 @@ class Financial
      * @see Financial\CashFlow\Variable\Periodic::presentValue()
      *
      * @param array $args
-     *
-     * @return float
      */
-    public static function NPV(...$args)
+    public static function NPV(...$args): float
     {
         return Financial\CashFlow\Variable\Periodic::presentValue(...$args);
     }

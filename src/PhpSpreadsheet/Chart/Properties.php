@@ -139,10 +139,8 @@ abstract class Properties
 
     /**
      * Get Object State.
-     *
-     * @return bool
      */
-    public function getObjectState()
+    public function getObjectState(): bool
     {
         return $this->objectState;
     }
@@ -416,10 +414,8 @@ abstract class Properties
 
     /**
      * Get value of array element.
-     *
-     * @return mixed
      */
-    protected function getArrayElementsValue(mixed $properties, mixed $elements)
+    protected function getArrayElementsValue(mixed $properties, mixed $elements): mixed
     {
         $reference = &$properties;
         if (!is_array($elements)) {
@@ -502,7 +498,7 @@ abstract class Properties
      *
      * @return ?float
      */
-    public function getGlowSize()
+    public function getGlowSize(): ?float
     {
         return $this->glowSize;
     }
@@ -536,10 +532,8 @@ abstract class Properties
 
     /**
      * Get Soft Edges Size.
-     *
-     * @return string
      */
-    public function getSoftEdgesSize()
+    public function getSoftEdgesSize(): ?float
     {
         return $this->softEdges['size'];
     }
@@ -895,10 +889,8 @@ abstract class Properties
      * Get Line Style Property.
      *
      * @param array|string $elements
-     *
-     * @return string
      */
-    public function getLineStyleProperty($elements)
+    public function getLineStyleProperty($elements): ?string
     {
         return $this->getArrayElementsValue($this->lineStyleProperties, $elements);
     }
@@ -920,10 +912,8 @@ abstract class Properties
      *
      * @param int $arraySelector
      * @param string $arrayKaySelector
-     *
-     * @return string
      */
-    protected function getLineStyleArrowSize($arraySelector, $arrayKaySelector)
+    protected function getLineStyleArrowSize($arraySelector, $arrayKaySelector): string
     {
         return self::ARROW_SIZES[$arraySelector][$arrayKaySelector] ?? '';
     }
@@ -933,10 +923,8 @@ abstract class Properties
      *
      * @param string $arrowSelector
      * @param string $propertySelector
-     *
-     * @return string
      */
-    public function getLineStyleArrowParameters($arrowSelector, $propertySelector)
+    public function getLineStyleArrowParameters($arrowSelector, $propertySelector): string
     {
         return $this->getLineStyleArrowSize($this->lineStyleProperties['arrow'][$arrowSelector]['size'], $propertySelector);
     }
@@ -945,10 +933,8 @@ abstract class Properties
      * Get Line Style Arrow Width.
      *
      * @param string $arrow
-     *
-     * @return string
      */
-    public function getLineStyleArrowWidth($arrow)
+    public function getLineStyleArrowWidth($arrow): ?string
     {
         return $this->getLineStyleProperty(['arrow', $arrow, 'w']);
     }
@@ -957,10 +943,8 @@ abstract class Properties
      * Get Line Style Arrow Excel Length.
      *
      * @param string $arrow
-     *
-     * @return string
      */
-    public function getLineStyleArrowLength($arrow)
+    public function getLineStyleArrowLength($arrow): ?string
     {
         return $this->getLineStyleProperty(['arrow', $arrow, 'len']);
     }

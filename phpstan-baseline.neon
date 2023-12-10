@@ -1166,11 +1166,6 @@ parameters:
 			path: src/PhpSpreadsheet/Chart/DataSeriesValues.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\DataSeriesValues\\:\\:getDataValues\\(\\) should return array but returns array\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Chart/DataSeriesValues.php
-
-		-
 			message: "#^Offset 0 does not exist on array\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Chart/DataSeriesValues.php
@@ -1179,6 +1174,11 @@ parameters:
 			message: "#^Parameter \\#1 \\$value of function count expects array\\|Countable, array\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Chart/DataSeriesValues.php
+
+		-
+			message: "#^Cannot access property \\$color on SimpleXMLElement\\|null\\.$#"
+			count: 2
+			path: src/PhpSpreadsheet/Reader/Xlsx/Styles.php
 
 		-
 			message: "#^Cannot call method beforeCellAddress\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\CellReferenceHelper\\|null\\.$#"
@@ -1206,9 +1206,24 @@ parameters:
 			path: src/PhpSpreadsheet/Worksheet/Validations.php
 
 		-
+			message: "#^Argument of an invalid type array\\|null supplied for foreach, only iterables are supported\\.$#"
+			count: 3
+			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
+
+		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Chart\\:\\:getChartType\\(\\) should return array\\<string\\> but returns array\\<int\\<0, max\\>, string\\|null\\>\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
+
+		-
+			message: "#^Parameter \\#2 \\$array of function array_key_exists expects array, array\\|null given\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
+
+		-
+			message: "#^Offset 0 does not exist on array\\|null\\.$#"
+			count: 1
+			path: tests/PhpSpreadsheetTests/Reader/Xlsx/Issue3767Test.php
 
 		-
 			message: "#^Parameter \\#2 \\$value of function ini_set expects string, int given\\.$#"

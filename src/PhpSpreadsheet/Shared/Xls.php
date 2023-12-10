@@ -18,7 +18,7 @@ class Xls
      *
      * @return int The width in pixels
      */
-    public static function sizeCol(Worksheet $worksheet, $col = 'A')
+    public static function sizeCol(Worksheet $worksheet, $col = 'A'): int
     {
         // default font of the workbook
         $font = $worksheet->getParentOrThrow()->getDefaultStyle()->getFont();

@@ -152,10 +152,8 @@ class Html extends BaseWriter
 
     /**
      * Save Spreadsheet as html to variable.
-     *
-     * @return string
      */
-    public function generateHtmlAll()
+    public function generateHtmlAll(): string
     {
         // garbage collect
         $this->spreadsheet->garbageCollect();
@@ -274,10 +272,8 @@ class Html extends BaseWriter
 
     /**
      * Get sheet index.
-     *
-     * @return bool
      */
-    public function getGenerateSheetNavigationBlock()
+    public function getGenerateSheetNavigationBlock(): bool
     {
         return $this->generateSheetNavigationBlock;
     }
@@ -613,10 +609,8 @@ class Html extends BaseWriter
      * Convert Windows file name to file protocol URL.
      *
      * @param string $filename file name on local system
-     *
-     * @return string
      */
-    public static function winFileToUrl($filename, bool $mpdf = false)
+    public static function winFileToUrl($filename, bool $mpdf = false): string
     {
         // Windows filename
         if (substr($filename, 1, 2) === ':\\') {
@@ -901,10 +895,8 @@ class Html extends BaseWriter
      * Build CSS styles.
      *
      * @param bool $generateSurroundingHTML Generate surrounding HTML style? (html { })
-     *
-     * @return array
      */
-    public function buildCSS($generateSurroundingHTML = true)
+    public function buildCSS($generateSurroundingHTML = true): array
     {
         // Cached?
         if ($this->cssStyles !== null) {
@@ -1105,10 +1097,8 @@ class Html extends BaseWriter
      * Create CSS style (Fill).
      *
      * @param Fill $fill Fill
-     *
-     * @return array
      */
-    private function createCSSStyleFill(Fill $fill)
+    private function createCSSStyleFill(Fill $fill): array
     {
         // Construct HTML
         $css = [];
@@ -1172,10 +1162,8 @@ class Html extends BaseWriter
      *
      * @param Worksheet $worksheet The worksheet for the table we are writing
      * @param bool $showid whether or not to add id to table tag
-     *
-     * @return string
      */
-    private function generateTableHeader(Worksheet $worksheet, bool $showid = true)
+    private function generateTableHeader(Worksheet $worksheet, bool $showid = true): string
     {
         $sheetIndex = $worksheet->getParentOrThrow()->getIndex($worksheet);
 
@@ -1547,10 +1535,8 @@ class Html extends BaseWriter
 
     /**
      * Get images root.
-     *
-     * @return string
      */
-    public function getImagesRoot()
+    public function getImagesRoot(): string
     {
         return $this->imagesRoot;
     }
@@ -1571,10 +1557,8 @@ class Html extends BaseWriter
 
     /**
      * Get embed images.
-     *
-     * @return bool
      */
-    public function getEmbedImages()
+    public function getEmbedImages(): bool
     {
         return $this->embedImages;
     }
@@ -1595,10 +1579,8 @@ class Html extends BaseWriter
 
     /**
      * Get use inline CSS?
-     *
-     * @return bool
      */
-    public function getUseInlineCss()
+    public function getUseInlineCss(): bool
     {
         return $this->useInlineCss;
     }
@@ -1620,13 +1602,11 @@ class Html extends BaseWriter
     /**
      * Get use embedded CSS?
      *
-     * @return bool
-     *
      * @codeCoverageIgnore
      *
      * @deprecated no longer used
      */
-    public function getUseEmbeddedCSS()
+    public function getUseEmbeddedCSS(): bool
     {
         return $this->useEmbeddedCSS;
     }

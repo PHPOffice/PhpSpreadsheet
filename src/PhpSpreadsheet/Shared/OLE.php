@@ -243,10 +243,8 @@ class OLE
      * Reads a signed char.
      *
      * @param resource $fileHandle file handle
-     *
-     * @return int
      */
-    private static function readInt1($fileHandle)
+    private static function readInt1($fileHandle): int
     {
         [, $tmp] = unpack('c', fread($fileHandle, 1) ?: '') ?: [0, 0];
 
@@ -257,10 +255,8 @@ class OLE
      * Reads an unsigned short (2 octets).
      *
      * @param resource $fileHandle file handle
-     *
-     * @return int
      */
-    private static function readInt2($fileHandle)
+    private static function readInt2($fileHandle): int
     {
         [, $tmp] = unpack('v', fread($fileHandle, 2) ?: '') ?: [0, 0];
 
@@ -275,10 +271,8 @@ class OLE
      * Reads long (4 octets), interpreted as if signed on 32-bit system.
      *
      * @param resource $fileHandle file handle
-     *
-     * @return int
      */
-    private static function readInt4($fileHandle)
+    private static function readInt4($fileHandle): int
     {
         [, $tmp] = unpack('V', fread($fileHandle, 4) ?: '') ?: [0, 0];
         if ($tmp >= self::SIGNED_4OCTET_LIMIT) {
@@ -463,7 +457,7 @@ class OLE
      *
      * @return int The amount of bytes in data the PPS has
      */
-    public function getDataLength($index)
+    public function getDataLength($index): int
     {
         if (isset($this->_list[$index])) {
             return $this->_list[$index]->Size;

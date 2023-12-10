@@ -490,7 +490,7 @@ class ConvertUOM
      *
      * @return mixed[]
      */
-    public static function getConversionMultipliers()
+    public static function getConversionMultipliers(): array
     {
         return self::$conversionMultipliers;
     }
@@ -501,7 +501,7 @@ class ConvertUOM
      *
      * @return mixed[]
      */
-    public static function getBinaryConversionMultipliers()
+    public static function getBinaryConversionMultipliers(): array
     {
         return self::$binaryConversionMultipliers;
     }

@@ -300,10 +300,8 @@ class Font
 
     /**
      * Get autoSize method.
-     *
-     * @return string
      */
-    public static function getAutoSizeMethod()
+    public static function getAutoSizeMethod(): string
     {
         return self::$autoSizeMethod;
     }
@@ -326,10 +324,8 @@ class Font
 
     /**
      * Get the path to the folder containing .ttf files.
-     *
-     * @return string
      */
-    public static function getTrueTypeFontPath()
+    public static function getTrueTypeFontPath(): string
     {
         return self::$trueTypeFontPath;
     }
@@ -553,7 +549,7 @@ class Font
      *
      * @return string Path to TrueType font file
      */
-    public static function getTrueTypeFontFileFromFont(FontStyle $font, bool $checkPath = true)
+    public static function getTrueTypeFontFileFromFont(FontStyle $font, bool $checkPath = true): string
     {
         if ($checkPath && (!file_exists(self::$trueTypeFontPath) || !is_dir(self::$trueTypeFontPath))) {
             throw new PhpSpreadsheetException('Valid directory to TrueType Font files not specified');

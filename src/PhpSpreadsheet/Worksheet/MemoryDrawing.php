@@ -263,10 +263,8 @@ class MemoryDrawing extends BaseDrawing
 
     /**
      * Get rendering function.
-     *
-     * @return string
      */
-    public function getRenderingFunction()
+    public function getRenderingFunction(): string
     {
         return $this->renderingFunction;
     }
@@ -287,10 +285,8 @@ class MemoryDrawing extends BaseDrawing
 
     /**
      * Get mime type.
-     *
-     * @return string
      */
-    public function getMimeType()
+    public function getMimeType(): string
     {
         return $this->mimeType;
     }

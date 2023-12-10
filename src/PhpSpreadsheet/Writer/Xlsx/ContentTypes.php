@@ -18,7 +18,7 @@ class ContentTypes extends WriterPart
      *
      * @return string XML Output
      */
-    public function writeContentTypes(Spreadsheet $spreadsheet, $includeCharts = false)
+    public function writeContentTypes(Spreadsheet $spreadsheet, $includeCharts = false): string
     {
         // Create XML writer
         $objWriter = null;

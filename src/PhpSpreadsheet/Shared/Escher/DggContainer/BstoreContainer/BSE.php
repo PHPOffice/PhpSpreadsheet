@@ -48,7 +48,7 @@ class BSE
      *
      * @return ?BSE\Blip
      */
-    public function getBlip()
+    public function getBlip(): ?BSE\Blip
     {
         return $this->blip;
     }
@@ -64,10 +64,8 @@ class BSE
 
     /**
      * Get the BLIP type.
-     *
-     * @return int
      */
-    public function getBlipType()
+    public function getBlipType(): int
     {
         return $this->blipType;
     }

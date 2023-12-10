@@ -335,10 +335,8 @@ class Xf
      * Map to BIFF8 codes for text rotation angle.
      *
      * @param int $textRotation
-     *
-     * @return int
      */
-    private static function mapTextRotation($textRotation)
+    private static function mapTextRotation($textRotation): int
     {
         if ($textRotation >= 0) {
             return $textRotation;

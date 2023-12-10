@@ -213,10 +213,8 @@ class Rule
 
     /**
      * Get AutoFilter Rule Type.
-     *
-     * @return string
      */
-    public function getRuleType()
+    public function getRuleType(): string
     {
         return $this->ruleType;
     }
@@ -285,10 +283,8 @@ class Rule
 
     /**
      * Get AutoFilter Rule Operator.
-     *
-     * @return string
      */
-    public function getOperator()
+    public function getOperator(): string
     {
         return $this->operator;
     }
@@ -319,10 +315,8 @@ class Rule
 
     /**
      * Get AutoFilter Rule Grouping.
-     *
-     * @return string
      */
-    public function getGrouping()
+    public function getGrouping(): string
     {
         return $this->grouping;
     }
@@ -379,7 +373,7 @@ class Rule
      *
      * @return ?Column
      */
-    public function getParent()
+    public function getParent(): ?Column
     {
         return $this->parent;
     }

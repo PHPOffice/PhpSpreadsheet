@@ -18,7 +18,7 @@ class Workbook extends WriterPart
      *
      * @return string XML Output
      */
-    public function writeWorkbook(Spreadsheet $spreadsheet, $recalcRequired = false)
+    public function writeWorkbook(Spreadsheet $spreadsheet, $recalcRequired = false): string
     {
         // Create XML writer
         if ($this->getParentWriter()->getUseDiskCaching()) {

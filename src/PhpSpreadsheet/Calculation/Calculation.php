@@ -216,8 +216,7 @@ class Calculation
         return array_key_exists($key, self::$excelConstants);
     }
 
-    /** @return mixed */
-    public static function getExcelConstants(string $key)
+    public static function getExcelConstants(string $key): mixed
     {
         return self::$excelConstants[$key];
     }
@@ -2938,10 +2937,8 @@ class Calculation
 
     /**
      * Get the Logger for this calculation engine instance.
-     *
-     * @return Logger
      */
-    public function getDebugLog()
+    public function getDebugLog(): Logger
     {
         return $this->debugLog;
     }
@@ -3001,17 +2998,15 @@ class Calculation
      *
      * @return string $returnType Array return type
      */
-    public static function getArrayReturnType()
+    public static function getArrayReturnType(): string
     {
         return self::$returnArrayAsType;
     }
 
     /**
      * Is calculation caching enabled?
-     *
-     * @return bool
      */
-    public function getCalculationCacheEnabled()
+    public function getCalculationCacheEnabled(): bool
     {
         return $this->calculationCacheEnabled;
     }
@@ -3098,10 +3093,8 @@ class Calculation
 
     /**
      * Get the currently defined locale code.
-     *
-     * @return string
      */
-    public function getLocale()
+    public function getLocale(): string
     {
         return self::$localeLanguage;
     }
@@ -3365,10 +3358,8 @@ class Calculation
 
     /**
      * @param string $function
-     *
-     * @return string
      */
-    public static function localeFunc($function)
+    public static function localeFunc($function): string
     {
         if (self::$localeLanguage !== 'en_us') {
             $functionName = trim($function, '(');
@@ -3386,10 +3377,8 @@ class Calculation
 
     /**
      * Wrap string values in quotes.
-     *
-     * @return mixed
      */
-    public static function wrapResult(mixed $value)
+    public static function wrapResult(mixed $value): mixed
     {
         if (is_string($value)) {
             //    Error values cannot be "wrapped"
@@ -3410,10 +3399,8 @@ class Calculation
 
     /**
      * Remove quotes used as a wrapper to identify string values.
-     *
-     * @return mixed
      */
-    public static function unwrapResult(mixed $value)
+    public static function unwrapResult(mixed $value): mixed
     {
         if (is_string($value)) {
             if ((isset($value[0])) && ($value[0] == self::FORMULA_STRING_QUOTE) && (substr($value, -1) == self::FORMULA_STRING_QUOTE)) {
@@ -3432,10 +3419,8 @@ class Calculation
      * Retained for backward compatibility.
      *
      * @param Cell $cell Cell to calculate
-     *
-     * @return mixed
      */
-    public function calculate(?Cell $cell = null)
+    public function calculate(?Cell $cell = null): mixed
     {
         try {
             return $this->calculateCellValue($cell);
@@ -3449,10 +3434,8 @@ class Calculation
      *
      * @param Cell $cell Cell to calculate
      * @param bool $resetLog Flag indicating whether the debug log should be reset or not
-     *
-     * @return mixed
      */
-    public function calculateCellValue(?Cell $cell = null, $resetLog = true)
+    public function calculateCellValue(?Cell $cell = null, $resetLog = true): mixed
     {
         if ($cell === null) {
             return null;
@@ -3572,10 +3555,8 @@ class Calculation
      * @param string $formula Formula to parse
      * @param string $cellID Address of the cell to calculate
      * @param Cell $cell Cell to calculate
-     *
-     * @return mixed
      */
-    public function calculateFormula($formula, $cellID = null, ?Cell $cell = null)
+    public function calculateFormula($formula, $cellID = null, ?Cell $cell = null): mixed
     {
         //    Initialise the logging settings
         $this->formulaError = null;
@@ -3641,10 +3622,8 @@ class Calculation
      * @param string $cellID The ID (e.g. A3) of the cell that we are calculating
      * @param Cell $cell Cell to calculate
      * @param bool $ignoreQuotePrefix If set to true, evaluate the formyla even if the referenced cell is quote prefixed
-     *
-     * @return mixed
      */
-    public function _calculateFormulaValue($formula, $cellID = null, ?Cell $cell = null, bool $ignoreQuotePrefix = false)
+    public function _calculateFormulaValue($formula, $cellID = null, ?Cell $cell = null, bool $ignoreQuotePrefix = false): mixed
     {
         $cellValue = null;
 
@@ -3875,10 +3854,8 @@ class Calculation
      * Format details of an operand for display in the log (based on operand type).
      *
      * @param mixed $value First matrix operand
-     *
-     * @return mixed
      */
-    private function showValue(mixed $value)
+    private function showValue(mixed $value): mixed
     {
         if ($this->debugLog->getWriteDebugLog()) {
             $testArray = Functions::flattenArray($value);
@@ -4536,10 +4513,7 @@ class Calculation
         return $output;
     }
 
-    /**
-     * @return mixed
-     */
-    private static function dataTestReference(array &$operandData)
+    private static function dataTestReference(array &$operandData): mixed
     {
         $operand = $operandData['value'];
         if (($operandData['reference'] === null) && (is_array($operand))) {
@@ -5565,7 +5539,7 @@ class Calculation
     /**
      * @return null|mixed
      */
-    private function getArgumentDefaultValue(ReflectionParameter $methodArgument)
+    private function getArgumentDefaultValue(ReflectionParameter $methodArgument): mixed
     {
         $defaultValue = null;
 
@@ -5678,10 +5652,7 @@ class Calculation
         return $this->suppressFormulaErrorsNew;
     }
 
-    /**
-     * @return mixed
-     */
-    private static function boolToString(mixed $operand1)
+    private static function boolToString(mixed $operand1): mixed
     {
         if (is_bool($operand1)) {
             $operand1 = ($operand1) ? self::$localeBoolean['TRUE'] : self::$localeBoolean['FALSE'];

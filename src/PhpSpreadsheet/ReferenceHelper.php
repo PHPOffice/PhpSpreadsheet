@@ -31,10 +31,8 @@ class ReferenceHelper
 
     /**
      * Get an instance of this class.
-     *
-     * @return ReferenceHelper
      */
-    public static function getInstance()
+    public static function getInstance(): self
     {
         if (self::$instance === null) {
             self::$instance = new self();
@@ -839,7 +837,7 @@ class ReferenceHelper
      *
      * @return string Updated cell range
      */
-    private function updateCellReference($cellReference = 'A1', bool $includeAbsoluteReferences = false, bool $onlyAbsoluteReferences = false)
+    private function updateCellReference($cellReference = 'A1', bool $includeAbsoluteReferences = false, bool $onlyAbsoluteReferences = false): string
     {
         // Is it in another worksheet? Will not have to update anything.
         if (str_contains($cellReference, '!')) {

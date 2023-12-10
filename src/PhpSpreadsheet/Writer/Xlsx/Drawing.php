@@ -20,7 +20,7 @@ class Drawing extends WriterPart
      *
      * @return string XML Output
      */
-    public function writeDrawings(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $worksheet, $includeCharts = false)
+    public function writeDrawings(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $worksheet, $includeCharts = false): string
     {
         // Create XML writer
         $objWriter = null;
@@ -356,7 +356,7 @@ class Drawing extends WriterPart
      *
      * @return string XML Output
      */
-    public function writeVMLHeaderFooterImages(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $worksheet)
+    public function writeVMLHeaderFooterImages(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $worksheet): string
     {
         // Create XML writer
         $objWriter = null;

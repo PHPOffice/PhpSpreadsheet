@@ -114,7 +114,7 @@ class Formatter
      *
      * @return string Formatted string
      */
-    public static function toFormattedString($value, $format, $callBack = null)
+    public static function toFormattedString($value, $format, $callBack = null): string
     {
         if (is_bool($value)) {
             return $value ? Calculation::getTRUE() : Calculation::getFALSE();

@@ -14,7 +14,7 @@ class Comments extends WriterPart
      *
      * @return string XML Output
      */
-    public function writeComments(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $worksheet)
+    public function writeComments(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $worksheet): string
     {
         // Create XML writer
         $objWriter = null;
@@ -90,7 +90,7 @@ class Comments extends WriterPart
      *
      * @return string XML Output
      */
-    public function writeVMLComments(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $worksheet)
+    public function writeVMLComments(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $worksheet): string
     {
         // Create XML writer
         $objWriter = null;

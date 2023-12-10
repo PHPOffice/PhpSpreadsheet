@@ -66,10 +66,8 @@ class Cells
 
     /**
      * Return the parent worksheet for this cell collection.
-     *
-     * @return null|Worksheet
      */
-    public function getParent()
+    public function getParent(): ?Worksheet
     {
         return $this->parent;
     }
@@ -138,10 +136,8 @@ class Cells
 
     /**
      * Return the cell coordinate of the currently active cell object.
-     *
-     * @return null|string
      */
-    public function getCurrentCoordinate()
+    public function getCurrentCoordinate(): ?string
     {
         return $this->currentCoordinate;
     }
@@ -200,7 +196,7 @@ class Cells
      *
      * @return string Highest column name
      */
-    public function getHighestColumn($row = null)
+    public function getHighestColumn($row = null): string
     {
         if ($row === null) {
             return $this->getHighestRowAndColumn()['column'];
@@ -233,7 +229,7 @@ class Cells
      *
      * @return int Highest row number
      */
-    public function getHighestRow($column = null)
+    public function getHighestRow($column = null): int
     {
         if ($column === null) {
             return $this->getHighestRowAndColumn()['row'];
@@ -391,7 +387,7 @@ class Cells
      *
      * @return null|Cell Cell that was found, or null if not found
      */
-    public function get(string $cellCoordinate)
+    public function get(string $cellCoordinate): ?Cell
     {
         if ($cellCoordinate === $this->currentCoordinate) {
             return $this->currentCell;

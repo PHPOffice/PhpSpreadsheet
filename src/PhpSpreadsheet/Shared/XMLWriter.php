@@ -69,10 +69,8 @@ class XMLWriter extends \XMLWriter
 
     /**
      * Get written data.
-     *
-     * @return string
      */
-    public function getData()
+    public function getData(): string
     {
         if ($this->tempFileName == '') {
             return $this->outputMemory(true);

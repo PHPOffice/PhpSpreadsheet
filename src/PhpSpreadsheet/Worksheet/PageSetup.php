@@ -255,10 +255,8 @@ class PageSetup
 
     /**
      * Get Paper Size.
-     *
-     * @return int
      */
-    public function getPaperSize()
+    public function getPaperSize(): int
     {
         return $this->paperSize ?? self::$paperSizeDefault;
     }
@@ -295,10 +293,8 @@ class PageSetup
 
     /**
      * Get Orientation.
-     *
-     * @return string
      */
-    public function getOrientation()
+    public function getOrientation(): string
     {
         return $this->orientation;
     }
@@ -333,10 +329,8 @@ class PageSetup
 
     /**
      * Get Scale.
-     *
-     * @return null|int
      */
-    public function getScale()
+    public function getScale(): ?int
     {
         return $this->scale;
     }
@@ -369,10 +363,8 @@ class PageSetup
 
     /**
      * Get Fit To Page.
-     *
-     * @return bool
      */
-    public function getFitToPage()
+    public function getFitToPage(): bool
     {
         return $this->fitToPage;
     }
@@ -393,10 +385,8 @@ class PageSetup
 
     /**
      * Get Fit To Height.
-     *
-     * @return null|int
      */
-    public function getFitToHeight()
+    public function getFitToHeight(): ?int
     {
         return $this->fitToHeight;
     }
@@ -421,10 +411,8 @@ class PageSetup
 
     /**
      * Get Fit To Width.
-     *
-     * @return null|int
      */
-    public function getFitToWidth()
+    public function getFitToWidth(): ?int
     {
         return $this->fitToWidth;
     }
@@ -466,7 +454,7 @@ class PageSetup
      *
      * @return array Containing start column and end column, empty array if option unset
      */
-    public function getColumnsToRepeatAtLeft()
+    public function getColumnsToRepeatAtLeft(): array
     {
         return $this->columnsToRepeatAtLeft;
     }
@@ -519,7 +507,7 @@ class PageSetup
      *
      * @return array Containing start column and end column, empty array if option unset
      */
-    public function getRowsToRepeatAtTop()
+    public function getRowsToRepeatAtTop(): array
     {
         return $this->rowsToRepeatAtTop;
     }
@@ -555,10 +543,8 @@ class PageSetup
 
     /**
      * Get center page horizontally.
-     *
-     * @return bool
      */
-    public function getHorizontalCentered()
+    public function getHorizontalCentered(): bool
     {
         return $this->horizontalCentered;
     }
@@ -579,10 +565,8 @@ class PageSetup
 
     /**
      * Get center page vertically.
-     *
-     * @return bool
      */
-    public function getVerticalCentered()
+    public function getVerticalCentered(): bool
     {
         return $this->verticalCentered;
     }
@@ -608,10 +592,8 @@ class PageSetup
      *                            Default behaviour, or a index value of 0, will return all ranges as a comma-separated string
      *                            Otherwise, the specific range identified by the value of $index will be returned
      *                            Print areas are numbered from 1
-     *
-     * @return string
      */
-    public function getPrintArea($index = 0)
+    public function getPrintArea($index = 0): string
     {
         if ($index == 0) {
             return (string) $this->printArea;
@@ -816,7 +798,7 @@ class PageSetup
      *
      * @return ?int
      */
-    public function getFirstPageNumber()
+    public function getFirstPageNumber(): ?int
     {
         return $this->firstPageNumber;
     }

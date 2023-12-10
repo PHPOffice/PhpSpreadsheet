@@ -125,10 +125,8 @@ class Font
      * Map underline.
      *
      * @param string $underline
-     *
-     * @return int
      */
-    private static function mapUnderline($underline)
+    private static function mapUnderline($underline): int
     {
         if (isset(self::$mapUnderline[$underline])) {
             return self::$mapUnderline[$underline];

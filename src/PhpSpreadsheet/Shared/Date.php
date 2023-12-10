@@ -87,7 +87,7 @@ class Date
      *
      * @return int Excel base date (1900 or 1904)
      */
-    public static function getExcelCalendar()
+    public static function getExcelCalendar(): int
     {
         return self::$excelCalendar;
     }

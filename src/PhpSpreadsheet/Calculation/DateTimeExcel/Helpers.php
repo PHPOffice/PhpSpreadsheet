@@ -62,7 +62,7 @@ class Helpers
      *
      * @return mixed Excel date/time serial value, or string if error
      */
-    public static function getTimeValue($timeValue)
+    public static function getTimeValue($timeValue): mixed
     {
         $saveReturnDateType = Functions::getReturnDateType();
         Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);

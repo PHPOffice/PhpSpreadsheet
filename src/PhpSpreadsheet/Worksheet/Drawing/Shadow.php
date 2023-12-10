@@ -73,10 +73,8 @@ class Shadow implements IComparable
 
     /**
      * Get Visible.
-     *
-     * @return bool
      */
-    public function getVisible()
+    public function getVisible(): bool
     {
         return $this->visible;
     }
@@ -97,10 +95,8 @@ class Shadow implements IComparable
 
     /**
      * Get Blur radius.
-     *
-     * @return int
      */
-    public function getBlurRadius()
+    public function getBlurRadius(): int
     {
         return $this->blurRadius;
     }
@@ -121,10 +117,8 @@ class Shadow implements IComparable
 
     /**
      * Get Shadow distance.
-     *
-     * @return int
      */
-    public function getDistance()
+    public function getDistance(): int
     {
         return $this->distance;
     }
@@ -145,10 +139,8 @@ class Shadow implements IComparable
 
     /**
      * Get Shadow direction (in degrees).
-     *
-     * @return int
      */
-    public function getDirection()
+    public function getDirection(): int
     {
         return $this->direction;
     }
@@ -169,10 +161,8 @@ class Shadow implements IComparable
 
     /**
      * Get Shadow alignment.
-     *
-     * @return string
      */
-    public function getAlignment()
+    public function getAlignment(): string
     {
         return $this->alignment;
     }
@@ -193,10 +183,8 @@ class Shadow implements IComparable
 
     /**
      * Get Color.
-     *
-     * @return Color
      */
-    public function getColor()
+    public function getColor(): Color
     {
         return $this->color;
     }
@@ -215,10 +203,8 @@ class Shadow implements IComparable
 
     /**
      * Get Alpha.
-     *
-     * @return int
      */
-    public function getAlpha()
+    public function getAlpha(): int
     {
         return $this->alpha;
     }

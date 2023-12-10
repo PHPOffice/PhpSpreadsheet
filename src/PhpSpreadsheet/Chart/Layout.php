@@ -174,7 +174,7 @@ class Layout
      *
      * @return ?string
      */
-    public function getLayoutTarget()
+    public function getLayoutTarget(): ?string
     {
         return $this->layoutTarget;
     }
@@ -196,7 +196,7 @@ class Layout
      *
      * @return ?string
      */
-    public function getXMode()
+    public function getXMode(): ?string
     {
         return $this->xMode;
     }
@@ -220,7 +220,7 @@ class Layout
      *
      * @return ?string
      */
-    public function getYMode()
+    public function getYMode(): ?string
     {
         return $this->yMode;
     }
@@ -263,10 +263,8 @@ class Layout
 
     /**
      * Get Y-Position.
-     *
-     * @return null|float
      */
-    public function getYPosition()
+    public function getYPosition(): ?float
     {
         return $this->yPos;
     }
@@ -288,7 +286,7 @@ class Layout
      *
      * @return ?float
      */
-    public function getWidth()
+    public function getWidth(): ?float
     {
         return $this->width;
     }
@@ -307,10 +305,8 @@ class Layout
 
     /**
      * Get Height.
-     *
-     * @return null|float
      */
-    public function getHeight()
+    public function getHeight(): ?float
     {
         return $this->height;
     }

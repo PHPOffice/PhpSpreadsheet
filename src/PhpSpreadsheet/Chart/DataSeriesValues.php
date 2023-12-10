@@ -108,10 +108,8 @@ class DataSeriesValues extends Properties
 
     /**
      * Get Series Data Type.
-     *
-     * @return string
      */
-    public function getDataType()
+    public function getDataType(): string
     {
         return $this->dataType;
     }
@@ -143,7 +141,7 @@ class DataSeriesValues extends Properties
      *
      * @return ?string
      */
-    public function getDataSource()
+    public function getDataSource(): ?string
     {
         return $this->dataSource;
     }
@@ -234,10 +232,8 @@ class DataSeriesValues extends Properties
 
     /**
      * Get Series Point Count.
-     *
-     * @return int
      */
-    public function getPointCount()
+    public function getPointCount(): int
     {
         return $this->pointCount;
     }
@@ -390,10 +386,8 @@ class DataSeriesValues extends Properties
 
     /**
      * Return the level count of a multi-level Data Series.
-     *
-     * @return int
      */
-    public function multiLevelCount()
+    public function multiLevelCount(): int
     {
         $levelCount = 0;
         foreach ($this->dataValues as $dataValueSet) {
@@ -408,17 +402,15 @@ class DataSeriesValues extends Properties
      *
      * @return mixed[]
      */
-    public function getDataValues()
+    public function getDataValues(): ?array
     {
         return $this->dataValues;
     }
 
     /**
      * Get the first Series Data value.
-     *
-     * @return mixed
      */
-    public function getDataValue()
+    public function getDataValue(): mixed
     {
         $count = count($this->dataValues);
         if ($count == 0) {
@@ -519,10 +511,8 @@ class DataSeriesValues extends Properties
 
     /**
      * Get Smooth Line.
-     *
-     * @return bool
      */
-    public function getSmoothLine()
+    public function getSmoothLine(): bool
     {
         return $this->smoothLine;
     }

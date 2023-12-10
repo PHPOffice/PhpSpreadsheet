@@ -17,7 +17,7 @@ class Dompdf extends Pdf
      *
      * @return \Dompdf\Dompdf implementation
      */
-    protected function createExternalWriterInstance()
+    protected function createExternalWriterInstance(): \Dompdf\Dompdf
     {
         return new \Dompdf\Dompdf();
     }

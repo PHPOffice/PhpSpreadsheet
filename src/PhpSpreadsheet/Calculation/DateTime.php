@@ -64,7 +64,7 @@ class DateTime
      * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
      *                        depending on the value of the ReturnDateType flag
      */
-    public static function DATETIMENOW()
+    public static function DATETIMENOW(): mixed
     {
         return DateTimeExcel\Current::now();
     }
@@ -90,7 +90,7 @@ class DateTime
      * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
      *                        depending on the value of the ReturnDateType flag
      */
-    public static function DATENOW()
+    public static function DATENOW(): mixed
     {
         return DateTimeExcel\Current::today();
     }
@@ -149,7 +149,7 @@ class DateTime
      * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
      *                        depending on the value of the ReturnDateType flag
      */
-    public static function DATE($year = 0, $month = 1, $day = 1)
+    public static function DATE($year = 0, $month = 1, $day = 1): mixed
     {
         return DateTimeExcel\Date::fromYMD($year, $month, $day);
     }
@@ -218,7 +218,7 @@ class DateTime
      * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
      *                        depending on the value of the ReturnDateType flag
      */
-    public static function DATEVALUE($dateValue)
+    public static function DATEVALUE($dateValue): mixed
     {
         return DateTimeExcel\DateValue::fromString($dateValue);
     }
@@ -424,7 +424,7 @@ class DateTime
      * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
      *                        depending on the value of the ReturnDateType flag
      */
-    public static function WORKDAY(mixed $startDate, $endDays, mixed ...$dateArgs)
+    public static function WORKDAY(mixed $startDate, $endDays, mixed ...$dateArgs): mixed
     {
         return DateTimeExcel\WorkDay::date($startDate, $endDays, ...$dateArgs);
     }
@@ -851,7 +851,7 @@ class DateTime
      * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
      *                        depending on the value of the ReturnDateType flag
      */
-    public static function EDATE(mixed $dateValue = 1, $adjustmentMonths = 0)
+    public static function EDATE(mixed $dateValue = 1, $adjustmentMonths = 0): mixed
     {
         return DateTimeExcel\Month::adjust($dateValue, $adjustmentMonths);
     }
@@ -879,7 +879,7 @@ class DateTime
      * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
      *                        depending on the value of the ReturnDateType flag
      */
-    public static function EOMONTH(mixed $dateValue = 1, $adjustmentMonths = 0)
+    public static function EOMONTH(mixed $dateValue = 1, $adjustmentMonths = 0): mixed
     {
         return DateTimeExcel\Month::lastDay($dateValue, $adjustmentMonths);
     }

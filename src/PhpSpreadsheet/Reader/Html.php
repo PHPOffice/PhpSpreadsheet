@@ -226,13 +226,11 @@ class Html extends BaseReader
     /**
      * Get input encoding.
      *
-     * @return string
-     *
      * @codeCoverageIgnore
      *
      * @deprecated no use is made of this property
      */
-    public function getInputEncoding()
+    public function getInputEncoding(): string
     {
         return $this->inputEncoding;
     }
@@ -820,10 +818,8 @@ class Html extends BaseReader
 
     /**
      * Get sheet index.
-     *
-     * @return int
      */
-    public function getSheetIndex()
+    public function getSheetIndex(): int
     {
         return $this->sheetIndex;
     }

@@ -58,7 +58,7 @@ class CyclicReferenceStack
      *
      * @return mixed[]
      */
-    public function showStack()
+    public function showStack(): array
     {
         return $this->stack;
     }

@@ -835,7 +835,7 @@ class Parser
      *
      * @return int The sheet index, -1 if the sheet was not found
      */
-    private function getSheetIndex(string $sheet_name)
+    private function getSheetIndex(string $sheet_name): int
     {
         if (!isset($this->externalSheets[$sheet_name])) {
             return -1;
@@ -1130,7 +1130,7 @@ class Parser
      *
      * @return mixed The parsed ptg'd tree on success
      */
-    private function condition()
+    private function condition(): mixed
     {
         $result = $this->expression();
         if ($this->currentToken == '<') {
@@ -1172,7 +1172,7 @@ class Parser
      *
      * @return mixed The parsed ptg'd tree on success
      */
-    private function expression()
+    private function expression(): mixed
     {
         // If it's a string return a string node
         if (preg_match('/"([^"]|""){0,255}"/', $this->currentToken)) {
@@ -1251,7 +1251,7 @@ class Parser
      *
      * @return mixed The parsed ptg'd tree on success
      */
-    private function term()
+    private function term(): mixed
     {
         $result = $this->fact();
         while (
@@ -1282,7 +1282,7 @@ class Parser
      *
      * @return mixed The parsed ptg'd tree on success
      */
-    private function fact()
+    private function fact(): mixed
     {
         $currentToken = $this->currentToken;
         if ($currentToken === '(') {
@@ -1381,7 +1381,7 @@ class Parser
      *
      * @return mixed The parsed ptg'd tree on success
      */
-    private function func()
+    private function func(): mixed
     {
         $num_args = 0; // number of arguments received
         $function = strtoupper($this->currentToken);

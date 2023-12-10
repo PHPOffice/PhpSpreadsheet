@@ -19,7 +19,7 @@ class Mpdf extends Pdf
      *
      * @return \Mpdf\Mpdf implementation
      */
-    protected function createExternalWriterInstance($config)
+    protected function createExternalWriterInstance($config): \Mpdf\Mpdf
     {
         return new \Mpdf\Mpdf($config);
     }

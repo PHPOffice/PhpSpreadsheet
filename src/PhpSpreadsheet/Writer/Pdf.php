@@ -118,10 +118,8 @@ abstract class Pdf extends Html
 
     /**
      * Get Font.
-     *
-     * @return string
      */
-    public function getFont()
+    public function getFont(): string
     {
         return $this->font;
     }
@@ -149,7 +147,7 @@ abstract class Pdf extends Html
      *
      * @return ?int
      */
-    public function getPaperSize()
+    public function getPaperSize(): ?int
     {
         return $this->paperSize;
     }
@@ -158,10 +156,8 @@ abstract class Pdf extends Html
      * Set Paper Size.
      *
      * @param int $paperSize Paper size see PageSetup::PAPERSIZE_*
-     *
-     * @return self
      */
-    public function setPaperSize($paperSize)
+    public function setPaperSize($paperSize): self
     {
         $this->paperSize = $paperSize;
 
@@ -180,10 +176,8 @@ abstract class Pdf extends Html
      * Set Orientation.
      *
      * @param string $orientation Page orientation see PageSetup::ORIENTATION_*
-     *
-     * @return self
      */
-    public function setOrientation($orientation)
+    public function setOrientation($orientation): self
     {
         $this->orientation = $orientation;
 
@@ -192,10 +186,8 @@ abstract class Pdf extends Html
 
     /**
      * Get temporary storage directory.
-     *
-     * @return string
      */
-    public function getTempDir()
+    public function getTempDir(): string
     {
         return $this->tempDir;
     }
@@ -204,10 +196,8 @@ abstract class Pdf extends Html
      * Set temporary storage directory.
      *
      * @param string $temporaryDirectory Temporary storage directory
-     *
-     * @return self
      */
-    public function setTempDir($temporaryDirectory)
+    public function setTempDir($temporaryDirectory): self
     {
         if (is_dir($temporaryDirectory)) {
             $this->tempDir = $temporaryDirectory;

@@ -134,7 +134,7 @@ class PPS
      *
      * @return int The amount of data (in bytes)
      */
-    public function getDataLen()
+    public function getDataLen(): int
     {
         //if (!isset($this->_data)) {
         //    return 0;
@@ -148,7 +148,7 @@ class PPS
      *
      * @return string The binary string
      */
-    public function getPpsWk()
+    public function getPpsWk(): string
     {
         $ret = str_pad($this->Name, 64, "\x00");
 
@@ -181,7 +181,7 @@ class PPS
      *
      * @return int The index for this PPS
      */
-    public static function savePpsSetPnt(array &$raList, mixed $to_save, mixed $depth = 0)
+    public static function savePpsSetPnt(array &$raList, mixed $to_save, mixed $depth = 0): int
     {
         if (!is_array($to_save) || (empty($to_save))) {
             return 0xFFFFFFFF;

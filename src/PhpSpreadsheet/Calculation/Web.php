@@ -23,7 +23,7 @@ class Web
      *
      * @return string the output resulting from a call to the webservice
      */
-    public static function WEBSERVICE(string $url)
+    public static function WEBSERVICE(string $url): string
     {
         return Web\Service::webService($url);
     }

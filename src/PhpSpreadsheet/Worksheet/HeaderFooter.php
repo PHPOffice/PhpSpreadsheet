@@ -139,10 +139,8 @@ class HeaderFooter
 
     /**
      * Get OddHeader.
-     *
-     * @return string
      */
-    public function getOddHeader()
+    public function getOddHeader(): string
     {
         return $this->oddHeader;
     }
@@ -163,10 +161,8 @@ class HeaderFooter
 
     /**
      * Get OddFooter.
-     *
-     * @return string
      */
-    public function getOddFooter()
+    public function getOddFooter(): string
     {
         return $this->oddFooter;
     }
@@ -187,10 +183,8 @@ class HeaderFooter
 
     /**
      * Get EvenHeader.
-     *
-     * @return string
      */
-    public function getEvenHeader()
+    public function getEvenHeader(): string
     {
         return $this->evenHeader;
     }
@@ -211,10 +205,8 @@ class HeaderFooter
 
     /**
      * Get EvenFooter.
-     *
-     * @return string
      */
-    public function getEvenFooter()
+    public function getEvenFooter(): string
     {
         return $this->evenFooter;
     }
@@ -235,10 +227,8 @@ class HeaderFooter
 
     /**
      * Get FirstHeader.
-     *
-     * @return string
      */
-    public function getFirstHeader()
+    public function getFirstHeader(): string
     {
         return $this->firstHeader;
     }
@@ -259,10 +249,8 @@ class HeaderFooter
 
     /**
      * Get FirstFooter.
-     *
-     * @return string
      */
-    public function getFirstFooter()
+    public function getFirstFooter(): string
     {
         return $this->firstFooter;
     }
@@ -283,10 +271,8 @@ class HeaderFooter
 
     /**
      * Get DifferentOddEven.
-     *
-     * @return bool
      */
-    public function getDifferentOddEven()
+    public function getDifferentOddEven(): bool
     {
         return $this->differentOddEven;
     }
@@ -307,10 +293,8 @@ class HeaderFooter
 
     /**
      * Get DifferentFirst.
-     *
-     * @return bool
      */
-    public function getDifferentFirst()
+    public function getDifferentFirst(): bool
     {
         return $this->differentFirst;
     }
@@ -331,10 +315,8 @@ class HeaderFooter
 
     /**
      * Get ScaleWithDocument.
-     *
-     * @return bool
      */
-    public function getScaleWithDocument()
+    public function getScaleWithDocument(): bool
     {
         return $this->scaleWithDocument;
     }
@@ -355,10 +337,8 @@ class HeaderFooter
 
     /**
      * Get AlignWithMargins.
-     *
-     * @return bool
      */
-    public function getAlignWithMargins()
+    public function getAlignWithMargins(): bool
     {
         return $this->alignWithMargins;
     }

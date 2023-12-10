@@ -136,10 +136,8 @@ class Color extends Supervisor
     /**
      * Get the shared style component for the currently active cell in currently active sheet.
      * Only used for style supervisor.
-     *
-     * @return Color
      */
-    public function getSharedComponent()
+    public function getSharedComponent(): self
     {
         /** @var Style */
         $parent = $this->parent;

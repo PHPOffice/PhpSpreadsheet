@@ -371,10 +371,8 @@ class Properties
 
     /**
      * Get a Custom Property Value.
-     *
-     * @return mixed
      */
-    public function getCustomPropertyValue(string $propertyName)
+    public function getCustomPropertyValue(string $propertyName): mixed
     {
         if (isset($this->customProperties[$propertyName])) {
             return $this->customProperties[$propertyName]['value'];
@@ -385,10 +383,8 @@ class Properties
 
     /**
      * Get a Custom Property Type.
-     *
-     * @return null|string
      */
-    public function getCustomPropertyType(string $propertyName)
+    public function getCustomPropertyType(string $propertyName): ?string
     {
         return $this->customProperties[$propertyName]['type'] ?? null;
     }
@@ -472,20 +468,16 @@ class Properties
 
     /**
      * Convert property to form desired by Excel.
-     *
-     * @return mixed
      */
-    public static function convertProperty(mixed $propertyValue, string $propertyType)
+    public static function convertProperty(mixed $propertyValue, string $propertyType): mixed
     {
         return self::SPECIAL_TYPES[$propertyType] ?? self::convertProperty2($propertyValue, $propertyType);
     }
 
     /**
      * Convert property to form desired by Excel.
-     *
-     * @return mixed
      */
-    private static function convertProperty2(mixed $propertyValue, string $type)
+    private static function convertProperty2(mixed $propertyValue, string $type): mixed
     {
         $propertyType = self::convertPropertyType($type);
         switch ($propertyType) {

@@ -355,10 +355,8 @@ class Xlsx extends BaseReader
 
     /**
      * @param string $fileName
-     *
-     * @return string
      */
-    private function getFromZipArchive(ZipArchive $archive, $fileName = '')
+    private function getFromZipArchive(ZipArchive $archive, $fileName = ''): string
     {
         // Root-relative paths
         if (str_contains($fileName, '//')) {
@@ -1958,10 +1956,8 @@ class Xlsx extends BaseReader
     /**
      * @param null|array|bool|SimpleXMLElement $array
      * @param int|string $key
-     *
-     * @return mixed
      */
-    private static function getArrayItem($array, $key = 0)
+    private static function getArrayItem($array, $key = 0): mixed
     {
         return ($array === null || is_bool($array)) ? null : ($array[$key] ?? null);
     }

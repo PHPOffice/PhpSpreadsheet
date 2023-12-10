@@ -70,10 +70,8 @@ class Legend
 
     /**
      * Get legend position as an excel string value.
-     *
-     * @return string
      */
-    public function getPosition()
+    public function getPosition(): string
     {
         return $this->position;
     }
@@ -120,10 +118,8 @@ class Legend
 
     /**
      * Get allow overlay of other elements?
-     *
-     * @return bool
      */
-    public function getOverlay()
+    public function getOverlay(): bool
     {
         return $this->overlay;
     }
@@ -143,7 +139,7 @@ class Legend
      *
      * @return ?Layout
      */
-    public function getLayout()
+    public function getLayout(): ?Layout
     {
         return $this->layout;
     }

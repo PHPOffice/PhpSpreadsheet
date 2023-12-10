@@ -38,10 +38,8 @@ class RC4
      * Symmetric decryption/encryption function.
      *
      * @param string $data Data to encrypt/decrypt
-     *
-     * @return string
      */
-    public function RC4($data)
+    public function RC4($data): string
     {
         $len = strlen($data);
         for ($c = 0; $c < $len; ++$c) {

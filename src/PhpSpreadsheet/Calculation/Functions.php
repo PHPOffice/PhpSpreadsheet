@@ -71,7 +71,7 @@ class Functions
      *                    Functions::COMPATIBILITY_GNUMERIC     'Gnumeric'
      *                    Functions::COMPATIBILITY_OPENOFFICE   'OpenOfficeCalc'
      */
-    public static function getCompatibilityMode()
+    public static function getCompatibilityMode(): string
     {
         return self::$compatibilityMode;
     }
@@ -111,7 +111,7 @@ class Functions
      *                    Functions::RETURNDATE_PHP_DATETIME_OBJECT    'O'
      *                    Functions::RETURNDATE_EXCEL            '     'E'
      */
-    public static function getReturnDateType()
+    public static function getReturnDateType(): string
     {
         return self::$returnDateType;
     }
@@ -176,10 +176,7 @@ class Functions
         return str_replace('""""', '""', $operator . $operand);
     }
 
-    /**
-     * @return mixed
-     */
-    private static function operandSpecialHandling(mixed $operand)
+    private static function operandSpecialHandling(mixed $operand): mixed
     {
         if (is_numeric($operand) || is_bool($operand)) {
             return $operand;
@@ -549,7 +546,7 @@ class Functions
     /**
      * @return null|mixed
      */
-    public static function scalar(mixed $value)
+    public static function scalar(mixed $value): mixed
     {
         if (!is_array($value)) {
             return $value;
@@ -569,7 +566,7 @@ class Functions
      *
      * @return array Flattened array
      */
-    public static function flattenArrayIndexed($array)
+    public static function flattenArrayIndexed($array): array
     {
         if (!is_array($array)) {
             return (array) $array;
@@ -599,10 +596,8 @@ class Functions
      * Convert an array to a single scalar value by extracting the first element.
      *
      * @param mixed $value Array or scalar value
-     *
-     * @return mixed
      */
-    public static function flattenSingleValue(mixed $value = '')
+    public static function flattenSingleValue(mixed $value = ''): mixed
     {
         while (is_array($value)) {
             $value = array_shift($value);

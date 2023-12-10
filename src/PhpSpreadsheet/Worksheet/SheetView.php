@@ -62,7 +62,7 @@ class SheetView
      *
      * @return ?int
      */
-    public function getZoomScale()
+    public function getZoomScale(): ?int
     {
         return $this->zoomScale;
     }
@@ -93,7 +93,7 @@ class SheetView
      *
      * @return ?int
      */
-    public function getZoomScaleNormal()
+    public function getZoomScaleNormal(): ?int
     {
         return $this->zoomScaleNormal;
     }
@@ -127,20 +127,15 @@ class SheetView
         $this->showZeros = $showZeros;
     }
 
-    /**
-     * @return bool
-     */
-    public function getShowZeros()
+    public function getShowZeros(): bool
     {
         return $this->showZeros;
     }
 
     /**
      * Get View.
-     *
-     * @return string
      */
-    public function getView()
+    public function getView(): string
     {
         return $this->sheetviewType;
     }

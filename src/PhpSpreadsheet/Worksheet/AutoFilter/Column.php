@@ -101,10 +101,8 @@ class Column
 
     /**
      * Get AutoFilter column index as string eg: 'A'.
-     *
-     * @return string
      */
-    public function getColumnIndex()
+    public function getColumnIndex(): string
     {
         return $this->columnIndex;
     }
@@ -132,10 +130,8 @@ class Column
 
     /**
      * Get this Column's AutoFilter Parent.
-     *
-     * @return null|AutoFilter
      */
-    public function getParent()
+    public function getParent(): ?AutoFilter
     {
         return $this->parent;
     }
@@ -155,10 +151,8 @@ class Column
 
     /**
      * Get AutoFilter Type.
-     *
-     * @return string
      */
-    public function getFilterType()
+    public function getFilterType(): string
     {
         return $this->filterType;
     }
@@ -187,10 +181,8 @@ class Column
 
     /**
      * Get AutoFilter Multiple Rules And/Or Join.
-     *
-     * @return string
      */
-    public function getJoin()
+    public function getJoin(): string
     {
         return $this->join;
     }
@@ -252,7 +244,7 @@ class Column
      *
      * @return int[]|string[]
      */
-    public function getAttributes()
+    public function getAttributes(): array
     {
         return $this->attributes;
     }
@@ -283,7 +275,7 @@ class Column
      *
      * @return Column\Rule[]
      */
-    public function getRules()
+    public function getRules(): array
     {
         return $this->ruleset;
     }
@@ -292,10 +284,8 @@ class Column
      * Get a specified AutoFilter Column Rule.
      *
      * @param int $index Rule index in the ruleset array
-     *
-     * @return Column\Rule
      */
-    public function getRule($index)
+    public function getRule($index): Column\Rule
     {
         if (!isset($this->ruleset[$index])) {
             $this->ruleset[$index] = new Column\Rule($this);

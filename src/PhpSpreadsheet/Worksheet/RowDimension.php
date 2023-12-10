@@ -62,10 +62,8 @@ class RowDimension extends Dimension
      * By default, this will be in points; but this method also accepts an optional unit of measure
      *    argument, and will convert the value from points to the specified UoM.
      *    A value of -1 tells Excel to display this column in its default height.
-     *
-     * @return float
      */
-    public function getRowHeight(?string $unitOfMeasure = null)
+    public function getRowHeight(?string $unitOfMeasure = null): float
     {
         return ($unitOfMeasure === null || $this->height < 0)
             ? $this->height

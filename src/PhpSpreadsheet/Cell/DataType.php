@@ -41,7 +41,7 @@ class DataType
      *
      * @return array<string, int>
      */
-    public static function getErrorCodes()
+    public static function getErrorCodes(): array
     {
         return self::$errorCodes;
     }

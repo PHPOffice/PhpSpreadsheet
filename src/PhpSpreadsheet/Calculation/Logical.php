@@ -199,7 +199,7 @@ class Logical
      *
      * @return mixed The value of returnIfTrue or returnIfFalse determined by condition
      */
-    public static function statementIf(mixed $condition = true, mixed $returnIfTrue = 0, mixed $returnIfFalse = false)
+    public static function statementIf(mixed $condition = true, mixed $returnIfTrue = 0, mixed $returnIfFalse = false): mixed
     {
         return Logical\Conditional::statementIf($condition, $returnIfTrue, $returnIfFalse);
     }
@@ -232,7 +232,7 @@ class Logical
      *
      * @return mixed The value of matched expression
      */
-    public static function statementSwitch(mixed ...$arguments)
+    public static function statementSwitch(mixed ...$arguments): mixed
     {
         return Logical\Conditional::statementSwitch(...$arguments);
     }
@@ -252,7 +252,7 @@ class Logical
      *
      * @return mixed The value of errorpart or testValue determined by error condition
      */
-    public static function IFERROR(mixed $testValue = '', mixed $errorpart = '')
+    public static function IFERROR(mixed $testValue = '', mixed $errorpart = ''): mixed
     {
         return Logical\Conditional::IFERROR($testValue, $errorpart);
     }
@@ -272,7 +272,7 @@ class Logical
      *
      * @return mixed The value of errorpart or testValue determined by error condition
      */
-    public static function IFNA(mixed $testValue = '', mixed $napart = '')
+    public static function IFNA(mixed $testValue = '', mixed $napart = ''): mixed
     {
         return Logical\Conditional::IFNA($testValue, $napart);
     }

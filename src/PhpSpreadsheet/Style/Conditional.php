@@ -129,10 +129,8 @@ class Conditional implements IComparable
 
     /**
      * Get Condition type.
-     *
-     * @return string
      */
-    public function getConditionType()
+    public function getConditionType(): string
     {
         return $this->conditionType;
     }
@@ -153,10 +151,8 @@ class Conditional implements IComparable
 
     /**
      * Get Operator type.
-     *
-     * @return string
      */
-    public function getOperatorType()
+    public function getOperatorType(): string
     {
         return $this->operatorType;
     }
@@ -177,10 +173,8 @@ class Conditional implements IComparable
 
     /**
      * Get text.
-     *
-     * @return string
      */
-    public function getText()
+    public function getText(): string
     {
         return $this->text;
     }
@@ -201,10 +195,8 @@ class Conditional implements IComparable
 
     /**
      * Get StopIfTrue.
-     *
-     * @return bool
      */
-    public function getStopIfTrue()
+    public function getStopIfTrue(): bool
     {
         return $this->stopIfTrue;
     }
@@ -228,7 +220,7 @@ class Conditional implements IComparable
      *
      * @return (bool|float|int|string)[]
      */
-    public function getConditions()
+    public function getConditions(): array
     {
         return $this->condition;
     }
@@ -266,10 +258,8 @@ class Conditional implements IComparable
 
     /**
      * Get Style.
-     *
-     * @return Style
      */
-    public function getStyle()
+    public function getStyle(): Style
     {
         return $this->style;
     }

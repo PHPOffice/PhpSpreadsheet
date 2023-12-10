@@ -29,10 +29,8 @@ class Hyperlink
 
     /**
      * Get URL.
-     *
-     * @return string
      */
-    public function getUrl()
+    public function getUrl(): string
     {
         return $this->url;
     }
@@ -53,10 +51,8 @@ class Hyperlink
 
     /**
      * Get tooltip.
-     *
-     * @return string
      */
-    public function getTooltip()
+    public function getTooltip(): string
     {
         return $this->tooltip;
     }

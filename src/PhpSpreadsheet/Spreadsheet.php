@@ -177,10 +177,8 @@ class Spreadsheet implements JsonSerializable
 
     /**
      * The workbook has macros ?
-     *
-     * @return bool
      */
-    public function hasMacros()
+    public function hasMacros(): bool
     {
         return $this->hasMacros;
     }
@@ -208,10 +206,8 @@ class Spreadsheet implements JsonSerializable
 
     /**
      * Return the macros code.
-     *
-     * @return null|string
      */
-    public function getMacrosCode()
+    public function getMacrosCode(): ?string
     {
         return $this->macrosCode;
     }
@@ -238,10 +234,8 @@ class Spreadsheet implements JsonSerializable
 
     /**
      * Return the macros certificate.
-     *
-     * @return null|string
      */
-    public function getMacrosCertificate()
+    public function getMacrosCertificate(): ?string
     {
         return $this->macrosCertificate;
     }
@@ -319,10 +313,8 @@ class Spreadsheet implements JsonSerializable
      * It has to be minimized when the library start to support currently unparsed data.
      *
      * @internal
-     *
-     * @return array
      */
-    public function getUnparsedLoadedData()
+    public function getUnparsedLoadedData(): array
     {
         return $this->unparsedLoadedData;
     }
@@ -352,10 +344,8 @@ class Spreadsheet implements JsonSerializable
      * retrieve Binaries Ribbon Objects.
      *
      * @param string $what
-     *
-     * @return null|array
      */
-    public function getRibbonBinObjects($what = 'all')
+    public function getRibbonBinObjects($what = 'all'): ?array
     {
         $ReturnData = null;
         $what = strtolower($what);
@@ -416,10 +406,8 @@ class Spreadsheet implements JsonSerializable
      * Get sheet by code name. Warning : sheet don't have always a code name !
      *
      * @param string $codeName Sheet name
-     *
-     * @return null|Worksheet
      */
-    public function getSheetByCodeName($codeName)
+    public function getSheetByCodeName($codeName): ?Worksheet
     {
         $worksheetCount = count($this->workSheetCollection);
         for ($i = 0; $i < $worksheetCount; ++$i) {
@@ -490,20 +478,16 @@ class Spreadsheet implements JsonSerializable
 
     /**
      * Return the calculation engine for this worksheet.
-     *
-     * @return null|Calculation
      */
-    public function getCalculationEngine()
+    public function getCalculationEngine(): ?Calculation
     {
         return $this->calculationEngine;
     }
 
     /**
      * Get properties.
-     *
-     * @return Document\Properties
      */
-    public function getProperties()
+    public function getProperties(): Document\Properties
     {
         return $this->properties;
     }
@@ -518,10 +502,8 @@ class Spreadsheet implements JsonSerializable
 
     /**
      * Get security.
-     *
-     * @return Document\Security
      */
-    public function getSecurity()
+    public function getSecurity(): Document\Security
     {
         return $this->security;
     }
@@ -536,10 +518,8 @@ class Spreadsheet implements JsonSerializable
 
     /**
      * Get active sheet.
-     *
-     * @return Worksheet
      */
-    public function getActiveSheet()
+    public function getActiveSheet(): Worksheet
     {
         return $this->getSheet($this->activeSheetIndex);
     }
@@ -636,10 +616,8 @@ class Spreadsheet implements JsonSerializable
      * Get sheet by index.
      *
      * @param int $sheetIndex Sheet index
-     *
-     * @return Worksheet
      */
-    public function getSheet($sheetIndex)
+    public function getSheet($sheetIndex): Worksheet
     {
         if (!isset($this->workSheetCollection[$sheetIndex])) {
             $numSheets = $this->getSheetCount();
@@ -657,7 +635,7 @@ class Spreadsheet implements JsonSerializable
      *
      * @return Worksheet[]
      */
-    public function getAllSheets()
+    public function getAllSheets(): array
     {
         return $this->workSheetCollection;
     }
@@ -666,10 +644,8 @@ class Spreadsheet implements JsonSerializable
      * Get sheet by name.
      *
      * @param string $worksheetName Sheet name
-     *
-     * @return null|Worksheet
      */
-    public function getSheetByName($worksheetName)
+    public function getSheetByName($worksheetName): ?Worksheet
     {
         $worksheetCount = count($this->workSheetCollection);
         for ($i = 0; $i < $worksheetCount; ++$i) {
@@ -699,7 +675,7 @@ class Spreadsheet implements JsonSerializable
      *
      * @return int index
      */
-    public function getIndex(Worksheet $worksheet)
+    public function getIndex(Worksheet $worksheet): int
     {
         foreach ($this->workSheetCollection as $key => $value) {
             if ($value->getHashCode() === $worksheet->getHashCode()) {
@@ -718,7 +694,7 @@ class Spreadsheet implements JsonSerializable
      *
      * @return int New sheet index
      */
-    public function setIndexByName(string $worksheetName, $newIndexPosition)
+    public function setIndexByName(string $worksheetName, $newIndexPosition): int
     {
         $oldIndex = $this->getIndex($this->getSheetByNameOrThrow($worksheetName));
         $worksheet = array_splice(
@@ -749,7 +725,7 @@ class Spreadsheet implements JsonSerializable
      *
      * @return int Active sheet index
      */
-    public function getActiveSheetIndex()
+    public function getActiveSheetIndex(): int
     {
         return $this->activeSheetIndex;
     }
@@ -758,10 +734,8 @@ class Spreadsheet implements JsonSerializable
      * Set active sheet index.
      *
      * @param int $worksheetIndex Active sheet index
-     *
-     * @return Worksheet
      */
-    public function setActiveSheetIndex($worksheetIndex)
+    public function setActiveSheetIndex($worksheetIndex): Worksheet
     {
         $numSheets = count($this->workSheetCollection);
 
@@ -779,10 +753,8 @@ class Spreadsheet implements JsonSerializable
      * Set active sheet index by name.
      *
      * @param string $worksheetName Sheet title
-     *
-     * @return Worksheet
      */
-    public function setActiveSheetIndexByName(string $worksheetName)
+    public function setActiveSheetIndexByName(string $worksheetName): Worksheet
     {
         if (($worksheet = $this->getSheetByName($worksheetName)) instanceof Worksheet) {
             $this->setActiveSheetIndex($this->getIndex($worksheet));
@@ -1106,7 +1078,7 @@ class Spreadsheet implements JsonSerializable
      *
      * @return Style[]
      */
-    public function getCellXfCollection()
+    public function getCellXfCollection(): array
     {
         return $this->cellXfCollection;
     }
@@ -1115,10 +1087,8 @@ class Spreadsheet implements JsonSerializable
      * Get cellXf by index.
      *
      * @param int $cellStyleIndex
-     *
-     * @return Style
      */
-    public function getCellXfByIndex($cellStyleIndex)
+    public function getCellXfByIndex($cellStyleIndex): Style
     {
         return $this->cellXfCollection[$cellStyleIndex];
     }
@@ -1151,10 +1121,8 @@ class Spreadsheet implements JsonSerializable
 
     /**
      * Get default style.
-     *
-     * @return Style
      */
-    public function getDefaultStyle()
+    public function getDefaultStyle(): Style
     {
         if (isset($this->cellXfCollection[0])) {
             return $this->cellXfCollection[0];
@@ -1204,10 +1172,8 @@ class Spreadsheet implements JsonSerializable
 
     /**
      * Get the cellXf supervisor.
-     *
-     * @return Style
      */
-    public function getCellXfSupervisor()
+    public function getCellXfSupervisor(): Style
     {
         return $this->cellXfSupervisor;
     }
@@ -1217,7 +1183,7 @@ class Spreadsheet implements JsonSerializable
      *
      * @return Style[]
      */
-    public function getCellStyleXfCollection()
+    public function getCellStyleXfCollection(): array
     {
         return $this->cellStyleXfCollection;
     }
@@ -1226,10 +1192,8 @@ class Spreadsheet implements JsonSerializable
      * Get cellStyleXf by index.
      *
      * @param int $cellStyleIndex Index to cellXf
-     *
-     * @return Style
      */
-    public function getCellStyleXfByIndex($cellStyleIndex)
+    public function getCellStyleXfByIndex($cellStyleIndex): Style
     {
         return $this->cellStyleXfCollection[$cellStyleIndex];
     }
@@ -1357,10 +1321,8 @@ class Spreadsheet implements JsonSerializable
 
     /**
      * Return the unique ID value assigned to this spreadsheet workbook.
-     *
-     * @return string
      */
-    public function getID()
+    public function getID(): string
     {
         return $this->uniqueID;
     }
@@ -1370,7 +1332,7 @@ class Spreadsheet implements JsonSerializable
      *
      * @return bool True if horizonal scroll bar is visible
      */
-    public function getShowHorizontalScroll()
+    public function getShowHorizontalScroll(): bool
     {
         return $this->showHorizontalScroll;
     }
@@ -1390,7 +1352,7 @@ class Spreadsheet implements JsonSerializable
      *
      * @return bool True if vertical scroll bar is visible
      */
-    public function getShowVerticalScroll()
+    public function getShowVerticalScroll(): bool
     {
         return $this->showVerticalScroll;
     }
@@ -1410,7 +1372,7 @@ class Spreadsheet implements JsonSerializable
      *
      * @return bool True if the sheet tabs are visible
      */
-    public function getShowSheetTabs()
+    public function getShowSheetTabs(): bool
     {
         return $this->showSheetTabs;
     }
@@ -1430,7 +1392,7 @@ class Spreadsheet implements JsonSerializable
      *
      * @return bool true if workbook window is minimized
      */
-    public function getMinimized()
+    public function getMinimized(): bool
     {
         return $this->minimized;
     }
@@ -1451,7 +1413,7 @@ class Spreadsheet implements JsonSerializable
      *
      * @return bool true if workbook window is minimized
      */
-    public function getAutoFilterDateGrouping()
+    public function getAutoFilterDateGrouping(): bool
     {
         return $this->autoFilterDateGrouping;
     }
@@ -1472,7 +1434,7 @@ class Spreadsheet implements JsonSerializable
      *
      * @return int First sheet in book view
      */
-    public function getFirstSheetIndex()
+    public function getFirstSheetIndex(): int
     {
         return $this->firstSheetIndex;
     }
@@ -1499,7 +1461,7 @@ class Spreadsheet implements JsonSerializable
      *
      * @return string Visible status
      */
-    public function getVisibility()
+    public function getVisibility(): string
     {
         return $this->visibility;
     }
@@ -1538,7 +1500,7 @@ class Spreadsheet implements JsonSerializable
      *
      * @return int Ratio between the workbook tabs bar and the horizontal scroll bar
      */
-    public function getTabRatio()
+    public function getTabRatio(): int
     {
         return $this->tabRatio;
     }
@@ -1573,10 +1535,8 @@ class Spreadsheet implements JsonSerializable
 
     /**
      * @throws Exception
-     *
-     * @return mixed
      */
-    public function __serialize()
+    public function __serialize(): array
     {
         throw new Exception('Spreadsheet objects cannot be serialized');
     }

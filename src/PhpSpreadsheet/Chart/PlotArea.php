@@ -82,17 +82,15 @@ class PlotArea
      *
      * @return DataSeries[]
      */
-    public function getPlotGroup()
+    public function getPlotGroup(): array
     {
         return $this->plotSeries;
     }
 
     /**
      * Get Plot Series by Index.
-     *
-     * @return DataSeries
      */
-    public function getPlotGroupByIndex(mixed $index)
+    public function getPlotGroupByIndex(mixed $index): DataSeries
     {
         return $this->plotSeries[$index];
     }
@@ -148,10 +146,8 @@ class PlotArea
 
     /**
      * Get gradientFillStops.
-     *
-     * @return array
      */
-    public function getGradientFillStops()
+    public function getGradientFillStops(): array
     {
         return $this->gradientFillStops;
     }
