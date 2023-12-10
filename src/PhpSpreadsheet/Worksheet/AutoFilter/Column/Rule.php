@@ -367,8 +367,6 @@ class Rule
 
     /**
      * Get this Rule's AutoFilter Column Parent.
-     *
-     * @return ?Column
      */
     public function getParent(): ?Column
     {

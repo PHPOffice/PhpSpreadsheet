@@ -86,8 +86,6 @@ class DggContainer
 
     /**
      * Get BLIP Store Container.
-     *
-     * @return ?DggContainer\BstoreContainer
      */
     public function getBstoreContainer(): ?DggContainer\BstoreContainer
     {

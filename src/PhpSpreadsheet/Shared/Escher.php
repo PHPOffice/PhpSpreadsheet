@@ -20,8 +20,6 @@ class Escher
 
     /**
      * Get Drawing Group Container.
-     *
-     * @return ?Escher\DggContainer
      */
     public function getDggContainer(): ?Escher\DggContainer
     {
@@ -38,8 +36,6 @@ class Escher
 
     /**
      * Get Drawing Container.
-     *
-     * @return ?Escher\DgContainer
      */
     public function getDgContainer(): ?Escher\DgContainer
     {

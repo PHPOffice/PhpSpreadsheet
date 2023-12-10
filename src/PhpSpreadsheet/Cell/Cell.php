@@ -546,8 +546,6 @@ class Cell implements Stringable
 
     /**
      * Get cell collection.
-     *
-     * @return ?Cells
      */
     public function getParent(): ?Cells
     {

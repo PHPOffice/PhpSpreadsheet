@@ -131,8 +131,6 @@ class Legend
 
     /**
      * Get Layout.
-     *
-     * @return ?Layout
      */
     public function getLayout(): ?Layout
     {

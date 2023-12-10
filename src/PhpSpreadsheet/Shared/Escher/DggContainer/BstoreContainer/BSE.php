@@ -45,8 +45,6 @@ class BSE
 
     /**
      * Get the BLIP.
-     *
-     * @return ?BSE\Blip
      */
     public function getBlip(): ?BSE\Blip
     {
