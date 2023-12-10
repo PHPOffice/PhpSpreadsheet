@@ -464,10 +464,8 @@ abstract class Properties
 
     /**
      * Get Glow Color Property.
-     *
-     * @return null|int|string
      */
-    public function getGlowColor(string $propertyName)
+    public function getGlowColor(string $propertyName): null|int|string
     {
         return $this->glowColor->getColorProperty($propertyName);
     }

@@ -226,9 +226,6 @@ class Functions
         return $flattened;
     }
 
-    /**
-     * @return null|mixed
-     */
     public static function scalar(mixed $value): mixed
     {
         if (!is_array($value)) {
