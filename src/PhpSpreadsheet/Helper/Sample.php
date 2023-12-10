@@ -111,10 +111,9 @@ class Sample
     /**
      * Write documents.
      *
-     * @param string $filename
      * @param string[] $writers
      */
-    public function write(Spreadsheet $spreadsheet, $filename, array $writers = ['Xlsx', 'Xls'], bool $withCharts = false, ?callable $writerCallback = null): void
+    public function write(Spreadsheet $spreadsheet, string $filename, array $writers = ['Xlsx', 'Xls'], bool $withCharts = false, ?callable $writerCallback = null): void
     {
         // Set active sheet index to the first sheet, so Excel opens this as the first sheet
         $spreadsheet->setActiveSheetIndex(0);
@@ -160,10 +159,8 @@ class Sample
 
     /**
      * Returns the filename that should be used for sample output.
-     *
-     * @param string $filename
      */
-    public function getFilename($filename, string $extension = 'xlsx'): string
+    public function getFilename(string $filename, string $extension = 'xlsx'): string
     {
         $originalExtension = pathinfo($filename, PATHINFO_EXTENSION);
 
@@ -257,11 +254,8 @@ class Sample
 
     /**
      * Log a line about the write operation.
-     *
-     * @param string $path
-     * @param float $callStartTime
      */
-    public function logWrite(IWriter $writer, $path, $callStartTime): void
+    public function logWrite(IWriter $writer, string $path, float $callStartTime): void
     {
         $callEndTime = microtime(true);
         $callTime = $callEndTime - $callStartTime;
@@ -276,12 +270,8 @@ class Sample
 
     /**
      * Log a line about the read operation.
-     *
-     * @param string $format
-     * @param string $path
-     * @param float $callStartTime
      */
-    public function logRead($format, $path, $callStartTime): void
+    public function logRead(string $format, string $path, float $callStartTime): void
     {
         $callEndTime = microtime(true);
         $callTime = $callEndTime - $callStartTime;

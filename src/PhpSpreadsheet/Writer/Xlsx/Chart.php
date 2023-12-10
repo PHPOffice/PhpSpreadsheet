@@ -500,10 +500,8 @@ class Chart extends WriterPart
 
     /**
      * Write Category Axis.
-     *
-     * @param bool $isMultiLevelSeries
      */
-    private function writeCategoryAxis(XMLWriter $objWriter, ?Title $xAxisLabel, string $id1, string $id2, $isMultiLevelSeries, Axis $yAxis): void
+    private function writeCategoryAxis(XMLWriter $objWriter, ?Title $xAxisLabel, string $id1, string $id2, bool $isMultiLevelSeries, Axis $yAxis): void
     {
         // N.B. writeCategoryAxis may be invoked with the last parameter($yAxis) using $xAxis for ScatterChart, etc
         // In that case, xAxis may contain values like the yAxis, or it may be a date axis (LINECHART).
@@ -719,9 +717,8 @@ class Chart extends WriterPart
      * Write Value Axis.
      *
      * @param null|string $groupType Chart type
-     * @param bool $isMultiLevelSeries
      */
-    private function writeValueAxis(XMLWriter $objWriter, ?Title $yAxisLabel, $groupType, string $id1, string $id2, $isMultiLevelSeries, Axis $xAxis): void
+    private function writeValueAxis(XMLWriter $objWriter, ?Title $yAxisLabel, ?string $groupType, string $id1, string $id2, bool $isMultiLevelSeries, Axis $xAxis): void
     {
         $objWriter->startElement('c:' . Axis::AXIS_TYPE_VALUE);
         $majorGridlines = $xAxis->getMajorGridlines();
@@ -1014,7 +1011,7 @@ class Chart extends WriterPart
      * @param bool $valIsMultiLevelSeries Is value set a multi-series set
      * @param string $plotGroupingType Type of grouping for multi-series values
      */
-    private function writePlotGroup(?DataSeries $plotGroup, string $groupType, XMLWriter $objWriter, &$catIsMultiLevelSeries, &$valIsMultiLevelSeries, &$plotGroupingType): void
+    private function writePlotGroup(?DataSeries $plotGroup, string $groupType, XMLWriter $objWriter, bool &$catIsMultiLevelSeries, bool &$valIsMultiLevelSeries, string &$plotGroupingType): void
     {
         if ($plotGroup === null) {
             return;

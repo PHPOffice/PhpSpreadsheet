@@ -39,7 +39,7 @@ class ColumnCellIterator extends CellIterator
      * @param int $startRow The row number at which to start iterating
      * @param int $endRow Optionally, the row number at which to stop iterating
      */
-    public function __construct(Worksheet $worksheet, $columnIndex = 'A', $startRow = 1, $endRow = null, bool $iterateOnlyExistingCells = false)
+    public function __construct(Worksheet $worksheet, string $columnIndex = 'A', int $startRow = 1, ?int $endRow = null, bool $iterateOnlyExistingCells = false)
     {
         // Set subject
         $this->worksheet = $worksheet;
@@ -73,7 +73,7 @@ class ColumnCellIterator extends CellIterator
      *
      * @return $this
      */
-    public function resetEnd($endRow = null): static
+    public function resetEnd(?int $endRow = null): static
     {
         $this->endRow = $endRow ?: $this->worksheet->getHighestRow();
         $this->adjustForExistingOnlyRange();

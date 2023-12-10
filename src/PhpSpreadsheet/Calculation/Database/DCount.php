@@ -31,7 +31,7 @@ class DCount extends DatabaseAbstract
      *                                        the column label in which you specify a condition for the
      *                                        column.
      */
-    public static function evaluate($database, $field, $criteria, bool $returnError = true): string|int
+    public static function evaluate(array $database, $field, array $criteria, bool $returnError = true): string|int
     {
         $field = self::fieldExtract($database, $field);
         if ($returnError && $field === null) {

@@ -15,7 +15,7 @@ class Drawing
      *
      * @return int Value in EMU
      */
-    public static function pixelsToEMU($pixelValue): int|float
+    public static function pixelsToEMU(int $pixelValue): int|float
     {
         return $pixelValue * 9525;
     }
@@ -46,7 +46,7 @@ class Drawing
      *
      * @return float|int Value in cell dimension
      */
-    public static function pixelsToCellDimension($pixelValue, \PhpOffice\PhpSpreadsheet\Style\Font $defaultFont): int|float
+    public static function pixelsToCellDimension(int $pixelValue, \PhpOffice\PhpSpreadsheet\Style\Font $defaultFont): int|float
     {
         // Font name and size
         $name = $defaultFont->getName();
@@ -72,7 +72,7 @@ class Drawing
      *
      * @return int Value in pixels
      */
-    public static function cellDimensionToPixels($cellWidth, \PhpOffice\PhpSpreadsheet\Style\Font $defaultFont): int
+    public static function cellDimensionToPixels(float $cellWidth, \PhpOffice\PhpSpreadsheet\Style\Font $defaultFont): int
     {
         // Font name and size
         $name = $defaultFont->getName();
@@ -102,7 +102,7 @@ class Drawing
      *
      * @return float Value in points
      */
-    public static function pixelsToPoints($pixelValue): float
+    public static function pixelsToPoints(int $pixelValue): float
     {
         return $pixelValue * 0.75;
     }
@@ -130,7 +130,7 @@ class Drawing
      *
      * @return int Angle
      */
-    public static function degreesToAngle($degrees): int
+    public static function degreesToAngle(int $degrees): int
     {
         return (int) round($degrees * 60000);
     }
@@ -163,7 +163,7 @@ class Drawing
      *
      * @codeCoverageIgnore
      */
-    public static function imagecreatefrombmp($bmpFilename): GdImage
+    public static function imagecreatefrombmp(string $bmpFilename): GdImage
     {
         $retVal = @imagecreatefrombmp($bmpFilename);
         if ($retVal === false) {

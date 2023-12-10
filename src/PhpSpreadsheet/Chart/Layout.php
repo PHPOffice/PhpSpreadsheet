@@ -208,7 +208,7 @@ class Layout
      *
      * @return $this
      */
-    public function setXMode($mode): static
+    public function setXMode(?string $mode): static
     {
         $this->xMode = (string) $mode;
 
@@ -232,7 +232,7 @@ class Layout
      *
      * @return $this
      */
-    public function setYMode($mode): static
+    public function setYMode(?string $mode): static
     {
         $this->yMode = (string) $mode;
 

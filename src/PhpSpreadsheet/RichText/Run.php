@@ -18,7 +18,7 @@ class Run extends TextElement implements ITextElement
      *
      * @param string $text Text
      */
-    public function __construct($text = '')
+    public function __construct(string $text = '')
     {
         parent::__construct($text);
         // Initialise variables

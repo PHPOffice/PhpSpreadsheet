@@ -157,7 +157,7 @@ class OLERead
      *
      * @param ?int $stream
      */
-    public function getStream($stream): ?string
+    public function getStream(?int $stream): ?string
     {
         if ($stream === null) {
             return null;
@@ -206,7 +206,7 @@ class OLERead
      *
      * @return string Data for standard stream
      */
-    private function readData($block): string
+    private function readData(int $block): string
     {
         $data = '';
 
@@ -280,10 +280,8 @@ class OLERead
 
     /**
      * Read 4 bytes of data at specified position.
-     *
-     * @param int $pos
      */
-    private static function getInt4d(string $data, $pos): int
+    private static function getInt4d(string $data, int $pos): int
     {
         if ($pos < 0) {
             // Invalid position

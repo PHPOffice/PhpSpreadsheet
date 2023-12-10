@@ -185,10 +185,8 @@ class Axis extends Properties
 
     /**
      * Set Axis Orientation Property.
-     *
-     * @param string $orientation
      */
-    public function setAxisOrientation($orientation): void
+    public function setAxisOrientation(string $orientation): void
     {
         $this->axisOptions['orientation'] = (string) $orientation;
     }
@@ -214,17 +212,15 @@ class Axis extends Properties
      *
      * @param ?int $alpha
      */
-    public function setFillParameters(?string $color, $alpha = null, ?string $AlphaType = ChartColor::EXCEL_COLOR_TYPE_RGB): void
+    public function setFillParameters(?string $color, ?int $alpha = null, ?string $AlphaType = ChartColor::EXCEL_COLOR_TYPE_RGB): void
     {
         $this->fillColor->setColorProperties($color, $alpha, $AlphaType);
     }
 
     /**
      * Get Fill Property.
-     *
-     * @param string $property
      */
-    public function getFillProperty($property): string
+    public function getFillProperty(string $property): string
     {
         return (string) $this->fillColor->getColorProperty($property);
     }
@@ -240,10 +236,8 @@ class Axis extends Properties
      * @deprecated 1.24.0
      *      Use the getLineColor property in the Properties class instead
      * @see Properties::getLineColorProperty()
-     *
-     * @param string $propertyName
      */
-    public function getLineProperty($propertyName): null|int|string
+    public function getLineProperty(string $propertyName): null|int|string
     {
         return $this->getLineColorProperty($propertyName);
     }

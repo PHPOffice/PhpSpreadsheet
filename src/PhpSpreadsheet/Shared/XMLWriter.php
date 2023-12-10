@@ -23,7 +23,7 @@ class XMLWriter extends \XMLWriter
      * @param int $temporaryStorage Temporary storage location
      * @param string $temporaryStorageFolder Temporary storage folder
      */
-    public function __construct($temporaryStorage = self::STORAGE_MEMORY, $temporaryStorageFolder = null)
+    public function __construct(int $temporaryStorage = self::STORAGE_MEMORY, ?string $temporaryStorageFolder = null)
     {
         // Open temporary storage
         if ($temporaryStorage == self::STORAGE_MEMORY) {

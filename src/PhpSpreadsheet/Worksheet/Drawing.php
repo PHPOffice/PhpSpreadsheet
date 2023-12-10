@@ -92,7 +92,7 @@ class Drawing extends BaseDrawing
      *
      * @return $this
      */
-    public function setPath($path, $verifyFile = true, $zip = null): static
+    public function setPath(string $path, bool $verifyFile = true, ?ZipArchive $zip = null): static
     {
         if ($verifyFile && preg_match('~^data:image/[a-z]+;base64,~', $path) !== 1) {
             // Check if a URL has been passed. https://stackoverflow.com/a/2058596/1252979

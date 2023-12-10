@@ -16,7 +16,7 @@ class RC4
      *
      * @param string $key Encryption key/passphrase
      */
-    public function __construct($key)
+    public function __construct(string $key)
     {
         $len = strlen($key);
 
@@ -39,7 +39,7 @@ class RC4
      *
      * @param string $data Data to encrypt/decrypt
      */
-    public function RC4($data): string
+    public function RC4(string $data): string
     {
         $len = strlen($data);
         for ($c = 0; $c < $len; ++$c) {

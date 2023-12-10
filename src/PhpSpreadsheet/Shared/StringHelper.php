@@ -281,7 +281,7 @@ class StringHelper
      *
      * @param string $textValue Value to unescape
      */
-    public static function controlCharacterOOXML2PHP($textValue): string
+    public static function controlCharacterOOXML2PHP(string $textValue): string
     {
         self::buildCharacterSets();
 
@@ -301,7 +301,7 @@ class StringHelper
      *
      * @param string $textValue Value to escape
      */
-    public static function controlCharacterPHP2OOXML($textValue): string
+    public static function controlCharacterPHP2OOXML(string $textValue): string
     {
         self::buildCharacterSets();
 
@@ -644,11 +644,9 @@ class StringHelper
      * Retrieve any leading numeric part of a string, or return the full string if no leading numeric
      * (handles basic integer or float, but not exponent or non decimal).
      *
-     * @param string $textValue
-     *
      * @return mixed string or only the leading numeric part of the string
      */
-    public static function testStringAsNumeric($textValue): mixed
+    public static function testStringAsNumeric(string $textValue): mixed
     {
         if (is_numeric($textValue)) {
             return $textValue;

@@ -20,7 +20,7 @@ class TextData
      *
      * @return array|string
      */
-    public static function CHARACTER($character)
+    public static function CHARACTER(string $character)
     {
         return TextData\CharacterConvert::character($character);
     }
@@ -102,7 +102,7 @@ class TextData
      *
      * @return array|string
      */
-    public static function DOLLAR($value = 0, $decimals = 2)
+    public static function DOLLAR(float $value = 0, int $decimals = 2)
     {
         return TextData\Format::DOLLAR($value, $decimals);
     }
@@ -151,12 +151,10 @@ class TextData
      * @see TextData\Format::FIXEDFORMAT()
      *
      * @param mixed $value Value to check
-     * @param int $decimals
-     * @param bool $no_commas
      *
      * @return array|string
      */
-    public static function FIXEDFORMAT(mixed $value, $decimals = 2, $no_commas = false)
+    public static function FIXEDFORMAT(mixed $value, int $decimals = 2, bool $no_commas = false)
     {
         return TextData\Format::FIXEDFORMAT($value, $decimals, $no_commas);
     }
@@ -216,7 +214,7 @@ class TextData
      *
      * @param string $value Value
      */
-    public static function STRINGLENGTH($value = ''): int|array
+    public static function STRINGLENGTH(string $value = ''): int|array
     {
         return TextData\Text::length($value);
     }
@@ -245,10 +243,8 @@ class TextData
      * @deprecated 1.18.0
      *      Use the upper() method in the TextData\CaseConvert class instead
      * @see TextData\CaseConvert::upper()
-     *
-     * @param string $mixedCaseString
      */
-    public static function UPPERCASE($mixedCaseString): string|array
+    public static function UPPERCASE(string $mixedCaseString): string|array
     {
         return TextData\CaseConvert::upper($mixedCaseString);
     }
@@ -283,7 +279,7 @@ class TextData
      *
      * @return array|string
      */
-    public static function REPLACE($oldText, $start, $chars, $newText)
+    public static function REPLACE(string $oldText, int $start, int $chars, string $newText)
     {
         return TextData\Replace::replace($oldText, $start, $chars, $newText);
     }
@@ -302,7 +298,7 @@ class TextData
      *
      * @return array|string
      */
-    public static function SUBSTITUTE($text = '', $fromText = '', $toText = '', $instance = 0)
+    public static function SUBSTITUTE(string $text = '', string $fromText = '', string $toText = '', int $instance = 0)
     {
         return TextData\Replace::substitute($text, $fromText, $toText, $instance);
     }
@@ -333,7 +329,7 @@ class TextData
      *
      * @return array|string
      */
-    public static function TEXTFORMAT(mixed $value, $format)
+    public static function TEXTFORMAT(mixed $value, string $format)
     {
         return TextData\Format::TEXTFORMAT($value, $format);
     }
@@ -367,7 +363,7 @@ class TextData
      *
      * @return array|float|string
      */
-    public static function NUMBERVALUE(mixed $value = '', $decimalSeparator = null, $groupSeparator = null)
+    public static function NUMBERVALUE(mixed $value = '', ?string $decimalSeparator = null, ?string $groupSeparator = null)
     {
         return TextData\Format::NUMBERVALUE($value, $decimalSeparator, $groupSeparator);
     }

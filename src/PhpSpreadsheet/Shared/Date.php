@@ -68,7 +68,7 @@ class Date
      *
      * @return bool Success or failure
      */
-    public static function setExcelCalendar($baseYear): bool
+    public static function setExcelCalendar(int $baseYear): bool
     {
         if (
             ($baseYear == self::CALENDAR_WINDOWS_1900)
@@ -320,16 +320,11 @@ class Date
     /**
      * formattedPHPToExcel.
      *
-     * @param int $year
-     * @param int $month
-     * @param int $day
-     * @param int $hours
-     * @param int $minutes
      * @param float|int $seconds
      *
      * @return float Excel date/time value
      */
-    public static function formattedPHPToExcel($year, $month, $day, $hours = 0, $minutes = 0, $seconds = 0): float
+    public static function formattedPHPToExcel(int $year, int $month, int $day, int $hours = 0, int $minutes = 0, $seconds = 0): float
     {
         if (self::$excelCalendar == self::CALENDAR_WINDOWS_1900) {
             //
@@ -407,10 +402,8 @@ class Date
 
     /**
      * Is a given number format code a date/time?
-     *
-     * @param string $excelFormatCode
      */
-    public static function isDateTimeFormatCode($excelFormatCode, bool $dateWithoutTimeOkay = true): bool
+    public static function isDateTimeFormatCode(string $excelFormatCode, bool $dateWithoutTimeOkay = true): bool
     {
         if (strtolower($excelFormatCode) === strtolower(NumberFormat::FORMAT_GENERAL)) {
             //    "General" contains an epoch letter 'e', so we trap for it explicitly here (case-insensitive check)
@@ -470,7 +463,7 @@ class Date
      *
      * @return false|float Excel date/time serial value
      */
-    public static function stringToExcel($dateValue): bool|float
+    public static function stringToExcel(string $dateValue): bool|float
     {
         if (strlen($dateValue) < 2) {
             return false;
@@ -503,7 +496,7 @@ class Date
      *
      * @return int|string Month number (1 - 12), or the original string argument if it isn't a valid month name
      */
-    public static function monthStringToNumber($monthName)
+    public static function monthStringToNumber(string $monthName)
     {
         $monthIndex = 1;
         foreach (self::$monthNames as $shortMonthName => $longMonthName) {
@@ -523,7 +516,7 @@ class Date
      *
      * @return int|string The integer value with any ordinal stripped, or the original string argument if it isn't a valid numeric
      */
-    public static function dayStringToNumber($day)
+    public static function dayStringToNumber(string $day)
     {
         $strippedDayValue = (str_replace(self::$numberSuffixes, '', $day));
         if (is_numeric($strippedDayValue)) {

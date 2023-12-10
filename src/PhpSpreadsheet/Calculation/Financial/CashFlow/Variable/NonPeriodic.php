@@ -106,7 +106,7 @@ class NonPeriodic
      * Excel Function:
      *        =XNPV(rate,values,dates)
      *
-     * @param float $rate the discount rate to apply to the cash flows
+     * @param array|float $rate the discount rate to apply to the cash flows
      * @param float[] $values A series of cash flows that corresponds to a schedule of payments in dates.
      *                          The first payment is optional and corresponds to a cost or payment that occurs
      *                              at the beginning of the investment.
@@ -117,7 +117,7 @@ class NonPeriodic
      *                         The first payment date indicates the beginning of the schedule of payments.
      *                         All other dates must be later than this date, but they may occur in any order.
      */
-    public static function presentValue($rate, $values, $dates): float|string
+    public static function presentValue(array|float $rate, array $values, array $dates): float|string
     {
         return self::xnpvOrdered($rate, $values, $dates, true);
     }

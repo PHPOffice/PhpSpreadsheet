@@ -27,10 +27,8 @@ class Font
 
     /**
      * Set the color index.
-     *
-     * @param int $colorIndex
      */
-    public function setColorIndex($colorIndex): void
+    public function setColorIndex(int $colorIndex): void
     {
         $this->colorIndex = $colorIndex;
     }
@@ -123,10 +121,8 @@ class Font
 
     /**
      * Map underline.
-     *
-     * @param string $underline
      */
-    private static function mapUnderline($underline): int
+    private static function mapUnderline(string $underline): int
     {
         if (isset(self::$mapUnderline[$underline])) {
             return self::$mapUnderline[$underline];

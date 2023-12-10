@@ -125,10 +125,8 @@ class Chart
     /**
      * Create a new Chart.
      * majorGridlines and minorGridlines are deprecated, moved to Axis.
-     *
-     * @param string $displayBlanksAs
      */
-    public function __construct(mixed $name, ?Title $title = null, ?Legend $legend = null, ?PlotArea $plotArea = null, mixed $plotVisibleOnly = true, $displayBlanksAs = DataSeries::EMPTY_AS_GAP, ?Title $xAxisLabel = null, ?Title $yAxisLabel = null, ?Axis $xAxis = null, ?Axis $yAxis = null, ?GridLines $majorGridlines = null, ?GridLines $minorGridlines = null)
+    public function __construct(mixed $name, ?Title $title = null, ?Legend $legend = null, ?PlotArea $plotArea = null, mixed $plotVisibleOnly = true, string $displayBlanksAs = DataSeries::EMPTY_AS_GAP, ?Title $xAxisLabel = null, ?Title $yAxisLabel = null, ?Axis $xAxis = null, ?Axis $yAxis = null, ?GridLines $majorGridlines = null, ?GridLines $minorGridlines = null)
     {
         $this->name = $name;
         $this->title = $title;
@@ -284,11 +282,9 @@ class Chart
     /**
      * Set Plot Visible Only.
      *
-     * @param bool $plotVisibleOnly
-     *
      * @return $this
      */
-    public function setPlotVisibleOnly($plotVisibleOnly): static
+    public function setPlotVisibleOnly(bool $plotVisibleOnly): static
     {
         $this->plotVisibleOnly = $plotVisibleOnly;
 
@@ -306,11 +302,9 @@ class Chart
     /**
      * Set Display Blanks as.
      *
-     * @param string $displayBlanksAs
-     *
      * @return $this
      */
-    public function setDisplayBlanksAs($displayBlanksAs): static
+    public function setDisplayBlanksAs(string $displayBlanksAs): static
     {
         $this->displayBlanksAs = $displayBlanksAs;
 
@@ -376,13 +370,9 @@ class Chart
     /**
      * Set the Top Left position for the chart.
      *
-     * @param string $cellAddress
-     * @param int $xOffset
-     * @param int $yOffset
-     *
      * @return $this
      */
-    public function setTopLeftPosition($cellAddress, $xOffset = null, $yOffset = null): static
+    public function setTopLeftPosition(string $cellAddress, ?int $xOffset = null, ?int $yOffset = null): static
     {
         $this->topLeftCellRef = $cellAddress;
         if ($xOffset !== null) {
@@ -422,11 +412,9 @@ class Chart
     /**
      * Set the Top Left cell position for the chart.
      *
-     * @param string $cellAddress
-     *
      * @return $this
      */
-    public function setTopLeftCell($cellAddress): static
+    public function setTopLeftCell(string $cellAddress): static
     {
         $this->topLeftCellRef = $cellAddress;
 
@@ -441,7 +429,7 @@ class Chart
      *
      * @return $this
      */
-    public function setTopLeftOffset($xOffset, $yOffset): static
+    public function setTopLeftOffset(?int $xOffset, ?int $yOffset): static
     {
         if ($xOffset !== null) {
             $this->setTopLeftXOffset($xOffset);
@@ -468,11 +456,9 @@ class Chart
     }
 
     /**
-     * @param int $xOffset
-     *
      * @return $this
      */
-    public function setTopLeftXOffset($xOffset): static
+    public function setTopLeftXOffset(int $xOffset): static
     {
         $this->topLeftXOffset = $xOffset;
 
@@ -485,11 +471,9 @@ class Chart
     }
 
     /**
-     * @param int $yOffset
-     *
      * @return $this
      */
-    public function setTopLeftYOffset($yOffset): static
+    public function setTopLeftYOffset(int $yOffset): static
     {
         $this->topLeftYOffset = $yOffset;
 
@@ -504,13 +488,9 @@ class Chart
     /**
      * Set the Bottom Right position of the chart.
      *
-     * @param string $cellAddress
-     * @param int $xOffset
-     * @param int $yOffset
-     *
      * @return $this
      */
-    public function setBottomRightPosition($cellAddress = '', $xOffset = null, $yOffset = null): static
+    public function setBottomRightPosition(string $cellAddress = '', ?int $xOffset = null, ?int $yOffset = null): static
     {
         $this->bottomRightCellRef = $cellAddress;
         if ($xOffset !== null) {
@@ -565,7 +545,7 @@ class Chart
      *
      * @return $this
      */
-    public function setBottomRightOffset($xOffset, $yOffset): static
+    public function setBottomRightOffset(?int $xOffset, ?int $yOffset): static
     {
         if ($xOffset !== null) {
             $this->setBottomRightXOffset($xOffset);
@@ -592,11 +572,9 @@ class Chart
     }
 
     /**
-     * @param int $xOffset
-     *
      * @return $this
      */
-    public function setBottomRightXOffset($xOffset): static
+    public function setBottomRightXOffset(int $xOffset): static
     {
         $this->bottomRightXOffset = $xOffset;
 
@@ -609,11 +587,9 @@ class Chart
     }
 
     /**
-     * @param int $yOffset
-     *
      * @return $this
      */
-    public function setBottomRightYOffset($yOffset): static
+    public function setBottomRightYOffset(int $yOffset): static
     {
         $this->bottomRightYOffset = $yOffset;
 
@@ -639,7 +615,7 @@ class Chart
      *
      * @return bool true on success
      */
-    public function render($outputDestination = null): bool
+    public function render(?string $outputDestination = null): bool
     {
         if ($outputDestination == 'php://output') {
             $outputDestination = null;

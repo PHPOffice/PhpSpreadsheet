@@ -74,10 +74,7 @@ class Chart
         return null;
     }
 
-    /**
-     * @param string $chartName
-     */
-    public function readChart(SimpleXMLElement $chartElements, $chartName): \PhpOffice\PhpSpreadsheet\Chart\Chart
+    public function readChart(SimpleXMLElement $chartElements, string $chartName): \PhpOffice\PhpSpreadsheet\Chart\Chart
     {
         $chartElementsC = $chartElements->children($this->cNamespace);
 
@@ -1208,7 +1205,7 @@ class Chart
     /**
      * @param ?SimpleXMLElement $chartDetail
      */
-    private function readChartAttributes($chartDetail): array
+    private function readChartAttributes(?SimpleXMLElement $chartDetail): array
     {
         $plotAttributes = [];
         if (isset($chartDetail->dLbls)) {

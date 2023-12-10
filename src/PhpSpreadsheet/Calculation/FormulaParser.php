@@ -61,7 +61,7 @@ class FormulaParser
      *
      * @param ?string $formula Formula to parse
      */
-    public function __construct($formula = '')
+    public function __construct(?string $formula = '')
     {
         // Check parameters
         if ($formula === null) {

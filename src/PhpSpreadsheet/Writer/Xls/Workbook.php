@@ -153,7 +153,7 @@ class Workbook extends BIFFwriter
      * @param array $colors Colour Table
      * @param Parser $parser The formula parser created for the Workbook
      */
-    public function __construct(Spreadsheet $spreadsheet, &$str_total, &$str_unique, &$str_table, &$colors, Parser $parser)
+    public function __construct(Spreadsheet $spreadsheet, int &$str_total, int &$str_unique, array &$str_table, array &$colors, Parser $parser)
     {
         // It needs to call its parent's constructor explicitly
         parent::__construct();
@@ -198,7 +198,7 @@ class Workbook extends BIFFwriter
      *
      * @return int Index to XF record
      */
-    public function addXfWriter(Style $style, $isStyleXf = false): int
+    public function addXfWriter(Style $style, bool $isStyleXf = false): int
     {
         $xfWriter = new Xf($style);
         $xfWriter->setIsStyleXf($isStyleXf);
@@ -272,7 +272,7 @@ class Workbook extends BIFFwriter
      *
      * @return int Color index
      */
-    private function addColor($rgb): int
+    private function addColor(string $rgb): int
     {
         if (!isset($this->colors[$rgb])) {
             $color
@@ -696,7 +696,7 @@ class Workbook extends BIFFwriter
      *
      * @return string Complete binary record data
      */
-    private function writeDefinedNameBiff8($name, string $formulaData, int $sheetIndex = 0, bool $isBuiltIn = false): string
+    private function writeDefinedNameBiff8(string $name, string $formulaData, int $sheetIndex = 0, bool $isBuiltIn = false): string
     {
         $record = 0x0018;
 
@@ -809,7 +809,7 @@ class Workbook extends BIFFwriter
      *
      * @param int $offset Location of worksheet BOF
      */
-    private function writeBoundSheet(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $sheet, $offset): void
+    private function writeBoundSheet(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $sheet, int $offset): void
     {
         $sheetname = $sheet->getTitle();
         $record = 0x0085; // Record identifier
@@ -890,7 +890,7 @@ class Workbook extends BIFFwriter
      * @param string $format Custom format string
      * @param int $ifmt Format index code
      */
-    private function writeNumberFormat(string $format, $ifmt): void
+    private function writeNumberFormat(string $format, int $ifmt): void
     {
         $record = 0x041E; // Record identifier
 

@@ -320,10 +320,8 @@ class Worksheet implements IComparable
 
     /**
      * Create a new worksheet.
-     *
-     * @param string $title
      */
-    public function __construct(?Spreadsheet $parent = null, $title = 'Worksheet')
+    public function __construct(?Spreadsheet $parent = null, string $title = 'Worksheet')
     {
         // Set parent and title
         $this->parent = $parent;
@@ -406,7 +404,7 @@ class Worksheet implements IComparable
      *
      * @return string The valid string
      */
-    private static function checkSheetCodeName($sheetCodeName): string
+    private static function checkSheetCodeName(string $sheetCodeName): string
     {
         $charCount = Shared\StringHelper::countCharacters($sheetCodeName);
         if ($charCount == 0) {
@@ -436,7 +434,7 @@ class Worksheet implements IComparable
      *
      * @return string The valid string
      */
-    private static function checkSheetTitle($sheetTitle): string
+    private static function checkSheetTitle(string $sheetTitle): string
     {
         // Some of the printable ASCII characters are invalid:  * : / \ ? [ ]
         if (str_replace(self::$invalidCharacters, '', $sheetTitle) !== $sheetTitle) {
@@ -458,7 +456,7 @@ class Worksheet implements IComparable
      *
      * @return string[]
      */
-    public function getCoordinates($sorted = true): array
+    public function getCoordinates(bool $sorted = true): array
     {
         if ($this->cellCollection == null) {
             return [];
@@ -561,7 +559,7 @@ class Worksheet implements IComparable
      *
      * @return Chart|false
      */
-    public function getChartByIndex($index)
+    public function getChartByIndex(?string $index)
     {
         $chartCount = count($this->chartCollection);
         if ($chartCount == 0) {
@@ -599,7 +597,7 @@ class Worksheet implements IComparable
      *
      * @return Chart|false
      */
-    public function getChartByName($chartName)
+    public function getChartByName(string $chartName)
     {
         foreach ($this->chartCollection as $index => $chart) {
             if ($chart->getName() == $chartName) {
@@ -836,7 +834,7 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function setTitle($title, $updateFormulaCellReferences = true, $validate = true): static
+    public function setTitle(string $title, bool $updateFormulaCellReferences = true, bool $validate = true): static
     {
         // Is this a 'rename' or not?
         if ($this->getTitle() == $title) {
@@ -911,7 +909,7 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function setSheetState($value): static
+    public function setSheetState(string $value): static
     {
         $this->sheetState = $value;
 
@@ -1057,7 +1055,7 @@ class Worksheet implements IComparable
      *
      * @return int Highest row number
      */
-    public function getHighestRow($column = null): int
+    public function getHighestRow(?string $column = null): int
     {
         if ($column === null) {
             return $this->cachedHighestRow;
@@ -1074,7 +1072,7 @@ class Worksheet implements IComparable
      *
      * @return int Highest row number that contains data
      */
-    public function getHighestDataRow($column = null): int
+    public function getHighestDataRow(?string $column = null): int
     {
         return $this->getCellCollection()->getHighestRow($column);
     }
@@ -1122,7 +1120,7 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function setCellValueByColumnAndRow($columnIndex, $row, mixed $value, ?IValueBinder $binder = null): static
+    public function setCellValueByColumnAndRow(int $columnIndex, int $row, mixed $value, ?IValueBinder $binder = null): static
     {
         $this->getCell(Coordinate::stringFromColumnIndex($columnIndex) . $row)->setValue($value, $binder);
 
@@ -1176,7 +1174,7 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function setCellValueExplicitByColumnAndRow($columnIndex, $row, mixed $value, string $dataType): static
+    public function setCellValueExplicitByColumnAndRow(int $columnIndex, int $row, mixed $value, string $dataType): static
     {
         $this->getCell(Coordinate::stringFromColumnIndex($columnIndex) . $row)->setValueExplicit($value, $dataType);
 
@@ -1275,7 +1273,7 @@ class Worksheet implements IComparable
      *
      * @return null|Cell Cell that was found or null
      */
-    private function getCellOrNull($coordinate): ?Cell
+    private function getCellOrNull(string $coordinate): ?Cell
     {
         // Check cell collection
         if ($this->getCellCollection()->has($coordinate)) {
@@ -1303,7 +1301,7 @@ class Worksheet implements IComparable
      *              the "active" cell, and any previous assignment becomes a disconnected reference because
      *              the active cell has changed.
      */
-    public function getCellByColumnAndRow($columnIndex, $row): Cell
+    public function getCellByColumnAndRow(int $columnIndex, int $row): Cell
     {
         return $this->getCell(Coordinate::stringFromColumnIndex($columnIndex) . $row);
     }
@@ -1384,7 +1382,7 @@ class Worksheet implements IComparable
      * @param int $columnIndex Numeric column coordinate of the cell
      * @param int $row Numeric row coordinate of the cell
      */
-    public function cellExistsByColumnAndRow($columnIndex, $row): bool
+    public function cellExistsByColumnAndRow(int $columnIndex, int $row): bool
     {
         return $this->cellExists(Coordinate::stringFromColumnIndex($columnIndex) . $row);
     }
@@ -1494,7 +1492,7 @@ class Worksheet implements IComparable
      * @param null|int $columnIndex2 Numeric column coordinate of the range cell
      * @param null|int $row2 Numeric row coordinate of the range cell
      */
-    public function getStyleByColumnAndRow($columnIndex1, $row1, $columnIndex2 = null, $row2 = null): Style
+    public function getStyleByColumnAndRow(int $columnIndex1, int $row1, ?int $columnIndex2 = null, ?int $row2 = null): Style
     {
         if ($columnIndex2 !== null && $row2 !== null) {
             $cellRange = new CellRange(
@@ -1558,7 +1556,7 @@ class Worksheet implements IComparable
      *          If a range of cells is specified, then true will only be returned if the range matches the entire
      *               range of the conditional.
      */
-    public function conditionalStylesExists($coordinate): bool
+    public function conditionalStylesExists(string $coordinate): bool
     {
         $coordinate = strtoupper($coordinate);
         if (str_contains($coordinate, ':')) {
@@ -1582,7 +1580,7 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function removeConditionalStyles($coordinate): static
+    public function removeConditionalStyles(string $coordinate): static
     {
         unset($this->conditionalStylesCollection[strtoupper($coordinate)]);
 
@@ -1605,7 +1603,7 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function setConditionalStyles($coordinate, $styles): static
+    public function setConditionalStyles(string $coordinate, array $styles): static
     {
         $this->conditionalStylesCollection[strtoupper($coordinate)] = $styles;
 
@@ -1702,7 +1700,7 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function setBreak($coordinate, $break, int $max = -1): static
+    public function setBreak($coordinate, int $break, int $max = -1): static
     {
         $cellAddress = Functions::trimSheetFromCellReference(Validations::validateCellAddress($coordinate));
 
@@ -1731,7 +1729,7 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function setBreakByColumnAndRow($columnIndex, $row, $break): static
+    public function setBreakByColumnAndRow(int $columnIndex, int $row, int $break): static
     {
         return $this->setBreak(Coordinate::stringFromColumnIndex($columnIndex) . $row, $break);
     }
@@ -1818,7 +1816,7 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function mergeCells($range, $behaviour = self::MERGE_CELL_CONTENT_EMPTY): static
+    public function mergeCells($range, string $behaviour = self::MERGE_CELL_CONTENT_EMPTY): static
     {
         $range = Functions::trimSheetFromCellReference(Validations::validateCellRange($range));
 
@@ -1950,7 +1948,7 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function mergeCellsByColumnAndRow($columnIndex1, $row1, $columnIndex2, $row2, $behaviour = self::MERGE_CELL_CONTENT_EMPTY): static
+    public function mergeCellsByColumnAndRow(int $columnIndex1, int $row1, int $columnIndex2, int $row2, string $behaviour = self::MERGE_CELL_CONTENT_EMPTY): static
     {
         $cellRange = new CellRange(
             CellAddress::fromColumnAndRow($columnIndex1, $row1),
@@ -2002,7 +2000,7 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function unmergeCellsByColumnAndRow($columnIndex1, $row1, $columnIndex2, $row2): static
+    public function unmergeCellsByColumnAndRow(int $columnIndex1, int $row1, int $columnIndex2, int $row2): static
     {
         $cellRange = new CellRange(
             CellAddress::fromColumnAndRow($columnIndex1, $row1),
@@ -2048,7 +2046,7 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function protectCells($range, $password, $alreadyHashed = false): static
+    public function protectCells($range, string $password, bool $alreadyHashed = false): static
     {
         $range = Functions::trimSheetFromCellReference(Validations::validateCellOrCellRange($range));
 
@@ -2078,7 +2076,7 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function protectCellsByColumnAndRow($columnIndex1, $row1, $columnIndex2, $row2, $password, $alreadyHashed = false): static
+    public function protectCellsByColumnAndRow(int $columnIndex1, int $row1, int $columnIndex2, int $row2, string $password, bool $alreadyHashed = false): static
     {
         $cellRange = new CellRange(
             CellAddress::fromColumnAndRow($columnIndex1, $row1),
@@ -2126,7 +2124,7 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function unprotectCellsByColumnAndRow($columnIndex1, $row1, $columnIndex2, $row2): static
+    public function unprotectCellsByColumnAndRow(int $columnIndex1, int $row1, int $columnIndex2, int $row2): static
     {
         $cellRange = new CellRange(
             CellAddress::fromColumnAndRow($columnIndex1, $row1),
@@ -2193,7 +2191,7 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function setAutoFilterByColumnAndRow($columnIndex1, $row1, $columnIndex2, $row2): static
+    public function setAutoFilterByColumnAndRow(int $columnIndex1, int $row1, int $columnIndex2, int $row2): static
     {
         $cellRange = new CellRange(
             CellAddress::fromColumnAndRow($columnIndex1, $row1),
@@ -2404,7 +2402,7 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function freezePaneByColumnAndRow($columnIndex, $row): static
+    public function freezePaneByColumnAndRow(int $columnIndex, int $row): static
     {
         return $this->freezePane(Coordinate::stringFromColumnIndex($columnIndex) . $row);
     }
@@ -2923,7 +2921,7 @@ class Worksheet implements IComparable
      * @param int $columnIndex Numeric column coordinate of the cell
      * @param int $row Numeric row coordinate of the cell
      */
-    public function getCommentByColumnAndRow($columnIndex, $row): Comment
+    public function getCommentByColumnAndRow(int $columnIndex, int $row): Comment
     {
         return $this->getComment(Coordinate::stringFromColumnIndex($columnIndex) . $row);
     }
@@ -2953,7 +2951,7 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function setSelectedCell($coordinate): static
+    public function setSelectedCell(string $coordinate): static
     {
         return $this->setSelectedCells($coordinate);
     }
@@ -3018,7 +3016,7 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function setSelectedCellByColumnAndRow($columnIndex, $row): static
+    public function setSelectedCellByColumnAndRow(int $columnIndex, int $row): static
     {
         return $this->setSelectedCells(Coordinate::stringFromColumnIndex($columnIndex) . $row);
     }
@@ -3038,7 +3036,7 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function setRightToLeft($value): static
+    public function setRightToLeft(bool $value): static
     {
         $this->rightToLeft = $value;
 
@@ -3055,7 +3053,7 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function fromArray(array $source, mixed $nullValue = null, $startCell = 'A1', $strictNullComparison = false): static
+    public function fromArray(array $source, mixed $nullValue = null, string $startCell = 'A1', bool $strictNullComparison = false): static
     {
         //    Convert a 1-D array to 2-D (for ease of looping)
         if (!is_array(end($source))) {
@@ -3277,7 +3275,7 @@ class Worksheet implements IComparable
      * @param int $startRow The row number at which to start iterating
      * @param int $endRow The row number at which to stop iterating
      */
-    public function getRowIterator($startRow = 1, $endRow = null): RowIterator
+    public function getRowIterator(int $startRow = 1, ?int $endRow = null): RowIterator
     {
         return new RowIterator($this, $startRow, $endRow);
     }
@@ -3288,7 +3286,7 @@ class Worksheet implements IComparable
      * @param string $startColumn The column address at which to start iterating
      * @param string $endColumn The column address at which to stop iterating
      */
-    public function getColumnIterator($startColumn = 'A', $endColumn = null): ColumnIterator
+    public function getColumnIterator(string $startColumn = 'A', ?string $endColumn = null): ColumnIterator
     {
         return new ColumnIterator($this, $startColumn, $endColumn);
     }
@@ -3360,7 +3358,7 @@ class Worksheet implements IComparable
      *
      * @return ($range is non-empty-string ? ($returnRange is true ? array{0: string, 1: string} : string) : ($returnRange is true ? array{0: null, 1: null} : null))
      */
-    public static function extractSheetTitle($range, $returnRange = false): array|null|string
+    public static function extractSheetTitle(?string $range, bool $returnRange = false): array|null|string
     {
         if (empty($range)) {
             return $returnRange ? [null, null] : null;
@@ -3383,7 +3381,7 @@ class Worksheet implements IComparable
      *
      * @param string $cellCoordinate Cell coordinate to get hyperlink for, eg: 'A1'
      */
-    public function getHyperlink($cellCoordinate): Hyperlink
+    public function getHyperlink(string $cellCoordinate): Hyperlink
     {
         // return hyperlink if we already have one
         if (isset($this->hyperlinkCollection[$cellCoordinate])) {
@@ -3403,7 +3401,7 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function setHyperlink($cellCoordinate, ?Hyperlink $hyperlink = null): static
+    public function setHyperlink(string $cellCoordinate, ?Hyperlink $hyperlink = null): static
     {
         if ($hyperlink === null) {
             unset($this->hyperlinkCollection[$cellCoordinate]);
@@ -3419,7 +3417,7 @@ class Worksheet implements IComparable
      *
      * @param string $coordinate eg: 'A1'
      */
-    public function hyperlinkExists($coordinate): bool
+    public function hyperlinkExists(string $coordinate): bool
     {
         return isset($this->hyperlinkCollection[$coordinate]);
     }
@@ -3439,7 +3437,7 @@ class Worksheet implements IComparable
      *
      * @param string $cellCoordinate Cell coordinate to get data validation for, eg: 'A1'
      */
-    public function getDataValidation($cellCoordinate): DataValidation
+    public function getDataValidation(string $cellCoordinate): DataValidation
     {
         // return data validation if we already have one
         if (isset($this->dataValidationCollection[$cellCoordinate])) {
@@ -3459,7 +3457,7 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function setDataValidation($cellCoordinate, ?DataValidation $dataValidation = null): static
+    public function setDataValidation(string $cellCoordinate, ?DataValidation $dataValidation = null): static
     {
         if ($dataValidation === null) {
             unset($this->dataValidationCollection[$cellCoordinate]);
@@ -3475,7 +3473,7 @@ class Worksheet implements IComparable
      *
      * @param string $coordinate eg: 'A1'
      */
-    public function dataValidationExists($coordinate): bool
+    public function dataValidationExists(string $coordinate): bool
     {
         return isset($this->dataValidationCollection[$coordinate]);
     }
@@ -3493,11 +3491,9 @@ class Worksheet implements IComparable
     /**
      * Accepts a range, returning it as a range that falls within the current highest row and column of the worksheet.
      *
-     * @param string $range
-     *
      * @return string Adjusted range value
      */
-    public function shrinkRangeToFit($range): string
+    public function shrinkRangeToFit(string $range): string
     {
         $maxCol = $this->getHighestColumn();
         $maxRow = $this->getHighestRow();
@@ -3671,7 +3667,7 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function setCodeName($codeName, $validate = true): static
+    public function setCodeName(string $codeName, bool $validate = true): static
     {
         // Is this a 'rename' or not?
         if ($this->getCodeName() == $codeName) {

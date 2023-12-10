@@ -11,11 +11,10 @@ class Color
      *
      * @param int $color Indexed color
      * @param array $palette Color palette
-     * @param int $version
      *
      * @return array RGB color value, example: ['rgb' => 'FF0000']
      */
-    public static function map($color, array $palette, $version): array
+    public static function map(int $color, array $palette, int $version): array
     {
         if ($color <= 0x07 || $color >= 0x40) {
             // special built-in color

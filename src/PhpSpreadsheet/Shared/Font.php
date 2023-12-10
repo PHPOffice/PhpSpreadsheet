@@ -288,7 +288,7 @@ class Font
      *
      * @return bool Success or failure
      */
-    public static function setAutoSizeMethod($method): bool
+    public static function setAutoSizeMethod(string $method): bool
     {
         if (!in_array($method, self::AUTOSIZE_METHODS)) {
             return false;
@@ -314,10 +314,8 @@ class Font
      *        <li>/usr/share/fonts/truetype/</li>
      *        <li>~/.fonts/</li>
      * </ul>.
-     *
-     * @param string $folderPath
      */
-    public static function setTrueTypeFontPath($folderPath): void
+    public static function setTrueTypeFontPath(string $folderPath): void
     {
         self::$trueTypeFontPath = $folderPath;
     }
@@ -369,7 +367,7 @@ class Font
     public static function calculateColumnWidth(
         FontStyle $font,
         $cellText = '',
-        $rotation = 0,
+        int $rotation = 0,
         ?FontStyle $defaultFont = null,
         bool $filterAdjustment = false,
         int $indentAdjustment = 0
@@ -458,11 +456,9 @@ class Font
     /**
      * Get approximate width in pixels for a string of text in a certain font at a certain rotation angle.
      *
-     * @param int $rotation
-     *
      * @return int Text width in pixels (no padding added)
      */
-    public static function getTextWidthPixelsApprox(string $columnText, FontStyle $font, $rotation = 0): int
+    public static function getTextWidthPixelsApprox(string $columnText, FontStyle $font, int $rotation = 0): int
     {
         $fontName = $font->getName();
         $fontSize = $font->getSize();
@@ -515,7 +511,7 @@ class Font
      *
      * @return int Font size (in pixels)
      */
-    public static function fontSizeToPixels($fontSizeInPoints): int
+    public static function fontSizeToPixels(int $fontSizeInPoints): int
     {
         return (int) ((4 / 3) * $fontSizeInPoints);
     }
@@ -523,11 +519,11 @@ class Font
     /**
      * Calculate an (approximate) pixel size, based on inch size.
      *
-     * @param int $sizeInInch Font size (in inch)
+     * @param float|int $sizeInInch Font size (in inch)
      *
-     * @return int Size (in pixels)
+     * @return float|int Size (in pixels)
      */
-    public static function inchSizeToPixels($sizeInInch): int|float
+    public static function inchSizeToPixels(int|float $sizeInInch): int|float
     {
         return $sizeInInch * 96;
     }
@@ -535,11 +531,11 @@ class Font
     /**
      * Calculate an (approximate) pixel size, based on centimeter size.
      *
-     * @param int $sizeInCm Font size (in centimeters)
+     * @param float|int $sizeInCm Font size (in centimeters)
      *
      * @return float Size (in pixels)
      */
-    public static function centimeterSizeToPixels($sizeInCm): float
+    public static function centimeterSizeToPixels(int|float $sizeInCm): float
     {
         return $sizeInCm * 37.795275591;
     }
@@ -626,7 +622,7 @@ class Font
      *
      * @return int Character set code
      */
-    public static function getCharsetFromFontName($fontName): int
+    public static function getCharsetFromFontName(string $fontName): int
     {
         return self::CHARSET_FROM_FONT_NAME[$fontName] ?? self::CHARSET_ANSI_LATIN;
     }

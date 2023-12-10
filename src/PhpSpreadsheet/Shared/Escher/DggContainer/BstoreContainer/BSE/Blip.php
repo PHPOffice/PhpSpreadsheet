@@ -26,10 +26,8 @@ class Blip
 
     /**
      * Set the raw image data.
-     *
-     * @param string $data
      */
-    public function setData($data): void
+    public function setData(string $data): void
     {
         $this->data = $data;
     }

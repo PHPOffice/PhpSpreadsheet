@@ -31,7 +31,7 @@ abstract class Dimension
      *
      * @param int $initialValue Numeric row index
      */
-    public function __construct($initialValue = null)
+    public function __construct(?int $initialValue = null)
     {
         // set dimension as unformatted by default
         $this->xfIndex = $initialValue;

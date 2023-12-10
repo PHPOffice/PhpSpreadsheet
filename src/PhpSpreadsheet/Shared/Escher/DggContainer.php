@@ -46,10 +46,8 @@ class DggContainer
 
     /**
      * Set maximum shape index of all shapes in all drawings (plus one).
-     *
-     * @param int $value
      */
-    public function setSpIdMax($value): void
+    public function setSpIdMax(int $value): void
     {
         $this->spIdMax = $value;
     }
@@ -64,10 +62,8 @@ class DggContainer
 
     /**
      * Set total number of drawings saved.
-     *
-     * @param int $value
      */
-    public function setCDgSaved($value): void
+    public function setCDgSaved(int $value): void
     {
         $this->cDgSaved = $value;
     }
@@ -82,10 +78,8 @@ class DggContainer
 
     /**
      * Set total number of shapes saved (including group shapes).
-     *
-     * @param int $value
      */
-    public function setCSpSaved($value): void
+    public function setCSpSaved(int $value): void
     {
         $this->cSpSaved = $value;
     }
@@ -102,10 +96,8 @@ class DggContainer
 
     /**
      * Set BLIP Store Container.
-     *
-     * @param DggContainer\BstoreContainer $bstoreContainer
      */
-    public function setBstoreContainer($bstoreContainer): void
+    public function setBstoreContainer(DggContainer\BstoreContainer $bstoreContainer): void
     {
         $this->bstoreContainer = $bstoreContainer;
     }
@@ -115,7 +107,7 @@ class DggContainer
      *
      * @param int $property The number specifies the option
      */
-    public function setOPT($property, mixed $value): void
+    public function setOPT(int $property, mixed $value): void
     {
         $this->OPT[$property] = $value;
     }
@@ -125,7 +117,7 @@ class DggContainer
      *
      * @param int $property The number specifies the option
      */
-    public function getOPT($property): mixed
+    public function getOPT(int $property): mixed
     {
         if (isset($this->OPT[$property])) {
             return $this->OPT[$property];
@@ -144,10 +136,8 @@ class DggContainer
 
     /**
      * Set identifier clusters. [<drawingId> => <max shape id>, ...].
-     *
-     * @param array $IDCLs
      */
-    public function setIDCLs($IDCLs): void
+    public function setIDCLs(array $IDCLs): void
     {
         $this->IDCLs = $IDCLs;
     }

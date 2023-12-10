@@ -276,7 +276,7 @@ class MemoryDrawing extends BaseDrawing
      *
      * @return $this
      */
-    public function setRenderingFunction($value): static
+    public function setRenderingFunction(string $value): static
     {
         $this->renderingFunction = $value;
 
@@ -298,7 +298,7 @@ class MemoryDrawing extends BaseDrawing
      *
      * @return $this
      */
-    public function setMimeType($value): static
+    public function setMimeType(string $value): static
     {
         $this->mimeType = $value;
 

@@ -92,7 +92,7 @@ class Font extends Supervisor
      *                                    Leave this value at default unless you understand exactly what
      *                                        its ramifications are
      */
-    public function __construct($isSupervisor = false, $isConditional = false)
+    public function __construct(bool $isSupervisor = false, bool $isConditional = false)
     {
         // Supervisor?
         parent::__construct($isSupervisor);
@@ -131,10 +131,8 @@ class Font extends Supervisor
 
     /**
      * Build style array from subcomponents.
-     *
-     * @param array $array
      */
-    public function getStyleArray($array): array
+    public function getStyleArray(array $array): array
     {
         return ['font' => $array];
     }
@@ -254,10 +252,8 @@ class Font extends Supervisor
 
     /**
      * Set Name and turn off Scheme.
-     *
-     * @param string $fontname
      */
-    public function setName($fontname): self
+    public function setName(string $fontname): self
     {
         if ($fontname == '') {
             $fontname = 'Calibri';
@@ -384,11 +380,9 @@ class Font extends Supervisor
     /**
      * Set Bold.
      *
-     * @param bool $bold
-     *
      * @return $this
      */
-    public function setBold($bold): static
+    public function setBold(bool $bold): static
     {
         if ($bold == '') {
             $bold = false;
@@ -418,11 +412,9 @@ class Font extends Supervisor
     /**
      * Set Italic.
      *
-     * @param bool $italic
-     *
      * @return $this
      */
-    public function setItalic($italic): static
+    public function setItalic(bool $italic): static
     {
         if ($italic == '') {
             $italic = false;
@@ -657,11 +649,9 @@ class Font extends Supervisor
     /**
      * Set Strikethrough.
      *
-     * @param bool $strikethru
-     *
      * @return $this
      */
-    public function setStrikethrough($strikethru): static
+    public function setStrikethrough(bool $strikethru): static
     {
         if ($strikethru == '') {
             $strikethru = false;

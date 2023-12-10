@@ -352,12 +352,11 @@ class Protection
     /**
      * Set Password.
      *
-     * @param string $password
      * @param bool $alreadyHashed If the password has already been hashed, set this to true
      *
      * @return $this
      */
-    public function setPassword($password, $alreadyHashed = false): static
+    public function setPassword(string $password, bool $alreadyHashed = false): static
     {
         if (!$alreadyHashed) {
             $salt = $this->generateSalt();

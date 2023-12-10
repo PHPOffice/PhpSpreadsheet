@@ -74,7 +74,7 @@ class Borders extends Supervisor
      *                                    Leave this value at default unless you understand exactly what
      *                                        its ramifications are
      */
-    public function __construct($isSupervisor = false, bool $isConditional = false)
+    public function __construct(bool $isSupervisor = false, bool $isConditional = false)
     {
         // Supervisor?
         parent::__construct($isSupervisor);
@@ -124,10 +124,8 @@ class Borders extends Supervisor
 
     /**
      * Build style array from subcomponents.
-     *
-     * @param array $array
      */
-    public function getStyleArray($array): array
+    public function getStyleArray(array $array): array
     {
         return ['borders' => $array];
     }
@@ -324,7 +322,7 @@ class Borders extends Supervisor
      *
      * @return $this
      */
-    public function setDiagonalDirection($direction): static
+    public function setDiagonalDirection(int $direction): static
     {
         if ($direction == '') {
             $direction = self::DIAGONAL_NONE;

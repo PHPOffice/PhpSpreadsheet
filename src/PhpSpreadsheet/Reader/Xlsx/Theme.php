@@ -24,11 +24,9 @@ class Theme
     /**
      * Create a new Theme.
      *
-     * @param string $themeName
-     * @param string $colourSchemeName
      * @param string[] $colourMap
      */
-    public function __construct($themeName, $colourSchemeName, $colourMap)
+    public function __construct(string $themeName, string $colourSchemeName, array $colourMap)
     {
         // Initialise values
         $this->themeName = $themeName;
@@ -58,10 +56,8 @@ class Theme
 
     /**
      * Get colour Map Value by Position.
-     *
-     * @param int $index
      */
-    public function getColourByIndex($index): ?string
+    public function getColourByIndex(int $index): ?string
     {
         return $this->colourMap[$index] ?? null;
     }

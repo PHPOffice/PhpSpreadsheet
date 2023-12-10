@@ -216,7 +216,7 @@ class Html extends BaseReader
      *
      * @deprecated no use is made of this property
      */
-    public function setInputEncoding($inputEncoding): static
+    public function setInputEncoding(string $inputEncoding): static
     {
         $this->inputEncoding = $inputEncoding;
 
@@ -763,10 +763,8 @@ class Html extends BaseReader
 
     /**
      * Spreadsheet from content.
-     *
-     * @param string $content
      */
-    public function loadFromString($content, ?Spreadsheet $spreadsheet = null): Spreadsheet
+    public function loadFromString(string $content, ?Spreadsheet $spreadsheet = null): Spreadsheet
     {
         //    Create a new DOM object
         $dom = new DOMDocument();
@@ -831,7 +829,7 @@ class Html extends BaseReader
      *
      * @return $this
      */
-    public function setSheetIndex($sheetIndex): static
+    public function setSheetIndex(int $sheetIndex): static
     {
         $this->sheetIndex = $sheetIndex;
 
@@ -847,10 +845,8 @@ class Html extends BaseReader
      *
      * TODO :
      * - Implement to other propertie, such as border
-     *
-     * @param int $row
      */
-    private function applyInlineStyle(Worksheet &$sheet, $row, string $column, array $attributeArray): void
+    private function applyInlineStyle(Worksheet &$sheet, int $row, string $column, array $attributeArray): void
     {
         if (!isset($attributeArray['style'])) {
             return;
@@ -1101,10 +1097,8 @@ class Html extends BaseReader
 
     /**
      * Map html border style to PhpSpreadsheet border style.
-     *
-     * @param string $style
      */
-    public function getBorderStyle($style): ?string
+    public function getBorderStyle(string $style): ?string
     {
         return self::BORDER_MAPPINGS[$style] ?? null;
     }

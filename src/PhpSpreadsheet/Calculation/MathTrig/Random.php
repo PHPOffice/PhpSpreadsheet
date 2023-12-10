@@ -67,7 +67,7 @@ class Random
      *
      * @return array|string The resulting array, or a string containing an error
      */
-    public static function randArray(mixed $rows = 1, mixed $columns = 1, mixed $min = 0, mixed $max = 1, $wholeNumber = false): string|array
+    public static function randArray(mixed $rows = 1, mixed $columns = 1, mixed $min = 0, mixed $max = 1, bool $wholeNumber = false): string|array
     {
         try {
             $rows = (int) Helpers::validateNumericNullSubstitution($rows, 1);

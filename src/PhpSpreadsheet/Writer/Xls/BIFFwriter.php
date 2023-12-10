@@ -101,7 +101,7 @@ class BIFFwriter
      *
      * @param string $data binary data to append
      */
-    protected function append($data): void
+    protected function append(string $data): void
     {
         if (strlen($data) - 4 > $this->limit) {
             $data = $this->addContinue($data);
@@ -115,7 +115,7 @@ class BIFFwriter
      *
      * @param string $data binary data to write
      */
-    public function writeData($data): string
+    public function writeData(string $data): string
     {
         if (strlen($data) - 4 > $this->limit) {
             $data = $this->addContinue($data);
@@ -132,7 +132,7 @@ class BIFFwriter
      * @param int $type type of BIFF file to write: 0x0005 Workbook,
      *                       0x0010 Worksheet
      */
-    protected function storeBof($type): void
+    protected function storeBof(int $type): void
     {
         $record = 0x0809; // Record identifier    (BIFF5-BIFF8)
         $length = 0x0010;
@@ -186,7 +186,7 @@ class BIFFwriter
      *
      * @return string A very convenient string of continue blocks
      */
-    private function addContinue($data): string
+    private function addContinue(string $data): string
     {
         $limit = $this->limit;
         $record = 0x003C; // Record identifier

@@ -41,7 +41,7 @@ class LookupRef
      *                                FALSE                CELL_ADDRESS returns an R1C1-style reference
      * @param array|string $sheetText Optional Name of worksheet to use
      */
-    public static function cellAddress(mixed $row, mixed $column, $relativity = 1, $referenceStyle = true, $sheetText = ''): string|array
+    public static function cellAddress(mixed $row, mixed $column, int $relativity = 1, bool $referenceStyle = true, $sheetText = ''): string|array
     {
         return Address::cell($row, $column, $relativity, $referenceStyle, $sheetText);
     }
@@ -222,7 +222,7 @@ class LookupRef
      *
      * @return array|int|string An array containing a cell or range of cells, or a string on error
      */
-    public static function OFFSET($cellAddress = null, mixed $rows = 0, mixed $columns = 0, mixed $height = null, mixed $width = null, ?Cell $cell = null)
+    public static function OFFSET(?string $cellAddress = null, mixed $rows = 0, mixed $columns = 0, mixed $height = null, mixed $width = null, ?Cell $cell = null)
     {
         return Offset::OFFSET($cellAddress, $rows, $columns, $height, $width, $cell);
     }
@@ -311,7 +311,7 @@ class LookupRef
      * Unlike the Excel TRANSPOSE function, which will only work on a single row or column,
      *     this function will transpose a full matrix
      */
-    public static function TRANSPOSE($matrixData): array
+    public static function TRANSPOSE(array $matrixData): array
     {
         return Matrix::transpose($matrixData);
     }

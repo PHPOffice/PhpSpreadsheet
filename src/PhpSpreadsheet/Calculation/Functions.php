@@ -47,7 +47,7 @@ class Functions
      *
      * @return bool (Success or Failure)
      */
-    public static function setCompatibilityMode($compatibilityMode): bool
+    public static function setCompatibilityMode(string $compatibilityMode): bool
     {
         if (
             ($compatibilityMode == self::COMPATIBILITY_EXCEL)
@@ -87,7 +87,7 @@ class Functions
      *
      * @return bool Success or failure
      */
-    public static function setReturnDateType($returnDateType): bool
+    public static function setReturnDateType(string $returnDateType): bool
     {
         if (
             ($returnDateType == self::RETURNDATE_UNIX_TIMESTAMP)

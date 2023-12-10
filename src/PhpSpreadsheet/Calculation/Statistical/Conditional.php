@@ -25,12 +25,12 @@ class Conditional
      *        AVERAGEIF(range,condition[, average_range])
      *
      * @param mixed $range Data values
-     * @param string $condition the criteria that defines which cells will be checked
+     * @param null|array|string $condition the criteria that defines which cells will be checked
      * @param mixed $averageRange Data values
      *
      * @return null|float|string
      */
-    public static function AVERAGEIF(mixed $range, $condition, mixed $averageRange = [])
+    public static function AVERAGEIF(mixed $range, null|array|string $condition, mixed $averageRange = [])
     {
         if (!is_array($range) || !is_array($averageRange) || array_key_exists(0, $range) || array_key_exists(0, $averageRange)) {
             throw new CalcException('Must specify range of cells, not any kind of literal');
@@ -81,9 +81,9 @@ class Conditional
      *        COUNTIF(range,condition)
      *
      * @param mixed[] $range Data values
-     * @param string $condition the criteria that defines which cells will be counted
+     * @param null|array|string $condition the criteria that defines which cells will be counted
      */
-    public static function COUNTIF($range, $condition): string|int
+    public static function COUNTIF(array $range, null|array|string $condition): string|int
     {
         // Filter out any empty values that shouldn't be included in a COUNT
         $range = array_filter(

@@ -114,7 +114,7 @@ class PPS
      * @param ?string $data The (usually binary) source data of the PPS
      * @param array $children Array containing children PPS for this PPS
      */
-    public function __construct($No, $name, $type, $prev, $next, $dir, $time_1st, $time_2nd, $data, $children)
+    public function __construct(?int $No, ?string $name, ?int $type, ?int $prev, ?int $next, ?int $dir, $time_1st, $time_2nd, ?string $data, array $children)
     {
         $this->No = (int) $No;
         $this->Name = (string) $name;

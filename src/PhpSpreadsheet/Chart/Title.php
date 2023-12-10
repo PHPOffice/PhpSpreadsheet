@@ -27,9 +27,8 @@ class Title
      * Create a new Title.
      *
      * @param array|RichText|string $caption
-     * @param bool $overlay
      */
-    public function __construct($caption = '', ?Layout $layout = null, $overlay = false)
+    public function __construct($caption = '', ?Layout $layout = null, bool $overlay = false)
     {
         $this->caption = $caption;
         $this->layout = $layout;
@@ -93,10 +92,8 @@ class Title
 
     /**
      * Set allow overlay of other elements?
-     *
-     * @param bool $overlay
      */
-    public function setOverlay($overlay): void
+    public function setOverlay(bool $overlay): void
     {
         $this->overlay = $overlay;
     }

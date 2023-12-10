@@ -112,9 +112,6 @@ class DataSeries
      * @param DataSeriesValues[] $plotLabel
      * @param DataSeriesValues[] $plotCategory
      * @param DataSeriesValues[] $plotValues
-     * @param null|string $plotDirection
-     * @param bool $smoothLine
-     * @param null|string $plotStyle
      */
     public function __construct(
         $plotType = null,
@@ -123,9 +120,9 @@ class DataSeries
         array $plotLabel = [],
         array $plotCategory = [],
         array $plotValues = [],
-        $plotDirection = null,
-        $smoothLine = false,
-        $plotStyle = null
+        ?string $plotDirection = null,
+        bool $smoothLine = false,
+        ?string $plotStyle = null
     ) {
         $this->plotType = $plotType;
         $this->plotGrouping = $plotGrouping;
@@ -202,11 +199,9 @@ class DataSeries
     /**
      * Set Plot Direction.
      *
-     * @param string $plotDirection
-     *
      * @return $this
      */
-    public function setPlotDirection($plotDirection): static
+    public function setPlotDirection(string $plotDirection): static
     {
         $this->plotDirection = $plotDirection;
 
@@ -286,11 +281,9 @@ class DataSeries
     /**
      * Set Plot Style.
      *
-     * @param null|string $plotStyle
-     *
      * @return $this
      */
-    public function setPlotStyle($plotStyle): static
+    public function setPlotStyle(?string $plotStyle): static
     {
         $this->plotStyle = $plotStyle;
 
@@ -363,11 +356,9 @@ class DataSeries
     /**
      * Set Smooth Line.
      *
-     * @param bool $smoothLine
-     *
      * @return $this
      */
-    public function setSmoothLine($smoothLine): static
+    public function setSmoothLine(bool $smoothLine): static
     {
         $this->smoothLine = $smoothLine;
 

@@ -41,7 +41,7 @@ class Offset
      *
      * @return array|string An array containing a cell or range of cells, or a string on error
      */
-    public static function OFFSET($cellAddress = null, mixed $rows = 0, mixed $columns = 0, mixed $height = null, mixed $width = null, ?Cell $cell = null): string|array
+    public static function OFFSET(?string $cellAddress = null, mixed $rows = 0, mixed $columns = 0, mixed $height = null, mixed $width = null, ?Cell $cell = null): string|array
     {
         $rows = Functions::flattenSingleValue($rows);
         $columns = Functions::flattenSingleValue($columns);

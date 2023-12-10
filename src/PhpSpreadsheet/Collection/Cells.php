@@ -77,7 +77,7 @@ class Cells
      *
      * @param string $cellCoordinate Coordinate of the cell to check
      */
-    public function has($cellCoordinate): bool
+    public function has(string $cellCoordinate): bool
     {
         return ($cellCoordinate === $this->currentCoordinate) || isset($this->index[$cellCoordinate]);
     }
@@ -229,7 +229,7 @@ class Cells
      *
      * @return int Highest row number
      */
-    public function getHighestRow($column = null): int
+    public function getHighestRow(?string $column = null): int
     {
         if ($column === null) {
             return $this->getHighestRowAndColumn()['row'];
@@ -316,7 +316,7 @@ class Cells
      *
      * @param string $column Column ID to remove
      */
-    public function removeColumn($column): void
+    public function removeColumn(string $column): void
     {
         $this->storeCurrentCell();
 
@@ -363,7 +363,7 @@ class Cells
      * @param string $cellCoordinate Coordinate of the cell to update
      * @param Cell $cell Cell to update
      */
-    public function add($cellCoordinate, Cell $cell): Cell
+    public function add(string $cellCoordinate, Cell $cell): Cell
     {
         if ($cellCoordinate !== $this->currentCoordinate) {
             $this->storeCurrentCell();

@@ -36,7 +36,7 @@ class Worksheet extends WriterPart
      *
      * @return string XML Output
      */
-    public function writeWorksheet(PhpspreadsheetWorksheet $worksheet, array $stringTable = [], $includeCharts = false): string
+    public function writeWorksheet(PhpspreadsheetWorksheet $worksheet, array $stringTable = [], bool $includeCharts = false): string
     {
         $this->numberStoredAsText = '';
         $this->formula = '';
@@ -1433,7 +1433,7 @@ class Worksheet extends WriterPart
      *
      * @param bool $includeCharts Flag indicating if we should include drawing details for charts
      */
-    private function writeDrawings(XMLWriter $objWriter, PhpspreadsheetWorksheet $worksheet, $includeCharts = false): void
+    private function writeDrawings(XMLWriter $objWriter, PhpspreadsheetWorksheet $worksheet, bool $includeCharts = false): void
     {
         $unparsedLoadedData = $worksheet->getParentOrThrow()->getUnparsedLoadedData();
         $hasUnparsedDrawing = isset($unparsedLoadedData['sheets'][$worksheet->getCodeName()]['drawingOriginalIds']);

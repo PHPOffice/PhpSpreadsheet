@@ -452,7 +452,7 @@ class ConvertUOM
      *
      * @param string $category The group whose units of measure you want to retrieve
      */
-    public static function getConversionCategoryUnits($category = null): array
+    public static function getConversionCategoryUnits(?string $category = null): array
     {
         $conversionGroups = [];
         foreach (self::$conversionUnits as $conversionUnit => $conversionGroup) {
@@ -469,7 +469,7 @@ class ConvertUOM
      *
      * @param string $category The group whose units of measure you want to retrieve
      */
-    public static function getConversionCategoryUnitDetails($category = null): array
+    public static function getConversionCategoryUnitDetails(?string $category = null): array
     {
         $conversionGroups = [];
         foreach (self::$conversionUnits as $conversionUnit => $conversionGroup) {

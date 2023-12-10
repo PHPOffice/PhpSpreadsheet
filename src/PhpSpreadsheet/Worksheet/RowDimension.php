@@ -28,7 +28,7 @@ class RowDimension extends Dimension
      *
      * @param ?int $index Numeric row index
      */
-    public function __construct($index = 0)
+    public function __construct(?int $index = 0)
     {
         // Initialise values
         $this->rowIndex = $index;
@@ -79,7 +79,7 @@ class RowDimension extends Dimension
      *
      * @return $this
      */
-    public function setRowHeight($height, ?string $unitOfMeasure = null): static
+    public function setRowHeight(float $height, ?string $unitOfMeasure = null): static
     {
         $this->height = ($unitOfMeasure === null || $height < 0)
             ? $height

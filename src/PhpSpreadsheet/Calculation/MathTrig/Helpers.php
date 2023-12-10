@@ -118,7 +118,7 @@ class Helpers
      *
      * @return float|string
      */
-    public static function numberOrNan($result)
+    public static function numberOrNan(float $result)
     {
         return is_nan($result) ? ExcelError::NAN() : $result;
     }

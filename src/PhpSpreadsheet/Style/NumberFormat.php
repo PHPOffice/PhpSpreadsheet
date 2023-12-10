@@ -122,7 +122,7 @@ class NumberFormat extends Supervisor
      *                                    Leave this value at default unless you understand exactly what
      *                                        its ramifications are
      */
-    public function __construct($isSupervisor = false, $isConditional = false)
+    public function __construct(bool $isSupervisor = false, bool $isConditional = false)
     {
         // Supervisor?
         parent::__construct($isSupervisor);
@@ -147,10 +147,8 @@ class NumberFormat extends Supervisor
 
     /**
      * Build style array from subcomponents.
-     *
-     * @param array $array
      */
-    public function getStyleArray($array): array
+    public function getStyleArray(array $array): array
     {
         return ['numberFormat' => $array];
     }
@@ -360,10 +358,8 @@ class NumberFormat extends Supervisor
 
     /**
      * Get built-in format code.
-     *
-     * @param int $index
      */
-    public static function builtInFormatCode($index): string
+    public static function builtInFormatCode(int $index): string
     {
         // Clean parameter
         $index = (int) $index;
@@ -382,11 +378,9 @@ class NumberFormat extends Supervisor
     /**
      * Get built-in format code index.
      *
-     * @param string $formatCodeIndex
-     *
      * @return false|int
      */
-    public static function builtInFormatCodeIndex($formatCodeIndex)
+    public static function builtInFormatCodeIndex(string $formatCodeIndex)
     {
         // Ensure built-in format codes are available
         self::fillBuiltInFormatCodes();
@@ -427,7 +421,7 @@ class NumberFormat extends Supervisor
      *
      * @return string Formatted string
      */
-    public static function toFormattedString(mixed $value, $format, $callBack = null): string
+    public static function toFormattedString(mixed $value, string $format, ?array $callBack = null): string
     {
         return NumberFormat\Formatter::toFormattedString($value, $format, $callBack);
     }

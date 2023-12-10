@@ -70,13 +70,9 @@ class MathTrig
      *      Use the evaluate method in the MathTrig\Base class instead
      * @see MathTrig\Base::evaluate()
      *
-     * @param float $number
-     * @param float $radix
-     * @param int $minLength
-     *
      * @return array|string the text representation with the given radix (base)
      */
-    public static function BASE($number, $radix, $minLength = null): string|array
+    public static function BASE(float $number, float $radix, ?int $minLength = null): string|array
     {
         return MathTrig\Base::evaluate($number, $radix, $minLength);
     }
@@ -101,7 +97,7 @@ class MathTrig
      *
      * @return array|float|string Rounded Number, or a string containing an error
      */
-    public static function CEILING($number, $significance = null)
+    public static function CEILING(float $number, ?float $significance = null)
     {
         return MathTrig\Ceiling::ceiling($number, $significance);
     }
@@ -226,7 +222,7 @@ class MathTrig
      *
      * @return array|float|string Rounded Number, or a string containing an error
      */
-    public static function FLOOR($number, $significance = null)
+    public static function FLOOR(float $number, ?float $significance = null)
     {
         return MathTrig\Floor::floor($number, $significance);
     }
@@ -249,7 +245,7 @@ class MathTrig
      *
      * @return array|float|string Rounded Number, or a string containing an error
      */
-    public static function FLOORMATH($number, $significance = null, $mode = 0)
+    public static function FLOORMATH(float $number, ?float $significance = null, int $mode = 0)
     {
         return MathTrig\Floor::math($number, $significance, $mode);
     }
@@ -271,7 +267,7 @@ class MathTrig
      *
      * @return array|float|string Rounded Number, or a string containing an error
      */
-    public static function FLOORPRECISE($number, $significance = 1)
+    public static function FLOORPRECISE(float $number, float $significance = 1)
     {
         return MathTrig\Floor::precise($number, $significance);
     }
@@ -361,7 +357,7 @@ class MathTrig
      *
      * @return array|float|string The result, or a string containing an error
      */
-    public static function logBase($number, $base = 10): string|float|array
+    public static function logBase(float $number, float $base = 10): string|float|array
     {
         return MathTrig\Logarithms::withBase($number, $base);
     }
@@ -382,7 +378,7 @@ class MathTrig
      *
      * @return float|string The result, or a string containing an error
      */
-    public static function MDETERM($matrixValues)
+    public static function MDETERM(array $matrixValues)
     {
         return MathTrig\MatrixFunctions::determinant($matrixValues);
     }
@@ -403,7 +399,7 @@ class MathTrig
      *
      * @return array|string The result, or a string containing an error
      */
-    public static function MINVERSE($matrixValues): string|array
+    public static function MINVERSE(array $matrixValues): string|array
     {
         return MathTrig\MatrixFunctions::inverse($matrixValues);
     }
@@ -420,7 +416,7 @@ class MathTrig
      *
      * @return array|string The result, or a string containing an error
      */
-    public static function MMULT($matrixData1, $matrixData2): string|array
+    public static function MMULT(array $matrixData1, array $matrixData2): string|array
     {
         return MathTrig\MatrixFunctions::multiply($matrixData1, $matrixData2);
     }
@@ -437,7 +433,7 @@ class MathTrig
      *
      * @return array|float|int|string Remainder, or a string containing an error
      */
-    public static function MOD($a = 1, $b = 1)
+    public static function MOD(int $a = 1, int $b = 1)
     {
         return MathTrig\Operations::mod($a, $b);
     }
@@ -456,7 +452,7 @@ class MathTrig
      *
      * @return array|float|string Rounded Number, or a string containing an error
      */
-    public static function MROUND($number, $multiple): string|int|float|array
+    public static function MROUND(float $number, $multiple): string|int|float|array
     {
         return MathTrig\Round::multiple($number, $multiple);
     }
@@ -506,12 +502,9 @@ class MathTrig
      *      Use the evaluate method in the MathTrig\Power class instead
      * @see MathTrig\Operations::power()
      *
-     * @param float $x
-     * @param float $y
-     *
      * @return array|float|int|string The result, or a string containing an error
      */
-    public static function POWER($x = 0, $y = 2)
+    public static function POWER(float $x = 0, float $y = 2)
     {
         return MathTrig\Operations::power($x, $y);
     }
@@ -569,7 +562,7 @@ class MathTrig
      *
      * @return array|int|string Random number
      */
-    public static function RAND($min = 0, $max = 0): string|int|array
+    public static function RAND(int $min = 0, int $max = 0): string|int|array
     {
         return MathTrig\Random::randBetween($min, $max);
     }
@@ -721,7 +714,7 @@ class MathTrig
      *
      * @return float|string
      */
-    public static function SUBTOTAL($functionType, ...$args)
+    public static function SUBTOTAL(int $functionType, ...$args)
     {
         return MathTrig\Subtotal::evaluate($functionType, ...$args);
     }
@@ -764,7 +757,7 @@ class MathTrig
      *
      * @return null|float|string
      */
-    public static function SUMIF(array $range, $criteria, array $sumRange = [])
+    public static function SUMIF(array $range, string $criteria, array $sumRange = [])
     {
         return Statistical\Conditional::SUMIF($range, $criteria, $sumRange);
     }
@@ -842,7 +835,7 @@ class MathTrig
      *
      * @return float|string
      */
-    public static function SUMX2MY2($matrixData1, $matrixData2)
+    public static function SUMX2MY2(array $matrixData1, array $matrixData2)
     {
         return MathTrig\SumSquares::sumXSquaredMinusYSquared($matrixData1, $matrixData2);
     }
@@ -859,7 +852,7 @@ class MathTrig
      *
      * @return float|string
      */
-    public static function SUMX2PY2($matrixData1, $matrixData2)
+    public static function SUMX2PY2(array $matrixData1, array $matrixData2)
     {
         return MathTrig\SumSquares::sumXSquaredPlusYSquared($matrixData1, $matrixData2);
     }
@@ -876,7 +869,7 @@ class MathTrig
      *
      * @return float|string
      */
-    public static function SUMXMY2($matrixData1, $matrixData2)
+    public static function SUMXMY2(array $matrixData1, array $matrixData2)
     {
         return MathTrig\SumSquares::sumXMinusYSquared($matrixData1, $matrixData2);
     }
@@ -890,12 +883,9 @@ class MathTrig
      *      Use the evaluate() method in the MathTrig\Trunc class instead
      * @see MathTrig\Trunc::evaluate()
      *
-     * @param float $value
-     * @param int $digits
-     *
      * @return array|float|string Truncated value, or a string containing an error
      */
-    public static function TRUNC($value = 0, $digits = 0)
+    public static function TRUNC(float $value = 0, int $digits = 0)
     {
         return MathTrig\Trunc::evaluate($value, $digits);
     }
@@ -1037,7 +1027,7 @@ class MathTrig
      *
      * @return float|string
      */
-    public static function numberOrNan($result)
+    public static function numberOrNan(float $result)
     {
         return MathTrig\Helpers::numberOrNan($result);
     }

@@ -268,7 +268,7 @@ class PageSetup
      *
      * @return $this
      */
-    public function setPaperSize($paperSize): static
+    public function setPaperSize(int $paperSize): static
     {
         $this->paperSize = $paperSize;
 
@@ -306,7 +306,7 @@ class PageSetup
      *
      * @return $this
      */
-    public function setOrientation($orientation): static
+    public function setOrientation(string $orientation): static
     {
         if ($orientation === self::ORIENTATION_LANDSCAPE || $orientation === self::ORIENTATION_PORTRAIT || $orientation === self::ORIENTATION_DEFAULT) {
             $this->orientation = $orientation;
@@ -340,12 +340,11 @@ class PageSetup
      * Print scaling. Valid values range from 10 to 400
      * This setting is overridden when fitToWidth and/or fitToHeight are in use.
      *
-     * @param null|int $scale
      * @param bool $update Update fitToPage so scaling applies rather than fitToHeight / fitToWidth
      *
      * @return $this
      */
-    public function setScale($scale, $update = true): static
+    public function setScale(?int $scale, bool $update = true): static
     {
         // Microsoft Office Excel 2007 only allows setting a scale between 10 and 400 via the user interface,
         // but it is apparently still able to handle any scale >= 0, where 0 results in 100
@@ -372,11 +371,9 @@ class PageSetup
     /**
      * Set Fit To Page.
      *
-     * @param bool $fitToPage
-     *
      * @return $this
      */
-    public function setFitToPage($fitToPage): static
+    public function setFitToPage(bool $fitToPage): static
     {
         $this->fitToPage = $fitToPage;
 
@@ -394,12 +391,11 @@ class PageSetup
     /**
      * Set Fit To Height.
      *
-     * @param null|int $fitToHeight
      * @param bool $update Update fitToPage so it applies rather than scaling
      *
      * @return $this
      */
-    public function setFitToHeight($fitToHeight, $update = true): static
+    public function setFitToHeight(?int $fitToHeight, bool $update = true): static
     {
         $this->fitToHeight = $fitToHeight;
         if ($update) {
@@ -420,12 +416,11 @@ class PageSetup
     /**
      * Set Fit To Width.
      *
-     * @param null|int $value
      * @param bool $update Update fitToPage so it applies rather than scaling
      *
      * @return $this
      */
-    public function setFitToWidth($value, $update = true): static
+    public function setFitToWidth(?int $value, bool $update = true): static
     {
         $this->fitToWidth = $value;
         if ($update) {
@@ -481,7 +476,7 @@ class PageSetup
      *
      * @return $this
      */
-    public function setColumnsToRepeatAtLeftByStartAndEnd($start, $end): static
+    public function setColumnsToRepeatAtLeftByStartAndEnd(string $start, string $end): static
     {
         $this->columnsToRepeatAtLeft = [$start, $end];
 
@@ -534,7 +529,7 @@ class PageSetup
      *
      * @return $this
      */
-    public function setRowsToRepeatAtTopByStartAndEnd($start, $end): static
+    public function setRowsToRepeatAtTopByStartAndEnd(int $start, int $end): static
     {
         $this->rowsToRepeatAtTop = [$start, $end];
 
@@ -552,11 +547,9 @@ class PageSetup
     /**
      * Set center page horizontally.
      *
-     * @param bool $value
-     *
      * @return $this
      */
-    public function setHorizontalCentered($value): static
+    public function setHorizontalCentered(bool $value): static
     {
         $this->horizontalCentered = $value;
 
@@ -574,11 +567,9 @@ class PageSetup
     /**
      * Set center page vertically.
      *
-     * @param bool $value
-     *
      * @return $this
      */
-    public function setVerticalCentered($value): static
+    public function setVerticalCentered(bool $value): static
     {
         $this->verticalCentered = $value;
 
@@ -593,7 +584,7 @@ class PageSetup
      *                            Otherwise, the specific range identified by the value of $index will be returned
      *                            Print areas are numbered from 1
      */
-    public function getPrintArea($index = 0): string
+    public function getPrintArea(int $index = 0): string
     {
         if ($index == 0) {
             return (string) $this->printArea;
@@ -614,7 +605,7 @@ class PageSetup
      *                            Otherwise, existence of the range identified by the value of $index will be returned
      *                            Print areas are numbered from 1
      */
-    public function isPrintAreaSet($index = 0): bool
+    public function isPrintAreaSet(int $index = 0): bool
     {
         if ($index == 0) {
             return $this->printArea !== null;
@@ -634,7 +625,7 @@ class PageSetup
      *
      * @return $this
      */
-    public function clearPrintArea($index = 0): static
+    public function clearPrintArea(int $index = 0): static
     {
         if ($index == 0) {
             $this->printArea = null;
@@ -652,7 +643,6 @@ class PageSetup
     /**
      * Set print area. e.g. 'A1:D10' or 'A1:D10,G5:M20'.
      *
-     * @param string $value
      * @param int $index Identifier for a specific print area range allowing several ranges to be set
      *                            When the method is "O"verwrite, then a positive integer index will overwrite that indexed
      *                                entry in the print areas list; a negative index value will identify which entry to
@@ -669,7 +659,7 @@ class PageSetup
      *
      * @return $this
      */
-    public function setPrintArea($value, $index = 0, $method = self::SETPRINTRANGE_OVERWRITE): static
+    public function setPrintArea(string $value, int $index = 0, string $method = self::SETPRINTRANGE_OVERWRITE): static
     {
         if (str_contains($value, '!')) {
             throw new PhpSpreadsheetException('Cell coordinate must not specify a worksheet.');
@@ -721,7 +711,6 @@ class PageSetup
     /**
      * Add a new print area (e.g. 'A1:D10' or 'A1:D10,G5:M20') to the list of print areas.
      *
-     * @param string $value
      * @param int $index Identifier for a specific print area range allowing several ranges to be set
      *                            A positive index will insert after that indexed entry in the print areas list, while a
      *                                negative index will insert before the indexed entry.
@@ -731,7 +720,7 @@ class PageSetup
      *
      * @return $this
      */
-    public function addPrintArea($value, $index = -1): static
+    public function addPrintArea(string $value, int $index = -1): static
     {
         return $this->setPrintArea($value, $index, self::SETPRINTRANGE_INSERT);
     }
@@ -759,7 +748,7 @@ class PageSetup
      *
      * @return $this
      */
-    public function setPrintAreaByColumnAndRow($column1, $row1, $column2, $row2, $index = 0, $method = self::SETPRINTRANGE_OVERWRITE): static
+    public function setPrintAreaByColumnAndRow(int $column1, int $row1, int $column2, int $row2, int $index = 0, string $method = self::SETPRINTRANGE_OVERWRITE): static
     {
         return $this->setPrintArea(
             Coordinate::stringFromColumnIndex($column1) . $row1 . ':' . Coordinate::stringFromColumnIndex($column2) . $row2,
@@ -784,7 +773,7 @@ class PageSetup
      *
      * @return $this
      */
-    public function addPrintAreaByColumnAndRow($column1, $row1, $column2, $row2, $index = -1): static
+    public function addPrintAreaByColumnAndRow(int $column1, int $row1, int $column2, int $row2, int $index = -1): static
     {
         return $this->setPrintArea(
             Coordinate::stringFromColumnIndex($column1) . $row1 . ':' . Coordinate::stringFromColumnIndex($column2) . $row2,
@@ -810,7 +799,7 @@ class PageSetup
      *
      * @return $this
      */
-    public function setFirstPageNumber($value): static
+    public function setFirstPageNumber(?int $value): static
     {
         $this->firstPageNumber = $value;
 

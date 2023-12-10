@@ -143,7 +143,7 @@ class Financial
      *
      * @return float|string (string containing the error type if there is an error)
      */
-    public static function AMORDEGRC($cost, mixed $purchased, mixed $firstPeriod, mixed $salvage, $period, $rate, $basis = 0)
+    public static function AMORDEGRC(float $cost, mixed $purchased, mixed $firstPeriod, mixed $salvage, float $period, float $rate, int $basis = 0)
     {
         return Amortization::AMORDEGRC($cost, $purchased, $firstPeriod, $salvage, $period, $rate, $basis);
     }
@@ -177,7 +177,7 @@ class Financial
      *
      * @return float|string (string containing the error type if there is an error)
      */
-    public static function AMORLINC($cost, mixed $purchased, mixed $firstPeriod, mixed $salvage, $period, $rate, $basis = 0)
+    public static function AMORLINC(float $cost, mixed $purchased, mixed $firstPeriod, mixed $salvage, float $period, float $rate, int $basis = 0)
     {
         return Amortization::AMORLINC($cost, $purchased, $firstPeriod, $salvage, $period, $rate, $basis);
     }
@@ -213,7 +213,7 @@ class Financial
      *
      * @return float|string
      */
-    public static function COUPDAYBS(mixed $settlement, mixed $maturity, $frequency, $basis = 0)
+    public static function COUPDAYBS(mixed $settlement, mixed $maturity, int $frequency, int $basis = 0)
     {
         return Coupons::COUPDAYBS($settlement, $maturity, $frequency, $basis);
     }
@@ -249,7 +249,7 @@ class Financial
      *
      * @return float|string
      */
-    public static function COUPDAYS(mixed $settlement, mixed $maturity, mixed $frequency, $basis = 0)
+    public static function COUPDAYS(mixed $settlement, mixed $maturity, mixed $frequency, int $basis = 0)
     {
         return Coupons::COUPDAYS($settlement, $maturity, $frequency, $basis);
     }
@@ -285,7 +285,7 @@ class Financial
      *
      * @return float|string
      */
-    public static function COUPDAYSNC(mixed $settlement, mixed $maturity, mixed $frequency, $basis = 0)
+    public static function COUPDAYSNC(mixed $settlement, mixed $maturity, mixed $frequency, int $basis = 0)
     {
         return Coupons::COUPDAYSNC($settlement, $maturity, $frequency, $basis);
     }
@@ -321,7 +321,7 @@ class Financial
      *
      * @return float|string Excel date/time serial value or error message
      */
-    public static function COUPNCD(mixed $settlement, mixed $maturity, mixed $frequency, $basis = 0): string|float
+    public static function COUPNCD(mixed $settlement, mixed $maturity, mixed $frequency, int $basis = 0): string|float
     {
         return Coupons::COUPNCD($settlement, $maturity, $frequency, $basis);
     }
@@ -358,7 +358,7 @@ class Financial
      *
      * @return int|string
      */
-    public static function COUPNUM(mixed $settlement, mixed $maturity, mixed $frequency, $basis = 0)
+    public static function COUPNUM(mixed $settlement, mixed $maturity, mixed $frequency, int $basis = 0)
     {
         return Coupons::COUPNUM($settlement, $maturity, $frequency, $basis);
     }
@@ -394,7 +394,7 @@ class Financial
      *
      * @return float|string Excel date/time serial value or error message
      */
-    public static function COUPPCD(mixed $settlement, mixed $maturity, mixed $frequency, $basis = 0): string|float
+    public static function COUPPCD(mixed $settlement, mixed $maturity, mixed $frequency, int $basis = 0): string|float
     {
         return Coupons::COUPPCD($settlement, $maturity, $frequency, $basis);
     }
@@ -423,7 +423,7 @@ class Financial
      *
      * @return float|string
      */
-    public static function CUMIPMT($rate, $nper, $pv, $start, $end, $type = 0)
+    public static function CUMIPMT(float $rate, int $nper, float $pv, int $start, int $end, int $type = 0)
     {
         return Financial\CashFlow\Constant\Periodic\Cumulative::interest($rate, $nper, $pv, $start, $end, $type);
     }
@@ -452,7 +452,7 @@ class Financial
      *
      * @return float|string
      */
-    public static function CUMPRINC($rate, $nper, $pv, $start, $end, $type = 0)
+    public static function CUMPRINC(float $rate, int $nper, float $pv, int $start, int $end, int $type = 0)
     {
         return Financial\CashFlow\Constant\Periodic\Cumulative::principal($rate, $nper, $pv, $start, $end, $type);
     }
@@ -486,7 +486,7 @@ class Financial
      *
      * @return float|string
      */
-    public static function DB($cost, $salvage, $life, $period, $month = 12)
+    public static function DB(float $cost, float $salvage, int $life, int $period, int $month = 12)
     {
         return Depreciation::DB($cost, $salvage, $life, $period, $month);
     }
@@ -517,7 +517,7 @@ class Financial
      *
      * @return float|string
      */
-    public static function DDB($cost, $salvage, $life, $period, $factor = 2.0)
+    public static function DDB(float $cost, float $salvage, int $life, int $period, float $factor = 2.0)
     {
         return Depreciation::DDB($cost, $salvage, $life, $period, $factor);
     }
@@ -550,7 +550,7 @@ class Financial
      *
      * @return float|string
      */
-    public static function DISC(mixed $settlement, mixed $maturity, mixed $price, $redemption, $basis = 0)
+    public static function DISC(mixed $settlement, mixed $maturity, mixed $price, int $redemption, int $basis = 0)
     {
         return Financial\Securities\Rates::discount($settlement, $maturity, $price, $redemption, $basis);
     }
@@ -615,7 +615,7 @@ class Financial
      * @param float $nominalRate Nominal interest rate
      * @param int $periodsPerYear Number of compounding payments per year
      */
-    public static function EFFECT($nominalRate = 0, $periodsPerYear = 0): string|float
+    public static function EFFECT(float $nominalRate = 0, int $periodsPerYear = 0): string|float
     {
         return Financial\InterestRate::effective($nominalRate, $periodsPerYear);
     }
@@ -643,7 +643,7 @@ class Financial
      *                                0 or omitted    At the end of the period.
      *                                1                At the beginning of the period.
      */
-    public static function FV($rate = 0, $nper = 0, $pmt = 0, $pv = 0, $type = 0): string|float
+    public static function FV(float $rate = 0, int $nper = 0, float $pmt = 0, float $pv = 0, int $type = 0): string|float
     {
         return Financial\CashFlow\Constant\Periodic::futureValue($rate, $nper, $pmt, $pv, $type);
     }
@@ -666,7 +666,7 @@ class Financial
      *
      * @return float|string
      */
-    public static function FVSCHEDULE($principal, $schedule)
+    public static function FVSCHEDULE(float $principal, array $schedule)
     {
         return Financial\CashFlow\Single::futureValue($principal, $schedule);
     }
@@ -699,7 +699,7 @@ class Financial
      *
      * @return float|string
      */
-    public static function INTRATE(mixed $settlement, mixed $maturity, $investment, $redemption, $basis = 0)
+    public static function INTRATE(mixed $settlement, mixed $maturity, int $investment, int $redemption, int $basis = 0)
     {
         return Financial\Securities\Rates::interest($settlement, $maturity, $investment, $redemption, $basis);
     }
@@ -724,7 +724,7 @@ class Financial
      * @param float $fv Future Value
      * @param int $type Payment type: 0 = at the end of each period, 1 = at the beginning of each period
      */
-    public static function IPMT($rate, $per, $nper, $pv, $fv = 0, $type = 0): string|float
+    public static function IPMT(float $rate, int $per, int $nper, float $pv, float $fv = 0, int $type = 0): string|float
     {
         return Financial\CashFlow\Constant\Periodic\Interest::payment($rate, $per, $nper, $pv, $fv, $type);
     }
@@ -830,7 +830,7 @@ class Financial
      *
      * @return float|string Result, or a string containing an error
      */
-    public static function NOMINAL($effectiveRate = 0, $periodsPerYear = 0): string|float
+    public static function NOMINAL(float $effectiveRate = 0, int $periodsPerYear = 0): string|float
     {
         return InterestRate::nominal($effectiveRate, $periodsPerYear);
     }
@@ -852,7 +852,7 @@ class Financial
      *
      * @return float|string Result, or a string containing an error
      */
-    public static function NPER($rate = 0, $pmt = 0, $pv = 0, $fv = 0, $type = 0)
+    public static function NPER(float $rate = 0, int $pmt = 0, float $pv = 0, float $fv = 0, int $type = 0)
     {
         return Financial\CashFlow\Constant\Periodic::periods($rate, $pmt, $pv, $fv, $type);
     }
@@ -888,7 +888,7 @@ class Financial
      *
      * @return float|string Result, or a string containing an error
      */
-    public static function PDURATION($rate = 0, $pv = 0, $fv = 0)
+    public static function PDURATION(float $rate = 0, float $pv = 0, float $fv = 0)
     {
         return Financial\CashFlow\Single::periods($rate, $pv, $fv);
     }
@@ -910,7 +910,7 @@ class Financial
      *
      * @return float|string Result, or a string containing an error
      */
-    public static function PMT($rate = 0, $nper = 0, $pv = 0, $fv = 0, $type = 0)
+    public static function PMT(float $rate = 0, int $nper = 0, float $pv = 0, float $fv = 0, int $type = 0)
     {
         return Financial\CashFlow\Constant\Periodic\Payments::annuity($rate, $nper, $pv, $fv, $type);
     }
@@ -934,7 +934,7 @@ class Financial
      *
      * @return float|string Result, or a string containing an error
      */
-    public static function PPMT($rate, $per, $nper, $pv, $fv = 0, $type = 0): string|float
+    public static function PPMT(float $rate, int $per, int $nper, float $pv, float $fv = 0, int $type = 0): string|float
     {
         return Financial\CashFlow\Constant\Periodic\Payments::interestPayment($rate, $per, $nper, $pv, $fv, $type);
     }
@@ -959,7 +959,6 @@ class Financial
      *                              For annual payments, frequency = 1;
      *                              for semiannual, frequency = 2;
      *                              for quarterly, frequency = 4.
-     * @param int $frequency
      * @param int $basis The type of day count to use.
      *                       0 or omitted    US (NASD) 30/360
      *                       1                Actual/actual
@@ -969,7 +968,7 @@ class Financial
      *
      * @return float|string Result, or a string containing an error
      */
-    public static function PRICE(mixed $settlement, mixed $maturity, $rate, $yield, $redemption, $frequency, $basis = 0): string|float
+    public static function PRICE(mixed $settlement, mixed $maturity, float $rate, float $yield, float $redemption, int $frequency, int $basis = 0): string|float
     {
         return Securities\Price::price($settlement, $maturity, $rate, $yield, $redemption, $frequency, $basis);
     }
@@ -999,7 +998,7 @@ class Financial
      *
      * @return float|string Result, or a string containing an error
      */
-    public static function PRICEDISC(mixed $settlement, mixed $maturity, mixed $discount, $redemption, $basis = 0)
+    public static function PRICEDISC(mixed $settlement, mixed $maturity, mixed $discount, int $redemption, int $basis = 0)
     {
         return Securities\Price::priceDiscounted($settlement, $maturity, $discount, $redemption, $basis);
     }
@@ -1030,7 +1029,7 @@ class Financial
      *
      * @return float|string Result, or a string containing an error
      */
-    public static function PRICEMAT(mixed $settlement, mixed $maturity, mixed $issue, mixed $rate, mixed $yield, $basis = 0)
+    public static function PRICEMAT(mixed $settlement, mixed $maturity, mixed $issue, mixed $rate, mixed $yield, int $basis = 0)
     {
         return Securities\Price::priceAtMaturity($settlement, $maturity, $issue, $rate, $yield, $basis);
     }
@@ -1052,7 +1051,7 @@ class Financial
      *
      * @return float|string Result, or a string containing an error
      */
-    public static function PV($rate = 0, $nper = 0, $pmt = 0, $fv = 0, $type = 0): string|float
+    public static function PV(float $rate = 0, int $nper = 0, float $pmt = 0, float $fv = 0, int $type = 0): string|float
     {
         return Financial\CashFlow\Constant\Periodic::presentValue($rate, $nper, $pmt, $fv, $type);
     }
@@ -1140,7 +1139,7 @@ class Financial
      *
      * @return float|string Result, or a string containing an error
      */
-    public static function RRI($nper = 0, $pv = 0, $fv = 0)
+    public static function RRI(float $nper = 0, float $pv = 0, float $fv = 0)
     {
         return Financial\CashFlow\Single::interestRate($nper, $pv, $fv);
     }
@@ -1274,7 +1273,7 @@ class Financial
      *
      * @return float|mixed|string
      */
-    public static function XIRR(array $values, array $dates, $guess = 0.1)
+    public static function XIRR(array $values, array $dates, float $guess = 0.1)
     {
         return Financial\CashFlow\Variable\NonPeriodic::rate($values, $dates, $guess);
     }
@@ -1305,7 +1304,7 @@ class Financial
      *
      * @return float|mixed|string
      */
-    public static function XNPV($rate, $values, $dates)
+    public static function XNPV(float $rate, array $values, array $dates)
     {
         return Financial\CashFlow\Variable\NonPeriodic::presentValue($rate, $values, $dates);
     }
@@ -1335,7 +1334,7 @@ class Financial
      *
      * @return float|string Result, or a string containing an error
      */
-    public static function YIELDDISC(mixed $settlement, mixed $maturity, mixed $price, $redemption, $basis = 0)
+    public static function YIELDDISC(mixed $settlement, mixed $maturity, mixed $price, int $redemption, int $basis = 0)
     {
         return Securities\Yields::yieldDiscounted($settlement, $maturity, $price, $redemption, $basis);
     }
@@ -1366,7 +1365,7 @@ class Financial
      *
      * @return float|string Result, or a string containing an error
      */
-    public static function YIELDMAT(mixed $settlement, mixed $maturity, mixed $issue, mixed $rate, mixed $price, $basis = 0)
+    public static function YIELDMAT(mixed $settlement, mixed $maturity, mixed $issue, mixed $rate, mixed $price, int $basis = 0)
     {
         return Securities\Yields::yieldAtMaturity($settlement, $maturity, $issue, $rate, $price, $basis);
     }

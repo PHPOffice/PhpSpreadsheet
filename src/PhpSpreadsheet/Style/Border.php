@@ -42,7 +42,7 @@ class Border extends Supervisor
      *                                    Leave this value at default unless you understand exactly what
      *                                        its ramifications are
      */
-    public function __construct($isSupervisor = false, bool $isConditional = false)
+    public function __construct(bool $isSupervisor = false, bool $isConditional = false)
     {
         // Supervisor?
         parent::__construct($isSupervisor);
@@ -83,10 +83,8 @@ class Border extends Supervisor
 
     /**
      * Build style array from subcomponents.
-     *
-     * @param array $array
      */
-    public function getStyleArray($array): array
+    public function getStyleArray(array $array): array
     {
         /** @var Style */
         $parent = $this->parent;

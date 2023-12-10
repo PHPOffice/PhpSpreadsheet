@@ -169,7 +169,7 @@ class AutoFilter implements Stringable
      *
      * @return int The column offset within the autofilter range
      */
-    public function testColumnInRange($column): int
+    public function testColumnInRange(string $column): int
     {
         if (empty($this->range)) {
             throw new Exception('No autofilter range is defined.');
@@ -191,7 +191,7 @@ class AutoFilter implements Stringable
      *
      * @return int The offset of the specified column within the autofilter range
      */
-    public function getColumnOffset($column): int
+    public function getColumnOffset(string $column): int
     {
         return $this->testColumnInRange($column);
     }
@@ -201,7 +201,7 @@ class AutoFilter implements Stringable
      *
      * @param string $column Column name (e.g. A)
      */
-    public function getColumn($column): AutoFilter\Column
+    public function getColumn(string $column): AutoFilter\Column
     {
         $this->testColumnInRange($column);
 
@@ -217,7 +217,7 @@ class AutoFilter implements Stringable
      *
      * @param int $columnOffset Column offset within range (starting from 0)
      */
-    public function getColumnByOffset($columnOffset): AutoFilter\Column
+    public function getColumnByOffset(int $columnOffset): AutoFilter\Column
     {
         [$rangeStart, $rangeEnd] = Coordinate::rangeBoundaries($this->range);
         $pColumn = Coordinate::stringFromColumnIndex($rangeStart[0] + $columnOffset);
@@ -263,7 +263,7 @@ class AutoFilter implements Stringable
      *
      * @return $this
      */
-    public function clearColumn($column): static
+    public function clearColumn(string $column): static
     {
         $this->evaluated = false;
         $this->testColumnInRange($column);
@@ -287,7 +287,7 @@ class AutoFilter implements Stringable
      *
      * @return $this
      */
-    public function shiftColumn($fromColumn, $toColumn): static
+    public function shiftColumn(string $fromColumn, string $toColumn): static
     {
         $this->evaluated = false;
         $fromColumn = strtoupper($fromColumn);
@@ -368,7 +368,7 @@ class AutoFilter implements Stringable
      *
      * @param mixed[] $ruleSet
      */
-    protected static function filterTestInCustomDataSet(mixed $cellValue, $ruleSet): bool
+    protected static function filterTestInCustomDataSet(mixed $cellValue, array $ruleSet): bool
     {
         /** @var array[] */
         $dataSet = $ruleSet['filterRules'];
@@ -481,7 +481,7 @@ class AutoFilter implements Stringable
      *
      * @param mixed[] $monthSet
      */
-    protected static function filterTestInPeriodDateSet(mixed $cellValue, $monthSet): bool
+    protected static function filterTestInPeriodDateSet(mixed $cellValue, array $monthSet): bool
     {
         //    Blank cells are always ignored, so return a FALSE
         if (($cellValue == '') || ($cellValue === null)) {
@@ -720,11 +720,9 @@ class AutoFilter implements Stringable
     /**
      * Convert a dynamic rule daterange to a custom filter range expression for ease of calculation.
      *
-     * @param string $dynamicRuleType
-     *
      * @return mixed[]
      */
-    private function dynamicFilterDateRange($dynamicRuleType, AutoFilter\Column &$filterColumn): array
+    private function dynamicFilterDateRange(string $dynamicRuleType, AutoFilter\Column &$filterColumn): array
     {
         $ruleValues = [];
         $callBack = [__CLASS__, self::DATE_FUNCTIONS[$dynamicRuleType]]; // What if not found?
@@ -753,7 +751,7 @@ class AutoFilter implements Stringable
      *
      * @param ?string $ruleType
      */
-    private function calculateTopTenValue(string $columnID, int $startRow, int $endRow, $ruleType, mixed $ruleValue): mixed
+    private function calculateTopTenValue(string $columnID, int $startRow, int $endRow, ?string $ruleType, mixed $ruleValue): mixed
     {
         $range = $columnID . $startRow . ':' . $columnID . $endRow;
         $retVal = null;

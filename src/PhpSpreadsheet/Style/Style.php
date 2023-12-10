@@ -79,7 +79,7 @@ class Style extends Supervisor
      *       Leave this value at default unless you understand exactly what
      *    its ramifications are
      */
-    public function __construct($isSupervisor = false, $isConditional = false)
+    public function __construct(bool $isSupervisor = false, bool $isConditional = false)
     {
         parent::__construct($isSupervisor);
 
@@ -130,10 +130,8 @@ class Style extends Supervisor
 
     /**
      * Build style array from subcomponents.
-     *
-     * @param array $array
      */
-    public function getStyleArray($array): array
+    public function getStyleArray(array $array): array
     {
         return ['quotePrefix' => $array];
     }
@@ -183,7 +181,7 @@ class Style extends Supervisor
      *
      * @return $this
      */
-    public function applyFromArray(array $styleArray, $advancedBorders = true): static
+    public function applyFromArray(array $styleArray, bool $advancedBorders = true): static
     {
         if ($this->isSupervisor) {
             $pRange = $this->getSelectedCells();
@@ -639,11 +637,9 @@ class Style extends Supervisor
     /**
      * Set quote prefix.
      *
-     * @param bool $quotePrefix
-     *
      * @return $this
      */
-    public function setQuotePrefix($quotePrefix): static
+    public function setQuotePrefix(bool $quotePrefix): static
     {
         if ($quotePrefix == '') {
             $quotePrefix = false;
@@ -687,10 +683,8 @@ class Style extends Supervisor
 
     /**
      * Set own index in style collection.
-     *
-     * @param int $index
      */
-    public function setIndex($index): void
+    public function setIndex(int $index): void
     {
         $this->index = $index;
     }

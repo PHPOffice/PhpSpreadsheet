@@ -407,7 +407,7 @@ class Table implements Stringable
      *
      * @param string $column Column name (e.g. A)
      */
-    public function getColumn($column): Table\Column
+    public function getColumn(string $column): Table\Column
     {
         $this->isColumnInRange($column);
 
@@ -423,7 +423,7 @@ class Table implements Stringable
      *
      * @param int $columnOffset Column offset within range (starting from 0)
      */
-    public function getColumnByOffset($columnOffset): Table\Column
+    public function getColumnByOffset(int $columnOffset): Table\Column
     {
         [$rangeStart, $rangeEnd] = Coordinate::rangeBoundaries($this->range);
         $pColumn = Coordinate::stringFromColumnIndex($rangeStart[0] + $columnOffset);
@@ -464,7 +464,7 @@ class Table implements Stringable
      *
      * @param string $column Column name (e.g. A)
      */
-    public function clearColumn($column): self
+    public function clearColumn(string $column): self
     {
         $this->isColumnInRange($column);
 
@@ -485,7 +485,7 @@ class Table implements Stringable
      * @param string $fromColumn Column name (e.g. A)
      * @param string $toColumn Column name (e.g. B)
      */
-    public function shiftColumn($fromColumn, $toColumn): self
+    public function shiftColumn(string $fromColumn, string $toColumn): self
     {
         $fromColumn = strtoupper($fromColumn);
         $toColumn = strtoupper($toColumn);

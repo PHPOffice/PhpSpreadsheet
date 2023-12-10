@@ -68,10 +68,8 @@ class SpContainer
 
     /**
      * Set parent Shape Group Container.
-     *
-     * @param SpgrContainer $parent
      */
-    public function setParent($parent): void
+    public function setParent(SpgrContainer $parent): void
     {
         $this->parent = $parent;
     }
@@ -86,10 +84,8 @@ class SpContainer
 
     /**
      * Set whether this is a group shape.
-     *
-     * @param bool $value
      */
-    public function setSpgr($value): void
+    public function setSpgr(bool $value): void
     {
         $this->spgr = $value;
     }
@@ -104,10 +100,8 @@ class SpContainer
 
     /**
      * Set the shape type.
-     *
-     * @param int $value
      */
-    public function setSpType($value): void
+    public function setSpType(int $value): void
     {
         $this->spType = $value;
     }
@@ -122,10 +116,8 @@ class SpContainer
 
     /**
      * Set the shape flag.
-     *
-     * @param int $value
      */
-    public function setSpFlag($value): void
+    public function setSpFlag(int $value): void
     {
         $this->spFlag = $value;
     }
@@ -140,10 +132,8 @@ class SpContainer
 
     /**
      * Set the shape index.
-     *
-     * @param int $value
      */
-    public function setSpId($value): void
+    public function setSpId(int $value): void
     {
         $this->spId = $value;
     }
@@ -161,7 +151,7 @@ class SpContainer
      *
      * @param int $property The number specifies the option
      */
-    public function setOPT($property, mixed $value): void
+    public function setOPT(int $property, mixed $value): void
     {
         $this->OPT[$property] = $value;
     }
@@ -171,7 +161,7 @@ class SpContainer
      *
      * @param int $property The number specifies the option
      */
-    public function getOPT($property): mixed
+    public function getOPT(int $property): mixed
     {
         if (isset($this->OPT[$property])) {
             return $this->OPT[$property];
@@ -193,7 +183,7 @@ class SpContainer
      *
      * @param string $value eg: 'A1'
      */
-    public function setStartCoordinates($value): void
+    public function setStartCoordinates(string $value): void
     {
         $this->startCoordinates = $value;
     }
@@ -243,7 +233,7 @@ class SpContainer
      *
      * @param string $value eg: 'A1'
      */
-    public function setEndCoordinates($value): void
+    public function setEndCoordinates(string $value): void
     {
         $this->endCoordinates = $value;
     }

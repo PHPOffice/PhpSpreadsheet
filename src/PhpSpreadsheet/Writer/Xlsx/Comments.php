@@ -70,7 +70,7 @@ class Comments extends WriterPart
      * @param Comment $comment Comment
      * @param array $authors Array of authors
      */
-    private function writeComment(XMLWriter $objWriter, $cellReference, Comment $comment, array $authors): void
+    private function writeComment(XMLWriter $objWriter, string $cellReference, Comment $comment, array $authors): void
     {
         // comment
         $objWriter->startElement('comment');

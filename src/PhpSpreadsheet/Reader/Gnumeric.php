@@ -170,10 +170,7 @@ class Gnumeric extends BaseReader
         return $worksheetInfo;
     }
 
-    /**
-     * @param string $filename
-     */
-    private function gzfileGetContents($filename): string
+    private function gzfileGetContents(string $filename): string
     {
         $data = '';
         $contents = @file_get_contents($filename);

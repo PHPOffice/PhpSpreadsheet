@@ -63,7 +63,7 @@ class Fill extends Supervisor
      *                                    Leave this value at default unless you understand exactly what
      *                                        its ramifications are
      */
-    public function __construct($isSupervisor = false, $isConditional = false)
+    public function __construct(bool $isSupervisor = false, bool $isConditional = false)
     {
         // Supervisor?
         parent::__construct($isSupervisor);
@@ -96,10 +96,8 @@ class Fill extends Supervisor
 
     /**
      * Build style array from subcomponents.
-     *
-     * @param array $array
      */
-    public function getStyleArray($array): array
+    public function getStyleArray(array $array): array
     {
         return ['fill' => $array];
     }
@@ -171,7 +169,7 @@ class Fill extends Supervisor
      *
      * @return $this
      */
-    public function setFillType($fillType): static
+    public function setFillType(string $fillType): static
     {
         if ($this->isSupervisor) {
             $styleArray = $this->getStyleArray(['fillType' => $fillType]);
@@ -198,11 +196,9 @@ class Fill extends Supervisor
     /**
      * Set Rotation.
      *
-     * @param float $angleInDegrees
-     *
      * @return $this
      */
-    public function setRotation($angleInDegrees): static
+    public function setRotation(float $angleInDegrees): static
     {
         if ($this->isSupervisor) {
             $styleArray = $this->getStyleArray(['rotation' => $angleInDegrees]);

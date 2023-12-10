@@ -86,7 +86,7 @@ class Column
      * @param string $column Column (e.g. A)
      * @param AutoFilter $parent Autofilter for this column
      */
-    public function __construct($column, ?AutoFilter $parent = null)
+    public function __construct(string $column, ?AutoFilter $parent = null)
     {
         $this->columnIndex = $column;
         $this->parent = $parent;
@@ -114,7 +114,7 @@ class Column
      *
      * @return $this
      */
-    public function setColumnIndex($column): static
+    public function setColumnIndex(string $column): static
     {
         $this->setEvaluatedFalse();
         // Uppercase coordinate
@@ -160,11 +160,9 @@ class Column
     /**
      * Set AutoFilter Type.
      *
-     * @param string $filterType
-     *
      * @return $this
      */
-    public function setFilterType($filterType): static
+    public function setFilterType(string $filterType): static
     {
         $this->setEvaluatedFalse();
         if (!in_array($filterType, self::$filterTypes)) {
@@ -194,7 +192,7 @@ class Column
      *
      * @return $this
      */
-    public function setJoin($join): static
+    public function setJoin(string $join): static
     {
         $this->setEvaluatedFalse();
         // Lowercase And/Or
@@ -215,7 +213,7 @@ class Column
      *
      * @return $this
      */
-    public function setAttributes($attributes): static
+    public function setAttributes(array $attributes): static
     {
         $this->setEvaluatedFalse();
         $this->attributes = $attributes;
@@ -231,7 +229,7 @@ class Column
      *
      * @return $this
      */
-    public function setAttribute($name, $value): static
+    public function setAttribute(string $name, $value): static
     {
         $this->setEvaluatedFalse();
         $this->attributes[$name] = $value;
@@ -256,7 +254,7 @@ class Column
      *
      * @return null|int|string
      */
-    public function getAttribute($name)
+    public function getAttribute(string $name)
     {
         if (isset($this->attributes[$name])) {
             return $this->attributes[$name];
@@ -285,7 +283,7 @@ class Column
      *
      * @param int $index Rule index in the ruleset array
      */
-    public function getRule($index): Column\Rule
+    public function getRule(int $index): Column\Rule
     {
         if (!isset($this->ruleset[$index])) {
             $this->ruleset[$index] = new Column\Rule($this);
@@ -330,7 +328,7 @@ class Column
      *
      * @return $this
      */
-    public function deleteRule($index): static
+    public function deleteRule(int $index): static
     {
         $this->setEvaluatedFalse();
         if (isset($this->ruleset[$index])) {

@@ -16,7 +16,7 @@ class Table extends WriterPart
      *
      * @return string XML Output
      */
-    public function writeTable(WorksheetTable $table, $tableRef): string
+    public function writeTable(WorksheetTable $table, int $tableRef): string
     {
         // Create XML writer
         $objWriter = null;

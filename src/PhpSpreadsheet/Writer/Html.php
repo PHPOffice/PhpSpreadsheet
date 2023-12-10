@@ -208,7 +208,7 @@ class Html extends BaseWriter
      *
      * @param string $vAlign Vertical alignment
      */
-    private function mapVAlign($vAlign): string
+    private function mapVAlign(string $vAlign): string
     {
         return Alignment::VERTICAL_ALIGNMENT_FOR_HTML[$vAlign] ?? '';
     }
@@ -218,7 +218,7 @@ class Html extends BaseWriter
      *
      * @param string $hAlign Horizontal alignment
      */
-    private function mapHAlign($hAlign): string
+    private function mapHAlign(string $hAlign): string
     {
         return Alignment::HORIZONTAL_ALIGNMENT_FOR_HTML[$hAlign] ?? '';
     }
@@ -263,7 +263,7 @@ class Html extends BaseWriter
      *
      * @return $this
      */
-    public function setSheetIndex($sheetIndex): static
+    public function setSheetIndex(int $sheetIndex): static
     {
         $this->sheetIndex = $sheetIndex;
 
@@ -285,7 +285,7 @@ class Html extends BaseWriter
      *
      * @return $this
      */
-    public function setGenerateSheetNavigationBlock($generateSheetNavigationBlock): static
+    public function setGenerateSheetNavigationBlock(bool $generateSheetNavigationBlock): static
     {
         $this->generateSheetNavigationBlock = (bool) $generateSheetNavigationBlock;
 
@@ -326,7 +326,7 @@ class Html extends BaseWriter
      *
      * @param bool $includeStyles Include styles?
      */
-    public function generateHTMLHeader($includeStyles = false): string
+    public function generateHTMLHeader(bool $includeStyles = false): string
     {
         // Construct HTML
         $properties = $this->spreadsheet->getProperties();
@@ -610,7 +610,7 @@ class Html extends BaseWriter
      *
      * @param string $filename file name on local system
      */
-    public static function winFileToUrl($filename, bool $mpdf = false): string
+    public static function winFileToUrl(string $filename, bool $mpdf = false): string
     {
         // Windows filename
         if (substr($filename, 1, 2) === ':\\') {
@@ -784,7 +784,7 @@ class Html extends BaseWriter
      *
      * @param bool $generateSurroundingHTML Generate surrounding HTML tags? (&lt;style&gt; and &lt;/style&gt;)
      */
-    public function generateStyles($generateSurroundingHTML = true): string
+    public function generateStyles(bool $generateSurroundingHTML = true): string
     {
         // Build CSS
         $css = $this->buildCSS($generateSurroundingHTML);
@@ -896,7 +896,7 @@ class Html extends BaseWriter
      *
      * @param bool $generateSurroundingHTML Generate surrounding HTML style? (html { })
      */
-    public function buildCSS($generateSurroundingHTML = true): array
+    public function buildCSS(bool $generateSurroundingHTML = true): array
     {
         // Cached?
         if ($this->cssStyles !== null) {
@@ -1208,7 +1208,7 @@ class Html extends BaseWriter
      * @param int $sheetIndex Sheet index (0-based)
      * @param int $row row number
      */
-    private function generateRowStart(Worksheet $worksheet, $sheetIndex, int $row): string
+    private function generateRowStart(Worksheet $worksheet, int $sheetIndex, int $row): string
     {
         $html = '';
         if (count($worksheet->getBreaks()) > 0) {
@@ -1544,11 +1544,9 @@ class Html extends BaseWriter
     /**
      * Set images root.
      *
-     * @param string $imagesRoot
-     *
      * @return $this
      */
-    public function setImagesRoot($imagesRoot): static
+    public function setImagesRoot(string $imagesRoot): static
     {
         $this->imagesRoot = $imagesRoot;
 
@@ -1566,11 +1564,9 @@ class Html extends BaseWriter
     /**
      * Set embed images.
      *
-     * @param bool $embedImages
-     *
      * @return $this
      */
-    public function setEmbedImages($embedImages): static
+    public function setEmbedImages(bool $embedImages): static
     {
         $this->embedImages = $embedImages;
 
@@ -1588,11 +1584,9 @@ class Html extends BaseWriter
     /**
      * Set use inline CSS?
      *
-     * @param bool $useInlineCss
-     *
      * @return $this
      */
-    public function setUseInlineCss($useInlineCss): static
+    public function setUseInlineCss(bool $useInlineCss): static
     {
         $this->useInlineCss = $useInlineCss;
 
@@ -1614,15 +1608,13 @@ class Html extends BaseWriter
     /**
      * Set use embedded CSS?
      *
-     * @param bool $useEmbeddedCSS
-     *
      * @return $this
      *
      * @codeCoverageIgnore
      *
      * @deprecated no longer used
      */
-    public function setUseEmbeddedCSS($useEmbeddedCSS): static
+    public function setUseEmbeddedCSS(bool $useEmbeddedCSS): static
     {
         $this->useEmbeddedCSS = $useEmbeddedCSS;
 
@@ -1635,7 +1627,7 @@ class Html extends BaseWriter
      * @param string $value Plain formatted value without color
      * @param string $format Format code
      */
-    public function formatColor($value, $format): string
+    public function formatColor(string $value, string $format): string
     {
         // Color information, e.g. [Red] is always at the beginning
         $color = null; // initialize

@@ -18,7 +18,7 @@ class Workbook extends WriterPart
      *
      * @return string XML Output
      */
-    public function writeWorkbook(Spreadsheet $spreadsheet, $recalcRequired = false): string
+    public function writeWorkbook(Spreadsheet $spreadsheet, bool $recalcRequired = false): string
     {
         // Create XML writer
         if ($this->getParentWriter()->getUseDiskCaching()) {
@@ -148,7 +148,7 @@ class Workbook extends WriterPart
      *
      * @param bool $recalcRequired Indicate whether formulas should be recalculated before writing
      */
-    private function writeCalcPr(XMLWriter $objWriter, $recalcRequired = true): void
+    private function writeCalcPr(XMLWriter $objWriter, bool $recalcRequired = true): void
     {
         $objWriter->startElement('calcPr');
 
@@ -195,7 +195,7 @@ class Workbook extends WriterPart
      * @param int $relId Relationship ID
      * @param string $sheetState Sheet state (visible, hidden, veryHidden)
      */
-    private function writeSheet(XMLWriter $objWriter, string $worksheetName, int $worksheetId = 1, $relId = 1, $sheetState = 'visible'): void
+    private function writeSheet(XMLWriter $objWriter, string $worksheetName, int $worksheetId = 1, int $relId = 1, string $sheetState = 'visible'): void
     {
         if ($worksheetName != '') {
             // Write sheet

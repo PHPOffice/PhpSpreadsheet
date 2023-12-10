@@ -94,7 +94,7 @@ class Settings
      *
      * @param ?int $options Default options for libxml loader
      */
-    public static function setLibXmlLoaderOptions($options): int
+    public static function setLibXmlLoaderOptions(?int $options): int
     {
         if ($options === null) {
             $options = defined('LIBXML_DTDLOAD') ? (LIBXML_DTDLOAD | LIBXML_DTDATTR) : 0;
@@ -122,13 +122,11 @@ class Settings
     /**
      * Deprecated, has no effect.
      *
-     * @param bool $state
-     *
      * @deprecated will be removed without replacement as it is no longer necessary on PHP 7.3.0+
      *
      * @codeCoverageIgnore
      */
-    public static function setLibXmlDisableEntityLoader($state): void
+    public static function setLibXmlDisableEntityLoader(bool $state): void
     {
         // noop
     }

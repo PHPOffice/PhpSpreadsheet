@@ -19,7 +19,7 @@ class Mpdf extends Pdf
      *
      * @return \Mpdf\Mpdf implementation
      */
-    protected function createExternalWriterInstance($config): \Mpdf\Mpdf
+    protected function createExternalWriterInstance(array $config): \Mpdf\Mpdf
     {
         return new \Mpdf\Mpdf($config);
     }
@@ -88,10 +88,8 @@ class Mpdf extends Pdf
 
     /**
      * Convert inches to mm.
-     *
-     * @param float $inches
      */
-    private function inchesToMm($inches): float
+    private function inchesToMm(float $inches): float
     {
         return $inches * 25.4;
     }

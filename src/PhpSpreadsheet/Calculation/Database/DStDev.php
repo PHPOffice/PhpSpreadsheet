@@ -31,7 +31,7 @@ class DStDev extends DatabaseAbstract
      *                                        the column label in which you specify a condition for the
      *                                        column.
      */
-    public static function evaluate($database, $field, $criteria): float|string
+    public static function evaluate(array $database, $field, array $criteria): float|string
     {
         $field = self::fieldExtract($database, $field);
         if ($field === null) {

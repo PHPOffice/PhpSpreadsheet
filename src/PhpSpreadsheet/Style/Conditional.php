@@ -142,7 +142,7 @@ class Conditional implements IComparable
      *
      * @return $this
      */
-    public function setConditionType($type): static
+    public function setConditionType(string $type): static
     {
         $this->conditionType = $type;
 
@@ -164,7 +164,7 @@ class Conditional implements IComparable
      *
      * @return $this
      */
-    public function setOperatorType($type): static
+    public function setOperatorType(string $type): static
     {
         $this->operatorType = $type;
 
@@ -182,11 +182,9 @@ class Conditional implements IComparable
     /**
      * Set text.
      *
-     * @param string $text
-     *
      * @return $this
      */
-    public function setText($text): static
+    public function setText(string $text): static
     {
         $this->text = $text;
 
@@ -204,11 +202,9 @@ class Conditional implements IComparable
     /**
      * Set StopIfTrue.
      *
-     * @param bool $stopIfTrue
-     *
      * @return $this
      */
-    public function setStopIfTrue($stopIfTrue): static
+    public function setStopIfTrue(bool $stopIfTrue): static
     {
         $this->stopIfTrue = $stopIfTrue;
 

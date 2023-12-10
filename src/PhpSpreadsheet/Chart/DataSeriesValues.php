@@ -126,7 +126,7 @@ class DataSeriesValues extends Properties
      *
      * @return $this
      */
-    public function setDataType($dataType): static
+    public function setDataType(string $dataType): static
     {
         if (!in_array($dataType, self::DATA_TYPE_VALUES)) {
             throw new Exception('Invalid datatype for chart data series values');
@@ -153,7 +153,7 @@ class DataSeriesValues extends Properties
      *
      * @return $this
      */
-    public function setDataSource($dataSource): static
+    public function setDataSource(?string $dataSource): static
     {
         $this->dataSource = $dataSource;
 
@@ -425,11 +425,9 @@ class DataSeriesValues extends Properties
     /**
      * Set Series Data Values.
      *
-     * @param array $dataValues
-     *
      * @return $this
      */
-    public function setDataValues($dataValues): static
+    public function setDataValues(array $dataValues): static
     {
         $this->dataValues = Functions::flattenArray($dataValues);
         $this->pointCount = count($dataValues);
@@ -520,11 +518,9 @@ class DataSeriesValues extends Properties
     /**
      * Set Smooth Line.
      *
-     * @param bool $smoothLine
-     *
      * @return $this
      */
-    public function setSmoothLine($smoothLine): static
+    public function setSmoothLine(bool $smoothLine): static
     {
         $this->smoothLine = $smoothLine;
 

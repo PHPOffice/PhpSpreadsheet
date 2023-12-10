@@ -32,7 +32,7 @@ abstract class Supervisor implements IComparable
      *                                    Leave this value at default unless you understand exactly what
      *                                        its ramifications are
      */
-    public function __construct($isSupervisor = false)
+    public function __construct(bool $isSupervisor = false)
     {
         // Supervisor?
         $this->isSupervisor = $isSupervisor;
@@ -42,11 +42,10 @@ abstract class Supervisor implements IComparable
      * Bind parent. Only used for supervisor.
      *
      * @param Spreadsheet|Supervisor $parent
-     * @param null|string $parentPropertyName
      *
      * @return $this
      */
-    public function bindParent($parent, $parentPropertyName = null)
+    public function bindParent($parent, ?string $parentPropertyName = null)
     {
         $this->parent = $parent;
         $this->parentPropertyName = $parentPropertyName;
@@ -154,8 +153,6 @@ abstract class Supervisor implements IComparable
 
     /**
      * Build style array from subcomponents.
-     *
-     * @param array $array
      */
-    abstract public function getStyleArray($array): array;
+    abstract public function getStyleArray(array $array): array;
 }

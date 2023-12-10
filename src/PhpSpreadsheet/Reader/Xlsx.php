@@ -353,10 +353,7 @@ class Xlsx extends BaseReader
         return $contents !== false;
     }
 
-    /**
-     * @param string $fileName
-     */
-    private function getFromZipArchive(ZipArchive $archive, $fileName = ''): string
+    private function getFromZipArchive(ZipArchive $archive, string $fileName = ''): string
     {
         // Root-relative paths
         if (str_contains($fileName, '//')) {

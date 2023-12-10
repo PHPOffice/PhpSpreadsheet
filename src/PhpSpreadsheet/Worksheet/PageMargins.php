@@ -52,11 +52,9 @@ class PageMargins
     /**
      * Set Left.
      *
-     * @param float $left
-     *
      * @return $this
      */
-    public function setLeft($left): static
+    public function setLeft(float $left): static
     {
         $this->left = $left;
 
@@ -74,11 +72,9 @@ class PageMargins
     /**
      * Set Right.
      *
-     * @param float $right
-     *
      * @return $this
      */
-    public function setRight($right): static
+    public function setRight(float $right): static
     {
         $this->right = $right;
 
@@ -96,11 +92,9 @@ class PageMargins
     /**
      * Set Top.
      *
-     * @param float $top
-     *
      * @return $this
      */
-    public function setTop($top): static
+    public function setTop(float $top): static
     {
         $this->top = $top;
 
@@ -118,11 +112,9 @@ class PageMargins
     /**
      * Set Bottom.
      *
-     * @param float $bottom
-     *
      * @return $this
      */
-    public function setBottom($bottom): static
+    public function setBottom(float $bottom): static
     {
         $this->bottom = $bottom;
 
@@ -140,11 +132,9 @@ class PageMargins
     /**
      * Set Header.
      *
-     * @param float $header
-     *
      * @return $this
      */
-    public function setHeader($header): static
+    public function setHeader(float $header): static
     {
         $this->header = $header;
 
@@ -162,11 +152,9 @@ class PageMargins
     /**
      * Set Footer.
      *
-     * @param float $footer
-     *
      * @return $this
      */
-    public function setFooter($footer): static
+    public function setFooter(float $footer): static
     {
         $this->footer = $footer;
 

@@ -431,7 +431,7 @@ class Cell implements Stringable
      *
      * @param string $dataType see DataType::TYPE_*
      */
-    public function setDataType($dataType): self
+    public function setDataType(string $dataType): self
     {
         $this->setValueExplicit($this->value, $dataType);
 

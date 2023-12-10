@@ -29,7 +29,7 @@ class ColumnDimension extends Dimension
      *
      * @param ?string $index Character column index
      */
-    public function __construct($index = 'A')
+    public function __construct(?string $index = 'A')
     {
         // Initialise values
         $this->columnIndex = $index;

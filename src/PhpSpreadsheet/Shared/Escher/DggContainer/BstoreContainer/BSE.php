@@ -72,10 +72,8 @@ class BSE
 
     /**
      * Set the BLIP type.
-     *
-     * @param int $blipType
      */
-    public function setBlipType($blipType): void
+    public function setBlipType(int $blipType): void
     {
         $this->blipType = $blipType;
     }

@@ -9,11 +9,9 @@ use PhpOffice\PhpSpreadsheet\Calculation\Internal\WildcardMatch;
 abstract class DatabaseAbstract
 {
     /**
-     * @param array $database
      * @param null|int|string $field
-     * @param array $criteria
      */
-    abstract public static function evaluate($database, $field, $criteria): null|float|int|string;
+    abstract public static function evaluate(array $database, $field, array $criteria): null|float|int|string;
 
     /**
      * fieldExtract.

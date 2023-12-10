@@ -2978,7 +2978,7 @@ class Calculation
      *
      * @return bool Success or failure
      */
-    public static function setArrayReturnType($returnType): bool
+    public static function setArrayReturnType(string $returnType): bool
     {
         if (
             ($returnType == self::RETURN_ARRAY_AS_VALUE)
@@ -3013,10 +3013,8 @@ class Calculation
 
     /**
      * Enable/disable calculation cache.
-     *
-     * @param bool $calculationCacheEnabled
      */
-    public function setCalculationCacheEnabled($calculationCacheEnabled): void
+    public function setCalculationCacheEnabled(bool $calculationCacheEnabled): void
     {
         $this->calculationCacheEnabled = $calculationCacheEnabled;
         $this->clearCalculationCache();
@@ -3048,10 +3046,8 @@ class Calculation
 
     /**
      * Clear calculation cache for a specified worksheet.
-     *
-     * @param string $worksheetName
      */
-    public function clearCalculationCacheForWorksheet($worksheetName): void
+    public function clearCalculationCacheForWorksheet(string $worksheetName): void
     {
         if (isset($this->calculationCache[$worksheetName])) {
             unset($this->calculationCache[$worksheetName]);
@@ -3060,11 +3056,8 @@ class Calculation
 
     /**
      * Rename calculation cache for a specified worksheet.
-     *
-     * @param string $fromWorksheetName
-     * @param string $toWorksheetName
      */
-    public function renameCalculationCacheForWorksheet($fromWorksheetName, $toWorksheetName): void
+    public function renameCalculationCacheForWorksheet(string $fromWorksheetName, string $toWorksheetName): void
     {
         if (isset($this->calculationCache[$fromWorksheetName])) {
             $this->calculationCache[$toWorksheetName] = &$this->calculationCache[$fromWorksheetName];
@@ -3356,10 +3349,7 @@ class Calculation
         return self::translateFormula(self::$functionReplaceFromLocale, self::$functionReplaceToExcel, $formula, self::$localeArgumentSeparator, ',');
     }
 
-    /**
-     * @param string $function
-     */
-    public static function localeFunc($function): string
+    public static function localeFunc(string $function): string
     {
         if (self::$localeLanguage !== 'en_us') {
             $functionName = trim($function, '(');
@@ -3435,7 +3425,7 @@ class Calculation
      * @param Cell $cell Cell to calculate
      * @param bool $resetLog Flag indicating whether the debug log should be reset or not
      */
-    public function calculateCellValue(?Cell $cell = null, $resetLog = true): mixed
+    public function calculateCellValue(?Cell $cell = null, bool $resetLog = true): mixed
     {
         if ($cell === null) {
             return null;
@@ -3532,7 +3522,7 @@ class Calculation
      *
      * @return array|bool
      */
-    public function parseFormula($formula)
+    public function parseFormula(string $formula)
     {
         //    Basic validation that this is indeed a formula
         //    We return an empty array if not
@@ -3556,7 +3546,7 @@ class Calculation
      * @param string $cellID Address of the cell to calculate
      * @param Cell $cell Cell to calculate
      */
-    public function calculateFormula($formula, $cellID = null, ?Cell $cell = null): mixed
+    public function calculateFormula(string $formula, ?string $cellID = null, ?Cell $cell = null): mixed
     {
         //    Initialise the logging settings
         $this->formulaError = null;
@@ -3605,10 +3595,7 @@ class Calculation
         return false;
     }
 
-    /**
-     * @param string $cellReference
-     */
-    public function saveValueToCache($cellReference, mixed $cellValue): void
+    public function saveValueToCache(string $cellReference, mixed $cellValue): void
     {
         if ($this->calculationCacheEnabled) {
             $this->calculationCache[$cellReference] = $cellValue;
@@ -3623,7 +3610,7 @@ class Calculation
      * @param Cell $cell Cell to calculate
      * @param bool $ignoreQuotePrefix If set to true, evaluate the formyla even if the referenced cell is quote prefixed
      */
-    public function _calculateFormulaValue($formula, $cellID = null, ?Cell $cell = null, bool $ignoreQuotePrefix = false): mixed
+    public function _calculateFormulaValue(string $formula, ?string $cellID = null, ?Cell $cell = null, bool $ignoreQuotePrefix = false): mixed
     {
         $cellValue = null;
 
@@ -3704,7 +3691,7 @@ class Calculation
      *                                            1 = shrink to fit
      *                                            2 = extend to fit
      */
-    private static function checkMatrixOperands(mixed &$operand1, mixed &$operand2, $resize = 1): array
+    private static function checkMatrixOperands(mixed &$operand1, mixed &$operand2, int $resize = 1): array
     {
         //    Examine each of the two operands, and turn them into an array if they aren't one already
         //    Note that this function should only be called if one or both of the operand is already an array
@@ -3770,7 +3757,7 @@ class Calculation
      * @param int $matrix2Rows Row size of second matrix operand
      * @param int $matrix2Columns Column size of second matrix operand
      */
-    private static function resizeMatricesShrink(array &$matrix1, array &$matrix2, $matrix1Rows, $matrix1Columns, $matrix2Rows, $matrix2Columns): void
+    private static function resizeMatricesShrink(array &$matrix1, array &$matrix2, int $matrix1Rows, int $matrix1Columns, int $matrix2Rows, int $matrix2Columns): void
     {
         if (($matrix2Columns < $matrix1Columns) || ($matrix2Rows < $matrix1Rows)) {
             if ($matrix2Rows < $matrix1Rows) {
@@ -3813,7 +3800,7 @@ class Calculation
      * @param int $matrix2Rows Row size of second matrix operand
      * @param int $matrix2Columns Column size of second matrix operand
      */
-    private static function resizeMatricesExtend(array &$matrix1, array &$matrix2, $matrix1Rows, $matrix1Columns, $matrix2Rows, $matrix2Columns): void
+    private static function resizeMatricesExtend(array &$matrix1, array &$matrix2, int $matrix1Rows, int $matrix1Columns, int $matrix2Rows, int $matrix2Columns): void
     {
         if (($matrix2Columns < $matrix1Columns) || ($matrix2Rows < $matrix1Rows)) {
             if ($matrix2Columns < $matrix1Columns) {
@@ -4022,11 +4009,9 @@ class Calculation
     // Convert infix to postfix notation
 
     /**
-     * @param string $formula
-     *
      * @return array<int, mixed>|false
      */
-    private function internalParseFormula($formula, ?Cell $cell = null): bool|array
+    private function internalParseFormula(string $formula, ?Cell $cell = null): bool|array
     {
         if (($formula = $this->convertMatrixReferences(trim($formula))) === false) {
             return false;
@@ -4536,11 +4521,9 @@ class Calculation
     }
 
     /**
-     * @param null|string $cellID
-     *
      * @return array<int, mixed>|false
      */
-    private function processTokenStack(mixed $tokens, $cellID = null, ?Cell $cell = null)
+    private function processTokenStack(mixed $tokens, ?string $cellID = null, ?Cell $cell = null)
     {
         if ($tokens === false) {
             return false;
@@ -5211,12 +5194,9 @@ class Calculation
     }
 
     /**
-     * @param string $operation
-     * @param Stack $stack
-     *
      * @return bool|mixed
      */
-    private function executeNumericBinaryOperation(mixed $operand1, mixed $operand2, $operation, &$stack)
+    private function executeNumericBinaryOperation(mixed $operand1, mixed $operand2, string $operation, Stack &$stack)
     {
         //    Validate the two operands
         if (
@@ -5369,7 +5349,7 @@ class Calculation
      *
      * @return array Array of values in range if range contains more than one element. Otherwise, a single value is returned.
      */
-    public function extractCellRange(&$range = 'A1', ?Worksheet $worksheet = null, bool $resetLog = true): array
+    public function extractCellRange(string &$range = 'A1', ?Worksheet $worksheet = null, bool $resetLog = true): array
     {
         // Return value
         $returnValue = [];
@@ -5480,7 +5460,7 @@ class Calculation
      *
      * @param string $function Function Name
      */
-    public function isImplemented($function): bool
+    public function isImplemented(string $function): bool
     {
         $function = strtoupper($function);
         $notImplemented = !isset(self::$phpSpreadsheetFunctions[$function]) || (is_array(self::$phpSpreadsheetFunctions[$function]['functionCall']) && self::$phpSpreadsheetFunctions[$function]['functionCall'][1] === 'DUMMY');

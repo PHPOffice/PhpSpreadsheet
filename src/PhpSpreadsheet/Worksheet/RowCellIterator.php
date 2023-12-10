@@ -39,7 +39,7 @@ class RowCellIterator extends CellIterator
      * @param string $startColumn The column address at which to start iterating
      * @param string $endColumn Optionally, the column address at which to stop iterating
      */
-    public function __construct(Worksheet $worksheet, $rowIndex = 1, $startColumn = 'A', $endColumn = null, bool $iterateOnlyExistingCells = false)
+    public function __construct(Worksheet $worksheet, int $rowIndex = 1, string $startColumn = 'A', ?string $endColumn = null, bool $iterateOnlyExistingCells = false)
     {
         // Set subject and row index
         $this->worksheet = $worksheet;
@@ -73,7 +73,7 @@ class RowCellIterator extends CellIterator
      *
      * @return $this
      */
-    public function resetEnd($endColumn = null): static
+    public function resetEnd(?string $endColumn = null): static
     {
         $endColumn = $endColumn ?: $this->worksheet->getHighestColumn();
         $this->endColumnIndex = Coordinate::columnIndexFromString($endColumn);

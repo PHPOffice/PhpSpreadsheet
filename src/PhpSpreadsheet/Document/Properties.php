@@ -416,7 +416,7 @@ class Properties
      *
      * @return $this
      */
-    public function setCustomProperty(string $propertyName, mixed $propertyValue = '', $propertyType = null): self
+    public function setCustomProperty(string $propertyName, mixed $propertyValue = '', ?string $propertyType = null): self
     {
         if (($propertyType === null) || (!in_array($propertyType, self::VALID_PROPERTY_TYPE_LIST))) {
             $propertyType = $this->identifyPropertyType($propertyValue);

@@ -149,7 +149,7 @@ class DateTime
      * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
      *                        depending on the value of the ReturnDateType flag
      */
-    public static function DATE($year = 0, $month = 1, $day = 1): mixed
+    public static function DATE(int $year = 0, int $month = 1, int $day = 1): mixed
     {
         return DateTimeExcel\Date::fromYMD($year, $month, $day);
     }
@@ -184,7 +184,7 @@ class DateTime
      * @return array|\DateTime|float|int|string Excel date/time serial value, PHP date/time serial value or PHP date/time object,
      *                        depending on the value of the ReturnDateType flag
      */
-    public static function TIME($hour = 0, $minute = 0, $second = 0): string|float|int|\DateTime|array
+    public static function TIME(int $hour = 0, int $minute = 0, int $second = 0): string|float|int|\DateTime|array
     {
         return DateTimeExcel\Time::fromHMS($hour, $minute, $second);
     }
@@ -218,7 +218,7 @@ class DateTime
      * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
      *                        depending on the value of the ReturnDateType flag
      */
-    public static function DATEVALUE($dateValue): mixed
+    public static function DATEVALUE(string $dateValue): mixed
     {
         return DateTimeExcel\DateValue::fromString($dateValue);
     }
@@ -248,7 +248,7 @@ class DateTime
      * @return array|\Datetime|float|int|string Excel date/time serial value, PHP date/time serial value or PHP date/time object,
      *                        depending on the value of the ReturnDateType flag
      */
-    public static function TIMEVALUE($timeValue): string|\Datetime|int|float|array
+    public static function TIMEVALUE(string $timeValue): string|\Datetime|int|float|array
     {
         return DateTimeExcel\TimeValue::fromString($timeValue);
     }
@@ -424,7 +424,7 @@ class DateTime
      * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
      *                        depending on the value of the ReturnDateType flag
      */
-    public static function WORKDAY(mixed $startDate, $endDays, mixed ...$dateArgs): mixed
+    public static function WORKDAY(mixed $startDate, int $endDays, mixed ...$dateArgs): mixed
     {
         return DateTimeExcel\WorkDay::date($startDate, $endDays, ...$dateArgs);
     }
@@ -474,7 +474,7 @@ class DateTime
      *
      * @return array|int|string Day of the week value
      */
-    public static function WEEKDAY($dateValue = 1, $style = 1): string|int|array
+    public static function WEEKDAY($dateValue = 1, int $style = 1): string|int|array
     {
         return DateTimeExcel\Week::day($dateValue, $style);
     }
@@ -685,7 +685,7 @@ class DateTime
      *
      * @return array|int|string Week Number
      */
-    public static function WEEKNUM(mixed $dateValue = 1, $method = self::STARTWEEK_SUNDAY): int|string|array
+    public static function WEEKNUM(mixed $dateValue = 1, int $method = self::STARTWEEK_SUNDAY): int|string|array
     {
         return DateTimeExcel\Week::number($dateValue, $method);
     }
@@ -851,7 +851,7 @@ class DateTime
      * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
      *                        depending on the value of the ReturnDateType flag
      */
-    public static function EDATE(mixed $dateValue = 1, $adjustmentMonths = 0): mixed
+    public static function EDATE(mixed $dateValue = 1, int $adjustmentMonths = 0): mixed
     {
         return DateTimeExcel\Month::adjust($dateValue, $adjustmentMonths);
     }
@@ -879,7 +879,7 @@ class DateTime
      * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
      *                        depending on the value of the ReturnDateType flag
      */
-    public static function EOMONTH(mixed $dateValue = 1, $adjustmentMonths = 0): mixed
+    public static function EOMONTH(mixed $dateValue = 1, int $adjustmentMonths = 0): mixed
     {
         return DateTimeExcel\Month::lastDay($dateValue, $adjustmentMonths);
     }

@@ -48,12 +48,7 @@ class Trend
      */
     private static array $trendCache = [];
 
-    /**
-     * @param array $yValues
-     * @param array $xValues
-     * @param bool $const
-     */
-    public static function calculate(string $trendType = self::TREND_BEST_FIT, $yValues = [], $xValues = [], $const = true): mixed
+    public static function calculate(string $trendType = self::TREND_BEST_FIT, array $yValues = [], array $xValues = [], bool $const = true): mixed
     {
         //    Calculate number of points in each dataset
         $nY = count($yValues);

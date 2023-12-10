@@ -165,7 +165,7 @@ class Worksheet extends BIFFwriter
      * @param bool $preCalculateFormulas Flag indicating whether formulas should be calculated or just written
      * @param \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $phpSheet The worksheet to write
      */
-    public function __construct(&$str_total, &$str_unique, &$str_table, &$colors, Parser $parser, $preCalculateFormulas, \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $phpSheet)
+    public function __construct(int &$str_total, int &$str_unique, array &$str_table, array &$colors, Parser $parser, bool $preCalculateFormulas, \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $phpSheet)
     {
         // It needs to call its parent's constructor explicitly
         parent::__construct();
@@ -528,7 +528,7 @@ class Worksheet extends BIFFwriter
      *
      * @return string Binary data
      */
-    private function writeBIFF8CellRangeAddressFixed($range): string
+    private function writeBIFF8CellRangeAddressFixed(string $range): string
     {
         $explodes = explode(':', $range);
 
@@ -573,7 +573,7 @@ class Worksheet extends BIFFwriter
      *
      * @param int $print Whether to print the headers or not. Defaults to 1 (print).
      */
-    public function printRowColHeaders($print = 1): void
+    public function printRowColHeaders(int $print = 1): void
     {
         $this->printHeaders = $print;
     }
@@ -581,13 +581,8 @@ class Worksheet extends BIFFwriter
     /**
      * This method sets the properties for outlining and grouping. The defaults
      * correspond to Excel's defaults.
-     *
-     * @param bool $visible
-     * @param bool $symbols_below
-     * @param bool $symbols_right
-     * @param bool $auto_style
      */
-    public function setOutline($visible = true, $symbols_below = true, $symbols_right = true, $auto_style = false): void
+    public function setOutline(bool $visible = true, bool $symbols_below = true, bool $symbols_right = true, bool $auto_style = false): void
     {
         $this->outlineOn = $visible;
         $this->outlineBelow = $symbols_below;
@@ -608,7 +603,7 @@ class Worksheet extends BIFFwriter
      * @param float $num The number to write
      * @param int $xfIndex The optional XF format
      */
-    private function writeNumber(int $row, int $col, $num, int $xfIndex): int
+    private function writeNumber(int $row, int $col, float $num, int $xfIndex): int
     {
         $record = 0x0203; // Record identifier
         $length = 0x000E; // Number of bytes to follow
@@ -633,7 +628,7 @@ class Worksheet extends BIFFwriter
      * @param string $str The string
      * @param int $xfIndex Index to XF record
      */
-    private function writeString(int $row, int $col, $str, int $xfIndex): void
+    private function writeString(int $row, int $col, string $str, int $xfIndex): void
     {
         $this->writeLabelSst($row, $col, $str, $xfIndex);
     }
@@ -675,7 +670,7 @@ class Worksheet extends BIFFwriter
      * @param string $str The string to write
      * @param int $xfIndex The XF format index for the cell
      */
-    private function writeLabelSst(int $row, int $col, $str, int $xfIndex): void
+    private function writeLabelSst(int $row, int $col, string $str, int $xfIndex): void
     {
         $record = 0x00FD; // Record identifier
         $length = 0x000A; // Bytes to follow
@@ -709,7 +704,7 @@ class Worksheet extends BIFFwriter
      * @param int $col Zero indexed column
      * @param int $xfIndex The XF format index
      */
-    public function writeBlank($row, $col, $xfIndex): int
+    public function writeBlank(int $row, int $col, int $xfIndex): int
     {
         $record = 0x0201; // Record identifier
         $length = 0x0006; // Number of bytes to follow
@@ -726,10 +721,9 @@ class Worksheet extends BIFFwriter
      *
      * @param int $row Row index (0-based)
      * @param int $col Column index (0-based)
-     * @param int $value
      * @param int $isError Error or Boolean?
      */
-    private function writeBoolErr(int $row, int $col, $value, int $isError, int $xfIndex): int
+    private function writeBoolErr(int $row, int $col, int $value, int $isError, int $xfIndex): int
     {
         $record = 0x0205;
         $length = 8;
@@ -883,7 +877,7 @@ class Worksheet extends BIFFwriter
      * @param int $col Column
      * @param string $url URL string
      */
-    private function writeUrl(int $row, int $col, $url): void
+    private function writeUrl(int $row, int $col, string $url): void
     {
         // Add start row and col to arg list
         $this->writeUrlRange($row, $col, $row, $col, $url);
@@ -903,7 +897,7 @@ class Worksheet extends BIFFwriter
      *
      * @see writeUrl()
      */
-    private function writeUrlRange(int $row1, int $col1, int $row2, int $col2, $url): void
+    private function writeUrlRange(int $row1, int $col1, int $row2, int $col2, string $url): void
     {
         // Check for internal/external sheet links or default to web link
         if (preg_match('[^internal:]', $url)) {
@@ -929,7 +923,7 @@ class Worksheet extends BIFFwriter
      *
      * @see writeUrl()
      */
-    public function writeUrlWeb($row1, $col1, $row2, $col2, $url): void
+    public function writeUrlWeb(int $row1, int $col1, int $row2, int $col2, string $url): void
     {
         $record = 0x01B8; // Record identifier
 
@@ -971,7 +965,7 @@ class Worksheet extends BIFFwriter
      *
      * @see writeUrl()
      */
-    private function writeUrlInternal(int $row1, int $col1, int $row2, int $col2, $url): void
+    private function writeUrlInternal(int $row1, int $col1, int $row2, int $col2, string $url): void
     {
         $record = 0x01B8; // Record identifier
 
@@ -1019,7 +1013,7 @@ class Worksheet extends BIFFwriter
      *
      * @see writeUrl()
      */
-    private function writeUrlExternal(int $row1, int $col1, int $row2, int $col2, $url): void
+    private function writeUrlExternal(int $row1, int $col1, int $row2, int $col2, string $url): void
     {
         // Network drives are different. We will handle them separately
         // MS/Novell network drives and shares start with \\
@@ -1110,7 +1104,7 @@ class Worksheet extends BIFFwriter
      * @param bool $hidden The optional hidden attribute
      * @param int $level The optional outline level for row, in range [0,7]
      */
-    private function writeRow(int $row, int $height, int $xfIndex, bool $hidden = false, $level = 0): void
+    private function writeRow(int $row, int $height, int $xfIndex, bool $hidden = false, int $level = 0): void
     {
         $record = 0x0208; // Record identifier
         $length = 0x0010; // Number of bytes to follow
@@ -1272,7 +1266,7 @@ class Worksheet extends BIFFwriter
      *                4 => Option flags.
      *                5 => Optional outline level
      */
-    private function writeColinfo($col_array): void
+    private function writeColinfo(array $col_array): void
     {
         $colFirst = $col_array[0] ?? null;
         $colLast = $col_array[1] ?? null;
@@ -2122,7 +2116,7 @@ class Worksheet extends BIFFwriter
      * @param float $scale_x The horizontal scale
      * @param float $scale_y The vertical scale
      */
-    public function insertBitmap($row, $col, GdImage|string $bitmap, $x = 0, $y = 0, $scale_x = 1, $scale_y = 1): void
+    public function insertBitmap(int $row, int $col, GdImage|string $bitmap, int $x = 0, int $y = 0, float $scale_x = 1, float $scale_y = 1): void
     {
         $bitmap_array = $bitmap instanceof GdImage
             ? $this->processBitmapGd($bitmap)
@@ -2197,7 +2191,7 @@ class Worksheet extends BIFFwriter
      * @param int $width Width of image frame
      * @param int $height Height of image frame
      */
-    public function positionImage($col_start, $row_start, $x1, $y1, $width, $height): void
+    public function positionImage(int $col_start, int $row_start, int $x1, int $y1, int $width, int $height): void
     {
         // Initialise end cell to the same as the start cell
         $col_end = $col_start; // Col containing lower right corner of object
@@ -2370,7 +2364,7 @@ class Worksheet extends BIFFwriter
      *
      * @return array Array with data and properties of the bitmap
      */
-    public function processBitmap($bitmap): array
+    public function processBitmap(string $bitmap): array
     {
         // Open file.
         $bmp_fd = @fopen($bitmap, 'rb');

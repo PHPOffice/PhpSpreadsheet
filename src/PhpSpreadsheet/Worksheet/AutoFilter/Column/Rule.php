@@ -226,7 +226,7 @@ class Rule
      *
      * @return $this
      */
-    public function setRuleType($ruleType): static
+    public function setRuleType(string $ruleType): static
     {
         $this->setEvaluatedFalse();
         if (!in_array($ruleType, self::RULE_TYPES)) {
@@ -296,7 +296,7 @@ class Rule
      *
      * @return $this
      */
-    public function setOperator($operator): static
+    public function setOperator(string $operator): static
     {
         $this->setEvaluatedFalse();
         if (empty($operator)) {
@@ -324,11 +324,9 @@ class Rule
     /**
      * Set AutoFilter Rule Grouping.
      *
-     * @param string $grouping
-     *
      * @return $this
      */
-    public function setGrouping($grouping): static
+    public function setGrouping(string $grouping): static
     {
         $this->setEvaluatedFalse();
         if (
@@ -349,11 +347,10 @@ class Rule
      *
      * @param string $operator see self::AUTOFILTER_COLUMN_RULE_*
      * @param int|int[]|string|string[] $value
-     * @param string $grouping
      *
      * @return $this
      */
-    public function setRule($operator, $value, $grouping = null): static
+    public function setRule(string $operator, $value, ?string $grouping = null): static
     {
         $this->setEvaluatedFalse();
         $this->setOperator($operator);

@@ -148,11 +148,9 @@ class HeaderFooter
     /**
      * Set OddHeader.
      *
-     * @param string $oddHeader
-     *
      * @return $this
      */
-    public function setOddHeader($oddHeader): static
+    public function setOddHeader(string $oddHeader): static
     {
         $this->oddHeader = $oddHeader;
 
@@ -170,11 +168,9 @@ class HeaderFooter
     /**
      * Set OddFooter.
      *
-     * @param string $oddFooter
-     *
      * @return $this
      */
-    public function setOddFooter($oddFooter): static
+    public function setOddFooter(string $oddFooter): static
     {
         $this->oddFooter = $oddFooter;
 
@@ -192,11 +188,9 @@ class HeaderFooter
     /**
      * Set EvenHeader.
      *
-     * @param string $eventHeader
-     *
      * @return $this
      */
-    public function setEvenHeader($eventHeader): static
+    public function setEvenHeader(string $eventHeader): static
     {
         $this->evenHeader = $eventHeader;
 
@@ -214,11 +208,9 @@ class HeaderFooter
     /**
      * Set EvenFooter.
      *
-     * @param string $evenFooter
-     *
      * @return $this
      */
-    public function setEvenFooter($evenFooter): static
+    public function setEvenFooter(string $evenFooter): static
     {
         $this->evenFooter = $evenFooter;
 
@@ -236,11 +228,9 @@ class HeaderFooter
     /**
      * Set FirstHeader.
      *
-     * @param string $firstHeader
-     *
      * @return $this
      */
-    public function setFirstHeader($firstHeader): static
+    public function setFirstHeader(string $firstHeader): static
     {
         $this->firstHeader = $firstHeader;
 
@@ -258,11 +248,9 @@ class HeaderFooter
     /**
      * Set FirstFooter.
      *
-     * @param string $firstFooter
-     *
      * @return $this
      */
-    public function setFirstFooter($firstFooter): static
+    public function setFirstFooter(string $firstFooter): static
     {
         $this->firstFooter = $firstFooter;
 
@@ -280,11 +268,9 @@ class HeaderFooter
     /**
      * Set DifferentOddEven.
      *
-     * @param bool $differentOddEvent
-     *
      * @return $this
      */
-    public function setDifferentOddEven($differentOddEvent): static
+    public function setDifferentOddEven(bool $differentOddEvent): static
     {
         $this->differentOddEven = $differentOddEvent;
 
@@ -302,11 +288,9 @@ class HeaderFooter
     /**
      * Set DifferentFirst.
      *
-     * @param bool $differentFirst
-     *
      * @return $this
      */
-    public function setDifferentFirst($differentFirst): static
+    public function setDifferentFirst(bool $differentFirst): static
     {
         $this->differentFirst = $differentFirst;
 
@@ -324,11 +308,9 @@ class HeaderFooter
     /**
      * Set ScaleWithDocument.
      *
-     * @param bool $scaleWithDocument
-     *
      * @return $this
      */
-    public function setScaleWithDocument($scaleWithDocument): static
+    public function setScaleWithDocument(bool $scaleWithDocument): static
     {
         $this->scaleWithDocument = $scaleWithDocument;
 
@@ -346,11 +328,9 @@ class HeaderFooter
     /**
      * Set AlignWithMargins.
      *
-     * @param bool $alignWithMargins
-     *
      * @return $this
      */
-    public function setAlignWithMargins($alignWithMargins): static
+    public function setAlignWithMargins(bool $alignWithMargins): static
     {
         $this->alignWithMargins = $alignWithMargins;
 
@@ -360,11 +340,9 @@ class HeaderFooter
     /**
      * Add header/footer image.
      *
-     * @param string $location
-     *
      * @return $this
      */
-    public function addImage(HeaderFooterDrawing $image, $location = self::IMAGE_HEADER_LEFT): static
+    public function addImage(HeaderFooterDrawing $image, string $location = self::IMAGE_HEADER_LEFT): static
     {
         $this->headerFooterImages[$location] = $image;
 
@@ -374,11 +352,9 @@ class HeaderFooter
     /**
      * Remove header/footer image.
      *
-     * @param string $location
-     *
      * @return $this
      */
-    public function removeImage($location = self::IMAGE_HEADER_LEFT): static
+    public function removeImage(string $location = self::IMAGE_HEADER_LEFT): static
     {
         if (isset($this->headerFooterImages[$location])) {
             unset($this->headerFooterImages[$location]);

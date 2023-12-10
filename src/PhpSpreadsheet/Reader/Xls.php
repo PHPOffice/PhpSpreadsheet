@@ -1201,7 +1201,7 @@ class Xls extends BaseReader
      *
      * @return string Record data
      */
-    private function readRecordData($data, int $pos, int $len): string
+    private function readRecordData(string $data, int $pos, int $len): string
     {
         $data = substr($data, $pos, $len);
 
@@ -1746,7 +1746,7 @@ class Xls extends BaseReader
      * @param int $block Block for which to create decrypto
      * @param string $valContext MD5 context state
      */
-    private function makeKey(int $block, $valContext): Xls\RC4
+    private function makeKey(int $block, string $valContext): Xls\RC4
     {
         $pwarray = str_repeat("\0", 64);
 
@@ -1781,7 +1781,7 @@ class Xls extends BaseReader
      *
      * @return bool Success
      */
-    private function verifyPassword(string $password, string $docid, string $salt_data, string $hashedsalt_data, &$valContext): bool
+    private function verifyPassword(string $password, string $docid, string $salt_data, string $hashedsalt_data, string &$valContext): bool
     {
         $pwarray = str_repeat("\0", 64);
 
@@ -5071,7 +5071,7 @@ class Xls extends BaseReader
      *
      * @return string Human readable formula
      */
-    private function getFormulaFromStructure($formulaStructure, $baseCell = 'A1'): string
+    private function getFormulaFromStructure(string $formulaStructure, string $baseCell = 'A1'): string
     {
         // offset: 0; size: 2; size of the following formula data
         $sz = self::getUInt2d($formulaStructure, 0);
@@ -6615,7 +6615,7 @@ class Xls extends BaseReader
      *
      * @param string $baseCell Base cell, only needed when formula contains tRefN tokens, e.g. with shared formulas
      */
-    private function readBIFF8CellAddressB(string $cellAddressStructure, $baseCell = 'A1'): string
+    private function readBIFF8CellAddressB(string $cellAddressStructure, string $baseCell = 'A1'): string
     {
         [$baseCol, $baseRow] = Coordinate::coordinateFromString($baseCell);
         $baseCol = Coordinate::columnIndexFromString($baseCol) - 1;
@@ -6961,10 +6961,8 @@ class Xls extends BaseReader
      * read BIFF8 constant value array from array data
      * returns e.g. ['value' => '{1,2;3,4}', 'size' => 40]
      * section 2.5.8.
-     *
-     * @param string $arrayData
      */
-    private static function readBIFF8ConstantArray($arrayData): array
+    private static function readBIFF8ConstantArray(string $arrayData): array
     {
         // offset: 0; size: 1; number of columns decreased by 1
         $nc = ord($arrayData[0]);
@@ -6998,10 +6996,8 @@ class Xls extends BaseReader
      * read BIFF8 constant value which may be 'Empty Value', 'Number', 'String Value', 'Boolean Value', 'Error Value'
      * section 2.5.7
      * returns e.g. ['value' => '5', 'size' => 9].
-     *
-     * @param string $valueData
      */
-    private static function readBIFF8Constant($valueData): array
+    private static function readBIFF8Constant(string $valueData): array
     {
         // offset: 0; size: 1; identifier for type of constant
         $identifier = ord($valueData[0]);
@@ -7057,7 +7053,7 @@ class Xls extends BaseReader
      *
      * @param string $rgb Encoded RGB value (4 bytes)
      */
-    private static function readRGB($rgb): array
+    private static function readRGB(string $rgb): array
     {
         // offset: 0; size 1; Red component
         $r = ord($rgb[0]);
@@ -7115,10 +7111,8 @@ class Xls extends BaseReader
      * Extracts an Excel Unicode short string (8-bit string length)
      * OpenOffice documentation: 2.5.3
      * function will automatically find out where the Unicode string ends.
-     *
-     * @param string $subData
      */
-    private static function readUnicodeStringShort($subData): array
+    private static function readUnicodeStringShort(string $subData): array
     {
         $value = '';
 
@@ -7137,10 +7131,8 @@ class Xls extends BaseReader
      * Extracts an Excel Unicode long string (16-bit string length)
      * OpenOffice documentation: 2.5.3
      * this function is under construction, needs to support rich text, and Asian phonetic settings.
-     *
-     * @param string $subData
      */
-    private static function readUnicodeStringLong($subData): array
+    private static function readUnicodeStringLong(string $subData): array
     {
         $value = '';
 
@@ -7159,11 +7151,8 @@ class Xls extends BaseReader
      * Read Unicode string with no string length field, but with known character count
      * this function is under construction, needs to support rich text, and Asian phonetic settings
      * OpenOffice.org's Documentation of the Microsoft Excel File Format, section 2.5.3.
-     *
-     * @param string $subData
-     * @param int $characterCount
      */
-    private static function readUnicodeString($subData, $characterCount): array
+    private static function readUnicodeString(string $subData, int $characterCount): array
     {
         $value = '';
 
@@ -7194,7 +7183,7 @@ class Xls extends BaseReader
      *
      * @param string $value UTF-8 encoded string
      */
-    private static function UTF8toExcelDoubleQuoted($value): string
+    private static function UTF8toExcelDoubleQuoted(string $value): string
     {
         return '"' . str_replace('"', '""', $value) . '"';
     }
@@ -7206,7 +7195,7 @@ class Xls extends BaseReader
      *
      * @return float
      */
-    private static function extractNumber($data): int|float
+    private static function extractNumber(string $data): int|float
     {
         $rknumhigh = self::getInt4d($data, 4);
         $rknumlow = self::getInt4d($data, 0);
@@ -7230,11 +7219,9 @@ class Xls extends BaseReader
     }
 
     /**
-     * @param int $rknum
-     *
      * @return float
      */
-    private static function getIEEE754($rknum): float|int
+    private static function getIEEE754(int $rknum): float|int
     {
         if (($rknum & 0x02) != 0) {
             $value = $rknum >> 2;
@@ -7262,11 +7249,8 @@ class Xls extends BaseReader
 
     /**
      * Get UTF-8 string from (compressed or uncompressed) UTF-16 string.
-     *
-     * @param string $string
-     * @param bool $compressed
      */
-    private static function encodeUTF16($string, $compressed = false): string
+    private static function encodeUTF16(string $string, bool $compressed = false): string
     {
         if ($compressed) {
             $string = self::uncompressByteString($string);
@@ -7277,10 +7261,8 @@ class Xls extends BaseReader
 
     /**
      * Convert UTF-16 string in compressed notation to uncompressed form. Only used for BIFF8.
-     *
-     * @param string $string
      */
-    private static function uncompressByteString($string): string
+    private static function uncompressByteString(string $string): string
     {
         $uncompressedString = '';
         $strLen = strlen($string);
@@ -7301,33 +7283,24 @@ class Xls extends BaseReader
 
     /**
      * Read 16-bit unsigned integer.
-     *
-     * @param string $data
-     * @param int $pos
      */
-    public static function getUInt2d($data, $pos): int
+    public static function getUInt2d(string $data, int $pos): int
     {
         return ord($data[$pos]) | (ord($data[$pos + 1]) << 8);
     }
 
     /**
      * Read 16-bit signed integer.
-     *
-     * @param string $data
-     * @param int $pos
      */
-    public static function getInt2d($data, $pos): int
+    public static function getInt2d(string $data, int $pos): int
     {
         return unpack('s', $data[$pos] . $data[$pos + 1])[1]; // @phpstan-ignore-line
     }
 
     /**
      * Read 32-bit signed integer.
-     *
-     * @param string $data
-     * @param int $pos
      */
-    public static function getInt4d($data, $pos): int
+    public static function getInt4d(string $data, int $pos): int
     {
         // FIX: represent numbers correctly on 64-bit system
         // http://sourceforge.net/tracker/index.php?func=detail&aid=1487372&group_id=99160&atid=623334

@@ -22,11 +22,8 @@ class Arabic
 
     /**
      * Recursively calculate the arabic value of a roman numeral.
-     *
-     * @param int $sum
-     * @param int $subtract
      */
-    private static function calculateArabic(array $roman, &$sum = 0, $subtract = 0): int
+    private static function calculateArabic(array $roman, int &$sum = 0, int $subtract = 0): int
     {
         $numeral = array_shift($roman);
         if (!isset(self::ROMAN_LOOKUP[$numeral])) {

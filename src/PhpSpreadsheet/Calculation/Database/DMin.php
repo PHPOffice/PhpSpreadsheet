@@ -31,7 +31,7 @@ class DMin extends DatabaseAbstract
      *                                        the column label in which you specify a condition for the
      *                                        column.
      */
-    public static function evaluate($database, $field, $criteria, bool $returnError = true): float|string|null
+    public static function evaluate(array $database, $field, array $criteria, bool $returnError = true): float|string|null
     {
         $field = self::fieldExtract($database, $field);
         if ($field === null) {

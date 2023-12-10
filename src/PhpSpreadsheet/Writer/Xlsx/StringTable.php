@@ -21,7 +21,7 @@ class StringTable extends WriterPart
      *
      * @return string[] String table for worksheet
      */
-    public function createStringTable(ActualWorksheet $worksheet, $existingTable = null): array
+    public function createStringTable(ActualWorksheet $worksheet, ?array $existingTable = null): array
     {
         // Create string lookup table
         $aStringTable = [];
@@ -115,7 +115,7 @@ class StringTable extends WriterPart
      *
      * @param string $prefix Optional Namespace prefix
      */
-    public function writeRichText(XMLWriter $objWriter, RichText $richText, $prefix = null): void
+    public function writeRichText(XMLWriter $objWriter, RichText $richText, ?string $prefix = null): void
     {
         if ($prefix !== null) {
             $prefix .= ':';

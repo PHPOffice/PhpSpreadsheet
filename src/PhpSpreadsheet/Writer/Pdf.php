@@ -131,11 +131,9 @@ abstract class Pdf extends Html
      *      'arialunicid0-korean'
      *      'arialunicid0-japanese'.
      *
-     * @param string $fontName
-     *
      * @return $this
      */
-    public function setFont($fontName)
+    public function setFont(string $fontName)
     {
         $this->font = $fontName;
 
@@ -157,7 +155,7 @@ abstract class Pdf extends Html
      *
      * @param int $paperSize Paper size see PageSetup::PAPERSIZE_*
      */
-    public function setPaperSize($paperSize): self
+    public function setPaperSize(int $paperSize): self
     {
         $this->paperSize = $paperSize;
 
@@ -177,7 +175,7 @@ abstract class Pdf extends Html
      *
      * @param string $orientation Page orientation see PageSetup::ORIENTATION_*
      */
-    public function setOrientation($orientation): self
+    public function setOrientation(string $orientation): self
     {
         $this->orientation = $orientation;
 
@@ -197,7 +195,7 @@ abstract class Pdf extends Html
      *
      * @param string $temporaryDirectory Temporary storage directory
      */
-    public function setTempDir($temporaryDirectory): self
+    public function setTempDir(string $temporaryDirectory): self
     {
         if (is_dir($temporaryDirectory)) {
             $this->tempDir = $temporaryDirectory;
@@ -211,7 +209,7 @@ abstract class Pdf extends Html
     /**
      * Save Spreadsheet to PDF file, pre-save.
      *
-     * @param string $filename Name of the file to save as
+     * @param resource|string $filename Name of the file to save as
      *
      * @return resource
      */

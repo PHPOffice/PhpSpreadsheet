@@ -158,10 +158,7 @@ class Sort extends LookupRefValidations
         return $sortOrder;
     }
 
-    /**
-     * @param array $sortIndex
-     */
-    private static function validateArrayArgumentsForSort(&$sortIndex, mixed &$sortOrder, int $sortArraySize): void
+    private static function validateArrayArgumentsForSort(array &$sortIndex, mixed &$sortOrder, int $sortArraySize): void
     {
         // It doesn't matter if they're row or column vectors, it works either way
         $sortIndex = Functions::flattenArray($sortIndex);
