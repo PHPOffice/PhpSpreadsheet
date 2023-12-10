@@ -79,10 +79,8 @@ class Subtotal
      *                    but ignore any values in the range that are
      *                    in hidden rows
      * @param mixed[] $args A mixed data series of values
-     *
-     * @return float|string
      */
-    public static function evaluate(mixed $functionType, ...$args)
+    public static function evaluate(mixed $functionType, ...$args): float|int|string
     {
         $cellReference = array_pop($args);
         $bArgs = Functions::flattenArrayIndexed($args);

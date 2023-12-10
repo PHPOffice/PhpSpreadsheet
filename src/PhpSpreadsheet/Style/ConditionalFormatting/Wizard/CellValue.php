@@ -69,10 +69,7 @@ class CellValue extends WizardAbstract implements WizardInterface
         $this->operandValueType[$index] = $operandValueType;
     }
 
-    /**
-     * @return float|int|string
-     */
-    protected function wrapValue(mixed $value, string $operandValueType)
+    protected function wrapValue(mixed $value, string $operandValueType): float|int|string
     {
         if (!is_numeric($value) && !is_bool($value) && null !== $value) {
             if ($operandValueType === Wizard::VALUE_TYPE_LITERAL) {

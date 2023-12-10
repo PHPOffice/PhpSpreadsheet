@@ -138,8 +138,6 @@ class DataSeriesValues extends Properties
 
     /**
      * Get Series Data Source (formula).
-     *
-     * @return ?string
      */
     public function getDataSource(): ?string
     {
@@ -350,10 +348,8 @@ class DataSeriesValues extends Properties
 
     /**
      * Get line width for series.
-     *
-     * @return null|float|int
      */
-    public function getLineWidth()
+    public function getLineWidth(): null|float|int
     {
         return $this->lineStyleProperties['width'];
     }

@@ -64,10 +64,8 @@ class Trends
      *
      * @param mixed $yValues array of mixed Data Series Y
      * @param null|mixed $xValues array of mixed Data Series X
-     *
-     * @return float|string
      */
-    public static function CORREL(mixed $yValues, $xValues = null)
+    public static function CORREL(mixed $yValues, $xValues = null): float|string
     {
         if (($xValues === null) || (!is_array($yValues)) || (!is_array($xValues))) {
             return ExcelError::VALUE();
@@ -92,10 +90,8 @@ class Trends
      *
      * @param mixed[] $yValues array of mixed Data Series Y
      * @param mixed[] $xValues array of mixed Data Series X
-     *
-     * @return float|string
      */
-    public static function COVAR(array $yValues, array $xValues)
+    public static function COVAR(array $yValues, array $xValues): float|string
     {
         try {
             self::checkTrendArrays($yValues, $xValues);
@@ -120,8 +116,7 @@ class Trends
      * @param mixed[] $yValues array of mixed Data Series Y
      * @param mixed[] $xValues array of mixed Data Series X
      *
-     * @return array|bool|float|string
-     *         If an array of numbers is passed as an argument, then the returned result will also be an array
+     * @return array|bool|float|string If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
     public static function FORECAST(mixed $xValue, array $yValues, array $xValues)
@@ -182,10 +177,8 @@ class Trends
      *
      * @param mixed[] $yValues Data Series Y
      * @param mixed[] $xValues Data Series X
-     *
-     * @return float|string
      */
-    public static function INTERCEPT(array $yValues, array $xValues)
+    public static function INTERCEPT(array $yValues, array $xValues): float|string
     {
         try {
             self::checkTrendArrays($yValues, $xValues);
@@ -383,10 +376,8 @@ class Trends
      *
      * @param mixed[] $yValues Data Series Y
      * @param mixed[] $xValues Data Series X
-     *
-     * @return float|string
      */
-    public static function STEYX(array $yValues, array $xValues)
+    public static function STEYX(array $yValues, array $xValues): float|string
     {
         try {
             self::checkTrendArrays($yValues, $xValues);

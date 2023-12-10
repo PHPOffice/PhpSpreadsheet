@@ -185,10 +185,8 @@ class ChiSquared
      *
      * @param mixed $actual an array of observed frequencies
      * @param mixed $expected an array of expected frequencies
-     *
-     * @return float|string
      */
-    public static function test(mixed $actual, mixed $expected)
+    public static function test(mixed $actual, mixed $expected): float|string
     {
         $rows = count($actual);
         $actual = Functions::flattenArray($actual);

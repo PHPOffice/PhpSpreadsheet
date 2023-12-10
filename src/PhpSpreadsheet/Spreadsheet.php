@@ -265,10 +265,8 @@ class Spreadsheet implements JsonSerializable
 
     /**
      * retrieve ribbon XML Data.
-     *
-     * @return null|array|string
      */
-    public function getRibbonXMLData(string $what = 'all') //we need some constants here...
+    public function getRibbonXMLData(string $what = 'all'): null|array|string //we need some constants here...
     {
         $returnData = null;
         $what = strtolower($what);

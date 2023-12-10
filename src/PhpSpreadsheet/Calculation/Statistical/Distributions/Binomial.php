@@ -181,8 +181,7 @@ class Binomial
      * @param mixed $alpha criterion value as a float
      *                      Or can be an array of values
      *
-     * @return array|int|string
-     *         If an array of numbers is passed as an argument, then the returned result will also be an array
+     * @return array|int|string If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
     public static function inverse(mixed $trials, mixed $probability, mixed $alpha): array|string|int

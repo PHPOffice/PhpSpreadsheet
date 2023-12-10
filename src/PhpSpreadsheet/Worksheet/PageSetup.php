@@ -784,8 +784,6 @@ class PageSetup
 
     /**
      * Get first page number.
-     *
-     * @return ?int
      */
     public function getFirstPageNumber(): ?int
     {

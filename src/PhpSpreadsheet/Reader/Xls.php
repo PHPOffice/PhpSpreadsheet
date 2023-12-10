@@ -7192,8 +7192,6 @@ class Xls extends BaseReader
      * Reads first 8 bytes of a string and return IEEE 754 float.
      *
      * @param string $data Binary string that is at least 8 bytes long
-     *
-     * @return float
      */
     private static function extractNumber(string $data): int|float
     {
@@ -7218,9 +7216,6 @@ class Xls extends BaseReader
         return $value;
     }
 
-    /**
-     * @return float
-     */
     private static function getIEEE754(int $rknum): float|int
     {
         if (($rknum & 0x02) != 0) {

@@ -3519,10 +3519,8 @@ class Calculation
      * Validate and parse a formula string.
      *
      * @param string $formula Formula to parse
-     *
-     * @return array|bool
      */
-    public function parseFormula(string $formula)
+    public function parseFormula(string $formula): array|bool
     {
         //    Basic validation that this is indeed a formula
         //    We return an empty array if not
@@ -5193,10 +5191,7 @@ class Calculation
         return $result;
     }
 
-    /**
-     * @return bool|mixed
-     */
-    private function executeNumericBinaryOperation(mixed $operand1, mixed $operand2, string $operation, Stack &$stack)
+    private function executeNumericBinaryOperation(mixed $operand1, mixed $operand2, string $operation, Stack &$stack): mixed
     {
         //    Validate the two operands
         if (
@@ -5516,9 +5511,6 @@ class Calculation
         return $args;
     }
 
-    /**
-     * @return null|mixed
-     */
     private function getArgumentDefaultValue(ReflectionParameter $methodArgument): mixed
     {
         $defaultValue = null;
@@ -5567,10 +5559,7 @@ class Calculation
         return $args;
     }
 
-    /**
-     * @return mixed|string
-     */
-    private function evaluateDefinedName(Cell $cell, DefinedName $namedRange, Worksheet $cellWorksheet, Stack $stack)
+    private function evaluateDefinedName(Cell $cell, DefinedName $namedRange, Worksheet $cellWorksheet, Stack $stack): mixed
     {
         $definedNameScope = $namedRange->getScope();
         if ($definedNameScope !== null && $definedNameScope !== $cellWorksheet) {

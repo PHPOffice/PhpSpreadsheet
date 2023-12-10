@@ -142,10 +142,8 @@ class Properties
 
     /**
      * @param null|float|int|string $timestamp
-     *
-     * @return float|int
      */
-    private static function intOrFloatTimestamp($timestamp)
+    private static function intOrFloatTimestamp($timestamp): float|int
     {
         if ($timestamp === null) {
             $timestamp = (float) (new DateTime())->format('U');
@@ -165,10 +163,8 @@ class Properties
 
     /**
      * Get Created.
-     *
-     * @return float|int
      */
-    public function getCreated()
+    public function getCreated(): float|int
     {
         return $this->created;
     }
@@ -189,10 +185,8 @@ class Properties
 
     /**
      * Get Modified.
-     *
-     * @return float|int
      */
-    public function getModified()
+    public function getModified(): float|int
     {
         return $this->modified;
     }

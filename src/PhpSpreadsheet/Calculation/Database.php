@@ -35,10 +35,8 @@ class Database
      *                                        includes at least one column label and at least one cell below
      *                                        the column label in which you specify a condition for the
      *                                        column.
-     *
-     * @return float|string
      */
-    public static function DAVERAGE(array $database, $field, array $criteria)
+    public static function DAVERAGE(array $database, $field, array $criteria): float|string|int
     {
         return Database\DAverage::evaluate($database, $field, $criteria);
     }

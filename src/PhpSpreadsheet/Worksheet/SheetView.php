@@ -59,8 +59,6 @@ class SheetView
 
     /**
      * Get ZoomScale.
-     *
-     * @return ?int
      */
     public function getZoomScale(): ?int
     {
@@ -90,8 +88,6 @@ class SheetView
 
     /**
      * Get ZoomScaleNormal.
-     *
-     * @return ?int
      */
     public function getZoomScaleNormal(): ?int
     {

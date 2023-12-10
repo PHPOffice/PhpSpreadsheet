@@ -159,10 +159,8 @@ class Date
      * @param mixed $value Converts a date/time in ISO-8601 standard format date string to an Excel
      *                         serialized timestamp.
      *                     See https://en.wikipedia.org/wiki/ISO_8601 for details of the ISO-8601 standard format.
-     *
-     * @return float|int
      */
-    public static function convertIsoDate(mixed $value)
+    public static function convertIsoDate(mixed $value): float|int
     {
         if (!is_string($value)) {
             throw new Exception('Non-string value supplied for Iso Date conversion');

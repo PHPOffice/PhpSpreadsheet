@@ -167,8 +167,6 @@ class Axis extends Properties
 
     /**
      * Get Axis Options Property.
-     *
-     * @return ?string
      */
     public function getAxisOptionsProperty(string $property): ?string
     {

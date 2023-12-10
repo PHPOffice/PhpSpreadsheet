@@ -114,10 +114,7 @@ class CellMatcher
         };
     }
 
-    /**
-     * @return float|int|string
-     */
-    protected function wrapValue(mixed $value)
+    protected function wrapValue(mixed $value): float|int|string
     {
         if (!is_numeric($value)) {
             if (is_bool($value)) {
@@ -132,18 +129,12 @@ class CellMatcher
         return $value;
     }
 
-    /**
-     * @return float|int|string
-     */
-    protected function wrapCellValue()
+    protected function wrapCellValue(): float|int|string
     {
         return $this->wrapValue($this->cell->getCalculatedValue());
     }
 
-    /**
-     * @return float|int|string
-     */
-    protected function conditionCellAdjustment(array $matches)
+    protected function conditionCellAdjustment(array $matches): float|int|string
     {
         $column = $matches[6];
         $row = $matches[7];

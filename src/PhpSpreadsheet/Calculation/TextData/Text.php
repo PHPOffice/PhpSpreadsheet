@@ -17,8 +17,7 @@ class Text
      * @param mixed $value String Value
      *                         Or can be an array of values
      *
-     * @return array|int
-     *         If an array of values is passed for the argument, then the returned result
+     * @return array|int If an array of values is passed for the argument, then the returned result
      *            will also be an array with matching dimensions
      */
     public static function length(mixed $value = ''): array|int

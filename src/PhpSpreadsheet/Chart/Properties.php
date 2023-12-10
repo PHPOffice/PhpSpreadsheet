@@ -452,12 +452,8 @@ abstract class Properties
 
     /**
      * Get Glow Property.
-     *
-     * @param array|string $property
-     *
-     * @return null|array|float|int|string
      */
-    public function getGlowProperty($property)
+    public function getGlowProperty(array|string $property): null|array|float|int|string
     {
         $retVal = null;
         if ($property === 'size') {
@@ -492,8 +488,6 @@ abstract class Properties
 
     /**
      * Get Glow Size.
-     *
-     * @return ?float
      */
     public function getGlowSize(): ?float
     {
@@ -673,10 +667,8 @@ abstract class Properties
      * Get Shadow Property.
      *
      * @param string|string[] $elements
-     *
-     * @return array|string
      */
-    public function getShadowProperty($elements)
+    public function getShadowProperty($elements): array|string|null
     {
         if ($elements === 'color') {
             return [
@@ -757,10 +749,8 @@ abstract class Properties
 
     /**
      * Get Line Color Property.
-     *
-     * @return null|int|string
      */
-    public function getLineColorProperty(string $propertyName)
+    public function getLineColorProperty(string $propertyName): null|int|string
     {
         return $this->lineColor->getColorProperty($propertyName);
     }

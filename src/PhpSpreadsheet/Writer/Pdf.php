@@ -142,8 +142,6 @@ abstract class Pdf extends Html
 
     /**
      * Get Paper Size.
-     *
-     * @return ?int
      */
     public function getPaperSize(): ?int
     {

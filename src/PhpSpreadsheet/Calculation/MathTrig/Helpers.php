@@ -41,10 +41,8 @@ class Helpers
      * Validate numeric, but allow substitute for null.
      *
      * @param null|float|int $substitute
-     *
-     * @return float|int
      */
-    public static function validateNumericNullSubstitution(mixed $number, $substitute)
+    public static function validateNumericNullSubstitution(mixed $number, $substitute): float|int
     {
         $number = Functions::flattenSingleValue($number);
         if ($number === null && $substitute !== null) {
@@ -113,12 +111,8 @@ class Helpers
 
     /**
      * Return NAN or value depending on argument.
-     *
-     * @param float $result Number
-     *
-     * @return float|string
      */
-    public static function numberOrNan(float $result)
+    public static function numberOrNan(float $result): float|string
     {
         return is_nan($result) ? ExcelError::NAN() : $result;
     }

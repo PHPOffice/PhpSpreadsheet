@@ -37,8 +37,7 @@ class BitWise
      * @param array|int $number2
      *                      Or can be an array of values
      *
-     * @return array|int|string
-     *         If an array of numbers is passed as an argument, then the returned result will also be an array
+     * @return array|int|string If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
     public static function BITAND($number1, $number2): array|string|int
@@ -72,8 +71,7 @@ class BitWise
      * @param array|int $number2
      *                      Or can be an array of values
      *
-     * @return array|int|string
-     *         If an array of numbers is passed as an argument, then the returned result will also be an array
+     * @return array|int|string If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
     public static function BITOR($number1, $number2): array|string|int
@@ -108,8 +106,7 @@ class BitWise
      * @param array|int $number2
      *                      Or can be an array of values
      *
-     * @return array|int|string
-     *         If an array of numbers is passed as an argument, then the returned result will also be an array
+     * @return array|int|string If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
     public static function BITXOR($number1, $number2): array|string|int
@@ -144,8 +141,7 @@ class BitWise
      * @param array|int $shiftAmount
      *                      Or can be an array of values
      *
-     * @return array|float|string
-     *         If an array of numbers is passed as an argument, then the returned result will also be an array
+     * @return array|float|string If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
     public static function BITLSHIFT($number, $shiftAmount): array|string|float
@@ -182,8 +178,7 @@ class BitWise
      * @param array|int $shiftAmount
      *                      Or can be an array of values
      *
-     * @return array|float|string
-     *         If an array of numbers is passed as an argument, then the returned result will also be an array
+     * @return array|float|string If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
     public static function BITRSHIFT($number, $shiftAmount): array|string|float

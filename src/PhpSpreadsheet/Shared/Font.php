@@ -347,10 +347,8 @@ class Font
 
     /**
      * Get pad amount for exact in pixels; or null if using best guess.
-     *
-     * @return null|float|int
      */
-    public static function getPaddingAmountExact()
+    public static function getPaddingAmountExact(): null|float|int
     {
         return self::$paddingAmountExact;
     }
