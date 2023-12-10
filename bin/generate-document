@@ -13,10 +13,12 @@ try {
     $phpSpreadsheetFunctions = $phpSpreadsheetFunctionsProperty->getValue();
     ksort($phpSpreadsheetFunctions);
 
-    file_put_contents(__DIR__ . '/../docs/references/function-list-by-category.md',
+    file_put_contents(
+        __DIR__ . '/../docs/references/function-list-by-category.md',
         DocumentGenerator::generateFunctionListByCategory($phpSpreadsheetFunctions)
     );
-    file_put_contents(__DIR__ . '/../docs/references/function-list-by-name.md',
+    file_put_contents(
+        __DIR__ . '/../docs/references/function-list-by-name.md',
         DocumentGenerator::generateFunctionListByName($phpSpreadsheetFunctions)
     );
 } catch (ReflectionException $e) {
