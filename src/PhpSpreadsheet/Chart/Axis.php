@@ -207,8 +207,6 @@ class Axis extends Properties
 
     /**
      * Set Fill Property.
-     *
-     * @param ?int $alpha
      */
     public function setFillParameters(?string $color, ?int $alpha = null, ?string $AlphaType = ChartColor::EXCEL_COLOR_TYPE_RGB): void
     {

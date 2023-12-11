@@ -140,10 +140,7 @@ class Properties
         return $this;
     }
 
-    /**
-     * @param null|float|int|string $timestamp
-     */
-    private static function intOrFloatTimestamp($timestamp): float|int
+    private static function intOrFloatTimestamp(null|float|int|string $timestamp): float|int
     {
         if ($timestamp === null) {
             $timestamp = (float) (new DateTime())->format('U');
@@ -172,11 +169,9 @@ class Properties
     /**
      * Set Created.
      *
-     * @param null|float|int|string $timestamp
-     *
      * @return $this
      */
-    public function setCreated($timestamp): self
+    public function setCreated(null|float|int|string $timestamp): self
     {
         $this->created = self::intOrFloatTimestamp($timestamp);
 
@@ -194,11 +189,9 @@ class Properties
     /**
      * Set Modified.
      *
-     * @param null|float|int|string $timestamp
-     *
      * @return $this
      */
-    public function setModified($timestamp): self
+    public function setModified(null|float|int|string $timestamp): self
     {
         $this->modified = self::intOrFloatTimestamp($timestamp);
 

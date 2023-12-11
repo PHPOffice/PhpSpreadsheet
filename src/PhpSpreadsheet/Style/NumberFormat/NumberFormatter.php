@@ -253,10 +253,7 @@ class NumberFormatter
         return (string) $value;
     }
 
-    /**
-     * @param array|string $value
-     */
-    private static function makeString($value): string
+    private static function makeString(array|string $value): string
     {
         return is_array($value) ? '' : "$value";
     }

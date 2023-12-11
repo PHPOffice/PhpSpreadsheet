@@ -9,10 +9,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 class CashFlowValidations extends FinancialValidations
 {
-    /**
-     * @param mixed $rate
-     */
-    public static function validateRate($rate): float
+    public static function validateRate(mixed $rate): float
     {
         $rate = self::validateFloat($rate);
 

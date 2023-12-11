@@ -200,8 +200,6 @@ class Layout
     /**
      * Set X-Mode.
      *
-     * @param ?string $mode
-     *
      * @return $this
      */
     public function setXMode(?string $mode): static
@@ -221,8 +219,6 @@ class Layout
 
     /**
      * Set Y-Mode.
-     *
-     * @param ?string $mode
      *
      * @return $this
      */

@@ -40,8 +40,6 @@ class Date2Test extends TestCase
 
     /**
      * @dataProvider providerTimeOnly
-     *
-     * @param float|int $value
      */
     public function testTimeOnly(int|float $expectedResult, int|float|string $value, ?string $format = null): void
     {

@@ -200,11 +200,11 @@ class Functions
     /**
      * Convert a multi-dimensional array to a simple 1-dimensional array.
      *
-     * @param array|mixed $array Array to be flattened
+     * @param mixed $array Array to be flattened
      *
      * @return array Flattened array
      */
-    public static function flattenArray($array): array
+    public static function flattenArray(mixed $array): array
     {
         if (!is_array($array)) {
             return (array) $array;

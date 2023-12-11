@@ -318,11 +318,9 @@ class Date
     /**
      * formattedPHPToExcel.
      *
-     * @param float|int $seconds
-     *
      * @return float Excel date/time value
      */
-    public static function formattedPHPToExcel(int $year, int $month, int $day, int $hours = 0, int $minutes = 0, $seconds = 0): float
+    public static function formattedPHPToExcel(int $year, int $month, int $day, int $hours = 0, int $minutes = 0, float|int $seconds = 0): float
     {
         if (self::$excelCalendar == self::CALENDAR_WINDOWS_1900) {
             //

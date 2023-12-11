@@ -25,10 +25,8 @@ class Title
 
     /**
      * Create a new Title.
-     *
-     * @param array|RichText|string $caption
      */
-    public function __construct($caption = '', ?Layout $layout = null, bool $overlay = false)
+    public function __construct(array|RichText|string $caption = '', ?Layout $layout = null, bool $overlay = false)
     {
         $this->caption = $caption;
         $this->layout = $layout;
@@ -71,11 +69,9 @@ class Title
     /**
      * Set caption.
      *
-     * @param array|RichText|string $caption
-     *
      * @return $this
      */
-    public function setCaption($caption): static
+    public function setCaption(array|RichText|string $caption): static
     {
         $this->caption = $caption;
 

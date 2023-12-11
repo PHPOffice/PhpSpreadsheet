@@ -437,7 +437,7 @@ class Table implements Stringable
      * @param string|Table\Column $columnObjectOrString
      *            A simple string containing a Column ID like 'A' is permitted
      */
-    public function setColumn($columnObjectOrString): self
+    public function setColumn(string|Table\Column $columnObjectOrString): self
     {
         if ((is_string($columnObjectOrString)) && (!empty($columnObjectOrString))) {
             $column = $columnObjectOrString;

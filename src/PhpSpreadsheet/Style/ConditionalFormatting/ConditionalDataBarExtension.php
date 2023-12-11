@@ -222,11 +222,7 @@ class ConditionalDataBarExtension
         return $this->axisColor;
     }
 
-    /**
-     * @param null|mixed $theme
-     * @param null|mixed $tint
-     */
-    public function setAxisColor(mixed $rgb, $theme = null, $tint = null): self
+    public function setAxisColor(mixed $rgb, mixed $theme = null, mixed $tint = null): self
     {
         $this->axisColor = [
             'rgb' => $rgb,

@@ -328,10 +328,8 @@ class Font
 
     /**
      * Set pad amount for exact in pixels; use best guess if null.
-     *
-     * @param null|float|int $paddingAmountExact
      */
-    public static function setPaddingAmountExact($paddingAmountExact): void
+    public static function setPaddingAmountExact(null|float|int $paddingAmountExact): void
     {
         self::$paddingAmountExact = $paddingAmountExact;
     }

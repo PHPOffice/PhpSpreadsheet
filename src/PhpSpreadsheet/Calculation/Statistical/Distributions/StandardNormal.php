@@ -87,8 +87,7 @@ class StandardNormal
      * Calculates the probability that a member of a standard normal population will fall between
      *     the mean and z standard deviations from the mean.
      *
-     * @param mixed $value
-     *                      Or can be an array of values
+     * @param mixed $value Or can be an array of values
      *
      * @return array|float|string The result, or a string containing an error
      *         If an array of numbers is passed as an argument, then the returned result will also be an array

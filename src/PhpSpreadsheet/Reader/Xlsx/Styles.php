@@ -275,10 +275,8 @@ class Styles extends BaseParserClass
 
     /**
      * Read style.
-     *
-     * @param SimpleXMLElement|stdClass $style
      */
-    public function readStyle(Style $docStyle, $style): void
+    public function readStyle(Style $docStyle, SimpleXMLElement|stdClass $style): void
     {
         if ($style instanceof SimpleXMLElement) {
             $this->readNumberFormat($docStyle->getNumberFormat(), $style->numFmt);

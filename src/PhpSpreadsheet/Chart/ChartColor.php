@@ -81,11 +81,7 @@ class ChartColor
         return $this;
     }
 
-    /**
-     * @param null|float|int|string $alpha
-     * @param null|float|int|string $brightness
-     */
-    public function setColorProperties(?string $color, $alpha = null, ?string $type = null, $brightness = null): self
+    public function setColorProperties(?string $color, null|float|int|string $alpha = null, ?string $type = null, null|float|int|string $brightness = null): self
     {
         if (empty($type) && !empty($color)) {
             if (str_starts_with($color, '*')) {
@@ -157,10 +153,7 @@ class ChartColor
         return (string) (100 - $alpha) . '000';
     }
 
-    /**
-     * @param float|int|string $alpha
-     */
-    public static function alphaFromXml($alpha): int
+    public static function alphaFromXml(float|int|string $alpha): int
     {
         return 100 - ((int) $alpha / 1000);
     }

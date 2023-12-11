@@ -250,10 +250,7 @@ class ConditionalStyles
         return $conditionalStyles;
     }
 
-    /**
-     * @param SimpleXMLElement|stdClass $cfRule
-     */
-    private function readDataBarOfConditionalRule($cfRule, array $conditionalFormattingRuleExtensions): ConditionalDataBar
+    private function readDataBarOfConditionalRule(SimpleXMLElement $cfRule, array $conditionalFormattingRuleExtensions): ConditionalDataBar
     {
         $dataBar = new ConditionalDataBar();
         //dataBar attribute
@@ -319,10 +316,7 @@ class ConditionalStyles
         return $colorScale;
     }
 
-    /**
-     * @param SimpleXMLElement|stdClass $cfRule
-     */
-    private function readDataBarExtLstOfConditionalRule(ConditionalDataBar $dataBar, $cfRule, array $conditionalFormattingRuleExtensions): void
+    private function readDataBarExtLstOfConditionalRule(ConditionalDataBar $dataBar, SimpleXMLElement $cfRule, array $conditionalFormattingRuleExtensions): void
     {
         if (isset($cfRule->extLst)) {
             $ns = $cfRule->extLst->getNamespaces(true);

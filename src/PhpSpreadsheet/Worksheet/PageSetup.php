@@ -793,8 +793,6 @@ class PageSetup
     /**
      * Set first page number.
      *
-     * @param ?int $value
-     *
      * @return $this
      */
     public function setFirstPageNumber(?int $value): static

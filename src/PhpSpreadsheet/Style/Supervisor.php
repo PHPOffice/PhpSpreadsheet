@@ -41,11 +41,9 @@ abstract class Supervisor implements IComparable
     /**
      * Bind parent. Only used for supervisor.
      *
-     * @param Spreadsheet|Supervisor $parent
-     *
      * @return $this
      */
-    public function bindParent($parent, ?string $parentPropertyName = null)
+    public function bindParent(Spreadsheet|self $parent, ?string $parentPropertyName = null)
     {
         $this->parent = $parent;
         $this->parentPropertyName = $parentPropertyName;

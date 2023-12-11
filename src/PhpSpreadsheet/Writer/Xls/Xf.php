@@ -352,8 +352,6 @@ class Xf
 
     /**
      * Map locked values.
-     *
-     * @param ?string $locked
      */
     private static function mapLocked(?string $locked): int
     {
@@ -368,8 +366,6 @@ class Xf
 
     /**
      * Map hidden.
-     *
-     * @param ?string $hidden
      */
     private static function mapHidden(?string $hidden): int
     {

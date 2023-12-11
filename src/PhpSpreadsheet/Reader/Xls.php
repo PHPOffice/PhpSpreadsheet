@@ -7529,11 +7529,7 @@ class Xls extends BaseReader
         return null;
     }
 
-    /**
-     * @param null|float|int|string $formula1
-     * @param null|float|int|string $formula2
-     */
-    private function setCFRules(array $cellRanges, string $type, string $operator, $formula1, $formula2, Style $style): void
+    private function setCFRules(array $cellRanges, string $type, string $operator, null|float|int|string $formula1, null|float|int|string $formula2, Style $style): void
     {
         foreach ($cellRanges as $cellRange) {
             $conditional = new Conditional();

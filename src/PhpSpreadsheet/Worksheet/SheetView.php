@@ -69,8 +69,6 @@ class SheetView
      * Set ZoomScale.
      * Valid values range from 10 to 400.
      *
-     * @param ?int $zoomScale
-     *
      * @return $this
      */
     public function setZoomScale(?int $zoomScale): static
@@ -97,8 +95,6 @@ class SheetView
     /**
      * Set ZoomScale.
      * Valid values range from 10 to 400.
-     *
-     * @param ?int $zoomScaleNormal
      *
      * @return $this
      */
@@ -141,8 +137,6 @@ class SheetView
      *        'normal'            self::SHEETVIEW_NORMAL
      *        'pageLayout'        self::SHEETVIEW_PAGE_LAYOUT
      *        'pageBreakPreview'  self::SHEETVIEW_PAGE_BREAK_PREVIEW
-     *
-     * @param ?string $sheetViewType
      *
      * @return $this
      */

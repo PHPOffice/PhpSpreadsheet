@@ -1272,10 +1272,7 @@ class Worksheet extends WriterPart
         $objWriter->endElement();
     }
 
-    /**
-     * @param RichText|string $cellValue
-     */
-    private function writeCellInlineStr(XMLWriter $objWriter, string $mappedType, $cellValue): void
+    private function writeCellInlineStr(XMLWriter $objWriter, string $mappedType, RichText|string $cellValue): void
     {
         $objWriter->writeAttribute('t', $mappedType);
         if (!$cellValue instanceof RichText) {
@@ -1293,10 +1290,9 @@ class Worksheet extends WriterPart
     }
 
     /**
-     * @param RichText|string $cellValue
      * @param string[] $flippedStringTable
      */
-    private function writeCellString(XMLWriter $objWriter, string $mappedType, $cellValue, array $flippedStringTable): void
+    private function writeCellString(XMLWriter $objWriter, string $mappedType, RichText|string $cellValue, array $flippedStringTable): void
     {
         $objWriter->writeAttribute('t', $mappedType);
         if (!$cellValue instanceof RichText) {
@@ -1306,10 +1302,7 @@ class Worksheet extends WriterPart
         }
     }
 
-    /**
-     * @param float|int $cellValue
-     */
-    private function writeCellNumeric(XMLWriter $objWriter, $cellValue): void
+    private function writeCellNumeric(XMLWriter $objWriter, float|int $cellValue): void
     {
         //force a decimal to be written if the type is float
         if (is_float($cellValue)) {

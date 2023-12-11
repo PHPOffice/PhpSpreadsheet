@@ -250,11 +250,8 @@ class Spreadsheet implements JsonSerializable
 
     /**
      * set ribbon XML data.
-     *
-     * @param null|mixed $target
-     * @param null|mixed $xmlData
      */
-    public function setRibbonXMLData($target, $xmlData): void
+    public function setRibbonXMLData(mixed $target, mixed $xmlData): void
     {
         if ($target !== null && $xmlData !== null) {
             $this->ribbonXMLData = ['target' => $target, 'data' => $xmlData];
@@ -289,11 +286,8 @@ class Spreadsheet implements JsonSerializable
 
     /**
      * store binaries ribbon objects (pictures).
-     *
-     * @param null|mixed $BinObjectsNames
-     * @param null|mixed $BinObjectsData
      */
-    public function setRibbonBinObjects($BinObjectsNames, $BinObjectsData): void
+    public function setRibbonBinObjects(mixed $BinObjectsNames, mixed $BinObjectsData): void
     {
         if ($BinObjectsNames !== null && $BinObjectsData !== null) {
             $this->ribbonBinObjects = ['names' => $BinObjectsNames, 'data' => $BinObjectsData];

@@ -334,10 +334,8 @@ class StringHelper
     /**
      * Formats a numeric value as a string for output in various output writers forcing
      * point as decimal separator in case locale is other than English.
-     *
-     * @param float|int|string $numericValue
      */
-    public static function formatNumber($numericValue): string
+    public static function formatNumber(float|int|string|null $numericValue): string
     {
         if (is_float($numericValue)) {
             return str_replace(',', '.', (string) $numericValue);

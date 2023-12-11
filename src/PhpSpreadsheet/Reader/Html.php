@@ -238,10 +238,8 @@ class Html extends BaseReader
 
     /**
      * Flush cell.
-     *
-     * @param int|string $row
      */
-    protected function flushCell(Worksheet $sheet, string $column, $row, mixed &$cellContent, array $attributeArray): void
+    protected function flushCell(Worksheet $sheet, string $column, int|string $row, mixed &$cellContent, array $attributeArray): void
     {
         if (is_string($cellContent)) {
             //    Simple String content

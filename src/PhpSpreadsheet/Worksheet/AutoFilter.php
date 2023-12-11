@@ -233,12 +233,12 @@ class AutoFilter implements Stringable
      *
      * @return $this
      */
-    public function setColumn($columnObjectOrString): static
+    public function setColumn(AutoFilter\Column|string $columnObjectOrString): static
     {
         $this->evaluated = false;
         if ((is_string($columnObjectOrString)) && (!empty($columnObjectOrString))) {
             $column = $columnObjectOrString;
-        } elseif (is_object($columnObjectOrString) && ($columnObjectOrString instanceof AutoFilter\Column)) {
+        } elseif ($columnObjectOrString instanceof AutoFilter\Column) {
             $column = $columnObjectOrString->getColumnIndex();
         } else {
             throw new Exception('Column is not within the autofilter range.');
@@ -748,8 +748,6 @@ class AutoFilter implements Stringable
 
     /**
      * Apply the AutoFilter rules to the AutoFilter Range.
-     *
-     * @param ?string $ruleType
      */
     private function calculateTopTenValue(string $columnID, int $startRow, int $endRow, ?string $ruleType, mixed $ruleValue): mixed
     {

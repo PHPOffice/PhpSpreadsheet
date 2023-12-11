@@ -1950,20 +1950,12 @@ class Xlsx extends BaseReader
         }
     }
 
-    /**
-     * @param null|array|bool|SimpleXMLElement $array
-     * @param int|string $key
-     */
-    private static function getArrayItem($array, $key = 0): mixed
+    private static function getArrayItem(null|array|bool|SimpleXMLElement $array, int|string $key = 0): mixed
     {
         return ($array === null || is_bool($array)) ? null : ($array[$key] ?? null);
     }
 
-    /**
-     * @param null|SimpleXMLElement|string $base
-     * @param null|SimpleXMLElement|string $add
-     */
-    private static function dirAdd($base, $add): string
+    private static function dirAdd(null|SimpleXMLElement|string $base, null|SimpleXMLElement|string $add): string
     {
         $base = (string) $base;
         $add = (string) $add;

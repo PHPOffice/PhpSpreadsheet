@@ -178,10 +178,7 @@ abstract class Properties
         return ((float) $value) / self::PERCENTAGE_MULTIPLIER;
     }
 
-    /**
-     * @param null|float|int|string $alpha
-     */
-    protected function setColorProperties(?string $color, $alpha, ?string $colorType): array
+    protected function setColorProperties(?string $color, null|float|int|string $alpha, ?string $colorType): array
     {
         return [
             'type' => $colorType,
@@ -422,10 +419,6 @@ abstract class Properties
 
     /**
      * Set Glow Properties.
-     *
-     * @param ?string $colorValue
-     * @param ?int $colorAlpha
-     * @param ?string $colorType
      */
     public function setGlowProperties(float $size, ?string $colorValue = null, ?int $colorAlpha = null, ?string $colorType = null): void
     {
@@ -486,8 +479,6 @@ abstract class Properties
     /**
      * Set Glow Size.
      *
-     * @param ?float $size
-     *
      * @return $this
      */
     protected function setGlowSize(?float $size)
@@ -499,8 +490,6 @@ abstract class Properties
 
     /**
      * Set Soft Edges Size.
-     *
-     * @param ?float $size
      */
     public function setSoftEdges(?float $size): void
     {
@@ -532,10 +521,8 @@ abstract class Properties
 
     /**
      * Set Shadow Properties.
-     *
-     * @param null|float|int|string $colorAlpha
      */
-    public function setShadowProperties(int $presets, ?string $colorValue = null, ?string $colorType = null, $colorAlpha = null, ?float $blur = null, ?int $angle = null, ?float $distance = null): void
+    public function setShadowProperties(int $presets, ?string $colorValue = null, ?string $colorType = null, null|float|int|string $colorAlpha = null, ?float $blur = null, ?int $angle = null, ?float $distance = null): void
     {
         $this->activateObject()->setShadowPresetsProperties((int) $presets);
         if ($presets === 0) {
@@ -602,8 +589,6 @@ abstract class Properties
     /**
      * Set Shadow Blur.
      *
-     * @param ?float $blur
-     *
      * @return $this
      */
     protected function setShadowBlur(?float $blur)
@@ -618,11 +603,9 @@ abstract class Properties
     /**
      * Set Shadow Angle.
      *
-     * @param null|float|int|string $angle
-     *
      * @return $this
      */
-    protected function setShadowAngle($angle)
+    protected function setShadowAngle(null|float|int|string $angle)
     {
         if (is_numeric($angle)) {
             $this->shadowProperties['direction'] = $angle;
@@ -633,8 +616,6 @@ abstract class Properties
 
     /**
      * Set Shadow Distance.
-     *
-     * @param ?float $distance
      *
      * @return $this
      */
@@ -721,8 +702,6 @@ abstract class Properties
 
     /**
      * Set Line Color Properties.
-     *
-     * @param ?int $alpha
      */
     public function setLineColorProperties(?string $value, ?int $alpha = null, ?string $colorType = null): void
     {
@@ -843,10 +822,8 @@ abstract class Properties
 
     /**
      * Get Line Style Property.
-     *
-     * @param array|string $elements
      */
-    public function getLineStyleProperty($elements): ?string
+    public function getLineStyleProperty(array|string $elements): ?string
     {
         return $this->getArrayElementsValue($this->lineStyleProperties, $elements);
     }

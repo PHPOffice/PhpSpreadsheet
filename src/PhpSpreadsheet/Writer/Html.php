@@ -686,7 +686,7 @@ class Html extends BaseWriter
                     //  width: X sets width of supplied image.
                     //  As a result, images bigger than cell will be contained and images smaller will not get stretched
                     $html .= '<img alt="' . $filedesc . '" src="' . $dataUri . '" style="width:' . $drawing->getWidth() . 'px;left: '
-                    . $drawing->getOffsetX() . 'px; top: ' . $drawing->getOffsetY() . 'px;position: absolute; z-index: 1;" />';
+                        . $drawing->getOffsetX() . 'px; top: ' . $drawing->getOffsetY() . 'px;position: absolute; z-index: 1;" />';
                 }
             }
         }
@@ -1322,11 +1322,7 @@ class Html extends BaseWriter
         }
     }
 
-    /**
-     * @param null|Cell|string $cell
-     * @param array|string $cssClass
-     */
-    private function generateRowCellData(Worksheet $worksheet, $cell, &$cssClass): string
+    private function generateRowCellData(Worksheet $worksheet, null|Cell|string $cell, array|string &$cssClass): string
     {
         $cellData = '&nbsp;';
         if ($cell instanceof Cell) {
@@ -1388,11 +1384,19 @@ class Html extends BaseWriter
         return $html;
     }
 
-    /**
-     * @param array|string $cssClass
-     */
-    private function generateRowWriteCell(string &$html, Worksheet $worksheet, string $coordinate, string $cellType, string $cellData, int $colSpan, int $rowSpan, $cssClass, int $colNum, int $sheetIndex, int $row): void
-    {
+    private function generateRowWriteCell(
+        string &$html,
+        Worksheet $worksheet,
+        string $coordinate,
+        string $cellType,
+        string $cellData,
+        int $colSpan,
+        int $rowSpan,
+        array|string $cssClass,
+        int $colNum,
+        int $sheetIndex,
+        int $row
+    ): void {
         // Image?
         $htmlx = $this->writeImageInCell($worksheet, $coordinate);
         // Chart?

@@ -1202,9 +1202,6 @@ class Chart
         return $font;
     }
 
-    /**
-     * @param ?SimpleXMLElement $chartDetail
-     */
     private function readChartAttributes(?SimpleXMLElement $chartDetail): array
     {
         $plotAttributes = [];

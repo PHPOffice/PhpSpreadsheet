@@ -141,13 +141,12 @@ class Border extends Supervisor
     /**
      * Set Border style.
      *
-     * @param bool|string $style
-     *                            When passing a boolean, FALSE equates Border::BORDER_NONE
+     * @param bool|string $style When passing a boolean, FALSE equates Border::BORDER_NONE
      *                                and TRUE to Border::BORDER_MEDIUM
      *
      * @return $this
      */
-    public function setBorderStyle($style): static
+    public function setBorderStyle(bool|string $style): static
     {
         if (empty($style)) {
             $style = self::BORDER_NONE;

@@ -39,10 +39,8 @@ class Helpers
 
     /**
      * Validate numeric, but allow substitute for null.
-     *
-     * @param null|float|int $substitute
      */
-    public static function validateNumericNullSubstitution(mixed $number, $substitute): float|int
+    public static function validateNumericNullSubstitution(mixed $number, null|float|int $substitute): float|int
     {
         $number = Functions::flattenSingleValue($number);
         if ($number === null && $substitute !== null) {
@@ -57,10 +55,8 @@ class Helpers
 
     /**
      * Confirm number >= 0.
-     *
-     * @param float|int $number
      */
-    public static function validateNotNegative($number, ?string $except = null): void
+    public static function validateNotNegative(float|int $number, ?string $except = null): void
     {
         if ($number >= 0) {
             return;
@@ -71,10 +67,8 @@ class Helpers
 
     /**
      * Confirm number > 0.
-     *
-     * @param float|int $number
      */
-    public static function validatePositive($number, ?string $except = null): void
+    public static function validatePositive(float|int $number, ?string $except = null): void
     {
         if ($number > 0) {
             return;
@@ -85,10 +79,8 @@ class Helpers
 
     /**
      * Confirm number != 0.
-     *
-     * @param float|int $number
      */
-    public static function validateNotZero($number): void
+    public static function validateNotZero(float|int $number): void
     {
         if ($number) {
             return;

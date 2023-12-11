@@ -147,8 +147,6 @@ class DataSeriesValues extends Properties
     /**
      * Set Series Data Source (formula).
      *
-     * @param ?string $dataSource
-     *
      * @return $this
      */
     public function setDataSource(?string $dataSource): static
@@ -357,11 +355,9 @@ class DataSeriesValues extends Properties
     /**
      * Set line width for the series.
      *
-     * @param null|float|int $width
-     *
      * @return $this
      */
-    public function setLineWidth($width): static
+    public function setLineWidth(null|float|int $width): static
     {
         $this->lineStyleProperties['width'] = $width;
 

@@ -1176,6 +1176,11 @@ parameters:
 			path: src/PhpSpreadsheet/Chart/DataSeriesValues.php
 
 		-
+			message: "#^Argument of an invalid type array\\<int, \\(SimpleXMLElement\\|null\\)\\>\\|SimpleXMLElement\\|null supplied for foreach, only iterables are supported\\.$#"
+			count: 2
+			path: src/PhpSpreadsheet/Reader/Xlsx/ConditionalStyles.php
+
+		-
 			message: "#^Cannot access property \\$color on SimpleXMLElement\\|null\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Reader/Xlsx/Styles.php

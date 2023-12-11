@@ -275,7 +275,7 @@ class Helpers
      *
      * @param array|false $dateArray
      */
-    private static function forceArray($dateArray): array
+    private static function forceArray(array|bool $dateArray): array
     {
         return is_array($dateArray) ? $dateArray : ['error_count' => 1];
     }
