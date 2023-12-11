@@ -35,10 +35,8 @@ class Title
 
     /**
      * Get caption.
-     *
-     * @return array|RichText|string
      */
-    public function getCaption()
+    public function getCaption(): array|RichText|string
     {
         return $this->caption;
     }

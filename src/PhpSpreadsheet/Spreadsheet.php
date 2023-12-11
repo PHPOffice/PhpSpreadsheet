@@ -1082,7 +1082,7 @@ class Spreadsheet implements JsonSerializable
      *
      * @return false|Style
      */
-    public function getCellXfByHashCode(string $hashcode)
+    public function getCellXfByHashCode(string $hashcode): bool|Style
     {
         foreach ($this->cellXfCollection as $cellXf) {
             if ($cellXf->getHashCode() === $hashcode) {
@@ -1185,7 +1185,7 @@ class Spreadsheet implements JsonSerializable
      *
      * @return false|Style
      */
-    public function getCellStyleXfByHashCode(string $hashcode)
+    public function getCellStyleXfByHashCode(string $hashcode): bool|Style
     {
         foreach ($this->cellStyleXfCollection as $cellStyleXf) {
             if ($cellStyleXf->getHashCode() === $hashcode) {

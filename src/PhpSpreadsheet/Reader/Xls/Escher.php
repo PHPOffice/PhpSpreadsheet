@@ -86,10 +86,8 @@ class Escher
 
     /**
      * Load Escher stream data. May be a partial Escher stream.
-     *
-     * @return BSE|BstoreContainer|DgContainer|DggContainer|\PhpOffice\PhpSpreadsheet\Shared\Escher|SpContainer|SpgrContainer
      */
-    public function load(string $data)
+    public function load(string $data): BSE|BstoreContainer|DgContainer|DggContainer|\PhpOffice\PhpSpreadsheet\Shared\Escher|SpContainer|SpgrContainer
     {
         $this->data = $data;
 
