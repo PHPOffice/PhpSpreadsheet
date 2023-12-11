@@ -5,10 +5,12 @@
 - <span style="text-align: center; color: red;">✖</span> Not supported
 - N/A Cannot be supported
 
+## Readers
+
 <table class="features-cross-reference">
     <tr>
         <th></th>
-        <th colspan="7">Readers</th>
+        <th colspan="8">Readers</th>
     </tr>
     <tr>
         <th></th>
@@ -19,9 +21,10 @@
         <th>Gnumeric</th>
         <th>CSV</th>
         <th>SYLK</th>
+        <th>HTML</th>
     </tr>
     <tr>
-        <td><strong><a href="#setGetReaderOptions">Reader Options</a></strong></td>
+        <td style="padding-left: 0.5em;"><strong><a href="#setGetReaderOptions">Reader Options</a></strong></td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: orange;">●</td>
@@ -29,6 +32,7 @@
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center;">N/A</td>
+        <td style="text-align: center; color: green;">✔</td>
     </tr>
     <tr>
         <td style="padding-left: 1em;">Read Data Only (no formatting)</td>
@@ -39,6 +43,7 @@
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center;">N/A</td>
+        <td style="text-align: center; color: green;">✔</td>
     </tr>
     <tr>
         <td style="padding-left: 1em;">Read Only Specified Worksheets</td>
@@ -49,6 +54,7 @@
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center;">N/A</td>
+        <td style="text-align: center; color: green;">✔</td>
     </tr>
     <tr>
         <td style="padding-left: 1em;">Read Only Specified Cells</td>
@@ -59,9 +65,10 @@
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: red;">✖</td>
+        <td style="text-align: center; color: green;">✔</td>
     </tr>
     <tr>
-        <td><strong>Document Properties</strong></td>
+        <td style="padding-left: 0.5em;"><strong>Document Properties</strong></td>
         <td style="text-align: center; color: orange;">●</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
@@ -69,6 +76,7 @@
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center;">N/A</td>
+        <td style="text-align: center; color: green;">✔</td>
     </tr>
     <tr>
         <td style="padding-left: 1em;"><a href="#setGetStdProp">Standard Properties</a></td>
@@ -79,6 +87,7 @@
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center;">N/A</td>
+        <td style="text-align: center; color: green;">✔</td>
     </tr>
     <tr>
         <td style="padding-left: 2em;">Creator</td>
@@ -89,6 +98,7 @@
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center;">N/A</td>
+        <td style="text-align: center; color: green;">✔</td>
     </tr>
     <tr>
         <td style="padding-left: 2em;">Creation Date/Time</td>
@@ -99,6 +109,7 @@
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center;">N/A</td>
+        <td style="text-align: center; color: green;">✔</td>
     </tr>
     <tr>
         <td style="padding-left: 2em;">Modifier</td>
@@ -109,6 +120,7 @@
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center;">N/A</td>
+        <td style="text-align: center; color: green;">✔</td>
     </tr>
     <tr>
         <td style="padding-left: 2em;">Modified Date/Time</td>
@@ -119,6 +131,7 @@
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center;">N/A</td>
+        <td style="text-align: center; color: green;">✔</td>
     </tr>
     <tr>
         <td style="padding-left: 2em;">Title</td>
@@ -129,6 +142,7 @@
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center;">N/A</td>
+        <td style="text-align: center; color: green;">✔</td>
     </tr>
     <tr>
         <td style="padding-left: 2em;">Description</td>
@@ -139,6 +153,7 @@
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center;">N/A</td>
+        <td style="text-align: center; color: green;">✔</td>
     </tr>
     <tr>
         <td style="padding-left: 2em;">Subject</td>
@@ -149,6 +164,7 @@
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center;">N/A</td>
+        <td style="text-align: center; color: green;">✔</td>
     </tr>
     <tr>
         <td style="padding-left: 2em;">Keywords</td>
@@ -159,6 +175,7 @@
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center;">N/A</td>
+        <td style="text-align: center; color: green;">✔</td>
     </tr>
     <tr>
         <td style="padding-left: 1em;"><a href="#setGetExtProp">Extended Properties</a></td>
@@ -169,6 +186,7 @@
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center;">N/A</td>
+        <td style="text-align: center; color: green;">✔</td>
     </tr>
     <tr>
         <td style="padding-left: 2em;">Category</td>
@@ -179,6 +197,7 @@
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center;">N/A</td>
+        <td style="text-align: center; color: green;">✔</td>
     </tr>
     <tr>
         <td style="padding-left: 2em;">Company</td>
@@ -189,6 +208,7 @@
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center;">N/A</td>
+        <td style="text-align: center; color: green;">✔</td>
     </tr>
     <tr>
         <td style="padding-left: 2em;">Manager</td>
@@ -199,6 +219,7 @@
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center;">N/A</td>
+        <td style="text-align: center; color: green;">✔</td>
     </tr>
     <tr>
         <td style="padding-left: 1em;"><a href="#setGetCustProp">User-Defined (Custom) Properties</a></td>
@@ -209,6 +230,7 @@
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center;">N/A</td>
+        <td style="text-align: center; color: green;">✔</td>
     </tr>
     <tr>
         <td style="padding-left: 2em;">Text Properties</td>
@@ -219,6 +241,7 @@
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center;">N/A</td>
+        <td style="text-align: center; color: green;">✔</td>
     </tr>
     <tr>
         <td style="padding-left: 2em;">Number Properties</td>
@@ -229,6 +252,7 @@
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center;">N/A</td>
+        <td style="text-align: center; color: green;">✔</td>
     </tr>
     <tr>
         <td style="padding-left: 2em;">Date Properties</td>
@@ -239,6 +263,7 @@
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center;">N/A</td>
+        <td style="text-align: center; color: green;">✔</td>
     </tr>
     <tr>
         <td style="padding-left: 2em;">Yes/No (Boolean) Properties</td>
@@ -249,19 +274,22 @@
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center;">N/A</td>
+        <td style="text-align: center; color: green;">✔</td>
     </tr>
     <tr>
-        <td><strong>Cell Data Types</strong></td>
-        <td style="text-align: center; color: orange;">●</td>
-        <td style="text-align: center; color: orange;">●</td>
-        <td style="text-align: center; color: orange;">●</td>
-        <td style="text-align: center; color: orange;">●</td>
-        <td style="text-align: center; color: orange;">●</td>
-        <td style="text-align: center; color: orange;">●</td>
-        <td style="text-align: center; color: orange;">●</td>
+        <td style="padding-left: 0.5em;"><strong>Cell Data Types</strong></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
     </tr>
     <tr>
         <td style="padding-left: 1em;">Empty/NULL</td>
+        <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
@@ -279,9 +307,11 @@
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
+        <td style="text-align: center; color: green;">✔</td>
     </tr>
     <tr>
         <td style="padding-left: 1em;">Integer</td>
+        <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
@@ -299,9 +329,11 @@
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
+        <td style="text-align: center; color: green;">✔</td>
     </tr>
     <tr>
         <td style="padding-left: 1em;">String</td>
+        <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
@@ -319,6 +351,7 @@
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
+        <td style="text-align: center; color: green;">✔</td>
     </tr>
     <tr>
         <td style="padding-left: 1em;">Formula</td>
@@ -329,9 +362,11 @@
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center; color: green;">✔</td>
+        <td style="text-align: center; color: red;">✖</td>
     </tr>
     <tr>
         <td style="padding-left: 1em;">Array</td>
+        <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center; color: red;">✖</td>
@@ -349,50 +384,55 @@
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center; color: red;">✖</td>
+        <td style="text-align: center; color: red;">✖</td>
         <td></td>
     </tr>
     <tr>
-        <td><strong>Conditional Formatting</strong></td>
-		<td style="text-align: center; color: orange;">●</td>
+        <td style="padding-left: 0.5em;"><strong>Conditional Formatting</strong></td>
+        <td style="text-align: center; color: orange;">●</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center;">N/A</td>
+        <td style="text-align: center; color: red;">✖</td>
     </tr>
     <tr>
-        <td><strong>Rows and Column Properties</strong></td>
+        <td style="padding-left: 0.5em;"><strong>Rows and Column Properties</strong></td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
-		<td style="text-align: center; color: red;">✖</td>
+        <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center;">N/A</td>
+        <td style="text-align: center; color: green;">✔</td>
     </tr>
     <tr>
         <td style="padding-left: 1em;">Row Height/Column Width</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
-		<td style="text-align: center; color: red;">✖</td>
+        <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center;">N/A</td>
+        <td style="text-align: center; color: green;">✔</td>
     </tr>
     <tr>
         <td style="padding-left: 1em;">Hidden</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
-		<td style="text-align: center; color: red;">✖</td>
+        <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center;">N/A</td>
+        <td style="text-align: center; color: green;">✔</td>
     </tr>
     <tr>
-        <td><strong>Worksheet Properties</strong></td>
+        <td style="padding-left: 0.5em;"><strong>Worksheet Properties</strong></td>
         <td style="text-align: center; color: orange;">●</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: orange;">●</td>
@@ -400,14 +440,16 @@
         <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center;">N/A</td>
+        <td style="text-align: center; color: orange;">●</td>
     </tr>
     <tr>
         <td style="padding-left: 2em;">Frozen Panes</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
-		<td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center; color: red;">✖</td>
+        <td style="text-align: center; color: red;">✖</td>
+        <td style="text-align: center;">N/A</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center;">N/A</td>
     </tr>
@@ -420,6 +462,7 @@
         <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center;">N/A</td>
+        <td style="text-align: center; color: orange;">●</td>
     </tr>
     <tr>
         <td style="padding-left: 2em;">Coloured Tabs</td>
@@ -430,9 +473,10 @@
         <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center;">N/A</td>
+        <td style="text-align: center;">N/A</td>
     </tr>
     <tr>
-        <td style="padding-left: 1em;"><a href="#setGetDrawingHyperlink">Drawing hyperlink</a></td>
+        <td style="padding-left: 0.5em;"><a href="#setGetDrawingHyperlink">Drawing hyperlink</a></td>
         <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center; color: green;">✔</td> 
         <td style="text-align: center; color: red;">✖</td>
@@ -440,15 +484,17 @@
         <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center;">N/A</td>
+        <td style="text-align: center; color: green;">✔</td>
     </tr>
     <tr>
-        <td><strong>Cell Formatting</strong></td>
+        <td style="padding-left: 0.5em;"><strong>Cell Formatting</strong></td>
         <td style="text-align: center; color: green;">✔</td> 
         <td style="text-align: center; color: green;">✔</td> 
         <td style="text-align: center; color: orange;">●</td>
         <td style="text-align: center; color: orange;">●</td>
-		<td style="text-align: center; color: green;">✔</td> 
+        <td style="text-align: center; color: green;">✔</td> 
         <td style="text-align: center;">N/A</td>
+        <td style="text-align: center; color: orange;">●</td>
         <td style="text-align: center; color: orange;">●</td>
     </tr>
     <tr>
@@ -460,6 +506,7 @@
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center; color: green;">✔</td>
+        <td style="text-align: center; color: green;">✔</td>
     </tr>
     <tr>
         <td style="padding-left: 1em;">Alignment</td>
@@ -470,6 +517,7 @@
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center; color: red;">✖</td>
+        <td style="text-align: center; color: orange;">●</td>
     </tr>
     <tr>
         <td style="padding-left: 2em;">Horizontal</td>
@@ -480,6 +528,7 @@
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center; color: red;">✖</td>
+        <td style="text-align: center; color: green;">✔</td>
     </tr>
     <tr>
         <td style="padding-left: 2em;">Vertical</td>
@@ -490,6 +539,7 @@
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center; color: red;">✖</td>
+        <td style="text-align: center; color: green;">✔</td>
     </tr>
     <tr>
         <td style="padding-left: 1em;">Wrapping</td>
@@ -500,6 +550,7 @@
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center; color: red;">✖</td>
+        <td style="text-align: center; color: orange;">●</td>
     </tr>
     <tr>
         <td style="padding-left: 1em;">Shrink-to-Fit</td>
@@ -510,6 +561,7 @@
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center; color: red;">✖</td>
+        <td style="text-align: center; color: orange;">●</td>
     </tr>
     <tr>
         <td style="padding-left: 1em;">Indent</td>
@@ -520,6 +572,7 @@
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center; color: red;">✖</td>
+        <td style="text-align: center; color: green;">✔</td>
     </tr>
     <tr>
         <td style="padding-left: 1em;">Background Colour</td>
@@ -529,6 +582,7 @@
         <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center;">N/A</td>
+        <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
     </tr>
     <tr>
@@ -540,6 +594,7 @@
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center; color: green;">✔</td>
+        <td style="text-align: center; color: red;">✖</td>
     </tr>
     <tr>
         <td style="padding-left: 1em;">Font Attributes</td>
@@ -549,6 +604,7 @@
         <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center;">N/A</td>
+        <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
     </tr>
     <tr>
@@ -560,6 +616,7 @@
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center; color: green;">✔</td>
+        <td style="text-align: center; color: green;">✔</td>
     </tr>
     <tr>
         <td style="padding-left: 2em;">Font Size</td>
@@ -569,6 +626,7 @@
         <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center;">N/A</td>
+        <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
     </tr>
     <tr>
@@ -580,6 +638,7 @@
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center; color: green;">✔</td>
+        <td style="text-align: center; color: green;">✔</td>
     </tr>
     <tr>
         <td style="padding-left: 2em;">Italic</td>
@@ -589,6 +648,7 @@
         <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center;">N/A</td>
+        <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
     </tr>
     <tr>
@@ -600,6 +660,7 @@
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center; color: green;">✔</td>
+        <td style="text-align: center; color: green;">✔</td>
     </tr>
     <tr>
         <td style="padding-left: 2em;">Underline</td>
@@ -609,6 +670,7 @@
         <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center;">N/A</td>
+        <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
     </tr>
     <tr>
@@ -620,6 +682,7 @@
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center; color: green;">✔</td>
+        <td style="text-align: center; color: green;">✔</td>
     </tr>
     <tr>
         <td style="padding-left: 2em;">Subscript</td>
@@ -630,6 +693,7 @@
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center; color: green;">✔</td>
+        <td style="text-align: center; color: green;">✔</td>
     </tr>
     <tr>
         <td style="padding-left: 1em;">Borders</td>
@@ -639,7 +703,8 @@
         <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center;">N/A</td>
-		<td style="text-align: center; color: orange;">●</td>
+        <td style="text-align: center; color: orange;">●</td>
+        <td style="text-align: center; color: green;">✔</td>
     </tr>
     <tr>
         <td style="padding-left: 2em;">Line Style</td>
@@ -649,6 +714,7 @@
         <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center;">N/A</td>
+        <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
     </tr>
     <tr>
@@ -660,6 +726,7 @@
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center; color: green;">✔</td>
+        <td style="text-align: center; color: green;">✔</td>
     </tr>
     <tr>
         <td style="padding-left: 3em;">Diagonal</td>
@@ -670,9 +737,10 @@
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center; color: red;">✖</td>
+        <td style="text-align: center; color: red;">✖</td>
     </tr>
     <tr>
-        <td style="padding-left: 1em;"><a href="#setGetHyperlink">Hyperlinks</a></td>
+        <td style="padding-left: 0.5em;"><a href="#setGetHyperlink">Hyperlinks</a></td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
@@ -680,6 +748,7 @@
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center; color: red;">✖</td>
+        <td style="text-align: center; color: green;">✔</td>
     </tr>
     <tr>
         <td style="padding-left: 2em;">http</td>
@@ -690,9 +759,10 @@
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center; color: red;">✖</td>
+        <td style="text-align: center; color: green;">✔</td>
     </tr>
     <tr>
-        <td style="padding-left: 1em;">Merged Cells</td>
+        <td style="padding-left: 0.5em;">Merged Cells</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
@@ -700,15 +770,17 @@
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center; color: red;">✖</td>
+        <td style="text-align: center; color: green;">✔</td>
     </tr>
     <tr>
-        <td><a href="#setGetComment"><strong>Cell Comments</strong></a></td>
+        <td style="padding-left: 0.5em;"><a href="#setGetComment"><strong>Cell Comments</strong></a></td>
         <td style="text-align: center; color: orange;">●</td>
         <td style="text-align: center; color: orange;">●</td>
         <td style="text-align: center; color: orange;">●</td>
         <td style="text-align: center; color: orange;">●</td>
         <td style="text-align: center; color: orange;">●</td>
         <td style="text-align: center;">N/A</td>
+        <td style="text-align: center; color: orange;">●</td>
         <td style="text-align: center; color: orange;">●</td>
     </tr>
     <tr>
@@ -720,6 +792,7 @@
         <td style="text-align: center; color: orange;">●</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center;">N/A</td>
+        <td style="text-align: center; color: red;">✖</td>
     </tr>
     <tr>
         <td style="padding-left: 2em;">Alignment</td>
@@ -729,6 +802,7 @@
         <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center;">N/A</td>
+        <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center; color: red;">✖</td>
     </tr>
     <tr>
@@ -740,9 +814,10 @@
         <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center; color: red;">✖</td>
+        <td style="text-align: center; color: red;">✖</td>
     </tr>
     <tr>
-        <td><a href="#setGetCellValidation"><strong>Cell Validation</strong></a></td>
+        <td style="padding-left: 0.5em;"><a href="#setGetCellValidation"><strong>Cell Validation</strong></a></td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: red;">✖</td>
@@ -750,24 +825,27 @@
         <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center;">N/A</td>
+        <td style="text-align: center;">N/A</td>
     </tr>
     <tr>
-        <td><a href="#setGetAutoFilter"><strong>AutoFilters</strong></a></td>
-		<td style="text-align: center; color: orange;">●</td>
-		<td style="text-align: center; color: orange;">●</td>
-		<td style="text-align: center; color: orange;">●</td>
-		<td style="text-align: center; color: orange;">●</td>
-		<td style="text-align: center; color: orange;">●</td>
+        <td style="padding-left: 0.5em;"><a href="#setGetAutoFilter"><strong>AutoFilters</strong></a></td>
+        <td style="text-align: center; color: orange;">●</td>
+        <td style="text-align: center; color: orange;">●</td>
+        <td style="text-align: center; color: orange;">●</td>
+        <td style="text-align: center; color: orange;">●</td>
+        <td style="text-align: center; color: orange;">●</td>
+        <td style="text-align: center;">N/A</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center;">N/A</td>
     </tr>
     <tr>
         <td><strong>AutoFilter Expressions</strong></td>
-		<td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
+        <td style="text-align: center; color: green;">✔</td>
+        <td style="text-align: center;">N/A</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center;">N/A</td>
     </tr>
@@ -780,24 +858,27 @@
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center;">N/A</td>
+        <td style="text-align: center;">N/A</td>
     </tr>
     <tr>
         <td style="padding-left: 2em;">Custom Filter</td>
-		<td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
+        <td style="text-align: center; color: green;">✔</td>
+        <td style="text-align: center;">N/A</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center;">N/A</td>
     </tr>
     <tr>
         <td style="padding-left: 2em;">Date Filter</td>
-		<td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
+        <td style="text-align: center; color: green;">✔</td>
+        <td style="text-align: center;">N/A</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center;">N/A</td>
     </tr>
@@ -810,6 +891,7 @@
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center;">N/A</td>
+        <td style="text-align: center;">N/A</td>
     </tr>
     <tr>
         <td style="padding-left: 2em;">Colour Filter</td>
@@ -818,6 +900,7 @@
         <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center; color: red;">✖</td>
+        <td style="text-align: center;">N/A</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center;">N/A</td>
     </tr>
@@ -830,6 +913,7 @@
         <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center;">N/A</td>
+        <td style="text-align: center;">N/A</td>
     </tr>
     <tr>
         <td style="padding-left: 2em;">Top 10 Filter</td>
@@ -840,9 +924,10 @@
         <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center;">N/A</td>
+        <td style="text-align: center;">N/A</td>
     </tr>
     <tr>
-        <td><a href="#setGetMacro"><strong>Macros</strong></a></td>
+        <td style="padding-left: 0.5em;"><a href="#setGetMacro"><strong>Macros</strong></a></td>
         <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: red;">✖</td>
@@ -850,21 +935,24 @@
         <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center; color: red;">✖</td>
-    </tr>
-    <tr>
-        <td><strong>Form Controls</strong></td>
-        <td style="text-align: center; color: red;">✖</td>
-        <td style="text-align: center; color: red;">✖</td>
-        <td style="text-align: center; color: red;">✖</td>
-        <td style="text-align: center; color: red;">✖</td>
-        <td style="text-align: center; color: red;">✖</td>
-        <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center; color: red;">✖</td>
     </tr>
     <tr>
-        <td><a href="#setGetSecurity"><strong>Security</strong></a></td>
+        <td style="padding-left: 0.5em;"><strong>Form Controls</strong></td>
+        <td style="text-align: center; color: red;">✖</td>
+        <td style="text-align: center; color: red;">✖</td>
+        <td style="text-align: center; color: red;">✖</td>
+        <td style="text-align: center; color: red;">✖</td>
+        <td style="text-align: center; color: red;">✖</td>
+        <td style="text-align: center; color: red;">✖</td>
+        <td style="text-align: center; color: red;">✖</td>
+        <td style="text-align: center; color: red;">✖</td>
+    </tr>
+    <tr>
+        <td style="padding-left: 0.5em;"><a href="#setGetSecurity"><strong>Security</strong></a></td>
         <td style="text-align: center; color: orange;">●</td>
         <td style="text-align: center; color: orange;">●</td>
+        <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center; color: red;">✖</td>
@@ -880,9 +968,11 @@
         <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center; color: red;">✖</td>
+        <td style="text-align: center; color: red;">✖</td>
     </tr>
     <tr>
         <td style="padding-left: 2em;">Encryption (prevent viewing)</td>
+        <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center; color: red;">✖</td>
@@ -900,16 +990,19 @@
         <th>Gnumeric</th>
         <th>CSV</th>
         <th>SYLK</th>
+        <th>HTML</th>
     </tr>
     <tr>
         <th></th>
-        <th colspan="7">Readers</th>
+        <th colspan="8">Readers</th>
     </tr>
 </table>
 
 1. <span id="footnote1">Only text contents</span>
 2. <span id="footnote2">Only BIFF8 files support Rich Text. Prior to that, comments could only be plain text</span>
 3. <span id="footnote3">Only BIFF8 files support alignment and rotation. Prior to that, comments could only be unformatted text</span>
+
+## Writers
 
 <table class="features-cross-reference">
     <tr>
@@ -1028,7 +1121,7 @@
         <td style="padding-left: 2em;">Category</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: green;">✔</td>
-		<td style="text-align: center; color: red;">✖</td>
+        <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: red;">✖</td>
@@ -1037,7 +1130,7 @@
         <td style="padding-left: 2em;">Company</td>
         <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center; color: green;">✔</td>
-		<td style="text-align: center; color: red;">✖</td>
+        <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: red;">✖</td>
@@ -1046,8 +1139,8 @@
         <td style="padding-left: 2em;">Manager</td>
         <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center; color: green;">✔</td>
-		<td style="text-align: center; color: red;">✖</td>
-		<td style="text-align: center;">N/A</td>
+        <td style="text-align: center; color: red;">✖</td>
+        <td style="text-align: center;">N/A</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: red;">✖</td>
     </tr>
@@ -1118,7 +1211,7 @@
         <td style="padding-left: 1em;">Frozen Panes</td>
         <td style="text-align: center; color: orange;">●</td>
         <td style="text-align: center; color: green;">✔</td>
-		<td style="text-align: center; color: red;">✖</td>
+        <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: red;">✖</td>
@@ -1127,25 +1220,25 @@
         <td style="padding-left: 1em;">Hidden Worksheets</td>
         <td style="text-align: center; color: orange;">●</td>
         <td style="text-align: center; color: green;">✔</td>
-		<td style="text-align: center; color: red;">✖</td>
+        <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: red;">✖</td>
     </tr>
     <tr>
         <td style="padding-left: 1em;">Coloured Tabs</td>
-		<td style="text-align: center; color: red;">✖</td>
+        <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center; color: green;">✔</td>
-		<td style="text-align: center; color: red;">✖</td>
+        <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center; color: red;">✖</td>
     </tr>
     <tr>
         <td style="padding-left: 0.5em;"><a href="#setGetDrawingHyperlink"><strong>Drawing hyperlink</strong></a></td>
-		<td style="text-align: center; color: red;">✖</td>
+        <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center; color: green;">✔</td>
-		<td style="text-align: center; color: red;">✖</td>
+        <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center; color: red;">✖</td>
@@ -1570,6 +1663,9 @@
         <th colspan="6">Writers</th>
     </tr>
 </table>
+
+## Setters and Getters
+
 <table class="features-cross-reference">
     <tr>
         <th></th>
