@@ -6,20 +6,14 @@ use PhpOffice\PhpSpreadsheetInfra\DocumentGenerator;
 
 require_once 'vendor/autoload.php';
 
-try {
-    $phpSpreadsheetFunctionsProperty = (new ReflectionClass(Calculation::class))
-        ->getProperty('phpSpreadsheetFunctions');
-    $phpSpreadsheetFunctionsProperty->setAccessible(true);
-    $phpSpreadsheetFunctions = $phpSpreadsheetFunctionsProperty->getValue();
-    ksort($phpSpreadsheetFunctions);
+$phpSpreadsheetFunctions = Calculation::getFunctions();
+ksort($phpSpreadsheetFunctions);
 
-    file_put_contents(__DIR__ . '/../docs/references/function-list-by-category.md',
-        DocumentGenerator::generateFunctionListByCategory($phpSpreadsheetFunctions)
-    );
-    file_put_contents(__DIR__ . '/../docs/references/function-list-by-name.md',
-        DocumentGenerator::generateFunctionListByName($phpSpreadsheetFunctions)
-    );
-} catch (ReflectionException $e) {
-    fwrite(STDERR, (string) $e);
-    exit(1);
-}
+file_put_contents(
+    __DIR__ . '/../docs/references/function-list-by-category.md',
+    DocumentGenerator::generateFunctionListByCategory($phpSpreadsheetFunctions)
+);
+file_put_contents(
+    __DIR__ . '/../docs/references/function-list-by-name.md',
+    DocumentGenerator::generateFunctionListByName($phpSpreadsheetFunctions)
+);
