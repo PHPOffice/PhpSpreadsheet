@@ -30,7 +30,7 @@ class DCountA extends DatabaseAbstract
      *                                        the column label in which you specify a condition for the
      *                                        column.
      */
-    public static function evaluate(array $database, $field, array $criteria): string|int
+    public static function evaluate(array $database, array|null|int|string $field, array $criteria): string|int
     {
         $field = self::fieldExtract($database, $field);
         if ($field === null) {

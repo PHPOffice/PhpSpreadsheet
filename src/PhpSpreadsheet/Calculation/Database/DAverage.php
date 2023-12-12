@@ -30,7 +30,7 @@ class DAverage extends DatabaseAbstract
      *                              the column label in which you specify a condition for the
      *                              column.
      */
-    public static function evaluate(array $database, $field, array $criteria): string|int|float
+    public static function evaluate(array $database, array|null|int|string $field, array $criteria): string|int|float
     {
         $field = self::fieldExtract($database, $field);
         if ($field === null) {

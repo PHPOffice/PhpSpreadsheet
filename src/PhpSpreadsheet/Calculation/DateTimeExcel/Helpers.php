@@ -17,7 +17,7 @@ class Helpers
      *
      * @return bool TRUE if the year is a leap year, otherwise FALSE
      */
-    public static function isLeapYear($year): bool
+    public static function isLeapYear(int|string $year): bool
     {
         return (($year % 4) === 0) && (($year % 100) !== 0) || (($year % 400) === 0);
     }

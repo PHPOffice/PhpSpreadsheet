@@ -36,7 +36,7 @@ class WorkDay
      *         If an array of values is passed for the $startDate or $endDays,arguments, then the returned result
      *            will also be an array with matching dimensions
      */
-    public static function date($startDate, $endDays, ...$dateArgs)
+    public static function date(mixed $startDate, array|int|string $endDays, mixed ...$dateArgs): mixed
     {
         if (is_array($startDate) || is_array($endDays)) {
             return self::evaluateArrayArgumentsSubset(

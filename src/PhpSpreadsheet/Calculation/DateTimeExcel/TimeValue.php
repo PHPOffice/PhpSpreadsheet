@@ -36,7 +36,7 @@ class TimeValue
      *         If an array of numbers is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function fromString($timeValue): array|string|Datetime|int|float
+    public static function fromString(null|array|string|int|bool $timeValue): array|string|Datetime|int|float
     {
         if (is_array($timeValue)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $timeValue);

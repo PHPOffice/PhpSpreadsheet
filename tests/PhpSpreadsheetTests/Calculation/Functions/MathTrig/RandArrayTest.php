@@ -26,7 +26,7 @@ class RandArrayTest extends AllSetupTeardown
         $values = Functions::flattenArray($result);
         array_walk(
             $values,
-            function ($value) use ($min, $max): void {
+            function (mixed $value) use ($min, $max): void {
                 self::assertIsInt($value);
                 self::assertTrue($value >= $min && $value <= $max);
             }
@@ -49,7 +49,7 @@ class RandArrayTest extends AllSetupTeardown
         $values = Functions::flattenArray($result);
         array_walk(
             $values,
-            function ($value) use ($min, $max): void {
+            function (mixed $value) use ($min, $max): void {
                 self::assertIsFloat($value);
                 self::assertTrue($value >= $min && $value <= $max);
             }

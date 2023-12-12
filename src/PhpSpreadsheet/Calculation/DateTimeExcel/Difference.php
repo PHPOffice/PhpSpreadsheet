@@ -28,7 +28,7 @@ class Difference
      *         If an array of values is passed for the $startDate or $endDays,arguments, then the returned result
      *            will also be an array with matching dimensions
      */
-    public static function interval(mixed $startDate, mixed $endDate, $unit = 'D')
+    public static function interval(mixed $startDate, mixed $endDate, array|string $unit = 'D')
     {
         if (is_array($startDate) || is_array($endDate) || is_array($unit)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $startDate, $endDate, $unit);

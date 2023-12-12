@@ -43,7 +43,7 @@ class YearFrac
      *         If an array of values is passed for the $startDate or $endDays,arguments, then the returned result
      *            will also be an array with matching dimensions
      */
-    public static function fraction(mixed $startDate, mixed $endDate, $method = 0): array|string|int|float
+    public static function fraction(mixed $startDate, mixed $endDate, array|int|string|null $method = 0): array|string|int|float
     {
         if (is_array($startDate) || is_array($endDate) || is_array($method)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $startDate, $endDate, $method);

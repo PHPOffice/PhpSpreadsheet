@@ -8,7 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Internal\WildcardMatch;
 
 abstract class DatabaseAbstract
 {
-    abstract public static function evaluate(array $database, null|int|string $field, array $criteria): null|float|int|string;
+    abstract public static function evaluate(array $database, array|null|int|string $field, array $criteria): null|float|int|string;
 
     /**
      * fieldExtract.

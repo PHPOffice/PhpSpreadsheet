@@ -24,7 +24,7 @@ class DateValue
      * Excel Function:
      *        DATEVALUE(dateValue)
      *
-     * @param null|array|string $dateValue Text that represents a date in a Microsoft Excel date format.
+     * @param null|array|int|string $dateValue Text that represents a date in a Microsoft Excel date format.
      *                                    For example, "1/30/2008" or "30-Jan-2008" are text strings within
      *                                    quotation marks that represent dates. Using the default date
      *                                    system in Excel for Windows, date_text must represent a date from
@@ -39,7 +39,7 @@ class DateValue
      *         If an array of numbers is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function fromString($dateValue): mixed
+    public static function fromString(null|array|string|int|bool $dateValue): mixed
     {
         if (is_array($dateValue)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $dateValue);
@@ -52,7 +52,7 @@ class DateValue
 
         $dti = new DateTimeImmutable();
         $baseYear = SharedDateHelper::getExcelCalendar();
-        $dateValue = trim($dateValue ?? '', '"');
+        $dateValue = trim((string) $dateValue, '"');
         //    Strip any ordinals because they're allowed in Excel (English only)
         $dateValue = (string) preg_replace('/(\d)(st|nd|rd|th)([ -\/])/Ui', '$1$3', $dateValue);
         //    Convert separators (/ . or space) to hyphens (should also handle dot used for ordinals in some countries, e.g. Denmark, Germany)
