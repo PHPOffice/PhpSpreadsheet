@@ -10,6 +10,8 @@ parameters:
         - tests/
         - samples/
         - infra/
+        - bin/generate-document
+        - bin/generate-locales
     excludePaths:
         - src/PhpSpreadsheet/Chart/Renderer/JpGraph.php
         - src/PhpSpreadsheet/Chart/Renderer/JpGraphRendererBase.php
