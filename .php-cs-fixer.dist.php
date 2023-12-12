@@ -3,6 +3,7 @@
 $finder = PhpCsFixer\Finder::create()
     ->exclude('vendor')
     ->notPath('src/PhpSpreadsheet/Writer/ZipStream3.php')
+    ->name('/(\.php|^generate-document|^generate-locales)$/')
     ->in(__DIR__);
 
 $config = new PhpCsFixer\Config();
