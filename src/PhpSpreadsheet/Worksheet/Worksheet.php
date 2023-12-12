@@ -3739,10 +3739,8 @@ class Worksheet implements IComparable
                     $currentCollection = $this->drawingCollection;
                     $this->drawingCollection = new ArrayObject();
                     foreach ($currentCollection as $item) {
-                        if (is_object($item)) {
-                            $newDrawing = clone $item;
-                            $newDrawing->setWorksheet($this);
-                        }
+                        $newDrawing = clone $item;
+                        $newDrawing->setWorksheet($this);
                     }
                 } elseif ($key == 'tableCollection') {
                     $currentCollection = $this->tableCollection;
@@ -3751,6 +3749,13 @@ class Worksheet implements IComparable
                         $newTable = clone $item;
                         $newTable->setName($item->getName() . 'clone');
                         $this->addTable($newTable);
+                    }
+                } elseif ($key == 'chartCollection') {
+                    $currentCollection = $this->chartCollection;
+                    $this->chartCollection = new ArrayObject();
+                    foreach ($currentCollection as $item) {
+                        $newChart = clone $item;
+                        $this->addChart($newChart);
                     }
                 } elseif (($key == 'autoFilter') && ($this->autoFilter instanceof AutoFilter)) {
                     $newAutoFilter = clone $this->autoFilter;
