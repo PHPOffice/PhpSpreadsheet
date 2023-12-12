@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Matrix;
@@ -25,7 +27,7 @@ class MatrixHelperFunctionsTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    public function columnVectorProvider(): array
+    public static function columnVectorProvider(): array
     {
         return [
             [
@@ -48,7 +50,7 @@ class MatrixHelperFunctionsTest extends TestCase
         ];
     }
 
-    public function rowVectorProvider(): array
+    public static function rowVectorProvider(): array
     {
         return [
             [

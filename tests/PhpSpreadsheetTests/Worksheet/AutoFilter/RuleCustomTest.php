@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet\AutoFilter;
 
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column;
@@ -43,7 +45,7 @@ class RuleCustomTest extends SetupTeardown
         self::assertEquals($expectedResult, $this->getVisible());
     }
 
-    public function providerCondition(): array
+    public static function providerCondition(): array
     {
         return [
             [[3], Rule::AUTOFILTER_COLUMN_RULE_EQUAL],

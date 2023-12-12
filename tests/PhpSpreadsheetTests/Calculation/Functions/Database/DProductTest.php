@@ -1,49 +1,60 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 
-use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
+use PhpOffice\PhpSpreadsheet\Calculation\Database\DProduct;
+use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Helpers as DateTimeHelper;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
-class DProductTest extends AllSetupTeardown
+class DProductTest extends SetupTeardownDatabases
 {
     /**
      * @dataProvider providerDProduct
-     *
-     * @param mixed $expectedResult
-     * @param mixed $database
-     * @param mixed $field
-     * @param mixed $criteria
      */
-    public function testDProduct($expectedResult, $database, $field, $criteria): void
+    public function testDirectCallToDProduct(float|string $expectedResult, array $database, ?string $field, array $criteria): void
     {
-        $this->runTestCase('DPRODUCT', $expectedResult, $database, $field, $criteria);
+        $result = DProduct::evaluate($database, $field, $criteria);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
-    private function database5(): array
+    /**
+     * @dataProvider providerDProduct
+     */
+    public function testDProductAsWorksheetFormula(float|string $expectedResult, array $database, ?string $field, array $criteria): void
+    {
+        $this->prepareWorksheetWithFormula('DPRODUCT', $database, $field, $criteria);
+
+        $result = $this->getSheet()->getCell(self::RESULT_CELL)->getCalculatedValue();
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
+    }
+
+    private static function database5(): array
     {
         return [
             ['Name', 'Date', 'Test', 'Score'],
-            ['Gary', DateTimeExcel\Helpers::getDateValue('01-Jan-2017'), 'Test1', 4],
-            ['Gary', DateTimeExcel\Helpers::getDateValue('01-Jan-2017'), 'Test2', 4],
-            ['Gary', DateTimeExcel\Helpers::getDateValue('01-Jan-2017'), 'Test3', 3],
-            ['Gary', DateTimeExcel\Helpers::getDateValue('05-Jan-2017'), 'Test1', 3],
-            ['Gary', DateTimeExcel\Helpers::getDateValue('05-Jan-2017'), 'Test2', 4],
-            ['Gary', DateTimeExcel\Helpers::getDateValue('05-Jan-2017'), 'Test3', 3],
-            ['Kev', DateTimeExcel\Helpers::getDateValue('02-Jan-2017'), 'Test1', 2],
-            ['Kev', DateTimeExcel\Helpers::getDateValue('02-Jan-2017'), 'Test2', 3],
-            ['Kev', DateTimeExcel\Helpers::getDateValue('02-Jan-2017'), 'Test3', 5],
-            ['Kev', DateTimeExcel\Helpers::getDateValue('05-Jan-2017'), 'Test1', 3],
-            ['Kev', DateTimeExcel\Helpers::getDateValue('05-Jan-2017'), 'Test2', 2],
-            ['Kev', DateTimeExcel\Helpers::getDateValue('05-Jan-2017'), 'Test3', 5],
+            ['Gary', DateTimeHelper::getDateValue('01-Jan-2017'), 'Test1', 4],
+            ['Gary', DateTimeHelper::getDateValue('01-Jan-2017'), 'Test2', 4],
+            ['Gary', DateTimeHelper::getDateValue('01-Jan-2017'), 'Test3', 3],
+            ['Gary', DateTimeHelper::getDateValue('05-Jan-2017'), 'Test1', 3],
+            ['Gary', DateTimeHelper::getDateValue('05-Jan-2017'), 'Test2', 4],
+            ['Gary', DateTimeHelper::getDateValue('05-Jan-2017'), 'Test3', 3],
+            ['Kev', DateTimeHelper::getDateValue('02-Jan-2017'), 'Test1', 2],
+            ['Kev', DateTimeHelper::getDateValue('02-Jan-2017'), 'Test2', 3],
+            ['Kev', DateTimeHelper::getDateValue('02-Jan-2017'), 'Test3', 5],
+            ['Kev', DateTimeHelper::getDateValue('05-Jan-2017'), 'Test1', 3],
+            ['Kev', DateTimeHelper::getDateValue('05-Jan-2017'), 'Test2', 2],
+            ['Kev', DateTimeHelper::getDateValue('05-Jan-2017'), 'Test3', 5],
         ];
     }
 
-    public function providerDProduct(): array
+    public static function providerDProduct(): array
     {
         return [
             [
                 800.0,
-                $this->database1(),
+                self::database1(),
                 'Yield',
                 [
                     ['Tree', 'Height', 'Height'],
@@ -53,7 +64,7 @@ class DProductTest extends AllSetupTeardown
             ],
             [
                 36.0,
-                $this->database5(),
+                self::database5(),
                 'Score',
                 [
                     ['Name', 'Date'],
@@ -62,7 +73,7 @@ class DProductTest extends AllSetupTeardown
             ],
             [
                 8.0,
-                $this->database5(),
+                self::database5(),
                 'Score',
                 [
                     ['Test', 'Date'],
@@ -70,10 +81,10 @@ class DProductTest extends AllSetupTeardown
                 ],
             ],
             'omitted field name' => [
-                '#VALUE!',
-                $this->database1(),
+                ExcelError::VALUE(),
+                self::database1(),
                 null,
-                $this->database1(),
+                self::database1(),
             ],
         ];
     }

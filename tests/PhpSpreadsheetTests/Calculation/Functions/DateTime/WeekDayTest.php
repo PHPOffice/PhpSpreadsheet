@@ -1,34 +1,114 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Week;
+use PhpOffice\PhpSpreadsheet\Shared\Date as SharedDate;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
+use PHPUnit\Framework\TestCase;
 
-class WeekDayTest extends AllSetupTeardown
+class WeekDayTest extends TestCase
 {
-    /**
-     * @dataProvider providerWEEKDAY
-     *
-     * @param mixed $expectedResult
-     */
-    public function testWEEKDAY($expectedResult, string $formula): void
+    private int $excelCalendar;
+
+    protected function setUp(): void
     {
-        $this->mightHaveException($expectedResult);
-        $sheet = $this->getSheet();
-        $sheet->getCell('B1')->setValue('1954-11-23');
-        $sheet->getCell('A1')->setValue("=WEEKDAY($formula)");
-        self::assertSame($expectedResult, $sheet->getCell('A1')->getCalculatedValue());
+        parent::setUp();
+
+        $this->excelCalendar = SharedDate::getExcelCalendar();
     }
 
-    public function providerWEEKDAY(): array
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+
+        SharedDate::setExcelCalendar($this->excelCalendar);
+    }
+
+    /**
+     * @dataProvider providerWEEKDAY
+     */
+    public function testDirectCallToWEEKDAY(mixed $expectedResult, mixed ...$args): void
+    {
+        $result = Week::day(...$args);
+        self::assertSame($expectedResult, $result);
+    }
+
+    /**
+     * @dataProvider providerWEEKDAY
+     */
+    public function testWEEKDAYAsFormula(mixed $expectedResult, mixed ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $calculation = Calculation::getInstance();
+        $formula = "=WEEKDAY({$arguments})";
+
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertSame($expectedResult, $result);
+    }
+
+    /**
+     * @dataProvider providerWEEKDAY
+     */
+    public function testWEEKDAYInWorksheet(mixed $expectedResult, mixed ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=WEEKDAY({$argumentCells})";
+
+        $result = $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+        self::assertSame($expectedResult, $result);
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public static function providerWEEKDAY(): array
     {
         return require 'tests/data/Calculation/DateTime/WEEKDAY.php';
     }
 
-    public function testWEEKDAYwith1904Calendar(): void
+    /**
+     * @dataProvider providerUnhappyWEEKDAY
+     */
+    public function testWEEKDAYUnhappyPath(string $expectedException, mixed ...$args): void
     {
-        self::setMac1904();
+        $arguments = new FormulaArguments(...$args);
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=WEEKDAY({$argumentCells})";
+
+        $this->expectException(\PhpOffice\PhpSpreadsheet\Calculation\Exception::class);
+        $this->expectExceptionMessage($expectedException);
+        $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public static function providerUnhappyWEEKDAY(): array
+    {
+        return [
+            ['Formula Error: Wrong number of arguments for WEEKDAY() function'],
+        ];
+    }
+
+    public function testWEEKDAYWith1904Calendar(): void
+    {
+        SharedDate::setExcelCalendar(SharedDate::CALENDAR_MAC_1904);
+
         self::assertEquals(7, Week::day('1904-01-02'));
         self::assertEquals(6, Week::day('1904-01-01'));
         self::assertEquals(6, Week::day(null));
@@ -46,7 +126,7 @@ class WeekDayTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerWeekDayArray(): array
+    public static function providerWeekDayArray(): array
     {
         return [
             'row vector #1' => [[[7, 1, 7]], '{"2022-01-01", "2022-06-12", "2023-07-22"}', '1'],

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Style\ConditionalFormatting\Wizard;
 
 use PhpOffice\PhpSpreadsheet\Exception;
@@ -71,7 +73,7 @@ class ExpressionWizardTest extends TestCase
         self::assertSame([$expectedExpression], $conditions);
     }
 
-    public function expressionDataProvider(): array
+    public static function expressionDataProvider(): array
     {
         return [
             ['ISODD(A1)', 'ISODD(C3)'],

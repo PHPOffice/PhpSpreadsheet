@@ -6,10 +6,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 
 class FractionFormatter extends BaseFormatter
 {
-    /**
-     * @param mixed $value
-     */
-    public static function format($value, string $format): string
+    public static function format(mixed $value, string $format): string
     {
         $format = self::stripQuotes($format);
         $value = (float) $value;
@@ -26,23 +23,28 @@ class FractionFormatter extends BaseFormatter
         $decimalLength = strlen($decimalPart);
         $decimalDivisor = 10 ** $decimalLength;
 
-        /** @var float */
-        $GCD = MathTrig\Gcd::evaluate($decimalPart, $decimalDivisor);
-        /** @var float */
-        $decimalPartx = $decimalPart;
+        preg_match('/(#?.*\?)\/(\?+|\d+)/', $format, $matches);
+        $formatIntegerPart = $matches[1];
 
-        $adjustedDecimalPart = $decimalPartx / $GCD;
-        $adjustedDecimalDivisor = $decimalDivisor / $GCD;
+        if (is_numeric($matches[2])) {
+            $fractionDivisor = 100 / (int) $matches[2];
+        } else {
+            /** @var float */
+            $fractionDivisor = MathTrig\Gcd::evaluate((int) $decimalPart, $decimalDivisor);
+        }
 
-        if ((strpos($format, '0') !== false)) {
+        $adjustedDecimalPart = (int) round((int) $decimalPart / $fractionDivisor, 0);
+        $adjustedDecimalDivisor = $decimalDivisor / $fractionDivisor;
+
+        if ((str_contains($formatIntegerPart, '0'))) {
             return "{$sign}{$integerPart} {$adjustedDecimalPart}/{$adjustedDecimalDivisor}";
-        } elseif ((strpos($format, '#') !== false)) {
+        } elseif ((str_contains($formatIntegerPart, '#'))) {
             if ($integerPart == 0) {
                 return "{$sign}{$adjustedDecimalPart}/{$adjustedDecimalDivisor}";
             }
 
             return "{$sign}{$integerPart} {$adjustedDecimalPart}/{$adjustedDecimalDivisor}";
-        } elseif ((substr($format, 0, 3) == '? ?')) {
+        } elseif ((str_starts_with($formatIntegerPart, '? ?'))) {
             if ($integerPart == 0) {
                 $integerPart = '';
             }

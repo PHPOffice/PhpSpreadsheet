@@ -9,6 +9,7 @@ class NewtonRaphson
 {
     private const MAX_ITERATIONS = 256;
 
+    /** @var callable */
     protected $callback;
 
     public function __construct(callable $callback)
@@ -16,7 +17,8 @@ class NewtonRaphson
         $this->callback = $callback;
     }
 
-    public function execute(float $probability)
+    /** @return float|string */
+    public function execute(float $probability): string|int|float
     {
         $xLo = 100;
         $xHi = 0;

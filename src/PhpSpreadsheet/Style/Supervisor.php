@@ -144,10 +144,8 @@ abstract class Supervisor implements IComparable
      * The parameter objOrValue is either a primitive type,
      * which is the value added to the array,
      * or a Style object to be recursively added via exportArray.
-     *
-     * @param mixed $objOrValue
      */
-    final protected function exportArray2(array &$exportedArray, string $index, $objOrValue): void
+    final protected function exportArray2(array &$exportedArray, string $index, mixed $objOrValue): void
     {
         if ($objOrValue instanceof self) {
             $exportedArray[$index] = $objOrValue->exportArray();

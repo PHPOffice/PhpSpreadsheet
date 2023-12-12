@@ -13,7 +13,7 @@ automatically your codebase. Assuming your files to be migrated lives
 in `src/`, you can run the migration like so:
 
 ```sh
-composer require rector/rector --dev
+composer require rector/rector rector/rector-phpoffice phpoffice/phpspreadsheet --dev
 
 # this creates rector.php config
 vendor/bin/rector init 
@@ -41,7 +41,7 @@ vendor/bin/rector process src
 ```
 
 For more details, see
-[RectorPHP blog post](https://getrector.org/blog/2020/04/16/how-to-migrate-from-phpexcel-to-phpspreadsheet-with-rector-in-30-minutes).
+[rector-phpoffice](https://github.com/rectorphp/rector-phpoffice).
 
 ## Manual changes
 
@@ -222,13 +222,17 @@ $writer = new \PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf($spreadsheet);
 
 ### Rendering charts
 
-When rendering charts for HTML or PDF outputs, the process was also simplified. And while
-JpGraph support is still available, it is unfortunately not up to date for latest PHP versions
-and it will generate various warnings.
-
-If you rely on this feature, please consider
-contributing either patches to JpGraph or another `IRenderer` implementation (a good
+When rendering charts for HTML or PDF outputs, the process was simplified.
+And, while JpGraph support is still available,
+the version distributed via Composer is no longer maintained,
+so you would need to install the current version manually.
+If you rely on this package, please consider
+contributing patches either to JpGraph or another `IRenderer` implementation (a good
 candidate might be [CpChart](https://github.com/szymach/c-pchart)).
+
+The package [mitoteam/jpgraph](https://github.com/mitoteam/jpgraph)
+is distributed via Composer, and is fully compatible with Jpgraph.
+We recommend that it be used for rendering.
 
 Before:
 
@@ -245,13 +249,13 @@ After:
 Require the dependency via composer:
 
 ```sh
-composer require jpgraph/jpgraph
+composer require mitoteam/jpgraph
 ```
 
 And then:
 
 ```php
-Settings::setChartRenderer(\PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph::class);
+Settings::setChartRenderer(\PhpOffice\PhpSpreadsheet\Chart\Renderer\MtJpGraphRenderer::class);
 ```
 
 ### PclZip and ZipArchive
@@ -294,13 +298,13 @@ Refer to [the new documentation](./memory_saving.md) to see how to migrate.
 
 ### Dropped conditionally returned cell
 
-For all the following methods, it is no more possible to change the type of
-returned value. It always return the Worksheet and never the Cell or Rule:
+For all the following methods, it is not possible to change the type of
+returned value. They will always return the Worksheet and never the Cell or Rule:
 
 - Worksheet::setCellValue()
-- Worksheet::setCellValueByColumnAndRow()
+- Worksheet::setCellValueByColumnAndRow() (*deprecated*)
 - Worksheet::setCellValueExplicit()
-- Worksheet::setCellValueExplicitByColumnAndRow()
+- Worksheet::setCellValueExplicitByColumnAndRow() (*deprecated*)
 - Worksheet::addRule()
 
 Migration would be similar to:
@@ -412,19 +416,19 @@ So the code must be adapted with something like:
 // Before
 $cell = $worksheet->getCellByColumnAndRow($column, $row);
 
-for ($column = 0; $column < $max; $column++) {
-    $worksheet->setCellValueByColumnAndRow($column, $row, 'value ' . $column);
+for ($column = 0; $column < $max; ++$column) {
+    $worksheet->setCellValueByColumnAndRow($column, $row, 'value');
 }
 
 // After
-$cell = $worksheet->getCellByColumnAndRow($column + 1, $row);
+$cell = $worksheet->getCell([$column + 1, $row]);
 
-for ($column = 1; $column <= $max; $column++) {
-    $worksheet->setCellValueByColumnAndRow($column, $row, 'value ' . $column);
+for ($column = 1; $column <= $max; ++$column) {
+    $worksheet->setCellValue([$column, $row], 'value');
 }
 ```
 
-All the following methods are affected:
+All the following methods are affected, and all are now deprecated (see example above for how to replace them):
 
 - `PHPExcel_Worksheet::cellExistsByColumnAndRow()`
 - `PHPExcel_Worksheet::freezePaneByColumnAndRow()`

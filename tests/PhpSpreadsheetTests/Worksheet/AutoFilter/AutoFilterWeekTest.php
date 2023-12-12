@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet\AutoFilter;
 
 use DateTimeImmutable;
@@ -9,7 +11,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class AutoFilterWeekTest extends SetupTeardown
 {
-    public function providerWeek(): array
+    public static function providerWeek(): array
     {
         return [
             [[2, 3], Rule::AUTOFILTER_RULETYPE_DYNAMIC_THISWEEK],

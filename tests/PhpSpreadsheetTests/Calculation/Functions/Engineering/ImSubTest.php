@@ -1,24 +1,119 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Calculation\Engineering\ComplexOperations;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
+use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
+use PhpOffice\PhpSpreadsheetTests\Custom\ComplexAssert;
+use PHPUnit\Framework\TestCase;
 
-class ImSubTest extends AllSetupTeardown
+class ImSubTest extends TestCase
 {
-    /**
-     * @dataProvider providerIMSUB
-     *
-     * @param mixed $expectedResult
-     */
-    public function testIMSUB($expectedResult, ...$args): void
+    const COMPLEX_PRECISION = 1E-12;
+
+    private \PhpOffice\PhpSpreadsheetTests\Custom\ComplexAssert $complexAssert;
+
+    protected function setUp(): void
     {
-        $this->runComplexTestCase('IMSUB', $expectedResult, ...$args);
+        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
+        $this->complexAssert = new ComplexAssert();
     }
 
-    public function providerIMSUB(): array
+    /**
+     * @dataProvider providerIMSUB
+     */
+    public function testDirectCallToIMSUB(mixed $expectedResult, mixed ...$args): void
+    {
+        $result = ComplexOperations::IMSUB(...$args);
+        self::assertTrue(
+            $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
+            $this->complexAssert->getErrorMessage()
+        );
+    }
+
+    private function trimIfQuoted(string $value): string
+    {
+        return trim($value, '"');
+    }
+
+    /**
+     * @dataProvider providerIMSUB
+     */
+    public function testIMSUBAsFormula(mixed $expectedResult, mixed ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $calculation = Calculation::getInstance();
+        $formula = "=IMSUB({$arguments})";
+
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertTrue(
+            $this->complexAssert->assertComplexEquals($expectedResult, $this->trimIfQuoted((string) $result), self::COMPLEX_PRECISION),
+            $this->complexAssert->getErrorMessage()
+        );
+    }
+
+    /**
+     * @dataProvider providerIMSUB
+     */
+    public function testIMSUBInWorksheet(mixed $expectedResult, mixed ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=IMSUB({$argumentCells})";
+
+        $result = $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+        self::assertTrue(
+            $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
+            $this->complexAssert->getErrorMessage()
+        );
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public static function providerIMSUB(): array
     {
         return require 'tests/data/Calculation/Engineering/IMSUB.php';
+    }
+
+    /**
+     * @dataProvider providerUnhappyIMSUB
+     */
+    public function testIMSUBUnhappyPath(string $expectedException, mixed ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=IMSUB({$argumentCells})";
+
+        $this->expectException(CalculationException::class);
+        $this->expectExceptionMessage($expectedException);
+        $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public static function providerUnhappyIMSUB(): array
+    {
+        return [
+            ['Formula Error: Wrong number of arguments for IMSUB() function'],
+            ['Formula Error: Wrong number of arguments for IMSUB() function', '1.23+4.56i'],
+        ];
     }
 
     /**
@@ -33,7 +128,7 @@ class ImSubTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerImSubArray(): array
+    public static function providerImSubArray(): array
     {
         return [
             'matrix' => [

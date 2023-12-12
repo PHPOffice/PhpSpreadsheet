@@ -1,15 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
 class OpenOfficeTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerOpenOffice
-     *
-     * @param mixed $expectedResult
      */
-    public function testOpenOffice($expectedResult, string $formula): void
+    public function testOpenOffice(mixed $expectedResult, string $formula): void
     {
         $this->setOpenOffice();
         $this->mightHaveException($expectedResult);
@@ -19,7 +19,7 @@ class OpenOfficeTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerOpenOffice(): array
+    public static function providerOpenOffice(): array
     {
         return require 'tests/data/Calculation/TextData/OpenOffice.php';
     }

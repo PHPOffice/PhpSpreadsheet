@@ -1,16 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 class SumIfTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerSUMIF
-     *
-     * @param mixed $expectedResult
-     * @param mixed $condition
      */
-    public function testSUMIF2($expectedResult, array $array1, $condition, ?array $array2 = null): void
+    public function testSUMIF2(mixed $expectedResult, array $array1, mixed $condition, ?array $array2 = null): void
     {
         $this->mightHaveException($expectedResult);
         if ($expectedResult === 'incomplete') {
@@ -34,7 +33,7 @@ class SumIfTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerSUMIF(): array
+    public static function providerSUMIF(): array
     {
         return require 'tests/data/Calculation/MathTrig/SUMIF.php';
     }

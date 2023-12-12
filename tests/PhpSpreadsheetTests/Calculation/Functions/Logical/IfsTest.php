@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Logical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,16 +10,13 @@ class IfsTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerIFS
-     *
-     * @param mixed $expectedResult
-     * @param mixed $args
      */
-    public function testIFS($expectedResult, ...$args): void
+    public function testIFS(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('IFS', $expectedResult, ...$args);
     }
 
-    public function providerIFS(): array
+    public static function providerIFS(): array
     {
         return require 'tests/data/Calculation/Logical/IFS.php';
     }
@@ -34,7 +33,7 @@ class IfsTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerIfsArray(): array
+    public static function providerIfsArray(): array
     {
         return [
             'array return first item' => [

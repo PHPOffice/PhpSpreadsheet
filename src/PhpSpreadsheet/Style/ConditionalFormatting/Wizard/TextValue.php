@@ -67,9 +67,7 @@ class TextValue extends WizardAbstract implements WizardInterface
 
     protected function operand(string $operand, string $operandValueType = Wizard::VALUE_TYPE_LITERAL): void
     {
-        if (is_string($operand)) {
-            $operand = $this->validateOperand($operand, $operandValueType);
-        }
+        $operand = $this->validateOperand($operand, $operandValueType);
 
         $this->operand = $operand;
         $this->operandValueType = $operandValueType;
@@ -87,8 +85,8 @@ class TextValue extends WizardAbstract implements WizardInterface
             : $this->cellConditionCheck($this->operand);
 
         if (
-            $this->operator === Conditional::OPERATOR_CONTAINSTEXT ||
-            $this->operator === Conditional::OPERATOR_NOTCONTAINS
+            $this->operator === Conditional::OPERATOR_CONTAINSTEXT
+            || $this->operator === Conditional::OPERATOR_NOTCONTAINS
         ) {
             $this->expression = sprintf(self::EXPRESSIONS[$this->operator], $operand, $this->referenceCell);
         } else {
@@ -133,8 +131,8 @@ class TextValue extends WizardAbstract implements WizardInterface
             $wizard->operandValueType = Wizard::VALUE_TYPE_CELL;
             $condition = self::reverseAdjustCellRef($condition, $cellRange);
         } elseif (
-            preg_match('/\(\)/', $condition) ||
-            preg_match('/' . Calculation::CALCULATION_REGEXP_CELLREF_RELATIVE . '/i', $condition)
+            preg_match('/\(\)/', $condition)
+            || preg_match('/' . Calculation::CALCULATION_REGEXP_CELLREF_RELATIVE . '/i', $condition)
         ) {
             $wizard->operandValueType = Wizard::VALUE_TYPE_FORMULA;
         }
@@ -147,14 +145,19 @@ class TextValue extends WizardAbstract implements WizardInterface
      * @param string $methodName
      * @param mixed[] $arguments
      */
-    public function __call($methodName, $arguments): self
+    public function __call($methodName, array $arguments): self
     {
         if (!isset(self::MAGIC_OPERATIONS[$methodName])) {
             throw new Exception('Invalid Operation for Text Value CF Rule Wizard');
         }
 
         $this->operator(self::MAGIC_OPERATIONS[$methodName]);
-        $this->operand(...$arguments);
+        //$this->operand(...$arguments);
+        if (count($arguments) < 2) {
+            $this->operand($arguments[0]);
+        } else {
+            $this->operand($arguments[0], $arguments[1]);
+        }
 
         return $this;
     }

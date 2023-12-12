@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xls;
 
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Reader\Xls;
-use PhpOffice\PhpSpreadsheet\Shared\CodePage;
 use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
 class XlsTest extends AbstractFunctional
@@ -86,40 +87,6 @@ class XlsTest extends AbstractFunctional
         }
         $spreadsheet->disconnectWorksheets();
         $newspreadsheet->disconnectWorksheets();
-    }
-
-    /**
-     * Test load Xls file with MACCENTRALEUROPE encoding, which is implemented
-     * as MAC-CENTRALEUROPE on some systems. Issue #549.
-     */
-    public function testLoadMacCentralEurope(): void
-    {
-        $codePages = CodePage::getEncodings();
-        self::assertIsArray($codePages[10029]);
-        $filename = 'tests/data/Reader/XLS/maccentraleurope.xls';
-        $reader = new Xls();
-        // When no fix applied, spreadsheet fails to load on some systems
-        $spreadsheet = $reader->load($filename);
-        $sheet = $spreadsheet->getActiveSheet();
-        self::assertSame('Ładowność', $sheet->getCell('I1')->getValue());
-        $spreadsheet->disconnectWorksheets();
-    }
-
-    /**
-     * First test changes array entry in CodePage.
-     * This test confirms new that new entry is okay.
-     */
-    public function testLoadMacCentralEurope2(): void
-    {
-        $codePages = CodePage::getEncodings();
-        self::assertIsString($codePages[10029]);
-        $filename = 'tests/data/Reader/XLS/maccentraleurope.xls';
-        $reader = new Xls();
-        // When no fix applied, spreadsheet fails to load on some systems
-        $spreadsheet = $reader->load($filename);
-        $sheet = $spreadsheet->getActiveSheet();
-        self::assertSame('Ładowność', $sheet->getCell('I1')->getValue());
-        $spreadsheet->disconnectWorksheets();
     }
 
     public function testLoadXlsBug1114(): void

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xml;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xml;
@@ -34,12 +36,14 @@ class PageSetupTest extends TestCase
         $reader = new Xml();
         $this->spreadsheet = $reader->load($this->filename);
         $assertions = $this->pageSetupAssertions();
+        $sheetCount = 0;
 
         foreach ($this->spreadsheet->getAllSheets() as $worksheet) {
             if (!array_key_exists($worksheet->getTitle(), $assertions)) {
-                continue;
+                self::fail('Unexpected worksheet ' . $worksheet->getTitle());
             }
 
+            ++$sheetCount;
             $sheetAssertions = $assertions[$worksheet->getTitle()];
             foreach ($sheetAssertions as $test => $expectedResult) {
                 $testMethodName = 'get' . ucfirst($test);
@@ -51,6 +55,7 @@ class PageSetupTest extends TestCase
                 );
             }
         }
+        self::assertCount($sheetCount, $assertions);
     }
 
     public function testPageMargins(): void
@@ -58,12 +63,14 @@ class PageSetupTest extends TestCase
         $reader = new Xml();
         $this->spreadsheet = $reader->load($this->filename);
         $assertions = $this->pageMarginAssertions();
+        $sheetCount = 0;
 
         foreach ($this->spreadsheet->getAllSheets() as $worksheet) {
             if (!array_key_exists($worksheet->getTitle(), $assertions)) {
-                continue;
+                self::fail('Unexpected worksheet ' . $worksheet->getTitle());
             }
 
+            ++$sheetCount;
             $sheetAssertions = $assertions[$worksheet->getTitle()];
             foreach ($sheetAssertions as $test => $expectedResult) {
                 $testMethodName = 'get' . ucfirst($test);
@@ -76,6 +83,7 @@ class PageSetupTest extends TestCase
                 );
             }
         }
+        self::assertCount($sheetCount, $assertions);
     }
 
     private function pageSetupAssertions(): array

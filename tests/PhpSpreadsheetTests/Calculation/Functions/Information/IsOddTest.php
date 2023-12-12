@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Information;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -17,17 +19,14 @@ class IsOddTest extends TestCase
 
     /**
      * @dataProvider providerIsOdd
-     *
-     * @param bool|string $expectedResult
-     * @param mixed $value
      */
-    public function testIsOdd($expectedResult, $value): void
+    public function testIsOdd(bool|string $expectedResult, mixed $value): void
     {
         $result = Value::isOdd($value);
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerIsOdd(): array
+    public static function providerIsOdd(): array
     {
         return require 'tests/data/Calculation/Information/IS_ODD.php';
     }
@@ -44,7 +43,7 @@ class IsOddTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerIsOddArray(): array
+    public static function providerIsOddArray(): array
     {
         return [
             'vector' => [

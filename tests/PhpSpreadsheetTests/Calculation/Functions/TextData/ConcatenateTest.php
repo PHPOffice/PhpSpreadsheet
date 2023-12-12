@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -8,11 +10,8 @@ class ConcatenateTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerCONCATENATE
-     *
-     * @param mixed $expectedResult
-     * @param array $args
      */
-    public function testCONCATENATE($expectedResult, ...$args): void
+    public function testCONCATENATE(mixed $expectedResult, mixed ...$args): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -28,7 +27,7 @@ class ConcatenateTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerCONCATENATE(): array
+    public static function providerCONCATENATE(): array
     {
         return require 'tests/data/Calculation/TextData/CONCATENATE.php';
     }

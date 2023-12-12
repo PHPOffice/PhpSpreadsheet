@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,15 +10,13 @@ class PoissonTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerPOISSON
-     *
-     * @param mixed $expectedResult
      */
-    public function testPOISSON($expectedResult, ...$args): void
+    public function testPOISSON(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('POISSON', $expectedResult, ...$args);
     }
 
-    public function providerPOISSON(): array
+    public static function providerPOISSON(): array
     {
         return require 'tests/data/Calculation/Statistical/POISSON.php';
     }
@@ -33,7 +33,7 @@ class PoissonTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerPoissonArray(): array
+    public static function providerPoissonArray(): array
     {
         return [
             'row/column vectors' => [

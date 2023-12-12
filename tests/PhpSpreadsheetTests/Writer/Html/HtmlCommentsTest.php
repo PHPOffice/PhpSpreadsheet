@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Html;
 
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
@@ -13,7 +15,7 @@ class HtmlCommentsTest extends Functional\AbstractFunctional
      */
     private $spreadsheet;
 
-    public function providerCommentRichText(): array
+    public static function providerCommentRichText(): array
     {
         $valueSingle = 'I am comment.';
         $valueMulti = 'I am ' . PHP_EOL . 'multi-line' . PHP_EOL . 'comment.';
@@ -52,10 +54,8 @@ class HtmlCommentsTest extends Functional\AbstractFunctional
 
     /**
      * @dataProvider providerCommentRichText
-     *
-     * @param mixed $richText
      */
-    public function testComments($richText): void
+    public function testComments(RichText $richText): void
     {
         $this->spreadsheet = new Spreadsheet();
 

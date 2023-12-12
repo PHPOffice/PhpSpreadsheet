@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,12 +10,8 @@ class ReptTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerREPT
-     *
-     * @param mixed $expectedResult
-     * @param mixed $val
-     * @param mixed $rpt
      */
-    public function testReptThroughEngine($expectedResult, $val = 'omitted', $rpt = 'omitted'): void
+    public function testReptThroughEngine(mixed $expectedResult, mixed $val = 'omitted', mixed $rpt = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -31,7 +29,7 @@ class ReptTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerREPT(): array
+    public static function providerREPT(): array
     {
         return require 'tests/data/Calculation/TextData/REPT.php';
     }
@@ -48,7 +46,7 @@ class ReptTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerReptArray(): array
+    public static function providerReptArray(): array
     {
         return [
             'row vector #1' => [[['PHPPHPPHP', 'HAHAHA', 'HOHOHO']], '{"PHP", "HA", "HO"}', '3'],

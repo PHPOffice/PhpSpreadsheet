@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Chart;
 
 use PhpOffice\PhpSpreadsheet\Chart\Properties;
@@ -38,7 +40,7 @@ class Charts32XmlTest extends TestCase
         self::assertSame($expectedCount, substr_count($data, '<c:smooth val="1"/>'));
     }
 
-    public function providerScatterCharts(): array
+    public static function providerScatterCharts(): array
     {
         return [
             'no line' => [0, '32readwriteScatterChart1.xlsx'],
@@ -114,7 +116,7 @@ class Charts32XmlTest extends TestCase
         }
     }
 
-    public function providerCatAxValAx(): array
+    public static function providerCatAxValAx(): array
     {
         return [
             [true],

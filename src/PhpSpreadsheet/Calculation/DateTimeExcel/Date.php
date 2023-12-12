@@ -72,26 +72,24 @@ class Date
         $baseYear = SharedDateHelper::getExcelCalendar();
 
         try {
-            $year = self::getYear($year, $baseYear); // must be int - Scrutinizer is wrong
+            $year = self::getYear($year, $baseYear);
             $month = self::getMonth($month);
             $day = self::getDay($day);
-            self::adjustYearMonth(/** @scrutinizer ignore-type */ $year, $month, $baseYear);
+            self::adjustYearMonth($year, $month, $baseYear);
         } catch (Exception $e) {
             return $e->getMessage();
         }
 
         // Execute function
-        $excelDateValue = SharedDateHelper::formattedPHPToExcel(/** @scrutinizer ignore-type */ $year, $month, $day);
+        $excelDateValue = SharedDateHelper::formattedPHPToExcel($year, $month, $day);
 
         return Helpers::returnIn3FormatsFloat($excelDateValue);
     }
 
     /**
      * Convert year from multiple formats to int.
-     *
-     * @param mixed $year
      */
-    private static function getYear($year, int $baseYear): int
+    private static function getYear(mixed $year, int $baseYear): int
     {
         $year = ($year !== null) ? StringHelper::testStringAsNumeric((string) $year) : 0;
         if (!is_numeric($year)) {
@@ -115,10 +113,8 @@ class Date
 
     /**
      * Convert month from multiple formats to int.
-     *
-     * @param mixed $month
      */
-    private static function getMonth($month): int
+    private static function getMonth(mixed $month): int
     {
         if (($month !== null) && (!is_numeric($month))) {
             $month = SharedDateHelper::monthStringToNumber($month);
@@ -134,10 +130,8 @@ class Date
 
     /**
      * Convert day from multiple formats to int.
-     *
-     * @param mixed $day
      */
-    private static function getDay($day): int
+    private static function getDay(mixed $day): int
     {
         if (($day !== null) && (!is_numeric($day))) {
             $day = SharedDateHelper::dayStringToNumber($day);

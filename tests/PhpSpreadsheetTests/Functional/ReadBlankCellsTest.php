@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Functional;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class ReadBlankCellsTest extends AbstractFunctional
 {
-    public function providerSheetFormat(): array
+    public static function providerSheetFormat(): array
     {
         return [
             ['Xlsx'],
@@ -21,10 +23,8 @@ class ReadBlankCellsTest extends AbstractFunctional
      * Test generate file with some empty cells.
      *
      * @dataProvider providerSheetFormat
-     *
-     * @param mixed $format
      */
-    public function testXlsxLoadWithNoBlankCells($format): void
+    public function testXlsxLoadWithNoBlankCells(mixed $format): void
     {
         $spreadsheet = new Spreadsheet();
         $spreadsheet->getActiveSheet()->getCell('B2')->setValue('');

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,12 +10,8 @@ class PowerTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerPOWER
-     *
-     * @param mixed $expectedResult
-     * @param mixed $base
-     * @param mixed $exponent
      */
-    public function testPOWER($expectedResult, $base = 'omitted', $exponent = 'omitted'): void
+    public function testPOWER(mixed $expectedResult, mixed $base = 'omitted', mixed $exponent = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -34,7 +32,7 @@ class PowerTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerPOWER(): array
+    public static function providerPOWER(): array
     {
         return require 'tests/data/Calculation/MathTrig/POWER.php';
     }
@@ -51,7 +49,7 @@ class PowerTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerPowerArray(): array
+    public static function providerPowerArray(): array
     {
         return [
             'matrix' => [[[729, 512, 343], [216, 125, 64], [27, 8, 1]], '{9, 8, 7; 6, 5, 4; 3, 2, 1}', '3'],

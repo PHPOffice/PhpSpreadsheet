@@ -15,7 +15,7 @@ class Drawing
      *
      * @return int Value in EMU
      */
-    public static function pixelsToEMU($pixelValue)
+    public static function pixelsToEMU($pixelValue): int|float
     {
         return $pixelValue * 9525;
     }
@@ -27,7 +27,7 @@ class Drawing
      *
      * @return int Value in pixels
      */
-    public static function EMUToPixels($emuValue)
+    public static function EMUToPixels($emuValue): int
     {
         $emuValue = (int) $emuValue;
         if ($emuValue != 0) {
@@ -46,7 +46,7 @@ class Drawing
      *
      * @return float|int Value in cell dimension
      */
-    public static function pixelsToCellDimension($pixelValue, \PhpOffice\PhpSpreadsheet\Style\Font $defaultFont)
+    public static function pixelsToCellDimension($pixelValue, \PhpOffice\PhpSpreadsheet\Style\Font $defaultFont): int|float
     {
         // Font name and size
         $name = $defaultFont->getName();
@@ -72,7 +72,7 @@ class Drawing
      *
      * @return int Value in pixels
      */
-    public static function cellDimensionToPixels($cellWidth, \PhpOffice\PhpSpreadsheet\Style\Font $defaultFont)
+    public static function cellDimensionToPixels($cellWidth, \PhpOffice\PhpSpreadsheet\Style\Font $defaultFont): int
     {
         // Font name and size
         $name = $defaultFont->getName();
@@ -102,7 +102,7 @@ class Drawing
      *
      * @return float Value in points
      */
-    public static function pixelsToPoints($pixelValue)
+    public static function pixelsToPoints($pixelValue): float
     {
         return $pixelValue * 0.75;
     }
@@ -110,11 +110,11 @@ class Drawing
     /**
      * Convert points to pixels.
      *
-     * @param int $pointValue Value in points
+     * @param float|int $pointValue Value in points
      *
      * @return int Value in pixels
      */
-    public static function pointsToPixels($pointValue)
+    public static function pointsToPixels($pointValue): int
     {
         if ($pointValue != 0) {
             return (int) ceil($pointValue / 0.75);
@@ -130,7 +130,7 @@ class Drawing
      *
      * @return int Angle
      */
-    public static function degreesToAngle($degrees)
+    public static function degreesToAngle($degrees): int
     {
         return (int) round($degrees * 60000);
     }
@@ -142,7 +142,7 @@ class Drawing
      *
      * @return int Degrees
      */
-    public static function angleToDegrees($angle)
+    public static function angleToDegrees($angle): int
     {
         $angle = (int) $angle;
         if ($angle != 0) {
@@ -159,13 +159,11 @@ class Drawing
      *
      * @param string $bmpFilename Path to Windows DIB (BMP) image
      *
-     * @return GdImage|resource
-     *
      * @deprecated 1.26 use Php function imagecreatefrombmp instead
      *
      * @codeCoverageIgnore
      */
-    public static function imagecreatefrombmp($bmpFilename)
+    public static function imagecreatefrombmp($bmpFilename): GdImage
     {
         $retVal = @imagecreatefrombmp($bmpFilename);
         if ($retVal === false) {

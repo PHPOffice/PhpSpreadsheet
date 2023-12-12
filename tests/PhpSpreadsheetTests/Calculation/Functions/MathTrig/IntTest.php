@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,11 +10,8 @@ class IntTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerINT
-     *
-     * @param mixed $expectedResult
-     * @param string $formula
      */
-    public function testINT($expectedResult, $formula): void
+    public function testINT(mixed $expectedResult, string $formula): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -25,7 +24,7 @@ class IntTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerINT(): array
+    public static function providerINT(): array
     {
         return require 'tests/data/Calculation/MathTrig/INT.php';
     }
@@ -42,7 +41,7 @@ class IntTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerIntArray(): array
+    public static function providerIntArray(): array
     {
         return [
             'row vector' => [[[-2, 0, 0]], '{-1.5, 0, 0.3}'],

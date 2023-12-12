@@ -18,7 +18,7 @@ class Trim
      *         If an array of values is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function nonPrintable($stringValue = '')
+    public static function nonPrintable(mixed $stringValue = '')
     {
         if (is_array($stringValue)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $stringValue);
@@ -39,7 +39,7 @@ class Trim
      *         If an array of values is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function spaces($stringValue = '')
+    public static function spaces(mixed $stringValue = ''): array|string
     {
         if (is_array($stringValue)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $stringValue);

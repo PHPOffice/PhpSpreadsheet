@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,14 +10,8 @@ class ReplaceTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerREPLACE
-     *
-     * @param mixed $expectedResult
-     * @param mixed $oldText
-     * @param mixed $start
-     * @param mixed $count
-     * @param mixed $newText
      */
-    public function testREPLACE($expectedResult, $oldText = 'omitted', $start = 'omitted', $count = 'omitted', $newText = 'omitted'): void
+    public function testREPLACE(mixed $expectedResult, mixed $oldText = 'omitted', mixed $start = 'omitted', mixed $count = 'omitted', mixed $newText = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -44,7 +40,7 @@ class ReplaceTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerREPLACE(): array
+    public static function providerREPLACE(): array
     {
         return require 'tests/data/Calculation/TextData/REPLACE.php';
     }
@@ -66,7 +62,7 @@ class ReplaceTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerReplaceArray(): array
+    public static function providerReplaceArray(): array
     {
         return [
             'row vector' => [[['Elephpant', 'ElePHPant']], '"Elephant"', '4', '2', '{"php", "PHP"}'],

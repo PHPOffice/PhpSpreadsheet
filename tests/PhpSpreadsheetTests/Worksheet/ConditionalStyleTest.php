@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -75,7 +77,7 @@ class ConditionalStyleTest extends TestCase
         self::assertSame($expectedGetConditionalStyles, !empty($cellHasConditionalStyles));
     }
 
-    public function cellConditionalStylesProvider(): array
+    public static function cellConditionalStylesProvider(): array
     {
         return [
             ['A1', true],

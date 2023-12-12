@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Helper;
 
 use PhpOffice\PhpSpreadsheet\Helper\Sample;
@@ -16,16 +18,14 @@ class SampleTest extends TestCase
      */
     public function testSample(string $sample): void
     {
-        // Suppress output to console
-        $this->setOutputCallback(function (): void {
-        });
-
+        ob_start();
         require $sample;
+        ob_end_clean();
 
         self::assertTrue(true);
     }
 
-    public function providerSample(): array
+    public static function providerSample(): array
     {
         $skipped = [
         ];

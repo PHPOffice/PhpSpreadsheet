@@ -5,6 +5,8 @@ namespace PhpOffice\PhpSpreadsheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Cell\Hyperlink;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\IComparable;
+use PhpOffice\PhpSpreadsheet\Worksheet\Drawing\Shadow;
+use SimpleXMLElement;
 
 class BaseDrawing implements IComparable
 {
@@ -19,10 +21,8 @@ class BaseDrawing implements IComparable
 
     /**
      * The editAs attribute, used only with two cell anchor.
-     *
-     * @var string
      */
-    protected $editAs = '';
+    protected string $editAs = '';
 
     /**
      * Image counter.
@@ -33,38 +33,28 @@ class BaseDrawing implements IComparable
 
     /**
      * Image index.
-     *
-     * @var int
      */
-    private $imageIndex = 0;
+    private int $imageIndex;
 
     /**
      * Name.
-     *
-     * @var string
      */
-    protected $name = '';
+    protected string $name = '';
 
     /**
      * Description.
-     *
-     * @var string
      */
-    protected $description = '';
+    protected string $description = '';
 
     /**
      * Worksheet.
-     *
-     * @var null|Worksheet
      */
-    protected $worksheet;
+    protected ?Worksheet $worksheet = null;
 
     /**
      * Coordinates.
-     *
-     * @var string
      */
-    protected $coordinates = 'A1';
+    protected string $coordinates = 'A1';
 
     /**
      * Offset X.
@@ -82,10 +72,8 @@ class BaseDrawing implements IComparable
 
     /**
      * Coordinates2.
-     *
-     * @var string
      */
-    protected $coordinates2 = '';
+    protected string $coordinates2 = '';
 
     /**
      * Offset X2.
@@ -143,19 +131,19 @@ class BaseDrawing implements IComparable
      */
     protected $rotation = 0;
 
+    protected bool $flipVertical = false;
+
+    protected bool $flipHorizontal = false;
+
     /**
      * Shadow.
-     *
-     * @var Drawing\Shadow
      */
-    protected $shadow;
+    protected Shadow $shadow;
 
     /**
      * Image hyperlink.
-     *
-     * @var null|Hyperlink
      */
-    private $hyperlink;
+    private ?Hyperlink $hyperlink = null;
 
     /**
      * Image type.
@@ -163,6 +151,9 @@ class BaseDrawing implements IComparable
      * @var int
      */
     protected $type = IMAGETYPE_UNKNOWN;
+
+    /** @var null|SimpleXMLElement|string[] */
+    protected $srcRect = [];
 
     /**
      * Create a new BaseDrawing.
@@ -175,6 +166,11 @@ class BaseDrawing implements IComparable
         // Set image index
         ++self::$imageCounter;
         $this->imageIndex = self::$imageCounter;
+    }
+
+    public function __destruct()
+    {
+        $this->worksheet = null;
     }
 
     public function getImageIndex(): int
@@ -232,7 +228,7 @@ class BaseDrawing implements IComparable
 
                 while ($iterator->valid()) {
                     if ($iterator->current()->getHashCode() === $this->getHashCode()) {
-                        $this->worksheet->getDrawingCollection()->offsetUnset(/** @scrutinizer ignore-type */ $iterator->key());
+                        $this->worksheet->getDrawingCollection()->offsetUnset($iterator->key());
                         $this->worksheet = null;
 
                         break;
@@ -431,23 +427,23 @@ class BaseDrawing implements IComparable
      *
      * @return string Hash code
      */
-    public function getHashCode()
+    public function getHashCode(): string
     {
         return md5(
-            $this->name .
-            $this->description .
-            (($this->worksheet === null) ? '' : $this->worksheet->getHashCode()) .
-            $this->coordinates .
-            $this->offsetX .
-            $this->offsetY .
-            $this->coordinates2 .
-            $this->offsetX2 .
-            $this->offsetY2 .
-            $this->width .
-            $this->height .
-            $this->rotation .
-            $this->shadow->getHashCode() .
-            __CLASS__
+            $this->name
+            . $this->description
+            . (($this->worksheet === null) ? '' : $this->worksheet->getHashCode())
+            . $this->coordinates
+            . $this->offsetX
+            . $this->offsetY
+            . $this->coordinates2
+            . $this->offsetX2
+            . $this->offsetY2
+            . $this->width
+            . $this->height
+            . $this->rotation
+            . $this->shadow->getHashCode()
+            . __CLASS__
         );
     }
 
@@ -531,5 +527,47 @@ class BaseDrawing implements IComparable
     public function validEditAs(): bool
     {
         return in_array($this->editAs, self::VALID_EDIT_AS, true);
+    }
+
+    /**
+     * @return null|SimpleXMLElement|string[]
+     */
+    public function getSrcRect()
+    {
+        return $this->srcRect;
+    }
+
+    /**
+     * @param null|SimpleXMLElement|string[] $srcRect
+     */
+    public function setSrcRect($srcRect): self
+    {
+        $this->srcRect = $srcRect;
+
+        return $this;
+    }
+
+    public function setFlipHorizontal(bool $flipHorizontal): self
+    {
+        $this->flipHorizontal = $flipHorizontal;
+
+        return $this;
+    }
+
+    public function getFlipHorizontal(): bool
+    {
+        return $this->flipHorizontal;
+    }
+
+    public function setFlipVertical(bool $flipVertical): self
+    {
+        $this->flipVertical = $flipVertical;
+
+        return $this;
+    }
+
+    public function getFlipVertical(): bool
+    {
+        return $this->flipVertical;
     }
 }

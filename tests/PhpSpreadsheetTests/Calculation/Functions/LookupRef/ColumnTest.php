@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
@@ -8,17 +10,14 @@ class ColumnTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerCOLUMN
-     *
-     * @param mixed $expectedResult
-     * @param null|array|string $cellReference
      */
-    public function testCOLUMN($expectedResult, $cellReference = null): void
+    public function testCOLUMN(mixed $expectedResult, null|array|string $cellReference = null): void
     {
         $result = LookupRef\RowColumnInformation::COLUMN($cellReference);
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerCOLUMN(): array
+    public static function providerCOLUMN(): array
     {
         return require 'tests/data/Calculation/LookupRef/COLUMN.php';
     }

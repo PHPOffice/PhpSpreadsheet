@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,11 +10,8 @@ class Log10Test extends AllSetupTeardown
 {
     /**
      * @dataProvider providerLOG10
-     *
-     * @param mixed $expectedResult
-     * @param mixed $number
      */
-    public function testLOG10($expectedResult, $number = 'omitted'): void
+    public function testLOG10(mixed $expectedResult, mixed $number = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -28,7 +27,7 @@ class Log10Test extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-6);
     }
 
-    public function providerLOG10(): array
+    public static function providerLOG10(): array
     {
         return require 'tests/data/Calculation/MathTrig/LOG10.php';
     }
@@ -45,7 +44,7 @@ class Log10Test extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerLog10Array(): array
+    public static function providerLog10Array(): array
     {
         return [
             'row vector' => [[[-0.90308998699194, 0.3701428470511, 1.09691001300806]], '{0.125, 2.345, 12.5}'],

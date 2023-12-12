@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcException;
@@ -50,7 +52,7 @@ class FormulaParserTest extends TestCase
         }
     }
 
-    public function providerFormulaParser(): array
+    public static function providerFormulaParser(): array
     {
         return [
             ['5%*(2+(-3))+A3',

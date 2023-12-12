@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Ods;
 
 use PhpOffice\PhpSpreadsheet\Reader\IReadFilter;
@@ -8,19 +10,10 @@ use PHPUnit\Framework\TestCase;
 
 class RepeatedColumnsTest extends TestCase
 {
-    /**
-     * @var Ods
-     */
-    private $reader;
-
-    protected function setUp(): void
-    {
-        $this->reader = new Ods();
-    }
-
     public function testDefinedNames(): void
     {
-        $this->reader->setReadFilter(
+        $reader = new Ods();
+        $reader->setReadFilter(
             new class () implements IReadFilter {
                 public function readCell($columnAddress, $row, $worksheetName = ''): bool
                 {
@@ -28,7 +21,7 @@ class RepeatedColumnsTest extends TestCase
                 }
             }
         );
-        $spreadsheet = $this->reader->load('tests/data/Reader/Ods/RepeatedCells.ods');
+        $spreadsheet = $reader->load('tests/data/Reader/Ods/RepeatedCells.ods');
         $worksheet = $spreadsheet->getActiveSheet();
 
         self::assertEquals('TestA', $worksheet->getCell('A1')->getValue());
@@ -37,5 +30,6 @@ class RepeatedColumnsTest extends TestCase
         self::assertEquals('TestG', $worksheet->getCell('G1')->getValue());
         self::assertEquals('A', $worksheet->getCell('J1')->getValue());
         self::assertEquals('TestK', $worksheet->getCell('K1')->getValue());
+        $spreadsheet->disconnectWorksheets();
     }
 }

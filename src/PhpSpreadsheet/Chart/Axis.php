@@ -26,17 +26,13 @@ class Axis extends Properties
 
     /**
      * Chart Major Gridlines as.
-     *
-     * @var ?GridLines
      */
-    private $majorGridlines;
+    private ?GridLines $majorGridlines = null;
 
     /**
      * Chart Minor Gridlines as.
-     *
-     * @var ?GridLines
      */
-    private $minorGridlines;
+    private ?GridLines $minorGridlines = null;
 
     /**
      * Axis Number.
@@ -49,8 +45,9 @@ class Axis extends Properties
         'numeric' => null,
     ];
 
-    /** @var string */
-    private $axisType = '';
+    private string $axisType = '';
+
+    private ?AxisText $axisText = null;
 
     /**
      * Axis Options.
@@ -77,10 +74,8 @@ class Axis extends Properties
 
     /**
      * Fill Properties.
-     *
-     * @var ChartColor
      */
-    private $fillColor;
+    private ChartColor $fillColor;
 
     private const NUMERIC_FORMAT = [
         Properties::FORMAT_CODE_NUMBER,
@@ -88,12 +83,13 @@ class Axis extends Properties
         Properties::FORMAT_CODE_DATE_ISO8601,
     ];
 
+    /** @var bool */
+    private $noFill = false;
+
     /**
      * Get Series Data Type.
-     *
-     * @param mixed $format_code
      */
-    public function setAxisNumberProperties($format_code, ?bool $numeric = null, int $sourceLinked = 0): void
+    public function setAxisNumberProperties(mixed $format_code, ?bool $numeric = null, int $sourceLinked = 0): void
     {
         $format = (string) $format_code;
         $this->axisNumber['format'] = $format;
@@ -117,10 +113,8 @@ class Axis extends Properties
 
     /**
      * Get Axis Number Source Linked.
-     *
-     * @return string
      */
-    public function getAxisNumberSourceLinked()
+    public function getAxisNumberSourceLinked(): string
     {
         return (string) $this->axisNumber['source_linked'];
     }
@@ -130,10 +124,10 @@ class Axis extends Properties
         return $this->axisType === self::AXIS_TYPE_DATE || (bool) $this->axisNumber['numeric'];
     }
 
-    public function setAxisOption(string $key, ?string $value): void
+    public function setAxisOption(string $key, null|float|int|string $value): void
     {
         if ($value !== null && $value !== '') {
-            $this->axisOptions[$key] = $value;
+            $this->axisOptions[$key] = (string) $value;
         }
     }
 
@@ -147,11 +141,11 @@ class Axis extends Properties
         ?string $axisOrientation = null,
         ?string $majorTmt = null,
         ?string $minorTmt = null,
-        ?string $minimum = null,
-        ?string $maximum = null,
-        ?string $majorUnit = null,
-        ?string $minorUnit = null,
-        ?string $textRotation = null,
+        null|float|int|string $minimum = null,
+        null|float|int|string $maximum = null,
+        null|float|int|string $majorUnit = null,
+        null|float|int|string $minorUnit = null,
+        null|float|int|string $textRotation = null,
         ?string $hidden = null,
         ?string $baseTimeUnit = null,
         ?string $majorTimeUnit = null,
@@ -183,6 +177,14 @@ class Axis extends Properties
      */
     public function getAxisOptionsProperty($property)
     {
+        if ($property === 'textRotation') {
+            if ($this->axisText !== null) {
+                if ($this->axisText->getRotation() !== null) {
+                    return (string) $this->axisText->getRotation();
+                }
+            }
+        }
+
         return $this->axisOptions[$property];
     }
 
@@ -215,11 +217,9 @@ class Axis extends Properties
     /**
      * Set Fill Property.
      *
-     * @param ?string $color
      * @param ?int $alpha
-     * @param ?string $AlphaType
      */
-    public function setFillParameters($color, $alpha = null, $AlphaType = ChartColor::EXCEL_COLOR_TYPE_RGB): void
+    public function setFillParameters(?string $color, $alpha = null, ?string $AlphaType = ChartColor::EXCEL_COLOR_TYPE_RGB): void
     {
         $this->fillColor->setColorProperties($color, $alpha, $AlphaType);
     }
@@ -228,10 +228,8 @@ class Axis extends Properties
      * Get Fill Property.
      *
      * @param string $property
-     *
-     * @return string
      */
-    public function getFillProperty($property)
+    public function getFillProperty($property): string
     {
         return (string) $this->fillColor->getColorProperty($property);
     }
@@ -257,8 +255,7 @@ class Axis extends Properties
         return $this->getLineColorProperty($propertyName);
     }
 
-    /** @var string */
-    private $crossBetween = ''; // 'between' or 'midCat' might be better
+    private string $crossBetween = ''; // 'between' or 'midCat' might be better
 
     public function setCrossBetween(string $crossBetween): self
     {
@@ -294,5 +291,29 @@ class Axis extends Properties
         $this->minorGridlines = $gridlines;
 
         return $this;
+    }
+
+    public function getAxisText(): ?AxisText
+    {
+        return $this->axisText;
+    }
+
+    public function setAxisText(?AxisText $axisText): self
+    {
+        $this->axisText = $axisText;
+
+        return $this;
+    }
+
+    public function setNoFill(bool $noFill): self
+    {
+        $this->noFill = $noFill;
+
+        return $this;
+    }
+
+    public function getNoFill(): bool
+    {
+        return $this->noFill;
     }
 }

@@ -288,10 +288,8 @@ class StringHelper
      * element or in the shared string <t> element.
      *
      * @param string $textValue Value to unescape
-     *
-     * @return string
      */
-    public static function controlCharacterOOXML2PHP($textValue)
+    public static function controlCharacterOOXML2PHP($textValue): string
     {
         self::buildCharacterSets();
 
@@ -310,10 +308,8 @@ class StringHelper
      * element or in the shared string <t> element.
      *
      * @param string $textValue Value to escape
-     *
-     * @return string
      */
-    public static function controlCharacterPHP2OOXML($textValue)
+    public static function controlCharacterPHP2OOXML($textValue): string
     {
         self::buildCharacterSets();
 
@@ -330,19 +326,9 @@ class StringHelper
         mb_substitute_character(65533); // Unicode substitution character
         // Phpstan does not think this can return false.
         $returnValue = mb_convert_encoding($textValue, 'UTF-8', 'UTF-8');
-        mb_substitute_character(/** @scrutinizer ignore-type */ $subst);
+        mb_substitute_character($subst);
 
-        return self::returnString($returnValue);
-    }
-
-    /**
-     * Strictly to satisfy Scrutinizer.
-     *
-     * @param mixed $value
-     */
-    private static function returnString($value): string
-    {
-        return is_string($value) ? $value : '';
+        return $returnValue;
     }
 
     /**
@@ -412,11 +398,9 @@ class StringHelper
      */
     public static function UTF8toBIFF8UnicodeLong(string $textValue): string
     {
-        // character count
-        $ln = self::countCharacters($textValue, 'UTF-8');
-
         // characters
         $chars = self::convertEncoding($textValue, 'UTF-16LE', 'UTF-8');
+        $ln = (int) (strlen($chars) / 2);  // N.B. - strlen, not mb_strlen issue #642
 
         return pack('vC', $ln, 0x0001) . $chars;
     }
@@ -436,7 +420,7 @@ class StringHelper
             }
         }
 
-        return self::returnString(mb_convert_encoding($textValue, $to, $from));
+        return mb_convert_encoding($textValue, $to, $from);
     }
 
     /**
@@ -449,6 +433,18 @@ class StringHelper
     public static function countCharacters(string $textValue, string $encoding = 'UTF-8'): int
     {
         return mb_strlen($textValue, $encoding);
+    }
+
+    /**
+     * Get character count using mb_strwidth rather than mb_strlen.
+     *
+     * @param string $encoding Encoding
+     *
+     * @return int Character count
+     */
+    public static function countCharactersDbcs(string $textValue, string $encoding = 'UTF-8'): int
+    {
+        return mb_strwidth($textValue, $encoding);
     }
 
     /**
@@ -641,7 +637,7 @@ class StringHelper
         self::buildCharacterSets();
 
         // If there is no escape character in the string there is nothing to do
-        if (strpos($textValue, '') === false) {
+        if (!str_contains($textValue, '')) {
             return $textValue;
         }
 

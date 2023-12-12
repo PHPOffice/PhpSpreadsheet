@@ -13,20 +13,16 @@ class CyclicReferenceStack
 
     /**
      * Return the number of entries on the stack.
-     *
-     * @return int
      */
-    public function count()
+    public function count(): int
     {
         return count($this->stack);
     }
 
     /**
      * Push a new entry onto the stack.
-     *
-     * @param mixed $value
      */
-    public function push($value): void
+    public function push(mixed $value): void
     {
         $this->stack[$value] = $value;
     }
@@ -45,10 +41,8 @@ class CyclicReferenceStack
      * Test to see if a specified entry exists on the stack.
      *
      * @param mixed $value The value to test
-     *
-     * @return bool
      */
-    public function onStack($value)
+    public function onStack(mixed $value): bool
     {
         return isset($this->stack[$value]);
     }

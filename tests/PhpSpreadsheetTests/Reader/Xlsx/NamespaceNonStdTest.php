@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
@@ -24,7 +26,7 @@ class NamespaceNonStdTest extends \PHPUnit\Framework\TestCase
         if ($data === false) {
             self::fail('Unable to read file');
         } else {
-            if (strpos(__FILE__, 'NonStd') === false) {
+            if (!str_contains(__FILE__, 'NonStd')) {
                 self::assertStringNotContainsString('nonstd', self::$testbook);
                 self::assertStringContainsString('<workbook ', $data);
             } else {

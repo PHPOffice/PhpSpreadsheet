@@ -53,7 +53,7 @@ class Settings
      *
      * @return bool Success or failure
      */
-    public static function setLocale(string $locale)
+    public static function setLocale(string $locale): bool
     {
         return Calculation::getInstance()->setLocale($locale);
     }
@@ -78,6 +78,11 @@ class Settings
         self::$chartRenderer = $rendererClassName;
     }
 
+    public static function unsetChartRenderer(): void
+    {
+        self::$chartRenderer = null;
+    }
+
     /**
      * Return the Chart Rendering Library that PhpSpreadsheet is currently configured to use.
      *
@@ -91,7 +96,7 @@ class Settings
 
     public static function htmlEntityFlags(): int
     {
-        return \ENT_COMPAT;
+        return ENT_COMPAT;
     }
 
     /**
@@ -133,7 +138,7 @@ class Settings
      *
      * @codeCoverageIgnore
      */
-    public static function setLibXmlDisableEntityLoader(/** @scrutinizer ignore-unused */ $state): void
+    public static function setLibXmlDisableEntityLoader($state): void
     {
         // noop
     }
@@ -155,7 +160,7 @@ class Settings
     /**
      * Sets the implementation of cache that should be used for cell collection.
      */
-    public static function setCache(CacheInterface $cache): void
+    public static function setCache(?CacheInterface $cache): void
     {
         self::$cache = $cache;
     }
@@ -174,9 +179,7 @@ class Settings
 
     public static function useSimpleCacheVersion3(): bool
     {
-        return
-            PHP_MAJOR_VERSION === 8 &&
-            (new ReflectionClass(CacheInterface::class))->getMethod('get')->getReturnType() !== null;
+        return (new ReflectionClass(CacheInterface::class))->getMethod('get')->getReturnType() !== null;
     }
 
     /**

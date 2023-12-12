@@ -26,10 +26,7 @@ class Blanks extends WizardAbstract implements WizardInterface
         Wizard::BLANKS => 'LEN(TRIM(%s))=0',
     ];
 
-    /**
-     * @var bool
-     */
-    protected $inverse;
+    protected bool $inverse;
 
     public function __construct(string $cellRange, bool $inverse = false)
     {
@@ -68,8 +65,8 @@ class Blanks extends WizardAbstract implements WizardInterface
     public static function fromConditional(Conditional $conditional, string $cellRange = 'A1'): WizardInterface
     {
         if (
-            $conditional->getConditionType() !== Conditional::CONDITION_CONTAINSBLANKS &&
-            $conditional->getConditionType() !== Conditional::CONDITION_NOTCONTAINSBLANKS
+            $conditional->getConditionType() !== Conditional::CONDITION_CONTAINSBLANKS
+            && $conditional->getConditionType() !== Conditional::CONDITION_NOTCONTAINSBLANKS
         ) {
             throw new Exception('Conditional is not a Blanks CF Rule conditional');
         }

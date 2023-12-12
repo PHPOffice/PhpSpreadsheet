@@ -101,20 +101,16 @@ class HashTable
 
     /**
      * Count.
-     *
-     * @return int
      */
-    public function count()
+    public function count(): int
     {
         return count($this->items);
     }
 
     /**
      * Get index for hash code.
-     *
-     * @return false|int Index
      */
-    public function getIndexForHashCode(string $hashCode)
+    public function getIndexForHashCode(string $hashCode): false|int
     {
         return array_search($hashCode, $this->keyMap, true);
     }

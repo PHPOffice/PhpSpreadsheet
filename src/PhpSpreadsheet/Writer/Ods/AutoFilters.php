@@ -9,15 +9,9 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class AutoFilters
 {
-    /**
-     * @var XMLWriter
-     */
-    private $objWriter;
+    private XMLWriter $objWriter;
 
-    /**
-     * @var Spreadsheet
-     */
-    private $spreadsheet;
+    private Spreadsheet $spreadsheet;
 
     public function __construct(XMLWriter $objWriter, Spreadsheet $spreadsheet)
     {
@@ -25,12 +19,9 @@ class AutoFilters
         $this->spreadsheet = $spreadsheet;
     }
 
-    /** @var mixed */
-    private static $scrutinizerFalse = false;
-
     public function write(): void
     {
-        $wrapperWritten = self::$scrutinizerFalse;
+        $wrapperWritten = false;
         $sheetCount = $this->spreadsheet->getSheetCount();
         for ($i = 0; $i < $sheetCount; ++$i) {
             $worksheet = $this->spreadsheet->getSheet($i);

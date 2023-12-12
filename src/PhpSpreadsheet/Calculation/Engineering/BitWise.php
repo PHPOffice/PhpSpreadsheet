@@ -4,7 +4,6 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 class BitWise
@@ -17,10 +16,12 @@ class BitWise
      * Split a number into upper and lower portions for full 32-bit support.
      *
      * @param float|int $number
+     *
+     * @return int[]
      */
     private static function splitNumber($number): array
     {
-        return [floor($number / self::SPLIT_DIVISOR), fmod($number, self::SPLIT_DIVISOR)];
+        return [(int) floor($number / self::SPLIT_DIVISOR), (int) fmod($number, self::SPLIT_DIVISOR)];
     }
 
     /**
@@ -40,7 +41,7 @@ class BitWise
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function BITAND($number1, $number2)
+    public static function BITAND($number1, $number2): array|string|int
     {
         if (is_array($number1) || is_array($number2)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $number1, $number2);
@@ -55,7 +56,7 @@ class BitWise
         $split1 = self::splitNumber($number1);
         $split2 = self::splitNumber($number2);
 
-        return  self::SPLIT_DIVISOR * ($split1[0] & $split2[0]) + ($split1[1] & $split2[1]);
+        return self::SPLIT_DIVISOR * ($split1[0] & $split2[0]) + ($split1[1] & $split2[1]);
     }
 
     /**
@@ -75,7 +76,7 @@ class BitWise
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function BITOR($number1, $number2)
+    public static function BITOR($number1, $number2): array|string|int
     {
         if (is_array($number1) || is_array($number2)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $number1, $number2);
@@ -91,7 +92,7 @@ class BitWise
         $split1 = self::splitNumber($number1);
         $split2 = self::splitNumber($number2);
 
-        return  self::SPLIT_DIVISOR * ($split1[0] | $split2[0]) + ($split1[1] | $split2[1]);
+        return self::SPLIT_DIVISOR * ($split1[0] | $split2[0]) + ($split1[1] | $split2[1]);
     }
 
     /**
@@ -111,7 +112,7 @@ class BitWise
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function BITXOR($number1, $number2)
+    public static function BITXOR($number1, $number2): array|string|int
     {
         if (is_array($number1) || is_array($number2)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $number1, $number2);
@@ -127,7 +128,7 @@ class BitWise
         $split1 = self::splitNumber($number1);
         $split2 = self::splitNumber($number2);
 
-        return  self::SPLIT_DIVISOR * ($split1[0] ^ $split2[0]) + ($split1[1] ^ $split2[1]);
+        return self::SPLIT_DIVISOR * ($split1[0] ^ $split2[0]) + ($split1[1] ^ $split2[1]);
     }
 
     /**
@@ -143,11 +144,11 @@ class BitWise
      * @param array|int $shiftAmount
      *                      Or can be an array of values
      *
-     * @return array|float|int|string
+     * @return array|float|string
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function BITLSHIFT($number, $shiftAmount)
+    public static function BITLSHIFT($number, $shiftAmount): array|string|float
     {
         if (is_array($number) || is_array($shiftAmount)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $number, $shiftAmount);
@@ -181,11 +182,11 @@ class BitWise
      * @param array|int $shiftAmount
      *                      Or can be an array of values
      *
-     * @return array|float|int|string
+     * @return array|float|string
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function BITRSHIFT($number, $shiftAmount)
+    public static function BITRSHIFT($number, $shiftAmount): array|string|float
     {
         if (is_array($number) || is_array($shiftAmount)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $number, $shiftAmount);
@@ -208,12 +209,8 @@ class BitWise
 
     /**
      * Validate arguments passed to the bitwise functions.
-     *
-     * @param mixed $value
-     *
-     * @return float
      */
-    private static function validateBitwiseArgument($value)
+    private static function validateBitwiseArgument(mixed $value): float
     {
         $value = self::nullFalseTrueToNumber($value);
 
@@ -236,11 +233,9 @@ class BitWise
     /**
      * Validate arguments passed to the bitwise functions.
      *
-     * @param mixed $value
-     *
      * @return int
      */
-    private static function validateShiftAmount($value)
+    private static function validateShiftAmount(mixed $value)
     {
         $value = self::nullFalseTrueToNumber($value);
 
@@ -258,11 +253,9 @@ class BitWise
     /**
      * Many functions accept null/false/true argument treated as 0/0/1.
      *
-     * @param mixed $number
-     *
      * @return mixed
      */
-    private static function nullFalseTrueToNumber(&$number)
+    private static function nullFalseTrueToNumber(mixed &$number)
     {
         if ($number === null) {
             $number = 0;

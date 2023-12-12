@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Csv;
 
 use PhpOffice\PhpSpreadsheet\Reader\Csv;
@@ -61,7 +63,7 @@ class CsvLineEndingTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerEndings(): array
+    public static function providerEndings(): array
     {
         return [
             'Unix endings' => ["\n"],

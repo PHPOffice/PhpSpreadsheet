@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Shared;
 
 use PhpOffice\PhpSpreadsheet\Shared\PasswordHasher;
@@ -39,7 +41,7 @@ class PasswordReloadTest extends AbstractFunctional
         $reloadedSpreadsheet->disconnectWorksheets();
     }
 
-    public function providerPasswords(): array
+    public static function providerPasswords(): array
     {
         return [
             'Xls basic algorithm' => ['Xls', ''],

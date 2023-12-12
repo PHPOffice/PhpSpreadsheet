@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Csv;
 
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
@@ -26,10 +28,8 @@ class CsvNumberFormatTest extends TestCase
 
     /**
      * @dataProvider providerNumberFormatNoConversionTest
-     *
-     * @param mixed $expectedValue
      */
-    public function testNumberFormatNoConversion($expectedValue, string $expectedFormat, string $cellAddress): void
+    public function testNumberFormatNoConversion(int|string $expectedValue, string $expectedFormat, string $cellAddress): void
     {
         $spreadsheet = $this->csvReader->load($this->filename);
         $worksheet = $spreadsheet->getActiveSheet();
@@ -40,7 +40,7 @@ class CsvNumberFormatTest extends TestCase
         self::assertSame($expectedFormat, $cell->getFormattedValue(), 'Format mask check');
     }
 
-    public function providerNumberFormatNoConversionTest(): array
+    public static function providerNumberFormatNoConversionTest(): array
     {
         return [
             [
@@ -63,10 +63,8 @@ class CsvNumberFormatTest extends TestCase
 
     /**
      * @dataProvider providerNumberValueConversionTest
-     *
-     * @param mixed $expectedValue
      */
-    public function testNumberValueConversion($expectedValue, string $cellAddress): void
+    public function testNumberValueConversion(mixed $expectedValue, string $cellAddress): void
     {
         $this->csvReader->castFormattedNumberToNumeric(true);
         $spreadsheet = $this->csvReader->load($this->filename);
@@ -78,7 +76,7 @@ class CsvNumberFormatTest extends TestCase
         self::assertSame($expectedValue, $cell->getValue(), 'Expected value check');
     }
 
-    public function providerNumberValueConversionTest(): array
+    public static function providerNumberValueConversionTest(): array
     {
         return [
             'A1' => [
@@ -114,10 +112,8 @@ class CsvNumberFormatTest extends TestCase
 
     /**
      * @dataProvider providerNumberFormatConversionTest
-     *
-     * @param mixed $expectedValue
      */
-    public function testNumberFormatConversion($expectedValue, string $expectedFormat, string $cellAddress): void
+    public function testNumberFormatConversion(mixed $expectedValue, string $expectedFormat, string $cellAddress): void
     {
         $this->csvReader->castFormattedNumberToNumeric(true, true);
         $spreadsheet = $this->csvReader->load($this->filename);
@@ -130,7 +126,7 @@ class CsvNumberFormatTest extends TestCase
         self::assertSame($expectedFormat, $cell->getFormattedValue(), 'Format mask check');
     }
 
-    public function providerNumberFormatConversionTest(): array
+    public static function providerNumberFormatConversionTest(): array
     {
         return [
             'A1' => [

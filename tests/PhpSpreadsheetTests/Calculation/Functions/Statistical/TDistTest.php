@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,18 +10,13 @@ class TDistTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerTDIST
-     *
-     * @param mixed $expectedResult
-     * @param mixed $degrees
-     * @param mixed $value
-     * @param mixed $tails
      */
-    public function testTDIST($expectedResult, $value, $degrees, $tails): void
+    public function testTDIST(mixed $expectedResult, mixed $value, mixed $degrees, mixed $tails): void
     {
         $this->runTestCaseReference('TDIST', $expectedResult, $value, $degrees, $tails);
     }
 
-    public function providerTDIST(): array
+    public static function providerTDIST(): array
     {
         return require 'tests/data/Calculation/Statistical/TDIST.php';
     }
@@ -36,7 +33,7 @@ class TDistTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerTDistArray(): array
+    public static function providerTDistArray(): array
     {
         return [
             'row/column vectors' => [

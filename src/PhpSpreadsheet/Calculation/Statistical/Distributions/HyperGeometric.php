@@ -30,11 +30,11 @@ class HyperGeometric
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function distribution($sampleSuccesses, $sampleNumber, $populationSuccesses, $populationNumber)
+    public static function distribution(mixed $sampleSuccesses, mixed $sampleNumber, mixed $populationSuccesses, mixed $populationNumber): array|string|float
     {
         if (
-            is_array($sampleSuccesses) || is_array($sampleNumber) ||
-            is_array($populationSuccesses) || is_array($populationNumber)
+            is_array($sampleSuccesses) || is_array($sampleNumber)
+            || is_array($populationSuccesses) || is_array($populationNumber)
         ) {
             return self::evaluateArrayArguments(
                 [self::class, __FUNCTION__],

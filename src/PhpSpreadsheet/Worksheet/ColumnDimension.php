@@ -9,10 +9,8 @@ class ColumnDimension extends Dimension
 {
     /**
      * Column index.
-     *
-     * @var string
      */
-    private $columnIndex;
+    private ?string $columnIndex;
 
     /**
      * Column width.
@@ -33,7 +31,7 @@ class ColumnDimension extends Dimension
     /**
      * Create a new ColumnDimension.
      *
-     * @param string $index Character column index
+     * @param ?string $index Character column index
      */
     public function __construct($index = 'A')
     {
@@ -47,7 +45,7 @@ class ColumnDimension extends Dimension
     /**
      * Get column index as string eg: 'A'.
      */
-    public function getColumnIndex(): string
+    public function getColumnIndex(): ?string
     {
         return $this->columnIndex;
     }
@@ -67,7 +65,7 @@ class ColumnDimension extends Dimension
      */
     public function getColumnNumeric(): int
     {
-        return Coordinate::columnIndexFromString($this->columnIndex);
+        return Coordinate::columnIndexFromString($this->columnIndex ?? '');
     }
 
     /**
@@ -106,7 +104,7 @@ class ColumnDimension extends Dimension
      *
      * @return $this
      */
-    public function setWidth(float $width, ?string $unitOfMeasure = null)
+    public function setWidth(float $width, ?string $unitOfMeasure = null): static
     {
         $this->width = ($unitOfMeasure === null || $width < 0)
             ? $width
@@ -128,7 +126,7 @@ class ColumnDimension extends Dimension
      *
      * @return $this
      */
-    public function setAutoSize(bool $autosizeEnabled)
+    public function setAutoSize(bool $autosizeEnabled): static
     {
         $this->autoSize = $autosizeEnabled;
 

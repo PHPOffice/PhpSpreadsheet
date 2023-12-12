@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,11 +10,8 @@ class ExpTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerEXP
-     *
-     * @param mixed $expectedResult
-     * @param mixed $number
      */
-    public function testEXP($expectedResult, $number = 'omitted'): void
+    public function testEXP(mixed $expectedResult, mixed $number = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -28,7 +27,7 @@ class ExpTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerEXP(): array
+    public static function providerEXP(): array
     {
         return require 'tests/data/Calculation/MathTrig/EXP.php';
     }
@@ -45,7 +44,7 @@ class ExpTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerExpArray(): array
+    public static function providerExpArray(): array
     {
         return [
             'row vector' => [[[1.0, 2.718281828459045, 12.182493960703473]], '{0, 1, 2.5}'],

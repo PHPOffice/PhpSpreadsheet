@@ -1,28 +1,40 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 
-class DGetTest extends AllSetupTeardown
+use PhpOffice\PhpSpreadsheet\Calculation\Database\DGet;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
+
+class DGetTest extends SetupTeardownDatabases
 {
     /**
      * @dataProvider providerDGet
-     *
-     * @param mixed $expectedResult
-     * @param mixed $database
-     * @param mixed $field
-     * @param mixed $criteria
      */
-    public function testDGet($expectedResult, $database, $field, $criteria): void
+    public function testDirectCallToDGet(string|int $expectedResult, array $database, ?string $field, array $criteria): void
     {
-        $this->runTestCase('DGET', $expectedResult, $database, $field, $criteria);
+        $result = DGet::evaluate($database, $field, $criteria);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
-    public function providerDGet(): array
+    /**
+     * @dataProvider providerDGet
+     */
+    public function testDGetAsWorksheetFormula(string|int $expectedResult, array $database, ?string $field, array $criteria): void
+    {
+        $this->prepareWorksheetWithFormula('DGET', $database, $field, $criteria);
+
+        $result = $this->getSheet()->getCell(self::RESULT_CELL)->getCalculatedValue();
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
+    }
+
+    public static function providerDGet(): array
     {
         return [
             [
-                '#NUM!',
-                $this->database1(),
+                ExcelError::NAN(),
+                self::database1(),
                 'Yield',
                 [
                     ['Tree'],
@@ -32,7 +44,7 @@ class DGetTest extends AllSetupTeardown
             ],
             [
                 10,
-                $this->database1(),
+                self::database1(),
                 'Yield',
                 [
                     ['Tree', 'Height', 'Height'],
@@ -42,7 +54,7 @@ class DGetTest extends AllSetupTeardown
             ],
             [
                 188000,
-                $this->database2(),
+                self::database2(),
                 'Sales',
                 [
                     ['Sales Rep.', 'Quarter'],
@@ -50,8 +62,8 @@ class DGetTest extends AllSetupTeardown
                 ],
             ],
             [
-                '#NUM!',
-                $this->database2(),
+                ExcelError::NAN(),
+                self::database2(),
                 'Sales',
                 [
                     ['Area', 'Quarter'],
@@ -59,10 +71,10 @@ class DGetTest extends AllSetupTeardown
                 ],
             ],
             'omitted field name' => [
-                '#VALUE!',
-                $this->database1(),
+                ExcelError::VALUE(),
+                self::database1(),
                 null,
-                $this->database1(),
+                self::database1(),
             ],
         ];
     }

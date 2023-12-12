@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,15 +10,13 @@ class BinomDistTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerBINOMDIST
-     *
-     * @param mixed $expectedResult
      */
-    public function testBINOMDIST($expectedResult, ...$args): void
+    public function testBINOMDIST(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCaseReference('BINOMDIST', $expectedResult, ...$args);
     }
 
-    public function providerBINOMDIST(): array
+    public static function providerBINOMDIST(): array
     {
         return require 'tests/data/Calculation/Statistical/BINOMDIST.php';
     }
@@ -37,7 +37,7 @@ class BinomDistTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerBinomDistArray(): array
+    public static function providerBinomDistArray(): array
     {
         return [
             'row/column vectors' => [

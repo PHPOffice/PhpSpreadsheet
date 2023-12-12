@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet\AutoFilter;
 
 use DateTimeImmutable;
@@ -8,7 +10,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule;
 
 class AutoFilterTodayTest extends SetupTeardown
 {
-    public function providerYesterdayTodayTomorrow(): array
+    public static function providerYesterdayTodayTomorrow(): array
     {
         return [
             [[2, 5], Rule::AUTOFILTER_RULETYPE_DYNAMIC_TODAY],

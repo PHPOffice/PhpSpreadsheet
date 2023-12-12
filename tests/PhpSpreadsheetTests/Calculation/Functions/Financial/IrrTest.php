@@ -1,16 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 class IrrTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerIRR
-     *
-     * @param mixed $expectedResult
-     * @param mixed $values
      */
-    public function testIRR($expectedResult, $values = null): void
+    public function testIRR(mixed $expectedResult, mixed $values = null): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -43,7 +42,7 @@ class IrrTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 0.1E-8);
     }
 
-    public function providerIRR(): array
+    public static function providerIRR(): array
     {
         return require 'tests/data/Calculation/Financial/IRR.php';
     }

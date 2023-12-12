@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
@@ -11,11 +13,9 @@ use PHPUnit\Framework\TestCase;
 class MergedCellTest extends TestCase
 {
     /**
-     * @param mixed $expectedResult
-     *
      * @dataProvider providerWorksheetFormulaeColumns
      */
-    public function testMergedCellColumns(string $formula, $expectedResult): void
+    public function testMergedCellColumns(string $formula, mixed $expectedResult): void
     {
         $spreadSheet = new Spreadsheet();
 
@@ -39,7 +39,7 @@ class MergedCellTest extends TestCase
         $spreadSheet->disconnectWorksheets();
     }
 
-    public function providerWorksheetFormulaeColumns(): array
+    public static function providerWorksheetFormulaeColumns(): array
     {
         return [
             ['=SUM(A1:A5)', 6.6],
@@ -53,11 +53,9 @@ class MergedCellTest extends TestCase
     }
 
     /**
-     * @param mixed $expectedResult
-     *
      * @dataProvider providerWorksheetFormulaeRows
      */
-    public function testMergedCellRows(string $formula, $expectedResult): void
+    public function testMergedCellRows(string $formula, mixed $expectedResult): void
     {
         $spreadSheet = new Spreadsheet();
 
@@ -81,7 +79,7 @@ class MergedCellTest extends TestCase
         $spreadSheet->disconnectWorksheets();
     }
 
-    public function providerWorksheetFormulaeRows(): array
+    public static function providerWorksheetFormulaeRows(): array
     {
         return [
             ['=SUM(A1:E1)', 6.6],

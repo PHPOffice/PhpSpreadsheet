@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -9,11 +11,8 @@ class ProperTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerPROPER
-     *
-     * @param mixed $expectedResult
-     * @param mixed $str
      */
-    public function testPROPER($expectedResult, $str = 'omitted'): void
+    public function testPROPER(mixed $expectedResult, mixed $str = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -27,19 +26,15 @@ class ProperTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerPROPER(): array
+    public static function providerPROPER(): array
     {
         return require 'tests/data/Calculation/TextData/PROPER.php';
     }
 
     /**
      * @dataProvider providerLocaleLOWER
-     *
-     * @param string $expectedResult
-     * @param mixed $value
-     * @param mixed $locale
      */
-    public function testLowerWithLocaleBoolean($expectedResult, $locale, $value): void
+    public function testLowerWithLocaleBoolean(string $expectedResult, mixed $locale, mixed $value): void
     {
         $newLocale = Settings::setLocale($locale);
         if ($newLocale === false) {
@@ -52,7 +47,7 @@ class ProperTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerLocaleLOWER(): array
+    public static function providerLocaleLOWER(): array
     {
         return [
             ['Vrai', 'fr_FR', true],
@@ -78,7 +73,7 @@ class ProperTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerProperArray(): array
+    public static function providerProperArray(): array
     {
         return [
             'row vector' => [[["Let's", 'All Change', 'Case']], '{"lEt\'S", "aLl chAngE", "cAsE"}'],

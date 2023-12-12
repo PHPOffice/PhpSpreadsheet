@@ -19,7 +19,7 @@ class ExponentialBestFit extends BestFit
      *
      * @return float Y-Value
      */
-    public function getValueOfYForX($xValue)
+    public function getValueOfYForX($xValue): float
     {
         return $this->getIntersect() * $this->getSlope() ** ($xValue - $this->xOffset);
     }
@@ -31,7 +31,7 @@ class ExponentialBestFit extends BestFit
      *
      * @return float X-Value
      */
-    public function getValueOfXForY($yValue)
+    public function getValueOfXForY($yValue): float
     {
         return log(($yValue + $this->yOffset) / $this->getIntersect()) / log($this->getSlope());
     }
@@ -40,10 +40,8 @@ class ExponentialBestFit extends BestFit
      * Return the Equation of the best-fit line.
      *
      * @param int $dp Number of places of decimal precision to display
-     *
-     * @return string
      */
-    public function getEquation($dp = 0)
+    public function getEquation($dp = 0): string
     {
         $slope = $this->getSlope($dp);
         $intersect = $this->getIntersect($dp);
@@ -55,10 +53,8 @@ class ExponentialBestFit extends BestFit
      * Return the Slope of the line.
      *
      * @param int $dp Number of places of decimal precision to display
-     *
-     * @return float
      */
-    public function getSlope($dp = 0)
+    public function getSlope($dp = 0): float
     {
         if ($dp != 0) {
             return round(exp($this->slope), $dp);
@@ -71,10 +67,8 @@ class ExponentialBestFit extends BestFit
      * Return the Value of X where it intersects Y = 0.
      *
      * @param int $dp Number of places of decimal precision to display
-     *
-     * @return float
      */
-    public function getIntersect($dp = 0)
+    public function getIntersect($dp = 0): float
     {
         if ($dp != 0) {
             return round(exp($this->intersect), $dp);
@@ -92,9 +86,7 @@ class ExponentialBestFit extends BestFit
     private function exponentialRegression(array $yValues, array $xValues, bool $const): void
     {
         $adjustedYValues = array_map(
-            function ($value) {
-                return ($value < 0.0) ? 0 - log(abs($value)) : log($value);
-            },
+            fn ($value): float => ($value < 0.0) ? 0 - log(abs($value)) : log($value),
             $yValues
         );
 

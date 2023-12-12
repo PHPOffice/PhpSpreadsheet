@@ -1,16 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 class MdeTermTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerMDETERM
-     *
-     * @param mixed $expectedResult
-     * @param mixed $matrix expect a matrix
      */
-    public function testMDETERM2($expectedResult, $matrix): void
+    public function testMDETERM2(mixed $expectedResult, mixed $matrix): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -26,7 +25,7 @@ class MdeTermTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerMDETERM(): array
+    public static function providerMDETERM(): array
     {
         return require 'tests/data/Calculation/MathTrig/MDETERM.php';
     }

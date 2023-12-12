@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // effect_rate, npery, result
 
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;

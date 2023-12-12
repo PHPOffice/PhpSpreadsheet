@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Information;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -16,16 +18,14 @@ class IsTextTest extends TestCase
 
     /**
      * @dataProvider providerIsText
-     *
-     * @param mixed $value
      */
-    public function testIsText(bool $expectedResult, $value): void
+    public function testIsText(bool $expectedResult, mixed $value): void
     {
         $result = Value::isText($value);
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerIsText(): array
+    public static function providerIsText(): array
     {
         return require 'tests/data/Calculation/Information/IS_TEXT.php';
     }
@@ -42,7 +42,7 @@ class IsTextTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerIsTextArray(): array
+    public static function providerIsTextArray(): array
     {
         return [
             'vector' => [

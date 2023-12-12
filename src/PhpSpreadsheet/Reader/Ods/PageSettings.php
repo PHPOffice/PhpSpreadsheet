@@ -11,28 +11,29 @@ class PageSettings
     /**
      * @var string
      */
-    private $officeNs;
+    private $officeNs = '';
 
     /**
      * @var string
      */
-    private $stylesNs;
+    private $stylesNs = '';
 
     /**
      * @var string
      */
-    private $stylesFo;
+    private $stylesFo = '';
 
     /**
      * @var string
      */
-    private $tableNs;
+    private $tableNs = '';
 
     /**
      * @var string[]
      */
     private $tableStylesCrossReference = [];
 
+    /** @var array */
     private $pageLayoutStyles = [];
 
     /**
@@ -54,17 +55,16 @@ class PageSettings
 
     private function setDomNameSpaces(DOMDocument $styleDom): void
     {
-        $this->officeNs = $styleDom->lookupNamespaceUri('office');
-        $this->stylesNs = $styleDom->lookupNamespaceUri('style');
-        $this->stylesFo = $styleDom->lookupNamespaceUri('fo');
-        $this->tableNs = $styleDom->lookupNamespaceUri('table');
+        $this->officeNs = (string) $styleDom->lookupNamespaceUri('office');
+        $this->stylesNs = (string) $styleDom->lookupNamespaceUri('style');
+        $this->stylesFo = (string) $styleDom->lookupNamespaceUri('fo');
+        $this->tableNs = (string) $styleDom->lookupNamespaceUri('table');
     }
 
     private function readPageSettingStyles(DOMDocument $styleDom): void
     {
-        $styles = $styleDom->getElementsByTagNameNS($this->officeNs, 'automatic-styles')
-            ->item(0)
-            ->getElementsByTagNameNS($this->stylesNs, 'page-layout');
+        $item0 = $styleDom->getElementsByTagNameNS($this->officeNs, 'automatic-styles')->item(0);
+        $styles = ($item0 === null) ? [] : $item0->getElementsByTagNameNS($this->stylesNs, 'page-layout');
 
         foreach ($styles as $styleSet) {
             $styleName = $styleSet->getAttributeNS($this->stylesNs, 'name');
@@ -92,21 +92,20 @@ class PageSettings
                 'horizontalCentered' => $centered === 'horizontal' || $centered === 'both',
                 'verticalCentered' => $centered === 'vertical' || $centered === 'both',
                 // margin size is already stored in inches, so no UOM conversion is required
-                'marginLeft' => (float) $marginLeft ?? 0.7,
-                'marginRight' => (float) $marginRight ?? 0.7,
-                'marginTop' => (float) $marginTop ?? 0.3,
-                'marginBottom' => (float) $marginBottom ?? 0.3,
-                'marginHeader' => (float) $marginHeader ?? 0.45,
-                'marginFooter' => (float) $marginFooter ?? 0.45,
+                'marginLeft' => (float) ($marginLeft ?? 0.7),
+                'marginRight' => (float) ($marginRight ?? 0.7),
+                'marginTop' => (float) ($marginTop ?? 0.3),
+                'marginBottom' => (float) ($marginBottom ?? 0.3),
+                'marginHeader' => (float) ($marginHeader ?? 0.45),
+                'marginFooter' => (float) ($marginFooter ?? 0.45),
             ];
         }
     }
 
     private function readStyleMasterLookup(DOMDocument $styleDom): void
     {
-        $styleMasterLookup = $styleDom->getElementsByTagNameNS($this->officeNs, 'master-styles')
-            ->item(0)
-            ->getElementsByTagNameNS($this->stylesNs, 'master-page');
+        $item0 = $styleDom->getElementsByTagNameNS($this->officeNs, 'master-styles')->item(0);
+        $styleMasterLookup = ($item0 === null) ? [] : $item0->getElementsByTagNameNS($this->stylesNs, 'master-page');
 
         foreach ($styleMasterLookup as $styleMasterSet) {
             $styleMasterName = $styleMasterSet->getAttributeNS($this->stylesNs, 'name');
@@ -117,9 +116,8 @@ class PageSettings
 
     public function readStyleCrossReferences(DOMDocument $contentDom): void
     {
-        $styleXReferences = $contentDom->getElementsByTagNameNS($this->officeNs, 'automatic-styles')
-            ->item(0)
-            ->getElementsByTagNameNS($this->stylesNs, 'style');
+        $item0 = $contentDom->getElementsByTagNameNS($this->officeNs, 'automatic-styles')->item(0);
+        $styleXReferences = ($item0 === null) ? [] : $item0->getElementsByTagNameNS($this->stylesNs, 'style');
 
         foreach ($styleXReferences as $styleXreferenceSet) {
             $styleXRefName = $styleXreferenceSet->getAttributeNS($this->stylesNs, 'name');

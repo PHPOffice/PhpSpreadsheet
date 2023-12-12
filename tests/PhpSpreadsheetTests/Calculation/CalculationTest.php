@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -11,15 +13,9 @@ use PHPUnit\Framework\TestCase;
 
 class CalculationTest extends TestCase
 {
-    /**
-     * @var string
-     */
-    private $compatibilityMode;
+    private string $compatibilityMode;
 
-    /**
-     * @var string
-     */
-    private $locale;
+    private string $locale;
 
     protected function setUp(): void
     {
@@ -38,12 +34,8 @@ class CalculationTest extends TestCase
 
     /**
      * @dataProvider providerBinaryComparisonOperation
-     *
-     * @param mixed $formula
-     * @param mixed $expectedResultExcel
-     * @param mixed $expectedResultOpenOffice
      */
-    public function testBinaryComparisonOperation($formula, $expectedResultExcel, $expectedResultOpenOffice): void
+    public function testBinaryComparisonOperation(mixed $formula, mixed $expectedResultExcel, mixed $expectedResultOpenOffice): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         $resultExcel = Calculation::getInstance()->_calculateFormulaValue($formula);
@@ -54,7 +46,7 @@ class CalculationTest extends TestCase
         self::assertEquals($expectedResultOpenOffice, $resultOpenOffice, 'should be OpenOffice compatible');
     }
 
-    public function providerBinaryComparisonOperation(): array
+    public static function providerBinaryComparisonOperation(): array
     {
         return require 'tests/data/CalculationBinaryComparisonOperation.php';
     }
@@ -250,11 +242,11 @@ class CalculationTest extends TestCase
             $correctOnlyIf = ($token['onlyIf'] ?? '') == 'storeKey-0';
             $isB1Reference = ($token['reference'] ?? '') == 'B1';
 
-            $foundEqualAssociatedToStoreKey = $foundEqualAssociatedToStoreKey ||
-                ($isBinaryOperator && $isEqual && $correctStoreKey);
+            $foundEqualAssociatedToStoreKey = $foundEqualAssociatedToStoreKey
+                || ($isBinaryOperator && $isEqual && $correctStoreKey);
 
-            $foundConditionalOnB1 = $foundConditionalOnB1 ||
-                ($isB1Reference && $correctOnlyIf);
+            $foundConditionalOnB1 = $foundConditionalOnB1
+                || ($isB1Reference && $correctOnlyIf);
         }
         self::assertTrue($foundEqualAssociatedToStoreKey);
         self::assertTrue($foundConditionalOnB1);
@@ -279,9 +271,9 @@ class CalculationTest extends TestCase
             $anyStoreKey = isset($token['storeKey']);
             $anyOnlyIf = isset($token['onlyIf']);
             $anyOnlyIfNot = isset($token['onlyIfNot']);
-            $plusGotTagged = $plusGotTagged ||
-                ($isBinaryOperator && $isPlus &&
-                    ($anyStoreKey || $anyOnlyIfNot || $anyOnlyIf));
+            $plusGotTagged = $plusGotTagged
+                || ($isBinaryOperator && $isPlus
+                    && ($anyStoreKey || $anyOnlyIfNot || $anyOnlyIf));
 
             $isFunction = $token['type'] == 'Function';
             $isProductFunction = $token['value'] == 'PRODUCT(';
@@ -351,16 +343,13 @@ class CalculationTest extends TestCase
             $isPlus = $token['value'] === '+';
             $hasOnlyIf = !empty($token['onlyIf']);
 
-            $properlyTaggedPlus = $properlyTaggedPlus ||
-                ($isPlus && $hasOnlyIf);
+            $properlyTaggedPlus = $properlyTaggedPlus
+                || ($isPlus && $hasOnlyIf);
         }
         self::assertTrue($properlyTaggedPlus);
     }
 
     /**
-     * @param mixed $expectedResult
-     * @param mixed $dataArray
-     * @param string $formula
      * @param string $cellCoordinates where to put the formula
      * @param string[] $shouldBeSetInCacheCells coordinates of cells that must
      *  be set in cache
@@ -369,13 +358,13 @@ class CalculationTest extends TestCase
      *
      * @dataProvider dataProviderBranchPruningFullExecution
      */
-    public function testFullExecution(
-        $expectedResult,
-        $dataArray,
-        $formula,
-        $cellCoordinates,
-        $shouldBeSetInCacheCells = [],
-        $shouldNotBeSetInCacheCells = []
+    public function testFullExecutionDataPruning(
+        mixed $expectedResult,
+        mixed $dataArray,
+        string $formula,
+        string $cellCoordinates,
+        array $shouldBeSetInCacheCells = [],
+        array $shouldNotBeSetInCacheCells = []
     ): void {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
@@ -406,7 +395,7 @@ class CalculationTest extends TestCase
         self::assertEquals($expectedResult, $calculated);
     }
 
-    public function dataProviderBranchPruningFullExecution(): array
+    public static function dataProviderBranchPruningFullExecution(): array
     {
         return require 'tests/data/Calculation/Calculation.php';
     }

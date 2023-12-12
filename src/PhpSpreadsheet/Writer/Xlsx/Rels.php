@@ -169,7 +169,7 @@ class Rels extends WriterPart
      *
      * @return string XML Output
      */
-    public function writeWorksheetRelationships(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $worksheet, $worksheetId = 1, $includeCharts = false, $tableRef = 1)
+    public function writeWorksheetRelationships(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $worksheet, $worksheetId = 1, $includeCharts = false, $tableRef = 1, array &$zipContent = [])
     {
         // Create XML writer
         $objWriter = null;
@@ -188,7 +188,7 @@ class Rels extends WriterPart
 
         // Write drawing relationships?
         $drawingOriginalIds = [];
-        $unparsedLoadedData = $worksheet->getParent()->getUnparsedLoadedData();
+        $unparsedLoadedData = $worksheet->getParentOrThrow()->getUnparsedLoadedData();
         if (isset($unparsedLoadedData['sheets'][$worksheet->getCodeName()]['drawingOriginalIds'])) {
             $drawingOriginalIds = $unparsedLoadedData['sheets'][$worksheet->getCodeName()]['drawingOriginalIds'];
         }
@@ -221,6 +221,20 @@ class Rels extends WriterPart
             );
         }
 
+        $backgroundImage = $worksheet->getBackgroundImage();
+        if ($backgroundImage !== '') {
+            $rId = 'Bg';
+            $uniqueName = md5(mt_rand(0, 9999) . time() . mt_rand(0, 9999));
+            $relPath = "../media/$uniqueName." . $worksheet->getBackgroundExtension();
+            $this->writeRelationship(
+                $objWriter,
+                $rId,
+                Namespaces::IMAGE,
+                $relPath
+            );
+            $zipContent["xl/media/$uniqueName." . $worksheet->getBackgroundExtension()] = $backgroundImage;
+        }
+
         // Write hyperlink relationships?
         $i = 1;
         foreach ($worksheet->getHyperlinkCollection() as $hyperlink) {
@@ -239,14 +253,16 @@ class Rels extends WriterPart
 
         // Write comments relationship?
         $i = 1;
-        if (count($worksheet->getComments()) > 0) {
+        if (count($worksheet->getComments()) > 0 || isset($unparsedLoadedData['sheets'][$worksheet->getCodeName()]['legacyDrawing'])) {
             $this->writeRelationship(
                 $objWriter,
                 '_comments_vml' . $i,
                 Namespaces::VML,
                 '../drawings/vmlDrawing' . $worksheetId . '.vml'
             );
+        }
 
+        if (count($worksheet->getComments()) > 0) {
             $this->writeRelationship(
                 $objWriter,
                 '_comments' . $i,
@@ -288,13 +304,13 @@ class Rels extends WriterPart
 
     private function writeUnparsedRelationship(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $worksheet, XMLWriter $objWriter, string $relationship, string $type): void
     {
-        $unparsedLoadedData = $worksheet->getParent()->getUnparsedLoadedData();
+        $unparsedLoadedData = $worksheet->getParentOrThrow()->getUnparsedLoadedData();
         if (!isset($unparsedLoadedData['sheets'][$worksheet->getCodeName()][$relationship])) {
             return;
         }
 
         foreach ($unparsedLoadedData['sheets'][$worksheet->getCodeName()][$relationship] as $rId => $value) {
-            if (substr($rId, 0, 17) !== '_headerfooter_vml') {
+            if (!str_starts_with($rId, '_headerfooter_vml')) {
                 $this->writeRelationship(
                     $objWriter,
                     $rId,
@@ -457,7 +473,7 @@ class Rels extends WriterPart
      * @param string $target Relationship target
      * @param string $targetMode Relationship target mode
      */
-    private function writeRelationship(XMLWriter $objWriter, $id, $type, $target, $targetMode = ''): void
+    private function writeRelationship(XMLWriter $objWriter, $id, string $type, $target, string $targetMode = ''): void
     {
         if ($type != '' && $target != '') {
             // Write relationship

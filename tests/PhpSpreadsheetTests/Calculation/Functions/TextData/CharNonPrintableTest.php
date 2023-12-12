@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -30,7 +32,7 @@ class CharNonPrintableTest extends AbstractFunctional
         $reloadedSpreadsheet->disconnectWorksheets();
     }
 
-    public function providerType(): array
+    public static function providerType(): array
     {
         return [
             ['Xlsx'],

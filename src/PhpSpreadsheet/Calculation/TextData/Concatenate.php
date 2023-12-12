@@ -56,7 +56,7 @@ class Concatenate
      *         If an array of values is passed for the $delimiter or $ignoreEmpty arguments, then the returned result
      *            will also be an array with matching dimensions
      */
-    public static function TEXTJOIN($delimiter = '', $ignoreEmpty = true, ...$args)
+    public static function TEXTJOIN(mixed $delimiter = '', mixed $ignoreEmpty = true, mixed ...$args): array|string
     {
         if (is_array($delimiter) || is_array($ignoreEmpty)) {
             return self::evaluateArrayArgumentsSubset(
@@ -113,7 +113,7 @@ class Concatenate
      *         If an array of values is passed for the $stringValue or $repeatCount arguments, then the returned result
      *            will also be an array with matching dimensions
      */
-    public static function builtinREPT($stringValue, $repeatCount)
+    public static function builtinREPT(mixed $stringValue, mixed $repeatCount): array|string
     {
         if (is_array($stringValue) || is_array($repeatCount)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $stringValue, $repeatCount);

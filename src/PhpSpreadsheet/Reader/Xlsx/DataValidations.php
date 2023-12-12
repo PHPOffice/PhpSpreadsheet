@@ -8,11 +8,9 @@ use SimpleXMLElement;
 
 class DataValidations
 {
-    /** @var Worksheet */
-    private $worksheet;
+    private Worksheet $worksheet;
 
-    /** @var SimpleXMLElement */
-    private $worksheetXml;
+    private SimpleXMLElement $worksheetXml;
 
     public function __construct(Worksheet $workSheet, SimpleXMLElement $worksheetXml)
     {
@@ -22,6 +20,18 @@ class DataValidations
 
     public function load(): void
     {
+        foreach ($this->worksheetXml->dataValidations->dataValidation as $dataValidation) {
+            // Uppercase coordinate
+            $range = strtoupper((string) $dataValidation['sqref']);
+            $rangeSet = explode(' ', $range);
+            foreach ($rangeSet as $range) {
+                if (preg_match('/^[A-Z]{1,3}\\d{1,7}/', $range, $matches) === 1) {
+                    // Ensure left/top row of range exists, thereby
+                    // adjusting high row/column.
+                    $this->worksheet->getCell($matches[0]);
+                }
+            }
+        }
         foreach ($this->worksheetXml->dataValidations->dataValidation as $dataValidation) {
             // Uppercase coordinate
             $range = strtoupper((string) $dataValidation['sqref']);

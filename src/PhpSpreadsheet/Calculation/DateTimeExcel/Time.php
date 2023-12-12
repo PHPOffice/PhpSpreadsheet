@@ -38,12 +38,12 @@ class Time
      *         If an array of numbers is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      *
-     * @return array|mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
+     * @return array|DateTime|float|int|string Excel date/time serial value, PHP date/time serial value or PHP date/time object,
      *                        depending on the value of the ReturnDateType flag
      *         If an array of numbers is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function fromHMS($hour, $minute, $second)
+    public static function fromHMS($hour, $minute, $second): array|string|float|int|DateTime
     {
         if (is_array($hour) || is_array($minute) || is_array($second)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $hour, $minute, $second);
@@ -115,7 +115,7 @@ class Time
     /**
      * @param mixed $value expect int
      */
-    private static function toIntWithNullBool($value): int
+    private static function toIntWithNullBool(mixed $value): int
     {
         $value = $value ?? 0;
         if (is_bool($value)) {

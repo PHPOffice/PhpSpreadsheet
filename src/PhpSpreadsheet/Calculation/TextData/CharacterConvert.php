@@ -20,7 +20,7 @@ class CharacterConvert
      *         If an array of values is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function character($character)
+    public static function character(mixed $character): array|string
     {
         if (is_array($character)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $character);
@@ -46,7 +46,7 @@ class CharacterConvert
      *         If an array of values is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function code($characters)
+    public static function code(mixed $characters): array|string|int
     {
         if (is_array($characters)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $characters);

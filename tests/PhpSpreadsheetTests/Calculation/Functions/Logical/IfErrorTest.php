@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Logical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,15 +10,13 @@ class IfErrorTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerIFERROR
-     *
-     * @param mixed $expectedResult
      */
-    public function testIFERROR($expectedResult, ...$args): void
+    public function testIFERROR(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('IFERROR', $expectedResult, ...$args);
     }
 
-    public function providerIFERROR(): array
+    public static function providerIFERROR(): array
     {
         return require 'tests/data/Calculation/Logical/IFERROR.php';
     }
@@ -33,7 +33,7 @@ class IfErrorTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerIfErrorArray(): array
+    public static function providerIfErrorArray(): array
     {
         return [
             'vector' => [

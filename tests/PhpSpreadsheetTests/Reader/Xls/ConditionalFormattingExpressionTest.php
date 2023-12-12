@@ -1,45 +1,38 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xls;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xls;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
-use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PHPUnit\Framework\TestCase;
 
 class ConditionalFormattingExpressionTest extends TestCase
 {
     /**
-     * @var Worksheet
-     */
-    protected $sheet;
-
-    protected function setUp(): void
-    {
-        $filename = 'tests/data/Reader/XLS/CF_Expression_Comparisons.xls';
-        $reader = new Xls();
-        $spreadsheet = $reader->load($filename);
-        $this->sheet = $spreadsheet->getActiveSheet();
-    }
-
-    /**
      * @dataProvider conditionalFormattingProvider
      */
     public function testReadConditionalFormatting(string $expectedRange, array $expectedRule): void
     {
-        $hasConditionalStyles = $this->sheet->conditionalStylesExists($expectedRange);
+        $filename = 'tests/data/Reader/XLS/CF_Expression_Comparisons.xls';
+        $reader = new Xls();
+        $spreadsheet = $reader->load($filename);
+        $sheet = $spreadsheet->getActiveSheet();
+        $hasConditionalStyles = $sheet->conditionalStylesExists($expectedRange);
         self::assertTrue($hasConditionalStyles);
 
-        $conditionalStyles = $this->sheet->getConditionalStyles($expectedRange);
+        $conditionalStyles = $sheet->getConditionalStyles($expectedRange);
 
         foreach ($conditionalStyles as $index => $conditionalStyle) {
             self::assertSame($expectedRule[$index]['type'], $conditionalStyle->getConditionType());
             self::assertSame($expectedRule[$index]['operator'], $conditionalStyle->getOperatorType());
             self::assertSame($expectedRule[$index]['conditions'], $conditionalStyle->getConditions());
         }
+        $spreadsheet->disconnectWorksheets();
     }
 
-    public function conditionalFormattingProvider(): array
+    public static function conditionalFormattingProvider(): array
     {
         return [
             [

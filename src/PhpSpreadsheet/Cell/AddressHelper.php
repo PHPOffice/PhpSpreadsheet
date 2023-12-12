@@ -11,7 +11,7 @@ class AddressHelper
     public const R1C1_COORDINATE_REGEX = '/(R((?:\[-?\d*\])|(?:\d*))?)(C((?:\[-?\d*\])|(?:\d*))?)/i';
 
     /** @return string[] */
-    public static function getRowAndColumnChars()
+    public static function getRowAndColumnChars(): array
     {
         $rowChar = 'R';
         $colChar = 'C';
@@ -96,7 +96,7 @@ class AddressHelper
         int $currentRowNumber = 1,
         int $currentColumnNumber = 1
     ): string {
-        if (substr($formula, 0, 3) == 'of:') {
+        if (str_starts_with($formula, 'of:')) {
             // We have an old-style SpreadsheetML Formula
             return self::convertSpreadsheetMLFormula($formula);
         }

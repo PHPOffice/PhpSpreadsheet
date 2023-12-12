@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xml;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xml;
@@ -63,7 +65,7 @@ class XmlStyleCoverageTest extends TestCase
         }
     }
 
-    public function providerBorderStyle(): array
+    public static function providerBorderStyle(): array
     {
         return [
             ['1continuous', Border::BORDER_THIN],
@@ -87,7 +89,7 @@ class XmlStyleCoverageTest extends TestCase
         ];
     }
 
-    public function providerFillType(): array
+    public static function providerFillType(): array
     {
         return [
             ['solid', Fill::FILL_SOLID],

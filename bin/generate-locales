@@ -6,20 +6,12 @@ use PhpOffice\PhpSpreadsheetInfra\LocaleGenerator;
 
 require_once 'vendor/autoload.php';
 
-try {
-    $phpSpreadsheetFunctionsProperty = (new ReflectionClass(Calculation::class))
-        ->getProperty('phpSpreadsheetFunctions');
-    $phpSpreadsheetFunctionsProperty->setAccessible(true);
-    $phpSpreadsheetFunctions = $phpSpreadsheetFunctionsProperty->getValue();
+$phpSpreadsheetFunctions = Calculation::getFunctions();
 
-    $localeGenerator = new LocaleGenerator(
-        realpath(__DIR__ . '/../src/PhpSpreadsheet/Calculation/locale/'),
-        'Translations.xlsx',
-        $phpSpreadsheetFunctions,
-        true
-    );
-    $localeGenerator->generateLocales();
-} catch (\Exception $e) {
-    fwrite(STDERR, (string) $e);
-    exit(1);
-}
+$localeGenerator = new LocaleGenerator(
+    __DIR__ . '/../src/PhpSpreadsheet/Calculation/locale/',
+    'Translations.xlsx',
+    $phpSpreadsheetFunctions,
+    true
+);
+$localeGenerator->generateLocales();

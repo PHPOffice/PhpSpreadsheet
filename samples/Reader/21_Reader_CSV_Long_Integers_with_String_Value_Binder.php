@@ -12,16 +12,18 @@ $inputFileType = 'Csv';
 $inputFileName = __DIR__ . '/sampleData/longIntegers.csv';
 
 $reader = IOFactory::createReader($inputFileType);
-$helper->log('Loading file ' . /** @scrutinizer ignore-type */ pathinfo($inputFileName, PATHINFO_BASENAME) . ' into WorkSheet #1 using IOFactory with a defined reader type of ' . $inputFileType);
+$helper->log('Loading file ' . pathinfo($inputFileName, PATHINFO_BASENAME) . ' into WorkSheet #1 using IOFactory with a defined reader type of ' . $inputFileType);
 
 $spreadsheet = $reader->load($inputFileName);
-$spreadsheet->getActiveSheet()->setTitle(/** @scrutinizer ignore-type */ pathinfo($inputFileName, PATHINFO_BASENAME));
+$spreadsheet->getActiveSheet()->setTitle(pathinfo($inputFileName, PATHINFO_BASENAME));
 
 $helper->log($spreadsheet->getSheetCount() . ' worksheet' . (($spreadsheet->getSheetCount() == 1) ? '' : 's') . ' loaded');
 $loadedSheetNames = $spreadsheet->getSheetNames();
 foreach ($loadedSheetNames as $sheetIndex => $loadedSheetName) {
     $helper->log('<b>Worksheet #' . $sheetIndex . ' -> ' . $loadedSheetName . ' (Formatted)</b>');
     $spreadsheet->setActiveSheetIndexByName($loadedSheetName);
-    $sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
-    var_dump($sheetData);
+
+    $activeRange = $spreadsheet->getActiveSheet()->calculateWorksheetDataDimension();
+    $sheetData = $spreadsheet->getActiveSheet()->rangeToArray($activeRange, null, true, true, true);
+    $helper->displayGrid($sheetData);
 }

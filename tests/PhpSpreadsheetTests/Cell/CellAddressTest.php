@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Cell;
 
 use PhpOffice\PhpSpreadsheet\Cell\CellAddress;
@@ -27,7 +29,7 @@ class CellAddressTest extends TestCase
         self::assertSame($expectedColumnName, $cellAddressObject->columnName());
     }
 
-    public function providerCreateFromCellAddress(): array
+    public static function providerCreateFromCellAddress(): array
     {
         return [
             ['A1', 'A', 1, 1],
@@ -38,10 +40,8 @@ class CellAddressTest extends TestCase
 
     /**
      * @dataProvider providerCreateFromCellAddressException
-     *
-     * @param mixed $cellAddress
      */
-    public function testCreateFromCellAddressException($cellAddress): void
+    public function testCreateFromCellAddressException(mixed $cellAddress): void
     {
         $this->expectException(Exception::class);
         $this->expectExceptionMessage(
@@ -53,7 +53,7 @@ class CellAddressTest extends TestCase
         CellAddress::fromCellAddress($cellAddress);
     }
 
-    public function providerCreateFromCellAddressException(): array
+    public static function providerCreateFromCellAddressException(): array
     {
         return [
             ['INVALID'],
@@ -84,11 +84,8 @@ class CellAddressTest extends TestCase
 
     /**
      * @dataProvider providerCreateFromColumnRowException
-     *
-     * @param mixed $columnId
-     * @param mixed $rowId
      */
-    public function testCreateFromColumnRowException($columnId, $rowId): void
+    public function testCreateFromColumnRowException(mixed $columnId, mixed $rowId): void
     {
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Row and Column Ids must be positive integer values');
@@ -96,7 +93,7 @@ class CellAddressTest extends TestCase
         CellAddress::fromColumnAndRow($columnId, $rowId);
     }
 
-    public function providerCreateFromColumnAndRow(): array
+    public static function providerCreateFromColumnAndRow(): array
     {
         return [
             [1, 1, 'A1', 'A'],
@@ -124,7 +121,7 @@ class CellAddressTest extends TestCase
         self::assertSame($expectedColumnName, $cellAddressObject->columnName());
     }
 
-    public function providerCreateFromColumnRowArray(): array
+    public static function providerCreateFromColumnRowArray(): array
     {
         return [
             [1, 1, 'A1', 'A'],
@@ -135,11 +132,8 @@ class CellAddressTest extends TestCase
 
     /**
      * @dataProvider providerCreateFromColumnRowException
-     *
-     * @param mixed $columnId
-     * @param mixed $rowId
      */
-    public function testCreateFromColumnRowArrayException($columnId, $rowId): void
+    public function testCreateFromColumnRowArrayException(mixed $columnId, mixed $rowId): void
     {
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Row and Column Ids must be positive integer values');
@@ -148,7 +142,7 @@ class CellAddressTest extends TestCase
         CellAddress::fromColumnRowArray($columnRowArray);
     }
 
-    public function providerCreateFromColumnRowException(): array
+    public static function providerCreateFromColumnRowException(): array
     {
         return [
             [-1, 1],
@@ -179,7 +173,7 @@ class CellAddressTest extends TestCase
         self::assertSame($expectedColumnName, $cellAddressObject->columnName());
     }
 
-    public function providerCreateFromCellAddressWithWorksheet(): array
+    public static function providerCreateFromCellAddressWithWorksheet(): array
     {
         return [
             ['A1', "'Mark''s Worksheet'!A1", 'A', 1, 1],

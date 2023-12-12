@@ -12,8 +12,6 @@ use PhpOffice\PhpSpreadsheet\Calculation\Financial\TreasuryBill;
 
 /**
  * @deprecated 1.18.0
- *
- * @codeCoverageIgnore
  */
 class Financial
 {
@@ -59,14 +57,14 @@ class Financial
      * @return float|string Result, or a string containing an error
      */
     public static function ACCRINT(
-        $issue,
-        $firstInterest,
-        $settlement,
-        $rate,
-        $parValue = 1000,
-        $frequency = 1,
-        $basis = 0,
-        $calcMethod = true
+        mixed $issue,
+        mixed $firstInterest,
+        mixed $settlement,
+        mixed $rate,
+        mixed $parValue = 1000,
+        mixed $frequency = 1,
+        mixed $basis = 0,
+        mixed $calcMethod = true
     ) {
         return Securities\AccruedInterest::periodic(
             $issue,
@@ -106,7 +104,7 @@ class Financial
      *
      * @return float|string Result, or a string containing an error
      */
-    public static function ACCRINTM($issue, $settlement, $rate, $parValue = 1000, $basis = 0)
+    public static function ACCRINTM(mixed $issue, mixed $settlement, mixed $rate, mixed $parValue = 1000, mixed $basis = 0)
     {
         return Securities\AccruedInterest::atMaturity($issue, $settlement, $rate, $parValue, $basis);
     }
@@ -145,7 +143,7 @@ class Financial
      *
      * @return float|string (string containing the error type if there is an error)
      */
-    public static function AMORDEGRC($cost, $purchased, $firstPeriod, $salvage, $period, $rate, $basis = 0)
+    public static function AMORDEGRC($cost, mixed $purchased, mixed $firstPeriod, mixed $salvage, $period, $rate, $basis = 0)
     {
         return Amortization::AMORDEGRC($cost, $purchased, $firstPeriod, $salvage, $period, $rate, $basis);
     }
@@ -179,7 +177,7 @@ class Financial
      *
      * @return float|string (string containing the error type if there is an error)
      */
-    public static function AMORLINC($cost, $purchased, $firstPeriod, $salvage, $period, $rate, $basis = 0)
+    public static function AMORLINC($cost, mixed $purchased, mixed $firstPeriod, mixed $salvage, $period, $rate, $basis = 0)
     {
         return Amortization::AMORLINC($cost, $purchased, $firstPeriod, $salvage, $period, $rate, $basis);
     }
@@ -215,7 +213,7 @@ class Financial
      *
      * @return float|string
      */
-    public static function COUPDAYBS($settlement, $maturity, $frequency, $basis = 0)
+    public static function COUPDAYBS(mixed $settlement, mixed $maturity, $frequency, $basis = 0)
     {
         return Coupons::COUPDAYBS($settlement, $maturity, $frequency, $basis);
     }
@@ -251,7 +249,7 @@ class Financial
      *
      * @return float|string
      */
-    public static function COUPDAYS($settlement, $maturity, $frequency, $basis = 0)
+    public static function COUPDAYS(mixed $settlement, mixed $maturity, mixed $frequency, $basis = 0)
     {
         return Coupons::COUPDAYS($settlement, $maturity, $frequency, $basis);
     }
@@ -287,7 +285,7 @@ class Financial
      *
      * @return float|string
      */
-    public static function COUPDAYSNC($settlement, $maturity, $frequency, $basis = 0)
+    public static function COUPDAYSNC(mixed $settlement, mixed $maturity, mixed $frequency, $basis = 0)
     {
         return Coupons::COUPDAYSNC($settlement, $maturity, $frequency, $basis);
     }
@@ -321,10 +319,9 @@ class Financial
      *                                        3                Actual/365
      *                                        4                European 30/360
      *
-     * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
-     *                        depending on the value of the ReturnDateType flag
+     * @return float|string Excel date/time serial value or error message
      */
-    public static function COUPNCD($settlement, $maturity, $frequency, $basis = 0)
+    public static function COUPNCD(mixed $settlement, mixed $maturity, mixed $frequency, $basis = 0): string|float
     {
         return Coupons::COUPNCD($settlement, $maturity, $frequency, $basis);
     }
@@ -361,7 +358,7 @@ class Financial
      *
      * @return int|string
      */
-    public static function COUPNUM($settlement, $maturity, $frequency, $basis = 0)
+    public static function COUPNUM(mixed $settlement, mixed $maturity, mixed $frequency, $basis = 0)
     {
         return Coupons::COUPNUM($settlement, $maturity, $frequency, $basis);
     }
@@ -395,10 +392,9 @@ class Financial
      *                                        3                Actual/365
      *                                        4                European 30/360
      *
-     * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
-     *                        depending on the value of the ReturnDateType flag
+     * @return float|string Excel date/time serial value or error message
      */
-    public static function COUPPCD($settlement, $maturity, $frequency, $basis = 0)
+    public static function COUPPCD(mixed $settlement, mixed $maturity, mixed $frequency, $basis = 0): string|float
     {
         return Coupons::COUPPCD($settlement, $maturity, $frequency, $basis);
     }
@@ -543,7 +539,7 @@ class Financial
      *                                date when the security is traded to the buyer.
      * @param mixed $maturity The security's maturity date.
      *                                The maturity date is the date when the security expires.
-     * @param int $price The security's price per $100 face value
+     * @param mixed $price The security's price per $100 face value
      * @param int $redemption The security's redemption value per $100 face value
      * @param int $basis The type of day count to use.
      *                                        0 or omitted    US (NASD) 30/360
@@ -554,7 +550,7 @@ class Financial
      *
      * @return float|string
      */
-    public static function DISC($settlement, $maturity, $price, $redemption, $basis = 0)
+    public static function DISC(mixed $settlement, mixed $maturity, mixed $price, $redemption, $basis = 0)
     {
         return Financial\Securities\Rates::discount($settlement, $maturity, $price, $redemption, $basis);
     }
@@ -575,10 +571,8 @@ class Financial
      *
      * @param array|float $fractional_dollar Fractional Dollar
      * @param array|int $fraction Fraction
-     *
-     * @return array|float|string
      */
-    public static function DOLLARDE($fractional_dollar = null, $fraction = 0)
+    public static function DOLLARDE($fractional_dollar = null, $fraction = 0): string|float|array
     {
         return Dollar::decimal($fractional_dollar, $fraction);
     }
@@ -599,10 +593,8 @@ class Financial
      *
      * @param array|float $decimal_dollar Decimal Dollar
      * @param array|int $fraction Fraction
-     *
-     * @return array|float|string
      */
-    public static function DOLLARFR($decimal_dollar = null, $fraction = 0)
+    public static function DOLLARFR($decimal_dollar = null, $fraction = 0): string|float|array
     {
         return Dollar::fractional($decimal_dollar, $fraction);
     }
@@ -622,10 +614,8 @@ class Financial
      *
      * @param float $nominalRate Nominal interest rate
      * @param int $periodsPerYear Number of compounding payments per year
-     *
-     * @return float|string
      */
-    public static function EFFECT($nominalRate = 0, $periodsPerYear = 0)
+    public static function EFFECT($nominalRate = 0, $periodsPerYear = 0): string|float
     {
         return Financial\InterestRate::effective($nominalRate, $periodsPerYear);
     }
@@ -652,10 +642,8 @@ class Financial
      * @param int $type A number 0 or 1 and indicates when payments are due:
      *                                0 or omitted    At the end of the period.
      *                                1                At the beginning of the period.
-     *
-     * @return float|string
      */
-    public static function FV($rate = 0, $nper = 0, $pmt = 0, $pv = 0, $type = 0)
+    public static function FV($rate = 0, $nper = 0, $pmt = 0, $pv = 0, $type = 0): string|float
     {
         return Financial\CashFlow\Constant\Periodic::futureValue($rate, $nper, $pmt, $pv, $type);
     }
@@ -711,7 +699,7 @@ class Financial
      *
      * @return float|string
      */
-    public static function INTRATE($settlement, $maturity, $investment, $redemption, $basis = 0)
+    public static function INTRATE(mixed $settlement, mixed $maturity, $investment, $redemption, $basis = 0)
     {
         return Financial\Securities\Rates::interest($settlement, $maturity, $investment, $redemption, $basis);
     }
@@ -735,10 +723,8 @@ class Financial
      * @param float $pv Present Value
      * @param float $fv Future Value
      * @param int $type Payment type: 0 = at the end of each period, 1 = at the beginning of each period
-     *
-     * @return float|string
      */
-    public static function IPMT($rate, $per, $nper, $pv, $fv = 0, $type = 0)
+    public static function IPMT($rate, $per, $nper, $pv, $fv = 0, $type = 0): string|float
     {
         return Financial\CashFlow\Constant\Periodic\Interest::payment($rate, $per, $nper, $pv, $fv, $type);
     }
@@ -767,7 +753,7 @@ class Financial
      *
      * @return float|string
      */
-    public static function IRR($values, $guess = 0.1)
+    public static function IRR(mixed $values, mixed $guess = 0.1)
     {
         return Financial\CashFlow\Variable\Periodic::rate($values, $guess);
     }
@@ -822,7 +808,7 @@ class Financial
      *
      * @return float|string Result, or a string containing an error
      */
-    public static function MIRR($values, $finance_rate, $reinvestment_rate)
+    public static function MIRR(mixed $values, mixed $finance_rate, mixed $reinvestment_rate)
     {
         return Financial\CashFlow\Variable\Periodic::modifiedRate($values, $finance_rate, $reinvestment_rate);
     }
@@ -844,7 +830,7 @@ class Financial
      *
      * @return float|string Result, or a string containing an error
      */
-    public static function NOMINAL($effectiveRate = 0, $periodsPerYear = 0)
+    public static function NOMINAL($effectiveRate = 0, $periodsPerYear = 0): string|float
     {
         return InterestRate::nominal($effectiveRate, $periodsPerYear);
     }
@@ -950,7 +936,7 @@ class Financial
      *
      * @return float|string Result, or a string containing an error
      */
-    public static function PPMT($rate, $per, $nper, $pv, $fv = 0, $type = 0)
+    public static function PPMT($rate, $per, $nper, $pv, $fv = 0, $type = 0): string|float
     {
         return Financial\CashFlow\Constant\Periodic\Payments::interestPayment($rate, $per, $nper, $pv, $fv, $type);
     }
@@ -985,7 +971,7 @@ class Financial
      *
      * @return float|string Result, or a string containing an error
      */
-    public static function PRICE($settlement, $maturity, $rate, $yield, $redemption, $frequency, $basis = 0)
+    public static function PRICE(mixed $settlement, mixed $maturity, $rate, $yield, $redemption, $frequency, $basis = 0): string|float
     {
         return Securities\Price::price($settlement, $maturity, $rate, $yield, $redemption, $frequency, $basis);
     }
@@ -1004,7 +990,7 @@ class Financial
      *                              is traded to the buyer.
      * @param mixed $maturity The security's maturity date.
      *                            The maturity date is the date when the security expires.
-     * @param int $discount The security's discount rate
+     * @param mixed $discount The security's discount rate
      * @param int $redemption The security's redemption value per $100 face value
      * @param int $basis The type of day count to use.
      *                                        0 or omitted    US (NASD) 30/360
@@ -1015,7 +1001,7 @@ class Financial
      *
      * @return float|string Result, or a string containing an error
      */
-    public static function PRICEDISC($settlement, $maturity, $discount, $redemption, $basis = 0)
+    public static function PRICEDISC(mixed $settlement, mixed $maturity, mixed $discount, $redemption, $basis = 0)
     {
         return Securities\Price::priceDiscounted($settlement, $maturity, $discount, $redemption, $basis);
     }
@@ -1035,8 +1021,8 @@ class Financial
      * @param mixed $maturity The security's maturity date.
      *                            The maturity date is the date when the security expires.
      * @param mixed $issue The security's issue date
-     * @param int $rate The security's interest rate at date of issue
-     * @param int $yield The security's annual yield
+     * @param mixed $rate The security's interest rate at date of issue
+     * @param mixed $yield The security's annual yield
      * @param int $basis The type of day count to use.
      *                                        0 or omitted    US (NASD) 30/360
      *                                        1                Actual/actual
@@ -1046,7 +1032,7 @@ class Financial
      *
      * @return float|string Result, or a string containing an error
      */
-    public static function PRICEMAT($settlement, $maturity, $issue, $rate, $yield, $basis = 0)
+    public static function PRICEMAT(mixed $settlement, mixed $maturity, mixed $issue, mixed $rate, mixed $yield, $basis = 0)
     {
         return Securities\Price::priceAtMaturity($settlement, $maturity, $issue, $rate, $yield, $basis);
     }
@@ -1068,7 +1054,7 @@ class Financial
      *
      * @return float|string Result, or a string containing an error
      */
-    public static function PV($rate = 0, $nper = 0, $pmt = 0, $fv = 0, $type = 0)
+    public static function PV($rate = 0, $nper = 0, $pmt = 0, $fv = 0, $type = 0): string|float
     {
         return Financial\CashFlow\Constant\Periodic::presentValue($rate, $nper, $pmt, $fv, $type);
     }
@@ -1106,7 +1092,7 @@ class Financial
      *
      * @return float|string
      */
-    public static function RATE($nper, $pmt, $pv, $fv = 0.0, $type = 0, $guess = 0.1)
+    public static function RATE(mixed $nper, mixed $pmt, mixed $pv, mixed $fv = 0.0, mixed $type = 0, mixed $guess = 0.1)
     {
         return Financial\CashFlow\Constant\Periodic\Interest::rate($nper, $pmt, $pv, $fv, $type, $guess);
     }
@@ -1136,7 +1122,7 @@ class Financial
      *
      * @return float|string Result, or a string containing an error
      */
-    public static function RECEIVED($settlement, $maturity, $investment, $discount, $basis = 0)
+    public static function RECEIVED(mixed $settlement, mixed $maturity, mixed $investment, mixed $discount, mixed $basis = 0)
     {
         return Financial\Securities\Price::received($settlement, $maturity, $investment, $discount, $basis);
     }
@@ -1176,7 +1162,7 @@ class Financial
      *
      * @return float|string Result, or a string containing an error
      */
-    public static function SLN($cost, $salvage, $life)
+    public static function SLN(mixed $cost, mixed $salvage, mixed $life)
     {
         return Depreciation::SLN($cost, $salvage, $life);
     }
@@ -1197,7 +1183,7 @@ class Financial
      *
      * @return float|string Result, or a string containing an error
      */
-    public static function SYD($cost, $salvage, $life, $period)
+    public static function SYD(mixed $cost, mixed $salvage, mixed $life, mixed $period)
     {
         return Depreciation::SYD($cost, $salvage, $life, $period);
     }
@@ -1216,11 +1202,11 @@ class Financial
      *                              Treasury bill is traded to the buyer.
      * @param mixed $maturity The Treasury bill's maturity date.
      *                                The maturity date is the date when the Treasury bill expires.
-     * @param int $discount The Treasury bill's discount rate
+     * @param mixed $discount The Treasury bill's discount rate
      *
      * @return float|string Result, or a string containing an error
      */
-    public static function TBILLEQ($settlement, $maturity, $discount)
+    public static function TBILLEQ(mixed $settlement, mixed $maturity, mixed $discount): string|float
     {
         return TreasuryBill::bondEquivalentYield($settlement, $maturity, $discount);
     }
@@ -1239,11 +1225,11 @@ class Financial
      *                                    when the Treasury bill is traded to the buyer.
      * @param mixed $maturity The Treasury bill's maturity date.
      *                                The maturity date is the date when the Treasury bill expires.
-     * @param int $discount The Treasury bill's discount rate
+     * @param mixed $discount The Treasury bill's discount rate
      *
      * @return float|string Result, or a string containing an error
      */
-    public static function TBILLPRICE($settlement, $maturity, $discount)
+    public static function TBILLPRICE(mixed $settlement, mixed $maturity, mixed $discount): string|float
     {
         return TreasuryBill::price($settlement, $maturity, $discount);
     }
@@ -1262,11 +1248,9 @@ class Financial
      *                                    when the Treasury bill is traded to the buyer.
      * @param mixed $maturity The Treasury bill's maturity date.
      *                                The maturity date is the date when the Treasury bill expires.
-     * @param int $price The Treasury bill's price per $100 face value
-     *
-     * @return float|mixed|string
+     * @param mixed $price The Treasury bill's price per $100 face value
      */
-    public static function TBILLYIELD($settlement, $maturity, $price)
+    public static function TBILLYIELD(mixed $settlement, mixed $maturity, mixed $price): string|float
     {
         return TreasuryBill::yield($settlement, $maturity, $price);
     }
@@ -1292,7 +1276,7 @@ class Financial
      *
      * @return float|mixed|string
      */
-    public static function XIRR($values, $dates, $guess = 0.1)
+    public static function XIRR(array $values, array $dates, $guess = 0.1)
     {
         return Financial\CashFlow\Variable\NonPeriodic::rate($values, $dates, $guess);
     }
@@ -1342,7 +1326,7 @@ class Financial
      *                              is traded to the buyer.
      * @param mixed $maturity The security's maturity date.
      *                            The maturity date is the date when the security expires.
-     * @param int $price The security's price per $100 face value
+     * @param mixed $price The security's price per $100 face value
      * @param int $redemption The security's redemption value per $100 face value
      * @param int $basis The type of day count to use.
      *                                        0 or omitted    US (NASD) 30/360
@@ -1353,7 +1337,7 @@ class Financial
      *
      * @return float|string Result, or a string containing an error
      */
-    public static function YIELDDISC($settlement, $maturity, $price, $redemption, $basis = 0)
+    public static function YIELDDISC(mixed $settlement, mixed $maturity, mixed $price, $redemption, $basis = 0)
     {
         return Securities\Yields::yieldDiscounted($settlement, $maturity, $price, $redemption, $basis);
     }
@@ -1373,8 +1357,8 @@ class Financial
      * @param mixed $maturity The security's maturity date.
      *                            The maturity date is the date when the security expires.
      * @param mixed $issue The security's issue date
-     * @param int $rate The security's interest rate at date of issue
-     * @param int $price The security's price per $100 face value
+     * @param mixed $rate The security's interest rate at date of issue
+     * @param mixed $price The security's price per $100 face value
      * @param int $basis The type of day count to use.
      *                       0 or omitted    US (NASD) 30/360
      *                       1               Actual/actual
@@ -1384,7 +1368,7 @@ class Financial
      *
      * @return float|string Result, or a string containing an error
      */
-    public static function YIELDMAT($settlement, $maturity, $issue, $rate, $price, $basis = 0)
+    public static function YIELDMAT(mixed $settlement, mixed $maturity, mixed $issue, mixed $rate, mixed $price, $basis = 0)
     {
         return Securities\Yields::yieldAtMaturity($settlement, $maturity, $issue, $rate, $price, $basis);
     }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -11,12 +13,11 @@ class MidTest extends AllSetupTeardown
     /**
      * @dataProvider providerMID
      *
-     * @param mixed $expectedResult
      * @param mixed $str string from which to extract
      * @param mixed $start position at which to start
      * @param mixed $cnt number of characters to extract
      */
-    public function testMID($expectedResult, $str = 'omitted', $start = 'omitted', $cnt = 'omitted'): void
+    public function testMID(mixed $expectedResult, mixed $str = 'omitted', mixed $start = 'omitted', mixed $cnt = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -39,21 +40,15 @@ class MidTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerMID(): array
+    public static function providerMID(): array
     {
         return require 'tests/data/Calculation/TextData/MID.php';
     }
 
     /**
      * @dataProvider providerLocaleMID
-     *
-     * @param string $expectedResult
-     * @param mixed $value
-     * @param mixed $locale
-     * @param mixed $offset
-     * @param mixed $characters
      */
-    public function testMiddleWithLocaleBoolean($expectedResult, $locale, $value, $offset, $characters): void
+    public function testMiddleWithLocaleBoolean(string $expectedResult, mixed $locale, mixed $value, mixed $offset, mixed $characters): void
     {
         $newLocale = Settings::setLocale($locale);
         if ($newLocale === false) {
@@ -69,7 +64,7 @@ class MidTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerLocaleMID(): array
+    public static function providerLocaleMID(): array
     {
         return [
             ['RA', 'fr_FR', true, 2, 2],
@@ -100,7 +95,7 @@ class MidTest extends AllSetupTeardown
         self::assertEquals($resultB3, $sheet->getCell('B3')->getCalculatedValue());
     }
 
-    public function providerCalculationTypeMIDTrue(): array
+    public static function providerCalculationTypeMIDTrue(): array
     {
         return [
             'Excel MID(true,3,1), MID("hello",true, 1), MID("hello", 2, true)' => [
@@ -140,7 +135,7 @@ class MidTest extends AllSetupTeardown
         self::assertEquals($resultB2, $sheet->getCell('B2')->getCalculatedValue());
     }
 
-    public function providerCalculationTypeMIDFalse(): array
+    public static function providerCalculationTypeMIDFalse(): array
     {
         return [
             'Excel MID(false,3,1), MID("hello", false, 1), MID("hello", 2, false)' => [
@@ -180,7 +175,7 @@ class MidTest extends AllSetupTeardown
         self::assertEquals($resultB3, $sheet->getCell('B3')->getCalculatedValue());
     }
 
-    public function providerCalculationTypeMIDNull(): array
+    public static function providerCalculationTypeMIDNull(): array
     {
         return [
             'Excel MID(null,3,1), MID("hello", null, 1), MID("hello", 2, null)' => [
@@ -216,7 +211,7 @@ class MidTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerMidArray(): array
+    public static function providerMidArray(): array
     {
         return [
             'row vector #1' => [[['lo Wor', 'Spread']], '{"Hello World", "PhpSpreadsheet"}', '4', '6'],

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xml;
 
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
@@ -13,13 +15,16 @@ class XmlTest extends TestCase
      */
     public function testInvalidSimpleXML(string $filename): void
     {
-        $this->expectException(\PhpOffice\PhpSpreadsheet\Reader\Exception::class);
-
         $xmlReader = new Xml();
-        $xmlReader->trySimpleXMLLoadString($filename);
+        if (method_exists($this, 'setOutputCallback')) {
+            $this->expectException(\PhpOffice\PhpSpreadsheet\Reader\Exception::class);
+            self::assertFalse($xmlReader->trySimpleXMLLoadString($filename));
+        }
+
+        self::assertFalse(@$xmlReader->trySimpleXMLLoadString($filename));
     }
 
-    public function providerInvalidSimpleXML(): array
+    public static function providerInvalidSimpleXML(): array
     {
         $tests = [];
         $glob = glob('tests/data/Reader/Xml/XEETestInvalidSimpleXML*.xml');
@@ -46,6 +51,7 @@ class XmlTest extends TestCase
         self::assertEquals(DataType::TYPE_STRING, $hyperlink->getDataType());
         self::assertEquals('PhpSpreadsheet', $hyperlink->getValue());
         self::assertEquals('https://phpspreadsheet.readthedocs.io', $hyperlink->getHyperlink()->getUrl());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testLoadCorruptedFile(): void
@@ -53,7 +59,8 @@ class XmlTest extends TestCase
         $this->expectException(\PhpOffice\PhpSpreadsheet\Reader\Exception::class);
 
         $xmlReader = new Xml();
-        $xmlReader->load('tests/data/Reader/Xml/CorruptedXmlFile.xml');
+        $spreadsheet = @$xmlReader->load('tests/data/Reader/Xml/CorruptedXmlFile.xml');
+        self::assertNotSame('', $spreadsheet->getID());
     }
 
     public function testListWorksheetNamesCorruptedFile(): void
@@ -61,7 +68,8 @@ class XmlTest extends TestCase
         $this->expectException(\PhpOffice\PhpSpreadsheet\Reader\Exception::class);
 
         $xmlReader = new Xml();
-        $xmlReader->listWorksheetNames('tests/data/Reader/Xml/CorruptedXmlFile.xml');
+        $names = @$xmlReader->listWorksheetNames('tests/data/Reader/Xml/CorruptedXmlFile.xml');
+        self::assertNotEmpty($names);
     }
 
     public function testListWorksheetInfoCorruptedFile(): void
@@ -69,6 +77,7 @@ class XmlTest extends TestCase
         $this->expectException(\PhpOffice\PhpSpreadsheet\Reader\Exception::class);
 
         $xmlReader = new Xml();
-        $xmlReader->listWorksheetInfo('tests/data/Reader/Xml/CorruptedXmlFile.xml');
+        $info = @$xmlReader->listWorksheetInfo('tests/data/Reader/Xml/CorruptedXmlFile.xml');
+        self::assertNotEmpty($info);
     }
 }

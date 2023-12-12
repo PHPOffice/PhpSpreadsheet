@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,15 +10,13 @@ class ZTestTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerZTEST
-     *
-     * @param mixed $expectedResult
      */
-    public function testZTEST($expectedResult, ...$args): void
+    public function testZTEST(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCaseReference('ZTEST', $expectedResult, ...$args);
     }
 
-    public function providerZTEST(): array
+    public static function providerZTEST(): array
     {
         return require 'tests/data/Calculation/Statistical/ZTEST.php';
     }
@@ -33,7 +33,7 @@ class ZTestTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerZTestArray(): array
+    public static function providerZTestArray(): array
     {
         return [
             'row vector' => [

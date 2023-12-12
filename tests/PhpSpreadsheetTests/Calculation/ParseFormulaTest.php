@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -24,7 +26,7 @@ class ParseFormulaTest extends TestCase
         self::assertEquals($expectedStack, $stack);
     }
 
-    public function providerBinaryOperations(): array
+    public static function providerBinaryOperations(): array
     {
         return [
             'Unary negative with Value' => [
@@ -302,6 +304,18 @@ class ParseFormulaTest extends TestCase
                     ['type' => 'Structured Reference', 'value' => new StructuredReference('[@[Unit Price]]'), 'reference' => null],
                 ],
                 '=[@[Unit Price]]',
+            ],
+            'Fully Qualified Full Table Structured Reference' => [
+                [
+                    ['type' => 'Structured Reference', 'value' => new StructuredReference('DeptSales[]'), 'reference' => null],
+                ],
+                '=DeptSales[]',
+            ],
+            'Unqualified Full Table Structured Reference' => [
+                [
+                    ['type' => 'Structured Reference', 'value' => new StructuredReference('[]'), 'reference' => null],
+                ],
+                '=[]',
             ],
             'Structured Reference Arithmetic' => [
                 [

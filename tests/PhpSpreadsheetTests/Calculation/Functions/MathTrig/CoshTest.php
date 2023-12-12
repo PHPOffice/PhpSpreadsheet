@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,10 +10,8 @@ class CoshTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerCosh
-     *
-     * @param mixed $expectedResult
      */
-    public function testCosh($expectedResult, string $formula): void
+    public function testCosh(mixed $expectedResult, string $formula): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -21,7 +21,7 @@ class CoshTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-6);
     }
 
-    public function providerCosh(): array
+    public static function providerCosh(): array
     {
         return require 'tests/data/Calculation/MathTrig/COSH.php';
     }
@@ -38,7 +38,7 @@ class CoshTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerCoshArray(): array
+    public static function providerCoshArray(): array
     {
         return [
             'row vector' => [[[1.54308063481524, 1.12762596520638, 1.54308063481524]], '{1, 0.5, -1}'],

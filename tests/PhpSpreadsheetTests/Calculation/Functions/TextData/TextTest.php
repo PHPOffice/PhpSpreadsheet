@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,12 +10,8 @@ class TextTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerTEXT
-     *
-     * @param mixed $expectedResult
-     * @param mixed $value
-     * @param mixed $format
      */
-    public function testTEXT($expectedResult, $value = 'omitted', $format = 'omitted'): void
+    public function testTEXT(mixed $expectedResult, mixed $value = 'omitted', mixed $format = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -31,7 +29,7 @@ class TextTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerTEXT(): array
+    public static function providerTEXT(): array
     {
         return require 'tests/data/Calculation/TextData/TEXT.php';
     }
@@ -48,7 +46,7 @@ class TextTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerTextArray(): array
+    public static function providerTextArray(): array
     {
         return [
             'row vector' => [[['123.75%', '1 19/80']], '1.2375', '{"0.00%", "0 ??/???"}'],

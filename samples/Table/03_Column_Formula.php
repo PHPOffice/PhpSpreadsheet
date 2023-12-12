@@ -1,6 +1,5 @@
 <?php
 
-use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Table;
 
@@ -59,13 +58,11 @@ $table->getColumn('G')->setColumnFormula($columnFormula);
 $helper->log('Add Table to Worksheet');
 $spreadsheet->getActiveSheet()->addTable($table);
 
-// Save
-$path = $helper->getFilename(__FILE__);
-$writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+$helper->displayGrid($spreadsheet->getActiveSheet()->toArray(null, false, true, true));
 
-// Disable precalculation to add table's total row
-$writer->setPreCalculateFormulas(false);
-$callStartTime = microtime(true);
-$writer->save($path);
-$helper->logWrite($writer, $path, $callStartTime);
-$helper->logEndingNotes();
+$helper->log('Calculate Structured References');
+
+$helper->displayGrid($spreadsheet->getActiveSheet()->toArray(null, true, true, true));
+
+// Save
+$helper->write($spreadsheet, __FILE__, ['Xlsx']);

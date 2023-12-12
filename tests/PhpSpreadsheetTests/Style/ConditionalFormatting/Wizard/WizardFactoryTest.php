@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Style\ConditionalFormatting\Wizard;
 
 use PhpOffice\PhpSpreadsheet\Exception;
@@ -32,7 +34,7 @@ class WizardFactoryTest extends TestCase
         self::assertInstanceOf($expectedWizard, $wizard);
     }
 
-    public function basicWizardFactoryProvider(): array
+    public static function basicWizardFactoryProvider(): array
     {
         return [
             'CellValue Wizard' => [Wizard::CELL_VALUE, Wizard\CellValue::class],
@@ -65,11 +67,11 @@ class WizardFactoryTest extends TestCase
 
         foreach ($conditionals as $index => $conditional) {
             $wizard = Wizard::fromConditional($conditional);
-            self::assertEquals($expectedWizads[$index], get_class($wizard));
+            self::assertEquals($expectedWizads[$index], $wizard::class);
         }
     }
 
-    public function conditionalProvider(): array
+    public static function conditionalProvider(): array
     {
         return [
             'cellIs Comparison A2' => ['cellIs Comparison', 'A2', [Wizard\CellValue::class, Wizard\CellValue::class, Wizard\CellValue::class]],

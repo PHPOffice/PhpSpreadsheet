@@ -28,7 +28,7 @@ class DggContainer
     /**
      * BLIP Store Container.
      *
-     * @var DggContainer\BstoreContainer
+     * @var ?DggContainer\BstoreContainer
      */
     private $bstoreContainer;
 
@@ -109,7 +109,7 @@ class DggContainer
     /**
      * Get BLIP Store Container.
      *
-     * @return DggContainer\BstoreContainer
+     * @return ?DggContainer\BstoreContainer
      */
     public function getBstoreContainer()
     {
@@ -130,9 +130,8 @@ class DggContainer
      * Set an option for the drawing group.
      *
      * @param int $property The number specifies the option
-     * @param mixed $value
      */
-    public function setOPT($property, $value): void
+    public function setOPT($property, mixed $value): void
     {
         $this->OPT[$property] = $value;
     }

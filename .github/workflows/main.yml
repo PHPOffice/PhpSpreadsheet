@@ -1,5 +1,5 @@
 name: main
-on: [ push, pull_request ]
+on: [ push, pull_request, merge_group ]
 permissions:
   contents: read # to fetch code (actions/checkout)
 jobs:
@@ -10,15 +10,13 @@ jobs:
         experimental:
           - false
         php-version:
-          - '7.4'
           - '8.0'
           - '8.1'
           - '8.2'
+          - '8.3'
 
         include:
           - php-version: 'nightly'
-            experimental: true
-          - php-version: '7.3'
             experimental: true
 
     name: PHP ${{ matrix.php-version }}
@@ -36,7 +34,7 @@ jobs:
 
       - name: Get composer cache directory
         id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
       - name: Cache composer dependencies
         uses: actions/cache@v3
@@ -47,13 +45,13 @@ jobs:
 
       - name: Delete composer lock file
         id: composer-lock
-        if: ${{ matrix.php-version == '8.1' || matrix.php-version == '8.2' || matrix.php-version == '7.3' || matrix.php-version == 'nightly' }}
+        if: ${{ matrix.php-version == 'nightly' }}
         run: |
           rm composer.lock
-          echo "::set-output name=flags::--ignore-platform-reqs"
+          echo "flags=--ignore-platform-reqs" >> $GITHUB_OUTPUT
 
       - name: Install dependencies
-        run: composer update --no-progress --prefer-dist --optimize-autoloader ${{ steps.composer-lock.outputs.flags }}
+        run: composer install --no-progress --prefer-dist --optimize-autoloader ${{ steps.composer-lock.outputs.flags }}
 
       - name: Setup problem matchers for PHP
         run: echo "::add-matcher::${{ runner.tool_cache }}/php.json"
@@ -66,6 +64,25 @@ jobs:
           FAILURE_ACTION: "${{ matrix.experimental == true }}"
         run: vendor/bin/phpunit --verbose || $FAILURE_ACTION
 
+  phpdoc-types:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+
+      - name: Setup PHP, with composer and extensions
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.1
+          extensions: ctype, dom, gd, iconv, fileinfo, libxml, mbstring, simplexml, xml, xmlreader, xmlwriter, zip, zlib
+          coverage: none
+
+      # This is non-ideal because it only checks for the last commit of the PR, not all of them, but better than nothing
+      - name: Check PHPDoc types
+        run: ./bin/check-phpdoc-types
+
   php-cs-fixer:
     runs-on: ubuntu-latest
     steps:
@@ -75,14 +92,14 @@ jobs:
       - name: Setup PHP, with composer and extensions
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.4
+          php-version: 8.1
           extensions: ctype, dom, gd, iconv, fileinfo, libxml, mbstring, simplexml, xml, xmlreader, xmlwriter, zip, zlib
           coverage: none
           tools: cs2pr
 
       - name: Get composer cache directory
         id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
       - name: Cache composer dependencies
         uses: actions/cache@v3
@@ -106,14 +123,14 @@ jobs:
       - name: Setup PHP, with composer and extensions
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.4
+          php-version: 8.1
           extensions: ctype, dom, gd, iconv, fileinfo, libxml, mbstring, simplexml, xml, xmlreader, xmlwriter, zip, zlib
           coverage: none
           tools: cs2pr
 
       - name: Get composer cache directory
         id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
       - name: Cache composer dependencies
         uses: actions/cache@v3
@@ -137,14 +154,14 @@ jobs:
       - name: Setup PHP, with composer and extensions
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.4
+          php-version: 8.1
           extensions: ctype, dom, gd, iconv, fileinfo, libxml, mbstring, simplexml, xml, xmlreader, xmlwriter, zip, zlib
           coverage: none
           tools: cs2pr
 
       - name: Get composer cache directory
         id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
       - name: Cache composer dependencies
         uses: actions/cache@v3
@@ -157,7 +174,7 @@ jobs:
         run: composer install --no-progress --prefer-dist --optimize-autoloader
 
       - name: Code Version Compatibility check with PHP_CodeSniffer
-        run: ./vendor/bin/phpcs -q --report-width=200 --report=summary,full src/ --standard=PHPCompatibility --runtime-set testVersion 7.4-
+        run: ./vendor/bin/phpcs -q --report-width=200 --report=summary,full src/ --standard=PHPCompatibility --runtime-set testVersion 8.0-
 
   phpstan:
     runs-on: ubuntu-latest
@@ -168,14 +185,14 @@ jobs:
       - name: Setup PHP, with composer and extensions
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.4
+          php-version: 8.1
           extensions: ctype, dom, gd, iconv, fileinfo, libxml, mbstring, simplexml, xml, xmlreader, xmlwriter, zip, zlib
           coverage: none
           tools: cs2pr
 
       - name: Get composer cache directory
         id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
       - name: Cache composer dependencies
         uses: actions/cache@v3
@@ -195,17 +212,19 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - name: Setup PHP, with composer and extensions
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.4
+          php-version: 8.1
           extensions: ctype, dom, gd, iconv, fileinfo, libxml, mbstring, simplexml, xml, xmlreader, xmlwriter, zip, zlib
           coverage: pcov
 
       - name: Get composer cache directory
         id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
       - name: Cache composer dependencies
         uses: actions/cache@v3
@@ -220,8 +239,8 @@ jobs:
       - name: Coverage
         run: |
           ./vendor/bin/phpunit --coverage-clover coverage-clover.xml
-          curl -LO https://scrutinizer-ci.com/ocular.phar
-          php ocular.phar code-coverage:upload --format=php-clover coverage-clover.xml
+          composer global require scrutinizer/ocular
+          ~/.composer/vendor/bin/ocular code-coverage:upload --format=php-clover coverage-clover.xml
 
   release:
     permissions:

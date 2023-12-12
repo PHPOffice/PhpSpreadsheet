@@ -1,28 +1,40 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 
-class DMaxTest extends AllSetupTeardown
+use PhpOffice\PhpSpreadsheet\Calculation\Database\DMax;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
+
+class DMaxTest extends SetupTeardownDatabases
 {
     /**
      * @dataProvider providerDMax
-     *
-     * @param mixed $expectedResult
-     * @param mixed $database
-     * @param mixed $field
-     * @param mixed $criteria
      */
-    public function testDMax($expectedResult, $database, $field, $criteria): void
+    public function testDirectCallToDMax(int|string $expectedResult, array $database, string|null|int $field, array $criteria): void
     {
-        $this->runTestCase('DMAX', $expectedResult, $database, $field, $criteria);
+        $result = DMax::evaluate($database, $field, $criteria);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
-    public function providerDMax(): array
+    /**
+     * @dataProvider providerDMax
+     */
+    public function testDMaxAsWorksheetFormula(int|string $expectedResult, array $database, string|null|int $field, array $criteria): void
+    {
+        $this->prepareWorksheetWithFormula('DMAX', $database, $field, $criteria);
+
+        $result = $this->getSheet()->getCell(self::RESULT_CELL)->getCalculatedValue();
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
+    }
+
+    public static function providerDMax(): array
     {
         return [
             [
                 96,
-                $this->database1(),
+                self::database1(),
                 'Profit',
                 [
                     ['Tree', 'Height', 'Height'],
@@ -32,7 +44,7 @@ class DMaxTest extends AllSetupTeardown
             ],
             [
                 340000,
-                $this->database2(),
+                self::database2(),
                 'Sales',
                 [
                     ['Quarter', 'Area'],
@@ -41,7 +53,7 @@ class DMaxTest extends AllSetupTeardown
             ],
             [
                 460000,
-                $this->database2(),
+                self::database2(),
                 'Sales',
                 [
                     ['Sales Rep.', 'Quarter'],
@@ -49,32 +61,32 @@ class DMaxTest extends AllSetupTeardown
                 ],
             ],
             'omitted field name' => [
-                '#VALUE!',
-                $this->database1(),
+                ExcelError::VALUE(),
+                self::database1(),
                 null,
-                $this->database1(),
+                self::database1(),
             ],
             'field column number okay' => [
                 18,
-                $this->database1(),
+                self::database1(),
                 2,
-                $this->database1(),
+                self::database1(),
             ],
             /* Excel seems to return #NAME? when column number
                is too high or too low. This makes so little sense
                to me that I'm not going to bother coding that up,
                content to return #VALUE! as an invalid name would */
             'field column number too high' => [
-                '#VALUE!',
-                $this->database1(),
+                ExcelError::VALUE(),
+                self::database1(),
                 99,
-                $this->database1(),
+                self::database1(),
             ],
             'field column number too low' => [
-                '#VALUE!',
-                $this->database1(),
+                ExcelError::VALUE(),
+                self::database1(),
                 0,
-                $this->database1(),
+                self::database1(),
             ],
         ];
     }

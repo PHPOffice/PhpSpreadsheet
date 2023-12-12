@@ -184,6 +184,22 @@ code:
 it disables several Office2007 file format options, resulting in a
 lower-featured Office2007 spreadsheet.
 
+### Form Control Fields
+
+PhpSpreadsheet offers limited support for Forms Controls (buttons,
+checkboxes, etc.). The support is available only for Excel 2007 format,
+and is offered solely to allow loading a spreadsheet with such controls
+and saving it as a new file.
+Support is not available for adding such elements to the spreadsheet,
+nor even to locate them to determine their properties
+(so you can't modify or delete them).
+Modifications to a worksheet with controls are "caveat emptor";
+some modifications will work correctly,
+but others are very likely to cause problems,
+e.g. adding a comment to the worksheet,
+or inserting or deleting rows or columns in a manner that would
+cause the controls to change location.
+
 ## Excel 5 (BIFF) file format
 
 Xls file format is the old Excel file format, implemented in
@@ -525,7 +541,7 @@ function constructorCallback(\PhpOffice\PhpSpreadsheet\Reader\Csv $reader): void
     $reader->setDelimiter(',');
     $reader->setEnclosure('"');
     // Following represents how Excel behaves better than the default escape character
-    $reader->setEscapeCharacter((version_compare(PHP_VERSION, '7.4') < 0) ? "\x0" : '');
+    $reader->setEscapeCharacter('');
 }
 
 \PhpOffice\PhpSpreadsheet\Reader\Csv::setConstructorCallback('constructorCallback');
@@ -861,11 +877,11 @@ of different libraries.
 
 Currently, the following libraries are supported:
 
-Library | Downloadable from                   | PhpSpreadsheet writer
---------|-------------------------------------|----------------------
-TCPDF   | https://github.com/tecnickcom/tcpdf | Tcpdf
-mPDF    | https://github.com/mpdf/mpdf        | Mpdf
-Dompdf  | https://github.com/dompdf/dompdf    | Dompdf
+| Library | Downloadable from                   | PhpSpreadsheet writer |
+|---------|-------------------------------------|-----------------------|
+| TCPDF   | https://github.com/tecnickcom/tcpdf | Tcpdf                 |
+| mPDF    | https://github.com/mpdf/mpdf        | Mpdf                  |
+| Dompdf  | https://github.com/dompdf/dompdf    | Dompdf                |
 
 The different libraries have different strengths and weaknesses. Some
 generate better formatted output than others, some are faster or use
@@ -1083,7 +1099,25 @@ If you wish to use the IOFactory `load()` method rather than instantiating a spe
 $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load("spreadsheetWithCharts.xlsx", \PhpOffice\PhpSpreadsheet\Reader\IReader::LOAD_WITH_CHARTS);
 ```
 
-Likewise, when saving a file using a Writer, loaded charts wil not be saved unless you explicitly tell the Writer to include them:
+Flags that are available that can be passed to the Reader in this way include:
+
+ - $reader::LOAD_WITH_CHARTS
+ - $reader::READ_DATA_ONLY
+ - $reader::IGNORE_EMPTY_CELLS 
+ - $reader::SKIP_EMPTY_CELLS (synonym for IGNORE_EMPTY_CELLS)
+
+| Readers  | LOAD_WITH_CHARTS | READ_DATA_ONLY | IGNORE_EMPTY_CELLS |
+|----------|------------------|----------------|--------------------|
+| Xlsx     | YES              | YES            | YES                |
+| Xls      | NO               | YES            | YES                |
+| Xml      | NO               | NO             | NO                 |
+| Ods      | NO               | YES            | NO                 |
+| Gnumeric | NO               | YES            | NO                 |
+| Html     | N/A              | N/A            | N/A                |
+| Slk      | N/A              | NO             | NO                 |
+| Csv      | N/A              | NO             | NO                 |
+
+Likewise, when saving a file using a Writer, loaded charts will not be saved unless you explicitly tell the Writer to include them:
 
 ```php
 $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
@@ -1097,26 +1131,26 @@ $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
 $writer->save('mySavedFileWithCharts.xlsx', \PhpOffice\PhpSpreadsheet\Writer\IWriter::SAVE_WITH_CHARTS);
 ```
 
-Currently, the only special "Feature Flag" that is supported in this way is the inclusion of Charts, and only for certain formats.
+Flags that are available that can be passed to the Reader in this way include:
 
-Readers  | LOAD_WITH_CHARTS |
----------|------------------|
-Xlsx     |       YES        |
-Xls      |       NO         |
-Xml      |       NO         |
-Ods      |       NO         |
-Gnumeric |       NO         |
-Html     |       N/A        |
-Slk      |       N/A        |
-Csv      |       N/A        |
+- $reader::SAVE_WITH_CHARTS
+- $reader::DISABLE_PRECALCULATE_FORMULAE
 
+| Writers | SAVE_WITH_CHARTS | DISABLE_PRECALCULATE_FORMULAE |
+|---------|------------------|-------------------------------|
+| Xlsx    | YES              | YES                           |
+| Xls     | NO               | NO                            |
+| Ods     | NO               | YES                           |
+| Html    | YES              | YES                           |
+| Pdf     | YES              | YES                           |
+| Csv     | N/A              | YES                           |
 
-Writers | SAVE_WITH_CHARTS |
---------|------------------|
-Xlsx    |        YES       |
-Xls     |        NO        |
-Ods     |        NO        |
-Html    |        YES       |
-Pdf     |        YES       |
-Csv     |        N/A       |
+### Combining Flags
 
+One benefit of flags is that you can pass several flags in a single method call.
+Two or more flags can be passed together using PHP's `|` operator.
+
+```php
+$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReaderForFile("myExampleFile.xlsx");
+$reader->load("spreadsheetWithCharts.xlsx", $reader::READ_DATA_ONLY | $reader::SKIP_EMPTY_CELLS);
+```

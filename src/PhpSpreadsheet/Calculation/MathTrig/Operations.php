@@ -19,11 +19,11 @@ class Operations
      * @param mixed $divisor Divisor
      *                      Or can be an array of values
      *
-     * @return array|float|int|string Remainder, or a string containing an error
+     * @return array|float|string Remainder, or a string containing an error
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function mod($dividend, $divisor)
+    public static function mod(mixed $dividend, mixed $divisor): array|string|float
     {
         if (is_array($dividend) || is_array($divisor)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $dividend, $divisor);
@@ -97,16 +97,12 @@ class Operations
      *        PRODUCT(value1[,value2[, ...]])
      *
      * @param mixed ...$args Data values
-     *
-     * @return float|string
      */
-    public static function product(...$args)
+    public static function product(mixed ...$args): string|float
     {
         $args = array_filter(
             Functions::flattenArray($args),
-            function ($value) {
-                return $value !== null;
-            }
+            fn ($value): bool => $value !== null
         );
 
         // Return value
@@ -143,7 +139,7 @@ class Operations
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function quotient($numerator, $denominator)
+    public static function quotient(mixed $numerator, mixed $denominator): array|string|int
     {
         if (is_array($numerator) || is_array($denominator)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $numerator, $denominator);

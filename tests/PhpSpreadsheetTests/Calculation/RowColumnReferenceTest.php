@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -49,7 +51,7 @@ class RowColumnReferenceTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
-    public function providerCurrentWorksheetFormulae(): array
+    public static function providerCurrentWorksheetFormulae(): array
     {
         return [
             'relative range in active worksheet' => ['=SUM(B1:B3)', 15.4],

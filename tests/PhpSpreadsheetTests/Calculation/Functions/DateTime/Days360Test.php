@@ -1,29 +1,112 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
+use DateTime;
+use DateTimeImmutable;
+use Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Days;
+use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Days360;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
+use PHPUnit\Framework\TestCase;
 
-class Days360Test extends AllSetupTeardown
+class Days360Test extends TestCase
 {
     /**
      * @dataProvider providerDAYS360
-     *
-     * @param mixed $expectedResult
      */
-    public function testDAYS360($expectedResult, string $formula): void
+    public function testDirectCallToDAYS360(mixed $expectedResult, mixed ...$args): void
     {
-        $this->mightHaveException($expectedResult);
-        $sheet = $this->getSheet();
-        $sheet->getCell('B1')->setValue('2000-02-29');
-        $sheet->getCell('C1')->setValue('2000-03-31');
-        $sheet->getCell('A1')->setValue("=DAYS360($formula)");
-        self::assertSame($expectedResult, $sheet->getCell('A1')->getCalculatedValue());
+        $result = Days360::between(...$args);
+        self::assertSame($expectedResult, $result);
     }
 
-    public function providerDAYS360(): array
+    /**
+     * @dataProvider providerDAYS360
+     */
+    public function testDAYS360AsFormula(mixed $expectedResult, mixed ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $calculation = Calculation::getInstance();
+        $formula = "=DAYS360({$arguments})";
+
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertSame($expectedResult, $result);
+    }
+
+    /**
+     * @dataProvider providerDAYS360
+     */
+    public function testDAYS360InWorksheet(mixed $expectedResult, mixed ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=DAYS360({$argumentCells})";
+
+        $result = $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+        self::assertSame($expectedResult, $result);
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public static function providerDAYS360(): array
     {
         return require 'tests/data/Calculation/DateTime/DAYS360.php';
+    }
+
+    /**
+     * @dataProvider providerUnhappyDAYS360
+     */
+    public function testDAYS360UnhappyPath(string $expectedException, mixed ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=DAYS360({$argumentCells})";
+
+        $this->expectException(CalculationException::class);
+        $this->expectExceptionMessage($expectedException);
+        $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public static function providerUnhappyDAYS360(): array
+    {
+        return [
+            ['Formula Error: Wrong number of arguments for DAYS360() function'],
+        ];
+    }
+
+    public function testDateObject(): void
+    {
+        $obj1 = new DateTime('2000-3-31');
+        $obj2 = new DateTimeImmutable('2000-2-29');
+        self::assertSame(31, Days::between($obj1, $obj2));
+    }
+
+    public function testNonDateObject(): void
+    {
+        $obj1 = new Exception();
+        $obj2 = new DateTimeImmutable('2000-2-29');
+        // @phpstan-ignore-next-line
+        self::assertSame(ExcelError::VALUE(), Days::between($obj1, $obj2));
     }
 
     /**
@@ -42,7 +125,7 @@ class Days360Test extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerDays360Array(): array
+    public static function providerDays360Array(): array
     {
         return [
             'row vector #1' => [[[360, 199, -201]], '{"2022-01-01", "2022-06-12", "2023-07-22"}', '"2022-12-31"', null],

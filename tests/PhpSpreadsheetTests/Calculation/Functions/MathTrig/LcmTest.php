@@ -1,15 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 class LcmTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerLCM
-     *
-     * @param mixed $expectedResult
      */
-    public function testLCM($expectedResult, ...$args): void
+    public function testLCM(mixed $expectedResult, mixed ...$args): void
     {
         $sheet = $this->getSheet();
         $row = 0;
@@ -22,7 +22,7 @@ class LcmTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerLCM(): array
+    public static function providerLCM(): array
     {
         return require 'tests/data/Calculation/MathTrig/LCM.php';
     }

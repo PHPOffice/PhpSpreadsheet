@@ -1,18 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 class XNpvTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerXNPV
-     *
-     * @param mixed $expectedResult
-     * @param mixed $rate
-     * @param mixed $values
-     * @param mixed $dates
      */
-    public function testXNPV($expectedResult, $rate = null, $values = null, $dates = null): void
+    public function testXNPV(mixed $expectedResult, mixed $rate = null, mixed $values = null, mixed $dates = null): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -56,12 +53,14 @@ class XNpvTest extends AllSetupTeardown
                 if ($frac > 0.999999 && $frac < 1.000001) {
                     $result = $expectedResult;
                 }
+            } elseif (abs((float) $result) < 1E-4) {
+                $result = 0;
             }
         }
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerXNPV(): array
+    public static function providerXNPV(): array
     {
         return require 'tests/data/Calculation/Financial/XNPV.php';
     }

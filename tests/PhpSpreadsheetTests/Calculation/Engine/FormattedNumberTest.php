@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Engine;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Engine\FormattedNumber;
@@ -10,16 +12,14 @@ class FormattedNumberTest extends TestCase
 {
     /**
      * @dataProvider providerNumbers
-     *
-     * @param mixed $expected
      */
-    public function testNumber($expected, string $value): void
+    public function testNumber(float $expected, string $value): void
     {
         FormattedNumber::convertToNumberIfFormatted($value);
         self::assertSame($expected, $value);
     }
 
-    public function providerNumbers(): array
+    public static function providerNumbers(): array
     {
         return [
             [-12.5, '-12.5'],
@@ -47,7 +47,7 @@ class FormattedNumberTest extends TestCase
         }
     }
 
-    public function providerFractions(): array
+    public static function providerFractions(): array
     {
         return [
             'non-fraction' => ['1', '1'],
@@ -76,7 +76,7 @@ class FormattedNumberTest extends TestCase
         }
     }
 
-    public function providerPercentages(): array
+    public static function providerPercentages(): array
     {
         return [
             'non-percentage' => ['10', '10'],
@@ -177,14 +177,14 @@ class FormattedNumberTest extends TestCase
             'permutation_77' => ['-2.5E-8', '-%2.50E-06'],
             'permutation_78' => [' - % 2.50 E -06 ', ' - % 2.50 E -06 '],
             'permutation_79' => ['-2.5E-8', ' - % 2.50E-06 '],
-            'permutation_80' => [' - % 2.50E- 06 ', ' - % 2.50E- 06 '],
+            'permutation_80' => ['-2.5E-8', ' - % 2.50E- 06 '],
             'permutation_81' => [' - % 2.50E - 06 ', ' - % 2.50E - 06 '],
             'permutation_82' => ['-2.5E-6', '-2.5e-4%'],
             'permutation_83' => ['200', '2e4%'],
             'permutation_84' => ['-2.5E-8', '-%2.50e-06'],
             'permutation_85' => [' - % 2.50 e -06 ', ' - % 2.50 e -06 '],
             'permutation_86' => ['-2.5E-8', ' - % 2.50e-06 '],
-            'permutation_87' => [' - % 2.50e- 06 ', ' - % 2.50e- 06 '],
+            'permutation_87' => ['-2.5E-8', ' - % 2.50e- 06 '],
             'permutation_88' => [' - % 2.50e - 06 ', ' - % 2.50e - 06 '],
         ];
     }
@@ -205,7 +205,7 @@ class FormattedNumberTest extends TestCase
         }
     }
 
-    public function providerCurrencies(): array
+    public static function providerCurrencies(): array
     {
         $currencyCode = StringHelper::getCurrencyCode();
 
@@ -233,6 +233,11 @@ class FormattedNumberTest extends TestCase
             'basic_postfix_scientific_currency_with_spaces' => ['2000000', "2E6 {$currencyCode}"],
 
             'high_value_currency_with_thousands_separator' => ['2750000', "+{$currencyCode} 2,750,000"],
+
+            'explicit dollar' => ['2.75', '$2.75'],
+            'explicit euro' => ['2.75', '2.75€'],
+            'explicit pound sterling' => ['2.75', '£2.75'],
+            'explicit yen' => ['275', '¥275'],
         ];
     }
 }

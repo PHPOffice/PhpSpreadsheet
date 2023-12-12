@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,11 +10,8 @@ class OddTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerODD
-     *
-     * @param mixed $expectedResult
-     * @param mixed $value
      */
-    public function testODD($expectedResult, $value): void
+    public function testODD(mixed $expectedResult, mixed $value): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -21,7 +20,7 @@ class OddTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $sheet->getCell('A1')->getCalculatedValue());
     }
 
-    public function providerODD(): array
+    public static function providerODD(): array
     {
         return require 'tests/data/Calculation/MathTrig/ODD.php';
     }
@@ -38,7 +37,7 @@ class OddTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerOddArray(): array
+    public static function providerOddArray(): array
     {
         return [
             'row vector' => [[[-3, 1, 5]], '{-3, 1, 4}'],

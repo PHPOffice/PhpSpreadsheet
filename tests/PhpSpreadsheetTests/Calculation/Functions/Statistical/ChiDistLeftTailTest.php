@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,15 +10,13 @@ class ChiDistLeftTailTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerCHIDIST
-     *
-     * @param mixed $expectedResult
      */
-    public function testCHIDIST($expectedResult, ...$args): void
+    public function testCHIDIST(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCaseReference('CHISQ.DIST', $expectedResult, ...$args);
     }
 
-    public function providerCHIDIST(): array
+    public static function providerCHIDIST(): array
     {
         return require 'tests/data/Calculation/Statistical/CHIDISTLeftTail.php';
     }
@@ -33,7 +33,7 @@ class ChiDistLeftTailTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerChiDistLeftTailArray(): array
+    public static function providerChiDistLeftTailArray(): array
     {
         return [
             'row/column vectors' => [

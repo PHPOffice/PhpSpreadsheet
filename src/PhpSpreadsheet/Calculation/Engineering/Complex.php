@@ -32,7 +32,7 @@ class Complex
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function COMPLEX($realNumber = 0.0, $imaginary = 0.0, $suffix = 'i')
+    public static function COMPLEX(mixed $realNumber = 0.0, mixed $imaginary = 0.0, mixed $suffix = 'i'): array|string
     {
         if (is_array($realNumber) || is_array($imaginary) || is_array($suffix)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $realNumber, $imaginary, $suffix);
@@ -49,7 +49,7 @@ class Complex
             return $e->getMessage();
         }
 
-        if (($suffix == 'i') || ($suffix == 'j') || ($suffix == '')) {
+        if (($suffix === 'i') || ($suffix === 'j') || ($suffix === '')) {
             $complex = new ComplexObject($realNumber, $imaginary, $suffix);
 
             return (string) $complex;
@@ -74,7 +74,7 @@ class Complex
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function IMAGINARY($complexNumber)
+    public static function IMAGINARY($complexNumber): array|string|float
     {
         if (is_array($complexNumber)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $complexNumber);
@@ -82,7 +82,7 @@ class Complex
 
         try {
             $complex = new ComplexObject($complexNumber);
-        } catch (ComplexException $e) {
+        } catch (ComplexException) {
             return ExcelError::NAN();
         }
 
@@ -104,7 +104,7 @@ class Complex
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function IMREAL($complexNumber)
+    public static function IMREAL($complexNumber): array|string|float
     {
         if (is_array($complexNumber)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $complexNumber);
@@ -112,7 +112,7 @@ class Complex
 
         try {
             $complex = new ComplexObject($complexNumber);
-        } catch (ComplexException $e) {
+        } catch (ComplexException) {
             return ExcelError::NAN();
         }
 

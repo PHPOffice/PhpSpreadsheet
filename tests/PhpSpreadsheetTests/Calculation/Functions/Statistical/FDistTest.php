@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,15 +10,13 @@ class FDistTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerFDIST
-     *
-     * @param mixed $expectedResult
      */
-    public function testFDIST($expectedResult, ...$args): void
+    public function testFDIST(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('F.DIST', $expectedResult, ...$args);
     }
 
-    public function providerFDIST(): array
+    public static function providerFDIST(): array
     {
         return require 'tests/data/Calculation/Statistical/FDIST.php';
     }
@@ -33,7 +33,7 @@ class FDistTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerFDistArray(): array
+    public static function providerFDistArray(): array
     {
         return [
             'row/column vectors' => [

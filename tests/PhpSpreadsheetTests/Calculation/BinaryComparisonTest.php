@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Calculation\BinaryComparison;
@@ -9,10 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class BinaryComparisonTest extends TestCase
 {
-    /**
-     * @var string
-     */
-    private $compatibilityMode;
+    private string $compatibilityMode;
 
     protected function setUp(): void
     {
@@ -27,13 +26,10 @@ class BinaryComparisonTest extends TestCase
 
     /**
      * @dataProvider providerBinaryComparison
-     *
-     * @param mixed $operand1
-     * @param mixed $operand2
      */
     public function testBinaryComparisonOperation(
-        $operand1,
-        $operand2,
+        mixed $operand1,
+        mixed $operand2,
         string $operator,
         bool $expectedResultExcel,
         bool $expectedResultOpenOffice
@@ -47,7 +43,7 @@ class BinaryComparisonTest extends TestCase
         self::assertEquals($expectedResultOpenOffice, $resultOpenOffice, 'should be OpenOffice compatible');
     }
 
-    public function providerBinaryComparison(): array
+    public static function providerBinaryComparison(): array
     {
         return require 'tests/data/Calculation/BinaryComparisonOperations.php';
     }

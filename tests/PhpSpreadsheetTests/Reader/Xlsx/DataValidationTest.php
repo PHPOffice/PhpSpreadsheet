@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Cell\DataValidation;
@@ -47,7 +49,7 @@ class DataValidationTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerExternalSheet(): array
+    public static function providerExternalSheet(): array
     {
         return [
             'standard spreadsheet' => ['Feuil2!$A$3:$A$5', 'tests/data/Reader/XLSX/dataValidation2Test.xlsx'],

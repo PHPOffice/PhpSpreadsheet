@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Information;
 
 use PhpOffice\PhpSpreadsheet\NamedRange;
@@ -11,7 +13,7 @@ class IsRefTest extends AllSetupTeardown
     {
         $sheet = $this->getSheet();
 
-        $sheet->getParent()->addDefinedName(new NamedRange('NAMED_RANGE', $sheet, 'C1'));
+        $sheet->getParentOrThrow()->addDefinedName(new NamedRange('NAMED_RANGE', $sheet, 'C1'));
 
         $sheet->getCell('A1')->setValue('=ISREF(B1)');
         $sheet->getCell('A2')->setValue('=ISREF(B1:B2)');

@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests;
 
 use PhpOffice\PhpSpreadsheet\Exception as SSException;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Style\Style;
 use PHPUnit\Framework\TestCase;
 
 class SpreadsheetCoverageTest extends TestCase

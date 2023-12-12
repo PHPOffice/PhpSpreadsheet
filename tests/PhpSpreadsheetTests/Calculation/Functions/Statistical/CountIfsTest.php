@@ -1,25 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
-use PHPUnit\Framework\TestCase;
-
-// TODO Run in spreadsheet context.
-class CountIfsTest extends TestCase
+// TODO There are some commented out cases which don't return correct value
+class CountIfsTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerCOUNTIFS
-     *
-     * @param mixed $expectedResult
      */
-    public function testCOUNTIFS($expectedResult, ...$args): void
+    public function testCOUNTIFS(mixed $expectedResult, mixed ...$args): void
     {
-        $result = Statistical\Conditional::COUNTIFS(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        $this->runTestCaseNoBracket('COUNTIFS', $expectedResult, ...$args);
     }
 
-    public function providerCOUNTIFS(): array
+    public static function providerCOUNTIFS(): array
     {
         return require 'tests/data/Calculation/Statistical/COUNTIFS.php';
     }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Style;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -52,7 +54,7 @@ class BorderRangeTest extends TestCase
                 $func = "get$side";
                 $b = $bs->$func(); // boo
 
-                if (strpos($borders, $sidekey) === false) {
+                if (!str_contains($borders, $sidekey)) {
                     self::assertSame(Border::BORDER_NONE, $b->getBorderStyle(), $assertion);
                 } else {
                     self::assertSame(Border::BORDER_THIN, $b->getBorderStyle(), $assertion);

@@ -9,16 +9,16 @@ class HeaderFooterDrawing extends Drawing
      *
      * @return string Hash code
      */
-    public function getHashCode()
+    public function getHashCode(): string
     {
         return md5(
-            $this->getPath() .
-            $this->name .
-            $this->offsetX .
-            $this->offsetY .
-            $this->width .
-            $this->height .
-            __CLASS__
+            $this->getPath()
+            . $this->name
+            . $this->offsetX
+            . $this->offsetY
+            . $this->width
+            . $this->height
+            . __CLASS__
         );
     }
 }

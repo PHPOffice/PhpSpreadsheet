@@ -12,11 +12,9 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet as ActualWorksheet;
 
 class DefinedNames
 {
-    /** @var XMLWriter */
-    private $objWriter;
+    private XMLWriter $objWriter;
 
-    /** @var Spreadsheet */
-    private $spreadsheet;
+    private Spreadsheet $spreadsheet;
 
     public function __construct(XMLWriter $objWriter, Spreadsheet $spreadsheet)
     {
@@ -72,8 +70,8 @@ class DefinedNames
         $local = -1;
         if ($definedName->getLocalOnly() && $definedName->getScope() !== null) {
             try {
-                $local = $definedName->getScope()->getParent()->getIndex($definedName->getScope());
-            } catch (Exception $e) {
+                $local = $definedName->getScope()->getParentOrThrow()->getIndex($definedName->getScope());
+            } catch (Exception) {
                 // See issue 2266 - deleting sheet which contains
                 //     defined names will cause Exception above.
                 return;
@@ -114,7 +112,7 @@ class DefinedNames
             //    Strip any worksheet ref so we can make the cell ref absolute
             [, $range[0]] = ActualWorksheet::extractSheetTitle($range[0], true);
 
-            $range[0] = Coordinate::absoluteCoordinate($range[0]);
+            $range[0] = Coordinate::absoluteCoordinate($range[0] ?? '');
             if (count($range) > 1) {
                 $range[1] = Coordinate::absoluteCoordinate($range[1]);
             }
@@ -235,7 +233,7 @@ class DefinedNames
             $definedRange = substr($definedRange, 0, $offset) . $newRange . substr($definedRange, $offset + $length);
         }
 
-        if (substr($definedRange, 0, 1) === '=') {
+        if (str_starts_with($definedRange, '=')) {
             $definedRange = substr($definedRange, 1);
         }
 

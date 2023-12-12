@@ -24,9 +24,9 @@ class VLookup extends LookupBase
      *
      * @return mixed The value of the found cell
      */
-    public static function lookup($lookupValue, $lookupArray, $indexNumber, $notExactMatch = true)
+    public static function lookup(mixed $lookupValue, mixed $lookupArray, mixed $indexNumber, mixed $notExactMatch = true)
     {
-        if (is_array($lookupValue)) {
+        if (is_array($lookupValue) || is_array($indexNumber)) {
             return self::evaluateArrayArgumentsIgnore([self::class, __FUNCTION__], 1, $lookupValue, $lookupArray, $indexNumber, $notExactMatch);
         }
 
@@ -82,7 +82,7 @@ class VLookup extends LookupBase
      * @param mixed $lookupValue The value that you want to match in lookup_array
      * @param  int|string $column
      */
-    private static function vLookupSearch($lookupValue, array $lookupArray, $column, bool $notExactMatch): ?int
+    private static function vLookupSearch(mixed $lookupValue, array $lookupArray, $column, bool $notExactMatch): ?int
     {
         $lookupLower = StringHelper::strToLower((string) $lookupValue);
 
@@ -94,9 +94,9 @@ class VLookup extends LookupBase
 
             // break if we have passed possible keys
             if (
-                $notExactMatch &&
-                (($bothNumeric && ($rowData[$column] > $lookupValue)) ||
-                ($bothNotNumeric && ($cellDataLower > $lookupLower)))
+                $notExactMatch
+                && (($bothNumeric && ($rowData[$column] > $lookupValue))
+                || ($bothNotNumeric && ($cellDataLower > $lookupLower)))
             ) {
                 break;
             }

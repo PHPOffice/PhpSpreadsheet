@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet\Table;
 
+use PhpOffice\PhpSpreadsheet\Cell\AddressRange;
 use PhpOffice\PhpSpreadsheet\Cell\CellAddress;
 use PhpOffice\PhpSpreadsheet\Cell\CellRange;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
@@ -36,7 +39,7 @@ class TableTest extends SetupTeardown
         self::assertEquals($expected, $table->getName());
     }
 
-    public function validTableNamesProvider(): array
+    public static function validTableNamesProvider(): array
     {
         return [
             ['', ''],
@@ -61,7 +64,7 @@ class TableTest extends SetupTeardown
         $table->setName($name);
     }
 
-    public function invalidTableNamesProvider(): array
+    public static function invalidTableNamesProvider(): array
     {
         return [
             ['C'],
@@ -75,6 +78,7 @@ class TableTest extends SetupTeardown
             ['R11C11'],
             ['123'],
             ['=Table'],
+            ['Name/Slash'],
             ['ிக'], // starting with UTF-8 combined character
             [bin2hex(random_bytes(255))], // random string with length greater than 255
         ];
@@ -152,12 +156,9 @@ class TableTest extends SetupTeardown
     }
 
     /**
-     * @dataProvider validTableRangeProvider
-     *
-     * @param AddressRange|array<int>|string $fullRange
-     * @param string $fullRange
+     * @param AddressRange|array{0: int, 1: int, 2: int, 3: int}|array{0: int, 1: int}|string $fullRange
      */
-    public function testSetRangeValidRange($fullRange, string $actualRange): void
+    public function xtestSetRangeValidRange(string|array|AddressRange $fullRange, string $actualRange): void
     {
         $table = new Table(self::INITIAL_RANGE);
 
@@ -166,7 +167,14 @@ class TableTest extends SetupTeardown
         self::assertEquals($actualRange, $table->getRange());
     }
 
-    public function validTableRangeProvider(): array
+    public function testSetRangeValidRange(): void
+    {
+        foreach ($this->validTableRanges() as $arrayEntry) {
+            $this->xtestSetRangeValidRange($arrayEntry[0], $arrayEntry[1]);
+        }
+    }
+
+    public function validTableRanges(): array
     {
         $sheet = $this->getSheet();
         $title = $sheet->getTitle();
@@ -203,13 +211,12 @@ class TableTest extends SetupTeardown
         new Table($range);
     }
 
-    public function invalidTableRangeProvider(): array
+    public static function invalidTableRangeProvider(): array
     {
         return [
             ['A1'],
-            ['A1:A1'],
             ['B1:A4'],
-            ['A1:D1'],
+            ['B12:B4'],
             ['D1:A1'],
         ];
     }

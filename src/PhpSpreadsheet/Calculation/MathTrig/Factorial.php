@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 
 class Factorial
@@ -26,7 +27,7 @@ class Factorial
      *         If an array of numbers is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function fact($factVal)
+    public static function fact($factVal): array|string|float|int
     {
         if (is_array($factVal)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $factVal);
@@ -68,7 +69,7 @@ class Factorial
      *         If an array of numbers is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function factDouble($factVal)
+    public static function factDouble($factVal): array|string|float|int
     {
         if (is_array($factVal)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $factVal);
@@ -100,7 +101,7 @@ class Factorial
      *
      * @return float|string The result, or a string containing an error
      */
-    public static function multinomial(...$args)
+    public static function multinomial(...$args): string|int|float
     {
         $summer = 0;
         $divisor = 1;
@@ -120,6 +121,6 @@ class Factorial
 
         $summer = self::fact($summer);
 
-        return $summer / $divisor;
+        return is_numeric($summer) ? ($summer / $divisor) : ExcelError::VALUE();
     }
 }

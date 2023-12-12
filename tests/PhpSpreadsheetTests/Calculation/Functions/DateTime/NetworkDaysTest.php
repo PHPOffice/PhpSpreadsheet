@@ -1,55 +1,92 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\NetworkDays;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
+use PHPUnit\Framework\TestCase;
 
-class NetworkDaysTest extends AllSetupTeardown
+class NetworkDaysTest extends TestCase
 {
     /**
      * @dataProvider providerNETWORKDAYS
-     *
-     * @param mixed $expectedResult
-     * @param mixed $arg1
-     * @param mixed $arg2
      */
-    public function testNETWORKDAYS($expectedResult, $arg1 = 'omitted', $arg2 = 'omitted', ?array $arg3 = null): void
+    public function testDirectCallToNETWORKDAYS(mixed $expectedResult, mixed ...$args): void
     {
-        $this->mightHaveException($expectedResult);
-        $sheet = $this->getSheet();
-        if ($arg1 !== null) {
-            $sheet->getCell('A1')->setValue($arg1);
-        }
-        if ($arg2 !== null) {
-            $sheet->getCell('A2')->setValue($arg2);
-        }
-        $dateArray = [];
-        if (is_array($arg3)) {
-            if (array_key_exists(0, $arg3) && is_array($arg3[0])) {
-                $dateArray = $arg3[0];
-            } else {
-                $dateArray = $arg3;
-            }
-        }
-        $dateIndex = 0;
-        foreach ($dateArray as $date) {
-            ++$dateIndex;
-            $sheet->getCell("C$dateIndex")->setValue($date);
-        }
-        $arrayArg = $dateIndex ? ", C1:C$dateIndex" : '';
-        if ($arg1 === 'omitted') {
-            $sheet->getCell('B1')->setValue('=NETWORKDAYS()');
-        } elseif ($arg2 === 'omitted') {
-            $sheet->getCell('B1')->setValue('=NETWORKDAYS(A1)');
-        } else {
-            $sheet->getCell('B1')->setValue("=NETWORKDAYS(A1, A2$arrayArg)");
-        }
-        self::assertEquals($expectedResult, $sheet->getCell('B1')->getCalculatedValue());
+        $result = NetworkDays::count(...$args);
+        self::assertSame($expectedResult, $result);
     }
 
-    public function providerNETWORKDAYS(): array
+    /**
+     * @dataProvider providerNETWORKDAYS
+     */
+    public function testNETWORKDAYSAsFormula(mixed $expectedResult, mixed ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $calculation = Calculation::getInstance();
+        $formula = "=NETWORKDAYS({$arguments})";
+
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertSame($expectedResult, $result);
+    }
+
+    /**
+     * @dataProvider providerNETWORKDAYS
+     */
+    public function testNETWORKDAYSInWorksheet(mixed $expectedResult, mixed ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=NETWORKDAYS({$argumentCells})";
+
+        $result = $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+        self::assertSame($expectedResult, $result);
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public static function providerNETWORKDAYS(): array
     {
         return require 'tests/data/Calculation/DateTime/NETWORKDAYS.php';
+    }
+
+    /**
+     * @dataProvider providerUnhappyNETWORKDAYS
+     */
+    public function testNETWORKDAYSUnhappyPath(string $expectedException, mixed ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=NETWORKDAYS({$argumentCells})";
+
+        $this->expectException(\PhpOffice\PhpSpreadsheet\Calculation\Exception::class);
+        $this->expectExceptionMessage($expectedException);
+        $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public static function providerUnhappyNETWORKDAYS(): array
+    {
+        return [
+            ['Formula Error: Wrong number of arguments for NETWORKDAYS() function'],
+            ['Formula Error: Wrong number of arguments for NETWORKDAYS() function', '2001-01-01'],
+        ];
     }
 
     /**
@@ -68,7 +105,7 @@ class NetworkDaysTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerNetWorkDaysArray(): array
+    public static function providerNetWorkDaysArray(): array
     {
         return [
             'row vector #1' => [[[234, 233, 232]], '{"2022-02-01", "2022-02-02", "2022-02-03"}', '"2022-12-25"', null],

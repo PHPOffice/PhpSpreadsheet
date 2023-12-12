@@ -1,41 +1,49 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 
-class DAverageTest extends AllSetupTeardown
+use PhpOffice\PhpSpreadsheet\Calculation\Database\DAverage;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
+
+class DAverageTest extends SetupTeardownDatabases
 {
     /**
      * @dataProvider providerDAverage
-     *
-     * @param mixed $expectedResult
-     * @param int|string $field
      */
-    public function testDAverage($expectedResult, array $database, $field, array $criteria): void
+    public function testDirectCallToDAverage(int|float|string $expectedResult, array $database, string|int|null $field, array $criteria): void
     {
-        $this->runTestCase('DAVERAGE', $expectedResult, $database, $field, $criteria);
+        $result = DAverage::evaluate($database, $field, $criteria);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
-    public function providerDAverage(): array
+    /**
+     * @dataProvider providerDAverage
+     */
+    public function testDAverageAsWorksheetFormula(int|float|string $expectedResult, array $database, string|int|null $field, array $criteria): void
+    {
+        $this->prepareWorksheetWithFormula('DAVERAGE', $database, $field, $criteria);
+
+        $result = $this->getSheet()->getCell(self::RESULT_CELL)->getCalculatedValue();
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
+    }
+
+    public static function providerDAverage(): array
     {
         return [
             [
                 12,
-                $this->database1(),
+                self::database1(),
                 'Yield',
                 [
                     ['Tree', 'Height'],
                     ['=Apple', '>10'],
                 ],
             ],
-            'numeric column, in this case referring to age' => [
-                13,
-                $this->database1(),
-                3,
-                $this->database1(),
-            ],
             [
                 268333.333333333333,
-                $this->database2(),
+                self::database2(),
                 'Sales',
                 [
                     ['Quarter', 'Sales Rep.'],
@@ -44,28 +52,34 @@ class DAverageTest extends AllSetupTeardown
             ],
             [
                 372500,
-                $this->database2(),
+                self::database2(),
                 'Sales',
                 [
                     ['Quarter', 'Area'],
                     ['1', 'South'],
                 ],
             ],
+            'numeric column, in this case referring to age' => [
+                13,
+                self::database1(),
+                3,
+                self::database1(),
+            ],
             'null field' => [
-                '#VALUE!',
-                $this->database1(),
+                ExcelError::VALUE(),
+                self::database1(),
                 null,
-                $this->database1(),
+                self::database1(),
             ],
             'field unknown column' => [
-                '#VALUE!',
-                $this->database1(),
+                ExcelError::VALUE(),
+                self::database1(),
                 'xyz',
-                $this->database1(),
+                self::database1(),
             ],
             'multiple criteria, omit equal sign' => [
                 10.5,
-                $this->database1(),
+                self::database1(),
                 'Yield',
                 [
                     ['Tree', 'Height'],
@@ -75,7 +89,7 @@ class DAverageTest extends AllSetupTeardown
             ],
             'multiple criteria for same field' => [
                 10,
-                $this->database1(),
+                self::database1(),
                 'Yield',
                 [
                     ['Tree', 'Height', 'Age', 'Height'],
@@ -87,16 +101,16 @@ class DAverageTest extends AllSetupTeardown
                to me that I'm not going to bother coding that up,
                content to return #VALUE! as an invalid name would */
             'field column number too high' => [
-                '#VALUE!',
-                $this->database1(),
+                ExcelError::VALUE(),
+                self::database1(),
                 99,
-                $this->database1(),
+                self::database1(),
             ],
             'field column number too low' => [
-                '#VALUE!',
-                $this->database1(),
+                ExcelError::VALUE(),
+                self::database1(),
                 0,
-                $this->database1(),
+                self::database1(),
             ],
         ];
     }

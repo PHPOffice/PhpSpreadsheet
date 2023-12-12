@@ -48,11 +48,11 @@ class Address
      *         If an array of values is passed as the $testValue argument, then the returned result will also be
      *            an array with the same dimensions
      */
-    public static function cell($row, $column, $relativity = 1, $referenceStyle = true, $sheetName = '')
+    public static function cell(mixed $row, mixed $column, mixed $relativity = 1, mixed $referenceStyle = true, mixed $sheetName = ''): array|string
     {
         if (
-            is_array($row) || is_array($column) ||
-            is_array($relativity) || is_array($referenceStyle) || is_array($sheetName)
+            is_array($row) || is_array($column)
+            || is_array($relativity) || is_array($referenceStyle) || is_array($sheetName)
         ) {
             return self::evaluateArrayArguments(
                 [self::class, __FUNCTION__],
@@ -83,10 +83,10 @@ class Address
         return self::formatAsR1C1($row, $column, $relativity, $sheetName);
     }
 
-    private static function sheetName(string $sheetName)
+    private static function sheetName(string $sheetName): string
     {
         if ($sheetName > '') {
-            if (strpos($sheetName, ' ') !== false || strpos($sheetName, '[') !== false) {
+            if (str_contains($sheetName, ' ') || str_contains($sheetName, '[')) {
                 $sheetName = "'{$sheetName}'";
             }
             $sheetName .= '!';

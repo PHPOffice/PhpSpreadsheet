@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
@@ -8,15 +10,9 @@ use PHPUnit\Framework\TestCase;
 
 class FunctionsTest extends TestCase
 {
-    /**
-     * @var string
-     */
-    private $compatibilityMode;
+    private string $compatibilityMode;
 
-    /**
-     * @var string
-     */
-    private $returnDate;
+    private string $returnDate;
 
     protected function setUp(): void
     {
@@ -83,14 +79,14 @@ class FunctionsTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerIfCondition(): array
+    public static function providerIfCondition(): array
     {
         return require 'tests/data/Calculation/Functions/IF_CONDITION.php';
     }
 
     public function testDeprecatedIsFormula(): void
     {
-        $result = /** @scrutinizer ignore-deprecated */ Functions::isFormula('="STRING"');
+        $result = Functions::isFormula('="STRING"');
         self::assertEquals(ExcelError::REF(), $result);
     }
 

@@ -19,15 +19,16 @@ class BSE
 
     /**
      * The parent BLIP Store Entry Container.
+     * Property is never currently read.
      *
      * @var BstoreContainer
      */
-    private $parent;
+    private $parent; // @phpstan-ignore-line
 
     /**
      * The BLIP (Big Large Image or Picture).
      *
-     * @var BSE\Blip
+     * @var ?BSE\Blip
      */
     private $blip;
 
@@ -49,7 +50,7 @@ class BSE
     /**
      * Get the BLIP.
      *
-     * @return BSE\Blip
+     * @return ?BSE\Blip
      */
     public function getBlip()
     {

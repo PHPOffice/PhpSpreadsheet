@@ -1,15 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 class MultinomialTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerMULTINOMIAL
-     *
-     * @param mixed $expectedResult
      */
-    public function testMULTINOMIAL($expectedResult, ...$args): void
+    public function testMULTINOMIAL(mixed $expectedResult, mixed ...$args): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -27,7 +27,7 @@ class MultinomialTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerMULTINOMIAL(): array
+    public static function providerMULTINOMIAL(): array
     {
         return require 'tests/data/Calculation/MathTrig/MULTINOMIAL.php';
     }

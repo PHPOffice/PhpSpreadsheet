@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
@@ -11,8 +13,8 @@ use PHPUnit\Framework\TestCase;
 
 class ColumnCellIteratorTest extends TestCase
 {
-    private const CELL_VALUES =
-        [
+    private const CELL_VALUES
+        = [
             [110, 210, 310, 410, 510, 610, 710],
             [120, 220, 320, 420, 520, 620],
             [130, 230, 330, 430, 530, 630],
@@ -40,12 +42,11 @@ class ColumnCellIteratorTest extends TestCase
         $values = [];
         foreach ($iterator as $key => $ColumnCell) {
             self::assertNotNull($ColumnCell);
-            /** @scrutinizer ignore-call */
             $values[] = $ColumnCell->getValue();
             self::assertEquals($ColumnCellIndexResult++, $key);
             self::assertInstanceOf(Cell::class, $ColumnCell);
         }
-        $transposed = array_map(/** @scrutinizer ignore-type */ null, ...self::CELL_VALUES);
+        $transposed = array_map(null, ...self::CELL_VALUES);
         self::assertSame($transposed[0], $values);
         $spreadsheet->disconnectWorksheets();
     }
@@ -61,7 +62,6 @@ class ColumnCellIteratorTest extends TestCase
         $values = [];
         foreach ($iterator as $key => $ColumnCell) {
             self::assertNotNull($ColumnCell);
-            /** @scrutinizer ignore-call */
             $values[] = $ColumnCell->getValue();
             self::assertEquals($ColumnCellIndexResult++, $key);
             self::assertInstanceOf(Cell::class, $ColumnCell);
@@ -83,7 +83,6 @@ class ColumnCellIteratorTest extends TestCase
         while ($iterator->valid()) {
             $current = $iterator->current();
             self::assertNotNull($current);
-            /** @scrutinizer ignore-call */
             $cell = $current->getCoordinate();
             $values[] = $sheet->getCell($cell)->getValue();
             $iterator->prev();

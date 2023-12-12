@@ -1,23 +1,35 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Database;
 
-class DCountTest extends AllSetupTeardown
+use PhpOffice\PhpSpreadsheet\Calculation\Database\DCount;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
+
+class DCountTest extends SetupTeardownDatabases
 {
     /**
      * @dataProvider providerDCount
-     *
-     * @param mixed $expectedResult
-     * @param mixed $database
-     * @param mixed $field
-     * @param mixed $criteria
      */
-    public function testDCount($expectedResult, $database, $field, $criteria): void
+    public function testDirectCallToDCount(int|string $expectedResult, array $database, string|int|null $field, array $criteria): void
     {
-        $this->runTestCase('DCOUNT', $expectedResult, $database, $field, $criteria);
+        $result = DCount::evaluate($database, $field, $criteria);
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
-    private function database4(): array
+    /**
+     * @dataProvider providerDCount
+     */
+    public function testDCountAsWorksheetFormula(int|string $expectedResult, array $database, string|int|null $field, array $criteria): void
+    {
+        $this->prepareWorksheetWithFormula('DCOUNT', $database, $field, $criteria);
+
+        $result = $this->getSheet()->getCell(self::RESULT_CELL)->getCalculatedValue();
+        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
+    }
+
+    private static function database4(): array
     {
         return [
             ['Status', 'Value'],
@@ -32,12 +44,12 @@ class DCountTest extends AllSetupTeardown
         ];
     }
 
-    public function providerDCount(): array
+    public static function providerDCount(): array
     {
         return [
             [
                 1,
-                $this->database1(),
+                self::database1(),
                 'Age',
                 [
                     ['Tree', 'Height', 'Height'],
@@ -46,7 +58,7 @@ class DCountTest extends AllSetupTeardown
             ],
             [
                 1,
-                $this->database3(),
+                self::database3(),
                 'Score',
                 [
                     ['Subject', 'Gender'],
@@ -55,25 +67,16 @@ class DCountTest extends AllSetupTeardown
             ],
             [
                 1,
-                $this->database3(),
+                self::database3(),
                 'Score',
                 [
                     ['Subject', 'Gender'],
                     ['Math', 'Female'],
                 ],
             ],
-            'omitted field name' => [
-                '#VALUE!',
-                $this->database3(),
-                null,
-                [
-                    ['Subject', 'Score'],
-                    ['English', '>63%'],
-                ],
-            ],
             [
                 3,
-                $this->database4(),
+                self::database4(),
                 'Value',
                 [
                     ['Status'],
@@ -82,7 +85,7 @@ class DCountTest extends AllSetupTeardown
             ],
             [
                 5,
-                $this->database4(),
+                self::database4(),
                 'Value',
                 [
                     ['Status'],
@@ -91,25 +94,34 @@ class DCountTest extends AllSetupTeardown
             ],
             'field column number okay' => [
                 0,
-                $this->database1(),
+                self::database1(),
                 1,
-                $this->database1(),
+                self::database1(),
+            ],
+            'omitted field name' => [
+                ExcelError::VALUE(),
+                self::database3(),
+                null,
+                [
+                    ['Subject', 'Score'],
+                    ['English', '>63%'],
+                ],
             ],
             /* Excel seems to return #NAME? when column number
                is too high or too low. This makes so little sense
                to me that I'm not going to bother coding that up,
                content to return #VALUE! as an invalid name would */
             'field column number too high' => [
-                '#VALUE!',
-                $this->database1(),
+                ExcelError::VALUE(),
+                self::database1(),
                 99,
-                $this->database1(),
+                self::database1(),
             ],
             'field column number too low' => [
-                '#VALUE!',
-                $this->database1(),
+                ExcelError::VALUE(),
+                self::database1(),
                 0,
-                $this->database1(),
+                self::database1(),
             ],
         ];
     }

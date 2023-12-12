@@ -19,7 +19,7 @@ class LogarithmicBestFit extends BestFit
      *
      * @return float Y-Value
      */
-    public function getValueOfYForX($xValue)
+    public function getValueOfYForX($xValue): float
     {
         return $this->getIntersect() + $this->getSlope() * log($xValue - $this->xOffset);
     }
@@ -31,7 +31,7 @@ class LogarithmicBestFit extends BestFit
      *
      * @return float X-Value
      */
-    public function getValueOfXForY($yValue)
+    public function getValueOfXForY($yValue): float
     {
         return exp(($yValue - $this->getIntersect()) / $this->getSlope());
     }
@@ -40,10 +40,8 @@ class LogarithmicBestFit extends BestFit
      * Return the Equation of the best-fit line.
      *
      * @param int $dp Number of places of decimal precision to display
-     *
-     * @return string
      */
-    public function getEquation($dp = 0)
+    public function getEquation($dp = 0): string
     {
         $slope = $this->getSlope($dp);
         $intersect = $this->getIntersect($dp);
@@ -60,9 +58,7 @@ class LogarithmicBestFit extends BestFit
     private function logarithmicRegression(array $yValues, array $xValues, bool $const): void
     {
         $adjustedYValues = array_map(
-            function ($value) {
-                return ($value < 0.0) ? 0 - log(abs($value)) : log($value);
-            },
+            fn ($value): float => ($value < 0.0) ? 0 - log(abs($value)) : log($value),
             $yValues
         );
 

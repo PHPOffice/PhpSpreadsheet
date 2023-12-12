@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
 use PhpOffice\PhpSpreadsheet\Exception as Except;
@@ -11,8 +13,8 @@ use PHPUnit\Framework\TestCase;
 
 class RowIteratorTest extends TestCase
 {
-    private const CELL_VALUES =
-        [
+    private const CELL_VALUES
+        = [
             [110, 120, 130],
             [210, 220],
             [310, 320, 330],

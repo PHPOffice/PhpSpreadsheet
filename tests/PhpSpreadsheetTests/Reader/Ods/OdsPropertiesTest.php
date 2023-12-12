@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Ods;
 
 use PhpOffice\PhpSpreadsheet\Document\Properties;
@@ -9,10 +11,7 @@ use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
 class OdsPropertiesTest extends AbstractFunctional
 {
-    /**
-     * @var string
-     */
-    private $timeZone;
+    private string $timeZone;
 
     protected function setUp(): void
     {
@@ -65,6 +64,7 @@ class OdsPropertiesTest extends AbstractFunctional
             }
             self::assertSame($testData['value'], $result);
         }
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testReloadOdsWorkbookProperties(): void
@@ -81,6 +81,7 @@ class OdsPropertiesTest extends AbstractFunctional
         $reader = new Ods();
         $spreadsheetOld = $reader->load($filename);
         $spreadsheet = $this->writeAndReload($spreadsheetOld, 'Ods');
+        $spreadsheetOld->disconnectWorksheets();
 
         $properties = $spreadsheet->getProperties();
         // Core Properties
@@ -108,5 +109,6 @@ class OdsPropertiesTest extends AbstractFunctional
             }
             self::assertSame($testData['value'], $result);
         }
+        $spreadsheet->disconnectWorksheets();
     }
 }

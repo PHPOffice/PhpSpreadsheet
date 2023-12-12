@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Engine;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
@@ -12,10 +14,7 @@ class RangeTest extends TestCase
     /** @var string */
     private $incompleteMessage = 'Must be revisited';
 
-    /**
-     * @var Spreadsheet
-     */
-    private $spreadSheet;
+    private \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadSheet;
 
     protected function setUp(): void
     {
@@ -26,10 +25,8 @@ class RangeTest extends TestCase
 
     /**
      * @dataProvider providerRangeEvaluation
-     *
-     * @param mixed $expectedResult
      */
-    public function testRangeEvaluation(string $formula, $expectedResult): void
+    public function testRangeEvaluation(string $formula, int|string $expectedResult): void
     {
         $workSheet = $this->spreadSheet->getActiveSheet();
         $workSheet->setCellValue('H1', $formula);
@@ -38,9 +35,9 @@ class RangeTest extends TestCase
         self::assertSame($expectedResult, $actualRresult);
     }
 
-    public function providerRangeEvaluation(): array
+    public static function providerRangeEvaluation(): array
     {
-        return[
+        return [
             'Sum with Simple Range' => ['=SUM(A1:C3)', 72],
             'Count with Simple Range' => ['=COUNT(A1:C3)', 9],
             'Sum with UNION #1' => ['=SUM(A1:B3,A1:C2)', 75],
@@ -93,9 +90,9 @@ class RangeTest extends TestCase
         self::assertSame($expectedResult, $sumRresult);
     }
 
-    public function providerNamedRangeEvaluation(): array
+    public static function providerNamedRangeEvaluation(): array
     {
-        return[
+        return [
             [['$A$1:$B$3', '$A$1:$C$2'], '=SUM(GROUP1,GROUP2)', 75],
             [['$A$1:$B$3', '$A$1:$C$2'], '=COUNT(GROUP1,GROUP2)', 12],
             [['$A$1:$B$3', '$A$1:$C$2'], '=SUM(GROUP1 GROUP2)', 18],
@@ -131,9 +128,9 @@ class RangeTest extends TestCase
         self::assertSame($expectedResult, $sumRresult);
     }
 
-    public function providerUTF8NamedRangeEvaluation(): array
+    public static function providerUTF8NamedRangeEvaluation(): array
     {
-        return[
+        return [
             [['Γειά', 'σου', 'Κόσμε'], ['$A$1', '$B$1:$B$2', '$C$1:$C$3'], '=SUM(Γειά,σου,Κόσμε)', 38],
             [['Γειά', 'σου', 'Κόσμε'], ['$A$1', '$B$1:$B$2', '$C$1:$C$3'], '=COUNT(Γειά,σου,Κόσμε)', 6],
             [['Здравствуй', 'мир'], ['$A$1:$A$3', '$C$1:$C$3'], '=SUM(Здравствуй,мир)', 48],
@@ -161,9 +158,9 @@ class RangeTest extends TestCase
         self::assertSame($expectedCount, $actualCount);
     }
 
-    public function providerCompositeNamedRangeEvaluation(): array
+    public static function providerCompositeNamedRangeEvaluation(): array
     {
-        return[
+        return [
             //  Calculation engine doesn't yet handle union ranges with overlap
             'Union with overlap' => [
                 'A1:C1,A3:C3,B1:C3',

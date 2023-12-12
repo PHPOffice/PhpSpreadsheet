@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 return [
-    [
-        0,
+    'no argument' => [
+        'exception',
     ],
     [
         80.5,

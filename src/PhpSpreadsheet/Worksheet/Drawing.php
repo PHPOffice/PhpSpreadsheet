@@ -16,17 +16,13 @@ class Drawing extends BaseDrawing
 
     /**
      * Path.
-     *
-     * @var string
      */
-    private $path;
+    private string $path;
 
     /**
      * Whether or not we are dealing with a URL.
-     *
-     * @var bool
      */
-    private $isUrl;
+    private bool $isUrl;
 
     /**
      * Create a new Drawing.
@@ -43,10 +39,8 @@ class Drawing extends BaseDrawing
 
     /**
      * Get Filename.
-     *
-     * @return string
      */
-    public function getFilename()
+    public function getFilename(): string
     {
         return basename($this->path);
     }
@@ -61,10 +55,8 @@ class Drawing extends BaseDrawing
 
     /**
      * Get Extension.
-     *
-     * @return string
      */
-    public function getExtension()
+    public function getExtension(): string
     {
         $exploded = explode('.', basename($this->path));
 
@@ -73,10 +65,8 @@ class Drawing extends BaseDrawing
 
     /**
      * Get full filepath to store drawing in zip archive.
-     *
-     * @return string
      */
-    public function getMediaFilename()
+    public function getMediaFilename(): string
     {
         if (!array_key_exists($this->type, self::IMAGE_TYPES_CONVERTION_MAP)) {
             throw new PhpSpreadsheetException('Unsupported image type in comment background. Supported types: PNG, JPEG, BMP, GIF.');
@@ -104,7 +94,7 @@ class Drawing extends BaseDrawing
      *
      * @return $this
      */
-    public function setPath($path, $verifyFile = true, $zip = null)
+    public function setPath($path, $verifyFile = true, $zip = null): static
     {
         if ($verifyFile && preg_match('~^data:image/[a-z]+;base64,~', $path) !== 1) {
             // Check if a URL has been passed. https://stackoverflow.com/a/2058596/1252979
@@ -165,12 +155,12 @@ class Drawing extends BaseDrawing
      *
      * @return string Hash code
      */
-    public function getHashCode()
+    public function getHashCode(): string
     {
         return md5(
-            $this->path .
-            parent::getHashCode() .
-            __CLASS__
+            $this->path
+            . parent::getHashCode()
+            . __CLASS__
         );
     }
 

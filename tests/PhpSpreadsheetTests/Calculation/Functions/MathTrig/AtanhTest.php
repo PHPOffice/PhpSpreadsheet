@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,10 +10,8 @@ class AtanhTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerAtanh
-     *
-     * @param mixed $expectedResult
      */
-    public function testAtanh($expectedResult, string $formula): void
+    public function testAtanh(mixed $expectedResult, string $formula): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -21,7 +21,7 @@ class AtanhTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-6);
     }
 
-    public function providerAtanh(): array
+    public static function providerAtanh(): array
     {
         return require 'tests/data/Calculation/MathTrig/ATANH.php';
     }
@@ -38,7 +38,7 @@ class AtanhTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerAtanhArray(): array
+    public static function providerAtanhArray(): array
     {
         return [
             'row vector' => [[[1.83178082306482, 0.54930614433406, -1.83178082306482]], '{0.95, 0.5, -0.95}'],

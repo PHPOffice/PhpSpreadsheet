@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Information;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -16,16 +18,14 @@ class IsBlankTest extends TestCase
 
     /**
      * @dataProvider providerIsBlank
-     *
-     * @param mixed $value
      */
-    public function testIsBlank(bool $expectedResult, $value): void
+    public function testIsBlank(bool $expectedResult, mixed $value): void
     {
         $result = Value::isBlank($value);
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerIsBlank(): array
+    public static function providerIsBlank(): array
     {
         return require 'tests/data/Calculation/Information/IS_BLANK.php';
     }
@@ -42,7 +42,7 @@ class IsBlankTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerIsBlankArray(): array
+    public static function providerIsBlankArray(): array
     {
         return [
             'vector' => [

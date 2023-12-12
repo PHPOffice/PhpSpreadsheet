@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Csv;
 
 use PhpOffice\PhpSpreadsheet\Reader\Csv;
@@ -10,13 +12,8 @@ class CsvTest extends TestCase
 {
     /**
      * @dataProvider providerDelimiterDetection
-     *
-     * @param string $filename
-     * @param string $expectedDelimiter
-     * @param string $cell
-     * @param float|int|string $expectedValue
      */
-    public function testDelimiterDetection($filename, $expectedDelimiter, $cell, $expectedValue): void
+    public function testDelimiterDetection(string $filename, string $expectedDelimiter, string $cell, string|float|int|null $expectedValue): void
     {
         $reader = new Csv();
         $delim1 = $reader->getDelimiter();
@@ -30,7 +27,7 @@ class CsvTest extends TestCase
         self::assertSame($expectedValue, $actual, 'should be able to retrieve correct value');
     }
 
-    public function providerDelimiterDetection(): array
+    public static function providerDelimiterDetection(): array
     {
         return [
             [
@@ -92,17 +89,14 @@ class CsvTest extends TestCase
 
     /**
      * @dataProvider providerCanLoad
-     *
-     * @param bool $expected
-     * @param string $filename
      */
-    public function testCanLoad($expected, $filename): void
+    public function testCanLoad(bool $expected, string $filename): void
     {
         $reader = new Csv();
         self::assertSame($expected, $reader->canRead($filename));
     }
 
-    public function providerCanLoad(): array
+    public static function providerCanLoad(): array
     {
         return [
             [false, 'tests/data/Reader/Ods/data.ods'],
@@ -147,11 +141,11 @@ class CsvTest extends TestCase
         $spreadsheet = $reader->load('tests/data/Reader/CSV/utf16be.line_break_in_enclosure.csv');
         $sheet = $spreadsheet->getActiveSheet();
         $expected = <<<EOF
-This is a test
-with line breaks
-that breaks the
-delimiters
-EOF;
+            This is a test
+            with line breaks
+            that breaks the
+            delimiters
+            EOF;
         self::assertEquals($expected, $sheet->getCell('B3')->getValue());
     }
 
@@ -161,12 +155,12 @@ EOF;
         $spreadsheet = $reader->load('tests/data/Reader/CSV/line_break_in_enclosure_with_escaped_quotes.csv');
         $sheet = $spreadsheet->getActiveSheet();
         $expected = <<<EOF
-This is a "test csv file"
-with both "line breaks"
-and "escaped
-quotes" that breaks
-the delimiters
-EOF;
+            This is a "test csv file"
+            with both "line breaks"
+            and "escaped
+            quotes" that breaks
+            the delimiters
+            EOF;
         self::assertEquals($expected, $sheet->getCell('B3')->getValue());
     }
 
@@ -177,12 +171,12 @@ EOF;
         $spreadsheet = $reader->load('tests/data/Reader/CSV/line_break_escaped_32le.csv');
         $sheet = $spreadsheet->getActiveSheet();
         $expected = <<<EOF
-This is a "test csv file"
-with both "line breaks"
-and "escaped
-quotes" that breaks
-the delimiters
-EOF;
+            This is a "test csv file"
+            with both "line breaks"
+            and "escaped
+            quotes" that breaks
+            the delimiters
+            EOF;
         self::assertEquals($expected, $sheet->getCell('B3')->getValue());
     }
 
@@ -243,33 +237,21 @@ EOF;
         self::assertEquals($delimiter, $reader->getDelimiter());
     }
 
-    public function providerEscapes(): array
+    public static function providerEscapes(): array
     {
         return [
             ['\\', ';'],
             ["\x0", ','],
-            [(version_compare(PHP_VERSION, '7.4') < 0) ? "\x0" : '', ','],
+            ['', ','],
         ];
     }
 
-    /**
-     * This test could be simpler, but Scrutinizer has a minor (and silly) problem.
-     *
-     * @dataProvider providerNull
-     */
-    public function testSetDelimiterNull(?string $setNull): void
+    public function testSetDelimiterNull(): void
     {
         $reader = new Csv();
         $reader->setDelimiter(',');
         self::assertSame(',', $reader->getDelimiter());
-        $reader->setDelimiter($setNull);
-        self::assertSame($setNull, $reader->getDelimiter());
-    }
-
-    public function providerNull(): array
-    {
-        return [
-            [null],
-        ];
+        $reader->setDelimiter(null);
+        self::assertNull($reader->getDelimiter());
     }
 }

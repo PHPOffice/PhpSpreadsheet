@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     [
         '#VALUE!',
@@ -14,17 +16,17 @@ return [
     [
         '#VALUE!',
         'http://www.example1.com',
-        ['404', 'not found'],
+        [404, 'not found'],
 
     ],
     [
         '#VALUE!',
         'http://www.example2.com',
-        ['200', str_repeat('a', 40000)],
+        [200, str_repeat('a', 40000)],
     ],
     [
         'This is a test',
         'http://www.example3.com',
-        ['200', 'This is a test'],
+        [200, 'This is a test'],
     ],
 ];

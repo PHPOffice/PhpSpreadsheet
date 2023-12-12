@@ -1,20 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 class DdbTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerDDB
-     *
-     * @param mixed $expectedResult
      */
-    public function testDDB($expectedResult, ...$args): void
+    public function testDDB(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('DDB', $expectedResult, $args);
     }
 
-    public function providerDDB(): array
+    public static function providerDDB(): array
     {
         return require 'tests/data/Calculation/Financial/DDB.php';
     }

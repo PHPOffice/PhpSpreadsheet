@@ -25,24 +25,20 @@ class PlotArea
 
     /**
      * PlotArea Gradient Angle.
-     *
-     * @var ?float
      */
-    private $gradientFillAngle;
+    private ?float $gradientFillAngle = null;
 
     /**
      * PlotArea Layout.
-     *
-     * @var ?Layout
      */
-    private $layout;
+    private ?Layout $layout;
 
     /**
      * Plot Series.
      *
      * @var DataSeries[]
      */
-    private $plotSeries = [];
+    private array $plotSeries;
 
     /**
      * Create a new PlotArea.
@@ -73,7 +69,7 @@ class PlotArea
      *
      * @return int
      */
-    public function getPlotSeriesCount()
+    public function getPlotSeriesCount(): int|float
     {
         $seriesCount = 0;
         foreach ($this->plotSeries as $plot) {
@@ -96,11 +92,9 @@ class PlotArea
     /**
      * Get Plot Series by Index.
      *
-     * @param mixed $index
-     *
      * @return DataSeries
      */
-    public function getPlotGroupByIndex($index)
+    public function getPlotGroupByIndex(mixed $index)
     {
         return $this->plotSeries[$index];
     }
@@ -112,7 +106,7 @@ class PlotArea
      *
      * @return $this
      */
-    public function setPlotSeries(array $plotSeries)
+    public function setPlotSeries(array $plotSeries): static
     {
         $this->plotSeries = $plotSeries;
 
@@ -162,5 +156,49 @@ class PlotArea
     public function getGradientFillStops()
     {
         return $this->gradientFillStops;
+    }
+
+    private ?int $gapWidth = null;
+
+    /** @var bool */
+    private $useUpBars = false;
+
+    /** @var bool */
+    private $useDownBars = false;
+
+    public function getGapWidth(): ?int
+    {
+        return $this->gapWidth;
+    }
+
+    public function setGapWidth(?int $gapWidth): self
+    {
+        $this->gapWidth = $gapWidth;
+
+        return $this;
+    }
+
+    public function getUseUpBars(): bool
+    {
+        return $this->useUpBars;
+    }
+
+    public function setUseUpBars(bool $useUpBars): self
+    {
+        $this->useUpBars = $useUpBars;
+
+        return $this;
+    }
+
+    public function getUseDownBars(): bool
+    {
+        return $this->useDownBars;
+    }
+
+    public function setUseDownBars(bool $useDownBars): self
+    {
+        $this->useDownBars = $useDownBars;
+
+        return $this;
     }
 }

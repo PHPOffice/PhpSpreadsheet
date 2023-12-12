@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcException;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class Counts extends AggregateBase
@@ -15,10 +16,8 @@ class Counts extends AggregateBase
      *        COUNT(value1[,value2[, ...]])
      *
      * @param mixed ...$args Data values
-     *
-     * @return int
      */
-    public static function COUNT(...$args)
+    public static function COUNT(mixed ...$args): int
     {
         $returnValue = 0;
 
@@ -29,7 +28,7 @@ class Counts extends AggregateBase
             // Is it a numeric value?
             // Strings containing numeric values are only counted if they are string literals (not cell values)
             //    and then only in MS Excel and in Open Office, not in Gnumeric
-            if (self::isAcceptedCountable($arg, $k)) {
+            if (self::isAcceptedCountable($arg, $k, true)) {
                 ++$returnValue;
             }
         }
@@ -46,10 +45,8 @@ class Counts extends AggregateBase
      *        COUNTA(value1[,value2[, ...]])
      *
      * @param mixed ...$args Data values
-     *
-     * @return int
      */
-    public static function COUNTA(...$args)
+    public static function COUNTA(mixed ...$args): int
     {
         $returnValue = 0;
 
@@ -73,16 +70,20 @@ class Counts extends AggregateBase
      * Excel Function:
      *        COUNTBLANK(value1[,value2[, ...]])
      *
-     * @param mixed ...$args Data values
-     *
-     * @return int
+     * @param mixed $range Data values
      */
-    public static function COUNTBLANK(...$args)
+    public static function COUNTBLANK(mixed $range): int
     {
+        if ($range === null) {
+            return 1;
+        }
+        if (!is_array($range) || array_key_exists(0, $range)) {
+            throw new CalcException('Must specify range of cells, not any kind of literal');
+        }
         $returnValue = 0;
 
         // Loop through arguments
-        $aArgs = Functions::flattenArray($args);
+        $aArgs = Functions::flattenArray($range);
         foreach ($aArgs as $arg) {
             // Is it a blank cell?
             if (($arg === null) || ((is_string($arg)) && ($arg == ''))) {

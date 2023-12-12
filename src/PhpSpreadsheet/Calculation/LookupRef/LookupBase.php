@@ -7,16 +7,14 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 abstract class LookupBase
 {
-    /**
-     * @param mixed $lookup_array
-     */
-    protected static function validateLookupArray($lookup_array): void
+    protected static function validateLookupArray(mixed $lookup_array): void
     {
         if (!is_array($lookup_array)) {
             throw new Exception(ExcelError::REF());
         }
     }
 
+    /** @param float|int|string $index_number */
     protected static function validateIndexLookup(array $lookup_array, $index_number): int
     {
         // index_number must be a number greater than or equal to 1.

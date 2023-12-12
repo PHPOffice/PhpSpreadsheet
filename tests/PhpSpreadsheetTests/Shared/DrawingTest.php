@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Shared;
 
 use PhpOffice\PhpSpreadsheet\Shared\Drawing;
@@ -42,7 +44,7 @@ class DrawingTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerPixelsToCellDimension(): array
+    public static function providerPixelsToCellDimension(): array
     {
         return [
             [19.9951171875, 100, 'Arial', 7],
@@ -60,7 +62,7 @@ class DrawingTest extends TestCase
         ];
     }
 
-    public function providerCellDimensionToPixels(): array
+    public static function providerCellDimensionToPixels(): array
     {
         return [
             [500, 100, 'Arial', 7],

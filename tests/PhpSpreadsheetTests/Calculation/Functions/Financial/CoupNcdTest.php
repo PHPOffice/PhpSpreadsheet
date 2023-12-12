@@ -1,20 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 class CoupNcdTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerCOUPNCD
-     *
-     * @param mixed $expectedResult
      */
-    public function testCOUPNCD($expectedResult, ...$args): void
+    public function testCOUPNCD(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('COUPNCD', $expectedResult, $args);
     }
 
-    public function providerCOUPNCD(): array
+    public static function providerCOUPNCD(): array
     {
         return require 'tests/data/Calculation/Financial/COUPNCD.php';
     }

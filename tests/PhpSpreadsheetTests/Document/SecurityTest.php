@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Document;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -38,7 +40,7 @@ class SecurityTest extends AbstractFunctional
         self::assertSame($hashedRevisionsPassword, $reloadedSecurity->getWorkbookPassword());
     }
 
-    public function providerLocks(): array
+    public static function providerLocks(): array
     {
         return [
             [false, false, false],

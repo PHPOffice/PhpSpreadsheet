@@ -1,20 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 class RateTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerRATE
-     *
-     * @param mixed $expectedResult
      */
-    public function testRATE($expectedResult, ...$args): void
+    public function testRATE(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('RATE', $expectedResult, $args);
     }
 
-    public function providerRATE(): array
+    public static function providerRATE(): array
     {
         return require 'tests/data/Calculation/Financial/RATE.php';
     }

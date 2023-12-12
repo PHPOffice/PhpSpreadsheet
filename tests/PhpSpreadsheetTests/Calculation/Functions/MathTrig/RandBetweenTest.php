@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,12 +10,8 @@ class RandBetweenTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerRANDBETWEEN
-     *
-     * @param mixed $expectedResult
-     * @param mixed $min
-     * @param mixed $max
      */
-    public function testRANDBETWEEN($expectedResult, $min = 'omitted', $max = 'omitted'): void
+    public function testRANDBETWEEN(mixed $expectedResult, mixed $min = 'omitted', mixed $max = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -41,7 +39,7 @@ class RandBetweenTest extends AllSetupTeardown
         }
     }
 
-    public function providerRANDBETWEEN(): array
+    public static function providerRANDBETWEEN(): array
     {
         return require 'tests/data/Calculation/MathTrig/RANDBETWEEN.php';
     }
@@ -60,12 +58,12 @@ class RandBetweenTest extends AllSetupTeardown
         $formula = "=RandBetween({$argument1}, {$argument2})";
         $result = $calculation->_calculateFormulaValue($formula);
         self::assertIsArray($result);
-        self::assertCount($expectedRows, /** @scrutinizer ignore-type */ $result);
+        self::assertCount($expectedRows, $result);
         self::assertIsArray($result[0]);
-        self::assertCount($expectedColumns, /** @scrutinizer ignore-type */ $result[0]);
+        self::assertCount($expectedColumns, $result[0]);
     }
 
-    public function providerRandBetweenArray(): array
+    public static function providerRandBetweenArray(): array
     {
         return [
             'row/column vectors' => [2, 2, '{1, 10}', '{10; 100}'],

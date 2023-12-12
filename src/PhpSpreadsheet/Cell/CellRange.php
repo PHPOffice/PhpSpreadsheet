@@ -4,8 +4,9 @@ namespace PhpOffice\PhpSpreadsheet\Cell;
 
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use Stringable;
 
-class CellRange implements AddressRange
+class CellRange implements AddressRange, Stringable
 {
     /**
      * @var CellAddress

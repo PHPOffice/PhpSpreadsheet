@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Xls;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -15,9 +17,23 @@ class WorkbookTest extends TestCase
      */
     private $workbook;
 
-    protected function setUp(): void
+    /** @var ?Spreadsheet */
+    private $spreadsheet;
+
+    protected function tearDown(): void
     {
-        $spreadsheet = new Spreadsheet();
+        if ($this->spreadsheet !== null) {
+            $this->spreadsheet->disconnectWorksheets();
+            $this->spreadsheet = null;
+        }
+    }
+
+    private function setUpWorkbook(): void
+    {
+        if ($this->spreadsheet !== null) {
+            $this->spreadsheet->disconnectWorksheets();
+        }
+        $this->spreadsheet = $spreadsheet = new Spreadsheet();
         $strTotal = 0;
         $strUnique = 0;
         $str_table = [];
@@ -27,10 +43,7 @@ class WorkbookTest extends TestCase
         $this->workbook = new Workbook($spreadsheet, $strTotal, $strUnique, $str_table, $colors, $parser);
     }
 
-    /**
-     * @dataProvider providerAddColor
-     */
-    public function testAddColor(array $testColors, array $expectedResult): void
+    public function xtestAddColor(array $testColors, array $expectedResult): void
     {
         $workbookReflection = new ReflectionClass(Workbook::class);
         $methodAddColor = $workbookReflection->getMethod('addColor');
@@ -47,9 +60,20 @@ class WorkbookTest extends TestCase
         self::assertEquals($expectedResult, $palette);
     }
 
-    public function providerAddColor(): array
+    public function testAddColor(): void
     {
-        $this->setUp();
+        $i = 0;
+        $arrayEntries = $this->arrayAddColor();
+        while ($i < count($arrayEntries)) {
+            $this->xtestAddColor($arrayEntries[$i][0], $arrayEntries[$i][1]);
+            ++$i;
+            $arrayEntries = $this->arrayAddColor();
+        }
+    }
+
+    public function arrayAddColor(): array
+    {
+        $this->setUpWorkbook();
 
         $workbookReflection = new ReflectionClass(Workbook::class);
         $propertyPalette = $workbookReflection->getProperty('palette');
@@ -114,12 +138,8 @@ class WorkbookTest extends TestCase
 
     /**
      * Change palette color to rgb string.
-     *
-     * @param array $palette palette color
-     *
-     * @return string rgb string
      */
-    private function paletteToColor($palette)
+    private function paletteToColor(array $palette): string
     {
         return $this->right('00' . dechex((int) ($palette[0])), 2)
             . $this->right('00' . dechex((int) ($palette[1])), 2)
@@ -131,10 +151,8 @@ class WorkbookTest extends TestCase
      *
      * @param string $value text to get right character
      * @param int $nbchar number of char at right of string
-     *
-     * @return string
      */
-    private function right($value, $nbchar)
+    private function right(string $value, int $nbchar): string
     {
         return mb_substr($value, mb_strlen($value) - $nbchar, $nbchar);
     }

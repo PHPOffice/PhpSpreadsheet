@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
@@ -9,17 +11,14 @@ class OffsetTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerOFFSET
-     *
-     * @param mixed $expectedResult
-     * @param null|string $cellReference
      */
-    public function testOFFSET($expectedResult, $cellReference = null): void
+    public function testOFFSET(mixed $expectedResult, null|string $cellReference = null): void
     {
         $result = LookupRef\Offset::OFFSET($cellReference);
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerOFFSET(): array
+    public static function providerOFFSET(): array
     {
         return require 'tests/data/Calculation/LookupRef/OFFSET.php';
     }

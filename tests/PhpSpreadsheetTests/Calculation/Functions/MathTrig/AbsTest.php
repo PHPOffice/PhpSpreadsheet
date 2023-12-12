@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,11 +10,8 @@ class AbsTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerAbs
-     *
-     * @param mixed $expectedResult
-     * @param mixed $number
      */
-    public function testAbs($expectedResult, $number = 'omitted'): void
+    public function testAbs(mixed $expectedResult, mixed $number = 'omitted'): void
     {
         $sheet = $this->getSheet();
         $this->mightHaveException($expectedResult);
@@ -26,7 +25,7 @@ class AbsTest extends AllSetupTeardown
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerAbs(): array
+    public static function providerAbs(): array
     {
         return require 'tests/data/Calculation/MathTrig/ABS.php';
     }
@@ -43,7 +42,7 @@ class AbsTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerAbsArray(): array
+    public static function providerAbsArray(): array
     {
         return [
             'row vector' => [[[1, 0, 1]], '{-1, 0, 1}'],

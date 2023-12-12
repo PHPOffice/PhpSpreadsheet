@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Functional;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class EnclosureTest extends AbstractFunctional
 {
-    public function providerFormats(): array
+    public static function providerFormats(): array
     {
         return [
             ['Html'],
@@ -19,10 +21,8 @@ class EnclosureTest extends AbstractFunctional
 
     /**
      * @dataProvider providerFormats
-     *
-     * @param string $format
      */
-    public function testEnclosure($format): void
+    public function testEnclosure(string $format): void
     {
         $value = '<img alt="" src="http://example.com/image.jpg" />';
 

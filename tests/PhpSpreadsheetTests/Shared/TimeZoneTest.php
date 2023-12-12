@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Shared;
 
 use DateTime;
@@ -10,15 +12,9 @@ use PHPUnit\Framework\TestCase;
 
 class TimeZoneTest extends TestCase
 {
-    /**
-     * @var string
-     */
-    private $tztimezone;
+    private string $tztimezone;
 
-    /**
-     * @var null|DateTimeZone
-     */
-    private $dttimezone;
+    private ?DateTimeZone $dttimezone;
 
     protected function setUp(): void
     {
@@ -52,7 +48,7 @@ class TimeZoneTest extends TestCase
 
     public function testSetTimezoneBackwardCompatible(): void
     {
-        $bcTimezone = 'Etc/GMT+10';
+        $bcTimezone = 'Etc/GMT-10';
         $result = TimeZone::setTimezone($bcTimezone);
         self::assertTrue($result);
         $result = Date::setDefaultTimezone($bcTimezone);

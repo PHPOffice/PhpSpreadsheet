@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Information;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
@@ -15,17 +17,14 @@ class NTest extends TestCase
 
     /**
      * @dataProvider providerN
-     *
-     * @param mixed $expectedResult
-     * @param number|string $value
      */
-    public function testN($expectedResult, $value): void
+    public function testN(mixed $expectedResult, mixed $value): void
     {
         $result = Value::asNumber($value);
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
-    public function providerN(): array
+    public static function providerN(): array
     {
         return require 'tests/data/Calculation/Information/N.php';
     }

@@ -6,6 +6,9 @@ use PhpOffice\PhpSpreadsheet\Shared\OLE;
 
 class ChainedBlockStream
 {
+    /** @var mixed */
+    public $context;
+
     /**
      * The OLE container of the file that is being read.
      *
@@ -46,9 +49,9 @@ class ChainedBlockStream
      *
      * @return bool true on success
      */
-    public function stream_open($path, $mode, $options, &$openedPath) // @codingStandardsIgnoreLine
+    public function stream_open($path, $mode, $options, &$openedPath): bool // @codingStandardsIgnoreLine
     {
-        if ($mode != 'r') {
+        if ($mode[0] !== 'r') {
             if ($options & STREAM_REPORT_ERRORS) {
                 trigger_error('Only reading is supported', E_USER_WARNING);
             }
@@ -114,12 +117,12 @@ class ChainedBlockStream
      *
      * @return false|string
      */
-    public function stream_read($count) // @codingStandardsIgnoreLine
+    public function stream_read($count): bool|string // @codingStandardsIgnoreLine
     {
         if ($this->stream_eof()) {
             return false;
         }
-        $s = substr($this->data, $this->pos, $count);
+        $s = substr($this->data, (int) $this->pos, $count);
         $this->pos += $count;
 
         return $s;
@@ -130,7 +133,7 @@ class ChainedBlockStream
      *
      * @return bool TRUE if the file pointer is at EOF; otherwise FALSE
      */
-    public function stream_eof() // @codingStandardsIgnoreLine
+    public function stream_eof(): bool // @codingStandardsIgnoreLine
     {
         return $this->pos >= strlen($this->data);
     }
@@ -151,17 +154,14 @@ class ChainedBlockStream
      *
      * @param int $offset byte offset
      * @param int $whence SEEK_SET, SEEK_CUR or SEEK_END
-     *
-     * @return bool
      */
-    public function stream_seek($offset, $whence) // @codingStandardsIgnoreLine
+    public function stream_seek($offset, $whence): bool // @codingStandardsIgnoreLine
     {
         if ($whence == SEEK_SET && $offset >= 0) {
             $this->pos = $offset;
         } elseif ($whence == SEEK_CUR && -$offset <= $this->pos) {
             $this->pos += $offset;
-        // @phpstan-ignore-next-line
-        } elseif ($whence == SEEK_END && -$offset <= count($this->data)) {
+        } elseif ($whence == SEEK_END && -$offset <= count($this->data)) { // @phpstan-ignore-line
             $this->pos = strlen($this->data) + $offset;
         } else {
             return false;
@@ -173,10 +173,8 @@ class ChainedBlockStream
     /**
      * Implements support for fstat(). Currently the only supported field is
      * "size".
-     *
-     * @return array
      */
-    public function stream_stat() // @codingStandardsIgnoreLine
+    public function stream_stat(): array // @codingStandardsIgnoreLine
     {
         return [
             'size' => strlen($this->data),

@@ -1,11 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Cell;
 
 use DateTime;
 use DateTimeImmutable;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Cell\DefaultValueBinder;
+use PhpOffice\PhpSpreadsheet\Exception as SpreadsheetException;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\TestCase;
@@ -14,10 +17,8 @@ class DefaultValueBinderTest extends TestCase
 {
     /**
      * @dataProvider binderProvider
-     *
-     * @param mixed $value
      */
-    public function testBindValue($value): void
+    public function testBindValue(null|string|bool|int|float|DateTime|DateTimeImmutable $value): void
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
@@ -28,7 +29,7 @@ class DefaultValueBinderTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function binderProvider(): array
+    public static function binderProvider(): array
     {
         return [
             [null],
@@ -48,19 +49,39 @@ class DefaultValueBinderTest extends TestCase
         ];
     }
 
+    public function testNonStringableBindValue(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        try {
+            $sheet->getCell('A1')->setValue($this);
+            self::fail('Did not receive expected Exception');
+        } catch (SpreadsheetException $e) {
+            self::assertStringContainsString('Unable to bind unstringable', $e->getMessage());
+        }
+        $sheet->getCell('A2')->setValue(new StringableObject());
+        self::assertSame('abc', $sheet->getCell('A2')->getValue());
+
+        try {
+            $sheet->getCell('A3')->setValue(fopen(__FILE__, 'rb'));
+            self::fail('Did not receive expected Exception');
+        } catch (SpreadsheetException $e) {
+            self::assertStringContainsString('Unable to bind unstringable', $e->getMessage());
+        }
+        $spreadsheet->disconnectWorksheets();
+    }
+
     /**
      * @dataProvider providerDataTypeForValue
-     *
-     * @param mixed $expectedResult
-     * @param mixed $value
      */
-    public function testDataTypeForValue($expectedResult, $value): void
+    public function testDataTypeForValue(mixed $expectedResult, mixed $value): void
     {
         $result = DefaultValueBinder::dataTypeForValue($value);
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerDataTypeForValue(): array
+    public static function providerDataTypeForValue(): array
     {
         return require 'tests/data/Cell/DefaultValueBinder.php';
     }

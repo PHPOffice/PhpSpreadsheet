@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,11 +10,8 @@ class CharTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerCHAR
-     *
-     * @param mixed $expectedResult
-     * @param mixed $character
      */
-    public function testCHAR($expectedResult, $character = 'omitted'): void
+    public function testCHAR(mixed $expectedResult, mixed $character = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -26,7 +25,7 @@ class CharTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerCHAR(): array
+    public static function providerCHAR(): array
     {
         return require 'tests/data/Calculation/TextData/CHAR.php';
     }
@@ -43,7 +42,7 @@ class CharTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerCharArray(): array
+    public static function providerCharArray(): array
     {
         return [
             'row vector' => [[['P', 'H', 'P']], '{80, 72, 80}'],

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xml;
 
 use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
@@ -10,9 +12,7 @@ class XmlInfoTest extends TestCase
 {
     public function testListNames(): void
     {
-        $filename = __DIR__
-            . '/../../../..'
-            . '/samples/templates/excel2003.xml';
+        $filename = 'samples/templates/excel2003.xml';
         $reader = new Xml();
         $names = $reader->listWorksheetNames($filename);
         self::assertCount(2, $names);
@@ -23,7 +23,18 @@ class XmlInfoTest extends TestCase
     public function testListNamesInvalidFile(): void
     {
         $this->expectException(ReaderException::class);
+        $this->expectExceptionMessage('Invalid Spreadsheet file');
         $filename = __FILE__;
+        $reader = new Xml();
+        $names = $reader->listWorksheetNames($filename);
+        self::assertNotEquals($names, $names);
+    }
+
+    public function testListNamesGnumericFile(): void
+    {
+        $this->expectException(ReaderException::class);
+        $this->expectExceptionMessage('Invalid Spreadsheet file');
+        $filename = 'tests/data/Reader/Gnumeric/PageSetup.gnumeric.unzipped.xml';
         $reader = new Xml();
         $names = $reader->listWorksheetNames($filename);
         self::assertNotEquals($names, $names);
@@ -31,9 +42,7 @@ class XmlInfoTest extends TestCase
 
     public function testListInfo(): void
     {
-        $filename = __DIR__
-            . '/../../../..'
-            . '/samples/templates/excel2003.xml';
+        $filename = 'samples/templates/excel2003.xml';
         $reader = new Xml();
         $info = $reader->listWorksheetInfo($filename);
         $expected = [
@@ -58,7 +67,18 @@ class XmlInfoTest extends TestCase
     public function testListInfoInvalidFile(): void
     {
         $this->expectException(ReaderException::class);
+        $this->expectExceptionMessage('Invalid Spreadsheet file');
         $filename = __FILE__;
+        $reader = new Xml();
+        $info = $reader->listWorksheetInfo($filename);
+        self::assertNotEquals($info, $info);
+    }
+
+    public function testListInfoGnumericFile(): void
+    {
+        $this->expectException(ReaderException::class);
+        $this->expectExceptionMessage('Invalid Spreadsheet file');
+        $filename = 'tests/data/Reader/Gnumeric/PageSetup.gnumeric.unzipped.xml';
         $reader = new Xml();
         $info = $reader->listWorksheetInfo($filename);
         self::assertNotEquals($info, $info);
@@ -67,7 +87,18 @@ class XmlInfoTest extends TestCase
     public function testLoadInvalidFile(): void
     {
         $this->expectException(ReaderException::class);
+        $this->expectExceptionMessage('Invalid Spreadsheet file');
         $filename = __FILE__;
+        $reader = new Xml();
+        $spreadsheet = $reader->load($filename);
+        self::assertNotEquals($spreadsheet, $spreadsheet);
+    }
+
+    public function testLoadGnumericFile(): void
+    {
+        $this->expectException(ReaderException::class);
+        $this->expectExceptionMessage('Invalid Spreadsheet file');
+        $filename = 'tests/data/Reader/Gnumeric/PageSetup.gnumeric.unzipped.xml';
         $reader = new Xml();
         $spreadsheet = $reader->load($filename);
         self::assertNotEquals($spreadsheet, $spreadsheet);

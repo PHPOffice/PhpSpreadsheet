@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     'global $e$2-$e$6' => [1, 'namedrangex'],
     'global $f$2:$h$2' => [3, 'namedrangey'],

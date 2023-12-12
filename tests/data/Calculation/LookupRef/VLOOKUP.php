@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 function densityGrid(): array
 {
     return [
@@ -192,5 +194,15 @@ return [
         ],
         '=SQRT(-1)',
         false,
+    ],
+    'issue 3561' => [
+        7,
+        6,
+        [
+            [1, 2, 3, 4, 5],
+            [6, 7, 8, 9, 10],
+            [11, 12, 13, 14, 15],
+        ],
+        [[2], [3], [2]],
     ],
 ];

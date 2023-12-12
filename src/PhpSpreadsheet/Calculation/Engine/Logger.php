@@ -32,10 +32,8 @@ class Logger
 
     /**
      * The calculation engine cell reference stack.
-     *
-     * @var CyclicReferenceStack
      */
-    private $cellStack;
+    private CyclicReferenceStack $cellStack;
 
     /**
      * Instantiate a Calculation engine logger.
@@ -87,10 +85,8 @@ class Logger
 
     /**
      * Write an entry to the calculation engine debug log.
-     *
-     * @param mixed $args
      */
-    public function writeDebugLog(string $message, ...$args): void
+    public function writeDebugLog(string $message, mixed ...$args): void
     {
         //    Only write the debug log if logging is enabled
         if ($this->writeDebugLog) {
@@ -102,9 +98,9 @@ class Logger
                 $message,
                 PHP_EOL;
             }
-            $this->debugLog[] = $cellReference .
-                ($this->cellStack->count() > 0 ? ' => ' : '') .
-                $message;
+            $this->debugLog[] = $cellReference
+                . ($this->cellStack->count() > 0 ? ' => ' : '')
+                . $message;
         }
     }
 

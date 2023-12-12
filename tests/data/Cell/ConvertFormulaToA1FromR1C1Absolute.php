@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     'Basic addition' => ['=D3+F7+G4+C6+5', '=R3C4+R7C6+R4C7+R6C3+5'],
     'Basic subtraction' => ['=D3-F7-G4-C6-5', '=R3C4-R7C6-R4C7-R6C3-5'],

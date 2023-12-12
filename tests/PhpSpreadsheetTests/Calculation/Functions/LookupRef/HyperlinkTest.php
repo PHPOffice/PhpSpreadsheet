@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
@@ -7,15 +9,12 @@ use PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
 
 class HyperlinkTest extends AllSetupTeardown
 {
-    /** @var bool */
-    protected $issue2464 = true;
+    private bool $issue2464 = true;
 
     /**
      * @dataProvider providerHYPERLINK
-     *
-     * @param array|string $expectedResult
      */
-    public function testHYPERLINK($expectedResult, ?string $linkUrl, ?string $description): void
+    public function testHYPERLINK(mixed $expectedResult, ?string $linkUrl, ?string $description): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -42,10 +41,8 @@ class HyperlinkTest extends AllSetupTeardown
 
     /**
      * @dataProvider providerHYPERLINK
-     *
-     * @param array|string $expectedResult
      */
-    public function testHYPERLINKcellRef($expectedResult, ?string $linkUrl, ?string $description): void
+    public function testHYPERLINKcellRef(mixed $expectedResult, ?string $linkUrl, ?string $description): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -89,7 +86,7 @@ class HyperlinkTest extends AllSetupTeardown
         }
     }
 
-    public function providerHYPERLINK(): array
+    public static function providerHYPERLINK(): array
     {
         return require 'tests/data/Calculation/LookupRef/HYPERLINK.php';
     }

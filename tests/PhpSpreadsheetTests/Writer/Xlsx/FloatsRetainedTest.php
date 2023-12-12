@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx as Reader;
@@ -12,26 +14,26 @@ class FloatsRetainedTest extends TestCase
 {
     /**
      * @dataProvider providerIntyFloatsRetainedByWriter
-     *
-     * @param float|int $value
      */
-    public function testIntyFloatsRetainedByWriter($value): void
+    public function testIntyFloatsRetainedByWriter(float|int $value): void
     {
         $outputFilename = File::temporaryFilename();
-        $sheet = new Spreadsheet();
-        $sheet->getActiveSheet()->getCell('A1')->setValue($value);
+        $spreadsheet = new Spreadsheet();
+        $spreadsheet->getActiveSheet()->getCell('A1')->setValue($value);
 
-        $writer = new Writer($sheet);
+        $writer = new Writer($spreadsheet);
         $writer->save($outputFilename);
+        $spreadsheet->disconnectWorksheets();
 
         $reader = new Reader();
-        $sheet = $reader->load($outputFilename);
+        $spreadsheet2 = $reader->load($outputFilename);
         unlink($outputFilename);
 
-        self::assertSame($value, $sheet->getActiveSheet()->getCell('A1')->getValue());
+        self::assertSame($value, $spreadsheet2->getActiveSheet()->getCell('A1')->getValue());
+        $spreadsheet2->disconnectWorksheets();
     }
 
-    public function providerIntyFloatsRetainedByWriter(): array
+    public static function providerIntyFloatsRetainedByWriter(): array
     {
         return [
             [-1.0],

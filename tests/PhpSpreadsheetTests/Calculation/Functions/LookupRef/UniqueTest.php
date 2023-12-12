@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
@@ -48,7 +50,7 @@ class UniqueTest extends TestCase
         self::assertSame($lookupData, $result);
     }
 
-    public function uniqueTestProvider(): array
+    public static function uniqueTestProvider(): array
     {
         return [
             [

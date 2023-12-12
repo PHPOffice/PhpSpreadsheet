@@ -13,13 +13,13 @@ $sheetname = 'Data Sheet #3';
 
 class MyReadFilter implements IReadFilter
 {
-    private $startRow = 0;
+    private int $startRow = 0;
 
-    private $endRow = 0;
+    private int $endRow = 0;
 
-    private $columns = [];
+    private array $columns = [];
 
-    public function __construct($startRow, $endRow, $columns)
+    public function __construct(int $startRow, int $endRow, array $columns)
     {
         $this->startRow = $startRow;
         $this->endRow = $endRow;
@@ -40,7 +40,8 @@ class MyReadFilter implements IReadFilter
 
 $filterSubset = new MyReadFilter(9, 15, range('G', 'K'));
 
-$helper->log('Loading file ' . /** @scrutinizer ignore-type */ pathinfo($inputFileName, PATHINFO_BASENAME) . ' using IOFactory with a defined reader type of ' . $inputFileType);
+$helper->log('Loading file ' . pathinfo($inputFileName, PATHINFO_BASENAME) . ' using IOFactory with a defined reader type of ' . $inputFileType);
+$helper->log('Filter range is G9:K15');
 $reader = IOFactory::createReader($inputFileType);
 $helper->log('Loading Sheet "' . $sheetname . '" only');
 $reader->setLoadSheetsOnly($sheetname);
@@ -48,5 +49,6 @@ $helper->log('Loading Sheet using configurable filter');
 $reader->setReadFilter($filterSubset);
 $spreadsheet = $reader->load($inputFileName);
 
-$sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
-var_dump($sheetData);
+$activeRange = $spreadsheet->getActiveSheet()->calculateWorksheetDataDimension();
+$sheetData = $spreadsheet->getActiveSheet()->rangeToArray($activeRange, null, true, true, true);
+$helper->displayGrid($sheetData);

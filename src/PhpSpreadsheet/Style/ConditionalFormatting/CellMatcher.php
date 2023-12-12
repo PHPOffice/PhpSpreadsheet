@@ -30,20 +30,14 @@ class CellMatcher
         Conditional::CONDITION_UNIQUE => "COUNTIF('%s'!%s,%s)=1",
     ];
 
-    /**
-     * @var Cell
-     */
-    protected $cell;
+    protected Cell $cell;
 
     /**
      * @var int
      */
     protected $cellRow;
 
-    /**
-     * @var Worksheet
-     */
-    protected $worksheet;
+    protected Worksheet $worksheet;
 
     /**
      * @var int
@@ -70,10 +64,7 @@ class CellMatcher
      */
     protected $referenceColumn;
 
-    /**
-     * @var Calculation
-     */
-    protected $engine;
+    protected Calculation $engine;
 
     public function __construct(Cell $cell, string $conditionalRange)
     {
@@ -111,47 +102,40 @@ class CellMatcher
         $cellAddress = "{$cellColumn}{$this->cellRow}";
         $this->cell = $this->worksheet->getCell($cellAddress);
 
-        switch ($conditional->getConditionType()) {
-            case Conditional::CONDITION_CELLIS:
-                return $this->processOperatorComparison($conditional);
-            case Conditional::CONDITION_DUPLICATES:
-            case Conditional::CONDITION_UNIQUE:
-                return $this->processDuplicatesComparison($conditional);
-            case Conditional::CONDITION_CONTAINSTEXT:
-                // Expression is NOT(ISERROR(SEARCH("<TEXT>",<Cell Reference>)))
-            case Conditional::CONDITION_NOTCONTAINSTEXT:
-                // Expression is ISERROR(SEARCH("<TEXT>",<Cell Reference>))
-            case Conditional::CONDITION_BEGINSWITH:
-                // Expression is LEFT(<Cell Reference>,LEN("<TEXT>"))="<TEXT>"
-            case Conditional::CONDITION_ENDSWITH:
-                // Expression is RIGHT(<Cell Reference>,LEN("<TEXT>"))="<TEXT>"
-            case Conditional::CONDITION_CONTAINSBLANKS:
-                // Expression is LEN(TRIM(<Cell Reference>))=0
-            case Conditional::CONDITION_NOTCONTAINSBLANKS:
-                // Expression is LEN(TRIM(<Cell Reference>))>0
-            case Conditional::CONDITION_CONTAINSERRORS:
-                // Expression is ISERROR(<Cell Reference>)
-            case Conditional::CONDITION_NOTCONTAINSERRORS:
-                // Expression is NOT(ISERROR(<Cell Reference>))
-            case Conditional::CONDITION_TIMEPERIOD:
-                // Expression varies, depending on specified timePeriod value, e.g.
-                // Yesterday FLOOR(<Cell Reference>,1)=TODAY()-1
-                // Today FLOOR(<Cell Reference>,1)=TODAY()
-                // Tomorrow FLOOR(<Cell Reference>,1)=TODAY()+1
-                // Last 7 Days AND(TODAY()-FLOOR(<Cell Reference>,1)<=6,FLOOR(<Cell Reference>,1)<=TODAY())
-            case Conditional::CONDITION_EXPRESSION:
-                return $this->processExpression($conditional);
-        }
-
-        return false;
+        return match ($conditional->getConditionType()) {
+            Conditional::CONDITION_CELLIS => $this->processOperatorComparison($conditional),
+            Conditional::CONDITION_DUPLICATES, Conditional::CONDITION_UNIQUE => $this->processDuplicatesComparison($conditional),
+            // Expression is NOT(ISERROR(SEARCH("<TEXT>",<Cell Reference>)))
+            Conditional::CONDITION_CONTAINSTEXT,
+            // Expression is ISERROR(SEARCH("<TEXT>",<Cell Reference>))
+            Conditional::CONDITION_NOTCONTAINSTEXT,
+            // Expression is LEFT(<Cell Reference>,LEN("<TEXT>"))="<TEXT>"
+            Conditional::CONDITION_BEGINSWITH,
+            // Expression is RIGHT(<Cell Reference>,LEN("<TEXT>"))="<TEXT>"
+            Conditional::CONDITION_ENDSWITH,
+            // Expression is LEN(TRIM(<Cell Reference>))=0
+            Conditional::CONDITION_CONTAINSBLANKS,
+            // Expression is LEN(TRIM(<Cell Reference>))>0
+            Conditional::CONDITION_NOTCONTAINSBLANKS,
+            // Expression is ISERROR(<Cell Reference>)
+            Conditional::CONDITION_CONTAINSERRORS,
+            // Expression is NOT(ISERROR(<Cell Reference>))
+            Conditional::CONDITION_NOTCONTAINSERRORS,
+            // Expression varies, depending on specified timePeriod value, e.g.
+            // Yesterday FLOOR(<Cell Reference>,1)=TODAY()-1
+            // Today FLOOR(<Cell Reference>,1)=TODAY()
+            // Tomorrow FLOOR(<Cell Reference>,1)=TODAY()+1
+            // Last 7 Days AND(TODAY()-FLOOR(<Cell Reference>,1)<=6,FLOOR(<Cell Reference>,1)<=TODAY())
+            Conditional::CONDITION_TIMEPERIOD,
+            Conditional::CONDITION_EXPRESSION => $this->processExpression($conditional),
+            default => false,
+        };
     }
 
     /**
-     * @param mixed $value
-     *
      * @return float|int|string
      */
-    protected function wrapValue($value)
+    protected function wrapValue(mixed $value)
     {
         if (!is_numeric($value)) {
             if (is_bool($value)) {
@@ -182,18 +166,18 @@ class CellMatcher
         $column = $matches[6];
         $row = $matches[7];
 
-        if (strpos($column, '$') === false) {
+        if (!str_contains($column, '$')) {
             $column = Coordinate::columnIndexFromString($column);
             $column += $this->cellColumn - $this->referenceColumn;
             $column = Coordinate::stringFromColumnIndex($column);
         }
 
-        if (strpos($row, '$') === false) {
+        if (!str_contains($row, '$')) {
             $row += $this->cellRow - $this->referenceRow;
         }
 
         if (!empty($matches[4])) {
-            $worksheet = $this->worksheet->getParent()->getSheetByName(trim($matches[4], "'"));
+            $worksheet = $this->worksheet->getParentOrThrow()->getSheetByName(trim($matches[4], "'"));
             if ($worksheet === null) {
                 return $this->wrapValue(null);
             }
@@ -228,6 +212,7 @@ class CellMatcher
             }
         }
         unset($value);
+
         //    Then rebuild the condition string to return it
         return implode(Calculation::FORMULA_STRING_QUOTE, $splitCondition);
     }
@@ -304,7 +289,7 @@ class CellMatcher
         try {
             $this->engine->flushInstance();
             $result = (bool) $this->engine->calculateFormula($expression);
-        } catch (Exception $e) {
+        } catch (Exception) {
             return false;
         }
 

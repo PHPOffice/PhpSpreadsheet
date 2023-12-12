@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Comment;
@@ -550,7 +552,7 @@ class DrawingsTest extends AbstractFunctional
         $reloadedSpreadsheet->disconnectWorksheets();
     }
 
-    public function providerEditAs(): array
+    public static function providerEditAs(): array
     {
         return [
             'absolute' => ['absolute'],

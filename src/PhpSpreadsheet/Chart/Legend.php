@@ -43,10 +43,14 @@ class Legend
 
     /**
      * Legend Layout.
-     *
-     * @var ?Layout
      */
-    private $layout;
+    private ?Layout $layout;
+
+    private GridLines $borderLines;
+
+    private ChartColor $fillColor;
+
+    private ?AxisText $legendText = null;
 
     /**
      * Create a new Legend.
@@ -59,6 +63,13 @@ class Legend
         $this->setPosition($position);
         $this->layout = $layout;
         $this->setOverlay($overlay);
+        $this->borderLines = new GridLines();
+        $this->fillColor = new ChartColor();
+    }
+
+    public function getFillColor(): ChartColor
+    {
+        return $this->fillColor;
     }
 
     /**
@@ -75,10 +86,8 @@ class Legend
      * Get legend position using an excel string value.
      *
      * @param string $position see self::POSITION_*
-     *
-     * @return bool
      */
-    public function setPosition($position)
+    public function setPosition($position): bool
     {
         if (!in_array($position, self::POSITION_XLREF)) {
             return false;
@@ -91,10 +100,8 @@ class Legend
 
     /**
      * Get legend position as an Excel internal numeric value.
-     *
-     * @return false|int
      */
-    public function getPositionXL()
+    public function getPositionXL(): false|int
     {
         return array_search($this->position, self::POSITION_XLREF);
     }
@@ -103,10 +110,8 @@ class Legend
      * Set legend position using an Excel internal numeric value.
      *
      * @param int $positionXL see self::XL_LEGEND_POSITION_*
-     *
-     * @return bool
      */
-    public function setPositionXL($positionXL)
+    public function setPositionXL($positionXL): bool
     {
         if (!isset(self::POSITION_XLREF[$positionXL])) {
             return false;
@@ -145,5 +150,29 @@ class Legend
     public function getLayout()
     {
         return $this->layout;
+    }
+
+    public function getLegendText(): ?AxisText
+    {
+        return $this->legendText;
+    }
+
+    public function setLegendText(?AxisText $legendText): self
+    {
+        $this->legendText = $legendText;
+
+        return $this;
+    }
+
+    public function getBorderLines(): GridLines
+    {
+        return $this->borderLines;
+    }
+
+    public function setBorderLines(GridLines $borderLines): self
+    {
+        $this->borderLines = $borderLines;
+
+        return $this;
     }
 }

@@ -1,24 +1,95 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Calculation\Engineering\BesselJ;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
+use PHPUnit\Framework\TestCase;
 
-class BesselJTest extends AllSetupTeardown
+class BesselJTest extends TestCase
 {
+    const BESSEL_PRECISION = 1E-8;
+
     /**
-     * @dataProvider providerBESSEJ
-     *
-     * @param mixed $expectedResult
+     * @dataProvider providerBESSELJ
      */
-    public function testBESSELJ($expectedResult, ...$args): void
+    public function testDirectCallToBESSELJ(mixed $expectedResult, mixed ...$args): void
     {
-        $this->runTestCase('BESSELJ', $expectedResult, ...$args);
+        $result = BesselJ::besselJ(...$args);
+        self::assertEqualsWithDelta($expectedResult, $result, self::BESSEL_PRECISION);
     }
 
-    public function providerBESSEJ(): array
+    /**
+     * @dataProvider providerBESSELJ
+     */
+    public function testBESSELJAsFormula(mixed $expectedResult, mixed ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $calculation = Calculation::getInstance();
+        $formula = "=BESSELJ({$arguments})";
+
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEqualsWithDelta($expectedResult, $result, self::BESSEL_PRECISION);
+    }
+
+    /**
+     * @dataProvider providerBESSELJ
+     */
+    public function testBESSELJInWorksheet(mixed $expectedResult, mixed ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=BESSELJ({$argumentCells})";
+
+        $result = $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+        self::assertEqualsWithDelta($expectedResult, $result, self::BESSEL_PRECISION);
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public static function providerBESSELJ(): array
     {
         return require 'tests/data/Calculation/Engineering/BESSELJ.php';
+    }
+
+    /**
+     * @dataProvider providerUnhappyBESSELJ
+     */
+    public function testBESSELJUnhappyPath(string $expectedException, mixed ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=BESSELJ({$argumentCells})";
+
+        $this->expectException(CalculationException::class);
+        $this->expectExceptionMessage($expectedException);
+        $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public static function providerUnhappyBESSELJ(): array
+    {
+        return [
+            ['Formula Error: Wrong number of arguments for BESSELJ() function'],
+            ['Formula Error: Wrong number of arguments for BESSELJ() function', 2023],
+        ];
     }
 
     /**
@@ -33,7 +104,7 @@ class BesselJTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerBesselJArray(): array
+    public static function providerBesselJArray(): array
     {
         return [
             'row/column vector' => [

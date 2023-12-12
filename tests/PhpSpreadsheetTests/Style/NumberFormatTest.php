@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Style;
 
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
@@ -9,20 +11,11 @@ use PHPUnit\Framework\TestCase;
 
 class NumberFormatTest extends TestCase
 {
-    /**
-     * @var string
-     */
-    private $currencyCode;
+    private string $currencyCode;
 
-    /**
-     * @var string
-     */
-    private $decimalSeparator;
+    private string $decimalSeparator;
 
-    /**
-     * @var string
-     */
-    private $thousandsSeparator;
+    private string $thousandsSeparator;
 
     protected function setUp(): void
     {
@@ -42,33 +35,42 @@ class NumberFormatTest extends TestCase
 
     /**
      * @dataProvider providerNumberFormat
-     *
-     * @param mixed $expectedResult
      */
-    public function testFormatValueWithMask($expectedResult, ...$args): void
+    public function testFormatValueWithMask(mixed $expectedResult, mixed ...$args): void
     {
         $result = NumberFormat::toFormattedString(...$args);
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerNumberFormat(): array
+    public static function providerNumberFormat(): array
     {
         return require 'tests/data/Style/NumberFormat.php';
     }
 
     /**
-     * @dataProvider providerNumberFormatDates
-     *
-     * @param mixed $expectedResult
-     * @param mixed $args
+     * @dataProvider providerNumberFormatFractions
      */
-    public function testFormatValueWithMaskDate($expectedResult, ...$args): void
+    public function testFormatValueWithMaskFraction(mixed $expectedResult, mixed ...$args): void
     {
         $result = NumberFormat::toFormattedString(...$args);
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerNumberFormatDates(): array
+    public static function providerNumberFormatFractions(): array
+    {
+        return require 'tests/data/Style/NumberFormatFractions.php';
+    }
+
+    /**
+     * @dataProvider providerNumberFormatDates
+     */
+    public function testFormatValueWithMaskDate(mixed $expectedResult, mixed ...$args): void
+    {
+        $result = NumberFormat::toFormattedString(...$args);
+        self::assertEquals($expectedResult, $result);
+    }
+
+    public static function providerNumberFormatDates(): array
     {
         return require 'tests/data/Style/NumberFormatDates.php';
     }
@@ -96,7 +98,7 @@ class NumberFormatTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerNoScientific(): array
+    public static function providerNoScientific(): array
     {
         return [
             'large number' => ['92' . str_repeat('0', 16), '9.2E+17'],

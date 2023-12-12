@@ -1,17 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
 class IndexOnSpreadsheetTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerINDEXonSpreadsheet
-     *
-     * @param mixed $expectedResult
-     * @param null|int|string $rowNum
-     * @param null|int|string $colNum
      */
-    public function testIndexOnSpreadsheet($expectedResult, array $matrix, $rowNum = null, $colNum = null): void
+    public function testIndexOnSpreadsheet(mixed $expectedResult, array $matrix, null|int|string $rowNum = null, null|int|string $colNum = null): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -32,7 +30,7 @@ class IndexOnSpreadsheetTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerINDEXonSpreadsheet(): array
+    public static function providerINDEXonSpreadsheet(): array
     {
         return require 'tests/data/Calculation/LookupRef/INDEXonSpreadsheet.php';
     }

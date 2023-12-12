@@ -4,25 +4,13 @@ namespace PhpOffice\PhpSpreadsheet\Helper;
 
 class TextGrid
 {
-    /**
-     * @var bool
-     */
-    private $isCli = true;
+    private bool $isCli;
 
-    /**
-     * @var array
-     */
-    protected $matrix;
+    protected array $matrix;
 
-    /**
-     * @var array
-     */
-    protected $rows;
+    protected array $rows;
 
-    /**
-     * @var array
-     */
-    protected $columns;
+    protected array $columns;
 
     /**
      * @var string
@@ -48,17 +36,17 @@ class TextGrid
 
     public function render(): string
     {
-        $this->gridDisplay = $this->isCli ? '' : '<code>';
+        $this->gridDisplay = $this->isCli ? '' : '<pre>';
 
         $maxRow = max($this->rows);
-        $maxRowLength = strlen((string) $maxRow) + 1;
+        $maxRowLength = mb_strlen((string) $maxRow) + 1;
         $columnWidths = $this->getColumnWidths();
 
         $this->renderColumnHeader($maxRowLength, $columnWidths);
         $this->renderRows($maxRowLength, $columnWidths);
         $this->renderFooter($maxRowLength, $columnWidths);
 
-        $this->gridDisplay .= $this->isCli ? '' : '</code>';
+        $this->gridDisplay .= $this->isCli ? '' : '</pre>';
 
         return $this->gridDisplay;
     }
@@ -75,9 +63,9 @@ class TextGrid
     private function renderCells(array $rowData, array $columnWidths): void
     {
         foreach ($rowData as $column => $cell) {
-            $cell = ($this->isCli) ? (string) $cell : htmlentities((string) $cell);
+            $displayCell = ($this->isCli) ? (string) $cell : htmlentities((string) $cell);
             $this->gridDisplay .= '| ';
-            $this->gridDisplay .= str_pad($cell, $columnWidths[$column] + 1, ' ');
+            $this->gridDisplay .= $displayCell . str_repeat(' ', $columnWidths[$column] - mb_strlen($cell ?? '') + 1);
         }
     }
 
@@ -126,12 +114,12 @@ class TextGrid
 
         foreach ($columnData as $columnValue) {
             if (is_string($columnValue)) {
-                $columnWidth = max($columnWidth, strlen($columnValue));
+                $columnWidth = max($columnWidth, mb_strlen($columnValue));
             } elseif (is_bool($columnValue)) {
-                $columnWidth = max($columnWidth, strlen($columnValue ? 'TRUE' : 'FALSE'));
+                $columnWidth = max($columnWidth, mb_strlen($columnValue ? 'TRUE' : 'FALSE'));
             }
 
-            $columnWidth = max($columnWidth, strlen((string) $columnWidth));
+            $columnWidth = max($columnWidth, mb_strlen((string) $columnWidth));
         }
 
         return $columnWidth;

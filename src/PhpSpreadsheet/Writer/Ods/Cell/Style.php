@@ -5,6 +5,8 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Ods\Cell;
 use PhpOffice\PhpSpreadsheet\Helper\Dimension;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Style\Borders;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Font;
 use PhpOffice\PhpSpreadsheet\Style\Style as CellStyle;
@@ -19,7 +21,7 @@ class Style
     public const ROW_STYLE_PREFIX = 'ro';
     public const TABLE_STYLE_PREFIX = 'ta';
 
-    private $writer;
+    private XMLWriter $writer;
 
     public function __construct(XMLWriter $writer)
     {
@@ -28,34 +30,22 @@ class Style
 
     private function mapHorizontalAlignment(string $horizontalAlignment): string
     {
-        switch ($horizontalAlignment) {
-            case Alignment::HORIZONTAL_CENTER:
-            case Alignment::HORIZONTAL_CENTER_CONTINUOUS:
-            case Alignment::HORIZONTAL_DISTRIBUTED:
-                return 'center';
-            case Alignment::HORIZONTAL_RIGHT:
-                return 'end';
-            case Alignment::HORIZONTAL_FILL:
-            case Alignment::HORIZONTAL_JUSTIFY:
-                return 'justify';
-        }
-
-        return 'start';
+        return match ($horizontalAlignment) {
+            Alignment::HORIZONTAL_CENTER, Alignment::HORIZONTAL_CENTER_CONTINUOUS, Alignment::HORIZONTAL_DISTRIBUTED => 'center',
+            Alignment::HORIZONTAL_RIGHT => 'end',
+            Alignment::HORIZONTAL_FILL, Alignment::HORIZONTAL_JUSTIFY => 'justify',
+            default => 'start',
+        };
     }
 
     private function mapVerticalAlignment(string $verticalAlignment): string
     {
-        switch ($verticalAlignment) {
-            case Alignment::VERTICAL_TOP:
-                return 'top';
-            case Alignment::VERTICAL_CENTER:
-                return 'middle';
-            case Alignment::VERTICAL_DISTRIBUTED:
-            case Alignment::VERTICAL_JUSTIFY:
-                return 'automatic';
-        }
-
-        return 'bottom';
+        return match ($verticalAlignment) {
+            Alignment::VERTICAL_TOP => 'top',
+            Alignment::VERTICAL_CENTER => 'middle',
+            Alignment::VERTICAL_DISTRIBUTED, Alignment::VERTICAL_JUSTIFY => 'automatic',
+            default => 'bottom',
+        };
     }
 
     private function writeFillStyle(Fill $fill): void
@@ -75,6 +65,80 @@ class Style
             case Fill::FILL_NONE:
             default:
         }
+    }
+
+    private function writeBordersStyle(Borders $borders): void
+    {
+        $this->writeBorderStyle('bottom', $borders->getBottom());
+        $this->writeBorderStyle('left', $borders->getLeft());
+        $this->writeBorderStyle('right', $borders->getRight());
+        $this->writeBorderStyle('top', $borders->getTop());
+    }
+
+    private function writeBorderStyle(string $direction, Border $border): void
+    {
+        if ($border->getBorderStyle() === Border::BORDER_NONE) {
+            return;
+        }
+
+        $this->writer->writeAttribute('fo:border-' . $direction, sprintf(
+            '%s %s #%s',
+            $this->mapBorderWidth($border),
+            $this->mapBorderStyle($border),
+            $border->getColor()->getRGB(),
+        ));
+    }
+
+    private function mapBorderWidth(Border $border): string
+    {
+        switch ($border->getBorderStyle()) {
+            case Border::BORDER_THIN:
+            case Border::BORDER_DASHED:
+            case Border::BORDER_DASHDOT:
+            case Border::BORDER_DASHDOTDOT:
+            case Border::BORDER_DOTTED:
+            case Border::BORDER_HAIR:
+                return '0.75pt';
+            case Border::BORDER_MEDIUM:
+            case Border::BORDER_MEDIUMDASHED:
+            case Border::BORDER_MEDIUMDASHDOT:
+            case Border::BORDER_MEDIUMDASHDOTDOT:
+            case Border::BORDER_SLANTDASHDOT:
+                return '1.75pt';
+            case Border::BORDER_DOUBLE:
+            case Border::BORDER_THICK:
+                return '2.5pt';
+        }
+
+        return '1pt';
+    }
+
+    private function mapBorderStyle(Border $border): string
+    {
+        switch ($border->getBorderStyle()) {
+            case Border::BORDER_DOTTED:
+            case Border::BORDER_MEDIUMDASHDOTDOT:
+                return Border::BORDER_DOTTED;
+
+            case Border::BORDER_DASHED:
+            case Border::BORDER_DASHDOT:
+            case Border::BORDER_DASHDOTDOT:
+            case Border::BORDER_MEDIUMDASHDOT:
+            case Border::BORDER_MEDIUMDASHED:
+            case Border::BORDER_SLANTDASHDOT:
+                return Border::BORDER_DASHED;
+
+            case Border::BORDER_DOUBLE:
+                return Border::BORDER_DOUBLE;
+
+            case Border::BORDER_HAIR:
+            case Border::BORDER_MEDIUM:
+            case Border::BORDER_THICK:
+            case Border::BORDER_THIN:
+                return 'solid';
+        }
+
+        return 'solid';
     }
 
     private function writeCellProperties(CellStyle $style): void
@@ -97,9 +161,10 @@ class Style
         $this->writer->writeAttribute('style:rotation-align', 'none');
 
         // Fill
-        if ($fill = $style->getFill()) {
-            $this->writeFillStyle($fill);
-        }
+        $this->writeFillStyle($style->getFill());
+
+        // Border
+        $this->writeBordersStyle($style->getBorders());
 
         $this->writer->endElement();
 
@@ -113,16 +178,11 @@ class Style
 
     protected function mapUnderlineStyle(Font $font): string
     {
-        switch ($font->getUnderline()) {
-            case Font::UNDERLINE_DOUBLE:
-            case Font::UNDERLINE_DOUBLEACCOUNTING:
-                return'double';
-            case Font::UNDERLINE_SINGLE:
-            case Font::UNDERLINE_SINGLEACCOUNTING:
-                return'single';
-        }
-
-        return 'none';
+        return match ($font->getUnderline()) {
+            Font::UNDERLINE_DOUBLE, Font::UNDERLINE_DOUBLEACCOUNTING => 'double',
+            Font::UNDERLINE_SINGLE, Font::UNDERLINE_SINGLEACCOUNTING => 'single',
+            default => 'none',
+        };
     }
 
     protected function writeTextProperties(CellStyle $style): void
@@ -142,9 +202,7 @@ class Style
             $this->writer->writeAttribute('fo:font-style', 'italic');
         }
 
-        if ($color = $font->getColor()) {
-            $this->writer->writeAttribute('fo:color', sprintf('#%s', $color->getRGB()));
-        }
+        $this->writer->writeAttribute('fo:color', sprintf('#%s', $font->getColor()->getRGB()));
 
         if ($family = $font->getName()) {
             $this->writer->writeAttribute('fo:font-family', $family);

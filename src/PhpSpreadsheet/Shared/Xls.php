@@ -21,7 +21,7 @@ class Xls
     public static function sizeCol(Worksheet $worksheet, $col = 'A')
     {
         // default font of the workbook
-        $font = $worksheet->getParent()->getDefaultStyle()->getFont();
+        $font = $worksheet->getParentOrThrow()->getDefaultStyle()->getFont();
 
         $columnDimensions = $worksheet->getColumnDimensions();
 
@@ -61,10 +61,10 @@ class Xls
      *
      * @return int The width in pixels
      */
-    public static function sizeRow(Worksheet $worksheet, $row = 1)
+    public static function sizeRow(Worksheet $worksheet, $row = 1): int
     {
         // default font of the workbook
-        $font = $worksheet->getParent()->getDefaultStyle()->getFont();
+        $font = $worksheet->getParentOrThrow()->getDefaultStyle()->getFont();
 
         $rowDimensions = $worksheet->getRowDimensions();
 
@@ -105,7 +105,7 @@ class Xls
      *
      * @return int Horizontal measured in pixels
      */
-    public static function getDistanceX(Worksheet $worksheet, $startColumn = 'A', $startOffsetX = 0, $endColumn = 'A', $endOffsetX = 0)
+    public static function getDistanceX(Worksheet $worksheet, $startColumn = 'A', $startOffsetX = 0, $endColumn = 'A', $endOffsetX = 0): int
     {
         $distanceX = 0;
 
@@ -136,7 +136,7 @@ class Xls
      *
      * @return int Vertical distance measured in pixels
      */
-    public static function getDistanceY(Worksheet $worksheet, $startRow = 1, $startOffsetY = 0, $endRow = 1, $endOffsetY = 0)
+    public static function getDistanceY(Worksheet $worksheet, $startRow = 1, $startOffsetY = 0, $endRow = 1, $endOffsetY = 0): int
     {
         $distanceY = 0;
 
@@ -203,10 +203,8 @@ class Xls
      * @param int $offsetY Vertical offset in pixels
      * @param int $width Width in pixels
      * @param int $height Height in pixels
-     *
-     * @return null|array
      */
-    public static function oneAnchor2twoAnchor(Worksheet $worksheet, $coordinates, $offsetX, $offsetY, $width, $height)
+    public static function oneAnchor2twoAnchor(Worksheet $worksheet, string $coordinates, $offsetX, $offsetY, $width, $height): ?array
     {
         [$col_start, $row] = Coordinate::indexesFromString($coordinates);
         $row_start = $row - 1;

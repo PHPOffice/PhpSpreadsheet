@@ -11,17 +11,13 @@ class Protection extends Supervisor
 
     /**
      * Locked.
-     *
-     * @var string
      */
-    protected $locked;
+    protected ?string $locked = null;
 
     /**
      * Hidden.
-     *
-     * @var string
      */
-    protected $hidden;
+    protected ?string $hidden = null;
 
     /**
      * Create a new Protection.
@@ -63,10 +59,8 @@ class Protection extends Supervisor
      * Build style array from subcomponents.
      *
      * @param array $array
-     *
-     * @return array
      */
-    public function getStyleArray($array)
+    public function getStyleArray($array): array
     {
         return ['protection' => $array];
     }
@@ -87,7 +81,7 @@ class Protection extends Supervisor
      *
      * @return $this
      */
-    public function applyFromArray(array $styleArray)
+    public function applyFromArray(array $styleArray): static
     {
         if ($this->isSupervisor) {
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($this->getStyleArray($styleArray));
@@ -105,10 +99,8 @@ class Protection extends Supervisor
 
     /**
      * Get locked.
-     *
-     * @return string
      */
-    public function getLocked()
+    public function getLocked(): ?string
     {
         if ($this->isSupervisor) {
             return $this->getSharedComponent()->getLocked();
@@ -124,7 +116,7 @@ class Protection extends Supervisor
      *
      * @return $this
      */
-    public function setLocked($lockType)
+    public function setLocked($lockType): static
     {
         if ($this->isSupervisor) {
             $styleArray = $this->getStyleArray(['locked' => $lockType]);
@@ -138,10 +130,8 @@ class Protection extends Supervisor
 
     /**
      * Get hidden.
-     *
-     * @return string
      */
-    public function getHidden()
+    public function getHidden(): ?string
     {
         if ($this->isSupervisor) {
             return $this->getSharedComponent()->getHidden();
@@ -157,7 +147,7 @@ class Protection extends Supervisor
      *
      * @return $this
      */
-    public function setHidden($hiddenType)
+    public function setHidden($hiddenType): static
     {
         if ($this->isSupervisor) {
             $styleArray = $this->getStyleArray(['hidden' => $hiddenType]);
@@ -181,9 +171,9 @@ class Protection extends Supervisor
         }
 
         return md5(
-            $this->locked .
-            $this->hidden .
-            __CLASS__
+            $this->locked
+            . $this->hidden
+            . __CLASS__
         );
     }
 

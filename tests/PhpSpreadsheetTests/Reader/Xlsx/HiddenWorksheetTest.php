@@ -1,31 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PHPUnit\Framework\TestCase;
 
 class HiddenWorksheetTest extends TestCase
 {
-    /**
-     * @var Spreadsheet
-     */
-    private $spreadsheet;
-
-    protected function setup(): void
+    public function testPageSetup(): void
     {
         $filename = 'tests/data/Reader/XLSX/HiddenSheet.xlsx';
         $reader = new Xlsx();
-        $this->spreadsheet = $reader->load($filename);
-    }
-
-    public function testPageSetup(): void
-    {
+        $spreadsheet = $reader->load($filename);
         $assertions = $this->worksheetAssertions();
 
-        foreach ($this->spreadsheet->getAllSheets() as $worksheet) {
+        foreach ($spreadsheet->getAllSheets() as $worksheet) {
             if (!array_key_exists($worksheet->getTitle(), $assertions)) {
                 continue;
             }
@@ -40,6 +32,7 @@ class HiddenWorksheetTest extends TestCase
                 );
             }
         }
+        $spreadsheet->disconnectWorksheets();
     }
 
     private function worksheetAssertions(): array

@@ -39,6 +39,7 @@ abstract class BaseReader implements IReader
     /**
      * Restrict which sheets should be loaded?
      * This property holds an array of worksheet names to be loaded. If null, then all worksheets will be loaded.
+     * This property is ignored for Csv, Html, and Slk.
      *
      * @var null|string[]
      */
@@ -51,12 +52,10 @@ abstract class BaseReader implements IReader
      */
     protected $readFilter;
 
+    /** @var resource */
     protected $fileHandle;
 
-    /**
-     * @var XmlScanner
-     */
-    protected $securityScanner;
+    protected ?XmlScanner $securityScanner = null;
 
     public function __construct()
     {
@@ -134,8 +133,17 @@ abstract class BaseReader implements IReader
         return $this;
     }
 
-    public function getSecurityScanner()
+    public function getSecurityScanner(): ?XmlScanner
     {
+        return $this->securityScanner;
+    }
+
+    public function getSecurityScannerOrThrow(): XmlScanner
+    {
+        if ($this->securityScanner === null) {
+            throw new ReaderException('Security scanner is unexpectedly null');
+        }
+
         return $this->securityScanner;
     }
 
@@ -143,6 +151,12 @@ abstract class BaseReader implements IReader
     {
         if (((bool) ($flags & self::LOAD_WITH_CHARTS)) === true) {
             $this->setIncludeCharts(true);
+        }
+        if (((bool) ($flags & self::READ_DATA_ONLY)) === true) {
+            $this->setReadDataOnly(true);
+        }
+        if (((bool) ($flags & self::SKIP_EMPTY_CELLS) || (bool) ($flags & self::IGNORE_EMPTY_CELLS)) === true) {
+            $this->setReadEmptyCells(false);
         }
     }
 
@@ -186,5 +200,32 @@ abstract class BaseReader implements IReader
         }
 
         $this->fileHandle = $fileHandle;
+    }
+
+    /**
+     * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
+     */
+    public function listWorksheetInfo(string $filename): array
+    {
+        throw new PhpSpreadsheetException('Reader classes must implement their own listWorksheetInfo() method');
+    }
+
+    /**
+     * Returns names of the worksheets from a file,
+     * possibly without parsing the whole file to a Spreadsheet object.
+     * Readers will often have a more efficient method with which
+     * they can override this method.
+     */
+    public function listWorksheetNames(string $filename): array
+    {
+        $returnArray = [];
+        $info = $this->listWorksheetInfo($filename);
+        foreach ($info as $infoArray) {
+            if (isset($infoArray['worksheetName'])) {
+                $returnArray[] = $infoArray['worksheetName'];
+            }
+        }
+
+        return $returnArray;
     }
 }

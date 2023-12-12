@@ -3,7 +3,9 @@
 namespace PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Styles as StyleReader;
+use PhpOffice\PhpSpreadsheet\Style\Color;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
+use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalColorScale;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalDataBar;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalFormattingRuleExtension;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalFormatValueObject;
@@ -14,25 +16,25 @@ use stdClass;
 
 class ConditionalStyles
 {
-    /** @var Worksheet */
-    private $worksheet;
+    private Worksheet $worksheet;
 
-    /** @var SimpleXMLElement */
-    private $worksheetXml;
+    private SimpleXMLElement $worksheetXml;
 
     /**
      * @var array
      */
     private $ns;
 
-    /** @var array */
-    private $dxfs;
+    private array $dxfs;
 
-    public function __construct(Worksheet $workSheet, SimpleXMLElement $worksheetXml, array $dxfs = [])
+    private StyleReader $styleReader;
+
+    public function __construct(Worksheet $workSheet, SimpleXMLElement $worksheetXml, array $dxfs, StyleReader $styleReader)
     {
         $this->worksheet = $workSheet;
         $this->worksheetXml = $worksheetXml;
         $this->dxfs = $dxfs;
+        $this->styleReader = $styleReader;
     }
 
     public function load(): void
@@ -48,13 +50,13 @@ class ConditionalStyles
         $this->worksheet->setSelectedCells($selectedCells);
     }
 
-    public function loadFromExt(StyleReader $styleReader): void
+    public function loadFromExt(): void
     {
         $selectedCells = $this->worksheet->getSelectedCells();
 
         $this->ns = $this->worksheetXml->getNamespaces(true);
         $this->setConditionalsFromExt(
-            $this->readConditionalsFromExt($this->worksheetXml->extLst, $styleReader)
+            $this->readConditionalsFromExt($this->worksheetXml->extLst)
         );
 
         $this->worksheet->setSelectedCells($selectedCells);
@@ -71,12 +73,20 @@ class ConditionalStyles
         }
     }
 
-    private function readConditionalsFromExt(SimpleXMLElement $extLst, StyleReader $styleReader): array
+    private function readConditionalsFromExt(SimpleXMLElement $extLst): array
     {
         $conditionals = [];
+        if (!isset($extLst->ext)) {
+            return $conditionals;
+        }
 
-        if (isset($extLst->ext['uri']) && (string) $extLst->ext['uri'] === '{78C0D931-6437-407d-A8EE-F0AAD7539E65}') {
-            $conditionalFormattingRuleXml = $extLst->ext->children($this->ns['x14']);
+        foreach ($extLst->ext as $extlstcond) {
+            $extAttrs = $extlstcond->attributes() ?? [];
+            $extUri = (string) ($extAttrs['uri'] ?? '');
+            if ($extUri !== '{78C0D931-6437-407d-A8EE-F0AAD7539E65}') {
+                continue;
+            }
+            $conditionalFormattingRuleXml = $extlstcond->children($this->ns['x14']);
             if (!$conditionalFormattingRuleXml->conditionalFormattings) {
                 return [];
             }
@@ -96,8 +106,8 @@ class ConditionalStyles
                 }
                 $conditionType = (string) $attributes->type;
                 if (
-                    !Conditional::isValidConditionType($conditionType) ||
-                    $conditionType === Conditional::CONDITION_DATABAR
+                    !Conditional::isValidConditionType($conditionType)
+                    || $conditionType === Conditional::CONDITION_DATABAR
                 ) {
                     continue;
                 }
@@ -105,7 +115,7 @@ class ConditionalStyles
                 $priority = (int) $attributes->priority;
 
                 $conditional = $this->readConditionalRuleFromExt($extCfRuleXml, $attributes);
-                $cfStyle = $this->readStyleFromExt($extCfRuleXml, $styleReader);
+                $cfStyle = $this->readStyleFromExt($extCfRuleXml);
                 $conditional->setStyle($cfStyle);
                 $conditionals[$sqref][$priority] = $conditional;
             }
@@ -128,11 +138,11 @@ class ConditionalStyles
         $conditional->setConditionType($conditionType);
         $conditional->setOperatorType($operatorType);
         if (
-            $conditionType === Conditional::CONDITION_CONTAINSTEXT ||
-            $conditionType === Conditional::CONDITION_NOTCONTAINSTEXT ||
-            $conditionType === Conditional::CONDITION_BEGINSWITH ||
-            $conditionType === Conditional::CONDITION_ENDSWITH ||
-            $conditionType === Conditional::CONDITION_TIMEPERIOD
+            $conditionType === Conditional::CONDITION_CONTAINSTEXT
+            || $conditionType === Conditional::CONDITION_NOTCONTAINSTEXT
+            || $conditionType === Conditional::CONDITION_BEGINSWITH
+            || $conditionType === Conditional::CONDITION_ENDSWITH
+            || $conditionType === Conditional::CONDITION_TIMEPERIOD
         ) {
             $conditional->setText(array_pop($operands) ?? '');
         }
@@ -141,17 +151,17 @@ class ConditionalStyles
         return $conditional;
     }
 
-    private function readStyleFromExt(SimpleXMLElement $extCfRuleXml, StyleReader $styleReader): Style
+    private function readStyleFromExt(SimpleXMLElement $extCfRuleXml): Style
     {
         $cfStyle = new Style(false, true);
         if ($extCfRuleXml->dxf) {
             $styleXML = $extCfRuleXml->dxf->children();
 
             if ($styleXML->borders) {
-                $styleReader->readBorderStyle($cfStyle->getBorders(), $styleXML->borders);
+                $this->styleReader->readBorderStyle($cfStyle->getBorders(), $styleXML->borders);
             }
             if ($styleXML->fill) {
-                $styleReader->readFillStyle($cfStyle->getFill(), $styleXML->fill);
+                $this->styleReader->readFillStyle($cfStyle->getFill(), $styleXML->fill);
             }
         }
 
@@ -163,7 +173,7 @@ class ConditionalStyles
         $conditionals = [];
         foreach ($xmlSheet->conditionalFormatting as $conditional) {
             foreach ($conditional->cfRule as $cfRule) {
-                if (Conditional::isValidConditionType((string) $cfRule['type']) && isset($this->dxfs[(int) ($cfRule['dxfId'])])) {
+                if (Conditional::isValidConditionType((string) $cfRule['type']) && (!isset($cfRule['dxfId']) || isset($this->dxfs[(int) ($cfRule['dxfId'])]))) {
                     $conditionals[(string) $conditional['sqref']][(int) ($cfRule['priority'])] = $cfRule;
                 } elseif ((string) $cfRule['type'] == Conditional::CONDITION_DATABAR) {
                     $conditionals[(string) $conditional['sqref']][(int) ($cfRule['priority'])] = $cfRule;
@@ -193,10 +203,12 @@ class ConditionalStyles
         $conditionalFormattingRuleExtensions = ConditionalFormattingRuleExtension::parseExtLstXml($extLst);
         $conditionalStyles = [];
 
+        /** @var SimpleXMLElement $cfRule */
         foreach ($cfRules as $cfRule) {
             $objConditional = new Conditional();
             $objConditional->setConditionType((string) $cfRule['type']);
             $objConditional->setOperatorType((string) $cfRule['operator']);
+            $objConditional->setNoFormatSet(!isset($cfRule['dxfId']));
 
             if ((string) $cfRule['text'] != '') {
                 $objConditional->setText((string) $cfRule['text']);
@@ -225,9 +237,13 @@ class ConditionalStyles
 
             if (isset($cfRule->dataBar)) {
                 $objConditional->setDataBar(
-                    $this->readDataBarOfConditionalRule($cfRule, $conditionalFormattingRuleExtensions) // @phpstan-ignore-line
+                    $this->readDataBarOfConditionalRule($cfRule, $conditionalFormattingRuleExtensions)
                 );
-            } else {
+            } elseif (isset($cfRule->colorScale)) {
+                $objConditional->setColorScale(
+                    $this->readColorScale($cfRule)
+                );
+            } elseif (isset($cfRule['dxfId'])) {
                 $objConditional->setStyle(clone $this->dxfs[(int) ($cfRule['dxfId'])]);
             }
 
@@ -264,12 +280,46 @@ class ConditionalStyles
 
         //color
         if (isset($cfRule->dataBar->color)) {
-            $dataBar->setColor((string) $cfRule->dataBar->color['rgb']);
+            $dataBar->setColor($this->styleReader->readColor($cfRule->dataBar->color));
         }
         //extLst
         $this->readDataBarExtLstOfConditionalRule($dataBar, $cfRule, $conditionalFormattingRuleExtensions);
 
         return $dataBar;
+    }
+
+    private function readColorScale(simpleXMLElement|stdClass $cfRule): ConditionalColorScale
+    {
+        $colorScale = new ConditionalColorScale();
+        $types = [];
+        foreach ($cfRule->colorScale->cfvo as $cfvoXml) {
+            $attr = $cfvoXml->attributes() ?? [];
+            $type = (string) ($attr['type'] ?? '');
+            $types[] = $type;
+            $val = $attr['val'] ?? null;
+            if ($type === 'min') {
+                $colorScale->setMinimumConditionalFormatValueObject(new ConditionalFormatValueObject($type, $val));
+            } elseif ($type === 'percentile') {
+                $colorScale->setMidpointConditionalFormatValueObject(new ConditionalFormatValueObject($type, $val));
+            } elseif ($type === 'max') {
+                $colorScale->setMaximumConditionalFormatValueObject(new ConditionalFormatValueObject($type, $val));
+            }
+        }
+        $idx = 0;
+        foreach ($cfRule->colorScale->color as $color) {
+            $type = $types[$idx];
+            $rgb = $this->styleReader->readColor($color);
+            if ($type === 'min') {
+                $colorScale->setMinimumColor(new Color($rgb));
+            } elseif ($type === 'percentile') {
+                $colorScale->setMidpointColor(new Color($rgb));
+            } elseif ($type === 'max') {
+                $colorScale->setMaximumColor(new Color($rgb));
+            }
+            ++$idx;
+        }
+
+        return $colorScale;
     }
 
     /**

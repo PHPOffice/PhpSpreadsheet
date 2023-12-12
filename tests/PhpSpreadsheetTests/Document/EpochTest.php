@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Document;
 
 use DateTime;
@@ -8,7 +10,7 @@ use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
 class EpochTest extends AbstractFunctional
 {
-    public function providerFormats(): array
+    public static function providerFormats(): array
     {
         return [
             ['Ods', '1921-03-17 11:30:00Z'],
@@ -66,7 +68,7 @@ class EpochTest extends AbstractFunctional
         }
     }
 
-    public function providerFormats2(): array
+    public static function providerFormats2(): array
     {
         return [
             ['Ods'],

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Html;
 
 use PhpOffice\PhpSpreadsheet\Shared\File;
@@ -12,13 +14,13 @@ class CallbackTest extends Functional\AbstractFunctional
     public function yellowBody(string $html): string
     {
         $newstyle = <<<EOF
-<style type='text/css'>
-body {
-    background-color: yellow;
-}
-</style>
+            <style type='text/css'>
+            body {
+                background-color: yellow;
+            }
+            </style>
 
-EOF;
+            EOF;
 
         return preg_replace('~</head>~', "$newstyle</head>", $html) ?? '';
     }

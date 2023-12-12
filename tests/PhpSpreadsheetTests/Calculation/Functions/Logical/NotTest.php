@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Logical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,15 +10,13 @@ class NotTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerNOT
-     *
-     * @param mixed $expectedResult
      */
-    public function testNOT($expectedResult, ...$args): void
+    public function testNOT(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('NOT', $expectedResult, ...$args);
     }
 
-    public function providerNOT(): array
+    public static function providerNOT(): array
     {
         return require 'tests/data/Calculation/Logical/NOT.php';
     }
@@ -33,7 +33,7 @@ class NotTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerNotArray(): array
+    public static function providerNotArray(): array
     {
         return [
             'vector' => [

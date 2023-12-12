@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -9,15 +11,9 @@ use PHPUnit\Framework\TestCase;
 
 class CalculationFunctionListTest extends TestCase
 {
-    /**
-     * @var string
-     */
-    private $compatibilityMode;
+    private string $compatibilityMode;
 
-    /**
-     * @var string
-     */
-    private $locale;
+    private string $locale;
 
     protected function setUp(): void
     {
@@ -36,17 +32,13 @@ class CalculationFunctionListTest extends TestCase
 
     /**
      * @dataProvider providerGetFunctions
-     *
-     * @param string $category
-     * @param array|string $functionCall
-     * @param string $argumentCount
      */
-    public function testGetFunctions(/** @scrutinizer ignore-unused */ $category, $functionCall, /** @scrutinizer ignore-unused */ $argumentCount): void
+    public function testGetFunctions(string $category, array|string $functionCall): void
     {
         self::assertIsCallable($functionCall);
     }
 
-    public function providerGetFunctions(): array
+    public static function providerGetFunctions(): array
     {
         return Calculation::getInstance()->getFunctions();
     }

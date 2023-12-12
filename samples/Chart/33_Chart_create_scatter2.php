@@ -1,6 +1,7 @@
 <?php
 
 use PhpOffice\PhpSpreadsheet\Chart\Axis as ChartAxis;
+use PhpOffice\PhpSpreadsheet\Chart\AxisText;
 use PhpOffice\PhpSpreadsheet\Chart\Chart;
 use PhpOffice\PhpSpreadsheet\Chart\ChartColor;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeries;
@@ -9,7 +10,6 @@ use PhpOffice\PhpSpreadsheet\Chart\Legend as ChartLegend;
 use PhpOffice\PhpSpreadsheet\Chart\PlotArea;
 use PhpOffice\PhpSpreadsheet\Chart\Properties;
 use PhpOffice\PhpSpreadsheet\Chart\Title;
-use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
@@ -89,9 +89,9 @@ $dataSeriesValues[0]->setLineStyleProperties(
     Properties::LINE_STYLE_CAP_SQUARE, // cap
     Properties::LINE_STYLE_JOIN_MITER, // join
     Properties::LINE_STYLE_ARROW_TYPE_OPEN, // head type
-    Properties::LINE_STYLE_ARROW_SIZE_4, // head size preset index
+    (string) Properties::LINE_STYLE_ARROW_SIZE_4, // head size preset index
     Properties::LINE_STYLE_ARROW_TYPE_ARROW, // end type
-    Properties::LINE_STYLE_ARROW_SIZE_6 // end size preset index
+    (string) Properties::LINE_STYLE_ARROW_SIZE_6 // end size preset index
 );
 
 // series 2 - straight line - no special effects, connected, straight line
@@ -124,7 +124,10 @@ $dataSeriesValues[2]->setScatterLines(false); // points not connected
 $xAxis = new ChartAxis();
 //$xAxis->setAxisNumberProperties(Properties::FORMAT_CODE_DATE );
 $xAxis->setAxisNumberProperties(Properties::FORMAT_CODE_DATE_ISO8601, true);
-$xAxis->setAxisOption('textRotation', '45');
+//$xAxis->setAxisOption('textRotation', '45');
+$xAxisText = new AxisText();
+$xAxisText->setRotation(45)->getFillColorObject()->setValue('00FF00')->setType(ChartColor::EXCEL_COLOR_TYPE_RGB);
+$xAxis->setAxisText($xAxisText);
 
 $yAxis = new ChartAxis();
 $yAxis->setLineStyleProperties(
@@ -135,6 +138,9 @@ $yAxis->setLineStyleProperties(
     Properties::LINE_STYLE_JOIN_BEVEL
 );
 $yAxis->setLineColorProperties('ffc000', null, ChartColor::EXCEL_COLOR_TYPE_RGB);
+$yAxisText = new AxisText();
+$yAxisText->setGlowProperties(20.0, 'accent1', 20, ChartColor::EXCEL_COLOR_TYPE_SCHEME);
+$yAxis->setAxisText($yAxisText);
 
 // Build the dataseries
 $series = new DataSeries(
@@ -178,11 +184,7 @@ $chart->setBottomRightPosition('P20');
 // Add the chart to the worksheet
 $worksheet->addChart($chart);
 
+$helper->renderChart($chart, __FILE__);
+
 // Save Excel 2007 file
-$filename = $helper->getFilename(__FILE__);
-$writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
-$writer->setIncludeCharts(true);
-$callStartTime = microtime(true);
-$writer->save($filename);
-$spreadsheet->disconnectWorksheets();
-$helper->logWrite($writer, $filename, $callStartTime);
+$helper->write($spreadsheet, __FILE__, ['Xlsx'], true);

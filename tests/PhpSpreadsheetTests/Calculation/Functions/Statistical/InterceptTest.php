@@ -1,25 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
-use PHPUnit\Framework\TestCase;
-
-// TODO Run test in spreadsheet context
-class InterceptTest extends TestCase
+class InterceptTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerINTERCEPT
-     *
-     * @param mixed $expectedResult
      */
-    public function testINTERCEPT($expectedResult, array $xargs, array $yargs): void
+    public function testINTERCEPT(mixed $expectedResult, mixed ...$args): void
     {
-        $result = Statistical\Trends::INTERCEPT($xargs, $yargs);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        $this->runTestCaseNoBracket('INTERCEPT', $expectedResult, ...$args);
     }
 
-    public function providerINTERCEPT(): array
+    public static function providerINTERCEPT(): array
     {
         return require 'tests/data/Calculation/Statistical/INTERCEPT.php';
     }

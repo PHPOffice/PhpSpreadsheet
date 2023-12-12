@@ -31,10 +31,8 @@ class Xls extends BaseWriter
 {
     /**
      * PhpSpreadsheet object.
-     *
-     * @var Spreadsheet
      */
-    private $spreadsheet;
+    private Spreadsheet $spreadsheet;
 
     /**
      * Total number of shared strings in workbook.
@@ -66,10 +64,8 @@ class Xls extends BaseWriter
 
     /**
      * Formula parser.
-     *
-     * @var Parser
      */
-    private $parser;
+    private Parser $parser;
 
     /**
      * Identifier clusters for drawings. Used in MSODRAWINGGROUP record.
@@ -170,7 +166,9 @@ class Xls extends BaseWriter
                     foreach ($elements as $element) {
                         if ($element instanceof Run) {
                             $font = $element->getFont();
-                            $this->writerWorksheets[$i]->fontHashIndex[$font->getHashCode()] = $this->writerWorkbook->addFont($font);
+                            if ($font !== null) {
+                                $this->writerWorksheets[$i]->fontHashIndex[$font->getHashCode()] = $this->writerWorkbook->addFont($font);
+                            }
                         }
                     }
                 }
@@ -199,14 +197,14 @@ class Xls extends BaseWriter
 
         $this->documentSummaryInformation = $this->writeDocumentSummaryInformation();
         // initialize OLE Document Summary Information
-        if (isset($this->documentSummaryInformation) && !empty($this->documentSummaryInformation)) {
+        if (!empty($this->documentSummaryInformation)) {
             $OLE_DocumentSummaryInformation = new File(OLE::ascToUcs(chr(5) . 'DocumentSummaryInformation'));
             $OLE_DocumentSummaryInformation->append($this->documentSummaryInformation);
         }
 
         $this->summaryInformation = $this->writeSummaryInformation();
         // initialize OLE Summary Information
-        if (isset($this->summaryInformation) && !empty($this->summaryInformation)) {
+        if (!empty($this->summaryInformation)) {
             $OLE_SummaryInformation = new File(OLE::ascToUcs(chr(5) . 'SummaryInformation'));
             $OLE_SummaryInformation->append($this->summaryInformation);
         }
@@ -245,7 +243,7 @@ class Xls extends BaseWriter
 
         foreach ($this->spreadsheet->getAllsheets() as $sheet) {
             // sheet index
-            $sheetIndex = $sheet->getParent()->getIndex($sheet);
+            $sheetIndex = $sheet->getParentOrThrow()->getIndex($sheet);
 
             // check if there are any shapes for this sheet
             $filterRange = $sheet->getAutoFilter()->getRange();
@@ -260,7 +258,7 @@ class Xls extends BaseWriter
             $dgContainer = new DgContainer();
 
             // set the drawing index (we use sheet index + 1)
-            $dgId = $sheet->getParent()->getIndex($sheet) + 1;
+            $dgId = $sheet->getParentOrThrow()->getIndex($sheet) + 1;
             $dgContainer->setDgId($dgId);
             $escher->setDgContainer($dgContainer);
 
@@ -272,7 +270,7 @@ class Xls extends BaseWriter
             $spContainer = new SpContainer();
             $spContainer->setSpgr(true);
             $spContainer->setSpType(0);
-            $spContainer->setSpId(($sheet->getParent()->getIndex($sheet) + 1) << 10);
+            $spContainer->setSpId(($sheet->getParentOrThrow()->getIndex($sheet) + 1) << 10);
             $spgrContainer->addChild($spContainer);
 
             // add the shapes
@@ -294,7 +292,7 @@ class Xls extends BaseWriter
 
                 // set the shape index (we combine 1-based sheet index and $countShapes to create unique shape index)
                 $reducedSpId = $countShapes[$sheetIndex];
-                $spId = $reducedSpId | ($sheet->getParent()->getIndex($sheet) + 1) << 10;
+                $spId = $reducedSpId | ($sheet->getParentOrThrow()->getIndex($sheet) + 1) << 10;
                 $spContainer->setSpId($spId);
 
                 // keep track of last reducedSpId
@@ -315,14 +313,16 @@ class Xls extends BaseWriter
 
                 $twoAnchor = \PhpOffice\PhpSpreadsheet\Shared\Xls::oneAnchor2twoAnchor($sheet, $coordinates, $offsetX, $offsetY, $width, $height);
 
-                $spContainer->setStartCoordinates($twoAnchor['startCoordinates']);
-                $spContainer->setStartOffsetX($twoAnchor['startOffsetX']);
-                $spContainer->setStartOffsetY($twoAnchor['startOffsetY']);
-                $spContainer->setEndCoordinates($twoAnchor['endCoordinates']);
-                $spContainer->setEndOffsetX($twoAnchor['endOffsetX']);
-                $spContainer->setEndOffsetY($twoAnchor['endOffsetY']);
+                if (is_array($twoAnchor)) {
+                    $spContainer->setStartCoordinates($twoAnchor['startCoordinates']);
+                    $spContainer->setStartOffsetX($twoAnchor['startOffsetX']);
+                    $spContainer->setStartOffsetY($twoAnchor['startOffsetY']);
+                    $spContainer->setEndCoordinates($twoAnchor['endCoordinates']);
+                    $spContainer->setEndOffsetX($twoAnchor['endOffsetX']);
+                    $spContainer->setEndOffsetY($twoAnchor['endOffsetY']);
 
-                $spgrContainer->addChild($spContainer);
+                    $spgrContainer->addChild($spContainer);
+                }
             }
 
             // AutoFilters
@@ -351,7 +351,7 @@ class Xls extends BaseWriter
 
                     // set the shape index (we combine 1-based sheet index and $countShapes to create unique shape index)
                     $reducedSpId = $countShapes[$sheetIndex];
-                    $spId = $reducedSpId | ($sheet->getParent()->getIndex($sheet) + 1) << 10;
+                    $spId = $reducedSpId | ($sheet->getParentOrThrow()->getIndex($sheet) + 1) << 10;
                     $spContainer->setSpId($spId);
 
                     // keep track of last reducedSpId
@@ -414,7 +414,7 @@ class Xls extends BaseWriter
         ob_end_clean();
 
         $blip = new Blip();
-        $blip->setData($blipData);
+        $blip->setData("$blipData");
 
         $BSE = new BSE();
         $BSE->setBlipType($blipType);
@@ -423,13 +423,16 @@ class Xls extends BaseWriter
         $bstoreContainer->addBSE($BSE);
     }
 
+    private static int $two = 2; // phpstan silliness
+
     private function processDrawing(BstoreContainer &$bstoreContainer, Drawing $drawing): void
     {
-        $blipType = null;
+        $blipType = 0;
         $blipData = '';
         $filename = $drawing->getPath();
 
-        [$imagesx, $imagesy, $imageFormat] = getimagesize($filename);
+        $imageSize = getimagesize($filename);
+        $imageFormat = empty($imageSize) ? 0 : ($imageSize[self::$two] ?? 0);
 
         switch ($imageFormat) {
             case 1: // GIF, not supported by BIFF8, we convert to PNG
@@ -564,10 +567,8 @@ class Xls extends BaseWriter
 
     /**
      * Build the OLE Part for DocumentSummary Information.
-     *
-     * @return string
      */
-    private function writeDocumentSummaryInformation()
+    private function writeDocumentSummaryInformation(): string
     {
         // offset: 0; size: 2; must be 0xFE 0xFF (UTF-16 LE byte order mark)
         $data = pack('v', 0xFFFE);
@@ -746,11 +747,12 @@ class Xls extends BaseWriter
                 $dataSection_Content .= $dataProp['data']['data'];
 
                 $dataSection_Content_Offset += 4 + 4 + strlen($dataProp['data']['data']);
-            // Condition below can never be true
-            //} elseif ($dataProp['type']['data'] == 0x40) { // Filetime (64-bit value representing the number of 100-nanosecond intervals since January 1, 1601)
-            //    $dataSection_Content .= $dataProp['data']['data'];
+            /* Condition below can never be true
+            } elseif ($dataProp['type']['data'] == 0x40) { // Filetime (64-bit value representing the number of 100-nanosecond intervals since January 1, 1601)
+                $dataSection_Content .= $dataProp['data']['data'];
 
-            //    $dataSection_Content_Offset += 4 + 8;
+                $dataSection_Content_Offset += 4 + 8;
+            */
             } else {
                 $dataSection_Content .= $dataProp['data']['data'];
 
@@ -804,10 +806,8 @@ class Xls extends BaseWriter
 
     /**
      * Build the OLE Part for Summary Information.
-     *
-     * @return string
      */
-    private function writeSummaryInformation()
+    private function writeSummaryInformation(): string
     {
         // offset: 0; size: 2; must be 0xFE 0xFF (UTF-16 LE byte order mark)
         $data = pack('v', 0xFFFE);
@@ -843,14 +843,14 @@ class Xls extends BaseWriter
         ++$dataSection_NumProps;
 
         $props = $this->spreadsheet->getProperties();
-        $this->writeSummaryProp($props->getTitle(), $dataSection_NumProps, $dataSection, 0x02, 0x1e);
-        $this->writeSummaryProp($props->getSubject(), $dataSection_NumProps, $dataSection, 0x03, 0x1e);
-        $this->writeSummaryProp($props->getCreator(), $dataSection_NumProps, $dataSection, 0x04, 0x1e);
-        $this->writeSummaryProp($props->getKeywords(), $dataSection_NumProps, $dataSection, 0x05, 0x1e);
-        $this->writeSummaryProp($props->getDescription(), $dataSection_NumProps, $dataSection, 0x06, 0x1e);
-        $this->writeSummaryProp($props->getLastModifiedBy(), $dataSection_NumProps, $dataSection, 0x08, 0x1e);
-        $this->writeSummaryPropOle($props->getCreated(), $dataSection_NumProps, $dataSection, 0x0c, 0x40);
-        $this->writeSummaryPropOle($props->getModified(), $dataSection_NumProps, $dataSection, 0x0d, 0x40);
+        $this->writeSummaryProp($props->getTitle(), $dataSection_NumProps, $dataSection, 0x02, 0x1E);
+        $this->writeSummaryProp($props->getSubject(), $dataSection_NumProps, $dataSection, 0x03, 0x1E);
+        $this->writeSummaryProp($props->getCreator(), $dataSection_NumProps, $dataSection, 0x04, 0x1E);
+        $this->writeSummaryProp($props->getKeywords(), $dataSection_NumProps, $dataSection, 0x05, 0x1E);
+        $this->writeSummaryProp($props->getDescription(), $dataSection_NumProps, $dataSection, 0x06, 0x1E);
+        $this->writeSummaryProp($props->getLastModifiedBy(), $dataSection_NumProps, $dataSection, 0x08, 0x1E);
+        $this->writeSummaryPropOle($props->getCreated(), $dataSection_NumProps, $dataSection, 0x0C, 0x40);
+        $this->writeSummaryPropOle($props->getModified(), $dataSection_NumProps, $dataSection, 0x0D, 0x40);
 
         //    Security
         $dataSection[] = [

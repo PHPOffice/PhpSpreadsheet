@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet\AutoFilter;
 
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
@@ -29,7 +31,7 @@ class AutoFilterCustomNumericTest extends SetupTeardown
         return $sheet;
     }
 
-    public function providerCustomRule(): array
+    public static function providerCustomRule(): array
     {
         return [
             'equal to 3' => [[3, 10], Rule::AUTOFILTER_COLUMN_RULE_EQUAL, 3],
@@ -95,6 +97,7 @@ class AutoFilterCustomNumericTest extends SetupTeardown
     public function testEqualsList(): void
     {
         $sheet = $this->initSheet();
+        $sheet->getRowDimension(4)->setRowHeight(25);
         $maxRow = $this->maxRow;
         $autoFilter = $sheet->getAutoFilter();
         $autoFilter->setRange("A1:A$maxRow");
@@ -115,6 +118,17 @@ class AutoFilterCustomNumericTest extends SetupTeardown
             ->setRuleType(Rule::AUTOFILTER_RULETYPE_CUSTOMFILTER);
 
         self::assertEquals([3, 4, 9, 10], $this->getVisible());
+        self::assertTrue($sheet->rowDimensionExists(2));
+        self::assertFalse($sheet->rowDimensionExists(3), 'row visible by default');
+        self::assertTrue($sheet->rowDimensionExists(4), 'row is visible but height has been set');
+        self::assertTrue($sheet->rowDimensionExists(5));
+        self::assertTrue($sheet->rowDimensionExists(6));
+        self::assertTrue($sheet->rowDimensionExists(7));
+        self::assertTrue($sheet->rowDimensionExists(8));
+        self::assertFalse($sheet->rowDimensionExists(9), 'row visible by default');
+        self::assertFalse($sheet->rowDimensionExists(10), 'row visible by default');
+        self::assertTrue($sheet->rowDimensionExists(11));
+        self::assertTrue($sheet->rowDimensionExists(12));
     }
 
     public function testNotEqualsList(): void

@@ -49,24 +49,11 @@ class Styles extends BaseParserClass
         $this->workbookPalette = $palette;
     }
 
-    /**
-     * Cast SimpleXMLElement to bool to overcome Scrutinizer problem.
-     *
-     * @param mixed $value
-     */
-    private static function castBool($value): bool
-    {
-        return (bool) $value;
-    }
-
     private function getStyleAttributes(SimpleXMLElement $value): SimpleXMLElement
     {
-        $attr = null;
-        if (self::castBool($value)) {
-            $attr = $value->attributes('');
-            if ($attr === null || count($attr) === 0) {
-                $attr = $value->attributes($this->namespace);
-            }
+        $attr = $value->attributes('');
+        if ($attr === null || count($attr) === 0) {
+            $attr = $value->attributes($this->namespace);
         }
 
         return Xlsx::testSimpleXml($attr);
@@ -135,6 +122,10 @@ class Styles extends BaseParserClass
                     $fontStyle->setSubscript(true);
                 }
             }
+        }
+        if (isset($fontStyleXml->scheme)) {
+            $attr = $this->getStyleAttributes($fontStyleXml->scheme);
+            $fontStyle->setScheme((string) $attr['val']);
         }
     }
 
@@ -206,11 +197,21 @@ class Styles extends BaseParserClass
             $borderStyle->setDiagonalDirection(Borders::DIAGONAL_BOTH);
         }
 
-        $this->readBorder($borderStyle->getLeft(), $borderStyleXml->left);
-        $this->readBorder($borderStyle->getRight(), $borderStyleXml->right);
-        $this->readBorder($borderStyle->getTop(), $borderStyleXml->top);
-        $this->readBorder($borderStyle->getBottom(), $borderStyleXml->bottom);
-        $this->readBorder($borderStyle->getDiagonal(), $borderStyleXml->diagonal);
+        if (isset($borderStyleXml->left)) {
+            $this->readBorder($borderStyle->getLeft(), $borderStyleXml->left);
+        }
+        if (isset($borderStyleXml->right)) {
+            $this->readBorder($borderStyle->getRight(), $borderStyleXml->right);
+        }
+        if (isset($borderStyleXml->top)) {
+            $this->readBorder($borderStyle->getTop(), $borderStyleXml->top);
+        }
+        if (isset($borderStyleXml->bottom)) {
+            $this->readBorder($borderStyle->getBottom(), $borderStyleXml->bottom);
+        }
+        if (isset($borderStyleXml->diagonal)) {
+            $this->readBorder($borderStyle->getDiagonal(), $borderStyleXml->diagonal);
+        }
     }
 
     private function getAttribute(SimpleXMLElement $xml, string $attribute): string
@@ -233,6 +234,8 @@ class Styles extends BaseParserClass
         $style = $this->getAttribute($borderXml, 'style');
         if ($style !== '') {
             $border->setBorderStyle((string) $style);
+        } else {
+            $border->setBorderStyle(Border::BORDER_NONE);
         }
         if (isset($borderXml->color)) {
             $border->getColor()->setARGB($this->readColor($borderXml->color));
@@ -241,10 +244,14 @@ class Styles extends BaseParserClass
 
     public function readAlignmentStyle(Alignment $alignment, SimpleXMLElement $alignmentXml): void
     {
-        $horizontal = $this->getAttribute($alignmentXml, 'horizontal');
-        $alignment->setHorizontal($horizontal);
-        $vertical = $this->getAttribute($alignmentXml, 'vertical');
-        $alignment->setVertical((string) $vertical);
+        $horizontal = (string) $this->getAttribute($alignmentXml, 'horizontal');
+        if ($horizontal !== '') {
+            $alignment->setHorizontal($horizontal);
+        }
+        $vertical = (string) $this->getAttribute($alignmentXml, 'vertical');
+        if ($vertical !== '') {
+            $alignment->setVertical($vertical);
+        }
 
         $textRotation = (int) $this->getAttribute($alignmentXml, 'textRotation');
         if ($textRotation > 90) {
@@ -431,7 +438,7 @@ class Styles extends BaseParserClass
      *
      * @return stdClass
      */
-    private static function getArrayItem($array, int $key = 0)
+    private static function getArrayItem(mixed $array, int $key = 0)
     {
         return is_array($array) ? ($array[$key] ?? null) : null;
     }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Style;
 
 use PhpOffice\PhpSpreadsheet\Style\Color;
@@ -76,10 +78,8 @@ class ColorTest extends TestCase
 
     /**
      * @dataProvider providerColorGetRed
-     *
-     * @param mixed $expectedResult
      */
-    public function testGetRed($expectedResult, string $color, ?bool $bool = null): void
+    public function testGetRed(mixed $expectedResult, string $color, ?bool $bool = null): void
     {
         if ($bool === null) {
             $result = Color::getRed($color);
@@ -89,17 +89,15 @@ class ColorTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerColorGetRed(): array
+    public static function providerColorGetRed(): array
     {
         return require 'tests/data/Style/Color/ColorGetRed.php';
     }
 
     /**
      * @dataProvider providerColorGetGreen
-     *
-     * @param mixed $expectedResult
      */
-    public function testGetGreen($expectedResult, string $color, ?bool $bool = null): void
+    public function testGetGreen(mixed $expectedResult, string $color, ?bool $bool = null): void
     {
         if ($bool === null) {
             $result = Color::getGreen($color);
@@ -109,17 +107,15 @@ class ColorTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerColorGetGreen(): array
+    public static function providerColorGetGreen(): array
     {
         return require 'tests/data/Style/Color/ColorGetGreen.php';
     }
 
     /**
      * @dataProvider providerColorGetBlue
-     *
-     * @param mixed $expectedResult
      */
-    public function testGetBlue($expectedResult, string $color, ?bool $bool = null): void
+    public function testGetBlue(mixed $expectedResult, string $color, ?bool $bool = null): void
     {
         if ($bool === null) {
             $result = Color::getBlue($color);
@@ -129,23 +125,21 @@ class ColorTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerColorGetBlue(): array
+    public static function providerColorGetBlue(): array
     {
         return require 'tests/data/Style/Color/ColorGetBlue.php';
     }
 
     /**
      * @dataProvider providerColorChangeBrightness
-     *
-     * @param mixed $expectedResult
      */
-    public function testChangeBrightness($expectedResult, ...$args): void
+    public function testChangeBrightness(mixed $expectedResult, mixed ...$args): void
     {
         $result = Color::changeBrightness(...$args);
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerColorChangeBrightness(): array
+    public static function providerColorChangeBrightness(): array
     {
         return require 'tests/data/Style/Color/ColorChangeBrightness.php';
     }

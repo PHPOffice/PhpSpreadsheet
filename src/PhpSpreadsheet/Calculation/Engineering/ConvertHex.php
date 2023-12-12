@@ -38,7 +38,7 @@ class ConvertHex extends ConvertBase
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function toBinary($value, $places = null)
+    public static function toBinary($value, $places = null): array|string
     {
         if (is_array($value) || is_array($places)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $value, $places);
@@ -145,7 +145,7 @@ class ConvertHex extends ConvertBase
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function toOctal($value, $places = null)
+    public static function toOctal($value, $places = null): array|string
     {
         if (is_array($value) || is_array($places)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $value, $places);

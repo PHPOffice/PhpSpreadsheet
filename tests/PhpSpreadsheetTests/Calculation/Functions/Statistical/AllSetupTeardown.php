@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcException;
@@ -11,10 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 class AllSetupTeardown extends TestCase
 {
-    /**
-     * @var string
-     */
-    private $compatibilityMode;
+    private string $compatibilityMode;
 
     /**
      * @var ?Spreadsheet
@@ -51,20 +50,14 @@ class AllSetupTeardown extends TestCase
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_GNUMERIC);
     }
 
-    /**
-     * @param mixed $expectedResult
-     */
-    protected function mightHaveException($expectedResult): void
+    protected function mightHaveException(mixed $expectedResult): void
     {
         if ($expectedResult === 'exception') {
             $this->expectException(CalcException::class);
         }
     }
 
-    /**
-     * @param mixed $value
-     */
-    protected function setCell(string $cell, $value): void
+    protected function setCell(string $cell, mixed $value): void
     {
         if ($value !== null) {
             if (is_string($value) && is_numeric($value)) {
@@ -99,11 +92,8 @@ class AllSetupTeardown extends TestCase
      * Excel handles text/logical/empty cells differently when
      * passed directly as arguments as opposed to cell references or arrays.
      * This function will test both approaches.
-     *
-     * @param mixed $expectedResult
-     * @param array $args
      */
-    protected function runTestCases(string $functionName, $expectedResult, ...$args): void
+    protected function runTestCases(string $functionName, mixed $expectedResult, mixed ...$args): void
     {
         if (is_array($expectedResult)) {
             $this->runTestCaseReference($functionName, $expectedResult[0], ...$args);
@@ -118,11 +108,8 @@ class AllSetupTeardown extends TestCase
      * Excel handles text/logical/empty cells differently when
      * passed directly as arguments as opposed to cell references or arrays.
      * This functions tests passing as arrays.
-     *
-     * @param mixed $expectedResult
-     * @param array $args
      */
-    protected function runTestCaseReference(string $functionName, $expectedResult, ...$args): void
+    protected function runTestCaseReference(string $functionName, mixed $expectedResult, mixed ...$args): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -142,7 +129,7 @@ class AllSetupTeardown extends TestCase
                 $arrayArg .= '}';
                 $formula .= "$comma$arrayArg";
                 $comma = ',';
-            } else { // @phpstan-ignore-line
+            } else {
                 $cellId = "A$row";
                 $formula .= "$comma$cellId";
                 $comma = ',';
@@ -158,11 +145,8 @@ class AllSetupTeardown extends TestCase
      * Excel handles text/logical/empty cells differently when
      * passed directly as arguments as opposed to cell references or arrays.
      * This functions tests passing as direct arguments.
-     *
-     * @param mixed $expectedResult
-     * @param array $args
      */
-    protected function runTestCaseDirect(string $functionName, $expectedResult, ...$args): void
+    protected function runTestCaseDirect(string $functionName, mixed $expectedResult, mixed ...$args): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -175,7 +159,7 @@ class AllSetupTeardown extends TestCase
                     $comma = ',';
                     $formula .= $this->convertToString($arrayItem);
                 }
-            } else { // @phpstan-ignore-line
+            } else {
                 $formula .= $comma;
                 $comma = ',';
                 $formula .= $this->convertToString($arg);
@@ -187,9 +171,46 @@ class AllSetupTeardown extends TestCase
     }
 
     /**
-     * @param mixed $arg
+     * Excel seems to reject bracket notation for literal arrays
+     * for some functions.
      */
-    private function convertToString($arg): string
+    protected function runTestCaseNoBracket(string $functionName, mixed $expectedResult, mixed ...$args): void
+    {
+        $this->mightHaveException($expectedResult);
+        $sheet = $this->getSheet();
+        $formula = "=$functionName(";
+        $comma = '';
+        $row = 0;
+        foreach ($args as $arg) {
+            ++$row;
+            if (is_array($arg)) {
+                $col = 'A';
+                $arrayRange = '';
+                foreach ($arg as $arrayItem) {
+                    $cellId = "$col$row";
+                    $arrayRange = "A$row:$cellId";
+                    $this->setCell($cellId, $arrayItem);
+                    ++$col;
+                }
+                $formula .= "$comma$arrayRange";
+                $comma = ',';
+            } else {
+                $cellId = "A$row";
+                $formula .= "$comma$cellId";
+                $comma = ',';
+                if (is_string($arg) && str_starts_with($arg, '=')) {
+                    $sheet->getCell($cellId)->setValueExplicit($arg, DataType::TYPE_STRING);
+                } else {
+                    $this->setCell($cellId, $arg);
+                }
+            }
+        }
+        $formula .= ')';
+        $this->setCell('Z99', $formula);
+        self::assertEqualsWithDelta($expectedResult, $sheet->getCell('Z99')->getCalculatedValue(), 1.0e-8, 'arguments supplied as ranges');
+    }
+
+    private function convertToString(mixed $arg): string
     {
         if (is_string($arg)) {
             return '"' . $arg . '"';

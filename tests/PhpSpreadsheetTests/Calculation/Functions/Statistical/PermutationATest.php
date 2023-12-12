@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,15 +10,13 @@ class PermutationATest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerPERMUT
-     *
-     * @param mixed $expectedResult
      */
-    public function testPERMUT($expectedResult, ...$args): void
+    public function testPERMUT(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('PERMUTATIONA', $expectedResult, ...$args);
     }
 
-    public function providerPERMUT(): array
+    public static function providerPERMUT(): array
     {
         return require 'tests/data/Calculation/Statistical/PERMUTATIONA.php';
     }
@@ -33,7 +33,7 @@ class PermutationATest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerPermutationAArray(): array
+    public static function providerPermutationAArray(): array
     {
         return [
             'first argument row vector' => [

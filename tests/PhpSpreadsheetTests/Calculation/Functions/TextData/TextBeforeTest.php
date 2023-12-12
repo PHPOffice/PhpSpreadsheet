@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
 class TextBeforeTest extends AllSetupTeardown
@@ -29,7 +31,7 @@ class TextBeforeTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerTEXTBEFORE(): array
+    public static function providerTEXTBEFORE(): array
     {
         return require 'tests/data/Calculation/TextData/TEXTBEFORE.php';
     }

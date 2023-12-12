@@ -1,42 +1,35 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xls;
 
 use PhpOffice\PhpSpreadsheet\Cell\DataValidation;
 use PhpOffice\PhpSpreadsheet\Reader\Xls;
-use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PHPUnit\Framework\TestCase;
 
 class DataValidationTest extends TestCase
 {
     /**
-     * @var Worksheet
-     */
-    protected $sheet;
-
-    protected function setUp(): void
-    {
-        $filename = 'tests/data/Reader/XLS/DataValidation.xls';
-        $reader = new Xls();
-        $spreadsheet = $reader->load($filename);
-        $this->sheet = $spreadsheet->getActiveSheet();
-    }
-
-    /**
      * @dataProvider dataValidationProvider
      */
     public function testDataValidation(string $expectedRange, array $expectedRule): void
     {
-        $hasDataValidation = $this->sheet->dataValidationExists($expectedRange);
+        $filename = 'tests/data/Reader/XLS/DataValidation.xls';
+        $reader = new Xls();
+        $spreadsheet = $reader->load($filename);
+        $sheet = $spreadsheet->getActiveSheet();
+        $hasDataValidation = $sheet->dataValidationExists($expectedRange);
         self::assertTrue($hasDataValidation);
 
-        $dataValidation = $this->sheet->getDataValidation($expectedRange);
+        $dataValidation = $sheet->getDataValidation($expectedRange);
         self::assertSame($expectedRule['type'], $dataValidation->getType());
         self::assertSame($expectedRule['operator'], $dataValidation->getOperator());
         self::assertSame($expectedRule['formula'], $dataValidation->getFormula1());
+        $spreadsheet->disconnectWorksheets();
     }
 
-    public function dataValidationProvider(): array
+    public static function dataValidationProvider(): array
     {
         return [
             [

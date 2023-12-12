@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Information;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -16,16 +18,14 @@ class IsNonTextTest extends TestCase
 
     /**
      * @dataProvider providerIsNonText
-     *
-     * @param mixed $value
      */
-    public function testIsNonText(bool $expectedResult, $value): void
+    public function testIsNonText(bool $expectedResult, mixed $value): void
     {
         $result = Value::isNonText($value);
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerIsNonText(): array
+    public static function providerIsNonText(): array
     {
         return require 'tests/data/Calculation/Information/IS_NONTEXT.php';
     }
@@ -42,7 +42,7 @@ class IsNonTextTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerIsNonTextArray(): array
+    public static function providerIsNonTextArray(): array
     {
         return [
             'vector' => [

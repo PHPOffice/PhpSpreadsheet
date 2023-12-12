@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,15 +10,13 @@ class LogNormDistTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerLOGNORMDIST
-     *
-     * @param mixed $expectedResult
      */
-    public function testLOGNORMDIST($expectedResult, ...$args): void
+    public function testLOGNORMDIST(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('LOGNORMDIST', $expectedResult, ...$args);
     }
 
-    public function providerLOGNORMDIST(): array
+    public static function providerLOGNORMDIST(): array
     {
         return require 'tests/data/Calculation/Statistical/LOGNORMDIST.php';
     }
@@ -33,7 +33,7 @@ class LogNormDistTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerLogNormDistArray(): array
+    public static function providerLogNormDistArray(): array
     {
         return [
             'row/column vectors' => [

@@ -2,10 +2,13 @@
 
 Accessing cells in a Spreadsheet should be pretty straightforward. This
 topic lists some of the options to access a cell.
+For all of these, the cell can be accessed by coordinate (e.g. `B3`),
+by an array of column index (where A is 1) and row (e.g. `[2, 3]`),
+or as a CellAddress object (e.g. `new CellAddress('B3', /* optional */ $worksheet)`.
 
-## Setting a cell value by coordinate
+## Setting a cell value
 
-Setting a cell value by coordinate can be done using the worksheet's
+Setting a cell value can be done using the worksheet's
 `setCellValue()` method.
 
 ```php
@@ -13,10 +16,10 @@ Setting a cell value by coordinate can be done using the worksheet's
 $spreadsheet->getActiveSheet()->setCellValue('A1', 'PhpSpreadsheet');
 
 // Set cell A2 with a numeric value
-$spreadsheet->getActiveSheet()->setCellValue('A2', 12345.6789);
+$spreadsheet->getActiveSheet()->setCellValue([1, 2], 12345.6789);
 
 // Set cell A3 with a boolean value
-$spreadsheet->getActiveSheet()->setCellValue('A3', TRUE);
+$spreadsheet->getActiveSheet()->setCellValue(new CellAddress('A3'), TRUE);
 
 // Set cell A4 with a formula
 $spreadsheet->getActiveSheet()->setCellValue(
@@ -46,10 +49,10 @@ particularly when working with large spreadsheets. One technique used to
 reduce this memory overhead is cell caching, so cells are actually
 maintained in a collection that may or may not be held in memory while you
 are working with the spreadsheet. Because of this, a call to `getCell()`
-(or any similar method) returns the cell data, and a pointer to the collection.
+(or any similar method) returns the cell data, and sets a cell pointer to that cell in the collection.
 While this is not normally an issue, it can become significant
 if you assign the result of a call to `getCell()` to a variable. Any
-subsequent calls to retrieve other cells will unset that pointer, although
+subsequent calls to retrieve other cells will change that pointer, although
 the cell object will still retain its data values.
 
 What does this mean? Consider the following code:
@@ -318,7 +321,7 @@ $spreadsheet->getActiveSheet()
 
 ![07-simple-example-4.png](./images/07-simple-example-4.png)
 
-## Retrieving a cell value by coordinate
+## Retrieving a cell value
 
 To retrieve the value of a cell, the cell should first be retrieved from
 the worksheet using the `getCell()` method. A cell's value can be read
@@ -348,37 +351,6 @@ the cell's `getFormattedValue()` method.
 ```php
 // Get the value from cell A6
 $cellValue = $spreadsheet->getActiveSheet()->getCell('A6')->getFormattedValue();
-```
-
-## Setting a cell value by column and row
-
-Setting a cell value by coordinate can be done using the worksheet's
-`setCellValueByColumnAndRow()` method.
-
-```php
-// Set cell A5 with a string value
-$spreadsheet->getActiveSheet()->setCellValueByColumnAndRow(1, 5, 'PhpSpreadsheet');
-```
-
-**Note:** that column references start with `1` for column `A`.
-
-## Retrieving a cell value by column and row
-
-To retrieve the value of a cell, the cell should first be retrieved from
-the worksheet using the `getCellByColumnAndRow()` method. A cell’s value can
-be read again using the following line of code:
-
-```php
-// Get the value from cell B5
-$cellValue = $spreadsheet->getActiveSheet()->getCellByColumnAndRow(2, 5)->getValue();
-```
-
-If you need the calculated value of a cell, use the following code. This
-is further explained in [the calculation engine](./calculation-engine.md).
-
-```php
-// Get the value from cell A4
-$cellValue = $spreadsheet->getActiveSheet()->getCellByColumnAndRow(1, 4)->getCalculatedValue();
 ```
 
 ## Retrieving a range of cell values to an array
@@ -441,16 +413,25 @@ foreach ($worksheet->getRowIterator() as $row) {
 echo '</table>' . PHP_EOL;
 ```
 
-Note that we have set the cell iterator's
-`setIterateOnlyExistingCells()` to FALSE. This makes the iterator loop
-all cells within the worksheet range, even if they have not been set.
+Note that we have set the cell iterator's `setIterateOnlyExistingCells()`
+to FALSE. This makes the iterator loop all cells within the worksheet
+range, even if they have not been set.
 
-The cell iterator will return a `null` as the cell value if it is not
-set in the worksheet. Setting the cell iterator's
-`setIterateOnlyExistingCells()` to `false` will loop all cells in the
-worksheet that can be available at that moment. This will create new
-cells if required and increase memory usage! Only use it if it is
-intended to loop all cells that are possibly available.
+The cell iterator will create a new empty cell in the worksheet if it
+doesn't exist; return a `null` as the cell value if it is not set in
+the worksheet; although we can also tell it to return a null value
+rather than returning a new empty cell.
+Setting the cell iterator's `setIterateOnlyExistingCells()` to `false`
+will loop all cells in the worksheet that can be available at that
+moment. If this is then set to create new cells if required, then it
+will likely increase memory usage!
+Only use it if it is intended to loop all cells that are possibly
+available; otherwise use the option to return a null value if a cell
+doesn't exist, or iterate only the cells that already exist.
+
+It is also possible to call the Row object's `isEmpty()` method to
+determine whether you need to instantiate the Cell Iterator for that
+Row.
 
 ### Looping through cells using indexes
 
@@ -470,15 +451,15 @@ $spreadsheet = $reader->load("test.xlsx");
 
 $worksheet = $spreadsheet->getActiveSheet();
 // Get the highest row and column numbers referenced in the worksheet
-$highestRow = $worksheet->getHighestRow(); // e.g. 10
-$highestColumn = $worksheet->getHighestColumn(); // e.g 'F'
+$highestRow = $worksheet->getHighestDataRow(); // e.g. 10
+$highestColumn = $worksheet->getHighestDataColumn(); // e.g 'F'
 $highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($highestColumn); // e.g. 5
 
 echo '<table>' . "\n";
 for ($row = 1; $row <= $highestRow; ++$row) {
     echo '<tr>' . PHP_EOL;
     for ($col = 1; $col <= $highestColumnIndex; ++$col) {
-        $value = $worksheet->getCellByColumnAndRow($col, $row)->getValue();
+        $value = $worksheet->getCell([$col, $row])->getValue();
         echo '<td>' . $value . '</td>' . PHP_EOL;
     }
     echo '</tr>' . PHP_EOL;
@@ -496,10 +477,10 @@ $spreadsheet = $reader->load("test.xlsx");
 
 $worksheet = $spreadsheet->getActiveSheet();
 // Get the highest row number and column letter referenced in the worksheet
-$highestRow = $worksheet->getHighestRow(); // e.g. 10
-$highestColumn = $worksheet->getHighestColumn(); // e.g 'F'
+$highestRow = $worksheet->getHighestDataRow(); // e.g. 10
+$highestColumn = $worksheet->getHighestDataColumn(); // e.g 'F'
 // Increment the highest column letter
-$highestColumn++;
+++$highestColumn;
 
 echo '<table>' . "\n";
 for ($row = 1; $row <= $highestRow; ++$row) {
@@ -574,6 +555,23 @@ $stringValueBinder->setNumericConversion(false)
     ->setFormulaConversion(false);
 \PhpOffice\PhpSpreadsheet\Cell\Cell::setValueBinder( $stringValueBinder );
 ```
+
+You can override the current binder when setting individual cell values by specifying a different Binder to use in the Cell's `setValue()` or the Worksheet's `setCellValue()` methods.
+```php
+$spreadsheet = new Spreadsheet();
+Cell::setValueBinder(new AdvancedValueBinder());
+
+$value = '12.5%';
+
+$cell = $spreadsheet->getActiveSheet()->getCell('A1');
+// Value will be set as a number 0.125 with a format mask '0.00%'
+$cell->setValue($value); // Using the Advanced Value Binder
+
+$cell = $spreadsheet->getActiveSheet()->getCell('A2');
+// Value will be set as a string '12.5%' with a format mask 'General'
+$cell->setValue($value, new StringValueBinder()); // Overriding the Advanced Value Binder
+```
+
 
 ### Creating your own value binder
 

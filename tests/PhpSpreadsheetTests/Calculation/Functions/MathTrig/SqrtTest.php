@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,11 +10,8 @@ class SqrtTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerSQRT
-     *
-     * @param mixed $expectedResult
-     * @param mixed $number
      */
-    public function testSQRT($expectedResult, $number = 'omitted'): void
+    public function testSQRT(mixed $expectedResult, mixed $number = 'omitted'): void
     {
         $sheet = $this->getSheet();
         $this->mightHaveException($expectedResult);
@@ -26,7 +25,7 @@ class SqrtTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-6);
     }
 
-    public function providerSqrt(): array
+    public static function providerSqrt(): array
     {
         return require 'tests/data/Calculation/MathTrig/SQRT.php';
     }
@@ -43,7 +42,7 @@ class SqrtTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerSqrtArray(): array
+    public static function providerSqrtArray(): array
     {
         return [
             'row vector' => [[[3, 3.5355339059327378, 4.898979485566356]], '{9, 12.5, 24}'],

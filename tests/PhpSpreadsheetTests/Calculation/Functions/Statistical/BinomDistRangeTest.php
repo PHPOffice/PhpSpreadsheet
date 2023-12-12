@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,15 +10,13 @@ class BinomDistRangeTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerBINOMDISTRANGE
-     *
-     * @param mixed $expectedResult
      */
-    public function testBINOMDISTRANGE($expectedResult, ...$args): void
+    public function testBINOMDISTRANGE(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCaseReference('BINOM.DIST.RANGE', $expectedResult, ...$args);
     }
 
-    public function providerBINOMDISTRANGE(): array
+    public static function providerBINOMDISTRANGE(): array
     {
         return require 'tests/data/Calculation/Statistical/BINOMDISTRANGE.php';
     }
@@ -37,7 +37,7 @@ class BinomDistRangeTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerBinomDistRangeArray(): array
+    public static function providerBinomDistRangeArray(): array
     {
         return [
             'row/column vectors' => [

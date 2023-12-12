@@ -11,8 +11,6 @@ class ChiSquared
 {
     use ArrayEnabled;
 
-    private const MAX_ITERATIONS = 256;
-
     private const EPS = 2.22e-16;
 
     /**
@@ -29,7 +27,7 @@ class ChiSquared
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function distributionRightTail($value, $degrees)
+    public static function distributionRightTail(mixed $value, mixed $degrees): array|string|int|float
     {
         if (is_array($value) || is_array($degrees)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $value, $degrees);
@@ -72,7 +70,7 @@ class ChiSquared
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function distributionLeftTail($value, $degrees, $cumulative)
+    public static function distributionLeftTail(mixed $value, mixed $degrees, mixed $cumulative): array|string|int|float
     {
         if (is_array($value) || is_array($degrees) || is_array($cumulative)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $value, $degrees, $cumulative);
@@ -98,11 +96,13 @@ class ChiSquared
         }
 
         if ($cumulative === true) {
-            return 1 - self::distributionRightTail($value, $degrees);
+            $temp = self::distributionRightTail($value, $degrees);
+
+            return 1 - (is_numeric($temp) ? $temp : 0);
         }
 
-        return ($value ** (($degrees / 2) - 1) * exp(-$value / 2)) /
-            ((2 ** ($degrees / 2)) * Gamma::gammaValue($degrees / 2));
+        return ($value ** (($degrees / 2) - 1) * exp(-$value / 2))
+            / ((2 ** ($degrees / 2)) * Gamma::gammaValue($degrees / 2));
     }
 
     /**
@@ -119,7 +119,7 @@ class ChiSquared
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function inverseRightTail($probability, $degrees)
+    public static function inverseRightTail(mixed $probability, mixed $degrees)
     {
         if (is_array($probability) || is_array($degrees)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $probability, $degrees);
@@ -136,7 +136,7 @@ class ChiSquared
             return ExcelError::NAN();
         }
 
-        $callback = function ($value) use ($degrees) {
+        $callback = function ($value) use ($degrees): float {
             return 1 - (Gamma::incompleteGamma($degrees / 2, $value / 2)
                     / Gamma::gammaValue($degrees / 2));
         };
@@ -160,7 +160,7 @@ class ChiSquared
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function inverseLeftTail($probability, $degrees)
+    public static function inverseLeftTail(mixed $probability, mixed $degrees): array|string|float
     {
         if (is_array($probability) || is_array($degrees)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $probability, $degrees);
@@ -192,12 +192,12 @@ class ChiSquared
      *
      * @return float|string
      */
-    public static function test($actual, $expected)
+    public static function test(mixed $actual, mixed $expected)
     {
         $rows = count($actual);
         $actual = Functions::flattenArray($actual);
         $expected = Functions::flattenArray($expected);
-        $columns = count($actual) / $rows;
+        $columns = intdiv(count($actual), $rows);
 
         $countActuals = count($actual);
         $countExpected = count($expected);
@@ -261,12 +261,12 @@ class ChiSquared
         return $chi2;
     }
 
-    private static function pchisq($chi2, $degrees)
+    private static function pchisq(float $chi2, int $degrees): float
     {
         return self::gammp($degrees, 0.5 * $chi2);
     }
 
-    private static function gammp($n, $x)
+    private static function gammp(int $n, float $x): float
     {
         if ($x < 0.5 * $n + 1) {
             return self::gser($n, $x);
@@ -279,7 +279,7 @@ class ChiSquared
     // series representation. Algorithm from numerical recipe.
     // Assume that n is a positive integer and x>0, won't check arguments.
     // Relative error controlled by the eps parameter
-    private static function gser($n, $x)
+    private static function gser(int $n, float $x): float
     {
         /** @var float */
         $gln = Gamma::ln($n / 2);
@@ -303,7 +303,7 @@ class ChiSquared
     // its continued fraction representation. Algorithm from numerical recipe.
     // Assume that n is a postive integer and x>0, won't check arguments.
     // Relative error controlled by the eps parameter
-    private static function gcf($n, $x)
+    private static function gcf(int $n, float $x): float
     {
         /** @var float */
         $gln = Gamma::ln($n / 2);

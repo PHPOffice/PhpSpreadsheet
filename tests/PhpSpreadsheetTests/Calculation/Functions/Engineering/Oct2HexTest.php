@@ -1,19 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcExp;
+use PhpOffice\PhpSpreadsheet\Calculation\Engineering\ConvertOctal;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
 use PHPUnit\Framework\TestCase;
 
 class Oct2HexTest extends TestCase
 {
-    /**
-     * @var string
-     */
-    private $compatibilityMode;
+    private string $compatibilityMode;
 
     protected function setUp(): void
     {
@@ -27,72 +29,117 @@ class Oct2HexTest extends TestCase
 
     /**
      * @dataProvider providerOCT2HEX
-     *
-     * @param mixed $expectedResult
-     * @param mixed $formula
      */
-    public function testOCT2HEX($expectedResult, $formula): void
+    public function testDirectCallToOCT2HEX(mixed $expectedResult, mixed ...$args): void
     {
-        if ($expectedResult === 'exception') {
-            $this->expectException(CalcExp::class);
-        }
+        $result = ConvertOctal::toHex(...$args);
+        self::assertSame($expectedResult, $result);
+    }
+
+    private function trimIfQuoted(string $value): string
+    {
+        return trim($value, '"');
+    }
+
+    /**
+     * @dataProvider providerOCT2HEX
+     */
+    public function testOCT2HEXAsFormula(mixed $expectedResult, mixed ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $calculation = Calculation::getInstance();
+        $formula = "=OCT2HEX({$arguments})";
+
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertSame($expectedResult, $this->trimIfQuoted((string) $result));
+    }
+
+    /**
+     * @dataProvider providerOCT2HEX
+     */
+    public function testOCT2HEXInWorksheet(mixed $expectedResult, mixed ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
         $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
-        $sheet->setCellValue('A2', 101);
-        $sheet->getCell('A1')->setValue("=OCT2HEX($formula)");
-        $result = $sheet->getCell('A1')->getCalculatedValue();
-        self::assertEquals($expectedResult, $result);
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=OCT2HEX({$argumentCells})";
+
+        $result = $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+        self::assertSame($expectedResult, $result);
+
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerOCT2HEX(): array
+    public static function providerOCT2HEX(): array
     {
         return require 'tests/data/Calculation/Engineering/OCT2HEX.php';
     }
 
     /**
-     * @dataProvider providerOCT2HEX
-     *
-     * @param mixed $expectedResult
-     * @param mixed $formula
+     * @dataProvider providerUnhappyOCT2HEX
      */
-    public function testOCT2HEXOds($expectedResult, $formula): void
+    public function testOCT2HEXUnhappyPath(string $expectedException, mixed ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=OCT2HEX({$argumentCells})";
+
+        $this->expectException(CalculationException::class);
+        $this->expectExceptionMessage($expectedException);
+        $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public static function providerUnhappyOCT2HEX(): array
+    {
+        return [
+            ['Formula Error: Wrong number of arguments for OCT2HEX() function'],
+        ];
+    }
+
+    /**
+     * @dataProvider providerOCT2HEXOds
+     */
+    public function testOCT2HEXOds(mixed $expectedResult, mixed ...$args): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
-        if ($expectedResult === 'exception') {
-            $this->expectException(CalcExp::class);
-        }
-        if ($formula === 'true') {
-            $expectedResult = 1;
-        } elseif ($formula === 'false') {
-            $expectedResult = 0;
-        }
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
-        $sheet->setCellValue('A2', 101);
-        $sheet->getCell('A1')->setValue("=OCT2HEX($formula)");
-        $result = $sheet->getCell('A1')->getCalculatedValue();
-        self::assertEquals($expectedResult, $result);
-        $spreadsheet->disconnectWorksheets();
+
+        $result = ConvertOctal::toHex(...$args);
+        self::assertSame($expectedResult, $result);
+    }
+
+    public static function providerOCT2HEXOds(): array
+    {
+        return require 'tests/data/Calculation/Engineering/OCT2HEXOpenOffice.php';
     }
 
     public function testOCT2HEXFrac(): void
     {
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
+        $calculation = Calculation::getInstance();
+        $formula = '=OCT2HEX(20.1)';
+
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_GNUMERIC);
-        $cell = 'G1';
-        $sheet->setCellValue($cell, '=OCT2HEX(20.1)');
-        self::assertEquals(10, $sheet->getCell($cell)->getCalculatedValue());
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertSame('10', $this->trimIfQuoted((string) $result), 'Gnumeric');
+
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
-        $cell = 'O1';
-        $sheet->setCellValue($cell, '=OCT2HEX(20.1)');
-        self::assertEquals('#NUM!', $sheet->getCell($cell)->getCalculatedValue());
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertSame(ExcelError::NAN(), $this->trimIfQuoted((string) $result), 'OpenOffice');
+
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-        $cell = 'E1';
-        $sheet->setCellValue($cell, '=OCT2HEX(20.1)');
-        self::assertEquals('#NUM!', $sheet->getCell($cell)->getCalculatedValue());
-        $spreadsheet->disconnectWorksheets();
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertSame(ExcelError::NAN(), $this->trimIfQuoted((string) $result), 'Excel');
     }
 
     /**
@@ -107,7 +154,7 @@ class Oct2HexTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerOct2HexArray(): array
+    public static function providerOct2HexArray(): array
     {
         return [
             'row/column vector' => [

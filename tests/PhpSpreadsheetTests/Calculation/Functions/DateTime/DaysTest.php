@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
 use DateTime;
@@ -7,30 +9,91 @@ use DateTimeImmutable;
 use Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Days;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
+use PHPUnit\Framework\TestCase;
 
-class DaysTest extends AllSetupTeardown
+class DaysTest extends TestCase
 {
     /**
      * @dataProvider providerDAYS
-     *
-     * @param mixed $expectedResult
      */
-    public function testDAYS($expectedResult, string $formula): void
+    public function testDirectCallToDAYS(mixed $expectedResult, mixed ...$args): void
     {
-        $this->mightHaveException($expectedResult);
-        $sheet = $this->getSheet();
-        $sheet->getCell('B1')->setValue('1954-11-23');
-        $sheet->getCell('C1')->setValue('1954-11-30');
-        $sheet->getCell('A1')->setValue("=DAYS($formula)");
-        self::assertSame($expectedResult, $sheet->getCell('A1')->getCalculatedValue());
+        $result = Days::between(...$args);
+        self::assertSame($expectedResult, $result);
     }
 
-    public function providerDAYS(): array
+    /**
+     * @dataProvider providerDAYS
+     */
+    public function testDAYSAsFormula(mixed $expectedResult, mixed ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $calculation = Calculation::getInstance();
+        $formula = "=DAYS({$arguments})";
+
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertSame($expectedResult, $result);
+    }
+
+    /**
+     * @dataProvider providerDAYS
+     */
+    public function testDAYSInWorksheet(mixed $expectedResult, mixed ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=DAYS({$argumentCells})";
+
+        $result = $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+        self::assertSame($expectedResult, $result);
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public static function providerDAYS(): array
     {
         return require 'tests/data/Calculation/DateTime/DAYS.php';
     }
 
-    public function testObject(): void
+    /**
+     * @dataProvider providerUnhappyDAYS
+     */
+    public function testDAYSUnhappyPath(string $expectedException, mixed ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=DAYS({$argumentCells})";
+
+        $this->expectException(CalculationException::class);
+        $this->expectExceptionMessage($expectedException);
+        $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public static function providerUnhappyDAYS(): array
+    {
+        return [
+            ['Formula Error: Wrong number of arguments for DAYS() function', '2023-04-01'],
+        ];
+    }
+
+    public function testDateObject(): void
     {
         $obj1 = new DateTime('2000-3-31');
         $obj2 = new DateTimeImmutable('2000-2-29');
@@ -41,7 +104,8 @@ class DaysTest extends AllSetupTeardown
     {
         $obj1 = new Exception();
         $obj2 = new DateTimeImmutable('2000-2-29');
-        self::assertSame('#VALUE!', Days::between($obj1, $obj2));
+        // @phpstan-ignore-next-line
+        self::assertSame(ExcelError::VALUE(), Days::between($obj1, $obj2));
     }
 
     /**
@@ -56,7 +120,7 @@ class DaysTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerDaysArray(): array
+    public static function providerDaysArray(): array
     {
         return [
             'row vector #1' => [[[-364, -202, 203]], '{"2022-01-01", "2022-06-12", "2023-07-22"}', '"2022-12-31"'],

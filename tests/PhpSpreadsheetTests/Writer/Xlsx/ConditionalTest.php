@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -51,8 +53,8 @@ class ConditionalTest extends AbstractFunctional
         $data = $writerWorksheet->writeWorksheet($worksheet, []);
 
         $expected = <<<XML
-<conditionalFormatting sqref="C3:E5"><cfRule type="cellIs" dxfId="" priority="1" operator="greaterThan"><formula>5</formula></cfRule></conditionalFormatting>
-XML;
+            <conditionalFormatting sqref="C3:E5"><cfRule type="cellIs" dxfId="" priority="1" operator="greaterThan"><formula>5</formula></cfRule></conditionalFormatting>
+            XML;
         self::assertStringContainsString($expected, $data);
     }
 
@@ -72,8 +74,8 @@ XML;
         $data = $writerWorksheet->writeWorksheet($worksheet, []);
 
         $expected = <<<XML
-<conditionalFormatting sqref="C3:E5"><cfRule type="cellIs" dxfId="" priority="1" operator="between"><formula>-5</formula><formula>5</formula></cfRule></conditionalFormatting>
-XML;
+            <conditionalFormatting sqref="C3:E5"><cfRule type="cellIs" dxfId="" priority="1" operator="between"><formula>-5</formula><formula>5</formula></cfRule></conditionalFormatting>
+            XML;
         self::assertStringContainsString($expected, $data);
     }
 
@@ -93,8 +95,8 @@ XML;
         $data = $writerWorksheet->writeWorksheet($worksheet, []);
 
         $expected = <<<XML
-<conditionalFormatting sqref="C3:E5"><cfRule type="containsText" dxfId="" priority="1" operator="containsText" text="PHP"><formula>NOT(ISERROR(SEARCH(&quot;PHP&quot;,C3)))</formula></cfRule></conditionalFormatting>
-XML;
+            <conditionalFormatting sqref="C3:E5"><cfRule type="containsText" dxfId="" priority="1" operator="containsText" text="PHP"><formula>NOT(ISERROR(SEARCH(&quot;PHP&quot;,C3)))</formula></cfRule></conditionalFormatting>
+            XML;
         self::assertStringContainsString($expected, $data);
     }
 
@@ -120,36 +122,36 @@ XML;
         self::assertStringContainsString($expected, $data);
     }
 
-    public function textConditionalsProvider(): array
+    public static function textConditionalsProvider(): array
     {
         return [
             'Contains' => [
                 Conditional::CONDITION_CONTAINSTEXT,
                 Conditional::OPERATOR_CONTAINSTEXT,
                 <<<XML
-<conditionalFormatting sqref="C3:E5"><cfRule type="containsText" dxfId="" priority="1" operator="containsText" text="PHP"><formula>NOT(ISERROR(SEARCH(&quot;PHP&quot;,C3)))</formula></cfRule></conditionalFormatting>
-XML
+                    <conditionalFormatting sqref="C3:E5"><cfRule type="containsText" dxfId="" priority="1" operator="containsText" text="PHP"><formula>NOT(ISERROR(SEARCH(&quot;PHP&quot;,C3)))</formula></cfRule></conditionalFormatting>
+                    XML
             ],
             'Not Contains' => [
                 Conditional::CONDITION_NOTCONTAINSTEXT,
                 Conditional::OPERATOR_NOTCONTAINS,
                 <<<XML
-<conditionalFormatting sqref="C3:E5"><cfRule type="notContainsText" dxfId="" priority="1" operator="notContains" text="PHP"><formula>ISERROR(SEARCH(&quot;PHP&quot;,C3))</formula></cfRule></conditionalFormatting>
-XML
+                    <conditionalFormatting sqref="C3:E5"><cfRule type="notContainsText" dxfId="" priority="1" operator="notContains" text="PHP"><formula>ISERROR(SEARCH(&quot;PHP&quot;,C3))</formula></cfRule></conditionalFormatting>
+                    XML
             ],
             'Begins With' => [
                 Conditional::CONDITION_BEGINSWITH,
                 Conditional::OPERATOR_BEGINSWITH,
                 <<<XML
-<conditionalFormatting sqref="C3:E5"><cfRule type="beginsWith" dxfId="" priority="1" operator="beginsWith" text="PHP"><formula>LEFT(C3,LEN(&quot;PHP&quot;))=&quot;PHP&quot;</formula></cfRule></conditionalFormatting>
-XML
+                    <conditionalFormatting sqref="C3:E5"><cfRule type="beginsWith" dxfId="" priority="1" operator="beginsWith" text="PHP"><formula>LEFT(C3,LEN(&quot;PHP&quot;))=&quot;PHP&quot;</formula></cfRule></conditionalFormatting>
+                    XML
             ],
             'Ends With' => [
                 Conditional::CONDITION_ENDSWITH,
                 Conditional::OPERATOR_ENDSWITH,
                 <<<XML
-<conditionalFormatting sqref="C3:E5"><cfRule type="endsWith" dxfId="" priority="1" operator="endsWith" text="PHP"><formula>RIGHT(C3,LEN(&quot;PHP&quot;))=&quot;PHP&quot;</formula></cfRule></conditionalFormatting>
-XML
+                    <conditionalFormatting sqref="C3:E5"><cfRule type="endsWith" dxfId="" priority="1" operator="endsWith" text="PHP"><formula>RIGHT(C3,LEN(&quot;PHP&quot;))=&quot;PHP&quot;</formula></cfRule></conditionalFormatting>
+                    XML
             ],
         ];
     }
@@ -170,8 +172,8 @@ XML
         $data = $writerWorksheet->writeWorksheet($worksheet, []);
 
         $expected = <<<XML
-<conditionalFormatting sqref="C3:E5"><cfRule type="timePeriod" dxfId="" priority="1" timePeriod="today"><formula>FLOOR(C3,1)=TODAY()</formula></cfRule></conditionalFormatting>
-XML;
+            <conditionalFormatting sqref="C3:E5"><cfRule type="timePeriod" dxfId="" priority="1" timePeriod="today"><formula>FLOOR(C3,1)=TODAY()</formula></cfRule></conditionalFormatting>
+            XML;
         self::assertStringContainsString($expected, $data);
     }
 
@@ -197,68 +199,68 @@ XML;
         self::assertStringContainsString($expected, $data);
     }
 
-    public function dateConditionalsProvider(): array
+    public static function dateConditionalsProvider(): array
     {
         return [
             'Yesterday' => [
                 Conditional::TIMEPERIOD_YESTERDAY,
                 <<<XML
-<conditionalFormatting sqref="C3:E5"><cfRule type="timePeriod" dxfId="" priority="1" timePeriod="yesterday"><formula>FLOOR(C3)=TODAY()-1</formula></cfRule></conditionalFormatting>
-XML
+                    <conditionalFormatting sqref="C3:E5"><cfRule type="timePeriod" dxfId="" priority="1" timePeriod="yesterday"><formula>FLOOR(C3)=TODAY()-1</formula></cfRule></conditionalFormatting>
+                    XML
             ],
             'Today' => [
                 Conditional::TIMEPERIOD_TODAY,
                 <<<XML
-<conditionalFormatting sqref="C3:E5"><cfRule type="timePeriod" dxfId="" priority="1" timePeriod="today"><formula>FLOOR(C3)=TODAY()</formula></cfRule></conditionalFormatting>
-XML
+                    <conditionalFormatting sqref="C3:E5"><cfRule type="timePeriod" dxfId="" priority="1" timePeriod="today"><formula>FLOOR(C3)=TODAY()</formula></cfRule></conditionalFormatting>
+                    XML
             ],
             'Tomorrow' => [
                 Conditional::TIMEPERIOD_TOMORROW,
                 <<<XML
-<conditionalFormatting sqref="C3:E5"><cfRule type="timePeriod" dxfId="" priority="1" timePeriod="tomorrow"><formula>FLOOR(C3)=TODAY()+1</formula></cfRule></conditionalFormatting>
-XML
+                    <conditionalFormatting sqref="C3:E5"><cfRule type="timePeriod" dxfId="" priority="1" timePeriod="tomorrow"><formula>FLOOR(C3)=TODAY()+1</formula></cfRule></conditionalFormatting>
+                    XML
             ],
             'Last 7 Days' => [
                 Conditional::TIMEPERIOD_LAST_7_DAYS,
                 <<<XML
-<conditionalFormatting sqref="C3:E5"><cfRule type="timePeriod" dxfId="" priority="1" timePeriod="last7Days"><formula>AND(TODAY()-FLOOR(C3,1)&lt;=6,FLOOR(C3,1)&lt;=TODAY())</formula></cfRule></conditionalFormatting>
-XML
+                    <conditionalFormatting sqref="C3:E5"><cfRule type="timePeriod" dxfId="" priority="1" timePeriod="last7Days"><formula>AND(TODAY()-FLOOR(C3,1)&lt;=6,FLOOR(C3,1)&lt;=TODAY())</formula></cfRule></conditionalFormatting>
+                    XML
             ],
             'Last Week' => [
                 Conditional::TIMEPERIOD_LAST_WEEK,
                 <<<XML
-<conditionalFormatting sqref="C3:E5"><cfRule type="timePeriod" dxfId="" priority="1" timePeriod="lastWeek"><formula>AND(TODAY()-ROUNDDOWN(C3,0)&gt;=(WEEKDAY(TODAY())),TODAY()-ROUNDDOWN(C3,0)&lt;(WEEKDAY(TODAY())+7))</formula></cfRule></conditionalFormatting>
-XML
+                    <conditionalFormatting sqref="C3:E5"><cfRule type="timePeriod" dxfId="" priority="1" timePeriod="lastWeek"><formula>AND(TODAY()-ROUNDDOWN(C3,0)&gt;=(WEEKDAY(TODAY())),TODAY()-ROUNDDOWN(C3,0)&lt;(WEEKDAY(TODAY())+7))</formula></cfRule></conditionalFormatting>
+                    XML
             ],
             'This Week' => [
                 Conditional::TIMEPERIOD_THIS_WEEK,
                 <<<XML
-<conditionalFormatting sqref="C3:E5"><cfRule type="timePeriod" dxfId="" priority="1" timePeriod="thisWeek"><formula>AND(TODAY()-ROUNDDOWN(C3,0)&lt;=WEEKDAY(TODAY())-1,ROUNDDOWN(C3,0)-TODAY()&lt;=7-WEEKDAY(TODAY()))</formula></cfRule></conditionalFormatting>
-XML
+                    <conditionalFormatting sqref="C3:E5"><cfRule type="timePeriod" dxfId="" priority="1" timePeriod="thisWeek"><formula>AND(TODAY()-ROUNDDOWN(C3,0)&lt;=WEEKDAY(TODAY())-1,ROUNDDOWN(C3,0)-TODAY()&lt;=7-WEEKDAY(TODAY()))</formula></cfRule></conditionalFormatting>
+                    XML
             ],
             'Next Week' => [
                 Conditional::TIMEPERIOD_NEXT_WEEK,
                 <<<XML
-<conditionalFormatting sqref="C3:E5"><cfRule type="timePeriod" dxfId="" priority="1" timePeriod="nextWeek"><formula>AND(ROUNDDOWN(C3,0)-TODAY()&gt;(7-WEEKDAY(TODAY())),ROUNDDOWN(C3,0)-TODAY()&lt;(15-WEEKDAY(TODAY())))</formula></cfRule></conditionalFormatting>
-XML
+                    <conditionalFormatting sqref="C3:E5"><cfRule type="timePeriod" dxfId="" priority="1" timePeriod="nextWeek"><formula>AND(ROUNDDOWN(C3,0)-TODAY()&gt;(7-WEEKDAY(TODAY())),ROUNDDOWN(C3,0)-TODAY()&lt;(15-WEEKDAY(TODAY())))</formula></cfRule></conditionalFormatting>
+                    XML
             ],
             'Last Month' => [
                 Conditional::TIMEPERIOD_LAST_MONTH,
                 <<<XML
-<conditionalFormatting sqref="C3:E5"><cfRule type="timePeriod" dxfId="" priority="1" timePeriod="lastMonth"><formula>AND(MONTH(C3)=MONTH(EDATE(TODAY(),0-1)),YEAR(C3)=YEAR(EDATE(TODAY(),0-1)))</formula></cfRule></conditionalFormatting>
-XML
+                    <conditionalFormatting sqref="C3:E5"><cfRule type="timePeriod" dxfId="" priority="1" timePeriod="lastMonth"><formula>AND(MONTH(C3)=MONTH(EDATE(TODAY(),0-1)),YEAR(C3)=YEAR(EDATE(TODAY(),0-1)))</formula></cfRule></conditionalFormatting>
+                    XML
             ],
             'This Month' => [
                 Conditional::TIMEPERIOD_THIS_MONTH,
                 <<<XML
-<conditionalFormatting sqref="C3:E5"><cfRule type="timePeriod" dxfId="" priority="1" timePeriod="thisMonth"><formula>AND(MONTH(C3)=MONTH(TODAY()),YEAR(C3)=YEAR(TODAY()))</formula></cfRule></conditionalFormatting>
-XML
+                    <conditionalFormatting sqref="C3:E5"><cfRule type="timePeriod" dxfId="" priority="1" timePeriod="thisMonth"><formula>AND(MONTH(C3)=MONTH(TODAY()),YEAR(C3)=YEAR(TODAY()))</formula></cfRule></conditionalFormatting>
+                    XML
             ],
             'Next Month' => [
                 Conditional::TIMEPERIOD_NEXT_MONTH,
                 <<<XML
-><conditionalFormatting sqref="C3:E5"><cfRule type="timePeriod" dxfId="" priority="1" timePeriod="nextMonth"><formula>AND(MONTH(C3)=MONTH(EDATE(TODAY(),0+1)),YEAR(C3)=YEAR(EDATE(TODAY(),0+1)))</formula></cfRule></conditionalFormatting>
-XML
+                    ><conditionalFormatting sqref="C3:E5"><cfRule type="timePeriod" dxfId="" priority="1" timePeriod="nextMonth"><formula>AND(MONTH(C3)=MONTH(EDATE(TODAY(),0+1)),YEAR(C3)=YEAR(EDATE(TODAY(),0+1)))</formula></cfRule></conditionalFormatting>
+                    XML
             ],
         ];
     }
@@ -279,8 +281,8 @@ XML
         $data = $writerWorksheet->writeWorksheet($worksheet, []);
 
         $expected = <<<XML
-<conditionalFormatting sqref="C3:E5"><cfRule type="containsBlanks" dxfId="" priority="1"><formula>LEN(TRIM(C3))=0</formula></cfRule></conditionalFormatting>
-XML;
+            <conditionalFormatting sqref="C3:E5"><cfRule type="containsBlanks" dxfId="" priority="1"><formula>LEN(TRIM(C3))=0</formula></cfRule></conditionalFormatting>
+            XML;
         self::assertStringContainsString($expected, $data);
     }
 
@@ -300,8 +302,8 @@ XML;
         $data = $writerWorksheet->writeWorksheet($worksheet, []);
 
         $expected = <<<XML
-<conditionalFormatting sqref="C3:E5"><cfRule type="notContainsBlanks" dxfId="" priority="1"><formula>LEN(TRIM(C3))&gt;0</formula></cfRule></conditionalFormatting>
-XML;
+            <conditionalFormatting sqref="C3:E5"><cfRule type="notContainsBlanks" dxfId="" priority="1"><formula>LEN(TRIM(C3))&gt;0</formula></cfRule></conditionalFormatting>
+            XML;
         self::assertStringContainsString($expected, $data);
     }
 
@@ -325,20 +327,20 @@ XML;
         self::assertStringContainsString($expected, $data);
     }
 
-    public function blanksConditionalsProvider(): array
+    public static function blanksConditionalsProvider(): array
     {
         return [
             'Blanks' => [
                 Conditional::CONDITION_CONTAINSBLANKS,
                 <<<XML
-<conditionalFormatting sqref="C3:E5"><cfRule type="containsBlanks" dxfId="" priority="1"><formula>LEN(TRIM(C3))=0</formula></cfRule></conditionalFormatting>
-XML
+                    <conditionalFormatting sqref="C3:E5"><cfRule type="containsBlanks" dxfId="" priority="1"><formula>LEN(TRIM(C3))=0</formula></cfRule></conditionalFormatting>
+                    XML
             ],
             'Not Blanks' => [
                 Conditional::CONDITION_NOTCONTAINSBLANKS,
                 <<<XML
-<conditionalFormatting sqref="C3:E5"><cfRule type="notContainsBlanks" dxfId="" priority="1"><formula>LEN(TRIM(C3))&gt;0</formula></cfRule></conditionalFormatting>
-XML
+                    <conditionalFormatting sqref="C3:E5"><cfRule type="notContainsBlanks" dxfId="" priority="1"><formula>LEN(TRIM(C3))&gt;0</formula></cfRule></conditionalFormatting>
+                    XML
             ],
         ];
     }
@@ -359,8 +361,8 @@ XML
         $data = $writerWorksheet->writeWorksheet($worksheet, []);
 
         $expected = <<<XML
-<conditionalFormatting sqref="C3:E5"><cfRule type="notContainsErrors" dxfId="" priority="1"><formula>NOT(ISERROR(C3))</formula></cfRule></conditionalFormatting>
-XML;
+            <conditionalFormatting sqref="C3:E5"><cfRule type="notContainsErrors" dxfId="" priority="1"><formula>NOT(ISERROR(C3))</formula></cfRule></conditionalFormatting>
+            XML;
         self::assertStringContainsString($expected, $data);
     }
 
@@ -380,8 +382,8 @@ XML;
         $data = $writerWorksheet->writeWorksheet($worksheet, []);
 
         $expected = <<<XML
-<conditionalFormatting sqref="C3:E5"><cfRule type="containsErrors" dxfId="" priority="1"><formula>ISERROR(C3)</formula></cfRule></conditionalFormatting>
-XML;
+            <conditionalFormatting sqref="C3:E5"><cfRule type="containsErrors" dxfId="" priority="1"><formula>ISERROR(C3)</formula></cfRule></conditionalFormatting>
+            XML;
         self::assertStringContainsString($expected, $data);
     }
 
@@ -405,20 +407,20 @@ XML;
         self::assertStringContainsString($expected, $data);
     }
 
-    public function errorsConditionalsProvider(): array
+    public static function errorsConditionalsProvider(): array
     {
         return [
             'Errors' => [
                 Conditional::CONDITION_CONTAINSERRORS,
                 <<<XML
-<conditionalFormatting sqref="C3:E5"><cfRule type="containsErrors" dxfId="" priority="1"><formula>ISERROR(C3)</formula></cfRule></conditionalFormatting>
-XML
+                    <conditionalFormatting sqref="C3:E5"><cfRule type="containsErrors" dxfId="" priority="1"><formula>ISERROR(C3)</formula></cfRule></conditionalFormatting>
+                    XML
             ],
             'Not Errors' => [
                 Conditional::CONDITION_NOTCONTAINSERRORS,
                 <<<XML
-<conditionalFormatting sqref="C3:E5"><cfRule type="notContainsErrors" dxfId="" priority="1"><formula>NOT(ISERROR(C3))</formula></cfRule></conditionalFormatting>
-XML
+                    <conditionalFormatting sqref="C3:E5"><cfRule type="notContainsErrors" dxfId="" priority="1"><formula>NOT(ISERROR(C3))</formula></cfRule></conditionalFormatting>
+                    XML
             ],
         ];
     }
@@ -439,8 +441,8 @@ XML
         $data = $writerWorksheet->writeWorksheet($worksheet, []);
 
         $expected = <<<XML
-<conditionalFormatting sqref="C3:E5"><cfRule type="uniqueValues" dxfId="" priority="1"/></conditionalFormatting>
-XML;
+            <conditionalFormatting sqref="C3:E5"><cfRule type="uniqueValues" dxfId="" priority="1"/></conditionalFormatting>
+            XML;
         self::assertStringContainsString($expected, $data);
     }
 
@@ -460,8 +462,8 @@ XML;
         $data = $writerWorksheet->writeWorksheet($worksheet, []);
 
         $expected = <<<XML
-<conditionalFormatting sqref="C3:E5"><cfRule type="duplicateValues" dxfId="" priority="1"/></conditionalFormatting>
-XML;
+            <conditionalFormatting sqref="C3:E5"><cfRule type="duplicateValues" dxfId="" priority="1"/></conditionalFormatting>
+            XML;
         self::assertStringContainsString($expected, $data);
     }
 
@@ -485,20 +487,20 @@ XML;
         self::assertStringContainsString($expected, $data);
     }
 
-    public function duplicatesConditionalsProvider(): array
+    public static function duplicatesConditionalsProvider(): array
     {
         return [
             'Duplicates' => [
                 Conditional::CONDITION_DUPLICATES,
                 <<<XML
-<conditionalFormatting sqref="C3:E5"><cfRule type="duplicateValues" dxfId="" priority="1"/></conditionalFormatting>
-XML
+                    <conditionalFormatting sqref="C3:E5"><cfRule type="duplicateValues" dxfId="" priority="1"/></conditionalFormatting>
+                    XML
             ],
             'Unique' => [
                 Conditional::CONDITION_UNIQUE,
                 <<<XML
-<conditionalFormatting sqref="C3:E5"><cfRule type="uniqueValues" dxfId="" priority="1"/></conditionalFormatting>
-XML
+                    <conditionalFormatting sqref="C3:E5"><cfRule type="uniqueValues" dxfId="" priority="1"/></conditionalFormatting>
+                    XML
             ],
         ];
     }
@@ -519,8 +521,8 @@ XML
         $data = $writerWorksheet->writeWorksheet($worksheet, []);
 
         $expected = <<<XML
-<conditionalFormatting sqref="C3:E5"><cfRule type="expression" dxfId="" priority="1"><formula>ISODD(C3)</formula></cfRule></conditionalFormatting>
-XML;
+            <conditionalFormatting sqref="C3:E5"><cfRule type="expression" dxfId="" priority="1"><formula>ISODD(C3)</formula></cfRule></conditionalFormatting>
+            XML;
         self::assertStringContainsString($expected, $data);
     }
 
@@ -545,20 +547,20 @@ XML;
         self::assertStringContainsString($expected, $data);
     }
 
-    public function expressionsConditionalsProvider(): array
+    public static function expressionsConditionalsProvider(): array
     {
         return [
             'Odd' => [
                 'ISODD(C3)',
                 <<<XML
-<conditionalFormatting sqref="C3:E5"><cfRule type="expression" dxfId="" priority="1"><formula>ISODD(C3)</formula></cfRule></conditionalFormatting>
-XML
+                    <conditionalFormatting sqref="C3:E5"><cfRule type="expression" dxfId="" priority="1"><formula>ISODD(C3)</formula></cfRule></conditionalFormatting>
+                    XML
             ],
             'Even' => [
                 'ISEVEN(C3)',
                 <<<XML
-<conditionalFormatting sqref="C3:E5"><cfRule type="expression" dxfId="" priority="1"><formula>ISEVEN(C3)</formula></cfRule></conditionalFormatting>
-XML
+                    <conditionalFormatting sqref="C3:E5"><cfRule type="expression" dxfId="" priority="1"><formula>ISEVEN(C3)</formula></cfRule></conditionalFormatting>
+                    XML
             ],
         ];
     }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -11,11 +13,10 @@ class RightTest extends AllSetupTeardown
     /**
      * @dataProvider providerRIGHT
      *
-     * @param mixed $expectedResult
      * @param mixed $str string from which to extract
      * @param mixed $cnt number of characters to extract
      */
-    public function testRIGHT($expectedResult, $str = 'omitted', $cnt = 'omitted'): void
+    public function testRIGHT(mixed $expectedResult, mixed $str = 'omitted', mixed $cnt = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -33,20 +34,15 @@ class RightTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerRIGHT(): array
+    public static function providerRIGHT(): array
     {
         return require 'tests/data/Calculation/TextData/RIGHT.php';
     }
 
     /**
      * @dataProvider providerLocaleRIGHT
-     *
-     * @param string $expectedResult
-     * @param mixed $value
-     * @param mixed $locale
-     * @param mixed $characters
      */
-    public function testLowerWithLocaleBoolean($expectedResult, $locale, $value, $characters): void
+    public function testLowerWithLocaleBoolean(string $expectedResult, mixed $locale, mixed $value, mixed $characters): void
     {
         $newLocale = Settings::setLocale($locale);
         if ($newLocale === false) {
@@ -61,7 +57,7 @@ class RightTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerLocaleRIGHT(): array
+    public static function providerLocaleRIGHT(): array
     {
         return [
             ['RAI', 'fr_FR', true, 3],
@@ -90,7 +86,7 @@ class RightTest extends AllSetupTeardown
         self::assertEquals($resultB2, $sheet->getCell('B2')->getCalculatedValue());
     }
 
-    public function providerCalculationTypeRIGHTTrue(): array
+    public static function providerCalculationTypeRIGHTTrue(): array
     {
         return [
             'Excel RIGHT(true, 1) AND RIGHT("hello", true)' => [
@@ -126,7 +122,7 @@ class RightTest extends AllSetupTeardown
         self::assertEquals($resultB2, $sheet->getCell('B2')->getCalculatedValue());
     }
 
-    public function providerCalculationTypeRIGHTFalse(): array
+    public static function providerCalculationTypeRIGHTFalse(): array
     {
         return [
             'Excel RIGHT(false, 1) AND RIGHT("hello", false)' => [
@@ -161,7 +157,7 @@ class RightTest extends AllSetupTeardown
         self::assertEquals($resultB2, $sheet->getCell('B2')->getCalculatedValue());
     }
 
-    public function providerCalculationTypeRIGHTNull(): array
+    public static function providerCalculationTypeRIGHTNull(): array
     {
         return [
             'Excel RIGHT(null, 1) AND RIGHT("hello", null)' => [
@@ -194,7 +190,7 @@ class RightTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerRightArray(): array
+    public static function providerRightArray(): array
     {
         return [
             'row vector #1' => [[['llo', 'rld', 'eet']], '{"Hello", "World", "PhpSpreadsheet"}', '3'],

@@ -1,15 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 class SumSqTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerSUMSQ
-     *
-     * @param mixed $expectedResult
      */
-    public function testSUMSQ($expectedResult, ...$args): void
+    public function testSUMSQ(mixed $expectedResult, mixed ...$args): void
     {
         $this->mightHaveException($expectedResult);
         $maxRow = 0;
@@ -27,7 +27,7 @@ class SumSqTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerSUMSQ(): array
+    public static function providerSUMSQ(): array
     {
         return require 'tests/data/Calculation/MathTrig/SUMSQ.php';
     }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     [
         64, '=SUM(4 * INDEX(Lookup!B2, MATCH(A2, Lookup!A2, 0)))',
@@ -24,6 +26,12 @@ return [
     ],
     [
         4, '=SUM(INDEX(Lookup!B2, MATCH(A2, Lookup!A2, 0)) / 4)',
+    ],
+    'divide by zero' => [
+        '#DIV/0!', '=SUM(INDEX(Lookup!B2, MATCH(A2, Lookup!A2, 0)) / 0)',
+    ],
+    'invalid divisor' => [
+        '#VALUE!', '=SUM(INDEX(Lookup!B2, MATCH(A2, Lookup!A2, 0)) / "xyz")',
     ],
     [
         4294967296, '=SUM(4 ^ INDEX(Lookup!B2, MATCH(A2, Lookup!A2, 0)))',

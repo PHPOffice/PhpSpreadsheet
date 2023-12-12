@@ -16,7 +16,7 @@ class Formula
      *
      * @return string
      */
-    public static function text($cellReference = '', ?Cell $cell = null)
+    public static function text(mixed $cellReference = '', ?Cell $cell = null)
     {
         if ($cell === null) {
             return ExcelError::REF();
@@ -27,13 +27,13 @@ class Formula
         $cellReference = $matches[6] . $matches[7];
         $worksheetName = trim($matches[3], "'");
         $worksheet = (!empty($worksheetName))
-            ? $cell->getWorksheet()->getParent()->getSheetByName($worksheetName)
+            ? $cell->getWorksheet()->getParentOrThrow()->getSheetByName($worksheetName)
             : $cell->getWorksheet();
 
         if (
-            $worksheet === null ||
-            !$worksheet->cellExists($cellReference) ||
-            !$worksheet->getCell($cellReference)->isFormula()
+            $worksheet === null
+            || !$worksheet->cellExists($cellReference)
+            || !$worksheet->getCell($cellReference)->isFormula()
         ) {
             return ExcelError::NA();
         }

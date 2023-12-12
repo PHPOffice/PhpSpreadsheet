@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
@@ -10,10 +12,8 @@ class GrowthTest extends TestCase
 {
     /**
      * @dataProvider providerGROWTH
-     *
-     * @param mixed $expectedResult
      */
-    public function testGROWTH($expectedResult, array $yValues, array $xValues, ?array $newValues = null, ?bool $const = null): void
+    public function testGROWTH(mixed $expectedResult, array $yValues, array $xValues, ?array $newValues = null, ?bool $const = null): void
     {
         if ($newValues === null) {
             $result = Statistical\Trends::GROWTH($yValues, $xValues);
@@ -26,7 +26,7 @@ class GrowthTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result[0], 1E-12);
     }
 
-    public function providerGROWTH(): array
+    public static function providerGROWTH(): array
     {
         return require 'tests/data/Calculation/Statistical/GROWTH.php';
     }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
@@ -9,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class TableTest extends TestCase
 {
-    public function testLoadXlsxTable(): void
+    public function testLoadTable(): void
     {
         $filename = 'tests/data/Reader/XLSX/tableTest.xlsx';
         $reader = new Xlsx();
@@ -26,6 +28,7 @@ class TableTest extends TestCase
         self::assertEquals('A1:G16', $table->getRange());
         self::assertTrue($table->getShowHeaderRow(), 'ShowHeaderRow');
         self::assertTrue($table->getShowTotalsRow(), 'ShowTotalsRow');
+        self::assertTrue($table->getAllowFilter(), 'Allow Filter');
 
         self::assertEquals('Total', $table->getColumn('B')->getTotalsRowLabel());
         self::assertEquals('sum', $table->getColumn('G')->getTotalsRowFunction());
@@ -37,5 +40,21 @@ class TableTest extends TestCase
         self::assertFalse($tableStyle->getShowColumnStripes(), 'ShowColumnStripes');
         self::assertFalse($tableStyle->getShowFirstColumn(), 'ShowFirstColumn');
         self::assertTrue($tableStyle->getShowLastColumn(), 'ShowLastColumn');
+    }
+
+    public function testLoadTableNoFilter(): void
+    {
+        $filename = 'tests/data/Reader/XLSX/TableWithoutFilter.xlsx';
+        $reader = new Xlsx();
+        $spreadsheet = $reader->load($filename);
+
+        $worksheet = $spreadsheet->getActiveSheet();
+
+        $tables = $worksheet->getTableCollection();
+        self::assertCount(1, $tables);
+
+        $table = $tables->offsetGet(0);
+        self::assertInstanceOf(Table::class, $table);
+        self::assertFalse($table->getAllowFilter(), 'Allow Filter');
     }
 }

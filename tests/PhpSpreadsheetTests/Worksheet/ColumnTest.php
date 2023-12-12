@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -37,6 +39,16 @@ class ColumnTest extends TestCase
         $sheet = $spreadsheet->getActiveSheet();
         $column = new Column($sheet);
         $cellIterator = $column->getCellIterator();
+        self::assertInstanceOf(ColumnCellIterator::class, $cellIterator);
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testGetRowIterator(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $column = new Column($sheet);
+        $cellIterator = $column->getRowIterator();
         self::assertInstanceOf(ColumnCellIterator::class, $cellIterator);
         $spreadsheet->disconnectWorksheets();
     }

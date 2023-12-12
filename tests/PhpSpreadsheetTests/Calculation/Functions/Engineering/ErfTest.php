@@ -1,26 +1,94 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Calculation\Engineering\Erf;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
+use PHPUnit\Framework\TestCase;
 
-class ErfTest extends AllSetupTeardown
+class ErfTest extends TestCase
 {
-    const ERF_PRECISION = 1E-12;
+    const ERF_PRECISION = 1E-14;
 
     /**
      * @dataProvider providerERF
-     *
-     * @param mixed $expectedResult
      */
-    public function testERF($expectedResult, ...$args): void
+    public function testDirectCallToERF(mixed $expectedResult, mixed ...$args): void
     {
-        $this->runTestCase('ERF', $expectedResult, ...$args);
+        $result = Erf::erf(...$args);
+        self::assertEqualsWithDelta($expectedResult, $result, self::ERF_PRECISION);
     }
 
-    public function providerERF(): array
+    /**
+     * @dataProvider providerERF
+     */
+    public function testERFAsFormula(mixed $expectedResult, mixed ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $calculation = Calculation::getInstance();
+        $formula = "=ERF({$arguments})";
+
+        $result = $calculation->_calculateFormulaValue($formula);
+        self::assertEqualsWithDelta($expectedResult, $result, self::ERF_PRECISION);
+    }
+
+    /**
+     * @dataProvider providerERF
+     */
+    public function testERFInWorksheet(mixed $expectedResult, mixed ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=ERF({$argumentCells})";
+
+        $result = $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+        self::assertEqualsWithDelta($expectedResult, $result, self::ERF_PRECISION);
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public static function providerERF(): array
     {
         return require 'tests/data/Calculation/Engineering/ERF.php';
+    }
+
+    /**
+     * @dataProvider providerUnhappyERF
+     */
+    public function testERFUnhappyPath(string $expectedException, mixed ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=ERF({$argumentCells})";
+
+        $this->expectException(CalculationException::class);
+        $this->expectExceptionMessage($expectedException);
+        $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public static function providerUnhappyERF(): array
+    {
+        return [
+            ['Formula Error: Wrong number of arguments for ERF() function'],
+        ];
     }
 
     /**
@@ -35,7 +103,7 @@ class ErfTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, self::ERF_PRECISION);
     }
 
-    public function providerErfArray(): array
+    public static function providerErfArray(): array
     {
         return [
             'row vector' => [

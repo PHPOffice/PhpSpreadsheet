@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Gnumeric;
 
+use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 use PhpOffice\PhpSpreadsheet\Reader\Gnumeric;
 use PHPUnit\Framework\TestCase;
 
@@ -9,9 +12,7 @@ class GnumericInfoTest extends TestCase
 {
     public function testListNames(): void
     {
-        $filename = __DIR__
-            . '/../../../..'
-            . '/samples/templates/GnumericTest.gnumeric';
+        $filename = 'samples/templates/GnumericTest.gnumeric';
         $reader = new Gnumeric();
         $names = $reader->listWorksheetNames($filename);
         self::assertCount(2, $names);
@@ -21,9 +22,7 @@ class GnumericInfoTest extends TestCase
 
     public function testListInfo(): void
     {
-        $filename = __DIR__
-            . '/../../../..'
-            . '/samples/templates/GnumericTest.gnumeric';
+        $filename = 'samples/templates/GnumericTest.gnumeric';
         $reader = new Gnumeric();
         $info = $reader->listWorksheetInfo($filename);
         $expected = [
@@ -43,5 +42,23 @@ class GnumericInfoTest extends TestCase
             ],
         ];
         self::assertEquals($expected, $info);
+    }
+
+    public function testListNamesNotGumeric(): void
+    {
+        $this->expectException(ReaderException::class);
+        $this->expectExceptionMessage('invalid Gnumeric file');
+        $filename = 'samples/templates/excel2003.xml';
+        $reader = new Gnumeric();
+        $reader->listWorksheetNames($filename);
+    }
+
+    public function testListInfoNotXml(): void
+    {
+        $this->expectException(ReaderException::class);
+        $this->expectExceptionMessage('invalid Gnumeric file');
+        $filename = __FILE__;
+        $reader = new Gnumeric();
+        $reader->listWorksheetInfo($filename);
     }
 }

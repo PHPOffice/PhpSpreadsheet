@@ -1,16 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 class FvScheduleTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerFVSCHEDULE
-     *
-     * @param mixed $expectedResult
-     * @param mixed $principal
      */
-    public function testFVSCHEDULE($expectedResult, $principal = null, ?array $schedule = null): void
+    public function testFVSCHEDULE(mixed $expectedResult, mixed $principal = null, ?array $schedule = null): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -35,7 +34,7 @@ class FvScheduleTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0E-8);
     }
 
-    public function providerFVSCHEDULE(): array
+    public static function providerFVSCHEDULE(): array
     {
         return require 'tests/data/Calculation/Financial/FVSCHEDULE.php';
     }

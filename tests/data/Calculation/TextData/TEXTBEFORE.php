@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 return [
@@ -238,6 +240,13 @@ return [
             ['HOOD', 'RED'],
             -2,
             1,
+        ],
+    ],
+    'slash delimiter' => [
+        'How',
+        [
+            'How/about/that',
+            '/',
         ],
     ],
 ];

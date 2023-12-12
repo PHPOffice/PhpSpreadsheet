@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,15 +10,13 @@ class GammaDistTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerGAMMADIST
-     *
-     * @param mixed $expectedResult
      */
-    public function testGAMMADIST($expectedResult, ...$args): void
+    public function testGAMMADIST(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('GAMMA.DIST', $expectedResult, ...$args);
     }
 
-    public function providerGAMMADIST(): array
+    public static function providerGAMMADIST(): array
     {
         return require 'tests/data/Calculation/Statistical/GAMMADIST.php';
     }
@@ -33,7 +33,7 @@ class GammaDistTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerGammaDistArray(): array
+    public static function providerGammaDistArray(): array
     {
         return [
             'row/column vectors' => [

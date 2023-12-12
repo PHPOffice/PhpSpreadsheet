@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     [
         ['string'],
@@ -36,5 +38,11 @@ return [
     ],
     [
         [null],
+    ],
+    'issue3568' => [
+        ['="00"&B1', '123'],
+    ],
+    'unimplemented function' => [
+        ['=INFO("SYSTEM")'],
     ],
 ];

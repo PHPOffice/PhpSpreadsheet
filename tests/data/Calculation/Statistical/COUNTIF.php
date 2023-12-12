@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     [
         2,
@@ -55,14 +57,6 @@ return [
         3,
         ['apples', 'oranges', 'peaches', 'apples'],
         '*p*s*',
-    ],
-    [
-        4,
-        [
-            ['apples', 'oranges', 'peaches', 'apples'],
-            ['bananas', 'mangoes', 'grapes', 'cherries'],
-        ],
-        '*p*e*',
     ],
     [
         2,

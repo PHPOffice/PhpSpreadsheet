@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Html;
 
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 use PhpOffice\PhpSpreadsheet\Reader\Html;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
@@ -24,8 +27,12 @@ class HtmlTest extends TestCase
         $reader = new Html();
         self::assertTrue($reader->canRead($filename));
 
-        $this->expectException(ReaderException::class);
-        $reader->load($filename);
+        if (method_exists($this, 'setOutputCallback')) {
+            // The meat of this test is moved to HtmlPhpunit10Test
+            // to run under all PhpUnit versions.
+            $this->expectException(ReaderException::class);
+            $reader->load($filename);
+        }
     }
 
     public function testNonHtml(): void
@@ -45,7 +52,7 @@ class HtmlTest extends TestCase
         self::assertFalse($reader->canRead(''));
     }
 
-    public function providerCanReadVerySmallFile(): array
+    public static function providerCanReadVerySmallFile(): array
     {
         $padding = str_repeat('a', 2048);
 
@@ -59,11 +66,8 @@ class HtmlTest extends TestCase
 
     /**
      * @dataProvider providerCanReadVerySmallFile
-     *
-     * @param bool $expected
-     * @param string $content
      */
-    public function testCanReadVerySmallFile($expected, $content): void
+    public function testCanReadVerySmallFile(bool $expected, string $content): void
     {
         $filename = HtmlHelper::createHtml($content);
         $reader = new Html();
@@ -98,6 +102,7 @@ class HtmlTest extends TestCase
         self::assertEquals('f0f8ff', $style->getFont()->getColor()->getRGB());
         self::assertEquals('eedfcc', $style->getFill()->getEndColor()->getRGB());
         self::assertEquals('eedfcc', $style->getFill()->getstartColor()->getRGB());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testCanApplyInlineFontStyles(): void
@@ -133,6 +138,7 @@ class HtmlTest extends TestCase
 
         $style = $firstSheet->getCell('F1')->getStyle();
         self::assertTrue($style->getFont()->getStrikethrough());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testCanApplyInlineWidth(): void
@@ -159,6 +165,7 @@ class HtmlTest extends TestCase
         $dimension = $firstSheet->getColumnDimension('C');
         self::assertNotNull($dimension);
         self::assertEquals(50, $dimension->getWidth('px'));
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testCanApplyInlineHeight(): void
@@ -189,6 +196,7 @@ class HtmlTest extends TestCase
         $dimension = $firstSheet->getRowDimension(3);
         self::assertNotNull($dimension);
         self::assertEquals(50, $dimension->getRowHeight('px'));
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testCanApplyAlignment(): void
@@ -224,6 +232,7 @@ class HtmlTest extends TestCase
 
         $style = $firstSheet->getCell('F1')->getStyle();
         self::assertTrue($style->getAlignment()->getWrapText());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testCanApplyInlineDataFormat(): void
@@ -231,14 +240,21 @@ class HtmlTest extends TestCase
         $html = '<table>
                     <tr>
                         <td data-format="mmm-yy">2019-02-02 12:34:00</td>
+                        <td data-format="#.000">3</td>
+                        <td data-format="#.000">x</td>
                     </tr>
                 </table>';
         $filename = HtmlHelper::createHtml($html);
         $spreadsheet = HtmlHelper::loadHtmlIntoSpreadsheet($filename, true);
-        $firstSheet = $spreadsheet->getSheet(0);
+        $sheet = $spreadsheet->getSheet(0);
 
-        $style = $firstSheet->getCell('A1')->getStyle();
-        self::assertEquals('mmm-yy', $style->getNumberFormat()->getFormatCode());
+        self::assertEquals('mmm-yy', $sheet->getStyle('A1')->getNumberFormat()->getFormatCode());
+        self::assertEquals('2019-02-02 12:34:00', $sheet->getCell('A1')->getFormattedValue(), 'field is string not number so not formatted');
+        self::assertEquals('#.000', $sheet->getStyle('B1')->getNumberFormat()->getFormatCode());
+        self::assertEquals('3.000', $sheet->getCell('B1')->getFormattedValue(), 'format applied to numeric value');
+        self::assertEquals('#.000', $sheet->getStyle('C1')->getNumberFormat()->getFormatCode());
+        self::assertEquals('x', $sheet->getCell('C1')->getFormattedValue(), 'format not applied to non-numeric value');
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testCanApplyCellWrapping(): void
@@ -270,6 +286,7 @@ class HtmlTest extends TestCase
         self::assertTrue($cellStyle->getAlignment()->getWrapText());
         $cellValue = $firstSheet->getCell('A3')->getValue();
         self::assertStringContainsString("\n", $cellValue);
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testRowspanInRendering(): void
@@ -280,6 +297,7 @@ class HtmlTest extends TestCase
 
         $actual = $spreadsheet->getActiveSheet()->getMergeCells();
         self::assertSame(['A2:C2' => 'A2:C2'], $actual);
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testTextIndentUseRowspan(): void
@@ -300,6 +318,7 @@ class HtmlTest extends TestCase
         $firstSheet = $spreadsheet->getSheet(0);
         $style = $firstSheet->getCell('C2')->getStyle();
         self::assertEquals(10, $style->getAlignment()->getIndent());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testBorderWithRowspanAndColspan(): void
@@ -331,6 +350,7 @@ class HtmlTest extends TestCase
         foreach ($totalBorders as $border) {
             self::assertEquals(Border::BORDER_THIN, $border->getBorderStyle());
         }
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testBorderWithColspan(): void
@@ -362,5 +382,44 @@ class HtmlTest extends TestCase
         foreach ($totalBorders as $border) {
             self::assertEquals(Border::BORDER_THIN, $border->getBorderStyle());
         }
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testDataType(): void
+    {
+        $html = '<table>
+                    <tr>
+                        <td data-type="b">1</td>
+                        <td data-type="s">12345678987654</td>
+                        <!-- in some cases, you may want to treat the string with beginning equal sign as a string rather than a formula -->
+                        <td data-type="s">=B1</td>
+                        <td data-type="d">2022-02-21 10:20:30</td>
+                        <td data-type="null">null</td>
+                        <td data-type="invalid-datatype">text with invalid datatype</td>
+                    </tr>
+                </table>';
+
+        $reader = new Html();
+        $spreadsheet = $reader->loadFromString($html);
+        $firstSheet = $spreadsheet->getSheet(0);
+
+        // check boolean data type
+        self::assertEquals(DataType::TYPE_BOOL, $firstSheet->getCell('A1')->getDataType());
+        self::assertIsBool($firstSheet->getCell('A1')->getValue());
+
+        // check string data type
+        self::assertEquals(DataType::TYPE_STRING, $firstSheet->getCell('B1')->getDataType());
+        self::assertIsString($firstSheet->getCell('B1')->getValue());
+
+        // check string with beginning equal sign (=B1) and string datatype,is not formula
+        self::assertEquals(DataType::TYPE_STRING, $firstSheet->getCell('C1')->getDataType());
+        self::assertEquals('=B1', $firstSheet->getCell('C1')->getValue());
+        self::assertTrue($firstSheet->getCell('C1')->getStyle()->getQuotePrefix());
+
+        //check iso date
+        self::assertEqualsWithDelta($firstSheet->getCell('D1')->getValue(), 44613.43090277778, 1.0e-12);
+
+        //null
+        self::assertEquals($firstSheet->getCell('E1')->getValue(), null);
     }
 }

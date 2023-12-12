@@ -1,23 +1,22 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Cell;
 
 use DateTime;
 use DateTimeZone;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
-use PhpOffice\PhpSpreadsheet\Cell\IValueBinder;
 use PhpOffice\PhpSpreadsheet\Cell\StringValueBinder;
+use PhpOffice\PhpSpreadsheet\Exception as SpreadsheetException;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\TestCase;
 
 class StringValueBinderTest extends TestCase
 {
-    /**
-     * @var IValueBinder
-     */
-    private $valueBinder;
+    private \PhpOffice\PhpSpreadsheet\Cell\IValueBinder $valueBinder;
 
     protected function setUp(): void
     {
@@ -31,13 +30,10 @@ class StringValueBinderTest extends TestCase
 
     /**
      * @dataProvider providerDataValuesDefault
-     *
-     * @param mixed $value
-     * @param mixed $expectedValue
      */
     public function testStringValueBinderDefaultBehaviour(
-        $value,
-        $expectedValue,
+        mixed $value,
+        mixed $expectedValue,
         string $expectedDataType
     ): void {
         Cell::setValueBinder(new StringValueBinder());
@@ -50,7 +46,7 @@ class StringValueBinderTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerDataValuesDefault(): array
+    public static function providerDataValuesDefault(): array
     {
         return [
             [null, '', DataType::TYPE_STRING],
@@ -78,15 +74,36 @@ class StringValueBinderTest extends TestCase
         ];
     }
 
+    public function testNonStringableBindValue(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        Cell::setValueBinder(new StringValueBinder());
+
+        try {
+            $sheet->getCell('A1')->setValue($this);
+            self::fail('Did not receive expected Exception');
+        } catch (SpreadsheetException $e) {
+            self::assertStringContainsString('Unable to bind unstringable', $e->getMessage());
+        }
+        $sheet->getCell('A2')->setValue(new StringableObject());
+        self::assertSame('abc', $sheet->getCell('A2')->getValue());
+
+        try {
+            $sheet->getCell('A3')->setValue([1, 2, 3]);
+            self::fail('Did not receive expected Exception');
+        } catch (SpreadsheetException $e) {
+            self::assertStringContainsString('Unable to bind unstringable', $e->getMessage());
+        }
+        $spreadsheet->disconnectWorksheets();
+    }
+
     /**
      * @dataProvider providerDataValuesSuppressNullConversion
-     *
-     * @param mixed $value
-     * @param mixed $expectedValue
      */
     public function testStringValueBinderSuppressNullConversion(
-        $value,
-        $expectedValue,
+        mixed $value,
+        mixed $expectedValue,
         string $expectedDataType
     ): void {
         $binder = new StringValueBinder();
@@ -101,7 +118,7 @@ class StringValueBinderTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerDataValuesSuppressNullConversion(): array
+    public static function providerDataValuesSuppressNullConversion(): array
     {
         return [
             [null, null, DataType::TYPE_NULL],
@@ -112,13 +129,10 @@ class StringValueBinderTest extends TestCase
 
     /**
      * @dataProvider providerDataValuesSuppressBooleanConversion
-     *
-     * @param mixed $value
-     * @param mixed $expectedValue
      */
     public function testStringValueBinderSuppressBooleanConversion(
-        $value,
-        $expectedValue,
+        mixed $value,
+        mixed $expectedValue,
         string $expectedDataType
     ): void {
         $binder = new StringValueBinder();
@@ -133,7 +147,7 @@ class StringValueBinderTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerDataValuesSuppressBooleanConversion(): array
+    public static function providerDataValuesSuppressBooleanConversion(): array
     {
         return [
             [true, true, DataType::TYPE_BOOL],
@@ -145,13 +159,10 @@ class StringValueBinderTest extends TestCase
 
     /**
      * @dataProvider providerDataValuesSuppressNumericConversion
-     *
-     * @param mixed $value
-     * @param mixed $expectedValue
      */
     public function testStringValueBinderSuppressNumericConversion(
-        $value,
-        $expectedValue,
+        mixed $value,
+        mixed $expectedValue,
         string $expectedDataType
     ): void {
         $binder = new StringValueBinder();
@@ -166,7 +177,7 @@ class StringValueBinderTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerDataValuesSuppressNumericConversion(): array
+    public static function providerDataValuesSuppressNumericConversion(): array
     {
         return [
             [123, 123, DataType::TYPE_NUMERIC],
@@ -185,13 +196,10 @@ class StringValueBinderTest extends TestCase
 
     /**
      * @dataProvider providerDataValuesSuppressFormulaConversion
-     *
-     * @param mixed $value
-     * @param mixed $expectedValue
      */
     public function testStringValueBinderSuppressFormulaConversion(
-        $value,
-        $expectedValue,
+        mixed $value,
+        mixed $expectedValue,
         string $expectedDataType
     ): void {
         $binder = new StringValueBinder();
@@ -206,7 +214,7 @@ class StringValueBinderTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerDataValuesSuppressFormulaConversion(): array
+    public static function providerDataValuesSuppressFormulaConversion(): array
     {
         return [
             ['=SUM(A1:C3)', '=SUM(A1:C3)', DataType::TYPE_FORMULA, false],
@@ -215,13 +223,10 @@ class StringValueBinderTest extends TestCase
 
     /**
      * @dataProvider providerDataValuesSuppressAllConversion
-     *
-     * @param mixed $value
-     * @param mixed $expectedValue
      */
     public function testStringValueBinderSuppressAllConversion(
-        $value,
-        $expectedValue,
+        mixed $value,
+        mixed $expectedValue,
         string $expectedDataType
     ): void {
         $binder = new StringValueBinder();
@@ -236,7 +241,7 @@ class StringValueBinderTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerDataValuesSuppressAllConversion(): array
+    public static function providerDataValuesSuppressAllConversion(): array
     {
         return [
             [null, null, DataType::TYPE_NULL],

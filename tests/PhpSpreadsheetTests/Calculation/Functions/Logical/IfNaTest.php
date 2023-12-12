@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Logical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,15 +10,13 @@ class IfNaTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerIFNA
-     *
-     * @param mixed $expectedResult
      */
-    public function testIFNA($expectedResult, ...$args): void
+    public function testIFNA(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCase('IFNA', $expectedResult, ...$args);
     }
 
-    public function providerIFNA(): array
+    public static function providerIFNA(): array
     {
         return require 'tests/data/Calculation/Logical/IFNA.php';
     }
@@ -33,7 +33,7 @@ class IfNaTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerIfNaArray(): array
+    public static function providerIfNaArray(): array
     {
         return [
             'vector' => [

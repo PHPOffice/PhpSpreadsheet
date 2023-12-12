@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
-use PhpOffice\PhpSpreadsheet\Shared\File;
 use PHPUnit\Framework\TestCase;
 
 class WorksheetInfoNamesTest extends TestCase

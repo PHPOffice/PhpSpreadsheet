@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Information;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -16,17 +18,14 @@ class ErrorTypeTest extends TestCase
 
     /**
      * @dataProvider providerErrorType
-     *
-     * @param int|string $expectedResult
-     * @param mixed $value
      */
-    public function testErrorType($expectedResult, $value): void
+    public function testErrorType(int|string $expectedResult, mixed $value): void
     {
         $result = ExcelError::type($value);
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerErrorType(): array
+    public static function providerErrorType(): array
     {
         return require 'tests/data/Calculation/Information/ERROR_TYPE.php';
     }
@@ -43,7 +42,7 @@ class ErrorTypeTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerErrorTypeArray(): array
+    public static function providerErrorTypeArray(): array
     {
         return [
             'vector' => [

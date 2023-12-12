@@ -825,7 +825,7 @@ class Roman
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function evaluate($aValue, $style = 0)
+    public static function evaluate(mixed $aValue, mixed $style = 0): array|string
     {
         if (is_array($aValue) || is_array($style)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $aValue, $style);

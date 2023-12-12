@@ -1,20 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 class GeoMeanTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerGEOMEAN
-     *
-     * @param mixed $expectedResult
      */
-    public function testGEOMEAN($expectedResult, ...$args): void
+    public function testGEOMEAN(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('GEOMEAN', $expectedResult, ...$args);
     }
 
-    public function providerGEOMEAN(): array
+    public static function providerGEOMEAN(): array
     {
         return require 'tests/data/Calculation/Statistical/GEOMEAN.php';
     }

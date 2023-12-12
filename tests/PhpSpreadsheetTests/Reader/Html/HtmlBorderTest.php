@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Html;
 
 use PhpOffice\PhpSpreadsheet\Reader\Html;
@@ -101,7 +103,7 @@ class HtmlBorderTest extends TestCase
         }
     }
 
-    public function providerBorderStyle(): array
+    public static function providerBorderStyle(): array
     {
         return [
             ['dash-dot', Border::BORDER_DASHDOT],

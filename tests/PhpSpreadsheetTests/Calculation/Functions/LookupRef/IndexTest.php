@@ -1,22 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef\Matrix;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\TestCase;
 
 class IndexTest extends TestCase
 {
     /**
      * @dataProvider providerINDEX
-     *
-     * @param mixed $expectedResult
-     * @param mixed $matrix
-     * @param mixed $rowNum
-     * @param mixed $colNum
      */
-    public function testINDEX($expectedResult, $matrix, $rowNum = null, $colNum = null): void
+    public function testINDEX(mixed $expectedResult, mixed $matrix, mixed $rowNum = null, mixed $colNum = null): void
     {
         if ($rowNum === null) {
             $result = Matrix::index($matrix);
@@ -28,7 +26,7 @@ class IndexTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerINDEX(): array
+    public static function providerINDEX(): array
     {
         return require 'tests/data/Calculation/LookupRef/INDEX.php';
     }
@@ -45,7 +43,7 @@ class IndexTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerIndexArray(): array
+    public static function providerIndexArray(): array
     {
         return [
             'row/column vectors' => [
@@ -67,5 +65,36 @@ class IndexTest extends TestCase
                 '2',
             ],
         ];
+    }
+
+    public function testPropagateDiv0(): void
+    {
+        // issue 3396 error was always being treated as #VALUE!
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->getCell('A1')->setValue(0);
+        $sheet->getCell('A3')->setValue(1);
+        $sheet->getCell('B3')->setValue(1);
+        $sheet->getCell('C3')->setValue('=1/A1');
+        $sheet->getCell('D3')->setValue('=1/A1');
+        $sheet->getCell('E3')->setValue('xyz');
+        $sheet->getCell('A4')->setValue(false);
+        $sheet->getCell('B4')->setValue(true);
+        $sheet->getCell('C4')->setValue(true);
+        $sheet->getCell('D4')->setValue(false);
+        $sheet->getCell('E4')->setValue(false);
+        $sheet->getCell('A6')->setValue('=INDEX(A3:E3/A4:E4,1,1)');
+        $sheet->getCell('B6')->setValue('=INDEX(A3:E3/A4:E4,1,2)');
+        $sheet->getCell('C6')->setValue('=INDEX(A3:E3/A4:E4,1,3)');
+        $sheet->getCell('D6')->setValue('=INDEX(A3:E3/A4:E4,1,4)');
+        $sheet->getCell('E6')->setValue('=INDEX(A3:E3/A4:E4,1,5)');
+
+        self::assertSame('#DIV/0!', $sheet->getCell('A6')->getCalculatedValue());
+        self::assertSame(1, $sheet->getCell('B6')->getCalculatedValue());
+        self::assertSame('#DIV/0!', $sheet->getCell('C6')->getCalculatedValue());
+        self::assertSame('#DIV/0!', $sheet->getCell('D6')->getCalculatedValue());
+        self::assertSame('#VALUE!', $sheet->getCell('E6')->getCalculatedValue());
+
+        $spreadsheet->disconnectWorksheets();
     }
 }

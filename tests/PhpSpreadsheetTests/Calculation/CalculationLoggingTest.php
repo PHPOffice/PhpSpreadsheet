@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -72,18 +74,14 @@ class CalculationLoggingTest extends TestCase
         $finalEntry = array_pop($log);
         self::assertStringContainsString('Evaluation Result', $finalEntry);
 
-        $e1Log = array_filter($log, function ($entry) {
-            return strpos($entry, 'E1') !== false;
-        });
+        $e1Log = array_filter($log, fn ($entry): bool => str_contains($entry, 'E1'));
         $e1Entries = count($e1Log);
         self::assertGreaterThan(0, $e1Entries);
 
         $e1FinalEntry = array_pop($e1Log);
         self::assertStringContainsString('Evaluation Result', $e1FinalEntry);
 
-        $e3Log = array_filter($log, function ($entry) {
-            return strpos($entry, 'E1') !== false;
-        });
+        $e3Log = array_filter($log, fn ($entry): bool => str_contains($entry, 'E1'));
         $e3Entries = count($e3Log);
         self::assertGreaterThan(0, $e3Entries);
 

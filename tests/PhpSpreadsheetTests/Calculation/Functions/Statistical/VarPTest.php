@@ -1,36 +1,34 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 class VarPTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerVARP
-     *
-     * @param mixed $expectedResult
      */
-    public function testVARP($expectedResult, ...$args): void
+    public function testVARP(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('VARP', $expectedResult, ...$args);
     }
 
-    public function providerVARP(): array
+    public static function providerVARP(): array
     {
         return require 'tests/data/Calculation/Statistical/VARP.php';
     }
 
     /**
      * @dataProvider providerOdsVARP
-     *
-     * @param mixed $expectedResult
      */
-    public function testOdsVARP($expectedResult, ...$args): void
+    public function testOdsVARP(mixed $expectedResult, mixed ...$args): void
     {
         $this->setOpenOffice();
         $this->runTestCases('VARP', $expectedResult, ...$args);
     }
 
-    public function providerOdsVARP(): array
+    public static function providerOdsVARP(): array
     {
         return require 'tests/data/Calculation/Statistical/VARP_ODS.php';
     }

@@ -1,25 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
-use PHPUnit\Framework\TestCase;
-
-// TODO Run in spreadsheet context.
-class MaxIfsTest extends TestCase
+class MaxIfsTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerMAXIFS
-     *
-     * @param mixed $expectedResult
      */
-    public function testMAXIFS($expectedResult, ...$args): void
+    public function testMAXIFS(mixed $expectedResult, mixed ...$args): void
     {
-        $result = Statistical\Conditional::MAXIFS(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
+        $this->runTestCaseNoBracket('MAXIFS', $expectedResult, ...$args);
     }
 
-    public function providerMAXIFS(): array
+    public static function providerMAXIFS(): array
     {
         return require 'tests/data/Calculation/Statistical/MAXIFS.php';
     }

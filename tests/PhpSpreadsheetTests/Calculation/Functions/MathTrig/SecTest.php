@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,11 +10,8 @@ class SecTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerSEC
-     *
-     * @param mixed $expectedResult
-     * @param mixed $angle
      */
-    public function testSEC($expectedResult, $angle): void
+    public function testSEC(mixed $expectedResult, mixed $angle): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -25,7 +24,7 @@ class SecTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-9);
     }
 
-    public function providerSEC(): array
+    public static function providerSEC(): array
     {
         return require 'tests/data/Calculation/MathTrig/SEC.php';
     }
@@ -42,7 +41,7 @@ class SecTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerSecArray(): array
+    public static function providerSecArray(): array
     {
         return [
             'row vector' => [[[1.85081571768093, 1.13949392732455, 1.85081571768093]], '{1, 0.5, -1}'],

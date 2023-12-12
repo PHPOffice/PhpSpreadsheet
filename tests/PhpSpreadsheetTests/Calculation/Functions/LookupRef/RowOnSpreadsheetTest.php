@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\NamedRange;
@@ -8,11 +10,8 @@ class RowOnSpreadsheetTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerROWonSpreadsheet
-     *
-     * @param mixed $expectedResult
-     * @param string $cellReference
      */
-    public function testRowOnSpreadsheet($expectedResult, $cellReference = 'omitted'): void
+    public function testRowOnSpreadsheet(mixed $expectedResult, string $cellReference = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -36,7 +35,7 @@ class RowOnSpreadsheetTest extends AllSetupTeardown
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerROWOnSpreadsheet(): array
+    public static function providerROWOnSpreadsheet(): array
     {
         return require 'tests/data/Calculation/LookupRef/ROWonSpreadsheet.php';
     }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 function orderGrid(): array
 {
     return [
@@ -195,5 +197,17 @@ return [
         ],
         2,
         false,
+    ],
+    'issue 3561' => [
+        8,
+        6,
+        [
+            [1, 6, 11],
+            [2, 7, 12],
+            [3, 8, 13],
+            [4, 9, 14],
+            [5, 10, 15],
+        ],
+        [[3], [4], [3]],
     ],
 ];

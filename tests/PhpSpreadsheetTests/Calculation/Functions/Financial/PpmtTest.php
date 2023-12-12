@@ -1,20 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 class PpmtTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerPPMT
-     *
-     * @param mixed $expectedResult
      */
-    public function testPPMT($expectedResult, array $args): void
+    public function testPPMT(mixed $expectedResult, array $args): void
     {
         $this->runTestCase('PPMT', $expectedResult, $args);
     }
 
-    public function providerPPMT(): array
+    public static function providerPPMT(): array
     {
         return require 'tests/data/Calculation/Financial/PPMT.php';
     }

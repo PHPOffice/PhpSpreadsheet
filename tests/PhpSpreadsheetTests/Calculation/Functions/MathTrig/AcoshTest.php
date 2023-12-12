@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,10 +10,8 @@ class AcoshTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerAcosh
-     *
-     * @param mixed $expectedResult
      */
-    public function testAcosh($expectedResult, string $formula): void
+    public function testAcosh(mixed $expectedResult, string $formula): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -21,7 +21,7 @@ class AcoshTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-6);
     }
 
-    public function providerAcosh(): array
+    public static function providerAcosh(): array
     {
         return require 'tests/data/Calculation/MathTrig/ACOSH.php';
     }
@@ -38,7 +38,7 @@ class AcoshTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerAcoshArray(): array
+    public static function providerAcoshArray(): array
     {
         return [
             'row vector' => [[[0.0, 1.31695789692482, 1.76274717403909]], '{1, 2, 3}'],

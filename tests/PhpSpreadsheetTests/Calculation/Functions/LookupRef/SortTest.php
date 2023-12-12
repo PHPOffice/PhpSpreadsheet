@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
@@ -18,11 +20,8 @@ class SortTest extends TestCase
 
     /**
      * @dataProvider providerSortWithScalarArgumentErrorReturns
-     *
-     * @param mixed $sortIndex
-     * @param mixed$sortOrder
      */
-    public function testSortWithScalarArgumentErrorReturns($sortIndex, $sortOrder = 1): void
+    public function testSortWithScalarArgumentErrorReturns(mixed $sortIndex, mixed $sortOrder = 1): void
     {
         $value = [[1, 2], [3, 4], [5, 6]];
 
@@ -30,7 +29,7 @@ class SortTest extends TestCase
         self::assertSame(ExcelError::VALUE(), $result);
     }
 
-    public function providerSortWithScalarArgumentErrorReturns(): array
+    public static function providerSortWithScalarArgumentErrorReturns(): array
     {
         return [
             'Negative sortIndex' => [-1, -1],
@@ -58,17 +57,17 @@ class SortTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerSortByRow(): array
+    public static function providerSortByRow(): array
     {
         return [
             [
                 [[142], [378], [404], [445], [483], [622], [650], [691], [783], [961]],
-                $this->sampleDataForRow(),
+                self::sampleDataForRow(),
                 1,
             ],
             [
                 [[961], [783], [691], [650], [622], [483], [445], [404], [378], [142]],
-                $this->sampleDataForRow(),
+                self::sampleDataForRow(),
                 1,
                 Sort::ORDER_DESCENDING,
             ],
@@ -89,7 +88,7 @@ class SortTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerSortByRowMultiLevel(): array
+    public static function providerSortByRowMultiLevel(): array
     {
         return [
             [
@@ -107,7 +106,7 @@ class SortTest extends TestCase
                     ['West', 'Lemons', 34],
                     ['West', 'Oranges', 25],
                 ],
-                $this->sampleDataForMultiRow(),
+                self::sampleDataForMultiRow(),
                 [1, 2],
             ],
             [
@@ -125,7 +124,7 @@ class SortTest extends TestCase
                     ['West', 'Apples', 30],
                     ['West', 'Lemons', 34],
                 ],
-                $this->sampleDataForMultiRow(),
+                self::sampleDataForMultiRow(),
                 [1, 3],
             ],
             [
@@ -143,7 +142,7 @@ class SortTest extends TestCase
                     ['North', 'Peaches', 25],
                     ['South', 'Pears', 40],
                 ],
-                $this->sampleDataForMultiRow(),
+                self::sampleDataForMultiRow(),
                 [2, 3],
             ],
         ];
@@ -158,32 +157,32 @@ class SortTest extends TestCase
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerSortByColumn(): array
+    public static function providerSortByColumn(): array
     {
         return [
             [
                 [[142, 378, 404, 445, 483, 622, 650, 691, 783, 961]],
-                $this->sampleDataForColumn(),
+                self::sampleDataForColumn(),
                 1,
                 Sort::ORDER_ASCENDING,
             ],
             [
                 [[961, 783, 691, 650, 622, 483, 445, 404, 378, 142]],
-                $this->sampleDataForColumn(),
+                self::sampleDataForColumn(),
                 1,
                 Sort::ORDER_DESCENDING,
             ],
         ];
     }
 
-    public function sampleDataForRow(): array
+    public static function sampleDataForRow(): array
     {
         return [
             [622], [961], [691], [445], [378], [483], [650], [783], [142], [404],
         ];
     }
 
-    public function sampleDataForMultiRow(): array
+    public static function sampleDataForMultiRow(): array
     {
         return [
             ['South', 'Pears', 40],
@@ -201,7 +200,7 @@ class SortTest extends TestCase
         ];
     }
 
-    public function sampleDataForColumn(): array
+    public static function sampleDataForColumn(): array
     {
         return [
             [622, 961, 691, 445, 378, 483, 650, 783, 142, 404],

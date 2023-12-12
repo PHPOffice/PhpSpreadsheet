@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // Periods, Payment, Present Value, Future Value, Type, Guess, Result
 
 return [

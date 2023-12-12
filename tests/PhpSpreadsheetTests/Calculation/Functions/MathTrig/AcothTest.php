@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,11 +10,8 @@ class AcothTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerACOTH
-     *
-     * @param mixed $expectedResult
-     * @param mixed $number
      */
-    public function testACOTH($expectedResult, $number): void
+    public function testACOTH(mixed $expectedResult, mixed $number): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -25,7 +24,7 @@ class AcothTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-9);
     }
 
-    public function providerACOTH(): array
+    public static function providerACOTH(): array
     {
         return require 'tests/data/Calculation/MathTrig/ACOTH.php';
     }
@@ -42,7 +41,7 @@ class AcothTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerAcothArray(): array
+    public static function providerAcothArray(): array
     {
         return [
             'row vector' => [[[-0.20273255405408, 0.54930614433406, 0.13413199329734]], '{-5, 2, 7.5}'],

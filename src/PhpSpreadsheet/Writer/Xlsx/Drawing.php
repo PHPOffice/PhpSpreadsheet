@@ -67,7 +67,7 @@ class Drawing extends WriterPart
         }
 
         // unparsed AlternateContent
-        $unparsedLoadedData = $worksheet->getParent()->getUnparsedLoadedData();
+        $unparsedLoadedData = $worksheet->getParentOrThrow()->getUnparsedLoadedData();
         if (isset($unparsedLoadedData['sheets'][$worksheet->getCodeName()]['drawingAlternateContents'])) {
             foreach ($unparsedLoadedData['sheets'][$worksheet->getCodeName()]['drawingAlternateContents'] as $drawingAlternateContent) {
                 $objWriter->writeRaw($drawingAlternateContent);
@@ -270,10 +270,21 @@ class Drawing extends WriterPart
             $objWriter->writeAttribute('r:embed', 'rId' . $relationId);
             $objWriter->endElement();
 
-            // a:stretch
-            $objWriter->startElement('a:stretch');
-            $objWriter->writeElement('a:fillRect', null);
-            $objWriter->endElement();
+            $srcRect = $drawing->getSrcRect();
+            if (!empty($srcRect)) {
+                $objWriter->startElement('a:srcRect');
+                foreach ($srcRect as $key => $value) {
+                    $objWriter->writeAttribute($key, (string) $value);
+                }
+                $objWriter->endElement(); // a:srcRect
+                $objWriter->startElement('a:stretch');
+                $objWriter->endElement(); // a:stretch
+            } else {
+                // a:stretch
+                $objWriter->startElement('a:stretch');
+                $objWriter->writeElement('a:fillRect', null);
+                $objWriter->endElement();
+            }
 
             $objWriter->endElement();
 
@@ -283,6 +294,8 @@ class Drawing extends WriterPart
             // a:xfrm
             $objWriter->startElement('a:xfrm');
             $objWriter->writeAttribute('rot', (string) SharedDrawing::degreesToAngle($drawing->getRotation()));
+            self::writeAttributeIf($objWriter, $drawing->getFlipVertical(), 'flipV', '1');
+            self::writeAttributeIf($objWriter, $drawing->getFlipHorizontal(), 'flipH', '1');
             if ($isTwoCellAnchor) {
                 $objWriter->startElement('a:ext');
                 $objWriter->writeAttribute('cx', self::stringEmu($drawing->getWidth()));
@@ -490,7 +503,7 @@ class Drawing extends WriterPart
      *
      * @param string $reference Reference
      */
-    private function writeVMLHeaderFooterImage(XMLWriter $objWriter, $reference, HeaderFooterDrawing $image): void
+    private function writeVMLHeaderFooterImage(XMLWriter $objWriter, string $reference, HeaderFooterDrawing $image): void
     {
         // Calculate object id
         preg_match('{(\d+)}', md5($reference), $m);
@@ -529,7 +542,7 @@ class Drawing extends WriterPart
      *
      * @return BaseDrawing[] All drawings in PhpSpreadsheet
      */
-    public function allDrawings(Spreadsheet $spreadsheet)
+    public function allDrawings(Spreadsheet $spreadsheet): array
     {
         // Get an array of all drawings
         $aDrawings = [];
@@ -567,5 +580,12 @@ class Drawing extends WriterPart
     private static function stringEmu(int $pixelValue): string
     {
         return (string) SharedDrawing::pixelsToEMU($pixelValue);
+    }
+
+    private static function writeAttributeIf(XMLWriter $objWriter, ?bool $condition, string $attr, string $val): void
+    {
+        if ($condition) {
+            $objWriter->writeAttribute($attr, $val);
+        }
     }
 }

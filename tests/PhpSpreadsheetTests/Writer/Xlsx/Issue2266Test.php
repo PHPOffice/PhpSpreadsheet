@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx as Reader;
@@ -35,7 +37,7 @@ class Issue2266Test extends AbstractFunctional
         $reloadedSpreadsheet->disconnectWorksheets();
     }
 
-    public function providerType(): array
+    public static function providerType(): array
     {
         return [
             ['Xlsx'],

@@ -4,18 +4,19 @@ namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
 use PhpOffice\PhpSpreadsheet\Cell\AddressRange;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Table\TableStyle;
+use Stringable;
 
-class Table
+class Table implements Stringable
 {
     /**
      * Table Name.
-     *
-     * @var string
      */
-    private $name = '';
+    private string $name;
 
     /**
      * Show Header Row.
@@ -33,17 +34,20 @@ class Table
 
     /**
      * Table Range.
-     *
-     * @var string
      */
-    private $range = '';
+    private string $range = '';
 
     /**
      * Table Worksheet.
-     *
-     * @var null|Worksheet
      */
-    private $workSheet;
+    private ?Worksheet $workSheet = null;
+
+    /**
+     * Table allow filter.
+     *
+     * @var bool
+     */
+    private $allowFilter = true;
 
     /**
      * Table Column.
@@ -54,22 +58,18 @@ class Table
 
     /**
      * Table Style.
-     *
-     * @var TableStyle
      */
-    private $style;
+    private TableStyle $style;
 
     /**
      * Table AutoFilter.
-     *
-     * @var AutoFilter
      */
-    private $autoFilter;
+    private AutoFilter $autoFilter;
 
     /**
      * Create a new Table.
      *
-     * @param AddressRange|array<int>|string $range
+     * @param AddressRange|array{0: int, 1: int, 2: int, 3: int}|array{0: int, 1: int}|string $range
      *            A simple string containing a Cell range like 'A1:E10' is permitted
      *              or passing in an array of [$fromColumnIndex, $fromRow, $toColumnIndex, $toRow] (e.g. [3, 5, 6, 8]),
      *              or an AddressRange object.
@@ -81,6 +81,14 @@ class Table
         $this->autoFilter = new AutoFilter($range);
         $this->setRange($range);
         $this->setName($name);
+    }
+
+    /**
+     * Code to execute when this table is unset().
+     */
+    public function __destruct()
+    {
+        $this->workSheet = null;
     }
 
     /**
@@ -109,8 +117,8 @@ class Table
             }
             // Check for A1 or R1C1 cell reference notation
             if (
-                preg_match(Coordinate::A1_COORDINATE_REGEX, $name) ||
-                preg_match('/^R\[?\-?[0-9]*\]?C\[?\-?[0-9]*\]?$/i', $name)
+                preg_match(Coordinate::A1_COORDINATE_REGEX, $name)
+                || preg_match('/^R\[?\-?[0-9]*\]?C\[?\-?[0-9]*\]?$/i', $name)
             ) {
                 throw new PhpSpreadsheetException('The table name can\'t be the same as a cell reference');
             }
@@ -139,7 +147,7 @@ class Table
         $tableName = StringHelper::strToLower($name);
 
         if ($worksheet !== null && StringHelper::strToLower($this->name) !== $name) {
-            $spreadsheet = $worksheet->getParent();
+            $spreadsheet = $worksheet->getParentOrThrow();
 
             foreach ($spreadsheet->getWorksheetIterator() as $sheet) {
                 foreach ($sheet->getTableCollection() as $table) {
@@ -153,12 +161,48 @@ class Table
 
     private function updateStructuredReferences(string $name): void
     {
-        // Remember that table names are case-insensitive
-        $name = StringHelper::strToLower($name);
+        if (!$this->workSheet || !$this->name) {
+            return;
+        }
 
-        if ($this->name !== null && StringHelper::strToLower($this->name) !== $name) {
+        // Remember that table names are case-insensitive
+        if (StringHelper::strToLower($this->name) !== StringHelper::strToLower($name)) {
             // We need to check all formula cells that might contain fully-qualified Structured References
             //    that refer to this table, and update those formulae to reference the new table name
+            $spreadsheet = $this->workSheet->getParentOrThrow();
+            foreach ($spreadsheet->getWorksheetIterator() as $sheet) {
+                $this->updateStructuredReferencesInCells($sheet, $name);
+            }
+            $this->updateStructuredReferencesInNamedFormulae($spreadsheet, $name);
+        }
+    }
+
+    private function updateStructuredReferencesInCells(Worksheet $worksheet, string $newName): void
+    {
+        $pattern = '/' . preg_quote($this->name, '/') . '\[/mui';
+
+        foreach ($worksheet->getCoordinates(false) as $coordinate) {
+            $cell = $worksheet->getCell($coordinate);
+            if ($cell->getDataType() === DataType::TYPE_FORMULA) {
+                $formula = $cell->getValue();
+                if (preg_match($pattern, $formula) === 1) {
+                    $formula = preg_replace($pattern, "{$newName}[", $formula);
+                    $cell->setValueExplicit($formula, DataType::TYPE_FORMULA);
+                }
+            }
+        }
+    }
+
+    private function updateStructuredReferencesInNamedFormulae(Spreadsheet $spreadsheet, string $newName): void
+    {
+        $pattern = '/' . preg_quote($this->name, '/') . '\[/mui';
+
+        foreach ($spreadsheet->getNamedFormulae() as $namedFormula) {
+            $formula = $namedFormula->getValue();
+            if (preg_match($pattern, $formula) === 1) {
+                $formula = preg_replace($pattern, "{$newName}[", $formula);
+                $namedFormula->setValue($formula); // @phpstan-ignore-line
+            }
         }
     }
 
@@ -199,6 +243,26 @@ class Table
     }
 
     /**
+     * Get allow filter.
+     * If false, autofiltering is disabled for the table, if true it is enabled.
+     */
+    public function getAllowFilter(): bool
+    {
+        return $this->allowFilter;
+    }
+
+    /**
+     * Set show Autofiltering.
+     * Disabling autofiltering has the same effect as hiding the filter button on all the columns in the table.
+     */
+    public function setAllowFilter(bool $allowFilter): self
+    {
+        $this->allowFilter = $allowFilter;
+
+        return $this;
+    }
+
+    /**
      * Get Table Range.
      */
     public function getRange(): string
@@ -209,7 +273,7 @@ class Table
     /**
      * Set Table Cell Range.
      *
-     * @param AddressRange|array<int>|string $range
+     * @param AddressRange|array{0: int, 1: int, 2: int, 3: int}|array{0: int, 1: int}|string $range
      *            A simple string containing a Cell range like 'A1:E10' is permitted
      *              or passing in an array of [$fromColumnIndex, $fromRow, $toColumnIndex, $toRow] (e.g. [3, 5, 6, 8]),
      *              or an AddressRange object.
@@ -228,13 +292,13 @@ class Table
             return $this;
         }
 
-        if (strpos($range, ':') === false) {
+        if (!str_contains($range, ':')) {
             throw new PhpSpreadsheetException('Table must be set on a range of cells.');
         }
 
         [$width, $height] = Coordinate::rangeDimension($range);
-        if ($width < 1 || $height < 2) {
-            throw new PhpSpreadsheetException('The table range must be at least 1 column and 2 rows');
+        if ($width < 1 || $height < 1) {
+            throw new PhpSpreadsheetException('The table range must be at least 1 column and row');
         }
 
         $this->range = $range;
@@ -282,7 +346,7 @@ class Table
     public function setWorksheet(?Worksheet $worksheet = null): self
     {
         if ($this->name !== '' && $worksheet !== null) {
-            $spreadsheet = $worksheet->getParent();
+            $spreadsheet = $worksheet->getParentOrThrow();
             $tableName = StringHelper::strToUpper($this->name);
 
             foreach ($spreadsheet->getWorksheetIterator() as $sheet) {
@@ -339,7 +403,7 @@ class Table
      *
      * @return int The offset of the specified column within the table range
      */
-    public function getColumnOffset($column): int
+    public function getColumnOffset(string $column): int
     {
         return $this->isColumnInRange($column);
     }
@@ -513,7 +577,7 @@ class Table
      * toString method replicates previous behavior by returning the range if object is
      * referenced as a property of its worksheet.
      */
-    public function __toString()
+    public function __toString(): string
     {
         return (string) $this->range;
     }

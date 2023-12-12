@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\RichText;
 
+use PhpOffice\PhpSpreadsheet\Style\Font;
+
 class TextElement implements ITextElement
 {
     /**
@@ -47,9 +49,9 @@ class TextElement implements ITextElement
     }
 
     /**
-     * Get font.
+     * Get font. For this class, the return value is always null.
      *
-     * @return null|\PhpOffice\PhpSpreadsheet\Style\Font
+     * @return null|Font
      */
     public function getFont()
     {
@@ -64,8 +66,8 @@ class TextElement implements ITextElement
     public function getHashCode()
     {
         return md5(
-            $this->text .
-            __CLASS__
+            $this->text
+            . __CLASS__
         );
     }
 }

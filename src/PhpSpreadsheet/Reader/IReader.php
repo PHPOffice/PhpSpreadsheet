@@ -2,9 +2,16 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+
 interface IReader
 {
     public const LOAD_WITH_CHARTS = 1;
+
+    public const READ_DATA_ONLY = 2;
+
+    public const SKIP_EMPTY_CELLS = 4;
+    public const IGNORE_EMPTY_CELLS = 4;
 
     /**
      * IReader constructor.
@@ -18,7 +25,8 @@ interface IReader
 
     /**
      * Read data only?
-     *        If this is true, then the Reader will only read data values for cells, it will not read any formatting information.
+     *        If this is true, then the Reader will only read data values for cells, it will not read any formatting
+     *           or structural information (like merges).
      *        If false (the default) it will read data and formatting.
      *
      * @return bool
@@ -27,7 +35,8 @@ interface IReader
 
     /**
      * Set read data only
-     *        Set to true, to advise the Reader only to read data values for cells, and to ignore any formatting information.
+     *        Set to true, to advise the Reader only to read data values for cells, and to ignore any formatting
+     *            or structural information (like merges).
      *        Set to false (the default) to advise the Reader to read both data and formatting for cells.
      *
      * @param bool $readDataOnly
@@ -58,9 +67,9 @@ interface IReader
 
     /**
      * Read charts in workbook?
-     *        If this is true, then the Reader will include any charts that exist in the workbook.
-     *      Note that a ReadDataOnly value of false overrides, and charts won't be read regardless of the IncludeCharts value.
-     *        If false (the default) it will ignore any charts defined in the workbook file.
+     *      If this is true, then the Reader will include any charts that exist in the workbook.
+     *         Note that a ReadDataOnly value of false overrides, and charts won't be read regardless of the IncludeCharts value.
+     *      If false (the default) it will ignore any charts defined in the workbook file.
      *
      * @return bool
      */
@@ -68,9 +77,9 @@ interface IReader
 
     /**
      * Set read charts in workbook
-     *        Set to true, to advise the Reader to include any charts that exist in the workbook.
-     *      Note that a ReadDataOnly value of false overrides, and charts won't be read regardless of the IncludeCharts value.
-     *        Set to false (the default) to discard charts.
+     *     Set to true, to advise the Reader to include any charts that exist in the workbook.
+     *         Note that a ReadDataOnly value of false overrides, and charts won't be read regardless of the IncludeCharts value.
+     *     Set to false (the default) to discard charts.
      *
      * @param bool $includeCharts
      *
@@ -123,7 +132,14 @@ interface IReader
     /**
      * Loads PhpSpreadsheet from file.
      *
-     * @return \PhpOffice\PhpSpreadsheet\Spreadsheet
+     * @param string $filename The name of the file to load
+     * @param int $flags Flags that can change the behaviour of the Writer:
+     *            self::LOAD_WITH_CHARTS    Load any charts that are defined (if the Reader supports Charts)
+     *            self::READ_DATA_ONLY      Read only data, not style or structure information, from the file
+     *            self::SKIP_EMPTY_CELLS    Don't read empty cells (cells that contain a null value,
+     *                                      empty string, or a string containing only whitespace characters)
+     *
+     * @return Spreadsheet
      */
     public function load(string $filename, int $flags = 0);
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Gnumeric;
 
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
@@ -176,7 +178,7 @@ class GnumericStylesTest extends TestCase
         }
     }
 
-    public function providerBorderStyle(): array
+    public static function providerBorderStyle(): array
     {
         return [
             ['0', Border::BORDER_NONE],
@@ -196,7 +198,7 @@ class GnumericStylesTest extends TestCase
         ];
     }
 
-    public function providerFillType(): array
+    public static function providerFillType(): array
     {
         return [
             ['1', Fill::FILL_SOLID],
@@ -220,7 +222,7 @@ class GnumericStylesTest extends TestCase
         ];
     }
 
-    public function providerHorizontal(): array
+    public static function providerHorizontal(): array
     {
         return [
             ['1', Alignment::HORIZONTAL_GENERAL],
@@ -233,7 +235,7 @@ class GnumericStylesTest extends TestCase
         ];
     }
 
-    public function providerUnderline(): array
+    public static function providerUnderline(): array
     {
         return [
             ['1', Font::UNDERLINE_SINGLE],
@@ -243,7 +245,7 @@ class GnumericStylesTest extends TestCase
         ];
     }
 
-    public function providerVertical(): array
+    public static function providerVertical(): array
     {
         return [
             ['1', Alignment::VERTICAL_TOP],
@@ -253,7 +255,7 @@ class GnumericStylesTest extends TestCase
         ];
     }
 
-    public function providerDataType(): array
+    public static function providerDataType(): array
     {
         return [
             ['10', DataType::TYPE_NULL],

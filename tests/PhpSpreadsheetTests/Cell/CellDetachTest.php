@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Cell;
 
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
@@ -37,7 +39,7 @@ class CellDetachTest extends TestCase
         }
     }
 
-    public function providerMethodName(): array
+    public static function providerMethodName(): array
     {
         return [
             ['updateInCollection'],
@@ -67,7 +69,7 @@ class CellDetachTest extends TestCase
         }
     }
 
-    public function providerMethodNameSet(): array
+    public static function providerMethodNameSet(): array
     {
         return [
             ['setDataValidation'],

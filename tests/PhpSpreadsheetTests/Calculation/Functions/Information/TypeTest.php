@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Information;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
@@ -15,16 +17,14 @@ class TypeTest extends TestCase
 
     /**
      * @dataProvider providerTYPE
-     *
-     * @param mixed $value
      */
-    public function testTYPE(int $expectedResult, $value): void
+    public function testTYPE(int $expectedResult, mixed $value): void
     {
         $result = Value::type($value);
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerTYPE(): array
+    public static function providerTYPE(): array
     {
         return require 'tests/data/Calculation/Information/TYPE.php';
     }

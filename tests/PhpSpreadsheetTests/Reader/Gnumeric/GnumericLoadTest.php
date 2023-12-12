@@ -1,8 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Gnumeric;
 
 use DateTimeZone;
+use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
+use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 use PhpOffice\PhpSpreadsheet\Reader\Gnumeric;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Style\Border;
@@ -16,9 +20,7 @@ class GnumericLoadTest extends TestCase
 {
     public function testLoad(): void
     {
-        $filename = __DIR__
-            . '/../../../..'
-            . '/samples/templates/GnumericTest.gnumeric';
+        $filename = 'samples/templates/GnumericTest.gnumeric';
         $reader = new Gnumeric();
         $spreadsheet = $reader->load($filename);
         self::assertEquals(2, $spreadsheet->getSheetCount());
@@ -127,13 +129,12 @@ class GnumericLoadTest extends TestCase
         self::assertFalse($rowDimension->getVisible());
 
         self::assertSame('B24', $sheet->getSelectedCells());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testLoadFilter(): void
     {
-        $filename = __DIR__
-            . '/../../../..'
-            . '/samples/templates/GnumericTest.gnumeric';
+        $filename = 'samples/templates/GnumericTest.gnumeric';
         $reader = new Gnumeric();
         $filter = new GnumericFilter();
         $reader->setReadFilter($filter);
@@ -144,24 +145,22 @@ class GnumericLoadTest extends TestCase
         self::assertEquals('', $sheet->getCell('A4')->getValue());
         $props = $spreadsheet->getProperties();
         self::assertEquals('Mark Baker', $props->getCreator());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testLoadOld(): void
     {
-        $filename = __DIR__
-            . '/../../../..'
-            . '/samples/templates/old.gnumeric';
+        $filename = 'samples/templates/old.gnumeric';
         $reader = new Gnumeric();
         $spreadsheet = $reader->load($filename);
         $props = $spreadsheet->getProperties();
         self::assertEquals('David Gilbert', $props->getCreator());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testLoadSelectedSheets(): void
     {
-        $filename = __DIR__
-            . '/../../../..'
-            . '/samples/templates/GnumericTest.gnumeric';
+        $filename = 'samples/templates/GnumericTest.gnumeric';
         $reader = new Gnumeric();
         $reader->setLoadSheetsOnly(['Unknown Sheet', 'Report Data']);
         $spreadsheet = $reader->load($filename);
@@ -171,5 +170,34 @@ class GnumericLoadTest extends TestCase
         self::assertEquals('Third Heading', $sheet->getCell('C2')->getValue());
 
         self::assertSame('A1', $sheet->getSelectedCells());
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testLoadNoSelectedSheets(): void
+    {
+        $this->expectException(PhpSpreadsheetException::class);
+        $this->expectExceptionMessage('You tried to set a sheet active by the out of bounds index');
+        $filename = 'samples/templates/GnumericTest.gnumeric';
+        $reader = new Gnumeric();
+        $reader->setLoadSheetsOnly(['Unknown Sheet', 'xReport Data']);
+        $reader->load($filename);
+    }
+
+    public function testLoadNotGnumeric(): void
+    {
+        $this->expectException(ReaderException::class);
+        $this->expectExceptionMessage('invalid Gnumeric file');
+        $filename = 'samples/templates/excel2003.xml';
+        $reader = new Gnumeric();
+        $reader->load($filename);
+    }
+
+    public function testLoadNotXml(): void
+    {
+        $this->expectException(ReaderException::class);
+        $this->expectExceptionMessage('invalid Gnumeric file');
+        $filename = __FILE__;
+        $reader = new Gnumeric();
+        $reader->load($filename);
     }
 }

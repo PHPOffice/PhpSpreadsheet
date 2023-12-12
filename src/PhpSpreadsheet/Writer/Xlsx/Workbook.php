@@ -195,7 +195,7 @@ class Workbook extends WriterPart
      * @param int $relId Relationship ID
      * @param string $sheetState Sheet state (visible, hidden, veryHidden)
      */
-    private function writeSheet(XMLWriter $objWriter, $worksheetName, $worksheetId = 1, $relId = 1, $sheetState = 'visible'): void
+    private function writeSheet(XMLWriter $objWriter, string $worksheetName, int $worksheetId = 1, $relId = 1, $sheetState = 'visible'): void
     {
         if ($worksheetName != '') {
             // Write sheet

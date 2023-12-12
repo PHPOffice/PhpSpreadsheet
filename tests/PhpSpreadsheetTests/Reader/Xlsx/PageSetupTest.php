@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 use PHPUnit\Framework\TestCase;
 
@@ -13,23 +14,15 @@ class PageSetupTest extends TestCase
 
     private const MARGIN_UNIT_CONVERSION = 2.54; // Inches to cm
 
-    /**
-     * @var Spreadsheet
-     */
-    private $spreadsheet;
-
-    protected function setup(): void
-    {
-        $filename = 'tests/data/Reader/XLSX/PageSetup.xlsx';
-        $reader = new Xlsx();
-        $this->spreadsheet = $reader->load($filename);
-    }
+    private const FILENAME = 'tests/data/Reader/XLSX/PageSetup.xlsx';
 
     public function testPageSetup(): void
     {
+        $reader = new Xlsx();
+        $spreadsheet = $reader->load(self::FILENAME);
         $assertions = $this->pageSetupAssertions();
 
-        foreach ($this->spreadsheet->getAllSheets() as $worksheet) {
+        foreach ($spreadsheet->getAllSheets() as $worksheet) {
             if (!array_key_exists($worksheet->getTitle(), $assertions)) {
                 continue;
             }
@@ -45,13 +38,16 @@ class PageSetupTest extends TestCase
                 );
             }
         }
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testPageMargins(): void
     {
+        $reader = new Xlsx();
+        $spreadsheet = $reader->load(self::FILENAME);
         $assertions = $this->pageMarginAssertions();
 
-        foreach ($this->spreadsheet->getAllSheets() as $worksheet) {
+        foreach ($spreadsheet->getAllSheets() as $worksheet) {
             if (!array_key_exists($worksheet->getTitle(), $assertions)) {
                 continue;
             }
@@ -68,6 +64,7 @@ class PageSetupTest extends TestCase
                 );
             }
         }
+        $spreadsheet->disconnectWorksheets();
     }
 
     private function pageSetupAssertions(): array

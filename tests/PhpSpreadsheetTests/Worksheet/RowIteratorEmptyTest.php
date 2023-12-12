@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
@@ -40,12 +42,14 @@ class RowIteratorEmptyTest extends TestCase
         $iterator = new RowIterator($sheet, 1, 9);
         $iterator->seek($rowId);
         $row = $iterator->current();
+
         $isEmpty = $row->isEmpty();
         self::assertSame($expectedEmpty, $isEmpty);
+
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function emptyRowBasic(): array
+    public static function emptyRowBasic(): array
     {
         return [
             [1, false],
@@ -75,7 +79,7 @@ class RowIteratorEmptyTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function emptyRowNullAsEmpty(): array
+    public static function emptyRowNullAsEmpty(): array
     {
         return [
             [1, false],
@@ -105,7 +109,7 @@ class RowIteratorEmptyTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function emptyRowEmptyStringAsEmpty(): array
+    public static function emptyRowEmptyStringAsEmpty(): array
     {
         return [
             [1, false],
@@ -137,7 +141,7 @@ class RowIteratorEmptyTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function emptyRowNullAndEmptyStringAsEmpty(): array
+    public static function emptyRowNullAndEmptyStringAsEmpty(): array
     {
         return [
             [1, false],
@@ -150,5 +154,22 @@ class RowIteratorEmptyTest extends TestCase
             [8, false],
             [9, true],
         ];
+    }
+
+    public function testIteratorEmptyRowWithColumnLimit(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = self::getPopulatedSheet($spreadsheet);
+        $sheet->setCellValue('E3', 'NO LONGER EMPTY');
+
+        $iterator = new RowIterator($sheet, 3, 3);
+        $row = $iterator->current();
+
+        $isEmpty = $row->isEmpty(CellIterator::TREAT_NULL_VALUE_AS_EMPTY_CELL);
+        self::assertFalse($isEmpty);
+        $isEmpty = $row->isEmpty(CellIterator::TREAT_NULL_VALUE_AS_EMPTY_CELL, 'A', 'D');
+        self::assertTrue($isEmpty);
+
+        $spreadsheet->disconnectWorksheets();
     }
 }

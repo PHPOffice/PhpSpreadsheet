@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,12 +10,8 @@ class ModTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerMOD
-     *
-     * @param mixed $expectedResult
-     * @param mixed $dividend
-     * @param mixed $divisor
      */
-    public function testMOD($expectedResult, $dividend = 'omitted', $divisor = 'omitted'): void
+    public function testMOD(mixed $expectedResult, mixed $dividend = 'omitted', mixed $divisor = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -34,7 +32,7 @@ class ModTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerMOD(): array
+    public static function providerMOD(): array
     {
         return require 'tests/data/Calculation/MathTrig/MOD.php';
     }
@@ -51,7 +49,7 @@ class ModTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerModArray(): array
+    public static function providerModArray(): array
     {
         return [
             'matrix' => [[[4, 3, 2], [1, 0, 4], [3, 2, 1]], '{9, 8, 7; 6, 5, 4; 3, 2, 1}', '5'],

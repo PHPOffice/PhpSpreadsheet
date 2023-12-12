@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,15 +10,13 @@ class ChiInvRightTailTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerCHIINV
-     *
-     * @param mixed $expectedResult
      */
-    public function testCHIINV($expectedResult, ...$args): void
+    public function testCHIINV(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('CHISQ.INV.RT', $expectedResult, ...$args);
     }
 
-    public function providerCHIINV(): array
+    public static function providerCHIINV(): array
     {
         return require 'tests/data/Calculation/Statistical/CHIINVRightTail.php';
     }
@@ -47,7 +47,7 @@ class ChiInvRightTailTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerChiInvRightTailArray(): array
+    public static function providerChiInvRightTailArray(): array
     {
         return [
             'row/column vectors' => [

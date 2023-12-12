@@ -96,16 +96,18 @@ $spreadsheet->getActiveSheet()->getStyle('A1:F1')->getAlignment()->setWrapText(t
 $spreadsheet->getActiveSheet()->getColumnDimension('C')->setWidth(12.5);
 $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(10.5);
 $spreadsheet->getActiveSheet()->getStyle('D2:D' . $row)->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_DATE_YYYYMMDD);
-$spreadsheet->getActiveSheet()->getStyle('E2:F' . $row)->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);
+$spreadsheet->getActiveSheet()->getStyle('E2:F' . $row)->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_CURRENCY_USD_INTEGER);
 $spreadsheet->getActiveSheet()->getColumnDimension('F')->setWidth(14);
 $spreadsheet->getActiveSheet()->freezePane('A2');
 
+$helper->displayGrid($spreadsheet->getActiveSheet()->toArray(null, false, true, true));
+
 // Set autofilter range
-$helper->log('Set autofilter range');
-// Always include the complete filter range!
-// Excel does support setting only the caption
-// row, but that's not a best practise...
-$spreadsheet->getActiveSheet()->setAutoFilter($spreadsheet->getActiveSheet()->calculateWorksheetDimension());
+$filterRange = $spreadsheet->getActiveSheet()->calculateWorksheetDimension();
+$helper->log("Set autofilter for cells {$filterRange}");
+// Always include the complete filter range if you can!
+// Excel does support setting only the caption row, but that's not a best practise...
+$spreadsheet->getActiveSheet()->setAutoFilter($filterRange);
 
 // Set active filters
 $autoFilter = $spreadsheet->getActiveSheet()->getAutoFilter();
@@ -115,18 +117,18 @@ $helper->log('Set active filters');
 $autoFilter->getColumn('C')
     ->setFilterType(Column::AUTOFILTER_FILTERTYPE_CUSTOMFILTER)
     ->createRule()
-    ->setRule(
-        Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
-        'u*'
-    )
+    ->setRule(Rule::AUTOFILTER_COLUMN_RULE_EQUAL, 'u*')
     ->setRuleType(Rule::AUTOFILTER_RULETYPE_CUSTOMFILTER);
+
+$helper->log('Set country code filter (Column C) to countries beginning with "U" ("United States" and "UK")');
+
 $autoFilter->getColumn('C')
     ->createRule()
-    ->setRule(
-        Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
-        'japan'
-    )
+    ->setRule(Rule::AUTOFILTER_COLUMN_RULE_EQUAL, 'japan')
     ->setRuleType(Rule::AUTOFILTER_RULETYPE_CUSTOMFILTER);
+
+$helper->log('Add "Japan" to the country code filter (Column C)');
+
 // Filter the Date column on a filter value of the last day of every period of the current year
 // We us a dateGroup ruletype for this, although it is still a standard filter
 foreach ($periods as $period) {
@@ -147,18 +149,20 @@ foreach ($periods as $period) {
         )
         ->setRuleType(Rule::AUTOFILTER_RULETYPE_DATEGROUP);
 }
+
+$helper->log('Add filter on the Date (Column D) to display only rows for the last day of each month');
+
 // Display only sales values that are blank
 //     Standard filter, operator equals, and value of NULL
 $autoFilter->getColumn('E')
     ->setFilterType(Column::AUTOFILTER_FILTERTYPE_FILTER)
     ->createRule()
-    ->setRule(
-        Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
-        ''
-    );
+    ->setRule(Rule::AUTOFILTER_COLUMN_RULE_EQUAL, '');
+
+$helper->log('Add filter on Sales Values (Column E) to display only blank values');
 
 // Execute filtering
-$helper->log('Execute filtering');
+$helper->log('Execute filtering (apply the filter rules)');
 $autoFilter->showHideRows();
 
 // Set active sheet index to the first sheet, so Excel opens this as the first sheet
@@ -166,10 +170,5 @@ $spreadsheet->setActiveSheetIndex(0);
 
 // Display Results of filtering
 $helper->log('Display filtered rows');
-foreach ($spreadsheet->getActiveSheet()->getRowIterator() as $row) {
-    if ($spreadsheet->getActiveSheet()->getRowDimension($row->getRowIndex())->getVisible()) {
-        $helper->log('    Row number - ' . $row->getRowIndex());
-        $helper->log($spreadsheet->getActiveSheet()->getCell('C' . $row->getRowIndex())->getValue());
-        $helper->log($spreadsheet->getActiveSheet()->getCell('D' . $row->getRowIndex())->getFormattedValue());
-    }
-}
+
+$helper->displayGrid($spreadsheet->getActiveSheet()->toArray(null, false, true, true, true));

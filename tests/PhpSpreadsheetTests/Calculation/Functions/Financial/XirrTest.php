@@ -1,18 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 class XirrTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerXIRR
-     *
-     * @param mixed $expectedResult
-     * @param mixed $values
-     * @param mixed $dates
-     * @param mixed $guess
      */
-    public function testXIRR($expectedResult, $values = null, $dates = null, $guess = null): void
+    public function testXIRR(mixed $expectedResult, mixed $values = null, mixed $dates = null, mixed $guess = null): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -57,7 +54,7 @@ class XirrTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 0.1E-7);
     }
 
-    public function providerXIRR(): array
+    public static function providerXIRR(): array
     {
         return require 'tests/data/Calculation/Financial/XIRR.php';
     }

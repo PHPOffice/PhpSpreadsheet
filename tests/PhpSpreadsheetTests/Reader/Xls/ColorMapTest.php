@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xls;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xls\Color\BIFF5;
@@ -19,7 +21,7 @@ class ColorMapTest extends TestCase
         self::assertSame($expectedBuiltin, BuiltIn::lookup($index)['rgb']);
     }
 
-    public function colorMapProvider(): array
+    public static function colorMapProvider(): array
     {
         return [
             'default builtin' => [0x00, '000000', '000000', '000000'],

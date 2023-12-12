@@ -23,7 +23,7 @@ class Validations
 //                throw new Exception('Reference is not for this worksheet');
 //            }
 
-            return empty($worksheet) ? strtoupper($address) : $worksheet . '!' . strtoupper($address);
+            return empty($worksheet) ? strtoupper("$address") : $worksheet . '!' . strtoupper("$address");
         }
 
         if (is_array($cellAddress)) {
@@ -36,7 +36,7 @@ class Validations
     /**
      * Validate a cell address or cell range.
      *
-     * @param AddressRange|array<int>|CellAddress|int|string $cellRange Coordinate of the cells as a string, eg: 'C5:F12';
+     * @param AddressRange|array{0: int, 1: int, 2: int, 3: int}|array{0: int, 1: int}|CellAddress|int|string $cellRange Coordinate of the cells as a string, eg: 'C5:F12';
      *               or as an array of [$fromColumnIndex, $fromRow, $toColumnIndex, $toRow] (e.g. [3, 5, 6, 12]),
      *               or as a CellAddress or AddressRange object.
      */
@@ -53,14 +53,17 @@ class Validations
         return self::validateCellRange($cellRange);
     }
 
+    private const SETMAXROW = '${1}1:${2}' . AddressRange::MAX_ROW;
+    private const SETMAXCOL = 'A${1}:' . AddressRange::MAX_COLUMN . '${2}';
+
     /**
      * Validate a cell range.
      *
-     * @param AddressRange|array<int>|string $cellRange Coordinate of the cells as a string, eg: 'C5:F12';
+     * @param AddressRange|array{0: int, 1: int, 2: int, 3: int}|array{0: int, 1: int}|string $cellRange Coordinate of the cells as a string, eg: 'C5:F12';
      *               or as an array of [$fromColumnIndex, $fromRow, $toColumnIndex, $toRow] (e.g. [3, 5, 6, 12]),
      *               or as an AddressRange object.
      */
-    public static function validateCellRange($cellRange): string
+    public static function validateCellRange(AddressRange|array|string $cellRange): string
     {
         if (is_string($cellRange)) {
             [$worksheet, $addressRange] = Worksheet::extractSheetTitle($cellRange, true);
@@ -69,8 +72,8 @@ class Validations
             //      or Row ranges like '1:3' to 'A1:XFD3'
             $addressRange = (string) preg_replace(
                 ['/^([A-Z]+):([A-Z]+)$/i', '/^(\\d+):(\\d+)$/'],
-                ['${1}1:${2}1048576', 'A${1}:XFD${2}'],
-                $addressRange
+                [self::SETMAXROW, self::SETMAXCOL],
+                $addressRange ?? ''
             );
 
             return empty($worksheet) ? strtoupper($addressRange) : $worksheet . '!' . strtoupper($addressRange);
@@ -78,14 +81,14 @@ class Validations
 
         if (is_array($cellRange)) {
             switch (count($cellRange)) {
-                case 2:
-                    $from = [$cellRange[0], $cellRange[1]];
-                    $to = [$cellRange[0], $cellRange[1]];
-
-                    break;
                 case 4:
                     $from = [$cellRange[0], $cellRange[1]];
                     $to = [$cellRange[2], $cellRange[3]];
+
+                    break;
+                case 2:
+                    $from = [$cellRange[0], $cellRange[1]];
+                    $to = [$cellRange[0], $cellRange[1]];
 
                     break;
                 default:
@@ -103,7 +106,7 @@ class Validations
         $coordinate = strtoupper($coordinate);
         // Eliminate leading equal sign
         $testCoordinate = (string) preg_replace('/^=/', '', $coordinate);
-        $defined = $worksheet->getParent()->getDefinedName($testCoordinate, $worksheet);
+        $defined = $worksheet->getParentOrThrow()->getDefinedName($testCoordinate, $worksheet);
         if ($defined !== null) {
             if ($defined->getWorksheet() === $worksheet && !$defined->isFormula()) {
                 $coordinate = (string) preg_replace('/^=/', '', $defined->getValue());

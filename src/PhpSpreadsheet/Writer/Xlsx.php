@@ -31,7 +31,6 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Workbook;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Worksheet;
 use ZipArchive;
 use ZipStream\Exception\OverflowException;
-use ZipStream\Option\Archive;
 use ZipStream\ZipStream;
 
 class Xlsx extends BaseWriter
@@ -62,49 +61,49 @@ class Xlsx extends BaseWriter
      *
      * @var HashTable<Conditional>
      */
-    private $stylesConditionalHashTable;
+    private HashTable $stylesConditionalHashTable;
 
     /**
      * Private unique Style HashTable.
      *
      * @var HashTable<\PhpOffice\PhpSpreadsheet\Style\Style>
      */
-    private $styleHashTable;
+    private HashTable $styleHashTable;
 
     /**
      * Private unique Fill HashTable.
      *
      * @var HashTable<Fill>
      */
-    private $fillHashTable;
+    private HashTable $fillHashTable;
 
     /**
      * Private unique \PhpOffice\PhpSpreadsheet\Style\Font HashTable.
      *
      * @var HashTable<Font>
      */
-    private $fontHashTable;
+    private HashTable $fontHashTable;
 
     /**
      * Private unique Borders HashTable.
      *
      * @var HashTable<Borders>
      */
-    private $bordersHashTable;
+    private HashTable $bordersHashTable;
 
     /**
      * Private unique NumberFormat HashTable.
      *
      * @var HashTable<NumberFormat>
      */
-    private $numFmtHashTable;
+    private HashTable $numFmtHashTable;
 
     /**
      * Private unique \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet\BaseDrawing HashTable.
      *
      * @var HashTable<BaseDrawing>
      */
-    private $drawingHashTable;
+    private HashTable $drawingHashTable;
 
     /**
      * Private handle for zip stream.
@@ -113,75 +112,33 @@ class Xlsx extends BaseWriter
      */
     private $zip;
 
-    /**
-     * @var Chart
-     */
-    private $writerPartChart;
+    private Chart $writerPartChart;
 
-    /**
-     * @var Comments
-     */
-    private $writerPartComments;
+    private Comments $writerPartComments;
 
-    /**
-     * @var ContentTypes
-     */
-    private $writerPartContentTypes;
+    private ContentTypes $writerPartContentTypes;
 
-    /**
-     * @var DocProps
-     */
-    private $writerPartDocProps;
+    private DocProps $writerPartDocProps;
 
-    /**
-     * @var Drawing
-     */
-    private $writerPartDrawing;
+    private Drawing $writerPartDrawing;
 
-    /**
-     * @var Rels
-     */
-    private $writerPartRels;
+    private Rels $writerPartRels;
 
-    /**
-     * @var RelsRibbon
-     */
-    private $writerPartRelsRibbon;
+    private RelsRibbon $writerPartRelsRibbon;
 
-    /**
-     * @var RelsVBA
-     */
-    private $writerPartRelsVBA;
+    private RelsVBA $writerPartRelsVBA;
 
-    /**
-     * @var StringTable
-     */
-    private $writerPartStringTable;
+    private StringTable $writerPartStringTable;
 
-    /**
-     * @var Style
-     */
-    private $writerPartStyle;
+    private Style $writerPartStyle;
 
-    /**
-     * @var Theme
-     */
-    private $writerPartTheme;
+    private Theme $writerPartTheme;
 
-    /**
-     * @var Table
-     */
-    private $writerPartTable;
+    private Table $writerPartTable;
 
-    /**
-     * @var Workbook
-     */
-    private $writerPartWorkbook;
+    private Workbook $writerPartWorkbook;
 
-    /**
-     * @var Worksheet
-     */
-    private $writerPartWorksheet;
+    private Worksheet $writerPartWorksheet;
 
     /**
      * Create a new Xlsx Writer.
@@ -377,7 +334,7 @@ class Xlsx extends BaseWriter
         }
 
         // Add theme to ZIP file
-        $zipContent['xl/theme/theme1.xml'] = $this->getWriterPartTheme()->writeTheme();
+        $zipContent['xl/theme/theme1.xml'] = $this->getWriterPartTheme()->writeTheme($this->spreadSheet);
 
         // Add string table to ZIP file
         $zipContent['xl/sharedStrings.xml'] = $this->getWriterPartStringTable()->writeStringTable($this->stringTable);
@@ -408,7 +365,7 @@ class Xlsx extends BaseWriter
         // Add worksheet relationships (drawings, ...)
         for ($i = 0; $i < $this->spreadSheet->getSheetCount(); ++$i) {
             // Add relationships
-            $zipContent['xl/worksheets/_rels/sheet' . ($i + 1) . '.xml.rels'] = $this->getWriterPartRels()->writeWorksheetRelationships($this->spreadSheet->getSheet($i), ($i + 1), $this->includeCharts, $tableRef1);
+            $zipContent['xl/worksheets/_rels/sheet' . ($i + 1) . '.xml.rels'] = $this->getWriterPartRels()->writeWorksheetRelationships($this->spreadSheet->getSheet($i), ($i + 1), $this->includeCharts, $tableRef1, $zipContent);
 
             // Add unparsedLoadedData
             $sheetCodeName = $this->spreadSheet->getSheet($i)->getCodeName();
@@ -453,16 +410,22 @@ class Xlsx extends BaseWriter
                     }
                 }
             }
+            if (isset($unparsedLoadedData['sheets'][$sheetCodeName]['drawingOriginalIds']) && !isset($zipContent['xl/drawings/drawing' . ($i + 1) . '.xml'])) {
+                $zipContent['xl/drawings/drawing' . ($i + 1) . '.xml'] = '<xml></xml>';
+            }
 
             // Add comment relationship parts
-            if (count($this->spreadSheet->getSheet($i)->getComments()) > 0) {
+            $legacy = $unparsedLoadedData['sheets'][$this->spreadSheet->getSheet($i)->getCodeName()]['legacyDrawing'] ?? null;
+            if (count($this->spreadSheet->getSheet($i)->getComments()) > 0 || $legacy !== null) {
                 // VML Comments relationships
                 $zipContent['xl/drawings/_rels/vmlDrawing' . ($i + 1) . '.vml.rels'] = $this->getWriterPartRels()->writeVMLDrawingRelationships($this->spreadSheet->getSheet($i));
 
                 // VML Comments
-                $zipContent['xl/drawings/vmlDrawing' . ($i + 1) . '.vml'] = $this->getWriterPartComments()->writeVMLComments($this->spreadSheet->getSheet($i));
+                $zipContent['xl/drawings/vmlDrawing' . ($i + 1) . '.vml'] = $legacy ?? $this->getWriterPartComments()->writeVMLComments($this->spreadSheet->getSheet($i));
+            }
 
-                // Comments
+            // Comments
+            if (count($this->spreadSheet->getSheet($i)->getComments()) > 0) {
                 $zipContent['xl/comments' . ($i + 1) . '.xml'] = $this->getWriterPartComments()->writeComments($this->spreadSheet->getSheet($i));
 
                 // Media
@@ -477,7 +440,9 @@ class Xlsx extends BaseWriter
             // Add unparsed relationship parts
             if (isset($unparsedLoadedData['sheets'][$sheetCodeName]['vmlDrawings'])) {
                 foreach ($unparsedLoadedData['sheets'][$sheetCodeName]['vmlDrawings'] as $vmlDrawing) {
-                    $zipContent[$vmlDrawing['filePath']] = $vmlDrawing['content'];
+                    if (!isset($zipContent[$vmlDrawing['filePath']])) {
+                        $zipContent[$vmlDrawing['filePath']] = $vmlDrawing['content'];
+                    }
                 }
             }
 
@@ -507,7 +472,7 @@ class Xlsx extends BaseWriter
             if ($this->getDrawingHashTable()->getByIndex($i) instanceof WorksheetDrawing) {
                 $imageContents = null;
                 $imagePath = $this->getDrawingHashTable()->getByIndex($i)->getPath();
-                if (strpos($imagePath, 'zip://') !== false) {
+                if (str_contains($imagePath, 'zip://')) {
                     $imagePath = substr($imagePath, 6);
                     $imagePathSplitted = explode('#', $imagePath);
 
@@ -541,18 +506,14 @@ class Xlsx extends BaseWriter
 
         $this->openFileHandle($filename);
 
-        $options = new Archive();
-        $options->setEnableZip64(false);
-        $options->setOutputStream($this->fileHandle);
-
-        $this->zip = new ZipStream(null, $options);
+        $this->zip = ZipStream0::newZipStream($this->fileHandle);
 
         $this->addZipFiles($zipContent);
 
         // Close file
         try {
             $this->zip->finish();
-        } catch (OverflowException $e) {
+        } catch (OverflowException) {
             throw new WriterException('Could not close resource.');
         }
 
@@ -576,7 +537,7 @@ class Xlsx extends BaseWriter
      *
      * @return $this
      */
-    public function setSpreadsheet(Spreadsheet $spreadsheet)
+    public function setSpreadsheet(Spreadsheet $spreadsheet): static
     {
         $this->spreadSheet = $spreadsheet;
 
@@ -680,7 +641,7 @@ class Xlsx extends BaseWriter
      *
      * @return $this
      */
-    public function setOffice2003Compatibility($office2003compatibility)
+    public function setOffice2003Compatibility($office2003compatibility): static
     {
         $this->office2003compatibility = $office2003compatibility;
 
@@ -705,10 +666,7 @@ class Xlsx extends BaseWriter
         }
     }
 
-    /**
-     * @return mixed
-     */
-    private function processDrawing(WorksheetDrawing $drawing)
+    private function processDrawing(WorksheetDrawing $drawing): string|null|false
     {
         $data = null;
         $filename = $drawing->getPath();

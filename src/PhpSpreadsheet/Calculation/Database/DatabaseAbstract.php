@@ -10,7 +10,7 @@ abstract class DatabaseAbstract
 {
     /**
      * @param array $database
-     * @param int|string $field
+     * @param null|int|string $field
      * @param array $criteria
      *
      * @return null|float|int|string
@@ -32,9 +32,9 @@ abstract class DatabaseAbstract
      *                                        represents the position of the column within the list: 1 for
      *                                        the first column, 2 for the second column, and so on.
      */
-    protected static function fieldExtract(array $database, $field): ?int
+    protected static function fieldExtract(array $database, mixed $field): ?int
     {
-        $field = strtoupper(Functions::flattenSingleValue($field ?? ''));
+        $field = strtoupper(Functions::flattenSingleValue($field) ?? '');
         if ($field === '') {
             return null;
         }
@@ -115,19 +115,14 @@ abstract class DatabaseAbstract
         }
 
         $rowQuery = array_map(
-            function ($rowValue) {
-                return (count($rowValue) > 1) ? 'AND(' . implode(',', $rowValue) . ')' : ($rowValue[0] ?? '');
-            },
+            fn ($rowValue): string => (count($rowValue) > 1) ? 'AND(' . implode(',', $rowValue) . ')' : ($rowValue[0] ?? ''),
             $baseQuery
         );
 
         return (count($rowQuery) > 1) ? 'OR(' . implode(',', $rowQuery) . ')' : ($rowQuery[0] ?? '');
     }
 
-    /**
-     * @param mixed $criterion
-     */
-    private static function buildCondition($criterion, string $criterionName): string
+    private static function buildCondition(mixed $criterion, string $criterionName): string
     {
         $ifCondition = Functions::ifCondition($criterion);
 
@@ -181,7 +176,7 @@ abstract class DatabaseAbstract
         } elseif ($dataValues[$key] !== null) {
             $dataValue = $dataValues[$key];
             // escape quotes if we have a string containing quotes
-            if (is_string($dataValue) && strpos($dataValue, '"') !== false) {
+            if (is_string($dataValue) && str_contains($dataValue, '"')) {
                 $dataValue = str_replace('"', '""', $dataValue);
             }
             $dataValue = (is_string($dataValue)) ? Calculation::wrapResult(strtoupper($dataValue)) : $dataValue;

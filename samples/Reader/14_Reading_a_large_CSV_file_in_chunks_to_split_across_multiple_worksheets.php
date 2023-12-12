@@ -13,17 +13,14 @@ $inputFileName = __DIR__ . '/sampleData/example2.csv';
 /**  Define a Read Filter class implementing IReadFilter  */
 class ChunkReadFilter implements IReadFilter
 {
-    private $startRow = 0;
+    private int $startRow = 0;
 
-    private $endRow = 0;
+    private int $endRow = 0;
 
     /**
      * Set the list of rows that we want to read.
-     *
-     * @param mixed $startRow
-     * @param mixed $chunkSize
      */
-    public function setRows($startRow, $chunkSize): void
+    public function setRows(int $startRow, int $chunkSize): void
     {
         $this->startRow = $startRow;
         $this->endRow = $startRow + $chunkSize;
@@ -40,7 +37,7 @@ class ChunkReadFilter implements IReadFilter
     }
 }
 
-$helper->log('Loading file ' . /** @scrutinizer ignore-type */ pathinfo($inputFileName, PATHINFO_BASENAME) . ' using Csv reader');
+$helper->log('Loading file ' . pathinfo($inputFileName, PATHINFO_BASENAME) . ' using Csv reader');
 // Create a new Reader of the type defined in $inputFileType
 $reader = new Csv();
 
@@ -51,8 +48,8 @@ $chunkFilter = new ChunkReadFilter();
 
 // Tell the Reader that we want to use the Read Filter that we've Instantiated
 // and that we want to store it in contiguous rows/columns
-$reader->setReadFilter($chunkFilter)
-    ->setContiguous(true);
+$reader->setReadFilter($chunkFilter);
+$reader->setContiguous(true);
 
 // Instantiate a new PhpSpreadsheet object manually
 $spreadsheet = new Spreadsheet();
@@ -80,6 +77,8 @@ $loadedSheetNames = $spreadsheet->getSheetNames();
 foreach ($loadedSheetNames as $sheetIndex => $loadedSheetName) {
     $helper->log('<b>Worksheet #' . $sheetIndex . ' -> ' . $loadedSheetName . '</b>');
     $spreadsheet->setActiveSheetIndexByName($loadedSheetName);
-    $sheetData = $spreadsheet->getActiveSheet()->toArray(null, false, false, true);
-    var_dump($sheetData);
+
+    $activeRange = $spreadsheet->getActiveSheet()->calculateWorksheetDataDimension();
+    $sheetData = $spreadsheet->getActiveSheet()->rangeToArray($activeRange, null, true, true, true);
+    $helper->displayGrid($sheetData);
 }

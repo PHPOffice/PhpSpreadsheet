@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\MathTrig;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,12 +10,8 @@ class CombinATest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerCOMBINA
-     *
-     * @param mixed $expectedResult
-     * @param mixed $numObjs
-     * @param mixed $numInSet
      */
-    public function testCOMBINA($expectedResult, $numObjs, $numInSet): void
+    public function testCOMBINA(mixed $expectedResult, mixed $numObjs, mixed $numInSet): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -28,7 +26,7 @@ class CombinATest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerCOMBINA(): array
+    public static function providerCOMBINA(): array
     {
         return require 'tests/data/Calculation/MathTrig/COMBINA.php';
     }
@@ -45,7 +43,7 @@ class CombinATest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerCombinAArray(): array
+    public static function providerCombinAArray(): array
     {
         return [
             'first argument row vector' => [

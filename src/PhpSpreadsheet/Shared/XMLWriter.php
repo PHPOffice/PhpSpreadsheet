@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Shared;
 
+use PhpOffice\PhpSpreadsheet\Exception as SpreadsheetException;
+
 class XMLWriter extends \XMLWriter
 {
     /** @var bool */
@@ -13,10 +15,8 @@ class XMLWriter extends \XMLWriter
 
     /**
      * Temporary filename.
-     *
-     * @var string
      */
-    private $tempFileName = '';
+    private string $tempFileName = '';
 
     /**
      * Create a new XMLWriter instance.
@@ -57,9 +57,15 @@ class XMLWriter extends \XMLWriter
         // Unlink temporary files
         // There is nothing reasonable to do if unlink fails.
         if ($this->tempFileName != '') {
-            /** @scrutinizer ignore-unhandled */
             @unlink($this->tempFileName);
         }
+    }
+
+    public function __wakeup(): void
+    {
+        $this->tempFileName = '';
+
+        throw new SpreadsheetException('Unserialize not permitted');
     }
 
     /**
@@ -81,10 +87,8 @@ class XMLWriter extends \XMLWriter
      * Wrapper method for writeRaw.
      *
      * @param null|string|string[] $rawTextData
-     *
-     * @return bool
      */
-    public function writeRawData($rawTextData)
+    public function writeRawData($rawTextData): bool
     {
         if (is_array($rawTextData)) {
             $rawTextData = implode("\n", $rawTextData);

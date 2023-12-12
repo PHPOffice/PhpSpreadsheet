@@ -1,8 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Cell;
 
+use PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder;
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use PhpOffice\PhpSpreadsheet\Cell\DefaultValueBinder;
+use PhpOffice\PhpSpreadsheet\Cell\StringValueBinder;
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Color;
@@ -13,13 +19,63 @@ use PHPUnit\Framework\TestCase;
 
 class CellTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+        Cell::setValueBinder(new DefaultValueBinder());
+    }
+
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+        Cell::setValueBinder(new DefaultValueBinder());
+    }
+
+    public function testSetValueBinderOverride(): void
+    {
+        $value = '12.5%';
+        $spreadsheet = new Spreadsheet();
+
+        $cell = $spreadsheet->getActiveSheet()->getCell('A1');
+        $cell->setValue($value); // Using the Default Value Binder
+
+        self::assertSame('12.5%', $cell->getValue());
+        self::assertSame('General', $cell->getStyle()->getNumberFormat()->getFormatCode());
+
+        $cell = $spreadsheet->getActiveSheet()->getCell('A2');
+        $cell->setValue($value, new AdvancedValueBinder()); // Overriding the Default Value Binder
+
+        self::assertSame(0.125, $cell->getValue());
+        self::assertSame('0.00%', $cell->getStyle()->getNumberFormat()->getFormatCode());
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testSetValueBinderOverride2(): void
+    {
+        $value = '12.5%';
+        $spreadsheet = new Spreadsheet();
+        Cell::setValueBinder(new AdvancedValueBinder());
+
+        $cell = $spreadsheet->getActiveSheet()->getCell('A1');
+        $cell->setValue($value); // Using the Advanced Value Binder
+
+        self::assertSame(0.125, $cell->getValue());
+        self::assertSame('0.00%', $cell->getStyle()->getNumberFormat()->getFormatCode());
+
+        $cell = $spreadsheet->getActiveSheet()->getCell('A2');
+        $cell->setValue($value, new StringValueBinder()); // Overriding the Advanced Value Binder
+
+        self::assertSame('12.5%', $cell->getValue());
+        self::assertSame('General', $cell->getStyle()->getNumberFormat()->getFormatCode());
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
     /**
      * @dataProvider providerSetValueExplicit
-     *
-     * @param mixed $expected
-     * @param mixed $value
      */
-    public function testSetValueExplicit($expected, $value, string $dataType): void
+    public function testSetValueExplicit(mixed $expected, mixed $value, string $dataType): void
     {
         $spreadsheet = new Spreadsheet();
         $cell = $spreadsheet->getActiveSheet()->getCell('A1');
@@ -29,7 +85,7 @@ class CellTest extends TestCase
         $spreadsheet->disconnectWorksheets();
     }
 
-    public function providerSetValueExplicit(): array
+    public static function providerSetValueExplicit(): array
     {
         return require 'tests/data/Cell/SetValueExplicit.php';
     }
@@ -49,10 +105,8 @@ class CellTest extends TestCase
 
     /**
      * @dataProvider providerSetValueExplicitException
-     *
-     * @param mixed $value
      */
-    public function testSetValueExplicitException($value, string $dataType): void
+    public function testSetValueExplicitException(mixed $value, string $dataType): void
     {
         $this->expectException(Exception::class);
 
@@ -61,7 +115,7 @@ class CellTest extends TestCase
         $cell->setValueExplicit($value, $dataType);
     }
 
-    public function providerSetValueExplicitException(): array
+    public static function providerSetValueExplicitException(): array
     {
         return require 'tests/data/Cell/SetValueExplicitException.php';
     }
@@ -244,7 +298,7 @@ class CellTest extends TestCase
         }
     }
 
-    public function appliedStyling(): array
+    public static function appliedStyling(): array
     {
         return [
             'A1 - Conditional with Match' => ['A1', Fill::FILL_SOLID, Color::COLOR_RED],

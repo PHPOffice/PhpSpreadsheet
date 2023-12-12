@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\TextData;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,11 +10,8 @@ class LenTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerLEN
-     *
-     * @param mixed $expectedResult
-     * @param mixed $str
      */
-    public function testLEN($expectedResult, $str = 'omitted'): void
+    public function testLEN(mixed $expectedResult, mixed $str = 'omitted'): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -26,7 +25,7 @@ class LenTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerLEN(): array
+    public static function providerLEN(): array
     {
         return require 'tests/data/Calculation/TextData/LEN.php';
     }
@@ -43,7 +42,7 @@ class LenTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerLenArray(): array
+    public static function providerLenArray(): array
     {
         return [
             'row vector' => [[[3, 11, 14]], '{"PHP", "Hello World", "PhpSpreadsheet"}'],

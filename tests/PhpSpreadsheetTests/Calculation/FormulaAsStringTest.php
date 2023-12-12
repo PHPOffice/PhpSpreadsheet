@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -9,11 +11,8 @@ class FormulaAsStringTest extends TestCase
 {
     /**
      * @dataProvider providerFunctionsAsString
-     *
-     * @param mixed $expectedResult
-     * @param string $formula
      */
-    public function testFunctionsAsString($expectedResult, $formula): void
+    public function testFunctionsAsString(mixed $expectedResult, string $formula): void
     {
         $spreadsheet = new Spreadsheet();
         $workSheet = $spreadsheet->getActiveSheet();
@@ -39,7 +38,7 @@ class FormulaAsStringTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerFunctionsAsString(): array
+    public static function providerFunctionsAsString(): array
     {
         return require 'tests/data/Calculation/FunctionsAsString.php';
     }

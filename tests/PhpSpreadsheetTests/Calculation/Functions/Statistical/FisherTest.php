@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Statistical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
@@ -8,15 +10,13 @@ class FisherTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerFISHER
-     *
-     * @param mixed $expectedResult
      */
-    public function testFISHER($expectedResult, ...$args): void
+    public function testFISHER(mixed $expectedResult, mixed ...$args): void
     {
         $this->runTestCases('FISHER', $expectedResult, ...$args);
     }
 
-    public function providerFISHER(): array
+    public static function providerFISHER(): array
     {
         return require 'tests/data/Calculation/Statistical/FISHER.php';
     }
@@ -33,7 +33,7 @@ class FisherTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
     }
 
-    public function providerFisherArray(): array
+    public static function providerFisherArray(): array
     {
         return [
             'row vector' => [
