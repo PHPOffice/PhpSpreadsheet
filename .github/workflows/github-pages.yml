@@ -4,8 +4,12 @@ on:
     tags:
       - '*'
 
+permissions: {}
 jobs:
   github-pages:
+    permissions:
+      contents: write # to push pages branch (peaceiris/actions-gh-pages)
+
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
