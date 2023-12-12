@@ -5,7 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
-class NumberFormatter
+class NumberFormatter extends BaseFormatter
 {
     private const NUMBER_REGEX = '/(0+)(\\.?)(0*)/';
 
@@ -176,11 +176,11 @@ class NumberFormatter
             return $result;
         }
 
-        $sprintf_pattern = "%0$minWidth." . strlen($right) . 'f';
+        $sprintf_pattern = "%0$minWidth." . strlen($right) . 'F';
 
         /** @var float */
         $valueFloat = $value;
-        $value = sprintf($sprintf_pattern, round($valueFloat, strlen($right)));
+        $value = self::adjustSeparators(sprintf($sprintf_pattern, round($valueFloat, strlen($right))));
 
         return self::pregReplace(self::NUMBER_REGEX, $value, $format);
     }
