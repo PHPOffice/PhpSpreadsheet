@@ -878,4 +878,14 @@ class Font extends Supervisor
     {
         return $this->cap;
     }
+
+    /**
+     * Implement PHP __clone to create a deep clone, not just a shallow copy.
+     */
+    public function __clone()
+    {
+        $this->color = clone $this->color;
+        $this->chartColor = ($this->chartColor === null) ? null : clone $this->chartColor;
+        $this->underlineColor = ($this->underlineColor === null) ? null : clone $this->underlineColor;
+    }
 }

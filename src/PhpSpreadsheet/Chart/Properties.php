@@ -957,4 +957,14 @@ abstract class Properties
     {
         return $this->getLineStyleProperty(['arrow', $arrow, 'len']);
     }
+
+    /**
+     * Implement PHP __clone to create a deep clone, not just a shallow copy.
+     */
+    public function __clone()
+    {
+        $this->lineColor = clone $this->lineColor;
+        $this->glowColor = clone $this->glowColor;
+        $this->shadowColor = clone $this->shadowColor;
+    }
 }

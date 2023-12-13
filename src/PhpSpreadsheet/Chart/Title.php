@@ -163,4 +163,22 @@ class Title
 
         return $this;
     }
+
+    /**
+     * Implement PHP __clone to create a deep clone, not just a shallow copy.
+     */
+    public function __clone()
+    {
+        $this->layout = ($this->layout === null) ? null : clone $this->layout;
+        $this->font = ($this->font === null) ? null : clone $this->font;
+        if (is_array($this->caption)) {
+            $captions = $this->caption;
+            $this->caption = [];
+            foreach ($captions as $caption) {
+                $this->caption[] = is_object($caption) ? (clone $caption) : $caption;
+            }
+        } else {
+            $this->caption = is_object($this->caption) ? (clone $this->caption) : $this->caption;
+        }
+    }
 }

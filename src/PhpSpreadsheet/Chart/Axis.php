@@ -316,4 +316,16 @@ class Axis extends Properties
     {
         return $this->noFill;
     }
+
+    /**
+     * Implement PHP __clone to create a deep clone, not just a shallow copy.
+     */
+    public function __clone()
+    {
+        parent::__clone();
+        $this->majorGridlines = ($this->majorGridlines === null) ? null : clone $this->majorGridlines;
+        $this->majorGridlines = ($this->minorGridlines === null) ? null : clone $this->minorGridlines;
+        $this->axisText = ($this->axisText === null) ? null : clone $this->axisText;
+        $this->fillColor = clone $this->fillColor;
+    }
 }

@@ -835,4 +835,21 @@ class Chart
     {
         return $this->renderedHeight;
     }
+
+    /**
+     * Implement PHP __clone to create a deep clone, not just a shallow copy.
+     */
+    public function __clone()
+    {
+        $this->worksheet = null;
+        $this->title = ($this->title === null) ? null : clone $this->title;
+        $this->legend = ($this->legend === null) ? null : clone $this->legend;
+        $this->xAxisLabel = ($this->xAxisLabel === null) ? null : clone $this->xAxisLabel;
+        $this->yAxisLabel = ($this->yAxisLabel === null) ? null : clone $this->yAxisLabel;
+        $this->plotArea = ($this->plotArea === null) ? null : clone $this->plotArea;
+        $this->xAxis = clone $this->xAxis;
+        $this->yAxis = clone $this->yAxis;
+        $this->borderLines = clone $this->borderLines;
+        $this->fillColor = clone $this->fillColor;
+    }
 }
