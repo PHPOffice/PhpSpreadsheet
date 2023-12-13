@@ -16,6 +16,8 @@ class FunctionPrefixTest extends TestCase
     {
         $result = FunctionPrefix::addFunctionPrefix($functionString);
         self::assertSame($expectedResult, $result);
+        $result = FunctionPrefix::addFunctionPrefixStripEquals("=$functionString");
+        self::assertSame($expectedResult, $result);
     }
 
     public static function functionPrefixProvider(): array
@@ -34,28 +36,7 @@ class FunctionPrefixTest extends TestCase
             'DAYS/NETWORKDAYS 3' => ['ABS(_xlfn.DAYS(DATE(2023,1,1),TODAY()))', 'ABS(DAYS(DATE(2023,1,1),TODAY()))'],
             'DAYS/NETWORKDAYS 4' => ['ABS(_xlfn.DAYS(DATE(2023,1,1),TODAY()))', 'ABS(_xlfn.DAYS(DATE(2023,1,1),TODAY()))'],
             'DAYS/NETWORKDAYS 5' => ['NETWORKDAYS(DATE(2023,1,1),TODAY(), C:C)', 'NETWORKDAYS(DATE(2023,1,1),TODAY(), C:C)'],
+            'COUNTIFS reclassified as Legacy' => ['COUNTIFS()', 'COUNTIFS()'],
         ];
     }
-
-//    /**
-//     * @dataProvider functionPrefixWithEqualsProvider
-//     */
-//    public function testFunctionPrefixWithEquals(string $expectedResult, string $functionString): void
-//    {
-//        $result = FunctionPrefix::addFunctionPrefixStripEquals($functionString);
-//        self::assertSame($expectedResult, $result);
-//    }
-//
-//    public static function functionPrefixWithEqualsProvider(): array
-//    {
-//        return [
-//            'Basic Legacy Function' => ['SUM()', '=SUM()'],
-//            'New Function without Prefix' => ['_xlfn.ARABIC()', '=ARABIC()'],
-//            'New Function already Prefixed' => ['_xlfn.ARABIC()', '=_xlfn.ARABIC()'],
-//            'New Function requiring Double-Prefix' => ['_xlfn._xlws.FILTER()', '=FILTER()'],
-//            'New Function requiring Double-Prefix already partially Prefixed' => ['_xlfn._xlws.FILTER()', '=_xlfn.FILTER()'],
-//            'New Function requiring Double-Prefix already partially Prefixed #2' => ['_xlfn._xlws.FILTER()', '=_xlws.FILTER()'],
-//            'New Function requiring Double-Prefix already Fully Prefixed' => ['_xlfn._xlws.FILTER()', '=_xlfn._xlws.FILTER()'],
-//        ];
-//    }
 }
