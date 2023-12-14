@@ -3326,8 +3326,17 @@ class Calculation
     /** @var ?array */
     private static $functionReplaceToLocale;
 
+    /**
+     * @deprecated 1.30.0 use translateFormulaToLocale() instead
+     */
     public function _translateFormulaToLocale(string $formula): string
     {
+        return $this->translateFormulaToLocale($formula);
+    }
+
+    public function translateFormulaToLocale(string $formula): string
+    {
+        $formula = preg_replace('/_(xlfn|xlws)[.]/', '', $formula) ?? '';
         // Build list of function names and constants for translation
         if (self::$functionReplaceFromExcel === null) {
             self::$functionReplaceFromExcel = [];
@@ -3364,7 +3373,15 @@ class Calculation
     /** @var ?array */
     private static $functionReplaceToExcel;
 
+    /**
+     * @deprecated 1.30.0 use translateFormulaToEnglish() instead
+     */
     public function _translateFormulaToEnglish(string $formula): string
+    {
+        return $this->translateFormulaToEnglish($formula);
+    }
+
+    public function translateFormulaToEnglish(string $formula): string
     {
         if (self::$functionReplaceFromLocale === null) {
             self::$functionReplaceFromLocale = [];

@@ -39,7 +39,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Deprecated
 
-- Nothing
+- Functions `_translateFormulaToLocale` and `_translateFormulaEnglish` are replaced by versions without leading underscore. [PR #3829](https://github.com/PHPOffice/PhpSpreadsheet/pull/3829)
 
 ### Removed
 
@@ -78,6 +78,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Html omitting some charts. [Issue #3767](https://github.com/PHPOffice/PhpSpreadsheet/issues/3767) [PR #3771](https://github.com/PHPOffice/PhpSpreadsheet/pull/3771)
 - Case Insensitive Comparison for Sheet Names [PR #3791](https://github.com/PHPOffice/PhpSpreadsheet/pull/3791)
 - Performance improvement for Xlsx Reader. [Issue #3683](https://github.com/PHPOffice/PhpSpreadsheet/issues/3683) [PR #3810](https://github.com/PHPOffice/PhpSpreadsheet/pull/3810)
+- Strip `xlfn.` and `xlws.` from Formula Translations. [Issue #3819](https://github.com/PHPOffice/PhpSpreadsheet/issues/3819) [PR #3829](https://github.com/PHPOffice/PhpSpreadsheet/pull/3829)
 - Prevent loop in Shared/File. [Issue #3807](https://github.com/PHPOffice/PhpSpreadsheet/issues/3807) [PR #3809](https://github.com/PHPOffice/PhpSpreadsheet/pull/3809)
 
 ## 1.29.0 - 2023-06-15
