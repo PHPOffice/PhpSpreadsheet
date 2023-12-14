@@ -408,4 +408,31 @@ class DataSeries
             }
         }
     }
+
+    /**
+     * Implement PHP __clone to create a deep clone, not just a shallow copy.
+     */
+    public function __clone()
+    {
+        $plotLabels = $this->plotLabel;
+        $this->plotLabel = [];
+        foreach ($plotLabels as $plotLabel) {
+            $this->plotLabel[] = $plotLabel;
+        }
+        $plotCategories = $this->plotCategory;
+        $this->plotCategory = [];
+        foreach ($plotCategories as $plotCategory) {
+            $this->plotCategory[] = clone $plotCategory;
+        }
+        $plotValues = $this->plotValues;
+        $this->plotValues = [];
+        foreach ($plotValues as $plotValue) {
+            $this->plotValues[] = clone $plotValue;
+        }
+        $plotBubbleSizes = $this->plotBubbleSizes;
+        $this->plotBubbleSizes = [];
+        foreach ($plotBubbleSizes as $plotBubbleSize) {
+            $this->plotBubbleSizes[] = clone $plotBubbleSize;
+        }
+    }
 }
