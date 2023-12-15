@@ -3330,6 +3330,8 @@ class Calculation
 
     /**
      * @deprecated 1.30.0 use translateFormulaToLocale() instead
+     *
+     * @codeCoverageIgnore
      */
     public function _translateFormulaToLocale(string $formula): string
     {
@@ -3377,6 +3379,8 @@ class Calculation
 
     /**
      * @deprecated 1.30.0 use translateFormulaToEnglish() instead
+     *
+     * @codeCoverageIgnore
      */
     public function _translateFormulaToEnglish(string $formula): string
     {
