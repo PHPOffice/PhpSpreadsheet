@@ -102,4 +102,14 @@ return [
         'ru',
         '=_xlfn._xlws.FILTER(A5:D20,C5:C20=H2,"")',
     ],
+    'implicit intersection' => [
+        '=@INDEKS(A1:A10;B1)',
+        'nb',
+        '=@INDEX(A1:A10,B1)',
+    ],
+    'preserve literal _xlfn.' => [
+        '=@INDEKS(A1:A10;"_xlfn.")',
+        'nb',
+        '=@INDEX(A1:A10,"_xlfn.")',
+    ],
 ];

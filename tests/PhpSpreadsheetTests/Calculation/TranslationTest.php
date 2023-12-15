@@ -47,7 +47,7 @@ class TranslationTest extends TestCase
         self::assertSame($expectedResult, $translatedFormula);
 
         $restoredFormula = Calculation::getInstance()->_translateFormulaToEnglish($translatedFormula);
-        self::assertSame(preg_replace('/_(xlfn|xlws)[.]/', '', $formula), $restoredFormula);
+        self::assertSame(preg_replace(Calculation::CALCULATION_REGEXP_STRIP_XLFN_XLWS, '', $formula), $restoredFormula);
     }
 
     public static function providerTranslations(): array
