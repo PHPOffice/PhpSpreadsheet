@@ -205,15 +205,17 @@ class Font
     /**
      * Array that can be used to supplement FONT_FILE_NAMES for calculating exact width.
      *
-     * @var array
+     * @var array<string, array<string, string>>
      */
     private static $extraFontArray = [];
 
+    /** @param array<string, array<string, string>> $extraFontArray */
     public static function setExtraFontArray(array $extraFontArray): void
     {
         self::$extraFontArray = $extraFontArray;
     }
 
+    /** @return array<string, array<string, string>> */
     public static function getExtraFontArray(): array
     {
         return self::$extraFontArray;
