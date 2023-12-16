@@ -80,6 +80,9 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Performance improvement for Xlsx Reader. [Issue #3683](https://github.com/PHPOffice/PhpSpreadsheet/issues/3683) [PR #3810](https://github.com/PHPOffice/PhpSpreadsheet/pull/3810)
 - Strip `xlfn.` and `xlws.` from Formula Translations. [Issue #3819](https://github.com/PHPOffice/PhpSpreadsheet/issues/3819) [PR #3828](https://github.com/PHPOffice/PhpSpreadsheet/pull/3828)
 - Prevent loop in Shared/File. [Issue #3807](https://github.com/PHPOffice/PhpSpreadsheet/issues/3807) [PR #3809](https://github.com/PHPOffice/PhpSpreadsheet/pull/3809)
+- Consistent handling of decimal/thousands separators between StringHelper and Php setlocale. [Issue #3811](https://github.com/PHPOffice/PhpSpreadsheet/issues/3811) [PR #3815](https://github.com/PHPOffice/PhpSpreadsheet/pull/3815)
+- Clone worksheet with tables or charts. [Issue #3820](https://github.com/PHPOffice/PhpSpreadsheet/issues/3820) [PR #3821](https://github.com/PHPOffice/PhpSpreadsheet/pull/3821)
+- COUNTIFS Does Not Require xlfn. [Issue #3819](https://github.com/PHPOffice/PhpSpreadsheet/issues/3819) [PR #3827](https://github.com/PHPOffice/PhpSpreadsheet/pull/3827)
 
 ## 1.29.0 - 2023-06-15
 
