@@ -6,6 +6,8 @@ use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Font as FontStyle;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
 
 class Font
 {
@@ -318,7 +320,8 @@ class Font
 
     /**
      * Set the path to the folder containing .ttf files. There should be a trailing slash.
-     * Typical locations on variout some platforms:
+     * Path will be recursively searched for font file.
+     * Typical locations on various platforms:
      *    <ul>
      *        <li>C:/Windows/Fonts/</li>
      *        <li>/usr/share/fonts/truetype/</li>
@@ -589,7 +592,7 @@ class Font
         }
         $fontFileAbsolute = preg_match('~^([A-Za-z]:)?[/\\\\]~', $fontFile) === 1;
         if (!$fontFileAbsolute) {
-            $fontFile = self::$trueTypeFontPath . $separator . $fontFile;
+            $fontFile = self::findFontFile(self::$trueTypeFontPath, $fontFile) ?? self::$trueTypeFontPath . $separator . $fontFile;
         }
 
         // Check if file actually exists
@@ -697,5 +700,37 @@ class Font
         }
 
         return $rowHeight;
+    }
+
+    private static function findFontFile(string $startDirectory, string $desiredFont): ?string
+    {
+        $fontPath = null;
+        if ($startDirectory === '') {
+            return null;
+        }
+        if (file_exists("$startDirectory/$desiredFont")) {
+            $fontPath = "$startDirectory/$desiredFont";
+        } else {
+            $it = new RecursiveDirectoryIterator(
+                $startDirectory,
+                RecursiveDirectoryIterator::SKIP_DOTS
+                | RecursiveDirectoryIterator::FOLLOW_SYMLINKS
+            );
+            foreach (
+                new RecursiveIteratorIterator(
+                    $it,
+                    RecursiveIteratorIterator::LEAVES_ONLY,
+                    RecursiveIteratorIterator::CHILD_FIRST
+                ) as $file
+            ) {
+                if (basename($file) === $desiredFont) {
+                    $fontPath = $file;
+
+                    break;
+                }
+            }
+        }
+
+        return $fontPath;
     }
 }
