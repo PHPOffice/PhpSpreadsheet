@@ -528,4 +528,15 @@ class Layout
 
         return $this;
     }
+
+    /**
+     * Implement PHP __clone to create a deep clone, not just a shallow copy.
+     */
+    public function __clone()
+    {
+        $this->labelFillColor = ($this->labelFillColor === null) ? null : clone $this->labelFillColor;
+        $this->labelBorderColor = ($this->labelBorderColor === null) ? null : clone $this->labelBorderColor;
+        $this->labelFont = ($this->labelFont === null) ? null : clone $this->labelFont;
+        $this->labelEffects = ($this->labelEffects === null) ? null : clone $this->labelEffects;
+    }
 }
