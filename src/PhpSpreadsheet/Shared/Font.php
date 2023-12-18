@@ -722,7 +722,7 @@ class Font
                 new RecursiveIteratorIterator(
                     $it,
                     RecursiveIteratorIterator::LEAVES_ONLY,
-                    RecursiveIteratorIterator::CHILD_FIRST
+                    RecursiveIteratorIterator::CATCH_GET_CHILD
                 ) as $file
             ) {
                 if (basename($file) === $desiredFont) {
