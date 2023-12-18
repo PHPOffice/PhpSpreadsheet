@@ -713,6 +713,7 @@ class Font
         if (file_exists("$startDirectory/$desiredFont")) {
             $fontPath = "$startDirectory/$desiredFont";
         } else {
+            $iterations = 0;
             $it = new RecursiveDirectoryIterator(
                 $startDirectory,
                 RecursiveDirectoryIterator::SKIP_DOTS
@@ -729,6 +730,12 @@ class Font
                     $fontPath = $file;
 
                     break;
+                }
+                ++$iterations;
+                if ($iterations > 5000) {
+                    // @codeCoverageIgnoreStart
+                    break;
+                    // @codeCoverageIgnoreEnd
                 }
             }
         }
