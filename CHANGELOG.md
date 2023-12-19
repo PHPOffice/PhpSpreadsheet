@@ -84,6 +84,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - COUNTIFS Does Not Require xlfn. [Issue #3819](https://github.com/PHPOffice/PhpSpreadsheet/issues/3819) [PR #3827](https://github.com/PHPOffice/PhpSpreadsheet/pull/3827)
 - Strip `xlfn.` and `xlws.` from Formula Translations. [Issue #3819](https://github.com/PHPOffice/PhpSpreadsheet/issues/3819) [PR #3828](https://github.com/PHPOffice/PhpSpreadsheet/pull/3828)
 - Recurse directories searching for font file. [Issue #2809](https://github.com/PHPOffice/PhpSpreadsheet/issues/2809) [PR #3830](https://github.com/PHPOffice/PhpSpreadsheet/pull/3830)
+- Reduce memory consumption of Worksheet::rangeToArray() when many empty rows are read. [Issue #3814](https://github.com/PHPOffice/PhpSpreadsheet/pull/3814) [PR #3834](https://github.com/PHPOffice/PhpSpreadsheet/pull/3834)
 
 ## 1.29.0 - 2023-06-15
 
