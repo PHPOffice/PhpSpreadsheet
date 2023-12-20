@@ -220,17 +220,18 @@ class Date
         } else {
             $baseDate = new DateTime('1899-12-30', $timeZone);
         }
-
-        $days = floor($excelTimestamp);
-        $partDay = $excelTimestamp - $days;
-        $hms = 86400 * $partDay;
-        $microseconds = (int) round(fmod($hms, 1) * 1000000);
-        $hms = (int) floor($hms);
-        $hours = intdiv($hms, 3600);
-        $hms -= $hours * 3600;
-        $minutes = intdiv($hms, 60);
-        $seconds = $hms % 60;
-
+        //handle the case where the input in not an int or float
+        if(is_int($excelTimestamp) || is_float($excelTimestamp)){
+            $days = floor($excelTimestamp);
+            $partDay = $excelTimestamp - $days;
+            $hms = 86400 * $partDay;
+            $microseconds = (int) round(fmod($hms, 1) * 1000000);
+            $hms = (int) floor($hms);
+            $hours = intdiv($hms, 3600);
+            $hms -= $hours * 3600;
+            $minutes = intdiv($hms, 60);
+            $seconds = $hms % 60;
+        }else return null;
         if ($days >= 0) {
             $days = '+' . $days;
         }
