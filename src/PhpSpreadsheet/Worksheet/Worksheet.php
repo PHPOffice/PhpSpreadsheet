@@ -3203,6 +3203,9 @@ class Worksheet implements IComparable
         return $returnValue;
     }
 
+    /** @var array<string, bool> */
+    private array $hiddenColumns;
+
     /**
      * Create array from a range of cells.
      *
@@ -3231,33 +3234,50 @@ class Worksheet implements IComparable
         $minRow = $rangeStart[1];
         $maxCol = Coordinate::stringFromColumnIndex($rangeEnd[0]);
         $maxRow = $rangeEnd[1];
+        $minColInt = $rangeStart[0];
+        $maxColInt = $rangeEnd[0];
 
         ++$maxCol;
         $nullRow = $this->buildNullRow($nullValue, $minCol, $maxCol, $returnCellRef, $ignoreHidden);
+        $hideColumns = !empty($this->hiddenColumns);
 
+        $keys = $this->cellCollection?->getSortedCoordinatesInt() ?? [];
+        $keyIndex = 0;
+        $keysCount = count($keys);
         // Loop through rows
-        $r = -1;
         for ($row = $minRow; $row <= $maxRow; ++$row) {
-            if (($ignoreHidden === true) && ($this->getRowDimension($row)->getVisible() === false)) {
+            if (($ignoreHidden === true) && ($this->isRowVisible($row) === false)) {
                 continue;
             }
-            $rowRef = $returnCellRef ? $row : ++$r;
+            $rowRef = $returnCellRef ? $row : ($row - $minRow);
             $returnValue[$rowRef] = $nullRow;
-            $c = -1;
-            // Loop through columns in the current row
-            for ($col = $minCol; $col !== $maxCol; ++$col) {
-                if (($ignoreHidden === true) && ($this->getColumnDimension($col)->getVisible() === false)) {
-                    continue;
+
+            $index = ($row - 1) * AddressRange::MAX_COLUMN_INT + 1;
+            $indexPlus = $index + AddressRange::MAX_COLUMN_INT - 1;
+            while ($keyIndex < $keysCount && $keys[$keyIndex] < $index) {
+                ++$keyIndex;
+            }
+            while ($keyIndex < $keysCount && $keys[$keyIndex] <= $indexPlus) {
+                $key = $keys[$keyIndex];
+                $thisRow = intdiv($key - 1, AddressRange::MAX_COLUMN_INT) + 1;
+                $thisCol = ($key % AddressRange::MAX_COLUMN_INT) ?: AddressRange::MAX_COLUMN_INT;
+                if ($thisCol >= $minColInt && $thisCol <= $maxColInt) {
+                    $col = Coordinate::stringFromColumnIndex($thisCol);
+                    if ($hideColumns === false || !isset($this->hiddenColumns[$col])) {
+                        $columnRef = $returnCellRef ? $col : ($thisCol - $minColInt);
+                        $cell = $this->cellCollection?->get("{$col}{$thisRow}");
+                        if ($cell !== null) {
+                            $value = $this->cellToArray($cell, $calculateFormulas, $formatData, $nullValue);
+                            if ($value !== $nullValue) {
+                                $returnValue[$rowRef][$columnRef] = $value;
+                            }
+                        }
+                    }
                 }
-                $columnRef = $returnCellRef ? $col : ++$c;
-                //    Using getCell() will create a new cell if it doesn't already exist. We don't want that to happen
-                //        so we test and retrieve directly against cellCollection
-                $cell = $this->getCellCollection()->get("{$col}{$row}");
-                if ($cell !== null) {
-                    $returnValue[$rowRef][$columnRef] = $this->cellToArray($cell, $calculateFormulas, $formatData, $nullValue);
-                }
+                ++$keyIndex;
             }
         }
+        unset($this->hiddenColumns);
 
         // Return
         return $returnValue;
@@ -3281,14 +3301,16 @@ class Worksheet implements IComparable
         bool $returnCellRef,
         bool $ignoreHidden,
     ): array {
+        $this->hiddenColumns = [];
         $nullRow = [];
         $c = -1;
         for ($col = $minCol; $col !== $maxCol; ++$col) {
-            if (($ignoreHidden === true) && ($this->getColumnDimension($col)->getVisible() === false)) {
-                continue;
+            if ($ignoreHidden === true && $this->columnDimensionExists($col) && $this->getColumnDimension($col)->getVisible() === false) {
+                $this->hiddenColumns[$col] = true;
+            } else {
+                $columnRef = $returnCellRef ? $col : ++$c;
+                $nullRow[$columnRef] = $nullValue;
             }
-            $columnRef = $returnCellRef ? $col : ++$c;
-            $nullRow[$columnRef] = $nullValue;
         }
 
         return $nullRow;
