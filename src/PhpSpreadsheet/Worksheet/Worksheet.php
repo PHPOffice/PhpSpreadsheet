@@ -3233,6 +3233,8 @@ class Worksheet implements IComparable
         $maxRow = $rangeEnd[1];
 
         ++$maxCol;
+        $nullRow = $this->buildNullRow($nullValue, $minCol, $maxCol, $returnCellRef, $ignoreHidden);
+
         // Loop through rows
         $r = -1;
         for ($row = $minRow; $row <= $maxRow; ++$row) {
@@ -3240,6 +3242,7 @@ class Worksheet implements IComparable
                 continue;
             }
             $rowRef = $returnCellRef ? $row : ++$r;
+            $returnValue[$rowRef] = $nullRow;
             $c = -1;
             // Loop through columns in the current row
             for ($col = $minCol; $col !== $maxCol; ++$col) {
@@ -3250,7 +3253,6 @@ class Worksheet implements IComparable
                 //    Using getCell() will create a new cell if it doesn't already exist. We don't want that to happen
                 //        so we test and retrieve directly against cellCollection
                 $cell = $this->getCellCollection()->get("{$col}{$row}");
-                $returnValue[$rowRef][$columnRef] = $nullValue;
                 if ($cell !== null) {
                     $returnValue[$rowRef][$columnRef] = $this->cellToArray($cell, $calculateFormulas, $formatData, $nullValue);
                 }
@@ -3259,6 +3261,37 @@ class Worksheet implements IComparable
 
         // Return
         return $returnValue;
+    }
+
+    /**
+     * Prepare a row data filled with null values to deduplicate the memory areas for empty rows.
+     *
+     * @param mixed $nullValue Value returned in the array entry if a cell doesn't exist
+     * @param string $minCol Start column of the range
+     * @param string $maxCol End column of the range
+     * @param bool $returnCellRef False - Return a simple array of rows and columns indexed by number counting from zero
+     *                              True - Return rows and columns indexed by their actual row and column IDs
+     * @param bool $ignoreHidden False - Return values for rows/columns even if they are defined as hidden.
+     *                             True - Don't return values for rows/columns that are defined as hidden.
+     */
+    private function buildNullRow(
+        mixed $nullValue,
+        string $minCol,
+        string $maxCol,
+        bool $returnCellRef,
+        bool $ignoreHidden,
+    ): array {
+        $nullRow = [];
+        $c = -1;
+        for ($col = $minCol; $col !== $maxCol; ++$col) {
+            if (($ignoreHidden === true) && ($this->getColumnDimension($col)->getVisible() === false)) {
+                continue;
+            }
+            $columnRef = $returnCellRef ? $col : ++$c;
+            $nullRow[$columnRef] = $nullValue;
+        }
+
+        return $nullRow;
     }
 
     private function validateNamedRange(string $definedName, bool $returnNullIfInvalid = false): ?DefinedName
