@@ -16,7 +16,7 @@ class Title
     /**
      * Title Caption.
      *
-     * @var array|RichText|string
+     * @var null|array|RichText|string may be null
      */
     private $caption = '';
 
@@ -39,7 +39,7 @@ class Title
     /**
      * Create a new Title.
      *
-     * @param array|RichText|string $caption
+     * @param null|array|RichText|string $caption may be null
      * @param bool $overlay
      */
     public function __construct($caption = '', ?Layout $layout = null, $overlay = false)
@@ -52,7 +52,7 @@ class Title
     /**
      * Get caption.
      *
-     * @return array|RichText|string
+     * @return null|array|RichText|string may be null
      */
     public function getCaption()
     {
@@ -68,6 +68,9 @@ class Title
             }
         }
         $caption = $this->caption;
+        if ($caption === null) {
+            return '';
+        }
         if (is_string($caption)) {
             return $caption;
         }
@@ -91,7 +94,7 @@ class Title
     /**
      * Set caption.
      *
-     * @param array|RichText|string $caption
+     * @param null|array|RichText|string $caption may be null
      *
      * @return $this
      */

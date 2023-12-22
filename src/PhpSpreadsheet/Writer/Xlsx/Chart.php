@@ -158,38 +158,40 @@ class Chart extends WriterPart
         }
 
         $objWriter->startElement('c:title');
-        $objWriter->startElement('c:tx');
-        $objWriter->startElement('c:rich');
-
-        $objWriter->startElement('a:bodyPr');
-        $objWriter->endElement();
-
-        $objWriter->startElement('a:lstStyle');
-        $objWriter->endElement();
-
-        $objWriter->startElement('a:p');
-        $objWriter->startElement('a:pPr');
-        $objWriter->startElement('a:defRPr');
-        $objWriter->endElement();
-        $objWriter->endElement();
-
         $caption = $title->getCaption();
-        if (is_array($caption)) {
-            $caption = $caption[0] ?? '';
-        }
-        $this->getParentWriter()->getWriterPartstringtable()->writeRichTextForCharts($objWriter, $caption, 'a');
+        if ($caption !== null) {
+            $objWriter->startElement('c:tx');
+            $objWriter->startElement('c:rich');
 
-        $objWriter->endElement();
-        $objWriter->endElement();
-        $objWriter->endElement();
+            $objWriter->startElement('a:bodyPr');
+            $objWriter->endElement(); // a:bodyPr
+
+            $objWriter->startElement('a:lstStyle');
+            $objWriter->endElement(); // a:lstStyle
+
+            $objWriter->startElement('a:p');
+            $objWriter->startElement('a:pPr');
+            $objWriter->startElement('a:defRPr');
+            $objWriter->endElement(); // a:defRPr
+            $objWriter->endElement(); // a:pPr
+
+            if (is_array($caption)) {
+                $caption = $caption[0] ?? '';
+            }
+            $this->getParentWriter()->getWriterPartstringtable()->writeRichTextForCharts($objWriter, $caption, 'a');
+
+            $objWriter->endElement(); // a:p
+            $objWriter->endElement(); // c:rich
+            $objWriter->endElement(); // c:tx
+        }
 
         $this->writeLayout($objWriter, $title->getLayout());
 
         $objWriter->startElement('c:overlay');
         $objWriter->writeAttribute('val', ($title->getOverlay()) ? '1' : '0');
-        $objWriter->endElement();
+        $objWriter->endElement(); // c:overlay
 
-        $objWriter->endElement();
+        $objWriter->endElement(); // c:title
     }
 
     /**
@@ -587,6 +589,14 @@ class Chart extends WriterPart
         }
 
         $objWriter->startElement('c:scaling');
+        if (is_numeric($yAxis->getAxisOptionsProperty('logBase'))) {
+            $logBase = $yAxis->getAxisOptionsProperty('logBase') + 0;
+            if ($logBase >= 2 && $logBase <= 1000) {
+                $objWriter->startElement('c:logBase');
+                $objWriter->writeAttribute('val', (string) $logBase);
+                $objWriter->endElement();
+            }
+        }
         if ($yAxis->getAxisOptionsProperty('maximum') !== null) {
             $objWriter->startElement('c:max');
             $objWriter->writeAttribute('val', $yAxis->getAxisOptionsProperty('maximum'));
@@ -632,35 +642,37 @@ class Chart extends WriterPart
 
         if ($xAxisLabel !== null) {
             $objWriter->startElement('c:title');
-            $objWriter->startElement('c:tx');
-            $objWriter->startElement('c:rich');
-
-            $objWriter->startElement('a:bodyPr');
-            $objWriter->endElement();
-
-            $objWriter->startElement('a:lstStyle');
-            $objWriter->endElement();
-
-            $objWriter->startElement('a:p');
-
             $caption = $xAxisLabel->getCaption();
-            if (is_array($caption)) {
-                $caption = $caption[0];
-            }
-            $this->getParentWriter()->getWriterPartstringtable()->writeRichTextForCharts($objWriter, $caption, 'a');
+            if ($caption !== null) {
+                $objWriter->startElement('c:tx');
+                $objWriter->startElement('c:rich');
 
-            $objWriter->endElement();
-            $objWriter->endElement();
-            $objWriter->endElement();
+                $objWriter->startElement('a:bodyPr');
+                $objWriter->endElement(); // a:bodyPr
+
+                $objWriter->startElement('a:lstStyle');
+                $objWriter->endElement(); // a::lstStyle
+
+                $objWriter->startElement('a:p');
+
+                if (is_array($caption)) {
+                    $caption = $caption[0];
+                }
+                $this->getParentWriter()->getWriterPartstringtable()->writeRichTextForCharts($objWriter, $caption, 'a');
+
+                $objWriter->endElement(); // a:p
+                $objWriter->endElement(); // c:rich
+                $objWriter->endElement(); // c:tx
+            }
 
             $layout = $xAxisLabel->getLayout();
             $this->writeLayout($objWriter, $layout);
 
             $objWriter->startElement('c:overlay');
             $objWriter->writeAttribute('val', '0');
-            $objWriter->endElement();
+            $objWriter->endElement(); // c:overlay
 
-            $objWriter->endElement();
+            $objWriter->endElement(); // c:title
         }
 
         $objWriter->startElement('c:numFmt');
@@ -796,6 +808,14 @@ class Chart extends WriterPart
         }
 
         $objWriter->startElement('c:scaling');
+        if (is_numeric($xAxis->getAxisOptionsProperty('logBase'))) {
+            $logBase = $xAxis->getAxisOptionsProperty('logBase') + 0;
+            if ($logBase >= 2 && $logBase <= 1000) {
+                $objWriter->startElement('c:logBase');
+                $objWriter->writeAttribute('val', (string) $logBase);
+                $objWriter->endElement();
+            }
+        }
 
         if ($xAxis->getAxisOptionsProperty('maximum') !== null) {
             $objWriter->startElement('c:max');
@@ -845,26 +865,28 @@ class Chart extends WriterPart
 
         if ($yAxisLabel !== null) {
             $objWriter->startElement('c:title');
-            $objWriter->startElement('c:tx');
-            $objWriter->startElement('c:rich');
-
-            $objWriter->startElement('a:bodyPr');
-            $objWriter->endElement();
-
-            $objWriter->startElement('a:lstStyle');
-            $objWriter->endElement();
-
-            $objWriter->startElement('a:p');
-
             $caption = $yAxisLabel->getCaption();
-            if (is_array($caption)) {
-                $caption = $caption[0];
-            }
-            $this->getParentWriter()->getWriterPartstringtable()->writeRichTextForCharts($objWriter, $caption, 'a');
+            if ($caption !== null) {
+                $objWriter->startElement('c:tx');
+                $objWriter->startElement('c:rich');
 
-            $objWriter->endElement();
-            $objWriter->endElement();
-            $objWriter->endElement();
+                $objWriter->startElement('a:bodyPr');
+                $objWriter->endElement(); // a:bodyPr
+
+                $objWriter->startElement('a:lstStyle');
+                $objWriter->endElement(); // a:lstStyle
+
+                $objWriter->startElement('a:p');
+
+                if (is_array($caption)) {
+                    $caption = $caption[0];
+                }
+                $this->getParentWriter()->getWriterPartstringtable()->writeRichTextForCharts($objWriter, $caption, 'a');
+
+                $objWriter->endElement(); // a:p
+                $objWriter->endElement(); // c:rich
+                $objWriter->endElement(); // c:tx
+            }
 
             if ($groupType !== DataSeries::TYPE_BUBBLECHART) {
                 $layout = $yAxisLabel->getLayout();
@@ -873,9 +895,9 @@ class Chart extends WriterPart
 
             $objWriter->startElement('c:overlay');
             $objWriter->writeAttribute('val', '0');
-            $objWriter->endElement();
+            $objWriter->endElement(); // c:overlay
 
-            $objWriter->endElement();
+            $objWriter->endElement(); // c:title
         }
 
         $objWriter->startElement('c:numFmt');
@@ -948,6 +970,22 @@ class Chart extends WriterPart
                 $objWriter->startElement('c:crossBetween');
                 $objWriter->writeAttribute('val', $crossBetween);
                 $objWriter->endElement();
+            }
+
+            if ($xAxis->getAxisType() === Axis::AXIS_TYPE_VALUE) {
+                $dispUnits = $xAxis->getAxisOptionsProperty('dispUnitsBuiltIn');
+                $dispUnits = is_numeric($dispUnits) ? (Axis::DISP_UNITS_BUILTIN_INT[(int) $dispUnits] ?? '') : $dispUnits;
+                if (in_array($dispUnits, Axis::DISP_UNITS_BUILTIN_INT, true)) {
+                    $objWriter->startElement('c:dispUnits');
+                    $objWriter->startElement('c:builtInUnit');
+                    $objWriter->writeAttribute('val', $dispUnits);
+                    $objWriter->endElement(); // c:builtInUnit
+                    if ($xAxis->getDispUnitsTitle() !== null) {
+                        // TODO output title elements
+                        $objWriter->writeElement('c:dispUnitsLbl');
+                    }
+                    $objWriter->endElement(); // c:dispUnits
+                }
             }
 
             if ($xAxis->getAxisOptionsProperty('major_unit') !== null) {

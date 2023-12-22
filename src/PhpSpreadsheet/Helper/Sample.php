@@ -111,13 +111,14 @@ class Sample
     /**
      * Write documents.
      *
-     * @param string $filename
      * @param string[] $writers
      */
-    public function write(Spreadsheet $spreadsheet, $filename, array $writers = ['Xlsx', 'Xls'], bool $withCharts = false, ?callable $writerCallback = null): void
+    public function write(Spreadsheet $spreadsheet, string $filename, array $writers = ['Xlsx', 'Xls'], bool $withCharts = false, ?callable $writerCallback = null, bool $resetActiveSheet = true): void
     {
         // Set active sheet index to the first sheet, so Excel opens this as the first sheet
-        $spreadsheet->setActiveSheetIndex(0);
+        if ($resetActiveSheet) {
+            $spreadsheet->setActiveSheetIndex(0);
+        }
 
         // Write documents
         foreach ($writers as $writerType) {
