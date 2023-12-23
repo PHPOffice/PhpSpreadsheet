@@ -315,16 +315,26 @@ class Worksheet extends WriterPart
             $ySplit = $worksheet->getYSplit();
             $pane = $worksheet->getActivePane();
             $paneTopLeftCell = $worksheet->getPaneTopLeftCell();
+            $paneState = $worksheet->getPaneState();
+            $normalFreeze = '';
+            if ($paneState === PhpSpreadsheetWorksheet::PANE_FROZEN) {
+                if ($ySplit > 0) {
+                    $normalFreeze = ($xSplit <= 0) ? 'bottomLeft' : 'bottomRight';
+                } else {
+                    $normalFreeze = 'topRight';
+                }
+            }
             if ($xSplit > 0) {
                 $objWriter->writeAttribute('xSplit', "$xSplit");
             }
             if ($ySplit > 0) {
                 $objWriter->writeAttribute('ySplit', "$ySplit");
             }
-            if ($pane !== '') {
+            if ($normalFreeze !== '') {
+                $objWriter->writeAttribute('activePane', $normalFreeze);
+            } elseif ($pane !== '') {
                 $objWriter->writeAttribute('activePane', $pane);
             }
-            $paneState = $worksheet->getPaneState();
             if ($paneState !== '') {
                 $objWriter->writeAttribute('state', $paneState);
             }
@@ -333,20 +343,33 @@ class Worksheet extends WriterPart
             }
             $objWriter->endElement(); // pane
 
-            foreach ($worksheet->getPanes() as $panex) {
-                if ($panex !== null) {
-                    $sqref = $activeCell = '';
-                    $objWriter->startElement('selection');
-                    $objWriter->writeAttribute('pane', $panex->getPosition());
-                    $activeCellPane = $panex->getActiveCell();
-                    if ($activeCellPane !== '') {
-                        $objWriter->writeAttribute('activeCell', $activeCellPane);
+            if ($normalFreeze !== '') {
+                $objWriter->startElement('selection');
+                $objWriter->writeAttribute('pane', $normalFreeze);
+                if ($activeCell !== '') {
+                    $objWriter->writeAttribute('activeCell', $activeCell);
+                }
+                if ($sqref !== '') {
+                    $objWriter->writeAttribute('sqref', $sqref);
+                }
+                $objWriter->endElement(); // selection
+                $sqref = $activeCell = '';
+            } else {
+                foreach ($worksheet->getPanes() as $panex) {
+                    if ($panex !== null) {
+                        $sqref = $activeCell = '';
+                        $objWriter->startElement('selection');
+                        $objWriter->writeAttribute('pane', $panex->getPosition());
+                        $activeCellPane = $panex->getActiveCell();
+                        if ($activeCellPane !== '') {
+                            $objWriter->writeAttribute('activeCell', $activeCellPane);
+                        }
+                        $sqrefPane = $panex->getSqref();
+                        if ($sqrefPane !== '') {
+                            $objWriter->writeAttribute('sqref', $sqrefPane);
+                        }
+                        $objWriter->endElement(); // selection
                     }
-                    $sqrefPane = $panex->getSqref();
-                    if ($sqrefPane !== '') {
-                        $objWriter->writeAttribute('sqref', $sqrefPane);
-                    }
-                    $objWriter->endElement(); // selection
                 }
             }
         }
