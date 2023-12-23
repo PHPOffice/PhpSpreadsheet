@@ -494,7 +494,7 @@ class Chart
 
     private function chartTitle(SimpleXMLElement $titleDetails): Title
     {
-        $caption = [];
+        $caption = null;
         $titleLayout = null;
         $titleOverlay = false;
         $titleFormula = null;
@@ -503,6 +503,7 @@ class Chart
             $chartDetail = Xlsx::testSimpleXml($chartDetail);
             switch ($titleDetailKey) {
                 case 'tx':
+                    $caption = [];
                     if (isset($chartDetail->rich)) {
                         $titleDetails = $chartDetail->rich->children($this->aNamespace);
                         foreach ($titleDetails as $titleKey => $titleDetail) {
@@ -1518,6 +1519,13 @@ class Chart
         if (isset($chartDetail->crossBetween)) {
             $whichAxis->setCrossBetween((string) self::getAttributeString($chartDetail->crossBetween, 'val'));
         }
+        if (isset($chartDetail->dispUnits, $chartDetail->dispUnits->builtInUnit)) {
+            $whichAxis->setAxisOption('dispUnitsBuiltIn', (string) self::getAttributeString($chartDetail->dispUnits->builtInUnit, 'val'));
+            if (isset($chartDetail->dispUnits->dispUnitsLbl)) {
+                $whichAxis->setDispUnitsTitle(new Title());
+                // TODO parse title elements
+            }
+        }
         if (isset($chartDetail->majorTickMark)) {
             $whichAxis->setAxisOption('major_tick_mark', (string) self::getAttributeString($chartDetail->majorTickMark, 'val'));
         }
@@ -1532,6 +1540,9 @@ class Chart
         }
         if (isset($chartDetail->crossesAt)) {
             $whichAxis->setAxisOption('horizontal_crosses_value', (string) self::getAttributeString($chartDetail->crossesAt, 'val'));
+        }
+        if (isset($chartDetail->scaling->logBase)) {
+            $whichAxis->setAxisOption('logBase', (string) self::getAttributeString($chartDetail->scaling->logBase, 'val'));
         }
         if (isset($chartDetail->scaling->orientation)) {
             $whichAxis->setAxisOption('orientation', (string) self::getAttributeString($chartDetail->scaling->orientation, 'val'));
