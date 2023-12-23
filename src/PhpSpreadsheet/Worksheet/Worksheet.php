@@ -74,7 +74,9 @@ class Worksheet implements IComparable
     /**
      * Collection of cells.
      */
-    private ?Cells $cellCollection;
+    private Cells $cellCollection;
+
+    private bool $cellCollectionInitialized = true;
 
     /**
      * Collection of row dimensions.
@@ -407,9 +409,10 @@ class Worksheet implements IComparable
      */
     public function disconnectCells(): void
     {
-        if ($this->cellCollection !== null) {
+        if ($this->cellCollectionInitialized) {
             $this->cellCollection->unsetWorksheetCells();
-            $this->cellCollection = null;
+            unset($this->cellCollection);
+            $this->cellCollectionInitialized = false;
         }
         //    detach ourself from the workbook, so that it can then delete this worksheet successfully
         $this->parent = null;
@@ -433,7 +436,6 @@ class Worksheet implements IComparable
      */
     public function getCellCollection()
     {
-        // @phpstan-ignore-next-line
         return $this->cellCollection;
     }
 
@@ -508,7 +510,7 @@ class Worksheet implements IComparable
      */
     public function getCoordinates($sorted = true): array
     {
-        if ($this->cellCollection == null) {
+        if ($this->cellCollectionInitialized === false) {
             return [];
         }
 
@@ -759,9 +761,9 @@ class Worksheet implements IComparable
             foreach ($this->getCoordinates(false) as $coordinate) {
                 $cell = $this->getCellOrNull($coordinate);
 
-                if ($cell !== null && isset($autoSizes[$this->getCellCollection()->getCurrentColumn()])) {
+                if ($cell !== null && isset($autoSizes[$this->cellCollection->getCurrentColumn()])) {
                     //Determine if cell is in merge range
-                    $isMerged = isset($isMergeCell[$this->getCellCollection()->getCurrentCoordinate()]);
+                    $isMerged = isset($isMergeCell[$this->cellCollection->getCurrentCoordinate()]);
 
                     //By default merged cells should be ignored
                     $isMergedButProceed = false;
@@ -802,8 +804,8 @@ class Worksheet implements IComparable
                         );
 
                         if ($cellValue !== null && $cellValue !== '') {
-                            $autoSizes[$this->getCellCollection()->getCurrentColumn()] = max(
-                                $autoSizes[$this->getCellCollection()->getCurrentColumn()],
+                            $autoSizes[$this->cellCollection->getCurrentColumn()] = max(
+                                $autoSizes[$this->cellCollection->getCurrentColumn()],
                                 round(
                                     Shared\Font::calculateColumnWidth(
                                         $this->getParentOrThrow()->getCellXfByIndex($cell->getXfIndex())->getFont(),
@@ -1120,7 +1122,7 @@ class Worksheet implements IComparable
      */
     public function getHighestDataColumn($row = null)
     {
-        return $this->getCellCollection()->getHighestColumn($row);
+        return $this->cellCollection->getHighestColumn($row);
     }
 
     /**
@@ -1150,7 +1152,7 @@ class Worksheet implements IComparable
      */
     public function getHighestDataRow($column = null)
     {
-        return $this->getCellCollection()->getHighestRow($column);
+        return $this->cellCollection->getHighestRow($column);
     }
 
     /**
@@ -1160,7 +1162,7 @@ class Worksheet implements IComparable
      */
     public function getHighestRowAndColumn(): array
     {
-        return $this->getCellCollection()->getHighestRowAndColumn();
+        return $this->cellCollection->getHighestRowAndColumn();
     }
 
     /**
@@ -1275,9 +1277,9 @@ class Worksheet implements IComparable
         $cellAddress = Functions::trimSheetFromCellReference(Validations::validateCellAddress($coordinate));
 
         // Shortcut for increased performance for the vast majority of simple cases
-        if ($this->getCellCollection()->has($cellAddress)) {
+        if ($this->cellCollection->has($cellAddress)) {
             /** @var Cell $cell */
-            $cell = $this->getCellCollection()->get($cellAddress);
+            $cell = $this->cellCollection->get($cellAddress);
 
             return $cell;
         }
@@ -1352,8 +1354,8 @@ class Worksheet implements IComparable
     private function getCellOrNull($coordinate): ?Cell
     {
         // Check cell collection
-        if ($this->getCellCollection()->has($coordinate)) {
-            return $this->getCellCollection()->get($coordinate);
+        if ($this->cellCollection->has($coordinate)) {
+            return $this->cellCollection->get($coordinate);
         }
 
         return null;
@@ -1398,7 +1400,7 @@ class Worksheet implements IComparable
     {
         [$column, $row, $columnString] = Coordinate::indexesFromString($coordinate);
         $cell = new Cell(null, DataType::TYPE_NULL, $this);
-        $this->getCellCollection()->add($coordinate, $cell);
+        $this->cellCollection->add($coordinate, $cell);
 
         // Coordinates
         if ($column > $this->cachedHighestColumn) {
@@ -2688,7 +2690,7 @@ class Worksheet implements IComparable
 
         for ($r = 0; $r < $numberOfRows; ++$r) {
             if ($row + $r <= $highestRow) {
-                $this->getCellCollection()->removeRow($row + $r);
+                $this->cellCollection->removeRow($row + $r);
                 ++$removedRowsCounter;
             }
         }
@@ -2696,7 +2698,7 @@ class Worksheet implements IComparable
         $objReferenceHelper = ReferenceHelper::getInstance();
         $objReferenceHelper->insertNewBefore('A' . ($row + $numberOfRows), 0, -$numberOfRows, $this);
         for ($r = 0; $r < $removedRowsCounter; ++$r) {
-            $this->getCellCollection()->removeRow($highestRow);
+            $this->cellCollection->removeRow($highestRow);
             --$highestRow;
         }
 
@@ -2757,7 +2759,7 @@ class Worksheet implements IComparable
         $maxPossibleColumnsToBeRemoved = $highestColumnIndex - $pColumnIndex + 1;
 
         for ($c = 0, $n = min($maxPossibleColumnsToBeRemoved, $numberOfColumns); $c < $n; ++$c) {
-            $this->getCellCollection()->removeColumn($highestColumn);
+            $this->cellCollection->removeColumn($highestColumn);
             $highestColumn = Coordinate::stringFromColumnIndex(Coordinate::columnIndexFromString($highestColumn) - 1);
         }
 
@@ -3203,6 +3205,9 @@ class Worksheet implements IComparable
         return $returnValue;
     }
 
+    /** @var array<string, bool> */
+    private array $hiddenColumns;
+
     /**
      * Create array from a range of cells.
      *
@@ -3231,33 +3236,50 @@ class Worksheet implements IComparable
         $minRow = $rangeStart[1];
         $maxCol = Coordinate::stringFromColumnIndex($rangeEnd[0]);
         $maxRow = $rangeEnd[1];
+        $minColInt = $rangeStart[0];
+        $maxColInt = $rangeEnd[0];
 
         ++$maxCol;
         $nullRow = $this->buildNullRow($nullValue, $minCol, $maxCol, $returnCellRef, $ignoreHidden);
+        $hideColumns = !empty($this->hiddenColumns);
 
+        $keys = $this->cellCollection->getSortedCoordinatesInt();
+        $keyIndex = 0;
+        $keysCount = count($keys);
         // Loop through rows
-        $r = -1;
         for ($row = $minRow; $row <= $maxRow; ++$row) {
-            if (($ignoreHidden === true) && ($this->getRowDimension($row)->getVisible() === false)) {
+            if (($ignoreHidden === true) && ($this->isRowVisible($row) === false)) {
                 continue;
             }
-            $rowRef = $returnCellRef ? $row : ++$r;
+            $rowRef = $returnCellRef ? $row : ($row - $minRow);
             $returnValue[$rowRef] = $nullRow;
-            $c = -1;
-            // Loop through columns in the current row
-            for ($col = $minCol; $col !== $maxCol; ++$col) {
-                if (($ignoreHidden === true) && ($this->getColumnDimension($col)->getVisible() === false)) {
-                    continue;
+
+            $index = ($row - 1) * AddressRange::MAX_COLUMN_INT + 1;
+            $indexPlus = $index + AddressRange::MAX_COLUMN_INT - 1;
+            while ($keyIndex < $keysCount && $keys[$keyIndex] < $index) {
+                ++$keyIndex;
+            }
+            while ($keyIndex < $keysCount && $keys[$keyIndex] <= $indexPlus) {
+                $key = $keys[$keyIndex];
+                $thisRow = intdiv($key - 1, AddressRange::MAX_COLUMN_INT) + 1;
+                $thisCol = ($key % AddressRange::MAX_COLUMN_INT) ?: AddressRange::MAX_COLUMN_INT;
+                if ($thisCol >= $minColInt && $thisCol <= $maxColInt) {
+                    $col = Coordinate::stringFromColumnIndex($thisCol);
+                    if ($hideColumns === false || !isset($this->hiddenColumns[$col])) {
+                        $columnRef = $returnCellRef ? $col : ($thisCol - $minColInt);
+                        $cell = $this->cellCollection->get("{$col}{$thisRow}");
+                        if ($cell !== null) {
+                            $value = $this->cellToArray($cell, $calculateFormulas, $formatData, $nullValue);
+                            if ($value !== $nullValue) {
+                                $returnValue[$rowRef][$columnRef] = $value;
+                            }
+                        }
+                    }
                 }
-                $columnRef = $returnCellRef ? $col : ++$c;
-                //    Using getCell() will create a new cell if it doesn't already exist. We don't want that to happen
-                //        so we test and retrieve directly against cellCollection
-                $cell = $this->getCellCollection()->get("{$col}{$row}");
-                if ($cell !== null) {
-                    $returnValue[$rowRef][$columnRef] = $this->cellToArray($cell, $calculateFormulas, $formatData, $nullValue);
-                }
+                ++$keyIndex;
             }
         }
+        unset($this->hiddenColumns);
 
         // Return
         return $returnValue;
@@ -3281,14 +3303,16 @@ class Worksheet implements IComparable
         bool $returnCellRef,
         bool $ignoreHidden,
     ): array {
+        $this->hiddenColumns = [];
         $nullRow = [];
         $c = -1;
         for ($col = $minCol; $col !== $maxCol; ++$col) {
-            if (($ignoreHidden === true) && ($this->getColumnDimension($col)->getVisible() === false)) {
-                continue;
+            if ($ignoreHidden === true && $this->columnDimensionExists($col) && $this->getColumnDimension($col)->getVisible() === false) {
+                $this->hiddenColumns[$col] = true;
+            } else {
+                $columnRef = $returnCellRef ? $col : ++$c;
+                $nullRow[$columnRef] = $nullValue;
             }
-            $columnRef = $returnCellRef ? $col : ++$c;
-            $nullRow[$columnRef] = $nullValue;
         }
 
         return $nullRow;
@@ -3422,10 +3446,10 @@ class Worksheet implements IComparable
     public function garbageCollect(): static
     {
         // Flush cache
-        $this->getCellCollection()->get('A1');
+        $this->cellCollection->get('A1');
 
         // Lookup highest column and highest row if cells are cleaned
-        $colRow = $this->getCellCollection()->getHighestRowAndColumn();
+        $colRow = $this->cellCollection->getHighestRowAndColumn();
         $highestRow = $colRow['row'];
         $highestColumn = Coordinate::columnIndexFromString($colRow['column']);
 
@@ -3766,7 +3790,7 @@ class Worksheet implements IComparable
 
             if (is_object($val) || (is_array($val))) {
                 if ($key == 'cellCollection') {
-                    $newCollection = $this->getCellCollection()->cloneCellCollection($this);
+                    $newCollection = $this->cellCollection->cloneCellCollection($this);
                     $this->cellCollection = $newCollection;
                 } elseif ($key == 'drawingCollection') {
                     $currentCollection = $this->drawingCollection;
