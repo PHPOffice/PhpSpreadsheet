@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Check if Coordinate is Inside Range [PR #3779](https://github.com/PHPOffice/PhpSpreadsheet/pull/3779)
 - Flipping Images [Issue #731](https://github.com/PHPOffice/PhpSpreadsheet/issues/731) [PR #3801](https://github.com/PHPOffice/PhpSpreadsheet/pull/3801)
 - Chart Dynamic Title and Font Properties [Issue #3797](https://github.com/PHPOffice/PhpSpreadsheet/issues/3797) [PR #3800](https://github.com/PHPOffice/PhpSpreadsheet/pull/3800)
+- Chart Axis Display Units and Logarithmic Scale. [Issue #3833](https://github.com/PHPOffice/PhpSpreadsheet/pull/3833) [PR #3836](https://github.com/PHPOffice/PhpSpreadsheet/pull/3836)
 
 ### Changed
 
@@ -85,6 +86,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Strip `xlfn.` and `xlws.` from Formula Translations. [Issue #3819](https://github.com/PHPOffice/PhpSpreadsheet/issues/3819) [PR #3828](https://github.com/PHPOffice/PhpSpreadsheet/pull/3828)
 - Recurse directories searching for font file. [Issue #2809](https://github.com/PHPOffice/PhpSpreadsheet/issues/2809) [PR #3830](https://github.com/PHPOffice/PhpSpreadsheet/pull/3830)
 - Reduce memory consumption of Worksheet::rangeToArray() when many empty rows are read. [Issue #3814](https://github.com/PHPOffice/PhpSpreadsheet/pull/3814) [PR #3834](https://github.com/PHPOffice/PhpSpreadsheet/pull/3834)
+- Reduce time used by Worksheet::rangeToArray() when many empty rows are read. [PR #3839](https://github.com/PHPOffice/PhpSpreadsheet/pull/3839)
 
 ## 1.29.0 - 2023-06-15
 
