@@ -141,5 +141,5 @@ interface IReader
      *
      * @return Spreadsheet
      */
-    public function load(string $filename, int $flags = 0);
+    public function load(string $filename, int $flags = 0): Spreadsheet;
 }
