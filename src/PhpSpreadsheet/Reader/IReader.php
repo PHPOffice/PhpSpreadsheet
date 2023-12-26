@@ -138,8 +138,6 @@ interface IReader
      *            self::READ_DATA_ONLY      Read only data, not style or structure information, from the file
      *            self::SKIP_EMPTY_CELLS    Don't read empty cells (cells that contain a null value,
      *                                      empty string, or a string containing only whitespace characters)
-     *
-     * @return Spreadsheet
      */
     public function load(string $filename, int $flags = 0): Spreadsheet;
 }
