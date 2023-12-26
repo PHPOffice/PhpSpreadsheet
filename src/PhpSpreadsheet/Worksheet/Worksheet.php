@@ -747,6 +747,7 @@ class Worksheet implements IComparable
 
         // There is only something to do if there are some auto-size columns
         if (!empty($autoSizes)) {
+            $holdActivePane = $this->activePane;
             // build list of cells references that participate in a merge
             $isMergeCell = [];
             foreach ($this->getMergeCells() as $cells) {
@@ -831,6 +832,7 @@ class Worksheet implements IComparable
                 }
                 $this->getColumnDimension($columnIndex)->setWidth($width);
             }
+            $this->activePane = $holdActivePane;
         }
 
         return $this;
