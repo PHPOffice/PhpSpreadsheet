@@ -17,13 +17,13 @@ class LongTitleTest extends AbstractFunctional
         $spreadsheet = new Spreadsheet();
         $spreadsheet
             ->getProperties()
-            ->setTitle('PhpSpreadsheet Table Test Document');
+            ->setTitle($title);
         $sheet = $spreadsheet->getActiveSheet();
         $sheet->setCellValue('A1', 1);
 
         $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, 'Html');
         $spreadsheet->disconnectWorksheets();
-        self::assertSame('Worksheet', $reloadedSpreadsheet->getActiveSheet()->getTitle());
+        self::assertSame($expected, $reloadedSpreadsheet->getActiveSheet()->getTitle());
         $reloadedSpreadsheet->disconnectWorksheets();
     }
 
