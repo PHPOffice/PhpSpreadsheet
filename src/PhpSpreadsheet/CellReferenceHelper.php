@@ -24,7 +24,7 @@ class CellReferenceHelper
         $this->numberOfRows = $numberOfRows;
 
         // Get coordinate of $beforeCellAddress
-        [$beforeColumn, $beforeRow] = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::coordinateFromString($beforeCellAddress);
+        [$beforeColumn, $beforeRow] = Coordinate::coordinateFromString($beforeCellAddress);
         $this->beforeColumn = Coordinate::columnIndexFromString($beforeColumn);
         $this->beforeRow = (int) $beforeRow;
     }
