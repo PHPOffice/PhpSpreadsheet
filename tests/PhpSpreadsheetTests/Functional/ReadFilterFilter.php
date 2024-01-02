@@ -13,7 +13,7 @@ class ReadFilterFilter implements IReadFilter
      * @param int $row Row number
      * @param string $worksheetName Optional worksheet name
      *
-     * @see \PhpOffice\PhpSpreadsheet\Reader\IReadFilter::readCell()
+     * @see IReadFilter::readCell()
      */
     public function readCell($column, $row, $worksheetName = ''): bool
     {
