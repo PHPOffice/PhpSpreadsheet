@@ -347,7 +347,12 @@ class Html extends BaseReader
     {
         if ($child->nodeName === 'title') {
             $this->processDomElement($child, $sheet, $row, $column, $cellContent);
-            $sheet->setTitle($cellContent, true, true);
+
+            try {
+                $sheet->setTitle($cellContent, true, true);
+            } catch (SpreadsheetException) {
+                // leave default title if too long or illegal chars
+            }
             $cellContent = '';
         } else {
             $this->processDomElementSpanEtc($sheet, $row, $column, $cellContent, $child, $attributeArray);
