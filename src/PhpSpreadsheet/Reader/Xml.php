@@ -59,8 +59,12 @@ class Xml extends BaseReader
     /**
      * Can the current IReader read the file?
      */
-    public function canRead(string $filename): bool
+    public function canRead($file): bool
     {
+        if (is_resource($file)) {
+            throw new Exception('file as stream not supported');
+        }
+
         //    Office                    xmlns:o="urn:schemas-microsoft-com:office:office"
         //    Excel                    xmlns:x="urn:schemas-microsoft-com:office:excel"
         //    XML Spreadsheet            xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
@@ -77,7 +81,7 @@ class Xml extends BaseReader
         ];
 
         // Open file
-        $data = file_get_contents($filename) ?: '';
+        $data = file_get_contents($file) ?: '';
 
         // Why?
         //$data = str_replace("'", '"', $data); // fix headers with single quote
@@ -128,19 +132,25 @@ class Xml extends BaseReader
 
     /**
      * Reads names of the worksheets from a file, without parsing the whole file to a Spreadsheet object.
+     *
+     * @param resource|string $file
      */
-    public function listWorksheetNames(string $filename): array
+    public function listWorksheetNames($file): array
     {
-        File::assertFile($filename);
-        if (!$this->canRead($filename)) {
-            throw new Exception($filename . ' is an Invalid Spreadsheet file.');
+        if (is_resource($file)) {
+            throw new Exception('file as stream not supported');
+        }
+
+        File::assertFile($file);
+        if (!$this->canRead($file)) {
+            throw new Exception($file . ' is an Invalid Spreadsheet file.');
         }
 
         $worksheetNames = [];
 
-        $xml = $this->trySimpleXMLLoadString($filename);
+        $xml = $this->trySimpleXMLLoadString($file);
         if ($xml === false) {
-            throw new Exception("Problem reading {$filename}");
+            throw new Exception("Problem reading {$file}");
         }
 
         $xml_ss = $xml->children(self::NAMESPACES_SS);
@@ -154,19 +164,25 @@ class Xml extends BaseReader
 
     /**
      * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
+     *
+     * @param resource|string $file
      */
-    public function listWorksheetInfo(string $filename): array
+    public function listWorksheetInfo($file): array
     {
-        File::assertFile($filename);
-        if (!$this->canRead($filename)) {
-            throw new Exception($filename . ' is an Invalid Spreadsheet file.');
+        if (is_resource($file)) {
+            throw new Exception('file as stream not supported');
+        }
+
+        File::assertFile($file);
+        if (!$this->canRead($file)) {
+            throw new Exception($file . ' is an Invalid Spreadsheet file.');
         }
 
         $worksheetInfo = [];
 
-        $xml = $this->trySimpleXMLLoadString($filename);
+        $xml = $this->trySimpleXMLLoadString($file);
         if ($xml === false) {
-            throw new Exception("Problem reading {$filename}");
+            throw new Exception("Problem reading {$file}");
         }
 
         $worksheetID = 1;
@@ -235,15 +251,21 @@ class Xml extends BaseReader
 
     /**
      * Loads Spreadsheet from file.
+     *
+     * @param resource|string $file
      */
-    protected function loadSpreadsheetFromFile(string $filename): Spreadsheet
+    protected function loadSpreadsheetFromFile($file): Spreadsheet
     {
+        if (is_resource($file)) {
+            throw new Exception('file as stream not supported');
+        }
+
         // Create new Spreadsheet
         $spreadsheet = new Spreadsheet();
         $spreadsheet->removeSheetByIndex(0);
 
         // Load into this instance
-        return $this->loadIntoExisting($filename, $spreadsheet);
+        return $this->loadIntoExisting($file, $spreadsheet);
     }
 
     /**

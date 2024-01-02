@@ -66,11 +66,13 @@ class Slk extends BaseReader
 
     /**
      * Validate that the current file is a SYLK file.
+     *
+     * @param resource|string $file
      */
-    public function canRead(string $filename): bool
+    public function canRead($file): bool
     {
         try {
-            $this->openFile($filename);
+            $this->openFile($file);
         } catch (ReaderException) {
             return false;
         }
@@ -134,15 +136,19 @@ class Slk extends BaseReader
     /**
      * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
      */
-    public function listWorksheetInfo(string $filename): array
+    public function listWorksheetInfo($file): array
     {
+        if (is_resource($file)) {
+            throw new Exception('file as stream not supported');
+        }
+
         // Open file
-        $this->canReadOrBust($filename);
+        $this->canReadOrBust($file);
         $fileHandle = $this->fileHandle;
         rewind($fileHandle);
 
         $worksheetInfo = [];
-        $worksheetInfo[0]['worksheetName'] = basename($filename, '.slk');
+        $worksheetInfo[0]['worksheetName'] = basename($file, '.slk');
 
         // loop through one row (line) at a time in the file
         $rowIndex = 0;
@@ -189,14 +195,20 @@ class Slk extends BaseReader
 
     /**
      * Loads PhpSpreadsheet from file.
+     *
+     * @param resource|string $file
      */
-    protected function loadSpreadsheetFromFile(string $filename): Spreadsheet
+    protected function loadSpreadsheetFromFile($file): Spreadsheet
     {
+        if (is_resource($file)) {
+            throw new Exception('file as stream not supported');
+        }
+
         // Create new Spreadsheet
         $spreadsheet = new Spreadsheet();
 
         // Load into this instance
-        return $this->loadIntoExisting($filename, $spreadsheet);
+        return $this->loadIntoExisting($file, $spreadsheet);
     }
 
     private const COLOR_ARRAY = [

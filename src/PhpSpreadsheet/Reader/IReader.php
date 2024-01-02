@@ -20,8 +20,10 @@ interface IReader
 
     /**
      * Can the current IReader read the file?
+     *
+     * @param resource|string $file
      */
-    public function canRead(string $filename): bool;
+    public function canRead($file): bool;
 
     /**
      * Read data only?
@@ -132,7 +134,7 @@ interface IReader
     /**
      * Loads PhpSpreadsheet from file.
      *
-     * @param string $filename The name of the file to load
+     * @param resource|string $file A resource or the name of the file to load
      * @param int $flags Flags that can change the behaviour of the Writer:
      *            self::LOAD_WITH_CHARTS    Load any charts that are defined (if the Reader supports Charts)
      *            self::READ_DATA_ONLY      Read only data, not style or structure information, from the file
@@ -141,5 +143,5 @@ interface IReader
      *
      * @return Spreadsheet
      */
-    public function load(string $filename, int $flags = 0);
+    public function load($file, int $flags = 0);
 }

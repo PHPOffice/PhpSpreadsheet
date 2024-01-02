@@ -160,7 +160,10 @@ abstract class BaseReader implements IReader
         }
     }
 
-    protected function loadSpreadsheetFromFile(string $filename): Spreadsheet
+    /**
+     * @param resource|string $file
+     */
+    protected function loadSpreadsheetFromFile($file): Spreadsheet
     {
         throw new PhpSpreadsheetException('Reader classes must implement their own loadSpreadsheetFromFile() method');
     }
@@ -168,16 +171,17 @@ abstract class BaseReader implements IReader
     /**
      * Loads Spreadsheet from file.
      *
+     * @param resource|string $file
      * @param int $flags the optional second parameter flags may be used to identify specific elements
      *                       that should be loaded, but which won't be loaded by default, using these values:
      *                            IReader::LOAD_WITH_CHARTS - Include any charts that are defined in the loaded file
      */
-    public function load(string $filename, int $flags = 0): Spreadsheet
+    public function load($file, int $flags = 0): Spreadsheet
     {
         $this->processFlags($flags);
 
         try {
-            return $this->loadSpreadsheetFromFile($filename);
+            return $this->loadSpreadsheetFromFile($file);
         } catch (ReaderException $e) {
             throw $e;
         }
@@ -185,15 +189,22 @@ abstract class BaseReader implements IReader
 
     /**
      * Open file for reading.
+     *
+     * @param resource|string $file
      */
-    protected function openFile(string $filename): void
+    protected function openFile($file): void
     {
-        $fileHandle = false;
-        if ($filename) {
-            File::assertFile($filename);
+        if (is_string($file)) {
+            $filename = $file;
+            File::assertFile($file);
 
             // Open file
-            $fileHandle = fopen($filename, 'rb');
+            $fileHandle = fopen($file, 'rb');
+        } elseif (is_resource($file)) {
+            $filename = 'stream';
+            $fileHandle = $file;
+        } else {
+            throw new ReaderException('invalid type for file. Only file path or a stream resource is allowed');
         }
         if ($fileHandle === false) {
             throw new ReaderException('Could not open file ' . $filename . ' for reading.');
@@ -204,8 +215,10 @@ abstract class BaseReader implements IReader
 
     /**
      * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
+     *
+     * @param resource|string $file
      */
-    public function listWorksheetInfo(string $filename): array
+    public function listWorksheetInfo($file): array
     {
         throw new PhpSpreadsheetException('Reader classes must implement their own listWorksheetInfo() method');
     }
@@ -215,11 +228,13 @@ abstract class BaseReader implements IReader
      * possibly without parsing the whole file to a Spreadsheet object.
      * Readers will often have a more efficient method with which
      * they can override this method.
+     *
+     * @param resource|string $file
      */
-    public function listWorksheetNames(string $filename): array
+    public function listWorksheetNames($file): array
     {
         $returnArray = [];
-        $info = $this->listWorksheetInfo($filename);
+        $info = $this->listWorksheetInfo($file);
         foreach ($info as $infoArray) {
             if (isset($infoArray['worksheetName'])) {
                 $returnArray[] = $infoArray['worksheetName'];
