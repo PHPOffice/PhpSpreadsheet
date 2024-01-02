@@ -112,7 +112,7 @@ jobs:
         run: composer install --no-progress --prefer-dist --optimize-autoloader
 
       - name: Code style with PHP-CS-Fixer
-        run: ./vendor/bin/php-cs-fixer fix --format=checkstyle | cs2pr
+        run: ./vendor/bin/php-cs-fixer fix --format=checkstyle --diff --dry-run | cs2pr
 
   phpcs:
     runs-on: ubuntu-latest
