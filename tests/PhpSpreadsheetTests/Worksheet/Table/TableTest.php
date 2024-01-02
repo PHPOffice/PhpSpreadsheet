@@ -455,7 +455,7 @@ class TableTest extends SetupTeardown
 
     public function testGetColumnWithoutRangeSet(): void
     {
-        $this->expectException(\PhpOffice\PhpSpreadsheet\Exception::class);
+        $this->expectException(PhpSpreadsheetException::class);
         $table = new Table(self::INITIAL_RANGE);
 
         //  Clear the range
