@@ -78,7 +78,7 @@ class Binomial
      *                           If null, then this will indicate the same as the number of Successes
      *                      Or can be an array of values
      *
-     * @return array|float|string If an array of numbers is passed as an argument, then the returned result will also be an array
+     * @return array|float|int|string If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
     public static function range(mixed $trials, mixed $probability, mixed $successes, mixed $limit = null): array|string|float|int

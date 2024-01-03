@@ -53,7 +53,7 @@ class DataType
      *
      * @return RichText|string Sanitized value
      */
-    public static function checkString($textValue): RichText|string|array
+    public static function checkString(null|RichText|string $textValue): RichText|string
     {
         if ($textValue instanceof RichText) {
             // TODO: Sanitize Rich-Text string (max. character count is 32,767)

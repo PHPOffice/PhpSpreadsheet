@@ -2946,7 +2946,7 @@ class Worksheet implements IComparable
      * Get row iterator.
      *
      * @param int $startRow The row number at which to start iterating
-     * @param int $endRow The row number at which to stop iterating
+     * @param ?int $endRow The row number at which to stop iterating
      */
     public function getRowIterator(int $startRow = 1, ?int $endRow = null): RowIterator
     {
@@ -2957,7 +2957,7 @@ class Worksheet implements IComparable
      * Get column iterator.
      *
      * @param string $startColumn The column address at which to start iterating
-     * @param string $endColumn The column address at which to stop iterating
+     * @param ?string $endColumn The column address at which to stop iterating
      */
     public function getColumnIterator(string $startColumn = 'A', ?string $endColumn = null): ColumnIterator
     {
@@ -3026,7 +3026,7 @@ class Worksheet implements IComparable
      * Example: extractSheetTitle("A1", true) ==> ['', 'A1'];
      * Example: extractSheetTitle("A1:C3", true) ==> ['', 'A1:C3']
      *
-     * @param string $range Range to extract title from
+     * @param ?string $range Range to extract title from
      * @param bool $returnRange Return range? (see example)
      *
      * @return ($range is non-empty-string ? ($returnRange is true ? array{0: string, 1: string} : string) : ($returnRange is true ? array{0: null, 1: null} : null))

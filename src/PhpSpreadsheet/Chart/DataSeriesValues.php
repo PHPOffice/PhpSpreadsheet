@@ -391,8 +391,6 @@ class DataSeriesValues extends Properties
 
     /**
      * Get Series Data Values.
-     *
-     * @return mixed[]
      */
     public function getDataValues(): ?array
     {

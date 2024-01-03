@@ -450,7 +450,7 @@ class ConvertUOM
      *    getConversionGroupUnits
      * Returns an array of units of measure, for a specified conversion group, or for all groups.
      *
-     * @param string $category The group whose units of measure you want to retrieve
+     * @param ?string $category The group whose units of measure you want to retrieve
      */
     public static function getConversionCategoryUnits(?string $category = null): array
     {
@@ -467,7 +467,7 @@ class ConvertUOM
     /**
      * getConversionGroupUnitDetails.
      *
-     * @param string $category The group whose units of measure you want to retrieve
+     * @param ?string $category The group whose units of measure you want to retrieve
      */
     public static function getConversionCategoryUnitDetails(?string $category = null): array
     {

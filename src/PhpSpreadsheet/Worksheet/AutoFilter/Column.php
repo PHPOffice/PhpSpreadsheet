@@ -84,7 +84,7 @@ class Column
      * Create a new Column.
      *
      * @param string $column Column (e.g. A)
-     * @param AutoFilter $parent Autofilter for this column
+     * @param ?AutoFilter $parent Autofilter for this column
      */
     public function __construct(string $column, ?AutoFilter $parent = null)
     {

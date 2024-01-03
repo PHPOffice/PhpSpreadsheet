@@ -35,7 +35,7 @@ class RowIterator implements NativeIterator
      *
      * @param Worksheet $subject The worksheet to iterate over
      * @param int $startRow The row number at which to start iterating
-     * @param int $endRow Optionally, the row number at which to stop iterating
+     * @param ?int $endRow Optionally, the row number at which to stop iterating
      */
     public function __construct(Worksheet $subject, int $startRow = 1, ?int $endRow = null)
     {
@@ -77,7 +77,7 @@ class RowIterator implements NativeIterator
     /**
      * (Re)Set the end row.
      *
-     * @param int $endRow The row number at which to stop iterating
+     * @param ?int $endRow The row number at which to stop iterating
      *
      * @return $this
      */

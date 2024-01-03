@@ -30,7 +30,7 @@ class ExcelMatch
      * @param mixed $matchType The number -1, 0, or 1. -1 means above, 0 means exact match, 1 means below.
      *                         If match_type is 1 or -1, the list has to be ordered.
      *
-     * @return array|int|string The relative position of the found item
+     * @return array|float|int|string The relative position of the found item
      */
     public static function MATCH(mixed $lookupValue, mixed $lookupArray, mixed $matchType = self::MATCHTYPE_LARGEST_VALUE): array|string|int|float
     {

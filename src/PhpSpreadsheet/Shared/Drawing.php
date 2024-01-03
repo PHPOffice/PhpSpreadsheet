@@ -11,7 +11,7 @@ class Drawing
      *
      * @param int $pixelValue Value in pixels
      *
-     * @return int Value in EMU
+     * @return float|int Value in EMU
      */
     public static function pixelsToEMU(int $pixelValue): int|float
     {

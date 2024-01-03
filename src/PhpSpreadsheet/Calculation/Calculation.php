@@ -3398,7 +3398,7 @@ class Calculation
      * Calculate cell value (using formula from a cell ID)
      * Retained for backward compatibility.
      *
-     * @param Cell $cell Cell to calculate
+     * @param ?Cell $cell Cell to calculate
      */
     public function calculate(?Cell $cell = null): mixed
     {
@@ -3412,7 +3412,7 @@ class Calculation
     /**
      * Calculate the value of a cell formula.
      *
-     * @param Cell $cell Cell to calculate
+     * @param ?Cell $cell Cell to calculate
      * @param bool $resetLog Flag indicating whether the debug log should be reset or not
      */
     public function calculateCellValue(?Cell $cell = null, bool $resetLog = true): mixed
@@ -3531,8 +3531,8 @@ class Calculation
      * Calculate the value of a formula.
      *
      * @param string $formula Formula to parse
-     * @param string $cellID Address of the cell to calculate
-     * @param Cell $cell Cell to calculate
+     * @param ?string $cellID Address of the cell to calculate
+     * @param ?Cell $cell Cell to calculate
      */
     public function calculateFormula(string $formula, ?string $cellID = null, ?Cell $cell = null): mixed
     {
@@ -3594,8 +3594,8 @@ class Calculation
      * Parse a cell formula and calculate its value.
      *
      * @param string $formula The formula to parse and calculate
-     * @param string $cellID The ID (e.g. A3) of the cell that we are calculating
-     * @param Cell $cell Cell to calculate
+     * @param ?string $cellID The ID (e.g. A3) of the cell that we are calculating
+     * @param ?Cell $cell Cell to calculate
      * @param bool $ignoreQuotePrefix If set to true, evaluate the formyla even if the referenced cell is quote prefixed
      */
     public function _calculateFormulaValue(string $formula, ?string $cellID = null, ?Cell $cell = null, bool $ignoreQuotePrefix = false): mixed
@@ -5329,7 +5329,7 @@ class Calculation
      * Extract range values.
      *
      * @param string $range String based range representation
-     * @param Worksheet $worksheet Worksheet
+     * @param ?Worksheet $worksheet Worksheet
      * @param bool $resetLog Flag indicating whether calculation log should be reset or not
      *
      * @return array Array of values in range if range contains more than one element. Otherwise, a single value is returned.

@@ -37,7 +37,7 @@ class RowCellIterator extends CellIterator
      * @param Worksheet $worksheet The worksheet to iterate over
      * @param int $rowIndex The row that we want to iterate
      * @param string $startColumn The column address at which to start iterating
-     * @param string $endColumn Optionally, the column address at which to stop iterating
+     * @param ?string $endColumn Optionally, the column address at which to stop iterating
      */
     public function __construct(Worksheet $worksheet, int $rowIndex = 1, string $startColumn = 'A', ?string $endColumn = null, bool $iterateOnlyExistingCells = false)
     {
@@ -69,7 +69,7 @@ class RowCellIterator extends CellIterator
     /**
      * (Re)Set the end column.
      *
-     * @param string $endColumn The column address at which to stop iterating
+     * @param ?string $endColumn The column address at which to stop iterating
      *
      * @return $this
      */

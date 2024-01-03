@@ -21,7 +21,7 @@ class XMLWriter extends \XMLWriter
      * Create a new XMLWriter instance.
      *
      * @param int $temporaryStorage Temporary storage location
-     * @param string $temporaryStorageFolder Temporary storage folder
+     * @param ?string $temporaryStorageFolder Temporary storage folder
      */
     public function __construct(int $temporaryStorage = self::STORAGE_MEMORY, ?string $temporaryStorageFolder = null)
     {

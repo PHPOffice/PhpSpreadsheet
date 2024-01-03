@@ -13,7 +13,7 @@ class Random
     /**
      * RAND.
      *
-     * @return float Random number
+     * @return float|int Random number
      */
     public static function rand(): int|float
     {

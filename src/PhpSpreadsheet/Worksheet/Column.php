@@ -41,7 +41,7 @@ class Column
      * Get cell iterator.
      *
      * @param int $startRow The row number at which to start iterating
-     * @param int $endRow Optionally, the row number at which to stop iterating
+     * @param ?int $endRow Optionally, the row number at which to stop iterating
      */
     public function getCellIterator(int $startRow = 1, ?int $endRow = null, bool $iterateOnlyExistingCells = false): ColumnCellIterator
     {
@@ -52,7 +52,7 @@ class Column
      * Get row iterator. Synonym for getCellIterator().
      *
      * @param int $startRow The row number at which to start iterating
-     * @param int $endRow Optionally, the row number at which to stop iterating
+     * @param ?int $endRow Optionally, the row number at which to stop iterating
      */
     public function getRowIterator(int $startRow = 1, ?int $endRow = null, bool $iterateOnlyExistingCells = false): ColumnCellIterator
     {
@@ -76,7 +76,7 @@ class Column
      *                  CellIterator::TREAT_NULL_VALUE_AS_EMPTY_CELL
      *                  CellIterator::TREAT_EMPTY_STRING_AS_EMPTY_CELL
      * @param int $startRow The row number at which to start checking if cells are empty
-     * @param int $endRow Optionally, the row number at which to stop checking if cells are empty
+     * @param ?int $endRow Optionally, the row number at which to stop checking if cells are empty
      */
     public function isEmpty(int $definitionOfEmptyFlags = 0, int $startRow = 1, ?int $endRow = null): bool
     {

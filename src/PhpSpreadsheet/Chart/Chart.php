@@ -579,7 +579,7 @@ class Chart
     /**
      * Render the chart to given file (or stream).
      *
-     * @param string $outputDestination Name of the file render to
+     * @param ?string $outputDestination Name of the file render to
      *
      * @return bool true on success
      */

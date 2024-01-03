@@ -12,7 +12,7 @@ class Formula
      * FORMULATEXT.
      *
      * @param mixed $cellReference The cell to check
-     * @param Cell $cell The current cell (containing this formula)
+     * @param ?Cell $cell The current cell (containing this formula)
      */
     public static function text(mixed $cellReference = '', ?Cell $cell = null): string
     {

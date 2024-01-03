@@ -88,7 +88,7 @@ class Drawing extends BaseDrawing
      *
      * @param string $path File path
      * @param bool $verifyFile Verify file
-     * @param ZipArchive $zip Zip archive instance
+     * @param ?ZipArchive $zip Zip archive instance
      *
      * @return $this
      */

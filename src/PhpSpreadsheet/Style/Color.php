@@ -226,7 +226,7 @@ class Color extends Supervisor
     /**
      * Set ARGB.
      *
-     * @param string $colorValue  ARGB value, or a named color
+     * @param ?string $colorValue  ARGB value, or a named color
      *
      * @return $this
      */
@@ -263,7 +263,7 @@ class Color extends Supervisor
     /**
      * Set RGB.
      *
-     * @param string $colorValue RGB value, or a named color
+     * @param ?string $colorValue RGB value, or a named color
      *
      * @return $this
      */

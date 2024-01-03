@@ -49,7 +49,7 @@ class Column
      * Create a new Column.
      *
      * @param string $column Column (e.g. A)
-     * @param Table $table Table for this column
+     * @param ?Table $table Table for this column
      */
     public function __construct(string $column, ?Table $table = null)
     {

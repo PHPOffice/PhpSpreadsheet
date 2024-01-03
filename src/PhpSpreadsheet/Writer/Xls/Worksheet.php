@@ -2252,7 +2252,7 @@ class Worksheet extends BIFFwriter
      * @param int $colL Column containing upper left corner of object
      * @param int $dxL Distance from left side of cell
      * @param int $rwT Row containing top left corner of object
-     * @param int $dyT Distance from top of cell
+     * @param float|int $dyT Distance from top of cell
      * @param int $colR Column containing lower right corner of object
      * @param int $dxR Distance from right of cell
      * @param int $rwB Row containing bottom right corner of object

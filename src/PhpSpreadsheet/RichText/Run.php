@@ -36,7 +36,7 @@ class Run extends TextElement implements ITextElement
     /**
      * Set font.
      *
-     * @param Font $font Font
+     * @param ?Font $font Font
      *
      * @return $this
      */

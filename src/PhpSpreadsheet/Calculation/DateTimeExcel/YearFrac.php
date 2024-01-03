@@ -39,7 +39,7 @@ class YearFrac
      *                                        4                European 30/360
      *                         Or can be an array of methods
      *
-     * @return array|float|string fraction of the year, or a string containing an error
+     * @return array|float|int|string fraction of the year, or a string containing an error
      *         If an array of values is passed for the $startDate or $endDays,arguments, then the returned result
      *            will also be an array with matching dimensions
      */

@@ -67,7 +67,7 @@ class Averages extends AggregateBase
      *
      * @param mixed ...$args Data values
      *
-     * @return float|string (string if result is an error)
+     * @return float|int|string (string if result is an error)
      */
     public static function average(mixed ...$args): string|int|float
     {
@@ -106,7 +106,7 @@ class Averages extends AggregateBase
      *
      * @param mixed ...$args Data values
      *
-     * @return float|string (string if result is an error)
+     * @return float|int|string (string if result is an error)
      */
     public static function averageA(mixed ...$args): string|int|float
     {
