@@ -59,11 +59,8 @@ class TimeValue
         $PHPDateArray = Helpers::dateParse($timeValue);
         $retValue = ExcelError::VALUE();
         if (Helpers::dateParseSucceeded($PHPDateArray)) {
-            /** @var int $hour */
             $hour = $PHPDateArray['hour'];
-            /** @var int $minute */
             $minute = $PHPDateArray['minute'];
-            /** @var int $second */
             $second = $PHPDateArray['second'];
             // OpenOffice-specific code removed - it works just like Excel
             $excelDateValue = SharedDateHelper::formattedPHPToExcel(1900, 1, 1, $hour, $minute, $second) - 1;

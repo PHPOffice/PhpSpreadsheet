@@ -17,8 +17,7 @@ abstract class GammaBase
 
     private const MAX_ITERATIONS = 256;
 
-    /** @return float|string */
-    protected static function calculateDistribution(float $value, float $a, float $b, bool $cumulative)
+    protected static function calculateDistribution(float $value, float $a, float $b, bool $cumulative): float
     {
         if ($cumulative) {
             return self::incompleteGamma($a, $value / $b) / self::gammaValue($a);
