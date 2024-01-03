@@ -107,14 +107,13 @@ class DataSeries
     /**
      * Create a new DataSeries.
      *
-     * @param null|mixed $plotType
      * @param int[] $plotOrder
      * @param DataSeriesValues[] $plotLabel
      * @param DataSeriesValues[] $plotCategory
      * @param DataSeriesValues[] $plotValues
      */
     public function __construct(
-        $plotType = null,
+        null|string $plotType = null,
         null|string $plotGrouping = null,
         array $plotOrder = [],
         array $plotLabel = [],

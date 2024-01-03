@@ -394,12 +394,7 @@ class Properties
     /**
      * Set a Custom Property.
      *
-     * @param string $propertyType
-     *   'i' : Integer
-     *   'f' : Floating Point
-     *   's' : String
-     *   'd' : Date/Time
-     *   'b' : Boolean
+     * @param ?string $propertyType see `self::VALID_PROPERTY_TYPE_LIST`
      *
      * @return $this
      */
