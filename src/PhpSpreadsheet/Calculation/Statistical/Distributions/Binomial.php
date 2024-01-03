@@ -55,7 +55,7 @@ class Binomial
         if ($cumulative) {
             return self::calculateCumulativeBinomial($value, $trials, $probability);
         }
-        /** @var float */
+        /** @var float $comb */
         $comb = Combinations::withoutRepetition($trials, $value);
 
         return $comb * $probability ** $value
@@ -107,7 +107,7 @@ class Binomial
 
         $summer = 0;
         for ($i = $successes; $i <= $limit; ++$i) {
-            /** @var float */
+            /** @var float $comb */
             $comb = Combinations::withoutRepetition($trials, $i);
             $summer += $comb * $probability ** $i
                 * (1 - $probability) ** ($trials - $i);
@@ -161,7 +161,7 @@ class Binomial
                 return ExcelError::NAN();
             }
         }
-        /** @var float */
+        /** @var float $comb */
         $comb = Combinations::withoutRepetition($failures + $successes - 1, $successes - 1);
 
         return $comb
@@ -220,7 +220,7 @@ class Binomial
     {
         $summer = 0;
         for ($i = 0; $i <= $value; ++$i) {
-            /** @var float */
+            /** @var float $comb */
             $comb = Combinations::withoutRepetition($trials, $i);
             $summer += $comb * $probability ** $i
                 * (1 - $probability) ** ($trials - $i);

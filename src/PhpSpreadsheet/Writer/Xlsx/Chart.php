@@ -1628,7 +1628,7 @@ class Chart extends WriterPart
         if (empty($xAxis->getShadowProperty('effect'))) {
             return;
         }
-        /** @var string */
+        /** @var string $effect */
         $effect = $xAxis->getShadowProperty('effect');
         $objWriter->startElement("a:$effect");
 

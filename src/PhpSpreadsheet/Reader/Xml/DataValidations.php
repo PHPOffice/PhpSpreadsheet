@@ -40,7 +40,7 @@ class DataValidations
     {
         $xmlX = $worksheet->children(Namespaces::URN_EXCEL);
         $sheet = $spreadsheet->getActiveSheet();
-        /** @var callable */
+        /** @var callable $pregCallback */
         $pregCallback = [$this, 'replaceR1C1'];
         foreach ($xmlX->DataValidation as $dataValidation) {
             $cells = [];

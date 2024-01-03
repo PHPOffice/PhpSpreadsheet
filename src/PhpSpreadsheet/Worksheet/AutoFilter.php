@@ -370,7 +370,7 @@ class AutoFilter implements Stringable
      */
     protected static function filterTestInCustomDataSet(mixed $cellValue, array $ruleSet): bool
     {
-        /** @var array[] */
+        /** @var array[] $dataSet */
         $dataSet = $ruleSet['filterRules'];
         $join = $ruleSet['join'];
         $customRuleForBlanks = $ruleSet['customRuleForBlanks'] ?? false;
@@ -383,11 +383,11 @@ class AutoFilter implements Stringable
         }
         $returnVal = ($join == AutoFilter\Column::AUTOFILTER_COLUMN_JOIN_AND);
         foreach ($dataSet as $rule) {
-            /** @var string */
+            /** @var string $ruleValue */
             $ruleValue = $rule['value'];
-            /** @var string */
+            /** @var string $ruleOperator */
             $ruleOperator = $rule['operator'];
-            /** @var string */
+            /** @var string $cellValueString */
             $cellValueString = $cellValue ?? '';
             $retVal = false;
 

@@ -193,7 +193,7 @@ class Coupons
             return $e->getMessage();
         }
 
-        /** @var int */
+        /** @var int $daysPerYear */
         $daysPerYear = Helpers::daysPerYear(Functions::Scalar(DateTimeExcel\DateParts::year($settlement)), $basis);
         $next = self::couponFirstPeriodDate($settlement, $maturity, $frequency, self::PERIOD_DATE_NEXT);
 

@@ -9,7 +9,7 @@ class Title
     /**
      * Title Caption.
      *
-     * @var array|RichText|string
+     * @var array<RichText|string>|RichText|string
      */
     private $caption = '';
 
@@ -52,7 +52,7 @@ class Title
         }
         $retVal = '';
         foreach ($caption as $textx) {
-            /** @var RichText|string */
+            /** @var RichText|string $text */
             $text = $textx;
             if ($text instanceof RichText) {
                 $retVal .= $text->getPlainText();

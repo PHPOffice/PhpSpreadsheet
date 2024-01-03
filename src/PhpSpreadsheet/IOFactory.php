@@ -30,7 +30,7 @@ abstract class IOFactory
     public const WRITER_CSV = 'Csv';
     public const WRITER_HTML = 'Html';
 
-    /** @var string[] */
+    /** @var array<string, class-string<IReader>> */
     private static array $readers = [
         self::READER_XLSX => Reader\Xlsx::class,
         self::READER_XLS => Reader\Xls::class,
@@ -42,7 +42,7 @@ abstract class IOFactory
         self::READER_CSV => Reader\Csv::class,
     ];
 
-    /** @var string[] */
+    /** @var array<string, class-string<IWriter>> */
     private static array $writers = [
         self::WRITER_XLS => Writer\Xls::class,
         self::WRITER_XLSX => Writer\Xlsx::class,
@@ -64,7 +64,6 @@ abstract class IOFactory
         }
 
         // Instantiate writer
-        /** @var IWriter */
         $className = self::$writers[$writerType];
 
         return new $className($spreadsheet);
@@ -80,7 +79,6 @@ abstract class IOFactory
         }
 
         // Instantiate reader
-        /** @var IReader */
         $className = self::$readers[$readerType];
 
         return new $className();
@@ -212,6 +210,8 @@ abstract class IOFactory
 
     /**
      * Register a writer with its type and class name.
+     *
+     * @param class-string<IWriter> $writerClass
      */
     public static function registerWriter(string $writerType, string $writerClass): void
     {

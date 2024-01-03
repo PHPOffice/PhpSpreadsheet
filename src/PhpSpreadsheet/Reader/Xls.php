@@ -958,7 +958,7 @@ class Xls extends BaseReader
                 $escherWorksheet = $reader->load($this->drawingData);
 
                 // get all spContainers in one long array, so they can be mapped to OBJ records
-                /** @var SpContainer[] */
+                /** @var SpContainer[] $allSpContainers */
                 $allSpContainers = method_exists($escherWorksheet, 'getDgContainer') ? $escherWorksheet->getDgContainer()->getSpgrContainer()->getAllSpContainers() : [];
             }
 

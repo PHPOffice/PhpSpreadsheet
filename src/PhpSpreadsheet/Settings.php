@@ -16,7 +16,7 @@ class Settings
      * Class name of the chart renderer used for rendering charts
      * eg: PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph.
      *
-     * @var ?string
+     * @var null|class-string<IRenderer>
      */
     private static ?string $chartRenderer = null;
 
@@ -61,7 +61,7 @@ class Settings
     /**
      * Identify to PhpSpreadsheet the external library to use for rendering charts.
      *
-     * @param string $rendererClassName Class name of the chart renderer
+     * @param class-string<IRenderer> $rendererClassName Class name of the chart renderer
      *    eg: PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph
      */
     public static function setChartRenderer(string $rendererClassName): void
@@ -76,7 +76,7 @@ class Settings
     /**
      * Return the Chart Rendering Library that PhpSpreadsheet is currently configured to use.
      *
-     * @return null|string Class name of the chart renderer
+     * @return null|class-string<IRenderer> Class name of the chart renderer
      *    eg: PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph
      */
     public static function getChartRenderer(): ?string

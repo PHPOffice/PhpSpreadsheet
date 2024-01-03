@@ -275,7 +275,7 @@ class ChiSquared
     // Relative error controlled by the eps parameter
     private static function gser(int $n, float $x): float
     {
-        /** @var float */
+        /** @var float $gln */
         $gln = Gamma::ln($n / 2);
         $a = 0.5 * $n;
         $ap = $a;
@@ -299,7 +299,7 @@ class ChiSquared
     // Relative error controlled by the eps parameter
     private static function gcf(int $n, float $x): float
     {
-        /** @var float */
+        /** @var float $gln */
         $gln = Gamma::ln($n / 2);
         $a = 0.5 * $n;
         $b = $x + 1 - $a;

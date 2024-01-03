@@ -597,7 +597,6 @@ class Chart
         // Ensure that data series values are up-to-date before we render
         $this->refresh();
 
-        /** @var Renderer\IRenderer */
         $renderer = new $libraryName($this);
 
         return $renderer->render($outputDestination);

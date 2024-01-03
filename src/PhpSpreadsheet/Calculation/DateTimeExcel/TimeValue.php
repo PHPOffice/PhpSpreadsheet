@@ -47,7 +47,7 @@ class TimeValue
             return ExcelError::VALUE();
         }
 
-        $timeValue = trim($timeValue ?? '', '"');
+        $timeValue = trim((string) $timeValue, '"');
         $timeValue = str_replace(['/', '.'], '-', $timeValue);
 
         $arraySplit = preg_split('/[\/:\-\s]/', $timeValue) ?: [];
@@ -59,11 +59,11 @@ class TimeValue
         $PHPDateArray = Helpers::dateParse($timeValue);
         $retValue = ExcelError::VALUE();
         if (Helpers::dateParseSucceeded($PHPDateArray)) {
-            /** @var int */
+            /** @var int $hour */
             $hour = $PHPDateArray['hour'];
-            /** @var int */
+            /** @var int $minute */
             $minute = $PHPDateArray['minute'];
-            /** @var int */
+            /** @var int $second */
             $second = $PHPDateArray['second'];
             // OpenOffice-specific code removed - it works just like Excel
             $excelDateValue = SharedDateHelper::formattedPHPToExcel(1900, 1, 1, $hour, $minute, $second) - 1;

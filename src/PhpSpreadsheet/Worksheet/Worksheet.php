@@ -493,7 +493,7 @@ class Worksheet implements IComparable
      */
     public function getColumnDimensions(): array
     {
-        /** @var callable */
+        /** @var callable $callable */
         $callable = [self::class, 'columnDimensionCompare'];
         uasort($this->columnDimensions, $callable);
 
@@ -1604,13 +1604,13 @@ class Worksheet implements IComparable
     public function getBreaks(): array
     {
         $breaks = [];
-        /** @var callable */
+        /** @var callable $compareFunction */
         $compareFunction = [self::class, 'compareRowBreaks'];
         uksort($this->rowBreaks, $compareFunction);
         foreach ($this->rowBreaks as $break) {
             $breaks[$break->getCoordinate()] = self::BREAK_ROW;
         }
-        /** @var callable */
+        /** @var callable $compareFunction */
         $compareFunction = [self::class, 'compareColumnBreaks'];
         uksort($this->columnBreaks, $compareFunction);
         foreach ($this->columnBreaks as $break) {
@@ -1627,7 +1627,7 @@ class Worksheet implements IComparable
      */
     public function getRowBreaks(): array
     {
-        /** @var callable */
+        /** @var callable $compareFunction */
         $compareFunction = [self::class, 'compareRowBreaks'];
         uksort($this->rowBreaks, $compareFunction);
 
@@ -1657,7 +1657,7 @@ class Worksheet implements IComparable
      */
     public function getColumnBreaks(): array
     {
-        /** @var callable */
+        /** @var callable $compareFunction */
         $compareFunction = [self::class, 'compareColumnBreaks'];
         uksort($this->columnBreaks, $compareFunction);
 

@@ -634,7 +634,7 @@ class Html extends BaseReader
             $lowend = "\u{80}";
             $highend = "\u{10ffff}";
             $regexp = "/[$lowend-$highend]/u";
-            /** @var callable */
+            /** @var callable $callback */
             $callback = [self::class, 'replaceNonAscii'];
             $convert = preg_replace_callback($regexp, $callback, $convert);
             $loaded = ($convert === null) ? false : $dom->loadHTML($convert);
@@ -743,7 +743,7 @@ class Html extends BaseReader
             $lowend = "\u{80}";
             $highend = "\u{10ffff}";
             $regexp = "/[$lowend-$highend]/u";
-            /** @var callable */
+            /** @var callable $callback */
             $callback = [self::class, 'replaceNonAscii'];
             $convert = preg_replace_callback($regexp, $callback, $convert);
             $loaded = ($convert === null) ? false : $dom->loadHTML($convert);

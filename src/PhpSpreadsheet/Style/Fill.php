@@ -88,7 +88,7 @@ class Fill extends Supervisor
      */
     public function getSharedComponent(): self
     {
-        /** @var Style */
+        /** @var Style $parent */
         $parent = $this->parent;
 
         return $parent->getSharedComponent()->getFill();

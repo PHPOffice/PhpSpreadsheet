@@ -139,7 +139,7 @@ class Color extends Supervisor
      */
     public function getSharedComponent(): self
     {
-        /** @var Style */
+        /** @var Style $parent */
         $parent = $this->parent;
         /** @var Border|Fill $sharedComponent */
         $sharedComponent = $parent->getSharedComponent();
@@ -159,7 +159,7 @@ class Color extends Supervisor
      */
     public function getStyleArray(array $array): array
     {
-        /** @var Style */
+        /** @var Style $parent */
         $parent = $this->parent;
 
         return $parent->getStyleArray([$this->parentPropertyName => $array]);

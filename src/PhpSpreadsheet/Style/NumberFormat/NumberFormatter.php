@@ -30,7 +30,7 @@ class NumberFormatter
 
     private static function processComplexNumberFormatMask(mixed $number, string $mask): string
     {
-        /** @var string */
+        /** @var string $result */
         $result = $number;
         $maskingBlockCount = preg_match_all('/0+/', $mask, $maskingBlocks, PREG_OFFSET_CAPTURE);
 
@@ -43,13 +43,13 @@ class NumberFormatter
                 $divisor = 10 ** $size;
                 $offset = $block[1];
 
-                /** @var float */
+                /** @var float $numberFloat */
                 $numberFloat = $number;
                 $blockValue = sprintf("%0{$size}d", fmod($numberFloat, $divisor));
                 $number = floor($numberFloat / $divisor);
                 $mask = substr_replace($mask, $blockValue, $offset, $size);
             }
-            /** @var string */
+            /** @var string $numberString */
             $numberString = $number;
             if ($number > 0) {
                 $mask = substr_replace($mask, $numberString, $offset, 0);
@@ -62,7 +62,7 @@ class NumberFormatter
 
     private static function complexNumberFormatMask(mixed $number, string $mask, bool $splitOnPoint = true): string
     {
-        /** @var float */
+        /** @var float $numberFloat */
         $numberFloat = $number;
         if ($splitOnPoint) {
             $masks = explode('.', $mask);
@@ -134,7 +134,7 @@ class NumberFormatter
 
     private static function formatStraightNumericValue(mixed $value, string $format, array $matches, bool $useThousands): string
     {
-        /** @var float */
+        /** @var float $valueFloat */
         $valueFloat = $value;
         $left = $matches[1];
         $dec = $matches[2];
@@ -178,7 +178,7 @@ class NumberFormatter
 
         $sprintf_pattern = "%0$minWidth." . strlen($right) . 'f';
 
-        /** @var float */
+        /** @var float $valueFloat */
         $valueFloat = $value;
         $value = sprintf($sprintf_pattern, round($valueFloat, strlen($right)));
 

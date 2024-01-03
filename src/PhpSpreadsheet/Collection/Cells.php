@@ -2,7 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheet\Collection;
 
-use Generator;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
@@ -447,9 +446,9 @@ class Cells
     /**
      * Returns all known cache keys.
      *
-     * @return Generator|string[]
+     * @return iterable<string>
      */
-    private function getAllCacheKeys()
+    private function getAllCacheKeys(): iterable
     {
         foreach ($this->index as $coordinate => $value) {
             yield $this->cachePrefix . $coordinate;

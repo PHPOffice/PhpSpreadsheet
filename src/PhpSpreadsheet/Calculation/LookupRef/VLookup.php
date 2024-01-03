@@ -49,7 +49,7 @@ class VLookup extends LookupBase
         $firstColumn = array_shift($columnKeys) ?? 1;
 
         if (!$notExactMatch) {
-            /** @var callable */
+            /** @var callable $callable */
             $callable = [self::class, 'vlookupSort'];
             uasort($lookupArray, $callable);
         }
