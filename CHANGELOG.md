@@ -28,7 +28,8 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Check if Coordinate is Inside Range [PR #3779](https://github.com/PHPOffice/PhpSpreadsheet/pull/3779)
 - Flipping Images [Issue #731](https://github.com/PHPOffice/PhpSpreadsheet/issues/731) [PR #3801](https://github.com/PHPOffice/PhpSpreadsheet/pull/3801)
 - Chart Dynamic Title and Font Properties [Issue #3797](https://github.com/PHPOffice/PhpSpreadsheet/issues/3797) [PR #3800](https://github.com/PHPOffice/PhpSpreadsheet/pull/3800)
-- Chart Axis Display Units and Logarithmic Scale. [Issue #3833](https://github.com/PHPOffice/PhpSpreadsheet/pull/3833) [PR #3836](https://github.com/PHPOffice/PhpSpreadsheet/pull/3836)
+- Chart Axis Display Units and Logarithmic Scale. [Issue #3833](https://github.com/PHPOffice/PhpSpreadsheet/issues/3833) [PR #3836](https://github.com/PHPOffice/PhpSpreadsheet/pull/3836)
+- Partial Support of Fill Handles. [Discussion #3847](https://github.com/PHPOffice/PhpSpreadsheet/discussions/3847) [PR #3855](https://github.com/PHPOffice/PhpSpreadsheet/pull/3855)
 
 ### Changed
 

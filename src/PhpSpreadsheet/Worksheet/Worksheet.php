@@ -4004,4 +4004,30 @@ class Worksheet implements IComparable
 
         return $this;
     }
+
+    /**
+     * Copy cells, adjusting relative cell references in formulas.
+     * Acts similarly to Excel "fill handle" feature.
+     *
+     * @param string $fromCell Single source cell, e.g. C3
+     * @param string $toCells Single cell or cell range, e.g. C4 or C4:C10
+     * @param bool $copyStyle Copy styles as well as values, defaults to true
+     */
+    public function copyCells(string $fromCell, string $toCells, bool $copyStyle = true): void
+    {
+        $toArray = Coordinate::extractAllCellReferencesInRange($toCells);
+        $value = $this->getCell($fromCell)->getValue();
+        $style = $this->getStyle($fromCell)->exportArray();
+        $fromIndexes = Coordinate::indexesFromString($fromCell);
+        $referenceHelper = ReferenceHelper::getInstance();
+        foreach ($toArray as $destination) {
+            if ($destination !== $fromCell) {
+                $toIndexes = Coordinate::indexesFromString($destination);
+                $this->getCell($destination)->setValue($referenceHelper->updateFormulaReferences($value, 'A1', $toIndexes[0] - $fromIndexes[0], $toIndexes[1] - $fromIndexes[1]));
+                if ($copyStyle) {
+                    $this->getCell($destination)->getStyle()->applyFromArray($style);
+                }
+            }
+        }
+    }
 }
