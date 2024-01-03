@@ -19,7 +19,7 @@ class RowCellIterator extends CellIterator
     /**
      * Row index.
      */
-    private int $rowIndex = 1;
+    private int $rowIndex;
 
     /**
      * Start position.

@@ -62,7 +62,7 @@ class DataSeries
     /**
      * Plot Style.
      */
-    private ?string $plotStyle = null;
+    private ?string $plotStyle;
 
     /**
      * Order of plots in Series.

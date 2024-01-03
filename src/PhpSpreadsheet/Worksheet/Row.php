@@ -9,7 +9,7 @@ class Row
     /**
      * Row index.
      */
-    private int $rowIndex = 0;
+    private int $rowIndex;
 
     /**
      * Create a new row.

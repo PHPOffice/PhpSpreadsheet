@@ -13,9 +13,9 @@ $inputFileName = __DIR__ . '/sampleData/example2.xls';
 /**  Define a Read Filter class implementing IReadFilter  */
 class ChunkReadFilter implements IReadFilter
 {
-    private int $startRow = 0;
+    private int $startRow;
 
-    private int $endRow = 0;
+    private int $endRow;
 
     /**
      * We expect a list of the rows that we want to read to be passed into the constructor.

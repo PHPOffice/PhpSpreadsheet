@@ -13,7 +13,7 @@ class Column
     /**
      * Table Column Index.
      */
-    private string $columnIndex = '';
+    private string $columnIndex;
 
     /**
      * Show Filter Button.

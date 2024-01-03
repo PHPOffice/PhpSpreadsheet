@@ -54,7 +54,7 @@ class Column
     /**
      * Autofilter Column Index.
      */
-    private string $columnIndex = '';
+    private string $columnIndex;
 
     /**
      * Autofilter Column Filter Type.

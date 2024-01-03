@@ -51,12 +51,12 @@ class Spreadsheet implements JsonSerializable
      *
      * @var Worksheet[]
      */
-    private array $workSheetCollection = [];
+    private array $workSheetCollection;
 
     /**
      * Calculation Engine.
      */
-    private ?Calculation $calculationEngine = null;
+    private ?Calculation $calculationEngine;
 
     /**
      * Active sheet index.
@@ -68,7 +68,7 @@ class Spreadsheet implements JsonSerializable
      *
      * @var DefinedName[]
      */
-    private array $definedNames = [];
+    private array $definedNames;
 
     /**
      * CellXf supervisor.

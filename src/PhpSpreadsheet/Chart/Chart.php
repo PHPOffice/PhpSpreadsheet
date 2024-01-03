@@ -10,7 +10,7 @@ class Chart
     /**
      * Chart Name.
      */
-    private string $name = '';
+    private string $name;
 
     /**
      * Worksheet.
@@ -45,12 +45,12 @@ class Chart
     /**
      * Plot Visible Only.
      */
-    private bool $plotVisibleOnly = true;
+    private bool $plotVisibleOnly;
 
     /**
      * Display Blanks as.
      */
-    private string $displayBlanksAs = DataSeries::EMPTY_AS_GAP;
+    private string $displayBlanksAs;
 
     /**
      * Chart Asix Y as.

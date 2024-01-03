@@ -18,7 +18,7 @@ class Cells
     /**
      * Parent worksheet.
      */
-    private ?Worksheet $parent = null;
+    private ?Worksheet $parent;
 
     /**
      * The currently active Cell.

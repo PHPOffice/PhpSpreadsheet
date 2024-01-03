@@ -11,7 +11,7 @@ class Title
      *
      * @var array<RichText|string>|RichText|string
      */
-    private $caption = '';
+    private $caption;
 
     /**
      * Allow overlay of other elements?
