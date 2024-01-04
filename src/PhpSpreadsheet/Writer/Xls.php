@@ -730,12 +730,6 @@ class Xls extends BaseWriter
                 $dataSection_Content .= $dataProp['data']['data'];
 
                 $dataSection_Content_Offset += 4 + 4 + strlen($dataProp['data']['data']);
-                /* Condition below can never be true
-                } elseif ($dataProp['type']['data'] == 0x40) { // Filetime (64-bit value representing the number of 100-nanosecond intervals since January 1, 1601)
-                    $dataSection_Content .= $dataProp['data']['data'];
-
-                    $dataSection_Content_Offset += 4 + 8;
-                */
             } else {
                 $dataSection_Content .= $dataProp['data']['data'];
 
