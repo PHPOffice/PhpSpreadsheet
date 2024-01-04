@@ -11,6 +11,11 @@ parameters:
 			path: samples/Basic/15_Datavalidation.php
 
 		-
+			message: "#^Strict comparison using \\=\\=\\= between mixed and null will always evaluate to false\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/Calculation.php
+
+		-
 			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
 			count: 4
 			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/Date.php
