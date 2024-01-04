@@ -17,15 +17,9 @@ class CsvNumberFormatLocaleTest extends TestCase
      */
     private $currentLocale;
 
-    /**
-     * @var string
-     */
-    protected $filename;
+    protected string $filename;
 
-    /**
-     * @var Csv
-     */
-    protected $csvReader;
+    protected Csv $csvReader;
 
     protected function setUp(): void
     {

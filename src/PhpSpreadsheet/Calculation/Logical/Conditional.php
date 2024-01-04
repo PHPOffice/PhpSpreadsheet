@@ -46,7 +46,7 @@ class Conditional
      *
      * @return mixed The value of returnIfTrue or returnIfFalse determined by condition
      */
-    public static function statementIf(mixed $condition = true, mixed $returnIfTrue = 0, mixed $returnIfFalse = false)
+    public static function statementIf(mixed $condition = true, mixed $returnIfTrue = 0, mixed $returnIfFalse = false): mixed
     {
         $condition = ($condition === null) ? true : Functions::flattenSingleValue($condition);
 
@@ -86,7 +86,7 @@ class Conditional
      *
      * @return mixed The value of matched expression
      */
-    public static function statementSwitch(mixed ...$arguments)
+    public static function statementSwitch(mixed ...$arguments): mixed
     {
         $result = ExcelError::VALUE();
 
@@ -132,7 +132,7 @@ class Conditional
      *         If an array of values is passed as the $testValue argument, then the returned result will also be
      *            an array with the same dimensions
      */
-    public static function IFERROR(mixed $testValue = '', mixed $errorpart = '')
+    public static function IFERROR(mixed $testValue = '', mixed $errorpart = ''): mixed
     {
         if (is_array($testValue)) {
             return self::evaluateArrayArgumentsSubset([self::class, __FUNCTION__], 1, $testValue, $errorpart);
@@ -159,7 +159,7 @@ class Conditional
      *         If an array of values is passed as the $testValue argument, then the returned result will also be
      *            an array with the same dimensions
      */
-    public static function IFNA(mixed $testValue = '', mixed $napart = '')
+    public static function IFNA(mixed $testValue = '', mixed $napart = ''): mixed
     {
         if (is_array($testValue)) {
             return self::evaluateArrayArgumentsSubset([self::class, __FUNCTION__], 1, $testValue, $napart);

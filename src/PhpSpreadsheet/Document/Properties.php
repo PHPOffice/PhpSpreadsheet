@@ -83,7 +83,7 @@ class Properties
      *
      * @var array{value: mixed, type: string}[]
      */
-    private $customProperties = [];
+    private array $customProperties = [];
 
     private string $hyperlinkBase = '';
 
@@ -140,12 +140,7 @@ class Properties
         return $this;
     }
 
-    /**
-     * @param null|float|int|string $timestamp
-     *
-     * @return float|int
-     */
-    private static function intOrFloatTimestamp($timestamp)
+    private static function intOrFloatTimestamp(null|float|int|string $timestamp): float|int
     {
         if ($timestamp === null) {
             $timestamp = (float) (new DateTime())->format('U');
@@ -165,10 +160,8 @@ class Properties
 
     /**
      * Get Created.
-     *
-     * @return float|int
      */
-    public function getCreated()
+    public function getCreated(): float|int
     {
         return $this->created;
     }
@@ -176,11 +169,9 @@ class Properties
     /**
      * Set Created.
      *
-     * @param null|float|int|string $timestamp
-     *
      * @return $this
      */
-    public function setCreated($timestamp): self
+    public function setCreated(null|float|int|string $timestamp): self
     {
         $this->created = self::intOrFloatTimestamp($timestamp);
 
@@ -189,10 +180,8 @@ class Properties
 
     /**
      * Get Modified.
-     *
-     * @return float|int
      */
-    public function getModified()
+    public function getModified(): float|int
     {
         return $this->modified;
     }
@@ -200,11 +189,9 @@ class Properties
     /**
      * Set Modified.
      *
-     * @param null|float|int|string $timestamp
-     *
      * @return $this
      */
-    public function setModified($timestamp): self
+    public function setModified(null|float|int|string $timestamp): self
     {
         $this->modified = self::intOrFloatTimestamp($timestamp);
 
@@ -371,10 +358,8 @@ class Properties
 
     /**
      * Get a Custom Property Value.
-     *
-     * @return mixed
      */
-    public function getCustomPropertyValue(string $propertyName)
+    public function getCustomPropertyValue(string $propertyName): mixed
     {
         if (isset($this->customProperties[$propertyName])) {
             return $this->customProperties[$propertyName]['value'];
@@ -385,10 +370,8 @@ class Properties
 
     /**
      * Get a Custom Property Type.
-     *
-     * @return null|string
      */
-    public function getCustomPropertyType(string $propertyName)
+    public function getCustomPropertyType(string $propertyName): ?string
     {
         return $this->customProperties[$propertyName]['type'] ?? null;
     }
@@ -411,16 +394,11 @@ class Properties
     /**
      * Set a Custom Property.
      *
-     * @param string $propertyType
-     *   'i' : Integer
-     *   'f' : Floating Point
-     *   's' : String
-     *   'd' : Date/Time
-     *   'b' : Boolean
+     * @param ?string $propertyType see `self::VALID_PROPERTY_TYPE_LIST`
      *
      * @return $this
      */
-    public function setCustomProperty(string $propertyName, mixed $propertyValue = '', $propertyType = null): self
+    public function setCustomProperty(string $propertyName, mixed $propertyValue = '', ?string $propertyType = null): self
     {
         if (($propertyType === null) || (!in_array($propertyType, self::VALID_PROPERTY_TYPE_LIST))) {
             $propertyType = $this->identifyPropertyType($propertyValue);
@@ -472,20 +450,16 @@ class Properties
 
     /**
      * Convert property to form desired by Excel.
-     *
-     * @return mixed
      */
-    public static function convertProperty(mixed $propertyValue, string $propertyType)
+    public static function convertProperty(mixed $propertyValue, string $propertyType): mixed
     {
         return self::SPECIAL_TYPES[$propertyType] ?? self::convertProperty2($propertyValue, $propertyType);
     }
 
     /**
      * Convert property to form desired by Excel.
-     *
-     * @return mixed
      */
-    private static function convertProperty2(mixed $propertyValue, string $type)
+    private static function convertProperty2(mixed $propertyValue, string $type): mixed
     {
         $propertyType = self::convertPropertyType($type);
         switch ($propertyType) {

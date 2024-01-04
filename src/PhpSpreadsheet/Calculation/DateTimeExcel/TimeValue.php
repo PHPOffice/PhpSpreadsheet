@@ -36,7 +36,7 @@ class TimeValue
      *         If an array of numbers is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function fromString($timeValue): array|string|Datetime|int|float
+    public static function fromString(null|array|string|int|bool $timeValue): array|string|Datetime|int|float
     {
         if (is_array($timeValue)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $timeValue);
@@ -47,7 +47,7 @@ class TimeValue
             return ExcelError::VALUE();
         }
 
-        $timeValue = trim($timeValue ?? '', '"');
+        $timeValue = trim((string) $timeValue, '"');
         $timeValue = str_replace(['/', '.'], '-', $timeValue);
 
         $arraySplit = preg_split('/[\/:\-\s]/', $timeValue) ?: [];
@@ -59,11 +59,8 @@ class TimeValue
         $PHPDateArray = Helpers::dateParse($timeValue);
         $retValue = ExcelError::VALUE();
         if (Helpers::dateParseSucceeded($PHPDateArray)) {
-            /** @var int */
             $hour = $PHPDateArray['hour'];
-            /** @var int */
             $minute = $PHPDateArray['minute'];
-            /** @var int */
             $second = $PHPDateArray['second'];
             // OpenOffice-specific code removed - it works just like Excel
             $excelDateValue = SharedDateHelper::formattedPHPToExcel(1900, 1, 1, $hour, $minute, $second) - 1;

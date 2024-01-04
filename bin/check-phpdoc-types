@@ -11,7 +11,7 @@
 function checkPhpDocTypes(): void
 {
     $content = `git diff --cached` ?? `git diff` ?? `git show HEAD`;
-    preg_match_all('~^\+ +\* @(param|var) (mixed|string|int|float|bool|null|array|\?|\|)+ \$\w+$~m', $content, $parameters);
+    preg_match_all('~^\+ +\* @(param|var) (mixed|string|int|float|bool|null|array|\?|\|)+( \$\w+)?$~m', $content, $parameters);
     preg_match_all('~^\+ +\* @return (mixed|string|int|float|bool|null|array|void|\?|\|)+$~m', $content, $returns);
 
     $errors = [

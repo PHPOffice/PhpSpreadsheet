@@ -31,10 +31,8 @@ class Xml extends BaseReader
 
     /**
      * Formats.
-     *
-     * @var array
      */
-    protected $styles = [];
+    protected array $styles = [];
 
     /**
      * Create a new Excel2003XML Reader instance.
@@ -45,8 +43,7 @@ class Xml extends BaseReader
         $this->securityScanner = XmlScanner::getInstance($this);
     }
 
-    /** @var string */
-    private $fileContents = '';
+    private string $fileContents = '';
 
     public static function xmlMappings(): array
     {

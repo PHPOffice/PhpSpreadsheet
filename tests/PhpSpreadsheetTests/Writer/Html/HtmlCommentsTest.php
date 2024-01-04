@@ -10,10 +10,7 @@ use PhpOffice\PhpSpreadsheetTests\Functional;
 
 class HtmlCommentsTest extends Functional\AbstractFunctional
 {
-    /**
-     * @var Spreadsheet
-     */
-    private $spreadsheet;
+    private Spreadsheet $spreadsheet;
 
     public static function providerCommentRichText(): array
     {

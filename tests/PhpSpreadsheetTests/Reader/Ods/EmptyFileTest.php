@@ -11,8 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class EmptyFileTest extends TestCase
 {
-    /** @var string */
-    private $tempfile = '';
+    private string $tempfile = '';
 
     protected function tearDown(): void
     {

@@ -11,10 +11,7 @@ use PhpOffice\PhpSpreadsheet\Style\Font;
 
 class NamespaceStdTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @var string
-     */
-    private static $testbook = 'tests/data/Reader/XLSX/namespacestd.xlsx';
+    private static string $testbook = 'tests/data/Reader/XLSX/namespacestd.xlsx';
 
     public function testPreliminaries(): void
     {

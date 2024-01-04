@@ -29,7 +29,7 @@ class Protection extends Supervisor
      *                                    Leave this value at default unless you understand exactly what
      *                                        its ramifications are
      */
-    public function __construct($isSupervisor = false, $isConditional = false)
+    public function __construct(bool $isSupervisor = false, bool $isConditional = false)
     {
         // Supervisor?
         parent::__construct($isSupervisor);
@@ -44,12 +44,10 @@ class Protection extends Supervisor
     /**
      * Get the shared style component for the currently active cell in currently active sheet.
      * Only used for style supervisor.
-     *
-     * @return Protection
      */
-    public function getSharedComponent()
+    public function getSharedComponent(): self
     {
-        /** @var Style */
+        /** @var Style $parent */
         $parent = $this->parent;
 
         return $parent->getSharedComponent()->getProtection();
@@ -57,10 +55,8 @@ class Protection extends Supervisor
 
     /**
      * Build style array from subcomponents.
-     *
-     * @param array $array
      */
-    public function getStyleArray($array): array
+    public function getStyleArray(array $array): array
     {
         return ['protection' => $array];
     }
@@ -116,7 +112,7 @@ class Protection extends Supervisor
      *
      * @return $this
      */
-    public function setLocked($lockType): static
+    public function setLocked(string $lockType): static
     {
         if ($this->isSupervisor) {
             $styleArray = $this->getStyleArray(['locked' => $lockType]);
@@ -147,7 +143,7 @@ class Protection extends Supervisor
      *
      * @return $this
      */
-    public function setHidden($hiddenType): static
+    public function setHidden(string $hiddenType): static
     {
         if ($this->isSupervisor) {
             $styleArray = $this->getStyleArray(['hidden' => $hiddenType]);
@@ -164,7 +160,7 @@ class Protection extends Supervisor
      *
      * @return string Hash code
      */
-    public function getHashCode()
+    public function getHashCode(): string
     {
         if ($this->isSupervisor) {
             return $this->getSharedComponent()->getHashCode();

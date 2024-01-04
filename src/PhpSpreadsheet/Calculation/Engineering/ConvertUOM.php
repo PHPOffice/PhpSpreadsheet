@@ -29,7 +29,7 @@ class ConvertUOM
      *
      * @var mixed[]
      */
-    private static $conversionUnits = [
+    private static array $conversionUnits = [
         // Weight and Mass
         'g' => ['Group' => self::CATEGORY_WEIGHT_AND_MASS, 'Unit Name' => 'Gram', 'AllowPrefix' => true],
         'sg' => ['Group' => self::CATEGORY_WEIGHT_AND_MASS, 'Unit Name' => 'Slug', 'AllowPrefix' => false],
@@ -203,7 +203,7 @@ class ConvertUOM
      *
      * @var mixed[]
      */
-    private static $conversionMultipliers = [
+    private static array $conversionMultipliers = [
         'Y' => ['multiplier' => 1E24, 'name' => 'yotta'],
         'Z' => ['multiplier' => 1E21, 'name' => 'zetta'],
         'E' => ['multiplier' => 1E18, 'name' => 'exa'],
@@ -232,7 +232,7 @@ class ConvertUOM
      *
      * @var mixed[]
      */
-    private static $binaryConversionMultipliers = [
+    private static array $binaryConversionMultipliers = [
         'Yi' => ['multiplier' => 2 ** 80, 'name' => 'yobi'],
         'Zi' => ['multiplier' => 2 ** 70, 'name' => 'zebi'],
         'Ei' => ['multiplier' => 2 ** 60, 'name' => 'exbi'],
@@ -248,7 +248,7 @@ class ConvertUOM
      *
      * @var mixed[]
      */
-    private static $unitConversions = [
+    private static array $unitConversions = [
         // Conversion uses gram (g) as an intermediate unit
         self::CATEGORY_WEIGHT_AND_MASS => [
             'g' => 1.0,
@@ -450,9 +450,9 @@ class ConvertUOM
      *    getConversionGroupUnits
      * Returns an array of units of measure, for a specified conversion group, or for all groups.
      *
-     * @param string $category The group whose units of measure you want to retrieve
+     * @param ?string $category The group whose units of measure you want to retrieve
      */
-    public static function getConversionCategoryUnits($category = null): array
+    public static function getConversionCategoryUnits(?string $category = null): array
     {
         $conversionGroups = [];
         foreach (self::$conversionUnits as $conversionUnit => $conversionGroup) {
@@ -467,9 +467,9 @@ class ConvertUOM
     /**
      * getConversionGroupUnitDetails.
      *
-     * @param string $category The group whose units of measure you want to retrieve
+     * @param ?string $category The group whose units of measure you want to retrieve
      */
-    public static function getConversionCategoryUnitDetails($category = null): array
+    public static function getConversionCategoryUnitDetails(?string $category = null): array
     {
         $conversionGroups = [];
         foreach (self::$conversionUnits as $conversionUnit => $conversionGroup) {
@@ -490,7 +490,7 @@ class ConvertUOM
      *
      * @return mixed[]
      */
-    public static function getConversionMultipliers()
+    public static function getConversionMultipliers(): array
     {
         return self::$conversionMultipliers;
     }
@@ -501,7 +501,7 @@ class ConvertUOM
      *
      * @return mixed[]
      */
-    public static function getBinaryConversionMultipliers()
+    public static function getBinaryConversionMultipliers(): array
     {
         return self::$binaryConversionMultipliers;
     }
@@ -615,12 +615,7 @@ class ConvertUOM
         throw new Exception('UoM Not Found');
     }
 
-    /**
-     * @param float|int $value
-     *
-     * @return float|int
-     */
-    protected static function convertTemperature(string $fromUOM, string $toUOM, $value)
+    protected static function convertTemperature(string $fromUOM, string $toUOM, float|int $value): float|int
     {
         $fromUOM = self::resolveTemperatureSynonyms($fromUOM);
         $toUOM = self::resolveTemperatureSynonyms($toUOM);

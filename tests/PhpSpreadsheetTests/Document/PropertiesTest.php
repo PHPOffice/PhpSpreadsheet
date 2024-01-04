@@ -12,13 +12,9 @@ use PHPUnit\Framework\TestCase;
 
 class PropertiesTest extends TestCase
 {
-    /**
-     * @var Properties
-     */
-    private $properties;
+    private Properties $properties;
 
-    /** @var float */
-    private $startTime;
+    private float $startTime;
 
     protected function setup(): void
     {

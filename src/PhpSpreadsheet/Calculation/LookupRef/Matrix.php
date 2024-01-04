@@ -74,7 +74,7 @@ class Matrix
      *         If an array of values is passed as the $rowNum and/or $columnNum arguments, then the returned result
      *            will also be an array with the same dimensions
      */
-    public static function index(mixed $matrix, mixed $rowNum = 0, mixed $columnNum = null)
+    public static function index(mixed $matrix, mixed $rowNum = 0, mixed $columnNum = null): mixed
     {
         if (is_array($rowNum) || is_array($columnNum)) {
             return self::evaluateArrayArgumentsSubsetFrom([self::class, __FUNCTION__], 1, $matrix, $rowNum, $columnNum);
@@ -121,8 +121,7 @@ class Matrix
         return $matrix[$rowNum][$columnNum];
     }
 
-    /** @return mixed */
-    private static function extractRowValue(array $matrix, array $rowKeys, int $rowNum)
+    private static function extractRowValue(array $matrix, array $rowKeys, int $rowNum): mixed
     {
         if ($rowNum === 0) {
             return $matrix;

@@ -83,6 +83,7 @@ class ReadBlankCellsTest extends AbstractFunctional
         $spreadsheet = $reader->load($filename);
         $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, $format);
         $spreadsheet->disconnectWorksheets();
+
         self::assertFalse($reloadedSpreadsheet->getActiveSheet()->getCellCollection()->has('B2'));
         self::assertFalse($reloadedSpreadsheet->getActiveSheet()->getCellCollection()->has('C2'));
         self::assertTrue($reloadedSpreadsheet->getActiveSheet()->getCellCollection()->has('C3'));

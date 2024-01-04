@@ -24,7 +24,7 @@ class Current
      * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
      *                        depending on the value of the ReturnDateType flag
      */
-    public static function today()
+    public static function today(): mixed
     {
         $dti = new DateTimeImmutable();
         $dateArray = Helpers::dateParse($dti->format('c'));
@@ -49,7 +49,7 @@ class Current
      * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
      *                        depending on the value of the ReturnDateType flag
      */
-    public static function now()
+    public static function now(): mixed
     {
         $dti = new DateTimeImmutable();
         $dateArray = Helpers::dateParse($dti->format('c'));

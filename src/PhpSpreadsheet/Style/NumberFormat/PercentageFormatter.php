@@ -40,7 +40,7 @@ class PercentageFormatter extends BaseFormatter
         $replacement = "0{$wholePartSize}.{$decimalPartSize}";
         $mask = (string) preg_replace('/[#0,]+\.?[?#0,]*/ui', "%{$replacement}F{$placeHolders}", $format);
 
-        /** @var float */
+        /** @var float $valueFloat */
         $valueFloat = $value;
 
         return self::adjustSeparators(sprintf($mask, round($valueFloat, $decimalPartSize)));

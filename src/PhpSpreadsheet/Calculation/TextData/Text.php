@@ -17,8 +17,7 @@ class Text
      * @param mixed $value String Value
      *                         Or can be an array of values
      *
-     * @return array|int
-     *         If an array of values is passed for the argument, then the returned result
+     * @return array|int If an array of values is passed for the argument, then the returned result
      *            will also be an array with matching dimensions
      */
     public static function length(mixed $value = ''): array|int
@@ -42,8 +41,7 @@ class Text
      * @param mixed $value2 String Value
      *                         Or can be an array of values
      *
-     * @return array|bool
-     *         If an array of values is passed for either of the arguments, then the returned result
+     * @return array|bool If an array of values is passed for either of the arguments, then the returned result
      *            will also be an array with matching dimensions
      */
     public static function exact(mixed $value1, mixed $value2): array|bool
@@ -64,8 +62,7 @@ class Text
      * @param mixed $testValue Value to check
      *                         Or can be an array of values
      *
-     * @return array|string
-     *         If an array of values is passed for the argument, then the returned result
+     * @return array|string If an array of values is passed for the argument, then the returned result
      *            will also be an array with matching dimensions
      */
     public static function test(mixed $testValue = ''): array|string

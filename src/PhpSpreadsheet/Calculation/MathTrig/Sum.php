@@ -17,10 +17,8 @@ class Sum
      *        SUM(value1[,value2[, ...]])
      *
      * @param mixed ...$args Data values
-     *
-     * @return float|int|string
      */
-    public static function sumIgnoringStrings(mixed ...$args)
+    public static function sumIgnoringStrings(mixed ...$args): float|int|string
     {
         $returnValue = 0;
 
@@ -46,10 +44,8 @@ class Sum
      *        SUM(value1[,value2[, ...]])
      *
      * @param mixed ...$args Data values
-     *
-     * @return float|int|string
      */
-    public static function sumErroringStrings(mixed ...$args)
+    public static function sumErroringStrings(mixed ...$args): float|int|string|array
     {
         $returnValue = 0;
         // Loop through the arguments

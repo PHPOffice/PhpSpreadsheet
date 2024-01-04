@@ -11,17 +11,11 @@ use SimpleXMLElement;
 
 class AutoFilter
 {
-    /**
-     * @var Table|Worksheet
-     */
-    private $parent;
+    private Table|Worksheet $parent;
 
     private SimpleXMLElement $worksheetXml;
 
-    /**
-     * @param Table|Worksheet $parent
-     */
-    public function __construct($parent, SimpleXMLElement $worksheetXml)
+    public function __construct(Table|Worksheet $parent, SimpleXMLElement $worksheetXml)
     {
         $this->parent = $parent;
         $this->worksheetXml = $worksheetXml;

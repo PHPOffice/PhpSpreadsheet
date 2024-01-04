@@ -21,12 +21,12 @@ class AllSetupTeardown extends TestCase
     /**
      * @var ?Spreadsheet
      */
-    private $spreadsheet;
+    private ?Spreadsheet $spreadsheet = null;
 
     /**
      * @var ?Worksheet
      */
-    private $sheet;
+    private ?Worksheet $sheet = null;
 
     protected function setUp(): void
     {

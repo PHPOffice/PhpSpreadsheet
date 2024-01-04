@@ -74,7 +74,7 @@ class Amortization
         if (is_string($yearFracx)) {
             return $yearFracx;
         }
-        /** @var float */
+        /** @var float $yearFrac */
         $yearFrac = $yearFracx;
 
         $amortiseCoeff = self::getAmortizationCoefficient($rate);
@@ -164,7 +164,7 @@ class Amortization
         if (is_string($yearFracx)) {
             return $yearFracx;
         }
-        /** @var float */
+        /** @var float $yearFrac */
         $yearFrac = $yearFracx;
 
         if (

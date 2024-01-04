@@ -22,13 +22,8 @@ class Arabic
 
     /**
      * Recursively calculate the arabic value of a roman numeral.
-     *
-     * @param int $sum
-     * @param int $subtract
-     *
-     * @return int
      */
-    private static function calculateArabic(array $roman, &$sum = 0, $subtract = 0)
+    private static function calculateArabic(array $roman, int &$sum = 0, int $subtract = 0): int
     {
         $numeral = array_shift($roman);
         if (!isset(self::ROMAN_LOOKUP[$numeral])) {
@@ -64,7 +59,7 @@ class Arabic
      *         If an array of numbers is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function evaluate(mixed $roman)
+    public static function evaluate(mixed $roman): array|int|string
     {
         if (is_array($roman)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $roman);
