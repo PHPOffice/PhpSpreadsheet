@@ -8,10 +8,7 @@ use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
 class Issue3495Test extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @var string
-     */
-    private static $testbook = 'tests/data/Reader/XLSX/issue.3495d.xlsx';
+    private static string $testbook = 'tests/data/Reader/XLSX/issue.3495d.xlsx';
 
     public function testPreliminaries(): void
     {

@@ -35,24 +35,18 @@ class Escher
 
     /**
      * Escher stream data (binary).
-     *
-     * @var string
      */
-    private $data;
+    private string $data;
 
     /**
      * Size in bytes of the Escher stream data.
-     *
-     * @var int
      */
-    private $dataSize;
+    private int $dataSize;
 
     /**
      * Current position of stream pointer in Escher stream data.
-     *
-     * @var int
      */
-    private $pos;
+    private int $pos;
 
     /**
      * The object to be returned by the reader. Modified during load.
@@ -92,12 +86,8 @@ class Escher
 
     /**
      * Load Escher stream data. May be a partial Escher stream.
-     *
-     * @param string $data
-     *
-     * @return BSE|BstoreContainer|DgContainer|DggContainer|\PhpOffice\PhpSpreadsheet\Shared\Escher|SpContainer|SpgrContainer
      */
-    public function load($data)
+    public function load(string $data): BSE|BstoreContainer|DgContainer|DggContainer|\PhpOffice\PhpSpreadsheet\Shared\Escher|SpContainer|SpgrContainer
     {
         $this->data = $data;
 

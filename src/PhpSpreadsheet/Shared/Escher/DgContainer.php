@@ -53,8 +53,7 @@ class DgContainer
         throw new SpreadsheetException('spgrContainer is unexpectedly null');
     }
 
-    /** @param DgContainer\SpgrContainer $spgrContainer */
-    public function setSpgrContainer($spgrContainer): DgContainer\SpgrContainer
+    public function setSpgrContainer(DgContainer\SpgrContainer $spgrContainer): DgContainer\SpgrContainer
     {
         return $this->spgrContainer = $spgrContainer;
     }

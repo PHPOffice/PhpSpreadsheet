@@ -16,27 +16,20 @@ $spreadsheet->getActiveSheet()->setPrintGridlines(true);
 $helper->write($spreadsheet, __FILE__, ['Xlsx', 'Xls', 'Html']);
 
 // Export to PDF (mpdf)
-function mpdfCjkWriter(Mpdf $writer): void
-{
-    /** @var callable */
-    $callback = 'mpdfCjk';
-    $writer->setEditHtmlCallback($callback);
-}
+$mpdfCjkWriter = function (Mpdf $writer): void {
+    $mpdfCjk = function (string $html): string {
+        $html = str_replace("'Calibri'", "'Calibri',Sun-ExtA", $html);
 
-function mpdfCjk(string $html): string
-{
-    $html = str_replace("'Calibri'", "'Calibri',Sun-ExtA", $html);
+        return str_replace("'Times New Roman'", "'Times New Roman',Sun-ExtA", $html);
+    };
 
-    return str_replace("'Times New Roman'", "'Times New Roman',Sun-ExtA", $html);
-}
+    $writer->setEditHtmlCallback($mpdfCjk);
+};
 
 $helper->log('Write to Mpdf');
 IOFactory::registerWriter('Pdf', Mpdf::class);
-/** @var callable */
-$callback = 'mpdfCjkWriter';
 $filename = __FILE__;
-//$filename = str_replace('.php', '.mdpf.php', __FILE__);
-$helper->write($spreadsheet, $filename, ['Pdf'], false, $callback);
+$helper->write($spreadsheet, $filename, ['Pdf'], false, $mpdfCjkWriter);
 
 // Remove first two rows with field headers before exporting to CSV
 $helper->log('Removing first two heading rows for CSV export');
@@ -45,7 +38,7 @@ $worksheet->removeRow(1, 2);
 
 // Export to CSV (.csv)
 $helper->log('Write to CSV format');
-/** @var \PhpOffice\PhpSpreadsheet\Writer\Csv $writer */
+/** @var Csv $writer */
 $helper->write($spreadsheet, __FILE__, ['Csv']);
 
 // Export to CSV with BOM (.csv)

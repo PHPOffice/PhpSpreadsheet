@@ -40,10 +40,8 @@ class Comment implements IComparable, Stringable
 
     /**
      * Visible.
-     *
-     * @var bool
      */
-    private $visible = false;
+    private bool $visible = false;
 
     /**
      * Comment height (CSS style, i.e. XXpx or YYpt).

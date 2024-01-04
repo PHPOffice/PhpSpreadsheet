@@ -30,17 +30,6 @@ class ExcelError
         'calculation' => '#CALC!', //14
     ];
 
-    /**
-     * List of error codes. Replaced by constant;
-     * previously it was public and updateable, allowing
-     * user to make inappropriate alterations.
-     *
-     * @deprecated 1.25.0 Use ERROR_CODES constant instead.
-     *
-     * @var array<string, string>
-     */
-    public static $errorCodes = self::ERROR_CODES;
-
     public static function throwError(mixed $value): string
     {
         return in_array($value, self::ERROR_CODES, true) ? $value : self::ERROR_CODES['value'];

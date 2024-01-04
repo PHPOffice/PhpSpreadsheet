@@ -166,12 +166,13 @@ class IOFactoryTest extends TestCase
     {
         $this->expectException(\PhpOffice\PhpSpreadsheet\Writer\Exception::class);
 
+        // @phpstan-ignore-next-line
         IOFactory::registerWriter('foo', 'bar');
     }
 
     public function testRegisterInvalidReader(): void
     {
-        $this->expectException(\PhpOffice\PhpSpreadsheet\Reader\Exception::class);
+        $this->expectException(ReaderException::class);
 
         IOFactory::registerReader('foo', 'bar');
     }
@@ -185,7 +186,7 @@ class IOFactoryTest extends TestCase
 
     public function testCreateInvalidReader(): void
     {
-        $this->expectException(\PhpOffice\PhpSpreadsheet\Reader\Exception::class);
+        $this->expectException(ReaderException::class);
         IOFactory::createReader('bad');
     }
 
@@ -212,7 +213,7 @@ class IOFactoryTest extends TestCase
 
     public function testCreateReaderNotSpreadsheet(): void
     {
-        $this->expectException(\PhpOffice\PhpSpreadsheet\Reader\Exception::class);
+        $this->expectException(ReaderException::class);
         $filename = __FILE__;
         IOFactory::createReaderForFile($filename);
     }

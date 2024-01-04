@@ -96,10 +96,7 @@ class Properties
         }
     }
 
-    /**
-     * @param null|array|false $array
-     */
-    private static function getArrayItem($array, mixed $key = 0): ?SimpleXMLElement
+    private static function getArrayItem(null|array|false $array, mixed $key = 0): ?SimpleXMLElement
     {
         return is_array($array) ? ($array[$key] ?? null) : null;
     }

@@ -118,7 +118,7 @@ class Round
      * @param mixed $number Expect float. Number to round, or can be an array of numbers
      * @param mixed $multiple Expect int. Multiple to which you want to round, or can be an array of numbers.
      *
-     * @return array|float|string Rounded Number, or a string containing an error
+     * @return array|float|int|string Rounded Number, or a string containing an error
      *         If an array of numbers is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
@@ -187,7 +187,7 @@ class Round
      *
      * @param array|float $number Number to round, or can be an array of numbers
      *
-     * @return array|float|string Rounded Number, or a string containing an error
+     * @return array|float|int|string Rounded Number, or a string containing an error
      *         If an array of numbers is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */

@@ -42,7 +42,7 @@ class XmlScannerTest extends TestCase
      */
     public function testInvalidXML(mixed $filename): void
     {
-        $this->expectException(\PhpOffice\PhpSpreadsheet\Reader\Exception::class);
+        $this->expectException(ReaderException::class);
 
         $reader = XmlScanner::getInstance(new \PhpOffice\PhpSpreadsheet\Reader\Xml());
         $expectedResult = 'FAILURE: Should throw an Exception rather than return a value';

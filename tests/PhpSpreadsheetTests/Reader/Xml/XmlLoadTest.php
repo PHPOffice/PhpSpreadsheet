@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
 class XmlLoadTest extends TestCase
 {
     /** @var ?Spreadsheet */
-    private $spreadsheet;
+    private ?Spreadsheet $spreadsheet = null;
 
     private string $locale;
 

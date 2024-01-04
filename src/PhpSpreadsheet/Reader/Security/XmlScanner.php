@@ -23,16 +23,6 @@ class XmlScanner
         return new self($pattern);
     }
 
-    /**
-     * @codeCoverageIgnore
-     *
-     * @deprecated this has no effect at all and always return false. All usages must be removed.
-     */
-    public static function threadSafeLibxmlDisableEntityLoaderAvailability(): bool
-    {
-        return false;
-    }
-
     public function setAdditionalCallback(callable $callback): void
     {
         $this->callback = $callback;

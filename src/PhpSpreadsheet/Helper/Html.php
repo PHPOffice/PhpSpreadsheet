@@ -533,34 +533,28 @@ class Html
     ];
 
     /** @var ?string */
-    private $face;
+    private ?string $face = null;
 
     /** @var ?string */
-    private $size;
+    private ?string $size = null;
 
     /** @var ?string */
-    private $color;
+    private ?string $color = null;
 
-    /** @var bool */
-    private $bold = false;
+    private bool $bold = false;
 
-    /** @var bool */
-    private $italic = false;
+    private bool $italic = false;
 
-    /** @var bool */
-    private $underline = false;
+    private bool $underline = false;
 
-    /** @var bool */
-    private $superscript = false;
+    private bool $superscript = false;
 
-    /** @var bool */
-    private $subscript = false;
+    private bool $subscript = false;
 
-    /** @var bool */
-    private $strikethrough = false;
+    private bool $strikethrough = false;
 
     /** @var callable[] */
-    private $startTagCallbacks = [
+    private array $startTagCallbacks = [
         'font' => [self::class, 'startFontTag'],
         'b' => [self::class, 'startBoldTag'],
         'strong' => [self::class, 'startBoldTag'],
@@ -574,7 +568,7 @@ class Html
     ];
 
     /** @var callable[] */
-    private $endTagCallbacks = [
+    private array $endTagCallbacks = [
         'font' => [self::class, 'endFontTag'],
         'b' => [self::class, 'endBoldTag'],
         'strong' => [self::class, 'endBoldTag'],
@@ -595,15 +589,11 @@ class Html
         'h6' => [self::class, 'breakTag'],
     ];
 
-    /** @var array */
-    private $stack = [];
+    private array $stack = [];
 
     public string $stringData = '';
 
-    /**
-     * @var RichText
-     */
-    private $richTextObject;
+    private RichText $richTextObject;
 
     private function initialise(): void
     {
@@ -617,10 +607,8 @@ class Html
 
     /**
      * Parse HTML formatting and return the resulting RichText.
-     *
-     * @return RichText
      */
-    public function toRichTextObject(string $html)
+    public function toRichTextObject(string $html): RichText
     {
         $this->initialise();
 

@@ -110,11 +110,11 @@ class Formatter extends BaseFormatter
      * @param null|bool|float|int|RichText|string $value Value to format
      * @param string $format Format code: see = self::FORMAT_* for predefined values;
      *                          or can be any valid MS Excel custom format string
-     * @param array $callBack Callback function for additional formatting of string
+     * @param ?array $callBack Callback function for additional formatting of string
      *
      * @return string Formatted string
      */
-    public static function toFormattedString($value, $format, $callBack = null)
+    public static function toFormattedString($value, string $format, ?array $callBack = null): string
     {
         if (is_bool($value)) {
             return $value ? Calculation::getTRUE() : Calculation::getFALSE();

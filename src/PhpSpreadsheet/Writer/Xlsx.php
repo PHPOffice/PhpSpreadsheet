@@ -37,24 +37,20 @@ class Xlsx extends BaseWriter
 {
     /**
      * Office2003 compatibility.
-     *
-     * @var bool
      */
-    private $office2003compatibility = false;
+    private bool $office2003compatibility = false;
 
     /**
      * Private Spreadsheet.
-     *
-     * @var Spreadsheet
      */
-    private $spreadSheet;
+    private Spreadsheet $spreadSheet;
 
     /**
      * Private string table.
      *
      * @var string[]
      */
-    private $stringTable = [];
+    private array $stringTable = [];
 
     /**
      * Private unique Conditional HashTable.
@@ -107,10 +103,8 @@ class Xlsx extends BaseWriter
 
     /**
      * Private handle for zip stream.
-     *
-     * @var ZipStream
      */
-    private $zip;
+    private ZipStream $zip;
 
     private Chart $writerPartChart;
 
@@ -400,7 +394,7 @@ class Xlsx extends BaseWriter
             }
 
             // Add unparsed drawings
-            if (isset($unparsedLoadedData['sheets'][$sheetCodeName]['Drawings'])) {
+            if (isset($unparsedLoadedData['sheets'][$sheetCodeName]['Drawings']) && !isset($zipContent['xl/drawings/drawing' . ($i + 1) . '.xml'])) {
                 foreach ($unparsedLoadedData['sheets'][$sheetCodeName]['Drawings'] as $relId => $drawingXml) {
                     $drawingFile = array_search($relId, $unparsedLoadedData['sheets'][$sheetCodeName]['drawingOriginalIds']);
                     if ($drawingFile !== false) {
@@ -488,7 +482,7 @@ class Xlsx extends BaseWriter
                 $zipContent['xl/media/' . $this->getDrawingHashTable()->getByIndex($i)->getIndexedFilename()] = $imageContents;
             } elseif ($this->getDrawingHashTable()->getByIndex($i) instanceof MemoryDrawing) {
                 ob_start();
-                /** @var callable */
+                /** @var callable $callable */
                 $callable = $this->getDrawingHashTable()->getByIndex($i)->getRenderingFunction();
                 call_user_func(
                     $callable,
@@ -522,10 +516,8 @@ class Xlsx extends BaseWriter
 
     /**
      * Get Spreadsheet object.
-     *
-     * @return Spreadsheet
      */
-    public function getSpreadsheet()
+    public function getSpreadsheet(): Spreadsheet
     {
         return $this->spreadSheet;
     }
@@ -549,7 +541,7 @@ class Xlsx extends BaseWriter
      *
      * @return string[]
      */
-    public function getStringTable()
+    public function getStringTable(): array
     {
         return $this->stringTable;
     }
@@ -559,7 +551,7 @@ class Xlsx extends BaseWriter
      *
      * @return HashTable<\PhpOffice\PhpSpreadsheet\Style\Style>
      */
-    public function getStyleHashTable()
+    public function getStyleHashTable(): HashTable
     {
         return $this->styleHashTable;
     }
@@ -569,7 +561,7 @@ class Xlsx extends BaseWriter
      *
      * @return HashTable<Conditional>
      */
-    public function getStylesConditionalHashTable()
+    public function getStylesConditionalHashTable(): HashTable
     {
         return $this->stylesConditionalHashTable;
     }
@@ -579,7 +571,7 @@ class Xlsx extends BaseWriter
      *
      * @return HashTable<Fill>
      */
-    public function getFillHashTable()
+    public function getFillHashTable(): HashTable
     {
         return $this->fillHashTable;
     }
@@ -589,7 +581,7 @@ class Xlsx extends BaseWriter
      *
      * @return HashTable<Font>
      */
-    public function getFontHashTable()
+    public function getFontHashTable(): HashTable
     {
         return $this->fontHashTable;
     }
@@ -599,7 +591,7 @@ class Xlsx extends BaseWriter
      *
      * @return HashTable<Borders>
      */
-    public function getBordersHashTable()
+    public function getBordersHashTable(): HashTable
     {
         return $this->bordersHashTable;
     }
@@ -609,7 +601,7 @@ class Xlsx extends BaseWriter
      *
      * @return HashTable<NumberFormat>
      */
-    public function getNumFmtHashTable()
+    public function getNumFmtHashTable(): HashTable
     {
         return $this->numFmtHashTable;
     }
@@ -619,17 +611,15 @@ class Xlsx extends BaseWriter
      *
      * @return HashTable<BaseDrawing>
      */
-    public function getDrawingHashTable()
+    public function getDrawingHashTable(): HashTable
     {
         return $this->drawingHashTable;
     }
 
     /**
      * Get Office2003 compatibility.
-     *
-     * @return bool
      */
-    public function getOffice2003Compatibility()
+    public function getOffice2003Compatibility(): bool
     {
         return $this->office2003compatibility;
     }
@@ -641,15 +631,14 @@ class Xlsx extends BaseWriter
      *
      * @return $this
      */
-    public function setOffice2003Compatibility($office2003compatibility): static
+    public function setOffice2003Compatibility(bool $office2003compatibility): static
     {
         $this->office2003compatibility = $office2003compatibility;
 
         return $this;
     }
 
-    /** @var array */
-    private $pathNames = [];
+    private array $pathNames = [];
 
     private function addZipFile(string $path, string $content): void
     {

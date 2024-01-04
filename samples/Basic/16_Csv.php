@@ -7,7 +7,6 @@ require __DIR__ . '/../Header.php';
 $spreadsheet = require __DIR__ . '/../templates/sampleSpreadsheet.php';
 
 $helper->log('Write to CSV format');
-/** @var \PhpOffice\PhpSpreadsheet\Writer\Csv $writer */
 $writer = new CsvWriter($spreadsheet);
 $writer->setDelimiter(',')
     ->setEnclosure('"')
@@ -20,7 +19,6 @@ $helper->logWrite($writer, $filename, $callStartTime);
 
 $helper->log('Read from CSV format');
 
-/** @var \PhpOffice\PhpSpreadsheet\Reader\Csv $reader */
 $reader = new CsvReader();
 $reader->setDelimiter(',')
     ->setEnclosure('"')
@@ -36,7 +34,6 @@ $helper->write($spreadsheetFromCSV, __FILE__, ['Xlsx']);
 
 // Write CSV
 $filenameCSV = $helper->getFilename(__FILE__, 'csv');
-/** @var \PhpOffice\PhpSpreadsheet\Writer\Csv $writerCSV */
 $writerCSV = new CsvWriter($spreadsheetFromCSV);
 //$writerCSV->setExcelCompatibility(true);
 $writerCSV->setUseBom(true); // because of non-ASCII chars

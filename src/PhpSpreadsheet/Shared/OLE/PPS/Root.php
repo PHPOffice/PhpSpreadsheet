@@ -35,22 +35,16 @@ class Root extends PPS
      */
     private $fileHandle;
 
-    /**
-     * @var ?int
-     */
-    private $smallBlockSize;
+    private ?int $smallBlockSize = null;
 
-    /**
-     * @var ?int
-     */
-    private $bigBlockSize;
+    private ?int $bigBlockSize = null;
 
     /**
      * @param null|float|int $time_1st A timestamp
      * @param null|float|int $time_2nd A timestamp
      * @param File[] $raChild
      */
-    public function __construct($time_1st, $time_2nd, $raChild)
+    public function __construct($time_1st, $time_2nd, array $raChild)
     {
         parent::__construct(null, OLE::ascToUcs('Root Entry'), OLE::OLE_PPS_TYPE_ROOT, null, null, null, $time_1st, $time_2nd, null, $raChild);
     }
@@ -143,7 +137,7 @@ class Root extends PPS
      *
      * @see save()
      */
-    private static function adjust2($i2): float
+    private static function adjust2(int $i2): float
     {
         $iWk = log($i2) / log(2);
 

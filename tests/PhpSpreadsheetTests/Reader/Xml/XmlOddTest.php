@@ -10,10 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class XmlOddTest extends TestCase
 {
-    /**
-     * @var string
-     */
-    private $filename = '';
+    private string $filename = '';
 
     protected function teardown(): void
     {

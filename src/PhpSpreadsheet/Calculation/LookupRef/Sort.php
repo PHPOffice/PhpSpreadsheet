@@ -29,7 +29,7 @@ class Sort extends LookupRefValidations
      *
      * @return mixed The sorted values from the sort range
      */
-    public static function sort(mixed $sortArray, mixed $sortIndex = 1, mixed $sortOrder = self::ORDER_ASCENDING, mixed $byColumn = false)
+    public static function sort(mixed $sortArray, mixed $sortIndex = 1, mixed $sortOrder = self::ORDER_ASCENDING, mixed $byColumn = false): mixed
     {
         if (!is_array($sortArray)) {
             // Scalars are always returned "as is"
@@ -79,7 +79,7 @@ class Sort extends LookupRefValidations
      *
      * @return mixed The sorted values from the sort range
      */
-    public static function sortBy(mixed $sortArray, mixed ...$args)
+    public static function sortBy(mixed $sortArray, mixed ...$args): mixed
     {
         if (!is_array($sortArray)) {
             // Scalars are always returned "as is"
@@ -158,10 +158,7 @@ class Sort extends LookupRefValidations
         return $sortOrder;
     }
 
-    /**
-     * @param array $sortIndex
-     */
-    private static function validateArrayArgumentsForSort(&$sortIndex, mixed &$sortOrder, int $sortArraySize): void
+    private static function validateArrayArgumentsForSort(array &$sortIndex, mixed &$sortOrder, int $sortArraySize): void
     {
         // It doesn't matter if they're row or column vectors, it works either way
         $sortIndex = Functions::flattenArray($sortIndex);

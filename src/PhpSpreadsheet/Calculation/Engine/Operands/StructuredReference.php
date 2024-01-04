@@ -200,7 +200,6 @@ final class StructuredReference implements Operand, Stringable
             $reference = $this->adjustRowReference($columnName, $reference, $cell, $columnId);
         }
 
-        /** @var string $reference */
         return $this->validateParsedReference(trim($reference, '[]@, '));
     }
 
@@ -305,7 +304,6 @@ final class StructuredReference implements Operand, Stringable
         $rowsSelected = false;
         foreach (self::ITEM_SPECIFIER_ROWS_SET as $rowReference) {
             $pattern = '/\[' . $rowReference . '\]/mui';
-            /** @var string $reference */
             if (preg_match($pattern, $reference) === 1) {
                 if (($rowReference === self::ITEM_SPECIFIER_HEADERS) && ($this->table->getShowHeaderRow() === false)) {
                     throw new Exception(
@@ -316,7 +314,7 @@ final class StructuredReference implements Operand, Stringable
                 $rowsSelected = true;
                 $startRow = min($startRow, $this->getMinimumRow($rowReference));
                 $endRow = max($endRow, $this->getMaximumRow($rowReference));
-                $reference = preg_replace($pattern, '', $reference);
+                $reference = preg_replace($pattern, '', $reference) ?? '';
             }
         }
         if ($rowsSelected === false) {

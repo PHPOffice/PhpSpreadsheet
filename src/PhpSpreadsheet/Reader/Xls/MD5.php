@@ -4,25 +4,13 @@ namespace PhpOffice\PhpSpreadsheet\Reader\Xls;
 
 class MD5
 {
-    /**
-     * @var int
-     */
-    private $a;
+    private int $a;
 
-    /**
-     * @var int
-     */
-    private $b;
+    private int $b;
 
-    /**
-     * @var int
-     */
-    private $c;
+    private int $c;
 
-    /**
-     * @var int
-     */
-    private $d;
+    private int $d;
 
     private static int $allOneBits;
 

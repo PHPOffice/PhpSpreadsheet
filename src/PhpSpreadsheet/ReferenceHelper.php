@@ -25,19 +25,14 @@ class ReferenceHelper
      *
      * @var ?ReferenceHelper
      */
-    private static $instance;
+    private static ?ReferenceHelper $instance = null;
 
-    /**
-     * @var CellReferenceHelper
-     */
-    private $cellReferenceHelper;
+    private ?CellReferenceHelper $cellReferenceHelper = null;
 
     /**
      * Get an instance of this class.
-     *
-     * @return ReferenceHelper
      */
-    public static function getInstance()
+    public static function getInstance(): self
     {
         if (self::$instance === null) {
             self::$instance = new self();
@@ -336,7 +331,7 @@ class ReferenceHelper
      * @param int $beforeRow Number of the row we're inserting/deleting before
      * @param int $numberOfRows Number of rows to insert/delete (negative values indicate deletion)
      */
-    protected function adjustRowDimensions(Worksheet $worksheet, $beforeRow, $numberOfRows): void
+    protected function adjustRowDimensions(Worksheet $worksheet, int $beforeRow, int $numberOfRows): void
     {
         $aRowDimensions = array_reverse($worksheet->getRowDimensions(), true);
         if (!empty($aRowDimensions)) {
@@ -561,11 +556,11 @@ class ReferenceHelper
      * @return string Updated formula
      */
     public function updateFormulaReferences(
-        $formula = '',
-        $beforeCellAddress = 'A1',
-        $numberOfColumns = 0,
-        $numberOfRows = 0,
-        $worksheetName = '',
+        string $formula = '',
+        string $beforeCellAddress = 'A1',
+        int $numberOfColumns = 0,
+        int $numberOfRows = 0,
+        string $worksheetName = '',
         bool $includeAbsoluteReferences = false,
         bool $onlyAbsoluteReferences = false
     ): string {
@@ -851,7 +846,7 @@ class ReferenceHelper
      *
      * @return string Updated cell range
      */
-    private function updateCellReference($cellReference = 'A1', bool $includeAbsoluteReferences = false, bool $onlyAbsoluteReferences = false, ?bool $topLeft = null)
+    private function updateCellReference(string $cellReference = 'A1', bool $includeAbsoluteReferences = false, bool $onlyAbsoluteReferences = false, ?bool $topLeft = null)
     {
         // Is it in another worksheet? Will not have to update anything.
         if (str_contains($cellReference, '!')) {

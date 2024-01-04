@@ -785,7 +785,7 @@ abstract class JpGraphRendererBase implements IRenderer
         return true;
     }
 
-    public function render($outputDestination)
+    public function render(?string $outputDestination): bool
     {
         self::$plotColour = 0;
 

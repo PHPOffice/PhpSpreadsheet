@@ -56,7 +56,7 @@ for ($row = 1; $row < 1001; ++$row) {
 }
 
 $helper->log('Write to Mpdf');
-IOFactory::registerWriter('Pdf', \PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf::class);
+IOFactory::registerWriter('Pdf', Mpdf::class);
 $helper->write($spreadsheet, __FILE__, ['Pdf']);
 $helper->write(
     $spreadsheet,

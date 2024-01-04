@@ -20,17 +20,13 @@ class Table implements Stringable
 
     /**
      * Show Header Row.
-     *
-     * @var bool
      */
-    private $showHeaderRow = true;
+    private bool $showHeaderRow = true;
 
     /**
      * Show Totals Row.
-     *
-     * @var bool
      */
-    private $showTotalsRow = false;
+    private bool $showTotalsRow = false;
 
     /**
      * Table Range.
@@ -44,17 +40,15 @@ class Table implements Stringable
 
     /**
      * Table allow filter.
-     *
-     * @var bool
      */
-    private $allowFilter = true;
+    private bool $allowFilter = true;
 
     /**
      * Table Column.
      *
      * @var Table\Column[]
      */
-    private $columns = [];
+    private array $columns = [];
 
     /**
      * Table Style.
@@ -413,7 +407,7 @@ class Table implements Stringable
      *
      * @param string $column Column name (e.g. A)
      */
-    public function getColumn($column): Table\Column
+    public function getColumn(string $column): Table\Column
     {
         $this->isColumnInRange($column);
 
@@ -429,7 +423,7 @@ class Table implements Stringable
      *
      * @param int $columnOffset Column offset within range (starting from 0)
      */
-    public function getColumnByOffset($columnOffset): Table\Column
+    public function getColumnByOffset(int $columnOffset): Table\Column
     {
         [$rangeStart, $rangeEnd] = Coordinate::rangeBoundaries($this->range);
         $pColumn = Coordinate::stringFromColumnIndex($rangeStart[0] + $columnOffset);
@@ -443,7 +437,7 @@ class Table implements Stringable
      * @param string|Table\Column $columnObjectOrString
      *            A simple string containing a Column ID like 'A' is permitted
      */
-    public function setColumn($columnObjectOrString): self
+    public function setColumn(string|Table\Column $columnObjectOrString): self
     {
         if ((is_string($columnObjectOrString)) && (!empty($columnObjectOrString))) {
             $column = $columnObjectOrString;
@@ -470,7 +464,7 @@ class Table implements Stringable
      *
      * @param string $column Column name (e.g. A)
      */
-    public function clearColumn($column): self
+    public function clearColumn(string $column): self
     {
         $this->isColumnInRange($column);
 
@@ -491,7 +485,7 @@ class Table implements Stringable
      * @param string $fromColumn Column name (e.g. A)
      * @param string $toColumn Column name (e.g. B)
      */
-    public function shiftColumn($fromColumn, $toColumn): self
+    public function shiftColumn(string $fromColumn, string $toColumn): self
     {
         $fromColumn = strtoupper($fromColumn);
         $toColumn = strtoupper($toColumn);

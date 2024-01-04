@@ -6,6 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
 use PHPUnit\Framework\TestCase;
 
 class FunctionsTest extends TestCase
@@ -86,7 +87,7 @@ class FunctionsTest extends TestCase
 
     public function testDeprecatedIsFormula(): void
     {
-        $result = Functions::isFormula('="STRING"');
+        $result = Value::isFormula('="STRING"');
         self::assertEquals(ExcelError::REF(), $result);
     }
 

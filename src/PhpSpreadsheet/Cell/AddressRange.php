@@ -10,15 +10,9 @@ interface AddressRange
 
     public const MAX_COLUMN_INT = 16384;
 
-    /**
-     * @return mixed
-     */
-    public function from();
+    public function from(): mixed;
 
-    /**
-     * @return mixed
-     */
-    public function to();
+    public function to(): mixed;
 
     public function __toString(): string;
 }

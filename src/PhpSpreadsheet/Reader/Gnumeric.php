@@ -36,22 +36,17 @@ class Gnumeric extends BaseReader
 
     /**
      * Shared Expressions.
-     *
-     * @var array
      */
-    private $expressions = [];
+    private array $expressions = [];
 
     /**
      * Spreadsheet shared across all functions.
-     *
-     * @var Spreadsheet
      */
-    private $spreadsheet;
+    private Spreadsheet $spreadsheet;
 
     private ReferenceHelper $referenceHelper;
 
-    /** @var array */
-    public static $mappings = [
+    public static array $mappings = [
         'dataType' => [
             '10' => DataType::TYPE_NULL,
             '20' => DataType::TYPE_BOOL,
@@ -175,10 +170,7 @@ class Gnumeric extends BaseReader
         return $worksheetInfo;
     }
 
-    /**
-     * @param string $filename
-     */
-    private function gzfileGetContents($filename): string
+    private function gzfileGetContents(string $filename): string
     {
         $data = '';
         $contents = @file_get_contents($filename);
@@ -253,7 +245,9 @@ class Gnumeric extends BaseReader
 
         $gFileData = $this->gzfileGetContents($filename);
 
-        $xml2 = simplexml_load_string($gFileData, 'SimpleXMLElement', Settings::getLibXmlLoaderOptions());
+        /** @var XmlScanner */
+        $securityScanner = $this->securityScanner;
+        $xml2 = simplexml_load_string($securityScanner->scan($gFileData), 'SimpleXMLElement', Settings::getLibXmlLoaderOptions());
         $xml = self::testSimpleXml($xml2);
 
         $gnmXML = $xml->children(self::NAMESPACE_GNM);

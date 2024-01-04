@@ -7,7 +7,7 @@ namespace PhpOffice\PhpSpreadsheetTests;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Category as Cat;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Logical;
+use PhpOffice\PhpSpreadsheet\Calculation\Logical\Operations;
 use PhpOffice\PhpSpreadsheetInfra\DocumentGenerator;
 use PHPUnit\Framework\TestCase;
 use UnexpectedValueException;
@@ -42,7 +42,7 @@ class DocumentGeneratorTest extends TestCase
             [
                 [
                     'ABS' => ['category' => Cat::CATEGORY_MATH_AND_TRIG, 'functionCall' => 'abs'],
-                    'AND' => ['category' => Cat::CATEGORY_LOGICAL, 'functionCall' => [Logical::class, 'logicalAnd']],
+                    'AND' => ['category' => Cat::CATEGORY_LOGICAL, 'functionCall' => [Operations::class, 'logicalAnd']],
                     'IFS' => ['category' => Cat::CATEGORY_LOGICAL, 'functionCall' => [Functions::class, 'DUMMY']],
                 ],
                 <<<'EXPECTED'
@@ -53,7 +53,7 @@ class DocumentGeneratorTest extends TestCase
                     Excel Function           | Category                       | PhpSpreadsheet Function
                     -------------------------|--------------------------------|--------------------------------------
                     ABS                      | CATEGORY_MATH_AND_TRIG         | abs
-                    AND                      | CATEGORY_LOGICAL               | \PhpOffice\PhpSpreadsheet\Calculation\Logical::logicalAnd
+                    AND                      | CATEGORY_LOGICAL               | \PhpOffice\PhpSpreadsheet\Calculation\Logical\Operations::logicalAnd
 
                     ## I
 
@@ -73,7 +73,7 @@ class DocumentGeneratorTest extends TestCase
             [
                 [
                     'ABS' => ['category' => Cat::CATEGORY_MATH_AND_TRIG, 'functionCall' => 'abs'],
-                    'AND' => ['category' => Cat::CATEGORY_LOGICAL, 'functionCall' => [Logical::class, 'logicalAnd']],
+                    'AND' => ['category' => Cat::CATEGORY_LOGICAL, 'functionCall' => [Operations::class, 'logicalAnd']],
                     'IFS' => ['category' => Cat::CATEGORY_LOGICAL, 'functionCall' => [Functions::class, 'DUMMY']],
                 ],
                 <<<'EXPECTED'
@@ -113,7 +113,7 @@ class DocumentGeneratorTest extends TestCase
 
                     Excel Function           | PhpSpreadsheet Function
                     -------------------------|--------------------------------------
-                    AND                      | \PhpOffice\PhpSpreadsheet\Calculation\Logical::logicalAnd
+                    AND                      | \PhpOffice\PhpSpreadsheet\Calculation\Logical\Operations::logicalAnd
                     IFS                      | **Not yet Implemented**
 
                     ## CATEGORY_LOOKUP_AND_REFERENCE

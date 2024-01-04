@@ -9,7 +9,7 @@ class DataValidationHelper
     /**
      * @var array<int, string>
      */
-    private static $types = [
+    private static array $types = [
         0x00 => DataValidation::TYPE_NONE,
         0x01 => DataValidation::TYPE_WHOLE,
         0x02 => DataValidation::TYPE_DECIMAL,
@@ -23,7 +23,7 @@ class DataValidationHelper
     /**
      * @var array<int, string>
      */
-    private static $errorStyles = [
+    private static array $errorStyles = [
         0x00 => DataValidation::STYLE_STOP,
         0x01 => DataValidation::STYLE_WARNING,
         0x02 => DataValidation::STYLE_INFORMATION,
@@ -32,7 +32,7 @@ class DataValidationHelper
     /**
      * @var array<int, string>
      */
-    private static $operators = [
+    private static array $operators = [
         0x00 => DataValidation::OPERATOR_BETWEEN,
         0x01 => DataValidation::OPERATOR_NOTBETWEEN,
         0x02 => DataValidation::OPERATOR_EQUAL,

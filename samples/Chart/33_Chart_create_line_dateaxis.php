@@ -157,7 +157,7 @@ $series = new DataSeries(
     $xAxisTickValues, // plotCategory
     $dataSeriesValues, // plotValues
     null, // plotDirection
-    null, // smooth line
+    false, // smooth line
     DataSeries::STYLE_SMOOTHMARKER // plotStyle
 );
 
@@ -279,7 +279,7 @@ $dateMinMax = dateRange(8, $spreadsheet); // array 'min'=>earliest date of first
 // change xAxis tick marks to match Qtr boundaries
 
 $nQtrs = sprintf('%3.2f', (($dateMinMax['max'] - $dateMinMax['min']) / 30.5) / 4);
-$tickMarkInterval = ($nQtrs > 20) ? 6 : 3; // tick marks every ? months
+$tickMarkInterval = ($nQtrs > 20) ? '6' : '3'; // tick marks every ? months
 
 $xAxis->setAxisOptionsProperties(
     Properties::AXIS_LABELS_NEXT_TO, // axis_label pos
@@ -335,7 +335,7 @@ $helper->renderChart($chart, __FILE__);
 $spreadsheet->setActiveSheetIndex(1);
 
 // Save Excel 2007 file
-$helper->write($spreadsheet, __FILE__, ['Xlsx'], true);
+$helper->write($spreadsheet, __FILE__, ['Xlsx'], true, resetActiveSheet: false);
 $spreadsheet->disconnectWorksheets();
 
 function dateRange(int $nrows, Spreadsheet $wrkbk): array

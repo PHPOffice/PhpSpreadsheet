@@ -16,16 +16,14 @@ class Title
     /**
      * Title Caption.
      *
-     * @var array|RichText|string
+     * @var array<RichText|string>|RichText|string
      */
-    private $caption = '';
+    private array|RichText|string $caption;
 
     /**
      * Allow overlay of other elements?
-     *
-     * @var bool
      */
-    private $overlay = true;
+    private bool $overlay = true;
 
     /**
      * Title Layout.
@@ -38,11 +36,8 @@ class Title
 
     /**
      * Create a new Title.
-     *
-     * @param array|RichText|string $caption
-     * @param bool $overlay
      */
-    public function __construct($caption = '', ?Layout $layout = null, $overlay = false)
+    public function __construct(array|RichText|string $caption = '', ?Layout $layout = null, bool $overlay = false)
     {
         $this->caption = $caption;
         $this->layout = $layout;
@@ -51,10 +46,8 @@ class Title
 
     /**
      * Get caption.
-     *
-     * @return array|RichText|string
      */
-    public function getCaption()
+    public function getCaption(): array|RichText|string
     {
         return $this->caption;
     }
@@ -76,7 +69,7 @@ class Title
         }
         $retVal = '';
         foreach ($caption as $textx) {
-            /** @var RichText|string */
+            /** @var RichText|string $text */
             $text = $textx;
             if ($text instanceof RichText) {
                 $retVal .= $text->getPlainText();
@@ -91,11 +84,9 @@ class Title
     /**
      * Set caption.
      *
-     * @param array|RichText|string $caption
-     *
      * @return $this
      */
-    public function setCaption($caption): static
+    public function setCaption(array|RichText|string $caption): static
     {
         $this->caption = $caption;
 
@@ -104,20 +95,16 @@ class Title
 
     /**
      * Get allow overlay of other elements?
-     *
-     * @return bool
      */
-    public function getOverlay()
+    public function getOverlay(): bool
     {
         return $this->overlay;
     }
 
     /**
      * Set allow overlay of other elements?
-     *
-     * @param bool $overlay
      */
-    public function setOverlay($overlay): static
+    public function setOverlay(bool $overlay): self
     {
         $this->overlay = $overlay;
 
@@ -162,5 +149,23 @@ class Title
         $this->font = $font;
 
         return $this;
+    }
+
+    /**
+     * Implement PHP __clone to create a deep clone, not just a shallow copy.
+     */
+    public function __clone()
+    {
+        $this->layout = ($this->layout === null) ? null : clone $this->layout;
+        $this->font = ($this->font === null) ? null : clone $this->font;
+        if (is_array($this->caption)) {
+            $captions = $this->caption;
+            $this->caption = [];
+            foreach ($captions as $caption) {
+                $this->caption[] = is_object($caption) ? (clone $caption) : $caption;
+            }
+        } else {
+            $this->caption = is_object($this->caption) ? (clone $this->caption) : $this->caption;
+        }
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Functional;
 
+use PhpOffice\PhpSpreadsheet\Reader\IReader;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class ReadFilterTest extends AbstractFunctional
@@ -65,7 +66,7 @@ class ReadFilterTest extends AbstractFunctional
         $spreadsheet = new Spreadsheet();
         $spreadsheet->getActiveSheet()->fromArray($arrayData, null, 'A1');
 
-        $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, $format, function ($reader): void {
+        $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, $format, function (IReader $reader): void {
             // apply filter
             $reader->setReadFilter(new ReadFilterFilter());
         });

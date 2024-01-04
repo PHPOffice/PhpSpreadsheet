@@ -23,24 +23,18 @@ class Escher
 
     /**
      * The written binary data.
-     *
-     * @var string
      */
-    private $data;
+    private string $data;
 
     /**
      * Shape offsets. Positions in binary stream where a new shape record begins.
-     *
-     * @var array
      */
-    private $spOffsets;
+    private array $spOffsets;
 
     /**
      * Shape types.
-     *
-     * @var array
      */
-    private $spTypes;
+    private array $spTypes;
 
     /**
      * Constructor.
@@ -52,10 +46,8 @@ class Escher
 
     /**
      * Process the object to be written.
-     *
-     * @return string
      */
-    public function close()
+    public function close(): string
     {
         // initialize
         $this->data = '';
@@ -491,20 +483,16 @@ class Escher
 
     /**
      * Gets the shape offsets.
-     *
-     * @return array
      */
-    public function getSpOffsets()
+    public function getSpOffsets(): array
     {
         return $this->spOffsets;
     }
 
     /**
      * Gets the shape types.
-     *
-     * @return array
      */
-    public function getSpTypes()
+    public function getSpTypes(): array
     {
         return $this->spTypes;
     }

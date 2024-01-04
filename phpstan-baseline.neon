@@ -1,6 +1,1001 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Parameter \\#1 \\$formula of method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\DataValidation\\:\\:setFormula1\\(\\) expects string, int given\\.$#"
+			count: 1
+			path: samples/Basic/15_Datavalidation.php
+
+		-
+			message: "#^Parameter \\#1 \\$formula of method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\DataValidation\\:\\:setFormula2\\(\\) expects string, int given\\.$#"
+			count: 1
+			path: samples/Basic/15_Datavalidation.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between mixed and null will always evaluate to false\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Calculation/Calculation.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/Date.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/Date.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/DateParts.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/DateParts.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/DateValue.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/DateValue.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/Days.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/Days.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/Days360.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/Days360.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/Difference.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/Difference.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/Month.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/Month.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/NetworkDays.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/NetworkDays.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/Time.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/Time.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/TimeParts.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/TimeParts.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/TimeValue.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/TimeValue.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/Week.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/Week.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/WorkDay.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/WorkDay.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/YearFrac.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/YearFrac.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Engineering/BesselI.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Engineering/BesselI.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Engineering/BesselJ.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Engineering/BesselJ.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Engineering/BesselK.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Engineering/BesselK.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Engineering/BesselY.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Engineering/BesselY.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Engineering/BitWise.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Engineering/BitWise.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Engineering/Compare.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Engineering/Compare.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Engineering/Complex.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Engineering/Complex.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Engineering/ComplexFunctions.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Engineering/ComplexFunctions.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Engineering/ComplexOperations.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Engineering/ComplexOperations.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Engineering/ConvertBase.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Engineering/ConvertBase.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Engineering/ConvertUOM.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Engineering/Erf.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Engineering/Erf.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Engineering/ErfC.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Engineering/ErfC.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Financial/Dollar.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Financial/Dollar.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Information/ErrorValue.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Information/ErrorValue.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Information/ExcelError.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Information/ExcelError.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Information/Value.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Information/Value.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Logical/Conditional.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Logical/Conditional.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Logical/Operations.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Logical/Operations.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/LookupRef/Address.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/LookupRef/Address.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/LookupRef/ExcelMatch.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/LookupRef/ExcelMatch.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/LookupRef/HLookup.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/LookupRef/HLookup.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/LookupRef/Lookup.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/LookupRef/Lookup.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/LookupRef/Matrix.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/LookupRef/Matrix.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/LookupRef/Selection.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/LookupRef/Selection.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/LookupRef/VLookup.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/LookupRef/VLookup.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/MathTrig/Absolute.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/MathTrig/Absolute.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/MathTrig/Angle.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/MathTrig/Angle.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/MathTrig/Arabic.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/MathTrig/Arabic.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/MathTrig/Base.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/MathTrig/Base.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/MathTrig/Ceiling.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/MathTrig/Ceiling.php
+
+		-
 			message: "#^Binary operation \"/\" between float and array\\|float\\|int\\|string results in an error\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/MathTrig/Combinations.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/MathTrig/Combinations.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/MathTrig/Combinations.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/MathTrig/Exp.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/MathTrig/Exp.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/MathTrig/Factorial.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/MathTrig/Factorial.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/MathTrig/Floor.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/MathTrig/Floor.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/MathTrig/IntClass.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/MathTrig/IntClass.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/MathTrig/Logarithms.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/MathTrig/Logarithms.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/MathTrig/Operations.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/MathTrig/Operations.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/MathTrig/Random.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/MathTrig/Random.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/MathTrig/Roman.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/MathTrig/Roman.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/MathTrig/Round.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/MathTrig/Round.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/MathTrig/SeriesSum.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/MathTrig/SeriesSum.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/MathTrig/Sign.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/MathTrig/Sign.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/MathTrig/Sqrt.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/MathTrig/Sqrt.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/MathTrig/Trig/Cosecant.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/MathTrig/Trig/Cosecant.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/MathTrig/Trig/Cosine.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/MathTrig/Trig/Cosine.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/MathTrig/Trig/Cotangent.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/MathTrig/Trig/Cotangent.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/MathTrig/Trig/Secant.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/MathTrig/Trig/Secant.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/MathTrig/Trig/Sine.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/MathTrig/Trig/Sine.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/MathTrig/Trig/Tangent.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/MathTrig/Trig/Tangent.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/MathTrig/Trunc.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/MathTrig/Trunc.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Statistical/Confidence.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Statistical/Confidence.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Beta.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Beta.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Binomial.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Binomial.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/ChiSquared.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/ChiSquared.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Exponential.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Exponential.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/F.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/F.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Fisher.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Fisher.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Gamma.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Gamma.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/HyperGeometric.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/HyperGeometric.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/LogNormal.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/LogNormal.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Normal.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Normal.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Poisson.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Poisson.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/StandardNormal.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/StandardNormal.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/StudentT.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/StudentT.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Weibull.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/Weibull.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Statistical/Permutations.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Statistical/Permutations.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Statistical/Standardize.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Statistical/Standardize.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Statistical/Trends.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/Statistical/Trends.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/TextData/CaseConvert.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/TextData/CaseConvert.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/TextData/CharacterConvert.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/TextData/CharacterConvert.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/TextData/Concatenate.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/TextData/Concatenate.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/TextData/Extract.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/TextData/Extract.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/TextData/Format.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/TextData/Format.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/TextData/Replace.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/TextData/Replace.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/TextData/Search.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/TextData/Search.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/TextData/Text.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/TextData/Text.php
+
+		-
+			message: "#^Cannot call method arguments\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/TextData/Trim.php
+
+		-
+			message: "#^Parameter \\#1 \\$arrayArgumentHelper of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentProcessor\\:\\:processArguments\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper, PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Engine\\\\ArrayArgumentHelper\\|null given\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/Calculation/TextData/Trim.php
+
+		-
+			message: "#^Argument of an invalid type array\\|null supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Chart/DataSeriesValues.php
+
+		-
+			message: "#^Offset 0 does not exist on array\\|null\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Chart/DataSeriesValues.php
+
+		-
+			message: "#^Parameter \\#1 \\$value of function count expects array\\|Countable, array\\|null given\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Chart/DataSeriesValues.php
+
+		-
+			message: "#^Argument of an invalid type array\\<int, \\(SimpleXMLElement\\|null\\)\\>\\|SimpleXMLElement\\|null supplied for foreach, only iterables are supported\\.$#"
+			count: 2
+			path: src/PhpSpreadsheet/Reader/Xlsx/ConditionalStyles.php
+
+		-
+			message: "#^Cannot access property \\$color on SimpleXMLElement\\|null\\.$#"
+			count: 2
+			path: src/PhpSpreadsheet/Reader/Xlsx/Styles.php
+
+		-
+			message: "#^Cannot call method beforeCellAddress\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\CellReferenceHelper\\|null\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/ReferenceHelper.php
+
+		-
+			message: "#^Cannot call method cellAddressInDeleteRange\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\CellReferenceHelper\\|null\\.$#"
+			count: 3
+			path: src/PhpSpreadsheet/ReferenceHelper.php
+
+		-
+			message: "#^Cannot call method updateCellReference\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\CellReferenceHelper\\|null\\.$#"
+			count: 4
+			path: src/PhpSpreadsheet/ReferenceHelper.php
+
+		-
+			message: "#^Argument of an invalid type array\\|null supplied for foreach, only iterables are supported\\.$#"
+			count: 3
+			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
+
+		-
+			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Chart\\:\\:getChartType\\(\\) should return array\\<string\\> but returns array\\<int\\<0, max\\>, string\\|null\\>\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
+
+		-
+			message: "#^Parameter \\#2 \\$array of function array_key_exists expects array, array\\|null given\\.$#"
+			count: 1
+			path: src/PhpSpreadsheet/Writer/Xlsx/Chart.php
+
+		-
+			message: "#^Offset 0 does not exist on array\\|null\\.$#"
+			count: 1
+			path: tests/PhpSpreadsheetTests/Reader/Xlsx/Issue3767Test.php

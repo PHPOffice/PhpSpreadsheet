@@ -11,10 +11,8 @@ class SpgrContainer
 
     /**
      * Shape Container collection.
-     *
-     * @var array
      */
-    private $children = [];
+    private array $children = [];
 
     /**
      * Set parent Shape Group Container.

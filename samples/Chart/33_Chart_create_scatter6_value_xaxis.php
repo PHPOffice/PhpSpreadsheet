@@ -61,7 +61,7 @@ $series = new DataSeries(
     $xAxisTickValues, // plotCategory
     $dataSeriesValues, // plotValues
     null, // plotDirection
-    null, // smooth line
+    false, // smooth line
     DataSeries::STYLE_LINEMARKER // plotStyle
 );
 
@@ -81,10 +81,10 @@ $xAxis->setAxisOptionsProperties(
     null, // axisOrientation
     null, // majorTmt
     Properties::TICK_MARK_OUTSIDE, // minorTmt
-    0, // minimum
-    6, // maximum
+    '0', // minimum
+    '6', // maximum
     null, // majorUnit
-    1, // minorUnit
+    '1', // minorUnit
 );
 
 $xAxis->setAxisType(ChartAxis::AXIS_TYPE_VALUE);
@@ -98,10 +98,10 @@ $yAxis->setAxisOptionsProperties(
     null, // axisOrientation
     null, // majorTmt
     Properties::TICK_MARK_OUTSIDE, // minorTmt
-    0, // minimum
-    25, // 30 // maximum
+    '0', // minimum
+    '25', // 30 // maximum
     null, // majorUnit
-    5, // minorUnit
+    '5', // minorUnit
 );
 
 // Create the chart
@@ -131,4 +131,4 @@ $helper->renderChart($chart, __FILE__);
 $spreadsheet->setActiveSheetIndex(1);
 
 // Save Excel 2007 file
-$helper->write($spreadsheet, __FILE__, ['Xlsx'], true);
+$helper->write($spreadsheet, __FILE__, ['Xlsx'], true, resetActiveSheet: false);

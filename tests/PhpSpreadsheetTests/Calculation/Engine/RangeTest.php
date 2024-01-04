@@ -11,8 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class RangeTest extends TestCase
 {
-    /** @var string */
-    private $incompleteMessage = 'Must be revisited';
+    private string $incompleteMessage = 'Must be revisited';
 
     private \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadSheet;
 

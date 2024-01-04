@@ -45,7 +45,7 @@ class Week
      *         If an array of values is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function number(mixed $dateValue, $method = Constants::STARTWEEK_SUNDAY): array|int|string
+    public static function number(mixed $dateValue, array|int|string|null $method = Constants::STARTWEEK_SUNDAY): array|int|string
     {
         if (is_array($dateValue) || is_array($method)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $dateValue, $method);
@@ -150,7 +150,7 @@ class Week
      *         If an array of values is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function day($dateValue, mixed $style = 1): array|string|int
+    public static function day(null|array|float|int|string|bool $dateValue, mixed $style = 1): array|string|int
     {
         if (is_array($dateValue) || is_array($style)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $dateValue, $style);

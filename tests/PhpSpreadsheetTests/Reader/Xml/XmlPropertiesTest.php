@@ -10,8 +10,7 @@ use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
 class XmlPropertiesTest extends AbstractFunctional
 {
-    /** @var string */
-    private $filename = 'tests/data/Reader/Xml/hyperlinkbase.xml';
+    private string $filename = 'tests/data/Reader/Xml/hyperlinkbase.xml';
 
     public function testProperties(): void
     {
