@@ -26,6 +26,3 @@ parameters:
         # Accept a bit anything for assert methods
         - '~^Parameter \#2 .* of static method PHPUnit\\Framework\\Assert\:\:assert\w+\(\) expects .*, .* given\.$~'
         - '~^Variable \$helper might not be defined\.$~'
-        -
-            message: '~^Cannot call method \w+\(\) on PhpOffice\\PhpSpreadsheet\\.*\|null\.$~'
-            path: samples/
