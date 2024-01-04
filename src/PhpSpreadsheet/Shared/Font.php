@@ -329,7 +329,7 @@ class Font
     /**
      * Pad amount for exact in pixels; use best guess if null.
      */
-    private static null|float|int $paddingAmountExact;
+    private static null|float|int $paddingAmountExact = null;
 
     /**
      * Set pad amount for exact in pixels; use best guess if null.

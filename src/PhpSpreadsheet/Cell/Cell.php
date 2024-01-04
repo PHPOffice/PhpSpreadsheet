@@ -62,7 +62,7 @@ class Cell implements Stringable
     /**
      * Attributes of the formula.
      */
-    private mixed $formulaAttributes;
+    private mixed $formulaAttributes = null;
 
     private IgnoredErrors $ignoredErrors;
 
