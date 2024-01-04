@@ -160,4 +160,15 @@ class Legend
 
         return $this;
     }
+
+    /**
+     * Implement PHP __clone to create a deep clone, not just a shallow copy.
+     */
+    public function __clone()
+    {
+        $this->layout = ($this->layout === null) ? null : clone $this->layout;
+        $this->legendText = ($this->legendText === null) ? null : clone $this->legendText;
+        $this->borderLines = clone $this->borderLines;
+        $this->fillColor = clone $this->fillColor;
+    }
 }

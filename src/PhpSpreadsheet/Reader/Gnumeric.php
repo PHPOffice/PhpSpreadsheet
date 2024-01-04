@@ -245,7 +245,9 @@ class Gnumeric extends BaseReader
 
         $gFileData = $this->gzfileGetContents($filename);
 
-        $xml2 = simplexml_load_string($gFileData, 'SimpleXMLElement', Settings::getLibXmlLoaderOptions());
+        /** @var XmlScanner */
+        $securityScanner = $this->securityScanner;
+        $xml2 = simplexml_load_string($securityScanner->scan($gFileData), 'SimpleXMLElement', Settings::getLibXmlLoaderOptions());
         $xml = self::testSimpleXml($xml2);
 
         $gnmXML = $xml->children(self::NAMESPACE_GNM);

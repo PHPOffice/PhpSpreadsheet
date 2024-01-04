@@ -168,7 +168,7 @@ class Rels extends WriterPart
      *
      * @return string XML Output
      */
-    public function writeWorksheetRelationships(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $worksheet, int $worksheetId = 1, bool $includeCharts = false, int $tableRef = 1): string
+    public function writeWorksheetRelationships(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $worksheet, int $worksheetId = 1, bool $includeCharts = false, int $tableRef = 1, array &$zipContent = []): string
     {
         // Create XML writer
         $objWriter = null;
@@ -218,6 +218,20 @@ class Rels extends WriterPart
                 Namespaces::RELATIONSHIPS_DRAWING,
                 $relPath
             );
+        }
+
+        $backgroundImage = $worksheet->getBackgroundImage();
+        if ($backgroundImage !== '') {
+            $rId = 'Bg';
+            $uniqueName = md5(mt_rand(0, 9999) . time() . mt_rand(0, 9999));
+            $relPath = "../media/$uniqueName." . $worksheet->getBackgroundExtension();
+            $this->writeRelationship(
+                $objWriter,
+                $rId,
+                Namespaces::IMAGE,
+                $relPath
+            );
+            $zipContent["xl/media/$uniqueName." . $worksheet->getBackgroundExtension()] = $backgroundImage;
         }
 
         // Write hyperlink relationships?

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Category as Cat;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Logical\Operations;
@@ -13,12 +14,17 @@ use UnexpectedValueException;
 
 class DocumentGeneratorTest extends TestCase
 {
+    private static bool $succeededByName = false;
+
+    private static bool $succeededByCategory = false;
+
     /**
      * @dataProvider providerGenerateFunctionListByName
      */
     public function testGenerateFunctionListByName(array $phpSpreadsheetFunctions, string $expected): void
     {
         self::assertEquals($expected, DocumentGenerator::generateFunctionListByName($phpSpreadsheetFunctions));
+        self::$succeededByName = true;
     }
 
     /**
@@ -27,6 +33,7 @@ class DocumentGeneratorTest extends TestCase
     public function testGenerateFunctionListByCategory(array $phpSpreadsheetFunctions, string $expected): void
     {
         self::assertEquals($expected, DocumentGenerator::generateFunctionListByCategory($phpSpreadsheetFunctions));
+        self::$succeededByCategory = true;
     }
 
     public static function providerGenerateFunctionListByName(): array
@@ -153,5 +160,25 @@ class DocumentGeneratorTest extends TestCase
             'ABS' => ['category' => Cat::CATEGORY_MATH_AND_TRIG, 'functionCall' => 1],
         ];
         DocumentGenerator::generateFunctionListByName($phpSpreadsheetFunctions);
+    }
+
+    public function testGenerateDocuments(): void
+    {
+        if (!self::$succeededByName || !self::$succeededByCategory) {
+            self::markTestSkipped('Not run because prior test failed');
+        }
+        $directory = 'docs/references/';
+        self::assertNotEmpty($directory);
+        $phpSpreadsheetFunctions = Calculation::getFunctions();
+        ksort($phpSpreadsheetFunctions);
+
+        self::assertNotFalse(file_put_contents(
+            $directory . 'function-list-by-category.md',
+            DocumentGenerator::generateFunctionListByCategory($phpSpreadsheetFunctions)
+        ));
+        self::assertNotFalse(file_put_contents(
+            $directory . 'function-list-by-name.md',
+            DocumentGenerator::generateFunctionListByName($phpSpreadsheetFunctions)
+        ));
     }
 }

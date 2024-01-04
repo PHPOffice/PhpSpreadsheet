@@ -18,20 +18,11 @@ class AdvancedValueBinderTest extends TestCase
 
     private string $originalLocale;
 
-    private string $originalCurrencyCode;
-
-    private string $originalDecimalSeparator;
-
-    private string $originalThousandsSeparator;
-
     private IValueBinder $valueBinder;
 
     protected function setUp(): void
     {
         $this->originalLocale = Settings::getLocale();
-        $this->originalCurrencyCode = StringHelper::getCurrencyCode();
-        $this->originalDecimalSeparator = StringHelper::getDecimalSeparator();
-        $this->originalThousandsSeparator = StringHelper::getThousandsSeparator();
 
         $this->valueBinder = Cell::getValueBinder();
         Cell::setValueBinder(new AdvancedValueBinder());
@@ -39,9 +30,9 @@ class AdvancedValueBinderTest extends TestCase
 
     protected function tearDown(): void
     {
-        StringHelper::setCurrencyCode($this->originalCurrencyCode);
-        StringHelper::setDecimalSeparator($this->originalDecimalSeparator);
-        StringHelper::setThousandsSeparator($this->originalThousandsSeparator);
+        StringHelper::setCurrencyCode(null);
+        StringHelper::setDecimalSeparator(null);
+        StringHelper::setThousandsSeparator(null);
         Settings::setLocale($this->originalLocale);
         Cell::setValueBinder($this->valueBinder);
     }

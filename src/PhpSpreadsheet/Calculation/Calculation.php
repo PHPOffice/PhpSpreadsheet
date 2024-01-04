@@ -35,6 +35,8 @@ class Calculation
     const CALCULATION_REGEXP_OPENBRACE = '\(';
     //    Function (allow for the old @ symbol that could be used to prefix a function, but we'll ignore it)
     const CALCULATION_REGEXP_FUNCTION = '@?(?:_xlfn\.)?(?:_xlws\.)?([\p{L}][\p{L}\p{N}\.]*)[\s]*\(';
+    //    Strip xlfn and xlws prefixes from function name
+    const CALCULATION_REGEXP_STRIP_XLFN_XLWS = '/(_xlfn[.])?(_xlws[.])?(?=[\p{L}][\p{L}\p{N}\.]*[\s]*[(])/';
     //    Cell reference (cell or range of cells, with or without a sheet reference)
     const CALCULATION_REGEXP_CELLREF = '((([^\s,!&%^\/\*\+<>=:`-]*)|(\'(?:[^\']|\'[^!])+?\')|(\"(?:[^\"]|\"[^!])+?\"))!)?\$?\b([a-z]{1,3})\$?(\d{1,7})(?![\w.])';
     //    Cell reference (with or without a sheet reference) ensuring absolute/relative
@@ -3276,8 +3278,19 @@ class Calculation
     /** @var ?array */
     private static ?array $functionReplaceToLocale;
 
+    /**
+     * @deprecated 1.30.0 use translateFormulaToLocale() instead
+     *
+     * @codeCoverageIgnore
+     */
     public function _translateFormulaToLocale(string $formula): string
     {
+        return $this->translateFormulaToLocale($formula);
+    }
+
+    public function translateFormulaToLocale(string $formula): string
+    {
+        $formula = preg_replace(self::CALCULATION_REGEXP_STRIP_XLFN_XLWS, '', $formula) ?? '';
         // Build list of function names and constants for translation
         if (self::$functionReplaceFromExcel === null) {
             self::$functionReplaceFromExcel = [];
@@ -3314,7 +3327,17 @@ class Calculation
     /** @var ?array */
     private static ?array $functionReplaceToExcel;
 
+    /**
+     * @deprecated 1.30.0 use translateFormulaToEnglish() instead
+     *
+     * @codeCoverageIgnore
+     */
     public function _translateFormulaToEnglish(string $formula): string
+    {
+        return $this->translateFormulaToEnglish($formula);
+    }
+
+    public function translateFormulaToEnglish(string $formula): string
     {
         if (self::$functionReplaceFromLocale === null) {
             self::$functionReplaceFromLocale = [];
@@ -4985,7 +5008,7 @@ class Calculation
                     krsort($args);
                     krsort($emptyArguments);
 
-                    if ($argCount > 0) {
+                    if ($argCount > 0 && is_array($functionCall)) {
                         $args = $this->addDefaultArgumentValues($functionCall, $args, $emptyArguments);
                     }
 
@@ -5478,7 +5501,7 @@ class Calculation
 
     private function addDefaultArgumentValues(array $functionCall, array $args, array $emptyArguments): array
     {
-        $reflector = new ReflectionMethod(implode('::', $functionCall));
+        $reflector = new ReflectionMethod($functionCall[0], $functionCall[1]);
         $methodArguments = $reflector->getParameters();
 
         if (count($methodArguments) > 0) {

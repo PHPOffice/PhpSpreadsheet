@@ -191,4 +191,17 @@ class PlotArea
 
         return $this;
     }
+
+    /**
+     * Implement PHP __clone to create a deep clone, not just a shallow copy.
+     */
+    public function __clone()
+    {
+        $this->layout = ($this->layout === null) ? null : clone $this->layout;
+        $plotSeries = $this->plotSeries;
+        $this->plotSeries = [];
+        foreach ($plotSeries as $series) {
+            $this->plotSeries[] = clone $series;
+        }
+    }
 }

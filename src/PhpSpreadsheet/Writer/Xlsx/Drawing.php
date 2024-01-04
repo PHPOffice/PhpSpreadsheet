@@ -289,6 +289,8 @@ class Drawing extends WriterPart
             // a:xfrm
             $objWriter->startElement('a:xfrm');
             $objWriter->writeAttribute('rot', (string) SharedDrawing::degreesToAngle($drawing->getRotation()));
+            self::writeAttributeIf($objWriter, $drawing->getFlipVertical(), 'flipV', '1');
+            self::writeAttributeIf($objWriter, $drawing->getFlipHorizontal(), 'flipH', '1');
             if ($isTwoCellAnchor) {
                 $objWriter->startElement('a:ext');
                 $objWriter->writeAttribute('cx', self::stringEmu($drawing->getWidth()));
@@ -570,5 +572,12 @@ class Drawing extends WriterPart
     private static function stringEmu(int $pixelValue): string
     {
         return (string) SharedDrawing::pixelsToEMU($pixelValue);
+    }
+
+    private static function writeAttributeIf(XMLWriter $objWriter, ?bool $condition, string $attr, string $val): void
+    {
+        if ($condition) {
+            $objWriter->writeAttribute($attr, $val);
+        }
     }
 }

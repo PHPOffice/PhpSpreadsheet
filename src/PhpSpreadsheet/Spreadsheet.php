@@ -635,7 +635,7 @@ class Spreadsheet implements JsonSerializable
     {
         $worksheetCount = count($this->workSheetCollection);
         for ($i = 0; $i < $worksheetCount; ++$i) {
-            if ($this->workSheetCollection[$i]->getTitle() === trim($worksheetName, "'")) {
+            if (strcasecmp($this->workSheetCollection[$i]->getTitle(), trim($worksheetName, "'")) === 0) {
                 return $this->workSheetCollection[$i];
             }
         }

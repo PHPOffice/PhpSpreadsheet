@@ -21,17 +21,22 @@ $spreadsheet->getProperties()
     ->setKeywords('Office PhpSpreadsheet php')
     ->setCategory('Test result file');
 
+function transpose(string $value): array
+{
+    return [$value];
+}
+
 // Add some data
 $continentColumn = 'D';
 $column = 'F';
 
 // Set data for dropdowns
-$continents = glob(__DIR__ . '/data/continents/*');
+$continents = glob(__DIR__ . '/data/continents/*') ?: [];
 foreach ($continents as $key => $filename) {
     $continent = pathinfo($filename, PATHINFO_FILENAME);
     $helper->log("Loading $continent");
     $continent = str_replace(' ', '_', $continent);
-    $countries = file($filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    $countries = file($filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) ?: [];
     $countryCount = count($countries);
 
     // Transpose $countries from a row to a column array

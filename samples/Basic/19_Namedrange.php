@@ -36,6 +36,9 @@ $spreadsheet->addNamedRange(new NamedRange('PersonLN', $spreadsheet->getActiveSh
 
 // Rename named ranges
 $helper->log('Rename named ranges');
+if ($spreadsheet->getNamedRange('PersonName') === null) {
+    throw new Exception('named range not found');
+}
 $spreadsheet->getNamedRange('PersonName')->setName('PersonFN');
 
 // Rename worksheet

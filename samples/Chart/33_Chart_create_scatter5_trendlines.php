@@ -169,7 +169,7 @@ $spreadsheet->createSheet();
 $chartSheet = $spreadsheet->getSheet(1);
 $chartSheet->setTitle('Scatter Chart');
 
-$chartSheet = $spreadsheet->getSheetByName('Scatter Chart');
+$chartSheet = $spreadsheet->getSheetByNameOrThrow('Scatter Chart');
 // Add the chart to the worksheet
 $chartSheet->addChart($chart);
 
@@ -270,4 +270,4 @@ $helper->renderChart($chart, __FILE__);
 $spreadsheet->setActiveSheetIndex(1);
 
 // Save Excel 2007 file
-$helper->write($spreadsheet, __FILE__, ['Xlsx'], true);
+$helper->write($spreadsheet, __FILE__, ['Xlsx'], true, resetActiveSheet: false);

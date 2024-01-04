@@ -33,7 +33,7 @@ class StringHelper
     /**
      * Currency code.
      */
-    private static string $currencyCode;
+    private static ?string $currencyCode;
 
     /**
      * Is iconv extension avalable?
@@ -541,9 +541,9 @@ class StringHelper
      * Set the decimal separator. Only used by NumberFormat::toFormattedString()
      * to format output by \PhpOffice\PhpSpreadsheet\Writer\Html and \PhpOffice\PhpSpreadsheet\Writer\Pdf.
      *
-     * @param string $separator Character for decimal separator
+     * @param ?string $separator Character for decimal separator
      */
-    public static function setDecimalSeparator(string $separator): void
+    public static function setDecimalSeparator(?string $separator): void
     {
         self::$decimalSeparator = $separator;
     }
@@ -572,9 +572,9 @@ class StringHelper
      * Set the thousands separator. Only used by NumberFormat::toFormattedString()
      * to format output by \PhpOffice\PhpSpreadsheet\Writer\Html and \PhpOffice\PhpSpreadsheet\Writer\Pdf.
      *
-     * @param string $separator Character for thousands separator
+     * @param ?string $separator Character for thousands separator
      */
-    public static function setThousandsSeparator(string $separator): void
+    public static function setThousandsSeparator(?string $separator): void
     {
         self::$thousandsSeparator = $separator;
     }
@@ -608,9 +608,9 @@ class StringHelper
      * Set the currency code. Only used by NumberFormat::toFormattedString()
      *        to format output by \PhpOffice\PhpSpreadsheet\Writer\Html and \PhpOffice\PhpSpreadsheet\Writer\Pdf.
      *
-     * @param string $currencyCode Character for currency code
+     * @param ?string $currencyCode Character for currency code
      */
-    public static function setCurrencyCode(string $currencyCode): void
+    public static function setCurrencyCode(?string $currencyCode): void
     {
         self::$currencyCode = $currencyCode;
     }

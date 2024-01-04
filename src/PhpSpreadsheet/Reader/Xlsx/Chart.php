@@ -491,13 +491,16 @@ class Chart
 
     private function chartTitle(SimpleXMLElement $titleDetails): Title
     {
-        $caption = [];
+        $caption = '';
         $titleLayout = null;
         $titleOverlay = false;
+        $titleFormula = null;
+        $titleFont = null;
         foreach ($titleDetails as $titleDetailKey => $chartDetail) {
             $chartDetail = Xlsx::testSimpleXml($chartDetail);
             switch ($titleDetailKey) {
                 case 'tx':
+                    $caption = [];
                     if (isset($chartDetail->rich)) {
                         $titleDetails = $chartDetail->rich->children($this->aNamespace);
                         foreach ($titleDetails as $titleKey => $titleDetail) {
@@ -514,6 +517,9 @@ class Chart
                                 $caption[] = (string) $pt->v;
                             }
                         }
+                        if (isset($chartDetail->strRef->f)) {
+                            $titleFormula = (string) $chartDetail->strRef->f;
+                        }
                     }
 
                     break;
@@ -525,10 +531,23 @@ class Chart
                     $titleLayout = $this->chartLayoutDetails($chartDetail);
 
                     break;
+                case 'txPr':
+                    if (isset($chartDetail->children($this->aNamespace)->p)) {
+                        $titleFont = $this->parseFont($chartDetail->children($this->aNamespace)->p);
+                    }
+
+                    break;
             }
         }
+        $title = new Title($caption, $titleLayout, (bool) $titleOverlay);
+        if (!empty($titleFormula)) {
+            $title->setCellReference($titleFormula);
+        }
+        if ($titleFont !== null) {
+            $title->setFont($titleFont);
+        }
 
-        return new Title($caption, $titleLayout, (bool) $titleOverlay);
+        return $title;
     }
 
     private function chartLayoutDetails(SimpleXMLElement $chartDetail): ?Layout
@@ -1152,6 +1171,7 @@ class Chart
         $fontArray['italic'] = self::getAttributeBoolean($titleDetailPart->pPr->defRPr, 'i');
         $fontArray['underscore'] = self::getAttributeString($titleDetailPart->pPr->defRPr, 'u');
         $fontArray['strikethrough'] = self::getAttributeString($titleDetailPart->pPr->defRPr, 'strike');
+        $fontArray['cap'] = self::getAttributeString($titleDetailPart->pPr->defRPr, 'cap');
 
         if (isset($titleDetailPart->pPr->defRPr->latin)) {
             $fontArray['latin'] = self::getAttributeString($titleDetailPart->pPr->defRPr->latin, 'typeface');
@@ -1450,6 +1470,13 @@ class Chart
         if (isset($chartDetail->crossBetween)) {
             $whichAxis->setCrossBetween((string) self::getAttributeString($chartDetail->crossBetween, 'val'));
         }
+        if (isset($chartDetail->dispUnits, $chartDetail->dispUnits->builtInUnit)) {
+            $whichAxis->setAxisOption('dispUnitsBuiltIn', (string) self::getAttributeString($chartDetail->dispUnits->builtInUnit, 'val'));
+            if (isset($chartDetail->dispUnits->dispUnitsLbl)) {
+                $whichAxis->setDispUnitsTitle(new Title());
+                // TODO parse title elements
+            }
+        }
         if (isset($chartDetail->majorTickMark)) {
             $whichAxis->setAxisOption('major_tick_mark', (string) self::getAttributeString($chartDetail->majorTickMark, 'val'));
         }
@@ -1464,6 +1491,9 @@ class Chart
         }
         if (isset($chartDetail->crossesAt)) {
             $whichAxis->setAxisOption('horizontal_crosses_value', (string) self::getAttributeString($chartDetail->crossesAt, 'val'));
+        }
+        if (isset($chartDetail->scaling->logBase)) {
+            $whichAxis->setAxisOption('logBase', (string) self::getAttributeString($chartDetail->scaling->logBase, 'val'));
         }
         if (isset($chartDetail->scaling->orientation)) {
             $whichAxis->setAxisOption('orientation', (string) self::getAttributeString($chartDetail->scaling->orientation, 'val'));

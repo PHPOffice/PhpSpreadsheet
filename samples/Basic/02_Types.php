@@ -109,9 +109,9 @@ $richText = new RichText();
 $richText->createText('你好 ');
 
 $payable = $richText->createTextRun('你 好 吗？');
-$payable->getFont()->setBold(true);
-$payable->getFont()->setItalic(true);
-$payable->getFont()->setColor(new Color(Color::COLOR_DARKGREEN));
+$payable->getFontOrThrow()->setBold(true);
+$payable->getFontOrThrow()->setItalic(true);
+$payable->getFontOrThrow()->setColor(new Color(Color::COLOR_DARKGREEN));
 
 $richText->createText(', unless specified otherwise on the invoice.');
 
@@ -123,7 +123,7 @@ $richText2 = new RichText();
 $richText2->createText("black text\n");
 
 $red = $richText2->createTextRun('red text');
-$red->getFont()->setColor(new Color(Color::COLOR_RED));
+$red->getFontOrThrow()->setColor(new Color(Color::COLOR_RED));
 
 $spreadsheet->getActiveSheet()
     ->getCell('C14')

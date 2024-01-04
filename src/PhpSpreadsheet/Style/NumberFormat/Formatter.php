@@ -8,7 +8,7 @@ use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Style\Color;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
-class Formatter
+class Formatter extends BaseFormatter
 {
     /**
      * Matches any @ symbol that isn't enclosed in quotes.
@@ -133,7 +133,7 @@ class Formatter
         // For 'General' format code, we just pass the value although this is not entirely the way Excel does it,
         // it seems to round numbers to a total of 10 digits.
         if (($format === NumberFormat::FORMAT_GENERAL) || ($format === NumberFormat::FORMAT_TEXT)) {
-            return (string) $value;
+            return self::adjustSeparators((string) $value);
         }
 
         // Ignore square-$-brackets prefix in format string, like "[$-411]ge.m.d", "[$-010419]0%", etc

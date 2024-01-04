@@ -1,5 +1,7 @@
 name: main
-on: [ push, pull_request ]
+on: [ push, pull_request, merge_group ]
+permissions:
+  contents: read # to fetch code (actions/checkout)
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -110,7 +112,7 @@ jobs:
         run: composer install --no-progress --prefer-dist --optimize-autoloader
 
       - name: Code style with PHP-CS-Fixer
-        run: ./vendor/bin/php-cs-fixer fix --format=checkstyle | cs2pr
+        run: (./vendor/bin/php-cs-fixer fix --dry-run --format=checkstyle | cs2pr) || ./vendor/bin/php-cs-fixer fix --diff --dry-run
 
   phpcs:
     runs-on: ubuntu-latest
@@ -241,6 +243,8 @@ jobs:
           ~/.composer/vendor/bin/ocular code-coverage:upload --format=php-clover coverage-clover.xml
 
   release:
+    permissions:
+      contents: write # to create a release (actions/create-release)
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && contains(github.ref, 'refs/tags/')
     steps:

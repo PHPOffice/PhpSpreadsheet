@@ -760,7 +760,7 @@ abstract class Properties
         if ($headArrowType !== '') {
             $this->lineStyleProperties['arrow']['head']['type'] = $headArrowType;
         }
-        if (array_key_exists($headArrowSize, self::ARROW_SIZES)) {
+        if (isset(self::ARROW_SIZES[$headArrowSize])) {
             $this->lineStyleProperties['arrow']['head']['size'] = $headArrowSize;
             $this->lineStyleProperties['arrow']['head']['w'] = self::ARROW_SIZES[$headArrowSize]['w'];
             $this->lineStyleProperties['arrow']['head']['len'] = self::ARROW_SIZES[$headArrowSize]['len'];
@@ -768,7 +768,7 @@ abstract class Properties
         if ($endArrowType !== '') {
             $this->lineStyleProperties['arrow']['end']['type'] = $endArrowType;
         }
-        if (array_key_exists($endArrowSize, self::ARROW_SIZES)) {
+        if (isset(self::ARROW_SIZES[$endArrowSize])) {
             $this->lineStyleProperties['arrow']['end']['size'] = $endArrowSize;
             $this->lineStyleProperties['arrow']['end']['w'] = self::ARROW_SIZES[$endArrowSize]['w'];
             $this->lineStyleProperties['arrow']['end']['len'] = self::ARROW_SIZES[$endArrowSize]['len'];
@@ -870,5 +870,15 @@ abstract class Properties
     public function getLineStyleArrowLength(string $arrow): ?string
     {
         return $this->getLineStyleProperty(['arrow', $arrow, 'len']);
+    }
+
+    /**
+     * Implement PHP __clone to create a deep clone, not just a shallow copy.
+     */
+    public function __clone()
+    {
+        $this->lineColor = clone $this->lineColor;
+        $this->glowColor = clone $this->glowColor;
+        $this->shadowColor = clone $this->shadowColor;
     }
 }

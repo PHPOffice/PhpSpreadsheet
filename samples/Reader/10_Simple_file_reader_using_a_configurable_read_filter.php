@@ -14,9 +14,9 @@ $sheetname = 'Data Sheet #3';
 class MyReadFilter implements IReadFilter
 {
     public function __construct(
-        private int $startRow = 0,
-        private int $endRow = 0,
-        private array $columns = []
+        private int $startRow,
+        private int $endRow,
+        private array $columns
     ) {
     }
 

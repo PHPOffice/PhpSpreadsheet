@@ -172,7 +172,7 @@ class IOFactoryTest extends TestCase
 
     public function testRegisterInvalidReader(): void
     {
-        $this->expectException(\PhpOffice\PhpSpreadsheet\Reader\Exception::class);
+        $this->expectException(ReaderException::class);
 
         IOFactory::registerReader('foo', 'bar');
     }
@@ -186,7 +186,7 @@ class IOFactoryTest extends TestCase
 
     public function testCreateInvalidReader(): void
     {
-        $this->expectException(\PhpOffice\PhpSpreadsheet\Reader\Exception::class);
+        $this->expectException(ReaderException::class);
         IOFactory::createReader('bad');
     }
 
@@ -213,7 +213,7 @@ class IOFactoryTest extends TestCase
 
     public function testCreateReaderNotSpreadsheet(): void
     {
-        $this->expectException(\PhpOffice\PhpSpreadsheet\Reader\Exception::class);
+        $this->expectException(ReaderException::class);
         $filename = __FILE__;
         IOFactory::createReaderForFile($filename);
     }

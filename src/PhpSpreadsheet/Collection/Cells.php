@@ -134,6 +134,18 @@ class Cells
     }
 
     /**
+     * Get a sorted list of all cell coordinates currently held in the collection by index (16384*row+column).
+     *
+     * @return int[]
+     */
+    public function getSortedCoordinatesInt(): array
+    {
+        asort($this->index);
+
+        return array_values($this->index);
+    }
+
+    /**
      * Return the cell coordinate of the currently active cell object.
      */
     public function getCurrentCoordinate(): ?string
@@ -175,9 +187,9 @@ class Cells
         // Lookup highest column and highest row
         $maxRow = $maxColumn = 1;
         foreach ($this->index as $coordinate) {
-            $row = (int) floor($coordinate / self::MAX_COLUMN_ID) + 1;
+            $row = (int) floor(($coordinate - 1) / self::MAX_COLUMN_ID) + 1;
             $maxRow = ($maxRow > $row) ? $maxRow : $row;
-            $column = $coordinate % self::MAX_COLUMN_ID;
+            $column = ($coordinate % self::MAX_COLUMN_ID) ?: self::MAX_COLUMN_ID;
             $maxColumn = ($maxColumn > $column) ? $maxColumn : $column;
         }
 
@@ -213,7 +225,7 @@ class Cells
             if ($coordinate < $fromRow || $coordinate >= $toRow) {
                 continue;
             }
-            $column = $coordinate % self::MAX_COLUMN_ID;
+            $column = ($coordinate % self::MAX_COLUMN_ID) ?: self::MAX_COLUMN_ID;
             $maxColumn = $maxColumn > $column ? $maxColumn : $column;
         }
 

@@ -73,6 +73,11 @@ class Settings
         self::$chartRenderer = $rendererClassName;
     }
 
+    public static function unsetChartRenderer(): void
+    {
+        self::$chartRenderer = null;
+    }
+
     /**
      * Return the Chart Rendering Library that PhpSpreadsheet is currently configured to use.
      *

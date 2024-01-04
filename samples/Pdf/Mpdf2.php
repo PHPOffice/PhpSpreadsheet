@@ -32,9 +32,9 @@ class Mpdf2 extends Mpdf
         $fontFile = 'ShadowsIntoLight-Regular.ttf';
         $config['fontdata'] = $fontdata + [ // lowercase letters only in font key
             'shadowsintolight' => [
-                    'R' => $fontFile,
-                ],
-            ];
+                'R' => $fontFile,
+            ],
+        ];
 
         return new \Mpdf\Mpdf($config);
     }

@@ -540,4 +540,29 @@ class DataSeriesValues extends Properties
     {
         return $this->trendLines;
     }
+
+    /**
+     * Implement PHP __clone to create a deep clone, not just a shallow copy.
+     */
+    public function __clone()
+    {
+        parent::__clone();
+        $this->markerFillColor = clone $this->markerFillColor;
+        $this->markerBorderColor = clone $this->markerBorderColor;
+        if (is_array($this->fillColor)) {
+            $fillColor = $this->fillColor;
+            $this->fillColor = [];
+            foreach ($fillColor as $color) {
+                $this->fillColor[] = clone $color;
+            }
+        } elseif ($this->fillColor instanceof ChartColor) {
+            $this->fillColor = clone $this->fillColor;
+        }
+        $this->labelLayout = ($this->labelLayout === null) ? null : clone $this->labelLayout;
+        $trendLines = $this->trendLines;
+        $this->trendLines = [];
+        foreach ($trendLines as $trendLine) {
+            $this->trendLines[] = clone $trendLine;
+        }
+    }
 }

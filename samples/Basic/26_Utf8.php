@@ -38,7 +38,7 @@ $worksheet->removeRow(1, 2);
 
 // Export to CSV (.csv)
 $helper->log('Write to CSV format');
-/** @var \PhpOffice\PhpSpreadsheet\Writer\Csv $writer */
+/** @var Csv $writer */
 $helper->write($spreadsheet, __FILE__, ['Csv']);
 
 // Export to CSV with BOM (.csv)

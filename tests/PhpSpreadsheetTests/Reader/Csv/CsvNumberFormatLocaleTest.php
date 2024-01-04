@@ -25,7 +25,7 @@ class CsvNumberFormatLocaleTest extends TestCase
     {
         $this->currentLocale = setlocale(LC_ALL, '0');
 
-        if (!setlocale(LC_ALL, 'de_DE.UTF-8', 'deu_deu')) {
+        if (!setlocale(LC_ALL, 'de_DE.UTF-8', 'deu_deu.utf8')) {
             $this->localeAdjusted = false;
 
             return;
@@ -46,12 +46,17 @@ class CsvNumberFormatLocaleTest extends TestCase
 
     /**
      * @dataProvider providerNumberFormatNoConversionTest
+     *
+     * @runInSeparateProcess
      */
     public function testNumberFormatNoConversion(mixed $expectedValue, string $expectedFormat, string $cellAddress): void
     {
         if (!$this->localeAdjusted) {
             self::markTestSkipped('Unable to set locale for testing.');
         }
+        $localeconv = localeconv();
+        self::assertSame(',', $localeconv['decimal_point'], 'unexpected change to German decimal separator');
+        self::assertSame('.', $localeconv['thousands_sep'], 'unexpected change to German thousands separator');
 
         $spreadsheet = $this->csvReader->load($this->filename);
         $worksheet = $spreadsheet->getActiveSheet();
@@ -93,6 +98,9 @@ class CsvNumberFormatLocaleTest extends TestCase
         if (!$this->localeAdjusted) {
             self::markTestSkipped('Unable to set locale for testing.');
         }
+        $localeconv = localeconv();
+        self::assertSame(',', $localeconv['decimal_point'], 'unexpected change to German decimal separator');
+        self::assertSame('.', $localeconv['thousands_sep'], 'unexpected change to German thousands separator');
 
         $this->csvReader->castFormattedNumberToNumeric(true);
         $spreadsheet = $this->csvReader->load($this->filename);

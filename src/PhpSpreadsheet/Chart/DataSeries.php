@@ -138,7 +138,7 @@ class DataSeries
         }
         $this->plotCategory = $plotCategory;
 
-        $this->smoothLine = $smoothLine;
+        $this->smoothLine = (bool) $smoothLine;
         $this->plotStyle = $plotStyle;
 
         if ($plotDirection === null) {
@@ -380,6 +380,33 @@ class DataSeries
             if ($plotValues !== null) {
                 $plotValues->refresh($worksheet, false);
             }
+        }
+    }
+
+    /**
+     * Implement PHP __clone to create a deep clone, not just a shallow copy.
+     */
+    public function __clone()
+    {
+        $plotLabels = $this->plotLabel;
+        $this->plotLabel = [];
+        foreach ($plotLabels as $plotLabel) {
+            $this->plotLabel[] = $plotLabel;
+        }
+        $plotCategories = $this->plotCategory;
+        $this->plotCategory = [];
+        foreach ($plotCategories as $plotCategory) {
+            $this->plotCategory[] = clone $plotCategory;
+        }
+        $plotValues = $this->plotValues;
+        $this->plotValues = [];
+        foreach ($plotValues as $plotValue) {
+            $this->plotValues[] = clone $plotValue;
+        }
+        $plotBubbleSizes = $this->plotBubbleSizes;
+        $this->plotBubbleSizes = [];
+        foreach ($plotBubbleSizes as $plotBubbleSize) {
+            $this->plotBubbleSizes[] = clone $plotBubbleSize;
         }
     }
 }

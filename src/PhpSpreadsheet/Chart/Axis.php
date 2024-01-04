@@ -49,6 +49,8 @@ class Axis extends Properties
 
     private ?AxisText $axisText = null;
 
+    private ?Title $dispUnitsTitle = null;
+
     /**
      * Axis Options.
      *
@@ -70,6 +72,28 @@ class Axis extends Properties
         'majorTimeUnit' => self::TIME_UNIT_YEARS,
         'minorTimeUnit' => self::TIME_UNIT_MONTHS,
         'baseTimeUnit' => self::TIME_UNIT_DAYS,
+        'logBase' => null,
+        'dispUnitsBuiltIn' => null,
+    ];
+    public const DISP_UNITS_HUNDREDS = 'hundreds';
+    public const DISP_UNITS_THOUSANDS = 'thousands';
+    public const DISP_UNITS_TEN_THOUSANDS = 'tenThousands';
+    public const DISP_UNITS_HUNDRED_THOUSANDS = 'hundredThousands';
+    public const DISP_UNITS_MILLIONS = 'millions';
+    public const DISP_UNITS_TEN_MILLIONS = 'tenMillions';
+    public const DISP_UNITS_HUNDRED_MILLIONS = 'hundredMillions';
+    public const DISP_UNITS_BILLIONS = 'billions';
+    public const DISP_UNITS_TRILLIONS = 'trillions';
+    public const DISP_UNITS_BUILTIN_INT = [
+        100 => self::DISP_UNITS_HUNDREDS,
+        1000 => self::DISP_UNITS_THOUSANDS,
+        10000 => self::DISP_UNITS_TEN_THOUSANDS,
+        100000 => self::DISP_UNITS_HUNDRED_THOUSANDS,
+        1000000 => self::DISP_UNITS_MILLIONS,
+        10000000 => self::DISP_UNITS_TEN_MILLIONS,
+        100000000 => self::DISP_UNITS_HUNDRED_MILLIONS,
+        1000000000 => self::DISP_UNITS_BILLIONS,
+        1000000000000 => self::DISP_UNITS_TRILLIONS,
     ];
 
     /**
@@ -121,10 +145,10 @@ class Axis extends Properties
         return $this->axisType === self::AXIS_TYPE_DATE || (bool) $this->axisNumber['numeric'];
     }
 
-    public function setAxisOption(string $key, ?string $value): void
+    public function setAxisOption(string $key, null|float|int|string $value): void
     {
         if ($value !== null && $value !== '') {
-            $this->axisOptions[$key] = $value;
+            $this->axisOptions[$key] = (string) $value;
         }
     }
 
@@ -138,15 +162,17 @@ class Axis extends Properties
         ?string $axisOrientation = null,
         ?string $majorTmt = null,
         ?string $minorTmt = null,
-        ?string $minimum = null,
-        ?string $maximum = null,
-        ?string $majorUnit = null,
-        ?string $minorUnit = null,
-        ?string $textRotation = null,
+        null|float|int|string $minimum = null,
+        null|float|int|string $maximum = null,
+        null|float|int|string $majorUnit = null,
+        null|float|int|string $minorUnit = null,
+        null|float|int|string $textRotation = null,
         ?string $hidden = null,
         ?string $baseTimeUnit = null,
         ?string $majorTimeUnit = null,
-        ?string $minorTimeUnit = null
+        ?string $minorTimeUnit = null,
+        null|float|int|string $logBase = null,
+        ?string $dispUnitsBuiltIn = null
     ): void {
         $this->axisOptions['axis_labels'] = $axisLabels;
         $this->setAxisOption('horizontal_crosses_value', $horizontalCrossesValue);
@@ -163,6 +189,8 @@ class Axis extends Properties
         $this->setAxisOption('baseTimeUnit', $baseTimeUnit);
         $this->setAxisOption('majorTimeUnit', $majorTimeUnit);
         $this->setAxisOption('minorTimeUnit', $minorTimeUnit);
+        $this->setAxisOption('logBase', $logBase);
+        $this->setAxisOption('dispUnitsBuiltIn', $dispUnitsBuiltIn);
     }
 
     /**
@@ -286,5 +314,30 @@ class Axis extends Properties
     public function getNoFill(): bool
     {
         return $this->noFill;
+    }
+
+    public function setDispUnitsTitle(?Title $dispUnitsTitle): self
+    {
+        $this->dispUnitsTitle = $dispUnitsTitle;
+
+        return $this;
+    }
+
+    public function getDispUnitsTitle(): ?Title
+    {
+        return $this->dispUnitsTitle;
+    }
+
+    /**
+     * Implement PHP __clone to create a deep clone, not just a shallow copy.
+     */
+    public function __clone()
+    {
+        parent::__clone();
+        $this->majorGridlines = ($this->majorGridlines === null) ? null : clone $this->majorGridlines;
+        $this->majorGridlines = ($this->minorGridlines === null) ? null : clone $this->minorGridlines;
+        $this->axisText = ($this->axisText === null) ? null : clone $this->axisText;
+        $this->dispUnitsTitle = ($this->dispUnitsTitle === null) ? null : clone $this->dispUnitsTitle;
+        $this->fillColor = clone $this->fillColor;
     }
 }

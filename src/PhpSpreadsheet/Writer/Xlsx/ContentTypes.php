@@ -186,6 +186,13 @@ class ContentTypes extends WriterPart
                     }
                 }
             }
+
+            $bgImage = $spreadsheet->getSheet($i)->getBackgroundImage();
+            $mimeType = $spreadsheet->getSheet($i)->getBackgroundMime();
+            $extension = $spreadsheet->getSheet($i)->getBackgroundExtension();
+            if ($bgImage !== '' && !isset($aMediaContentTypes[$mimeType])) {
+                $this->writeDefaultContentType($objWriter, $extension, $mimeType);
+            }
         }
 
         // unparsed defaults

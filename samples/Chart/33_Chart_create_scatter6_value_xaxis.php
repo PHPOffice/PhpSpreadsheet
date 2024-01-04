@@ -131,4 +131,4 @@ $helper->renderChart($chart, __FILE__);
 $spreadsheet->setActiveSheetIndex(1);
 
 // Save Excel 2007 file
-$helper->write($spreadsheet, __FILE__, ['Xlsx'], true);
+$helper->write($spreadsheet, __FILE__, ['Xlsx'], true, resetActiveSheet: false);

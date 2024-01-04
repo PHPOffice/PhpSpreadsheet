@@ -359,7 +359,7 @@ class Xlsx extends BaseWriter
         // Add worksheet relationships (drawings, ...)
         for ($i = 0; $i < $this->spreadSheet->getSheetCount(); ++$i) {
             // Add relationships
-            $zipContent['xl/worksheets/_rels/sheet' . ($i + 1) . '.xml.rels'] = $this->getWriterPartRels()->writeWorksheetRelationships($this->spreadSheet->getSheet($i), ($i + 1), $this->includeCharts, $tableRef1);
+            $zipContent['xl/worksheets/_rels/sheet' . ($i + 1) . '.xml.rels'] = $this->getWriterPartRels()->writeWorksheetRelationships($this->spreadSheet->getSheet($i), ($i + 1), $this->includeCharts, $tableRef1, $zipContent);
 
             // Add unparsedLoadedData
             $sheetCodeName = $this->spreadSheet->getSheet($i)->getCodeName();
@@ -394,7 +394,7 @@ class Xlsx extends BaseWriter
             }
 
             // Add unparsed drawings
-            if (isset($unparsedLoadedData['sheets'][$sheetCodeName]['Drawings'])) {
+            if (isset($unparsedLoadedData['sheets'][$sheetCodeName]['Drawings']) && !isset($zipContent['xl/drawings/drawing' . ($i + 1) . '.xml'])) {
                 foreach ($unparsedLoadedData['sheets'][$sheetCodeName]['Drawings'] as $relId => $drawingXml) {
                     $drawingFile = array_search($relId, $unparsedLoadedData['sheets'][$sheetCodeName]['drawingOriginalIds']);
                     if ($drawingFile !== false) {

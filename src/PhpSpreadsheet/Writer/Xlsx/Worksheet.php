@@ -135,6 +135,9 @@ class Worksheet extends WriterPart
         // IgnoredErrors
         $this->writeIgnoredErrors($objWriter);
 
+        // BackgroundImage must come after ignored, before table
+        $this->writeBackgroundImage($objWriter, $worksheet);
+
         // Table
         $this->writeTable($objWriter, $worksheet);
 
@@ -308,16 +311,26 @@ class Worksheet extends WriterPart
             $ySplit = $worksheet->getYSplit();
             $pane = $worksheet->getActivePane();
             $paneTopLeftCell = $worksheet->getPaneTopLeftCell();
+            $paneState = $worksheet->getPaneState();
+            $normalFreeze = '';
+            if ($paneState === PhpSpreadsheetWorksheet::PANE_FROZEN) {
+                if ($ySplit > 0) {
+                    $normalFreeze = ($xSplit <= 0) ? 'bottomLeft' : 'bottomRight';
+                } else {
+                    $normalFreeze = 'topRight';
+                }
+            }
             if ($xSplit > 0) {
                 $objWriter->writeAttribute('xSplit', "$xSplit");
             }
             if ($ySplit > 0) {
                 $objWriter->writeAttribute('ySplit', "$ySplit");
             }
-            if ($pane !== '') {
+            if ($normalFreeze !== '') {
+                $objWriter->writeAttribute('activePane', $normalFreeze);
+            } elseif ($pane !== '') {
                 $objWriter->writeAttribute('activePane', $pane);
             }
-            $paneState = $worksheet->getPaneState();
             if ($paneState !== '') {
                 $objWriter->writeAttribute('state', $paneState);
             }
@@ -326,20 +339,33 @@ class Worksheet extends WriterPart
             }
             $objWriter->endElement(); // pane
 
-            foreach ($worksheet->getPanes() as $panex) {
-                if ($panex !== null) {
-                    $sqref = $activeCell = '';
-                    $objWriter->startElement('selection');
-                    $objWriter->writeAttribute('pane', $panex->getPosition());
-                    $activeCellPane = $panex->getActiveCell();
-                    if ($activeCellPane !== '') {
-                        $objWriter->writeAttribute('activeCell', $activeCellPane);
+            if ($normalFreeze !== '') {
+                $objWriter->startElement('selection');
+                $objWriter->writeAttribute('pane', $normalFreeze);
+                if ($activeCell !== '') {
+                    $objWriter->writeAttribute('activeCell', $activeCell);
+                }
+                if ($sqref !== '') {
+                    $objWriter->writeAttribute('sqref', $sqref);
+                }
+                $objWriter->endElement(); // selection
+                $sqref = $activeCell = '';
+            } else {
+                foreach ($worksheet->getPanes() as $panex) {
+                    if ($panex !== null) {
+                        $sqref = $activeCell = '';
+                        $objWriter->startElement('selection');
+                        $objWriter->writeAttribute('pane', $panex->getPosition());
+                        $activeCellPane = $panex->getActiveCell();
+                        if ($activeCellPane !== '') {
+                            $objWriter->writeAttribute('activeCell', $activeCellPane);
+                        }
+                        $sqrefPane = $panex->getSqref();
+                        if ($sqrefPane !== '') {
+                            $objWriter->writeAttribute('sqref', $sqrefPane);
+                        }
+                        $objWriter->endElement(); // selection
                     }
-                    $sqrefPane = $panex->getSqref();
-                    if ($sqrefPane !== '') {
-                        $objWriter->writeAttribute('sqref', $sqrefPane);
-                    }
-                    $objWriter->endElement(); // selection
                 }
             }
         }
@@ -1038,6 +1064,9 @@ class Worksheet extends WriterPart
     private function writeTable(XMLWriter $objWriter, PhpspreadsheetWorksheet $worksheet): void
     {
         $tableCount = $worksheet->getTableCollection()->count();
+        if ($tableCount === 0) {
+            return;
+        }
 
         $objWriter->startElement('tableParts');
         $objWriter->writeAttribute('count', (string) $tableCount);
@@ -1049,6 +1078,18 @@ class Worksheet extends WriterPart
         }
 
         $objWriter->endElement();
+    }
+
+    /**
+     * Write Background Image.
+     */
+    private function writeBackgroundImage(XMLWriter $objWriter, PhpspreadsheetWorksheet $worksheet): void
+    {
+        if ($worksheet->getBackgroundImage() !== '') {
+            $objWriter->startElement('picture');
+            $objWriter->writeAttribute('r:id', 'rIdBg');
+            $objWriter->endElement();
+        }
     }
 
     /**
@@ -1094,19 +1135,31 @@ class Worksheet extends WriterPart
     private function writeHeaderFooter(XMLWriter $objWriter, PhpspreadsheetWorksheet $worksheet): void
     {
         // headerFooter
+        $headerFooter = $worksheet->getHeaderFooter();
+        $oddHeader = $headerFooter->getOddHeader();
+        $oddFooter = $headerFooter->getOddFooter();
+        $evenHeader = $headerFooter->getEvenHeader();
+        $evenFooter = $headerFooter->getEvenFooter();
+        $firstHeader = $headerFooter->getFirstHeader();
+        $firstFooter = $headerFooter->getFirstFooter();
+        if ("$oddHeader$oddFooter$evenHeader$evenFooter$firstHeader$firstFooter" === '') {
+            return;
+        }
+
         $objWriter->startElement('headerFooter');
         $objWriter->writeAttribute('differentOddEven', ($worksheet->getHeaderFooter()->getDifferentOddEven() ? 'true' : 'false'));
         $objWriter->writeAttribute('differentFirst', ($worksheet->getHeaderFooter()->getDifferentFirst() ? 'true' : 'false'));
         $objWriter->writeAttribute('scaleWithDoc', ($worksheet->getHeaderFooter()->getScaleWithDocument() ? 'true' : 'false'));
         $objWriter->writeAttribute('alignWithMargins', ($worksheet->getHeaderFooter()->getAlignWithMargins() ? 'true' : 'false'));
 
-        $objWriter->writeElement('oddHeader', $worksheet->getHeaderFooter()->getOddHeader());
-        $objWriter->writeElement('oddFooter', $worksheet->getHeaderFooter()->getOddFooter());
-        $objWriter->writeElement('evenHeader', $worksheet->getHeaderFooter()->getEvenHeader());
-        $objWriter->writeElement('evenFooter', $worksheet->getHeaderFooter()->getEvenFooter());
-        $objWriter->writeElement('firstHeader', $worksheet->getHeaderFooter()->getFirstHeader());
-        $objWriter->writeElement('firstFooter', $worksheet->getHeaderFooter()->getFirstFooter());
-        $objWriter->endElement();
+        self::writeElementIf($objWriter, $oddHeader !== '', 'oddHeader', $oddHeader);
+        self::writeElementIf($objWriter, $oddFooter !== '', 'oddFooter', $oddFooter);
+        self::writeElementIf($objWriter, $evenHeader !== '', 'evenHeader', $evenHeader);
+        self::writeElementIf($objWriter, $evenFooter !== '', 'evenFooter', $evenFooter);
+        self::writeElementIf($objWriter, $firstHeader !== '', 'firstHeader', $firstHeader);
+        self::writeElementIf($objWriter, $firstFooter !== '', 'firstFooter', $firstFooter);
+
+        $objWriter->endElement(); // headerFooter
     }
 
     /**

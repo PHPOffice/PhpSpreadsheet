@@ -113,10 +113,12 @@ class Sample
      *
      * @param string[] $writers
      */
-    public function write(Spreadsheet $spreadsheet, string $filename, array $writers = ['Xlsx', 'Xls'], bool $withCharts = false, ?callable $writerCallback = null): void
+    public function write(Spreadsheet $spreadsheet, string $filename, array $writers = ['Xlsx', 'Xls'], bool $withCharts = false, ?callable $writerCallback = null, bool $resetActiveSheet = true): void
     {
         // Set active sheet index to the first sheet, so Excel opens this as the first sheet
-        $spreadsheet->setActiveSheetIndex(0);
+        if ($resetActiveSheet) {
+            $spreadsheet->setActiveSheetIndex(0);
+        }
 
         // Write documents
         foreach ($writers as $writerType) {
@@ -195,7 +197,7 @@ class Sample
      *
      * @codeCoverageIgnore
      */
-    public function renderChart(Chart $chart, string $fileName): void
+    public function renderChart(Chart $chart, string $fileName, ?Spreadsheet $spreadsheet = null): void
     {
         if ($this->isCli() === true) {
             return;
@@ -203,17 +205,32 @@ class Sample
         Settings::setChartRenderer(MtJpGraphRenderer::class);
 
         $fileName = $this->getFilename($fileName, 'png');
+        $title = $chart->getTitle();
+        $caption = null;
+        if ($title !== null) {
+            $calculatedTitle = $title->getCalculatedTitle($spreadsheet);
+            if ($calculatedTitle !== null) {
+                $caption = $title->getCaption();
+                $title->setCaption($calculatedTitle);
+            }
+        }
 
         try {
             $chart->render($fileName);
             $this->log('Rendered image: ' . $fileName);
-            $imageData = file_get_contents($fileName);
+            $imageData = @file_get_contents($fileName);
             if ($imageData !== false) {
                 echo '<div><img src="data:image/gif;base64,' . base64_encode($imageData) . '" /></div>';
+            } else {
+                $this->log('Unable to open chart' . PHP_EOL);
             }
         } catch (Throwable $e) {
             $this->log('Error rendering chart: ' . $e->getMessage() . PHP_EOL);
         }
+        if (isset($title, $caption)) {
+            $title->setCaption($caption);
+        }
+        Settings::unsetChartRenderer();
     }
 
     public function titles(string $category, string $functionName, ?string $description = null): void

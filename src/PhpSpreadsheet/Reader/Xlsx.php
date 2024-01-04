@@ -925,10 +925,10 @@ class Xlsx extends BaseReader
                                                 $holdSelected = $docSheet->getSelectedCells();
                                                 $cAttrS = (int) ($cAttr['s'] ?? 0);
                                                 // no style index means 0, it seems
-                                                $cell->setXfIndex(isset($styles[$cAttrS])
-                                                    ? $cAttrS : 0);
+                                                $cAttrS = isset($styles[$cAttrS]) ? $cAttrS : 0;
+                                                $cell->setXfIndex($cAttrS);
                                                 // issue 3495
-                                                if ($cell->getDataType() === DataType::TYPE_FORMULA) {
+                                                if ($cellDataType === DataType::TYPE_FORMULA && $styles[$cAttrS]->quotePrefix === true) {
                                                     $cell->getStyle()->setQuotePrefix(false);
                                                 }
                                                 $docSheet->setSelectedCells($holdSelected);
@@ -961,6 +961,7 @@ class Xlsx extends BaseReader
 
                             if ($this->readDataOnly === false) {
                                 $this->readAutoFilter($xmlSheetNS, $docSheet);
+                                $this->readBackgroundImage($xmlSheetNS, $docSheet, dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels');
                             }
 
                             $this->readTables($xmlSheetNS, $docSheet, $dir, $fileWorksheet, $zip, $mainNS);
@@ -1411,6 +1412,8 @@ class Xlsx extends BaseReader
                                                     $objDrawing->setHeight(Drawing::EMUToPixels(self::getArrayItem(self::getAttributes($oneCellAnchor->ext), 'cy')));
                                                     if ($xfrm) {
                                                         $objDrawing->setRotation((int) Drawing::angleToDegrees(self::getArrayItem(self::getAttributes($xfrm), 'rot')));
+                                                        $objDrawing->setFlipVertical((bool) self::getArrayItem(self::getAttributes($xfrm), 'flipV'));
+                                                        $objDrawing->setFlipHorizontal((bool) self::getArrayItem(self::getAttributes($xfrm), 'flipH'));
                                                     }
                                                     if ($outerShdw) {
                                                         $shadow = $objDrawing->getShadow();
@@ -1505,6 +1508,8 @@ class Xlsx extends BaseReader
                                                         $objDrawing->setWidth(Drawing::EMUToPixels(self::getArrayItem(self::getAttributes($xfrm->ext), 'cx')));
                                                         $objDrawing->setHeight(Drawing::EMUToPixels(self::getArrayItem(self::getAttributes($xfrm->ext), 'cy')));
                                                         $objDrawing->setRotation(Drawing::angleToDegrees(self::getArrayItem(self::getAttributes($xfrm), 'rot')));
+                                                        $objDrawing->setFlipVertical((bool) self::getArrayItem(self::getAttributes($xfrm), 'flipV'));
+                                                        $objDrawing->setFlipHorizontal((bool) self::getArrayItem(self::getAttributes($xfrm), 'flipH'));
                                                     }
                                                     if ($outerShdw) {
                                                         $shadow = $objDrawing->getShadow();
@@ -2176,6 +2181,27 @@ class Xlsx extends BaseReader
     ): void {
         if ($xmlSheet && $xmlSheet->autoFilter) {
             (new AutoFilter($docSheet, $xmlSheet))->load();
+        }
+    }
+
+    private function readBackgroundImage(
+        SimpleXMLElement $xmlSheet,
+        Worksheet $docSheet,
+        string $relsName
+    ): void {
+        if ($xmlSheet && $xmlSheet->picture) {
+            $id = (string) self::getArrayItem(self::getAttributes($xmlSheet->picture, Namespaces::SCHEMA_OFFICE_DOCUMENT), 'id');
+            $rels = $this->loadZip($relsName);
+            foreach ($rels->Relationship as $rel) {
+                $attrs = $rel->attributes() ?? [];
+                $rid = (string) ($attrs['Id'] ?? '');
+                $target = (string) ($attrs['Target'] ?? '');
+                if ($rid === $id && substr($target, 0, 2) === '..') {
+                    $target = 'xl' . substr($target, 2);
+                    $content = $this->getFromZipArchive($this->zip, $target);
+                    $docSheet->setBackgroundImage($content);
+                }
+            }
         }
     }
 
