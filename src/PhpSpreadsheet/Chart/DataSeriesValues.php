@@ -24,8 +24,6 @@ class DataSeriesValues extends Properties
 
     /**
      * Series Data Source.
-     *
-     * @var ?string
      */
     private ?string $dataSource;
 

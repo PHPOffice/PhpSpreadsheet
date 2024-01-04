@@ -18,15 +18,11 @@ class StringHelper
 
     /**
      * Decimal separator.
-     *
-     * @var ?string
      */
     private static ?string $decimalSeparator;
 
     /**
      * Thousands separator.
-     *
-     * @var ?string
      */
     private static ?string $thousandsSeparator;
 
@@ -37,8 +33,6 @@ class StringHelper
 
     /**
      * Is iconv extension avalable?
-     *
-     * @var ?bool
      */
     private static ?bool $isIconvEnabled;
 

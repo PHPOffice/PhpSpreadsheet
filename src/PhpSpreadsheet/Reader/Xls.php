@@ -161,15 +161,11 @@ class Xls extends BaseReader
 
     /**
      * Summary Information stream data.
-     *
-     * @var ?string
      */
     private ?string $summaryInformation = null;
 
     /**
      * Extended Summary Information stream data.
-     *
-     * @var ?string
      */
     private ?string $documentSummaryInformation = null;
 

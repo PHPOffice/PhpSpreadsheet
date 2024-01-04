@@ -27,10 +27,8 @@ class Cell implements Stringable
 
     /**
      * Value of the cell.
-     *
-     * @var mixed
      */
-    private $value;
+    private mixed $value;
 
     /**
      *    Calculated value of the cell (used for caching)
@@ -63,10 +61,8 @@ class Cell implements Stringable
 
     /**
      * Attributes of the formula.
-     *
-     * @var mixed
      */
-    private $formulaAttributes;
+    private mixed $formulaAttributes;
 
     private IgnoredErrors $ignoredErrors;
 

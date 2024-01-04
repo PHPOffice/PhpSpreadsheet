@@ -22,8 +22,6 @@ class Settings
 
     /**
      * Default options for libxml loader.
-     *
-     * @var ?int
      */
     private static ?int $libXmlLoaderOptions = null;
 

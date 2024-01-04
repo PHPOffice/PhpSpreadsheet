@@ -61,22 +61,16 @@ class PPS
 
     /**
      * A timestamp.
-     *
-     * @var float|int
      */
-    public $Time1st;
+    public float|int $Time1st;
 
     /**
      * A timestamp.
-     *
-     * @var float|int
      */
-    public $Time2nd;
+    public float|int $Time2nd;
 
     /**
      * Starting block (small or big) for this PPS's data  inside the container.
-     *
-     * @var ?int
      */
     public ?int $startBlock = null;
 

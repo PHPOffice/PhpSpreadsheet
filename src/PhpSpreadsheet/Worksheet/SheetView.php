@@ -21,8 +21,6 @@ class SheetView
      * ZoomScale.
      *
      * Valid values range from 10 to 400.
-     *
-     * @var ?int
      */
     private ?int $zoomScale = 100;
 
@@ -30,8 +28,6 @@ class SheetView
      * ZoomScaleNormal.
      *
      * Valid values range from 10 to 400.
-     *
-     * @var ?int
      */
     private ?int $zoomScaleNormal = 100;
 

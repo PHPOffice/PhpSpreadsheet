@@ -15,8 +15,6 @@ class BranchPruner
 
     /**
      * currently pending storeKey (last item of the storeKeysStack.
-     *
-     * @var ?string
      */
     protected ?string $pendingStoreKey = null;
 

@@ -26,8 +26,6 @@ abstract class Pdf extends Html
 
     /**
      * Paper size (Over-ride).
-     *
-     * @var ?int
      */
     protected ?int $paperSize = null;
 

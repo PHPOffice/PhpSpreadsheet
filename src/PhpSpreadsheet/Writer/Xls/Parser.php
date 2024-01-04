@@ -69,10 +69,8 @@ class Parser
 
     /**
      * The parse tree to be generated.
-     *
-     * @var array|string
      */
-    public $parseTree;
+    public array|string $parseTree;
 
     /**
      * Array of external sheets.
@@ -1127,9 +1125,9 @@ class Parser
      * It parses a condition. It assumes the following rule:
      * Cond -> Expr [(">" | "<") Expr].
      *
-     * @return mixed The parsed ptg'd tree on success
+     * @return array The parsed ptg'd tree on success
      */
-    private function condition(): mixed
+    private function condition(): array
     {
         $result = $this->expression();
         if ($this->currentToken == '<') {
@@ -1169,9 +1167,9 @@ class Parser
      *      -> "+" Term : Positive value
      *      -> Error code.
      *
-     * @return mixed The parsed ptg'd tree on success
+     * @return array The parsed ptg'd tree on success
      */
-    private function expression(): mixed
+    private function expression(): array
     {
         // If it's a string return a string node
         if (preg_match('/"([^"]|""){0,255}"/', $this->currentToken)) {

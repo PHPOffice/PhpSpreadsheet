@@ -12,10 +12,7 @@ class ConditionalHelper
      */
     protected Parser $parser;
 
-    /**
-     * @var mixed
-     */
-    protected $condition;
+    protected mixed $condition;
 
     protected string $cellRange;
 

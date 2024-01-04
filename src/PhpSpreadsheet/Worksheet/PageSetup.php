@@ -166,8 +166,6 @@ class PageSetup
 
     /**
      * Paper size.
-     *
-     * @var ?int
      */
     private ?int $paperSize = null;
 
@@ -238,8 +236,6 @@ class PageSetup
 
     /**
      * First page number.
-     *
-     * @var ?int
      */
     private ?int $firstPageNumber = null;
 
