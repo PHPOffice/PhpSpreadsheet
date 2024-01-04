@@ -15,46 +15,29 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 class Slk extends BaseReader
 {
     /**
-     * Input encoding.
-     *
-     * @var string
-     */
-    private $inputEncoding = 'ANSI';
-
-    /**
      * Sheet index to read.
-     *
-     * @var int
      */
-    private $sheetIndex = 0;
+    private int $sheetIndex = 0;
 
     /**
      * Formats.
-     *
-     * @var array
      */
-    private $formats = [];
+    private array $formats = [];
 
     /**
      * Format Count.
-     *
-     * @var int
      */
-    private $format = 0;
+    private int $format = 0;
 
     /**
      * Fonts.
-     *
-     * @var array
      */
-    private $fonts = [];
+    private array $fonts = [];
 
     /**
      * Font Count.
-     *
-     * @var int
      */
-    private $fontcount = 0;
+    private int $fontcount = 0;
 
     /**
      * Create a new SYLK Reader instance.
@@ -97,38 +80,6 @@ class Slk extends BaseReader
             throw new ReaderException($filename . ' is an Invalid SYLK file.');
         }
         $this->openFile($filename);
-    }
-
-    /**
-     * Set input encoding.
-     *
-     * @deprecated no use is made of this property
-     *
-     * @param string $inputEncoding Input encoding, eg: 'ANSI'
-     *
-     * @return $this
-     *
-     * @codeCoverageIgnore
-     */
-    public function setInputEncoding($inputEncoding): static
-    {
-        $this->inputEncoding = $inputEncoding;
-
-        return $this;
-    }
-
-    /**
-     * Get input encoding.
-     *
-     * @deprecated no use is made of this property
-     *
-     * @return string
-     *
-     * @codeCoverageIgnore
-     */
-    public function getInputEncoding()
-    {
-        return $this->inputEncoding;
     }
 
     /**
@@ -528,10 +479,8 @@ class Slk extends BaseReader
 
     /**
      * Loads PhpSpreadsheet from file into PhpSpreadsheet instance.
-     *
-     * @return Spreadsheet
      */
-    public function loadIntoExisting(string $filename, Spreadsheet $spreadsheet)
+    public function loadIntoExisting(string $filename, Spreadsheet $spreadsheet): Spreadsheet
     {
         // Open file
         $this->canReadOrBust($filename);
@@ -593,10 +542,8 @@ class Slk extends BaseReader
 
     /**
      * Get sheet index.
-     *
-     * @return int
      */
-    public function getSheetIndex()
+    public function getSheetIndex(): int
     {
         return $this->sheetIndex;
     }
@@ -608,7 +555,7 @@ class Slk extends BaseReader
      *
      * @return $this
      */
-    public function setSheetIndex($sheetIndex): static
+    public function setSheetIndex(int $sheetIndex): static
     {
         $this->sheetIndex = $sheetIndex;
 

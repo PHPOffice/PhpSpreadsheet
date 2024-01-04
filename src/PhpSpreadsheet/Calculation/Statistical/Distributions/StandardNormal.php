@@ -87,8 +87,7 @@ class StandardNormal
      * Calculates the probability that a member of a standard normal population will fall between
      *     the mean and z standard deviations from the mean.
      *
-     * @param mixed $value
-     *                      Or can be an array of values
+     * @param mixed $value Or can be an array of values
      *
      * @return array|float|string The result, or a string containing an error
      *         If an array of numbers is passed as an argument, then the returned result will also be an array
@@ -103,7 +102,7 @@ class StandardNormal
         if (!is_numeric($value)) {
             return ExcelError::VALUE();
         }
-        /** @var float */
+        /** @var float $dist */
         $dist = self::distribution($value, true);
 
         return $dist - 0.5;
@@ -141,7 +140,7 @@ class StandardNormal
         }
 
         if ($sigma === null) {
-            /** @var float */
+            /** @var float $sigma */
             $sigma = StandardDeviations::STDEV($dataSet);
         }
         $n = count($dataSet);

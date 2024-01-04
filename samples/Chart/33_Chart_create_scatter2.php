@@ -89,9 +89,9 @@ $dataSeriesValues[0]->setLineStyleProperties(
     Properties::LINE_STYLE_CAP_SQUARE, // cap
     Properties::LINE_STYLE_JOIN_MITER, // join
     Properties::LINE_STYLE_ARROW_TYPE_OPEN, // head type
-    (string) Properties::LINE_STYLE_ARROW_SIZE_4, // head size preset index
+    Properties::LINE_STYLE_ARROW_SIZE_4, // head size preset index
     Properties::LINE_STYLE_ARROW_TYPE_ARROW, // end type
-    (string) Properties::LINE_STYLE_ARROW_SIZE_6 // end size preset index
+    Properties::LINE_STYLE_ARROW_SIZE_6 // end size preset index
 );
 
 // series 2 - straight line - no special effects, connected, straight line

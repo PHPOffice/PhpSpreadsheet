@@ -61,7 +61,7 @@ $series = new DataSeries(
     $xAxisTickValues, // plotCategory
     $dataSeriesValues, // plotValues
     null, // plotDirection
-    null, // smooth line
+    false, // smooth line
     DataSeries::STYLE_LINEMARKER  // plotStyle
 );
 

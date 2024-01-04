@@ -44,8 +44,7 @@ class Address
      * @param mixed $sheetName Optional Name of worksheet to use
      *                      Or can be an array of values
      *
-     * @return array|string
-     *         If an array of values is passed as the $testValue argument, then the returned result will also be
+     * @return array|string If an array of values is passed as the $testValue argument, then the returned result will also be
      *            an array with the same dimensions
      */
     public static function cell(mixed $row, mixed $column, mixed $relativity = 1, mixed $referenceStyle = true, mixed $sheetName = ''): array|string

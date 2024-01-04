@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Functional;
 
+use PhpOffice\PhpSpreadsheet\Reader\IReader;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class ReadBlankCellsTest extends AbstractFunctional
@@ -36,7 +37,7 @@ class ReadBlankCellsTest extends AbstractFunctional
         self::assertFalse($reloadedSpreadsheet->getActiveSheet()->getCellCollection()->has('C2'));
         self::assertTrue($reloadedSpreadsheet->getActiveSheet()->getCellCollection()->has('C3'));
 
-        $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, $format, function ($reader): void {
+        $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, $format, function (IReader $reader): void {
             $reader->setReadEmptyCells(false);
         });
         self::assertFalse($reloadedSpreadsheet->getActiveSheet()->getCellCollection()->has('B2'));

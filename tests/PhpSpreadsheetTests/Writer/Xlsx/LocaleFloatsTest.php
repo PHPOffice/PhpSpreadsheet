@@ -18,10 +18,10 @@ class LocaleFloatsTest extends AbstractFunctional
     private string $originalLocale;
 
     /** @var ?Spreadsheet */
-    private $spreadsheet;
+    private ?Spreadsheet $spreadsheet = null;
 
     /** @var ?Spreadsheet */
-    private $reloadedSpreadsheet;
+    private ?Spreadsheet $reloadedSpreadsheet = null;
 
     protected function setUp(): void
     {

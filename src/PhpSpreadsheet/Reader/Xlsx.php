@@ -52,18 +52,11 @@ class Xlsx extends BaseReader
      */
     private ReferenceHelper $referenceHelper;
 
-    /**
-     * @var ZipArchive
-     */
-    private $zip;
+    private ZipArchive $zip;
 
-    /** @var Styles */
-    private $styleReader;
+    private Styles $styleReader;
 
-    /**
-     * @var array
-     */
-    private $sharedFormulae = [];
+    private array $sharedFormulae = [];
 
     /**
      * Create a new Xlsx Reader instance.
@@ -360,12 +353,7 @@ class Xlsx extends BaseReader
         return $contents !== false;
     }
 
-    /**
-     * @param string $fileName
-     *
-     * @return string
-     */
-    private function getFromZipArchive(ZipArchive $archive, $fileName = '')
+    private function getFromZipArchive(ZipArchive $archive, string $fileName = ''): string
     {
         // Root-relative paths
         if (str_contains($fileName, '//')) {
@@ -1967,22 +1955,12 @@ class Xlsx extends BaseReader
         }
     }
 
-    /**
-     * @param null|array|bool|SimpleXMLElement $array
-     * @param int|string $key
-     *
-     * @return mixed
-     */
-    private static function getArrayItem($array, $key = 0)
+    private static function getArrayItem(null|array|bool|SimpleXMLElement $array, int|string $key = 0): mixed
     {
         return ($array === null || is_bool($array)) ? null : ($array[$key] ?? null);
     }
 
-    /**
-     * @param null|SimpleXMLElement|string $base
-     * @param null|SimpleXMLElement|string $add
-     */
-    private static function dirAdd($base, $add): string
+    private static function dirAdd(null|SimpleXMLElement|string $base, null|SimpleXMLElement|string $add): string
     {
         $base = (string) $base;
         $add = (string) $add;

@@ -2,7 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheet\Collection;
 
-use Generator;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
@@ -18,31 +17,23 @@ class Cells
 
     /**
      * Parent worksheet.
-     *
-     * @var null|Worksheet
      */
-    private $parent;
+    private ?Worksheet $parent;
 
     /**
      * The currently active Cell.
-     *
-     * @var null|Cell
      */
-    private $currentCell;
+    private ?Cell $currentCell = null;
 
     /**
      * Coordinate of the currently active Cell.
-     *
-     * @var null|string
      */
-    private $currentCoordinate;
+    private ?string $currentCoordinate = null;
 
     /**
      * Flag indicating whether the currently active Cell requires saving.
-     *
-     * @var bool
      */
-    private $currentCellIsDirty = false;
+    private bool $currentCellIsDirty = false;
 
     /**
      * An index of existing cells. int pointer to the coordinate (0-base-indexed row * 16,384 + 1-base indexed column)
@@ -50,7 +41,7 @@ class Cells
      *
      * @var int[]
      */
-    private $index = [];
+    private array $index = [];
 
     /**
      * Prefix used to uniquely identify cache data for this worksheet.
@@ -74,10 +65,8 @@ class Cells
 
     /**
      * Return the parent worksheet for this cell collection.
-     *
-     * @return null|Worksheet
      */
-    public function getParent()
+    public function getParent(): ?Worksheet
     {
         return $this->parent;
     }
@@ -87,7 +76,7 @@ class Cells
      *
      * @param string $cellCoordinate Coordinate of the cell to check
      */
-    public function has($cellCoordinate): bool
+    public function has(string $cellCoordinate): bool
     {
         return ($cellCoordinate === $this->currentCoordinate) || isset($this->index[$cellCoordinate]);
     }
@@ -158,10 +147,8 @@ class Cells
 
     /**
      * Return the cell coordinate of the currently active cell object.
-     *
-     * @return null|string
      */
-    public function getCurrentCoordinate()
+    public function getCurrentCoordinate(): ?string
     {
         return $this->currentCoordinate;
     }
@@ -220,7 +207,7 @@ class Cells
      *
      * @return string Highest column name
      */
-    public function getHighestColumn($row = null)
+    public function getHighestColumn($row = null): string
     {
         if ($row === null) {
             return $this->getHighestRowAndColumn()['column'];
@@ -253,7 +240,7 @@ class Cells
      *
      * @return int Highest row number
      */
-    public function getHighestRow($column = null)
+    public function getHighestRow(?string $column = null): int
     {
         if ($column === null) {
             return $this->getHighestRowAndColumn()['row'];
@@ -340,7 +327,7 @@ class Cells
      *
      * @param string $column Column ID to remove
      */
-    public function removeColumn($column): void
+    public function removeColumn(string $column): void
     {
         $this->storeCurrentCell();
 
@@ -387,7 +374,7 @@ class Cells
      * @param string $cellCoordinate Coordinate of the cell to update
      * @param Cell $cell Cell to update
      */
-    public function add($cellCoordinate, Cell $cell): Cell
+    public function add(string $cellCoordinate, Cell $cell): Cell
     {
         if ($cellCoordinate !== $this->currentCoordinate) {
             $this->storeCurrentCell();
@@ -411,7 +398,7 @@ class Cells
      *
      * @return null|Cell Cell that was found, or null if not found
      */
-    public function get(string $cellCoordinate)
+    public function get(string $cellCoordinate): ?Cell
     {
         if ($cellCoordinate === $this->currentCoordinate) {
             return $this->currentCell;
@@ -471,9 +458,9 @@ class Cells
     /**
      * Returns all known cache keys.
      *
-     * @return Generator|string[]
+     * @return iterable<string>
      */
-    private function getAllCacheKeys()
+    private function getAllCacheKeys(): iterable
     {
         foreach ($this->index as $coordinate => $value) {
             yield $this->cachePrefix . $coordinate;

@@ -49,17 +49,13 @@ class Parser
 
     /**
      * The index of the character we are currently looking at.
-     *
-     * @var int
      */
-    public $currentCharacter;
+    public int $currentCharacter;
 
     /**
      * The token we are working on.
-     *
-     * @var string
      */
-    public $currentToken;
+    public string $currentToken;
 
     /**
      * The formula to parse.
@@ -68,17 +64,13 @@ class Parser
 
     /**
      * The character ahead of the current char.
-     *
-     * @var string
      */
-    public $lookAhead;
+    public string $lookAhead;
 
     /**
      * The parse tree to be generated.
-     *
-     * @var array|string
      */
-    public $parseTree;
+    public array|string $parseTree;
 
     /**
      * Array of external sheets.
@@ -87,17 +79,13 @@ class Parser
 
     /**
      * Array of sheet references in the form of REF structures.
-     *
-     * @var array
      */
-    public $references;
+    public array $references;
 
     /**
      * The Excel ptg indices.
-     *
-     * @var array
      */
-    private $ptg = [
+    private array $ptg = [
         'ptgExp' => 0x01,
         'ptgTbl' => 0x02,
         'ptgAdd' => 0x03,
@@ -208,10 +196,8 @@ class Parser
      *           -1  is a variable  number of arguments.
      * class: The reference, value or array class of the function args.
      * vol:   The function is volatile.
-     *
-     * @var array
      */
-    private $functions = [
+    private array $functions = [
         // function                  ptg  args  class  vol
         'COUNT' => [0, -1, 0, 0],
         'IF' => [1, -1, 1, 0],
@@ -585,7 +571,7 @@ class Parser
      *
      * @return string the converted token
      */
-    private function convertString($string): string
+    private function convertString(string $string): string
     {
         // chop away beggining and ending quotes
         $string = substr($string, 1, -1);
@@ -605,7 +591,7 @@ class Parser
      *
      * @return string The packed ptg for the function
      */
-    private function convertFunction($token, $num_args): string
+    private function convertFunction(string $token, int $num_args): string
     {
         $args = $this->functions[$token][1];
 
@@ -622,9 +608,8 @@ class Parser
      * Convert an Excel range such as A1:D4 to a ptgRefV.
      *
      * @param string $range An Excel range in the A1:A2
-     * @param int $class
      */
-    private function convertRange2d($range, $class = 0): string
+    private function convertRange2d(string $range, int $class = 0): string
     {
         // TODO: possible class value 0,1,2 check Formula.pm
         // Split the range into 2 cell refs
@@ -661,7 +646,7 @@ class Parser
      *
      * @return string the packed ptgArea3d token on success
      */
-    private function convertRange3d($token): string
+    private function convertRange3d(string $token): string
     {
         // Split the ref at the ! symbol
         [$ext_ref, $range] = PhpspreadsheetWorksheet::extractSheetTitle($token, true);
@@ -693,7 +678,7 @@ class Parser
      *
      * @return string The cell in packed() format with the corresponding ptg
      */
-    private function convertRef2d($cell): string
+    private function convertRef2d(string $cell): string
     {
         // Convert the cell reference
         $cell_array = $this->cellToPackedRowcol($cell);
@@ -713,7 +698,7 @@ class Parser
      *
      * @return string the packed ptgRef3d token on success
      */
-    private function convertRef3d($cell): string
+    private function convertRef3d(string $cell): string
     {
         // Split the ref at the ! symbol
         [$ext_ref, $cell] = PhpspreadsheetWorksheet::extractSheetTitle($cell, true);
@@ -737,7 +722,7 @@ class Parser
      *
      * @return string The error code ptgErr
      */
-    private function convertError($errorCode): string
+    private function convertError(string $errorCode): string
     {
         return match ($errorCode) {
             '#NULL!' => pack('C', 0x00),
@@ -751,8 +736,7 @@ class Parser
         };
     }
 
-    /** @var bool */
-    private $tryDefinedName = false;
+    private bool $tryDefinedName = false;
 
     private function convertDefinedName(string $name): string
     {
@@ -788,7 +772,7 @@ class Parser
      *
      * @return string The reference index in packed() format on success
      */
-    private function getRefIndex($ext_ref): string
+    private function getRefIndex(string $ext_ref): string
     {
         $ext_ref = (string) preg_replace(["/^'/", "/'$/"], ['', ''], $ext_ref); // Remove leading and trailing ' if any.
         $ext_ref = str_replace('\'\'', '\'', $ext_ref); // Replace escaped '' with '
@@ -848,7 +832,7 @@ class Parser
      *
      * @return int The sheet index, -1 if the sheet was not found
      */
-    private function getSheetIndex(string $sheet_name)
+    private function getSheetIndex(string $sheet_name): int
     {
         if (!isset($this->externalSheets[$sheet_name])) {
             return -1;
@@ -867,7 +851,7 @@ class Parser
      *
      * @see Workbook::addWorksheet
      */
-    public function setExtSheet($name, $index): void
+    public function setExtSheet(string $name, int $index): void
     {
         $this->externalSheets[$name] = $index;
     }
@@ -879,7 +863,7 @@ class Parser
      *
      * @return array Array containing the row and column in packed() format
      */
-    private function cellToPackedRowcol($cell): array
+    private function cellToPackedRowcol(string $cell): array
     {
         $cell = strtoupper($cell);
         [$row, $col, $row_rel, $col_rel] = $this->cellToRowcol($cell);
@@ -1126,7 +1110,7 @@ class Parser
      *
      * @return bool true on success
      */
-    public function parse($formula): bool
+    public function parse(string $formula): bool
     {
         $this->currentCharacter = 0;
         $this->formula = (string) $formula;
@@ -1141,9 +1125,9 @@ class Parser
      * It parses a condition. It assumes the following rule:
      * Cond -> Expr [(">" | "<") Expr].
      *
-     * @return mixed The parsed ptg'd tree on success
+     * @return array The parsed ptg'd tree on success
      */
-    private function condition()
+    private function condition(): array
     {
         $result = $this->expression();
         if ($this->currentToken == '<') {
@@ -1183,9 +1167,9 @@ class Parser
      *      -> "+" Term : Positive value
      *      -> Error code.
      *
-     * @return mixed The parsed ptg'd tree on success
+     * @return array The parsed ptg'd tree on success
      */
-    private function expression()
+    private function expression(): array
     {
         // If it's a string return a string node
         if (preg_match('/"([^"]|""){0,255}"/', $this->currentToken)) {
@@ -1264,7 +1248,7 @@ class Parser
      *
      * @return mixed The parsed ptg'd tree on success
      */
-    private function term()
+    private function term(): mixed
     {
         $result = $this->fact();
         while (
@@ -1295,7 +1279,7 @@ class Parser
      *
      * @return mixed The parsed ptg'd tree on success
      */
-    private function fact()
+    private function fact(): mixed
     {
         $currentToken = $this->currentToken;
         if ($currentToken === '(') {
@@ -1394,7 +1378,7 @@ class Parser
      *
      * @return mixed The parsed ptg'd tree on success
      */
-    private function func()
+    private function func(): mixed
     {
         $num_args = 0; // number of arguments received
         $function = strtoupper($this->currentToken);
@@ -1473,7 +1457,7 @@ class Parser
      *
      * @return string The tree in reverse polish notation
      */
-    public function toReversePolish($tree = []): string
+    public function toReversePolish(array $tree = []): string
     {
         $polish = ''; // the string we are going to return
         if (empty($tree)) { // If it's the first call use parseTree

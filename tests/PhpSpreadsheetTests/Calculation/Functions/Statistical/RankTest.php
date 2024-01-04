@@ -11,7 +11,7 @@ class RankTest extends AllSetupTeardown
      *
      * @param mixed[] $valueSet
      */
-    public function testRANK(mixed $expectedResult, mixed $value, $valueSet, mixed $order = null): void
+    public function testRANK(mixed $expectedResult, mixed $value, array $valueSet, mixed $order = null): void
     {
         if ($order === null) {
             $this->runTestCaseReference('RANK', $expectedResult, $value, $valueSet);

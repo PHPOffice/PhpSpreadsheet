@@ -6,12 +6,10 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\DateTime;
 
 use DateTime;
 use DateTimeImmutable;
-use Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Days;
 use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Days360;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
-use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
 use PHPUnit\Framework\TestCase;
@@ -99,14 +97,6 @@ class Days360Test extends TestCase
         $obj1 = new DateTime('2000-3-31');
         $obj2 = new DateTimeImmutable('2000-2-29');
         self::assertSame(31, Days::between($obj1, $obj2));
-    }
-
-    public function testNonDateObject(): void
-    {
-        $obj1 = new Exception();
-        $obj2 = new DateTimeImmutable('2000-2-29');
-        // @phpstan-ignore-next-line
-        self::assertSame(ExcelError::VALUE(), Days::between($obj1, $obj2));
     }
 
     /**

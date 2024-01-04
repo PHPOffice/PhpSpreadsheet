@@ -14,7 +14,7 @@ class SequenceTest extends AllSetupTeardown
      * @param mixed[] $arguments
      * @param mixed[]|string $expectedResult
      */
-    public function testSEQUENCE(array $arguments, $expectedResult): void
+    public function testSEQUENCE(array $arguments, array|string $expectedResult): void
     {
         if (count($arguments) === 0) {
             $result = MatrixFunctions::sequence();

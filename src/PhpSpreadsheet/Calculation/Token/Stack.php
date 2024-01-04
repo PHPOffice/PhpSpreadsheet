@@ -14,14 +14,12 @@ class Stack
      *
      * @var mixed[]
      */
-    private $stack = [];
+    private array $stack = [];
 
     /**
      * Count of entries in the parser stack.
-     *
-     * @var int
      */
-    private $count = 0;
+    private int $count = 0;
 
     public function __construct(BranchPruner $branchPruner)
     {

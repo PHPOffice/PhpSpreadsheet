@@ -14,27 +14,21 @@ abstract class BaseReader implements IReader
      * Read data only?
      * Identifies whether the Reader should only read data values for cells, and ignore any formatting information;
      *        or whether it should read both data and formatting.
-     *
-     * @var bool
      */
-    protected $readDataOnly = false;
+    protected bool $readDataOnly = false;
 
     /**
      * Read empty cells?
      * Identifies whether the Reader should read data values for cells all cells, or should ignore cells containing
      *         null value or empty string.
-     *
-     * @var bool
      */
-    protected $readEmptyCells = true;
+    protected bool $readEmptyCells = true;
 
     /**
      * Read charts that are defined in the workbook?
      * Identifies whether the Reader should read the definitions for any charts that exist in the workbook;.
-     *
-     * @var bool
      */
-    protected $includeCharts = false;
+    protected bool $includeCharts = false;
 
     /**
      * Restrict which sheets should be loaded?
@@ -43,14 +37,12 @@ abstract class BaseReader implements IReader
      *
      * @var null|string[]
      */
-    protected $loadSheetsOnly;
+    protected ?array $loadSheetsOnly = null;
 
     /**
      * IReadFilter instance.
-     *
-     * @var IReadFilter
      */
-    protected $readFilter;
+    protected IReadFilter $readFilter;
 
     /** @var resource */
     protected $fileHandle;
@@ -62,48 +54,48 @@ abstract class BaseReader implements IReader
         $this->readFilter = new DefaultReadFilter();
     }
 
-    public function getReadDataOnly()
+    public function getReadDataOnly(): bool
     {
         return $this->readDataOnly;
     }
 
-    public function setReadDataOnly($readCellValuesOnly)
+    public function setReadDataOnly(bool $readCellValuesOnly): self
     {
-        $this->readDataOnly = (bool) $readCellValuesOnly;
+        $this->readDataOnly = $readCellValuesOnly;
 
         return $this;
     }
 
-    public function getReadEmptyCells()
+    public function getReadEmptyCells(): bool
     {
         return $this->readEmptyCells;
     }
 
-    public function setReadEmptyCells($readEmptyCells)
+    public function setReadEmptyCells(bool $readEmptyCells): self
     {
-        $this->readEmptyCells = (bool) $readEmptyCells;
+        $this->readEmptyCells = $readEmptyCells;
 
         return $this;
     }
 
-    public function getIncludeCharts()
+    public function getIncludeCharts(): bool
     {
         return $this->includeCharts;
     }
 
-    public function setIncludeCharts($includeCharts)
+    public function setIncludeCharts(bool $includeCharts): self
     {
-        $this->includeCharts = (bool) $includeCharts;
+        $this->includeCharts = $includeCharts;
 
         return $this;
     }
 
-    public function getLoadSheetsOnly()
+    public function getLoadSheetsOnly(): ?array
     {
         return $this->loadSheetsOnly;
     }
 
-    public function setLoadSheetsOnly($sheetList)
+    public function setLoadSheetsOnly(string|array|null $sheetList): self
     {
         if ($sheetList === null) {
             return $this->setLoadAllSheets();
@@ -114,19 +106,19 @@ abstract class BaseReader implements IReader
         return $this;
     }
 
-    public function setLoadAllSheets()
+    public function setLoadAllSheets(): self
     {
         $this->loadSheetsOnly = null;
 
         return $this;
     }
 
-    public function getReadFilter()
+    public function getReadFilter(): IReadFilter
     {
         return $this->readFilter;
     }
 
-    public function setReadFilter(IReadFilter $readFilter)
+    public function setReadFilter(IReadFilter $readFilter): self
     {
         $this->readFilter = $readFilter;
 

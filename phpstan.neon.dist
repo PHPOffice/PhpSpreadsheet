@@ -6,9 +6,9 @@ includes:
 parameters:
     level: 8
     paths:
+        - samples/
         - src/
         - tests/
-        - samples/
         - infra/
         - bin/generate-document
         - bin/generate-locales

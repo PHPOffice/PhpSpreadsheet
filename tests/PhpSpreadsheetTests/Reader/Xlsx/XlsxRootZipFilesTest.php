@@ -9,10 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class XlsxRootZipFilesTest extends TestCase
 {
-    /**
-     * @var string
-     */
-    private static $testbook = 'tests/data/Reader/XLSX/rootZipFiles.xlsx';
+    private static string $testbook = 'tests/data/Reader/XLSX/rootZipFiles.xlsx';
 
     public function testXlsxRootZipFiles(): void
     {

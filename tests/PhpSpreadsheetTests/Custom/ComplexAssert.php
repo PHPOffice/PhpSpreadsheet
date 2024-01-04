@@ -11,8 +11,7 @@ class ComplexAssert extends TestCase
 {
     private string $errorMessage = '';
 
-    /** @var float */
-    private $delta = 0.0;
+    private float $delta = 0.0;
 
     public function __construct()
     {

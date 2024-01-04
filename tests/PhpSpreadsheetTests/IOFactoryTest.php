@@ -166,6 +166,7 @@ class IOFactoryTest extends TestCase
     {
         $this->expectException(\PhpOffice\PhpSpreadsheet\Writer\Exception::class);
 
+        // @phpstan-ignore-next-line
         IOFactory::registerWriter('foo', 'bar');
     }
 

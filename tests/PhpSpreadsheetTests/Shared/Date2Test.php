@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 class Date2Test extends TestCase
 {
     /** @var ?Spreadsheet */
-    private $spreadsheet;
+    private ?Spreadsheet $spreadsheet = null;
 
     private int $calculateDateTimeType;
 
@@ -40,8 +40,6 @@ class Date2Test extends TestCase
 
     /**
      * @dataProvider providerTimeOnly
-     *
-     * @param float|int $value
      */
     public function testTimeOnly(int|float $expectedResult, int|float|string $value, ?string $format = null): void
     {

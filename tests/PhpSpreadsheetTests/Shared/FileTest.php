@@ -12,8 +12,7 @@ class FileTest extends TestCase
 {
     private bool $uploadFlag = false;
 
-    /** @var string */
-    private $tempfile = '';
+    private string $tempfile = '';
 
     protected function setUp(): void
     {

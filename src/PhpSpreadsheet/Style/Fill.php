@@ -27,29 +27,19 @@ class Fill extends Supervisor
     const FILL_PATTERN_LIGHTVERTICAL = 'lightVertical';
     const FILL_PATTERN_MEDIUMGRAY = 'mediumGray';
 
-    /**
-     * @var null|int
-     */
-    public $startcolorIndex;
+    public ?int $startcolorIndex = null;
 
-    /**
-     * @var null|int
-     */
-    public $endcolorIndex;
+    public ?int $endcolorIndex = null;
 
     /**
      * Fill type.
-     *
-     * @var null|string
      */
-    protected $fillType = self::FILL_NONE;
+    protected ?string $fillType = self::FILL_NONE;
 
     /**
      * Rotation.
-     *
-     * @var float
      */
-    protected $rotation = 0.0;
+    protected float $rotation = 0.0;
 
     /**
      * Start color.
@@ -61,8 +51,7 @@ class Fill extends Supervisor
      */
     protected Color $endColor;
 
-    /** @var bool */
-    private $colorChanged = false;
+    private bool $colorChanged = false;
 
     /**
      * Create a new Fill.
@@ -74,7 +63,7 @@ class Fill extends Supervisor
      *                                    Leave this value at default unless you understand exactly what
      *                                        its ramifications are
      */
-    public function __construct($isSupervisor = false, $isConditional = false)
+    public function __construct(bool $isSupervisor = false, bool $isConditional = false)
     {
         // Supervisor?
         parent::__construct($isSupervisor);
@@ -96,12 +85,10 @@ class Fill extends Supervisor
     /**
      * Get the shared style component for the currently active cell in currently active sheet.
      * Only used for style supervisor.
-     *
-     * @return Fill
      */
-    public function getSharedComponent()
+    public function getSharedComponent(): self
     {
-        /** @var Style */
+        /** @var Style $parent */
         $parent = $this->parent;
 
         return $parent->getSharedComponent()->getFill();
@@ -109,10 +96,8 @@ class Fill extends Supervisor
 
     /**
      * Build style array from subcomponents.
-     *
-     * @param array $array
      */
-    public function getStyleArray($array): array
+    public function getStyleArray(array $array): array
     {
         return ['fill' => $array];
     }
@@ -167,10 +152,8 @@ class Fill extends Supervisor
 
     /**
      * Get Fill Type.
-     *
-     * @return null|string
      */
-    public function getFillType()
+    public function getFillType(): ?string
     {
         if ($this->isSupervisor) {
             return $this->getSharedComponent()->getFillType();
@@ -186,7 +169,7 @@ class Fill extends Supervisor
      *
      * @return $this
      */
-    public function setFillType($fillType): static
+    public function setFillType(string $fillType): static
     {
         if ($this->isSupervisor) {
             $styleArray = $this->getStyleArray(['fillType' => $fillType]);
@@ -200,10 +183,8 @@ class Fill extends Supervisor
 
     /**
      * Get Rotation.
-     *
-     * @return float
      */
-    public function getRotation()
+    public function getRotation(): float
     {
         if ($this->isSupervisor) {
             return $this->getSharedComponent()->getRotation();
@@ -215,11 +196,9 @@ class Fill extends Supervisor
     /**
      * Set Rotation.
      *
-     * @param float $angleInDegrees
-     *
      * @return $this
      */
-    public function setRotation($angleInDegrees): static
+    public function setRotation(float $angleInDegrees): static
     {
         if ($this->isSupervisor) {
             $styleArray = $this->getStyleArray(['rotation' => $angleInDegrees]);
@@ -233,10 +212,8 @@ class Fill extends Supervisor
 
     /**
      * Get Start Color.
-     *
-     * @return Color
      */
-    public function getStartColor()
+    public function getStartColor(): Color
     {
         return $this->startColor;
     }
@@ -264,10 +241,8 @@ class Fill extends Supervisor
 
     /**
      * Get End Color.
-     *
-     * @return Color
      */
-    public function getEndColor()
+    public function getEndColor(): Color
     {
         return $this->endColor;
     }
@@ -309,7 +284,7 @@ class Fill extends Supervisor
      *
      * @return string Hash code
      */
-    public function getHashCode()
+    public function getHashCode(): string
     {
         if ($this->isSupervisor) {
             return $this->getSharedComponent()->getHashCode();

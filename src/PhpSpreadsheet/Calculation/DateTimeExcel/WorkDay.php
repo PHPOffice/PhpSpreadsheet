@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 
+use DateTime;
 use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
@@ -35,7 +36,7 @@ class WorkDay
      *         If an array of values is passed for the $startDate or $endDays,arguments, then the returned result
      *            will also be an array with matching dimensions
      */
-    public static function date($startDate, $endDays, ...$dateArgs)
+    public static function date(mixed $startDate, array|int|string $endDays, mixed ...$dateArgs): mixed
     {
         if (is_array($startDate) || is_array($endDays)) {
             return self::evaluateArrayArgumentsSubset(
@@ -71,10 +72,8 @@ class WorkDay
 
     /**
      * Use incrementing logic to determine Workday.
-     *
-     * @return mixed
      */
-    private static function incrementing(float $startDate, int $endDays, array $holidayArray)
+    private static function incrementing(float $startDate, int $endDays, array $holidayArray): float|int|DateTime
     {
         //    Adjust the start date if it falls over a weekend
         $startDoW = self::getWeekDay($startDate, 3);
@@ -132,10 +131,8 @@ class WorkDay
 
     /**
      * Use decrementing logic to determine Workday.
-     *
-     * @return mixed
      */
-    private static function decrementing(float $startDate, int $endDays, array $holidayArray)
+    private static function decrementing(float $startDate, int $endDays, array $holidayArray): float|int|DateTime
     {
         //    Adjust the start date if it falls over a weekend
         $startDoW = self::getWeekDay($startDate, 3);

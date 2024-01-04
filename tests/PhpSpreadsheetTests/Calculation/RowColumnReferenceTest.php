@@ -10,10 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class RowColumnReferenceTest extends TestCase
 {
-    /**
-     * @var Spreadsheet
-     */
-    protected $spreadSheet;
+    protected Spreadsheet $spreadSheet;
 
     protected function setUp(): void
     {

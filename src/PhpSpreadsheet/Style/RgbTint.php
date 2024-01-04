@@ -69,7 +69,7 @@ class RgbTint
      *
      * @return float[]
      */
-    private static function hlsToRgb(float $hue, $luminance, $saturation): array
+    private static function hlsToRgb(float $hue, float $luminance, float $saturation): array
     {
         if ($saturation === 0.0) {
             return [$luminance, $luminance, $luminance];

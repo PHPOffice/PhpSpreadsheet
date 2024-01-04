@@ -22,17 +22,13 @@ class Cell implements Stringable
 {
     /**
      * Value binder to use.
-     *
-     * @var IValueBinder
      */
-    private static $valueBinder;
+    private static ?IValueBinder $valueBinder = null;
 
     /**
      * Value of the cell.
-     *
-     * @var mixed
      */
-    private $value;
+    private mixed $value;
 
     /**
      *    Calculated value of the cell (used for caching)
@@ -60,17 +56,13 @@ class Cell implements Stringable
 
     /**
      * Index to the cellXf reference for the styling of this cell.
-     *
-     * @var int
      */
-    private $xfIndex = 0;
+    private int $xfIndex = 0;
 
     /**
      * Attributes of the formula.
-     *
-     * @var mixed
      */
-    private $formulaAttributes;
+    private mixed $formulaAttributes = null;
 
     private IgnoredErrors $ignoredErrors;
 
@@ -177,10 +169,8 @@ class Cell implements Stringable
 
     /**
      * Get cell value.
-     *
-     * @return mixed
      */
-    public function getValue()
+    public function getValue(): mixed
     {
         return $this->value;
     }
@@ -310,15 +300,14 @@ class Cell implements Stringable
     public const CALCULATE_DATE_TIME_FLOAT = 1;
     public const CALCULATE_TIME_FLOAT = 2;
 
-    /** @var int */
-    private static $calculateDateTimeType = self::CALCULATE_DATE_TIME_ASIS;
+    private static int $calculateDateTimeType = self::CALCULATE_DATE_TIME_ASIS;
 
     public static function getCalculateDateTimeType(): int
     {
         return self::$calculateDateTimeType;
     }
 
-    /** @throws CalculationException*/
+    /** @throws CalculationException */
     public static function setCalculateDateTimeType(int $calculateDateTimeType): void
     {
         self::$calculateDateTimeType = match ($calculateDateTimeType) {
@@ -329,10 +318,8 @@ class Cell implements Stringable
 
     /**
      * Convert date, time, or datetime from int to float if desired.
-     *
-     * @return mixed
      */
-    private function convertDateTimeInt(mixed $result)
+    private function convertDateTimeInt(mixed $result): mixed
     {
         if (is_int($result)) {
             if (self::$calculateDateTimeType === self::CALCULATE_TIME_FLOAT) {
@@ -421,10 +408,8 @@ class Cell implements Stringable
      *    Note that this value is not guaranteed to reflect the actual calculated value because it is
      *        possible that auto-calculation was disabled in the original spreadsheet, and underlying data
      *        values used by the formula have changed since it was last calculated.
-     *
-     * @return mixed
      */
-    public function getOldCalculatedValue()
+    public function getOldCalculatedValue(): mixed
     {
         return $this->calculatedValue;
     }
@@ -442,7 +427,7 @@ class Cell implements Stringable
      *
      * @param string $dataType see DataType::TYPE_*
      */
-    public function setDataType($dataType): self
+    public function setDataType(string $dataType): self
     {
         $this->setValueExplicit($this->value, $dataType);
 
@@ -557,10 +542,8 @@ class Cell implements Stringable
 
     /**
      * Get cell collection.
-     *
-     * @return ?Cells
      */
-    public function getParent()
+    public function getParent(): ?Cells
     {
         return $this->parent;
     }
@@ -688,7 +671,7 @@ class Cell implements Stringable
 
         // Verify if cell is in range
         return ($rangeStart[0] <= $myColumn) && ($rangeEnd[0] >= $myColumn)
-                && ($rangeStart[1] <= $myRow) && ($rangeEnd[1] >= $myRow);
+            && ($rangeStart[1] <= $myRow) && ($rangeEnd[1] >= $myRow);
     }
 
     /**
@@ -779,10 +762,8 @@ class Cell implements Stringable
 
     /**
      * Get the formula attributes.
-     *
-     * @return mixed
      */
-    public function getFormulaAttributes()
+    public function getFormulaAttributes(): mixed
     {
         return $this->formulaAttributes;
     }

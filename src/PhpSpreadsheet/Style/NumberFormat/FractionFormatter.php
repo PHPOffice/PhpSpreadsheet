@@ -29,7 +29,7 @@ class FractionFormatter extends BaseFormatter
         if (is_numeric($matches[2])) {
             $fractionDivisor = 100 / (int) $matches[2];
         } else {
-            /** @var float */
+            /** @var float $fractionDivisor */
             $fractionDivisor = MathTrig\Gcd::evaluate((int) $decimalPart, $decimalDivisor);
         }
 

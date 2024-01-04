@@ -13,20 +13,14 @@ $sheetname = 'Data Sheet #3';
 
 class MyReadFilter implements IReadFilter
 {
-    private int $startRow = 0;
-
-    private int $endRow = 0;
-
-    private array $columns = [];
-
-    public function __construct(int $startRow, int $endRow, array $columns)
-    {
-        $this->startRow = $startRow;
-        $this->endRow = $endRow;
-        $this->columns = $columns;
+    public function __construct(
+        private int $startRow,
+        private int $endRow,
+        private array $columns
+    ) {
     }
 
-    public function readCell($columnAddress, $row, $worksheetName = '')
+    public function readCell(string $columnAddress, int $row, string $worksheetName = ''): bool
     {
         if ($row >= $this->startRow && $row <= $this->endRow) {
             if (in_array($columnAddress, $this->columns)) {

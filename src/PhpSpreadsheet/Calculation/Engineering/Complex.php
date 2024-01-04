@@ -28,8 +28,7 @@ class Complex
      *                          If omitted, the suffix is assumed to be "i".
      *                      Or can be an array of values
      *
-     * @return array|string
-     *         If an array of numbers is passed as an argument, then the returned result will also be an array
+     * @return array|string If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
     public static function COMPLEX(mixed $realNumber = 0.0, mixed $imaginary = 0.0, mixed $suffix = 'i'): array|string

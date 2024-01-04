@@ -13,20 +13,17 @@ use PHPUnit\Framework\TestCase;
 
 class AllSetupTeardown extends TestCase
 {
-    /**
-     * @var string
-     */
-    protected $compatibilityMode;
+    protected string $compatibilityMode;
 
     /**
      * @var ?Spreadsheet
      */
-    private $spreadsheet;
+    private ?Spreadsheet $spreadsheet = null;
 
     /**
      * @var ?Worksheet
      */
-    private $sheet;
+    private ?Worksheet $sheet = null;
 
     protected function setUp(): void
     {

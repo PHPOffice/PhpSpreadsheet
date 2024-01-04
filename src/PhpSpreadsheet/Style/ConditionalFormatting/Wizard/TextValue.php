@@ -40,16 +40,11 @@ class TextValue extends WizardAbstract implements WizardInterface
         Conditional::OPERATOR_ENDSWITH => 'RIGHT(%s,LEN(%s))=%s',
     ];
 
-    /** @var string */
-    protected $operator;
+    protected string $operator;
 
-    /** @var string */
-    protected $operand;
+    protected string $operand;
 
-    /**
-     * @var string
-     */
-    protected $operandValueType;
+    protected string $operandValueType;
 
     public function __construct(string $cellRange)
     {
@@ -142,10 +137,9 @@ class TextValue extends WizardAbstract implements WizardInterface
     }
 
     /**
-     * @param string $methodName
      * @param mixed[] $arguments
      */
-    public function __call($methodName, array $arguments): self
+    public function __call(string $methodName, array $arguments): self
     {
         if (!isset(self::MAGIC_OPERATIONS[$methodName])) {
             throw new Exception('Invalid Operation for Text Value CF Rule Wizard');

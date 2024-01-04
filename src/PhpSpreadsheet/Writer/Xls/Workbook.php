@@ -64,14 +64,12 @@ class Workbook extends BIFFwriter
      *
      * @var Xf[]
      */
-    private $xfWriters = [];
+    private array $xfWriters = [];
 
     /**
      * Array containing the colour palette.
-     *
-     * @var array
      */
-    private $palette;
+    private array $palette;
 
     /**
      * The codepage indicates the text encoding used for strings.
@@ -93,70 +91,52 @@ class Workbook extends BIFFwriter
      *
      * @var Font[]
      */
-    private $fontWriters = [];
+    private array $fontWriters = [];
 
     /**
      * Added fonts. Maps from font's hash => index in workbook.
-     *
-     * @var array
      */
-    private $addedFonts = [];
+    private array $addedFonts = [];
 
     /**
      * Shared number formats.
-     *
-     * @var array
      */
-    private $numberFormats = [];
+    private array $numberFormats = [];
 
     /**
      * Added number formats. Maps from numberFormat's hash => index in workbook.
-     *
-     * @var array
      */
-    private $addedNumberFormats = [];
+    private array $addedNumberFormats = [];
 
     /**
      * Sizes of the binary worksheet streams.
-     *
-     * @var array
      */
-    private $worksheetSizes = [];
+    private array $worksheetSizes = [];
 
     /**
      * Offsets of the binary worksheet streams relative to the start of the global workbook stream.
-     *
-     * @var array
      */
-    private $worksheetOffsets = [];
+    private array $worksheetOffsets = [];
 
     /**
      * Total number of shared strings in workbook.
-     *
-     * @var int
      */
-    private $stringTotal;
+    private int $stringTotal;
 
     /**
      * Number of unique shared strings in workbook.
-     *
-     * @var int
      */
-    private $stringUnique;
+    private int $stringUnique;
 
     /**
      * Array of unique shared strings in workbook.
-     *
-     * @var array
      */
-    private $stringTable;
+    private array $stringTable;
 
     /**
      * Color cache.
-     *
-     * @var array
      */
-    private $colors;
+    private array $colors;
 
     /**
      * Escher object corresponding to MSODRAWINGGROUP.
@@ -173,7 +153,7 @@ class Workbook extends BIFFwriter
      * @param array $colors Colour Table
      * @param Parser $parser The formula parser created for the Workbook
      */
-    public function __construct(Spreadsheet $spreadsheet, &$str_total, &$str_unique, &$str_table, &$colors, Parser $parser)
+    public function __construct(Spreadsheet $spreadsheet, int &$str_total, int &$str_unique, array &$str_table, array &$colors, Parser $parser)
     {
         // It needs to call its parent's constructor explicitly
         parent::__construct();
@@ -218,7 +198,7 @@ class Workbook extends BIFFwriter
      *
      * @return int Index to XF record
      */
-    public function addXfWriter(Style $style, $isStyleXf = false): int
+    public function addXfWriter(Style $style, bool $isStyleXf = false): int
     {
         $xfWriter = new Xf($style);
         $xfWriter->setIsStyleXf($isStyleXf);
@@ -266,7 +246,7 @@ class Workbook extends BIFFwriter
      *
      * @return int Index to FONT record
      */
-    public function addFont(\PhpOffice\PhpSpreadsheet\Style\Font $font)
+    public function addFont(\PhpOffice\PhpSpreadsheet\Style\Font $font): int
     {
         $fontHashCode = $font->getHashCode();
         if (isset($this->addedFonts[$fontHashCode])) {
@@ -292,7 +272,7 @@ class Workbook extends BIFFwriter
      *
      * @return int Color index
      */
-    private function addColor($rgb)
+    private function addColor(string $rgb): int
     {
         if (!isset($this->colors[$rgb])) {
             $color
@@ -716,7 +696,7 @@ class Workbook extends BIFFwriter
      *
      * @return string Complete binary record data
      */
-    private function writeDefinedNameBiff8($name, string $formulaData, int $sheetIndex = 0, bool $isBuiltIn = false): string
+    private function writeDefinedNameBiff8(string $name, string $formulaData, int $sheetIndex = 0, bool $isBuiltIn = false): string
     {
         $record = 0x0018;
 
@@ -829,7 +809,7 @@ class Workbook extends BIFFwriter
      *
      * @param int $offset Location of worksheet BOF
      */
-    private function writeBoundSheet(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $sheet, $offset): void
+    private function writeBoundSheet(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $sheet, int $offset): void
     {
         $sheetname = $sheet->getTitle();
         $record = 0x0085; // Record identifier
@@ -910,7 +890,7 @@ class Workbook extends BIFFwriter
      * @param string $format Custom format string
      * @param int $ifmt Format index code
      */
-    private function writeNumberFormat(string $format, $ifmt): void
+    private function writeNumberFormat(string $format, int $ifmt): void
     {
         $record = 0x041E; // Record identifier
 
@@ -941,10 +921,8 @@ class Workbook extends BIFFwriter
 
     /**
      * Stores the COUNTRY record for localization.
-     *
-     * @return string
      */
-    private function writeCountry()
+    private function writeCountry(): string
     {
         $record = 0x008C; // Record identifier
         $length = 4; // Number of bytes to follow
@@ -958,10 +936,8 @@ class Workbook extends BIFFwriter
 
     /**
      * Write the RECALCID record.
-     *
-     * @return string
      */
-    private function writeRecalcId()
+    private function writeRecalcId(): string
     {
         $record = 0x01C1; // Record identifier
         $length = 8; // Number of bytes to follow

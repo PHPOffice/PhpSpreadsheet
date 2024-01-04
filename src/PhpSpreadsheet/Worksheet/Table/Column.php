@@ -13,14 +13,12 @@ class Column
     /**
      * Table Column Index.
      */
-    private string $columnIndex = '';
+    private string $columnIndex;
 
     /**
      * Show Filter Button.
-     *
-     * @var bool
      */
-    private $showFilterButton = true;
+    private bool $showFilterButton = true;
 
     /**
      * Total Row Label.
@@ -51,9 +49,9 @@ class Column
      * Create a new Column.
      *
      * @param string $column Column (e.g. A)
-     * @param Table $table Table for this column
+     * @param ?Table $table Table for this column
      */
-    public function __construct($column, ?Table $table = null)
+    public function __construct(string $column, ?Table $table = null)
     {
         $this->columnIndex = $column;
         $this->table = $table;
@@ -72,7 +70,7 @@ class Column
      *
      * @param string $column Column (e.g. A)
      */
-    public function setColumnIndex($column): self
+    public function setColumnIndex(string $column): self
     {
         // Uppercase coordinate
         $column = strtoupper($column);

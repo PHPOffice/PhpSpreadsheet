@@ -24,7 +24,6 @@ class CellStyleAssessor
     public function matchConditions(array $conditionalStyles = []): Style
     {
         foreach ($conditionalStyles as $conditional) {
-            /** @var Conditional $conditional */
             if ($this->cellMatcher->evaluateConditional($conditional) === true) {
                 // Merging the conditional style into the base style goes in here
                 $this->styleMerger->mergeStyle($conditional->getStyle());

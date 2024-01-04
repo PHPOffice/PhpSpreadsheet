@@ -16,36 +16,23 @@ class SimpleCache1 implements CacheInterface
     /**
      * @var array Cell Cache
      */
-    private $cache = [];
+    private array $cache = [];
 
-    /**
-     * @return bool
-     */
-    public function clear()
+    public function clear(): bool
     {
         $this->cache = [];
 
         return true;
     }
 
-    /**
-     * @param string $key
-     *
-     * @return bool
-     */
-    public function delete($key)
+    public function delete(string $key): bool
     {
         unset($this->cache[$key]);
 
         return true;
     }
 
-    /**
-     * @param iterable $keys
-     *
-     * @return bool
-     */
-    public function deleteMultiple($keys)
+    public function deleteMultiple(iterable $keys): bool
     {
         foreach ($keys as $key) {
             $this->delete($key);
@@ -55,12 +42,9 @@ class SimpleCache1 implements CacheInterface
     }
 
     /**
-     * @param string $key
      * @param mixed  $default
-     *
-     * @return mixed
      */
-    public function get($key, $default = null)
+    public function get(string $key, $default = null): mixed
     {
         if ($this->has($key)) {
             return $this->cache[$key];
@@ -70,12 +54,9 @@ class SimpleCache1 implements CacheInterface
     }
 
     /**
-     * @param iterable $keys
      * @param mixed    $default
-     *
-     * @return iterable
      */
-    public function getMultiple($keys, $default = null)
+    public function getMultiple(iterable $keys, $default = null): iterable
     {
         $results = [];
         foreach ($keys as $key) {
@@ -85,24 +66,16 @@ class SimpleCache1 implements CacheInterface
         return $results;
     }
 
-    /**
-     * @param string $key
-     *
-     * @return bool
-     */
-    public function has($key)
+    public function has(string $key): bool
     {
         return array_key_exists($key, $this->cache);
     }
 
     /**
-     * @param string                 $key
      * @param mixed                  $value
      * @param null|DateInterval|int $ttl
-     *
-     * @return bool
      */
-    public function set($key, $value, $ttl = null)
+    public function set(string $key, $value, $ttl = null): bool
     {
         $this->cache[$key] = $value;
 
@@ -110,12 +83,9 @@ class SimpleCache1 implements CacheInterface
     }
 
     /**
-     * @param iterable               $values
      * @param null|DateInterval|int $ttl
-     *
-     * @return bool
      */
-    public function setMultiple($values, $ttl = null)
+    public function setMultiple(iterable $values, $ttl = null): bool
     {
         foreach ($values as $key => $value) {
             $this->set($key, $value);
