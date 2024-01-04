@@ -8,14 +8,11 @@ use Psr\SimpleCache\CacheInterface;
 /**
  * This is the default implementation for in-memory cell collection.
  *
- * Alternatives implementation should leverage off-memory, non-volatile storage
+ * Alternative implementation should leverage off-memory, non-volatile storage
  * to reduce overall memory usage.
  */
 class SimpleCache3 implements CacheInterface
 {
-    /**
-     * @var array Cell Cache
-     */
     private array $cache = [];
 
     public function clear(): bool
@@ -41,10 +38,7 @@ class SimpleCache3 implements CacheInterface
         return true;
     }
 
-    /**
-     * @param mixed  $default
-     */
-    public function get(string $key, $default = null): mixed
+    public function get(string $key, mixed $default = null): mixed
     {
         if ($this->has($key)) {
             return $this->cache[$key];
@@ -53,10 +47,7 @@ class SimpleCache3 implements CacheInterface
         return $default;
     }
 
-    /**
-     * @param mixed    $default
-     */
-    public function getMultiple(iterable $keys, $default = null): iterable
+    public function getMultiple(iterable $keys, mixed $default = null): iterable
     {
         $results = [];
         foreach ($keys as $key) {
@@ -71,21 +62,14 @@ class SimpleCache3 implements CacheInterface
         return array_key_exists($key, $this->cache);
     }
 
-    /**
-     * @param mixed                  $value
-     * @param null|DateInterval|int $ttl
-     */
-    public function set(string $key, $value, $ttl = null): bool
+    public function set(string $key, mixed $value, null|int|DateInterval $ttl = null): bool
     {
         $this->cache[$key] = $value;
 
         return true;
     }
 
-    /**
-     * @param null|DateInterval|int $ttl
-     */
-    public function setMultiple(iterable $values, $ttl = null): bool
+    public function setMultiple(iterable $values, null|int|DateInterval $ttl = null): bool
     {
         foreach ($values as $key => $value) {
             $this->set($key, $value);

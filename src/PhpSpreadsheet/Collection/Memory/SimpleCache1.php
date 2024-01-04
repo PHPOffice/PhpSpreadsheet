@@ -2,13 +2,12 @@
 
 namespace PhpOffice\PhpSpreadsheet\Collection\Memory;
 
-use DateInterval;
 use Psr\SimpleCache\CacheInterface;
 
 /**
  * This is the default implementation for in-memory cell collection.
  *
- * Alternatives implementation should leverage off-memory, non-volatile storage
+ * Alternative implementation should leverage off-memory, non-volatile storage
  * to reduce overall memory usage.
  */
 class SimpleCache1 implements CacheInterface
@@ -25,14 +24,14 @@ class SimpleCache1 implements CacheInterface
         return true;
     }
 
-    public function delete(string $key): bool
+    public function delete($key): bool
     {
         unset($this->cache[$key]);
 
         return true;
     }
 
-    public function deleteMultiple(iterable $keys): bool
+    public function deleteMultiple($keys): bool
     {
         foreach ($keys as $key) {
             $this->delete($key);
@@ -41,10 +40,7 @@ class SimpleCache1 implements CacheInterface
         return true;
     }
 
-    /**
-     * @param mixed  $default
-     */
-    public function get(string $key, $default = null): mixed
+    public function get($key, $default = null): mixed
     {
         if ($this->has($key)) {
             return $this->cache[$key];
@@ -53,10 +49,7 @@ class SimpleCache1 implements CacheInterface
         return $default;
     }
 
-    /**
-     * @param mixed    $default
-     */
-    public function getMultiple(iterable $keys, $default = null): iterable
+    public function getMultiple($keys, $default = null): iterable
     {
         $results = [];
         foreach ($keys as $key) {
@@ -66,26 +59,19 @@ class SimpleCache1 implements CacheInterface
         return $results;
     }
 
-    public function has(string $key): bool
+    public function has($key): bool
     {
         return array_key_exists($key, $this->cache);
     }
 
-    /**
-     * @param mixed                  $value
-     * @param null|DateInterval|int $ttl
-     */
-    public function set(string $key, $value, $ttl = null): bool
+    public function set($key, $value, $ttl = null): bool
     {
         $this->cache[$key] = $value;
 
         return true;
     }
 
-    /**
-     * @param null|DateInterval|int $ttl
-     */
-    public function setMultiple(iterable $values, $ttl = null): bool
+    public function setMultiple($values, $ttl = null): bool
     {
         foreach ($values as $key => $value) {
             $this->set($key, $value);
