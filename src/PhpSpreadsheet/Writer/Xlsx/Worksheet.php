@@ -1442,16 +1442,20 @@ class Worksheet extends WriterPart
     {
         // Cell
         $pCell = $worksheet->getCell($cellAddress);
+        $xfi = $pCell->getXfIndex();
+        $cellValue = $pCell->getValue();
+        $writeValue = $cellValue !== '' && $cellValue !== null;
+        if (empty($xfi) && !$writeValue) {
+            return;
+        }
         $objWriter->startElement('c');
         $objWriter->writeAttribute('r', $cellAddress);
 
         // Sheet styles
-        $xfi = $pCell->getXfIndex();
         self::writeAttributeIf($objWriter, (bool) $xfi, 's', "$xfi");
 
         // If cell value is supplied, write cell value
-        $cellValue = $pCell->getValue();
-        if (is_object($cellValue) || $cellValue !== '') {
+        if ($writeValue) {
             // Map type
             $mappedType = $pCell->getDataType();
 
