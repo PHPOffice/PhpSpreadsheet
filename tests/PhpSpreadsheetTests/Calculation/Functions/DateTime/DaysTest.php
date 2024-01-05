@@ -18,9 +18,9 @@ class DaysTest extends TestCase
     /**
      * @dataProvider providerDAYS
      */
-    public function testDirectCallToDAYS(mixed $expectedResult, mixed ...$args): void
+    public function testDirectCallToDAYS(int|string $expectedResult, int|string $date1, int|string $date2): void
     {
-        $result = Days::between(...$args);
+        $result = Days::between($date1, $date2);
         self::assertSame($expectedResult, $result);
     }
 

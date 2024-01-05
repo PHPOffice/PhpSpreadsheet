@@ -11,7 +11,7 @@ class OddTest extends AllSetupTeardown
     /**
      * @dataProvider providerODD
      */
-    public function testODD(mixed $expectedResult, mixed $value): void
+    public function testODD(int|string $expectedResult, float|int|string $value): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

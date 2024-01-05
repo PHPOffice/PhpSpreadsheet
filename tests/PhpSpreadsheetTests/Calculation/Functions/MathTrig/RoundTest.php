@@ -11,7 +11,7 @@ class RoundTest extends AllSetupTeardown
     /**
      * @dataProvider providerRound
      */
-    public function testRound(mixed $expectedResult, mixed $formula): void
+    public function testRound(float|int|string $expectedResult, float|int|string $formula): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

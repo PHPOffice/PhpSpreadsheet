@@ -41,7 +41,7 @@ class CellAddressTest extends TestCase
     /**
      * @dataProvider providerCreateFromCellAddressException
      */
-    public function testCreateFromCellAddressException(mixed $cellAddress): void
+    public function testCreateFromCellAddressException(int|string $cellAddress): void
     {
         $this->expectException(Exception::class);
         $this->expectExceptionMessage(

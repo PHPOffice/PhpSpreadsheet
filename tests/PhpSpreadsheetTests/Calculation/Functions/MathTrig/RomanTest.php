@@ -11,7 +11,7 @@ class RomanTest extends AllSetupTeardown
     /**
      * @dataProvider providerROMAN
      */
-    public function testROMAN(mixed $expectedResult, mixed $formula): void
+    public function testROMAN(string $expectedResult, string $formula): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

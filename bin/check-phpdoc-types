@@ -10,9 +10,9 @@
  */
 function checkPhpDocTypes(): void
 {
-    $content = `git diff --cached` ?? `git diff` ?? `git show HEAD`;
-    preg_match_all('~^\+ +\* @(param|var) (mixed|string|int|float|bool|null|array|\?|\|)+( \$\w+)?$~m', $content, $parameters);
-    preg_match_all('~^\+ +\* @return (mixed|string|int|float|bool|null|array|void|\?|\|)+$~m', $content, $returns);
+    $content = shell_exec('git diff --cached') ?? shell_exec('git diff') ?? shell_exec('git show HEAD');
+    preg_match_all('~^\+ +\* @(param|var) (mixed|string|int|float|bool|null|array|\?|\|)+( \$\w+)?$~m', "$content", $parameters);
+    preg_match_all('~^\+ +\* @return (mixed|string|int|float|bool|null|array|void|\?|\|)+$~m', "$content", $returns);
 
     $errors = [
         ...$parameters[0],
@@ -21,7 +21,7 @@ function checkPhpDocTypes(): void
 
     if ($errors) {
         echo 'PHP native types must be used instead of PHPDoc types (without comments), for the following lines:' . PHP_EOL . PHP_EOL;
-        echo join(PHP_EOL, $errors) . PHP_EOL;
+        echo implode(PHP_EOL, $errors) . PHP_EOL;
         exit(1);
     }
 }

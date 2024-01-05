@@ -11,7 +11,7 @@ class SecTest extends AllSetupTeardown
     /**
      * @dataProvider providerSEC
      */
-    public function testSEC(mixed $expectedResult, mixed $angle): void
+    public function testSEC(float|int|string $expectedResult, float|int|string $angle): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

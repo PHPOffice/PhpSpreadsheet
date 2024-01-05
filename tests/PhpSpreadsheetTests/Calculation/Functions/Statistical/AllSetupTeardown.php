@@ -10,6 +10,7 @@ use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PHPUnit\Framework\TestCase;
+use Stringable;
 
 class AllSetupTeardown extends TestCase
 {
@@ -162,7 +163,9 @@ class AllSetupTeardown extends TestCase
             } else {
                 $formula .= $comma;
                 $comma = ',';
-                $formula .= $this->convertToString($arg);
+                /** @var string */
+                $argx = $arg;
+                $formula .= $this->convertToString($argx);
             }
         }
         $formula .= ')';
@@ -210,7 +213,7 @@ class AllSetupTeardown extends TestCase
         self::assertEqualsWithDelta($expectedResult, $sheet->getCell('Z99')->getCalculatedValue(), 1.0e-8, 'arguments supplied as ranges');
     }
 
-    private function convertToString(mixed $arg): string
+    private function convertToString(null|bool|float|int|string|Stringable $arg): string
     {
         if (is_string($arg)) {
             return '"' . $arg . '"';
