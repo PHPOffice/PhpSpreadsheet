@@ -11,7 +11,7 @@ class RoundDownTest extends AllSetupTeardown
     /**
      * @dataProvider providerRoundDown
      */
-    public function testRoundDown(mixed $expectedResult, mixed $formula): void
+    public function testRoundDown(float|int|string $expectedResult, float|int|string $formula): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

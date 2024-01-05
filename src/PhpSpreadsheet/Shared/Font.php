@@ -499,11 +499,11 @@ class Font
     /**
      * Calculate an (approximate) pixel size, based on a font points size.
      *
-     * @param int $fontSizeInPoints Font size (in points)
+     * @param float|int $fontSizeInPoints Font size (in points)
      *
      * @return int Font size (in pixels)
      */
-    public static function fontSizeToPixels(int $fontSizeInPoints): int
+    public static function fontSizeToPixels(float|int $fontSizeInPoints): int
     {
         return (int) ((4 / 3) * $fontSizeInPoints);
     }

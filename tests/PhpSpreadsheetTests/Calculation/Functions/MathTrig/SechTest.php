@@ -11,7 +11,7 @@ class SechTest extends AllSetupTeardown
     /**
      * @dataProvider providerSECH
      */
-    public function testSECH(mixed $expectedResult, mixed $angle): void
+    public function testSECH(float|int|string $expectedResult, float|int|string $angle): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

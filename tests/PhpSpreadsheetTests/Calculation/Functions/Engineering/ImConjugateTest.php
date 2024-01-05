@@ -28,9 +28,9 @@ class ImConjugateTest extends TestCase
     /**
      * @dataProvider providerIMCONJUGATE
      */
-    public function testDirectCallToIMCONJUGATE(mixed $expectedResult, mixed ...$args): void
+    public function testDirectCallToIMCONJUGATE(string $expectedResult, string $arg): void
     {
-        $result = ComplexFunctions::IMCONJUGATE(...$args);
+        $result = ComplexFunctions::IMCONJUGATE($arg);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()
@@ -52,6 +52,7 @@ class ImConjugateTest extends TestCase
         $calculation = Calculation::getInstance();
         $formula = "=IMCONJUGATE({$arguments})";
 
+        /** @var float|int|string */
         $result = $calculation->_calculateFormulaValue($formula);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $this->trimIfQuoted((string) $result), self::COMPLEX_PRECISION),

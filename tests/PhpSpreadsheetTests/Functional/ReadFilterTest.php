@@ -36,7 +36,7 @@ class ReadFilterTest extends AbstractFunctional
      *
      * @dataProvider providerCellsValues
      */
-    public function testXlsxLoadWithoutReadFilter(mixed $format, array $arrayData): void
+    public function testXlsxLoadWithoutReadFilter(string $format, array $arrayData): void
     {
         $spreadsheet = new Spreadsheet();
 
@@ -61,7 +61,7 @@ class ReadFilterTest extends AbstractFunctional
      *
      * @dataProvider providerCellsValues
      */
-    public function testXlsxLoadWithReadFilter(mixed $format, array $arrayData): void
+    public function testXlsxLoadWithReadFilter(string $format, array $arrayData): void
     {
         $spreadsheet = new Spreadsheet();
         $spreadsheet->getActiveSheet()->fromArray($arrayData, null, 'A1');

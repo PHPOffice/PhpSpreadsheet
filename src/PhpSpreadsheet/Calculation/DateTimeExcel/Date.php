@@ -27,7 +27,7 @@ class Date
      * A Month name or abbreviation (English only at this point) such as 'January' or 'Jan' will still be accepted,
      *     as will a day value with a suffix (e.g. '21st' rather than simply 21); again only English language.
      *
-     * @param array|int|string $year The value of the year argument can include one to four digits.
+     * @param array|float|int|string $year The value of the year argument can include one to four digits.
      *                                Excel interprets the year argument according to the configured
      *                                date system: 1900 or 1904.
      *                                If year is between 0 (zero) and 1899 (inclusive), Excel adds that
@@ -63,7 +63,7 @@ class Date
      *         If an array of numbers is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function fromYMD(array|int|string $year, array|float|int|string $month, array|float|int|string $day): mixed
+    public static function fromYMD(array|float|int|string $year, array|float|int|string $month, array|float|int|string $day): mixed
     {
         if (is_array($year) || is_array($month) || is_array($day)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $year, $month, $day);

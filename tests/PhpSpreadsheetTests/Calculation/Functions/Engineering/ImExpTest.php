@@ -28,9 +28,9 @@ class ImExpTest extends TestCase
     /**
      * @dataProvider providerIMEXP
      */
-    public function testDirectCallToIMEXP(mixed $expectedResult, mixed ...$args): void
+    public function testDirectCallToIMEXP(string $expectedResult, string $arg): void
     {
-        $result = ComplexFunctions::IMEXP(...$args);
+        $result = ComplexFunctions::IMEXP($arg);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()
@@ -52,6 +52,7 @@ class ImExpTest extends TestCase
         $calculation = Calculation::getInstance();
         $formula = "=IMEXP({$arguments})";
 
+        /** @var float|int|string */
         $result = $calculation->_calculateFormulaValue($formula);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $this->trimIfQuoted((string) $result), self::COMPLEX_PRECISION),

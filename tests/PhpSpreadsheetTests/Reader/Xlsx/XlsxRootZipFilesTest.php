@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
+use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PHPUnit\Framework\TestCase;
 
 class XlsxRootZipFilesTest extends TestCase
@@ -17,6 +18,7 @@ class XlsxRootZipFilesTest extends TestCase
         $reader = new Xlsx();
         $spreadsheet = $reader->load($filename);
         $sheet = $spreadsheet->getActiveSheet();
+        /** @var RichText */
         $value = $sheet->getCell('A1')->getValue();
         self::assertSame('TEST CELL', $value->getPlainText());
     }

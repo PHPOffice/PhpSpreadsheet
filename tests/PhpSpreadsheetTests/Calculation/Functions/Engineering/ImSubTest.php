@@ -28,9 +28,9 @@ class ImSubTest extends TestCase
     /**
      * @dataProvider providerIMSUB
      */
-    public function testDirectCallToIMSUB(mixed $expectedResult, mixed ...$args): void
+    public function testDirectCallToIMSUB(string $expectedResult, string $arg1, string $arg2): void
     {
-        $result = ComplexOperations::IMSUB(...$args);
+        $result = ComplexOperations::IMSUB($arg1, $arg2);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()
@@ -52,6 +52,7 @@ class ImSubTest extends TestCase
         $calculation = Calculation::getInstance();
         $formula = "=IMSUB({$arguments})";
 
+        /** @var float|int|string */
         $result = $calculation->_calculateFormulaValue($formula);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $this->trimIfQuoted((string) $result), self::COMPLEX_PRECISION),
