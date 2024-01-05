@@ -45,6 +45,7 @@ class PropertiesTest extends AbstractFunctional
         foreach ($customPropertySet as $propertyName => $testData) {
             self::assertTrue($properties->isCustomPropertySet($propertyName));
             self::assertSame($testData['type'], $properties->getCustomPropertyType($propertyName));
+            /** @var float|int */
             $result = $properties->getCustomPropertyValue($propertyName);
             if ($properties->getCustomPropertyType($propertyName) == Properties::PROPERTY_TYPE_DATE) {
                 $result = Date::formattedDateTimeFromTimestamp("$result", 'Y-m-d', new DateTimeZone('UTC'));
@@ -87,6 +88,7 @@ class PropertiesTest extends AbstractFunctional
         foreach ($customPropertySet as $propertyName => $testData) {
             self::assertTrue($properties->isCustomPropertySet($propertyName));
             self::assertSame($testData['type'], $properties->getCustomPropertyType($propertyName));
+            /** @var float|int */
             $result = $properties->getCustomPropertyValue($propertyName);
             if ($properties->getCustomPropertyType($propertyName) == Properties::PROPERTY_TYPE_DATE) {
                 $result = Date::formattedDateTimeFromTimestamp("$result", 'Y-m-d', new DateTimeZone('UTC'));

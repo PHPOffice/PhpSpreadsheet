@@ -12,7 +12,7 @@ class HelpersTest extends TestCase
     /**
      * @dataProvider providerDaysPerYear
      */
-    public function testDaysPerYear(mixed $expectedResult, mixed $year, mixed $basis): void
+    public function testDaysPerYear(mixed $expectedResult, int $year, int|string $basis): void
     {
         $result = Helpers::daysPerYear($year, $basis);
         self::assertSame($expectedResult, $result);

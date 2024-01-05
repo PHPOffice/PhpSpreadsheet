@@ -48,9 +48,9 @@ class ConvertUoMTest extends TestCase
     /**
      * @dataProvider providerCONVERTUOM
      */
-    public function testDirectCallToCONVERTUOM(mixed $expectedResult, mixed ...$args): void
+    public function testDirectCallToCONVERTUOM(float|int|string $expectedResult, float|int|string $value, string $from, string $to): void
     {
-        $result = ConvertUOM::convert(...$args);
+        $result = ConvertUOM::convert($value, $from, $to);
         self::assertEqualsWithDelta($expectedResult, $result, self::UOM_PRECISION);
     }
 

@@ -16,9 +16,9 @@ class BitOrTest extends TestCase
     /**
      * @dataProvider providerBITOR
      */
-    public function testDirectCallToBITOR(mixed $expectedResult, mixed ...$args): void
+    public function testDirectCallToBITOR(mixed $expectedResult, null|bool|int|float|string $arg1, null|bool|int|float|string $arg2): void
     {
-        $result = BitWise::BITOR(...$args);
+        $result = BitWise::BITOR($arg1, $arg2);
         self::assertSame($expectedResult, $result);
     }
 

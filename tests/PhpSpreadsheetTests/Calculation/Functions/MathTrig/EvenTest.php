@@ -11,7 +11,7 @@ class EvenTest extends AllSetupTeardown
     /**
      * @dataProvider providerEVEN
      */
-    public function testEVEN(mixed $expectedResult, mixed $value): void
+    public function testEVEN(int|string $expectedResult, float|int|string $value): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

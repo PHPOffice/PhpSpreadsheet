@@ -25,7 +25,7 @@ class TimeValue
      * Excel Function:
      *        TIMEVALUE(timeValue)
      *
-     * @param null|array|string $timeValue A text string that represents a time in any one of the Microsoft
+     * @param null|array|bool|int|string $timeValue A text string that represents a time in any one of the Microsoft
      *                                    Excel time formats; for example, "6:45 PM" and "18:45" text strings
      *                                    within quotation marks that represent time.
      *                                    Date information in time_text is ignored.
@@ -47,7 +47,7 @@ class TimeValue
             return ExcelError::VALUE();
         }
 
-        $timeValue = trim($timeValue ?? '', '"');
+        $timeValue = trim((string) $timeValue, '"');
         $timeValue = str_replace(['/', '.'], '-', $timeValue);
 
         $arraySplit = preg_split('/[\/:\-\s]/', $timeValue) ?: [];

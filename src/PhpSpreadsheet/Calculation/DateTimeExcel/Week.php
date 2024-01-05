@@ -137,7 +137,7 @@ class Week
      * Excel Function:
      *        WEEKDAY(dateValue[,style])
      *
-     * @param null|array|float|int|string $dateValue Excel date serial value (float), PHP date timestamp (integer),
+     * @param null|array|bool|float|int|string $dateValue Excel date serial value (float), PHP date timestamp (integer),
      *                                    PHP DateTime object, or a standard date string
      *                         Or can be an array of date values
      * @param mixed $style A number that determines the type of return value

@@ -16,9 +16,9 @@ class BitAndTest extends TestCase
     /**
      * @dataProvider providerBITAND
      */
-    public function testDirectCallToBITAND(mixed $expectedResult, mixed ...$args): void
+    public function testDirectCallToBITAND(mixed $expectedResult, null|bool|int|float|string $arg1, null|bool|int|float|string $arg2): void
     {
-        $result = BitWise::BITAND(...$args);
+        $result = BitWise::BITAND($arg1, $arg2);
         self::assertSame($expectedResult, $result);
     }
 

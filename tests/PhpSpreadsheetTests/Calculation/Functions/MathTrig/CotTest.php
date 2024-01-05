@@ -11,7 +11,7 @@ class CotTest extends AllSetupTeardown
     /**
      * @dataProvider providerCOT
      */
-    public function testCOT(mixed $expectedResult, mixed $angle): void
+    public function testCOT(float|int|string $expectedResult, float|int|string $angle): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

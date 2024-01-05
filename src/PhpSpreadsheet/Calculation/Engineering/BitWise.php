@@ -32,9 +32,9 @@ class BitWise
      * Excel Function:
      *        BITAND(number1, number2)
      *
-     * @param array|int $number1
+     * @param null|array|bool|float|int|string $number1 First number
      *                      Or can be an array of values
-     * @param array|int $number2
+     * @param null|array|bool|float|int|string $number2 Second number
      *                      Or can be an array of values
      *
      * @return array|int|string
@@ -67,9 +67,9 @@ class BitWise
      * Excel Function:
      *        BITOR(number1, number2)
      *
-     * @param array|int $number1
+     * @param null|array|bool|float|int|string $number1 First number
      *                      Or can be an array of values
-     * @param array|int $number2
+     * @param null|array|bool|float|int|string $number2 Second number
      *                      Or can be an array of values
      *
      * @return array|int|string
@@ -103,9 +103,9 @@ class BitWise
      * Excel Function:
      *        BITXOR(number1, number2)
      *
-     * @param array|int $number1
+     * @param null|array|bool|float|int|string $number1 First number
      *                      Or can be an array of values
-     * @param array|int $number2
+     * @param null|array|bool|float|int|string $number2 Second number
      *                      Or can be an array of values
      *
      * @return array|int|string
@@ -139,9 +139,9 @@ class BitWise
      * Excel Function:
      *        BITLSHIFT(number, shift_amount)
      *
-     * @param array|int $number
+     * @param null|array|bool|float|int|string $number To be shifted
      *                      Or can be an array of values
-     * @param array|int $shiftAmount
+     * @param null|array|bool|float|int|string $shiftAmount Number of bits
      *                      Or can be an array of values
      *
      * @return array|float|string
@@ -177,9 +177,9 @@ class BitWise
      * Excel Function:
      *        BITRSHIFT(number, shift_amount)
      *
-     * @param array|int $number
+     * @param null|array|bool|float|int|string $number To be shifted
      *                      Or can be an array of values
-     * @param array|int $shiftAmount
+     * @param null|array|bool|float|int|string $shiftAmount Number of bits
      *                      Or can be an array of values
      *
      * @return array|float|string

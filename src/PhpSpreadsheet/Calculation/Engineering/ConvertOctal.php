@@ -15,7 +15,7 @@ class ConvertOctal extends ConvertBase
      * Excel Function:
      *        OCT2BIN(x[,places])
      *
-     * @param array|string $value The octal number you want to convert. Number may not
+     * @param array|bool|float|int|string $value The octal number you want to convert. Number may not
      *                          contain more than 10 characters. The most significant
      *                          bit of number is the sign bit. The remaining 29 bits
      *                          are magnitude bits. Negative numbers are represented
@@ -69,7 +69,7 @@ class ConvertOctal extends ConvertBase
      * Excel Function:
      *        OCT2DEC(x)
      *
-     * @param array|string $value The octal number you want to convert. Number may not contain
+     * @param array|bool|float|int|string $value The octal number you want to convert. Number may not contain
      *                          more than 10 octal characters (30 bits). The most significant
      *                          bit of number is the sign bit. The remaining 29 bits are
      *                          magnitude bits. Negative numbers are represented using
@@ -118,7 +118,7 @@ class ConvertOctal extends ConvertBase
      * Excel Function:
      *        OCT2HEX(x[,places])
      *
-     * @param array|string $value The octal number you want to convert. Number may not contain
+     * @param array|bool|float|int|string $value The octal number you want to convert. Number may not contain
      *                          more than 10 octal characters (30 bits). The most significant
      *                          bit of number is the sign bit. The remaining 29 bits are
      *                          magnitude bits. Negative numbers are represented using

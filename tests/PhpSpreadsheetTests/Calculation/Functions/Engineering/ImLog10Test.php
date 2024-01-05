@@ -28,9 +28,9 @@ class ImLog10Test extends TestCase
     /**
      * @dataProvider providerIMLOG10
      */
-    public function testDirectCallToIMLOG10(mixed $expectedResult, mixed ...$args): void
+    public function testDirectCallToIMLOG10(string $expectedResult, string $arg): void
     {
-        $result = ComplexFunctions::IMLOG10(...$args);
+        $result = ComplexFunctions::IMLOG10($arg);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()
@@ -52,6 +52,7 @@ class ImLog10Test extends TestCase
         $calculation = Calculation::getInstance();
         $formula = "=IMLOG10({$arguments})";
 
+        /** @var float|int|string */
         $result = $calculation->_calculateFormulaValue($formula);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $this->trimIfQuoted((string) $result), self::COMPLEX_PRECISION),

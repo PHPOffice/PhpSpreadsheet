@@ -28,9 +28,9 @@ class ImSechTest extends TestCase
     /**
      * @dataProvider providerIMSECH
      */
-    public function testDirectCallToIMSECH(mixed $expectedResult, mixed ...$args): void
+    public function testDirectCallToIMSECH(string $expectedResult, string $arg): void
     {
-        $result = ComplexFunctions::IMSECH(...$args);
+        $result = ComplexFunctions::IMSECH($arg);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()
@@ -52,6 +52,7 @@ class ImSechTest extends TestCase
         $calculation = Calculation::getInstance();
         $formula = "=IMSECH({$arguments})";
 
+        /** @var float|int|string */
         $result = $calculation->_calculateFormulaValue($formula);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $this->trimIfQuoted((string) $result), self::COMPLEX_PRECISION),

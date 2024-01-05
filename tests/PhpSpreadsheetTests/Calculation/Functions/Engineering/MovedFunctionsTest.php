@@ -49,8 +49,12 @@ class MovedFunctionsTest extends TestCase
         self::assertContains('Temperature', Engineering::getConversionGroups());
         self::assertArrayHasKey('Weight and Mass', Engineering::getConversionGroupUnits());
         self::assertEquals('Degrees Celsius', Engineering::getConversionGroupUnitDetails('Temperature')['Temperature'][0]['description']);
-        self::assertEquals('yotta', Engineering::getConversionMultipliers()['Y']['name']);
-        self::assertEquals(1024, Engineering::getBinaryConversionMultipliers()['ki']['multiplier']);
+        /** @var array<string, array<string, string>> */
+        $result = Engineering::getConversionMultipliers();
+        self::assertSame('yotta', $result['Y']['name']);
+        /** @var array<string, array<string, int>> */
+        $result2 = Engineering::getBinaryConversionMultipliers();
+        self::assertEquals(1024, $result2['ki']['multiplier']);
     }
 
     public function testImaginary(): void

@@ -28,9 +28,9 @@ class ImCosTest extends TestCase
     /**
      * @dataProvider providerIMCOS
      */
-    public function testDirectCallToIMCOS(mixed $expectedResult, mixed ...$args): void
+    public function testDirectCallToIMCOS(string $expectedResult, string $arg): void
     {
-        $result = ComplexFunctions::IMCOS(...$args);
+        $result = ComplexFunctions::IMCOS($arg);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()
@@ -52,6 +52,7 @@ class ImCosTest extends TestCase
         $calculation = Calculation::getInstance();
         $formula = "=IMCOS({$arguments})";
 
+        /** @var float|int|string */
         $result = $calculation->_calculateFormulaValue($formula);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $this->trimIfQuoted((string) $result), self::COMPLEX_PRECISION),

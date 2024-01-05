@@ -32,9 +32,9 @@ class WeekDayTest extends TestCase
     /**
      * @dataProvider providerWEEKDAY
      */
-    public function testDirectCallToWEEKDAY(mixed $expectedResult, mixed ...$args): void
+    public function testDirectCallToWEEKDAY(int|string $expectedResult, bool|int|string $dateValue, null|int|string $style = null): void
     {
-        $result = Week::day(...$args);
+        $result = ($style === null) ? Week::day($dateValue) : Week::day($dateValue, $style);
         self::assertSame($expectedResult, $result);
     }
 

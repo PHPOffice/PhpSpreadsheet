@@ -51,7 +51,7 @@ class PropertiesTest extends TestCase
     /**
      * @dataProvider providerCreationTime
      */
-    public function testSetCreated(mixed $expectedCreationTime, mixed $created): void
+    public function testSetCreated(null|int $expectedCreationTime, null|int|string $created): void
     {
         $expectedCreationTime = $expectedCreationTime ?? $this->startTime;
 
@@ -80,7 +80,7 @@ class PropertiesTest extends TestCase
     /**
      * @dataProvider providerModifiedTime
      */
-    public function testSetModified(mixed $expectedModifiedTime, mixed $modified): void
+    public function testSetModified(null|int $expectedModifiedTime, null|int|string $modified): void
     {
         $expectedModifiedTime = $expectedModifiedTime ?? $this->startTime;
 
@@ -166,6 +166,7 @@ class PropertiesTest extends TestCase
         }
         self::assertTrue($this->properties->isCustomPropertySet($propertyName));
         self::assertSame($expectedType, $this->properties->getCustomPropertyType($propertyName));
+        /** @var float|int|string */
         $result = $this->properties->getCustomPropertyValue($propertyName);
         if ($expectedType === Properties::PROPERTY_TYPE_DATE) {
             $result = Date::formattedDateTimeFromTimestamp("$result", 'Y-m-d', new DateTimeZone('UTC'));

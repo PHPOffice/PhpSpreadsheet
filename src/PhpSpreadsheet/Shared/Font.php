@@ -528,7 +528,7 @@ class Font
     /**
      * Calculate an (approximate) pixel size, based on a font points size.
      *
-     * @param int $fontSizeInPoints Font size (in points)
+     * @param float|int $fontSizeInPoints Font size (in points)
      *
      * @return int Font size (in pixels)
      */
@@ -540,9 +540,9 @@ class Font
     /**
      * Calculate an (approximate) pixel size, based on inch size.
      *
-     * @param int $sizeInInch Font size (in inch)
+     * @param float|int $sizeInInch Font size (in inch)
      *
-     * @return int Size (in pixels)
+     * @return float|int Size (in pixels)
      */
     public static function inchSizeToPixels($sizeInInch): int|float
     {
@@ -552,7 +552,7 @@ class Font
     /**
      * Calculate an (approximate) pixel size, based on centimeter size.
      *
-     * @param int $sizeInCm Font size (in centimeters)
+     * @param float|int $sizeInCm Font size (in centimeters)
      *
      * @return float Size (in pixels)
      */
