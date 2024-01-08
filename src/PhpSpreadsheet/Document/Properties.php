@@ -81,7 +81,7 @@ class Properties
     /**
      * Custom Properties.
      *
-     * @var array{value: mixed, type: string}[]
+     * @var array{value: null|bool|float|int|string, type: string}[]
      */
     private array $customProperties = [];
 
@@ -359,7 +359,7 @@ class Properties
     /**
      * Get a Custom Property Value.
      */
-    public function getCustomPropertyValue(string $propertyName): mixed
+    public function getCustomPropertyValue(string $propertyName): bool|int|float|string|null
     {
         if (isset($this->customProperties[$propertyName])) {
             return $this->customProperties[$propertyName]['value'];
@@ -376,7 +376,7 @@ class Properties
         return $this->customProperties[$propertyName]['type'] ?? null;
     }
 
-    private function identifyPropertyType(mixed $propertyValue): string
+    private function identifyPropertyType(bool|int|float|string|null $propertyValue): string
     {
         if (is_float($propertyValue)) {
             return self::PROPERTY_TYPE_FLOAT;
@@ -398,18 +398,16 @@ class Properties
      *
      * @return $this
      */
-    public function setCustomProperty(string $propertyName, mixed $propertyValue = '', ?string $propertyType = null): self
+    public function setCustomProperty(string $propertyName, bool|int|float|string|null $propertyValue = '', ?string $propertyType = null): self
     {
         if (($propertyType === null) || (!in_array($propertyType, self::VALID_PROPERTY_TYPE_LIST))) {
             $propertyType = $this->identifyPropertyType($propertyValue);
         }
 
-        if (!is_object($propertyValue)) {
-            $this->customProperties[$propertyName] = [
-                'value' => self::convertProperty($propertyValue, $propertyType),
-                'type' => $propertyType,
-            ];
-        }
+        $this->customProperties[$propertyName] = [
+            'value' => self::convertProperty($propertyValue, $propertyType),
+            'type' => $propertyType,
+        ];
 
         return $this;
     }
@@ -451,7 +449,7 @@ class Properties
     /**
      * Convert property to form desired by Excel.
      */
-    public static function convertProperty(mixed $propertyValue, string $propertyType): mixed
+    public static function convertProperty(bool|int|float|string|null $propertyValue, string $propertyType): bool|int|float|string|null
     {
         return self::SPECIAL_TYPES[$propertyType] ?? self::convertProperty2($propertyValue, $propertyType);
     }
@@ -459,7 +457,7 @@ class Properties
     /**
      * Convert property to form desired by Excel.
      */
-    private static function convertProperty2(mixed $propertyValue, string $type): mixed
+    private static function convertProperty2(bool|int|float|string|null $propertyValue, string $type): bool|int|float|string|null
     {
         $propertyType = self::convertPropertyType($type);
         switch ($propertyType) {
@@ -470,7 +468,7 @@ class Properties
             case self::PROPERTY_TYPE_FLOAT:
                 return (float) $propertyValue;
             case self::PROPERTY_TYPE_DATE:
-                return self::intOrFloatTimestamp($propertyValue);
+                return self::intOrFloatTimestamp($propertyValue); // @phpstan-ignore-line
             case self::PROPERTY_TYPE_BOOLEAN:
                 return is_bool($propertyValue) ? $propertyValue : ($propertyValue === 'true');
             default: // includes string
