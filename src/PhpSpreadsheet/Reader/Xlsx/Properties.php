@@ -19,11 +19,6 @@ class Properties
         $this->docProps = $docProps;
     }
 
-    private static function nullOrSimple(mixed $obj): ?SimpleXMLElement
-    {
-        return ($obj instanceof SimpleXMLElement) ? $obj : null;
-    }
-
     private function extractPropertyData(string $propertyData): ?SimpleXMLElement
     {
         // okay to omit namespace because everything will be processed by xpath
@@ -33,7 +28,7 @@ class Properties
             Settings::getLibXmlLoaderOptions()
         );
 
-        return self::nullOrSimple($obj);
+        return $obj === false ? null : $obj;
     }
 
     public function readCoreProperties(string $propertyData): void
@@ -45,15 +40,15 @@ class Properties
             $xmlCore->registerXPathNamespace('dcterms', Namespaces::DC_TERMS);
             $xmlCore->registerXPathNamespace('cp', Namespaces::CORE_PROPERTIES2);
 
-            $this->docProps->setCreator((string) self::getArrayItem($xmlCore->xpath('dc:creator')));
-            $this->docProps->setLastModifiedBy((string) self::getArrayItem($xmlCore->xpath('cp:lastModifiedBy')));
-            $this->docProps->setCreated((string) self::getArrayItem($xmlCore->xpath('dcterms:created'))); //! respect xsi:type
-            $this->docProps->setModified((string) self::getArrayItem($xmlCore->xpath('dcterms:modified'))); //! respect xsi:type
-            $this->docProps->setTitle((string) self::getArrayItem($xmlCore->xpath('dc:title')));
-            $this->docProps->setDescription((string) self::getArrayItem($xmlCore->xpath('dc:description')));
-            $this->docProps->setSubject((string) self::getArrayItem($xmlCore->xpath('dc:subject')));
-            $this->docProps->setKeywords((string) self::getArrayItem($xmlCore->xpath('cp:keywords')));
-            $this->docProps->setCategory((string) self::getArrayItem($xmlCore->xpath('cp:category')));
+            $this->docProps->setCreator($this->getArrayItem($xmlCore->xpath('dc:creator')));
+            $this->docProps->setLastModifiedBy($this->getArrayItem($xmlCore->xpath('cp:lastModifiedBy')));
+            $this->docProps->setCreated($this->getArrayItem($xmlCore->xpath('dcterms:created'))); //! respect xsi:type
+            $this->docProps->setModified($this->getArrayItem($xmlCore->xpath('dcterms:modified'))); //! respect xsi:type
+            $this->docProps->setTitle($this->getArrayItem($xmlCore->xpath('dc:title')));
+            $this->docProps->setDescription($this->getArrayItem($xmlCore->xpath('dc:description')));
+            $this->docProps->setSubject($this->getArrayItem($xmlCore->xpath('dc:subject')));
+            $this->docProps->setKeywords($this->getArrayItem($xmlCore->xpath('cp:keywords')));
+            $this->docProps->setCategory($this->getArrayItem($xmlCore->xpath('cp:category')));
         }
     }
 
@@ -96,8 +91,8 @@ class Properties
         }
     }
 
-    private static function getArrayItem(null|array|false $array, mixed $key = 0): ?SimpleXMLElement
+    private function getArrayItem(null|array|false $array): string
     {
-        return is_array($array) ? ($array[$key] ?? null) : null;
+        return is_array($array) ? (string) ($array[0] ?? '') : '';
     }
 }
