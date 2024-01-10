@@ -29,17 +29,13 @@ class Legend
 
     /**
      * Legend position.
-     *
-     * @var string
      */
-    private $position = self::POSITION_RIGHT;
+    private string $position = self::POSITION_RIGHT;
 
     /**
      * Allow overlay of other elements?
-     *
-     * @var bool
      */
-    private $overlay = true;
+    private bool $overlay = true;
 
     /**
      * Legend Layout.
@@ -54,11 +50,8 @@ class Legend
 
     /**
      * Create a new Legend.
-     *
-     * @param string $position
-     * @param bool $overlay
      */
-    public function __construct($position = self::POSITION_RIGHT, ?Layout $layout = null, $overlay = false)
+    public function __construct(string $position = self::POSITION_RIGHT, ?Layout $layout = null, bool $overlay = false)
     {
         $this->setPosition($position);
         $this->layout = $layout;
@@ -74,10 +67,8 @@ class Legend
 
     /**
      * Get legend position as an excel string value.
-     *
-     * @return string
      */
-    public function getPosition()
+    public function getPosition(): string
     {
         return $this->position;
     }
@@ -87,7 +78,7 @@ class Legend
      *
      * @param string $position see self::POSITION_*
      */
-    public function setPosition($position): bool
+    public function setPosition(string $position): bool
     {
         if (!in_array($position, self::POSITION_XLREF)) {
             return false;
@@ -111,7 +102,7 @@ class Legend
      *
      * @param int $positionXL see self::XL_LEGEND_POSITION_*
      */
-    public function setPositionXL($positionXL): bool
+    public function setPositionXL(int $positionXL): bool
     {
         if (!isset(self::POSITION_XLREF[$positionXL])) {
             return false;
@@ -124,30 +115,24 @@ class Legend
 
     /**
      * Get allow overlay of other elements?
-     *
-     * @return bool
      */
-    public function getOverlay()
+    public function getOverlay(): bool
     {
         return $this->overlay;
     }
 
     /**
      * Set allow overlay of other elements?
-     *
-     * @param bool $overlay
      */
-    public function setOverlay($overlay): void
+    public function setOverlay(bool $overlay): void
     {
         $this->overlay = $overlay;
     }
 
     /**
      * Get Layout.
-     *
-     * @return ?Layout
      */
-    public function getLayout()
+    public function getLayout(): ?Layout
     {
         return $this->layout;
     }

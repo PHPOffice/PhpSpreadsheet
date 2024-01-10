@@ -32,24 +32,18 @@ class Html extends BaseReader
 
     /**
      * Input encoding.
-     *
-     * @var string
      */
-    protected $inputEncoding = 'ANSI';
+    protected string $inputEncoding = 'ANSI';
 
     /**
      * Sheet index to read.
-     *
-     * @var int
      */
-    protected $sheetIndex = 0;
+    protected int $sheetIndex = 0;
 
     /**
      * Formats.
-     *
-     * @var array
      */
-    protected $formats = [
+    protected array $formats = [
         'h1' => [
             'font' => [
                 'bold' => true,
@@ -126,8 +120,7 @@ class Html extends BaseReader
         ], //    Italic
     ];
 
-    /** @var array */
-    protected $rowspan = [];
+    protected array $rowspan = [];
 
     /**
      * Create a new HTML Reader instance.
@@ -214,48 +207,13 @@ class Html extends BaseReader
         return $this->loadIntoExisting($filename, $spreadsheet);
     }
 
-    /**
-     * Set input encoding.
-     *
-     * @param string $inputEncoding Input encoding, eg: 'ANSI'
-     *
-     * @return $this
-     *
-     * @codeCoverageIgnore
-     *
-     * @deprecated no use is made of this property
-     */
-    public function setInputEncoding($inputEncoding): static
-    {
-        $this->inputEncoding = $inputEncoding;
-
-        return $this;
-    }
-
-    /**
-     * Get input encoding.
-     *
-     * @return string
-     *
-     * @codeCoverageIgnore
-     *
-     * @deprecated no use is made of this property
-     */
-    public function getInputEncoding()
-    {
-        return $this->inputEncoding;
-    }
-
     //    Data Array used for testing only, should write to Spreadsheet object on completion of tests
 
-    /** @var array */
-    protected $dataArray = [];
+    protected array $dataArray = [];
 
-    /** @var int */
-    protected $tableLevel = 0;
+    protected int $tableLevel = 0;
 
-    /** @var array */
-    protected $nestedColumn = ['A'];
+    protected array $nestedColumn = ['A'];
 
     protected function setTableStartColumn(string $column): string
     {
@@ -282,10 +240,8 @@ class Html extends BaseReader
 
     /**
      * Flush cell.
-     *
-     * @param int|string $row
      */
-    protected function flushCell(Worksheet $sheet, string $column, $row, mixed &$cellContent, array $attributeArray): void
+    protected function flushCell(Worksheet $sheet, string $column, int|string $row, mixed &$cellContent, array $attributeArray): void
     {
         if (is_string($cellContent)) {
             //    Simple String content
@@ -685,7 +641,7 @@ class Html extends BaseReader
             $lowend = "\u{80}";
             $highend = "\u{10ffff}";
             $regexp = "/[$lowend-$highend]/u";
-            /** @var callable */
+            /** @var callable $callback */
             $callback = [self::class, 'replaceNonAscii'];
             $convert = preg_replace_callback($regexp, $callback, $convert);
             $loaded = ($convert === null) ? false : $dom->loadHTML($convert);
@@ -782,10 +738,8 @@ class Html extends BaseReader
 
     /**
      * Spreadsheet from content.
-     *
-     * @param string $content
      */
-    public function loadFromString($content, ?Spreadsheet $spreadsheet = null): Spreadsheet
+    public function loadFromString(string $content, ?Spreadsheet $spreadsheet = null): Spreadsheet
     {
         //    Create a new DOM object
         $dom = new DOMDocument();
@@ -796,7 +750,7 @@ class Html extends BaseReader
             $lowend = "\u{80}";
             $highend = "\u{10ffff}";
             $regexp = "/[$lowend-$highend]/u";
-            /** @var callable */
+            /** @var callable $callback */
             $callback = [self::class, 'replaceNonAscii'];
             $convert = preg_replace_callback($regexp, $callback, $convert);
             $loaded = ($convert === null) ? false : $dom->loadHTML($convert);
@@ -837,10 +791,8 @@ class Html extends BaseReader
 
     /**
      * Get sheet index.
-     *
-     * @return int
      */
-    public function getSheetIndex()
+    public function getSheetIndex(): int
     {
         return $this->sheetIndex;
     }
@@ -852,7 +804,7 @@ class Html extends BaseReader
      *
      * @return $this
      */
-    public function setSheetIndex($sheetIndex): static
+    public function setSheetIndex(int $sheetIndex): static
     {
         $this->sheetIndex = $sheetIndex;
 
@@ -868,10 +820,8 @@ class Html extends BaseReader
      *
      * TODO :
      * - Implement to other propertie, such as border
-     *
-     * @param int $row
      */
-    private function applyInlineStyle(Worksheet &$sheet, $row, string $column, array $attributeArray): void
+    private function applyInlineStyle(Worksheet &$sheet, int $row, string $column, array $attributeArray): void
     {
         if (!isset($attributeArray['style'])) {
             return;
@@ -1122,10 +1072,8 @@ class Html extends BaseReader
 
     /**
      * Map html border style to PhpSpreadsheet border style.
-     *
-     * @param string $style
      */
-    public function getBorderStyle($style): ?string
+    public function getBorderStyle(string $style): ?string
     {
         return self::BORDER_MAPPINGS[$style] ?? null;
     }

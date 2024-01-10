@@ -36,16 +36,14 @@ class CellValue extends WizardAbstract implements WizardInterface
 
     protected const RANGE_OPERATORS = CellMatcher::COMPARISON_RANGE_OPERATORS;
 
-    /** @var string */
-    protected $operator = Conditional::OPERATOR_EQUAL;
+    protected string $operator = Conditional::OPERATOR_EQUAL;
 
-    /** @var array */
-    protected $operand = [0];
+    protected array $operand = [0];
 
     /**
      * @var string[]
      */
-    protected $operandValueType = [];
+    protected array $operandValueType = [];
 
     public function __construct(string $cellRange)
     {
@@ -71,10 +69,7 @@ class CellValue extends WizardAbstract implements WizardInterface
         $this->operandValueType[$index] = $operandValueType;
     }
 
-    /**
-     * @return float|int|string
-     */
-    protected function wrapValue(mixed $value, string $operandValueType)
+    protected function wrapValue(mixed $value, string $operandValueType): float|int|string
     {
         if (!is_numeric($value) && !is_bool($value) && null !== $value) {
             if ($operandValueType === Wizard::VALUE_TYPE_LITERAL) {
@@ -157,10 +152,9 @@ class CellValue extends WizardAbstract implements WizardInterface
     }
 
     /**
-     * @param string $methodName
      * @param mixed[] $arguments
      */
-    public function __call($methodName, array $arguments): self
+    public function __call(string $methodName, array $arguments): self
     {
         if (!isset(self::MAGIC_OPERATIONS[$methodName]) && $methodName !== 'and') {
             throw new Exception('Invalid Operator for Cell Value CF Rule Wizard');

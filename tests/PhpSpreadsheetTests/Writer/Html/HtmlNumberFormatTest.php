@@ -138,7 +138,7 @@ class HtmlNumberFormatTest extends Functional\AbstractFunctional
     /**
      * @dataProvider providerNumberFormat
      */
-    public function testFormatValueWithMask(mixed $expectedResult, mixed $val, mixed $fmt): void
+    public function testFormatValueWithMask(mixed $expectedResult, mixed $val, string $fmt): void
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
@@ -170,7 +170,7 @@ class HtmlNumberFormatTest extends Functional\AbstractFunctional
     /**
      * @dataProvider providerNumberFormatDates
      */
-    public function testFormatValueWithMaskDate(mixed $expectedResult, mixed $val, mixed $fmt): void
+    public function testFormatValueWithMaskDate(mixed $expectedResult, mixed $val, string $fmt): void
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();

@@ -37,10 +37,8 @@ class Csv extends BaseReader
 
     /**
      * Fallback encoding if guess strikes out.
-     *
-     * @var string
      */
-    private $fallbackEncoding = self::DEFAULT_FALLBACK_ENCODING;
+    private string $fallbackEncoding = self::DEFAULT_FALLBACK_ENCODING;
 
     /**
      * Delimiter.
@@ -54,17 +52,13 @@ class Csv extends BaseReader
 
     /**
      * Sheet index to read.
-     *
-     * @var int
      */
-    private $sheetIndex = 0;
+    private int $sheetIndex = 0;
 
     /**
      * Load rows contiguously.
-     *
-     * @var bool
      */
-    private $contiguous = false;
+    private bool $contiguous = false;
 
     /**
      * The character that can escape the enclosure.
@@ -80,26 +74,16 @@ class Csv extends BaseReader
 
     /**
      * Attempt autodetect line endings (deprecated after PHP8.1)?
-     *
-     * @var bool
      */
-    private $testAutodetect = true;
+    private bool $testAutodetect = true;
 
-    /**
-     * @var bool
-     */
-    protected $castFormattedNumberToNumeric = false;
+    protected bool $castFormattedNumberToNumeric = false;
 
-    /**
-     * @var bool
-     */
-    protected $preserveNumericFormatting = false;
+    protected bool $preserveNumericFormatting = false;
 
-    /** @var bool */
-    private $preserveNullString = false;
+    private bool $preserveNullString = false;
 
-    /** @var bool */
-    private $sheetNameIsFileName = false;
+    private bool $sheetNameIsFileName = false;
 
     private string $getTrue = 'true';
 

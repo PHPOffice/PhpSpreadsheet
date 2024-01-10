@@ -28,9 +28,9 @@ class ImCscTest extends TestCase
     /**
      * @dataProvider providerIMCSC
      */
-    public function testDirectCallToIMCSC(mixed $expectedResult, mixed ...$args): void
+    public function testDirectCallToIMCSC(float|string $expectedResult, string $arg): void
     {
-        $result = ComplexFunctions::IMCSC(...$args);
+        $result = ComplexFunctions::IMCSC($arg);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()
@@ -52,6 +52,7 @@ class ImCscTest extends TestCase
         $calculation = Calculation::getInstance();
         $formula = "=IMCSC({$arguments})";
 
+        /** @var float|int|string */
         $result = $calculation->_calculateFormulaValue($formula);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $this->trimIfQuoted((string) $result), self::COMPLEX_PRECISION),
@@ -123,6 +124,7 @@ class ImCscTest extends TestCase
         $calculation = Calculation::getInstance();
 
         $formula = "=IMCSC({$complex})";
+        /** @var array<string, array<string, string>> */
         $result = $calculation->_calculateFormulaValue($formula);
         // Avoid testing for excess precision
         foreach ($expectedResult as &$array) {

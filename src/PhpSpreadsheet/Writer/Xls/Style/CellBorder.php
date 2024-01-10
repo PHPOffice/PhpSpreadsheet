@@ -9,7 +9,7 @@ class CellBorder
     /**
      * @var array<string, int>
      */
-    protected static $styleMap = [
+    protected static array $styleMap = [
         Border::BORDER_NONE => 0x00,
         Border::BORDER_THIN => 0x01,
         Border::BORDER_MEDIUM => 0x02,

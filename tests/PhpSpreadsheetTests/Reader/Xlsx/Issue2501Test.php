@@ -9,10 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class Issue2501Test extends TestCase
 {
-    /**
-     * @var string
-     */
-    private static $testbook = 'tests/data/Reader/XLSX/issue.2501.b.xlsx';
+    private static string $testbook = 'tests/data/Reader/XLSX/issue.2501.b.xlsx';
 
     public function testPreliminaries(): void
     {

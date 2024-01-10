@@ -40,7 +40,7 @@ foreach ($continents as $key => $filename) {
     $countryCount = count($countries);
 
     // Transpose $countries from a row to a column array
-    $countries = array_map('transpose', $countries);
+    $countries = array_map(fn (mixed $value): array => [$value], $countries);
     $spreadsheet->getActiveSheet()
         ->fromArray($countries, null, $column . '1');
     $spreadsheet->addNamedRange(

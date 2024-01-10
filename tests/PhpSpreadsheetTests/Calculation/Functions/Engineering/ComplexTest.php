@@ -36,6 +36,7 @@ class ComplexTest extends TestCase
         $calculation = Calculation::getInstance();
         $formula = "=COMPLEX({$arguments})";
 
+        /** @var float|int|string */
         $result = $calculation->_calculateFormulaValue($formula);
         self::assertSame($expectedResult, $this->trimIfQuoted((string) $result));
     }

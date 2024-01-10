@@ -10,7 +10,7 @@ class ValueBinderWithOverriddenDataTypeForValue extends DefaultValueBinder
 {
     public static bool $called = false;
 
-    public static function dataTypeForValue(mixed $value)
+    public static function dataTypeForValue(mixed $value): string
     {
         self::$called = true;
 

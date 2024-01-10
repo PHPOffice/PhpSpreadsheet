@@ -9,49 +9,37 @@ class StringHelper
      *
      * @var string[]
      */
-    private static $controlCharacters = [];
+    private static array $controlCharacters = [];
 
     /**
      * SYLK Characters array.
-     *
-     * @var array
      */
-    private static $SYLKCharacters = [];
+    private static array $SYLKCharacters = [];
 
     /**
      * Decimal separator.
-     *
-     * @var ?string
      */
-    private static $decimalSeparator;
+    private static ?string $decimalSeparator;
 
     /**
      * Thousands separator.
-     *
-     * @var ?string
      */
-    private static $thousandsSeparator;
+    private static ?string $thousandsSeparator;
 
     /**
      * Currency code.
-     *
-     * @var ?string
      */
-    private static $currencyCode;
+    private static ?string $currencyCode;
 
     /**
      * Is iconv extension avalable?
-     *
-     * @var ?bool
      */
-    private static $isIconvEnabled;
+    private static ?bool $isIconvEnabled;
 
     /**
      * iconv options.
-     *
-     * @var string
      */
-    private static $iconvOptions = '//IGNORE//TRANSLIT';
+    private static string $iconvOptions = '//IGNORE//TRANSLIT';
 
     /**
      * Build control characters array.
@@ -234,10 +222,8 @@ class StringHelper
 
     /**
      * Get whether iconv extension is available.
-     *
-     * @return bool
      */
-    public static function getIsIconvEnabled()
+    public static function getIsIconvEnabled(): bool
     {
         if (isset(self::$isIconvEnabled)) {
             return self::$isIconvEnabled;
@@ -289,7 +275,7 @@ class StringHelper
      *
      * @param string $textValue Value to unescape
      */
-    public static function controlCharacterOOXML2PHP($textValue): string
+    public static function controlCharacterOOXML2PHP(string $textValue): string
     {
         self::buildCharacterSets();
 
@@ -309,7 +295,7 @@ class StringHelper
      *
      * @param string $textValue Value to escape
      */
-    public static function controlCharacterPHP2OOXML($textValue): string
+    public static function controlCharacterPHP2OOXML(string $textValue): string
     {
         self::buildCharacterSets();
 
@@ -342,10 +328,8 @@ class StringHelper
     /**
      * Formats a numeric value as a string for output in various output writers forcing
      * point as decimal separator in case locale is other than English.
-     *
-     * @param float|int|string $numericValue
      */
-    public static function formatNumber($numericValue): string
+    public static function formatNumber(float|int|string|null $numericValue): string
     {
         if (is_float($numericValue)) {
             return str_replace(',', '.', (string) $numericValue);
@@ -652,11 +636,9 @@ class StringHelper
      * Retrieve any leading numeric part of a string, or return the full string if no leading numeric
      * (handles basic integer or float, but not exponent or non decimal).
      *
-     * @param string $textValue
-     *
      * @return mixed string or only the leading numeric part of the string
      */
-    public static function testStringAsNumeric($textValue)
+    public static function testStringAsNumeric(string $textValue): mixed
     {
         if (is_numeric($textValue)) {
             return $textValue;

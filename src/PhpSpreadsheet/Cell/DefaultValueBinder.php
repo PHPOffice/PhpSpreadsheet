@@ -15,10 +15,8 @@ class DefaultValueBinder implements IValueBinder
      *
      * @param Cell $cell Cell to bind value to
      * @param mixed $value Value to bind in cell
-     *
-     * @return bool
      */
-    public function bindValue(Cell $cell, $value)
+    public function bindValue(Cell $cell, $value): bool
     {
         // sanitize UTF-8 strings
         if (is_string($value)) {
@@ -42,10 +40,8 @@ class DefaultValueBinder implements IValueBinder
 
     /**
      * DataType for value.
-     *
-     * @return string
      */
-    public static function dataTypeForValue(mixed $value)
+    public static function dataTypeForValue(mixed $value): string
     {
         // Match the value against a few data types
         if ($value === null) {

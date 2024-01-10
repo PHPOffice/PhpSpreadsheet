@@ -133,7 +133,7 @@ $series = new DataSeries(
     $xAxisTickValues, // plotCategory
     $dataSeriesValues, // plotValues
     null, // plotDirection
-    null, // smooth line
+    false, // smooth line
     DataSeries::STYLE_SMOOTHMARKER // plotStyle
 );
 
@@ -217,7 +217,7 @@ $dataSeriesValues[0]->getTrendLines()[1]->getLineColor()->setColorProperties('ac
 $dataSeriesValues[0]->getTrendLines()[1]->setLineStyleProperties(1.25);
 
 $dataSeriesValues[0]->getTrendLines()[2]->getLineColor()->setColorProperties('accent2', null, ChartColor::EXCEL_COLOR_TYPE_SCHEME);
-$dataSeriesValues[0]->getTrendLines()[2]->setLineStyleProperties(1.5, null, null, null, null, null, null, Properties::LINE_STYLE_ARROW_TYPE_OPEN, 8);
+$dataSeriesValues[0]->getTrendLines()[2]->setLineStyleProperties(1.5, null, null, null, null, null, 0, Properties::LINE_STYLE_ARROW_TYPE_OPEN, 8);
 
 $xAxis = new ChartAxis();
 $xAxis->setAxisNumberProperties(Properties::FORMAT_CODE_DATE_ISO8601); // m/d/yyyy
@@ -231,7 +231,7 @@ $series = new DataSeries(
     $xAxisTickValues, // plotCategory
     $dataSeriesValues, // plotValues
     null, // plotDirection
-    null, // smooth line
+    false, // smooth line
     DataSeries::STYLE_SMOOTHMARKER // plotStyle
 );
 

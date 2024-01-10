@@ -9,7 +9,7 @@ class ColorMap
     /**
      * @var array<string, int>
      */
-    private static $colorMap = [
+    private static array $colorMap = [
         '#000000' => 0x08,
         '#FFFFFF' => 0x09,
         '#FF0000' => 0x0A,

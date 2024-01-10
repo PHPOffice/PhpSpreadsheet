@@ -12,13 +12,10 @@ use ReflectionClass;
 
 class WorkbookTest extends TestCase
 {
-    /**
-     * @var Workbook
-     */
-    private $workbook;
+    private Workbook $workbook;
 
     /** @var ?Spreadsheet */
-    private $spreadsheet;
+    private ?Spreadsheet $spreadsheet = null;
 
     protected function tearDown(): void
     {
@@ -80,6 +77,7 @@ class WorkbookTest extends TestCase
         $propertyPalette->setAccessible(true);
 
         $palette = $propertyPalette->getValue($this->workbook);
+        self::assertIsArray($palette);
 
         $newColor1 = [0x00, 0x00, 0x01, 0x00];
         $newColor2 = [0x00, 0x00, 0x02, 0x00];

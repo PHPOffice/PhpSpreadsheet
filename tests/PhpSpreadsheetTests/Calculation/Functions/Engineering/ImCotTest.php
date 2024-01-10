@@ -28,9 +28,9 @@ class ImCotTest extends TestCase
     /**
      * @dataProvider providerIMCOT
      */
-    public function testDirectCallToIMCOT(mixed $expectedResult, mixed ...$args): void
+    public function testDirectCallToIMCOT(float|string $expectedResult, string $arg): void
     {
-        $result = ComplexFunctions::IMCOT(...$args);
+        $result = ComplexFunctions::IMCOT($arg);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()
@@ -52,6 +52,7 @@ class ImCotTest extends TestCase
         $calculation = Calculation::getInstance();
         $formula = "=IMCOT({$arguments})";
 
+        /** @var float|int|string */
         $result = $calculation->_calculateFormulaValue($formula);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $this->trimIfQuoted((string) $result), self::COMPLEX_PRECISION),

@@ -15,7 +15,7 @@ class ReadFilterFilter implements IReadFilter
      *
      * @see IReadFilter::readCell()
      */
-    public function readCell($column, $row, $worksheetName = ''): bool
+    public function readCell(string $column, int $row, string $worksheetName = ''): bool
     {
         // define filter range
         $rowMin = 2;

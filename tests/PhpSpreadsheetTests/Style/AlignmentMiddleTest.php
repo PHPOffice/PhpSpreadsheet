@@ -15,10 +15,9 @@ use ZipArchive;
 class AlignmentMiddleTest extends TestCase
 {
     /** @var ?Spreadsheet */
-    private $spreadsheet;
+    private ?Spreadsheet $spreadsheet = null;
 
-    /** @var string */
-    private $outputFileName = '';
+    private string $outputFileName = '';
 
     protected function tearDown(): void
     {

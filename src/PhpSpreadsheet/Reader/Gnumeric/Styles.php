@@ -18,8 +18,7 @@ class Styles
 
     protected bool $readDataOnly;
 
-    /** @var array */
-    public static $mappings = [
+    public static array $mappings = [
         'borderStyle' => [
             '0' => Border::BORDER_NONE,
             '1' => Border::BORDER_THIN,

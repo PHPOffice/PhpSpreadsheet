@@ -27,8 +27,10 @@ class ImSumTest extends TestCase
 
     /**
      * @dataProvider providerIMSUM
+     *
+     * @param string ...$args variadic arguments
      */
-    public function testDirectCallToIMSUM(mixed $expectedResult, mixed ...$args): void
+    public function testDirectCallToIMSUM(mixed $expectedResult, ...$args): void
     {
         $result = ComplexOperations::IMSUM(...$args);
         self::assertTrue(
@@ -52,6 +54,7 @@ class ImSumTest extends TestCase
         $calculation = Calculation::getInstance();
         $formula = "=IMSUM({$arguments})";
 
+        /** @var float|int|string */
         $result = $calculation->_calculateFormulaValue($formula);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $this->trimIfQuoted((string) $result), self::COMPLEX_PRECISION),

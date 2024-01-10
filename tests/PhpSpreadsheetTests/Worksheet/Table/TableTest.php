@@ -372,16 +372,6 @@ class TableTest extends SetupTeardown
         $table->setColumn($invalidColumn);
     }
 
-    public function testSetColumnWithInvalidDataType(): void
-    {
-        $this->expectException(PhpSpreadsheetException::class);
-
-        $table = new Table(self::INITIAL_RANGE);
-        $invalidColumn = 123.456;
-        // @phpstan-ignore-next-line
-        $table->setColumn($invalidColumn);
-    }
-
     public function testGetColumns(): void
     {
         $table = new Table(self::INITIAL_RANGE);

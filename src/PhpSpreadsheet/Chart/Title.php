@@ -16,16 +16,14 @@ class Title
     /**
      * Title Caption.
      *
-     * @var null|array|RichText|string may be null
+     * @var array<RichText|string>|RichText|string
      */
-    private $caption = '';
+    private array|RichText|string $caption;
 
     /**
      * Allow overlay of other elements?
-     *
-     * @var bool
      */
-    private $overlay = true;
+    private bool $overlay = true;
 
     /**
      * Title Layout.
@@ -38,11 +36,8 @@ class Title
 
     /**
      * Create a new Title.
-     *
-     * @param null|array|RichText|string $caption may be null
-     * @param bool $overlay
      */
-    public function __construct($caption = '', ?Layout $layout = null, $overlay = false)
+    public function __construct(array|RichText|string $caption = '', ?Layout $layout = null, bool $overlay = false)
     {
         $this->caption = $caption;
         $this->layout = $layout;
@@ -51,10 +46,8 @@ class Title
 
     /**
      * Get caption.
-     *
-     * @return null|array|RichText|string may be null
      */
-    public function getCaption()
+    public function getCaption(): array|RichText|string
     {
         return $this->caption;
     }
@@ -68,9 +61,6 @@ class Title
             }
         }
         $caption = $this->caption;
-        if ($caption === null) {
-            return '';
-        }
         if (is_string($caption)) {
             return $caption;
         }
@@ -79,7 +69,7 @@ class Title
         }
         $retVal = '';
         foreach ($caption as $textx) {
-            /** @var RichText|string */
+            /** @var RichText|string $text */
             $text = $textx;
             if ($text instanceof RichText) {
                 $retVal .= $text->getPlainText();
@@ -94,11 +84,9 @@ class Title
     /**
      * Set caption.
      *
-     * @param null|array|RichText|string $caption may be null
-     *
      * @return $this
      */
-    public function setCaption($caption): static
+    public function setCaption(array|RichText|string $caption): static
     {
         $this->caption = $caption;
 
@@ -107,20 +95,16 @@ class Title
 
     /**
      * Get allow overlay of other elements?
-     *
-     * @return bool
      */
-    public function getOverlay()
+    public function getOverlay(): bool
     {
         return $this->overlay;
     }
 
     /**
      * Set allow overlay of other elements?
-     *
-     * @param bool $overlay
      */
-    public function setOverlay($overlay): static
+    public function setOverlay(bool $overlay): self
     {
         $this->overlay = $overlay;
 

@@ -43,52 +43,33 @@ class Html extends BaseWriter
 
     /**
      * Sheet index to write.
-     *
-     * @var null|int
      */
-    private $sheetIndex = 0;
+    private ?int $sheetIndex = 0;
 
     /**
      * Images root.
-     *
-     * @var string
      */
-    private $imagesRoot = '';
+    private string $imagesRoot = '';
 
     /**
      * embed images, or link to images.
-     *
-     * @var bool
      */
-    protected $embedImages = false;
+    protected bool $embedImages = false;
 
     /**
      * Use inline CSS?
-     *
-     * @var bool
      */
-    private $useInlineCss = false;
-
-    /**
-     * Use embedded CSS?
-     *
-     * @var bool
-     */
-    private $useEmbeddedCSS = true;
+    private bool $useInlineCss = false;
 
     /**
      * Array of CSS styles.
-     *
-     * @var array
      */
-    private $cssStyles;
+    private ?array $cssStyles = null;
 
     /**
      * Array of column widths in points.
-     *
-     * @var array
      */
-    private $columnWidths;
+    private array $columnWidths;
 
     /**
      * Default font.
@@ -97,52 +78,38 @@ class Html extends BaseWriter
 
     /**
      * Flag whether spans have been calculated.
-     *
-     * @var bool
      */
-    private $spansAreCalculated = false;
+    private bool $spansAreCalculated = false;
 
     /**
      * Excel cells that should not be written as HTML cells.
-     *
-     * @var array
      */
-    private $isSpannedCell = [];
+    private array $isSpannedCell = [];
 
     /**
      * Excel cells that are upper-left corner in a cell merge.
-     *
-     * @var array
      */
-    private $isBaseCell = [];
+    private array $isBaseCell = [];
 
     /**
      * Excel rows that should not be written as HTML rows.
-     *
-     * @var array
      */
-    private $isSpannedRow = [];
+    private array $isSpannedRow = [];
 
     /**
      * Is the current writer creating PDF?
-     *
-     * @var bool
      */
-    protected $isPdf = false;
+    protected bool $isPdf = false;
 
     /**
      * Is the current writer creating mPDF?
-     *
-     * @var bool
      */
-    protected $isMPdf = false;
+    protected bool $isMPdf = false;
 
     /**
      * Generate the Navigation block.
-     *
-     * @var bool
      */
-    private $generateSheetNavigationBlock = true;
+    private bool $generateSheetNavigationBlock = true;
 
     /**
      * Callback for editing generated html.
@@ -187,10 +154,8 @@ class Html extends BaseWriter
 
     /**
      * Save Spreadsheet as html to variable.
-     *
-     * @return string
      */
-    public function generateHtmlAll()
+    public function generateHtmlAll(): string
     {
         // garbage collect
         $this->spreadsheet->garbageCollect();
@@ -245,7 +210,7 @@ class Html extends BaseWriter
      *
      * @param string $vAlign Vertical alignment
      */
-    private function mapVAlign($vAlign): string
+    private function mapVAlign(string $vAlign): string
     {
         return Alignment::VERTICAL_ALIGNMENT_FOR_HTML[$vAlign] ?? '';
     }
@@ -255,7 +220,7 @@ class Html extends BaseWriter
      *
      * @param string $hAlign Horizontal alignment
      */
-    private function mapHAlign($hAlign): string
+    private function mapHAlign(string $hAlign): string
     {
         return Alignment::HORIZONTAL_ALIGNMENT_FOR_HTML[$hAlign] ?? '';
     }
@@ -300,7 +265,7 @@ class Html extends BaseWriter
      *
      * @return $this
      */
-    public function setSheetIndex($sheetIndex): static
+    public function setSheetIndex(int $sheetIndex): static
     {
         $this->sheetIndex = $sheetIndex;
 
@@ -309,10 +274,8 @@ class Html extends BaseWriter
 
     /**
      * Get sheet index.
-     *
-     * @return bool
      */
-    public function getGenerateSheetNavigationBlock()
+    public function getGenerateSheetNavigationBlock(): bool
     {
         return $this->generateSheetNavigationBlock;
     }
@@ -324,7 +287,7 @@ class Html extends BaseWriter
      *
      * @return $this
      */
-    public function setGenerateSheetNavigationBlock($generateSheetNavigationBlock): static
+    public function setGenerateSheetNavigationBlock(bool $generateSheetNavigationBlock): static
     {
         $this->generateSheetNavigationBlock = (bool) $generateSheetNavigationBlock;
 
@@ -365,7 +328,7 @@ class Html extends BaseWriter
      *
      * @param bool $includeStyles Include styles?
      */
-    public function generateHTMLHeader($includeStyles = false): string
+    public function generateHTMLHeader(bool $includeStyles = false): string
     {
         // Construct HTML
         $properties = $this->spreadsheet->getProperties();
@@ -604,10 +567,8 @@ class Html extends BaseWriter
      * Convert Windows file name to file protocol URL.
      *
      * @param string $filename file name on local system
-     *
-     * @return string
      */
-    public static function winFileToUrl($filename, bool $mpdf = false)
+    public static function winFileToUrl(string $filename, bool $mpdf = false): string
     {
         // Windows filename
         if (substr($filename, 1, 2) === ':\\') {
@@ -685,7 +646,7 @@ class Html extends BaseWriter
                     //  width: X sets width of supplied image.
                     //  As a result, images bigger than cell will be contained and images smaller will not get stretched
                     $html .= '<img alt="' . $filedesc . '" src="' . $dataUri . '" style="width:' . $drawing->getWidth() . 'px;left: '
-                    . $drawing->getOffsetX() . 'px; top: ' . $drawing->getOffsetY() . 'px;position: absolute; z-index: 1;" />';
+                        . $drawing->getOffsetX() . 'px; top: ' . $drawing->getOffsetY() . 'px;position: absolute; z-index: 1;" />';
                 }
             }
         }
@@ -788,7 +749,7 @@ class Html extends BaseWriter
      *
      * @param bool $generateSurroundingHTML Generate surrounding HTML tags? (&lt;style&gt; and &lt;/style&gt;)
      */
-    public function generateStyles($generateSurroundingHTML = true): string
+    public function generateStyles(bool $generateSurroundingHTML = true): string
     {
         // Build CSS
         $css = $this->buildCSS($generateSurroundingHTML);
@@ -904,10 +865,8 @@ class Html extends BaseWriter
      * Build CSS styles.
      *
      * @param bool $generateSurroundingHTML Generate surrounding HTML style? (html { })
-     *
-     * @return array
      */
-    public function buildCSS($generateSurroundingHTML = true)
+    public function buildCSS(bool $generateSurroundingHTML = true): array
     {
         // Cached?
         if ($this->cssStyles !== null) {
@@ -1108,10 +1067,8 @@ class Html extends BaseWriter
      * Create CSS style (Fill).
      *
      * @param Fill $fill Fill
-     *
-     * @return array
      */
-    private function createCSSStyleFill(Fill $fill)
+    private function createCSSStyleFill(Fill $fill): array
     {
         // Construct HTML
         $css = [];
@@ -1175,10 +1132,8 @@ class Html extends BaseWriter
      *
      * @param Worksheet $worksheet The worksheet for the table we are writing
      * @param bool $showid whether or not to add id to table tag
-     *
-     * @return string
      */
-    private function generateTableHeader(Worksheet $worksheet, bool $showid = true)
+    private function generateTableHeader(Worksheet $worksheet, bool $showid = true): string
     {
         $sheetIndex = $worksheet->getParentOrThrow()->getIndex($worksheet);
 
@@ -1223,7 +1178,7 @@ class Html extends BaseWriter
      * @param int $sheetIndex Sheet index (0-based)
      * @param int $row row number
      */
-    private function generateRowStart(Worksheet $worksheet, $sheetIndex, int $row): string
+    private function generateRowStart(Worksheet $worksheet, int $sheetIndex, int $row): string
     {
         $html = '';
         if (count($worksheet->getBreaks()) > 0) {
@@ -1342,11 +1297,7 @@ class Html extends BaseWriter
         }
     }
 
-    /**
-     * @param null|Cell|string $cell
-     * @param array|string $cssClass
-     */
-    private function generateRowCellData(Worksheet $worksheet, $cell, &$cssClass): string
+    private function generateRowCellData(Worksheet $worksheet, null|Cell|string $cell, array|string &$cssClass): string
     {
         $cellData = '&nbsp;';
         if ($cell instanceof Cell) {
@@ -1408,11 +1359,19 @@ class Html extends BaseWriter
         return $html;
     }
 
-    /**
-     * @param array|string $cssClass
-     */
-    private function generateRowWriteCell(string &$html, Worksheet $worksheet, string $coordinate, string $cellType, string $cellData, int $colSpan, int $rowSpan, $cssClass, int $colNum, int $sheetIndex, int $row): void
-    {
+    private function generateRowWriteCell(
+        string &$html,
+        Worksheet $worksheet,
+        string $coordinate,
+        string $cellType,
+        string $cellData,
+        int $colSpan,
+        int $rowSpan,
+        array|string $cssClass,
+        int $colNum,
+        int $sheetIndex,
+        int $row
+    ): void {
         // Image?
         $htmlx = $this->writeImageInCell($coordinate);
         // Chart?
@@ -1550,10 +1509,8 @@ class Html extends BaseWriter
 
     /**
      * Get images root.
-     *
-     * @return string
      */
-    public function getImagesRoot()
+    public function getImagesRoot(): string
     {
         return $this->imagesRoot;
     }
@@ -1561,11 +1518,9 @@ class Html extends BaseWriter
     /**
      * Set images root.
      *
-     * @param string $imagesRoot
-     *
      * @return $this
      */
-    public function setImagesRoot($imagesRoot): static
+    public function setImagesRoot(string $imagesRoot): static
     {
         $this->imagesRoot = $imagesRoot;
 
@@ -1574,10 +1529,8 @@ class Html extends BaseWriter
 
     /**
      * Get embed images.
-     *
-     * @return bool
      */
-    public function getEmbedImages()
+    public function getEmbedImages(): bool
     {
         return $this->embedImages;
     }
@@ -1585,11 +1538,9 @@ class Html extends BaseWriter
     /**
      * Set embed images.
      *
-     * @param bool $embedImages
-     *
      * @return $this
      */
-    public function setEmbedImages($embedImages): static
+    public function setEmbedImages(bool $embedImages): static
     {
         $this->embedImages = $embedImages;
 
@@ -1598,10 +1549,8 @@ class Html extends BaseWriter
 
     /**
      * Get use inline CSS?
-     *
-     * @return bool
      */
-    public function getUseInlineCss()
+    public function getUseInlineCss(): bool
     {
         return $this->useInlineCss;
     }
@@ -1609,45 +1558,11 @@ class Html extends BaseWriter
     /**
      * Set use inline CSS?
      *
-     * @param bool $useInlineCss
-     *
      * @return $this
      */
-    public function setUseInlineCss($useInlineCss): static
+    public function setUseInlineCss(bool $useInlineCss): static
     {
         $this->useInlineCss = $useInlineCss;
-
-        return $this;
-    }
-
-    /**
-     * Get use embedded CSS?
-     *
-     * @return bool
-     *
-     * @codeCoverageIgnore
-     *
-     * @deprecated no longer used
-     */
-    public function getUseEmbeddedCSS()
-    {
-        return $this->useEmbeddedCSS;
-    }
-
-    /**
-     * Set use embedded CSS?
-     *
-     * @param bool $useEmbeddedCSS
-     *
-     * @return $this
-     *
-     * @codeCoverageIgnore
-     *
-     * @deprecated no longer used
-     */
-    public function setUseEmbeddedCSS($useEmbeddedCSS): static
-    {
-        $this->useEmbeddedCSS = $useEmbeddedCSS;
 
         return $this;
     }
@@ -1658,7 +1573,7 @@ class Html extends BaseWriter
      * @param string $value Plain formatted value without color
      * @param string $format Format code
      */
-    public function formatColor($value, $format): string
+    public function formatColor(string $value, string $format): string
     {
         // Color information, e.g. [Red] is always at the beginning
         $color = null; // initialize

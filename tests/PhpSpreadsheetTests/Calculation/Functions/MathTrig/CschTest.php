@@ -11,7 +11,7 @@ class CschTest extends AllSetupTeardown
     /**
      * @dataProvider providerCSCH
      */
-    public function testCSCH(mixed $expectedResult, mixed $angle): void
+    public function testCSCH(float|int|string $expectedResult, float|int|string $angle): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

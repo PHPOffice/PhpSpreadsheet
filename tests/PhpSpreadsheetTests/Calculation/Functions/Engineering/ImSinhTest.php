@@ -28,9 +28,9 @@ class ImSinhTest extends TestCase
     /**
      * @dataProvider providerIMSINH
      */
-    public function testDirectCallToIMSINH(mixed $expectedResult, mixed ...$args): void
+    public function testDirectCallToIMSINH(string $expectedResult, string $arg): void
     {
-        $result = ComplexFunctions::IMSINH(...$args);
+        $result = ComplexFunctions::IMSINH($arg);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()
@@ -52,6 +52,7 @@ class ImSinhTest extends TestCase
         $calculation = Calculation::getInstance();
         $formula = "=IMSINH({$arguments})";
 
+        /** @var float|int|string */
         $result = $calculation->_calculateFormulaValue($formula);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $this->trimIfQuoted((string) $result), self::COMPLEX_PRECISION),

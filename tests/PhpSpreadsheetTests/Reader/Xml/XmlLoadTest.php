@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
 class XmlLoadTest extends TestCase
 {
     /** @var ?Spreadsheet */
-    private $spreadsheet;
+    private ?Spreadsheet $spreadsheet = null;
 
     private string $locale;
 
@@ -66,6 +66,7 @@ class XmlLoadTest extends TestCase
         self::assertEquals('2010-09-03T21:48:39Z', $result);
         self::assertEquals('AbCd1234', $props->getCustomPropertyValue('my_API_Token'));
         self::assertEquals('2', $props->getCustomPropertyValue('myאInt'));
+        /** @var string */
         $creationDate = $props->getCustomPropertyValue('my_API_Token_Expiry');
         $result = Date::formattedDateTimeFromTimestamp("$creationDate", 'Y-m-d\\TH:i:s\\Z', new DateTimeZone('UTC'));
         self::assertEquals('2019-01-31T07:00:00Z', $result);

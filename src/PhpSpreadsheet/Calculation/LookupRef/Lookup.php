@@ -20,7 +20,7 @@ class Lookup
      *
      * @return mixed The value of the found cell
      */
-    public static function lookup(mixed $lookupValue, mixed $lookupVector, $resultVector = null)
+    public static function lookup(mixed $lookupValue, mixed $lookupVector, $resultVector = null): mixed
     {
         if (is_array($lookupValue)) {
             return self::evaluateArrayArgumentsSubset([self::class, __FUNCTION__], 1, $lookupValue, $lookupVector, $resultVector);

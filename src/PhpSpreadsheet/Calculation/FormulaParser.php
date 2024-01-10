@@ -54,14 +54,14 @@ class FormulaParser
      *
      * @var FormulaToken[]
      */
-    private $tokens = [];
+    private array $tokens = [];
 
     /**
      * Create a new FormulaParser.
      *
      * @param ?string $formula Formula to parse
      */
-    public function __construct($formula = '')
+    public function __construct(?string $formula = '')
     {
         // Check parameters
         if ($formula === null) {
@@ -76,10 +76,8 @@ class FormulaParser
 
     /**
      * Get Formula.
-     *
-     * @return string
      */
-    public function getFormula()
+    public function getFormula(): string
     {
         return $this->formula;
     }
@@ -111,7 +109,7 @@ class FormulaParser
      *
      * @return FormulaToken[]
      */
-    public function getTokens()
+    public function getTokens(): array
     {
         return $this->tokens;
     }

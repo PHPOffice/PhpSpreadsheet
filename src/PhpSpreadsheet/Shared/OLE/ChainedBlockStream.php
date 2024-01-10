@@ -11,31 +11,25 @@ class ChainedBlockStream
 
     /**
      * The OLE container of the file that is being read.
-     *
-     * @var null|OLE
      */
-    public $ole;
+    public ?OLE $ole = null;
 
     /**
      * Parameters specified by fopen().
-     *
-     * @var array
      */
-    public $params;
+    public array $params = [];
 
     /**
      * The binary data of the file.
-     *
-     * @var string
      */
-    public $data;
+    public string $data;
 
     /**
      * The file pointer.
      *
      * @var int byte offset
      */
-    public $pos;
+    public int $pos = 0;
 
     /**
      * Implements support for fopen().
@@ -45,11 +39,11 @@ class ChainedBlockStream
      *                                    ole-chainedblockstream://oleInstanceId=1
      * @param string $mode only "r" is supported
      * @param int $options mask of STREAM_REPORT_ERRORS and STREAM_USE_PATH
-     * @param string $openedPath absolute path of the opened stream (out parameter)
+     * @param ?string $openedPath absolute path of the opened stream (out parameter)
      *
      * @return bool true on success
      */
-    public function stream_open($path, $mode, $options, &$openedPath): bool // @codingStandardsIgnoreLine
+    public function stream_open(string $path, string $mode, int $options, ?string &$openedPath): bool // @codingStandardsIgnoreLine
     {
         if ($mode[0] !== 'r') {
             if ($options & STREAM_REPORT_ERRORS) {
@@ -117,7 +111,7 @@ class ChainedBlockStream
      *
      * @return false|string
      */
-    public function stream_read($count): bool|string // @codingStandardsIgnoreLine
+    public function stream_read(int $count): bool|string // @codingStandardsIgnoreLine
     {
         if ($this->stream_eof()) {
             return false;
@@ -141,10 +135,8 @@ class ChainedBlockStream
     /**
      * Returns the position of the file pointer, i.e. its offset into the file
      * stream. Implements support for ftell().
-     *
-     * @return int
      */
-    public function stream_tell() // @codingStandardsIgnoreLine
+    public function stream_tell(): int // @codingStandardsIgnoreLine
     {
         return $this->pos;
     }
@@ -155,7 +147,7 @@ class ChainedBlockStream
      * @param int $offset byte offset
      * @param int $whence SEEK_SET, SEEK_CUR or SEEK_END
      */
-    public function stream_seek($offset, $whence): bool // @codingStandardsIgnoreLine
+    public function stream_seek(int $offset, int $whence): bool // @codingStandardsIgnoreLine
     {
         if ($whence == SEEK_SET && $offset >= 0) {
             $this->pos = $offset;

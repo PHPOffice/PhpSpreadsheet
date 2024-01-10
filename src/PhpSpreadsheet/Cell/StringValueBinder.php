@@ -10,25 +10,13 @@ use Stringable;
 
 class StringValueBinder implements IValueBinder
 {
-    /**
-     * @var bool
-     */
-    protected $convertNull = true;
+    protected bool $convertNull = true;
 
-    /**
-     * @var bool
-     */
-    protected $convertBoolean = true;
+    protected bool $convertBoolean = true;
 
-    /**
-     * @var bool
-     */
-    protected $convertNumeric = true;
+    protected bool $convertNumeric = true;
 
-    /**
-     * @var bool
-     */
-    protected $convertFormula = true;
+    protected bool $convertFormula = true;
 
     public function setNullConversion(bool $suppressConversion = false): self
     {
