@@ -28,6 +28,7 @@ class DataValidation
     const OPERATOR_LESSTHANOREQUAL = 'lessThanOrEqual';
     const OPERATOR_NOTBETWEEN = 'notBetween';
     const OPERATOR_NOTEQUAL = 'notEqual';
+    private const DEFAULT_OPERATOR = self::OPERATOR_BETWEEN;
 
     /**
      * Formula 1.
@@ -52,7 +53,7 @@ class DataValidation
     /**
      * Operator.
      */
-    private string $operator = self::OPERATOR_BETWEEN;
+    private string $operator = self::DEFAULT_OPERATOR;
 
     /**
      * Allow Blank.
@@ -198,7 +199,7 @@ class DataValidation
      */
     public function setOperator(string $operator): static
     {
-        $this->operator = $operator;
+        $this->operator = ($operator === '') ? self::DEFAULT_OPERATOR : $operator;
 
         return $this;
     }

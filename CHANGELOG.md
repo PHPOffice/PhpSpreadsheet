@@ -91,6 +91,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Html Reader Tolerate Invalid Sheet Title. [PR #3845](https://github.com/PHPOffice/PhpSpreadsheet/pull/3845)
 - Do not include unparsed drawings when new drawing added. [Issue #3843](https://github.com/PHPOffice/PhpSpreadsheet/issues/3843) [PR #3846](https://github.com/PHPOffice/PhpSpreadsheet/pull/3846)
 - Do not include unparsed drawings when new drawing added. [Issue #3861](https://github.com/PHPOffice/PhpSpreadsheet/issues/3861) [PR #3862](https://github.com/PHPOffice/PhpSpreadsheet/pull/3862)
+- Excel omits `between` operator for data validation. [Issue #3863](https://github.com/PHPOffice/PhpSpreadsheet/issues/3863) [PR #3865](https://github.com/PHPOffice/PhpSpreadsheet/pull/3865)
 
 ## 1.29.0 - 2023-06-15
 
