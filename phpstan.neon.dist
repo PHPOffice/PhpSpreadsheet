@@ -12,6 +12,7 @@ parameters:
         - infra/
         - bin/generate-document
         - bin/generate-locales
+        - bin/check-phpdoc-types
     excludePaths:
         - src/PhpSpreadsheet/Chart/Renderer/JpGraph.php
         - src/PhpSpreadsheet/Chart/Renderer/JpGraphRendererBase.php

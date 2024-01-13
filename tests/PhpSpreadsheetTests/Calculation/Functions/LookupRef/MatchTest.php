@@ -11,7 +11,7 @@ class MatchTest extends AllSetupTeardown
     /**
      * @dataProvider providerMATCH
      */
-    public function testMATCH(mixed $expectedResult, mixed $input, array $array, mixed $type = null): void
+    public function testMATCH(mixed $expectedResult, mixed $input, array $array, null|float|int|string $type = null): void
     {
         if (is_array($expectedResult)) {
             $expectedResult = $expectedResult[0];
@@ -42,7 +42,7 @@ class MatchTest extends AllSetupTeardown
     /**
      * @dataProvider providerMATCH
      */
-    public function testMATCHLibre(mixed $expectedResult, mixed $input, array $array, mixed $type = null): void
+    public function testMATCHLibre(mixed $expectedResult, mixed $input, array $array, null|float|int|string $type = null): void
     {
         $this->setOpenOffice();
         if (is_array($expectedResult)) {

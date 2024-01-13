@@ -22,7 +22,7 @@ class OrTest extends AllSetupTeardown
     /**
      * @dataProvider providerORLiteral
      */
-    public function testORLiteral(mixed $expectedResult, mixed $formula): void
+    public function testORLiteral(bool|string $expectedResult, float|int|string $formula): void
     {
         $sheet = $this->getSheet();
         $sheet->getCell('A1')->setValue("=OR($formula)");

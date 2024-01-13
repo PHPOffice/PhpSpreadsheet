@@ -16,9 +16,9 @@ class DeltaTest extends TestCase
     /**
      * @dataProvider providerDELTA
      */
-    public function testDirectCallToDELTA(mixed $expectedResult, mixed ...$args): void
+    public function testDirectCallToDELTA(mixed $expectedResult, bool|float|int|string $arg1, null|bool|float|int|string $arg2 = null): void
     {
-        $result = Compare::delta(...$args);
+        $result = ($arg2 === null) ? Compare::delta($arg1) : Compare::delta($arg1, $arg2);
         self::assertSame($expectedResult, $result);
     }
 

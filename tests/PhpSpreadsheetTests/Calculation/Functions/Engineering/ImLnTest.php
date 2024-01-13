@@ -28,9 +28,9 @@ class ImLnTest extends TestCase
     /**
      * @dataProvider providerIMLN
      */
-    public function testDirectCallToIMLN(mixed $expectedResult, mixed ...$args): void
+    public function testDirectCallToIMLN(string $expectedResult, string $arg): void
     {
-        $result = ComplexFunctions::IMLN(...$args);
+        $result = ComplexFunctions::IMLN($arg);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()
@@ -52,6 +52,7 @@ class ImLnTest extends TestCase
         $calculation = Calculation::getInstance();
         $formula = "=IMLN({$arguments})";
 
+        /** @var float|int|string */
         $result = $calculation->_calculateFormulaValue($formula);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $this->trimIfQuoted((string) $result), self::COMPLEX_PRECISION),

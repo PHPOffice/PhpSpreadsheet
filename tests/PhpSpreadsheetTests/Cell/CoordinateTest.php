@@ -14,7 +14,7 @@ class CoordinateTest extends TestCase
     /**
      * @dataProvider providerColumnString
      */
-    public function testColumnIndexFromString(mixed $expectedResult, mixed $string): void
+    public function testColumnIndexFromString(mixed $expectedResult, string $string): void
     {
         $columnIndex = Coordinate::columnIndexFromString($string);
         self::assertEquals($expectedResult, $columnIndex);
@@ -180,9 +180,9 @@ class CoordinateTest extends TestCase
     /**
      * @dataProvider providerAbsoluteReferences
      */
-    public function testAbsoluteReferenceFromString(mixed $expectedResult, mixed $rangeSet): void
+    public function testAbsoluteReferenceFromString(mixed $expectedResult, int|string $rangeSet): void
     {
-        $result = Coordinate::absoluteReference($rangeSet);
+        $result = Coordinate::absoluteReference((string) $rangeSet);
         self::assertEquals($expectedResult, $result);
     }
 
@@ -209,7 +209,7 @@ class CoordinateTest extends TestCase
     /**
      * @dataProvider providerSplitRange
      */
-    public function testSplitRange(mixed $expectedResult, string $rangeSet): void
+    public function testSplitRange(array $expectedResult, string $rangeSet): void
     {
         $result = Coordinate::splitRange($rangeSet);
         foreach ($result as $key => $split) {
@@ -229,7 +229,7 @@ class CoordinateTest extends TestCase
     /**
      * @dataProvider providerBuildRange
      */
-    public function testBuildRange(mixed $expectedResult, mixed $rangeSets): void
+    public function testBuildRange(mixed $expectedResult, array $rangeSets): void
     {
         $result = Coordinate::buildRange($rangeSets);
         self::assertEquals($expectedResult, $result);
@@ -368,7 +368,7 @@ class CoordinateTest extends TestCase
     /**
      * @dataProvider providerMergeRangesInCollection
      */
-    public function testMergeRangesInCollection(mixed $expectedResult, mixed $rangeSets): void
+    public function testMergeRangesInCollection(mixed $expectedResult, array $rangeSets): void
     {
         $result = Coordinate::mergeRangesInCollection($rangeSets);
         self::assertEquals($expectedResult, $result);

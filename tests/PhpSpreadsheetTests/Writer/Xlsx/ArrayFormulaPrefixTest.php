@@ -38,6 +38,7 @@ class ArrayFormulaPrefixTest extends AbstractFunctional
         //Write formula
         $cell = $worksheet->getCell('A7');
         $cell->setValueExplicit('=TEXTJOIN("",TRUE,IF(ISNUMBER(A1:A6), A1:A6,""))', DataType::TYPE_FORMULA);
+        /** @var array<string, string> */
         $attrs = $cell->getFormulaAttributes();
         $attrs['t'] = 'array';
         $cell->setFormulaAttributes($attrs);
@@ -74,6 +75,7 @@ class ArrayFormulaPrefixTest extends AbstractFunctional
         //Write formula
         $cell = $worksheet->getCell('A7');
         $cell->setValueExplicit('=SUM(LEN(A1:A6))', DataType::TYPE_FORMULA);
+        /** @var array<string, string> */
         $attrs = $cell->getFormulaAttributes();
         $attrs['t'] = 'array';
         $cell->setFormulaAttributes($attrs);

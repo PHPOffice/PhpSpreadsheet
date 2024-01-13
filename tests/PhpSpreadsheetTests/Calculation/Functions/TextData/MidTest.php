@@ -48,7 +48,7 @@ class MidTest extends AllSetupTeardown
     /**
      * @dataProvider providerLocaleMID
      */
-    public function testMiddleWithLocaleBoolean(string $expectedResult, mixed $locale, mixed $value, mixed $offset, mixed $characters): void
+    public function testMiddleWithLocaleBoolean(string $expectedResult, string $locale, mixed $value, mixed $offset, mixed $characters): void
     {
         $newLocale = Settings::setLocale($locale);
         if ($newLocale === false) {

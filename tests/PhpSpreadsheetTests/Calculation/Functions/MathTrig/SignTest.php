@@ -11,7 +11,7 @@ class SignTest extends AllSetupTeardown
     /**
      * @dataProvider providerSIGN
      */
-    public function testSIGN(mixed $expectedResult, mixed $value): void
+    public function testSIGN(float|int|string $expectedResult, float|int|string $value): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

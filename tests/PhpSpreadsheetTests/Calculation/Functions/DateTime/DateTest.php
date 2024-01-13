@@ -39,9 +39,9 @@ class DateTest extends TestCase
     /**
      * @dataProvider providerDATE
      */
-    public function testDirectCallToDATE(mixed $expectedResult, mixed ...$args): void
+    public function testDirectCallToDATE(float|string $expectedResult, int|string $year, float|int|string $month, float|int|string $day): void
     {
-        $result = Date::fromYMD(...$args);
+        $result = Date::fromYMD($year, $month, $day);
         self::assertSame($expectedResult, $result);
     }
 

@@ -9,7 +9,7 @@ class SubTotalTest extends AllSetupTeardown
     /**
      * @dataProvider providerSUBTOTAL
      */
-    public function testSubtotal(mixed $expectedResult, mixed $type): void
+    public function testSubtotal(float|int|string $expectedResult, float|int|string $type): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();
@@ -29,7 +29,7 @@ class SubTotalTest extends AllSetupTeardown
     /**
      * @dataProvider providerSUBTOTAL
      */
-    public function testSubtotalColumnHidden(mixed $expectedResult, mixed $type): void
+    public function testSubtotalColumnHidden(float|int|string $expectedResult, float|int|string $type): void
     {
         // Hidden columns don't affect calculation, only hidden rows
         $this->mightHaveException($expectedResult);
@@ -63,7 +63,7 @@ class SubTotalTest extends AllSetupTeardown
     /**
      * @dataProvider providerSUBTOTALHIDDEN
      */
-    public function testSubtotalRowHidden(mixed $expectedResult, mixed $type): void
+    public function testSubtotalRowHidden(mixed $expectedResult, int $type): void
     {
         $this->mightHaveException($expectedResult);
         $sheet = $this->getSheet();

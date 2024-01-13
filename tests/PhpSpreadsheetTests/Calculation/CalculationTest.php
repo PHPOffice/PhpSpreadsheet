@@ -35,7 +35,7 @@ class CalculationTest extends TestCase
     /**
      * @dataProvider providerBinaryComparisonOperation
      */
-    public function testBinaryComparisonOperation(mixed $formula, mixed $expectedResultExcel, mixed $expectedResultOpenOffice): void
+    public function testBinaryComparisonOperation(string $formula, mixed $expectedResultExcel, mixed $expectedResultOpenOffice): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         $resultExcel = Calculation::getInstance()->_calculateFormulaValue($formula);
@@ -360,7 +360,7 @@ class CalculationTest extends TestCase
      */
     public function testFullExecutionDataPruning(
         mixed $expectedResult,
-        mixed $dataArray,
+        array $dataArray,
         string $formula,
         string $cellCoordinates,
         array $shouldBeSetInCacheCells = [],

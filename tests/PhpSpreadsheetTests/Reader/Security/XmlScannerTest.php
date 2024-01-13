@@ -16,7 +16,7 @@ class XmlScannerTest extends TestCase
     /**
      * @dataProvider providerValidXML
      */
-    public function testValidXML(mixed $filename, mixed $expectedResult): void
+    public function testValidXML(string $filename, string $expectedResult): void
     {
         $reader = XmlScanner::getInstance(new \PhpOffice\PhpSpreadsheet\Reader\Xml());
         $result = $reader->scanFile($filename);
@@ -40,7 +40,7 @@ class XmlScannerTest extends TestCase
     /**
      * @dataProvider providerInvalidXML
      */
-    public function testInvalidXML(mixed $filename): void
+    public function testInvalidXML(string $filename): void
     {
         $this->expectException(ReaderException::class);
 
@@ -93,7 +93,7 @@ class XmlScannerTest extends TestCase
     /**
      * @dataProvider providerValidXMLForCallback
      */
-    public function testSecurityScanWithCallback(mixed $filename, mixed $expectedResult): void
+    public function testSecurityScanWithCallback(string $filename, string $expectedResult): void
     {
         $fileReader = new Xlsx();
         $scanner = $fileReader->getSecurityScannerOrThrow();

@@ -43,9 +43,9 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
             }
 
             // Check for fractions
-            if (preg_match('/^([+-]?)\s*(\d+)\s?\/\s*(\d+)$/', $value, $matches)) {
+            if (preg_match('~^([+-]?)\s*(\d+)\s*/\s*(\d+)$~', $value, $matches)) {
                 return $this->setProperFraction($matches, $cell);
-            } elseif (preg_match('/^([+-]?)(\d*) +(\d*)\s?\/\s*(\d*)$/', $value, $matches)) {
+            } elseif (preg_match('~^([+-]?)(\d+)\s+(\d+)\s*/\s*(\d+)$~', $value, $matches)) {
                 return $this->setImproperFraction($matches, $cell);
             }
 
