@@ -26,7 +26,7 @@ class MissingArgumentsTest extends TestCase
         return [
             'argument missing at end' => [0, '=min(3,2,)'],
             'argument missing at beginning' => [0, '=mina(,3,2)'],
-            'argument missing in middle' => [0, '=min(,3,2)'],
+            'argument missing in middle' => [0, '=min(3,,2)'],
             'missing argument is not result' => [-2, '=min(3,-2,)'],
             'max with missing argument' => [0, '=max(-3,-2,)'],
             'maxa with missing argument' => [0, '=maxa(-3,-2,)'],
