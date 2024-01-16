@@ -968,7 +968,7 @@ class Chart extends WriterPart
 
             if ($xAxis->getAxisType() === Axis::AXIS_TYPE_VALUE) {
                 $dispUnits = $xAxis->getAxisOptionsProperty('dispUnitsBuiltIn');
-                $dispUnits = is_numeric($dispUnits) ? (Axis::DISP_UNITS_BUILTIN_INT[(int) $dispUnits] ?? '') : $dispUnits;
+                $dispUnits = ($dispUnits == Axis::TRILLION_INDEX) ? Axis::DISP_UNITS_TRILLIONS : (is_numeric($dispUnits) ? (Axis::DISP_UNITS_BUILTIN_INT[(int) $dispUnits] ?? '') : $dispUnits);
                 if (in_array($dispUnits, Axis::DISP_UNITS_BUILTIN_INT, true)) {
                     $objWriter->startElement('c:dispUnits');
                     $objWriter->startElement('c:builtInUnit');

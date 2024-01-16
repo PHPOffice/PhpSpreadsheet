@@ -16,7 +16,7 @@ class BitXorTest extends TestCase
     /**
      * @dataProvider providerBITXOR
      */
-    public function testDirectCallToBITXOR(int|string $expectedResult, null|bool|int|float|string $arg1, null|bool|int|float|string $arg2): void
+    public function testDirectCallToBITXOR(float|int|string $expectedResult, null|bool|int|float|string $arg1, null|bool|int|float|string $arg2): void
     {
         $result = BitWise::BITXOR($arg1, $arg2);
         self::assertSame($expectedResult, $result);
@@ -25,7 +25,7 @@ class BitXorTest extends TestCase
     /**
      * @dataProvider providerBITXOR
      */
-    public function testBITXORAsFormula(mixed $expectedResult, mixed ...$args): void
+    public function testBITXORAsFormula(float|int|string $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -39,7 +39,7 @@ class BitXorTest extends TestCase
     /**
      * @dataProvider providerBITXOR
      */
-    public function testBITXORInWorksheet(mixed $expectedResult, mixed ...$args): void
+    public function testBITXORInWorksheet(float|int|string $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
