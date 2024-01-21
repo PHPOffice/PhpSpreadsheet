@@ -4997,7 +4997,12 @@ class Calculation
                             }
                         } else {
                             $emptyArguments[] = ($arg['type'] === 'Empty Argument');
-                            $args[] = self::unwrapResult($arg['value']);
+                            if ($arg['type'] === 'Empty Argument' && in_array($functionName, ['MIN', 'MINA', 'MAX', 'MAXA'], true)) {
+                                $args[] = $arg['value'] = 0;
+                                $this->debugLog->writeDebugLog('Empty Argument reevaluated as 0');
+                            } else {
+                                $args[] = self::unwrapResult($arg['value']);
+                            }
                             if ($functionName !== 'MKMATRIX') {
                                 $argArrayVals[] = $this->showValue($arg['value']);
                             }
