@@ -93,6 +93,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Do not include unparsed drawings when new drawing added. [Issue #3861](https://github.com/PHPOffice/PhpSpreadsheet/issues/3861) [PR #3862](https://github.com/PHPOffice/PhpSpreadsheet/pull/3862)
 - Excel omits `between` operator for data validation. [Issue #3863](https://github.com/PHPOffice/PhpSpreadsheet/issues/3863) [PR #3865](https://github.com/PHPOffice/PhpSpreadsheet/pull/3865)
 - Use less space when inserting rows and columns. [Issue #3687](https://github.com/PHPOffice/PhpSpreadsheet/issues/3687) [PR #3856](https://github.com/PHPOffice/PhpSpreadsheet/pull/3856)
+- Excel inconsistent handling of MIN/MAX/MINA/MAXA. [Issue #3866](https://github.com/PHPOffice/PhpSpreadsheet/issues/3866) [PR #3868](https://github.com/PHPOffice/PhpSpreadsheet/pull/3868)
 
 ## 1.29.0 - 2023-06-15
 
