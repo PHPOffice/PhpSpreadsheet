@@ -36,14 +36,19 @@ for ($row = 1; $row <= $testDataCount; ++$row) {
 
 // Test the formulae
 for ($row = 1; $row <= $testDataCount; ++$row) {
-    $helper->log(sprintf(
-        '(E%d): Bitwise OR of %d (%s) and %d (%s) is %d (%s)',
-        $row,
-        $worksheet->getCell('A' . $row)->getValue(),
-        $worksheet->getCell('C' . $row)->getCalculatedValue(),
-        $worksheet->getCell('B' . $row)->getValue(),
-        $worksheet->getCell('D' . $row)->getCalculatedValue(),
-        $worksheet->getCell('E' . $row)->getCalculatedValue(),
-        $worksheet->getCell('F' . $row)->getCalculatedValue(),
-    ));
+    $helper->log(
+        "(E$row): Bitwise OR of "
+        . $worksheet->getCell('A' . $row)->getValue()
+        . ' ('
+        . $worksheet->getCell('C' . $row)->getCalculatedValue()
+        . ') and '
+        . $worksheet->getCell('B' . $row)->getValue()
+        . '('
+        . $worksheet->getCell('D' . $row)->getCalculatedValue()
+        . ') is '
+        . $worksheet->getCell('E' . $row)->getCalculatedValue()
+        . ' ('
+        . $worksheet->getCell('F' . $row)->getCalculatedValue()
+        . ')'
+    );
 }

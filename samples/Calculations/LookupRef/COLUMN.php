@@ -16,8 +16,8 @@ $worksheet->getCell('F1')->setValue('=COLUMN()');
 
 for ($row = 1; $row <= 2; ++$row) {
     $cell = $worksheet->getCell("A{$row}");
-    $helper->log("A{$row}: {$cell->getValue()} => {$cell->getCalculatedValue()}");
+    $helper->log("A{$row}: " . $cell->getValue() . ' => ' . $cell->getCalculatedValue());
 }
 
 $cell = $worksheet->getCell('F1');
-$helper->log("F1: {$cell->getValue()} => {$cell->getCalculatedValue()}");
+$helper->log('F1: ' . $cell->getValue() . ' => ' . $cell->getCalculatedValue());

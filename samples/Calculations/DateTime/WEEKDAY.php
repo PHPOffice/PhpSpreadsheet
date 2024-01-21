@@ -47,12 +47,14 @@ $worksheet->getStyle('E1:E' . $testDateCount)
 // Test the formulae
 for ($row = 1; $row <= $testDateCount; ++$row) {
     $helper->log(sprintf('(E%d): %s', $row, $worksheet->getCell('E' . $row)->getFormattedValue()));
-    $helper->log(sprintf(
-        'Weekday is: %d (1-7 = Sun-Sat)',
-        $worksheet->getCell('F' . $row)->getCalculatedValue()
-    ));
-    $helper->log(sprintf(
-        'Weekday is: %d (1-7 = Mon-Sun)',
-        $worksheet->getCell('G' . $row)->getCalculatedValue()
-    ));
+    $helper->log(
+        'Weekday is: '
+        . $worksheet->getCell('F' . $row)->getCalculatedValue()
+        . ' (1-7 = Sun-Sat)'
+    );
+    $helper->log(
+        'Weekday is: '
+        . $worksheet->getCell('G' . $row)->getCalculatedValue()
+        . ' (1-7 = Mon-Sun)'
+    );
 }

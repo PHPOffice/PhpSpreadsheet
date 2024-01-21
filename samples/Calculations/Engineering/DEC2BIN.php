@@ -38,10 +38,9 @@ for ($row = 1; $row <= $testDataCount; ++$row) {
 
 // Test the formulae
 for ($row = 1; $row <= $testDataCount; ++$row) {
-    $helper->log(sprintf(
-        '(B%d): Decimal %s is binary %s',
-        $row,
-        $worksheet->getCell('A' . $row)->getValue(),
-        $worksheet->getCell('B' . $row)->getCalculatedValue(),
-    ));
+    $helper->log(
+        "(B$row): "
+        . 'Decimal ' . $worksheet->getCell("A$row")->getValue()
+        . ' is binary ' . $worksheet->getCell("B$row")->getCalculatedValue()
+    );
 }

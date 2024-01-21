@@ -18,12 +18,9 @@ $worksheet = $spreadsheet->getActiveSheet();
 for ($n = 0; $n <= 5; ++$n) {
     for ($x = 0; $x <= 5; $x = $x + 0.25) {
         Calculation::getInstance($spreadsheet)->flushInstance();
-        $worksheet->setCellValue('A1', "=BESSELI({$x}, {$n})");
+        $formula = "BESSELI({$x}, {$n})";
+        $worksheet->setCellValue('A1', "=$formula");
 
-        $helper->log(sprintf(
-            '%s = %f',
-            $worksheet->getCell('A1')->getValue(),
-            $worksheet->getCell('A1')->getCalculatedValue()
-        ));
+        $helper->log("$formula = " . $worksheet->getCell('A1')->getCalculatedValue());
     }
 }

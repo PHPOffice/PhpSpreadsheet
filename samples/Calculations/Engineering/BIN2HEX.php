@@ -37,10 +37,9 @@ for ($row = 1; $row <= $testDataCount; ++$row) {
 
 // Test the formulae
 for ($row = 1; $row <= $testDataCount; ++$row) {
-    $helper->log(sprintf(
-        '(B%d): Binary %s is hexadecimal %s',
-        $row,
-        $worksheet->getCell('A' . $row)->getValue(),
-        $worksheet->getCell('B' . $row)->getCalculatedValue(),
-    ));
+    $helper->log(
+        "(B$row): "
+        . 'Binary ' . $worksheet->getCell("A$row")->getValue()
+        . ' is hexadecimal ' . $worksheet->getCell("B$row")->getCalculatedValue()
+    );
 }

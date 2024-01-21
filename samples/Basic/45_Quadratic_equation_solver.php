@@ -59,8 +59,12 @@ if (isset($_POST['submit'])) {
         $r1Formula = '=IMDIV(IMSUM(-' . $_POST['B'] . ',IMSQRT(' . $discriminant . ')),2 * ' . $_POST['A'] . ')';
         $r2Formula = '=IF(' . $discriminant . '=0,"Only one root",IMDIV(IMSUB(-' . $_POST['B'] . ',IMSQRT(' . $discriminant . ')),2 * ' . $_POST['A'] . '))';
 
-        $helper->log(Calculation::getInstance()->calculateFormula($r1Formula));
-        $helper->log(Calculation::getInstance()->calculateFormula($r2Formula));
+        /** @var string */
+        $output = Calculation::getInstance()->calculateFormula($r1Formula);
+        $helper->log("$output");
+        /** @var string */
+        $output = Calculation::getInstance()->calculateFormula($r2Formula);
+        $helper->log("$output");
         $callEndTime = microtime(true);
         $helper->logEndingNotes();
     }

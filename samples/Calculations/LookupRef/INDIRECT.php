@@ -29,5 +29,5 @@ $worksheet->getCell('A5')->setValue('=INDIRECT(NAMED_RANGE_FOR_CELL_D4)');
 
 for ($row = 1; $row <= 5; ++$row) {
     $cell = $worksheet->getCell("A{$row}");
-    $helper->log("A{$row}: {$cell->getValue()} => {$cell->getCalculatedValue()}");
+    $helper->log("A{$row}: " . $cell->getValue() . ' => ' . $cell->getCalculatedValue());
 }

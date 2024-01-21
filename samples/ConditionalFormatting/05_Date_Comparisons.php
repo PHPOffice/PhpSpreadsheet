@@ -122,7 +122,9 @@ for ($column = 'B'; $column !== 'L'; ++$column) {
     $dateWizard = $wizardFactory->newRule(Wizard::DATES_OCCURRING);
     $conditionalStyles = [];
 
-    $methodName = trim($spreadsheet->getActiveSheet()->getCell("{$column}1")->getValue(), '()');
+    /** @var string */
+    $cellContents = $spreadsheet->getActiveSheet()->getCell("{$column}1")->getValue();
+    $methodName = trim($cellContents, '()');
     $dateWizard->$methodName()
         ->setStyle($yellowStyle);
 

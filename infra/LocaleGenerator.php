@@ -86,7 +86,13 @@ class LocaleGenerator
     protected function buildConfigFileForLocale(string $column, string $locale): void
     {
         $language = $this->localeTranslations->getCell($column . self::ENGLISH_LANGUAGE_NAME_ROW)->getValue();
+        if (!is_string($language)) {
+            throw new Exception('Non-string language value at ' . $column . self::ENGLISH_LANGUAGE_NAME_ROW);
+        }
         $localeLanguage = $this->localeTranslations->getCell($column . self::LOCALE_LANGUAGE_NAME_ROW)->getValue();
+        if (!is_string($localeLanguage)) {
+            throw new Exception('Non-string locale language value at ' . $column . self::LOCALE_LANGUAGE_NAME_ROW);
+        }
         $configFile = $this->openConfigFile($locale, $language, $localeLanguage);
 
         $this->writeConfigArgumentSeparator($configFile, $column);
@@ -96,6 +102,9 @@ class LocaleGenerator
         foreach ($this->errorCodeMap as $errorCode => $row) {
             $translationCell = $this->localeTranslations->getCell($column . $row);
             $translationValue = $translationCell->getValue();
+            if ($translationValue !== null && !is_string($translationValue)) {
+                throw new Exception('Non-string translation value at ' . $column . $row);
+            }
             if (!empty($translationValue)) {
                 $errorCodeTranslation = "{$errorCode} = {$translationValue}" . self::EOL;
                 fwrite($configFile, $errorCodeTranslation);
@@ -114,6 +123,9 @@ class LocaleGenerator
     {
         $translationCell = $this->localeTranslations->getCell($column . self::ARGUMENT_SEPARATOR_ROW);
         $localeValue = $translationCell->getValue();
+        if ($localeValue !== null && !is_string($localeValue)) {
+            throw new Exception('Non-string locale value at ' . $column . self::CURRENCY_SYMBOL_ROW);
+        }
         if (!empty($localeValue)) {
             $functionTranslation = "ArgumentSeparator = {$localeValue}" . self::EOL;
             fwrite($configFile, $functionTranslation);
@@ -127,6 +139,9 @@ class LocaleGenerator
     {
         $translationCell = $this->localeTranslations->getCell($column . self::CURRENCY_SYMBOL_ROW);
         $localeValue = $translationCell->getValue();
+        if ($localeValue !== null && !is_string($localeValue)) {
+            throw new Exception('Non-string locale value at ' . $column . self::CURRENCY_SYMBOL_ROW);
+        }
         if (!empty($localeValue)) {
             $functionTranslation = "currencySymbol = {$localeValue}" . self::EOL;
             fwrite($configFile, '##' . self::EOL);
@@ -141,13 +156,22 @@ class LocaleGenerator
     protected function buildFunctionsFileForLocale(string $column, string $locale): void
     {
         $language = $this->functionNameTranslations->getCell($column . self::ENGLISH_LANGUAGE_NAME_ROW)->getValue();
+        if (!is_string($language)) {
+            throw new Exception('Non-string language value at ' . $column . self::ENGLISH_LANGUAGE_NAME_ROW);
+        }
         $localeLanguage = $this->functionNameTranslations->getCell($column . self::LOCALE_LANGUAGE_NAME_ROW)
             ->getValue();
+        if (!is_string($localeLanguage)) {
+            throw new Exception('Non-string locale language value at ' . $column . self::LOCALE_LANGUAGE_NAME_ROW);
+        }
         $functionFile = $this->openFunctionNameFile($locale, $language, $localeLanguage);
 
         foreach ($this->functionNameMap as $functionName => $row) {
             $translationCell = $this->functionNameTranslations->getCell($column . $row);
             $translationValue = $translationCell->getValue();
+            if ($translationValue !== null && !is_string($translationValue)) {
+                throw new Exception('Non-string translation value at ' . $column . $row);
+            }
             if ($this->isFunctionCategoryEntry($translationCell)) {
                 $this->writeFileSectionHeader($functionFile, "{$translationValue} ({$functionName})");
             } elseif (!array_key_exists($functionName, $this->phpSpreadsheetFunctions) && substr($functionName, 0, 1) !== '*') {

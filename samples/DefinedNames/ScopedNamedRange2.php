@@ -76,12 +76,18 @@ $worksheet
     ->setCellValue('B1', 4.5);
 
 foreach ($spreadsheet->getAllSheets() as $worksheet) {
+    /** @var float */
+    $calc1 = $worksheet->getCell("B{$row}")->getCalculatedValue();
+    /** @var float */
+    $value = $worksheet->getCell('B1')->getValue();
+    /** @var float */
+    $calc2 = $worksheet->getCell("C{$row}")->getCalculatedValue();
     $helper->log(sprintf(
         'Worked %.2f hours for "%s" at a rate of %.2f - Charge to the client is %.2f',
-        $worksheet->getCell("B{$row}")->getCalculatedValue(),
+        $calc1,
         $worksheet->getTitle(),
-        $worksheet->getCell('B1')->getValue(),
-        $worksheet->getCell("C{$row}")->getCalculatedValue()
+        $value,
+        $calc2
     ));
 }
 $worksheet = $spreadsheet->setActiveSheetIndex(0);
