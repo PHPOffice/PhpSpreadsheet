@@ -43,6 +43,6 @@ $worksheet->getCell('J5')->setValue('=VLOOKUP(J3, B3:E9, 4, FALSE)');
 for ($column = 'H'; $column !== 'K'; ++$column) {
     for ($row = 4; $row <= 5; ++$row) {
         $cell = $worksheet->getCell("{$column}{$row}");
-        $helper->log("{$column}{$row}: {$cell->getValue()} => {$cell->getCalculatedValue()}");
+        $helper->log("{$column}{$row}: " . $cell->getValue() . ' => ' . $cell->getCalculatedValue());
     }
 }

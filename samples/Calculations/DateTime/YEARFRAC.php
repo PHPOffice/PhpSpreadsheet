@@ -53,24 +53,29 @@ for ($row = 1; $row <= $testDateCount; ++$row) {
         $worksheet->getCell('E' . $row)->getFormattedValue(),
         $worksheet->getCell('F' . $row)->getFormattedValue()
     ));
-    $helper->log(sprintf(
-        'Days: %f - US (NASD) 30/360',
-        $worksheet->getCell('G' . $row)->getCalculatedValue()
-    ));
-    $helper->log(sprintf(
-        'Days: %f - Actual',
-        $worksheet->getCell('H' . $row)->getCalculatedValue()
-    ));
-    $helper->log(sprintf(
-        'Days: %f - Actual/360',
-        $worksheet->getCell('I' . $row)->getCalculatedValue()
-    ));
-    $helper->log(sprintf(
-        'Days: %f - Actual/365',
-        $worksheet->getCell('J' . $row)->getCalculatedValue()
-    ));
-    $helper->log(sprintf(
-        'Days: %f - European 30/360',
-        $worksheet->getCell('K' . $row)->getCalculatedValue()
-    ));
+    $helper->log(
+        'Days: '
+        . $worksheet->getCell('G' . $row)->getCalculatedValue()
+        . ' - US (NASD) 30/360'
+    );
+    $helper->log(
+        'Days: '
+        . $worksheet->getCell('H' . $row)->getCalculatedValue()
+        . ' - Actual'
+    );
+    $helper->log(
+        'Days: '
+        . $worksheet->getCell('I' . $row)->getCalculatedValue()
+        . ' - Actual/360'
+    );
+    $helper->log(
+        'Days: '
+        . $worksheet->getCell('J' . $row)->getCalculatedValue()
+        . ' - Actual/365'
+    );
+    $helper->log(
+        'Days: '
+        . $worksheet->getCell('K' . $row)->getCalculatedValue()
+        . ' - European 30/360'
+    );
 }

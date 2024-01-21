@@ -49,9 +49,11 @@ for ($row = 1; $row <= $testDateCount; ++$row) {
         $worksheet->getCell('E' . $row)->getFormattedValue(),
         $worksheet->getCell('F' . $row)->getFormattedValue()
     ));
-    $helper->log(sprintf(
-        'Days: %d (US) %d (European)',
-        $worksheet->getCell('G' . $row)->getCalculatedValue(),
-        $worksheet->getCell('H' . $row)->getCalculatedValue()
-    ));
+    $helper->log(
+        'Days: '
+        . $worksheet->getCell('G' . $row)->getCalculatedValue()
+        . ' (US) '
+        . $worksheet->getCell('H' . $row)->getCalculatedValue()
+        . ' (European)'
+    );
 }

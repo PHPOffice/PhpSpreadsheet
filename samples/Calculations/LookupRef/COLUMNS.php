@@ -17,5 +17,5 @@ $worksheet->getCell('A4')->setValue('=COLUMNS(1:1)');
 
 for ($row = 1; $row <= 4; ++$row) {
     $cell = $worksheet->getCell("A{$row}");
-    $helper->log("A{$row}: {$cell->getValue()} => {$cell->getCalculatedValue()}");
+    $helper->log("A{$row}: " . $cell->getValue() . ' => ' . $cell->getCalculatedValue());
 }

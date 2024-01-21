@@ -56,11 +56,15 @@ $holidayData = $worksheet->rangeToArray('J1:K' . $holidayCount, null, true, true
 $helper->displayGrid($holidayData);
 
 for ($row = 1; $row <= 12; ++$row) {
-    $helper->log(sprintf(
-        'Between %s and %s is %d working days; %d with public holidays',
-        $worksheet->getCell('A1')->getFormattedValue(),
-        $worksheet->getCell('B' . $row)->getFormattedValue(),
-        $worksheet->getCell('C' . $row)->getCalculatedValue(),
-        $worksheet->getCell('D' . $row)->getCalculatedValue()
-    ));
+    $helper->log(
+        'Between '
+        . $worksheet->getCell('A1')->getFormattedValue()
+        . ' and '
+        . $worksheet->getCell('B' . $row)->getFormattedValue()
+        . ' is '
+        . $worksheet->getCell('C' . $row)->getCalculatedValue()
+        . ' working days; '
+        . $worksheet->getCell('D' . $row)->getCalculatedValue()
+        . ' excluding public holidays'
+    );
 }

@@ -39,10 +39,10 @@ for ($row = 1; $row <= $testDataCount; ++$row) {
 
 // Test the formulae
 for ($row = 1; $row <= $testDataCount; ++$row) {
-    $helper->log(sprintf(
-        '(E%d): The real component of %s is %f radians',
-        $row,
-        $worksheet->getCell('A' . $row)->getValue(),
-        $worksheet->getCell('B' . $row)->getCalculatedValue(),
-    ));
+    $helper->log(
+        "(E$row): The real component of "
+        . $worksheet->getCell('A' . $row)->getValue()
+        . ' is '
+        . $worksheet->getCell('B' . $row)->getCalculatedValue()
+    );
 }

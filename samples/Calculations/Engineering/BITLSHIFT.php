@@ -38,28 +38,37 @@ for ($row = 1; $row <= $testDataCount; ++$row) {
 
 // Test the formulae
 for ($row = 1; $row <= $testDataCount; ++$row) {
-    $helper->log(sprintf(
-        '(E%d): Bitwise Left Shift of %d (%s) by 1 bit is %d (%s)',
-        $row,
-        $worksheet->getCell('A' . $row)->getValue(),
-        $worksheet->getCell('B' . $row)->getCalculatedValue(),
-        $worksheet->getCell('C' . $row)->getCalculatedValue(),
-        $worksheet->getCell('D' . $row)->getCalculatedValue(),
-    ));
-    $helper->log(sprintf(
-        '(E%d): Bitwise Left Shift of %d (%s) by 2 bits is %d (%s)',
-        $row,
-        $worksheet->getCell('A' . $row)->getValue(),
-        $worksheet->getCell('B' . $row)->getCalculatedValue(),
-        $worksheet->getCell('E' . $row)->getCalculatedValue(),
-        $worksheet->getCell('F' . $row)->getCalculatedValue(),
-    ));
-    $helper->log(sprintf(
-        '(E%d): Bitwise Left Shift of %d (%s) by 3 bits is %d (%s)',
-        $row,
-        $worksheet->getCell('A' . $row)->getValue(),
-        $worksheet->getCell('B' . $row)->getCalculatedValue(),
-        $worksheet->getCell('G' . $row)->getCalculatedValue(),
-        $worksheet->getCell('H' . $row)->getCalculatedValue(),
-    ));
+    $helper->log(
+        "(E$row): Bitwise Left Shift of "
+        . $worksheet->getCell('A' . $row)->getValue()
+        . ' ('
+        . $worksheet->getCell('B' . $row)->getCalculatedValue()
+        . ') by 1 bit is '
+        . $worksheet->getCell('C' . $row)->getCalculatedValue()
+        . ' ('
+        . $worksheet->getCell('D' . $row)->getCalculatedValue()
+        . ')'
+    );
+    $helper->log(
+        "(E$row): Bitwise Left Shift of "
+        . $worksheet->getCell('A' . $row)->getValue()
+        . ' ('
+        . $worksheet->getCell('B' . $row)->getCalculatedValue()
+        . ') by 2 bits is '
+        . $worksheet->getCell('E' . $row)->getCalculatedValue()
+        . ' ('
+        . $worksheet->getCell('F' . $row)->getCalculatedValue()
+        . ')'
+    );
+    $helper->log(
+        "(E$row): Bitwise Left Shift of "
+        . $worksheet->getCell('A' . $row)->getValue()
+        . ' ('
+        . $worksheet->getCell('B' . $row)->getCalculatedValue()
+        . ') by 3 bits is '
+        . $worksheet->getCell('G' . $row)->getCalculatedValue()
+        . ' ('
+        . $worksheet->getCell('H' . $row)->getCalculatedValue()
+        . ')'
+    );
 }

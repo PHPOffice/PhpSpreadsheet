@@ -45,23 +45,26 @@ for ($row = $testDataCount1 + 1; $row <= $testDataCount2 + $testDataCount1; ++$r
 // Test the formulae
 $helper->log('ERF() With a single argument');
 for ($row = 1; $row <= $testDataCount1; ++$row) {
-    $helper->log(sprintf(
-        '(C%d): %s The error function integrated between 0 and %f is %f',
-        $row,
-        $worksheet->getCell('C' . $row)->getValue(),
-        $worksheet->getCell('A' . $row)->getValue(),
-        $worksheet->getCell('C' . $row)->getCalculatedValue(),
-    ));
+    $helper->log(
+        "(C$row): "
+        . $worksheet->getCell('C' . $row)->getValue()
+        . ' The error function integrated between 0 and '
+        . $worksheet->getCell('A' . $row)->getValue()
+        . ' is '
+        . $worksheet->getCell('C' . $row)->getCalculatedValue()
+    );
 }
 
 $helper->log('ERF() With two arguments');
 for ($row = $testDataCount1 + 1; $row <= $testDataCount2 + $testDataCount1; ++$row) {
-    $helper->log(sprintf(
-        '(C%d): %s The error function integrated between %f and %f is %f',
-        $row,
-        $worksheet->getCell('C' . $row)->getValue(),
-        $worksheet->getCell('A' . $row)->getValue(),
-        $worksheet->getCell('B' . $row)->getValue(),
-        $worksheet->getCell('C' . $row)->getCalculatedValue(),
-    ));
+    $helper->log(
+        "(C$row): "
+        . $worksheet->getCell('C' . $row)->getValue()
+        . ' The error function integrated between '
+        . $worksheet->getCell('A' . $row)->getValue()
+        . ' and '
+        . $worksheet->getCell('B' . $row)->getValue()
+        . ' is '
+        . $worksheet->getCell('C' . $row)->getCalculatedValue()
+    );
 }
