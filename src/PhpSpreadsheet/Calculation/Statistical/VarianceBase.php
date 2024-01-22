@@ -6,7 +6,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 abstract class VarianceBase
 {
-    protected static function datatypeAdjustmentAllowStrings(mixed $value): mixed
+    protected static function datatypeAdjustmentAllowStrings(int|float|string|bool $value): int|float
     {
         if (is_bool($value)) {
             return (int) $value;

@@ -277,7 +277,7 @@ class Functions
      *
      * @param mixed $value Array or scalar value
      */
-    public static function flattenSingleValue(mixed $value = ''): mixed
+    public static function flattenSingleValue(mixed $value): mixed
     {
         while (is_array($value)) {
             $value = array_shift($value);

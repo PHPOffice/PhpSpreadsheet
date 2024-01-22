@@ -16,7 +16,7 @@ class DefaultValueBinder implements IValueBinder
      * @param Cell $cell Cell to bind value to
      * @param mixed $value Value to bind in cell
      */
-    public function bindValue(Cell $cell, $value): bool
+    public function bindValue(Cell $cell, mixed $value): bool
     {
         // sanitize UTF-8 strings
         if (is_string($value)) {

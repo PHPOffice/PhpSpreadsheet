@@ -50,15 +50,13 @@ class Escher
 
     /**
      * The object to be returned by the reader. Modified during load.
-     *
-     * @var BSE|BstoreContainer|DgContainer|DggContainer|\PhpOffice\PhpSpreadsheet\Shared\Escher|SpContainer|SpgrContainer
      */
-    private $object;
+    private BSE|BstoreContainer|DgContainer|DggContainer|\PhpOffice\PhpSpreadsheet\Shared\Escher|SpContainer|SpgrContainer $object;
 
     /**
      * Create a new Escher instance.
      */
-    public function __construct(mixed $object)
+    public function __construct(BSE|BstoreContainer|DgContainer|DggContainer|\PhpOffice\PhpSpreadsheet\Shared\Escher|SpContainer|SpgrContainer $object)
     {
         $this->object = $object;
     }

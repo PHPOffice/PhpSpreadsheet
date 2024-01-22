@@ -195,7 +195,7 @@ class Date
      *
      * @return DateTime PHP date/time object
      */
-    public static function excelToDateTimeObject($excelTimestamp, $timeZone = null): DateTime
+    public static function excelToDateTimeObject(float|int $excelTimestamp, null|DateTimeZone|string $timeZone = null): DateTime
     {
         $timeZone = ($timeZone === null) ? self::getDefaultTimezone() : self::validateTimeZone($timeZone);
         if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_EXCEL) {

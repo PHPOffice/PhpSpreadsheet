@@ -22,8 +22,9 @@ Calculation::getInstance($spreadsheet)->cyclicFormulaCount = 15;
 $helper->log('Calculated data');
 for ($row = 1; $row <= 2; ++$row) {
     for ($col = 'A'; $col != 'C'; ++$col) {
+        $formula = $spreadsheet->getActiveSheet()->getCell($col . $row)->getValue();
         if (
-            (($formula = $spreadsheet->getActiveSheet()->getCell($col . $row)->getValue()) !== null)
+            is_string($formula)
                 && ($formula[0] == '=')
         ) {
             $helper->log('Value of ' . $col . $row . ' [' . $formula . ']: ' . $spreadsheet->getActiveSheet()->getCell($col . $row)->getCalculatedValue());

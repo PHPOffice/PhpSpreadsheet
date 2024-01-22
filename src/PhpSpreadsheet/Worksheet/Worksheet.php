@@ -1103,14 +1103,14 @@ class Worksheet implements IComparable
     /**
      * Set a cell value.
      *
-     * @param array<int>|CellAddress|string $coordinate Coordinate of the cell as a string, eg: 'C5';
+     * @param array{0: int, 1: int}|CellAddress|string $coordinate Coordinate of the cell as a string, eg: 'C5';
      *               or as an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress object.
      * @param mixed $value Value for the cell
      * @param null|IValueBinder $binder Value Binder to override the currently set Value Binder
      *
      * @return $this
      */
-    public function setCellValue($coordinate, mixed $value, ?IValueBinder $binder = null): static
+    public function setCellValue(CellAddress|string|array $coordinate, mixed $value, ?IValueBinder $binder = null): static
     {
         $cellAddress = Functions::trimSheetFromCellReference(Validations::validateCellAddress($coordinate));
         $this->getCell($cellAddress)->setValue($value, $binder);
@@ -1121,7 +1121,7 @@ class Worksheet implements IComparable
     /**
      * Set a cell value.
      *
-     * @param array<int>|CellAddress|string $coordinate Coordinate of the cell as a string, eg: 'C5';
+     * @param array{0: int, 1: int}|CellAddress|string $coordinate Coordinate of the cell as a string, eg: 'C5';
      *               or as an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress object.
      * @param mixed $value Value of the cell
      * @param string $dataType Explicit data type, see DataType::TYPE_*
@@ -1135,7 +1135,7 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function setCellValueExplicit($coordinate, mixed $value, string $dataType): static
+    public function setCellValueExplicit(CellAddress|string|array $coordinate, mixed $value, string $dataType): static
     {
         $cellAddress = Functions::trimSheetFromCellReference(Validations::validateCellAddress($coordinate));
         $this->getCell($cellAddress)->setValueExplicit($value, $dataType);
@@ -1146,7 +1146,7 @@ class Worksheet implements IComparable
     /**
      * Get cell at a specific coordinate.
      *
-     * @param array<int>|CellAddress|string $coordinate Coordinate of the cell as a string, eg: 'C5';
+     * @param array{0: int, 1: int}|CellAddress|string $coordinate Coordinate of the cell as a string, eg: 'C5';
      *               or as an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress object.
      *
      * @return Cell Cell that was found or created
@@ -1156,7 +1156,7 @@ class Worksheet implements IComparable
      *              the "active" cell, and any previous assignment becomes a disconnected reference because
      *              the active cell has changed.
      */
-    public function getCell($coordinate): Cell
+    public function getCell(CellAddress|string|array $coordinate): Cell
     {
         $cellAddress = Functions::trimSheetFromCellReference(Validations::validateCellAddress($coordinate));
 
@@ -1299,10 +1299,10 @@ class Worksheet implements IComparable
     /**
      * Does the cell at a specific coordinate exist?
      *
-     * @param array<int>|CellAddress|string $coordinate Coordinate of the cell as a string, eg: 'C5';
+     * @param array{0: int, 1: int}|CellAddress|string $coordinate Coordinate of the cell as a string, eg: 'C5';
      *               or as an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress object.
      */
-    public function cellExists($coordinate): bool
+    public function cellExists(CellAddress|string|array $coordinate): bool
     {
         $cellAddress = Validations::validateCellAddress($coordinate);
         [$sheet, $finalCoordinate] = $this->getWorksheetAndCoordinate($cellAddress);
@@ -1388,7 +1388,7 @@ class Worksheet implements IComparable
      *              or passing in an array of [$fromColumnIndex, $fromRow, $toColumnIndex, $toRow] (e.g. [3, 5, 6, 8]),
      *              or a CellAddress or AddressRange object.
      */
-    public function getStyle($cellCoordinate): Style
+    public function getStyle(AddressRange|CellAddress|int|string|array $cellCoordinate): Style
     {
         $cellCoordinate = Validations::validateCellOrCellRange($cellCoordinate);
 
@@ -1589,13 +1589,13 @@ class Worksheet implements IComparable
     /**
      * Set break on a cell.
      *
-     * @param array<int>|CellAddress|string $coordinate Coordinate of the cell as a string, eg: 'C5';
+     * @param array{0: int, 1: int}|CellAddress|string $coordinate Coordinate of the cell as a string, eg: 'C5';
      *               or as an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress object.
      * @param int $break Break type (type of Worksheet::BREAK_*)
      *
      * @return $this
      */
-    public function setBreak($coordinate, int $break, int $max = -1): static
+    public function setBreak(CellAddress|string|array $coordinate, int $break, int $max = -1): static
     {
         $cellAddress = Functions::trimSheetFromCellReference(Validations::validateCellAddress($coordinate));
 
@@ -1692,7 +1692,7 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function mergeCells($range, string $behaviour = self::MERGE_CELL_CONTENT_EMPTY): static
+    public function mergeCells(AddressRange|string|array $range, string $behaviour = self::MERGE_CELL_CONTENT_EMPTY): static
     {
         $range = Functions::trimSheetFromCellReference(Validations::validateCellRange($range));
 
@@ -1812,7 +1812,7 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function unmergeCells($range): static
+    public function unmergeCells(AddressRange|string|array $range): static
     {
         $range = Functions::trimSheetFromCellReference(Validations::validateCellRange($range));
 
@@ -1865,7 +1865,7 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function protectCells($range, string $password, bool $alreadyHashed = false): static
+    public function protectCells(AddressRange|CellAddress|int|string|array $range, string $password, bool $alreadyHashed = false): static
     {
         $range = Functions::trimSheetFromCellReference(Validations::validateCellOrCellRange($range));
 
@@ -1886,7 +1886,7 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function unprotectCells($range): static
+    public function unprotectCells(AddressRange|CellAddress|int|string|array $range): static
     {
         $range = Functions::trimSheetFromCellReference(Validations::validateCellOrCellRange($range));
 
@@ -1927,7 +1927,7 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function setAutoFilter($autoFilterOrRange): static
+    public function setAutoFilter(AddressRange|string|array|AutoFilter $autoFilterOrRange): static
     {
         if (is_object($autoFilterOrRange) && ($autoFilterOrRange instanceof AutoFilter)) {
             $this->autoFilter = $autoFilterOrRange;
@@ -2063,16 +2063,16 @@ class Worksheet implements IComparable
      *     - B1 will freeze the columns to the left of cell B1 (i.e column A)
      *     - B2 will freeze the rows above and to the left of cell B2 (i.e row 1 and column A)
      *
-     * @param null|array<int>|CellAddress|string $coordinate Coordinate of the cell as a string, eg: 'C5';
+     * @param null|array{0: int, 1: int}|CellAddress|string $coordinate Coordinate of the cell as a string, eg: 'C5';
      *            or as an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress object.
      *        Passing a null value for this argument will clear any existing freeze pane for this worksheet.
-     * @param null|array<int>|CellAddress|string $topLeftCell default position of the right bottom pane
+     * @param null|array{0: int, 1: int}|CellAddress|string $topLeftCell default position of the right bottom pane
      *            Coordinate of the cell as a string, eg: 'C5'; or as an array of [$columnIndex, $row] (e.g. [3, 5]),
      *            or a CellAddress object.
      *
      * @return $this
      */
-    public function freezePane($coordinate, $topLeftCell = null, bool $frozenSplit = false): static
+    public function freezePane(null|CellAddress|string|array $coordinate, null|CellAddress|string|array $topLeftCell = null, bool $frozenSplit = false): static
     {
         $this->panes = [
             'bottomRight' => null,
@@ -2577,12 +2577,12 @@ class Worksheet implements IComparable
     /**
      * Remove comment from cell.
      *
-     * @param array<int>|CellAddress|string $cellCoordinate Coordinate of the cell as a string, eg: 'C5';
+     * @param array{0: int, 1: int}|CellAddress|string $cellCoordinate Coordinate of the cell as a string, eg: 'C5';
      *               or as an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress object.
      *
      * @return $this
      */
-    public function removeComment($cellCoordinate): self
+    public function removeComment(CellAddress|string|array $cellCoordinate): self
     {
         $cellAddress = Functions::trimSheetFromCellReference(Validations::validateCellAddress($cellCoordinate));
 
@@ -2604,10 +2604,10 @@ class Worksheet implements IComparable
     /**
      * Get comment for cell.
      *
-     * @param array<int>|CellAddress|string $cellCoordinate Coordinate of the cell as a string, eg: 'C5';
+     * @param array{0: int, 1: int}|CellAddress|string $cellCoordinate Coordinate of the cell as a string, eg: 'C5';
      *               or as an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress object.
      */
-    public function getComment($cellCoordinate): Comment
+    public function getComment(CellAddress|string|array $cellCoordinate): Comment
     {
         $cellAddress = Functions::trimSheetFromCellReference(Validations::validateCellAddress($cellCoordinate));
 
@@ -2670,7 +2670,7 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function setSelectedCells($coordinate): static
+    public function setSelectedCells(AddressRange|CellAddress|int|string|array $coordinate): static
     {
         if (is_string($coordinate)) {
             $coordinate = Validations::definedNameToCoordinate($coordinate, $this);
@@ -3586,5 +3586,31 @@ class Worksheet implements IComparable
         }
 
         return $this;
+    }
+
+    /**
+     * Copy cells, adjusting relative cell references in formulas.
+     * Acts similarly to Excel "fill handle" feature.
+     *
+     * @param string $fromCell Single source cell, e.g. C3
+     * @param string $toCells Single cell or cell range, e.g. C4 or C4:C10
+     * @param bool $copyStyle Copy styles as well as values, defaults to true
+     */
+    public function copyCells(string $fromCell, string $toCells, bool $copyStyle = true): void
+    {
+        $toArray = Coordinate::extractAllCellReferencesInRange($toCells);
+        $value = $this->getCell($fromCell)->getValue();
+        $style = $this->getStyle($fromCell)->exportArray();
+        $fromIndexes = Coordinate::indexesFromString($fromCell);
+        $referenceHelper = ReferenceHelper::getInstance();
+        foreach ($toArray as $destination) {
+            if ($destination !== $fromCell) {
+                $toIndexes = Coordinate::indexesFromString($destination);
+                $this->getCell($destination)->setValue($referenceHelper->updateFormulaReferences($value, 'A1', $toIndexes[0] - $fromIndexes[0], $toIndexes[1] - $fromIndexes[1]));
+                if ($copyStyle) {
+                    $this->getCell($destination)->getStyle()->applyFromArray($style);
+                }
+            }
+        }
     }
 }

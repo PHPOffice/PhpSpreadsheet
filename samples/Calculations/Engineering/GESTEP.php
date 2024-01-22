@@ -38,16 +38,22 @@ $comparison = [
 
 // Test the formulae
 for ($row = 1; $row <= $testDataCount; ++$row) {
+    /** @var int */
+    $aValue = $worksheet->getCell('A' . $row)->getValue();
+    /** @var int */
+    $bValue = $worksheet->getCell('B' . $row)->getValue();
+    /** @var int */
+    $cValue = $worksheet->getCell('C' . $row)->getCalculatedValue();
     $helper->log(sprintf(
         '(E%d): Compare value %d and step %d - Result is %d - %s',
         $row,
-        $worksheet->getCell('A' . $row)->getValue(),
-        $worksheet->getCell('B' . $row)->getValue(),
-        $worksheet->getCell('C' . $row)->getCalculatedValue(),
+        $aValue,
+        $bValue,
+        $cValue,
         sprintf(
-            $comparison[$worksheet->getCell('C' . $row)->getCalculatedValue()],
-            $worksheet->getCell('A' . $row)->getValue(),
-            $worksheet->getCell('B' . $row)->getValue(),
+            $comparison[$cValue],
+            $aValue,
+            $bValue,
         )
     ));
 }

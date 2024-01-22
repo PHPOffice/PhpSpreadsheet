@@ -415,6 +415,7 @@ At present, the following locale settings are supported:
 
 Language             |                      | Locale Code
 ---------------------|----------------------|-------------
+Bulgarian            | български            | bg
 Czech                | Ceština              | cs
 Danish               | Dansk                | da
 German               | Deutsch              | de

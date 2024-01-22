@@ -73,12 +73,12 @@ class Month
      *                                        a negative value yields a past date.
      *                         Or can be an array of adjustment values
      *
-     * @return array|mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
+     * @return array|DateTime|float|int|string Excel date/time serial value, PHP date/time serial value or PHP date/time object,
      *                        depending on the value of the ReturnDateType flag
      *         If an array of values is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function lastDay(mixed $dateValue, array|float|int|bool|string $adjustmentMonths): mixed
+    public static function lastDay(mixed $dateValue, array|float|int|bool|string $adjustmentMonths): array|string|DateTime|float|int
     {
         if (is_array($dateValue) || is_array($adjustmentMonths)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $dateValue, $adjustmentMonths);

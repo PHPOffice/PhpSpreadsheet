@@ -35,12 +35,14 @@ $comparison = [
 
 // Test the formulae
 for ($row = 1; $row <= $testDataCount; ++$row) {
-    $helper->log(sprintf(
-        '(E%d): Compare values %d and %d - Result is %d - %s',
-        $row,
-        $worksheet->getCell('A' . $row)->getValue(),
-        $worksheet->getCell('B' . $row)->getValue(),
-        $worksheet->getCell('C' . $row)->getCalculatedValue(),
-        $comparison[$worksheet->getCell('C' . $row)->getCalculatedValue()]
-    ));
+    $helper->log(
+        "(E$row): Compare values "
+        . $worksheet->getCell('A' . $row)->getValue()
+        . ' and '
+        . $worksheet->getCell('B' . $row)->getValue()
+        . ' - Result is '
+        . $worksheet->getCell('C' . $row)->getCalculatedValue()
+        . ' - '
+        . $comparison[$worksheet->getCell('C' . $row)->getCalculatedValue()]
+    );
 }

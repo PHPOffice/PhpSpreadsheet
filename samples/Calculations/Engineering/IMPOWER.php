@@ -39,11 +39,12 @@ for ($row = 1; $row <= $testDataCount; ++$row) {
 
 // Test the formulae
 for ($row = 1; $row <= $testDataCount; ++$row) {
-    $helper->log(sprintf(
-        '(E%d): %s raised to the power of %s is %s',
-        $row,
-        $worksheet->getCell('A' . $row)->getValue(),
-        $worksheet->getCell('B' . $row)->getValue(),
-        $worksheet->getCell('C' . $row)->getCalculatedValue(),
-    ));
+    $helper->log(
+        "(E$row): "
+        . $worksheet->getCell('A' . $row)->getValue()
+        . ' raised to the power of '
+        . $worksheet->getCell('B' . $row)->getValue()
+        . ' is '
+        . $worksheet->getCell('C' . $row)->getCalculatedValue()
+    );
 }

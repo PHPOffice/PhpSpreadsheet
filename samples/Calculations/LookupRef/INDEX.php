@@ -35,5 +35,5 @@ $worksheet->getCell('A16')->setValue('=SUM(INDEX(C1:D5, 5, 0))');
 
 for ($row = 11; $row <= 16; ++$row) {
     $cell = $worksheet->getCell("A{$row}");
-    $helper->log("A{$row}: {$cell->getValue()} => {$cell->getCalculatedValue()}");
+    $helper->log("A{$row}: " . $cell->getValue() . ' => ' . $cell->getCalculatedValue());
 }

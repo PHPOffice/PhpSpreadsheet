@@ -177,7 +177,7 @@ class PPS
      *
      * @return int The index for this PPS
      */
-    public static function savePpsSetPnt(array &$raList, mixed $to_save, mixed $depth = 0): int
+    public static function savePpsSetPnt(array &$raList, mixed $to_save, int $depth = 0): int
     {
         if (!is_array($to_save) || (empty($to_save))) {
             return self::ALL_ONE_BITS;

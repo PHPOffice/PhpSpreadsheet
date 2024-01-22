@@ -53,7 +53,7 @@ class AutoFilter implements Stringable
      *              or passing in an array of [$fromColumnIndex, $fromRow, $toColumnIndex, $toRow] (e.g. [3, 5, 6, 8]),
      *              or an AddressRange object.
      */
-    public function __construct($range = '', ?Worksheet $worksheet = null)
+    public function __construct(AddressRange|string|array $range = '', ?Worksheet $worksheet = null)
     {
         if ($range !== '') {
             [, $range] = Worksheet::extractSheetTitle(Validations::validateCellRange($range), true);
@@ -105,7 +105,7 @@ class AutoFilter implements Stringable
      *              or passing in an array of [$fromColumnIndex, $fromRow, $toColumnIndex, $toRow] (e.g. [3, 5, 6, 8]),
      *              or an AddressRange object.
      */
-    public function setRange($range = ''): self
+    public function setRange(AddressRange|string|array $range = ''): self
     {
         $this->evaluated = false;
         // extract coordinate

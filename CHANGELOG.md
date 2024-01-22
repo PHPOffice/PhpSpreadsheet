@@ -7,11 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ## Unreleased - TBD
 
-### MINOR BREAKING CHANGE
+### BREAKING CHANGE
 
-- Typing was strengthened by leveraging native typing. While this should not change any behavior, it might need minor
-  adaption of your code if you use static analysis tools such as PHPStan or
-  Psalm. [PR #3718](https://github.com/PHPOffice/PhpSpreadsheet/pull/3718)
+- Typing was strengthened by leveraging native typing. This should not change any behavior. However, if you implement
+  any interfaces or inherit from any classes, you will need to adapt your typing accordingly. If you use static analysis 
+  tools such as PHPStan or Psalm, new errors might be found. If you find actual bugs because of the new typing, please
+  open a PR that fixes it with a **detailed** explanation of the reason. We'll try to merge and release typing-related
+  fixes quickly in the coming days. [PR #3718](https://github.com/PHPOffice/PhpSpreadsheet/pull/3718)
+- All deprecated things have been removed, for details, see [816b91d0b4](https://github.com/PHPOffice/PhpSpreadsheet/commit/816b91d0b4a0c7285a9e3fc88c58f7730d922044)
 
 ### Added
 
@@ -28,11 +31,12 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Check if Coordinate is Inside Range [PR #3779](https://github.com/PHPOffice/PhpSpreadsheet/pull/3779)
 - Flipping Images [Issue #731](https://github.com/PHPOffice/PhpSpreadsheet/issues/731) [PR #3801](https://github.com/PHPOffice/PhpSpreadsheet/pull/3801)
 - Chart Dynamic Title and Font Properties [Issue #3797](https://github.com/PHPOffice/PhpSpreadsheet/issues/3797) [PR #3800](https://github.com/PHPOffice/PhpSpreadsheet/pull/3800)
-- Chart Axis Display Units and Logarithmic Scale. [Issue #3833](https://github.com/PHPOffice/PhpSpreadsheet/pull/3833) [PR #3836](https://github.com/PHPOffice/PhpSpreadsheet/pull/3836)
+- Chart Axis Display Units and Logarithmic Scale. [Issue #3833](https://github.com/PHPOffice/PhpSpreadsheet/issues/3833) [PR #3836](https://github.com/PHPOffice/PhpSpreadsheet/pull/3836)
+- Partial Support of Fill Handles. [Discussion #3847](https://github.com/PHPOffice/PhpSpreadsheet/discussions/3847) [PR #3855](https://github.com/PHPOffice/PhpSpreadsheet/pull/3855)
 
 ### Changed
 
-- Drop support for PHP 7.4, according to https://phpspreadsheet.readthedocs.io/en/latest/#php-version-support [PR #3713](https://github.com/PHPOffice/PhpSpreadsheet/pull/3713)
+- **Drop support for PHP 7.4**, according to https://phpspreadsheet.readthedocs.io/en/latest/#php-version-support [PR #3713](https://github.com/PHPOffice/PhpSpreadsheet/pull/3713)
 - RLM Added to NumberFormatter Currency. This happens depending on release of ICU which Php is using (it does not yet happen with any official release). PhpSpreadsheet will continue to use the value returned by Php, but a method is added to keep the result unchanged from release to release. [Issue #3571](https://github.com/PHPOffice/PhpSpreadsheet/issues/3571) [PR #3640](https://github.com/PHPOffice/PhpSpreadsheet/pull/3640)
 - `toFormattedString` will now always return a string. This was introduced with 1.28.0, but was not properly documented at the time. This can affect the results of `toArray`, `namedRangeToArray`, and `rangeToArray`. [PR #3304](https://github.com/PHPOffice/PhpSpreadsheet/pull/3304)
 - Value of constants FORMAT_CURRENCY_EUR and FORMAT_CURRENCY_USD was changed in 1.28.0, but was not properly documented at the time. [Issue #3577](https://github.com/PHPOffice/PhpSpreadsheet/issues/3577)
@@ -85,10 +89,14 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - COUNTIFS Does Not Require xlfn. [Issue #3819](https://github.com/PHPOffice/PhpSpreadsheet/issues/3819) [PR #3827](https://github.com/PHPOffice/PhpSpreadsheet/pull/3827)
 - Strip `xlfn.` and `xlws.` from Formula Translations. [Issue #3819](https://github.com/PHPOffice/PhpSpreadsheet/issues/3819) [PR #3828](https://github.com/PHPOffice/PhpSpreadsheet/pull/3828)
 - Recurse directories searching for font file. [Issue #2809](https://github.com/PHPOffice/PhpSpreadsheet/issues/2809) [PR #3830](https://github.com/PHPOffice/PhpSpreadsheet/pull/3830)
-- Reduce memory consumption of Worksheet::rangeToArray() when many empty rows are read. [Issue #3814](https://github.com/PHPOffice/PhpSpreadsheet/pull/3814) [PR #3834](https://github.com/PHPOffice/PhpSpreadsheet/pull/3834)
+- Reduce memory consumption of Worksheet::rangeToArray() when many empty rows are read. [Issue #3814](https://github.com/PHPOffice/PhpSpreadsheet/issues/3814) [PR #3834](https://github.com/PHPOffice/PhpSpreadsheet/pull/3834)
 - Reduce time used by Worksheet::rangeToArray() when many empty rows are read. [PR #3839](https://github.com/PHPOffice/PhpSpreadsheet/pull/3839)
 - Html Reader Tolerate Invalid Sheet Title. [PR #3845](https://github.com/PHPOffice/PhpSpreadsheet/pull/3845)
-- Do not include unparsed drawings when new drawing added. [Issue #3843](https://github.com/PHPOffice/PhpSpreadsheet/pull/3843) [PR #3846](https://github.com/PHPOffice/PhpSpreadsheet/pull/3846)
+- Do not include unparsed drawings when new drawing added. [Issue #3843](https://github.com/PHPOffice/PhpSpreadsheet/issues/3843) [PR #3846](https://github.com/PHPOffice/PhpSpreadsheet/pull/3846)
+- Do not include unparsed drawings when new drawing added. [Issue #3861](https://github.com/PHPOffice/PhpSpreadsheet/issues/3861) [PR #3862](https://github.com/PHPOffice/PhpSpreadsheet/pull/3862)
+- Excel omits `between` operator for data validation. [Issue #3863](https://github.com/PHPOffice/PhpSpreadsheet/issues/3863) [PR #3865](https://github.com/PHPOffice/PhpSpreadsheet/pull/3865)
+- Use less space when inserting rows and columns. [Issue #3687](https://github.com/PHPOffice/PhpSpreadsheet/issues/3687) [PR #3856](https://github.com/PHPOffice/PhpSpreadsheet/pull/3856)
+- Excel inconsistent handling of MIN/MAX/MINA/MAXA. [Issue #3866](https://github.com/PHPOffice/PhpSpreadsheet/issues/3866) [PR #3868](https://github.com/PHPOffice/PhpSpreadsheet/pull/3868)
 
 ## 1.29.0 - 2023-06-15
 

@@ -8,9 +8,9 @@ class ConditionalFormatValueObject
 
     private null|float|int|string $value;
 
-    private mixed $cellFormula;
+    private ?string $cellFormula;
 
-    public function __construct(string $type, null|float|int|string $value = null, mixed $cellFormula = null)
+    public function __construct(string $type, null|float|int|string $value = null, ?string $cellFormula = null)
     {
         $this->type = $type;
         $this->value = $value;
@@ -41,12 +41,12 @@ class ConditionalFormatValueObject
         return $this;
     }
 
-    public function getCellFormula(): mixed
+    public function getCellFormula(): ?string
     {
         return $this->cellFormula;
     }
 
-    public function setCellFormula(mixed $cellFormula): self
+    public function setCellFormula(?string $cellFormula): self
     {
         $this->cellFormula = $cellFormula;
 

@@ -162,12 +162,12 @@ class ConditionalFormattingRuleExtension
         }
     }
 
-    public function getId(): mixed
+    public function getId(): string
     {
         return $this->id;
     }
 
-    public function setId(mixed $id): self
+    public function setId(string $id): self
     {
         $this->id = $id;
 

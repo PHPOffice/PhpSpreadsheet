@@ -17,7 +17,7 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
      * @param Cell $cell Cell to bind value to
      * @param mixed $value Value to bind in cell
      */
-    public function bindValue(Cell $cell, $value = null): bool
+    public function bindValue(Cell $cell, mixed $value = null): bool
     {
         if ($value === null) {
             return parent::bindValue($cell, $value);
@@ -43,9 +43,9 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
             }
 
             // Check for fractions
-            if (preg_match('/^([+-]?)\s*(\d+)\s?\/\s*(\d+)$/', $value, $matches)) {
+            if (preg_match('~^([+-]?)\s*(\d+)\s*/\s*(\d+)$~', $value, $matches)) {
                 return $this->setProperFraction($matches, $cell);
-            } elseif (preg_match('/^([+-]?)(\d*) +(\d*)\s?\/\s*(\d*)$/', $value, $matches)) {
+            } elseif (preg_match('~^([+-]?)(\d+)\s+(\d+)\s*/\s*(\d+)$~', $value, $matches)) {
                 return $this->setImproperFraction($matches, $cell);
             }
 

@@ -32,11 +32,12 @@ for ($row = 1; $row <= $testDataCount; ++$row) {
 
 // Test the formulae
 for ($row = 1; $row <= $testDataCount; ++$row) {
-    $helper->log(sprintf(
-        '(E%d): The Difference between %s and %s is %s',
-        $row,
-        $worksheet->getCell('A' . $row)->getValue(),
-        $worksheet->getCell('B' . $row)->getValue(),
-        $worksheet->getCell('C' . $row)->getCalculatedValue(),
-    ));
+    $helper->log(
+        "(E$row): The Difference between "
+        . $worksheet->getCell('A' . $row)->getValue()
+        . ' and '
+        . $worksheet->getCell('B' . $row)->getValue()
+        . ' is '
+        . $worksheet->getCell('C' . $row)->getCalculatedValue()
+    );
 }

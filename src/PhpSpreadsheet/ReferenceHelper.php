@@ -377,7 +377,9 @@ class ReferenceHelper
 
         // Clear cells if we are removing columns or rows
         $highestColumn = $worksheet->getHighestColumn();
+        $highestDataColumn = $worksheet->getHighestDataColumn();
         $highestRow = $worksheet->getHighestRow();
+        $highestDataRow = $worksheet->getHighestDataRow();
 
         // 1. Clear column strips if we are removing columns
         if ($numberOfColumns < 0 && $beforeColumn - 2 + $numberOfColumns > 0) {
@@ -392,7 +394,7 @@ class ReferenceHelper
         // Find missing coordinates. This is important when inserting column before the last column
         $cellCollection = $worksheet->getCellCollection();
         $missingCoordinates = array_filter(
-            array_map(fn ($row): string => "{$highestColumn}{$row}", range(1, $highestRow)),
+            array_map(fn ($row): string => "{$highestDataColumn}{$row}", range(1, $highestDataRow)),
             fn ($coordinate): bool => $cellCollection->has($coordinate) === false
         );
 
@@ -1171,7 +1173,9 @@ class ReferenceHelper
             if ($worksheet->cellExists($coordinate)) {
                 $xfIndex = $worksheet->getCell($coordinate)->getXfIndex();
                 for ($j = $beforeColumn; $j <= $beforeColumn - 1 + $numberOfColumns; ++$j) {
-                    $worksheet->getCell([$j, $i])->setXfIndex($xfIndex);
+                    if (!empty($xfIndex) || $worksheet->cellExists([$j, $i])) {
+                        $worksheet->getCell([$j, $i])->setXfIndex($xfIndex);
+                    }
                 }
             }
         }
@@ -1186,7 +1190,9 @@ class ReferenceHelper
             if ($worksheet->cellExists($coordinate)) {
                 $xfIndex = $worksheet->getCell($coordinate)->getXfIndex();
                 for ($j = $beforeRow; $j <= $beforeRow - 1 + $numberOfRows; ++$j) {
-                    $worksheet->getCell(Coordinate::stringFromColumnIndex($i) . $j)->setXfIndex($xfIndex);
+                    if (!empty($xfIndex) || $worksheet->cellExists([$j, $i])) {
+                        $worksheet->getCell(Coordinate::stringFromColumnIndex($i) . $j)->setXfIndex($xfIndex);
+                    }
                 }
             }
         }
