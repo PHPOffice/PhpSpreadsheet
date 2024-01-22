@@ -12,10 +12,10 @@ class Validations
     /**
      * Validate a cell address.
      *
-     * @param null|array<int>|CellAddress|string $cellAddress Coordinate of the cell as a string, eg: 'C5';
+     * @param null|array{0: int, 1: int}|CellAddress|string $cellAddress Coordinate of the cell as a string, eg: 'C5';
      *               or as an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress object.
      */
-    public static function validateCellAddress($cellAddress): string
+    public static function validateCellAddress(null|CellAddress|string|array $cellAddress): string
     {
         if (is_string($cellAddress)) {
             [$worksheet, $address] = Worksheet::extractSheetTitle($cellAddress, true);
@@ -40,7 +40,7 @@ class Validations
      *               or as an array of [$fromColumnIndex, $fromRow, $toColumnIndex, $toRow] (e.g. [3, 5, 6, 12]),
      *               or as a CellAddress or AddressRange object.
      */
-    public static function validateCellOrCellRange($cellRange): string
+    public static function validateCellOrCellRange(AddressRange|CellAddress|int|string|array $cellRange): string
     {
         if (is_string($cellRange) || is_numeric($cellRange)) {
             // Convert a single column reference like 'A' to 'A:A',
@@ -63,7 +63,7 @@ class Validations
      *               or as an array of [$fromColumnIndex, $fromRow, $toColumnIndex, $toRow] (e.g. [3, 5, 6, 12]),
      *               or as an AddressRange object.
      */
-    public static function validateCellRange(AddressRange|array|string $cellRange): string
+    public static function validateCellRange(AddressRange|string|array $cellRange): string
     {
         if (is_string($cellRange)) {
             [$worksheet, $addressRange] = Worksheet::extractSheetTitle($cellRange, true);

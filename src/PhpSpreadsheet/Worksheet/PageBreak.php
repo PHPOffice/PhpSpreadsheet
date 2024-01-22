@@ -14,8 +14,10 @@ class PageBreak
 
     private int $maxColOrRow;
 
-    /** @param array|CellAddress|string $coordinate */
-    public function __construct(int $breakType, $coordinate, int $maxColOrRow = -1)
+    /**
+     * @param array{0: int, 1: int}|CellAddress|string $coordinate
+     */
+    public function __construct(int $breakType, CellAddress|string|array $coordinate, int $maxColOrRow = -1)
     {
         $coordinate = Functions::trimSheetFromCellReference(Validations::validateCellAddress($coordinate));
         $this->breakType = $breakType;
