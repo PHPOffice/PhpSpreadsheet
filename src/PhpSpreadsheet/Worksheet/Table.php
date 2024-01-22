@@ -69,7 +69,7 @@ class Table implements Stringable
      *              or an AddressRange object.
      * @param string $name (e.g. Table1)
      */
-    public function __construct($range = '', string $name = '')
+    public function __construct(AddressRange|string|array $range = '', string $name = '')
     {
         $this->style = new TableStyle();
         $this->autoFilter = new AutoFilter($range);
@@ -272,7 +272,7 @@ class Table implements Stringable
      *              or passing in an array of [$fromColumnIndex, $fromRow, $toColumnIndex, $toRow] (e.g. [3, 5, 6, 8]),
      *              or an AddressRange object.
      */
-    public function setRange($range = ''): self
+    public function setRange(AddressRange|string|array $range = ''): self
     {
         // extract coordinate
         if ($range !== '') {

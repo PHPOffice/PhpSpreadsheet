@@ -429,8 +429,8 @@ class Styles extends BaseParserClass
      *
      * @param mixed $array (usually array, in theory can be false)
      */
-    private static function getArrayItem(mixed $array, int $key = 0): ?SimpleXMLElement
+    private static function getArrayItem(mixed $array): ?SimpleXMLElement
     {
-        return is_array($array) ? ($array[$key] ?? null) : null;
+        return is_array($array) ? ($array[0] ?? null) : null;
     }
 }

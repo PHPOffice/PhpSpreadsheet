@@ -124,7 +124,7 @@ class Settings extends WriterPart
 
     private function writeFreezePane(XMLWriter $objWriter, Worksheet $worksheet): void
     {
-        $freezePane = CellAddress::fromCellAddress($worksheet->getFreezePane());
+        $freezePane = CellAddress::fromCellAddress($worksheet->getFreezePane() ?? '');
         if ($freezePane->cellAddress() === 'A1') {
             return;
         }

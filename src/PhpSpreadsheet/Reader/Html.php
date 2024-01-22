@@ -998,7 +998,7 @@ class Html extends BaseReader
     /**
      * Check if has #, so we can get clean hex.
      */
-    public function getStyleColor(mixed $value): string
+    public function getStyleColor(?string $value): string
     {
         $value = (string) $value;
         if (str_starts_with($value, '#')) {

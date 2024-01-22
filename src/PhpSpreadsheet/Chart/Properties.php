@@ -403,7 +403,7 @@ abstract class Properties
     /**
      * Get value of array element.
      */
-    protected function getArrayElementsValue(mixed $properties, mixed $elements): mixed
+    protected function getArrayElementsValue(array $properties, array|int|string $elements): mixed
     {
         $reference = &$properties;
         if (!is_array($elements)) {

@@ -7,11 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ## Unreleased - TBD
 
-### MINOR BREAKING CHANGE
+### BREAKING CHANGE
 
-- Typing was strengthened by leveraging native typing. While this should not change any behavior, it might need minor
-  adaption of your code if you use static analysis tools such as PHPStan or
-  Psalm. [PR #3718](https://github.com/PHPOffice/PhpSpreadsheet/pull/3718)
+- Typing was strengthened by leveraging native typing. This should not change any behavior. However, if you implement
+  any interfaces or inherit from any classes, you will need to adapt your typing accordingly. If you use static analysis 
+  tools such as PHPStan or Psalm, new errors might be found. If you find actual bugs because of the new typing, please
+  open a PR that fixes it with a **detailed** explanation of the reason. We'll try to merge and release typing-related
+  fixes quickly in the coming days. [PR #3718](https://github.com/PHPOffice/PhpSpreadsheet/pull/3718)
+- All deprecated things have been removed, for details, see [816b91d0b4](https://github.com/PHPOffice/PhpSpreadsheet/commit/816b91d0b4a0c7285a9e3fc88c58f7730d922044)
 
 ### Added
 
@@ -33,7 +36,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Changed
 
-- Drop support for PHP 7.4, according to https://phpspreadsheet.readthedocs.io/en/latest/#php-version-support [PR #3713](https://github.com/PHPOffice/PhpSpreadsheet/pull/3713)
+- **Drop support for PHP 7.4**, according to https://phpspreadsheet.readthedocs.io/en/latest/#php-version-support [PR #3713](https://github.com/PHPOffice/PhpSpreadsheet/pull/3713)
 - RLM Added to NumberFormatter Currency. This happens depending on release of ICU which Php is using (it does not yet happen with any official release). PhpSpreadsheet will continue to use the value returned by Php, but a method is added to keep the result unchanged from release to release. [Issue #3571](https://github.com/PHPOffice/PhpSpreadsheet/issues/3571) [PR #3640](https://github.com/PHPOffice/PhpSpreadsheet/pull/3640)
 - `toFormattedString` will now always return a string. This was introduced with 1.28.0, but was not properly documented at the time. This can affect the results of `toArray`, `namedRangeToArray`, and `rangeToArray`. [PR #3304](https://github.com/PHPOffice/PhpSpreadsheet/pull/3304)
 - Value of constants FORMAT_CURRENCY_EUR and FORMAT_CURRENCY_USD was changed in 1.28.0, but was not properly documented at the time. [Issue #3577](https://github.com/PHPOffice/PhpSpreadsheet/issues/3577)

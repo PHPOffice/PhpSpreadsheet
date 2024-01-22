@@ -16,10 +16,8 @@ class Escher
 {
     /**
      * The object we are writing.
-     *
-     * @var Blip|BSE|BstoreContainer|DgContainer|DggContainer|Escher|SpContainer|SpgrContainer
      */
-    private $object;
+    private Blip|BSE|BstoreContainer|DgContainer|DggContainer|Escher|SpContainer|SpgrContainer|SharedEscher $object;
 
     /**
      * The written binary data.
@@ -39,7 +37,7 @@ class Escher
     /**
      * Constructor.
      */
-    public function __construct(mixed $object)
+    public function __construct(Blip|BSE|BstoreContainer|DgContainer|DggContainer|self|SpContainer|SpgrContainer|SharedEscher $object)
     {
         $this->object = $object;
     }

@@ -287,10 +287,10 @@ class Spreadsheet implements JsonSerializable
     /**
      * store binaries ribbon objects (pictures).
      */
-    public function setRibbonBinObjects(mixed $BinObjectsNames, mixed $BinObjectsData): void
+    public function setRibbonBinObjects(mixed $binObjectsNames, mixed $binObjectsData): void
     {
-        if ($BinObjectsNames !== null && $BinObjectsData !== null) {
-            $this->ribbonBinObjects = ['names' => $BinObjectsNames, 'data' => $BinObjectsData];
+        if ($binObjectsNames !== null && $binObjectsData !== null) {
+            $this->ribbonBinObjects = ['names' => $binObjectsNames, 'data' => $binObjectsData];
         } else {
             $this->ribbonBinObjects = null;
         }
@@ -319,16 +319,6 @@ class Spreadsheet implements JsonSerializable
     }
 
     /**
-     * return the extension of a filename. Internal use for a array_map callback (php<5.3 don't like lambda function).
-     */
-    private function getExtensionOnly(mixed $path): string
-    {
-        $extension = pathinfo($path, PATHINFO_EXTENSION);
-
-        return substr($extension, 0);
-    }
-
-    /**
      * retrieve Binaries Ribbon Objects.
      */
     public function getRibbonBinObjects(string $what = 'all'): ?array
@@ -351,7 +341,7 @@ class Spreadsheet implements JsonSerializable
                     && isset($this->ribbonBinObjects['data']) && is_array($this->ribbonBinObjects['data'])
                 ) {
                     $tmpTypes = array_keys($this->ribbonBinObjects['data']);
-                    $ReturnData = array_unique(array_map([$this, 'getExtensionOnly'], $tmpTypes));
+                    $ReturnData = array_unique(array_map(fn (string $path): string => pathinfo($path, PATHINFO_EXTENSION), $tmpTypes));
                 } else {
                     $ReturnData = []; // the caller want an array... not null if empty
                 }
