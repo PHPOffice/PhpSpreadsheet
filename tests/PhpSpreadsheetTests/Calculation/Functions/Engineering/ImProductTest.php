@@ -27,8 +27,10 @@ class ImProductTest extends TestCase
 
     /**
      * @dataProvider providerIMPRODUCT
+     *
+     * @param string ...$args variadic arguments
      */
-    public function testDirectCallToIMPRODUCT(mixed $expectedResult, mixed ...$args): void
+    public function testDirectCallToIMPRODUCT(mixed $expectedResult, ...$args): void
     {
         $result = ComplexOperations::IMPRODUCT(...$args);
         self::assertTrue(
@@ -52,6 +54,7 @@ class ImProductTest extends TestCase
         $calculation = Calculation::getInstance();
         $formula = "=IMPRODUCT({$arguments})";
 
+        /** @var float|int|string */
         $result = $calculation->_calculateFormulaValue($formula);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $this->trimIfQuoted((string) $result), self::COMPLEX_PRECISION),

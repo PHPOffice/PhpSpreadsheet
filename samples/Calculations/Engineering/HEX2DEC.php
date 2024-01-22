@@ -39,10 +39,9 @@ for ($row = 1; $row <= $testDataCount; ++$row) {
 
 // Test the formulae
 for ($row = 1; $row <= $testDataCount; ++$row) {
-    $helper->log(sprintf(
-        '(B%d): Hexadecimal %s is decimal %s',
-        $row,
-        $worksheet->getCell('A' . $row)->getValue(),
-        $worksheet->getCell('B' . $row)->getCalculatedValue(),
-    ));
+    $helper->log(
+        "(B$row): "
+        . 'Hexadecimal ' . $worksheet->getCell("A$row")->getValue()
+        . ' is decimal ' . $worksheet->getCell("B$row")->getCalculatedValue()
+    );
 }

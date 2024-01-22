@@ -1246,9 +1246,9 @@ class Parser
      * It parses a term. It assumes the following rule:
      * Term -> Fact [("*" | "/") Fact].
      *
-     * @return mixed The parsed ptg'd tree on success
+     * @return array The parsed ptg'd tree on success
      */
-    private function term(): mixed
+    private function term(): array
     {
         $result = $this->fact();
         while (
@@ -1277,9 +1277,9 @@ class Parser
      *       | Number
      *       | Function.
      *
-     * @return mixed The parsed ptg'd tree on success
+     * @return array The parsed ptg'd tree on success
      */
-    private function fact(): mixed
+    private function fact(): array
     {
         $currentToken = $this->currentToken;
         if ($currentToken === '(') {
@@ -1376,9 +1376,9 @@ class Parser
      * It parses a function call. It assumes the following rule:
      * Func -> ( Expr [,Expr]* ).
      *
-     * @return mixed The parsed ptg'd tree on success
+     * @return array The parsed ptg'd tree on success
      */
-    private function func(): mixed
+    private function func(): array
     {
         $num_args = 0; // number of arguments received
         $function = strtoupper($this->currentToken);

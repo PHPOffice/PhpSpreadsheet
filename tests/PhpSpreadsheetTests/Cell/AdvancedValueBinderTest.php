@@ -86,7 +86,7 @@ class AdvancedValueBinderTest extends TestCase
     /**
      * @dataProvider currencyProvider
      */
-    public function testCurrency(mixed $value, mixed $valueBinded, mixed $thousandsSeparator, mixed $decimalSeparator, mixed $currencyCode): void
+    public function testCurrency(string $value, float $valueBinded, string $thousandsSeparator, string $decimalSeparator, string $currencyCode): void
     {
         StringHelper::setCurrencyCode($currencyCode);
         StringHelper::setDecimalSeparator($decimalSeparator);
@@ -150,6 +150,12 @@ class AdvancedValueBinderTest extends TestCase
             ['1 16/20', 1.8],
             ['12 20/100', 12.2],
             ['-1 4/20', -1.2],
+            ['407 / ', '407 / '],
+            ['407 /', '407 /'],
+            ['407 3/', '407 3/'],
+            ['-407 /4', -101.75],
+            [' /', ' /'],
+            [' / ', ' / '],
         ];
     }
 

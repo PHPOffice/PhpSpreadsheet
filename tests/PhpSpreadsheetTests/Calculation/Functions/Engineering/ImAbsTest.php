@@ -18,9 +18,9 @@ class ImAbsTest extends TestCase
     /**
      * @dataProvider providerIMABS
      */
-    public function testDirectCallToIMABS(mixed $expectedResult, mixed ...$args): void
+    public function testDirectCallToIMABS(float|int|string $expectedResult, string $arg): void
     {
-        $result = ComplexFunctions::IMABS(...$args);
+        $result = ComplexFunctions::IMABS($arg);
         self::assertEqualsWithDelta($expectedResult, $result, self::COMPLEX_PRECISION);
     }
 

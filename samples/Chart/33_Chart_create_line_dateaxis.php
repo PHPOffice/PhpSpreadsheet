@@ -343,6 +343,7 @@ function dateRange(int $nrows, Spreadsheet $wrkbk): array
     $dataSheet = $wrkbk->getSheetByNameOrThrow('Data');
 
     // start the xaxis at the beginning of the quarter of the first date
+    /** @var string */
     $startDateStr = $dataSheet->getCell('B2')->getValue(); // yyyy-mm-dd date string
     $startDate = DateTime::createFromFormat('Y-m-d', $startDateStr); // php date obj
     if ($startDate === false) {
@@ -358,6 +359,7 @@ function dateRange(int $nrows, Spreadsheet $wrkbk): array
     $ExcelQtrStartDateVal = SharedDate::convertIsoDate($qtrStartStr);
 
     // end the xaxis at the end of the quarter of the last date
+    /** @var string */
     $lastDateStr = $dataSheet->getCell([2, $nrows + 1])->getValue();
     $lastDate = DateTime::createFromFormat('Y-m-d', $lastDateStr);
     if ($lastDate === false) {

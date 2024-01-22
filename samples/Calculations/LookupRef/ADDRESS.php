@@ -18,5 +18,5 @@ $worksheet->getCell('A5')->setValue('=ADDRESS(2,3,1,FALSE,"EXCEL SHEET")');
 
 for ($row = 1; $row <= 5; ++$row) {
     $cell = $worksheet->getCell("A{$row}");
-    $helper->log("A{$row}: {$cell->getValue()} => {$cell->getCalculatedValue()}");
+    $helper->log("A{$row}: " . $cell->getValue() . ' => ' . $cell->getCalculatedValue());
 }

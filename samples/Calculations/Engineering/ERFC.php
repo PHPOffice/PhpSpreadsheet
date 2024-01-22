@@ -31,11 +31,12 @@ for ($row = 1; $row <= $testDataCount; ++$row) {
 
 // Test the formulae
 for ($row = 1; $row <= $testDataCount; ++$row) {
-    $helper->log(sprintf(
-        '(E%d): %s The complementary error function integrated by %f and infinity is %f',
-        $row,
-        $worksheet->getCell('C' . $row)->getValue(),
-        $worksheet->getCell('A' . $row)->getValue(),
-        $worksheet->getCell('C' . $row)->getCalculatedValue(),
-    ));
+    $helper->log(
+        "(E$row): "
+        . $worksheet->getCell('C' . $row)->getValue()
+        . ' The complementary error function integrated by '
+        . $worksheet->getCell('A' . $row)->getValue()
+        . ' and infinity is '
+        . $worksheet->getCell('C' . $row)->getCalculatedValue()
+    );
 }

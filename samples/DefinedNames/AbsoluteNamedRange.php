@@ -44,11 +44,17 @@ $worksheet
     ->setCellValue("B{$row}", "=SUM(B{$startRow}:B{$endRow})")
     ->setCellValue("C{$row}", "=SUM(C{$startRow}:C{$endRow})");
 
+/** @var float */
+$calc1 = $worksheet->getCell("B{$row}")->getCalculatedValue();
+/** @var float */
+$value = $worksheet->getCell('B1')->getValue();
+/** @var float */
+$calc2 = $worksheet->getCell("C{$row}")->getCalculatedValue();
 $helper->log(sprintf(
     'Worked %.2f hours at a rate of %.2f - Charge to the client is %.2f',
-    $worksheet->getCell("B{$row}")->getCalculatedValue(),
-    $worksheet->getCell('B1')->getValue(),
-    $worksheet->getCell("C{$row}")->getCalculatedValue()
+    $calc1,
+    $value,
+    $calc2
 ));
 
 $helper->write($spreadsheet, __FILE__, ['Xlsx']);

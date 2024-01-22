@@ -29,5 +29,5 @@ $worksheet->getCell('H4')->setValue('=SUM(OFFSET(E3, 1, -3, 7))');
 
 for ($row = 1; $row <= 4; ++$row) {
     $cell = $worksheet->getCell("H{$row}");
-    $helper->log("H{$row}: {$cell->getValue()} => {$cell->getCalculatedValue()}");
+    $helper->log("H{$row}: " . $cell->getValue() . ' => ' . $cell->getCalculatedValue());
 }

@@ -13,7 +13,7 @@ class HtmlTest extends TestCase
     /**
      * @dataProvider providerUtf8EncodingSupport
      */
-    public function testUtf8EncodingSupport(mixed $expected, mixed $input): void
+    public function testUtf8EncodingSupport(string $expected, string $input): void
     {
         $html = new Html();
         $actual = $html->toRichTextObject($input);

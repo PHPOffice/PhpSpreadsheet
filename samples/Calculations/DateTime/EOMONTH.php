@@ -33,11 +33,14 @@ $worksheet->getStyle('D1:D' . $testDateCount)
 
 // Test the formulae
 for ($row = 1; $row <= $testDateCount; ++$row) {
-    $helper->log(sprintf(
-        '%s and %d months is %d (%s)',
-        $worksheet->getCell('B' . $row)->getFormattedValue(),
-        $worksheet->getCell('C' . $row)->getFormattedValue(),
-        $worksheet->getCell('D' . $row)->getCalculatedValue(),
-        $worksheet->getCell('D' . $row)->getFormattedValue()
-    ));
+    $helper->log(
+        $worksheet->getCell('B' . $row)->getFormattedValue()
+        . ' and '
+        . $worksheet->getCell('C' . $row)->getFormattedValue()
+        . ' months is '
+        . $worksheet->getCell('D' . $row)->getCalculatedValue()
+        . ' ('
+        . $worksheet->getCell('D' . $row)->getFormattedValue()
+        . ')'
+    );
 }

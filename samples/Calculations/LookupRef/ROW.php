@@ -16,5 +16,5 @@ $worksheet->getCell('A3')->setValue('=ROW()');
 
 for ($row = 1; $row <= 3; ++$row) {
     $cell = $worksheet->getCell("A{$row}");
-    $helper->log("A{$row}: {$cell->getValue()} => {$cell->getCalculatedValue()}");
+    $helper->log("A{$row}: " . $cell->getValue() . ' => ' . $cell->getCalculatedValue());
 }

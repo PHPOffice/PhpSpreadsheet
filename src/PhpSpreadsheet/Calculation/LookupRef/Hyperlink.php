@@ -18,9 +18,9 @@ class Hyperlink
      * @param mixed $displayName Expect string. Value to return when testValue is an error condition
      * @param ?Cell $cell The cell to set the hyperlink in
      *
-     * @return mixed The value of $displayName (or $linkURL if $displayName was blank)
+     * @return string The value of $displayName (or $linkURL if $displayName was blank)
      */
-    public static function set(mixed $linkURL = '', mixed $displayName = null, ?Cell $cell = null): mixed
+    public static function set(mixed $linkURL = '', mixed $displayName = null, ?Cell $cell = null): string
     {
         $linkURL = ($linkURL === null) ? '' : Functions::flattenSingleValue($linkURL);
         $displayName = ($displayName === null) ? '' : Functions::flattenSingleValue($displayName);

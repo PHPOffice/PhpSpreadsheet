@@ -156,7 +156,7 @@ abstract class DatabaseAbstract
         return $database;
     }
 
-    private static function processCondition(string $criterion, array $fields, array $dataValues, string $conditions): mixed
+    private static function processCondition(string $criterion, array $fields, array $dataValues, string $conditions): string
     {
         $key = array_search($criterion, $fields, true);
 

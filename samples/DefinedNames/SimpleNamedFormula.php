@@ -32,12 +32,20 @@ $worksheet
     ->setCellValue('B4', '=TAX')
     ->setCellValue('B5', '=PRICE+TAX');
 
+/** @var float */
+$calc1 = $worksheet->getCell('B1')->getCalculatedValue();
+/** @var float */
+$value = $worksheet->getCell('B3')->getValue();
+/** @var float */
+$calc2 = $worksheet->getCell('B4')->getCalculatedValue();
+/** @var float */
+$calc3 = $worksheet->getCell('B5')->getCalculatedValue();
 $helper->log(sprintf(
     'With a Tax Rate of %.2f and a net price of %.2f, Tax is %.2f and the gross price is %.2f',
-    $worksheet->getCell('B1')->getCalculatedValue(),
-    $worksheet->getCell('B3')->getValue(),
-    $worksheet->getCell('B4')->getCalculatedValue(),
-    $worksheet->getCell('B5')->getCalculatedValue()
+    $calc1,
+    $value,
+    $calc2,
+    $calc3
 ));
 
 $helper->write($spreadsheet, __FILE__, ['Xlsx']);

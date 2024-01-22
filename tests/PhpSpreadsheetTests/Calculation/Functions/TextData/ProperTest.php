@@ -34,7 +34,7 @@ class ProperTest extends AllSetupTeardown
     /**
      * @dataProvider providerLocaleLOWER
      */
-    public function testLowerWithLocaleBoolean(string $expectedResult, mixed $locale, mixed $value): void
+    public function testLowerWithLocaleBoolean(string $expectedResult, string $locale, mixed $value): void
     {
         $newLocale = Settings::setLocale($locale);
         if ($newLocale === false) {

@@ -28,9 +28,9 @@ class ImSqrtTest extends TestCase
     /**
      * @dataProvider providerIMSQRT
      */
-    public function testDirectCallToIMSQRT(mixed $expectedResult, mixed ...$args): void
+    public function testDirectCallToIMSQRT(string $expectedResult, string $arg): void
     {
-        $result = ComplexFunctions::IMSQRT(...$args);
+        $result = ComplexFunctions::IMSQRT($arg);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $result, self::COMPLEX_PRECISION),
             $this->complexAssert->getErrorMessage()
@@ -52,6 +52,7 @@ class ImSqrtTest extends TestCase
         $calculation = Calculation::getInstance();
         $formula = "=IMSQRT({$arguments})";
 
+        /** @var float|int|string */
         $result = $calculation->_calculateFormulaValue($formula);
         self::assertTrue(
             $this->complexAssert->assertComplexEquals($expectedResult, $this->trimIfQuoted((string) $result), self::COMPLEX_PRECISION),

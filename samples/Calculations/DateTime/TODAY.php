@@ -20,8 +20,10 @@ $worksheet->getStyle('A1')
     ->setFormatCode('yyyy-mm-dd');
 
 // Test the formulae
-$helper->log(sprintf(
-    'Today is %d (%s)',
-    $worksheet->getCell('A1')->getCalculatedValue(),
-    $worksheet->getCell('A1')->getFormattedValue()
-));
+$helper->log(
+    'Today is '
+    . $worksheet->getCell('A1')->getCalculatedValue()
+    . ' ('
+    . $worksheet->getCell('A1')->getFormattedValue()
+    . ')'
+);

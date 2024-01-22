@@ -38,7 +38,7 @@ foreach ($customPropertyList as $customPropertyName) {
 
             break;
         case 'd':    // date
-            $propertyValue = date('l, d<\s\up>S</\s\up> F Y g:i A', $propertyValue);
+            $propertyValue = is_numeric($propertyValue) ? date('l, d<\s\u\p>S</\s\u\p> F Y g:i A', (int) $propertyValue) : '*****INVALID*****';
             $propertyType = 'date';
 
             break;

@@ -39,10 +39,10 @@ for ($row = 1; $row <= $testDataCount; ++$row) {
 
 // Test the formulae
 for ($row = 1; $row <= $testDataCount; ++$row) {
-    $helper->log(sprintf(
-        '(E%d): The Tangent of %s is %s',
-        $row,
-        $worksheet->getCell('A' . $row)->getValue(),
-        $worksheet->getCell('B' . $row)->getCalculatedValue(),
-    ));
+    $helper->log(
+        "(E$row): The Tangent of "
+        . $worksheet->getCell('A' . $row)->getValue()
+        . ' is '
+        . $worksheet->getCell('B' . $row)->getCalculatedValue()
+    );
 }

@@ -30,9 +30,9 @@ class Oct2DecTest extends TestCase
     /**
      * @dataProvider providerOCT2DEC
      */
-    public function testDirectCallToOCT2DEC(mixed $expectedResult, mixed ...$args): void
+    public function testDirectCallToOCT2DEC(mixed $expectedResult, bool|string $value): void
     {
-        $result = ConvertOctal::toDecimal(...$args);
+        $result = ConvertOctal::toDecimal($value);
         self::assertSame($expectedResult, $result);
     }
 
@@ -51,6 +51,7 @@ class Oct2DecTest extends TestCase
         $calculation = Calculation::getInstance();
         $formula = "=OCT2DEC({$arguments})";
 
+        /** @var float|int|string */
         $result = $calculation->_calculateFormulaValue($formula);
         self::assertSame($expectedResult, $this->trimIfQuoted((string) $result));
     }
@@ -111,11 +112,11 @@ class Oct2DecTest extends TestCase
     /**
      * @dataProvider providerOCT2DECOds
      */
-    public function testOCT2DECOds(mixed $expectedResult, mixed ...$args): void
+    public function testOCT2DECOds(mixed $expectedResult, bool|string $value): void
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
 
-        $result = ConvertOctal::toDecimal(...$args);
+        $result = ConvertOctal::toDecimal($value);
         self::assertSame($expectedResult, $result);
     }
 
@@ -130,14 +131,17 @@ class Oct2DecTest extends TestCase
         $formula = '=OCT2DEC(10.1)';
 
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_GNUMERIC);
+        /** @var float|int|string */
         $result = $calculation->_calculateFormulaValue($formula);
         self::assertSame('8', $this->trimIfQuoted((string) $result), 'Gnumeric');
 
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
+        /** @var float|int|string */
         $result = $calculation->_calculateFormulaValue($formula);
         self::assertSame(ExcelError::NAN(), $this->trimIfQuoted((string) $result), 'OpenOffice');
 
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
+        /** @var float|int|string */
         $result = $calculation->_calculateFormulaValue($formula);
         self::assertSame(ExcelError::NAN(), $this->trimIfQuoted((string) $result), 'Excel');
     }

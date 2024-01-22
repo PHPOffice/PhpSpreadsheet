@@ -32,10 +32,10 @@ for ($row = 1; $row <= $testDataCount; ++$row) {
 }
 
 for ($row = 1; $row <= $testDataCount; ++$row) {
-    $helper->log(sprintf(
-        '(A%d): Formula %s result is %s',
-        $row,
-        $worksheet->getCell('A' . $row)->getValue(),
-        $worksheet->getCell('A' . $row)->getCalculatedValue()
-    ));
+    $helper->log(
+        "(A$row): Formula "
+        . $worksheet->getCell('A' . $row)->getValue()
+        . ' result is '
+        . $worksheet->getCell('A' . $row)->getCalculatedValue()
+    );
 }
