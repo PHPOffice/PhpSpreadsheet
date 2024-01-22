@@ -126,6 +126,7 @@ class Format
         $format = Helpers::extractString($format);
 
         if (!is_numeric($value) && Date::isDateTimeFormatCode($format)) {
+            // @phpstan-ignore-next-line
             $value = DateTimeExcel\DateValue::fromString($value) + DateTimeExcel\TimeValue::fromString($value);
         }
 

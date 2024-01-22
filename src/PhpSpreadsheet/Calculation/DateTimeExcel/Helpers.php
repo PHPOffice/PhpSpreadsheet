@@ -58,12 +58,13 @@ class Helpers
     /**
      * getTimeValue.
      *
-     * @return mixed Excel date/time serial value, or string if error
+     * @return float|string Excel date/time serial value, or string if error
      */
-    public static function getTimeValue(string $timeValue): mixed
+    public static function getTimeValue(string $timeValue): string|float
     {
         $saveReturnDateType = Functions::getReturnDateType();
         Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
+        /** @var float|string $timeValue */
         $timeValue = TimeValue::fromString($timeValue);
         Functions::setReturnDateType($saveReturnDateType);
 
@@ -238,6 +239,8 @@ class Helpers
 
     /**
      * Many functions accept null/false/true argument treated as 0/0/1.
+     *
+     * @phpstan-assert float $number
      */
     public static function validateNotNegative(mixed $number): float
     {

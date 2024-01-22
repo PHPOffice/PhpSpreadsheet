@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 
+use DateTime;
 use DateTimeImmutable;
 use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
@@ -34,12 +35,12 @@ class DateValue
      *                                    #VALUE! error value if date_text is out of this range.
      *                         Or can be an array of date values
      *
-     * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
+     * @return array|DateTime|float|int|string Excel date/time serial value, PHP date/time serial value or PHP date/time object,
      *                        depending on the value of the ReturnDateType flag
      *         If an array of numbers is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function fromString(null|array|string|int|bool|float $dateValue): mixed
+    public static function fromString(null|array|string|int|bool|float $dateValue): array|string|float|int|DateTime
     {
         if (is_array($dateValue)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $dateValue);
@@ -131,10 +132,10 @@ class DateValue
     /**
      * Final results.
      *
-     * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
+     * @return DateTime|float|int|string Excel date/time serial value, PHP date/time serial value or PHP date/time object,
      *                        depending on the value of the ReturnDateType flag
      */
-    private static function finalResults(array $PHPDateArray, DateTimeImmutable $dti, int $baseYear): mixed
+    private static function finalResults(array $PHPDateArray, DateTimeImmutable $dti, int $baseYear): string|float|int|DateTime
     {
         $retValue = ExcelError::Value();
         if (Helpers::dateParseSucceeded($PHPDateArray)) {
