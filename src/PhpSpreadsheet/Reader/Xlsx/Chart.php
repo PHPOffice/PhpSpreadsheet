@@ -79,7 +79,8 @@ class Chart
         $chartElementsC = $chartElements->children($this->cNamespace);
 
         $XaxisLabel = $YaxisLabel = $legend = $title = null;
-        $dispBlanksAs = $plotVisOnly = null;
+        $dispBlanksAs = null;
+        $plotVisOnly = false;
         $plotArea = null;
         $rotX = $rotY = $rAngAx = $perspective = null;
         $xAxis = new Axis();
@@ -381,7 +382,7 @@ class Chart
 
                                 break;
                             case 'plotVisOnly':
-                                $plotVisOnly = self::getAttributeString($chartDetails, 'val');
+                                $plotVisOnly = (bool) self::getAttributeString($chartDetails, 'val');
 
                                 break;
                             case 'dispBlanksAs':

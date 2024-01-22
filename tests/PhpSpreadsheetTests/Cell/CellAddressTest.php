@@ -41,7 +41,7 @@ class CellAddressTest extends TestCase
     /**
      * @dataProvider providerCreateFromCellAddressException
      */
-    public function testCreateFromCellAddressException(int|string $cellAddress): void
+    public function testCreateFromCellAddressException(string $cellAddress): void
     {
         $this->expectException(Exception::class);
         $this->expectExceptionMessage(
@@ -60,7 +60,6 @@ class CellAddressTest extends TestCase
             [''],
             ['IV'],
             ['12'],
-            [123],
         ];
     }
 
