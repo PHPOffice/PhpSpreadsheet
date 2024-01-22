@@ -112,9 +112,9 @@ class Axis extends Properties
     /**
      * Get Series Data Type.
      */
-    public function setAxisNumberProperties(mixed $format_code, ?bool $numeric = null, int $sourceLinked = 0): void
+    public function setAxisNumberProperties(string $format_code, ?bool $numeric = null, int $sourceLinked = 0): void
     {
-        $format = (string) $format_code;
+        $format = $format_code;
         $this->axisNumber['format'] = $format;
         $this->axisNumber['source_linked'] = $sourceLinked;
         if (is_bool($numeric)) {

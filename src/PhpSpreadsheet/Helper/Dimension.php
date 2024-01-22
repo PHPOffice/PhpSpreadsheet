@@ -56,7 +56,7 @@ class Dimension
      * Phpstan bug has been fixed; this function allows us to
      * pass Phpstan whether fixed or not.
      */
-    private static function stanBugFixed(mixed $value): array
+    private static function stanBugFixed(array|int|null $value): array
     {
         return is_array($value) ? $value : [null, null];
     }

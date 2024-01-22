@@ -34,18 +34,18 @@ class CellAddress implements Stringable
      * @phpstan-assert int|numeric-string $columnId
      * @phpstan-assert int|numeric-string $rowId
      */
-    private static function validateColumnAndRow(mixed $columnId, mixed $rowId): void
+    private static function validateColumnAndRow(int|string $columnId, int|string $rowId): void
     {
         if (!is_numeric($columnId) || $columnId <= 0 || !is_numeric($rowId) || $rowId <= 0) {
             throw new Exception('Row and Column Ids must be positive integer values');
         }
     }
 
-    public static function fromColumnAndRow(mixed $columnId, mixed $rowId, ?Worksheet $worksheet = null): self
+    public static function fromColumnAndRow(int|string $columnId, int|string $rowId, ?Worksheet $worksheet = null): self
     {
         self::validateColumnAndRow($columnId, $rowId);
 
-        return new self(Coordinate::stringFromColumnIndex($columnId) . ((string) $rowId), $worksheet);
+        return new self(Coordinate::stringFromColumnIndex($columnId) . $rowId, $worksheet);
     }
 
     public static function fromColumnRowArray(array $array, ?Worksheet $worksheet = null): self
@@ -55,7 +55,7 @@ class CellAddress implements Stringable
         return self::fromColumnAndRow($columnId, $rowId, $worksheet);
     }
 
-    public static function fromCellAddress(mixed $cellAddress, ?Worksheet $worksheet = null): self
+    public static function fromCellAddress(string $cellAddress, ?Worksheet $worksheet = null): self
     {
         return new self($cellAddress, $worksheet);
     }
