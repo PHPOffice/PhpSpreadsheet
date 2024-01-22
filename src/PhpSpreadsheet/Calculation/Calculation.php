@@ -195,7 +195,7 @@ class Calculation
      * Excel constant string translations to their PHP equivalents
      * Constant conversion from text name/value to actual (datatyped) value.
      *
-     * @var array<string, mixed>
+     * @var array<string, null|bool>
      */
     private static array $excelConstants = [
         'TRUE' => true,
@@ -208,7 +208,7 @@ class Calculation
         return array_key_exists($key, self::$excelConstants);
     }
 
-    public static function getExcelConstants(string $key): mixed
+    public static function getExcelConstants(string $key): bool|null
     {
         return self::$excelConstants[$key];
     }

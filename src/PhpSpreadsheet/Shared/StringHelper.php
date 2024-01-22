@@ -636,9 +636,9 @@ class StringHelper
      * Retrieve any leading numeric part of a string, or return the full string if no leading numeric
      * (handles basic integer or float, but not exponent or non decimal).
      *
-     * @return mixed string or only the leading numeric part of the string
+     * @return float|string string or only the leading numeric part of the string
      */
-    public static function testStringAsNumeric(string $textValue): mixed
+    public static function testStringAsNumeric(string $textValue): float|string
     {
         if (is_numeric($textValue)) {
             return $textValue;

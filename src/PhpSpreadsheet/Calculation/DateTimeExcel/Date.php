@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 
+use DateTime;
 use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
@@ -58,12 +59,12 @@ class Date
      *                                example, DATE(2008,1,-15) returns the serial number representing
      *                                December 16, 2007.
      *
-     * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
+     * @return array|DateTime|float|int|string Excel date/time serial value, PHP date/time serial value or PHP date/time object,
      *                        depending on the value of the ReturnDateType flag
      *         If an array of numbers is passed as the argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function fromYMD(array|float|int|string $year, array|float|int|string $month, array|float|int|string $day): mixed
+    public static function fromYMD(array|float|int|string $year, array|float|int|string $month, array|float|int|string $day): float|int|DateTime|string|array
     {
         if (is_array($year) || is_array($month) || is_array($day)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $year, $month, $day);
