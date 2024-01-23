@@ -170,7 +170,7 @@ class DateTest extends TestCase
     /**
      * @dataProvider providerDateTimeExcelToTimestamp1900Timezone
      */
-    public function testDateTimeExcelToTimestamp1900Timezone(int $expectedResult, float|int $excelDateTimeValue, string $timezone): void
+    public function testDateTimeExcelToTimestamp1900Timezone(float|int $expectedResult, float|int $excelDateTimeValue, string $timezone): void
     {
         if (is_numeric($expectedResult) && ($expectedResult > PHP_INT_MAX || $expectedResult < PHP_INT_MIN)) {
             self::markTestSkipped('Test invalid on 32-bit system.');

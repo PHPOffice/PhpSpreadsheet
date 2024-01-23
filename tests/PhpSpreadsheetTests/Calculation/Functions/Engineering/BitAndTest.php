@@ -16,7 +16,7 @@ class BitAndTest extends TestCase
     /**
      * @dataProvider providerBITAND
      */
-    public function testDirectCallToBITAND(mixed $expectedResult, null|bool|int|float|string $arg1, null|bool|int|float|string $arg2): void
+    public function testDirectCallToBITAND(float|int|string $expectedResult, null|bool|int|float|string $arg1, null|bool|int|float|string $arg2): void
     {
         $result = BitWise::BITAND($arg1, $arg2);
         self::assertSame($expectedResult, $result);
@@ -25,7 +25,7 @@ class BitAndTest extends TestCase
     /**
      * @dataProvider providerBITAND
      */
-    public function testBITANDAsFormula(mixed $expectedResult, mixed ...$args): void
+    public function testBITANDAsFormula(float|int|string $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 
@@ -39,7 +39,7 @@ class BitAndTest extends TestCase
     /**
      * @dataProvider providerBITAND
      */
-    public function testBITANDInWorksheet(mixed $expectedResult, mixed ...$args): void
+    public function testBITANDInWorksheet(float|int|string $expectedResult, mixed ...$args): void
     {
         $arguments = new FormulaArguments(...$args);
 

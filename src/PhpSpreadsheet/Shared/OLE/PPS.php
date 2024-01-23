@@ -29,6 +29,8 @@ use PhpOffice\PhpSpreadsheet\Shared\OLE;
  */
 class PPS
 {
+    private const ALL_ONE_BITS = (PHP_INT_SIZE > 4) ? 0xFFFFFFFF : -1;
+
     /**
      * The PPS index.
      */
@@ -178,14 +180,14 @@ class PPS
     public static function savePpsSetPnt(array &$raList, mixed $to_save, int $depth = 0): int
     {
         if (!is_array($to_save) || (empty($to_save))) {
-            return 0xFFFFFFFF;
+            return self::ALL_ONE_BITS;
         } elseif (count($to_save) == 1) {
             $cnt = count($raList);
             // If the first entry, it's the root... Don't clone it!
             $raList[$cnt] = ($depth == 0) ? $to_save[0] : clone $to_save[0];
             $raList[$cnt]->No = $cnt;
-            $raList[$cnt]->PrevPps = 0xFFFFFFFF;
-            $raList[$cnt]->NextPps = 0xFFFFFFFF;
+            $raList[$cnt]->PrevPps = self::ALL_ONE_BITS;
+            $raList[$cnt]->NextPps = self::ALL_ONE_BITS;
             $raList[$cnt]->DirPps = self::savePpsSetPnt($raList, @$raList[$cnt]->children, $depth++);
         } else {
             $iPos = (int) floor(count($to_save) / 2);

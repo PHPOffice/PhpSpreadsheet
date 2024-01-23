@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
 
 class ImExpTest extends TestCase
 {
-    const COMPLEX_PRECISION = 1E-12;
+    const COMPLEX_PRECISION = (PHP_INT_SIZE > 4) ? 1E-12 : 1E-9;
 
     private \PhpOffice\PhpSpreadsheetTests\Custom\ComplexAssert $complexAssert;
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Chart;
 
+use PhpOffice\PhpSpreadsheet\Chart\Axis;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx as XlsxReader;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx as XlsxWriter;
 use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
@@ -136,6 +137,11 @@ class Issue3833Test extends AbstractFunctional
         self::assertSame('10', $logBase);
         $dispUnits = $yAxis->getAxisOptionsProperty('dispUnitsBuiltIn');
         self::assertNull($dispUnits);
+        $yAxis->setAxisOption('dispUnitsBuiltIn', 1000000000000);
+        $dispUnits = $yAxis->getAxisOptionsProperty('dispUnitsBuiltIn');
+        // same logic as in Writer/Xlsx/Chart for 32-bit safety
+        $dispUnits = ($dispUnits == Axis::TRILLION_INDEX) ? Axis::DISP_UNITS_TRILLIONS : (is_numeric($dispUnits) ? (Axis::DISP_UNITS_BUILTIN_INT[(int) $dispUnits] ?? '') : $dispUnits);
+        self::assertSame('trillions', $dispUnits);
 
         $reloadedSpreadsheet->disconnectWorksheets();
     }
