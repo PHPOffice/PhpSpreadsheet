@@ -2,18 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Documentation</title>
+            <title>Documentation</title>
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <base href="../">
     <link rel="icon" href="images/favicon.ico"/>
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/base.css">
-            <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+            <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@100;200;300;400;600;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="css/template.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/css/all.min.css" integrity="sha256-ybRkN9dBjhcS2qrW1z+hfCxq+1aBdwyQM5wlQoQVt/0=" crossorigin="anonymous" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/themes/prism-okaidia.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-numbers/prism-line-numbers.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-highlight/prism-line-highlight.css">
                 <script src="https://cdn.jsdelivr.net/npm/fuse.js@3.4.6"></script>
         <script src="https://cdn.jsdelivr.net/npm/css-vars-ponyfill@2"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/js/all.min.js" integrity="sha256-0vuk8LXoyrmCjp1f0O300qo1M75ZQyhH9X3J6d+scmk=" crossorigin="anonymous"></script>
+        <script src="js/template.js"></script>
         <script src="js/search.js"></script>
         <script defer src="js/searchIndex.js"></script>
     </head>
@@ -47,17 +53,28 @@
 <label class="phpdocumentor-sidebar__menu-icon" for="sidebar-button">
     Menu
 </label>
-<aside class="phpdocumentor-column -four phpdocumentor-sidebar">
-    
-    <section class="phpdocumentor-sidebar__category">
-        <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
-                                                <h4 class="phpdocumentor-sidebar__root-namespace"><a href="namespaces/phpoffice.html"><abbr title="\PhpOffice">PhpOffice</abbr></a></h4>
-                <ul class="phpdocumentor-list">
-                                            <li><a href="namespaces/phpoffice-phpspreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet">PhpSpreadsheet</abbr></a></li>
-                                    </ul>
-                        </section>
+<aside class="phpdocumentor-column -three phpdocumentor-sidebar">
+                    <section class="phpdocumentor-sidebar__category">
+            <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
+                                    <h4 class="phpdocumentor-sidebar__root-namespace">
+    <a href="namespaces/phpoffice.html" class="">PhpOffice</a>
+</h4>
+    <ul class="phpdocumentor-list">
+                    <li>
+                <a href="namespaces/phpoffice-phpspreadsheet.html" class="">PhpSpreadsheet</a>
+                
+            </li>
+            </ul>
 
-    
+                        </section>
+                <section class="phpdocumentor-sidebar__category">
+            <h2 class="phpdocumentor-sidebar__category-header">Packages</h2>
+                                    <h4 class="phpdocumentor-sidebar__root-namespace">
+    <a href="packages/Application.html" class="">Application</a>
+</h4>
+
+                        </section>
+            
     <section class="phpdocumentor-sidebar__category">
         <h2 class="phpdocumentor-sidebar__category-header">Reports</h2>
                 <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/deprecated.html">Deprecated</a></h3>
@@ -71,8 +88,9 @@
     </section>
 </aside>
 
-            <div class="phpdocumentor-column -eight phpdocumentor-content">
-                    <ul class="phpdocumentor-breadcrumbs">
+            <div class="phpdocumentor-column -nine phpdocumentor-content">
+                                <section>
+                                        <ul class="phpdocumentor-breadcrumbs">
             <li class="phpdocumentor-breadcrumb"><a href="namespaces/phpoffice.html">PhpOffice</a></li>
             <li class="phpdocumentor-breadcrumb"><a href="namespaces/phpoffice-phpspreadsheet.html">PhpSpreadsheet</a></li>
             <li class="phpdocumentor-breadcrumb"><a href="namespaces/phpoffice-phpspreadsheet-shared.html">Shared</a></li>
@@ -84,24 +102,36 @@
     PPS
 
     
+            <div class="phpdocumentor-element__package">
+            in package
+            <ul class="phpdocumentor-breadcrumbs">
+                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Application.html">Application</a></li>
+                            </ul>
+        </div>
     
     
     </h2>
+
+<div class="phpdocumentor-label-line">
+
+
+</div>
 
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE/PPS.php"><a href="files/src-phpspreadsheet-shared-ole-pps.html"><abbr title="src/PhpSpreadsheet/Shared/OLE/PPS.php">PPS.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">30</span>
-</aside>
+
+    </aside>
 
             <p class="phpdocumentor-summary">Class for creating PPS&#039;s for OLE containers.</p>
 
-    <section class="phpdocumentor-description"></section>
 
 
     <h5 class="phpdocumentor-tag-list__heading" id="tags">
         Tags
-        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
@@ -113,150 +143,219 @@
 </section>
 
                                     </dd>
-                        </dl>
-
-
-
+                                            </dl>
 
 
 
 <h3 id="toc">
     Table of Contents
-    <a href="#toc" class="headerlink"><i class="fas fa-link"></i></a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
+
 </h3>
 
+
+
+
+
+
+
+<h4 id="toc-constants">
+    Constants
+    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#toc-constants" class="headerlink"><i class="fas fa-link"></i></a>
+
+</h4>
 <dl class="phpdocumentor-table-of-contents">
-                <dt class="phpdocumentor-table-of-contents__entry -property -public">
+            <dt class="phpdocumentor-table-of-contents__entry -constant -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#constant_ALL_ONE_BITS">ALL_ONE_BITS</a>
+    <span>
+        &nbsp;= PHP_INT_SIZE &gt; 4 ? 0xffffffff : -1                            </span>
+</dt>
+
+    </dl>
+
+
+<h4 id="toc-properties">
+    Properties
+    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#toc-properties" class="headerlink"><i class="fas fa-link"></i></a>
+
+</h4>
+<dl class="phpdocumentor-table-of-contents">
+            <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#property__data">$_data</a>
     <span>
-                &nbsp;: string            </span>
+                        &nbsp;: string            </span>
 </dt>
 <dd>The PPS&#039;s data (only used if it&#039;s not using a temporary file).</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#property_children">$children</a>
     <span>
-                &nbsp;: array&lt;string|int, mixed&gt;            </span>
+                        &nbsp;: array&lt;string|int, mixed&gt;            </span>
 </dt>
 <dd>Array of child PPS&#039;s (only used by Root and Dir PPS&#039;s).</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#property_DirPps">$DirPps</a>
     <span>
-                &nbsp;: int            </span>
+                        &nbsp;: int            </span>
 </dt>
 <dd>The index of it&#039;s first child if this is a Dir or Root PPS.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#property_Name">$Name</a>
     <span>
-                &nbsp;: string            </span>
+                        &nbsp;: string            </span>
 </dt>
 <dd>The PPS name (in Unicode).</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#property_NextPps">$NextPps</a>
     <span>
-                &nbsp;: int            </span>
+                        &nbsp;: int            </span>
 </dt>
 <dd>The index of the next PPS.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#property_No">$No</a>
     <span>
-                &nbsp;: int            </span>
+                        &nbsp;: int            </span>
 </dt>
 <dd>The PPS index.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#property_ole">$ole</a>
     <span>
-                &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\OLE">OLE</abbr></a>            </span>
+                        &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\OLE">OLE</abbr></a>            </span>
 </dt>
 <dd>Pointer to OLE container.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#property_PrevPps">$PrevPps</a>
     <span>
-                &nbsp;: int            </span>
+                        &nbsp;: int            </span>
 </dt>
 <dd>The index of the previous PPS.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#property_Size">$Size</a>
     <span>
-                &nbsp;: int            </span>
+                        &nbsp;: int            </span>
 </dt>
 <dd>The size of the PPS&#039;s data (in bytes).</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#property_startBlock">$startBlock</a>
     <span>
-                &nbsp;: int|null            </span>
+                        &nbsp;: int|null            </span>
 </dt>
 <dd>Starting block (small or big) for this PPS&#039;s data  inside the container.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#property_Time1st">$Time1st</a>
     <span>
-                &nbsp;: float|int            </span>
+                        &nbsp;: float|int            </span>
 </dt>
 <dd>A timestamp.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#property_Time2nd">$Time2nd</a>
     <span>
-                &nbsp;: float|int            </span>
+                        &nbsp;: float|int            </span>
 </dt>
 <dd>A timestamp.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#property_Type">$Type</a>
     <span>
-                &nbsp;: int            </span>
+                        &nbsp;: int            </span>
 </dt>
 <dd>The PPS type. Dir, Root or File.</dd>
 
-                <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    </dl>
+
+<h4 id="toc-methods">
+    Methods
+    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#toc-methods" class="headerlink"><i class="fas fa-link"></i></a>
+
+</h4>
+<dl class="phpdocumentor-table-of-contents">
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#method___construct">__construct()</a>
     <span>
-                        &nbsp;: mixed    </span>
+                                &nbsp;: mixed    </span>
 </dt>
 <dd>The constructor.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#method_getDataLen">getDataLen()</a>
     <span>
-                        &nbsp;: int    </span>
+                                &nbsp;: int    </span>
 </dt>
 <dd>Returns the amount of data saved for this PPS.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#method_getPpsWk">getPpsWk()</a>
     <span>
-                        &nbsp;: string    </span>
+                                &nbsp;: string    </span>
 </dt>
 <dd>Returns a string with the PPS&#039;s WK (What is a WK?).</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#method_savePpsSetPnt">savePpsSetPnt()</a>
     <span>
-                        &nbsp;: int    </span>
+                                &nbsp;: int    </span>
 </dt>
 <dd>Updates index and pointers to previous, next and children PPS&#039;s for this
 PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
 
-        </dl>
+    </dl>
+
 
 
 
         
+    <section class="phpdocumentor-constants">
+        <h3 class="phpdocumentor-elements__header" id="constants">
+            Constants
+            <a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#constants" class="headerlink"><i class="fas fa-link"></i></a>
+
+        </h3>
+                    <article class="phpdocumentor-element -constant -private ">
+    <h4 class="phpdocumentor-element__name" id="constant_ALL_ONE_BITS">
+        ALL_ONE_BITS
+        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#constant_ALL_ONE_BITS" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE/PPS.php"><a href="files/src-phpspreadsheet-shared-ole-pps.html"><abbr title="src/PhpSpreadsheet/Shared/OLE/PPS.php">PPS.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">32</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">ALL_ONE_BITS</span>
+    = <span class="phpdocumentor-signature__default-value">PHP_INT_SIZE &gt; 4 ? 0xffffffff : -1</span>
+</code>
+
+
+    
+    
+    
+
+</article>
+            </section>
 
         
     <section class="phpdocumentor-properties">
         <h3 class="phpdocumentor-elements__header" id="properties">
             Properties
             <a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
+
         </h3>
                     <article
         class="
@@ -268,14 +367,16 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
     <h4 class="phpdocumentor-element__name" id="property__data">
         $_data
         <a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#property__data" class="headerlink"><i class="fas fa-link"></i></a>
+
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE/PPS.php"><a href="files/src-phpspreadsheet-shared-ole-pps.html"><abbr title="src/PhpSpreadsheet/Shared/OLE/PPS.php">PPS.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">107</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">87</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">The PPS&#039;s data (only used if it&#039;s not using a temporary file).</p>
 
@@ -285,8 +386,8 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
     <span class="phpdocumentor-signature__name">$_data</span>
      = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
+    
     
 
 </article>
@@ -300,14 +401,16 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
     <h4 class="phpdocumentor-element__name" id="property_children">
         $children
         <a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#property_children" class="headerlink"><i class="fas fa-link"></i></a>
+
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE/PPS.php"><a href="files/src-phpspreadsheet-shared-ole-pps.html"><abbr title="src/PhpSpreadsheet/Shared/OLE/PPS.php">PPS.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">114</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">92</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Array of child PPS&#039;s (only used by Root and Dir PPS&#039;s).</p>
 
@@ -317,8 +420,8 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
     <span class="phpdocumentor-signature__name">$children</span>
      = <span class="phpdocumentor-signature__default-value">[]</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
+    
     
 
 </article>
@@ -332,14 +435,16 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
     <h4 class="phpdocumentor-element__name" id="property_DirPps">
         $DirPps
         <a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#property_DirPps" class="headerlink"><i class="fas fa-link"></i></a>
+
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE/PPS.php"><a href="files/src-phpspreadsheet-shared-ole-pps.html"><abbr title="src/PhpSpreadsheet/Shared/OLE/PPS.php">PPS.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">72</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">62</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">The index of it&#039;s first child if this is a Dir or Root PPS.</p>
 
@@ -349,8 +454,8 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
     <span class="phpdocumentor-signature__name">$DirPps</span>
     </code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
+    
     
 
 </article>
@@ -364,14 +469,16 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
     <h4 class="phpdocumentor-element__name" id="property_Name">
         $Name
         <a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#property_Name" class="headerlink"><i class="fas fa-link"></i></a>
+
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE/PPS.php"><a href="files/src-phpspreadsheet-shared-ole-pps.html"><abbr title="src/PhpSpreadsheet/Shared/OLE/PPS.php">PPS.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">44</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">42</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">The PPS name (in Unicode).</p>
 
@@ -381,8 +488,8 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
     <span class="phpdocumentor-signature__name">$Name</span>
     </code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
+    
     
 
 </article>
@@ -396,14 +503,16 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
     <h4 class="phpdocumentor-element__name" id="property_NextPps">
         $NextPps
         <a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#property_NextPps" class="headerlink"><i class="fas fa-link"></i></a>
+
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE/PPS.php"><a href="files/src-phpspreadsheet-shared-ole-pps.html"><abbr title="src/PhpSpreadsheet/Shared/OLE/PPS.php">PPS.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">65</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">57</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">The index of the next PPS.</p>
 
@@ -413,8 +522,8 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
     <span class="phpdocumentor-signature__name">$NextPps</span>
     </code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
+    
     
 
 </article>
@@ -428,6 +537,7 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
     <h4 class="phpdocumentor-element__name" id="property_No">
         $No
         <a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#property_No" class="headerlink"><i class="fas fa-link"></i></a>
+
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
@@ -435,7 +545,8 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE/PPS.php"><a href="files/src-phpspreadsheet-shared-ole-pps.html"><abbr title="src/PhpSpreadsheet/Shared/OLE/PPS.php">PPS.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">37</span>
-</aside>
+
+    </aside>
 
         <p class="phpdocumentor-summary">The PPS index.</p>
 
@@ -445,8 +556,8 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
     <span class="phpdocumentor-signature__name">$No</span>
     </code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
+    
     
 
 </article>
@@ -460,14 +571,16 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
     <h4 class="phpdocumentor-element__name" id="property_ole">
         $ole
         <a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#property_ole" class="headerlink"><i class="fas fa-link"></i></a>
+
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE/PPS.php"><a href="files/src-phpspreadsheet-shared-ole-pps.html"><abbr title="src/PhpSpreadsheet/Shared/OLE/PPS.php">PPS.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">121</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">97</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Pointer to OLE container.</p>
 
@@ -477,8 +590,8 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
     <span class="phpdocumentor-signature__name">$ole</span>
     </code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
+    
     
 
 </article>
@@ -492,14 +605,16 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
     <h4 class="phpdocumentor-element__name" id="property_PrevPps">
         $PrevPps
         <a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#property_PrevPps" class="headerlink"><i class="fas fa-link"></i></a>
+
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE/PPS.php"><a href="files/src-phpspreadsheet-shared-ole-pps.html"><abbr title="src/PhpSpreadsheet/Shared/OLE/PPS.php">PPS.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">58</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">52</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">The index of the previous PPS.</p>
 
@@ -509,8 +624,8 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
     <span class="phpdocumentor-signature__name">$PrevPps</span>
     </code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
+    
     
 
 </article>
@@ -524,14 +639,16 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
     <h4 class="phpdocumentor-element__name" id="property_Size">
         $Size
         <a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#property_Size" class="headerlink"><i class="fas fa-link"></i></a>
+
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE/PPS.php"><a href="files/src-phpspreadsheet-shared-ole-pps.html"><abbr title="src/PhpSpreadsheet/Shared/OLE/PPS.php">PPS.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">100</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">82</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">The size of the PPS&#039;s data (in bytes).</p>
 
@@ -541,8 +658,8 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
     <span class="phpdocumentor-signature__name">$Size</span>
     </code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
+    
     
 
 </article>
@@ -556,14 +673,16 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
     <h4 class="phpdocumentor-element__name" id="property_startBlock">
         $startBlock
         <a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#property_startBlock" class="headerlink"><i class="fas fa-link"></i></a>
+
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE/PPS.php"><a href="files/src-phpspreadsheet-shared-ole-pps.html"><abbr title="src/PhpSpreadsheet/Shared/OLE/PPS.php">PPS.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">93</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">77</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Starting block (small or big) for this PPS&#039;s data  inside the container.</p>
 
@@ -571,10 +690,10 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
     <span class="phpdocumentor-signature__visibility">public</span>
         <span class="phpdocumentor-signature__type">int|null</span>
     <span class="phpdocumentor-signature__name">$startBlock</span>
-    </code>
+     = <span class="phpdocumentor-signature__default-value">null</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
+    
     
 
 </article>
@@ -588,14 +707,16 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
     <h4 class="phpdocumentor-element__name" id="property_Time1st">
         $Time1st
         <a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#property_Time1st" class="headerlink"><i class="fas fa-link"></i></a>
+
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE/PPS.php"><a href="files/src-phpspreadsheet-shared-ole-pps.html"><abbr title="src/PhpSpreadsheet/Shared/OLE/PPS.php">PPS.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">79</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">67</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">A timestamp.</p>
 
@@ -605,8 +726,8 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
     <span class="phpdocumentor-signature__name">$Time1st</span>
     </code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
+    
     
 
 </article>
@@ -620,14 +741,16 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
     <h4 class="phpdocumentor-element__name" id="property_Time2nd">
         $Time2nd
         <a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#property_Time2nd" class="headerlink"><i class="fas fa-link"></i></a>
+
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE/PPS.php"><a href="files/src-phpspreadsheet-shared-ole-pps.html"><abbr title="src/PhpSpreadsheet/Shared/OLE/PPS.php">PPS.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">86</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">72</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">A timestamp.</p>
 
@@ -637,8 +760,8 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
     <span class="phpdocumentor-signature__name">$Time2nd</span>
     </code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
+    
     
 
 </article>
@@ -652,14 +775,16 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
     <h4 class="phpdocumentor-element__name" id="property_Type">
         $Type
         <a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#property_Type" class="headerlink"><i class="fas fa-link"></i></a>
+
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE/PPS.php"><a href="files/src-phpspreadsheet-shared-ole-pps.html"><abbr title="src/PhpSpreadsheet/Shared/OLE/PPS.php">PPS.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">51</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">47</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">The PPS type. Dir, Root or File.</p>
 
@@ -669,8 +794,8 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
     <span class="phpdocumentor-signature__name">$Type</span>
     </code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
+    
     
 
 </article>
@@ -680,6 +805,7 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
         <h3 class="phpdocumentor-elements__header" id="methods">
             Methods
             <a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
+
         </h3>
                     <article
         class="phpdocumentor-element
@@ -690,21 +816,24 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
     <h4 class="phpdocumentor-element__name" id="method___construct">
         __construct()
         <a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#method___construct" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE/PPS.php"><a href="files/src-phpspreadsheet-shared-ole-pps.html"><abbr title="src/PhpSpreadsheet/Shared/OLE/PPS.php">PPS.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">137</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">113</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">The constructor.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$No</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$type</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$prev</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$next</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$dir</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">null|float|int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$time_1st</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">null|float|int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$time_2nd</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$data</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$children</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$No</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$type</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$prev</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$next</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$dir</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">null|float|int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$time_1st</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">null|float|int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$time_2nd</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$data</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$children</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -801,11 +930,6 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
 
     
 
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">mixed</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
-
     
 </article>
                     <article
@@ -817,31 +941,36 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
     <h4 class="phpdocumentor-element__name" id="method_getDataLen">
         getDataLen()
         <a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#method_getDataLen" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE/PPS.php"><a href="files/src-phpspreadsheet-shared-ole-pps.html"><abbr title="src/PhpSpreadsheet/Shared/OLE/PPS.php">PPS.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">157</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">133</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Returns the amount of data saved for this PPS.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">getDataLen</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
+                    <span class="phpdocumentor-signature__name">getDataLen</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
     
     
+    
 
+            <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">int</span>
-            &mdash;
-            <section class="phpdocumentor-description"><p>The amount of data (in bytes)</p>
+        <span class="phpdocumentor-signature__response_type">int</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The amount of data (in bytes)</p>
 </section>
 
-    
+            </section>
+
 </article>
                     <article
         class="phpdocumentor-element
@@ -852,31 +981,36 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
     <h4 class="phpdocumentor-element__name" id="method_getPpsWk">
         getPpsWk()
         <a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#method_getPpsWk" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE/PPS.php"><a href="files/src-phpspreadsheet-shared-ole-pps.html"><abbr title="src/PhpSpreadsheet/Shared/OLE/PPS.php">PPS.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">171</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">147</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Returns a string with the PPS&#039;s WK (What is a WK?).</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">getPpsWk</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+                    <span class="phpdocumentor-signature__name">getPpsWk</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
     
     
+    
 
+            <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">string</span>
-            &mdash;
-            <section class="phpdocumentor-description"><p>The binary string</p>
+        <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The binary string</p>
 </section>
 
-    
+            </section>
+
 </article>
                     <article
         class="phpdocumentor-element
@@ -887,22 +1021,25 @@ PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</dd>
     <h4 class="phpdocumentor-element__name" id="method_savePpsSetPnt">
         savePpsSetPnt()
         <a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#method_savePpsSetPnt" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/OLE/PPS.php"><a href="files/src-phpspreadsheet-shared-ole-pps.html"><abbr title="src/PhpSpreadsheet/Shared/OLE/PPS.php">PPS.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">206</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">180</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Updates index and pointers to previous, next and children PPS&#039;s for this
 PPS. I don&#039;t think it&#039;ll work with Dir PPS&#039;s.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">savePpsSetPnt</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$raList</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$to_save</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$depth</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">savePpsSetPnt</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$raList</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$to_save</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$depth</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">0</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -920,33 +1057,180 @@ container</p>
                 : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
+                
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$depth</span>
-                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
-                            </dt>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">0</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
+                
             </dd>
             </dl>
 
     
 
+            <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">int</span>
-            &mdash;
-            <section class="phpdocumentor-description"><p>The index for this PPS</p>
+        <span class="phpdocumentor-signature__response_type">int</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The index for this PPS</p>
 </section>
 
-    
+            </section>
+
 </article>
             </section>
 
+        <div class="phpdocumentor-modal" id="source-view">
+    <div class="phpdocumentor-modal-bg" data-exit-button></div>
+    <div class="phpdocumentor-modal-container">
+        <div class="phpdocumentor-modal-content">
+            <pre style="max-height: 500px; overflow-y: scroll" data-src="files/src/PhpSpreadsheet/Shared/OLE/PPS.php.txt" class="language-php line-numbers linkable-line-numbers"></pre>
+        </div>
+        <button data-exit-button class="phpdocumentor-modal__close">&times;</button>
+    </div>
+</div>
+
+    <script type="text/javascript">
+        (function () {
+            function loadExternalCodeSnippet(el, url, line) {
+                Array.prototype.slice.call(el.querySelectorAll('pre[data-src]')).forEach((pre) => {
+                    const src = url || pre.getAttribute('data-src').replace(/\\/g, '/');
+                    const language = 'php';
+
+                    const code = document.createElement('code');
+                    code.className = 'language-' + language;
+                    pre.textContent = '';
+                    pre.setAttribute('data-line', line)
+                    code.textContent = 'Loading…';
+                    pre.appendChild(code);
+
+                    var xhr = new XMLHttpRequest();
+
+                    xhr.open('GET', src, true);
+
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState !== 4) {
+                            return;
+                        }
+
+                        if (xhr.status < 400 && xhr.responseText) {
+                            code.textContent = xhr.responseText;
+                            Prism.highlightElement(code);
+                            return;
+                        }
+
+                        if (xhr.status === 404) {
+                            code.textContent = '✖ Error: File could not be found';
+                            return;
+                        }
+
+                        if (xhr.status >= 400) {
+                            code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                            return;
+                        }
+
+                        code.textContent = '✖ Error: An unknown error occurred';
+                    };
+
+                    xhr.send(null);
+                });
+            }
+
+            const modalButtons = document.querySelectorAll("[data-modal]");
+            const openedAsLocalFile = window.location.protocol === 'file:';
+            if (modalButtons.length > 0 && openedAsLocalFile) {
+                console.warn(
+                    'Viewing the source code is unavailable because you are opening this page from the file:// scheme; ' +
+                    'browsers block XHR requests when a page is opened this way'
+                );
+            }
+
+            modalButtons.forEach(function (trigger) {
+                if (openedAsLocalFile) {
+                    trigger.setAttribute("hidden", "hidden");
+                }
+
+                trigger.addEventListener("click", function (event) {
+                    event.preventDefault();
+                    const modal = document.getElementById(trigger.dataset.modal);
+                    if (!modal) {
+                        console.error(`Modal with id "${trigger.dataset.modal}" could not be found`);
+                        return;
+                    }
+                    modal.classList.add("phpdocumentor-modal__open");
+
+                    loadExternalCodeSnippet(modal, trigger.dataset.src || null, trigger.dataset.line)
+                    const exits = modal.querySelectorAll("[data-exit-button]");
+                    exits.forEach(function (exit) {
+                        exit.addEventListener("click", function (event) {
+                            event.preventDefault();
+                            modal.classList.remove("phpdocumentor-modal__open");
+                        });
+                    });
+                });
+            });
+        })();
+    </script>
+
     </article>
-                <section data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+                                </section>
+                <section class="phpdocumentor-on-this-page__sidebar">
+                                
+    <section class="phpdocumentor-on-this-page__content">
+        <strong class="phpdocumentor-on-this-page__title">On this page</strong>
+
+        <ul class="phpdocumentor-list -clean">
+            <li class="phpdocumentor-on-this-page-section__title">Table Of Contents</li>
+            <li>
+                <ul class="phpdocumentor-list -clean">
+                                        <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#toc-constants">Constants</a></li>
+                                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#toc-properties">Properties</a></li>
+                                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#toc-methods">Methods</a></li>
+                                    </ul>
+            </li>
+                            <li class="phpdocumentor-on-this-page-section__title">Constants</li>
+                <li>
+                    <ul class="phpdocumentor-list -clean">
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#constant_ALL_ONE_BITS">ALL_ONE_BITS</a></li>
+                                            </ul>
+                </li>
+            
+                            <li class="phpdocumentor-on-this-page-section__title">Properties</li>
+                <li>
+                    <ul class="phpdocumentor-list -clean">
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#property__data">$_data<a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#property_children">$children<a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#property_DirPps">$DirPps<a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#property_Name">$Name<a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#property_NextPps">$NextPps<a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#property_No">$No<a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#property_ole">$ole<a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#property_PrevPps">$PrevPps<a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#property_Size">$Size<a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#property_startBlock">$startBlock<a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#property_Time1st">$Time1st<a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#property_Time2nd">$Time2nd<a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#property_Type">$Type<a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html"></li>
+                                            </ul>
+                </li>
+            
+                        <li class="phpdocumentor-on-this-page-section__title">Methods</li>
+            <li>
+                <ul class="phpdocumentor-list -clean">
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#method___construct">__construct()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#method_getDataLen">getDataLen()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#method_getPpsWk">getPpsWk()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#method_savePpsSetPnt">savePpsSetPnt()</a></li>
+                                    </ul>
+            </li>
+                    </ul>
+    </section>
+
+                </section>
+                            </div>
+            <section data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
     <section class="phpdocumentor-search-results__dialog">
         <header class="phpdocumentor-search-results__header">
             <h2 class="phpdocumentor-search-results__title">Search results</h2>
@@ -957,7 +1241,6 @@ container</p>
         </section>
     </section>
 </section>
-            </div>
         </div>
         <a href="classes/PhpOffice-PhpSpreadsheet-Shared-OLE-PPS.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
 
@@ -966,5 +1249,9 @@ container</p>
     <script>
         cssVars({});
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/prism.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
 </body>
 </html>

@@ -2,18 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Documentation</title>
+            <title>Documentation</title>
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <base href="../">
     <link rel="icon" href="images/favicon.ico"/>
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/base.css">
-            <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+            <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@100;200;300;400;600;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="css/template.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/css/all.min.css" integrity="sha256-ybRkN9dBjhcS2qrW1z+hfCxq+1aBdwyQM5wlQoQVt/0=" crossorigin="anonymous" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/themes/prism-okaidia.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-numbers/prism-line-numbers.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-highlight/prism-line-highlight.css">
                 <script src="https://cdn.jsdelivr.net/npm/fuse.js@3.4.6"></script>
         <script src="https://cdn.jsdelivr.net/npm/css-vars-ponyfill@2"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/js/all.min.js" integrity="sha256-0vuk8LXoyrmCjp1f0O300qo1M75ZQyhH9X3J6d+scmk=" crossorigin="anonymous"></script>
+        <script src="js/template.js"></script>
         <script src="js/search.js"></script>
         <script defer src="js/searchIndex.js"></script>
     </head>
@@ -47,17 +53,28 @@
 <label class="phpdocumentor-sidebar__menu-icon" for="sidebar-button">
     Menu
 </label>
-<aside class="phpdocumentor-column -four phpdocumentor-sidebar">
-    
-    <section class="phpdocumentor-sidebar__category">
-        <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
-                                                <h4 class="phpdocumentor-sidebar__root-namespace"><a href="namespaces/phpoffice.html"><abbr title="\PhpOffice">PhpOffice</abbr></a></h4>
-                <ul class="phpdocumentor-list">
-                                            <li><a href="namespaces/phpoffice-phpspreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet">PhpSpreadsheet</abbr></a></li>
-                                    </ul>
-                        </section>
+<aside class="phpdocumentor-column -three phpdocumentor-sidebar">
+                    <section class="phpdocumentor-sidebar__category">
+            <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
+                                    <h4 class="phpdocumentor-sidebar__root-namespace">
+    <a href="namespaces/phpoffice.html" class="">PhpOffice</a>
+</h4>
+    <ul class="phpdocumentor-list">
+                    <li>
+                <a href="namespaces/phpoffice-phpspreadsheet.html" class="">PhpSpreadsheet</a>
+                
+            </li>
+            </ul>
 
-    
+                        </section>
+                <section class="phpdocumentor-sidebar__category">
+            <h2 class="phpdocumentor-sidebar__category-header">Packages</h2>
+                                    <h4 class="phpdocumentor-sidebar__root-namespace">
+    <a href="packages/Application.html" class="">Application</a>
+</h4>
+
+                        </section>
+            
     <section class="phpdocumentor-sidebar__category">
         <h2 class="phpdocumentor-sidebar__category-header">Reports</h2>
                 <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/deprecated.html">Deprecated</a></h3>
@@ -71,8 +88,9 @@
     </section>
 </aside>
 
-            <div class="phpdocumentor-column -eight phpdocumentor-content">
-                    <ul class="phpdocumentor-breadcrumbs">
+            <div class="phpdocumentor-column -nine phpdocumentor-content">
+                                <section>
+                                        <ul class="phpdocumentor-breadcrumbs">
             <li class="phpdocumentor-breadcrumb"><a href="namespaces/phpoffice.html">PhpOffice</a></li>
             <li class="phpdocumentor-breadcrumb"><a href="namespaces/phpoffice-phpspreadsheet.html">PhpSpreadsheet</a></li>
             <li class="phpdocumentor-breadcrumb"><a href="namespaces/phpoffice-phpspreadsheet-reader.html">Reader</a></li>
@@ -84,15 +102,27 @@
     Escher
 
     
+            <div class="phpdocumentor-element__package">
+            in package
+            <ul class="phpdocumentor-breadcrumbs">
+                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Application.html">Application</a></li>
+                            </ul>
+        </div>
     
     
     </h2>
+
+<div class="phpdocumentor-label-line">
+
+
+</div>
 
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/Escher.php"><a href="files/src-phpspreadsheet-reader-xls-escher.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/Escher.php">Escher.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">15</span>
-</aside>
+
+    </aside>
 
         
 
@@ -100,338 +130,345 @@
 
 
 
-
-
-
 <h3 id="toc">
     Table of Contents
-    <a href="#toc" class="headerlink"><i class="fas fa-link"></i></a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
+
 </h3>
 
+
+
+
+
+
+
+<h4 id="toc-constants">
+    Constants
+    <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#toc-constants" class="headerlink"><i class="fas fa-link"></i></a>
+
+</h4>
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#constant_BLIPJPEG">BLIPJPEG</a>
     <span>
-        &nbsp;= 0xf01d                    </span>
+        &nbsp;= 0xf01d                            </span>
 </dt>
-<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#constant_BLIPPNG">BLIPPNG</a>
     <span>
-        &nbsp;= 0xf01e                    </span>
+        &nbsp;= 0xf01e                            </span>
 </dt>
-<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#constant_BSE">BSE</a>
     <span>
-        &nbsp;= 0xf007                    </span>
+        &nbsp;= 0xf007                            </span>
 </dt>
-<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#constant_BSTORECONTAINER">BSTORECONTAINER</a>
     <span>
-        &nbsp;= 0xf001                    </span>
+        &nbsp;= 0xf001                            </span>
 </dt>
-<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#constant_CLIENTANCHOR">CLIENTANCHOR</a>
     <span>
-        &nbsp;= 0xf010                    </span>
+        &nbsp;= 0xf010                            </span>
 </dt>
-<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#constant_CLIENTDATA">CLIENTDATA</a>
     <span>
-        &nbsp;= 0xf011                    </span>
+        &nbsp;= 0xf011                            </span>
 </dt>
-<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#constant_CLIENTTEXTBOX">CLIENTTEXTBOX</a>
     <span>
-        &nbsp;= 0xf00d                    </span>
+        &nbsp;= 0xf00d                            </span>
 </dt>
-<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#constant_DG">DG</a>
     <span>
-        &nbsp;= 0xf008                    </span>
+        &nbsp;= 0xf008                            </span>
 </dt>
-<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#constant_DGCONTAINER">DGCONTAINER</a>
     <span>
-        &nbsp;= 0xf002                    </span>
+        &nbsp;= 0xf002                            </span>
 </dt>
-<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#constant_DGG">DGG</a>
     <span>
-        &nbsp;= 0xf006                    </span>
+        &nbsp;= 0xf006                            </span>
 </dt>
-<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#constant_DGGCONTAINER">DGGCONTAINER</a>
     <span>
-        &nbsp;= 0xf000                    </span>
+        &nbsp;= 0xf000                            </span>
 </dt>
-<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#constant_OPT">OPT</a>
     <span>
-        &nbsp;= 0xf00b                    </span>
+        &nbsp;= 0xf00b                            </span>
 </dt>
-<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#constant_SP">SP</a>
     <span>
-        &nbsp;= 0xf00a                    </span>
+        &nbsp;= 0xf00a                            </span>
 </dt>
-<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#constant_SPCONTAINER">SPCONTAINER</a>
     <span>
-        &nbsp;= 0xf004                    </span>
+        &nbsp;= 0xf004                            </span>
 </dt>
-<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#constant_SPGR">SPGR</a>
     <span>
-        &nbsp;= 0xf009                    </span>
+        &nbsp;= 0xf009                            </span>
 </dt>
-<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#constant_SPGRCONTAINER">SPGRCONTAINER</a>
     <span>
-        &nbsp;= 0xf003                    </span>
+        &nbsp;= 0xf003                            </span>
 </dt>
-<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#constant_SPLITMENUCOLORS">SPLITMENUCOLORS</a>
     <span>
-        &nbsp;= 0xf11e                    </span>
+        &nbsp;= 0xf11e                            </span>
 </dt>
-<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#constant_TERTIARYOPT">TERTIARYOPT</a>
     <span>
-        &nbsp;= 0xf122                    </span>
+        &nbsp;= 0xf122                            </span>
 </dt>
-<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#constant_WHICH_ROUTINE">WHICH_ROUTINE</a>
     <span>
-        &nbsp;= [self::DGGCONTAINER =&gt; &#039;readDggContainer&#039;, self::DGG =&gt; &#039;readDgg&#039;, self::BSTORECONTAINER =&gt; &#039;readBstoreContainer&#039;, self::BSE =&gt; &#039;readBSE&#039;, self::BLIPJPEG =&gt; &#039;readBlipJPEG&#039;, self::BLIPPNG =&gt; &#039;readBlipPNG&#039;, self::OPT =&gt; &#039;readOPT&#039;, self::TERTIARYOPT =&gt; &#039;readTertiaryOPT&#039;, self::SPLITMENUCOLORS =&gt; &#039;readSplitMenuColors&#039;, self::DGCONTAINER =&gt; &#039;readDgContainer&#039;, self::DG =&gt; &#039;readDg&#039;, self::SPGRCONTAINER =&gt; &#039;readSpgrContainer&#039;, self::SPCONTAINER =&gt; &#039;readSpContainer&#039;, self::SPGR =&gt; &#039;readSpgr&#039;, self::SP =&gt; &#039;readSp&#039;, self::CLIENTTEXTBOX =&gt; &#039;readClientTextbox&#039;, self::CLIENTANCHOR =&gt; &#039;readClientAnchor&#039;, self::CLIENTDATA =&gt; &#039;readClientData&#039;]                    </span>
+        &nbsp;= [self::DGGCONTAINER =&gt; &#039;readDggContainer&#039;, self::DGG =&gt; &#039;readDgg&#039;, self::BSTORECONTAINER =&gt; &#039;readBstoreContainer&#039;, self::BSE =&gt; &#039;readBSE&#039;, self::BLIPJPEG =&gt; &#039;readBlipJPEG&#039;, self::BLIPPNG =&gt; &#039;readBlipPNG&#039;, self::OPT =&gt; &#039;readOPT&#039;, self::TERTIARYOPT =&gt; &#039;readTertiaryOPT&#039;, self::SPLITMENUCOLORS =&gt; &#039;readSplitMenuColors&#039;, self::DGCONTAINER =&gt; &#039;readDgContainer&#039;, self::DG =&gt; &#039;readDg&#039;, self::SPGRCONTAINER =&gt; &#039;readSpgrContainer&#039;, self::SPCONTAINER =&gt; &#039;readSpContainer&#039;, self::SPGR =&gt; &#039;readSpgr&#039;, self::SP =&gt; &#039;readSp&#039;, self::CLIENTTEXTBOX =&gt; &#039;readClientTextbox&#039;, self::CLIENTANCHOR =&gt; &#039;readClientAnchor&#039;, self::CLIENTDATA =&gt; &#039;readClientData&#039;]                            </span>
 </dt>
-<dd></dd>
 
-                <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    </dl>
+
+
+<h4 id="toc-properties">
+    Properties
+    <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#toc-properties" class="headerlink"><i class="fas fa-link"></i></a>
+
+</h4>
+<dl class="phpdocumentor-table-of-contents">
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#property_data">$data</a>
     <span>
-                &nbsp;: string            </span>
+                        &nbsp;: string            </span>
 </dt>
 <dd>Escher stream data (binary).</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#property_dataSize">$dataSize</a>
     <span>
-                &nbsp;: int            </span>
+                        &nbsp;: int            </span>
 </dt>
 <dd>Size in bytes of the Escher stream data.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#property_object">$object</a>
     <span>
-                &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer-BstoreContainer-BSE.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE">BSE</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer-BstoreContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer">BstoreContainer</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer">DgContainer</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer">DggContainer</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher">Escher</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer\SpContainer">SpContainer</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer">SpgrContainer</abbr></a>            </span>
+                        &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer-BstoreContainer-BSE.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE">BSE</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer-BstoreContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer">BstoreContainer</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer">DgContainer</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer">DggContainer</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher">Escher</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer\SpContainer">SpContainer</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer">SpgrContainer</abbr></a>            </span>
 </dt>
 <dd>The object to be returned by the reader. Modified during load.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#property_pos">$pos</a>
     <span>
-                &nbsp;: int            </span>
+                        &nbsp;: int            </span>
 </dt>
 <dd>Current position of stream pointer in Escher stream data.</dd>
 
-                <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    </dl>
+
+<h4 id="toc-methods">
+    Methods
+    <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#toc-methods" class="headerlink"><i class="fas fa-link"></i></a>
+
+</h4>
+<dl class="phpdocumentor-table-of-contents">
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method___construct">__construct()</a>
     <span>
-                        &nbsp;: mixed    </span>
+                                &nbsp;: mixed    </span>
 </dt>
 <dd>Create a new Escher instance.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_load">load()</a>
     <span>
-                        &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer-BstoreContainer-BSE.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE">BSE</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer-BstoreContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer">BstoreContainer</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer">DgContainer</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer">DggContainer</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher">Escher</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer\SpContainer">SpContainer</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer">SpgrContainer</abbr></a>    </span>
+                                &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer-BstoreContainer-BSE.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE">BSE</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer-BstoreContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer">BstoreContainer</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer">DgContainer</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer">DggContainer</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher">Escher</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer\SpContainer">SpContainer</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer">SpgrContainer</abbr></a>    </span>
 </dt>
 <dd>Load Escher stream data. May be a partial Escher stream.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_applyAttribute">applyAttribute()</a>
     <span>
-                        &nbsp;: void    </span>
+                                &nbsp;: void    </span>
 </dt>
-<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_readBlipJPEG">readBlipJPEG()</a>
     <span>
-                        &nbsp;: void    </span>
+                                &nbsp;: void    </span>
 </dt>
 <dd>Read BlipJPEG record. Holds raw JPEG image data.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_readBlipPNG">readBlipPNG()</a>
     <span>
-                        &nbsp;: void    </span>
+                                &nbsp;: void    </span>
 </dt>
 <dd>Read BlipPNG record. Holds raw PNG image data.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_readBSE">readBSE()</a>
     <span>
-                        &nbsp;: void    </span>
+                                &nbsp;: void    </span>
 </dt>
 <dd>Read BSE record.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_readBstoreContainer">readBstoreContainer()</a>
     <span>
-                        &nbsp;: void    </span>
+                                &nbsp;: void    </span>
 </dt>
 <dd>Read BstoreContainer record (Blip Store Container).</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_readClientAnchor">readClientAnchor()</a>
     <span>
-                        &nbsp;: void    </span>
+                                &nbsp;: void    </span>
 </dt>
 <dd>Read ClientAnchor record. This record holds information about where the shape is anchored in worksheet.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_readClientData">readClientData()</a>
     <span>
-                        &nbsp;: void    </span>
+                                &nbsp;: void    </span>
 </dt>
 <dd>Read ClientData record.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_readClientTextbox">readClientTextbox()</a>
     <span>
-                        &nbsp;: void    </span>
+                                &nbsp;: void    </span>
 </dt>
 <dd>Read ClientTextbox record.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_readDefault">readDefault()</a>
     <span>
-                        &nbsp;: void    </span>
+                                &nbsp;: void    </span>
 </dt>
 <dd>Read a generic record.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_readDg">readDg()</a>
     <span>
-                        &nbsp;: void    </span>
+                                &nbsp;: void    </span>
 </dt>
 <dd>Read Dg record (Drawing).</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_readDgContainer">readDgContainer()</a>
     <span>
-                        &nbsp;: void    </span>
+                                &nbsp;: void    </span>
 </dt>
 <dd>Read DgContainer record (Drawing Container).</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_readDgg">readDgg()</a>
     <span>
-                        &nbsp;: void    </span>
+                                &nbsp;: void    </span>
 </dt>
 <dd>Read Dgg record (Drawing Group).</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_readDggContainer">readDggContainer()</a>
     <span>
-                        &nbsp;: void    </span>
+                                &nbsp;: void    </span>
 </dt>
 <dd>Read DggContainer record (Drawing Group Container).</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_readOfficeArtRGFOPTE">readOfficeArtRGFOPTE()</a>
     <span>
-                        &nbsp;: void    </span>
+                                &nbsp;: void    </span>
 </dt>
 <dd>Read OfficeArtRGFOPTE table of property-value pairs.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_readOPT">readOPT()</a>
     <span>
-                        &nbsp;: void    </span>
+                                &nbsp;: void    </span>
 </dt>
 <dd>Read OPT record. This record may occur within DggContainer record or SpContainer.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_readSp">readSp()</a>
     <span>
-                        &nbsp;: void    </span>
+                                &nbsp;: void    </span>
 </dt>
 <dd>Read Sp record (Shape).</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_readSpContainer">readSpContainer()</a>
     <span>
-                        &nbsp;: void    </span>
+                                &nbsp;: void    </span>
 </dt>
 <dd>Read SpContainer record (Shape Container).</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_readSpgr">readSpgr()</a>
     <span>
-                        &nbsp;: void    </span>
+                                &nbsp;: void    </span>
 </dt>
 <dd>Read Spgr record (Shape Group).</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_readSpgrContainer">readSpgrContainer()</a>
     <span>
-                        &nbsp;: void    </span>
+                                &nbsp;: void    </span>
 </dt>
 <dd>Read SpgrContainer record (Shape Group Container).</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_readSplitMenuColors">readSplitMenuColors()</a>
     <span>
-                        &nbsp;: void    </span>
+                                &nbsp;: void    </span>
 </dt>
 <dd>Read SplitMenuColors record.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_readTertiaryOPT">readTertiaryOPT()</a>
     <span>
-                        &nbsp;: void    </span>
+                                &nbsp;: void    </span>
 </dt>
 <dd>Read TertiaryOPT record.</dd>
 
-        </dl>
+    </dl>
+
 
 
 
@@ -440,28 +477,32 @@
         <h3 class="phpdocumentor-elements__header" id="constants">
             Constants
             <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#constants" class="headerlink"><i class="fas fa-link"></i></a>
+
         </h3>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_BLIPJPEG">
         BLIPJPEG
         <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#constant_BLIPJPEG" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/Escher.php"><a href="files/src-phpspreadsheet-reader-xls-escher.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/Escher.php">Escher.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">31</span>
-</aside>
+
+    </aside>
 
     
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
-    <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">BLIPJPEG</span>
     = <span class="phpdocumentor-signature__default-value">0xf01d</span>
 </code>
 
 
+    
     
     
 
@@ -470,23 +511,26 @@
     <h4 class="phpdocumentor-element__name" id="constant_BLIPPNG">
         BLIPPNG
         <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#constant_BLIPPNG" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/Escher.php"><a href="files/src-phpspreadsheet-reader-xls-escher.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/Escher.php">Escher.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">32</span>
-</aside>
+
+    </aside>
 
     
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
-    <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">BLIPPNG</span>
     = <span class="phpdocumentor-signature__default-value">0xf01e</span>
 </code>
 
 
+    
     
     
 
@@ -495,23 +539,26 @@
     <h4 class="phpdocumentor-element__name" id="constant_BSE">
         BSE
         <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#constant_BSE" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/Escher.php"><a href="files/src-phpspreadsheet-reader-xls-escher.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/Escher.php">Escher.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">23</span>
-</aside>
+
+    </aside>
 
     
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
-    <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">BSE</span>
     = <span class="phpdocumentor-signature__default-value">0xf007</span>
 </code>
 
 
+    
     
     
 
@@ -520,23 +567,26 @@
     <h4 class="phpdocumentor-element__name" id="constant_BSTORECONTAINER">
         BSTORECONTAINER
         <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#constant_BSTORECONTAINER" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/Escher.php"><a href="files/src-phpspreadsheet-reader-xls-escher.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/Escher.php">Escher.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">18</span>
-</aside>
+
+    </aside>
 
     
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
-    <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">BSTORECONTAINER</span>
     = <span class="phpdocumentor-signature__default-value">0xf001</span>
 </code>
 
 
+    
     
     
 
@@ -545,23 +595,26 @@
     <h4 class="phpdocumentor-element__name" id="constant_CLIENTANCHOR">
         CLIENTANCHOR
         <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#constant_CLIENTANCHOR" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/Escher.php"><a href="files/src-phpspreadsheet-reader-xls-escher.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/Escher.php">Escher.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">29</span>
-</aside>
+
+    </aside>
 
     
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
-    <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">CLIENTANCHOR</span>
     = <span class="phpdocumentor-signature__default-value">0xf010</span>
 </code>
 
 
+    
     
     
 
@@ -570,23 +623,26 @@
     <h4 class="phpdocumentor-element__name" id="constant_CLIENTDATA">
         CLIENTDATA
         <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#constant_CLIENTDATA" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/Escher.php"><a href="files/src-phpspreadsheet-reader-xls-escher.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/Escher.php">Escher.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">30</span>
-</aside>
+
+    </aside>
 
     
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
-    <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">CLIENTDATA</span>
     = <span class="phpdocumentor-signature__default-value">0xf011</span>
 </code>
 
 
+    
     
     
 
@@ -595,23 +651,26 @@
     <h4 class="phpdocumentor-element__name" id="constant_CLIENTTEXTBOX">
         CLIENTTEXTBOX
         <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#constant_CLIENTTEXTBOX" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/Escher.php"><a href="files/src-phpspreadsheet-reader-xls-escher.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/Escher.php">Escher.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">28</span>
-</aside>
+
+    </aside>
 
     
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
-    <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">CLIENTTEXTBOX</span>
     = <span class="phpdocumentor-signature__default-value">0xf00d</span>
 </code>
 
 
+    
     
     
 
@@ -620,23 +679,26 @@
     <h4 class="phpdocumentor-element__name" id="constant_DG">
         DG
         <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#constant_DG" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/Escher.php"><a href="files/src-phpspreadsheet-reader-xls-escher.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/Escher.php">Escher.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">24</span>
-</aside>
+
+    </aside>
 
     
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
-    <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">DG</span>
     = <span class="phpdocumentor-signature__default-value">0xf008</span>
 </code>
 
 
+    
     
     
 
@@ -645,23 +707,26 @@
     <h4 class="phpdocumentor-element__name" id="constant_DGCONTAINER">
         DGCONTAINER
         <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#constant_DGCONTAINER" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/Escher.php"><a href="files/src-phpspreadsheet-reader-xls-escher.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/Escher.php">Escher.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">19</span>
-</aside>
+
+    </aside>
 
     
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
-    <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">DGCONTAINER</span>
     = <span class="phpdocumentor-signature__default-value">0xf002</span>
 </code>
 
 
+    
     
     
 
@@ -670,23 +735,26 @@
     <h4 class="phpdocumentor-element__name" id="constant_DGG">
         DGG
         <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#constant_DGG" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/Escher.php"><a href="files/src-phpspreadsheet-reader-xls-escher.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/Escher.php">Escher.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">22</span>
-</aside>
+
+    </aside>
 
     
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
-    <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">DGG</span>
     = <span class="phpdocumentor-signature__default-value">0xf006</span>
 </code>
 
 
+    
     
     
 
@@ -695,23 +763,26 @@
     <h4 class="phpdocumentor-element__name" id="constant_DGGCONTAINER">
         DGGCONTAINER
         <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#constant_DGGCONTAINER" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/Escher.php"><a href="files/src-phpspreadsheet-reader-xls-escher.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/Escher.php">Escher.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">17</span>
-</aside>
+
+    </aside>
 
     
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
-    <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">DGGCONTAINER</span>
     = <span class="phpdocumentor-signature__default-value">0xf000</span>
 </code>
 
 
+    
     
     
 
@@ -720,23 +791,26 @@
     <h4 class="phpdocumentor-element__name" id="constant_OPT">
         OPT
         <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#constant_OPT" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/Escher.php"><a href="files/src-phpspreadsheet-reader-xls-escher.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/Escher.php">Escher.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">27</span>
-</aside>
+
+    </aside>
 
     
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
-    <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">OPT</span>
     = <span class="phpdocumentor-signature__default-value">0xf00b</span>
 </code>
 
 
+    
     
     
 
@@ -745,23 +819,26 @@
     <h4 class="phpdocumentor-element__name" id="constant_SP">
         SP
         <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#constant_SP" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/Escher.php"><a href="files/src-phpspreadsheet-reader-xls-escher.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/Escher.php">Escher.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">26</span>
-</aside>
+
+    </aside>
 
     
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
-    <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">SP</span>
     = <span class="phpdocumentor-signature__default-value">0xf00a</span>
 </code>
 
 
+    
     
     
 
@@ -770,23 +847,26 @@
     <h4 class="phpdocumentor-element__name" id="constant_SPCONTAINER">
         SPCONTAINER
         <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#constant_SPCONTAINER" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/Escher.php"><a href="files/src-phpspreadsheet-reader-xls-escher.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/Escher.php">Escher.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">21</span>
-</aside>
+
+    </aside>
 
     
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
-    <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">SPCONTAINER</span>
     = <span class="phpdocumentor-signature__default-value">0xf004</span>
 </code>
 
 
+    
     
     
 
@@ -795,23 +875,26 @@
     <h4 class="phpdocumentor-element__name" id="constant_SPGR">
         SPGR
         <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#constant_SPGR" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/Escher.php"><a href="files/src-phpspreadsheet-reader-xls-escher.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/Escher.php">Escher.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">25</span>
-</aside>
+
+    </aside>
 
     
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
-    <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">SPGR</span>
     = <span class="phpdocumentor-signature__default-value">0xf009</span>
 </code>
 
 
+    
     
     
 
@@ -820,23 +903,26 @@
     <h4 class="phpdocumentor-element__name" id="constant_SPGRCONTAINER">
         SPGRCONTAINER
         <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#constant_SPGRCONTAINER" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/Escher.php"><a href="files/src-phpspreadsheet-reader-xls-escher.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/Escher.php">Escher.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">20</span>
-</aside>
+
+    </aside>
 
     
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
-    <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">SPGRCONTAINER</span>
     = <span class="phpdocumentor-signature__default-value">0xf003</span>
 </code>
 
 
+    
     
     
 
@@ -845,23 +931,26 @@
     <h4 class="phpdocumentor-element__name" id="constant_SPLITMENUCOLORS">
         SPLITMENUCOLORS
         <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#constant_SPLITMENUCOLORS" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/Escher.php"><a href="files/src-phpspreadsheet-reader-xls-escher.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/Escher.php">Escher.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">33</span>
-</aside>
+
+    </aside>
 
     
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
-    <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">SPLITMENUCOLORS</span>
     = <span class="phpdocumentor-signature__default-value">0xf11e</span>
 </code>
 
 
+    
     
     
 
@@ -870,23 +959,26 @@
     <h4 class="phpdocumentor-element__name" id="constant_TERTIARYOPT">
         TERTIARYOPT
         <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#constant_TERTIARYOPT" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/Escher.php"><a href="files/src-phpspreadsheet-reader-xls-escher.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/Escher.php">Escher.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">34</span>
-</aside>
+
+    </aside>
 
     
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
-    <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">TERTIARYOPT</span>
     = <span class="phpdocumentor-signature__default-value">0xf122</span>
 </code>
 
 
+    
     
     
 
@@ -895,23 +987,26 @@
     <h4 class="phpdocumentor-element__name" id="constant_WHICH_ROUTINE">
         WHICH_ROUTINE
         <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#constant_WHICH_ROUTINE" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/Escher.php"><a href="files/src-phpspreadsheet-reader-xls-escher.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/Escher.php">Escher.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">74</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">64</span>
+
+    </aside>
 
     
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">private</span>
-    <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">WHICH_ROUTINE</span>
     = <span class="phpdocumentor-signature__default-value">[self::DGGCONTAINER =&gt; &#039;readDggContainer&#039;, self::DGG =&gt; &#039;readDgg&#039;, self::BSTORECONTAINER =&gt; &#039;readBstoreContainer&#039;, self::BSE =&gt; &#039;readBSE&#039;, self::BLIPJPEG =&gt; &#039;readBlipJPEG&#039;, self::BLIPPNG =&gt; &#039;readBlipPNG&#039;, self::OPT =&gt; &#039;readOPT&#039;, self::TERTIARYOPT =&gt; &#039;readTertiaryOPT&#039;, self::SPLITMENUCOLORS =&gt; &#039;readSplitMenuColors&#039;, self::DGCONTAINER =&gt; &#039;readDgContainer&#039;, self::DG =&gt; &#039;readDg&#039;, self::SPGRCONTAINER =&gt; &#039;readSpgrContainer&#039;, self::SPCONTAINER =&gt; &#039;readSpContainer&#039;, self::SPGR =&gt; &#039;readSpgr&#039;, self::SP =&gt; &#039;readSp&#039;, self::CLIENTTEXTBOX =&gt; &#039;readClientTextbox&#039;, self::CLIENTANCHOR =&gt; &#039;readClientAnchor&#039;, self::CLIENTDATA =&gt; &#039;readClientData&#039;]</span>
 </code>
 
 
+    
     
     
 
@@ -923,6 +1018,7 @@
         <h3 class="phpdocumentor-elements__header" id="properties">
             Properties
             <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
+
         </h3>
                     <article
         class="
@@ -934,14 +1030,16 @@
     <h4 class="phpdocumentor-element__name" id="property_data">
         $data
         <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#property_data" class="headerlink"><i class="fas fa-link"></i></a>
+
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/Escher.php"><a href="files/src-phpspreadsheet-reader-xls-escher.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/Escher.php">Escher.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">41</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">39</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Escher stream data (binary).</p>
 
@@ -951,8 +1049,8 @@
     <span class="phpdocumentor-signature__name">$data</span>
     </code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
+    
     
 
 </article>
@@ -966,14 +1064,16 @@
     <h4 class="phpdocumentor-element__name" id="property_dataSize">
         $dataSize
         <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#property_dataSize" class="headerlink"><i class="fas fa-link"></i></a>
+
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/Escher.php"><a href="files/src-phpspreadsheet-reader-xls-escher.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/Escher.php">Escher.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">48</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">44</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Size in bytes of the Escher stream data.</p>
 
@@ -983,8 +1083,8 @@
     <span class="phpdocumentor-signature__name">$dataSize</span>
     </code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
+    
     
 
 </article>
@@ -998,14 +1098,16 @@
     <h4 class="phpdocumentor-element__name" id="property_object">
         $object
         <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#property_object" class="headerlink"><i class="fas fa-link"></i></a>
+
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/Escher.php"><a href="files/src-phpspreadsheet-reader-xls-escher.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/Escher.php">Escher.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">62</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">54</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">The object to be returned by the reader. Modified during load.</p>
 
@@ -1015,8 +1117,8 @@
     <span class="phpdocumentor-signature__name">$object</span>
     </code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
+    
     
 
 </article>
@@ -1030,14 +1132,16 @@
     <h4 class="phpdocumentor-element__name" id="property_pos">
         $pos
         <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#property_pos" class="headerlink"><i class="fas fa-link"></i></a>
+
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/Escher.php"><a href="files/src-phpspreadsheet-reader-xls-escher.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/Escher.php">Escher.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">55</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">49</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Current position of stream pointer in Escher stream data.</p>
 
@@ -1047,8 +1151,8 @@
     <span class="phpdocumentor-signature__name">$pos</span>
     </code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
+    
     
 
 </article>
@@ -1058,6 +1162,7 @@
         <h3 class="phpdocumentor-elements__header" id="methods">
             Methods
             <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
+
         </h3>
                     <article
         class="phpdocumentor-element
@@ -1068,39 +1173,36 @@
     <h4 class="phpdocumentor-element__name" id="method___construct">
         __construct()
         <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method___construct" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/Escher.php"><a href="files/src-phpspreadsheet-reader-xls-escher.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/Escher.php">Escher.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">69</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">59</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Create a new Escher instance.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$object</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer-BstoreContainer-BSE.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE">BSE</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer-BstoreContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer">BstoreContainer</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer">DgContainer</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer">DggContainer</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher">Escher</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer\SpContainer">SpContainer</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer">SpgrContainer</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$object</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$object</span>
-                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer-BstoreContainer-BSE.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE">BSE</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer-BstoreContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer">BstoreContainer</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer">DgContainer</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer">DggContainer</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher">Escher</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer\SpContainer">SpContainer</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer">SpgrContainer</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
+                
             </dd>
             </dl>
 
     
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">mixed</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
 
     
 </article>
@@ -1113,21 +1215,24 @@
     <h4 class="phpdocumentor-element__name" id="method_load">
         load()
         <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_load" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/Escher.php"><a href="files/src-phpspreadsheet-reader-xls-escher.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/Escher.php">Escher.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">102</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">88</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Load Escher stream data. May be a partial Escher stream.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">load</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$data</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer-BstoreContainer-BSE.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE">BSE</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer-BstoreContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer">BstoreContainer</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer">DgContainer</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer">DggContainer</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher">Escher</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer\SpContainer">SpContainer</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer">SpgrContainer</abbr></a></span></code>
+                    <span class="phpdocumentor-signature__name">load</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$data</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer-BstoreContainer-BSE.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE">BSE</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer-BstoreContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer">BstoreContainer</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer">DgContainer</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer">DggContainer</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher">Escher</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer\SpContainer">SpContainer</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer">SpgrContainer</abbr></a></span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1135,19 +1240,17 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
+                
             </dd>
             </dl>
 
     
 
+            <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer-BstoreContainer-BSE.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE">BSE</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer-BstoreContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer">BstoreContainer</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer">DgContainer</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer">DggContainer</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher">Escher</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer\SpContainer">SpContainer</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer">SpgrContainer</abbr></a></span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
+        <span class="phpdocumentor-signature__response_type"><a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer-BstoreContainer-BSE.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE">BSE</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer-BstoreContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer">BstoreContainer</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer">DgContainer</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DggContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer">DggContainer</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher">Escher</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer-SpContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer\SpContainer">SpContainer</abbr></a>|<a href="classes/PhpOffice-PhpSpreadsheet-Shared-Escher-DgContainer-SpgrContainer.html"><abbr title="\PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer">SpgrContainer</abbr></a></span>
+            </section>
 
-    
 </article>
                     <article
         class="phpdocumentor-element
@@ -1158,20 +1261,23 @@
     <h4 class="phpdocumentor-element__name" id="method_applyAttribute">
         applyAttribute()
         <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_applyAttribute" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/Escher.php"><a href="files/src-phpspreadsheet-reader-xls-escher.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/Escher.php">Escher.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">559</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">542</span>
+
+    </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">applyAttribute</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">applyAttribute</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1186,17 +1292,11 @@
                 : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
+                
             </dd>
             </dl>
 
     
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">void</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
 
     
 </article>
@@ -1209,28 +1309,26 @@
     <h4 class="phpdocumentor-element__name" id="method_readBlipJPEG">
         readBlipJPEG()
         <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_readBlipJPEG" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/Escher.php"><a href="files/src-phpspreadsheet-reader-xls-escher.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/Escher.php">Escher.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">262</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">248</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Read BlipJPEG record. Holds raw JPEG image data.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">readBlipJPEG</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">readBlipJPEG</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
     
     
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">void</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
+    
 
     
 </article>
@@ -1243,28 +1341,26 @@
     <h4 class="phpdocumentor-element__name" id="method_readBlipPNG">
         readBlipPNG()
         <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_readBlipPNG" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/Escher.php"><a href="files/src-phpspreadsheet-reader-xls-escher.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/Escher.php">Escher.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">303</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">289</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Read BlipPNG record. Holds raw PNG image data.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">readBlipPNG</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">readBlipPNG</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
     
     
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">void</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
+    
 
     
 </article>
@@ -1277,28 +1373,26 @@
     <h4 class="phpdocumentor-element__name" id="method_readBSE">
         readBSE()
         <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_readBSE" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/Escher.php"><a href="files/src-phpspreadsheet-reader-xls-escher.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/Escher.php">Escher.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">196</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">182</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Read BSE record.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">readBSE</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">readBSE</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
     
     
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">void</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
+    
 
     
 </article>
@@ -1311,28 +1405,26 @@
     <h4 class="phpdocumentor-element__name" id="method_readBstoreContainer">
         readBstoreContainer()
         <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_readBstoreContainer" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/Escher.php"><a href="files/src-phpspreadsheet-reader-xls-escher.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/Escher.php">Escher.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">178</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">164</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Read BstoreContainer record (Blip Store Container).</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">readBstoreContainer</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">readBstoreContainer</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
     
     
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">void</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
+    
 
     
 </article>
@@ -1345,28 +1437,26 @@
     <h4 class="phpdocumentor-element__name" id="method_readClientAnchor">
         readClientAnchor()
         <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_readClientAnchor" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/Escher.php"><a href="files/src-phpspreadsheet-reader-xls-escher.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/Escher.php">Escher.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">516</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">502</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Read ClientAnchor record. This record holds information about where the shape is anchored in worksheet.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">readClientAnchor</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">readClientAnchor</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
     
     
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">void</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
+    
 
     
 </article>
@@ -1379,28 +1469,26 @@
     <h4 class="phpdocumentor-element__name" id="method_readClientData">
         readClientData()
         <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_readClientData" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/Escher.php"><a href="files/src-phpspreadsheet-reader-xls-escher.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/Escher.php">Escher.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">569</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">552</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Read ClientData record.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">readClientData</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">readClientData</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
     
     
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">void</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
+    
 
     
 </article>
@@ -1413,28 +1501,26 @@
     <h4 class="phpdocumentor-element__name" id="method_readClientTextbox">
         readClientTextbox()
         <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_readClientTextbox" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/Escher.php"><a href="files/src-phpspreadsheet-reader-xls-escher.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/Escher.php">Escher.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">499</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">485</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Read ClientTextbox record.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">readClientTextbox</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">readClientTextbox</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
     
     
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">void</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
+    
 
     
 </article>
@@ -1447,28 +1533,26 @@
     <h4 class="phpdocumentor-element__name" id="method_readDefault">
         readDefault()
         <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_readDefault" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/Escher.php"><a href="files/src-phpspreadsheet-reader-xls-escher.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/Escher.php">Escher.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">127</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">113</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Read a generic record.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">readDefault</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">readDefault</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
     
     
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">void</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
+    
 
     
 </article>
@@ -1481,28 +1565,26 @@
     <h4 class="phpdocumentor-element__name" id="method_readDg">
         readDg()
         <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_readDg" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/Escher.php"><a href="files/src-phpspreadsheet-reader-xls-escher.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/Escher.php">Escher.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">410</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">396</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Read Dg record (Drawing).</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">readDg</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">readDg</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
     
     
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">void</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
+    
 
     
 </article>
@@ -1515,28 +1597,26 @@
     <h4 class="phpdocumentor-element__name" id="method_readDgContainer">
         readDgContainer()
         <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_readDgContainer" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/Escher.php"><a href="files/src-phpspreadsheet-reader-xls-escher.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/Escher.php">Escher.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">392</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">378</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Read DgContainer record (Drawing Container).</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">readDgContainer</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">readDgContainer</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
     
     
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">void</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
+    
 
     
 </article>
@@ -1549,28 +1629,26 @@
     <h4 class="phpdocumentor-element__name" id="method_readDgg">
         readDgg()
         <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_readDgg" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/Escher.php"><a href="files/src-phpspreadsheet-reader-xls-escher.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/Escher.php">Escher.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">166</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">152</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Read Dgg record (Drawing Group).</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">readDgg</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">readDgg</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
     
     
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">void</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
+    
 
     
 </article>
@@ -1583,28 +1661,26 @@
     <h4 class="phpdocumentor-element__name" id="method_readDggContainer">
         readDggContainer()
         <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_readDggContainer" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/Escher.php"><a href="files/src-phpspreadsheet-reader-xls-escher.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/Escher.php">Escher.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">148</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">134</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Read DggContainer record (Drawing Group Container).</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">readDggContainer</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">readDggContainer</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
     
     
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">void</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
+    
 
     
 </article>
@@ -1617,21 +1693,24 @@
     <h4 class="phpdocumentor-element__name" id="method_readOfficeArtRGFOPTE">
         readOfficeArtRGFOPTE()
         <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_readOfficeArtRGFOPTE" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/Escher.php"><a href="files/src-phpspreadsheet-reader-xls-escher.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/Escher.php">Escher.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">584</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">567</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Read OfficeArtRGFOPTE table of property-value pairs.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">readOfficeArtRGFOPTE</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$data</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$n</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">readOfficeArtRGFOPTE</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$data</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$n</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1656,11 +1735,6 @@
 
     
 
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">void</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
-
     
 </article>
                     <article
@@ -1672,28 +1746,26 @@
     <h4 class="phpdocumentor-element__name" id="method_readOPT">
         readOPT()
         <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_readOPT" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/Escher.php"><a href="files/src-phpspreadsheet-reader-xls-escher.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/Escher.php">Escher.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">344</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">330</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Read OPT record. This record may occur within DggContainer record or SpContainer.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">readOPT</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">readOPT</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
     
     
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">void</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
+    
 
     
 </article>
@@ -1706,28 +1778,26 @@
     <h4 class="phpdocumentor-element__name" id="method_readSp">
         readSp()
         <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_readSp" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/Escher.php"><a href="files/src-phpspreadsheet-reader-xls-escher.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/Escher.php">Escher.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">482</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">468</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Read Sp record (Shape).</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">readSp</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">readSp</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
     
     
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">void</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
+    
 
     
 </article>
@@ -1740,28 +1810,26 @@
     <h4 class="phpdocumentor-element__name" id="method_readSpContainer">
         readSpContainer()
         <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_readSpContainer" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/Escher.php"><a href="files/src-phpspreadsheet-reader-xls-escher.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/Escher.php">Escher.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">450</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">436</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Read SpContainer record (Shape Container).</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">readSpContainer</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">readSpContainer</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
     
     
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">void</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
+    
 
     
 </article>
@@ -1774,28 +1842,26 @@
     <h4 class="phpdocumentor-element__name" id="method_readSpgr">
         readSpgr()
         <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_readSpgr" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/Escher.php"><a href="files/src-phpspreadsheet-reader-xls-escher.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/Escher.php">Escher.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">470</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">456</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Read Spgr record (Shape Group).</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">readSpgr</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">readSpgr</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
     
     
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">void</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
+    
 
     
 </article>
@@ -1808,28 +1874,26 @@
     <h4 class="phpdocumentor-element__name" id="method_readSpgrContainer">
         readSpgrContainer()
         <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_readSpgrContainer" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/Escher.php"><a href="files/src-phpspreadsheet-reader-xls-escher.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/Escher.php">Escher.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">422</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">408</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Read SpgrContainer record (Shape Group Container).</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">readSpgrContainer</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">readSpgrContainer</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
     
     
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">void</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
+    
 
     
 </article>
@@ -1842,28 +1906,26 @@
     <h4 class="phpdocumentor-element__name" id="method_readSplitMenuColors">
         readSplitMenuColors()
         <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_readSplitMenuColors" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/Escher.php"><a href="files/src-phpspreadsheet-reader-xls-escher.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/Escher.php">Escher.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">380</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">366</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Read SplitMenuColors record.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">readSplitMenuColors</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">readSplitMenuColors</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
     
     
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">void</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
+    
 
     
 </article>
@@ -1876,35 +1938,208 @@
     <h4 class="phpdocumentor-element__name" id="method_readTertiaryOPT">
         readTertiaryOPT()
         <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_readTertiaryOPT" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Xls/Escher.php"><a href="files/src-phpspreadsheet-reader-xls-escher.html"><abbr title="src/PhpSpreadsheet/Reader/Xls/Escher.php">Escher.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">363</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">349</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Read TertiaryOPT record.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">readTertiaryOPT</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">readTertiaryOPT</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
     
     
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">void</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
+    
 
     
 </article>
             </section>
 
+        <div class="phpdocumentor-modal" id="source-view">
+    <div class="phpdocumentor-modal-bg" data-exit-button></div>
+    <div class="phpdocumentor-modal-container">
+        <div class="phpdocumentor-modal-content">
+            <pre style="max-height: 500px; overflow-y: scroll" data-src="files/src/PhpSpreadsheet/Reader/Xls/Escher.php.txt" class="language-php line-numbers linkable-line-numbers"></pre>
+        </div>
+        <button data-exit-button class="phpdocumentor-modal__close">&times;</button>
+    </div>
+</div>
+
+    <script type="text/javascript">
+        (function () {
+            function loadExternalCodeSnippet(el, url, line) {
+                Array.prototype.slice.call(el.querySelectorAll('pre[data-src]')).forEach((pre) => {
+                    const src = url || pre.getAttribute('data-src').replace(/\\/g, '/');
+                    const language = 'php';
+
+                    const code = document.createElement('code');
+                    code.className = 'language-' + language;
+                    pre.textContent = '';
+                    pre.setAttribute('data-line', line)
+                    code.textContent = 'Loading…';
+                    pre.appendChild(code);
+
+                    var xhr = new XMLHttpRequest();
+
+                    xhr.open('GET', src, true);
+
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState !== 4) {
+                            return;
+                        }
+
+                        if (xhr.status < 400 && xhr.responseText) {
+                            code.textContent = xhr.responseText;
+                            Prism.highlightElement(code);
+                            return;
+                        }
+
+                        if (xhr.status === 404) {
+                            code.textContent = '✖ Error: File could not be found';
+                            return;
+                        }
+
+                        if (xhr.status >= 400) {
+                            code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                            return;
+                        }
+
+                        code.textContent = '✖ Error: An unknown error occurred';
+                    };
+
+                    xhr.send(null);
+                });
+            }
+
+            const modalButtons = document.querySelectorAll("[data-modal]");
+            const openedAsLocalFile = window.location.protocol === 'file:';
+            if (modalButtons.length > 0 && openedAsLocalFile) {
+                console.warn(
+                    'Viewing the source code is unavailable because you are opening this page from the file:// scheme; ' +
+                    'browsers block XHR requests when a page is opened this way'
+                );
+            }
+
+            modalButtons.forEach(function (trigger) {
+                if (openedAsLocalFile) {
+                    trigger.setAttribute("hidden", "hidden");
+                }
+
+                trigger.addEventListener("click", function (event) {
+                    event.preventDefault();
+                    const modal = document.getElementById(trigger.dataset.modal);
+                    if (!modal) {
+                        console.error(`Modal with id "${trigger.dataset.modal}" could not be found`);
+                        return;
+                    }
+                    modal.classList.add("phpdocumentor-modal__open");
+
+                    loadExternalCodeSnippet(modal, trigger.dataset.src || null, trigger.dataset.line)
+                    const exits = modal.querySelectorAll("[data-exit-button]");
+                    exits.forEach(function (exit) {
+                        exit.addEventListener("click", function (event) {
+                            event.preventDefault();
+                            modal.classList.remove("phpdocumentor-modal__open");
+                        });
+                    });
+                });
+            });
+        })();
+    </script>
+
     </article>
-                <section data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+                                </section>
+                <section class="phpdocumentor-on-this-page__sidebar">
+                                
+    <section class="phpdocumentor-on-this-page__content">
+        <strong class="phpdocumentor-on-this-page__title">On this page</strong>
+
+        <ul class="phpdocumentor-list -clean">
+            <li class="phpdocumentor-on-this-page-section__title">Table Of Contents</li>
+            <li>
+                <ul class="phpdocumentor-list -clean">
+                                        <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#toc-constants">Constants</a></li>
+                                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#toc-properties">Properties</a></li>
+                                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#toc-methods">Methods</a></li>
+                                    </ul>
+            </li>
+                            <li class="phpdocumentor-on-this-page-section__title">Constants</li>
+                <li>
+                    <ul class="phpdocumentor-list -clean">
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#constant_BLIPJPEG">BLIPJPEG</a></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#constant_BLIPPNG">BLIPPNG</a></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#constant_BSE">BSE</a></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#constant_BSTORECONTAINER">BSTORECONTAINER</a></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#constant_CLIENTANCHOR">CLIENTANCHOR</a></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#constant_CLIENTDATA">CLIENTDATA</a></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#constant_CLIENTTEXTBOX">CLIENTTEXTBOX</a></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#constant_DG">DG</a></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#constant_DGCONTAINER">DGCONTAINER</a></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#constant_DGG">DGG</a></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#constant_DGGCONTAINER">DGGCONTAINER</a></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#constant_OPT">OPT</a></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#constant_SP">SP</a></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#constant_SPCONTAINER">SPCONTAINER</a></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#constant_SPGR">SPGR</a></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#constant_SPGRCONTAINER">SPGRCONTAINER</a></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#constant_SPLITMENUCOLORS">SPLITMENUCOLORS</a></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#constant_TERTIARYOPT">TERTIARYOPT</a></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#constant_WHICH_ROUTINE">WHICH_ROUTINE</a></li>
+                                            </ul>
+                </li>
+            
+                            <li class="phpdocumentor-on-this-page-section__title">Properties</li>
+                <li>
+                    <ul class="phpdocumentor-list -clean">
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#property_data">$data<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#property_dataSize">$dataSize<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#property_object">$object<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#property_pos">$pos<a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html"></li>
+                                            </ul>
+                </li>
+            
+                        <li class="phpdocumentor-on-this-page-section__title">Methods</li>
+            <li>
+                <ul class="phpdocumentor-list -clean">
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method___construct">__construct()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_load">load()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_applyAttribute">applyAttribute()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_readBlipJPEG">readBlipJPEG()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_readBlipPNG">readBlipPNG()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_readBSE">readBSE()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_readBstoreContainer">readBstoreContainer()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_readClientAnchor">readClientAnchor()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_readClientData">readClientData()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_readClientTextbox">readClientTextbox()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_readDefault">readDefault()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_readDg">readDg()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_readDgContainer">readDgContainer()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_readDgg">readDgg()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_readDggContainer">readDggContainer()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_readOfficeArtRGFOPTE">readOfficeArtRGFOPTE()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_readOPT">readOPT()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_readSp">readSp()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_readSpContainer">readSpContainer()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_readSpgr">readSpgr()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_readSpgrContainer">readSpgrContainer()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_readSplitMenuColors">readSplitMenuColors()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#method_readTertiaryOPT">readTertiaryOPT()</a></li>
+                                    </ul>
+            </li>
+                    </ul>
+    </section>
+
+                </section>
+                            </div>
+            <section data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
     <section class="phpdocumentor-search-results__dialog">
         <header class="phpdocumentor-search-results__header">
             <h2 class="phpdocumentor-search-results__title">Search results</h2>
@@ -1915,7 +2150,6 @@
         </section>
     </section>
 </section>
-            </div>
         </div>
         <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Xls-Escher.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
 
@@ -1924,5 +2158,9 @@
     <script>
         cssVars({});
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/prism.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
 </body>
 </html>

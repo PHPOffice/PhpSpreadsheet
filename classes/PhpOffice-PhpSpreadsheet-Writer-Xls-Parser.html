@@ -2,18 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Documentation</title>
+            <title>Documentation</title>
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <base href="../">
     <link rel="icon" href="images/favicon.ico"/>
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/base.css">
-            <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+            <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@100;200;300;400;600;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="css/template.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/css/all.min.css" integrity="sha256-ybRkN9dBjhcS2qrW1z+hfCxq+1aBdwyQM5wlQoQVt/0=" crossorigin="anonymous" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/themes/prism-okaidia.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-numbers/prism-line-numbers.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-highlight/prism-line-highlight.css">
                 <script src="https://cdn.jsdelivr.net/npm/fuse.js@3.4.6"></script>
         <script src="https://cdn.jsdelivr.net/npm/css-vars-ponyfill@2"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/js/all.min.js" integrity="sha256-0vuk8LXoyrmCjp1f0O300qo1M75ZQyhH9X3J6d+scmk=" crossorigin="anonymous"></script>
+        <script src="js/template.js"></script>
         <script src="js/search.js"></script>
         <script defer src="js/searchIndex.js"></script>
     </head>
@@ -47,17 +53,28 @@
 <label class="phpdocumentor-sidebar__menu-icon" for="sidebar-button">
     Menu
 </label>
-<aside class="phpdocumentor-column -four phpdocumentor-sidebar">
-    
-    <section class="phpdocumentor-sidebar__category">
-        <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
-                                                <h4 class="phpdocumentor-sidebar__root-namespace"><a href="namespaces/phpoffice.html"><abbr title="\PhpOffice">PhpOffice</abbr></a></h4>
-                <ul class="phpdocumentor-list">
-                                            <li><a href="namespaces/phpoffice-phpspreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet">PhpSpreadsheet</abbr></a></li>
-                                    </ul>
-                        </section>
+<aside class="phpdocumentor-column -three phpdocumentor-sidebar">
+                    <section class="phpdocumentor-sidebar__category">
+            <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
+                                    <h4 class="phpdocumentor-sidebar__root-namespace">
+    <a href="namespaces/phpoffice.html" class="">PhpOffice</a>
+</h4>
+    <ul class="phpdocumentor-list">
+                    <li>
+                <a href="namespaces/phpoffice-phpspreadsheet.html" class="">PhpSpreadsheet</a>
+                
+            </li>
+            </ul>
 
-    
+                        </section>
+                <section class="phpdocumentor-sidebar__category">
+            <h2 class="phpdocumentor-sidebar__category-header">Packages</h2>
+                                    <h4 class="phpdocumentor-sidebar__root-namespace">
+    <a href="packages/Application.html" class="">Application</a>
+</h4>
+
+                        </section>
+            
     <section class="phpdocumentor-sidebar__category">
         <h2 class="phpdocumentor-sidebar__category-header">Reports</h2>
                 <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/deprecated.html">Deprecated</a></h3>
@@ -71,8 +88,9 @@
     </section>
 </aside>
 
-            <div class="phpdocumentor-column -eight phpdocumentor-content">
-                    <ul class="phpdocumentor-breadcrumbs">
+            <div class="phpdocumentor-column -nine phpdocumentor-content">
+                                <section>
+                                        <ul class="phpdocumentor-breadcrumbs">
             <li class="phpdocumentor-breadcrumb"><a href="namespaces/phpoffice.html">PhpOffice</a></li>
             <li class="phpdocumentor-breadcrumb"><a href="namespaces/phpoffice-phpspreadsheet.html">PhpSpreadsheet</a></li>
             <li class="phpdocumentor-breadcrumb"><a href="namespaces/phpoffice-phpspreadsheet-writer.html">Writer</a></li>
@@ -84,15 +102,27 @@
     Parser
 
     
+            <div class="phpdocumentor-element__package">
+            in package
+            <ul class="phpdocumentor-breadcrumbs">
+                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Application.html">Application</a></li>
+                            </ul>
+        </div>
     
     
     </h2>
+
+<div class="phpdocumentor-label-line">
+
+
+</div>
 
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">34</span>
-</aside>
+
+    </aside>
 
         
 
@@ -100,124 +130,147 @@
 
 
 
-
-
-
 <h3 id="toc">
     Table of Contents
-    <a href="#toc" class="headerlink"><i class="fas fa-link"></i></a>
+    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
+
 </h3>
 
+
+
+
+
+
+
+<h4 id="toc-constants">
+    Constants
+    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#toc-constants" class="headerlink"><i class="fas fa-link"></i></a>
+
+</h4>
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#constant_REGEX_SHEET_TITLE_QUOTED">REGEX_SHEET_TITLE_QUOTED</a>
     <span>
-        &nbsp;= &#039;(([^\*\:\/\\\?\[\]\&#039;])+|(\&#039;\&#039;)+)+&#039;                    </span>
+        &nbsp;= &#039;(([^\\*\\:\\/\\\\\\?\\[\\]\\\&#039;])+|(\\\&#039;\\\&#039;)+)+&#039;                            </span>
 </dt>
-<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#constant_REGEX_SHEET_TITLE_UNQUOTED">REGEX_SHEET_TITLE_UNQUOTED</a>
     <span>
-        &nbsp;= &#039;[^\*\:\/\\\?\[\]\+\-\% \&#039;\^\&amp;\&lt;\&gt;\=\,\;\#\(\)\&quot;\{\}]+&#039;                    </span>
+        &nbsp;= &#039;[^\\*\\:\\/\\\\\\?\\[\\]\\+\\-\\% \\\&#039;\\^\\&amp;\\&lt;\\&gt;\\=\\,\\;\\#\\(\\)\\&quot;\\{\\}]+&#039;                            </span>
 </dt>
 <dd>Constants</dd>
 
-                <dt class="phpdocumentor-table-of-contents__entry -property -public">
+    </dl>
+
+
+<h4 id="toc-properties">
+    Properties
+    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#toc-properties" class="headerlink"><i class="fas fa-link"></i></a>
+
+</h4>
+<dl class="phpdocumentor-table-of-contents">
+            <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#property_currentCharacter">$currentCharacter</a>
     <span>
-                &nbsp;: int            </span>
+                        &nbsp;: int            </span>
 </dt>
 <dd>The index of the character we are currently looking at.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#property_currentToken">$currentToken</a>
     <span>
-                &nbsp;: string            </span>
+                        &nbsp;: string            </span>
 </dt>
 <dd>The token we are working on.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#property_lookAhead">$lookAhead</a>
     <span>
-                &nbsp;: string            </span>
+                        &nbsp;: string            </span>
 </dt>
 <dd>The character ahead of the current char.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#property_parseTree">$parseTree</a>
     <span>
-                &nbsp;: array&lt;string|int, mixed&gt;|string            </span>
+                        &nbsp;: array&lt;string|int, mixed&gt;|string            </span>
 </dt>
 <dd>The parse tree to be generated.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#property_references">$references</a>
     <span>
-                &nbsp;: array&lt;string|int, mixed&gt;            </span>
+                        &nbsp;: array&lt;string|int, mixed&gt;            </span>
 </dt>
 <dd>Array of sheet references in the form of REF structures.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#property_externalSheets">$externalSheets</a>
     <span>
-                &nbsp;: array&lt;string|int, mixed&gt;            </span>
+                        &nbsp;: array&lt;string|int, mixed&gt;            </span>
 </dt>
 <dd>Array of external sheets.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#property_formula">$formula</a>
     <span>
-                &nbsp;: string            </span>
+                        &nbsp;: string            </span>
 </dt>
 <dd>The formula to parse.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#property_functions">$functions</a>
     <span>
-                &nbsp;: array&lt;string|int, mixed&gt;            </span>
+                        &nbsp;: array&lt;string|int, mixed&gt;            </span>
 </dt>
 <dd>Thanks to Michael Meeks and Gnumeric for the initial arg values.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#property_ptg">$ptg</a>
     <span>
-                &nbsp;: array&lt;string|int, mixed&gt;            </span>
+                        &nbsp;: array&lt;string|int, mixed&gt;            </span>
 </dt>
 <dd>The Excel ptg indices.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#property_spreadsheet">$spreadsheet</a>
     <span>
-                &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a>            </span>
+                        &nbsp;: <a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a>            </span>
 </dt>
-<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#property_tryDefinedName">$tryDefinedName</a>
     <span>
-                &nbsp;: bool            </span>
+                        &nbsp;: bool            </span>
 </dt>
-<dd></dd>
 
-                <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    </dl>
+
+<h4 id="toc-methods">
+    Methods
+    <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#toc-methods" class="headerlink"><i class="fas fa-link"></i></a>
+
+</h4>
+<dl class="phpdocumentor-table-of-contents">
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method___construct">__construct()</a>
     <span>
-                        &nbsp;: mixed    </span>
+                                &nbsp;: mixed    </span>
 </dt>
 <dd>The class constructor.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_parse">parse()</a>
     <span>
-                        &nbsp;: mixed    </span>
+                                &nbsp;: bool    </span>
 </dt>
 <dd>The parsing method. It parses a formula.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_setExtSheet">setExtSheet()</a>
     <span>
-                        &nbsp;: void    </span>
+                                &nbsp;: void    </span>
 </dt>
 <dd>This method is used to update the array of sheet names. It is
 called by the addWorksheet() method of the
@@ -226,7 +279,7 @@ called by the addWorksheet() method of the
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_toReversePolish">toReversePolish()</a>
     <span>
-                        &nbsp;: string    </span>
+                                &nbsp;: string    </span>
 </dt>
 <dd>Builds a string containing the tree in reverse polish notation (What you
 would use in a HP calculator stack).</dd>
@@ -234,21 +287,21 @@ would use in a HP calculator stack).</dd>
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_advance">advance()</a>
     <span>
-                        &nbsp;: void    </span>
+                                &nbsp;: void    </span>
 </dt>
 <dd>Advance to the next valid token.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_cellToPackedRowcol">cellToPackedRowcol()</a>
     <span>
-                        &nbsp;: array&lt;string|int, mixed&gt;    </span>
+                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
 </dt>
 <dd>pack() row and column into the required 3 or 4 byte format.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_cellToRowcol">cellToRowcol()</a>
     <span>
-                        &nbsp;: array&lt;string|int, mixed&gt;    </span>
+                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
 </dt>
 <dd>Convert an Excel cell reference such as A1 or $B2 or C$3 or $D$4 to a zero
 indexed row and column number. Also returns two (0,1) values to indicate
@@ -257,7 +310,7 @@ whether the row or column are relative references.</dd>
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_condition">condition()</a>
     <span>
-                        &nbsp;: mixed    </span>
+                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
 </dt>
 <dd>It parses a condition. It assumes the following rule:
 Cond -&gt; Expr [(&quot;&gt;&quot; | &quot;&lt;&quot;) Expr].</dd>
@@ -265,35 +318,33 @@ Cond -&gt; Expr [(&quot;&gt;&quot; | &quot;&lt;&quot;) Expr].</dd>
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_convert">convert()</a>
     <span>
-                        &nbsp;: mixed    </span>
+                                &nbsp;: string    </span>
 </dt>
 <dd>Convert a token to the proper ptg value.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_convertBool">convertBool()</a>
     <span>
-                        &nbsp;: string    </span>
+                                &nbsp;: string    </span>
 </dt>
-<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_convertDefinedName">convertDefinedName()</a>
     <span>
-                        &nbsp;: string    </span>
+                                &nbsp;: string    </span>
 </dt>
-<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_convertError">convertError()</a>
     <span>
-                        &nbsp;: string    </span>
+                                &nbsp;: string    </span>
 </dt>
 <dd>Convert an error code to a ptgErr.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_convertFunction">convertFunction()</a>
     <span>
-                        &nbsp;: string    </span>
+                                &nbsp;: string    </span>
 </dt>
 <dd>Convert a function to a ptgFunc or ptgFuncVarV depending on the number of
 args that it takes.</dd>
@@ -301,21 +352,21 @@ args that it takes.</dd>
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_convertNumber">convertNumber()</a>
     <span>
-                        &nbsp;: string    </span>
+                                &nbsp;: string    </span>
 </dt>
 <dd>Convert a number token to ptgInt or ptgNum.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_convertRange2d">convertRange2d()</a>
     <span>
-                        &nbsp;: string    </span>
+                                &nbsp;: string    </span>
 </dt>
 <dd>Convert an Excel range such as A1:D4 to a ptgRefV.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_convertRange3d">convertRange3d()</a>
     <span>
-                        &nbsp;: mixed    </span>
+                                &nbsp;: string    </span>
 </dt>
 <dd>Convert an Excel 3d range such as &quot;Sheet1!A1:D4&quot; or &quot;Sheet1:Sheet2!A1:D4&quot; to
 a ptgArea3d.</dd>
@@ -323,14 +374,14 @@ a ptgArea3d.</dd>
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_convertRef2d">convertRef2d()</a>
     <span>
-                        &nbsp;: string    </span>
+                                &nbsp;: string    </span>
 </dt>
 <dd>Convert an Excel reference such as A1, $B2, C$3 or $D$4 to a ptgRefV.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_convertRef3d">convertRef3d()</a>
     <span>
-                        &nbsp;: mixed    </span>
+                                &nbsp;: string    </span>
 </dt>
 <dd>Convert an Excel 3d reference such as &quot;Sheet1!A1&quot; or &quot;Sheet1:Sheet2!A1&quot; to a
 ptgRef3d.</dd>
@@ -338,14 +389,14 @@ ptgRef3d.</dd>
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_convertString">convertString()</a>
     <span>
-                        &nbsp;: mixed    </span>
+                                &nbsp;: string    </span>
 </dt>
 <dd>Convert a string token to ptgStr.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_createTree">createTree()</a>
     <span>
-                        &nbsp;: array&lt;string|int, mixed&gt;    </span>
+                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
 </dt>
 <dd>Creates a tree. In fact an array which may have one or two arrays (sub-trees)
 as elements.</dd>
@@ -353,7 +404,7 @@ as elements.</dd>
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_expression">expression()</a>
     <span>
-                        &nbsp;: mixed    </span>
+                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
 </dt>
 <dd>It parses a expression. It assumes the following rule:
 Expr -&gt; Term [(&quot;+&quot; | &quot;-&quot;) Term]
@@ -365,7 +416,7 @@ Expr -&gt; Term [(&quot;+&quot; | &quot;-&quot;) Term]
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_fact">fact()</a>
     <span>
-                        &nbsp;: mixed    </span>
+                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
 </dt>
 <dd>It parses a factor. It assumes the following rule:
 Fact -&gt; ( Expr )
@@ -377,7 +428,7 @@ Fact -&gt; ( Expr )
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_func">func()</a>
     <span>
-                        &nbsp;: mixed    </span>
+                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
 </dt>
 <dd>It parses a function call. It assumes the following rule:
 Func -&gt; ( Expr [,Expr]* ).</dd>
@@ -385,7 +436,7 @@ Func -&gt; ( Expr [,Expr]* ).</dd>
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_getRefIndex">getRefIndex()</a>
     <span>
-                        &nbsp;: mixed    </span>
+                                &nbsp;: string    </span>
 </dt>
 <dd>Look up the REF index that corresponds to an external sheet name
 (or range). If it doesn&#039;t exist yet add it to the workbook&#039;s references
@@ -394,7 +445,7 @@ array. It assumes all sheet names given must exist.</dd>
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_getSheetIndex">getSheetIndex()</a>
     <span>
-                        &nbsp;: int    </span>
+                                &nbsp;: int    </span>
 </dt>
 <dd>Look up the index that corresponds to an external sheet name. The hash of
 sheet names is updated by the addworksheet() method of the
@@ -403,14 +454,14 @@ sheet names is updated by the addworksheet() method of the
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_match">match()</a>
     <span>
-                        &nbsp;: mixed    </span>
+                                &nbsp;: string    </span>
 </dt>
 <dd>Checks if it&#039;s a valid token.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_parenthesizedExpression">parenthesizedExpression()</a>
     <span>
-                        &nbsp;: array&lt;string|int, mixed&gt;    </span>
+                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
 </dt>
 <dd>This function just introduces a ptgParen element in the tree, so that Excel
 doesn&#039;t get confused when working with a parenthesized formula afterwards.</dd>
@@ -418,19 +469,20 @@ doesn&#039;t get confused when working with a parenthesized formula afterwards.<
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_rangeToPackedRange">rangeToPackedRange()</a>
     <span>
-                        &nbsp;: array&lt;string|int, mixed&gt;    </span>
+                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
 </dt>
 <dd>pack() row range into the required 3 or 4 byte format.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_term">term()</a>
     <span>
-                        &nbsp;: mixed    </span>
+                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
 </dt>
 <dd>It parses a term. It assumes the following rule:
 Term -&gt; Fact [(&quot;*&quot; | &quot;/&quot;) Fact].</dd>
 
-        </dl>
+    </dl>
+
 
 
 
@@ -439,28 +491,32 @@ Term -&gt; Fact [(&quot;*&quot; | &quot;/&quot;) Fact].</dd>
         <h3 class="phpdocumentor-elements__header" id="constants">
             Constants
             <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#constants" class="headerlink"><i class="fas fa-link"></i></a>
+
         </h3>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_REGEX_SHEET_TITLE_QUOTED">
         REGEX_SHEET_TITLE_QUOTED
         <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#constant_REGEX_SHEET_TITLE_QUOTED" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">48</span>
-</aside>
+
+    </aside>
 
     
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
-    <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">REGEX_SHEET_TITLE_QUOTED</span>
-    = <span class="phpdocumentor-signature__default-value">&#039;(([^\*\:\/\\\?\[\]\&#039;])+|(\&#039;\&#039;)+)+&#039;</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;(([^\\*\\:\\/\\\\\\?\\[\\]\\\&#039;])+|(\\\&#039;\\\&#039;)+)+&#039;</span>
 </code>
 
 
+    
     
     
 
@@ -469,26 +525,28 @@ Term -&gt; Fact [(&quot;*&quot; | &quot;/&quot;) Fact].</dd>
     <h4 class="phpdocumentor-element__name" id="constant_REGEX_SHEET_TITLE_UNQUOTED">
         REGEX_SHEET_TITLE_UNQUOTED
         <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#constant_REGEX_SHEET_TITLE_UNQUOTED" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">42</span>
-</aside>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Constants</p>
 
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
-    <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">REGEX_SHEET_TITLE_UNQUOTED</span>
-    = <span class="phpdocumentor-signature__default-value">&#039;[^\*\:\/\\\?\[\]\+\-\% \&#039;\^\&amp;\&lt;\&gt;\=\,\;\#\(\)\&quot;\{\}]+&#039;</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;[^\\*\\:\\/\\\\\\?\\[\\]\\+\\-\\% \\\&#039;\\^\\&amp;\\&lt;\\&gt;\\=\\,\\;\\#\\(\\)\\&quot;\\{\\}]+&#039;</span>
 </code>
 
 
-        <section class="phpdocumentor-description"></section>
-
+    
+    
     
 
 </article>
@@ -499,6 +557,7 @@ Term -&gt; Fact [(&quot;*&quot; | &quot;/&quot;) Fact].</dd>
         <h3 class="phpdocumentor-elements__header" id="properties">
             Properties
             <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
+
         </h3>
                     <article
         class="
@@ -510,14 +569,16 @@ Term -&gt; Fact [(&quot;*&quot; | &quot;/&quot;) Fact].</dd>
     <h4 class="phpdocumentor-element__name" id="property_currentCharacter">
         $currentCharacter
         <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#property_currentCharacter" class="headerlink"><i class="fas fa-link"></i></a>
+
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">55</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">53</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">The index of the character we are currently looking at.</p>
 
@@ -527,8 +588,8 @@ Term -&gt; Fact [(&quot;*&quot; | &quot;/&quot;) Fact].</dd>
     <span class="phpdocumentor-signature__name">$currentCharacter</span>
     </code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
+    
     
 
 </article>
@@ -542,14 +603,16 @@ Term -&gt; Fact [(&quot;*&quot; | &quot;/&quot;) Fact].</dd>
     <h4 class="phpdocumentor-element__name" id="property_currentToken">
         $currentToken
         <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#property_currentToken" class="headerlink"><i class="fas fa-link"></i></a>
+
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">62</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">58</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">The token we are working on.</p>
 
@@ -559,8 +622,8 @@ Term -&gt; Fact [(&quot;*&quot; | &quot;/&quot;) Fact].</dd>
     <span class="phpdocumentor-signature__name">$currentToken</span>
     </code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
+    
     
 
 </article>
@@ -574,14 +637,16 @@ Term -&gt; Fact [(&quot;*&quot; | &quot;/&quot;) Fact].</dd>
     <h4 class="phpdocumentor-element__name" id="property_lookAhead">
         $lookAhead
         <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#property_lookAhead" class="headerlink"><i class="fas fa-link"></i></a>
+
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">76</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">68</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">The character ahead of the current char.</p>
 
@@ -591,8 +656,8 @@ Term -&gt; Fact [(&quot;*&quot; | &quot;/&quot;) Fact].</dd>
     <span class="phpdocumentor-signature__name">$lookAhead</span>
     </code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
+    
     
 
 </article>
@@ -606,14 +671,16 @@ Term -&gt; Fact [(&quot;*&quot; | &quot;/&quot;) Fact].</dd>
     <h4 class="phpdocumentor-element__name" id="property_parseTree">
         $parseTree
         <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#property_parseTree" class="headerlink"><i class="fas fa-link"></i></a>
+
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">83</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">73</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">The parse tree to be generated.</p>
 
@@ -623,8 +690,8 @@ Term -&gt; Fact [(&quot;*&quot; | &quot;/&quot;) Fact].</dd>
     <span class="phpdocumentor-signature__name">$parseTree</span>
     </code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
+    
     
 
 </article>
@@ -638,14 +705,16 @@ Term -&gt; Fact [(&quot;*&quot; | &quot;/&quot;) Fact].</dd>
     <h4 class="phpdocumentor-element__name" id="property_references">
         $references
         <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#property_references" class="headerlink"><i class="fas fa-link"></i></a>
+
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">97</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">83</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Array of sheet references in the form of REF structures.</p>
 
@@ -655,8 +724,8 @@ Term -&gt; Fact [(&quot;*&quot; | &quot;/&quot;) Fact].</dd>
     <span class="phpdocumentor-signature__name">$references</span>
     </code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
+    
     
 
 </article>
@@ -670,14 +739,16 @@ Term -&gt; Fact [(&quot;*&quot; | &quot;/&quot;) Fact].</dd>
     <h4 class="phpdocumentor-element__name" id="property_externalSheets">
         $externalSheets
         <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#property_externalSheets" class="headerlink"><i class="fas fa-link"></i></a>
+
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">90</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">78</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Array of external sheets.</p>
 
@@ -687,8 +758,8 @@ Term -&gt; Fact [(&quot;*&quot; | &quot;/&quot;) Fact].</dd>
     <span class="phpdocumentor-signature__name">$externalSheets</span>
     </code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
+    
     
 
 </article>
@@ -702,14 +773,16 @@ Term -&gt; Fact [(&quot;*&quot; | &quot;/&quot;) Fact].</dd>
     <h4 class="phpdocumentor-element__name" id="property_formula">
         $formula
         <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#property_formula" class="headerlink"><i class="fas fa-link"></i></a>
+
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">69</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">63</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">The formula to parse.</p>
 
@@ -719,8 +792,8 @@ Term -&gt; Fact [(&quot;*&quot; | &quot;/&quot;) Fact].</dd>
     <span class="phpdocumentor-signature__name">$formula</span>
     </code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
+    
     
 
 </article>
@@ -734,14 +807,16 @@ Term -&gt; Fact [(&quot;*&quot; | &quot;/&quot;) Fact].</dd>
     <h4 class="phpdocumentor-element__name" id="property_functions">
         $functions
         <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#property_functions" class="headerlink"><i class="fas fa-link"></i></a>
+
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">218</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">200</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Thanks to Michael Meeks and Gnumeric for the initial arg values.</p>
 
@@ -1015,6 +1090,7 @@ vol:   The function is volatile.</p>
 </section>
 
     
+    
 
 </article>
                     <article
@@ -1027,14 +1103,16 @@ vol:   The function is volatile.</p>
     <h4 class="phpdocumentor-element__name" id="property_ptg">
         $ptg
         <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#property_ptg" class="headerlink"><i class="fas fa-link"></i></a>
+
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">104</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">88</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">The Excel ptg indices.</p>
 
@@ -1044,8 +1122,8 @@ vol:   The function is volatile.</p>
     <span class="phpdocumentor-signature__name">$ptg</span>
      = <span class="phpdocumentor-signature__default-value">[&#039;ptgExp&#039; =&gt; 0x1, &#039;ptgTbl&#039; =&gt; 0x2, &#039;ptgAdd&#039; =&gt; 0x3, &#039;ptgSub&#039; =&gt; 0x4, &#039;ptgMul&#039; =&gt; 0x5, &#039;ptgDiv&#039; =&gt; 0x6, &#039;ptgPower&#039; =&gt; 0x7, &#039;ptgConcat&#039; =&gt; 0x8, &#039;ptgLT&#039; =&gt; 0x9, &#039;ptgLE&#039; =&gt; 0xa, &#039;ptgEQ&#039; =&gt; 0xb, &#039;ptgGE&#039; =&gt; 0xc, &#039;ptgGT&#039; =&gt; 0xd, &#039;ptgNE&#039; =&gt; 0xe, &#039;ptgIsect&#039; =&gt; 0xf, &#039;ptgUnion&#039; =&gt; 0x10, &#039;ptgRange&#039; =&gt; 0x11, &#039;ptgUplus&#039; =&gt; 0x12, &#039;ptgUminus&#039; =&gt; 0x13, &#039;ptgPercent&#039; =&gt; 0x14, &#039;ptgParen&#039; =&gt; 0x15, &#039;ptgMissArg&#039; =&gt; 0x16, &#039;ptgStr&#039; =&gt; 0x17, &#039;ptgAttr&#039; =&gt; 0x19, &#039;ptgSheet&#039; =&gt; 0x1a, &#039;ptgEndSheet&#039; =&gt; 0x1b, &#039;ptgErr&#039; =&gt; 0x1c, &#039;ptgBool&#039; =&gt; 0x1d, &#039;ptgInt&#039; =&gt; 0x1e, &#039;ptgNum&#039; =&gt; 0x1f, &#039;ptgArray&#039; =&gt; 0x20, &#039;ptgFunc&#039; =&gt; 0x21, &#039;ptgFuncVar&#039; =&gt; 0x22, &#039;ptgName&#039; =&gt; 0x23, &#039;ptgRef&#039; =&gt; 0x24, &#039;ptgArea&#039; =&gt; 0x25, &#039;ptgMemArea&#039; =&gt; 0x26, &#039;ptgMemErr&#039; =&gt; 0x27, &#039;ptgMemNoMem&#039; =&gt; 0x28, &#039;ptgMemFunc&#039; =&gt; 0x29, &#039;ptgRefErr&#039; =&gt; 0x2a, &#039;ptgAreaErr&#039; =&gt; 0x2b, &#039;ptgRefN&#039; =&gt; 0x2c, &#039;ptgAreaN&#039; =&gt; 0x2d, &#039;ptgMemAreaN&#039; =&gt; 0x2e, &#039;ptgMemNoMemN&#039; =&gt; 0x2f, &#039;ptgNameX&#039; =&gt; 0x39, &#039;ptgRef3d&#039; =&gt; 0x3a, &#039;ptgArea3d&#039; =&gt; 0x3b, &#039;ptgRefErr3d&#039; =&gt; 0x3c, &#039;ptgAreaErr3d&#039; =&gt; 0x3d, &#039;ptgArrayV&#039; =&gt; 0x40, &#039;ptgFuncV&#039; =&gt; 0x41, &#039;ptgFuncVarV&#039; =&gt; 0x42, &#039;ptgNameV&#039; =&gt; 0x43, &#039;ptgRefV&#039; =&gt; 0x44, &#039;ptgAreaV&#039; =&gt; 0x45, &#039;ptgMemAreaV&#039; =&gt; 0x46, &#039;ptgMemErrV&#039; =&gt; 0x47, &#039;ptgMemNoMemV&#039; =&gt; 0x48, &#039;ptgMemFuncV&#039; =&gt; 0x49, &#039;ptgRefErrV&#039; =&gt; 0x4a, &#039;ptgAreaErrV&#039; =&gt; 0x4b, &#039;ptgRefNV&#039; =&gt; 0x4c, &#039;ptgAreaNV&#039; =&gt; 0x4d, &#039;ptgMemAreaNV&#039; =&gt; 0x4e, &#039;ptgMemNoMemNV&#039; =&gt; 0x4f, &#039;ptgFuncCEV&#039; =&gt; 0x58, &#039;ptgNameXV&#039; =&gt; 0x59, &#039;ptgRef3dV&#039; =&gt; 0x5a, &#039;ptgArea3dV&#039; =&gt; 0x5b, &#039;ptgRefErr3dV&#039; =&gt; 0x5c, &#039;ptgAreaErr3dV&#039; =&gt; 0x5d, &#039;ptgArrayA&#039; =&gt; 0x60, &#039;ptgFuncA&#039; =&gt; 0x61, &#039;ptgFuncVarA&#039; =&gt; 0x62, &#039;ptgNameA&#039; =&gt; 0x63, &#039;ptgRefA&#039; =&gt; 0x64, &#039;ptgAreaA&#039; =&gt; 0x65, &#039;ptgMemAreaA&#039; =&gt; 0x66, &#039;ptgMemErrA&#039; =&gt; 0x67, &#039;ptgMemNoMemA&#039; =&gt; 0x68, &#039;ptgMemFuncA&#039; =&gt; 0x69, &#039;ptgRefErrA&#039; =&gt; 0x6a, &#039;ptgAreaErrA&#039; =&gt; 0x6b, &#039;ptgRefNA&#039; =&gt; 0x6c, &#039;ptgAreaNA&#039; =&gt; 0x6d, &#039;ptgMemAreaNA&#039; =&gt; 0x6e, &#039;ptgMemNoMemNA&#039; =&gt; 0x6f, &#039;ptgFuncCEA&#039; =&gt; 0x78, &#039;ptgNameXA&#039; =&gt; 0x79, &#039;ptgRef3dA&#039; =&gt; 0x7a, &#039;ptgArea3dA&#039; =&gt; 0x7b, &#039;ptgRefErr3dA&#039; =&gt; 0x7c, &#039;ptgAreaErr3dA&#039; =&gt; 0x7d]</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
+    
     
 
 </article>
@@ -1059,14 +1137,16 @@ vol:   The function is volatile.</p>
     <h4 class="phpdocumentor-element__name" id="property_spreadsheet">
         $spreadsheet
         <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#property_spreadsheet" class="headerlink"><i class="fas fa-link"></i></a>
+
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">473</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">454</span>
+
+    </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
@@ -1075,8 +1155,8 @@ vol:   The function is volatile.</p>
     <span class="phpdocumentor-signature__name">$spreadsheet</span>
     </code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
+    
     
 
 </article>
@@ -1090,14 +1170,16 @@ vol:   The function is volatile.</p>
     <h4 class="phpdocumentor-element__name" id="property_tryDefinedName">
         $tryDefinedName
         <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#property_tryDefinedName" class="headerlink"><i class="fas fa-link"></i></a>
+
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">772</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">739</span>
+
+    </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
@@ -1106,8 +1188,8 @@ vol:   The function is volatile.</p>
     <span class="phpdocumentor-signature__name">$tryDefinedName</span>
      = <span class="phpdocumentor-signature__default-value">false</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
+    
     
 
 </article>
@@ -1117,6 +1199,7 @@ vol:   The function is volatile.</p>
         <h3 class="phpdocumentor-elements__header" id="methods">
             Methods
             <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
+
         </h3>
                     <article
         class="phpdocumentor-element
@@ -1127,21 +1210,24 @@ vol:   The function is volatile.</p>
     <h4 class="phpdocumentor-element__name" id="method___construct">
         __construct()
         <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method___construct" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">478</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">459</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">The class constructor.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$spreadsheet</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/PhpOffice-PhpSpreadsheet-Spreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet\Spreadsheet">Spreadsheet</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$spreadsheet</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1155,11 +1241,6 @@ vol:   The function is volatile.</p>
 
     
 
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">mixed</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
-
     
 </article>
                     <article
@@ -1171,21 +1252,24 @@ vol:   The function is volatile.</p>
     <h4 class="phpdocumentor-element__name" id="method_parse">
         parse()
         <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_parse" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1149</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">1113</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">The parsing method. It parses a formula.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">parse</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$formula</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">parse</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$formula</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1202,13 +1286,15 @@ sign (=)</p>
 
     
 
+            <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">mixed</span>
-            &mdash;
-            <section class="phpdocumentor-description"><p>true on success</p>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>true on success</p>
 </section>
 
-    
+            </section>
+
 </article>
                     <article
         class="phpdocumentor-element
@@ -1219,12 +1305,14 @@ sign (=)</p>
     <h4 class="phpdocumentor-element__name" id="method_setExtSheet">
         setExtSheet()
         <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_setExtSheet" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">887</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">854</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">This method is used to update the array of sheet names. It is
 called by the addWorksheet() method of the
@@ -1232,10 +1320,11 @@ called by the addWorksheet() method of the
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">setExtSheet</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$index</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">setExtSheet</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$index</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1261,24 +1350,19 @@ called by the addWorksheet() method of the
     
     <h5 class="phpdocumentor-tag-list__heading" id="tags">
         Tags
-        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_setExtSheet#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">see</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
-                                                                                    <span class="phpdocumentor-tag-link"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xls\Workbook::addWorksheet()">Workbook::addWorksheet()</abbr></span>
+                                                                                    <span class="phpdocumentor-tag-link"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xls\Workbook::addWorksheet">Workbook::addWorksheet</abbr></span>
                                         
-                                                 <section class="phpdocumentor-description"></section>
-
+                                             
                                     </dd>
-                        </dl>
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">void</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
+                                            </dl>
 
     
 </article>
@@ -1291,20 +1375,24 @@ called by the addWorksheet() method of the
     <h4 class="phpdocumentor-element__name" id="method_toReversePolish">
         toReversePolish()
         <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_toReversePolish" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1496</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">1460</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Builds a string containing the tree in reverse polish notation (What you
 would use in a HP calculator stack).</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">toReversePolish</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$tree</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">[]</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+                    <span class="phpdocumentor-signature__name">toReversePolish</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$tree</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">[]</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
+    <div class="phpdocumentor-label-line">
+        </div>
         <section class="phpdocumentor-description"><p>The following tree:.</p>
 <ul>
 <li></li>
@@ -1339,13 +1427,15 @@ would use in a HP calculator stack).</p>
 
     
 
+            <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">string</span>
-            &mdash;
-            <section class="phpdocumentor-description"><p>The tree in reverse polish notation</p>
+        <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The tree in reverse polish notation</p>
 </section>
 
-    
+            </section>
+
 </article>
                     <article
         class="phpdocumentor-element
@@ -1356,28 +1446,26 @@ would use in a HP calculator stack).</p>
     <h4 class="phpdocumentor-element__name" id="method_advance">
         advance()
         <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_advance" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">997</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">962</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Advance to the next valid token.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">advance</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">advance</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
     
     
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">void</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
+    
 
     
 </article>
@@ -1390,21 +1478,24 @@ would use in a HP calculator stack).</p>
     <h4 class="phpdocumentor-element__name" id="method_cellToPackedRowcol">
         cellToPackedRowcol()
         <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_cellToPackedRowcol" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">899</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">866</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">pack() row and column into the required 3 or 4 byte format.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">cellToPackedRowcol</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cell</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+                    <span class="phpdocumentor-signature__name">cellToPackedRowcol</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cell</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1420,13 +1511,15 @@ would use in a HP calculator stack).</p>
 
     
 
+            <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
-            &mdash;
-            <section class="phpdocumentor-description"><p>Array containing the row and column in packed() format</p>
+        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>Array containing the row and column in packed() format</p>
 </section>
 
-    
+            </section>
+
 </article>
                     <article
         class="phpdocumentor-element
@@ -1437,12 +1530,14 @@ would use in a HP calculator stack).</p>
     <h4 class="phpdocumentor-element__name" id="method_cellToRowcol">
         cellToRowcol()
         <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_cellToRowcol" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">969</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">934</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Convert an Excel cell reference such as A1 or $B2 or C$3 or $D$4 to a zero
 indexed row and column number. Also returns two (0,1) values to indicate
@@ -1450,10 +1545,11 @@ whether the row or column are relative references.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">cellToRowcol</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cell</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+                    <span class="phpdocumentor-signature__name">cellToRowcol</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cell</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1469,12 +1565,11 @@ whether the row or column are relative references.</p>
 
     
 
+            <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
+        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+            </section>
 
-    
 </article>
                     <article
         class="phpdocumentor-element
@@ -1485,32 +1580,37 @@ whether the row or column are relative references.</p>
     <h4 class="phpdocumentor-element__name" id="method_condition">
         condition()
         <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_condition" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1166</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">1130</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">It parses a condition. It assumes the following rule:
 Cond -&gt; Expr [(&quot;&gt;&quot; | &quot;&lt;&quot;) Expr].</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">condition</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">condition</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
     
     
+    
 
+            <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">mixed</span>
-            &mdash;
-            <section class="phpdocumentor-description"><p>The parsed ptg'd tree on success</p>
+        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The parsed ptg'd tree on success</p>
 </section>
 
-    
+            </section>
+
 </article>
                     <article
         class="phpdocumentor-element
@@ -1521,26 +1621,29 @@ Cond -&gt; Expr [(&quot;&gt;&quot; | &quot;&lt;&quot;) Expr].</p>
     <h4 class="phpdocumentor-element__name" id="method_convert">
         convert()
         <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_convert" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">498</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">479</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Convert a token to the proper ptg value.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">convert</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$token</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">convert</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$token</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$token</span>
-                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>the token to convert</p>
@@ -1551,13 +1654,15 @@ Cond -&gt; Expr [(&quot;&gt;&quot; | &quot;&lt;&quot;) Expr].</p>
 
     
 
+            <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">mixed</span>
-            &mdash;
-            <section class="phpdocumentor-description"><p>the converted token on success</p>
+        <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>the converted token on success</p>
 </section>
 
-    
+            </section>
+
 </article>
                     <article
         class="phpdocumentor-element
@@ -1568,18 +1673,22 @@ Cond -&gt; Expr [(&quot;&gt;&quot; | &quot;&lt;&quot;) Expr].</p>
     <h4 class="phpdocumentor-element__name" id="method_convertBool">
         convertBool()
         <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_convertBool" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">583</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">562</span>
+
+    </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">convertBool</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$num</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+                    <span class="phpdocumentor-signature__name">convertBool</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$num</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
+    <div class="phpdocumentor-label-line">
+        </div>
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
@@ -1594,12 +1703,11 @@ Cond -&gt; Expr [(&quot;&gt;&quot; | &quot;&lt;&quot;) Expr].</p>
 
     
 
+            <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">string</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            </section>
 
-    
 </article>
                     <article
         class="phpdocumentor-element
@@ -1610,18 +1718,22 @@ Cond -&gt; Expr [(&quot;&gt;&quot; | &quot;&lt;&quot;) Expr].</p>
     <h4 class="phpdocumentor-element__name" id="method_convertDefinedName">
         convertDefinedName()
         <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_convertDefinedName" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">774</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">741</span>
+
+    </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">convertDefinedName</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+                    <span class="phpdocumentor-signature__name">convertDefinedName</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
+    <div class="phpdocumentor-label-line">
+        </div>
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
@@ -1636,12 +1748,11 @@ Cond -&gt; Expr [(&quot;&gt;&quot; | &quot;&lt;&quot;) Expr].</p>
 
     
 
+            <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">string</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            </section>
 
-    
 </article>
                     <article
         class="phpdocumentor-element
@@ -1652,21 +1763,24 @@ Cond -&gt; Expr [(&quot;&gt;&quot; | &quot;&lt;&quot;) Expr].</p>
     <h4 class="phpdocumentor-element__name" id="method_convertError">
         convertError()
         <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_convertError" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">749</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">725</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Convert an error code to a ptgErr.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">convertError</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$errorCode</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+                    <span class="phpdocumentor-signature__name">convertError</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$errorCode</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1682,13 +1796,15 @@ Cond -&gt; Expr [(&quot;&gt;&quot; | &quot;&lt;&quot;) Expr].</p>
 
     
 
+            <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">string</span>
-            &mdash;
-            <section class="phpdocumentor-description"><p>The error code ptgErr</p>
+        <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The error code ptgErr</p>
 </section>
 
-    
+            </section>
+
 </article>
                     <article
         class="phpdocumentor-element
@@ -1699,22 +1815,25 @@ Cond -&gt; Expr [(&quot;&gt;&quot; | &quot;&lt;&quot;) Expr].</p>
     <h4 class="phpdocumentor-element__name" id="method_convertFunction">
         convertFunction()
         <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_convertFunction" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">615</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">594</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Convert a function to a ptgFunc or ptgFuncVarV depending on the number of
 args that it takes.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">convertFunction</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$token</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$num_args</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+                    <span class="phpdocumentor-signature__name">convertFunction</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$token</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$num_args</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1739,13 +1858,15 @@ args that it takes.</p>
 
     
 
+            <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">string</span>
-            &mdash;
-            <section class="phpdocumentor-description"><p>The packed ptg for the function</p>
+        <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The packed ptg for the function</p>
 </section>
 
-    
+            </section>
+
 </article>
                     <article
         class="phpdocumentor-element
@@ -1756,21 +1877,24 @@ args that it takes.</p>
     <h4 class="phpdocumentor-element__name" id="method_convertNumber">
         convertNumber()
         <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_convertNumber" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">568</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">547</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Convert a number token to ptgInt or ptgNum.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">convertNumber</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$num</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+                    <span class="phpdocumentor-signature__name">convertNumber</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$num</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1786,12 +1910,11 @@ args that it takes.</p>
 
     
 
+            <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">string</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            </section>
 
-    
 </article>
                     <article
         class="phpdocumentor-element
@@ -1802,21 +1925,24 @@ args that it takes.</p>
     <h4 class="phpdocumentor-element__name" id="method_convertRange2d">
         convertRange2d()
         <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_convertRange2d" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">636</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">612</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Convert an Excel range such as A1:D4 to a ptgRefV.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">convertRange2d</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$range</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$class</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+                    <span class="phpdocumentor-signature__name">convertRange2d</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$range</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$class</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">0</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1831,21 +1957,19 @@ args that it takes.</p>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$class</span>
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </dt>
+                 = <span class="phpdocumentor-signature__argument__default-value">0</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
+                
             </dd>
             </dl>
 
     
 
+            <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">string</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            </section>
 
-    
 </article>
                     <article
         class="phpdocumentor-element
@@ -1856,22 +1980,25 @@ args that it takes.</p>
     <h4 class="phpdocumentor-element__name" id="method_convertRange3d">
         convertRange3d()
         <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_convertRange3d" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">673</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">649</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Convert an Excel 3d range such as &quot;Sheet1!A1:D4&quot; or &quot;Sheet1:Sheet2!A1:D4&quot; to
 a ptgArea3d.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">convertRange3d</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$token</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">convertRange3d</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$token</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1887,13 +2014,15 @@ a ptgArea3d.</p>
 
     
 
+            <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">mixed</span>
-            &mdash;
-            <section class="phpdocumentor-description"><p>the packed ptgArea3d token on success</p>
+        <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>the packed ptgArea3d token on success</p>
 </section>
 
-    
+            </section>
+
 </article>
                     <article
         class="phpdocumentor-element
@@ -1904,21 +2033,24 @@ a ptgArea3d.</p>
     <h4 class="phpdocumentor-element__name" id="method_convertRef2d">
         convertRef2d()
         <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_convertRef2d" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">705</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">681</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Convert an Excel reference such as A1, $B2, C$3 or $D$4 to a ptgRefV.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">convertRef2d</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cell</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+                    <span class="phpdocumentor-signature__name">convertRef2d</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cell</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1934,13 +2066,15 @@ a ptgArea3d.</p>
 
     
 
+            <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">string</span>
-            &mdash;
-            <section class="phpdocumentor-description"><p>The cell in packed() format with the corresponding ptg</p>
+        <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The cell in packed() format with the corresponding ptg</p>
 </section>
 
-    
+            </section>
+
 </article>
                     <article
         class="phpdocumentor-element
@@ -1951,22 +2085,25 @@ a ptgArea3d.</p>
     <h4 class="phpdocumentor-element__name" id="method_convertRef3d">
         convertRef3d()
         <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_convertRef3d" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">725</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">701</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Convert an Excel 3d reference such as &quot;Sheet1!A1&quot; or &quot;Sheet1:Sheet2!A1&quot; to a
 ptgRef3d.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">convertRef3d</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cell</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">convertRef3d</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cell</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1982,13 +2119,15 @@ ptgRef3d.</p>
 
     
 
+            <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">mixed</span>
-            &mdash;
-            <section class="phpdocumentor-description"><p>the packed ptgRef3d token on success</p>
+        <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>the packed ptgRef3d token on success</p>
 </section>
 
-    
+            </section>
+
 </article>
                     <article
         class="phpdocumentor-element
@@ -1999,21 +2138,24 @@ ptgRef3d.</p>
     <h4 class="phpdocumentor-element__name" id="method_convertString">
         convertString()
         <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_convertString" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">595</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">574</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Convert a string token to ptgStr.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">convertString</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$string</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">convertString</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$string</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -2029,13 +2171,15 @@ ptgRef3d.</p>
 
     
 
+            <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">mixed</span>
-            &mdash;
-            <section class="phpdocumentor-description"><p>the converted token on success</p>
+        <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>the converted token</p>
 </section>
 
-    
+            </section>
+
 </article>
                     <article
         class="phpdocumentor-element
@@ -2046,22 +2190,25 @@ ptgRef3d.</p>
     <h4 class="phpdocumentor-element__name" id="method_createTree">
         createTree()
         <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_createTree" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1464</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">1428</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Creates a tree. In fact an array which may have one or two arrays (sub-trees)
 as elements.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">createTree</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$left</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$right</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+                    <span class="phpdocumentor-signature__name">createTree</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$left</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$right</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -2095,13 +2242,15 @@ as elements.</p>
 
     
 
+            <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
-            &mdash;
-            <section class="phpdocumentor-description"><p>A tree</p>
+        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>A tree</p>
 </section>
 
-    
+            </section>
+
 </article>
                     <article
         class="phpdocumentor-element
@@ -2112,12 +2261,14 @@ as elements.</p>
     <h4 class="phpdocumentor-element__name" id="method_expression">
         expression()
         <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_expression" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1208</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">1172</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">It parses a expression. It assumes the following rule:
 Expr -&gt; Term [(&quot;+&quot; | &quot;-&quot;) Term]
@@ -2128,20 +2279,23 @@ Expr -&gt; Term [(&quot;+&quot; | &quot;-&quot;) Term]
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">expression</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">expression</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
     
     
+    
 
+            <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">mixed</span>
-            &mdash;
-            <section class="phpdocumentor-description"><p>The parsed ptg'd tree on success</p>
+        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The parsed ptg'd tree on success</p>
 </section>
 
-    
+            </section>
+
 </article>
                     <article
         class="phpdocumentor-element
@@ -2152,12 +2306,14 @@ Expr -&gt; Term [(&quot;+&quot; | &quot;-&quot;) Term]
     <h4 class="phpdocumentor-element__name" id="method_fact">
         fact()
         <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_fact" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1318</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">1282</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">It parses a factor. It assumes the following rule:
 Fact -&gt; ( Expr )
@@ -2168,20 +2324,23 @@ Fact -&gt; ( Expr )
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">fact</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">fact</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
     
     
+    
 
+            <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">mixed</span>
-            &mdash;
-            <section class="phpdocumentor-description"><p>The parsed ptg'd tree on success</p>
+        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The parsed ptg'd tree on success</p>
 </section>
 
-    
+            </section>
+
 </article>
                     <article
         class="phpdocumentor-element
@@ -2192,32 +2351,37 @@ Fact -&gt; ( Expr )
     <h4 class="phpdocumentor-element__name" id="method_func">
         func()
         <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_func" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1417</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">1381</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">It parses a function call. It assumes the following rule:
 Func -&gt; ( Expr [,Expr]* ).</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">func</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">func</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
     
     
+    
 
+            <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">mixed</span>
-            &mdash;
-            <section class="phpdocumentor-description"><p>The parsed ptg'd tree on success</p>
+        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The parsed ptg'd tree on success</p>
 </section>
 
-    
+            </section>
+
 </article>
                     <article
         class="phpdocumentor-element
@@ -2228,12 +2392,14 @@ Func -&gt; ( Expr [,Expr]* ).</p>
     <h4 class="phpdocumentor-element__name" id="method_getRefIndex">
         getRefIndex()
         <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_getRefIndex" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">808</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">775</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Look up the REF index that corresponds to an external sheet name
 (or range). If it doesn&#039;t exist yet add it to the workbook&#039;s references
@@ -2241,10 +2407,11 @@ array. It assumes all sheet names given must exist.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">getRefIndex</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$ext_ref</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">getRefIndex</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$ext_ref</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -2260,13 +2427,15 @@ array. It assumes all sheet names given must exist.</p>
 
     
 
+            <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">mixed</span>
-            &mdash;
-            <section class="phpdocumentor-description"><p>The reference index in packed() format on success</p>
+        <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The reference index in packed() format on success</p>
 </section>
 
-    
+            </section>
+
 </article>
                     <article
         class="phpdocumentor-element
@@ -2277,12 +2446,14 @@ array. It assumes all sheet names given must exist.</p>
     <h4 class="phpdocumentor-element__name" id="method_getSheetIndex">
         getSheetIndex()
         <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_getSheetIndex" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">868</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">835</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Look up the index that corresponds to an external sheet name. The hash of
 sheet names is updated by the addworksheet() method of the
@@ -2290,10 +2461,11 @@ sheet names is updated by the addworksheet() method of the
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">getSheetIndex</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$sheet_name</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
+                    <span class="phpdocumentor-signature__name">getSheetIndex</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$sheet_name</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -2309,13 +2481,15 @@ sheet names is updated by the addworksheet() method of the
 
     
 
+            <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">int</span>
-            &mdash;
-            <section class="phpdocumentor-description"><p>The sheet index, -1 if the sheet was not found</p>
+        <span class="phpdocumentor-signature__response_type">int</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The sheet index, -1 if the sheet was not found</p>
 </section>
 
-    
+            </section>
+
 </article>
                     <article
         class="phpdocumentor-element
@@ -2326,26 +2500,29 @@ sheet names is updated by the addworksheet() method of the
     <h4 class="phpdocumentor-element__name" id="method_match">
         match()
         <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_match" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1047</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">1011</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">Checks if it&#039;s a valid token.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">match</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$token</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">match</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$token</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$token</span>
-                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>the token to check</p>
@@ -2356,13 +2533,15 @@ sheet names is updated by the addworksheet() method of the
 
     
 
+            <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">mixed</span>
-            &mdash;
-            <section class="phpdocumentor-description"><p>The checked token or false on failure</p>
+        <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The checked token or empty string on failure</p>
 </section>
 
-    
+            </section>
+
 </article>
                     <article
         class="phpdocumentor-element
@@ -2373,27 +2552,31 @@ sheet names is updated by the addworksheet() method of the
     <h4 class="phpdocumentor-element__name" id="method_parenthesizedExpression">
         parenthesizedExpression()
         <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_parenthesizedExpression" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1276</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">1240</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">This function just introduces a ptgParen element in the tree, so that Excel
 doesn&#039;t get confused when working with a parenthesized formula afterwards.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">parenthesizedExpression</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+                    <span class="phpdocumentor-signature__name">parenthesizedExpression</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
+    
     
     
     <h5 class="phpdocumentor-tag-list__heading" id="tags">
         Tags
-        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_parenthesizedExpression#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
@@ -2402,18 +2585,19 @@ doesn&#039;t get confused when working with a parenthesized formula afterwards.<
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                     <span class="phpdocumentor-tag-link"><abbr title="\PhpOffice\PhpSpreadsheet\Writer\Xls\fact()">fact()</abbr></span>
                                         
-                                                 <section class="phpdocumentor-description"></section>
-
+                                             
                                     </dd>
-                        </dl>
+                                            </dl>
 
+            <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
-            &mdash;
-            <section class="phpdocumentor-description"><p>The parsed ptg'd tree</p>
+        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The parsed ptg'd tree</p>
 </section>
 
-    
+            </section>
+
 </article>
                     <article
         class="phpdocumentor-element
@@ -2424,19 +2608,23 @@ doesn&#039;t get confused when working with a parenthesized formula afterwards.<
     <h4 class="phpdocumentor-element__name" id="method_rangeToPackedRange">
         rangeToPackedRange()
         <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_rangeToPackedRange" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">928</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">895</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">pack() row range into the required 3 or 4 byte format.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">rangeToPackedRange</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$range</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+                    <span class="phpdocumentor-signature__name">rangeToPackedRange</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$range</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
 
+    <div class="phpdocumentor-label-line">
+        </div>
         <section class="phpdocumentor-description"><p>Just using maximum col/rows, which is probably not the correct solution.</p>
 </section>
 
@@ -2455,13 +2643,15 @@ doesn&#039;t get confused when working with a parenthesized formula afterwards.<
 
     
 
+            <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
-            &mdash;
-            <section class="phpdocumentor-description"><p>Array containing (row1,col1,row2,col2) in packed() format</p>
+        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>Array containing (row1,col1,row2,col2) in packed() format</p>
 </section>
 
-    
+            </section>
+
 </article>
                     <article
         class="phpdocumentor-element
@@ -2472,37 +2662,213 @@ doesn&#039;t get confused when working with a parenthesized formula afterwards.<
     <h4 class="phpdocumentor-element__name" id="method_term">
         term()
         <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_term" class="headerlink"><i class="fas fa-link"></i></a>
+
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Writer/Xls/Parser.php"><a href="files/src-phpspreadsheet-writer-xls-parser.html"><abbr title="src/PhpSpreadsheet/Writer/Xls/Parser.php">Parser.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1287</span>
-</aside>
+    <span class="phpdocumentor-element-found-in__line">1251</span>
+
+    </aside>
 
         <p class="phpdocumentor-summary">It parses a term. It assumes the following rule:
 Term -&gt; Fact [(&quot;*&quot; | &quot;/&quot;) Fact].</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">term</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">term</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    <div class="phpdocumentor-label-line">
+        </div>
     
     
+    
 
+            <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">mixed</span>
-            &mdash;
-            <section class="phpdocumentor-description"><p>The parsed ptg'd tree on success</p>
+        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The parsed ptg'd tree on success</p>
 </section>
 
-    
+            </section>
+
 </article>
             </section>
 
+        <div class="phpdocumentor-modal" id="source-view">
+    <div class="phpdocumentor-modal-bg" data-exit-button></div>
+    <div class="phpdocumentor-modal-container">
+        <div class="phpdocumentor-modal-content">
+            <pre style="max-height: 500px; overflow-y: scroll" data-src="files/src/PhpSpreadsheet/Writer/Xls/Parser.php.txt" class="language-php line-numbers linkable-line-numbers"></pre>
+        </div>
+        <button data-exit-button class="phpdocumentor-modal__close">&times;</button>
+    </div>
+</div>
+
+    <script type="text/javascript">
+        (function () {
+            function loadExternalCodeSnippet(el, url, line) {
+                Array.prototype.slice.call(el.querySelectorAll('pre[data-src]')).forEach((pre) => {
+                    const src = url || pre.getAttribute('data-src').replace(/\\/g, '/');
+                    const language = 'php';
+
+                    const code = document.createElement('code');
+                    code.className = 'language-' + language;
+                    pre.textContent = '';
+                    pre.setAttribute('data-line', line)
+                    code.textContent = 'Loading…';
+                    pre.appendChild(code);
+
+                    var xhr = new XMLHttpRequest();
+
+                    xhr.open('GET', src, true);
+
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState !== 4) {
+                            return;
+                        }
+
+                        if (xhr.status < 400 && xhr.responseText) {
+                            code.textContent = xhr.responseText;
+                            Prism.highlightElement(code);
+                            return;
+                        }
+
+                        if (xhr.status === 404) {
+                            code.textContent = '✖ Error: File could not be found';
+                            return;
+                        }
+
+                        if (xhr.status >= 400) {
+                            code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                            return;
+                        }
+
+                        code.textContent = '✖ Error: An unknown error occurred';
+                    };
+
+                    xhr.send(null);
+                });
+            }
+
+            const modalButtons = document.querySelectorAll("[data-modal]");
+            const openedAsLocalFile = window.location.protocol === 'file:';
+            if (modalButtons.length > 0 && openedAsLocalFile) {
+                console.warn(
+                    'Viewing the source code is unavailable because you are opening this page from the file:// scheme; ' +
+                    'browsers block XHR requests when a page is opened this way'
+                );
+            }
+
+            modalButtons.forEach(function (trigger) {
+                if (openedAsLocalFile) {
+                    trigger.setAttribute("hidden", "hidden");
+                }
+
+                trigger.addEventListener("click", function (event) {
+                    event.preventDefault();
+                    const modal = document.getElementById(trigger.dataset.modal);
+                    if (!modal) {
+                        console.error(`Modal with id "${trigger.dataset.modal}" could not be found`);
+                        return;
+                    }
+                    modal.classList.add("phpdocumentor-modal__open");
+
+                    loadExternalCodeSnippet(modal, trigger.dataset.src || null, trigger.dataset.line)
+                    const exits = modal.querySelectorAll("[data-exit-button]");
+                    exits.forEach(function (exit) {
+                        exit.addEventListener("click", function (event) {
+                            event.preventDefault();
+                            modal.classList.remove("phpdocumentor-modal__open");
+                        });
+                    });
+                });
+            });
+        })();
+    </script>
+
     </article>
-                <section data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+                                </section>
+                <section class="phpdocumentor-on-this-page__sidebar">
+                                
+    <section class="phpdocumentor-on-this-page__content">
+        <strong class="phpdocumentor-on-this-page__title">On this page</strong>
+
+        <ul class="phpdocumentor-list -clean">
+            <li class="phpdocumentor-on-this-page-section__title">Table Of Contents</li>
+            <li>
+                <ul class="phpdocumentor-list -clean">
+                                        <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#toc-constants">Constants</a></li>
+                                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#toc-properties">Properties</a></li>
+                                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#toc-methods">Methods</a></li>
+                                    </ul>
+            </li>
+                            <li class="phpdocumentor-on-this-page-section__title">Constants</li>
+                <li>
+                    <ul class="phpdocumentor-list -clean">
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#constant_REGEX_SHEET_TITLE_QUOTED">REGEX_SHEET_TITLE_QUOTED</a></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#constant_REGEX_SHEET_TITLE_UNQUOTED">REGEX_SHEET_TITLE_UNQUOTED</a></li>
+                                            </ul>
+                </li>
+            
+                            <li class="phpdocumentor-on-this-page-section__title">Properties</li>
+                <li>
+                    <ul class="phpdocumentor-list -clean">
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#property_currentCharacter">$currentCharacter<a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#property_currentToken">$currentToken<a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#property_lookAhead">$lookAhead<a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#property_parseTree">$parseTree<a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#property_references">$references<a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#property_externalSheets">$externalSheets<a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#property_formula">$formula<a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#property_functions">$functions<a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#property_ptg">$ptg<a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#property_spreadsheet">$spreadsheet<a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html"></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#property_tryDefinedName">$tryDefinedName<a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html"></li>
+                                            </ul>
+                </li>
+            
+                        <li class="phpdocumentor-on-this-page-section__title">Methods</li>
+            <li>
+                <ul class="phpdocumentor-list -clean">
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method___construct">__construct()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_parse">parse()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_setExtSheet">setExtSheet()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_toReversePolish">toReversePolish()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_advance">advance()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_cellToPackedRowcol">cellToPackedRowcol()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_cellToRowcol">cellToRowcol()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_condition">condition()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_convert">convert()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_convertBool">convertBool()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_convertDefinedName">convertDefinedName()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_convertError">convertError()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_convertFunction">convertFunction()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_convertNumber">convertNumber()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_convertRange2d">convertRange2d()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_convertRange3d">convertRange3d()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_convertRef2d">convertRef2d()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_convertRef3d">convertRef3d()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_convertString">convertString()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_createTree">createTree()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_expression">expression()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_fact">fact()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_func">func()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_getRefIndex">getRefIndex()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_getSheetIndex">getSheetIndex()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_match">match()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_parenthesizedExpression">parenthesizedExpression()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_rangeToPackedRange">rangeToPackedRange()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#method_term">term()</a></li>
+                                    </ul>
+            </li>
+                    </ul>
+    </section>
+
+                </section>
+                            </div>
+            <section data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
     <section class="phpdocumentor-search-results__dialog">
         <header class="phpdocumentor-search-results__header">
             <h2 class="phpdocumentor-search-results__title">Search results</h2>
@@ -2513,7 +2879,6 @@ Term -&gt; Fact [(&quot;*&quot; | &quot;/&quot;) Fact].</p>
         </section>
     </section>
 </section>
-            </div>
         </div>
         <a href="classes/PhpOffice-PhpSpreadsheet-Writer-Xls-Parser.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
 
@@ -2522,5 +2887,9 @@ Term -&gt; Fact [(&quot;*&quot; | &quot;/&quot;) Fact].</p>
     <script>
         cssVars({});
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/prism.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
 </body>
 </html>
