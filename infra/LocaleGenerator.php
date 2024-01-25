@@ -26,6 +26,8 @@ class LocaleGenerator
     private const FUNCTION_NAME_LIST_FIRST_ROW = 4;
     private const ENGLISH_FUNCTION_CATEGORIES_COLUMN = 'A';
     private const ENGLISH_REFERENCE_COLUMN = 'B';
+
+    // not PHP_EOL
     private const EOL = "\n";
 
     protected Spreadsheet $translationSpreadsheet;
