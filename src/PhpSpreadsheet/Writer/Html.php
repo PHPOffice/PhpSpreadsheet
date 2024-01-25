@@ -37,11 +37,6 @@ class Html extends BaseWriter
     private const DEFAULT_CELL_WIDTH_PIXELS = 56;
 
     /**
-     * Spreadsheet object.
-     */
-    protected Spreadsheet $spreadsheet;
-
-    /**
      * Sheet index to write.
      */
     private ?int $sheetIndex = 0;
@@ -127,9 +122,11 @@ class Html extends BaseWriter
     /**
      * Create a new HTML.
      */
-    public function __construct(Spreadsheet $spreadsheet)
-    {
-        $this->spreadsheet = $spreadsheet;
+    public function __construct(/**
+         * Spreadsheet object.
+         */
+        protected Spreadsheet $spreadsheet
+    ) {
         $this->defaultFont = $this->spreadsheet->getDefaultStyle()->getFont();
     }
 
@@ -225,7 +222,7 @@ class Html extends BaseWriter
         return Alignment::HORIZONTAL_ALIGNMENT_FOR_HTML[$hAlign] ?? '';
     }
 
-    const BORDER_ARR = [
+    public const BORDER_ARR = [
         Border::BORDER_NONE => 'none',
         Border::BORDER_DASHDOT => '1px dashed',
         Border::BORDER_DASHDOTDOT => '1px dotted',

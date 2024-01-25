@@ -31,27 +31,24 @@ final class StructuredReference implements Operand, Stringable
 
     private const TABLE_REFERENCE = '/([\p{L}_\\\\][\p{L}\p{N}\._]+)?(\[(?:[^\]\[]+|(?R))*+\])/miu';
 
-    private string $value;
-
     private string $tableName;
 
     private Table $table;
 
     private string $reference;
 
-    private ?int $headersRow;
+    private ?int $headersRow = null;
 
     private int $firstDataRow;
 
     private int $lastDataRow;
 
-    private ?int $totalsRow;
+    private ?int $totalsRow = null;
 
     private array $columns;
 
-    public function __construct(string $structuredReference)
+    public function __construct(private string $value)
     {
-        $this->value = $structuredReference;
     }
 
     public static function fromParser(string $formula, int $index, array $matches): self
@@ -227,8 +224,8 @@ final class StructuredReference implements Operand, Stringable
     private function getColumnReference(): string
     {
         $reference = str_replace("\u{a0}", ' ', $this->reference);
-        $startRow = ($this->totalsRow === null) ? $this->lastDataRow : $this->totalsRow;
-        $endRow = ($this->headersRow === null) ? $this->firstDataRow : $this->headersRow;
+        $startRow = $this->totalsRow ?? $this->lastDataRow;
+        $endRow = $this->headersRow ?? $this->firstDataRow;
 
         [$startRow, $endRow] = $this->getRowsForColumnReference($reference, $startRow, $endRow);
         $reference = $this->getColumnsForColumnReference($reference, $startRow, $endRow);

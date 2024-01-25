@@ -6,8 +6,6 @@ use PhpOffice\PhpSpreadsheet\Calculation\Exception;
 
 class BranchPruner
 {
-    protected bool $branchPruningEnabled;
-
     /**
      * Used to generate unique store keys.
      */
@@ -51,9 +49,8 @@ class BranchPruner
 
     protected ?string $previousStoreKey = null;
 
-    public function __construct(bool $branchPruningEnabled)
+    public function __construct(protected bool $branchPruningEnabled)
     {
-        $this->branchPruningEnabled = $branchPruningEnabled;
     }
 
     public function clearBranchStore(): void

@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Cell;
 
-class StringableObject
+use Stringable;
+
+class StringableObject implements Stringable
 {
     public function __toString(): string
     {

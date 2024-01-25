@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 class ConvertUoMTest extends TestCase
 {
-    const UOM_PRECISION = 1E-12;
+    public const UOM_PRECISION = 1E-12;
 
     public function testGetConversionGroups(): void
     {
@@ -149,7 +149,7 @@ class ConvertUoMTest extends TestCase
             ],
             'Distance' => [
                 [
-                    [2025371.8285214372, 1093.6132983377101],
+                    [2_025_371.8285214372, 1093.6132983377101],
                     [1851.9999999999984, 1.0],
                 ],
                 '1000',

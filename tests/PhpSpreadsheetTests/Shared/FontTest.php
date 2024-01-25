@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class FontTest extends TestCase
 {
-    const FONT_PRECISION = 1.0E-12;
+    public const FONT_PRECISION = 1.0E-12;
 
     public function testGetAutoSizeMethod(): void
     {

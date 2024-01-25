@@ -9,11 +9,6 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 abstract class Supervisor implements IComparable
 {
     /**
-     * Supervisor?
-     */
-    protected bool $isSupervisor;
-
-    /**
      * Parent. Only used for supervisor.
      *
      * @var Spreadsheet|Supervisor
@@ -32,10 +27,8 @@ abstract class Supervisor implements IComparable
      *                                    Leave this value at default unless you understand exactly what
      *                                        its ramifications are
      */
-    public function __construct(bool $isSupervisor = false)
+    public function __construct(protected bool $isSupervisor = false)
     {
-        // Supervisor?
-        $this->isSupervisor = $isSupervisor;
     }
 
     /**

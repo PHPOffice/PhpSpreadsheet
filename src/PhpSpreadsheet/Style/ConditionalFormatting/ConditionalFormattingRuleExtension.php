@@ -7,12 +7,9 @@ use SimpleXMLElement;
 
 class ConditionalFormattingRuleExtension
 {
-    const CONDITION_EXTENSION_DATABAR = 'dataBar';
+    public const CONDITION_EXTENSION_DATABAR = 'dataBar';
 
     private string $id;
-
-    /** @var string Conditional Formatting Rule */
-    private string $cfRule;
 
     private ConditionalDataBarExtension $dataBar;
 
@@ -22,14 +19,15 @@ class ConditionalFormattingRuleExtension
     /**
      * ConditionalFormattingRuleExtension constructor.
      */
-    public function __construct(?string $id = null, string $cfRule = self::CONDITION_EXTENSION_DATABAR)
-    {
+    public function __construct(
+        ?string $id = null, /** @var string Conditional Formatting Rule */
+        private string $cfRule = self::CONDITION_EXTENSION_DATABAR
+    ) {
         if (null === $id) {
             $this->id = '{' . $this->generateUuid() . '}';
         } else {
             $this->id = $id;
         }
-        $this->cfRule = $cfRule;
     }
 
     private function generateUuid(): string

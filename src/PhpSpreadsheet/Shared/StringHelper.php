@@ -19,22 +19,22 @@ class StringHelper
     /**
      * Decimal separator.
      */
-    private static ?string $decimalSeparator;
+    private static ?string $decimalSeparator = null;
 
     /**
      * Thousands separator.
      */
-    private static ?string $thousandsSeparator;
+    private static ?string $thousandsSeparator = null;
 
     /**
      * Currency code.
      */
-    private static ?string $currencyCode;
+    private static ?string $currencyCode = null;
 
     /**
      * Is iconv extension avalable?
      */
-    private static ?bool $isIconvEnabled;
+    private static ?bool $isIconvEnabled = null;
 
     /**
      * iconv options.

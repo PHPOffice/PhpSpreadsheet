@@ -19,8 +19,8 @@ use PhpOffice\PhpSpreadsheet\Writer\Ods\Cell\Style;
  */
 class Content extends WriterPart
 {
-    const NUMBER_COLS_REPEATED_MAX = 1024;
-    const NUMBER_ROWS_REPEATED_MAX = 1048576;
+    public const NUMBER_COLS_REPEATED_MAX = 1024;
+    public const NUMBER_ROWS_REPEATED_MAX = 1_048_576;
 
     private Formula $formulaConvertor;
 
@@ -225,7 +225,7 @@ class Content extends WriterPart
                     if ($this->getParentWriter()->getPreCalculateFormulas()) {
                         try {
                             $formulaValue = $cell->getCalculatedValue();
-                        } catch (CalculationException $e) {
+                        } catch (CalculationException) {
                             // don't do anything
                         }
                     }

@@ -40,7 +40,7 @@ class ConcatenateTest extends AllSetupTeardown
         $sheet1->fromArray(
             [
                 ['Number', 'Formula'],
-                [52101293, '=CONCAT(INDEX(Lookup!B2, MATCH(A2, Lookup!A2, 0)))'],
+                [52_101_293, '=CONCAT(INDEX(Lookup!B2, MATCH(A2, Lookup!A2, 0)))'],
             ]
         );
         $sheet2 = $spreadsheet->createSheet();
@@ -48,7 +48,7 @@ class ConcatenateTest extends AllSetupTeardown
         $sheet2->fromArray(
             [
                 ['Lookup', 'Match'],
-                [52101293, 'PHP'],
+                [52_101_293, 'PHP'],
             ]
         );
         self::assertSame('PHP', $sheet1->getCell('B2')->getCalculatedValue());

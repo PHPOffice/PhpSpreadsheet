@@ -4,17 +4,17 @@ namespace PhpOffice\PhpSpreadsheet\Shared\Trend;
 
 class Trend
 {
-    const TREND_LINEAR = 'Linear';
-    const TREND_LOGARITHMIC = 'Logarithmic';
-    const TREND_EXPONENTIAL = 'Exponential';
-    const TREND_POWER = 'Power';
-    const TREND_POLYNOMIAL_2 = 'Polynomial_2';
-    const TREND_POLYNOMIAL_3 = 'Polynomial_3';
-    const TREND_POLYNOMIAL_4 = 'Polynomial_4';
-    const TREND_POLYNOMIAL_5 = 'Polynomial_5';
-    const TREND_POLYNOMIAL_6 = 'Polynomial_6';
-    const TREND_BEST_FIT = 'Bestfit';
-    const TREND_BEST_FIT_NO_POLY = 'Bestfit_no_Polynomials';
+    public const TREND_LINEAR = 'Linear';
+    public const TREND_LOGARITHMIC = 'Logarithmic';
+    public const TREND_EXPONENTIAL = 'Exponential';
+    public const TREND_POWER = 'Power';
+    public const TREND_POLYNOMIAL_2 = 'Polynomial_2';
+    public const TREND_POLYNOMIAL_3 = 'Polynomial_3';
+    public const TREND_POLYNOMIAL_4 = 'Polynomial_4';
+    public const TREND_POLYNOMIAL_5 = 'Polynomial_5';
+    public const TREND_POLYNOMIAL_6 = 'Polynomial_6';
+    public const TREND_BEST_FIT = 'Bestfit';
+    public const TREND_BEST_FIT_NO_POLY = 'Bestfit_no_Polynomials';
 
     /**
      * Names of the best-fit Trend analysis methods.

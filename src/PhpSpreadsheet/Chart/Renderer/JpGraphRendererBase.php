@@ -40,8 +40,6 @@ abstract class JpGraphRendererBase implements IRenderer
 
     private static array $markSet;
 
-    private Chart $chart;
-
     private $graph;
 
     private static $plotColour = 0;
@@ -51,11 +49,10 @@ abstract class JpGraphRendererBase implements IRenderer
     /**
      * Create a new jpgraph.
      */
-    public function __construct(Chart $chart)
+    public function __construct(private Chart $chart)
     {
         static::init();
         $this->graph = null;
-        $this->chart = $chart;
 
         self::$markSet = [
             'diamond' => MARK_DIAMOND,

@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 class BesselKTest extends TestCase
 {
-    const BESSEL_PRECISION = 1E-12;
+    public const BESSEL_PRECISION = 1E-12;
 
     /**
      * @dataProvider providerBESSELK

@@ -42,8 +42,8 @@ class Beta
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $value, $alpha, $beta, $rMin, $rMax);
         }
 
-        $rMin = $rMin ?? 0.0;
-        $rMax = $rMax ?? 1.0;
+        $rMin ??= 0.0;
+        $rMax ??= 1.0;
 
         try {
             $value = DistributionValidations::validateFloat($value);
@@ -95,8 +95,8 @@ class Beta
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $probability, $alpha, $beta, $rMin, $rMax);
         }
 
-        $rMin = $rMin ?? 0.0;
-        $rMax = $rMax ?? 1.0;
+        $rMin ??= 0.0;
+        $rMax ??= 1.0;
 
         try {
             $probability = DistributionValidations::validateProbability($probability);

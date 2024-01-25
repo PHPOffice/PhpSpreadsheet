@@ -777,8 +777,8 @@ class Roman
     private const HUNDREDS = ['', 'C', 'CC', 'CCC', 'CD', 'D', 'DC', 'DCC', 'DCCC', 'CM'];
     private const TENS = ['', 'X', 'XX', 'XXX', 'XL', 'L', 'LX', 'LXX', 'LXXX', 'XC'];
     private const ONES = ['', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'];
-    const MAX_ROMAN_VALUE = 3999;
-    const MAX_ROMAN_STYLE = 4;
+    public const MAX_ROMAN_VALUE = 3999;
+    public const MAX_ROMAN_STYLE = 4;
 
     private static function valueOk(int $aValue, int $style): string
     {

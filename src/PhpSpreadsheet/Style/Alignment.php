@@ -7,17 +7,17 @@ use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 class Alignment extends Supervisor
 {
     // Horizontal alignment styles
-    const HORIZONTAL_GENERAL = 'general';
-    const HORIZONTAL_LEFT = 'left';
-    const HORIZONTAL_RIGHT = 'right';
-    const HORIZONTAL_CENTER = 'center';
-    const HORIZONTAL_CENTER_CONTINUOUS = 'centerContinuous';
-    const HORIZONTAL_JUSTIFY = 'justify';
-    const HORIZONTAL_FILL = 'fill';
-    const HORIZONTAL_DISTRIBUTED = 'distributed'; // Excel2007 only
+    public const HORIZONTAL_GENERAL = 'general';
+    public const HORIZONTAL_LEFT = 'left';
+    public const HORIZONTAL_RIGHT = 'right';
+    public const HORIZONTAL_CENTER = 'center';
+    public const HORIZONTAL_CENTER_CONTINUOUS = 'centerContinuous';
+    public const HORIZONTAL_JUSTIFY = 'justify';
+    public const HORIZONTAL_FILL = 'fill';
+    public const HORIZONTAL_DISTRIBUTED = 'distributed'; // Excel2007 only
     private const HORIZONTAL_CENTER_CONTINUOUS_LC = 'centercontinuous';
     // Mapping for horizontal alignment
-    const HORIZONTAL_ALIGNMENT_FOR_XLSX = [
+    public const HORIZONTAL_ALIGNMENT_FOR_XLSX = [
         self::HORIZONTAL_LEFT => self::HORIZONTAL_LEFT,
         self::HORIZONTAL_RIGHT => self::HORIZONTAL_RIGHT,
         self::HORIZONTAL_CENTER => self::HORIZONTAL_CENTER,
@@ -27,7 +27,7 @@ class Alignment extends Supervisor
         self::HORIZONTAL_DISTRIBUTED => self::HORIZONTAL_DISTRIBUTED,
     ];
     // Mapping for horizontal alignment CSS
-    const HORIZONTAL_ALIGNMENT_FOR_HTML = [
+    public const HORIZONTAL_ALIGNMENT_FOR_HTML = [
         self::HORIZONTAL_LEFT => self::HORIZONTAL_LEFT,
         self::HORIZONTAL_RIGHT => self::HORIZONTAL_RIGHT,
         self::HORIZONTAL_CENTER => self::HORIZONTAL_CENTER,
@@ -38,11 +38,11 @@ class Alignment extends Supervisor
     ];
 
     // Vertical alignment styles
-    const VERTICAL_BOTTOM = 'bottom';
-    const VERTICAL_TOP = 'top';
-    const VERTICAL_CENTER = 'center';
-    const VERTICAL_JUSTIFY = 'justify';
-    const VERTICAL_DISTRIBUTED = 'distributed'; // Excel2007 only
+    public const VERTICAL_BOTTOM = 'bottom';
+    public const VERTICAL_TOP = 'top';
+    public const VERTICAL_CENTER = 'center';
+    public const VERTICAL_JUSTIFY = 'justify';
+    public const VERTICAL_DISTRIBUTED = 'distributed'; // Excel2007 only
     // Vertical alignment CSS
     private const VERTICAL_BASELINE = 'baseline';
     private const VERTICAL_MIDDLE = 'middle';
@@ -52,7 +52,7 @@ class Alignment extends Supervisor
     private const VERTICAL_TEXT_TOP = 'text-top';
 
     // Mapping for vertical alignment
-    const VERTICAL_ALIGNMENT_FOR_XLSX = [
+    public const VERTICAL_ALIGNMENT_FOR_XLSX = [
         self::VERTICAL_BOTTOM => self::VERTICAL_BOTTOM,
         self::VERTICAL_TOP => self::VERTICAL_TOP,
         self::VERTICAL_CENTER => self::VERTICAL_CENTER,
@@ -68,7 +68,7 @@ class Alignment extends Supervisor
     ];
 
     // Mapping for vertical alignment for Html
-    const VERTICAL_ALIGNMENT_FOR_HTML = [
+    public const VERTICAL_ALIGNMENT_FOR_HTML = [
         self::VERTICAL_BOTTOM => self::VERTICAL_BOTTOM,
         self::VERTICAL_TOP => self::VERTICAL_TOP,
         self::VERTICAL_CENTER => self::VERTICAL_MIDDLE,
@@ -84,13 +84,13 @@ class Alignment extends Supervisor
     ];
 
     // Read order
-    const READORDER_CONTEXT = 0;
-    const READORDER_LTR = 1;
-    const READORDER_RTL = 2;
+    public const READORDER_CONTEXT = 0;
+    public const READORDER_LTR = 1;
+    public const READORDER_RTL = 2;
 
     // Special value for Text Rotation
-    const TEXTROTATION_STACK_EXCEL = 255;
-    const TEXTROTATION_STACK_PHPSPREADSHEET = -165; // 90 - 255
+    public const TEXTROTATION_STACK_EXCEL = 255;
+    public const TEXTROTATION_STACK_PHPSPREADSHEET = -165; // 90 - 255
 
     /**
      * Horizontal alignment.
@@ -481,7 +481,7 @@ class Alignment extends Supervisor
             . ($this->shrinkToFit ? 't' : 'f')
             . $this->indent
             . $this->readOrder
-            . __CLASS__
+            . self::class
         );
     }
 

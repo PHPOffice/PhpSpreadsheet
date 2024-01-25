@@ -63,7 +63,7 @@ class TimeZone
      */
     public static function getTimeZoneAdjustment(?string $timezoneName, $timestamp): int
     {
-        $timezoneName = $timezoneName ?? self::$timezone;
+        $timezoneName ??= self::$timezone;
         $dtobj = Date::dateTimeFromTimestamp("$timestamp");
         if (!self::validateTimeZone($timezoneName)) {
             throw new PhpSpreadsheetException("Invalid timezone $timezoneName");

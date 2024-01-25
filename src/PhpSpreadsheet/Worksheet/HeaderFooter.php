@@ -66,12 +66,12 @@ namespace PhpOffice\PhpSpreadsheet\Worksheet;
 class HeaderFooter
 {
     // Header/footer image location
-    const IMAGE_HEADER_LEFT = 'LH';
-    const IMAGE_HEADER_CENTER = 'CH';
-    const IMAGE_HEADER_RIGHT = 'RH';
-    const IMAGE_FOOTER_LEFT = 'LF';
-    const IMAGE_FOOTER_CENTER = 'CF';
-    const IMAGE_FOOTER_RIGHT = 'RF';
+    public const IMAGE_HEADER_LEFT = 'LH';
+    public const IMAGE_HEADER_CENTER = 'CH';
+    public const IMAGE_HEADER_RIGHT = 'RH';
+    public const IMAGE_FOOTER_LEFT = 'LF';
+    public const IMAGE_FOOTER_CENTER = 'CF';
+    public const IMAGE_FOOTER_RIGHT = 'RF';
 
     /**
      * OddHeader.

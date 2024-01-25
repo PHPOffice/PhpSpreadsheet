@@ -63,8 +63,8 @@ class Address
             );
         }
 
-        $relativity = $relativity ?? 1;
-        $referenceStyle = $referenceStyle ?? true;
+        $relativity ??= 1;
+        $referenceStyle ??= true;
 
         if (($row < 1) || ($column < 1)) {
             return ExcelError::VALUE();

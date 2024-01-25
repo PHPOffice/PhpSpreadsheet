@@ -14,10 +14,6 @@ use SimpleXMLElement;
 
 class Styles
 {
-    private Spreadsheet $spreadsheet;
-
-    protected bool $readDataOnly;
-
     public static array $mappings = [
         'borderStyle' => [
             '0' => Border::BORDER_NONE,
@@ -78,10 +74,8 @@ class Styles
         ],
     ];
 
-    public function __construct(Spreadsheet $spreadsheet, bool $readDataOnly)
+    public function __construct(private Spreadsheet $spreadsheet, protected bool $readDataOnly)
     {
-        $this->spreadsheet = $spreadsheet;
-        $this->readDataOnly = $readDataOnly;
     }
 
     public function read(SimpleXMLElement $sheet, int $maxRow, int $maxCol): void

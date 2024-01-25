@@ -7,15 +7,15 @@ use PhpOffice\PhpSpreadsheet\Chart\ChartColor;
 class Font extends Supervisor
 {
     // Underline types
-    const UNDERLINE_NONE = 'none';
-    const UNDERLINE_DOUBLE = 'double';
-    const UNDERLINE_DOUBLEACCOUNTING = 'doubleAccounting';
-    const UNDERLINE_SINGLE = 'single';
-    const UNDERLINE_SINGLEACCOUNTING = 'singleAccounting';
+    public const UNDERLINE_NONE = 'none';
+    public const UNDERLINE_DOUBLE = 'double';
+    public const UNDERLINE_DOUBLEACCOUNTING = 'doubleAccounting';
+    public const UNDERLINE_SINGLE = 'single';
+    public const UNDERLINE_SINGLEACCOUNTING = 'singleAccounting';
 
-    const CAP_ALL = 'all';
-    const CAP_SMALL = 'small';
-    const CAP_NONE = 'none';
+    public const CAP_ALL = 'all';
+    public const CAP_SMALL = 'small';
+    public const CAP_NONE = 'none';
     private const VALID_CAPS = [self::CAP_ALL, self::CAP_SMALL, self::CAP_NONE];
 
     protected ?string $cap = null;
@@ -752,7 +752,7 @@ class Font extends Supervisor
                     (string) $this->cap,
                 ]
             )
-            . __CLASS__
+            . self::class
         );
     }
 

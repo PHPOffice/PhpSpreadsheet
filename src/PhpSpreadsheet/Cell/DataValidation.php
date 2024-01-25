@@ -5,29 +5,29 @@ namespace PhpOffice\PhpSpreadsheet\Cell;
 class DataValidation
 {
     // Data validation types
-    const TYPE_NONE = 'none';
-    const TYPE_CUSTOM = 'custom';
-    const TYPE_DATE = 'date';
-    const TYPE_DECIMAL = 'decimal';
-    const TYPE_LIST = 'list';
-    const TYPE_TEXTLENGTH = 'textLength';
-    const TYPE_TIME = 'time';
-    const TYPE_WHOLE = 'whole';
+    public const TYPE_NONE = 'none';
+    public const TYPE_CUSTOM = 'custom';
+    public const TYPE_DATE = 'date';
+    public const TYPE_DECIMAL = 'decimal';
+    public const TYPE_LIST = 'list';
+    public const TYPE_TEXTLENGTH = 'textLength';
+    public const TYPE_TIME = 'time';
+    public const TYPE_WHOLE = 'whole';
 
     // Data validation error styles
-    const STYLE_STOP = 'stop';
-    const STYLE_WARNING = 'warning';
-    const STYLE_INFORMATION = 'information';
+    public const STYLE_STOP = 'stop';
+    public const STYLE_WARNING = 'warning';
+    public const STYLE_INFORMATION = 'information';
 
     // Data validation operators
-    const OPERATOR_BETWEEN = 'between';
-    const OPERATOR_EQUAL = 'equal';
-    const OPERATOR_GREATERTHAN = 'greaterThan';
-    const OPERATOR_GREATERTHANOREQUAL = 'greaterThanOrEqual';
-    const OPERATOR_LESSTHAN = 'lessThan';
-    const OPERATOR_LESSTHANOREQUAL = 'lessThanOrEqual';
-    const OPERATOR_NOTBETWEEN = 'notBetween';
-    const OPERATOR_NOTEQUAL = 'notEqual';
+    public const OPERATOR_BETWEEN = 'between';
+    public const OPERATOR_EQUAL = 'equal';
+    public const OPERATOR_GREATERTHAN = 'greaterThan';
+    public const OPERATOR_GREATERTHANOREQUAL = 'greaterThanOrEqual';
+    public const OPERATOR_LESSTHAN = 'lessThan';
+    public const OPERATOR_LESSTHANOREQUAL = 'lessThanOrEqual';
+    public const OPERATOR_NOTBETWEEN = 'notBetween';
+    public const OPERATOR_NOTEQUAL = 'notEqual';
     private const DEFAULT_OPERATOR = self::OPERATOR_BETWEEN;
 
     /**
@@ -386,7 +386,7 @@ class DataValidation
             . $this->promptTitle
             . $this->prompt
             . $this->sqref
-            . __CLASS__
+            . self::class
         );
     }
 

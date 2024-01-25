@@ -9,8 +9,8 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class DataSeriesValues extends Properties
 {
-    const DATASERIES_TYPE_STRING = 'String';
-    const DATASERIES_TYPE_NUMBER = 'Number';
+    public const DATASERIES_TYPE_STRING = 'String';
+    public const DATASERIES_TYPE_NUMBER = 'Number';
 
     private const DATA_TYPE_VALUES = [
         self::DATASERIES_TYPE_STRING,
@@ -22,21 +22,6 @@ class DataSeriesValues extends Properties
      */
     private string $dataType;
 
-    /**
-     * Series Data Source.
-     */
-    private ?string $dataSource;
-
-    /**
-     * Format Code.
-     */
-    private ?string $formatCode;
-
-    /**
-     * Series Point Marker.
-     */
-    private ?string $pointMarker;
-
     private ChartColor $markerFillColor;
 
     private ChartColor $markerBorderColor;
@@ -45,16 +30,6 @@ class DataSeriesValues extends Properties
      * Series Point Size.
      */
     private int $pointSize = 3;
-
-    /**
-     * Point Count (The number of datapoints in the dataseries).
-     */
-    private int $pointCount;
-
-    /**
-     * Data Values.
-     */
-    private ?array $dataValues;
 
     /**
      * Fill color (can be array with colors if dataseries have custom colors).
@@ -79,11 +54,26 @@ class DataSeriesValues extends Properties
      */
     public function __construct(
         string $dataType = self::DATASERIES_TYPE_NUMBER,
-        ?string $dataSource = null,
-        ?string $formatCode = null,
-        int $pointCount = 0,
-        ?array $dataValues = [],
-        ?string $marker = null,
+        /**
+         * Series Data Source.
+         */
+        private ?string $dataSource = null,
+        /**
+         * Format Code.
+         */
+        private ?string $formatCode = null,
+        /**
+         * Point Count (The number of datapoints in the dataseries).
+         */
+        private int $pointCount = 0,
+        /**
+         * Data Values.
+         */
+        private ?array $dataValues = [],
+        /**
+         * Series Point Marker.
+         */
+        private ?string $pointMarker = null,
         null|ChartColor|array|string $fillColor = null,
         int|string $pointSize = 3
     ) {
@@ -91,11 +81,6 @@ class DataSeriesValues extends Properties
         $this->markerFillColor = new ChartColor();
         $this->markerBorderColor = new ChartColor();
         $this->setDataType($dataType);
-        $this->dataSource = $dataSource;
-        $this->formatCode = $formatCode;
-        $this->pointCount = $pointCount;
-        $this->dataValues = $dataValues;
-        $this->pointMarker = $marker;
         if ($fillColor !== null) {
             $this->setFillColor($fillColor);
         }

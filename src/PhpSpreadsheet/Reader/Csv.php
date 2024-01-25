@@ -13,22 +13,22 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class Csv extends BaseReader
 {
-    const DEFAULT_FALLBACK_ENCODING = 'CP1252';
-    const GUESS_ENCODING = 'guess';
-    const UTF8_BOM = "\xEF\xBB\xBF";
-    const UTF8_BOM_LEN = 3;
-    const UTF16BE_BOM = "\xfe\xff";
-    const UTF16BE_BOM_LEN = 2;
-    const UTF16BE_LF = "\x00\x0a";
-    const UTF16LE_BOM = "\xff\xfe";
-    const UTF16LE_BOM_LEN = 2;
-    const UTF16LE_LF = "\x0a\x00";
-    const UTF32BE_BOM = "\x00\x00\xfe\xff";
-    const UTF32BE_BOM_LEN = 4;
-    const UTF32BE_LF = "\x00\x00\x00\x0a";
-    const UTF32LE_BOM = "\xff\xfe\x00\x00";
-    const UTF32LE_BOM_LEN = 4;
-    const UTF32LE_LF = "\x0a\x00\x00\x00";
+    public const DEFAULT_FALLBACK_ENCODING = 'CP1252';
+    public const GUESS_ENCODING = 'guess';
+    public const UTF8_BOM = "\xEF\xBB\xBF";
+    public const UTF8_BOM_LEN = 3;
+    public const UTF16BE_BOM = "\xfe\xff";
+    public const UTF16BE_BOM_LEN = 2;
+    public const UTF16BE_LF = "\x00\x0a";
+    public const UTF16LE_BOM = "\xff\xfe";
+    public const UTF16LE_BOM_LEN = 2;
+    public const UTF16LE_LF = "\x0a\x00";
+    public const UTF32BE_BOM = "\x00\x00\xfe\xff";
+    public const UTF32BE_BOM_LEN = 4;
+    public const UTF32BE_LF = "\x00\x00\x00\x0a";
+    public const UTF32LE_BOM = "\xff\xfe\x00\x00";
+    public const UTF32LE_BOM_LEN = 4;
+    public const UTF32LE_LF = "\x0a\x00\x00\x00";
 
     /**
      * Input encoding.
@@ -391,7 +391,7 @@ class Csv extends BaseReader
             $columnLetter = 'A';
             foreach ($rowData as $rowDatum) {
                 if ($preserveBooleanString) {
-                    $rowDatum = $rowDatum ?? '';
+                    $rowDatum ??= '';
                 } else {
                     $this->convertBoolean($rowDatum);
                 }
@@ -441,7 +441,7 @@ class Csv extends BaseReader
                 $rowDatum = false;
             }
         } else {
-            $rowDatum = $rowDatum ?? '';
+            $rowDatum ??= '';
         }
     }
 

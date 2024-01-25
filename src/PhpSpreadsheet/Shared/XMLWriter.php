@@ -9,8 +9,8 @@ class XMLWriter extends \XMLWriter
     public static bool $debugEnabled = false;
 
     /** Temporary storage method */
-    const STORAGE_MEMORY = 1;
-    const STORAGE_DISK = 2;
+    public const STORAGE_MEMORY = 1;
+    public const STORAGE_DISK = 2;
 
     /**
      * Temporary filename.

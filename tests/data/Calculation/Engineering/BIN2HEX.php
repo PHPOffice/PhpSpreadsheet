@@ -5,7 +5,7 @@ declare(strict_types=1);
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 return [
-    ['B2', 10110010],
+    ['B2', 10_110_010],
     ['B2', '10110010'],
     [ExcelError::NAN(), '111001010101'], // Too large
     ['00FB', '11111011', 4], // Leading places

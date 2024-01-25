@@ -54,7 +54,7 @@ return [
     [41075.0, 2012, 6, 15],
     [3819.0, 10, 6, 15],
     [ExcelError::NAN(), -20, 6, 15],
-    [2958465.0, 9999, 12, 31], // Excel maximum date
+    [2_958_465.0, 9999, 12, 31], // Excel maximum date
     [ExcelError::NAN(), 10000, 1, 1], // Exceeded Excel maximum date
     [39670.0, 2008, 8, 10],
     [39813.0, 2008, 12, 31],

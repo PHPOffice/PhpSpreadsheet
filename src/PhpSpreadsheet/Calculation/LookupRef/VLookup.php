@@ -66,16 +66,11 @@ class VLookup extends LookupBase
 
     private static function vlookupSort(array $a, array $b): int
     {
-        reset($a);
-        $firstColumn = key($a);
+        $firstColumn = array_key_first($a);
         $aLower = StringHelper::strToLower((string) $a[$firstColumn]);
         $bLower = StringHelper::strToLower((string) $b[$firstColumn]);
 
-        if ($aLower == $bLower) {
-            return 0;
-        }
-
-        return ($aLower < $bLower) ? -1 : 1;
+        return $aLower <=> $bLower;
     }
 
     /**

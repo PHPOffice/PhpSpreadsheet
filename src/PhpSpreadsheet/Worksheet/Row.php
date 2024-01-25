@@ -4,21 +4,16 @@ namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
 class Row
 {
-    private Worksheet $worksheet;
-
-    /**
-     * Row index.
-     */
-    private int $rowIndex;
-
     /**
      * Create a new row.
      */
-    public function __construct(Worksheet $worksheet, int $rowIndex = 1)
-    {
-        // Set parent and row index
-        $this->worksheet = $worksheet;
-        $this->rowIndex = $rowIndex;
+    public function __construct(
+        private Worksheet $worksheet,
+        /**
+         * Row index.
+         */
+        private int $rowIndex = 1
+    ) {
     }
 
     /**

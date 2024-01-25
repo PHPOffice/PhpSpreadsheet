@@ -4,10 +4,10 @@ namespace PhpOffice\PhpSpreadsheet\Chart;
 
 class ChartColor
 {
-    const EXCEL_COLOR_TYPE_STANDARD = 'prstClr';
-    const EXCEL_COLOR_TYPE_SCHEME = 'schemeClr';
-    const EXCEL_COLOR_TYPE_RGB = 'srgbClr';
-    const EXCEL_COLOR_TYPES = [
+    public const EXCEL_COLOR_TYPE_STANDARD = 'prstClr';
+    public const EXCEL_COLOR_TYPE_SCHEME = 'schemeClr';
+    public const EXCEL_COLOR_TYPE_RGB = 'srgbClr';
+    public const EXCEL_COLOR_TYPES = [
         self::EXCEL_COLOR_TYPE_RGB,
         self::EXCEL_COLOR_TYPE_SCHEME,
         self::EXCEL_COLOR_TYPE_STANDARD,

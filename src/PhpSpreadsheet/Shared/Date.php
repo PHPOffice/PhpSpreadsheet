@@ -16,8 +16,8 @@ use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 class Date
 {
     /** constants */
-    const CALENDAR_WINDOWS_1900 = 1900; //    Base date of 1st Jan 1900 = 1.0
-    const CALENDAR_MAC_1904 = 1904; //    Base date of 2nd Jan 1904 = 1.0
+    public const CALENDAR_WINDOWS_1900 = 1900; //    Base date of 1st Jan 1900 = 1.0
+    public const CALENDAR_MAC_1904 = 1904; //    Base date of 2nd Jan 1904 = 1.0
 
     /**
      * Names of the months of the year, indexed by shortname
@@ -218,7 +218,7 @@ class Date
         $days = floor($excelTimestamp);
         $partDay = $excelTimestamp - $days;
         $hms = 86400 * $partDay;
-        $microseconds = (int) round(fmod($hms, 1) * 1000000);
+        $microseconds = (int) round(fmod($hms, 1) * 1_000_000);
         $hms = (int) floor($hms);
         $hours = intdiv($hms, 3600);
         $hms -= $hours * 3600;
@@ -331,9 +331,9 @@ class Date
             if (($year == 1900) && ($month <= 2)) {
                 $excel1900isLeapYear = false;
             }
-            $myexcelBaseDate = 2415020;
+            $myexcelBaseDate = 2_415_020;
         } else {
-            $myexcelBaseDate = 2416481;
+            $myexcelBaseDate = 2_416_481;
             $excel1900isLeapYear = false;
         }
 
@@ -348,7 +348,7 @@ class Date
         //    Calculate the Julian Date, then subtract the Excel base date (JD 2415020 = 31-Dec-1899 Giving Excel Date of 0)
         $century = (int) substr((string) $year, 0, 2);
         $decade = (int) substr((string) $year, 2, 2);
-        $excelDate = floor((146097 * $century) / 4) + floor((1461 * $decade) / 4) + floor((153 * $month + 2) / 5) + $day + 1721119 - $myexcelBaseDate + $excel1900isLeapYear;
+        $excelDate = floor((146097 * $century) / 4) + floor((1461 * $decade) / 4) + floor((153 * $month + 2) / 5) + $day + 1_721_119 - $myexcelBaseDate + $excel1900isLeapYear;
 
         $excelTime = (($hours * 3600) + ($minutes * 60) + $seconds) / 86400;
 

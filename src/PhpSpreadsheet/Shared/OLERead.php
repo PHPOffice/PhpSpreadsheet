@@ -9,30 +9,30 @@ class OLERead
     private string $data = '';
 
     // Size of a sector = 512 bytes
-    const BIG_BLOCK_SIZE = 0x200;
+    public const BIG_BLOCK_SIZE = 0x200;
 
     // Size of a short sector = 64 bytes
-    const SMALL_BLOCK_SIZE = 0x40;
+    public const SMALL_BLOCK_SIZE = 0x40;
 
     // Size of a directory entry always = 128 bytes
-    const PROPERTY_STORAGE_BLOCK_SIZE = 0x80;
+    public const PROPERTY_STORAGE_BLOCK_SIZE = 0x80;
 
     // Minimum size of a standard stream = 4096 bytes, streams smaller than this are stored as short streams
-    const SMALL_BLOCK_THRESHOLD = 0x1000;
+    public const SMALL_BLOCK_THRESHOLD = 0x1000;
 
     // header offsets
-    const NUM_BIG_BLOCK_DEPOT_BLOCKS_POS = 0x2C;
-    const ROOT_START_BLOCK_POS = 0x30;
-    const SMALL_BLOCK_DEPOT_BLOCK_POS = 0x3C;
-    const EXTENSION_BLOCK_POS = 0x44;
-    const NUM_EXTENSION_BLOCK_POS = 0x48;
-    const BIG_BLOCK_DEPOT_BLOCKS_POS = 0x4C;
+    public const NUM_BIG_BLOCK_DEPOT_BLOCKS_POS = 0x2C;
+    public const ROOT_START_BLOCK_POS = 0x30;
+    public const SMALL_BLOCK_DEPOT_BLOCK_POS = 0x3C;
+    public const EXTENSION_BLOCK_POS = 0x44;
+    public const NUM_EXTENSION_BLOCK_POS = 0x48;
+    public const BIG_BLOCK_DEPOT_BLOCKS_POS = 0x4C;
 
     // property storage offsets (directory offsets)
-    const SIZE_OF_NAME_POS = 0x40;
-    const TYPE_POS = 0x42;
-    const START_BLOCK_POS = 0x74;
-    const SIZE_POS = 0x78;
+    public const SIZE_OF_NAME_POS = 0x40;
+    public const TYPE_POS = 0x42;
+    public const START_BLOCK_POS = 0x74;
+    public const SIZE_POS = 0x78;
 
     public ?int $wrkbook = null;
 

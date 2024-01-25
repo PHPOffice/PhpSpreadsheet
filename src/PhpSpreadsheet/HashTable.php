@@ -136,11 +136,7 @@ class HashTable
      */
     public function getByHashCode(string $hashCode): ?IComparable
     {
-        if (isset($this->items[$hashCode])) {
-            return $this->items[$hashCode];
-        }
-
-        return null;
+        return $this->items[$hashCode] ?? null;
     }
 
     /**

@@ -8,11 +8,8 @@ use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 
 class AutoFit
 {
-    protected Worksheet $worksheet;
-
-    public function __construct(Worksheet $worksheet)
+    public function __construct(protected Worksheet $worksheet)
     {
-        $this->worksheet = $worksheet;
     }
 
     public function getAutoFilterIndentRanges(): array

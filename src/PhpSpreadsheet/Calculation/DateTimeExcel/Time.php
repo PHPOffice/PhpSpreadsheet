@@ -117,7 +117,7 @@ class Time
      */
     private static function toIntWithNullBool(mixed $value): int
     {
-        $value = $value ?? 0;
+        $value ??= 0;
         if (is_bool($value)) {
             $value = (int) $value;
         }

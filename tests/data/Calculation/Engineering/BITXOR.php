@@ -12,9 +12,9 @@ return [
     [ExcelError::VALUE(), 'ABC', 1],
     [ExcelError::VALUE(), 1, 'DEF'],
     [ExcelError::NAN(), 12.00, 2.82E14],
-    [5123456789, 5123456788, 1],
-    [2583096320, 5123456789, 7123456789],
-    [ExcelError::NAN(), -5123456788, 1],
+    [5_123_456_789, 5_123_456_788, 1],
+    [2_583_096_320, 5_123_456_789, 7_123_456_789],
+    [ExcelError::NAN(), -5_123_456_788, 1],
     [ExcelError::NAN(), 2 ** 50, 1], // argument >= 2**48
     [ExcelError::NAN(), 1, 2 ** 50], // argument >= 2**48
     [ExcelError::NAN(), -2, 1], // negative argument

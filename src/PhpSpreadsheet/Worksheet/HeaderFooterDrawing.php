@@ -18,7 +18,7 @@ class HeaderFooterDrawing extends Drawing
             . $this->offsetY
             . $this->width
             . $this->height
-            . __CLASS__
+            . self::class
         );
     }
 }

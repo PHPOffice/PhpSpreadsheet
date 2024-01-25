@@ -13,17 +13,14 @@ $inputFileName = __DIR__ . '/sampleData/example2.xls';
 /**  Define a Read Filter class implementing IReadFilter  */
 class ChunkReadFilter implements IReadFilter
 {
-    private int $startRow;
-
     private int $endRow;
 
     /**
      * We expect a list of the rows that we want to read to be passed into the constructor.
      */
-    public function __construct(int $startRow, int $chunkSize)
+    public function __construct(private int $startRow, int $chunkSize)
     {
-        $this->startRow = $startRow;
-        $this->endRow = $startRow + $chunkSize;
+        $this->endRow = $this->startRow + $chunkSize;
     }
 
     public function readCell(string $columnAddress, int $row, string $worksheetName = ''): bool

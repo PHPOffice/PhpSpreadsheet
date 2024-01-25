@@ -6,16 +6,16 @@ use PhpOffice\PhpSpreadsheet\Shared\PasswordHasher;
 
 class Protection
 {
-    const ALGORITHM_MD2 = 'MD2';
-    const ALGORITHM_MD4 = 'MD4';
-    const ALGORITHM_MD5 = 'MD5';
-    const ALGORITHM_SHA_1 = 'SHA-1';
-    const ALGORITHM_SHA_256 = 'SHA-256';
-    const ALGORITHM_SHA_384 = 'SHA-384';
-    const ALGORITHM_SHA_512 = 'SHA-512';
-    const ALGORITHM_RIPEMD_128 = 'RIPEMD-128';
-    const ALGORITHM_RIPEMD_160 = 'RIPEMD-160';
-    const ALGORITHM_WHIRLPOOL = 'WHIRLPOOL';
+    public const ALGORITHM_MD2 = 'MD2';
+    public const ALGORITHM_MD4 = 'MD4';
+    public const ALGORITHM_MD5 = 'MD5';
+    public const ALGORITHM_SHA_1 = 'SHA-1';
+    public const ALGORITHM_SHA_256 = 'SHA-256';
+    public const ALGORITHM_SHA_384 = 'SHA-384';
+    public const ALGORITHM_SHA_512 = 'SHA-512';
+    public const ALGORITHM_RIPEMD_128 = 'RIPEMD-128';
+    public const ALGORITHM_RIPEMD_160 = 'RIPEMD-160';
+    public const ALGORITHM_WHIRLPOOL = 'WHIRLPOOL';
 
     /**
      * Autofilters are locked when sheet is protected, default true.

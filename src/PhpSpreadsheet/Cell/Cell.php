@@ -26,11 +26,6 @@ class Cell implements Stringable
     private static ?IValueBinder $valueBinder = null;
 
     /**
-     * Value of the cell.
-     */
-    private mixed $value;
-
-    /**
      *    Calculated value of the cell (used for caching)
      *    This returns the value last calculated by MS Excel or whichever spreadsheet program was used to
      *        create the original spreadsheet file.
@@ -97,11 +92,13 @@ class Cell implements Stringable
      *
      * @throws SpreadsheetException
      */
-    public function __construct(mixed $value, ?string $dataType, Worksheet $worksheet)
-    {
-        // Initialise cell value
-        $this->value = $value;
-
+    public function __construct(/**
+         * Value of the cell.
+         */
+        private mixed $value,
+        ?string $dataType,
+        Worksheet $worksheet
+    ) {
         // Set worksheet cache
         $this->parent = $worksheet->getCellCollection();
 
@@ -111,7 +108,7 @@ class Cell implements Stringable
                 $dataType = DataType::TYPE_STRING;
             }
             $this->dataType = $dataType;
-        } elseif (self::getValueBinder()->bindValue($this, $value) === false) {
+        } elseif (self::getValueBinder()->bindValue($this, $this->value) === false) {
             throw new SpreadsheetException('Value could not be bound to cell.');
         }
         $this->ignoredErrors = new IgnoredErrors();

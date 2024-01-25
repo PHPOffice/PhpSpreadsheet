@@ -186,7 +186,7 @@ return [
     [
         5, // Expected
         6,
-        [true, false, 'a', 'z', 222222, 2, 99999999],
+        [true, false, 'a', 'z', 222222, 2, 99_999_999],
         -1,
     ],
     // when mixing numeric types

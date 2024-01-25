@@ -15,11 +15,6 @@ use PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE\Blip
 class Escher
 {
     /**
-     * The object we are writing.
-     */
-    private Blip|BSE|BstoreContainer|DgContainer|DggContainer|Escher|SpContainer|SpgrContainer|SharedEscher $object;
-
-    /**
      * The written binary data.
      */
     private string $data;
@@ -37,9 +32,12 @@ class Escher
     /**
      * Constructor.
      */
-    public function __construct(Blip|BSE|BstoreContainer|DgContainer|DggContainer|self|SpContainer|SpgrContainer|SharedEscher $object)
-    {
-        $this->object = $object;
+    public function __construct(
+        /**
+         * The object we are writing.
+         */
+        private Blip|BSE|BstoreContainer|DgContainer|DggContainer|self|SpContainer|SpgrContainer|SharedEscher $object
+    ) {
     }
 
     /**

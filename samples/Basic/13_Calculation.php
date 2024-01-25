@@ -3,7 +3,7 @@
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
-mt_srand(1234567890);
+mt_srand(1_234_567_890);
 
 require __DIR__ . '/../Header.php';
 

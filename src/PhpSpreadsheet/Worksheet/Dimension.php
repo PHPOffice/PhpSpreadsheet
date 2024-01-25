@@ -22,19 +22,12 @@ abstract class Dimension
     private bool $collapsed = false;
 
     /**
-     * Index to cellXf. Null value means row has no explicit cellXf format.
-     */
-    private ?int $xfIndex;
-
-    /**
      * Create a new Dimension.
      *
-     * @param ?int $initialValue Numeric row index
+     * @param ?int $xfIndex Numeric row index
      */
-    public function __construct(?int $initialValue = null)
+    public function __construct(private ?int $xfIndex = null)
     {
-        // set dimension as unformatted by default
-        $this->xfIndex = $initialValue;
     }
 
     /**

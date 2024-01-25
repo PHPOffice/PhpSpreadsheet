@@ -45,7 +45,7 @@ use ZipArchive;
 
 class Xlsx extends BaseReader
 {
-    const INITIAL_FILE = '_rels/.rels';
+    public const INITIAL_FILE = '_rels/.rels';
 
     /**
      * ReferenceHelper instance.
@@ -2196,7 +2196,7 @@ class Xlsx extends BaseReader
                 $attrs = $rel->attributes() ?? [];
                 $rid = (string) ($attrs['Id'] ?? '');
                 $target = (string) ($attrs['Target'] ?? '');
-                if ($rid === $id && substr($target, 0, 2) === '..') {
+                if ($rid === $id && str_starts_with($target, '..')) {
                     $target = 'xl' . substr($target, 2);
                     $content = $this->getFromZipArchive($this->zip, $target);
                     $docSheet->setBackgroundImage($content);

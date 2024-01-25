@@ -72,96 +72,96 @@ class Xls extends BaseReader
     private const FE000000 = 0xFE << 24;
 
     // ParseXL definitions
-    const XLS_BIFF8 = 0x0600;
-    const XLS_BIFF7 = 0x0500;
-    const XLS_WORKBOOKGLOBALS = 0x0005;
-    const XLS_WORKSHEET = 0x0010;
+    public const XLS_BIFF8 = 0x0600;
+    public const XLS_BIFF7 = 0x0500;
+    public const XLS_WORKBOOKGLOBALS = 0x0005;
+    public const XLS_WORKSHEET = 0x0010;
 
     // record identifiers
-    const XLS_TYPE_FORMULA = 0x0006;
-    const XLS_TYPE_EOF = 0x000A;
-    const XLS_TYPE_PROTECT = 0x0012;
-    const XLS_TYPE_OBJECTPROTECT = 0x0063;
-    const XLS_TYPE_SCENPROTECT = 0x00DD;
-    const XLS_TYPE_PASSWORD = 0x0013;
-    const XLS_TYPE_HEADER = 0x0014;
-    const XLS_TYPE_FOOTER = 0x0015;
-    const XLS_TYPE_EXTERNSHEET = 0x0017;
-    const XLS_TYPE_DEFINEDNAME = 0x0018;
-    const XLS_TYPE_VERTICALPAGEBREAKS = 0x001A;
-    const XLS_TYPE_HORIZONTALPAGEBREAKS = 0x001B;
-    const XLS_TYPE_NOTE = 0x001C;
-    const XLS_TYPE_SELECTION = 0x001D;
-    const XLS_TYPE_DATEMODE = 0x0022;
-    const XLS_TYPE_EXTERNNAME = 0x0023;
-    const XLS_TYPE_LEFTMARGIN = 0x0026;
-    const XLS_TYPE_RIGHTMARGIN = 0x0027;
-    const XLS_TYPE_TOPMARGIN = 0x0028;
-    const XLS_TYPE_BOTTOMMARGIN = 0x0029;
-    const XLS_TYPE_PRINTGRIDLINES = 0x002B;
-    const XLS_TYPE_FILEPASS = 0x002F;
-    const XLS_TYPE_FONT = 0x0031;
-    const XLS_TYPE_CONTINUE = 0x003C;
-    const XLS_TYPE_PANE = 0x0041;
-    const XLS_TYPE_CODEPAGE = 0x0042;
-    const XLS_TYPE_DEFCOLWIDTH = 0x0055;
-    const XLS_TYPE_OBJ = 0x005D;
-    const XLS_TYPE_COLINFO = 0x007D;
-    const XLS_TYPE_IMDATA = 0x007F;
-    const XLS_TYPE_SHEETPR = 0x0081;
-    const XLS_TYPE_HCENTER = 0x0083;
-    const XLS_TYPE_VCENTER = 0x0084;
-    const XLS_TYPE_SHEET = 0x0085;
-    const XLS_TYPE_PALETTE = 0x0092;
-    const XLS_TYPE_SCL = 0x00A0;
-    const XLS_TYPE_PAGESETUP = 0x00A1;
-    const XLS_TYPE_MULRK = 0x00BD;
-    const XLS_TYPE_MULBLANK = 0x00BE;
-    const XLS_TYPE_DBCELL = 0x00D7;
-    const XLS_TYPE_XF = 0x00E0;
-    const XLS_TYPE_MERGEDCELLS = 0x00E5;
-    const XLS_TYPE_MSODRAWINGGROUP = 0x00EB;
-    const XLS_TYPE_MSODRAWING = 0x00EC;
-    const XLS_TYPE_SST = 0x00FC;
-    const XLS_TYPE_LABELSST = 0x00FD;
-    const XLS_TYPE_EXTSST = 0x00FF;
-    const XLS_TYPE_EXTERNALBOOK = 0x01AE;
-    const XLS_TYPE_DATAVALIDATIONS = 0x01B2;
-    const XLS_TYPE_TXO = 0x01B6;
-    const XLS_TYPE_HYPERLINK = 0x01B8;
-    const XLS_TYPE_DATAVALIDATION = 0x01BE;
-    const XLS_TYPE_DIMENSION = 0x0200;
-    const XLS_TYPE_BLANK = 0x0201;
-    const XLS_TYPE_NUMBER = 0x0203;
-    const XLS_TYPE_LABEL = 0x0204;
-    const XLS_TYPE_BOOLERR = 0x0205;
-    const XLS_TYPE_STRING = 0x0207;
-    const XLS_TYPE_ROW = 0x0208;
-    const XLS_TYPE_INDEX = 0x020B;
-    const XLS_TYPE_ARRAY = 0x0221;
-    const XLS_TYPE_DEFAULTROWHEIGHT = 0x0225;
-    const XLS_TYPE_WINDOW2 = 0x023E;
-    const XLS_TYPE_RK = 0x027E;
-    const XLS_TYPE_STYLE = 0x0293;
-    const XLS_TYPE_FORMAT = 0x041E;
-    const XLS_TYPE_SHAREDFMLA = 0x04BC;
-    const XLS_TYPE_BOF = 0x0809;
-    const XLS_TYPE_SHEETPROTECTION = 0x0867;
-    const XLS_TYPE_RANGEPROTECTION = 0x0868;
-    const XLS_TYPE_SHEETLAYOUT = 0x0862;
-    const XLS_TYPE_XFEXT = 0x087D;
-    const XLS_TYPE_PAGELAYOUTVIEW = 0x088B;
-    const XLS_TYPE_CFHEADER = 0x01B0;
-    const XLS_TYPE_CFRULE = 0x01B1;
-    const XLS_TYPE_UNKNOWN = 0xFFFF;
+    public const XLS_TYPE_FORMULA = 0x0006;
+    public const XLS_TYPE_EOF = 0x000A;
+    public const XLS_TYPE_PROTECT = 0x0012;
+    public const XLS_TYPE_OBJECTPROTECT = 0x0063;
+    public const XLS_TYPE_SCENPROTECT = 0x00DD;
+    public const XLS_TYPE_PASSWORD = 0x0013;
+    public const XLS_TYPE_HEADER = 0x0014;
+    public const XLS_TYPE_FOOTER = 0x0015;
+    public const XLS_TYPE_EXTERNSHEET = 0x0017;
+    public const XLS_TYPE_DEFINEDNAME = 0x0018;
+    public const XLS_TYPE_VERTICALPAGEBREAKS = 0x001A;
+    public const XLS_TYPE_HORIZONTALPAGEBREAKS = 0x001B;
+    public const XLS_TYPE_NOTE = 0x001C;
+    public const XLS_TYPE_SELECTION = 0x001D;
+    public const XLS_TYPE_DATEMODE = 0x0022;
+    public const XLS_TYPE_EXTERNNAME = 0x0023;
+    public const XLS_TYPE_LEFTMARGIN = 0x0026;
+    public const XLS_TYPE_RIGHTMARGIN = 0x0027;
+    public const XLS_TYPE_TOPMARGIN = 0x0028;
+    public const XLS_TYPE_BOTTOMMARGIN = 0x0029;
+    public const XLS_TYPE_PRINTGRIDLINES = 0x002B;
+    public const XLS_TYPE_FILEPASS = 0x002F;
+    public const XLS_TYPE_FONT = 0x0031;
+    public const XLS_TYPE_CONTINUE = 0x003C;
+    public const XLS_TYPE_PANE = 0x0041;
+    public const XLS_TYPE_CODEPAGE = 0x0042;
+    public const XLS_TYPE_DEFCOLWIDTH = 0x0055;
+    public const XLS_TYPE_OBJ = 0x005D;
+    public const XLS_TYPE_COLINFO = 0x007D;
+    public const XLS_TYPE_IMDATA = 0x007F;
+    public const XLS_TYPE_SHEETPR = 0x0081;
+    public const XLS_TYPE_HCENTER = 0x0083;
+    public const XLS_TYPE_VCENTER = 0x0084;
+    public const XLS_TYPE_SHEET = 0x0085;
+    public const XLS_TYPE_PALETTE = 0x0092;
+    public const XLS_TYPE_SCL = 0x00A0;
+    public const XLS_TYPE_PAGESETUP = 0x00A1;
+    public const XLS_TYPE_MULRK = 0x00BD;
+    public const XLS_TYPE_MULBLANK = 0x00BE;
+    public const XLS_TYPE_DBCELL = 0x00D7;
+    public const XLS_TYPE_XF = 0x00E0;
+    public const XLS_TYPE_MERGEDCELLS = 0x00E5;
+    public const XLS_TYPE_MSODRAWINGGROUP = 0x00EB;
+    public const XLS_TYPE_MSODRAWING = 0x00EC;
+    public const XLS_TYPE_SST = 0x00FC;
+    public const XLS_TYPE_LABELSST = 0x00FD;
+    public const XLS_TYPE_EXTSST = 0x00FF;
+    public const XLS_TYPE_EXTERNALBOOK = 0x01AE;
+    public const XLS_TYPE_DATAVALIDATIONS = 0x01B2;
+    public const XLS_TYPE_TXO = 0x01B6;
+    public const XLS_TYPE_HYPERLINK = 0x01B8;
+    public const XLS_TYPE_DATAVALIDATION = 0x01BE;
+    public const XLS_TYPE_DIMENSION = 0x0200;
+    public const XLS_TYPE_BLANK = 0x0201;
+    public const XLS_TYPE_NUMBER = 0x0203;
+    public const XLS_TYPE_LABEL = 0x0204;
+    public const XLS_TYPE_BOOLERR = 0x0205;
+    public const XLS_TYPE_STRING = 0x0207;
+    public const XLS_TYPE_ROW = 0x0208;
+    public const XLS_TYPE_INDEX = 0x020B;
+    public const XLS_TYPE_ARRAY = 0x0221;
+    public const XLS_TYPE_DEFAULTROWHEIGHT = 0x0225;
+    public const XLS_TYPE_WINDOW2 = 0x023E;
+    public const XLS_TYPE_RK = 0x027E;
+    public const XLS_TYPE_STYLE = 0x0293;
+    public const XLS_TYPE_FORMAT = 0x041E;
+    public const XLS_TYPE_SHAREDFMLA = 0x04BC;
+    public const XLS_TYPE_BOF = 0x0809;
+    public const XLS_TYPE_SHEETPROTECTION = 0x0867;
+    public const XLS_TYPE_RANGEPROTECTION = 0x0868;
+    public const XLS_TYPE_SHEETLAYOUT = 0x0862;
+    public const XLS_TYPE_XFEXT = 0x087D;
+    public const XLS_TYPE_PAGELAYOUTVIEW = 0x088B;
+    public const XLS_TYPE_CFHEADER = 0x01B0;
+    public const XLS_TYPE_CFRULE = 0x01B1;
+    public const XLS_TYPE_UNKNOWN = 0xFFFF;
 
     // Encryption type
-    const MS_BIFF_CRYPTO_NONE = 0;
-    const MS_BIFF_CRYPTO_XOR = 1;
-    const MS_BIFF_CRYPTO_RC4 = 2;
+    public const MS_BIFF_CRYPTO_NONE = 0;
+    public const MS_BIFF_CRYPTO_XOR = 1;
+    public const MS_BIFF_CRYPTO_RC4 = 2;
 
     // Size of stream blocks when using RC4 encryption
-    const REKEY_BLOCK = 0x400;
+    public const REKEY_BLOCK = 0x400;
 
     /**
      * Summary Information stream data.
@@ -4730,7 +4730,7 @@ class Xls extends BaseReader
             if ($type == DataValidation::TYPE_LIST) {
                 $formula1 = str_replace(chr(0), ',', $formula1);
             }
-        } catch (PhpSpreadsheetException $e) {
+        } catch (PhpSpreadsheetException) {
             return;
         }
         $offset += $sz1;
@@ -5127,12 +5127,12 @@ class Xls extends BaseReader
         $formulaStrings = [];
         foreach ($tokens as $token) {
             // initialize spaces
-            $space0 = $space0 ?? ''; // spaces before next token, not tParen
-            $space1 = $space1 ?? ''; // carriage returns before next token, not tParen
-            $space2 = $space2 ?? ''; // spaces before opening parenthesis
-            $space3 = $space3 ?? ''; // carriage returns before opening parenthesis
-            $space4 = $space4 ?? ''; // spaces before closing parenthesis
-            $space5 = $space5 ?? ''; // carriage returns before closing parenthesis
+            $space0 ??= ''; // spaces before next token, not tParen
+            $space1 ??= ''; // carriage returns before next token, not tParen
+            $space2 ??= ''; // spaces before opening parenthesis
+            $space3 ??= ''; // carriage returns before opening parenthesis
+            $space4 ??= ''; // spaces before closing parenthesis
+            $space5 ??= ''; // carriage returns before closing parenthesis
 
             switch ($token['name']) {
                 case 'tAdd': // addition

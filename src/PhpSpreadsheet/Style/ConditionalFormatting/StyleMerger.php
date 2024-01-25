@@ -10,11 +10,8 @@ use PhpOffice\PhpSpreadsheet\Style\Style;
 
 class StyleMerger
 {
-    protected Style $baseStyle;
-
-    public function __construct(Style $baseStyle)
+    public function __construct(protected Style $baseStyle)
     {
-        $this->baseStyle = $baseStyle;
     }
 
     public function getStyle(): Style

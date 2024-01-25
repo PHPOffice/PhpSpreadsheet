@@ -94,9 +94,10 @@
         "mitoteam/jpgraph": "^10.3",
         "mpdf/mpdf": "^8.1.1",
         "phpcompatibility/php-compatibility": "^9.3",
-        "phpstan/phpstan": "^1.1",
+        "phpstan/phpstan": "^1.10.56",
         "phpstan/phpstan-phpunit": "^1.0",
         "phpunit/phpunit": "^9.6",
+        "rector/rector": "^0.19.2",
         "squizlabs/php_codesniffer": "^3.7",
         "tecnickcom/tcpdf": "^6.5"
     },

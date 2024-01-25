@@ -7,14 +7,14 @@ use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter;
 
 class Column
 {
-    const AUTOFILTER_FILTERTYPE_FILTER = 'filters';
-    const AUTOFILTER_FILTERTYPE_CUSTOMFILTER = 'customFilters';
+    public const AUTOFILTER_FILTERTYPE_FILTER = 'filters';
+    public const AUTOFILTER_FILTERTYPE_CUSTOMFILTER = 'customFilters';
     //    Supports no more than 2 rules, with an And/Or join criteria
     //        if more than 1 rule is defined
-    const AUTOFILTER_FILTERTYPE_DYNAMICFILTER = 'dynamicFilter';
+    public const AUTOFILTER_FILTERTYPE_DYNAMICFILTER = 'dynamicFilter';
     //    Even though the filter rule is constant, the filtered data can vary
     //        e.g. filtered by date = TODAY
-    const AUTOFILTER_FILTERTYPE_TOPTENFILTER = 'top10';
+    public const AUTOFILTER_FILTERTYPE_TOPTENFILTER = 'top10';
 
     /**
      * Types of autofilter rules.
@@ -33,8 +33,8 @@ class Column
     ];
 
     // Multiple Rule Connections
-    const AUTOFILTER_COLUMN_JOIN_AND = 'and';
-    const AUTOFILTER_COLUMN_JOIN_OR = 'or';
+    public const AUTOFILTER_COLUMN_JOIN_AND = 'and';
+    public const AUTOFILTER_COLUMN_JOIN_OR = 'or';
 
     /**
      * Join options for autofilter rules.
@@ -45,16 +45,6 @@ class Column
         self::AUTOFILTER_COLUMN_JOIN_AND,
         self::AUTOFILTER_COLUMN_JOIN_OR,
     ];
-
-    /**
-     * Autofilter.
-     */
-    private ?AutoFilter $parent;
-
-    /**
-     * Autofilter Column Index.
-     */
-    private string $columnIndex;
 
     /**
      * Autofilter Column Filter Type.
@@ -83,13 +73,11 @@ class Column
     /**
      * Create a new Column.
      *
-     * @param string $column Column (e.g. A)
+     * @param string $columnIndex Column (e.g. A)
      * @param ?AutoFilter $parent Autofilter for this column
      */
-    public function __construct(string $column, ?AutoFilter $parent = null)
+    public function __construct(private string $columnIndex, private ?AutoFilter $parent = null)
     {
-        $this->columnIndex = $column;
-        $this->parent = $parent;
     }
 
     public function setEvaluatedFalse(): void
@@ -254,11 +242,7 @@ class Column
      */
     public function getAttribute(string $name): null|int|string
     {
-        if (isset($this->attributes[$name])) {
-            return $this->attributes[$name];
-        }
-
-        return null;
+        return $this->attributes[$name] ?? null;
     }
 
     public function ruleCount(): int

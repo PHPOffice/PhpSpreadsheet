@@ -110,7 +110,7 @@ class StringValueBinder implements IValueBinder
         } elseif ($value instanceof Stringable) {
             $cell->setValueExplicit((string) $value, DataType::TYPE_STRING);
         } else {
-            throw new SpreadsheetException('Unable to bind unstringable object of type ' . get_class($value));
+            throw new SpreadsheetException('Unable to bind unstringable object of type ' . $value::class);
         }
 
         return true;

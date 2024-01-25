@@ -7,7 +7,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Protection;
 
 class PasswordHasher
 {
-    const MAX_PASSWORD_LENGTH = 255;
+    public const MAX_PASSWORD_LENGTH = 255;
 
     /**
      * Get algorithm name for PHP.

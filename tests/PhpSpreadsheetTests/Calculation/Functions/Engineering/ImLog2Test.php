@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
 
 class ImLog2Test extends TestCase
 {
-    const COMPLEX_PRECISION = 1E-8;
+    public const COMPLEX_PRECISION = 1E-8;
 
     private \PhpOffice\PhpSpreadsheetTests\Custom\ComplexAssert $complexAssert;
 

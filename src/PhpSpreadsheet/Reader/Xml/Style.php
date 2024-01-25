@@ -100,6 +100,6 @@ class Style
 
     private static function getSxml(?SimpleXMLElement $simple): SimpleXMLElement
     {
-        return ($simple !== null) ? $simple : new SimpleXMLElement('<xml></xml>');
+        return $simple ?? new SimpleXMLElement('<xml></xml>');
     }
 }

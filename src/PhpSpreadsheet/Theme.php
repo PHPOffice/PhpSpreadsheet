@@ -156,9 +156,9 @@ class Theme
     {
         $this->themeColorName = $name;
         if ($name === self::COLOR_SCHEME_2007_2010_NAME) {
-            $themeColors = $themeColors ?? self::COLOR_SCHEME_2007_2010;
+            $themeColors ??= self::COLOR_SCHEME_2007_2010;
         } elseif ($name === self::COLOR_SCHEME_2013_PLUS_NAME) {
-            $themeColors = $themeColors ?? self::COLOR_SCHEME_2013_PLUS;
+            $themeColors ??= self::COLOR_SCHEME_2013_PLUS;
         }
         if ($themeColors !== null) {
             $this->themeColors = $themeColors;

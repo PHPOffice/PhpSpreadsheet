@@ -58,7 +58,7 @@ class RowColumnInformation
             return self::cellColumn($cell);
         }
 
-        $cellAddress = $cellAddress ?? '';
+        $cellAddress ??= '';
         if ($cell != null) {
             [,, $sheetName] = Helpers::extractWorksheet($cellAddress, $cell);
             [,, $cellAddress] = Helpers::extractCellAddresses($cellAddress, true, $cell->getWorksheet(), $sheetName);
@@ -103,9 +103,7 @@ class RowColumnInformation
         if (!is_array($cellAddress)) {
             return ExcelError::VALUE();
         }
-
-        reset($cellAddress);
-        $isMatrix = (is_numeric(key($cellAddress)));
+        $isMatrix = (is_numeric(array_key_first($cellAddress)));
         [$columns, $rows] = Calculation::getMatrixDimensions($cellAddress);
 
         if ($isMatrix) {
@@ -153,7 +151,7 @@ class RowColumnInformation
             return self::cellRow($cell);
         }
 
-        $cellAddress = $cellAddress ?? '';
+        $cellAddress ??= '';
         if ($cell !== null) {
             [,, $sheetName] = Helpers::extractWorksheet($cellAddress, $cell);
             [,, $cellAddress] = Helpers::extractCellAddresses($cellAddress, true, $cell->getWorksheet(), $sheetName);
@@ -196,9 +194,7 @@ class RowColumnInformation
         if (!is_array($cellAddress)) {
             return ExcelError::VALUE();
         }
-
-        reset($cellAddress);
-        $isMatrix = (is_numeric(key($cellAddress)));
+        $isMatrix = (is_numeric(array_key_first($cellAddress)));
         [$columns, $rows] = Calculation::getMatrixDimensions($cellAddress);
 
         if ($isMatrix) {

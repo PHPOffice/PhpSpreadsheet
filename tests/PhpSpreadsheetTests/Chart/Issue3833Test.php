@@ -137,7 +137,7 @@ class Issue3833Test extends AbstractFunctional
         self::assertSame('10', $logBase);
         $dispUnits = $yAxis->getAxisOptionsProperty('dispUnitsBuiltIn');
         self::assertNull($dispUnits);
-        $yAxis->setAxisOption('dispUnitsBuiltIn', 1000000000000);
+        $yAxis->setAxisOption('dispUnitsBuiltIn', 1_000_000_000_000);
         $dispUnits = $yAxis->getAxisOptionsProperty('dispUnitsBuiltIn');
         // same logic as in Writer/Xlsx/Chart for 32-bit safety
         $dispUnits = ($dispUnits == Axis::TRILLION_INDEX) ? Axis::DISP_UNITS_TRILLIONS : (is_numeric($dispUnits) ? (Axis::DISP_UNITS_BUILTIN_INT[(int) $dispUnits] ?? '') : $dispUnits);

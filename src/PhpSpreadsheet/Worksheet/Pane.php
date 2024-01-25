@@ -4,17 +4,8 @@ namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
 class Pane
 {
-    private string $sqref;
-
-    private string $activeCell;
-
-    private string $position;
-
-    public function __construct(string $position, string $sqref = '', string $activeCell = '')
+    public function __construct(private string $position, private string $sqref = '', private string $activeCell = '')
     {
-        $this->sqref = $sqref;
-        $this->activeCell = $activeCell;
-        $this->position = $position;
     }
 
     public function getPosition(): string

@@ -8,11 +8,6 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 class Csv extends BaseWriter
 {
     /**
-     * PhpSpreadsheet object.
-     */
-    private Spreadsheet $spreadsheet;
-
-    /**
      * Delimiter.
      */
     private string $delimiter = ',';
@@ -56,9 +51,12 @@ class Csv extends BaseWriter
     /**
      * Create a new CSV.
      */
-    public function __construct(Spreadsheet $spreadsheet)
-    {
-        $this->spreadsheet = $spreadsheet;
+    public function __construct(
+        /**
+         * PhpSpreadsheet object.
+         */
+        private Spreadsheet $spreadsheet
+    ) {
     }
 
     /**

@@ -6,13 +6,6 @@ class Delimiter
 {
     protected const POTENTIAL_DELIMETERS = [',', ';', "\t", '|', ':', ' ', '~'];
 
-    /** @var resource */
-    protected $fileHandle;
-
-    protected string $escapeCharacter;
-
-    protected string $enclosure;
-
     protected array $counts = [];
 
     protected int $numberLines = 0;
@@ -23,12 +16,8 @@ class Delimiter
     /**
      * @param resource $fileHandle
      */
-    public function __construct($fileHandle, string $escapeCharacter, string $enclosure)
+    public function __construct(protected $fileHandle, protected string $escapeCharacter, protected string $enclosure)
     {
-        $this->fileHandle = $fileHandle;
-        $this->escapeCharacter = $escapeCharacter;
-        $this->enclosure = $enclosure;
-
         $this->countPotentialDelimiters();
     }
 

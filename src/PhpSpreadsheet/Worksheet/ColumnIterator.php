@@ -13,11 +13,6 @@ use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 class ColumnIterator implements NativeIterator
 {
     /**
-     * Worksheet to iterate.
-     */
-    private Worksheet $worksheet;
-
-    /**
      * Current iterator position.
      */
     private int $currentColumnIndex = 1;
@@ -39,10 +34,8 @@ class ColumnIterator implements NativeIterator
      * @param string $startColumn The column address at which to start iterating
      * @param ?string $endColumn Optionally, the column address at which to stop iterating
      */
-    public function __construct(Worksheet $worksheet, string $startColumn = 'A', ?string $endColumn = null)
+    public function __construct(private Worksheet $worksheet, string $startColumn = 'A', ?string $endColumn = null)
     {
-        // Set subject
-        $this->worksheet = $worksheet;
         $this->resetEnd($endColumn);
         $this->resetStart($startColumn);
     }

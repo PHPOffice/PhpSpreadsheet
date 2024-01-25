@@ -5,43 +5,43 @@ namespace PhpOffice\PhpSpreadsheet\Style;
 class NumberFormat extends Supervisor
 {
     // Pre-defined formats
-    const FORMAT_GENERAL = 'General';
+    public const FORMAT_GENERAL = 'General';
 
-    const FORMAT_TEXT = '@';
+    public const FORMAT_TEXT = '@';
 
-    const FORMAT_NUMBER = '0';
-    const FORMAT_NUMBER_0 = '0.0';
-    const FORMAT_NUMBER_00 = '0.00';
-    const FORMAT_NUMBER_COMMA_SEPARATED1 = '#,##0.00';
-    const FORMAT_NUMBER_COMMA_SEPARATED2 = '#,##0.00_-';
+    public const FORMAT_NUMBER = '0';
+    public const FORMAT_NUMBER_0 = '0.0';
+    public const FORMAT_NUMBER_00 = '0.00';
+    public const FORMAT_NUMBER_COMMA_SEPARATED1 = '#,##0.00';
+    public const FORMAT_NUMBER_COMMA_SEPARATED2 = '#,##0.00_-';
 
-    const FORMAT_PERCENTAGE = '0%';
-    const FORMAT_PERCENTAGE_0 = '0.0%';
-    const FORMAT_PERCENTAGE_00 = '0.00%';
+    public const FORMAT_PERCENTAGE = '0%';
+    public const FORMAT_PERCENTAGE_0 = '0.0%';
+    public const FORMAT_PERCENTAGE_00 = '0.00%';
 
-    const FORMAT_DATE_YYYYMMDD = 'yyyy-mm-dd';
-    const FORMAT_DATE_DDMMYYYY = 'dd/mm/yyyy';
-    const FORMAT_DATE_DMYSLASH = 'd/m/yy';
-    const FORMAT_DATE_DMYMINUS = 'd-m-yy';
-    const FORMAT_DATE_DMMINUS = 'd-m';
-    const FORMAT_DATE_MYMINUS = 'm-yy';
-    const FORMAT_DATE_XLSX14 = 'mm-dd-yy';
-    const FORMAT_DATE_XLSX15 = 'd-mmm-yy';
-    const FORMAT_DATE_XLSX16 = 'd-mmm';
-    const FORMAT_DATE_XLSX17 = 'mmm-yy';
-    const FORMAT_DATE_XLSX22 = 'm/d/yy h:mm';
-    const FORMAT_DATE_DATETIME = 'd/m/yy h:mm';
-    const FORMAT_DATE_TIME1 = 'h:mm AM/PM';
-    const FORMAT_DATE_TIME2 = 'h:mm:ss AM/PM';
-    const FORMAT_DATE_TIME3 = 'h:mm';
-    const FORMAT_DATE_TIME4 = 'h:mm:ss';
-    const FORMAT_DATE_TIME5 = 'mm:ss';
-    const FORMAT_DATE_TIME6 = 'h:mm:ss';
-    const FORMAT_DATE_TIME7 = 'i:s.S';
-    const FORMAT_DATE_TIME8 = 'h:mm:ss;@';
-    const FORMAT_DATE_YYYYMMDDSLASH = 'yyyy/mm/dd;@';
+    public const FORMAT_DATE_YYYYMMDD = 'yyyy-mm-dd';
+    public const FORMAT_DATE_DDMMYYYY = 'dd/mm/yyyy';
+    public const FORMAT_DATE_DMYSLASH = 'd/m/yy';
+    public const FORMAT_DATE_DMYMINUS = 'd-m-yy';
+    public const FORMAT_DATE_DMMINUS = 'd-m';
+    public const FORMAT_DATE_MYMINUS = 'm-yy';
+    public const FORMAT_DATE_XLSX14 = 'mm-dd-yy';
+    public const FORMAT_DATE_XLSX15 = 'd-mmm-yy';
+    public const FORMAT_DATE_XLSX16 = 'd-mmm';
+    public const FORMAT_DATE_XLSX17 = 'mmm-yy';
+    public const FORMAT_DATE_XLSX22 = 'm/d/yy h:mm';
+    public const FORMAT_DATE_DATETIME = 'd/m/yy h:mm';
+    public const FORMAT_DATE_TIME1 = 'h:mm AM/PM';
+    public const FORMAT_DATE_TIME2 = 'h:mm:ss AM/PM';
+    public const FORMAT_DATE_TIME3 = 'h:mm';
+    public const FORMAT_DATE_TIME4 = 'h:mm:ss';
+    public const FORMAT_DATE_TIME5 = 'mm:ss';
+    public const FORMAT_DATE_TIME6 = 'h:mm:ss';
+    public const FORMAT_DATE_TIME7 = 'i:s.S';
+    public const FORMAT_DATE_TIME8 = 'h:mm:ss;@';
+    public const FORMAT_DATE_YYYYMMDDSLASH = 'yyyy/mm/dd;@';
 
-    const DATE_TIME_OR_DATETIME_ARRAY = [
+    public const DATE_TIME_OR_DATETIME_ARRAY = [
         self::FORMAT_DATE_YYYYMMDD,
         self::FORMAT_DATE_DDMMYYYY,
         self::FORMAT_DATE_DMYSLASH,
@@ -64,7 +64,7 @@ class NumberFormat extends Supervisor
         self::FORMAT_DATE_TIME8,
         self::FORMAT_DATE_YYYYMMDDSLASH,
     ];
-    const TIME_OR_DATETIME_ARRAY = [
+    public const TIME_OR_DATETIME_ARRAY = [
         self::FORMAT_DATE_XLSX22,
         self::FORMAT_DATE_DATETIME,
         self::FORMAT_DATE_TIME1,
@@ -77,12 +77,12 @@ class NumberFormat extends Supervisor
         self::FORMAT_DATE_TIME8,
     ];
 
-    const FORMAT_CURRENCY_USD_INTEGER = '$#,##0_-';
-    const FORMAT_CURRENCY_USD = '$#,##0.00_-';
-    const FORMAT_CURRENCY_EUR_INTEGER = '#,##0_-[$€]';
-    const FORMAT_CURRENCY_EUR = '#,##0.00_-[$€]';
-    const FORMAT_ACCOUNTING_USD = '_("$"* #,##0.00_);_("$"* \(#,##0.00\);_("$"* "-"??_);_(@_)';
-    const FORMAT_ACCOUNTING_EUR = '_("€"* #,##0.00_);_("€"* \(#,##0.00\);_("€"* "-"??_);_(@_)';
+    public const FORMAT_CURRENCY_USD_INTEGER = '$#,##0_-';
+    public const FORMAT_CURRENCY_USD = '$#,##0.00_-';
+    public const FORMAT_CURRENCY_EUR_INTEGER = '#,##0_-[$€]';
+    public const FORMAT_CURRENCY_EUR = '#,##0.00_-[$€]';
+    public const FORMAT_ACCOUNTING_USD = '_("$"* #,##0.00_);_("$"* \(#,##0.00\);_("$"* "-"??_);_(@_)';
+    public const FORMAT_ACCOUNTING_EUR = '_("€"* #,##0.00_);_("€"* \(#,##0.00\);_("€"* "-"??_);_(@_)';
 
     /**
      * Excel built-in number formats.
@@ -361,12 +361,7 @@ class NumberFormat extends Supervisor
         // Ensure built-in format codes are available
         self::fillBuiltInFormatCodes();
 
-        // Lookup format code
-        if (isset(self::$builtInFormats[$index])) {
-            return self::$builtInFormats[$index];
-        }
-
-        return '';
+        return self::$builtInFormats[$index] ?? '';
     }
 
     /**
@@ -401,7 +396,7 @@ class NumberFormat extends Supervisor
         return md5(
             $this->formatCode
             . $this->builtInFormatCode
-            . __CLASS__
+            . self::class
         );
     }
 

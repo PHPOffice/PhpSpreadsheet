@@ -266,7 +266,7 @@ class Comment implements IComparable, Stringable
             . $this->fillColor->getHashCode()
             . $this->alignment
             . ($this->hasBackgroundImage() ? $this->backgroundImage->getHashCode() : '')
-            . __CLASS__
+            . self::class
         );
     }
 

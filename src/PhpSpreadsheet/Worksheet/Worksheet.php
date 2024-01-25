@@ -56,17 +56,12 @@ class Worksheet implements IComparable
      *
      * @var int
      */
-    const SHEET_TITLE_MAXIMUM_LENGTH = 31;
+    public const SHEET_TITLE_MAXIMUM_LENGTH = 31;
 
     /**
      * Invalid characters in sheet title.
      */
     private static array $invalidCharacters = ['*', ':', '/', '\\', '?', '[', ']'];
-
-    /**
-     * Parent spreadsheet.
-     */
-    private ?Spreadsheet $parent;
 
     /**
      * Collection of cells.
@@ -322,10 +317,12 @@ class Worksheet implements IComparable
     /**
      * Create a new worksheet.
      */
-    public function __construct(?Spreadsheet $parent = null, string $title = 'Worksheet')
-    {
-        // Set parent and title
-        $this->parent = $parent;
+    public function __construct(/**
+         * Parent spreadsheet.
+         */
+        private ?Spreadsheet $parent = null,
+        string $title = 'Worksheet'
+    ) {
         $this->setTitle($title, false);
         // setTitle can change $pTitle
         $this->setCodeName($this->getTitle());
@@ -3078,7 +3075,7 @@ class Worksheet implements IComparable
     public function getHashCode(): string
     {
         if ($this->dirty) {
-            $this->hash = md5($this->title . $this->autoFilter . ($this->protection->isProtectionEnabled() ? 't' : 'f') . __CLASS__);
+            $this->hash = md5($this->title . $this->autoFilter . ($this->protection->isProtectionEnabled() ? 't' : 'f') . self::class);
             $this->dirty = false;
         }
 

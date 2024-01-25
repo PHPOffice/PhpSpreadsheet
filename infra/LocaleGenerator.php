@@ -26,17 +26,9 @@ class LocaleGenerator
     private const FUNCTION_NAME_LIST_FIRST_ROW = 4;
     private const ENGLISH_FUNCTION_CATEGORIES_COLUMN = 'A';
     private const ENGLISH_REFERENCE_COLUMN = 'B';
-    private const EOL = "\n"; // not PHP_EOL
-
-    protected string $translationSpreadsheetName;
-
-    protected string $translationBaseFolder;
-
-    protected array $phpSpreadsheetFunctions;
+    private const EOL = "\n";
 
     protected Spreadsheet $translationSpreadsheet;
-
-    protected bool $verbose;
 
     protected Worksheet $localeTranslations;
 
@@ -50,16 +42,8 @@ class LocaleGenerator
 
     protected array $functionNameMap = [];
 
-    public function __construct(
-        string $translationBaseFolder,
-        string $translationSpreadsheetName,
-        array $phpSpreadsheetFunctions,
-        bool $verbose = false
-    ) {
-        $this->translationBaseFolder = $translationBaseFolder;
-        $this->translationSpreadsheetName = $translationSpreadsheetName;
-        $this->phpSpreadsheetFunctions = $phpSpreadsheetFunctions;
-        $this->verbose = $verbose;
+    public function __construct(protected string $translationBaseFolder, protected string $translationSpreadsheetName, protected array $phpSpreadsheetFunctions, protected bool $verbose = false)
+    {
     }
 
     public function generateLocales(): void
@@ -174,7 +158,7 @@ class LocaleGenerator
             }
             if ($this->isFunctionCategoryEntry($translationCell)) {
                 $this->writeFileSectionHeader($functionFile, "{$translationValue} ({$functionName})");
-            } elseif (!array_key_exists($functionName, $this->phpSpreadsheetFunctions) && substr($functionName, 0, 1) !== '*') {
+            } elseif (!array_key_exists($functionName, $this->phpSpreadsheetFunctions) && !str_starts_with($functionName, '*')) {
                 $this->log("Function {$functionName} is not defined in PhpSpreadsheet");
             } elseif (!empty($translationValue)) {
                 $functionTranslation = "{$functionName} = {$translationValue}" . self::EOL;

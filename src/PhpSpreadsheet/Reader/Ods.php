@@ -28,7 +28,7 @@ use ZipArchive;
 
 class Ods extends BaseReader
 {
-    const INITIAL_FILE = 'content.xml';
+    public const INITIAL_FILE = 'content.xml';
 
     /**
      * Create a new Ods Reader instance.

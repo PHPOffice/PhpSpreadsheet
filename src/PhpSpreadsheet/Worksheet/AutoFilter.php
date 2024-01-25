@@ -17,11 +17,6 @@ use Stringable;
 class AutoFilter implements Stringable
 {
     /**
-     * Autofilter Worksheet.
-     */
-    private ?Worksheet $workSheet;
-
-    /**
      * Autofilter Range.
      */
     private string $range;
@@ -53,14 +48,17 @@ class AutoFilter implements Stringable
      *              or passing in an array of [$fromColumnIndex, $fromRow, $toColumnIndex, $toRow] (e.g. [3, 5, 6, 8]),
      *              or an AddressRange object.
      */
-    public function __construct(AddressRange|string|array $range = '', ?Worksheet $worksheet = null)
-    {
+    public function __construct(
+        AddressRange|string|array $range = '', /**
+         * Autofilter Worksheet.
+         */
+        private ?Worksheet $workSheet = null
+    ) {
         if ($range !== '') {
             [, $range] = Worksheet::extractSheetTitle(Validations::validateCellRange($range), true);
         }
 
         $this->range = $range ?? '';
-        $this->workSheet = $worksheet;
     }
 
     public function __destruct()
@@ -725,7 +723,7 @@ class AutoFilter implements Stringable
     private function dynamicFilterDateRange(string $dynamicRuleType, AutoFilter\Column &$filterColumn): array
     {
         $ruleValues = [];
-        $callBack = [__CLASS__, self::DATE_FUNCTIONS[$dynamicRuleType]]; // What if not found?
+        $callBack = [self::class, self::DATE_FUNCTIONS[$dynamicRuleType]]; // What if not found?
         //    Calculate start/end dates for the required date range based on current date
         //    Val is lowest permitted value.
         //    Maxval is greater than highest permitted value

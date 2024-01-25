@@ -50,7 +50,7 @@ class Value
                 return false;
             }
             [$column, $row] = Coordinate::indexesFromString($cellValue ?? '');
-            if ($column > 16384 || $row > 1048576) {
+            if ($column > 16384 || $row > 1_048_576) {
                 return false;
             }
 
@@ -282,8 +282,7 @@ class Value
     {
         $value = Functions::flattenArrayIndexed($value);
         if (is_array($value) && (count($value) > 1)) {
-            end($value);
-            $a = key($value);
+            $a = array_key_last($value);
             //    Range of cells is an error
             if (Functions::isCellValue($a)) {
                 return 16;

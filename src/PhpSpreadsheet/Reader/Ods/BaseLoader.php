@@ -7,14 +7,8 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 abstract class BaseLoader
 {
-    protected Spreadsheet $spreadsheet;
-
-    protected string $tableNs;
-
-    public function __construct(Spreadsheet $spreadsheet, string $tableNs)
+    public function __construct(protected Spreadsheet $spreadsheet, protected string $tableNs)
     {
-        $this->spreadsheet = $spreadsheet;
-        $this->tableNs = $tableNs;
     }
 
     abstract public function read(DOMElement $workbookData): void;

@@ -59,11 +59,6 @@ class Worksheet extends BIFFwriter
     private static int $always1 = 1;
 
     /**
-     * Formula parser.
-     */
-    private Parser $parser;
-
-    /**
      * Array containing format information for columns.
      */
     private array $columnInfo;
@@ -136,11 +131,6 @@ class Worksheet extends BIFFwriter
     private int $lastColumnIndex;
 
     /**
-     * Sheet object.
-     */
-    public \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $phpSheet;
-
-    /**
      * Escher object corresponding to MSODRAWING.
      */
     private ?\PhpOffice\PhpSpreadsheet\Shared\Escher $escher = null;
@@ -149,8 +139,6 @@ class Worksheet extends BIFFwriter
      * Array of font hashes associated to FONT records index.
      */
     public array $fontHashIndex;
-
-    private bool $preCalculateFormulas;
 
     private int $printHeaders;
 
@@ -165,19 +153,14 @@ class Worksheet extends BIFFwriter
      * @param bool $preCalculateFormulas Flag indicating whether formulas should be calculated or just written
      * @param \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $phpSheet The worksheet to write
      */
-    public function __construct(int &$str_total, int &$str_unique, array &$str_table, array &$colors, Parser $parser, bool $preCalculateFormulas, \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $phpSheet)
+    public function __construct(int &$str_total, int &$str_unique, array &$str_table, array &$colors, private Parser $parser, private bool $preCalculateFormulas, public \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $phpSheet)
     {
         // It needs to call its parent's constructor explicitly
         parent::__construct();
-
-        $this->preCalculateFormulas = $preCalculateFormulas;
         $this->stringTotal = &$str_total;
         $this->stringUnique = &$str_unique;
         $this->stringTable = &$str_table;
         $this->colors = &$colors;
-        $this->parser = $parser;
-
-        $this->phpSheet = $phpSheet;
 
         $this->columnInfo = [];
         $this->activePane = 3;
@@ -735,10 +718,10 @@ class Worksheet extends BIFFwriter
         return 0;
     }
 
-    const WRITE_FORMULA_NORMAL = 0;
-    const WRITE_FORMULA_ERRORS = -1;
-    const WRITE_FORMULA_RANGE = -2;
-    const WRITE_FORMULA_EXCEPTION = -3;
+    public const WRITE_FORMULA_NORMAL = 0;
+    public const WRITE_FORMULA_ERRORS = -1;
+    public const WRITE_FORMULA_RANGE = -2;
+    public const WRITE_FORMULA_EXCEPTION = -3;
 
     private static bool $allowThrow = false;
 
@@ -2655,7 +2638,7 @@ class Worksheet extends BIFFwriter
                     $this->parser->parse($formula1);
                     $formula1 = $this->parser->toReversePolish();
                     $sz1 = strlen($formula1);
-                } catch (PhpSpreadsheetException $e) {
+                } catch (PhpSpreadsheetException) {
                     $sz1 = 0;
                     $formula1 = '';
                 }

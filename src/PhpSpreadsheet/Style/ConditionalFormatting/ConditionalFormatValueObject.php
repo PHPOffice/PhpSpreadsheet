@@ -4,17 +4,8 @@ namespace PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting;
 
 class ConditionalFormatValueObject
 {
-    private string $type;
-
-    private null|float|int|string $value;
-
-    private ?string $cellFormula;
-
-    public function __construct(string $type, null|float|int|string $value = null, ?string $cellFormula = null)
+    public function __construct(private string $type, private null|float|int|string $value = null, private ?string $cellFormula = null)
     {
-        $this->type = $type;
-        $this->value = $value;
-        $this->cellFormula = $cellFormula;
     }
 
     public function getType(): string

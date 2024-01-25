@@ -52,17 +52,17 @@ class PermutTest extends AllSetupTeardown
                 '3',
             ],
             'second argument row vector' => [
-                [[1716, 1235520]],
+                [[1716, 1_235_520]],
                 '13',
                 '{3, 6}',
             ],
             'second argument column vector' => [
-                [[1716], [1235520]],
+                [[1716], [1_235_520]],
                 '13',
                 '{3; 6}',
             ],
             'second argument matrix' => [
-                [[1716, 1235520], [17160, 51891840]],
+                [[1716, 1_235_520], [17160, 51_891_840]],
                 '13',
                 '{3, 6; 4, 8}',
             ],

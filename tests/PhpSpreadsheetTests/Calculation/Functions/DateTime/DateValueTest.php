@@ -156,8 +156,8 @@ class DateValueTest extends TestCase
         Functions::setReturnDateType(Functions::RETURNDATE_UNIX_TIMESTAMP);
 
         $result = DateValue::fromString('2012-1-31');
-        self::assertEquals(1327968000, $result);
-        self::assertEqualsWithDelta(1327968000, $result, 1E-8);
+        self::assertEquals(1_327_968_000, $result);
+        self::assertEqualsWithDelta(1_327_968_000, $result, 1E-8);
     }
 
     public function testDATEVALUEtoDateTimeObject(): void

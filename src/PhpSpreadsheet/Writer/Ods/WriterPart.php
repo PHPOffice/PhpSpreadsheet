@@ -7,11 +7,6 @@ use PhpOffice\PhpSpreadsheet\Writer\Ods;
 abstract class WriterPart
 {
     /**
-     * Parent Ods object.
-     */
-    private Ods $parentWriter;
-
-    /**
      * Get Ods writer.
      */
     public function getParentWriter(): Ods
@@ -22,9 +17,12 @@ abstract class WriterPart
     /**
      * Set parent Ods writer.
      */
-    public function __construct(Ods $writer)
-    {
-        $this->parentWriter = $writer;
+    public function __construct(
+        /**
+         * Parent Ods object.
+         */
+        private Ods $parentWriter
+    ) {
     }
 
     abstract public function write(): string;

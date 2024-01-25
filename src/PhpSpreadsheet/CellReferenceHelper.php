@@ -13,15 +13,9 @@ class CellReferenceHelper
 
     protected int $beforeRow;
 
-    protected int $numberOfColumns;
-
-    protected int $numberOfRows;
-
-    public function __construct(string $beforeCellAddress = 'A1', int $numberOfColumns = 0, int $numberOfRows = 0)
+    public function __construct(string $beforeCellAddress = 'A1', protected int $numberOfColumns = 0, protected int $numberOfRows = 0)
     {
         $this->beforeCellAddress = str_replace('$', '', $beforeCellAddress);
-        $this->numberOfColumns = $numberOfColumns;
-        $this->numberOfRows = $numberOfRows;
 
         // Get coordinate of $beforeCellAddress
         [$beforeColumn, $beforeRow] = Coordinate::coordinateFromString($beforeCellAddress);

@@ -10,98 +10,98 @@ namespace PhpOffice\PhpSpreadsheet\Chart;
  */
 abstract class Properties
 {
-    const AXIS_LABELS_LOW = 'low';
-    const AXIS_LABELS_HIGH = 'high';
-    const AXIS_LABELS_NEXT_TO = 'nextTo';
-    const AXIS_LABELS_NONE = 'none';
+    public const AXIS_LABELS_LOW = 'low';
+    public const AXIS_LABELS_HIGH = 'high';
+    public const AXIS_LABELS_NEXT_TO = 'nextTo';
+    public const AXIS_LABELS_NONE = 'none';
 
-    const TICK_MARK_NONE = 'none';
-    const TICK_MARK_INSIDE = 'in';
-    const TICK_MARK_OUTSIDE = 'out';
-    const TICK_MARK_CROSS = 'cross';
+    public const TICK_MARK_NONE = 'none';
+    public const TICK_MARK_INSIDE = 'in';
+    public const TICK_MARK_OUTSIDE = 'out';
+    public const TICK_MARK_CROSS = 'cross';
 
-    const HORIZONTAL_CROSSES_AUTOZERO = 'autoZero';
-    const HORIZONTAL_CROSSES_MAXIMUM = 'max';
+    public const HORIZONTAL_CROSSES_AUTOZERO = 'autoZero';
+    public const HORIZONTAL_CROSSES_MAXIMUM = 'max';
 
-    const FORMAT_CODE_GENERAL = 'General';
-    const FORMAT_CODE_NUMBER = '#,##0.00';
-    const FORMAT_CODE_CURRENCY = '$#,##0.00';
-    const FORMAT_CODE_ACCOUNTING = '_($* #,##0.00_);_($* (#,##0.00);_($* "-"??_);_(@_)';
-    const FORMAT_CODE_DATE = 'm/d/yyyy';
-    const FORMAT_CODE_DATE_ISO8601 = 'yyyy-mm-dd';
-    const FORMAT_CODE_TIME = '[$-F400]h:mm:ss AM/PM';
-    const FORMAT_CODE_PERCENTAGE = '0.00%';
-    const FORMAT_CODE_FRACTION = '# ?/?';
-    const FORMAT_CODE_SCIENTIFIC = '0.00E+00';
-    const FORMAT_CODE_TEXT = '@';
-    const FORMAT_CODE_SPECIAL = '00000';
+    public const FORMAT_CODE_GENERAL = 'General';
+    public const FORMAT_CODE_NUMBER = '#,##0.00';
+    public const FORMAT_CODE_CURRENCY = '$#,##0.00';
+    public const FORMAT_CODE_ACCOUNTING = '_($* #,##0.00_);_($* (#,##0.00);_($* "-"??_);_(@_)';
+    public const FORMAT_CODE_DATE = 'm/d/yyyy';
+    public const FORMAT_CODE_DATE_ISO8601 = 'yyyy-mm-dd';
+    public const FORMAT_CODE_TIME = '[$-F400]h:mm:ss AM/PM';
+    public const FORMAT_CODE_PERCENTAGE = '0.00%';
+    public const FORMAT_CODE_FRACTION = '# ?/?';
+    public const FORMAT_CODE_SCIENTIFIC = '0.00E+00';
+    public const FORMAT_CODE_TEXT = '@';
+    public const FORMAT_CODE_SPECIAL = '00000';
 
-    const ORIENTATION_NORMAL = 'minMax';
-    const ORIENTATION_REVERSED = 'maxMin';
+    public const ORIENTATION_NORMAL = 'minMax';
+    public const ORIENTATION_REVERSED = 'maxMin';
 
-    const LINE_STYLE_COMPOUND_SIMPLE = 'sng';
-    const LINE_STYLE_COMPOUND_DOUBLE = 'dbl';
-    const LINE_STYLE_COMPOUND_THICKTHIN = 'thickThin';
-    const LINE_STYLE_COMPOUND_THINTHICK = 'thinThick';
-    const LINE_STYLE_COMPOUND_TRIPLE = 'tri';
-    const LINE_STYLE_DASH_SOLID = 'solid';
-    const LINE_STYLE_DASH_ROUND_DOT = 'sysDot';
-    const LINE_STYLE_DASH_SQUARE_DOT = 'sysDash';
-    const LINE_STYPE_DASH_DASH = 'dash';
-    const LINE_STYLE_DASH_DASH_DOT = 'dashDot';
-    const LINE_STYLE_DASH_LONG_DASH = 'lgDash';
-    const LINE_STYLE_DASH_LONG_DASH_DOT = 'lgDashDot';
-    const LINE_STYLE_DASH_LONG_DASH_DOT_DOT = 'lgDashDotDot';
-    const LINE_STYLE_CAP_SQUARE = 'sq';
-    const LINE_STYLE_CAP_ROUND = 'rnd';
-    const LINE_STYLE_CAP_FLAT = 'flat';
-    const LINE_STYLE_JOIN_ROUND = 'round';
-    const LINE_STYLE_JOIN_MITER = 'miter';
-    const LINE_STYLE_JOIN_BEVEL = 'bevel';
-    const LINE_STYLE_ARROW_TYPE_NOARROW = null;
-    const LINE_STYLE_ARROW_TYPE_ARROW = 'triangle';
-    const LINE_STYLE_ARROW_TYPE_OPEN = 'arrow';
-    const LINE_STYLE_ARROW_TYPE_STEALTH = 'stealth';
-    const LINE_STYLE_ARROW_TYPE_DIAMOND = 'diamond';
-    const LINE_STYLE_ARROW_TYPE_OVAL = 'oval';
-    const LINE_STYLE_ARROW_SIZE_1 = 1;
-    const LINE_STYLE_ARROW_SIZE_2 = 2;
-    const LINE_STYLE_ARROW_SIZE_3 = 3;
-    const LINE_STYLE_ARROW_SIZE_4 = 4;
-    const LINE_STYLE_ARROW_SIZE_5 = 5;
-    const LINE_STYLE_ARROW_SIZE_6 = 6;
-    const LINE_STYLE_ARROW_SIZE_7 = 7;
-    const LINE_STYLE_ARROW_SIZE_8 = 8;
-    const LINE_STYLE_ARROW_SIZE_9 = 9;
+    public const LINE_STYLE_COMPOUND_SIMPLE = 'sng';
+    public const LINE_STYLE_COMPOUND_DOUBLE = 'dbl';
+    public const LINE_STYLE_COMPOUND_THICKTHIN = 'thickThin';
+    public const LINE_STYLE_COMPOUND_THINTHICK = 'thinThick';
+    public const LINE_STYLE_COMPOUND_TRIPLE = 'tri';
+    public const LINE_STYLE_DASH_SOLID = 'solid';
+    public const LINE_STYLE_DASH_ROUND_DOT = 'sysDot';
+    public const LINE_STYLE_DASH_SQUARE_DOT = 'sysDash';
+    public const LINE_STYPE_DASH_DASH = 'dash';
+    public const LINE_STYLE_DASH_DASH_DOT = 'dashDot';
+    public const LINE_STYLE_DASH_LONG_DASH = 'lgDash';
+    public const LINE_STYLE_DASH_LONG_DASH_DOT = 'lgDashDot';
+    public const LINE_STYLE_DASH_LONG_DASH_DOT_DOT = 'lgDashDotDot';
+    public const LINE_STYLE_CAP_SQUARE = 'sq';
+    public const LINE_STYLE_CAP_ROUND = 'rnd';
+    public const LINE_STYLE_CAP_FLAT = 'flat';
+    public const LINE_STYLE_JOIN_ROUND = 'round';
+    public const LINE_STYLE_JOIN_MITER = 'miter';
+    public const LINE_STYLE_JOIN_BEVEL = 'bevel';
+    public const LINE_STYLE_ARROW_TYPE_NOARROW = null;
+    public const LINE_STYLE_ARROW_TYPE_ARROW = 'triangle';
+    public const LINE_STYLE_ARROW_TYPE_OPEN = 'arrow';
+    public const LINE_STYLE_ARROW_TYPE_STEALTH = 'stealth';
+    public const LINE_STYLE_ARROW_TYPE_DIAMOND = 'diamond';
+    public const LINE_STYLE_ARROW_TYPE_OVAL = 'oval';
+    public const LINE_STYLE_ARROW_SIZE_1 = 1;
+    public const LINE_STYLE_ARROW_SIZE_2 = 2;
+    public const LINE_STYLE_ARROW_SIZE_3 = 3;
+    public const LINE_STYLE_ARROW_SIZE_4 = 4;
+    public const LINE_STYLE_ARROW_SIZE_5 = 5;
+    public const LINE_STYLE_ARROW_SIZE_6 = 6;
+    public const LINE_STYLE_ARROW_SIZE_7 = 7;
+    public const LINE_STYLE_ARROW_SIZE_8 = 8;
+    public const LINE_STYLE_ARROW_SIZE_9 = 9;
 
-    const SHADOW_PRESETS_NOSHADOW = null;
-    const SHADOW_PRESETS_OUTER_BOTTTOM_RIGHT = 1;
-    const SHADOW_PRESETS_OUTER_BOTTOM = 2;
-    const SHADOW_PRESETS_OUTER_BOTTOM_LEFT = 3;
-    const SHADOW_PRESETS_OUTER_RIGHT = 4;
-    const SHADOW_PRESETS_OUTER_CENTER = 5;
-    const SHADOW_PRESETS_OUTER_LEFT = 6;
-    const SHADOW_PRESETS_OUTER_TOP_RIGHT = 7;
-    const SHADOW_PRESETS_OUTER_TOP = 8;
-    const SHADOW_PRESETS_OUTER_TOP_LEFT = 9;
-    const SHADOW_PRESETS_INNER_BOTTTOM_RIGHT = 10;
-    const SHADOW_PRESETS_INNER_BOTTOM = 11;
-    const SHADOW_PRESETS_INNER_BOTTOM_LEFT = 12;
-    const SHADOW_PRESETS_INNER_RIGHT = 13;
-    const SHADOW_PRESETS_INNER_CENTER = 14;
-    const SHADOW_PRESETS_INNER_LEFT = 15;
-    const SHADOW_PRESETS_INNER_TOP_RIGHT = 16;
-    const SHADOW_PRESETS_INNER_TOP = 17;
-    const SHADOW_PRESETS_INNER_TOP_LEFT = 18;
-    const SHADOW_PRESETS_PERSPECTIVE_BELOW = 19;
-    const SHADOW_PRESETS_PERSPECTIVE_UPPER_RIGHT = 20;
-    const SHADOW_PRESETS_PERSPECTIVE_UPPER_LEFT = 21;
-    const SHADOW_PRESETS_PERSPECTIVE_LOWER_RIGHT = 22;
-    const SHADOW_PRESETS_PERSPECTIVE_LOWER_LEFT = 23;
+    public const SHADOW_PRESETS_NOSHADOW = null;
+    public const SHADOW_PRESETS_OUTER_BOTTTOM_RIGHT = 1;
+    public const SHADOW_PRESETS_OUTER_BOTTOM = 2;
+    public const SHADOW_PRESETS_OUTER_BOTTOM_LEFT = 3;
+    public const SHADOW_PRESETS_OUTER_RIGHT = 4;
+    public const SHADOW_PRESETS_OUTER_CENTER = 5;
+    public const SHADOW_PRESETS_OUTER_LEFT = 6;
+    public const SHADOW_PRESETS_OUTER_TOP_RIGHT = 7;
+    public const SHADOW_PRESETS_OUTER_TOP = 8;
+    public const SHADOW_PRESETS_OUTER_TOP_LEFT = 9;
+    public const SHADOW_PRESETS_INNER_BOTTTOM_RIGHT = 10;
+    public const SHADOW_PRESETS_INNER_BOTTOM = 11;
+    public const SHADOW_PRESETS_INNER_BOTTOM_LEFT = 12;
+    public const SHADOW_PRESETS_INNER_RIGHT = 13;
+    public const SHADOW_PRESETS_INNER_CENTER = 14;
+    public const SHADOW_PRESETS_INNER_LEFT = 15;
+    public const SHADOW_PRESETS_INNER_TOP_RIGHT = 16;
+    public const SHADOW_PRESETS_INNER_TOP = 17;
+    public const SHADOW_PRESETS_INNER_TOP_LEFT = 18;
+    public const SHADOW_PRESETS_PERSPECTIVE_BELOW = 19;
+    public const SHADOW_PRESETS_PERSPECTIVE_UPPER_RIGHT = 20;
+    public const SHADOW_PRESETS_PERSPECTIVE_UPPER_LEFT = 21;
+    public const SHADOW_PRESETS_PERSPECTIVE_LOWER_RIGHT = 22;
+    public const SHADOW_PRESETS_PERSPECTIVE_LOWER_LEFT = 23;
 
-    const POINTS_WIDTH_MULTIPLIER = 12700;
-    const ANGLE_MULTIPLIER = 60000; // direction and size-kx size-ky
-    const PERCENTAGE_MULTIPLIER = 100000; // size sx and sy
+    public const POINTS_WIDTH_MULTIPLIER = 12700;
+    public const ANGLE_MULTIPLIER = 60000; // direction and size-kx size-ky
+    public const PERCENTAGE_MULTIPLIER = 100000; // size sx and sy
 
     protected bool $objectState = false; // used only for minor gridlines
 
@@ -214,7 +214,7 @@ abstract class Properties
             'effect' => 'outerShdw',
             'blur' => 50800 / self::POINTS_WIDTH_MULTIPLIER,
             'distance' => 38100 / self::POINTS_WIDTH_MULTIPLIER,
-            'direction' => 2700000 / self::ANGLE_MULTIPLIER,
+            'direction' => 2_700_000 / self::ANGLE_MULTIPLIER,
             'algn' => 'tl',
             'rotWithShape' => '0',
         ],
@@ -222,7 +222,7 @@ abstract class Properties
             'effect' => 'outerShdw',
             'blur' => 50800 / self::POINTS_WIDTH_MULTIPLIER,
             'distance' => 38100 / self::POINTS_WIDTH_MULTIPLIER,
-            'direction' => 5400000 / self::ANGLE_MULTIPLIER,
+            'direction' => 5_400_000 / self::ANGLE_MULTIPLIER,
             'algn' => 't',
             'rotWithShape' => '0',
         ],
@@ -230,7 +230,7 @@ abstract class Properties
             'effect' => 'outerShdw',
             'blur' => 50800 / self::POINTS_WIDTH_MULTIPLIER,
             'distance' => 38100 / self::POINTS_WIDTH_MULTIPLIER,
-            'direction' => 8100000 / self::ANGLE_MULTIPLIER,
+            'direction' => 8_100_000 / self::ANGLE_MULTIPLIER,
             'algn' => 'tr',
             'rotWithShape' => '0',
         ],
@@ -256,7 +256,7 @@ abstract class Properties
             'effect' => 'outerShdw',
             'blur' => 50800 / self::POINTS_WIDTH_MULTIPLIER,
             'distance' => 38100 / self::POINTS_WIDTH_MULTIPLIER,
-            'direction' => 10800000 / self::ANGLE_MULTIPLIER,
+            'direction' => 10_800_000 / self::ANGLE_MULTIPLIER,
             'algn' => 'r',
             'rotWithShape' => '0',
         ],
@@ -264,7 +264,7 @@ abstract class Properties
             'effect' => 'outerShdw',
             'blur' => 50800 / self::POINTS_WIDTH_MULTIPLIER,
             'distance' => 38100 / self::POINTS_WIDTH_MULTIPLIER,
-            'direction' => 18900000 / self::ANGLE_MULTIPLIER,
+            'direction' => 18_900_000 / self::ANGLE_MULTIPLIER,
             'algn' => 'bl',
             'rotWithShape' => '0',
         ],
@@ -272,14 +272,14 @@ abstract class Properties
             'effect' => 'outerShdw',
             'blur' => 50800 / self::POINTS_WIDTH_MULTIPLIER,
             'distance' => 38100 / self::POINTS_WIDTH_MULTIPLIER,
-            'direction' => 16200000 / self::ANGLE_MULTIPLIER,
+            'direction' => 16_200_000 / self::ANGLE_MULTIPLIER,
             'rotWithShape' => '0',
         ],
         9 => [
             'effect' => 'outerShdw',
             'blur' => 50800 / self::POINTS_WIDTH_MULTIPLIER,
             'distance' => 38100 / self::POINTS_WIDTH_MULTIPLIER,
-            'direction' => 13500000 / self::ANGLE_MULTIPLIER,
+            'direction' => 13_500_000 / self::ANGLE_MULTIPLIER,
             'algn' => 'br',
             'rotWithShape' => '0',
         ],
@@ -288,19 +288,19 @@ abstract class Properties
             'effect' => 'innerShdw',
             'blur' => 63500 / self::POINTS_WIDTH_MULTIPLIER,
             'distance' => 50800 / self::POINTS_WIDTH_MULTIPLIER,
-            'direction' => 2700000 / self::ANGLE_MULTIPLIER,
+            'direction' => 2_700_000 / self::ANGLE_MULTIPLIER,
         ],
         11 => [
             'effect' => 'innerShdw',
             'blur' => 63500 / self::POINTS_WIDTH_MULTIPLIER,
             'distance' => 50800 / self::POINTS_WIDTH_MULTIPLIER,
-            'direction' => 5400000 / self::ANGLE_MULTIPLIER,
+            'direction' => 5_400_000 / self::ANGLE_MULTIPLIER,
         ],
         12 => [
             'effect' => 'innerShdw',
             'blur' => 63500 / self::POINTS_WIDTH_MULTIPLIER,
             'distance' => 50800 / self::POINTS_WIDTH_MULTIPLIER,
-            'direction' => 8100000 / self::ANGLE_MULTIPLIER,
+            'direction' => 8_100_000 / self::ANGLE_MULTIPLIER,
         ],
         13 => [
             'effect' => 'innerShdw',
@@ -315,25 +315,25 @@ abstract class Properties
             'effect' => 'innerShdw',
             'blur' => 63500 / self::POINTS_WIDTH_MULTIPLIER,
             'distance' => 50800 / self::POINTS_WIDTH_MULTIPLIER,
-            'direction' => 10800000 / self::ANGLE_MULTIPLIER,
+            'direction' => 10_800_000 / self::ANGLE_MULTIPLIER,
         ],
         16 => [
             'effect' => 'innerShdw',
             'blur' => 63500 / self::POINTS_WIDTH_MULTIPLIER,
             'distance' => 50800 / self::POINTS_WIDTH_MULTIPLIER,
-            'direction' => 18900000 / self::ANGLE_MULTIPLIER,
+            'direction' => 18_900_000 / self::ANGLE_MULTIPLIER,
         ],
         17 => [
             'effect' => 'innerShdw',
             'blur' => 63500 / self::POINTS_WIDTH_MULTIPLIER,
             'distance' => 50800 / self::POINTS_WIDTH_MULTIPLIER,
-            'direction' => 16200000 / self::ANGLE_MULTIPLIER,
+            'direction' => 16_200_000 / self::ANGLE_MULTIPLIER,
         ],
         18 => [
             'effect' => 'innerShdw',
             'blur' => 63500 / self::POINTS_WIDTH_MULTIPLIER,
             'distance' => 50800 / self::POINTS_WIDTH_MULTIPLIER,
-            'direction' => 13500000 / self::ANGLE_MULTIPLIER,
+            'direction' => 13_500_000 / self::ANGLE_MULTIPLIER,
         ],
         //perspective
         19 => [
@@ -344,16 +344,16 @@ abstract class Properties
                 'sx' => 90000 / self::PERCENTAGE_MULTIPLIER,
                 'sy' => -19000 / self::PERCENTAGE_MULTIPLIER,
             ],
-            'direction' => 5400000 / self::ANGLE_MULTIPLIER,
+            'direction' => 5_400_000 / self::ANGLE_MULTIPLIER,
             'rotWithShape' => '0',
         ],
         20 => [
             'effect' => 'outerShdw',
             'blur' => 76200 / self::POINTS_WIDTH_MULTIPLIER,
-            'direction' => 18900000 / self::ANGLE_MULTIPLIER,
+            'direction' => 18_900_000 / self::ANGLE_MULTIPLIER,
             'size' => [
                 'sy' => 23000 / self::PERCENTAGE_MULTIPLIER,
-                'kx' => -1200000 / self::ANGLE_MULTIPLIER,
+                'kx' => -1_200_000 / self::ANGLE_MULTIPLIER,
             ],
             'algn' => 'bl',
             'rotWithShape' => '0',
@@ -361,10 +361,10 @@ abstract class Properties
         21 => [
             'effect' => 'outerShdw',
             'blur' => 76200 / self::POINTS_WIDTH_MULTIPLIER,
-            'direction' => 13500000 / self::ANGLE_MULTIPLIER,
+            'direction' => 13_500_000 / self::ANGLE_MULTIPLIER,
             'size' => [
                 'sy' => 23000 / self::PERCENTAGE_MULTIPLIER,
-                'kx' => 1200000 / self::ANGLE_MULTIPLIER,
+                'kx' => 1_200_000 / self::ANGLE_MULTIPLIER,
             ],
             'algn' => 'br',
             'rotWithShape' => '0',
@@ -373,7 +373,7 @@ abstract class Properties
             'effect' => 'outerShdw',
             'blur' => 76200 / self::POINTS_WIDTH_MULTIPLIER,
             'distance' => 12700 / self::POINTS_WIDTH_MULTIPLIER,
-            'direction' => 2700000 / self::ANGLE_MULTIPLIER,
+            'direction' => 2_700_000 / self::ANGLE_MULTIPLIER,
             'size' => [
                 'sy' => -23000 / self::PERCENTAGE_MULTIPLIER,
                 'kx' => -800400 / self::ANGLE_MULTIPLIER,
@@ -385,7 +385,7 @@ abstract class Properties
             'effect' => 'outerShdw',
             'blur' => 76200 / self::POINTS_WIDTH_MULTIPLIER,
             'distance' => 12700 / self::POINTS_WIDTH_MULTIPLIER,
-            'direction' => 8100000 / self::ANGLE_MULTIPLIER,
+            'direction' => 8_100_000 / self::ANGLE_MULTIPLIER,
             'size' => [
                 'sy' => -23000 / self::PERCENTAGE_MULTIPLIER,
                 'kx' => 800400 / self::ANGLE_MULTIPLIER,

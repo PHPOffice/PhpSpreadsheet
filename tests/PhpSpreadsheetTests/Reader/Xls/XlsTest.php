@@ -94,7 +94,7 @@ class XlsTest extends AbstractFunctional
         $filename = 'tests/data/Reader/XLS/bug1114.xls';
         $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($filename);
         $sheet = $spreadsheet->getActiveSheet();
-        self::assertSame(1148140800.0, $sheet->getCell('B2')->getValue());
+        self::assertSame(1_148_140_800.0, $sheet->getCell('B2')->getValue());
         $spreadsheet->disconnectWorksheets();
     }
 }

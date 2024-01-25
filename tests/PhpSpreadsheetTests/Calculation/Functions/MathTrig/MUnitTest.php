@@ -8,7 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\MathTrig\MatrixFunctions;
 
 class MUnitTest extends AllSetupTeardown
 {
-    const MU_PRECISION = 1.0E-12;
+    public const MU_PRECISION = 1.0E-12;
 
     public function testMUNIT(): void
     {

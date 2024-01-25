@@ -8,8 +8,8 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class ConditionalStopIfTrueTest extends AbstractFunctional
 {
-    const COLOR_GREEN = 'FF99FF66';
-    const COLOR_RED = 'FFFF5050';
+    public const COLOR_GREEN = 'FF99FF66';
+    public const COLOR_RED = 'FFFF5050';
 
     public static function providerFormats(): array
     {

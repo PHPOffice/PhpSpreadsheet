@@ -10,10 +10,10 @@ use PhpOffice\PhpSpreadsheet\Style\Fill;
 
 class ConditionalTextTest extends AbstractFunctional
 {
-    const COLOR_GREEN = 'FF99FF66';
-    const COLOR_RED = 'FFFF5050';
-    const COLOR_BLUE = 'FF5050FF';
-    const COLOR_YELLOW = 'FFFFFF50';
+    public const COLOR_GREEN = 'FF99FF66';
+    public const COLOR_RED = 'FFFF5050';
+    public const COLOR_BLUE = 'FF5050FF';
+    public const COLOR_YELLOW = 'FFFFFF50';
 
     public function testConditionalText(): void
     {

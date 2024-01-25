@@ -27,26 +27,20 @@ class PlotArea
     private ?float $gradientFillAngle = null;
 
     /**
-     * PlotArea Layout.
-     */
-    private ?Layout $layout;
-
-    /**
-     * Plot Series.
-     *
-     * @var DataSeries[]
-     */
-    private array $plotSeries;
-
-    /**
      * Create a new PlotArea.
      *
      * @param DataSeries[] $plotSeries
      */
-    public function __construct(?Layout $layout = null, array $plotSeries = [])
-    {
-        $this->layout = $layout;
-        $this->plotSeries = $plotSeries;
+    public function __construct(
+        /**
+         * PlotArea Layout.
+         */
+        private ?Layout $layout = null,
+        /**
+         * Plot Series.
+         */
+        private array $plotSeries = []
+    ) {
     }
 
     public function getLayout(): ?Layout

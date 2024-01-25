@@ -8,11 +8,8 @@ use SimpleXMLElement;
 
 class Properties
 {
-    protected Spreadsheet $spreadsheet;
-
-    public function __construct(Spreadsheet $spreadsheet)
+    public function __construct(protected Spreadsheet $spreadsheet)
     {
-        $this->spreadsheet = $spreadsheet;
     }
 
     public function readProperties(SimpleXMLElement $xml, array $namespaces): void

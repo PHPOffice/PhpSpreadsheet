@@ -117,7 +117,7 @@ class DateTest extends TestCase
         Functions::setReturnDateType(Functions::RETURNDATE_UNIX_TIMESTAMP);
 
         $result = Date::fromYMD(2012, 1, 31); // 32-bit safe
-        self::assertEquals(1327968000, $result);
+        self::assertEquals(1_327_968_000, $result);
     }
 
     public function testDATEtoDateTimeObject(): void

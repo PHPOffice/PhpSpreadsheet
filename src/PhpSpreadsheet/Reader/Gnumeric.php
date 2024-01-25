@@ -20,19 +20,19 @@ use XMLReader;
 
 class Gnumeric extends BaseReader
 {
-    const NAMESPACE_GNM = 'http://www.gnumeric.org/v10.dtd'; // gmr in old sheets
+    public const NAMESPACE_GNM = 'http://www.gnumeric.org/v10.dtd'; // gmr in old sheets
 
-    const NAMESPACE_XSI = 'http://www.w3.org/2001/XMLSchema-instance';
+    public const NAMESPACE_XSI = 'http://www.w3.org/2001/XMLSchema-instance';
 
-    const NAMESPACE_OFFICE = 'urn:oasis:names:tc:opendocument:xmlns:office:1.0';
+    public const NAMESPACE_OFFICE = 'urn:oasis:names:tc:opendocument:xmlns:office:1.0';
 
-    const NAMESPACE_XLINK = 'http://www.w3.org/1999/xlink';
+    public const NAMESPACE_XLINK = 'http://www.w3.org/1999/xlink';
 
-    const NAMESPACE_DC = 'http://purl.org/dc/elements/1.1/';
+    public const NAMESPACE_DC = 'http://purl.org/dc/elements/1.1/';
 
-    const NAMESPACE_META = 'urn:oasis:names:tc:opendocument:xmlns:meta:1.0';
+    public const NAMESPACE_META = 'urn:oasis:names:tc:opendocument:xmlns:meta:1.0';
 
-    const NAMESPACE_OOO = 'http://openoffice.org/2004/office';
+    public const NAMESPACE_OOO = 'http://openoffice.org/2004/office';
 
     /**
      * Shared Expressions.

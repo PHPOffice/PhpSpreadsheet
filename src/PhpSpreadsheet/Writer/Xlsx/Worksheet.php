@@ -1244,7 +1244,7 @@ class Worksheet extends WriterPart
         $cellsByRow = [];
         foreach ($worksheet->getCoordinates() as $coordinate) {
             [$column, $row] = Coordinate::coordinateFromString($coordinate);
-            $cellsByRow[$row] = $cellsByRow[$row] ?? '';
+            $cellsByRow[$row] ??= '';
             $cellsByRow[$row] .= "{$column},";
         }
 

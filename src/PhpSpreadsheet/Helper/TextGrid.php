@@ -4,8 +4,6 @@ namespace PhpOffice\PhpSpreadsheet\Helper;
 
 class TextGrid
 {
-    private bool $isCli;
-
     protected array $matrix;
 
     protected array $rows;
@@ -14,7 +12,7 @@ class TextGrid
 
     private string $gridDisplay;
 
-    public function __construct(array $matrix, bool $isCli = true)
+    public function __construct(array $matrix, private bool $isCli = true)
     {
         $this->rows = array_keys($matrix);
         $this->columns = array_keys($matrix[$this->rows[0]]);
@@ -28,7 +26,6 @@ class TextGrid
         );
 
         $this->matrix = $matrix;
-        $this->isCli = $isCli;
     }
 
     public function render(): string

@@ -27,16 +27,14 @@ class Logger
     private array $debugLog = [];
 
     /**
-     * The calculation engine cell reference stack.
-     */
-    private CyclicReferenceStack $cellStack;
-
-    /**
      * Instantiate a Calculation engine logger.
      */
-    public function __construct(CyclicReferenceStack $stack)
-    {
-        $this->cellStack = $stack;
+    public function __construct(
+        /**
+         * The calculation engine cell reference stack.
+         */
+        private CyclicReferenceStack $cellStack
+    ) {
     }
 
     /**

@@ -8,7 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class NumberValueTest extends AllSetupTeardown
 {
-    const NV_PRECISION = 1.0E-8;
+    public const NV_PRECISION = 1.0E-8;
 
     /**
      * @dataProvider providerNUMBERVALUE

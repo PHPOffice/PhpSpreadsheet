@@ -16,22 +16,10 @@ use stdClass;
 
 class ConditionalStyles
 {
-    private Worksheet $worksheet;
-
-    private SimpleXMLElement $worksheetXml;
-
     private array $ns;
 
-    private array $dxfs;
-
-    private StyleReader $styleReader;
-
-    public function __construct(Worksheet $workSheet, SimpleXMLElement $worksheetXml, array $dxfs, StyleReader $styleReader)
+    public function __construct(private Worksheet $worksheet, private SimpleXMLElement $worksheetXml, private array $dxfs, private StyleReader $styleReader)
     {
-        $this->worksheet = $workSheet;
-        $this->worksheetXml = $worksheetXml;
-        $this->dxfs = $dxfs;
-        $this->styleReader = $styleReader;
     }
 
     public function load(): void

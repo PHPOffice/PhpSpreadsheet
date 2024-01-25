@@ -4,7 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Style;
 
 class Color extends Supervisor
 {
-    const NAMED_COLORS = [
+    public const NAMED_COLORS = [
         'Black',
         'White',
         'Red',
@@ -16,20 +16,20 @@ class Color extends Supervisor
     ];
 
     // Colors
-    const COLOR_BLACK = 'FF000000';
-    const COLOR_WHITE = 'FFFFFFFF';
-    const COLOR_RED = 'FFFF0000';
-    const COLOR_DARKRED = 'FF800000';
-    const COLOR_BLUE = 'FF0000FF';
-    const COLOR_DARKBLUE = 'FF000080';
-    const COLOR_GREEN = 'FF00FF00';
-    const COLOR_DARKGREEN = 'FF008000';
-    const COLOR_YELLOW = 'FFFFFF00';
-    const COLOR_DARKYELLOW = 'FF808000';
-    const COLOR_MAGENTA = 'FFFF00FF';
-    const COLOR_CYAN = 'FF00FFFF';
+    public const COLOR_BLACK = 'FF000000';
+    public const COLOR_WHITE = 'FFFFFFFF';
+    public const COLOR_RED = 'FFFF0000';
+    public const COLOR_DARKRED = 'FF800000';
+    public const COLOR_BLUE = 'FF0000FF';
+    public const COLOR_DARKBLUE = 'FF000080';
+    public const COLOR_GREEN = 'FF00FF00';
+    public const COLOR_DARKGREEN = 'FF008000';
+    public const COLOR_YELLOW = 'FFFFFF00';
+    public const COLOR_DARKYELLOW = 'FF808000';
+    public const COLOR_MAGENTA = 'FFFF00FF';
+    public const COLOR_CYAN = 'FF00FFFF';
 
-    const NAMED_COLOR_TRANSLATIONS = [
+    public const NAMED_COLOR_TRANSLATIONS = [
         'Black' => self::COLOR_BLACK,
         'White' => self::COLOR_WHITE,
         'Red' => self::COLOR_RED,
@@ -40,10 +40,10 @@ class Color extends Supervisor
         'Cyan' => self::COLOR_CYAN,
     ];
 
-    const VALIDATE_ARGB_SIZE = 8;
-    const VALIDATE_RGB_SIZE = 6;
-    const VALIDATE_COLOR_6 = '/^[A-F0-9]{6}$/i';
-    const VALIDATE_COLOR_8 = '/^[A-F0-9]{8}$/i';
+    public const VALIDATE_ARGB_SIZE = 8;
+    public const VALIDATE_RGB_SIZE = 6;
+    public const VALIDATE_COLOR_6 = '/^[A-F0-9]{6}$/i';
+    public const VALIDATE_COLOR_8 = '/^[A-F0-9]{8}$/i';
 
     private const INDEXED_COLORS = [
         1 => 'FF000000', //  System Colour #1 - Black
@@ -395,7 +395,7 @@ class Color extends Supervisor
 
         return md5(
             $this->argb
-            . __CLASS__
+            . self::class
         );
     }
 

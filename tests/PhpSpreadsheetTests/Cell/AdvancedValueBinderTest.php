@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 class AdvancedValueBinderTest extends TestCase
 {
-    const AVB_PRECISION = 1.0E-8;
+    public const AVB_PRECISION = 1.0E-8;
 
     private string $originalLocale;
 

@@ -17,11 +17,6 @@ class RowCellIterator extends CellIterator
     private int $currentColumnIndex;
 
     /**
-     * Row index.
-     */
-    private int $rowIndex;
-
-    /**
      * Start position.
      */
     private int $startColumnIndex = 1;
@@ -39,12 +34,11 @@ class RowCellIterator extends CellIterator
      * @param string $startColumn The column address at which to start iterating
      * @param ?string $endColumn Optionally, the column address at which to stop iterating
      */
-    public function __construct(Worksheet $worksheet, int $rowIndex = 1, string $startColumn = 'A', ?string $endColumn = null, bool $iterateOnlyExistingCells = false)
+    public function __construct(Worksheet $worksheet, private int $rowIndex = 1, string $startColumn = 'A', ?string $endColumn = null, bool $iterateOnlyExistingCells = false)
     {
         // Set subject and row index
         $this->worksheet = $worksheet;
         $this->cellCollection = $worksheet->getCellCollection();
-        $this->rowIndex = $rowIndex;
         $this->resetEnd($endColumn);
         $this->resetStart($startColumn);
         $this->setIterateOnlyExistingCells($iterateOnlyExistingCells);

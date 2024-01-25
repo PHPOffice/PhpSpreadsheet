@@ -9,13 +9,10 @@ use SimpleXMLElement;
 
 class Hyperlinks
 {
-    private Worksheet $worksheet;
-
     private array $hyperlinks = [];
 
-    public function __construct(Worksheet $workSheet)
+    public function __construct(private Worksheet $worksheet)
     {
-        $this->worksheet = $workSheet;
     }
 
     public function readHyperlinks(SimpleXMLElement $relsWorksheet): void

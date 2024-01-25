@@ -7,10 +7,10 @@ use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 class Borders extends Supervisor
 {
     // Diagonal directions
-    const DIAGONAL_NONE = 0;
-    const DIAGONAL_UP = 1;
-    const DIAGONAL_DOWN = 2;
-    const DIAGONAL_BOTH = 3;
+    public const DIAGONAL_NONE = 0;
+    public const DIAGONAL_UP = 1;
+    public const DIAGONAL_DOWN = 2;
+    public const DIAGONAL_BOTH = 3;
 
     /**
      * Left.
@@ -324,7 +324,7 @@ class Borders extends Supervisor
      */
     public function setDiagonalDirection(int $direction): static
     {
-        if ($direction == '') {
+        if ($direction == 0) {
             $direction = self::DIAGONAL_NONE;
         }
         if ($this->isSupervisor) {
@@ -355,7 +355,7 @@ class Borders extends Supervisor
             . $this->getBottom()->getHashCode()
             . $this->getDiagonal()->getHashCode()
             . $this->getDiagonalDirection()
-            . __CLASS__
+            . self::class
         );
     }
 

@@ -42,12 +42,12 @@ $GLOBALS['_OLE_INSTANCES'] = [];
  */
 class OLE
 {
-    const OLE_PPS_TYPE_ROOT = 5;
-    const OLE_PPS_TYPE_DIR = 1;
-    const OLE_PPS_TYPE_FILE = 2;
-    const OLE_DATA_SIZE_SMALL = 0x1000;
-    const OLE_LONG_INT_SIZE = 4;
-    const OLE_PPS_SIZE = 0x80;
+    public const OLE_PPS_TYPE_ROOT = 5;
+    public const OLE_PPS_TYPE_DIR = 1;
+    public const OLE_PPS_TYPE_FILE = 2;
+    public const OLE_DATA_SIZE_SMALL = 0x1000;
+    public const OLE_LONG_INT_SIZE = 4;
+    public const OLE_PPS_SIZE = 0x80;
 
     /**
      * The file handle for reading an OLE container.
@@ -261,7 +261,7 @@ class OLE
         return $tmp;
     }
 
-    private const SIGNED_4OCTET_LIMIT = 2147483648;
+    private const SIGNED_4OCTET_LIMIT = 2_147_483_648;
 
     private const SIGNED_4OCTET_SUBTRACT = 2 * self::SIGNED_4OCTET_LIMIT;
 
@@ -503,7 +503,7 @@ class OLE
         // calculate seconds
         $big_date = $days * 24 * 3600 + (float) $dateTime->format('U');
         // multiply just to make MS happy
-        $big_date *= 10000000;
+        $big_date *= 10_000_000;
 
         // Make HEX string
         $res = '';
@@ -538,8 +538,8 @@ class OLE
         $timestampLow = (float) $unpackedTimestamp[2] * 65536 + (float) $unpackedTimestamp[1];
 
         // translate to seconds since 1601:
-        $timestampHigh /= 10000000;
-        $timestampLow /= 10000000;
+        $timestampHigh /= 10_000_000;
+        $timestampLow /= 10_000_000;
 
         // days from 1601 to 1970:
         $days = 134774;

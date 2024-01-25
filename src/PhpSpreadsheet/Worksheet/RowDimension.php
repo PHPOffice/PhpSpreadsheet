@@ -7,11 +7,6 @@ use PhpOffice\PhpSpreadsheet\Helper\Dimension as CssDimension;
 class RowDimension extends Dimension
 {
     /**
-     * Row index.
-     */
-    private ?int $rowIndex;
-
-    /**
      * Row height (in pt).
      *
      * When this is set to a negative value, the row height should be ignored by IWriter
@@ -26,13 +21,10 @@ class RowDimension extends Dimension
     /**
      * Create a new RowDimension.
      *
-     * @param ?int $index Numeric row index
+     * @param ?int $rowIndex Numeric row index
      */
-    public function __construct(?int $index = 0)
+    public function __construct(private ?int $rowIndex = 0)
     {
-        // Initialise values
-        $this->rowIndex = $index;
-
         // set dimension as unformatted by default
         parent::__construct(null);
     }

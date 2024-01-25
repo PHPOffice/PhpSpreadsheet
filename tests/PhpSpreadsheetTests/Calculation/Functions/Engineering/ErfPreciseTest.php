@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 
 class ErfPreciseTest extends TestCase
 {
-    const ERF_PRECISION = 1E-14;
+    public const ERF_PRECISION = 1E-14;
 
     /**
      * @dataProvider providerERFPRECISE

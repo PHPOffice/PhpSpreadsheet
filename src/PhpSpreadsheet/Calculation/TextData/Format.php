@@ -138,7 +138,7 @@ class Format
      */
     private static function convertValue(mixed $value, bool $spacesMeanZero = false): mixed
     {
-        $value = $value ?? 0;
+        $value ??= 0;
         if (is_bool($value)) {
             if (Functions::getCompatibilityMode() === Functions::COMPATIBILITY_OPENOFFICE) {
                 $value = (int) $value;
@@ -285,7 +285,7 @@ class Format
                 return ExcelError::VALUE();
             }
             $decimalOffset = array_pop($matches[0])[1] ?? null;
-            if ($decimalOffset === null || strpos($value, $groupSeparator, $decimalOffset) !== false) {
+            if ($decimalOffset === null || str_contains(substr($value, $decimalOffset), $groupSeparator)) {
                 return ExcelError::VALUE();
             }
 

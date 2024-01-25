@@ -17,7 +17,7 @@ class ExactFontTest extends TestCase
     // See https://github.com/php/php-src/issues/9073
     // Extra tests are added to determine if test should
     //   be marked incomplete.
-    const EXTRA_FONTS = [
+    public const EXTRA_FONTS = [
         'DejaVu Sans' => [
             'x' => 'DejaVuSans.ttf',
             'xb' => 'DejaVuSans-Bold.ttf',

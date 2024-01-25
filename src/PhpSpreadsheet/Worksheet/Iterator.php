@@ -10,11 +10,6 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 class Iterator implements \Iterator
 {
     /**
-     * Spreadsheet to iterate.
-     */
-    private Spreadsheet $subject;
-
-    /**
      * Current iterator position.
      */
     private int $position = 0;
@@ -22,10 +17,12 @@ class Iterator implements \Iterator
     /**
      * Create a new worksheet iterator.
      */
-    public function __construct(Spreadsheet $subject)
-    {
-        // Set subject
-        $this->subject = $subject;
+    public function __construct(
+        /**
+         * Spreadsheet to iterate.
+         */
+        private Spreadsheet $subject
+    ) {
     }
 
     /**

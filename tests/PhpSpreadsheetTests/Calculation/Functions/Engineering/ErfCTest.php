@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 class ErfCTest extends TestCase
 {
-    const ERF_PRECISION = 1E-14;
+    public const ERF_PRECISION = 1E-14;
 
     /**
      * @dataProvider providerERFC

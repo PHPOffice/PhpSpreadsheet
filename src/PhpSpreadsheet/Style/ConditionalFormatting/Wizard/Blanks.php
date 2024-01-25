@@ -26,12 +26,9 @@ class Blanks extends WizardAbstract implements WizardInterface
         Wizard::BLANKS => 'LEN(TRIM(%s))=0',
     ];
 
-    protected bool $inverse;
-
-    public function __construct(string $cellRange, bool $inverse = false)
+    public function __construct(string $cellRange, protected bool $inverse = false)
     {
         parent::__construct($cellRange);
-        $this->inverse = $inverse;
     }
 
     protected function inverse(bool $inverse): void

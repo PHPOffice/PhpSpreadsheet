@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
 
 class ImConjugateTest extends TestCase
 {
-    const COMPLEX_PRECISION = 1E-12;
+    public const COMPLEX_PRECISION = 1E-12;
 
     private \PhpOffice\PhpSpreadsheetTests\Custom\ComplexAssert $complexAssert;
 

@@ -7,24 +7,24 @@ use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 class Functions
 {
-    const PRECISION = 8.88E-016;
+    public const PRECISION = 8.88E-016;
 
     /**
      * 2 / PI.
      */
-    const M_2DIVPI = 0.63661977236758134307553505349006;
+    public const M_2DIVPI = 0.63661977236758134307553505349006;
 
-    const COMPATIBILITY_EXCEL = 'Excel';
-    const COMPATIBILITY_GNUMERIC = 'Gnumeric';
-    const COMPATIBILITY_OPENOFFICE = 'OpenOfficeCalc';
+    public const COMPATIBILITY_EXCEL = 'Excel';
+    public const COMPATIBILITY_GNUMERIC = 'Gnumeric';
+    public const COMPATIBILITY_OPENOFFICE = 'OpenOfficeCalc';
 
     /** Use of RETURNDATE_PHP_NUMERIC is discouraged - not 32-bit Y2038-safe, no timezone. */
-    const RETURNDATE_PHP_NUMERIC = 'P';
+    public const RETURNDATE_PHP_NUMERIC = 'P';
     /** Use of RETURNDATE_UNIX_TIMESTAMP is discouraged - not 32-bit Y2038-safe, no timezone. */
-    const RETURNDATE_UNIX_TIMESTAMP = 'P';
-    const RETURNDATE_PHP_OBJECT = 'O';
-    const RETURNDATE_PHP_DATETIME_OBJECT = 'O';
-    const RETURNDATE_EXCEL = 'E';
+    public const RETURNDATE_UNIX_TIMESTAMP = 'P';
+    public const RETURNDATE_PHP_OBJECT = 'O';
+    public const RETURNDATE_PHP_DATETIME_OBJECT = 'O';
+    public const RETURNDATE_EXCEL = 'E';
 
     /**
      * Compatibility mode to use for error checking and responses.

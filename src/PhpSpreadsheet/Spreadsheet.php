@@ -18,9 +18,9 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx as XlsxWriter;
 class Spreadsheet implements JsonSerializable
 {
     // Allowable values for workbook window visilbity
-    const VISIBILITY_VISIBLE = 'visible';
-    const VISIBILITY_HIDDEN = 'hidden';
-    const VISIBILITY_VERY_HIDDEN = 'veryHidden';
+    public const VISIBILITY_VISIBLE = 'visible';
+    public const VISIBILITY_HIDDEN = 'hidden';
+    public const VISIBILITY_VERY_HIDDEN = 'veryHidden';
 
     private const DEFINED_NAME_IS_RANGE = false;
     private const DEFINED_NAME_IS_FORMULA = true;

@@ -21,7 +21,7 @@ abstract class Coordinate
      *
      * @var string
      */
-    const DEFAULT_RANGE = 'A1:A1';
+    public const DEFAULT_RANGE = 'A1:A1';
 
     /**
      * Convert string coordinate to [0 => int column index, 1 => int row index].
@@ -287,7 +287,7 @@ abstract class Coordinate
 
         $worksheet = $matches['worksheet'];
         if ($worksheet !== '') {
-            if (substr($worksheet, 0, 1) === "'" && substr($worksheet, -1, 1) === "'") {
+            if (str_starts_with($worksheet, "'") && str_ends_with($worksheet, "'")) {
                 $worksheet = substr($worksheet, 1, -1);
             }
             $data['worksheet'] = strtolower($worksheet);
@@ -358,7 +358,7 @@ abstract class Coordinate
         //    caching using a static within the method is faster than a class static,
         //        though it's additional memory overhead
         static $indexCache = [];
-        $columnAddress = $columnAddress ?? '';
+        $columnAddress ??= '';
 
         if (isset($indexCache[$columnAddress])) {
             return $indexCache[$columnAddress];

@@ -13,13 +13,6 @@ class Cells
 {
     protected const MAX_COLUMN_ID = 16384;
 
-    private CacheInterface $cache;
-
-    /**
-     * Parent worksheet.
-     */
-    private ?Worksheet $parent;
-
     /**
      * The currently active Cell.
      */
@@ -53,13 +46,8 @@ class Cells
      *
      * @param Worksheet $parent The worksheet for this cell collection
      */
-    public function __construct(Worksheet $parent, CacheInterface $cache)
+    public function __construct(private ?Worksheet $parent, private CacheInterface $cache)
     {
-        // Set our parent worksheet.
-        // This is maintained here to facilitate re-attaching it to Cell objects when
-        // they are woken from a serialized state
-        $this->parent = $parent;
-        $this->cache = $cache;
         $this->cachePrefix = $this->getUniqueID();
     }
 

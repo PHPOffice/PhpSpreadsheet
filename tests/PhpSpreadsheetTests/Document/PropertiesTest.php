@@ -49,7 +49,7 @@ class PropertiesTest extends TestCase
      */
     public function testSetCreated(null|int $expectedCreationTime, null|int|string $created): void
     {
-        $expectedCreationTime = $expectedCreationTime ?? $this->startTime;
+        $expectedCreationTime ??= $this->startTime;
 
         $this->properties->setCreated($created);
         self::assertEquals($expectedCreationTime, $this->properties->getCreated());
@@ -59,9 +59,9 @@ class PropertiesTest extends TestCase
     {
         return [
             [null, null],
-            [1615980600, 1615980600],
-            [1615980600, '1615980600'],
-            [1615980600, '2021-03-17 11:30:00Z'],
+            [1_615_980_600, 1_615_980_600],
+            [1_615_980_600, '1615980600'],
+            [1_615_980_600, '2021-03-17 11:30:00Z'],
         ];
     }
 
@@ -78,7 +78,7 @@ class PropertiesTest extends TestCase
      */
     public function testSetModified(mixed $expectedModifiedTime, null|int|string $modified): void
     {
-        $expectedModifiedTime = $expectedModifiedTime ?? $this->startTime;
+        $expectedModifiedTime ??= $this->startTime;
 
         $this->properties->setModified($modified);
         self::assertEquals($expectedModifiedTime, $this->properties->getModified());
@@ -88,9 +88,9 @@ class PropertiesTest extends TestCase
     {
         return [
             [null, null],
-            [1615980600, 1615980600],
-            [1615980600, '1615980600'],
-            [1615980600, '2021-03-17 11:30:00Z'],
+            [1_615_980_600, 1_615_980_600],
+            [1_615_980_600, '1615980600'],
+            [1_615_980_600, '2021-03-17 11:30:00Z'],
         ];
     }
 

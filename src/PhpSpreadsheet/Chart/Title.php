@@ -11,24 +11,12 @@ class Title
     public const TITLE_CELL_REFERENCE
         = '/^(.*)!' // beginning of string, everything up to ! is match[1]
         . '[$]([A-Z]{1,3})' // absolute column string match[2]
-        . '[$](\d{1,7})$/i'; // absolute row string match[3]
-
-    /**
-     * Title Caption.
-     *
-     * @var array<RichText|string>|RichText|string
-     */
-    private array|RichText|string $caption;
+        . '[$](\d{1,7})$/i';
 
     /**
      * Allow overlay of other elements?
      */
     private bool $overlay = true;
-
-    /**
-     * Title Layout.
-     */
-    private ?Layout $layout;
 
     private string $cellReference = '';
 
@@ -37,10 +25,17 @@ class Title
     /**
      * Create a new Title.
      */
-    public function __construct(array|RichText|string $caption = '', ?Layout $layout = null, bool $overlay = false)
-    {
-        $this->caption = $caption;
-        $this->layout = $layout;
+    public function __construct(/**
+         * Title Caption.
+         *
+         * @var array<RichText|string>|RichText|string
+         */
+        private array|RichText|string $caption = '', /**
+         * Title Layout.
+         */
+        private ?Layout $layout = null,
+        bool $overlay = false
+    ) {
         $this->setOverlay($overlay);
     }
 

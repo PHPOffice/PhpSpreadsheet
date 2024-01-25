@@ -8,8 +8,6 @@ use Stringable;
 
 class CellAddress implements Stringable
 {
-    protected ?Worksheet $worksheet;
-
     protected string $cellAddress;
 
     protected string $columnName = '';
@@ -18,11 +16,10 @@ class CellAddress implements Stringable
 
     protected int $rowId;
 
-    public function __construct(string $cellAddress, ?Worksheet $worksheet = null)
+    public function __construct(string $cellAddress, protected ?Worksheet $worksheet = null)
     {
         $this->cellAddress = str_replace('$', '', $cellAddress);
         [$this->columnId, $this->rowId, $this->columnName] = Coordinate::indexesFromString($this->cellAddress);
-        $this->worksheet = $worksheet;
     }
 
     public function __destruct()

@@ -60,7 +60,7 @@ class RichTextTest extends TestCase
         try {
             $textRun->getFontOrThrow();
             $foundFont = true;
-        } catch (SpreadsheetException $e) {
+        } catch (SpreadsheetException) {
             $foundFont = false;
         }
         self::assertFalse($foundFont, 'expected exception not received');

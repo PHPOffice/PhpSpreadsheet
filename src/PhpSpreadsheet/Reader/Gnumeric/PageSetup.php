@@ -10,11 +10,8 @@ use SimpleXMLElement;
 
 class PageSetup
 {
-    private Spreadsheet $spreadsheet;
-
-    public function __construct(Spreadsheet $spreadsheet)
+    public function __construct(private Spreadsheet $spreadsheet)
     {
-        $this->spreadsheet = $spreadsheet;
     }
 
     public function printInformation(SimpleXMLElement $sheet): self

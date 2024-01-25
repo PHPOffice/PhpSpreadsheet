@@ -10,16 +10,13 @@ use Stringable;
  */
 class RowRange implements AddressRange, Stringable
 {
-    protected ?Worksheet $worksheet;
-
     protected int $from;
 
     protected int $to;
 
-    public function __construct(int $from, ?int $to = null, ?Worksheet $worksheet = null)
+    public function __construct(int $from, ?int $to = null, protected ?Worksheet $worksheet = null)
     {
         $this->validateFromTo($from, $to ?? $from);
-        $this->worksheet = $worksheet;
     }
 
     public function __destruct()

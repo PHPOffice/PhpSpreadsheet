@@ -23,8 +23,6 @@ class Currency extends Number
 
     protected const DEFAULT_STRIP_LEADING_RLM = false;
 
-    protected bool $stripLeadingRLM = self::DEFAULT_STRIP_LEADING_RLM;
-
     /**
      * @param string $currencyCode the currency symbol or code to display for this mask
      * @param int $decimals number of decimal places to display, in the range 0-30
@@ -49,7 +47,7 @@ class Currency extends Number
         bool $currencySymbolPosition = self::LEADING_SYMBOL,
         bool $currencySymbolSpacing = self::SYMBOL_WITHOUT_SPACING,
         ?string $locale = null,
-        bool $stripLeadingRLM = self::DEFAULT_STRIP_LEADING_RLM
+        protected bool $stripLeadingRLM = self::DEFAULT_STRIP_LEADING_RLM
     ) {
         $this->setCurrencyCode($currencyCode);
         $this->setThousandsSeparator($thousandsSeparator);
@@ -57,7 +55,6 @@ class Currency extends Number
         $this->setCurrencySymbolPosition($currencySymbolPosition);
         $this->setCurrencySymbolSpacing($currencySymbolSpacing);
         $this->setLocale($locale);
-        $this->stripLeadingRLM = $stripLeadingRLM;
     }
 
     public function setCurrencyCode(string $currencyCode): void

@@ -7,11 +7,11 @@ use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column;
 
 class Rule
 {
-    const AUTOFILTER_RULETYPE_FILTER = 'filter';
-    const AUTOFILTER_RULETYPE_DATEGROUP = 'dateGroupItem';
-    const AUTOFILTER_RULETYPE_CUSTOMFILTER = 'customFilter';
-    const AUTOFILTER_RULETYPE_DYNAMICFILTER = 'dynamicFilter';
-    const AUTOFILTER_RULETYPE_TOPTENFILTER = 'top10Filter';
+    public const AUTOFILTER_RULETYPE_FILTER = 'filter';
+    public const AUTOFILTER_RULETYPE_DATEGROUP = 'dateGroupItem';
+    public const AUTOFILTER_RULETYPE_CUSTOMFILTER = 'customFilter';
+    public const AUTOFILTER_RULETYPE_DYNAMICFILTER = 'dynamicFilter';
+    public const AUTOFILTER_RULETYPE_TOPTENFILTER = 'top10Filter';
 
     private const RULE_TYPES = [
         //    Currently we're not handling
@@ -25,12 +25,12 @@ class Rule
         self::AUTOFILTER_RULETYPE_TOPTENFILTER,
     ];
 
-    const AUTOFILTER_RULETYPE_DATEGROUP_YEAR = 'year';
-    const AUTOFILTER_RULETYPE_DATEGROUP_MONTH = 'month';
-    const AUTOFILTER_RULETYPE_DATEGROUP_DAY = 'day';
-    const AUTOFILTER_RULETYPE_DATEGROUP_HOUR = 'hour';
-    const AUTOFILTER_RULETYPE_DATEGROUP_MINUTE = 'minute';
-    const AUTOFILTER_RULETYPE_DATEGROUP_SECOND = 'second';
+    public const AUTOFILTER_RULETYPE_DATEGROUP_YEAR = 'year';
+    public const AUTOFILTER_RULETYPE_DATEGROUP_MONTH = 'month';
+    public const AUTOFILTER_RULETYPE_DATEGROUP_DAY = 'day';
+    public const AUTOFILTER_RULETYPE_DATEGROUP_HOUR = 'hour';
+    public const AUTOFILTER_RULETYPE_DATEGROUP_MINUTE = 'minute';
+    public const AUTOFILTER_RULETYPE_DATEGROUP_SECOND = 'second';
 
     private const DATE_TIME_GROUPS = [
         self::AUTOFILTER_RULETYPE_DATEGROUP_YEAR,
@@ -41,52 +41,52 @@ class Rule
         self::AUTOFILTER_RULETYPE_DATEGROUP_SECOND,
     ];
 
-    const AUTOFILTER_RULETYPE_DYNAMIC_YESTERDAY = 'yesterday';
-    const AUTOFILTER_RULETYPE_DYNAMIC_TODAY = 'today';
-    const AUTOFILTER_RULETYPE_DYNAMIC_TOMORROW = 'tomorrow';
-    const AUTOFILTER_RULETYPE_DYNAMIC_YEARTODATE = 'yearToDate';
-    const AUTOFILTER_RULETYPE_DYNAMIC_THISYEAR = 'thisYear';
-    const AUTOFILTER_RULETYPE_DYNAMIC_THISQUARTER = 'thisQuarter';
-    const AUTOFILTER_RULETYPE_DYNAMIC_THISMONTH = 'thisMonth';
-    const AUTOFILTER_RULETYPE_DYNAMIC_THISWEEK = 'thisWeek';
-    const AUTOFILTER_RULETYPE_DYNAMIC_LASTYEAR = 'lastYear';
-    const AUTOFILTER_RULETYPE_DYNAMIC_LASTQUARTER = 'lastQuarter';
-    const AUTOFILTER_RULETYPE_DYNAMIC_LASTMONTH = 'lastMonth';
-    const AUTOFILTER_RULETYPE_DYNAMIC_LASTWEEK = 'lastWeek';
-    const AUTOFILTER_RULETYPE_DYNAMIC_NEXTYEAR = 'nextYear';
-    const AUTOFILTER_RULETYPE_DYNAMIC_NEXTQUARTER = 'nextQuarter';
-    const AUTOFILTER_RULETYPE_DYNAMIC_NEXTMONTH = 'nextMonth';
-    const AUTOFILTER_RULETYPE_DYNAMIC_NEXTWEEK = 'nextWeek';
-    const AUTOFILTER_RULETYPE_DYNAMIC_MONTH_1 = 'M1';
-    const AUTOFILTER_RULETYPE_DYNAMIC_JANUARY = self::AUTOFILTER_RULETYPE_DYNAMIC_MONTH_1;
-    const AUTOFILTER_RULETYPE_DYNAMIC_MONTH_2 = 'M2';
-    const AUTOFILTER_RULETYPE_DYNAMIC_FEBRUARY = self::AUTOFILTER_RULETYPE_DYNAMIC_MONTH_2;
-    const AUTOFILTER_RULETYPE_DYNAMIC_MONTH_3 = 'M3';
-    const AUTOFILTER_RULETYPE_DYNAMIC_MARCH = self::AUTOFILTER_RULETYPE_DYNAMIC_MONTH_3;
-    const AUTOFILTER_RULETYPE_DYNAMIC_MONTH_4 = 'M4';
-    const AUTOFILTER_RULETYPE_DYNAMIC_APRIL = self::AUTOFILTER_RULETYPE_DYNAMIC_MONTH_4;
-    const AUTOFILTER_RULETYPE_DYNAMIC_MONTH_5 = 'M5';
-    const AUTOFILTER_RULETYPE_DYNAMIC_MAY = self::AUTOFILTER_RULETYPE_DYNAMIC_MONTH_5;
-    const AUTOFILTER_RULETYPE_DYNAMIC_MONTH_6 = 'M6';
-    const AUTOFILTER_RULETYPE_DYNAMIC_JUNE = self::AUTOFILTER_RULETYPE_DYNAMIC_MONTH_6;
-    const AUTOFILTER_RULETYPE_DYNAMIC_MONTH_7 = 'M7';
-    const AUTOFILTER_RULETYPE_DYNAMIC_JULY = self::AUTOFILTER_RULETYPE_DYNAMIC_MONTH_7;
-    const AUTOFILTER_RULETYPE_DYNAMIC_MONTH_8 = 'M8';
-    const AUTOFILTER_RULETYPE_DYNAMIC_AUGUST = self::AUTOFILTER_RULETYPE_DYNAMIC_MONTH_8;
-    const AUTOFILTER_RULETYPE_DYNAMIC_MONTH_9 = 'M9';
-    const AUTOFILTER_RULETYPE_DYNAMIC_SEPTEMBER = self::AUTOFILTER_RULETYPE_DYNAMIC_MONTH_9;
-    const AUTOFILTER_RULETYPE_DYNAMIC_MONTH_10 = 'M10';
-    const AUTOFILTER_RULETYPE_DYNAMIC_OCTOBER = self::AUTOFILTER_RULETYPE_DYNAMIC_MONTH_10;
-    const AUTOFILTER_RULETYPE_DYNAMIC_MONTH_11 = 'M11';
-    const AUTOFILTER_RULETYPE_DYNAMIC_NOVEMBER = self::AUTOFILTER_RULETYPE_DYNAMIC_MONTH_11;
-    const AUTOFILTER_RULETYPE_DYNAMIC_MONTH_12 = 'M12';
-    const AUTOFILTER_RULETYPE_DYNAMIC_DECEMBER = self::AUTOFILTER_RULETYPE_DYNAMIC_MONTH_12;
-    const AUTOFILTER_RULETYPE_DYNAMIC_QUARTER_1 = 'Q1';
-    const AUTOFILTER_RULETYPE_DYNAMIC_QUARTER_2 = 'Q2';
-    const AUTOFILTER_RULETYPE_DYNAMIC_QUARTER_3 = 'Q3';
-    const AUTOFILTER_RULETYPE_DYNAMIC_QUARTER_4 = 'Q4';
-    const AUTOFILTER_RULETYPE_DYNAMIC_ABOVEAVERAGE = 'aboveAverage';
-    const AUTOFILTER_RULETYPE_DYNAMIC_BELOWAVERAGE = 'belowAverage';
+    public const AUTOFILTER_RULETYPE_DYNAMIC_YESTERDAY = 'yesterday';
+    public const AUTOFILTER_RULETYPE_DYNAMIC_TODAY = 'today';
+    public const AUTOFILTER_RULETYPE_DYNAMIC_TOMORROW = 'tomorrow';
+    public const AUTOFILTER_RULETYPE_DYNAMIC_YEARTODATE = 'yearToDate';
+    public const AUTOFILTER_RULETYPE_DYNAMIC_THISYEAR = 'thisYear';
+    public const AUTOFILTER_RULETYPE_DYNAMIC_THISQUARTER = 'thisQuarter';
+    public const AUTOFILTER_RULETYPE_DYNAMIC_THISMONTH = 'thisMonth';
+    public const AUTOFILTER_RULETYPE_DYNAMIC_THISWEEK = 'thisWeek';
+    public const AUTOFILTER_RULETYPE_DYNAMIC_LASTYEAR = 'lastYear';
+    public const AUTOFILTER_RULETYPE_DYNAMIC_LASTQUARTER = 'lastQuarter';
+    public const AUTOFILTER_RULETYPE_DYNAMIC_LASTMONTH = 'lastMonth';
+    public const AUTOFILTER_RULETYPE_DYNAMIC_LASTWEEK = 'lastWeek';
+    public const AUTOFILTER_RULETYPE_DYNAMIC_NEXTYEAR = 'nextYear';
+    public const AUTOFILTER_RULETYPE_DYNAMIC_NEXTQUARTER = 'nextQuarter';
+    public const AUTOFILTER_RULETYPE_DYNAMIC_NEXTMONTH = 'nextMonth';
+    public const AUTOFILTER_RULETYPE_DYNAMIC_NEXTWEEK = 'nextWeek';
+    public const AUTOFILTER_RULETYPE_DYNAMIC_MONTH_1 = 'M1';
+    public const AUTOFILTER_RULETYPE_DYNAMIC_JANUARY = self::AUTOFILTER_RULETYPE_DYNAMIC_MONTH_1;
+    public const AUTOFILTER_RULETYPE_DYNAMIC_MONTH_2 = 'M2';
+    public const AUTOFILTER_RULETYPE_DYNAMIC_FEBRUARY = self::AUTOFILTER_RULETYPE_DYNAMIC_MONTH_2;
+    public const AUTOFILTER_RULETYPE_DYNAMIC_MONTH_3 = 'M3';
+    public const AUTOFILTER_RULETYPE_DYNAMIC_MARCH = self::AUTOFILTER_RULETYPE_DYNAMIC_MONTH_3;
+    public const AUTOFILTER_RULETYPE_DYNAMIC_MONTH_4 = 'M4';
+    public const AUTOFILTER_RULETYPE_DYNAMIC_APRIL = self::AUTOFILTER_RULETYPE_DYNAMIC_MONTH_4;
+    public const AUTOFILTER_RULETYPE_DYNAMIC_MONTH_5 = 'M5';
+    public const AUTOFILTER_RULETYPE_DYNAMIC_MAY = self::AUTOFILTER_RULETYPE_DYNAMIC_MONTH_5;
+    public const AUTOFILTER_RULETYPE_DYNAMIC_MONTH_6 = 'M6';
+    public const AUTOFILTER_RULETYPE_DYNAMIC_JUNE = self::AUTOFILTER_RULETYPE_DYNAMIC_MONTH_6;
+    public const AUTOFILTER_RULETYPE_DYNAMIC_MONTH_7 = 'M7';
+    public const AUTOFILTER_RULETYPE_DYNAMIC_JULY = self::AUTOFILTER_RULETYPE_DYNAMIC_MONTH_7;
+    public const AUTOFILTER_RULETYPE_DYNAMIC_MONTH_8 = 'M8';
+    public const AUTOFILTER_RULETYPE_DYNAMIC_AUGUST = self::AUTOFILTER_RULETYPE_DYNAMIC_MONTH_8;
+    public const AUTOFILTER_RULETYPE_DYNAMIC_MONTH_9 = 'M9';
+    public const AUTOFILTER_RULETYPE_DYNAMIC_SEPTEMBER = self::AUTOFILTER_RULETYPE_DYNAMIC_MONTH_9;
+    public const AUTOFILTER_RULETYPE_DYNAMIC_MONTH_10 = 'M10';
+    public const AUTOFILTER_RULETYPE_DYNAMIC_OCTOBER = self::AUTOFILTER_RULETYPE_DYNAMIC_MONTH_10;
+    public const AUTOFILTER_RULETYPE_DYNAMIC_MONTH_11 = 'M11';
+    public const AUTOFILTER_RULETYPE_DYNAMIC_NOVEMBER = self::AUTOFILTER_RULETYPE_DYNAMIC_MONTH_11;
+    public const AUTOFILTER_RULETYPE_DYNAMIC_MONTH_12 = 'M12';
+    public const AUTOFILTER_RULETYPE_DYNAMIC_DECEMBER = self::AUTOFILTER_RULETYPE_DYNAMIC_MONTH_12;
+    public const AUTOFILTER_RULETYPE_DYNAMIC_QUARTER_1 = 'Q1';
+    public const AUTOFILTER_RULETYPE_DYNAMIC_QUARTER_2 = 'Q2';
+    public const AUTOFILTER_RULETYPE_DYNAMIC_QUARTER_3 = 'Q3';
+    public const AUTOFILTER_RULETYPE_DYNAMIC_QUARTER_4 = 'Q4';
+    public const AUTOFILTER_RULETYPE_DYNAMIC_ABOVEAVERAGE = 'aboveAverage';
+    public const AUTOFILTER_RULETYPE_DYNAMIC_BELOWAVERAGE = 'belowAverage';
 
     private const DYNAMIC_TYPES = [
         self::AUTOFILTER_RULETYPE_DYNAMIC_YESTERDAY,
@@ -126,12 +126,12 @@ class Rule
     ];
 
     // Filter rule operators for filter and customFilter types.
-    const AUTOFILTER_COLUMN_RULE_EQUAL = 'equal';
-    const AUTOFILTER_COLUMN_RULE_NOTEQUAL = 'notEqual';
-    const AUTOFILTER_COLUMN_RULE_GREATERTHAN = 'greaterThan';
-    const AUTOFILTER_COLUMN_RULE_GREATERTHANOREQUAL = 'greaterThanOrEqual';
-    const AUTOFILTER_COLUMN_RULE_LESSTHAN = 'lessThan';
-    const AUTOFILTER_COLUMN_RULE_LESSTHANOREQUAL = 'lessThanOrEqual';
+    public const AUTOFILTER_COLUMN_RULE_EQUAL = 'equal';
+    public const AUTOFILTER_COLUMN_RULE_NOTEQUAL = 'notEqual';
+    public const AUTOFILTER_COLUMN_RULE_GREATERTHAN = 'greaterThan';
+    public const AUTOFILTER_COLUMN_RULE_GREATERTHANOREQUAL = 'greaterThanOrEqual';
+    public const AUTOFILTER_COLUMN_RULE_LESSTHAN = 'lessThan';
+    public const AUTOFILTER_COLUMN_RULE_LESSTHANOREQUAL = 'lessThanOrEqual';
 
     private const OPERATORS = [
         self::AUTOFILTER_COLUMN_RULE_EQUAL,
@@ -142,37 +142,21 @@ class Rule
         self::AUTOFILTER_COLUMN_RULE_LESSTHANOREQUAL,
     ];
 
-    const AUTOFILTER_COLUMN_RULE_TOPTEN_BY_VALUE = 'byValue';
-    const AUTOFILTER_COLUMN_RULE_TOPTEN_PERCENT = 'byPercent';
+    public const AUTOFILTER_COLUMN_RULE_TOPTEN_BY_VALUE = 'byValue';
+    public const AUTOFILTER_COLUMN_RULE_TOPTEN_PERCENT = 'byPercent';
 
     private const TOP_TEN_VALUE = [
         self::AUTOFILTER_COLUMN_RULE_TOPTEN_BY_VALUE,
         self::AUTOFILTER_COLUMN_RULE_TOPTEN_PERCENT,
     ];
 
-    const AUTOFILTER_COLUMN_RULE_TOPTEN_TOP = 'top';
-    const AUTOFILTER_COLUMN_RULE_TOPTEN_BOTTOM = 'bottom';
+    public const AUTOFILTER_COLUMN_RULE_TOPTEN_TOP = 'top';
+    public const AUTOFILTER_COLUMN_RULE_TOPTEN_BOTTOM = 'bottom';
 
     private const TOP_TEN_TYPE = [
         self::AUTOFILTER_COLUMN_RULE_TOPTEN_TOP,
         self::AUTOFILTER_COLUMN_RULE_TOPTEN_BOTTOM,
     ];
-
-    //  Unimplented Rule Operators (Numeric, Boolean etc)
-    //    const AUTOFILTER_COLUMN_RULE_BETWEEN = 'between';        //    greaterThanOrEqual 1 && lessThanOrEqual 2
-    // Rule Operators (Numeric Special) which are translated to standard numeric operators with calculated values
-    // Rule Operators (String) which are set as wild-carded values
-    //    const AUTOFILTER_COLUMN_RULE_BEGINSWITH            = 'beginsWith';            // A*
-    //    const AUTOFILTER_COLUMN_RULE_ENDSWITH            = 'endsWith';            // *Z
-    //    const AUTOFILTER_COLUMN_RULE_CONTAINS            = 'contains';            // *B*
-    //    const AUTOFILTER_COLUMN_RULE_DOESNTCONTAIN        = 'notEqual';            //    notEqual *B*
-    // Rule Operators (Date Special) which are translated to standard numeric operators with calculated values
-    //    const AUTOFILTER_COLUMN_RULE_BEFORE                = 'lessThan';
-    //    const AUTOFILTER_COLUMN_RULE_AFTER                = 'greaterThan';
-    /**
-     * Autofilter Column.
-     */
-    private ?Column $parent;
 
     /**
      * Autofilter Rule Type.
@@ -199,9 +183,12 @@ class Rule
     /**
      * Create a new Rule.
      */
-    public function __construct(?Column $parent = null)
-    {
-        $this->parent = $parent;
+    public function __construct(
+        /**
+         * Autofilter Column.
+         */
+        private ?Column $parent = null
+    ) {
     }
 
     private function setEvaluatedFalse(): void

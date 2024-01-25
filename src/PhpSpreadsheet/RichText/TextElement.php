@@ -7,19 +7,12 @@ use PhpOffice\PhpSpreadsheet\Style\Font;
 class TextElement implements ITextElement
 {
     /**
-     * Text.
-     */
-    private string $text;
-
-    /**
      * Create a new TextElement instance.
      *
      * @param string $text Text
      */
-    public function __construct(string $text = '')
+    public function __construct(private string $text = '')
     {
-        // Initialise variables
-        $this->text = $text;
     }
 
     /**
@@ -63,7 +56,7 @@ class TextElement implements ITextElement
     {
         return md5(
             $this->text
-            . __CLASS__
+            . self::class
         );
     }
 }

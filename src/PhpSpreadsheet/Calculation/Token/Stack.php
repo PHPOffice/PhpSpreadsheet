@@ -7,8 +7,6 @@ use PhpOffice\PhpSpreadsheet\Calculation\Engine\BranchPruner;
 
 class Stack
 {
-    private BranchPruner $branchPruner;
-
     /**
      * The parser stack for formulae.
      *
@@ -21,9 +19,8 @@ class Stack
      */
     private int $count = 0;
 
-    public function __construct(BranchPruner $branchPruner)
+    public function __construct(private BranchPruner $branchPruner)
     {
-        $this->branchPruner = $branchPruner;
     }
 
     /**

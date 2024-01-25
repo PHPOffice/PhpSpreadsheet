@@ -200,12 +200,7 @@ class Rels extends WriterPart
 
         if (($worksheet->getDrawingCollection()->count() > 0) || (count($charts) > 0) || $drawingOriginalIds) {
             $rId = 1;
-
-            // Use original $relPath to get original $rId.
-            // Take first. In future can be overwritten.
-            // (! synchronize with \PhpOffice\PhpSpreadsheet\Writer\Xlsx\Worksheet::writeDrawings)
-            reset($drawingOriginalIds);
-            $relPath = key($drawingOriginalIds);
+            $relPath = array_key_first($drawingOriginalIds);
             if (isset($drawingOriginalIds[$relPath])) {
                 $rId = (int) (substr($drawingOriginalIds[$relPath], 3));
             }

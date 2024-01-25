@@ -74,7 +74,7 @@ return [
     'Issue 3297 another case where Excel goes wrong' => [
         0,
         -0.6118824173,
-        [-1000000.706, 947003.58],
+        [-1_000_000.706, 947003.58],
         ['2018-09-05', '2018-09-26'],
     ],
     'Issue 3297 using correct XIRR calculation' => [

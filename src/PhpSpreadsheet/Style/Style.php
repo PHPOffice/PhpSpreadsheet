@@ -669,7 +669,7 @@ class Style extends Supervisor
             . $this->numberFormat->getHashCode()
             . $this->protection->getHashCode()
             . ($this->quotePrefix ? 't' : 'f')
-            . __CLASS__
+            . self::class
         );
     }
 

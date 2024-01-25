@@ -48,11 +48,6 @@ use PhpOffice\PhpSpreadsheet\Style\Style;
 class Workbook extends BIFFwriter
 {
     /**
-     * Formula parser.
-     */
-    private Parser $parser;
-
-    /**
      * The BIFF file size for the workbook. Not currently used.
      *
      * @see calcSheetOffsets()
@@ -80,11 +75,6 @@ class Workbook extends BIFFwriter
      * The country code used for localization.
      */
     private int $countryCode;
-
-    /**
-     * Workbook.
-     */
-    private Spreadsheet $spreadsheet;
 
     /**
      * Fonts writers.
@@ -153,12 +143,10 @@ class Workbook extends BIFFwriter
      * @param array $colors Colour Table
      * @param Parser $parser The formula parser created for the Workbook
      */
-    public function __construct(Spreadsheet $spreadsheet, int &$str_total, int &$str_unique, array &$str_table, array &$colors, Parser $parser)
+    public function __construct(private Spreadsheet $spreadsheet, int &$str_total, int &$str_unique, array &$str_table, array &$colors, private Parser $parser)
     {
         // It needs to call its parent's constructor explicitly
         parent::__construct();
-
-        $this->parser = $parser;
         $this->biffSize = 0;
         $this->palette = [];
         $this->countryCode = -1;
@@ -169,14 +157,12 @@ class Workbook extends BIFFwriter
         $this->colors = &$colors;
         $this->setPaletteXl97();
 
-        $this->spreadsheet = $spreadsheet;
-
         $this->codepage = 0x04B0;
 
         // Add empty sheets and Build color cache
-        $countSheets = $spreadsheet->getSheetCount();
+        $countSheets = $this->spreadsheet->getSheetCount();
         for ($i = 0; $i < $countSheets; ++$i) {
-            $phpSheet = $spreadsheet->getSheet($i);
+            $phpSheet = $this->spreadsheet->getSheet($i);
 
             $this->parser->setExtSheet($phpSheet->getTitle(), $i); // Register worksheet name with parser
 

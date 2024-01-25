@@ -9,11 +9,11 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 class NonPeriodic
 {
-    const FINANCIAL_MAX_ITERATIONS = 128;
+    public const FINANCIAL_MAX_ITERATIONS = 128;
 
-    const FINANCIAL_PRECISION = 1.0e-08;
+    public const FINANCIAL_PRECISION = 1.0e-08;
 
-    const DEFAULT_GUESS = 0.1;
+    public const DEFAULT_GUESS = 0.1;
 
     /**
      * XIRR.

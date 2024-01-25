@@ -54,8 +54,8 @@ class Conditional
             return $condition;
         }
 
-        $returnIfTrue = $returnIfTrue ?? 0;
-        $returnIfFalse = $returnIfFalse ?? false;
+        $returnIfTrue ??= 0;
+        $returnIfFalse ??= false;
 
         return ((bool) $condition) ? $returnIfTrue : $returnIfFalse;
     }
@@ -138,8 +138,8 @@ class Conditional
             return self::evaluateArrayArgumentsSubset([self::class, __FUNCTION__], 1, $testValue, $errorpart);
         }
 
-        $errorpart = $errorpart ?? '';
-        $testValue = $testValue ?? 0; // this is how Excel handles empty cell
+        $errorpart ??= '';
+        $testValue ??= 0; // this is how Excel handles empty cell
 
         return self::statementIf(ErrorValue::isError($testValue), $errorpart, $testValue);
     }
@@ -165,8 +165,8 @@ class Conditional
             return self::evaluateArrayArgumentsSubset([self::class, __FUNCTION__], 1, $testValue, $napart);
         }
 
-        $napart = $napart ?? '';
-        $testValue = $testValue ?? 0; // this is how Excel handles empty cell
+        $napart ??= '';
+        $testValue ??= 0; // this is how Excel handles empty cell
 
         return self::statementIf(ErrorValue::isNa($testValue), $napart, $testValue);
     }
@@ -198,7 +198,7 @@ class Conditional
         $falseValueException = new Exception();
         for ($i = 0; $i < $argumentCount; $i += 2) {
             $testValue = ($arguments[$i] === null) ? '' : Functions::flattenSingleValue($arguments[$i]);
-            $returnIfTrue = ($arguments[$i + 1] === null) ? '' : $arguments[$i + 1];
+            $returnIfTrue = $arguments[$i + 1] ?? '';
             $result = self::statementIf($testValue, $returnIfTrue, $falseValueException);
 
             if ($result !== $falseValueException) {

@@ -17,7 +17,7 @@ class Random
      */
     public static function rand(): int|float
     {
-        return mt_rand(0, 10000000) / 10000000;
+        return mt_rand(0, 10_000_000) / 10_000_000;
     }
 
     /**
@@ -86,11 +86,9 @@ class Random
 
         return array_chunk(
             array_map(
-                function () use ($min, $max, $wholeNumber): int|float {
-                    return $wholeNumber
-                        ? mt_rand((int) $min, (int) $max)
-                        : (mt_rand() / mt_getrandmax()) * ($max - $min) + $min;
-                },
+                fn (): int|float => $wholeNumber
+                    ? mt_rand((int) $min, (int) $max)
+                    : (mt_rand() / mt_getrandmax()) * ($max - $min) + $min,
                 array_fill(0, $rows * $columns, $min)
             ),
             max($columns, 1)

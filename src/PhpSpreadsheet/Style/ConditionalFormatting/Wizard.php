@@ -24,11 +24,8 @@ class Wizard
     public const VALUE_TYPE_CELL = 'cell';
     public const VALUE_TYPE_FORMULA = 'formula';
 
-    protected string $cellRange;
-
-    public function __construct(string $cellRange)
+    public function __construct(protected string $cellRange)
     {
-        $this->cellRange = $cellRange;
     }
 
     public function newRule(string $ruleType): WizardInterface

@@ -87,11 +87,6 @@ class PPS
     public string $_data = '';
 
     /**
-     * Array of child PPS's (only used by Root and Dir PPS's).
-     */
-    public array $children = [];
-
-    /**
      * Pointer to OLE container.
      */
     public OLE $ole;
@@ -110,7 +105,7 @@ class PPS
      * @param ?string $data The (usually binary) source data of the PPS
      * @param array $children Array containing children PPS for this PPS
      */
-    public function __construct(?int $No, ?string $name, ?int $type, ?int $prev, ?int $next, ?int $dir, $time_1st, $time_2nd, ?string $data, array $children)
+    public function __construct(?int $No, ?string $name, ?int $type, ?int $prev, ?int $next, ?int $dir, $time_1st, $time_2nd, ?string $data, public array $children)
     {
         $this->No = (int) $No;
         $this->Name = (string) $name;
@@ -121,7 +116,6 @@ class PPS
         $this->Time1st = $time_1st ?? 0;
         $this->Time2nd = $time_2nd ?? 0;
         $this->_data = (string) $data;
-        $this->children = $children;
         $this->Size = strlen((string) $data);
     }
 

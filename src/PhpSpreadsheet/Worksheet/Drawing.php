@@ -7,7 +7,7 @@ use ZipArchive;
 
 class Drawing extends BaseDrawing
 {
-    const IMAGE_TYPES_CONVERTION_MAP = [
+    public const IMAGE_TYPES_CONVERTION_MAP = [
         IMAGETYPE_GIF => IMAGETYPE_PNG,
         IMAGETYPE_JPEG => IMAGETYPE_JPEG,
         IMAGETYPE_PNG => IMAGETYPE_PNG,
@@ -158,7 +158,7 @@ class Drawing extends BaseDrawing
         return md5(
             $this->path
             . parent::getHashCode()
-            . __CLASS__
+            . self::class
         );
     }
 

@@ -11,11 +11,6 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 class Column
 {
     /**
-     * Table Column Index.
-     */
-    private string $columnIndex;
-
-    /**
      * Show Filter Button.
      */
     private bool $showFilterButton = true;
@@ -41,20 +36,13 @@ class Column
     private ?string $columnFormula = null;
 
     /**
-     * Table.
-     */
-    private ?Table $table;
-
-    /**
      * Create a new Column.
      *
-     * @param string $column Column (e.g. A)
+     * @param string $columnIndex Column (e.g. A)
      * @param ?Table $table Table for this column
      */
-    public function __construct(string $column, ?Table $table = null)
+    public function __construct(private string $columnIndex, private ?Table $table = null)
     {
-        $this->columnIndex = $column;
-        $this->table = $table;
     }
 
     /**

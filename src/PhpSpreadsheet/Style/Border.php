@@ -7,21 +7,21 @@ use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 class Border extends Supervisor
 {
     // Border style
-    const BORDER_NONE = 'none';
-    const BORDER_DASHDOT = 'dashDot';
-    const BORDER_DASHDOTDOT = 'dashDotDot';
-    const BORDER_DASHED = 'dashed';
-    const BORDER_DOTTED = 'dotted';
-    const BORDER_DOUBLE = 'double';
-    const BORDER_HAIR = 'hair';
-    const BORDER_MEDIUM = 'medium';
-    const BORDER_MEDIUMDASHDOT = 'mediumDashDot';
-    const BORDER_MEDIUMDASHDOTDOT = 'mediumDashDotDot';
-    const BORDER_MEDIUMDASHED = 'mediumDashed';
-    const BORDER_SLANTDASHDOT = 'slantDashDot';
-    const BORDER_THICK = 'thick';
-    const BORDER_THIN = 'thin';
-    const BORDER_OMIT = 'omit'; // should be used only for Conditional
+    public const BORDER_NONE = 'none';
+    public const BORDER_DASHDOT = 'dashDot';
+    public const BORDER_DASHDOTDOT = 'dashDotDot';
+    public const BORDER_DASHED = 'dashed';
+    public const BORDER_DOTTED = 'dotted';
+    public const BORDER_DOUBLE = 'double';
+    public const BORDER_HAIR = 'hair';
+    public const BORDER_MEDIUM = 'medium';
+    public const BORDER_MEDIUMDASHDOT = 'mediumDashDot';
+    public const BORDER_MEDIUMDASHDOTDOT = 'mediumDashDotDot';
+    public const BORDER_MEDIUMDASHED = 'mediumDashed';
+    public const BORDER_SLANTDASHDOT = 'slantDashDot';
+    public const BORDER_THICK = 'thick';
+    public const BORDER_THIN = 'thin';
+    public const BORDER_OMIT = 'omit'; // should be used only for Conditional
 
     /**
      * Border style.
@@ -206,7 +206,7 @@ class Border extends Supervisor
         return md5(
             $this->borderStyle
             . $this->color->getHashCode()
-            . __CLASS__
+            . self::class
         );
     }
 

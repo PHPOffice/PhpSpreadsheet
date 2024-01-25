@@ -21,11 +21,8 @@ class Style
     public const ROW_STYLE_PREFIX = 'ro';
     public const TABLE_STYLE_PREFIX = 'ta';
 
-    private XMLWriter $writer;
-
-    public function __construct(XMLWriter $writer)
+    public function __construct(private XMLWriter $writer)
     {
-        $this->writer = $writer;
     }
 
     private function mapHorizontalAlignment(string $horizontalAlignment): string
@@ -91,54 +88,23 @@ class Style
 
     private function mapBorderWidth(Border $border): string
     {
-        switch ($border->getBorderStyle()) {
-            case Border::BORDER_THIN:
-            case Border::BORDER_DASHED:
-            case Border::BORDER_DASHDOT:
-            case Border::BORDER_DASHDOTDOT:
-            case Border::BORDER_DOTTED:
-            case Border::BORDER_HAIR:
-                return '0.75pt';
-            case Border::BORDER_MEDIUM:
-            case Border::BORDER_MEDIUMDASHED:
-            case Border::BORDER_MEDIUMDASHDOT:
-            case Border::BORDER_MEDIUMDASHDOTDOT:
-            case Border::BORDER_SLANTDASHDOT:
-                return '1.75pt';
-            case Border::BORDER_DOUBLE:
-            case Border::BORDER_THICK:
-                return '2.5pt';
-        }
-
-        return '1pt';
+        return match ($border->getBorderStyle()) {
+            Border::BORDER_THIN, Border::BORDER_DASHED, Border::BORDER_DASHDOT, Border::BORDER_DASHDOTDOT, Border::BORDER_DOTTED, Border::BORDER_HAIR => '0.75pt',
+            Border::BORDER_MEDIUM, Border::BORDER_MEDIUMDASHED, Border::BORDER_MEDIUMDASHDOT, Border::BORDER_MEDIUMDASHDOTDOT, Border::BORDER_SLANTDASHDOT => '1.75pt',
+            Border::BORDER_DOUBLE, Border::BORDER_THICK => '2.5pt',
+            default => '1pt',
+        };
     }
 
     private function mapBorderStyle(Border $border): string
     {
-        switch ($border->getBorderStyle()) {
-            case Border::BORDER_DOTTED:
-            case Border::BORDER_MEDIUMDASHDOTDOT:
-                return Border::BORDER_DOTTED;
-
-            case Border::BORDER_DASHED:
-            case Border::BORDER_DASHDOT:
-            case Border::BORDER_DASHDOTDOT:
-            case Border::BORDER_MEDIUMDASHDOT:
-            case Border::BORDER_MEDIUMDASHED:
-            case Border::BORDER_SLANTDASHDOT:
-                return Border::BORDER_DASHED;
-
-            case Border::BORDER_DOUBLE:
-                return Border::BORDER_DOUBLE;
-
-            case Border::BORDER_HAIR:
-            case Border::BORDER_MEDIUM:
-            case Border::BORDER_THICK:
-            case Border::BORDER_THIN:
-                return 'solid';
-        }
-
-        return 'solid';
+        return match ($border->getBorderStyle()) {
+            Border::BORDER_DOTTED, Border::BORDER_MEDIUMDASHDOTDOT => Border::BORDER_DOTTED,
+            Border::BORDER_DASHED, Border::BORDER_DASHDOT, Border::BORDER_DASHDOTDOT, Border::BORDER_MEDIUMDASHDOT, Border::BORDER_MEDIUMDASHED, Border::BORDER_SLANTDASHDOT => Border::BORDER_DASHED,
+            Border::BORDER_DOUBLE => Border::BORDER_DOUBLE,
+            Border::BORDER_HAIR, Border::BORDER_MEDIUM, Border::BORDER_THICK, Border::BORDER_THIN => 'solid',
+            default => 'solid',
+        };
     }
 
     private function writeCellProperties(CellStyle $style): void

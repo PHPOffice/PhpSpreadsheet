@@ -10,19 +10,16 @@ use Stringable;
  */
 class ColumnRange implements AddressRange, Stringable
 {
-    protected ?Worksheet $worksheet;
-
     protected int $from;
 
     protected int $to;
 
-    public function __construct(string $from, ?string $to = null, ?Worksheet $worksheet = null)
+    public function __construct(string $from, ?string $to = null, protected ?Worksheet $worksheet = null)
     {
         $this->validateFromTo(
             Coordinate::columnIndexFromString($from),
             Coordinate::columnIndexFromString($to ?? $from)
         );
-        $this->worksheet = $worksheet;
     }
 
     public function __destruct()

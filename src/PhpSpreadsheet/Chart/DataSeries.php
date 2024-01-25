@@ -6,70 +6,48 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class DataSeries
 {
-    const TYPE_BARCHART = 'barChart';
-    const TYPE_BARCHART_3D = 'bar3DChart';
-    const TYPE_LINECHART = 'lineChart';
-    const TYPE_LINECHART_3D = 'line3DChart';
-    const TYPE_AREACHART = 'areaChart';
-    const TYPE_AREACHART_3D = 'area3DChart';
-    const TYPE_PIECHART = 'pieChart';
-    const TYPE_PIECHART_3D = 'pie3DChart';
-    const TYPE_DOUGHNUTCHART = 'doughnutChart';
-    const TYPE_DONUTCHART = self::TYPE_DOUGHNUTCHART; // Synonym
-    const TYPE_SCATTERCHART = 'scatterChart';
-    const TYPE_SURFACECHART = 'surfaceChart';
-    const TYPE_SURFACECHART_3D = 'surface3DChart';
-    const TYPE_RADARCHART = 'radarChart';
-    const TYPE_BUBBLECHART = 'bubbleChart';
-    const TYPE_STOCKCHART = 'stockChart';
-    const TYPE_CANDLECHART = self::TYPE_STOCKCHART; // Synonym
+    public const TYPE_BARCHART = 'barChart';
+    public const TYPE_BARCHART_3D = 'bar3DChart';
+    public const TYPE_LINECHART = 'lineChart';
+    public const TYPE_LINECHART_3D = 'line3DChart';
+    public const TYPE_AREACHART = 'areaChart';
+    public const TYPE_AREACHART_3D = 'area3DChart';
+    public const TYPE_PIECHART = 'pieChart';
+    public const TYPE_PIECHART_3D = 'pie3DChart';
+    public const TYPE_DOUGHNUTCHART = 'doughnutChart';
+    public const TYPE_DONUTCHART = self::TYPE_DOUGHNUTCHART; // Synonym
+    public const TYPE_SCATTERCHART = 'scatterChart';
+    public const TYPE_SURFACECHART = 'surfaceChart';
+    public const TYPE_SURFACECHART_3D = 'surface3DChart';
+    public const TYPE_RADARCHART = 'radarChart';
+    public const TYPE_BUBBLECHART = 'bubbleChart';
+    public const TYPE_STOCKCHART = 'stockChart';
+    public const TYPE_CANDLECHART = self::TYPE_STOCKCHART; // Synonym
 
-    const GROUPING_CLUSTERED = 'clustered';
-    const GROUPING_STACKED = 'stacked';
-    const GROUPING_PERCENT_STACKED = 'percentStacked';
-    const GROUPING_STANDARD = 'standard';
+    public const GROUPING_CLUSTERED = 'clustered';
+    public const GROUPING_STACKED = 'stacked';
+    public const GROUPING_PERCENT_STACKED = 'percentStacked';
+    public const GROUPING_STANDARD = 'standard';
 
-    const DIRECTION_BAR = 'bar';
-    const DIRECTION_HORIZONTAL = self::DIRECTION_BAR;
-    const DIRECTION_COL = 'col';
-    const DIRECTION_COLUMN = self::DIRECTION_COL;
-    const DIRECTION_VERTICAL = self::DIRECTION_COL;
+    public const DIRECTION_BAR = 'bar';
+    public const DIRECTION_HORIZONTAL = self::DIRECTION_BAR;
+    public const DIRECTION_COL = 'col';
+    public const DIRECTION_COLUMN = self::DIRECTION_COL;
+    public const DIRECTION_VERTICAL = self::DIRECTION_COL;
 
-    const STYLE_LINEMARKER = 'lineMarker';
-    const STYLE_SMOOTHMARKER = 'smoothMarker';
-    const STYLE_MARKER = 'marker';
-    const STYLE_FILLED = 'filled';
+    public const STYLE_LINEMARKER = 'lineMarker';
+    public const STYLE_SMOOTHMARKER = 'smoothMarker';
+    public const STYLE_MARKER = 'marker';
+    public const STYLE_FILLED = 'filled';
 
-    const EMPTY_AS_GAP = 'gap';
-    const EMPTY_AS_ZERO = 'zero';
-    const EMPTY_AS_SPAN = 'span';
-
-    /**
-     * Series Plot Type.
-     */
-    private ?string $plotType;
-
-    /**
-     * Plot Grouping Type.
-     */
-    private ?string $plotGrouping;
+    public const EMPTY_AS_GAP = 'gap';
+    public const EMPTY_AS_ZERO = 'zero';
+    public const EMPTY_AS_SPAN = 'span';
 
     /**
      * Plot Direction.
      */
     private string $plotDirection;
-
-    /**
-     * Plot Style.
-     */
-    private ?string $plotStyle;
-
-    /**
-     * Order of plots in Series.
-     *
-     * @var int[]
-     */
-    private array $plotOrder;
 
     /**
      * Plot Label.
@@ -113,19 +91,28 @@ class DataSeries
      * @param DataSeriesValues[] $plotValues
      */
     public function __construct(
-        null|string $plotType = null,
-        null|string $plotGrouping = null,
-        array $plotOrder = [],
+        /**
+         * Series Plot Type.
+         */
+        private ?string $plotType = null,
+        /**
+         * Plot Grouping Type.
+         */
+        private ?string $plotGrouping = null,
+        /**
+         * Order of plots in Series.
+         */
+        private array $plotOrder = [],
         array $plotLabel = [],
         array $plotCategory = [],
         array $plotValues = [],
         ?string $plotDirection = null,
         bool $smoothLine = false,
-        ?string $plotStyle = null
+        /**
+         * Plot Style.
+         */
+        private ?string $plotStyle = null
     ) {
-        $this->plotType = $plotType;
-        $this->plotGrouping = $plotGrouping;
-        $this->plotOrder = $plotOrder;
         $keys = array_keys($plotValues);
         $this->plotValues = $plotValues;
         if (!isset($plotLabel[$keys[0]])) {
@@ -139,7 +126,6 @@ class DataSeries
         $this->plotCategory = $plotCategory;
 
         $this->smoothLine = (bool) $smoothLine;
-        $this->plotStyle = $plotStyle;
 
         if ($plotDirection === null) {
             $plotDirection = self::DIRECTION_COL;

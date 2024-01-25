@@ -14,24 +14,24 @@ use PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE\Blip
 
 class Escher
 {
-    const DGGCONTAINER = 0xF000;
-    const BSTORECONTAINER = 0xF001;
-    const DGCONTAINER = 0xF002;
-    const SPGRCONTAINER = 0xF003;
-    const SPCONTAINER = 0xF004;
-    const DGG = 0xF006;
-    const BSE = 0xF007;
-    const DG = 0xF008;
-    const SPGR = 0xF009;
-    const SP = 0xF00A;
-    const OPT = 0xF00B;
-    const CLIENTTEXTBOX = 0xF00D;
-    const CLIENTANCHOR = 0xF010;
-    const CLIENTDATA = 0xF011;
-    const BLIPJPEG = 0xF01D;
-    const BLIPPNG = 0xF01E;
-    const SPLITMENUCOLORS = 0xF11E;
-    const TERTIARYOPT = 0xF122;
+    public const DGGCONTAINER = 0xF000;
+    public const BSTORECONTAINER = 0xF001;
+    public const DGCONTAINER = 0xF002;
+    public const SPGRCONTAINER = 0xF003;
+    public const SPCONTAINER = 0xF004;
+    public const DGG = 0xF006;
+    public const BSE = 0xF007;
+    public const DG = 0xF008;
+    public const SPGR = 0xF009;
+    public const SP = 0xF00A;
+    public const OPT = 0xF00B;
+    public const CLIENTTEXTBOX = 0xF00D;
+    public const CLIENTANCHOR = 0xF010;
+    public const CLIENTDATA = 0xF011;
+    public const BLIPJPEG = 0xF01D;
+    public const BLIPPNG = 0xF01E;
+    public const SPLITMENUCOLORS = 0xF11E;
+    public const TERTIARYOPT = 0xF122;
 
     /**
      * Escher stream data (binary).
@@ -49,16 +49,14 @@ class Escher
     private int $pos;
 
     /**
-     * The object to be returned by the reader. Modified during load.
-     */
-    private BSE|BstoreContainer|DgContainer|DggContainer|\PhpOffice\PhpSpreadsheet\Shared\Escher|SpContainer|SpgrContainer $object;
-
-    /**
      * Create a new Escher instance.
      */
-    public function __construct(BSE|BstoreContainer|DgContainer|DggContainer|\PhpOffice\PhpSpreadsheet\Shared\Escher|SpContainer|SpgrContainer $object)
-    {
-        $this->object = $object;
+    public function __construct(
+        /**
+         * The object to be returned by the reader. Modified during load.
+         */
+        private BSE|BstoreContainer|DgContainer|DggContainer|\PhpOffice\PhpSpreadsheet\Shared\Escher|SpContainer|SpgrContainer $object
+    ) {
     }
 
     private const WHICH_ROUTINE = [

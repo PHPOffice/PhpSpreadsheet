@@ -30,11 +30,6 @@ use PhpOffice\PhpSpreadsheet\Writer\Xls\Worksheet;
 class Xls extends BaseWriter
 {
     /**
-     * PhpSpreadsheet object.
-     */
-    private Spreadsheet $spreadsheet;
-
-    /**
      * Total number of shared strings in workbook.
      */
     private int $strTotal = 0;
@@ -86,11 +81,9 @@ class Xls extends BaseWriter
      *
      * @param Spreadsheet $spreadsheet PhpSpreadsheet object
      */
-    public function __construct(Spreadsheet $spreadsheet)
+    public function __construct(private Spreadsheet $spreadsheet)
     {
-        $this->spreadsheet = $spreadsheet;
-
-        $this->parser = new Xls\Parser($spreadsheet);
+        $this->parser = new Xls\Parser($this->spreadsheet);
     }
 
     /**

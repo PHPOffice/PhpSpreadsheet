@@ -12,17 +12,14 @@ class Font
     private int $colorIndex;
 
     /**
-     * Font.
-     */
-    private \PhpOffice\PhpSpreadsheet\Style\Font $font;
-
-    /**
      * Constructor.
      */
-    public function __construct(\PhpOffice\PhpSpreadsheet\Style\Font $font)
-    {
+    public function __construct(/**
+         * Font.
+         */
+        private \PhpOffice\PhpSpreadsheet\Style\Font $font
+    ) {
         $this->colorIndex = 0x7FFF;
-        $this->font = $font;
     }
 
     /**
@@ -124,10 +121,6 @@ class Font
      */
     private static function mapUnderline(string $underline): int
     {
-        if (isset(self::$mapUnderline[$underline])) {
-            return self::$mapUnderline[$underline];
-        }
-
-        return 0x00;
+        return self::$mapUnderline[$underline] ?? 0x00;
     }
 }

@@ -22,14 +22,8 @@ use SimpleXMLElement;
 
 class Chart
 {
-    private string $cNamespace;
-
-    private string $aNamespace;
-
-    public function __construct(string $cNamespace = Namespaces::CHART, string $aNamespace = Namespaces::DRAWINGML)
+    public function __construct(private string $cNamespace = Namespaces::CHART, private string $aNamespace = Namespaces::DRAWINGML)
     {
-        $this->cNamespace = $cNamespace;
-        $this->aNamespace = $aNamespace;
     }
 
     private static function getAttributeString(SimpleXMLElement $component, string $name): string|null
@@ -1066,22 +1060,22 @@ class Chart
             }
 
             $fontFound = false;
-            $latinName = $latinName ?? $defaultLatin;
+            $latinName ??= $defaultLatin;
             if ($latinName !== null) {
                 $objText->getFont()->setLatin($latinName);
                 $fontFound = true;
             }
-            $eastAsian = $eastAsian ?? $defaultEastAsian;
+            $eastAsian ??= $defaultEastAsian;
             if ($eastAsian !== null) {
                 $objText->getFont()->setEastAsian($eastAsian);
                 $fontFound = true;
             }
-            $complexScript = $complexScript ?? $defaultComplexScript;
+            $complexScript ??= $defaultComplexScript;
             if ($complexScript !== null) {
                 $objText->getFont()->setComplexScript($complexScript);
                 $fontFound = true;
             }
-            $fontName = $fontName ?? $defaultFontName;
+            $fontName ??= $defaultFontName;
             if ($fontName !== null) {
                 // @codeCoverageIgnoreStart
                 $objText->getFont()->setName($fontName);
@@ -1089,7 +1083,7 @@ class Chart
                 // @codeCoverageIgnoreEnd
             }
 
-            $fontSize = $fontSize ?? $defaultFontSize;
+            $fontSize ??= $defaultFontSize;
             if (is_int($fontSize)) {
                 $objText->getFont()->setSize(floor($fontSize / 100));
                 $fontFound = true;
@@ -1097,25 +1091,25 @@ class Chart
                 $objText->getFont()->setSize(null, true);
             }
 
-            $fontColor = $fontColor ?? $defaultFontColor;
+            $fontColor ??= $defaultFontColor;
             if (!empty($fontColor)) {
                 $objText->getFont()->setChartColor($fontColor);
                 $fontFound = true;
             }
 
-            $bold = $bold ?? $defaultBold;
+            $bold ??= $defaultBold;
             if ($bold !== null) {
                 $objText->getFont()->setBold($bold);
                 $fontFound = true;
             }
 
-            $italic = $italic ?? $defaultItalic;
+            $italic ??= $defaultItalic;
             if ($italic !== null) {
                 $objText->getFont()->setItalic($italic);
                 $fontFound = true;
             }
 
-            $baseline = $baseline ?? $defaultBaseline;
+            $baseline ??= $defaultBaseline;
             if ($baseline !== null) {
                 $objText->getFont()->setBaseLine($baseline);
                 if ($baseline > 0) {
@@ -1126,7 +1120,7 @@ class Chart
                 $fontFound = true;
             }
 
-            $underscore = $underscore ?? $defaultUnderscore;
+            $underscore ??= $defaultUnderscore;
             if ($underscore !== null) {
                 if ($underscore == 'sng') {
                     $objText->getFont()->setUnderline(Font::UNDERLINE_SINGLE);
@@ -1143,7 +1137,7 @@ class Chart
                 }
             }
 
-            $strikethrough = $strikethrough ?? $defaultStrikethrough;
+            $strikethrough ??= $defaultStrikethrough;
             if ($strikethrough !== null) {
                 $objText->getFont()->setStrikeType($strikethrough);
                 if ($strikethrough == 'noStrike') {

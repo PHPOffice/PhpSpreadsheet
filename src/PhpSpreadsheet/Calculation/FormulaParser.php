@@ -27,22 +27,22 @@ namespace PhpOffice\PhpSpreadsheet\Calculation;
 class FormulaParser
 {
     // Character constants
-    const QUOTE_DOUBLE = '"';
-    const QUOTE_SINGLE = '\'';
-    const BRACKET_CLOSE = ']';
-    const BRACKET_OPEN = '[';
-    const BRACE_OPEN = '{';
-    const BRACE_CLOSE = '}';
-    const PAREN_OPEN = '(';
-    const PAREN_CLOSE = ')';
-    const SEMICOLON = ';';
-    const WHITESPACE = ' ';
-    const COMMA = ',';
-    const ERROR_START = '#';
+    public const QUOTE_DOUBLE = '"';
+    public const QUOTE_SINGLE = '\'';
+    public const BRACKET_CLOSE = ']';
+    public const BRACKET_OPEN = '[';
+    public const BRACE_OPEN = '{';
+    public const BRACE_CLOSE = '}';
+    public const PAREN_OPEN = '(';
+    public const PAREN_CLOSE = ')';
+    public const SEMICOLON = ';';
+    public const WHITESPACE = ' ';
+    public const COMMA = ',';
+    public const ERROR_START = '#';
 
-    const OPERATORS_SN = '+-';
-    const OPERATORS_INFIX = '+-*/^&=><';
-    const OPERATORS_POSTFIX = '%';
+    public const OPERATORS_SN = '+-';
+    public const OPERATORS_INFIX = '+-*/^&=><';
+    public const OPERATORS_POSTFIX = '%';
 
     /**
      * Formula.

@@ -200,10 +200,9 @@ class Averages extends AggregateBase
     {
         return array_filter(
             $args,
-            function ($value): bool {
+            fn ($value): bool
                 // Is it a numeric value?
-                return is_numeric($value) && (!is_string($value));
-            }
+                => is_numeric($value) && (!is_string($value))
         );
     }
 

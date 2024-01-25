@@ -11,11 +11,6 @@ use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 class RowIterator implements NativeIterator
 {
     /**
-     * Worksheet to iterate.
-     */
-    private Worksheet $subject;
-
-    /**
      * Current iterator position.
      */
     private int $position = 1;
@@ -37,10 +32,8 @@ class RowIterator implements NativeIterator
      * @param int $startRow The row number at which to start iterating
      * @param ?int $endRow Optionally, the row number at which to stop iterating
      */
-    public function __construct(Worksheet $subject, int $startRow = 1, ?int $endRow = null)
+    public function __construct(private Worksheet $subject, int $startRow = 1, ?int $endRow = null)
     {
-        // Set subject
-        $this->subject = $subject;
         $this->resetEnd($endRow);
         $this->resetStart($startRow);
     }

@@ -9,22 +9,22 @@ use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalDataBar;
 class Conditional implements IComparable
 {
     // Condition types
-    const CONDITION_NONE = 'none';
-    const CONDITION_BEGINSWITH = 'beginsWith';
-    const CONDITION_CELLIS = 'cellIs';
-    const CONDITION_COLORSCALE = 'colorScale';
-    const CONDITION_CONTAINSBLANKS = 'containsBlanks';
-    const CONDITION_CONTAINSERRORS = 'containsErrors';
-    const CONDITION_CONTAINSTEXT = 'containsText';
-    const CONDITION_DATABAR = 'dataBar';
-    const CONDITION_ENDSWITH = 'endsWith';
-    const CONDITION_EXPRESSION = 'expression';
-    const CONDITION_NOTCONTAINSBLANKS = 'notContainsBlanks';
-    const CONDITION_NOTCONTAINSERRORS = 'notContainsErrors';
-    const CONDITION_NOTCONTAINSTEXT = 'notContainsText';
-    const CONDITION_TIMEPERIOD = 'timePeriod';
-    const CONDITION_DUPLICATES = 'duplicateValues';
-    const CONDITION_UNIQUE = 'uniqueValues';
+    public const CONDITION_NONE = 'none';
+    public const CONDITION_BEGINSWITH = 'beginsWith';
+    public const CONDITION_CELLIS = 'cellIs';
+    public const CONDITION_COLORSCALE = 'colorScale';
+    public const CONDITION_CONTAINSBLANKS = 'containsBlanks';
+    public const CONDITION_CONTAINSERRORS = 'containsErrors';
+    public const CONDITION_CONTAINSTEXT = 'containsText';
+    public const CONDITION_DATABAR = 'dataBar';
+    public const CONDITION_ENDSWITH = 'endsWith';
+    public const CONDITION_EXPRESSION = 'expression';
+    public const CONDITION_NOTCONTAINSBLANKS = 'notContainsBlanks';
+    public const CONDITION_NOTCONTAINSERRORS = 'notContainsErrors';
+    public const CONDITION_NOTCONTAINSTEXT = 'notContainsText';
+    public const CONDITION_TIMEPERIOD = 'timePeriod';
+    public const CONDITION_DUPLICATES = 'duplicateValues';
+    public const CONDITION_UNIQUE = 'uniqueValues';
 
     private const CONDITION_TYPES = [
         self::CONDITION_BEGINSWITH,
@@ -46,30 +46,30 @@ class Conditional implements IComparable
     ];
 
     // Operator types
-    const OPERATOR_NONE = '';
-    const OPERATOR_BEGINSWITH = 'beginsWith';
-    const OPERATOR_ENDSWITH = 'endsWith';
-    const OPERATOR_EQUAL = 'equal';
-    const OPERATOR_GREATERTHAN = 'greaterThan';
-    const OPERATOR_GREATERTHANOREQUAL = 'greaterThanOrEqual';
-    const OPERATOR_LESSTHAN = 'lessThan';
-    const OPERATOR_LESSTHANOREQUAL = 'lessThanOrEqual';
-    const OPERATOR_NOTEQUAL = 'notEqual';
-    const OPERATOR_CONTAINSTEXT = 'containsText';
-    const OPERATOR_NOTCONTAINS = 'notContains';
-    const OPERATOR_BETWEEN = 'between';
-    const OPERATOR_NOTBETWEEN = 'notBetween';
+    public const OPERATOR_NONE = '';
+    public const OPERATOR_BEGINSWITH = 'beginsWith';
+    public const OPERATOR_ENDSWITH = 'endsWith';
+    public const OPERATOR_EQUAL = 'equal';
+    public const OPERATOR_GREATERTHAN = 'greaterThan';
+    public const OPERATOR_GREATERTHANOREQUAL = 'greaterThanOrEqual';
+    public const OPERATOR_LESSTHAN = 'lessThan';
+    public const OPERATOR_LESSTHANOREQUAL = 'lessThanOrEqual';
+    public const OPERATOR_NOTEQUAL = 'notEqual';
+    public const OPERATOR_CONTAINSTEXT = 'containsText';
+    public const OPERATOR_NOTCONTAINS = 'notContains';
+    public const OPERATOR_BETWEEN = 'between';
+    public const OPERATOR_NOTBETWEEN = 'notBetween';
 
-    const TIMEPERIOD_TODAY = 'today';
-    const TIMEPERIOD_YESTERDAY = 'yesterday';
-    const TIMEPERIOD_TOMORROW = 'tomorrow';
-    const TIMEPERIOD_LAST_7_DAYS = 'last7Days';
-    const TIMEPERIOD_LAST_WEEK = 'lastWeek';
-    const TIMEPERIOD_THIS_WEEK = 'thisWeek';
-    const TIMEPERIOD_NEXT_WEEK = 'nextWeek';
-    const TIMEPERIOD_LAST_MONTH = 'lastMonth';
-    const TIMEPERIOD_THIS_MONTH = 'thisMonth';
-    const TIMEPERIOD_NEXT_MONTH = 'nextMonth';
+    public const TIMEPERIOD_TODAY = 'today';
+    public const TIMEPERIOD_YESTERDAY = 'yesterday';
+    public const TIMEPERIOD_TOMORROW = 'tomorrow';
+    public const TIMEPERIOD_LAST_7_DAYS = 'last7Days';
+    public const TIMEPERIOD_LAST_WEEK = 'lastWeek';
+    public const TIMEPERIOD_THIS_WEEK = 'thisWeek';
+    public const TIMEPERIOD_NEXT_WEEK = 'nextWeek';
+    public const TIMEPERIOD_LAST_MONTH = 'lastMonth';
+    public const TIMEPERIOD_THIS_MONTH = 'thisMonth';
+    public const TIMEPERIOD_NEXT_MONTH = 'nextMonth';
 
     /**
      * Condition type.
@@ -308,7 +308,7 @@ class Conditional implements IComparable
             . $this->operatorType
             . implode(';', $this->condition)
             . $this->style->getHashCode()
-            . __CLASS__
+            . self::class
         );
     }
 

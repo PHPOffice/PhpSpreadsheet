@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class LinearBestFitTest extends TestCase
 {
-    const LBF_PRECISION = 1.0E-8;
+    public const LBF_PRECISION = 1.0E-8;
 
     /**
      * @dataProvider providerLinearBestFit

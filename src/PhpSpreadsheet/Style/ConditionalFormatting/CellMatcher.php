@@ -30,8 +30,6 @@ class CellMatcher
         Conditional::CONDITION_UNIQUE => "COUNTIF('%s'!%s,%s)=1",
     ];
 
-    protected Cell $cell;
-
     protected int $cellRow;
 
     protected Worksheet $worksheet;
@@ -48,10 +46,9 @@ class CellMatcher
 
     protected Calculation $engine;
 
-    public function __construct(Cell $cell, string $conditionalRange)
+    public function __construct(protected Cell $cell, string $conditionalRange)
     {
-        $this->cell = $cell;
-        $this->worksheet = $cell->getWorksheet();
+        $this->worksheet = $this->cell->getWorksheet();
         [$this->cellColumn, $this->cellRow] = Coordinate::indexesFromString($this->cell->getCoordinate());
         $this->setReferenceCellForExpressions($conditionalRange);
 

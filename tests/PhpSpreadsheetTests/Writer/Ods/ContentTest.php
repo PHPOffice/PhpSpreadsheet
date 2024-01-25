@@ -69,7 +69,7 @@ class ContentTest extends TestCase
             DataType::TYPE_FORMULA
         ); // Formula
 
-        $worksheet1->setCellValue('D2', Date::PHPToExcel(1488635026)); // Date
+        $worksheet1->setCellValue('D2', Date::PHPToExcel(1_488_635_026)); // Date
         $worksheet1->getStyle('D2')
             ->getNumberFormat()
             ->setFormatCode(NumberFormat::FORMAT_DATE_DATETIME);

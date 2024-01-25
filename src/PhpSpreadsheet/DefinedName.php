@@ -9,11 +9,6 @@ abstract class DefinedName
     protected const REGEXP_IDENTIFY_FORMULA = '[^_\p{N}\p{L}:, \$\'!]';
 
     /**
-     * Name.
-     */
-    protected string $name;
-
-    /**
      * Worksheet on which the defined name can be resolved.
      */
     protected ?Worksheet $worksheet;
@@ -22,11 +17,6 @@ abstract class DefinedName
      * Value of the named object.
      */
     protected string $value;
-
-    /**
-     * Is the defined named local? (i.e. can only be used on $this->worksheet).
-     */
-    protected bool $localOnly;
 
     /**
      * Scope.
@@ -42,23 +32,25 @@ abstract class DefinedName
      * Create a new Defined Name.
      */
     public function __construct(
-        string $name,
+        /**
+         * Name.
+         */
+        protected string $name,
         ?Worksheet $worksheet = null,
         ?string $value = null,
-        bool $localOnly = false,
+        /**
+         * Is the defined named local? (i.e. can only be used on $this->worksheet).
+         */
+        protected bool $localOnly = false,
         ?Worksheet $scope = null
     ) {
         if ($worksheet === null) {
             $worksheet = $scope;
         }
-
-        // Set local members
-        $this->name = $name;
         $this->worksheet = $worksheet;
         $this->value = (string) $value;
-        $this->localOnly = $localOnly;
         // If local only, then the scope will be set to worksheet unless a scope is explicitly set
-        $this->scope = ($localOnly === true) ? (($scope === null) ? $worksheet : $scope) : null;
+        $this->scope = ($this->localOnly === true) ? ($scope ?? $worksheet) : null;
         // If the range string contains characters that aren't associated with the range definition (A-Z,1-9
         //      for cell references, and $, or the range operators (colon comma or space), quotes and ! for
         //      worksheet names

@@ -28,42 +28,42 @@ class Calculation
     /** Constants                */
     /** Regular Expressions        */
     //    Numeric operand
-    const CALCULATION_REGEXP_NUMBER = '[-+]?\d*\.?\d+(e[-+]?\d+)?';
+    public const CALCULATION_REGEXP_NUMBER = '[-+]?\d*\.?\d+(e[-+]?\d+)?';
     //    String operand
-    const CALCULATION_REGEXP_STRING = '"(?:[^"]|"")*"';
+    public const CALCULATION_REGEXP_STRING = '"(?:[^"]|"")*"';
     //    Opening bracket
-    const CALCULATION_REGEXP_OPENBRACE = '\(';
+    public const CALCULATION_REGEXP_OPENBRACE = '\(';
     //    Function (allow for the old @ symbol that could be used to prefix a function, but we'll ignore it)
-    const CALCULATION_REGEXP_FUNCTION = '@?(?:_xlfn\.)?(?:_xlws\.)?([\p{L}][\p{L}\p{N}\.]*)[\s]*\(';
+    public const CALCULATION_REGEXP_FUNCTION = '@?(?:_xlfn\.)?(?:_xlws\.)?([\p{L}][\p{L}\p{N}\.]*)[\s]*\(';
     //    Strip xlfn and xlws prefixes from function name
-    const CALCULATION_REGEXP_STRIP_XLFN_XLWS = '/(_xlfn[.])?(_xlws[.])?(?=[\p{L}][\p{L}\p{N}\.]*[\s]*[(])/';
+    public const CALCULATION_REGEXP_STRIP_XLFN_XLWS = '/(_xlfn[.])?(_xlws[.])?(?=[\p{L}][\p{L}\p{N}\.]*[\s]*[(])/';
     //    Cell reference (cell or range of cells, with or without a sheet reference)
-    const CALCULATION_REGEXP_CELLREF = '((([^\s,!&%^\/\*\+<>=:`-]*)|(\'(?:[^\']|\'[^!])+?\')|(\"(?:[^\"]|\"[^!])+?\"))!)?\$?\b([a-z]{1,3})\$?(\d{1,7})(?![\w.])';
+    public const CALCULATION_REGEXP_CELLREF = '((([^\s,!&%^\/\*\+<>=:`-]*)|(\'(?:[^\']|\'[^!])+?\')|(\"(?:[^\"]|\"[^!])+?\"))!)?\$?\b([a-z]{1,3})\$?(\d{1,7})(?![\w.])';
     //    Cell reference (with or without a sheet reference) ensuring absolute/relative
-    const CALCULATION_REGEXP_CELLREF_RELATIVE = '((([^\s\(,!&%^\/\*\+<>=:`-]*)|(\'(?:[^\']|\'[^!])+?\')|(\"(?:[^\"]|\"[^!])+?\"))!)?(\$?\b[a-z]{1,3})(\$?\d{1,7})(?![\w.])';
-    const CALCULATION_REGEXP_COLUMN_RANGE = '(((([^\s\(,!&%^\/\*\+<>=:`-]*)|(\'(?:[^\']|\'[^!])+?\')|(\".(?:[^\"]|\"[^!])?\"))!)?(\$?[a-z]{1,3})):(?![.*])';
-    const CALCULATION_REGEXP_ROW_RANGE = '(((([^\s\(,!&%^\/\*\+<>=:`-]*)|(\'(?:[^\']|\'[^!])+?\')|(\"(?:[^\"]|\"[^!])+?\"))!)?(\$?[1-9][0-9]{0,6})):(?![.*])';
+    public const CALCULATION_REGEXP_CELLREF_RELATIVE = '((([^\s\(,!&%^\/\*\+<>=:`-]*)|(\'(?:[^\']|\'[^!])+?\')|(\"(?:[^\"]|\"[^!])+?\"))!)?(\$?\b[a-z]{1,3})(\$?\d{1,7})(?![\w.])';
+    public const CALCULATION_REGEXP_COLUMN_RANGE = '(((([^\s\(,!&%^\/\*\+<>=:`-]*)|(\'(?:[^\']|\'[^!])+?\')|(\".(?:[^\"]|\"[^!])?\"))!)?(\$?[a-z]{1,3})):(?![.*])';
+    public const CALCULATION_REGEXP_ROW_RANGE = '(((([^\s\(,!&%^\/\*\+<>=:`-]*)|(\'(?:[^\']|\'[^!])+?\')|(\"(?:[^\"]|\"[^!])+?\"))!)?(\$?[1-9][0-9]{0,6})):(?![.*])';
     //    Cell reference (with or without a sheet reference) ensuring absolute/relative
     //    Cell ranges ensuring absolute/relative
-    const CALCULATION_REGEXP_COLUMNRANGE_RELATIVE = '(\$?[a-z]{1,3}):(\$?[a-z]{1,3})';
-    const CALCULATION_REGEXP_ROWRANGE_RELATIVE = '(\$?\d{1,7}):(\$?\d{1,7})';
+    public const CALCULATION_REGEXP_COLUMNRANGE_RELATIVE = '(\$?[a-z]{1,3}):(\$?[a-z]{1,3})';
+    public const CALCULATION_REGEXP_ROWRANGE_RELATIVE = '(\$?\d{1,7}):(\$?\d{1,7})';
     //    Defined Names: Named Range of cells, or Named Formulae
-    const CALCULATION_REGEXP_DEFINEDNAME = '((([^\s,!&%^\/\*\+<>=-]*)|(\'(?:[^\']|\'[^!])+?\')|(\"(?:[^\"]|\"[^!])+?\"))!)?([_\p{L}][_\p{L}\p{N}\.]*)';
+    public const CALCULATION_REGEXP_DEFINEDNAME = '((([^\s,!&%^\/\*\+<>=-]*)|(\'(?:[^\']|\'[^!])+?\')|(\"(?:[^\"]|\"[^!])+?\"))!)?([_\p{L}][_\p{L}\p{N}\.]*)';
     // Structured Reference (Fully Qualified and Unqualified)
-    const CALCULATION_REGEXP_STRUCTURED_REFERENCE = '([\p{L}_\\\\][\p{L}\p{N}\._]+)?(\[(?:[^\d\]+-])?)';
+    public const CALCULATION_REGEXP_STRUCTURED_REFERENCE = '([\p{L}_\\\\][\p{L}\p{N}\._]+)?(\[(?:[^\d\]+-])?)';
     //    Error
-    const CALCULATION_REGEXP_ERROR = '\#[A-Z][A-Z0_\/]*[!\?]?';
+    public const CALCULATION_REGEXP_ERROR = '\#[A-Z][A-Z0_\/]*[!\?]?';
 
     /** constants */
-    const RETURN_ARRAY_AS_ERROR = 'error';
-    const RETURN_ARRAY_AS_VALUE = 'value';
-    const RETURN_ARRAY_AS_ARRAY = 'array';
+    public const RETURN_ARRAY_AS_ERROR = 'error';
+    public const RETURN_ARRAY_AS_VALUE = 'value';
+    public const RETURN_ARRAY_AS_ARRAY = 'array';
 
-    const FORMULA_OPEN_FUNCTION_BRACE = '(';
-    const FORMULA_CLOSE_FUNCTION_BRACE = ')';
-    const FORMULA_OPEN_MATRIX_BRACE = '{';
-    const FORMULA_CLOSE_MATRIX_BRACE = '}';
-    const FORMULA_STRING_QUOTE = '"';
+    public const FORMULA_OPEN_FUNCTION_BRACE = '(';
+    public const FORMULA_CLOSE_FUNCTION_BRACE = ')';
+    public const FORMULA_OPEN_MATRIX_BRACE = '{';
+    public const FORMULA_CLOSE_MATRIX_BRACE = '}';
+    public const FORMULA_STRING_QUOTE = '"';
 
     private static string $returnArrayAsType = self::RETURN_ARRAY_AS_VALUE;
 
@@ -73,11 +73,6 @@ class Calculation
      * @var ?Calculation
      */
     private static ?Calculation $instance = null;
-
-    /**
-     * Instance of the spreadsheet this Calculation Engine is using.
-     */
-    private ?Spreadsheet $spreadsheet;
 
     /**
      * Calculation cache.
@@ -2874,9 +2869,11 @@ class Calculation
         ],
     ];
 
-    public function __construct(?Spreadsheet $spreadsheet = null)
-    {
-        $this->spreadsheet = $spreadsheet;
+    public function __construct(/**
+         * Instance of the spreadsheet this Calculation Engine is using.
+         */
+        private ?Spreadsheet $spreadsheet = null
+    ) {
         $this->cyclicReferenceStack = new CyclicReferenceStack();
         $this->debugLog = new Logger($this->cyclicReferenceStack);
         $this->branchPruner = new BranchPruner($this->branchPruningEnabled);
@@ -3129,7 +3126,7 @@ class Calculation
                 //    Search for a file with a list of function names for locale
                 try {
                     $functionNamesFile = $this->getLocaleFile($localeDir, $locale, $language, 'functions');
-                } catch (Exception $e) {
+                } catch (Exception) {
                     return false;
                 }
 
@@ -3273,10 +3270,10 @@ class Calculation
     }
 
     /** @var ?array */
-    private static ?array $functionReplaceFromExcel;
+    private static ?array $functionReplaceFromExcel = null;
 
     /** @var ?array */
-    private static ?array $functionReplaceToLocale;
+    private static ?array $functionReplaceToLocale = null;
 
     /**
      * @deprecated 1.30.0 use translateFormulaToLocale() instead
@@ -3322,10 +3319,10 @@ class Calculation
     }
 
     /** @var ?array */
-    private static ?array $functionReplaceFromLocale;
+    private static ?array $functionReplaceFromLocale = null;
 
     /** @var ?array */
-    private static ?array $functionReplaceToExcel;
+    private static ?array $functionReplaceToExcel = null;
 
     /**
      * @deprecated 1.30.0 use translateFormulaToEnglish() instead
@@ -4359,7 +4356,7 @@ class Calculation
                                 $refSheet = $pCellParent->getParentOrThrow()->getSheetByName($rangeSheetRef);
                             }
 
-                            if (ctype_digit($val) && $val <= 1048576) {
+                            if (ctype_digit($val) && $val <= 1_048_576) {
                                 //    Row range
                                 $stackItemType = 'Row Reference';
                                 /** @var int $valx */

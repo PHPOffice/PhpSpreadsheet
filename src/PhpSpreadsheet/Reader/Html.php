@@ -28,7 +28,7 @@ class Html extends BaseReader
     /**
      * Sample size to read to determine if it's HTML or not.
      */
-    const TEST_SAMPLE_SIZE = 2048;
+    public const TEST_SAMPLE_SIZE = 2048;
 
     /**
      * Input encoding.
@@ -760,7 +760,7 @@ class Html extends BaseReader
         if ($loaded === false) {
             throw new Exception('Failed to load content as a DOM Document', 0, $e ?? null);
         }
-        $spreadsheet = $spreadsheet ?? new Spreadsheet();
+        $spreadsheet ??= new Spreadsheet();
         self::loadProperties($dom, $spreadsheet);
 
         return $this->loadDocument($dom, $spreadsheet);

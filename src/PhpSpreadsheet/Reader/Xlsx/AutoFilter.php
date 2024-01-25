@@ -11,14 +11,8 @@ use SimpleXMLElement;
 
 class AutoFilter
 {
-    private Table|Worksheet $parent;
-
-    private SimpleXMLElement $worksheetXml;
-
-    public function __construct(Table|Worksheet $parent, SimpleXMLElement $worksheetXml)
+    public function __construct(private Table|Worksheet $parent, private SimpleXMLElement $worksheetXml)
     {
-        $this->parent = $parent;
-        $this->worksheetXml = $worksheetXml;
     }
 
     public function load(): void

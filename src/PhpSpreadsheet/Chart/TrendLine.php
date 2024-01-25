@@ -4,13 +4,13 @@ namespace PhpOffice\PhpSpreadsheet\Chart;
 
 class TrendLine extends Properties
 {
-    const TRENDLINE_EXPONENTIAL = 'exp';
-    const TRENDLINE_LINEAR = 'linear';
-    const TRENDLINE_LOGARITHMIC = 'log';
-    const TRENDLINE_POLYNOMIAL = 'poly'; // + 'order'
-    const TRENDLINE_POWER = 'power';
-    const TRENDLINE_MOVING_AVG = 'movingAvg'; // + 'period'
-    const TRENDLINE_TYPES = [
+    public const TRENDLINE_EXPONENTIAL = 'exp';
+    public const TRENDLINE_LINEAR = 'linear';
+    public const TRENDLINE_LOGARITHMIC = 'log';
+    public const TRENDLINE_POLYNOMIAL = 'poly'; // + 'order'
+    public const TRENDLINE_POWER = 'power';
+    public const TRENDLINE_MOVING_AVG = 'movingAvg'; // + 'period'
+    public const TRENDLINE_TYPES = [
         self::TRENDLINE_EXPONENTIAL,
         self::TRENDLINE_LINEAR,
         self::TRENDLINE_LOGARITHMIC,

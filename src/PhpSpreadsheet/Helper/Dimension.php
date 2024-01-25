@@ -18,7 +18,7 @@ class Dimension
     /**
      * Based on 96 dpi.
      */
-    const ABSOLUTE_UNITS = [
+    public const ABSOLUTE_UNITS = [
         self::UOM_CENTIMETERS => 96.0 / 2.54,
         self::UOM_MILLIMETERS => 96.0 / 25.4,
         self::UOM_INCHES => 96.0,
@@ -30,7 +30,7 @@ class Dimension
     /**
      * Based on a standard column width of 8.54 units in MS Excel.
      */
-    const RELATIVE_UNITS = [
+    public const RELATIVE_UNITS = [
         'em' => 10.0 / 8.54,
         'ex' => 10.0 / 8.54,
         'ch' => 10.0 / 8.54,

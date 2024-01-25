@@ -6,14 +6,11 @@ use PhpOffice\PhpSpreadsheet\Reader;
 
 class XmlScanner
 {
-    private string $pattern;
-
     /** @var ?callable */
     private $callback;
 
-    public function __construct(string $pattern = '<!DOCTYPE')
+    public function __construct(private string $pattern = '<!DOCTYPE')
     {
-        $this->pattern = $pattern;
     }
 
     public static function getInstance(Reader\IReader $reader): self

@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class StructuredReferenceSlashTest extends TestCase
 {
-    protected ?Spreadsheet $spreadSheet;
+    protected ?Spreadsheet $spreadSheet = null;
 
     protected const COLUMN_FORMULA = '=[@Sales Amount]*[@[% Commission]]';
 

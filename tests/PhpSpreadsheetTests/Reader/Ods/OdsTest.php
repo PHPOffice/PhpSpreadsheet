@@ -54,15 +54,15 @@ class OdsTest extends TestCase
     {
         $spreadsheet = $this->loadDataFile();
 
-        self::assertInstanceOf('PhpOffice\PhpSpreadsheet\Spreadsheet', $spreadsheet);
+        self::assertInstanceOf(Spreadsheet::class, $spreadsheet);
 
         self::assertEquals(2, $spreadsheet->getSheetCount());
 
         $firstSheet = $spreadsheet->getSheet(0);
-        self::assertInstanceOf('PhpOffice\PhpSpreadsheet\Worksheet\Worksheet', $firstSheet);
+        self::assertInstanceOf(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::class, $firstSheet);
 
         $secondSheet = $spreadsheet->getSheet(1);
-        self::assertInstanceOf('PhpOffice\PhpSpreadsheet\Worksheet\Worksheet', $secondSheet);
+        self::assertInstanceOf(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::class, $secondSheet);
         self::assertEquals('Sheet1', $spreadsheet->getSheet(0)->getTitle());
         self::assertEquals('Second Sheet', $spreadsheet->getSheet(1)->getTitle());
         $spreadsheet->disconnectWorksheets();
@@ -109,15 +109,15 @@ class OdsTest extends TestCase
         $reader = new Ods();
         $spreadsheet = $reader->load(__FILE__);
 
-        self::assertInstanceOf('PhpOffice\PhpSpreadsheet\Spreadsheet', $spreadsheet);
+        self::assertInstanceOf(Spreadsheet::class, $spreadsheet);
 
         self::assertEquals(2, $spreadsheet->getSheetCount());
 
         $firstSheet = $spreadsheet->getSheet(0);
-        self::assertInstanceOf('PhpOffice\PhpSpreadsheet\Worksheet\Worksheet', $firstSheet);
+        self::assertInstanceOf(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::class, $firstSheet);
 
         $secondSheet = $spreadsheet->getSheet(1);
-        self::assertInstanceOf('PhpOffice\PhpSpreadsheet\Worksheet\Worksheet', $secondSheet);
+        self::assertInstanceOf(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::class, $secondSheet);
     }
 
     public function testLoadCorruptFile(): void
@@ -127,15 +127,15 @@ class OdsTest extends TestCase
         $reader = new Ods();
         $spreadsheet = $reader->load($filename);
 
-        self::assertInstanceOf('PhpOffice\PhpSpreadsheet\Spreadsheet', $spreadsheet);
+        self::assertInstanceOf(Spreadsheet::class, $spreadsheet);
 
         self::assertEquals(2, $spreadsheet->getSheetCount());
 
         $firstSheet = $spreadsheet->getSheet(0);
-        self::assertInstanceOf('PhpOffice\PhpSpreadsheet\Worksheet\Worksheet', $firstSheet);
+        self::assertInstanceOf(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::class, $firstSheet);
 
         $secondSheet = $spreadsheet->getSheet(1);
-        self::assertInstanceOf('PhpOffice\PhpSpreadsheet\Worksheet\Worksheet', $secondSheet);
+        self::assertInstanceOf(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::class, $secondSheet);
     }
 
     public function testReadValueAndComments(): void

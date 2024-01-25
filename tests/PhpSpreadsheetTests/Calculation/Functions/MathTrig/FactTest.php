@@ -8,7 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class FactTest extends AllSetupTeardown
 {
-    const FACT_PRECISION = 1E-12;
+    public const FACT_PRECISION = 1E-12;
 
     /**
      * @dataProvider providerFACT

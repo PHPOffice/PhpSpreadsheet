@@ -117,11 +117,7 @@ class DggContainer
      */
     public function getOPT(int $property): mixed
     {
-        if (isset($this->OPT[$property])) {
-            return $this->OPT[$property];
-        }
-
-        return null;
+        return $this->OPT[$property] ?? null;
     }
 
     /**

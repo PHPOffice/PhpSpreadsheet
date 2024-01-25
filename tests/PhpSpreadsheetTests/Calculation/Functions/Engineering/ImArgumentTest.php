@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 class ImArgumentTest extends TestCase
 {
-    const COMPLEX_PRECISION = 1E-12;
+    public const COMPLEX_PRECISION = 1E-12;
 
     protected function setUp(): void
     {

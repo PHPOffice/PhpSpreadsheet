@@ -22,12 +22,9 @@ class Errors extends WizardAbstract implements WizardInterface
         Wizard::ERRORS => 'ISERROR(%s)',
     ];
 
-    protected bool $inverse;
-
-    public function __construct(string $cellRange, bool $inverse = false)
+    public function __construct(string $cellRange, protected bool $inverse = false)
     {
         parent::__construct($cellRange);
-        $this->inverse = $inverse;
     }
 
     protected function inverse(bool $inverse): void
