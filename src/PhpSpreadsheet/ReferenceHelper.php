@@ -588,7 +588,7 @@ class ReferenceHelper
                                 $toString .= $modified3 . ':' . $modified4;
                                 //    Max worksheet size is 1,048,576 rows by 16,384 columns in Excel 2007, so our adjustments need to be at least one digit more
                                 $column = 100000;
-                                $row = 10_000_000 + (int) trim($match[3], '$');
+                                $row = 10000000 + (int) trim($match[3], '$');
                                 $cellIndex = "{$column}{$row}";
 
                                 $newCellTokens[$cellIndex] = preg_quote($toString, '/');
@@ -613,7 +613,7 @@ class ReferenceHelper
                                 $toString .= $modified3 . ':' . $modified4;
                                 //    Max worksheet size is 1,048,576 rows by 16,384 columns in Excel 2007, so our adjustments need to be at least one digit more
                                 $column = Coordinate::columnIndexFromString(trim($match[3], '$')) + 100000;
-                                $row = 10_000_000;
+                                $row = 10000000;
                                 $cellIndex = "{$column}{$row}";
 
                                 $newCellTokens[$cellIndex] = preg_quote($toString, '/');
@@ -639,7 +639,7 @@ class ReferenceHelper
                                 [$column, $row] = Coordinate::coordinateFromString($match[3]);
                                 //    Max worksheet size is 1,048,576 rows by 16,384 columns in Excel 2007, so our adjustments need to be at least one digit more
                                 $column = Coordinate::columnIndexFromString(trim($column, '$')) + 100000;
-                                $row = (int) trim($row, '$') + 10_000_000;
+                                $row = (int) trim($row, '$') + 10000000;
                                 $cellIndex = "{$column}{$row}";
 
                                 $newCellTokens[$cellIndex] = preg_quote($toString, '/');
@@ -667,7 +667,7 @@ class ReferenceHelper
                                 $rowAdditionalIndex = $row[0] === '$' ? 1 : 0;
                                 //    Max worksheet size is 1,048,576 rows by 16,384 columns in Excel 2007, so our adjustments need to be at least one digit more
                                 $column = Coordinate::columnIndexFromString(trim($column, '$')) + 100000;
-                                $row = (int) trim($row, '$') + 10_000_000;
+                                $row = (int) trim($row, '$') + 10000000;
                                 $cellIndex = $row . $rowAdditionalIndex . $column . $columnAdditionalIndex;
 
                                 $newCellTokens[$cellIndex] = preg_quote($toString, '/');

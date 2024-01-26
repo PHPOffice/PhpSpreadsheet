@@ -7,7 +7,7 @@ namespace PhpOffice\PhpSpreadsheet\Cell;
  */
 interface AddressRange
 {
-    public const MAX_ROW = 1_048_576;
+    public const MAX_ROW = 1048576;
 
     public const MAX_COLUMN = 'XFD';
 

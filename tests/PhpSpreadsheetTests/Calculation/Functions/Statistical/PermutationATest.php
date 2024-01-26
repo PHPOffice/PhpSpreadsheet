@@ -52,17 +52,17 @@ class PermutationATest extends AllSetupTeardown
                 '3',
             ],
             'second argument row vector' => [
-                [[2197, 4_826_809]],
+                [[2197, 4826809]],
                 '13',
                 '{3, 6}',
             ],
             'second argument column vector' => [
-                [[2197], [4_826_809]],
+                [[2197], [4826809]],
                 '13',
                 '{3; 6}',
             ],
             'second argument matrix' => [
-                [[2197, 4_826_809], [28561, 815_730_721]],
+                [[2197, 4826809], [28561, 815730721]],
                 '13',
                 '{3, 6; 4, 8}',
             ],

@@ -218,7 +218,7 @@ class Date
         $days = floor($excelTimestamp);
         $partDay = $excelTimestamp - $days;
         $hms = 86400 * $partDay;
-        $microseconds = (int) round(fmod($hms, 1) * 1_000_000);
+        $microseconds = (int) round(fmod($hms, 1) * 1000000);
         $hms = (int) floor($hms);
         $hours = intdiv($hms, 3600);
         $hms -= $hours * 3600;
@@ -331,9 +331,9 @@ class Date
             if (($year == 1900) && ($month <= 2)) {
                 $excel1900isLeapYear = false;
             }
-            $myexcelBaseDate = 2_415_020;
+            $myexcelBaseDate = 2415020;
         } else {
-            $myexcelBaseDate = 2_416_481;
+            $myexcelBaseDate = 2416481;
             $excel1900isLeapYear = false;
         }
 
@@ -348,7 +348,7 @@ class Date
         //    Calculate the Julian Date, then subtract the Excel base date (JD 2415020 = 31-Dec-1899 Giving Excel Date of 0)
         $century = (int) substr((string) $year, 0, 2);
         $decade = (int) substr((string) $year, 2, 2);
-        $excelDate = floor((146097 * $century) / 4) + floor((1461 * $decade) / 4) + floor((153 * $month + 2) / 5) + $day + 1_721_119 - $myexcelBaseDate + $excel1900isLeapYear;
+        $excelDate = floor((146097 * $century) / 4) + floor((1461 * $decade) / 4) + floor((153 * $month + 2) / 5) + $day + 1721119 - $myexcelBaseDate + $excel1900isLeapYear;
 
         $excelTime = (($hours * 3600) + ($minutes * 60) + $seconds) / 86400;
 

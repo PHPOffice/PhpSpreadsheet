@@ -112,7 +112,7 @@ class EoMonthTest extends TestCase
         Functions::setReturnDateType(Functions::RETURNDATE_UNIX_TIMESTAMP);
 
         $result = Month::lastDay('2012-1-26', -1);
-        self::assertEquals(1_325_289_600, $result);
+        self::assertEquals(1325289600, $result);
     }
 
     public function testEOMONTHtoDateTimeObject(): void

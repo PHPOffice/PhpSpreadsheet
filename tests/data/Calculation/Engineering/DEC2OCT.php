@@ -18,10 +18,10 @@ return [
     [ExcelError::VALUE(), false],
     ['7777777634', '-100'], // 2's Complement
     ['7777777625', '-107'], // 2's Complement
-    ['3777777777', 536_870_911], // highest positive
-    [ExcelError::NAN(), 536_870_912],
-    ['4000000000', -536_870_912], // lowest negative
-    [ExcelError::NAN(), -536_870_913],
+    ['3777777777', 536870911], // highest positive
+    [ExcelError::NAN(), 536870912],
+    ['4000000000', -536870912], // lowest negative
+    [ExcelError::NAN(), -536870913],
     ['0403', 259, 4],
     [ExcelError::NAN(), 259, 0],
     [ExcelError::NAN(), 259, -1],

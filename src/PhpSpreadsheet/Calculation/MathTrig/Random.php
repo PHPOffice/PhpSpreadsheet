@@ -17,7 +17,7 @@ class Random
      */
     public static function rand(): int|float
     {
-        return mt_rand(0, 10_000_000) / 10_000_000;
+        return mt_rand(0, 10000000) / 10000000;
     }
 
     /**

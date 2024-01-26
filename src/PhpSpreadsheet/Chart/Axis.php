@@ -84,16 +84,16 @@ class Axis extends Properties
     public const DISP_UNITS_HUNDRED_MILLIONS = 'hundredMillions';
     public const DISP_UNITS_BILLIONS = 'billions';
     public const DISP_UNITS_TRILLIONS = 'trillions';
-    public const TRILLION_INDEX = (PHP_INT_SIZE > 4) ? 1_000_000_000_000 : '1000000000000';
+    public const TRILLION_INDEX = (PHP_INT_SIZE > 4) ? 1000000000000 : '1000000000000';
     public const DISP_UNITS_BUILTIN_INT = [
         100 => self::DISP_UNITS_HUNDREDS,
         1000 => self::DISP_UNITS_THOUSANDS,
         10000 => self::DISP_UNITS_TEN_THOUSANDS,
         100000 => self::DISP_UNITS_HUNDRED_THOUSANDS,
-        1_000_000 => self::DISP_UNITS_MILLIONS,
-        10_000_000 => self::DISP_UNITS_TEN_MILLIONS,
-        100_000_000 => self::DISP_UNITS_HUNDRED_MILLIONS,
-        1_000_000_000 => self::DISP_UNITS_BILLIONS,
+        1000000 => self::DISP_UNITS_MILLIONS,
+        10000000 => self::DISP_UNITS_TEN_MILLIONS,
+        100000000 => self::DISP_UNITS_HUNDRED_MILLIONS,
+        1000000000 => self::DISP_UNITS_BILLIONS,
         self::TRILLION_INDEX => self::DISP_UNITS_TRILLIONS, // overflow for 32-bit
     ];
 

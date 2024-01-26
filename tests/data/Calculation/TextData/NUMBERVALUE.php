@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 return [
     [
-        1_234_567.89,
+        1234567.89,
         '1,234,567.890',
     ],
     [
-        1_234_567.89,
+        1234567.89,
         '1 234 567,890', ',', ' ',
     ],
     [
-        -1_234_567.89,
+        -1234567.89,
         '-1 234 567,890', ',', ' ',
     ],
     [
@@ -28,7 +28,7 @@ return [
         '1.234.567.890,123',
     ],
     [
-        1_234_567.890,
+        1234567.890,
         '1.234.567,890', ',', '.',
     ],
     [
@@ -53,8 +53,8 @@ return [
     ],
     'no arguments' => ['exception'],
     'boolean argument' => ['#VALUE!', true],
-    'slash as group separator' => [1_234_567.1, '1/234/567.1', '.', '/'],
-    'slash as decimal separator' => [1_234_567.1, '1,234,567/1', '/', ','],
+    'slash as group separator' => [1234567.1, '1/234/567.1', '.', '/'],
+    'slash as decimal separator' => [1234567.1, '1,234,567/1', '/', ','],
     'issue 3574 null string treated as 0' => [0, '', ',', ' '],
     'issue 3574 one or more spaces treated as 0' => [0, '   ', ',', ' '],
     'issue 3574 non-blank numeric string okay' => [2, ' 2 ', ',', ' '],

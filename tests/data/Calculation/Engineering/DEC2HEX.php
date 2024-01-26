@@ -23,12 +23,12 @@ return [
     ['FFFFFFFF95', '-107'], // 2's Complement
     ['FF80000001', '-2147483647'], // 2's Complement
     ['FF80000000', '-2147483648'], // 2's Complement
-    ['7FFFFFFFFF', 549_755_813_887], // highest positive, succeeds even for 32-bit
-    [ExcelError::NAN(), 549_755_813_888],
-    ['8000000000', -549_755_813_888], // lowest negative, succeeds even for 32-bit
-    ['A2DE246000', -400_000_000_000],
-    ['5D21DBA000', 400_000_000_000],
-    [ExcelError::NAN(), -549_755_813_889],
+    ['7FFFFFFFFF', 549755813887], // highest positive, succeeds even for 32-bit
+    [ExcelError::NAN(), 549755813888],
+    ['8000000000', -549755813888], // lowest negative, succeeds even for 32-bit
+    ['A2DE246000', -400000000000],
+    ['5D21DBA000', 400000000000],
+    [ExcelError::NAN(), -549755813889],
     ['0103', 259, 4],
     [ExcelError::NAN(), 259, 0],
     [ExcelError::NAN(), 259, -1],

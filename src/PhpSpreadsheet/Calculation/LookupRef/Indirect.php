@@ -111,7 +111,7 @@ class Indirect
     private static function handleRowColumnRanges(?Worksheet $worksheet, string $start, string $end): string
     {
         // Being lazy, we're only checking a single row/column to get the max
-        if (ctype_digit($start) && $start <= 1_048_576) {
+        if (ctype_digit($start) && $start <= 1048576) {
             // Max 16,384 columns for Excel2007
             $endColRef = ($worksheet !== null) ? $worksheet->getHighestDataColumn((int) $start) : AddressRange::MAX_COLUMN;
 

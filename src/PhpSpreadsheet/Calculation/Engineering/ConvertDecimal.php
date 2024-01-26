@@ -7,12 +7,12 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 
 class ConvertDecimal extends ConvertBase
 {
-    public const LARGEST_OCTAL_IN_DECIMAL = 536_870_911;
-    public const SMALLEST_OCTAL_IN_DECIMAL = -536_870_912;
+    public const LARGEST_OCTAL_IN_DECIMAL = 536870911;
+    public const SMALLEST_OCTAL_IN_DECIMAL = -536870912;
     public const LARGEST_BINARY_IN_DECIMAL = 511;
     public const SMALLEST_BINARY_IN_DECIMAL = -512;
-    public const LARGEST_HEX_IN_DECIMAL = 549_755_813_887;
-    public const SMALLEST_HEX_IN_DECIMAL = -549_755_813_888;
+    public const LARGEST_HEX_IN_DECIMAL = 549755813887;
+    public const SMALLEST_HEX_IN_DECIMAL = -549755813888;
 
     /**
      * toBinary.

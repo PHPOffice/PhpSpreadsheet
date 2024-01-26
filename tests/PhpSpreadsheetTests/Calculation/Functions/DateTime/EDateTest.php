@@ -112,8 +112,8 @@ class EDateTest extends TestCase
         Functions::setReturnDateType(Functions::RETURNDATE_UNIX_TIMESTAMP);
 
         $result = Month::adjust('2012-1-26', -1);
-        self::assertEquals(1_324_857_600, $result);
-        self::assertEqualsWithDelta(1_324_857_600, $result, 1E-8);
+        self::assertEquals(1324857600, $result);
+        self::assertEqualsWithDelta(1324857600, $result, 1E-8);
     }
 
     public function testEDATEtoDateTimeObject(): void

@@ -52,7 +52,7 @@ class DSumTest extends SetupTeardownDatabases
                 ],
             ],
             [
-                1_210_000,
+                1210000,
                 self::database2(),
                 'Sales',
                 [

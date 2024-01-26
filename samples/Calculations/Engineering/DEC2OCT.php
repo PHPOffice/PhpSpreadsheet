@@ -27,7 +27,7 @@ $testData = [
     [121],
     [256],
     [511],
-    [12_345_678],
+    [12345678],
 ];
 $testDataCount = count($testData);
 

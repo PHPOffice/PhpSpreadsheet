@@ -50,7 +50,7 @@ class Value
                 return false;
             }
             [$column, $row] = Coordinate::indexesFromString($cellValue ?? '');
-            if ($column > 16384 || $row > 1_048_576) {
+            if ($column > 16384 || $row > 1048576) {
                 return false;
             }
 

@@ -4356,7 +4356,7 @@ class Calculation
                                 $refSheet = $pCellParent->getParentOrThrow()->getSheetByName($rangeSheetRef);
                             }
 
-                            if (ctype_digit($val) && $val <= 1_048_576) {
+                            if (ctype_digit($val) && $val <= 1048576) {
                                 //    Row range
                                 $stackItemType = 'Row Reference';
                                 /** @var int $valx */
