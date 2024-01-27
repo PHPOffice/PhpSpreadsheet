@@ -7,6 +7,28 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ## Unreleased - TBD
 
+### Added
+
+- Nothing
+
+### Changed
+
+- Nothing
+
+### Deprecated
+
+- Nothing
+
+### Removed
+
+- Nothing
+
+### Fixed
+
+- IF Empty Arguments. [Issue #3875](https://github.com/PHPOffice/PhpSpreadsheet/issues/3875) [Issue #2146](https://github.com/PHPOffice/PhpSpreadsheet/issues/2146) [PR #3879](https://github.com/PHPOffice/PhpSpreadsheet/pull/3879)
+
+## 2.0.0 - 2024-01-04
+
 ### BREAKING CHANGE
 
 - Typing was strengthened by leveraging native typing. This should not change any behavior. However, if you implement
