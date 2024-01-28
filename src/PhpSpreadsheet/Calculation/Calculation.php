@@ -1307,7 +1307,7 @@ class Calculation
         'IF' => [
             'category' => Category::CATEGORY_LOGICAL,
             'functionCall' => [Logical\Conditional::class, 'statementIf'],
-            'argumentCount' => '1-3',
+            'argumentCount' => '2-3',
         ],
         'IFERROR' => [
             'category' => Category::CATEGORY_LOGICAL,
@@ -4189,7 +4189,7 @@ class Calculation
                 //    If we've a comma when we're expecting an operand, then what we actually have is a null operand;
                 //        so push a null onto the stack
                 if (($expectingOperand) || (!$expectingOperator)) {
-                    $output[] = ['type' => 'Empty Argument', 'value' => self::$excelConstants['NULL'], 'reference' => 'NULL'];
+                    $output[] = $stack->getStackItem('Empty Argument', null, 'NULL');
                 }
                 // make sure there was a function
                 $d = $stack->last(2);
@@ -4436,7 +4436,7 @@ class Calculation
                 ++$index;
             } elseif ($opCharacter === ')') { // miscellaneous error checking
                 if ($expectingOperand) {
-                    $output[] = ['type' => 'Empty Argument', 'value' => self::$excelConstants['NULL'], 'reference' => 'NULL'];
+                    $output[] = $stack->getStackItem('Empty Argument', null, 'NULL');
                     $expectingOperand = false;
                     $expectingOperator = true;
                 } else {
@@ -4996,11 +4996,12 @@ class Calculation
                                 }
                             }
                         } else {
-                            $emptyArguments[] = ($arg['type'] === 'Empty Argument');
-                            if ($arg['type'] === 'Empty Argument' && in_array($functionName, ['MIN', 'MINA', 'MAX', 'MAXA'], true)) {
+                            if ($arg['type'] === 'Empty Argument' && in_array($functionName, ['MIN', 'MINA', 'MAX', 'MAXA', 'IF'], true)) {
+                                $emptyArguments[] = false;
                                 $args[] = $arg['value'] = 0;
                                 $this->debugLog->writeDebugLog('Empty Argument reevaluated as 0');
                             } else {
+                                $emptyArguments[] = $arg['type'] === 'Empty Argument';
                                 $args[] = self::unwrapResult($arg['value']);
                             }
                             if ($functionName !== 'MKMATRIX') {
