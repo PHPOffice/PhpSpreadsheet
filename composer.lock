@@ -1721,23 +1721,24 @@
         },
         {
             "name": "mitoteam/jpgraph",
-            "version": "v10.3.2",
+            "version": "10.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mitoteam/jpgraph.git",
-                "reference": "b53e3589053c83e77027125f2c2dd88b5b70e14f"
+                "reference": "bf92f4e7b498412c8bb60b70eb7625041b1526d8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mitoteam/jpgraph/zipball/b53e3589053c83e77027125f2c2dd88b5b70e14f",
-                "reference": "b53e3589053c83e77027125f2c2dd88b5b70e14f",
+                "url": "https://api.github.com/repos/mitoteam/jpgraph/zipball/bf92f4e7b498412c8bb60b70eb7625041b1526d8",
+                "reference": "bf92f4e7b498412c8bb60b70eb7625041b1526d8",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.5"
             },
             "replace": {
-                "jpgraph/jpgraph": "4.0.2"
+                "jpgraph/jpgraph": "4.0.2",
+                "rulin132/jpgraph": "4.3.5"
             },
             "type": "library",
             "autoload": {
@@ -1754,16 +1755,16 @@
                     "name": "JpGraph team"
                 }
             ],
-            "description": "JpGraph library composer package with PHP 8.2 support",
+            "description": "JpGraph library composer package with PHP 8.3 support",
             "homepage": "https://github.com/mitoteam/jpgraph",
             "keywords": [
                 "jpgraph"
             ],
             "support": {
                 "issues": "https://github.com/mitoteam/jpgraph/issues",
-                "source": "https://github.com/mitoteam/jpgraph/tree/v10.3.2"
+                "source": "https://github.com/mitoteam/jpgraph/tree/10.4.1"
             },
-            "time": "2023-08-09T07:51:55+00:00"
+            "time": "2024-01-29T10:59:20+00:00"
         },
         {
             "name": "mpdf/mpdf",
@@ -5423,5 +5424,5 @@
     "platform-overrides": {
         "php": "8.0.99"
     },
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }
