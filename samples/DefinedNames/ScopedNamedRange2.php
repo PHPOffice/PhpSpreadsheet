@@ -33,7 +33,7 @@ $clients = [
 ];
 
 foreach ($clients as $clientName => $workHours) {
-    $worksheet = $spreadsheet->addSheet(new \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet($spreadsheet, $clientName));
+    $worksheet = $spreadsheet->addSheet(new PhpOffice\PhpSpreadsheet\Worksheet\Worksheet($spreadsheet, $clientName));
 
     // Set up some basic data for a timesheet
     $worksheet

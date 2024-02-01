@@ -20,7 +20,7 @@ $worksheet
 $spreadsheet->addNamedRange(new NamedRange('CHARGE_RATE', $worksheet, '=$B$1'));
 
 // Create a second worksheet as our client timesheet
-$worksheet = $spreadsheet->addSheet(new \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet($spreadsheet, 'Client Timesheet'));
+$worksheet = $spreadsheet->addSheet(new PhpOffice\PhpSpreadsheet\Worksheet\Worksheet($spreadsheet, 'Client Timesheet'));
 
 // Define named ranges
 // HOURS_PER_DAY is a relative cell reference that always points to column B, but to a cell in the row where it is used

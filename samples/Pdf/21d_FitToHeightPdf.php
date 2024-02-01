@@ -14,6 +14,6 @@ $spreadsheet = $reader->load($fileWithPath);
 $sheet = $spreadsheet->getActiveSheet();
 
 $helper->log('Write to Mpdf');
-IOFactory::registerWriter('Pdf', \PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf::class);
+IOFactory::registerWriter('Pdf', PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf::class);
 $helper->write($spreadsheet, __FILE__, ['Pdf']);
 $spreadsheet->disconnectWorksheets();

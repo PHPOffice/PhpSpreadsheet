@@ -71,7 +71,7 @@ class TimeValue
             } elseif ($retType === Functions::RETURNDATE_UNIX_TIMESTAMP) {
                 $retValue = (int) SharedDateHelper::excelToTimestamp($excelDateValue + 25569) - 3600;
             } else {
-                $retValue = new DateTime('1900-01-01 ' . $PHPDateArray['hour'] . ':' . $PHPDateArray['minute'] . ':' . $PHPDateArray['second']);
+                $retValue = new Datetime('1900-01-01 ' . $PHPDateArray['hour'] . ':' . $PHPDateArray['minute'] . ':' . $PHPDateArray['second']);
             }
         }
 

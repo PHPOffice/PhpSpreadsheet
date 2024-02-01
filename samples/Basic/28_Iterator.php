@@ -7,13 +7,13 @@ require __DIR__ . '/../Header.php';
 
 $sampleSpreadsheet = require __DIR__ . '/../templates/sampleSpreadsheet.php';
 $filename = $helper->getTemporaryFilename();
-$writer = new XlsxWriter($sampleSpreadsheet);
+$writer = new XLsxWriter($sampleSpreadsheet);
 $callStartTime = microtime(true);
 $writer->save($filename);
 $helper->logWrite($writer, $filename, $callStartTime);
 
 $callStartTime = microtime(true);
-$reader = new XlsxReader();
+$reader = new XLsxReader();
 $spreadsheet = $reader->load($filename);
 $helper->logRead('Xlsx', $filename, $callStartTime);
 unlink($filename);

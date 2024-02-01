@@ -101,7 +101,7 @@ class Xlsx extends BaseReader
     }
 
     // Phpstan thinks, correctly, that xpath can return false.
-    private static function xpathNoFalse(SimpleXmlElement $sxml, string $path): array
+    private static function xpathNoFalse(SimpleXMLElement $sxml, string $path): array
     {
         return self::falseToArray($sxml->xpath($path));
     }
@@ -852,7 +852,7 @@ class Xlsx extends BaseReader
                                                         $value = self::castToBoolean($c);
                                                     } else {
                                                         $value = null;
-                                                        $cellDataType = DATATYPE::TYPE_NULL;
+                                                        $cellDataType = DataType::TYPE_NULL;
                                                     }
                                                 } else {
                                                     // Formula
@@ -2054,7 +2054,7 @@ class Xlsx extends BaseReader
         }
     }
 
-    private static function getLockValue(SimpleXmlElement $protection, string $key): ?bool
+    private static function getLockValue(SimpleXMLElement $protection, string $key): ?bool
     {
         $returnValue = null;
         $protectKey = $protection[$key];

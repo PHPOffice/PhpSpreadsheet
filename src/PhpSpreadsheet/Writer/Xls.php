@@ -90,7 +90,7 @@ class Xls extends BaseWriter
     {
         $this->spreadsheet = $spreadsheet;
 
-        $this->parser = new Xls\Parser($spreadsheet);
+        $this->parser = new Parser($spreadsheet);
     }
 
     /**
@@ -114,12 +114,12 @@ class Xls extends BaseWriter
         $this->colors = [];
 
         // Initialise workbook writer
-        $this->writerWorkbook = new Xls\Workbook($this->spreadsheet, $this->strTotal, $this->strUnique, $this->strTable, $this->colors, $this->parser);
+        $this->writerWorkbook = new Workbook($this->spreadsheet, $this->strTotal, $this->strUnique, $this->strTable, $this->colors, $this->parser);
 
         // Initialise worksheet writers
         $countSheets = $this->spreadsheet->getSheetCount();
         for ($i = 0; $i < $countSheets; ++$i) {
-            $this->writerWorksheets[$i] = new Xls\Worksheet($this->strTotal, $this->strUnique, $this->strTable, $this->colors, $this->parser, $this->preCalculateFormulas, $this->spreadsheet->getSheet($i));
+            $this->writerWorksheets[$i] = new Worksheet($this->strTotal, $this->strUnique, $this->strTable, $this->colors, $this->parser, $this->preCalculateFormulas, $this->spreadsheet->getSheet($i));
         }
 
         // build Escher objects. Escher objects for workbooks needs to be build before Escher object for workbook.

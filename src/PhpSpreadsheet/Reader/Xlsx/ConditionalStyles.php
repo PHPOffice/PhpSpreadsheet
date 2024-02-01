@@ -282,7 +282,7 @@ class ConditionalStyles
         return $dataBar;
     }
 
-    private function readColorScale(simpleXMLElement|stdClass $cfRule): ConditionalColorScale
+    private function readColorScale(SimpleXMLElement|stdClass $cfRule): ConditionalColorScale
     {
         $colorScale = new ConditionalColorScale();
         $types = [];
