@@ -5,11 +5,11 @@ use PhpOffice\PhpSpreadsheet\Settings;
 
 require __DIR__ . '/../Header.php';
 
-IOFactory::registerWriter('Pdf', \PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf::class);
+IOFactory::registerWriter('Pdf', PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf::class);
 
 // Change these values to select the Rendering library that you wish to use
 //Settings::setChartRenderer(\PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph::class);
-Settings::setChartRenderer(\PhpOffice\PhpSpreadsheet\Chart\Renderer\MtJpGraphRenderer::class);
+Settings::setChartRenderer(PhpOffice\PhpSpreadsheet\Chart\Renderer\MtJpGraphRenderer::class);
 
 $inputFileType = 'Xlsx';
 $inputFileNames = __DIR__ . '/../templates/36write*.xlsx';

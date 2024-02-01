@@ -164,7 +164,7 @@ class IOFactoryTest extends TestCase
 
     public function testRegisterInvalidWriter(): void
     {
-        $this->expectException(\PhpOffice\PhpSpreadsheet\Writer\Exception::class);
+        $this->expectException(Writer\Exception::class);
 
         // @phpstan-ignore-next-line
         IOFactory::registerWriter('foo', 'bar');
@@ -179,7 +179,7 @@ class IOFactoryTest extends TestCase
 
     public function testCreateInvalidWriter(): void
     {
-        $this->expectException(\PhpOffice\PhpSpreadsheet\Writer\Exception::class);
+        $this->expectException(Writer\Exception::class);
         $spreadsheet = new Spreadsheet();
         IOFactory::createWriter($spreadsheet, 'bad');
     }

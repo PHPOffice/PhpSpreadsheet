@@ -13,7 +13,7 @@ class RangeTest extends TestCase
 {
     private string $incompleteMessage = 'Must be revisited';
 
-    private \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadSheet;
+    private Spreadsheet $spreadSheet;
 
     protected function setUp(): void
     {

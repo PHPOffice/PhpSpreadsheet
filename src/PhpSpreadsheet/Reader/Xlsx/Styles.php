@@ -54,7 +54,7 @@ class Styles extends BaseParserClass
         return Xlsx::testSimpleXml($attr);
     }
 
-    public function setStyleXml(SimpleXmlElement $styleXml): void
+    public function setStyleXml(SimpleXMLElement $styleXml): void
     {
         $this->styleXml = $styleXml;
     }

@@ -12,7 +12,7 @@ $spreadsheet->getActiveSheet()->setShowGridLines(false);
 $helper->log('Set orientation to landscape');
 $spreadsheet->getActiveSheet()->getPageSetup()->setOrientation(PageSetup::ORIENTATION_LANDSCAPE);
 
-$className = \PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf::class;
+$className = PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf::class;
 $helper->log("Write to PDF format using {$className}");
 IOFactory::registerWriter('Pdf', $className);
 

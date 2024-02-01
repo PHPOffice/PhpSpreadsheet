@@ -301,7 +301,7 @@ class OLE
             $type = self::readInt1($fh);
             switch ($type) {
                 case self::OLE_PPS_TYPE_ROOT:
-                    $pps = new OLE\PPS\Root(null, null, []);
+                    $pps = new Root(null, null, []);
                     $this->root = $pps;
 
                     break;

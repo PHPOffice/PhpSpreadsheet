@@ -313,7 +313,7 @@ class Worksheet extends WriterPart
             $paneTopLeftCell = $worksheet->getPaneTopLeftCell();
             $paneState = $worksheet->getPaneState();
             $normalFreeze = '';
-            if ($paneState === PhpSpreadsheetWorksheet::PANE_FROZEN) {
+            if ($paneState === PhpspreadsheetWorksheet::PANE_FROZEN) {
                 if ($ySplit > 0) {
                     $normalFreeze = ($xSplit <= 0) ? 'bottomLeft' : 'bottomRight';
                 } else {

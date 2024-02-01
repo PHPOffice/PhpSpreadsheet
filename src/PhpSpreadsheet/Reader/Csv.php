@@ -273,7 +273,7 @@ class Csv extends BaseReader
         // Open file
         $fhandle = $this->canRead($filename);
         if (!$fhandle) {
-            throw new Exception($filename . ' is an Invalid Spreadsheet file.');
+            throw new ReaderException($filename . ' is an Invalid Spreadsheet file.');
         }
         if ($this->inputEncoding === self::GUESS_ENCODING) {
             $this->inputEncoding = self::guessEncoding($filename, $this->fallbackEncoding);

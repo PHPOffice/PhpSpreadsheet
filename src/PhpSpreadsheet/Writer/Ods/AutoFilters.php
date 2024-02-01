@@ -47,7 +47,7 @@ class AutoFilters
         }
     }
 
-    protected function formatRange(Worksheet $worksheet, Autofilter $autofilter): string
+    protected function formatRange(Worksheet $worksheet, AutoFilter $autofilter): string
     {
         $title = $worksheet->getTitle();
         $range = $autofilter->getRange();
