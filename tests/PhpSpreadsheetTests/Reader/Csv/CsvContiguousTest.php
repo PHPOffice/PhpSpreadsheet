@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class CsvContiguousTest extends TestCase
 {
-    private string $inputFileName = 'samples/Reader/sampleData/example2.csv';
+    private string $inputFileName = 'samples/Reader2/sampleData/example2.csv';
 
     public function testContiguous(): void
     {

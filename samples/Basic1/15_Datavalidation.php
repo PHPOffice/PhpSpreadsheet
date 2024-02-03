@@ -47,8 +47,8 @@ $validation->setErrorTitle('Input error');
 $validation->setError('Only numbers between 10 and 20 are allowed!');
 $validation->setPromptTitle('Allowed input');
 $validation->setPrompt('Only numbers between 10 and 20 are allowed.');
-$validation->setFormula1(10);
-$validation->setFormula2(20);
+$validation->setFormula1('10');
+$validation->setFormula2('20');
 
 $validation = $spreadsheet->getActiveSheet()->getCell('B5')->getDataValidation();
 $validation->setType(DataValidation::TYPE_LIST);
