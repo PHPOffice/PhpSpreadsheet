@@ -2,7 +2,7 @@
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
-require __DIR__ . '/../../Header.php';
+require __DIR__ . '/../Header.php';
 
 $helper->log('Searches for a value in the top row of a table or an array of values,
                 and then returns a value in the same column from a row you specify

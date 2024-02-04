@@ -36,7 +36,6 @@ class SampleTest extends TestCase
         if (in_array('--coverage-clover', $argv)) {
             $tooLongToBeCovered = [
                 'Basic/06_Largescale.php',
-                'Basic/13_CalculationCyclicFormulae.php',
             ];
             $skipped = array_merge($skipped, $tooLongToBeCovered);
         }

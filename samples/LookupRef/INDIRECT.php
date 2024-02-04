@@ -3,7 +3,7 @@
 use PhpOffice\PhpSpreadsheet\NamedRange;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
-require __DIR__ . '/../../Header.php';
+require __DIR__ . '/../Header.php';
 
 $helper->log('Returns the cell specified by a text string.');
 

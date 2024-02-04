@@ -2,7 +2,7 @@
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
-require __DIR__ . '/../../Header.php';
+require __DIR__ . '/../Header.php';
 
 $helper->log('Returns the row index of a cell.');
 

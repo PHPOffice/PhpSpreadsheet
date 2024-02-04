@@ -2,7 +2,7 @@
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
-require __DIR__ . '/../../Header.php';
+require __DIR__ . '/../Header.php';
 
 $helper->log('Returns the interest payment, during a specific period of a loan or investment that is paid in,');
 $helper->log('constant periodic payments, with a constant interest rate.');

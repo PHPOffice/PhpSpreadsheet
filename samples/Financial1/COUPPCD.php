@@ -3,7 +3,7 @@
 use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Helpers as DateHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
-require __DIR__ . '/../../Header.php';
+require __DIR__ . '/../Header.php';
 
 $helper->log('Returns the previous coupon date, before the settlement date for a security.');
 

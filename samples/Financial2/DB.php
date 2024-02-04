@@ -2,7 +2,7 @@
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
-require __DIR__ . '/../../Header.php';
+require __DIR__ . '/../Header.php';
 
 $helper->log('Returns the depreciation of an asset, using the Fixed Declining Balance Method,');
 $helper->log('for each period of the asset\'s lifetime.');
