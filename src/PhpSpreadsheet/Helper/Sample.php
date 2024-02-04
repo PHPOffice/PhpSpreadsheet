@@ -91,7 +91,7 @@ class Sample
             $info = pathinfo($file);
             $category = str_replace('_', ' ', $info['dirname'] ?? '');
             $name = str_replace('_', ' ', (string) preg_replace('/(|\.php)/', '', $info['filename']));
-            if (!in_array($category, ['.', 'boostrap', 'templates'])) {
+            if (!in_array($category, ['.', 'bootstrap', 'templates']) && $name !== 'Header') {
                 if (!isset($files[$category])) {
                     $files[$category] = [];
                 }

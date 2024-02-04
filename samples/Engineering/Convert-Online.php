@@ -4,7 +4,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Engineering\ConvertUOM;
 use PhpOffice\PhpSpreadsheet\Helper\Sample;
 use PhpOffice\PhpSpreadsheet\Settings;
 
-require __DIR__ . '/../../Header.php';
+require __DIR__ . '/../Header.php';
 
 $helper = new Sample();
 if ($helper->isCli()) {

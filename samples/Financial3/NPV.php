@@ -2,7 +2,7 @@
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
-require __DIR__ . '/../../Header.php';
+require __DIR__ . '/../Header.php';
 
 $helper->log('Returns the Net Present Value of an investment, based on a supplied discount rate,');
 $helper->log('and a series of future payments and income.');
