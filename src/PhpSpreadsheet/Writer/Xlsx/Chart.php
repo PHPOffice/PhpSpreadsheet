@@ -1064,16 +1064,20 @@ class Chart extends WriterPart
         $groupCount = $plotArea->getPlotGroupCount();
 
         if ($groupCount == 1) {
-            $chartType = [$plotArea->getPlotGroupByIndex(0)->getPlotType()];
+            $plotType = $plotArea->getPlotGroupByIndex(0)->getPlotType();
+            $chartType = ($plotType === null) ? [] : [$plotType];
         } else {
             $chartTypes = [];
             for ($i = 0; $i < $groupCount; ++$i) {
-                $chartTypes[] = $plotArea->getPlotGroupByIndex($i)->getPlotType();
+                $plotType = $plotArea->getPlotGroupByIndex($i)->getPlotType();
+                if ($plotType !== null) {
+                    $chartTypes[] = $plotType;
+                }
             }
             $chartType = array_unique($chartTypes);
-            if (count($chartTypes) == 0) {
-                throw new WriterException('Chart is not yet implemented');
-            }
+        }
+        if (count($chartType) == 0) {
+            throw new WriterException('Chart is not yet implemented');
         }
 
         return $chartType;
@@ -1171,7 +1175,7 @@ class Chart extends WriterPart
             if ($plotSeriesValues !== false && in_array($groupType, self::CUSTOM_COLOR_TYPES, true)) {
                 $fillColorValues = $plotSeriesValues->getFillColorObject();
                 if ($fillColorValues !== null && is_array($fillColorValues)) {
-                    foreach ($plotSeriesValues->getDataValues() as $dataKey => $dataValue) {
+                    foreach (($plotSeriesValues->getDataValues() ?? []) as $dataKey => $dataValue) {
                         $this->writePlotSeriesValuesElement($objWriter, $dataKey, $fillColorValues[$dataKey] ?? null);
                     }
                 }
@@ -1435,7 +1439,7 @@ class Chart extends WriterPart
         $objWriter->writeAttribute('val', (string) $plotSeriesLabel->getPointCount());
         $objWriter->endElement();
 
-        foreach ($plotSeriesLabel->getDataValues() as $plotLabelKey => $plotLabelValue) {
+        foreach (($plotSeriesLabel->getDataValues() ?? []) as $plotLabelKey => $plotLabelValue) {
             $objWriter->startElement('c:pt');
             $objWriter->writeAttribute('idx', $plotLabelKey);
 
@@ -1477,7 +1481,7 @@ class Chart extends WriterPart
             for ($level = 0; $level < $levelCount; ++$level) {
                 $objWriter->startElement('c:lvl');
 
-                foreach ($plotSeriesValues->getDataValues() as $plotSeriesKey => $plotSeriesValue) {
+                foreach (($plotSeriesValues->getDataValues() ?? []) as $plotSeriesKey => $plotSeriesValue) {
                     if (isset($plotSeriesValue[$level])) {
                         $objWriter->startElement('c:pt');
                         $objWriter->writeAttribute('idx', $plotSeriesKey);
@@ -1505,7 +1509,7 @@ class Chart extends WriterPart
             $count = $plotSeriesValues->getPointCount();
             $source = $plotSeriesValues->getDataSource();
             $values = $plotSeriesValues->getDataValues();
-            if ($count > 1 || ($count === 1 && array_key_exists(0, $values) && "=$source" !== (string) $values[0])) {
+            if ($count > 1 || ($count === 1 && is_array($values) && array_key_exists(0, $values) && "=$source" !== (string) $values[0])) {
                 $objWriter->startElement('c:' . $dataType . 'Cache');
 
                 if (($groupType != DataSeries::TYPE_PIECHART) && ($groupType != DataSeries::TYPE_PIECHART_3D) && ($groupType != DataSeries::TYPE_DONUTCHART)) {
