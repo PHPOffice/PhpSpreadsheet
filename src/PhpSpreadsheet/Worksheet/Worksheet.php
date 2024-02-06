@@ -3688,11 +3688,11 @@ class Worksheet implements IComparable
     }
 
     /**
-     * Will get the coordinates to the Start/End Cell with Column and Row indexes.
+     * Will get the coordinates to the start/end cell with column and row indexes.
      *
      * @param array $mergedCellRanges array of merged cell ranges
      * @param int $offset separation between the source and destination ranges by column
-     * @param int $rowOffset separation of groups of cells by row
+     * @param int $rowOffset separation of group index with cell collection by row
      */
     private function mergeCellsOfTheRanges(array $mergedCellRanges, int $offset, int $rowOffset): void
     {
