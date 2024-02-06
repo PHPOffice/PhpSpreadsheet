@@ -648,7 +648,7 @@ class WorksheetTest extends TestCase
         $repetitions = 2;
         $groupSize = 1;
 
-        $worksheet->repeatSourceRange($worksheet, $sourceRange, $repetitions, $groupSize);
+        $worksheet->repeatSourceRange($sourceRange, $repetitions, $groupSize);
 
         // Assert that cells are copied correctly
         $this->assertEquals('Test1', $worksheet->getCell('A1')->getValue());

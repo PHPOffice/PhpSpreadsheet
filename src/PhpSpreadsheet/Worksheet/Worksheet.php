@@ -3,33 +3,33 @@
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
 use ArrayObject;
-use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Cell\AddressRange;
-use PhpOffice\PhpSpreadsheet\Cell\Cell;
-use PhpOffice\PhpSpreadsheet\Cell\CellAddress;
-use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
-use PhpOffice\PhpSpreadsheet\Cell\DataType;
-use PhpOffice\PhpSpreadsheet\Cell\DataValidation;
-use PhpOffice\PhpSpreadsheet\Cell\Hyperlink;
-use PhpOffice\PhpSpreadsheet\Cell\IValueBinder;
-use PhpOffice\PhpSpreadsheet\Chart\Chart;
-use PhpOffice\PhpSpreadsheet\Collection\Cells;
-use PhpOffice\PhpSpreadsheet\Collection\CellsFactory;
-use PhpOffice\PhpSpreadsheet\Comment;
-use PhpOffice\PhpSpreadsheet\DefinedName;
-use PhpOffice\PhpSpreadsheet\Exception;
-use PhpOffice\PhpSpreadsheet\IComparable;
-use PhpOffice\PhpSpreadsheet\ReferenceHelper;
-use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Shared;
+use PhpOffice\PhpSpreadsheet\Comment;
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Exception;
+use PhpOffice\PhpSpreadsheet\Chart\Chart;
+use PhpOffice\PhpSpreadsheet\DefinedName;
+use PhpOffice\PhpSpreadsheet\IComparable;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Color;
+use PhpOffice\PhpSpreadsheet\Style\Style;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use PhpOffice\PhpSpreadsheet\Cell\Hyperlink;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use PhpOffice\PhpSpreadsheet\ReferenceHelper;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use PhpOffice\PhpSpreadsheet\Cell\CellAddress;
+use PhpOffice\PhpSpreadsheet\Collection\Cells;
+use PhpOffice\PhpSpreadsheet\Cell\AddressRange;
+use PhpOffice\PhpSpreadsheet\Cell\IValueBinder;
+use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+use PhpOffice\PhpSpreadsheet\Cell\DataValidation;
+use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Collection\CellsFactory;
 use PhpOffice\PhpSpreadsheet\Style\Protection as StyleProtection;
-use PhpOffice\PhpSpreadsheet\Style\Style;
 
 class Worksheet implements IComparable
 {
@@ -3623,8 +3623,9 @@ class Worksheet implements IComparable
      * @param int $repetitions the number of times to repeat the source range
      * @param int $groupSize the number of cells in the source range to repeat
      */
-    public function repeatSourceRange(Worksheet $worksheet, string $sourceRange, int $repetitions = 2, int $groupSize = 2): void
+    public function repeatSourceRange(string $sourceRange, int $repetitions = 2, int $groupSize = 2): void
     {
+        $worksheet = $this;
         // Get the start and end coordinates of the source range
         [$sourceStart, $sourceEnd] = Coordinate::rangeBoundaries($sourceRange);
         $sourceStartColumnIndex = $sourceStart[0];
@@ -3632,7 +3633,7 @@ class Worksheet implements IComparable
 
         // Find the merged cells within the source range
         $mergedCellRanges = [];
-        foreach ($worksheet->getMergeCells() as $mergedCellRange) {
+        foreach ($this->getMergeCells() as $mergedCellRange) {
             [$mergedStart, $mergedEnd] = Coordinate::rangeBoundaries($mergedCellRange);
             if ($mergedStart[0] >= $sourceStart[0] && $mergedEnd[0] <= $sourceEnd[0] && $mergedStart[1] >= $sourceStart[1] && $mergedEnd[1] <= $sourceEnd[1]) {
                 $mergedCellRanges[] = $mergedCellRange;
@@ -3654,18 +3655,18 @@ class Worksheet implements IComparable
             }
 
             // Copy the cells
-            $data = $worksheet->rangeToArray($sourceRange);
+            $data = $this->rangeToArray($sourceRange);
             $destinationStartColumn = Coordinate::stringFromColumnIndex($sourceStartColumnIndex + $offset);
             $destinationEndColumn = Coordinate::stringFromColumnIndex($sourceEndColumnIndex + $offset);
             $destinationRange = $destinationStartColumn . ($sourceStart[1] + $rowOffset) . ':' . $destinationEndColumn . ($sourceEnd[1] + $rowOffset);
-            $worksheet->fromArray($data, null, $destinationStartColumn . ($sourceStart[1] + $rowOffset));
+            $this->fromArray($data, null, $destinationStartColumn . ($sourceStart[1] + $rowOffset));
 
             // Copy the styles
-            foreach ($worksheet->rangeToArray($sourceRange, false, true, true, true) as $row => $columns) {
+            foreach ($this->rangeToArray($sourceRange, false, true, true, true) as $row => $columns) {
                 foreach ($columns as $column => $cell) {
                     $coordinate = $column . $row;
                     $destinationCoordinate = Coordinate::stringFromColumnIndex(Coordinate::columnIndexFromString($column) + $offset) . ($row + $rowOffset);
-                    $worksheet->duplicateStyle($worksheet->getStyle($coordinate), $destinationCoordinate);
+                    $this->duplicateStyle($this->getStyle($coordinate), $destinationCoordinate);
                 }
             }
 
@@ -3677,7 +3678,7 @@ class Worksheet implements IComparable
                 $destinationStartColumn = Coordinate::stringFromColumnIndex($mergedStartColumnIndex + $offset);
                 $destinationEndColumn = Coordinate::stringFromColumnIndex($mergedEndColumnIndex + $offset);
                 $destinationRange = $destinationStartColumn . ($mergedStart[1] + $rowOffset) . ':' . $destinationEndColumn . ($mergedEnd[1] + $rowOffset);
-                $worksheet->mergeCells($destinationRange);
+                $this->mergeCells($destinationRange);
             }
 
             // Increase group count and row offset after every groupSize repetitions
