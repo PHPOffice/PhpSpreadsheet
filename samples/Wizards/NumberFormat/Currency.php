@@ -6,7 +6,7 @@ use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard;
 
-require __DIR__ . '/../../Header.php';
+require __DIR__ . '/../Header.php';
 
 $helper = new Sample();
 if ($helper->isCli()) {

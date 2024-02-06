@@ -36,7 +36,7 @@ class BitWise
      * @return array|int|string If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function BITAND(null|array|bool|float|int|string $number1, null|array|bool|float|int|string $number2): array|string|int
+    public static function BITAND(null|array|bool|float|int|string $number1, null|array|bool|float|int|string $number2): array|string|int|float
     {
         if (is_array($number1) || is_array($number2)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $number1, $number2);
@@ -68,7 +68,7 @@ class BitWise
      * @return array|int|string If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function BITOR(null|array|bool|float|int|string $number1, null|array|bool|float|int|string $number2): array|string|int
+    public static function BITOR(null|array|bool|float|int|string $number1, null|array|bool|float|int|string $number2): array|string|int|float
     {
         if (is_array($number1) || is_array($number2)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $number1, $number2);
@@ -101,7 +101,7 @@ class BitWise
      * @return array|int|string If an array of numbers is passed as an argument, then the returned result will also be an array
      *            with the same dimensions
      */
-    public static function BITXOR(null|array|bool|float|int|string $number1, null|array|bool|float|int|string $number2): array|string|int
+    public static function BITXOR(null|array|bool|float|int|string $number1, null|array|bool|float|int|string $number2): array|string|int|float
     {
         if (is_array($number1) || is_array($number2)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $number1, $number2);

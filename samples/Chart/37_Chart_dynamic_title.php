@@ -74,7 +74,7 @@ foreach ($inputFileNames as $inputFileName) {
     $callStartTime = microtime(true);
     $helper->write($spreadsheet, $inputFileName, ['Xlsx'], true);
 
-    Settings::setChartRenderer(\PhpOffice\PhpSpreadsheet\Chart\Renderer\MtJpGraphRenderer::class);
+    Settings::setChartRenderer(PhpOffice\PhpSpreadsheet\Chart\Renderer\MtJpGraphRenderer::class);
     $callStartTime = microtime(true);
     $helper->write($spreadsheet, $inputFileName, ['Html'], true);
 

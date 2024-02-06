@@ -7,7 +7,7 @@ require __DIR__ . '/../Header.php';
 
 // Change these values to select the Rendering library that you wish to use
 //Settings::setChartRenderer(\PhpOffice\PhpSpreadsheet\Chart\Renderer\JpGraph::class);
-Settings::setChartRenderer(\PhpOffice\PhpSpreadsheet\Chart\Renderer\MtJpGraphRenderer::class);
+Settings::setChartRenderer(PhpOffice\PhpSpreadsheet\Chart\Renderer\MtJpGraphRenderer::class);
 
 $inputFileType = 'Xlsx';
 $inputFileNamesString = $helper->getTemporaryFolder() . '/33_Chart_create_*.xlsx';

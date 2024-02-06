@@ -506,7 +506,7 @@ class Table implements Stringable
     /**
      * Get table Style.
      */
-    public function getStyle(): Table\TableStyle
+    public function getStyle(): TableStyle
     {
         return $this->style;
     }
