@@ -3613,4 +3613,80 @@ class Worksheet implements IComparable
             }
         }
     }
+
+    /**
+     * Copy a range area, with merged cells applied to another location.
+     * Acts similarly to Excel copy/past merged areas to specific cell.
+     *
+     * @param mixed Worksheet $worksheet or active sheet
+     * @param string $sourceRange cell range, e.g. C3:C10
+     * @param string $repetitions the number of times to repeat the source range
+     * @param string $groupSize the number of cells in the source range to repeat
+     */
+    public function repeatSourceRange(Worksheet $worksheet, string $sourceRange, int $repetitions = 2, int $groupSize = 2): void
+    {
+        // Get the start and end coordinates of the source range
+        [$sourceStart, $sourceEnd] = Coordinate::rangeBoundaries($sourceRange);
+        $sourceStartColumnIndex = $sourceStart[0];
+        $sourceEndColumnIndex = $sourceEnd[0];
+
+        // Find the merged cells within the source range
+        $mergedCellRanges = [];
+        foreach ($worksheet->getMergeCells() as $mergedCellRange) {
+            [$mergedStart, $mergedEnd] = Coordinate::rangeBoundaries($mergedCellRange);
+            if ($mergedStart[0] >= $sourceStart[0] && $mergedEnd[0] <= $sourceEnd[0] &&
+                $mergedStart[1] >= $sourceStart[1] && $mergedEnd[1] <= $sourceEnd[1]) {
+                $mergedCellRanges[] = $mergedCellRange;
+            }
+        }
+
+        // Copy the cells and merge them in the new locations
+        $groupCount = 0;
+        $rowOffset = 0;
+        for ($i = 1; $i <= $repetitions + 1; $i++) {
+            if ($i % $groupSize != 1 && $i > $groupSize) {
+                $offset = ($i - 1) % $groupSize * ($sourceEndColumnIndex - $sourceStartColumnIndex + 1);
+            } else {
+                $offset = ($i - 1) % $groupSize * ($sourceEndColumnIndex - $sourceStartColumnIndex + 2);
+            }
+
+            if ($i % $groupSize != 1) {
+                $offset += $groupCount;
+            }
+
+            // Copy the cells
+            $data = $worksheet->rangeToArray($sourceRange);
+            $destinationStartColumn = Coordinate::stringFromColumnIndex($sourceStartColumnIndex + $offset);
+            $destinationEndColumn = Coordinate::stringFromColumnIndex($sourceEndColumnIndex + $offset);
+            $destinationRange = $destinationStartColumn . ($sourceStart[1] + $rowOffset) . ':' . $destinationEndColumn . ($sourceEnd[1] + $rowOffset);
+            $worksheet->fromArray($data, null, $destinationStartColumn . ($sourceStart[1] + $rowOffset));
+
+            // Copy the styles
+            foreach ($worksheet->rangeToArray($sourceRange, false, true, true, true) as $row => $columns) {
+                foreach ($columns as $column => $cell) {
+                    $coordinate = $column . $row;
+                    $destinationCoordinate = Coordinate::stringFromColumnIndex(Coordinate::columnIndexFromString($column) + $offset) . ($row + $rowOffset);
+                    $worksheet->duplicateStyle($worksheet->getStyle($coordinate), $destinationCoordinate);
+                }
+            }
+
+            // Merge the cells
+            foreach ($mergedCellRanges as $mergedCellRange) {
+                [$mergedStart, $mergedEnd] = Coordinate::rangeBoundaries($mergedCellRange);
+                $mergedStartColumnIndex = $mergedStart[0];
+                $mergedEndColumnIndex = $mergedEnd[0];
+                $destinationStartColumn = Coordinate::stringFromColumnIndex($mergedStartColumnIndex + $offset);
+                $destinationEndColumn = Coordinate::stringFromColumnIndex($mergedEndColumnIndex + $offset);
+                $destinationRange = $destinationStartColumn . ($mergedStart[1] + $rowOffset) . ':' . $destinationEndColumn . ($mergedEnd[1] + $rowOffset);
+                $worksheet->mergeCells($destinationRange);
+            }
+
+            // Increase group count and row offset after every groupSize repetitions
+            if ($i % $groupSize == 0) {
+                $rowOffset += $sourceEnd[1] - $sourceStart[1] + 2; // 2 is the number of rows to skip
+                $groupCount++;
+            }
+        }
+
+    }
 }

@@ -625,4 +625,39 @@ class WorksheetTest extends TestCase
             ],
         ];
     }
+
+    public function testRepeatSourceRangeBasic()
+    {
+        $spreadsheet = new Spreadsheet(); // Create a Spreadsheet
+        $worksheet = $spreadsheet->getActiveSheet(); // Get the active Worksheet
+
+        // Add cells to the worksheet
+        $worksheet->getCell('A1')->setValue('Test1');
+        $worksheet->getCell('B1')->setValue('Test2');
+        $worksheet->getCell('A2')->setValue('Test3');
+        $worksheet->getCell('B2')->setValue('Test4');
+        $worksheet->getCell('A3')->setValue('Test5');
+        $worksheet->getCell('B3')->setValue('Test6');
+
+        // Add merged cells to the worksheet
+        $worksheet->mergeCells('A1:B1');
+        $worksheet->mergeCells('A2:B2');
+        $worksheet->mergeCells('A3:B3');
+
+        $sourceRange = 'A1:B3';
+        $repetitions = 2;
+        $groupSize = 1;
+
+        $worksheet->repeatSourceRange($worksheet, $sourceRange, $repetitions, $groupSize);
+
+        // Assert that cells are copied correctly
+        $this->assertEquals('Test1', $worksheet->getCell('A1')->getValue());
+        $this->assertEquals('Test3', $worksheet->getCell('A2')->getValue());
+        $this->assertEquals('Test5', $worksheet->getCell('A3')->getValue());
+
+        // Assert that merged cells are copied correctly
+        $this->assertContains('A1:B1', $worksheet->getMergeCells());
+        $this->assertContains('A2:B2', $worksheet->getMergeCells());
+        $this->assertContains('A3:B3', $worksheet->getMergeCells());
+    }
 }
