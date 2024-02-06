@@ -3653,12 +3653,6 @@ class Worksheet implements IComparable
                 $offset += $groupCount;
             }
 
-            // Copy the cells
-            $data = $this->rangeToArray($sourceRange);
-            $destinationStartColumn = Coordinate::stringFromColumnIndex($sourceStartColumnIndex + $offset);
-            $destinationEndColumn = Coordinate::stringFromColumnIndex($sourceEndColumnIndex + $offset);
-            $this->fromArray($data, null, $destinationStartColumn . ($sourceStart[1] + $rowOffset));
-
             // Copy the styles
             foreach ($this->rangeToArray($sourceRange, false, true, true, true) as $row => $columns) {
                 foreach ($columns as $column => $cell) {
