@@ -3631,11 +3631,8 @@ class Worksheet implements IComparable
 
         // Find the merged cells within the source range
         $mergedCellRanges = [];
-        foreach ($this->getMergeCells() as $mergedCellRange) {
-            [$mergedStart, $mergedEnd] = Coordinate::rangeBoundaries($mergedCellRange);
-            if ($mergedStart[0] >= $sourceStart[0] && $mergedEnd[0] <= $sourceEnd[0] && $mergedStart[1] >= $sourceStart[1] && $mergedEnd[1] <= $sourceEnd[1]) {
-                $mergedCellRanges[] = $mergedCellRange;
-            }
+        if (empty($mergedCellRanges)) {
+            $mergedCellRanges = $this->getMergeCellsFromCollection($sourceStart, $sourceEnd);
         }
 
         // Copy the cells and merge them in the new locations
@@ -3663,21 +3660,52 @@ class Worksheet implements IComparable
             }
 
             // Merge the cells
-            foreach ($mergedCellRanges as $mergedCellRange) {
-                [$mergedStart, $mergedEnd] = Coordinate::rangeBoundaries($mergedCellRange);
-                $mergedStartColumnIndex = $mergedStart[0];
-                $mergedEndColumnIndex = $mergedEnd[0];
-                $destinationStartColumn = Coordinate::stringFromColumnIndex($mergedStartColumnIndex + $offset);
-                $destinationEndColumn = Coordinate::stringFromColumnIndex($mergedEndColumnIndex + $offset);
-                $destinationRange = $destinationStartColumn . ($mergedStart[1] + $rowOffset) . ':' . $destinationEndColumn . ($mergedEnd[1] + $rowOffset);
-                $this->mergeCells($destinationRange);
-            }
+            $this->mergeCellsOfTheRange($mergedCellRanges, $offset, $rowOffset);
 
             // Increase group count and row offset after every groupSize repetitions
             if ($i % $groupSize == 0) {
                 $rowOffset += $sourceEnd[1] - $sourceStart[1] + 2; // 2 is the number of rows to skip
                 ++$groupCount;
             }
+        }
+    }
+
+    /**
+     * Will get the coordinates to the Start/End Cell with Column and Row indexes.
+     *
+     * @param array $sourceStart Source Start column/row index
+     * @param array $sourceEnd Source End column/row index
+     */
+    private function getMergeCellsFromCollection(array $sourceStart, array $sourceEnd): array
+    {
+        $mergeCells = [];
+        foreach ($this->getMergeCells() as $mergedCellRange) {
+            [$mergedStart, $mergedEnd] = Coordinate::rangeBoundaries($mergedCellRange);
+            if ($mergedStart[0] >= $sourceStart[0] && $mergedEnd[0] <= $sourceEnd[0] && $mergedStart[1] >= $sourceStart[1] && $mergedEnd[1] <= $sourceEnd[1]) {
+                $mergedCellRanges[] = $mergedCellRange;
+            }
+        }
+
+        return $mergeCells;
+    }
+
+    /**
+     * Will get the coordinates to the Start/End Cell with Column and Row indexes.
+     *
+     * @param array $mergedCellRanges array of merged cell ranges
+     * @param int $offset separation between the source and destination ranges by column
+     * @param int $rowOffset separation of groups of cells by row
+     */
+    private function mergeCellsOfTheRange(array $mergedCellRanges, int $offset, int $rowOffset): void
+    {
+        foreach ($mergedCellRanges as $mergedCellRange) {
+            [$mergedStart, $mergedEnd] = Coordinate::rangeBoundaries($mergedCellRange);
+            $mergedStartColumnIndex = $mergedStart[0];
+            $mergedEndColumnIndex = $mergedEnd[0];
+            $destinationStartColumn = Coordinate::stringFromColumnIndex($mergedStartColumnIndex + $offset);
+            $destinationEndColumn = Coordinate::stringFromColumnIndex($mergedEndColumnIndex + $offset);
+            $destinationRange = $destinationStartColumn . ($mergedStart[1] + $rowOffset) . ':' . $destinationEndColumn . ($mergedEnd[1] + $rowOffset);
+            $this->mergeCells($destinationRange);
         }
     }
 }
