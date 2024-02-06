@@ -3631,9 +3631,7 @@ class Worksheet implements IComparable
 
         // Find the merged cells within the source range
         $mergedCellRanges = [];
-        if (empty($mergedCellRanges)) {
-            $mergedCellRanges = $this->getMergeCellsFromCollection($sourceStart, $sourceEnd);
-        }
+        $mergedCellRanges[] = $this->getMergeCellsFromCollection($sourceStart, $sourceEnd);
 
         // Copy the cells and merge them in the new locations
         $groupCount = 0;
@@ -3660,7 +3658,7 @@ class Worksheet implements IComparable
             }
 
             // Merge the cells
-            $this->mergeCellsOfTheRange($mergedCellRanges, $offset, $rowOffset);
+            $this->mergeCellsOfTheRanges($mergedCellRanges, $offset, $rowOffset);
 
             // Increase group count and row offset after every groupSize repetitions
             if ($i % $groupSize == 0) {
@@ -3696,7 +3694,7 @@ class Worksheet implements IComparable
      * @param int $offset separation between the source and destination ranges by column
      * @param int $rowOffset separation of groups of cells by row
      */
-    private function mergeCellsOfTheRange(array $mergedCellRanges, int $offset, int $rowOffset): void
+    private function mergeCellsOfTheRanges(array $mergedCellRanges, int $offset, int $rowOffset): void
     {
         foreach ($mergedCellRanges as $mergedCellRange) {
             [$mergedStart, $mergedEnd] = Coordinate::rangeBoundaries($mergedCellRange);
