@@ -3657,7 +3657,6 @@ class Worksheet implements IComparable
             $data = $this->rangeToArray($sourceRange);
             $destinationStartColumn = Coordinate::stringFromColumnIndex($sourceStartColumnIndex + $offset);
             $destinationEndColumn = Coordinate::stringFromColumnIndex($sourceEndColumnIndex + $offset);
-            $destinationRange = $destinationStartColumn . ($sourceStart[1] + $rowOffset) . ':' . $destinationEndColumn . ($sourceEnd[1] + $rowOffset);
             $this->fromArray($data, null, $destinationStartColumn . ($sourceStart[1] + $rowOffset));
 
             // Copy the styles
