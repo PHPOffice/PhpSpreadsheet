@@ -3625,6 +3625,7 @@ class Worksheet implements IComparable
      */
     public function repeatSourceRange(Worksheet $worksheet, string $sourceRange, int $repetitions = 2, int $groupSize = 2): void
     {
+
         // Get the start and end coordinates of the source range
         [$sourceStart, $sourceEnd] = Coordinate::rangeBoundaries($sourceRange);
         $sourceStartColumnIndex = $sourceStart[0];
@@ -3634,8 +3635,7 @@ class Worksheet implements IComparable
         $mergedCellRanges = [];
         foreach ($worksheet->getMergeCells() as $mergedCellRange) {
             [$mergedStart, $mergedEnd] = Coordinate::rangeBoundaries($mergedCellRange);
-            if ($mergedStart[0] >= $sourceStart[0] && $mergedEnd[0] <= $sourceEnd[0] &&
-                $mergedStart[1] >= $sourceStart[1] && $mergedEnd[1] <= $sourceEnd[1]) {
+            if ($mergedStart[0] >= $sourceStart[0] && $mergedEnd[0] <= $sourceEnd[0] && $mergedStart[1] >= $sourceStart[1] && $mergedEnd[1] <= $sourceEnd[1]) {
                 $mergedCellRanges[] = $mergedCellRange;
             }
         }
@@ -3687,6 +3687,5 @@ class Worksheet implements IComparable
                 $groupCount++;
             }
         }
-
     }
 }
