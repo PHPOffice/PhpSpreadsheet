@@ -626,7 +626,7 @@ class WorksheetTest extends TestCase
         ];
     }
 
-    public function testRepeatSourceRangeBasic()
+    public function testRepeatSourceRangeBasic() : void
     {
         $spreadsheet = new Spreadsheet(); // Create a Spreadsheet
         $worksheet = $spreadsheet->getActiveSheet(); // Get the active Worksheet

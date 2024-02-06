@@ -3618,10 +3618,10 @@ class Worksheet implements IComparable
      * Copy a range area, with merged cells applied to another location.
      * Acts similarly to Excel copy/past merged areas to specific cell.
      *
-     * @param mixed Worksheet $worksheet or active sheet
+     * @param Worksheet|string $worksheet or active sheet
      * @param string $sourceRange cell range, e.g. C3:C10
-     * @param string $repetitions the number of times to repeat the source range
-     * @param string $groupSize the number of cells in the source range to repeat
+     * @param int $repetitions the number of times to repeat the source range
+     * @param int $groupSize the number of cells in the source range to repeat
      */
     public function repeatSourceRange(Worksheet $worksheet, string $sourceRange, int $repetitions = 2, int $groupSize = 2): void
     {
