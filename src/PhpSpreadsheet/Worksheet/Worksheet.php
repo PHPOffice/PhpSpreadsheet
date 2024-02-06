@@ -3630,8 +3630,7 @@ class Worksheet implements IComparable
         $sourceEndColumnIndex = $sourceEnd[0];
 
         // Find the merged cells within the source range
-        $mergedCellRanges = [];
-        $mergedCellRanges[] = $this->getMergeCellsFromCollection($sourceStart, $sourceEnd);
+        $mergedCellRanges = $this->getMergeCellsFromCollection($sourceStart, $sourceEnd);
 
         // Copy the cells and merge them in the new locations
         $groupCount = 0;
