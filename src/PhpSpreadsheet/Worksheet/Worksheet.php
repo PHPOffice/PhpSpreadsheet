@@ -3683,7 +3683,6 @@ class Worksheet implements IComparable
             // Increase group count and row offset after every groupSize repetitions
             if ($i % $groupSize == 0) {
                 $rowOffset += $sourceEnd[1] - $sourceStart[1] + 2; // 2 is the number of rows to skip
-
                 ++$groupCount;
             }
         }
