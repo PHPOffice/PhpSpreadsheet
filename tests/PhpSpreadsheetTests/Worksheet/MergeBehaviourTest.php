@@ -165,6 +165,4 @@ class MergeBehaviourTest extends AbstractFunctional
         self::assertSame($expectedResult, $mergeResult);
         $spreadsheet->disconnectWorksheets();
     }
-
-
 }
