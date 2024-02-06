@@ -3618,7 +3618,7 @@ class Worksheet implements IComparable
      * Copy a range area, with merged cells applied to another location.
      * Acts similarly to Excel copy/past merged areas to specific cell.
      *
-     * @param Worksheet|string $worksheet or active sheet
+     * @param PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $worksheet or active sheet
      * @param string $sourceRange cell range, e.g. C3:C10
      * @param int $repetitions the number of times to repeat the source range
      * @param int $groupSize the number of cells in the source range to repeat
