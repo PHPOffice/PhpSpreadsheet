@@ -651,13 +651,13 @@ class WorksheetTest extends TestCase
         $worksheet->repeatSourceRange($sourceRange, $repetitions, $groupSize);
 
         // Assert that cells are copied correctly
-        $this->assertEquals('Test1', $worksheet->getCell('A1')->getValue());
-        $this->assertEquals('Test3', $worksheet->getCell('A2')->getValue());
-        $this->assertEquals('Test5', $worksheet->getCell('A3')->getValue());
+        self::assertEquals('Test1', $worksheet->getCell('A1')->getValue());
+        self::assertEquals('Test3', $worksheet->getCell('A2')->getValue());
+        self::assertEquals('Test5', $worksheet->getCell('A3')->getValue());
 
         // Assert that merged cells are copied correctly
-        $this->assertContains('A1:B1', $worksheet->getMergeCells());
-        $this->assertContains('A2:B2', $worksheet->getMergeCells());
-        $this->assertContains('A3:B3', $worksheet->getMergeCells());
+        self::assertContains('A1:B1', $worksheet->getMergeCells());
+        self::assertContains('A2:B2', $worksheet->getMergeCells());
+        self::assertContains('A3:B3', $worksheet->getMergeCells());
     }
 }
