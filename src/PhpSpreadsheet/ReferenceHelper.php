@@ -131,7 +131,9 @@ class ReferenceHelper
             : uksort($aBreaks, [self::class, 'cellSort']);
 
         foreach ($aBreaks as $cellAddress => $value) {
-            if ($this->cellReferenceHelper->cellAddressInDeleteRange($cellAddress) === true) {
+            /** @var CellReferenceHelper */
+            $cellReferenceHelper = $this->cellReferenceHelper;
+            if ($cellReferenceHelper->cellAddressInDeleteRange($cellAddress) === true) {
                 //    If we're deleting, then clear any defined breaks that are within the range
                 //        of rows/columns that we're deleting
                 $worksheet->setBreak($cellAddress, Worksheet::BREAK_NONE);
@@ -159,7 +161,9 @@ class ReferenceHelper
 
         foreach ($aComments as $cellAddress => &$value) {
             // Any comments inside a deleted range will be ignored
-            if ($this->cellReferenceHelper->cellAddressInDeleteRange($cellAddress) === false) {
+            /** @var CellReferenceHelper */
+            $cellReferenceHelper = $this->cellReferenceHelper;
+            if ($cellReferenceHelper->cellAddressInDeleteRange($cellAddress) === false) {
                 // Otherwise build a new array of comments indexed by the adjusted cell reference
                 $newReference = $this->updateCellReference($cellAddress);
                 $aNewComments[$newReference] = $value;
@@ -185,7 +189,9 @@ class ReferenceHelper
 
         foreach ($aHyperlinkCollection as $cellAddress => $value) {
             $newReference = $this->updateCellReference($cellAddress);
-            if ($this->cellReferenceHelper->cellAddressInDeleteRange($cellAddress) === true) {
+            /** @var CellReferenceHelper */
+            $cellReferenceHelper = $this->cellReferenceHelper;
+            if ($cellReferenceHelper->cellAddressInDeleteRange($cellAddress) === true) {
                 $worksheet->setHyperlink($cellAddress, null);
             } elseif ($cellAddress !== $newReference) {
                 $worksheet->setHyperlink($newReference, $value);
@@ -217,9 +223,11 @@ class ReferenceHelper
                 $conditions = $cfRule->getConditions();
                 foreach ($conditions as &$condition) {
                     if (is_string($condition)) {
+                        /** @var CellReferenceHelper */
+                        $cellReferenceHelper = $this->cellReferenceHelper;
                         $condition = $this->updateFormulaReferences(
                             $condition,
-                            $this->cellReferenceHelper->beforeCellAddress(),
+                            $cellReferenceHelper->beforeCellAddress(),
                             $numberOfColumns,
                             $numberOfRows,
                             $worksheet->getTitle(),
@@ -848,7 +856,10 @@ class ReferenceHelper
         // Is it a range or a single cell?
         if (!Coordinate::coordinateIsRange($cellReference)) {
             // Single cell
-            return $this->cellReferenceHelper->updateCellReference($cellReference, $includeAbsoluteReferences, $onlyAbsoluteReferences);
+            /** @var CellReferenceHelper */
+            $cellReferenceHelper = $this->cellReferenceHelper;
+
+            return $cellReferenceHelper->updateCellReference($cellReference, $includeAbsoluteReferences, $onlyAbsoluteReferences);
         }
 
         // Range
@@ -950,16 +961,18 @@ class ReferenceHelper
         for ($i = 0; $i < $ic; ++$i) {
             $jc = count($range[$i]);
             for ($j = 0; $j < $jc; ++$j) {
+                /** @var CellReferenceHelper */
+                $cellReferenceHelper = $this->cellReferenceHelper;
                 if (ctype_alpha($range[$i][$j])) {
                     $range[$i][$j] = Coordinate::coordinateFromString(
-                        $this->cellReferenceHelper->updateCellReference($range[$i][$j] . '1', $includeAbsoluteReferences, $onlyAbsoluteReferences)
+                        $cellReferenceHelper->updateCellReference($range[$i][$j] . '1', $includeAbsoluteReferences, $onlyAbsoluteReferences)
                     )[0];
                 } elseif (ctype_digit($range[$i][$j])) {
                     $range[$i][$j] = Coordinate::coordinateFromString(
-                        $this->cellReferenceHelper->updateCellReference('A' . $range[$i][$j], $includeAbsoluteReferences, $onlyAbsoluteReferences)
+                        $cellReferenceHelper->updateCellReference('A' . $range[$i][$j], $includeAbsoluteReferences, $onlyAbsoluteReferences)
                     )[1];
                 } else {
-                    $range[$i][$j] = $this->cellReferenceHelper->updateCellReference($range[$i][$j], $includeAbsoluteReferences, $onlyAbsoluteReferences);
+                    $range[$i][$j] = $cellReferenceHelper->updateCellReference($range[$i][$j], $includeAbsoluteReferences, $onlyAbsoluteReferences);
                 }
             }
         }
