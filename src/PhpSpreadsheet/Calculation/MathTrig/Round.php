@@ -10,6 +10,8 @@ class Round
 {
     use ArrayEnabled;
 
+    private const ROUNDING_ADJUSTMENT = (PHP_VERSION_ID < 80400) ? 0 : 1e-14;
+
     /**
      * ROUND.
      *
@@ -68,10 +70,10 @@ class Round
         }
 
         if ($number < 0.0) {
-            return round($number - 0.5 * 0.1 ** $digits, $digits, PHP_ROUND_HALF_DOWN);
+            return round($number - 0.5 * 0.1 ** $digits + self::ROUNDING_ADJUSTMENT, $digits, PHP_ROUND_HALF_DOWN);
         }
 
-        return round($number + 0.5 * 0.1 ** $digits, $digits, PHP_ROUND_HALF_DOWN);
+        return round($number + 0.5 * 0.1 ** $digits - self::ROUNDING_ADJUSTMENT, $digits, PHP_ROUND_HALF_DOWN);
     }
 
     /**
@@ -104,10 +106,10 @@ class Round
         }
 
         if ($number < 0.0) {
-            return round($number + 0.5 * 0.1 ** $digits, $digits, PHP_ROUND_HALF_UP);
+            return round($number + 0.5 * 0.1 ** $digits - self::ROUNDING_ADJUSTMENT, $digits, PHP_ROUND_HALF_UP);
         }
 
-        return round($number - 0.5 * 0.1 ** $digits, $digits, PHP_ROUND_HALF_UP);
+        return round($number - 0.5 * 0.1 ** $digits + self::ROUNDING_ADJUSTMENT, $digits, PHP_ROUND_HALF_UP);
     }
 
     /**
