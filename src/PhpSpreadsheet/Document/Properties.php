@@ -140,9 +140,9 @@ class Properties
         return $this;
     }
 
-    private static function intOrFloatTimestamp(null|float|int|string $timestamp): float|int
+    private static function intOrFloatTimestamp(null|bool|float|int|string $timestamp): float|int
     {
-        if ($timestamp === null) {
+        if ($timestamp === null || is_bool($timestamp)) {
             $timestamp = (float) (new DateTime())->format('U');
         } elseif (is_string($timestamp)) {
             if (is_numeric($timestamp)) {
@@ -468,7 +468,7 @@ class Properties
             case self::PROPERTY_TYPE_FLOAT:
                 return (float) $propertyValue;
             case self::PROPERTY_TYPE_DATE:
-                return self::intOrFloatTimestamp($propertyValue); // @phpstan-ignore-line
+                return self::intOrFloatTimestamp($propertyValue);
             case self::PROPERTY_TYPE_BOOLEAN:
                 return is_bool($propertyValue) ? $propertyValue : ($propertyValue === 'true');
             default: // includes string

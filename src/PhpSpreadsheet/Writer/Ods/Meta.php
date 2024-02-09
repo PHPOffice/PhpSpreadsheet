@@ -96,7 +96,7 @@ class Meta extends WriterPart
                 case Properties::PROPERTY_TYPE_INTEGER:
                 case Properties::PROPERTY_TYPE_FLOAT:
                     $objWriter->writeAttribute('meta:value-type', 'float');
-                    $objWriter->writeRawData($propertyValue); // @phpstan-ignore-line
+                    $objWriter->writeRawData((string) $propertyValue);
 
                     break;
                 case Properties::PROPERTY_TYPE_BOOLEAN:
@@ -106,12 +106,12 @@ class Meta extends WriterPart
                     break;
                 case Properties::PROPERTY_TYPE_DATE:
                     $objWriter->writeAttribute('meta:value-type', 'date');
-                    $dtobj = Date::dateTimeFromTimestamp($propertyValue ?? 0); // @phpstan-ignore-line
+                    $dtobj = Date::dateTimeFromTimestamp((string) ($propertyValue ?? 0));
                     $objWriter->writeRawData($dtobj->format(DATE_W3C));
 
                     break;
                 default:
-                    $objWriter->writeRawData($propertyValue); // @phpstan-ignore-line
+                    $objWriter->writeRawData((string) $propertyValue);
 
                     break;
             }

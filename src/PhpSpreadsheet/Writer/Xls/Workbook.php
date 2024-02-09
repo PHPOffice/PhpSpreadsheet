@@ -52,12 +52,12 @@ class Workbook extends BIFFwriter
      */
     private Parser $parser;
 
-    /**
+    /*
      * The BIFF file size for the workbook. Not currently used.
      *
      * @see calcSheetOffsets()
      */
-    private int $biffSize; // @phpstan-ignore-line
+    //private int $biffSize;
 
     /**
      * XF Writers.
@@ -159,7 +159,7 @@ class Workbook extends BIFFwriter
         parent::__construct();
 
         $this->parser = $parser;
-        $this->biffSize = 0;
+        //$this->biffSize = 0;
         $this->palette = [];
         $this->countryCode = -1;
 
@@ -452,7 +452,7 @@ class Workbook extends BIFFwriter
             $this->worksheetOffsets[$i] = $offset;
             $offset += $this->worksheetSizes[$i];
         }
-        $this->biffSize = $offset;
+        //$this->biffSize = $offset;
     }
 
     /**
