@@ -4648,10 +4648,12 @@ class Calculation
             } elseif (!is_numeric($token) && !is_object($token) && isset(self::BINARY_OPERATORS[$token])) {
                 // if the token is a binary operator, pop the top two values off the stack, do the operation, and push the result back on the stack
                 //    We must have two operands, error if we don't
-                if (($operand2Data = $stack->pop()) === null) {
+                $operand2Data = $stack->pop();
+                if ($operand2Data === null) {
                     return $this->raiseFormulaError('Internal error - Operand value missing from stack');
                 }
-                if (($operand1Data = $stack->pop()) === null) {
+                $operand1Data = $stack->pop();
+                if ($operand1Data === null) {
                     return $this->raiseFormulaError('Internal error - Operand value missing from stack');
                 }
 

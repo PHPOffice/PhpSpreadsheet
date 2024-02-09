@@ -82,7 +82,7 @@ class Issue3767Test extends AbstractFunctional
         // I can't find that anywhere in the Xml.
         self::assertSame('', $charts[0]?->getTitle()?->getCaptionText());
         // Just test anything on the chart.
-        self::assertSame($sheet->getCell('B2')->getValue(), $charts[0]->getPlotArea()?->getPlotGroup()[0]->getPlotValues()[0]->getDataValues()[0]);
+        self::assertSame($sheet->getCell('B2')->getValue(), $charts[0]->getPlotArea()?->getPlotGroup()[0]?->getPlotValues()[0]?->getDataValues()[0] ?? null);
         $reloadedSpreadsheet->disconnectWorksheets();
     }
 }
