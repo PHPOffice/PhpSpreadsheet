@@ -158,19 +158,12 @@ class Xlsx extends BaseWriter
         $this->writerPartWorksheet = new Worksheet($this);
 
         // Set HashTable variables
-        // @phpstan-ignore-next-line
         $this->bordersHashTable = new HashTable();
-        // @phpstan-ignore-next-line
         $this->drawingHashTable = new HashTable();
-        // @phpstan-ignore-next-line
         $this->fillHashTable = new HashTable();
-        // @phpstan-ignore-next-line
         $this->fontHashTable = new HashTable();
-        // @phpstan-ignore-next-line
         $this->numFmtHashTable = new HashTable();
-        // @phpstan-ignore-next-line
         $this->styleHashTable = new HashTable();
-        // @phpstan-ignore-next-line
         $this->stylesConditionalHashTable = new HashTable();
     }
 
