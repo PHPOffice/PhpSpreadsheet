@@ -17,7 +17,7 @@ abstract class BaseFormatter
         $thousandsSeparator = StringHelper::getThousandsSeparator();
         $decimalSeparator = StringHelper::getDecimalSeparator();
         if ($thousandsSeparator !== ',' || $decimalSeparator !== '.') {
-            $value = str_replace(['.', ',', "\u{fffd}"], ["\u{fffd}", '.', ','], $value);
+            $value = str_replace(['.', ',', "\u{fffd}"], ["\u{fffd}", $thousandsSeparator, $decimalSeparator], $value);
         }
 
         return $value;
