@@ -194,8 +194,8 @@ class Table implements Stringable
         foreach ($spreadsheet->getNamedFormulae() as $namedFormula) {
             $formula = $namedFormula->getValue();
             if (preg_match($pattern, $formula) === 1) {
-                $formula = preg_replace($pattern, "{$newName}[", $formula);
-                $namedFormula->setValue($formula); // @phpstan-ignore-line
+                $formula = preg_replace($pattern, "{$newName}[", $formula) ?? '';
+                $namedFormula->setValue($formula);
             }
         }
     }
