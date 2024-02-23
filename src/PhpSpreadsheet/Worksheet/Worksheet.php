@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
 use ArrayObject;
+use Generator;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Cell\AddressRange;
@@ -2800,9 +2801,6 @@ class Worksheet implements IComparable
         return $returnValue;
     }
 
-    /** @var array<string, bool> */
-    private array $hiddenColumns;
-
     /**
      * Create array from a range of cells.
      *
@@ -2822,9 +2820,40 @@ class Worksheet implements IComparable
         bool $returnCellRef = false,
         bool $ignoreHidden = false
     ): array {
+        $returnValue = [];
+
+        // Loop through rows
+        foreach ($this->rangeToArrayYieldRows($range, $nullValue, $calculateFormulas, $formatData, $returnCellRef, $ignoreHidden) as $rowRef => $rowArray) {
+            $returnValue[$rowRef] = $rowArray;
+        }
+
+        // Return
+        return $returnValue;
+    }
+
+    /**
+     * Create array from a range of cells, yielding each row in turn.
+     *
+     * @param mixed $nullValue Value returned in the array entry if a cell doesn't exist
+     * @param bool $calculateFormulas Should formulas be calculated?
+     * @param bool $formatData Should formatting be applied to cell values?
+     * @param bool $returnCellRef False - Return a simple array of rows and columns indexed by number counting from zero
+     *                             True - Return rows and columns indexed by their actual row and column IDs
+     * @param bool $ignoreHidden False - Return values for rows/columns even if they are defined as hidden.
+     *                            True - Don't return values for rows/columns that are defined as hidden.
+     *
+     * @return Generator
+     */
+    public function rangeToArrayYieldRows(
+        string $range,
+        mixed $nullValue = null,
+        bool $calculateFormulas = true,
+        bool $formatData = true,
+        bool $returnCellRef = false,
+        bool $ignoreHidden = false
+    ) {
         $range = Validations::validateCellOrCellRange($range);
 
-        $returnValue = [];
         //    Identify the range that we need to extract from the worksheet
         [$rangeStart, $rangeEnd] = Coordinate::rangeBoundaries($range);
         $minCol = Coordinate::stringFromColumnIndex($rangeStart[0]);
@@ -2835,8 +2864,10 @@ class Worksheet implements IComparable
         $maxColInt = $rangeEnd[0];
 
         ++$maxCol;
-        $nullRow = $this->buildNullRow($nullValue, $minCol, $maxCol, $returnCellRef, $ignoreHidden);
-        $hideColumns = !empty($this->hiddenColumns);
+        /** @var array<string, bool> */
+        $hiddenColumns = [];
+        $nullRow = $this->buildNullRow($nullValue, $minCol, $maxCol, $returnCellRef, $ignoreHidden, $hiddenColumns);
+        $hideColumns = !empty($hiddenColumns);
 
         $keys = $this->cellCollection->getSortedCoordinatesInt();
         $keyIndex = 0;
@@ -2847,7 +2878,7 @@ class Worksheet implements IComparable
                 continue;
             }
             $rowRef = $returnCellRef ? $row : ($row - $minRow);
-            $returnValue[$rowRef] = $nullRow;
+            $returnValue = $nullRow;
 
             $index = ($row - 1) * AddressRange::MAX_COLUMN_INT + 1;
             $indexPlus = $index + AddressRange::MAX_COLUMN_INT - 1;
@@ -2860,24 +2891,22 @@ class Worksheet implements IComparable
                 $thisCol = ($key % AddressRange::MAX_COLUMN_INT) ?: AddressRange::MAX_COLUMN_INT;
                 if ($thisCol >= $minColInt && $thisCol <= $maxColInt) {
                     $col = Coordinate::stringFromColumnIndex($thisCol);
-                    if ($hideColumns === false || !isset($this->hiddenColumns[$col])) {
+                    if ($hideColumns === false || !isset($hiddenColumns[$col])) {
                         $columnRef = $returnCellRef ? $col : ($thisCol - $minColInt);
                         $cell = $this->cellCollection->get("{$col}{$thisRow}");
                         if ($cell !== null) {
                             $value = $this->cellToArray($cell, $calculateFormulas, $formatData, $nullValue);
                             if ($value !== $nullValue) {
-                                $returnValue[$rowRef][$columnRef] = $value;
+                                $returnValue[$columnRef] = $value;
                             }
                         }
                     }
                 }
                 ++$keyIndex;
             }
-        }
-        unset($this->hiddenColumns);
 
-        // Return
-        return $returnValue;
+            yield $rowRef => $returnValue;
+        }
     }
 
     /**
@@ -2890,6 +2919,7 @@ class Worksheet implements IComparable
      *                              True - Return rows and columns indexed by their actual row and column IDs
      * @param bool $ignoreHidden False - Return values for rows/columns even if they are defined as hidden.
      *                             True - Don't return values for rows/columns that are defined as hidden.
+     * @param array<string, bool> $hiddenColumns
      */
     private function buildNullRow(
         mixed $nullValue,
@@ -2897,13 +2927,13 @@ class Worksheet implements IComparable
         string $maxCol,
         bool $returnCellRef,
         bool $ignoreHidden,
+        array &$hiddenColumns
     ): array {
-        $this->hiddenColumns = [];
         $nullRow = [];
         $c = -1;
         for ($col = $minCol; $col !== $maxCol; ++$col) {
             if ($ignoreHidden === true && $this->columnDimensionExists($col) && $this->getColumnDimension($col)->getVisible() === false) {
-                $this->hiddenColumns[$col] = true;
+                $hiddenColumns[$col] = true;
             } else {
                 $columnRef = $returnCellRef ? $col : ++$c;
                 $nullRow[$columnRef] = $nullValue;
