@@ -20,7 +20,7 @@ class PercentageFormatter extends BaseFormatter
         $vDecimalCount = strlen(rtrim($vDecimals, '0'));
 
         $format = str_replace('%', '%%', $format);
-        $wholePartSize = strlen((string) floor($value));
+        $wholePartSize = strlen((string) floor(abs($value)));
         $decimalPartSize = 0;
         $placeHolders = '';
         // Number of decimals
