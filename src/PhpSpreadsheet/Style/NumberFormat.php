@@ -23,6 +23,7 @@ class NumberFormat extends Supervisor
     const FORMAT_DATE_DDMMYYYY = 'dd/mm/yyyy';
     const FORMAT_DATE_DMYSLASH = 'd/m/yy';
     const FORMAT_DATE_DMYMINUS = 'd-m-yy';
+    const FORMAT_DATE_DDMMYYYYMINUS = 'dd-mm-yyyy';
     const FORMAT_DATE_DMMINUS = 'd-m';
     const FORMAT_DATE_MYMINUS = 'm-yy';
     const FORMAT_DATE_XLSX14 = 'mm-dd-yy';
@@ -46,6 +47,7 @@ class NumberFormat extends Supervisor
         self::FORMAT_DATE_DDMMYYYY,
         self::FORMAT_DATE_DMYSLASH,
         self::FORMAT_DATE_DMYMINUS,
+        self::FORMAT_DATE_DDMMYYYYMINUS,
         self::FORMAT_DATE_DMMINUS,
         self::FORMAT_DATE_MYMINUS,
         self::FORMAT_DATE_XLSX14,
