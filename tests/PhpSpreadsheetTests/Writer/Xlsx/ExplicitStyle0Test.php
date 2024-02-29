@@ -41,14 +41,12 @@ class ExplicitStyle0Test extends TestCase
         $reader = new XlsxReader();
         $spreadsheet2 = $reader->load($this->outputFile);
         $sheet2 = $spreadsheet2->getActiveSheet();
-        $styleA1 = $sheet2->getStyle('A1');
-        self::assertTrue($styleA1->getFont()->getBold());
-        self::assertFalse($styleA1->getFont()->getItalic());
-        self::assertSame(Alignment::HORIZONTAL_CENTER, $styleA1->getAlignment()->getHorizontal());
-        $styleA2 = $sheet2->getStyle('A2');
-        self::assertTrue($styleA1->getFont()->getBold());
-        self::assertTrue($styleA1->getFont()->getItalic());
-        self::assertSame(Alignment::HORIZONTAL_CENTER, $styleA1->getAlignment()->getHorizontal());
+        self::assertTrue($sheet2->getStyle('A1')->getFont()->getBold());
+        self::assertFalse($sheet2->getStyle('A1')->getFont()->getItalic());
+        self::assertSame(Alignment::HORIZONTAL_CENTER, $sheet2->getStyle('A1')->getAlignment()->getHorizontal());
+        self::assertTrue($sheet2->getStyle('A2')->getFont()->getBold());
+        self::assertTrue($sheet2->getStyle('A2')->getFont()->getItalic());
+        self::assertSame(Alignment::HORIZONTAL_CENTER, $sheet2->getStyle('A2')->getAlignment()->getHorizontal());
         $spreadsheet2->disconnectWorksheets();
 
         $file = 'zip://';
@@ -82,14 +80,12 @@ class ExplicitStyle0Test extends TestCase
         $reader = new XlsxReader();
         $spreadsheet2 = $reader->load($this->outputFile);
         $sheet2 = $spreadsheet2->getActiveSheet();
-        $styleA1 = $sheet2->getStyle('A1');
-        self::assertTrue($styleA1->getFont()->getBold());
-        self::assertFalse($styleA1->getFont()->getItalic());
-        self::assertSame(Alignment::HORIZONTAL_CENTER, $styleA1->getAlignment()->getHorizontal());
-        $styleA2 = $sheet2->getStyle('A2');
-        self::assertTrue($styleA1->getFont()->getBold());
-        self::assertTrue($styleA1->getFont()->getItalic());
-        self::assertSame(Alignment::HORIZONTAL_CENTER, $styleA1->getAlignment()->getHorizontal());
+        self::assertTrue($sheet2->getStyle('A1')->getFont()->getBold());
+        self::assertFalse($sheet2->getStyle('A1')->getFont()->getItalic());
+        self::assertSame(Alignment::HORIZONTAL_CENTER, $sheet2->getStyle('A1')->getAlignment()->getHorizontal());
+        self::assertTrue($sheet2->getStyle('A2')->getFont()->getBold());
+        self::assertTrue($sheet2->getStyle('A2')->getFont()->getItalic());
+        self::assertSame(Alignment::HORIZONTAL_CENTER, $sheet2->getStyle('A2')->getAlignment()->getHorizontal());
         $spreadsheet2->disconnectWorksheets();
 
         $file = 'zip://';
