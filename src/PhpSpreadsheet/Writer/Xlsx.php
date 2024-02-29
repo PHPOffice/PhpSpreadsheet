@@ -134,6 +134,8 @@ class Xlsx extends BaseWriter
 
     private Worksheet $writerPartWorksheet;
 
+    private bool $explicitStyle0 = false;
+
     /**
      * Create a new Xlsx Writer.
      */
@@ -698,5 +700,22 @@ class Xlsx extends BaseWriter
         }
 
         return $data;
+    }
+
+    public function getExplicitStyle0(): bool
+    {
+        return $this->explicitStyle0;
+    }
+
+    /**
+     * This may be useful if non-default Alignment is part of default style
+     * and you think you might want to open the spreadsheet
+     * with LibreOffice or Gnumeric.
+     */
+    public function setExplicitStyle0(bool $explicitStyle0): self
+    {
+        $this->explicitStyle0 = $explicitStyle0;
+
+        return $this;
     }
 }
