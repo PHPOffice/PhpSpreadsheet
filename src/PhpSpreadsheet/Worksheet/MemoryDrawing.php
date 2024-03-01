@@ -217,7 +217,7 @@ class MemoryDrawing extends BaseDrawing
         if (function_exists('getimagesize')) {
             $imageSize = @getimagesize($temporaryFileName);
             if (is_array($imageSize)) {
-                $mimeType = $imageSize['mime'] ?? null; // @phpstan-ignore-line
+                $mimeType = $imageSize['mime'];
 
                 return self::supportedMimeTypes($mimeType);
             }

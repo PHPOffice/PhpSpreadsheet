@@ -31,9 +31,6 @@ composer require phpoffice/phpspreadsheet
 If you are building your installation on a development machine that is on a different PHP version to the server where it will be deployed, or if your PHP CLI version is not the same as your run-time such as `php-fpm` or Apache's `mod_php`, then you might want to add the following to your `composer.json` before installing:
 ```json
 {
-    "require": {
-        "phpoffice/phpspreadsheet": "^1.28"
-    },
     "config": {
         "platform": {
             "php": "8.0"
