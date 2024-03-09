@@ -216,7 +216,7 @@ class DocProps extends WriterPart
 
             switch ($propertyType) {
                 case Properties::PROPERTY_TYPE_INTEGER:
-                    $objWriter->writeElement('vt:i4', $propertyValue); // @phpstan-ignore-line
+                    $objWriter->writeElement('vt:i4', (string) $propertyValue);
 
                     break;
                 case Properties::PROPERTY_TYPE_FLOAT:
@@ -235,7 +235,7 @@ class DocProps extends WriterPart
 
                     break;
                 default:
-                    $objWriter->writeElement('vt:lpwstr', $propertyValue); // @phpstan-ignore-line
+                    $objWriter->writeElement('vt:lpwstr', (string) $propertyValue);
 
                     break;
             }
