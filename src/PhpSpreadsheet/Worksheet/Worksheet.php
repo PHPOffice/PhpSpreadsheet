@@ -746,7 +746,7 @@ class Worksheet implements IComparable
                         $cellValue = NumberFormat::toFormattedString(
                             $cell->getCalculatedValue(),
                             (string) $this->getParentOrThrow()->getCellXfByIndex($cell->getXfIndex())
-                                ->getNumberFormat()->getFormatCode()
+                                ->getNumberFormat()->getFormatCode(true)
                         );
 
                         if ($cellValue !== null && $cellValue !== '') {
