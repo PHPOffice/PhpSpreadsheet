@@ -42,7 +42,7 @@ $spreadsheet->getActiveSheet()
 If you make a call to `getCell()`, and the cell doesn't already exist, then
 PhpSpreadsheet will create that cell for you.
 
-### BEWARE: Cells assigned to variables as a Detached Reference
+### BEWARE: Cells and Styles assigned to variables as a Detached Reference
 
 As an "in-memory" model, PHPSpreadsheet can be very demanding of memory,
 particularly when working with large spreadsheets. One technique used to
@@ -54,6 +54,7 @@ While this is not normally an issue, it can become significant
 if you assign the result of a call to `getCell()` to a variable. Any
 subsequent calls to retrieve other cells will change that pointer, although
 the cell object will still retain its data values.
+This is also true when assigning a variable to the result of `getStyle()`.
 
 What does this mean? Consider the following code:
 

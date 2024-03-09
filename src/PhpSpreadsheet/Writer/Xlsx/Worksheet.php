@@ -28,6 +28,8 @@ class Worksheet extends WriterPart
 
     private string $evalError = '';
 
+    private bool $explicitStyle0;
+
     /**
      * Write worksheet to XML format.
      *
@@ -38,6 +40,7 @@ class Worksheet extends WriterPart
      */
     public function writeWorksheet(PhpspreadsheetWorksheet $worksheet, array $stringTable = [], bool $includeCharts = false): string
     {
+        $this->explicitStyle0 = $this->getParentWriter()->getExplicitStyle0();
         $this->numberStoredAsText = '';
         $this->formula = '';
         $this->twoDigitTextYear = '';
@@ -1441,7 +1444,11 @@ class Worksheet extends WriterPart
         $objWriter->writeAttribute('r', $cellAddress);
 
         // Sheet styles
-        self::writeAttributeIf($objWriter, (bool) $xfi, 's', "$xfi");
+        if ($xfi) {
+            $objWriter->writeAttribute('s', "$xfi");
+        } elseif ($this->explicitStyle0) {
+            $objWriter->writeAttribute('s', '0');
+        }
 
         // If cell value is supplied, write cell value
         if ($writeValue) {
