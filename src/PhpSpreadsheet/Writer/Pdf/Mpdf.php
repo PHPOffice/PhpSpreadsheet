@@ -10,6 +10,11 @@ class Mpdf extends Pdf
     public const SIMULATED_BODY_START = '<!-- simulated body start -->';
     private const BODY_TAG = '<body>';
 
+    /**
+     * Is the current writer creating mPDF?
+     *
+     * @deprecated 2.0.1 use instanceof Mpdf instead
+     */
     protected bool $isMPdf = true;
 
     /**

@@ -103,6 +103,8 @@ class Html extends BaseWriter
 
     /**
      * Is the current writer creating mPDF?
+     *
+     * @deprecated 2.0.1 use instanceof Mpdf instead
      */
     protected bool $isMPdf = false;
 
@@ -454,7 +456,7 @@ class Html extends BaseWriter
 
             // Get worksheet dimension
             [$min, $max] = explode(':', $sheet->calculateWorksheetDataDimension());
-            [$minCol, $minRow] = Coordinate::indexesFromString($min);
+            [$minCol, $minRow, $minColString] = Coordinate::indexesFromString($min);
             [$maxCol, $maxRow] = Coordinate::indexesFromString($max);
             $this->extendRowsAndColumns($sheet, $maxCol, $maxRow);
 
@@ -467,16 +469,20 @@ class Html extends BaseWriter
                 $html .= $startTag;
 
                 // Write row if there are HTML table cells in it
-                $mpdfInvisible = $this->isMPdf && !$sheet->isRowVisible($row);
-                if (!$mpdfInvisible && !isset($this->isSpannedRow[$sheet->getParent()->getIndex($sheet)][$row])) {
+                if ($this->shouldGenerateRow($sheet, $row) && !isset($this->isSpannedRow[$sheet->getParent()->getIndex($sheet)][$row])) {
                     // Start a new rowData
                     $rowData = [];
                     // Loop through columns
                     $column = $minCol;
+                    $colStr = $minColString;
                     while ($column <= $maxCol) {
                         // Cell exists?
                         $cellAddress = Coordinate::stringFromColumnIndex($column) . $row;
-                        $rowData[$column++] = ($sheet->getCellCollection()->has($cellAddress)) ? $cellAddress : '';
+                        if ($this->shouldGenerateColumn($sheet, $colStr)) {
+                            $rowData[$column] = ($sheet->getCellCollection()->has($cellAddress)) ? $cellAddress : '';
+                        }
+                        ++$column;
+                        ++$colStr;
                     }
                     $html .= $this->generateRow($sheet, $rowData, $row - 1, $cellType);
                 }
@@ -610,7 +616,7 @@ class Html extends BaseWriter
                 $filename = htmlspecialchars($filename, Settings::htmlEntityFlags());
 
                 $html .= PHP_EOL;
-                $imageData = self::winFileToUrl($filename, $this->isMPdf);
+                $imageData = self::winFileToUrl($filename, $this instanceof Pdf\Mpdf);
 
                 if ($this->embedImages || str_starts_with($imageData, 'zip://')) {
                     $picture = @file_get_contents($filename);
@@ -822,9 +828,13 @@ class Html extends BaseWriter
         // col elements, initialize
         $highestColumnIndex = Coordinate::columnIndexFromString($sheet->getHighestColumn()) - 1;
         $column = -1;
+        $colStr = 'A';
         while ($column++ < $highestColumnIndex) {
             $this->columnWidths[$sheetIndex][$column] = self::DEFAULT_CELL_WIDTH_POINTS; // approximation
-            $css['table.sheet' . $sheetIndex . ' col.col' . $column]['width'] = self::DEFAULT_CELL_WIDTH_POINTS . 'pt';
+            if ($this->shouldGenerateColumn($sheet, $colStr)) {
+                $css['table.sheet' . $sheetIndex . ' col.col' . $column]['width'] = self::DEFAULT_CELL_WIDTH_POINTS . 'pt';
+            }
+            ++$colStr;
         }
 
         // col elements, loop through columnDimensions and set width
@@ -834,6 +844,9 @@ class Html extends BaseWriter
             $width = SharedDrawing::pixelsToPoints($width);
             if ($columnDimension->getVisible() === false) {
                 $css['table.sheet' . $sheetIndex . ' .column' . $column]['display'] = 'none';
+                // This would be better but Firefox has an 11-year-old bug.
+                // https://bugzilla.mozilla.org/show_bug.cgi?id=819045
+                //$css['table.sheet' . $sheetIndex . ' col.col' . $column]['visibility'] = 'collapse';
             }
             if ($width >= 0) {
                 $this->columnWidths[$sheetIndex][$column] = $width;
@@ -991,7 +1004,7 @@ class Html extends BaseWriter
         }
         $rotation = $alignment->getTextRotation();
         if ($rotation !== 0 && $rotation !== Alignment::TEXTROTATION_STACK_PHPSPREADSHEET) {
-            if ($this->isMPdf) {
+            if ($this instanceof Pdf\Mpdf) {
                 $css['text-rotate'] = "$rotation";
             } else {
                 $css['transform'] = "rotate({$rotation}deg)";
@@ -1781,5 +1794,26 @@ class Html extends BaseWriter
         $htmlPage .= $generateSurroundingHTML ? ('</style>' . PHP_EOL) : '';
 
         return $htmlPage;
+    }
+
+    private function shouldGenerateRow(Worksheet $sheet, int $row): bool
+    {
+        if (!($this instanceof Pdf\Mpdf || $this instanceof Pdf\Tcpdf)) {
+            return true;
+        }
+
+        return $sheet->isRowVisible($row);
+    }
+
+    private function shouldGenerateColumn(Worksheet $sheet, string $colStr): bool
+    {
+        if (!($this instanceof Pdf\Mpdf || $this instanceof Pdf\Tcpdf)) {
+            return true;
+        }
+        if (!$sheet->columnDimensionExists($colStr)) {
+            return true;
+        }
+
+        return $sheet->getColumnDimension($colStr)->getVisible();
     }
 }
