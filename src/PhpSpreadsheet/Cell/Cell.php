@@ -182,7 +182,7 @@ class Cell implements Stringable
     {
         return (string) NumberFormat::toFormattedString(
             $this->getCalculatedValue(),
-            (string) $this->getStyle()->getNumberFormat()->getFormatCode()
+            (string) $this->getStyle()->getNumberFormat()->getFormatCode(true)
         );
     }
 
