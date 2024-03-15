@@ -574,6 +574,7 @@ class Chart
         $multiSeriesType = null;
         $smoothLine = false;
         $seriesLabel = $seriesCategory = $seriesValues = $plotOrder = $seriesBubbles = [];
+        $plotDirection = null;
 
         $seriesDetailSet = $chartDetail->children($this->cNamespace);
         foreach ($seriesDetailSet as $seriesDetailKey => $seriesDetails) {
@@ -604,11 +605,16 @@ class Chart
                                 break;
                             case 'order':
                                 $seriesOrder = self::getAttributeInteger($seriesDetail, 'val');
-                                $plotOrder[$seriesIndex] = $seriesOrder;
+                                if ($seriesOrder !== null) {
+                                    $plotOrder[$seriesIndex] = $seriesOrder;
+                                }
 
                                 break;
                             case 'tx':
-                                $seriesLabel[$seriesIndex] = $this->chartDataSeriesValueSet($seriesDetail);
+                                $temp = $this->chartDataSeriesValueSet($seriesDetail);
+                                if ($temp !== null) {
+                                    $seriesLabel[$seriesIndex] = $temp;
+                                }
 
                                 break;
                             case 'spPr':
@@ -685,27 +691,42 @@ class Chart
 
                                 break;
                             case 'smooth':
-                                $smoothLine = self::getAttributeBoolean($seriesDetail, 'val');
+                                $smoothLine = self::getAttributeBoolean($seriesDetail, 'val') ?? false;
 
                                 break;
                             case 'cat':
-                                $seriesCategory[$seriesIndex] = $this->chartDataSeriesValueSet($seriesDetail);
+                                $temp = $this->chartDataSeriesValueSet($seriesDetail);
+                                if ($temp !== null) {
+                                    $seriesCategory[$seriesIndex] = $temp;
+                                }
 
                                 break;
                             case 'val':
-                                $seriesValues[$seriesIndex] = $this->chartDataSeriesValueSet($seriesDetail, "$marker", $fillColor, "$pointSize");
+                                $temp = $this->chartDataSeriesValueSet($seriesDetail, "$marker", $fillColor, "$pointSize");
+                                if ($temp !== null) {
+                                    $seriesValues[$seriesIndex] = $temp;
+                                }
 
                                 break;
                             case 'xVal':
-                                $seriesCategory[$seriesIndex] = $this->chartDataSeriesValueSet($seriesDetail, "$marker", $fillColor, "$pointSize");
+                                $temp = $this->chartDataSeriesValueSet($seriesDetail, "$marker", $fillColor, "$pointSize");
+                                if ($temp !== null) {
+                                    $seriesCategory[$seriesIndex] = $temp;
+                                }
 
                                 break;
                             case 'yVal':
-                                $seriesValues[$seriesIndex] = $this->chartDataSeriesValueSet($seriesDetail, "$marker", $fillColor, "$pointSize");
+                                $temp = $this->chartDataSeriesValueSet($seriesDetail, "$marker", $fillColor, "$pointSize");
+                                if ($temp !== null) {
+                                    $seriesValues[$seriesIndex] = $temp;
+                                }
 
                                 break;
                             case 'bubbleSize':
-                                $seriesBubbles[$seriesIndex] = $this->chartDataSeriesValueSet($seriesDetail, "$marker", $fillColor, "$pointSize");
+                                $seriesBubble = $this->chartDataSeriesValueSet($seriesDetail, "$marker", $fillColor, "$pointSize");
+                                if ($seriesBubble !== null) {
+                                    $seriesBubbles[$seriesIndex] = $seriesBubble;
+                                }
 
                                 break;
                             case 'bubble3D':
@@ -819,9 +840,7 @@ class Chart
                     }
             }
         }
-        /** @phpstan-ignore-next-line */
-        $series = new DataSeries($plotType, $multiSeriesType, $plotOrder, $seriesLabel, $seriesCategory, $seriesValues, $smoothLine);
-        /** @phpstan-ignore-next-line */
+        $series = new DataSeries($plotType, $multiSeriesType, $plotOrder, $seriesLabel, $seriesCategory, $seriesValues, $plotDirection, $smoothLine);
         $series->setPlotBubbleSizes($seriesBubbles);
 
         return $series;

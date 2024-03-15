@@ -3729,6 +3729,8 @@ class Calculation
             //    Given two matrices of (potentially) unequal size, convert the larger in each dimension to match the smaller
             self::resizeMatricesShrink($operand1, $operand2, $matrix1Rows, $matrix1Columns, $matrix2Rows, $matrix2Columns);
         }
+        [$matrix1Rows, $matrix1Columns] = self::getMatrixDimensions($operand1);
+        [$matrix2Rows, $matrix2Columns] = self::getMatrixDimensions($operand2);
 
         return [$matrix1Rows, $matrix1Columns, $matrix2Rows, $matrix2Columns];
     }

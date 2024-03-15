@@ -1,6 +1,2 @@
 parameters:
 	ignoreErrors:
-		-
-			message: "#^Binary operation \"/\" between float and array\\|float\\|int\\|string results in an error\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/MathTrig/Combinations.php
