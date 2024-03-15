@@ -232,8 +232,8 @@ class Column
         foreach ($spreadsheet->getNamedFormulae() as $namedFormula) {
             $formula = $namedFormula->getValue();
             if (preg_match($pattern, $formula) === 1) {
-                $formula = preg_replace($pattern, "[$1{$newTitle}]", $formula);
-                $namedFormula->setValue($formula); // @phpstan-ignore-line
+                $formula = preg_replace($pattern, "[$1{$newTitle}]", $formula) ?? '';
+                $namedFormula->setValue($formula);
             }
         }
     }
