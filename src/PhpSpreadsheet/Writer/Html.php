@@ -28,7 +28,6 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
-use voku\helper\AntiXSS;
 
 class Html extends BaseWriter
 {
@@ -1703,8 +1702,12 @@ class Html extends BaseWriter
     {
         $result = '';
         if (!$this->isPdf && isset($worksheet->getComments()[$coordinate])) {
-            $sanitizer = new AntiXSS();
-            $sanitizedString = $sanitizer->xss_clean($worksheet->getComment($coordinate)->getText()->getPlainText());
+            if(class_exists('\voku\helper\AntiXSS\AntiXSS')) {
+                $sanitizer = new \voku\helper\AntiXSS\AntiXSS();
+                $sanitizedString = $sanitizer->xss_clean($worksheet->getComment($coordinate)->getText()->getPlainText());
+            } else {
+                $sanitizedString = $worksheet->getComment($coordinate)->getText()->getPlainText();
+            }
             if ($sanitizedString !== '') {
                 $result .= '<a class="comment-indicator"></a>';
                 $result .= '<div class="comment">' . nl2br($sanitizedString) . '</div>';
