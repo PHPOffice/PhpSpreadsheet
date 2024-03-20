@@ -11,7 +11,13 @@ class CellReferenceHelper
 
     protected int $beforeColumn;
 
+    protected bool $beforeColumnAbsolute = false;
+
+    protected string $beforeColumnString;
+
     protected int $beforeRow;
+
+    protected bool $beforeRowAbsolute = false;
 
     protected int $numberOfColumns;
 
@@ -19,13 +25,16 @@ class CellReferenceHelper
 
     public function __construct(string $beforeCellAddress = 'A1', int $numberOfColumns = 0, int $numberOfRows = 0)
     {
+        $this->beforeColumnAbsolute = $beforeCellAddress[0] === '$';
+        $this->beforeRowAbsolute = strpos($beforeCellAddress, '$', 1) !== false;
         $this->beforeCellAddress = str_replace('$', '', $beforeCellAddress);
         $this->numberOfColumns = $numberOfColumns;
         $this->numberOfRows = $numberOfRows;
 
         // Get coordinate of $beforeCellAddress
         [$beforeColumn, $beforeRow] = Coordinate::coordinateFromString($beforeCellAddress);
-        $this->beforeColumn = Coordinate::columnIndexFromString($beforeColumn);
+        $this->beforeColumnString = $beforeColumn;
+        $this->beforeColumn = (int) Coordinate::columnIndexFromString($beforeColumn);
         $this->beforeRow = (int) $beforeRow;
     }
 
@@ -41,7 +50,7 @@ class CellReferenceHelper
             || $this->numberOfRows !== $numberOfRows;
     }
 
-    public function updateCellReference(string $cellReference = 'A1', bool $includeAbsoluteReferences = false, bool $onlyAbsoluteReferences = false): string
+    public function updateCellReference(string $cellReference = 'A1', bool $includeAbsoluteReferences = false, bool $onlyAbsoluteReferences = false, ?bool $topLeft = null): string
     {
         if (Coordinate::coordinateIsRange($cellReference)) {
             throw new Exception('Only single cell references may be passed to this method.');
@@ -62,8 +71,45 @@ class CellReferenceHelper
             $updateColumn = (($absoluteColumn !== '$') && $newColumnIndex >= $this->beforeColumn);
             $updateRow = (($absoluteRow !== '$') && $newRowIndex >= $this->beforeRow);
         } else {
-            $updateColumn = ($newColumnIndex >= $this->beforeColumn);
-            $updateRow = ($newRowIndex >= $this->beforeRow);
+            // A special case is removing the left/top or bottom/right edge of a range
+            // $topLeft is null if we aren't adjusting a range at all.
+            if (
+                $topLeft !== null
+                && $this->numberOfColumns < 0
+                && $newColumnIndex >= $this->beforeColumn + $this->numberOfColumns
+                && $newColumnIndex <= $this->beforeColumn - 1
+            ) {
+                if ($topLeft) {
+                    $newColumnIndex = $this->beforeColumn + $this->numberOfColumns;
+                } else {
+                    $newColumnIndex = $this->beforeColumn + $this->numberOfColumns - 1;
+                }
+            } elseif ($newColumnIndex >= $this->beforeColumn) {
+                // Create new column reference
+                $newColumnIndex += $this->numberOfColumns;
+            }
+            $newColumn = $absoluteColumn . Coordinate::stringFromColumnIndex($newColumnIndex);
+            //$updateColumn = ($newColumnIndex >= $this->beforeColumn);
+            $updateColumn = false;
+            // A special case is removing the left/top or bottom/right edge of a range
+            // $topLeft is null if we aren't adjusting a range at all.
+            if (
+                $topLeft !== null
+                && $this->numberOfRows < 0
+                && $newRowIndex >= $this->beforeRow + $this->numberOfRows
+                && $newRowIndex <= $this->beforeRow - 1
+            ) {
+                if ($topLeft) {
+                    $newRowIndex = $this->beforeRow + $this->numberOfRows;
+                } else {
+                    $newRowIndex = $this->beforeRow + $this->numberOfRows - 1;
+                }
+            } elseif ($newRowIndex >= $this->beforeRow) {
+                $newRowIndex = $newRowIndex + $this->numberOfRows;
+            }
+            $newRow = $absoluteRow . $newRowIndex;
+            //$updateRow = ($newRowIndex >= $this->beforeRow);
+            $updateRow = false;
         }
 
         // Create new column reference
