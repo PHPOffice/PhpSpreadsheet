@@ -974,19 +974,20 @@ class Worksheet extends WriterPart
      */
     private function writeProtectedRanges(XMLWriter $objWriter, PhpspreadsheetWorksheet $worksheet): void
     {
-        if (count($worksheet->getProtectedCells()) > 0) {
+        if (count($worksheet->getProtectedCellRanges()) > 0) {
             // protectedRanges
             $objWriter->startElement('protectedRanges');
 
             // Loop protectedRanges
-            foreach ($worksheet->getProtectedCells() as $protectedCell => $passwordHash) {
+            foreach ($worksheet->getProtectedCellRanges() as $protectedCell => $protectedRange) {
                 // protectedRange
                 $objWriter->startElement('protectedRange');
-                $objWriter->writeAttribute('name', 'p' . md5($protectedCell));
+                $objWriter->writeAttribute('name', $protectedRange->getName());
                 $objWriter->writeAttribute('sqref', $protectedCell);
-                if (!empty($passwordHash)) {
-                    $objWriter->writeAttribute('password', $passwordHash);
-                }
+                $passwordHash = $protectedRange->getPassword();
+                $this->writeAttributeIf($objWriter, $passwordHash !== '', 'password', $passwordHash);
+                $securityDescriptor = $protectedRange->getSecurityDescriptor();
+                $this->writeAttributeIf($objWriter, $securityDescriptor !== '', 'securityDescriptor', $securityDescriptor);
                 $objWriter->endElement();
             }
 

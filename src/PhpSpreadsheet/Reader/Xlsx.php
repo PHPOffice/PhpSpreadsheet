@@ -2175,7 +2175,7 @@ class Xlsx extends BaseReader
 
         if ($xmlSheet->protectedRanges->protectedRange) {
             foreach ($xmlSheet->protectedRanges->protectedRange as $protectedRange) {
-                $docSheet->protectCells((string) $protectedRange['sqref'], (string) $protectedRange['password'], true);
+                $docSheet->protectCells((string) $protectedRange['sqref'], (string) $protectedRange['password'], true, (string) $protectedRange['name'], (string) $protectedRange['securityDescriptor']);
             }
         }
     }
