@@ -36,6 +36,21 @@ class Html extends BaseWriter
     private const DEFAULT_CELL_WIDTH_PIXELS = 56;
 
     /**
+     * Migration aid to tell if html tags will be treated as plaintext in comments.
+     *     if (
+     *         defined(
+     *             \PhpOffice\PhpSpreadsheet\Writer\Html::class
+     *             . '::COMMENT_HTML_TAGS_PLAINTEXT'
+     *         )
+     *     ) {
+     *         new logic with styling in TextRun elements
+     *     } else {
+     *         old logic with styling via Html tags
+     *     }.
+     */
+    public const COMMENT_HTML_TAGS_PLAINTEXT = true;
+
+    /**
      * Spreadsheet object.
      */
     protected Spreadsheet $spreadsheet;
