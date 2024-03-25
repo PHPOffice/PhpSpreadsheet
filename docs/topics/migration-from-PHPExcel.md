@@ -8,12 +8,14 @@ need to be done.
 
 ## Automated tool
 
-[RectorPHP](https://github.com/rectorphp/rector) can be used to migrate
-automatically your codebase. Assuming your files to be migrated lives
+[RectorPHP](https://github.com/rectorphp/rector) can be used to automatically migrate your codebase.
+Note that this support has been dropped from current releases of rector,
+so you need to require an earlier release to do this.
+Assuming that your files to be migrated live
 in `src/`, you can run the migration like so:
 
 ```sh
-composer require rector/rector rector/rector-phpoffice phpoffice/phpspreadsheet --dev
+composer require rector/rector:0.15.10 rector/rector-phpoffice phpoffice/phpspreadsheet --dev
 
 # this creates rector.php config
 vendor/bin/rector init 
