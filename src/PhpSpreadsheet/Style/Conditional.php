@@ -84,7 +84,7 @@ class Conditional implements IComparable
     /**
      * Text.
      */
-    private string $text;
+    private string $text = '';
 
     /**
      * Stop on this condition, if it matches.
