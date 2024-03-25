@@ -1496,7 +1496,8 @@ class Worksheet extends BIFFwriter
      */
     private function writeRangeProtection(): void
     {
-        foreach ($this->phpSheet->getProtectedCells() as $range => $password) {
+        foreach ($this->phpSheet->getProtectedCellRanges() as $range => $protectedCells) {
+            $password = $protectedCells->getPassword();
             // number of ranges, e.g. 'A1:B3 C20:D25'
             $cellRanges = explode(' ', $range);
             $cref = count($cellRanges);

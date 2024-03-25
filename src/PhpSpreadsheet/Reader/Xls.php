@@ -4973,7 +4973,7 @@ class Xls extends BaseReader
 
             // Apply range protection to sheet
             if ($cellRanges) {
-                $this->phpSheet->protectCells(implode(' ', $cellRanges), strtoupper(dechex($wPassword)), true);
+                $this->phpSheet->protectCells(implode(' ', $cellRanges), ($wPassword === 0) ? '' : strtoupper(dechex($wPassword)), true);
             }
         }
     }
