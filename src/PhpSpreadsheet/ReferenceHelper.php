@@ -383,7 +383,7 @@ class ReferenceHelper
         }
 
         // Get coordinate of $beforeCellAddress
-        [$beforeColumn, $beforeRow] = Coordinate::indexesFromString($beforeCellAddress);
+        [$beforeColumn, $beforeRow, $beforeColumnString] = Coordinate::indexesFromString($beforeCellAddress);
 
         // Clear cells if we are removing columns or rows
         $highestColumn = $worksheet->getHighestColumn();
@@ -401,17 +401,19 @@ class ReferenceHelper
             $this->clearRowStrips($highestColumn, $beforeColumn, $beforeRow, $numberOfRows, $worksheet);
         }
 
-        // Find missing coordinates. This is important when inserting column before the last column
-        $cellCollection = $worksheet->getCellCollection();
-        $missingCoordinates = array_filter(
-            array_map(fn ($row): string => "{$highestDataColumn}{$row}", range(1, $highestDataRow)),
-            fn ($coordinate): bool => $cellCollection->has($coordinate) === false
-        );
-
-        // Create missing cells with null values
-        if (!empty($missingCoordinates)) {
-            foreach ($missingCoordinates as $coordinate) {
-                $worksheet->createNewCell($coordinate);
+        // Find missing coordinates. This is important when inserting or deleting column before the last column
+        $startRow = $startCol = 1;
+        $startColString = 'A';
+        if ($numberOfRows === 0) {
+            $startCol = $beforeColumn;
+            $startColString = $beforeColumnString;
+        } elseif ($numberOfColumns === 0) {
+            $startRow = $beforeRow;
+        }
+        $highColumn = Coordinate::columnIndexFromString($highestDataColumn);
+        for ($row = $startRow; $row <= $highestDataRow; ++$row) {
+            for ($col = $startCol, $colString = $startColString; $col <= $highColumn; ++$col, ++$colString) {
+                $worksheet->getCell("$colString$row"); // create cell if it doesn't exist
             }
         }
 

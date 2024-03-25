@@ -2740,6 +2740,7 @@ class Xls extends BaseReader
                 $formula = $this->getFormulaFromStructure($formulaStructure);
             } catch (PhpSpreadsheetException) {
                 $formula = '';
+                $isBuiltInName = 0;
             }
 
             $this->definedname[] = [
