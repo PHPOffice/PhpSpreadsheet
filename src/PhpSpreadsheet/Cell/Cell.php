@@ -356,7 +356,7 @@ class Cell implements Stringable
                 $this->getWorksheet()->setSelectedCells($selected);
                 $this->getWorksheet()->getParentOrThrow()->setActiveSheetIndex($index);
                 //    We don't yet handle array returns
-                if (is_array($result)) {
+                if (is_array($result) && Calculation::getArrayReturnType() !== Calculation::RETURN_ARRAY_AS_ARRAY) {
                     while (is_array($result)) {
                         $result = array_shift($result);
                     }

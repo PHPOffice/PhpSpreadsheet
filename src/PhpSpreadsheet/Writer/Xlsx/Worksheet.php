@@ -1402,10 +1402,24 @@ class Worksheet extends WriterPart
         }
 
         $attributes = $cell->getFormulaAttributes();
+        $ref = $cell->getCoordinate();
+        if (is_array($calculatedValue)) {
+            $attributes['t'] = 'array';
+            $rows = max(1, count($calculatedValue));
+            $cols = 1;
+            foreach ($calculatedValue as $row) {
+                $cols = max($cols, is_array($row) ? count($row) : 1);
+            }
+            $firstCellArray = Coordinate::indexesFromString($ref);
+            $lastRow = $firstCellArray[1] + $rows - 1;
+            $lastColumn = $firstCellArray[0] + $cols - 1;
+            $lastColumnString = Coordinate::stringFromColumnIndex($lastColumn);
+            $ref .= ":$lastColumnString$lastRow";
+        }
         if (($attributes['t'] ?? null) === 'array') {
             $objWriter->startElement('f');
             $objWriter->writeAttribute('t', 'array');
-            $objWriter->writeAttribute('ref', $cell->getCoordinate());
+            $objWriter->writeAttribute('ref', $ref);
             $objWriter->writeAttribute('aca', '1');
             $objWriter->writeAttribute('ca', '1');
             $objWriter->text(FunctionPrefix::addFunctionPrefixStripEquals($cellValue));
