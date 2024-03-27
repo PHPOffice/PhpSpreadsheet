@@ -3489,6 +3489,7 @@ class Calculation
                     $testSheet->getCell($cellAddress['cell']);
                 }
             }
+            self::$returnArrayAsType = $returnArrayAsType;
 
             throw new Exception($e->getMessage(), $e->getCode(), $e);
         }
