@@ -325,7 +325,7 @@ class Chart extends WriterPart
 
         $chartTypes = self::getChartType($plotArea);
         $catIsMultiLevelSeries = $valIsMultiLevelSeries = false;
-        $plotGroupingType = '';
+        $plotGroupingType = null;
         $chartType = null;
         foreach ($chartTypes as $chartType) {
             $objWriter->startElement('c:' . $chartType);
@@ -367,7 +367,7 @@ class Chart extends WriterPart
                 $objWriter->writeAttribute('val', '150');
                 $objWriter->endElement();
 
-                if ($plotGroupingType == 'percentStacked' || $plotGroupingType == 'stacked') {
+                if ($plotGroupingType === 'percentStacked' || $plotGroupingType === 'stacked') {
                     $objWriter->startElement('c:overlap');
                     $objWriter->writeAttribute('val', '100');
                     $objWriter->endElement();
@@ -1110,9 +1110,9 @@ class Chart extends WriterPart
      * @param string $groupType Type of plot for dataseries
      * @param bool $catIsMultiLevelSeries Is category a multi-series category
      * @param bool $valIsMultiLevelSeries Is value set a multi-series set
-     * @param string $plotGroupingType Type of grouping for multi-series values
+     * @param null|string $plotGroupingType Type of grouping for multi-series values
      */
-    private function writePlotGroup(?DataSeries $plotGroup, string $groupType, XMLWriter $objWriter, bool &$catIsMultiLevelSeries, bool &$valIsMultiLevelSeries, string &$plotGroupingType): void
+    private function writePlotGroup(?DataSeries $plotGroup, string $groupType, XMLWriter $objWriter, bool &$catIsMultiLevelSeries, bool &$valIsMultiLevelSeries, ?string &$plotGroupingType): void
     {
         if ($plotGroup === null) {
             return;
