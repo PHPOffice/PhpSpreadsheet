@@ -87,7 +87,7 @@ class StringValueBinder implements IValueBinder
             $cell->setValueExplicit($value, DataType::TYPE_BOOL);
         } elseif ((is_int($value) || is_float($value)) && $this->convertNumeric === false) {
             $cell->setValueExplicit($value, DataType::TYPE_NUMERIC);
-        } elseif (is_string($value) && strlen($value) > 1 && $value[0] === '=' && $this->convertFormula === false) {
+        } elseif (is_string($value) && strlen($value) > 1 && $value[0] === '=' && $this->convertFormula === true) {
             $cell->setValueExplicit($value, DataType::TYPE_FORMULA);
         } else {
             if (is_string($value) && strlen($value) > 1 && $value[0] === '=') {
