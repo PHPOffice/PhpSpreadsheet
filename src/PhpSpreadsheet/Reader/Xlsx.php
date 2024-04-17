@@ -891,9 +891,16 @@ class Xlsx extends BaseReader
                                                 } else {
                                                     // Formula
                                                     $this->castToFormula($c, $r, $cellDataType, $value, $calculatedValue, 'castToString');
-                                                    if (isset($c->f['t'])) {
-                                                        $attributes = $c->f['t'];
-                                                        $docSheet->getCell($r)->setFormulaAttributes(['t' => (string) $attributes]);
+                                                    $formulaAttributes = [];
+                                                    $attributes = $c->f->attributes();
+                                                    if (isset($attributes['t'])) {
+                                                        $formulaAttributes['t'] = (string) $attributes['t'];
+                                                    }
+                                                    if (isset($attributes['ref'])) {
+                                                        $formulaAttributes['ref'] = (string) $attributes['ref'];
+                                                    }
+                                                    if (!empty($formulaAttributes)) {
+                                                        $docSheet->getCell($r)->setFormulaAttributes($formulaAttributes);
                                                     }
                                                 }
 

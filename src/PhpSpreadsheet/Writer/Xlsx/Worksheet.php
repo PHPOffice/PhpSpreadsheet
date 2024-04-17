@@ -1401,8 +1401,8 @@ class Worksheet extends WriterPart
             $calculatedValue = (int) $calculatedValue;
         }
 
-        $attributes = $cell->getFormulaAttributes();
-        $ref = $cell->getCoordinate();
+        $attributes = $cell->getFormulaAttributes() ?? [];
+        $ref = array_key_exists('ref', $attributes) ? $attributes['ref'] : $cell->getCoordinate();
         if (is_array($calculatedValue)) {
             $attributes['t'] = 'array';
             $rows = max(1, count($calculatedValue));
@@ -1424,6 +1424,17 @@ class Worksheet extends WriterPart
             $objWriter->writeAttribute('ca', '1');
             $objWriter->text(FunctionPrefix::addFunctionPrefixStripEquals($cellValue));
             $objWriter->endElement();
+            $result = $calculatedValue;
+            while (is_array($result)) {
+                $result = array_shift($result);
+            }
+            if (
+                is_scalar($result)
+                && $this->getParentWriter()->getOffice2003Compatibility() === false
+                && $this->getParentWriter()->getPreCalculateFormulas()
+            ) {
+                $objWriter->writeElement('v', (string) $result);
+            }
         } else {
             $objWriter->writeElement('f', FunctionPrefix::addFunctionPrefixStripEquals($cellValue));
             self::writeElementIf(

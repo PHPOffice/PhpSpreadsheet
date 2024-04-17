@@ -120,8 +120,44 @@ class ArrayFunctionsTest extends TestCase
         if ($data === false) {
             self::fail('Unable to read file');
         } else {
-            self::assertStringContainsString('<c r="C1"><f t="array" ref="C1:C15" aca="1" ca="1">_xlfn.UNIQUE(A1:A19)</f></c>', $data, '15 results for UNIQUE');
-            self::assertStringContainsString('<c r="D1"><f t="array" ref="D1:D19" aca="1" ca="1">_xlfn._xlws.SORT(A1:A19)</f></c>', $data, '19 results for SORT');
+            self::assertStringContainsString('<c r="C1"><f t="array" ref="C1:C15" aca="1" ca="1">_xlfn.UNIQUE(A1:A19)</f><v>41</v></c>', $data, '15 results for UNIQUE');
+            self::assertStringContainsString('<c r="D1"><f t="array" ref="D1:D19" aca="1" ca="1">_xlfn._xlws.SORT(A1:A19)</f><v>26</v></c>', $data, '19 results for SORT');
+        }
+    }
+
+    public function testUnimplementedArrayOutput(): void
+    {
+        //Calculation::setArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY); // not required for this test
+        $reader = new XlsxReader();
+        $spreadsheet = $reader->load('tests/data/Reader/XLSX/atsign.choosecols.xlsx');
+        $writer = new XlsxWriter($spreadsheet);
+        $this->outputFile = File::temporaryFilename();
+        $writer->save($this->outputFile);
+        $spreadsheet->disconnectWorksheets();
+
+        $reader = new XlsxReader();
+        $spreadsheet2 = $reader->load($this->outputFile);
+        $sheet2 = $spreadsheet2->getActiveSheet();
+        self::assertSame('=_xlfn.CHOOSECOLS(A1:C5,3,1)', $sheet2->getCell('F1')->getValue());
+        $expectedFG = [
+            ['11', '1'],
+            ['12', '2'],
+            ['13', '3'],
+            ['14', '4'],
+            ['15', '5'],
+        ];
+        $actualFG = $sheet2->rangeToArray('F1:G5');
+        self::assertSame($expectedFG, $actualFG);
+        $spreadsheet2->disconnectWorksheets();
+
+        $file = 'zip://';
+        $file .= $this->outputFile;
+        $file .= '#xl/worksheets/sheet1.xml';
+        $data = file_get_contents($file);
+        if ($data === false) {
+            self::fail('Unable to read file');
+        } else {
+            self::assertStringContainsString('<f t="array" ref="F1:G5" aca="1" ca="1">_xlfn.CHOOSECOLS(A1:C5,3,1)</f><v>11</v>', $data);
         }
     }
 }
