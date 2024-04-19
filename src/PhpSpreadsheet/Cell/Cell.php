@@ -361,6 +361,18 @@ class Cell implements Stringable
                         $result = array_shift($result);
                     }
                 }
+                // if return_as_array for formula like '=sheet!cell'
+                if (is_array($result) && count($result) === 1) {
+                    $resultKey = array_keys($result)[0];
+                    $resultValue = $result[$resultKey];
+                    if (is_int($resultKey) && is_array($resultValue) && count($resultValue) === 1) {
+                        $resultKey2 = array_keys($resultValue)[0];
+                        $resultValue2 = $resultValue[$resultKey2];
+                        if (is_string($resultKey2) && !is_array($resultValue2) && preg_match('/[a-zA-Z]{1,3}/', $resultKey2) === 1) {
+                            $result = $resultValue2;
+                        }
+                    }
+                }
             } catch (SpreadsheetException $ex) {
                 if (($ex->getMessage() === 'Unable to access External Workbook') && ($this->calculatedValue !== null)) {
                     return $this->calculatedValue; // Fallback for calculations referencing external files.

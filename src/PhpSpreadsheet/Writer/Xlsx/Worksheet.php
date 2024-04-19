@@ -1402,7 +1402,12 @@ class Worksheet extends WriterPart
         }
 
         $attributes = $cell->getFormulaAttributes() ?? [];
-        $ref = array_key_exists('ref', $attributes) ? $attributes['ref'] : $cell->getCoordinate();
+        $coordinate = $cell->getCoordinate();
+        if (isset($attributes['ref'])) {
+            $ref = $this->parseRef($coordinate, $attributes['ref']);
+        } else {
+            $ref = $coordinate;
+        }
         if (is_array($calculatedValue)) {
             $attributes['t'] = 'array';
             $rows = max(1, count($calculatedValue));
@@ -1410,11 +1415,11 @@ class Worksheet extends WriterPart
             foreach ($calculatedValue as $row) {
                 $cols = max($cols, is_array($row) ? count($row) : 1);
             }
-            $firstCellArray = Coordinate::indexesFromString($ref);
+            $firstCellArray = Coordinate::indexesFromString($coordinate);
             $lastRow = $firstCellArray[1] + $rows - 1;
             $lastColumn = $firstCellArray[0] + $cols - 1;
             $lastColumnString = Coordinate::stringFromColumnIndex($lastColumn);
-            $ref .= ":$lastColumnString$lastRow";
+            $ref = "$coordinate:$lastColumnString$lastRow";
         }
         if (($attributes['t'] ?? null) === 'array') {
             $objWriter->startElement('f');
@@ -1447,6 +1452,28 @@ class Worksheet extends WriterPart
                     ? StringHelper::formatNumber($calculatedValue) : '0'
             );
         }
+    }
+
+    private function parseRef(string $coordinate, string $ref): string
+    {
+        if (preg_match('/^([A-Z]{1,3})([0-9]{1,7})(:([A-Z]{1,3})([0-9]{1,7}))?$/', $ref, $matches) !== 1) {
+            return $ref;
+        }
+        if (!isset($matches[3])) { // single cell, not range
+            return $coordinate;
+        }
+        $minRow = (int) $matches[2];
+        $maxRow = (int) $matches[5];
+        $rows = $maxRow - $minRow + 1;
+        $minCol = Coordinate::columnIndexFromString($matches[1]);
+        $maxCol = Coordinate::columnIndexFromString($matches[4]);
+        $cols = $maxCol - $minCol + 1;
+        $firstCellArray = Coordinate::indexesFromString($coordinate);
+        $lastRow = $firstCellArray[1] + $rows - 1;
+        $lastColumn = $firstCellArray[0] + $cols - 1;
+        $lastColumnString = Coordinate::stringFromColumnIndex($lastColumn);
+
+        return "$coordinate:$lastColumnString$lastRow";
     }
 
     /**
