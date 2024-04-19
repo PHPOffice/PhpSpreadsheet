@@ -81,4 +81,5 @@ return [
     'no arguments' => ['exception'],
     'one argument' => ['exception', 1.75],
     'boolean in lieu of string' => ['TRUE', true, '@'],
+    'system long date format' => ['Sunday, January 1, 2012', '1-Jan-2012', '[$-x-sysdate]'],
 ];

@@ -192,7 +192,7 @@ class Worksheet implements IComparable
     /**
      * Collection of protected cell ranges.
      *
-     * @var string[]
+     * @var ProtectedRange[]
      */
     private array $protectedCells = [];
 
@@ -747,7 +747,7 @@ class Worksheet implements IComparable
                         $cellValue = NumberFormat::toFormattedString(
                             $cell->getCalculatedValue(),
                             (string) $this->getParentOrThrow()->getCellXfByIndex($cell->getXfIndex())
-                                ->getNumberFormat()->getFormatCode()
+                                ->getNumberFormat()->getFormatCode(true)
                         );
 
                         if ($cellValue !== null && $cellValue !== '') {
@@ -1866,14 +1866,14 @@ class Worksheet implements IComparable
      *
      * @return $this
      */
-    public function protectCells(AddressRange|CellAddress|int|string|array $range, string $password, bool $alreadyHashed = false): static
+    public function protectCells(AddressRange|CellAddress|int|string|array $range, string $password = '', bool $alreadyHashed = false, string $name = '', string $securityDescriptor = ''): static
     {
         $range = Functions::trimSheetFromCellReference(Validations::validateCellOrCellRange($range));
 
-        if (!$alreadyHashed) {
+        if (!$alreadyHashed && $password !== '') {
             $password = Shared\PasswordHasher::hashPassword($password);
         }
-        $this->protectedCells[$range] = $password;
+        $this->protectedCells[$range] = new ProtectedRange($range, $password, $name, $securityDescriptor);
 
         return $this;
     }
@@ -1901,11 +1901,29 @@ class Worksheet implements IComparable
     }
 
     /**
-     * Get protected cells.
+     * Get password for protected cells.
      *
      * @return string[]
+     *
+     * @deprecated 2.0.1 use getProtectedCellRanges instead
+     * @see Worksheet::getProtectedCellRanges()
      */
     public function getProtectedCells(): array
+    {
+        $array = [];
+        foreach ($this->protectedCells as $key => $protectedRange) {
+            $array[$key] = $protectedRange->getPassword();
+        }
+
+        return $array;
+    }
+
+    /**
+     * Get protected cells.
+     *
+     * @return ProtectedRange[]
+     */
+    public function getProtectedCellRanges(): array
     {
         return $this->protectedCells;
     }

@@ -411,6 +411,7 @@ class Date
         }
 
         // Switch on formatcode
+        $excelFormatCode = (string) NumberFormat::convertSystemFormats($excelFormatCode);
         if (in_array($excelFormatCode, NumberFormat::DATE_TIME_OR_DATETIME_ARRAY, true)) {
             return $dateWithoutTimeOkay || in_array($excelFormatCode, NumberFormat::TIME_OR_DATETIME_ARRAY);
         }

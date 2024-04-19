@@ -124,6 +124,7 @@ class Format
 
         $value = Helpers::extractString($value);
         $format = Helpers::extractString($format);
+        $format = (string) NumberFormat::convertSystemFormats($format);
 
         if (!is_numeric($value) && Date::isDateTimeFormatCode($format)) {
             $value1 = DateTimeExcel\DateValue::fromString($value);

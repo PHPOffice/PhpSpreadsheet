@@ -1295,6 +1295,15 @@ $protection->setInsertRows(false);
 $protection->setFormatCells(false);
 ```
 
+Note that allowing sort without providing the sheet password
+(similarly with autoFilter) requires that you explicitly
+enable the cell ranges for which sort is permitted,
+with or without a range password:
+```php
+$sheet->protectCells('A:A'); // column A can be sorted without password
+$sheet->protectCells('B:B', 'sortpw'); // column B can be sorted if the range password sortpw is supplied
+```
+
 If writing Xlsx files you can specify the algorithm used to hash the password
 before calling `setPassword()` like so:
 
