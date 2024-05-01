@@ -8,6 +8,7 @@ use PhpOffice\PhpSpreadsheet\Cell\AddressHelper;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\DefinedName;
+use PhpOffice\PhpSpreadsheet\Helper\Html as HelperHtml;
 use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Namespaces;
 use PhpOffice\PhpSpreadsheet\Reader\Xml\PageSettings;
@@ -426,6 +427,14 @@ class Xml extends BaseReader
                                     */
                                     case 'String':
                                         $type = DataType::TYPE_STRING;
+                                        $rich = $cellData->children('http://www.w3.org/TR/REC-html40');
+                                        if ($rich) {
+                                            // in case of HTML content we extract the payload
+                                            // and convert it into a rich text object
+                                            $content = $cellData->asXML() ?: '';
+                                            $html = new HelperHtml();
+                                            $cellValue = $html->toRichTextObject($content, true);
+                                        }
 
                                         break;
                                     case 'Number':
