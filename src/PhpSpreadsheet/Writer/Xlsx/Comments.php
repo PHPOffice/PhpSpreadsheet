@@ -6,9 +6,18 @@ use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Comment;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Namespaces;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
 
 class Comments extends WriterPart
 {
+    private const VALID_HORIZONTAL_ALIGNMENT = [
+        Alignment::HORIZONTAL_CENTER,
+        Alignment::HORIZONTAL_DISTRIBUTED,
+        Alignment::HORIZONTAL_JUSTIFY,
+        Alignment::HORIZONTAL_LEFT,
+        Alignment::HORIZONTAL_RIGHT,
+    ];
+
     /**
      * Write comments to XML format.
      *
@@ -222,6 +231,12 @@ class Comments extends WriterPart
 
         // x:AutoFill
         $objWriter->writeElement('x:AutoFill', 'False');
+
+        // x:TextHAlign horizontal alignment of text
+        $alignment = strtolower($comment->getAlignment());
+        if (in_array($alignment, self::VALID_HORIZONTAL_ALIGNMENT, true)) {
+            $objWriter->writeElement('x:TextHAlign', ucfirst($alignment));
+        }
 
         // x:Row
         $objWriter->writeElement('x:Row', (string) ($row - 1));

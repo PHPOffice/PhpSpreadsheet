@@ -1132,6 +1132,7 @@ class Xlsx extends BaseReader
                                             $fillColor = strtoupper(substr((string) $shape['fillcolor'], 1));
                                             $column = null;
                                             $row = null;
+                                            $textHAlign = null;
                                             $fillImageRelId = null;
                                             $fillImageTitle = '';
 
@@ -1149,7 +1150,16 @@ class Xlsx extends BaseReader
                                                     if (is_array($temp)) {
                                                         $column = $temp[0];
                                                     }
+                                                    $temp = $clientData->xpath('.//x:TextHAlign');
+                                                    if (!empty($temp)) {
+                                                        $textHAlign = $temp[0];
+                                                    }
                                                 }
+                                            }
+                                            $rowx = (string) $row;
+                                            $colx = (string) $column;
+                                            if (is_numeric($rowx) && is_numeric($colx) && $textHAlign !== null) {
+                                                $docSheet->getComment([1 + (int) $colx, 1 + (int) $rowx], false)->setAlignment((string) $textHAlign);
                                             }
 
                                             $fillImageRelNode = $shape->xpath('.//v:fill/@o:relid');
