@@ -144,7 +144,7 @@ class ByColumnAndRowUndeprecatedTest extends TestCase
         $sheet->fromArray($data, null, 'B2', true);
 
         $sheet->protectCells([2, 2, 3, 3], 'secret', false);
-        $protectedRanges = $sheet->getProtectedCells();
+        $protectedRanges = $sheet->getProtectedCellRanges();
         self::assertArrayHasKey('B2:C3', $protectedRanges);
     }
 
@@ -157,11 +157,11 @@ class ByColumnAndRowUndeprecatedTest extends TestCase
         $sheet->fromArray($data, null, 'B2', true);
 
         $sheet->protectCells('B2:C3', 'secret', false);
-        $protectedRanges = $sheet->getProtectedCells();
+        $protectedRanges = $sheet->getProtectedCellRanges();
         self::assertArrayHasKey('B2:C3', $protectedRanges);
 
         $sheet->unprotectCells([2, 2, 3, 3]);
-        $protectedRanges = $sheet->getProtectedCells();
+        $protectedRanges = $sheet->getProtectedCellRanges();
         self::assertEmpty($protectedRanges);
     }
 
