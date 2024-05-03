@@ -52,6 +52,7 @@ class HtmlLoadNonUtf8Charset extends TestCase
         self::assertSame('£75.00', $sheet->getCell('D2')->getValue());
         self::assertSame('£75.00', $sheet->getCell('C3')->getValue());
     }
+
     public function testLoadNonUtf8CharsetHttpEquiv(): void
     {
         $iso_8859_1 = mb_convert_encoding('£', 'ISO-8859-1', 'UTF-8');
