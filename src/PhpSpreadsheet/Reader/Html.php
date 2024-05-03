@@ -622,6 +622,34 @@ class Html extends BaseReader
         }
     }
 
+    private static function forceString(mixed $arg): string
+    {
+        return is_string($arg) ? $arg : '';
+    }
+
+    /**
+     * Detect the first character set definition and attempt to convert the html encoding accordingly.
+     */
+    private function toUtf8(string $html): string
+    {
+        // Check for non-"UTF-8" charset
+        $pattern = '/charset="?(.*?)("|;)/';
+        $result = preg_match($pattern, $html, $matches, PREG_OFFSET_CAPTURE);
+        $charset = strtoupper($result ? $matches[1][0] : 'UTF-8');
+
+        if ($charset !== 'UTF-8') {
+            $html = self::forceString(mb_convert_encoding($html, 'UTF-8', $charset));
+
+            $result = preg_match($pattern, $html, $matches, 0, intval($matches[1][1]) + strlen($charset));
+            $charset = strtoupper($result ? $matches[1] : 'UTF-8');
+            if ($charset !== 'UTF-8') {
+                throw new Exception('Suspicious Double-encoded XML, spreadsheet file load() aborted to prevent XXE/XEE attacks');
+            }
+        }
+
+        return $html;
+    }
+
     /**
      * Loads PhpSpreadsheet from file into PhpSpreadsheet instance.
      */
@@ -638,6 +666,7 @@ class Html extends BaseReader
         // Reload the HTML file into the DOM object
         try {
             $convert = $this->getSecurityScannerOrThrow()->scanFile($filename);
+            $convert = $this->toUtf8($convert);
             $lowend = "\u{80}";
             $highend = "\u{10ffff}";
             $regexp = "/[$lowend-$highend]/u";
@@ -747,6 +776,7 @@ class Html extends BaseReader
         //    Reload the HTML file into the DOM object
         try {
             $convert = $this->getSecurityScannerOrThrow()->scan($content);
+            $convert = $this->toUtf8($convert);
             $lowend = "\u{80}";
             $highend = "\u{10ffff}";
             $regexp = "/[$lowend-$highend]/u";
