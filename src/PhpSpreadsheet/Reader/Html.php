@@ -640,7 +640,7 @@ class Html extends BaseReader
         if ($charset !== 'UTF-8') {
             $html = self::forceString(mb_convert_encoding($html, 'UTF-8', $charset));
 
-            $result = preg_match($pattern, $html, $matches, 0, intval($matches[1][1]) + strlen($charset));
+            $result = preg_match($pattern, $html, $matches, 0, ((int) $matches[1][1]) + strlen($charset));
             $charset = strtoupper($result ? $matches[1] : 'UTF-8');
             if ($charset !== 'UTF-8') {
                 throw new Exception('Suspicious Double-encoded XML, spreadsheet file load() aborted to prevent XXE/XEE attacks');
