@@ -695,8 +695,10 @@ class Font
                     $it,
                     RecursiveIteratorIterator::LEAVES_ONLY,
                     RecursiveIteratorIterator::CATCH_GET_CHILD
-                ) as $file
+                ) as $filex
             ) {
+                /** @var string */
+                $file = $filex;
                 if (basename($file) === $desiredFont) {
                     $fontPath = $file;
 

@@ -2860,7 +2860,7 @@ class Worksheet implements IComparable
      * @param bool $ignoreHidden False - Return values for rows/columns even if they are defined as hidden.
      *                            True - Don't return values for rows/columns that are defined as hidden.
      *
-     * @return Generator
+     * @return Generator<array>
      */
     public function rangeToArrayYieldRows(
         string $range,

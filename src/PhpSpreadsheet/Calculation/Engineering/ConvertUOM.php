@@ -27,7 +27,7 @@ class ConvertUOM
     /**
      * Details of the Units of measure that can be used in CONVERTUOM().
      *
-     * @var mixed[]
+     * @var array<string, array{Group: string, 'Unit Name': string, AllowPrefix: bool}>
      */
     private static array $conversionUnits = [
         // Weight and Mass
@@ -201,7 +201,7 @@ class ConvertUOM
     /**
      * Details of the Multiplier prefixes that can be used with Units of Measure in CONVERTUOM().
      *
-     * @var mixed[]
+     * @var array<string, array{multiplier: float, name: string}>
      */
     private static array $conversionMultipliers = [
         'Y' => ['multiplier' => 1E24, 'name' => 'yotta'],
@@ -230,7 +230,7 @@ class ConvertUOM
     /**
      * Details of the Multiplier prefixes that can be used with Units of Measure in CONVERTUOM().
      *
-     * @var mixed[]
+     ** @var array<string, array{multiplier: float|int, name: string}>
      */
     private static array $binaryConversionMultipliers = [
         'Yi' => ['multiplier' => 2 ** 80, 'name' => 'yobi'],
@@ -246,7 +246,7 @@ class ConvertUOM
     /**
      * Details of the Units of measure conversion factors, organised by group.
      *
-     * @var mixed[]
+     * @var array<string, array<string, float>>
      */
     private static array $unitConversions = [
         // Conversion uses gram (g) as an intermediate unit
