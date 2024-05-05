@@ -96,5 +96,6 @@ class CommentTest extends TestCase
         self::assertArrayHasKey('A2', $comments1);
         $sheet->removeComment('A2');
         self::assertEmpty($sheet->getComments());
+        $spreadsheet->disconnectWorksheets();
     }
 }
