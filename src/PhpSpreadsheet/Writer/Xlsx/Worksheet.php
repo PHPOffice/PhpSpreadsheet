@@ -264,11 +264,21 @@ class Worksheet extends WriterPart
         $objWriter->writeAttribute('workbookViewId', '0');
 
         // Zoom scales
-        if ($worksheet->getSheetView()->getZoomScale() != 100) {
-            $objWriter->writeAttribute('zoomScale', (string) $worksheet->getSheetView()->getZoomScale());
+        $zoomScale = $worksheet->getSheetView()->getZoomScale();
+        if ($zoomScale !== 100 && $zoomScale !== null) {
+            $objWriter->writeAttribute('zoomScale', (string) $zoomScale);
         }
-        if ($worksheet->getSheetView()->getZoomScaleNormal() != 100) {
-            $objWriter->writeAttribute('zoomScaleNormal', (string) $worksheet->getSheetView()->getZoomScaleNormal());
+        $zoomScale = $worksheet->getSheetView()->getZoomScaleNormal();
+        if ($zoomScale !== 100 && $zoomScale !== null) {
+            $objWriter->writeAttribute('zoomScaleNormal', (string) $zoomScale);
+        }
+        $zoomScale = $worksheet->getSheetView()->getZoomScalePageLayoutView();
+        if ($zoomScale !== 100) {
+            $objWriter->writeAttribute('zoomScalePageLayoutView', (string) $zoomScale);
+        }
+        $zoomScale = $worksheet->getSheetView()->getZoomScaleSheetLayoutView();
+        if ($zoomScale !== 100) {
+            $objWriter->writeAttribute('zoomScaleSheetLayoutView', (string) $zoomScale);
         }
 
         // Show zeros (Excel also writes this attribute only if set to false)
@@ -1210,7 +1220,7 @@ class Worksheet extends WriterPart
             $objWriter->writeAttribute('manualBreakCount', (string) count($aColumnBreaks));
 
             foreach ($aColumnBreaks as $cell => $break) {
-                $coords = Coordinate::coordinateFromString($cell);
+                $coords = Coordinate::indexesFromString($cell);
 
                 $objWriter->startElement('brk');
                 $objWriter->writeAttribute('id', (string) ((int) $coords[0] - 1));
