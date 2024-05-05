@@ -50,7 +50,6 @@ class Table extends WriterPart
         if ($table->getShowHeaderRow() && $table->getAllowFilter() === true) {
             $objWriter->startElement('autoFilter');
             $objWriter->writeAttribute('ref', $range);
-            $objWriter->endElement();
             foreach (range($rangeStart[0], $rangeEnd[0]) as $offset => $columnIndex) {
                 $column = $table->getColumnByOffset($offset);
 
@@ -64,6 +63,7 @@ class Table extends WriterPart
                     AutoFilter::writeAutoFilterColumn($objWriter, $column, $offset);
                 }
             }
+            $objWriter->endElement(); // autoFilter
         }
 
         // Table Columns
