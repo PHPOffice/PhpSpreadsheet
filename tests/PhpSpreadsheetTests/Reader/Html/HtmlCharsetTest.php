@@ -19,7 +19,7 @@ class HtmlCharsetTest extends TestCase
             $this->expectException(ReaderException::class);
             $this->expectExceptionMessage('Failed to load');
         }
-        $directory = 'tests/data/Reader/Html';
+        $directory = 'tests/data/Reader/HTML';
         $reader = new Html();
         $spreadsheet = $reader->load("$directory/$filename");
         $sheet = $spreadsheet->getActiveSheet();
