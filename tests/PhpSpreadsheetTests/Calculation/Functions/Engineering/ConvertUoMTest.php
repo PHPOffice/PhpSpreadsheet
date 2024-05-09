@@ -18,31 +18,37 @@ class ConvertUoMTest extends TestCase
     public function testGetConversionGroups(): void
     {
         $result = ConvertUOM::getConversionCategories();
-        self::assertIsArray($result);
+        self::assertContains('Weight and Mass', $result);
     }
 
     public function testGetConversionGroupUnits(): void
     {
         $result = ConvertUOM::getConversionCategoryUnits();
-        self::assertIsArray($result);
+        self::assertArrayHasKey('Speed', $result);
+        self::assertIsArray($result['Speed']);
+        self::assertContains('mph', $result['Speed']);
     }
 
     public function testGetConversionGroupUnitDetails(): void
     {
         $result = ConvertUOM::getConversionCategoryUnitDetails();
-        self::assertIsArray($result);
+        self::assertArrayHasKey('Information', $result);
+        self::assertIsArray($result['Information']);
+        self::assertContains(['unit' => 'byte', 'description' => 'Byte'], $result['Information']);
     }
 
     public function testGetConversionMultipliers(): void
     {
         $result = ConvertUOM::getConversionMultipliers();
-        self::assertIsArray($result);
+        self::assertArrayHasKey('k', $result);
+        self::assertSame(['multiplier' => 1000.0, 'name' => 'kilo'], $result['k']);
     }
 
     public function testGetBinaryConversionMultipliers(): void
     {
         $result = ConvertUOM::getBinaryConversionMultipliers();
-        self::assertIsArray($result);
+        self::assertArrayHasKey('ki', $result);
+        self::assertSame(['multiplier' => 1024, 'name' => 'kibi'], $result['ki']);
     }
 
     /**

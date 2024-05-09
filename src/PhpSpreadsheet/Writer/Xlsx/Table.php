@@ -80,7 +80,7 @@ class Table extends WriterPart
 
             $objWriter->startElement('tableColumn');
             $objWriter->writeAttribute('id', (string) ($offset + 1));
-            $objWriter->writeAttribute('name', $table->getShowHeaderRow() ? $cell->getValue() : 'Column' . ($offset + 1));
+            $objWriter->writeAttribute('name', $table->getShowHeaderRow() ? $cell->getValueString() : ('Column' . ($offset + 1)));
 
             if ($table->getShowTotalsRow()) {
                 if ($column->getTotalsRowLabel()) {

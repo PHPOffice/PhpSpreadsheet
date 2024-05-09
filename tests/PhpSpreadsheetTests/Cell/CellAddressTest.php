@@ -84,7 +84,7 @@ class CellAddressTest extends TestCase
     /**
      * @dataProvider providerCreateFromColumnRowException
      */
-    public function testCreateFromColumnRowException(mixed $columnId, mixed $rowId): void
+    public function testCreateFromColumnRowException(int|string $columnId, int|string $rowId): void
     {
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Row and Column Ids must be positive integer values');

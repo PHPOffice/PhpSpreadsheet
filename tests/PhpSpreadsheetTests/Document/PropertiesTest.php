@@ -153,7 +153,7 @@ class PropertiesTest extends TestCase
     /**
      * @dataProvider providerCustomProperties
      */
-    public function testSetCustomProperties(mixed $expectedType, mixed $expectedValue, string $propertyName, mixed $propertyValue, ?string $propertyType = null): void
+    public function testSetCustomProperties(mixed $expectedType, mixed $expectedValue, string $propertyName, null|bool|float|int|string $propertyValue, ?string $propertyType = null): void
     {
         if ($propertyType === null) {
             $this->properties->setCustomProperty($propertyName, $propertyValue);
