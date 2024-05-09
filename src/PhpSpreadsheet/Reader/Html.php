@@ -645,7 +645,7 @@ class Html extends BaseReader
         // Reload the HTML file into the DOM object
         try {
             $convert = $this->getSecurityScannerOrThrow()->scanFile($filename);
-            $convert = $this->replaceNonAsciiIfNeeded($convert);
+            $convert = self::replaceNonAsciiIfNeeded($convert);
             $loaded = ($convert === null) ? false : $dom->loadHTML($convert);
         } catch (Throwable $e) {
             $loaded = false;
@@ -738,7 +738,7 @@ class Html extends BaseReader
         return '&#' . mb_ord($matches[0], 'UTF-8') . ';';
     }
 
-    private function replaceNonAsciiIfNeeded(string $convert): ?string
+    private static function replaceNonAsciiIfNeeded(string $convert): ?string
     {
         if (preg_match(self::STARTS_WITH_BOM, $convert) !== 1 && preg_match(self::DECLARES_CHARSET, $convert) !== 1) {
             $lowend = "\u{80}";
@@ -763,7 +763,7 @@ class Html extends BaseReader
         //    Reload the HTML file into the DOM object
         try {
             $convert = $this->getSecurityScannerOrThrow()->scan($content);
-            $convert = $this->replaceNonAsciiIfNeeded($convert);
+            $convert = self::replaceNonAsciiIfNeeded($convert);
             $loaded = ($convert === null) ? false : $dom->loadHTML($convert);
         } catch (Throwable $e) {
             $loaded = false;
