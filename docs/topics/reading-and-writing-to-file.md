@@ -298,7 +298,7 @@ versions of Microsoft Excel.
 **Excel 2003 XML limitations** Please note that Excel 2003 XML format
 has some limits regarding to styling cells and handling large
 spreadsheets via PHP.
-Also, only files using charset UTF-8 are supported.
+Also, only files using charset UTF-8 or ISO-8859-* are supported.
 
 ### \PhpOffice\PhpSpreadsheet\Reader\Xml
 
@@ -718,7 +718,7 @@ extension.
 
 **HTML limitations** Please note that HTML file format has some limits
 regarding to styling cells, number formatting, ...
-Also, only files using charset UTF-8 are supported.
+Declared charsets compatible with ASCII in range 00-7F, and UTF-8/16 with BOM are supported.
 
 ### \PhpOffice\PhpSpreadsheet\Reader\Html
 
