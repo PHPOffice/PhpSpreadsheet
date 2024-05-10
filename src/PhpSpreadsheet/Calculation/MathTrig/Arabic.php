@@ -53,7 +53,7 @@ class Arabic
      * Excel Function:
      *        ARABIC(text)
      *
-     * @param mixed $roman Should be a string, or can be an array of strings
+     * @param string|string[] $roman Should be a string, or can be an array of strings
      *
      * @return array|int|string the arabic numberal contrived from the roman numeral
      *         If an array of numbers is passed as the argument, then the returned result will also be an array

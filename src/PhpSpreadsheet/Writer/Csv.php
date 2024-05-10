@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Writer;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use Stringable;
 
 class Csv extends BaseWriter
 {
@@ -246,6 +247,8 @@ class Csv extends BaseWriter
 
     /**
      * Convert boolean to TRUE/FALSE; otherwise return element cast to string.
+     *
+     * @param null|bool|float|int|string|Stringable $element element to be converted
      */
     private static function elementToString(mixed $element): string
     {
@@ -270,6 +273,7 @@ class Csv extends BaseWriter
         // Build the line
         $line = '';
 
+        /** @var null|bool|float|int|string|Stringable $element */
         foreach ($values as $element) {
             $element = self::elementToString($element);
             // Add delimiter

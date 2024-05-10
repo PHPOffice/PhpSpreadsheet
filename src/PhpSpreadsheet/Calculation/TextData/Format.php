@@ -56,6 +56,7 @@ class Format
             if ($value < 0) {
                 $round = 0 - $round;
             }
+            /** @var float|int|string */
             $value = MathTrig\Round::multiple($value, $round);
         }
         $mask = "{$mask};-{$mask}";
@@ -129,6 +130,7 @@ class Format
         if (!is_numeric($value) && Date::isDateTimeFormatCode($format)) {
             $value1 = DateTimeExcel\DateValue::fromString($value);
             $value2 = DateTimeExcel\TimeValue::fromString($value);
+            /** @var float|int|string */
             $value = (is_numeric($value1) && is_numeric($value2)) ? ($value1 + $value2) : (is_numeric($value1) ? $value2 : $value1);
         }
 
