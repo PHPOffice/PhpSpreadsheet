@@ -164,6 +164,12 @@
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Html.html#constant_DECLARES_CHARSET">DECLARES_CHARSET</a>
+    <span>
+        &nbsp;= &#039;/ charset=/i&#039;                            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Html.html#constant_H1_ETC">H1_ETC</a>
     <span>
         &nbsp;= [&#039;h1&#039;, &#039;h2&#039;, &#039;h3&#039;, &#039;h4&#039;, &#039;h5&#039;, &#039;h6&#039;, &#039;ol&#039;, &#039;ul&#039;, &#039;p&#039;]                            </span>
@@ -173,6 +179,12 @@
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Html.html#constant_SPAN_ETC">SPAN_ETC</a>
     <span>
         &nbsp;= [&#039;span&#039;, &#039;div&#039;, &#039;font&#039;, &#039;i&#039;, &#039;em&#039;, &#039;strong&#039;, &#039;b&#039;]                            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Html.html#constant_STARTS_WITH_BOM">STARTS_WITH_BOM</a>
+    <span>
+        &nbsp;= &#039;/^(?:\\xfe\\xff|\\xff\\xfe|\\xEF\\xBB\\xBF)/&#039;                            </span>
 </dt>
 
     </dl>
@@ -702,6 +714,12 @@ possibly without parsing the whole file to a Spreadsheet object.</dd>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Html.html#method_replaceNonAsciiIfNeeded">replaceNonAsciiIfNeeded()</a>
+    <span>
+                                &nbsp;: string|null    </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Html.html#method_setBorderStyle">setBorderStyle()</a>
     <span>
                                 &nbsp;: void    </span>
@@ -764,7 +782,7 @@ possibly without parsing the whole file to a Spreadsheet object.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1051</span>
+    <span class="phpdocumentor-element-found-in__line">1062</span>
 
     </aside>
 
@@ -783,6 +801,34 @@ possibly without parsing the whole file to a Spreadsheet object.</dd>
 
 </article>
                     <article class="phpdocumentor-element -constant -private ">
+    <h4 class="phpdocumentor-element__name" id="constant_DECLARES_CHARSET">
+        DECLARES_CHARSET
+        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Html.html#constant_DECLARES_CHARSET" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">35</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">DECLARES_CHARSET</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;/ charset=/i&#039;</span>
+</code>
+
+
+    
+    
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -private ">
     <h4 class="phpdocumentor-element__name" id="constant_H1_ETC">
         H1_ETC
         <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Html.html#constant_H1_ETC" class="headerlink"><i class="fas fa-link"></i></a>
@@ -792,7 +838,7 @@ possibly without parsing the whole file to a Spreadsheet object.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">396</span>
+    <span class="phpdocumentor-element-found-in__line">403</span>
 
     </aside>
 
@@ -820,7 +866,7 @@ possibly without parsing the whole file to a Spreadsheet object.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">318</span>
+    <span class="phpdocumentor-element-found-in__line">325</span>
 
     </aside>
 
@@ -830,6 +876,34 @@ possibly without parsing the whole file to a Spreadsheet object.</dd>
         <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">SPAN_ETC</span>
     = <span class="phpdocumentor-signature__default-value">[&#039;span&#039;, &#039;div&#039;, &#039;font&#039;, &#039;i&#039;, &#039;em&#039;, &#039;strong&#039;, &#039;b&#039;]</span>
+</code>
+
+
+    
+    
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -private ">
+    <h4 class="phpdocumentor-element__name" id="constant_STARTS_WITH_BOM">
+        STARTS_WITH_BOM
+        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Html.html#constant_STARTS_WITH_BOM" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">33</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">STARTS_WITH_BOM</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;/^(?:\\xfe\\xff|\\xff\\xfe|\\xEF\\xBB\\xBF)/&#039;</span>
 </code>
 
 
@@ -864,7 +938,7 @@ possibly without parsing the whole file to a Spreadsheet object.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">212</span>
+    <span class="phpdocumentor-element-found-in__line">219</span>
 
     </aside>
 
@@ -930,7 +1004,7 @@ possibly without parsing the whole file to a Spreadsheet object.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">46</span>
+    <span class="phpdocumentor-element-found-in__line">50</span>
 
     </aside>
 
@@ -1023,7 +1097,7 @@ Identifies whether the Reader should read the definitions for any charts that ex
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">36</span>
+    <span class="phpdocumentor-element-found-in__line">40</span>
 
     </aside>
 
@@ -1094,7 +1168,7 @@ This property holds an array of worksheet names to be loaded. If null, then all 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">216</span>
+    <span class="phpdocumentor-element-found-in__line">223</span>
 
     </aside>
 
@@ -1233,7 +1307,7 @@ Identifies whether the Reader should read data values for cells all cells, or sh
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">123</span>
+    <span class="phpdocumentor-element-found-in__line">127</span>
 
     </aside>
 
@@ -1299,7 +1373,7 @@ Identifies whether the Reader should read data values for cells all cells, or sh
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">41</span>
+    <span class="phpdocumentor-element-found-in__line">45</span>
 
     </aside>
 
@@ -1333,7 +1407,7 @@ Identifies whether the Reader should read data values for cells all cells, or sh
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">214</span>
+    <span class="phpdocumentor-element-found-in__line">221</span>
 
     </aside>
 
@@ -1366,7 +1440,7 @@ Identifies whether the Reader should read data values for cells all cells, or sh
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">456</span>
+    <span class="phpdocumentor-element-found-in__line">463</span>
 
     </aside>
 
@@ -1404,7 +1478,7 @@ Identifies whether the Reader should read data values for cells all cells, or sh
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">128</span>
+    <span class="phpdocumentor-element-found-in__line">132</span>
 
     </aside>
 
@@ -1436,7 +1510,7 @@ Identifies whether the Reader should read data values for cells all cells, or sh
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">137</span>
+    <span class="phpdocumentor-element-found-in__line">141</span>
 
     </aside>
 
@@ -1482,7 +1556,7 @@ Identifies whether the Reader should read data values for cells all cells, or sh
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1068</span>
+    <span class="phpdocumentor-element-found-in__line">1079</span>
 
     </aside>
 
@@ -1517,7 +1591,7 @@ Identifies whether the Reader should read data values for cells all cells, or sh
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1076</span>
+    <span class="phpdocumentor-element-found-in__line">1087</span>
 
     </aside>
 
@@ -1826,7 +1900,7 @@ Returns either an array of worksheet names (the list of worksheets that should b
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">795</span>
+    <span class="phpdocumentor-element-found-in__line">806</span>
 
     </aside>
 
@@ -1862,7 +1936,7 @@ Returns either an array of worksheet names (the list of worksheets that should b
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1001</span>
+    <span class="phpdocumentor-element-found-in__line">1012</span>
 
     </aside>
 
@@ -1908,7 +1982,7 @@ Returns either an array of worksheet names (the list of worksheets that should b
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1111</span>
+    <span class="phpdocumentor-element-found-in__line">1122</span>
 
     </aside>
 
@@ -2063,7 +2137,7 @@ IReader::LOAD_WITH_CHARTS - Include any charts that are defined in the loaded fi
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">742</span>
+    <span class="phpdocumentor-element-found-in__line">758</span>
 
     </aside>
 
@@ -2116,7 +2190,7 @@ IReader::LOAD_WITH_CHARTS - Include any charts that are defined in the loaded fi
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">628</span>
+    <span class="phpdocumentor-element-found-in__line">635</span>
 
     </aside>
 
@@ -2169,7 +2243,7 @@ IReader::LOAD_WITH_CHARTS - Include any charts that are defined in the loaded fi
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">201</span>
+    <span class="phpdocumentor-element-found-in__line">208</span>
 
     </aside>
 
@@ -2493,7 +2567,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">807</span>
+    <span class="phpdocumentor-element-found-in__line">818</span>
 
     </aside>
 
@@ -2541,7 +2615,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">244</span>
+    <span class="phpdocumentor-element-found-in__line">251</span>
 
     </aside>
 
@@ -2611,7 +2685,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">229</span>
+    <span class="phpdocumentor-element-found-in__line">236</span>
 
     </aside>
 
@@ -2688,7 +2762,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">608</span>
+    <span class="phpdocumentor-element-found-in__line">615</span>
 
     </aside>
 
@@ -2798,7 +2872,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">234</span>
+    <span class="phpdocumentor-element-found-in__line">241</span>
 
     </aside>
 
@@ -2833,7 +2907,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">218</span>
+    <span class="phpdocumentor-element-found-in__line">225</span>
 
     </aside>
 
@@ -2878,7 +2952,7 @@ Set to false (the default) to discard charts.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">824</span>
+    <span class="phpdocumentor-element-found-in__line">835</span>
 
     </aside>
 
@@ -2949,7 +3023,7 @@ and only takes 'background-color' and 'color'; property with HEX color</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">193</span>
+    <span class="phpdocumentor-element-found-in__line">200</span>
 
     </aside>
 
@@ -2994,7 +3068,7 @@ and only takes 'background-color' and 'color'; property with HEX color</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">188</span>
+    <span class="phpdocumentor-element-found-in__line">195</span>
 
     </aside>
 
@@ -3039,7 +3113,7 @@ and only takes 'background-color' and 'color'; property with HEX color</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1011</span>
+    <span class="phpdocumentor-element-found-in__line">1022</span>
 
     </aside>
 
@@ -3101,7 +3175,7 @@ and only takes 'background-color' and 'color'; property with HEX color</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">772</span>
+    <span class="phpdocumentor-element-found-in__line">783</span>
 
     </aside>
 
@@ -3154,7 +3228,7 @@ and only takes 'background-color' and 'color'; property with HEX color</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">659</span>
+    <span class="phpdocumentor-element-found-in__line">661</span>
 
     </aside>
 
@@ -3202,7 +3276,7 @@ and only takes 'background-color' and 'color'; property with HEX color</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">370</span>
+    <span class="phpdocumentor-element-found-in__line">377</span>
 
     </aside>
 
@@ -3278,7 +3352,7 @@ and only takes 'background-color' and 'color'; property with HEX color</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">536</span>
+    <span class="phpdocumentor-element-found-in__line">543</span>
 
     </aside>
 
@@ -3340,7 +3414,7 @@ and only takes 'background-color' and 'color'; property with HEX color</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">508</span>
+    <span class="phpdocumentor-element-found-in__line">515</span>
 
     </aside>
 
@@ -3402,7 +3476,7 @@ and only takes 'background-color' and 'color'; property with HEX color</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">284</span>
+    <span class="phpdocumentor-element-found-in__line">291</span>
 
     </aside>
 
@@ -3471,7 +3545,7 @@ and only takes 'background-color' and 'color'; property with HEX color</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">353</span>
+    <span class="phpdocumentor-element-found-in__line">360</span>
 
     </aside>
 
@@ -3547,7 +3621,7 @@ and only takes 'background-color' and 'color'; property with HEX color</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">550</span>
+    <span class="phpdocumentor-element-found-in__line">557</span>
 
     </aside>
 
@@ -3609,7 +3683,7 @@ and only takes 'background-color' and 'color'; property with HEX color</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">398</span>
+    <span class="phpdocumentor-element-found-in__line">405</span>
 
     </aside>
 
@@ -3685,7 +3759,7 @@ and only takes 'background-color' and 'color'; property with HEX color</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">529</span>
+    <span class="phpdocumentor-element-found-in__line">536</span>
 
     </aside>
 
@@ -3740,7 +3814,7 @@ and only takes 'background-color' and 'color'; property with HEX color</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">339</span>
+    <span class="phpdocumentor-element-found-in__line">346</span>
 
     </aside>
 
@@ -3816,7 +3890,7 @@ and only takes 'background-color' and 'color'; property with HEX color</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">447</span>
+    <span class="phpdocumentor-element-found-in__line">454</span>
 
     </aside>
 
@@ -3892,7 +3966,7 @@ and only takes 'background-color' and 'color'; property with HEX color</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">426</span>
+    <span class="phpdocumentor-element-found-in__line">433</span>
 
     </aside>
 
@@ -3968,7 +4042,7 @@ and only takes 'background-color' and 'color'; property with HEX color</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">320</span>
+    <span class="phpdocumentor-element-found-in__line">327</span>
 
     </aside>
 
@@ -4044,7 +4118,7 @@ and only takes 'background-color' and 'color'; property with HEX color</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">458</span>
+    <span class="phpdocumentor-element-found-in__line">465</span>
 
     </aside>
 
@@ -4120,7 +4194,7 @@ and only takes 'background-color' and 'color'; property with HEX color</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">557</span>
+    <span class="phpdocumentor-element-found-in__line">564</span>
 
     </aside>
 
@@ -4196,7 +4270,7 @@ and only takes 'background-color' and 'color'; property with HEX color</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">499</span>
+    <span class="phpdocumentor-element-found-in__line">506</span>
 
     </aside>
 
@@ -4272,7 +4346,7 @@ and only takes 'background-color' and 'color'; property with HEX color</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">302</span>
+    <span class="phpdocumentor-element-found-in__line">309</span>
 
     </aside>
 
@@ -4348,7 +4422,7 @@ and only takes 'background-color' and 'color'; property with HEX color</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">479</span>
+    <span class="phpdocumentor-element-found-in__line">486</span>
 
     </aside>
 
@@ -4424,7 +4498,7 @@ and only takes 'background-color' and 'color'; property with HEX color</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">543</span>
+    <span class="phpdocumentor-element-found-in__line">550</span>
 
     </aside>
 
@@ -4486,7 +4560,7 @@ and only takes 'background-color' and 'color'; property with HEX color</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">522</span>
+    <span class="phpdocumentor-element-found-in__line">529</span>
 
     </aside>
 
@@ -4541,7 +4615,7 @@ and only takes 'background-color' and 'color'; property with HEX color</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">156</span>
+    <span class="phpdocumentor-element-found-in__line">163</span>
 
     </aside>
 
@@ -4576,7 +4650,7 @@ and only takes 'background-color' and 'color'; property with HEX color</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">163</span>
+    <span class="phpdocumentor-element-found-in__line">170</span>
 
     </aside>
 
@@ -4611,7 +4685,7 @@ and only takes 'background-color' and 'color'; property with HEX color</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">734</span>
+    <span class="phpdocumentor-element-found-in__line">736</span>
 
     </aside>
 
@@ -4646,6 +4720,51 @@ and only takes 'background-color' and 'color'; property with HEX color</p>
         class="phpdocumentor-element
             -method
             -private
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_replaceNonAsciiIfNeeded">
+        replaceNonAsciiIfNeeded()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Reader-Html.html#method_replaceNonAsciiIfNeeded" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">741</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">replaceNonAsciiIfNeeded</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$convert</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string|null</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$convert</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string|null</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
                                                         "
 >
     <h4 class="phpdocumentor-element__name" id="method_setBorderStyle">
@@ -4656,7 +4775,7 @@ and only takes 'background-color' and 'color'; property with HEX color</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1081</span>
+    <span class="phpdocumentor-element-found-in__line">1092</span>
 
     </aside>
 
@@ -4711,7 +4830,7 @@ and only takes 'background-color' and 'color'; property with HEX color</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Reader/Html.php"><a href="files/src-phpspreadsheet-reader-html.html"><abbr title="src/PhpSpreadsheet/Reader/Html.php">Html.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">183</span>
+    <span class="phpdocumentor-element-found-in__line">190</span>
 
     </aside>
 
@@ -4857,8 +4976,10 @@ and only takes 'background-color' and 'color'; property with HEX color</p>
                     <ul class="phpdocumentor-list -clean">
                                                     <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Html.html#constant_TEST_SAMPLE_SIZE">TEST_SAMPLE_SIZE</a></li>
                                                     <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Html.html#constant_BORDER_MAPPINGS">BORDER_MAPPINGS</a></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Html.html#constant_DECLARES_CHARSET">DECLARES_CHARSET</a></li>
                                                     <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Html.html#constant_H1_ETC">H1_ETC</a></li>
                                                     <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Html.html#constant_SPAN_ETC">SPAN_ETC</a></li>
+                                                    <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Html.html#constant_STARTS_WITH_BOM">STARTS_WITH_BOM</a></li>
                                             </ul>
                 </li>
             
@@ -4947,6 +5068,7 @@ and only takes 'background-color' and 'color'; property with HEX color</p>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Html.html#method_readBeginning">readBeginning()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Html.html#method_readEnding">readEnding()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Html.html#method_replaceNonAscii">replaceNonAscii()</a></li>
+                                            <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Html.html#method_replaceNonAsciiIfNeeded">replaceNonAsciiIfNeeded()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Html.html#method_setBorderStyle">setBorderStyle()</a></li>
                                             <li><a href="classes/PhpOffice-PhpSpreadsheet-Reader-Html.html#method_startsWithTag">startsWithTag()</a></li>
                                     </ul>
