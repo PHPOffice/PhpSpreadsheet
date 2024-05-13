@@ -253,7 +253,7 @@ class Spreadsheet implements JsonSerializable
      */
     public function setRibbonXMLData(mixed $target, mixed $xmlData): void
     {
-        if ($target !== null && $xmlData !== null) {
+        if (is_string($target) && is_string($xmlData)) {
             $this->ribbonXMLData = ['target' => $target, 'data' => $xmlData];
         } else {
             $this->ribbonXMLData = null;

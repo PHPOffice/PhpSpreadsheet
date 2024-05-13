@@ -288,7 +288,7 @@ class Cells
             $newCollection->index[$key] = $value;
             $stored = $newCollection->cache->set(
                 $newCollection->cachePrefix . $key,
-                clone $this->cache->get($this->cachePrefix . $key)
+                clone $this->getCache($key)
             );
             if ($stored === false) {
                 $this->destructIfNeeded($newCollection, 'Failed to copy cells in cache');
@@ -410,11 +410,7 @@ class Cells
             return null;
         }
 
-        // Check if the entry that has been requested actually exists in the cache
-        $cell = $this->cache->get($this->cachePrefix . $cellCoordinate);
-        if ($cell === null) {
-            throw new PhpSpreadsheetException("Cell entry {$cellCoordinate} no longer exists in cache. This probably means that the cache was cleared by someone else.");
-        }
+        $cell = $this->getcache($cellCoordinate);
 
         // Set current entry to the requested entry
         $this->currentCoordinate = $cellCoordinate;
@@ -465,5 +461,15 @@ class Cells
         foreach ($this->index as $coordinate => $value) {
             yield $this->cachePrefix . $coordinate;
         }
+    }
+
+    private function getCache(string $cellCoordinate): Cell
+    {
+        $cell = $this->cache->get($this->cachePrefix . $cellCoordinate);
+        if (!($cell instanceof Cell)) {
+            throw new PhpSpreadsheetException("Cell entry {$cellCoordinate} no longer exists in cache. This probably means that the cache was cleared by someone else.");
+        }
+
+        return $cell;
     }
 }

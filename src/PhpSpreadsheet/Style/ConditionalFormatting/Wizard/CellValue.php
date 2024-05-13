@@ -69,6 +69,7 @@ class CellValue extends WizardAbstract implements WizardInterface
         $this->operandValueType[$index] = $operandValueType;
     }
 
+    /** @param null|bool|float|int|string $value value to be wrapped */
     protected function wrapValue(mixed $value, string $operandValueType): float|int|string
     {
         if (!is_numeric($value) && !is_bool($value) && null !== $value) {
@@ -175,7 +176,9 @@ class CellValue extends WizardAbstract implements WizardInterface
         if (count($arguments) < 2) {
             $this->operand(0, $arguments[0]);
         } else {
-            $this->operand(0, $arguments[0], $arguments[1]);
+            /** @var string */
+            $arg1 = $arguments[1];
+            $this->operand(0, $arguments[0], $arg1);
         }
 
         return $this;

@@ -115,6 +115,7 @@ class DateFormatter
         }
     }
 
+    /** @param float|int $value value to be formatted */
     public static function format(mixed $value, string $format): string
     {
         // strip off first part containing e.g. [$-F800] or [$USD-409]
