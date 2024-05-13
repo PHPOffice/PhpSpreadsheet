@@ -26,6 +26,8 @@ class NumberFormatTest extends TestCase
 
     /**
      * @dataProvider providerNumberFormat
+     *
+     * @param null|bool|float|int|string $args string to be formatted
      */
     public function testFormatValueWithMask(mixed $expectedResult, mixed ...$args): void
     {
@@ -40,6 +42,8 @@ class NumberFormatTest extends TestCase
 
     /**
      * @dataProvider providerNumberFormatFractions
+     *
+     * @param null|bool|float|int|string $args string to be formatted
      */
     public function testFormatValueWithMaskFraction(mixed $expectedResult, mixed ...$args): void
     {
@@ -54,6 +58,8 @@ class NumberFormatTest extends TestCase
 
     /**
      * @dataProvider providerNumberFormatDates
+     *
+     * @param null|bool|float|int|string $args string to be formatted
      */
     public function testFormatValueWithMaskDate(mixed $expectedResult, mixed ...$args): void
     {

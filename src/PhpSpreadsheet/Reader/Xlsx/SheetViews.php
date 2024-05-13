@@ -70,6 +70,20 @@ class SheetViews extends BaseParserClass
 
             $this->worksheet->getSheetView()->setZoomScaleNormal($zoomScaleNormal);
         }
+
+        if (isset($this->sheetViewAttributes->zoomScalePageLayoutView)) {
+            $zoomScaleNormal = (int) ($this->sheetViewAttributes->zoomScalePageLayoutView);
+            if ($zoomScaleNormal > 0) {
+                $this->worksheet->getSheetView()->setZoomScalePageLayoutView($zoomScaleNormal);
+            }
+        }
+
+        if (isset($this->sheetViewAttributes->zoomScaleSheetLayoutView)) {
+            $zoomScaleNormal = (int) ($this->sheetViewAttributes->zoomScaleSheetLayoutView);
+            if ($zoomScaleNormal > 0) {
+                $this->worksheet->getSheetView()->setZoomScaleSheetLayoutView($zoomScaleNormal);
+            }
+        }
     }
 
     private function view(): void

@@ -2626,7 +2626,7 @@ class Worksheet implements IComparable
      * @param array{0: int, 1: int}|CellAddress|string $cellCoordinate Coordinate of the cell as a string, eg: 'C5';
      *               or as an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress object.
      */
-    public function getComment(CellAddress|string|array $cellCoordinate): Comment
+    public function getComment(CellAddress|string|array $cellCoordinate, bool $attachNew = true): Comment
     {
         $cellAddress = Functions::trimSheetFromCellReference(Validations::validateCellAddress($cellCoordinate));
 
@@ -2645,7 +2645,9 @@ class Worksheet implements IComparable
 
         // If not, create a new comment.
         $newComment = new Comment();
-        $this->comments[$cellAddress] = $newComment;
+        if ($attachNew) {
+            $this->comments[$cellAddress] = $newComment;
+        }
 
         return $newComment;
     }
@@ -2860,7 +2862,7 @@ class Worksheet implements IComparable
      * @param bool $ignoreHidden False - Return values for rows/columns even if they are defined as hidden.
      *                            True - Don't return values for rows/columns that are defined as hidden.
      *
-     * @return Generator
+     * @return Generator<array>
      */
     public function rangeToArrayYieldRows(
         string $range,

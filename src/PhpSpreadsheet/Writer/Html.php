@@ -1310,10 +1310,11 @@ class Html extends BaseWriter
             $cellData .= $this->generateRowCellDataValueRich($cell->getValue());
         } else {
             $origData = $this->preCalculateFormulas ? $cell->getCalculatedValue() : $cell->getValue();
+            $origData2 = $this->preCalculateFormulas ? $cell->getCalculatedValueString() : $cell->getValueString();
             $formatCode = $worksheet->getParentOrThrow()->getCellXfByIndex($cell->getXfIndex())->getNumberFormat()->getFormatCode();
 
             $cellData = NumberFormat::toFormattedString(
-                $origData ?? '',
+                $origData2,
                 $formatCode ?? NumberFormat::FORMAT_GENERAL,
                 [$this, 'formatColor']
             );

@@ -209,8 +209,8 @@ class Content extends WriterPart
             switch ($cell->getDataType()) {
                 case DataType::TYPE_BOOL:
                     $objWriter->writeAttribute('office:value-type', 'boolean');
-                    $objWriter->writeAttribute('office:value', $cell->getValue());
-                    $objWriter->writeElement('text:p', $cell->getValue());
+                    $objWriter->writeAttribute('office:value', $cell->getValueString());
+                    $objWriter->writeElement('text:p', $cell->getValueString());
 
                     break;
                 case DataType::TYPE_ERROR:
@@ -221,15 +221,15 @@ class Content extends WriterPart
 
                     break;
                 case DataType::TYPE_FORMULA:
-                    $formulaValue = $cell->getValue();
+                    $formulaValue = $cell->getValueString();
                     if ($this->getParentWriter()->getPreCalculateFormulas()) {
                         try {
-                            $formulaValue = $cell->getCalculatedValue();
+                            $formulaValue = $cell->getCalculatedValueString();
                         } catch (CalculationException $e) {
                             // don't do anything
                         }
                     }
-                    $objWriter->writeAttribute('table:formula', $this->formulaConvertor->convertFormula($cell->getValue()));
+                    $objWriter->writeAttribute('table:formula', $this->formulaConvertor->convertFormula($cell->getValueString()));
                     if (is_numeric($formulaValue)) {
                         $objWriter->writeAttribute('office:value-type', 'float');
                     } else {
@@ -241,8 +241,8 @@ class Content extends WriterPart
                     break;
                 case DataType::TYPE_NUMERIC:
                     $objWriter->writeAttribute('office:value-type', 'float');
-                    $objWriter->writeAttribute('office:value', $cell->getValue());
-                    $objWriter->writeElement('text:p', $cell->getValue());
+                    $objWriter->writeAttribute('office:value', $cell->getValueString());
+                    $objWriter->writeElement('text:p', $cell->getValueString());
 
                     break;
                 case DataType::TYPE_INLINE:
@@ -251,7 +251,7 @@ class Content extends WriterPart
                     $objWriter->writeAttribute('office:value-type', 'string');
                     $url = $cell->getHyperlink()->getUrl();
                     if (empty($url)) {
-                        $objWriter->writeElement('text:p', $cell->getValue());
+                        $objWriter->writeElement('text:p', $cell->getValueString());
                     } else {
                         $objWriter->startElement('text:p');
                         $objWriter->startElement('text:a');
@@ -262,7 +262,7 @@ class Content extends WriterPart
                         }
                         $objWriter->writeAttribute('xlink:href', $url);
                         $objWriter->writeAttribute('xlink:type', 'simple');
-                        $objWriter->text($cell->getValue());
+                        $objWriter->text($cell->getValueString());
                         $objWriter->endElement(); // text:a
                         $objWriter->endElement(); // text:p
                     }

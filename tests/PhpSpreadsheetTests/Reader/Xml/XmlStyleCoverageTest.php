@@ -68,6 +68,18 @@ class XmlStyleCoverageTest extends TestCase
     public static function providerBorderStyle(): array
     {
         return [
+            ['continuous', Border::BORDER_HAIR],
+            ['dash', Border::BORDER_DASHED],
+            ['dashdot', Border::BORDER_DASHDOT],
+            ['dashdotdot', Border::BORDER_DASHDOTDOT],
+            ['dot', Border::BORDER_DOTTED],
+            ['double', Border::BORDER_DOUBLE],
+            ['0continuous', Border::BORDER_HAIR],
+            ['0dash', Border::BORDER_DASHED],
+            ['0dashdot', Border::BORDER_DASHDOT],
+            ['0dashdotdot', Border::BORDER_DASHDOTDOT],
+            ['0dot', Border::BORDER_DOTTED],
+            ['0double', Border::BORDER_DOUBLE],
             ['1continuous', Border::BORDER_THIN],
             ['1dash', Border::BORDER_DASHED],
             ['1dashdot', Border::BORDER_DASHDOT],

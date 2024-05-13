@@ -346,7 +346,7 @@ class StringHelper
      * see OpenOffice.org's Documentation of the Microsoft Excel File Format, sect. 2.5.3.
      *
      * @param string $textValue UTF-8 encoded string
-     * @param mixed[] $arrcRuns Details of rich text runs in $value
+     * @param array<int, array{strlen: int, fontidx: int}> $arrcRuns Details of rich text runs in $value
      */
     public static function UTF8toBIFF8UnicodeShort(string $textValue, array $arrcRuns = []): string
     {
