@@ -3653,7 +3653,6 @@ class Worksheet implements IComparable
     public function copyCells(string $fromCell, string $toCells, bool $copyStyle = true): void
     {
         $toArray = Coordinate::extractAllCellReferencesInRange($toCells);
-        $value = $this->getCell($fromCell)->getValue();
         $valueString = $this->getCell($fromCell)->getValueString();
         $style = $this->getStyle($fromCell)->exportArray();
         $fromIndexes = Coordinate::indexesFromString($fromCell);
