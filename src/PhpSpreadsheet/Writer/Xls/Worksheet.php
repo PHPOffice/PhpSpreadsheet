@@ -2897,7 +2897,7 @@ class Worksheet extends BIFFwriter
         $flags |= (1 == self::$always0 ? 0x80000000 : 0);
 
         $dataBlockFont = null;
-        $dataBlockAlign = null;
+        //$dataBlockAlign = null;
         $dataBlockBorder = null;
         $dataBlockFill = null;
 

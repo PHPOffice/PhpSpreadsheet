@@ -163,7 +163,6 @@ class Issue4025Test extends TestCase
         $sheet->getStyle('P10:P11')->setConditionalStyles($conditionalStyles2);
 
         $sheet->setSelectedCells('A1');
-        $oufil = 'issue.4025b.xlsx';
         $writer = new XlsxWriter($spreadsheet);
 
         $writer->getStylesConditionalHashTable()->addFromSource($writer->getWriterPartStyle()->allConditionalStyles($spreadsheet));
