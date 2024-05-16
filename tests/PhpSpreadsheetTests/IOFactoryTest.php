@@ -102,6 +102,7 @@ class IOFactoryTest extends TestCase
             // Following not readable by Excel.
             //['samples/templates/Excel2003XMLTest.xml', 'Xml', Reader\Xml::class],
             ['samples/templates/46readHtml.html', 'Html', Reader\Html::class],
+            ['tests/data/Reader/CSV/encoding.utf8bom.csv', 'Csv', Reader\Csv::class],
         ];
     }
 
