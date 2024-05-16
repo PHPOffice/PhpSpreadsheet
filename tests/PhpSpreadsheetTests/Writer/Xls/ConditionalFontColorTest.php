@@ -27,7 +27,7 @@ class ConditionalFontColorTest extends AbstractFunctional
             ->setBold(true);
         $condition1->getStyle()->getFont()->getColor()
             ->setARGB('FFFF8193');
-        $conditionalStyles[] = $condition1;
+        $conditionalStyles = [$condition1];
         $sheet->getStyle('A1')->setConditionalStyles($conditionalStyles);
 
         $robj = $this->writeAndReload($spreadsheet, 'Xls');
