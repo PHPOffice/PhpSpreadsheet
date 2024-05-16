@@ -7493,11 +7493,15 @@ class Xls extends BaseReader
 
             // bit: 0-6; mask: 0x007F; type
             $color1 = (0x007F & $fillColors) >> 0;
-            $style->getFill()->getStartColor()->setRGB(Xls\Color::map($color1, $this->palette, $this->version)['rgb']);
 
             // bit: 7-13; mask: 0x3F80; type
             $color2 = (0x3F80 & $fillColors) >> 7;
-            $style->getFill()->getEndColor()->setRGB(Xls\Color::map($color2, $this->palette, $this->version)['rgb']);
+            if ($fillPattern === Fill::FILL_SOLID) {
+                $style->getFill()->getStartColor()->setRGB(Xls\Color::map($color2, $this->palette, $this->version)['rgb']);
+            } else {
+                $style->getFill()->getStartColor()->setRGB(Xls\Color::map($color1, $this->palette, $this->version)['rgb']);
+                $style->getFill()->getEndColor()->setRGB(Xls\Color::map($color2, $this->palette, $this->version)['rgb']);
+            }
         }
     }
 

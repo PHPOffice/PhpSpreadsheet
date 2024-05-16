@@ -154,6 +154,8 @@ class Worksheet extends BIFFwriter
 
     private int $printHeaders;
 
+    private ?Workbook $writerWorkbook;
+
     /**
      * Constructor.
      *
@@ -165,7 +167,7 @@ class Worksheet extends BIFFwriter
      * @param bool $preCalculateFormulas Flag indicating whether formulas should be calculated or just written
      * @param \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $phpSheet The worksheet to write
      */
-    public function __construct(int &$str_total, int &$str_unique, array &$str_table, array &$colors, Parser $parser, bool $preCalculateFormulas, \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $phpSheet)
+    public function __construct(int &$str_total, int &$str_unique, array &$str_table, array &$colors, Parser $parser, bool $preCalculateFormulas, \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $phpSheet, ?Workbook $writerWorkbook = null)
     {
         // It needs to call its parent's constructor explicitly
         parent::__construct();
@@ -208,6 +210,7 @@ class Worksheet extends BIFFwriter
         if ($this->lastColumnIndex > 255) {
             $this->lastColumnIndex = 255;
         }
+        $this->writerWorkbook = $writerWorkbook;
     }
 
     /**
@@ -491,8 +494,6 @@ class Worksheet extends BIFFwriter
 
         $arrConditionalStyles = $this->phpSheet->getConditionalStylesCollection();
         if (!empty($arrConditionalStyles)) {
-            $arrConditional = [];
-
             // Write ConditionalFormattingTable records
             foreach ($arrConditionalStyles as $cellCoordinate => $conditionalStyles) {
                 $cfHeaderWritten = false;
@@ -506,10 +507,7 @@ class Worksheet extends BIFFwriter
                         if ($cfHeaderWritten === false) {
                             $cfHeaderWritten = $this->writeCFHeader($cellCoordinate, $conditionalStyles);
                         }
-                        if ($cfHeaderWritten === true && !isset($arrConditional[$conditional->getHashCode()])) {
-                            // This hash code has been handled
-                            $arrConditional[$conditional->getHashCode()] = true;
-
+                        if ($cfHeaderWritten === true) {
                             // Write CFRULE record
                             $this->writeCFRule($conditionalFormulaHelper, $conditional, $cellCoordinate);
                         }
@@ -2971,8 +2969,7 @@ class Worksheet extends BIFFwriter
             // Not used (3)
             $dataBlockFont .= pack('vC', 0x0000, 0x00);
             // Font color index
-            $colorIdx = Style\ColorMap::lookup($conditional->getStyle()->getFont()->getColor(), 0x00);
-
+            $colorIdx = $this->workbookColorIndex($conditional->getStyle()->getFont()->getColor()->getRgb(), 0);
             $dataBlockFont .= pack('V', $colorIdx);
             // Not used (4)
             $dataBlockFont .= pack('V', 0x00000000);
@@ -3043,9 +3040,9 @@ class Worksheet extends BIFFwriter
             // Fill Pattern Style
             $blockFillPatternStyle = Style\CellFill::style($conditional->getStyle()->getFill());
             // Background Color
-            $colorIdxBg = Style\ColorMap::lookup($conditional->getStyle()->getFill()->getStartColor(), 0x41);
+            $colorIdxBg = $this->workbookColorIndex($conditional->getStyle()->getFill()->getStartColor()->getRgb(), 0x41);
             // Foreground Color
-            $colorIdxFg = Style\ColorMap::lookup($conditional->getStyle()->getFill()->getEndColor(), 0x40);
+            $colorIdxFg = $this->workbookColorIndex($conditional->getStyle()->getFill()->getEndColor()->getRgb(), 0x40);
 
             $dataBlockFill = pack('v', $blockFillPatternStyle);
             $dataBlockFill .= pack('v', $colorIdxFg | ($colorIdxBg << 7));
@@ -3141,5 +3138,10 @@ class Worksheet extends BIFFwriter
         }
 
         return $dataBlockProtection;
+    }
+
+    private function workbookColorIndex(?string $rgb, int $default): int
+    {
+        return (empty($rgb) || $this->writerWorkbook === null) ? $default : $this->writerWorkbook->addColor($rgb, $default);
     }
 }

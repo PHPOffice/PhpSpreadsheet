@@ -111,7 +111,7 @@ $helper->log('Define some styles for our Conditionals');
 $yellowStyle = new Style(false, true);
 $yellowStyle->getFill()
     ->setFillType(Fill::FILL_SOLID)
-    ->getEndColor()->setARGB(Color::COLOR_YELLOW);
+    ->getStartColor()->setARGB(Color::COLOR_YELLOW);
 $yellowStyle->getFont()->setColor(new Color(Color::COLOR_BLUE));
 
 // Set conditional formatting rules and styles
