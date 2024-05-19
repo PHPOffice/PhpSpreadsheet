@@ -2802,7 +2802,7 @@ class Worksheet extends BIFFwriter
 
         // $flags : Option flags
         // Alignment
-        $bAlignHz = ($conditional->getStyle()->getAlignment()->getHorizontal() === null ? 1 : 0);
+        /*$bAlignHz = ($conditional->getStyle()->getAlignment()->getHorizontal() === null ? 1 : 0);
         $bAlignVt = ($conditional->getStyle()->getAlignment()->getVertical() === null ? 1 : 0);
         $bAlignWrapTx = ($conditional->getStyle()->getAlignment()->getWrapText() === false ? 1 : 0);
         $bTxRotation = ($conditional->getStyle()->getAlignment()->getTextRotation() === null ? 1 : 0);
@@ -2812,15 +2812,15 @@ class Worksheet extends BIFFwriter
             $bFormatAlign = 1;
         } else {
             $bFormatAlign = 0;
-        }
+        }*/
         // Protection
-        $bProtLocked = ($conditional->getStyle()->getProtection()->getLocked() === null ? 1 : 0);
+        /*$bProtLocked = ($conditional->getStyle()->getProtection()->getLocked() === null ? 1 : 0);
         $bProtHidden = ($conditional->getStyle()->getProtection()->getHidden() === null ? 1 : 0);
         if ($bProtLocked == 0 || $bProtHidden == 0) {
             $bFormatProt = 1;
         } else {
             $bFormatProt = 0;
-        }
+        }*/
         // Border
         $bBorderLeft = ($conditional->getStyle()->getBorders()->getLeft()->getBorderStyle() !== Border::BORDER_OMIT) ? 1 : 0;
         $bBorderRight = ($conditional->getStyle()->getBorders()->getRight()->getBorderStyle() !== Border::BORDER_OMIT) ? 1 : 0;
@@ -2858,19 +2858,19 @@ class Worksheet extends BIFFwriter
         }
         // Alignment
         $flags = 0;
-        $flags |= (1 == $bAlignHz ? 0x00000001 : 0);
-        $flags |= (1 == $bAlignVt ? 0x00000002 : 0);
-        $flags |= (1 == $bAlignWrapTx ? 0x00000004 : 0);
-        $flags |= (1 == $bTxRotation ? 0x00000008 : 0);
+        //$flags |= (1 == $bAlignHz ? 0x00000001 : 0);
+        //$flags |= (1 == $bAlignVt ? 0x00000002 : 0);
+        //$flags |= (1 == $bAlignWrapTx ? 0x00000004 : 0);
+        //$flags |= (1 == $bTxRotation ? 0x00000008 : 0);
         // Justify last line flag
         $flags |= (1 == self::$always1 ? 0x00000010 : 0);
-        $flags |= (1 == $bIndent ? 0x00000020 : 0);
-        $flags |= (1 == $bShrinkToFit ? 0x00000040 : 0);
+        //$flags |= (1 == $bIndent ? 0x00000020 : 0);
+        //$flags |= (1 == $bShrinkToFit ? 0x00000040 : 0);
         // Default
         $flags |= (1 == self::$always1 ? 0x00000080 : 0);
         // Protection
-        $flags |= (1 == $bProtLocked ? 0x00000100 : 0);
-        $flags |= (1 == $bProtHidden ? 0x00000200 : 0);
+        //$flags |= (1 == $bProtLocked ? 0x00000100 : 0);
+        //$flags |= (1 == $bProtHidden ? 0x00000200 : 0);
         // Border
         $flags |= (1 == $bBorderLeft ? 0x00000400 : 0);
         $flags |= (1 == $bBorderRight ? 0x00000800 : 0);
@@ -2886,18 +2886,18 @@ class Worksheet extends BIFFwriter
         // Font
         $flags |= (1 == $bFormatFont ? 0x04000000 : 0);
         // Alignment:
-        $flags |= (1 == $bFormatAlign ? 0x08000000 : 0);
+        //$flags |= (1 == $bFormatAlign ? 0x08000000 : 0);
         // Border
         $flags |= (1 == $bFormatBorder ? 0x10000000 : 0);
         // Pattern
         $flags |= (1 == $bFormatFill ? 0x20000000 : 0);
         // Protection
-        $flags |= (1 == $bFormatProt ? 0x40000000 : 0);
+        //$flags |= (1 == $bFormatProt ? 0x40000000 : 0);
         // Text direction
         $flags |= (1 == self::$always0 ? 0x80000000 : 0);
 
         $dataBlockFont = null;
-        $dataBlockAlign = null;
+        //$dataBlockAlign = null;
         $dataBlockBorder = null;
         $dataBlockFill = null;
 
@@ -2998,7 +2998,7 @@ class Worksheet extends BIFFwriter
             // Always
             $dataBlockFont .= pack('v', 0x0001);
         }
-        if ($bFormatAlign === 1) {
+        /*if ($bFormatAlign === 1) {
             // Alignment and text break
             $blockAlign = Style\CellAlignment::horizontal($conditional->getStyle()->getAlignment());
             $blockAlign |= Style\CellAlignment::wrap($conditional->getStyle()->getAlignment()) << 3;
@@ -3021,7 +3021,7 @@ class Worksheet extends BIFFwriter
             $blockIndentRelative = 255;
 
             $dataBlockAlign = pack('CCvvv', $blockAlign, $blockRotation, $blockIndent, $blockIndentRelative, 0x0000);
-        }
+        }*/
         if ($bFormatBorder === 1) {
             $blockLineStyle = Style\CellBorder::style($conditional->getStyle()->getBorders()->getLeft());
             $blockLineStyle |= Style\CellBorder::style($conditional->getStyle()->getBorders()->getRight()) << 4;
@@ -3055,18 +3055,18 @@ class Worksheet extends BIFFwriter
         if ($bFormatFont === 1) { // Block Formatting : OK
             $data .= $dataBlockFont;
         }
-        if ($bFormatAlign === 1) {
-            $data .= $dataBlockAlign;
-        }
+        //if ($bFormatAlign === 1) {
+        //    $data .= $dataBlockAlign;
+        //}
         if ($bFormatBorder === 1) {
             $data .= $dataBlockBorder;
         }
         if ($bFormatFill === 1) { // Block Formatting : OK
             $data .= $dataBlockFill;
         }
-        if ($bFormatProt == 1) {
-            $data .= $this->getDataBlockProtection($conditional);
-        }
+        //if ($bFormatProt == 1) {
+        //    $data .= $this->getDataBlockProtection($conditional);
+        //}
         if ($operand1 !== null) {
             $data .= $operand1;
         }
@@ -3130,7 +3130,7 @@ class Worksheet extends BIFFwriter
         return true;
     }
 
-    private function getDataBlockProtection(Conditional $conditional): int
+    /*private function getDataBlockProtection(Conditional $conditional): int
     {
         $dataBlockProtection = 0;
         if ($conditional->getStyle()->getProtection()->getLocked() == Protection::PROTECTION_PROTECTED) {
@@ -3141,5 +3141,5 @@ class Worksheet extends BIFFwriter
         }
 
         return $dataBlockProtection;
-    }
+    }*/
 }
