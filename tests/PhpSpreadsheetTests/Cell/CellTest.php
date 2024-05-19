@@ -195,15 +195,15 @@ class CellTest extends TestCase
         $yellowStyle = new Style(false, true);
         $yellowStyle->getFill()
             ->setFillType(Fill::FILL_SOLID)
-            ->getEndColor()->setARGB(Color::COLOR_YELLOW);
+            ->getStartColor()->setARGB(Color::COLOR_YELLOW);
         $greenStyle = new Style(false, true);
         $greenStyle->getFill()
             ->setFillType(Fill::FILL_SOLID)
-            ->getEndColor()->setARGB(Color::COLOR_GREEN);
+            ->getStartColor()->setARGB(Color::COLOR_GREEN);
         $redStyle = new Style(false, true);
         $redStyle->getFill()
             ->setFillType(Fill::FILL_SOLID)
-            ->getEndColor()->setARGB(Color::COLOR_RED);
+            ->getStartColor()->setARGB(Color::COLOR_RED);
 
         $conditionalStyles = [];
         $wizardFactory = new Wizard($cellRange);
@@ -228,22 +228,22 @@ class CellTest extends TestCase
         $style = $sheet->getCell('A1')->getAppliedStyle();
         self::assertTrue($style->getFont()->getBold());
         self::assertEquals($redStyle->getFill()->getFillType(), $style->getFill()->getFillType());
-        self::assertEquals($redStyle->getFill()->getEndColor()->getARGB(), $style->getFill()->getEndColor()->getARGB());
+        self::assertEquals($redStyle->getFill()->getStartColor()->getARGB(), $style->getFill()->getStartColor()->getARGB());
 
         $style = $sheet->getCell('A2')->getAppliedStyle();
         self::assertTrue($style->getFont()->getBold());
         self::assertEquals($yellowStyle->getFill()->getFillType(), $style->getFill()->getFillType());
         self::assertEquals(
-            $yellowStyle->getFill()->getEndColor()->getARGB(),
-            $style->getFill()->getEndColor()->getARGB()
+            $yellowStyle->getFill()->getStartColor()->getARGB(),
+            $style->getFill()->getStartColor()->getARGB()
         );
 
         $style = $sheet->getCell('A3')->getAppliedStyle();
         self::assertTrue($style->getFont()->getBold());
         self::assertEquals($greenStyle->getFill()->getFillType(), $style->getFill()->getFillType());
         self::assertEquals(
-            $greenStyle->getFill()->getEndColor()->getARGB(),
-            $style->getFill()->getEndColor()->getARGB()
+            $greenStyle->getFill()->getStartColor()->getARGB(),
+            $style->getFill()->getStartColor()->getARGB()
         );
     }
 
@@ -266,11 +266,11 @@ class CellTest extends TestCase
         $yellowStyle = new Style(false, true);
         $yellowStyle->getFill()
             ->setFillType(Fill::FILL_SOLID)
-            ->getEndColor()->setARGB(Color::COLOR_YELLOW);
+            ->getStartColor()->setARGB(Color::COLOR_YELLOW);
         $redStyle = new Style(false, true);
         $redStyle->getFill()
             ->setFillType(Fill::FILL_SOLID)
-            ->getEndColor()->setARGB(Color::COLOR_RED);
+            ->getStartColor()->setARGB(Color::COLOR_RED);
 
         $conditionalCellRange = 'A1:C1';
         $conditionalStyles = [];
@@ -294,7 +294,7 @@ class CellTest extends TestCase
         self::assertTrue($style->getFont()->getBold());
         self::assertEquals($fillStyle, $style->getFill()->getFillType());
         if ($fillStyle === Fill::FILL_SOLID) {
-            self::assertEquals($fillColor, $style->getFill()->getEndColor()->getARGB());
+            self::assertEquals($fillColor, $style->getFill()->getStartColor()->getARGB());
         }
     }
 

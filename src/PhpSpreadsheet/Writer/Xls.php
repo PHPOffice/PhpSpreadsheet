@@ -119,7 +119,7 @@ class Xls extends BaseWriter
         // Initialise worksheet writers
         $countSheets = $this->spreadsheet->getSheetCount();
         for ($i = 0; $i < $countSheets; ++$i) {
-            $this->writerWorksheets[$i] = new Worksheet($this->strTotal, $this->strUnique, $this->strTable, $this->colors, $this->parser, $this->preCalculateFormulas, $this->spreadsheet->getSheet($i));
+            $this->writerWorksheets[$i] = new Worksheet($this->strTotal, $this->strUnique, $this->strTable, $this->colors, $this->parser, $this->preCalculateFormulas, $this->spreadsheet->getSheet($i), $this->writerWorkbook);
         }
 
         // build Escher objects. Escher objects for workbooks needs to be build before Escher object for workbook.
