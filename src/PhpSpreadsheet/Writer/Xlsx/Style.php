@@ -506,55 +506,8 @@ class Style extends WriterPart
         // fill
         $this->writeFill($objWriter, $style->getFill());
 
-        // alignment
-        $horizontal = Alignment::HORIZONTAL_ALIGNMENT_FOR_XLSX[$style->getAlignment()->getHorizontal()] ?? '';
-        $vertical = Alignment::VERTICAL_ALIGNMENT_FOR_XLSX[$style->getAlignment()->getVertical()] ?? '';
-        $rotation = $style->getAlignment()->getTextRotation();
-        if ($horizontal || $vertical || $rotation !== null) {
-            $objWriter->startElement('alignment');
-            if ($horizontal) {
-                $objWriter->writeAttribute('horizontal', $horizontal);
-            }
-            if ($vertical) {
-                $objWriter->writeAttribute('vertical', $vertical);
-            }
-
-            if ($rotation !== null) {
-                if ($rotation >= 0) {
-                    $textRotation = $rotation;
-                } else {
-                    $textRotation = 90 - $rotation;
-                }
-                $objWriter->writeAttribute('textRotation', (string) $textRotation);
-            }
-            $objWriter->endElement();
-        }
-
         // border
         $this->writeBorder($objWriter, $style->getBorders());
-
-        // protection
-        if ((!empty($style->getProtection()->getLocked())) || (!empty($style->getProtection()->getHidden()))) {
-            if (
-                $style->getProtection()->getLocked() !== Protection::PROTECTION_INHERIT
-                || $style->getProtection()->getHidden() !== Protection::PROTECTION_INHERIT
-            ) {
-                $objWriter->startElement('protection');
-                if (
-                    ($style->getProtection()->getLocked() !== null)
-                    && ($style->getProtection()->getLocked() !== Protection::PROTECTION_INHERIT)
-                ) {
-                    $objWriter->writeAttribute('locked', ($style->getProtection()->getLocked() == Protection::PROTECTION_PROTECTED ? 'true' : 'false'));
-                }
-                if (
-                    ($style->getProtection()->getHidden() !== null)
-                    && ($style->getProtection()->getHidden() !== Protection::PROTECTION_INHERIT)
-                ) {
-                    $objWriter->writeAttribute('hidden', ($style->getProtection()->getHidden() == Protection::PROTECTION_PROTECTED ? 'true' : 'false'));
-                }
-                $objWriter->endElement();
-            }
-        }
 
         $objWriter->endElement();
     }

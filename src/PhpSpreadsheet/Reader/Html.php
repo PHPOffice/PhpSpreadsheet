@@ -147,10 +147,8 @@ class Html extends BaseReader
             return false;
         }
 
-        $beginning = $this->readBeginning();
-        if (preg_match(self::STARTS_WITH_BOM, $beginning)) {
-            return true;
-        }
+        $beginning = preg_replace(self::STARTS_WITH_BOM, '', $this->readBeginning()) ?? '';
+
         $startWithTag = self::startsWithTag($beginning);
         $containsTags = self::containsTags($beginning);
         $endsWithTag = self::endsWithTag($this->readEnding());

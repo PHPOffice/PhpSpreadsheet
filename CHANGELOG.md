@@ -5,6 +5,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org).
 
+## TBD - 2.2.0
+
+### Added
+
+- Nothing
+
+### Changed
+
+- Nothing
+
+### Deprecated
+
+- Nothing
+
+### Moved
+
+- Nothing
+
+### Fixed
+
+- Incorrect Reader CSV with BOM. [Issue #4028](https://github.com/PHPOffice/PhpSpreadsheet/issues/4028) [PR #4029](https://github.com/PHPOffice/PhpSpreadsheet/pull/4029)
+- POWER Null/Bool Args. [PR #4031](https://github.com/PHPOffice/PhpSpreadsheet/pull/4031) 
+
 ## 2024-05-11 - 2.1.0
 
 ### MINOR BREAKING CHANGE
