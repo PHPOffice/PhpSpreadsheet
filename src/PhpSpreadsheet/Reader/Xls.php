@@ -23,6 +23,7 @@ use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Shared\Xls as SharedXls;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Borders;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
@@ -162,6 +163,26 @@ class Xls extends BaseReader
 
     // Size of stream blocks when using RC4 encryption
     const REKEY_BLOCK = 0x400;
+
+    // should be consistent with Writer\Xls\Style\CellBorder
+    const BORDER_STYLE_MAP = [
+        Border::BORDER_NONE, // => 0x00,
+        Border::BORDER_THIN,  // => 0x01,
+        Border::BORDER_MEDIUM, // => 0x02,
+        Border::BORDER_DASHED, // => 0x03,
+        Border::BORDER_DOTTED,  // => 0x04,
+        Border::BORDER_THICK, // => 0x05,
+        Border::BORDER_DOUBLE, // => 0x06,
+        Border::BORDER_HAIR, // => 0x07,
+        Border::BORDER_MEDIUMDASHED, // => 0x08,
+        Border::BORDER_DASHDOT, // => 0x09,
+        Border::BORDER_MEDIUMDASHDOT, // => 0x0A,
+        Border::BORDER_DASHDOTDOT, // => 0x0B,
+        Border::BORDER_MEDIUMDASHDOTDOT, // => 0x0C,
+        Border::BORDER_SLANTDASHDOT, // => 0x0D,
+        Border::BORDER_OMIT, // => 0x0E,
+        Border::BORDER_OMIT, // => 0x0F,
+    ];
 
     /**
      * Summary Information stream data.
@@ -1945,12 +1966,9 @@ class Xls extends BaseReader
             $objFont->colorIndex = $colorIndex;
 
             // offset: 6; size: 2; font weight
-            $weight = self::getUInt2d($recordData, 6);
-            switch ($weight) {
-                case 0x02BC:
-                    $objFont->setBold(true);
-
-                    break;
+            $weight = self::getUInt2d($recordData, 6); // regular=400 bold=700
+            if ($weight >= 550) {
+                $objFont->setBold(true);
             }
 
             // offset: 8; size: 2; escapement type
@@ -7326,6 +7344,11 @@ class Xls extends BaseReader
         return $this->mapCellStyleXfIndex;
     }
 
+    /**
+     * Parse conditional formatting blocks.
+     *
+     * @see https://www.openoffice.org/sc/excelfileformat.pdf Search for CFHEADER followed by CFRULE
+     */
     private function readCFHeader(): array
     {
         $length = self::getUInt2d($this->data, $this->pos + 2);
@@ -7394,6 +7417,11 @@ class Xls extends BaseReader
         $hasBorderRecord = (bool) ((0x10000000 & $options) >> 28);
         $hasFillRecord = (bool) ((0x20000000 & $options) >> 29);
         $hasProtectionRecord = (bool) ((0x40000000 & $options) >> 30);
+        // note unexpected values for following 4
+        $hasBorderLeft = !(bool) (0x00000400 & $options);
+        $hasBorderRight = !(bool) (0x00000800 & $options);
+        $hasBorderTop = !(bool) (0x00001000 & $options);
+        $hasBorderBottom = !(bool) (0x00002000 & $options);
 
         $offset = 12;
 
@@ -7410,8 +7438,8 @@ class Xls extends BaseReader
         }
 
         if ($hasBorderRecord === true) {
-            //$borderStyle = substr($recordData, $offset, 8);
-            //$this->getCFBorderStyle($borderStyle, $style);
+            $borderStyle = substr($recordData, $offset, 8);
+            $this->getCFBorderStyle($borderStyle, $style, $hasBorderLeft, $hasBorderRight, $hasBorderTop, $hasBorderBottom);
             $offset += 8;
         }
 
@@ -7459,9 +7487,23 @@ class Xls extends BaseReader
         if ($fontSize !== -1) {
             $style->getFont()->setSize($fontSize / 20); // Convert twips to points
         }
+        $options68 = self::getInt4d($options, 68);
+        $options88 = self::getInt4d($options, 88);
 
-        $bold = self::getUInt2d($options, 72) === 700; // 400 = normal, 700 = bold
-        $style->getFont()->setBold($bold);
+        if (($options88 & 2) === 0) {
+            $bold = self::getUInt2d($options, 72); // 400 = normal, 700 = bold
+            if ($bold !== 0) {
+                $style->getFont()->setBold($bold >= 550);
+            }
+            if (($options68 & 2) !== 0) {
+                $style->getFont()->setItalic(true);
+            }
+        }
+        if (($options88 & 0x80) === 0) {
+            if (($options68 & 0x80) !== 0) {
+                $style->getFont()->setStrikethrough(true);
+            }
+        }
 
         $color = self::getInt4d($options, 80);
 
@@ -7474,9 +7516,45 @@ class Xls extends BaseReader
     {
     }*/
 
-    /*private function getCFBorderStyle(string $options, Style $style): void
+    private function getCFBorderStyle(string $options, Style $style, bool $hasBorderLeft, bool $hasBorderRight, bool $hasBorderTop, bool $hasBorderBottom): void
     {
-    }*/
+        $valueArray = unpack('V', $options);
+        $value = is_array($valueArray) ? $valueArray[1] : 0;
+        $left = $value & 15;
+        $right = ($value >> 4) & 15;
+        $top = ($value >> 8) & 15;
+        $bottom = ($value >> 12) & 15;
+        $leftc = ($value >> 16) & 0x7F;
+        $rightc = ($value >> 23) & 0x7F;
+        $valueArray = unpack('V', substr($options, 4));
+        $value = is_array($valueArray) ? $valueArray[1] : 0;
+        $topc = $value & 0x7F;
+        $bottomc = ($value & 0x3F80) >> 7;
+        if ($hasBorderLeft) {
+            $style->getBorders()->getLeft()
+                ->setBorderStyle(self::BORDER_STYLE_MAP[$left]);
+            $style->getBorders()->getLeft()->getColor()
+                ->setRGB(Xls\Color::map($leftc, $this->palette, $this->version)['rgb']);
+        }
+        if ($hasBorderRight) {
+            $style->getBorders()->getRight()
+                ->setBorderStyle(self::BORDER_STYLE_MAP[$right]);
+            $style->getBorders()->getRight()->getColor()
+                ->setRGB(Xls\Color::map($rightc, $this->palette, $this->version)['rgb']);
+        }
+        if ($hasBorderTop) {
+            $style->getBorders()->getTop()
+                ->setBorderStyle(self::BORDER_STYLE_MAP[$top]);
+            $style->getBorders()->getTop()->getColor()
+                ->setRGB(Xls\Color::map($topc, $this->palette, $this->version)['rgb']);
+        }
+        if ($hasBorderBottom) {
+            $style->getBorders()->getBottom()
+                ->setBorderStyle(self::BORDER_STYLE_MAP[$bottom]);
+            $style->getBorders()->getBottom()->getColor()
+                ->setRGB(Xls\Color::map($bottomc, $this->palette, $this->version)['rgb']);
+        }
+    }
 
     private function getCFFillStyle(string $options, Style $style): void
     {
