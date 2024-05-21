@@ -2827,8 +2827,7 @@ class Worksheet extends BIFFwriter
         $bBorderRight = ($conditional->getStyle()->getBorders()->getRight()->getBorderStyle() !== Border::BORDER_OMIT) ? 1 : 0;
         $bBorderTop = ($conditional->getStyle()->getBorders()->getTop()->getBorderStyle() !== Border::BORDER_OMIT) ? 1 : 0;
         $bBorderBottom = ($conditional->getStyle()->getBorders()->getBottom()->getBorderStyle() !== Border::BORDER_OMIT) ? 1 : 0;
-        $bBorderBottom = ($conditional->getStyle()->getBorders()->getBottom()->getBorderStyle() !== Border::BORDER_OMIT) ? 1 : 0;
-        $diagonalDirection = $conditional->getStyle()->getBorders()->getDiagonalDirection();
+        //$diagonalDirection = $conditional->getStyle()->getBorders()->getDiagonalDirection();
         // Excel does not support conditional diagonal border even for xlsx
         $bBorderDiagTop = self::$always0; //$diagonalDirection === Borders::DIAGONAL_DOWN || $diagonalDirection === Borders::DIAGONAL_BOTH;
         $bBorderDiagBottom = self::$always0; //$diagonalDirection === Borders::DIAGONAL_UP || $diagonalDirection === Borders::DIAGONAL_BOTH;
