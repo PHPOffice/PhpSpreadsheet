@@ -703,6 +703,7 @@ class Xls extends BaseReader
         // Parse the individual sheets
         $this->activeSheetSet = false;
         foreach ($this->sheets as $sheet) {
+            $selectedCells = '';
             if ($sheet['sheetType'] != 0x00) {
                 // 0x00: Worksheet, 0x02: Chart, 0x06: Visual Basic module
                 continue;
@@ -910,7 +911,7 @@ class Xls extends BaseReader
 
                         break;
                     case self::XLS_TYPE_SELECTION:
-                        $this->readSelection();
+                        $selectedCells = $this->readSelection();
 
                         break;
                     case self::XLS_TYPE_MERGEDCELLS:
@@ -1111,6 +1112,9 @@ class Xls extends BaseReader
                     $cellAddress = str_replace('$', '', $noteDetails['cellRef']);
                     $this->phpSheet->getComment($cellAddress)->setAuthor($noteDetails['author'])->setText($this->parseRichText($noteDetails['objTextData']['text']));
                 }
+            }
+            if ($selectedCells !== '') {
+                $this->phpSheet->setSelectedCells($selectedCells);
             }
         }
         if ($this->activeSheetSet === false) {
@@ -4376,10 +4380,11 @@ class Xls extends BaseReader
     /**
      * Read SELECTION record. There is one such record for each pane in the sheet.
      */
-    private function readSelection(): void
+    private function readSelection(): string
     {
         $length = self::getUInt2d($this->data, $this->pos + 2);
         $recordData = $this->readRecordData($this->data, $this->pos + 4, $length);
+        $selectedCells = '';
 
         // move stream pointer to next record
         $this->pos += 4 + $length;
@@ -4421,6 +4426,8 @@ class Xls extends BaseReader
 
             $this->phpSheet->setSelectedCells($selectedCells);
         }
+
+        return $selectedCells;
     }
 
     private function includeCellRangeFiltered(string $cellRangeAddress): bool
@@ -7410,6 +7417,7 @@ class Xls extends BaseReader
         $options = self::getInt4d($recordData, 6);
 
         $style = new Style(false, true); // non-supervisor, conditional
+        $noFormatSet = true;
         //$this->getCFStyleOptions($options, $style);
 
         $hasFontRecord = (bool) ((0x04000000 & $options) >> 26);
@@ -7429,6 +7437,7 @@ class Xls extends BaseReader
             $fontStyle = substr($recordData, $offset, 118);
             $this->getCFFontStyle($fontStyle, $style);
             $offset += 118;
+            $noFormatSet = false;
         }
 
         if ($hasAlignmentRecord === true) {
@@ -7441,12 +7450,14 @@ class Xls extends BaseReader
             $borderStyle = substr($recordData, $offset, 8);
             $this->getCFBorderStyle($borderStyle, $style, $hasBorderLeft, $hasBorderRight, $hasBorderTop, $hasBorderBottom);
             $offset += 8;
+            $noFormatSet = false;
         }
 
         if ($hasFillRecord === true) {
             $fillStyle = substr($recordData, $offset, 4);
             $this->getCFFillStyle($fillStyle, $style);
             $offset += 4;
+            $noFormatSet = false;
         }
 
         if ($hasProtectionRecord === true) {
@@ -7474,7 +7485,7 @@ class Xls extends BaseReader
             $offset += $size2;
         }
 
-        $this->setCFRules($cellRangeAddresses, $type, $operator, $formula1, $formula2, $style);
+        $this->setCFRules($cellRangeAddresses, $type, $operator, $formula1, $formula2, $style, $noFormatSet);
     }
 
     /*private function getCFStyleOptions(int $options, Style $style): void
@@ -7604,12 +7615,14 @@ class Xls extends BaseReader
         }
     }
 
-    private function setCFRules(array $cellRanges, string $type, string $operator, null|float|int|string $formula1, null|float|int|string $formula2, Style $style): void
+    private function setCFRules(array $cellRanges, string $type, string $operator, null|float|int|string $formula1, null|float|int|string $formula2, Style $style, bool $noFormatSet): void
     {
         foreach ($cellRanges as $cellRange) {
             $conditional = new Conditional();
+            $conditional->setNoFormatSet($noFormatSet);
             $conditional->setConditionType($type);
             $conditional->setOperatorType($operator);
+            $conditional->setStopIfTrue(true);
             if ($formula1 !== null) {
                 $conditional->addCondition($formula1);
             }
