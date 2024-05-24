@@ -60,6 +60,7 @@ class CellMatcher
 
     protected function setReferenceCellForExpressions(string $conditionalRange): void
     {
+        $conditionalRange = str_replace(' ', ',', $conditionalRange);
         $conditionalRange = Coordinate::splitRange(str_replace('$', '', strtoupper($conditionalRange)));
         [$this->referenceCell] = $conditionalRange[0];
 
