@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Added
 
-- Nothing
+- Xlsx Reader Optionally Ignore Rows With No Cells. [Issue #3982](https://github.com/PHPOffice/PhpSpreadsheet/issues/3982) [PR #4035](https://github.com/PHPOffice/PhpSpreadsheet/pull/4035)
 
 ### Changed
 

@@ -796,10 +796,10 @@ class Xlsx extends BaseReader
                                 }
 
                                 $sheetViewOptions = new SheetViewOptions($docSheet, $xmlSheetNS);
-                                $sheetViewOptions->load($this->getReadDataOnly(), $this->styleReader);
+                                $sheetViewOptions->load($this->readDataOnly, $this->styleReader);
 
                                 (new ColumnAndRowAttributes($docSheet, $xmlSheetNS))
-                                    ->load($this->getReadFilter(), $this->getReadDataOnly());
+                                    ->load($this->getReadFilter(), $this->readDataOnly, $this->ignoreRowsWithNoCells);
                             }
 
                             $holdSelectedCells = $docSheet->getSelectedCells();
