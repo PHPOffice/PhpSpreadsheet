@@ -36,7 +36,13 @@ class NotHtmlTest extends TestCase
             fwrite($handle, "{$row[0]},{$row[1]},{$row[2]}\n");
         }
         fclose($handle);
-        self::assertSame('text/html', mime_content_type($filename));
+        // Php8.3- identify file as text/html.
+        // Php8.4+ identify file as text/csv, and this type of change
+        //    has been known to be retrofitted to prior versions.
+        $mime = mime_content_type($filename);
+        if ($mime !== 'text/csv') {
+            self::assertSame('text/html', $mime);
+        }
         self::assertSame('Csv', IOFactory::identify($filename));
         $reader = new CsvReader();
         $spreadsheet = $reader->load($filename);
@@ -60,7 +66,13 @@ class NotHtmlTest extends TestCase
             fwrite($handle, "{$row[0]},{$row[1]},{$row[2]}\n");
         }
         fclose($handle);
-        self::assertSame('text/html', mime_content_type($filename));
+        // Php8.3- identify file as text/html.
+        // Php8.4+ identify file as text/csv, and this type of change
+        //    has been known to be retrofitted to prior versions.
+        $mime = mime_content_type($filename);
+        if ($mime !== 'text/csv') {
+            self::assertSame('text/html', $mime);
+        }
         self::assertSame('Html', IOFactory::identify($filename));
         $reader = new CsvReader();
         $spreadsheet = $reader->load($filename);
