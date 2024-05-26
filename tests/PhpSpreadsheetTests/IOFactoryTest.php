@@ -103,6 +103,8 @@ class IOFactoryTest extends TestCase
             //['samples/templates/Excel2003XMLTest.xml', 'Xml', Reader\Xml::class],
             ['samples/templates/46readHtml.html', 'Html', Reader\Html::class],
             ['tests/data/Reader/CSV/encoding.utf8bom.csv', 'Csv', Reader\Csv::class],
+            ['tests/data/Reader/HTML/charset.UTF-16.lebom.html', 'Html', Reader\Html::class],
+            ['tests/data/Reader/HTML/charset.UTF-8.bom.html', 'Html', Reader\Html::class],
         ];
     }
 
