@@ -1634,6 +1634,18 @@ class Calculation
             'functionCall' => [Statistical\Trends::class, 'LINEST'],
             'argumentCount' => '1-4',
         ],
+
+
+        'LMM' => [
+            'category' => Category::CATEGORY_IA,
+            'functionCall' => [External\Llm::class, 'call'],
+            'argumentCount' => '1-2',
+        ],
+
+        
+
+
+
         'LN' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
             'functionCall' => [MathTrig\Logarithms::class, 'natural'],
