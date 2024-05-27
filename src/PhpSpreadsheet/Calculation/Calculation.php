@@ -1634,7 +1634,7 @@ class Calculation
             'functionCall' => [Statistical\Trends::class, 'LINEST'],
             'argumentCount' => '1-4',
         ],
-        'LMM' => [
+        'LLM' => [
             'category' => Category::CATEGORY_IA,
             'functionCall' => [External\Llm::class, 'call'],
             'argumentCount' => '1-2',
