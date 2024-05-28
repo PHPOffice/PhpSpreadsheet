@@ -2879,6 +2879,15 @@ class Calculation
         ],
     ];
 
+
+    public function regstermyfunction()
+    {
+        
+        self::$phpSpreadsheetFunctions['LLM'] = [External\Llm::class, 'call'];
+
+    }
+
+        
     public function __construct(?Spreadsheet $spreadsheet = null)
     {
         $this->spreadsheet = $spreadsheet;
