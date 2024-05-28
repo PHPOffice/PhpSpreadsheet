@@ -18,5 +18,4 @@ abstract class Category
     const CATEGORY_TEXT_AND_DATA = 'Text and Data';
     const CATEGORY_WEB = 'Web';
     const CATEGORY_UNCATEGORISED = 'Uncategorised';
-    /*const CATEGORY_IA = 'IA';*/
 }
