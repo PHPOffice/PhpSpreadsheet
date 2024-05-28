@@ -2880,7 +2880,7 @@ class Calculation
     ];
 
 
-    public function regstermyfunction()
+    public static function regstermyfunction():void
     {
         
         self::$phpSpreadsheetFunctions['LLM'] = [External\Llm::class, 'call'];
