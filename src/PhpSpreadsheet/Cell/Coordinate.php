@@ -505,6 +505,44 @@ abstract class Coordinate
     }
 
     /**
+     * Get all cell references applying union and intersection.
+     *
+     * @param string $cellBlock A cell range e.g. A1:B5,D1:E5 B2:C4
+     *
+     * @return string A string without intersection operator.
+     *   If there was no intersection to begin with, return original argument.
+     *   Otherwise, return cells and/or cell ranges in that range separated by comma.
+     */
+    public static function resolveUnionAndIntersection(string $cellBlock, string $implodeCharacter = ','): string
+    {
+        $cellBlock = preg_replace('/  +/', ' ', trim($cellBlock)) ?? $cellBlock;
+        $cellBlock = preg_replace('/ ,/', ',', $cellBlock) ?? $cellBlock;
+        $cellBlock = preg_replace('/, /', ',', $cellBlock) ?? $cellBlock;
+        $array1 = [];
+        $blocks = explode(',', $cellBlock);
+        foreach ($blocks as $block) {
+            $block0 = explode(' ', $block);
+            if (count($block0) === 1) {
+                $array1 = array_merge($array1, $block0);
+            } else {
+                $blockIdx = -1;
+                $array2 = [];
+                foreach ($block0 as $block00) {
+                    ++$blockIdx;
+                    if ($blockIdx === 0) {
+                        $array2 = self::getReferencesForCellBlock($block00);
+                    } else {
+                        $array2 = array_intersect($array2, self::getReferencesForCellBlock($block00));
+                    }
+                }
+                $array1 = array_merge($array1, $array2);
+            }
+        }
+
+        return implode($implodeCharacter, $array1);
+    }
+
+    /**
      * Get all cell references for an individual cell block.
      *
      * @param string $cellBlock A cell range e.g. A4:B5

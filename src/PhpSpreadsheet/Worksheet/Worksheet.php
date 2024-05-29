@@ -1422,7 +1422,7 @@ class Worksheet implements IComparable
 
         $cell = $this->getCell($coordinate);
         foreach (array_keys($this->conditionalStylesCollection) as $conditionalRange) {
-            $cellBlocks = explode(',', $conditionalRange);
+            $cellBlocks = explode(',', Coordinate::resolveUnionAndIntersection($conditionalRange));
             foreach ($cellBlocks as $cellBlock) {
                 if ($cell->isInRange($cellBlock)) {
                     return $this->conditionalStylesCollection[$conditionalRange];
@@ -1438,7 +1438,7 @@ class Worksheet implements IComparable
         $coordinate = strtoupper($coordinate);
         $cell = $this->getCell($coordinate);
         foreach (array_keys($this->conditionalStylesCollection) as $conditionalRange) {
-            $cellBlocks = explode(',', $conditionalRange);
+            $cellBlocks = explode(',', Coordinate::resolveUnionAndIntersection($conditionalRange));
             foreach ($cellBlocks as $cellBlock) {
                 if ($cell->isInRange($cellBlock)) {
                     return $conditionalRange;

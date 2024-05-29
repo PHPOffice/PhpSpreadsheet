@@ -495,7 +495,7 @@ class Worksheet extends BIFFwriter
 
         $arrConditionalStyles = [];
         foreach ($this->phpSheet->getConditionalStylesCollection() as $key => $value) {
-            $keyExplode = explode(',', $key);
+            $keyExplode = explode(',', Coordinate::resolveUnionAndIntersection($key));
             foreach ($keyExplode as $exploded) {
                 $arrConditionalStyles[$exploded] = $value;
             }
