@@ -16,7 +16,7 @@ class Issue4039Test extends \PHPUnit\Framework\TestCase
         $spreadsheet = $reader->load(self::$testbook);
         $sheet = $spreadsheet->getSheetByNameOrThrow('cellIs Expression');
         $expected = [
-            'A12:D17 A20', // split range
+            'A12:D17,A20', // split range
             'A22:D27',
             'A2:E6',
         ];

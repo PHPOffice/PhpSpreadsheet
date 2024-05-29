@@ -815,7 +815,9 @@ class Worksheet extends WriterPart
         // Loop through styles in the current worksheet
         foreach ($worksheet->getConditionalStylesCollection() as $cellCoordinate => $conditionalStyles) {
             $objWriter->startElement('conditionalFormatting');
-            $objWriter->writeAttribute('sqref', $cellCoordinate);
+            // N.B. In Excel UI, intersection is space and union is comma.
+            // But in Xml, intersection is comma and union is space.
+            $objWriter->writeAttribute('sqref', str_replace(['$', ' ', ',', '^'], ['', '^', ' ', ','], $cellCoordinate));
 
             foreach ($conditionalStyles as $conditional) {
                 // WHY was this again?

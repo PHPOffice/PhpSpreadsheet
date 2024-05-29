@@ -492,7 +492,13 @@ class Worksheet extends BIFFwriter
     {
         $conditionalFormulaHelper = new ConditionalHelper($this->parser);
 
-        $arrConditionalStyles = $this->phpSheet->getConditionalStylesCollection();
+        $arrConditionalStyles = [];
+        foreach ($this->phpSheet->getConditionalStylesCollection() as $key => $value) {
+            $keyExplode = explode(',', $key);
+            foreach ($keyExplode as $exploded) {
+                $arrConditionalStyles[$exploded] = $value;
+            }
+        }
         if (!empty($arrConditionalStyles)) {
             // Write ConditionalFormattingTable records
             foreach ($arrConditionalStyles as $cellCoordinate => $conditionalStyles) {
