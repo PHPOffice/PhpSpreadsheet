@@ -763,8 +763,23 @@ class Worksheet extends WriterPart
             $useMin = $minCfvo !== null || $minArgb !== null;
             if ($useMin) {
                 $objWriter->startElement('cfvo');
-                $objWriter->writeAttribute('type', $minCfvo?->getType() ?? 'min');
-                self::writeAttributeIf($objWriter, $minCfvo?->getValue() !== null, 'val', (string) $minCfvo?->getValue());
+                $type = 'min';
+                $value = null;
+                if ($minCfvo !== null) {
+                    $typex = $minCfvo->getType();
+                    if ($typex === 'formula') {
+                        $value = $minCfvo->getCellFormula();
+                        if ($value !== null) {
+                            $type = $typex;
+                        }
+                    } else {
+                        $type = $typex;
+                        $defaults = ['number' => '0', 'percent' => '0', 'percentile' => '10'];
+                        $value = $minCfvo->getValue() ?? $defaults[$type] ?? null;
+                    }
+                }
+                $objWriter->writeAttribute('type', $type);
+                self::writeAttributeIf($objWriter, $value !== null, 'val', (string) $value);
                 $objWriter->endElement();
             }
             $midCfvo = $colorScale->getMidpointConditionalFormatValueObject();
@@ -772,8 +787,23 @@ class Worksheet extends WriterPart
             $useMid = $midCfvo !== null || $midArgb !== null;
             if ($useMid) {
                 $objWriter->startElement('cfvo');
-                $objWriter->writeAttribute('type', $midCfvo?->getType() ?? 'percentile');
-                $objWriter->writeAttribute('val', (string) (($midCfvo?->getValue()) ?? '50'));
+                $type = 'percentile';
+                $value = '50';
+                if ($midCfvo !== null) {
+                    $type = $midCfvo->getType();
+                    if ($type === 'formula') {
+                        $value = $midCfvo->getCellFormula();
+                        if ($value === null) {
+                            $type = 'percentile';
+                            $value = '50';
+                        }
+                    } else {
+                        $defaults = ['number' => '0', 'percent' => '50', 'percentile' => '50'];
+                        $value = $midCfvo->getValue() ?? $defaults[$type] ?? null;
+                    }
+                }
+                $objWriter->writeAttribute('type', $type);
+                self::writeAttributeIf($objWriter, $value !== null, 'val', (string) $value);
                 $objWriter->endElement();
             }
             $maxCfvo = $colorScale->getMaximumConditionalFormatValueObject();
@@ -781,8 +811,23 @@ class Worksheet extends WriterPart
             $useMax = $maxCfvo !== null || $maxArgb !== null;
             if ($useMax) {
                 $objWriter->startElement('cfvo');
-                $objWriter->writeAttribute('type', $maxCfvo?->getType() ?? 'max');
-                self::writeAttributeIf($objWriter, $maxCfvo?->getValue() !== null, 'val', (string) $maxCfvo?->getValue());
+                $type = 'max';
+                $value = null;
+                if ($maxCfvo !== null) {
+                    $typex = $maxCfvo->getType();
+                    if ($typex === 'formula') {
+                        $value = $maxCfvo->getCellFormula();
+                        if ($value !== null) {
+                            $type = $typex;
+                        }
+                    } else {
+                        $type = $typex;
+                        $defaults = ['number' => '0', 'percent' => '100', 'percentile' => '90'];
+                        $value = $maxCfvo->getValue() ?? $defaults[$type] ?? null;
+                    }
+                }
+                $objWriter->writeAttribute('type', $type);
+                self::writeAttributeIf($objWriter, $value !== null, 'val', (string) $value);
                 $objWriter->endElement();
             }
             if ($useMin) {
