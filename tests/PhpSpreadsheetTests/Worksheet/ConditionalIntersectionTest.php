@@ -34,6 +34,7 @@ class ConditionalIntersectionTest extends TestCase
         self::assertSame(Conditional::OPERATOR_BETWEEN, $cond[0]->getOperatorType());
         self::assertSame([2, 3], $cond[0]->getConditions());
         self::assertTrue($cond[0]->getStyle()->getFont()->getBold());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testGetConditionalRange(): void
@@ -55,5 +56,6 @@ class ConditionalIntersectionTest extends TestCase
         $sheet->setConditionalStyles('A1:C3 B1:B3', $conditionalStyles);
         self::assertNull($sheet->getConditionalRange('A2'));
         self::assertSame('A1:C3 B1:B3', $sheet->getConditionalRange('B2'));
+        $spreadsheet->disconnectWorksheets();
     }
 }
