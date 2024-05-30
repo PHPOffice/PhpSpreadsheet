@@ -5,15 +5,17 @@ declare(strict_types=1);
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
-use PHPUnit\Framework\TestCase;
+use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
-class Issue4049Test extends TestCase
+class Issue4049Test extends AbstractFunctional
 {
-    public static function testPr1869(): void
+    public function testColorScale(): void
     {
         $xlsxFile = 'tests/data/Reader/XLSX/issue.4049.xlsx';
         $reader = new Xlsx();
-        $spreadsheet = $reader->load($xlsxFile);
+        $oldSpreadsheet = $reader->load($xlsxFile);
+        $spreadsheet = $this->writeAndReload($oldSpreadsheet, 'Xlsx');
+        $oldSpreadsheet->disconnectWorksheets();
         $sheet = $spreadsheet->getActiveSheet();
         $conditionals = $sheet->getConditionalStylesCollection();
         self::assertCount(1, $conditionals);
