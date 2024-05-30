@@ -5,7 +5,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
 
-$helper->log('Returns the the Discount Rate for a security.');
+$helper->log('Returns the Discount Rate for a security.');
 
 // Create new PhpSpreadsheet object
 $spreadsheet = new Spreadsheet();
