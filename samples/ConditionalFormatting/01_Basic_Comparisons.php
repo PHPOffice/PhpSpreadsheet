@@ -74,22 +74,16 @@ $yellowStyle = new Style(false, true);
 $yellowStyle->getFill()
     ->setFillType(Fill::FILL_SOLID)
     ->getStartColor()->setARGB(Color::COLOR_YELLOW);
-$yellowStyle->getFill()
-    ->getEndColor()->setARGB(Color::COLOR_YELLOW);
 $yellowStyle->getFont()->setColor(new Color(Color::COLOR_BLUE));
 $greenStyle = new Style(false, true);
 $greenStyle->getFill()
     ->setFillType(Fill::FILL_SOLID)
     ->getStartColor()->setARGB(Color::COLOR_GREEN);
-$greenStyle->getFill()
-    ->getEndColor()->setARGB(Color::COLOR_GREEN);
 $greenStyle->getFont()->setColor(new Color(Color::COLOR_DARKRED));
 $redStyle = new Style(false, true);
 $redStyle->getFill()
     ->setFillType(Fill::FILL_SOLID)
     ->getStartColor()->setARGB(Color::COLOR_RED);
-$redStyle->getFill()
-    ->getEndColor()->setARGB(Color::COLOR_RED);
 $redStyle->getFont()->setColor(new Color(Color::COLOR_GREEN));
 
 // Set conditional formatting rules and styles

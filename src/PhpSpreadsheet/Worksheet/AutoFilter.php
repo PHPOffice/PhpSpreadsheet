@@ -309,7 +309,7 @@ class AutoFilter implements Stringable
     /**
      * Test if cell value is in the defined set of values.
      *
-     * @param mixed[] $dataSet
+     * @param array{blanks: bool, filterValues: array<string,array<string,string>>} $dataSet
      */
     protected static function filterTestInSimpleDataSet(mixed $cellValue, array $dataSet): bool
     {
@@ -325,7 +325,7 @@ class AutoFilter implements Stringable
     /**
      * Test if cell value is in the defined set of Excel date values.
      *
-     * @param mixed[] $dataSet
+     * @param array{blanks: bool, filterValues: array<string,array<string,string>>} $dataSet
      */
     protected static function filterTestInDateGroupSet(mixed $cellValue, array $dataSet): bool
     {
@@ -763,9 +763,13 @@ class AutoFilter implements Stringable
                 sort($dataValues);
             }
 
-            $slice = array_slice($dataValues, 0, $ruleValue);
-
-            $retVal = array_pop($slice);
+            if (is_numeric($ruleValue)) {
+                $ruleValue = (int) $ruleValue;
+            }
+            if ($ruleValue === null || is_int($ruleValue)) {
+                $slice = array_slice($dataValues, 0, $ruleValue);
+                $retVal = array_pop($slice);
+            }
         }
 
         return $retVal;
@@ -968,7 +972,7 @@ class AutoFilter implements Stringable
                         $ruleOperator = $rule->getOperator();
                     }
                     if (is_numeric($ruleValue) && $ruleOperator === Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_PERCENT) {
-                        $ruleValue = floor((float) $ruleValue * ($dataRowCount / 100));
+                        $ruleValue = (int) floor((float) $ruleValue * ($dataRowCount / 100));
                     }
                     if (!is_array($ruleValue) && $ruleValue < 1) {
                         $ruleValue = 1;
@@ -977,6 +981,7 @@ class AutoFilter implements Stringable
                         $ruleValue = 500;
                     }
 
+                    /** @var float|int|string */
                     $maxVal = $this->calculateTopTenValue($columnID, $rangeStart[1] + 1, (int) $rangeEnd[1], $toptenRuleType, $ruleValue);
 
                     $operator = ($toptenRuleType == Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_TOP)
@@ -1003,6 +1008,7 @@ class AutoFilter implements Stringable
                 //    Execute the filter test
                 /** @var callable */
                 $temp = [self::class, $columnFilterTest['method']];
+                /** @var bool */
                 $result // $result && // phpstan says $result is always true here
                     = call_user_func_array($temp, [$cellValue, $columnFilterTest['arguments']]);
                 //    If filter test has resulted in FALSE, exit the loop straightaway rather than running any more tests

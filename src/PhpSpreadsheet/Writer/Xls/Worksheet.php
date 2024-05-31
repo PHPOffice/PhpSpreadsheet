@@ -12,6 +12,7 @@ use PhpOffice\PhpSpreadsheet\RichText\Run;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Shared\Xls;
 use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Style\Borders;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Style\Protection;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
@@ -154,6 +155,8 @@ class Worksheet extends BIFFwriter
 
     private int $printHeaders;
 
+    private ?Workbook $writerWorkbook;
+
     /**
      * Constructor.
      *
@@ -165,7 +168,7 @@ class Worksheet extends BIFFwriter
      * @param bool $preCalculateFormulas Flag indicating whether formulas should be calculated or just written
      * @param \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $phpSheet The worksheet to write
      */
-    public function __construct(int &$str_total, int &$str_unique, array &$str_table, array &$colors, Parser $parser, bool $preCalculateFormulas, \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $phpSheet)
+    public function __construct(int &$str_total, int &$str_unique, array &$str_table, array &$colors, Parser $parser, bool $preCalculateFormulas, \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $phpSheet, ?Workbook $writerWorkbook = null)
     {
         // It needs to call its parent's constructor explicitly
         parent::__construct();
@@ -208,6 +211,7 @@ class Worksheet extends BIFFwriter
         if ($this->lastColumnIndex > 255) {
             $this->lastColumnIndex = 255;
         }
+        $this->writerWorkbook = $writerWorkbook;
     }
 
     /**
@@ -382,37 +386,37 @@ class Worksheet extends BIFFwriter
                         if ($cVal === '' || $cVal === null) {
                             $this->writeBlank($row, $column, $xfIndex);
                         } else {
-                            $this->writeString($row, $column, $cVal, $xfIndex);
+                            $this->writeString($row, $column, $cell->getValueString(), $xfIndex);
                         }
 
                         break;
                     case DataType::TYPE_NUMERIC:
-                        $this->writeNumber($row, $column, $cVal, $xfIndex);
+                        $this->writeNumber($row, $column, is_numeric($cVal) ? ($cVal + 0) : 0, $xfIndex);
 
                         break;
                     case DataType::TYPE_FORMULA:
-                        $calculatedValue = $this->preCalculateFormulas
-                            ? $cell->getCalculatedValue() : null;
-                        if (self::WRITE_FORMULA_EXCEPTION == $this->writeFormula($row, $column, $cVal, $xfIndex, $calculatedValue)) {
+                        $calculatedValue = $this->preCalculateFormulas ? $cell->getCalculatedValue() : null;
+                        $calculatedValueString = $this->preCalculateFormulas ? $cell->getCalculatedValueString() : '';
+                        if (self::WRITE_FORMULA_EXCEPTION == $this->writeFormula($row, $column, $cell->getValueString(), $xfIndex, $calculatedValue)) {
                             if ($calculatedValue === null) {
                                 $calculatedValue = $cell->getCalculatedValue();
                             }
                             $calctype = gettype($calculatedValue);
                             match ($calctype) {
-                                'integer', 'double' => $this->writeNumber($row, $column, (float) $calculatedValue, $xfIndex),
-                                'string' => $this->writeString($row, $column, $calculatedValue, $xfIndex),
-                                'boolean' => $this->writeBoolErr($row, $column, (int) $calculatedValue, 0, $xfIndex),
-                                default => $this->writeString($row, $column, $cVal, $xfIndex),
+                                'integer', 'double' => $this->writeNumber($row, $column, is_numeric($calculatedValue) ? ((float) $calculatedValue) : 0.0, $xfIndex),
+                                'string' => $this->writeString($row, $column, $calculatedValueString, $xfIndex),
+                                'boolean' => $this->writeBoolErr($row, $column, (int) $calculatedValueString, 0, $xfIndex),
+                                default => $this->writeString($row, $column, $cell->getValueString(), $xfIndex),
                             };
                         }
 
                         break;
                     case DataType::TYPE_BOOL:
-                        $this->writeBoolErr($row, $column, $cVal, 0, $xfIndex);
+                        $this->writeBoolErr($row, $column, (int) $cell->getValueString(), 0, $xfIndex);
 
                         break;
                     case DataType::TYPE_ERROR:
-                        $this->writeBoolErr($row, $column, ErrorCode::error($cVal), 1, $xfIndex);
+                        $this->writeBoolErr($row, $column, ErrorCode::error($cell->getValueString()), 1, $xfIndex);
 
                         break;
                 }
@@ -491,8 +495,6 @@ class Worksheet extends BIFFwriter
 
         $arrConditionalStyles = $this->phpSheet->getConditionalStylesCollection();
         if (!empty($arrConditionalStyles)) {
-            $arrConditional = [];
-
             // Write ConditionalFormattingTable records
             foreach ($arrConditionalStyles as $cellCoordinate => $conditionalStyles) {
                 $cfHeaderWritten = false;
@@ -506,10 +508,7 @@ class Worksheet extends BIFFwriter
                         if ($cfHeaderWritten === false) {
                             $cfHeaderWritten = $this->writeCFHeader($cellCoordinate, $conditionalStyles);
                         }
-                        if ($cfHeaderWritten === true && !isset($arrConditional[$conditional->getHashCode()])) {
-                            // This hash code has been handled
-                            $arrConditional[$conditional->getHashCode()] = true;
-
+                        if ($cfHeaderWritten === true) {
                             // Write CFRULE record
                             $this->writeCFRule($conditionalFormulaHelper, $conditional, $cellCoordinate);
                         }
@@ -2724,6 +2723,8 @@ class Worksheet extends BIFFwriter
 
     /**
      * Write CFRule Record.
+     *
+     * @see https://www.openoffice.org/sc/excelfileformat.pdf Search for CFHEADER followed by CFRULE
      */
     private function writeCFRule(
         ConditionalHelper $conditionalFormulaHelper,
@@ -2802,7 +2803,7 @@ class Worksheet extends BIFFwriter
 
         // $flags : Option flags
         // Alignment
-        $bAlignHz = ($conditional->getStyle()->getAlignment()->getHorizontal() === null ? 1 : 0);
+        /*$bAlignHz = ($conditional->getStyle()->getAlignment()->getHorizontal() === null ? 1 : 0);
         $bAlignVt = ($conditional->getStyle()->getAlignment()->getVertical() === null ? 1 : 0);
         $bAlignWrapTx = ($conditional->getStyle()->getAlignment()->getWrapText() === false ? 1 : 0);
         $bTxRotation = ($conditional->getStyle()->getAlignment()->getTextRotation() === null ? 1 : 0);
@@ -2812,21 +2813,26 @@ class Worksheet extends BIFFwriter
             $bFormatAlign = 1;
         } else {
             $bFormatAlign = 0;
-        }
+        }*/
         // Protection
-        $bProtLocked = ($conditional->getStyle()->getProtection()->getLocked() === null ? 1 : 0);
+        /*$bProtLocked = ($conditional->getStyle()->getProtection()->getLocked() === null ? 1 : 0);
         $bProtHidden = ($conditional->getStyle()->getProtection()->getHidden() === null ? 1 : 0);
         if ($bProtLocked == 0 || $bProtHidden == 0) {
             $bFormatProt = 1;
         } else {
             $bFormatProt = 0;
-        }
+        }*/
         // Border
         $bBorderLeft = ($conditional->getStyle()->getBorders()->getLeft()->getBorderStyle() !== Border::BORDER_OMIT) ? 1 : 0;
         $bBorderRight = ($conditional->getStyle()->getBorders()->getRight()->getBorderStyle() !== Border::BORDER_OMIT) ? 1 : 0;
         $bBorderTop = ($conditional->getStyle()->getBorders()->getTop()->getBorderStyle() !== Border::BORDER_OMIT) ? 1 : 0;
         $bBorderBottom = ($conditional->getStyle()->getBorders()->getBottom()->getBorderStyle() !== Border::BORDER_OMIT) ? 1 : 0;
-        if ($bBorderLeft === 1 || $bBorderRight === 1 || $bBorderTop === 1 || $bBorderBottom === 1) {
+        //$diagonalDirection = $conditional->getStyle()->getBorders()->getDiagonalDirection();
+        // Excel does not support conditional diagonal border even for xlsx
+        $bBorderDiagTop = self::$always0; //$diagonalDirection === Borders::DIAGONAL_DOWN || $diagonalDirection === Borders::DIAGONAL_BOTH;
+        $bBorderDiagBottom = self::$always0; //$diagonalDirection === Borders::DIAGONAL_UP || $diagonalDirection === Borders::DIAGONAL_BOTH;
+
+        if ($bBorderLeft === 1 || $bBorderRight === 1 || $bBorderTop === 1 || $bBorderBottom === 1 || $bBorderDiagTop === 1 || $bBorderDiagBottom === 1) {
             $bFormatBorder = 1;
         } else {
             $bFormatBorder = 0;
@@ -2858,26 +2864,26 @@ class Worksheet extends BIFFwriter
         }
         // Alignment
         $flags = 0;
-        $flags |= (1 == $bAlignHz ? 0x00000001 : 0);
-        $flags |= (1 == $bAlignVt ? 0x00000002 : 0);
-        $flags |= (1 == $bAlignWrapTx ? 0x00000004 : 0);
-        $flags |= (1 == $bTxRotation ? 0x00000008 : 0);
+        //$flags |= (1 == $bAlignHz ? 0x00000001 : 0);
+        //$flags |= (1 == $bAlignVt ? 0x00000002 : 0);
+        //$flags |= (1 == $bAlignWrapTx ? 0x00000004 : 0);
+        //$flags |= (1 == $bTxRotation ? 0x00000008 : 0);
         // Justify last line flag
         $flags |= (1 == self::$always1 ? 0x00000010 : 0);
-        $flags |= (1 == $bIndent ? 0x00000020 : 0);
-        $flags |= (1 == $bShrinkToFit ? 0x00000040 : 0);
+        //$flags |= (1 == $bIndent ? 0x00000020 : 0);
+        //$flags |= (1 == $bShrinkToFit ? 0x00000040 : 0);
         // Default
         $flags |= (1 == self::$always1 ? 0x00000080 : 0);
         // Protection
-        $flags |= (1 == $bProtLocked ? 0x00000100 : 0);
-        $flags |= (1 == $bProtHidden ? 0x00000200 : 0);
-        // Border
-        $flags |= (1 == $bBorderLeft ? 0x00000400 : 0);
-        $flags |= (1 == $bBorderRight ? 0x00000800 : 0);
-        $flags |= (1 == $bBorderTop ? 0x00001000 : 0);
-        $flags |= (1 == $bBorderBottom ? 0x00002000 : 0);
-        $flags |= (1 == self::$always1 ? 0x00004000 : 0); // Top left to Bottom right border
-        $flags |= (1 == self::$always1 ? 0x00008000 : 0); // Bottom left to Top right border
+        //$flags |= (1 == $bProtLocked ? 0x00000100 : 0);
+        //$flags |= (1 == $bProtHidden ? 0x00000200 : 0);
+        // Border, note that flags are opposite of what you might expect
+        $flags |= (0 == $bBorderLeft ? 0x00000400 : 0);
+        $flags |= (0 == $bBorderRight ? 0x00000800 : 0);
+        $flags |= (0 == $bBorderTop ? 0x00001000 : 0);
+        $flags |= (0 == $bBorderBottom ? 0x00002000 : 0);
+        $flags |= (0 === $bBorderDiagTop ? 0x00004000 : 0); // Top left to Bottom right border
+        $flags |= (0 === $bBorderDiagBottom ? 0x00008000 : 0); // Bottom left to Top right border
         // Pattern
         $flags |= (1 == $bFillStyle ? 0x00010000 : 0);
         $flags |= (1 == $bFillColor ? 0x00020000 : 0);
@@ -2886,18 +2892,18 @@ class Worksheet extends BIFFwriter
         // Font
         $flags |= (1 == $bFormatFont ? 0x04000000 : 0);
         // Alignment:
-        $flags |= (1 == $bFormatAlign ? 0x08000000 : 0);
+        //$flags |= (1 == $bFormatAlign ? 0x08000000 : 0);
         // Border
         $flags |= (1 == $bFormatBorder ? 0x10000000 : 0);
         // Pattern
         $flags |= (1 == $bFormatFill ? 0x20000000 : 0);
         // Protection
-        $flags |= (1 == $bFormatProt ? 0x40000000 : 0);
+        //$flags |= (1 == $bFormatProt ? 0x40000000 : 0);
         // Text direction
         $flags |= (1 == self::$always0 ? 0x80000000 : 0);
 
         $dataBlockFont = null;
-        $dataBlockAlign = null;
+        //$dataBlockAlign = null;
         $dataBlockBorder = null;
         $dataBlockFill = null;
 
@@ -2917,10 +2923,19 @@ class Worksheet extends BIFFwriter
                 $dataBlockFont .= pack('V', 20 * $conditional->getStyle()->getFont()->getSize());
             }
             // Font Options
-            $dataBlockFont .= pack('V', 0);
+            $italicStrike = 0;
+            if ($conditional->getStyle()->getFont()->getItalic() === true) {
+                $italicStrike |= 2;
+            }
+            if ($conditional->getStyle()->getFont()->getStrikethrough() === true) {
+                $italicStrike |= 0x80;
+            }
+            $dataBlockFont .= pack('V', $italicStrike);
             // Font weight
             if ($conditional->getStyle()->getFont()->getBold() === true) {
                 $dataBlockFont .= pack('v', 0x02BC);
+            } elseif ($conditional->getStyle()->getFont()->getBold() === null) {
+                $dataBlockFont .= pack('v', 0x0000);
             } else {
                 $dataBlockFont .= pack('v', 0x0190);
             }
@@ -2971,19 +2986,17 @@ class Worksheet extends BIFFwriter
             // Not used (3)
             $dataBlockFont .= pack('vC', 0x0000, 0x00);
             // Font color index
-            $colorIdx = Style\ColorMap::lookup($conditional->getStyle()->getFont()->getColor(), 0x00);
-
+            $colorIdx = $this->workbookColorIndex($conditional->getStyle()->getFont()->getColor()->getRgb(), 0);
             $dataBlockFont .= pack('V', $colorIdx);
             // Not used (4)
             $dataBlockFont .= pack('V', 0x00000000);
             // Options flags for modified font attributes
             $optionsFlags = 0;
-            $optionsFlagsBold = ($conditional->getStyle()->getFont()->getBold() === null ? 1 : 0);
-            $optionsFlags |= (1 == $optionsFlagsBold ? 0x00000002 : 0);
+            $optionsFlags |= ($conditional->getStyle()->getFont()->getBold() === null && $conditional->getStyle()->getFont()->getItalic() === null) ? 2 : 0;
             $optionsFlags |= (1 == self::$always1 ? 0x00000008 : 0);
             $optionsFlags |= (1 == self::$always1 ? 0x00000010 : 0);
             $optionsFlags |= (1 == self::$always0 ? 0x00000020 : 0);
-            $optionsFlags |= (1 == self::$always1 ? 0x00000080 : 0);
+            $optionsFlags |= ($conditional->getStyle()->getFont()->getStrikethrough() === null) ? 0x80 : 0;
             $dataBlockFont .= pack('V', $optionsFlags);
             // Escapement type
             $dataBlockFont .= pack('V', $fontEscapement);
@@ -2998,7 +3011,7 @@ class Worksheet extends BIFFwriter
             // Always
             $dataBlockFont .= pack('v', 0x0001);
         }
-        if ($bFormatAlign === 1) {
+        /*if ($bFormatAlign === 1) {
             // Alignment and text break
             $blockAlign = Style\CellAlignment::horizontal($conditional->getStyle()->getAlignment());
             $blockAlign |= Style\CellAlignment::wrap($conditional->getStyle()->getAlignment()) << 3;
@@ -3021,31 +3034,52 @@ class Worksheet extends BIFFwriter
             $blockIndentRelative = 255;
 
             $dataBlockAlign = pack('CCvvv', $blockAlign, $blockRotation, $blockIndent, $blockIndentRelative, 0x0000);
-        }
+        }*/
         if ($bFormatBorder === 1) {
             $blockLineStyle = Style\CellBorder::style($conditional->getStyle()->getBorders()->getLeft());
             $blockLineStyle |= Style\CellBorder::style($conditional->getStyle()->getBorders()->getRight()) << 4;
             $blockLineStyle |= Style\CellBorder::style($conditional->getStyle()->getBorders()->getTop()) << 8;
             $blockLineStyle |= Style\CellBorder::style($conditional->getStyle()->getBorders()->getBottom()) << 12;
 
-            // TODO writeCFRule() => $blockLineStyle => Index Color for left line
-            // TODO writeCFRule() => $blockLineStyle => Index Color for right line
-            // TODO writeCFRule() => $blockLineStyle => Top-left to bottom-right on/off
-            // TODO writeCFRule() => $blockLineStyle => Bottom-left to top-right on/off
+            if ($bBorderLeft !== 0) {
+                $colorIdx = $this->workbookColorIndex($conditional->getStyle()->getBorders()->getLeft()->getColor()->getRgb(), 0);
+                $blockLineStyle |= $colorIdx << 16;
+            }
+            if ($bBorderRight !== 0) {
+                $colorIdx = $this->workbookColorIndex($conditional->getStyle()->getBorders()->getRight()->getColor()->getRgb(), 0);
+                $blockLineStyle |= $colorIdx << 23;
+            }
             $blockColor = 0;
-            // TODO writeCFRule() => $blockColor => Index Color for top line
-            // TODO writeCFRule() => $blockColor => Index Color for bottom line
-            // TODO writeCFRule() => $blockColor => Index Color for diagonal line
-            $blockColor |= Style\CellBorder::style($conditional->getStyle()->getBorders()->getDiagonal()) << 21;
-            $dataBlockBorder = pack('vv', $blockLineStyle, $blockColor);
+            if ($bBorderTop !== 0) {
+                $colorIdx = $this->workbookColorIndex($conditional->getStyle()->getBorders()->getTop()->getColor()->getRgb(), 0);
+                $blockColor |= $colorIdx;
+            }
+            if ($bBorderBottom !== 0) {
+                $colorIdx = $this->workbookColorIndex($conditional->getStyle()->getBorders()->getBottom()->getColor()->getRgb(), 0);
+                $blockColor |= $colorIdx << 7;
+            }
+            /* Excel does not support condtional diagonal borders even for xlsx
+            if ($bBorderDiagTop !== 0 || $bBorderDiagBottom !== 0) {
+                $colorIdx = $this->workbookColorIndex($conditional->getStyle()->getBorders()->getDiagonal()->getColor()->getRgb(), 0);
+                $blockColor |= $colorIdx << 14;
+                $blockColor |= Style\CellBorder::style($conditional->getStyle()->getBorders()->getDiagonal()) << 21;
+                if ($bBorderDiagTop !== 0) {
+                    $blockLineStyle |= 1 << 30;
+                }
+                if ($bBorderDiagBottom !== 0) {
+                    $blockLineStyle |= 1 << 31;
+                }
+            }
+            */
+            $dataBlockBorder = pack('VV', $blockLineStyle, $blockColor);
         }
         if ($bFormatFill === 1) {
             // Fill Pattern Style
             $blockFillPatternStyle = Style\CellFill::style($conditional->getStyle()->getFill());
             // Background Color
-            $colorIdxBg = Style\ColorMap::lookup($conditional->getStyle()->getFill()->getStartColor(), 0x41);
+            $colorIdxBg = $this->workbookColorIndex($conditional->getStyle()->getFill()->getStartColor()->getRgb(), 0x41);
             // Foreground Color
-            $colorIdxFg = Style\ColorMap::lookup($conditional->getStyle()->getFill()->getEndColor(), 0x40);
+            $colorIdxFg = $this->workbookColorIndex($conditional->getStyle()->getFill()->getEndColor()->getRgb(), 0x40);
 
             $dataBlockFill = pack('v', $blockFillPatternStyle);
             $dataBlockFill .= pack('v', $colorIdxFg | ($colorIdxBg << 7));
@@ -3055,18 +3089,18 @@ class Worksheet extends BIFFwriter
         if ($bFormatFont === 1) { // Block Formatting : OK
             $data .= $dataBlockFont;
         }
-        if ($bFormatAlign === 1) {
-            $data .= $dataBlockAlign;
-        }
+        //if ($bFormatAlign === 1) {
+        //    $data .= $dataBlockAlign;
+        //}
         if ($bFormatBorder === 1) {
             $data .= $dataBlockBorder;
         }
         if ($bFormatFill === 1) { // Block Formatting : OK
             $data .= $dataBlockFill;
         }
-        if ($bFormatProt == 1) {
-            $data .= $this->getDataBlockProtection($conditional);
-        }
+        //if ($bFormatProt == 1) {
+        //    $data .= $this->getDataBlockProtection($conditional);
+        //}
         if ($operand1 !== null) {
             $data .= $operand1;
         }
@@ -3130,7 +3164,7 @@ class Worksheet extends BIFFwriter
         return true;
     }
 
-    private function getDataBlockProtection(Conditional $conditional): int
+    /*private function getDataBlockProtection(Conditional $conditional): int
     {
         $dataBlockProtection = 0;
         if ($conditional->getStyle()->getProtection()->getLocked() == Protection::PROTECTION_PROTECTED) {
@@ -3141,5 +3175,10 @@ class Worksheet extends BIFFwriter
         }
 
         return $dataBlockProtection;
+    }*/
+
+    private function workbookColorIndex(?string $rgb, int $default): int
+    {
+        return (empty($rgb) || $this->writerWorkbook === null) ? $default : $this->writerWorkbook->addColor($rgb, $default);
     }
 }

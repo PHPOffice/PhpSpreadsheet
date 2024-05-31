@@ -272,7 +272,7 @@ class Workbook extends BIFFwriter
      *
      * @return int Color index
      */
-    private function addColor(string $rgb): int
+    public function addColor(string $rgb, int $default = 0): int
     {
         if (!isset($this->colors[$rgb])) {
             $color
@@ -298,7 +298,7 @@ class Workbook extends BIFFwriter
                     $this->colors[$rgb] = $colorIndex;
                 } else {
                     // no room for more custom colors, just map to black
-                    $colorIndex = 0;
+                    $colorIndex = $default;
                 }
             }
         } else {
