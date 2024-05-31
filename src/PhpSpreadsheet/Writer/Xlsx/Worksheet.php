@@ -1444,6 +1444,7 @@ class Worksheet extends WriterPart
     private function writeCellFormula(XMLWriter $objWriter, string $cellValue, Cell $cell): void
     {
         $calculatedValue = $this->getParentWriter()->getPreCalculateFormulas() ? $cell->getCalculatedValue() : $cellValue;
+        $calculatedValueString = $this->getParentWriter()->getPreCalculateFormulas() ? $cell->getCalculatedValueString() : $cellValue;
         if (is_string($calculatedValue)) {
             if (ErrorValue::isError($calculatedValue)) {
                 $this->writeCellError($objWriter, 'e', $cellValue, $calculatedValue);
@@ -1452,13 +1453,15 @@ class Worksheet extends WriterPart
             }
             $objWriter->writeAttribute('t', 'str');
             $calculatedValue = StringHelper::controlCharacterPHP2OOXML($calculatedValue);
+            $calculatedValueString = $calculatedValue;
         } elseif (is_bool($calculatedValue)) {
             $objWriter->writeAttribute('t', 'b');
             $calculatedValue = (int) $calculatedValue;
+            $calculatedValueString = (string) $calculatedValue;
         }
 
         $attributes = $cell->getFormulaAttributes();
-        if (($attributes['t'] ?? null) === 'array') {
+        if (is_array($attributes) && ($attributes['t'] ?? null) === 'array') {
             $objWriter->startElement('f');
             $objWriter->writeAttribute('t', 'array');
             $objWriter->writeAttribute('ref', $cell->getCoordinate());
@@ -1474,8 +1477,8 @@ class Worksheet extends WriterPart
                 && $this->getParentWriter()->getPreCalculateFormulas()
                 && $calculatedValue !== null,
                 'v',
-                (!is_array($calculatedValue) && !str_starts_with($calculatedValue ?? '', '#'))
-                    ? StringHelper::formatNumber($calculatedValue) : '0'
+                (!is_array($calculatedValue) && !str_starts_with($calculatedValueString, '#'))
+                    ? StringHelper::formatNumber($calculatedValueString) : '0'
             );
         }
     }
@@ -1492,6 +1495,7 @@ class Worksheet extends WriterPart
         $pCell = $worksheet->getCell($cellAddress);
         $xfi = $pCell->getXfIndex();
         $cellValue = $pCell->getValue();
+        $cellValueString = $pCell->getValueString();
         $writeValue = $cellValue !== '' && $cellValue !== null;
         if (empty($xfi) && !$writeValue) {
             return;
@@ -1514,27 +1518,30 @@ class Worksheet extends WriterPart
             // Write data depending on its type
             switch (strtolower($mappedType)) {
                 case 'inlinestr':    // Inline string
-                    $this->writeCellInlineStr($objWriter, $mappedType, $cellValue);
+                    /** @var RichText|string */
+                    $richText = $cellValue;
+                    $this->writeCellInlineStr($objWriter, $mappedType, $richText);
 
                     break;
                 case 's':            // String
-                    $this->writeCellString($objWriter, $mappedType, $cellValue, $flippedStringTable);
+                    $this->writeCellString($objWriter, $mappedType, $cellValueString, $flippedStringTable);
 
                     break;
                 case 'f':            // Formula
-                    $this->writeCellFormula($objWriter, $cellValue, $pCell);
+                    $this->writeCellFormula($objWriter, $cellValueString, $pCell);
 
                     break;
                 case 'n':            // Numeric
-                    $this->writeCellNumeric($objWriter, $cellValue);
+                    $cellValueNumeric = is_numeric($cellValue) ? ($cellValue + 0) : 0;
+                    $this->writeCellNumeric($objWriter, $cellValueNumeric);
 
                     break;
                 case 'b':            // Boolean
-                    $this->writeCellBoolean($objWriter, $mappedType, $cellValue);
+                    $this->writeCellBoolean($objWriter, $mappedType, (bool) $cellValue);
 
                     break;
                 case 'e':            // Error
-                    $this->writeCellError($objWriter, $mappedType, $cellValue);
+                    $this->writeCellError($objWriter, $mappedType, $cellValueString);
             }
         }
 

@@ -40,6 +40,13 @@ abstract class BaseReader implements IReader
     protected ?array $loadSheetsOnly = null;
 
     /**
+     * Ignore rows with no cells?
+     * Identifies whether the Reader should ignore rows with no cells.
+     *        Currently implemented only for Xlsx.
+     */
+    protected bool $ignoreRowsWithNoCells = false;
+
+    /**
      * IReadFilter instance.
      */
     protected IReadFilter $readFilter;
@@ -74,6 +81,18 @@ abstract class BaseReader implements IReader
     public function setReadEmptyCells(bool $readEmptyCells): self
     {
         $this->readEmptyCells = $readEmptyCells;
+
+        return $this;
+    }
+
+    public function getIgnoreRowsWithNoCells(): bool
+    {
+        return $this->ignoreRowsWithNoCells;
+    }
+
+    public function setIgnoreRowsWithNoCells(bool $ignoreRowsWithNoCells): self
+    {
+        $this->ignoreRowsWithNoCells = $ignoreRowsWithNoCells;
 
         return $this;
     }
@@ -149,6 +168,9 @@ abstract class BaseReader implements IReader
         }
         if (((bool) ($flags & self::SKIP_EMPTY_CELLS) || (bool) ($flags & self::IGNORE_EMPTY_CELLS)) === true) {
             $this->setReadEmptyCells(false);
+        }
+        if (((bool) ($flags & self::IGNORE_ROWS_WITH_NO_CELLS)) === true) {
+            $this->setIgnoreRowsWithNoCells(true);
         }
     }
 

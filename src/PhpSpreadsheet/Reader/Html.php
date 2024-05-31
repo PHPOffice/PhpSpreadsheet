@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
+use DOMAttr;
 use DOMDocument;
 use DOMElement;
 use DOMNode;
@@ -289,6 +290,7 @@ class Html extends BaseReader
     private function processDomElementBody(Worksheet $sheet, int &$row, string &$column, string &$cellContent, DOMElement $child): void
     {
         $attributeArray = [];
+        /** @var DOMAttr $attribute */
         foreach ($child->attributes as $attribute) {
             $attributeArray[$attribute->name] = $attribute->value;
         }

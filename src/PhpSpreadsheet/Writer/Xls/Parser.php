@@ -542,18 +542,18 @@ class Parser
     /**
      * Convert a number token to ptgInt or ptgNum.
      *
-     * @param mixed $num an integer or double for conversion to its ptg value
+     * @param float|int|string $num an integer or double for conversion to its ptg value
      */
     private function convertNumber(mixed $num): string
     {
         // Integer in the range 0..2**16-1
-        if ((preg_match('/^\\d+$/', $num)) && ($num <= 65535)) {
+        if ((preg_match('/^\\d+$/', (string) $num)) && ($num <= 65535)) {
             return pack('Cv', $this->ptg['ptgInt'], $num);
         }
 
         // A float
         if (BIFFwriter::getByteOrder()) { // if it's Big Endian
-            $num = strrev($num);
+            $num = strrev((string) $num);
         }
 
         return pack('Cd', $this->ptg['ptgNum'], $num);

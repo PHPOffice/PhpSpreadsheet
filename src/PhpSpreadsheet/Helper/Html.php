@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Helper;
 
+use DOMAttr;
 use DOMDocument;
 use DOMElement;
 use DOMNode;
@@ -708,6 +709,7 @@ class Html
     {
         $attrs = $tag->attributes;
         if ($attrs !== null) {
+            /** @var DOMAttr $attribute */
             foreach ($attrs as $attribute) {
                 $attributeName = strtolower($attribute->name);
                 $attributeName = preg_replace('/^html:/', '', $attributeName) ?? $attributeName; // in case from Xml spreadsheet
