@@ -54,12 +54,12 @@ $helper->log('Define some styles for our Conditionals');
 $yellowStyle = new Style(false, true);
 $yellowStyle->getFill()
     ->setFillType(Fill::FILL_SOLID)
-    ->getEndColor()->setARGB(Color::COLOR_YELLOW);
+    ->getStartColor()->setARGB(Color::COLOR_YELLOW);
 $yellowStyle->getFont()->setColor(new Color(Color::COLOR_BLUE));
 $greenStyle = new Style(false, true);
 $greenStyle->getFill()
     ->setFillType(Fill::FILL_SOLID)
-    ->getEndColor()->setARGB(Color::COLOR_GREEN);
+    ->getStartColor()->setARGB(Color::COLOR_GREEN);
 $greenStyle->getFont()->setColor(new Color(Color::COLOR_DARKRED));
 
 // Set conditional formatting rules and styles

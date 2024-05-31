@@ -4,6 +4,14 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Xls\Style;
 
 use PhpOffice\PhpSpreadsheet\Style\Color;
 
+/*
+ * Static array incorrectly used by Xls Writer for Conditional Styles.
+ *
+ * @deprecated since version 2.2
+ *
+ * @codecoverageignore
+ */
+
 class ColorMap
 {
     /**
@@ -70,7 +78,7 @@ class ColorMap
 
     public static function lookup(Color $color, int $defaultIndex = 0x00): int
     {
-        $colorRgb = $color->getRGB();
+        $colorRgb = strtoupper($color->getRGB());
         if (is_string($colorRgb) && array_key_exists("#{$colorRgb}", self::$colorMap)) {
             return self::$colorMap["#{$colorRgb}"];
         }

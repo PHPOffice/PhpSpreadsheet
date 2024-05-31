@@ -264,11 +264,21 @@ class Worksheet extends WriterPart
         $objWriter->writeAttribute('workbookViewId', '0');
 
         // Zoom scales
-        if ($worksheet->getSheetView()->getZoomScale() != 100) {
-            $objWriter->writeAttribute('zoomScale', (string) $worksheet->getSheetView()->getZoomScale());
+        $zoomScale = $worksheet->getSheetView()->getZoomScale();
+        if ($zoomScale !== 100 && $zoomScale !== null) {
+            $objWriter->writeAttribute('zoomScale', (string) $zoomScale);
         }
-        if ($worksheet->getSheetView()->getZoomScaleNormal() != 100) {
-            $objWriter->writeAttribute('zoomScaleNormal', (string) $worksheet->getSheetView()->getZoomScaleNormal());
+        $zoomScale = $worksheet->getSheetView()->getZoomScaleNormal();
+        if ($zoomScale !== 100 && $zoomScale !== null) {
+            $objWriter->writeAttribute('zoomScaleNormal', (string) $zoomScale);
+        }
+        $zoomScale = $worksheet->getSheetView()->getZoomScalePageLayoutView();
+        if ($zoomScale !== 100) {
+            $objWriter->writeAttribute('zoomScalePageLayoutView', (string) $zoomScale);
+        }
+        $zoomScale = $worksheet->getSheetView()->getZoomScaleSheetLayoutView();
+        if ($zoomScale !== 100) {
+            $objWriter->writeAttribute('zoomScaleSheetLayoutView', (string) $zoomScale);
         }
 
         // Show zeros (Excel also writes this attribute only if set to false)
@@ -1210,7 +1220,7 @@ class Worksheet extends WriterPart
             $objWriter->writeAttribute('manualBreakCount', (string) count($aColumnBreaks));
 
             foreach ($aColumnBreaks as $cell => $break) {
-                $coords = Coordinate::coordinateFromString($cell);
+                $coords = Coordinate::indexesFromString($cell);
 
                 $objWriter->startElement('brk');
                 $objWriter->writeAttribute('id', (string) ((int) $coords[0] - 1));
@@ -1389,6 +1399,7 @@ class Worksheet extends WriterPart
     private function writeCellFormula(XMLWriter $objWriter, string $cellValue, Cell $cell): void
     {
         $calculatedValue = $this->getParentWriter()->getPreCalculateFormulas() ? $cell->getCalculatedValue() : $cellValue;
+        $calculatedValueString = $this->getParentWriter()->getPreCalculateFormulas() ? $cell->getCalculatedValueString() : $cellValue;
         if (is_string($calculatedValue)) {
             if (ErrorValue::isError($calculatedValue)) {
                 $this->writeCellError($objWriter, 'e', $cellValue, $calculatedValue);
@@ -1397,9 +1408,11 @@ class Worksheet extends WriterPart
             }
             $objWriter->writeAttribute('t', 'str');
             $calculatedValue = StringHelper::controlCharacterPHP2OOXML($calculatedValue);
+            $calculatedValueString = $calculatedValue;
         } elseif (is_bool($calculatedValue)) {
             $objWriter->writeAttribute('t', 'b');
             $calculatedValue = (int) $calculatedValue;
+            $calculatedValueString = (string) $calculatedValue;
         }
 
         $attributes = $cell->getFormulaAttributes() ?? [];
@@ -1449,8 +1462,8 @@ class Worksheet extends WriterPart
                 && $this->getParentWriter()->getPreCalculateFormulas()
                 && $calculatedValue !== null,
                 'v',
-                (!is_array($calculatedValue) && !str_starts_with($calculatedValue ?? '', '#'))
-                    ? StringHelper::formatNumber($calculatedValue) : '0'
+                (!is_array($calculatedValue) && !str_starts_with($calculatedValueString, '#'))
+                    ? StringHelper::formatNumber($calculatedValueString) : '0'
             );
         }
     }
@@ -1489,6 +1502,7 @@ class Worksheet extends WriterPart
         $pCell = $worksheet->getCell($cellAddress);
         $xfi = $pCell->getXfIndex();
         $cellValue = $pCell->getValue();
+        $cellValueString = $pCell->getValueString();
         $writeValue = $cellValue !== '' && $cellValue !== null;
         if (empty($xfi) && !$writeValue) {
             return;
@@ -1511,27 +1525,30 @@ class Worksheet extends WriterPart
             // Write data depending on its type
             switch (strtolower($mappedType)) {
                 case 'inlinestr':    // Inline string
-                    $this->writeCellInlineStr($objWriter, $mappedType, $cellValue);
+                    /** @var RichText|string */
+                    $richText = $cellValue;
+                    $this->writeCellInlineStr($objWriter, $mappedType, $richText);
 
                     break;
                 case 's':            // String
-                    $this->writeCellString($objWriter, $mappedType, $cellValue, $flippedStringTable);
+                    $this->writeCellString($objWriter, $mappedType, $cellValueString, $flippedStringTable);
 
                     break;
                 case 'f':            // Formula
-                    $this->writeCellFormula($objWriter, $cellValue, $pCell);
+                    $this->writeCellFormula($objWriter, $cellValueString, $pCell);
 
                     break;
                 case 'n':            // Numeric
-                    $this->writeCellNumeric($objWriter, $cellValue);
+                    $cellValueNumeric = is_numeric($cellValue) ? ($cellValue + 0) : 0;
+                    $this->writeCellNumeric($objWriter, $cellValueNumeric);
 
                     break;
                 case 'b':            // Boolean
-                    $this->writeCellBoolean($objWriter, $mappedType, $cellValue);
+                    $this->writeCellBoolean($objWriter, $mappedType, (bool) $cellValue);
 
                     break;
                 case 'e':            // Error
-                    $this->writeCellError($objWriter, $mappedType, $cellValue);
+                    $this->writeCellError($objWriter, $mappedType, $cellValueString);
             }
         }
 

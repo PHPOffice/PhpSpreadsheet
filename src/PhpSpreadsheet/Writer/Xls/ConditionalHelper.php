@@ -35,7 +35,9 @@ class ConditionalHelper
             $this->tokens = pack('Cv', 0x1E, $condition);
         } else {
             try {
-                $formula = Wizard\WizardAbstract::reverseAdjustCellRef((string) $condition, $cellRange);
+                /** @var float|int|string */
+                $conditionx = $condition;
+                $formula = Wizard\WizardAbstract::reverseAdjustCellRef((string) $conditionx, $cellRange);
                 $this->parser->parse($formula);
                 $this->tokens = $this->parser->toReversePolish();
                 $this->size = strlen($this->tokens ?? '');

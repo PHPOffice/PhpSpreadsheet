@@ -745,7 +745,7 @@ class Worksheet implements IComparable
                         // Calculated value
                         // To formatted string
                         $cellValue = NumberFormat::toFormattedString(
-                            $cell->getCalculatedValue(),
+                            $cell->getCalculatedValueString(),
                             (string) $this->getParentOrThrow()->getCellXfByIndex($cell->getXfIndex())
                                 ->getNumberFormat()->getFormatCode(true)
                         );
@@ -2626,7 +2626,7 @@ class Worksheet implements IComparable
      * @param array{0: int, 1: int}|CellAddress|string $cellCoordinate Coordinate of the cell as a string, eg: 'C5';
      *               or as an array of [$columnIndex, $row] (e.g. [3, 5]), or a CellAddress object.
      */
-    public function getComment(CellAddress|string|array $cellCoordinate): Comment
+    public function getComment(CellAddress|string|array $cellCoordinate, bool $attachNew = true): Comment
     {
         $cellAddress = Functions::trimSheetFromCellReference(Validations::validateCellAddress($cellCoordinate));
 
@@ -2645,7 +2645,9 @@ class Worksheet implements IComparable
 
         // If not, create a new comment.
         $newComment = new Comment();
-        $this->comments[$cellAddress] = $newComment;
+        if ($attachNew) {
+            $this->comments[$cellAddress] = $newComment;
+        }
 
         return $newComment;
     }
@@ -2793,6 +2795,8 @@ class Worksheet implements IComparable
     }
 
     /**
+     * @param null|bool|float|int|RichText|string $nullValue value to use when null
+     *
      * @throws Exception
      * @throws \PhpOffice\PhpSpreadsheet\Calculation\Exception
      */
@@ -2809,8 +2813,10 @@ class Worksheet implements IComparable
 
             if ($formatData) {
                 $style = $this->getParentOrThrow()->getCellXfByIndex($cell->getXfIndex());
+                /** @var null|bool|float|int|RichText|string */
+                $returnValuex = $returnValue;
                 $returnValue = NumberFormat::toFormattedString(
-                    $returnValue,
+                    $returnValuex,
                     $style->getNumberFormat()->getFormatCode() ?? NumberFormat::FORMAT_GENERAL
                 );
             }
@@ -2822,7 +2828,7 @@ class Worksheet implements IComparable
     /**
      * Create array from a range of cells.
      *
-     * @param mixed $nullValue Value returned in the array entry if a cell doesn't exist
+     * @param null|bool|float|int|RichText|string $nullValue Value returned in the array entry if a cell doesn't exist
      * @param bool $calculateFormulas Should formulas be calculated?
      * @param bool $formatData Should formatting be applied to cell values?
      * @param bool $returnCellRef False - Return a simple array of rows and columns indexed by number counting from zero
@@ -2852,7 +2858,7 @@ class Worksheet implements IComparable
     /**
      * Create array from a range of cells, yielding each row in turn.
      *
-     * @param mixed $nullValue Value returned in the array entry if a cell doesn't exist
+     * @param null|bool|float|int|RichText|string $nullValue Value returned in the array entry if a cell doesn't exist
      * @param bool $calculateFormulas Should formulas be calculated?
      * @param bool $formatData Should formatting be applied to cell values?
      * @param bool $returnCellRef False - Return a simple array of rows and columns indexed by number counting from zero
@@ -2860,7 +2866,7 @@ class Worksheet implements IComparable
      * @param bool $ignoreHidden False - Return values for rows/columns even if they are defined as hidden.
      *                            True - Don't return values for rows/columns that are defined as hidden.
      *
-     * @return Generator
+     * @return Generator<array>
      */
     public function rangeToArrayYieldRows(
         string $range,
@@ -3000,7 +3006,7 @@ class Worksheet implements IComparable
      * Create array from a range of cells.
      *
      * @param string $definedName The Named Range that should be returned
-     * @param mixed $nullValue Value returned in the array entry if a cell doesn't exist
+     * @param null|bool|float|int|RichText|string $nullValue Value returned in the array entry if a cell doesn't exist
      * @param bool $calculateFormulas Should formulas be calculated?
      * @param bool $formatData Should formatting be applied to cell values?
      * @param bool $returnCellRef False - Return a simple array of rows and columns indexed by number counting from zero
@@ -3033,7 +3039,7 @@ class Worksheet implements IComparable
     /**
      * Create array from worksheet.
      *
-     * @param mixed $nullValue Value returned in the array entry if a cell doesn't exist
+     * @param null|bool|float|int|RichText|string $nullValue Value returned in the array entry if a cell doesn't exist
      * @param bool $calculateFormulas Should formulas be calculated?
      * @param bool $formatData Should formatting be applied to cell values?
      * @param bool $returnCellRef False - Return a simple array of rows and columns indexed by number counting from zero
@@ -3647,14 +3653,14 @@ class Worksheet implements IComparable
     public function copyCells(string $fromCell, string $toCells, bool $copyStyle = true): void
     {
         $toArray = Coordinate::extractAllCellReferencesInRange($toCells);
-        $value = $this->getCell($fromCell)->getValue();
+        $valueString = $this->getCell($fromCell)->getValueString();
         $style = $this->getStyle($fromCell)->exportArray();
         $fromIndexes = Coordinate::indexesFromString($fromCell);
         $referenceHelper = ReferenceHelper::getInstance();
         foreach ($toArray as $destination) {
             if ($destination !== $fromCell) {
                 $toIndexes = Coordinate::indexesFromString($destination);
-                $this->getCell($destination)->setValue($referenceHelper->updateFormulaReferences($value, 'A1', $toIndexes[0] - $fromIndexes[0], $toIndexes[1] - $fromIndexes[1]));
+                $this->getCell($destination)->setValue($referenceHelper->updateFormulaReferences($valueString, 'A1', $toIndexes[0] - $fromIndexes[0], $toIndexes[1] - $fromIndexes[1]));
                 if ($copyStyle) {
                     $this->getCell($destination)->getStyle()->applyFromArray($style);
                 }
