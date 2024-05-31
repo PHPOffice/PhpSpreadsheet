@@ -29,6 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - POWER Null/Bool Args. [PR #4031](https://github.com/PHPOffice/PhpSpreadsheet/pull/4031)
 - Do Not Output Alignment and Protection for Conditional Format. [Issue #4025](https://github.com/PHPOffice/PhpSpreadsheet/issues/4025) [PR #4027](https://github.com/PHPOffice/PhpSpreadsheet/pull/4027)
 - Xls Conditional Format Improvements. [PR #4030](https://github.com/PHPOffice/PhpSpreadsheet/pull/4030)
+- Conditional Color Scale Improvements. [Issue #4049](https://github.com/PHPOffice/PhpSpreadsheet/issues/4049) [PR #4050](https://github.com/PHPOffice/PhpSpreadsheet/pull/4050)
 
 ## 2024-05-11 - 2.1.0
 
