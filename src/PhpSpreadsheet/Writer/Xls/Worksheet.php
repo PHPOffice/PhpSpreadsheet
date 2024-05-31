@@ -386,37 +386,37 @@ class Worksheet extends BIFFwriter
                         if ($cVal === '' || $cVal === null) {
                             $this->writeBlank($row, $column, $xfIndex);
                         } else {
-                            $this->writeString($row, $column, $cVal, $xfIndex);
+                            $this->writeString($row, $column, $cell->getValueString(), $xfIndex);
                         }
 
                         break;
                     case DataType::TYPE_NUMERIC:
-                        $this->writeNumber($row, $column, $cVal, $xfIndex);
+                        $this->writeNumber($row, $column, is_numeric($cVal) ? ($cVal + 0) : 0, $xfIndex);
 
                         break;
                     case DataType::TYPE_FORMULA:
-                        $calculatedValue = $this->preCalculateFormulas
-                            ? $cell->getCalculatedValue() : null;
-                        if (self::WRITE_FORMULA_EXCEPTION == $this->writeFormula($row, $column, $cVal, $xfIndex, $calculatedValue)) {
+                        $calculatedValue = $this->preCalculateFormulas ? $cell->getCalculatedValue() : null;
+                        $calculatedValueString = $this->preCalculateFormulas ? $cell->getCalculatedValueString() : '';
+                        if (self::WRITE_FORMULA_EXCEPTION == $this->writeFormula($row, $column, $cell->getValueString(), $xfIndex, $calculatedValue)) {
                             if ($calculatedValue === null) {
                                 $calculatedValue = $cell->getCalculatedValue();
                             }
                             $calctype = gettype($calculatedValue);
                             match ($calctype) {
-                                'integer', 'double' => $this->writeNumber($row, $column, (float) $calculatedValue, $xfIndex),
-                                'string' => $this->writeString($row, $column, $calculatedValue, $xfIndex),
-                                'boolean' => $this->writeBoolErr($row, $column, (int) $calculatedValue, 0, $xfIndex),
-                                default => $this->writeString($row, $column, $cVal, $xfIndex),
+                                'integer', 'double' => $this->writeNumber($row, $column, is_numeric($calculatedValue) ? ((float) $calculatedValue) : 0.0, $xfIndex),
+                                'string' => $this->writeString($row, $column, $calculatedValueString, $xfIndex),
+                                'boolean' => $this->writeBoolErr($row, $column, (int) $calculatedValueString, 0, $xfIndex),
+                                default => $this->writeString($row, $column, $cell->getValueString(), $xfIndex),
                             };
                         }
 
                         break;
                     case DataType::TYPE_BOOL:
-                        $this->writeBoolErr($row, $column, $cVal, 0, $xfIndex);
+                        $this->writeBoolErr($row, $column, (int) $cell->getValueString(), 0, $xfIndex);
 
                         break;
                     case DataType::TYPE_ERROR:
-                        $this->writeBoolErr($row, $column, ErrorCode::error($cVal), 1, $xfIndex);
+                        $this->writeBoolErr($row, $column, ErrorCode::error($cell->getValueString()), 1, $xfIndex);
 
                         break;
                 }

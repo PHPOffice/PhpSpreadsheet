@@ -54,7 +54,7 @@ class Expression extends WizardAbstract implements WizardInterface
     }
 
     /**
-     * @param mixed[] $arguments
+     * @param string[] $arguments
      */
     public function __call(string $methodName, array $arguments): self
     {
