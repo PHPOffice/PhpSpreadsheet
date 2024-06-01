@@ -188,10 +188,10 @@ class ConditionalStyles
             $conditionalStyles = $this->readStyleRules($cfRules, $xmlExtLst);
 
             // Extract all cell references in $cellRangeReference
-            $cellBlocks = explode(' ', str_replace('$', '', strtoupper($cellRangeReference)));
-            foreach ($cellBlocks as $cellBlock) {
-                $worksheet->getStyle($cellBlock)->setConditionalStyles($conditionalStyles);
-            }
+            // N.B. In Excel UI, intersection is space and union is comma.
+            // But in Xml, intersection is comma and union is space.
+            $cellRangeReference = str_replace(['$', ' ', ',', '^'], ['', '^', ' ', ','], strtoupper($cellRangeReference));
+            $worksheet->getStyle($cellRangeReference)->setConditionalStyles($conditionalStyles);
         }
     }
 

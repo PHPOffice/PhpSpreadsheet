@@ -860,7 +860,11 @@ class Worksheet extends WriterPart
         // Loop through styles in the current worksheet
         foreach ($worksheet->getConditionalStylesCollection() as $cellCoordinate => $conditionalStyles) {
             $objWriter->startElement('conditionalFormatting');
-            $objWriter->writeAttribute('sqref', $cellCoordinate);
+            // N.B. In Excel UI, intersection is space and union is comma.
+            // But in Xml, intersection is comma and union is space.
+            // Anyhow, I don't think Excel handles intersection correctly when reading.
+            $outCoordinate = Coordinate::resolveUnionAndIntersection(str_replace('$', '', $cellCoordinate), ' ');
+            $objWriter->writeAttribute('sqref', $outCoordinate);
 
             foreach ($conditionalStyles as $conditional) {
                 // WHY was this again?
