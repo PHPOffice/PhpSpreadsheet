@@ -67,7 +67,7 @@ class Worksheet implements IComparable
     /**
      * Parent spreadsheet.
      */
-    private ?Spreadsheet $parent;
+    private ?Spreadsheet $parent = null;
 
     /**
      * Collection of cells.

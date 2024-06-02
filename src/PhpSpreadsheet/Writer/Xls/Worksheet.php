@@ -2374,7 +2374,7 @@ class Worksheet extends BIFFwriter
     {
         // Open file.
         $bmp_fd = @fopen($bitmap, 'rb');
-        if ($bmp_fd === false) {
+        if ($bmp_fd === false || 0 === (int) filesize($bitmap)) {
             throw new WriterException("Couldn't import $bitmap");
         }
 

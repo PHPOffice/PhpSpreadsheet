@@ -33,14 +33,20 @@ class CalculationFunctionListTest extends TestCase
     /**
      * @dataProvider providerGetFunctions
      */
-    public function testGetFunctions(string $category, array|string $functionCall): void
+    public function testGetFunctions(array|string $functionCall): void
     {
         self::assertIsCallable($functionCall);
     }
 
     public static function providerGetFunctions(): array
     {
-        return Calculation::getInstance()->getFunctions();
+        $returnFunctions = [];
+        $functionList = Calculation::getInstance()->getFunctions();
+        foreach ($functionList as $functionName => $functionArray) {
+            $returnFunctions[$functionName]['functionCall'] = $functionArray['functionCall'];
+        }
+
+        return $returnFunctions;
     }
 
     public function testIsImplemented(): void

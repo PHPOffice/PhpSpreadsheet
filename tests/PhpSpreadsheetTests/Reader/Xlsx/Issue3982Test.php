@@ -7,13 +7,17 @@ namespace PhpOffice\PhpSpreadsheetTests\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Reader\IReader;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx as XlsxReader;
+use PHPUnit\Framework\TestCase;
 
-class Issue3982Test extends \PHPUnit\Framework\TestCase
+class Issue3982Test extends TestCase
 {
     private static string $testbook = 'tests/data/Reader/XLSX/issue.3982.xlsx';
 
     public function testLoadAllRows(): void
     {
+        if (!method_exists(TestCase::class, 'setOutputCallback')) {
+            self::markTestSkipped('Memory loop in Phpunit 10');
+        }
         $spreadsheet = IOFactory::load(self::$testbook);
         $sheet = $spreadsheet->getActiveSheet();
         $data = $sheet->toArray(null, true, false, true);
