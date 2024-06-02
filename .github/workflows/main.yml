@@ -61,7 +61,7 @@ jobs:
       - name: "Run PHPUnit tests (Experimental: ${{ matrix.experimental }})"
         env:
           FAILURE_ACTION: "${{ matrix.experimental == true }}"
-        run: vendor/bin/phpunit --verbose || $FAILURE_ACTION
+        run: vendor/bin/phpunit --display-incomplete --display-skipped --display-deprecations --display-errors --display-notices --display-warnings || $FAILURE_ACTION
 
   phpdoc-types:
     runs-on: ubuntu-latest
