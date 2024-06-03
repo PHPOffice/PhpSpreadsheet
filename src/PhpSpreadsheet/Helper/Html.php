@@ -694,7 +694,7 @@ class Html
     {
         preg_match_all('/\d+/', $rgbValue, $values);
         foreach ($values[0] as &$value) {
-            $value = str_pad(dechex($value), 2, '0', STR_PAD_LEFT);
+            $value = str_pad(dechex((int) $value), 2, '0', STR_PAD_LEFT);
         }
 
         return implode('', $values[0]);

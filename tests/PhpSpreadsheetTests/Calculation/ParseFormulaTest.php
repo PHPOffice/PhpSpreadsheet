@@ -287,8 +287,8 @@ class ParseFormulaTest extends TestCase
                 ],
                 '=DeptSales[[#Headers],[Region]:[Commission Amount]]',
             ],
-            [
-                'Multi-RowGroup Fully Qualified Nested Structured Reference' => [
+            'Multi-RowGroup Fully Qualified Nested Structured Reference' => [
+                [
                     ['type' => 'Structured Reference', 'value' => new StructuredReference('DeptSales[[#Headers],[#Data],[% Commission]]'), 'reference' => null],
                 ],
                 '=DeptSales[[#Headers],[#Data],[% Commission]]',

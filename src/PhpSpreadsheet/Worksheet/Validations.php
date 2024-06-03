@@ -36,7 +36,7 @@ class Validations
     /**
      * Validate a cell address or cell range.
      *
-     * @param AddressRange|array{0: int, 1: int, 2: int, 3: int}|array{0: int, 1: int}|CellAddress|int|string $cellRange Coordinate of the cells as a string, eg: 'C5:F12';
+     * @param AddressRange<CellAddress>|array{0: int, 1: int, 2: int, 3: int}|array{0: int, 1: int}|CellAddress|int|string $cellRange Coordinate of the cells as a string, eg: 'C5:F12';
      *               or as an array of [$fromColumnIndex, $fromRow, $toColumnIndex, $toRow] (e.g. [3, 5, 6, 12]),
      *               or as a CellAddress or AddressRange object.
      */
@@ -59,7 +59,7 @@ class Validations
     /**
      * Validate a cell range.
      *
-     * @param AddressRange|array{0: int, 1: int, 2: int, 3: int}|array{0: int, 1: int}|string $cellRange Coordinate of the cells as a string, eg: 'C5:F12';
+     * @param AddressRange<CellAddress>|array{0: int, 1: int, 2: int, 3: int}|array{0: int, 1: int}|string $cellRange Coordinate of the cells as a string, eg: 'C5:F12';
      *               or as an array of [$fromColumnIndex, $fromRow, $toColumnIndex, $toRow] (e.g. [3, 5, 6, 12]),
      *               or as an AddressRange object.
      */
