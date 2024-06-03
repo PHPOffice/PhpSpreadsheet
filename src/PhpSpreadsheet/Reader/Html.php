@@ -169,7 +169,8 @@ class Html extends BaseReader
     private function readEnding(): string
     {
         $meta = stream_get_meta_data($this->fileHandle);
-        $filename = $meta['uri'];
+        // Phpstan incorrectly flags following line for Php8.2-, corrected in 8.3
+        $filename = $meta['uri']; //@phpstan-ignore-line
 
         $size = (int) filesize($filename);
         if ($size === 0) {
