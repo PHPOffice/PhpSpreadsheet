@@ -22,9 +22,8 @@ parameters:
         - src/PhpSpreadsheet/Writer/ZipStream3.php
     parallel:
         processTimeout: 300.0
-    checkMissingIterableValueType: false
-    checkGenericClassInNonGenericObjectType: false
     ignoreErrors:
         # Accept a bit anything for assert methods
         - '~^Parameter \#2 .* of static method PHPUnit\\Framework\\Assert\:\:assert\w+\(\) expects .*, .* given\.$~'
         - '~^Variable \$helper might not be defined\.$~'
+        - identifier: missingType.iterableValue

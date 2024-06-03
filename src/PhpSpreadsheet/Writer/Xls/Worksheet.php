@@ -493,7 +493,13 @@ class Worksheet extends BIFFwriter
     {
         $conditionalFormulaHelper = new ConditionalHelper($this->parser);
 
-        $arrConditionalStyles = $this->phpSheet->getConditionalStylesCollection();
+        $arrConditionalStyles = [];
+        foreach ($this->phpSheet->getConditionalStylesCollection() as $key => $value) {
+            $keyExplode = explode(',', Coordinate::resolveUnionAndIntersection($key));
+            foreach ($keyExplode as $exploded) {
+                $arrConditionalStyles[$exploded] = $value;
+            }
+        }
         if (!empty($arrConditionalStyles)) {
             // Write ConditionalFormattingTable records
             foreach ($arrConditionalStyles as $cellCoordinate => $conditionalStyles) {
@@ -2368,7 +2374,7 @@ class Worksheet extends BIFFwriter
     {
         // Open file.
         $bmp_fd = @fopen($bitmap, 'rb');
-        if ($bmp_fd === false) {
+        if ($bmp_fd === false || 0 === (int) filesize($bitmap)) {
             throw new WriterException("Couldn't import $bitmap");
         }
 
