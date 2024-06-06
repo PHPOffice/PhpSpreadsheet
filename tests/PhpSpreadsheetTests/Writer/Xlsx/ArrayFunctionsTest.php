@@ -175,7 +175,7 @@ class ArrayFunctionsTest extends TestCase
             [100, 92],
             [734, 12],
             [100, 91],
-            [5,2],
+            [5, 2],
         ];
         $sheet->fromArray($columnArray);
         $sheet->setCellValue('H1', '=UNIQUE(A1:B6)');
