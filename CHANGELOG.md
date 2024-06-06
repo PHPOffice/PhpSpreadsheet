@@ -33,6 +33,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Xls Conditional Format Improvements. [PR #4030](https://github.com/PHPOffice/PhpSpreadsheet/pull/4030) [PR #4033](https://github.com/PHPOffice/PhpSpreadsheet/pull/4033)
 - Conditional Range Unions and Intersections [Issue #4039](https://github.com/PHPOffice/PhpSpreadsheet/issues/4039) [PR #4042](https://github.com/PHPOffice/PhpSpreadsheet/pull/4042)
 - Csv Reader allow use of html mimetype. [Issue #4036](https://github.com/PHPOffice/PhpSpreadsheet/issues/4036) [PR #4049](https://github.com/PHPOffice/PhpSpreadsheet/pull/4040)
+- Empty String in sharedStrings. [Issue #4063](https://github.com/PHPOffice/PhpSpreadsheet/issues/4063) [PR #4064](https://github.com/PHPOffice/PhpSpreadsheet/pull/4064)
 
 ## 2024-05-11 - 2.1.0
 
