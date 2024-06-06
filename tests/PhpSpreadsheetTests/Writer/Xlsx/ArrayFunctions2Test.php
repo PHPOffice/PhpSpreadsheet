@@ -271,7 +271,7 @@ class ArrayFunctions2Test extends TestCase
     public function testManyArraysOutput(): void
     {
         Calculation::setArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
-        $json = file_get_contents('tests/data/Writer/Xlsx/ArrayFunctions2.json');
+        $json = file_get_contents('tests/data/Writer/XLSX/ArrayFunctions2.json');
         self::assertNotFalse($json);
         $this->trn = json_decode($json, true);
         $spreadsheet = new Spreadsheet();
