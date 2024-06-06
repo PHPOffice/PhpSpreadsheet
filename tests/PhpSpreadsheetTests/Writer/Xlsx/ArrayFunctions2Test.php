@@ -15,6 +15,8 @@ use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PHPUnit\Framework\TestCase;
 
+// TODO - I think the spreadsheet below is too difficult for PhpSpreadsheet to calculate correctly.
+
 class ArrayFunctions2Test extends TestCase
 {
     private const STYLESIZE14 = [
@@ -93,7 +95,8 @@ class ArrayFunctions2Test extends TestCase
 
         $lijn = 1;
         for ($i = 1; $i <= $this->trn['RONDEN']; ++$i) {//aantal ronden oneven->heen en even->terug
-            for ($j = 0; $j < count($saring); ++$j) {//subronden
+            $countSaring = count($saring);
+            for ($j = 0; $j < $countSaring; ++$j) {//subronden
                 ++$lijn;
                 if (isset($KD[(($i - 1) * $this->trn['SUB_RONDEN']) + $j], $KD[(($i - 1) * $this->trn['SUB_RONDEN']) + $j]['RONDE'])) {
                     $ws->setCellValue([9, $lijn], $KD[(($i - 1) * $this->trn['SUB_RONDEN']) + $j]['RONDE']);
@@ -109,7 +112,8 @@ class ArrayFunctions2Test extends TestCase
                 $ws->getStyle('A' . $lijn . ':L' . $lijn . '')->applyFromArray(self::STYLEBOLD14);
 
                 $s2 = explode(' ', $saring[$j]);
-                for ($k = 0; $k < count($s2); ++$k) {//borden
+                $counts2 = count($s2);
+                for ($k = 0; $k < $counts2; ++$k) {//borden
                     if (trim($s2[$k]) == '') {
                         continue;
                     }
@@ -302,6 +306,7 @@ class ArrayFunctions2Test extends TestCase
         self::assertSame('Dirk', $wsPartijen->getCell('I3')->getCalculatedValue());
         self::assertSame('Rudy', $wsPartijen->getCell('K4')->getCalculatedValue());
         $calcArray = $wsSort2->getCell('A2')->getCalculatedValue();
+        self::assertCount(8, $calcArray);
         $spreadsheet->disconnectWorksheets();
     }
 }
