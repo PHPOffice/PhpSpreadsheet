@@ -205,5 +205,4 @@ class ArrayFunctionsTest extends TestCase
         }
         $spreadsheet2->disconnectWorksheets();
     }
-
 }
