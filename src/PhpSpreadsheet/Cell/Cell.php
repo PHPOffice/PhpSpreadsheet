@@ -390,6 +390,22 @@ class Cell implements Stringable
                         }
                     }
                 }
+                if (is_array($result)) {
+                    $newRow = $row = $this->getRow();
+                    $column = $this->getColumn();
+                    foreach ($result as $resultRow) {
+                        $newColumn = $column;
+                        $resultRowx = is_array($resultRow) ? $resultRow : [$resultRow];
+                        foreach ($resultRowx as $resultValue) {
+                            if ($row !== $newRow || $column !== $newColumn) {
+                                $this->getWorksheet()->getCell($newColumn . $newRow)->setValue($resultValue);
+                            }
+                            ++$newColumn;
+                        }
+                        ++$newRow;
+                    }
+                    $this->getWorksheet()->getCell($column . $row);
+                }
             } catch (SpreadsheetException $ex) {
                 if (($ex->getMessage() === 'Unable to access External Workbook') && ($this->calculatedValue !== null)) {
                     return $this->calculatedValue; // Fallback for calculations referencing external files.

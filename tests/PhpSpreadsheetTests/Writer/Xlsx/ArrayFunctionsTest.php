@@ -69,24 +69,27 @@ class ArrayFunctionsTest extends TestCase
         $spreadsheet2 = $reader->load($this->outputFile);
         $sheet2 = $spreadsheet2->getActiveSheet();
         $expectedUnique = [
-            ['41'],
-            ['57'],
-            ['51'],
-            ['54'],
-            ['49'],
-            ['43'],
-            ['35'],
-            ['44'],
-            ['47'],
-            ['48'],
-            ['26'],
-            ['34'],
-            ['61'],
-            ['28'],
-            ['29'],
+            [41],
+            [57],
+            [51],
+            [54],
+            [49],
+            [43],
+            [35],
+            [44],
+            [47],
+            [48],
+            [26],
+            [34],
+            [61],
+            [28],
+            [29],
         ];
         self::assertCount(15, $expectedUnique);
         self::assertSame($expectedUnique, $sheet2->getCell('C1')->getCalculatedValue());
+        for ($row = 2; $row <= 15; ++$row) {
+            self::assertSame($expectedUnique[$row - 1][0], $sheet2->getCell("C$row")->getCalculatedValue(), "cell C$row");
+        }
         $expectedSort = [
             [26],
             [28],
@@ -160,4 +163,47 @@ class ArrayFunctionsTest extends TestCase
             self::assertStringContainsString('<f t="array" ref="F1:G5" aca="1" ca="1">_xlfn.CHOOSECOLS(A1:C5,3,1)</f><v>11</v>', $data);
         }
     }
+
+    public function testArrayMultipleColumns(): void
+    {
+        Calculation::setArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $columnArray = [
+            [100, 91],
+            [85, 1],
+            [100, 92],
+            [734, 12],
+            [100, 91],
+            [5,2],
+        ];
+        $sheet->fromArray($columnArray);
+        $sheet->setCellValue('H1', '=UNIQUE(A1:B6)');
+        $writer = new XlsxWriter($spreadsheet);
+        $this->outputFile = File::temporaryFilename();
+        $writer->save($this->outputFile);
+        $spreadsheet->disconnectWorksheets();
+
+        $reader = new XlsxReader();
+        $spreadsheet2 = $reader->load($this->outputFile);
+        $sheet2 = $spreadsheet2->getActiveSheet();
+        $expectedUnique = [
+            [100, 91],
+            [85, 1],
+            [100, 92],
+            [734, 12],
+            //[100, 91], // not unique
+            [5,2],
+        ];
+        self::assertCount(5, $expectedUnique);
+        self::assertSame($expectedUnique, $sheet2->getCell('H1')->getCalculatedValue());
+        for ($row = 1; $row <= 5; ++$row) {
+            if ($row > 1) {
+                self::assertSame($expectedUnique[$row - 1][0], $sheet2->getCell("H$row")->getCalculatedValue(), "cell H$row");
+            }
+            self::assertSame($expectedUnique[$row - 1][1], $sheet2->getCell("I$row")->getCalculatedValue(), "cell I$row");
+        }
+        $spreadsheet2->disconnectWorksheets();
+    }
+
 }
