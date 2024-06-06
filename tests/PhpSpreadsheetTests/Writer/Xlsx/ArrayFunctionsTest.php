@@ -193,7 +193,7 @@ class ArrayFunctionsTest extends TestCase
             [100, 92],
             [734, 12],
             //[100, 91], // not unique
-            [5,2],
+            [5, 2],
         ];
         self::assertCount(5, $expectedUnique);
         self::assertSame($expectedUnique, $sheet2->getCell('H1')->getCalculatedValue());
