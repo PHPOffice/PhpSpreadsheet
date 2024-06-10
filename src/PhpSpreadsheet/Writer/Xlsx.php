@@ -171,6 +171,7 @@ class Xlsx extends BaseWriter
         $this->numFmtHashTable = new HashTable();
         $this->styleHashTable = new HashTable();
         $this->stylesConditionalHashTable = new HashTable();
+        $this->determineUseDynamicArrays();
     }
 
     public function getWriterPartChart(): Chart
@@ -251,7 +252,7 @@ class Xlsx extends BaseWriter
     public function save($filename, int $flags = 0): void
     {
         $this->processFlags($flags);
-        $this->useDynamicArray = $this->preCalculateFormulas && Calculation::getInstance($this->spreadSheet)->getArrayReturnType() === Calculation::RETURN_ARRAY_AS_ARRAY && !$this->useCSEArrays;
+        $this->determineUseDynamicArrays();
 
         // garbage collect
         $this->pathNames = [];
@@ -282,9 +283,9 @@ class Xlsx extends BaseWriter
         $zipContent = [];
         // Add [Content_Types].xml to ZIP file
         $zipContent['[Content_Types].xml'] = $this->getWriterPartContentTypes()->writeContentTypes($this->spreadSheet, $this->includeCharts);
-        if ($this->useDynamicArrays()) {
-            $writerPartMetadata = new Xlsx\Metadata($this);
-            $zipContent['xl/metadata.xml'] = $writerPartMetadata->writeMetadata();
+        $metadataData = (new Xlsx\Metadata($this))->writeMetadata();
+        if ($metadataData !== '') {
+            $zipContent['xl/metadata.xml'] = $metadataData;
         }
 
         //if hasMacros, add the vbaProject.bin file, Certificate file(if exists)
@@ -721,13 +722,21 @@ class Xlsx extends BaseWriter
         return $this;
     }
 
-    public function setUseCSEArrays(bool $useCSEArrays): void
+    public function setUseCSEArrays(?bool $useCSEArrays): void
     {
-        $this->useCSEArrays = $useCSEArrays;
+        if ($useCSEArrays !== null) {
+            $this->useCSEArrays = $useCSEArrays;
+        }
+        $this->determineUseDynamicArrays();
     }
 
     public function useDynamicArrays(): bool
     {
         return $this->useDynamicArray;
+    }
+
+    private function determineUseDynamicArrays(): void
+    {
+        $this->useDynamicArray = $this->preCalculateFormulas && Calculation::getInstance($this->spreadSheet)->getArrayReturnType() === Calculation::RETURN_ARRAY_AS_ARRAY && !$this->useCSEArrays;
     }
 }

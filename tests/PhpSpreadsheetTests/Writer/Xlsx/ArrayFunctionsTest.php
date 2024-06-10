@@ -339,4 +339,17 @@ class ArrayFunctionsTest extends TestCase
         }
         $spreadsheet2->disconnectWorksheets();
     }
+
+    public function testMetadataWritten(): void
+    {
+        Calculation::setArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
+        $spreadsheet = new Spreadsheet();
+        $writer = new XlsxWriter($spreadsheet);
+        $writerMetadata = new XlsxWriter\Metadata($writer);
+        self::assertNotEquals('', $writerMetadata->writeMetaData());
+        $writer->setUseCSEArrays(true);
+        $writerMetadata2 = new XlsxWriter\Metadata($writer);
+        self::assertSame('', $writerMetadata2->writeMetaData());
+        $spreadsheet->disconnectWorksheets();
+    }
 }

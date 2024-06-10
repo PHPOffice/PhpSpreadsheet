@@ -14,6 +14,9 @@ class Metadata extends WriterPart
      */
     public function writeMetadata(): string
     {
+        if (!$this->getParentWriter()->useDynamicArrays()) {
+            return '';
+        }
         // Create XML writer
         $objWriter = null;
         if ($this->getParentWriter()->getUseDiskCaching()) {
