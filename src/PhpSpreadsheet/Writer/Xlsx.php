@@ -136,6 +136,10 @@ class Xlsx extends BaseWriter
 
     private bool $explicitStyle0 = false;
 
+    private bool $useCSEArrays = false;
+
+    private bool $useDynamicArray = false;
+
     /**
      * Create a new Xlsx Writer.
      */
@@ -247,6 +251,7 @@ class Xlsx extends BaseWriter
     public function save($filename, int $flags = 0): void
     {
         $this->processFlags($flags);
+        $this->useDynamicArray = $this->preCalculateFormulas && Calculation::getInstance($this->spreadSheet)->getArrayReturnType() === Calculation::RETURN_ARRAY_AS_ARRAY && !$this->useCSEArrays;
 
         // garbage collect
         $this->pathNames = [];
@@ -277,6 +282,10 @@ class Xlsx extends BaseWriter
         $zipContent = [];
         // Add [Content_Types].xml to ZIP file
         $zipContent['[Content_Types].xml'] = $this->getWriterPartContentTypes()->writeContentTypes($this->spreadSheet, $this->includeCharts);
+        if ($this->useDynamicArrays()) {
+            $writerPartMetadata = new Xlsx\Metadata($this);
+            $zipContent['xl/metadata.xml'] = $writerPartMetadata->writeMetadata();
+        }
 
         //if hasMacros, add the vbaProject.bin file, Certificate file(if exists)
         if ($this->spreadSheet->hasMacros()) {
@@ -710,5 +719,15 @@ class Xlsx extends BaseWriter
         $this->explicitStyle0 = $explicitStyle0;
 
         return $this;
+    }
+
+    public function setUseCSEArrays(bool $useCSEArrays): void
+    {
+        $this->useCSEArrays = $useCSEArrays;
+    }
+
+    public function useDynamicArrays(): bool
+    {
+        return $this->useDynamicArray;
     }
 }

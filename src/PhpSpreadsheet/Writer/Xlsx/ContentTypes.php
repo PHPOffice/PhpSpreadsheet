@@ -209,6 +209,11 @@ class ContentTypes extends WriterPart
             }
         }
 
+        // Metadata needed for Dynamic Arrays
+        if ($this->getParentWriter()->useDynamicArrays()) {
+            $this->writeOverrideContentType($objWriter, '/xl/metadata.xml', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheetMetadata+xml');
+        }
+
         $objWriter->endElement();
 
         // Return

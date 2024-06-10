@@ -1558,6 +1558,15 @@ class Worksheet extends WriterPart
         }
         $objWriter->startElement('c');
         $objWriter->writeAttribute('r', $cellAddress);
+        $mappedType = $pCell->getDataType();
+        if (strtolower($mappedType) === 'f') {
+            if ($this->getParentWriter()->useDynamicArrays()) {
+                $tempCalc = $pCell->getCalculatedValue();
+                if (is_array($tempCalc)) {
+                    $objWriter->writeAttribute('cm', '1');
+                }
+            }
+        }
 
         // Sheet styles
         if ($xfi) {
@@ -1568,9 +1577,6 @@ class Worksheet extends WriterPart
 
         // If cell value is supplied, write cell value
         if ($writeValue) {
-            // Map type
-            $mappedType = $pCell->getDataType();
-
             // Write data depending on its type
             switch (strtolower($mappedType)) {
                 case 'inlinestr':    // Inline string
