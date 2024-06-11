@@ -18,12 +18,12 @@ jobs:
       - name: Setup PHP, with composer and extensions
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.1
+          php-version: 8.3
           coverage: none # remove xdebug
 
       - name: Build API documentation
         run: |
-          curl -LO https://github.com/phpDocumentor/phpDocumentor/releases/download/v3.4.1/phpDocumentor.phar
+          curl -LO https://github.com/phpDocumentor/phpDocumentor/releases/download/v3.5.0/phpDocumentor.phar
           php phpDocumentor.phar --directory src/ --target docs/api
 
       - name: Deploy to GithHub Pages
