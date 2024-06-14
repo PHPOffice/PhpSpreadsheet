@@ -598,7 +598,7 @@ class Calculation
         ],
         'CONCATENATE' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [TextData\Concatenate::class, 'CONCATENATE'],
+            'functionCall' => [TextData\Concatenate::class, 'actualCONCATENATE'],
             'argumentCount' => '1+',
         ],
         'CONFIDENCE' => [
@@ -3703,7 +3703,7 @@ class Calculation
      *                                            1 = shrink to fit
      *                                            2 = extend to fit
      */
-    private static function checkMatrixOperands(mixed &$operand1, mixed &$operand2, int $resize = 1): array
+    public static function checkMatrixOperands(mixed &$operand1, mixed &$operand2, int $resize = 1): array
     {
         //    Examine each of the two operands, and turn them into an array if they aren't one already
         //    Note that this function should only be called if one or both of the operand is already an array
@@ -5643,7 +5643,7 @@ class Calculation
         return $this->suppressFormulaErrorsNew;
     }
 
-    private static function boolToString(mixed $operand1): mixed
+    public static function boolToString(mixed $operand1): mixed
     {
         if (is_bool($operand1)) {
             $operand1 = ($operand1) ? self::$localeBoolean['TRUE'] : self::$localeBoolean['FALSE'];

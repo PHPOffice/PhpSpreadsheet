@@ -275,7 +275,7 @@ class ArrayFunctionsTest extends TestCase
         $reader = new XlsxReader();
         $spreadsheet2 = $reader->load($this->outputFile);
         $sheet2 = $spreadsheet2->getActiveSheet();
-        self::assertSame('=_xlfn.CHOOSECOLS(A1:C5,3,1)', $sheet2->getCell('F1')->getValue());
+        self::assertSame('=CHOOSECOLS(A1:C5,3,1)', $sheet2->getCell('F1')->getValue());
         $expectedFG = [
             ['11', '1'],
             ['12', '2'],

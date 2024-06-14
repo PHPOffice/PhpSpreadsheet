@@ -309,7 +309,9 @@ class Xlsx extends BaseReader
         }
         $attr = $c->f->attributes();
         $cellDataType = DataType::TYPE_FORMULA;
-        $value = "={$c->f}";
+        $formula = (string) $c->f;
+        $formula = str_replace(['_xlfn.', '_xlws.'], '', $formula);
+        $value = "=$formula";
         $calculatedValue = self::$castBaseType($c);
 
         // Shared formula?

@@ -76,8 +76,7 @@ class Csv extends BaseWriter
 
         $saveDebugLog = Calculation::getInstance($this->spreadsheet)->getDebugLog()->getWriteDebugLog();
         Calculation::getInstance($this->spreadsheet)->getDebugLog()->setWriteDebugLog(false);
-        $saveArrayReturnType = Calculation::getArrayReturnType();
-        Calculation::setArrayReturnType(Calculation::RETURN_ARRAY_AS_VALUE);
+        $sheet->calculateArrays($this->preCalculateFormulas);
 
         // Open file
         $this->openFileHandle($filename);
@@ -110,7 +109,6 @@ class Csv extends BaseWriter
         }
 
         $this->maybeCloseFileHandle();
-        Calculation::setArrayReturnType($saveArrayReturnType);
         Calculation::getInstance($this->spreadsheet)->getDebugLog()->setWriteDebugLog($saveDebugLog);
     }
 

@@ -45,6 +45,7 @@ class Worksheet extends WriterPart
     {
         $this->useDynamicArrays = $this->getParentWriter()->useDynamicArrays();
         $this->explicitStyle0 = $this->getParentWriter()->getExplicitStyle0();
+        $worksheet->calculateArrays($this->getParentWriter()->getPreCalculateFormulas());
         $this->numberStoredAsText = '';
         $this->formula = '';
         $this->twoDigitTextYear = '';
@@ -1475,18 +1476,28 @@ class Worksheet extends WriterPart
         } else {
             $ref = $coordinate;
         }
+        $thisRow = $cell->getRow();
+        $newColumn = $thisColumn = $cell->getColumn();
         if (is_array($calculatedValue)) {
             $attributes['t'] = 'array';
-            $rows = max(1, count($calculatedValue));
-            $cols = 1;
-            foreach ($calculatedValue as $row) {
-                $cols = max($cols, is_array($row) ? count($row) : 1);
+            $newRow = $row = $lastRow = $thisRow;
+            $column = $lastColumn = $thisColumn;
+            foreach ($calculatedValue as $resultRow) {
+                if (is_array($resultRow)) {
+                    $newColumn = $column;
+                    foreach ($resultRow as $resultValue) {
+                        $lastColumn = $newColumn;
+                        $lastRow = $newRow;
+                        ++$newColumn;
+                    }
+                    ++$newRow;
+                } else {
+                    $lastColumn = $newColumn;
+                    $lastRow = $newRow;
+                    ++$newColumn;
+                }
             }
-            $firstCellArray = Coordinate::indexesFromString($coordinate);
-            $lastRow = $firstCellArray[1] + $rows - 1;
-            $lastColumn = $firstCellArray[0] + $cols - 1;
-            $lastColumnString = Coordinate::stringFromColumnIndex($lastColumn);
-            $ref = "$coordinate:$lastColumnString$lastRow";
+            $ref = "$coordinate:$lastColumn$lastRow";
         }
         if (($attributes['t'] ?? null) === 'array') {
             $objWriter->startElement('f');

@@ -26,14 +26,14 @@ return [
     'result just fits' => [
         // Note use Armenian character below to make sure chars, not bytes
         str_repeat('Ԁ', DataType::MAX_STRING_LENGTH - 5) . 'ABCDE',
-        'A3',
+        str_repeat('Ԁ', DataType::MAX_STRING_LENGTH - 5),
         'ABCDE',
     ],
     'result too long' => [
         '#CALC!',
-        'A3',
+        str_repeat('Ԁ', DataType::MAX_STRING_LENGTH - 5),
         'abc',
-        'def',
+        '=A2',
     ],
-    'propagate DIV0' => ['#DIV/0!', '1', 'A2', '3'],
+    'propagate DIV0' => ['#DIV/0!', '1', '=2/0', '3'],
 ];

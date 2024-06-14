@@ -529,7 +529,7 @@ CHAR                     | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Charac
 CLEAN                    | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Trim::nonPrintable
 CODE                     | \PhpOffice\PhpSpreadsheet\Calculation\TextData\CharacterConvert::code
 CONCAT                   | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Concatenate::CONCATENATE
-CONCATENATE              | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Concatenate::CONCATENATE
+CONCATENATE              | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Concatenate::actualCONCATENATE
 DBCS                     | **Not yet Implemented**
 DOLLAR                   | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Format::DOLLAR
 EXACT                    | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Text::exact

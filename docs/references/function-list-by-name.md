@@ -89,7 +89,7 @@ COMBIN                   | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpread
 COMBINA                  | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Combinations::withRepetition
 COMPLEX                  | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\Complex::COMPLEX
 CONCAT                   | CATEGORY_TEXT_AND_DATA         | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Concatenate::CONCATENATE
-CONCATENATE              | CATEGORY_TEXT_AND_DATA         | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Concatenate::CONCATENATE
+CONCATENATE              | CATEGORY_TEXT_AND_DATA         | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Concatenate::actualCONCATENATE
 CONFIDENCE               | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Confidence::CONFIDENCE
 CONFIDENCE.NORM          | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Confidence::CONFIDENCE
 CONFIDENCE.T             | CATEGORY_STATISTICAL           | **Not yet Implemented**

@@ -349,6 +349,9 @@ class Cell implements Stringable
     public function getCalculatedValueString(): string
     {
         $value = $this->getCalculatedValue();
+        while (is_array($value)) {
+            $value = array_shift($value);
+        }
 
         return ($value === '' || is_scalar($value) || $value instanceof Stringable) ? "$value" : '';
     }
@@ -362,17 +365,19 @@ class Cell implements Stringable
      */
     public function getCalculatedValue(bool $resetLog = true): mixed
     {
+        $title = 'unknown';
         if ($this->dataType === DataType::TYPE_FORMULA) {
             try {
-                $index = $this->getWorksheet()->getParentOrThrow()->getActiveSheetIndex();
-                $selected = $this->getWorksheet()->getSelectedCells();
+                $thisworksheet = $this->getWorksheet();
+                $title = $thisworksheet->getTitle();
+                $index = $thisworksheet->getParentOrThrow()->getActiveSheetIndex();
+                $selected = $thisworksheet->getSelectedCells();
                 $result = Calculation::getInstance(
-                    $this->getWorksheet()->getParent()
+                    $thisworksheet->getParent()
                 )->calculateCellValue($this, $resetLog);
                 $result = $this->convertDateTimeInt($result);
-                $this->getWorksheet()->setSelectedCells($selected);
-                $this->getWorksheet()->getParentOrThrow()->setActiveSheetIndex($index);
-                //    We don't yet handle array returns
+                $thisworksheet->setSelectedCells($selected);
+                $thisworksheet->getParentOrThrow()->setActiveSheetIndex($index);
                 if (is_array($result) && Calculation::getArrayReturnType() !== Calculation::RETURN_ARRAY_AS_ARRAY) {
                     while (is_array($result)) {
                         $result = array_shift($result);
@@ -390,21 +395,28 @@ class Cell implements Stringable
                         }
                     }
                 }
+                $newColumn = $this->getColumn();
                 if (is_array($result)) {
                     $newRow = $row = $this->getRow();
                     $column = $this->getColumn();
                     foreach ($result as $resultRow) {
-                        $newColumn = $column;
-                        $resultRowx = is_array($resultRow) ? $resultRow : [$resultRow];
-                        foreach ($resultRowx as $resultValue) {
+                        if (is_array($resultRow)) {
+                            $newColumn = $column;
+                            foreach ($resultRow as $resultValue) {
+                                if ($row !== $newRow || $column !== $newColumn) {
+                                    $thisworksheet->getCell($newColumn . $newRow)->setValue($resultValue);
+                                }
+                                ++$newColumn;
+                            }
+                            ++$newRow;
+                        } else {
                             if ($row !== $newRow || $column !== $newColumn) {
-                                $this->getWorksheet()->getCell($newColumn . $newRow)->setValue($resultValue);
+                                $thisworksheet->getCell($newColumn . $newRow)->setValue($resultRow);
                             }
                             ++$newColumn;
                         }
-                        ++$newRow;
                     }
-                    $this->getWorksheet()->getCell($column . $row);
+                    $thisworksheet->getCell($column . $row);
                 }
             } catch (SpreadsheetException $ex) {
                 if (($ex->getMessage() === 'Unable to access External Workbook') && ($this->calculatedValue !== null)) {
@@ -414,7 +426,7 @@ class Cell implements Stringable
                 }
 
                 throw new CalculationException(
-                    $this->getWorksheet()->getTitle() . '!' . $this->getCoordinate() . ' -> ' . $ex->getMessage(),
+                    $title . '!' . $this->getCoordinate() . ' -> ' . $ex->getMessage(),
                     $ex->getCode(),
                     $ex
                 );

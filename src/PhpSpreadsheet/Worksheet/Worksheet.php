@@ -3673,4 +3673,14 @@ class Worksheet implements IComparable
             }
         }
     }
+
+    public function calculateArrays(bool $preCalculateFormulas = true): void
+    {
+        if ($preCalculateFormulas && Calculation::getArrayReturnType() === Calculation::RETURN_ARRAY_AS_ARRAY) {
+            $keys = $this->cellCollection->getCoordinates();
+            foreach ($keys as $key) {
+                $this->getCell($key)->getCalculatedValue();
+            }
+        }
+    }
 }
