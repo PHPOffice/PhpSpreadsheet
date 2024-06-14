@@ -18,7 +18,6 @@ class ConcatenateTest extends AllSetupTeardown
         $sheet = $this->getSheet();
         $finalArg = '';
         $comma = '';
-        $row = 0;
         foreach ($args as $arg) {
             $finalArg .= $comma;
             $comma = ',';

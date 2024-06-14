@@ -1480,7 +1480,7 @@ class Worksheet extends WriterPart
         $newColumn = $thisColumn = $cell->getColumn();
         if (is_array($calculatedValue)) {
             $attributes['t'] = 'array';
-            $newRow = $row = $lastRow = $thisRow;
+            $newRow = $lastRow = $thisRow;
             $column = $lastColumn = $thisColumn;
             foreach ($calculatedValue as $resultRow) {
                 if (is_array($resultRow)) {
