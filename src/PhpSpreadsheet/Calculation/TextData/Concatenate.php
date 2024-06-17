@@ -51,6 +51,9 @@ class Concatenate
      */
     public static function actualCONCATENATE(...$args): array|string
     {
+        if (Functions::getCompatibilityMode() === Functions::COMPATIBILITY_GNUMERIC) {
+            return self::CONCATENATE(...$args);
+        }
         $result = '';
         foreach ($args as $operand2) {
             $result = self::concatenate2Args($result, $operand2);

@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Cell\Hyperlink;
@@ -884,6 +885,12 @@ class Xlsx extends BaseReader
                                                 } else {
                                                     // Formula
                                                     $this->castToFormula($c, $r, $cellDataType, $value, $calculatedValue, 'castToError');
+                                                    $eattr = $c->attributes();
+                                                    if (isset($eattr['vm'])) {
+                                                        if ($calculatedValue === ExcelError::VALUE()) {
+                                                            $calculatedValue = ExcelError::SPILL();
+                                                        }
+                                                    }
                                                 }
 
                                                 break;

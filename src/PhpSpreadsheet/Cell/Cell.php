@@ -61,6 +61,8 @@ class Cell implements Stringable
 
     /**
      * Attributes of the formula.
+     *
+     * @var null|array<string, string>
      */
     private mixed $formulaAttributes = null;
 
@@ -366,6 +368,18 @@ class Cell implements Stringable
     public function getCalculatedValue(bool $resetLog = true): mixed
     {
         $title = 'unknown';
+        $oldAttributes = $this->formulaAttributes;
+        $oldAttributesT = $oldAttributes['t'] ?? '';
+        $coordinate = $this->getCoordinate();
+        $oldAttributesRef = $oldAttributes['ref'] ?? $coordinate;
+        if (!str_contains($oldAttributesRef, ':')) {
+            $oldAttributesRef .= ":$oldAttributesRef";
+        }
+        $originalValue = $this->value;
+        $originalDataType = $this->dataType;
+        $this->formulaAttributes = [];
+        $spill = false;
+
         if ($this->dataType === DataType::TYPE_FORMULA) {
             try {
                 $thisworksheet = $this->getWorksheet();
@@ -397,8 +411,79 @@ class Cell implements Stringable
                 }
                 $newColumn = $this->getColumn();
                 if (is_array($result)) {
+                    $this->formulaAttributes['t'] = 'array';
+                    $this->formulaAttributes['ref'] = $maxCoordinate = $coordinate;
                     $newRow = $row = $this->getRow();
                     $column = $this->getColumn();
+                    foreach ($result as $resultRow) {
+                        if (is_array($resultRow)) {
+                            $newColumn = $column;
+                            foreach ($resultRow as $resultValue) {
+                                if ($row !== $newRow || $column !== $newColumn) {
+                                    $maxCoordinate = $newColumn . $newRow;
+                                    if ($thisworksheet->getCell($newColumn . $newRow)->getValue() !== null) {
+                                        if (!Coordinate::coordinateIsInsideRange($oldAttributesRef, $newColumn . $newRow)) {
+                                            $spill = true;
+
+                                            break;
+                                        }
+                                    }
+                                }
+                                ++$newColumn;
+                            }
+                            ++$newRow;
+                        } else {
+                            if ($row !== $newRow || $column !== $newColumn) {
+                                $maxCoordinate = $newColumn . $newRow;
+                                if ($thisworksheet->getCell($newColumn . $newRow)->getValue() !== null) {
+                                    if (!Coordinate::coordinateIsInsideRange($oldAttributesRef, $newColumn . $newRow)) {
+                                        $spill = true;
+                                    }
+                                }
+                            }
+                            ++$newColumn;
+                        }
+                        if ($spill) {
+                            break;
+                        }
+                    }
+                    if (!$spill) {
+                        $this->formulaAttributes['ref'] .= ":$maxCoordinate";
+                    }
+                    $thisworksheet->getCell($column . $row);
+                }
+                if (is_array($result)) {
+                    if ($oldAttributes !== null && Calculation::getArrayReturnType() === Calculation::RETURN_ARRAY_AS_ARRAY) {
+                        if (($oldAttributesT) === 'array') {
+                            $thisworksheet = $this->getWorksheet();
+                            $coordinate = $this->getCoordinate();
+                            $ref = $oldAttributesRef;
+                            if (preg_match('/^([A-Z]{1,3})([0-9]{1,7})(:([A-Z]{1,3})([0-9]{1,7}))?$/', $ref, $matches) === 1) {
+                                if (isset($matches[3])) {
+                                    $minCol = $matches[1];
+                                    $minRow = (int) $matches[2];
+                                    $maxCol = $matches[4];
+                                    ++$maxCol;
+                                    $maxRow = (int) $matches[5];
+                                    for ($row = $minRow; $row <= $maxRow; ++$row) {
+                                        for ($col = $minCol; $col !== $maxCol; ++$col) {
+                                            if ("$col$row" !== $coordinate) {
+                                                $thisworksheet->getCell("$col$row")->setValue(null);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            $thisworksheet->getCell($coordinate);
+                        }
+                    }
+                }
+                if ($spill) {
+                    $result = ExcelError::SPILL();
+                }
+                if (is_array($result)) {
+                    $newRow = $row = $this->getRow();
+                    $newColumn = $column = $this->getColumn();
                     foreach ($result as $resultRow) {
                         if (is_array($resultRow)) {
                             $newColumn = $column;
@@ -417,6 +502,8 @@ class Cell implements Stringable
                         }
                     }
                     $thisworksheet->getCell($column . $row);
+                    $this->value = $originalValue;
+                    $this->dataType = $originalDataType;
                 }
             } catch (SpreadsheetException $ex) {
                 if (($ex->getMessage() === 'Unable to access External Workbook') && ($this->calculatedValue !== null)) {
@@ -808,6 +895,8 @@ class Cell implements Stringable
     /**
      * Set the formula attributes.
      *
+     * @param $attributes null|array<string, string>
+     *
      * @return $this
      */
     public function setFormulaAttributes(mixed $attributes): self
@@ -819,6 +908,8 @@ class Cell implements Stringable
 
     /**
      * Get the formula attributes.
+     *
+     * @return null|array<string, string>
      */
     public function getFormulaAttributes(): mixed
     {

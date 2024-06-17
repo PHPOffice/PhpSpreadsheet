@@ -352,4 +352,26 @@ class ArrayFunctionsTest extends TestCase
         self::assertSame('', $writerMetadata2->writeMetaData());
         $spreadsheet->disconnectWorksheets();
     }
+
+    public function testSpill(): void
+    {
+        Calculation::setArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->getCell('A3')->setValue('x');
+        $sheet->getCell('A1')->setValue('=UNIQUE({1;2;3})');
+        $writer = new XlsxWriter($spreadsheet);
+        $this->outputFile = File::temporaryFilename();
+        $writer->save($this->outputFile);
+        $spreadsheet->disconnectWorksheets();
+
+        $reader = new XlsxReader();
+        $spreadsheet2 = $reader->load($this->outputFile);
+        $sheet2 = $spreadsheet2->getActiveSheet();
+        self::assertSame('#SPILL!', $sheet2->getCell('A1')->getOldCalculatedValue());
+        self::assertSame('=UNIQUE({1;2;3})', $sheet2->getCell('A1')->getValue());
+        self::assertNull($sheet2->getCell('A2')->getValue());
+        self::assertSame('x', $sheet2->getCell('A3')->getValue());
+        $spreadsheet2->disconnectWorksheets();
+    }
 }

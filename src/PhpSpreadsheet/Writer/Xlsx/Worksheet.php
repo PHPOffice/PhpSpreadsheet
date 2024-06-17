@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ErrorValue;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
@@ -1452,7 +1453,24 @@ class Worksheet extends WriterPart
 
     private function writeCellFormula(XMLWriter $objWriter, string $cellValue, Cell $cell): void
     {
+        $attributes = $cell->getFormulaAttributes() ?? [];
+        $coordinate = $cell->getCoordinate();
         $calculatedValue = $this->getParentWriter()->getPreCalculateFormulas() ? $cell->getCalculatedValue() : $cellValue;
+        if ($calculatedValue === ExcelError::SPILL()) {
+            $objWriter->writeAttribute('t', 'e');
+            //$objWriter->writeAttribute('cm', '1'); // already added
+            $objWriter->writeAttribute('vm', '1');
+            $objWriter->startElement('f');
+            $objWriter->writeAttribute('t', 'array');
+            $objWriter->writeAttribute('aca', '1');
+            $objWriter->writeAttribute('ref', $coordinate);
+            $objWriter->writeAttribute('ca', '1');
+            $objWriter->text(FunctionPrefix::addFunctionPrefixStripEquals($cellValue));
+            $objWriter->endElement(); // f
+            $objWriter->writeElement('v', ExcelError::VALUE()); // note #VALUE! in xml even though error is #SPILL!
+
+            return;
+        }
         $calculatedValueString = $this->getParentWriter()->getPreCalculateFormulas() ? $cell->getCalculatedValueString() : $cellValue;
         if (is_string($calculatedValue)) {
             if (ErrorValue::isError($calculatedValue)) {
@@ -1469,8 +1487,6 @@ class Worksheet extends WriterPart
             $calculatedValueString = (string) $calculatedValue;
         }
 
-        $attributes = $cell->getFormulaAttributes() ?? [];
-        $coordinate = $cell->getCoordinate();
         if (isset($attributes['ref'])) {
             $ref = $this->parseRef($coordinate, $attributes['ref']);
         } else {
@@ -1480,24 +1496,6 @@ class Worksheet extends WriterPart
         $newColumn = $thisColumn = $cell->getColumn();
         if (is_array($calculatedValue)) {
             $attributes['t'] = 'array';
-            $newRow = $lastRow = $thisRow;
-            $column = $lastColumn = $thisColumn;
-            foreach ($calculatedValue as $resultRow) {
-                if (is_array($resultRow)) {
-                    $newColumn = $column;
-                    foreach ($resultRow as $resultValue) {
-                        $lastColumn = $newColumn;
-                        $lastRow = $newRow;
-                        ++$newColumn;
-                    }
-                    ++$newRow;
-                } else {
-                    $lastColumn = $newColumn;
-                    $lastRow = $newRow;
-                    ++$newColumn;
-                }
-            }
-            $ref = "$coordinate:$lastColumn$lastRow";
         }
         if (($attributes['t'] ?? null) === 'array') {
             $objWriter->startElement('f');
@@ -1622,7 +1620,7 @@ class Worksheet extends WriterPart
             }
         }
 
-        $objWriter->endElement();
+        $objWriter->endElement(); // c
     }
 
     /**

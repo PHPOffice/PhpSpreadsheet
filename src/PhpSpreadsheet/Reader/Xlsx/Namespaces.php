@@ -119,4 +119,6 @@ class Namespaces
     const PURL_WORKSHEET = 'http://purl.oclc.org/ooxml/officeDocument/relationships/worksheet';
 
     const DYNAMIC_ARRAY = 'http://schemas.microsoft.com/office/spreadsheetml/2017/dynamicarray';
+
+    const DYNAMIC_ARRAY_RICHDATA = 'http://schemas.microsoft.com/office/spreadsheetml/2017/richdata';
 }

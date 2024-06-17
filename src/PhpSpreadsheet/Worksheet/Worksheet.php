@@ -2848,12 +2848,13 @@ class Worksheet implements IComparable
         bool $calculateFormulas = true,
         bool $formatData = true,
         bool $returnCellRef = false,
-        bool $ignoreHidden = false
+        bool $ignoreHidden = false,
+        bool $reduceArrays = false
     ): array {
         $returnValue = [];
 
         // Loop through rows
-        foreach ($this->rangeToArrayYieldRows($range, $nullValue, $calculateFormulas, $formatData, $returnCellRef, $ignoreHidden) as $rowRef => $rowArray) {
+        foreach ($this->rangeToArrayYieldRows($range, $nullValue, $calculateFormulas, $formatData, $returnCellRef, $ignoreHidden, $reduceArrays) as $rowRef => $rowArray) {
             $returnValue[$rowRef] = $rowArray;
         }
 
@@ -2880,7 +2881,8 @@ class Worksheet implements IComparable
         bool $calculateFormulas = true,
         bool $formatData = true,
         bool $returnCellRef = false,
-        bool $ignoreHidden = false
+        bool $ignoreHidden = false,
+        bool $reduceArrays = false
     ) {
         $range = Validations::validateCellOrCellRange($range);
 
@@ -2926,6 +2928,11 @@ class Worksheet implements IComparable
                         $cell = $this->cellCollection->get("{$col}{$thisRow}");
                         if ($cell !== null) {
                             $value = $this->cellToArray($cell, $calculateFormulas, $formatData, $nullValue);
+                            if ($reduceArrays) {
+                                while (is_array($value)) {
+                                    $value = array_shift($value);
+                                }
+                            }
                             if ($value !== $nullValue) {
                                 $returnValue[$columnRef] = $value;
                             }
@@ -3026,7 +3033,8 @@ class Worksheet implements IComparable
         bool $calculateFormulas = true,
         bool $formatData = true,
         bool $returnCellRef = false,
-        bool $ignoreHidden = false
+        bool $ignoreHidden = false,
+        bool $reduceArrays = false
     ): array {
         $retVal = [];
         $namedRange = $this->validateNamedRange($definedName);
@@ -3035,7 +3043,7 @@ class Worksheet implements IComparable
             $cellRange = str_replace('$', '', $cellRange);
             $workSheet = $namedRange->getWorksheet();
             if ($workSheet !== null) {
-                $retVal = $workSheet->rangeToArray($cellRange, $nullValue, $calculateFormulas, $formatData, $returnCellRef, $ignoreHidden);
+                $retVal = $workSheet->rangeToArray($cellRange, $nullValue, $calculateFormulas, $formatData, $returnCellRef, $ignoreHidden, $reduceArrays);
             }
         }
 
@@ -3058,7 +3066,8 @@ class Worksheet implements IComparable
         bool $calculateFormulas = true,
         bool $formatData = true,
         bool $returnCellRef = false,
-        bool $ignoreHidden = false
+        bool $ignoreHidden = false,
+        bool $reduceArrays = false
     ): array {
         // Garbage collect...
         $this->garbageCollect();
@@ -3068,7 +3077,7 @@ class Worksheet implements IComparable
         $maxRow = $this->getHighestRow();
 
         // Return
-        return $this->rangeToArray("A1:{$maxCol}{$maxRow}", $nullValue, $calculateFormulas, $formatData, $returnCellRef, $ignoreHidden);
+        return $this->rangeToArray("A1:{$maxCol}{$maxRow}", $nullValue, $calculateFormulas, $formatData, $returnCellRef, $ignoreHidden, $reduceArrays);
     }
 
     /**
@@ -3679,7 +3688,9 @@ class Worksheet implements IComparable
         if ($preCalculateFormulas && Calculation::getArrayReturnType() === Calculation::RETURN_ARRAY_AS_ARRAY) {
             $keys = $this->cellCollection->getCoordinates();
             foreach ($keys as $key) {
-                $this->getCell($key)->getCalculatedValue();
+                if ($this->getCell($key)->getDataType() === DataType::TYPE_FORMULA) {
+                    $this->getCell($key)->getCalculatedValue();
+                }
             }
         }
     }

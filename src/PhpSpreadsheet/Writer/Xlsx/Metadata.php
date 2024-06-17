@@ -31,10 +31,12 @@ class Metadata extends WriterPart
         // Types
         $objWriter->startElement('metadata');
         $objWriter->writeAttribute('xmlns', Namespaces::MAIN);
+        $objWriter->writeAttribute('xmlns:xlrd', Namespaces::DYNAMIC_ARRAY_RICHDATA);
         $objWriter->writeAttribute('xmlns:xda', Namespaces::DYNAMIC_ARRAY);
 
         $objWriter->startElement('metadataTypes');
-        $objWriter->writeAttribute('count', '1');
+        $objWriter->writeAttribute('count', '2');
+
         $objWriter->startElement('metadataType');
         $objWriter->writeAttribute('name', 'XLDAPR');
         $objWriter->writeAttribute('minSupportedVersion', '120000');
@@ -49,7 +51,23 @@ class Metadata extends WriterPart
         $objWriter->writeAttribute('assign', '1');
         $objWriter->writeAttribute('coerce', '1');
         $objWriter->writeAttribute('cellMeta', '1');
-        $objWriter->endElement(); // metadataType
+        $objWriter->endElement(); // metadataType XLDAPR
+
+        $objWriter->startElement('metadataType');
+        $objWriter->writeAttribute('name', 'XLRICHVALUE');
+        $objWriter->writeAttribute('minSupportedVersion', '120000');
+        $objWriter->writeAttribute('copy', '1');
+        $objWriter->writeAttribute('pasteAll', '1');
+        $objWriter->writeAttribute('pasteValues', '1');
+        $objWriter->writeAttribute('merge', '1');
+        $objWriter->writeAttribute('splitFirst', '1');
+        $objWriter->writeAttribute('rowColShift', '1');
+        $objWriter->writeAttribute('clearFormats', '1');
+        $objWriter->writeAttribute('clearComments', '1');
+        $objWriter->writeAttribute('assign', '1');
+        $objWriter->writeAttribute('coerce', '1');
+        $objWriter->endElement(); // metadataType XLRICHVALUE
+
         $objWriter->endElement(); // metadataTypes
 
         $objWriter->startElement('futureMetadata');
@@ -66,7 +84,22 @@ class Metadata extends WriterPart
         $objWriter->endElement(); // ext
         $objWriter->endElement(); // extLst
         $objWriter->endElement(); // bk
-        $objWriter->endElement(); // futureMetadata
+        $objWriter->endElement(); // futureMetadata XLDAPR
+
+        $objWriter->startElement('futureMetadata');
+        $objWriter->writeAttribute('name', 'XLRICHVALUE');
+        $objWriter->writeAttribute('count', '1');
+        $objWriter->startElement('bk');
+        $objWriter->startElement('extLst');
+        $objWriter->startElement('ext');
+        $objWriter->writeAttribute('uri', '{3e2802c4-a4d2-4d8b-9148-e3be6c30e623}');
+        $objWriter->startElement('xlrd:rvb');
+        $objWriter->writeAttribute('i', '0');
+        $objWriter->endElement(); // xlrd:rvb
+        $objWriter->endElement(); // ext
+        $objWriter->endElement(); // extLst
+        $objWriter->endElement(); // bk
+        $objWriter->endElement(); // futureMetadata XLRICHVALUE
 
         $objWriter->startElement('cellMetadata');
         $objWriter->writeAttribute('count', '1');
@@ -77,6 +110,16 @@ class Metadata extends WriterPart
         $objWriter->endElement(); // rc
         $objWriter->endElement(); // bk
         $objWriter->endElement(); // cellMetadata
+
+        $objWriter->startElement('valueMetadata');
+        $objWriter->writeAttribute('count', '1');
+        $objWriter->startElement('bk');
+        $objWriter->startElement('rc');
+        $objWriter->writeAttribute('t', '2');
+        $objWriter->writeAttribute('v', '0');
+        $objWriter->endElement(); // rc
+        $objWriter->endElement(); // bk
+        $objWriter->endElement(); // valueMetadata
 
         $objWriter->endElement(); // metadata
 

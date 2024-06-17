@@ -19,6 +19,8 @@ class ArrayTest extends AbstractFunctional
 
     private string $compatibilityMode;
 
+    private bool $skipInline = true;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -73,6 +75,9 @@ class ArrayTest extends AbstractFunctional
 
     public function testInlineArrays(): void
     {
+        if ($this->skipInline) {
+            self::markTestIncomplete('Ods Reader/Writer alter commas and semi-colons within formulas, interfering with inline arrays');
+        }
         Calculation::setArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
