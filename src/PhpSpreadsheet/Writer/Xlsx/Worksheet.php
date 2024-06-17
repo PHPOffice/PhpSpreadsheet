@@ -1492,8 +1492,6 @@ class Worksheet extends WriterPart
         } else {
             $ref = $coordinate;
         }
-        $thisRow = $cell->getRow();
-        $newColumn = $thisColumn = $cell->getColumn();
         if (is_array($calculatedValue)) {
             $attributes['t'] = 'array';
         }

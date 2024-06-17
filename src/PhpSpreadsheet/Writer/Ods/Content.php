@@ -197,7 +197,6 @@ class Content extends WriterPart
             /** @var Cell $cell */
             $column = Coordinate::columnIndexFromString($cell->getColumn()) - 1;
             $attributes = $cell->getFormulaAttributes() ?? [];
-            $coordinate = $cell->getCoordinate();
 
             $this->writeCellSpan($objWriter, $column, $prevColumn);
             $objWriter->startElement('table:table-cell');
