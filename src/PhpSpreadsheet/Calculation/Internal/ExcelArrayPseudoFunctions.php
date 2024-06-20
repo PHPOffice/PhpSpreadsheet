@@ -29,7 +29,7 @@ class ExcelArrayPseudoFunctions
 
     public static function anchorArray(string $cellReference, Cell $cell): array|string
     {
-        $coordinate = $cell->getCoordinate();
+        //$coordinate = $cell->getCoordinate();
         $worksheet = $cell->getWorksheet();
 
         [$referenceWorksheetName, $referenceCellCoordinate] = Worksheet::extractSheetTitle($cellReference, true);
@@ -40,7 +40,7 @@ class ExcelArrayPseudoFunctions
                 ->getCell((string) $referenceCellCoordinate);
 
         // We should always use the sizing for the array formula range from the referenced cell formula
-        $referenceRange = null;
+        //$referenceRange = null;
         /*if ($referenceCell->isFormula() && $referenceCell->isArrayFormula()) {
             $referenceRange = $referenceCell->arrayFormulaRange();
         }*/
