@@ -586,5 +586,10 @@ WEBSERVICE               | \PhpOffice\PhpSpreadsheet\Calculation\Web\Service::we
 
 Excel Function           | PhpSpreadsheet Function
 -------------------------|--------------------------------------
-ANCHORARRAY              | **Not yet Implemented**
-SINGLE                   | **Not yet Implemented**
+
+## CATEGORY_MICROSOFT_INTERNAL
+
+Excel Function           | PhpSpreadsheet Function
+-------------------------|--------------------------------------
+ANCHORARRAY              | \PhpOffice\PhpSpreadsheet\Calculation\Internal\ExcelArrayPseudoFunctions::anchorArray
+SINGLE                   | \PhpOffice\PhpSpreadsheet\Calculation\Internal\ExcelArrayPseudoFunctions::single

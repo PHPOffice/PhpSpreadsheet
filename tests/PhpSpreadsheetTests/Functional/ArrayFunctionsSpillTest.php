@@ -6,6 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Functional;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PHPUnit\Framework\TestCase;
 
 class ArrayFunctionsSpillTest extends TestCase
@@ -66,6 +67,42 @@ class ArrayFunctionsSpillTest extends TestCase
         self::assertSame($expected, $sheet->rangeToArray('B1:B5', calculateFormulas: true, formatData: false, reduceArrays: true), 'spill clears B2:B4 with B5 unchanged');
         $calculation->clearCalculationCache();
 
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testSpillOperator(): void
+    {
+        Calculation::setArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->fromArray([
+            ['Product', 'Quantity', 'Price', 'Cost'],
+            ['Apple', 20, 0.75],
+            ['Kiwi', 8, 0.80],
+            ['Lemon', 12, 0.70],
+            ['Mango', 5, 1.75],
+            ['Pineapple', 2, 2.00],
+            ['Total'],
+        ]);
+        $sheet->getCell('D2')->setValue('=B2:B6*C2:C6');
+        $sheet->getCell('D7')->setValue('=SUM(D2#)');
+        $sheet->getStyle('A1:D1')->getFont()->setBold(true);
+        $sheet->getStyle('C2:D6')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_CURRENCY_USD);
+        self::assertEqualsWithDelta(
+            [
+                ['Cost'],
+                [15.0],
+                [6.4],
+                [8.4],
+                [8.75],
+                [4.0],
+                [42.55],
+            ],
+            $sheet->rangeToArray('D1:D7', calculateFormulas: true, formatData: false, reduceArrays: true),
+            1.0e-10
+        );
+        $sheet->getCell('G2')->setValue('=B2#');
+        self::assertSame('#REF!', $sheet->getCell('G2')->getCalculatedValue());
         $spreadsheet->disconnectWorksheets();
     }
 }

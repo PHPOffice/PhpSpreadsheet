@@ -1472,19 +1472,28 @@ class Worksheet extends WriterPart
             return;
         }
         $calculatedValueString = $this->getParentWriter()->getPreCalculateFormulas() ? $cell->getCalculatedValueString() : $cellValue;
-        if (is_string($calculatedValue)) {
-            if (ErrorValue::isError($calculatedValue)) {
-                $this->writeCellError($objWriter, 'e', $cellValue, $calculatedValue);
+        $result = $calculatedValue;
+        while (is_array($result)) {
+            $result = array_shift($result);
+        }
+        if (is_string($result)) {
+            if (ErrorValue::isError($result)) {
+                $this->writeCellError($objWriter, 'e', $cellValue, $result);
 
                 return;
             }
             $objWriter->writeAttribute('t', 'str');
-            $calculatedValue = StringHelper::controlCharacterPHP2OOXML($calculatedValue);
-            $calculatedValueString = $calculatedValue;
-        } elseif (is_bool($calculatedValue)) {
+            $result = $calculatedValueString = StringHelper::controlCharacterPHP2OOXML($result);
+            if (is_string($calculatedValue)) {
+                $calculatedValue = $calculatedValueString;
+            }
+        } elseif (is_bool($result)) {
             $objWriter->writeAttribute('t', 'b');
-            $calculatedValue = (int) $calculatedValue;
-            $calculatedValueString = (string) $calculatedValue;
+            if (is_bool($calculatedValue)) {
+                $calculatedValue = $result;
+            }
+            $result = (int) $result;
+            $calculatedValueString = (string) $result;
         }
 
         if (isset($attributes['ref'])) {
@@ -1503,10 +1512,6 @@ class Worksheet extends WriterPart
             $objWriter->writeAttribute('ca', '1');
             $objWriter->text(FunctionPrefix::addFunctionPrefixStripEquals($cellValue));
             $objWriter->endElement();
-            $result = $calculatedValue;
-            while (is_array($result)) {
-                $result = array_shift($result);
-            }
             if (
                 is_scalar($result)
                 && $this->getParentWriter()->getOffice2003Compatibility() === false

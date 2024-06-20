@@ -324,7 +324,7 @@ $spreadsheet->getActiveSheet()->getStyle('A3')
 
 Inside the Excel file, formulas are always stored as they would appear
 in an English version of Microsoft Office Excel, and PhpSpreadsheet
-handles all formulae internally in this format. This means that the
+handles all formulas internally in this format. This means that the
 following rules hold:
 
 -   Decimal separator is `.` (period)
@@ -373,7 +373,150 @@ is further explained in [the calculation engine](./calculation-engine.md).
 $value = $spreadsheet->getActiveSheet()->getCell('B8')->getCalculatedValue();
 ```
 
-## Locale Settings for Formulae
+### Array Formulas
+
+With version 2.0.3 of PhpSpreadsheet, we've introduced support for Excel "array formulas".
+It is an opt-in feature. You need to enable it with the following code:
+```php
+\PhpOffice\PhpSpreadsheet\Calculation\Calculation::setArrayReturnType(
+    \PhpOffice\PhpSpreadsheet\Calculation\Calculation::RETURN_ARRAY_AS_ARRAY);
+```
+This is not a new function or constant, but it has till now not had much effect.
+
+As a basic example, let's look at a receipt for buying some fruit:
+
+![12-CalculationEngine-Basic-Formula.png](./images/12-CalculationEngine-Basic-Formula.png)
+
+We can provide a "Cost" formula for each row of the receipt by multiplying the "Quantity" (column `B`) by the "Price" (column `C`); so for the "Apples" in row `2` we enter the formula `=$B2*$C2`. In PhpSpreadsheet, we would set this formula in cell `D2` using:
+```php
+$spreadsheet->getActiveSheet()->setCellValue('D2','=$B2*$C2');
+```
+and then do the equivalent for rows `3` to `6`.
+
+To calculate the "Total", we would use a different formula, telling it to calculate the sum value of rows 2 to 6 in the "Cost" column:
+
+![12-CalculationEngine-Basic-Formula-2.png](./images/12-CalculationEngine-Basic-Formula-2.png)
+
+I'd imagine that most developers are familiar with this: we're setting a formula that uses an Excel function (the `SUM()` function) and specifying a range of cells to include in the sum (`$D$2:$D6`) 
+```php
+$spreadsheet->getActiveSheet()->setCellValue('D7','=SUM($D$2:$D6');
+```
+However, we could have specified an alternative formula to calculate that result, using the arrays of the "Quantity" and "Cost" columns multiplied directly, and then summed together:
+
+![12-CalculationEngine-Array-Formula.png](./images/12-CalculationEngine-Array-Formula.png)
+
+Entering the formula `=SUM(B2:B6*C2:C6)` will calculate the same result; but because it's using arrays, we need to enter it as an "array formula". In MS Excel itself, we'd do this by using `Shift-Ctrl-Enter` rather than simply `Enter` when we define the formula in the formula edit box. MS Excel then shows that this is an array formula in the formula edit box by wrapping it in the `{}` braces (you don't enter these in the formula yourself; MS Excel does it).
+In recent releases of Excel, Shift-Ctrl-Enter is not required, and Excel does not add the braces.
+PhpSpreadsheet will attempt to behave like the recent releases.
+
+Or to identify the biggest increase in like-for-like sales from one month to the next:
+
+![12-CalculationEngine-Array-Formula-3.png](./images/12-CalculationEngine-Array-Formula-3.png)
+```php
+$spreadsheet->getActiveSheet()->setCellValue('F1','=MAX(B2:B6-C2:C6)', true);
+```
+Which tells us that the biggest increase in sales between December and January was 30 more (in this case, 30 more Lemons).
+
+---
+
+These are examples of array formula where the results are displayed in a single cell; but other array formulas might be displayed across several cells.
+As an example, consider transposing a grid of data: MS Excel provides the `TRANSPOSE()` function for that purpose. Let's transpose our shopping list for the fruit:
+
+![12-CalculationEngine-Array-Formula-2.png](./images/12-CalculationEngine-Array-Formula-2.png)
+
+When we do this in MS Excel, we need to indicate ___all___ the cells that will contain the transposed data from cells `A1` to `D7`. We do this by selecting the cells where we want to display our transposed data either by holding the left mouse button down while we move with the mouse, or pressing `Shift` and using the arrow keys.
+Once we've selected all the cells to hold our data, then we enter the formula `TRANSPOSE(A1:D7)` in the formula edit box, remembering to use `Shift-Ctrl-Enter` to tell MS Excel that this is an array formula.
+
+Note also that we still set this as the formula for the top-left cell of that range, cell `A10`.
+
+Simply setting an array formula in a cell and specifying the range won't populate the spillage area for that formula.
+```php
+$spreadsheet->getActiveSheet()
+    ->setCellValue(
+        'A10',
+        '=SEQUENCE(3,3)',
+        true,
+        'A1:C3'
+    );
+
+// Will return a null, because the formula for A1 hasn't been calculated to populate the spillage area 
+$result = $spreadsheet->getActiveSheet()->getCell('C3')->getValue();
+```
+To do that, we need to retrieve the calculated value for the cell.
+```php
+$spreadsheet->getActiveSheet()
+    ->setCellValue(
+        'A10',
+        '=SEQUENCE(3,3)',
+        true,
+        'A1:C3'
+    );
+
+$spreadsheet->getActiveSheet()->getCell('A1')->getCalculatedValue();
+
+// Will return 9, because the formula for A1 has now been calculated, and the spillage area is populated 
+$result = $spreadsheet->getActiveSheet()->getCell('C3')->getValue();
+```
+When we call `getCalculatedValue()` for a cell that contains an array formula, PhpSpreadsheet returns the single value that would appear in that cell in MS Excel.
+```php
+// Will return integer 1, the value for that cell within the array
+$a1result = $spreadsheet->getActiveSheet()->getCell('A1')->getCalculatedValue();
+```
+
+If we want to return the full array, then we need to call `getCalculatedValue()` with an additional argument, a boolean `true` to return the value as an array.
+```php
+// Will return an array [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+$a1result = $spreadsheet->getActiveSheet()->getCell('A1')->getCalculatedValue(true);
+```
+
+---
+
+Excel365 introduced a number of new functions that return arrays of results.
+These include the `UNIQUE()`, `SORT()`, `SORTBY()`, `FILTER()`, `SEQUENCE()` and `RANDARRAY()` functions.
+While not all of these have been implemented by the Calculation Engine in PhpSpreadsheet, so they cannot all be calculated within your PHP applications, they can still be read from and written to Xlsx files.
+
+The way these functions are presented in MS Excel itself is slightly different to that of other array functions.
+
+The `SEQUENCE()` function generates a series of values (in this case, starting with `-10` and increasing in steps of `2.5`); and here we're telling the formula to populate a 3x3 grid with these values.
+
+![12-CalculationEngine-Spillage-Formula.png](./images/12-CalculationEngine-Spillage-Formula.png)
+
+Note that this is visually different to the multi-cell array formulas like `TRANSPOSE()`. When we are positioned in the "spill" range for the grid, MS Excel highlights the area with a blue border; and the formula displayed in the formula editing field isn't wrapped in braces (`{}`).
+
+And if we select any other cell inside the "spill" area other than the top-left cell, the formula in the formula edit field is greyed rather than displayed in black.
+
+![12-CalculationEngine-Spillage-Formula-2.png](./images/12-CalculationEngine-Spillage-Formula-2.png)
+
+When we enter this formula in MS Excel, we don't need to select the range of cells that it should occupy; nor do we need to enter it using `Ctrl-Shift-Enter`. MS Excel identifies that it is a multi-cell array formula because of the function that it uses, the `SEQUENCE()` function (and if there are nested function calls in the formula, then it must be the outermost functionin the tree).
+
+However, PhpSpreadsheet isn't quite as intelligent (yet) and doesn't parse the formula to identify if it should be treated as an array formula or not; a formula is just a string of characters until it is actually evaluated. If we want to use this function through code, we still need to specify that it is an "array" function with the `$isArrayFormula` argument, and the range of cells that it should cover.
+
+```php
+$spreadsheet->getActiveSheet()->setCellValue('A1','=SEQUENCE(3,3,-10,2.5)', true, 'A1:C3');
+```
+
+### The Spill Operator
+
+If you want to reference the entire spillage range of an array formula within another formula, you could do so using the standard Excel range operator (`:`, e.g. `A1:C3`); but you may not always know the range, especially for array functions that spill across as many cells as they need, like `UNIQUE()` and `FILTER()`.
+To simplify this, MS Excel has introduced the "Spill" Operator (`#`).
+
+![12-CalculationEngine-Spillage-Operator.png](./images/12-CalculationEngine-Spillage-Operator.png)
+
+Using our `SEQUENCE()"`example, where the formula cell is `A1` and the result spills across the range `A1:C3`, we can use the Spill operator `A1#` to reference all the cells in that spillage range.
+In this case, we're taking the absolute value of each cell in that range, and adding them together using the `SUM()` function to give us a result of 50. 
+
+PhpSpreadsheet doesn't currently support entry of a formula like this directly; but interally MS Excel implements the Spill Operator as a function (`ANCHORARRAY()`). MS Excel itself doesn't allow you to use this function in a formula, you have to use the "Spill" operator; but PhpSpreadsheet does allow you to use this internal Excel function.
+
+To create this same function in PhpSpreadsheet, use:
+```php
+$spreadsheet->getActiveSheet()->setCellValue('D1','=SUM(ABS(ANCHORARRAY(A1)))', true);
+```
+Note that this does need to be flagged as an array function with the `$isArrayFormula` argument.
+
+When the file is saved, and opened in MS Excel, it will be rendered correctly.
+
+
+## Locale Settings for Formulas
 
 Some localisation elements have been included in PhpSpreadsheet. You can
 set a locale by changing the settings. To set the locale to Russian you
@@ -1655,7 +1798,7 @@ The second alternative, available in both OpenOffice and LibreOffice is to merge
 $spreadsheet->getActiveSheet()->mergeCells('A1:C3', Worksheet::MERGE_CELL_CONTENT_MERGE);
 ```
 
-Particularly when the merged cells contain formulae, the logic for this merge seems strange:
+Particularly when the merged cells contain formulas, the logic for this merge seems strange:
 walking through the merge range, each cell is calculated in turn, and appended to the "master" cell, then it is emptied, so any subsequent calculations that reference the cell see an empty cell, not the pre-merge value. 
 For example, suppose our spreadsheet contains
 
@@ -1689,7 +1832,7 @@ Equivalent methods exist for inserting/removing columns:
 $spreadsheet->getActiveSheet()->removeColumn('C', 2);
 ```
 
-All subsequent rows (or columns) will be moved to allow the insertion (or removal) with all formulae referencing thise cells adjusted accordingly.
+All subsequent rows (or columns) will be moved to allow the insertion (or removal) with all formulas referencing thise cells adjusted accordingly.
 
 Note that this is a fairly intensive process, particularly with large worksheets, and especially if you are inserting/removing rows/columns from near beginning of the worksheet.
 
@@ -1875,7 +2018,7 @@ global by default.
 
 ## Define a named formula
 
-In addition to named ranges, PhpSpreadsheet also supports the definition of named formulae. These can be
+In addition to named ranges, PhpSpreadsheet also supports the definition of named formulas. These can be
 defined using the following code:
 
 ```php
@@ -1929,7 +2072,7 @@ $spreadsheet->getActiveSheet()
 ```
 
 As with named ranges, an optional fourth parameter can be passed defining the named formula
-scope as local (i.e. only usable on the specified worksheet). Otherwise, named formulae are
+scope as local (i.e. only usable on the specified worksheet). Otherwise, named formulas are
 global by default.
 
 ## Redirect output to a client's web browser

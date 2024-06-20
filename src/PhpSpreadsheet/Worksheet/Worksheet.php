@@ -3071,6 +3071,7 @@ class Worksheet implements IComparable
     ): array {
         // Garbage collect...
         $this->garbageCollect();
+        self::calculateArrays($calculateFormulas);
 
         //    Identify the range that we need to extract from the worksheet
         $maxCol = $this->getHighestColumn();
