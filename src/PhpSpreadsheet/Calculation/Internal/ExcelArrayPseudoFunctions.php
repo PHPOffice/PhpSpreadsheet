@@ -11,11 +11,20 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class ExcelArrayPseudoFunctions
 {
-    public static function single(string $cellReference, Cell $cell): array|string
+    public static function single(string $cellReference, Cell $cell): mixed
     {
         $worksheet = $cell->getWorksheet();
 
         [$referenceWorksheetName, $referenceCellCoordinate] = Worksheet::extractSheetTitle($cellReference, true);
+        if (preg_match('/^([$]?[a-z]{1,3})([$]?([0-9]{1,7})):([$]?[a-z]{1,3})([$]?([0-9]{1,7}))$/i', "$referenceCellCoordinate", $matches) === 1) {
+            $ourRow = $cell->getRow();
+            $firstRow = (int) $matches[3];
+            $lastRow = (int) $matches[6];
+            if ($ourRow < $firstRow || $ourRow > $lastRow) {
+                return ExcelError::VALUE();
+            }
+            $referenceCellCoordinate = $matches[1] . $ourRow;
+        }
         $referenceCell = ($referenceWorksheetName === '')
             ? $worksheet->getCell((string) $referenceCellCoordinate)
             : $worksheet->getParentOrThrow()
@@ -23,8 +32,11 @@ class ExcelArrayPseudoFunctions
                 ->getCell((string) $referenceCellCoordinate);
 
         $result = $referenceCell->getCalculatedValue();
+        while (is_array($result)) {
+            $result = array_shift($result);
+        }
 
-        return [[$result]];
+        return $result;
     }
 
     public static function anchorArray(string $cellReference, Cell $cell): array|string

@@ -7,6 +7,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use PhpOffice\PhpSpreadsheet\Exception as SpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit\Framework\TestCase;
@@ -102,8 +103,14 @@ class CalculationTest extends TestCase
         self::assertEquals("=cmd|'/C calc'!A0", $cell->getCalculatedValue());
 
         $cell2 = $workSheet->getCell('A2');
-        $cell2->setValueExplicit('ABC', DataType::TYPE_FORMULA);
-        self::assertEquals('ABC', $cell2->getCalculatedValue());
+
+        try {
+            $cell2->setValueExplicit('ABC', DataType::TYPE_FORMULA);
+            self::assertEquals('ABC', $cell2->getCalculatedValue());
+            self::fail('setValueExplicit with invalid formula should have thrown exception');
+        } catch (SpreadsheetException $e) {
+            self::assertStringContainsString('Invalid value for datatype Formula', $e->getMessage());
+        }
 
         $cell3 = $workSheet->getCell('A3');
         $cell3->setValueExplicit('=', DataType::TYPE_FORMULA);

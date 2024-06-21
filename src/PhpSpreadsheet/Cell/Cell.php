@@ -275,6 +275,9 @@ class Cell implements Stringable
 
                 break;
             case DataType::TYPE_FORMULA:
+                if (!is_string($value) || $value[0] !== '=') {
+                    throw new SpreadsheetException('Invalid value for datatype Formula');
+                }
                 $this->value = (string) $value;
 
                 break;

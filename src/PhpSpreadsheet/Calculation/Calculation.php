@@ -3733,7 +3733,9 @@ class Calculation
 
         [$matrix1Rows, $matrix1Columns] = self::getMatrixDimensions($operand1);
         [$matrix2Rows, $matrix2Columns] = self::getMatrixDimensions($operand2);
-        if (($matrix1Rows == $matrix2Columns) && ($matrix2Rows == $matrix1Columns)) {
+        if ($resize === 3) {
+            $resize = 2;
+        } elseif (($matrix1Rows == $matrix2Columns) && ($matrix2Rows == $matrix1Columns)) {
             $resize = 1;
         }
 
@@ -4560,6 +4562,7 @@ class Calculation
         //    If we're using cell caching, then $pCell may well be flushed back to the cache (which detaches the parent cell collection),
         //        so we store the parent cell collection so that we can re-attach it when necessary
         $pCellWorksheet = ($cell !== null) ? $cell->getWorksheet() : null;
+        $originalCoordinate = $cell?->getCoordinate();
         $pCellParent = ($cell !== null) ? $cell->getParent() : null;
         $stack = new Stack($this->branchPruner);
 
@@ -5061,6 +5064,9 @@ class Calculation
                     }
 
                     //    Process the argument with the appropriate function call
+                    if ($pCellWorksheet !== null && $originalCoordinate !== null) {
+                        $pCellWorksheet->getCell($originalCoordinate);
+                    }
                     $args = $this->addCellReference($args, $passCellReference, $functionCall, $cell);
 
                     if (!is_array($functionCall)) {
@@ -5268,7 +5274,7 @@ class Calculation
                     $operand2[$key] = Functions::flattenArray($value);
                 }
             }
-            [$rows, $columns] = self::checkMatrixOperands($operand1, $operand2, 2);
+            [$rows, $columns] = self::checkMatrixOperands($operand1, $operand2, 3);
 
             for ($row = 0; $row < $rows; ++$row) {
                 for ($column = 0; $column < $columns; ++$column) {
