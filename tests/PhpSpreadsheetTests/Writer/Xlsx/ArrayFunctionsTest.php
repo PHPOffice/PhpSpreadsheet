@@ -333,10 +333,18 @@ class ArrayFunctionsTest extends TestCase
         self::assertSame($expectedUnique, $sheet2->getCell('H1')->getCalculatedValue());
         for ($row = 1; $row <= 5; ++$row) {
             if ($row > 1) {
-                self::assertSame($expectedUnique[$row - 1][0], $sheet2->getCell("H$row")->getCalculatedValue(), "cell H$row");
+                self::assertSame($expectedUnique[$row - 1][0], $sheet2->getCell("H$row")->getValue(), "cell H$row");
+            } else {
+                self::assertTrue($sheet2->getCell("H$row")->isFormula());
+                self::assertSame($expectedUnique[$row - 1][0], $sheet2->getCell("H$row")->getOldCalculatedValue(), "cell H$row");
             }
-            self::assertSame($expectedUnique[$row - 1][1], $sheet2->getCell("I$row")->getCalculatedValue(), "cell I$row");
+            self::assertSame($expectedUnique[$row - 1][1], $sheet2->getCell("I$row")->getValue(), "cell I$row");
         }
+        $cellFormulaAttributes = $sheet2->getCell('H1')->getFormulaAttributes();
+        self::assertArrayHasKey('t', $cellFormulaAttributes);
+        self::assertSame('array', $cellFormulaAttributes['t']);
+        self::assertArrayHasKey('ref', $cellFormulaAttributes);
+        self::assertSame('H1:I5', $cellFormulaAttributes['ref']);
         $spreadsheet2->disconnectWorksheets();
     }
 
@@ -373,5 +381,59 @@ class ArrayFunctionsTest extends TestCase
         self::assertNull($sheet2->getCell('A2')->getValue());
         self::assertSame('x', $sheet2->getCell('A3')->getValue());
         $spreadsheet2->disconnectWorksheets();
+    }
+
+    public function testArrayStringOutput(): void
+    {
+        Calculation::setArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $columnArray = [
+            ['item1'],
+            ['item2'],
+            ['item3'],
+            ['item1'],
+            ['item1'],
+            ['item6'],
+            ['item7'],
+            ['item1'],
+            ['item9'],
+            ['item1'],
+        ];
+        $sheet->fromArray($columnArray, 'A1');
+        $sheet->setCellValue('C1', '=UNIQUE(A1:A10)');
+        $writer = new XlsxWriter($spreadsheet);
+        $this->outputFile = File::temporaryFilename();
+        $writer->save($this->outputFile);
+        $spreadsheet->disconnectWorksheets();
+
+        $reader = new XlsxReader();
+        $spreadsheet2 = $reader->load($this->outputFile);
+        $sheet2 = $spreadsheet2->getActiveSheet();
+        $expectedUnique = [
+            ['item1'],
+            ['item2'],
+            ['item3'],
+            ['item6'],
+            ['item7'],
+            ['item9'],
+        ];
+        self::assertCount(6, $expectedUnique);
+        self::assertSame($expectedUnique, $sheet2->getCell('C1')->getCalculatedValue());
+        self::assertSame($expectedUnique[0][0], $sheet2->getCell('C1')->getCalculatedValueString());
+        for ($row = 2; $row <= 6; ++$row) {
+            self::assertSame($expectedUnique[$row - 1][0], $sheet2->getCell("C$row")->getCalculatedValue(), "cell C$row");
+        }
+        $spreadsheet2->disconnectWorksheets();
+
+        $file = 'zip://';
+        $file .= $this->outputFile;
+        $file .= '#xl/worksheets/sheet1.xml';
+        $data = file_get_contents($file);
+        if ($data === false) {
+            self::fail('Unable to read file');
+        } else {
+            self::assertStringContainsString('<c r="C1" cm="1" t="str"><f t="array" ref="C1:C6" aca="1" ca="1">_xlfn.UNIQUE(A1:A10)</f><v>item1</v></c>', $data, '6 results for UNIQUE');
+        }
     }
 }

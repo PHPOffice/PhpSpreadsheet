@@ -63,12 +63,20 @@ class ArrayTest extends AbstractFunctional
         $sheet->getCell('B1')->setValue('=UNIQUE(A1:A3)');
         $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, 'Ods');
         $sheet = $reloadedSpreadsheet->getActiveSheet();
-        self::assertEquals('1', $sheet->getCell('A1')->getValue());
-        self::assertEquals('1', $sheet->getCell('A2')->getValue());
-        self::assertEquals('3', $sheet->getCell('A3')->getValue());
-        self::assertEquals('3', $sheet->getCell('B2')->getValue());
+        self::assertSame(1, $sheet->getCell('A1')->getValue());
+        self::assertSame(1, $sheet->getCell('A2')->getValue());
+        self::assertSame(3, $sheet->getCell('A3')->getValue());
+        self::assertSame(3, $sheet->getCell('B2')->getValue());
+        self::assertTrue($sheet->getCell('B1')->isFormula());
+        self::assertSame(1, $sheet->getCell('B1')->getOldCalculatedValue());
         self::assertNull($sheet->getCell('B3')->getValue());
         self::assertEquals('=UNIQUE(A1:A3)', $sheet->getCell('B1')->getValue());
+        $cellFormulaAttributes = $sheet->getCell('B1')->getFormulaAttributes();
+        self::assertArrayHasKey('t', $cellFormulaAttributes);
+        self::assertSame('array', $cellFormulaAttributes['t']);
+        self::assertArrayHasKey('ref', $cellFormulaAttributes);
+        self::assertSame('B1:B2', $cellFormulaAttributes['ref']);
+        self::assertSame([[1], [3]], $sheet->getCell('B1')->getCalculatedValue());
         $spreadsheet->disconnectWorksheets();
         $reloadedSpreadsheet->disconnectWorksheets();
     }

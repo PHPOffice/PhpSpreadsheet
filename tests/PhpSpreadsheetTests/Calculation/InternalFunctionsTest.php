@@ -113,6 +113,10 @@ class InternalFunctionsTest extends TestCase
                 'G3:G5',
                 '#VALUE!',
             ],
+            'range which includes current row but spans columns' => [
+                'F7:G9',
+                '#VALUE!',
+            ],
         ];
     }
 }

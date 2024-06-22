@@ -3695,4 +3695,24 @@ class Worksheet implements IComparable
             }
         }
     }
+
+    public function isCellInSpillRange(string $coordinate): bool
+    {
+        if (Calculation::getArrayReturnType() !== Calculation::RETURN_ARRAY_AS_ARRAY) {
+            return false;
+        }
+        $this->calculateArrays();
+        $keys = $this->cellCollection->getCoordinates();
+        foreach ($keys as $key) {
+            $attributes = $this->getCell($key)->getFormulaAttributes();
+            if (isset($attributes['ref'])) {
+                if (Coordinate::coordinateIsInsideRange($attributes['ref'], $coordinate)) {
+                    // false for first cell in range, true otherwise
+                    return $coordinate !== $key;
+                }
+            }
+        }
+
+        return false;
+    }
 }

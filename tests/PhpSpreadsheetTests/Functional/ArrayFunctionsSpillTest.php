@@ -37,6 +37,12 @@ class ArrayFunctionsSpillTest extends TestCase
         $sheet->setCellValue('B1', '=UNIQUE(A1:A12)');
         $expected = [['#SPILL!'], [null], [null], [null], ['OCCUPIED']];
         self::assertSame($expected, $sheet->rangeToArray('B1:B5', calculateFormulas: true, formatData: false, reduceArrays: true), 'spill with B5 unchanged');
+        self::assertFalse($sheet->isCellInSpillRange('B1'));
+        self::assertFalse($sheet->isCellInSpillRange('B2'));
+        self::assertFalse($sheet->isCellInSpillRange('B3'));
+        self::assertFalse($sheet->isCellInSpillRange('B4'));
+        self::assertFalse($sheet->isCellInSpillRange('B5'));
+        self::assertFalse($sheet->isCellInSpillRange('Z9'));
         $calculation->clearCalculationCache();
 
         $columnArray = [[1], [2], [2], [2], [3], [3], [3], [3], [4], [4], [4], [4]];
@@ -44,6 +50,12 @@ class ArrayFunctionsSpillTest extends TestCase
         $sheet->setCellValue('B1', '=UNIQUE(A1:A12)');
         $expected = [[1], [2], [3], [4], ['OCCUPIED']];
         self::assertSame($expected, $sheet->rangeToArray('B1:B5', calculateFormulas: true, formatData: false, reduceArrays: true), 'fill B1:B4 with B5 unchanged');
+        self::assertFalse($sheet->isCellInSpillRange('B1'));
+        self::assertTrue($sheet->isCellInSpillRange('B2'));
+        self::assertTrue($sheet->isCellInSpillRange('B3'));
+        self::assertTrue($sheet->isCellInSpillRange('B4'));
+        self::assertFalse($sheet->isCellInSpillRange('B5'));
+        self::assertFalse($sheet->isCellInSpillRange('Z9'));
         $calculation->clearCalculationCache();
 
         $columnArray = [[1], [3], [3], [3], [3], [3], [3], [3], [3], [3], [3], [3]];
@@ -51,6 +63,12 @@ class ArrayFunctionsSpillTest extends TestCase
         $sheet->setCellValue('B1', '=UNIQUE(A1:A12)');
         $expected = [[1], [3], [null], [null], ['OCCUPIED']];
         self::assertSame($expected, $sheet->rangeToArray('B1:B5', calculateFormulas: true, formatData: false, reduceArrays: true), 'fill B1:B2(changed from prior) set B3:B4 to null B5 unchanged');
+        self::assertFalse($sheet->isCellInSpillRange('B1'));
+        self::assertTrue($sheet->isCellInSpillRange('B2'));
+        self::assertFalse($sheet->isCellInSpillRange('B3'));
+        self::assertFalse($sheet->isCellInSpillRange('B4'));
+        self::assertFalse($sheet->isCellInSpillRange('B5'));
+        self::assertFalse($sheet->isCellInSpillRange('Z9'));
         $calculation->clearCalculationCache();
 
         $columnArray = [[1], [2], [3], [3], [3], [3], [3], [3], [3], [3], [3], [3]];
@@ -66,6 +84,36 @@ class ArrayFunctionsSpillTest extends TestCase
         $expected = [['#SPILL!'], [null], [null], [null], ['OCCUPIED']];
         self::assertSame($expected, $sheet->rangeToArray('B1:B5', calculateFormulas: true, formatData: false, reduceArrays: true), 'spill clears B2:B4 with B5 unchanged');
         $calculation->clearCalculationCache();
+
+        $sheet->setCellValue('Z1', '=SORT({7;5;1})');
+        $sheet->getCell('Z1')->getCalculatedValue(); // populates Z1-Z3
+        self::assertTrue($sheet->isCellInSpillRange('Z2'));
+        self::assertTrue($sheet->isCellInSpillRange('Z3'));
+        self::assertFalse($sheet->isCellInSpillRange('Z4'));
+        self::assertFalse($sheet->isCellInSpillRange('Z1'));
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public function testNonArrayOutput(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $calculation = Calculation::getInstance($spreadsheet);
+
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setCellValue('B5', 'OCCUPIED');
+
+        $columnArray = [[1], [2], [2], [2], [3], [3], [3], [3], [4], [4], [4], [4]];
+        $sheet->fromArray($columnArray, 'A1');
+        $sheet->setCellValue('B1', '=UNIQUE(A1:A12)');
+        $expected = [[1], [null], [null], [null], ['OCCUPIED']];
+        self::assertSame($expected, $sheet->rangeToArray('B1:B5', calculateFormulas: true, formatData: false, reduceArrays: true), 'only fill B1');
+        self::assertFalse($sheet->isCellInSpillRange('B1'));
+        self::assertFalse($sheet->isCellInSpillRange('B2'));
+        self::assertFalse($sheet->isCellInSpillRange('B3'));
+        self::assertFalse($sheet->isCellInSpillRange('B4'));
+        self::assertFalse($sheet->isCellInSpillRange('B5'));
+        self::assertFalse($sheet->isCellInSpillRange('Z9'));
 
         $spreadsheet->disconnectWorksheets();
     }

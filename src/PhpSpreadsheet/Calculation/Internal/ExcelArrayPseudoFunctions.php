@@ -20,7 +20,7 @@ class ExcelArrayPseudoFunctions
             $ourRow = $cell->getRow();
             $firstRow = (int) $matches[3];
             $lastRow = (int) $matches[6];
-            if ($ourRow < $firstRow || $ourRow > $lastRow) {
+            if ($ourRow < $firstRow || $ourRow > $lastRow || $matches[1] !== $matches[4]) {
                 return ExcelError::VALUE();
             }
             $referenceCellCoordinate = $matches[1] . $ourRow;
