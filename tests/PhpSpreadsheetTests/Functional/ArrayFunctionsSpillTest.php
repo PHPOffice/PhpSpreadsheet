@@ -98,7 +98,6 @@ class ArrayFunctionsSpillTest extends TestCase
     public function testNonArrayOutput(): void
     {
         $spreadsheet = new Spreadsheet();
-        $calculation = Calculation::getInstance($spreadsheet);
 
         $sheet = $spreadsheet->getActiveSheet();
         $sheet->setCellValue('B5', 'OCCUPIED');
