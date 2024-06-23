@@ -200,6 +200,8 @@ class Cell implements Stringable
 
     protected static function updateIfCellIsTableHeader(?Worksheet $workSheet, self $cell, mixed $oldValue, mixed $newValue): void
     {
+        $oldValue = (is_scalar($oldValue) || $oldValue instanceof Stringable) ? ((string) $oldValue) : null;
+        $newValue = (is_scalar($newValue) || $newValue instanceof Stringable) ? ((string) $newValue) : null;
         if (StringHelper::strToLower($oldValue ?? '') === StringHelper::strToLower($newValue ?? '') || $workSheet === null) {
             return;
         }
@@ -267,7 +269,10 @@ class Cell implements Stringable
                 // Synonym for string
             case DataType::TYPE_INLINE:
                 // Rich text
-                $this->value = DataType::checkString($value);
+                if ($value !== null && !is_scalar($value) && !($value instanceof Stringable)) {
+                    throw new SpreadsheetException('Invalid unstringable value for datatype Inline/String/String2');
+                }
+                $this->value = DataType::checkString(($value instanceof RichText) ? $value : ((string) $value));
 
                 break;
             case DataType::TYPE_NUMERIC:
@@ -278,6 +283,9 @@ class Cell implements Stringable
 
                 break;
             case DataType::TYPE_FORMULA:
+                if ($value !== null && !is_scalar($value) && !($value instanceof Stringable)) {
+                    throw new SpreadsheetException('Invalid unstringable value for datatype Formula');
+                }
                 $this->value = (string) $value;
 
                 break;
@@ -799,7 +807,9 @@ class Cell implements Stringable
      */
     public function __toString(): string
     {
-        return (string) $this->getValue();
+        $retVal = $this->value;
+
+        return ($retVal === null || is_scalar($retVal) || $retVal instanceof Stringable) ? ((string) $retVal) : '';
     }
 
     public function getIgnoredErrors(): IgnoredErrors

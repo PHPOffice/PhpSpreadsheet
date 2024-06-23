@@ -14,7 +14,7 @@ build:
         analysis:
             image: default-bionic
             environment:
-                php: 8.1
+                php: 8.2
             tests:
                 override:
                     - php-scrutinizer-run
