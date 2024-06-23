@@ -52,7 +52,7 @@ class CellFormulaTest extends TestCase
 
     public function testSetFormulaInvalidValue(): void
     {
-        $formula = true;
+        $formula = (object) true;
 
         $spreadsheet = new Spreadsheet();
         $cell = $spreadsheet->getActiveSheet()->getCell('A1');
@@ -61,24 +61,7 @@ class CellFormulaTest extends TestCase
             $cell->setValueExplicit($formula, DataType::TYPE_FORMULA);
             self::fail('setValueExplicit should have thrown exception');
         } catch (SpreadsheetException $e) {
-            self::assertStringContainsString('Invalid value for datatype Formula', $e->getMessage());
-        }
-
-        $spreadsheet->disconnectWorksheets();
-    }
-
-    public function testSetFormulaInvalidFormulaValue(): void
-    {
-        $formula = 'invalid formula';
-
-        $spreadsheet = new Spreadsheet();
-        $cell = $spreadsheet->getActiveSheet()->getCell('A1');
-
-        try {
-            $cell->setValueExplicit($formula, DataType::TYPE_FORMULA);
-            self::fail('setValueExplicit should have thrown exception');
-        } catch (SpreadsheetException $e) {
-            self::assertStringContainsString('Invalid value for datatype Formula', $e->getMessage());
+            self::assertStringContainsString('Invalid unstringable value for datatype Formula', $e->getMessage());
         }
 
         $spreadsheet->disconnectWorksheets();

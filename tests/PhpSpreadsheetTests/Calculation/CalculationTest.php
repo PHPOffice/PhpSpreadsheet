@@ -89,6 +89,7 @@ class CalculationTest extends TestCase
         $cell = $sheet->getCell('F6');
         $cell->setValue('=OFFSET(D3, -1, -2)');
         self::assertEquals(5, $cell->getCalculatedValue(), 'missing arguments should be filled with null');
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testCellSetAsQuotedText(): void
@@ -103,18 +104,27 @@ class CalculationTest extends TestCase
         self::assertEquals("=cmd|'/C calc'!A0", $cell->getCalculatedValue());
 
         $cell2 = $workSheet->getCell('A2');
-
-        try {
-            $cell2->setValueExplicit('ABC', DataType::TYPE_FORMULA);
-            self::assertEquals('ABC', $cell2->getCalculatedValue());
-            self::fail('setValueExplicit with invalid formula should have thrown exception');
-        } catch (SpreadsheetException $e) {
-            self::assertStringContainsString('Invalid value for datatype Formula', $e->getMessage());
-        }
+        $cell2->setValueExplicit('ABC', DataType::TYPE_FORMULA);
+        self::assertEquals('ABC', $cell2->getCalculatedValue());
 
         $cell3 = $workSheet->getCell('A3');
         $cell3->setValueExplicit('=', DataType::TYPE_FORMULA);
         self::assertEquals('', $cell3->getCalculatedValue());
+
+        $cell4 = $workSheet->getCell('A4');
+
+        try {
+            $cell4->setValueExplicit((object) null, DataType::TYPE_FORMULA);
+            self::fail('setValueExplicit formula with unstringable object should have thrown exception');
+        } catch (SpreadsheetException $e) {
+            self::assertStringContainsString('Invalid unstringable value for datatype Formula', $e->getMessage());
+        }
+
+        $cell5 = $workSheet->getCell('A5');
+        $cell5->setValueExplicit(null, DataType::TYPE_FORMULA);
+        self::assertEquals('', $cell5->getCalculatedValue());
+
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testCellWithDdeExpresion(): void
@@ -126,6 +136,7 @@ class CalculationTest extends TestCase
         $cell->setValue("=cmd|'/C calc'!A0");
 
         self::assertEquals("=cmd|'/C calc'!A0", $cell->getCalculatedValue());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testFormulaReferencingWorksheetWithEscapedApostrophe(): void
@@ -144,6 +155,7 @@ class CalculationTest extends TestCase
 
         $cellValue = $workSheet->getCell('A2')->getCalculatedValue();
         self::assertSame('HELLO WORLD', $cellValue);
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testFormulaReferencingWorksheetWithUnescapedApostrophe(): void
@@ -162,6 +174,7 @@ class CalculationTest extends TestCase
 
         $cellValue = $workSheet->getCell('A2')->getCalculatedValue();
         self::assertSame('HELLO WORLD', $cellValue);
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testCellWithFormulaTwoIndirect(): void
@@ -178,6 +191,7 @@ class CalculationTest extends TestCase
         $cell3->setValue('=SUM(INDIRECT("A"&ROW()),INDIRECT("B"&ROW()),INDIRECT("C"&ROW()))');
 
         self::assertEquals('9', $cell3->getCalculatedValue());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testCellWithStringNumeric(): void
@@ -190,6 +204,7 @@ class CalculationTest extends TestCase
         $cell2->setValue('=100*A1');
 
         self::assertSame(250.0, $cell2->getCalculatedValue());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testCellWithStringFraction(): void
@@ -202,6 +217,7 @@ class CalculationTest extends TestCase
         $cell2->setValue('=100*A1');
 
         self::assertSame(75.0, $cell2->getCalculatedValue());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testCellWithStringPercentage(): void
@@ -214,6 +230,7 @@ class CalculationTest extends TestCase
         $cell2->setValue('=100*A1');
 
         self::assertSame(2.0, $cell2->getCalculatedValue());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testCellWithStringCurrency(): void
@@ -228,6 +245,7 @@ class CalculationTest extends TestCase
         $cell2->setValue('=100*A1');
 
         self::assertSame(200.0, $cell2->getCalculatedValue());
+        $spreadsheet->disconnectWorksheets();
     }
 
     public function testBranchPruningFormulaParsingSimpleCase(): void
@@ -400,6 +418,7 @@ class CalculationTest extends TestCase
         $calculation->disableBranchPruning();
         $calculated = $cell->getCalculatedValue();
         self::assertEquals($expectedResult, $calculated);
+        $spreadsheet->disconnectWorksheets();
     }
 
     public static function dataProviderBranchPruningFullExecution(): array
