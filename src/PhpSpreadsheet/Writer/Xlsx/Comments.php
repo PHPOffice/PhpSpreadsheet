@@ -209,12 +209,14 @@ class Comments extends WriterPart
         $objWriter->endElement();
 
         // v:textbox
+        $textBoxArray = [Comment::TEXTBOX_DIRECTION_RTL => 'rtl', Comment::TEXTBOX_DIRECTION_LTR => 'ltr'];
+        $textboxRtl = $textBoxArray[strtolower($comment->getTextBoxDirection())] ?? 'auto';
         $objWriter->startElement('v:textbox');
-        $objWriter->writeAttribute('style', 'mso-direction-alt:auto');
+        $objWriter->writeAttribute('style', "mso-direction-alt:$textboxRtl");
 
         // div
         $objWriter->startElement('div');
-        $objWriter->writeAttribute('style', 'text-align:left');
+        $objWriter->writeAttribute('style', ($textboxRtl === 'rtl' ? 'text-align:right;direction:rtl' : 'text-align:left'));
         $objWriter->endElement();
 
         $objWriter->endElement();
