@@ -451,12 +451,14 @@ class DataSeriesValues extends Properties
                 if (($dimensions[0] == 1) || ($dimensions[1] == 1)) {
                     $this->dataValues = Functions::flattenArray($newDataValues);
                 } else {
-                    $newArray = array_values(array_shift($newDataValues));
+                    /** @var array<int, array> */
+                    $newDataValuesx = $newDataValues;
+                    $newArray = array_values(array_shift($newDataValuesx) ?? []);
                     foreach ($newArray as $i => $newDataSet) {
                         $newArray[$i] = [$newDataSet];
                     }
 
-                    foreach ($newDataValues as $newDataSet) {
+                    foreach ($newDataValuesx as $newDataSet) {
                         $i = 0;
                         foreach ($newDataSet as $newDataVal) {
                             array_unshift($newArray[$i++], $newDataVal);

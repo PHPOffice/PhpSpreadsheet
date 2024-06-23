@@ -19,16 +19,20 @@ use PHPUnit\Framework\TestCase;
 
 class CellTest extends TestCase
 {
+    private ?Spreadsheet $spreadsheet = null;
+
     protected function setUp(): void
     {
-        parent::setUp();
         Cell::setValueBinder(new DefaultValueBinder());
     }
 
     protected function tearDown(): void
     {
-        parent::tearDown();
         Cell::setValueBinder(new DefaultValueBinder());
+        if ($this->spreadsheet !== null) {
+            $this->spreadsheet->disconnectWorksheets();
+            $this->spreadsheet = null;
+        }
     }
 
     public function testSetValueBinderOverride(): void
@@ -92,15 +96,13 @@ class CellTest extends TestCase
 
     public function testInvalidIsoDateSetValueExplicit(): void
     {
-        $spreadsheet = new Spreadsheet();
-        $cell = $spreadsheet->getActiveSheet()->getCell('A1');
+        $this->spreadsheet = new Spreadsheet();
+        $cell = $this->spreadsheet->getActiveSheet()->getCell('A1');
 
         $dateValue = '2022-02-29'; // Invalid leap year
         $this->expectException(Exception::class);
         $this->expectExceptionMessage("Invalid string {$dateValue} supplied for datatype Date");
         $cell->setValueExplicit($dateValue, DataType::TYPE_ISO_DATE);
-
-        $spreadsheet->disconnectWorksheets();
     }
 
     /**
@@ -110,8 +112,8 @@ class CellTest extends TestCase
     {
         $this->expectException(Exception::class);
 
-        $spreadsheet = new Spreadsheet();
-        $cell = $spreadsheet->getActiveSheet()->getCell('A1');
+        $this->spreadsheet = new Spreadsheet();
+        $cell = $this->spreadsheet->getActiveSheet()->getCell('A1');
         $cell->setValueExplicit($value, $dataType);
     }
 
@@ -166,8 +168,8 @@ class CellTest extends TestCase
 
     public function testDestroyCell2(): void
     {
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
+        $this->spreadsheet = new Spreadsheet();
+        $sheet = $this->spreadsheet->getActiveSheet();
         $cell = $sheet->getCell('A1');
         self::assertSame('A1', $cell->getCoordinate());
         $this->expectException(Exception::class);
@@ -245,6 +247,7 @@ class CellTest extends TestCase
             $greenStyle->getFill()->getStartColor()->getARGB(),
             $style->getFill()->getStartColor()->getARGB()
         );
+        $spreadsheet->disconnectWorksheets();
     }
 
     /**
@@ -296,6 +299,7 @@ class CellTest extends TestCase
         if ($fillStyle === Fill::FILL_SOLID) {
             self::assertEquals($fillColor, $style->getFill()->getStartColor()->getARGB());
         }
+        $spreadsheet->disconnectWorksheets();
     }
 
     public static function appliedStyling(): array

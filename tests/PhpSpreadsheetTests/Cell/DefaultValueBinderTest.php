@@ -108,4 +108,27 @@ class DefaultValueBinderTest extends TestCase
         self::assertTrue($binder::$called);
         $spreadsheet->disconnectWorksheets();
     }
+
+    public function testDataTypeForValueExceptions(): void
+    {
+        try {
+            self::assertSame('s', DefaultValueBinder::dataTypeForValue(new SpreadsheetException()));
+        } catch (SpreadsheetException $e) {
+            self::fail('Should not have failed for stringable');
+        }
+
+        try {
+            DefaultValueBinder::dataTypeForValue([]);
+            self::fail('Should have failed for array');
+        } catch (SpreadsheetException $e) {
+            self::assertStringContainsString('unusable type array', $e->getMessage());
+        }
+
+        try {
+            DefaultValueBinder::dataTypeForValue(new DateTime());
+            self::fail('Should have failed for DateTime');
+        } catch (SpreadsheetException $e) {
+            self::assertStringContainsString('unusable type DateTime', $e->getMessage());
+        }
+    }
 }
