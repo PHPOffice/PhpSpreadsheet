@@ -61,7 +61,15 @@ class DefaultValueBinder implements IValueBinder
         if ($value instanceof RichText) {
             return DataType::TYPE_INLINE;
         }
-        if (is_string($value) && strlen($value) > 1 && $value[0] === '=') {
+        if ($value instanceof Stringable) {
+            $value = (string) $value;
+        }
+        if (!is_string($value)) {
+            $gettype = is_object($value) ? get_class($value) : gettype($value);
+
+            throw new SpreadsheetException("unusable type $gettype");
+        }
+        if (strlen($value) > 1 && $value[0] === '=') {
             $calculation = new Calculation();
             $calculation->disableBranchPruning();
 
@@ -93,11 +101,9 @@ class DefaultValueBinder implements IValueBinder
 
             return DataType::TYPE_NUMERIC;
         }
-        if (is_string($value)) {
-            $errorCodes = DataType::getErrorCodes();
-            if (isset($errorCodes[$value])) {
-                return DataType::TYPE_ERROR;
-            }
+        $errorCodes = DataType::getErrorCodes();
+        if (isset($errorCodes[$value])) {
+            return DataType::TYPE_ERROR;
         }
 
         return DataType::TYPE_STRING;
