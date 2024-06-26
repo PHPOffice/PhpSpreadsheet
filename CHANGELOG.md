@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Changed
 
 - On read, Xlsx Reader had been breaking up union ranges into separate individual ranges. It will now try to preserve range as it was read in. [PR #4042](https://github.com/PHPOffice/PhpSpreadsheet/pull/4042)
+- Xlsx/Xls spreadsheet calculation and formatting of dates will use base date of spreadsheet even when spreadsheets with different base dates are simultaneously open. [Issue #1036](https://github.com/PHPOffice/PhpSpreadsheet/issues/1036) [Issue #1635](https://github.com/PHPOffice/PhpSpreadsheet/issues/1635) [PR #4071](https://github.com/PHPOffice/PhpSpreadsheet/pull/4071) 
 
 ### Deprecated
 
