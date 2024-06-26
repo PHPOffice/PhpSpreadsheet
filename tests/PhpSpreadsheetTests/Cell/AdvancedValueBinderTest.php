@@ -6,6 +6,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Cell;
 
 use PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Cell\IValueBinder;
 use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
@@ -230,6 +231,33 @@ class AdvancedValueBinderTest extends TestCase
         return [
             ['Hello World', false],
             ["Hello\nWorld", true],
+        ];
+    }
+
+    /**
+     * @dataProvider formulaProvider
+     */
+    public function testFormula(string $value, string $dataType): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        $sheet->getCell('A1')->setValue($value);
+        self::assertSame($dataType, $sheet->getCell('A1')->getDataType());
+        if ($dataType === DataType::TYPE_FORMULA) {
+            self::assertFalse($sheet->getStyle('A1')->getQuotePrefix());
+        } else {
+            self::assertTrue($sheet->getStyle('A1')->getQuotePrefix());
+        }
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public static function formulaProvider(): array
+    {
+        return [
+            'normal formula' => ['=SUM(A1:C3)', DataType::TYPE_FORMULA],
+            'issue 1310' => ['======', DataType::TYPE_STRING],
         ];
     }
 }
