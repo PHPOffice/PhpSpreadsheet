@@ -334,7 +334,8 @@ abstract class JpGraphRendererBase implements IRenderer
                 //    Set the appropriate plot marker
                 $this->formatPointMarker($seriesPlot, $marker);
             }
-            $dataLabel = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotLabelByIndex($index)->getDataValue();
+            if ($this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotLabelByIndex($index))
+                $dataLabel = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotLabelByIndex($index)->getDataValue();
             $seriesPlot->SetLegend($dataLabel);
 
             $seriesPlots[] = $seriesPlot;
