@@ -336,8 +336,8 @@ abstract class JpGraphRendererBase implements IRenderer
             }
             if ($this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotLabelByIndex($index)) {
                 $dataLabel = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotLabelByIndex($index)->getDataValue();
+                $seriesPlot->SetLegend($dataLabel);
             }
-            $seriesPlot->SetLegend($dataLabel);
 
             $seriesPlots[] = $seriesPlot;
         }
