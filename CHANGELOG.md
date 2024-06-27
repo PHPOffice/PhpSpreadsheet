@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Added
 
 - Xlsx Reader Optionally Ignore Rows With No Cells. [Issue #3982](https://github.com/PHPOffice/PhpSpreadsheet/issues/3982) [PR #4035](https://github.com/PHPOffice/PhpSpreadsheet/pull/4035)
+- Option for CSV output file to have varying numbers of columns for each row. [Issue #1415](https://github.com/PHPOffice/PhpSpreadsheet/issues/1415) [PR #4076](https://github.com/PHPOffice/PhpSpreadsheet/pull/4076)
 
 ### Changed
 
