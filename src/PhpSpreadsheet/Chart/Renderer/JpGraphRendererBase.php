@@ -286,9 +286,8 @@ abstract class JpGraphRendererBase implements IRenderer
         $plotLabel = $this->chart->getPlotArea()->getPlotGroupByIndex($groupId)->getPlotLabelByIndex($index);
         if (!$plotLabel) {
             return '';
-        } else {
-            return $plotLabel->getDataValue();
         }
+        return $plotLabel->getDataValue();
     }
 
     private function renderPlotLine(int $groupID, bool $filled = false, bool $combination = false): void
