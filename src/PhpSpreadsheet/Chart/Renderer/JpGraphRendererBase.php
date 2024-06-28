@@ -287,7 +287,7 @@ abstract class JpGraphRendererBase implements IRenderer
         if (!$plotLabel) {
             return '';
         }
-        
+
         return $plotLabel->getDataValue();
     }
 
@@ -757,7 +757,7 @@ abstract class JpGraphRendererBase implements IRenderer
                     break;
                 case 'bar3DChart':
                     $dimensions = '3d';
-                    // no break
+                // no break
                 case 'barChart':
                     $this->renderPlotBar($i, $dimensions);
 
@@ -818,35 +818,35 @@ abstract class JpGraphRendererBase implements IRenderer
         switch ($chartType) {
             case 'area3DChart':
                 $dimensions = '3d';
-                // no break
+            // no break
             case 'areaChart':
                 $this->renderAreaChart($groupCount);
 
                 break;
             case 'bar3DChart':
                 $dimensions = '3d';
-                // no break
+            // no break
             case 'barChart':
                 $this->renderBarChart($groupCount, $dimensions);
 
                 break;
             case 'line3DChart':
                 $dimensions = '3d';
-                // no break
+            // no break
             case 'lineChart':
                 $this->renderLineChart($groupCount);
 
                 break;
             case 'pie3DChart':
                 $dimensions = '3d';
-                // no break
+            // no break
             case 'pieChart':
                 $this->renderPieChart($groupCount, $dimensions, false, false);
 
                 break;
             case 'doughnut3DChart':
                 $dimensions = '3d';
-                // no break
+            // no break
             case 'doughnutChart':
                 $this->renderPieChart($groupCount, $dimensions, true, true);
 
