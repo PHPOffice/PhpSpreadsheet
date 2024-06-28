@@ -287,6 +287,7 @@ abstract class JpGraphRendererBase implements IRenderer
         if (!$plotLabel) {
             return '';
         }
+        
         return $plotLabel->getDataValue();
     }
 
