@@ -189,14 +189,21 @@ class Cell implements Stringable
      */
     public function getFormattedValue(): string
     {
-        return (string) NumberFormat::toFormattedString(
+        $currentCalendar = SharedDate::getExcelCalendar();
+        SharedDate::setExcelCalendar($this->getWorksheet()->getParent()?->getExcelCalendar());
+        $formattedValue = (string) NumberFormat::toFormattedString(
             $this->getCalculatedValue(),
             (string) $this->getStyle()->getNumberFormat()->getFormatCode(true)
         );
+        SharedDate::setExcelCalendar($currentCalendar);
+
+        return $formattedValue;
     }
 
     protected static function updateIfCellIsTableHeader(?Worksheet $workSheet, self $cell, mixed $oldValue, mixed $newValue): void
     {
+        $oldValue = (is_scalar($oldValue) || $oldValue instanceof Stringable) ? ((string) $oldValue) : null;
+        $newValue = (is_scalar($newValue) || $newValue instanceof Stringable) ? ((string) $newValue) : null;
         if (StringHelper::strToLower($oldValue ?? '') === StringHelper::strToLower($newValue ?? '') || $workSheet === null) {
             return;
         }
@@ -264,7 +271,10 @@ class Cell implements Stringable
                 // Synonym for string
             case DataType::TYPE_INLINE:
                 // Rich text
-                $this->value = DataType::checkString($value);
+                if ($value !== null && !is_scalar($value) && !($value instanceof Stringable)) {
+                    throw new SpreadsheetException('Invalid unstringable value for datatype Inline/String/String2');
+                }
+                $this->value = DataType::checkString(($value instanceof RichText) ? $value : ((string) $value));
 
                 break;
             case DataType::TYPE_NUMERIC:
@@ -385,6 +395,8 @@ class Cell implements Stringable
 
         if ($this->dataType === DataType::TYPE_FORMULA) {
             try {
+                $currentCalendar = SharedDate::getExcelCalendar();
+                SharedDate::setExcelCalendar($this->getWorksheet()->getParent()?->getExcelCalendar());
                 $index = $this->getWorksheet()->getParentOrThrow()->getActiveSheetIndex();
                 $selected = $this->getWorksheet()->getSelectedCells();
                 $thisworksheet = $this->getWorksheet();
@@ -509,6 +521,7 @@ class Cell implements Stringable
                     $this->dataType = $originalDataType;
                 }
             } catch (SpreadsheetException $ex) {
+                SharedDate::setExcelCalendar($currentCalendar);
                 if (($ex->getMessage() === 'Unable to access External Workbook') && ($this->calculatedValue !== null)) {
                     return $this->calculatedValue; // Fallback for calculations referencing external files.
                 } elseif (preg_match('/[Uu]ndefined (name|offset: 2|array key 2)/', $ex->getMessage()) === 1) {
@@ -521,6 +534,7 @@ class Cell implements Stringable
                     $ex
                 );
             }
+            SharedDate::setExcelCalendar($currentCalendar);
 
             if ($result === '#Not Yet Implemented') {
                 return $this->calculatedValue; // Fallback if calculation engine does not support the formula.
@@ -924,7 +938,9 @@ class Cell implements Stringable
      */
     public function __toString(): string
     {
-        return (string) $this->getValue();
+        $retVal = $this->value;
+
+        return ($retVal === null || is_scalar($retVal) || $retVal instanceof Stringable) ? ((string) $retVal) : '';
     }
 
     public function getIgnoredErrors(): IgnoredErrors

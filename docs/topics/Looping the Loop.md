@@ -308,6 +308,28 @@ But a peak memory usage of 49,152KB compared with the 57,344KB used by `toArray(
 Like `toArray()`, `rangeToArray()` is easy to use, but it has the same limitations for flexibility. It provides the same limited control over how the data from each cell is returned in the array as `toArray()`.
 The same additional arguments that can be provided for the `toArray()` method can also be provided to `rangeToArray()`.
 
+
+## Using `rangeToArrayYieldRows()`
+
+Since v2.1.0 the worksheet method `rangeToArrayYieldRows()` is available.
+It allows you to iterate over all sheet's rows with little memory consumption,
+while obtaining each row as an array:
+
+```php
+$rowGenerator = $sheet->rangeToArrayYieldRows(
+    'A1:' . $sheet->getHighestDataColumn() . $sheet->getHighestDataRow(),
+    null,
+    false,
+    false
+);
+foreach ($rowGenerator as $row) {
+    echo $row[0] . ' | ' . $row[1] . "\n";
+}
+```
+
+See `samples/Reader2/23_iterateRowsYield.php`.
+
+
 ## Using Iterators
 
 You don't need to build an array from the worksheet to loop through the rows and columns and do whatever processing you need; you can loop through the rows and columns in the Worksheet directly and more efficiently using PhpSpreadsheet's built-in iterators.

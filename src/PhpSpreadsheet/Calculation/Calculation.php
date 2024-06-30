@@ -122,7 +122,7 @@ class Calculation
      */
     private Logger $debugLog;
 
-    private bool $suppressFormulaErrorsNew = false;
+    private bool $suppressFormulaErrors = false;
 
     /**
      * Error message for any error that was raised/thrown by the calculation engine.
@@ -5382,7 +5382,7 @@ class Calculation
     {
         $this->formulaError = $errorMessage;
         $this->cyclicReferenceStack->clear();
-        $suppress = $this->suppressFormulaErrors ?? $this->suppressFormulaErrorsNew;
+        $suppress = $this->suppressFormulaErrors;
         if (!$suppress) {
             throw new Exception($errorMessage, $code, $exception);
         }
@@ -5666,12 +5666,12 @@ class Calculation
 
     public function setSuppressFormulaErrors(bool $suppressFormulaErrors): void
     {
-        $this->suppressFormulaErrorsNew = $suppressFormulaErrors;
+        $this->suppressFormulaErrors = $suppressFormulaErrors;
     }
 
     public function getSuppressFormulaErrors(): bool
     {
-        return $this->suppressFormulaErrorsNew;
+        return $this->suppressFormulaErrors;
     }
 
     public static function boolToString(mixed $operand1): mixed
