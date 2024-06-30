@@ -854,7 +854,7 @@ class Xlsx extends BaseReader
 
                                                 break;
                                             case 'b':
-                                                if (!isset($c->f)) {
+                                                if (!isset($c->f) || ((string) $c->f) === '') {
                                                     if (isset($c->v)) {
                                                         $value = self::castToBoolean($c);
                                                     } else {

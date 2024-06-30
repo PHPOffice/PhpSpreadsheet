@@ -285,6 +285,9 @@ class ArrayFunctionsTest extends TestCase
         ];
         $actualFG = $sheet2->rangeToArray('F1:G5');
         self::assertSame($expectedFG, $actualFG);
+        self::assertSame('=CELL("width")', $sheet2->getCell('I1')->getValue());
+        self::assertSame(8, $sheet2->getCell('I1')->getCalculatedValue());
+        self::assertTrue($sheet2->getCell('J1')->getValue());
         $spreadsheet2->disconnectWorksheets();
 
         $file = 'zip://';
@@ -295,6 +298,7 @@ class ArrayFunctionsTest extends TestCase
             self::fail('Unable to read file');
         } else {
             self::assertStringContainsString('<f t="array" ref="F1:G5" aca="1" ca="1">_xlfn.CHOOSECOLS(A1:C5,3,1)</f><v>11</v>', $data);
+            self::assertStringContainsString('<f t="array" ref="I1:J1" aca="1" ca="1">CELL(&quot;width&quot;)</f><v>8</v></c><c r="J1" t="b"><v>1</v></c>', $data);
         }
     }
 
