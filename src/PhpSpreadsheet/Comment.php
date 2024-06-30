@@ -63,6 +63,14 @@ class Comment implements IComparable, Stringable
      */
     private Drawing $backgroundImage;
 
+    public const TEXTBOX_DIRECTION_RTL = 'rtl';
+    public const TEXTBOX_DIRECTION_LTR = 'ltr';
+    // MS uses 'auto' in xml but 'context' in UI
+    public const TEXTBOX_DIRECTION_AUTO = 'auto';
+    public const TEXTBOX_DIRECTION_CONTEXT = 'auto';
+
+    private string $textboxDirection = '';
+
     /**
      * Create a new Comment.
      */
@@ -232,9 +240,6 @@ class Comment implements IComparable, Stringable
         return $this->fillColor;
     }
 
-    /**
-     * Set Alignment.
-     */
     public function setAlignment(string $alignment): self
     {
         $this->alignment = $alignment;
@@ -242,12 +247,21 @@ class Comment implements IComparable, Stringable
         return $this;
     }
 
-    /**
-     * Get Alignment.
-     */
     public function getAlignment(): string
     {
         return $this->alignment;
+    }
+
+    public function setTextboxDirection(string $textboxDirection): self
+    {
+        $this->textboxDirection = $textboxDirection;
+
+        return $this;
+    }
+
+    public function getTextboxDirection(): string
+    {
+        return $this->textboxDirection;
     }
 
     /**
@@ -265,6 +279,7 @@ class Comment implements IComparable, Stringable
             . ($this->visible ? 1 : 0)
             . $this->fillColor->getHashCode()
             . $this->alignment
+            . $this->textboxDirection
             . ($this->hasBackgroundImage() ? $this->backgroundImage->getHashCode() : '')
             . __CLASS__
         );

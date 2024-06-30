@@ -910,9 +910,9 @@ class Workbook extends BIFFwriter
         $record = 0x0022; // Record identifier
         $length = 0x0002; // Bytes to follow
 
-        $f1904 = (Date::getExcelCalendar() === Date::CALENDAR_MAC_1904)
-            ? 1
-            : 0; // Flag for 1904 date system
+        $f1904 = ($this->spreadsheet->getExcelCalendar() === Date::CALENDAR_MAC_1904)
+            ? 1  // Flag for 1904 date system
+            : 0; // Flag for 1900 date system
 
         $header = pack('vv', $record, $length);
         $data = pack('v', $f1904);
