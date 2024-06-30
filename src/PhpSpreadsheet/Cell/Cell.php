@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Cell;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
+use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Collection\Cells;
 use PhpOffice\PhpSpreadsheet\Exception as SpreadsheetException;
@@ -392,7 +393,7 @@ class Cell implements Stringable
                 );
             }
 
-            if ($result === '#Not Yet Implemented') {
+            if ($result === Functions::NOT_YET_IMPLEMENTED) {
                 return $this->calculatedValue; // Fallback if calculation engine does not support the formula.
             }
 

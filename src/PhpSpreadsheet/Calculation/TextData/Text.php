@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\TextData;
 
 use PhpOffice\PhpSpreadsheet\Calculation\ArrayEnabled;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcExp;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ErrorValue;
 
@@ -20,13 +21,17 @@ class Text
      * @return array|int If an array of values is passed for the argument, then the returned result
      *            will also be an array with matching dimensions
      */
-    public static function length(mixed $value = ''): array|int
+    public static function length(mixed $value = ''): array|int|string
     {
         if (is_array($value)) {
             return self::evaluateSingleArgumentArray([self::class, __FUNCTION__], $value);
         }
 
-        $value = Helpers::extractString($value);
+        try {
+            $value = Helpers::extractString($value, true);
+        } catch (CalcExp $e) {
+            return $e->getMessage();
+        }
 
         return mb_strlen($value, 'UTF-8');
     }
@@ -44,14 +49,18 @@ class Text
      * @return array|bool If an array of values is passed for either of the arguments, then the returned result
      *            will also be an array with matching dimensions
      */
-    public static function exact(mixed $value1, mixed $value2): array|bool
+    public static function exact(mixed $value1, mixed $value2): array|bool|string
     {
         if (is_array($value1) || is_array($value2)) {
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $value1, $value2);
         }
 
-        $value1 = Helpers::extractString($value1);
-        $value2 = Helpers::extractString($value2);
+        try {
+            $value1 = Helpers::extractString($value1, true);
+            $value2 = Helpers::extractString($value2, true);
+        } catch (CalcExp $e) {
+            return $e->getMessage();
+        }
 
         return $value2 === $value1;
     }
@@ -97,11 +106,14 @@ class Text
      * @param mixed $padding The value with which to pad the result.
      *                              The default is #N/A.
      *
-     * @return array the array built from the text, split by the row and column delimiters
+     * @return array|string the array built from the text, split by the row and column delimiters, or an error string
      */
-    public static function split(mixed $text, $columnDelimiter = null, $rowDelimiter = null, bool $ignoreEmpty = false, bool $matchMode = true, mixed $padding = '#N/A'): array
+    public static function split(mixed $text, $columnDelimiter = null, $rowDelimiter = null, bool $ignoreEmpty = false, bool $matchMode = true, mixed $padding = '#N/A'): array|string
     {
         $text = Functions::flattenSingleValue($text);
+        if (ErrorValue::isError($text, true)) {
+            return $text;
+        }
 
         $flags = self::matchFlags($matchMode);
 
