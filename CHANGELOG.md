@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Added
 
 - Xlsx Reader Optionally Ignore Rows With No Cells. [Issue #3982](https://github.com/PHPOffice/PhpSpreadsheet/issues/3982) [PR #4035](https://github.com/PHPOffice/PhpSpreadsheet/pull/4035)
+- Option for CSV output file to have varying numbers of columns for each row. [Issue #1415](https://github.com/PHPOffice/PhpSpreadsheet/issues/1415) [PR #4076](https://github.com/PHPOffice/PhpSpreadsheet/pull/4076)
 
 ### Changed
 
@@ -33,7 +34,8 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Mpdf and Tcpdf Borders on Merged Cells. [Issue #3557](https://github.com/PHPOffice/PhpSpreadsheet/issues/3557) [PR #4047](https://github.com/PHPOffice/PhpSpreadsheet/pull/4047)
 - Xls Conditional Format Improvements. [PR #4030](https://github.com/PHPOffice/PhpSpreadsheet/pull/4030) [PR #4033](https://github.com/PHPOffice/PhpSpreadsheet/pull/4033)
 - Conditional Range Unions and Intersections [Issue #4039](https://github.com/PHPOffice/PhpSpreadsheet/issues/4039) [PR #4042](https://github.com/PHPOffice/PhpSpreadsheet/pull/4042)
-- Csv Reader allow use of html mimetype. [Issue #4036](https://github.com/PHPOffice/PhpSpreadsheet/issues/4036) [PR #4049](https://github.com/PHPOffice/PhpSpreadsheet/pull/4040)
+- Csv Reader allow use of html mimetype. [Issue #4036](https://github.com/PHPOffice/PhpSpreadsheet/issues/4036) [PR #4040](https://github.com/PHPOffice/PhpSpreadsheet/pull/4040)
+- Problem rendering line chart with missing plot label. [PR #4074](https://github.com/PHPOffice/PhpSpreadsheet/pull/4074)
 - More RTL in Xlsx/Html Comments [Issue #4004](https://github.com/PHPOffice/PhpSpreadsheet/issues/4004) [PR #4065](https://github.com/PHPOffice/PhpSpreadsheet/pull/4065)
 - Empty String in sharedStrings. [Issue #4063](https://github.com/PHPOffice/PhpSpreadsheet/issues/4063) [PR #4064](https://github.com/PHPOffice/PhpSpreadsheet/pull/4064)
 
