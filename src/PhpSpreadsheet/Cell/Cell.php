@@ -385,10 +385,10 @@ class Cell implements Stringable
 
         if ($this->dataType === DataType::TYPE_FORMULA) {
             try {
+                $index = $this->getWorksheet()->getParentOrThrow()->getActiveSheetIndex();
+                $selected = $this->getWorksheet()->getSelectedCells();
                 $thisworksheet = $this->getWorksheet();
                 $title = $thisworksheet->getTitle();
-                $index = $thisworksheet->getParentOrThrow()->getActiveSheetIndex();
-                $selected = $thisworksheet->getSelectedCells();
                 $result = Calculation::getInstance(
                     $thisworksheet->getParent()
                 )->calculateCellValue($this, $resetLog);
