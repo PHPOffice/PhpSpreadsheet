@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Writer;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use Stringable;
 
@@ -55,6 +56,13 @@ class Csv extends BaseWriter
     private string $outputEncoding = '';
 
     /**
+     * Whether number of columns should be allowed to vary
+     * between rows, or use a fixed range based on the max
+     * column overall.
+     */
+    private bool $variableColumns = false;
+
+    /**
      * Create a new CSV.
      */
     public function __construct(Spreadsheet $spreadsheet)
@@ -105,7 +113,17 @@ class Csv extends BaseWriter
         $maxRow = $sheet->getHighestDataRow();
 
         // Write rows to file
+        $row = 0;
         foreach ($sheet->rangeToArrayYieldRows("A1:$maxCol$maxRow", '', $this->preCalculateFormulas) as $cellsArray) {
+            ++$row;
+            if ($this->variableColumns) {
+                $column = $sheet->getHighestDataColumn($row);
+                if ($column === 'A' && !$sheet->cellExists("A$row")) {
+                    $cellsArray = [];
+                } else {
+                    array_splice($cellsArray, Coordinate::columnIndexFromString($column));
+                }
+            }
             $this->writeLine($this->fileHandle, $cellsArray);
         }
 
@@ -302,5 +320,27 @@ class Csv extends BaseWriter
             $line = mb_convert_encoding($line, $this->outputEncoding);
         }
         fwrite($fileHandle, $line);
+    }
+
+    /**
+     * Get whether number of columns should be allowed to vary
+     * between rows, or use a fixed range based on the max
+     * column overall.
+     */
+    public function getVariableColumns(): bool
+    {
+        return $this->variableColumns;
+    }
+
+    /**
+     * Set whether number of columns should be allowed to vary
+     * between rows, or use a fixed range based on the max
+     * column overall.
+     */
+    public function setVariableColumns(bool $pValue): self
+    {
+        $this->variableColumns = $pValue;
+
+        return $this;
     }
 }

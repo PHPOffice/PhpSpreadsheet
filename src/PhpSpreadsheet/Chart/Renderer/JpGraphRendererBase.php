@@ -281,6 +281,16 @@ abstract class JpGraphRendererBase implements IRenderer
         $this->renderTitle();
     }
 
+    private function getDataLabel(int $groupId, int $index): mixed
+    {
+        $plotLabel = $this->chart->getPlotArea()->getPlotGroupByIndex($groupId)->getPlotLabelByIndex($index);
+        if (!$plotLabel) {
+            return '';
+        }
+
+        return $plotLabel->getDataValue();
+    }
+
     private function renderPlotLine(int $groupID, bool $filled = false, bool $combination = false): void
     {
         $grouping = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotGrouping();
@@ -334,8 +344,8 @@ abstract class JpGraphRendererBase implements IRenderer
                 //    Set the appropriate plot marker
                 $this->formatPointMarker($seriesPlot, $marker);
             }
-            $dataLabel = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotLabelByIndex($index)->getDataValue();
-            $seriesPlot->SetLegend($dataLabel);
+
+            $seriesPlot->SetLegend($this->getDataLabel($groupID, $index));
 
             $seriesPlots[] = $seriesPlot;
         }
@@ -408,12 +418,8 @@ abstract class JpGraphRendererBase implements IRenderer
             if ($dimensions == '3d') {
                 $seriesPlot->SetShadow();
             }
-            if (!$this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotLabelByIndex($j)) {
-                $dataLabel = '';
-            } else {
-                $dataLabel = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotLabelByIndex($j)->getDataValue();
-            }
-            $seriesPlot->SetLegend($dataLabel);
+
+            $seriesPlot->SetLegend($this->getDataLabel($groupID, $j));
 
             $seriesPlots[] = $seriesPlot;
         }
@@ -492,8 +498,7 @@ abstract class JpGraphRendererBase implements IRenderer
                 $marker = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotValuesByIndex($i)->getPointMarker();
                 $this->formatPointMarker($seriesPlot, $marker);
             }
-            $dataLabel = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotLabelByIndex($i)->getDataValue();
-            $seriesPlot->SetLegend($dataLabel);
+            $seriesPlot->SetLegend($this->getDataLabel($groupID, $i));
 
             $this->graph->Add($seriesPlot);
         }
@@ -524,13 +529,12 @@ abstract class JpGraphRendererBase implements IRenderer
 
             $seriesPlot = new RadarPlot(array_reverse($dataValuesX));
 
-            $dataLabel = $this->chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotLabelByIndex($i)->getDataValue();
             $seriesPlot->SetColor(self::$colourSet[self::$plotColour++]);
             if ($radarStyle == 'filled') {
                 $seriesPlot->SetFillColor(self::$colourSet[self::$plotColour]);
             }
             $this->formatPointMarker($seriesPlot, $marker);
-            $seriesPlot->SetLegend($dataLabel);
+            $seriesPlot->SetLegend($this->getDataLabel($groupID, $i));
 
             $this->graph->Add($seriesPlot);
         }

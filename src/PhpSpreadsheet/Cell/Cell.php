@@ -187,10 +187,15 @@ class Cell implements Stringable
      */
     public function getFormattedValue(): string
     {
-        return (string) NumberFormat::toFormattedString(
-            $this->getCalculatedValueString(),
+        $currentCalendar = SharedDate::getExcelCalendar();
+        SharedDate::setExcelCalendar($this->getWorksheet()->getParent()?->getExcelCalendar());
+        $formattedValue = (string) NumberFormat::toFormattedString(
+            $this->getCalculatedValue(),
             (string) $this->getStyle()->getNumberFormat()->getFormatCode(true)
         );
+        SharedDate::setExcelCalendar($currentCalendar);
+
+        return $formattedValue;
     }
 
     protected static function updateIfCellIsTableHeader(?Worksheet $workSheet, self $cell, mixed $oldValue, mixed $newValue): void
@@ -372,6 +377,8 @@ class Cell implements Stringable
     {
         if ($this->dataType === DataType::TYPE_FORMULA) {
             try {
+                $currentCalendar = SharedDate::getExcelCalendar();
+                SharedDate::setExcelCalendar($this->getWorksheet()->getParent()?->getExcelCalendar());
                 $index = $this->getWorksheet()->getParentOrThrow()->getActiveSheetIndex();
                 $selected = $this->getWorksheet()->getSelectedCells();
                 $result = Calculation::getInstance(
@@ -387,6 +394,7 @@ class Cell implements Stringable
                     }
                 }
             } catch (SpreadsheetException $ex) {
+                SharedDate::setExcelCalendar($currentCalendar);
                 if (($ex->getMessage() === 'Unable to access External Workbook') && ($this->calculatedValue !== null)) {
                     return $this->calculatedValue; // Fallback for calculations referencing external files.
                 } elseif (preg_match('/[Uu]ndefined (name|offset: 2|array key 2)/', $ex->getMessage()) === 1) {
@@ -399,6 +407,7 @@ class Cell implements Stringable
                     $ex
                 );
             }
+            SharedDate::setExcelCalendar($currentCalendar);
 
             if ($result === '#Not Yet Implemented') {
                 return $this->calculatedValue; // Fallback if calculation engine does not support the formula.
