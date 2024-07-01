@@ -120,6 +120,7 @@ class Content extends WriterPart
         $spreadsheet = $this->getParentWriter()->getSpreadsheet();
         $sheetCount = $spreadsheet->getSheetCount();
         for ($sheetIndex = 0; $sheetIndex < $sheetCount; ++$sheetIndex) {
+            $spreadsheet->getSheet($sheetIndex)->calculateArrays($this->getParentWriter()->getPreCalculateFormulas());
             $objWriter->startElement('table:table');
             $objWriter->writeAttribute('table:name', $spreadsheet->getSheet($sheetIndex)->getTitle());
             $objWriter->writeAttribute('table:style-name', Style::TABLE_STYLE_PREFIX . (string) ($sheetIndex + 1));
@@ -195,6 +196,7 @@ class Content extends WriterPart
         foreach ($cells as $cell) {
             /** @var Cell $cell */
             $column = Coordinate::columnIndexFromString($cell->getColumn()) - 1;
+            $attributes = $cell->getFormulaAttributes() ?? [];
 
             $this->writeCellSpan($objWriter, $column, $prevColumn);
             $objWriter->startElement('table:table-cell');
@@ -227,6 +229,22 @@ class Content extends WriterPart
                             $formulaValue = $cell->getCalculatedValueString();
                         } catch (CalculationException $e) {
                             // don't do anything
+                        }
+                    }
+                    if (isset($attributes['ref'])) {
+                        if (preg_match('/^([A-Z]{1,3})([0-9]{1,7})(:([A-Z]{1,3})([0-9]{1,7}))?$/', (string) $attributes['ref'], $matches) == 1) {
+                            $matrixRowSpan = 1;
+                            $matrixColSpan = 1;
+                            if (isset($matches[3])) {
+                                $minRow = (int) $matches[2];
+                                $maxRow = (int) $matches[5];
+                                $matrixRowSpan = $maxRow - $minRow + 1;
+                                $minCol = Coordinate::columnIndexFromString($matches[1]);
+                                $maxCol = Coordinate::columnIndexFromString($matches[4]);
+                                $matrixColSpan = $maxCol - $minCol + 1;
+                            }
+                            $objWriter->writeAttribute('table:number-matrix-columns-spanned', "$matrixColSpan");
+                            $objWriter->writeAttribute('table:number-matrix-rows-spanned', "$matrixRowSpan");
                         }
                     }
                     $objWriter->writeAttribute('table:formula', $this->formulaConvertor->convertFormula($cell->getValueString()));

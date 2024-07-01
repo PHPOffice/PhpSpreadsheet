@@ -15,7 +15,7 @@ ADDRESS                  | CATEGORY_LOOKUP_AND_REFERENCE  | \PhpOffice\PhpSpread
 AGGREGATE                | CATEGORY_MATH_AND_TRIG         | **Not yet Implemented**
 AMORDEGRC                | CATEGORY_FINANCIAL             | \PhpOffice\PhpSpreadsheet\Calculation\Financial\Amortization::AMORDEGRC
 AMORLINC                 | CATEGORY_FINANCIAL             | \PhpOffice\PhpSpreadsheet\Calculation\Financial\Amortization::AMORLINC
-ANCHORARRAY              | CATEGORY_UNCATEGORISED         | **Not yet Implemented**
+ANCHORARRAY              | CATEGORY_MICROSOFT_INTERNAL    | \PhpOffice\PhpSpreadsheet\Calculation\Internal\ExcelArrayPseudoFunctions::anchorArray
 AND                      | CATEGORY_LOGICAL               | \PhpOffice\PhpSpreadsheet\Calculation\Logical\Operations::logicalAnd
 ARABIC                   | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Arabic::evaluate
 AREAS                    | CATEGORY_LOOKUP_AND_REFERENCE  | **Not yet Implemented**
@@ -89,7 +89,7 @@ COMBIN                   | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpread
 COMBINA                  | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Combinations::withRepetition
 COMPLEX                  | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering\Complex::COMPLEX
 CONCAT                   | CATEGORY_TEXT_AND_DATA         | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Concatenate::CONCATENATE
-CONCATENATE              | CATEGORY_TEXT_AND_DATA         | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Concatenate::CONCATENATE
+CONCATENATE              | CATEGORY_TEXT_AND_DATA         | \PhpOffice\PhpSpreadsheet\Calculation\TextData\Concatenate::actualCONCATENATE
 CONFIDENCE               | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Confidence::CONFIDENCE
 CONFIDENCE.NORM          | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Confidence::CONFIDENCE
 CONFIDENCE.T             | CATEGORY_STATISTICAL           | **Not yet Implemented**
@@ -510,7 +510,7 @@ SHEET                    | CATEGORY_INFORMATION           | **Not yet Implemente
 SHEETS                   | CATEGORY_INFORMATION           | **Not yet Implemented**
 SIGN                     | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Sign::evaluate
 SIN                      | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Trig\Sine::sin
-SINGLE                   | CATEGORY_UNCATEGORISED         | **Not yet Implemented**
+SINGLE                   | CATEGORY_MICROSOFT_INTERNAL    | \PhpOffice\PhpSpreadsheet\Calculation\Internal\ExcelArrayPseudoFunctions::single
 SINH                     | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Trig\Sine::sinh
 SKEW                     | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical\Deviations::skew
 SKEW.P                   | CATEGORY_STATISTICAL           | **Not yet Implemented**

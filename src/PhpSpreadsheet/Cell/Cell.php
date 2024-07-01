@@ -61,6 +61,8 @@ class Cell implements Stringable
 
     /**
      * Attributes of the formula.
+     *
+     * @var null|array<string, string>
      */
     private mixed $formulaAttributes = null;
 
@@ -362,6 +364,9 @@ class Cell implements Stringable
     public function getCalculatedValueString(): string
     {
         $value = $this->getCalculatedValue();
+        while (is_array($value)) {
+            $value = array_shift($value);
+        }
 
         return ($value === '' || is_scalar($value) || $value instanceof Stringable) ? "$value" : '';
     }
@@ -375,23 +380,145 @@ class Cell implements Stringable
      */
     public function getCalculatedValue(bool $resetLog = true): mixed
     {
+        $title = 'unknown';
+        $oldAttributes = $this->formulaAttributes;
+        $oldAttributesT = $oldAttributes['t'] ?? '';
+        $coordinate = $this->getCoordinate();
+        $oldAttributesRef = $oldAttributes['ref'] ?? $coordinate;
+        if (!str_contains($oldAttributesRef, ':')) {
+            $oldAttributesRef .= ":$oldAttributesRef";
+        }
+        $originalValue = $this->value;
+        $originalDataType = $this->dataType;
+        $this->formulaAttributes = [];
+        $spill = false;
+
         if ($this->dataType === DataType::TYPE_FORMULA) {
             try {
                 $currentCalendar = SharedDate::getExcelCalendar();
                 SharedDate::setExcelCalendar($this->getWorksheet()->getParent()?->getExcelCalendar());
                 $index = $this->getWorksheet()->getParentOrThrow()->getActiveSheetIndex();
                 $selected = $this->getWorksheet()->getSelectedCells();
+                $thisworksheet = $this->getWorksheet();
+                $title = $thisworksheet->getTitle();
                 $result = Calculation::getInstance(
-                    $this->getWorksheet()->getParent()
+                    $thisworksheet->getParent()
                 )->calculateCellValue($this, $resetLog);
                 $result = $this->convertDateTimeInt($result);
-                $this->getWorksheet()->setSelectedCells($selected);
-                $this->getWorksheet()->getParentOrThrow()->setActiveSheetIndex($index);
-                //    We don't yet handle array returns
-                if (is_array($result)) {
+                $thisworksheet->setSelectedCells($selected);
+                $thisworksheet->getParentOrThrow()->setActiveSheetIndex($index);
+                if (is_array($result) && Calculation::getArrayReturnType() !== Calculation::RETURN_ARRAY_AS_ARRAY) {
                     while (is_array($result)) {
                         $result = array_shift($result);
                     }
+                }
+                // if return_as_array for formula like '=sheet!cell'
+                if (is_array($result) && count($result) === 1) {
+                    $resultKey = array_keys($result)[0];
+                    $resultValue = $result[$resultKey];
+                    if (is_int($resultKey) && is_array($resultValue) && count($resultValue) === 1) {
+                        $resultKey2 = array_keys($resultValue)[0];
+                        $resultValue2 = $resultValue[$resultKey2];
+                        if (is_string($resultKey2) && !is_array($resultValue2) && preg_match('/[a-zA-Z]{1,3}/', $resultKey2) === 1) {
+                            $result = $resultValue2;
+                        }
+                    }
+                }
+                $newColumn = $this->getColumn();
+                if (is_array($result)) {
+                    $this->formulaAttributes['t'] = 'array';
+                    $this->formulaAttributes['ref'] = $maxCoordinate = $coordinate;
+                    $newRow = $row = $this->getRow();
+                    $column = $this->getColumn();
+                    foreach ($result as $resultRow) {
+                        if (is_array($resultRow)) {
+                            $newColumn = $column;
+                            foreach ($resultRow as $resultValue) {
+                                if ($row !== $newRow || $column !== $newColumn) {
+                                    $maxCoordinate = $newColumn . $newRow;
+                                    if ($thisworksheet->getCell($newColumn . $newRow)->getValue() !== null) {
+                                        if (!Coordinate::coordinateIsInsideRange($oldAttributesRef, $newColumn . $newRow)) {
+                                            $spill = true;
+
+                                            break;
+                                        }
+                                    }
+                                }
+                                ++$newColumn;
+                            }
+                            ++$newRow;
+                        } else {
+                            if ($row !== $newRow || $column !== $newColumn) {
+                                $maxCoordinate = $newColumn . $newRow;
+                                if ($thisworksheet->getCell($newColumn . $newRow)->getValue() !== null) {
+                                    if (!Coordinate::coordinateIsInsideRange($oldAttributesRef, $newColumn . $newRow)) {
+                                        $spill = true;
+                                    }
+                                }
+                            }
+                            ++$newColumn;
+                        }
+                        if ($spill) {
+                            break;
+                        }
+                    }
+                    if (!$spill) {
+                        $this->formulaAttributes['ref'] .= ":$maxCoordinate";
+                    }
+                    $thisworksheet->getCell($column . $row);
+                }
+                if (is_array($result)) {
+                    if ($oldAttributes !== null && Calculation::getArrayReturnType() === Calculation::RETURN_ARRAY_AS_ARRAY) {
+                        if (($oldAttributesT) === 'array') {
+                            $thisworksheet = $this->getWorksheet();
+                            $coordinate = $this->getCoordinate();
+                            $ref = $oldAttributesRef;
+                            if (preg_match('/^([A-Z]{1,3})([0-9]{1,7})(:([A-Z]{1,3})([0-9]{1,7}))?$/', $ref, $matches) === 1) {
+                                if (isset($matches[3])) {
+                                    $minCol = $matches[1];
+                                    $minRow = (int) $matches[2];
+                                    $maxCol = $matches[4];
+                                    ++$maxCol;
+                                    $maxRow = (int) $matches[5];
+                                    for ($row = $minRow; $row <= $maxRow; ++$row) {
+                                        for ($col = $minCol; $col !== $maxCol; ++$col) {
+                                            if ("$col$row" !== $coordinate) {
+                                                $thisworksheet->getCell("$col$row")->setValue(null);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            $thisworksheet->getCell($coordinate);
+                        }
+                    }
+                }
+                if ($spill) {
+                    $result = ExcelError::SPILL();
+                }
+                if (is_array($result)) {
+                    $newRow = $row = $this->getRow();
+                    $newColumn = $column = $this->getColumn();
+                    foreach ($result as $resultRow) {
+                        if (is_array($resultRow)) {
+                            $newColumn = $column;
+                            foreach ($resultRow as $resultValue) {
+                                if ($row !== $newRow || $column !== $newColumn) {
+                                    $thisworksheet->getCell($newColumn . $newRow)->setValue($resultValue);
+                                }
+                                ++$newColumn;
+                            }
+                            ++$newRow;
+                        } else {
+                            if ($row !== $newRow || $column !== $newColumn) {
+                                $thisworksheet->getCell($newColumn . $newRow)->setValue($resultRow);
+                            }
+                            ++$newColumn;
+                        }
+                    }
+                    $thisworksheet->getCell($column . $row);
+                    $this->value = $originalValue;
+                    $this->dataType = $originalDataType;
                 }
             } catch (SpreadsheetException $ex) {
                 SharedDate::setExcelCalendar($currentCalendar);
@@ -402,7 +529,7 @@ class Cell implements Stringable
                 }
 
                 throw new CalculationException(
-                    $this->getWorksheet()->getTitle() . '!' . $this->getCoordinate() . ' -> ' . $ex->getMessage(),
+                    $title . '!' . $this->getCoordinate() . ' -> ' . $ex->getMessage(),
                     $ex->getCode(),
                     $ex
                 );
@@ -785,6 +912,8 @@ class Cell implements Stringable
     /**
      * Set the formula attributes.
      *
+     * @param $attributes null|array<string, string>
+     *
      * @return $this
      */
     public function setFormulaAttributes(mixed $attributes): self
@@ -796,6 +925,8 @@ class Cell implements Stringable
 
     /**
      * Get the formula attributes.
+     *
+     * @return null|array<string, string>
      */
     public function getFormulaAttributes(): mixed
     {

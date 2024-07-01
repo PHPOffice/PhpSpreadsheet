@@ -108,7 +108,7 @@ class Formatter extends BaseFormatter
     /**
      * Convert a value in a pre-defined format to a PHP string.
      *
-     * @param null|bool|float|int|RichText|string $value Value to format
+     * @param null|array|bool|float|int|RichText|string $value Value to format
      * @param string $format Format code: see = self::FORMAT_* for predefined values;
      *                          or can be any valid MS Excel custom format string
      * @param ?array $callBack Callback function for additional formatting of string
@@ -117,6 +117,9 @@ class Formatter extends BaseFormatter
      */
     public static function toFormattedString($value, string $format, ?array $callBack = null): string
     {
+        while (is_array($value)) {
+            $value = array_shift($value);
+        }
         if (is_bool($value)) {
             return $value ? Calculation::getTRUE() : Calculation::getFALSE();
         }

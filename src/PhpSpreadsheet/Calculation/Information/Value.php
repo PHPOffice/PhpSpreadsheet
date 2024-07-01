@@ -39,7 +39,7 @@ class Value
      */
     public static function isRef(mixed $value, ?Cell $cell = null): bool
     {
-        if ($cell === null || $value === $cell->getCoordinate()) {
+        if ($cell === null) {
             return false;
         }
 

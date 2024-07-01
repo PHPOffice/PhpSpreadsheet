@@ -136,6 +136,10 @@ class Xlsx extends BaseWriter
 
     private bool $explicitStyle0 = false;
 
+    private bool $useCSEArrays = false;
+
+    private bool $useDynamicArray = false;
+
     /**
      * Create a new Xlsx Writer.
      */
@@ -167,6 +171,7 @@ class Xlsx extends BaseWriter
         $this->numFmtHashTable = new HashTable();
         $this->styleHashTable = new HashTable();
         $this->stylesConditionalHashTable = new HashTable();
+        $this->determineUseDynamicArrays();
     }
 
     public function getWriterPartChart(): Chart
@@ -247,6 +252,7 @@ class Xlsx extends BaseWriter
     public function save($filename, int $flags = 0): void
     {
         $this->processFlags($flags);
+        $this->determineUseDynamicArrays();
 
         // garbage collect
         $this->pathNames = [];
@@ -277,6 +283,10 @@ class Xlsx extends BaseWriter
         $zipContent = [];
         // Add [Content_Types].xml to ZIP file
         $zipContent['[Content_Types].xml'] = $this->getWriterPartContentTypes()->writeContentTypes($this->spreadSheet, $this->includeCharts);
+        $metadataData = (new Xlsx\Metadata($this))->writeMetadata();
+        if ($metadataData !== '') {
+            $zipContent['xl/metadata.xml'] = $metadataData;
+        }
 
         //if hasMacros, add the vbaProject.bin file, Certificate file(if exists)
         if ($this->spreadSheet->hasMacros()) {
@@ -710,5 +720,23 @@ class Xlsx extends BaseWriter
         $this->explicitStyle0 = $explicitStyle0;
 
         return $this;
+    }
+
+    public function setUseCSEArrays(?bool $useCSEArrays): void
+    {
+        if ($useCSEArrays !== null) {
+            $this->useCSEArrays = $useCSEArrays;
+        }
+        $this->determineUseDynamicArrays();
+    }
+
+    public function useDynamicArrays(): bool
+    {
+        return $this->useDynamicArray;
+    }
+
+    private function determineUseDynamicArrays(): void
+    {
+        $this->useDynamicArray = $this->preCalculateFormulas && Calculation::getInstance($this->spreadSheet)->getArrayReturnType() === Calculation::RETURN_ARRAY_AS_ARRAY && !$this->useCSEArrays;
     }
 }

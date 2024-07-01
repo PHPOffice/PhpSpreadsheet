@@ -39,6 +39,8 @@ class Calculation
     const CALCULATION_REGEXP_STRIP_XLFN_XLWS = '/(_xlfn[.])?(_xlws[.])?(?=[\p{L}][\p{L}\p{N}\.]*[\s]*[(])/';
     //    Cell reference (cell or range of cells, with or without a sheet reference)
     const CALCULATION_REGEXP_CELLREF = '((([^\s,!&%^\/\*\+<>=:`-]*)|(\'(?:[^\']|\'[^!])+?\')|(\"(?:[^\"]|\"[^!])+?\"))!)?\$?\b([a-z]{1,3})\$?(\d{1,7})(?![\w.])';
+    // Used only to detect spill operator #
+    const CALCULATION_REGEXP_CELLREF_SPILL = '/' . self::CALCULATION_REGEXP_CELLREF . '#/i';
     //    Cell reference (with or without a sheet reference) ensuring absolute/relative
     const CALCULATION_REGEXP_CELLREF_RELATIVE = '((([^\s\(,!&%^\/\*\+<>=:`-]*)|(\'(?:[^\']|\'[^!])+?\')|(\"(?:[^\"]|\"[^!])+?\"))!)?(\$?\b[a-z]{1,3})(\$?\d{1,7})(?![\w.])';
     const CALCULATION_REGEXP_COLUMN_RANGE = '(((([^\s\(,!&%^\/\*\+<>=:`-]*)|(\'(?:[^\']|\'[^!])+?\')|(\".(?:[^\"]|\"[^!])?\"))!)?(\$?[a-z]{1,3})):(?![.*])';
@@ -275,9 +277,11 @@ class Calculation
             'argumentCount' => '6,7',
         ],
         'ANCHORARRAY' => [
-            'category' => Category::CATEGORY_UNCATEGORISED,
-            'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '*',
+            'category' => Category::CATEGORY_MICROSOFT_INTERNAL,
+            'functionCall' => [Internal\ExcelArrayPseudoFunctions::class, 'anchorArray'],
+            'argumentCount' => '1',
+            'passCellReference' => true,
+            'passByReference' => [true],
         ],
         'AND' => [
             'category' => Category::CATEGORY_LOGICAL,
@@ -598,7 +602,7 @@ class Calculation
         ],
         'CONCATENATE' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [TextData\Concatenate::class, 'CONCATENATE'],
+            'functionCall' => [TextData\Concatenate::class, 'actualCONCATENATE'],
             'argumentCount' => '1+',
         ],
         'CONFIDENCE' => [
@@ -2314,9 +2318,11 @@ class Calculation
             'argumentCount' => '1',
         ],
         'SINGLE' => [
-            'category' => Category::CATEGORY_UNCATEGORISED,
-            'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '*',
+            'category' => Category::CATEGORY_MICROSOFT_INTERNAL,
+            'functionCall' => [Internal\ExcelArrayPseudoFunctions::class, 'single'],
+            'argumentCount' => '1',
+            'passCellReference' => true,
+            'passByReference' => [true],
         ],
         'SINH' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
@@ -3465,7 +3471,15 @@ class Calculation
         $cellAddress = null;
 
         try {
-            $result = self::unwrapResult($this->_calculateFormulaValue($cell->getValue(), $cell->getCoordinate(), $cell));
+            $value = $cell->getValue();
+            if ($cell->getDataType() === DataType::TYPE_FORMULA) {
+                $value = preg_replace_callback(
+                    self::CALCULATION_REGEXP_CELLREF_SPILL,
+                    fn (array $matches) => 'ANCHORARRAY(' . substr($matches[0], 0, -1) . ')',
+                    $value
+                );
+            }
+            $result = self::unwrapResult($this->_calculateFormulaValue($value, $cell->getCoordinate(), $cell));
             if ($this->spreadsheet === null) {
                 throw new Exception('null spreadsheet in calculateCellValue');
             }
@@ -3489,6 +3503,7 @@ class Calculation
                     $testSheet->getCell($cellAddress['cell']);
                 }
             }
+            self::$returnArrayAsType = $returnArrayAsType;
 
             throw new Exception($e->getMessage(), $e->getCode(), $e);
         }
@@ -3637,7 +3652,7 @@ class Calculation
         //    Basic validation that this is indeed a formula
         //    We simply return the cell value if not
         $formula = trim($formula);
-        if ($formula[0] != '=') {
+        if ($formula === '' || $formula[0] !== '=') {
             return self::wrapResult($formula);
         }
         $formula = ltrim(substr($formula, 1));
@@ -3702,7 +3717,7 @@ class Calculation
      *                                            1 = shrink to fit
      *                                            2 = extend to fit
      */
-    private static function checkMatrixOperands(mixed &$operand1, mixed &$operand2, int $resize = 1): array
+    public static function checkMatrixOperands(mixed &$operand1, mixed &$operand2, int $resize = 1): array
     {
         //    Examine each of the two operands, and turn them into an array if they aren't one already
         //    Note that this function should only be called if one or both of the operand is already an array
@@ -3718,7 +3733,9 @@ class Calculation
 
         [$matrix1Rows, $matrix1Columns] = self::getMatrixDimensions($operand1);
         [$matrix2Rows, $matrix2Columns] = self::getMatrixDimensions($operand2);
-        if (($matrix1Rows == $matrix2Columns) && ($matrix2Rows == $matrix1Columns)) {
+        if ($resize === 3) {
+            $resize = 2;
+        } elseif (($matrix1Rows == $matrix2Columns) && ($matrix2Rows == $matrix1Columns)) {
             $resize = 1;
         }
 
@@ -4545,6 +4562,7 @@ class Calculation
         //    If we're using cell caching, then $pCell may well be flushed back to the cache (which detaches the parent cell collection),
         //        so we store the parent cell collection so that we can re-attach it when necessary
         $pCellWorksheet = ($cell !== null) ? $cell->getWorksheet() : null;
+        $originalCoordinate = $cell?->getCoordinate();
         $pCellParent = ($cell !== null) ? $cell->getParent() : null;
         $stack = new Stack($this->branchPruner);
 
@@ -4989,7 +5007,18 @@ class Calculation
                             && (self::$phpSpreadsheetFunctions[$functionName]['passByReference'][$a])
                         ) {
                             if ($arg['reference'] === null) {
-                                $args[] = $cellID;
+                                $nextArg = $cellID;
+                                if ($functionName === 'ISREF' && is_array($arg) && ($arg['type'] ?? '') === 'Value') {
+                                    if (array_key_exists('value', $arg)) {
+                                        $argValue = $arg['value'];
+                                        if (is_scalar($argValue)) {
+                                            $nextArg = $argValue;
+                                        } elseif (empty($argValue)) {
+                                            $nextArg = '';
+                                        }
+                                    }
+                                }
+                                $args[] = $nextArg;
                                 if ($functionName !== 'MKMATRIX') {
                                     $argArrayVals[] = $this->showValue($cellID);
                                 }
@@ -5035,6 +5064,9 @@ class Calculation
                     }
 
                     //    Process the argument with the appropriate function call
+                    if ($pCellWorksheet !== null && $originalCoordinate !== null) {
+                        $pCellWorksheet->getCell($originalCoordinate);
+                    }
                     $args = $this->addCellReference($args, $passCellReference, $functionCall, $cell);
 
                     if (!is_array($functionCall)) {
@@ -5242,7 +5274,7 @@ class Calculation
                     $operand2[$key] = Functions::flattenArray($value);
                 }
             }
-            [$rows, $columns] = self::checkMatrixOperands($operand1, $operand2, 2);
+            [$rows, $columns] = self::checkMatrixOperands($operand1, $operand2, 3);
 
             for ($row = 0; $row < $rows; ++$row) {
                 for ($column = 0; $column < $columns; ++$column) {
@@ -5642,7 +5674,7 @@ class Calculation
         return $this->suppressFormulaErrors;
     }
 
-    private static function boolToString(mixed $operand1): mixed
+    public static function boolToString(mixed $operand1): mixed
     {
         if (is_bool($operand1)) {
             $operand1 = ($operand1) ? self::$localeBoolean['TRUE'] : self::$localeBoolean['FALSE'];

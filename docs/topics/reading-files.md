@@ -168,6 +168,87 @@ Once you have created a reader object for the workbook that you want to
 load, you have the opportunity to set additional options before
 executing the `load()` method.
 
+All of these options can be set by calling the appropriate methods against the Reader (as described below), but some options (those with only two possible values) can also be set through flags, either by calling the Reader's `setFlags()` method, or passing the flags as an argument in the call to `load()`.
+Those options that can be set through flags are:
+
+Option             | Flag                                | Default
+-------------------|-------------------------------------|------------------------
+Empty Cells        | IReader::IGNORE_EMPTY_CELLS         | Load empty cells
+Rows with no Cells | IReader::IGNORE_ROWS_WITH_NO_CELLS  | Load rows with no cells
+Data Only          | IReader::READ_DATA_ONLY             | Read data, structure and style
+Charts             | IReader::LOAD_WITH_CHARTS           | Don't read charts
+
+Several flags can be combined in a single call:
+```php
+$inputFileType = 'Xlsx';
+$inputFileName = './sampleData/example1.xlsx';
+
+/**  Create a new Reader of the type defined in $inputFileType  **/
+$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+/** Set additional flags before the call to load() */
+$reader->setFlags(IReader::IGNORE_EMPTY_CELLS | IReader::LOAD_WITH_CHARTS);
+$reader->load($inputFileName);
+```
+or
+```php
+$inputFileType = 'Xlsx';
+$inputFileName = './sampleData/example1.xlsx';
+
+/**  Create a new Reader of the type defined in $inputFileType  **/
+$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+/** Set additional flags in the call to load() */
+$reader->load($inputFileName, IReader::IGNORE_EMPTY_CELLS | IReader::LOAD_WITH_CHARTS);
+```
+
+### Ignoring Empty Cells
+
+Many Excel files have empty rows or columns at the end of a worksheet, which can't easily be seen when looking at the file in Excel (Try using Ctrl-End to see the last cell in a worksheet).
+By default, PhpSpreadsheet will load these cells, because they are valid Excel values; but you may find that an apparently small spreadsheet requires a lot of memory for all those empty cells.
+If you are running into memory issues with seemingly small files, you can tell PhpSpreadsheet not to load those empty cells using the `setReadEmptyCells()` method. 
+
+```php
+$inputFileType = 'Xls';
+$inputFileName = './sampleData/example1.xls';
+
+/**  Create a new Reader of the type defined in $inputFileType  **/
+$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+/**  Advise the Reader that we only want to load cell's that contain actual content  **/
+$reader->setReadEmptyCells(false);
+/**  Load $inputFileName to a Spreadsheet Object  **/
+$spreadsheet = $reader->load($inputFileName);
+```
+
+Note that cells containing formulae will still be loaded, even if that formula evaluates to a NULL or an empty string.
+Similarly, Conditional Styling might also hide the value of a cell; but cells that contain Conditional Styling or Data Validation will always be loaded regardless of their value.
+
+This option is available for the following formats:
+
+Reader    | Y/N |Reader  | Y/N |Reader        | Y/N |
+----------|:---:|--------|:---:|--------------|:---:|
+Xlsx      | YES | Xls    | YES | Xml          | NO  |
+Ods       | NO  | SYLK   | NO  | Gnumeric     | NO  |
+CSV       | NO  | HTML   | NO
+
+This option is also available through flags.
+
+### Ignoring Rows With No Cells
+
+Similar to the previous item, you can choose to ignore rows which contain no cells.
+This can also help with memory issues.
+```php
+$inputFileType = 'Xlsx';
+$inputFileName = './sampleData/example1.xlsx';
+
+/**  Create a new Reader of the type defined in $inputFileType  **/
+$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+/**  Advise the Reader that we do not want rows with no cells  **/
+$reader->setIgnoreRowsWithNoCells(true);
+/**  Load $inputFileName to a Spreadsheet Object  **/
+$spreadsheet = $reader->load($inputFileName);
+```
+
+This option is available only for Xlsx. It is also available through flags.
+
 ### Reading Only Data from a Spreadsheet File
 
 If you're only interested in the cell values in a workbook, but don't
@@ -209,6 +290,8 @@ Reader    | Y/N |Reader  | Y/N |Reader        | Y/N |
 Xlsx      | YES | Xls    | YES | Xml          | YES |
 Ods       | YES | SYLK   | NO  | Gnumeric     | YES |
 CSV       | NO  | HTML   | NO
+
+This option is also available through flags.
 
 ### Reading Only Named WorkSheets from a File
 
@@ -642,7 +725,7 @@ Xlsx      | NO  | Xls    | NO  | Xml          | NO  |
 Ods       | NO  | SYLK   | NO  | Gnumeric     | NO  |
 CSV       | YES | HTML   | NO
 
-### A Brief Word about the Advanced Value Binder
+## A Brief Word about the Advanced Value Binder
 
 When loading data from a file that contains no formatting information,
 such as a CSV file, then data is read either as strings or numbers
@@ -693,6 +776,9 @@ Reader    | Y/N |Reader  | Y/N |Reader        | Y/N
 Xlsx      | NO  | Xls    | NO  | Xml          | NO
 Ods       | NO  | SYLK   | NO  | Gnumeric     | NO
 CSV       | YES | HTML   | YES
+
+Note that you can also use the Binder to determine how PhpSpreadsheet identified datatypes for values when you set a cell value without explicitly setting a datatype.
+Value Binders can also be used to set formatting for a cell appropriate to the value.
 
 ## Error Handling
 
