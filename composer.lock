@@ -1261,16 +1261,16 @@
         },
         {
             "name": "mpdf/mpdf",
-            "version": "v8.2.3",
+            "version": "v8.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mpdf/mpdf.git",
-                "reference": "6f723a96becf989a831e38caf758d28364a69939"
+                "reference": "9e3ff91606fed11cd58a130eabaaf60e56fdda88"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mpdf/mpdf/zipball/6f723a96becf989a831e38caf758d28364a69939",
-                "reference": "6f723a96becf989a831e38caf758d28364a69939",
+                "url": "https://api.github.com/repos/mpdf/mpdf/zipball/9e3ff91606fed11cd58a130eabaaf60e56fdda88",
+                "reference": "9e3ff91606fed11cd58a130eabaaf60e56fdda88",
                 "shasum": ""
             },
             "require": {
@@ -1338,7 +1338,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2024-03-11T12:55:53+00:00"
+            "time": "2024-06-14T16:06:41+00:00"
         },
         {
             "name": "mpdf/psr-http-message-shim",
