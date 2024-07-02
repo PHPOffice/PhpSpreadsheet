@@ -1633,7 +1633,7 @@ class Calculation
             'category' => Category::CATEGORY_STATISTICAL,
             'functionCall' => [Statistical\Trends::class, 'LINEST'],
             'argumentCount' => '1-4',
-        ],
+        ], 
         'LN' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
             'functionCall' => [MathTrig\Logarithms::class, 'natural'],
@@ -2873,7 +2873,7 @@ class Calculation
             'functionCall' => [Internal\WildcardMatch::class, 'compare'],
         ],
     ];
-
+    
     public function __construct(?Spreadsheet $spreadsheet = null)
     {
         $this->spreadsheet = $spreadsheet;
