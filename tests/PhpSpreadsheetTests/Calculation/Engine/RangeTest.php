@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Engine;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\NamedRange;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -13,13 +14,23 @@ class RangeTest extends TestCase
 {
     private string $incompleteMessage = 'Must be revisited';
 
-    private Spreadsheet $spreadSheet;
+    private ?Spreadsheet $spreadSheet = null;
 
-    protected function setUp(): void
+    protected function getSpreadsheet(): Spreadsheet
     {
-        $this->spreadSheet = new Spreadsheet();
-        $this->spreadSheet->getActiveSheet()
+        $spreadsheet = new Spreadsheet();
+        $spreadsheet->getActiveSheet()
             ->fromArray(array_chunk(range(1, 240), 6), null, 'A1', true);
+
+        return $spreadsheet;
+    }
+
+    protected function tearDown(): void
+    {
+        if ($this->spreadSheet !== null) {
+            $this->spreadSheet->disconnectWorksheets();
+            $this->spreadSheet = null;
+        }
     }
 
     /**
@@ -27,6 +38,7 @@ class RangeTest extends TestCase
      */
     public function testRangeEvaluation(string $formula, int|string $expectedResult): void
     {
+        $this->spreadSheet = $this->getSpreadsheet();
         $workSheet = $this->spreadSheet->getActiveSheet();
         $workSheet->setCellValue('H1', $formula);
 
@@ -64,8 +76,20 @@ class RangeTest extends TestCase
         ];
     }
 
+    public function test3dRangeParsing(): void
+    {
+        // This test shows that parsing throws exception.
+        // Next test shows that formula is still treated as a formula
+        //     despite the parse failure.
+        $this->expectExceptionMessage('3D Range references are not yet supported');
+        $calculation = new Calculation();
+        $calculation->disableBranchPruning();
+        $calculation->parseFormula('=SUM(Worksheet!A1:Worksheet2!B3');
+    }
+
     public function test3dRangeEvaluation(): void
     {
+        $this->spreadSheet = $this->getSpreadsheet();
         $workSheet = $this->spreadSheet->getActiveSheet();
         $workSheet->setCellValue('E1', '=SUM(Worksheet!A1:Worksheet2!B3)');
 
@@ -78,6 +102,7 @@ class RangeTest extends TestCase
      */
     public function testNamedRangeEvaluation(array $ranges, string $formula, int $expectedResult): void
     {
+        $this->spreadSheet = $this->getSpreadsheet();
         $workSheet = $this->spreadSheet->getActiveSheet();
         foreach ($ranges as $id => $range) {
             $this->spreadSheet->addNamedRange(new NamedRange('GROUP' . ++$id, $workSheet, $range));
@@ -116,6 +141,7 @@ class RangeTest extends TestCase
      */
     public function testUTF8NamedRangeEvaluation(array $names, array $ranges, string $formula, int $expectedResult): void
     {
+        $this->spreadSheet = $this->getSpreadsheet();
         $workSheet = $this->spreadSheet->getActiveSheet();
         foreach ($names as $index => $name) {
             $range = $ranges[$index];
@@ -144,6 +170,7 @@ class RangeTest extends TestCase
         if ($this->incompleteMessage !== '') {
             self::markTestIncomplete($this->incompleteMessage);
         }
+        $this->spreadSheet = $this->getSpreadsheet();
 
         $workSheet = $this->spreadSheet->getActiveSheet();
         $this->spreadSheet->addNamedRange(new NamedRange('COMPOSITE', $workSheet, $composite));

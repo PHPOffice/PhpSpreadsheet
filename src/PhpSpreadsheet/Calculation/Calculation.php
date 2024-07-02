@@ -4065,7 +4065,7 @@ class Calculation
             $opCharacter = $formula[$index]; //    Get the first character of the value at the current index position
 
             // Check for two-character operators (e.g. >=, <=, <>)
-            if ((isset(self::$comparisonOperators[$opCharacter])) && (strlen($formula) > $index) && (isset(self::$comparisonOperators[$formula[$index + 1]]))) {
+            if ((isset(self::$comparisonOperators[$opCharacter])) && (strlen($formula) > $index) && isset($formula[$index + 1], self::$comparisonOperators[$formula[$index + 1]])) {
                 $opCharacter .= $formula[++$index];
             }
             //    Find out if we're currently at the beginning of a number, variable, cell/row/column reference,

@@ -255,6 +255,7 @@ class Cell implements Stringable
     public function setValueExplicit(mixed $value, string $dataType = DataType::TYPE_STRING): self
     {
         $oldValue = $this->value;
+        $quotePrefix = false;
 
         // set the value according to data type
         switch ($dataType) {
@@ -267,6 +268,10 @@ class Cell implements Stringable
                 // no break
             case DataType::TYPE_STRING:
                 // Synonym for string
+                if (is_string($value) && strlen($value) > 1 && $value[0] === '=') {
+                    $quotePrefix = true;
+                }
+                // no break
             case DataType::TYPE_INLINE:
                 // Rich text
                 if ($value !== null && !is_scalar($value) && !($value instanceof Stringable)) {
@@ -312,6 +317,7 @@ class Cell implements Stringable
         $this->updateInCollection();
         $cellCoordinate = $this->getCoordinate();
         self::updateIfCellIsTableHeader($this->getParent()?->getParent(), $this, $oldValue, $value);
+        $this->getWorksheet()->applyStylesFromArray($cellCoordinate, ['quotePrefix' => $quotePrefix]);
 
         return $this->getParent()?->get($cellCoordinate) ?? $this;
     }

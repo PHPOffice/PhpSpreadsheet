@@ -3,6 +3,8 @@
 namespace PhpOffice\PhpSpreadsheet\Cell;
 
 use DateTimeInterface;
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
 use PhpOffice\PhpSpreadsheet\Exception as SpreadsheetException;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
@@ -68,6 +70,23 @@ class DefaultValueBinder implements IValueBinder
             throw new SpreadsheetException("unusable type $gettype");
         }
         if (strlen($value) > 1 && $value[0] === '=') {
+            $calculation = new Calculation();
+            $calculation->disableBranchPruning();
+
+            try {
+                if (empty($calculation->parseFormula($value))) {
+                    return DataType::TYPE_STRING;
+                }
+            } catch (CalculationException $e) {
+                $message = $e->getMessage();
+                if (
+                    $message === 'Formula Error: An unexpected error occurred'
+                    || str_contains($message, 'has no operands')
+                ) {
+                    return DataType::TYPE_STRING;
+                }
+            }
+
             return DataType::TYPE_FORMULA;
         }
         if (preg_match('/^[\+\-]?(\d+\\.?\d*|\d*\\.?\d+)([Ee][\-\+]?[0-2]?\d{1,3})?$/', $value)) {
