@@ -6,6 +6,7 @@ use DOMAttr;
 use DOMDocument;
 use DOMElement;
 use DOMNode;
+use DOMText;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Helper\Dimension as HelperDimension;
@@ -403,8 +404,11 @@ class Ods extends BaseReader
                             }
 
                             $columnID = 'A';
-                            /** @var DOMElement $cellData */
+                            /** @var DOMElement|DOMText $cellData */
                             foreach ($childNode->childNodes as $cellData) {
+                                if ($cellData instanceof DOMText) {
+                                    continue; // should just be whitespace
+                                }
                                 if ($this->getReadFilter() !== null) {
                                     if (!$this->getReadFilter()->readCell($columnID, $rowID, $worksheetName)) {
                                         if ($cellData->hasAttributeNS($tableNs, 'number-columns-repeated')) {
