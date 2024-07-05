@@ -367,13 +367,13 @@
     <tr>
         <td style="padding-left: 1em;">Array</td>
         <td style="text-align: center; color: red;">✖</td>
+        <td style="text-align: center; color: green;">✔</td>
+        <td style="text-align: center; color: green;">✔</td>
+        <td style="text-align: center; color: green;">✔</td>
+        <td style="text-align: center; color: green;">✔</td>
+        <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: red;">✖</td>
-        <td style="text-align: center; color: red;">✖</td>
-        <td style="text-align: center; color: red;">✖</td>
-        <td style="text-align: center; color: red;">✖</td>
-        <td style="text-align: center; color: red;">✖</td>
-        <td style="text-align: center; color: red;">✖</td>
-        <td style="text-align: center; color: red;">✖</td>
+        <td style="text-align: center; color: green;">✔</td>
     </tr>
     <tr>
         <td style="padding-left: 1em;">Rich Text</td>
