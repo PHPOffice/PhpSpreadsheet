@@ -1501,10 +1501,10 @@
     <tr>
         <td style="padding-left: 1em;">Alignment</td>
         <td style="text-align: center; color: red;">✖</td>
-        <td style="text-align: center; color: red;">✖</td>
+        <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center; color: red;">✖</td>
         <td style="text-align: center;">N/A</td>
-        <td style="text-align: center; color: red;">✖</td>
+        <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center;">N/A</td>
     </tr>
     <tr>
