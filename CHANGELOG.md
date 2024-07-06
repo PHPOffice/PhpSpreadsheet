@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Added
 
 - Xlsx Reader Optionally Ignore Rows With No Cells. [Issue #3982](https://github.com/PHPOffice/PhpSpreadsheet/issues/3982) [PR #4035](https://github.com/PHPOffice/PhpSpreadsheet/pull/4035)
+- Means to change style without affecting current cell/sheet. [PR #4073](https://github.com/PHPOffice/PhpSpreadsheet/pull/4073)
 - Option for CSV output file to have varying numbers of columns for each row. [Issue #1415](https://github.com/PHPOffice/PhpSpreadsheet/issues/1415) [PR #4076](https://github.com/PHPOffice/PhpSpreadsheet/pull/4076)
 
 ### Changed
@@ -38,6 +39,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Problem rendering line chart with missing plot label. [PR #4074](https://github.com/PHPOffice/PhpSpreadsheet/pull/4074)
 - More RTL in Xlsx/Html Comments [Issue #4004](https://github.com/PHPOffice/PhpSpreadsheet/issues/4004) [PR #4065](https://github.com/PHPOffice/PhpSpreadsheet/pull/4065)
 - Empty String in sharedStrings. [Issue #4063](https://github.com/PHPOffice/PhpSpreadsheet/issues/4063) [PR #4064](https://github.com/PHPOffice/PhpSpreadsheet/pull/4064)
+- Treat invalid formulas as strings. [Issue #1310](https://github.com/PHPOffice/PhpSpreadsheet/issues/1310) [PR #4073](https://github.com/PHPOffice/PhpSpreadsheet/pull/4073)
 
 ## 2024-05-11 - 2.1.0
 
