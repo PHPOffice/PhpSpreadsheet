@@ -679,6 +679,18 @@ $writer->setOutputEncoding('SJIS-WIN');
 $writer->save("05featuredemo.csv");
 ```
 
+#### Writing CSV files with varying numbers of columns
+
+A CSV file can have a different number of columns in each row. This
+differs from the default behavior when saving as a .csv in Excel, but
+can be enabled in PhpSpreadsheet by using the following code:
+
+``` php
+$writer = new \PhpOffice\PhpSpreadsheet\Writer\Csv($spreadsheet);
+$writer->setVariableColumns(true);
+$writer->save("05featuredemo.csv");
+```
+
 #### Decimal and thousands separators
 
 If the worksheet you are exporting contains numbers with decimal or

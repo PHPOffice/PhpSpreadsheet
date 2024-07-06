@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace PhpOffice\PhpSpreadsheetTests\Writer\Xlsx;
+namespace PhpOffice\PhpSpreadsheetTests\Writer\Html;
 
 use PhpOffice\PhpSpreadsheet\Comment;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -13,7 +13,7 @@ class CommentAlignmentTest extends AbstractFunctional
 {
     public function testIssue4004(): void
     {
-        $type = 'Xlsx';
+        $type = 'Html';
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
         $sheet->getCell('A3')->setValue('A3');
@@ -40,7 +40,7 @@ class CommentAlignmentTest extends AbstractFunctional
 
     public function testIssue4004td(): void
     {
-        $type = 'Xlsx';
+        $type = 'Html';
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
         $sheet->setRightToLeft(true);
