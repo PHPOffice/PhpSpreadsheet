@@ -495,7 +495,7 @@
         <td style="text-align: center; color: green;">✔</td> 
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center; color: orange;">●</td>
-        <td style="text-align: center; color: orange;">●</td>
+        <td style="text-align: center; color: orange;">● <a href="#footnote7"><sup>7</sup></a></td>
     </tr>
     <tr>
         <td style="padding-left: 1em;">Number Format Mask</td>
@@ -517,7 +517,7 @@
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center; color: red;">✖</td>
-        <td style="text-align: center; color: orange;">●</td>
+        <td style="text-align: center; color: orange;">● <a href="#footnote7"><sup>7</sup></a></td>
     </tr>
     <tr>
         <td style="padding-left: 2em;">Horizontal</td>
@@ -583,7 +583,7 @@
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center; color: green;">✔</td>
-        <td style="text-align: center; color: green;">✔</td>
+        <td style="text-align: center; color: orange;">● <a href="#footnote7"><sup>7</sup></a></td>
     </tr>
     <tr>
         <td style="padding-left: 2em;">Patterned</td>
@@ -605,7 +605,7 @@
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center; color: green;">✔</td>
-        <td style="text-align: center; color: green;">✔</td>
+        <td style="text-align: center; color: orange;">● <a href="#footnote7"><sup>7</sup></a></td>
     </tr>
     <tr>
         <td style="padding-left: 2em;">Font Face</td>
@@ -704,7 +704,7 @@
         <td style="text-align: center; color: green;">✔</td>
         <td style="text-align: center;">N/A</td>
         <td style="text-align: center; color: orange;">●</td>
-        <td style="text-align: center; color: green;">✔</td>
+        <td style="text-align: center; color: orange;">● <a href="#footnote7"><sup>7</sup></a></td>
     </tr>
     <tr>
         <td style="padding-left: 2em;">Line Style</td>
@@ -1004,6 +1004,7 @@
 4. <span id="footnote4">Xlsx forms and controls can be read and written but not otherwise manipulated</span>
 5. <span id="footnote5">Xlsx macros can be read and written; their values can be retrieved and changed, but only in a binary form which is unlikely to be useful</span>
 6. <span id="footnote6">There is very limited support for reading styles from an Ods spreadsheet. Writing styles has better support, although Number Format is incomplete.</span>
+7. <span id="footnote7">In most cases, Html reader processes only inline styles; styles provided by Css classes may be ignored.</span>
 
 ## Writers
 
