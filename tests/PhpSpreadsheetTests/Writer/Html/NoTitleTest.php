@@ -41,7 +41,8 @@ class NoTitleTest extends TestCase
                 [17, 18, 19, 20, 21, 22],
                 [27, 28, 29, 30, 31, 32],
                 [37, 38, 39, 40, 41, 42],
-            ]);
+            ]
+        );
         $sheet->getStyle('B2:D4')->getBorders()->applyFromArray(
             [
                 'allBorders' => [
