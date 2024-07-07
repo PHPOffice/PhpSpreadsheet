@@ -28,7 +28,7 @@ class Concatenate
 
         foreach ($aArgs as $arg) {
             $value = Helpers::extractString($arg);
-            if (ErrorValue::isError($value)) {
+            if (ErrorValue::isError($value, true)) {
                 $returnValue = $value;
 
                 break;
@@ -140,7 +140,7 @@ class Concatenate
     {
         foreach ($aArgs as $key => &$arg) {
             $value = Helpers::extractString($arg);
-            if (ErrorValue::isError($value)) {
+            if (ErrorValue::isError($value, true)) {
                 return $value;
             }
 
@@ -178,7 +178,7 @@ class Concatenate
 
         if (!is_numeric($repeatCount) || $repeatCount < 0) {
             $returnValue = ExcelError::VALUE();
-        } elseif (ErrorValue::isError($stringValue)) {
+        } elseif (ErrorValue::isError($stringValue, true)) {
             $returnValue = $stringValue;
         } else {
             $returnValue = str_repeat($stringValue, (int) $repeatCount);

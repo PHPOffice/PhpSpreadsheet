@@ -211,13 +211,19 @@ class StringValueBinderTest extends TestCase
         $cell->setValue($value);
         self::assertSame($expectedValue, $cell->getValue());
         self::assertSame($expectedDataType, $cell->getDataType());
+        if ($expectedDataType === DataType::TYPE_FORMULA) {
+            self::assertFalse($sheet->getStyle('A1')->getQuotePrefix());
+        } else {
+            self::assertTrue($sheet->getStyle('A1')->getQuotePrefix());
+        }
         $spreadsheet->disconnectWorksheets();
     }
 
     public static function providerDataValuesSuppressFormulaConversion(): array
     {
         return [
-            ['=SUM(A1:C3)', '=SUM(A1:C3)', DataType::TYPE_FORMULA, false],
+            'normal formula' => ['=SUM(A1:C3)', '=SUM(A1:C3)', DataType::TYPE_FORMULA],
+            'issue 1310' => ['======', '======', DataType::TYPE_STRING],
         ];
     }
 
