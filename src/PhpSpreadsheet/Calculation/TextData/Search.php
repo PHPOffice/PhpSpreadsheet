@@ -32,8 +32,8 @@ class Search
         }
 
         try {
-            $needle = Helpers::extractString($needle);
-            $haystack = Helpers::extractString($haystack);
+            $needle = Helpers::extractString($needle, true);
+            $haystack = Helpers::extractString($haystack, true);
             $offset = Helpers::extractInt($offset, 1, 0, true);
         } catch (CalcExp $e) {
             return $e->getMessage();
@@ -74,8 +74,8 @@ class Search
         }
 
         try {
-            $needle = Helpers::extractString($needle);
-            $haystack = Helpers::extractString($haystack);
+            $needle = Helpers::extractString($needle, true);
+            $haystack = Helpers::extractString($haystack, true);
             $offset = Helpers::extractInt($offset, 1, 0, true);
         } catch (CalcExp $e) {
             return $e->getMessage();

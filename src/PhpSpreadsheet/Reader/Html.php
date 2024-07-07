@@ -9,6 +9,7 @@ use DOMNode;
 use DOMText;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use PhpOffice\PhpSpreadsheet\Comment;
 use PhpOffice\PhpSpreadsheet\Document\Properties;
 use PhpOffice\PhpSpreadsheet\Exception as SpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Helper\Dimension as CssDimension;
@@ -332,6 +333,15 @@ class Html extends BaseReader
                 $sheet->getComment($column . $row)
                     ->getText()
                     ->createTextRun($child->textContent);
+                if (isset($attributeArray['dir']) && $attributeArray['dir'] === 'rtl') {
+                    $sheet->getComment($column . $row)->setTextboxDirection(Comment::TEXTBOX_DIRECTION_RTL);
+                }
+                if (isset($attributeArray['style'])) {
+                    $alignStyle = $attributeArray['style'];
+                    if (preg_match('/\\btext-align:\\s*(left|right|center|justify)\\b/', $alignStyle, $matches) === 1) {
+                        $sheet->getComment($column . $row)->setAlignment($matches[1]);
+                    }
+                }
             } else {
                 $this->processDomElement($child, $sheet, $row, $column, $cellContent);
             }
