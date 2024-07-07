@@ -14,7 +14,7 @@ class NoTitleTest extends TestCase
 {
     public function testNoTitle(): void
     {
-        $file = 'tests/data/Reader/Xlsx/blankcell.xlsx';
+        $file = 'tests/data/Reader/XLSX/blankcell.xlsx';
         $reader = new XlsxReader();
         $spreadsheet = $reader->load($file);
         self::assertSame('', $spreadsheet->getProperties()->getTitle());
