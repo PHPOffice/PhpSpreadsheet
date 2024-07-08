@@ -3550,6 +3550,11 @@ class Calculation
      */
     public function parseFormula(string $formula): array|bool
     {
+        $formula = preg_replace_callback(
+            self::CALCULATION_REGEXP_CELLREF_SPILL,
+            fn (array $matches) => 'ANCHORARRAY(' . substr($matches[0], 0, -1) . ')',
+            $formula
+        ) ?? $formula;
         //    Basic validation that this is indeed a formula
         //    We return an empty array if not
         $formula = trim($formula);

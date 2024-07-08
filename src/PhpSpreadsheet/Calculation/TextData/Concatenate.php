@@ -57,7 +57,7 @@ class Concatenate
         $result = '';
         foreach ($args as $operand2) {
             $result = self::concatenate2Args($result, $operand2);
-            if (ErrorValue::isError($result) === true) {
+            if (ErrorValue::isError($result, true) === true) {
                 break;
             }
         }
@@ -88,6 +88,8 @@ class Concatenate
                     }
                 }
             }
+        } elseif (ErrorValue::isError($operand2, true) === true) {
+            $operand1 = (string) $operand2;
         } else {
             $operand1 .= (string) Calculation::boolToString($operand2);
             if (mb_strlen($operand1) > DataType::MAX_STRING_LENGTH) {

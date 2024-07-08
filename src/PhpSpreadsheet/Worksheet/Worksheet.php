@@ -3714,7 +3714,7 @@ class Worksheet implements IComparable
         }
 
         return false;
-    }      
+    }
 
     public function applyStylesFromArray(string $coordinate, array $styleArray): bool
     {

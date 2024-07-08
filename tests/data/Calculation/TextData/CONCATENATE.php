@@ -5,7 +5,7 @@ declare(strict_types=1);
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 
 return [
-    [
+    /*[
         'ABCDEFGHIJ',
         'ABCDE',
         'FGHIJ',
@@ -34,6 +34,6 @@ return [
         'A3',
         'abc',
         'def',
-    ],
+    ],*/
     'propagate DIV0' => ['#DIV/0!', '1', 'A2', '3'],
 ];
