@@ -10,25 +10,13 @@ use PHPUnit\Framework\TestCase;
 
 class InternalFunctionsTest extends TestCase
 {
-    private string $arrayReturnType;
-
-    protected function setUp(): void
-    {
-        $this->arrayReturnType = Calculation::getArrayReturnType();
-    }
-
-    protected function tearDown(): void
-    {
-        Calculation::setArrayReturnType($this->arrayReturnType);
-    }
-
     /**
      * @dataProvider anchorArrayDataProvider
      */
     public function testAnchorArrayFormula(string $reference, string $range, array $expectedResult): void
     {
-        Calculation::setArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
         $spreadsheet = new Spreadsheet();
+        Calculation::getInstance($spreadsheet)->setInstanceArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
         $sheet1 = $spreadsheet->getActiveSheet();
         $sheet1->setTitle('SheetOne'); // no space in sheet title
         $sheet2 = $spreadsheet->createSheet();
@@ -68,8 +56,8 @@ class InternalFunctionsTest extends TestCase
      */
     public function testSingleArrayFormula(string $reference, mixed $expectedResult): void
     {
-        Calculation::setArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
         $spreadsheet = new Spreadsheet();
+        Calculation::getInstance($spreadsheet)->setInstanceArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
         $sheet1 = $spreadsheet->getActiveSheet();
         $sheet1->setTitle('SheetOne'); // no space in sheet title
         $sheet2 = $spreadsheet->createSheet();

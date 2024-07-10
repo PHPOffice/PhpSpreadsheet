@@ -10,22 +10,10 @@ use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
 class ArrayTest extends AbstractFunctional
 {
-    private string $arrayReturnType;
-
-    protected function setUp(): void
-    {
-        $this->arrayReturnType = Calculation::getArrayReturnType();
-    }
-
-    protected function tearDown(): void
-    {
-        Calculation::setArrayReturnType($this->arrayReturnType);
-    }
-
     public function testSaveAndLoadHyperlinks(): void
     {
-        Calculation::setArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
         $spreadsheetOld = new Spreadsheet();
+        Calculation::getInstance($spreadsheetOld)->setInstanceArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
         $sheet = $spreadsheetOld->getActiveSheet();
         $sheet->getCell('A1')->setValue('a');
         $sheet->getCell('A2')->setValue('b');

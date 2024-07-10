@@ -9,19 +9,6 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Table;
 
 class Issue3659Test extends SetupTeardown
 {
-    private string $arrayReturnType;
-
-    protected function setUp(): void
-    {
-        $this->arrayReturnType = Calculation::getArrayReturnType();
-    }
-
-    protected function tearDown(): void
-    {
-        parent::tearDown();
-        Calculation::setArrayReturnType($this->arrayReturnType);
-    }
-
     public function testTableOnOtherSheet(): void
     {
         $spreadsheet = $this->getSpreadsheet();
@@ -61,8 +48,8 @@ class Issue3659Test extends SetupTeardown
 
     public function testTableAsArray(): void
     {
-        Calculation::setArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
         $spreadsheet = $this->getSpreadsheet();
+        Calculation::getInstance($spreadsheet)->setInstanceArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
         $sheet = $this->getSheet();
         $sheet->setTitle('Feuil1');
         $tableSheet = $spreadsheet->createSheet();

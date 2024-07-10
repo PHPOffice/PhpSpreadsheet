@@ -52,18 +52,10 @@ class ArrayFunctions2Test extends TestCase
 
     private array $trn;
 
-    private string $arrayReturnType;
-
     private string $outputFile = '';
-
-    protected function setUp(): void
-    {
-        $this->arrayReturnType = Calculation::getArrayReturnType();
-    }
 
     protected function tearDown(): void
     {
-        Calculation::setArrayReturnType($this->arrayReturnType);
         if ($this->outputFile !== '') {
             unlink($this->outputFile);
             $this->outputFile = '';
@@ -274,11 +266,11 @@ class ArrayFunctions2Test extends TestCase
 
     public function testManyArraysOutput(): void
     {
-        Calculation::setArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
         $json = file_get_contents('tests/data/Writer/XLSX/ArrayFunctions2.json');
         self::assertNotFalse($json);
         $this->trn = json_decode($json, true);
         $spreadsheet = new Spreadsheet();
+        Calculation::getInstance($spreadsheet)->setInstanceArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
 
         $wsPartijen = $spreadsheet->getActiveSheet();
         $wsPartijen->setTitle('Partijen');

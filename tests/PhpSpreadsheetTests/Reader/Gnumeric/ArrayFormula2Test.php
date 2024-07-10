@@ -9,18 +9,6 @@ use PHPUnit\Framework\TestCase;
 
 class ArrayFormula2Test extends TestCase
 {
-    private string $arrayReturnType;
-
-    protected function setUp(): void
-    {
-        $this->arrayReturnType = Calculation::getArrayReturnType();
-    }
-
-    protected function tearDown(): void
-    {
-        Calculation::setArrayReturnType($this->arrayReturnType);
-    }
-
     /**
      * @dataProvider arrayFormulaReaderProvider
      */
@@ -39,7 +27,7 @@ class ArrayFormula2Test extends TestCase
         self::assertSame(DataType::TYPE_FORMULA, $cell->getDataType());
         self::assertSame(['t' => 'array', 'ref' => $expectedRange], $cell->getFormulaAttributes());
         self::assertSame($expectedFormula, strtoupper($cell->getValue()));
-        Calculation::setArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
+        Calculation::getInstance($spreadsheet)->setInstanceArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
         $worksheet->calculateArrays();
         $cell = $worksheet->getCell($cellAddress);
         self::assertSame($expectedValue, $cell->getCalculatedValue());

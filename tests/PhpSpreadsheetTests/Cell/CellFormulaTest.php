@@ -10,18 +10,6 @@ use PHPUnit\Framework\TestCase;
 
 class CellFormulaTest extends TestCase
 {
-    private string $arrayReturnType;
-
-    protected function setUp(): void
-    {
-        $this->arrayReturnType = Calculation::getArrayReturnType();
-    }
-
-    protected function tearDown(): void
-    {
-        Calculation::setArrayReturnType($this->arrayReturnType);
-    }
-
     public function testSetFormulaExplicit(): void
     {
         $formula = '=A2+B2';
@@ -96,10 +84,10 @@ class CellFormulaTest extends TestCase
 
     public function testSetArrayFormulaExplicitWithRange(): void
     {
-        Calculation::setArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
         $formula = '=SEQUENCE(3,3,-10,2.5)';
 
         $spreadsheet = new Spreadsheet();
+        Calculation::getInstance($spreadsheet)->setInstanceArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
         $cell = $spreadsheet->getActiveSheet()->getCell('A1');
         $cell->setValueExplicit($formula, DataType::TYPE_FORMULA);
 

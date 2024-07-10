@@ -9,24 +9,12 @@ use PHPUnit\Framework\TestCase;
 
 class CellArrayFormulaTest extends TestCase
 {
-    private string $arrayReturnType;
-
     private bool $skipUpdateInSpillageRange = true;
-
-    protected function setUp(): void
-    {
-        $this->arrayReturnType = Calculation::getArrayReturnType();
-    }
-
-    protected function tearDown(): void
-    {
-        Calculation::setArrayReturnType($this->arrayReturnType);
-    }
 
     public function testSetValueArrayFormulaNoSpillage(): void
     {
-        Calculation::setArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
         $spreadsheet = new Spreadsheet();
+        Calculation::getInstance($spreadsheet)->setInstanceArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
         $cell = $spreadsheet->getActiveSheet()->getCell('A1');
         $cell->setValue('=MAX(ABS({5, -3; 1, -12}))');
 
@@ -37,8 +25,8 @@ class CellArrayFormulaTest extends TestCase
 
     public function testSetValueArrayFormulaWithSpillage(): void
     {
-        Calculation::setArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
         $spreadsheet = new Spreadsheet();
+        Calculation::getInstance($spreadsheet)->setInstanceArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
         $cell = $spreadsheet->getActiveSheet()->getCell('A1');
         $cell->setValue('=SEQUENCE(3, 3, 1, 1)');
 
@@ -49,8 +37,8 @@ class CellArrayFormulaTest extends TestCase
 
     public function testSetValueInSpillageRangeCell(): void
     {
-        Calculation::setArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
         $spreadsheet = new Spreadsheet();
+        Calculation::getInstance($spreadsheet)->setInstanceArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
         $sheet = $spreadsheet->getActiveSheet();
         $cell = $sheet->getCell('A1');
         $cell->setValue('=SEQUENCE(3, 3, 1, 1)');
@@ -66,8 +54,8 @@ class CellArrayFormulaTest extends TestCase
 
     public function testUpdateValueInSpillageRangeCell(): void
     {
-        Calculation::setArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
         $spreadsheet = new Spreadsheet();
+        Calculation::getInstance($spreadsheet)->setInstanceArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
         $sheet = $spreadsheet->getActiveSheet();
         $sheet->getCell('A1')->setValue('=SEQUENCE(3, 3, 1, 1)');
         $sheet->getCell('A1')->getCalculatedValue();
@@ -92,9 +80,9 @@ class CellArrayFormulaTest extends TestCase
 
     public function testUpdateArrayFormulaForSpillageRange(): void
     {
-        Calculation::setArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
         $spreadsheet = new Spreadsheet();
         $calculation = Calculation::getInstance($spreadsheet);
+        $calculation->setInstanceArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
         $sheet = $spreadsheet->getActiveSheet();
         $sheet->getCell('A1')->setValue('=SEQUENCE(3, 3, 1, 1)');
         $sheet->getCell('A1')->getCalculatedValue();

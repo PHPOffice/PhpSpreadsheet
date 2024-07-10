@@ -3686,7 +3686,7 @@ class Worksheet implements IComparable
 
     public function calculateArrays(bool $preCalculateFormulas = true): void
     {
-        if ($preCalculateFormulas && Calculation::getArrayReturnType() === Calculation::RETURN_ARRAY_AS_ARRAY) {
+        if ($preCalculateFormulas && Calculation::getInstance($this->parent)->getInstanceArrayReturnType() === Calculation::RETURN_ARRAY_AS_ARRAY) {
             $keys = $this->cellCollection->getCoordinates();
             foreach ($keys as $key) {
                 if ($this->getCell($key)->getDataType() === DataType::TYPE_FORMULA) {
@@ -3698,7 +3698,7 @@ class Worksheet implements IComparable
 
     public function isCellInSpillRange(string $coordinate): bool
     {
-        if (Calculation::getArrayReturnType() !== Calculation::RETURN_ARRAY_AS_ARRAY) {
+        if (Calculation::getInstance($this->parent)->getInstanceArrayReturnType() !== Calculation::RETURN_ARRAY_AS_ARRAY) {
             return false;
         }
         $this->calculateArrays();

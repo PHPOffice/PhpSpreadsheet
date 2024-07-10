@@ -404,17 +404,16 @@ class Cell implements Stringable
             try {
                 $currentCalendar = SharedDate::getExcelCalendar();
                 SharedDate::setExcelCalendar($this->getWorksheet()->getParent()?->getExcelCalendar());
-                $index = $this->getWorksheet()->getParentOrThrow()->getActiveSheetIndex();
-                $selected = $this->getWorksheet()->getSelectedCells();
                 $thisworksheet = $this->getWorksheet();
+                $index = $thisworksheet->getParentOrThrow()->getActiveSheetIndex();
+                $selected = $thisworksheet->getSelectedCells();
                 $title = $thisworksheet->getTitle();
-                $result = Calculation::getInstance(
-                    $thisworksheet->getParent()
-                )->calculateCellValue($this, $resetLog);
+                $calculation = Calculation::getInstance($thisworksheet->getParent());
+                $result = $calculation->calculateCellValue($this, $resetLog);
                 $result = $this->convertDateTimeInt($result);
                 $thisworksheet->setSelectedCells($selected);
                 $thisworksheet->getParentOrThrow()->setActiveSheetIndex($index);
-                if (is_array($result) && Calculation::getArrayReturnType() !== Calculation::RETURN_ARRAY_AS_ARRAY) {
+                if (is_array($result) && $calculation->getInstanceArrayReturnType() !== Calculation::RETURN_ARRAY_AS_ARRAY) {
                     while (is_array($result)) {
                         $result = array_shift($result);
                     }
@@ -475,7 +474,7 @@ class Cell implements Stringable
                     $thisworksheet->getCell($column . $row);
                 }
                 if (is_array($result)) {
-                    if ($oldAttributes !== null && Calculation::getArrayReturnType() === Calculation::RETURN_ARRAY_AS_ARRAY) {
+                    if ($oldAttributes !== null && $calculation->getInstanceArrayReturnType() === Calculation::RETURN_ARRAY_AS_ARRAY) {
                         if (($oldAttributesT) === 'array') {
                             $thisworksheet = $this->getWorksheet();
                             $coordinate = $this->getCoordinate();

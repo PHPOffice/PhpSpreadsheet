@@ -378,10 +378,17 @@ $value = $spreadsheet->getActiveSheet()->getCell('B8')->getCalculatedValue();
 With version 2.0.3 of PhpSpreadsheet, we've introduced support for Excel "array formulas".
 **It is an opt-in feature.** You need to enable it with the following code:
 ```php
+// preferred method
+\PhpOffice\PhpSpreadsheet\Calculation\Calculation::getInstance($spreadsheet)
+    ->setInstanceArrayReturnType(
+        \PhpOffice\PhpSpreadsheet\Calculation\Calculation::RETURN_ARRAY_AS_ARRAY);
+// or less preferred
 \PhpOffice\PhpSpreadsheet\Calculation\Calculation::setArrayReturnType(
     \PhpOffice\PhpSpreadsheet\Calculation\Calculation::RETURN_ARRAY_AS_ARRAY);
 ```
-This is not a new function or constant, but it has till now not had much effect.
+This is not a new constant, and setArrayReturnType is also not new, but it has till now not had much effect.
+The instance variable set by the new setInstanceArrayReturnType
+will always be checked first, and the static variable used only if the instance variable is uninitialized.
 
 As a basic example, let's look at a receipt for buying some fruit:
 

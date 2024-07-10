@@ -11,23 +11,11 @@ use PHPUnit\Framework\TestCase;
 
 class ArrayFunctionsSpillTest extends TestCase
 {
-    private string $arrayReturnType;
-
-    protected function setUp(): void
-    {
-        $this->arrayReturnType = Calculation::getArrayReturnType();
-    }
-
-    protected function tearDown(): void
-    {
-        Calculation::setArrayReturnType($this->arrayReturnType);
-    }
-
     public function testArrayOutput(): void
     {
-        Calculation::setArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
         $spreadsheet = new Spreadsheet();
         $calculation = Calculation::getInstance($spreadsheet);
+        $calculation->setInstanceArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
 
         $sheet = $spreadsheet->getActiveSheet();
         $sheet->setCellValue('B5', 'OCCUPIED');
@@ -119,8 +107,8 @@ class ArrayFunctionsSpillTest extends TestCase
 
     public function testSpillOperator(): void
     {
-        Calculation::setArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
         $spreadsheet = new Spreadsheet();
+        Calculation::getInstance($spreadsheet)->setInstanceArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
         $sheet = $spreadsheet->getActiveSheet();
         $sheet->fromArray([
             ['Product', 'Quantity', 'Price', 'Cost'],

@@ -13,8 +13,6 @@ use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
 class ArrayTest extends AbstractFunctional
 {
-    private string $arrayReturnType;
-
     private string $samplesPath = 'tests/data/Writer/Ods';
 
     private string $compatibilityMode;
@@ -27,20 +25,18 @@ class ArrayTest extends AbstractFunctional
 
         $this->compatibilityMode = Functions::getCompatibilityMode();
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
-        $this->arrayReturnType = Calculation::getArrayReturnType();
     }
 
     protected function tearDown(): void
     {
         parent::tearDown();
         Functions::setCompatibilityMode($this->compatibilityMode);
-        Calculation::setArrayReturnType($this->arrayReturnType);
     }
 
     public function testArrayXml(): void
     {
-        Calculation::setArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
         $spreadsheet = new Spreadsheet();
+        Calculation::getInstance($spreadsheet)->setInstanceArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
         $sheet = $spreadsheet->getActiveSheet();
         $sheet->getCell('A1')->setValue(1);
         $sheet->getCell('A2')->setValue(1);
@@ -54,14 +50,15 @@ class ArrayTest extends AbstractFunctional
 
     public function testArray(): void
     {
-        Calculation::setArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
         $spreadsheet = new Spreadsheet();
+        Calculation::getInstance($spreadsheet)->setInstanceArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
         $sheet = $spreadsheet->getActiveSheet();
         $sheet->getCell('A1')->setValue(1);
         $sheet->getCell('A2')->setValue(1);
         $sheet->getCell('A3')->setValue(3);
         $sheet->getCell('B1')->setValue('=UNIQUE(A1:A3)');
         $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, 'Ods');
+        Calculation::getInstance($reloadedSpreadsheet)->setInstanceArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
         $sheet = $reloadedSpreadsheet->getActiveSheet();
         self::assertSame(1, $sheet->getCell('A1')->getValue());
         self::assertSame(1, $sheet->getCell('A2')->getValue());
@@ -86,8 +83,8 @@ class ArrayTest extends AbstractFunctional
         if ($this->skipInline) {
             self::markTestIncomplete('Ods Reader/Writer alter commas and semi-colons within formulas, interfering with inline arrays');
         }
-        Calculation::setArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
         $spreadsheet = new Spreadsheet();
+        Calculation::getInstance($spreadsheet)->setInstanceArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
         $sheet = $spreadsheet->getActiveSheet();
         $sheet->getCell('A1')->setValue('=UNIQUE({1;1;2;1;3;2;4;4;4})');
         $sheet->getCell('D1')->setValue('=UNIQUE({1,1,2,1,3,2,4,4,4},true)');

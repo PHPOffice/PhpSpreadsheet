@@ -13,28 +13,12 @@ use PHPUnit\Framework\TestCase;
 
 class ArrayFunctionsTest extends TestCase
 {
-    private string $arrayReturnType;
-
     private string $outputFile = '';
-
-    protected function setUp(): void
-    {
-        $this->arrayReturnType = Calculation::getArrayReturnType();
-    }
-
-    protected function tearDown(): void
-    {
-        Calculation::setArrayReturnType($this->arrayReturnType);
-        if ($this->outputFile !== '') {
-            unlink($this->outputFile);
-            $this->outputFile = '';
-        }
-    }
 
     public function testArrayOutput(): void
     {
-        Calculation::setArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
         $spreadsheet = new Spreadsheet();
+        Calculation::getInstance($spreadsheet)->setInstanceArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
         $sheet = $spreadsheet->getActiveSheet();
         $columnArray = [
             [41],
@@ -67,6 +51,7 @@ class ArrayFunctionsTest extends TestCase
 
         $reader = new XlsxReader();
         $spreadsheet2 = $reader->load($this->outputFile);
+        Calculation::getInstance($spreadsheet2)->setInstanceArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
         $sheet2 = $spreadsheet2->getActiveSheet();
         $expectedUnique = [
             [41],
@@ -148,8 +133,8 @@ class ArrayFunctionsTest extends TestCase
 
     public function testArrayOutputCSE(): void
     {
-        Calculation::setArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
         $spreadsheet = new Spreadsheet();
+        Calculation::getInstance($spreadsheet)->setInstanceArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
         $sheet = $spreadsheet->getActiveSheet();
         $columnArray = [
             [41],
@@ -183,6 +168,7 @@ class ArrayFunctionsTest extends TestCase
 
         $reader = new XlsxReader();
         $spreadsheet2 = $reader->load($this->outputFile);
+        Calculation::getInstance($spreadsheet2)->setInstanceArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
         $sheet2 = $spreadsheet2->getActiveSheet();
         $expectedUnique = [
             [41],
@@ -304,8 +290,8 @@ class ArrayFunctionsTest extends TestCase
 
     public function testArrayMultipleColumns(): void
     {
-        Calculation::setArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
         $spreadsheet = new Spreadsheet();
+        Calculation::getInstance($spreadsheet)->setInstanceArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
         $sheet = $spreadsheet->getActiveSheet();
         $columnArray = [
             [100, 91],
@@ -324,6 +310,7 @@ class ArrayFunctionsTest extends TestCase
 
         $reader = new XlsxReader();
         $spreadsheet2 = $reader->load($this->outputFile);
+        Calculation::getInstance($spreadsheet2)->setInstanceArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
         $sheet2 = $spreadsheet2->getActiveSheet();
         $expectedUnique = [
             [100, 91],
@@ -354,8 +341,8 @@ class ArrayFunctionsTest extends TestCase
 
     public function testMetadataWritten(): void
     {
-        Calculation::setArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
         $spreadsheet = new Spreadsheet();
+        Calculation::getInstance($spreadsheet)->setInstanceArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
         $writer = new XlsxWriter($spreadsheet);
         $writerMetadata = new XlsxWriter\Metadata($writer);
         self::assertNotEquals('', $writerMetadata->writeMetaData());
@@ -367,8 +354,8 @@ class ArrayFunctionsTest extends TestCase
 
     public function testSpill(): void
     {
-        Calculation::setArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
         $spreadsheet = new Spreadsheet();
+        Calculation::getInstance($spreadsheet)->setInstanceArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
         $sheet = $spreadsheet->getActiveSheet();
         $sheet->getCell('A3')->setValue('x');
         $sheet->getCell('A1')->setValue('=UNIQUE({1;2;3})');
@@ -379,6 +366,7 @@ class ArrayFunctionsTest extends TestCase
 
         $reader = new XlsxReader();
         $spreadsheet2 = $reader->load($this->outputFile);
+        Calculation::getInstance($spreadsheet2)->setInstanceArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
         $sheet2 = $spreadsheet2->getActiveSheet();
         self::assertSame('#SPILL!', $sheet2->getCell('A1')->getOldCalculatedValue());
         self::assertSame('=UNIQUE({1;2;3})', $sheet2->getCell('A1')->getValue());
@@ -389,8 +377,8 @@ class ArrayFunctionsTest extends TestCase
 
     public function testArrayStringOutput(): void
     {
-        Calculation::setArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
         $spreadsheet = new Spreadsheet();
+        Calculation::getInstance($spreadsheet)->setInstanceArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
         $sheet = $spreadsheet->getActiveSheet();
         $columnArray = [
             ['item1'],
@@ -413,6 +401,7 @@ class ArrayFunctionsTest extends TestCase
 
         $reader = new XlsxReader();
         $spreadsheet2 = $reader->load($this->outputFile);
+        Calculation::getInstance($spreadsheet2)->setInstanceArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
         $sheet2 = $spreadsheet2->getActiveSheet();
         $expectedUnique = [
             ['item1'],

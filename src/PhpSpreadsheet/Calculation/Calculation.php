@@ -67,7 +67,11 @@ class Calculation
     const FORMULA_CLOSE_MATRIX_BRACE = '}';
     const FORMULA_STRING_QUOTE = '"';
 
+    /** Preferable to use instance variable instanceArrayReturnType rather than this static property. */
     private static string $returnArrayAsType = self::RETURN_ARRAY_AS_VALUE;
+
+    /** Preferable to use this instance variable rather than static returnArrayAsType */
+    private ?string $instanceArrayReturnType = null;
 
     /**
      * Instance of this class.
@@ -3004,6 +3008,38 @@ class Calculation
     }
 
     /**
+     * Set the Instance Array Return Type (Array or Value of first element in the array).
+     *
+     * @param string $returnType Array return type
+     *
+     * @return bool Success or failure
+     */
+    public function setInstanceArrayReturnType(string $returnType): bool
+    {
+        if (
+            ($returnType == self::RETURN_ARRAY_AS_VALUE)
+            || ($returnType == self::RETURN_ARRAY_AS_ERROR)
+            || ($returnType == self::RETURN_ARRAY_AS_ARRAY)
+        ) {
+            $this->instanceArrayReturnType = $returnType;
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Return the Array Return Type (Array or Value of first element in the array).
+     *
+     * @return string $returnType Array return type for instance if non-null, otherwise static property
+     */
+    public function getInstanceArrayReturnType(): string
+    {
+        return $this->instanceArrayReturnType ?? self::$returnArrayAsType;
+    }
+
+    /**
      * Is calculation caching enabled?
      */
     public function getCalculationCacheEnabled(): bool
@@ -3506,9 +3542,9 @@ class Calculation
             throw new Exception($e->getMessage(), $e->getCode(), $e);
         }
 
-        if ((is_array($result)) && (self::$returnArrayAsType != self::RETURN_ARRAY_AS_ARRAY)) {
+        if (is_array($result) && self::getInstanceArrayReturnType() !== self::RETURN_ARRAY_AS_ARRAY) {
             $testResult = Functions::flattenArray($result);
-            if (self::$returnArrayAsType == self::RETURN_ARRAY_AS_ERROR) {
+            if (self::getInstanceArrayReturnType() == self::RETURN_ARRAY_AS_ERROR) {
                 return ExcelError::VALUE();
             }
             $result = array_shift($testResult);
@@ -4556,9 +4592,7 @@ class Calculation
         // help us to know when pruning ['branchTestId' => true/false]
         $branchStore = [];
         //    Loop through each token in turn
-        $tokenIdx = -1;
-        foreach ($tokens as $tokenData) {
-            ++$tokenIdx;
+        foreach ($tokens as $tokenIdx => $tokenData) {
             $this->processingAnchorArray = false;
             if ($tokenData['type'] === 'Cell Reference' && isset($tokens[$tokenIdx + 1]) && $tokens[$tokenIdx + 1]['type'] === 'Operand Count for Function ANCHORARRAY()') {
                 $this->processingAnchorArray = true;
@@ -4969,7 +5003,7 @@ class Calculation
                     }
                 }
 
-                if (self::$returnArrayAsType === self::RETURN_ARRAY_AS_ARRAY && !$this->processingAnchorArray && is_array($cellValue)) {
+                if (self::getInstanceArrayReturnType() === self::RETURN_ARRAY_AS_ARRAY && !$this->processingAnchorArray && is_array($cellValue)) {
                     while (is_array($cellValue)) {
                         $cellValue = array_shift($cellValue);
                     }
@@ -5433,7 +5467,7 @@ class Calculation
                 sscanf($aReferences[0], '%[A-Z]%d', $currentCol, $currentRow);
                 if ($worksheet !== null && $worksheet->cellExists($aReferences[0])) {
                     $temp = $worksheet->getCell($aReferences[0])->getCalculatedValue($resetLog);
-                    if (self::$returnArrayAsType === self::RETURN_ARRAY_AS_ARRAY) {
+                    if (self::getInstanceArrayReturnType() === self::RETURN_ARRAY_AS_ARRAY) {
                         while (is_array($temp)) {
                             $temp = array_shift($temp);
                         }
@@ -5449,7 +5483,7 @@ class Calculation
                     sscanf($reference, '%[A-Z]%d', $currentCol, $currentRow);
                     if ($worksheet !== null && $worksheet->cellExists($reference)) {
                         $temp = $worksheet->getCell($reference)->getCalculatedValue($resetLog);
-                        if (self::$returnArrayAsType === self::RETURN_ARRAY_AS_ARRAY) {
+                        if (self::getInstanceArrayReturnType() === self::RETURN_ARRAY_AS_ARRAY) {
                             while (is_array($temp)) {
                                 $temp = array_shift($temp);
                             }

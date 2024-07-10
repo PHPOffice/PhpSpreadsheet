@@ -10,23 +10,10 @@ use PHPUnit\Framework\TestCase;
 
 class ArrayFunctionsCellTest extends TestCase
 {
-    private string $arrayReturnType;
-
-    protected function setUp(): void
-    {
-        $this->arrayReturnType = Calculation::getArrayReturnType();
-    }
-
-    protected function tearDown(): void
-    {
-        Calculation::setArrayReturnType($this->arrayReturnType);
-    }
-
     public function testArrayAndNonArrayOutput(): void
     {
-        Calculation::setArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
         $spreadsheet = new Spreadsheet();
-        $calculation = Calculation::getInstance($spreadsheet);
+        Calculation::getInstance($spreadsheet)->setInstanceArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
 
         $sheet = $spreadsheet->getActiveSheet();
         $sheet->fromArray(
