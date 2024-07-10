@@ -3544,7 +3544,7 @@ class Calculation
 
         if (is_array($result) && $this->getInstanceArrayReturnType() !== self::RETURN_ARRAY_AS_ARRAY) {
             $testResult = Functions::flattenArray($result);
-            if (self::getInstanceArrayReturnType() == self::RETURN_ARRAY_AS_ERROR) {
+            if ($this->getInstanceArrayReturnType() == self::RETURN_ARRAY_AS_ERROR) {
                 return ExcelError::VALUE();
             }
             $result = array_shift($testResult);
@@ -5483,7 +5483,7 @@ class Calculation
                     sscanf($reference, '%[A-Z]%d', $currentCol, $currentRow);
                     if ($worksheet !== null && $worksheet->cellExists($reference)) {
                         $temp = $worksheet->getCell($reference)->getCalculatedValue($resetLog);
-                        if (self::getInstanceArrayReturnType() === self::RETURN_ARRAY_AS_ARRAY) {
+                        if ($this->getInstanceArrayReturnType() === self::RETURN_ARRAY_AS_ARRAY) {
                             while (is_array($temp)) {
                                 $temp = array_shift($temp);
                             }
