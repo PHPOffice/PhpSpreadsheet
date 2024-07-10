@@ -3542,7 +3542,7 @@ class Calculation
             throw new Exception($e->getMessage(), $e->getCode(), $e);
         }
 
-        if (is_array($result) && self::getInstanceArrayReturnType() !== self::RETURN_ARRAY_AS_ARRAY) {
+        if (is_array($result) && $this->getInstanceArrayReturnType() !== self::RETURN_ARRAY_AS_ARRAY) {
             $testResult = Functions::flattenArray($result);
             if (self::getInstanceArrayReturnType() == self::RETURN_ARRAY_AS_ERROR) {
                 return ExcelError::VALUE();
@@ -5003,7 +5003,7 @@ class Calculation
                     }
                 }
 
-                if (self::getInstanceArrayReturnType() === self::RETURN_ARRAY_AS_ARRAY && !$this->processingAnchorArray && is_array($cellValue)) {
+                if ($this->getInstanceArrayReturnType() === self::RETURN_ARRAY_AS_ARRAY && !$this->processingAnchorArray && is_array($cellValue)) {
                     while (is_array($cellValue)) {
                         $cellValue = array_shift($cellValue);
                     }
@@ -5467,7 +5467,7 @@ class Calculation
                 sscanf($aReferences[0], '%[A-Z]%d', $currentCol, $currentRow);
                 if ($worksheet !== null && $worksheet->cellExists($aReferences[0])) {
                     $temp = $worksheet->getCell($aReferences[0])->getCalculatedValue($resetLog);
-                    if (self::getInstanceArrayReturnType() === self::RETURN_ARRAY_AS_ARRAY) {
+                    if ($this->getInstanceArrayReturnType() === self::RETURN_ARRAY_AS_ARRAY) {
                         while (is_array($temp)) {
                             $temp = array_shift($temp);
                         }
