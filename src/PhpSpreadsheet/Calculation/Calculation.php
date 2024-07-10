@@ -124,6 +124,8 @@ class Calculation
 
     private bool $suppressFormulaErrors = false;
 
+    private bool $processingAnchorArray = false;
+
     /**
      * Error message for any error that was raised/thrown by the calculation engine.
      */
@@ -3450,15 +3452,12 @@ class Calculation
             return null;
         }
 
-        $returnArrayAsType = self::$returnArrayAsType;
         if ($resetLog) {
             //    Initialise the logging settings if requested
             $this->formulaError = null;
             $this->debugLog->clearLog();
             $this->cyclicReferenceStack->clear();
             $this->cyclicFormulaCounter = 1;
-
-            self::$returnArrayAsType = self::RETURN_ARRAY_AS_ARRAY;
         }
 
         //    Execute the calculation for the cell formula
@@ -3503,36 +3502,17 @@ class Calculation
                     $testSheet->getCell($cellAddress['cell']);
                 }
             }
-            self::$returnArrayAsType = $returnArrayAsType;
 
             throw new Exception($e->getMessage(), $e->getCode(), $e);
         }
 
         if ((is_array($result)) && (self::$returnArrayAsType != self::RETURN_ARRAY_AS_ARRAY)) {
-            self::$returnArrayAsType = $returnArrayAsType;
             $testResult = Functions::flattenArray($result);
             if (self::$returnArrayAsType == self::RETURN_ARRAY_AS_ERROR) {
                 return ExcelError::VALUE();
             }
-            //    If there's only a single cell in the array, then we allow it
-            if (count($testResult) != 1) {
-                //    If keys are numeric, then it's a matrix result rather than a cell range result, so we permit it
-                $r = array_keys($result);
-                $r = array_shift($r);
-                if (!is_numeric($r)) {
-                    return ExcelError::VALUE();
-                }
-                if (is_array($result[$r])) {
-                    $c = array_keys($result[$r]);
-                    $c = array_shift($c);
-                    if (!is_numeric($c)) {
-                        return ExcelError::VALUE();
-                    }
-                }
-            }
             $result = array_shift($testResult);
         }
-        self::$returnArrayAsType = $returnArrayAsType;
 
         if ($result === null && $cell->getWorksheet()->getSheetView()->getShowZeros()) {
             return 0;
@@ -4576,7 +4556,13 @@ class Calculation
         // help us to know when pruning ['branchTestId' => true/false]
         $branchStore = [];
         //    Loop through each token in turn
+        $tokenIdx = -1;
         foreach ($tokens as $tokenData) {
+            ++$tokenIdx;
+            $this->processingAnchorArray = false;
+            if ($tokenData['type'] === 'Cell Reference' && isset($tokens[$tokenIdx + 1]) && $tokens[$tokenIdx + 1]['type'] === 'Operand Count for Function ANCHORARRAY()') {
+                $this->processingAnchorArray = true;
+            }
             $token = $tokenData['value'];
             // Branch pruning: skip useless resolutions
             $storeKey = $tokenData['storeKey'] ?? null;
@@ -4983,6 +4969,13 @@ class Calculation
                     }
                 }
 
+                if (self::$returnArrayAsType === self::RETURN_ARRAY_AS_ARRAY && !$this->processingAnchorArray && is_array($cellValue)) {
+                    while (is_array($cellValue)) {
+                        $cellValue = array_shift($cellValue);
+                    }
+                    $this->debugLog->writeDebugLog('Scalar Result for cell %s is %s', $cellRef, $this->showTypeDetails($cellValue));
+                }
+                $this->processingAnchorArray = false;
                 $stack->push('Cell Value', $cellValue, $cellRef);
                 if (isset($storeKey)) {
                     $branchStore[$storeKey] = $cellValue;
@@ -5439,7 +5432,13 @@ class Calculation
                 //    Single cell in range
                 sscanf($aReferences[0], '%[A-Z]%d', $currentCol, $currentRow);
                 if ($worksheet !== null && $worksheet->cellExists($aReferences[0])) {
-                    $returnValue[$currentRow][$currentCol] = $worksheet->getCell($aReferences[0])->getCalculatedValue($resetLog);
+                    $temp = $worksheet->getCell($aReferences[0])->getCalculatedValue($resetLog);
+                    if (self::$returnArrayAsType === self::RETURN_ARRAY_AS_ARRAY) {
+                        while (is_array($temp)) {
+                            $temp = array_shift($temp);
+                        }
+                    }
+                    $returnValue[$currentRow][$currentCol] = $temp;
                 } else {
                     $returnValue[$currentRow][$currentCol] = null;
                 }
@@ -5449,7 +5448,13 @@ class Calculation
                     // Extract range
                     sscanf($reference, '%[A-Z]%d', $currentCol, $currentRow);
                     if ($worksheet !== null && $worksheet->cellExists($reference)) {
-                        $returnValue[$currentRow][$currentCol] = $worksheet->getCell($reference)->getCalculatedValue($resetLog);
+                        $temp = $worksheet->getCell($reference)->getCalculatedValue($resetLog);
+                        if (self::$returnArrayAsType === self::RETURN_ARRAY_AS_ARRAY) {
+                            while (is_array($temp)) {
+                                $temp = array_shift($temp);
+                            }
+                        }
+                        $returnValue[$currentRow][$currentCol] = $temp;
                     } else {
                         $returnValue[$currentRow][$currentCol] = null;
                     }

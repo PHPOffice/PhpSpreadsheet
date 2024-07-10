@@ -9,6 +9,21 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class TextSplitTest extends AllSetupTeardown
 {
+    private string $returnType;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->returnType = Calculation::getInstance($this->getSpreadsheet())->getArrayReturnType();
+        Calculation::getInstance($this->getSpreadsheet())->setArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
+    }
+
+    protected function tearDown(): void
+    {
+        Calculation::getInstance($this->getSpreadsheet())->setArrayReturnType($this->returnType);
+        parent::tearDown();
+    }
+
     private function setDelimiterArgument(array $argument, string $column): string
     {
         return '{' . $column . implode(',' . $column, range(1, count($argument))) . '}';
