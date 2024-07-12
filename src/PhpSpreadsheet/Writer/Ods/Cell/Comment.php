@@ -24,7 +24,22 @@ class Comment
         $objWriter->writeAttribute('svg:x', $comment->getMarginLeft());
         $objWriter->writeAttribute('svg:y', $comment->getMarginTop());
         $objWriter->writeElement('dc:creator', $comment->getAuthor());
-        $objWriter->writeElement('text:p', $comment->getText()->getPlainText());
+
+        $objWriter->startElement('text:p');
+        $text = $comment->getText()->getPlainText();
+        $textElements = explode("\n", $text);
+        $newLineOwed = false;
+        foreach ($textElements as $textSegment) {
+            if ($newLineOwed) {
+                $objWriter->writeElement('text:line-break');
+            }
+            $newLineOwed = true;
+            if ($textSegment !== '') {
+                $objWriter->writeElement('text:span', $textSegment);
+            }
+        }
+        $objWriter->endElement(); // text:p
+
         $objWriter->endElement();
     }
 }
