@@ -41,6 +41,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Problem rendering line chart with missing plot label. [PR #4074](https://github.com/PHPOffice/PhpSpreadsheet/pull/4074)
 - More RTL in Xlsx/Html Comments [Issue #4004](https://github.com/PHPOffice/PhpSpreadsheet/issues/4004) [PR #4065](https://github.com/PHPOffice/PhpSpreadsheet/pull/4065)
 - Empty String in sharedStrings. [Issue #4063](https://github.com/PHPOffice/PhpSpreadsheet/issues/4063) [PR #4064](https://github.com/PHPOffice/PhpSpreadsheet/pull/4064)
+- Html Writer Minor Fixes. [PR #4089](https://github.com/PHPOffice/PhpSpreadsheet/pull/4089)
 - Changes to INDEX function. [Issue #64](https://github.com/PHPOffice/PhpSpreadsheet/issues/64) [PR #4088](https://github.com/PHPOffice/PhpSpreadsheet/pull/4088)
 - Ods Reader and Whitespace Text Nodes. [Issue #804](https://github.com/PHPOffice/PhpSpreadsheet/issues/804) [PR #4087](https://github.com/PHPOffice/PhpSpreadsheet/pull/4087)
 - Ods Xml Reader and Whitespace Text Nodes. [Issue #804](https://github.com/PHPOffice/PhpSpreadsheet/issues/804) [PR #4087](https://github.com/PHPOffice/PhpSpreadsheet/pull/4087)
