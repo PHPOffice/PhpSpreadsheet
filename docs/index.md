@@ -20,6 +20,9 @@ allow you to read and write various spreadsheet file formats such as Excel and L
 |CSV                                         |   ✓   |   ✓   |
 |PDF (using either the TCPDF, Dompdf or mPDF libraries, which need to be installed separately)|       |   ✓   |
 
+Note - reading or writing certain aspects of a spreadsheet may not be supported in all formats. For more details, please consult
+[Features Cross-reference](./references/features-cross-reference.md).
+
 # Getting started
 
 ## Software requirements
