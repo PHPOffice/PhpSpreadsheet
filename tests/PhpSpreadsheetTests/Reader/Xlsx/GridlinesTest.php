@@ -17,6 +17,7 @@ class GridlinesTest extends AbstractFunctional
         $spreadsheet = new Spreadsheet();
         $sheet1 = $spreadsheet->getActiveSheet();
         $sheet2 = $spreadsheet->createSheet();
+        $sheet2->setTitle('deliberatelyblank');
         $sheet1->setShowGridlines($display);
         $sheet1->setPrintGridlines($print);
         $sheet1->fromArray(
