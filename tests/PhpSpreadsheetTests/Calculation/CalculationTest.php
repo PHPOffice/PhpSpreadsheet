@@ -16,21 +16,15 @@ class CalculationTest extends TestCase
 {
     private string $compatibilityMode;
 
-    private string $locale;
-
     protected function setUp(): void
     {
         $this->compatibilityMode = Functions::getCompatibilityMode();
-        $calculation = Calculation::getInstance();
-        $this->locale = $calculation->getLocale();
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
 
     protected function tearDown(): void
     {
         Functions::setCompatibilityMode($this->compatibilityMode);
-        $calculation = Calculation::getInstance();
-        $calculation->setLocale($this->locale);
     }
 
     /**
