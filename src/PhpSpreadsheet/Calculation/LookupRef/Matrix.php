@@ -81,7 +81,6 @@ class Matrix
         }
 
         $rowNum = $rowNum ?? 0;
-        $originalColumnNum = $columnNum;
         $columnNum = $columnNum ?? 0;
 
         try {
@@ -89,6 +88,17 @@ class Matrix
             $columnNum = LookupRefValidations::validatePositiveInt($columnNum);
         } catch (Exception $e) {
             return $e->getMessage();
+        }
+
+        if (is_array($matrix) && count($matrix) === 1 && $rowNum > 1) {
+            $matrixKey = array_keys($matrix)[0];
+            if (is_array($matrix[$matrixKey])) {
+                $tempMatrix = [];
+                foreach ($matrix[$matrixKey] as $key => $value) {
+                    $tempMatrix[$key] = [$value];
+                }
+                $matrix = $tempMatrix;
+            }
         }
 
         if (!is_array($matrix) || ($rowNum > count($matrix))) {
@@ -99,9 +109,6 @@ class Matrix
         $columnKeys = @array_keys($matrix[$rowKeys[0]]);
 
         if ($columnNum > count($columnKeys)) {
-            return ExcelError::REF();
-        }
-        if ($originalColumnNum === null && 1 < count($columnKeys)) {
             return ExcelError::REF();
         }
 

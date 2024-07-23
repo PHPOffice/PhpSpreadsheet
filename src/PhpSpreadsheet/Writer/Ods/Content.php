@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Ods;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
@@ -209,8 +210,8 @@ class Content extends WriterPart
             switch ($cell->getDataType()) {
                 case DataType::TYPE_BOOL:
                     $objWriter->writeAttribute('office:value-type', 'boolean');
-                    $objWriter->writeAttribute('office:value', $cell->getValueString());
-                    $objWriter->writeElement('text:p', $cell->getValueString());
+                    $objWriter->writeAttribute('office:boolean-value', $cell->getValue() ? 'true' : 'false');
+                    $objWriter->writeElement('text:p', Calculation::getInstance()->getLocaleBoolean($cell->getValue() ? 'TRUE' : 'FALSE'));
 
                     break;
                 case DataType::TYPE_ERROR:

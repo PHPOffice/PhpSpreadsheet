@@ -4065,7 +4065,7 @@ class Calculation
             $opCharacter = $formula[$index]; //    Get the first character of the value at the current index position
 
             // Check for two-character operators (e.g. >=, <=, <>)
-            if ((isset(self::$comparisonOperators[$opCharacter])) && (strlen($formula) > $index) && (isset(self::$comparisonOperators[$formula[$index + 1]]))) {
+            if ((isset(self::$comparisonOperators[$opCharacter])) && (strlen($formula) > $index) && isset($formula[$index + 1], self::$comparisonOperators[$formula[$index + 1]])) {
                 $opCharacter .= $formula[++$index];
             }
             //    Find out if we're currently at the beginning of a number, variable, cell/row/column reference,
@@ -4792,13 +4792,20 @@ class Calculation
 
                             for ($row = 0; $row < $rows; ++$row) {
                                 for ($column = 0; $column < $columns; ++$column) {
-                                    $operand1[$row][$column]
-                                        = Shared\StringHelper::substring(
-                                            self::boolToString($operand1[$row][$column])
-                                            . self::boolToString($operand2[$row][$column]),
-                                            0,
-                                            DataType::MAX_STRING_LENGTH
-                                        );
+                                    $op1x = self::boolToString($operand1[$row][$column]);
+                                    $op2x = self::boolToString($operand2[$row][$column]);
+                                    if (Information\ErrorValue::isError($op1x)) {
+                                        // no need to do anything
+                                    } elseif (Information\ErrorValue::isError($op2x)) {
+                                        $operand1[$row][$column] = $op2x;
+                                    } else {
+                                        $operand1[$row][$column]
+                                            = Shared\StringHelper::substring(
+                                                $op1x . $op2x,
+                                                0,
+                                                DataType::MAX_STRING_LENGTH
+                                            );
+                                    }
                                 }
                             }
                             $result = $operand1;
@@ -4808,7 +4815,13 @@ class Calculation
                             // using the concatenation operator
                             // with literals that fits in 32K,
                             // so I don't think we can overflow here.
-                            $result = self::FORMULA_STRING_QUOTE . str_replace('""', self::FORMULA_STRING_QUOTE, self::unwrapResult($operand1) . self::unwrapResult($operand2)) . self::FORMULA_STRING_QUOTE;
+                            if (Information\ErrorValue::isError($operand1)) {
+                                $result = $operand1;
+                            } elseif (Information\ErrorValue::isError($operand2)) {
+                                $result = $operand2;
+                            } else {
+                                $result = self::FORMULA_STRING_QUOTE . str_replace('""', self::FORMULA_STRING_QUOTE, self::unwrapResult($operand1) . self::unwrapResult($operand2)) . self::FORMULA_STRING_QUOTE;
+                            }
                         }
                         $this->debugLog->writeDebugLog('Evaluation Result is %s', $this->showTypeDetails($result));
                         $stack->push('Value', $result);

@@ -8,6 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel;
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalcExp;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Information\ErrorValue;
 use PhpOffice\PhpSpreadsheet\Calculation\Information\ExcelError;
 use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
@@ -123,8 +124,13 @@ class Format
             return self::evaluateArrayArguments([self::class, __FUNCTION__], $value, $format);
         }
 
-        $value = Helpers::extractString($value);
-        $format = Helpers::extractString($format);
+        try {
+            $value = Helpers::extractString($value, true);
+            $format = Helpers::extractString($format, true);
+        } catch (CalcExp $e) {
+            return $e->getMessage();
+        }
+
         $format = (string) NumberFormat::convertSystemFormats($format);
 
         if (!is_numeric($value) && Date::isDateTimeFormatCode($format)) {
@@ -152,6 +158,9 @@ class Format
         }
         if (is_string($value)) {
             $value = trim($value);
+            if (ErrorValue::isError($value, true)) {
+                throw new CalcExp($value);
+            }
             if ($spacesMeanZero && $value === '') {
                 $value = 0;
             }
@@ -220,7 +229,7 @@ class Format
     }
 
     /**
-     * TEXT.
+     * VALUETOTEXT.
      *
      * @param mixed $value The value to format
      *                         Or can be an array of values
